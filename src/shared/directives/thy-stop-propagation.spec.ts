@@ -281,6 +281,12 @@ describe('thy-stop-propagation', () => {
             fixture.detectChanges();
         });
 
+        it('should stop propagation when value is undefined', () => {
+            childElement.nativeElement.click();
+            fixture.detectChanges();
+            expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
+        });
+
         it('should stop propagation when value is boolean true', () => {
             fixtureInstance.isStopPropagation = true;
             fixture.detectChanges();
@@ -296,6 +302,14 @@ describe('thy-stop-propagation', () => {
             childElement.nativeElement.click();
             fixture.detectChanges();
 
+            expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
+        });
+
+        it('should stop propagation when value is custom string', () => {
+            fixtureInstance.isStopPropagation = 'aaa';
+            fixture.detectChanges();
+            childElement.nativeElement.click();
+            fixture.detectChanges();
             expect(fixtureInstance.fatherClick).toHaveBeenCalledTimes(0);
         });
     });
