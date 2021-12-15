@@ -31,6 +31,8 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     bars: ThyProgressBarComponent[] = [];
 
+    computedThyMax: number;
+
     @HostBinding('attr.max') max = 100;
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
@@ -42,19 +44,29 @@ export class ThyProgressComponent implements ThyParentProgress {
         this.bars = value.toArray();
     }
 
+    defaultValue: number;
+
     @Input() thyType: ThyProgressTypes;
 
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyValue(value: number | ThyStackedValue[]) {
         this.isStacked = Array.isArray(value);
-        this.value = value;
 
         // 自动求和计算 max
         if (this.isStacked) {
-            this.thyMax = (value as ThyStackedValue[]).reduce((total, item) => {
+            this.value = [...(value as ThyStackedValue[])];
+            this.computedThyMax = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
+            if (this.max > this.computedThyMax) {
+                this.isPushDefaultItem();
+            } else {
+                this.max = this.computedThyMax;
+            }
+        } else {
+            this.value = value;
+            this.defaultValue = 100 - (value as number);
         }
     }
 
@@ -64,6 +76,9 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @Input() set thyMax(max: number) {
         this.max = max;
+        if (this.max > this.computedThyMax) {
+            this.isPushDefaultItem();
+        }
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
@@ -71,5 +86,16 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    isPushDefaultItem() {
+        if (Array.isArray(this.value)) {
+            const defaultItem = this.value.find(value => value.type === 'default');
+            if (defaultItem) {
+                defaultItem.value = this.max - this.computedThyMax;
+            } else {
+                this.value.push({ value: this.max - this.computedThyMax, type: 'default', color: '#eee' });
+            }
+        }
     }
 }

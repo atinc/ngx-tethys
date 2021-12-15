@@ -67,6 +67,32 @@ class ThyDemoProgressStackedComponent {
 }
 
 @Component({
+    selector: 'thy-demo-progress-stacked-max',
+    template: `
+        <thy-progress [thyValue]="value" [thySize]="size" [thyMax]="max"> </thy-progress>
+    `
+})
+class ThyDemoProgressStackedMaxComponent {
+    value: ThyStackedValue[] = [
+        {
+            type: 'success',
+            value: 40
+        },
+        {
+            type: 'danger',
+            value: 60,
+            tips: 'hello world'
+        },
+        {
+            type: 'warning',
+            value: 100
+        }
+    ];
+    size: string;
+    max = 100;
+}
+
+@Component({
     selector: 'thy-demo-progress-tooltip',
     template: `
         <thy-progress [thyValue]="value" [thyTips]="customProgressTooTip"></thy-progress>
@@ -97,7 +123,12 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
 
 @NgModule({
     imports: [ThyProgressModule],
-    declarations: [ThyDemoProgressBasicComponent, ThyDemoProgressStackedComponent, ThyDemoProgressTooltipTemplateComponent],
+    declarations: [
+        ThyDemoProgressBasicComponent,
+        ThyDemoProgressStackedComponent,
+        ThyDemoProgressStackedMaxComponent,
+        ThyDemoProgressTooltipTemplateComponent
+    ],
     exports: [ThyDemoProgressBasicComponent]
 })
 export class ProgressTestModule {}
@@ -409,6 +440,121 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[0].style['background-color']).toEqual(hexToRgb('#4e8af9'));
             expect(progressBarElements[1].style['background-color']).toEqual(hexToRgb('#66c060'));
             expect(progressBarElements[2].style['background-color']).toEqual(hexToRgb('#ffd234'));
+        });
+
+        it('should be correct value by custom stacked value ', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 20
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                },
+                {
+                    type: 'info',
+                    value: 30,
+                    color: '#7076fa',
+                    label: 'custom color'
+                }
+            ];
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(5);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('20%');
+            expect(progressBarElements[1].style.width).toEqual('20%');
+            expect(progressBarElements[2].style.width).toEqual('20%');
+            expect(progressBarElements[3].style.width).toEqual('30%');
+            expect(progressBarElements[4].style.width).toEqual('10%');
+
+            expect(progressBarElements[3].style['background-color']).toEqual(hexToRgb('#7076fa'));
+        });
+    });
+
+    describe(`stacked has max`, () => {
+        let fixture: ComponentFixture<ThyDemoProgressStackedMaxComponent>;
+        let stackedTestComponent: ThyDemoProgressStackedMaxComponent;
+        let progressComponent: DebugElement;
+        let progressBarComponents: DebugElement[];
+        let progressElement: HTMLElement;
+        let progressBarElements: HTMLElement[];
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule]
+            });
+
+            TestBed.compileComponents();
+
+            inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+                // focusMonitor = fm;
+            })();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoProgressStackedMaxComponent);
+            stackedTestComponent = fixture.debugElement.componentInstance;
+            progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
+            progressElement = progressComponent.nativeElement;
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+        });
+
+        it('should be correct value by custom stacked value has max ', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 20
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                },
+                {
+                    type: 'info',
+                    value: 30,
+                    color: '#7076fa',
+                    label: 'custom color'
+                }
+            ];
+            stackedTestComponent.max = 180;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(5);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('11.11%');
+            expect(progressBarElements[1].style.width).toEqual('11.11%');
+            expect(progressBarElements[2].style.width).toEqual('11.11%');
+            expect(progressBarElements[3].style.width).toEqual('16.67%');
+            expect(progressBarElements[4].style.width).toEqual('50%');
+
+            expect(progressBarElements[3].style['background-color']).toEqual(hexToRgb('#7076fa'));
+            expect(progressBarElements[4].style['background-color']).toEqual(hexToRgb('#eee'));
         });
     });
 

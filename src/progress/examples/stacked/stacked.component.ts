@@ -5,7 +5,7 @@ import { Component } from '@angular/core';
     templateUrl: './stacked.component.html'
 })
 export class ThyProgressStackedExampleComponent {
-    max = 100;
+    max = 180;
 
     size = 'md';
 

@@ -42,7 +42,9 @@
     @include border-radius.border-radius(100px);
     @include set-progress-size(variables.$progress-height);
 }
-
+.progress-bar-default {
+    flex: 1;
+}
 // 只有 stacked 的时候才会出现 border-right 白色
 // 为了兼容之前的进度条组件，暂时没有去除 progress-bar 的 last-child border-right
 .progress-stacked {
