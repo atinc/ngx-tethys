@@ -86,16 +86,17 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     }
 
     writeValue(value: number | string): void {
-        if (!helpers.isUndefinedOrNull(value)) {
-            const _value = this.getCurrentValidValue(value);
-            this.updateValidValue(_value);
-            this.displayValue = this.formatterValue(_value);
-            this.cdr.markForCheck();
-        }
+        const _value = this.getCurrentValidValue(value);
+        this.updateValidValue(_value);
+        this.displayValue = this.formatterValue(_value);
+        this.cdr.markForCheck();
     }
 
     updateValidValue(value: number | string): void {
-        if (this.validValue !== value) {
+        if (this.isNotValid(value)) {
+            this.validValue = '';
+            this.onChangeFn(this.validValue);
+        } else if (this.validValue !== value) {
             this.validValue = value;
             this.onChangeFn(this.validValue);
         }

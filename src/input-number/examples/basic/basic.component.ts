@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 export class ThyInputNumberBasicExampleComponent implements OnInit {
     value: string | number = 0;
 
+    value2: string = '11a';
+
     step = 1;
 
     max = 10;

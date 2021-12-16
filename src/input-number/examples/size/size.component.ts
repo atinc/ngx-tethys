@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './size.component.html'
 })
 export class ThyInputNumberSizeExampleComponent implements OnInit {
-    value = 0;
+    value: number;
 
     step = 1;
 

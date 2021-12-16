@@ -103,6 +103,19 @@ describe('input-number component', () => {
         });
     }));
 
+    it('should empty value work', () => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent.onModelChange('');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.modelValue).toBe('');
+    });
+    it('should NaN value work', () => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent.onModelChange('NaN');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.modelValue).toBe('');
+    });
+
     it('should user input work', () => {
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('1');
@@ -172,6 +185,14 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.modelValue).toBe(2);
         fixture.detectChanges();
         tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        dispatchMouseEvent(upElement, 'mouseup');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.modelValue).toBe(4);
+        inputNumberComponentInstance.thyDisabled = true;
+        fixture.detectChanges();
+        tick();
+        expect(inputElement.hasAttribute('disabled')).toBe(true);
         dispatchMouseEvent(upElement, 'mousedown');
         dispatchMouseEvent(upElement, 'mouseup');
         fixture.detectChanges();
