@@ -2,6 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { ThySharedModule } from '../shared.module';
 
@@ -40,26 +41,6 @@ class ThyStopPropagationDirectiveTrueViewComponent {
     ]
 })
 class ThyStopPropagationDirectiveTrueComponent {
-    parentClick = jasmine.createSpy('thyStopPropagation callback');
-}
-
-@Component({
-    template: `
-        <div class="parent-container" (click)="parentClick()">
-            <div class="child-container" [thyStopPropagation]="isStopPropagation"></div>
-        </div>
-    `,
-    styles: [
-        `
-            .child-container {
-                width: 50px;
-                height: 50px;
-            }
-        `
-    ]
-})
-class ThyStopPropagationDirectiveStringOrBooleanTrueComponent {
-    isStopPropagation: string | boolean;
     parentClick = jasmine.createSpy('thyStopPropagation callback');
 }
 
@@ -261,20 +242,44 @@ describe('thy-stop-propagation', () => {
         });
     });
 
-    describe('thy-stop-propagation-string-boolean-true', () => {
-        let fixture: ComponentFixture<ThyStopPropagationDirectiveStringOrBooleanTrueComponent>;
-        let fixtureInstance: ThyStopPropagationDirectiveStringOrBooleanTrueComponent;
+    @Component({
+        template: `
+            <div class="parent-container" (click)="parentClick()">
+                <div class="child-container" (click)="childClick()" [thyStopPropagation]="isStopPropagation"></div>
+            </div>
+        `,
+        styles: [
+            `
+                .child-container {
+                    width: 50px;
+                    height: 50px;
+                }
+                .parent-container {
+                    width: 100px;
+                    height: 100px;
+                }
+            `
+        ]
+    })
+    class ThyStopPropagationDirectiveValueIsUndefinedComponent {
+        isStopPropagation: string | boolean;
+        parentClick = jasmine.createSpy('thyStopPropagation callback');
+    }
+
+    describe('thyStopPropagation value is undefined', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsUndefinedComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveValueIsUndefinedComponent;
         let parentElement: DebugElement;
         let childElement: DebugElement;
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [ThySharedModule, BrowserAnimationsModule],
-                declarations: [ThyStopPropagationDirectiveStringOrBooleanTrueComponent]
+                declarations: [ThyStopPropagationDirectiveValueIsUndefinedComponent]
             }).compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyStopPropagationDirectiveStringOrBooleanTrueComponent);
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveValueIsUndefinedComponent);
             fixtureInstance = fixture.componentInstance;
             parentElement = fixture.debugElement.query(By.css('.parent-container'));
             childElement = fixture.debugElement.query(By.css('.child-container'));
@@ -286,31 +291,162 @@ describe('thy-stop-propagation', () => {
             fixture.detectChanges();
             expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(0);
         });
+    });
 
-        it('should stop propagation when value is boolean true', () => {
-            fixtureInstance.isStopPropagation = true;
-            fixture.detectChanges();
-            childElement.nativeElement.click();
-            fixture.detectChanges();
+    @Component({
+        template: `
+            <div class="parent-container" (click)="parentClick()">
+                <div class="child-container" (click)="childClick()" [thyStopPropagation]="'true'"></div>
+            </div>
+        `,
+        styles: [
+            `
+                .child-container {
+                    width: 50px;
+                    height: 50px;
+                }
+                .parent-container {
+                    width: 100px;
+                    height: 100px;
+                }
+            `
+        ]
+    })
+    class ThyStopPropagationDirectiveStringTrueComponent {
+        parentClick = jasmine.createSpy('thyStopPropagation callback');
+    }
 
-            expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(0);
+    describe('thyStopPropagation value is string true', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveStringTrueComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveStringTrueComponent;
+        let parentElement: DebugElement;
+        let childElement: DebugElement;
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySharedModule, BrowserAnimationsModule],
+                declarations: [ThyStopPropagationDirectiveStringTrueComponent]
+            }).compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveStringTrueComponent);
+            fixtureInstance = fixture.componentInstance;
+            parentElement = fixture.debugElement.query(By.css('.parent-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
+            fixture.detectChanges();
         });
 
         it('should stop propagation when value is string true', () => {
-            fixtureInstance.isStopPropagation = 'true';
-            fixture.detectChanges();
             childElement.nativeElement.click();
             fixture.detectChanges();
-
             expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(0);
         });
+    });
 
-        it('should stop propagation when value is custom string', () => {
-            fixtureInstance.isStopPropagation = 'aaa';
+    @Component({
+        template: `
+            <div class="parent-container" (click)="parentClick()">
+                <div class="child-container" (click)="childClick()" [thyStopPropagation]="true"></div>
+            </div>
+        `,
+        styles: [
+            `
+                .child-container {
+                    width: 50px;
+                    height: 50px;
+                }
+                .parent-container {
+                    width: 100px;
+                    height: 100px;
+                }
+            `
+        ]
+    })
+    class ThyStopPropagationDirectiveBooleanTrueComponent {
+        parentClick = jasmine.createSpy('thyStopPropagation callback');
+    }
+
+    describe('thyStopPropagation value is boolean true', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveBooleanTrueComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveBooleanTrueComponent;
+        let parentElement: DebugElement;
+        let childElement: DebugElement;
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySharedModule, BrowserAnimationsModule],
+                declarations: [ThyStopPropagationDirectiveBooleanTrueComponent]
+            }).compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveBooleanTrueComponent);
+            fixtureInstance = fixture.componentInstance;
+            parentElement = fixture.debugElement.query(By.css('.parent-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
             fixture.detectChanges();
+        });
+
+        it('should stop propagation when value is boolean true', () => {
             childElement.nativeElement.click();
             fixture.detectChanges();
             expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(0);
+        });
+    });
+
+    @Component({
+        template: `
+            <div class="parent-container" (click)="parentClick()" (mouseover)="parentMouseOver()">
+                <div class="child-container" (click)="childClick()" (mouseover)="childMouseOver()" [thyStopPropagation]="'mouseover'"></div>
+            </div>
+        `,
+        styles: [
+            `
+                .child-container {
+                    width: 50px;
+                    height: 50px;
+                }
+                .parent-container {
+                    width: 100px;
+                    height: 100px;
+                }
+            `
+        ]
+    })
+    class ThyStopPropagationDirectiveValueIsEventNameComponent {
+        parentClick = jasmine.createSpy('thyStopPropagation click callback');
+        parentMouseOver = jasmine.createSpy('thyStopPropagation mouseover callback');
+    }
+
+    describe('thyStopPropagation value is mouseover', () => {
+        let fixture: ComponentFixture<ThyStopPropagationDirectiveValueIsEventNameComponent>;
+        let fixtureInstance: ThyStopPropagationDirectiveValueIsEventNameComponent;
+        let parentElement: DebugElement;
+        let childElement: DebugElement;
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySharedModule, BrowserAnimationsModule],
+                declarations: [ThyStopPropagationDirectiveValueIsEventNameComponent]
+            }).compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyStopPropagationDirectiveValueIsEventNameComponent);
+            fixtureInstance = fixture.componentInstance;
+            parentElement = fixture.debugElement.query(By.css('.parent-container'));
+            childElement = fixture.debugElement.query(By.css('.child-container'));
+            fixture.detectChanges();
+        });
+
+        it('should stop propagation for mouseover event when value is mouseover', () => {
+            dispatchFakeEvent(childElement.nativeElement, 'mouseover', true);
+            fixture.detectChanges();
+            expect(fixtureInstance.parentMouseOver).toHaveBeenCalledTimes(0);
+        });
+
+        it('should not stop propagation for click event when value is mouseover', () => {
+            childElement.nativeElement.click();
+            fixture.detectChanges();
+            expect(fixtureInstance.parentClick).toHaveBeenCalledTimes(1);
         });
     });
 });
