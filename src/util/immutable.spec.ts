@@ -6,7 +6,10 @@ describe('immutable', () => {
         name: string;
     }
 
-    const initialUserEntities = [{ _id: '1', name: 'user 1' }, { _id: '2', name: 'user 2' }];
+    const initialUserEntities = [
+        { _id: '1', name: 'user 1' },
+        { _id: '2', name: 'user 2' }
+    ];
 
     describe('add', () => {
         let users: UserInfo[];
@@ -16,7 +19,7 @@ describe('immutable', () => {
         });
 
         it('should return 2 users when add []', () => {
-            const addUserEntity = [];
+            const addUserEntity: UserInfo[] = [];
             const result = produce(users).add(addUserEntity);
             expect(result).toEqual([...initialUserEntities]);
         });
@@ -206,7 +209,7 @@ describe('immutable', () => {
         });
 
         it(`should return 1 users when remove by predicate`, () => {
-            const result = produce(users).remove(entity => {
+            const result = produce(users).remove((entity: UserInfo) => {
                 return entity._id === '1';
             });
             expect(result).toEqual([
@@ -323,7 +326,11 @@ describe('immutable', () => {
 
     describe(`move`, () => {
         let users: UserInfo[];
-        const initialUsers = [{ _id: '1', name: 'user 1' }, { _id: '2', name: 'user 2' }, { _id: '3', name: 'user 3' }];
+        const initialUsers = [
+            { _id: '1', name: 'user 1' },
+            { _id: '2', name: 'user 2' },
+            { _id: '3', name: 'user 3' }
+        ];
 
         beforeEach(() => {
             users = initialUsers;

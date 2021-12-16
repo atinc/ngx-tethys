@@ -1,7 +1,12 @@
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/mixins/breakpoints";
+@use "../../styles/bootstrap/mixins/text-truncate";
+@use "../../styles/variables";
+@use "../../styles/modules/utils.scss";
 .thy-dialog-container {
     display: flex;
     flex-direction: column;
-    border-radius: $dialog-border-radius;
+    border-radius: variables.$dialog-border-radius;
     box-sizing: border-box;
     overflow: auto;
     outline: 0;
@@ -13,8 +18,8 @@
     // isn't set, we have to inherit the min and max values explicitly.
     min-height: inherit;
     max-height: inherit;
-    background: $white;
-    box-shadow: $dialog-box-shadow;
+    background: variables.$white;
+    box-shadow: variables.$dialog-box-shadow;
 }
 
 .thy-dialog-content {
@@ -28,33 +33,33 @@
     display: flex;
     align-items: center;
     justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
-    padding: 0 $dialog-header-padding;
-    min-height: $dialog-header-height;
-    height: $dialog-header-height;
-    border-bottom: $dialog-header-border-width solid $dialog-header-border-color;
-    @include border-top-radius($border-radius-lg);
+    padding: 0 variables.$dialog-header-padding;
+    min-height: variables.$dialog-header-height;
+    height: variables.$dialog-header-height;
+    border-bottom: variables.$dialog-header-border-width solid variables.$dialog-header-border-color;
+    @include border-radius.border-top-radius(variables.$border-radius-lg);
 
     &.dialog-header-lg {
-        padding: 0 $dialog-header-padding-lg;
+        padding: 0 variables.$dialog-header-padding-lg;
     }
 
     h3 {
-        font-size: $font-size-md;
+        font-size: variables.$font-size-md;
         font-weight: 400;
     }
 
     .close {
         outline: none;
-        @if $close-pill-enabled {
+        @if variables.$close-pill-enabled {
             padding: 3px 7px;
             margin-right: -7px;
             &:hover {
-                background: rgba($primary, 0.1);
-                border-radius: $border-radius;
+                background: rgba(variables.$primary, 0.1);
+                border-radius: variables.$border-radius;
             }
         } @else {
-            padding: 1rem $dialog-header-padding;
-            margin: (-$dialog-header-padding) (-$dialog-header-padding) (-$dialog-header-padding) auto;
+            padding: 1rem variables.$dialog-header-padding;
+            margin: (-(variables.$dialog-header-padding)) (-(variables.$dialog-header-padding)) (-(variables.$dialog-header-padding)) auto;
         }
     }
 }
@@ -62,14 +67,14 @@
 // Title text within header
 .dialog-title {
     margin-bottom: 0;
-    line-height: $dialog-header-title-line-height;
+    line-height: variables.$dialog-header-title-line-height;
 }
 
 .dialog-body {
     position: relative;
     overflow: auto;
     flex: 1 1 auto;
-    padding: $dialog-body-padding;
+    padding: variables.$dialog-body-padding;
     display: block;
     -webkit-overflow-scrolling: touch;
 
@@ -83,15 +88,15 @@
     display: flex;
     border: 0;
     align-items: center; // vertically center
-    padding: $dialog-footer-padding;
+    padding: variables.$dialog-footer-padding;
 
     &.dialog-footer-border-top {
-        border-top: $dialog-footer-border-width solid $dialog-footer-border-color;
+        border-top: variables.$dialog-footer-border-width solid variables.$dialog-footer-border-color;
     }
 
     .dialog-footer-description {
         flex: 1;
-        @include text-truncate();
+        @include text-truncate.text-truncate();
     }
 
     &.dialog-footer-actions-align-left {
@@ -130,24 +135,24 @@
 }
 
 // Scale up the modal
-@include media-breakpoint-up(sm) {
+@include breakpoints.media-breakpoint-up(sm) {
     // Automatically set dialog's width for larger view ports
     .dialog-md {
-        width: $dialog-md;
+        width: variables.$dialog-md;
         // margin: $modal-dialog-margin-y-sm-up auto;
     }
 
     .dialog-sm {
-        width: $dialog-sm;
+        width: variables.$dialog-sm;
     }
 }
 
-@include media-breakpoint-up(lg) {
+@include breakpoints.media-breakpoint-up(lg) {
     .dialog-lg {
-        width: $dialog-lg;
+        width: variables.$dialog-lg;
     }
     .dialog-max-lg {
-        width: $dialog-max-lg;
+        width: variables.$dialog-max-lg;
     }
     .dialog-full {
         width: 100vw;
@@ -163,21 +168,21 @@
 .dialog-sm,
 .dialog-lg,
 .dialog-max-lg {
-    max-height: $dialog-default-max-height;
+    max-height: variables.$dialog-default-max-height;
 }
 
 // supper lg
 .dialog-supper-lg {
-    width: $dialog-supper-lg-width;
-    height: $dialog-supper-lg-height;
-    max-width: $dialog-supper-lg-max-width;
-    max-height: $dialog-supper-lg-max-height;
+    width: variables.$dialog-supper-lg-width;
+    height: variables.$dialog-supper-lg-height;
+    max-width: variables.$dialog-supper-lg-max-width;
+    max-height: variables.$dialog-supper-lg-max-height;
 }
 
 .thy-confirm-footer {
     display: flex;
     .thy-confirm-cancel {
-        margin-right: $btn-dialog-confirm-cancel;
+        margin-right: variables.$btn-dialog-confirm-cancel;
     }
     &.thy-confirm-footer-left {
         flex-direction: row;
@@ -188,4 +193,9 @@
     &.thy-confirm-footer-right {
         flex-direction: row-reverse;
     }
+}
+
+// 自定义backdropClass样式
+.custom-backdrop-class {
+    background-color: rgba(skyblue, 0.3);
 }

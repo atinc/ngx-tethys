@@ -25,9 +25,7 @@ import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-r
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
     implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();

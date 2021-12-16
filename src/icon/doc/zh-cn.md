@@ -5,7 +5,7 @@ subtitle: 图标
 order: 30
 ---
 
-<div class="dg-alert dg-alert-info">矢量图标。</div>
+<alert>矢量图标。</alert>
 
 `thy-icon`使得在应用程序中更容易使用基于矢量的图标，此组件支持图标字体和SVG图标，但不支持基于位图的格式（png、jpg等）
 

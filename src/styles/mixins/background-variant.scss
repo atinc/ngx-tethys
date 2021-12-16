@@ -1,3 +1,7 @@
+@use "sass:color";
+@use "../bootstrap/mixins/hover";
+@use "../bootstrap/variables";
+
 // stylelint-disable declaration-no-important
 
 // Contextual backgrounds
@@ -8,8 +12,8 @@
     }
     a#{$parent},
     button#{$parent} {
-        @include hover-focus() {
-            background-color: darken($color, 10%) !important;
+        @include hover.hover-focus() {
+            background-color: color.adjust($color, $lightness: -10%) !important;
         }
     }
     // @include deprecate("The `bg-variant` mixin", "v4.4.0", "v5", $ignore-warning);
@@ -17,6 +21,6 @@
 
 @mixin bg-gradient-variant($parent, $color) {
     #{$parent} {
-        background: $color linear-gradient(180deg, mix($body-bg, $color, 15%), $color) repeat-x !important;
+        background: $color linear-gradient(180deg, color.mix(variables.$body-bg, $color, 15%), $color) repeat-x !important;
     }
 }

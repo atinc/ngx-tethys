@@ -1,10 +1,15 @@
+@use "sass:meta";
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-nav {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
 
+    .thy-nav-item,
     .nav-link {
         display: block;
         text-align: center;
@@ -12,68 +17,92 @@
         // the reason is layout-header-operation has { align-items: center} style
         // set border width always regardless hover or active
         border-bottom-style: solid;
-        border-bottom-width: $nav-border-width;
+        border-bottom-width: variables.$nav-border-width;
         border-bottom-color: transparent;
+        flex: 0 auto;
 
-        @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+        @include mixin.nav-link-variant(variables.$nav-link-color, variables.$nav-link-hover-color, variables.$nav-border-bottom);
     }
 }
 
 .nav-primary {
     .nav-link {
-        @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
-        min-width: $nav-link-primary-min-width;
-        @include nav-link-variant($nav-link-primary-color, $nav-link-hover-color, $nav-border-bottom);
+        @include mixin.nav-link-size(
+            variables.$nav-link-primary-padding-y variables.$nav-link-primary-padding-x,
+            variables.$nav-link-primary-right
+        );
+        min-width: variables.$nav-link-primary-min-width;
+        @include mixin.nav-link-variant(variables.$nav-link-primary-color, variables.$nav-link-hover-color, variables.$nav-border-bottom);
+    }
+    .thy-nav-item {
+        @include mixin.nav-item-size(variables.$nav-link-primary-right);
     }
 }
 
 .nav-secondary {
-    border-bottom: 1px solid $nav-border-color;
+    border-bottom: 1px solid variables.$nav-border-color;
     .nav-link {
         transform: translateY(1px);
-        @include nav-link-size($nav-link-secondary-padding-y $nav-link-secondary-padding-x, $nav-link-secondary-right);
+        @include mixin.nav-link-size(
+            variables.$nav-link-secondary-padding-y variables.$nav-link-secondary-padding-x,
+            variables.$nav-link-secondary-right
+        );
     }
 }
 
 .nav-secondary-divider {
-    border-bottom: 1px solid $nav-border-color;
+    border-bottom: 1px solid variables.$nav-border-color;
     .nav-link {
         transform: translateY(1px);
-        @include nav-link-size($nav-link-secondary-padding-y $nav-link-secondary-padding-x, $nav-link-secondary-split-right);
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-secondary-split-right);
+        @include mixin.nav-link-size(
+            variables.$nav-link-secondary-padding-y variables.$nav-link-secondary-padding-x,
+            variables.$nav-link-secondary-split-right
+        );
+        @include mixin.nav-link-divider-variant(
+            variables.$nav-link-hover-color,
+            variables.$nav-link-thirdly-split-line-height,
+            variables.$nav-link-secondary-split-right
+        );
     }
 }
 
 .nav-thirdly {
     .nav-link {
-        @include nav-link-size($nav-link-thirdly-padding-y $nav-link-thirdly-padding-x, $nav-link-thirdly-right);
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
-        @include clear-nav-link-bottom();
+        @include mixin.nav-link-size(
+            variables.$nav-link-thirdly-padding-y variables.$nav-link-thirdly-padding-x,
+            variables.$nav-link-thirdly-right
+        );
+        @include mixin.nav-link-divider-variant(
+            variables.$nav-link-hover-color,
+            variables.$nav-link-thirdly-split-line-height,
+            variables.$nav-link-thirdly-right
+        );
+        @include mixin.clear-nav-link-bottom();
     }
 }
 
 .nav-sm {
     .nav-link {
-        padding: $nav-link-thirdly-padding-y-sm $nav-link-thirdly-padding-x-sm;
-        margin-right: $nav-link-thirdly-right-sm;
-        font-size: $font-size-sm;
+        padding: variables.$nav-link-thirdly-padding-y-sm variables.$nav-link-thirdly-padding-x-sm;
+        margin-right: variables.$nav-link-thirdly-right-sm;
+        font-size: variables.$font-size-sm;
         &:after {
-            top: calc(50% - #{$nav-link-thirdly-split-line-height-sm}/ 2);
-            right: $nav-link-thirdly-right-sm/2 * -1;
-            height: $nav-link-thirdly-split-line-height-sm;
+            top: calc(50% - #{variables.$nav-link-thirdly-split-line-height-sm}/ 2);
+            right: variables.$nav-link-thirdly-right-sm/2 * -1;
+            height: variables.$nav-link-thirdly-split-line-height-sm;
         }
     }
 }
 
 .thy-layout-header .thy-nav {
-    line-height: $line-height-base;
+    line-height: variables.$line-height-base;
 }
 
 .thy-layout-header .nav-primary {
     // 为了和字体大 2px 的标题在一条线上
     .nav-link {
-        padding: ($nav-link-primary-padding-y + 0.0625rem) $nav-link-primary-padding-x ($nav-link-primary-padding-y - 0.0625rem)
-            $nav-link-primary-padding-x;
+        padding: (variables.$nav-link-primary-padding-y + 0.0625rem) variables.$nav-link-primary-padding-x
+            (variables.$nav-link-primary-padding-y - 0.0625rem) variables.$nav-link-primary-padding-x;
     }
 }
 
@@ -82,7 +111,7 @@
     .nav-link {
         margin-right: 0;
         text-align: left;
-        border-left: $nav-vertical-border-left-empty;
+        border-left: variables.$nav-vertical-border-left-empty;
         // set border width as 0
         border-bottom-width: 0px;
         &.active,
@@ -90,7 +119,7 @@
         &:focus,
         &:active {
             border-bottom: 0;
-            border-left: $nav-vertical-border-left;
+            border-left: variables.$nav-vertical-border-left;
         }
     }
 }
@@ -102,4 +131,36 @@
     }
 }
 
-@import './icon-nav.scss';
+@include meta.load-css('./icon-nav.scss');
+
+.thy-nav-list {
+    display: flex;
+    flex-wrap: nowrap;
+    flex: 0 auto;
+    overflow: hidden;
+    .nav-item-hidden {
+        display: none;
+    }
+}
+
+.thy-nav-list-popover {
+    .thy-nav-item {
+        display: none;
+    }
+    .nav-item-hidden {
+        display: block;
+    }
+    .more-nav-link,
+    .more-nav-link * {
+        text-decoration: none;
+        color: variables.$secondary;
+        &:hover {
+            color: variables.$gray-800;
+        }
+    }
+}
+
+.thy-nav-more-container {
+    flex: 1 !important;
+    flex-grow: 0 !important;
+}

@@ -1,8 +1,27 @@
-.#{$calendar-prefix-cls}-picker-container {
-    z-index: $zindex-picker;
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "./variables.scss" as style;
+
+.#{style.$calendar-prefix-cls}-picker-container {
+    z-index: style.$zindex-picker;
+    .#{style.$calendar-prefix-cls}-decade,
+    .#{style.$calendar-prefix-cls}-year,
+    .#{style.$calendar-prefix-cls}-month {
+        height: 288px;
+        display: flex;
+        flex-direction: column;
+        .#{style.$calendar-prefix-cls}-body {
+            flex: 1;
+        }
+    }
+    .#{style.$calendar-prefix-cls}-decade {
+        .#{style.$calendar-prefix-cls}-body {
+            padding: 8px 0;
+        }
+    }
 }
 
-.#{$calendar-prefix-cls}-picker {
+.#{style.$calendar-prefix-cls}-picker {
     position: relative;
     display: inline-block;
     outline: none;
@@ -10,13 +29,7 @@
     width: 100%;
     cursor: pointer;
     .form-control {
-        padding-right: $input-padding-x + $font-size-md;
-    }
-
-    &:hover {
-        .form-control {
-            border-color: $primary;
-        }
+        padding-right: variables.$input-padding-x + variables.$font-size-md;
     }
 
     &-input {
@@ -26,7 +39,7 @@
         }
 
         &.thy-input {
-            line-height: $line-height-base;
+            line-height: variables.$line-height-base;
         }
     }
 
@@ -39,7 +52,7 @@
     &-icon {
         position: absolute;
         top: 50%;
-        right: $control-padding-horizontal;
+        right: style.$control-padding-horizontal;
         z-index: 1;
         transition: all 0.3s;
         user-select: none;
@@ -49,7 +62,7 @@
 
     &-clear {
         z-index: 2;
-        background: $input-bg;
+        background: bootstrap-variables.$input-bg;
         cursor: pointer;
         opacity: 0;
         pointer-events: none;
@@ -61,15 +74,15 @@
     }
 
     &-icon {
-        color: $gray-400;
+        color: variables.$gray-400;
     }
 
     &-small &-clear,
     &-small &-icon {
-        right: $control-padding-horizontal-sm;
+        right: style.$control-padding-horizontal-sm;
     }
 }
 
-.thy-popover-container .#{$calendar-prefix-cls} {
+.thy-popover-container .#{style.$calendar-prefix-cls} {
     box-shadow: none;
 }

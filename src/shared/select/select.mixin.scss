@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin select-control-size($input-height, $input-padding-y) {
     // min-height: $input-height;
     .select-control-rendered {
@@ -15,7 +17,7 @@
 
 @mixin thy-select-options-dropdown {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
-    background: $white;
+    background: variables.$white;
     width: 100%;
 }
 

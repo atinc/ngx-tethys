@@ -1,7 +1,9 @@
-@import './styles/variables.scss';
+@use "sass:meta";
+@use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
-@import '~@docgeni/template/styles/index.scss';
+@use '~@docgeni/template/styles/index.scss';
+@use "../../src/styles/variables";
 
 .dg-tab-links,
 .dg-sidebar,
@@ -12,6 +14,7 @@
         }
     }
 }
+
 .dg-label {
     display: inline-flex;
     margin-bottom: 0px;
@@ -39,68 +42,38 @@
     }
 }
 
-.dg-layout .dg-content {
-    display: block;
-    overflow-y: auto;
-    height: 100vh;
-}
-
 @import './assets/fonts/wtd/iconfont.css';
-@import '../../src/styles/index.scss';
-@import './styles/index.scss';
-
-$dg-alert-bg-alpha: 0.05;
-
-.dg-alert {
-    position: relative;
-    font-size: 14px;
-    line-height: 20px;
-    // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
-    margin: 10px 0px;
-    padding: 10px 20px;
-    border-left: 0px;
-    background: $gray-80;
-    border-radius: 1px;
-
-    &::after {
-        content: '';
-        position: absolute;
-        display: inline-block;
-        top: 0px;
-        left: 0px;
-        bottom: 0px;
-        width: 3px;
-        border-radius: 1px;
-        background: $primary;
-    }
-
-    &.dg-alert-info {
-        background-color: rgba($color: $info, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: $info;
-        }
-    }
-
-    &.dg-alert-primary {
-        background-color: rgba($color: $primary, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: $primary;
-        }
-    }
-
-    &.dg-alert-danger {
-        // box-shadow: rgba(0, 0, 0, 0.06) 0px 6px 16px -2px;
-        background-color: rgba($color: $danger, $alpha: $dg-alert-bg-alpha);
-        &::after {
-            background: $danger;
-        }
-    }
-}
+@include meta.load-css('../../src/styles/index.scss');
+@include meta.load-css('./styles/index.scss');
 
 .dg-doc-content,
 .dg-examples {
     > :first-child {
         margin-top: 0px;
+    }
+}
+
+.dg-home {
+    .dg-hero {
+        .dg-hero-launch {
+            align-items: start;
+            padding-left: 20%;
+            text-align: unset;
+            .dg-launch-title {
+                color: #1e3042;
+            }
+            .dg-launch-action {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .dg-features {
+            grid-gap: 30px 50px;
+        }
     }
 }
 

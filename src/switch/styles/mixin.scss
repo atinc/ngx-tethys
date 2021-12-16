@@ -1,3 +1,5 @@
+@use "../../styles/variables";
+
 @mixin thy-switch-size($width, $height, $handle-margin) {
     width: $width;
     height: $height;
@@ -6,7 +8,7 @@
         height: $height - $handle-margin * 2;
         top: $handle-margin + px;
     }
-    .thy-switch-input:checked~.thy-switch-handle {
+    .thy-switch-input:checked ~ .thy-switch-handle {
         left: $width - $height + $handle-margin;
     }
 }
@@ -20,7 +22,7 @@
     background-color: transparent;
     cursor: pointer;
     .thy-switch-input {
-        position: absolute!important;
+        position: absolute !important;
         top: 0;
         left: 0;
         opacity: 0;
@@ -31,18 +33,18 @@
         height: inherit;
         font-weight: 600;
         text-transform: uppercase;
-        background-color: $gray-400;
+        background-color: variables.$gray-400;
         // border: 1px solid $border-color;
         border-radius: 2px;
-        transition: opacity background .15s ease-out;
+        transition: opacity background 0.15s ease-out;
     }
-    .thy-switch-input:checked~.thy-switch-label {
+    .thy-switch-input:checked ~ .thy-switch-label {
         //background: $gray-lightest;
     }
-    .thy-switch-input:checked~.thy-switch-label::before {
+    .thy-switch-input:checked ~ .thy-switch-label::before {
         opacity: 0;
     }
-    .thy-switch-input:checked~.thy-switch-label::after {
+    .thy-switch-input:checked ~ .thy-switch-label::after {
         opacity: 1;
     }
     .thy-switch-handle {
@@ -54,11 +56,11 @@
         background: #fff;
         // border: 1px solid $border-color;
         border-radius: 1px;
-        transition: left .15s ease-out;
+        transition: left 0.15s ease-out;
         border: 0;
         // box-shadow: 0 2px 5px rgba(0, 0, 0, .3);
     }
-    .thy-switch-input:checked~.thy-switch-handle {
+    .thy-switch-input:checked ~ .thy-switch-handle {
         left: $width - $height + $handle-margin;
     }
     @extend .thy-switch-pill;
@@ -66,19 +68,19 @@
     //     @include thy-switch-size($switch-lg-width, $switch-lg-height, 0);
     // }
     &.thy-switch-sm {
-        @include thy-switch-size($switch-sm-width, $switch-sm-height, 2);
+        @include thy-switch-size(variables.$switch-sm-width, variables.$switch-sm-height, 2);
     }
     &.thy-switch-xs {
-        @include thy-switch-size($switch-xs-width, $switch-xs-height, 0);
+        @include thy-switch-size(variables.$switch-xs-width, variables.$switch-xs-height, 0);
     }
 }
 
 @mixin thy-switch-variant($color) {
-    >.thy-switch-input:checked~.thy-switch-label {
+    > .thy-switch-input:checked ~ .thy-switch-label {
         background: $color !important;
         // border-color: darken($color, 10%);
     }
-    >.thy-switch-input:checked~.thy-switch-handle {
+    > .thy-switch-input:checked ~ .thy-switch-handle {
         // border-color: darken($color, 10%);
     }
 }

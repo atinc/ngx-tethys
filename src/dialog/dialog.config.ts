@@ -18,7 +18,7 @@ export enum ThyDialogSizes {
 /**
  * Configuration for opening a modal dialog with the ThyDialog service.
  */
-export class ThyDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
+export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /** The ARIA role of the dialog element. */
     role?: ThyDialogRole = 'dialog';
 

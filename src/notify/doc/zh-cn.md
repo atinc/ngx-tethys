@@ -5,66 +5,29 @@ subtitle: 通知
 order: 10
 ---
 
-## 概览
-`Notify`主要提供了一个`ThyNotifyService`服务，用于打开提示框。 
+<alert>用于展示通知提醒信息。</alert>
 
-通过调用`show`方法并传可选的配置对象可以打开想要的类型的提示框和内容：
+## 何时使用
+悬浮出现在页面角落，显示全局的通知提醒消息。
 
+## 模块导入
 ```ts
-notifyService.show({
-   type: 'error',
-   title: '错误',
-   content: '获取数据失败！',
-   detail: `chunk {main} main.js (main) 703 kB [initial] [rendered] ℹ ｢wdm｣: Compiled successfully.ℹ ｢wdm｣: Compiling...
-        Date: 2018-04-20T08:57:23.362Z - Hash: d96e601a21c551b7c38a
-        - Time: 11376ms 4 unchanged chunks chunk {main} main.js (main) 703 kB [initial]
-        [rendered]ℹ ｢wdm｣: Compiled successfully.`,
-   duration: 0
-});
+import { ThyNotifyModule } from "ngx-tethys/notify";
 ```
 
-## 可操作性详情
-`ThyNotifyService`服务的`show`方法支持传参数`{detail: string | ThyNotifyDetail}`（`ThyNotifyDetail`类型包括`link`链接名、`content`链接描述、和`action`操作链接的方法）。
+## 通知类型
 
-```ts
-notifyService.show({
-   type: 'error',
-   title: '错误',
-   content: '获取数据失败！',
-   detail: {
-     link:'查看',
-     content:'查看的详情',
-     action:()=>{
-       // 操作方法
-     }
-   },
-   duration: 0
-});
-```
+- success：用于显示「成功」类的系统消息
+- warning：用于显示「警告」类的系统消息
+- error：用于显示「错误」类的系统消息
+- info： 用于显示「消息」类的系统消息
 
-## 自定义模版
+## 通知弹出位置
 
-`ThyNotifyService`服务的`show`方法支持传参数`{html: ElementRef}`，支持打开自定义模版。
-
-```ts
-showWithHtml(htmlRef: ElementRef) {
-    this.notifyService.show({
-        type: 'success',
-        title: '成功 ',
-        html: htmlRef
-    });
-}
-```
-
-## 指定打开位置
-
-`ThyNotifyService`服务的`show`方法支持传参数`{placement: NotifyPlacement}`（`NotifyPlacement`类型包括`topLeft`、`topRight`、`bottomLeft`和`bottomRight`，默认为`topRight`），支持自定义通知弹出的位置。
-
-```ts
-notifyService.show({
-    placement: 'topRight'
-});
-```
+- bottomLeft：通知从左上角弹出。
+- bottomRight：通知从右下角弹出。
+- topLeft：通知从左上角弹出。
+- topRight：通知从右上角弹出。
 
 ## 设置全局默认值
 
@@ -89,13 +52,24 @@ const DEFAULT_OPTIONS = {
 };
 ```
 
-## 指定打开类型
-
-`ThyNotifyService`服务提供了`success`, `info`, `warning`,`error`四种指定类型的打开方法。
-
+## 基本使用
+按钮组件支持组件和指令两种使用方式
 ```ts
-ThyNotifyService.success(title?: string, content?: string, options?: ThyNotifyOptions)
-ThyNotifyService.info(title?: string, content?: string, options?: ThyNotifyOptions)
-ThyNotifyService.warning(title?: string, content?: string, options?: ThyNotifyOptions)
-ThyNotifyService.error(title?: string, content?: string, options?: ThyNotifyOptions)
+notifyService.show({ type: 'success', title: '成功 ' });
+
+notifyService.success(null, '创建项目成功！');
 ```
+<example name="thy-notify-basic-example"></example>
+
+<example name="thy-notify-type-example"></example>
+
+<example name="thy-notify-custom-html-example"></example>
+
+<example name="thy-notify-hover-example"></example>
+
+<example name="thy-notify-detail-example"></example>
+
+<example name="thy-notify-detail-operation-example"></example>
+
+<example name="thy-notify-placement-example"></example>
+

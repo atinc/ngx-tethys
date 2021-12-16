@@ -32,17 +32,7 @@ export class AvatarBgColorPipe implements PipeTransform {
         if (!name) {
             return;
         }
-        const colors = [
-            '#56abfb',
-            '#5dcfff',
-            '#84e17e',
-            '#73d897',
-            '#ff9f73',
-            '#fa8888',
-            '#fb7fb7',
-            '#9a7ef4',
-            '#868af6'
-        ];
+        const colors = ['#56abfb', '#5dcfff', '#84e17e', '#73d897', '#ff9f73', '#fa8888', '#fb7fb7', '#9a7ef4', '#868af6'];
         const nameArray: string[] = name.split('');
         const code: number =
             name && name.length > 0
@@ -64,7 +54,9 @@ export class AvatarBgColorPipe implements PipeTransform {
 export class AvatarSrcPipe implements PipeTransform {
     constructor(private thyAvatarService: ThyAvatarService) {}
     transform(src: string, size: number) {
-        return this.thyAvatarService.avatarSrcTransform(src, size);
+        return this.thyAvatarService.srcTransform
+            ? this.thyAvatarService.srcTransform(src, size)
+            : this.thyAvatarService.avatarSrcTransform(src, size);
     }
 }
 

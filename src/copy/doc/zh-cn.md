@@ -3,6 +3,7 @@ category: other
 title: Copy
 subtitle: 复制
 order: 60
+label: lack-doc
 ---
   
 通过给标签增加thyCopy指令，点击触发，实现复制标签中的文本：

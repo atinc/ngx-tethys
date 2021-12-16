@@ -1,0 +1,98 @@
+@use "../../styles/variables";
+
+$thy-collapse-prefix-cls: 'thy-collapse';
+
+.#{$thy-collapse-prefix-cls} {
+    display: block;
+    position: relative;
+    border: 1px solid variables.$gray-200;
+    border-bottom: 0;
+    background-color: variables.$gray-80;
+    border-radius: 2px;
+    .#{$thy-collapse-prefix-cls}-item {
+        display: block;
+        border-bottom: 1px solid variables.$gray-200;
+        &:last-child {
+            border-radius: 0 0 2px 2px;
+        }
+        .#{$thy-collapse-prefix-cls}-header {
+            padding: 12px 16px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s, visibility 0s;
+            .#{$thy-collapse-prefix-cls}-icon {
+                margin-right: 12px;
+            }
+            .#{$thy-collapse-prefix-cls}-extra {
+                float: right;
+            }
+        }
+        .#{$thy-collapse-prefix-cls}-content {
+            border-top: 1px solid variables.$gray-200;
+            background-color: variables.$white;
+            &-box {
+                padding: 16px;
+            }
+        }
+    }
+    & &-item-disabled > &-header {
+        &,
+        & > &-icon {
+            color: variables.$gray-400;
+            cursor: not-allowed;
+        }
+    }
+
+    .#{$thy-collapse-prefix-cls}-no-arrow {
+        .#{$thy-collapse-prefix-cls}-header {
+            padding: 12px;
+        }
+    }
+}
+.#{$thy-collapse-prefix-cls}-ghost {
+    border: 0;
+    background-color: transparent;
+    > .#{$thy-collapse-prefix-cls}-item {
+        border-bottom: 0;
+        > .#{$thy-collapse-prefix-cls}-content {
+            background-color: transparent;
+            border-top: 0;
+            > .#{$thy-collapse-prefix-cls}-content-box {
+                padding-top: 12px;
+                padding-bottom: 12px;
+            }
+        }
+    }
+}
+
+.#{$thy-collapse-prefix-cls}-borderless {
+    border: 0;
+    background-color: variables.$gray-80;
+    .#{$thy-collapse-prefix-cls}-item {
+        &:last-child,
+        &:last-child > .#{$thy-collapse-prefix-cls}-header {
+            border-radius: 0;
+        }
+        .#{$thy-collapse-prefix-cls}-content {
+            background: transparent;
+            border-top: 0;
+            .#{$thy-collapse-prefix-cls}-content-box {
+                padding-top: 4px;
+            }
+        }
+    }
+}
+
+.#{$thy-collapse-prefix-cls}-icon-position-right {
+    .#{$thy-collapse-prefix-cls}-item > .#{$thy-collapse-prefix-cls}-header {
+        padding: 12px 40px 12px 16px;
+        .#{$thy-collapse-prefix-cls}-icon {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            left: auto;
+            margin: 0;
+            transform: translateY(-50%);
+        }
+    }
+}

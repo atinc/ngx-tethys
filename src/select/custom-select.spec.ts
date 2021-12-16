@@ -1,6 +1,6 @@
 import { bypassSanitizeProvider, injectDefaultSvgIconSet, typeInElement } from 'ngx-tethys/testing';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing/dispatcher-events';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent, Subject, timer } from 'rxjs';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -28,6 +28,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 (thyOnScrollToBottom)="thyOnScrollToBottom()"
                 [formControl]="control"
                 [required]="isRequired"
+                [thySize]="size"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -57,6 +58,7 @@ class BasicSelectComponent {
     control = new FormControl();
     isRequired: boolean;
     enableScrollLoad: boolean;
+    size = '';
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -541,6 +543,53 @@ class SelectWithThyPlacementComponent implements OnInit {
     ngOnInit() {}
 }
 
+@Component({
+    selector: 'select-with-scroll-and-search',
+    template: `
+        <form thyForm name="demoForm" #demoForm="ngForm">
+            <thy-custom-select
+                thyPlaceHolder="Food"
+                name="foods"
+                [thyShowSearch]="showSearch"
+                [thyServerSearch]="serverSearch"
+                [thyEnableScrollLoad]="true"
+                (thyOnSearch)="thyOnSearch()"
+            >
+                <thy-option
+                    *ngFor="let food of foods"
+                    [thyValue]="food.value"
+                    [thyDisabled]="food.disabled"
+                    [thyLabelText]="food.viewValue"
+                >
+                </thy-option>
+            </thy-custom-select>
+        </form>
+    `
+})
+class SelectWithScrollAndSearchComponent {
+    foods: any[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+        { value: 'sandwich-3', viewValue: 'Sandwich' },
+        { value: 'chips-4', viewValue: 'Chips' },
+        { value: 'eggs-5', viewValue: 'Eggs' },
+        { value: 'pasta-6', viewValue: 'Pasta' },
+        { value: 'sushi-7', viewValue: 'Sushi' }
+    ];
+    showSearch = true;
+    serverSearch = true;
+    selected: any = null;
+    control = new FormControl();
+    @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+    thyOnSearch(value: string) {
+        timer(100).subscribe(() => {
+            this.foods = this.foods.slice(5);
+        });
+    }
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -573,7 +622,8 @@ describe('ThyCustomSelect', () => {
                 SelectWithGroupsAndNgContainerComponent,
                 SelectWithExpandStatusComponent,
                 MultipleSelectComponent,
-                SelectWithThyAutoExpendComponent
+                SelectWithThyAutoExpendComponent,
+                SelectWithScrollAndSearchComponent
             ]);
         }));
 
@@ -607,6 +657,35 @@ describe('ThyCustomSelect', () => {
                 const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
                 expect(componentInstance.dropDownPositions[0].originY).toEqual('bottom');
             }));
+
+            it('should get right item count when invoke itemCount method', () => {
+                const ins = fixture.componentInstance.select;
+                expect(fixture.componentInstance.foods.length).toEqual(ins.getItemCount());
+            });
+        });
+
+        describe('size', () => {
+            let fixture: ComponentFixture<BasicSelectComponent>;
+
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(BasicSelectComponent);
+                fixture.detectChanges();
+            }));
+
+            it('should has correct size', () => {
+                const sizes = ['xs', 'sm', 'md', 'lg'];
+                fixture.componentInstance.size = '';
+                fixture.detectChanges();
+                const formControl = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                sizes.forEach(size => {
+                    expect(formControl.classList.contains(`form-control-${size}`)).not.toBeTruthy();
+                });
+                sizes.forEach(size => {
+                    fixture.componentInstance.size = size;
+                    fixture.detectChanges();
+                    expect(formControl.classList.contains(`form-control-${size}`)).toBeTruthy();
+                });
+            });
         });
 
         describe('overlay panel', () => {
@@ -966,8 +1045,49 @@ describe('ThyCustomSelect', () => {
                 expect(spy).toHaveBeenCalledWith(false);
             }));
         });
-    });
 
+        describe('scroll and search', () => {
+            let fixture: ComponentFixture<SelectWithScrollAndSearchComponent>;
+            let fixtureIns: SelectWithScrollAndSearchComponent;
+            beforeEach(async(() => {
+                fixture = TestBed.createComponent(SelectWithScrollAndSearchComponent);
+                fixtureIns = fixture.componentInstance;
+                fixture.detectChanges();
+            }));
+
+            it('should scroll to active item when thyEnableScrollLoad and thyServerSearch is true', fakeAsync(() => {
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                fixture.detectChanges();
+
+                const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
+                typeInElement('any word', input);
+                fixture.detectChanges();
+                expect(fixtureIns.select['isSearching']).toBeTruthy();
+                tick(200);
+                fixture.detectChanges();
+                expect(fixtureIns.select['isSearching']).toBeFalsy();
+                expect(fixtureIns.select.keyManager.activeItem).toEqual(fixtureIns.select.options.toArray()[0]);
+            }));
+
+            it('should  scroll to active item when thyEnableScrollLoad is true and thyShowSearch is true', fakeAsync(() => {
+                fixtureIns.serverSearch = false;
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                fixture.detectChanges();
+
+                const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
+                typeInElement('any word', input);
+                fixture.detectChanges();
+                expect(fixtureIns.select['isSearching']).toBeFalsy();
+                flush();
+            }));
+        });
+    });
     describe('with ngModel', () => {
         beforeEach(async(() => configureThyCustomSelectTestingModule([NgModelSelectComponent])));
 
@@ -1148,6 +1268,23 @@ describe('ThyCustomSelect', () => {
             expect(options[1].hidden).toBe(true);
             expect(optionNodes[1].classList).toContain('hidden');
         }));
+        it('should also find content when search by upperCase or lowerCase', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithSearchComponent);
+            fixture.detectChanges();
+            fixture.componentInstance.thyShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('sTeAk', input);
+            flush();
+            fixture.detectChanges();
+            flush();
+
+            const options = fixture.componentInstance.select.options.toArray();
+            expect(options[0].hidden).toBe(false);
+        }));
         it('should hide the thy-group when all options of the group is hidden', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
             fixture.detectChanges();
@@ -1221,19 +1358,21 @@ describe('ThyCustomSelect', () => {
             configureThyCustomSelectTestingModule([SelectEimtOptionsChangesComponent]);
         }));
 
-        it('should not remove selected value when disabled is true', fakeAsync(() => {
+        it('should not show remove icon when disabled is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
+            const removeIcon = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            expect(removeIcon).not.toBeNull();
 
-            const trigger = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
             fixture.componentInstance.disabled = true;
-
             fixture.detectChanges();
-            trigger.click();
+            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove'));
+            const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
             tick();
-            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
+            expect(choice.classList.contains('disabled')).toBeTruthy();
+            expect(removeIcon2).toBeNull();
         }));
 
         it('should remove selected value when click clear icon', fakeAsync(() => {

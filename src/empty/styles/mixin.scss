@@ -1,4 +1,6 @@
-@mixin set-empty-state-size($icon-size, $text-size: $font-size-md) {
+@use "../../styles/variables";
+
+@mixin set-empty-state-size($icon-size, $text-size: variables.$font-size-md) {
     .empty-icon {
         i {
             font-size: $icon-size;

@@ -5,7 +5,7 @@ export type DisabledDateFn = (d: Date) => boolean;
 
 export type DisabledTimePartial = 'start' | 'end';
 
-export type PanelMode = 'decade' | 'year' | 'month' | 'date';
+export type PanelMode = 'decade' | 'year' | 'month' | 'date' | 'week';
 
 export type CompatibleValue = TinyDate[] | TinyDate;
 
@@ -24,6 +24,8 @@ export interface RangeEntry {
 }
 
 export type DateType = number | DateEntry;
+
+export type RangePartType = 'left' | 'right';
 
 export function instanceOfDateEntry(object: DateEntry): object is DateEntry {
     return isSupportDateType(object, 'date') && typeof object.with_time === 'number';

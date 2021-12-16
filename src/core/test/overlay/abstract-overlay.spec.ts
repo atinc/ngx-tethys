@@ -61,8 +61,8 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
         // '(@dialogContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class TestDialogContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
-    config: ThyAbstractOverlayConfig;
+export class TestDialogContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnDestroy {
+    config: ThyAbstractOverlayConfig<TData>;
 
     animationOpeningDone: Observable<AnimationEvent>;
 
@@ -92,10 +92,10 @@ export class TestDialogContainerComponent extends ThyAbstractOverlayContainer im
     }
 }
 
-abstract class TestDialogRef<T = undefined, TResult = undefined> extends ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {}
-class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyAbstractInternalOverlayRef<
+abstract class TestDialogRef<T = unknown, TResult = unknown> extends ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {}
+class InternalTestDialogRef<T = unknown, TResult = unknown, TData = unknown> extends ThyAbstractInternalOverlayRef<
     T,
-    TestDialogContainerComponent,
+    TestDialogContainerComponent<TData>,
     TResult
 > {
     updatePosition(position?: ThyAbstractOverlayPosition): this {
@@ -103,9 +103,7 @@ class InternalTestDialogRef<T = undefined, TResult = undefined> extends ThyAbstr
     }
 }
 
-@Injectable({
-    providedIn: 'root'
-})
+@Injectable()
 export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfig, TestDialogContainerComponent> {
     constructor(overlay: Overlay, injector: Injector, clickPositioner: ThyClickPositioner) {
         super(testDialogOptions, overlay, injector, {});
@@ -119,13 +117,21 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
         return overlayConfig;
     }
 
-    protected createAbstractOverlayRef<T>(
+    protected createAbstractOverlayRef<T, TResult>(
         overlayRef: OverlayRef,
-        containerComponent: TestDialogContainerComponent,
+        containerInstance: TestDialogContainerComponent,
         config: TestDialogConfig
-    ): ThyAbstractOverlayRef<T, any> {
-        return new InternalTestDialogRef(testDialogOptions, overlayRef, containerComponent, config);
+    ): ThyAbstractOverlayRef<T, TestDialogContainerComponent, TResult> {
+        return new InternalTestDialogRef<T, TResult>(testDialogOptions, overlayRef, containerInstance, config);
     }
+
+    // protected createAbstractOverlayRef<T, TData>(
+    //     overlayRef: OverlayRef,
+    //     containerComponent: TestDialogContainerComponent<TData>,
+    //     config: TestDialogConfig
+    // ): ThyAbstractOverlayRef<T, TestDialogContainerComponent<TData>> {
+    //     return new InternalTestDialogRef<T,>(testDialogOptions, overlayRef, containerComponent, config);
+    // }
 
     protected attachOverlayContainer(overlay: OverlayRef, config: TestDialogConfig): TestDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
@@ -208,7 +214,7 @@ describe('abstract-overlay', () => {
         TestBed.configureTestingModule({
             imports: [TestDialogModule, NoopAnimationsModule],
             declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
-            providers: []
+            providers: [TestDialogService]
         });
         TestBed.overrideModule(BrowserDynamicTestingModule, {
             set: {

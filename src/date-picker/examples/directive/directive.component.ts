@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './directive.component.html'
 })
 export class ThyDatePickerDirectiveExampleComponent implements OnInit {
-    date = { date: new Date(), with_time: 1 } as DateEntry;
+    date = { date: new Date(), with_time: 0 } as DateEntry;
 
     time = {
         date: 1234567890,
@@ -17,7 +17,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
 
     dateTime = {
         date: 1253498754,
-        with_time: 0
+        with_time: 1
     } as DateEntry;
 
     dateRange: { begin: number; end: number };
@@ -29,10 +29,6 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
-
-    onChange(result: Date): void {
-        console.log('onChange: ', result);
-    }
 
     disableDate = (date: Date) => {
         if (!(this.selectedDateRange && this.selectedDateRange.length === 1)) {
@@ -48,7 +44,7 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     }
 
     panelOpenChange(open: boolean) {
-        if (open) {
+        if (!open) {
             this.selectedDateRange = [];
         }
     }

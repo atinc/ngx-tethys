@@ -7,7 +7,7 @@ module.exports = [
             {
                 name: 'thySrc',
                 description:
-                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 avatarSrcTransform 方法实现转换',
+                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换',
                 type: 'string',
                 default: ''
             },
@@ -32,13 +32,13 @@ module.exports = [
             {
                 name: 'thyOnRemove',
                 description: '移除按钮的事件, 当 thyShowRemove 为 true 时起作用',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
                 name: 'thyError',
                 description: '头像 img 加载 error 时触发',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {

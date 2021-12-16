@@ -1,8 +1,10 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Inject, Input } from '@angular/core';
-import { ThyDialogRef } from '../dialog-ref';
-import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE } from '../confirm.config';
-import { finalize } from 'rxjs/operators';
 import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
+import { finalize } from 'rxjs/operators';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
+
+import { THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE, ThyConfirmConfig } from '../confirm.config';
+import { ThyDialogRef } from '../dialog-ref';
 
 @Component({
     selector: 'thy-confirm-default',

@@ -1,0 +1,25 @@
+@use "sass:meta";
+@use "../variables";
+@use "functions-variables";
+@use "variables" as bootstrap-variables;
+
+// Do not forget to update getting-started/theming.md!
+:root {
+    // Custom variable values only support SassScript inside `#{}`.
+    @each $color, $value in functions-variables.$colors {
+        --#{$color}: #{$value};
+    }
+
+    @each $color, $value in functions-variables.$theme-colors {
+        --#{$color}: #{$value};
+    }
+
+    @each $bp, $value in bootstrap-variables.$grid-breakpoints {
+        --breakpoint-#{$bp}: #{$value};
+    }
+
+    // Use `inspect` for lists so that quoted items keep the quotes.
+    // See https://github.com/sass/sass/issues/2383#issuecomment-336349172
+    --font-family-sans-serif: #{meta.inspect(variables.$font-family-sans-serif)};
+    --font-family-monospace: #{meta.inspect(variables.$font-family-monospace)};
+}

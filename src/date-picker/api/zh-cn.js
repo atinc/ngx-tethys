@@ -86,7 +86,7 @@ module.exports = [
     },
     {
         type: 'component',
-        name: 'thy-data-picker',
+        name: 'thy-date-picker',
         description: '参数列表',
         properties: [
             {
@@ -128,6 +128,12 @@ module.exports = [
         properties: [
             { name: 'ngModel', description: '日期', type: '{ begin: number | Date, end: number | Date }', default: '-' },
             {
+                name: 'thyMode',
+                description: `支持的选区间模式，| 'year' | 'month' | 'date'`,
+                type: 'string',
+                default: 'date'
+            },
+            {
                 name: 'thyFormat',
                 description: '展示的日期格式',
                 type: 'string',
@@ -144,12 +150,19 @@ module.exports = [
                 description: '时间发生变化的回调',
                 type: 'EventEmitter<Date>',
                 default: '-'
+            },
+            {
+                name: 'thyAutoStartAndEnd',
+                description: '是否取值开始日期的00:00以及截止日期的24:00',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },
     {
         type: 'DIRECTIVE',
         name: 'thyDatePicker',
+        description: '参数列表',
         properties: [
             {
                 name: 'thyMode',
@@ -174,6 +187,12 @@ module.exports = [
                 description: '是否有幕布',
                 type: 'boolean',
                 default: 'true'
+            },
+            {
+                name: 'thyPopoverOptions',
+                description: 'popover的其他参数',
+                type: 'ThyPopoverConfig',
+                default: '-'
             },
             {
                 name: 'thyStopPropagation',

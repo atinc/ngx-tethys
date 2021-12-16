@@ -1,8 +1,12 @@
+@use "../../styles/bootstrap/mixins/hover" as mixins-hover;
+@use "../../styles/mixins/hover";
+@use "../../styles/variables";
+
 @mixin nav-link-variant($color, $hover-color, $border-bottom) {
     color: $color;
     > i,
     > .thy-icon {
-        color: $nav-link-icon-color;
+        color: variables.$nav-link-icon-color;
     }
 
     &.active {
@@ -15,7 +19,7 @@
             color: $hover-color;
         }
     }
-    @include hover-active {
+    @include hover.hover-active {
         color: $hover-color;
         text-decoration: none;
         @if $border-bottom {
@@ -28,13 +32,20 @@
     }
     // Disabled state lightens text
     &.disabled {
-        color: $nav-link-disabled-color;
+        color: variables.$nav-link-disabled-color;
         border-bottom: none;
     }
 }
 
 @mixin nav-link-size($padding, $margin-right) {
     padding: $padding;
+    margin-right: $margin-right;
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+@mixin nav-item-size($margin-right) {
     margin-right: $margin-right;
     &:last-child {
         margin-right: 0;
@@ -54,7 +65,7 @@
         position: absolute;
         width: 0;
         content: '';
-        border-right: 1px solid $nav-divider-color;
+        border-right: 1px solid variables.$nav-divider-color;
         top: calc(50% - #{$divider-height} / 2);
         right: ($nav-link-padding-right / 2) * -1;
         height: $divider-height;
@@ -64,13 +75,13 @@
             display: none;
         }
     }
-    @include hover-active {
+    @include hover.hover-active {
         color: $nav-link-hover-color;
         text-decoration: none;
     }
     .thy-icon,
     i {
-        margin-right: $rem-5px;
+        margin-right: variables.$rem-5px;
     }
 }
 
@@ -79,7 +90,7 @@
     &.active {
         border-bottom: none;
     }
-    @include hover-focus-active {
+    @include mixins-hover.hover-focus-active {
         border-bottom: none;
     }
 }

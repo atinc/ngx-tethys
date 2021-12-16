@@ -2,6 +2,7 @@
 category: layout
 title: Resizable
 subtitle: 调整尺寸
+label: experimental
 ---
 
 调整元素尺寸。

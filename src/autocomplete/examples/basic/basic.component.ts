@@ -6,11 +6,7 @@ import { Component, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAutocompleteBasicExampleComponent implements OnInit {
-    thySize = '';
-
     value = '';
-
-    placeholder = 'autocomplete a page';
 
     children: Array<{ label: string; value: string }> = [];
 

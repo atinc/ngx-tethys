@@ -1,6 +1,3 @@
-import { warnDeprecation } from 'ngx-tethys/util';
-import { ModuleWithProviders, NgModule } from '@angular/core';
-
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThyAffixModule } from 'ngx-tethys/affix';
 import { ThyAlertModule } from 'ngx-tethys/alert';
@@ -12,21 +9,23 @@ import { ThyBackTopModule } from 'ngx-tethys/back-top';
 import { ThyBadgeModule } from 'ngx-tethys/badge';
 import { ThyBreadcrumbModule } from 'ngx-tethys/breadcrumb';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyCalendarModule } from 'ngx-tethys/calendar';
 import { ThyCardModule } from 'ngx-tethys/card';
 import { ThyCascaderModule } from 'ngx-tethys/cascader';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThySelectCommonModule } from 'ngx-tethys/shared';
-import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThyCollapseModule } from 'ngx-tethys/collapse';
+import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyDateRangeModule } from 'ngx-tethys/date-range';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
-import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyTableModule } from 'ngx-tethys/table';
+import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLabelModule } from 'ngx-tethys/label';
@@ -45,29 +44,31 @@ import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyRadioModule } from 'ngx-tethys/radio';
 import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyRateModule } from 'ngx-tethys/rate';
+import { ThyResizableModule } from 'ngx-tethys/resizable';
 import { ThyResultModule } from 'ngx-tethys/result';
 import { ThySelectModule } from 'ngx-tethys/select';
+import { ThySelectCommonModule, ThySharedModule } from 'ngx-tethys/shared';
 import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 import { ThySlideModule } from 'ngx-tethys/slide';
+import { ThySliderModule } from 'ngx-tethys/slider';
 import { ThyStatisticModule } from 'ngx-tethys/statistic';
 import { ThyStepperModule } from 'ngx-tethys/stepper';
 import { ThyStrengthModule } from 'ngx-tethys/strength';
 import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ThyTableModule } from 'ngx-tethys/table';
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { ThyTimelineModule } from 'ngx-tethys/timeline';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyTransferModule } from 'ngx-tethys/transfer';
-import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyTreeModule } from 'ngx-tethys/tree';
+import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploaderModule } from 'ngx-tethys/uploader';
+import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
-import { ThySliderModule } from 'ngx-tethys/slider';
-import { ThyCalendarModule } from 'ngx-tethys/calendar';
-import { ThyTimelineModule } from 'ngx-tethys/timeline';
-import { ThyDividerModule } from 'ngx-tethys/divider';
-import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
-import { ThyGuiderModule } from 'ngx-tethys/guider';
-import { ThyResizableModule } from 'ngx-tethys/resizable';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+
+import { ModuleWithProviders, NgModule } from '@angular/core';
 
 const IMPORT_EXPORT_MODULES = [
     ThyLayoutModule,
@@ -136,7 +137,9 @@ const IMPORT_EXPORT_MODULES = [
     ThyCalendarModule,
     ThyFullscreenModule,
     ThyGuiderModule,
-    ThyResizableModule
+    ThyResizableModule,
+    ThyCollapseModule,
+    ThyRateModule
 ];
 
 /**

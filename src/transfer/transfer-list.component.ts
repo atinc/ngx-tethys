@@ -1,22 +1,20 @@
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {
     Component,
-    Input,
-    Output,
-    ElementRef,
-    ViewEncapsulation,
-    HostBinding,
+    DoCheck,
     EventEmitter,
-    TemplateRef,
+    HostBinding,
+    Input,
+    IterableChanges,
     IterableDiffer,
     IterableDiffers,
     OnInit,
-    OnDestroy,
-    DoCheck,
-    IterableChanges
+    Output,
+    TemplateRef,
+    ViewEncapsulation
 } from '@angular/core';
-import { ThyTransferSelectEvent, ThyTransferItem, ThyTransferDragEvent, InnerTransferDragEvent, Direction } from './transfer.interface';
-import { ThyTransferComponent } from './transfer.component';
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+
+import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 
 @Component({
     selector: 'thy-transfer-list',
@@ -44,6 +42,10 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() maxLock: number;
 
+    @Input() max: number;
+
+    @Input() disabled: boolean;
+
     @Input() template: TemplateRef<any>;
 
     @Input('renderContentRef') contentRef: TemplateRef<any>;
@@ -56,7 +58,7 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @HostBinding('class') hostClass = 'thy-transfer-list';
 
-    constructor(private root: ThyTransferComponent, private differs: IterableDiffers) {}
+    constructor(private differs: IterableDiffers) {}
 
     ngOnInit() {
         this._combineTransferData();

@@ -1,3 +1,8 @@
+import { ThyScrollService } from 'ngx-tethys/core';
+import { dom, shallowEqual, SimpleRect } from 'ngx-tethys/util';
+import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
+import { auditTime, map, takeUntil } from 'rxjs/operators';
+
 import { Platform } from '@angular/cdk/platform';
 import { DOCUMENT } from '@angular/common';
 import {
@@ -18,12 +23,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
-import { auditTime, map, takeUntil } from 'rxjs/operators';
-
 import { AffixRespondEvents } from './respond-events';
-import { ThyScrollService } from 'ngx-tethys/core';
-import { dom, shallowEqual, SimpleRect } from 'ngx-tethys/util';
+
 const THY_AFFIX_CLS_PREFIX = 'thy-affix';
 const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
 

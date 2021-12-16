@@ -1,0 +1,15 @@
+<table class="{{ prefixCls }}-year-panel-table" cellSpacing="0" role="grid">
+  <tbody class="{{ prefixCls }}-year-panel-tbody">
+    <tr *ngFor="let row of bodyRows; trackBy: trackByBodyRow" role="row">
+      <td
+        *ngFor="let yearCell of row.dateCells; trackBy: trackByBodyColumn"
+        role="gridcell"
+        title="{{ yearCell.title }}"
+        (click)="yearCell.isDisabled ? null : yearCell.onClick()"
+        [ngClass]="yearCell.classMap"
+      >
+        <a class="{{ prefixCls }}-year-panel-year">{{ yearCell.content }}</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

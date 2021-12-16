@@ -10,6 +10,8 @@ export class ThyDatePickerFormatExampleComponent implements OnInit {
 
     formatTypes = ['yyyy/MM/dd', 'yyyy-MM-dd'];
 
+    monthFormatTypes = ['yyyy/MM', 'yyyy-MM'];
+
     currentFormat = 'yyyy/MM/dd';
 
     constructor() {}

@@ -5,6 +5,7 @@ module.exports = {
             2,
             'always',
             [
+                'cdk',
                 'schematics',
                 'variables',
                 'core',
@@ -82,7 +83,10 @@ module.exports = {
                 'fullscreen',
                 'guider',
                 'resizable',
-                'input-number'
+                'input-number',
+                'collapse',
+                'rate',
+                'select-control'
             ]
         ]
     }

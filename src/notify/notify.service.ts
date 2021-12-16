@@ -15,7 +15,9 @@ const NOTIFY_OPTION_DEFAULT = {
     placement: 'topRight'
 };
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ThyNotifyService {
     notifyQueue$: Subject<any> = new Subject();
 

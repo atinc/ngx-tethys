@@ -33,11 +33,11 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     protected abstract attachOverlayContainer(overlay: OverlayRef, config: TConfig): TContainer;
 
     /** Create abstract overlay ref by cdk overlay, container and config  */
-    protected abstract createAbstractOverlayRef<T>(
+    protected abstract createAbstractOverlayRef<T, TResult>(
         overlayRef: OverlayRef,
         containerInstance: TContainer,
         config: TConfig
-    ): ThyAbstractOverlayRef<T, TContainer>;
+    ): ThyAbstractOverlayRef<T, TContainer, TResult>;
 
     /** Create injector for component content */
     protected abstract createInjector<T>(
@@ -60,7 +60,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {
         // Create a reference to the overlay we're creating in order to give the user a handle
         // to modify and close it.
-        const abstractOverlayRef = this.createAbstractOverlayRef<T>(overlayRef, containerInstance, config);
+        const abstractOverlayRef = this.createAbstractOverlayRef<T, TResult>(overlayRef, containerInstance, config);
 
         // When the backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
@@ -106,6 +106,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return this.openedOverlays.find(overlay => overlay.id === id);
     }
 
+    protected getAbstractOverlays(): ThyAbstractOverlayRef<any, TContainer>[] {
+        return this.openedOverlays;
+    }
+
     protected buildBaseOverlayConfig(config: TConfig, defaultPanelClass?: string | string[]): OverlayConfig {
         const overlayConfig = new OverlayConfig({
             positionStrategy: this.overlay.position().global(),
@@ -129,7 +133,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return overlayConfig;
     }
 
-    protected openOverlay<T, TResult = any>(
+    protected openOverlay<T, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: TConfig
     ): ThyAbstractOverlayRef<T, TContainer, TResult> {

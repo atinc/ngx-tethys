@@ -1,20 +1,22 @@
-.#{$calendar-prefix-cls}-week-number {
+@use "./variables.scss" as style;
+
+.#{style.$calendar-prefix-cls}-week-number {
     &-cell {
         opacity: 0.5;
     }
-    .#{$calendar-prefix-cls}-body tr {
+    .#{style.$calendar-prefix-cls}-body tr {
         cursor: pointer;
         transition: all 0.3s;
         &:hover {
-            background: $primary-1;
+            background: style.$primary-1;
         }
-        &.#{$calendar-prefix-cls}-active-week {
+        &.#{style.$calendar-prefix-cls}-active-week {
             font-weight: bold;
-            background: $primary-2;
+            background: style.$primary-2;
         }
-        .#{$calendar-prefix-cls}-selected-day .#{$calendar-prefix-cls}-date,
-        .#{$calendar-prefix-cls}-selected-day:hover .#{$calendar-prefix-cls}-date {
-            color: $text-color;
+        .#{style.$calendar-prefix-cls}-selected-day .#{style.$calendar-prefix-cls}-date,
+        .#{style.$calendar-prefix-cls}-selected-day:hover .#{style.$calendar-prefix-cls}-date {
+            color: style.$text-color;
             background: transparent;
         }
     }

@@ -19,7 +19,7 @@
   </div>
   <ng-container *ngIf="isMultiple; else single">
     <ul>
-      <li class="choice" *ngFor="let item of multipleSelectedValue; trackBy: trackValue">
+      <li class="choice" [ngClass]="{ disabled: disabled === true }" *ngFor="let item of maxSelectedTags; trackBy: trackValue">
         <div [ngClass]="choiceContentClass">
           <ng-template
             #customDisplay
@@ -30,9 +30,16 @@
             {{ item.thyLabelText }}
           </ng-container>
         </div>
-        <span class="choice-remove font-size-base" (click)="removeHandle(item, $event)">
+        <span *ngIf="!disabled" class="choice-remove font-size-base" (click)="removeHandle(item, $event)">
           <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
         </span>
+      </li>
+      <li
+        *ngIf="thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount"
+        class="choice max-tag-count-choice"
+        [ngClass]="{ disabled: disabled === true }"
+      >
+        <div [ngClass]="choiceContentClass">+{{ multipleSelectedValue.length - thyMaxTagCount + 1 }}...</div>
       </li>
       <li class="select-control-search">
         <ng-template [ngTemplateOutlet]="inputTemplate"></ng-template>

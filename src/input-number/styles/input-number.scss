@@ -1,15 +1,19 @@
+@use "../../styles/variables";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles//bootstrap/mixins/transition";
+
 .thy-input-number {
     width: 100%;
     display: block;
     position: relative;
     box-sizing: border-box;
-    color: $input-color;
-    background-color: $input-bg;
+    color: variables.$input-color;
+    background-color: bootstrap-variables.$input-bg;
     background-clip: padding-box;
-    border-radius: $input-border-radius;
-    @include transition($input-transition);
+    border-radius: bootstrap-variables.$input-border-radius;
+    @include transition.transition(bootstrap-variables.$input-transition);
     .input-number-input {
-        padding-right: $input-padding-x + $rem-20px;
+        padding-right: variables.$input-padding-x + variables.$rem-20px;
     }
     .input-number-handler-wrap {
         width: 22px;
@@ -18,7 +22,7 @@
         right: 1px;
         top: 1px;
         box-sizing: border-box;
-        border-left: 1px solid $input-border-color;
+        border-left: 1px solid variables.$input-border-color;
         border-radius: 0 0.25rem 0.25rem 0;
         cursor: pointer;
         .input-number-handler {
@@ -28,12 +32,12 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            color: $gray-500;
+            color: variables.$gray-500;
             .thy-icon {
-                font-size: $rem-10px;
+                font-size: variables.$rem-10px;
             }
             &:hover:not(.disabled) {
-                color: $primary;
+                color: variables.$primary;
             }
             &.disabled {
                 cursor: not-allowed;
@@ -43,14 +47,14 @@
             border-top-right-radius: 0.25rem;
         }
         .input-number-handler-down {
-            border-top: 1px solid $input-border-color;
+            border-top: 1px solid variables.$input-border-color;
             border-bottom-right-radius: 0.25rem;
         }
     }
     &:hover {
         .form-control {
             &:not([disabled]):not(.disabled):not(.is-invalid) {
-                border-color: $input-hover-border-color;
+                border-color: variables.$input-hover-border-color;
             }
         }
     }

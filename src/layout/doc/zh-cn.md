@@ -4,7 +4,7 @@ title: Layout
 subtitle: 布局
 ---
 
-<div class="dg-alert dg-alert-info">整体布局容器组件。</div>
+<alert>整体布局容器组件。</alert>
 
 ## 何时使用
 整体布局使用，当使用`ngx-tethys`时要求所有的元素都应该在布局组件中。

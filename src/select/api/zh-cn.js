@@ -105,6 +105,12 @@ module.exports = [
                 description: '是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyMaxTagCount',
+                description: '设置多选时最大显示的标签数量，0 表示不限制',
+                type: 'number',
+                default: '0'
             }
         ]
     },

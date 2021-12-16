@@ -3,7 +3,6 @@ import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyLis
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -391,11 +390,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 }
             }
         });
-
-        // if (this._tempValues) {
-        //     this._setSelectionByValues(this._tempValues);
-        //     this._tempValues = null;
-        // }
     }
 
     ngOnDestroy() {
