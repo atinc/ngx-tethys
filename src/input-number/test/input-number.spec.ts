@@ -17,7 +17,7 @@ import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
             [thySuffix]="thySuffix"
             [thySize]="thySize"
             [thyAutoFocus]="thyAutoFocus"
-            [thyPlaceHolder]="placeHolder"
+            [thyPlaceholder]="placeholder"
             [thyMax]="thyMax"
             [thyMin]="thyMin"
             [thyStep]="thyStep"
@@ -45,7 +45,7 @@ class TestInputNumberComponent {
 
     thySuffix = '';
 
-    placeHolder = '请输入';
+    placeholder = '请输入';
 
     thyPrecision = 2;
 

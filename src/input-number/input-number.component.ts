@@ -14,7 +14,10 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputBoolean } from 'ngx-tethys/core';
 import { DOWN_ARROW, ENTER, helpers, UP_ARROW } from 'ngx-tethys/util';
+
+type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 enum Type {
     up,
@@ -51,11 +54,11 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     disabledDown = false;
 
-    @Input() thyAutoFocus = false;
+    @Input() @InputBoolean() thyAutoFocus: boolean;
 
-    @Input() thyPlaceHolder: string = '';
+    @Input() thyPlaceholder: string = '';
 
-    @Input() thyDisabled: string;
+    @Input() @InputBoolean() thyDisabled: boolean;
 
     @Input() thyMax: number = Infinity;
 
@@ -63,7 +66,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     @Input() thyStep = 1;
 
-    @Input() thySize: string;
+    @Input() thySize: InputSize;
 
     @Input() thyPrecision: number;
 

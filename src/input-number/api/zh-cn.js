@@ -5,16 +5,16 @@ module.exports = [
         description: '数字输入框',
         properties: [
             {
-                name: 'thyPlaceHolder',
+                name: 'thyPlaceholder',
                 description: '输入框的placeholder',
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
-                type: `string`,
-                default: 'default'
+                description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'lg'`,
+                type: `'xs' | 'sm' | 'md' | 'lg' | ''`,
+                default: ''
             },
             {
                 name: 'thyAutofocus',
