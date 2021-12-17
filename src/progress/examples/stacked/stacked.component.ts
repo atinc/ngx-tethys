@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class ThyProgressStackedExampleComponent {
     max = 100;
 
-    size = 'lg';
+    size = 'md';
 
     value = [
         {
