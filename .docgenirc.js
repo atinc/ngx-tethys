@@ -38,6 +38,7 @@ module.exports = {
             abbrName: 'thy',
             rootDir: './src',
             exclude: [],
+            apiMode: 'manual',
             categories: [
                 {
                     id: 'general',
