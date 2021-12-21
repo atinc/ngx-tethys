@@ -31,6 +31,8 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     bars: ThyProgressBarComponent[] = [];
 
+    barsTotalValue: number;
+
     @HostBinding('attr.max') max = 100;
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
@@ -47,14 +49,20 @@ export class ThyProgressComponent implements ThyParentProgress {
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyValue(value: number | ThyStackedValue[]) {
-        this.isStacked = Array.isArray(value);
-        this.value = value;
-
         // 自动求和计算 max
-        if (this.isStacked) {
-            this.thyMax = (value as ThyStackedValue[]).reduce((total, item) => {
+        if (Array.isArray(value)) {
+            this.isStacked = true;
+            this.value = [...value];
+            this.barsTotalValue = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
+            if (this.max > this.barsTotalValue) {
+                this.calculateRemainingValue();
+            } else {
+                this.max = this.barsTotalValue;
+            }
+        } else {
+            this.value = value;
         }
     }
 
@@ -64,6 +72,9 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @Input() set thyMax(max: number) {
         this.max = max;
+        if (this.max > this.barsTotalValue) {
+            this.calculateRemainingValue();
+        }
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
@@ -71,5 +82,16 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    calculateRemainingValue() {
+        if (Array.isArray(this.value)) {
+            const remainingBar = this.value.find(value => value.type === 'default');
+            if (remainingBar) {
+                remainingBar.value = this.max - this.barsTotalValue;
+            } else {
+                this.value.push({ value: this.max - this.barsTotalValue, type: 'default', color: '#eee' });
+            }
+        }
     }
 }
