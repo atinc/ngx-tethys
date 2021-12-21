@@ -33,7 +33,7 @@ class TestInputNumberComponent {
 
     thySize = ``;
 
-    modelValue: string | number = 0;
+    modelValue: string | number;
 
     sizes = ['sm', 'md', 'lg'];
 
@@ -109,12 +109,21 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe('');
     });
-    it('should NaN value work', () => {
+    it('should NaN value work', fakeAsync(() => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onModelChange('NaN');
+        inputNumberComponentInstance.inputNumberComponent.onModelChange('aa');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe('');
-    });
+        const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        expect(upElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        dispatchMouseEvent(upElement, 'mouseup');
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(inputElement.value).toBe('1');
+        });
+    }));
 
     it('should user input work', () => {
         fixture.detectChanges();
@@ -257,7 +266,7 @@ describe('input-number component', () => {
         expect(inputElement.value).toBe('3');
     }));
 
-    it('should thyPrecision work', () => {
+    it('should thyPrecision work', fakeAsync(() => {
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('0.99');
         fixture.detectChanges();
@@ -268,7 +277,34 @@ describe('input-number component', () => {
         inputNumberComponentInstance.inputNumberComponent.onModelChange('0.999');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(1);
-    });
+
+        fixture.detectChanges();
+        inputNumberComponentInstance.thyPrecision = undefined;
+        inputNumberComponentInstance.modelValue = 0.0000000004;
+        fixture.detectChanges();
+        const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        expect(upElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        dispatchMouseEvent(upElement, 'mouseup');
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(inputElement.value).toBe('1.0000000004');
+        });
+
+        fixture.detectChanges();
+        inputNumberComponentInstance.thyPrecision = undefined;
+        inputNumberComponentInstance.modelValue = 1.2222;
+        fixture.detectChanges();
+        expect(upElement).toBeTruthy();
+        tick();
+        dispatchMouseEvent(upElement, 'mousedown');
+        dispatchMouseEvent(upElement, 'mouseup');
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(inputElement.value).toBe('2.2222');
+        });
+    }));
 
     it('should thyMax and thyMin work', () => {
         fixture.detectChanges();
@@ -295,7 +331,7 @@ describe('input-number component', () => {
 
     it('should key up and down work', fakeAsync(() => {
         fixture.detectChanges();
-        expect(inputNumberComponentInstance.modelValue).toBe(0);
+        expect(inputNumberComponentInstance.modelValue).toBe(undefined);
         flush();
         dispatchKeyboardEvent(inputElement, 'keydown', keycodes.UP_ARROW);
         fixture.detectChanges();
@@ -303,6 +339,18 @@ describe('input-number component', () => {
         dispatchKeyboardEvent(inputElement, 'keydown', keycodes.DOWN_ARROW);
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe(0);
+    }));
+
+    it('should enter work', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.modelValue = '1a';
+        fixture.detectChanges();
+        tick();
+        dispatchKeyboardEvent(inputElement, 'keydown', keycodes.ENTER);
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(inputElement.value).toBe('1');
+        });
     }));
 
     it('should focus method work', () => {

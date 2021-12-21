@@ -176,24 +176,14 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     upStep(value: number): number {
         const precisionFactor = this.getPrecisionFactor(value);
         const precision = this.getMaxPrecision(value);
-        let result;
-        if (isNaN(value)) {
-            result = this.thyMin === -Infinity ? this.thyStep : this.thyMin;
-        } else {
-            result = ((precisionFactor * value + precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
-        }
+        const result = ((precisionFactor * value + precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
         return this.toNumber(result);
     }
 
     downStep(value: number): number {
         const precisionFactor = this.getPrecisionFactor(value);
         const precision = Math.abs(this.getMaxPrecision(value));
-        let result;
-        if (isNaN(value)) {
-            result = this.thyMin === -Infinity ? -this.thyStep : this.thyMin;
-        } else {
-            result = ((precisionFactor * value - precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
-        }
+        const result = ((precisionFactor * value - precisionFactor * this.thyStep) / precisionFactor).toFixed(precision);
         return this.toNumber(result);
     }
 

@@ -60,13 +60,13 @@ module.exports = [
             },
 
             {
-                name: 'focus',
+                name: 'thyFocus',
                 description: '焦点激活事件',
                 type: 'EventEmitter<Event>',
                 default: ''
             },
             {
-                name: 'blur',
+                name: 'thyBlur',
                 description: '焦点失去事件',
                 type: 'EventEmitter<Event>',
                 default: ''

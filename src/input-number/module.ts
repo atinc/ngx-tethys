@@ -5,7 +5,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputNumberComponent } from './input-number.component';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { ThyFormModule } from 'ngx-tethys/form/module';
+import { ThyFormModule } from 'ngx-tethys/form';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyInputModule, ThyFormModule],
