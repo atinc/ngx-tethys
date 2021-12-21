@@ -63,7 +63,6 @@ export class ThyProgressComponent implements ThyParentProgress {
             }
         } else {
             this.value = value;
-            this.calculateRemainingValue();
         }
     }
 
