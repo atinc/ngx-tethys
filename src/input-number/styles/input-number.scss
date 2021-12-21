@@ -1,0 +1,64 @@
+@use "../../styles/variables";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles//bootstrap/mixins/transition";
+
+.thy-input-number {
+    width: 100%;
+    display: block;
+    position: relative;
+    box-sizing: border-box;
+    color: variables.$input-color;
+    background-color: bootstrap-variables.$input-bg;
+    background-clip: padding-box;
+    border-radius: bootstrap-variables.$input-border-radius;
+    @include transition.transition(bootstrap-variables.$input-transition);
+    .input-number-input {
+        padding-right: variables.$input-padding-x + variables.$rem-20px;
+    }
+    .input-number-handler-wrap {
+        width: 22px;
+        height: calc(100% - 2px);
+        position: absolute;
+        right: 1px;
+        top: 1px;
+        box-sizing: border-box;
+        border-left: 1px solid variables.$input-border-color;
+        border-radius: 0 0.25rem 0.25rem 0;
+        cursor: pointer;
+        .input-number-handler {
+            width: 100%;
+            height: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            color: variables.$gray-500;
+            .thy-icon {
+                font-size: variables.$rem-10px;
+            }
+            &:hover:not(.disabled) {
+                color: variables.$primary;
+            }
+            &.disabled {
+                cursor: not-allowed;
+            }
+        }
+        .input-number-handler-up {
+            border-top-right-radius: 0.25rem;
+        }
+        .input-number-handler-down {
+            border-top: 1px solid variables.$input-border-color;
+            border-bottom-right-radius: 0.25rem;
+        }
+    }
+    &:hover {
+        .form-control {
+            &:not([disabled]):not(.disabled):not(.is-invalid) {
+                border-color: variables.$input-hover-border-color;
+            }
+        }
+    }
+    .input-number-disabled {
+        display: none;
+    }
+}

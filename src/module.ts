@@ -66,6 +66,7 @@ import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploaderModule } from 'ngx-tethys/uploader';
 import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -95,6 +96,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyStrengthModule,
     ThyFormModule,
     ThyInputModule,
+    ThyInputNumberModule,
     ThyDropdownModule,
     ThyCopyModule,
     ThyCheckboxModule,
