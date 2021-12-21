@@ -18,6 +18,12 @@ module.exports = [
         description: 'Grid 列表展示模式',
         properties: [
             {
+                name: 'ngModel',
+                description: '默认选择项，选择项可以是对象，也可以是唯一的 ID，一般和 Option 的 thyValue 对应。',
+                type: 'any',
+                default: ''
+            },
+            {
                 name: 'thySize',
                 description: '改变 grid item 的大小。支持默认以及"sm"两种大小。',
                 type: 'string',
@@ -45,12 +51,6 @@ module.exports = [
                 name: 'thySelectionChange',
                 description: '选择 Options 的 Change 事件。',
                 type: 'Function',
-                default: ''
-            },
-            {
-                name: 'ngModel',
-                description: '默认选择项，选择项可以是对象，也可以是唯一的 ID，一般和 Option 的 thyValue 对应。',
-                type: 'any',
                 default: ''
             },
             {

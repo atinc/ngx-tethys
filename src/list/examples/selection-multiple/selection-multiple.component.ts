@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ThySelectionListChange } from 'ngx-tethys';
 
 @Component({
-    selector: 'app-list-selection-example',
-    templateUrl: './selection.component.html'
+    selector: 'app-list-selection-multiple-example',
+    templateUrl: './selection-multiple.component.html'
 })
-export class ThyListSelectionExampleComponent implements OnInit {
+export class ThyListSelectionMultipleExampleComponent implements OnInit {
     public items = [
         {
             id: 1,
@@ -21,12 +21,10 @@ export class ThyListSelectionExampleComponent implements OnInit {
         }
     ];
 
-    public isMultiple = true;
-
     public stopKeyBoardEvent = false;
 
     public selectionModel = {
-        selectedValues: 2
+        selectedValues: [1, 2]
     };
 
     constructor() {}

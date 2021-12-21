@@ -1,4 +1,3 @@
-<h6 class="my-4">当 option item 的值为对象的时候：</h6>
 <thy-selection-list
   [style.width]="'560px'"
   [style.background]="'#fafafa'"
@@ -18,10 +17,6 @@
     <label thyRadioButton thyLabelText="thyUniqueKye: id" thyValue="id"></label>
     <label thyRadioButton thyLabelText="thyUniqueKye: name" thyValue="name"></label>
   </thy-radio-group>
-</p>
-<p>
-  可以看到有两个 grid item 的 <code>name</code> 值是相同的，都是 'Grid Item Same'。如果 <code>thyUniqueKye</code> 的值为 'name'
-  那么选择时会将两个值一同选择。如果 <code>thyUniqueKey</code>的值是 'id' 那么就不会有这样的情况。
 </p>
 <h6 class="my-3">已选择的值：</h6>
 <p>{{ selectionObjectModel | json }}</p>

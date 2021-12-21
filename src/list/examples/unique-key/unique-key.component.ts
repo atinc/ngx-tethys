@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'app-list-grid-object-example',
-    templateUrl: './grid-object.component.html'
+    selector: 'app-list-unique-key-example',
+    templateUrl: './unique-key.component.html'
 })
-export class ThyListGridObjectExampleComponent implements OnInit {
+export class ThyListUniqueKeyExampleComponent implements OnInit {
     public gridUniqueKeyItems = [
         {
             id: 1,
@@ -28,9 +28,9 @@ export class ThyListGridObjectExampleComponent implements OnInit {
         }
     ];
 
-    public gridUniqueKey = 'id';
+    public gridUniqueKey = 'name';
 
-    public selectionObjectModel: any = null;
+    public selectionObjectModel: any = { id: 2, name: 'Grid Item Same' };
 
     constructor() {}
 
