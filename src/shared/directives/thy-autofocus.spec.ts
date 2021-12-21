@@ -17,7 +17,7 @@ class ThyAutofocusTestComponent {
     autoSelect = false;
 }
 
-fdescribe('ThyAutofocusDirective', () => {
+describe('ThyAutofocusDirective', () => {
     let fixture: ComponentFixture<ThyAutofocusTestComponent>;
     let testComponent: ThyAutofocusTestComponent;
     let focusSpy: jasmine.Spy;
