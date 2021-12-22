@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.2"></a>
+## [12.1.2](https://github.com/atinc/ngx-tethys/compare/12.1.1...12.1.2) (2021-12-22)
+
+
+### Bug Fixes
+
+* **progress:** change background and add test and example #INFR-2451 ([#1413](https://github.com/atinc/ngx-tethys/issues/1413)) ([da1718b](https://github.com/atinc/ngx-tethys/commit/da1718b)), closes [#INFR-2451](https://github.com/atinc/ngx-tethys/issues/INFR-2451)
+
+
+### Features
+
+* **collapse:** add collapse and test ([#1400](https://github.com/atinc/ngx-tethys/issues/1400)) ([50b067d](https://github.com/atinc/ngx-tethys/commit/50b067d))
+* **input-number:** add input-number component #INFR-240 ([#1289](https://github.com/atinc/ngx-tethys/issues/1289)) ([6884ff9](https://github.com/atinc/ngx-tethys/commit/6884ff9)), closes [#INFR-240](https://github.com/atinc/ngx-tethys/issues/INFR-240) [#INFR-240](https://github.com/atinc/ngx-tethys/issues/INFR-240)
+
+
+
 <a name="12.1.1"></a>
 ## [12.1.1](https://github.com/atinc/ngx-tethys/compare/12.1.0...12.1.1) (2021-11-25)
 
