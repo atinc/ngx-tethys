@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThyStackedValue } from 'ngx-tethys/progress/interfaces';
 
 @Component({
     selector: 'thy-progress-stacked-example',
@@ -31,6 +32,6 @@ export class ThyProgressStackedExampleComponent {
             label: 'custom color'
         }
     ];
-    maxLessValue: any = [{ value: 0 }, { value: 20 }, { value: 20 }];
-    valueEmpty: any = [{ value: 10 }];
+    maxLessValue: ThyStackedValue[] = [{ value: 0 }, { value: 20 }, { value: 20 }];
+    valueEmpty: ThyStackedValue[] = [{ value: 10 }];
 }
