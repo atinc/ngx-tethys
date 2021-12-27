@@ -556,6 +556,82 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[3].style['background-color']).toEqual(hexToRgb('#7076fa'));
             expect(progressBarElements[4].style['background-color']).toEqual(hexToRgb('#eee'));
         });
+
+        it('should be correct values item value has 0 by custom stacked value has max ', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 0
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                }
+            ];
+            stackedTestComponent.max = 40;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(2);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('50%');
+            expect(progressBarElements[1].style.width).toEqual('50%');
+        });
+
+        it('should be correct values item value has 0 and total greater than max by custom stacked value', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 0
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                }
+            ];
+            stackedTestComponent.max = 30;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(2);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('50%');
+            expect(progressBarElements[1].style.width).toEqual('50%');
+        });
+
+        it('should be correct value with 0 by custom stacked value has max with 0 ', () => {
+            stackedTestComponent.value = [];
+            stackedTestComponent.max = 0;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(1);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('100%');
+        });
     });
 
     describe(`tooltipTemplate`, () => {

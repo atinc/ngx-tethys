@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 export class ThyProgressStackedExampleComponent {
     max = 180;
 
+    maxEmpty = 0;
+
     size = 'md';
 
     value = [
@@ -29,4 +31,6 @@ export class ThyProgressStackedExampleComponent {
             label: 'custom color'
         }
     ];
+    maxLessValue: any = [{ value: 0 }, { value: 20 }, { value: 20 }];
+    valueEmpty: any = [{ value: 10 }];
 }
