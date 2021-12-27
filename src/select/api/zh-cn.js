@@ -80,6 +80,7 @@ module.exports = [
             {
                 name: 'thyFooterClass',
                 description: '自定义Footer模板容器Class',
+                type: 'string',
                 default: 'thy-custom-select-footer'
             },
             {
