@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.3"></a>
+## [12.1.3](https://github.com/atinc/ngx-tethys/compare/12.1.2...12.1.3) (2021-12-27)
+
+
+### Bug Fixes
+
+* **progress:** deal thyMax equal 0 zd/#INFR-2476 ([#1422](https://github.com/atinc/ngx-tethys/issues/1422)) ([2637d96](https://github.com/atinc/ngx-tethys/commit/2637d96)), closes [zd/#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476) [zd/#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476)
+* **shared:** listen event name of ThyStopPropagationDirective must be a string (#IN… ([#1410](https://github.com/atinc/ngx-tethys/issues/1410)) ([8afb7e9](https://github.com/atinc/ngx-tethys/commit/8afb7e9))
+
+
+
 <a name="12.1.2"></a>
 ## [12.1.2](https://github.com/atinc/ngx-tethys/compare/12.1.1...12.1.2) (2021-12-22)
 
