@@ -52,10 +52,13 @@ export class ThyProgressComponent implements ThyParentProgress {
         // 自动求和计算 max
         if (Array.isArray(value)) {
             this.isStacked = true;
-            this.value = [...value];
+            this.value = [...value].filter(item => item.value !== 0);
             this.barsTotalValue = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
+            if (isNaN(this.barsTotalValue)) {
+                this.barsTotalValue = 0;
+            }
             if (this.max > this.barsTotalValue) {
                 this.calculateRemainingValue();
             } else {
@@ -71,9 +74,16 @@ export class ThyProgressComponent implements ThyParentProgress {
     }
 
     @Input() set thyMax(max: number) {
-        this.max = max;
-        if (this.max > this.barsTotalValue) {
-            this.calculateRemainingValue();
+        if (max) {
+            this.max = max;
+        }
+        if (Array.isArray(this.value)) {
+            if (this.max > this.barsTotalValue) {
+                this.calculateRemainingValue();
+            } else {
+                this.max = this.barsTotalValue;
+                this.value = this.value.filter(item => item.type !== 'default');
+            }
         }
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
@@ -90,7 +100,11 @@ export class ThyProgressComponent implements ThyParentProgress {
             if (remainingBar) {
                 remainingBar.value = this.max - this.barsTotalValue;
             } else {
-                this.value.push({ value: this.max - this.barsTotalValue, type: 'default', color: '#eee' });
+                if (this.max - this.barsTotalValue === 100) {
+                    this.value = [{ value: 100, type: 'default', color: '#eee' }];
+                } else {
+                    this.value.push({ value: this.max - this.barsTotalValue, type: 'default', color: '#eee' });
+                }
             }
         }
     }
