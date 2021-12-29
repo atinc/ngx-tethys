@@ -19,17 +19,21 @@ export class ThyProgressBarComponent {
 
     private value: number;
 
+    innerClass: string;
+
+    color: string;
+
     @HostBinding(`class.progress-bar`) isProgressBar = true;
 
     @HostBinding('style.width.%') percent = 0;
 
-    @HostBinding('style.background-color') color = '';
+    // @HostBinding('style.background-color') color = '';
 
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyType(type: ThyProgressTypes) {
         // this.type = type;
-        this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`, `bg-${type}`] : []);
+        this.innerClass = `progress-bar-${type} bg-${type} progress-bar-inner`;
     }
 
     @Input() set thyValue(value: number) {

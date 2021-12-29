@@ -17,8 +17,7 @@
     height: $height;
     .progress-bar {
         overflow: hidden;
-        @include border-radius.border-radius(0 $height $height 0);
-
+        // @include border-radius.border-radius(0 $height $height 0);
         &:before {
             content: '';
             position: absolute;
@@ -41,17 +40,36 @@
     background-color: bootstrap-variables.$progress-bg;
     @include border-radius.border-radius(100px);
     @include set-progress-size(variables.$progress-height);
-    &.progress-stacked {
-        background: variables.$white;
-    }
 }
 
 // 只有 stacked 的时候才会出现 border-right 白色
 // 为了兼容之前的进度条组件，暂时没有去除 progress-bar 的 last-child border-right
 .progress-stacked {
     .progress-bar {
+        @include border-radius.border-radius(0);
         &:last-child {
-            border-right: 1px variables.$progress-split-color solid;
+            @include border-radius.border-radius(0 100px 100px 0);
+            .progress-bar-inner {
+                @include border-radius.border-radius(0 100px 100px 0);
+            }
+        }
+        background: variables.$white;
+        .progress-bar-inner {
+            background-color: variables.$progress-bar-primary-bg;
+            height: 100%;
+            overflow: hidden;
+            @include border-radius.border-radius(0 100px 100px 0);
+        }
+    }
+}
+.progress:not(.progress-stacked) {
+    .progress-bar {
+        &:last-child {
+            .progress-bar-inner {
+                @include border-radius.border-radius(0 100px 100px 0);
+                overflow: hidden;
+                background-color: variables.$progress-bar-primary-bg;
+            }
         }
     }
 }
@@ -75,7 +93,14 @@
     justify-content: center;
     color: bootstrap-variables.$progress-bar-color;
     text-align: center;
-    background-color: variables.$progress-bar-primary-bg;
+    .progress-bar-inner {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        color: bootstrap-variables.$progress-bar-color;
+        text-align: center;
+    }
     @include transition.transition(bootstrap-variables.$progress-bar-transition);
     position: relative;
     &[aria-valuenow='0'] {
@@ -90,7 +115,7 @@
     }
     // 暂时兼容保留
     &:last-child {
-        border-right: 1px variables.$progress-split-color solid;
+        // border-right: 1px variables.$progress-split-color solid;
     }
 }
 

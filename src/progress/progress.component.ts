@@ -56,14 +56,7 @@ export class ThyProgressComponent implements ThyParentProgress {
             this.barsTotalValue = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
-            if (isNaN(this.barsTotalValue)) {
-                this.barsTotalValue = 0;
-            }
-            if (this.max > this.barsTotalValue) {
-                this.calculateRemainingValue();
-            } else {
-                this.max = this.barsTotalValue;
-            }
+            this.thyMax = this.barsTotalValue;
         } else {
             this.value = value;
         }
@@ -74,17 +67,10 @@ export class ThyProgressComponent implements ThyParentProgress {
     }
 
     @Input() set thyMax(max: number) {
-        if (max) {
-            this.max = max;
+        if (max < this.barsTotalValue) {
+            max = this.barsTotalValue;
         }
-        if (Array.isArray(this.value)) {
-            if (this.max > this.barsTotalValue) {
-                this.calculateRemainingValue();
-            } else {
-                this.max = this.barsTotalValue;
-                this.value = this.value.filter(item => item.type !== 'default');
-            }
-        }
+        this.max = max;
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
@@ -92,20 +78,5 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
-    }
-
-    calculateRemainingValue() {
-        if (Array.isArray(this.value)) {
-            const remainingBar = this.value.find(value => value.type === 'default');
-            if (remainingBar) {
-                remainingBar.value = this.max - this.barsTotalValue;
-            } else {
-                if (this.max - this.barsTotalValue === 100) {
-                    this.value = [{ value: 100, type: 'default', color: '#eee' }];
-                } else {
-                    this.value.push({ value: this.max - this.barsTotalValue, type: 'default', color: '#eee' });
-                }
-            }
-        }
     }
 }
