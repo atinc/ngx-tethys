@@ -1,5 +1,3 @@
-import { NgxTethysModule } from 'ngx-tethys';
-
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
