@@ -5,8 +5,8 @@ module.exports = [
         properties: [
             {
                 name: 'thyMention',
-                description: `大小，xs | sm | md | lg`,
-                type: 'Mention',
+                description: `提及输入配置参数，同时配置多个提及规则`,
+                type: 'Mention[]',
                 default: ''
             },
             {
@@ -24,7 +24,7 @@ module.exports = [
         ]
     },
     {
-        type: 'class',
+        type: 'interface',
         name: 'Mention 参数',
         properties: [
             {
