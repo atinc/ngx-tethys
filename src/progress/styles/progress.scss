@@ -97,6 +97,7 @@
         flex-direction: column;
         justify-content: center;
         color: bootstrap-variables.$progress-bar-color;
+        background-color: variables.$progress-bar-primary-bg;
         text-align: center;
     }
     @include transition.transition(bootstrap-variables.$progress-bar-transition);
@@ -126,8 +127,10 @@ $progress-types: (
     info: variables.$info
 );
 @each $name, $color in $progress-types {
-    .progress-bar-inner-#{$name} {
-        background: $color;
+    .progress-bar-#{$name} {
+        .progress-bar-inner {
+            background: $color;
+        }
     }
 }
 

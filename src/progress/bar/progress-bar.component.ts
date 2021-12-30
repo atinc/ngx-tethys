@@ -34,7 +34,6 @@ export class ThyProgressBarComponent {
     @Input() set thyType(type: ThyProgressTypes) {
         // this.type = type;
         this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`] : []);
-        this.innerClass = type ? `progress-bar-inner-${type}` : 'progress-bar-inner-primary';
     }
 
     @Input() set thyValue(value: number) {
