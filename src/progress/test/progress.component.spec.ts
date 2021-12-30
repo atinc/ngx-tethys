@@ -200,8 +200,7 @@ describe(`ThyProgressComponent`, () => {
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarInnerElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
-            expect(progressBarInnerElement.classList.contains(`bg-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarInnerElement.classList.contains(`progress-bar-inner-${basicTestComponent.type}`)).toBe(true);
 
             basicTestComponent.type = 'warning';
             fixture.detectChanges();
@@ -209,8 +208,7 @@ describe(`ThyProgressComponent`, () => {
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarInnerElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
-            expect(progressBarInnerElement.classList.contains(`bg-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarInnerElement.classList.contains(`progress-bar-inner-${basicTestComponent.type}`)).toBe(true);
         });
 
         it('should be correct class when input size is sm', () => {

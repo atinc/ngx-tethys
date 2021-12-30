@@ -28,7 +28,6 @@ export class ThyProgressStackedExampleComponent {
         {
             type: 'info',
             value: 30,
-            color: '#7076fa',
             label: 'custom color'
         },
         {

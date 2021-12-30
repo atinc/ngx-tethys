@@ -55,7 +55,6 @@
         }
         background: variables.$white;
         .progress-bar-inner {
-            background-color: variables.$progress-bar-primary-bg;
             height: 100%;
             overflow: hidden;
             @include border-radius.border-radius(0 100px 100px 0);
@@ -68,7 +67,6 @@
             .progress-bar-inner {
                 @include border-radius.border-radius(0 100px 100px 0);
                 overflow: hidden;
-                background-color: variables.$progress-bar-primary-bg;
             }
         }
     }
@@ -123,12 +121,12 @@ $progress-types: (
     primary: variables.$progress-bar-primary-bg,
     success: variables.$success,
     warning: variables.$warning,
-    danger: variables.$warning,
+    danger: variables.$danger,
     default: variables.$gray-200,
     info: variables.$info
 );
 @each $name, $color in $progress-types {
-    .progress-bar-#{$name} {
+    .progress-bar-inner-#{$name} {
         background: $color;
     }
 }
