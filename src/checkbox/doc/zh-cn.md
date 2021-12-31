@@ -3,7 +3,6 @@ category: form
 title: Checkbox
 subtitle: 多选框
 order: 1
-label: lack-doc
 ---
 
 <alert>多选框。</alert>
@@ -14,4 +13,8 @@ import { ThyCheckboxModule } from "ngx-tethys/checkbox";
 ```
 
 ## 基本使用
-<example name="thy-checkbox-basic-example" />  
+```html
+<label thyCheckbox thyLabelText="Checkbox"></label>
+```
+显示效果：
+<example inline name="thy-checkbox-basic-example" />  

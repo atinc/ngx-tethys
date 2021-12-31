@@ -5,6 +5,8 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyCheckboxBasicExampleComponent implements OnInit {
+    checked = false;
+
     constructor() {}
 
     ngOnInit() {}
