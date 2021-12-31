@@ -1,11 +1,16 @@
 import { TemplateRef } from '@angular/core';
 
-export type ThyProgressTypes = 'primary' | 'success' | 'info' | 'warning' | 'danger';
+export type ThyProgressType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
-export interface ThyStackedValue {
+export interface ThyProgressStackedValue {
     value: number;
-    type?: string;
+    type?: ThyProgressType;
     color?: string;
     label?: string;
-    tips?: string | TemplateRef<HTMLElement>;
+    tips?: string | TemplateRef<unknown>;
 }
+
+/**
+ * @deprecated please use ThyProgressStackedValue
+ */
+export type ThyStackedValue = ThyProgressStackedValue;
