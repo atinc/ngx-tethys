@@ -2,7 +2,6 @@
 category: form
 title: Radio
 subtitle: 单选框
-order: 1
 ---
 
 <alert>单选框。</alert>

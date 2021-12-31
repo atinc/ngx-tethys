@@ -6,13 +6,13 @@ module.exports = [
         properties: [
             {
                 name: 'thyType',
-                description: `类型，目前分为：'primary' |'info' | 'warning' | 'danger'`,
+                description: `类型，目前分为: 'primary' |'info' | 'warning' | 'danger'`,
                 type: 'string',
                 default: 'primary'
             },
             {
                 name: 'thySize',
-                description: `大小，目前可传的大小为： 'sm' | 'lg'，默认不传`,
+                description: `大小，目前可传的大小为: 'sm' | 'lg'，默认不传`,
                 type: 'string',
                 default: '-'
             },
@@ -31,7 +31,7 @@ module.exports = [
             {
                 name: '(ngModelChange)',
                 description: '开关状态发生改变的回调',
-                type: 'function',
+                type: 'EventEmitter',
                 default: ''
             }
         ]

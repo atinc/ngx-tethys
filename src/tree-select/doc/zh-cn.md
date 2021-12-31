@@ -2,7 +2,6 @@
 category: form
 title: TreeSelect
 subtitle: 树选择
-order: 1
 ---
 
 选择弹出框中数据结构是树结构的组件，获取数据支持异步获取，支持单选和多选。

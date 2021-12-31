@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './inline.component.html'
 })
 export class ThyCheckboxInlineExampleComponent implements OnInit {
-    public inlineStatus = false;
+    public inlineStatus = true;
 
     constructor() {}
 
