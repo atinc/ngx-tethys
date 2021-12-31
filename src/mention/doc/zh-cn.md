@@ -16,7 +16,7 @@ import { ThyMentionModule } from "ngx-tethys/mention";
 ```
 
 ## 如何使用
-提及组件一般需要与`input`或者`textarea`配置使用，且同一个输入框可以配置多个提及规则，提及指令必须要传入`Mention[]`，且每一个`Mention`需要传入数据源`data`和触发器`trigger`（触发器就是输入的触发弹选择框字符，可以是`@`、`#`、`/`）
+提及组件一般需要与`input`或者`textarea`配合使用，且同一个输入框可以配置多个提及规则，提及指令必须要传入`Mention[]`，且每一个`Mention`需要传入数据源`data`和触发器`trigger`（触发器就是输入的触发弹选择框字符，可以是`@`、`#`、`/`）
 
 ```html
 <input

@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-progress-template',
-    templateUrl: './template.component.html'
+    selector: 'thy-progress-tips',
+    templateUrl: './tips.component.html'
 })
-export class ThyProgressTemplateExampleComponent implements OnInit {
+export class ThyProgressTipsExampleComponent implements OnInit {
     stacked = [
         {
             value: 62,
@@ -21,10 +21,6 @@ export class ThyProgressTemplateExampleComponent implements OnInit {
         {
             value: 72,
             color: '#2cccda'
-        },
-        {
-            value: 66,
-            color: '#66c060'
         }
     ];
 
