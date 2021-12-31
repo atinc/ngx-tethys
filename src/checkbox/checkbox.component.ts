@@ -2,10 +2,7 @@ import { Component, forwardRef, HostBinding, HostListener, Input, ElementRef } f
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
-
-const noop = () => {};
 
 @Component({
     selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
@@ -21,6 +18,10 @@ const noop = () => {};
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
     isIndeterminate = false;
 
+    /**
+     * 设置 indeterminate 状态，只负责样式控制
+     * @description-en-us Set the indeterminate state, responsible only for style control
+     */
     @Input()
     set thyIndeterminate(value: boolean) {
         this.isIndeterminate = coerceBooleanProperty(value);
