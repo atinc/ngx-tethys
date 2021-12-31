@@ -2,7 +2,6 @@
 category: form
 title: Input
 subtitle: 输入框
-order: 1
 ---
 
 <alert>通过鼠标或键盘输入字符。</alert>
