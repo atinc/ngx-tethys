@@ -17,17 +17,13 @@
     height: $height;
     .progress-bar {
         overflow: hidden;
-        @include border-radius.border-radius(0 $height $height 0);
-
         &:before {
-            content: '';
-            position: absolute;
-            z-index: 1;
             left: -$height * 2 + 3;
-            display: block;
             width: $height * 2;
             height: $height * 2;
-            background: variables.$progress-split-color;
+            @include border-radius.border-radius(0 $height * 2 $height * 2 0);
+        }
+        &:last-child {
             @include border-radius.border-radius(0 $height * 2 $height * 2 0);
         }
     }
@@ -41,17 +37,17 @@
     background-color: bootstrap-variables.$progress-bg;
     @include border-radius.border-radius(100px);
     @include set-progress-size(variables.$progress-height);
-    &.progress-stacked {
-        background: variables.$white;
-    }
 }
 
-// 只有 stacked 的时候才会出现 border-right 白色
-// 为了兼容之前的进度条组件，暂时没有去除 progress-bar 的 last-child border-right
 .progress-stacked {
     .progress-bar {
+        background-color: variables.$progress-split-color;
+        @include border-radius.border-radius(0);
         &:last-child {
             border-right: 1px variables.$progress-split-color solid;
+        }
+        .progress-bar-inner {
+            @include border-radius.border-radius(0 100px 100px 0);
         }
     }
 }
@@ -75,7 +71,6 @@
     justify-content: center;
     color: bootstrap-variables.$progress-bar-color;
     text-align: center;
-    background-color: variables.$progress-bar-primary-bg;
     @include transition.transition(bootstrap-variables.$progress-bar-transition);
     position: relative;
     &[aria-valuenow='0'] {
@@ -88,9 +83,30 @@
             display: none;
         }
     }
-    // 暂时兼容保留
+
     &:last-child {
-        border-right: 1px variables.$progress-split-color solid;
+        .progress-bar-inner {
+            border-right: 1px variables.$progress-split-color solid;
+            @include border-radius.border-radius(0 100px 100px 0);
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        display: block;
+        background: variables.$progress-split-color;
+    }
+
+    .progress-bar-inner {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        color: bootstrap-variables.$progress-bar-color;
+        background-color: variables.$progress-bar-primary-bg;
+        text-align: center;
     }
 }
 
@@ -98,13 +114,16 @@ $progress-types: (
     primary: variables.$progress-bar-primary-bg,
     success: variables.$success,
     warning: variables.$warning,
-    danger: variables.$warning,
+    danger: variables.$danger,
     default: variables.$gray-200,
     info: variables.$info
 );
+
 @each $name, $color in $progress-types {
     .progress-bar-#{$name} {
-        background: $color;
+        .progress-bar-inner {
+            background: $color;
+        }
     }
 }
 
