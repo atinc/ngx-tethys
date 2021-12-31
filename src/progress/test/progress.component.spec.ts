@@ -6,7 +6,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThyProgressComponent } from '../progress.component';
 import { ThyProgressBarComponent } from '../bar/progress-bar.component';
-import { ThyProgressTypes, ThyStackedValue } from '../interfaces';
+import { ThyProgressType, ThyProgressStackedValue } from '../interfaces';
 import { hexToRgb } from '../../util/helpers';
 import { ThyTooltipModule, ThyTooltipDirective } from '../../tooltip';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -32,7 +32,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type: ThyProgressTypes;
+    type: ThyProgressType;
     size: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
@@ -48,7 +48,7 @@ class ThyDemoProgressBasicComponent {
     `
 })
 class ThyDemoProgressStackedComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
@@ -73,7 +73,7 @@ class ThyDemoProgressStackedComponent {
     `
 })
 class ThyDemoProgressStackedMaxComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
@@ -100,7 +100,7 @@ class ThyDemoProgressStackedMaxComponent {
     `
 })
 class ThyDemoProgressTooltipTemplateComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
