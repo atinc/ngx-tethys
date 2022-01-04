@@ -135,10 +135,11 @@ describe('ThyTestDateRangeComponent', () => {
             const rightCell = getFirstCell('right');
             const rightHeaderText = rightHeader.textContent.trim();
             dispatchClickEvent(rightCell);
-            const currentMoth = getMonth(new Date());
-            const currentYear = getYear(new Date());
-            expect(leftHeaderText).toEqual(`${currentYear}年  ${currentMoth - 1}月`);
-            expect(rightHeaderText).toEqual(`${currentYear}年  ${currentMoth + 1}月`);
+            const leftDate = addMonths(new Date(), -1);
+            const rightDate = addMonths(new Date(), 1);
+
+            expect(leftHeaderText).toEqual(`${getYear(leftDate)}年  ${getMonth(leftDate)}月`);
+            expect(rightHeaderText).toEqual(`${getYear(rightDate)}年  ${getMonth(rightDate)}月`);
         }));
     });
 
