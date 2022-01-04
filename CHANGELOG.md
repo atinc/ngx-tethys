@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.4"></a>
+## [12.1.4](https://github.com/atinc/ngx-tethys/compare/12.1.3...12.1.4) (2022-01-04)
+
+
+### Bug Fixes
+
+* **progress:** set background to inner element and refactor styles #INFR-2476 ([#1426](https://github.com/atinc/ngx-tethys/issues/1426)) ([2023485](https://github.com/atinc/ngx-tethys/commit/2023485)), closes [#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476)
+
+
+
 <a name="12.1.3"></a>
 ## [12.1.3](https://github.com/atinc/ngx-tethys/compare/12.1.2...12.1.3) (2021-12-27)
 
