@@ -1,4 +1,16 @@
-import { Component, Input, Output, EventEmitter, OnInit, forwardRef, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    OnInit,
+    forwardRef,
+    ElementRef,
+    ViewChild,
+    OnChanges,
+    SimpleChanges,
+    ChangeDetectorRef
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
 
@@ -73,7 +85,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor() {}
+    constructor(public cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.setClassNames();
@@ -95,6 +107,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     writeValue(value: boolean) {
         this.model = value;
+        this.cdr.markForCheck();
         // this.setClassNames();
     }
 
