@@ -9,7 +9,8 @@ import {
     ViewChild,
     OnChanges,
     SimpleChanges,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
@@ -17,6 +18,7 @@ import { helpers } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
