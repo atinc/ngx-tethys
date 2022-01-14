@@ -164,6 +164,9 @@
     .thy-tree-node {
         &-wrapper {
             height: variables.$tree-node-wrapper-height-sm;
+            .thy-tree-node-content {
+                height: variables.$tree-node-wrapper-height-sm;
+            }
         }
     }
 }
