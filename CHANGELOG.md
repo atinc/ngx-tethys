@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.5"></a>
+## [12.1.5](https://github.com/atinc/ngx-tethys/compare/12.1.4...12.1.5) (2022-01-14)
+
+
+### Bug Fixes
+
+* **switch:** add check when writeValue #WIK-5638 ([294f5c7](https://github.com/atinc/ngx-tethys/commit/294f5c7)), closes [#WIK-5638](https://github.com/atinc/ngx-tethys/issues/WIK-5638)
+* **tree:** fix sm size drag style #INFR-2530 ([#1439](https://github.com/atinc/ngx-tethys/issues/1439)) ([e786bab](https://github.com/atinc/ngx-tethys/commit/e786bab)), closes [#INFR-2530](https://github.com/atinc/ngx-tethys/issues/INFR-2530)
+
+
+### Features
+
+* **switch:** use onPush ChangeDetectionStrategy #WIK-5638 ([#1435](https://github.com/atinc/ngx-tethys/issues/1435)) ([4d36769](https://github.com/atinc/ngx-tethys/commit/4d36769)), closes [#WIK-5638](https://github.com/atinc/ngx-tethys/issues/WIK-5638)
+
+
+
 <a name="12.1.4"></a>
 ## [12.1.4](https://github.com/atinc/ngx-tethys/compare/12.1.3...12.1.4) (2022-01-04)
 
