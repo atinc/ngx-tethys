@@ -1,3 +1,6 @@
+/**
+ * @type {import('@docgeni/core').DocgeniConfig}
+ */
 module.exports = {
     mode: 'full',
     title: 'TETHYS',
@@ -37,7 +40,8 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
-            exclude: [],
+            exclude: ['shared', 'core', 'time-picker'],
+            apiMode: 'compatible',
             categories: [
                 {
                     id: 'general',

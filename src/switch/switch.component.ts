@@ -1,10 +1,24 @@
-import { Component, Input, Output, EventEmitter, OnInit, forwardRef, ElementRef, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    Input,
+    Output,
+    EventEmitter,
+    OnInit,
+    forwardRef,
+    ElementRef,
+    ViewChild,
+    OnChanges,
+    SimpleChanges,
+    ChangeDetectorRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -32,6 +46,9 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     @ViewChild('switch', { static: true }) switchElementRef: ElementRef;
 
+    /**
+     * 类型，目前分为: 'primary' |'info' | 'warning' | 'danger'
+     */
     @Input()
     set thyType(value: string) {
         if (!this.typeArray.includes(value)) {
@@ -43,6 +60,10 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         }
     }
 
+    /**
+     * 大小，分别: 'sm' | 'lg' | 'md'
+     * @default md
+     */
     @Input()
     set thySize(value: string) {
         if (!this.sizeArray.includes(value)) {
@@ -54,11 +75,19 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         }
     }
 
-    @Input() thyDisabled: boolean;
+    /**
+     * 是否属于禁用状态
+     * @default false
+     */
+    @Input() thyDisabled: boolean = false;
 
+    /**
+     * 数据变化的回调事件，即将被弃用，请使用 ngModelChange
+     * @deprecated
+     */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor() {}
+    constructor(public cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.setClassNames();
@@ -80,6 +109,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     writeValue(value: boolean) {
         this.model = value;
+        this.cdr.markForCheck();
         // this.setClassNames();
     }
 

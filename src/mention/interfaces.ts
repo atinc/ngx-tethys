@@ -5,7 +5,7 @@ export interface MentionDefaultDataItem {
     name?: string;
 }
 
-export interface Mention<T = any> {
+export interface Mention<T = unknown> {
     trigger: string;
     data: T[];
     limit?: number;

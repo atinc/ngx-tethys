@@ -2,7 +2,6 @@
 category: form
 title: DateRange
 subtitle: 时间区间
-order: 1
 ---
 
 <alert>预设及自定义时间区间选择组件。</alert>

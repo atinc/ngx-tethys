@@ -5,22 +5,26 @@ import { FormsModule } from '@angular/forms';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyListBasicExampleComponent } from './basic/basic.component';
 import { ThyListSortExampleComponent } from './sort/sort.component';
-import { ThyListGridExampleComponent } from './grid/grid.component';
 import { ThyListItemMetaExampleComponent } from './item-meta/item-meta.component';
-import { ThyListGridObjectExampleComponent } from './grid-object/grid-object.component';
+import { ThyListUniqueKeyExampleComponent } from './unique-key/unique-key.component';
 import { ThyListDividedExampleComponent } from './divided/divided.component';
 import { ThyListSelectionExampleComponent } from './selection/selection.component';
 import { ThyListOperateExampleComponent } from './operate/operate.component';
+import { ThyListSelectionMultipleExampleComponent } from './selection-multiple/selection-multiple.component';
+import { ThyListLayoutExampleComponent } from './layout/layout.component';
+import { ThyListSizeExampleComponent } from './size/size.component';
 
 const COMPONENTS = [
     ThyListBasicExampleComponent,
     ThyListDividedExampleComponent,
     ThyListSortExampleComponent,
     ThyListSelectionExampleComponent,
-    ThyListGridExampleComponent,
+    ThyListSelectionMultipleExampleComponent,
     ThyListItemMetaExampleComponent,
-    ThyListGridObjectExampleComponent,
-    ThyListOperateExampleComponent
+    ThyListUniqueKeyExampleComponent,
+    ThyListOperateExampleComponent,
+    ThyListLayoutExampleComponent,
+    ThyListSizeExampleComponent
 ];
 
 @NgModule({

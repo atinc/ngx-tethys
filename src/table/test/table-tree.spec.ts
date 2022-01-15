@@ -1,9 +1,11 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
-import { ThyTableModule } from '../table.module';
-import { NgModule, Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ThyTableComponent } from '../table.component';
 import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
+
+import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { ThyTableComponent } from '../table.component';
+import { ThyTableModule } from '../table.module';
 
 @Component({
     selector: 'thy-demo-table-tree',
@@ -114,7 +116,7 @@ class ThyDemoTableTreeComponent {
 })
 export class TableTreeTestModule {}
 
-describe('ThyTable', () => {
+describe('ThyTable: tree', () => {
     let fixture: ComponentFixture<ThyDemoTableTreeComponent>;
     let testComponent: ThyDemoTableTreeComponent;
     let tableComponent;

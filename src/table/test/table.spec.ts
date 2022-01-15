@@ -1,7 +1,9 @@
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 
 import { ThyTableComponent } from '../table.component';
 import { ThyTableModule } from '../table.module';
@@ -27,17 +29,22 @@ const SizeMap = {
             [thyLoadingDone]="isLoadingDone"
             [thyLoadingText]="loadingText"
             [thyShowHeader]="isShowHeader"
-            (thyOnRowClick)="onRowClick($event, row)"
-            (thyOnMultiSelectChange)="onMultiSelectChange($event, row)"
+            (thyOnRowClick)="onRowClick($event)"
+            (thyOnMultiSelectChange)="onMultiSelectChange($event)"
+            (thyOnRadioSelectChange)="onRadioSelectChange($event)"
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
             (thyOnPageChange)="onPageChange($event)"
+            (thyOnPageIndexChange)="onPageIndexChange($event)"
             (thyOnSwitchChange)="onSwitchChange($event)"
-            (thyOnRowContextMenu)="onContextMenu($event)"
+            (thyOnRowContextMenu)="onRowContextMenu($event)"
+            (thyOnDraggableChange)="onDraggableChange($event)"
+            [thyEmptyOptions]="emptyOptions"
+            #table
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
-            <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
+            <thy-table-column thyModelKey="selected" [thyType]="isCheckbox ? 'checkbox' : 'radio'" [thySelections]="selections">
                 <ng-template #header>
                     <span class="text-primary"
                         >选择<a href="javascript:;"><i class="wtf wtf-angle-down"></i></a
@@ -47,7 +54,7 @@ const SizeMap = {
             <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
             <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
             <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
-            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
+            <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
             <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
@@ -61,6 +68,10 @@ const SizeMap = {
     `
 })
 class ThyDemoDefaultTableComponent {
+    @ViewChild('table') table: ThyTableComponent;
+
+    isCheckbox = true;
+
     groups = [
         {
             id: '11',
@@ -139,22 +150,35 @@ class ThyDemoDefaultTableComponent {
 
     mode = 'list';
 
+    emptyOptions = { message: '空' };
+
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
-    onRowClick() {
+    onRowClick(event: any) {
         return 'onRowClick is ok';
     }
+
     onMultiSelectChange() {
         return 'onMultiSelectChange is ok';
     }
+
+    onRadioSelectChange() {}
+
     onPageChange() {
         return 'onPageChange is ok';
     }
+
+    onPageIndexChange() {}
+
     onSwitchChange() {
         return 'onSwitchChange is ok';
     }
+
     onRowContextMenu() {
         return 'onRowContextMenu is ok';
+    }
+    onDraggableChange() {
+        console.log('drop');
     }
 }
 
@@ -165,12 +189,12 @@ class ThyDemoDefaultTableComponent {
 })
 export class TableTestModule {}
 
-describe('ThyTable', () => {
+describe('ThyTable: basic', () => {
     let fixture: ComponentFixture<ThyDemoDefaultTableComponent>;
     let testComponent: ThyDemoDefaultTableComponent;
-    let tableComponent;
-    let table;
-    let rows;
+    let tableComponent: any;
+    let table: HTMLElement;
+    let rows: any;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -207,6 +231,13 @@ describe('ThyTable', () => {
 
         const paginationComponent = tableComponent.nativeElement.querySelector('thy-pagination');
         expect(paginationComponent).toBeTruthy();
+    });
+
+    it('should display emptyOptions msg when model is [] and has thyEmptyOptions', () => {
+        testComponent.model = [];
+        fixture.detectChanges();
+        const empty = tableComponent.nativeElement.querySelector('.thy-empty-text');
+        expect(empty.innerText).toBe(testComponent.emptyOptions.message);
     });
 
     it('should th "姓名" when thyTitle is "姓名"', () => {
@@ -417,25 +448,122 @@ describe('ThyTable', () => {
         expect(groups).toBeTruthy();
     });
 
-    it('#onRowClick() should set #message to "onRowClick is ok"', () => {
-        expect(testComponent.onRowClick()).toMatch('onRowClick is ok');
+    it('should call thyOnRowClick when click tr', fakeAsync(() => {
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const rowClickSpy = spyOn(testComponent, 'onRowClick');
+        const event = dispatchFakeEvent(rows[1], 'click', true);
+        fixture.detectChanges();
+        tick(1000);
+        fixture.detectChanges();
+        expect(rowClickSpy).toHaveBeenCalled();
+        expect(rowClickSpy).toHaveBeenCalledWith({ event: event, row: testComponent.model[0] });
+    }));
+
+    it('should call thyOnMultiSelectChange when click tr and thyWholeRowSelect is true', fakeAsync(() => {
+        testComponent.isCheckbox = true;
+        testComponent.isRowSelect = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const multiSelectSpy = spyOn(testComponent, 'onMultiSelectChange');
+        const event = dispatchFakeEvent(rows[1], 'click', true);
+        fixture.detectChanges();
+        tick(1000);
+        fixture.detectChanges();
+        expect(multiSelectSpy).toHaveBeenCalled();
+        expect(multiSelectSpy).toHaveBeenCalledWith({ event: event, row: testComponent.model[0], rows: [testComponent.model[0]] });
+    }));
+
+    it('should call thyOnMultiSelectChange when click checkbox', fakeAsync(() => {
+        testComponent.isCheckbox = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const column = rows[1].querySelector('input');
+        const multiSelectSpy = spyOn(testComponent, 'onMultiSelectChange');
+        column.click();
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(multiSelectSpy).toHaveBeenCalled();
+    }));
+
+    it('should call thyOnRadioSelectChange when click tr and thyWholeRowSelect is true', fakeAsync(() => {
+        testComponent.isCheckbox = false;
+        testComponent.isRowSelect = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const multiSelectSpy = spyOn(testComponent, 'onRadioSelectChange');
+        const event = dispatchFakeEvent(rows[1], 'click', true);
+        fixture.detectChanges();
+        tick(1000);
+        fixture.detectChanges();
+        expect(multiSelectSpy).toHaveBeenCalled();
+        expect(multiSelectSpy).toHaveBeenCalledWith({ event: event, row: testComponent.model[0] });
+    }));
+
+    it('should call onPageChange when call table onPageChange', () => {
+        fixture.detectChanges();
+        const pageChangeSpy = spyOn(testComponent, 'onPageChange');
+        const event = {
+            itemsPerPage: 10,
+            page: 1
+        };
+        testComponent.table.onPageChange(event);
+        expect(pageChangeSpy).toHaveBeenCalled();
+        expect(pageChangeSpy).toHaveBeenCalledWith(event);
     });
 
-    it('#onMultiSelectChange() should set #message to "onMultiSelectChange is ok"', () => {
-        expect(testComponent.onMultiSelectChange()).toMatch('onMultiSelectChange is ok');
+    it('should call onPageIndexChange when call table onPageIndexChange', () => {
+        fixture.detectChanges();
+        const pageIndexChangeSpy = spyOn(testComponent, 'onPageIndexChange');
+        const event = 1;
+        testComponent.table.onPageIndexChange(event);
+        expect(pageIndexChangeSpy).toHaveBeenCalled();
+        expect(pageIndexChangeSpy).toHaveBeenCalledWith(event);
     });
 
-    it('#onPageChange() should set #message to "onPageChange is ok"', () => {
-        expect(testComponent.onPageChange()).toMatch('onPageChange is ok');
-    });
+    it('should call onSwitchChange when change switch', fakeAsync(() => {
+        fixture.detectChanges();
+        const switchComponent: DebugElement = (tableComponent as DebugElement).query(By.directive(ThySwitchComponent));
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const switchChangeSpy = spyOn(testComponent, 'onSwitchChange');
+        (switchComponent.componentInstance as ThySwitchComponent).toggle({} as Event);
+        fixture.detectChanges();
+        tick(1000);
+        fixture.detectChanges();
+        expect(switchChangeSpy).toHaveBeenCalled();
+    }));
 
-    it('#onSwitchChange() should set #message to "onSwitchChange is ok"', () => {
-        expect(testComponent.onSwitchChange()).toMatch('onSwitchChange is ok');
-    });
+    it('should call thyOnRowContextMenu when contextmenu', fakeAsync(() => {
+        fixture.detectChanges();
+        const contextmenuSpy = spyOn(testComponent, 'onRowContextMenu');
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const event = dispatchFakeEvent(rows[1], 'contextmenu');
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(contextmenuSpy).toHaveBeenCalled();
+        expect(contextmenuSpy).toHaveBeenCalledWith({ event: event, row: testComponent.model[0] });
+    }));
 
-    it('#onRowContextMenu() should set #message to "onRowContextMenu is ok"', () => {
-        expect(testComponent.onRowContextMenu()).toMatch('onRowContextMenu is ok');
-    });
+    it('should add class thy-table-drag-preview when start drag', fakeAsync(() => {
+        testComponent.isDraggable = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const spy = spyOn(testComponent, 'onDraggableChange');
+
+        dispatchMouseEvent(rows[1], 'mousedown', 0, 50);
+        fixture.detectChanges();
+
+        dispatchMouseEvent(rows[1], 'mousemove', 50, 50);
+        fixture.detectChanges();
+
+        dispatchMouseEvent(rows[1], 'mouseup', 50, 50);
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(spy).toHaveBeenCalled();
+    }));
 });
 
 // table group mode test
@@ -451,6 +579,8 @@ describe('ThyTable', () => {
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
+            [thyDraggable]="draggable"
+            #table
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
             <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
@@ -469,6 +599,8 @@ describe('ThyTable', () => {
     `
 })
 class ThyDemoGroupTableComponent {
+    @ViewChild('table') innerTable: ThyTableComponent;
+
     groups = [
         {
             id: '11',
@@ -534,9 +666,11 @@ class ThyDemoGroupTableComponent {
         size: 3,
         total: 6
     };
+
+    draggable = false;
 }
 
-describe('ThyTable', () => {
+describe('ThyTable: group', () => {
     let fixture: ComponentFixture<ThyDemoGroupTableComponent>;
     let testComponent: ThyDemoGroupTableComponent;
     let tableComponent: DebugElement;
@@ -590,10 +724,17 @@ describe('ThyTable', () => {
         rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(rows.length).toBe(9);
     }));
+
+    it('should throw error when thyDraggable is true', () => {
+        expect(() => {
+            testComponent.draggable = true;
+            fixture.detectChanges();
+        }).toThrowError('Only list mode sorting is supported');
+    });
 });
 
 @Component({
-    selector: 'thy-demo-default-table',
+    selector: 'thy-demo-empty-table',
     template: `
         <thy-table
             [thyModel]="model"
@@ -688,7 +829,7 @@ class ThyDemoEmptyTableComponent {
         return 'onRowContextMenu is ok';
     }
 }
-describe('ThyTable', () => {
+describe('ThyTable: empty', () => {
     let fixture: ComponentFixture<ThyDemoEmptyTableComponent>;
     let testComponent: ThyDemoEmptyTableComponent;
     let tableComponent: DebugElement;
@@ -711,7 +852,7 @@ describe('ThyTable', () => {
         expect(tableComponent).toBeTruthy();
     });
 
-    it('should have custom empty template when model is [] and has empty', () => {
+    it('should display custom empty template when model is [] and has empty', () => {
         testComponent.model = [];
         fixture.detectChanges();
         const defaultEmptyComponent = tableComponent.nativeElement.querySelector('thy-empty');

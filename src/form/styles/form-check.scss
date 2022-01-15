@@ -9,6 +9,8 @@
     position: relative;
     display: block;
     padding-left: 1.25rem;
+    font-size: variables.$font-size-base;
+    line-height: variables.$line-height-base;
     &:last-of-type {
         margin-bottom: 0;
     }

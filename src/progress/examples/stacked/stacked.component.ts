@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
+import { ThyProgressStackedValue } from 'ngx-tethys/progress/interfaces';
 
 @Component({
     selector: 'thy-progress-stacked-example',
     templateUrl: './stacked.component.html'
 })
 export class ThyProgressStackedExampleComponent {
-    max = 100;
+    max = 90;
 
-    size = 'md';
+    maxEmpty = 0;
 
     value = [
         {
@@ -24,9 +25,17 @@ export class ThyProgressStackedExampleComponent {
         },
         {
             type: 'info',
+            value: 30
+        },
+        {
             value: 30,
-            color: '#7076fa',
-            label: 'custom color'
+            color: '#2cccda'
+        },
+        {
+            value: 10,
+            color: '#ddd'
         }
     ];
+    maxLessValue: ThyProgressStackedValue[] = [{ value: 0 }, { value: 20 }, { value: 20 }];
+    valueEmpty: ThyProgressStackedValue[] = [{ value: 0 }];
 }

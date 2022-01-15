@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, Input, TemplateRef, ContentChild } from '@angular/core';
+import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 
 type ThyResultStatus = 'success' | 'warning' | 'error';
 

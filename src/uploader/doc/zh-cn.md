@@ -2,7 +2,6 @@
 category: form
 title: Uploader
 subtitle: 上传
-order: 7
 ---
 
 <alert>文件选择上传和拖拽上传控件。</alert>
