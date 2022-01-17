@@ -17,6 +17,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
                 [(ngModel)]="value"
                 [thyType]="type"
                 [thyColor]="color"
+                [thySize]="size"
                 (thyAfterChange)="afterChange($event)"
             ></thy-slider>
         </div>
@@ -39,6 +40,7 @@ class ThyTestSliderComponent {
     vertical = false;
     type = '';
     color = '';
+    size = 'sm';
     spy = jasmine.createSpy('after change');
     afterChange(result: { value: number }) {
         this.spy(result);
@@ -175,7 +177,6 @@ describe('ThyTestSliderComponent', () => {
             fixtureInstance.type = type;
             fixture.detectChanges();
             const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
-
             expect(classList).toContain(`thy-slider-${type}`);
         });
 
@@ -186,6 +187,14 @@ describe('ThyTestSliderComponent', () => {
             const color = debugElement.query(By.css('.thy-slider-track')).nativeElement.style.backgroundColor;
 
             expect(color).toEqual(customColor);
+        });
+
+        it('slider should be setting size when thySize', () => {
+            const sliderSize = 'md';
+            fixtureInstance.size = sliderSize;
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).toContain(`thy-slider-${sliderSize}`);
         });
 
         it('should be notify when moving done', fakeAsync(() => {

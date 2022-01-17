@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-slider-size-example',
     template: `
         <thy-slider [ngModel]="value" thySize="sm"></thy-slider>
-        <thy-slider [ngModel]="value" thySize="md"></thy-slider>
+        <thy-slider [ngModel]="value" thySize="md" [thyType]="'warning'"></thy-slider>
         <thy-slider [ngModel]="value" thySize="lg"></thy-slider>
     `
 })

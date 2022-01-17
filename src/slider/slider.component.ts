@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { clamp } from 'ngx-tethys/util';
+import { clamp, coerceArray } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InputBoolean } from 'ngx-tethys/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
@@ -64,7 +64,8 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyStep = 1;
 
     @Input() set thyType(type: ThySliderType) {
-        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`] : []);
+        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`, ...this.classNames] : []);
+        this.classNames.push(type ? `thy-slider-${type}` : '');
     }
 
     @Input() thyColor: string;
@@ -74,12 +75,15 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
      * @default sm
      */
     @Input() set thySize(size: string) {
-        this.updateHostClassService.updateClass(size ? [`thy-slider-${size}`] : []);
+        this.updateHostClassService.updateClass(size ? [`thy-slider-${size}`, ...this.classNames] : []);
+        this.classNames.push(size ? `thy-slider-${size}` : '');
     }
 
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
+
+    private classNames: string[] = [];
 
     private dragStartListener: Observable<number>;
 
@@ -141,6 +145,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     ngOnDestroy() {
         this.unsubscribeMouseListeners();
+        this.classNames = [];
     }
 
     private verificationValues() {
