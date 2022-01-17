@@ -69,6 +69,14 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     @Input() thyColor: string;
 
+    /**
+     * 滑动输入条大小: `'sm' | 'md' | 'lg'`
+     * @default sm
+     */
+    @Input() set thySize(size: string) {
+        this.updateHostClassService.updateClass(size ? [`thy-slider-${size}`] : []);
+    }
+
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;

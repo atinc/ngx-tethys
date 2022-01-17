@@ -29,6 +29,9 @@ subtitle: 滑动输入条
 
 <example name="thy-slider-drag-end-callback-example" />  
 
+## Size
+<example name="thy-slider-size-example" />  
+
 ## 尝试自定义配置最大、最小以及 step 的值
 示例中提供了可配置最大、最小以及 step 值的例子：
 <example name="thy-slider-configurable-example" />  
