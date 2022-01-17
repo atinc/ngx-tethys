@@ -20,8 +20,15 @@ $input-box-height: 34px;
 }
 
 .#{style.$calendar-prefix-cls}-range {
-    width: 552px;
     overflow: hidden;
+    &.#{style.$calendar-prefix-cls}-picker-shortcut-bottom {
+        .#{style.$calendar-prefix-cls}-picker-shortcut {
+            width: 540px;
+            .#{style.$calendar-prefix-cls}-picker-shortcut-item {
+                width: 118px;
+            }
+        }
+    }
 
     .#{style.$calendar-prefix-cls}-date-panel {
         &::after {
@@ -124,8 +131,9 @@ $input-box-height: 34px;
             z-index: 1;
         }
         &::before {
+            height: 30px;
             position: absolute;
-            top: 4px;
+            top: 1px;
             right: 0;
             bottom: 4px;
             left: 0;
@@ -133,7 +141,8 @@ $input-box-height: 34px;
             border: 0;
             border-radius: 0;
             content: '';
-            background: style.$disabled-bg;
+            opacity: 0.1;
+            background: variables.$primary;
         }
     }
 

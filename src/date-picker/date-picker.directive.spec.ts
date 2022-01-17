@@ -15,6 +15,7 @@ import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../pr
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { ShortcutOptionInfo, ShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -281,7 +282,10 @@ describe('ThyPickerDirective', () => {
             className: undefined,
             defaultPickerValue: undefined,
             minDate: undefined,
-            maxDate: undefined
+            maxDate: undefined,
+            shortcut: undefined,
+            shortcutPosition: 'left',
+            customShortcut: undefined
         };
     }
 });
@@ -297,6 +301,9 @@ describe('ThyPickerDirective', () => {
             [thyMinDate]="thyMinDate"
             [thyMaxDate]="thyMaxDate"
             [thyDefaultPickerValue]="thyDefaultPickerValue"
+            [thyShortcut]="thyShortcut"
+            [thyShortcutPosition]="thyShortcutPosition"
+            [thyCustomShortcut]="thyCustomShortcut"
             [thyOffset]="thyOffset"
             [thyPlaceHolder]="thyPlaceHolder"
             [thyPlacement]="thyPlacement"
@@ -310,6 +317,9 @@ class ThyTestPickerDirective {
     thyPlaceHolder: string;
     thyPanelClassName: string;
     thyValue: Date | null;
+    thyShortcut: boolean;
+    thyShortcutPosition: ShortcutPosition = 'left';
+    thyCustomShortcut: ShortcutOptionInfo[];
     thyDefaultPickerValue: Date | number;
     thyMinDate: Date | number;
     thyMaxDate: Date | number;

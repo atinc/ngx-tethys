@@ -2,46 +2,16 @@
 @use "mixin";
 @use "./variables.scss" as style;
 
-.#{style.$calendar-prefix-cls}-month-panel {
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    z-index: style.$zindex-picker-panel;
-    background: variables.$white;
-    border-radius: variables.$border-radius-lg;
-    outline: none;
-    display: flex;
-    flex-direction: column;
-    background: variables.$white;
-}
-
-.#{style.$calendar-prefix-cls}-month-panel-hidden {
-    display: none;
-}
-
-.#{style.$calendar-prefix-cls}-month-panel-header {
-    @include mixin.calendarPanelHeader('thy-calendar-month-panel');
-    position: relative;
-}
-
-.#{style.$calendar-prefix-cls}-month-panel-body {
-    flex: 1;
-}
-
-.#{style.$calendar-prefix-cls}-month-panel-footer {
-    border-top: style.$border-width-base style.$border-style-base style.$border-color-split;
-    .#{style.$calendar-prefix-cls}-footer-extra {
-        padding: 0 12px;
-    }
-}
-
 .#{style.$calendar-prefix-cls}-month-panel-table {
     width: 100%;
     height: 100%;
     table-layout: fixed;
     border-collapse: separate;
+    .#{style.$calendar-prefix-cls}-in-range-cell {
+        &::before {
+            top: 11px;
+        }
+    }
 }
 
 .#{style.$calendar-prefix-cls}-month-panel-selected-cell .#{style.$calendar-prefix-cls}-month-panel-month {

@@ -103,7 +103,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         className: this.thyPanelClassName,
                         defaultPickerValue: this.thyDefaultPickerValue,
                         minDate: this.thyMinDate,
-                        maxDate: this.thyMaxDate
+                        maxDate: this.thyMaxDate,
+                        shortcut: this.thyShortcut,
+                        shortcutPosition: this.thyShortcutPosition,
+                        customShortcut: this.thyCustomShortcut
                     },
                     placement: this.thyPlacement
                 },

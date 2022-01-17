@@ -1,8 +1,17 @@
 <div class="{{ prefixCls }}-picker-container {{ className }}">
   <div
     class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
-     {{ isRange ? prefixCls + '-range' : '' }}"
+     {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}"
   >
+    <div class="{{ prefixCls }}-picker-shortcut" *ngIf="shortcut">
+      <div
+        class="{{ prefixCls }}-picker-shortcut-item"
+        *ngFor="let item of shortcutOptions; let i = index; trackBy: trackByFn"
+        (click)="shortcurClick(item)"
+      >
+        {{ item.title }}
+      </div>
+    </div>
     <div class="{{ prefixCls }}-panel">
       <div class="{{ prefixCls }}-date-panel">
         <ng-container *ngIf="isRange; else tplSinglePart">

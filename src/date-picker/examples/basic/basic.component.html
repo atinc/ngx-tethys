@@ -4,6 +4,7 @@
   [thyFormat]="dateShowTime | thyDatePickerFormatString"
   thyPlaceHolder="选择时间"
   [(ngModel)]="dateTime"
+  [thyShortcut]="true"
   (ngModelChange)="onChange($event)"
   [thyAllowClear]="isAllowClear"
 ></thy-date-picker>
@@ -42,4 +43,7 @@
   [(ngModel)]="dateRange"
   (ngModelChange)="onChange($event)"
   [thyAllowClear]="isAllowClear"
+  [thyShortcut]="true"
+  [thyCustomShortcut]="thyCustomShortcut"
+  thyShortcutPosition="bottom"
 ></thy-range-picker>

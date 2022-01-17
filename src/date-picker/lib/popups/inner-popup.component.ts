@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnChanges,
+    Output,
+    SimpleChanges,
+    TemplateRef
+} from '@angular/core';
 
 import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
@@ -12,6 +22,7 @@ import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOn
     templateUrl: 'inner-popup.component.html'
 })
 export class InnerPopupComponent implements OnChanges {
+    @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
     @Input() showWeek: boolean;
     @Input() isRange: boolean;
     @Input() activeDate: TinyDate;

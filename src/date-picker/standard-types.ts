@@ -58,3 +58,73 @@ export interface SupportTimeOptions {
     thyDisabledMinutes?(hour: number): number[];
     thyDisabledSeconds?(hour: number, minute: number): number[];
 }
+
+export interface ShortcutOptionInfo {
+    key?: string;
+    title: string;
+    value: number | Date | TinyDate | RangeEntry;
+    isRange?: boolean;
+}
+
+export type ShortcutPosition = 'left' | 'bottom';
+
+export enum ShortcutType {
+    today = 'today',
+    yesterday = 'yesterday',
+    recentSevenDays = 'recentSevenDays',
+    recentThirtyDays = 'recentThirtyDays',
+    thisWeek = 'thisWeek',
+    thisMonth = 'thisMonth',
+    recentSixMonths = 'recentSixMonths'
+}
+
+export const ShortcutOptions: ShortcutOptionInfo[] = [
+    {
+        key: ShortcutType.today,
+        title: '今天',
+        value: new TinyDate().getTime()
+    },
+    {
+        key: ShortcutType.yesterday,
+        title: '昨天',
+        value: new TinyDate().getTime() - 3600 * 1000 * 24
+    },
+    {
+        key: ShortcutType.yesterday,
+        title: '7 天前',
+        value: new TinyDate().getTime() - 3600 * 1000 * 24 * 7
+    },
+    {
+        key: ShortcutType.recentSevenDays,
+        title: '最近 7 天',
+        value: { begin: new TinyDate().getTime() - 3600 * 1000 * 24 * 6, end: new TinyDate().getTime() },
+        isRange: true
+    },
+    {
+        key: ShortcutType.recentThirtyDays,
+        title: '最近 30 天',
+        value: {
+            begin: new TinyDate().getTime() - 3600 * 1000 * 24 * 29,
+            end: new TinyDate().getTime()
+        },
+        isRange: true
+    },
+    {
+        key: ShortcutType.thisWeek,
+        title: '本周',
+        value: {
+            begin: new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(),
+            end: new TinyDate().getTime()
+        },
+        isRange: true
+    },
+    {
+        key: ShortcutType.thisMonth,
+        title: '本月',
+        value: {
+            begin: new TinyDate().startOfMonth().getTime(),
+            end: new TinyDate().getTime()
+        },
+        isRange: true
+    }
+];
