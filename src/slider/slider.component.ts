@@ -26,20 +26,6 @@ export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger
 
 export type ThySliderSize = 'sm' | 'md' | 'lg';
 
-const sliderTypeMap = {
-    primary: 'thy-slider-primary',
-    success: 'thy-slider-success',
-    warning: 'thy-slider-warning',
-    danger: 'thy-slider-danger',
-    info: 'thy-slider-info'
-};
-
-const sliderSizeMap = {
-    sm: 'thy-slider-sm',
-    md: 'thy-slider-md',
-    lg: 'thy-slider-lg'
-};
-
 @Component({
     selector: 'thy-slider',
     templateUrl: './slider.component.html',
@@ -80,13 +66,12 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyStep = 1;
 
     @Input() set thyType(type: ThySliderType) {
-        for (const key in sliderTypeMap) {
-            if (sliderTypeMap.hasOwnProperty(key)) {
-                this.updateHostClassService.removeClass(sliderTypeMap[key]);
-            }
-        }
         if (type) {
-            this.updateHostClassService.addClass(sliderTypeMap[type]);
+            if (this.typeClassName) {
+                this.updateHostClassService.removeClass(this.typeClassName);
+            }
+            this.updateHostClassService.addClass(type ? `thy-slider-${type}` : '');
+            this.typeClassName = `thy-slider-${type}`;
         }
     }
 
@@ -97,19 +82,22 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
      * @default sm
      */
     @Input() set thySize(size: string) {
-        for (const key in sliderSizeMap) {
-            if (sliderSizeMap.hasOwnProperty(key)) {
-                this.updateHostClassService.removeClass(sliderSizeMap[key]);
-            }
-        }
         if (size) {
-            this.updateHostClassService.addClass(sliderSizeMap[size]);
+            if (this.sizeClassName) {
+                this.updateHostClassService.removeClass(this.sizeClassName);
+            }
+            this.updateHostClassService.addClass(size ? `thy-slider-${size}` : '');
+            this.sizeClassName = `thy-slider-${size}`;
         }
     }
 
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
+
+    private typeClassName = '';
+
+    private sizeClassName = '';
 
     private dragStartListener: Observable<number>;
 
