@@ -81,7 +81,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
      * 滑动输入条大小: `'sm' | 'md' | 'lg'`
      * @default sm
      */
-    @Input() set thySize(size: string) {
+    @Input() set thySize(size: ThySliderSize) {
         if (size) {
             if (this.sizeClassName) {
                 this.updateHostClassService.removeClass(this.sizeClassName);
