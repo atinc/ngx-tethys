@@ -180,6 +180,17 @@ describe('ThyTestSliderComponent', () => {
             expect(classList).toContain(`thy-slider-${type}`);
         });
 
+        it('slider should be remove color when thyType change', () => {
+            const type = 'warning';
+            fixtureInstance.type = type;
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement.classList).toContain(`thy-slider-${type}`);
+            fixtureInstance.type = 'info';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).not.toContain(`thy-slider-${type}`);
+        });
+
         it('slider track should show custom color when thyColor is custom color', () => {
             const customColor = 'red';
             fixtureInstance.color = customColor;
@@ -195,6 +206,17 @@ describe('ThyTestSliderComponent', () => {
             fixture.detectChanges();
             const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
             expect(classList).toContain(`thy-slider-${sliderSize}`);
+        });
+
+        it('slider should be remove size when thySize change', () => {
+            const sliderSize = 'md';
+            fixtureInstance.size = sliderSize;
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement.classList).toContain(`thy-slider-${sliderSize}`);
+            fixtureInstance.size = 'lg';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).not.toContain(`thy-slider-${sliderSize}`);
         });
 
         it('should be notify when moving done', fakeAsync(() => {
