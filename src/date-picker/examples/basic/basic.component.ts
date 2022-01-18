@@ -1,4 +1,4 @@
-import { DateEntry, ShortcutOptionInfo } from 'ngx-tethys/date-picker';
+import { DateEntry, ShortcutRange } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -19,7 +19,7 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     isAllowClear = true;
 
-    thyCustomShortcut: ShortcutOptionInfo[];
+    thyCustomShortcut: ShortcutRange[];
 
     constructor() {}
 
@@ -27,11 +27,8 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
         this.thyCustomShortcut = [
             {
                 title: '昨天到前天',
-                isRange: true,
-                value: {
-                    begin: new Date().getTime() - 3600 * 1000 * 24 * 2,
-                    end: new Date().getTime() - 3600 * 1000 * 24 * 1
-                }
+                begin: new Date('2022-1-3'),
+                end: new Date('2022-1-5')
             }
         ];
     }
@@ -39,6 +36,10 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
     onChange(result: Date): void {
         console.log('onChange: ', result);
         console.log(this.dateTime);
+    }
+
+    thyShortcutClick(event: any) {
+        console.log(event);
     }
 
     allowClearChange() {

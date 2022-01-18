@@ -12,8 +12,7 @@ import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
-import { DateEntry, ShortcutOptionInfo, ShortcutPosition } from './standard-types';
-import { TinyDate } from 'ngx-tethys/util';
+import { DateEntry } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -196,49 +195,6 @@ describe('ThyDatePickerComponent', () => {
             openPickerByClickTrigger();
             const input = getPickerTrigger();
             expect(input.value).toBe('04.03.2020');
-        }));
-
-        it('should support thyShortcut', fakeAsync(() => {
-            fixtureInstance.thyShortcut = true;
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-shortcut')).toBeTruthy();
-            expect(queryFromOverlay('.thy-calendar-picker-shortcut-item').innerText).toBe('今天');
-            dispatchMouseEvent(queryFromOverlay('.thy-calendar-picker-shortcut-item'), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const input = getPickerTrigger();
-            expect(new TinyDate(input.value).startOfDay().getTime()).toBe(new TinyDate().startOfDay().getTime());
-        }));
-
-        it('should support thyShortcutPosition', fakeAsync(() => {
-            fixtureInstance.thyShortcut = true;
-            fixtureInstance.thyShortcutPosition = 'bottom';
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
-        }));
-
-        it('should support thyCustomShortcut', fakeAsync(() => {
-            fixtureInstance.thyShortcut = true;
-            fixtureInstance.thyCustomShortcut = [
-                {
-                    title: '回家那天',
-                    isRange: true,
-                    value: new Date('2022-01-29').getTime()
-                }
-            ];
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那天');
-            dispatchMouseEvent(shortcutItems[shortcutItems.length - 1], 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const input = getPickerTrigger();
-            expect(input.value).toBe('2022-01-29');
         }));
 
         it('should support thyOpenChange', () => {
@@ -699,9 +655,6 @@ describe('ThyDatePickerComponent', () => {
                 [thyFormat]="thyFormat"
                 [thySuffixIcon]="thySuffixIcon"
                 [thyReadonly]="thyReadonly"
-                [thyShortcut]="thyShortcut"
-                [thyShortcutPosition]="thyShortcutPosition"
-                [thyCustomShortcut]="thyCustomShortcut"
                 (thyOpenChange)="thyOpenChange($event)"
                 [ngModel]="thyValue"
                 (ngModelChange)="thyOnChange($event)"
@@ -746,9 +699,6 @@ class ThyTestDatePickerComponent {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyPlacement: string = 'bottomLeft';
-    thyShortcut: boolean;
-    thyShortcutPosition: ShortcutPosition = 'left';
-    thyCustomShortcut: ShortcutOptionInfo[];
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

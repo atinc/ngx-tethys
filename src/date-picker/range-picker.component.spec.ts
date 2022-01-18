@@ -10,7 +10,8 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { RangeEntry, PanelMode } from './standard-types';
+import { RangeEntry, PanelMode, ShortcutPosition, ShortcutRange } from './standard-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -205,6 +206,54 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             expect(getFirstSelectedDayCell().textContent.trim()).toBe('11');
+        }));
+
+        it('should support thyShortcutRanges', fakeAsync(() => {
+            fixtureInstance.thyShortcutRanges = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut')).toBeTruthy();
+        }));
+
+        it('should support thyShortcutPosition', fakeAsync(() => {
+            fixtureInstance.thyShortcutRanges = true;
+            fixtureInstance.thyShortcutPosition = 'bottom';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
+        }));
+
+        it('should support more thyShortcutRanges', fakeAsync(() => {
+            fixtureInstance.thyShortcutRanges = [
+                {
+                    title: '回家那几天',
+                    begin: new Date('2022-01-29').getTime(),
+                    end: new Date('2022-02-8').getTime()
+                }
+            ];
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
+            dispatchMouseEvent(shortcutItems[shortcutItems.length - 1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(new TinyDate('2022-01-29').getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate('2022-02-8').getDate());
+        }));
+
+        it('should support thyShortcutClick', fakeAsync(() => {
+            fixtureInstance.thyShortcutRanges = true;
+            const thyShortcutClick = spyOn(fixtureInstance, 'thyShortcutClick');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelector('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyShortcutClick).toHaveBeenCalled();
         }));
 
         it('should support thyOnCalendarChange', fakeAsync(() => {
@@ -477,12 +526,15 @@ describe('ThyRangePickerComponent', () => {
                 [thyPanelClassName]="thyPanelClassName"
                 [thySize]="thySize"
                 [thySuffixIcon]="thySuffixIcon"
+                [thyShortcutRanges]="thyShortcutRanges"
+                [thyShortcutPosition]="thyShortcutPosition"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 [thyMode]="thyMode"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                (thyShortcutClick)="thyShortcutClick($event)"
             ></thy-range-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
@@ -512,9 +564,12 @@ class ThyTestRangePickerComponent {
     modelValue: RangeEntry;
     thyMode: PanelMode;
     thyOpen: boolean;
+    thyShortcutPosition: ShortcutPosition = 'left';
+    thyShortcutRanges: ShortcutRange[] | boolean;
     thyOpenChange(): void {}
     modelValueChange(): void {}
     thyOnPanelChange(): void {}
     thyOnCalendarChange(): void {}
+    thyShortcutClick(): void {}
     thyOnOk(): void {}
 }

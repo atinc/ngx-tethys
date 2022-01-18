@@ -24,8 +24,8 @@ import {
     DateEntry,
     RangeEntry,
     PanelMode,
-    ShortcutOptionInfo,
-    ShortcutPosition
+    ShortcutPosition,
+    ShortcutRange
 } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
@@ -51,15 +51,15 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
 
-    @Input() thyShortcut: boolean;
-
-    @Input() thyShortcutPosition: ShortcutPosition = 'left';
-
-    @Input() thyCustomShortcut: ShortcutOptionInfo[];
+    @Output() readonly thyShortcutClick = new EventEmitter<ShortcutRange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
+
+    shortcutPosition: ShortcutPosition;
+
+    shortcutRanges: ShortcutRange[] = [];
 
     isRange: boolean;
 

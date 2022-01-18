@@ -33,9 +33,9 @@
     [disabledDate]="thyDisabledDate"
     [minDate]="thyMinDate"
     [maxDate]="thyMaxDate"
-    [shortcut]="thyShortcut"
-    [customShortcut]="thyCustomShortcut"
-    [shortcutPosition]="thyShortcutPosition"
+    [shortcutRanges]="shortcutRanges"
+    [shortcutPosition]="shortcutPosition"
+    (shortcutClick)="thyShortcutClick.emit($event)"
     [className]="thyPanelClassName"
     (resultOk)="onResultOk()"
   ></date-popup>

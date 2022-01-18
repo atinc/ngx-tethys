@@ -22,9 +22,8 @@ import {
     PanelMode,
     RangeEntry,
     RangePartType,
-    ShortcutOptionInfo,
-    ShortcutOptions,
     ShortcutPosition,
+    ShortcutRange,
     SupportTimeOptions
 } from '../../standard-types';
 
@@ -51,20 +50,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() value: CompatibleValue;
     @Input() defaultPickerValue: CompatibleDate | number;
 
-    @Input() set shortcut(value: boolean) {
-        this._shortcut = value;
-        this.initShortcutOptions(value);
-    }
-
-    get shortcut() {
-        return this._shortcut;
-    }
-
-    @Input() set customShortcut(options: ShortcutOptionInfo[]) {
-        if (options) {
-            this.shortcutOptions = [...this.shortcutOptions, ...options];
-        }
-    }
+    @Input() shortcutRanges: ShortcutRange[];
 
     @Input() shortcutPosition: ShortcutPosition;
 
@@ -73,9 +59,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Output() readonly valueChange = new EventEmitter<CompatibleValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
+    @Output() readonly shortcutClick = new EventEmitter<ShortcutRange>();
 
-    _shortcut: boolean;
-    shortcutOptions: ShortcutOptionInfo[] = [];
     prefixCls = 'thy-calendar';
     showTimePicker = false;
     timeOptions: SupportTimeOptions | SupportTimeOptions[] | null;
@@ -122,19 +107,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
         if (changes.value && changes.value.currentValue) {
             this.updateActiveDate();
-        }
-    }
-
-    initShortcutOptions(value: boolean) {
-        if (value) {
-            this.shortcutOptions = [
-                ...this.shortcutOptions,
-                ...ShortcutOptions.filter(item => {
-                    return this.isRange ? item.isRange : !item.isRange;
-                })
-            ];
-        } else {
-            this.shortcutOptions = [];
         }
     }
 
@@ -364,16 +336,15 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
-    shortcurClick(shortcutOption: ShortcutOptionInfo) {
-        if (this.isRange) {
-            this.changeValueFromSelect(new TinyDate((shortcutOption.value as RangeEntry)?.begin), 'left');
-            this.changeValueFromSelect(new TinyDate((shortcutOption.value as RangeEntry)?.end), 'right');
-        } else {
-            this.changeValueFromSelect(new TinyDate(shortcutOption.value as number));
+    shortcurClick(shortcutRange: ShortcutRange) {
+        const begin = shortcutRange.begin;
+        const end = shortcutRange.end;
+        const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
+        const endValue: number | Date = typeof end === 'function' ? end() : end;
+        if (beginValue && endValue) {
+            this.changeValueFromSelect(new TinyDate(beginValue), 'left');
+            this.changeValueFromSelect(new TinyDate(endValue), 'right');
         }
-    }
-
-    public trackByFn(index: number, shortcutOption: ShortcutOptionInfo) {
-        return shortcutOption.key || index;
+        this.shortcutClick.emit(shortcutRange);
     }
 }
