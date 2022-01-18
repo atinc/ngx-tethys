@@ -24,6 +24,22 @@ import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
+export type ThySliderSize = 'sm' | 'md' | 'lg';
+
+const sliderTypeMap = {
+    primary: 'thy-slider-primary',
+    success: 'thy-slider-success',
+    warning: 'thy-slider-warning',
+    danger: 'thy-slider-danger',
+    info: 'thy-slider-info'
+};
+
+const sliderSizeMap = {
+    sm: 'thy-slider-sm',
+    md: 'thy-slider-md',
+    lg: 'thy-slider-lg'
+};
+
 @Component({
     selector: 'thy-slider',
     templateUrl: './slider.component.html',
@@ -64,8 +80,14 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyStep = 1;
 
     @Input() set thyType(type: ThySliderType) {
-        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`, ...this.classNames] : []);
-        this.classNames.push(type ? `thy-slider-${type}` : '');
+        for (const key in sliderTypeMap) {
+            if (sliderTypeMap.hasOwnProperty(key)) {
+                this.updateHostClassService.removeClass(sliderTypeMap[key]);
+            }
+        }
+        if (type) {
+            this.updateHostClassService.addClass(sliderTypeMap[type]);
+        }
     }
 
     @Input() thyColor: string;
@@ -75,15 +97,19 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
      * @default sm
      */
     @Input() set thySize(size: string) {
-        this.updateHostClassService.updateClass(size ? [`thy-slider-${size}`, ...this.classNames] : []);
-        this.classNames.push(size ? `thy-slider-${size}` : '');
+        for (const key in sliderSizeMap) {
+            if (sliderSizeMap.hasOwnProperty(key)) {
+                this.updateHostClassService.removeClass(sliderSizeMap[key]);
+            }
+        }
+        if (size) {
+            this.updateHostClassService.addClass(sliderSizeMap[size]);
+        }
     }
 
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
-
-    private classNames: string[] = [];
 
     private dragStartListener: Observable<number>;
 
@@ -145,7 +171,6 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     ngOnDestroy() {
         this.unsubscribeMouseListeners();
-        this.classNames = [];
     }
 
     private verificationValues() {
