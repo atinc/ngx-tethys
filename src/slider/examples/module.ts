@@ -10,6 +10,7 @@ import { ThySliderInputValueExampleComponent } from './input-value/input-value.c
 import { ThySliderDragEndCallbackExampleComponent } from './drag-end-callback/drag-end-callback.component';
 import { ThySliderConfigurableExampleComponent } from './configurable/configurable.component';
 import { ThySliderTypeExampleComponent } from './type/type.component';
+import { ThySliderSizeExampleComponent } from './size/size.component';
 
 const COMPONENTS = [
     ThySliderBasicExampleComponent,
@@ -19,7 +20,8 @@ const COMPONENTS = [
     ThySliderInputValueExampleComponent,
     ThySliderDragEndCallbackExampleComponent,
     ThySliderConfigurableExampleComponent,
-    ThySliderTypeExampleComponent
+    ThySliderTypeExampleComponent,
+    ThySliderSizeExampleComponent
 ];
 @NgModule({
     imports: [CommonModule, FormsModule, NgxTethysModule],
