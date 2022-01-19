@@ -1,0 +1,36 @@
+<thy-range-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateRange"
+  [thyShowShortcut]="true"
+  (ngModelChange)="onChange($event)"
+  (thyShortcutValueChange)="shortcutValueChange($event)"
+></thy-range-picker>
+
+<thy-range-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateRange"
+  [thyShowShortcut]="true"
+  thyShortcutPosition="bottom"
+  (ngModelChange)="onChange($event)"
+></thy-range-picker>
+
+<thy-range-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="dateRange"
+  [thyShowShortcut]="true"
+  [thyShortcutRanges]="customShortcut"
+  (ngModelChange)="onChange($event)"
+></thy-range-picker>
+
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="日期区间"
+  [thyValue]="dateRange | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [thyShowShortcut]="true"
+  (thyShortcutValueChange)="shortcutValueChange($event)"
+  [(ngModel)]="dateRange"
+></thy-property-operation>

@@ -22,9 +22,9 @@ import {
     PanelMode,
     RangeEntry,
     RangePartType,
-    ShortcutPosition,
-    ShortcutRange,
-    ShortcutValueChange,
+    ThyShortcutPosition,
+    ThyShortcutRange,
+    ThyShortcutValueChange,
     SupportTimeOptions
 } from '../../standard-types';
 
@@ -53,16 +53,16 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() showShortcut: boolean;
 
-    @Input() shortcutRanges: ShortcutRange[];
+    @Input() shortcutRanges: ThyShortcutRange[];
 
-    @Input() shortcutPosition: ShortcutPosition;
+    @Input() shortcutPosition: ThyShortcutPosition;
 
     @Output() readonly panelModeChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
     @Output() readonly valueChange = new EventEmitter<CompatibleValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    @Output() readonly shortcutValueChange = new EventEmitter<ShortcutValueChange>();
+    @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
 
     prefixCls = 'thy-calendar';
     showTimePicker = false;
@@ -339,14 +339,14 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
-    shortcurClick(shortcutRange: ShortcutRange) {
+    shortcutSetValue(shortcutRange: ThyShortcutRange) {
         const begin = shortcutRange.begin;
         const end = shortcutRange.end;
         const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
         const endValue: number | Date = typeof end === 'function' ? end() : end;
         if (beginValue && endValue) {
-            this.changeValueFromSelect(new TinyDate(beginValue), 'left');
-            this.changeValueFromSelect(new TinyDate(endValue), 'right');
+            this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
+            this.setValue(this.cloneRangeDate(this.selectedValue));
         }
         this.shortcutValueChange.emit({
             value: this.selectedValue,

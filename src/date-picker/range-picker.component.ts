@@ -1,4 +1,4 @@
-import { PanelMode, ShortcutPosition, ShortcutRange } from './standard-types';
+import { PanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import {
     forwardRef,
     ChangeDetectionStrategy,
@@ -15,7 +15,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BasePickerComponent } from './base-picker.component';
 import { helpers } from 'ngx-tethys/util';
-import { DatePickerConfig } from './date-picker.service';
+import { ThyDatePickerConfigService } from './date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,29 +35,29 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
 
     @Input() thyMode: PanelMode = 'date';
 
-    @Input() thyShowShortcut: boolean = this.datePickerConfig.showShortcut;
+    @Input() thyShowShortcut: boolean = this.datePickerConfigService.showShortcut;
 
-    @Input() set thyShortcutPosition(position: ShortcutPosition) {
+    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
 
-    @Input() set thyShortcutRanges(ranges: ShortcutRange[]) {
+    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
             this.shortcutRanges = [...ranges];
         }
     }
 
-    shortcutRanges: ShortcutRange[] = this.datePickerConfig.shortcutRanges;
+    shortcutRanges: ThyShortcutRange[] = this.datePickerConfigService.shortcutRanges;
 
-    shortcutPosition: ShortcutPosition = this.datePickerConfig.shortcutPosition;
+    shortcutPosition: ThyShortcutPosition = this.datePickerConfigService.shortcutPosition;
 
     constructor(
         cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
-        private datePickerConfig: DatePickerConfig
+        private datePickerConfigService: ThyDatePickerConfigService
     ) {
         super(cdr);
         renderer.addClass(elementRef.nativeElement, 'thy-calendar-picker');

@@ -22,7 +22,7 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, PanelMode, ShortcutPosition, ShortcutRange, ShortcutValueChange } from './standard-types';
+import { CompatibleValue, PanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
@@ -66,9 +66,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     thyShowShortcut: boolean;
 
-    shortcutPosition: ShortcutPosition;
+    shortcutPosition: ThyShortcutPosition;
 
-    shortcutRanges: ShortcutRange[];
+    shortcutRanges: ThyShortcutRange[];
 
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
@@ -133,7 +133,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
             componentInstance.shortcutValueChange
                 ?.pipe(takeUntil(this.destroy$))
-                .subscribe((event: ShortcutValueChange) => this.thyShortcutValueChange.emit(event));
+                .subscribe((event: ThyShortcutValueChange) => this.thyShortcutValueChange.emit(event));
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))

@@ -2,7 +2,7 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG_TOKEN } from './date-picker.config';
 
 @Injectable()
-export class DatePickerConfig {
+export class ThyDatePickerConfigService {
     private config: ThyDatePickerConfig;
 
     constructor(@Optional() @Inject(THY_DATE_PICKER_CONFIG_TOKEN) config: ThyDatePickerConfig) {

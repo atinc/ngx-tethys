@@ -3,9 +3,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerDirective } from './abstract-picker.directive';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ShortcutPosition, ShortcutRange } from './standard-types';
+import { ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { helpers } from 'ngx-tethys/util';
-import { DatePickerConfig } from './date-picker.service';
+import { ThyDatePickerConfigService } from './date-picker.service';
 
 @Directive({
     selector: '[thyRangePicker]',
@@ -21,25 +21,30 @@ import { DatePickerConfig } from './date-picker.service';
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;
 
-    @Input() thyShowShortcut: boolean = this.datePickerConfig.showShortcut;
+    @Input() thyShowShortcut: boolean = this.datePickerConfigService.showShortcut;
 
-    @Input() set thyShortcutPosition(position: ShortcutPosition) {
+    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
 
-    @Input() set thyShortcutRanges(ranges: ShortcutRange[]) {
+    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
             this.shortcutRanges = [...ranges];
         }
     }
 
-    shortcutRanges: ShortcutRange[] = this.datePickerConfig.shortcutRanges;
+    shortcutRanges: ThyShortcutRange[] = this.datePickerConfigService.shortcutRanges;
 
-    shortcutPosition: ShortcutPosition = this.datePickerConfig.shortcutPosition;
+    shortcutPosition: ThyShortcutPosition = this.datePickerConfigService.shortcutPosition;
 
-    constructor(elementRef: ElementRef, cdr: ChangeDetectorRef, thyPopover: ThyPopover, private datePickerConfig: DatePickerConfig) {
+    constructor(
+        elementRef: ElementRef,
+        cdr: ChangeDetectorRef,
+        thyPopover: ThyPopover,
+        private datePickerConfigService: ThyDatePickerConfigService
+    ) {
         super(elementRef, cdr, thyPopover);
     }
 }

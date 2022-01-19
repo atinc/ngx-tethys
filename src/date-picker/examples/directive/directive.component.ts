@@ -48,8 +48,4 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
             this.selectedDateRange = [];
         }
     }
-
-    thyShortcutValueChange(event: any) {
-        console.log(event);
-    }
 }

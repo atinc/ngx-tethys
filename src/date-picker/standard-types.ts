@@ -59,15 +59,15 @@ export interface SupportTimeOptions {
     thyDisabledSeconds?(hour: number, minute: number): number[];
 }
 
-export interface ShortcutRange {
+export interface ThyShortcutRange {
     title: string;
     begin: number | Date | (() => number | Date);
     end: number | Date | (() => number | Date);
 }
 
-export type ShortcutPosition = 'left' | 'bottom';
+export type ThyShortcutPosition = 'left' | 'bottom';
 
-export interface ShortcutValueChange {
+export interface ThyShortcutValueChange {
     value: CompatibleValue;
-    triggerRange: ShortcutRange;
+    triggerRange: ThyShortcutRange;
 }

@@ -4,7 +4,7 @@
      {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}"
   >
     <div class="{{ prefixCls }}-picker-shortcut" *ngIf="showShortcut">
-      <div class="{{ prefixCls }}-picker-shortcut-item" *ngFor="let item of shortcutRanges" (click)="shortcurClick(item)">
+      <div class="{{ prefixCls }}-picker-shortcut-item" *ngFor="let item of shortcutRanges" (click)="shortcutSetValue(item)">
         {{ item.title }}
       </div>
     </div>

@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { RangeEntry, PanelMode, ShortcutPosition, ShortcutRange } from './standard-types';
+import { RangeEntry, PanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
@@ -232,6 +232,7 @@ describe('ThyRangePickerComponent', () => {
                     end: new Date('2022-02-8').getTime()
                 }
             ];
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -240,6 +241,10 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate('2022-01-29').startOfDay().getUnixTime(),
+                end: new TinyDate('2022-02-8').endOfDay().getUnixTime()
+            });
             expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(new TinyDate('2022-01-29').getDate());
             expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate('2022-02-8').getDate());
         }));
@@ -567,8 +572,8 @@ class ThyTestRangePickerComponent {
     thyMode: PanelMode;
     thyOpen: boolean;
     thyShowShortcut: boolean;
-    thyShortcutPosition: ShortcutPosition = 'left';
-    thyShortcutRanges: ShortcutRange[];
+    thyShortcutPosition: ThyShortcutPosition = 'left';
+    thyShortcutRanges: ThyShortcutRange[];
     thyOpenChange(): void {}
     modelValueChange(): void {}
     thyOnPanelChange(): void {}

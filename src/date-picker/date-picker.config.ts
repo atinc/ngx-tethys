@@ -1,10 +1,10 @@
 import { InjectionToken } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
-import { ShortcutPosition, ShortcutRange } from './standard-types';
+import { ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 export interface ThyDatePickerConfig {
-    shortcutPosition: ShortcutPosition;
-    shortcutRanges: ShortcutRange[];
+    shortcutPosition: ThyShortcutPosition;
+    shortcutRanges: ThyShortcutRange[];
     showShortcut: boolean;
 }
 
