@@ -9,6 +9,7 @@
     border-collapse: separate;
     .#{style.$calendar-prefix-cls}-in-range-cell {
         &::before {
+            height: 30px;
             top: 11px;
         }
     }

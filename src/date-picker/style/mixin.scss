@@ -1,67 +1,6 @@
 @use "../../styles/variables";
 @use "./variables.scss" as style;
 
-@mixin calendarLeftArrow {
-    height: 100%;
-
-    &::before,
-    &::after {
-        position: relative;
-        top: -1px;
-        display: inline-block;
-        width: 8px;
-        height: 8px;
-        vertical-align: middle;
-        border: 0 solid #aaa;
-        border-width: 1.5px 0 0 1.5px;
-        border-radius: 1px;
-        transform: rotate(-45deg) scale(0.8);
-        transition: all 0.3s;
-        content: '';
-    }
-
-    &:hover::before,
-    &:hover::after {
-        border-color: style.$text-color;
-    }
-
-    &::after {
-        display: none;
-    }
-}
-
-@mixin calendarLeftDoubleArrow {
-    @include calendarLeftArrow;
-
-    &::after {
-        position: relative;
-        left: -3px;
-        display: inline-block;
-    }
-}
-
-@mixin calendarRightArrow {
-    @include calendarLeftArrow;
-
-    &::before,
-    &::after {
-        transform: rotate(135deg) scale(0.8);
-    }
-}
-
-@mixin calendarRightDoubleArrow {
-    @include calendarRightArrow;
-
-    &::before {
-        position: relative;
-        left: 3px;
-    }
-
-    &::after {
-        display: inline-block;
-    }
-}
-
 @mixin calendarPanelHeader($calendar-prefix-cls) {
     padding: 0 10px;
     height: 40px;
@@ -98,35 +37,39 @@
         position: absolute;
         top: 0;
         display: inline-block;
-        padding: 0 5px;
         color: variables.$secondary;
         font-size: 16px;
         font-family: Arial, 'Hiragino Sans GB', 'Microsoft Yahei', 'Microsoft Sans Serif', sans-serif;
         line-height: 40px;
+        color: variables.$gray-500;
     }
 
     .#{$calendar-prefix-cls}-prev-century-btn,
     .#{$calendar-prefix-cls}-prev-decade-btn,
     .#{$calendar-prefix-cls}-prev-year-btn {
-        left: 8px;
-        @include calendarLeftDoubleArrow;
+        left: 10px;
+        line-height: 42px;
+        .thy-icon {
+            font-size: 18px;
+        }
     }
 
     .#{$calendar-prefix-cls}-next-century-btn,
     .#{$calendar-prefix-cls}-next-decade-btn,
     .#{$calendar-prefix-cls}-next-year-btn {
-        right: 8px;
-        @include calendarRightDoubleArrow;
+        right: 10px;
+        line-height: 42px;
+        .thy-icon {
+            font-size: 18px;
+        }
     }
 
     .#{$calendar-prefix-cls}-prev-month-btn {
         left: 30px;
-        @include calendarLeftArrow;
     }
 
     .#{$calendar-prefix-cls}-next-month-btn {
         right: 30px;
-        @include calendarRightArrow;
     }
 }
 
