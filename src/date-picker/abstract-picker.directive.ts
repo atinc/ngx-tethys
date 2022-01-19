@@ -22,7 +22,7 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, PanelMode } from './standard-types';
+import { CompatibleValue, PanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
@@ -64,6 +64,12 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyStopPropagation = true;
 
+    thyShowShortcut: boolean;
+
+    shortcutPosition: ThyShortcutPosition;
+
+    shortcutRanges: ThyShortcutRange[];
+
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
@@ -103,7 +109,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         className: this.thyPanelClassName,
                         defaultPickerValue: this.thyDefaultPickerValue,
                         minDate: this.thyMinDate,
-                        maxDate: this.thyMaxDate
+                        maxDate: this.thyMaxDate,
+                        showShortcut: this.thyShowShortcut,
+                        shortcutRanges: this.shortcutRanges,
+                        shortcutPosition: this.shortcutPosition
                     },
                     placement: this.thyPlacement
                 },
@@ -122,6 +131,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // tslint:disable-next-line: max-line-length
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+            componentInstance.shortcutValueChange
+                ?.pipe(takeUntil(this.destroy$))
+                .subscribe((event: ThyShortcutValueChange) => this.thyShortcutValueChange.emit(event));
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))

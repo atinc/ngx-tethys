@@ -15,7 +15,18 @@ import {
 } from '@angular/core';
 
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, PanelMode, RangePartType, SupportTimeOptions } from '../../standard-types';
+import {
+    CompatibleDate,
+    CompatibleValue,
+    DisabledDateFn,
+    PanelMode,
+    RangeEntry,
+    RangePartType,
+    ThyShortcutPosition,
+    ThyShortcutRange,
+    ThyShortcutValueChange,
+    SupportTimeOptions
+} from '../../standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -40,11 +51,19 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() value: CompatibleValue;
     @Input() defaultPickerValue: CompatibleDate | number;
 
+    @Input() showShortcut: boolean;
+
+    @Input() shortcutRanges: ThyShortcutRange[];
+
+    @Input() shortcutPosition: ThyShortcutPosition;
+
     @Output() readonly panelModeChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
     @Output() readonly valueChange = new EventEmitter<CompatibleValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
+    @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
+
     prefixCls = 'thy-calendar';
     showTimePicker = false;
     timeOptions: SupportTimeOptions | SupportTimeOptions[] | null;
@@ -59,7 +78,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     [property: string]: any;
 
-    endPanelMode: PanelMode | PanelMode[] = 'date';
+    endPanelMode: PanelMode | PanelMode[];
 
     constructor(private cdr: ChangeDetectorRef) {}
 
@@ -109,13 +128,18 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     initPanelMode() {
-        if (!this.panelMode) {
-            this.panelMode = this.isRange ? ['date', 'date'] : 'date';
-        }
-        if (helpers.isArray(this.panelMode)) {
-            this.endPanelMode = [...this.panelMode];
+        if (!this.endPanelMode) {
+            if (helpers.isArray(this.panelMode)) {
+                this.endPanelMode = [...this.panelMode];
+            } else {
+                this.endPanelMode = this.panelMode;
+            }
         } else {
-            this.endPanelMode = this.panelMode;
+            if (helpers.isArray(this.endPanelMode)) {
+                this.panelMode = [...this.endPanelMode];
+            } else {
+                this.panelMode = this.endPanelMode;
+            }
         }
     }
 
@@ -315,9 +339,18 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
-    private initialArray(key: string): void {
-        if (!this[key] || !Array.isArray(this[key])) {
-            this[key] = [];
+    shortcutSetValue(shortcutRange: ThyShortcutRange) {
+        const begin = shortcutRange.begin;
+        const end = shortcutRange.end;
+        const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
+        const endValue: number | Date = typeof end === 'function' ? end() : end;
+        if (beginValue && endValue) {
+            this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
+            this.setValue(this.cloneRangeDate(this.selectedValue));
         }
+        this.shortcutValueChange.emit({
+            value: this.selectedValue,
+            triggerRange: shortcutRange
+        });
     }
 }
