@@ -51,7 +51,7 @@ const customerOptions = [
     templateUrl: './add-code.component.html'
 })
 export class ThyCascaderAddCodeExampleComponent implements OnInit {
-    public values: any[] = [''];
+    public values: any[] = [];
 
     public curVal = 'zhejiang';
 

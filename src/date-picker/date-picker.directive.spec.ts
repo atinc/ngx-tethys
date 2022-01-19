@@ -281,7 +281,10 @@ describe('ThyPickerDirective', () => {
             className: undefined,
             defaultPickerValue: undefined,
             minDate: undefined,
-            maxDate: undefined
+            maxDate: undefined,
+            showShortcut: undefined,
+            shortcutRanges: undefined,
+            shortcutPosition: undefined
         };
     }
 });

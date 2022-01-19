@@ -58,3 +58,16 @@ export interface SupportTimeOptions {
     thyDisabledMinutes?(hour: number): number[];
     thyDisabledSeconds?(hour: number, minute: number): number[];
 }
+
+export interface ThyShortcutRange {
+    title: string;
+    begin: number | Date | (() => number | Date);
+    end: number | Date | (() => number | Date);
+}
+
+export type ThyShortcutPosition = 'left' | 'bottom';
+
+export interface ThyShortcutValueChange {
+    value: CompatibleValue;
+    triggerRange: ThyShortcutRange;
+}

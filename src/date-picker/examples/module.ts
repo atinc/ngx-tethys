@@ -12,6 +12,7 @@ import { ThyDatePickerSuffixIconExampleComponent } from './suffix-icon/suffix-ic
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyDatePickerShortcutExampleComponent } from './shortcut/shortcut.component';
 
 const COMPONENTS = [
     ThyDatePickerBasicExampleComponent,
@@ -21,7 +22,8 @@ const COMPONENTS = [
     ThyDatePickerFormatExampleComponent,
     ThyDatePickerReadonlyExampleComponent,
     ThyDatePickerSizeExampleComponent,
-    ThyDatePickerSuffixIconExampleComponent
+    ThyDatePickerSuffixIconExampleComponent,
+    ThyDatePickerShortcutExampleComponent
 ];
 
 @NgModule({
