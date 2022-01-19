@@ -42,7 +42,8 @@
   [(ngModel)]="dateRange"
   (ngModelChange)="onChange($event)"
   [thyAllowClear]="isAllowClear"
+  [thyShowShortcut]="true"
   [thyShortcutRanges]="thyCustomShortcut"
   thyShortcutPosition="bottom"
-  (thyShortcutClick)="thyShortcutClick($event)"
+  (thyShortcutValueChange)="thyShortcutValueChange($event)"
 ></thy-range-picker>

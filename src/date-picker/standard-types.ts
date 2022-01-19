@@ -66,3 +66,8 @@ export interface ShortcutRange {
 }
 
 export type ShortcutPosition = 'left' | 'bottom';
+
+export interface ShortcutValueChange {
+    value: CompatibleValue;
+    triggerRange: ShortcutRange;
+}

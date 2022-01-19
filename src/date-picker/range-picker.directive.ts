@@ -5,7 +5,7 @@ import { PickerDirective } from './abstract-picker.directive';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ShortcutPosition, ShortcutRange } from './standard-types';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDatePickerShortcutConfig, THY_DATE_PICKER_SHORTCUT_CONFIG } from './date-picker.config';
+import { DatePickerConfig } from './date-picker.service';
 
 @Directive({
     selector: '[thyRangePicker]',
@@ -21,32 +21,25 @@ import { ThyDatePickerShortcutConfig, THY_DATE_PICKER_SHORTCUT_CONFIG } from './
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;
 
+    @Input() thyShowShortcut: boolean = this.datePickerConfig.showShortcut;
+
     @Input() set thyShortcutPosition(position: ShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
 
-    @Input() set thyShortcutRanges(ranges: ShortcutRange[] | boolean) {
-        if (!ranges) {
-            this.shortcutRanges = [];
-        } else {
-            if (helpers.isArray(ranges)) {
-                this.shortcutRanges = [...this.datePickerShortcutConfig.presetShortcutRanges, ...ranges];
-            } else {
-                this.shortcutRanges = [...this.datePickerShortcutConfig.presetShortcutRanges];
-            }
+    @Input() set thyShortcutRanges(ranges: ShortcutRange[]) {
+        if (ranges && helpers.isArray(ranges)) {
+            this.shortcutRanges = [...ranges];
         }
     }
 
-    shortcutPosition: ShortcutPosition = this.datePickerShortcutConfig.shortcutPosition;
+    shortcutRanges: ShortcutRange[] = this.datePickerConfig.shortcutRanges;
 
-    constructor(
-        elementRef: ElementRef,
-        cdr: ChangeDetectorRef,
-        thyPopover: ThyPopover,
-        @Inject(THY_DATE_PICKER_SHORTCUT_CONFIG) private datePickerShortcutConfig: ThyDatePickerShortcutConfig
-    ) {
+    shortcutPosition: ShortcutPosition = this.datePickerConfig.shortcutPosition;
+
+    constructor(elementRef: ElementRef, cdr: ChangeDetectorRef, thyPopover: ThyPopover, private datePickerConfig: DatePickerConfig) {
         super(elementRef, cdr, thyPopover);
     }
 }

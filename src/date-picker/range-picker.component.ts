@@ -15,7 +15,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BasePickerComponent } from './base-picker.component';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDatePickerShortcutConfig, THY_DATE_PICKER_SHORTCUT_CONFIG } from './date-picker.config';
+import { DatePickerConfig } from './date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -35,31 +35,29 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
 
     @Input() thyMode: PanelMode = 'date';
 
+    @Input() thyShowShortcut: boolean = this.datePickerConfig.showShortcut;
+
     @Input() set thyShortcutPosition(position: ShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
 
-    @Input() set thyShortcutRanges(ranges: ShortcutRange[] | boolean) {
-        if (!ranges) {
-            this.shortcutRanges = [];
-        } else {
-            if (helpers.isArray(ranges)) {
-                this.shortcutRanges = [...this.datePickerShortcutConfig.presetShortcutRanges, ...ranges];
-            } else {
-                this.shortcutRanges = [...this.datePickerShortcutConfig.presetShortcutRanges];
-            }
+    @Input() set thyShortcutRanges(ranges: ShortcutRange[]) {
+        if (ranges && helpers.isArray(ranges)) {
+            this.shortcutRanges = [...ranges];
         }
     }
 
-    shortcutPosition: ShortcutPosition = this.datePickerShortcutConfig.shortcutPosition;
+    shortcutRanges: ShortcutRange[] = this.datePickerConfig.shortcutRanges;
+
+    shortcutPosition: ShortcutPosition = this.datePickerConfig.shortcutPosition;
 
     constructor(
         cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected elementRef: ElementRef,
-        @Inject(THY_DATE_PICKER_SHORTCUT_CONFIG) private datePickerShortcutConfig: ThyDatePickerShortcutConfig
+        private datePickerConfig: DatePickerConfig
     ) {
         super(cdr);
         renderer.addClass(elementRef.nativeElement, 'thy-calendar-picker');

@@ -282,7 +282,8 @@ describe('ThyPickerDirective', () => {
             defaultPickerValue: undefined,
             minDate: undefined,
             maxDate: undefined,
-            shortcutRanges: [],
+            showShortcut: undefined,
+            shortcutRanges: undefined,
             shortcutPosition: undefined
         };
     }

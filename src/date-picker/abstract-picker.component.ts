@@ -25,7 +25,8 @@ import {
     RangeEntry,
     PanelMode,
     ShortcutPosition,
-    ShortcutRange
+    ShortcutRange,
+    ShortcutValueChange
 } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
@@ -51,7 +52,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
 
-    @Output() readonly thyShortcutClick = new EventEmitter<ShortcutRange>();
+    @Output() readonly thyShortcutValueChange = new EventEmitter<ShortcutValueChange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
@@ -59,7 +60,9 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     shortcutPosition: ShortcutPosition;
 
-    shortcutRanges: ShortcutRange[] = [];
+    shortcutRanges: ShortcutRange[];
+
+    thyShowShortcut: boolean;
 
     isRange: boolean;
 

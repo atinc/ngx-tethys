@@ -24,6 +24,7 @@ import {
     RangePartType,
     ShortcutPosition,
     ShortcutRange,
+    ShortcutValueChange,
     SupportTimeOptions
 } from '../../standard-types';
 
@@ -50,6 +51,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() value: CompatibleValue;
     @Input() defaultPickerValue: CompatibleDate | number;
 
+    @Input() showShortcut: boolean;
+
     @Input() shortcutRanges: ShortcutRange[];
 
     @Input() shortcutPosition: ShortcutPosition;
@@ -59,7 +62,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Output() readonly valueChange = new EventEmitter<CompatibleValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
-    @Output() readonly shortcutClick = new EventEmitter<ShortcutRange>();
+    @Output() readonly shortcutValueChange = new EventEmitter<ShortcutValueChange>();
 
     prefixCls = 'thy-calendar';
     showTimePicker = false;
@@ -345,6 +348,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
             this.changeValueFromSelect(new TinyDate(beginValue), 'left');
             this.changeValueFromSelect(new TinyDate(endValue), 'right');
         }
-        this.shortcutClick.emit(shortcutRange);
+        this.shortcutValueChange.emit({
+            value: this.selectedValue,
+            triggerRange: shortcutRange
+        });
     }
 }
