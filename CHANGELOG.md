@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.6"></a>
+## [12.1.6](https://github.com/atinc/ngx-tethys/compare/12.1.5...12.1.6) (2022-01-20)
+
+
+### Bug Fixes
+
+* **date-picker:** date picker support shortcut options #INFR-2521 ([#1442](https://github.com/atinc/ngx-tethys/issues/1442)) ([7afd783](https://github.com/atinc/ngx-tethys/commit/7afd783)), closes [#INFR-2521](https://github.com/atinc/ngx-tethys/issues/INFR-2521)
+* **date-picker:** fix prev and next button style #INFR-2321 ([#1444](https://github.com/atinc/ngx-tethys/issues/1444)) ([41d3783](https://github.com/atinc/ngx-tethys/commit/41d3783)), closes [#INFR-2321](https://github.com/atinc/ngx-tethys/issues/INFR-2321) [#INFR-2321](https://github.com/atinc/ngx-tethys/issues/INFR-2321)
+
+
+### Features
+
+* **slider:** add slider size setting(#INFR-2533) ([#1443](https://github.com/atinc/ngx-tethys/issues/1443)) ([ad0ec3c](https://github.com/atinc/ngx-tethys/commit/ad0ec3c)), closes [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533)
+
+
+
 <a name="12.1.5"></a>
 ## [12.1.5](https://github.com/atinc/ngx-tethys/compare/12.1.4...12.1.5) (2022-01-14)
 
