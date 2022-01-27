@@ -11,14 +11,16 @@ import { ThyContentComponent } from '../content.component';
     selector: 'demo-layout-basic',
     template: `
         <thy-layout>
-            <thy-header thyTitle="I am header" thyIcon="application-fill"> </thy-header>
+            <thy-header [thyDivided]="isDivided" thyTitle="I am header" thyIcon="application-fill"> </thy-header>
             <thy-content>
-                恩，我是 content
+                Yeah, I am content
             </thy-content>
         </thy-layout>
     `
 })
-class ThyDemoLayoutBasicComponent {}
+class ThyDemoLayoutBasicComponent {
+    isDivided = false;
+}
 
 @Component({
     selector: 'demo-layout-custom-header',
@@ -86,6 +88,18 @@ describe(`layout`, () => {
             const contentElement: HTMLElement = contentDebugElement.nativeElement;
             expect(contentElement).toBeTruthy();
             expect(contentElement.classList.contains(`thy-layout-content`)).toBeTruthy();
+        });
+
+        it('should get divided header', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeFalsy();
+            fixture.componentInstance.isDivided = true;
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
         });
     });
 
