@@ -96,10 +96,10 @@ describe(`layout`, () => {
             const headerElement: HTMLElement = headerDebugElement.nativeElement;
             expect(headerElement).toBeTruthy();
             expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
-            expect(headerElement.classList.contains(`thy-header-divided`)).toBeFalsy();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeFalsy();
             fixture.componentInstance.isDivided = true;
             fixture.detectChanges();
-            expect(headerElement.classList.contains(`thy-header-divided`)).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
         });
     });
 
