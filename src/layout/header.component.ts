@@ -72,6 +72,3 @@ export class ThyHeaderComponent implements OnInit {
 
     ngOnInit() {}
 }
-function BooleanInput() {
-    throw new Error('Function not implemented.');
-}
