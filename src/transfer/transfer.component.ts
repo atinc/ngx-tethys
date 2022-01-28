@@ -160,5 +160,10 @@ export class ThyTransferComponent implements OnInit {
             left: direction === TransferDirection.left ? event.listData : otherListData,
             right: direction === TransferDirection.right ? event.listData : otherListData
         });
+
+        this.rightDataSource =
+            direction === TransferDirection.right
+                ? [...event.listData.lock, ...event.listData.unlock]
+                : [...otherListData.lock, ...otherListData.unlock];
     }
 }
