@@ -8,12 +8,78 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyTransferComponent } from '../transfer.component';
-import { ThyTransferChangeEvent, ThyTransferDragEvent, ThyTransferItem, TransferDirection } from '../transfer.interface';
+import {
+    ThyTransferChangeEvent,
+    ThyTransferDragEvent,
+    ThyTransferItem,
+    TransferDirection,
+    InnerTransferDragEvent
+} from '../transfer.interface';
 import { ThyTransferModule } from '../transfer.module';
 
 const COUNT = 9;
 const RIGHTCOUNT = 5;
 const RIGHTMAX = 6;
+
+const testData = {
+    rightLockItems: [{ id: 9, title: '第9条数据', direction: TransferDirection.right, isLock: true, order: 0 }],
+    rightUnLockItemsBeforeDrag: [
+        { id: 5, title: '第5条数据', direction: TransferDirection.right, order: 0 },
+        { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 1 },
+        { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 2 },
+        { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 3 }
+    ],
+    rightUnlockItemBeDrag: { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 3 },
+    previousIndex: 3,
+    currentIndex: 0,
+    rightUnLockItemsAfterDrag: [
+        { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 3 },
+        { id: 5, title: '第5条数据', direction: TransferDirection.right, order: 0 },
+        { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 1 },
+        { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 2 }
+    ],
+    rightDataSourceAfterDrag: [
+        { id: 9, title: '第9条数据', direction: TransferDirection.right, isLock: true, order: 0 },
+        { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 0 },
+        { id: 5, title: '第5条数据', direction: TransferDirection.right, order: 1 },
+        { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 2 },
+        { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 3 }
+    ],
+    rightDataSourceAfterAdd: [
+        { id: 9, title: '第9条数据', direction: TransferDirection.right, isLock: true, order: 0 },
+        { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 0 },
+        { id: 5, title: '第5条数据', direction: TransferDirection.right, order: 1 },
+        { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 2 },
+        { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 3 },
+        { id: 2, title: '第2条数据', direction: TransferDirection.right, order: 4, checked: false }
+    ],
+    rightDataSourceAfterDeleteIndexTwo: [
+        { id: 9, title: '第9条数据', direction: TransferDirection.right, isLock: true, order: 0 },
+        { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 0 },
+        { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 1 },
+        { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 2 }
+    ],
+    dragEvent: {
+        model: { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 3 },
+        models: [
+            { id: 8, title: '第8条数据', direction: TransferDirection.right, order: 3, isLock: false },
+            { id: 5, title: '第5条数据', direction: TransferDirection.right, order: 0, isLock: false },
+            { id: 6, title: '第6条数据', direction: TransferDirection.right, order: 1, isLock: false },
+            { id: 7, title: '第7条数据', direction: TransferDirection.right, order: 2, isLock: false }
+        ],
+        newIndex: 0,
+        oldIndex: 3
+    },
+    leftItems: {
+        lock: [] as ThyTransferItem[],
+        unlock: [
+            { id: 1, title: '第1条数据', direction: TransferDirection.left, order: 0 },
+            { id: 2, title: '第2条数据', direction: TransferDirection.left, order: 1 },
+            { id: 3, title: '第3条数据', direction: TransferDirection.left, order: 2 },
+            { id: 4, title: '第4条数据', direction: TransferDirection.left, order: 3 }
+        ]
+    }
+};
 
 function buildDataList() {
     return [
@@ -134,6 +200,7 @@ describe('transfer', () => {
     let dl: DebugElement;
     let instance: TestTransferComponent;
     let pageObject: TransferPageObject;
+    let transferComponent: ThyTransferComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -147,6 +214,7 @@ describe('transfer', () => {
         dl = fixture.debugElement;
         instance = dl.componentInstance;
         pageObject = new TransferPageObject();
+        transferComponent = fixture.componentInstance.comp;
         fixture.detectChanges();
     });
 
@@ -228,6 +296,10 @@ describe('transfer', () => {
             return dl.queryAll(By.css('thy-transfer-list'))[1].nativeElement as HTMLElement;
         }
 
+        get rightListInstance() {
+            return dl.queryAll(By.css('thy-transfer-list'))[1].componentInstance;
+        }
+
         transfer(direction: 'left' | 'right', index: number): this {
             this.checkItem(direction === 'left' ? 'right' : 'left', index);
             fixture.detectChanges();
@@ -254,6 +326,26 @@ describe('transfer', () => {
         expectRight(count: number): this {
             expect(instance.comp.rightDataSource.length).toBe(count);
             return this;
+        }
+
+        dragOneItem() {
+            const rightListInstance = dl.queryAll(By.css('thy-transfer-list'))[1].componentInstance;
+            rightListInstance.lockItems = testData.rightLockItems;
+            rightListInstance.unlockItems = testData.rightUnLockItemsAfterDrag;
+            rightListInstance.drop({
+                previousIndex: testData.previousIndex,
+                currentIndex: testData.currentIndex,
+                isPointerOverContainer: true,
+                item: { data: testData.rightUnlockItemBeDrag },
+                container: {
+                    id: 'unlock',
+                    data: testData.rightUnLockItemsBeforeDrag
+                },
+                previousContainer: {
+                    id: 'unlock',
+                    data: testData.rightUnLockItemsBeforeDrag
+                }
+            });
         }
     }
 
@@ -285,6 +377,84 @@ describe('transfer', () => {
             (items[0] as HTMLElement).click();
             fixture.detectChanges();
             pageObject.expectLeft(COUNT).expectRight(RIGHTCOUNT - 1);
+        });
+    });
+
+    describe('transfer event', () => {
+        let rightListInstance: any;
+
+        beforeEach(() => {
+            pageObject = new TransferPageObject();
+            rightListInstance = pageObject.rightListInstance;
+            fixture.detectChanges();
+        });
+
+        it('should support transfer thyChange', () => {
+            const spy = jasmine.createSpy('after thyChange subscribe spy');
+            transferComponent.thyChange.subscribe((value: ThyTransferChangeEvent) => {
+                expect(value.right.unlock.length).toBe(RIGHTCOUNT - 1);
+                expect(value.items.length).toBe(1);
+                spy();
+            });
+            pageObject.transfer('left', 0);
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should support transferList draggableUpdate and transfer thyDraggableUpdate', () => {
+            const afterDraggableUpdateSpy = jasmine.createSpy('after draggableUpdate subscribe spy');
+            rightListInstance.draggableUpdate.subscribe((value: InnerTransferDragEvent) => {
+                expect(value).toEqual({
+                    dragEvent: testData.dragEvent,
+                    listData: {
+                        lock: testData.rightLockItems,
+                        unlock: testData.rightUnLockItemsAfterDrag
+                    }
+                });
+                afterDraggableUpdateSpy();
+            });
+
+            const afterThyDraggableUpdateSpy = jasmine.createSpy('after thyDraggableUpdate subscribe spy');
+            transferComponent.thyDraggableUpdate.subscribe((value: ThyTransferDragEvent) => {
+                expect(value).toEqual({
+                    ...testData.dragEvent,
+                    left: testData.leftItems,
+                    right: {
+                        lock: testData.rightLockItems,
+                        unlock: testData.rightUnLockItemsAfterDrag
+                    }
+                });
+                afterThyDraggableUpdateSpy();
+            });
+
+            pageObject.dragOneItem();
+            fixture.detectChanges();
+
+            expect(afterDraggableUpdateSpy).toHaveBeenCalled();
+            expect(afterThyDraggableUpdateSpy).toHaveBeenCalled();
+        });
+
+        it('should keep correct order for rightDataSource after drag', () => {
+            pageObject.dragOneItem();
+            fixture.detectChanges();
+            expect(transferComponent.rightDataSource).toEqual(testData.rightDataSourceAfterDrag);
+        });
+
+        it('should keep correct order when add item after drag', () => {
+            pageObject.dragOneItem();
+            fixture.detectChanges();
+
+            pageObject.transfer('right', 1);
+            fixture.detectChanges();
+            expect(transferComponent.rightDataSource).toEqual(testData.rightDataSourceAfterAdd);
+        });
+
+        it('should keep correct order when delete item after drag', () => {
+            pageObject.dragOneItem();
+            fixture.detectChanges();
+
+            pageObject.transfer('left', 2);
+            fixture.detectChanges();
+            expect(transferComponent.rightDataSource).toEqual(testData.rightDataSourceAfterDeleteIndexTwo);
         });
     });
 });
