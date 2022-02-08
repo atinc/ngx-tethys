@@ -144,7 +144,6 @@ fdescribe('ThyTestDateRangeComponent', () => {
             const currentText = getPickerTriggerElement().innerText;
             const currentTextToPureNumber = currentText.replace(/[^\d.]/g, '');
 
-            console.log(currentText);
             expect(currentTextToPureNumber).toEqual(
                 `${format(leftDate, 'yyyyMM')}${addZeroToSingleDigits(+leftCellText)}${format(rightDate, 'yyyyMM')}${addZeroToSingleDigits(
                     +rightCellText
