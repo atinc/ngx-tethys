@@ -161,11 +161,11 @@ $btn-link-disabled-color: $gray-400 !default;
 $btn-icon-color: $gray-400 !default; // #cacaca
 $btn-icon-thick-dashed-color: $gray-300 !default; // #ddd
 $btn-icon-thick-solid-color: $gray-400 !default; // #cacaca
-// $btn-icon-circle-padding-lg: 0.8125rem;
+// $btn-icon-circle-padding-lg: 0.6875rem;
 // $btn-icon-circle-padding-base: 0.563rem;
 // $btn-icon-circle-padding-sm: 0.4375rem;
 // $btn-icon-circle-padding-xs: 0.25rem;
-$btn-icon-circle-padding-lg: 13px;
+$btn-icon-circle-padding-lg: 11px;
 $btn-icon-circle-padding-base: 8px;
 $btn-icon-circle-padding-sm: 7px;
 $btn-icon-circle-padding-xs: 4px;
@@ -389,6 +389,7 @@ $avatar-sizes: map.merge(
         28: 12,
         32: 12,
         36: 12,
+        44: 12,
         48: 14,
         68: 16,
         110: 45,
