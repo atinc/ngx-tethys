@@ -227,10 +227,11 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
-    @Input()
-    set thyFilter(value: any) {
-        this._filter = value;
-    }
+    // coming soon
+    // @Input()
+    // set thyFilter(value: any) {
+    //     this._filter = value;
+    // }
 
     @Input()
     set thyPageIndex(value: number) {
@@ -417,13 +418,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             classNames.push('table-default-sm-bottom-padding');
         }
         this.updateHostClassService.updateClass(classNames);
-    }
-
-    private _filterModel() {
-        if (this.model && this.model.length > 0) {
-            if (this._filter) {
-            }
-        }
     }
 
     public updateColumnSelections(key: string, selections: any): void {

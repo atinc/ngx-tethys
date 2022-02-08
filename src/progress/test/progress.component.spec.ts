@@ -6,7 +6,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { ThyProgressComponent } from '../progress.component';
 import { ThyProgressBarComponent } from '../bar/progress-bar.component';
-import { ThyProgressTypes, ThyStackedValue } from '../interfaces';
+import { ThyProgressType, ThyProgressStackedValue } from '../interfaces';
 import { hexToRgb } from '../../util/helpers';
 import { ThyTooltipModule, ThyTooltipDirective } from '../../tooltip';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -32,7 +32,7 @@ const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
 })
 class ThyDemoProgressBasicComponent {
     value = 20;
-    type: ThyProgressTypes;
+    type: ThyProgressType;
     size: string;
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     message = TOOLTIP_TEMPLATE_MESSAGE;
@@ -48,7 +48,7 @@ class ThyDemoProgressBasicComponent {
     `
 })
 class ThyDemoProgressStackedComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
@@ -73,7 +73,7 @@ class ThyDemoProgressStackedComponent {
     `
 })
 class ThyDemoProgressStackedMaxComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
@@ -100,7 +100,7 @@ class ThyDemoProgressStackedMaxComponent {
     `
 })
 class ThyDemoProgressTooltipTemplateComponent {
-    value: ThyStackedValue[] = [
+    value: ThyProgressStackedValue[] = [
         {
             type: 'success',
             value: 40
@@ -141,6 +141,7 @@ describe(`ThyProgressComponent`, () => {
         let progressBarComponent: DebugElement;
         let progressElement: HTMLElement;
         let progressBarElement: HTMLElement;
+        let progressBarInnerElement: HTMLElement;
         let tooltipDirective: ThyTooltipDirective;
         let overlayContainer: OverlayContainer;
         let overlayContainerElement: HTMLElement;
@@ -197,17 +198,17 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
             progressBarElement = progressBarComponent.nativeElement;
+            progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
-            expect(progressBarComponent.nativeElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
-            expect(progressBarComponent.nativeElement.classList.contains(`bg-${basicTestComponent.type}`)).toBe(true);
+            expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
 
             basicTestComponent.type = 'warning';
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
             progressBarElement = progressBarComponent.nativeElement;
+            progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
             expect(progressBarElement.classList.contains(`progress-bar-${basicTestComponent.type}`)).toBe(true);
-            expect(progressBarElement.classList.contains(`bg-${basicTestComponent.type}`)).toBe(true);
         });
 
         it('should be correct class when input size is sm', () => {
@@ -437,49 +438,15 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('28.57%');
             expect(progressBarElements[2].style.width).toEqual('57.14%');
 
-            expect(progressBarElements[0].style['background-color']).toEqual(hexToRgb('#4e8af9'));
-            expect(progressBarElements[1].style['background-color']).toEqual(hexToRgb('#66c060'));
-            expect(progressBarElements[2].style['background-color']).toEqual(hexToRgb('#ffd234'));
-        });
-
-        it('should be correct value by custom stacked value ', () => {
-            stackedTestComponent.value = [
-                {
-                    type: 'success',
-                    value: 20
-                },
-                {
-                    type: 'warning',
-                    value: 20
-                },
-                {
-                    type: 'danger',
-                    value: 20
-                },
-                {
-                    type: 'info',
-                    value: 30,
-                    color: '#7076fa',
-                    label: 'custom color'
-                }
-            ];
-            fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
-            progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
-
-            expect(progressBarElements.length).toBe(5);
-            progressBarElements.forEach(progressBarElement => {
-                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
-            });
-
-            expect(progressBarElements[0].style.width).toEqual('20%');
-            expect(progressBarElements[1].style.width).toEqual('20%');
-            expect(progressBarElements[2].style.width).toEqual('20%');
-            expect(progressBarElements[3].style.width).toEqual('30%');
-            expect(progressBarElements[4].style.width).toEqual('10%');
-
-            expect(progressBarElements[3].style['background-color']).toEqual(hexToRgb('#7076fa'));
+            expect((progressBarElements[0].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+                hexToRgb('#4e8af9')
+            );
+            expect((progressBarElements[1].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+                hexToRgb('#66c060')
+            );
+            expect((progressBarElements[2].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+                hexToRgb('#ffd234')
+            );
         });
     });
 
@@ -542,7 +509,7 @@ describe(`ThyProgressComponent`, () => {
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
-            expect(progressBarElements.length).toBe(5);
+            expect(progressBarElements.length).toBe(4);
             progressBarElements.forEach(progressBarElement => {
                 expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
             });
@@ -551,10 +518,85 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('11.11%');
             expect(progressBarElements[2].style.width).toEqual('11.11%');
             expect(progressBarElements[3].style.width).toEqual('16.67%');
-            expect(progressBarElements[4].style.width).toEqual('50%');
+            expect((progressBarElements[3].querySelector('.progress-bar-inner') as HTMLElement).style['background-color']).toEqual(
+                hexToRgb('#7076fa')
+            );
+        });
 
-            expect(progressBarElements[3].style['background-color']).toEqual(hexToRgb('#7076fa'));
-            expect(progressBarElements[4].style['background-color']).toEqual(hexToRgb('#eee'));
+        it('should be correct values item value has 0 by custom stacked value has max ', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 0
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                }
+            ];
+            stackedTestComponent.max = 40;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(2);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('50%');
+            expect(progressBarElements[1].style.width).toEqual('50%');
+        });
+
+        it('should be correct values item value has 0 and total greater than max by custom stacked value', () => {
+            stackedTestComponent.value = [
+                {
+                    type: 'success',
+                    value: 0
+                },
+                {
+                    type: 'warning',
+                    value: 20
+                },
+                {
+                    type: 'danger',
+                    value: 20
+                }
+            ];
+            stackedTestComponent.max = 30;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(2);
+            progressBarElements.forEach(progressBarElement => {
+                expect(progressBarElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
+            });
+
+            expect(progressBarElements[0].style.width).toEqual('50%');
+            expect(progressBarElements[1].style.width).toEqual('50%');
+        });
+
+        it('should be correct value with 0 by custom stacked value has max with 0 ', () => {
+            stackedTestComponent.value = [];
+            stackedTestComponent.max = 0;
+            fixture.detectChanges();
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarElements = progressBarComponents.map(item => item.nativeElement);
+            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+
+            expect(progressBarElements.length).toBe(0);
+            progressBarElements.forEach(progressBarElement => {
+                expect(
+                    (progressBarElement.querySelector('.progress-bar-inner') as HTMLElement).classList.contains(PROGRESS_BAR_CLASS_NAME)
+                ).toBe(true);
+            });
         });
     });
 

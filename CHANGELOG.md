@@ -2,6 +2,75 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.6"></a>
+## [12.1.6](https://github.com/atinc/ngx-tethys/compare/12.1.5...12.1.6) (2022-01-20)
+
+
+### Bug Fixes
+
+* **date-picker:** date picker support shortcut options #INFR-2521 ([#1442](https://github.com/atinc/ngx-tethys/issues/1442)) ([7afd783](https://github.com/atinc/ngx-tethys/commit/7afd783)), closes [#INFR-2521](https://github.com/atinc/ngx-tethys/issues/INFR-2521)
+* **date-picker:** fix prev and next button style #INFR-2321 ([#1444](https://github.com/atinc/ngx-tethys/issues/1444)) ([41d3783](https://github.com/atinc/ngx-tethys/commit/41d3783)), closes [#INFR-2321](https://github.com/atinc/ngx-tethys/issues/INFR-2321) [#INFR-2321](https://github.com/atinc/ngx-tethys/issues/INFR-2321)
+
+
+### Features
+
+* **slider:** add slider size setting(#INFR-2533) ([#1443](https://github.com/atinc/ngx-tethys/issues/1443)) ([ad0ec3c](https://github.com/atinc/ngx-tethys/commit/ad0ec3c)), closes [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533) [#INFR-2533](https://github.com/atinc/ngx-tethys/issues/INFR-2533)
+
+
+
+<a name="12.1.5"></a>
+## [12.1.5](https://github.com/atinc/ngx-tethys/compare/12.1.4...12.1.5) (2022-01-14)
+
+
+### Bug Fixes
+
+* **switch:** add check when writeValue #WIK-5638 ([294f5c7](https://github.com/atinc/ngx-tethys/commit/294f5c7)), closes [#WIK-5638](https://github.com/atinc/ngx-tethys/issues/WIK-5638)
+* **tree:** fix sm size drag style #INFR-2530 ([#1439](https://github.com/atinc/ngx-tethys/issues/1439)) ([e786bab](https://github.com/atinc/ngx-tethys/commit/e786bab)), closes [#INFR-2530](https://github.com/atinc/ngx-tethys/issues/INFR-2530)
+
+
+### Features
+
+* **switch:** use onPush ChangeDetectionStrategy #WIK-5638 ([#1435](https://github.com/atinc/ngx-tethys/issues/1435)) ([4d36769](https://github.com/atinc/ngx-tethys/commit/4d36769)), closes [#WIK-5638](https://github.com/atinc/ngx-tethys/issues/WIK-5638)
+
+
+
+<a name="12.1.4"></a>
+## [12.1.4](https://github.com/atinc/ngx-tethys/compare/12.1.3...12.1.4) (2022-01-04)
+
+
+### Bug Fixes
+
+* **progress:** set background to inner element and refactor styles #INFR-2476 ([#1426](https://github.com/atinc/ngx-tethys/issues/1426)) ([2023485](https://github.com/atinc/ngx-tethys/commit/2023485)), closes [#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476)
+
+
+
+<a name="12.1.3"></a>
+## [12.1.3](https://github.com/atinc/ngx-tethys/compare/12.1.2...12.1.3) (2021-12-27)
+
+
+### Bug Fixes
+
+* **progress:** deal thyMax equal 0 zd/#INFR-2476 ([#1422](https://github.com/atinc/ngx-tethys/issues/1422)) ([2637d96](https://github.com/atinc/ngx-tethys/commit/2637d96)), closes [zd/#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476) [zd/#INFR-2476](https://github.com/atinc/ngx-tethys/issues/INFR-2476)
+* **shared:** listen event name of ThyStopPropagationDirective must be a string (#IN… ([#1410](https://github.com/atinc/ngx-tethys/issues/1410)) ([8afb7e9](https://github.com/atinc/ngx-tethys/commit/8afb7e9))
+
+
+
+<a name="12.1.2"></a>
+## [12.1.2](https://github.com/atinc/ngx-tethys/compare/12.1.1...12.1.2) (2021-12-22)
+
+
+### Bug Fixes
+
+* **progress:** change background and add test and example #INFR-2451 ([#1413](https://github.com/atinc/ngx-tethys/issues/1413)) ([da1718b](https://github.com/atinc/ngx-tethys/commit/da1718b)), closes [#INFR-2451](https://github.com/atinc/ngx-tethys/issues/INFR-2451)
+
+
+### Features
+
+* **collapse:** add collapse and test ([#1400](https://github.com/atinc/ngx-tethys/issues/1400)) ([50b067d](https://github.com/atinc/ngx-tethys/commit/50b067d))
+* **input-number:** add input-number component #INFR-240 ([#1289](https://github.com/atinc/ngx-tethys/issues/1289)) ([6884ff9](https://github.com/atinc/ngx-tethys/commit/6884ff9)), closes [#INFR-240](https://github.com/atinc/ngx-tethys/issues/INFR-240) [#INFR-240](https://github.com/atinc/ngx-tethys/issues/INFR-240)
+
+
+
 <a name="12.1.1"></a>
 ## [12.1.1](https://github.com/atinc/ngx-tethys/compare/12.1.0...12.1.1) (2021-11-25)
 

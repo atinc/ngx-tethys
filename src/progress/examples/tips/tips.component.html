@@ -1,0 +1,6 @@
+<thy-progress [thyValue]="60" thyTips="Tips text 60%"></thy-progress>
+<thy-progress class="mt-2" [thyValue]="stacked" [thyTips]="customProgressTooltip"></thy-progress>
+<ng-template #customProgressTooltip let-item>
+  <div>Color: {{ item.color }}</div>
+  <div>Value: {{ item.value }}</div>
+</ng-template>

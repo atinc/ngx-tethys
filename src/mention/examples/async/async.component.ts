@@ -4,7 +4,7 @@ import { delay, tap } from 'rxjs/operators';
 
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
-const UsersMock = [
+const mockUsers = [
     'Jacob',
     'Isabella',
     'Ethan',
@@ -43,12 +43,12 @@ export class ThyMentionAsyncExampleComponent implements OnInit {
         this.mentions = [
             {
                 trigger: '@',
-                data: UsersMock,
+                data: mockUsers,
                 displayTemplateRef: this.memberDisplayTemplateRef,
                 emptyText: '无匹配的成员',
                 autoClose: false,
                 search: (term: string) => {
-                    const result = UsersMock.filter(item => {
+                    const result = mockUsers.filter(item => {
                         return (
                             item.name.toLowerCase().includes(term.toLowerCase()) ||
                             item.display_name.toLowerCase().includes(term.toLowerCase())

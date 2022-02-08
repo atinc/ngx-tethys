@@ -17,7 +17,17 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
 import { ThyPickerComponent } from './picker.component';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry, PanelMode } from './standard-types';
+import {
+    CompatibleDate,
+    CompatibleValue,
+    DisabledDateFn,
+    DateEntry,
+    RangeEntry,
+    PanelMode,
+    ThyShortcutPosition,
+    ThyShortcutRange,
+    ThyShortcutValueChange
+} from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
 @Directive()
@@ -42,9 +52,17 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
 
+    @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
+
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
+
+    shortcutPosition: ThyShortcutPosition;
+
+    shortcutRanges: ThyShortcutRange[];
+
+    thyShowShortcut: boolean;
 
     isRange: boolean;
 

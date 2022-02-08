@@ -24,6 +24,8 @@ import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
+export type ThySliderSize = 'sm' | 'md' | 'lg';
+
 @Component({
     selector: 'thy-slider',
     templateUrl: './slider.component.html',
@@ -64,14 +66,38 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyStep = 1;
 
     @Input() set thyType(type: ThySliderType) {
-        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`] : []);
+        if (type) {
+            if (this.typeClassName) {
+                this.updateHostClassService.removeClass(this.typeClassName);
+            }
+            this.updateHostClassService.addClass(type ? `thy-slider-${type}` : '');
+            this.typeClassName = `thy-slider-${type}`;
+        }
     }
 
     @Input() thyColor: string;
 
+    /**
+     * 滑动输入条大小: `'sm' | 'md' | 'lg'`
+     * @default sm
+     */
+    @Input() set thySize(size: ThySliderSize) {
+        if (size) {
+            if (this.sizeClassName) {
+                this.updateHostClassService.removeClass(this.sizeClassName);
+            }
+            this.updateHostClassService.addClass(size ? `thy-slider-${size}` : '');
+            this.sizeClassName = `thy-slider-${size}`;
+        }
+    }
+
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
+
+    private typeClassName = '';
+
+    private sizeClassName = '';
 
     private dragStartListener: Observable<number>;
 

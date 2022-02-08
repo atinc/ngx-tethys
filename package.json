@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "12.1.1",
+  "version": "12.1.6",
   "license": "MIT",
   "scripts": {
     "start": "docgeni serve",
@@ -76,10 +76,10 @@
     "@angular/language-service": "^12.2.13",
     "@commitlint/cli": "^7.5.2",
     "@commitlint/config-conventional": "^7.5.0",
-    "@docgeni/cli": "1.2.0-next.3",
-    "@docgeni/template": "1.2.0-next.3",
+    "@docgeni/cli": "1.2.0-next.4",
+    "@docgeni/template": "1.2.0-next.4",
     "@schematics/angular": "^12.2.13",
-    "@tethys/icons": "1.1.73",
+    "@tethys/icons": "1.1.105",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",

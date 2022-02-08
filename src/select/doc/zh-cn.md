@@ -2,7 +2,6 @@
 category: form
 title: Select
 subtitle: 选择
-order: 1
 ---
 
 <alert>下拉选择组件，包含基于原生的 `thy-select` 和完全自定义的 `thy-custom-select` </alert>

@@ -14,12 +14,16 @@ export class ThyStopPropagationDirective implements OnInit, OnDestroy {
     private isStopPropagation = true;
 
     @Input()
-    set thyStopPropagation(value: any) {
+    set thyStopPropagation(value: string | boolean) {
         if (value === false || value === 'false') {
             this.isStopPropagation = false;
         } else {
             this.isStopPropagation = true;
-            this._eventName = value || 'click';
+            if (!value || value === true || value === 'true') {
+                this._eventName = 'click';
+            } else {
+                this._eventName = value as string;
+            }
         }
     }
 

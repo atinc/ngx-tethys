@@ -47,6 +47,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thySize',
+                description: `滑动条大小，目前可传的大小为：sm | md | lg`,
+                type: 'string',
+                default: 'sm'
+            },
+            {
                 name: 'ngModel',
                 description: '双向绑定的值',
                 type: 'number',

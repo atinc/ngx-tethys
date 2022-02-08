@@ -13,37 +13,37 @@ module.exports = [
             {
                 name: 'thyInline',
                 description: '同一行展示',
-                type: 'Boolean',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyLabelTextTranslateKey',
-                description: 'Checkbox Label 文本 多语言 key',
-                type: 'String',
+                description: 'Label 文本多语言 key',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyDisabled',
-                description: '禁用',
-                type: 'Boolean',
+                description: '是否禁用',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'ngModel',
                 description: '表单双向绑定的值',
-                type: 'Boolean',
+                type: '',
                 default: ''
             },
             {
                 name: 'disabled',
                 description: '是否禁用，当和 ngModel 配置使用才会有效，如果单独设置禁用使用  thyDisabled',
-                type: 'Boolean',
+                type: 'boolean',
                 default: ''
             },
             {
                 name: 'thyIndeterminate',
                 description: '设置 indeterminate 状态，只负责样式控制 Set the indeterminate state, responsible only for style control',
-                type: 'Boolean',
+                type: 'boolean',
                 default: 'false'
             }
         ]
