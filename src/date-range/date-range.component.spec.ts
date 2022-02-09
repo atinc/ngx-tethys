@@ -27,7 +27,7 @@ registerLocaleData(zh);
 
 const CURRENT_DATE = new Date();
 
-fdescribe('ThyTestDateRangeComponent', () => {
+describe('ThyTestDateRangeComponent', () => {
     let fixture: ComponentFixture<ThyTestDateRangeComponent>;
     let fixtureInstance: ThyTestDateRangeComponent;
     let debugElement: DebugElement;
