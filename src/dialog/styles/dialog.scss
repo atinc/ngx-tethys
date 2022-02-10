@@ -154,12 +154,13 @@
     .dialog-max-lg {
         width: variables.$dialog-max-lg;
     }
-    .dialog-full {
-        width: 100vw;
-        height: 100vh;
-        .thy-dialog-container {
-            border-radius: 0px;
-        }
+}
+
+.dialog-full {
+    width: 100vw;
+    height: 100vh;
+    .thy-dialog-container {
+        border-radius: 0px;
     }
 }
 
