@@ -135,7 +135,8 @@ export class PopoverManualClosureContentComponent implements OnInit {
 
     open4(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
         this.popoverRef = this.popover.open(template, {
-            origin
+            origin,
+            hasBackdrop: false
         });
     }
 
@@ -471,6 +472,24 @@ describe(`thyPopover`, () => {
             btnElement3.click();
             tick(1000);
             expect(document.querySelector('.template3')).toBeTruthy();
+        }));
+
+        it('manualClosure, click the same origin again which has opened popover', fakeAsync(() => {
+            btnElement1.click();
+            expect(document.querySelector('.template1')).toBeTruthy();
+
+            btnElement1.click();
+            tick(1000);
+            expect(document.querySelector('.template1')).toBeFalsy();
+        }));
+
+        it('not manualClosure, click the same origin again which has opened popover', fakeAsync(() => {
+            btnElement4.click();
+            expect(document.querySelector('.template4')).toBeTruthy();
+
+            btnElement4.click();
+            tick(1000);
+            expect(document.querySelector('.template4')).toBeFalsy();
         }));
     });
 
