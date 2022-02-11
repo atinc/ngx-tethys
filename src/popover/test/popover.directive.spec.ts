@@ -34,8 +34,8 @@ class ThyDemoVisiblePopoverComponent {
 
     placement: ThyPlacement = 'bottom';
     trigger = 'hover';
-    showDelay = 0;
-    hideDelay = 0;
+    showDelay = 1000;
+    hideDelay = 1000;
     config = {
         panelClass: 'demo-popover'
     };
@@ -142,6 +142,42 @@ describe(`ThyTooltip`, () => {
             flush();
             expect(getPopoverVisible()).toBe(false);
         }));
+
+        it('should show popover delay 1000ms', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPopoverVisible()).toBe(false);
+            tick(500);
+            expect(getPopoverVisible()).toBe(true);
+        }));
+
+        it('should show clear showTimeout when trigger hide', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(500);
+
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPopoverVisible()).toBe(false);
+        }));
+
+        it('should show clear hideTimeout when trigger show', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            flush();
+            expect(getPopoverVisible()).toBe(true);
+
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            fixture.detectChanges();
+            tick(500);
+
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(1000);
+            expect(getPopoverVisible()).toBe(true);
+        }));
     });
 });
 
@@ -228,7 +264,7 @@ describe(`ThyPopoverDirective`, () => {
             popoverDirective = buttonDebugElement.injector.get<ThyPopoverDirective>(ThyPopoverDirective);
         });
 
-        it('should show popover when click', fakeAsync(() => {
+        it('should show popover when click trigger', fakeAsync(() => {
             dispatchMouseEvent(buttonElement, 'click');
             fixture.detectChanges();
             flush();
