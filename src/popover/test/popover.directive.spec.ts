@@ -152,7 +152,7 @@ describe(`ThyTooltip`, () => {
             expect(getPopoverVisible()).toBe(true);
         }));
 
-        it('should show clear showTimeout when trigger hide', fakeAsync(() => {
+        it('should clear showTimeout when hide popover', fakeAsync(() => {
             dispatchMouseEvent(buttonElement, 'mouseenter');
             fixture.detectChanges();
             tick(500);
@@ -163,7 +163,7 @@ describe(`ThyTooltip`, () => {
             expect(getPopoverVisible()).toBe(false);
         }));
 
-        it('should show clear hideTimeout when trigger show', fakeAsync(() => {
+        it('should clear hideTimeout when trigger show popover', fakeAsync(() => {
             dispatchMouseEvent(buttonElement, 'mouseenter');
             fixture.detectChanges();
             flush();
