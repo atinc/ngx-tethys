@@ -186,6 +186,29 @@ export class PopoverOutsideClosableComponent {
 }
 
 @Component({
+    selector: 'popover-inside-closable',
+    template: `
+        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <ng-template #template><div class="template">template</div></ng-template>
+    `
+})
+export class PopoverInsideClosableComponent {
+    constructor(public popover: ThyPopover) {}
+
+    public popoverRef: ThyPopoverRef<any>;
+
+    @ViewChild('openBtn', { static: true })
+    openBtn: ElementRef<any>;
+
+    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
+        this.popoverRef = this.popover.open(template, {
+            origin,
+            insideClosable: true
+        });
+    }
+}
+
+@Component({
     selector: 'popover-config',
     template: `
         <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
@@ -530,6 +553,37 @@ describe(`thyPopover`, () => {
             innerContent.click();
             tick(1000);
             expect(document.querySelector('.template')).toBeTruthy();
+        }));
+    });
+
+    describe('insideClosable', () => {
+        let insideClosableFixture: ComponentFixture<PopoverInsideClosableComponent>;
+        let insideClosableComponent: PopoverInsideClosableComponent;
+
+        beforeEach(inject(
+            [ThyPopover, Location, OverlayContainer, Overlay],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer, _overlay: Overlay) => {
+                popover = _popover;
+                mockLocation = _location as SpyLocation;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+                overlay = _overlay;
+            }
+        ));
+
+        beforeEach(() => {
+            insideClosableFixture = TestBed.createComponent(PopoverInsideClosableComponent);
+            insideClosableFixture.detectChanges();
+            insideClosableComponent = insideClosableFixture.componentInstance;
+        });
+
+        it('should close popover when click dom inside popovercontainer', fakeAsync(() => {
+            insideClosableComponent.openBtn.nativeElement.click();
+            tick(1000);
+            const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
+            innerContent.click();
+            tick(1000);
+            expect(document.querySelector('.template')).toBeFalsy();
         }));
     });
 
