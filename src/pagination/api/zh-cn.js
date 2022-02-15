@@ -53,6 +53,18 @@ module.exports = [
                 default: '9'
             },
             {
+                name: 'showQuickJumper',
+                description: `设置是否显示快速跳转`,
+                type: 'Boolean',
+                default: 'false'
+            },
+            {
+                name: 'showTotalPageCount',
+                description: `设置是否显示总页数信息`,
+                type: 'Boolean',
+                default: 'true'
+            },
+            {
                 type: 'boolean',
                 name: '[thyDisabled]',
                 description: `禁用`,
