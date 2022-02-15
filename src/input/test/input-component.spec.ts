@@ -1,4 +1,3 @@
-import { style } from '@angular/animations';
 import { ThyInputComponent } from './../input.component';
 import { ThyInputModule } from './../module';
 import { ThyInputDirective } from './../input.directive';
@@ -31,6 +30,7 @@ import { CommonModule } from '@angular/common';
             <ng-template #prepend>前置模版</ng-template>
             <ng-template #append>后置模版</ng-template>
         </thy-input>
+        <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `
 })
 class TestBedComponent {
@@ -38,6 +38,7 @@ class TestBedComponent {
     thyType = 'text';
     thyAutocomplete;
     readonly;
+    passwordValue = '12345';
     checkFocus = false;
     checkBlur = false;
     disabled = false;
@@ -158,5 +159,37 @@ describe('input component', () => {
         tick();
         fixture.detectChanges();
         expect(debugContainerElement.attributes.class.includes('disabled')).toBe(true);
+    }));
+
+    it('password input', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        const passwordInput = fixture.debugElement.query(By.css('.password'));
+        const passwordAppend = passwordInput.nativeElement.querySelector('.input-password-icon');
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye')).toBeTruthy();
+
+        passwordAppend.click();
+        fixture.detectChanges();
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye-invisible')).toBeTruthy();
+
+        passwordAppend.click();
+        fixture.detectChanges();
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye')).toBeTruthy();
+    }));
+
+    it('focus and blur ', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
+        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputComponent)).componentInstance;
+
+        debugInputInstance.onInputFocus();
+        fixture.detectChanges();
+        expect(basicTestComponent.checkFocus).toBe(true);
+
+        debugInputInstance.onInputBlur();
+        fixture.detectChanges();
+        expect(basicTestComponent.checkBlur).toBe(true);
     }));
 });

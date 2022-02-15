@@ -1,11 +1,10 @@
-import { Component, Input, Output, EventEmitter, ElementRef, HostBinding, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { isNumber, coerceBooleanProperty } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyAvatarService } from './avatar.service';
-import { isString } from 'ngx-tethys/util';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { ThyAvatarService } from './avatar.service';
 
-const sizeArray = [22, 24, 28, 32, 36, 48, 68, 110, 160];
+const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
 const DEFAULT_SIZE = 36;
 
