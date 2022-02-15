@@ -55,11 +55,27 @@ export class ThyPaginationComponent implements OnInit {
         }
     }
 
+    @Input()
+    set thyCustomPages(pages: number[]) {
+        this.customPages = pages;
+        this.config.showTotalPageCount = false;
+        if (this.initialized) {
+            this.calculatePageCount();
+            this.initializePages(this.pageIndex, this.pageCount);
+            this.cdr.markForCheck();
+        }
+    }
+
     @Input('thyDisabled') disabled = false;
 
     @Input('thyShowQuickJumper')
     set showQuickJumper(value: boolean) {
         this.config.showQuickJumper = value;
+    }
+
+    @Input('thyShowTotalPageCount')
+    set showTotalPageCount(value: boolean) {
+        this.config.showTotalPageCount = value;
     }
 
     @Input('thySize')
@@ -97,6 +113,8 @@ export class ThyPaginationComponent implements OnInit {
     public pageSize: number;
 
     public pageCount: number;
+
+    public customPages: number[];
 
     public total: number;
 
@@ -150,7 +168,12 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private calculatePageCount() {
-        const pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+        let pageCount = null;
+        if (this.customPages && this.customPages.length > 0) {
+            pageCount = this.customPages[this.customPages.length - 1];
+        } else {
+            pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+        }
         this.pageCount = Math.max(pageCount || 0, 1);
     }
 
@@ -159,11 +182,21 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private initializePages(pageIndex: number, pageCount: number) {
+        if (this.customPages && this.customPages.length > 0) {
+            this.pages = this.customPages.map(page => {
+                return {
+                    index: page,
+                    text: page.toString(),
+                    active: page === +pageIndex
+                };
+            });
+            return;
+        }
+
+        let pages = [];
         const marginalCount = this.marginalCount;
         const rangeCount = this.config.rangeCount;
         const maxCount = this.config.maxCount;
-
-        let pages = [];
         const isMaxSized = pageCount > maxCount;
         if (isMaxSized) {
             const beforePages = [];

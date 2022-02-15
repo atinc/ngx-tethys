@@ -10,6 +10,7 @@ import { ThyPaginationTotalExampleComponent } from './total/total.component';
 import { ThyPaginationSizeExampleComponent } from './size/size.component';
 import { ThyPaginationMoreExampleComponent } from './more/more.component';
 import { ThyPaginationDisabledExampleComponent } from './disabled/disabled.component';
+import { ThyPaginationCustomPagesExampleComponent } from './custom-pages/custom-pages.component';
 
 const COMPONENTS = [
     ThyPaginationBasicExampleComponent,
@@ -17,7 +18,8 @@ const COMPONENTS = [
     ThyPaginationTotalExampleComponent,
     ThyPaginationSizeExampleComponent,
     ThyPaginationMoreExampleComponent,
-    ThyPaginationDisabledExampleComponent
+    ThyPaginationDisabledExampleComponent,
+    ThyPaginationCustomPagesExampleComponent
 ];
 
 @NgModule({

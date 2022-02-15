@@ -23,6 +23,12 @@ module.exports = [
                 default: '-'
             },
             {
+                name: '[thyCustomPages]',
+                description: `自定义分页页码，设置自定义分页页码后将不根据 Total 和 PageSize 来自动计算页码，完全以传入的页码为准`,
+                type: 'number[]',
+                default: '-'
+            },
+            {
                 type: 'string',
                 name: '[thySize]',
                 description: `设置分页组件的大小 可选值：'sm' | 'lg'`,
@@ -118,6 +124,12 @@ module.exports = [
                 description: `设置是否显示快速跳转`,
                 type: 'Boolean',
                 default: 'false'
+            },
+            {
+                name: 'showTotalPageCount',
+                description: `设置是否显示总页数信息`,
+                type: 'Boolean',
+                default: 'true'
             },
             {
                 type: 'string',
