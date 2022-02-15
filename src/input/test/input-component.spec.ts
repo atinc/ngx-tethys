@@ -38,7 +38,6 @@ class TestBedComponent {
     thyType = 'text';
     thyAutocomplete;
     readonly;
-    value = '';
     passwordValue = '12345';
     checkFocus = false;
     checkBlur = false;
