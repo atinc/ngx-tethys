@@ -164,7 +164,7 @@ fieldset:disabled a.btn {
         variables.$btn-padding-y-xs,
         variables.$btn-padding-x-xs,
         variables.$btn-font-size-xs,
-        variables.$btn-line-height-sm,
+        variables.$btn-line-height-xs,
         variables.$btn-border-radius-xs,
         variables.$btn-xs-min-width
     );
@@ -220,7 +220,7 @@ fieldset:disabled a.btn {
 
 .btn.thy-btn-icon-only {
     min-width: unset;
-    padding: 0.375rem 0.801rem;
+    padding: 0.375rem 0.625rem;
     .thy-icon {
         font-size: variables.$font-size-base;
     }
