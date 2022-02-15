@@ -186,13 +186,6 @@
 // The `.form-group-* form-control` variations are sadly duplicated to avoid the
 // issue documented in https://github.com/twbs/bootstrap/issues/15074.
 
-.form-control-sm {
-    padding: variables.$input-padding-y-sm variables.$input-padding-x-sm;
-    font-size: variables.$input-font-size-sm;
-    line-height: bootstrap-variables.$input-line-height-sm;
-    @include border-radius.border-radius(bootstrap-variables.$input-border-radius-sm);
-}
-
 // select.form-control-sm {
 //   &:not([size]):not([multiple]) {
 //     height: $input-height-sm;
@@ -205,6 +198,13 @@
     font-size: variables.$input-font-size-lg;
     line-height: bootstrap-variables.$input-line-height-lg;
     @include border-radius.border-radius(bootstrap-variables.$input-border-radius-lg);
+}
+
+.form-control-sm {
+    padding: variables.$input-padding-y-sm variables.$input-padding-x-sm;
+    font-size: variables.$input-font-size-sm;
+    line-height: bootstrap-variables.$input-line-height-sm;
+    @include border-radius.border-radius(bootstrap-variables.$input-border-radius-sm);
 }
 
 // select.form-control-lg {
