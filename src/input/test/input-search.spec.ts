@@ -1,5 +1,6 @@
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputSearchComponent } from '../input-search.component';
 import { ThyInputDirective } from './../input.directive';
@@ -11,24 +12,26 @@ import { ThyInputModule } from './../module';
         <thy-input-search
             name="search"
             placeholder="请输入"
+            [disabled]="disabled"
             [thyTheme]="thyTheme"
             [thySearchFocus]="true"
+            [(ngModel)]="searchText"
             (clear)="onClear()"
             [thySize]="thySize"
         ></thy-input-search>
     `
 })
 class TestBedComponent {
+    searchText = '';
     thySize = 'sm';
     thyTheme = ``;
-    checkClear;
-    onClear() {
-        this.checkClear = true;
-    }
+    disabled = false;
+
+    onClear() {}
 }
 
 @NgModule({
-    imports: [ThyInputModule],
+    imports: [ThyInputModule, FormsModule],
     declarations: [TestBedComponent],
     exports: []
 })
@@ -62,16 +65,55 @@ describe('input search', () => {
     });
 
     it('thyTheme', () => {
+        basicTestComponent.thyTheme = 'default';
+        fixture.detectChanges();
         expect(debugContainerElement.nativeElement.classList.contains('input-search-ellipse')).toBe(false);
+
         basicTestComponent.thyTheme = 'ellipse';
         fixture.detectChanges();
         expect(debugContainerElement.nativeElement.classList.contains('input-search-ellipse')).toBe(true);
     });
 
-    it('clear EventEmitter', () => {
+    it('clear EventEmitter', fakeAsync(() => {
+        basicTestComponent.searchText = '花花';
         fixture.detectChanges();
-        expect(debugElement.nativeElement.placeholder).toBe('请输入');
-    });
+        tick();
+        fixture.detectChanges();
+
+        const closeIcon = debugContainerElement.nativeElement.querySelector('.input-suffix-icon');
+        expect(closeIcon).toBeTruthy();
+
+        const afterClearSpy = jasmine.createSpy('after clear spy');
+        debugContainerElement.componentInstance.clear.subscribe(() => {
+            afterClearSpy();
+        });
+
+        closeIcon.click();
+        fixture.detectChanges();
+        expect(afterClearSpy).toHaveBeenCalled();
+    }));
+
+    it('disabled and dont support clear when disabled', fakeAsync(() => {
+        basicTestComponent.disabled = true;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges;
+        expect(debugContainerElement.componentInstance.disabled).toBe(true);
+
+        basicTestComponent.searchText = '花花';
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        const afterClearSpy = jasmine.createSpy('after clear spy');
+        debugContainerElement.componentInstance.clear.subscribe(() => {
+            afterClearSpy();
+        });
+
+        debugContainerElement.nativeElement.querySelector('.input-suffix-icon').click();
+        fixture.detectChanges();
+        expect(afterClearSpy).not.toHaveBeenCalled();
+    }));
 
     it('thySize', () => {
         fixture.detectChanges();
