@@ -80,5 +80,9 @@ describe('input directive', () => {
         basicTestComponent.thyAutocomplete = true;
         fixture.detectChanges();
         expect(debugElement.nativeElement.autocomplete).toBe('on');
+
+        basicTestComponent.thyAutocomplete = false;
+        fixture.detectChanges();
+        expect(debugElement.nativeElement.autocomplete).toBe('off');
     });
 });
