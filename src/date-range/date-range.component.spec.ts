@@ -135,11 +135,11 @@ describe('ThyTestDateRangeComponent', () => {
             const rightCell = getFirstCell('right');
             const rightHeaderText = rightHeader.textContent.trim();
             dispatchClickEvent(rightCell);
-            const leftDate = addMonths(new Date(), -1);
-            const rightDate = addMonths(new Date(), 1);
+            const leftDate = addMonths(new Date(), -2);
+            const rightDate = addMonths(new Date(), 0);
 
-            expect(leftHeaderText).toEqual(`${getYear(leftDate)}年  ${getMonth(leftDate)}月`);
-            expect(rightHeaderText).toEqual(`${getYear(rightDate)}年  ${getMonth(rightDate)}月`);
+            expect(leftHeaderText).toEqual(`${getYear(leftDate)}年  ${getMonth(leftDate) + 1}月`);
+            expect(rightHeaderText).toEqual(`${getYear(rightDate)}年  ${getMonth(rightDate) + 1}月`);
         }));
     });
 
@@ -171,7 +171,7 @@ describe('ThyTestDateRangeComponent', () => {
             const endDate = originDate.end * 1000;
             const previousModelData = {
                 begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                end: getUnixTime(addMonths(endDate, -1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
@@ -180,7 +180,7 @@ describe('ThyTestDateRangeComponent', () => {
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
-                end: getUnixTime(addMonths(previousModelData.end * 1000, 1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(previousModelData.end * 1000, 1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
