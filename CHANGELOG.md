@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.7"></a>
+## [12.1.7](https://github.com/atinc/ngx-tethys/compare/12.1.6...12.1.7) (2022-02-16)
+
+
+### Bug Fixes
+
+* **button:** reset all sizes of button and input, xs=24px sm=28px, md=32px, default=36px, lg=44px #INFR-2607 ([#1462](https://github.com/atinc/ngx-tethys/issues/1462)) ([2a9eb60](https://github.com/atinc/ngx-tethys/commit/2a9eb60)), closes [#INFR-2607](https://github.com/atinc/ngx-tethys/issues/INFR-2607)
+* **dialog:** extract dialog-full style from media query #INFR-2569 ([6a75b0d](https://github.com/atinc/ngx-tethys/commit/6a75b0d)), closes [#INFR-2569](https://github.com/atinc/ngx-tethys/issues/INFR-2569)
+* **guider:** fix live demo example #INFR-2548 ([#1449](https://github.com/atinc/ngx-tethys/issues/1449)) ([23d60df](https://github.com/atinc/ngx-tethys/commit/23d60df)), closes [#INFR-2548](https://github.com/atinc/ngx-tethys/issues/INFR-2548)
+* **transfer:** fix rightDataSource after drag and improve transfer test coverage rate #INFR-2175 ([#1451](https://github.com/atinc/ngx-tethys/issues/1451)) ([a4a3216](https://github.com/atinc/ngx-tethys/commit/a4a3216)), closes [#INFR-2175](https://github.com/atinc/ngx-tethys/issues/INFR-2175) [#INFR-2175](https://github.com/atinc/ngx-tethys/issues/INFR-2175) [#INFR-2175](https://github.com/atinc/ngx-tethys/issues/INFR-2175)
+
+
+### Features
+
+* **avatar:** support avatar thySize 44 #INFR-2561 ([#1452](https://github.com/atinc/ngx-tethys/issues/1452)) ([33577ba](https://github.com/atinc/ngx-tethys/commit/33577ba)), closes [#INFR-2561](https://github.com/atinc/ngx-tethys/issues/INFR-2561)
+* **layout:** add thyDivided prop to thy-header represent whether there is bottom border and deprecated thyHasBorder #INFR-2555 ([#1450](https://github.com/atinc/ngx-tethys/issues/1450)) ([8982d8e](https://github.com/atinc/ngx-tethys/commit/8982d8e)), closes [#INFR-2555](https://github.com/atinc/ngx-tethys/issues/INFR-2555) [#INFR-2555](https://github.com/atinc/ngx-tethys/issues/INFR-2555)
+* **pagination:**  support custom pages #INFR-2600 ([#1463](https://github.com/atinc/ngx-tethys/issues/1463)) ([ed49797](https://github.com/atinc/ngx-tethys/commit/ed49797)), closes [#INFR-2600](https://github.com/atinc/ngx-tethys/issues/INFR-2600)
+
+
+
 <a name="12.1.6"></a>
 ## [12.1.6](https://github.com/atinc/ngx-tethys/compare/12.1.5...12.1.6) (2022-01-20)
 
