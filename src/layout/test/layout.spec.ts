@@ -6,6 +6,8 @@ import { ThyLayoutComponent } from '../layout.component';
 import { ThyHeaderComponent } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
 import { ThyContentComponent } from '../content.component';
+import { ThyContentSectionComponent } from '../content-section.component';
+import { ThyContentMainComponent } from '../content-main.component';
 
 @Component({
     selector: 'demo-layout-basic',
@@ -13,7 +15,8 @@ import { ThyContentComponent } from '../content.component';
         <thy-layout>
             <thy-header [thyDivided]="isDivided" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName"> </thy-header>
             <thy-content>
-                Yeah, I am content
+                <thy-content-section>Content section</thy-content-section>
+                <thy-content-main>Content main</thy-content-main>
             </thy-content>
         </thy-layout>
     `
@@ -88,6 +91,20 @@ describe(`layout`, () => {
             const contentElement: HTMLElement = contentDebugElement.nativeElement;
             expect(contentElement).toBeTruthy();
             expect(contentElement.classList.contains(`thy-layout-content`)).toBeTruthy();
+
+            // content section
+            const contentSectionDebugElement = fixture.debugElement.query(By.directive(ThyContentSectionComponent));
+            expect(contentSectionDebugElement).toBeTruthy();
+            const contentSectionElement = contentSectionDebugElement.nativeElement;
+            expect(contentSectionElement).toBeTruthy();
+            expect(contentSectionElement.classList.contains(`thy-layout-content-section`)).toBeTruthy();
+
+            // content main
+            const contentMainDebugElement = fixture.debugElement.query(By.directive(ThyContentMainComponent));
+            expect(contentMainDebugElement).toBeTruthy();
+            const contentMainElement = contentMainDebugElement.nativeElement;
+            expect(contentMainElement).toBeTruthy();
+            expect(contentMainElement.classList.contains(`thy-layout-content-main`)).toBeTruthy();
         });
 
         it('should get divided header', () => {
@@ -155,5 +172,5 @@ describe(`layout`, () => {
         });
     });
 
-    // 弃用的thyIconPrefix、thyHasBorder不加测试
+    // thyIconPrefix、thyHasBorder将被弃用，不加测试
 });
