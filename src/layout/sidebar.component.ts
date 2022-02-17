@@ -25,7 +25,6 @@ export class ThySidebarComponent implements OnInit {
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
 
     @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
-    @HostBinding('style.pointer-events') thyLayoutSidebarPointerEvents: string;
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
@@ -51,7 +50,7 @@ export class ThySidebarComponent implements OnInit {
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
         if (coerceBooleanProperty(value)) {
-            this.thyLayoutSidebarPointerEvents = 'all';
+            this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
         }
     }
 
