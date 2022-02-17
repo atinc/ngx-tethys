@@ -12,7 +12,7 @@ export interface ThyFullscreenConfig {
     /**
      * 目标元素已经打开全屏的样式
      */
-    targetLaunchededClasse?: string;
+    targetLaunchedClass?: string;
     /**
      * emulated 模式下的目标元素全屏的容器，默认是 body
      */
