@@ -11,7 +11,7 @@ import { ThyContentComponent } from '../content.component';
     selector: 'demo-layout-basic',
     template: `
         <thy-layout>
-            <thy-header [thyDivided]="isDivided" thyTitle="I am header" thyIcon="application-fill"> </thy-header>
+            <thy-header [thyDivided]="isDivided" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName"> </thy-header>
             <thy-content>
                 Yeah, I am content
             </thy-content>
@@ -20,6 +20,8 @@ import { ThyContentComponent } from '../content.component';
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
+    size = '';
+    iconName = '';
 }
 
 @Component({
@@ -75,10 +77,8 @@ describe(`layout`, () => {
             expect(headerElement).toBeTruthy();
             expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
 
-            // header icon and title
-            const iconElement = headerElement.querySelector('.prefix-icon');
+            // header title
             const titleNameElement = headerElement.querySelector('.title-name');
-            expect(iconElement).toBeTruthy();
             expect(titleNameElement).toBeTruthy();
             expect(titleNameElement.innerHTML).toContain('I am header');
 
@@ -100,6 +100,25 @@ describe(`layout`, () => {
             fixture.componentInstance.isDivided = true;
             fixture.detectChanges();
             expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
+        });
+
+        it('layout header thyIcon', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            expect(headerDebugElement.nativeElement.querySelector('.prefix-icon')).toBeFalsy();
+            fixture.debugElement.componentInstance.iconName = 'application-fill';
+            fixture.detectChanges();
+            expect(headerDebugElement.nativeElement.querySelector('.prefix-icon')).toBeTruthy();
+        });
+
+        it('layout header thySize', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeFalsy();
+            fixture.componentInstance.size = 'sm';
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeTruthy();
         });
     });
 
@@ -135,4 +154,6 @@ describe(`layout`, () => {
             expect(headerOperation.innerHTML).toContain('My Custom Header Operation');
         });
     });
+
+    // 弃用的thyIconPrefix、thyHasBorder不加测试
 });
