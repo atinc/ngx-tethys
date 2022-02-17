@@ -15,7 +15,7 @@
     <input thyInput type="password" name="password" placeholder="Please type password" />
   </thy-form-group>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" thyLoadingText="Login">
+    <button [thyButton]="'primary'" thyLoadingText="Login" (thyFormSubmit)="login()">
       Login
     </button>
     <button [thyButton]="'link-secondary'">Cancel</button>
