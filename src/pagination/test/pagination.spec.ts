@@ -50,6 +50,7 @@ class PaginationBasicComponent {
             [thyShowQuickJumper]="canQuickJump"
             (thyPageIndexChange)="pageIndexChange($event)"
             [thyShowSizeChanger]="showSizeChanger"
+            [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
             (thyPageSizeChanged)="pageSizeChanged($event)"
         ></thy-pagination>
@@ -66,12 +67,14 @@ class PaginationTestComponent {
 
     showSizeChanger = false;
 
+    size = '';
+
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
 
-    pageSizeChanged = jasmine.createSpy('pageSizeChange callback');
+    pageSizeChanged = jasmine.createSpy('pageSizeChanged callback');
 }
 
-fdescribe('ThyPagination', () => {
+describe('ThyPagination', () => {
     @Component({
         template: `
             <thy-pagination
@@ -122,7 +125,6 @@ fdescribe('ThyPagination', () => {
         });
 
         it('should pre btn disabled status', () => {
-            componentInstance.pagination.pageIndex = 0;
             pagination.pageIndex = 0;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
@@ -130,7 +132,6 @@ fdescribe('ThyPagination', () => {
         });
 
         it('should next btn disabled status', () => {
-            componentInstance.pagination.pageIndex = componentInstance.pagination.total / componentInstance.pagination.pageSize + 1;
             pagination.pageIndex = pagination.total / pagination.pageSize + 1;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
@@ -138,7 +139,6 @@ fdescribe('ThyPagination', () => {
         });
 
         it('should btn click three page jumper three', () => {
-            componentInstance.pagination.pageIndex = 2;
             pagination.pageIndex = 2;
             const nodes = Array.from(paginationElement.querySelectorAll('.thy-page-item')) as HTMLElement[];
             fixture.detectChanges();
@@ -146,27 +146,23 @@ fdescribe('ThyPagination', () => {
         });
 
         it('should pre btn click can works', () => {
-            componentInstance.pagination.pageIndex = 2;
             pagination.pageIndex = 2;
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(0);
             (paginationElement.querySelectorAll('.thy-page-item')[1] as HTMLElement).click();
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(1);
-            expect(componentInstance.pagination.pageIndex).toBe(1);
             expect(pagination.pageIndex).toBe(1);
         });
 
         it('should next btn click can works', () => {
             const list = paginationElement.querySelectorAll('.thy-page-item');
-            componentInstance.pagination.pageIndex = 2;
             pagination.pageIndex = 2;
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(0);
             (list[list.length - 1] as HTMLElement).click();
             fixture.detectChanges();
             expect(componentInstance.pageIndexChange).toHaveBeenCalledTimes(1);
-            expect(componentInstance.pagination.pageIndex).toBe(3);
             expect(pagination.pageIndex).toBe(3);
         });
 
@@ -177,24 +173,6 @@ fdescribe('ThyPagination', () => {
             }
             dispatchMouseEvent(getPickerTriggerElement(), 'click');
             tick(100);
-            expect(componentInstance.pagination.pageIndex).toEqual(4);
-        }));
-
-        it('should showSizeChanger can works', fakeAsync(() => {
-            componentInstance.showSizeChanger = false;
-            fixture.detectChanges();
-            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(0);
-            fixture.detectChanges();
-            componentInstance.showSizeChanger = true;
-            fixture.detectChanges();
-            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
-        }));
-
-        it('should page size changed can works', fakeAsync(() => {
-            componentInstance.showSizeChanger = true;
-            componentInstance.pagination.pageSize = 50;
-            fixture.detectChanges();
-            expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
             expect(pagination.pageIndex).toEqual(4);
         }));
     });
@@ -336,5 +314,58 @@ fdescribe('ThyPagination', () => {
             lastPageElement.click();
             expect(pageIndexChangeSpy).toHaveBeenCalled();
         });
+    });
+
+    describe('page sizes', () => {
+        let fixture: ComponentFixture<PaginationTestComponent>;
+        let componentInstance: PaginationTestComponent;
+        let paginationElement: HTMLElement;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PaginationTestComponent);
+            componentInstance = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+            paginationElement = fixture.debugElement.query(By.directive(ThyPaginationComponent)).nativeElement;
+        });
+
+        it('should showSizeChanger can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = false;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(0);
+            fixture.detectChanges();
+            componentInstance.showSizeChanger = true;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
+        }));
+
+        it('should page size changed can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.pagination.pageSize = 50;
+            fixture.detectChanges();
+            tick(100);
+            expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
+        }));
+
+        it('should select size when thySize changed', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.size = 'sm';
+            fixture.detectChanges();
+            expect(paginationElement.querySelector('.form-control').classList).toContain('form-control-sm');
+        }));
+
+        it('should pageSizeChanged can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.size = 'sm';
+            fixture.detectChanges();
+            tick(300);
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+            (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            fixture.detectChanges();
+            const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
+            (el.querySelectorAll('.thy-option-item')[3] as HTMLElement).click();
+            fixture.detectChanges();
+            tick(300);
+            expect(el.querySelectorAll('.thy-option-item')[3].classList).toContain('active');
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
+        }));
     });
 });
