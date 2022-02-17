@@ -23,7 +23,7 @@ function addStyleToWorkspace(projectName: string) {
         return updateWorkspace(workspace => {
             const project = getProjectFromWorkspace(workspace, projectName);
             const stylesList = (project.targets.get('build').options.styles as any[]) || [];
-            const filePath = `./node_modules/ngx-tethys/styles/main.bundle.scss`;
+            const filePath = `./node_modules/ngx-tethys/styles/index.scss`;
             if (!stylesList.includes(filePath)) {
                 stylesList.push(filePath);
                 project.targets.get('build').options.styles = stylesList;

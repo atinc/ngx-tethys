@@ -4,7 +4,7 @@ title: Pagination
 subtitle: 分页
 ---
 
-<alert>列表数据展示分页组件</alert>
+<alert>列表数据展示分页组件。</alert>
 
 ## 何时使用  
 - 当加载/渲染所有数据将花费很多时间时；

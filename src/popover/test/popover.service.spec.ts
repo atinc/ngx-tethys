@@ -1,9 +1,8 @@
-import { Directionality } from '@angular/cdk/bidi';
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { isArray, isUndefinedOrNull } from '../../util';
@@ -28,8 +27,6 @@ class PopoverBasicComponent {
     @ViewChild('customTemplate') template: TemplateRef<any>;
 
     @ViewChild('trigger') trigger: TemplateRef<any>;
-
-    openComponentPopover() {}
 }
 
 @Directive({ selector: 'with-view-container-directive' })
@@ -73,145 +70,84 @@ class WithChildViewContainerComponent {
     `
 })
 export class PopoverSimpleContentComponent {
-    constructor(
-        public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
-        public popoverInjector: Injector,
-        public directionality: Directionality
-    ) {}
+    constructor(public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>, public popoverInjector: Injector) {}
 }
 
 @Component({
     selector: 'popover-manual-closure-content-component',
     template: `
-        <a class="btn btn1" #btn1 (click)="open1(btn1, template1)">Open1</a>
+        <a class="btn" #btn1>Open1</a>
         <ng-template #template1><div class="template1">template1</div></ng-template>
 
-        <a class="btn btn2" #btn2 (click)="open2(btn2, template2)">Open2</a>
+        <a class="btn" #btn2>Open2</a>
         <ng-template #template2><div class="template2">template2</div></ng-template>
-
-        <a class="btn btn3" #btn3 (click)="open3(btn3, template3)">Open3</a>
-        <ng-template #template3><div class="template3">template3</div></ng-template>
-
-        <a class="btn btn4" #btn4 (click)="open4(btn4, template4)">Open4</a>
-        <ng-template #template4><div class="template4">template4</div></ng-template>
-
-        <a class="btn btn5" #btn5 (click)="open5(btn5, template5)">Open5</a>
-        <ng-template #template5><div class="template5">template5</div></ng-template>
     `
 })
-export class PopoverManualClosureContentComponent implements OnInit {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay,
-        public popoverInjector: Injector,
-        public directionality: Directionality
-    ) {}
+export class PopoverManualClosureContentComponent {
+    constructor(public popover: ThyPopover, public overlay: Overlay, public popoverInjector: Injector) {}
 
-    public popoverRef: ThyPopoverRef<any>;
+    @ViewChild('btn1', { static: true })
+    btn1: HTMLElement;
 
-    public scrollStrategy: ScrollStrategy;
+    @ViewChild('btn2', { static: true })
+    btn2: HTMLElement;
 
-    open1(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popover.open(template, {
-            origin,
-            manualClosure: true
-        });
-    }
+    @ViewChild('template1', { static: true }) template1: TemplateRef<any>;
 
-    open2(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popover.open(template, {
-            origin,
-            originActiveClass: 'active-class',
-            manualClosure: true
-        });
-    }
-
-    open3(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popover.open(template, {
-            origin,
-            originActiveClass: ['active-class2', 'active-class3']
-        });
-    }
-
-    open4(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popoverRef = this.popover.open(template, {
-            origin
-        });
-    }
-
-    open5(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popoverRef = this.popover.open(template, {
-            origin,
-            scrollStrategy: this.scrollStrategy
-        });
-    }
-
-    ngOnInit() {
-        this.scrollStrategy = this.overlay.scrollStrategies.reposition();
-    }
+    @ViewChild('template2', { static: true }) template2: TemplateRef<any>;
 }
 
 @Component({
     selector: 'popover-outside-closable',
     template: `
         <button #outsideBtn>outside btn</button>
-        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
     `
 })
 export class PopoverOutsideClosableComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay,
-        public popoverInjector: Injector,
-        public directionality: Directionality
-    ) {}
-
-    public popoverRef: ThyPopoverRef<any>;
-
     @ViewChild('outsideBtn', { static: true })
     outsideBtn: ElementRef<any>;
 
     @ViewChild('openBtn', { static: true })
     openBtn: ElementRef<any>;
 
-    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popoverRef = this.popover.open(template, {
-            origin,
-            hasBackdrop: false,
-            outsideClosable: true
-        });
-    }
+    @ViewChild('template', { static: true })
+    template: TemplateRef<any>;
+}
+
+@Component({
+    selector: 'popover-inside-closable',
+    template: `
+        <a class="btn" #openBtn>Open</a>
+        <ng-template #template><div #innerContent>template</div></ng-template>
+    `
+})
+export class PopoverInsideClosableComponent {
+    @ViewChild('openBtn', { static: true })
+    openBtn: ElementRef<any>;
+
+    @ViewChild('template', { static: true })
+    template: TemplateRef<any>;
 }
 
 @Component({
     selector: 'popover-config',
     template: `
-        <a class="btn" #openBtn (click)="open(openBtn, template)">Open</a>
+        <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
     `
 })
 export class PopoverConfigComponent {
-    constructor(
-        public popover: ThyPopover,
-        public overlay: Overlay,
-        public popoverInjector: Injector,
-        public directionality: Directionality
-    ) {}
+    constructor(public popover: ThyPopover, public overlay: Overlay) {}
 
     public popoverRef: ThyPopoverRef<any>;
-
-    public config: any = { hasBackdrop: false, outsideClosable: true };
 
     @ViewChild('openBtn', { static: true })
     openBtn: ElementRef<any>;
 
-    open(origin: HTMLElement, template: TemplateRef<HTMLElement>) {
-        this.popoverRef = this.popover.open(template, {
-            origin,
-            ...this.config
-        });
-    }
+    @ViewChild('template', { static: true })
+    template: TemplateRef<any>;
 }
 
 const TEST_COMPONENTS = [
@@ -221,6 +157,7 @@ const TEST_COMPONENTS = [
     WithChildViewContainerComponent,
     PopoverManualClosureContentComponent,
     PopoverOutsideClosableComponent,
+    PopoverInsideClosableComponent,
     PopoverConfigComponent
 ];
 @NgModule({
@@ -430,47 +367,106 @@ describe(`thyPopover`, () => {
         });
 
         let viewContainerFixtureManualClosure: ComponentFixture<PopoverManualClosureContentComponent>;
-        let btnElement1: HTMLElement,
-            btnElement2: HTMLElement,
-            btnElement3: HTMLElement,
-            btnElement4: HTMLElement,
-            btnElement5: HTMLElement;
+        let btn1: HTMLElement, btn2: HTMLElement;
+        let template1: TemplateRef<any>, template2: TemplateRef<any>;
 
         beforeEach(() => {
             viewContainerFixtureManualClosure = TestBed.createComponent(PopoverManualClosureContentComponent);
-            btnElement1 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn1');
-            btnElement2 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn2');
-            btnElement3 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn3');
-            btnElement4 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn4');
-            btnElement5 = viewContainerFixtureManualClosure.nativeElement.querySelector('.btn5');
+            const instance = viewContainerFixtureManualClosure.componentInstance;
+
+            btn1 = instance.btn1;
+            btn2 = instance.btn2;
+
+            template1 = instance.template1;
+            template2 = instance.template2;
+
             viewContainerFixtureManualClosure.detectChanges();
         });
 
         it('manualClosure, open manualClosure times', () => {
-            btnElement1.click();
-            btnElement2.click();
-            expect(document.querySelector('.template1')).toBeTruthy();
-            expect(document.querySelector('.template2')).toBeTruthy();
+            popover.open(template1, {
+                origin: btn1,
+                manualClosure: true
+            });
+            popover.open(template2, {
+                origin: btn2,
+                manualClosure: true
+            });
+
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template1');
+            expect(overlayContainerElement.textContent).toContain('template2');
         });
 
         it('not manualClosure, open manualClosure times', fakeAsync(() => {
-            btnElement3.click();
-            btnElement4.click();
+            popover.open(template1, {
+                origin: btn1
+            });
+            popover.open(template2, {
+                origin: btn2
+            });
+
+            viewContainerFixtureManualClosure.detectChanges();
             tick(1000);
-            expect(document.querySelector('.template3')).toBeFalsy();
-            expect(document.querySelector('.template4')).toBeTruthy();
+            expect(overlayContainerElement.textContent).not.toContain('template1');
+            expect(overlayContainerElement.textContent).toContain('template2');
         }));
 
         it('manualClosure and not manualClosure, mixed open', fakeAsync(() => {
-            btnElement3.click();
-            expect(document.querySelector('.template3')).toBeTruthy();
-            btnElement1.click();
+            popover.open(template1, {
+                origin: btn1
+            });
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template1');
+
+            popover.open(template2, {
+                origin: btn2,
+                manualClosure: true
+            });
+            viewContainerFixtureManualClosure.detectChanges();
             tick(1000);
-            expect(document.querySelector('.template3')).toBeFalsy();
-            expect(document.querySelector('.template1')).toBeTruthy();
-            btnElement3.click();
+            expect(overlayContainerElement.textContent).not.toContain('template1');
+            expect(overlayContainerElement.textContent).toContain('template2');
+
+            popover.open(template1, {
+                origin: btn1
+            });
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template1');
+        }));
+
+        it('manualClosure, click the same origin again which has opened popover', fakeAsync(() => {
+            popover.open(template1, {
+                origin: btn1,
+                manualClosure: true
+            });
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template1');
+
+            popover.open(template1, {
+                origin: btn1,
+                manualClosure: true
+            });
             tick(1000);
-            expect(document.querySelector('.template3')).toBeTruthy();
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).not.toContain('template1');
+        }));
+
+        it('not manualClosure, click the same origin again which has opened popover', fakeAsync(() => {
+            popover.open(template1, {
+                origin: btn1,
+                hasBackdrop: false
+            });
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template1');
+
+            popover.open(template1, {
+                origin: btn1,
+                hasBackdrop: false
+            });
+            tick(1000);
+            viewContainerFixtureManualClosure.detectChanges();
+            expect(overlayContainerElement.textContent).not.toContain('template1');
         }));
     });
 
@@ -496,25 +492,77 @@ describe(`thyPopover`, () => {
         });
 
         it('should close popover when click dom outside popovercontainer', fakeAsync(() => {
-            outsideClosableComponent.openBtn.nativeElement.click();
+            popover.open(outsideClosableComponent.template, {
+                origin: outsideClosableComponent.openBtn,
+                hasBackdrop: false,
+                outsideClosable: true
+            });
+
+            outsideClosableFixture.detectChanges();
             tick(1000);
-            expect(document.querySelector('.template')).toBeTruthy();
+            expect(overlayContainerElement.textContent).toContain('template');
+
             outsideClosableComponent.outsideBtn.nativeElement.click();
+            outsideClosableFixture.detectChanges();
             tick(1000);
-            expect(document.querySelector('.template')).not.toBeTruthy();
+            expect(overlayContainerElement.textContent).not.toContain('template');
         }));
 
         it('should not close popover when click dom inside popovercontainer', fakeAsync(() => {
-            outsideClosableComponent.openBtn.nativeElement.click();
+            popover.open(outsideClosableComponent.template, {
+                origin: outsideClosableComponent.openBtn,
+                hasBackdrop: false,
+                outsideClosable: true
+            });
+            outsideClosableFixture.detectChanges();
+
+            const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
+            innerContent.click();
+
             tick(1000);
+            outsideClosableFixture.detectChanges();
+            expect(overlayContainerElement.textContent).toContain('template');
+        }));
+    });
+
+    describe('insideClosable', () => {
+        let insideClosableFixture: ComponentFixture<PopoverInsideClosableComponent>;
+        let insideClosableComponent: PopoverInsideClosableComponent;
+
+        beforeEach(inject(
+            [ThyPopover, Location, OverlayContainer, Overlay],
+            (_popover: ThyPopover, _location: Location, _overlayContainer: OverlayContainer, _overlay: Overlay) => {
+                popover = _popover;
+                mockLocation = _location as SpyLocation;
+                overlayContainer = _overlayContainer;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+                overlay = _overlay;
+            }
+        ));
+
+        beforeEach(() => {
+            insideClosableFixture = TestBed.createComponent(PopoverInsideClosableComponent);
+            insideClosableFixture.detectChanges();
+            insideClosableComponent = insideClosableFixture.componentInstance;
+        });
+
+        it('should close popover when click dom inside popovercontainer', fakeAsync(() => {
+            popover.open(insideClosableComponent.template, {
+                origin: insideClosableComponent.openBtn,
+                insideClosable: true
+            });
+            insideClosableFixture.detectChanges;
+            tick(1000);
+
             const innerContent = document.querySelector('.thy-popover-container') as HTMLElement;
             innerContent.click();
             tick(1000);
-            expect(document.querySelector('.template')).toBeTruthy();
+            expect(document.querySelector('.template')).toBeFalsy();
         }));
     });
 
     describe('config', () => {
+        const config = { hasBackdrop: false, outsideClosable: true };
         const otherConfig: { panelClass: string[] } = { panelClass: [] };
         describe('has default config', () => {
             let popoverConfigFixture: ComponentFixture<PopoverConfigComponent>;
@@ -560,25 +608,32 @@ describe(`thyPopover`, () => {
                 popoverConfigComponent = popoverConfigFixture.componentInstance;
             });
 
-            it('should apply closeScrollStrategy when set close in token', () => {
-                popoverConfigComponent.openBtn.nativeElement.click();
-                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
-            });
+            it('should apply closeScrollStrategy when set close in token', fakeAsync(() => {
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    ...config
+                });
+
+                expect(popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(closeScrollStrategy);
+            }));
 
             it('should apply reposition scroll strategy when set reposition', () => {
                 const scrollStrategy = popoverConfigComponent.overlay.scrollStrategies.reposition();
-                popoverConfigComponent.config = {
-                    ...popoverConfigComponent.config,
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    ...config,
                     scrollStrategy: scrollStrategy
-                };
-                popoverConfigComponent.openBtn.nativeElement.click();
-                expect(popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(scrollStrategy);
+                });
+
+                expect(popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(scrollStrategy);
             });
 
             it('should use the provided defaults', () => {
-                popoverConfigComponent.config = {};
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const defaultConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...globalDefaultConfig, ...otherConfig };
                 expect(comparePopoverConfig(defaultConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
                 const paneElement = getOverlayPaneElement();
@@ -587,10 +642,14 @@ describe(`thyPopover`, () => {
             });
 
             it('should be overridable by open() options', fakeAsync(() => {
-                const config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
-                popoverConfigComponent.config = { ...config };
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const _config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    ...config,
+                    ..._config
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...globalDefaultConfig, ...otherConfig, ...config };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             }));
@@ -617,25 +676,32 @@ describe(`thyPopover`, () => {
             });
 
             it('should apply blockScrollStrategy when not set scrollStrategy', () => {
-                popoverConfigComponent.openBtn.nativeElement.click();
-                expect(typeof popoverConfigComponent.popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn
+                });
+
+                expect(typeof popoverRef.getOverlayRef().getConfig().scrollStrategy).toEqual(
                     typeof popoverConfigComponent.overlay.scrollStrategies.block()
                 );
             });
 
             it('should use the provided defaults', () => {
-                popoverConfigComponent.config = {};
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...otherConfig };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             });
 
             it('should hav custom panel class when panelClass is string[]', () => {
-                const config = { panelClass: ['class1', 'class2'] };
-                popoverConfigComponent.config = config;
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    panelClass: ['class1', 'class2']
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const expectConfig = {
                     ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                     ...otherConfig,
@@ -645,10 +711,12 @@ describe(`thyPopover`, () => {
             });
 
             it('should hav custom panel class when panelClass is string', () => {
-                const config = { panelClass: 'panel-class' };
-                popoverConfigComponent.config = config;
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    panelClass: 'panel-class'
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const expectConfig = {
                     ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
                     ...otherConfig,
@@ -658,10 +726,13 @@ describe(`thyPopover`, () => {
             });
 
             it('should be overridable by open() options', fakeAsync(() => {
-                const config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
-                popoverConfigComponent.config = { ...config };
-                popoverConfigComponent.openBtn.nativeElement.click();
-                const currentConfig = popoverConfigComponent.popoverRef.getOverlayRef().getConfig();
+                const _config = { offset: 4, backdropClosable: true, closeOnNavigation: true };
+                const popoverRef = popover.open(popoverConfigComponent.template, {
+                    origin: popoverConfigComponent.openBtn,
+                    ..._config
+                });
+
+                const currentConfig = popoverRef.getOverlayRef().getConfig();
                 const expectConfig = { ...THY_POPOVER_DEFAULT_CONFIG_VALUE, ...otherConfig, ...config };
                 expect(comparePopoverConfig(expectConfig as ThyPopoverConfig, currentConfig as ThyPopoverConfig)).toBeTruthy();
             }));

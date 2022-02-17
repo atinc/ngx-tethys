@@ -15,7 +15,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
         <thy-layout>
             <thy-sidebar [thyWidth]="width" [thyIsolated]="isolated"> 恩 </thy-sidebar>
             <thy-content>
-                恩，我是 content
+                Yeah, I am content
             </thy-content>
         </thy-layout>
     `

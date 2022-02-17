@@ -156,6 +156,24 @@ module.exports = [
                 description: '是否取值开始日期的00:00以及截止日期的24:00',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyShowShortcut',
+                description: '是否展示快捷选项面板',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyShortcutPosition',
+                description: '快捷选项面板的显示位置',
+                type: 'left | bottom',
+                default: 'left'
+            },
+            {
+                name: 'thyShortcutRanges',
+                description: '自定义快捷选项',
+                type: 'ThyShortcutRange[]',
+                default: ''
             }
         ]
     },

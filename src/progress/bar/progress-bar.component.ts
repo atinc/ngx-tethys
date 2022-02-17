@@ -1,5 +1,5 @@
 import { Component, Input, HostBinding, ElementRef, ViewEncapsulation, InjectionToken, Inject, Host, TemplateRef } from '@angular/core';
-import { ThyProgressTypes } from '../interfaces';
+import { ThyProgressType } from '../interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export interface ThyParentProgress {
@@ -8,6 +8,9 @@ export interface ThyParentProgress {
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-progress-bar',
     templateUrl: './progress-bar.component.html',
@@ -19,17 +22,17 @@ export class ThyProgressBarComponent {
 
     private value: number;
 
+    color: string;
+
     @HostBinding(`class.progress-bar`) isProgressBar = true;
 
     @HostBinding('style.width.%') percent = 0;
 
-    @HostBinding('style.background-color') color = '';
-
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
-    @Input() set thyType(type: ThyProgressTypes) {
+    @Input() set thyType(type: ThyProgressType) {
         // this.type = type;
-        this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`, `bg-${type}`] : []);
+        this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`] : []);
     }
 
     @Input() set thyValue(value: number) {

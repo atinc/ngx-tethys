@@ -56,13 +56,13 @@ $ yarn add ngx-tethys
     ```
     {
         "styles": [
-            "node_modules/ngx-tethys/styles/main.bundle.scss" // or main.bundle.css
+            "node_modules/ngx-tethys/styles/index.scss"
         ]
     }
     ```
 - 在`style.scss`中引入预构建样式文件
     ```scss
-    @import "~ngx-tethys/styles/main.bundle.scss"; // or main.bundle.css
+    @import "~ngx-tethys/styles/index.scss";
     ```
 
 ### 引入图标

@@ -1,0 +1,22 @@
+<thy-selection-list
+  [style.width]="'560px'"
+  [style.background]="'#fafafa'"
+  [(ngModel)]="selectionObjectModel"
+  [thyMultiple]="false"
+  thyLayout="grid"
+  [thyUniqueKey]="gridUniqueKey"
+>
+  <thy-list-option *ngFor="let item of gridUniqueKeyItems" [thyValue]="item">
+    <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
+    <div class="thy-grid-option-name">{{ item.name }}</div>
+  </thy-list-option>
+</thy-selection-list>
+<h6 class="my-3">修改 <code>thyUniqueKey</code> 的值</h6>
+<p>
+  <thy-radio-group [(ngModel)]="gridUniqueKey" thySize="md">
+    <label thyRadioButton thyLabelText="thyUniqueKye: id" thyValue="id"></label>
+    <label thyRadioButton thyLabelText="thyUniqueKye: name" thyValue="name"></label>
+  </thy-radio-group>
+</p>
+<h6 class="my-3">已选择的值：</h6>
+<p>{{ selectionObjectModel | json }}</p>

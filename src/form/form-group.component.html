@@ -10,17 +10,26 @@
     class="form-label "
     [ngClass]="{
       'col-sm-2 col-form-label': isHorizontal,
-      'label-required': labelRequired,
       'pt-0': labelPaddingTopClear
     }"
-    >{{ labelText }}</label
   >
+    <span
+      [ngClass]="{
+        'label-required': labelRequired
+      }"
+      >{{ labelText }}</span
+    >
+
+    <a class="link-secondary" href="javascript:;">
+      <thy-icon class="label-tips-icon" *ngIf="tipMode === 'label' && tips" thyIconName="question-circle" [thyTooltip]="tips"></thy-icon>
+    </a>
+  </label>
   <div [ngClass]="{ 'col-sm-10 col-form-control': isHorizontal, 'position-relative': !isHorizontal }">
     <ng-content></ng-content>
     <ng-container *ngIf="feedbackSvgIconName; else iconFont">
       <thy-icon class="form-control-feedback" [thyIconName]="feedbackSvgIconName"></thy-icon>
     </ng-container>
-    <span *ngIf="tips" class="form-text text-desc">{{ tips }}</span>
+    <span *ngIf="tipMode === 'default' && tips" class="form-text text-desc">{{ tips }}</span>
   </div>
 </ng-template>
 

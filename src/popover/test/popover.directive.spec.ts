@@ -34,8 +34,8 @@ class ThyDemoVisiblePopoverComponent {
 
     placement: ThyPlacement = 'bottom';
     trigger = 'hover';
-    showDelay = 0;
-    hideDelay = 0;
+    showDelay = 1000;
+    hideDelay = 1000;
     config = {
         panelClass: 'demo-popover'
     };
@@ -141,6 +141,134 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             flush();
             expect(getPopoverVisible()).toBe(false);
+        }));
+
+        it('should show popover delay 1000ms', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPopoverVisible()).toBe(false);
+            tick(500);
+            expect(getPopoverVisible()).toBe(true);
+        }));
+
+        it('should clear showTimeout when hide popover', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(500);
+
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPopoverVisible()).toBe(false);
+        }));
+
+        it('should clear hideTimeout when trigger show popover', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            flush();
+            expect(getPopoverVisible()).toBe(true);
+
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            fixture.detectChanges();
+            tick(500);
+
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(1000);
+            expect(getPopoverVisible()).toBe(true);
+        }));
+    });
+});
+
+@Component({
+    selector: 'thy-demo-popover-basic',
+    template: `
+        <button
+            thyButton="primary"
+            [thyPopover]="template"
+            [thyTrigger]="trigger"
+            [thyPlacement]="placement"
+            [thyConfig]="config"
+            [thyShowDelay]="showDelay"
+            [thyHideDelay]="hideDelay"
+        >
+            Use Template
+        </button>
+        <ng-template #template>
+            恩，这是一个 Template
+        </ng-template>
+    `
+})
+class TestPopoverDirectiveClickComponent {
+    @ViewChild(ThyPopoverDirective, { static: true }) popover: ThyPopoverDirective;
+
+    placement: ThyPlacement = 'bottom';
+    trigger = 'click';
+    showDelay = 0;
+    hideDelay = 0;
+    config = {
+        panelClass: 'demo-popover'
+    };
+
+    constructor(public elementRef: ElementRef<HTMLElement>) {}
+}
+
+@NgModule({
+    imports: [ThyPopoverModule],
+    declarations: [TestPopoverDirectiveClickComponent],
+    exports: []
+})
+export class PopoverTestModule {}
+
+describe(`ThyPopoverDirective`, () => {
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+
+    beforeEach(fakeAsync(() => {
+        platform = { IOS: false, isBrowser: true, ANDROID: false };
+        TestBed.configureTestingModule({
+            imports: [PopoverTestModule, NoopAnimationsModule],
+            providers: [{ provide: Platform, useFactory: () => platform }]
+        });
+
+        TestBed.compileComponents();
+
+        inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        })();
+    }));
+
+    afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
+        currentOverlayContainer.ngOnDestroy();
+        overlayContainer.ngOnDestroy();
+    }));
+
+    describe(`popover directive`, () => {
+        let fixture: ComponentFixture<TestPopoverDirectiveClickComponent>;
+        let popoverDirective: ThyPopoverDirective;
+        let buttonDebugElement: DebugElement;
+        let buttonElement: HTMLElement;
+
+        function getPopoverVisible() {
+            return popoverDirective.popoverOpened;
+        }
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestPopoverDirectiveClickComponent);
+            fixture.detectChanges();
+            buttonDebugElement = fixture.debugElement.query(By.css('button'));
+            buttonElement = buttonDebugElement.nativeElement;
+            popoverDirective = buttonDebugElement.injector.get<ThyPopoverDirective>(ThyPopoverDirective);
+        });
+
+        it('should show popover when click trigger', fakeAsync(() => {
+            dispatchMouseEvent(buttonElement, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(getPopoverVisible()).toBe(true);
         }));
     });
 });

@@ -5,7 +5,7 @@ subtitle: 固钉
 label: lack-doc
 ---
 
-将页面元素钉在可视范围。
+<alert>将页面元素钉在可视范围。</alert>
 
 ## 何时使用
 
@@ -14,6 +14,7 @@ label: lack-doc
 页面可视范围过小时，慎用此功能以免遮挡页面内容。
 
 
+## 模块导入
 ```ts
 import { ThyAffixModule } from 'ngx-tethys/affix';
 ```

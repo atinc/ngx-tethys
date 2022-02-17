@@ -26,7 +26,8 @@
     height: variables.$layout-header-height;
     line-height: variables.$layout-header-height;
 
-    &.header-has-border {
+    &.header-has-border,
+    &.thy-layout-header-divided {
         border-bottom: 1px solid variables.$nav-border-color;
     }
 }

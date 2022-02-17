@@ -1,9 +1,10 @@
-import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
-import { ThyResultModule } from '../result.module';
-import { NgModule, Component } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ThyResultComponent } from '../result.component';
 import { CommonModule } from '@angular/common';
+import { Component, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { ThyResultComponent } from '../result.component';
+import { ThyResultModule } from '../result.module';
 
 describe('ThyResult', () => {
     let fixture: ComponentFixture<ThyResultDemoComponent>;

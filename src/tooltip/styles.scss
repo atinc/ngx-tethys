@@ -144,7 +144,7 @@ $tooltip-un-center-arrow-offset: 16px;
     max-width: variables.$tooltip-max-width;
     padding: variables.$tooltip-padding-y variables.$tooltip-padding-x;
     color: variables.$tooltip-color;
-    text-align: center;
+    text-align: left;
     background-color: variables.$tooltip-bg;
     box-shadow: variables.$tooltip-box-shadow; // $box-shadow;
     min-height: variables.$tooltip-content-min-height;

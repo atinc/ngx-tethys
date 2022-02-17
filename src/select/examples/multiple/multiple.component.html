@@ -1,6 +1,18 @@
 <thy-custom-select ngModel="a10" thyMode="multiple" [thyShowSearch]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px;">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
 </thy-custom-select>
+
+<div class="mb-2 mt-2">设置显示最大数量</div>
+<thy-custom-select
+  ngModel="a10"
+  thyMode="multiple"
+  thyMaxTagCount="3"
+  [thyShowSearch]="true"
+  [(ngModel)]="listOfSelectedValue"
+  style="width: 400px;"
+>
+  <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+</thy-custom-select>
 <div class="mb-2 mt-2">禁用情况下的多选展示</div>
 <thy-custom-select ngModel="a10" thyMode="multiple" [thyDisabled]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px;">
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>

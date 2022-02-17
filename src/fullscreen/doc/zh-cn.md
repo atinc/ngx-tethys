@@ -7,7 +7,7 @@ label: lack-doc
 ---
 
 
-<alert>全屏显示组件</alert>
+<alert>全屏显示组件。</alert>
 
 ## 模块导入
 

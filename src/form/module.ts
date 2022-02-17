@@ -13,9 +13,10 @@ import { ThyFormValidatorGlobalConfig, THY_VALIDATOR_CONFIG, THY_FORM_CONFIG, TH
 import { ThyUniqueCheckValidator, ThyMaxDirective, ThyMinDirective, ThyConfirmValidatorDirective } from './validator/index';
 import { ThyAlertModule } from 'ngx-tethys/alert';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule],
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule, ThyTooltipModule],
     declarations: [
         ThyFormDirective,
         ThyFormGroupComponent,

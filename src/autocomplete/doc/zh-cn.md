@@ -2,9 +2,9 @@
 category: form
 title: AutoComplete
 subtitle: 自动完成
-order: 1
 ---
-<div class="dg-alert dg-alert-info">输入框自动完成功能。</div>
+
+<alert>输入框自动完成功能。</alert>
 
 ## 何时使用
 + 需要一个输入框而不是选择器。

@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateRangeItemInfo } from './date-range.class';
-import { addDays, addYears, endOfDay, endOfYear, dateToUnixTimestamp, startOfDay, startOfWeek, startOfYear } from '../util';
+import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
 import { ThyDateRangeModule } from './module';
 import {
     getUnixTime,
@@ -20,10 +20,12 @@ import {
     endOfMonth,
     addMonths,
     endOfWeek,
-    getYear
+    format
 } from 'date-fns';
 
 registerLocaleData(zh);
+
+const CURRENT_DATE = new Date();
 
 describe('ThyTestDateRangeComponent', () => {
     let fixture: ComponentFixture<ThyTestDateRangeComponent>;
@@ -126,19 +128,27 @@ describe('ThyTestDateRangeComponent', () => {
             const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-action-menu-container');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
-            const leftHeader = getHeader('left');
+
             const leftCell = getFirstCell('left');
-            const leftHeaderText = leftHeader.textContent.trim();
+            const leftCellText = leftCell.innerText.trim();
+            const leftIsPrevMonth = +leftCellText > 1;
             dispatchClickEvent(leftCell);
 
-            const rightHeader = getHeader('right');
             const rightCell = getFirstCell('right');
-            const rightHeaderText = rightHeader.textContent.trim();
+            const rightCellText = rightCell.innerText.trim();
+            const rightIsPrevMonth = +rightCellText > 1;
+
             dispatchClickEvent(rightCell);
-            const currentMoth = getMonth(new Date());
-            const currentYear = getYear(new Date());
-            expect(leftHeaderText).toEqual(`${currentYear}年  ${currentMoth - 1}月`);
-            expect(rightHeaderText).toEqual(`${currentYear}年  ${currentMoth + 1}月`);
+            const leftDate = addMonths(CURRENT_DATE, leftIsPrevMonth ? -3 : -2);
+            const rightDate = addMonths(CURRENT_DATE, rightIsPrevMonth ? -1 : 0);
+            const currentText = getPickerTriggerElement().innerText;
+            const currentTextToPureNumber = currentText.replace(/[^\d.]/g, '');
+
+            expect(currentTextToPureNumber).toEqual(
+                `${format(leftDate, 'yyyyMM')}${addZeroToSingleDigits(+leftCellText)}${format(rightDate, 'yyyyMM')}${addZeroToSingleDigits(
+                    +rightCellText
+                )}`
+            );
         }));
     });
 
@@ -170,7 +180,7 @@ describe('ThyTestDateRangeComponent', () => {
             const endDate = originDate.end * 1000;
             const previousModelData = {
                 begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                end: getUnixTime(addMonths(endDate, -1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
@@ -179,7 +189,7 @@ describe('ThyTestDateRangeComponent', () => {
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
-                end: getUnixTime(addMonths(previousModelData.end * 1000, 1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(previousModelData.end * 1000, 1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
@@ -301,6 +311,13 @@ describe('ThyTestDateRangeComponent', () => {
         tick(500);
         fixture.detectChanges();
     }
+
+    function addZeroToSingleDigits(value: number): string {
+        if (value < 10) {
+            return '0' + value;
+        }
+        return value.toString();
+    }
 });
 
 @Component({
@@ -337,8 +354,8 @@ class ThyTestDateRangeComponent {
         {
             key: '3month',
             text: '近三个月',
-            begin: dateToUnixTimestamp(new Date(new Date().getFullYear(), new Date().getMonth() - 2, 1)),
-            end: dateToUnixTimestamp(new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0)),
+            begin: getUnixTime(startOfMonth(setMonth(CURRENT_DATE, getMonth(CURRENT_DATE) - 2))),
+            end: getUnixTime(endOfMonth(CURRENT_DATE)),
             timestamp: {
                 interval: 3,
                 unit: 'month'

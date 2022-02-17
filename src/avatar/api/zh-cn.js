@@ -7,7 +7,7 @@ module.exports = [
             {
                 name: 'thySrc',
                 description:
-                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 avatarSrcTransform 方法实现转换',
+                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换',
                 type: 'string',
                 default: ''
             },
@@ -43,7 +43,8 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '头像大小，可选择 22, 24, 28, 32, 36, 48, 68, 110, 160 | xxs(22px), xs(24px), sm(32px), md(36px), lg(48px)',
+                description:
+                    '头像大小，可选择 22, 24, 28, 32, 36, 44, 48, 68, 110, 160 | xxs(22px), xs(24px), sm(32px), md(36px), lg(48px)',
                 type: 'number | string',
                 default: 'md'
             },

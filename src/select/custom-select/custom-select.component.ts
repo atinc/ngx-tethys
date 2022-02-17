@@ -1,4 +1,4 @@
-import { getFlexiblePositions, InputBoolean, ScrollToService, ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -236,6 +236,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input()
     @InputBoolean()
     thyHasBackdrop = false;
+
+    @Input() @InputNumber() thyMaxTagCount = 0;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 

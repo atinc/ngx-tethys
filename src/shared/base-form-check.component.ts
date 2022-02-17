@@ -28,16 +28,25 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         return this._isFormCheckInline && !this._labelText;
     }
 
+    /**
+     * 是否同一行展示
+     */
     @Input()
     set thyInline(value: boolean) {
         this._isFormCheckInline = coerceBooleanProperty(value);
     }
 
+    /**
+     * Label 展示文本
+     */
     @Input()
     set thyLabelText(value: string) {
         this._labelText = value;
     }
 
+    /**
+     * Label 文本多语言 key
+     */
     @Input()
     set thyLabelTextTranslateKey(value: string) {
         if (value) {
@@ -47,6 +56,9 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         }
     }
 
+    /**
+     * 禁用
+     */
     @Input()
     set thyDisabled(value: boolean) {
         this.setDisabledState(coerceBooleanProperty(value));

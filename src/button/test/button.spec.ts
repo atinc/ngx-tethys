@@ -21,6 +21,7 @@ function assertButtonIcon(iconElement: Element, icon: string) {
         <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
         <thy-button id="btn-with-square" thySquare="true" [thyType]="type">Square Button</thy-button>
+        <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `
 })
 class ThyTestButtonBasicComponent {
@@ -139,7 +140,6 @@ describe('ThyButton', () => {
 
             expect(btnElement.textContent).toEqual('Icon Button');
             expect(btnElement.classList.contains('btn')).toBeTruthy();
-            expect(btnElement.classList.contains('btn-has-icon')).toBeTruthy();
             assertButtonIcon(btnElement.children[0], 'inbox');
         });
 
@@ -150,7 +150,6 @@ describe('ThyButton', () => {
             const btnElement: HTMLElement = btnWithIcon.nativeElement;
             expect(btnElement.textContent).toEqual('Icon Button');
             expect(btnElement.classList.contains('btn')).toBeTruthy();
-            expect(btnElement.classList.contains('btn-has-icon')).toBeTruthy();
             assertButtonIcon(btnElement.children[0], 'calendar');
         });
 
@@ -160,18 +159,25 @@ describe('ThyButton', () => {
             const btnWithIcon = fixture.debugElement.query(By.css('#btn-with-icon'));
             const btnElement: HTMLElement = btnWithIcon.nativeElement;
             expect(btnElement.classList.contains('btn')).toBeTruthy();
-            expect(btnElement.classList.contains('btn-has-icon')).toBeTruthy();
             expect(btnElement.children[0].tagName).toEqual('I');
             expect(btnElement.children[0].classList.contains('wtf')).toBeTruthy();
             expect(btnElement.children[0].classList.contains('wtf-inbox')).toBeTruthy();
         });
 
         it('should clear icon success', () => {
-            basicTestComponent.icon = null;
-            fixture.detectChanges();
             const btnWithIcon = fixture.debugElement.query(By.css('#btn-with-icon'));
             const btnElement: HTMLElement = btnWithIcon.nativeElement;
-            expect(btnElement.children.length).toEqual(0);
+            expect(btnElement.querySelector('thy-icon')).toBeTruthy();
+            basicTestComponent.icon = null;
+            fixture.detectChanges();
+            expect(btnElement.querySelector('thy-icon')).toBeFalsy();
+        });
+
+        it('should get correct result when only has icon', () => {
+            const btnOnlyIcon = fixture.debugElement.query(By.css('#btn-only-icon'));
+            const btnElement: HTMLElement = btnOnlyIcon.nativeElement;
+            expect(btnElement.querySelector('thy-icon')).toBeTruthy();
+            expect(btnElement.children.length).toEqual(1);
         });
     });
 });
@@ -304,6 +310,7 @@ describe('ThyIconButton', () => {
         assertButtonIcon(btnIconElement.children[0], 'inbox');
     });
 });
+
 @Component({
     selector: 'thy-demo-button-group',
     template: `

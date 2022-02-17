@@ -20,6 +20,7 @@ import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyDatePickerConfigService } from './date-picker.service';
 
 registerLocaleData(localeZhHans, 'zh-Hans');
 
@@ -53,6 +54,7 @@ registerLocaleData(localeZhHans, 'zh-Hans');
         ThyDatePickerDirective,
         ThyRangePickerDirective
     ],
-    entryComponents: [DatePopupComponent]
+    entryComponents: [DatePopupComponent],
+    providers: [ThyDatePickerConfigService]
 })
 export class ThyDatePickerModule {}

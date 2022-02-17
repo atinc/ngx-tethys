@@ -1,0 +1,10 @@
+<thy-collapse thyExpandIconPosition="right">
+  <thy-collapse-panel thyTitle="这是一个头部标题" [thyActive]="true">内容区域</thy-collapse-panel>
+  <thy-collapse-panel [thyHeaderTemplate]="headerTemplate"
+    >内容区域2
+    <ng-template #headerTemplate>
+      <span>这是一个头部模版 <thy-avatar thyName="Peter"></thy-avatar></span>
+    </ng-template>
+  </thy-collapse-panel>
+  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域3</thy-collapse-panel>
+</thy-collapse>

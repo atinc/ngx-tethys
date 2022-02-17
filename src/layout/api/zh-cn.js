@@ -67,6 +67,12 @@ module.exports = [
             },
             {
                 name: 'thyHasBorder',
+                description: '底部是否有边框，已弃用，请使用 thyDivided 代替',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyDivided',
                 description: '底部是否有边框',
                 type: 'boolean',
                 default: 'false'

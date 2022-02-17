@@ -1,0 +1,71 @@
+.dg-doc-content,
+.dg-examples {
+    > :first-child {
+        margin-top: 0px;
+    }
+}
+
+.dg-doc-content {
+    font-size: unset;
+}
+
+.dg-tab-links,
+.dg-sidebar,
+.dg-navbar {
+    a {
+        &:hover {
+            text-decoration: none;
+        }
+    }
+}
+
+.dg-label {
+    display: inline-flex;
+    margin-bottom: 0px;
+}
+
+.dg-doc-viewer {
+    .dg-component-viewer {
+        .dg-component-api {
+            .dg-api-properties-table {
+                .dg-api-properties-header-row {
+                    .dg-api-properties-name-th {
+                        width: 100px;
+                    }
+                    .dg-api-properties-type-th {
+                        // min-width: 300px;
+                        // width: auto;
+                    }
+
+                    .dg-api-properties-default-th {
+                        // width: 80px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.dg-home {
+    .dg-hero {
+        .dg-hero-launch {
+            align-items: start;
+            padding-left: 20%;
+            text-align: unset;
+            .dg-launch-title {
+                color: #1e3042;
+            }
+            .dg-launch-action {
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    @media (min-width: 768px) {
+        .dg-features {
+            grid-gap: 30px 50px;
+        }
+    }
+}
