@@ -1,10 +1,11 @@
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
 import { ThySidebarComponent } from '../sidebar.component';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -92,5 +93,16 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
         });
+
+        it('thyIsDraggableWidth', fakeAsync(() => {
+            fixture.debugElement.componentInstance.isDraggableWidth = true;
+            fixture.detectChanges();
+            tick();
+            const dragElement = sidebarDebugElement.componentInstance.dragRef.nativeElement;
+            const dragElementRect = dragElement.getBoundingClientRect();
+            dispatchMouseEvent(dragElement, 'mousedown');
+            dispatchMouseEvent(dragElement, 'mousemove', dragElementRect.left + 20, dragElementRect.height);
+            dispatchMouseEvent(dragElement, 'mouseup');
+        }));
     });
 });
