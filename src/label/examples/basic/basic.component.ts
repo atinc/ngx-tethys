@@ -5,9 +5,6 @@ import { Component } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyLabelBasicExampleComponent {
-    public color: string;
-    public backgroundOpacity = 0.3;
-
     relationLabels = [
         {
             name: '阻塞',
@@ -36,19 +33,5 @@ export class ThyLabelBasicExampleComponent {
         }
     ];
 
-    constructor() {
-        this.color = '#7076fa';
-    }
-
-    add() {
-        console.log('add success');
-    }
-
-    remove() {
-        console.log('remove success');
-    }
-
-    showMore() {
-        console.log('show more menu');
-    }
+    constructor() {}
 }

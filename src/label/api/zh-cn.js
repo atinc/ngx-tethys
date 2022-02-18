@@ -5,57 +5,62 @@ module.exports = [
         properties: [
             {
                 name: 'thyLabel',
-                description:
-                    '标签类型（default、primary、success、info、danger、emboss-default、emboss-primary、emboss-warning、emboss-danger、outline）',
+                description: `标签常用类型，类型为\`'default'|'primary' | 'success' | 'info' | 'warning' | 'danger' | 'success' | 'emboss-default' | 'emboss-primary' | 'emboss-warning' | 'emboss-danger'| 'outline'\``,
                 type: 'String',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: '大小有sm、default、md、lg，对应大小为：20px、22px、24px、26px, 默认为 default',
+                description: '标签大小，目前可传：sm | default | md | lg, 默认为 default',
                 type: 'String',
                 default: 'default'
             },
             {
                 name: 'thyLabelType',
-                description: '状态标签（state、pill）',
+                description: '标签状态类型，目前支持 `state | pill`',
                 type: 'String',
                 default: 'state'
             },
             {
-                name: 'thyHasHover',
-                description: '滑过效果',
-                type: 'Boolean',
-                default: 'false'
-            },
-            {
                 name: 'thyBeforeIcon',
-                description: '可在显示文案前添加图标,如添加图标',
+                description: '标签支持在显示文案前添加图标',
                 type: 'String',
                 default: ''
             },
             {
                 name: 'thyAfterIcon',
-                description: '可在显示文案后添加图标，如删除图标',
+                description: '标签支持在显示文案后添加图标',
                 type: 'String',
                 default: ''
             },
             {
+                name: 'thyIconPrefix',
+                description: '标签支持自定义图标字体前缀，默认为 `wtf`字体',
+                type: 'String',
+                default: 'wtf'
+            },
+            {
                 name: 'thyLabelColor',
-                description: '自定义颜色，#f969aa 或者变量，需要同时加上 thyLabel 属性',
+                description: '标签支持自定义颜色，需要与`thyLabel`属性同时使用',
                 type: 'String',
                 default: ''
             },
             {
                 name: 'thyBackgroundOpacity',
-                description: '自定义背景颜色透明度，配合thyLabelColor使用，范围0～1',
+                description: '标签支持自定义背景颜色透明度，配合`thyLabelColor`使用，范围为：0～1',
                 type: 'Number',
                 default: 0.1
             },
             {
+                name: 'thyHasHover',
+                description: '标签是否支持鼠标滑过有效果，一般在标签有操作时使用',
+                type: 'Boolean',
+                default: 'false'
+            },
+            {
                 name: 'thyOnRemove',
-                description: '可做移除标签操作',
-                type: 'Event',
+                description: '标签支持移除操作',
+                type: 'EventEmitter',
                 default: ''
             }
         ]

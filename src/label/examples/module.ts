@@ -5,8 +5,20 @@ import { ThyLabelModule } from 'ngx-tethys';
 import { ThyLabelBasicExampleComponent } from './basic/basic.component';
 import { ThyLabelSizeExampleComponent } from './size/size.component';
 import { ThyLabelTypeExampleComponent } from './type/type.component';
+import { ThyLabelPrependAppendExampleComponent } from './prepend-append/prepend-append.component';
+import { ThyLabelRemoveExampleComponent } from './remove/remove.component';
+import { ThyLabelCustomExampleComponent } from './custom/custom.component';
+import { ThyLabelHasHoverExampleComponent } from './has-hover/has-hover.component';
 
-const COMPONENTS = [ThyLabelBasicExampleComponent, ThyLabelSizeExampleComponent, ThyLabelTypeExampleComponent];
+const COMPONENTS = [
+    ThyLabelBasicExampleComponent,
+    ThyLabelSizeExampleComponent,
+    ThyLabelTypeExampleComponent,
+    ThyLabelPrependAppendExampleComponent,
+    ThyLabelRemoveExampleComponent,
+    ThyLabelCustomExampleComponent,
+    ThyLabelHasHoverExampleComponent
+];
 
 @NgModule({
     declarations: [...COMPONENTS],
