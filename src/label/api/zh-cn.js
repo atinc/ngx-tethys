@@ -34,12 +34,6 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyIconPrefix',
-                description: '标签支持自定义图标字体前缀，默认为 `wtf`字体',
-                type: 'String',
-                default: 'wtf'
-            },
-            {
                 name: 'thyLabelColor',
                 description: '标签支持自定义颜色，需要与`thyLabel`属性同时使用',
                 type: 'String',
