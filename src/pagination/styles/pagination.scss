@@ -37,6 +37,10 @@
     &-size {
         width: 100px;
         margin-right: 12px;
+
+        .selected-value {
+            color: variables.$pagination-jumper-input-color !important;
+        }
     }
 
     &-pages {
@@ -99,7 +103,9 @@
 
 .thy-page-link {
     position: relative;
-    display: block;
+    display: flex;
+    align-items: center;
+    height: 100%;
     color: variables.$pagination-color;
     padding: variables.$pagination-padding-y variables.$pagination-padding-x;
     margin-left: -(variables.$pagination-border-width);
@@ -162,7 +168,7 @@
         variables.$pagination-padding-y-lg,
         variables.$pagination-padding-x-lg,
         variables.$font-size-lg,
-        variables.$line-height-lg,
+        variables.$pagination-line-height-lg,
         variables.$border-radius-lg
     );
 }
@@ -172,7 +178,7 @@
         variables.$pagination-padding-y-sm,
         variables.$pagination-padding-x-sm,
         variables.$font-size-sm,
-        variables.$line-height-sm,
+        variables.$pagination-line-height-sm,
         variables.$border-radius-sm
     );
 }

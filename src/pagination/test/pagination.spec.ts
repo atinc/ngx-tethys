@@ -345,7 +345,7 @@ describe('ThyPagination', () => {
             expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
         }));
 
-        it('should select size when thySize changed', fakeAsync(() => {
+        it('should set size when thySize changed', fakeAsync(() => {
             componentInstance.showSizeChanger = true;
             componentInstance.size = 'sm';
             fixture.detectChanges();
