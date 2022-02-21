@@ -27,6 +27,7 @@ export class ThyFormLayoutExampleComponent implements OnInit {
     ];
 
     showForm = true;
+    saving = false;
 
     currentLayout: LayoutInfo = this.layouts[0];
 
@@ -40,5 +41,15 @@ export class ThyFormLayoutExampleComponent implements OnInit {
         setTimeout(() => {
             this.showForm = true;
         });
+    }
+
+    login() {
+        if (this.saving) {
+            return;
+        }
+        this.saving = true;
+        setTimeout(() => {
+            this.saving = false;
+        }, 2000);
     }
 }

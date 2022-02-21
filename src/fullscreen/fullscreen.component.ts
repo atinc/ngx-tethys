@@ -39,7 +39,7 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
             const fullscreenRef = this.service.launch({
                 mode: this.thyMode,
                 target: targetElement,
-                targetLaunchededClasse: this.thyFullscreenClasses,
+                targetLaunchedClass: this.thyFullscreenClasses,
                 emulatedContainer: containerElement
             });
 

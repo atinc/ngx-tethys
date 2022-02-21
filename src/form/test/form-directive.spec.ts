@@ -385,3 +385,56 @@ describe('form validate', () => {
         }));
     });
 });
+
+@Component({
+    selector: 'app-test-form-full',
+    template: `
+        <form thyForm name="demoForm" #demoForm="thyForm">
+            <thy-form-group>
+                <input thyInput name="username" placeholder="please input description" />
+            </thy-form-group>
+            <thy-form-group-footer>
+                <button [thyButton]="'primary'" thyLoadingText="确定">
+                    登录
+                </button>
+            </thy-form-group-footer>
+        </form>
+    `
+})
+export class TestNoFormSubmitComponent {}
+
+describe(`enter keydown`, () => {
+    let fixture: ComponentFixture<TestNoFormSubmitComponent>;
+    let testComponent: TestNoFormSubmitComponent;
+    let formDebugElement: DebugElement;
+    let formDirective: ThyFormDirective;
+    let formElement: HTMLElement;
+    let formSubmitDebugElement: DebugElement;
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestNoFormSubmitComponent],
+            imports: [CommonModule, FormsModule, ThyFormModule, ThyLayoutModule, ThyButtonModule, ThyInputModule],
+            providers: []
+        });
+
+        TestBed.compileComponents();
+        fixture = TestBed.createComponent(TestNoFormSubmitComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        fixture.detectChanges();
+        tick();
+        formDebugElement = fixture.debugElement.query(By.directive(ThyFormDirective));
+        formDirective = formDebugElement.injector.get(ThyFormDirective);
+        formElement = formDebugElement.nativeElement;
+        formSubmitDebugElement = fixture.debugElement.query(By.directive(ThyFormSubmitDirective));
+    }));
+
+    it(`enter keydown, expect not throw error`, fakeAsync(() => {
+        const usernameElement: HTMLInputElement = formElement.querySelector('[name=username]');
+        usernameElement.focus();
+        const directiveSubmitSpy = spyOn(formDirective, 'submit');
+        dispatchKeyboardEvent(formElement, 'keydown', keycodes.ENTER);
+        fixture.detectChanges();
+        expect(formDirective.onSubmitSuccess).toBeUndefined();
+        expect(directiveSubmitSpy).toHaveBeenCalled();
+    }));
+});
