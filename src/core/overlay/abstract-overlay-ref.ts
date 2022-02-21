@@ -122,15 +122,39 @@ export abstract class ThyAbstractInternalOverlayRef<
      * @param overlayResult Optional result to return to the dialog opener.
      */
     close(overlayResult?: TResult): void {
-        this._result = overlayResult;
+        this.canHideModel().then(canHide => {
+            if (!canHide) {
+                return;
+            }
 
-        // Transition the backdrop in parallel to the overlay.
-        this._beforeClosed.next(overlayResult);
-        if (this.options.disposeWhenClose) {
-            this._beforeClosed.complete();
+            this._result = overlayResult;
+            // Transition the backdrop in parallel to the overlay.
+            this._beforeClosed.next(overlayResult);
+            if (this.options.disposeWhenClose) {
+                this._beforeClosed.complete();
+            }
+
+            this.overlayRef.detachBackdrop();
+            this.containerInstance.startExitAnimation();
+        });
+    }
+
+    canHideModel() {
+        let hiddenResult = Promise.resolve(true);
+        if (this.config.ensureClose) {
+            const result: any = this.config.ensureClose();
+
+            if (typeof result !== 'undefined') {
+                if (result.then) {
+                    hiddenResult = result;
+                } else if (result.subscribe) {
+                    hiddenResult = (result as Observable<boolean>).toPromise();
+                } else {
+                    hiddenResult = Promise.resolve(result);
+                }
+            }
         }
-        this.overlayRef.detachBackdrop();
-        this.containerInstance.startExitAnimation();
+        return hiddenResult;
     }
 
     /**

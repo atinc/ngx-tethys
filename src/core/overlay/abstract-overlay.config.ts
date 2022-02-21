@@ -1,5 +1,6 @@
 import { Direction } from '@angular/cdk/bidi';
 import { ViewContainerRef } from '@angular/core';
+import { Observable } from 'rxjs';
 
 export interface ThyAbstractOverlayPosition {
     /** Override for the overlay's top position. */
@@ -84,6 +85,8 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      * the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
+
+    ensureClose?: () => boolean | Promise<boolean> | Observable<boolean>;
 }
 
 export interface ThyAbstractOverlayOptions {
