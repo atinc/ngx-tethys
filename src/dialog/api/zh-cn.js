@@ -134,6 +134,11 @@ module.exports = [
                 name: 'position',
                 description: '定位模态框的弹出位置',
                 type: '{ top?: string; bottom?: string; left?: string; right?: string;}'
+            },
+            {
+                name: 'ensureClose',
+                description: '关闭弹窗前的回调函数，返回false可阻止关闭弹窗，',
+                type: 'Function: () => boolean|Observable<boolean>'
             }
         ]
     },

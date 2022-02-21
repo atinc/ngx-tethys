@@ -12,6 +12,7 @@ import { ThyDialogSizeExampleComponent } from './size/size.component';
 import { ThyDialogBackdropExampleComponent } from './backdrop/backdrop.component';
 import { ThyDialogLayoutExampleComponent } from './layout/layout.component';
 import { ThyDialogFooterLayoutExampleComponent } from './layout/dialog-layout.component';
+import { ThyDialogEnsureCloseExampleComponent } from './ensure-close/ensure-close.component';
 
 const COMPONENTS = [
     ThyDialogBasicExampleComponent,
@@ -20,7 +21,8 @@ const COMPONENTS = [
     ThyDialogSizeExampleComponent,
     ThyDialogBackdropExampleComponent,
     ThyDialogLayoutExampleComponent,
-    ThyDialogFooterLayoutExampleComponent
+    ThyDialogFooterLayoutExampleComponent,
+    ThyDialogEnsureCloseExampleComponent
 ];
 
 @NgModule({

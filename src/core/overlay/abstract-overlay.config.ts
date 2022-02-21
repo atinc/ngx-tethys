@@ -86,7 +86,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
      */
     closeOnNavigation? = true;
 
-    ensureClose?: () => boolean | Promise<boolean> | Observable<boolean>;
+    ensureClose?: () => boolean | Observable<boolean>;
 }
 
 export interface ThyAbstractOverlayOptions {

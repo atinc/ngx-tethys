@@ -1,5 +1,5 @@
-import { ESCAPE } from 'ngx-tethys/util';
-import { Observable, Subject } from 'rxjs';
+import { ESCAPE, helpers } from 'ngx-tethys/util';
+import { Observable, of, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
@@ -122,39 +122,38 @@ export abstract class ThyAbstractInternalOverlayRef<
      * @param overlayResult Optional result to return to the dialog opener.
      */
     close(overlayResult?: TResult): void {
-        this.canHideModel().then(canHide => {
-            if (!canHide) {
-                return;
-            }
+        this.canCloseModel()
+            .pipe(take(1))
+            .subscribe(canClose => {
+                if (!canClose) {
+                    return;
+                }
 
-            this._result = overlayResult;
-            // Transition the backdrop in parallel to the overlay.
-            this._beforeClosed.next(overlayResult);
-            if (this.options.disposeWhenClose) {
-                this._beforeClosed.complete();
-            }
+                this._result = overlayResult;
+                // Transition the backdrop in parallel to the overlay.
+                this._beforeClosed.next(overlayResult);
+                if (this.options.disposeWhenClose) {
+                    this._beforeClosed.complete();
+                }
 
-            this.overlayRef.detachBackdrop();
-            this.containerInstance.startExitAnimation();
-        });
+                this.overlayRef.detachBackdrop();
+                this.containerInstance.startExitAnimation();
+            });
     }
 
-    canHideModel() {
-        let hiddenResult = Promise.resolve(true);
+    canCloseModel() {
+        let canCloseResolve = of(true);
         if (this.config.ensureClose) {
             const result: any = this.config.ensureClose();
-
-            if (typeof result !== 'undefined') {
-                if (result.then) {
-                    hiddenResult = result;
-                } else if (result.subscribe) {
-                    hiddenResult = (result as Observable<boolean>).toPromise();
+            if (!helpers.isUndefinedOrNull(result)) {
+                if (result.subscribe) {
+                    canCloseResolve = result;
                 } else {
-                    hiddenResult = Promise.resolve(result);
+                    canCloseResolve = of(result);
                 }
             }
         }
-        return hiddenResult;
+        return canCloseResolve;
     }
 
     /**
