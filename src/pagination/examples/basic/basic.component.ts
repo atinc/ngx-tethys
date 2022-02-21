@@ -7,5 +7,11 @@ import { Component } from '@angular/core';
 export class ThyPaginationBasicExampleComponent {
     currentIndex = 1;
 
+    pageSize = 10;
+
     constructor() {}
+
+    onPageSizeChanged(event: number) {
+        this.pageSize = event;
+    }
 }

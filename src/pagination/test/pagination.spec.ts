@@ -49,6 +49,10 @@ class PaginationBasicComponent {
             [thyTotal]="pagination.total"
             [thyShowQuickJumper]="canQuickJump"
             (thyPageIndexChange)="pageIndexChange($event)"
+            [thyShowSizeChanger]="showSizeChanger"
+            [thySize]="size"
+            [thyPageSizeOptions]="[10, 20, 50, 100]"
+            (thyPageSizeChanged)="pageSizeChanged($event)"
         ></thy-pagination>
     `
 })
@@ -61,28 +65,33 @@ class PaginationTestComponent {
 
     canQuickJump = true;
 
+    showSizeChanger = false;
+
+    size = '';
+
     pageIndexChange = jasmine.createSpy('pageIndexChange callback');
-}
 
-@Component({
-    template: `
-        <thy-pagination
-            [(thyPageIndex)]="currentIndex"
-            [thyCustomPages]="pages"
-            [thyShowQuickJumper]="false"
-            (thyPageIndexChange)="pageIndexChange($event)"
-        ></thy-pagination>
-    `
-})
-class PaginationCustomPagesComponent {
-    currentIndex = 1;
-
-    pages = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-
-    pageIndexChange() {}
+    pageSizeChanged = jasmine.createSpy('pageSizeChanged callback');
 }
 
 describe('ThyPagination', () => {
+    @Component({
+        template: `
+            <thy-pagination
+                [(thyPageIndex)]="currentIndex"
+                [thyCustomPages]="pages"
+                [thyShowQuickJumper]="false"
+                (thyPageIndexChange)="pageIndexChange($event)"
+            ></thy-pagination>
+        `
+    })
+    class PaginationCustomPagesComponent {
+        currentIndex = 1;
+
+        pages = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+
+        pageIndexChange() {}
+    }
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPaginationModule],
@@ -305,5 +314,58 @@ describe('ThyPagination', () => {
             lastPageElement.click();
             expect(pageIndexChangeSpy).toHaveBeenCalled();
         });
+    });
+
+    describe('page sizes', () => {
+        let fixture: ComponentFixture<PaginationTestComponent>;
+        let componentInstance: PaginationTestComponent;
+        let paginationElement: HTMLElement;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PaginationTestComponent);
+            componentInstance = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+            paginationElement = fixture.debugElement.query(By.directive(ThyPaginationComponent)).nativeElement;
+        });
+
+        it('should showSizeChanger can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = false;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(0);
+            fixture.detectChanges();
+            componentInstance.showSizeChanger = true;
+            fixture.detectChanges();
+            expect(paginationElement.querySelectorAll('.thy-pagination-size').length).toEqual(1);
+        }));
+
+        it('should page size changed can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.pagination.pageSize = 50;
+            fixture.detectChanges();
+            tick(100);
+            expect(paginationElement.querySelectorAll('.thy-pagination-size')[0].children[0].attributes[0].value).toEqual('50');
+        }));
+
+        it('should set size when thySize changed', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.size = 'sm';
+            fixture.detectChanges();
+            expect(paginationElement.querySelector('.form-control').classList).toContain('form-control-sm');
+        }));
+
+        it('should pageSizeChanged can works', fakeAsync(() => {
+            componentInstance.showSizeChanger = true;
+            componentInstance.size = 'sm';
+            fixture.detectChanges();
+            tick(300);
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(0);
+            (paginationElement.querySelectorAll('.form-control-custom')[0] as HTMLElement).click();
+            fixture.detectChanges();
+            const el = document.querySelector('.thy-select-dropdown-options') as HTMLElement;
+            (el.querySelectorAll('.thy-option-item')[3] as HTMLElement).click();
+            fixture.detectChanges();
+            tick(300);
+            expect(el.querySelectorAll('.thy-option-item')[3].classList).toContain('active');
+            expect(componentInstance.pageSizeChanged).toHaveBeenCalledTimes(1);
+        }));
     });
 });
