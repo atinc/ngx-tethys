@@ -122,7 +122,7 @@ export abstract class ThyAbstractInternalOverlayRef<
      * @param overlayResult Optional result to return to the dialog opener.
      */
     close(overlayResult?: TResult, force?: boolean): void {
-        if (force || !this.config.canClose || !!this.config.canClose()) {
+        if (force || !this.config.canClose || !!this.config.canClose(overlayResult)) {
             this._result = overlayResult;
             // Transition the backdrop in parallel to the overlay.
             this._beforeClosed.next(overlayResult);
