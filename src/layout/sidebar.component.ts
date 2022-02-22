@@ -49,10 +49,8 @@ export class ThySidebarComponent implements OnInit {
 
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
-        if (coerceBooleanProperty(value)) {
-            setTimeout(() => {
-                this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
-            }, 0);
+        if (coerceBooleanProperty(value) && this.dragRef) {
+            this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
         }
     }
 
