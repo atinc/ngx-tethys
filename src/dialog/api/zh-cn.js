@@ -136,9 +136,9 @@ module.exports = [
                 type: '{ top?: string; bottom?: string; left?: string; right?: string;}'
             },
             {
-                name: 'ensureClose',
+                name: 'canClose',
                 description: '关闭弹窗前的回调函数，返回false可阻止关闭弹窗，',
-                type: 'Function: () => boolean|Observable<boolean>'
+                type: 'Function: () => boolean'
             }
         ]
     },
