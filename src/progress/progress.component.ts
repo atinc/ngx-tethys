@@ -37,9 +37,7 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     barsTotalValue: number;
 
-    _thyMax: number;
-
-    isChangeMaxFlag = true;
+    private settedMax: number;
 
     @HostBinding('attr.max') max = 100;
 
@@ -70,17 +68,16 @@ export class ThyProgressComponent implements ThyParentProgress {
      */
     @Input() set thyValue(value: number | ThyProgressStackedValue[]) {
         // 自动求和计算 max
-        debugger;
         if (Array.isArray(value)) {
             this.isStacked = true;
             this.value = [...value].filter(item => item.value !== 0);
             this.barsTotalValue = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
-            if (!this._thyMax || this._thyMax < this.barsTotalValue) {
+            if (!this.settedMax || this.settedMax < this.barsTotalValue) {
                 this.thyMax = this.barsTotalValue;
             } else {
-                this.max = this._thyMax;
+                this.max = this.settedMax;
             }
         } else {
             this.value = value;
@@ -91,14 +88,7 @@ export class ThyProgressComponent implements ThyParentProgress {
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
     @Input() set thyMax(max: number) {
-        if (this.isChangeMaxFlag) {
-            this._thyMax = max;
-            this.isChangeMaxFlag = false;
-        }
-        if (max < this.barsTotalValue) {
-            max = this.barsTotalValue;
-        }
-        this.max = max;
+        this.setMax(max);
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
@@ -111,5 +101,15 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    setMax(max: number) {
+        if (!this.settedMax) {
+            this.settedMax = max;
+        }
+        if (max < this.barsTotalValue) {
+            max = this.barsTotalValue;
+        }
+        this.max = max;
     }
 }
