@@ -44,8 +44,8 @@ module.exports = [
             },
             {
                 name: 'close',
-                description: '关闭 Dialog',
-                type: '() => void',
+                description: '关闭 Dialog, 若force为true,则canClose无效，强制关闭',
+                type: '(result?: unknow, force?: boolean) => void',
                 default: ''
             },
             {
@@ -148,8 +148,8 @@ module.exports = [
         properties: [
             {
                 name: 'close',
-                description: '关闭当前 Dialog',
-                type: '() => void',
+                description: '关闭当前 Dialog, 若force为true,则canClose无效，强制关闭',
+                type: '(result?: unknow, force?: boolean) => void',
                 default: ''
             },
             {
