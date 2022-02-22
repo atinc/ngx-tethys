@@ -52,7 +52,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private launchNormalFullscreen() {
         const targetElement = this.resetElement(this.fullscreenConfig.target);
-        const classes = this.fullscreenConfig.targetLaunchededClasse;
+        const classes = this.fullscreenConfig.targetLaunchedClass;
         const container = this.fullscreenConfig.emulatedContainer;
         if (container) {
             const containerElement = this.resetElement(container);
@@ -76,7 +76,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private exitNormalFullscreen() {
         const targetElement = this.resetElement(this.fullscreenConfig.target);
-        const classes = this.fullscreenConfig.targetLaunchededClasse;
+        const classes = this.fullscreenConfig.targetLaunchedClass;
         const container = this.fullscreenConfig.emulatedContainer;
         if (container) {
             targetElement.style.transform = ``;

@@ -13,6 +13,16 @@
     </ng-template>
   </div>
   <div class="thy-pagination-content">
+    <div class="thy-pagination-size" *ngIf="config.showSizeChanger">
+      <thy-custom-select
+        [(ngModel)]="selectPageSize"
+        [thySize]="selectSize"
+        [thyDisabled]="disabled"
+        (ngModelChange)="onPageSizeChange($event)"
+      >
+        <thy-option *ngFor="let option of config.pageSizeOptions" [thyValue]="option" [thyLabelText]="option + '条/页'"></thy-option>
+      </thy-custom-select>
+    </div>
     <ul class="thy-pagination-pages">
       <li
         class="thy-page-item"
