@@ -44,8 +44,8 @@ module.exports = [
             },
             {
                 name: 'close',
-                description: '关闭 Dialog',
-                type: '() => void',
+                description: '关闭 Dialog, 若force为true,则canClose无效，强制关闭',
+                type: '(result?: unknow, force?: boolean) => void',
                 default: ''
             },
             {
@@ -134,6 +134,11 @@ module.exports = [
                 name: 'position',
                 description: '定位模态框的弹出位置',
                 type: '{ top?: string; bottom?: string; left?: string; right?: string;}'
+            },
+            {
+                name: 'canClose',
+                description: '关闭弹窗前的回调函数，返回false可阻止关闭弹窗，',
+                type: 'Function: () => boolean'
             }
         ]
     },
@@ -143,8 +148,8 @@ module.exports = [
         properties: [
             {
                 name: 'close',
-                description: '关闭当前 Dialog',
-                type: '() => void',
+                description: '关闭当前 Dialog, 若force为true,则canClose无效，强制关闭',
+                type: '(result?: unknow, force?: boolean) => void',
                 default: ''
             },
             {
