@@ -583,7 +583,7 @@ describe(`ThyProgressComponent`, () => {
             expect(progressBarElements[1].style.width).toEqual('50%');
         });
 
-        it('should be correct values item value has 0 and total greater than max by custom stacked value', () => {
+        it('should be correct when value or max is change', () => {
             stackedTestComponent.value = [
                 {
                     type: 'warning',
@@ -616,6 +616,29 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('50%');
+
+            fixture.detectChanges();
+            stackedTestComponent.max = 180;
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            expect(progressBarComponent.style.width).toEqual('25%');
+
+            fixture.detectChanges();
+            stackedTestComponent.max = 90;
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            expect(progressBarComponent.style.width).toEqual('50%');
+
+            fixture.detectChanges();
+            stackedTestComponent.value = [
+                {
+                    type: 'warning',
+                    value: 90
+                }
+            ];
+            fixture.detectChanges();
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            expect(progressBarComponent.style.width).toEqual('100%');
         });
 
         it('should be correct value with 0 by custom stacked value has max with 0 ', () => {
