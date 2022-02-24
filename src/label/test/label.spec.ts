@@ -3,11 +3,14 @@ import { ThyLabelModule } from '../label.module';
 import { NgModule, Component } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyLabelComponent } from '../label.component';
+import { dispatchFakeEvent } from '../../testing';
 
 describe('ThyLabel', () => {
     let fixture: ComponentFixture<ThyDemoLabelBasicComponent>;
     let basicTestComponent: ThyDemoLabelBasicComponent;
     let labelComponent;
+    const sizes = ['sm', 'md', 'lg'];
+    const types = ['state', 'pill'];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -19,6 +22,7 @@ describe('ThyLabel', () => {
 
         TestBed.compileComponents();
     }));
+
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoLabelBasicComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
@@ -106,6 +110,21 @@ describe('ThyLabel', () => {
         expect(labelComponent.nativeElement.style.backgroundColor === 'rgba(112, 118, 250, 0.2)').toBe(true);
     });
 
+    it('should label color is #333 when label type is emboss-status', () => {
+        basicTestComponent.thyLabel = 'emboss-status';
+        basicTestComponent.thyLabelColor = `#fa5a55`;
+        fixture.detectChanges();
+        expect(labelComponent.nativeElement.style.color === 'rgb(51, 51, 51)').toBe(true);
+    });
+
+    it('should thyLabelColor is label color and borderColor when type is outline', () => {
+        basicTestComponent.thyLabel = 'outline';
+        basicTestComponent.thyLabelColor = '#ff5b57';
+        fixture.detectChanges();
+        expect(labelComponent.nativeElement.style.color === 'rgb(255, 91, 87)').toBe(true);
+        expect(labelComponent.nativeElement.style.borderColor === 'rgb(255, 91, 87)').toBe(true);
+    });
+
     it('should not have correct class when label-has-hover is false', () => {
         basicTestComponent.thyLabel = 'emboss-default';
         basicTestComponent.thyHasHover = false;
@@ -117,6 +136,37 @@ describe('ThyLabel', () => {
         basicTestComponent.thyHasHover = true;
         fixture.detectChanges();
         expect(labelComponent.nativeElement.classList.contains('label-has-hover')).toBe(true);
+    });
+
+    it('should set size success', () => {
+        sizes.forEach(size => {
+            basicTestComponent.thySize = size;
+            fixture.detectChanges();
+            const element: HTMLElement = labelComponent.nativeElement;
+            expect(element.classList.contains(`thy-label--${size}`)).toBeTruthy();
+        });
+    });
+
+    it('should set label type success', () => {
+        types.forEach(type => {
+            basicTestComponent.thyLabelType = type;
+            fixture.detectChanges();
+            const element: HTMLElement = labelComponent.nativeElement;
+            expect(element.classList.contains(`thy-label-${type}`)).toBeTruthy();
+        });
+    });
+
+    it('should clear value on click remove', () => {
+        dispatchFakeEvent(labelComponent.nativeElement, 'mouseover', true);
+        fixture.detectChanges();
+        const closeIcon = labelComponent.nativeElement.querySelector('.thy-icon-close');
+        expect(closeIcon).toBeTruthy();
+
+        const removeSpy = spyOn(fixture.componentInstance, 'remove');
+        dispatchFakeEvent(closeIcon, 'click', true);
+
+        fixture.detectChanges();
+        expect(removeSpy).toHaveBeenCalledTimes(1);
     });
 });
 
@@ -131,6 +181,9 @@ describe('ThyLabel', () => {
             [thyLabelColor]="thyLabelColor"
             [thyBackgroundOpacity]="thyBackgroundOpacity"
             [thyHasHover]="thyHasHover"
+            [thySize]="thySize"
+            [thyLabelType]="thyLabelType"
+            (thyOnRemove)="remove()"
             >Default</span
         >
     `
@@ -142,6 +195,12 @@ class ThyDemoLabelBasicComponent {
     thyLabelColor = ``;
     thyBackgroundOpacity = 0.1;
     thyHasHover = false;
+    thySize = '';
+    thyLabelType = '';
+
+    remove() {
+        console.log('remove success');
+    }
 }
 
 @NgModule({
