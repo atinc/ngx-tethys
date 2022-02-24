@@ -2,7 +2,6 @@
 category: display
 title: Label
 subtitle: 标签
-label: lack-doc
 ---
 
 
