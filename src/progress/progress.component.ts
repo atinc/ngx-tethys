@@ -12,6 +12,7 @@ import {
 import { ThyProgressType, ThyProgressStackedValue } from './interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
+import { isNumber } from 'ngx-tethys/util';
 
 /**
  * 进度条组件
@@ -36,6 +37,8 @@ export class ThyProgressComponent implements ThyParentProgress {
     bars: ThyProgressBarComponent[] = [];
 
     barsTotalValue: number;
+
+    private settedMax: number;
 
     @HostBinding('attr.max') max = 100;
 
@@ -72,7 +75,7 @@ export class ThyProgressComponent implements ThyParentProgress {
             this.barsTotalValue = this.value.reduce((total, item) => {
                 return total + item.value;
             }, 0);
-            this.thyMax = this.barsTotalValue;
+            this.calculateMax();
         } else {
             this.value = value;
         }
@@ -82,13 +85,8 @@ export class ThyProgressComponent implements ThyParentProgress {
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
     @Input() set thyMax(max: number) {
-        if (max < this.barsTotalValue) {
-            max = this.barsTotalValue;
-        }
-        this.max = max;
-        this.bars.forEach(bar => {
-            bar.recalculatePercentage();
-        });
+        this.settedMax = max;
+        this.calculateMax();
     }
 
     /**
@@ -98,5 +96,19 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    calculateMax() {
+        if (isNumber(this.settedMax) && this.settedMax > 0) {
+            this.max = this.settedMax;
+        } else {
+            this.max = this.barsTotalValue;
+        }
+        if (this.max < this.barsTotalValue) {
+            this.max = this.barsTotalValue;
+        }
+        this.bars.forEach(bar => {
+            bar.recalculatePercentage();
+        });
     }
 }
