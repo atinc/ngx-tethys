@@ -304,9 +304,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     writeValue(value: any): void {
         this.modalValue = value;
-        if (this.options && this.options.length > 0) {
-            this.setSelectionByModelValue(this.modalValue);
-        }
+        this.setSelectionByModelValue(this.modalValue);
     }
 
     registerOnChange(fn: any): void {
