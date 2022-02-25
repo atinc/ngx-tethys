@@ -24,7 +24,7 @@ module.exports = [
             },
             {
                 name: 'thyIsolated',
-                description: '是否和右侧隔离, 当为 true 是距右侧会有 margin, 同时边宽会去掉',
+                description: '是否和右侧隔离, 当为 true 时距右侧会有 margin, 同时边框会去掉',
                 type: 'boolean',
                 default: 'false'
             },
