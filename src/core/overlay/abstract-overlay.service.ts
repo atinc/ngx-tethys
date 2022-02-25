@@ -164,11 +164,11 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return this._afterOpened;
     }
 
-    close<T>(result?: T) {
+    close<T>(result?: T, force?: boolean) {
         if (this.openedOverlays.length > 0) {
             const lastOverlayRef = this.openedOverlays[this.openedOverlays.length - 1];
             if (lastOverlayRef) {
-                lastOverlayRef.close(result);
+                lastOverlayRef.close(result, force);
             }
         }
     }

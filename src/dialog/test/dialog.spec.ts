@@ -753,6 +753,39 @@ describe('ThyDialog', () => {
             // Ensure that the callback actually fires.
             expect(spy).toHaveBeenCalled();
         }));
+
+        it('should close dialog when canClose return true', fakeAsync(() => {
+            dialog.open(DialogSimpleContentComponent, {
+                canClose: () => true
+            });
+            expect(getDialogContainerElements().length).toBe(1);
+            dialog.close();
+            viewContainerFixture.detectChanges();
+            flush();
+            expect(getDialogContainerElements().length).toBe(0);
+        }));
+
+        it('should not close when canClose return false', fakeAsync(() => {
+            dialog.open(DialogSimpleContentComponent, {
+                canClose: () => false
+            });
+            expect(getDialogContainerElements().length).toBe(1);
+            dialog.close();
+            viewContainerFixture.detectChanges();
+            flush();
+            expect(getDialogContainerElements().length).toBe(1);
+        }));
+
+        it('should force close worked', fakeAsync(() => {
+            dialog.open(DialogSimpleContentComponent, {
+                canClose: () => false
+            });
+            expect(getDialogContainerElements().length).toBe(1);
+            dialog.close(null, true);
+            viewContainerFixture.detectChanges();
+            flush();
+            expect(getDialogContainerElements().length).toBe(0);
+        }));
     });
 
     it('should set the proper animation states', () => {
