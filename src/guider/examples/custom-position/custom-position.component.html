@@ -34,8 +34,14 @@
 
     <thy-form-group thyCol [thySpan]="12" thyLabelText="pointOffset">
       <div class="px-2">
-        <thy-slider [(ngModel)]="pointXOffset" (thyAfterChange)="updatePointXOffset($event)" name="pointXOffset"></thy-slider>
-        <thy-slider [(ngModel)]="pointYOffset" (thyAfterChange)="updatePointYOffset($event)" name="pointYOffset"></thy-slider>
+        <div class="d-flex align-items-center py-1">
+          <span class="d-inline-block mr-3">X: </span
+          ><thy-slider [(ngModel)]="pointXOffset" (thyAfterChange)="updatePointXOffset($event)" name="pointXOffset"></thy-slider>
+        </div>
+        <div class="d-flex align-items-center  py-1">
+          <span class="d-inline-block mr-3">Y: </span
+          ><thy-slider [(ngModel)]="pointYOffset" (thyAfterChange)="updatePointYOffset($event)" name="pointYOffset"></thy-slider>
+        </div>
       </div>
     </thy-form-group>
   </div>
