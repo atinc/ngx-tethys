@@ -180,7 +180,7 @@ describe('ThyTestDateRangeComponent', () => {
             const endDate = originDate.end * 1000;
             const previousModelData = {
                 begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                end: getUnixTime(addMonths(endDate, -1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
@@ -189,7 +189,7 @@ describe('ThyTestDateRangeComponent', () => {
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
-                end: getUnixTime(addMonths(previousModelData.end * 1000, 1 * interval)),
+                end: getUnixTime(endOfMonth(addMonths(previousModelData.end * 1000, 1 * interval))),
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));

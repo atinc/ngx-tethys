@@ -127,13 +127,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                        end: getUnixTime(addMonths(endDate, -1 * interval)),
+                        end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
                         key: this.thyCustomKey
                     };
                 } else {
                     return {
                         begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                        end: getUnixTime(addMonths(endDate, 1 * interval)),
+                        end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
                         key: this.thyCustomKey
                     };
                 }

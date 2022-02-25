@@ -38,6 +38,7 @@ export class ThyPaginationComponent implements OnInit {
     @Input()
     set thyPageSize(pageSize: number) {
         this.pageSize = pageSize;
+        this.selectPageSize = pageSize;
         if (this.initialized) {
             this.calculatePageCount();
             this.initializePages(this.pageIndex, this.pageCount);
@@ -80,6 +81,7 @@ export class ThyPaginationComponent implements OnInit {
 
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
+        this.selectSize = size;
         this.updateHostClassService.addClass(`thy-pagination-${size}`);
     }
 
@@ -100,11 +102,23 @@ export class ThyPaginationComponent implements OnInit {
         }
     }
 
+    @Input('thyShowSizeChanger')
+    set showSizeChanger(value: boolean) {
+        this.config.showSizeChanger = value;
+    }
+
+    @Input('thyPageSizeOptions')
+    set pageSizeOptions(value: number[]) {
+        this.config.pageSizeOptions = value;
+    }
+
     @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
 
     @Output('thyPageIndexChange') pageIndexChange = new EventEmitter<number>();
 
     @Output('thyPageChanged') pageChanged = new EventEmitter<{ page: number }>();
+
+    @Output('thyPageSizeChanged') pageSizeChanged = new EventEmitter<number>();
 
     public pages: { index?: number; text?: string; active?: boolean }[] = [];
 
@@ -125,6 +139,10 @@ export class ThyPaginationComponent implements OnInit {
     public isHideOnSinglePage = false;
 
     private initialized = false;
+
+    public selectSize = 'md'; // select size
+
+    public selectPageSize: Number = 20;
 
     @HostBinding('class.thy-pagination') isPaginationClass = true;
 
@@ -267,5 +285,12 @@ export class ThyPaginationComponent implements OnInit {
             this.selectPage(pageIndex);
         }
         input.value = '';
+    }
+
+    onPageSizeChange(event: number) {
+        this.pageSize = event;
+        this.calculatePageCount();
+        this.setPageIndex(this.pageIndex);
+        this.pageSizeChanged.emit(event);
     }
 }

@@ -15,6 +15,8 @@ export interface ThyPaginationConfigModel {
     previousIcon?: string;
     nextIcon?: string;
     totalPagesFormat?: string;
+    showSizeChanger?: boolean;
+    pageSizeOptions?: number[];
 }
 
 export interface ThyPaginationChangedEvent {

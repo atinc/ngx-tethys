@@ -1,5 +1,5 @@
-import { ESCAPE } from 'ngx-tethys/util';
-import { Observable, Subject } from 'rxjs';
+import { ESCAPE, helpers } from 'ngx-tethys/util';
+import { Observable, of, Subject } from 'rxjs';
 import { filter, take } from 'rxjs/operators';
 
 import { GlobalPositionStrategy, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
@@ -17,7 +17,7 @@ export abstract class ThyAbstractOverlayRef<
     backdropClosable: boolean;
     containerInstance: TContainer;
     abstract getOverlayRef(): OverlayRef;
-    abstract close(dialogResult?: TResult): void;
+    abstract close(dialogResult?: TResult, force?: boolean): void;
     abstract afterOpened(): Observable<void>;
     abstract afterClosed(): Observable<TResult | undefined>;
     abstract beforeClosed(): Observable<TResult | undefined>;
@@ -121,16 +121,18 @@ export abstract class ThyAbstractInternalOverlayRef<
      * Close the overlay.
      * @param overlayResult Optional result to return to the dialog opener.
      */
-    close(overlayResult?: TResult): void {
-        this._result = overlayResult;
+    close(overlayResult?: TResult, force?: boolean): void {
+        if (force || !this.config.canClose || !!this.config.canClose(overlayResult)) {
+            this._result = overlayResult;
+            // Transition the backdrop in parallel to the overlay.
+            this._beforeClosed.next(overlayResult);
+            if (this.options.disposeWhenClose) {
+                this._beforeClosed.complete();
+            }
 
-        // Transition the backdrop in parallel to the overlay.
-        this._beforeClosed.next(overlayResult);
-        if (this.options.disposeWhenClose) {
-            this._beforeClosed.complete();
+            this.overlayRef.detachBackdrop();
+            this.containerInstance.startExitAnimation();
         }
-        this.overlayRef.detachBackdrop();
-        this.containerInstance.startExitAnimation();
     }
 
     /**
