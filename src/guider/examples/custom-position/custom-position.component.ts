@@ -34,7 +34,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
                     key: 'custom-guider-position',
                     target: '.custom-guider-position',
                     data: {
-                        image: '',
+                        image: '/assets/images/guider/start.png',
                         title: '自定义新手引导位置',
                         description: `通过属性设置 point 以及内容组件的位置，其中 hintPlacement 的值为：${this.hintPlacement},
                             内容组件的偏移值为 ${this.hintOffset}，高亮点基于目标右下角的偏移量为 [${this.pointXOffset},${this.pointYOffset}]`
@@ -69,5 +69,52 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
     }
     public startTour() {
         this.updateGuiderConfig();
+    }
+
+    public baseOnDefaultPosition() {
+        this.guiderRef?.end();
+        this.thyGuider.close();
+
+        const config = {
+            defaultPosition: [100, 100],
+            steps: [
+                {
+                    key: 'custom-guider-position',
+                    target: '',
+                    data: {
+                        image: '/assets/images/guider/start.png',
+                        title: '基于页面的新手引导位置',
+                        description: `通过 defaultPosition 属性设置提示框位置`
+                    },
+                    hintPlacement: this.hintPlacement
+                }
+            ]
+        } as ThyGuiderConfig;
+
+        this.guiderRef = this.thyGuider.create(config);
+        this.guiderRef.start();
+    }
+
+    public baseOnTargetPosition() {
+        this.guiderRef?.end();
+        this.thyGuider.close();
+
+        const config = {
+            steps: [
+                {
+                    key: 'custom-guider-position',
+                    target: [500, 520],
+                    data: {
+                        image: '/assets/images/guider/start.png',
+                        title: '基于页面的新手引导位置',
+                        description: `通过设置 target 属性类型为 [number, number] 来变更提示框位置`
+                    },
+                    hintPlacement: this.hintPlacement
+                }
+            ]
+        } as ThyGuiderConfig;
+
+        this.guiderRef = this.thyGuider.create(config);
+        this.guiderRef.start();
     }
 }

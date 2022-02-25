@@ -3,10 +3,10 @@ import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tet
 import { ThyGuiderStepRef } from 'ngx-tethys/guider/guider-step-ref';
 
 @Component({
-    selector: 'thy-guider-custom-tip-example',
-    templateUrl: 'custom-tip.component.html'
+    selector: 'thy-guider-custom-hint-example',
+    templateUrl: 'custom-hint.component.html'
 })
-export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
+export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
     private option: ThyGuiderConfig;
 
     private guiderRef: ThyGuiderRef;
@@ -33,7 +33,7 @@ export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
                     target: '.custom-tip-target',
                     data: {
                         descTemplate: this.descTemplate,
-                        descString: 'hello world'
+                        descString: 'Hello World'
                     },
                     hintPlacement: 'bottom',
                     hintOffset: 40
@@ -54,7 +54,7 @@ export class ThyGuiderCustomTipExampleComponent implements OnInit, OnDestroy {
 @Component({
     selector: 'custom-tip',
     template: `
-        <p class="m-0 text-white bg-primary rounded text-center">
+        <p class="m-0 px-2 text-white bg-primary rounded text-center">
             <span class="d-block">{{ stepRef.step.data.descString }}</span>
             <ng-template [ngTemplateOutlet]="stepRef.step.data.descTemplate"></ng-template>
         </p>

@@ -1,4 +1,4 @@
 ---
-title: 自定义 panel & point 类
+title: Set Panel & Point Class Attribute
 order: 5
 ---

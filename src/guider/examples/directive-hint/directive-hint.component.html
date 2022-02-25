@@ -1,7 +1,14 @@
+<p>
+  除了使用 <code>ThyGuiderStep</code> 下的 <code>target</code> 配置新手引导面板的目标元素，还可以使用
+  <code>Directive</code> 的形式使用当前页面或其他页面(需要配置 <code>route</code> )的元素当作新手引导的目标元素。
+</p>
 <button thyButton="primary" (click)="startTour()">开始</button>
-<div></div>
-<span [thyGuiderTarget]="key">directive 1</span>
-<div></div>
-<span thyGuiderTarget="directive-tip-target-second"> directive 2</span>
-<div></div>
-<span thyGuiderTarget="back-to-guider-tip">back directive</span>
+<div class="my-2">
+  <span [thyGuiderTarget]="key">Use thyGuiderTarget Directive</span>
+</div>
+<div class="my-2">
+  <span class="my-2" thyGuiderTarget="directive-tip-target-second">Second Directive</span>
+</div>
+<div class="mt-2">
+  <span thyGuiderTarget="back-to-guider-tip">End Directive</span>
+</div>
