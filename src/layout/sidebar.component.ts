@@ -49,9 +49,8 @@ export class ThySidebarComponent implements OnInit {
 
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
-        if (coerceBooleanProperty(value) && this.dragRef) {
-            this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', 'all');
-        }
+        this.isDraggableWidth = coerceBooleanProperty(value);
+        this.setDraggable();
     }
 
     @ViewChild('dragRef', { static: true }) dragRef: any;
@@ -59,6 +58,8 @@ export class ThySidebarComponent implements OnInit {
     dragStartedX: number;
 
     widthPassive: number;
+
+    isDraggableWidth: boolean;
 
     constructor(
         @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
@@ -71,12 +72,20 @@ export class ThySidebarComponent implements OnInit {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
+        this.setDraggable();
         this.ngZone.runOutsideAngular(() => {
             setTimeout(() => {
                 this.widthPassive = this.elementRef.nativeElement.clientWidth;
                 this.renderer.setStyle(this.dragRef.nativeElement, 'left', this.numberConvertToFloor(this.widthPassive) + 'px');
             }, 0);
         });
+    }
+
+    setDraggable() {
+        if (!this.dragRef) {
+            return;
+        }
+        this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', this.isDraggableWidth ? 'all' : '');
     }
 
     dragStartedHandler() {
