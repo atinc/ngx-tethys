@@ -41,7 +41,7 @@ import { ThyLabelModule } from "ngx-tethys/label";
 
 
 ## 大小
-  固定的大小有`sm`、`default`、`md`、`lg`，对应大小为：`20px`、`22px`、`24px`、`26px`, 默认为 `default`
+  固定的大小有 `sm:20px`、`default:22px`、`md:24px`、`lg:26px`， 默认为 `default`
   <example name="thy-label-size-example" inline/>
 
 
