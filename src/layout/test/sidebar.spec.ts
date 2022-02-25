@@ -1,19 +1,25 @@
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
-import { ThyHeaderComponent } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
-import { ThyContentComponent } from '../content.component';
 import { ThySidebarComponent } from '../sidebar.component';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
     selector: 'demo-layout-sidebar',
     template: `
         <thy-layout>
-            <thy-sidebar [thyWidth]="width" [thyIsolated]="isolated"> 恩 </thy-sidebar>
+            <thy-sidebar
+                [thyWidth]="width"
+                [thyIsolated]="isolated"
+                [thyHasBorderRight]="hasBorderRight"
+                [thyIsDraggableWidth]="isDraggableWidth"
+            >
+                恩
+            </thy-sidebar>
             <thy-content>
                 Yeah, I am content
             </thy-content>
@@ -23,6 +29,8 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 class ThyDemoLayoutSidebarBasicComponent {
     width: string | number = '';
     isolated = false;
+    hasBorderRight = true;
+    isDraggableWidth = false;
 }
 
 describe(`sidebar`, () => {
@@ -78,5 +86,23 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(true);
         });
+
+        it(`should get correct class according to thyHasBorderRight value`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
+            fixture.debugElement.componentInstance.hasBorderRight = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
+        });
+
+        it('thyIsDraggableWidth', fakeAsync(() => {
+            fixture.debugElement.componentInstance.isDraggableWidth = true;
+            fixture.detectChanges();
+            tick();
+            const dragElement = sidebarDebugElement.componentInstance.dragRef.nativeElement;
+            const dragElementRect = dragElement.getBoundingClientRect();
+            dispatchMouseEvent(dragElement, 'mousedown');
+            dispatchMouseEvent(dragElement, 'mousemove', dragElementRect.left + 20, dragElementRect.height);
+            dispatchMouseEvent(dragElement, 'mouseup');
+        }));
     });
 });

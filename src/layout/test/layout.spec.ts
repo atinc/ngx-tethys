@@ -6,20 +6,25 @@ import { ThyLayoutComponent } from '../layout.component';
 import { ThyHeaderComponent } from '../header.component';
 import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
 import { ThyContentComponent } from '../content.component';
+import { ThyContentSectionComponent } from '../content-section.component';
+import { ThyContentMainComponent } from '../content-main.component';
 
 @Component({
     selector: 'demo-layout-basic',
     template: `
         <thy-layout>
-            <thy-header [thyDivided]="isDivided" thyTitle="I am header" thyIcon="application-fill"> </thy-header>
+            <thy-header [thyDivided]="isDivided" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName"> </thy-header>
             <thy-content>
-                Yeah, I am content
+                <thy-content-section>Content section</thy-content-section>
+                <thy-content-main>Content main</thy-content-main>
             </thy-content>
         </thy-layout>
     `
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
+    size = '';
+    iconName = '';
 }
 
 @Component({
@@ -75,10 +80,8 @@ describe(`layout`, () => {
             expect(headerElement).toBeTruthy();
             expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
 
-            // header icon and title
-            const iconElement = headerElement.querySelector('.prefix-icon');
+            // header title
             const titleNameElement = headerElement.querySelector('.title-name');
-            expect(iconElement).toBeTruthy();
             expect(titleNameElement).toBeTruthy();
             expect(titleNameElement.innerHTML).toContain('I am header');
 
@@ -88,6 +91,20 @@ describe(`layout`, () => {
             const contentElement: HTMLElement = contentDebugElement.nativeElement;
             expect(contentElement).toBeTruthy();
             expect(contentElement.classList.contains(`thy-layout-content`)).toBeTruthy();
+
+            // content section
+            const contentSectionDebugElement = fixture.debugElement.query(By.directive(ThyContentSectionComponent));
+            expect(contentSectionDebugElement).toBeTruthy();
+            const contentSectionElement = contentSectionDebugElement.nativeElement;
+            expect(contentSectionElement).toBeTruthy();
+            expect(contentSectionElement.classList.contains(`thy-layout-content-section`)).toBeTruthy();
+
+            // content main
+            const contentMainDebugElement = fixture.debugElement.query(By.directive(ThyContentMainComponent));
+            expect(contentMainDebugElement).toBeTruthy();
+            const contentMainElement = contentMainDebugElement.nativeElement;
+            expect(contentMainElement).toBeTruthy();
+            expect(contentMainElement.classList.contains(`thy-layout-content-main`)).toBeTruthy();
         });
 
         it('should get divided header', () => {
@@ -100,6 +117,25 @@ describe(`layout`, () => {
             fixture.componentInstance.isDivided = true;
             fixture.detectChanges();
             expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
+        });
+
+        it('layout header thyIcon', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            expect(headerDebugElement.nativeElement.querySelector('.prefix-icon')).toBeFalsy();
+            fixture.debugElement.componentInstance.iconName = 'application-fill';
+            fixture.detectChanges();
+            expect(headerDebugElement.nativeElement.querySelector('.prefix-icon')).toBeTruthy();
+        });
+
+        it('layout header thySize', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeFalsy();
+            fixture.componentInstance.size = 'sm';
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-sm`)).toBeTruthy();
         });
     });
 
@@ -135,4 +171,6 @@ describe(`layout`, () => {
             expect(headerOperation.innerHTML).toContain('My Custom Header Operation');
         });
     });
+
+    // thyIconPrefix、thyHasBorder将被弃用，不加测试
 });

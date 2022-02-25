@@ -25,7 +25,6 @@ export class ThySidebarComponent implements OnInit {
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
 
     @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
-    @HostBinding('style.pointer-events') thyLayoutSidebarPointerEvents: string;
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
@@ -50,9 +49,8 @@ export class ThySidebarComponent implements OnInit {
 
     @Input('thyIsDraggableWidth')
     set thyIsDraggableWidth(value: any) {
-        if (coerceBooleanProperty(value)) {
-            this.thyLayoutSidebarPointerEvents = 'all';
-        }
+        this.isDraggableWidth = coerceBooleanProperty(value);
+        this.setDraggable();
     }
 
     @ViewChild('dragRef', { static: true }) dragRef: any;
@@ -60,6 +58,8 @@ export class ThySidebarComponent implements OnInit {
     dragStartedX: number;
 
     widthPassive: number;
+
+    isDraggableWidth: boolean;
 
     constructor(
         @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
@@ -72,12 +72,20 @@ export class ThySidebarComponent implements OnInit {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
+        this.setDraggable();
         this.ngZone.runOutsideAngular(() => {
             setTimeout(() => {
                 this.widthPassive = this.elementRef.nativeElement.clientWidth;
                 this.renderer.setStyle(this.dragRef.nativeElement, 'left', this.numberConvertToFloor(this.widthPassive) + 'px');
             }, 0);
         });
+    }
+
+    setDraggable() {
+        if (!this.dragRef) {
+            return;
+        }
+        this.renderer.setStyle(this.dragRef.nativeElement, 'pointer-events', this.isDraggableWidth ? 'all' : '');
     }
 
     dragStartedHandler() {
