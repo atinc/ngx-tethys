@@ -5,6 +5,7 @@
 @use "../../styles/mixins/shadow";
 @use "../../styles/variables";
 @use "./button.scss";
+@use "mixin";
 // stylelint-disable selector-no-qualifying-type
 
 // Make the div behave like a button
@@ -18,7 +19,9 @@
         position: relative;
         flex: 0 1 auto;
         padding: variables.$btn-padding-y variables.$btn-group-btn-padding-x-md;
-
+        &.thy-btn-icon-only {
+            @include mixin.btn-icon-only-variant(variables.$btn-padding-y, 0.625rem);
+        }
         // Bring the hover, focused, and "active" buttons to the front to overlay
         // the borders properly
         @include hover.hover {
@@ -89,18 +92,30 @@
     @extend .btn-xs;
     padding: variables.$btn-group-btn-padding-y-xs variables.$btn-group-btn-padding-x-xs;
     font-size: variables.$font-size-xs;
+    &.thy-btn-icon-only {
+        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-xs, 0.3125rem);
+    }
 }
 .btn-group-sm > .btn {
     @extend .btn-sm;
     padding: variables.$btn-group-btn-padding-y-sm variables.$btn-group-btn-padding-x-sm;
+    &.thy-btn-icon-only {
+        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-sm, 0.3125rem);
+    }
 }
 .btn-group-md > .btn {
     @extend .btn-md;
     padding: variables.$btn-group-btn-padding-y-md variables.$btn-group-btn-padding-x-md;
+    &.thy-btn-icon-only {
+        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-md, 0.625rem);
+    }
 }
 .btn-group-lg > .btn {
     @extend .btn-lg;
     padding: variables.$btn-group-btn-padding-y-lg variables.$btn-group-btn-padding-x-lg;
+    &.thy-btn-icon-only {
+        @include mixin.btn-icon-only-variant(variables.$btn-group-btn-padding-y-lg, 0.625rem);
+    }
 }
 
 // type

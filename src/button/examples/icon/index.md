@@ -1,4 +1,4 @@
 ---
-title: Button Icon
-order: 70
+title: Icon
+order: 35
 ---
