@@ -229,3 +229,11 @@
 
     @include btn-icon-circle-hover-variant($round-padding, $btn-icon-circle-font-size, $diameter);
 }
+
+@mixin btn-icon-only-variant($padding-y, $padding-x, $font-size: variables.$font-size-base) {
+    min-width: unset;
+    padding: $padding-y $padding-x;
+    .thy-icon {
+        font-size: $font-size;
+    }
+}
