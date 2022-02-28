@@ -12,6 +12,10 @@
     &-input.form-control {
         border: none !important;
         cursor: pointer;
+
+        &:disabled {
+            cursor: default;
+        }
     }
     &-xs,
     &-sm {
@@ -22,7 +26,9 @@
             border-color: variables.$primary;
         }
         &-disabled {
+            color: variables.$gray-600;
             border-color: 1px solid variables.$gray-400;
+            cursor: default;
         }
         &-label {
             position: absolute;

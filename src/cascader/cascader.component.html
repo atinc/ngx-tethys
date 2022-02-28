@@ -13,7 +13,7 @@
     <span [ngClass]="arrowCls">
       <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
     </span>
-    <span [ngClass]="clearCls" *ngIf="!isLoading && labelRenderText" (click)="clearSelection($event)">
+    <span [ngClass]="clearCls" *ngIf="!isLoading && !disabled && labelRenderText" (click)="clearSelection($event)">
       <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
     </span>
     <span [ngClass]="labelCls">
