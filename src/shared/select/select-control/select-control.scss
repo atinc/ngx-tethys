@@ -18,7 +18,9 @@
     &.form-control-md {
         @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md);
         .choice-content {
-            font-size: variables.$font-size-base !important;
+            height: 22px;
+            line-height: 22px;
+            font-size: variables.$font-size-sm !important;
         }
     }
     &.form-control-lg {
@@ -118,6 +120,9 @@
         cursor: default;
         .choice-content {
             max-width: 100%;
+            height: 22px;
+            line-height: 22px;
+            font-size: variables.$font-size-sm;
         }
         &.disabled {
             padding-right: 10px;
