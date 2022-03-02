@@ -14,13 +14,27 @@
     }
     &.form-control-sm {
         @include select.select-control-size(bootstrap-variables.$input-height-sm, variables.$input-padding-y-sm);
+        .select-control-rendered {
+            .choice,
+            .select-control-search {
+                .choice-content {
+                    height: 20px;
+                    line-height: 20px;
+                }
+            }
+        }
     }
     &.form-control-md {
         @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md);
-        .choice-content {
-            height: 22px;
-            line-height: 22px;
-            font-size: variables.$font-size-sm !important;
+        .select-control-rendered {
+            .choice,
+            .select-control-search {
+                .choice-content {
+                    height: 22px;
+                    line-height: 22px;
+                    font-size: variables.$font-size-sm !important;
+                }
+            }
         }
     }
     &.form-control-lg {
