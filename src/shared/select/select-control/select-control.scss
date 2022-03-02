@@ -14,40 +14,15 @@
     }
     &.form-control-sm {
         @include select.select-control-size(bootstrap-variables.$input-height-sm, variables.$input-padding-y-sm);
-        .select-control-rendered {
-            .choice,
-            .select-control-search {
-                .choice-content {
-                    height: 20px;
-                    line-height: 20px;
-                }
-            }
-        }
+        @include select.select-label-size(20px, variables.$font-size-sm);
     }
     &.form-control-md {
         @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md);
-        .select-control-rendered {
-            .choice,
-            .select-control-search {
-                .choice-content {
-                    height: 22px;
-                    line-height: 22px;
-                    font-size: variables.$font-size-sm !important;
-                }
-            }
-        }
+        @include select.select-label-size(22px, variables.$font-size-sm);
     }
     &.form-control-lg {
         @include select.select-control-size(bootstrap-variables.$input-height-lg, variables.$input-padding-y-lg);
-        .select-control-rendered {
-            .choice,
-            .select-control-search {
-                .choice-content {
-                    height: 36px;
-                    line-height: 36px;
-                }
-            }
-        }
+        @include select.select-label-size(36px, variables.$font-size-lg);
     }
     .search-input-field {
         width: 100%;

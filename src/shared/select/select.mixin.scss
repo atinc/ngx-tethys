@@ -15,6 +15,19 @@
     }
 }
 
+@mixin select-label-size($label-height, $font-size) {
+    .select-control-rendered {
+        .choice,
+        .select-control-search {
+            .choice-content {
+                height: $label-height;
+                line-height: $label-height;
+                font-size: $font-size !important;
+            }
+        }
+    }
+}
+
 @mixin thy-select-options-dropdown {
     box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
     background: variables.$white;
