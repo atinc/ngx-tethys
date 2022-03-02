@@ -20,7 +20,8 @@ import {
     endOfMonth,
     addMonths,
     endOfWeek,
-    format
+    format,
+    isSameDay
 } from 'date-fns';
 
 registerLocaleData(zh);
@@ -150,6 +151,23 @@ describe('ThyTestDateRangeComponent', () => {
                 )}`
             );
         }));
+
+        it('should support thyDisabledDate', fakeAsync(() => {
+            fixture.detectChanges();
+            const compareDate = addDays(startOfMonth(setMonth(CURRENT_DATE, getMonth(CURRENT_DATE) - 2)), -1);
+            fixtureInstance.thyDisabledDate = (current: Date) => {
+                return isSameDay(current, compareDate);
+            };
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-action-menu-container');
+            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+
+            const disabledCell = queryFromOverlay(
+                '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
+            );
+            expect(disabledCell).not.toBeNull();
+        }));
     });
 
     describe('action api test', () => {
@@ -164,6 +182,33 @@ describe('ThyTestDateRangeComponent', () => {
                 .querySelectorAll('.action-menu-item')[1];
             dispatchClickEvent(secondOptional as HTMLElement);
             expect(getPickerTriggerElement().innerText).toEqual(value);
+        }));
+
+        it('should support thyOnCalendarChange', fakeAsync(() => {
+            const thyOnCalendarChange = spyOn(debugElement.componentInstance, 'calendarChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerElement());
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-action-menu-container');
+            dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
+            const left = getFirstCell('left');
+            const leftText = left.textContent.trim();
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            let result = (thyOnCalendarChange.calls.allArgs()[0] as Date[][])[0];
+            expect((result[0] as Date).getDate()).toBe(+leftText);
+            const right = getFirstCell('right');
+            const rightText = right.textContent.trim();
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
+            expect((result[0] as Date).getDate()).toBe(+leftText);
+            expect((result[1] as Date).getDate()).toBe(+rightText);
         }));
 
         it('should change month date text when when click arrow', fakeAsync(() => {
@@ -331,6 +376,7 @@ describe('ThyTestDateRangeComponent', () => {
                 [thyDisabledSwitch]="hiddenSwitchRangeIcon"
                 [thyCustomTextValue]="customValue"
                 [thyOptionalDateRanges]="dateRanges"
+                [thyDisabledDate]="thyDisabledDate"
                 [(ngModel)]="selectedDate"
             ></thy-date-range>
 
@@ -341,6 +387,7 @@ describe('ThyTestDateRangeComponent', () => {
                 [thyOptionalDateRanges]="customDateRanges"
                 [ngModel]="selectedDate"
                 (ngModelChange)="dateChanged($event)"
+                (thyOnCalendarChange)="calendarChange($event)"
             ></thy-date-range>
         </ng-container>
     `
@@ -427,5 +474,9 @@ class ThyTestDateRangeComponent {
 
     customValue = '';
 
+    thyDisabledDate: (d: Date) => boolean;
+
     dateChanged(date: DateRangeItemInfo) {}
+
+    calendarChange(date: Date[]) {}
 }

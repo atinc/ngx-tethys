@@ -57,6 +57,18 @@ module.exports = [
                 description: '自定义日期展示格式，只有当`thyCustomKey`值设为`custom`时才会生效',
                 type: 'string',
                 default: ''
+            },
+            {
+                name: 'thyDisabledDate',
+                description: '自定义日期禁用日期',
+                type: 'Function',
+                default: null
+            },
+            {
+                name: 'thyOnCalendarChange',
+                description: '自定义日期选择日期回调',
+                type: 'EventEmitter<Date[]>',
+                default: null
             }
         ]
     },

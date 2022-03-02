@@ -12,7 +12,9 @@
     [(ngModel)]="selectedDate"
     [thyMinDate]="minDate"
     [thyMaxDate]="maxDate"
+    [thyDisabledDate]="disabledDate"
     (ngModelChange)="_selectedCustomDate($event)"
+    (thyOnCalendarChange)="calendarChange($event)"
   >
     <span thyActionMenuItemName>{{ customValue }}</span>
     <span thyActionMenuItemExtendIcon *ngIf="customKey === selectedDate?.key">
