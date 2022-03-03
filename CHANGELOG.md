@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.8"></a>
+## [12.1.8](https://github.com/atinc/ngx-tethys/compare/12.1.7...12.1.8) (2022-02-28)
+
+
+### Bug Fixes
+
+* **button:** reset padding-x for only icon button in group #INFR-2657 ([d96ddf9](https://github.com/atinc/ngx-tethys/commit/d96ddf9)), closes [#INFR-2657](https://github.com/atinc/ngx-tethys/issues/INFR-2657)
+* **cascader:** #INFR-2639 fixed cascader disable style ([#1482](https://github.com/atinc/ngx-tethys/issues/1482)) ([f3f778c](https://github.com/atinc/ngx-tethys/commit/f3f778c))
+* **form:** fix form enter key for keyboard event bug #INFR-979 ([#1465](https://github.com/atinc/ngx-tethys/issues/1465)) ([cc84a8a](https://github.com/atinc/ngx-tethys/commit/cc84a8a)), closes [#INFR-979](https://github.com/atinc/ngx-tethys/issues/INFR-979)
+* **form:** should not throw error when there is no thySubmit directive in the thyForm ([1345de7](https://github.com/atinc/ngx-tethys/commit/1345de7)), closes [#INFR-979](https://github.com/atinc/ngx-tethys/issues/INFR-979) [#INFR-979](https://github.com/atinc/ngx-tethys/issues/INFR-979)
+* **fullscreen:** change targetLaunchededClass to targetLaunchedClass #INFR-2324 ([ca4ce38](https://github.com/atinc/ngx-tethys/commit/ca4ce38)), closes [#INFR-2324](https://github.com/atinc/ngx-tethys/issues/INFR-2324)
+* **layout:** update dragRef's pointer-events to "all" when thyIsDraggableWidth is true, and improve docs and test cases #INFR-2610 ([#1467](https://github.com/atinc/ngx-tethys/issues/1467)) ([3ca10bf](https://github.com/atinc/ngx-tethys/commit/3ca10bf)), closes [#INFR-2610](https://github.com/atinc/ngx-tethys/issues/INFR-2610)
+* **pagination:** separate showTotal and total ([8afc984](https://github.com/atinc/ngx-tethys/commit/8afc984))
+* **progress:** should reset max when value and max is change #INFR-2608 ([#1473](https://github.com/atinc/ngx-tethys/issues/1473)) ([8d73270](https://github.com/atinc/ngx-tethys/commit/8d73270)), closes [#INFR-2608](https://github.com/atinc/ngx-tethys/issues/INFR-2608)
+* **select:** view can not update when value and options is empty #INFR-2653 ([7b30f3f](https://github.com/atinc/ngx-tethys/commit/7b30f3f)), closes [#INFR-2653](https://github.com/atinc/ngx-tethys/issues/INFR-2653)
+
+
+### Features
+
+* **dialog:** add canClose and force close for dialog INFR-2605 ([cd736e5](https://github.com/atinc/ngx-tethys/commit/cd736e5)), closes [#INFR-2605](https://github.com/atinc/ngx-tethys/issues/INFR-2605)
+* **pagination:** add pages size select to pagination(#INFR-2340) ([2c3c1de](https://github.com/atinc/ngx-tethys/commit/2c3c1de)), closes [#INFR-2340](https://github.com/atinc/ngx-tethys/issues/INFR-2340)
+
+
+
 <a name="12.1.7"></a>
 ## [12.1.7](https://github.com/atinc/ngx-tethys/compare/12.1.6...12.1.7) (2022-02-16)
 

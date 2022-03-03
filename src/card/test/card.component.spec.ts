@@ -4,6 +4,7 @@ import { Component, OnInit, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyCardComponent } from '../card.component';
 import { ThyCardContentComponent } from '../content.component';
+import { ThyCardHeaderComponent } from '../header.component';
 
 @Component({
     selector: 'card-basic',
@@ -50,11 +51,44 @@ class CardDividedComponent implements OnInit {
     ngOnInit(): void {}
 }
 
+@Component({
+    selector: 'card-header',
+    template: `
+        <thy-card>
+            <thy-card-header thyTitle="This is card header test" [thySize]="size"></thy-card-header>
+            <thy-card-content [thySize]="size">This is content</thy-card-content>
+        </thy-card>
+    `
+})
+class CardHeaderSizeComponent {
+    size: string;
+}
+
+@Component({
+    selector: 'card-content',
+    template: `
+        <thy-card>
+            <thy-card-header thyTitle="This is card content test"></thy-card-header>
+            <thy-card-content [thySize]="size" [thyScroll]="isScroll">This is content</thy-card-content>
+        </thy-card>
+    `
+})
+class CardContentSizeAndScrollComponent {
+    size: string;
+    isScroll: boolean;
+}
+
 describe('thy-card', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyCardModule],
-            declarations: [CardBasicComponent, CardDividedComponent, CardClearPaddingComponent]
+            declarations: [
+                CardBasicComponent,
+                CardDividedComponent,
+                CardClearPaddingComponent,
+                CardHeaderSizeComponent,
+                CardContentSizeAndScrollComponent
+            ]
         });
         TestBed.compileComponents();
     });
@@ -117,6 +151,59 @@ describe('thy-card', () => {
             expect(cardDebugElement).toBeTruthy();
             const cardElement: HTMLElement = cardDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card--clear-left-right-padding')).toBe(true);
+        });
+    });
+
+    describe('card header', () => {
+        let fixture: ComponentFixture<CardHeaderSizeComponent>;
+        let cardHeaderComponent: DebugElement;
+        let cardHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CardHeaderSizeComponent);
+            fixture.detectChanges();
+            cardHeaderComponent = fixture.debugElement.query(By.directive(ThyCardHeaderComponent));
+            cardHeaderElement = cardHeaderComponent.nativeElement;
+        });
+
+        it('should set card header size success', () => {
+            fixture.detectChanges();
+            expect(cardHeaderElement.querySelector('.thy-card-header')).toBeTruthy;
+
+            ['lg', 'sm'].forEach(size => {
+                fixture.debugElement.componentInstance.size = size;
+                fixture.detectChanges();
+                expect(cardHeaderElement.querySelector(`.thy-card-header-${size}`));
+            });
+        });
+    });
+
+    describe('card content', () => {
+        let fixture: ComponentFixture<CardContentSizeAndScrollComponent>;
+        let cardContentComponent: DebugElement;
+        let cardContentElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CardContentSizeAndScrollComponent);
+            fixture.detectChanges();
+            cardContentComponent = fixture.debugElement.query(By.directive(ThyCardContentComponent));
+            cardContentElement = cardContentComponent.nativeElement;
+        });
+
+        it('should set card content size success', () => {
+            fixture.detectChanges();
+            expect(cardContentElement.querySelector('.thy-card-content')).toBeTruthy;
+            fixture.debugElement.componentInstance.size = `sm`;
+            fixture.detectChanges();
+            expect(cardContentElement.querySelector(`.thy-card-content--sm`)).toBeTruthy;
+        });
+
+        it('should set card content scroll success', () => {
+            fixture.detectChanges();
+            expect(cardContentElement.querySelector('.thy-card-content--scroll')).toBeFalsy;
+            fixture.debugElement.componentInstance.isScroll = true;
+            fixture.detectChanges();
+            expect(cardContentElement.querySelector(`.thy-card-content--scroll`)).toBeTruthy;
         });
     });
 });

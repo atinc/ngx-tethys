@@ -1,7 +1,6 @@
-import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
-import { helpers } from 'ngx-tethys/util';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
@@ -38,6 +37,10 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
     @Input() thyPickerFormat: string;
+
+    @Input() thyDisabledDate: (d: Date) => boolean;
+
+    @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     public selectedDate?: DateRangeItemInfo;
 
@@ -203,9 +206,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 maxDate: this.thyMaxDate,
                 customValue: this.thyCustomTextValue,
                 customKey: this.thyCustomKey,
+                disabledDate: this.thyDisabledDate,
                 selectedDateRange: (dateRange: DateRangeItemInfo) => {
                     this.onModelChange(dateRange);
                     this.selectedDate = dateRange;
+                },
+                calendarChange: (date: Date[]) => {
+                    this.thyOnCalendarChange.emit(date);
                 }
             }
         });

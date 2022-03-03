@@ -19,7 +19,11 @@ export class OptionalDateRangesComponent implements OnInit {
 
     maxDate: number | Date;
 
+    disabledDate: (d: Date) => boolean;
+
     selectedDateRange: (date: DateRangeItemInfo) => void;
+
+    calendarChange: (date: Date[]) => void;
 
     selectedDate: DateRangeItemInfo;
 

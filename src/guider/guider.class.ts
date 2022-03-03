@@ -1,13 +1,6 @@
 import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
-// export type StepTipData = {
-//     [key: string]: any;
-//     title?: string;
-//     description?: string | TemplateRef<any>;
-//     image?: string;
-// };
-
 export interface ThyGuiderStep<TData = any> {
     key: string;
     target?: string | [number, number];

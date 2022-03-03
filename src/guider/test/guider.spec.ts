@@ -18,7 +18,7 @@ const guiderSteps: ThyGuiderStep[] = [
         key: 'multi-steps-tip-start',
         target: '',
         data: {
-            cover: '',
+            image: '',
             title: 'step 1/3',
             description: '本次新手引导总共五步，第一步：无目标'
         }
@@ -27,7 +27,7 @@ const guiderSteps: ThyGuiderStep[] = [
         key: 'multi-steps-tip-1',
         target: '.basic-hint-target',
         data: {
-            cover: '',
+            image: '',
             title: 'step 2/3',
             description: '新手引导五步中的第二步'
         },
@@ -37,7 +37,7 @@ const guiderSteps: ThyGuiderStep[] = [
         key: 'multi-steps-tip-end',
         target: [500, 500],
         data: {
-            cover: '',
+            image: '',
             title: 'step 3/3',
             description: '新手引导的最后一步'
         }
@@ -49,7 +49,7 @@ const basicGuiderSteps: ThyGuiderStep[] = [
         key: 'basic-hint-target',
         target: '.basic-hint-target',
         data: {
-            cover: '',
+            image: '',
             title: '基础新手引导的使用',
             description: '设置相关的信息即可使用'
         }
@@ -62,7 +62,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
     {
         key: 'directive-tip-target',
         data: {
-            cover: '',
+            image: '',
             title: '指令型新手引导',
             description: 'DOM已经显示的指令型新手引导'
         }
@@ -70,7 +70,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
     {
         key: 'directive-tip-target-second',
         data: {
-            cover: '',
+            image: '',
             title: '同页面的第二个指令型新手引导',
             description: '同页面中的第二个通过指令设置的新手引导，'
         }
@@ -79,7 +79,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
         key: 'directive-tip-target-last',
         route: '/components/guider/examples',
         data: {
-            cover: '',
+            image: '',
             title: '其他页面的指令型新手引导',
             description: '其他页面的通过指令设置的新手引导，'
         }
@@ -139,7 +139,7 @@ class GuiderBasicComponent implements OnInit {
                     key: 'basic-hint-target',
                     target: '.basic-hint-target',
                     data: {
-                        cover: '',
+                        image: '',
                         title: '基础新手引导的使用',
                         description: this.descTemp
                     }
@@ -231,7 +231,7 @@ describe(`thyGuider`, () => {
                         key: 'basic-hint-target',
                         target: '.basic-hint-target',
                         data: {
-                            cover: '',
+                            image: '',
                             title: '基础新手引导的使用',
                             description: '设置相关的信息即可使用'
                         }
@@ -240,7 +240,7 @@ describe(`thyGuider`, () => {
                         key: 'basic-hint-target-error',
                         target: '.basic-hint-target-error',
                         data: {
-                            cover: '',
+                            image: '',
                             title: '错误的target',
                             description: '错误'
                         }
