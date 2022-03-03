@@ -30,6 +30,7 @@ import { popoverAbstractOverlayOptions } from './popover.options';
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
+        '[attr.id]': 'id',
         '[@popoverContainer]': 'animationState',
         '(@popoverContainer.start)': 'onAnimationStart($event)',
         '(@popoverContainer.done)': 'onAnimationDone($event)'
