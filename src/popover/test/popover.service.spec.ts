@@ -354,6 +354,7 @@ describe(`thyPopover`, () => {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin
             });
             expect(popover.getPopoverById('pizza')).toBe(popoverRef);
+            expect(popover.getPopoverById('pizza').updatePosition()).toBeTruthy();
         }));
         it('should get correct openedPopovers', fakeAsync(() => {
             const popoverRef = popover.open(PopoverSimpleContentComponent, {
@@ -384,6 +385,21 @@ describe(`thyPopover`, () => {
             tick(1000);
             viewContainerFixture.detectChanges();
             expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBeTruthy();
+        }));
+
+        it('should find the null', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            viewContainerFixture.detectChanges();
+            const element = getPopoverContainerElement() as HTMLElement;
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            element
+                .querySelector('popover-simple-content-component')
+                .closest('.thy-popover-container')
+                .removeAttribute('id');
+            expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBe(null);
         }));
     });
 
