@@ -1,5 +1,38 @@
 module.exports = [
     {
+        type: 'service',
+        name: 'ThyPopover',
+        properties: [
+            {
+                name: 'open',
+                description: '打开 Popover',
+                type: `(
+                    componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
+                    config?: ThyPopoverConfig
+                ) => ThyPopoverRef`,
+                default: ''
+            },
+            {
+                name: 'getPopoverById',
+                description: '根据 id 获取 Popover',
+                type: `(id: string) => ThyPopoverRef`,
+                default: ''
+            },
+            {
+                name: 'getOpenedPopovers',
+                description: '获取所有打开的 Popover',
+                type: `() => ThyPopoverRef[]`,
+                default: ''
+            },
+            {
+                name: 'getClosestPopover',
+                description: '获取与指定元素最接近的 ThyPopoverRef',
+                type: `(element: HTMLElement) => ThyPopoverRef`,
+                default: ''
+            }
+        ]
+    },
+    {
         type: 'CLASS',
         name: 'Config参数',
         properties: [
