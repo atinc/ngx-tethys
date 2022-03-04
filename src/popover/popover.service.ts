@@ -216,6 +216,26 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return popoverRef;
     }
 
+    getPopoverById(id: string): ThyPopoverRef<any> | undefined {
+        return this.getAbstractOverlayById(id) as ThyPopoverRef<any> | undefined;
+    }
+
+    getOpenedPopovers(): ThyPopoverRef<any>[] {
+        return this.getAbstractOverlays();
+    }
+
+    /**
+     * Finds the closest ThyPopoverRef to an element by looking at the DOM.
+     */
+    getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined {
+        const parent = element.closest('.thy-popover-container');
+
+        if (parent && parent.id) {
+            return this.getPopoverById(parent.id);
+        }
+        return null;
+    }
+
     ngOnDestroy() {
         this.dispose();
     }
