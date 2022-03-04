@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.9"></a>
+## [12.1.9](https://github.com/atinc/ngx-tethys/compare/12.1.8...12.1.9) (2022-03-04)
+
+
+### Features
+
+* **date-range:** support thyDisabledDate and thyOnCalendarChange #INFR-2665 ([13764d6](https://github.com/atinc/ngx-tethys/commit/13764d6)), closes [#INFR-2665](https://github.com/atinc/ngx-tethys/issues/INFR-2665)
+
+
+
 <a name="12.1.8"></a>
 ## [12.1.8](https://github.com/atinc/ngx-tethys/compare/12.1.7...12.1.8) (2022-02-28)
 
