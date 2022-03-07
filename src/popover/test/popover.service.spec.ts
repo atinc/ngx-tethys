@@ -347,6 +347,60 @@ describe(`thyPopover`, () => {
 
             expect(overlayContainerElement.querySelectorAll('thy-popover-container').length).toBe(0);
         }));
+
+        it('should be able to find a popover by id', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                id: 'pizza',
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            expect(popover.getPopoverById('pizza')).toBe(popoverRef);
+            expect(popover.getPopoverById('pizza').updatePosition()).toBeTruthy();
+        }));
+        it('should get correct openedPopovers', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                id: 'pizza',
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            const openedPopover = popover.getOpenedPopovers();
+            expect(openedPopover.length).toEqual(1);
+            expect(openedPopover[0]).toEqual(popoverRef);
+
+            const popoverRef1 = popover.open(PopoverSimpleContentComponent, {
+                id: 'hamburg',
+                origin: viewContainerFixture.componentInstance.openTemplate
+            });
+
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            expect(openedPopover.length).toEqual(2);
+            expect(openedPopover[1]).toEqual(popoverRef1);
+        }));
+
+        it('should find the closest dialog', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            viewContainerFixture.detectChanges();
+            const element = getPopoverContainerElement() as HTMLElement;
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBeTruthy();
+        }));
+
+        it('should find the null', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin
+            });
+            viewContainerFixture.detectChanges();
+            const element = getPopoverContainerElement() as HTMLElement;
+            tick(1000);
+            viewContainerFixture.detectChanges();
+            element
+                .querySelector('popover-simple-content-component')
+                .closest('.thy-popover-container')
+                .removeAttribute('id');
+            expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBe(null);
+        }));
     });
 
     describe('manualClosure', () => {
