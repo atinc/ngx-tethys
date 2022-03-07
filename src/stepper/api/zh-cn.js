@@ -5,13 +5,13 @@ module.exports = [
         properties: [
             {
                 name: 'thySelectedIndex',
-                description: '激活的index',
+                description: '当前处于激活状态的步骤index',
                 type: 'number',
                 default: '0'
             },
             {
                 name: 'thyShowStepHeader',
-                description: '是否展示步骤条导航',
+                description: '步骤条导航是否展示，默认展示',
                 type: 'boolean',
                 default: true
             }
@@ -22,9 +22,33 @@ module.exports = [
         name: 'thy-step',
         properties: [
             {
-                name: 'label',
-                description: '步骤label',
+                name: 'thyLabel',
+                description: '步骤条中每个步骤的label文本',
                 type: 'string',
+                default: ''
+            }
+        ]
+    },
+    {
+        type: 'directive',
+        name: 'thyStepperPrevious',
+        properties: [
+            {
+                name: 'thyStepperPrevious',
+                description: '从当前步骤切换至上一步',
+                type: 'directive',
+                default: ''
+            }
+        ]
+    },
+    {
+        type: 'directive',
+        name: 'thyStepperNext',
+        properties: [
+            {
+                name: 'thyStepperNext',
+                description: '从当前步骤切换至下一步',
+                type: 'directive',
                 default: ''
             }
         ]
