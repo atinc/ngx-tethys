@@ -526,6 +526,10 @@ describe('dropdown submenu', () => {
         dropdown.show();
         tick();
         const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '200px';
+        dropdownMenu.style.left = '20px';
+
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
