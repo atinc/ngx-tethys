@@ -521,7 +521,7 @@ describe('dropdown submenu', () => {
         flush();
     }));
 
-    fit('should set right when direction is auto', fakeAsync(() => {
+    it('should set right when direction is auto', fakeAsync(() => {
         fixture.detectChanges();
         dropdown.show();
         tick();
