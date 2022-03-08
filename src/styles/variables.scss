@@ -194,12 +194,6 @@ $btn-group-btn-padding-x-md: 20px !default;
 $btn-group-btn-padding-x-sm: 15px !default;
 $btn-group-btn-padding-x-xs: 10px !default;
 
-$btn-group-btn-dropdown-padding-x: 0.801rem !default;
-$btn-group-btn-dropdown-padding-x-lg: 0.938rem !default;
-$btn-group-btn-dropdown-padding-x-md: 0.676rem !default;
-$btn-group-btn-dropdown-padding-x-sm: 0.551rem !default;
-$btn-group-btn-dropdown-padding-x-xs: 0.5rem !default;
-
 // Forms
 // 输入框左右 padding 和 按钮大小不一致， bootstrap 是一致的
 // input-padding-x 之前是 0.875rem, 芳美说太大了，改成了 10px 大小
@@ -263,9 +257,25 @@ $form-check-inline-margin-r: 0.75rem !default;
 $form-check-inline-input-margin-r: 0.3125rem !default;
 
 // Dropdown
-$dropdown-toggle-y-l: 1.25rem !default;
-$dropdown-toggle-y-r: 0.938rem !default;
-$dropdown-toggle-split-y: 0.625rem !default;
+$dropdown-menu-width: 240px !default;
+$dropdown-menu-group-width: 280px !default;
+$dropdown-menu-padding-y: 10px;
+$dropdown-menu-max-height: 400px !default;
+$dropdown-menu-bg: $white !default;
+$dropdown-menu-item-padding-x: 20px !default;
+$dropdown-menu-item-padding-y: 9px !default;
+$dropdown-menu-item-color: $gray-700 !default;
+$dropdown-menu-item-hover-color: $gray-800 !default;
+$dropdown-menu-item-icon-color: $gray-500 !default;
+$dropdown-menu-item-extend-color: $gray-500 !default;
+$dropdown-menu-item-hover-bg: $gray-100 !default;
+$dropdown-menu-divider-title-color: $gray-400 !default;
+$dropdown-menu-divider-border-color: $gray-200 !default;
+$dropdown-menu-divider-margin-y: 5px !default;
+$dropdown-menu-divider-margin-x: 20px !default;
+$dropdown-menu-group-name-color: $gray-400 !default;
+$dropdown-menu-group-name-padding-y: 2px;
+$dropdown-menu-group-name-padding-x: 20px;
 
 // PopBox
 $pop-box-divider: $gray-100 !default;

@@ -1,0 +1,13 @@
+<button thyButton="primary" [thyDropdown]="menu" thyTrigger="click">Click <thy-icon thyIconName="caret-down"></thy-icon></button>
+<button thyButton="primary" [thyDropdown]="menu" thyTrigger="hover" class="ml-2">
+  Hover <thy-icon thyIconName="caret-down"></thy-icon>
+</button>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item1</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item2</span>
+  </a>
+</thy-dropdown-menu>

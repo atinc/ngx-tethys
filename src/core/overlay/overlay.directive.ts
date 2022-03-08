@@ -37,7 +37,10 @@ export abstract class ThyOverlayDirectiveBase {
     protected showTimeoutId: number | null | any;
     protected hideTimeoutId: number | null | any;
 
-    protected tooltipPin: boolean;
+    /**
+     * The overlay keep opened when the mouse moves to the overlay container
+     */
+    protected overlayPin: boolean;
     /** create overlay, you can use popover service or overlay*/
     abstract createOverlay(): OverlayRef;
     abstract show(delay?: number): void;
@@ -60,11 +63,12 @@ export abstract class ThyOverlayDirectiveBase {
         }
     }
 
-    constructor(elementRef: ElementRef, platform: Platform, focusMonitor: FocusMonitor, ngZone: NgZone) {
+    constructor(elementRef: ElementRef, platform: Platform, focusMonitor: FocusMonitor, ngZone: NgZone, overlayPin?: boolean) {
         this.elementRef = elementRef;
         this.platform = platform;
         this.focusMonitor = focusMonitor;
         this.ngZone = ngZone;
+        this.overlayPin = overlayPin;
     }
 
     initialize() {
@@ -81,7 +85,7 @@ export abstract class ThyOverlayDirectiveBase {
                         const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
                         const toElement = event['toElement'] || event.relatedTarget;
                         // if element which moved to is in overlayElement, don't hide tooltip
-                        if (overlayElement && overlayElement.contains && overlayElement.contains(toElement as Element) && this.tooltipPin) {
+                        if (overlayElement && overlayElement.contains && overlayElement.contains(toElement as Element) && this.overlayPin) {
                             fromEvent(overlayElement, 'mouseleave')
                                 .pipe(take(1))
                                 .subscribe(() => {
