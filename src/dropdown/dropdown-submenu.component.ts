@@ -48,8 +48,6 @@ export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, O
                 .subscribe(() => {
                     const element = this.dropdownMenuItem.getElement();
                     const offset = getElementOffset(element);
-                    console.log('offset', offset);
-                    console.log(document.documentElement.clientWidth);
                     if (document.documentElement.clientWidth < offset.left + offset.width + offset.width) {
                         direction = 'left';
                     } else {
