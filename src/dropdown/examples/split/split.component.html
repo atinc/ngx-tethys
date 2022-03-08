@@ -1,15 +1,13 @@
-<thy-button-group>
-  <button thyButton="primary" thyIcon="plus-circle">分列式下拉菜单</button>
-  <button thyDropdownSplit thyButton="primary" [thyActionMenuToggle]="menuList"></button>
+<thy-button-group thyType="primary">
+  <button thyButton><thy-icon thyIconName="plus"></thy-icon>Dropdown</button>
+  <button thyButton [thyDropdown]="menu"><thy-icon thyIconName="caret-down"></thy-icon></button>
 </thy-button-group>
 
-<ng-template #menuList>
-  <thy-action-menu>
-    <a thyActionMenuItem href="javascript:;">
-      <span>Dropdown link</span>
-    </a>
-    <a thyActionMenuItem href="javascript:;">
-      <span>Dropdown link</span>
-    </a>
-  </thy-action-menu>
-</ng-template>
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item1</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item2</span>
+  </a>
+</thy-dropdown-menu>

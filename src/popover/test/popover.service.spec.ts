@@ -356,6 +356,7 @@ describe(`thyPopover`, () => {
             expect(popover.getPopoverById('pizza')).toBe(popoverRef);
             expect(popover.getPopoverById('pizza').updatePosition()).toBeTruthy();
         }));
+
         it('should get correct openedPopovers', fakeAsync(() => {
             const popoverRef = popover.open(PopoverSimpleContentComponent, {
                 id: 'pizza',
@@ -545,7 +546,7 @@ describe(`thyPopover`, () => {
             outsideClosableComponent = outsideClosableFixture.componentInstance;
         });
 
-        it('should close popover when click dom outside popovercontainer', fakeAsync(() => {
+        it('should close popover when click dom outside popover container', fakeAsync(() => {
             popover.open(outsideClosableComponent.template, {
                 origin: outsideClosableComponent.openBtn,
                 hasBackdrop: false,
@@ -562,7 +563,7 @@ describe(`thyPopover`, () => {
             expect(overlayContainerElement.textContent).not.toContain('template');
         }));
 
-        it('should not close popover when click dom inside popovercontainer', fakeAsync(() => {
+        it('should not close popover when click dom inside popover container', fakeAsync(() => {
             popover.open(outsideClosableComponent.template, {
                 origin: outsideClosableComponent.openBtn,
                 hasBackdrop: false,

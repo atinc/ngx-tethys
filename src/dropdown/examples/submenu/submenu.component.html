@@ -1,0 +1,56 @@
+<button thyButton="primary" [thyDropdown]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyIconName="plus" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>New</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyIconName="more-vertical" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>Right submenu</span>
+    <thy-icon thyIconName="angle-right" thyDropdownMenuItemExtendIcon></thy-icon>
+    <thy-dropdown-submenu thyDirection="right">
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu1</span>
+        <thy-icon thyIconName="angle-right" thyDropdownMenuItemExtendIcon></thy-icon>
+        <thy-dropdown-submenu>
+          <a thyDropdownMenuItem href="javascript:;">
+            <span thyDropdownMenuItemName>Submenu1 of Submenu1</span>
+          </a>
+          <a thyDropdownMenuItem href="javascript:;">
+            <span thyDropdownMenuItemName>Submenu2 of Submenu1</span>
+          </a>
+        </thy-dropdown-submenu>
+      </a>
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu2</span>
+      </a>
+    </thy-dropdown-submenu>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyIconName="settings" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>Left submenu</span>
+    <thy-icon thyIconName="angle-right" thyDropdownMenuItemExtendIcon></thy-icon>
+    <thy-dropdown-submenu thyDirection="left">
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu1</span>
+      </a>
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu2</span>
+      </a>
+    </thy-dropdown-submenu>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyIconName="sort" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>Auto submenu</span>
+    <thy-icon thyIconName="angle-right" thyDropdownMenuItemExtendIcon></thy-icon>
+    <thy-dropdown-submenu thyDirection="auto">
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu1</span>
+      </a>
+      <a thyDropdownMenuItem href="javascript:;">
+        <span thyDropdownMenuItemName>Submenu2</span>
+      </a>
+    </thy-dropdown-submenu>
+  </a>
+</thy-dropdown-menu>

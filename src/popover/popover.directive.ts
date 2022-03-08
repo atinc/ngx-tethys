@@ -43,8 +43,6 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     private popoverRef: ThyPopoverRef<any>;
 
-    tooltipPin = true;
-
     constructor(
         elementRef: ElementRef,
         platform: Platform,
@@ -53,7 +51,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         private popover: ThyPopover,
         private viewContainerRef: ViewContainerRef
     ) {
-        super(elementRef, platform, focusMonitor, ngZone);
+        super(elementRef, platform, focusMonitor, ngZone, true);
     }
 
     ngOnInit(): void {

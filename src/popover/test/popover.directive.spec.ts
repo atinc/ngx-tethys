@@ -11,7 +11,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing/dispatcher-events';
 
 @Component({
-    selector: 'thy-demo-tooltip-basic',
+    selector: 'thy-demo-popover-basic',
     template: `
         <button
             thyButton="primary"

@@ -1,15 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgxTethysModule } from 'ngx-tethys';
-import { ThyDropdownBasicExampleComponent } from './basic/basic.component';
-import { ThyDropdownSplitExampleComponent } from './split/split.component';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThySpaceModule } from 'ngx-tethys/space';
 
-const COMPONENTS = [ThyDropdownBasicExampleComponent, ThyDropdownSplitExampleComponent];
-@NgModule({
-    imports: [CommonModule, NgxTethysModule],
-    exports: COMPONENTS,
-    declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
-    providers: []
-})
-export class ThyDropdownExamplesModule {}
+export default {
+    imports: [ThyDropdownModule, ThyButtonModule, ThyIconModule, ThyActionMenuModule, ThyPopoverModule, ThySpaceModule]
+};
