@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.10"></a>
+## [12.1.10](https://github.com/atinc/ngx-tethys/compare/12.1.9...12.1.10) (2022-03-09)
+
+
+### Bug Fixes
+
+* **select:** #INFR-2621 fix select-control-multiple font-size ([5d13c82](https://github.com/atinc/ngx-tethys/commit/5d13c82))
+* **select:** #INFR-2621 fix select-control-multiple font-size ([fba8d5d](https://github.com/atinc/ngx-tethys/commit/fba8d5d))
+* **select:** #INFR-2621 fix select-control-multiple font-size ([eeaf4da](https://github.com/atinc/ngx-tethys/commit/eeaf4da))
+
+
+### Features
+
+* **dropdown:** refactor thyDropdown directive, add thy-dropdown-menu and related components #INFR-2139 ([#1494](https://github.com/atinc/ngx-tethys/issues/1494)) ([ae51ea4](https://github.com/atinc/ngx-tethys/commit/ae51ea4)), closes [#INFR-2139](https://github.com/atinc/ngx-tethys/issues/INFR-2139) [#INFR-2139](https://github.com/atinc/ngx-tethys/issues/INFR-2139)
+* **popover:** add getPovoverRef function #INFR-2680 ([2425564](https://github.com/atinc/ngx-tethys/commit/2425564)), closes [#INFR-2680](https://github.com/atinc/ngx-tethys/issues/INFR-2680)
+* **popover:** add getPovoverRef function #INFR-2680 ([45976a3](https://github.com/atinc/ngx-tethys/commit/45976a3)), closes [#INFR-2680](https://github.com/atinc/ngx-tethys/issues/INFR-2680)
+* **popover:** add getPovoverRef function #INFR-2680 ([1e2a31e](https://github.com/atinc/ngx-tethys/commit/1e2a31e)), closes [#INFR-2680](https://github.com/atinc/ngx-tethys/issues/INFR-2680)
+
+
+
 <a name="12.1.9"></a>
 ## [12.1.9](https://github.com/atinc/ngx-tethys/compare/12.1.8...12.1.9) (2022-03-04)
 
