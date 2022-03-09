@@ -115,6 +115,10 @@ class ThyDemoArrowSwitcherComponent {
     size = ``;
 
     @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcherComponent;
+
+    previousClick() {}
+
+    nextClick() {}
 }
 
 @NgModule({
