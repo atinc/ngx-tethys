@@ -4,8 +4,7 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tet
 @Component({
     selector: 'thy-guider-custom-hint-class-example',
     template: `
-        <p>自定义设置弹窗以及 point 的类。</p>
-        <button class="custom-hint-class-target" thyButton="primary" (click)="startTour()">开始</button>
+        <button class="custom-hint-class-target" thyButton="info" (click)="startTour()">开始</button>
     `
 })
 export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
@@ -15,7 +14,7 @@ export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
                 key: 'custom-hint-class-target',
                 target: '.custom-hint-class-target',
                 data: {
-                    image: '/assets/images/guider/start.png',
+                    image: 'assets/images/guider/start.png',
                     title: '自定义弹出窗的类',
                     description: `通过 hintClass 控制样式类，可以看到此弹出窗的包裹层有 custom-hint-class 类。
                         通过 pointClass 控制 point 的样式，可以看到此 point 有 custom-point-class 类。`

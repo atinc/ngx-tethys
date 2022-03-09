@@ -1,12 +1,3 @@
-<p>自定义高亮区域以及提示面板的位置。</p>
-<p>
-  可以配置 <code>ThyGuiderStep</code> 中属性值来使新手引导提示面板出现在任何我们想要的位置：可以是相对某一元素，也可以是相对当前整个页面。
-</p>
-<p>
-  提示内容的位置是基于目标区域的 <code>ThyPlacement</code> 值，具体的配置可以参照
-  <a href="http://lib.worktile.live/ngx-tethys/components/popover/examples" target="_blank">Popover Document</a>。
-</p>
-
 <form thyForm thyLayout="vertical" #demoForm="thyForm" #demoVerticalForm="ngForm">
   <div thyRow [thyGutter]="30">
     <thy-form-group thyCol [thySpan]="12" thyLabelText="Placement">
@@ -47,16 +38,10 @@
   </div>
 </form>
 
-<button class="mb-4 custom-guider-position" thyButton="primary" (click)="startTour()">开始</button>
+<button class="mb-4 custom-guider-position" thyButton="info" (click)="startTour()">开始</button>
 
-<p><strong>如果需要设置新手引导的位置是相对于页面</strong>，可以参考以下两个示例：</p>
-<p>
-  当前示例设置 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为空，并配置
-  <code>defaultPosition</code> 的值使新手引导提示面板在页面指定坐标位置显示。
-</p>
-<button class="mb-3 custom-guider-position" thyButton="primary" (click)="baseOnDefaultPosition()">基于页面位置的配置1</button>
-<p>
-  或者也可以设置 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为
-  <code>[number, number]</code> 类型从而使新手引导提示面板在页面指定坐标显示。
-</p>
-<button class="custom-guider-position" thyButton="primary" (click)="baseOnTargetPosition()">基于页面位置的配置2</button>
+<p><strong>如果需要设置新手引导的位置是相对于页面</strong>：</p>
+<p>配置 <code>defaultPosition</code> 的值:</p>
+<button class="mb-3 custom-guider-position" thyButton="info" (click)="baseOnDefaultPosition()">基于页面位置的配置1</button>
+<p>配置 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为 <code>[number, number]</code> 类型:</p>
+<button class="custom-guider-position" thyButton="info" (click)="baseOnTargetPosition()">基于页面位置的配置2</button>

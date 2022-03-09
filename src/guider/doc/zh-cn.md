@@ -2,7 +2,6 @@
 category: other
 title: Guider
 subtitle: 新手引导
-label: lack-doc
 ---
 
 <alert>新手引导组件可以有效、快速的帮助用户了解产品特色以及熟悉产品的使用，轻松上手去体验产品的功能，完成自己的目标。</alert>
@@ -17,7 +16,7 @@ label: lack-doc
 import { ThyGuiderModule } from "ngx-tethys/guider";
 ```
 
-## 如何使用
+## 基本使用
 新手引导需要导入 `ThyGuider` 服务。使用服务中提供的 `ThyGuider.create` 方法传入相关的配置生成 `thyGuiderRef`，
 以此来实现对新手引导前进、后退、关闭等操作。 
 
@@ -46,3 +45,12 @@ startTour() {
 ```
 展示效果：
 <example name="thy-guider-basic-tip-example" inline>
+
+## 自定义显示的位置
+新手引导可以自定义高亮区域以及提示面板的位置。
+通过配置 `ThyGuiderStep` 中属性值来使新手引导提示面板出现在任何我们想要的位置：可以是相对某一元素，也可以是相对当前整个页面。
+提示内容的位置是基于目标区域的 `ThyPlacement` 值，具体的配置可以参照
+  <a href="http://lib.worktile.live/ngx-tethys/components/popover/examples" target="_blank">Popover Document</a>。
+
+展示效果：
+<example name="thy-guider-custom-position-example" inline>
