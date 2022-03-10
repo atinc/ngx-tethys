@@ -1,12 +1,9 @@
-<p>多步骤下的新手引导配置指南。同时展示了 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为不同值的情况。</p>
-<p><strong>当需要配置新手引导面板的位置为基于页面的位置时</strong>可以参考使用本示例中的第一步或最后一步的配置。</p>
-
 <span class="step2 display-inline-block font-weight-normal">step 2</span>
 <div class="my-3"></div>
 <span id="step3" class="font-weight-normal">step 3</span>
 <div class="my-3"></div>
 
-<button class="mb-3" thyButton="primary" (click)="startTour()">开始</button>
-<p>我们也可以在任何时候调用 <code>end()</code> 方法结束新手引导流程。</p>
+<button class="mb-3" thyButton="info" (click)="startTour()">开始</button>
+<p>调用 <code>end()</code> 方法结束新手引导流程。</p>
 
 <button thyButton="warning" (click)="endTour()">结束</button>

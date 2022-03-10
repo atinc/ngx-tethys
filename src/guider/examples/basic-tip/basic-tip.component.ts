@@ -24,7 +24,7 @@ export class ThyGuiderBasicTipExampleComponent implements OnInit {
                     key: 'basic-hint-target',
                     target: '.basic-hint-target',
                     data: {
-                        image: '/assets/images/guider/start.png',
+                        image: 'assets/images/guider/start.png',
                         title: '基础新手引导的使用',
                         description: '设置相关的信息即可使用'
                     }

@@ -25,7 +25,7 @@ export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
                 {
                     key: 'directive-tip-target',
                     data: {
-                        image: '/assets/images/guider/start.png',
+                        image: 'assets/images/guider/start.png',
                         title: '指令型新手引导',
                         description: 'DOM已经显示的指令型新手引导'
                     }
@@ -34,7 +34,7 @@ export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
                     key: 'directive-tip-target-second',
                     route: '/components/guider/examples',
                     data: {
-                        image: '/assets/images/guider/start.png',
+                        image: 'assets/images/guider/start.png',
                         title: '同页面的第二个指令型新手引导',
                         description: '同页面中的第二个通过指令设置的新手引导，'
                     }
@@ -45,7 +45,7 @@ export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
                 //     key: 'other-page-tip',
                 //     route: '/other/page',
                 //     data: {
-                //         image: '/assets/images/guider/start.png',
+                //         image: 'assets/images/guider/start.png',
                 //         title: '非 guider 页面的新手引导',
                 //         description: '通过自动跳转，在 directive 指定的 DOM 加载完毕后，立即显示相关的新手引导'
                 //     },
@@ -55,7 +55,7 @@ export class ThyGuiderDirectiveHintExampleComponent implements OnInit {
                     key: 'back-to-guider-tip',
                     route: '/components/guider/examples',
                     data: {
-                        image: '/assets/images/guider/start.png',
+                        image: 'assets/images/guider/start.png',
                         title: '回到 Guider 页面的新手引导',
                         description: '通过配置 route ，将新手引导跳转回 Guider 页面。'
                     },
