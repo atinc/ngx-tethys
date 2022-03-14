@@ -318,7 +318,6 @@ describe('ThyTreeComponent', () => {
             const isShowExpandSpy = spyOn(treeComponent, 'isShowExpand');
 
             const secondItem = treeElement.querySelectorAll(treeNodeSelector)[2];
-            console.log(item, secondItem);
             const dataTransfer = new DataTransfer();
             dataTransfer.dropEffect = 'move';
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
