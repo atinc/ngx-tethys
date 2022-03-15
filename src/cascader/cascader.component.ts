@@ -1,6 +1,3 @@
-import { EXPANDED_DROPDOWN_POSITIONS, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-
 import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
@@ -16,7 +13,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
+import { EXPANDED_DROPDOWN_POSITIONS, UpdateHostClassService } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { CascaderOption } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
@@ -367,10 +365,17 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
 
+            this.initActivatedOptions();
             this.setClassMap();
             this.setArrowClass();
             this.setMenuClass();
         }
+    }
+
+    private initActivatedOptions() {
+        const index = this.activatedOptions.length - 1;
+        this.activatedOptions = [...this.selectedOptions];
+        this.setActiveOption(this.activatedOptions[index], index, false, false, true);
     }
 
     public get menuCls(): any {
@@ -531,10 +536,25 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setArrowClass();
     }
 
-    public setActiveOption(option: CascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
+    public setActiveOption(
+        option: CascaderOption,
+        index: number,
+        select: boolean,
+        loadChildren: boolean = true,
+        initActivatedOptions: boolean = false
+    ): void {
         if (!option || option.disabled) {
             return;
         }
+
+        if (initActivatedOptions) {
+            this.thyColumns[1] = this.activatedOptions[0].children;
+            if (this.activatedOptions[1]) {
+                this.thyColumns[2] = this.activatedOptions[1].children;
+            }
+            return;
+        }
+
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
             if (!this.activatedOptions[i]) {
@@ -544,6 +564,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         if (index < this.activatedOptions.length - 1) {
             this.activatedOptions = this.activatedOptions.slice(0, index + 1);
         }
+
         if (option.children && option.children.length) {
             option.isLeaf = false;
             option.children.forEach(child => (child.parent = option));
