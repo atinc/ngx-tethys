@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isEmpty } from 'ngx-tethys/util';
 import { CascaderOption } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
@@ -373,9 +373,14 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     }
 
     private initActivatedOptions() {
-        const index = this.activatedOptions.length - 1;
+        if (isEmpty(this.selectedOptions)) {
+            return;
+        }
         this.activatedOptions = [...this.selectedOptions];
-        this.setActiveOption(this.activatedOptions[index], index, false, false, true);
+        this.thyColumns[1] = this.activatedOptions[0].children;
+        if (this.activatedOptions[1]) {
+            this.thyColumns[2] = this.activatedOptions[1].children;
+        }
     }
 
     public get menuCls(): any {
@@ -536,22 +541,8 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         this.setArrowClass();
     }
 
-    public setActiveOption(
-        option: CascaderOption,
-        index: number,
-        select: boolean,
-        loadChildren: boolean = true,
-        initActivatedOptions: boolean = false
-    ): void {
+    public setActiveOption(option: CascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
         if (!option || option.disabled) {
-            return;
-        }
-
-        if (initActivatedOptions) {
-            this.thyColumns[1] = this.activatedOptions[0].children;
-            if (this.activatedOptions[1]) {
-                this.thyColumns[2] = this.activatedOptions[1].children;
-            }
             return;
         }
 
