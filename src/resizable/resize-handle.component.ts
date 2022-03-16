@@ -5,14 +5,16 @@ import {
     ChangeDetectionStrategy,
     Input,
     Output,
+    Renderer2,
+    NgZone,
     EventEmitter,
-    ChangeDetectorRef,
     ElementRef
 } from '@angular/core';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
 import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { fromEvent, merge } from 'rxjs';
 
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
@@ -27,6 +29,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
+        class: 'thy-resizable-handle',
         '[class.thy-resizable-handle-top]': `thyDirection === 'top'`,
         '[class.thy-resizable-handle-right]': `thyDirection === 'right'`,
         '[class.thy-resizable-handle-bottom]': `thyDirection === 'bottom'`,
@@ -35,34 +38,40 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-resizable-handle-bottomRight]': `thyDirection === 'bottomRight'`,
         '[class.thy-resizable-handle-bottomLeft]': `thyDirection === 'bottomLeft'`,
         '[class.thy-resizable-handle-topLeft]': `thyDirection === 'topLeft'`,
-        '[class.thy-resizable-handle-box-hover]': 'entered',
-        '(mousedown)': 'onMousedown($event)',
-        '(touchstart)': 'onMousedown($event)'
+        '[class.thy-resizable-handle-box-hover]': 'entered'
     }
 })
 export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
     @Input() thyDirection: ThyResizeDirection = 'bottomRight';
     @Output() readonly thyMouseDown = new EventEmitter<ThyResizeHandleMouseDownEvent>();
 
-    entered = false;
-
-    constructor(private thyResizableService: ThyResizableService, private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+    constructor(
+        private ngZone: NgZone,
+        private thyResizableService: ThyResizableService,
+        private host: ElementRef<HTMLElement>,
+        private renderer: Renderer2
+    ) {
         super();
-        // TODO: move to host after View Engine deprecation
-        this.elementRef.nativeElement.classList.add('thy-resizable-handle');
     }
 
     ngOnInit(): void {
-        this.thyResizableService.mouseEntered$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(entered => {
-            this.entered = entered;
-            this.cdr.markForCheck();
+        this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(entered => {
+            if (entered) {
+                this.renderer.addClass(this.host.nativeElement, 'thy-resizable-handle-box-hover');
+            } else {
+                this.renderer.removeClass(this.host.nativeElement, 'thy-resizable-handle-box-hover');
+            }
+        });
+        this.ngZone.runOutsideAngular(() => {
+            merge(fromEvent<MouseEvent>(this.host.nativeElement, 'mousedown'), fromEvent<TouchEvent>(this.host.nativeElement, 'touchstart'))
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe((event: MouseEvent | TouchEvent) => {
+                    this.thyResizableService.handleMouseDownOutsideAngular$.next(
+                        new ThyResizeHandleMouseDownEvent(this.thyDirection, event)
+                    );
+                });
         });
     }
-
-    onMousedown(event: MouseEvent | TouchEvent): void {
-        this.thyResizableService.handleMouseDown$.next(new ThyResizeHandleMouseDownEvent(this.thyDirection, event));
-    }
-
     ngOnDestroy(): void {
         super.ngOnDestroy();
     }
