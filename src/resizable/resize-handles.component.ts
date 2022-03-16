@@ -22,11 +22,7 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
 })
 export class ThyResizeHandlesComponent implements OnChanges {
     @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
-    directions: Set<ThyResizeDirection>;
-
-    constructor() {
-        this.directions = new Set(this.thyDirections);
-    }
+    directions = new Set<ThyResizeDirection>(this.thyDirections);
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.thyDirections) {
