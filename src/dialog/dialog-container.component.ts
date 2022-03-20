@@ -1,4 +1,4 @@
-import { ThyAbstractOverlayContainer, ThyClickPositioner } from 'ngx-tethys/core';
+import { reqAnimFrame, ThyAbstractOverlayContainer, ThyClickPositioner } from 'ngx-tethys/core';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
@@ -14,6 +14,7 @@ import {
     EventEmitter,
     HostBinding,
     Inject,
+    NgZone,
     OnDestroy,
     ViewChild
 } from '@angular/core';
@@ -76,10 +77,19 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
 
             // Note that there is no focus method when rendering on the server.
             if (this.elementRef.nativeElement.focus) {
-                // Move focus onto the dialog immediately in order to prevent the user from accidentally
-                // opening multiple dialogs at the same time. Needs to be async, because the element
-                // may not be focusable immediately.
-                Promise.resolve().then(() => this.elementRef.nativeElement.focus());
+                // Note: this is being run outside of the Angular zone because `element.focus()` doesn't require
+                // running change detection.
+                this.ngZone.runOutsideAngular(() =>
+                    // Move focus onto the dialog immediately in order to prevent the user from accidentally
+                    // opening multiple dialogs at the same time. Needs to be async, because the element
+                    // may not be focusable immediately.
+
+                    // Note: `element.focus()` causes re-layout and this may lead to frame drop on slower devices.
+                    // https://gist.github.com/paulirish/5d52fb081b3570c81e3a#setting-focus
+                    // `setTimeout` is a macrotask and macrotasks are executed within the current rendering frame.
+                    // Animation tasks are executed within the next rendering frame.
+                    reqAnimFrame(() => this.elementRef.nativeElement.focus())
+                );
             }
         }
     }
@@ -143,7 +153,8 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
         public config: ThyDialogConfig,
         changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner,
-        private focusTrapFactory: FocusTrapFactory
+        private focusTrapFactory: FocusTrapFactory,
+        private ngZone: NgZone
     ) {
         super(dialogAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
