@@ -1,12 +1,14 @@
-import { Injectable } from '@angular/core';
+import { Injectable, OnDestroy } from '@angular/core';
 import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
 import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
 import { ThyFormValidatorConfig } from './form.class';
 import { Dictionary } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Injectable()
-export class ThyFormValidatorService {
+export class ThyFormValidatorService implements OnDestroy {
     private _ngForm: NgForm;
 
     private _formElement: HTMLFormElement;
@@ -20,6 +22,8 @@ export class ThyFormValidatorService {
         hasError?: boolean;
         errorMessages?: string[];
     }> = {};
+
+    private _destroy$ = new Subject<void>();
 
     private _getElement(name: string) {
         const element = this._formElement.elements[name];
@@ -58,7 +62,7 @@ export class ThyFormValidatorService {
             hasError: false,
             errorMessages: []
         };
-        control.valueChanges.subscribe(() => {
+        control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
             this._clearElementError(name);
             this._clearErrors();
         });
@@ -179,5 +183,9 @@ export class ThyFormValidatorService {
     setElementErrorMessage(name: string, message: string) {
         this._clearElementError(name);
         this._setControlValidationError(name, [message]);
+    }
+
+    ngOnDestroy(): void {
+        this._destroy$.next();
     }
 }
