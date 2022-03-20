@@ -1,9 +1,9 @@
 import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit, NgZone } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { from, Subject, Subscription } from 'rxjs';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ContentObserver } from '@angular/cdk/observers';
-import { debounceTime, take } from 'rxjs/operators';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -50,6 +50,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
+    private destroy$ = new Subject<void>();
+
     constructor(
         private elementRef: ElementRef,
         private viewContainerRef: ViewContainerRef,
@@ -72,26 +74,29 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
-        // Wait for the next time period to avoid blocking the js thread
-        this.ngZone.onStable
-            .asObservable()
-            .pipe(take(1))
-            .subscribe(() => {
+        // Note: the zone may be nooped through `BootstrapOptions` when bootstrapping the root module. This means
+        // the `onStable` will never emit any value.
+        const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
+        // Normally this isn't in the zone, but it can cause performance regressions for apps
+        // using `zone-patch-rxjs` because it'll trigger a change detection when it unsubscribes.
+        this.ngZone.runOutsideAngular(() => {
+            // Wait for the next time period to avoid blocking the js thread.
+            onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
                 this.applyOverflow();
-                this.subscription = this.contentObserver
+
+                this.contentObserver
                     .observe(this.elementRef)
-                    .pipe(debounceTime(100))
-                    .subscribe((value: MutationRecord[]) => {
+                    .pipe(debounceTime(100), takeUntil(this.destroy$))
+                    .subscribe(() => {
                         this.applyOverflow();
                     });
             });
+        });
     }
 
     ngOnDestroy() {
+        this.destroy$.next();
         this.tooltipService.detach();
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 
     applyOverflow() {
