@@ -21,6 +21,7 @@ import {
     IterableChanges,
     IterableDiffer,
     IterableDiffers,
+    NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -305,7 +306,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         private _differs: IterableDiffers,
         private viewportRuler: ViewportRuler,
         private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: any
+        @Inject(DOCUMENT) private document: any,
+        private ngZone: NgZone
     ) {
         super();
         this._bindTrackFn();
@@ -537,12 +539,14 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     onDragStarted() {
-        setTimeout(() => {
-            const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
-            if (preview) {
-                preview.classList.add('thy-table-drag-preview');
-            }
-        });
+        this.ngZone.runOutsideAngular(() =>
+            setTimeout(() => {
+                const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
+                if (preview) {
+                    preview.classList.add('thy-table-drag-preview');
+                }
+            })
+        );
     }
 
     onDragDropped(event: CdkDragDrop<unknown>) {
