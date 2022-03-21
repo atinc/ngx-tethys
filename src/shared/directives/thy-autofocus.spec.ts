@@ -1,7 +1,7 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
+import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 
-import { ThySharedModule } from '../shared.module';
+import { ThyAutofocusDirective } from './thy-autofocus.directive';
 
 @Component({
     selector: 'thy-autofocus-test',
@@ -22,12 +22,11 @@ describe('ThyAutofocusDirective', () => {
     let testComponent: ThyAutofocusTestComponent;
     let focusSpy: jasmine.Spy;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThySharedModule],
-            declarations: [ThyAutofocusTestComponent]
-        }).compileComponents();
-    }));
+            declarations: [ThyAutofocusDirective, ThyAutofocusTestComponent]
+        });
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyAutofocusTestComponent);
@@ -38,7 +37,7 @@ describe('ThyAutofocusDirective', () => {
 
     it('should not focus input when autofocus is false', fakeAsync(() => {
         fixture.detectChanges();
-        flush();
+        tick(16);
         fixture.detectChanges();
         expect(focusSpy).not.toHaveBeenCalled();
     }));
@@ -46,7 +45,7 @@ describe('ThyAutofocusDirective', () => {
     it('should auto focus input', fakeAsync(() => {
         testComponent.autofocus = true;
         fixture.detectChanges();
-        flush();
+        tick(16);
         fixture.detectChanges();
         expect(focusSpy).toHaveBeenCalled();
     }));
@@ -56,7 +55,7 @@ describe('ThyAutofocusDirective', () => {
         testComponent.autoSelect = true;
         const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
         fixture.detectChanges();
-        flush();
+        tick(16);
         fixture.detectChanges();
         expect(focusSpy).toHaveBeenCalled();
         expect(autoSelectSpy).toHaveBeenCalled();
@@ -67,9 +66,23 @@ describe('ThyAutofocusDirective', () => {
         testComponent.autoSelect = false;
         const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
         fixture.detectChanges();
-        flush();
-        fixture.detectChanges();
+        tick(16);
         expect(focusSpy).toHaveBeenCalled();
         expect(autoSelectSpy).not.toHaveBeenCalled();
+    }));
+
+    it('should not run change detection when the input is focused and selected', fakeAsync(() => {
+        const appRef = TestBed.inject(ApplicationRef);
+        spyOn(appRef, 'tick');
+        testComponent.autofocus = true;
+        testComponent.autoSelect = true;
+        const autoSelectSpy = spyOn(testComponent.input.nativeElement, 'select');
+        fixture.detectChanges();
+        tick(16);
+        expect(focusSpy).toHaveBeenCalled();
+        expect(autoSelectSpy).toHaveBeenCalled();
+        // Note: it's been called once since we manually called `fixture.detectChanges()` before `tick(16)`,
+        // otherwise, it would've been called 2 times (because of the `reqAnimFrame`).
+        expect(appRef.tick).toHaveBeenCalledTimes(1);
     }));
 });
