@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds } from './utils';
+import { fromEvent } from 'rxjs';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -15,9 +16,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     host: {
         class: 'thy-resizable',
         '[class.thy-resizable-resizing]': 'resizing',
-        '[class.thy-resizable-disabled]': 'thyDisabled',
-        '(mouseenter)': 'onMouseenter()',
-        '(mouseleave)': 'onMouseleave()'
+        '[class.thy-resizable-disabled]': 'thyDisabled'
     }
 })
 export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
@@ -52,7 +51,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         private thyResizableService: ThyResizableService
     ) {
         super();
-        this.thyResizableService.handleMouseDown$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             if (this.thyDisabled) {
                 return;
             }
@@ -66,15 +65,15 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             this.nativeElementRect = this.nativeElement.getBoundingClientRect();
         });
 
-        this.thyResizableService.documentMouseUp$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.documentMouseUpOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             if (this.resizing) {
                 this.resizing = false;
-                this.thyResizableService.documentMouseUp$.next();
+                this.thyResizableService.documentMouseUpOutsideAngular$.next();
                 this.endResize(event);
             }
         });
 
-        this.thyResizableService.documentMouseMove$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
+        this.thyResizableService.documentMouseMoveOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             if (this.resizing) {
                 this.resize(event);
             }
@@ -82,10 +81,24 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     }
 
     ngAfterViewInit(): void {
-        if (this.platform.isBrowser) {
-            this.nativeElement = this.elementRef.nativeElement;
-            this.setPosition();
+        if (!this.platform.isBrowser) {
+            return;
         }
+        this.nativeElement = this.elementRef.nativeElement;
+        this.setPosition();
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(this.nativeElement, 'mouseenter')
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    this.thyResizableService.mouseEnteredOutsideAngular$.next(true);
+                });
+
+            fromEvent(this.nativeElement, 'mouseleave')
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    this.thyResizableService.mouseEnteredOutsideAngular$.next(false);
+                });
+        });
     }
 
     setCursor(): void {
@@ -117,14 +130,6 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         }
     }
 
-    onMouseenter(): void {
-        this.thyResizableService.mouseEntered$.next(true);
-    }
-
-    onMouseleave(): void {
-        this.thyResizableService.mouseEntered$.next(false);
-    }
-
     endResize(event: MouseEvent | TouchEvent): void {
         this.renderer.setStyle(document.body, 'cursor', '');
         this.renderer.setStyle(document.body, 'user-select', '');
@@ -135,12 +140,16 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                   width: this.nativeElementRect.width,
                   height: this.nativeElementRect.height
               };
-        this.ngZone.run(() => {
-            this.thyResizeEnd.emit({
-                ...size,
-                mouseEvent: event
+        // Re-enter the Angular zone and run the change detection only if there're any `thyResizeEnd` listeners,
+        // e.g.: `<div thyResizable (thyResizeEnd)="..."></div>`.
+        if (this.thyResizeEnd.observers.length) {
+            this.ngZone.run(() => {
+                this.thyResizeEnd.emit({
+                    ...size,
+                    mouseEvent: event
+                });
             });
-        });
+        }
         this.sizeCache = null;
         this.currentHandleEvent = null;
     }
@@ -183,16 +192,20 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         }
         const size = this.calcSize(width, height, ratio);
         this.sizeCache = { ...size };
+        // Re-enter the Angular zone and run the change detection only if there're any `thyResize` listeners,
+        // e.g.: `<div thyResizable (thyResize)="..."></div>`.
+        if (this.thyResize.observers.length) {
+            this.ngZone.run(() => {
+                this.thyResize.emit({
+                    ...size,
+                    mouseEvent: event
+                });
+            });
+        }
 
         if (this.thyPreview) {
             this.previewResize(size);
         }
-        this.ngZone.run(() => {
-            this.thyResize.emit({
-                ...size,
-                mouseEvent: event
-            });
-        });
     }
 
     calcSize(width: number, height: number, ratio: number): ThyResizeEvent {
