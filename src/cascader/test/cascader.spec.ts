@@ -132,7 +132,7 @@ class CascaderTemplateComponent {
         this.isDisplayName$.next();
     }
 }
-describe('thy-cascader', () => {
+fdescribe('thy-cascader', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyCascaderModule, FormsModule, CommonModule],
@@ -285,7 +285,7 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
-        it('active selectedOptions when menu open', fakeAsync(() => {
+        it('should active selectedOptions when menu open', fakeAsync(() => {
             fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
             fixture.detectChanges();
             flush();
