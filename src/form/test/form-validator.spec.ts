@@ -1,4 +1,3 @@
-import { element } from 'protractor';
 import { ThyFormValidatorLoader } from './../form-validator-loader';
 import { TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
