@@ -132,7 +132,7 @@ class CascaderTemplateComponent {
         this.isDisplayName$.next();
     }
 }
-fdescribe('thy-cascader', () => {
+describe('thy-cascader', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyCascaderModule, FormsModule, CommonModule],
