@@ -12,11 +12,13 @@ import {
     ChangeDetectorRef,
     OnDestroy,
     OnChanges,
-    Inject
+    Inject,
+    ViewChild,
+    ElementRef
 } from '@angular/core';
-import { Subject, fromEvent } from 'rxjs';
+import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
-import { throttleTime, takeUntil } from 'rxjs/operators';
+import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 
@@ -40,8 +42,23 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     @Output() public visibleChange: EventEmitter<boolean> = new EventEmitter();
 
+    /** The native `<div class="thy-back-top"></div>` element. */
+    @ViewChild('backTop', { static: false })
+    set backTop(backTop: ElementRef<HTMLElement> | undefined) {
+        this.backTop$.next(backTop);
+    }
+
     public visible = false;
 
+    /**
+     * The subject used to store the native `<div class="thy-back-top"></div>` since
+     * it's located within the `ngIf` directive. It might be set asynchronously whenever the condition
+     * is met. Having subject makes the code reactive and cancellable (e.g. event listeners will be
+     * automatically removed and re-added through the `switchMap` below).
+     */
+    private backTop$ = new BehaviorSubject<ElementRef<HTMLElement> | undefined>(undefined);
+
+    private destroy$ = new Subject<void>();
     private scrollListenerDestroy$ = new Subject();
 
     private target: HTMLElement | null = null;
@@ -52,15 +69,28 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         private platform: Platform,
         private cdr: ChangeDetectorRef,
         private zone: NgZone
-    ) {}
+    ) {
+        this.backTop$
+            .pipe(
+                switchMap(backTop =>
+                    backTop
+                        ? new Observable(subscriber =>
+                              zone.runOutsideAngular(() => fromEvent(backTop.nativeElement, 'click').subscribe(subscriber))
+                          )
+                        : EMPTY
+                ),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.thyScrollService.scrollTo(this.getTarget(), 0);
+                if (this.thyClick.observers.length) {
+                    zone.run(() => this.thyClick.emit(true));
+                }
+            });
+    }
 
     ngOnInit(): void {
         this.registerScrollEvent();
-    }
-
-    clickBackTop(): void {
-        this.thyScrollService.scrollTo(this.getTarget(), 0);
-        this.thyClick.emit(true);
     }
 
     private getTarget(): HTMLElement | Window {
@@ -87,15 +117,15 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         this.scrollListenerDestroy$.next();
         this.handleScroll();
         this.zone.runOutsideAngular(() => {
-            fromEvent(this.getTarget(), 'scroll')
+            fromEvent(this.getTarget(), 'scroll', { passive: true })
                 .pipe(throttleTime(50), takeUntil(this.scrollListenerDestroy$))
                 .subscribe(() => this.handleScroll());
         });
     }
 
     ngOnDestroy(): void {
+        this.destroy$.next();
         this.scrollListenerDestroy$.next();
-        this.scrollListenerDestroy$.complete();
     }
 
     ngOnChanges(changes: any): void {

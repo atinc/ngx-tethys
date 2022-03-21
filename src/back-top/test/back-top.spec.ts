@@ -1,4 +1,4 @@
-import { Component, DebugElement, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -35,9 +35,10 @@ describe('Component:thy-back-top', () => {
             imports: [ThyBackTopModule, NoopAnimationsModule],
             declarations: [TestBackTopComponent, TestBackTopTemplateComponent],
             providers: [
+                MockThyScrollService,
                 {
                     provide: ThyScrollService,
-                    useClass: MockThyScrollService
+                    useExisting: MockThyScrollService
                 }
             ]
         }).compileComponents();
@@ -46,8 +47,7 @@ describe('Component:thy-back-top', () => {
         component = fixture.componentInstance.thyBackTopComponent;
         componentObject = new ThyBackTopPageObject();
         debugElement = fixture.debugElement;
-        // tslint:disable-next-line:no-any
-        scrollService = TestBed.get(ThyScrollService) as any;
+        scrollService = TestBed.inject(MockThyScrollService);
     });
 
     describe('[default]', () => {
@@ -86,6 +86,25 @@ describe('Component:thy-back-top', () => {
                 tick();
 
                 expect(scrollService.getScroll()).toEqual(0);
+            }));
+
+            it('should not run change detection if there are no `thyClick` observers', fakeAsync(() => {
+                const thyClickSpy = jasmine.createSpy();
+                const appRef = TestBed.inject(ApplicationRef);
+                spyOn(appRef, 'tick');
+
+                componentObject.clickBackTop();
+                tick();
+
+                expect(scrollService.getScroll()).toEqual(0);
+                expect(appRef.tick).not.toHaveBeenCalled();
+
+                component.thyClick.subscribe(thyClickSpy);
+                componentObject.clickBackTop();
+                tick();
+
+                expect(thyClickSpy).toHaveBeenCalled();
+                expect(appRef.tick).toHaveBeenCalledTimes(1);
             }));
         });
     });
