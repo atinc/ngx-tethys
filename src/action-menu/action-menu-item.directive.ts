@@ -1,7 +1,7 @@
-import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
+import { Directive, HostBinding, Input, ElementRef, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { fromEvent } from 'rxjs';
-import { debounceTime, shareReplay } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, shareReplay, takeUntil } from 'rxjs/operators';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
@@ -10,7 +10,7 @@ export type ThyActionMenuItemType = 'danger' | 'success';
     selector: '[thyActionMenuItem]',
     providers: [UpdateHostClassService]
 })
-export class ThyActionMenuItemDirective implements OnInit {
+export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-item') className = true;
 
     @HostBinding('class.action-menu-item--disabled') disabled = false;
@@ -29,18 +29,27 @@ export class ThyActionMenuItemDirective implements OnInit {
         this[value] = true;
     }
 
-    @HostListener('click', ['$event'])
-    onClick(event: Event): void {
-        if (this.disabled) {
-            event.stopPropagation();
-            event.preventDefault();
-        }
-    }
+    private destroy$ = new Subject<void>();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private updateHostClassService: UpdateHostClassService) {}
+    constructor(private elementRef: ElementRef<HTMLElement>, private updateHostClassService: UpdateHostClassService, ngZone: NgZone) {
+        ngZone.runOutsideAngular(() =>
+            fromEvent(elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (this.disabled) {
+                        event.stopPropagation();
+                        event.preventDefault();
+                    }
+                })
+        );
+    }
 
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.elementRef);
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 
     updateClass(classes: string[]) {
