@@ -1,4 +1,4 @@
-<div class="thy-back-top" (click)="clickBackTop()" @fadeMotion *ngIf="visible">
+<div class="thy-back-top" #backTop @fadeMotion *ngIf="visible">
   <ng-template #defaultContent>
     <div class="thy-back-top-content">
       <thy-icon class="back-top-icon text-muted font-size-lg" thyIconName="arrow-up"></thy-icon>
