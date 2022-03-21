@@ -73,9 +73,11 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
         }
         this.visible = !this.visible;
         this.cdr.detectChanges();
-        this.zone.run(() => {
-            this.visibleChange.emit(this.visible);
-        });
+        if (this.visibleChange.observers.length > 0) {
+            this.zone.run(() => {
+                this.visibleChange.emit(this.visible);
+            });
+        }
     }
 
     private registerScrollEvent(): void {
