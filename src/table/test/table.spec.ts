@@ -1,8 +1,8 @@
 import { ThySwitchComponent } from 'ngx-tethys/switch';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
-import { Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { ThyTableComponent } from '../table.component';
@@ -196,13 +196,15 @@ describe('ThyTable: basic', () => {
     let table: HTMLElement;
     let rows: any;
 
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyTableModule, TableTestModule],
-            providers: []
-        });
-        TestBed.compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyTableModule, TableTestModule],
+                providers: []
+            });
+            TestBed.compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoDefaultTableComponent);
@@ -730,6 +732,19 @@ describe('ThyTable: group', () => {
             testComponent.draggable = true;
             fixture.detectChanges();
         }).toThrowError('Only list mode sorting is supported');
+    });
+
+    it('should stop propagation on events dispatched on `.thy-sortable-item` rows', () => {
+        testComponent.draggable = false;
+        fixture.detectChanges();
+        const appRef = TestBed.inject(ApplicationRef);
+        spyOn(appRef, 'tick');
+        const items = fixture.nativeElement.querySelectorAll('.thy-sortable-item');
+        const event = new PointerEvent('pointerdown');
+        spyOn(event, 'stopPropagation');
+        items[0].dispatchEvent(event);
+        expect(appRef.tick).not.toHaveBeenCalled();
+        expect(event.stopPropagation).toHaveBeenCalled();
     });
 });
 

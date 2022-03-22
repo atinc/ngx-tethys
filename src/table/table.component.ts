@@ -1,13 +1,14 @@
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
-import { merge, of } from 'rxjs';
-import { delay, takeUntil } from 'rxjs/operators';
+import { fromEvent, merge, Observable, of } from 'rxjs';
+import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, isPlatformServer } from '@angular/common';
 import {
+    AfterViewInit,
     Component,
     ContentChild,
     ContentChildren,
@@ -21,14 +22,17 @@ import {
     IterableChanges,
     IterableDiffer,
     IterableDiffers,
+    NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
     Output,
+    PLATFORM_ID,
     QueryList,
     SimpleChanges,
     TemplateRef,
     ViewChild,
+    ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
 
@@ -45,6 +49,7 @@ import {
     ThyTableEvent,
     ThyTableRowEvent
 } from './table.interface';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 export type ThyTableTheme = 'default' | 'bordered';
 
@@ -75,7 +80,10 @@ const customType = {
     switch: 'switch'
 };
 
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
 @Component({
     selector: 'thy-grid,thy-table',
     templateUrl: './table.component.html',
@@ -88,7 +96,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ],
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, DoCheck, IThyTableColumnParentComponent {
+export class ThyTableComponent extends _MixinBase
+    implements OnInit, OnChanges, AfterViewInit, OnDestroy, DoCheck, IThyTableColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -127,11 +136,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public wholeRowSelect = false;
 
-    private _filter: any = null;
-
     private _diff: IterableDiffer<any>;
-
-    private _draggableModel: any;
 
     private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
 
@@ -141,6 +146,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @ContentChild('empty') emptyTemplate: TemplateRef<any>;
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
+
+    @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
 
     @Input()
     set thyMode(value: ThyTableMode) {
@@ -305,7 +312,9 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         private _differs: IterableDiffers,
         private viewportRuler: ViewportRuler,
         private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: any
+        @Inject(DOCUMENT) private document: any,
+        @Inject(PLATFORM_ID) private platformId: string,
+        private ngZone: NgZone
     ) {
         super();
         this._bindTrackFn();
@@ -588,12 +597,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnRowContextMenu.emit(contextMenuEvent);
     }
 
-    public draggableStopPropagation(event: Event) {
-        if (!this.draggable) {
-            event.stopPropagation();
-        }
-    }
-
     private _refreshColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         const _columns = components.map(component => {
@@ -659,6 +662,53 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             const changes = this._diff.diff(this.model);
             this._applyDiffChanges(changes);
         }
+    }
+
+    ngAfterViewInit(): void {
+        if (isPlatformServer(this.platformId)) {
+            return;
+        }
+
+        this.rows.changes
+            .pipe(
+                startWith(this.rows),
+                switchMap(
+                    () =>
+                        new Observable<Event>(subscriber =>
+                            this.ngZone.runOutsideAngular(() =>
+                                merge<Event>(
+                                    ...this.rows.map(row =>
+                                        fromEvent(
+                                            row.nativeElement,
+                                            // Note: there's no need to add touch, pointer and mouse event listeners together.
+                                            // There can be any number of rows, which will lead to adding N * 3 event listeners.
+                                            // According to the spec (https://www.w3.org/TR/pointerevents/#examples), we can use feature detection
+                                            // to determine if pointer events are available. If pointer events are available, we have to listen only
+                                            // to the `pointerdown` event. Otherwise, we have to determine if we're on a touch device or not.
+                                            // Touch events are handled earlier than mouse events, tho not all user agents dispatch mouse events
+                                            // after touch events. See the spec: https://www.w3.org/TR/touch-events/#mouse-events.
+                                            window.PointerEvent
+                                                ? 'pointerdown'
+                                                : 'ontouchstart' in row.nativeElement
+                                                ? 'touchstart'
+                                                : 'mousedown',
+                                            // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
+                                            // The element `touchstart` listener is not passive by default
+                                            // We never call `preventDefault()` on it, so we're safe making it passive too.
+                                            <AddEventListenerOptions>passiveEventListenerOptions
+                                        )
+                                    )
+                                ).subscribe(subscriber)
+                            )
+                        )
+                ),
+                takeUntil(this.ngUnsubscribe$)
+            )
+            .subscribe(event => {
+                if (!this.draggable) {
+                    event.stopPropagation();
+                }
+            });
     }
 
     ngOnDestroy() {
