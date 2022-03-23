@@ -43,13 +43,13 @@ export class MockXMLHttpRequest {
     statusText: string = '';
     mockResponseHeaders: string = '';
     readyState: number;
-    onreadystatechange = () => {};
 
     listeners: {
         error?: (event: ErrorEvent) => void;
         load?: () => void;
         progress?: (event: ProgressEvent) => void;
         uploadProgress?: (event: ProgressEvent) => void;
+        readystatechange?: () => void;
     } = {};
 
     upload = new MockXMLHttpRequestUpload(this);
@@ -63,11 +63,11 @@ export class MockXMLHttpRequest {
         this.body = body;
     }
 
-    addEventListener(event: 'error' | 'load' | 'progress' | 'uploadProgress', handler: Function): void {
+    addEventListener(event: 'error' | 'load' | 'progress' | 'uploadProgress' | 'readystatechange', handler: Function): void {
         this.listeners[event] = handler as any;
     }
 
-    removeEventListener(event: 'error' | 'load' | 'progress' | 'uploadProgress'): void {
+    removeEventListener(event: 'error' | 'load' | 'progress' | 'uploadProgress' | 'readystatechange'): void {
         delete this.listeners[event];
     }
 
@@ -96,7 +96,7 @@ export class MockXMLHttpRequest {
 
     mockOnReadyStateChange(readyState: number = XMLHttpRequest.DONE) {
         this.readyState = XMLHttpRequest.DONE;
-        this.onreadystatechange();
+        this.listeners.readystatechange?.();
     }
 
     mockDownloadProgressEvent(loaded: number, total?: number): void {
