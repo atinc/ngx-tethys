@@ -94,7 +94,7 @@ export class ThySidebarComponent implements OnInit {
 
     @Input() thyCollapseWidth = 15;
 
-    _collapseIconName: 'outdent' | 'indent';
+    _collapseIconName: 'outdent-bold' | 'indent-bold';
 
     _collapseTip: string;
 
@@ -105,12 +105,12 @@ export class ThySidebarComponent implements OnInit {
         return this.thyCollapsed;
     }
 
-    set collapseIconName(value: 'outdent' | 'indent') {
+    set collapseIconName(value: 'outdent-bold' | 'indent-bold') {
         this._collapseIconName = value;
     }
 
     get collapseIconName() {
-        return this.thyCollapsed ? 'indent' : 'outdent';
+        return this.thyCollapsed ? 'indent-bold' : 'outdent-bold';
     }
 
     get collapseTip() {
