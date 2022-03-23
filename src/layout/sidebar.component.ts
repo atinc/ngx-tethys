@@ -42,7 +42,7 @@ export class ThySidebarComponent implements OnInit {
 
     thyLayoutSidebarWidth: number;
 
-    @HostBinding('style.width.px') get realWidth() {
+    @HostBinding('style.width.px') get sidebarWidth() {
         if (this.thyCollapsible && this.thyCollapsed) {
             return this.thyCollapseWidth;
         } else {
@@ -94,19 +94,11 @@ export class ThySidebarComponent implements OnInit {
 
     @Input() thyCollapseWidth = 15;
 
-    _collapseIconName: 'outdent-bold' | 'indent-bold';
-
-    _collapseTip: string;
-
     thyOriginWidth = 15;
 
     @HostBinding('class.sidebar-collapse-show')
     get collapseVisibility() {
         return this.thyCollapsed;
-    }
-
-    set collapseIconName(value: 'outdent-bold' | 'indent-bold') {
-        this._collapseIconName = value;
     }
 
     get collapseIconName() {

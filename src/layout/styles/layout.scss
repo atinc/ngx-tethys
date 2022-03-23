@@ -132,9 +132,9 @@
         width: 24px;
         height: 24px;
         right: -12px;
-        color: #666666;
+        color: variables.$gray-700;
         transition: margin-right 0.3s;
-        background-color: #ffffff;
+        background-color: variables.$white;
         border-radius: 12px;
         text-align: center;
         box-shadow: variables.$box-shadow;
@@ -144,7 +144,7 @@
             cursor: pointer;
             background-color: variables.$primary;
             .sidebar-collapse-icon {
-                color: #ffffff;
+                color: variables.$white;
             }
         }
     }
