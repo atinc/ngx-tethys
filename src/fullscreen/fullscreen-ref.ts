@@ -1,6 +1,6 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject } from '@angular/core';
+import { ElementRef, Inject, NgZone } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
@@ -17,7 +17,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private readonly _afterExited = new Subject<TResult>();
 
-    constructor(@Inject(DOCUMENT) protected document: any) {}
+    constructor(@Inject(DOCUMENT) protected document: Document, private ngZone: NgZone) {}
 
     private onFullscreenChange() {
         const isFullScreen = this.isImmersiveFullscreen();
@@ -42,13 +42,13 @@ export class ThyFullscreenRef<TResult = unknown> {
         return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
     }
 
-    private handleKeyDown(event: KeyboardEvent) {
+    private handleKeyDown = (event: KeyboardEvent): void => {
         if (event.keyCode === ESCAPE) {
             if (this.isFullscreen && this.fullscreenConfig.mode === ThyFullscreenMode.emulated) {
-                this.exitNormalFullscreen();
+                this.ngZone.run(() => this.exitNormalFullscreen());
             }
         }
-    }
+    };
 
     private launchNormalFullscreen() {
         const targetElement = this.resetElement(this.fullscreenConfig.target);
@@ -92,6 +92,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
         this.isFullscreen = false;
         this._afterExited.next();
+        this._afterExited.complete();
 
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();
@@ -137,11 +138,12 @@ export class ThyFullscreenRef<TResult = unknown> {
                 });
             this.launchImmersiveFullscreen();
         } else {
-            fromEvent(this.document, 'keydown')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(event => {
-                    this.handleKeyDown(event as KeyboardEvent);
-                });
+            this.ngZone.runOutsideAngular(() =>
+                fromEvent<KeyboardEvent>(this.document, 'keydown')
+                    .pipe(takeUntil(this.ngUnsubscribe$))
+                    .subscribe(this.handleKeyDown)
+            );
+
             this.launchNormalFullscreen();
         }
     }
