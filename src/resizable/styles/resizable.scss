@@ -4,13 +4,6 @@ $resizable-prefix-cls: 'thy-resizable';
 $resize-height: 10px;
 $resize-top: -5px;
 
-.thy-resizing {
-    user-select: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-}
-
 .#{$resizable-prefix-cls} {
     &-preview {
         position: absolute;
