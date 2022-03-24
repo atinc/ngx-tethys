@@ -298,6 +298,19 @@ describe('thy-cascader', () => {
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
+        it('should  scroll to active item when menu open', fakeAsync(() => {
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
+            const elementRect = el.getBoundingClientRect();
+            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active');
+            expect(activatedOption.scrollTop < elementRect.height).toBeTruthy();
+        }));
     });
     describe('loadData', () => {
         let fixture: ComponentFixture<CascaderLoadComponent>;
