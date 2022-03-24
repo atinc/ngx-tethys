@@ -1,7 +1,7 @@
 import { createDragEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
-import { Component, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ApplicationRef, Component, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
@@ -32,20 +32,23 @@ describe('ThyTreeComponent', () => {
     describe('basic tree', () => {
         let treeInstance: TestBasicTreeComponent;
         let treeElement: HTMLElement;
-        let component;
+        let component: TestBasicTreeComponent;
         let fixture: ComponentFixture<TestBasicTreeComponent>;
         let multipleFixture: ComponentFixture<TestMultipleTreeComponent>;
         let treeComponent: ThyTreeComponent;
-        beforeEach(async(() => {
-            configureThyTreeTestingModule([TestBasicTreeComponent, TestMultipleTreeComponent]);
-            fixture = TestBed.createComponent(TestBasicTreeComponent);
-            multipleFixture = TestBed.createComponent(TestMultipleTreeComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-            treeInstance = fixture.debugElement.componentInstance;
-            treeComponent = fixture.debugElement.componentInstance.tree;
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
-        }));
+
+        beforeEach(
+            waitForAsync(() => {
+                configureThyTreeTestingModule([TestBasicTreeComponent, TestMultipleTreeComponent]);
+                fixture = TestBed.createComponent(TestBasicTreeComponent);
+                multipleFixture = TestBed.createComponent(TestMultipleTreeComponent);
+                component = fixture.componentInstance;
+                fixture.detectChanges();
+                treeInstance = fixture.debugElement.componentInstance;
+                treeComponent = fixture.debugElement.componentInstance.tree;
+                treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            })
+        );
 
         it('should create', () => {
             expect(component).toBeDefined();
@@ -189,7 +192,7 @@ describe('ThyTreeComponent', () => {
 
         it(`test tree check state resolve`, () => {
             const checkStateResolveSpy = jasmine.createSpy();
-            fixture.componentInstance.options.checkStateResolve = node => {
+            fixture.componentInstance.options.checkStateResolve = () => {
                 checkStateResolveSpy();
             };
             fixture.detectChanges();
@@ -233,9 +236,10 @@ describe('ThyTreeComponent', () => {
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('test hide drag icon when node hover', fakeAsync(() => {
+        it('should add and hide the drag icon when the tree node is hovered and mouseleft', () => {
             const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
-            dragContentList.forEach((dragContent, index) => {
+
+            dragContentList.forEach(dragContent => {
                 const dragContentInnerHTML = dragContent.querySelector('.thy-tree-node-title').innerHTML;
 
                 const dragIcon = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
@@ -258,7 +262,26 @@ describe('ThyTreeComponent', () => {
                     expect(dragIconHide.style.visibility === 'hidden').toBeTruthy();
                 }
             });
-        }));
+        });
+
+        it('should not run change detection when the `mouseenter` and `mouseleft` events are dispatched on the tree node but should change the icon', () => {
+            fixture.componentInstance.options.beforeDragStart = () => true;
+            fixture.detectChanges();
+
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+
+            const treeNodeWrapper = treeElement.querySelector('.thy-tree-node-wrapper');
+            const dragIcon = treeNodeWrapper.querySelector<HTMLElement>('.thy-tree-drag-icon');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseenter');
+            expect(dragIcon.style.visibility).toEqual('visible');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseleave');
+            expect(dragIcon.style.visibility).toEqual('hidden');
+
+            expect(appRef.tick).not.toHaveBeenCalled();
+        });
 
         it('test ngOnChanges methods called when multiple or thyType was modified after init', () => {
             const selectionModelSpy = spyOn<any>(treeComponent, `_instanceSelectionModel`);
@@ -377,20 +400,19 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('async tree', () => {
-        let treeInstance: TestAsyncTreeComponent;
         let treeElement: HTMLElement;
-        let component;
+        let component: TestAsyncTreeComponent;
         let fixture: ComponentFixture<TestAsyncTreeComponent>;
-        let treeComponent: ThyTreeComponent;
-        beforeEach(async(() => {
-            configureThyTreeTestingModule([TestAsyncTreeComponent]);
-            fixture = TestBed.createComponent(TestAsyncTreeComponent);
-            component = fixture.componentInstance;
-            fixture.detectChanges();
-            treeInstance = fixture.debugElement.componentInstance;
-            treeComponent = fixture.debugElement.componentInstance.tree;
-            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
-        }));
+
+        beforeEach(
+            waitForAsync(() => {
+                configureThyTreeTestingModule([TestAsyncTreeComponent]);
+                fixture = TestBed.createComponent(TestAsyncTreeComponent);
+                component = fixture.componentInstance;
+                fixture.detectChanges();
+                treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+            })
+        );
 
         it('should create', () => {
             expect(component).toBeDefined();

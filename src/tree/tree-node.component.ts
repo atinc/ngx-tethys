@@ -1,5 +1,5 @@
 import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
-import { Subject } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
 import {
@@ -13,23 +13,27 @@ import {
     Input,
     NgZone,
     OnDestroy,
+    OnInit,
     Output,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
 
+const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
+
 @Component({
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent implements OnDestroy {
+export class ThyTreeNodeComponent implements OnInit, OnDestroy {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -54,7 +58,8 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
 
-    @ViewChild('title') titleInputElementRef: ElementRef<HTMLInputElement>;
+    /** The native `<div class="thy-tree-node-wrapper thy-sortable-item"></div>` element. */
+    @ViewChild('treeNodeWrapper', { static: true }) treeNodeWrapper: ElementRef<HTMLElement>;
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
@@ -66,21 +71,15 @@ export class ThyTreeNodeComponent implements OnDestroy {
         return this.node.origin.iconStyle;
     }
 
-    private _showExpand: boolean | ((_: ThyTreeNode) => boolean);
-
-    destroy$ = new Subject();
+    private destroy$ = new Subject();
 
     checkState = ThyTreeNodeCheckState;
-
-    markForCheck(): void {
-        this.cdr.markForCheck();
-    }
 
     constructor(
         @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
         public thyTreeService: ThyTreeService,
         private ngZone: NgZone,
-        private cdr: ChangeDetectorRef
+        cdr: ChangeDetectorRef
     ) {
         this.thyTreeService
             .statusChanged()
@@ -89,40 +88,15 @@ export class ThyTreeNodeComponent implements OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                this.markForCheck();
+                cdr.markForCheck();
             });
     }
 
     private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
         const nodeElement = event.target as HTMLElement;
-        const dragIcon = nodeElement.querySelector('.thy-tree-drag-icon') as HTMLElement;
+        const dragIcon: HTMLElement | null = nodeElement.querySelector<HTMLElement>('.thy-tree-drag-icon');
         if (dragIcon) {
             dragIcon.style.visibility = showDragIcon ? 'visible' : 'hidden';
-        }
-    }
-
-    public nodeMouseEnter(event: Event) {
-        if (!this.root.thyDraggable || this.node.isDisabled) {
-            return;
-        } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
-            this.changeDragIconVisibility(event, true);
-        } else {
-            const containerItems = this.node.getParentNode() ? this.node.getParentNode().getChildren() : this.root.treeNodes;
-            const dragStartEvent: ThyDragStartEvent = {
-                event: event as DragEvent,
-                item: this.node,
-                containerItems,
-                currentIndex: containerItems.indexOf(this.node)
-            };
-            this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
-        }
-    }
-
-    public nodeMouseLeave(event: Event) {
-        if (!this.root.thyDraggable || this.node.isDisabled) {
-            return;
-        } else {
-            this.changeDragIconVisibility(event, false);
         }
     }
 
@@ -170,6 +144,40 @@ export class ThyTreeNodeComponent implements OnDestroy {
 
     public isShowExpand(node: ThyTreeNode) {
         return this.root.isShowExpand(node);
+    }
+
+    ngOnInit(): void {
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(this.treeNodeWrapper.nativeElement, 'mouseenter', passiveEventListenerOptions)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: MouseEvent) => {
+                    if (!this.root.thyDraggable || this.node.isDisabled) {
+                        return;
+                    } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
+                        this.changeDragIconVisibility(event, true);
+                    } else {
+                        const parentNode = this.node.getParentNode();
+                        const containerItems = parentNode?.getChildren() ?? this.root.treeNodes;
+                        const dragStartEvent: ThyDragStartEvent = {
+                            event: event as DragEvent,
+                            item: this.node,
+                            containerItems,
+                            currentIndex: containerItems.indexOf(this.node)
+                        };
+                        this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
+                    }
+                });
+
+            fromEvent(this.treeNodeWrapper.nativeElement, 'mouseleave', passiveEventListenerOptions)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: MouseEvent) => {
+                    if (!this.root.thyDraggable || this.node.isDisabled) {
+                        return;
+                    } else {
+                        this.changeDragIconVisibility(event, false);
+                    }
+                });
+        });
     }
 
     ngOnDestroy(): void {
