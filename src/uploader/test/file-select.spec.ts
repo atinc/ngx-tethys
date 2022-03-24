@@ -1,12 +1,12 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyUploaderModule } from '../module';
-import { NgModule, Component, DebugElement } from '@angular/core';
+import { NgModule, Component, DebugElement, ApplicationRef } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyFileSelectComponent } from '../file-select.component';
 import { ThyUploadResponse } from '../uploader.service';
 import { Observable } from 'rxjs';
 import { createFile } from './utils';
-import { createFakeEvent, dispatchEvent } from 'ngx-tethys/testing';
+import { createFakeEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'app-file-select-basic',
@@ -30,8 +30,6 @@ class FileSelectBasicComponent {
     acceptFolder = false;
     uploaderFileResult: Observable<ThyUploadResponse>;
     exceedsFiles: File[];
-
-    constructor() {}
 
     selectFiles(event: { files: File[] }) {}
 
@@ -57,13 +55,13 @@ describe('ThyFileSelect', () => {
     let inputElement: HTMLInputElement;
     let dataTransfer: DataTransfer;
 
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyUploaderModule, FileUploaderTestModule],
-            providers: []
-        });
-        TestBed.compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyUploaderModule, FileUploaderTestModule]
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(FileSelectBasicComponent);
@@ -157,5 +155,14 @@ describe('ThyFileSelect', () => {
         expect(inputClickSpy).not.toHaveBeenCalled();
         fileSelectDebugElement.nativeElement.dispatchEvent(event);
         expect(inputClickSpy).toHaveBeenCalled();
+    });
+
+    it('should not run change detection when the `thy-file-select` is clicked but should propagate the click the input', () => {
+        const appRef = TestBed.inject(ApplicationRef);
+        spyOn(appRef, 'tick');
+        spyOn(inputElement, 'click');
+        fileSelectDebugElement.nativeElement.dispatchEvent(createFakeEvent('click'));
+        expect(appRef.tick).not.toHaveBeenCalled();
+        expect(inputElement.click).toHaveBeenCalled();
     });
 });

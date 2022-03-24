@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, ElementRef, Input, Renderer2, TemplateRef } from '@angular/core';
+import { Component, HostBinding, ElementRef, Input, Renderer2, TemplateRef, OnDestroy } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopover } from 'ngx-tethys/popover';
 
@@ -6,7 +6,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
     templateUrl: './menu-item-action.component.html'
 })
-export class ThyMenuItemActionComponent implements OnInit {
+export class ThyMenuItemActionComponent implements OnDestroy {
     _boundEvent = false;
 
     _actionMenu: ComponentType<any> | TemplateRef<any>;
@@ -28,7 +28,7 @@ export class ThyMenuItemActionComponent implements OnInit {
             return;
         }
         this._boundEvent = true;
-        this.renderer.listen(this.elementRef.nativeElement, 'click', event => {
+        this.removeClickListenerFn = this.renderer.listen(this.elementRef.nativeElement, 'click', event => {
             if (this.thyStopPropagation) {
                 event.stopPropagation();
             }
@@ -42,7 +42,11 @@ export class ThyMenuItemActionComponent implements OnInit {
         });
     }
 
+    private removeClickListenerFn: VoidFunction | null = null;
+
     constructor(private popover: ThyPopover, private renderer: Renderer2, private elementRef: ElementRef) {}
 
-    ngOnInit(): void {}
+    ngOnDestroy(): void {
+        this.removeClickListenerFn?.();
+    }
 }

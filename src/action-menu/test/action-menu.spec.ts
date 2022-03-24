@@ -1,17 +1,17 @@
-import { fakeAsync, ComponentFixture, TestBed, tick } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { ThyActionMenuModule } from '../action-menu.module';
-import { NgModule, Component, DebugElement, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyActionMenuComponent, ThyActionMenuDividerComponent } from '../action-menu.component';
 import { ThyActionMenuItemDirective } from '../action-menu-item.directive';
-import { ThyActionMenuSubItemDirective } from '../action-menu-sub-item.directive';
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 @Component({
     selector: 'thy-demo-action-menu',
     template: `
         <thy-action-menu [thyTheme]="theme">
             <thy-action-menu-divider [thyType]="dividerType"></thy-action-menu-divider>
-            <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
+            <a thyActionMenuItem [thyType]="type" [thyDisabled]="disabled" href="javascript:;"> </a>
             <a thyActionMenuItem [thyType]="type" href="javascript:;"> </a>
         </thy-action-menu>
     `
@@ -20,6 +20,7 @@ class ThyDemoActionMenuComponent {
     type = ``;
     theme = ``;
     dividerType = ``;
+    disabled = false;
 }
 
 @Component({
@@ -71,13 +72,14 @@ describe('ThyActionMenu', () => {
     let actionMenuDividerComponent: DebugElement;
     let actionMenuItems: DebugElement[];
 
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            declarations: [ThyDemoActionMenuComponent, ThyActionMenuSubMenuItemExampleComponent],
-            imports: [ThyActionMenuModule]
-        });
-        TestBed.compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                declarations: [ThyDemoActionMenuComponent, ThyActionMenuSubMenuItemExampleComponent],
+                imports: [ThyActionMenuModule]
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoActionMenuComponent);
@@ -115,6 +117,26 @@ describe('ThyActionMenu', () => {
         testComponent.dividerType = `crossing`;
         fixture.detectChanges();
         expect(actionMenuDividerComponent.nativeElement.classList.contains('action-menu-divider-crossing')).toBe(true);
+    });
+
+    it('should not run change detection when the menu item is clicked but should stop propagation if disabled', () => {
+        const appRef = TestBed.inject(ApplicationRef);
+        spyOn(appRef, 'tick');
+        const event = createFakeEvent('click');
+        spyOn(event, 'preventDefault').and.callThrough();
+        spyOn(event, 'stopPropagation').and.callThrough();
+        actionMenuItems[0].nativeElement.dispatchEvent(event);
+        expect(appRef.tick).not.toHaveBeenCalled();
+        expect(event.preventDefault).not.toHaveBeenCalled();
+        expect(event.stopPropagation).not.toHaveBeenCalled();
+        testComponent.disabled = true;
+        fixture.detectChanges();
+        actionMenuItems[0].nativeElement.dispatchEvent(event);
+        // It's been called once because of we manually called the `fixture.detectChanges()`,
+        // otherwise, it would've been called twice.
+        expect(appRef.tick).toHaveBeenCalledTimes(1);
+        expect(event.preventDefault).toHaveBeenCalled();
+        expect(event.stopPropagation).toHaveBeenCalled();
     });
 });
 

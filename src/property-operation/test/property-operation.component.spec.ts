@@ -1,10 +1,10 @@
-import { Component, DebugElement } from '@angular/core';
-import { async, TestBed, ComponentFixture, inject } from '@angular/core/testing';
+import { ApplicationRef, Component, DebugElement, ViewChild } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyPropertyOperationModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { ThyPropertyOperationComponent } from '../property-operation.component';
 import { ThyButtonIconComponent } from '../../button';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from 'ngx-tethys/testing';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 
 //#region test component
 
@@ -27,6 +27,8 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider, defaultSvgHtml } from 
     `
 })
 class PropertyOperationBasicComponent {
+    @ViewChild(ThyPropertyOperationComponent, { static: true }) component: ThyPropertyOperationComponent;
+
     thyIcon = 'calendar-check';
 
     thyLabelText = '截止时间';
@@ -71,13 +73,13 @@ describe('ThyPropertyOperation', () => {
         let propertyOperationDebugElement: DebugElement;
         let propertyOperationElement: HTMLElement;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             fixture = TestBed.createComponent(PropertyOperationBasicComponent);
             componentInstance = fixture.debugElement.componentInstance;
             propertyOperationDebugElement = fixture.debugElement.query(By.directive(ThyPropertyOperationComponent));
             propertyOperationElement = propertyOperationDebugElement.nativeElement;
             fixture.detectChanges();
-        }));
+        });
 
         it('should get correct class', () => {
             expect(propertyOperationDebugElement).toBeTruthy();
@@ -109,7 +111,7 @@ describe('ThyPropertyOperation', () => {
             expect(fixture.nativeElement.innerText).toContain(componentInstance.thyValue);
         });
 
-        it('should get correct icon', () => {
+        xit('should get correct icon', () => {
             // expect(fixture.nativeElement.querySelector(`.${componentInstance.thyIcon}`)).toBeTruthy();
         });
 
@@ -141,6 +143,36 @@ describe('ThyPropertyOperation', () => {
             propertyOperationElement.click();
             expect(fixture.nativeElement.querySelector('.close-link')).toBeNull();
             expect(propertyOperationElement.classList.contains('thy-property-operation-disabled')).toBeTruthy();
+        });
+
+        describe('change detection behavior', () => {
+            it('should not run change detection if the operation is disabled', () => {
+                componentInstance.disabled = true;
+                fixture.detectChanges();
+
+                const appRef = TestBed.inject(ApplicationRef);
+                spyOn(appRef, 'tick');
+
+                propertyOperationElement.click();
+
+                expect(appRef.tick).not.toHaveBeenCalled();
+            });
+
+            it('should not run change detection if there are no `thyClick` observers', () => {
+                componentInstance.component.thyClick.observers = [];
+
+                const appRef = TestBed.inject(ApplicationRef);
+                spyOn(appRef, 'tick');
+
+                propertyOperationElement.click();
+
+                expect(appRef.tick).not.toHaveBeenCalled();
+
+                componentInstance.component.thyClick.subscribe();
+                propertyOperationElement.click();
+
+                expect(appRef.tick).toHaveBeenCalled();
+            });
         });
     });
 });

@@ -10,10 +10,13 @@ import {
     Output,
     TemplateRef,
     ViewChild,
-    HostListener
+    OnDestroy,
+    NgZone
 } from '@angular/core';
 import { UpdateHostClassService, ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
@@ -22,7 +25,7 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
     templateUrl: './property-operation.component.html',
     providers: [UpdateHostClassService]
 })
-export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
+export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, OnDestroy {
     private initialized = false;
 
     labelText: string;
@@ -98,6 +101,8 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
     @Input('thyDisabled')
     disabled: boolean;
 
+    private destroy$ = new Subject<void>();
+
     private setHostClass(first = false) {
         if (!this.initialized && !first) {
             return;
@@ -121,24 +126,34 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit {
     constructor(
         private thyTranslate: ThyTranslate,
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
+        private elementRef: ElementRef<HTMLElement>,
+        private ngZone: NgZone
     ) {}
 
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this.setHostClass(true);
-    }
 
-    @HostListener('click', ['$event'])
-    onclick(event: Event) {
-        if (!this.disabled) {
-            this.thyClick.emit(event);
-        }
+        this.ngZone.runOutsideAngular(() =>
+            fromEvent<Event>(this.elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (this.disabled || this.thyClick.observers.length === 0) {
+                        return;
+                    }
+
+                    this.ngZone.run(() => this.thyClick.emit(event));
+                })
+        );
     }
 
     ngAfterContentInit() {
         this.setOnlyHasTips(true);
         this.initialized = true;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 
     remove($event: Event) {

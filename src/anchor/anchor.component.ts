@@ -118,7 +118,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         }
         this.destroy$.next();
         this.zone.runOutsideAngular(() => {
-            fromEvent(this.getContainer(), 'scroll')
+            fromEvent(this.getContainer(), 'scroll', { passive: true })
                 .pipe(throttleTime(50), takeUntil(this.destroy$))
                 .subscribe(() => this.handleScroll());
         });

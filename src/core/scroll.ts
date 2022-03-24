@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
 import { reqAnimFrame } from './request-animation';
 
 export type EasyingFn = (t: number, b: number, c: number, d: number) => number;
@@ -20,7 +20,7 @@ function easeInOutCubic(t: number, b: number, c: number, d: number): number {
 export class ThyScrollService {
     private document: Document;
 
-    constructor(@Inject(DOCUMENT) document: any) {
+    constructor(@Inject(DOCUMENT) document: any, private ngZone: NgZone) {
         this.document = document;
     }
 
@@ -64,13 +64,17 @@ export class ThyScrollService {
             const time = timestamp - startTime;
             this.setScrollTop(target, (easing || easeInOutCubic)(time, scrollTop, topValue, 450));
             if (time < 450) {
-                reqAnimFrame(frameFunc);
+                this.ngZone.runOutsideAngular(() => reqAnimFrame(frameFunc));
             } else {
                 if (callback) {
-                    callback();
+                    // The `frameFunc` is called within the `<root>` zone, but we have to re-enter
+                    // the Angular zone when calling custom callback to be backwards-compatible.
+                    this.ngZone.run(() => callback());
                 }
             }
         };
-        reqAnimFrame(frameFunc);
+        // The `requestAnimationFrame` triggers change detection, but setting
+        // `document.scrollTop` doesn't require Angular to run `ApplicationRef.tick()`.
+        this.ngZone.runOutsideAngular(() => reqAnimFrame(frameFunc));
     }
 }
