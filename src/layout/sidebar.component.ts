@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { InputBoolean } from '../core';
 
 const LG_WIDTH = 300;
 @Component({
@@ -88,13 +89,13 @@ export class ThySidebarComponent implements OnInit {
     @Output()
     thyCollapsedChange = new EventEmitter();
 
-    @Input() thyCollapsible = false;
+    @Input() @InputBoolean() thyCollapsible = false;
 
-    @Input() thyCollapsed = false;
+    @Input() @InputBoolean() thyCollapsed = false;
 
-    @Input() thyCollapseWidth = 15;
+    @Input() thyCollapseWidth = 20;
 
-    thyOriginWidth = 15;
+    thyOriginWidth = 20;
 
     @HostBinding('class.sidebar-collapse-show')
     get collapseVisibility() {

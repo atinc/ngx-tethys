@@ -39,6 +39,30 @@ module.exports = [
                 description: '宽度是否可以拖拽',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyCollapsible',
+                description: '开启收起/展开功能',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyCollapsed',
+                description: '是否是收起',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyCollapseWidth',
+                description: '收起后的宽度',
+                type: 'number',
+                default: '20'
+            },
+            {
+                name: 'thyCollapsedChange',
+                description: '收起状态改变后的事件',
+                type: 'EventEmitter<boolean>',
+                default: ''
             }
         ]
     },
