@@ -116,7 +116,7 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(dragElement, 'mouseup');
         }));
 
-        it('enable thyCollapsible', fakeAsync(() => {
+        it('should enable thyCollapsible', fakeAsync(() => {
             fixture.debugElement.componentInstance.collapsible = true;
             fixture.debugElement.componentInstance.collapsibleWidth = 80;
             fixture.detectChanges();
@@ -125,7 +125,7 @@ describe(`sidebar`, () => {
             expect(sidebarDebugElement.componentInstance.thyCollapseWidth).toEqual(80);
         }));
 
-        it('click collapse,thyCollapsed should be true & sidebar width is collapsibleWidth', fakeAsync(() => {
+        it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
             const inputCollapseWidth = 80;
             fixture.debugElement.componentInstance.collapsible = true;
             fixture.debugElement.componentInstance.collapsibleWidth = inputCollapseWidth;
