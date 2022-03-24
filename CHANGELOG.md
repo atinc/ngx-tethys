@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.11"></a>
+## [12.1.11](https://github.com/atinc/ngx-tethys/compare/12.1.10...12.1.11) (2022-03-24)
+
+
+### Bug Fixes
+
+* **form:** teardown subscription within the `ThyFormValidatorService` ([80d8c45](https://github.com/atinc/ngx-tethys/commit/80d8c45))
+* **menu:** remove the `click` listener once the `ThyMenuItemActionComponent` is destroyed ([bfbd661](https://github.com/atinc/ngx-tethys/commit/bfbd661))
+* **notify:** teardown the subscription once the notify container is destroyed ([d4760fc](https://github.com/atinc/ngx-tethys/commit/d4760fc))
+* **resizable:** re-enter the Angular zone when the `thyResizeStart` emits ([85e346f](https://github.com/atinc/ngx-tethys/commit/85e346f))
+* **shared:** remove the `contextmenu` listener once the `thyContextMenu` is destroyed ([7536de3](https://github.com/atinc/ngx-tethys/commit/7536de3))
+* **shared:** remove the `keydown` listener once the `ThyCtrlEnterDirective` is destroyed ([93b493f](https://github.com/atinc/ngx-tethys/commit/93b493f))
+* **shared:** remove the `keydown` listener once the `thyEnter` is destroyed ([522ddf3](https://github.com/atinc/ngx-tethys/commit/522ddf3))
+* **styles:** update default color of $success $info $warning and $danger #INFR-2752 ([#1504](https://github.com/atinc/ngx-tethys/issues/1504)) ([7bb2fc7](https://github.com/atinc/ngx-tethys/commit/7bb2fc7)), closes [#INFR-2752](https://github.com/atinc/ngx-tethys/issues/INFR-2752)
+
+
+### Features
+
+* **cascader:** #INFR-2557 activatedOptions is equal to selectedOptions during initialization ([#1506](https://github.com/atinc/ngx-tethys/issues/1506)) ([2728f49](https://github.com/atinc/ngx-tethys/commit/2728f49)), closes [#INFR-2557](https://github.com/atinc/ngx-tethys/issues/INFR-2557)
+* **layout:** add folder of layoutSidebar #INFR-2748 ([#1533](https://github.com/atinc/ngx-tethys/issues/1533)) ([7f1ffbf](https://github.com/atinc/ngx-tethys/commit/7f1ffbf)), closes [#INFR-2748](https://github.com/atinc/ngx-tethys/issues/INFR-2748)
+* **shared:** do not run change detection on the `thyStopPropagation` element and support binding changes ([ac4f8b9](https://github.com/atinc/ngx-tethys/commit/ac4f8b9))
+
+
+### Performance Improvements
+
+* **action-menu:** do not run change detection when the menu item is clicked ([6a454ec](https://github.com/atinc/ngx-tethys/commit/6a454ec))
+* **anchor:** mark `scroll` listener as passive ([15d7336](https://github.com/atinc/ngx-tethys/commit/15d7336))
+* **back-top:** do not run change detection if there are no `visibleChange` observers ([#1511](https://github.com/atinc/ngx-tethys/issues/1511)) ([5b1da11](https://github.com/atinc/ngx-tethys/commit/5b1da11))
+* **core:** do not run change detection when scrolling ([fcc1c52](https://github.com/atinc/ngx-tethys/commit/fcc1c52))
+* **dialog:** do not run change detection when the dialog is focused asynchronously ([05dbd30](https://github.com/atinc/ngx-tethys/commit/05dbd30))
+* **property-operation:** do not run change detection unnecessary when the `thy-property-operation` is clicked ([a9da5c2](https://github.com/atinc/ngx-tethys/commit/a9da5c2))
+* **resizable:** do not run change detection on mousedown、mouseenter、mouseleave and touchstart events #INFR-2501 ([b1e46c8](https://github.com/atinc/ngx-tethys/commit/b1e46c8)), closes [#INFR-2501](https://github.com/atinc/ngx-tethys/issues/INFR-2501)
+* **resizable:** mark `mousedown` and `touchstart` listeners as passive ([#1530](https://github.com/atinc/ngx-tethys/issues/1530)) ([fa91bde](https://github.com/atinc/ngx-tethys/commit/fa91bde))
+* **shared:** do not run change detection when the `thyAutofocus` focuses the element ([ee4845c](https://github.com/atinc/ngx-tethys/commit/ee4845c))
+* **shared:** run change detection only when the `thyShow` has been clicked outside ([99352f9](https://github.com/atinc/ngx-tethys/commit/99352f9))
+* **uploader:** do not run change detection when the file select is clicked ([bdb9447](https://github.com/atinc/ngx-tethys/commit/bdb9447))
+
+
+
 <a name="12.1.10"></a>
 ## [12.1.10](https://github.com/atinc/ngx-tethys/compare/12.1.9...12.1.10) (2022-03-09)
 
