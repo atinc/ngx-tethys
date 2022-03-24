@@ -19,7 +19,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyIsDraggableWidth]="isDraggableWidth"
                 [thyCollapsible]="collapsible"
                 [thyCollapsed]="isCollapsed"
-                [thyCollapseWidth]="collapsibleWidth"
+                [thyCollapsedWidth]="collapsibleWidth"
                 (thyCollapsedChange)="collapsedChange($event)"
             >
                 恩
@@ -122,7 +122,7 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             tick();
             expect(sidebarDebugElement.componentInstance.thyCollapsible).toEqual(true);
-            expect(sidebarDebugElement.componentInstance.thyCollapseWidth).toEqual(80);
+            expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
         }));
 
         it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {

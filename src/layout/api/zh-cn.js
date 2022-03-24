@@ -53,7 +53,7 @@ module.exports = [
                 default: 'false'
             },
             {
-                name: 'thyCollapseWidth',
+                name: 'thyCollapsedWidth',
                 description: '收起后的宽度',
                 type: 'number',
                 default: '20'
