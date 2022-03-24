@@ -123,7 +123,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                 this.renderer.setStyle(document.body, 'cursor', 'nesw-resize');
                 break;
         }
-        this.renderer.setStyle(document.body, 'user-select', 'none');
+        this.renderer.addClass(document.body, 'thy-resizing');
     }
 
     setPosition(): void {
@@ -135,7 +135,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
 
     endResize(event: MouseEvent | TouchEvent): void {
         this.renderer.setStyle(document.body, 'cursor', '');
-        this.renderer.setStyle(document.body, 'user-select', '');
+        this.renderer.removeClass(document.body, 'thy-resizing');
         this.removeGhostElement();
         const size = this.sizeCache
             ? { ...this.sizeCache }
