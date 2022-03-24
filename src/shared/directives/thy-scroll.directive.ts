@@ -1,7 +1,10 @@
 import { Directive, ElementRef, OnInit, NgZone, OnDestroy, Output, EventEmitter, Input } from '@angular/core';
 import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
-import { takeUntil, tap } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+
+const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
 @Directive({
     selector: '[thyScroll]'
@@ -14,7 +17,7 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
 
     private _elementScrolled: Observable<Event> = new Observable((observer: Observer<Event>) =>
         this.ngZone.runOutsideAngular(() =>
-            fromEvent(this.elementRef.nativeElement, 'scroll')
+            fromEvent(this.elementRef.nativeElement, 'scroll', passiveEventListenerOptions)
                 .pipe(takeUntil(this._destroyed))
                 .subscribe(observer)
         )
@@ -35,6 +38,25 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * @description
+     *
+     * Note: the `thyOnScrolled` emits outside of the Angular zone since the `scroll` listener
+     * is installed within the `<root>` zone.
+     *
+     * Consumers need to re-enter the Angular zone theirselves when the change detection is needeed to be run:
+     * ```ts
+     * @Component({
+     *   template: '<div thyScroll (thyOnScrolled)="onScrolled()"></div>'
+     * })
+     * class ThyScrollComponent {
+     *   onScrolled(): void {
+     *     console.log(Zone.current); // <root>
+     *     console.log(NgZone.isInAngularZone()); // false
+     *   }
+     * }
+     * ```
+     */
     @Output() thyOnScrolled: EventEmitter<ElementRef> = new EventEmitter<ElementRef>();
 
     constructor(private elementRef: ElementRef<any>, private ngZone: NgZone) {}
