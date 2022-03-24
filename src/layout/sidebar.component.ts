@@ -45,7 +45,7 @@ export class ThySidebarComponent implements OnInit {
 
     @HostBinding('style.width.px') get sidebarWidth() {
         if (this.thyCollapsible && this.thyCollapsed) {
-            return this.thyCollapseWidth;
+            return this.thyCollapsedWidth;
         } else {
             return this.thyLayoutSidebarWidth;
         }
@@ -93,7 +93,7 @@ export class ThySidebarComponent implements OnInit {
 
     @Input() @InputBoolean() thyCollapsed = false;
 
-    @Input() thyCollapseWidth = 20;
+    @Input() thyCollapsedWidth = 20;
 
     @HostBinding('class.sidebar-collapse-show')
     get collapseVisibility() {
@@ -143,7 +143,7 @@ export class ThySidebarComponent implements OnInit {
         const x = this.dragRef.nativeElement.getBoundingClientRect().x;
         this.widthPassive = this.numberConvertToFloor(this.widthPassive * 1 + (x - this.dragStartedX));
         this.thyLayoutSidebarWidth = this.widthPassive;
-        this.thyCollapsed = this.thyLayoutSidebarWidth > this.thyCollapseWidth ? false : true;
+        this.thyCollapsed = this.thyLayoutSidebarWidth > this.thyCollapsedWidth ? false : true;
     }
 
     private numberConvertToFloor(value: number | string) {
