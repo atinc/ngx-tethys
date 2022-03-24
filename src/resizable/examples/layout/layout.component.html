@@ -1,7 +1,19 @@
 <thy-layout>
   <thy-header thyTitle="Header" thyIcon="application" class="aa"></thy-header>
   <thy-layout>
-    <thy-sidebar thyResizable [thyWidth]="sidebarWidth" [thyMinWidth]="80" [thyMaxWidth]="300" (thyResize)="onSideResize($event)">
+    <thy-sidebar
+      thyResizable
+      [thyWidth]="sidebarWidth"
+      [thyMinWidth]="sidebarMinWidth"
+      [thyMaxWidth]="500"
+      [thyCollapsible]="isCollapsible"
+      [thyCollapsed]="isCollapsed"
+      (thyResize)="onSideResize($event)"
+      (thyResizeEnd)="resizeEnd($event)"
+      (thyResizeStart)="resizeStart($event)"
+      [thyCollapseWidth]="collapsedWidth"
+      (thyCollapsedChange)="collapsedChange($event)"
+    >
       <thy-resize-handle thyDirection="right">
         <div class="sidebar-resize-line"></div>
       </thy-resize-handle>

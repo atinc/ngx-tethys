@@ -72,6 +72,12 @@
     display: flex;
     flex-direction: column;
 
+    &:hover {
+        .sidebar-collapse {
+            visibility: visible;
+        }
+    }
+
     .sidebar-header {
         padding: 0 10px;
         min-height: variables.$layout-header-height;
@@ -119,6 +125,33 @@
         }
     }
 
+    .sidebar-collapse {
+        visibility: hidden;
+        position: absolute;
+        top: 15px;
+        width: 24px;
+        height: 24px;
+        right: -12px;
+        color: variables.$gray-700;
+        transition: margin-right 0.3s;
+        background-color: variables.$white;
+        border-radius: 12px;
+        text-align: center;
+        box-shadow: variables.$box-shadow;
+        z-index: 9;
+        line-height: 24px;
+        &:hover {
+            cursor: pointer;
+            background-color: variables.$primary;
+            .sidebar-collapse-icon {
+                color: variables.$white;
+            }
+        }
+    }
+    .sidebar-collapse-icon svg {
+        font-size: 14px;
+    }
+
     &--clear-border-right {
         border-right: none;
     }
@@ -126,6 +159,11 @@
     &.thy-layout-sidebar-isolated {
         margin-right: 10px;
         border-right: none;
+    }
+    &.sidebar-collapse-show {
+        .sidebar-collapse {
+            visibility: visible;
+        }
     }
 }
 
