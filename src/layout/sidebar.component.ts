@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { InputBoolean } from '../core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const LG_WIDTH = 300;
 @Component({
