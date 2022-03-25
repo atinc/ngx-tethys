@@ -1,17 +1,16 @@
-<input thyInput thySize="lg" placeholder="超大输入框 44px" />
-<br />
-<input thyInput placeholder="默认输入框 36px" />
-<br />
-<input thyInput thySize="md" placeholder="中型输入框 32px" />
-<br />
-<input thyInput thySize="sm" placeholder="小型输入框 28px" />
-<br />
-<input thyInput thySize="xs" placeholder="微小输入框 24px" />
-
-<!-- <thy-space>
-  <button *thySpaceItem thyButton="primary" thySize="xs">Button</button>
-  <button *thySpaceItem thyButton="primary" thySize="sm">Button</button>
-  <button *thySpaceItem thyButton="primary" thySize="md">Button</button>
-  <button *thySpaceItem thyButton="primary" thySize="default">Button</button>
-  <button *thySpaceItem thyButton="primary" thySize="lg">Button</button>
-</thy-space> -->
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <input thyInput thySize="xs" placeholder="size: xs (24px)" />
+    <input thyInput thySize="sm" placeholder="size: sm (28px)" class="mt-3" />
+    <input thyInput thySize="md" placeholder="size: md (32px)" class="mt-3" />
+    <input thyInput thySize="default" placeholder="size: default (36px)" class="mt-3" />
+    <input thyInput thySize="lg" placeholder="size: lg (44px)" class="mt-3" />
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input thySize="xs" placeholder="size: xs (24px)"></thy-input>
+    <thy-input thySize="sm" placeholder="size: sm (28px)" class="mt-3"></thy-input>
+    <thy-input thySize="md" placeholder="size: md (32px)" class="mt-3"></thy-input>
+    <thy-input thySize="default" placeholder="size: default (36px)" class="mt-3"></thy-input>
+    <thy-input thySize="lg" placeholder="size: lg (44px)" class="mt-3"></thy-input>
+  </div>
+</div>
