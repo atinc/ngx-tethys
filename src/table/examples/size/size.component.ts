@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-table-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-table-size-example',
+    templateUrl: './size.component.html'
 })
-export class ThyTableBasicExampleComponent implements OnInit {
+export class ThyTableSizeExampleComponent implements OnInit {
     data = [
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },

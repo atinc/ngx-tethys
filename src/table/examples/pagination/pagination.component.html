@@ -1,4 +1,15 @@
-<thy-table [thyModel]="data" thyRowKey="id">
+<thy-table
+  [thyModel]="data"
+  thyRowKey="id"
+  (thyOnRowClick)="onRowClick($event)"
+  [thyPageIndex]="pagination.index"
+  [thyPageSize]="pagination.size"
+  [thyPageTotal]="pagination.total"
+  [thyShowTotal]="true"
+  [thyLoadingDone]="loadingDone"
+  (thyOnPageChange)="onPageChange($event)"
+>
+  <thy-table-column thyTitle="#" thyType="index"> </thy-table-column>
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
