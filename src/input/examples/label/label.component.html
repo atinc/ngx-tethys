@@ -1,1 +1,12 @@
-<thy-input thyLabelText="姓名" [thyAutofocus]="false" name="username" [(ngModel)]="value" placeholder="请输入您的姓名"></thy-input>
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" placeholder="Please type name"></thy-input>
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input thyLabelText="Name" name="username" [(ngModel)]="value" placeholder="Please type name">
+      <ng-template #prepend>
+        <thy-icon thyIconName="user"></thy-icon>
+      </ng-template>
+    </thy-input>
+  </div>
+</div>

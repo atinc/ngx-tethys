@@ -1,0 +1,23 @@
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-input placeholder="Please type">
+      <ng-template #prepend>
+        <thy-icon class="text-desc" thyIconName="user"></thy-icon>
+      </ng-template>
+      <ng-template #append>
+        <thy-icon thyTooltip="Extra Information" class="text-desc" thyIconName="info-circle"></thy-icon>
+      </ng-template>
+    </thy-input>
+    <br />
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input placeholder="Please type">
+      <ng-template #prepend>
+        <a class="link-muted link-has-icon" href="javascript:;">中国+86 <thy-icon thyIconName="angle-down"></thy-icon></a>
+      </ng-template>
+      <ng-template #append>
+        <a href="javascript:;"><span thyLabel="default">获取验证码</span></a>
+      </ng-template>
+    </thy-input>
+  </div>
+</div>

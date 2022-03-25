@@ -6,6 +6,10 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 
 export default {
     imports: [
@@ -16,6 +20,10 @@ export default {
         ThySharedModule,
         ThySelectModule,
         ThySpaceModule,
-        ThyButtonModule
+        ThyButtonModule,
+        ThyRasterModule,
+        ThyDropdownModule,
+        ThyIconModule,
+        ThyTooltipModule
     ]
 };
