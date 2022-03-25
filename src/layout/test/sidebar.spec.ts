@@ -152,7 +152,6 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
-            console.log(sidebarDebugElement);
             expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('展开');
             flush();
         }));
