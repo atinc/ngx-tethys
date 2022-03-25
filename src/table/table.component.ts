@@ -132,8 +132,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     private _diff: IterableDiffer<any>;
 
-    private _draggableModel: any;
-
     private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
 
     private initialized = false;

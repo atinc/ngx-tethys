@@ -35,7 +35,8 @@ export interface ThyTableEmptyOptions {
     container?: TemplateRef<any>;
 }
 
-export interface PageChangedEvent {
+export type PageChangedEvent = ThyPageChangedEvent;
+export interface ThyPageChangedEvent {
     itemsPerPage: number;
     page: number;
 }

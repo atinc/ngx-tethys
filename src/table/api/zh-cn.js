@@ -2,50 +2,50 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-table',
-        description: 'Grid 列表',
+        description: 'Table 表格',
         properties: [
             {
                 name: 'thyModel',
-                description: 'Grid 数据源',
-                type: 'Object[]',
+                description: '数据源',
+                type: 'object[]',
                 default: ''
             },
             {
                 name: 'thyRowKey',
                 description: '设置每行数据的唯一标识属性名',
-                type: 'String',
+                type: 'string',
                 default: '_id'
             },
-            { name: 'thyMode', description: 'Grid 展示方式，分组或列表', type: 'list | group | tree', default: 'list' },
-            { name: 'thyGroupBy', description: 'Grid分组展示时分组key ', type: 'string', default: '' },
+            { name: 'thyMode', description: '表格展示方式，列表/分组/树', type: 'list | group | tree', default: 'list' },
+            { name: 'thyGroupBy', description: 'thyMode 为分组展示时分组的 Key ', type: 'string', default: '' },
             {
                 name: 'thyTheme',
-                description: '设置Grid的显示风格 可选值 [default , bordered]',
-                type: 'String',
+                description: '表格的显示风格，bordered 时头部有背景色且分割线区别明显',
+                type: 'default | bordered',
                 default: 'default'
             },
             {
                 name: 'thySize',
-                description: '设置Grid的行高，可选值为[default , sm], 设置sm时行高为44px',
-                type: 'String',
+                description: '表格大小，设置 sm 时行高为 44px，default 行高为 55px',
+                type: 'default | sm',
                 default: 'default'
             },
             {
                 name: 'thyClassName',
-                description: '设置Grid中使用的Table的Class',
-                type: 'String',
+                description: '设置 Table 的 Class',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyLoadingDone',
                 description: '设置加载状态',
-                type: 'Boolean',
+                type: 'boolean',
                 default: 'true'
             },
             {
                 name: 'thyLoadingText',
-                description: '设置加载显示的文本',
-                type: 'String',
+                description: '设置加载时显示的文本',
+                type: 'string',
                 default: ''
             },
             {
@@ -56,68 +56,68 @@ module.exports = [
             },
             {
                 name: 'thyFilter',
-                description: '设置Grid过滤条件（暂未实现功能）',
+                description: '设置过滤条件（暂未实现功能）',
                 type: 'Object | Function',
                 default: ''
             },
             {
                 name: 'thyPageIndex',
-                description: '设置当前页',
-                type: 'Number',
+                description: '设置当前页码',
+                type: 'number',
                 default: '1'
             },
             {
                 name: 'thyPageSize',
                 description: '设置每页显示数量',
-                type: 'Number',
+                type: 'number',
                 default: '20'
             },
             {
                 name: 'thyPageTotal',
                 description: '设置总页数',
-                type: 'Number',
+                type: 'number',
                 default: ''
             },
             {
                 name: 'thyShowTotal',
-                description: `是否显示左侧total`,
-                type: 'Boolean | Template',
+                description: `是否显示左侧 Total`,
+                type: 'boolean | TemplateRef',
                 default: 'false'
             },
             {
                 name: 'thyDraggable',
-                description: '开启Grid拖拽',
-                type: 'Boolean',
+                description: '是否开启行拖拽',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyHoverDisplayOperation',
-                description: '开启Hover后显示操作',
-                type: 'Boolean',
+                description: '开启 Hover 后显示操作，默认不显示操作区内容，鼠标 Hover 时展示',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyWholeRowSelect',
-                description: '设置开启选中当前行自动选中checkbox',
-                type: 'Boolean',
+                description: '选中当前行是否自动选中 Checkbox，不开启时只有点击 Checkbox 列时才会触发选中',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyShowHeader',
-                description: '是否显示header',
-                type: 'Boolean',
+                description: '是否显示表格头',
+                type: 'boolean',
                 default: 'true'
             },
             {
                 name: 'thyIndent',
-                description: '设置Tree树状数据展示时的缩进',
-                type: 'Number',
+                description: 'thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进',
+                type: 'number',
                 default: '20'
             },
             {
                 name: 'thyChildrenKey',
-                description: '设置Tree树状数据对象中的子节点 key',
-                type: 'String',
+                description: 'thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key',
+                type: 'string',
                 default: 'children'
             },
             {
@@ -128,13 +128,13 @@ module.exports = [
             },
             {
                 name: '(thyOnRowClick)',
-                description: 'Grid行点击事件',
+                description: '表格行点击触发事件',
                 type: 'ThyTableRowEvent',
                 default: ''
             },
             {
                 name: '(thyOnPageChange)',
-                description: '翻页回调事件',
+                description: '表格分页回调事件',
                 type: 'PageChangedEvent',
                 default: ''
             },
@@ -171,62 +171,61 @@ module.exports = [
         properties: [
             {
                 name: 'thyModelKey',
-                description: '设置数据属性Key',
-                type: 'String',
+                description: '设置数据属性 Key，读取数组中对象的当前 Key 值',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyTitle',
-                description: '设置列名',
-                type: 'String',
+                description: '设置列名，显示在表头',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyWidth',
                 description: '设置列的宽度',
-                type: 'String | Number',
+                type: 'string | number',
                 default: ''
             },
             {
                 name: 'thyClassName',
-                description: '设置列的Class',
-                type: 'String',
+                description: '设置列的 Class，即 td 元素上的样式',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyHeaderClassName',
-                description: '是指列头部的Class',
-                type: 'String',
+                description: '设置列头部的 Class，即 th 元素上的样式',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyType',
-                description: '设置列的类型 index:序列 ，checkbox:多选 ，radio:单选 ，switch:切换',
-                type: 'String',
+                description: '设置列的特殊类型，序列号、选择框、单选框、切换按钮',
+                type: '"index" | "checkbox" | "radio" | "switch"',
                 default: ''
             },
             {
                 name: 'thyDisabled',
                 description: '设置自定义类型的禁用状态',
-                type: 'Boolean',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thySelections',
-                description:
-                    'checkbox radio 类型的列可设置选中的数据 ，支持 单个对象 单个Id  同时支持多个Id [_id1,_id2] 多个对象 [{_id:1},{_id:2}]',
-                type: 'String | Number | Object | String[] | Number[] | Object[] ',
+                description: `thyType 为 checkbox 或者 radio 类型时选中的数据 ，支持单个对象，单个 Id，同时支持多个 Id，多个对象`,
+                type: 'string | number | object | string[] | number[] | object[] ',
                 default: ''
             },
             {
                 name: 'thyDefaultText',
                 description: '设置数据为空的时候显示的文本',
-                type: 'String',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyExpand',
-                description: '设置 tree 模式下折叠展开按钮展示列，不传默认第一列',
+                description: '设置 Tree 模式下折叠展开按钮展示列，不传默认第一列',
                 type: 'boolean',
                 default: 'false'
             }
