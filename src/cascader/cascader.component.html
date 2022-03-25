@@ -32,12 +32,14 @@
   [cdkConnectedOverlayPositions]="positions"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
+  (attach)="onAttached()"
   (positionChange)="onPositionChange($event)"
   [cdkConnectedOverlayOpen]="menuVisible"
 >
   <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onMenuMouseleave($event)">
-    <ul *ngFor="let options of thyColumns; let i = index" [ngClass]="menuColumnCls">
+    <ul #cascaderOptionContainers *ngFor="let options of thyColumns; let i = index" [ngClass]="menuColumnCls">
       <li
+        #cascaderOptions
         thy-cascader-option
         *ngFor="let option of options"
         [option]="option"
