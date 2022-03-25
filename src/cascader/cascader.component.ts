@@ -1,4 +1,4 @@
-import { ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -7,14 +7,19 @@ import {
     forwardRef,
     HostListener,
     Input,
+    OnDestroy,
     OnInit,
     Output,
+    QueryList,
     TemplateRef,
-    ViewChild
+    ViewChild,
+    ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, UpdateHostClassService } from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isEmpty } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
@@ -67,7 +72,7 @@ export type ThyCascaderExpandTrigger = 'click' | 'hover';
         `
     ]
 })
-export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
+export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
     private changeOnSelect = false;
     private showInput = true;
     public prefixCls = 'thy-cascader';
@@ -75,6 +80,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
     private columnClassName: string;
     private _menuColumnCls: any;
     private defaultValue: any[];
+    private readonly destroy$ = new Subject<void>();
 
     public dropDownPosition = 'bottom';
     public menuVisible = false;
@@ -222,6 +228,12 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     @ViewChild('menu') menu: ElementRef;
 
+    @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
+
+    @ViewChildren('cascaderOptionContainers', { read: ElementRef }) cascaderOptionContainers: QueryList<ElementRef>;
+
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -337,6 +349,22 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         return activeOpt === option;
     }
 
+    public onAttached(): void {
+        this.cdkConnectedOverlay.positionChange.pipe(take(1), takeUntil(this.destroy$)).subscribe(() => {
+            if (!isEmpty(this.selectedOptions)) {
+                const activeOptions = this.cascaderOptions.filter(item =>
+                    item.nativeElement.classList.contains('thy-cascader-menu-item-active')
+                );
+                this.cascaderOptionContainers.forEach((item, index) => {
+                    if (index <= activeOptions.length - 1) {
+                        ScrollToService.scrollToElement(activeOptions[index].nativeElement, item.nativeElement);
+                        this.cdr.detectChanges();
+                    }
+                });
+            }
+        });
+    }
+
     private findOption(option: any, index: number): CascaderOption {
         const options: CascaderOption[] = this.thyColumns[index];
         if (options) {
@@ -378,7 +406,7 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
         }
         this.activatedOptions = [...this.selectedOptions];
         this.thyColumns[1] = this.activatedOptions[0].children;
-        if (this.activatedOptions[1]) {
+        if (this.activatedOptions[1] && !this.activatedOptions[1].isLeaf) {
             this.thyColumns[2] = this.activatedOptions[1].children;
         }
     }
@@ -660,5 +688,10 @@ export class ThyCascaderComponent implements OnInit, ControlValueAccessor {
 
     constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngOnDestroy() {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

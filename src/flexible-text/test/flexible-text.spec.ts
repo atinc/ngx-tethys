@@ -1,9 +1,8 @@
-import { async, ComponentFixture, TestBed, flush, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
 import { ThyFlexibleTextComponent } from '../flexible-text.component';
 import { Component, ViewChild } from '@angular/core';
 import { ThyTooltipModule } from '../../tooltip';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 import { By } from '@angular/platform-browser';
 
@@ -53,11 +52,11 @@ describe('FlexibleTextComponent', () => {
     let callbacks: Function[];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         callbacks = [];
 
         TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyFlexibleTextModule, BrowserAnimationsModule],
+            imports: [ThyTooltipModule, ThyFlexibleTextModule],
             declarations: [FlexibleTextTestComponent],
             providers: [
                 {
@@ -97,39 +96,39 @@ describe('FlexibleTextComponent', () => {
         expect(component.isOverflow).toBe(true);
     }));
 
-    it('should change content of thyTooltipDirective when set thyTooltipContent of thy-flexible-text', fakeAsync(() => {
+    it('should change content of thyTooltipDirective when set thyTooltipContent of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
         expect(component.tooltipService.thyTooltipDirective.content as string).toBe(componentInstance.tooltipContent);
         const newContent = `新内容。。。`;
         componentInstance.tooltipContent = newContent;
         fixture.detectChanges();
         expect(component.tooltipService.thyTooltipDirective.content as string).toBe(newContent);
-    }));
+    });
 
-    it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', fakeAsync(() => {
+    it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
         expect(component.tooltipService.thyTooltipDirective.placement).toBe(componentInstance.placement);
         const newPlacement = `left`;
         componentInstance.placement = newPlacement;
         fixture.detectChanges();
         expect(component.tooltipService.thyTooltipDirective.placement).toBe(newPlacement);
-    }));
+    });
 
-    it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', fakeAsync(() => {
+    it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
         expect(component.tooltipService.thyTooltipDirective.placement).toBe(componentInstance.placement);
         const newPlacement = `left`;
         componentInstance.placement = newPlacement;
         fixture.detectChanges();
         expect(component.tooltipService.thyTooltipDirective.placement).toBe(newPlacement);
-    }));
+    });
 
-    it('should apply trigger="click"', fakeAsync(() => {
+    it('should apply trigger="click"', () => {
         const component = componentInstance.flexibleText;
         expect(component.tooltipService.thyTooltipDirective.trigger).toBe('click');
-    }));
+    });
 
-    it('should not contain flexible-text-container when thyContainContainerClass is false', fakeAsync(() => {
+    it('should not contain flexible-text-container when thyContainContainerClass is false', () => {
         const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
         expect(flexibleTextElement.classList).toContain('flexible-text-container');
         let custom = '';
@@ -140,5 +139,5 @@ describe('FlexibleTextComponent', () => {
         componentInstance.customContainerClass = custom;
         fixture.detectChanges();
         expect(flexibleTextElement.classList).toContain(custom);
-    }));
+    });
 });

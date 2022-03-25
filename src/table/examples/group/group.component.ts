@@ -8,141 +8,30 @@ import { ThyMultiSelectEvent, ThyTableRowEvent, helpers } from 'ngx-tethys';
 export class ThyTableGroupExampleComponent implements OnInit {
     public groups = [
         {
-            id: '111',
-            title: '分组1'
-        },
-        {
-            id: '222',
-            title: '分组2'
-        },
-        {
-            id: '333',
-            title: '分组3'
-        },
-        {
-            id: '444',
-            title: '分组4'
-        }
-    ];
-    public model = [
-        {
-            group_id: '111',
             id: '1',
-            name: '张三',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
+            title: 'Product R&D'
         },
         {
-            group_id: '111',
             id: '2',
-            name: '李四',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
+            title: 'Product Design'
         },
         {
-            group_id: '111',
             id: '3',
-            name: '王五',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        },
-
-        {
-            group_id: '222',
-            id: '4',
-            name: '张三2',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 0
-        },
-        {
-            group_id: '222',
-            id: '5',
-            name: '李四2',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        },
-        {
-            group_id: '222',
-            id: '6',
-            name: '王五2',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-
-        {
-            group_id: '333',
-            id: '7',
-            name: '张三3',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
-        },
-        {
-            group_id: '333',
-            id: '8',
-            name: '李四3',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            group_id: '333',
-            id: '9',
-            name: '王五3',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-
-        {
-            group_id: '444',
-            id: '10',
-            name: '张三4',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1
-        },
-        {
-            group_id: '444',
-            id: '11',
-            name: '李四4',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
-        },
-        {
-            group_id: '444',
-            id: '12',
-            name: '王五4',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 1
+            title: 'DevOps'
         }
     ];
 
-    public size = 'default';
+    data = [
+        { id: 1, name: 'Peter', age: 25, job: 'Engineer', group_id: '1', address: 'Beijing Dong Sheng Technology' },
+        { id: 2, name: 'James', age: 26, job: 'Designer', group_id: '2', address: 'Xian Economic Development Zone' },
+        { id: 3, name: 'Tom', age: 30, job: 'Engineer', group_id: '1', address: 'New Industrial Park, Shushan, Hefei, Anhui' },
+        { id: 4, name: 'Elyse', age: 31, job: 'Engineer', group_id: '2', address: 'Yichuan Ningxia' },
+        { id: 5, name: 'Jill', age: 22, job: 'DevOps', group_id: '3', address: 'Hangzhou' }
+    ];
 
     ngOnInit() {}
 
     onRowClick(event: ThyTableRowEvent) {
-        console.log(event);
+        console.log(`[thy-table-group-example] clicked ${event.row.name}`);
     }
 }

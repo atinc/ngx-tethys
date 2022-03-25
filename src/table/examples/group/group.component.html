@@ -1,15 +1,15 @@
 <thy-table
   [thyGroups]="groups"
-  [thyModel]="model"
+  [thyModel]="data"
   thyRowKey="id"
   thyGroupBy="group_id"
   thyMode="group"
-  thyRowClassName="thy-table-item-hover-display-operation"
-  [thyHoverDisplayOperation]="false"
+  thyWholeRowSelect="true"
   (thyOnRowClick)="onRowClick($event)"
 >
   <ng-template #group let-group>{{ group?.title }}</ng-template>
-  <thy-table-column thyTitle="姓名" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="年龄" thyModelKey="age" thyClassName="text-center" thyHeaderClassName="text-center"></thy-table-column>
-  <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
 </thy-table>

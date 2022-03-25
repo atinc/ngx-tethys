@@ -546,12 +546,14 @@ export class ThyTableComponent extends _MixinBase
     }
 
     onDragStarted() {
-        setTimeout(() => {
-            const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
-            if (preview) {
-                preview.classList.add('thy-table-drag-preview');
-            }
-        });
+        this.ngZone.runOutsideAngular(() =>
+            setTimeout(() => {
+                const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
+                if (preview) {
+                    preview.classList.add('thy-table-drag-preview');
+                }
+            })
+        );
     }
 
     onDragDropped(event: CdkDragDrop<unknown>) {

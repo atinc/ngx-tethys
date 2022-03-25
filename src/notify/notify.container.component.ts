@@ -1,12 +1,15 @@
-import { Component, OnInit, HostBinding } from '@angular/core';
-import { CONTAINER_PLACEMENT, NotifyPlacement } from './notify-option.interface';
+import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { NotifyPlacement } from './notify-option.interface';
 import { NotifyQueueStore } from './notify-queue.store';
 
 @Component({
     selector: 'thy-notify-container',
     templateUrl: './notify.container.component.html'
 })
-export class ThyNotifyContainerComponent implements OnInit {
+export class ThyNotifyContainerComponent implements OnInit, OnDestroy {
     @HostBinding('class.thy-notify-root') className = true;
     @HostBinding('class.thy-notify-bottomRight') bottomRight: boolean;
     @HostBinding('class.thy-notify-bottomLeft') bottomLeft: boolean;
@@ -22,6 +25,8 @@ export class ThyNotifyContainerComponent implements OnInit {
     public bottomRightQueue: any;
 
     placement: NotifyPlacement;
+
+    private destroy$ = new Subject<void>();
 
     constructor(public queueStore: NotifyQueueStore) {}
 
@@ -50,8 +55,12 @@ export class ThyNotifyContainerComponent implements OnInit {
             queueKey = 'bottomRightQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.bottomRightSelector);
         }
-        queue$.subscribe(data => {
+        queue$.pipe(takeUntil(this.destroy$)).subscribe(data => {
             this[queueKey] = data;
         });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 }

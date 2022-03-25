@@ -1,10 +1,10 @@
 import { ENTER } from 'ngx-tethys/util';
+import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { dispatchKeyboardEvent } from '../../testing';
-import { ThySharedModule } from '../shared.module';
+import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
 
 @Component({
     selector: 'thy-autofocus-test',
@@ -26,8 +26,7 @@ describe('ThyCtrlEnterDirective', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThySharedModule],
-                declarations: [ThyCtrlEnterTestComponent]
+                declarations: [ThyCtrlEnterDirective, ThyCtrlEnterTestComponent]
             }).compileComponents();
         })
     );

@@ -35,6 +35,111 @@ const customerOptions = [
     }
 ];
 
+const multipleOptions = [
+    {
+        value: 'beijing',
+        label: 'beijing',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'haidianqu',
+                        label: 'haidianqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'tianjinshi',
+        label: 'tianjinshi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hepingqu',
+                        label: 'hepingqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jilinsheng',
+        label: 'jilinsheng',
+        children: [
+            {
+                value: 'liaoyuanshi',
+                label: 'liaoyuanshi',
+                children: [
+                    {
+                        value: 'kongshanqu',
+                        label: 'kongshanqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jiangsusheng',
+        label: 'jiangsusheng',
+        children: [
+            {
+                value: 'nanjingshi',
+                label: 'nanjingshi',
+                children: [
+                    {
+                        value: 'xuanxushi',
+                        label: 'xuanxushi',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'shanghaishi',
+        label: 'shanghaishi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hongkouqu',
+                        label: 'hongkouqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    }
+];
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
@@ -297,6 +402,21 @@ describe('thy-cascader', () => {
             const activatedOptionsText: string[] = [];
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
+        }));
+        it('should  scroll to active item when menu open', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = multipleOptions;
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
+            el.style.height = 180;
+            const elementRect = el.getBoundingClientRect();
+            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active').getBoundingClientRect();
+            expect(activatedOption.top - elementRect.top < 180).toBeTruthy();
         }));
     });
     describe('loadData', () => {

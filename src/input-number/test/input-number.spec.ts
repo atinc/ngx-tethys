@@ -161,22 +161,16 @@ describe('input-number component', () => {
         expect(inputElement.classList.contains('form-control-lg')).toBe(true);
     });
 
-    it(
-        'should autofocus work',
-        waitForAsync(() => {
-            fixture.detectChanges();
-            inputNumberComponentInstance.thyAutoFocus = true;
-            fixture.detectChanges();
-            fixture.whenStable().then(() => {
-                expect(inputElement === document.activeElement).toBe(true);
-            });
-            inputNumberComponentInstance.thyAutoFocus = false;
-            fixture.detectChanges();
-            fixture.whenStable().then(() => {
-                expect(inputElement.attributes.getNamedItem('autofocus')).toBe(null);
-            });
-        })
-    );
+    it('should autofocus work', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.thyAutoFocus = true;
+        fixture.detectChanges();
+        tick(16);
+        expect(inputElement === document.activeElement).toBe(true);
+        inputNumberComponentInstance.thyAutoFocus = false;
+        fixture.detectChanges();
+        expect(inputElement.attributes.getNamedItem('autofocus')).toBe(null);
+    }));
 
     it('should placeholder work', () => {
         fixture.detectChanges();
