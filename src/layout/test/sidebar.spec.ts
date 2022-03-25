@@ -142,5 +142,19 @@ describe(`sidebar`, () => {
             expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
             flush();
         }));
+
+        it(`should be tip text changed when toggle collapse`, fakeAsync(() => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            fixture.detectChanges();
+            tick();
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            tick(200);
+            console.log(sidebarDebugElement);
+            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('展开');
+            flush();
+        }));
     });
 });
