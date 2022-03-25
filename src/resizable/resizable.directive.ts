@@ -5,7 +5,7 @@ import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators';
 import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 import { ThyResizeEvent } from './interface';
-import { getEventWithPoint, ensureInBounds } from './utils';
+import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -123,7 +123,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                 this.renderer.setStyle(document.body, 'cursor', 'nesw-resize');
                 break;
         }
-        this.renderer.setStyle(document.body, 'user-select', 'none');
+        setCompatibleStyle(document.body, 'user-select', 'none');
     }
 
     setPosition(): void {
@@ -135,7 +135,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
 
     endResize(event: MouseEvent | TouchEvent): void {
         this.renderer.setStyle(document.body, 'cursor', '');
-        this.renderer.setStyle(document.body, 'user-select', '');
+        setCompatibleStyle(document.body, 'user-select', '');
         this.removeGhostElement();
         const size = this.sizeCache
             ? { ...this.sizeCache }
