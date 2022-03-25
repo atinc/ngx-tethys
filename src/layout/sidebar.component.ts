@@ -104,9 +104,7 @@ export class ThySidebarComponent implements OnInit {
         return this.thyCollapsed ? 'indent-bold' : 'outdent-bold';
     }
 
-    get collapseTip() {
-        return this.thyCollapsed ? '展开' : '收起';
-    }
+    collapseTip: string;
 
     constructor(
         @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
@@ -156,6 +154,9 @@ export class ThySidebarComponent implements OnInit {
 
     toggleCollapse(event: MouseEvent) {
         this.thyCollapsed = !this.thyCollapsed;
+        setTimeout(() => {
+            this.collapseTip = this.thyCollapsed ? '展开' : '收起';
+        }, 200);
         this.thyCollapsedChange.emit(this.thyCollapsed);
     }
 }
