@@ -384,9 +384,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             scrollHeight = elementRef.nativeElement.scrollHeight;
 
         if (scroll + height + 10 >= scrollHeight) {
-            this.ngZone.run(() => {
-                this.thyOnScrollToBottom.emit();
-            });
+            if (this.thyOnScrollToBottom.observers.length > 0) {
+                this.ngZone.run(() => {
+                    this.thyOnScrollToBottom.emit();
+                });
+            }
         }
     }
 

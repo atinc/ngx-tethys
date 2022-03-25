@@ -17,6 +17,10 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyIsolated]="isolated"
                 [thyHasBorderRight]="hasBorderRight"
                 [thyIsDraggableWidth]="isDraggableWidth"
+                [thyCollapsible]="collapsible"
+                [thyCollapsed]="isCollapsed"
+                [thyCollapsedWidth]="collapsibleWidth"
+                (thyCollapsedChange)="collapsedChange($event)"
             >
                 恩
             </thy-sidebar>
@@ -31,6 +35,13 @@ class ThyDemoLayoutSidebarBasicComponent {
     isolated = false;
     hasBorderRight = true;
     isDraggableWidth = false;
+    collapsible = false;
+    collapsibleWidth = 0;
+    isCollapsed = false;
+
+    collapsedChange(isCollapsed: boolean) {
+        this.isCollapsed = isCollapsed;
+    }
 }
 
 describe(`sidebar`, () => {
@@ -103,6 +114,32 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(dragElement, 'mousedown');
             dispatchMouseEvent(dragElement, 'mousemove', dragElementRect.left + 20, dragElementRect.height);
             dispatchMouseEvent(dragElement, 'mouseup');
+        }));
+
+        it('should enable thyCollapsible', fakeAsync(() => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            fixture.detectChanges();
+            tick();
+            expect(sidebarDebugElement.componentInstance.thyCollapsible).toEqual(true);
+            expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
+        }));
+
+        it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
+            const inputCollapseWidth = 80;
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = inputCollapseWidth;
+            fixture.detectChanges();
+            tick();
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(true);
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(fixture.debugElement.componentInstance.collapsibleWidth + 'px');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(false);
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
         }));
     });
 });

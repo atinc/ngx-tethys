@@ -10,6 +10,7 @@ import {
     EventEmitter,
     ElementRef
 } from '@angular/core';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
@@ -19,7 +20,10 @@ import { fromEvent, merge } from 'rxjs';
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
 }
+
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
+const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
 @Component({
     selector: 'thy-resize-handle, [thy-resize-handle]',
@@ -63,7 +67,13 @@ export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDe
             }
         });
         this.ngZone.runOutsideAngular(() => {
-            merge(fromEvent<MouseEvent>(this.host.nativeElement, 'mousedown'), fromEvent<TouchEvent>(this.host.nativeElement, 'touchstart'))
+            // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
+            // The element `touchstart` listener is not passive by default
+            // We never call `preventDefault()` on it, so we're safe making it passive too.
+            merge(
+                fromEvent<MouseEvent>(this.host.nativeElement, 'mousedown', passiveEventListenerOptions),
+                fromEvent<TouchEvent>(this.host.nativeElement, 'touchstart', passiveEventListenerOptions)
+            )
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe((event: MouseEvent | TouchEvent) => {
                     this.thyResizableService.handleMouseDownOutsideAngular$.next(

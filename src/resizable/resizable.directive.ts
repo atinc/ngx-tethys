@@ -56,12 +56,15 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                 return;
             }
             this.resizing = true;
-            this.thyResizableService.startResizing(event.mouseEvent);
+            const { mouseEvent } = event;
+            this.thyResizableService.startResizing(mouseEvent);
             this.currentHandleEvent = event;
             this.setCursor();
-            this.thyResizeStart.emit({
-                mouseEvent: event.mouseEvent
-            });
+            // Re-enter the Angular zone and run the change detection only if there're any `thyResizeStart` listeners,
+            // e.g.: `<div thyResizable (thyResizeStart)="..."></div>`.
+            if (this.thyResizeStart.observers.length) {
+                this.ngZone.run(() => this.thyResizeStart.emit({ mouseEvent }));
+            }
             this.nativeElementRect = this.nativeElement.getBoundingClientRect();
         });
 

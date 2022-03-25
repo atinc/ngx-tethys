@@ -1,11 +1,13 @@
-import { OnDestroy, ElementRef, NgZone } from '@angular/core';
+import { ElementRef, NgZone } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, fromEvent } from 'rxjs';
-import { Platform } from '@angular/cdk/platform';
+import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { takeUntil, take } from 'rxjs/operators';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
+
+const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 
 export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
@@ -135,7 +137,12 @@ export abstract class ThyOverlayDirectiveBase {
                 });
         }
 
-        this.manualListeners.forEach((listener, event) => element.addEventListener(event, listener));
+        this.manualListeners.forEach((listener, event) =>
+            // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
+            // Element touch listeners are not passive by default.
+            // We never call `preventDefault()` on events, so we're safe making them passive.
+            element.addEventListener(event, listener, passiveEventListenerOptions)
+        );
     }
 
     dispose(): void {

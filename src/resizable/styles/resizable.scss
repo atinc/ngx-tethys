@@ -15,7 +15,7 @@ $resize-top: -5px;
     &-handle {
         position: absolute;
         user-select: none;
-        z-index: 9;
+        z-index: 8;
         &-top {
             width: 100%;
             height: $resize-height;
