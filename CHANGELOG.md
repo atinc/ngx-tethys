@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.12"></a>
+## [12.1.12](https://github.com/atinc/ngx-tethys/compare/12.1.11...12.1.12) (2022-03-25)
+
+
+### Bug Fixes
+
+* **cascader:** #INFR-2781 should  scroll to active item when menu open ([#1540](https://github.com/atinc/ngx-tethys/issues/1540)) ([cbfd95f](https://github.com/atinc/ngx-tethys/commit/cbfd95f)), closes [#INFR-2781](https://github.com/atinc/ngx-tethys/issues/INFR-2781)
+* **fullscreen:** complete the `afterExited` since it has subscribers and do not run change detection on `keydown` events ([25a5ec5](https://github.com/atinc/ngx-tethys/commit/25a5ec5))
+* **layout:** adjust layout folder icon color,size and shadow #INFR-2793 ([#1543](https://github.com/atinc/ngx-tethys/issues/1543)) ([38468ca](https://github.com/atinc/ngx-tethys/commit/38468ca)), closes [#INFR-2793](https://github.com/atinc/ngx-tethys/issues/INFR-2793)
+* **resizable:** solve the style compatibility problem when dragging #INFR-2786 ([#1539](https://github.com/atinc/ngx-tethys/issues/1539)) ([e8213cc](https://github.com/atinc/ngx-tethys/commit/e8213cc)), closes [#INFR-2786](https://github.com/atinc/ngx-tethys/issues/INFR-2786)
+* **time-picker:** teardown the subscription once the time picker is destroyed ([99cfe6d](https://github.com/atinc/ngx-tethys/commit/99cfe6d))
+* **uploader:** cleanup xhr event listeners once the `upload` is unsubscribed ([590c3b9](https://github.com/atinc/ngx-tethys/commit/590c3b9))
+
+
+### Performance Improvements
+
+* **table:** do not run change detection when adding drag preview class ([a542899](https://github.com/atinc/ngx-tethys/commit/a542899))
+
+
+
 <a name="12.1.11"></a>
 ## [12.1.11](https://github.com/atinc/ngx-tethys/compare/12.1.10...12.1.11) (2022-03-24)
 
