@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
@@ -140,6 +140,21 @@ describe(`sidebar`, () => {
             fixture.detectChanges();
             expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(false);
             expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
+            flush();
+        }));
+
+        it(`should be tip text changed when toggle collapse`, fakeAsync(() => {
+            expect(sidebarDebugElement.componentInstance.collapseTip).toBeUndefined();
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            fixture.detectChanges();
+            tick();
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            tick(200);
+            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('展开');
+            flush();
         }));
     });
 });
