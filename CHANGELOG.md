@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.14"></a>
+## [12.1.14](https://github.com/atinc/ngx-tethys/compare/12.1.13...12.1.14) (2022-03-28)
+
+
+### Bug Fixes
+
+* **layout:** layout sidebar folder add collapse tip value #WIK-6133 ([#1551](https://github.com/atinc/ngx-tethys/issues/1551)) ([1e2fbb6](https://github.com/atinc/ngx-tethys/commit/1e2fbb6)), closes [#WIK-6133](https://github.com/atinc/ngx-tethys/issues/WIK-6133)
+
+
+
 <a name="12.1.13"></a>
 ## [12.1.13](https://github.com/atinc/ngx-tethys/compare/12.1.12...12.1.13) (2022-03-28)
 
