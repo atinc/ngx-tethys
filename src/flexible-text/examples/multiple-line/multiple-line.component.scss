@@ -1,0 +1,10 @@
+.customer-multiple-line {
+    height: 48px;
+    display: -webkit-box;
+    white-space: normal;
+    word-break: break-all;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

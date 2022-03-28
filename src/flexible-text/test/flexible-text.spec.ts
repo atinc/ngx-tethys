@@ -1,10 +1,10 @@
-import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
-import { ThyFlexibleTextModule } from '../flexible-text.module';
-import { ThyFlexibleTextComponent } from '../flexible-text.component';
-import { Component, ViewChild } from '@angular/core';
-import { ThyTooltipModule } from '../../tooltip';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+import { Component, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyTooltipModule } from '../../tooltip';
+import { ThyFlexibleTextComponent } from '../flexible-text.component';
+import { ThyFlexibleTextModule } from '../flexible-text.module';
 
 @Component({
     selector: 'thy-demo-flexible-text',
@@ -33,6 +33,16 @@ import { By } from '@angular/platform-browser';
                 text-overflow: ellipsis;
                 white-space: nowrap;
             }
+            .customer-multiple-line {
+                height: 48px;
+                display: -webkit-box;
+                white-space: normal;
+                word-break: break-all;
+                -webkit-box-orient: vertical;
+                -webkit-line-clamp: 2;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
         `
     ]
 })
@@ -52,39 +62,57 @@ describe('FlexibleTextComponent', () => {
     let callbacks: Function[];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
 
-    beforeEach(waitForAsync(() => {
-        callbacks = [];
+    beforeEach(
+        waitForAsync(() => {
+            callbacks = [];
 
-        TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyFlexibleTextModule],
-            declarations: [FlexibleTextTestComponent],
-            providers: [
-                {
-                    provide: MutationObserverFactory,
-                    useValue: {
-                        create: function(callback: Function) {
-                            callbacks.push(callback);
+            TestBed.configureTestingModule({
+                imports: [ThyTooltipModule, ThyFlexibleTextModule],
+                declarations: [FlexibleTextTestComponent],
+                providers: [
+                    {
+                        provide: MutationObserverFactory,
+                        useValue: {
+                            create: function(callback: Function) {
+                                callbacks.push(callback);
 
-                            return {
-                                observe: () => {},
-                                disconnect: () => {}
-                            };
+                                return {
+                                    observe: () => {},
+                                    disconnect: () => {}
+                                };
+                            }
                         }
                     }
-                }
-            ]
-        }).compileComponents();
-        fixture = TestBed.createComponent(FlexibleTextTestComponent);
-        componentInstance = fixture.componentInstance;
-        fixture.detectChanges();
-    }));
+                ]
+            }).compileComponents();
+            fixture = TestBed.createComponent(FlexibleTextTestComponent);
+            componentInstance = fixture.componentInstance;
+            fixture.detectChanges();
+        })
+    );
 
     it('should not overflow when content is less', () => {
         const component = componentInstance.flexibleText;
         expect(component.isOverflow).toBe(false);
     });
 
-    it('should overflow when content is more', fakeAsync(() => {
+    it('multiple line : should overflow when content is more', fakeAsync(() => {
+        const component = componentInstance.flexibleText;
+        const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
+        车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗`;
+        componentInstance.content = content;
+        let custom = 'customer-multiple-line';
+        componentInstance.customContainerClass = custom;
+        invokeCallbacks();
+        fixture.detectChanges();
+        tick(100);
+        expect(component.isOverflow).toBe(true);
+        const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
+        expect(flexibleTextElement.clientHeight < flexibleTextElement.scrollHeight).toBe(true);
+    }));
+
+    it('single line : should overflow when content is more', fakeAsync(() => {
         const component = componentInstance.flexibleText;
         const content = `周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护
         车高速被堵沈祥福回应炮轰烟台回应广告牌美国奥罗周杰伦练琴辛酸史家长进游戏群控诉韩国一桑拿房起火伊斯兰堡会谈推迟游客夫妻美国被捕黄晓明否认拒演京东回应收集隐私救护

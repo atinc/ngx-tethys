@@ -1,11 +1,10 @@
-import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit, NgZone } from '@angular/core';
-import { from, Subject, Subscription } from 'rxjs';
-import { TooltipService } from 'ngx-tethys/tooltip';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ContentObserver } from '@angular/cdk/observers';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { from, Subject, Subscription } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -101,7 +100,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     applyOverflow() {
         const nativeElement = this.elementRef.nativeElement;
-        if (nativeElement.clientWidth < nativeElement.scrollWidth) {
+        if (nativeElement.clientWidth < nativeElement.scrollWidth || nativeElement.clientHeight < nativeElement.scrollHeight) {
             this.isOverflow = true;
         } else {
             this.isOverflow = false;
