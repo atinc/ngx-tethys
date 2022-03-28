@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.13"></a>
+## [12.1.13](https://github.com/atinc/ngx-tethys/compare/12.1.12...12.1.13) (2022-03-28)
+
+
+### Bug Fixes
+
+* **flexible-text:** support multiline text (#INFR-2798) ([ba7e867](https://github.com/atinc/ngx-tethys/commit/ba7e867)), closes [#INFR-2798](https://github.com/atinc/ngx-tethys/issues/INFR-2798)
+
+
+### Performance Improvements
+
+* **table:** do not run change detection `pointerdown`, `touchstart` and `mousedown` events ([#1529](https://github.com/atinc/ngx-tethys/issues/1529)) ([e55a63d](https://github.com/atinc/ngx-tethys/commit/e55a63d))
+* **tree:** do not run change detection when the tree node is hovered and the drag icon visibility is changed ([ed8ea5c](https://github.com/atinc/ngx-tethys/commit/ed8ea5c))
+
+
+
 <a name="12.1.12"></a>
 ## [12.1.12](https://github.com/atinc/ngx-tethys/compare/12.1.11...12.1.12) (2022-03-25)
 
