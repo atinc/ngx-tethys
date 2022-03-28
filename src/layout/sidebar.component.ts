@@ -10,7 +10,8 @@ import {
     ElementRef,
     NgZone,
     Output,
-    EventEmitter
+    EventEmitter,
+    AfterViewInit
 } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -36,7 +37,7 @@ const LG_WIDTH = 300;
         </div>
     `
 })
-export class ThySidebarComponent implements OnInit {
+export class ThySidebarComponent implements OnInit, AfterViewInit {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
 
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
@@ -126,6 +127,10 @@ export class ThySidebarComponent implements OnInit {
         });
     }
 
+    ngAfterViewInit(): void {
+        this.updateCollapseTip();
+    }
+
     setDraggable() {
         if (!this.dragRef) {
             return;
@@ -152,11 +157,13 @@ export class ThySidebarComponent implements OnInit {
         return result;
     }
 
+    private updateCollapseTip() {
+        this.collapseTip = this.thyCollapsed ? '展开' : '收起';
+    }
+
     toggleCollapse(event: MouseEvent) {
         this.thyCollapsed = !this.thyCollapsed;
-        setTimeout(() => {
-            this.collapseTip = this.thyCollapsed ? '展开' : '收起';
-        }, 200);
+        setTimeout(() => this.updateCollapseTip(), 200);
         this.thyCollapsedChange.emit(this.thyCollapsed);
     }
 }
