@@ -144,10 +144,11 @@ describe(`sidebar`, () => {
         }));
 
         it(`should be tip text changed when toggle collapse`, fakeAsync(() => {
-            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('收起');
+            fixture.debugElement.componentInstance.collapsible = true;
             fixture.debugElement.componentInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
+            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('收起');
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
