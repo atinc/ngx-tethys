@@ -137,9 +137,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // tslint:disable-next-line: max-line-length
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
-            componentInstance.shortcutValueChange
-                ?.pipe(takeUntil(this.destroy$))
-                .subscribe((event: ThyShortcutValueChange) => this.thyShortcutValueChange.emit(event));
+            componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
+                this.thyShortcutValueChange.emit(event);
+                this.closeOverlay();
+            });
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))

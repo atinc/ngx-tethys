@@ -64,3 +64,14 @@
     </div>
   </div>
 </div>
+<br />
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="日期区间"
+  [thyValue]="flexibleDateRange | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [(ngModel)]="flexibleDateRange"
+  thyMode="flexible"
+  [thyShowShortcut]="true"
+></thy-property-operation>
