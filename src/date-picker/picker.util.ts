@@ -5,19 +5,33 @@ import {
     instanceOfDateEntry,
     instanceOfRangeEntry,
     CompatibleValue,
-    PanelMode
+    PanelMode,
+    instanceOfCompatibleValue,
+    RangeAdvancedValue,
+    instanceOfRangeAdvancedValue,
+    ThyFlexibleAdvancedDateGranularity
 } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
 
-export function transformDateValue(value: CompatibleDate | number | DateEntry | RangeEntry): { value: CompatibleDate; withTime?: boolean } {
+export function transformDateValue(
+    value: CompatibleDate | CompatibleValue | number | DateEntry | RangeEntry | RangeAdvancedValue
+): { value: CompatibleDate; withTime?: boolean; flexibleAdvancedDateGranularity?: ThyFlexibleAdvancedDateGranularity } {
     if (!value) {
         return { value: null };
     }
-    let withTime;
+    let withTime, flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
     if (value && typeof value === 'number') {
         value = convertDate(value);
+    }
+    if (value && instanceOfCompatibleValue(value as CompatibleValue)) {
+        if (value instanceof TinyDate) {
+            value = convertDate(value.nativeDate);
+        } else {
+            value[0] = convertDate(value[0].nativeDate);
+            value[1] = convertDate(value[1].nativeDate);
+        }
     }
     if (value && instanceOfDateEntry(value as DateEntry)) {
         const { date, with_time } = value as DateEntry;
@@ -31,8 +45,58 @@ export function transformDateValue(value: CompatibleDate | number | DateEntry | 
             value[0] = convertDate(rangeValue.begin);
             value[1] = convertDate(rangeValue.end);
         }
+        if (rangeValue.dateGranularity) {
+            flexibleAdvancedDateGranularity = rangeValue.dateGranularity;
+        }
     }
-    return { value: value as CompatibleDate, withTime };
+
+    if (value && instanceOfRangeAdvancedValue(value as RangeAdvancedValue)) {
+        const rangeValue = value as RangeAdvancedValue;
+        if (rangeValue.dateGranularity) {
+            flexibleAdvancedDateGranularity = rangeValue.dateGranularity;
+        }
+        value = [];
+        if (rangeValue.begin && rangeValue.end) {
+            value[0] = convertDate(rangeValue.begin.nativeDate);
+            value[1] = convertDate(rangeValue.end.nativeDate);
+        }
+    }
+    return { value: value as CompatibleDate, withTime, flexibleAdvancedDateGranularity };
+}
+
+export function getFlexibleAdvancedReadableValue(
+    tinyDates: TinyDate[],
+    flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity
+) {
+    let value = '';
+    if (!tinyDates[0] || !tinyDates[1]) {
+        return value;
+    }
+    switch (flexibleAdvancedDateGranularity) {
+        case 'year':
+            if (tinyDates[0].isSameYear(tinyDates[1])) {
+                value = `${tinyDates[0].getYear()}年`;
+            } else {
+                value = `${tinyDates[0].getYear()}年 ～ ${tinyDates[1].getYear()}年`;
+            }
+            break;
+        case 'quarter':
+            if (tinyDates[0].isSameQuarter(tinyDates[1])) {
+                value = `${tinyDates[0].getYear()}年 Q${tinyDates[0].getQuarter()}`;
+            } else {
+                value = `${tinyDates[0].getYear()}年 Q${tinyDates[0].getQuarter()} ~ ${tinyDates[1].getYear()}年 Q${tinyDates[1].getQuarter()}`;
+            }
+            break;
+        case 'month':
+            if (tinyDates[0].isSameMonth(tinyDates[1])) {
+                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() + 1}月`;
+            } else {
+                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() +
+                    1}月 ~ ${tinyDates[1].getYear()}年 ${tinyDates[1].getMonth() + 1}月`;
+            }
+            break;
+    }
+    return value;
 }
 
 export function convertDate(date: Date | number): Date {

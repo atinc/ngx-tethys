@@ -25,7 +25,10 @@ import {
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange,
-    SupportTimeOptions
+    SupportTimeOptions,
+    ThyFlexibleAdvancedDateGranularity,
+    RangeAdvancedValue,
+    DatePickerFlexibleTab
 } from '../../standard-types';
 
 @Component({
@@ -57,9 +60,13 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() shortcutPosition: ThyShortcutPosition;
 
+    @Input() flexible: boolean;
+
+    @Input() flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+
     @Output() readonly panelModeChange = new EventEmitter<PanelMode | PanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
-    @Output() readonly valueChange = new EventEmitter<CompatibleValue>();
+    @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
     @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
@@ -70,6 +77,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
     activeDate: TinyDate | TinyDate[];
     selectedValue: TinyDate[] = []; // Range ONLY
     hoverValue: TinyDate[] = []; // Range ONLY
+
+    advancedSelectedValue: RangeAdvancedValue; // advanced ONLY
+
+    flexibleActiveTab: DatePickerFlexibleTab = 'advanced';
 
     get hasTimePicker(): boolean {
         return !!this.showTime;
@@ -89,12 +100,22 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {
         this.initPanelMode();
+        if (this.flexible && (this.value as TinyDate[]).length && !this.flexibleAdvancedDateGranularity) {
+            this.flexibleActiveTab = 'custom';
+        }
         if (this.defaultPickerValue && !hasValue(this.value)) {
             const { value } = transformDateValue(this.defaultPickerValue);
             this.value = makeValue(value, this.isRange);
         }
         this.updateActiveDate();
         this.initDisabledDate();
+        if (this.isRange && this.value) {
+            this.advancedSelectedValue = {
+                begin: this.value[0],
+                end: this.value[1],
+                dateGranularity: this.flexibleAdvancedDateGranularity
+            };
+        }
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -120,7 +141,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
             this.value = makeValue(value, this.isRange);
         }
         if (this.isRange) {
-            this.selectedValue = this.value as TinyDate[];
+            if (!this.flexibleAdvancedDateGranularity) {
+                this.selectedValue = this.value as TinyDate[];
+            }
             this.activeDate = this.normalizeRangeValue(this.value as TinyDate[], this.getPanelMode(this.endPanelMode) as PanelMode);
         } else {
             this.activeDate = this.value as TinyDate;
@@ -231,8 +254,30 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
+    selectTab(active: DatePickerFlexibleTab) {
+        this.flexibleActiveTab = active;
+    }
+
+    clearFlexibleValue() {
+        if (this.flexibleActiveTab === 'advanced') {
+            this.advancedSelectedValue = {};
+        } else {
+            this.selectedValue = [];
+        }
+        this.setValue([]);
+    }
+
+    changeValueFromAdvancedSelect(value: RangeAdvancedValue) {
+        this.valueChange.emit(value);
+        // clear custom date when select a advanced date
+        this.selectedValue = [];
+    }
+
     changeValueFromSelect(value: TinyDate, partType?: RangePartType): void {
         if (this.isRange) {
+            // clear advanced date when select a custom date
+            this.advancedSelectedValue = {};
+
             const [left, right] = this.selectedValue as TinyDate[];
 
             if ((!left && !right) || (left && right)) {

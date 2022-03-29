@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { RangeEntry } from './standard-types';
+import { RangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -108,6 +108,39 @@ describe('ThyRangePickerDirective', () => {
             expect(result[1]).toEqual(endOfDay(result[1]));
         }));
 
+        it('should support thyShowShortcut', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut')).toBeTruthy();
+        }));
+
+        it('should support thyShortcutPosition', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutPosition = 'bottom';
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
+        }));
+
+        it('should support more thyShortcutRanges', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutRanges = [
+                {
+                    title: '回家那几天',
+                    begin: new Date('2022-01-29').getTime(),
+                    end: new Date('2022-02-8').getTime()
+                }
+            ];
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
+        }));
+
         function queryFromOverlay(selector: string): HTMLElement {
             return overlayContainerElement.querySelector(selector) as HTMLElement;
         }
@@ -135,6 +168,9 @@ describe('ThyRangePickerDirective', () => {
             thyLabelText="开始时间"
             thyRangePicker
             [(ngModel)]="modelValue"
+            [thyShowShortcut]="thyShowShortcut"
+            [thyShortcutPosition]="thyShortcutPosition"
+            [thyShortcutRanges]="thyShortcutRanges"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyOpenChange)="thyOpenChange($event)"
         ></thy-property-operation>
@@ -142,6 +178,9 @@ describe('ThyRangePickerDirective', () => {
 })
 class ThyTestRangePickerDirective {
     modelValue: RangeEntry;
+    thyShowShortcut: boolean;
+    thyShortcutPosition: ThyShortcutPosition = 'left';
+    thyShortcutRanges: ThyShortcutRange[];
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
 }

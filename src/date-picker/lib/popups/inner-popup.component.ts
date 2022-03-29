@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 
 import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
-import { TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
+import { DateHelperService } from '../../date-helper.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +24,8 @@ import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOn
 })
 export class InnerPopupComponent implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
+    @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
+
     @Input() showWeek: boolean;
     @Input() isRange: boolean;
     @Input() activeDate: TinyDate;
@@ -35,6 +38,14 @@ export class InnerPopupComponent implements OnChanges {
     @Input() hoverValue: TinyDate[]; // Range ONLY
 
     @Input() panelMode: PanelMode;
+
+    @Input() set showDateRangeInput(value: boolean) {
+        this._showDateRangeInput = coerceBooleanProperty(value);
+    }
+
+    get showDateRangeInput() {
+        return this._showDateRangeInput;
+    }
 
     @Input() partType: RangePartType;
 
@@ -50,7 +61,7 @@ export class InnerPopupComponent implements OnChanges {
 
     prefixCls = 'thy-calendar';
 
-    constructor() {}
+    constructor(private dateHelper: DateHelperService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
@@ -59,6 +70,10 @@ export class InnerPopupComponent implements OnChanges {
         if (changes.panelMode && changes.panelMode.currentValue === 'time') {
             this.panelMode = 'date';
         }
+    }
+
+    getReadableValue(value: TinyDate) {
+        return value ? this.dateHelper.format(value.nativeDate, 'yyyy-MM-dd') : '';
     }
 
     onSelectDate(date: TinyDate | Date): void {

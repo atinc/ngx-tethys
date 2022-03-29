@@ -1,6 +1,8 @@
 <thy-picker
   [isRange]="isRange"
   [value]="thyValue"
+  [flexible]="flexible"
+  [flexibleAdvancedDateGranularity]="flexibleAdvancedDateGranularity"
   (valueChange)="onValueChange($event)"
   [open]="thyOpen"
   [disabled]="thyDisabled"
@@ -20,6 +22,8 @@
     [isRange]="isRange"
     [showWeek]="showWeek"
     [panelMode]="panelMode"
+    [flexible]="flexible"
+    [flexibleAdvancedDateGranularity]="flexibleAdvancedDateGranularity"
     [defaultPickerValue]="thyDefaultPickerValue"
     (panelModeChange)="thyOnPanelChange.emit($event)"
     (showTimePickerChange)="onShowTimePickerChange($event)"
@@ -36,7 +40,7 @@
     [showShortcut]="thyShowShortcut"
     [shortcutRanges]="shortcutRanges"
     [shortcutPosition]="shortcutPosition"
-    (shortcutValueChange)="thyShortcutValueChange.emit($event)"
+    (shortcutValueChange)="onShortcutValueChange($event)"
     [className]="thyPanelClassName"
     (resultOk)="onResultOk()"
   ></date-popup>

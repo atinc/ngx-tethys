@@ -4,7 +4,7 @@ import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, CompatibleValue, PanelMode } from './standard-types';
+import { CompatibleDate, CompatibleValue, PanelMode, RangeAdvancedValue } from './standard-types';
 
 @Component({
     template: ``
@@ -42,10 +42,12 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         this.setDefaultTimePickerState();
     }
 
-    onValueChange(value: CompatibleValue): void {
-        this.restoreTimePickerState(value);
+    onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
+        this.restoreTimePickerState(value as CompatibleValue);
         super.onValueChange(value);
-        this.closeOverlay();
+        if (!this.flexible) {
+            this.closeOverlay();
+        }
     }
 
     // Displays the time directly when the time must be displayed by default

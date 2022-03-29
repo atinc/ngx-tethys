@@ -10,6 +10,27 @@
             width: 270px;
             display: block;
         }
+        &-picker-inner-popup-with-range-input {
+            .#{style.$calendar-prefix-cls}-picker-inner-popup-range-input {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px 18px 5px 18px;
+                input {
+                    width: 136px;
+                }
+                .split {
+                    width: 15px;
+                    height: 1px;
+                    background-color: variables.$gray-300;
+                }
+            }
+
+            .#{style.$calendar-prefix-cls}-header {
+                border-bottom: none;
+            }
+        }
         &-panel {
             flex: 1;
         }

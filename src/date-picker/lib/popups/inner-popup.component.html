@@ -1,3 +1,10 @@
+<ng-container *ngIf="showDateRangeInput">
+  <div class="{{ prefixCls }}-picker-inner-popup-range-input">
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[0])" placeholder="开始日期" />
+    <span class="split"></span>
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[1])" placeholder="结束日期" />
+  </div>
+</ng-container>
 <ng-container [ngSwitch]="panelMode">
   <ng-container *ngSwitchCase="'decade'">
     <div class="{{ prefixCls }}-decade">

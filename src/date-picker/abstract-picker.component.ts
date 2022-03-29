@@ -26,7 +26,9 @@ import {
     PanelMode,
     ThyShortcutPosition,
     ThyShortcutRange,
-    ThyShortcutValueChange
+    ThyShortcutValueChange,
+    RangeAdvancedValue,
+    ThyFlexibleAdvancedDateGranularity
 } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
@@ -68,6 +70,10 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     withTime: boolean;
 
+    flexible: boolean;
+
+    flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+
     protected destroyed$: Subject<void> = new Subject();
     protected isCustomPlaceHolder = false;
     private onlyEmitDate = false;
@@ -86,6 +92,18 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
         this.initValue();
+        this.initMode();
+    }
+    initMode() {
+        this.flexible = this.thyMode === 'flexible';
+        if (this.flexible) {
+            this.thyMode = 'date';
+        }
+    }
+
+    onShortcutValueChange(event: ThyShortcutValueChange) {
+        this.thyShortcutValueChange.emit(event);
+        this.closeOverlay();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -134,9 +152,11 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         return value;
     }
 
-    onValueChange(originalValue: CompatibleValue): void {
+    onValueChange(originalValue: CompatibleValue | RangeAdvancedValue): void {
         this.setFormatRule();
-        this.thyValue = originalValue;
+        const { value, withTime, flexibleAdvancedDateGranularity } = transformDateValue(originalValue);
+        this.flexibleAdvancedDateGranularity = flexibleAdvancedDateGranularity;
+        this.setValue(value);
         if (this.isRange) {
             const vAsRange: any = this.thyValue;
             let value = { begin: null, end: null } as RangeEntry;
@@ -150,6 +170,9 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
                         end: end.getUnixTime()
                     };
                 }
+            }
+            if (this.flexible && flexibleAdvancedDateGranularity) {
+                value.dateGranularity = flexibleAdvancedDateGranularity;
             }
             this.onChangeFn(value);
         } else {
@@ -186,8 +209,9 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     onChangeFn: (val: CompatibleDate | DateEntry | RangeEntry | number | null) => void = () => void 0;
     onTouchedFn: () => void = () => void 0;
 
-    writeValue(originalValue: CompatibleDate): void {
-        const { value, withTime } = transformDateValue(originalValue);
+    writeValue(originalValue: CompatibleDate | RangeEntry): void {
+        const { value, withTime, flexibleAdvancedDateGranularity } = transformDateValue(originalValue);
+        this.flexibleAdvancedDateGranularity = flexibleAdvancedDateGranularity;
         this.setValue(value);
         this.setTimePickerState(withTime);
         this.onlyEmitDate = typeof withTime === 'undefined';

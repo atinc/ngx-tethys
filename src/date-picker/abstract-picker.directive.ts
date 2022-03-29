@@ -83,6 +83,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     ngOnInit() {
         this.thyMode = this.thyMode || 'date';
+        this.flexible = this.thyMode === 'flexible';
+        if (this.flexible) {
+            this.thyMode = 'date';
+        }
         this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
     }
 
@@ -112,7 +116,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         maxDate: this.thyMaxDate,
                         showShortcut: this.thyShowShortcut,
                         shortcutRanges: this.shortcutRanges,
-                        shortcutPosition: this.shortcutPosition
+                        shortcutPosition: this.shortcutPosition,
+                        flexible: this.flexible,
+                        flexibleAdvancedDateGranularity: this.flexibleAdvancedDateGranularity
                     },
                     placement: this.thyPlacement
                 },
@@ -174,8 +180,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     onValueChange(value: CompatibleValue): void {
         this.restoreTimePickerState(value);
         super.onValueChange(value);
-
-        this.closeOverlay();
+        if (!this.flexible) {
+            this.closeOverlay();
+        }
     }
 
     // Displays the time directly when the time must be displayed by default

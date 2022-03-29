@@ -12,6 +12,7 @@ import {
     isSameMonth,
     isSameSecond,
     isSameYear,
+    isSameQuarter,
     isToday,
     isTomorrow,
     isValid,
@@ -210,6 +211,9 @@ export class TinyDate implements Record<string, any> {
             case 'month':
                 fn = isSameMonth;
                 break;
+            case 'quarter':
+                fn = isSameQuarter;
+                break;
             case 'day':
                 fn = isSameDay;
                 break;
@@ -235,6 +239,10 @@ export class TinyDate implements Record<string, any> {
 
     isSameMonth(date: TinyDateType): boolean {
         return this.isSame(date, 'month');
+    }
+
+    isSameQuarter(date: TinyDateType): boolean {
+        return this.isSame(date, 'quarter');
     }
 
     isSameDay(date: TinyDateType): boolean {
