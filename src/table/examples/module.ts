@@ -1,25 +1,33 @@
-import { NgxTethysModule } from 'ngx-tethys';
-
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyTableModule } from 'ngx-tethys/table';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
+import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyEmptyModule } from 'ngx-tethys/empty';
 
-import { ThyTableBasicExampleComponent } from './basic/basic.component';
-import { ThyTableCustomEmptyExampleComponent } from './custom-empty/custom-empty.component';
-import { ThyTableGroupExampleComponent } from './group/group.component';
-import { ThyTableTreeExampleComponent } from './tree/tree.component';
-
-const COMPONENTS = [
-    ThyTableBasicExampleComponent,
-    ThyTableGroupExampleComponent,
-    ThyTableTreeExampleComponent,
-    ThyTableCustomEmptyExampleComponent
-];
-
-@NgModule({
-    declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
-    imports: [CommonModule, NgxTethysModule, FormsModule],
-    exports: [...COMPONENTS]
-})
-export class ThyTableExamplesModule {}
+export default {
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyTableModule,
+        ThyIconModule,
+        ThyFormModule,
+        ThyRadioModule,
+        ThyTooltipModule,
+        ThyFlexibleTextModule,
+        ThySelectModule,
+        ThyButtonModule,
+        ThyNotifyModule,
+        ThySpaceModule,
+        ThyRasterModule,
+        ThyEmptyModule
+    ]
+};

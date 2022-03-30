@@ -201,6 +201,7 @@
         .thy-table-group-container {
             display: flex;
             align-items: center;
+            padding-left: 10px;
 
             .expand-icon {
                 color: variables.$gray-500;

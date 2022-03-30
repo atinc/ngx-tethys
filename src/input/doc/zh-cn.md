@@ -31,36 +31,27 @@ import { ThyInputModule } from "ngx-tethys/input";
 
 <example name="thy-input-size-example" /> 
 
-
-
-## thy-input-search 搜索输入框
-
-<example name="thy-input-search-example" />  
-
-
 ## 输入框前后置元素
 
-- 使用标签`thy-input-group`，通过属性`thyPrependText`与`thyAppendText`添加
+通过 `thy-input-group` 组件，可以实现输入框前后追加元素，追加的元素是独立于输入框的，支持`thyPrependText`和`thyAppendText`，以及自定义模板。
 
 ```html
 <thy-input-group thyPrependText="前置" thyAppendText="$">
   <input thyInput placeholder="请输入元素" />
 </thy-input-group>
 ```
-- 使用自定义模板
 
-```html
-<thy-input [(ngModel)]="value" [thyAutofocus]="true">
-  <ng-template #prepend>
-    <div class="cursor-pointer">中国+86</div>
-  </ng-template>
-  <ng-template #append>
-    <a href="javascript:;"><span thyLabel="default">获取验证码</span></a>
-  </ng-template>
-</thy-input>
-```
+<example name="thy-input-group-example" />  
 
-<example name="thy-input-prepend-append-example" />  
+## 输入框内部前后置元素
+`thy-input` 组件内部也支持 `prepend` 和 `append` 模板，不同于 Input Group，模板会嵌入到输入框内部。
+
+<example name="thy-input-pre-suffix-example" />  
+
+## 搜索输入框
+Input 组件提供了`thy-input-search`组件实现搜索功能，同时也可以通过`thy-input-group`和`thy-input`的 append 模板组合搜索输入框，自带的搜索组件支持清除操作，组合实现的需要自行实现。
+
+<example name="thy-input-search-example" />  
 
 
 ## 密码输入框
@@ -68,6 +59,6 @@ import { ThyInputModule } from "ngx-tethys/input";
 
 <example name="thy-input-password-example" />
 
-## 输入框label提示
+## 输入框提示
 
 <example name="thy-input-label-example" />

@@ -1,4 +1,4 @@
-import { Directive, Output, EventEmitter, OnInit, NgZone, ElementRef, Renderer2 } from '@angular/core';
+import { Directive, Output, EventEmitter, OnInit, NgZone, ElementRef, Renderer2, OnDestroy } from '@angular/core';
 import { keycodes } from 'ngx-tethys/util';
 
 /**
@@ -7,23 +7,29 @@ import { keycodes } from 'ngx-tethys/util';
 @Directive({
     selector: '[thyEnter]'
 })
-export class ThyEnterDirective implements OnInit {
+export class ThyEnterDirective implements OnInit, OnDestroy {
     @Output() thyEnter = new EventEmitter();
 
-    onKeydown(event: KeyboardEvent) {
+    onKeydown = (event: KeyboardEvent) => {
         const keyCode = event.which || event.keyCode;
         if (keyCode === keycodes.ENTER) {
             this.ngZone.run(() => {
                 this.thyEnter.emit(event);
             });
         }
-    }
+    };
+
+    private removeKeydownListenerFn: VoidFunction;
 
     constructor(private ngZone: NgZone, private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
-            this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
+            this.removeKeydownListenerFn = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown);
         });
+    }
+
+    ngOnDestroy(): void {
+        this.removeKeydownListenerFn();
     }
 }

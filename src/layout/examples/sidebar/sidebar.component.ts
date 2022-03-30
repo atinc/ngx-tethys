@@ -8,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
 export class ThyLayoutSidebarExampleComponent implements OnInit {
     isolated = false;
 
+    collapsedWidth = 80;
+
     width = '';
 
     constructor() {}

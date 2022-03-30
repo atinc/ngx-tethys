@@ -1,14 +1,14 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
 import { ThyResizableBasicExampleComponent } from '../examples/basic/basic.component';
-import { NgZone, ViewChild, ElementRef, Component } from '@angular/core';
+import { ViewChild, ElementRef, Component, ApplicationRef } from '@angular/core';
 import { ThyResizableCustomizeExampleComponent } from '../examples/customize/customize.component';
 import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-aspect-ratio/lock-aspect-ratio.component';
 import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
 import { ThyResizableRasterExampleComponent } from '../examples/raster/raster.component';
 import { ThyResizableModule } from '../module';
 import { ThyRasterModule } from 'ngx-tethys';
-import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { ThyResizableDirective, DEFAULT_RESIZE_DIRECTION } from '../index';
 
@@ -48,7 +48,7 @@ import { ThyResizableDirective, DEFAULT_RESIZE_DIRECTION } from '../index';
     ]
 })
 class ThyTestResizableBoundsComponent {
-    @ViewChild('boxRef', { static: false }) boxRef!: ElementRef<HTMLDivElement>;
+    @ViewChild('boxRef', { static: true }) boxRef!: ElementRef<HTMLDivElement>;
     bounds: string | ElementRef = 'parent';
     maxWidth = 300;
     maxHeight = 300;
@@ -107,19 +107,41 @@ describe('resizable', () => {
             });
         });
 
-        it('should add hover class when mouseenter', () => {
+        it('should toggle the `thy-resizable-handle-box-hover` class when `mouseenter` and `mouseleave` events are fired and should not run change detection', () => {
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
             dispatchMouseEvent(resizableEle, 'mouseenter');
-            fixture.detectChanges();
             const handles = resizableEle.querySelectorAll('.thy-resizable-handle');
             expect(handles.length).toBe(8);
             handles.forEach(e => {
                 expect(e.classList).toContain('thy-resizable-handle-box-hover');
             });
             dispatchMouseEvent(resizableEle, 'mouseleave');
-            fixture.detectChanges();
             handles.forEach(e => {
                 expect(e.classList).not.toContain('thy-resizable-handle-box-hover');
             });
+            expect(appRef.tick).toHaveBeenCalledTimes(0);
+        });
+
+        it('should not run change detection on `mousedown` event on the `thy-resize-handle`', () => {
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+            const thyResizeHandle = resizableEle.querySelector('thy-resize-handle')!;
+            dispatchMouseEvent(thyResizeHandle, 'mousedown');
+            expect(appRef.tick).toHaveBeenCalledTimes(0);
+        });
+
+        it('should not run change detection if there are no `thyResizeStart` observers', () => {
+            const thyResizeStartSpy = jasmine.createSpy();
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+            const thyResizeHandle = resizableEle.querySelector('thy-resize-handle');
+            dispatchMouseEvent(thyResizeHandle, 'mousedown');
+            expect(appRef.tick).not.toHaveBeenCalled();
+            testComponent.directive.thyResizeStart.subscribe(thyResizeStartSpy);
+            dispatchMouseEvent(thyResizeHandle, 'mousedown');
+            expect(appRef.tick).toHaveBeenCalledTimes(1);
+            expect(thyResizeStartSpy).toHaveBeenCalled();
         });
 
         it('should maximum size work', fakeAsync(() => {

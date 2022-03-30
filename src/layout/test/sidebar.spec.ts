@@ -1,5 +1,5 @@
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, tick } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
@@ -17,6 +17,10 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyIsolated]="isolated"
                 [thyHasBorderRight]="hasBorderRight"
                 [thyIsDraggableWidth]="isDraggableWidth"
+                [thyCollapsible]="collapsible"
+                [thyCollapsed]="isCollapsed"
+                [thyCollapsedWidth]="collapsibleWidth"
+                (thyCollapsedChange)="collapsedChange($event)"
             >
                 恩
             </thy-sidebar>
@@ -31,6 +35,13 @@ class ThyDemoLayoutSidebarBasicComponent {
     isolated = false;
     hasBorderRight = true;
     isDraggableWidth = false;
+    collapsible = false;
+    collapsibleWidth = 0;
+    isCollapsed = false;
+
+    collapsedChange(isCollapsed: boolean) {
+        this.isCollapsed = isCollapsed;
+    }
 }
 
 describe(`sidebar`, () => {
@@ -103,6 +114,47 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(dragElement, 'mousedown');
             dispatchMouseEvent(dragElement, 'mousemove', dragElementRect.left + 20, dragElementRect.height);
             dispatchMouseEvent(dragElement, 'mouseup');
+        }));
+
+        it('should enable thyCollapsible', fakeAsync(() => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            fixture.detectChanges();
+            tick();
+            expect(sidebarDebugElement.componentInstance.thyCollapsible).toEqual(true);
+            expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
+        }));
+
+        it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
+            const inputCollapseWidth = 80;
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = inputCollapseWidth;
+            fixture.detectChanges();
+            tick();
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(true);
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(fixture.debugElement.componentInstance.collapsibleWidth + 'px');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(false);
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
+            flush();
+        }));
+
+        it(`should be tip text changed when toggle collapse`, fakeAsync(() => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            fixture.detectChanges();
+            tick();
+            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('收起');
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
+            dispatchMouseEvent(sidebarCollapseElement, 'click');
+            fixture.detectChanges();
+            tick(200);
+            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('展开');
+            flush();
         }));
     });
 });

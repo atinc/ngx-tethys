@@ -44,15 +44,13 @@
     <!-- list模式下没有直接使用item模板，是因为使用了模板影响了Angular的依赖树，导致CdkDragDrop排序失效，目前这样修改可以暂时解决线上不能排序的问题，Tree模式的排序暂时不支持 -->
     <ng-container *ngIf="mode === 'list'">
       <tr
+        #rows
         *ngFor="let row of model; trackBy: trackByFn; let i = index"
         class="thy-sortable-item"
         cdkDrag
         [cdkDragData]="row"
         (cdkDragStarted)="onDragStarted()"
         [ngClass]="renderRowClassName(row, i)"
-        (mousedown)="draggableStopPropagation($event)"
-        (touchstart)="draggableStopPropagation($event)"
-        (pointerdown)="draggableStopPropagation($event)"
         (click)="onRowClick($event, row)"
         (thyContextMenu)="onRowContextMenu($event, row)"
       >
@@ -68,14 +66,12 @@
 
     <ng-template #trTemplate let-row="row" let-i="index" let-level="level">
       <tr
+        #rows
         class="thy-sortable-item"
         cdkDrag
         [cdkDragData]="row"
         (cdkDragStarted)="onDragStarted()"
         [ngClass]="renderRowClassName(row, i)"
-        (mousedown)="draggableStopPropagation($event)"
-        (touchstart)="draggableStopPropagation($event)"
-        (pointerdown)="draggableStopPropagation($event)"
         (click)="onRowClick($event, row)"
         (thyContextMenu)="onRowContextMenu($event, row)"
       >

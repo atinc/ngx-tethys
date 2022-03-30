@@ -9,10 +9,21 @@ export class ThyResizableService implements OnDestroy {
     private document: Document;
     private listeners = new Map<string, (event: MouseEvent | TouchEvent) => void>();
 
-    handleMouseDown$ = new Subject<ThyResizeHandleMouseDownEvent>();
-    documentMouseUp$ = new Subject<MouseEvent | TouchEvent>();
-    documentMouseMove$ = new Subject<MouseEvent | TouchEvent>();
-    mouseEntered$ = new Subject<boolean>();
+    /**
+     * The `OutsideAngular` prefix means that the subject will emit events outside of the Angular zone,
+     * so that becomes a bit more descriptive for those who'll maintain the code in the future:
+     * ```ts
+     * thyResizableService.handleMouseDownOutsideAngular$.subscribe(event => {
+     *   console.log(Zone.current); // <root>
+     *   console.log(NgZone.isInAngularZone()); // false
+     * });
+     * ```
+     */
+
+    handleMouseDownOutsideAngular$ = new Subject<ThyResizeHandleMouseDownEvent>();
+    documentMouseUpOutsideAngular$ = new Subject<MouseEvent | TouchEvent>();
+    documentMouseMoveOutsideAngular$ = new Subject<MouseEvent | TouchEvent>();
+    mouseEnteredOutsideAngular$ = new Subject<boolean>();
 
     constructor(private ngZone: NgZone, @Inject(DOCUMENT) document: any) {
         this.document = document;
@@ -24,10 +35,10 @@ export class ThyResizableService implements OnDestroy {
         const moveEvent = _isTouchEvent ? 'touchmove' : 'mousemove';
         const upEvent = _isTouchEvent ? 'touchend' : 'mouseup';
         const moveEventHandler = (e: MouseEvent | TouchEvent) => {
-            this.documentMouseMove$.next(e);
+            this.documentMouseMoveOutsideAngular$.next(e);
         };
         const upEventHandler = (e: MouseEvent | TouchEvent) => {
-            this.documentMouseUp$.next(e);
+            this.documentMouseUpOutsideAngular$.next(e);
             this.clearListeners();
         };
 
@@ -48,10 +59,10 @@ export class ThyResizableService implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.handleMouseDown$.complete();
-        this.documentMouseUp$.complete();
-        this.documentMouseMove$.complete();
-        this.mouseEntered$.complete();
+        this.handleMouseDownOutsideAngular$.complete();
+        this.documentMouseUpOutsideAngular$.complete();
+        this.documentMouseMoveOutsideAngular$.complete();
+        this.mouseEnteredOutsideAngular$.complete();
         this.clearListeners();
     }
 }

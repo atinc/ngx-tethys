@@ -1,27 +1,16 @@
-import {
-    Component,
-    Input,
-    Output,
-    Renderer2,
-    Inject,
-    ViewChild,
-    ElementRef,
-    OnInit,
-    OnDestroy,
-    HostListener,
-    EventEmitter
-} from '@angular/core';
-import { coerceBooleanProperty, isArray, isString } from 'ngx-tethys/util';
+import { Component, Input, Output, Inject, ViewChild, ElementRef, OnDestroy, EventEmitter, NgZone } from '@angular/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { mimeTypeConvert } from './util';
-import { ThySizeExceedsHandler } from './types';
 import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
 import { FileSelectBaseComponent } from './file-select-base';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
-export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
+export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnDestroy {
     private multiple: boolean;
 
     private acceptFolder: boolean;
@@ -59,13 +48,22 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
         this.sizeThreshold = value;
     }
 
-    @HostListener('click', ['$event'])
-    click($event: Event) {
-        this.fileInput.nativeElement.click();
-    }
+    private destroy$ = new Subject<void>();
 
-    constructor(public elementRef: ElementRef, @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig) {
+    constructor(
+        public elementRef: ElementRef,
+        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig,
+        ngZone: NgZone
+    ) {
         super(elementRef, defaultConfig);
+
+        ngZone.runOutsideAngular(() =>
+            fromEvent(elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    this.fileInput.nativeElement.click();
+                })
+        );
     }
 
     selectFile($event: Event) {
@@ -76,7 +74,7 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
         }
     }
 
-    ngOnInit() {}
-
-    ngOnDestroy() {}
+    ngOnDestroy(): void {
+        this.destroy$.next();
+    }
 }

@@ -5,94 +5,37 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './tree.component.html'
 })
 export class ThyTableTreeExampleComponent implements OnInit {
-    public selections: any = [];
-
-    public model = [
+    data = [
         {
-            id: 1,
-            name: '张三',
-            age: 0,
-            checked: true,
-            desc: '',
-            is_favorite: 1,
+            id: '1',
+            name: 'Product R&D',
             children: [
                 {
-                    id: 11,
-                    name: 'John Brown',
-                    age: 42,
-                    desc: 'New York No.',
+                    id: '1-1',
+                    name: 'Project Team',
                     children: [
                         {
-                            id: 111,
-                            name: 'John Brown',
-                            age: 111,
-                            desc: 'New York No.',
-                            children: [
-                                {
-                                    id: 1111,
-                                    name: 'John Brown',
-                                    age: 1111,
-                                    desc: 'New York No.',
-                                    children: [
-                                        {
-                                            id: 11111,
-                                            name: 'John Brown',
-                                            age: 11111,
-                                            desc: 'New York No.',
-                                            children: [
-                                                {
-                                                    id: 111111,
-                                                    name: 'John Brown',
-                                                    age: 111111,
-                                                    desc: 'New York No.'
-                                                }
-                                            ]
-                                        }
-                                    ]
-                                }
-                            ]
-                        }
+                            id: 1,
+                            name: 'Peter',
+                            age: 25,
+                            job: 'Engineer',
+                            address: 'Beijing Dong Sheng Technology',
+                            children: [{ id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }]
+                        },
+                        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
                     ]
                 }
             ]
         },
         {
-            id: 2,
-            name: '李四',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0,
-            children: [
-                {
-                    id: 22,
-                    name: '李四22',
-                    age: 10,
-                    checked: false,
-                    desc: '这是一条测试数据',
-                    is_favorite: 0,
-                    children: [
-                        {
-                            id: 222,
-                            name: '李四222',
-                            age: 10,
-                            checked: false,
-                            desc: '这是一条测试数据',
-                            is_favorite: 0
-                        }
-                    ]
-                }
-            ]
+            id: '2',
+            name: 'Product Design',
+            children: [{ id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' }]
         },
-        {
-            id: 3,
-            name: '王五',
-            age: 10,
-            checked: false,
-            desc: '这是一条测试数据',
-            is_favorite: 0
-        }
+        { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' }
     ];
+
+    selections: { id: number; name: string }[] = [];
 
     ngOnInit() {}
 }

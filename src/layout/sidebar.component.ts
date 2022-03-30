@@ -1,6 +1,21 @@
-import { Component, HostBinding, Host, Optional, OnInit, Input, ViewChild, Renderer2, ElementRef, NgZone } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Host,
+    Optional,
+    OnInit,
+    Input,
+    ViewChild,
+    Renderer2,
+    ElementRef,
+    NgZone,
+    Output,
+    EventEmitter,
+    AfterViewInit
+} from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const LG_WIDTH = 300;
 @Component({
@@ -17,14 +32,25 @@ const LG_WIDTH = 300;
             (cdkDragStarted)="dragStartedHandler()"
             (cdkDragEnded)="dragEndedHandler()"
         ></div>
+        <div *ngIf="thyCollapsible" class="sidebar-collapse" (click)="toggleCollapse($event)" [thyTooltip]="collapseTip">
+            <thy-icon class="sidebar-collapse-icon" [thyIconName]="collapseIconName"></thy-icon>
+        </div>
     `
 })
-export class ThySidebarComponent implements OnInit {
+export class ThySidebarComponent implements OnInit, AfterViewInit {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
 
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
 
-    @HostBinding('style.width.px') thyLayoutSidebarWidth: number;
+    thyLayoutSidebarWidth: number;
+
+    @HostBinding('style.width.px') get sidebarWidth() {
+        if (this.thyCollapsible && this.thyCollapsed) {
+            return this.thyCollapsedWidth;
+        } else {
+            return this.thyLayoutSidebarWidth;
+        }
+    }
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
@@ -61,6 +87,26 @@ export class ThySidebarComponent implements OnInit {
 
     isDraggableWidth: boolean;
 
+    @Output()
+    thyCollapsedChange = new EventEmitter();
+
+    @Input() @InputBoolean() thyCollapsible = false;
+
+    @Input() @InputBoolean() thyCollapsed = false;
+
+    @Input() thyCollapsedWidth = 20;
+
+    @HostBinding('class.sidebar-collapse-show')
+    get collapseVisibility() {
+        return this.thyCollapsed;
+    }
+
+    get collapseIconName() {
+        return this.thyCollapsed ? 'indent-bold' : 'outdent-bold';
+    }
+
+    collapseTip: string;
+
     constructor(
         @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
         private renderer: Renderer2,
@@ -81,6 +127,10 @@ export class ThySidebarComponent implements OnInit {
         });
     }
 
+    ngAfterViewInit(): void {
+        this.updateCollapseTip();
+    }
+
     setDraggable() {
         if (!this.dragRef) {
             return;
@@ -96,6 +146,7 @@ export class ThySidebarComponent implements OnInit {
         const x = this.dragRef.nativeElement.getBoundingClientRect().x;
         this.widthPassive = this.numberConvertToFloor(this.widthPassive * 1 + (x - this.dragStartedX));
         this.thyLayoutSidebarWidth = this.widthPassive;
+        this.thyCollapsed = this.thyLayoutSidebarWidth > this.thyCollapsedWidth ? false : true;
     }
 
     private numberConvertToFloor(value: number | string) {
@@ -104,5 +155,15 @@ export class ThySidebarComponent implements OnInit {
             result = 1;
         }
         return result;
+    }
+
+    private updateCollapseTip() {
+        this.collapseTip = this.thyCollapsed ? '展开' : '收起';
+    }
+
+    toggleCollapse(event: MouseEvent) {
+        this.thyCollapsed = !this.thyCollapsed;
+        setTimeout(() => this.updateCollapseTip(), 200);
+        this.thyCollapsedChange.emit(this.thyCollapsed);
     }
 }

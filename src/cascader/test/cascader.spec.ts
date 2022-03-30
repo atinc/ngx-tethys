@@ -1,26 +1,31 @@
-import { CommonModule } from '@angular/common';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ThyCascaderModule } from '../module';
 import { By } from '@angular/platform-browser';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyCascaderTriggerType, ThyCascaderExpandTrigger } from '../cascader.component';
+import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../cascader.component';
+import { ThyCascaderModule } from '../module';
+registerLocaleData(zh);
+
 const customerOptions = [
     {
         value: 'zhejiang',
-        label: 'Zhejiang',
+        label: 'zhejiang',
         code: 477200,
         children: [
             {
                 value: 'hangzhou',
-                label: 'Hangzhou',
+                label: 'hangzhou',
                 children: [
                     {
                         value: 'xihu',
-                        label: 'West Lake',
+                        label: 'xihu',
                         code: 752100,
                         isLeaf: true
                     }
@@ -29,6 +34,112 @@ const customerOptions = [
         ]
     }
 ];
+
+const multipleOptions = [
+    {
+        value: 'beijing',
+        label: 'beijing',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'haidianqu',
+                        label: 'haidianqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'tianjinshi',
+        label: 'tianjinshi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hepingqu',
+                        label: 'hepingqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jilinsheng',
+        label: 'jilinsheng',
+        children: [
+            {
+                value: 'liaoyuanshi',
+                label: 'liaoyuanshi',
+                children: [
+                    {
+                        value: 'kongshanqu',
+                        label: 'kongshanqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jiangsusheng',
+        label: 'jiangsusheng',
+        children: [
+            {
+                value: 'nanjingshi',
+                label: 'nanjingshi',
+                children: [
+                    {
+                        value: 'xuanxushi',
+                        label: 'xuanxushi',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'shanghaishi',
+        label: 'shanghaishi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hongkouqu',
+                        label: 'hongkouqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    }
+];
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
@@ -139,11 +250,22 @@ describe('thy-cascader', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;
         let component: CascaderBasicComponent;
         let debugElement: DebugElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderBasicComponent);
             component = fixture.componentRef.instance;
             debugElement = fixture.debugElement;
         });
+        beforeEach(inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        }));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
         it('should create', () => {
             expect(fixture).toBeTruthy();
             expect(component).toBeTruthy();
@@ -268,6 +390,34 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
+        it('should active selectedOptions when menu open', fakeAsync(() => {
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
+            const activatedOptionsText: string[] = [];
+            activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
+        }));
+        it('should  scroll to active item when menu open', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = multipleOptions;
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
+            el.style.height = 180;
+            const elementRect = el.getBoundingClientRect();
+            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active').getBoundingClientRect();
+            expect(activatedOption.top - elementRect.top < 180).toBeTruthy();
+        }));
     });
     describe('loadData', () => {
         let fixture: ComponentFixture<CascaderLoadComponent>;

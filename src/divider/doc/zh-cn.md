@@ -2,7 +2,6 @@
 category: layout
 title: Divider
 subtitle: 分割线
-label: new
 ---
 
 <alert>内容分割线。</alert>
