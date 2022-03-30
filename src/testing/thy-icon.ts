@@ -36,6 +36,7 @@ export const defaultInlineIconSet = `
          <path d="filter" style=" "/>
         </svg>
         <svg id="close-circle-bold-fill"></svg>
+        <svg id="search"></svg>
         <svg id="sort-tt"><style>.circle {  fill: orange; }</style><g id="phnormal/sort-tt" stroke-width="1" fill-rule="nonzero"><path d="M10 10 0 0 1 5.1 1.5v12.99a.6.6 0 0 1-1.2 0V3.607L2.466 6.082a.6.6 0 1 1-1.04-.6l2.47-4.262a.599.599 0 0 1 .426-.293z" id="ph形状结合"/><path d="M13.765 1.027a.6.6 0 0 1 .778.573v12.805a.6.6 0 1 1-1.2 0V3.682L11.82 6.276a.6.6 0 1 1-1.04-.6l2.558-4.356a.599.599 0 0 1 .427-.293z" id="sort-secondary-color" transform="rotate(-180 12.621 8.003)"/></g></svg>
     </defs>
   </svg>

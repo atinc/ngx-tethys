@@ -310,18 +310,15 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.modelValue).toBe(0);
     });
 
-    it(
-        'should thySuffix work',
-        waitForAsync(() => {
-            fixture.detectChanges();
-            inputNumberComponentInstance.thySuffix = '%';
-            inputNumberComponentInstance.inputNumberComponent.onModelChange('5');
-            fixture.detectChanges();
-            fixture.whenStable().then(() => {
-                expect(inputElement.value).toBe('5 %');
-            });
-        })
-    );
+    it('should thySuffix work', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.thySuffix = '%';
+        inputNumberComponentInstance.inputNumberComponent.onModelChange('5');
+        fixture.detectChanges();
+        fixture.whenStable().then(() => {
+            expect(inputElement.value).toBe('5 %');
+        });
+    }));
 
     it('should key up and down work', fakeAsync(() => {
         fixture.detectChanges();

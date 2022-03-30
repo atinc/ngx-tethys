@@ -9,6 +9,14 @@
       </ng-template>
     </thy-input>
     <br />
+    <thy-input placeholder="Please type" thySize="md">
+      <ng-template #prepend>
+        <thy-icon class="text-desc" thyIconName="user"></thy-icon>
+      </ng-template>
+      <ng-template #append>
+        <thy-icon thyTooltip="Extra Information" class="text-desc" thyIconName="info-circle"></thy-icon>
+      </ng-template>
+    </thy-input>
   </div>
   <div thyCol [thySpan]="12">
     <thy-input placeholder="Please type">

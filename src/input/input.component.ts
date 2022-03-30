@@ -41,6 +41,9 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyAutofocus = false;
 
+    /**
+     * @deprecated please use thyType
+     */
     @Input() type: string;
 
     @Input()

@@ -7,9 +7,10 @@ import { ThyInputSearchComponent } from './input-search.component';
 import { FormsModule } from '@angular/forms';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyDividerModule } from 'ngx-tethys/divider';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyDividerModule],
     declarations: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent],
     exports: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent]
 })
