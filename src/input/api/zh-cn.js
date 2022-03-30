@@ -25,7 +25,7 @@ module.exports = [
         properties: [
             {
                 name: 'placeholder',
-                description: '输入框的placeholder',
+                description: '输入框的 Placeholder',
                 type: 'string',
                 default: ''
             },
@@ -43,13 +43,13 @@ module.exports = [
             },
             {
                 name: 'type',
-                description: '输入框的类型，与input的类型一致',
+                description: '输入框的类型，与 input 的类型一致，已经废弃，请使用 thyType',
                 type: 'string',
                 default: 'text'
             },
             {
                 name: 'thyType',
-                description: `input的类型，当类型为'password'时，输入框支持密码可见`,
+                description: `输入框的类型，与 input 的类型一致，当类型为'password'时，输入框支持密码可见`,
                 type: 'string',
                 default: 'text'
             },
@@ -113,6 +113,12 @@ module.exports = [
                 description: '搜索框placeholder',
                 type: 'string',
                 default: ''
+            },
+            {
+                name: 'thyIconPosition',
+                description: `搜索图标位置，当传入 after 时，搜索图标在输入框后方显示，有内容时显示为关闭按钮`,
+                type: `'before' | 'after'`,
+                default: 'before'
             },
             {
                 name: 'thyTheme',

@@ -1,5 +1,6 @@
 @use "../../styles/bootstrap/variables" as bootstrap-variables;
 @use "../../styles/variables";
+@use "sass:math";
 
 .thy-input {
     position: relative;
@@ -19,9 +20,11 @@
     }
     .input-prepend {
         margin-left: variables.$input-padding-x;
+        line-height: 1;
     }
     .input-append {
         margin-right: variables.$input-padding-x;
+        line-height: 1;
     }
     .input-password-icon {
         color: variables.$gray-300;
@@ -65,34 +68,60 @@
     }
 }
 
-.input-search-container {
-    position: relative;
-    display: block;
-    width: 100%;
-    .input-prefix-icon,
-    .input-suffix-icon {
-        line-height: 1;
+.thy-input-search {
+    .input-prepend,
+    .input-append {
         position: absolute;
-        z-index: 2;
-        i {
-            font-size: variables.$font-size-base;
+    }
+
+    &.thy-input-search-before {
+        .input-search-control {
+            padding-left: variables.$input-padding-x + variables.$input-padding-x + 1rem;
         }
     }
-    .input-prefix-icon {
+
+    &.thy-input-search-after {
+        .input-search-control {
+            padding-right: 3 * variables.$input-padding-x + 1rem;
+        }
+    }
+
+    .input-prepend {
+        margin-left: 0px;
         left: variables.$input-padding-x;
         top: calc((100% - 16px) / 2);
         color: variables.$input-icon-color;
     }
-    .input-suffix-icon {
+
+    .input-append {
         right: variables.$input-padding-x;
         top: calc((100% - 16px) / 2);
+        margin-right: 0px;
+        line-height: 1;
+
+        .close {
+            font-size: variables.$font-size-base;
+        }
+        &.input-append-divider {
+            &::after {
+                width: 1px;
+                height: 18px;
+                content: ' ';
+                position: absolute;
+                // top: 50%;
+                right: 26px;
+                background: variables.$gray-200;
+            }
+        }
     }
+
     .input-search-control {
-        padding-left: variables.$input-padding-x + variables.$input-padding-x + 1rem;
         padding-right: variables.$input-padding-x + variables.$input-padding-x + 1rem;
         transition: none;
     }
-    &.input-search-ellipse {
+
+    &.thy-input-search-ellipse {
+        border-radius: variables.$input-ellipse-radius;
         .input-search-control {
             border-radius: variables.$input-ellipse-radius;
             background: variables.$input-ellipse-background-color;
@@ -114,9 +143,6 @@
     position: relative;
     display: block;
     width: 100%;
-    .input-label-control {
-        // padding: $input-search-padding-y ($input-padding-x + $input-padding-x + 0.5rem);
-    }
     .input-label {
         position: absolute;
         top: 1px;
@@ -183,18 +209,3 @@
         }
     }
 }
-
-// .input-lg + .form-control-feedback,
-// .input-group-lg + .form-control-feedback,
-// .form-group-lg .form-control + .form-control-feedback {
-//     width: @input-height-large;
-//     height: @input-height-large;
-//     line-height: @input-height-large;
-// }
-// .input-sm + .form-control-feedback,
-// .input-group-sm + .form-control-feedback,
-// .form-group-sm .form-control + .form-control-feedback {
-//     width: @input-height-small;
-//     height: @input-height-small;
-//     line-height: @input-height-small;
-// }

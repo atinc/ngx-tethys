@@ -8,6 +8,15 @@
       placeholder="Search"
     ></thy-input-search>
     <br />
+    <thy-input-search
+      (keydown.enter)="change()"
+      [(ngModel)]="searchText"
+      (ngModelChange)="change()"
+      (clear)="change()"
+      thyIconPosition="after"
+      placeholder="Search"
+    ></thy-input-search>
+    <br />
     <thy-input-group>
       <thy-input placeholder="Search"></thy-input>
       <ng-template #append>
@@ -18,6 +27,8 @@
   </div>
   <div thyCol [thySpan]="12">
     <thy-input-search thyTheme="ellipse" placeholder="Search" [(ngModel)]="searchText"></thy-input-search>
+    <br />
+    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" thyIconPosition="after" placeholder="Search"></thy-input-search>
     <br />
     <thy-input placeholder="Search">
       <ng-template #append>

@@ -1,4 +1,4 @@
-<thy-icon class="input-prefix-icon" thyIconName="search"></thy-icon>
+<thy-icon class="input-prepend" *ngIf="iconPosition === 'before'" thyIconName="search"></thy-icon>
 <input
   class="input-search-control"
   thyInput
@@ -11,6 +11,17 @@
   (blur)="onTouchedCallback()"
   [thySize]="thySize"
 />
-<a *ngIf="searchText" class="close input-suffix-icon" href="javascript:;" (click)="clearSearchText($event)">
+<ng-container *ngIf="iconPosition === 'after'">
+  <div class="input-append input-append-divider">
+    <a class="close" *ngIf="searchText; else onlyIcon" href="javascript:;" (click)="clearSearchText($event)">
+      <thy-icon thyIconName="close"></thy-icon>
+    </a>
+    <ng-template #onlyIcon>
+      <thy-icon class="text-desc" thyIconName="search"></thy-icon>
+    </ng-template>
+  </div>
+</ng-container>
+
+<a *ngIf="searchText && iconPosition === 'before'" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
   <thy-icon thyIconName="close"></thy-icon>
 </a>
