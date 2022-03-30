@@ -640,6 +640,34 @@ describe('ThyRangePickerComponent', () => {
             expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getDate()).toBe(+leftText);
             expect(fromUnixTime(fixtureInstance.flexibleDateRange.end as number).getDate()).toBe(+rightText);
         }));
+
+        it('should clear worked', fakeAsync(() => {
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), dateGranularity: 'month' };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button');
+            fixture.detectChanges();
+            dispatchMouseEvent(clearBtn, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.dateGranularity).toBeFalsy();
+            tick(500);
+            fixture.detectChanges();
+
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            dispatchMouseEvent(clearBtn, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
+        }));
     });
 
     function getPickerTrigger(): HTMLInputElement {
