@@ -88,7 +88,7 @@
         font-size: variables.$font-size-sm;
         &:after {
             top: calc(50% - #{variables.$nav-link-thirdly-split-line-height-sm}/ 2);
-            right: variables.$nav-link-thirdly-right-sm/2 * -1;
+            right: variables.$nav-link-thirdly-right-sm * 0.5 * -1;
             height: variables.$nav-link-thirdly-split-line-height-sm;
         }
     }

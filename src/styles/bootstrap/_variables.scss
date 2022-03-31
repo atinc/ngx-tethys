@@ -248,7 +248,7 @@ $h4-font-size: variables.$font-size-base * 1.5 !default;
 $h5-font-size: variables.$font-size-base * 1.25 !default;
 $h6-font-size: variables.$font-size-base !default;
 
-$headings-margin-bottom: $spacer / 2 !default;
+$headings-margin-bottom: $spacer * 0.5 !default;
 $headings-font-family: null !default;
 $headings-font-weight: 500 !default;
 $headings-line-height: 1.2 !default;

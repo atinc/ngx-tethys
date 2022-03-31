@@ -41,6 +41,6 @@
         display: block;
         box-sizing: border-box;
         width: 0;
-        flex: 0 0 math.percentage($i / 24);
+        flex: 0 0 math.percentage(math.div($i, 24));
     }
 }

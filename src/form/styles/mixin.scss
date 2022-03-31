@@ -178,7 +178,7 @@
     font: normal normal normal 14px/1 wtf;
     position: absolute;
     right: 12px;
-    bottom: variables.$input-padding-y + (variables.$font-size-base * variables.$line-height-base - variables.$font-size-md) / 2;
+    bottom: variables.$input-padding-y + (variables.$font-size-base * variables.$line-height-base - variables.$font-size-md) * 0.5;
     font-size: variables.$font-size-md;
     pointer-events: none;
     color: variables.$gray-500;
