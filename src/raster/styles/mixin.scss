@@ -2,6 +2,8 @@
 //
 // Generate semantic grid columns with these mixins.
 
+@use "sass:math";
+
 @mixin thy-make-row($gutter: $thy-grid-gutter-width) {
     --bs-gutter-x: #{$gutter};
     --bs-gutter-y: 0;
@@ -28,7 +30,7 @@
 
 @mixin thy-make-col($size, $columns: $thy-grid-columns) {
     flex: 0 0 auto;
-    width: percentage($size / $columns);
+    width: percentage(math.div($size, $columns));
 }
 
 @mixin thy-make-col-auto() {
@@ -37,7 +39,7 @@
 }
 
 @mixin thy-make-col-offset($size, $columns: $thy-grid-columns) {
-    $num: $size / $columns;
+    $num: math.div($size, $columns);
     margin-left: if($num == 0, 0, percentage($num));
 }
 
@@ -49,7 +51,7 @@
 @mixin thy-row-cols($count) {
     & > * {
         flex: 0 0 auto;
-        width: 100% / $count;
+        width: math.div(100%, $count);
     }
 }
 
@@ -58,11 +60,7 @@
 // Used only by Bootstrap to generate the correct number of grid classes given
 // any value of `$thy-grid-columns`.
 
-@mixin thy-make-grid-columns(
-    $columns: $thy-grid-columns,
-    $gutter: $thy-grid-gutter-width,
-    $breakpoints: $grid-breakpoints
-) {
+@mixin thy-make-grid-columns($columns: $thy-grid-columns, $gutter: $thy-grid-gutter-width, $breakpoints: $grid-breakpoints) {
     @each $breakpoint in map-keys($breakpoints) {
         $infix: breakpoint-infix($breakpoint, $breakpoints);
 

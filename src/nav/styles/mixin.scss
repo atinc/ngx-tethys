@@ -67,7 +67,7 @@
         content: '';
         border-right: 1px solid variables.$nav-divider-color;
         top: calc(50% - #{$divider-height} / 2);
-        right: ($nav-link-padding-right / 2) * -1;
+        right: ($nav-link-padding-right * 0.5) * -1;
         height: $divider-height;
     }
     &:last-child {

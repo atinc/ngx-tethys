@@ -82,7 +82,7 @@
     $g: color.green($color);
     $b: color.blue($color);
 
-    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+    $yiq: (($r * 299) + ($g * 587) + ($b * 114)) * 0.001;
 
     @if ($yiq >= functions-variables.$yiq-contrasted-threshold) {
         @return $dark;
