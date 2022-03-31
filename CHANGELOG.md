@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.15"></a>
+## [12.1.15](https://github.com/atinc/ngx-tethys/compare/12.1.14...12.1.15) (2022-03-31)
+
+
+### Features
+
+* **input:** add thyIconPosition to thy-input-search and refactor styles #INFR-2790 ([#1554](https://github.com/atinc/ngx-tethys/issues/1554)) ([bdb1c3d](https://github.com/atinc/ngx-tethys/commit/bdb1c3d)), closes [#INFR-2790](https://github.com/atinc/ngx-tethys/issues/INFR-2790)
+
+
+
 <a name="12.1.14"></a>
 ## [12.1.14](https://github.com/atinc/ngx-tethys/compare/12.1.13...12.1.14) (2022-03-28)
 
