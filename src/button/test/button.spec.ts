@@ -77,6 +77,7 @@ describe('ThyButton', () => {
         it('should set type success', () => {
             [
                 'primary',
+                'secondary',
                 'info',
                 'warning',
                 'danger',
@@ -86,11 +87,14 @@ describe('ThyButton', () => {
                 'outline-primary',
                 'outline-default',
                 'outline-info',
+                'outline-success',
+                'outline-danger',
                 'link',
                 'link-info',
                 'link-warning',
                 'link-danger',
-                'link-success'
+                'link-success',
+                'link-danger-weak'
             ].forEach(type => {
                 basicTestComponent.type = type;
                 fixture.detectChanges();

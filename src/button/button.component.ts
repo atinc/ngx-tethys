@@ -23,7 +23,14 @@ export type ThyButtonType =
     | 'link'
     | 'link-secondary'
     | 'warning'
-    | 'outline-warning';
+    | 'outline-warning'
+    | 'success'
+    | 'outline-success'
+    | 'outline-info'
+    | 'outline-danger'
+    | 'link-danger-weak'
+    | 'link-danger'
+    | 'link-success';
 
 const btnTypeClassesMap = {
     primary: ['btn-primary'],
