@@ -22,20 +22,20 @@ import {
     CompatibleValue,
     DisabledDateFn,
     DateEntry,
-    RangeEntry,
-    PanelMode,
+    ThyDateRangeEntry,
+    ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange,
     RangeAdvancedValue,
-    ThyFlexibleAdvancedDateGranularity
+    ThyDateGranularity
 } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
 
 @Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
-    @Input() thyMode: PanelMode = 'date';
+    @Input() thyMode: ThyPanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
     @Input() @InputBoolean() thyAutoFocus = false;
     @Input() @InputBoolean() thyDisabled = false;
@@ -72,7 +72,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     flexible: boolean;
 
-    flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+    flexibleDateGranularity: ThyDateGranularity;
 
     protected destroyed$: Subject<void> = new Subject();
     protected isCustomPlaceHolder = false;
@@ -92,13 +92,11 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
         this.initValue();
-        this.initMode();
+        this.isFlexible();
     }
-    initMode() {
+
+    isFlexible() {
         this.flexible = this.thyMode === 'flexible';
-        if (this.flexible) {
-            this.thyMode = 'date';
-        }
     }
 
     onShortcutValueChange(event: ThyShortcutValueChange) {
@@ -154,12 +152,12 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
 
     onValueChange(originalValue: CompatibleValue | RangeAdvancedValue): void {
         this.setFormatRule();
-        const { value, withTime, flexibleAdvancedDateGranularity } = transformDateValue(originalValue);
-        this.flexibleAdvancedDateGranularity = flexibleAdvancedDateGranularity;
+        const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
+        this.flexibleDateGranularity = flexibleDateGranularity;
         this.setValue(value);
         if (this.isRange) {
             const vAsRange: any = this.thyValue;
-            let value = { begin: null, end: null } as RangeEntry;
+            let value = { begin: null, end: null } as ThyDateRangeEntry;
             if (vAsRange.length) {
                 const [begin, end] = vAsRange as TinyDate[];
                 if (this.thyAutoStartAndEnd) {
@@ -171,8 +169,8 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
                     };
                 }
             }
-            if (this.flexible && flexibleAdvancedDateGranularity) {
-                value.dateGranularity = flexibleAdvancedDateGranularity;
+            if (this.flexible) {
+                value.granularity = flexibleDateGranularity;
             }
             this.onChangeFn(value);
         } else {
@@ -206,12 +204,18 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.thyOpenChange.emit(open);
     }
 
-    onChangeFn: (val: CompatibleDate | DateEntry | RangeEntry | number | null) => void = () => void 0;
+    onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
     onTouchedFn: () => void = () => void 0;
 
-    writeValue(originalValue: CompatibleDate | RangeEntry): void {
-        const { value, withTime, flexibleAdvancedDateGranularity } = transformDateValue(originalValue);
-        this.flexibleAdvancedDateGranularity = flexibleAdvancedDateGranularity;
+    writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
+        const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
+        this.flexibleDateGranularity = flexibleDateGranularity;
+        if (this.flexible && value && (value as Date[]).length) {
+            if (!this.flexibleDateGranularity) {
+                this.flexibleDateGranularity = 'day';
+            }
+        }
+
         this.setValue(value);
         this.setTimePickerState(withTime);
         this.onlyEmitDate = typeof withTime === 'undefined';

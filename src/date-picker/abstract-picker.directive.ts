@@ -22,18 +22,18 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, PanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { CompatibleValue, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode = 'date';
+    @Input() thyMode: ThyPanelMode = 'date';
 
-    panelMode: PanelMode | PanelMode[];
+    panelMode: ThyPanelMode | ThyPanelMode[];
 
-    @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
+    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
@@ -84,10 +84,12 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     ngOnInit() {
         this.thyMode = this.thyMode || 'date';
         this.flexible = this.thyMode === 'flexible';
-        if (this.flexible) {
-            this.thyMode = 'date';
+
+        if (this.isRange) {
+            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
+        } else {
+            this.panelMode = this.thyMode;
         }
-        this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
     }
 
     private openOverlay(): void {
@@ -118,7 +120,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         shortcutRanges: this.shortcutRanges,
                         shortcutPosition: this.shortcutPosition,
                         flexible: this.flexible,
-                        flexibleAdvancedDateGranularity: this.flexibleAdvancedDateGranularity
+                        flexibleDateGranularity: this.flexibleDateGranularity
                     },
                     placement: this.thyPlacement
                 },

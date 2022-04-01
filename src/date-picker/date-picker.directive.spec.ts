@@ -286,7 +286,7 @@ describe('ThyPickerDirective', () => {
             shortcutRanges: undefined,
             shortcutPosition: undefined,
             flexible: false,
-            flexibleAdvancedDateGranularity: undefined
+            flexibleDateGranularity: undefined
         };
     }
 });

@@ -34,7 +34,7 @@
               </div>
             </ng-container>
             <div [hidden]="flexibleActiveTab !== 'custom'">
-              <ng-container *ngTemplateOutlet="tplFlexiblePart"></ng-container>
+              <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
             </div>
           </div>
         </ng-container>
@@ -102,11 +102,5 @@
     <div style="outline: none;">
       <ng-container *ngTemplateOutlet="tplInnerPopup; context: { partType: partType }"></ng-container>
     </div>
-  </div>
-</ng-template>
-
-<ng-template #tplFlexiblePart>
-  <div>
-    <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
   </div>
 </ng-template>

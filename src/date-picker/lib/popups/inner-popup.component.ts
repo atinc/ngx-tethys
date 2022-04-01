@@ -10,7 +10,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
+import { DisabledDateFn, ThyPanelMode, RangePartType } from '../../standard-types';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
@@ -37,7 +37,7 @@ export class InnerPopupComponent implements OnChanges {
     @Input() selectedValue: TinyDate[]; // Range ONLY
     @Input() hoverValue: TinyDate[]; // Range ONLY
 
-    @Input() panelMode: PanelMode;
+    @Input() panelMode: ThyPanelMode;
 
     @Input() set showDateRangeInput(value: boolean) {
         this._showDateRangeInput = coerceBooleanProperty(value);
@@ -49,9 +49,9 @@ export class InnerPopupComponent implements OnChanges {
 
     @Input() partType: RangePartType;
 
-    @Input() endPanelMode: PanelMode;
+    @Input() endPanelMode: ThyPanelMode;
 
-    @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
+    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode>();
 
     @Input() value: TinyDate;
 
@@ -114,7 +114,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
-    enablePrevNext(direction: 'prev' | 'next', mode: PanelMode): boolean {
+    enablePrevNext(direction: 'prev' | 'next', mode: ThyPanelMode): boolean {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
                 const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
@@ -127,7 +127,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
-    enableSuperPrevNext(direction: 'prev' | 'next', panelMode: PanelMode) {
+    enableSuperPrevNext(direction: 'prev' | 'next', panelMode: ThyPanelMode) {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
                 const [headerLeftDate, headerRightDate] = this.rangeActiveDate;

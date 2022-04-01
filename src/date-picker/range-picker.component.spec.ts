@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { RangeEntry, PanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
@@ -378,7 +378,7 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalled();
-            const result = (thyOnChange.calls.allArgs()[0] as RangeEntry[])[0];
+            const result = (thyOnChange.calls.allArgs()[0] as ThyDateRangeEntry[])[0];
             expect(fromUnixTime(result.begin as number).getDate()).toBe(+leftText);
             expect(fromUnixTime(result.end as number).getDate()).toBe(+rightText);
         }));
@@ -572,11 +572,11 @@ describe('ThyRangePickerComponent', () => {
             dispatchMouseEvent(yearBtns[0], 'click');
             fixture.detectChanges();
             expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getFullYear()).toBe(new Date().getFullYear());
-            expect(fixtureInstance.flexibleDateRange.dateGranularity).toBe('year');
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('year');
             expect(thyOnChange).toHaveBeenCalledWith({
                 begin: new TinyDate().startOfYear().getUnixTime(),
                 end: new TinyDate().endOfYear().getUnixTime(),
-                dateGranularity: 'year'
+                granularity: 'year'
             });
             expect(getRangePickerInput().value).toBe(new Date().getFullYear() + '年');
         }));
@@ -589,12 +589,14 @@ describe('ThyRangePickerComponent', () => {
             const quarterBtns = Array.from(selectableButtons).slice(3, 7);
             dispatchMouseEvent(quarterBtns[0], 'click');
             fixture.detectChanges();
-            expect(new TinyDate(fixtureInstance.flexibleDateRange.begin as number).getQuarter()).toBe(new TinyDate().getQuarter());
-            expect(fixtureInstance.flexibleDateRange.dateGranularity).toBe('quarter');
+            expect(new TinyDate(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number)).getQuarter()).toBe(
+                new TinyDate().getQuarter()
+            );
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('quarter');
             expect(thyOnChange).toHaveBeenCalledWith({
                 begin: new TinyDate().startOfQuarter().getUnixTime(),
                 end: new TinyDate().endOfQuarter().getUnixTime(),
-                dateGranularity: 'quarter'
+                granularity: 'quarter'
             });
             expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 Q${new TinyDate().getQuarter()}`);
         }));
@@ -609,11 +611,11 @@ describe('ThyRangePickerComponent', () => {
             dispatchMouseEvent(monthBtns[0], 'click');
             fixture.detectChanges();
             expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getMonth()).toBe(new Date().getMonth());
-            expect(fixtureInstance.flexibleDateRange.dateGranularity).toBe('month');
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('month');
             expect(thyOnChange).toHaveBeenCalledWith({
                 begin: new TinyDate().startOfMonth().getUnixTime(),
                 end: new TinyDate().endOfMonth().getUnixTime(),
-                dateGranularity: 'month'
+                granularity: 'month'
             });
             expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 ${new TinyDate().getMonth() + 1}月`);
         }));
@@ -642,7 +644,7 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('should clear worked', fakeAsync(() => {
-            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), dateGranularity: 'month' };
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), granularity: 'month' };
             fixture.detectChanges();
             openPickerByClickTrigger();
             const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button');
@@ -653,7 +655,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
             expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
-            expect(fixtureInstance.flexibleDateRange.dateGranularity).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.granularity).toBeFalsy();
             tick(500);
             fixture.detectChanges();
 
@@ -764,13 +766,13 @@ class ThyTestRangePickerComponent {
     thyPanelClassName: string;
     thySize: string;
     thySuffixIcon: string;
-    modelValue: RangeEntry;
-    thyMode: PanelMode;
+    modelValue: ThyDateRangeEntry;
+    thyMode: ThyPanelMode;
     thyOpen: boolean;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutRanges: ThyShortcutRange[];
-    flexibleDateRange: RangeEntry;
+    flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}
     modelValueChange(): void {}
     thyOnPanelChange(): void {}

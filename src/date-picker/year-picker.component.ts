@@ -1,4 +1,4 @@
-import { PanelMode } from './standard-types';
+import { ThyPanelMode } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
@@ -19,11 +19,11 @@ import { BasePickerComponent } from './base-picker.component';
 export class ThyYearPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy';
 
-    thyMode: PanelMode = 'year';
+    thyMode: ThyPanelMode = 'year';
 
     isRange = false;
 
-    endPanelMode: PanelMode = 'year';
+    endPanelMode: ThyPanelMode = 'year';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);

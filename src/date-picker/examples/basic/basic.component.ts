@@ -1,4 +1,4 @@
-import { DateEntry, RangeAdvancedValue, RangeEntry } from 'ngx-tethys/date-picker';
+import { DateEntry, RangeAdvancedValue, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 import { Component, forwardRef, OnInit } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 
@@ -17,7 +17,7 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     dateRange = { begin: new Date('2021-10'), end: new Date('2021-12') };
 
-    flexibleDateRange: RangeEntry;
+    flexibleDateRange: ThyDateRangeEntry;
 
     isAllowClear = true;
 

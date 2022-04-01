@@ -11,8 +11,7 @@ import {
     forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyDateIndeterminatePipe, ThyDateTimeframeGranularityActivePipe } from 'ngx-tethys/date-picker';
-import { AdvancedSelectableCell, RangeAdvancedValue, ThyFlexibleAdvancedDateGranularity } from 'ngx-tethys/date-picker/standard-types';
+import { AdvancedSelectableCell, RangeAdvancedValue, ThyDateGranularity } from 'ngx-tethys/date-picker/standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
@@ -49,7 +48,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
 
     selectableData: { year?: AdvancedSelectableCell[]; quarter?: AdvancedSelectableCell[]; month?: AdvancedSelectableCell[] } = {};
 
-    dateGranularity: ThyFlexibleAdvancedDateGranularity;
+    dateGranularity: ThyDateGranularity;
 
     selectedValue: AdvancedSelectableCell[] = [];
 
@@ -107,11 +106,29 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
     getClassMap(cell: AdvancedSelectableCell) {
         return {
             [`active`]: this.isSelected(cell),
-            [`indeterminate`]: new ThyDateIndeterminatePipe().transform(this.selectedValue, cell),
-            [`type-active`]: new ThyDateTimeframeGranularityActivePipe().transform(this.selectedValue, cell),
+            [`indeterminate`]: this.isCellIndeterminate(this.selectedValue, cell),
+            [`type-active`]: this.isTypeActive(this.selectedValue, cell),
             ['in-hover-range']: cell.isInRange,
             ['out-range']: cell.isOutRange
         };
+    }
+
+    isTypeActive(originalValue: AdvancedSelectableCell[], value: AdvancedSelectableCell) {
+        return originalValue?.length && originalValue[0].type === value.type;
+    }
+
+    isCellIndeterminate(originalValue: AdvancedSelectableCell[], value: AdvancedSelectableCell) {
+        if (originalValue[0]?.type === value.type) {
+            return false;
+        } else {
+            if (originalValue[0]?.type === 'year') {
+                return !!originalValue.find(item => item.startValue.isSameYear(value.startValue));
+            } else {
+                return value.type === 'year'
+                    ? !!originalValue.find(item => item.startValue.isSameYear(value.startValue))
+                    : !!originalValue.find(item => item.startValue.isSameQuarter(value.startValue));
+            }
+        }
     }
 
     isSelected(value: AdvancedSelectableCell) {
@@ -193,7 +210,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         return selectedValue;
     }
 
-    buildSelectableData(startDate: TinyDate, excludeGranularity?: ThyFlexibleAdvancedDateGranularity) {
+    buildSelectableData(startDate: TinyDate, excludeGranularity?: ThyDateGranularity) {
         const buildGranularity = ['year', 'month', 'quarter'].filter(item => item !== excludeGranularity);
         buildGranularity.forEach(granularity => {
             switch (granularity) {
@@ -251,7 +268,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         return cell;
     }
 
-    prevClick(type: ThyFlexibleAdvancedDateGranularity) {
+    prevClick(type: ThyDateGranularity) {
         switch (type) {
             case 'year':
                 this.selectableData.year = this.selectableData.year.map(item => this.getSelectableYear(item.startValue, -1));
@@ -265,7 +282,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         this.selectableData[type].forEach(item => (item.classMap = this.getClassMap(item)));
     }
 
-    nextClick(type: ThyFlexibleAdvancedDateGranularity) {
+    nextClick(type: ThyDateGranularity) {
         switch (type) {
             case 'year':
                 this.selectableData.year = this.selectableData.year.map(item => this.getSelectableYear(item.startValue, 1));
@@ -279,7 +296,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         this.selectableData[type].forEach(item => (item.classMap = this.getClassMap(item)));
     }
 
-    selectDate(type: ThyFlexibleAdvancedDateGranularity, value: AdvancedSelectableCell) {
+    selectDate(type: ThyDateGranularity, value: AdvancedSelectableCell) {
         this.selectableData[type].forEach(item => {
             item.isInRange = false;
             item.isOutRange = false;
@@ -324,7 +341,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         }
     }
 
-    onMouseenter(event: Event, type: ThyFlexibleAdvancedDateGranularity, value: AdvancedSelectableCell) {
+    onMouseenter(event: Event, type: ThyDateGranularity, value: AdvancedSelectableCell) {
         if (this.isSelectEmpty() || this.dateGranularity !== type) {
             return;
         }
@@ -356,7 +373,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
         this.selectableData[type].forEach(item => (item.classMap = this.getClassMap(item)));
     }
 
-    onMouseleave(event: Event, type: ThyFlexibleAdvancedDateGranularity, value: AdvancedSelectableCell) {
+    onMouseleave(event: Event, type: ThyDateGranularity, value: AdvancedSelectableCell) {
         if (value.isInRange) {
             this.selectableData[type].forEach(item => (item.isInRange = false));
         }

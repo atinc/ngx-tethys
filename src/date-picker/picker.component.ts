@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 
 import { DateHelperService } from './date-helper.service';
-import { CompatibleValue, RangePartType, ThyFlexibleAdvancedDateGranularity } from './standard-types';
+import { CompatibleValue, RangePartType, ThyDateGranularity } from './standard-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 
 @Component({
@@ -39,7 +39,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;
-    @Input() flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+    @Input() flexibleDateGranularity: ThyDateGranularity;
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
@@ -144,8 +144,8 @@ export class ThyPickerComponent implements AfterViewInit {
     getReadableValue(): string | null {
         let value: TinyDate;
         if (this.isRange) {
-            if (this.flexible && this.flexibleAdvancedDateGranularity) {
-                return getFlexibleAdvancedReadableValue(this.value as TinyDate[], this.flexibleAdvancedDateGranularity);
+            if (this.flexible && this.flexibleDateGranularity !== 'day') {
+                return getFlexibleAdvancedReadableValue(this.value as TinyDate[], this.flexibleDateGranularity);
             } else {
                 const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
                 const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';

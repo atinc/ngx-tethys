@@ -19,14 +19,13 @@ import {
     CompatibleDate,
     CompatibleValue,
     DisabledDateFn,
-    PanelMode,
-    RangeEntry,
+    ThyPanelMode,
     RangePartType,
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange,
     SupportTimeOptions,
-    ThyFlexibleAdvancedDateGranularity,
+    ThyDateGranularity,
     RangeAdvancedValue,
     DatePickerFlexibleTab
 } from '../../standard-types';
@@ -50,7 +49,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() mustShowTime: boolean;
     @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
     @Input() className: string;
-    @Input() panelMode: PanelMode | PanelMode[];
+    @Input() panelMode: ThyPanelMode | ThyPanelMode[];
     @Input() value: CompatibleValue;
     @Input() defaultPickerValue: CompatibleDate | number;
 
@@ -62,9 +61,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() flexible: boolean;
 
-    @Input() flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+    @Input() flexibleDateGranularity: ThyDateGranularity;
 
-    @Output() readonly panelModeChange = new EventEmitter<PanelMode | PanelMode[]>();
+    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly calendarChange = new EventEmitter<CompatibleValue>();
     @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
@@ -89,7 +88,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     [property: string]: any;
 
-    endPanelMode: PanelMode | PanelMode[];
+    endPanelMode: ThyPanelMode | ThyPanelMode[];
 
     constructor(private cdr: ChangeDetectorRef) {}
 
@@ -100,7 +99,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     ngOnInit(): void {
         this.initPanelMode();
-        if (this.flexible && (this.value as TinyDate[]).length && !this.flexibleAdvancedDateGranularity) {
+        if (this.flexible && this.flexibleDateGranularity === 'day') {
             this.flexibleActiveTab = 'custom';
         }
         if (this.defaultPickerValue && !hasValue(this.value)) {
@@ -109,11 +108,11 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
         this.updateActiveDate();
         this.initDisabledDate();
-        if (this.isRange && this.value) {
+        if (this.isRange && this.flexible && this.value) {
             this.advancedSelectedValue = {
                 begin: this.value[0],
                 end: this.value[1],
-                dateGranularity: this.flexibleAdvancedDateGranularity
+                dateGranularity: this.flexibleDateGranularity
             };
         }
     }
@@ -141,10 +140,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
             this.value = makeValue(value, this.isRange);
         }
         if (this.isRange) {
-            if (!this.flexibleAdvancedDateGranularity) {
+            if (!this.flexible || this.flexibleDateGranularity === 'day') {
                 this.selectedValue = this.value as TinyDate[];
             }
-            this.activeDate = this.normalizeRangeValue(this.value as TinyDate[], this.getPanelMode(this.endPanelMode) as PanelMode);
+            this.activeDate = this.normalizeRangeValue(this.value as TinyDate[], this.getPanelMode(this.endPanelMode) as ThyPanelMode);
         } else {
             this.activeDate = this.value as TinyDate;
         }
@@ -225,9 +224,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    onPanelModeChange(mode: PanelMode, partType?: RangePartType): void {
+    onPanelModeChange(mode: ThyPanelMode, partType?: RangePartType): void {
         if (this.isRange) {
-            (this.panelMode as PanelMode[])[this.getPartTypeIndex(partType)] = mode;
+            (this.panelMode as ThyPanelMode[])[this.getPartTypeIndex(partType)] = mode;
         } else {
             this.panelMode = mode;
         }
@@ -239,7 +238,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
             this.activeDate[this.getPartTypeIndex(partType)] = value;
             this.activeDate = this.normalizeRangeValue(
                 this.activeDate as TinyDate[],
-                this.getPanelMode(this.endPanelMode, partType) as PanelMode
+                this.getPanelMode(this.endPanelMode, partType) as ThyPanelMode
             );
         } else {
             this.activeDate = value;
@@ -259,12 +258,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     clearFlexibleValue() {
+        this.flexibleDateGranularity = null;
         if (this.flexibleActiveTab === 'advanced') {
             this.advancedSelectedValue = {};
         } else {
             this.selectedValue = [];
         }
-        this.setValue([]);
+        this.valueChange.emit({
+            begin: null,
+            end: null,
+            dateGranularity: this.flexibleDateGranularity
+        });
     }
 
     changeValueFromAdvancedSelect(value: RangeAdvancedValue) {
@@ -294,7 +298,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
                     new TinyDate(startOfDay(this.selectedValue[0].nativeDate)),
                     new TinyDate(endOfDay(this.selectedValue[1].nativeDate))
                 ];
-                this.activeDate = this.normalizeRangeValue(this.selectedValue, this.getPanelMode(this.endPanelMode, partType) as PanelMode);
+                this.activeDate = this.normalizeRangeValue(
+                    this.selectedValue,
+                    this.getPanelMode(this.endPanelMode, partType) as ThyPanelMode
+                );
                 this.setValue(this.cloneRangeDate(this.selectedValue));
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));
             }
@@ -316,11 +323,11 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    getPanelMode(panelMode: PanelMode | PanelMode[], partType?: RangePartType): PanelMode {
+    getPanelMode(panelMode: ThyPanelMode | ThyPanelMode[], partType?: RangePartType): ThyPanelMode {
         if (this.isRange) {
-            return panelMode[this.getPartTypeIndex(partType)] as PanelMode;
+            return panelMode[this.getPartTypeIndex(partType)] as ThyPanelMode;
         } else {
-            return panelMode as PanelMode;
+            return panelMode as ThyPanelMode;
         }
     }
 
@@ -351,13 +358,22 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     private setValue(value: CompatibleValue): void {
         this.value = value;
-        if (!this.showTime || !this.showTimePicker) {
-            this.valueChange.emit(this.value);
+        if (this.isRange && this.flexible) {
+            this.flexibleDateGranularity = 'day';
+            this.valueChange.emit({
+                begin: value[0],
+                end: value[1],
+                dateGranularity: this.flexibleDateGranularity
+            });
+        } else {
+            if (!this.showTime || !this.showTimePicker) {
+                this.valueChange.emit(this.value);
+            }
         }
     }
 
-    private normalizeRangeValue(value: TinyDate[], mode: PanelMode = 'month'): TinyDate[] {
-        const headerModes: { [key in PanelMode]?: PanelMode } = {
+    private normalizeRangeValue(value: TinyDate[], mode: ThyPanelMode = 'month'): TinyDate[] {
+        const headerModes: { [key in ThyPanelMode]?: ThyPanelMode } = {
             date: 'month',
             month: 'year',
             year: 'decade'

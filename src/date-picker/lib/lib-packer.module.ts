@@ -20,7 +20,7 @@ import { DateHeaderComponent } from './date/date-header.component';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { DateCarouselComponent } from './date-carousel/date-carousel.component';
-import { ThyDateIndeterminatePipe, ThyDatePickerAdvancedShowYearTipPipe, ThyDateTimeframeGranularityActivePipe } from '../picker.pipes';
+import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule, ThyNavModule, ThyInputModule],
@@ -37,10 +37,7 @@ import { ThyDateIndeterminatePipe, ThyDatePickerAdvancedShowYearTipPipe, ThyDate
         InnerPopupComponent,
         DatePopupComponent,
         DateTableCellComponent,
-        DateCarouselComponent,
-        ThyDateIndeterminatePipe,
-        ThyDateTimeframeGranularityActivePipe,
-        ThyDatePickerAdvancedShowYearTipPipe
+        DateCarouselComponent
     ],
     declarations: [
         CalendarFooterComponent,
@@ -56,9 +53,7 @@ import { ThyDateIndeterminatePipe, ThyDatePickerAdvancedShowYearTipPipe, ThyDate
         DatePopupComponent,
         DateTableCellComponent,
         DateCarouselComponent,
-        ThyDateIndeterminatePipe,
-        ThyDateTimeframeGranularityActivePipe,
-        ThyDatePickerAdvancedShowYearTipPipe
+        DatePickerAdvancedShowYearTipPipe
     ]
 })
 export class LibPackerModule {}

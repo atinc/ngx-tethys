@@ -1,27 +1,27 @@
 import {
     CompatibleDate,
     DateEntry,
-    RangeEntry,
+    ThyDateRangeEntry,
     instanceOfDateEntry,
     instanceOfRangeEntry,
     CompatibleValue,
-    PanelMode,
+    ThyPanelMode,
     instanceOfCompatibleValue,
     RangeAdvancedValue,
     instanceOfRangeAdvancedValue,
-    ThyFlexibleAdvancedDateGranularity
+    ThyDateGranularity
 } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
 
 export function transformDateValue(
-    value: CompatibleDate | CompatibleValue | number | DateEntry | RangeEntry | RangeAdvancedValue
-): { value: CompatibleDate; withTime?: boolean; flexibleAdvancedDateGranularity?: ThyFlexibleAdvancedDateGranularity } {
+    value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
+): { value: CompatibleDate; withTime?: boolean; flexibleDateGranularity?: ThyDateGranularity } {
     if (!value) {
         return { value: null };
     }
-    let withTime, flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity;
+    let withTime, flexibleDateGranularity: ThyDateGranularity;
     if (value && typeof value === 'number') {
         value = convertDate(value);
     }
@@ -38,22 +38,22 @@ export function transformDateValue(
         value = date ? convertDate(date) : null;
         withTime = !!with_time;
     }
-    if (value && instanceOfRangeEntry(value as RangeEntry)) {
-        const rangeValue = value as RangeEntry;
+    if (value && instanceOfRangeEntry(value as ThyDateRangeEntry)) {
+        const rangeValue = value as ThyDateRangeEntry;
         value = [];
         if (rangeValue.begin && rangeValue.end) {
             value[0] = convertDate(rangeValue.begin);
             value[1] = convertDate(rangeValue.end);
         }
-        if (rangeValue.dateGranularity) {
-            flexibleAdvancedDateGranularity = rangeValue.dateGranularity;
+        if (rangeValue.granularity) {
+            flexibleDateGranularity = rangeValue.granularity;
         }
     }
 
     if (value && instanceOfRangeAdvancedValue(value as RangeAdvancedValue)) {
         const rangeValue = value as RangeAdvancedValue;
         if (rangeValue.dateGranularity) {
-            flexibleAdvancedDateGranularity = rangeValue.dateGranularity;
+            flexibleDateGranularity = rangeValue.dateGranularity;
         }
         value = [];
         if (rangeValue.begin && rangeValue.end) {
@@ -61,18 +61,15 @@ export function transformDateValue(
             value[1] = convertDate(rangeValue.end.nativeDate);
         }
     }
-    return { value: value as CompatibleDate, withTime, flexibleAdvancedDateGranularity };
+    return { value: value as CompatibleDate, withTime, flexibleDateGranularity };
 }
 
-export function getFlexibleAdvancedReadableValue(
-    tinyDates: TinyDate[],
-    flexibleAdvancedDateGranularity: ThyFlexibleAdvancedDateGranularity
-) {
+export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexibleDateGranularity: ThyDateGranularity) {
     let value = '';
     if (!tinyDates[0] || !tinyDates[1]) {
         return value;
     }
-    switch (flexibleAdvancedDateGranularity) {
+    switch (flexibleDateGranularity) {
         case 'year':
             if (tinyDates[0].isSameYear(tinyDates[1])) {
                 value = `${tinyDates[0].getYear()}年`;
@@ -127,7 +124,7 @@ export function makeValue(value: CompatibleDate | null, isRange: boolean = false
     }
 }
 
-export function dateAddAmount(value: TinyDate, amount: number, mode: PanelMode): TinyDate {
+export function dateAddAmount(value: TinyDate, amount: number, mode: ThyPanelMode): TinyDate {
     let date: TinyDate;
     switch (mode) {
         case 'decade':

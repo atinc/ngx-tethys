@@ -5,7 +5,12 @@ export type DisabledDateFn = (d: Date) => boolean;
 
 export type DisabledTimePartial = 'start' | 'end';
 
-export type PanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible';
+export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flexible';
+
+/**
+ * @deprecated please use ThyPanelMode
+ */
+export type PanelMode = ThyPanelMode;
 
 export type CompatibleValue = TinyDate[] | TinyDate;
 
@@ -18,11 +23,16 @@ export interface DateEntry {
     with_time: 0 | 1;
 }
 
-export interface RangeEntry {
+export interface ThyDateRangeEntry {
     begin: number | null | Date;
     end: number | null | Date;
-    dateGranularity?: ThyFlexibleAdvancedDateGranularity;
+    granularity?: ThyDateGranularity;
 }
+
+/**
+ * @deprecated please use ThyDateRangeEntry
+ */
+export type RangeEntry = ThyDateRangeEntry;
 
 export type DateType = number | DateEntry;
 
@@ -32,7 +42,7 @@ export function instanceOfDateEntry(object: DateEntry): object is DateEntry {
     return isSupportDateType(object, 'date') && typeof object.with_time === 'number';
 }
 
-export function instanceOfRangeEntry(object: RangeEntry): object is RangeEntry {
+export function instanceOfRangeEntry(object: ThyDateRangeEntry): object is ThyDateRangeEntry {
     return isSupportDateType(object, 'begin') && isSupportDateType(object, 'end');
 }
 
@@ -44,7 +54,7 @@ export function instanceOfRangeAdvancedValue(object: RangeAdvancedValue): object
     return object['begin'] instanceof TinyDate && object['end'] instanceof TinyDate;
 }
 
-function isSupportDateType(object: DateEntry | RangeEntry, key: string) {
+function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: string) {
     return typeof object[key] === 'number' || object[key] === null || object[key] instanceof Date;
 }
 
@@ -81,12 +91,12 @@ export interface ThyShortcutValueChange {
     triggerRange: ThyShortcutRange;
 }
 
-export type ThyFlexibleAdvancedDateGranularity = 'year' | 'quarter' | 'month';
+export type ThyDateGranularity = 'year' | 'quarter' | 'month' | 'day';
 
 export type DatePickerFlexibleTab = 'custom' | 'advanced';
 
 export interface AdvancedSelectableCell {
-    type: ThyFlexibleAdvancedDateGranularity;
+    type: ThyDateGranularity;
     content?: string;
     startValue?: TinyDate;
     endValue?: TinyDate;
@@ -96,7 +106,7 @@ export interface AdvancedSelectableCell {
 }
 
 export interface RangeAdvancedValue {
-    dateGranularity?: ThyFlexibleAdvancedDateGranularity;
+    dateGranularity?: ThyDateGranularity;
     begin?: TinyDate;
     end?: TinyDate;
 }

@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { RangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -177,7 +177,7 @@ describe('ThyRangePickerDirective', () => {
     `
 })
 class ThyTestRangePickerDirective {
-    modelValue: RangeEntry;
+    modelValue: ThyDateRangeEntry;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutRanges: ThyShortcutRange[];
