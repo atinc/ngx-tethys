@@ -80,15 +80,20 @@ describe('ThyButton', () => {
                 'info',
                 'warning',
                 'danger',
+                'warning',
+                'outline-warning',
                 'success',
                 'outline-primary',
                 'outline-default',
                 'outline-info',
+                'outline-success',
+                'outline-danger',
                 'link',
                 'link-info',
                 'link-warning',
                 'link-danger',
-                'link-success'
+                'link-success',
+                'link-danger-weak'
             ].forEach(type => {
                 basicTestComponent.type = type;
                 fixture.detectChanges();

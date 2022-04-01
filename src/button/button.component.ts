@@ -13,7 +13,24 @@ import {
     AfterViewInit
 } from '@angular/core';
 
-export type ThyButtonType = 'primary' | 'secondary' | 'info' | 'outline-primary' | 'outline-default' | 'danger' | 'link' | 'link-secondary';
+export type ThyButtonType =
+    | 'primary'
+    | 'secondary'
+    | 'info'
+    | 'outline-primary'
+    | 'outline-default'
+    | 'danger'
+    | 'link'
+    | 'link-secondary'
+    | 'warning'
+    | 'outline-warning'
+    | 'success'
+    | 'outline-success'
+    | 'outline-info'
+    | 'outline-danger'
+    | 'link-danger-weak'
+    | 'link-danger'
+    | 'link-success';
 
 const btnTypeClassesMap = {
     primary: ['btn-primary'],
