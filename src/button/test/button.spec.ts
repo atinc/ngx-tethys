@@ -80,6 +80,8 @@ describe('ThyButton', () => {
                 'info',
                 'warning',
                 'danger',
+                'warning',
+                'outline-warning',
                 'success',
                 'outline-primary',
                 'outline-default',
