@@ -26,6 +26,7 @@ export * from './lib/decade/decade-header.component';
 export * from './lib/decade/decade-table.component';
 export * from './lib/popups/inner-popup.component';
 export * from './lib/popups/date-popup.component';
+export * from './lib/date-carousel/date-carousel.component';
 export * from './abstract-picker.component';
 export * from './abstract-picker.directive';
 export * from './date-helper.service';

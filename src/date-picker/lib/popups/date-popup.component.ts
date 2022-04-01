@@ -25,7 +25,7 @@ import {
     ThyDateGranularity,
     SupportTimeOptions
 } from '../../standard-types';
-import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from 'ngx-tethys/date-picker/inner-types';
+import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

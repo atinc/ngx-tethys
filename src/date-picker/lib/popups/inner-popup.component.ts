@@ -15,7 +15,7 @@ import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
 import { DateHelperService } from '../../date-helper.service';
-import { RangePartType } from 'ngx-tethys/date-picker/inner-types';
+import { RangePartType } from '../../inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

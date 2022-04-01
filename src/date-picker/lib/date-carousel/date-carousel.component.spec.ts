@@ -8,7 +8,7 @@ import { By } from '@angular/platform-browser';
 import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateCarouselComponent } from './date-carousel.component';
-import { RangeAdvancedValue } from 'ngx-tethys/date-picker/inner-types';
+import { RangeAdvancedValue } from '../../inner-types';
 
 registerLocaleData(zh);
 
