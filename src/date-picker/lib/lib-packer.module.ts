@@ -17,9 +17,13 @@ import { YearHeaderComponent } from './year/year-header.component';
 import { DecadeHeaderComponent } from './decade/decade-header.component';
 import { DecadeTableComponent } from './decade/decade-table.component';
 import { DateHeaderComponent } from './date/date-header.component';
+import { ThyNavModule } from 'ngx-tethys/nav';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { DateCarouselComponent } from './date-carousel/date-carousel.component';
+import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule],
+    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule, ThyNavModule, ThyInputModule],
     exports: [
         CalendarFooterComponent,
         DateTableComponent,
@@ -32,7 +36,8 @@ import { DateHeaderComponent } from './date/date-header.component';
         DecadeTableComponent,
         InnerPopupComponent,
         DatePopupComponent,
-        DateTableCellComponent
+        DateTableCellComponent,
+        DateCarouselComponent
     ],
     declarations: [
         CalendarFooterComponent,
@@ -46,7 +51,9 @@ import { DateHeaderComponent } from './date/date-header.component';
         DecadeTableComponent,
         InnerPopupComponent,
         DatePopupComponent,
-        DateTableCellComponent
+        DateTableCellComponent,
+        DateCarouselComponent,
+        DatePickerAdvancedShowYearTipPipe
     ]
 })
 export class LibPackerModule {}

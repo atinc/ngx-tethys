@@ -1,4 +1,4 @@
-import { PanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import {
     forwardRef,
     ChangeDetectionStrategy,
@@ -33,7 +33,7 @@ import { ThyDatePickerConfigService } from './date-picker.service';
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;
 
-    @Input() thyMode: PanelMode = 'date';
+    @Input() thyMode: ThyPanelMode = 'date';
 
     @Input() thyShowShortcut: boolean = this.datePickerConfigService.showShortcut;
 

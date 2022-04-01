@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
-import { PanelMode } from './standard-types';
+import { ThyPanelMode } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -30,7 +30,7 @@ import { PanelMode } from './standard-types';
 export class ThyMonthPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy-MM';
 
-    thyMode: PanelMode = 'month';
+    thyMode: ThyPanelMode = 'month';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);

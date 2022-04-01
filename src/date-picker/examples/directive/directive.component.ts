@@ -1,5 +1,5 @@
 import { differenceInDays } from 'date-fns';
-import { DateEntry } from 'ngx-tethys/date-picker';
+import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -25,6 +25,8 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
     dateRangeDisabled: { begin: number; end: number };
 
     selectedDateRange: Date[] = [];
+
+    flexibleDateRange: ThyDateRangeEntry;
 
     constructor() {}
 

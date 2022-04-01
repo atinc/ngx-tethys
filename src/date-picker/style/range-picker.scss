@@ -38,6 +38,31 @@ $input-box-height: 34px;
             visibility: hidden;
             content: '.';
         }
+
+        &-flexible {
+            .#{style.$calendar-prefix-cls}-picker-inner-popup {
+                width: 338px;
+                .thy-calendar-body {
+                    padding: 0px 10px 10px 10px;
+                }
+            }
+            &-tab {
+                border-bottom: 1px solid variables.$gray-200;
+                position: relative;
+                .thy-nav {
+                    padding: 0 18px;
+                    border: none;
+                }
+                .clear-date-button {
+                    position: absolute;
+                    right: 18px;
+                    bottom: 8px;
+                }
+            }
+        }
+        &-advanced {
+            padding: 20px 20px 0 20px;
+        }
     }
     &-part {
         position: relative;

@@ -15,7 +15,9 @@ import {
 } from '@angular/core';
 
 import { DateHelperService } from './date-helper.service';
-import { CompatibleValue, RangePartType } from './standard-types';
+import { ThyDateGranularity } from './standard-types';
+import { getFlexibleAdvancedReadableValue } from './picker.util';
+import { CompatibleValue, RangePartType } from './inner-types';
 
 @Component({
     selector: 'thy-picker',
@@ -37,6 +39,8 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() value: TinyDate | TinyDate[] | null;
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
+    @Input() flexible: boolean = false;
+    @Input() flexibleDateGranularity: ThyDateGranularity;
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
@@ -141,9 +145,13 @@ export class ThyPickerComponent implements AfterViewInit {
     getReadableValue(): string | null {
         let value: TinyDate;
         if (this.isRange) {
-            const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
-            const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';
-            return start && end ? `${start} ~ ${end}` : null;
+            if (this.flexible && this.flexibleDateGranularity !== 'day') {
+                return getFlexibleAdvancedReadableValue(this.value as TinyDate[], this.flexibleDateGranularity);
+            } else {
+                const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
+                const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';
+                return start && end ? `${start} ~ ${end}` : null;
+            }
         } else {
             value = this.value as TinyDate;
             return value ? this.dateHelper.format(value.nativeDate, this.format) : null;

@@ -11,7 +11,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { PanelMode } from '../../standard-types';
+import { ThyPanelMode } from '../../standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 
@@ -29,7 +29,7 @@ export abstract class CalendarHeader implements OnInit, OnChanges {
     @Input() showNextBtn: boolean = true;
     @Input() value: TinyDate;
     @Output() readonly valueChange = new EventEmitter<TinyDate>();
-    @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
+    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode>();
 
     abstract getSelectors(): PanelSelector[];
 
@@ -67,7 +67,7 @@ export abstract class CalendarHeader implements OnInit, OnChanges {
         this.gotoMonth(1);
     }
 
-    changePanel(mode: PanelMode, value?: TinyDate): void {
+    changePanel(mode: ThyPanelMode, value?: TinyDate): void {
         this.panelModeChange.emit(mode);
     }
 

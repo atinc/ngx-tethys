@@ -1,4 +1,4 @@
-import { RangeEntry, ThyShortcutRange, ThyShortcutValueChange } from 'ngx-tethys/date-picker';
+import { ThyDateRangeEntry, ThyShortcutRange, ThyShortcutValueChange } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -23,7 +23,7 @@ export class ThyDatePickerShortcutExampleComponent implements OnInit {
         ];
     }
 
-    onChange(result: RangeEntry): void {
+    onChange(result: ThyDateRangeEntry): void {
         console.log('onChange: ', result);
     }
 

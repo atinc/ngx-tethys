@@ -10,21 +10,45 @@
     </div>
     <div class="{{ prefixCls }}-panel">
       <div class="{{ prefixCls }}-date-panel">
-        <ng-container *ngIf="isRange; else tplSinglePart">
-          <!-- Range Selectors -->
-          <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'left' }"></ng-container>
-          <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'right' }"></ng-container>
+        <ng-container *ngIf="flexible; else defaultPanel">
+          <div class="{{ prefixCls }}-date-panel-flexible">
+            <div class="{{ prefixCls }}-date-panel-flexible-tab">
+              <thy-nav thyType="secondary">
+                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')"
+                  >高级选项</a
+                >
+                <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'custom'" (click)="selectTab('custom')"
+                  >自定义</a
+                >
+              </thy-nav>
+              <button thyButtonIcon="sweep" thySize="sm" class="clear-date-button" (click)="clearFlexibleValue()"></button>
+            </div>
+            <ng-container>
+              <div class="{{ prefixCls }}-date-panel-advanced" [hidden]="flexibleActiveTab !== 'advanced'">
+                <date-carousel
+                  name="dateCarousel"
+                  (ngModelChange)="changeValueFromAdvancedSelect($event)"
+                  [(ngModel)]="advancedSelectedValue"
+                  [activeDate]="selectedValue[0]"
+                ></date-carousel>
+              </div>
+            </ng-container>
+            <div [hidden]="flexibleActiveTab !== 'custom'">
+              <ng-container *ngTemplateOutlet="tplInnerPopup"></ng-container>
+            </div>
+          </div>
         </ng-container>
 
-        <ng-container *ngIf="!isRange">
-          <!-- Single ONLY -->
-          <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
-        </ng-container>
+        <ng-template #defaultPanel>
+          <ng-container *ngIf="isRange; else tplSinglePart">
+            <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'left' }"></ng-container>
+            <ng-container *ngTemplateOutlet="tplRangePart; context: { partType: 'right' }"></ng-container>
+          </ng-container>
+          <ng-container *ngIf="!isRange">
+            <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
+          </ng-container>
+        </ng-template>
       </div>
-      <ng-container *ngIf="isRange">
-        <!-- Range ONLY -->
-        <ng-container *ngTemplateOutlet="tplFooter"></ng-container>
-      </ng-container>
     </div>
   </div>
 </div>
@@ -36,6 +60,7 @@
     [panelMode]="getPanelMode(panelMode, partType)"
     [endPanelMode]="getPanelMode(endPanelMode, partType)"
     [partType]="partType"
+    [showDateRangeInput]="flexible && flexibleActiveTab === 'custom'"
     (panelModeChange)="onPanelModeChange($event, partType)"
     [value]="getValueBySelector(partType)"
     [selectedValue]="selectedValue"

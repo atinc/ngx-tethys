@@ -10,10 +10,12 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { DisabledDateFn, PanelMode, RangePartType } from '../../standard-types';
-import { TinyDate } from 'ngx-tethys/util';
+import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
+import { DateHelperService } from '../../date-helper.service';
+import { RangePartType } from '../../inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -23,6 +25,8 @@ import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOn
 })
 export class InnerPopupComponent implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
+    @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
+
     @Input() showWeek: boolean;
     @Input() isRange: boolean;
     @Input() activeDate: TinyDate;
@@ -34,13 +38,21 @@ export class InnerPopupComponent implements OnChanges {
     @Input() selectedValue: TinyDate[]; // Range ONLY
     @Input() hoverValue: TinyDate[]; // Range ONLY
 
-    @Input() panelMode: PanelMode;
+    @Input() panelMode: ThyPanelMode;
+
+    @Input() set showDateRangeInput(value: boolean) {
+        this._showDateRangeInput = coerceBooleanProperty(value);
+    }
+
+    get showDateRangeInput() {
+        return this._showDateRangeInput;
+    }
 
     @Input() partType: RangePartType;
 
-    @Input() endPanelMode: PanelMode;
+    @Input() endPanelMode: ThyPanelMode;
 
-    @Output() readonly panelModeChange = new EventEmitter<PanelMode>();
+    @Output() readonly panelModeChange = new EventEmitter<ThyPanelMode>();
 
     @Input() value: TinyDate;
 
@@ -50,7 +62,7 @@ export class InnerPopupComponent implements OnChanges {
 
     prefixCls = 'thy-calendar';
 
-    constructor() {}
+    constructor(private dateHelper: DateHelperService) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
@@ -59,6 +71,10 @@ export class InnerPopupComponent implements OnChanges {
         if (changes.panelMode && changes.panelMode.currentValue === 'time') {
             this.panelMode = 'date';
         }
+    }
+
+    getReadableValue(value: TinyDate) {
+        return value ? this.dateHelper.format(value.nativeDate, 'yyyy-MM-dd') : '';
     }
 
     onSelectDate(date: TinyDate | Date): void {
@@ -99,7 +115,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
-    enablePrevNext(direction: 'prev' | 'next', mode: PanelMode): boolean {
+    enablePrevNext(direction: 'prev' | 'next', mode: ThyPanelMode): boolean {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
                 const [headerLeftDate, headerRightDate] = this.rangeActiveDate;
@@ -112,7 +128,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
-    enableSuperPrevNext(direction: 'prev' | 'next', panelMode: PanelMode) {
+    enableSuperPrevNext(direction: 'prev' | 'next', panelMode: ThyPanelMode) {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
                 const [headerLeftDate, headerRightDate] = this.rangeActiveDate;

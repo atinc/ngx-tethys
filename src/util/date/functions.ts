@@ -13,6 +13,7 @@ export const isSameMinute = dateFns.isSameMinute;
 export const isSameMonth = dateFns.isSameMonth;
 export const isSameSecond = dateFns.isSameSecond;
 export const isSameYear = dateFns.isSameYear;
+export const isSameQuarter = dateFns.isSameQuarter;
 export const isToday = dateFns.isToday;
 export const isTomorrow = dateFns.isTomorrow;
 export const isValid = dateFns.isValid;

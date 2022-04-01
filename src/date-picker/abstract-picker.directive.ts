@@ -22,18 +22,19 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, PanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { CompatibleValue } from './inner-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode = 'date';
+    @Input() thyMode: ThyPanelMode = 'date';
 
-    panelMode: PanelMode | PanelMode[];
+    panelMode: ThyPanelMode | ThyPanelMode[];
 
-    @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
+    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
@@ -83,7 +84,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     ngOnInit() {
         this.thyMode = this.thyMode || 'date';
-        this.panelMode = this.isRange ? [this.thyMode, this.thyMode] : this.thyMode;
+        this.flexible = this.thyMode === 'flexible';
+
+        if (this.isRange) {
+            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
+        } else {
+            this.panelMode = this.thyMode;
+        }
     }
 
     private openOverlay(): void {
@@ -112,7 +119,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         maxDate: this.thyMaxDate,
                         showShortcut: this.thyShowShortcut,
                         shortcutRanges: this.shortcutRanges,
-                        shortcutPosition: this.shortcutPosition
+                        shortcutPosition: this.shortcutPosition,
+                        flexible: this.flexible,
+                        flexibleDateGranularity: this.flexibleDateGranularity
                     },
                     placement: this.thyPlacement
                 },
@@ -131,9 +140,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
             // tslint:disable-next-line: max-line-length
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
-            componentInstance.shortcutValueChange
-                ?.pipe(takeUntil(this.destroy$))
-                .subscribe((event: ThyShortcutValueChange) => this.thyShortcutValueChange.emit(event));
+            componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
+                this.thyShortcutValueChange.emit(event);
+                this.closeOverlay();
+            });
             popoverRef
                 .afterOpened()
                 .pipe(takeUntil(this.destroy$))
@@ -174,8 +184,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     onValueChange(value: CompatibleValue): void {
         this.restoreTimePickerState(value);
         super.onValueChange(value);
-
-        this.closeOverlay();
+        if (!this.flexible) {
+            this.closeOverlay();
+        }
     }
 
     // Displays the time directly when the time must be displayed by default

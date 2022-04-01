@@ -13,6 +13,8 @@ describe('tiny-date', () => {
 
         expect(date.isSameMonth(new TinyDate('2020-2-2 2:00:00'))).toBeTruthy();
 
+        expect(date.isSameQuarter(new TinyDate('2020-3-2 2:00:00'))).toBeTruthy();
+
         expect(date.isSame(new TinyDate('2020-2-2 22:20:20'), 'day')).toBeTruthy();
         expect(date.isSame(new TinyDate('2020-2-2 22:20:20'), null)).toBeTruthy();
         expect(date.isSameDay(new TinyDate('2020-2-2 22:20:20'))).toBeTruthy();

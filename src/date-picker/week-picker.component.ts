@@ -1,7 +1,7 @@
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
-import { PanelMode } from './standard-types';
+import { ThyPanelMode } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -18,7 +18,7 @@ import { PanelMode } from './standard-types';
 })
 export class ThyWeekPickerComponent extends BasePickerComponent {
     showWeek = true;
-    thyMode: PanelMode = 'week';
+    thyMode: ThyPanelMode = 'week';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);
