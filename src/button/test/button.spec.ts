@@ -77,7 +77,6 @@ describe('ThyButton', () => {
         it('should set type success', () => {
             [
                 'primary',
-                'secondary',
                 'info',
                 'warning',
                 'danger',
