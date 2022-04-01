@@ -22,7 +22,8 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { CompatibleValue } from './inner-types';
 
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {

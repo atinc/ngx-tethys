@@ -1,6 +1,7 @@
 import { Directive, Input, StaticProvider, forwardRef } from '@angular/core';
 import { NG_VALIDATORS, AbstractControl, ValidationErrors, Validator } from '@angular/forms';
-import { DateEntry, ThyDateRangeEntry, instanceOfDateEntry, instanceOfRangeEntry } from './standard-types';
+import { instanceOfDateEntry, instanceOfRangeEntry } from './picker.util';
+import { DateEntry, ThyDateRangeEntry } from './standard-types';
 
 const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,

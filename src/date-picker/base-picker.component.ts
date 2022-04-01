@@ -4,7 +4,8 @@ import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, CompatibleValue, ThyPanelMode, RangeAdvancedValue } from './standard-types';
+import { CompatibleDate, ThyPanelMode } from './standard-types';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 @Component({
     template: ``

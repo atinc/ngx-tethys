@@ -1,8 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { DateHelperService } from './date-helper.service';
-import { AdvancedSelectableCell, CompatibleDate, DateEntry, ThyDateRangeEntry, ThyDateGranularity } from './standard-types';
+import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyDateGranularity } from './standard-types';
 import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.util';
 import { TinyDate } from 'ngx-tethys/util';
+import { AdvancedSelectableCell } from './inner-types';
 
 @Pipe({ name: 'thyDatePickerFormat' })
 export class ThyDatePickerFormatPipe implements PipeTransform {

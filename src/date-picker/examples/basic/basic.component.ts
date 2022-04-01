@@ -1,6 +1,5 @@
-import { DateEntry, RangeAdvancedValue, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
+import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 import { Component, forwardRef, OnInit } from '@angular/core';
-import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-basic-example',

@@ -19,7 +19,6 @@ import { TinyDate } from 'ngx-tethys/util';
 import { ThyPickerComponent } from './picker.component';
 import {
     CompatibleDate,
-    CompatibleValue,
     DisabledDateFn,
     DateEntry,
     ThyDateRangeEntry,
@@ -27,10 +26,10 @@ import {
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange,
-    RangeAdvancedValue,
     ThyDateGranularity
 } from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 @Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
@@ -40,7 +39,7 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() @InputBoolean() thyAutoFocus = false;
     @Input() @InputBoolean() thyDisabled = false;
     @Input() @InputBoolean() thyOpen: boolean;
-    @Input() thyDisabledDate: (d: Date) => boolean;
+    @Input() thyDisabledDate: DisabledDateFn;
     @Input() thyMinDate: Date | number;
     @Input() thyMaxDate: Date | number;
     @Input() thyPlaceHolder: string | string[];

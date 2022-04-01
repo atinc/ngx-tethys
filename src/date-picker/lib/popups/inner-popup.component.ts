@@ -10,11 +10,12 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { DisabledDateFn, ThyPanelMode, RangePartType } from '../../standard-types';
+import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { FunctionProp } from 'ngx-tethys/util';
 import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
 import { DateHelperService } from '../../date-helper.service';
+import { RangePartType } from 'ngx-tethys/date-picker/inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

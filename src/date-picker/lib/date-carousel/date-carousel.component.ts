@@ -11,14 +11,14 @@ import {
     forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AdvancedSelectableCell, RangeAdvancedValue, ThyDateGranularity } from 'ngx-tethys/date-picker/standard-types';
+import { AdvancedSelectableCell, RangeAdvancedValue } from 'ngx-tethys/date-picker/inner-types';
+import { ThyDateGranularity } from 'ngx-tethys/date-picker/standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 @Component({
     selector: 'date-carousel',
     templateUrl: './date-carousel.component.html',
-    styleUrls: ['./date-carousel.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [
         {

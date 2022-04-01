@@ -5,9 +5,10 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { LibPackerModule, RangeAdvancedValue } from 'ngx-tethys/date-picker';
+import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { DateCarouselComponent } from './date-carousel.component';
+import { RangeAdvancedValue } from 'ngx-tethys/date-picker/inner-types';
 
 registerLocaleData(zh);
 
@@ -110,6 +111,7 @@ describe('TestDateCarouselComponent', () => {
             expect(fixtureInstance.advancedSelectedValue.end.isSameDay(new TinyDate('2022-04-01').endOfYear())).toBeTruthy();
             expect(fixtureInstance.advancedSelectedValue.dateGranularity).toBe('year');
         }));
+
         it('should ndModelChange call', fakeAsync(() => {
             const spy = spyOn(fixtureInstance, 'modelValueChange');
             fixtureInstance.advancedSelectedValue = {

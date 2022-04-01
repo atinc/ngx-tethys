@@ -1,19 +1,8 @@
-import {
-    CompatibleDate,
-    DateEntry,
-    ThyDateRangeEntry,
-    instanceOfDateEntry,
-    instanceOfRangeEntry,
-    CompatibleValue,
-    ThyPanelMode,
-    instanceOfCompatibleValue,
-    RangeAdvancedValue,
-    instanceOfRangeAdvancedValue,
-    ThyDateGranularity
-} from './standard-types';
+import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 export function transformDateValue(
     value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
@@ -184,4 +173,24 @@ export function isAfterMoreThanOneDecade(rightDate: TinyDate, leftDate: TinyDate
     rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
     leftDate = leftDate ? leftDate : rightDate;
     return rightDate.getYear() - leftDate.getYear() >= 20;
+}
+
+export function instanceOfDateEntry(object: DateEntry): object is DateEntry {
+    return isSupportDateType(object, 'date') && typeof object.with_time === 'number';
+}
+
+export function instanceOfRangeEntry(object: ThyDateRangeEntry): object is ThyDateRangeEntry {
+    return isSupportDateType(object, 'begin') && isSupportDateType(object, 'end');
+}
+
+export function instanceOfCompatibleValue(object: CompatibleValue): object is CompatibleValue {
+    return object instanceof TinyDate || object[0] instanceof TinyDate;
+}
+
+export function instanceOfRangeAdvancedValue(object: RangeAdvancedValue): object is RangeAdvancedValue {
+    return object['begin'] instanceof TinyDate && object['end'] instanceof TinyDate;
+}
+
+export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: string) {
+    return typeof object[key] === 'number' || object[key] === null || object[key] instanceof Date;
 }

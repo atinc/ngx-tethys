@@ -580,6 +580,7 @@ describe('ThyRangePickerComponent', () => {
             });
             expect(getRangePickerInput().value).toBe(new Date().getFullYear() + '年');
         }));
+
         it('should select advanced quarter', fakeAsync(() => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             fixture.detectChanges();
@@ -619,6 +620,7 @@ describe('ThyRangePickerComponent', () => {
             });
             expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 ${new TinyDate().getMonth() + 1}月`);
         }));
+
         it('should select custom date', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();

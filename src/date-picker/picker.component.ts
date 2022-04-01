@@ -15,8 +15,9 @@ import {
 } from '@angular/core';
 
 import { DateHelperService } from './date-helper.service';
-import { CompatibleValue, RangePartType, ThyDateGranularity } from './standard-types';
+import { ThyDateGranularity } from './standard-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
+import { CompatibleValue, RangePartType } from './inner-types';
 
 @Component({
     selector: 'thy-picker',

@@ -1,5 +1,5 @@
-@use "../../../styles/variables";
-:host.thy-date-picker-advanced-carousel {
+@use "../../styles/variables";
+.thy-date-picker-advanced-carousel {
     .carousel-item {
         margin-bottom: 30px;
         &-title {

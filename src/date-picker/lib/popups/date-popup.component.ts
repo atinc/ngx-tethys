@@ -17,18 +17,15 @@ import {
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
-    CompatibleValue,
     DisabledDateFn,
     ThyPanelMode,
-    RangePartType,
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange,
-    SupportTimeOptions,
     ThyDateGranularity,
-    RangeAdvancedValue,
-    DatePickerFlexibleTab
+    SupportTimeOptions
 } from '../../standard-types';
+import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from 'ngx-tethys/date-picker/inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
