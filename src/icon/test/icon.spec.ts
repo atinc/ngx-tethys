@@ -256,25 +256,6 @@ describe('IconRegistry', () => {
         assertGetSvgIconSuccess(svgRandomName);
     });
 
-    it('should addSvgIcon fail when url is not trusted url', () => {
-        const url = createRandomUrl();
-        const sanitizer = TestBed.inject(DomSanitizer);
-        sanitizer.sanitize = (ctx, value) => {
-            if (url === value) {
-                return null;
-            } else {
-                sanitizer.sanitize(ctx, value);
-            }
-        };
-
-        expect(() => {
-            iconRegistry.addSvgIcon(svgRandomName, url);
-            iconRegistry.getSvgIcon(svgRandomName).subscribe();
-        }).toThrowError(
-            `The URL provided to ThyIconRegistry was not trusted as a resource URL via Angular's DomSanitizer. Attempted URL was "null".`
-        );
-    });
-
     it('should addSvgIcon fail when url is null', () => {
         expect(() => {
             iconRegistry.addSvgIcon(svgRandomName, null);
@@ -291,6 +272,15 @@ describe('IconRegistry', () => {
         iconRegistry.addSvgIconSet(domSanitizer.bypassSecurityTrustResourceUrl(url));
         httpClientSpy.get.and.returnValue(of(`<svg><defs>${svg1}${svg2}</defs></svg>`));
         assertGetSvgIconSuccess(svg2Name);
+    });
+
+    it('should addSvgIconSet success when url is not trusted url', () => {
+        const svg1Name = generateRandomStr();
+        const svg1 = createFakeSvg(svg1Name);
+        const url = createRandomUrl();
+        iconRegistry.addSvgIconSet(url);
+        httpClientSpy.get.and.returnValue(of(`<svg><defs>${svg1}</defs></svg>`));
+        assertGetSvgIconSuccess(svg1Name);
     });
 
     it('should addSvgIconSet success for symbol', () => {
@@ -315,6 +305,20 @@ describe('IconRegistry', () => {
         httpClientSpy.get.and.returnValue(of(`<svg><defs>${svg1}${svg2}</defs></svg>`));
         assertGetSvgIconSuccess(svg1Name, 'nps2');
         assertGetSvgIconSuccess(svg2Name, 'nps2');
+        assertGetSvgIconFail(svg1Name);
+        assertGetSvgIconFail(svg2Name);
+    });
+
+    it('should addSvgIconSetInNamespace success  when url is not trusted url', () => {
+        const svg1Name = generateRandomStr();
+        const svg2Name = generateRandomStr();
+        const svg1 = createFakeSvg(svg1Name);
+        const svg2 = createFakeSvg(svg2Name);
+        const url = createRandomUrl();
+        iconRegistry.addSvgIconSetInNamespace('nps3', url);
+        httpClientSpy.get.and.returnValue(of(`<svg><defs>${svg1}${svg2}</defs></svg>`));
+        assertGetSvgIconSuccess(svg1Name, 'nps3');
+        assertGetSvgIconSuccess(svg2Name, 'nps3');
         assertGetSvgIconFail(svg1Name);
         assertGetSvgIconFail(svg2Name);
     });
