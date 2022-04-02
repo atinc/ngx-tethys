@@ -74,17 +74,13 @@ function bumpVersion() {
     let version;
 
     while (!versionIsValid) {
-        version = read.question(
-            chalk.bgYellow.black(`current version is ${currentVersion}, Please input the new version:  `)
-        );
+        version = read.question(chalk.bgYellow.black(`current version is ${currentVersion}, Please input the new version:  `));
 
         if (semver.valid(version) && semver.gt(version, currentVersion)) {
             versionIsValid = true;
             nextVersion = version;
         } else {
-            logger.error(
-                `your input ${version} is not after the current version ${currentVersion} or is invalid. please retry input.`
-            );
+            logger.error(`your input ${version} is not after the current version ${currentVersion} or is invalid. please retry input.`);
         }
     }
 
@@ -92,10 +88,7 @@ function bumpVersion() {
     logger.success(`✔ bumping version src/package.json from ${currentVersion} to ${version}!`);
     fs.writeJsonSync(rootPackageJsonPath, { ...rootPackageJson, version: version }, { spaces: 2 });
     logger.success(`✔ bumping version package.json from ${currentVersion} to ${version}!`);
-    fs.writeFileSync(
-        versionPath,
-        fs.readFileSync(versionPath, 'utf-8').replace(/Version\('.+'\);/g, `Version('${version}');`)
-    );
+    fs.writeFileSync(versionPath, fs.readFileSync(versionPath, 'utf-8').replace(/Version\('.+'\);/g, `Version('${version}');`));
     logger.success(`✔ bumping version src/version.ts from ${currentVersion} to ${version}!`);
     logger.success('✔ bumping version success!');
 }
@@ -116,7 +109,7 @@ function checkout() {
     logger.info('checkout and push a new branch for publishing...');
     execSync(`git checkout -b release-${nextVersion}`);
     execSync('git add .');
-    execSync(`git commit -m "chore(release): upgrade to ${nextVersion}"`);
+    execSync(`git commit -m "build(release): upgrade to ${nextVersion}"`);
     execSync(`git push origin release-${nextVersion}`);
     logger.success('✔ please go to GitHub and create a pull request.');
 }
