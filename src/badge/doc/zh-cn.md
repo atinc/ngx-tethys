@@ -1,5 +1,5 @@
 ---
-category: general
+category: display
 title: Badge
 subtitle: 徽标
 ---
@@ -19,7 +19,7 @@ import { ThyBadgeModule } from "ngx-tethys/badge";
 <example name="thy-badge-basic-example"></example>
 
 ## 封顶数字
-超过 thyMaxCount 的会显示为 {{thyCount}}+，默认的 thyMaxCount 为 99。
+超过 thyMaxCount 的会显示为 ${thyCount}+，默认的 thyMaxCount 为 99。
 <example name="thy-badge-overflow-example"></example>
 
 ## 类型展示
