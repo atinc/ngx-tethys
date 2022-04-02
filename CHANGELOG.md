@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.16"></a>
+## [12.1.16](https://github.com/atinc/ngx-tethys/compare/12.1.15...12.1.16) (2022-04-02)
+
+
+### Features
+
+* **button:** add warning and outlint-warning button types #INFR-2527 ([#1558](https://github.com/atinc/ngx-tethys/issues/1558)) ([8689eca](https://github.com/atinc/ngx-tethys/commit/8689eca)), closes [#INFR-2527](https://github.com/atinc/ngx-tethys/issues/INFR-2527)
+* **date-picker:** add flexibel model for range picker and range directive #INFR-2703 ([#1553](https://github.com/atinc/ngx-tethys/issues/1553)) ([d87f3b3](https://github.com/atinc/ngx-tethys/commit/d87f3b3)), closes [#INFR-2703](https://github.com/atinc/ngx-tethys/issues/INFR-2703) [#INFR-2703](https://github.com/atinc/ngx-tethys/issues/INFR-2703)
+* **icon:** icon-registry add icon support untrusted url #INFR-2830 ([a680ae5](https://github.com/atinc/ngx-tethys/commit/a680ae5)), closes [#INFR-2830](https://github.com/atinc/ngx-tethys/issues/INFR-2830)
+
+
+
 <a name="12.1.15"></a>
 ## [12.1.15](https://github.com/atinc/ngx-tethys/compare/12.1.14...12.1.15) (2022-03-31)
 
