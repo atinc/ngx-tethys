@@ -5,6 +5,7 @@ import { DOCUMENT } from '@angular/common';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable, SecurityContext } from '@angular/core';
 import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
+import { isString } from 'ngx-tethys/util';
 
 class SvgIconConfig {
     url: SafeResourceUrl | null;
@@ -22,6 +23,8 @@ class SvgIconConfig {
 }
 
 export type IconMode = 'font' | 'svg';
+
+export type SvgResourceUrl = SafeResourceUrl | string;
 
 @Injectable({
     providedIn: 'root'
@@ -298,11 +301,12 @@ export class ThyIconRegistry {
         }
     }
 
-    public addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this {
+    public addSvgIconSetInNamespace(namespace: string, url: SvgResourceUrl): this {
+        url = isString(url) ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : url;
         return this.internalAddSvgIconSet(namespace, new SvgIconConfig(url));
     }
 
-    public addSvgIconSet(url: SafeResourceUrl): this {
+    public addSvgIconSet(url: SvgResourceUrl): this {
         return this.addSvgIconSetInNamespace('', url);
     }
 
@@ -327,7 +331,8 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    public addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this {
+    public addSvgIconInNamespace(namespace: string, iconName: string, url: SvgResourceUrl): this {
+        url = isString(url) ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : url;
         return this.internalAddSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
     }
 
@@ -336,7 +341,7 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    public addSvgIcon(iconName: string, url: SafeResourceUrl): this {
+    public addSvgIcon(iconName: string, url: SvgResourceUrl): this {
         return this.addSvgIconInNamespace('', iconName, url);
     }
 
