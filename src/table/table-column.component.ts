@@ -132,7 +132,7 @@ export class ThyTableColumnComponent implements OnInit {
             '[$$column]' +
             Math.random()
                 .toString(16)
-                .substr(2, 8)
+                .slice(2, 10)
         );
     }
 }
