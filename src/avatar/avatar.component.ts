@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { SafeHtml } from '@angular/platform-browser';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ThyAvatarService } from './avatar.service';
@@ -15,6 +15,12 @@ export const thyAvatarSizeMap = {
     md: 36,
     lg: 48
 };
+
+/** https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading */
+export type ThyAvatarLoading = 'eager' | 'lazy';
+
+/** https://wicg.github.io/priority-hints/#idl-index */
+export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 
 @Component({
     selector: 'thy-avatar',
@@ -69,6 +75,10 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input() thyDisabled: boolean;
 
+    @Input() thyLoading?: ThyAvatarLoading;
+
+    @Input() thyFetchPriority?: ThyAvatarFetchPriority;
+
     private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
@@ -121,9 +131,8 @@ export class ThyAvatarComponent implements OnInit {
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private thyAvatarService: ThyAvatarService,
-        private domSanitizer: DomSanitizer
+        elementRef: ElementRef,
+        private thyAvatarService: ThyAvatarService
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
