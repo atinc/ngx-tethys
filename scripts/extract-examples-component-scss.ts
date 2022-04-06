@@ -34,7 +34,7 @@ export class ExtractExamplesComponentScss {
         componentConfigNodeList.forEach(node => {
             const list = node.initializer as ts.ArrayLiteralExpression;
             list.elements
-                .map(item => item.getText().substr(1, item.getText().length - 2))
+                .map(item => item.getText().slice(1, item.getText().length - 1))
                 .map(item => path.resolve(path.dirname(sourceFile.fileName), item))
                 .forEach(item => {
                     this.scssFileSet.push(item);
