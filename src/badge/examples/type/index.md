@@ -1,5 +1,3 @@
 ---
-title: 类型展示
-description:
-order: 3
+order: 30
 ---
