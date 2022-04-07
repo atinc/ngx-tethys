@@ -1,9 +1,10 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { async, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { waitForAsync, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
@@ -386,13 +387,15 @@ describe('ThyTreeSelect', () => {
         describe('basic class', () => {
             let treeSelectDebugElement: DebugElement;
             let treeSelectElement: HTMLElement;
-            beforeEach(async(() => {
-                configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
-                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
-                fixture.detectChanges();
-                treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
-                treeSelectElement = treeSelectDebugElement.nativeElement;
-            }));
+            beforeEach(
+                waitForAsync(() => {
+                    configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
+                    const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                    fixture.detectChanges();
+                    treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
+                    treeSelectElement = treeSelectDebugElement.nativeElement;
+                })
+            );
 
             it('should get correct class', () => {
                 expect(treeSelectElement).toBeTruthy();
@@ -408,12 +411,22 @@ describe('ThyTreeSelect', () => {
                 expect(iconElement.classList.contains(`thy-icon`)).toBeTruthy();
                 expect(iconElement.classList.contains(`thy-icon-angle-down`)).toBeTruthy();
             });
+
+            it('should not run change detection on document clicks when the popup is closed', () => {
+                const appRef = TestBed.inject(ApplicationRef);
+                spyOn(appRef, 'tick');
+
+                dispatchMouseEvent(treeSelectElement, 'click');
+                expect(appRef.tick).not.toHaveBeenCalled();
+            });
         });
 
         describe('with thyPlaceHolder', () => {
-            beforeEach(async(() => {
-                configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
-            }));
+            beforeEach(
+                waitForAsync(() => {
+                    configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
+                })
+            );
 
             it('should show default placeholder', fakeAsync(() => {
                 const fixture = TestBed.createComponent(PlaceHolderTreeSelectComponent);
@@ -435,9 +448,11 @@ describe('ThyTreeSelect', () => {
         });
 
         describe('select logic', () => {
-            beforeEach(async(() => {
-                configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
-            }));
+            beforeEach(
+                waitForAsync(() => {
+                    configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
+                })
+            );
 
             it('should select item with multiple when item is clicked', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
@@ -460,7 +475,7 @@ describe('ThyTreeSelect', () => {
     });
 
     describe('with ngModel', () => {
-        beforeEach(async(() => configureThyCustomSelectTestingModule([NgModelTreeSelectComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([NgModelTreeSelectComponent])));
 
         it('show selected text when set ngModel ', fakeAsync(() => {
             const fixture = TestBed.createComponent(NgModelTreeSelectComponent);
@@ -503,7 +518,7 @@ describe('ThyTreeSelect', () => {
     });
 
     describe('with search', () => {
-        beforeEach(async(() => configureThyCustomSelectTestingModule([SearchTreeSelectComponent])));
+        beforeEach(waitForAsync(() => configureThyCustomSelectTestingModule([SearchTreeSelectComponent])));
         it('show search input when set thyShowSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SearchTreeSelectComponent);
             fixture.detectChanges();
