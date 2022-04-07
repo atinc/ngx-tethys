@@ -1,5 +1,5 @@
 import { DOCUMENT, PlatformLocation } from '@angular/common';
-import { ApplicationRef, Injector } from '@angular/core';
+import { ApplicationRef, Injector, ɵglobal } from '@angular/core';
 import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ThyScrollService } from './scroll';
@@ -13,6 +13,9 @@ describe('ThyScrollService', () => {
     class MockDocument {
         body = new MockElement();
         documentElement = new MockDocumentElement();
+        // Needed for the `DOMTestComponentRenderer.removeAllRootElements` since it uses
+        // `DOCUMENT` token to remove DOM elements.
+        querySelectorAll = ɵglobal.document.querySelectorAll.bind(ɵglobal.document);
     }
 
     class MockDocumentElement {

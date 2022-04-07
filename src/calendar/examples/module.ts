@@ -10,7 +10,6 @@ const COMPONENTS = [ThyCalendarBasicExampleComponent];
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, FormsModule, LibPackerModule, ThyCalendarModule, ThyBadgeModule],
     exports: [...COMPONENTS]
 })

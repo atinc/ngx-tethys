@@ -10,7 +10,6 @@ const COMPONENTS = [ThyMenuGroupExampleComponent, ThyMenuItemExampleComponent, T
 @NgModule({
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
 })

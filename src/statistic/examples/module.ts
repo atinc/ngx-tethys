@@ -8,7 +8,6 @@ const COMPONENTS: any[] = [ThyStatisticBasicExampleComponent, ThyStatisticCardEx
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule],
     exports: [...COMPONENTS]
 })

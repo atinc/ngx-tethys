@@ -569,7 +569,6 @@ class SlideHeaderTestComponent {}
 @NgModule({
     imports: [ThySlideModule, NoopAnimationsModule],
     exports: [SlideLayoutTestComponent, SlideHeaderTestComponent],
-    declarations: [SlideLayoutTestComponent, SlideHeaderTestComponent],
-    entryComponents: [SlideLayoutTestComponent, SlideHeaderTestComponent]
+    declarations: [SlideLayoutTestComponent, SlideHeaderTestComponent]
 })
 export class ThySlideTestModule {}

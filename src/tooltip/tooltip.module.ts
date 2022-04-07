@@ -11,7 +11,6 @@ import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from './tooltip.config';
     imports: [A11yModule, CommonModule, OverlayModule],
     exports: [ThyTooltipDirective],
     declarations: [ThyTooltipDirective, ThyTooltipComponent],
-    entryComponents: [ThyTooltipComponent],
     providers: [THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThyTooltipModule {}

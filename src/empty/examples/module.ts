@@ -35,7 +35,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, FormsModule, TranslateModule.forRoot(), TranslateModule, NgxTethysModule],
     exports: [...COMPONENTS],
     providers: [

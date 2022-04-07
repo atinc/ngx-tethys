@@ -156,7 +156,6 @@ const TEST_COMPONENTS = [ClickComponent];
     imports: [],
     providers: [ClickComponent],
     exports: TEST_COMPONENTS,
-    declarations: TEST_COMPONENTS,
-    entryComponents: TEST_COMPONENTS
+    declarations: TEST_COMPONENTS
 })
 class ClickDispatcherTestModule {}

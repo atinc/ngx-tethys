@@ -26,7 +26,6 @@ const COMPONENTS = [
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule, ThyAvatarModule],
     exports: COMPONENTS,
-    providers: [],
-    entryComponents: COMPONENTS
+    providers: []
 })
 export class ThyAvatarExamplesModule {}

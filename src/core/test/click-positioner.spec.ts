@@ -83,7 +83,6 @@ const TEST_COMPONENTS = [ClickPositionerComponent];
     imports: [],
     providers: [ClickPositionerComponent],
     exports: TEST_COMPONENTS,
-    declarations: TEST_COMPONENTS,
-    entryComponents: TEST_COMPONENTS
+    declarations: TEST_COMPONENTS
 })
 class ClickPositionerTestModule {}

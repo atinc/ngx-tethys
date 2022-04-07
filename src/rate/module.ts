@@ -11,7 +11,6 @@ import { ThyRateComponent } from './rate.component';
     imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyTooltipModule],
     declarations: [ThyRateComponent, ThyRateItemComponent],
     exports: [ThyRateComponent],
-    providers: [],
-    entryComponents: [ThyRateComponent, ThyRateItemComponent]
+    providers: []
 })
 export class ThyRateModule {}

@@ -7,7 +7,6 @@ import { CommonModule } from '@angular/common';
 @NgModule({
     imports: [CommonModule, NgxTethysModule, ThySharedModule],
     declarations: [ThyRasterBasicExampleComponent],
-    exports: [ThyRasterBasicExampleComponent],
-    entryComponents: [ThyRasterBasicExampleComponent]
+    exports: [ThyRasterBasicExampleComponent]
 })
 export class ThyRasterExamplesModule {}

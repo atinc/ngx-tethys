@@ -12,7 +12,6 @@ const COMPONENTS = [ThyLinkUsageWtfExampleComponent, ThyLinkUsageSvgExampleCompo
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule],
     exports: [],
     providers: COMPONENTS

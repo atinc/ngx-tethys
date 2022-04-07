@@ -31,7 +31,6 @@ const COMPONENTS = [
     imports: [CommonModule, NgxTethysModule, FormsModule, DragDropModule],
     exports: COMPONENTS,
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     providers: []
 })
 export class ThyListExamplesModule {}

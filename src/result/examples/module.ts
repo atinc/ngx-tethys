@@ -17,7 +17,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule, ThyResultModule],
     exports: [...COMPONENTS],
     providers: []

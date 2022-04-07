@@ -11,7 +11,6 @@ const COMPONENTS = [ThyBreadcrumbBasicExampleComponent, ThyBreadcrumbSlashExampl
 @NgModule({
     declarations: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
 })

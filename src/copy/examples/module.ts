@@ -12,7 +12,6 @@ const COMPONENTS = [ThyCopyBasicExampleComponent, ThyCopyCopyContentExampleCompo
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule],
     exports: COMPONENTS,
     providers: []

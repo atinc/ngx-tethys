@@ -11,7 +11,6 @@ const COMPONENTS = [ThyStrengthBasicExampleComponent, ThyStrengthCustomExampleCo
     imports: [CommonModule, NgxTethysModule, FormsModule],
     exports: COMPONENTS,
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     providers: []
 })
 export class ThyStrengthExamplesModule {}
