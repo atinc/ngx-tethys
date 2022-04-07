@@ -1,5 +1,11 @@
 <div class="thy-empty-icon">
-  <img *ngIf="thyImageUrl; else icon" [src]="thyImageUrl" class="empty-img" />
+  <img
+    *ngIf="thyImageUrl; else icon"
+    [src]="thyImageUrl"
+    [attr.loading]="thyImageLoading"
+    [attr.fetchpriority]="thyImageFetchPriority"
+    class="empty-img"
+  />
   <ng-template #icon>
     <thy-icon class="empty-icon" [thyIconName]="thyIconName" *ngIf="thyIconName; else svg"></thy-icon>
     <ng-template #svg>

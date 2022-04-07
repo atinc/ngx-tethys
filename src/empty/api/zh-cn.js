@@ -45,7 +45,18 @@ module.exports = [
                 type: 'string',
                 default: ''
             },
-
+            {
+                name: 'thyLoading',
+                description: '图片加载策略 (https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading)',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyFetchPriority',
+                description: '图片加载优先级 (https://wicg.github.io/priority-hints/#idl-index)',
+                type: 'string',
+                default: ''
+            },
             {
                 name: 'thySize',
                 description: `大小, md, lg, sm`,
