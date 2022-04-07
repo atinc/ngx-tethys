@@ -49,7 +49,7 @@ export class EntityStore<TState extends EntityState<TEntity, TReferences>, TEnti
                         newEntity['refs'] = {};
                     }
                     this['onCombineRefs'](newEntity, this.internalReferencesIdMap, this.snapshot.references);
-                } else {
+                } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                     throw new Error(`onCombineRefs is not empty`);
                 }
                 return newEntity;
@@ -91,7 +91,7 @@ export class EntityStore<TState extends EntityState<TEntity, TReferences>, TEnti
     ) {
         super(initialState);
         this.options = { idKey: '_id', ...options };
-        if (!this.options.idKey) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !this.options.idKey) {
             throw new Error(`idKey is required in EntityStore`);
         }
         this.buildReferencesIdMap();

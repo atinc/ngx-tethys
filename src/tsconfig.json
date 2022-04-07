@@ -21,7 +21,7 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "ES2018"],
-    "types": ["jasmine", "node"],
+    "types": ["jasmine", "node", "../typings/ng-dev-mode"],
     "paths": {
       "ngx-tethys": ["./public-api"],
       "ngx-tethys/*": ["./*"]

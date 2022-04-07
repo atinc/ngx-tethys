@@ -70,7 +70,7 @@ export function mergeReferences<TReferences>(
             const reference = references[key];
             const referenceIdKey = getReferenceIdKey<TReferences>(key, idKeys);
             const originalReference = originalReferences[key];
-            if (!originalReference) {
+            if ((typeof ngDevMode === 'undefined' || ngDevMode) && !originalReference) {
                 throw new Error(`original reference must exist when append new reference: ${key}`);
             }
             if (originalReference instanceof Array) {

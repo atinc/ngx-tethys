@@ -71,7 +71,7 @@ export class TinyDate implements Record<string, any> {
                 this.nativeDate = date;
             } else if (typeof date === 'string' || typeof date === 'number') {
                 this.nativeDate = new Date(date);
-            } else {
+            } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(
                     `The input date type is not supported expect Date | string | number | { date: number; with_time: 0 | 1}, actual ${JSON.stringify(
                         date

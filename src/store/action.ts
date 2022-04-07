@@ -31,7 +31,7 @@ export function Action(action?: DecoratorActionOptions | string) {
         }
         const type = action.type;
 
-        if (!action.type) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !action.type) {
             throw new Error(`Action ${action.type} is missing a static "type" property`);
         }
 
