@@ -12,7 +12,6 @@ const COMPONENTS = [ThyLoadingMaskExampleComponent, ThyLoadingBasicExampleCompon
 @NgModule({
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
 })

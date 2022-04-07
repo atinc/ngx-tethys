@@ -12,7 +12,6 @@ import { ThyGuiderHintComponent } from './guider-hint/guider-hint.component';
     imports: [CommonModule, ThySharedModule, ThyIconModule, ThyButtonModule, ThyPopoverModule],
     declarations: [ThyGuiderHintComponent, ThyGuiderTargetDirective],
     exports: [ThyGuiderHintComponent, ThyGuiderTargetDirective],
-    entryComponents: [ThyGuiderHintComponent],
     providers: [ThyGuider]
 })
 export class ThyGuiderModule {}

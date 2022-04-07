@@ -6,14 +6,11 @@
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
   },
   "peerDependencies": {
-    "@angular/common": "^12.0.0",
-    "@angular/compiler": "^12.0.0",
-    "@angular/core": "^12.0.0",
-    "@angular/forms": "^12.0.0",
-    "@angular/cdk": "^12.0.0",
+    "@angular/core": ">=13.0.0",
+    "@angular/cdk": ">=13.0.0",
     "date-fns": "^2.6.0",
     "@tethys/icons": "*",
-    "rxjs": "~6.5.4"
+    "rxjs": "^6.5.4 || ^7.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0",

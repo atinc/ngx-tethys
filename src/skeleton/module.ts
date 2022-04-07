@@ -19,7 +19,6 @@ import { ThySkeletonParagraphComponent } from './stylized/paragraph.component';
         ThySkeletonParagraphComponent
     ],
     imports: [CommonModule, PortalModule],
-    entryComponents: [ThySkeletonComponent],
     exports: [
         ThySkeletonComponent,
         ThySkeletonListComponent,

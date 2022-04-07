@@ -9,7 +9,6 @@ const COMPONENTS = [ThyStepperBasicExampleComponent, ThyStepperSwitchDialogExamp
 @NgModule({
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
 })

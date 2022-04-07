@@ -10,7 +10,6 @@ const COMPONENTS = [ThyDragDropCdkDragDropExampleComponent, ThyDragDropBasicExam
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, DragDropModule, NgxTethysModule],
     exports: [...COMPONENTS]
 })

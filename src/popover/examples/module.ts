@@ -40,7 +40,6 @@ const COMPONENTS = [
         ThyNavModule,
         FormsModule
     ],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: [
         {

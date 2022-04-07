@@ -9,7 +9,6 @@ import { THY_NOTIFY_DEFAULT_OPTIONS, THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER } from 
 
 @NgModule({
     declarations: [ThyNotifyComponent, ThyNotifyContainerComponent],
-    entryComponents: [ThyNotifyContainerComponent],
     providers: [NotifyQueueStore, THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER],
     imports: [CommonModule, ThyIconModule],
     exports: [ThyNotifyContainerComponent, ThyNotifyComponent]

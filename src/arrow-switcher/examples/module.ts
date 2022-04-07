@@ -9,7 +9,6 @@ import { ThyArrowSwitcherDisabledExampleComponent } from './disabled/disabled.co
 const COMPONENTS = [ThyArrowSwitcherBasicExampleComponent, ThyArrowSwitcherSizeExampleComponent, ThyArrowSwitcherDisabledExampleComponent];
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyArrowSwitcherModule, FormsModule],
     exports: [...COMPONENTS]
 })

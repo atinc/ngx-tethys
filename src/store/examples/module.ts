@@ -11,7 +11,6 @@ const COMPONENTS = [ThyStoreBasicExampleComponent, ThyStoreListExampleComponent,
 @NgModule({
     imports: [CommonModule, NgxTethysModule, ThyStoreModule],
     exports: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     declarations: [...COMPONENTS],
     providers: []
 })

@@ -11,7 +11,6 @@ const COMPONENTS = [ThyMarkdownParserExampleComponent, ThyMarkdownPlanTextExampl
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule, ThyMarkdownModule],
     exports: [...COMPONENTS],
     providers: [

@@ -9,7 +9,6 @@ const COMPONENTS = [ThyBackTopBasicExampleComponent, ThyBackTopCustomExampleComp
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule],
     exports: [...COMPONENTS]
 })

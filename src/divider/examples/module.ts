@@ -12,7 +12,6 @@ const COMPONENTS = [ThyDividerBasicExampleComponent, ThyDividerVerticalExampleCo
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule],
     exports: COMPONENTS
 })

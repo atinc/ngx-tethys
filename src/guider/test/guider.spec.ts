@@ -184,7 +184,6 @@ class TestGuiderDirectiveComponent implements OnInit {
 const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent];
 @NgModule({
     declarations: TEST_COMPONENTS,
-    entryComponents: [ThyGuiderHintComponent],
     imports: [ThyGuiderModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })

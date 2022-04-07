@@ -25,7 +25,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, NgxTethysModule, CdkScrollableModule],
     exports: [],
     providers: COMPONENTS
