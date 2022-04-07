@@ -39,6 +39,12 @@ const sizeMap: any = {
     }
 };
 
+/** https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading */
+export type ThyEmptyImageLoading = 'eager' | 'lazy';
+
+/** https://wicg.github.io/priority-hints/#idl-index */
+export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
+
 @Component({
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
@@ -76,6 +82,10 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     @Input() thyContainer: ElementRef;
 
     @Input() thyImageUrl: string;
+
+    @Input() thyImageLoading?: ThyEmptyImageLoading;
+
+    @Input() thyImageFetchPriority?: ThyEmptyImageFetchPriority;
 
     @Input() thyDescription: string;
 
