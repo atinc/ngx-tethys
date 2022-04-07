@@ -1,6 +1,7 @@
 import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 
 import { OverlayRef } from '@angular/cdk/overlay';
+import { merge } from 'rxjs';
 
 import { ThyPopoverContainerComponent } from './popover-container.component';
 import { ThyPopoverConfig } from './popover.config';
@@ -16,12 +17,9 @@ export class ThyInternalPopoverRef<T, TResult = unknown> extends ThyAbstractInte
     implements ThyPopoverRef<T, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyPopoverContainerComponent, config: ThyPopoverConfig) {
         super(popoverAbstractOverlayOptions, overlayRef, containerInstance, config);
-        containerInstance.insideClicked.subscribe(() => {
-            this.close();
-        });
-        containerInstance.outsideClicked.subscribe(() => {
-            this.close();
-        });
+        // Note: doesn't need to unsubscribe, because `insideClicked` and `outsideClicked`
+        // get completed by `ThyPopoverContainerComponent` when the view is destroyed.
+        merge(containerInstance.insideClicked, containerInstance.outsideClicked).subscribe(() => this.close());
     }
 
     /**
