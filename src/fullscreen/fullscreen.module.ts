@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ThyFullscreenComponent } from './fullscreen.component';
+import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
+
 @NgModule({
-    declarations: [ThyFullscreenComponent],
-    imports: [CommonModule],
-    exports: [ThyFullscreenComponent]
+    declarations: [ThyFullscreenComponent, ThyFullscreenLaunchDirective],
+    exports: [ThyFullscreenComponent, ThyFullscreenLaunchDirective]
 })
 export class ThyFullscreenModule {}

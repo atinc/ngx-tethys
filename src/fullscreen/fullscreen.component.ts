@@ -1,33 +1,42 @@
-import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-import { ThyFullscreenMode } from './fullscreen.config';
+import { Component, ContentChild, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { EMPTY, fromEvent, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
+
 import { ThyFullscreen } from './fullscreen.service';
+import { ThyFullscreenMode } from './fullscreen.config';
+import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
+
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',
     templateUrl: './fullscreen.component.html'
 })
-export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy {
+export class ThyFullscreenComponent implements OnInit, OnDestroy {
     @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
 
     @Input() thyFullscreenClasses: string;
 
     @Output() thyFullscreenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    @ContentChild(ThyFullscreenLaunchDirective, { read: ElementRef, static: false })
+    set fullscreenLaunch(fullscreenLaunch: ElementRef<HTMLButtonElement> | undefined) {
+        this.fullscreenLaunch$.next(fullscreenLaunch);
+    }
+
     private ngUnsubscribe$ = new Subject();
+    private fullscreenLaunch$ = new Subject<ElementRef<HTMLButtonElement> | undefined>();
 
     constructor(private elementRef: ElementRef, private service: ThyFullscreen) {}
 
-    ngOnInit() {}
-
-    ngAfterViewInit() {
-        const btnLaunch = this.elementRef.nativeElement.querySelector('[fullscreen-launch]');
-        if (btnLaunch) {
-            btnLaunch.addEventListener('click', this.handleFullscreen);
-        }
+    ngOnInit(): void {
+        this.fullscreenLaunch$
+            .pipe(
+                switchMap(fullscreenLaunch => (fullscreenLaunch ? fromEvent(fullscreenLaunch.nativeElement, 'click') : EMPTY)),
+                takeUntil(this.ngUnsubscribe$)
+            )
+            .subscribe(this.handleFullscreen);
     }
 
-    // 点击打开或关闭全屏
+    // Toggles full screen on or off.
     private handleFullscreen = () => {
         const targetElement = this.elementRef.nativeElement.querySelector('[fullscreen-target]');
         const containerElement = this.elementRef.nativeElement.querySelector('[fullscreen-container]');
@@ -53,11 +62,5 @@ export class ThyFullscreenComponent implements OnInit, AfterViewInit, OnDestroy 
 
     ngOnDestroy() {
         this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
-
-        const btnLaunch = this.elementRef.nativeElement.querySelector('[fullscreen-launch]');
-        if (btnLaunch) {
-            btnLaunch.removeEventListener('click', this.handleFullscreen);
-        }
     }
 }
