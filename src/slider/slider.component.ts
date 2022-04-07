@@ -125,8 +125,11 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     ngOnInit() {
-        this.verificationValues();
-        this.verificationStepValue();
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            verifyMinAndMax(this);
+            verifyStepValues(this);
+        }
+
         this.toggleDisabled();
         if (this.value === null || this.value === undefined) {
             this.setValue(this.ensureValueInRange(null));
@@ -151,28 +154,16 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('thyMin') || changes.hasOwnProperty('thyMax') || changes.hasOwnProperty('thyStep')) {
-            this.verificationValues();
-            this.verificationStepValue();
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (changes.hasOwnProperty('thyMin') || changes.hasOwnProperty('thyMax') || changes.hasOwnProperty('thyStep')) {
+                verifyMinAndMax(this);
+                verifyStepValues(this);
+            }
         }
     }
 
     ngOnDestroy() {
         this.unsubscribeMouseListeners();
-    }
-
-    private verificationValues() {
-        if (this.thyMin >= this.thyMax) {
-            throw new Error('min value must less than max value.');
-        }
-    }
-
-    private verificationStepValue() {
-        if (this.thyStep <= 0 || !!!this.thyStep) {
-            throw new Error('step value must be greater than 0.');
-        } else if (Number.isInteger(this.thyStep) && (this.thyMax - this.thyMin) % this.thyStep) {
-            throw new Error('(max - min) must be divisible by step.');
-        }
     }
 
     private toggleDisabled() {
@@ -349,5 +340,22 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         const valueString = value.toString();
         const integerLength = valueString.indexOf('.') + 1;
         return integerLength >= 0 ? valueString.length - integerLength : 0;
+    }
+}
+
+// Note: keep `verifyMinAndMax` and `verifyStepValues` as separate functions (not as class properties)
+// so they're tree-shakable in production mode.
+
+function verifyMinAndMax(ctx: ThySliderComponent): void | never {
+    if (ctx.thyMin >= ctx.thyMax) {
+        throw new Error('min value must less than max value.');
+    }
+}
+
+function verifyStepValues(ctx: ThySliderComponent): void | never {
+    if (ctx.thyStep <= 0 || !ctx.thyStep) {
+        throw new Error('step value must be greater than 0.');
+    } else if (Number.isInteger(ctx.thyStep) && (ctx.thyMax - ctx.thyMin) % ctx.thyStep) {
+        throw new Error('(max - min) must be divisible by step.');
     }
 }

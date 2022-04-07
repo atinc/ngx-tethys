@@ -3,7 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
     "baseUrl": "./",
-    "types": ["jasmine", "node"],
+    "types": ["jasmine", "node", "../typings/ng-dev-mode"],
     "paths": {
       "ngx-tethys": ["./public-api"],
       "ngx-tethys/*": ["./*"]

@@ -53,7 +53,7 @@ export class ThyMentionDirective implements OnInit {
         this._mentions = value;
         if (this._mentions) {
             this._mentions = this._mentions.map(mention => {
-                if (!mention.trigger) {
+                if ((typeof ngDevMode === 'undefined' || ngDevMode) && !mention.trigger) {
                     throw new Error(`mention trigger is required`);
                 }
                 return Object.assign({}, DEFAULT_MENTION_CONFIG, mention);

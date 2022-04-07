@@ -80,7 +80,7 @@ export class RootStore {
             return;
         }
         const containers = new Map(this._containers.value);
-        if (containers.has(store.getStoreInstanceId())) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && containers.has(store.getStoreInstanceId())) {
             throw new Error(
                 `Store: Store with duplicate instance ID found! ${store.getStoreInstanceId()}` +
                     ` is already registered. Please check your getStoreInstanceId() methods!`

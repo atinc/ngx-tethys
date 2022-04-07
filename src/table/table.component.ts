@@ -229,7 +229,7 @@ export class ThyTableComponent extends _MixinBase
     @Input()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
-        if (this.mode !== 'list' && this.draggable) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.mode !== 'list' && this.draggable) {
             throw new Error('Only list mode sorting is supported');
         }
     }
