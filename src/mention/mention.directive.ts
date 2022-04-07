@@ -1,22 +1,12 @@
-import {
-    Directive,
-    ElementRef,
-    Input,
-    OnInit,
-    EventEmitter,
-    Output,
-    NgZone,
-    Optional,
-    ChangeDetectorRef,
-    forwardRef,
-    Self
-} from '@angular/core';
-import { NgModel, NgControl, FormControl } from '@angular/forms';
+import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, Optional, Self, OnDestroy } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
 import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 import { CaretPositioner } from './caret-positioner';
 import { MentionAdapter, createMentionAdapter, MatchedMention, MentionInputorElement } from './adapter';
+import { EMPTY, fromEvent, Subject } from 'rxjs';
+import { switchMap, takeUntil } from 'rxjs/operators';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
@@ -35,11 +25,8 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     }
 };
 
-@Directive({
-    selector: '[thyMention]',
-    providers: []
-})
-export class ThyMentionDirective implements OnInit {
+@Directive({ selector: '[thyMention]' })
+export class ThyMentionDirective implements OnInit, OnDestroy {
     private adapter: MentionAdapter = null;
 
     private openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
@@ -66,24 +53,47 @@ export class ThyMentionDirective implements OnInit {
     @Output('thySelectSuggestion')
     select = new EventEmitter<MentionSuggestionSelectEvent>();
 
+    private destroy$ = new Subject<void>();
+    private openedSuggestionsRef$ = new Subject<ThyPopoverRef<ThyMentionSuggestionsComponent> | null>();
+
     constructor(
         private elementRef: ElementRef<HTMLElement>,
         private thyPopover: ThyPopover,
         @Optional() @Self() private ngControl: NgControl
     ) {
         this.adapter = createMentionAdapter(elementRef.nativeElement as MentionInputorElement);
-        this.bindEvents();
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        fromEvent(this.elementRef.nativeElement, 'input')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(event => this.onInput(event));
 
-    bindEvents() {
-        this.elementRef.nativeElement.addEventListener('input', (event: Event) => {
-            this.onInput(event);
-        });
-        this.elementRef.nativeElement.addEventListener('click', (event: Event) => {
-            this.onClick(event);
-        });
+        fromEvent(this.elementRef.nativeElement, 'click')
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(event => this.onClick(event));
+
+        this.openedSuggestionsRef$
+            .pipe(
+                switchMap(openedSuggestionsRef =>
+                    // Re-subscribe to `suggestionSelect$` every time the suggestions component is re-created,
+                    // otherwise, unsubscribe, if it gets closed.
+                    openedSuggestionsRef ? openedSuggestionsRef.componentInstance.suggestionSelect$ : EMPTY
+                ),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(event => {
+                const newValue = this.adapter.insertMention(event.item);
+                if (this.ngControl && this.ngControl.control) {
+                    this.ngControl.control.setValue(newValue);
+                }
+                this.openedSuggestionsRef.close();
+                this.select.emit(event);
+            });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 
     onClick(event: Event) {
@@ -125,15 +135,10 @@ export class ThyMentionDirective implements OnInit {
             );
             this.openedSuggestionsRef.afterClosed().subscribe(() => {
                 this.openedSuggestionsRef = null;
+                this.openedSuggestionsRef$.next(null);
             });
-            this.openedSuggestionsRef.componentInstance.suggestionSelect$.subscribe(event => {
-                const newValue = this.adapter.insertMention(event.item);
-                if (this.ngControl && this.ngControl.control) {
-                    this.ngControl.control.setValue(newValue);
-                }
-                this.openedSuggestionsRef.close();
-                this.select.emit(event);
-            });
+
+            this.openedSuggestionsRef$.next(this.openedSuggestionsRef);
         }
 
         if (this.openedSuggestionsRef) {
@@ -145,10 +150,5 @@ export class ThyMentionDirective implements OnInit {
         if (this.openedSuggestionsRef) {
             this.openedSuggestionsRef.close();
         }
-    }
-
-    private isEditable() {
-        const element = this.elementRef.nativeElement as HTMLInputElement | HTMLTextAreaElement;
-        return !element.readOnly && !element.disabled;
     }
 }
