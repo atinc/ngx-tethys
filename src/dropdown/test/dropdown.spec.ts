@@ -12,11 +12,12 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDropdownMenuComponent } from '../dropdown-menu.component';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownSubmenuDirection } from '../dropdown-submenu.component';
+import { ThyPopoverConfig } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-dropdown-test',
     template: `
-        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary">Dropdown</button>
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary" [thyPopoverOptions]="popoverOptions">Dropdown</button>
         <thy-dropdown-menu #menu>
             <a thyDropdownMenuItem href="javascript:;">
                 <span>Menu Item1</span>
@@ -29,6 +30,7 @@ import { ThyDropdownSubmenuDirection } from '../dropdown-submenu.component';
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
+    popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
 }
 
 describe('basic dropdown', () => {
@@ -153,6 +155,24 @@ describe('basic dropdown', () => {
         dropdown.show();
         tick();
         assertOverlayShow();
+    }));
+
+    it('should modify style when popoverOptions has changed', fakeAsync(() => {
+        fixture.componentInstance.popoverOptions = {
+            placement: 'left',
+            width: '800px',
+            height: '20px'
+        };
+        fixture.detectChanges();
+        btnElement.click();
+        fixture.detectChanges();
+        tick();
+        const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box');
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayPaneElement.style.width).toEqual('800px');
+        expect(overlayPaneElement.style.height).toEqual('20px');
+        expect(boundingBox.style.top).toEqual('0px');
+        expect(parseInt(boundingBox.style.left.replace('px', ''), 10)).toBeGreaterThan(0);
     }));
 });
 

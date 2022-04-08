@@ -52,6 +52,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         this.trigger = value as ThyOverlayTrigger;
     }
 
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'>;
+
     popoverOpened = false;
 
     private popoverRef: ThyPopoverRef<unknown>;
@@ -80,7 +82,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
             viewContainerRef: this.viewContainerRef,
             offset: 0,
-            panelClass: 'thy-dropdown-pane'
+            panelClass: 'thy-dropdown-pane',
+            ...this.thyPopoverOptions
         };
         this.popoverRef = this.popover.open(this.menu.templateRef, config);
 
