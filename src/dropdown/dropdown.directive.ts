@@ -10,7 +10,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef, THY_POPOVER_DEFAULT_CONFIG_VALUE } from 'ngx-tethys/popover';
 import { ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
@@ -52,6 +52,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         this.trigger = value as ThyOverlayTrigger;
     }
 
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {
+        placement: THY_POPOVER_DEFAULT_CONFIG_VALUE.placement
+    };
+
     popoverOpened = false;
 
     private popoverRef: ThyPopoverRef<unknown>;
@@ -75,12 +79,16 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
             throw new Error(`thyDropdownMenu is required`);
         }
+        const { placement, width, height } = this.thyPopoverOptions;
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
             hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
             viewContainerRef: this.viewContainerRef,
             offset: 0,
-            panelClass: 'thy-dropdown-pane'
+            panelClass: 'thy-dropdown-pane',
+            placement,
+            width,
+            height
         };
         this.popoverRef = this.popover.open(this.menu.templateRef, config);
 
