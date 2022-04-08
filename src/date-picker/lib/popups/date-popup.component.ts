@@ -88,9 +88,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
-    private el: HTMLElement = this.elementRef.nativeElement;
-
-    constructor(private cdr: ChangeDetectorRef, public elementRef: ElementRef) {}
+    constructor(private cdr: ChangeDetectorRef) {}
 
     setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
         this[key] = value;
@@ -230,6 +228,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         } else {
             this.panelMode = mode;
         }
+        this.panelModeChange.emit(this.panelMode);
     }
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {
