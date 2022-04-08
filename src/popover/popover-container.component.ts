@@ -4,7 +4,6 @@ import { filter, takeUntil } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -12,7 +11,6 @@ import {
     ElementRef,
     EventEmitter,
     HostListener,
-    Inject,
     NgZone,
     OnDestroy,
     ViewChild
@@ -125,5 +123,7 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
 
     ngOnDestroy() {
         super.destroy();
+        this.insideClicked.complete();
+        this.outsideClicked.complete();
     }
 }
