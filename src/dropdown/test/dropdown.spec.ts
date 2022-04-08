@@ -17,7 +17,7 @@ import { ThyPopoverConfig } from 'ngx-tethys';
 @Component({
     selector: 'thy-dropdown-test',
     template: `
-        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary" [thyPopoverOptions]="popoverOptions">Dropdown</button>
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary">Dropdown</button>
         <thy-dropdown-menu #menu>
             <a thyDropdownMenuItem href="javascript:;">
                 <span>Menu Item1</span>
@@ -30,7 +30,6 @@ import { ThyPopoverConfig } from 'ngx-tethys';
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
-    popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
 }
 
 describe('basic dropdown', () => {
@@ -155,24 +154,6 @@ describe('basic dropdown', () => {
         dropdown.show();
         tick();
         assertOverlayShow();
-    }));
-
-    it('should modify style when popoverOptions has changed', fakeAsync(() => {
-        fixture.componentInstance.popoverOptions = {
-            placement: 'left',
-            width: '800px',
-            height: '20px'
-        };
-        fixture.detectChanges();
-        btnElement.click();
-        fixture.detectChanges();
-        tick();
-        const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box');
-        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
-        expect(overlayPaneElement.style.width).toEqual('800px');
-        expect(overlayPaneElement.style.height).toEqual('20px');
-        expect(boundingBox.style.top).toEqual('0px');
-        expect(parseInt(boundingBox.style.left.replace('px', ''), 10)).toBeGreaterThan(0);
     }));
 });
 
@@ -586,6 +567,78 @@ describe('dropdown submenu', () => {
         expect(submenu.parentElement.classList.contains('dropdown-submenu-left')).toBeTruthy();
         dropdown.hide();
         tick();
+        flush();
+    }));
+});
+
+@Component({
+    selector: 'thy-dropdown-options-test',
+    template: `
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary" [thyPopoverOptions]="popoverOptions">Dropdown</button>
+        <thy-dropdown-menu #menu>
+            <a thyDropdownMenuItem href="javascript:;">
+                <span>Menu Item1</span>
+            </a>
+            <a thyDropdownMenuItem href="javascript:;">
+                <span>Menu Item2</span>
+            </a>
+        </thy-dropdown-menu>
+    `
+})
+class DropdownOptionsTestComponent {
+    trigger: ThyOverlayTrigger = 'click';
+    popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
+}
+
+describe('dropdown popover options', () => {
+    let fixture: ComponentFixture<DropdownOptionsTestComponent>;
+    let btnElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let dropdownElement: HTMLElement;
+    let dropdown: ThyDropdownDirective;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
+            declarations: [DropdownOptionsTestComponent]
+        }).compileComponents();
+        fixture = TestBed.createComponent(DropdownOptionsTestComponent);
+        fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+        const btnDebugElement = fixture.debugElement.query(By.css('button'));
+        btnElement = btnDebugElement.nativeElement;
+        const dropdownDebugElement = fixture.debugElement.query(By.directive(ThyDropdownDirective));
+        dropdownElement = dropdownDebugElement.nativeElement;
+        dropdown = dropdownDebugElement.injector.get(ThyDropdownDirective);
+    });
+
+    beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    it('should modify style when popoverOptions has changed', fakeAsync(() => {
+        fixture.componentInstance.popoverOptions = {
+            placement: 'left',
+            width: '800px',
+            height: '20px'
+        };
+        fixture.detectChanges();
+        btnElement.click();
+        fixture.detectChanges();
+        tick();
+        const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box');
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayPaneElement.style.width).toEqual('800px');
+        expect(overlayPaneElement.style.height).toEqual('20px');
+        expect(boundingBox.style.top).toEqual('0px');
+        expect(parseInt(boundingBox.style.left.replace('px', ''), 10)).toBeGreaterThan(0);
         flush();
     }));
 });
