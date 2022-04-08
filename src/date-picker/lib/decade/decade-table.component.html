@@ -5,7 +5,7 @@
         *ngFor="let cell of row.dateCells; trackBy: trackByBodyColumn"
         role="gridcell"
         title="{{ cell.title }}"
-        (click)="cell.onClick()"
+        (click)="cellClick($event, cell)"
         [ngClass]="cell.classMap"
       >
         <a class="{{ prefixCls }}-decade-panel-decade">{{ cell.content }}</a>

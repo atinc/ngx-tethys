@@ -78,4 +78,9 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
             [`${this.prefixCls}-decade-panel-next-century-cell`]: cell.isBiggerThanEnd
         };
     }
+
+    cellClick(event: Event, cell: DecadeCell) {
+        event.stopPropagation();
+        cell.onClick();
+    }
 }
