@@ -9,7 +9,6 @@ import {
     EventEmitter,
     Input,
     OnChanges,
-    OnDestroy,
     OnInit,
     Output,
     SimpleChanges,
@@ -28,8 +27,6 @@ import {
     SupportTimeOptions
 } from '../../standard-types';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
-import { fromEvent, Observable, Subject } from 'rxjs';
-import { tap, takeUntil } from 'rxjs/operators';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -37,7 +34,7 @@ import { tap, takeUntil } from 'rxjs/operators';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html'
 })
-export class DatePopupComponent implements OnChanges, OnInit, OnDestroy {
+export class DatePopupComponent implements OnChanges, OnInit {
     @Input() isRange: boolean;
     @Input() showWeek: boolean;
 
@@ -92,14 +89,6 @@ export class DatePopupComponent implements OnChanges, OnInit, OnDestroy {
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
     private el: HTMLElement = this.elementRef.nativeElement;
-
-    readonly openPanelClick$: Observable<Event> = fromEvent(this.el, 'click').pipe(
-        tap(e => {
-            return e;
-        })
-    );
-
-    private destroy$ = new Subject();
 
     constructor(private cdr: ChangeDetectorRef, public elementRef: ElementRef) {}
 
@@ -241,10 +230,6 @@ export class DatePopupComponent implements OnChanges, OnInit, OnDestroy {
         } else {
             this.panelMode = mode;
         }
-        this.openPanelClick$.pipe(takeUntil(this.destroy$)).subscribe(event => {
-            this.panelModeChange.emit(this.panelMode);
-            event.stopPropagation();
-        });
     }
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {
@@ -427,10 +412,5 @@ export class DatePopupComponent implements OnChanges, OnInit, OnDestroy {
             value: this.selectedValue,
             triggerRange: shortcutRange
         });
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }
