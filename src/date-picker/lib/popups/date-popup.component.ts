@@ -5,9 +5,11 @@ import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ElementRef,
     EventEmitter,
     Input,
     OnChanges,
+    OnDestroy,
     OnInit,
     Output,
     SimpleChanges,
@@ -26,6 +28,8 @@ import {
     SupportTimeOptions
 } from '../../standard-types';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { tap, takeUntil } from 'rxjs/operators';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,7 +37,7 @@ import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartTy
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html'
 })
-export class DatePopupComponent implements OnChanges, OnInit {
+export class DatePopupComponent implements OnChanges, OnInit, OnDestroy {
     @Input() isRange: boolean;
     @Input() showWeek: boolean;
 
@@ -87,7 +91,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    private el: HTMLElement = this.elementRef.nativeElement;
+
+    readonly openPanelClick$: Observable<Event> = fromEvent(this.el, 'click').pipe(
+        tap(e => {
+            return e;
+        })
+    );
+
+    private destroy$ = new Subject();
+
+    constructor(private cdr: ChangeDetectorRef, public elementRef: ElementRef) {}
 
     setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
         this[key] = value;
@@ -227,7 +241,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
         } else {
             this.panelMode = mode;
         }
-        this.panelModeChange.emit(this.panelMode);
+        this.openPanelClick$.pipe(takeUntil(this.destroy$)).subscribe(event => {
+            this.panelModeChange.emit(this.panelMode);
+            event.stopPropagation();
+        });
     }
 
     onHeaderChange(value: TinyDate, partType?: RangePartType): void {
@@ -410,5 +427,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
             value: this.selectedValue,
             triggerRange: shortcutRange
         });
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
