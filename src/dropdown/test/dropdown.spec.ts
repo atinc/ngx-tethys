@@ -638,7 +638,6 @@ describe('dropdown popover options', () => {
         expect(overlayPaneElement.style.width).toEqual('800px');
         expect(overlayPaneElement.style.height).toEqual('20px');
         expect(boundingBox.style.top).toEqual('0px');
-        expect(parseInt(boundingBox.style.left.replace('px', ''), 10)).toBeGreaterThan(0);
         flush();
     }));
 });
