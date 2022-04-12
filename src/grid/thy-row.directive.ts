@@ -15,8 +15,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 })
 export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     @Input() thyGutter: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number };
-    @Input() thyAlign: ThyRowAlign | null = null;
-    @Input() thyJustify: ThyRowJustify | null = null;
+
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
     constructor(private renderer: Renderer2, private elementRef: ElementRef) {

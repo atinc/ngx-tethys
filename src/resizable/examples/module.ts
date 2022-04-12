@@ -8,7 +8,7 @@ import { ThyResizableLockAspectRatioExampleComponent } from './lock-aspect-ratio
 import { ThyResizableCustomizeExampleComponent } from './customize/customize.component';
 import { ThyResizableTableExampleComponent } from './table/table.component';
 import { ThyResizableLayoutExampleComponent } from './layout/layout.component';
-import { ThyResizableRasterExampleComponent } from './raster/raster.component';
+import { ThyResizableGridExampleComponent } from './grid/grid.component';
 
 const COMPONENTS = [
     ThyResizableBasicExampleComponent,
@@ -17,7 +17,7 @@ const COMPONENTS = [
     ThyResizableCustomizeExampleComponent,
     ThyResizableTableExampleComponent,
     ThyResizableLayoutExampleComponent,
-    ThyResizableRasterExampleComponent
+    ThyResizableGridExampleComponent
 ];
 
 @NgModule({

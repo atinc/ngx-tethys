@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable/interface';
 
 @Component({
-    selector: 'thy-resizable-raster-example',
-    templateUrl: './raster.component.html',
+    selector: 'thy-resizable-grid-example',
+    templateUrl: './grid.component.html',
     styleUrls: ['../style.scss']
 })
-export class ThyResizableRasterExampleComponent {
+export class ThyResizableGridExampleComponent {
     col = 8;
 
     onResize({ col }: ThyResizeEvent): void {
