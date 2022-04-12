@@ -2,6 +2,10 @@
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
 
+.thy-visual-scrolling-tree {
+    height: 100%;
+}
+
 .thy-tree {
     display: block;
     overflow: hidden;

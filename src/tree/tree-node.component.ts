@@ -2,6 +2,7 @@ import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import {
     ChangeDetectorRef,
     Component,
@@ -12,14 +13,15 @@ import {
     Inject,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
@@ -33,7 +35,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent implements OnInit, OnDestroy {
+export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -75,6 +77,8 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
 
     checkState = ThyTreeNodeCheckState;
 
+    listOfUnit: number[] = [];
+
     constructor(
         @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
         public thyTreeService: ThyTreeService,
@@ -88,10 +92,14 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                cdr.markForCheck();
+                this.thyTreeService.renderView();
             });
     }
 
+    ngOnChanges(changes: SimpleChanges): void {
+        const { node } = changes;
+        this.listOfUnit = new Array(node?.currentValue?.level || 0);
+    }
     private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
         const nodeElement = event.target as HTMLElement;
         const dragIcon: HTMLElement | null = nodeElement.querySelector<HTMLElement>('.thy-tree-drag-icon');

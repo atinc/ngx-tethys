@@ -1,8 +1,10 @@
-import { Injectable, OnDestroy } from '@angular/core';
-import { ThyTreeNodeCheckState } from './tree.class';
-import { Subject } from 'rxjs';
-import { ThyTreeNode } from './tree-node.class';
 import { coerceArray } from 'ngx-tethys/util';
+import { BehaviorSubject, Subject } from 'rxjs';
+
+import { Injectable, OnDestroy } from '@angular/core';
+
+import { ThyTreeNode } from './tree-node.class';
+import { ThyTreeNodeCheckState } from './tree.class';
 
 function checkStateResolve(node: ThyTreeNode) {
     const checkedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
@@ -18,6 +20,12 @@ function checkStateResolve(node: ThyTreeNode) {
 
 @Injectable()
 export class ThyTreeService implements OnDestroy {
+    selectedNode!: ThyTreeNode;
+
+    flattenNodes$ = new BehaviorSubject<ThyTreeNode[]>([]);
+
+    flattenTreeNodes: ThyTreeNode[] = [];
+
     public treeNodes: ThyTreeNode[];
 
     private checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
@@ -25,6 +33,40 @@ export class ThyTreeService implements OnDestroy {
     $statusChange = new Subject<ThyTreeFormatEmitEvent>();
 
     constructor() {}
+
+    public renderView: () => void;
+
+    public initTree(rootNodes: ThyTreeNode[], renderView: () => void) {
+        this.treeNodes = rootNodes;
+        this.renderView = renderView;
+        this.syncFlattenTreeNodes();
+    }
+
+    public syncFlattenTreeNodes() {
+        const expandedKeys = this.getExpandedNodes().map(node => node.key);
+        this.flattenTreeNodes = this.treeNodesFlatten(this.treeNodes, expandedKeys);
+        return this.flattenTreeNodes;
+    }
+
+    public treeNodesFlatten(rootTrees: ThyTreeNode[] = [], expandedKeys: (number | string)[] | true = []) {
+        const flattenTreeData: ThyTreeNode[] = [];
+        // const expandedKeySet = new Set(expandedKeys === true ? [] : expandedKeys);
+
+        function dig(list: ThyTreeNode[]) {
+            return list.map((treeNode, index) => {
+                flattenTreeData.push(treeNode);
+                if (treeNode.isExpanded) {
+                    dig(treeNode.children);
+                }
+                // if (expandedKeySet.has(treeNode.key) && treeNode.children && treeNode.children.length) {
+                //     dig(treeNode.children);
+                // }
+            });
+        }
+
+        dig(rootTrees);
+        return flattenTreeData;
+    }
 
     private _getParallelTreeNodes(nodes: ThyTreeNode[], list: ThyTreeNode[] = []) {
         (nodes || []).forEach(node => {
@@ -86,22 +128,32 @@ export class ThyTreeService implements OnDestroy {
 
     // 设置节点选中状态
     public setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
+        this._setNodeChecked(node, checked, propagateUp, propagateDown);
+        this.renderView();
+    }
+
+    private _setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
         node.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
         node.origin.checked = checked;
         if (propagateDown && node.children) {
             node.children.forEach(subNode => {
-                this.setNodeChecked(subNode, checked, false, true);
+                this._setNodeChecked(subNode, checked, false, true);
             });
         }
         if (propagateUp) {
-            this.syncNodeCheckState(node.parentNode);
+            this._syncNodeCheckState(node.parentNode);
         }
     }
 
     public syncNodeCheckState(node: ThyTreeNode) {
+        this._syncNodeCheckState(node);
+        this.renderView();
+    }
+
+    private _syncNodeCheckState(node: ThyTreeNode) {
         if (node) {
             node.isChecked = this.checkStateResolve(node);
-            this.syncNodeCheckState(node.parentNode);
+            this._syncNodeCheckState(node.parentNode);
         }
     }
 

@@ -1,5 +1,12 @@
+import { UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import { helpers } from 'ngx-tethys/util';
+
 import { SelectionModel } from '@angular/cdk/collections';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
@@ -12,12 +19,11 @@ import {
     Output,
     SimpleChanges,
     TemplateRef,
+    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
-import { helpers } from 'ngx-tethys/util';
+
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
@@ -26,6 +32,8 @@ import { ThyTreeService } from './tree.service';
 type ThyTreeSize = 'sm' | '';
 
 type ThyTreeType = 'default' | 'especial';
+
+type ThyTreeNodeKey = number | string;
 
 const treeTypeClassMap = {
     default: ['thy-tree-default'],
@@ -36,6 +44,8 @@ const treeTypeClassMap = {
     selector: 'thy-tree',
     templateUrl: './tree.component.html',
     encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -65,12 +75,17 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     public treeNodes: ThyTreeNode[];
 
+    public flattenTreeNodes: ThyTreeNode[] = [];
+
+    @Output() @ViewChild('viewport', { static: false }) viewport: CdkVirtualScrollViewport;
+
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
         this._expandedKeys = this.getExpandedNodes().map(node => node.key);
         this._selectedKeys = this.getSelectedNodes().map(node => node.key);
         this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
-        this.thyTreeService.treeNodes = this.treeNodes;
+        this.thyTreeService.initTree(this.treeNodes, this.renderView);
+        this.flattenTreeNodes = this.thyTreeService.flattenTreeNodes;
         this.thyTreeService.expandTreeNodes(this._expandedKeys);
         this._selectTreeNodes(this._selectedKeys);
     }
@@ -116,6 +131,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() thyIcons: ThyTreeIcons = {};
 
     @Input() thySize: ThyTreeSize;
+
+    @HostBinding('class.thy-visual-scrolling-tree')
+    @Input()
+    visualScorlling = false;
+
+    @Input() itemSize: number;
 
     @Input() thyTitleTruncate = true;
 
@@ -170,7 +191,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
-        public thyTreeService: ThyTreeService
+        public thyTreeService: ThyTreeService,
+        private cdr: ChangeDetectorRef
     ) {}
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -188,6 +210,29 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeSize();
         this._instanceSelectionModel();
         this._selectTreeNodes(this._selectedKeys);
+    }
+
+    handleFlattenNodes(): void {
+        this.flattenTreeNodes = this.thyTreeService.syncFlattenTreeNodes();
+    }
+
+    renderView = () => {
+        this.handleFlattenNodes();
+        this.cdr.markForCheck();
+    };
+
+    eventTriggerChanged(event: ThyTreeEmitEvent): void {
+        switch (event.eventName) {
+            case 'expand':
+                this.renderView();
+                this.thyOnExpandChange.emit(event);
+                break;
+
+            case 'checkboxChange':
+                this.renderView();
+                this.thyOnCheckboxChange.emit(event);
+                break;
+        }
     }
 
     private _setTreeType() {
@@ -245,7 +290,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         if (parent) {
             parent.children = parent.children.filter(item => item !== event.previousItem);
         } else {
-            this.treeNodes = this.treeNodes.filter(item => item !== event.previousItem);
+            this.treeNodes.splice(this.thyTreeService.treeNodes.indexOf(event.previousItem), 1);
         }
         switch (event.position) {
             case ThyDropPosition.in:
@@ -276,6 +321,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             afterNode = event.item.children[event.item.children.length - 2];
             targetNode = event.item;
         }
+        this.renderView();
         this.thyOnDragDrop.emit({
             event,
             currentIndex: event.currentIndex,
@@ -294,7 +340,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     writeValue(value: ThyTreeNodeData[]): void {
-        this.thyNodes = value;
+        if (value) {
+            this.thyNodes = value;
+            this.renderView();
+        }
     }
 
     registerOnChange(fn: any): void {
