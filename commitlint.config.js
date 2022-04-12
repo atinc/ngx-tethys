@@ -57,7 +57,6 @@ module.exports = {
                 'progress',
                 'property-operation',
                 'radio',
-                'raster',
                 'result',
                 'select',
                 'skeleton',

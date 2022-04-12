@@ -22,7 +22,6 @@ describe('ng-update v9 Schematic', () => {
           ThySelectModule,
           ThyDatePickerModule,
           ThyGridModule,
-          ThyRasterModule,
           ThyIconModule,
           ThyDialogModule,
           ThyNotifyModule,
@@ -72,7 +71,6 @@ describe('ng-update v9 Schematic', () => {
             `import { ThySelectModule } from "ngx-tethys/select";`,
             `import { ThyDatePickerModule } from "ngx-tethys/date-picker";`,
             `import { ThyGridModule } from "ngx-tethys/grid";`,
-            `import { ThyRasterModule } from "ngx-tethys/raster";`,
             `import { ThyIconModule } from "ngx-tethys/icon";`,
             `import { ThyDialogModule } from "ngx-tethys/dialog";`,
             `import { ThyNotifyModule } from "ngx-tethys/notify";`
@@ -85,7 +83,6 @@ describe('ng-update v9 Schematic', () => {
             ThySelectModule,
             ThyDatePickerModule,
             ThyGridModule,
-            ThyRasterModule,
             ThyIconModule,
             ThyDialogModule,
             ThyNotifyModule,
