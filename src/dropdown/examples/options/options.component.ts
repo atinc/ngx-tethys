@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys';
+import { ThyPlacement, THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys';
 
 @Component({
     selector: 'thy-dropdown-options-example',
@@ -12,7 +12,7 @@ export class ThyDropdownOptionsExampleComponent {
         height?: string | number;
     } = {
         placement: 'bottom',
-        width: 240,
+        width: parseInt(THY_DROPDOWN_DEFAULT_WIDTH.replace('px', ''), 10),
         height: 108
     };
 }

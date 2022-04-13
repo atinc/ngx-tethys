@@ -18,6 +18,8 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
+export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
+
 /**
  * thyDropdown 触发下拉菜单指令
  */
@@ -52,8 +54,13 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         this.trigger = value as ThyOverlayTrigger;
     }
 
+    /**
+     * popoverConfig参数，目前只接收placement、width、height
+     * @default { placement: "bottom", width: "240px" }
+     */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {
-        placement: THY_POPOVER_DEFAULT_CONFIG_VALUE.placement
+        placement: THY_POPOVER_DEFAULT_CONFIG_VALUE.placement,
+        width: THY_DROPDOWN_DEFAULT_WIDTH
     };
 
     popoverOpened = false;

@@ -11,7 +11,7 @@
 .thy-dropdown-menu {
     padding: variables.$dropdown-menu-padding-y 0;
     display: block;
-    width: variables.$dropdown-menu-width;
+    width: 100%;
     background: variables.$dropdown-menu-bg;
 
     .dropdown-menu-group {
@@ -96,7 +96,7 @@
             left: 100%;
             z-index: 1;
             padding: 10px 0;
-            width: 240px;
+            width: 100%;
             background: variables.$dropdown-menu-bg;
             box-shadow: variables.$box-shadow;
         }
