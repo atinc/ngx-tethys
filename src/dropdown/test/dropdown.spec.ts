@@ -84,6 +84,7 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         expect(overlayContainerElement).toBeTruthy();
+        expect((overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement).style.width).toEqual('240px');
 
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
