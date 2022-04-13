@@ -5,7 +5,7 @@ import { By } from '@angular/platform-browser';
 import { DecadeTableComponent } from './lib/decade/decade-table.component';
 import { LibPackerModule } from './lib/lib-packer.module';
 
-describe('ThyDatePickerComponent', () => {
+describe('DecadeTableComponent', () => {
     let fixture: ComponentFixture<ThyTestDecadeTableComponent>;
     let fixtureInstance: ThyTestDecadeTableComponent;
     let decadeComponent: DebugElement;
