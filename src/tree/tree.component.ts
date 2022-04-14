@@ -188,6 +188,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _onChange: (value: any) => void = (_: any) => {};
 
+    private dragItem: ThyTreeNode;
+
     constructor(
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
@@ -277,12 +279,14 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     public onDragStart(event: ThyDragStartEvent<ThyTreeNode>) {
+        this.dragItem = event.item;
         if (this.isShowExpand(event.item) && event.item.isExpanded) {
             event.item.setExpanded(false);
         }
     }
 
     public onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
+        event.previousItem = this.dragItem;
         if (!this.isShowExpand(event.item) && event.position === ThyDropPosition.in) {
             return;
         }
