@@ -55,13 +55,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
-     * popoverConfig参数，目前只接收placement、width、height
-     * @default { placement: "bottom", width: "240px" }
+     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottom", width: "240px", insideClosable: true }`
+     * @default { placement: "bottom", width: "240px", insideClosable: true }
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {
-        placement: THY_POPOVER_DEFAULT_CONFIG_VALUE.placement,
-        width: THY_DROPDOWN_DEFAULT_WIDTH
-    };
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable'>;
 
     popoverOpened = false;
 
@@ -86,7 +83,11 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
             throw new Error(`thyDropdownMenu is required`);
         }
-        const { placement, width, height } = this.thyPopoverOptions;
+
+        const { placement, width, height, insideClosable } = Object.assign(
+            { placement: 'bottom', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
+            this.thyPopoverOptions
+        );
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
             hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
@@ -95,7 +96,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             panelClass: 'thy-dropdown-pane',
             placement,
             width,
-            height
+            height,
+            insideClosable
         };
         this.popoverRef = this.popover.open(this.menu.templateRef, config);
 

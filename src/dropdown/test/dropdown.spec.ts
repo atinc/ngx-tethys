@@ -1,18 +1,18 @@
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { Component, ViewChild } from '@angular/core';
-import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyDropdownDirective, ThyDropdownModule, THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys/dropdown';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDropdownMenuComponent } from '../dropdown-menu.component';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownSubmenuDirection } from '../dropdown-submenu.component';
-import { ThyPopoverConfig } from 'ngx-tethys';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-dropdown-test',
@@ -643,4 +643,75 @@ describe('dropdown popover options', () => {
         tick();
         flush();
     }));
+
+    describe('popover options', () => {
+        let calledConfig: ThyPopoverConfig<unknown>;
+        beforeEach(() => {
+            const popover = dropdown['popover'];
+            const originOpen = popover.open.bind(popover);
+            spyOn(popover, 'open').and.callFake(
+                (componentOrTemplateRef: ComponentTypeOrTemplateRef<unknown>, config?: ThyPopoverConfig<unknown>) => {
+                    calledConfig = config;
+                    return originOpen(componentOrTemplateRef, config);
+                }
+            );
+        });
+
+        afterEach(() => {
+            calledConfig = undefined;
+        });
+
+        it('should get default options', () => {
+            dropdown.thyPopoverOptions = undefined;
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    placement: 'bottom',
+                    width: THY_DROPDOWN_DEFAULT_WIDTH,
+                    height: undefined,
+                    insideClosable: true,
+                    hasBackdrop: true,
+                    offset: 0
+                })
+            );
+        });
+
+        it('should get custom options', () => {
+            dropdown.thyPopoverOptions = {
+                insideClosable: false,
+                height: '100px',
+                width: '100px',
+                placement: 'left'
+            };
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    insideClosable: false,
+                    height: '100px',
+                    width: '100px',
+                    placement: 'left'
+                })
+            );
+        });
+
+        it('should filter invalid options', () => {
+            dropdown.thyPopoverOptions = {
+                offset: 1,
+                hasBackdrop: false,
+                panelClass: 'invalid-panel'
+            } as any;
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    hasBackdrop: true,
+                    offset: 0,
+                    panelClass: 'thy-dropdown-pane'
+                })
+            );
+        });
+    });
 });
