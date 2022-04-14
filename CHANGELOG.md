@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.17](https://github.com/atinc/ngx-tethys/compare/12.1.16...12.1.17) (2022-04-14)
+
+
+### Bug Fixes
+
+* **mention:** resolve memory leaks ([a97a23e](https://github.com/atinc/ngx-tethys/commit/a97a23ecc677243353a4b7de97b1b7c29a41a074))
+* **popover:** teardown subscriptions ([89448c9](https://github.com/atinc/ngx-tethys/commit/89448c9832d06c4227440c3cc4ff09a560fa66f2))
+
+
+### Features
+
+* **avatar:** add `loading` and `fetchpriority` to avatar image ([#1564](https://github.com/atinc/ngx-tethys/issues/1564)) ([b0d1dc2](https://github.com/atinc/ngx-tethys/commit/b0d1dc2cf724c392bcf367159b6bdf6fae8387e0))
+* **dropdown:** add default width at thyPopoverOptions  BREAKING CHANGE: delete min-width at popover-container INFR-2886 ([1fa524f](https://github.com/atinc/ngx-tethys/commit/1fa524f08020a5bf984e82426d877557ea349f04))
+* **dropdown:** add thyPopoverOptions parameter temporarily supports: placement, width and height #INFR-2857 ([3ea0dee](https://github.com/atinc/ngx-tethys/commit/3ea0deeccdf6d4c39f8f8554d09490d994c41058)), closes [#INFR-2857](https://github.com/atinc/ngx-tethys/issues/INFR-2857)
+* **empty:** add `loading` and `fetchpriority` to image ([7e9c0b8](https://github.com/atinc/ngx-tethys/commit/7e9c0b888d19db6c39fcf999ea7ec20b8d99a6f2))
+
+
+
 <a name="12.1.16"></a>
 ## [12.1.16](https://github.com/atinc/ngx-tethys/compare/12.1.15...12.1.16) (2022-04-02)
 
