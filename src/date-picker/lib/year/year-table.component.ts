@@ -87,6 +87,11 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
         cell.classMap = this.getClassMap(cell);
     }
 
+    yearCellClick(event: Event, yearCell: DateCell) {
+        event.stopPropagation();
+        return yearCell.isDisabled ? null : yearCell.onClick();
+    }
+
     getClassMap(cell: YearCell): { [key: string]: boolean } {
         return {
             [`${this.prefixCls}-year-panel-cell`]: true,

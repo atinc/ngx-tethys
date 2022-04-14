@@ -5,7 +5,7 @@
         *ngFor="let monthCell of row.dateCells; trackBy: trackByBodyColumn"
         role="gridcell"
         title="{{ monthCell.title }}"
-        (click)="monthCell.isDisabled ? null : monthCell.onClick()"
+        (click)="monthCellClick($event, monthCell)"
         [ngClass]="monthCell.classMap"
       >
         <ng-container [ngSwitch]="prefixCls">

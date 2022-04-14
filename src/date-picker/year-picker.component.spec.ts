@@ -5,7 +5,7 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ThyDatePickerModule } from './date-picker.module';
 
@@ -175,6 +175,30 @@ describe('ThyYearPickerComponent', () => {
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-decade-btn').textContent).toContain('2100');
             expect(queryFromOverlay('.thy-calendar-decade-btn').textContent).toContain('2199');
+        }));
+
+        it('should stop propagation when decade cell click', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2018-1-1');
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-decade-panel-selected-cell').textContent).toContain('2010-2019');
+
+            // Click year cell
+            const event = createFakeEvent('click');
+            spyOn(event, 'stopPropagation').and.callThrough();
+            queryFromOverlay('.thy-calendar-decade-panel-decade').dispatchEvent(event);
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(event.stopPropagation).not.toHaveBeenCalled();
         }));
     }); // /panel switch and move forward/afterward
 

@@ -83,6 +83,11 @@ export class MonthTableComponent extends CalendarTable implements OnChanges {
         cell.classMap = this.getClassMap(cell);
     }
 
+    monthCellClick(event: Event, monthCell: DateCell) {
+        event.stopPropagation();
+        return monthCell.isDisabled ? null : monthCell.onClick();
+    }
+
     getClassMap(cell: DateCell): { [key: string]: boolean } {
         return {
             [`${this.prefixCls}-month-panel-cell`]: true,

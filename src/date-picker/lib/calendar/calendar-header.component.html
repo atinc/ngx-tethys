@@ -9,12 +9,7 @@
 
     <span class="{{ prefixCls }}-my-select">
       <ng-container *ngFor="let selector of selectors">
-        <a
-          class="{{ selector.className }}"
-          role="button"
-          (click)="selector.onClick ? selector.onClick() : null"
-          title="{{ selector.title || null }}"
-        >
+        <a class="{{ selector.className }}" role="button" (click)="selectorClick($event, selector)" title="{{ selector.title || null }}">
           {{ selector.label }}
         </a>
       </ng-container>
