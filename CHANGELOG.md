@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.18](https://github.com/atinc/ngx-tethys/compare/12.1.17...12.1.18) (2022-04-15)
+
+
+### Bug Fixes
+
+* **tree:** fix tree node icon and tree-select prefix icon color to gray-500 #INFR-2872 #INFR-2874 ([#1589](https://github.com/atinc/ngx-tethys/issues/1589)) ([266bfa1](https://github.com/atinc/ngx-tethys/commit/266bfa1e07773ea4241e200a380a465d8e8ae4b2)), closes [#INFR-2872](https://github.com/atinc/ngx-tethys/issues/INFR-2872) [#INFR-2874](https://github.com/atinc/ngx-tethys/issues/INFR-2874)
+
+
+### Features
+
+* **dropdown:** add insideClosable of thyPopoverOptions and set the default value to true #INFR-2890 [#1587](https://github.com/atinc/ngx-tethys/issues/1587) ([bea6047](https://github.com/atinc/ngx-tethys/commit/bea6047b5f014515f594ef14c51a6f5d81f26a8d)), closes [#INFR-2890](https://github.com/atinc/ngx-tethys/issues/INFR-2890)
+
+
+
 ## [12.1.17](https://github.com/atinc/ngx-tethys/compare/12.1.16...12.1.17) (2022-04-14)
 
 
