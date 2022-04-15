@@ -75,7 +75,12 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
 
     @Input() thySize: InputSize;
 
+    /**
+     * @deprecated please use thyClear
+     */
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
+
+    @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         super();
@@ -122,5 +127,6 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
         this.searchText = '';
         this.onChangeCallback(this.searchText);
         this.clear.emit(event);
+        this.thyClear.emit(event);
     }
 }
