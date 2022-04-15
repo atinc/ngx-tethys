@@ -1,12 +1,11 @@
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyInputSearchComponent, ThyInputSearchIconPosition } from '../input-search.component';
 import { ThyInputDirective } from './../input.directive';
 import { ThyInputModule } from './../module';
-import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { A } from 'ngx-tethys/util';
+import { dispatchMouseEvent, dispatchEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -19,7 +18,7 @@ import { A } from 'ngx-tethys/util';
             [thySearchFocus]="true"
             [(ngModel)]="searchText"
             (ngModelChange)="modelChange($event)"
-            (clear)="onClear()"
+            (thyClear)="onClear()"
             [thySize]="thySize"
             [thyIconPosition]="iconPosition"
         ></thy-input-search>
@@ -122,7 +121,7 @@ describe('input search', () => {
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
     });
 
-    it('clear EventEmitter', fakeAsync(() => {
+    it('thyClear EventEmitter', fakeAsync(() => {
         basicTestComponent.searchText = 'New Text';
         fixture.detectChanges();
         tick();
@@ -132,7 +131,7 @@ describe('input search', () => {
         expect(closeIcon).toBeTruthy();
 
         const afterClearSpy = jasmine.createSpy('after clear spy');
-        debugSearchElement.componentInstance.clear.subscribe(() => {
+        debugSearchElement.componentInstance.thyClear.subscribe(() => {
             afterClearSpy();
         });
 
@@ -154,7 +153,7 @@ describe('input search', () => {
         fixture.detectChanges();
 
         const afterClearSpy = jasmine.createSpy('after clear spy');
-        debugSearchElement.componentInstance.clear.subscribe(() => {
+        debugSearchElement.componentInstance.thyClear.subscribe(() => {
             afterClearSpy();
         });
         const prependIcon = searchElement.querySelector('.input-prepend');
