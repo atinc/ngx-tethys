@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 
 import { bigTreeNodes } from '../mocks';
 
@@ -8,6 +8,8 @@ import { bigTreeNodes } from '../mocks';
 })
 export class ThyTreeVisualScrollingExampleComponent {
     bigTreeNodes = bigTreeNodes;
+
+    @ViewChild('tree', { static: true }) tree: any;
 
     constructor() {}
 }

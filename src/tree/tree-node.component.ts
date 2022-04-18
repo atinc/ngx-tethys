@@ -65,6 +65,8 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
+    @Input() thyItemSize = 44;
+
     public get nodeIcon() {
         return this.node.origin.icon;
     }
@@ -92,7 +94,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                this.thyTreeService.renderView();
+                this.thyTreeService.syncFlattenTreeNodes();
             });
     }
 
@@ -128,6 +130,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
         } else {
             this.node.setChecked(false);
         }
+        this.thyTreeService.syncFlattenTreeNodes();
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
             event: event,
@@ -138,6 +141,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     public expandNode(event: Event) {
         event.stopPropagation();
         this.node.setExpanded(!this.node.isExpanded);
+        this.thyTreeService.syncFlattenTreeNodes();
         if (this.root.thyShowExpand) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',

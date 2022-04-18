@@ -1,5 +1,4 @@
-<!-- <cdk-virtual-scroll-viewport *ngIf="visualScorlling" #scrollComponent [itemSize]="itemSize" [style.height]="visualViewHeight + 'px'"> -->
-<cdk-virtual-scroll-viewport #viewport *ngIf="visualScorlling" [itemSize]="itemSize" [style.height]="'100%'">
+<cdk-virtual-scroll-viewport #viewport *ngIf="thyVisualScorll" [itemSize]="thyItemSize" [style.height]="'100%'">
   <div
     [thyDropContainer]="treeNodes"
     [thyDropContainerDisabled]="!thyDraggable"
@@ -20,6 +19,7 @@
       [thyCheckable]="thyCheckable"
       [thyMultiple]="thyMultiple"
       [thyTitleTruncate]="thyTitleTruncate"
+      [thyItemSize]="thyItemSize"
       (thyOnClick)="thyOnClick.emit($event)"
       (thyOnExpandChange)="eventTriggerChanged($event)"
       (thyOnCheckboxChange)="eventTriggerChanged($event)"
@@ -29,7 +29,7 @@
 </cdk-virtual-scroll-viewport>
 
 <div
-  *ngIf="!visualScorlling"
+  *ngIf="!thyVisualScorll"
   [thyDropContainer]="treeNodes"
   [thyDropContainerDisabled]="!thyDraggable"
   [thyBeforeDragStart]="thyBeforeDragStart"
@@ -49,6 +49,7 @@
     [thyCheckable]="thyCheckable"
     [thyMultiple]="thyMultiple"
     [thyTitleTruncate]="thyTitleTruncate"
+    [thyItemSize]="thyItemSize"
     (thyOnClick)="thyOnClick.emit($event)"
     (thyOnExpandChange)="eventTriggerChanged($event)"
     (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"

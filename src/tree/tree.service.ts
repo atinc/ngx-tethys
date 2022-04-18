@@ -1,4 +1,4 @@
-import { coerceArray } from 'ngx-tethys/util';
+import { coerceArray, isFunction } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
 
 import { Injectable, OnDestroy } from '@angular/core';
@@ -18,6 +18,8 @@ function checkStateResolve(node: ThyTreeNode) {
     }
 }
 
+type FlattenAllNodesCb = (treeNode: ThyTreeNode) => boolean;
+
 @Injectable()
 export class ThyTreeService implements OnDestroy {
     selectedNode!: ThyTreeNode;
@@ -34,46 +36,30 @@ export class ThyTreeService implements OnDestroy {
 
     constructor() {}
 
-    public renderView: () => void;
-
-    public initTree(rootNodes: ThyTreeNode[], renderView: () => void) {
+    public initializeTreeNodes(rootNodes: ThyTreeNode[]) {
         this.treeNodes = rootNodes;
-        this.renderView = renderView;
         this.syncFlattenTreeNodes();
     }
 
     public syncFlattenTreeNodes() {
-        const expandedKeys = this.getExpandedNodes().map(node => node.key);
-        this.flattenTreeNodes = this.treeNodesFlatten(this.treeNodes, expandedKeys);
+        this.flattenTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
+        this.flattenNodes$.next(this.flattenTreeNodes);
         return this.flattenTreeNodes;
     }
 
-    public treeNodesFlatten(rootTrees: ThyTreeNode[] = [], expandedKeys: (number | string)[] | true = []) {
+    private getParallelTreeNodes(rootTrees: ThyTreeNode[] = this.treeNodes, flattenAllNodes: boolean | FlattenAllNodesCb = true) {
         const flattenTreeData: ThyTreeNode[] = [];
-        // const expandedKeySet = new Set(expandedKeys === true ? [] : expandedKeys);
-
-        function dig(list: ThyTreeNode[]) {
-            return list.map((treeNode, index) => {
+        function _getParallelTreeNodes(list: ThyTreeNode[]) {
+            return list.forEach((treeNode, index) => {
                 flattenTreeData.push(treeNode);
-                if (treeNode.isExpanded) {
-                    dig(treeNode.children);
+                const flattenAllNodesFlag = isFunction(flattenAllNodes) ? flattenAllNodes(treeNode) : flattenAllNodes;
+                if (flattenAllNodesFlag || treeNode.isExpanded) {
+                    _getParallelTreeNodes(treeNode.children);
                 }
-                // if (expandedKeySet.has(treeNode.key) && treeNode.children && treeNode.children.length) {
-                //     dig(treeNode.children);
-                // }
             });
         }
-
-        dig(rootTrees);
+        _getParallelTreeNodes(rootTrees);
         return flattenTreeData;
-    }
-
-    private _getParallelTreeNodes(nodes: ThyTreeNode[], list: ThyTreeNode[] = []) {
-        (nodes || []).forEach(node => {
-            list.push(node);
-            this._getParallelTreeNodes(node.children || [], list);
-        });
-        return list;
     }
 
     setCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve) {
@@ -90,17 +76,17 @@ export class ThyTreeService implements OnDestroy {
     }
 
     public getTreeNode(key: string | number) {
-        const allNodes = this._getParallelTreeNodes(this.treeNodes);
+        const allNodes = this.getParallelTreeNodes(this.treeNodes);
         return allNodes.find(n => n.key === key);
     }
 
     public getExpandedNodes(): ThyTreeNode[] {
-        const allNodes = this._getParallelTreeNodes(this.treeNodes);
+        const allNodes = this.getParallelTreeNodes(this.treeNodes);
         return allNodes.filter(n => n.isExpanded);
     }
 
     public getCheckedNodes(): ThyTreeNode[] {
-        const allNodes = this._getParallelTreeNodes(this.treeNodes);
+        const allNodes = this.getParallelTreeNodes(this.treeNodes);
         return allNodes.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
     }
 
@@ -114,7 +100,7 @@ export class ThyTreeService implements OnDestroy {
 
     public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {
         const keys = coerceArray(keyOrKeys);
-        const needExpandNodes = this._getParallelTreeNodes(this.treeNodes).filter(node => {
+        const needExpandNodes = this.getParallelTreeNodes(this.treeNodes).filter(node => {
             return keys.indexOf(node.key) > -1;
         });
         needExpandNodes.forEach(node => {
@@ -129,7 +115,7 @@ export class ThyTreeService implements OnDestroy {
     // 设置节点选中状态
     public setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
         this._setNodeChecked(node, checked, propagateUp, propagateDown);
-        this.renderView();
+        this.syncFlattenTreeNodes();
     }
 
     private _setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
@@ -147,7 +133,7 @@ export class ThyTreeService implements OnDestroy {
 
     public syncNodeCheckState(node: ThyTreeNode) {
         this._syncNodeCheckState(node);
-        this.renderView();
+        this.syncFlattenTreeNodes();
     }
 
     private _syncNodeCheckState(node: ThyTreeNode) {

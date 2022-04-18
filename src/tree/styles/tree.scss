@@ -4,6 +4,9 @@
 
 .thy-visual-scrolling-tree {
     height: 100%;
+    .cdk-virtual-scroll-viewport {
+        height: 100%;
+    }
 }
 
 .thy-tree {
@@ -31,6 +34,10 @@
             margin: 0 -1000px;
             padding: 0 1000px;
             border: 2px solid transparent;
+
+            .thy-tree-index {
+                display: inline-block;
+            }
 
             .thy-tree-expand {
                 width: 16px;

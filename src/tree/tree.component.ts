@@ -81,10 +81,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input()
     set thyNodes(value: ThyTreeNodeData[]) {
+        this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
+        this.thyTreeService.initializeTreeNodes(this.treeNodes);
         this._expandedKeys = this.getExpandedNodes().map(node => node.key);
         this._selectedKeys = this.getSelectedNodes().map(node => node.key);
-        this.treeNodes = (value || []).map(node => new ThyTreeNode(node, null, this.thyTreeService));
-        this.thyTreeService.initTree(this.treeNodes, this.renderView);
         this.flattenTreeNodes = this.thyTreeService.flattenTreeNodes;
         this.thyTreeService.expandTreeNodes(this._expandedKeys);
         this._selectTreeNodes(this._selectedKeys);
@@ -134,9 +134,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @HostBinding('class.thy-visual-scrolling-tree')
     @Input()
-    visualScorlling = false;
+    thyVisualScorll = false;
 
-    @Input() itemSize: number;
+    @Input() thyItemSize = 44;
 
     @Input() thyTitleTruncate = true;
 
@@ -212,26 +212,21 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeSize();
         this._instanceSelectionModel();
         this._selectTreeNodes(this._selectedKeys);
+        this.thyTreeService.flattenNodes$.subscribe(flattenTreeNodes => {
+            this.flattenTreeNodes = flattenTreeNodes;
+            this.cdr.markForCheck();
+        });
     }
 
-    handleFlattenNodes(): void {
-        this.flattenTreeNodes = this.thyTreeService.syncFlattenTreeNodes();
-    }
-
-    renderView = () => {
-        this.handleFlattenNodes();
-        this.cdr.markForCheck();
-    };
+    renderView = () => {};
 
     eventTriggerChanged(event: ThyTreeEmitEvent): void {
         switch (event.eventName) {
             case 'expand':
-                this.renderView();
                 this.thyOnExpandChange.emit(event);
                 break;
 
             case 'checkboxChange':
-                this.renderView();
                 this.thyOnCheckboxChange.emit(event);
                 break;
         }
@@ -325,7 +320,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             afterNode = event.item.children[event.item.children.length - 2];
             targetNode = event.item;
         }
-        this.renderView();
+        this.thyTreeService.syncFlattenTreeNodes();
         this.thyOnDragDrop.emit({
             event,
             currentIndex: event.currentIndex,
@@ -346,7 +341,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     writeValue(value: ThyTreeNodeData[]): void {
         if (value) {
             this.thyNodes = value;
-            this.renderView();
         }
     }
 
@@ -405,16 +399,19 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             this._selectionModel.toggle(node);
         }
         this.thyTreeService.deleteTreeNode(node);
+        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     public expandAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(true, true));
+        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     public collapsedAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(false, true));
+        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     // endregion
