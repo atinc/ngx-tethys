@@ -13,11 +13,9 @@ import {
     Inject,
     Input,
     NgZone,
-    OnChanges,
     OnDestroy,
     OnInit,
     Output,
-    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -35,7 +33,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
+export class ThyTreeNodeComponent implements OnDestroy, OnInit {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -79,8 +77,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     checkState = ThyTreeNodeCheckState;
 
-    listOfUnit: number[] = [];
-
     constructor(
         @Inject(THY_TREE_ABSTRACT_TOKEN) public root: ThyTreeAbstractComponent,
         public thyTreeService: ThyTreeService,
@@ -98,10 +94,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
             });
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        const { node } = changes;
-        this.listOfUnit = new Array(node?.currentValue?.level || 0);
-    }
     private changeDragIconVisibility(event: Event, showDragIcon: boolean): void {
         const nodeElement = event.target as HTMLElement;
         const dragIcon: HTMLElement | null = nodeElement.querySelector<HTMLElement>('.thy-tree-drag-icon');
