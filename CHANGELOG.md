@@ -2,7 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [12.1.18](https://github.com/atinc/ngx-tethys/compare/12.1.17...12.1.18) (2022-04-14)
+<a name="12.1.19"></a>
+## [12.1.19](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.19) (2022-04-19)
+
+
+### Features
+
+* **input:** change clear to thyClear #INFR-2797 ([6763d6c](https://github.com/atinc/ngx-tethys/commit/6763d6c)), closes [#INFR-2797](https://github.com/atinc/ngx-tethys/issues/INFR-2797)
+* **tree:** add visual scrolling #INFR-2562  ([6f5b623](https://github.com/atinc/ngx-tethys/commit/6f5b623)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+
+## [12.1.18](https://github.com/atinc/ngx-tethys/compare/12.1.17...12.1.18) (2022-04-15)
 
 
 ### Bug Fixes

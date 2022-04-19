@@ -1,5 +1,7 @@
-import { createDragEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { animationFrameScheduler } from 'rxjs';
 
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ApplicationRef, Component, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
@@ -13,13 +15,21 @@ import { ThyTreeNode } from '../tree-node.class';
 import { ThyTreeEmitEvent } from '../tree.class';
 import { ThyTreeComponent } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
-import { treeNodes } from './mock';
+import { bigTreeNodes, treeNodes } from './mock';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
 const treeNodeSelector = '.thy-tree-node';
 const loadingSelector = '.thy-loading';
-const treeNodeChildrenSelector = '.thy-tree-node-children';
+const treeNodeScrollViewport = '.cdk-virtual-scroll-viewport';
+
+function triggerScroll(viewport: CdkVirtualScrollViewport, offset?: number) {
+    if (offset !== undefined) {
+        viewport.scrollToOffset(offset);
+    }
+    dispatchFakeEvent(viewport.elementRef.nativeElement, 'scroll');
+    animationFrameScheduler.flush();
+}
 
 describe('ThyTreeComponent', () => {
     function configureThyTreeTestingModule(declarations: any[]) {
@@ -37,18 +47,16 @@ describe('ThyTreeComponent', () => {
         let multipleFixture: ComponentFixture<TestMultipleTreeComponent>;
         let treeComponent: ThyTreeComponent;
 
-        beforeEach(
-            waitForAsync(() => {
-                configureThyTreeTestingModule([TestBasicTreeComponent, TestMultipleTreeComponent]);
-                fixture = TestBed.createComponent(TestBasicTreeComponent);
-                multipleFixture = TestBed.createComponent(TestMultipleTreeComponent);
-                component = fixture.componentInstance;
-                fixture.detectChanges();
-                treeInstance = fixture.debugElement.componentInstance;
-                treeComponent = fixture.debugElement.componentInstance.tree;
-                treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
-            })
-        );
+        beforeEach(fakeAsync(() => {
+            configureThyTreeTestingModule([TestBasicTreeComponent, TestMultipleTreeComponent]);
+            fixture = TestBed.createComponent(TestBasicTreeComponent);
+            multipleFixture = TestBed.createComponent(TestMultipleTreeComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            treeInstance = fixture.debugElement.componentInstance;
+            treeComponent = fixture.debugElement.componentInstance.tree;
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
 
         it('should create', () => {
             expect(component).toBeDefined();
@@ -83,15 +91,18 @@ describe('ThyTreeComponent', () => {
             expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('未分配部门');
         });
 
-        it('test expand status when tree nodes changed ', () => {
+        it('test expand status when tree nodes changed ', fakeAsync(() => {
             expect(treeComponent.getExpandedNodes().length).toEqual(1);
             treeComponent.expandAllNodes();
+            tick(100);
+            fixture.detectChanges();
             const expandNodeCount = treeComponent.getExpandedNodes().length;
             // change tree nodes
-            treeInstance.addNode();
-            fixture.detectChanges();
+            // treeInstance.addNode();
+            // tick(100);
+            // fixture.detectChanges();
             expect(treeComponent.getExpandedNodes().length).toEqual(expandNodeCount);
-        });
+        }));
 
         it('test selected status when tree nodes changed ', () => {
             expect(treeComponent.getSelectedNodes().length).toEqual(1);
@@ -390,7 +401,6 @@ describe('ThyTreeComponent', () => {
             const multipleElement = multipleFixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
             const multipleTree = multipleFixture.debugElement.componentInstance.tree;
             const selectionModelSpy = spyOn(multipleTree._selectionModel, 'toggle');
-
             const nodeElement = multipleElement.querySelector('.thy-tree-node-wrapper') as HTMLElement;
             nodeElement.click();
             fixture.detectChanges();
@@ -431,7 +441,46 @@ describe('ThyTreeComponent', () => {
             tick(100);
             fixture.detectChanges();
             expect(nodeElement.querySelector(loadingSelector)).toBeNull();
-            expect((nodeElement.querySelector(treeNodeChildrenSelector) as HTMLElement).children.length).toEqual(8);
+            expect(treeElement.querySelectorAll(treeNodeSelector).length).toEqual(10);
+        }));
+    });
+
+    describe('visual scrolling tree', () => {
+        let treeElement: HTMLElement;
+        let component: TestVisualScrollingTreeComponent;
+        let fixture: ComponentFixture<TestVisualScrollingTreeComponent>;
+
+        beforeEach(fakeAsync(() => {
+            configureThyTreeTestingModule([TestVisualScrollingTreeComponent]);
+            fixture = TestBed.createComponent(TestVisualScrollingTreeComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
+
+        it('should create', () => {
+            expect(component).toBeDefined();
+        });
+
+        it('should load part of tree nodes', fakeAsync(() => {
+            const nodeElements = treeElement.querySelectorAll(treeNodeSelector);
+            // expect(nodeElements.length).toEqual(12);
+        }));
+
+        it('should scrolling tree nodes', fakeAsync(() => {
+            fixture.detectChanges();
+            const nodeElements = treeElement.querySelectorAll(treeNodeSelector);
+            const firstNodeElementText = nodeElements[0].textContent;
+            expect(nodeElements.length).toEqual(12);
+            triggerScroll(component.treeComponent.viewport, 10000);
+            tick(100);
+            fixture.detectChanges();
+            const updateFirstNodeElementText = nodeElements[0].textContent;
+            expect(firstNodeElementText !== updateFirstNodeElementText).toBeTruthy();
+            expect(nodeElements.length).toEqual(12);
         }));
     });
 });
@@ -510,14 +559,16 @@ class TestBasicTreeComponent {
 @Component({
     selector: 'test-multiple-tree',
     template: `
-        <thy-tree #tree [thyCheckable]="true" [thyMultiple]="true" [thyShowExpand]="true" [thyCheckable]="true" [(ngModel)]="mockData">
-            <ng-template #treeNodeTemplate let-node="node" let-data="origin">
-                <thy-icon [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
-                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
-                    {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
-                </div>
-            </ng-template>
-        </thy-tree>
+        <div style="height: 300px">
+            <thy-tree #tree [thyCheckable]="true" [thyMultiple]="true" [thyShowExpand]="true" [thyCheckable]="true" [(ngModel)]="mockData">
+                <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+                    <thy-icon [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
+                    <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+                        {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+                    </div>
+                </ng-template>
+            </thy-tree>
+        </div>
     `
 })
 export class TestMultipleTreeComponent {
@@ -567,4 +618,20 @@ export class TestAsyncTreeComponent {
             }
         }, 100);
     }
+}
+
+@Component({
+    selector: 'test-visual-scrolling-tree',
+    template: `
+        <div style="height: 300px">
+            <thy-tree #tree [thyNodes]="mockData" [thyVisualScorll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
+        </div>
+    `
+})
+export class TestVisualScrollingTreeComponent {
+    mockData = bigTreeNodes;
+
+    @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
+
+    constructor() {}
 }
