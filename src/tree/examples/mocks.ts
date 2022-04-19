@@ -1,3 +1,23 @@
+function dig(path = '0', level = 2) {
+    const list = [];
+    for (let i = 0; i < 30; i += 1) {
+        const key = `${path}-${i}`;
+        const treeNode = {
+            title: key,
+            expanded: true,
+            key
+        };
+
+        if (level > 0) {
+            treeNode['children'] = dig(key, level - 1);
+        }
+
+        list.push(treeNode);
+    }
+    return list;
+}
+export const bigTreeNodes: any[] = dig();
+
 export const treeNodes: any[] = [
     {
         key: '111111111111111111111111',
