@@ -52,7 +52,7 @@ export class ThyGuiderCustomHintExampleComponent implements OnInit, OnDestroy {
 }
 
 @Component({
-    selector: 'custom-tip',
+    selector: 'thy-custom-tip',
     template: `
         <p class="m-0 px-2 text-white bg-primary rounded text-center">
             <span class="d-block">{{ stepRef.step.data.descString }}</span>

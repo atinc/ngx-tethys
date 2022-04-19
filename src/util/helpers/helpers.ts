@@ -265,7 +265,7 @@ export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, a
 
     const bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
 
-    // tslint:disable-next-line:prefer-for-of
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let idx = 0; idx < keysA.length; idx++) {
         const key = keysA[idx];
         if (!bHasOwnProperty(key)) {

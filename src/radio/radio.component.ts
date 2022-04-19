@@ -17,6 +17,7 @@ import { ThyRadioGroupComponent } from './group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-radio],[thyRadio]',
     templateUrl: './radio.component.html',
     providers: [

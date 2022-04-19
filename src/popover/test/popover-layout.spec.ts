@@ -5,7 +5,7 @@ import { ThyPopoverBodyComponent, ThyPopoverHeaderComponent } from '../index';
 import { ThyPopoverModule } from '../module';
 
 @Component({
-    selector: 'popover-header-basic',
+    selector: 'thy-popover-header-basic',
     template: '<thy-popover-header thyTitle="I am popover header" (thyClosed)="close()"></thy-popover-header>'
 })
 class PopoverHeaderBasicComponent {
@@ -13,13 +13,13 @@ class PopoverHeaderBasicComponent {
 }
 
 @Component({
-    selector: 'popover-header-translation',
+    selector: 'thy-popover-header-translation',
     template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>'
 })
 class PopoverHeaderTranslationComponent {}
 
 @Component({
-    selector: 'popover-body-basic',
+    selector: 'thy-popover-body-basic',
     template: '<thy-popover-body></thy-popover-body>'
 })
 class PopoverBodyBasicComponent {}

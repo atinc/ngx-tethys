@@ -27,6 +27,4 @@ export interface IThyDropContainerDirective<T = any> {
 /**
  * Injection token used to provide the container directive to drag.
  */
-export const THY_DROP_CONTAINER_DIRECTIVE = new InjectionToken<IThyDropContainerDirective>(
-    'THY_DROP_CONTAINER_DIRECTIVE'
-);
+export const THY_DROP_CONTAINER_DIRECTIVE = new InjectionToken<IThyDropContainerDirective>('THY_DROP_CONTAINER_DIRECTIVE');

@@ -4,6 +4,7 @@ import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.compo
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'year-header',
     templateUrl: '../calendar/calendar-header.component.html'
 })

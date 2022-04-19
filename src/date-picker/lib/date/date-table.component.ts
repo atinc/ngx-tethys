@@ -8,6 +8,7 @@ import { CalendarTable } from '../calendar/calendar-table.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-table',
     exportAs: 'dateTable',
     templateUrl: 'date-table.component.html'

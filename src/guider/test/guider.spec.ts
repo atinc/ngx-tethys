@@ -87,7 +87,7 @@ const directiveGuiderSteps: ThyGuiderStep[] = [
 ];
 
 @Component({
-    selector: 'guider-basic',
+    selector: 'thy-guider-basic',
     template: `
         <ng-template #descTemp>
             <span>{{ innerText }}</span>

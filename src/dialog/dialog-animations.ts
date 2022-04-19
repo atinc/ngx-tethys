@@ -7,10 +7,7 @@ const animationBody = [
     state('void, exit', style({ opacity: 0, transform: 'scale(0.1)' })),
     state('enter', style({ transform: 'none' })),
     transition('* => enter', animate('200ms cubic-bezier(0, 0, 0.57, 1)', style({ transform: 'none', opacity: 1 }))),
-    transition(
-        '* => exit',
-        animate('150ms cubic-bezier(0.24, 0.18, 0.96, 0.52)', style({ transform: 'scale(0.3)', opacity: 0 }))
-    )
+    transition('* => exit', animate('150ms cubic-bezier(0.24, 0.18, 0.96, 0.52)', style({ transform: 'scale(0.3)', opacity: 0 })))
 ];
 
 /**

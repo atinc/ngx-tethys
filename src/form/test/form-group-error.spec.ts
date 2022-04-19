@@ -9,7 +9,7 @@ import { THY_FORM_CONFIG } from '../form.class';
 import { ThyFormGroupErrorComponent } from '../form-group-error/form-group-error.component';
 
 @Component({
-    selector: 'test-form-group-error-basic',
+    selector: 'thy-test-form-group-error-basic',
     template: `
         <thy-form-group-error [thyErrors]="errors" [thyShowFirst]="showFirst"> </thy-form-group-error>
     `

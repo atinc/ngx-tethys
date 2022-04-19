@@ -10,7 +10,7 @@ import { ThyContentSectionComponent } from '../content-section.component';
 import { ThyContentMainComponent } from '../content-main.component';
 
 @Component({
-    selector: 'demo-layout-basic',
+    selector: 'thy-demo-layout-basic',
     template: `
         <thy-layout>
             <thy-header [thyDivided]="isDivided" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName"> </thy-header>
@@ -28,7 +28,7 @@ class ThyDemoLayoutBasicComponent {
 }
 
 @Component({
-    selector: 'demo-layout-custom-header',
+    selector: 'thy-demo-layout-custom-header',
     template: `
         <thy-layout>
             <thy-header>

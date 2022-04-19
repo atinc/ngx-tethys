@@ -19,7 +19,7 @@ import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
 
 @Component({
-    selector: 'basic-select',
+    selector: 'thy-select-basic-test',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
@@ -68,7 +68,7 @@ class BasicSelectComponent {
 }
 
 @Component({
-    selector: 'multiple-select',
+    selector: 'thy-multiple-select',
     template: `
         <thy-custom-select class="foods" #Foods thyPlaceHolder="Food">
             <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
@@ -98,7 +98,7 @@ class MultipleSelectComponent {
 }
 
 @Component({
-    selector: 'ng-model-select',
+    selector: 'thy-ng-model-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="Food" ngModel name="food" [thyDisabled]="isDisabled">
@@ -120,7 +120,7 @@ class NgModelSelectComponent {
 }
 
 @Component({
-    selector: 'select-with-groups',
+    selector: 'thy-select-with-groups',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="Pokemon" [formControl]="control">
@@ -188,7 +188,7 @@ class SingleSelectNgModelComponent {
 }
 
 @Component({
-    selector: 'basic-select-initially-hidden',
+    selector: 'thy-basic-select-initially-hidden',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select [style.display]="isVisible ? 'block' : 'none'">
@@ -202,7 +202,7 @@ class BasicSelectInitiallyHiddenComponent {
 }
 
 @Component({
-    selector: 'select-early-sibling-access',
+    selector: 'thy-select-early-sibling-access',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select #select="thyCustomSelect"></thy-custom-select>
@@ -213,7 +213,7 @@ class BasicSelectInitiallyHiddenComponent {
 class SelectEarlyAccessSiblingComponent {}
 
 @Component({
-    selector: 'select-with-search',
+    selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="Food" [thyShowSearch]="thyShowSearch">
@@ -247,7 +247,7 @@ class SelectWithSearchComponent {
 }
 
 @Component({
-    selector: 'select-with-search',
+    selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select thyPlaceHolder="team-members" [thyShowSearch]="thyShowSearch">
@@ -292,7 +292,7 @@ class SelectWithSearchUseSearchKeyComponent {
 }
 
 @Component({
-    selector: 'select-with-group-search',
+    selector: 'thy-select-with-group-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
@@ -334,7 +334,7 @@ class SelectWithSearchAndGroupComponent {
 }
 
 @Component({
-    selector: 'select-with-search',
+    selector: 'thy-select-with-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
@@ -375,7 +375,7 @@ class SelectWithSearchAndServerSearchComponent {
 }
 
 @Component({
-    selector: 'basic-select',
+    selector: 'thy-basic-select',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
@@ -419,7 +419,7 @@ class SelectEimtOptionsChangesComponent {
 }
 
 @Component({
-    selector: 'select-expand-status',
+    selector: 'thy-select-expand-status',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select [formControl]="control" (thyOnExpandStatusChange)="thyOnExpandStatusChange($event)">
@@ -498,7 +498,7 @@ class SelectWithThySortComparatorComponent {
 }
 
 @Component({
-    selector: 'auto-expend-select',
+    selector: 'thy-auto-expend-select',
     template: `
         <thy-custom-select [thyAutoExpand]="isAutoExpend" style="width:500px;">
             <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
@@ -524,7 +524,7 @@ class SelectWithThyAutoExpendComponent implements OnInit {
 }
 
 @Component({
-    selector: 'placement-select',
+    selector: 'thy-placement-select',
     template: `
         <thy-custom-select [thyPlacement]="thyPlacement" style="width:500px;">
             <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"></thy-option>
@@ -544,7 +544,7 @@ class SelectWithThyPlacementComponent implements OnInit {
 }
 
 @Component({
-    selector: 'select-with-scroll-and-search',
+    selector: 'thy-select-with-scroll-and-search',
     template: `
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
@@ -787,7 +787,7 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-                // tslint:disable-next-line:radix
+                // eslint-disable-next-line radix
                 const initialWidth = parseInt(pane.style.width || '0');
 
                 expect(initialWidth).toBeGreaterThan(0);
@@ -798,7 +798,7 @@ describe('ThyCustomSelect', () => {
                 tick(1000);
                 fixture.detectChanges();
 
-                // tslint:disable-next-line:radix
+                // eslint-disable-next-line radix
                 expect(parseInt(pane.style.width || '0')).toBeGreaterThan(initialWidth);
             }));
 
