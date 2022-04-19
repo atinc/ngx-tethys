@@ -1,9 +1,8 @@
 import { Directive, Input, forwardRef } from '@angular/core';
-import {
-    Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn
-} from '@angular/forms';
+import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } from '@angular/forms';
 
 @Directive({
+    // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[min][formControlName],[min][formControl],[min][ngModel]',
     providers: [
         {

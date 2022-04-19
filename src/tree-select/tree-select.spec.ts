@@ -27,7 +27,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     return nodes.reduce((pre, current) => filterExpandNodes(current, pre), arr);
 }
 @Component({
-    selector: 'basic-tree-select',
+    selector: 'thy-basic-tree-select',
     template: `
         <div>
             <thy-tree-select
@@ -42,7 +42,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     `
 })
 class BasicTreeSelectComponent {
-    nodes = [
+    nodes: ThyTreeSelectNode[] = [
         {
             key: '01',
             title: 'root1',
@@ -115,8 +115,6 @@ class BasicTreeSelectComponent {
         }
     ];
 
-    objSelectedValue = null;
-
     multiple = true;
 
     thyPlaceholder = '';
@@ -126,7 +124,7 @@ class BasicTreeSelectComponent {
 }
 
 @Component({
-    selector: 'placeholder-tree-select',
+    selector: 'thy-placeholder-tree-select',
     template: `
         <div>
             <thy-tree-select
@@ -141,7 +139,7 @@ class BasicTreeSelectComponent {
     `
 })
 class PlaceHolderTreeSelectComponent {
-    nodes = [
+    nodes: ThyTreeSelectNode[] = [
         {
             key: '01',
             title: 'root1',
@@ -214,8 +212,6 @@ class PlaceHolderTreeSelectComponent {
         }
     ];
 
-    objSelectedValue = null;
-
     multiple = false;
 
     thyPlaceholder = 'this is a placeholder';
@@ -225,7 +221,7 @@ class PlaceHolderTreeSelectComponent {
 }
 
 @Component({
-    selector: 'ng-model-tree-select',
+    selector: 'thy-ng-model-tree-select',
     template: `
         <div>
             <thy-tree-select
@@ -240,7 +236,7 @@ class PlaceHolderTreeSelectComponent {
     `
 })
 class NgModelTreeSelectComponent {
-    nodes = [
+    nodes: ThyTreeSelectNode[] = [
         {
             key: '01',
             title: 'root1',
@@ -312,7 +308,7 @@ class NgModelTreeSelectComponent {
             children: []
         }
     ];
-    objSelectedValue = null;
+    objSelectedValue: ThyTreeSelectNode = null;
 
     multiple = false;
 
@@ -321,7 +317,7 @@ class NgModelTreeSelectComponent {
 }
 
 @Component({
-    selector: 'search-tree-select',
+    selector: 'thy-search-tree-select',
     template: `
         <div>
             <thy-tree-select

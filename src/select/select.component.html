@@ -9,11 +9,6 @@
   <ng-content></ng-content>
 </select>
 <thy-icon thyIconName="angle-down"></thy-icon>
-<a
-  class="thy-select-remove remove-link"
-  href="javascript:;"
-  (click)="clearSelectValue($event)"
-  *ngIf="thyAllowClear && _innerValue"
->
+<a class="thy-select-remove remove-link" href="javascript:;" (click)="clearSelectValue($event)" *ngIf="thyAllowClear && _innerValue">
   <thy-icon class="remove-link-icon" thyIconName="close-circle-bold-fill"></thy-icon>
 </a>

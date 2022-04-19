@@ -15,13 +15,14 @@ import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../pr
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { ThyPopoverConfig } from '../popover';
 
 registerLocaleData(zh);
 
 describe('ThyPickerDirective', () => {
     describe('ThyPickerDirective', () => {
-        let fixture: ComponentFixture<ThyTestPickerDirective>;
-        let fixtureInstance: ThyTestPickerDirective;
+        let fixture: ComponentFixture<ThyTestPickerComponent>;
+        let fixtureInstance: ThyTestPickerComponent;
         let debugElement: DebugElement;
         let overlayContainer: OverlayContainer;
         let overlayContainerElement: HTMLElement;
@@ -30,14 +31,14 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerDirective]
+                declarations: [ThyTestPickerComponent]
             });
 
             TestBed.compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyTestPickerDirective);
+            fixture = TestBed.createComponent(ThyTestPickerComponent);
             fixtureInstance = fixture.componentInstance;
             debugElement = fixture.debugElement;
         });
@@ -192,8 +193,8 @@ describe('ThyPickerDirective', () => {
     });
 
     describe('should get correct default thyPlacement and offset', () => {
-        let fixture: ComponentFixture<ThyTestPickerPlacementDirective>;
-        let fixtureInstance: ThyTestPickerPlacementDirective;
+        let fixture: ComponentFixture<ThyTestPickerPlacementComponent>;
+        let fixtureInstance: ThyTestPickerPlacementComponent;
         let debugElement: DebugElement;
         let overlayContainer: OverlayContainer;
         let overlayContainerElement: HTMLElement;
@@ -202,12 +203,12 @@ describe('ThyPickerDirective', () => {
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
                 imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-                declarations: [ThyTestPickerPlacementDirective]
+                declarations: [ThyTestPickerPlacementComponent]
             }).compileComponents();
         }));
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyTestPickerPlacementDirective);
+            fixture = TestBed.createComponent(ThyTestPickerPlacementComponent);
             fixtureInstance = fixture.componentInstance;
             debugElement = fixture.debugElement;
         });
@@ -310,7 +311,7 @@ describe('ThyPickerDirective', () => {
         ></thy-property-operation>
     `
 })
-class ThyTestPickerDirective {
+class ThyTestPickerComponent {
     @ViewChild(ThyDatePickerDirective, { read: false }) thyDatePickerDirective: ThyDatePickerDirective;
     thyPlaceHolder: string;
     thyPanelClassName: string;
@@ -325,7 +326,7 @@ class ThyTestPickerDirective {
     thyOffset = 4;
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
-    popoverOptions;
+    popoverOptions: Partial<ThyPopoverConfig>;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
@@ -340,7 +341,7 @@ class ThyTestPickerDirective {
         <thy-property-operation thyLabelText="开始时间" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
     `
 })
-class ThyTestPickerPlacementDirective {
+class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
 }
 
@@ -352,25 +353,25 @@ class ThyTestPickerPlacementDirective {
         </div>
     `
 })
-class ThyTestPickerStopPropagationDirective {
+class ThyTestPickerStopPropagationComponent {
     thyStopPropagation = true;
     testStopPropagation = jasmine.createSpy('opened event spy callback');
 }
 
 describe('should get correct default thyStopPropagation', () => {
-    let fixture: ComponentFixture<ThyTestPickerStopPropagationDirective>;
-    let fixtureInstance: ThyTestPickerStopPropagationDirective;
+    let fixture: ComponentFixture<ThyTestPickerStopPropagationComponent>;
+    let fixtureInstance: ThyTestPickerStopPropagationComponent;
     let debugElement: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
-            declarations: [ThyTestPickerStopPropagationDirective]
+            declarations: [ThyTestPickerStopPropagationComponent]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyTestPickerStopPropagationDirective);
+        fixture = TestBed.createComponent(ThyTestPickerStopPropagationComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement.query(By.css('thy-property-operation'));
         fixture.detectChanges();

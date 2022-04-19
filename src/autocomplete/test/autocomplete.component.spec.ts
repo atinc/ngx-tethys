@@ -18,7 +18,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyOptionModule } from '../../shared';
 
 @Component({
-    selector: 'basic-autocomplete',
+    selector: 'thy-basic-autocomplete',
     template: `
         <div>
             <input

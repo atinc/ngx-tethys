@@ -19,6 +19,7 @@ import { RangePartType } from '../../inner-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'inner-popup',
     exportAs: 'innerPopup',
     templateUrl: 'inner-popup.component.html'

@@ -447,19 +447,13 @@ describe('ThySlide', () => {
             expect(layouts.every(layout => layout.nativeElement.classList.contains('thy-slide-layout'))).toBe(true);
             expect(headers.every(header => header.nativeElement.classList.contains('thy-slide-header'))).toBe(true);
             expect(bodys.every(body => body.nativeElement.classList.contains('thy-slide-body'))).toBe(true);
-            expect(
-                bodySections.every(bodySection =>
-                    bodySection.nativeElement.classList.contains('thy-slide-body-section')
-                )
-            ).toBe(true);
+            expect(bodySections.every(bodySection => bodySection.nativeElement.classList.contains('thy-slide-body-section'))).toBe(true);
             expect(footers.every(footer => footer.nativeElement.classList.contains('thy-slide-footer'))).toBe(true);
         }));
 
         it('should have correct header title icon font', fakeAsync(() => {
             fixture.detectChanges();
-            const headerIconElement: DebugElement = fixture.debugElement.query(
-                By.css('.thy-slide-header-title .wtf-task-o')
-            );
+            const headerIconElement: DebugElement = fixture.debugElement.query(By.css('.thy-slide-header-title .wtf-task-o'));
 
             expect(headerIconElement.nativeElement.classList.contains(`wtf-task-o`)).toBe(true);
         }));
@@ -467,18 +461,16 @@ describe('ThySlide', () => {
         it('should have correct header title svg icon', fakeAsync(() => {
             fixture.componentInstance.iconName = 'close';
             fixture.detectChanges();
-            const headerIconElement: DebugElement = fixture.debugElement.query(
-                By.css('.thy-slide-header-title .thy-icon')
-            );
+            const headerIconElement: DebugElement = fixture.debugElement.query(By.css('.thy-slide-header-title .thy-icon'));
 
             expect(headerIconElement.nativeElement.classList.contains(`thy-icon`)).toBe(true);
         }));
 
         it('should have correct header main text', fakeAsync(() => {
             fixture.detectChanges();
-            expect(
-                fixture.debugElement.query(By.css('.thy-slide-header-main .header-main-custom')).nativeElement.innerText
-            ).toBe('自定义头部操作区');
+            expect(fixture.debugElement.query(By.css('.thy-slide-header-main .header-main-custom')).nativeElement.innerText).toBe(
+                '自定义头部操作区'
+            );
         }));
 
         it('should have correct body content', fakeAsync(() => {
@@ -490,9 +482,7 @@ describe('ThySlide', () => {
         it('should have correct body content divider border', fakeAsync(() => {
             fixture.componentInstance.thyDividerBorder = true;
             fixture.detectChanges();
-            const bodySectionElement: DebugElement = fixture.debugElement.query(
-                By.css('.thy-slide-body-section-divider')
-            );
+            const bodySectionElement: DebugElement = fixture.debugElement.query(By.css('.thy-slide-body-section-divider'));
             expect(bodySectionElement).toBeTruthy();
         }));
 
@@ -526,9 +516,7 @@ describe('ThySlide', () => {
 
         it('should create a slide header main by template', fakeAsync(() => {
             slideHeaderFixture.detectChanges();
-            const headerElement: DebugElement = slideHeaderFixture.debugElement.query(
-                By.css('.thy-slide-header .custom-slide-title')
-            );
+            const headerElement: DebugElement = slideHeaderFixture.debugElement.query(By.css('.thy-slide-header .custom-slide-title'));
             expect(headerElement).not.toBeNull();
             expect(headerElement.nativeElement.innerText).toBe('头部');
         }));
@@ -536,7 +524,7 @@ describe('ThySlide', () => {
 });
 
 @Component({
-    selector: 'with-layout-view-component',
+    selector: 'thy-with-layout-view-component',
     template: `
         <thy-slide-layout>
             <thy-slide-header [thyTitle]="'测试title'" [thyIcon]="iconName">
@@ -568,7 +556,7 @@ class SlideLayoutTestComponent {
 }
 
 @Component({
-    selector: 'with-header-view-component',
+    selector: 'thy-with-header-view-component',
     template: `
         <thy-slide-header>
             <ng-template #thyHeader>

@@ -1,3 +1,4 @@
+/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
@@ -713,6 +714,7 @@ export class ThyTableComponent extends _MixinBase
             });
     }
 
+    // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
     ngOnDestroy() {
         super.ngOnDestroy();
         this._destroyInvalidAttribute();

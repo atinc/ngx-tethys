@@ -17,6 +17,7 @@ import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-carousel',
     templateUrl: './date-carousel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,

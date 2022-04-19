@@ -5,5 +5,5 @@ export class DateRangeItemInfo {
     end?: number;
     key?: string;
     text?: string;
-    timestamp?: { interval?: number, unit?: AttachTypes };
+    timestamp?: { interval?: number; unit?: AttachTypes };
 }

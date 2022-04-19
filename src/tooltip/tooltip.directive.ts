@@ -44,7 +44,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         }
     }
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipPlacement') placement: ThyPlacement = 'top';
 
     @Input('thyTooltipClass')
@@ -55,14 +55,14 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         }
     }
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipShowDelay') showDelay = this.options.showDelay;
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipHideDelay') hideDelay = this.options.hideDelay;
 
     _trigger: ThyOverlayTrigger = 'hover';
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
         this.trigger = value;
     }

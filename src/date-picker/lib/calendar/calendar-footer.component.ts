@@ -14,6 +14,7 @@ import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'calendar-footer',
     exportAs: 'calendarFooter',
     templateUrl: 'calendar-footer.component.html'

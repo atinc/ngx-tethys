@@ -6,21 +6,8 @@ import { ThyRadioButtonComponent } from './button/radio-button.component';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
 
 @NgModule({
-    imports: [
-        CommonModule,
-        FormsModule
-    ],
-    declarations: [
-        ThyRadioComponent,
-        ThyRadioGroupComponent,
-        ThyRadioButtonComponent
-    ],
-    exports: [
-        ThyRadioComponent,
-        ThyRadioGroupComponent,
-        ThyRadioButtonComponent
-    ]
+    imports: [CommonModule, FormsModule],
+    declarations: [ThyRadioComponent, ThyRadioGroupComponent, ThyRadioButtonComponent],
+    exports: [ThyRadioComponent, ThyRadioGroupComponent, ThyRadioButtonComponent]
 })
-export class ThyRadioModule {
-
-}
+export class ThyRadioModule {}

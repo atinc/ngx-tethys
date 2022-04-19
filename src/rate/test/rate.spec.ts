@@ -10,7 +10,7 @@ import { ThyRateTemplateExampleComponent } from '../examples/template/template.c
 
 // 基础
 @Component({
-    selector: 'thy-Rate-basic-test',
+    selector: 'thy-rate-basic-test',
     template: `
         <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `
@@ -110,7 +110,7 @@ describe('Rate basic component', () => {
 
 // 数量
 @Component({
-    selector: 'thy-Rate-count-test',
+    selector: 'thy-rate-count-test',
     template: `
         <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate>
     `
@@ -158,7 +158,7 @@ describe('Rate count component', () => {
 
 // 半选
 @Component({
-    selector: 'thy-Rate-half-test',
+    selector: 'thy-rate-half-test',
     template: `
         <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `
@@ -231,7 +231,7 @@ describe('Rate half component', () => {
 
 // 清除
 @Component({
-    selector: 'thy-Rate-clear-test',
+    selector: 'thy-rate-clear-test',
     template: `
         <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate>
     `
@@ -296,7 +296,7 @@ describe('Rate clear component', () => {
 
 // 只读
 @Component({
-    selector: 'thy-Rate-disabled-test',
+    selector: 'thy-rate-disabled-test',
     template: `
         <thy-rate
             [(ngModel)]="value"
@@ -365,7 +365,7 @@ describe('Rate disabled component', () => {
 
 // 自定义提示信息
 @Component({
-    selector: 'thy-Rate-tooltip-test',
+    selector: 'thy-rate-tooltip-test',
     template: `
         <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate>
     `
@@ -417,7 +417,7 @@ describe('Rate tooltip component', () => {
 
 // 自定义模版
 @Component({
-    selector: 'thy-Rate-template-test',
+    selector: 'thy-rate-template-test',
     template: `
         <thy-rate [(ngModel)]="value" [thyIconTemplate]="iconsTemplate" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
         <ng-template #icon1>随</ng-template>

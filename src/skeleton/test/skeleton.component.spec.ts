@@ -21,7 +21,7 @@ const defaultValues = {
 };
 
 @Component({
-    selector: 'demo-skeleton-basic',
+    selector: 'thy-skeleton-basic',
     template: `
         <thy-skeleton></thy-skeleton>
     `
@@ -29,7 +29,7 @@ const defaultValues = {
 class SkeletonBasicComponent {}
 
 @Component({
-    selector: 'demo-skeleton-base-url',
+    selector: 'thy-demo-skeleton-base-url',
     template: `
         <thy-skeleton [thyBaseUrl]="'/context1.html'"></thy-skeleton>
     `
@@ -37,7 +37,7 @@ class SkeletonBasicComponent {}
 class SkeletonBaseUrlComponent {}
 
 @Component({
-    selector: 'demo-skeleton-custom-content',
+    selector: 'thy-demo-skeleton-custom-content',
     template: `
         <thy-skeleton>
             <ng-template #content>
@@ -50,7 +50,7 @@ class SkeletonBaseUrlComponent {}
 class SkeletonCustomContentComponent {}
 
 @Component({
-    selector: 'demo-skeleton-title-template',
+    selector: 'thy-demo-skeleton-title-template',
     template: `
         <thy-skeleton>
             <thy-skeleton-title-template [thyWidth]="width" [thyHeight]="height"> </thy-skeleton-title-template>

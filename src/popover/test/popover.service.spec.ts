@@ -17,7 +17,7 @@ import {
 import { ThyPopover } from '../popover.service';
 
 @Component({
-    selector: 'popover-basic',
+    selector: 'thy-popover-basic',
     template: `
         <button #trigger>Open</button>
         <ng-template #customTemplate></ng-template>
@@ -29,15 +29,16 @@ class PopoverBasicComponent {
     @ViewChild('trigger') trigger: TemplateRef<any>;
 }
 
-@Directive({ selector: 'with-view-container-directive' })
+// eslint-disable-next-line @angular-eslint/directive-selector
+@Directive({ selector: 'thy-with-view-container-directive' })
 class WithViewContainerDirective {
     constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
-    selector: 'with-child-view-container-component',
+    selector: 'thy-with-child-view-container-component',
     template: `
-        <with-view-container-directive></with-view-container-directive>
+        <thy-with-view-container-directive></thy-with-view-container-directive>
         <button #openPopoverOrigin>Open Popover</button>
         <button #openTemplate>open template</button>
         <ng-template #template>
@@ -64,7 +65,7 @@ class WithChildViewContainerComponent {
 }
 
 @Component({
-    selector: 'popover-simple-content-component',
+    selector: 'thy-popover-simple-content-component',
     template: `
         <div>Hello Popover <button>Close</button></div>
     `
@@ -74,7 +75,7 @@ export class PopoverSimpleContentComponent {
 }
 
 @Component({
-    selector: 'popover-manual-closure-content-component',
+    selector: 'thy-popover-manual-closure-content-component',
     template: `
         <a class="btn" #btn1>Open1</a>
         <ng-template #template1><div class="template1">template1</div></ng-template>
@@ -98,7 +99,7 @@ export class PopoverManualClosureContentComponent {
 }
 
 @Component({
-    selector: 'popover-outside-closable',
+    selector: 'thy-popover-outside-closable',
     template: `
         <button #outsideBtn>outside btn</button>
         <a class="btn" #openBtn>Open</a>
@@ -117,7 +118,7 @@ export class PopoverOutsideClosableComponent {
 }
 
 @Component({
-    selector: 'popover-inside-closable',
+    selector: 'thy-popover-inside-closable',
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div #innerContent>template</div></ng-template>
@@ -132,7 +133,7 @@ export class PopoverInsideClosableComponent {
 }
 
 @Component({
-    selector: 'popover-config',
+    selector: 'thy-popover-config',
     template: `
         <a class="btn" #openBtn>Open</a>
         <ng-template #template><div class="template">template</div></ng-template>
@@ -385,7 +386,7 @@ describe(`thyPopover`, () => {
             const element = getPopoverContainerElement() as HTMLElement;
             tick(1000);
             viewContainerFixture.detectChanges();
-            expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBeTruthy();
+            expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBeTruthy();
         }));
 
         it('should find the null', fakeAsync(() => {
@@ -397,10 +398,10 @@ describe(`thyPopover`, () => {
             tick(1000);
             viewContainerFixture.detectChanges();
             element
-                .querySelector('popover-simple-content-component')
+                .querySelector('thy-popover-simple-content-component')
                 .closest('.thy-popover-container')
                 .removeAttribute('id');
-            expect(popover.getClosestPopover(element.querySelector('popover-simple-content-component'))).toBe(null);
+            expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
         }));
     });
 

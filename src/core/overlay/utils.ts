@@ -33,11 +33,7 @@ export function buildConnectedPositionOffset(placement: ThyPlacement, offset: nu
     return connectedPositionOffset;
 }
 
-export function buildConnectedPositionPair(
-    placement: ThyPlacement,
-    offset?: number,
-    panelClassPrefix?: string
-): ConnectionPositionPair {
+export function buildConnectedPositionPair(placement: ThyPlacement, offset?: number, panelClassPrefix?: string): ConnectionPositionPair {
     const position: ConnectionPositionPair = {
         ...POSITION_MAP[placement],
         ...(offset ? buildConnectedPositionOffset(placement, offset) : null)
@@ -59,11 +55,7 @@ export function getFallbackPlacements(placement: ThyPlacement): ThyPlacement[] {
  * [{topPosition}, {topLeftPosition}, {topRightPosition}, {bottomPosition}, {bottomLeftPosition}, {bottomRightPosition},]
  * @returns [ConnectionPositionPair]
  */
-export function getFlexiblePositions(
-    placement: ThyPlacement,
-    offset?: number,
-    panelClassPrefix?: string
-): ConnectionPositionPair[] {
+export function getFlexiblePositions(placement: ThyPlacement, offset?: number, panelClassPrefix?: string): ConnectionPositionPair[] {
     const fallbackPlacements = getFallbackPlacements(placement);
 
     return [placement, ...fallbackPlacements].map(placementName => {

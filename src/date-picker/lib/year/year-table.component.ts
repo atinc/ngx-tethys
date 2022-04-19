@@ -5,6 +5,7 @@ import { DateCell, DateBodyRow, YearCell } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'year-table',
     templateUrl: 'year-table.component.html'
 })
