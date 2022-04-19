@@ -197,15 +197,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         private cdr: ChangeDetectorRef
     ) {}
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes.thyType && !changes.thyType.isFirstChange()) {
-            this._setTreeType();
-        }
-        if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
-            this._instanceSelectionModel();
-        }
-    }
-
     ngOnInit(): void {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this._setTreeType();
@@ -216,6 +207,15 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             this.flattenTreeNodes = flattenTreeNodes;
             this.cdr.markForCheck();
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyType && !changes.thyType.isFirstChange()) {
+            this._setTreeType();
+        }
+        if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
+            this._instanceSelectionModel();
+        }
     }
 
     renderView = () => {};
