@@ -1,9 +1,12 @@
 @use "../../styles/variables";
+@use "sass:math";
 
-@mixin select-control-size($input-height, $input-padding-y) {
-    // min-height: $input-height;
+@mixin select-control-size($input-height, $input-padding-y, $input-label-height) {
     .select-control-rendered {
         margin-top: $input-padding-y;
+        .select-control-choices {
+            height: $input-label-height + $input-padding-y;
+        }
         .text-placeholder,
         .selected-value {
             margin-bottom: $input-padding-y;
