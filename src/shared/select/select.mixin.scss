@@ -1,5 +1,4 @@
 @use "../../styles/variables";
-@use "sass:math";
 
 @mixin select-control-size($input-height, $input-padding-y, $input-label-height) {
     .select-control-rendered {
