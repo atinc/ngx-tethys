@@ -1,8 +1,11 @@
 @use "../styles/variables";
-
+@use '../shared/option/styles/option.mixin.scss';
 .thy-mention-suggestions {
     display: block;
     width: variables.$mention-suggestions-width;
     max-height: variables.$mention-suggestions-height;
     overflow-y: auto;
+    .thy-option-item-group {
+        @include option.thy-option-item-group();
+    }
 }

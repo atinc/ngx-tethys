@@ -1,10 +1,12 @@
-import { Component, OnInit, OnDestroy, HostBinding, ElementRef, NgZone } from '@angular/core';
-import { Subject, Observable, of } from 'rxjs';
 import { ThySelectionListChange } from 'ngx-tethys/list';
-import { MentionDefaultDataItem, Mention, MentionSuggestionSelectEvent } from '../interfaces';
-import { debounceTime, switchMap, catchError, take } from 'rxjs/operators';
-import { SeekQueryResult } from '../adapter/adapter';
 import { ThyPopoverRef } from 'ngx-tethys/popover';
+import { Observable, of, Subject } from 'rxjs';
+import { catchError, debounceTime, switchMap, take } from 'rxjs/operators';
+
+import { Component, ElementRef, HostBinding, NgZone, OnDestroy, OnInit } from '@angular/core';
+
+import { SeekQueryResult } from '../adapter/adapter';
+import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from '../interfaces';
 
 @Component({
     selector: 'thy-mention-suggestions',

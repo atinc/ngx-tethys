@@ -22,28 +22,7 @@
     }
 
     .thy-option-item-group {
-        &.thy-select-option-group-hidden {
-            display: none;
-        }
-        flex-direction: column;
-        .group-name {
-            width: 100%;
-            height: 30px;
-            display: flex;
-            align-items: center;
-            color: variables.$gray-600;
-            background-color: variables.$gray-80;
-            padding: {
-                left: 20px;
-                right: 20px;
-            }
-        }
-        .thy-option-item {
-            padding: {
-                left: 20px;
-                right: 20px;
-            }
-        }
+        @include option.thy-option-item-group();
     }
 }
 .thy-select-dropdown {

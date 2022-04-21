@@ -3,6 +3,7 @@ import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyLis
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -74,7 +75,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     @HostBinding(`class.thy-grid-list`) isLayoutGrid = false;
 
     /** The option components contained within this selection-list. */
-    @ContentChildren(ThyListOptionComponent) options: QueryList<ThyListOptionComponent>;
+    @ContentChildren(ThyListOptionComponent, { descendants: true }) options: QueryList<ThyListOptionComponent>;
 
     @Input()
     set thyMultiple(value: any) {

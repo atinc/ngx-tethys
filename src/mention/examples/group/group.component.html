@@ -1,0 +1,35 @@
+<div class="demo-card">
+  <textarea placeholder="Mention people using @" thyInput [thyMention]="mentions" [(ngModel)]="value"></textarea>
+</div>
+
+<ng-template #suggestionsTemplateRef let-data="data">
+  <thy-selection-list
+    *ngIf="data?.length > 0; else empty"
+    thyBindKeyEventContainer="body"
+    thyMultiple="false"
+    thyAutoActiveFirstItem="true"
+    thySpaceKeyEnabled="false"
+    [thyScrollContainer]="mention.openedSuggestionsRef?.componentInstance?.elementRef"
+    (thySelectionChange)="mention.openedSuggestionsRef?.componentInstance?.selectionChange($event)"
+  >
+    <ng-container *ngFor="let group of groupData">
+      <thy-option-group
+        *ngIf="data | filterGroupData: group.groupId as groupItemData"
+        [thyGroupLabel]="group.name"
+        [hidden]="!groupItemData?.length"
+      >
+        <thy-list-option *ngFor="let item of groupItemData" [thyValue]="item">
+          <div class="text-truncate">
+            <thy-avatar thySize="sm" [thyName]="item.display_name" [thyShowName]="true"></thy-avatar>
+            <span class="text-desc ml-2">({{ item.name }})</span>
+          </div>
+        </thy-list-option>
+      </thy-option-group>
+    </ng-container>
+  </thy-selection-list>
+  <ng-template #empty>
+    <div class="text-desc p-3">
+      {{ '无匹配数据，按空格完成输入' }}
+    </div>
+  </ng-template>
+</ng-template>
