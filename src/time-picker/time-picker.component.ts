@@ -36,7 +36,7 @@ import { ThyTimePickerStore } from './time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
-    /* tslint:disable-next-line: no-use-before-declare */
+    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
     useExisting: forwardRef(() => ThyTimePickerComponent),
     multi: true
 };

@@ -4,7 +4,7 @@ import { helpers } from 'ngx-tethys/util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
-const labelTypeClassesMap: any = {
+const labelTypeClassesMap = {
     default: ['thy-label', 'thy-label-default'],
     primary: ['thy-label', 'thy-label-primary'],
     success: ['thy-label', 'thy-label-success'],
@@ -13,6 +13,7 @@ const labelTypeClassesMap: any = {
     danger: ['thy-label', 'thy-label-danger']
 };
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyLabel]',
     templateUrl: './label.component.html'
 })

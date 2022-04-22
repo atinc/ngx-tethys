@@ -1,5 +1,5 @@
 import { Store } from './store';
-import { Inject, SkipSelf, Optional, OnDestroy, isDevMode, Injectable } from '@angular/core';
+import { OnDestroy, isDevMode, Injectable } from '@angular/core';
 import { Subscription, combineLatest } from 'rxjs';
 import { map, switchMap, tap } from 'rxjs/operators';
 import { BehaviorSubject } from 'rxjs';
@@ -13,7 +13,7 @@ let rootStore: RootStore;
  * @internal
  */
 @Injectable()
-export class RootStore {
+export class RootStore implements OnDestroy {
     private connectSuccessed = false;
     /**
      * 数据流 数据是一个Map，k,v键值对，关键字->状态数据

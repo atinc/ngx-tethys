@@ -19,7 +19,7 @@ class StringSelectStore extends Store<StringSelectState> {
 }
 
 @Component({
-    selector: 'my-component-0',
+    selector: 'thy-my-component-0',
     template: ''
 })
 class StringSelectComponent {

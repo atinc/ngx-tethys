@@ -138,7 +138,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             componentInstance.showTimePickerChange
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
-            // tslint:disable-next-line: max-line-length
+            // eslint-disable-next-line max-len
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
             componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
                 this.thyShortcutValueChange.emit(event);

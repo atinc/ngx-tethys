@@ -1,13 +1,4 @@
-import {
-    forwardRef,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Renderer2,
-    OnInit,
-    NgZone
-} from '@angular/core';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Renderer2, OnInit, NgZone } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { BasePickerComponent } from './base-picker.component';

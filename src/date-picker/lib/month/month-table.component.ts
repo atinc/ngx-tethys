@@ -6,6 +6,7 @@ import { DateCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-table',
     exportAs: 'monthTable',
     templateUrl: 'month-table.component.html'

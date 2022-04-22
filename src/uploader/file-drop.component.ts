@@ -19,6 +19,7 @@ import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.conf
 import { FileSelectBaseComponent } from './file-select-base';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyFileDrop]',
     template: `
         <ng-content></ng-content>

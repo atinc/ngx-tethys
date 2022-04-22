@@ -52,8 +52,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
 
     @Input('thyPopoverConfig') popoverConfig: ThyPopoverConfig;
 
-    @Output('thySelectSuggestion')
-    select = new EventEmitter<MentionSuggestionSelectEvent>();
+    @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
 
     private destroy$ = new Subject<void>();
     private openedSuggestionsRef$ = new Subject<ThyPopoverRef<ThyMentionSuggestionsComponent> | null>();

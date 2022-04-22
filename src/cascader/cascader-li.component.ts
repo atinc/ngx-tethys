@@ -7,6 +7,7 @@ import { CascaderOption } from './types';
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     providers: [UpdateHostClassService]

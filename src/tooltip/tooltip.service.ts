@@ -1,15 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    ViewContainerRef,
-    NgZone,
-    Input,
-    OnInit,
-    OnDestroy,
-    TemplateRef,
-    Injectable,
-    Inject
-} from '@angular/core';
+import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef, Injectable, Inject } from '@angular/core';
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';

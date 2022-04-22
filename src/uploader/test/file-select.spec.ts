@@ -9,7 +9,7 @@ import { createFile } from './utils';
 import { createFakeEvent } from 'ngx-tethys/testing';
 
 @Component({
-    selector: 'app-file-select-basic',
+    selector: 'thy-file-select-basic',
     template: `
         <thy-file-select
             class="mt-2 d-inline-block"

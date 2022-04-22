@@ -4,7 +4,7 @@ import { Component, HostBinding, Input } from '@angular/core';
     selector: 'thy-content',
     preserveWhitespaces: false,
     template: `
-    <ng-content></ng-content>
+        <ng-content></ng-content>
     `
 })
 export class ThyContentComponent {

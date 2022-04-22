@@ -4,6 +4,7 @@ import { DateCell, DecadeCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'decade-table',
     exportAs: 'decadeTable',
     templateUrl: 'decade-table.component.html'
