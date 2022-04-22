@@ -18,30 +18,26 @@ const mockUsers = [
     'Daniel',
     'Madison',
     'Onetwothreefourfivesixseven'
-].map((name, index) => {
+].map(name => {
     return {
-        groupId: index % 2 ? '1' : '2',
         name: name.toLocaleLowerCase(),
         display_name: name
     };
 });
 
 @Component({
-    selector: 'thy-mention-group-example',
-    templateUrl: './group.component.html'
+    selector: 'thy-mention-suggestion-template-example',
+    templateUrl: './suggestions-template.component.html'
 })
-export class ThyMentionGroupExampleComponent implements OnInit {
-    value = `This is group mention! @`;
+export class ThyMentionSuggestionsTemplateExampleComponent implements OnInit {
+    value = `This is suggestion-template mention! @`;
+
     @ViewChild(ThyMentionDirective, { static: true }) mention: ThyMentionDirective;
 
     @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
 
     mentions: Mention<any>[];
 
-    groupData = [
-        { name: '分组1', groupId: '1' },
-        { name: '分组2', groupId: '2' }
-    ];
     constructor(public elementRef: ElementRef<HTMLElement>) {}
 
     ngOnInit() {

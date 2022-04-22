@@ -41,7 +41,7 @@ module.exports = [
             },
             {
                 name: 'suggestionsTemplateRef',
-                description: 'Mention 自定义模版',
+                description: 'Mention 列表自定义模版',
                 type: 'TemplateRef<{ data: Array<Item> }>',
                 default: ''
             },

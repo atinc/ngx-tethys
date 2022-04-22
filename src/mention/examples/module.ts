@@ -6,10 +6,6 @@ import { ThyMentionModule } from 'ngx-tethys/mention';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-import { FilterGroupDataPipe } from './group/group.pipe';
-
 export default {
-    declarations: [FilterGroupDataPipe],
-    imports: [CommonModule, FormsModule, ThyAvatarModule, ThyMentionModule, ThyInputModule, ThyListModule],
-    exports: [FilterGroupDataPipe]
+    imports: [CommonModule, FormsModule, ThyAvatarModule, ThyMentionModule, ThyInputModule, ThyListModule]
 };

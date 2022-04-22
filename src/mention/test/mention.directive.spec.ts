@@ -46,30 +46,30 @@ class ThyTestMentionBasicComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-test-mention-group',
+    selector: 'thy-test-mention-suggestions-template',
     template: `
         <div class="demo-card">
             <textarea [(ngModel)]="value" thyInput [thyMention]="mentions" [thyPopoverConfig]="popoverConfig"></textarea>
             <ng-template #suggestionsTemplateRef let-data="data">
                 <thy-selection-list thyMultiple="false" thyAutoActiveFirstItem="true">
-                    <thy-option-group [thyGroupLabel]="'分组1'">
-                        <thy-list-option [thyValue]="{ name: 'test1' }">{{ 'test1' }} </thy-list-option>
+                    <thy-option-group [thyGroupLabel]="'label1'">
+                        <thy-list-option>{{ 'test1' }} </thy-list-option>
                     </thy-option-group>
-                    <thy-option-group [thyGroupLabel]="'分组2'">
-                        <thy-list-option [thyValue]="{ name: 'test2' }">{{ 'test2' }} </thy-list-option>
+                    <thy-option-group [thyGroupLabel]="'label2'">
+                        <thy-list-option>{{ 'test2' }} </thy-list-option>
                     </thy-option-group>
                 </thy-selection-list>
             </ng-template>
         </div>
     `
 })
-class ThyTestMentionGroupComponent implements OnInit {
+class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     value = `@`;
 
     mentions: Mention<any>[];
 
     popoverConfig = {
-        panelClass: 'mention-group-popover-panel'
+        panelClass: 'mention-suggestions-template-popover-panel'
     };
 
     @ViewChild('suggestionsTemplateRef', { static: true }) suggestionsTemplateRef: TemplateRef<{ data: [] }>;
@@ -91,7 +91,7 @@ class ThyTestMentionGroupComponent implements OnInit {
 
 @NgModule({
     imports: [FormsModule, ThyMentionModule, ThyListModule],
-    declarations: [ThyTestMentionBasicComponent, ThyTestMentionGroupComponent],
+    declarations: [ThyTestMentionBasicComponent, ThyTestMentionSuggestionsTemplateComponent],
     exports: []
 })
 export class MentionTestModule {}
@@ -150,8 +150,8 @@ describe('MentionDirective', () => {
     });
 });
 
-describe('MentionGroupDirective', () => {
-    let fixture: ComponentFixture<ThyTestMentionGroupComponent>;
+describe('MentionSuggestionsTemplateDirective', () => {
+    let fixture: ComponentFixture<ThyTestMentionSuggestionsTemplateComponent>;
     let mentionDirective: ThyMentionDirective;
     let inputDebugElement: DebugElement;
     let popover: ThyPopover;
@@ -162,7 +162,7 @@ describe('MentionGroupDirective', () => {
             providers: []
         });
         TestBed.compileComponents();
-        fixture = TestBed.createComponent(ThyTestMentionGroupComponent);
+        fixture = TestBed.createComponent(ThyTestMentionSuggestionsTemplateComponent);
         fixture.detectChanges();
         inputDebugElement = fixture.debugElement.query(By.css('textarea'));
         mentionDirective = inputDebugElement.injector.get<ThyMentionDirective>(ThyMentionDirective);
@@ -180,10 +180,10 @@ describe('MentionGroupDirective', () => {
         expect(mentionDirective).toBeTruthy();
     });
 
-    it('should open group suggestions popover and show group', () => {
+    it('should open group suggestions-template popover and show group', () => {
         mentionDirective['lookup'](null);
         fixture.detectChanges();
-        const panelElement = document.querySelector('.mention-group-popover-panel');
+        const panelElement = document.querySelector('.mention-suggestions-template-popover-panel');
         expect(panelElement).toBeTruthy();
         const mentionSuggestionsElement = document.querySelector('thy-mention-suggestions');
         expect(mentionSuggestionsElement).toBeTruthy();
