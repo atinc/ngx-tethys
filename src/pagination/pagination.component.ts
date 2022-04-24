@@ -177,9 +177,10 @@ export class ThyPaginationComponent implements OnInit {
 
     private setPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
+        const toPageSize = this.pageIndex * this.pageSize;
         this.range = {
             from: (this.pageIndex - 1) * this.pageSize + 1,
-            to: this.pageIndex * this.pageSize
+            to: toPageSize > this.total ? this.total : toPageSize
         };
         this.initializePages(this.pageIndex, this.pageCount);
         this.cdr.markForCheck();

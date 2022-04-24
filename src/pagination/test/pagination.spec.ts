@@ -91,6 +91,7 @@ describe('ThyPagination', () => {
 
         pageIndexChange() {}
     }
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyPaginationModule],
@@ -99,16 +100,19 @@ describe('ThyPagination', () => {
         });
         TestBed.compileComponents();
     });
+
     describe('basic', () => {
         let fixture: ComponentFixture<PaginationTestComponent>;
         let componentInstance: PaginationTestComponent;
+        let paginationDebugElement: DebugElement;
         let paginationElement: HTMLElement;
         let pagination: { pageIndex: number; pageSize: number; total: number };
         beforeEach(() => {
             fixture = TestBed.createComponent(PaginationTestComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();
-            paginationElement = fixture.debugElement.query(By.directive(ThyPaginationComponent)).nativeElement;
+            paginationDebugElement = fixture.debugElement.query(By.directive(ThyPaginationComponent));
+            paginationElement = paginationDebugElement.nativeElement;
             pagination = componentInstance.pagination;
         });
 
@@ -270,6 +274,22 @@ describe('ThyPagination', () => {
             const list = pageComponent.nativeElement.querySelector('.thy-pagination-pages').children;
             const pageLength = pagination.total / pagination.size;
             expect((list[list.length - 2].querySelector('.thy-page-link') as HTMLElement).innerHTML).toEqual(pageLength.toString());
+        });
+
+        it('should to range less than total', () => {
+            const pageSize = 20;
+
+            basicTestComponent.showTotal = true;
+            basicTestComponent.pagination = {
+                index: 1,
+                size: pageSize,
+                total: 15
+            };
+            fixture.detectChanges();
+            expect(pageComponent.componentInstance.range).toEqual({
+                from: 1,
+                to: 15
+            });
         });
 
         it('should active thy-page-item when thyPageIndex set right', () => {
