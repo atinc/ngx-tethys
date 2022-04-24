@@ -40,6 +40,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'suggestionsTemplateRef',
+                description: 'Mention 列表自定义模版',
+                type: 'TemplateRef<{ data: Array<Item> }>',
+                default: ''
+            },
+            {
                 name: 'emptyText',
                 description: '未匹配到数据的内容',
                 type: 'string',
