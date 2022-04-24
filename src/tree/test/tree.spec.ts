@@ -421,7 +421,7 @@ describe('ThyTreeComponent', () => {
             expect(updateTreeNodesCount).toEqual(11);
         });
 
-        fit('test should successful delete tree node ', () => {
+        it('test should successful delete tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
             expect(treeCount).toEqual(10);
             const node = treeComponent.treeNodes[0];
