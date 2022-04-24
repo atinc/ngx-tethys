@@ -69,6 +69,7 @@ export class ThyTreeNode<T = any> {
         if (propagate && this.children) {
             this.children.forEach(n => n.setExpanded(expanded, propagate));
         }
+        this.syncNodeCheckState();
     }
 
     public setLoading(loading: boolean): void {
