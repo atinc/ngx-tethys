@@ -1,6 +1,6 @@
 <cdk-virtual-scroll-viewport #viewport *ngIf="thyVisualScorll" [itemSize]="thyItemSize" [style.height]="'100%'">
   <div
-    [thyDropContainer]="treeNodes"
+    [thyDropContainer]="flattenTreeNodes"
     [thyDropContainerDisabled]="!thyDraggable"
     [thyBeforeDragStart]="thyBeforeDragStart"
     [thyBeforeDragOver]="beforeDragOver"
@@ -30,7 +30,7 @@
 
 <div
   *ngIf="!thyVisualScorll"
-  [thyDropContainer]="treeNodes"
+  [thyDropContainer]="flattenTreeNodes"
   [thyDropContainerDisabled]="!thyDraggable"
   [thyBeforeDragStart]="thyBeforeDragStart"
   [thyBeforeDragOver]="beforeDragOver"

@@ -97,10 +97,6 @@ describe('ThyTreeComponent', () => {
             tick(100);
             fixture.detectChanges();
             const expandNodeCount = treeComponent.getExpandedNodes().length;
-            // change tree nodes
-            // treeInstance.addNode();
-            // tick(100);
-            // fixture.detectChanges();
             expect(treeComponent.getExpandedNodes().length).toEqual(expandNodeCount);
         }));
 
@@ -407,6 +403,33 @@ describe('ThyTreeComponent', () => {
 
             expect(selectionModelSpy).toHaveBeenCalled();
         }));
+
+        it('test should successful add tree node ', () => {
+            const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
+            expect(treeCount).toEqual(10);
+            const tmpTreeNode = {
+                key: '111000000000000',
+                title: '新增测试',
+                expanded: true,
+                _id: '111000000000000',
+                name: '新增测试',
+                member_count: 3
+            };
+            treeComponent.addTreeNode(tmpTreeNode);
+            fixture.detectChanges();
+            const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
+            expect(updateTreeNodesCount).toEqual(11);
+        });
+
+        fit('test should successful delete tree node ', () => {
+            const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
+            expect(treeCount).toEqual(10);
+            const node = treeComponent.treeNodes[0];
+            treeComponent.deleteTreeNode(node);
+            fixture.detectChanges();
+            const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
+            expect(updateTreeNodesCount).toEqual(1);
+        });
     });
 
     describe('async tree', () => {
