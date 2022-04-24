@@ -1,11 +1,10 @@
-import { fakeAsync, ComponentFixture, TestBed, async } from '@angular/core/testing';
+import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyStepperModule } from '../stepper.module';
-import { NgModule, Component, ViewChild, ContentChildren, QueryList, ViewChildren } from '@angular/core';
+import { NgModule, Component, ViewChild } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyStepComponent } from '../step.component';
 import { ThyStepperComponent } from '../stepper.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyStepperNextDirective, ThyStepperPreviousDirective } from '../stepper-button.directive';
 
 @Component({
     selector: 'thy-demo-stepper',
@@ -17,7 +16,7 @@ import { ThyStepperNextDirective, ThyStepperPreviousDirective } from '../stepper
                     <p>This is first description.</p>
                 </div>
             </thy-step>
-            <thy-step label="第二步">
+            <thy-step label="第二步" #selectedStep>
                 <div class="demo-stepper-body second-step">
                     <button thyButton="primary">下一步</button>
                     <a thyButton="link-secondary">上一步</a>
@@ -34,6 +33,7 @@ import { ThyStepperNextDirective, ThyStepperPreviousDirective } from '../stepper
     `
 })
 class ThyDemoStepperComponent {
+    @ViewChild('selectedStep', { static: true }) selectedStepperComponent: ThyStepComponent;
     showStepHeader = true;
     selectedIndex = 0;
     next() {}
@@ -57,23 +57,28 @@ describe('ThyStepper', () => {
         });
         TestBed.compileComponents();
     }));
+
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoStepperComponent);
         testComponent = fixture.componentInstance;
         fixture.detectChanges();
     });
+
     describe('stepper', () => {
         it('should create stepper component', () => {
             expect(testComponent).toBeTruthy();
         });
+
         it('should have class thy-stepper', () => {
             const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent));
             expect(stepper.nativeElement.classList.contains('thy-stepper')).toBeTruthy();
         });
+
         it('should show stepHeader', () => {
             const stepHeader = fixture.debugElement.query(By.css('.thy-stepper-header-container'));
             expect(stepHeader.componentInstance).toBeTruthy();
         });
+
         it('should hide stepHeader', () => {
             testComponent.showStepHeader = false;
             fixture.detectChanges();
@@ -91,6 +96,25 @@ describe('ThyStepper', () => {
             fixture.detectChanges();
             const firstStep = fixture.debugElement.query(By.css('.first-step'));
             expect(firstStep.componentInstance).toBeTruthy();
+
+            stepper.to(2);
+            fixture.detectChanges();
+            expect(stepper.selectedIndex).toEqual(2);
+        });
+
+        it('should success when select specify stepper', () => {
+            testComponent.selectedStepperComponent.select();
+            fixture.detectChanges();
+            expect(fixture.componentInstance.selectedStepperComponent).toEqual(testComponent.selectedStepperComponent);
+        });
+
+        it('should support thySelected', () => {
+            const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent)).componentInstance;
+            stepper.thySelected = testComponent.selectedStepperComponent;
+            fixture.detectChanges();
+            console.log('xxx:', stepper.selected);
+            console.log('aaa:', testComponent.selectedStepperComponent);
+            expect(stepper.selected).toEqual(testComponent.selectedStepperComponent);
         });
     });
 });
