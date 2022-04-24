@@ -292,6 +292,52 @@ describe('ThyPagination', () => {
             });
         });
 
+        it('should update range when total is changed', () => {
+            const pageSize = 20;
+
+            basicTestComponent.showTotal = true;
+            basicTestComponent.pagination = {
+                index: 1,
+                size: pageSize,
+                total: 15
+            };
+            fixture.detectChanges();
+            expect(pageComponent.componentInstance.range).toEqual({
+                from: 1,
+                to: 15
+            });
+            basicTestComponent.pagination.total = 30;
+            fixture.detectChanges();
+            expect(pageComponent.componentInstance.range).toEqual({
+                from: 1,
+                to: 20
+            });
+        });
+
+        it('should recalculate page index when total is changed', () => {
+            const pageSize = 20;
+
+            basicTestComponent.showTotal = true;
+            basicTestComponent.pagination = {
+                index: 2,
+                size: pageSize,
+                total: 30
+            };
+            fixture.detectChanges();
+            expect(pageComponent.componentInstance.pageIndex).toEqual(2);
+            expect(pageComponent.componentInstance.range).toEqual({
+                from: 21,
+                to: 30
+            });
+            basicTestComponent.pagination.total = 19;
+            fixture.detectChanges();
+            expect(pageComponent.componentInstance.pageIndex).toEqual(1);
+            expect(pageComponent.componentInstance.range).toEqual({
+                from: 1,
+                to: 19
+            });
+        });
+
         it('should active thy-page-item when thyPageIndex set right', () => {
             basicTestComponent.pagination.index = 2;
             fixture.detectChanges();

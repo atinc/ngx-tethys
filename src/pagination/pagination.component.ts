@@ -51,7 +51,7 @@ export class ThyPaginationComponent implements OnInit {
         this.total = total;
         if (this.initialized) {
             this.calculatePageCount();
-            this.initializePages(this.pageIndex, this.pageCount);
+            this.setPageIndex(this.pageIndex);
             this.cdr.markForCheck();
         }
     }
