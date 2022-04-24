@@ -10,9 +10,11 @@ export class ThyDropdownOptionsExampleComponent {
         placement?: ThyPlacement;
         width?: string | number;
         height?: string | number;
+        minWidth?: string | number;
     } = {
         placement: 'bottom',
         width: parseInt(THY_DROPDOWN_DEFAULT_WIDTH.replace('px', ''), 10),
-        height: 108
+        height: 108,
+        minWidth: '200px'
     };
 }
