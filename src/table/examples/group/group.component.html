@@ -8,8 +8,8 @@
   (thyOnRowClick)="onRowClick($event)"
 >
   <ng-template #group let-group>{{ group?.title }}</ng-template>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="300" thyFixedLeft></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age" [thyWidth]="400"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job" thyWidth="500"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" [thyWidth]="'300px'"></thy-table-column>
 </thy-table>

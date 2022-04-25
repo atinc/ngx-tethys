@@ -51,6 +51,7 @@ import {
     ThyTableRowEvent
 } from './table.interface';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { TableDomService } from './table-dom.service';
 
 export type ThyTableTheme = 'default' | 'bordered';
 
@@ -93,7 +94,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
             provide: THY_TABLE_COLUMN_PARENT_COMPONENT,
             useExisting: ThyTableComponent
         },
-        UpdateHostClassService
+        UpdateHostClassService,
+        TableDomService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -315,7 +317,8 @@ export class ThyTableComponent extends _MixinBase
         private updateHostClassService: UpdateHostClassService,
         @Inject(DOCUMENT) private document: any,
         @Inject(PLATFORM_ID) private platformId: string,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private tableDomService: TableDomService
     ) {
         super();
         this._bindTrackFn();
@@ -342,16 +345,21 @@ export class ThyTableComponent extends _MixinBase
                 title: component.title,
                 type: component.type,
                 selections: selections,
-                width: component.width,
+                width: component.width.toString().includes('px') ? component.width : component.width + 'px',
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 defaultText: component.defaultText,
                 expand: hasExpand ? component.expand : i === 0,
                 templateRef: component.cellTemplateRef,
-                headerTemplateRef: component.headerTemplateRef
+                headerTemplateRef: component.headerTemplateRef,
+                fixedLeft: component.fixedLeft,
+                fixedRight: component.fixedRight,
+                left: component.left,
+                right: component.right
             };
         });
+        this.columns = this.tableDomService.updateColumnsFixedPosition(this.columns);
     }
 
     private _initializeDataModel() {
@@ -668,6 +676,7 @@ export class ThyTableComponent extends _MixinBase
     }
 
     ngAfterViewInit(): void {
+        this.tableDomService.initialize(this.elementRef);
         if (isPlatformServer(this.platformId)) {
             return;
         }

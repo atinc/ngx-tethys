@@ -1,6 +1,22 @@
 @use "../../styles/bootstrap/mixins/hover";
 @use "../../styles/variables";
 
+@mixin thy-table-scroll-left {
+    .thy-table-fixed-column-right {
+        box-shadow: -6px 0 6px 0 rgba(0, 0, 0, 0.05);
+
+        & + .thy-table-fixed-column-right {
+            box-shadow: none;
+        }
+    }
+}
+
+@mixin thy-table-scroll-right {
+    .thy-table-fixed-column-left {
+        box-shadow: 6px 0 6px 0 rgba(0, 0, 0, 0.05);
+    }
+}
+
 /**
  * @deprecated .thy-grid is deprecated, please use .thy-table
  */
@@ -269,6 +285,47 @@
         &.thy-table-footer-has-padding {
             padding: variables.$table-footer-padding;
         }
+    }
+
+    &-fixed {
+        flex: auto;
+        width: 100%;
+        overflow-x: auto;
+        position: relative;
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+
+        .thy-table-fixed-column-left,
+        .thy-table-fixed-column-right {
+            background-color: variables.$white;
+            position: sticky !important;
+            z-index: 50;
+        }
+
+        .table-hover {
+            tbody tr {
+                &:hover {
+                    td {
+                        background-color: variables.$table-hover-color !important;
+                    }
+                }
+            }
+        }
+    }
+
+    &-scroll-left {
+        @include thy-table-scroll-left();
+    }
+
+    &-scroll-right {
+        @include thy-table-scroll-right();
+    }
+
+    &-scroll-middle {
+        @include thy-table-scroll-left();
+        @include thy-table-scroll-right();
     }
 }
 

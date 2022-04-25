@@ -1,0 +1,17 @@
+<thy-table [thyModel]="data" thyRowKey="id">
+  <thy-table-column thyTitle="Id" thyModelKey="id" [thyWidth]="'100px'" thyFixedLeft></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="300" thyFixedLeft></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age" [thyWidth]="'300px'"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" [thyWidth]="500"></thy-table-column>
+  <thy-table-column thyTitle="操作" thyClassName="thy-operation-links" [thyWidth]="'100px'" thyFixedRight>
+    <ng-template #cell let-row>
+      <a class="link-secondary" href="javascript:;">
+        <thy-icon thyIconName="user-add"></thy-icon>
+      </a>
+      <a class="link-danger-weak" href="javascript:;">
+        <thy-icon thyIconName="trash"></thy-icon>
+      </a>
+    </ng-template>
+  </thy-table-column>
+</thy-table>

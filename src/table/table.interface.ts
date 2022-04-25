@@ -14,6 +14,10 @@ export interface ThyTableColumn {
     expand: boolean;
     templateRef: TemplateRef<any>;
     headerTemplateRef: TemplateRef<any>;
+    fixedLeft?: boolean;
+    fixedRight?: boolean;
+    left?: number;
+    right?: number;
 }
 
 export interface ThyPage {

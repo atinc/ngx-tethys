@@ -10,6 +10,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
@@ -58,6 +59,10 @@ export class ThyTableColumnComponent implements OnInit {
 
     @Input() thyExpand = false;
 
+    @Input() @InputBoolean() thyFixedLeft: boolean;
+
+    @Input() @InputBoolean() thyFixedRight: boolean;
+
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
     @ContentChild('cell', { static: true }) cellTemplateRef: TemplateRef<any>;
@@ -95,6 +100,14 @@ export class ThyTableColumnComponent implements OnInit {
 
     public expand = false;
 
+    public fixedLeft: boolean;
+
+    public fixedRight: boolean;
+
+    public left: number;
+
+    public right: number;
+
     constructor(
         private el: ElementRef,
         @Optional()
@@ -114,6 +127,8 @@ export class ThyTableColumnComponent implements OnInit {
         this.defaultText = this.thyDefaultText;
         this._firstChange = false;
         this.expand = this.thyExpand;
+        this.fixedLeft = this.thyFixedLeft;
+        this.fixedRight = this.thyFixedRight;
     }
 
     private _generateKey() {
