@@ -10,11 +10,45 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyFormValidatorConfig',
+                description: '表单验证规则配置项 （更多内容查看：interface）',
+                type: 'ThyFormValidatorConfig',
+                default: ''
+            },
+            {
                 name: 'thyEnterKeyMode',
                 description: `Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit,
                 submit: Textare 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交`,
                 type: 'string',
                 default: 'submit'
+            }
+        ]
+    },
+    {
+        type: 'interface',
+        name: 'thyFormValidatorConfig',
+        properties: [
+            {
+                name: 'showElementError',
+                description: '显示错误方法，默认为 true，以 bootstrap 的方式提示错误',
+                type: 'boolean | ((element: HTMLElement, errorMessages: string[]) => void)',
+                default: 'true'
+            },
+            {
+                name: 'removeElementError',
+                description: '移除错误，一般和 showError 匹配使用',
+                type: 'boolean | ((element: HTMLElement) => void)',
+                default: 'true'
+            },
+            {
+                name: 'validationMessages',
+                description: `每个字段的验证提示信息配置, validationMessages: {
+                    external_url: {
+                        required: '应用地址不能为空',
+                    }
+                }`,
+                type: 'ThyFormValidationMessages',
+                default: '{}'
             }
         ]
     },
