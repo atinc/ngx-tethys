@@ -6,7 +6,12 @@
 
 .select-control {
     position: relative;
-    @include select.select-control-size(bootstrap-variables.$input-height, variables.$input-padding-y, variables.$input-label-height);
+    @include select.select-control-size(
+        bootstrap-variables.$input-height,
+        variables.$input-padding-y,
+        variables.$input-padding-y,
+        variables.$input-label-height
+    );
     padding-right: 23px;
     &.form-control-custom {
         padding-top: 0;
@@ -15,18 +20,25 @@
     &.form-control-sm {
         @include select.select-control-size(
             bootstrap-variables.$input-height-sm,
-            variables.$input-padding-y-sm,
+            variables.$input-padding-y-sm + 0.0625rem,
+            variables.$input-padding-y-sm - 0.0625rem,
             variables.$input-label-height-sm
         );
         @include select.select-label-size(variables.$input-label-height-sm, variables.$font-size-sm);
     }
     &.form-control-md {
-        @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md, variables.$input-label-height-md);
+        @include select.select-control-size(
+            variables.$input-height-md,
+            variables.$input-padding-y-md,
+            variables.$input-padding-y-md,
+            variables.$input-label-height-md
+        );
         @include select.select-label-size(variables.$input-label-height-md, variables.$font-size-sm);
     }
     &.form-control-lg {
         @include select.select-control-size(
             bootstrap-variables.$input-height-lg,
+            variables.$input-padding-y-lg,
             variables.$input-padding-y-lg,
             variables.$input-label-height-lg
         );

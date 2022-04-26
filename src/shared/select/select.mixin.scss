@@ -1,18 +1,15 @@
 @use "../../styles/variables";
 
-@mixin select-control-size($input-height, $input-padding-y, $input-label-height) {
+@mixin select-control-size($input-height, $input-margin-top, $input-margin-bottom, $input-label-height) {
     .select-control-rendered {
-        margin-top: $input-padding-y;
-        .select-control-choices {
-            height: $input-label-height + $input-padding-y;
-        }
+        margin-top: $input-margin-top;
         .text-placeholder,
         .selected-value {
-            margin-bottom: $input-padding-y;
+            margin-bottom: $input-margin-bottom;
         }
         .choice,
         .select-control-search {
-            margin-bottom: $input-padding-y;
+            margin-bottom: $input-margin-bottom;
         }
     }
 }
