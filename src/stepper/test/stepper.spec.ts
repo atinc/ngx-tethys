@@ -112,8 +112,6 @@ describe('ThyStepper', () => {
             const stepper = fixture.debugElement.query(By.directive(ThyStepperComponent)).componentInstance;
             stepper.thySelected = testComponent.selectedStepperComponent;
             fixture.detectChanges();
-            console.log('xxx:', stepper.selected);
-            console.log('aaa:', testComponent.selectedStepperComponent);
             expect(stepper.selected).toEqual(testComponent.selectedStepperComponent);
         });
     });
