@@ -10,7 +10,7 @@ import { ThySelectControlComponent, SelectControlSize } from './select-control.c
 import { SelectOptionBase } from '../../option';
 
 @Component({
-    selector: 'basic-select-control',
+    selector: 'thy-basic-select-control',
     template: `
         <thy-select-control
             [thyPlaceholder]="placeholder"

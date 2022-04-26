@@ -71,6 +71,11 @@ export abstract class CalendarHeader implements OnInit, OnChanges {
         this.panelModeChange.emit(mode);
     }
 
+    selectorClick(event: Event, selector: PanelSelector) {
+        event.stopPropagation();
+        return selector ? selector.onClick() : null;
+    }
+
     private render(): void {
         if (this.value) {
             this.selectors = this.getSelectors();

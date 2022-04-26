@@ -1,6 +1,7 @@
-import { ThyTreeNodeData, ThyTreeNodeCheckState } from './tree.class';
-import { ThyTreeService } from './tree.service';
 import { helpers } from 'ngx-tethys/util';
+
+import { ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
+import { ThyTreeService } from './tree.service';
 
 export class ThyTreeNode<T = any> {
     key?: number | string;
@@ -68,6 +69,7 @@ export class ThyTreeNode<T = any> {
         if (propagate && this.children) {
             this.children.forEach(n => n.setExpanded(expanded, propagate));
         }
+        this.syncNodeCheckState();
     }
 
     public setLoading(loading: boolean): void {

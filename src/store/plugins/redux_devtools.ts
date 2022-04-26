@@ -18,14 +18,12 @@ export class ReduxDevtoolsPlugin implements StorePlugin {
     private _devTools: ReduxDevtoolsInstance | null = null;
 
     _window = window;
-    constructor(
-    ) {
+    constructor() {
         if (this._window == null) {
             return;
         }
         const globalDevtools: { connect(config: any): ReduxDevtoolsInstance } | undefined =
-            (this._window as any)['__REDUX_DEVTOOLS_EXTENSION__'] ||
-            (this._window as any)['devToolsExtension'];
+            (this._window as any)['__REDUX_DEVTOOLS_EXTENSION__'] || (this._window as any)['devToolsExtension'];
 
         if (!globalDevtools) {
             console.log(`未安装Chrome浏览器的拓展插件: Redux DevTools.`);

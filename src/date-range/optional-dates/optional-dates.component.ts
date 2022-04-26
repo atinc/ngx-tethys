@@ -3,6 +3,7 @@ import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-range-optional',
     templateUrl: './optional-dates.component.html'
 })

@@ -2,6 +2,7 @@ import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import {
     ChangeDetectorRef,
     Component,
@@ -19,7 +20,6 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
@@ -33,7 +33,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent implements OnInit, OnDestroy {
+export class ThyTreeNodeComponent implements OnDestroy, OnInit {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -63,6 +63,8 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
 
+    @Input() thyItemSize = 44;
+
     public get nodeIcon() {
         return this.node.origin.icon;
     }
@@ -88,7 +90,7 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                cdr.markForCheck();
+                this.thyTreeService.syncFlattenTreeNodes();
             });
     }
 
@@ -120,6 +122,7 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
         } else {
             this.node.setChecked(false);
         }
+        this.thyTreeService.syncFlattenTreeNodes();
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
             event: event,
@@ -130,6 +133,7 @@ export class ThyTreeNodeComponent implements OnInit, OnDestroy {
     public expandNode(event: Event) {
         event.stopPropagation();
         this.node.setExpanded(!this.node.isExpanded);
+        this.thyTreeService.syncFlattenTreeNodes();
         if (this.root.thyShowExpand) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',

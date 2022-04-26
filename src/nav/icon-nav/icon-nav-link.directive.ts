@@ -2,6 +2,7 @@ import { Component, Directive, ElementRef, Renderer2, Input, HostBinding, Change
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyIconNavLink]',
     template: '<ng-content></ng-content><thy-icon *ngIf="icon" [thyIconName]="icon"></thy-icon>'
 })

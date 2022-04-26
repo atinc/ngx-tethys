@@ -5,6 +5,7 @@ import { DateCell, DateBodyRow, YearCell } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'year-table',
     templateUrl: 'year-table.component.html'
 })
@@ -85,6 +86,11 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell);
+    }
+
+    yearCellClick(event: Event, yearCell: DateCell) {
+        event.stopPropagation();
+        return yearCell.isDisabled ? null : yearCell.onClick();
     }
 
     getClassMap(cell: YearCell): { [key: string]: boolean } {

@@ -55,3 +55,8 @@ import { ThyDropdownModule } from "ngx-tethys/dropdown";
 
 <example name="thy-dropdown-type-example" />
 
+## 可传入popoverOptions
+thyPopoverOptions默认值为`{ placement: 'bottom', width: '240px' }`
+
+<example name="thy-dropdown-options-example" />
+

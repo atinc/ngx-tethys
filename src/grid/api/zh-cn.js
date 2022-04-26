@@ -1,6 +1,6 @@
 module.exports = [
     {
-        type: 'component',
+        type: 'directive',
         name: 'thyRow',
         properties: [
             {
@@ -12,14 +12,14 @@ module.exports = [
         ]
     },
     {
-        type: 'component',
+        type: 'directive',
         name: 'thyCol',
         properties: [
             {
                 name: 'thySpan',
                 description: '栅格占位格数',
                 type: 'number',
-                default: ''
+                default: '24'
             }
         ]
     }

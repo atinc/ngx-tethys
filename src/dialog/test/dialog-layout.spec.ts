@@ -7,7 +7,7 @@ import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/test
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
 @Component({
-    selector: 'dialog-header-basic',
+    selector: 'thy-test-dialog-header-basic',
     template: `
         <thy-dialog-header [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header>
     `
@@ -17,7 +17,7 @@ class DialogHeaderBasicComponent {
 }
 
 @Component({
-    selector: 'dialog-footer-basic',
+    selector: 'thy-test-dialog-footer-basic',
     template: `
         <thy-dialog-footer class="new" [thyAlign]="align" [thyDivided]="divided">
             <div class="btn-pair"></div>
@@ -38,7 +38,7 @@ class DialogFooterBasicComponent {
 }
 
 @Component({
-    selector: 'dialog-header-basic',
+    selector: 'thy-test-dialog-header-basic',
     template: `
         <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header>
     `

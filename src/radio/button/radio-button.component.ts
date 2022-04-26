@@ -6,6 +6,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyRadioComponent } from '../radio.component';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html'
 })

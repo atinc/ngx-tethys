@@ -1,5 +1,36 @@
+<cdk-virtual-scroll-viewport #viewport *ngIf="thyVisualScorll" [itemSize]="thyItemSize" [style.height]="'100%'">
+  <div
+    [thyDropContainer]="flattenTreeNodes"
+    [thyDropContainerDisabled]="!thyDraggable"
+    [thyBeforeDragStart]="thyBeforeDragStart"
+    [thyBeforeDragOver]="beforeDragOver"
+    [thyBeforeDragDrop]="thyBeforeDragDrop"
+    (thyDragStarted)="onDragStart($event)"
+    (thyDragDropped)="onDragDrop($event)"
+  >
+    <thy-tree-node
+      *cdkVirtualFor="let node of flattenTreeNodes; trackBy: trackByFn; let i = index"
+      [thyDrag]="node"
+      [node]="node"
+      [templateRef]="templateRef"
+      [emptyChildrenTemplateRef]="emptyChildrenTemplate"
+      [thyAsync]="thyAsync"
+      [thyDraggable]="thyDraggable"
+      [thyCheckable]="thyCheckable"
+      [thyMultiple]="thyMultiple"
+      [thyTitleTruncate]="thyTitleTruncate"
+      [thyItemSize]="thyItemSize"
+      (thyOnClick)="thyOnClick.emit($event)"
+      (thyOnExpandChange)="eventTriggerChanged($event)"
+      (thyOnCheckboxChange)="eventTriggerChanged($event)"
+    >
+    </thy-tree-node>
+  </div>
+</cdk-virtual-scroll-viewport>
+
 <div
-  [thyDropContainer]="treeNodes"
+  *ngIf="!thyVisualScorll"
+  [thyDropContainer]="flattenTreeNodes"
   [thyDropContainerDisabled]="!thyDraggable"
   [thyBeforeDragStart]="thyBeforeDragStart"
   [thyBeforeDragOver]="beforeDragOver"
@@ -8,8 +39,8 @@
   (thyDragDropped)="onDragDrop($event)"
 >
   <thy-tree-node
+    *ngFor="let node of flattenTreeNodes; trackBy: trackByFn; let i = index"
     [thyDrag]="node"
-    *ngFor="let node of treeNodes; trackBy: trackByFn; let i = index"
     [node]="node"
     [templateRef]="templateRef"
     [emptyChildrenTemplateRef]="emptyChildrenTemplate"
@@ -18,8 +49,9 @@
     [thyCheckable]="thyCheckable"
     [thyMultiple]="thyMultiple"
     [thyTitleTruncate]="thyTitleTruncate"
+    [thyItemSize]="thyItemSize"
     (thyOnClick)="thyOnClick.emit($event)"
-    (thyOnExpandChange)="thyOnExpandChange.emit($event)"
+    (thyOnExpandChange)="eventTriggerChanged($event)"
     (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"
   >
   </thy-tree-node>

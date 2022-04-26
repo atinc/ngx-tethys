@@ -4,6 +4,7 @@ import { DateCell, DecadeCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'decade-table',
     exportAs: 'decadeTable',
     templateUrl: 'decade-table.component.html'
@@ -77,5 +78,10 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
             [`${this.prefixCls}-decade-panel-last-century-cell`]: cell.isLowerThanStart,
             [`${this.prefixCls}-decade-panel-next-century-cell`]: cell.isBiggerThanEnd
         };
+    }
+
+    cellClick(event: Event, cell: DecadeCell) {
+        event.stopPropagation();
+        cell.onClick();
     }
 }

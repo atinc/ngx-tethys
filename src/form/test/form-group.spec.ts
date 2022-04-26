@@ -1,7 +1,7 @@
 import { ThyFormModule } from './../module';
 import { ThyFormLayout, ThyFormValidatorConfig } from '../form.class';
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, waitForAsync, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
@@ -11,7 +11,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
 
 @Component({
-    selector: 'test-form-group-basic',
+    selector: 'thy-test-form-group-basic',
     template: `
         <form thyForm name="demoForm" [thyFormValidatorConfig]="validateConfig" class="myForm" #demoForm="thyForm">
             <thy-form-group thyLabelRequired thyLabelText="User Name">
@@ -69,13 +69,17 @@ describe('form-group basic', () => {
 
     let formGroupDebugElements: DebugElement[];
 
-    beforeEach(() => {
-        TestBed.configureTestingModule({
-            declarations: [TestFormWithGroupComponent],
-            imports: [ThyFormModule, FormsModule, ThyButtonModule],
-            providers: [bypassSanitizeProvider]
-        }).compileComponents();
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestFormWithGroupComponent],
+                imports: [ThyFormModule, FormsModule, ThyButtonModule],
+                providers: [bypassSanitizeProvider]
+            }).compileComponents();
+        })
+    );
 
+    beforeEach(() => {
         injectDefaultSvgIconSet();
         fixture = TestBed.createComponent(TestFormWithGroupComponent);
         fixture.detectChanges();

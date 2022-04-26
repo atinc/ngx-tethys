@@ -2,6 +2,67 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.20](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.20) (2022-04-24)
+
+
+### Bug Fixes
+
+* **pagination:** should to range less than total #INFR-2978 ([#1600](https://github.com/atinc/ngx-tethys/issues/1600)) ([2a297ea](https://github.com/atinc/ngx-tethys/commit/2a297eac701bc38cc42a70a295083c7f4229c742)), closes [#INFR-2978](https://github.com/atinc/ngx-tethys/issues/INFR-2978)
+* **tree:**  sync tree nodes when add and drag tree node #INFR-2562  ([a29d1a5](https://github.com/atinc/ngx-tethys/commit/a29d1a506b7f9a07e48638e81aaeddc8e3312e9e)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+### Features
+
+* **input:** change clear to thyClear #INFR-2797 ([6763d6c](https://github.com/atinc/ngx-tethys/commit/6763d6c4796063576c5ecc577772afa224532a17)), closes [#INFR-2797](https://github.com/atinc/ngx-tethys/issues/INFR-2797)
+* **mention:** mention support suggestionsTemplateRef ([#1598](https://github.com/atinc/ngx-tethys/issues/1598)) ([eca761f](https://github.com/atinc/ngx-tethys/commit/eca761fe8537d961fc5704dfeebc910f70873ca2))
+* **popover:** add minWidth at popover default config default value is 240px #INFR-2976 ([0afa89a](https://github.com/atinc/ngx-tethys/commit/0afa89a5266651f6f145901cdc51561ac9430f54)), closes [#INFR-2976](https://github.com/atinc/ngx-tethys/issues/INFR-2976)
+* **tree:** add visual scrolling #INFR-2562  ([6f5b623](https://github.com/atinc/ngx-tethys/commit/6f5b623e47a33a2437dc784e799e279c79afaac9)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+
+<a name="12.1.19"></a>
+## [12.1.19](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.19) (2022-04-19)
+
+
+### Features
+
+* **input:** change clear to thyClear #INFR-2797 ([6763d6c](https://github.com/atinc/ngx-tethys/commit/6763d6c)), closes [#INFR-2797](https://github.com/atinc/ngx-tethys/issues/INFR-2797)
+* **tree:** add visual scrolling #INFR-2562  ([6f5b623](https://github.com/atinc/ngx-tethys/commit/6f5b623)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+
+## [12.1.18](https://github.com/atinc/ngx-tethys/compare/12.1.17...12.1.18) (2022-04-15)
+
+
+### Bug Fixes
+
+* **tree:** fix tree node icon and tree-select prefix icon color to gray-500 #INFR-2872 #INFR-2874 ([#1589](https://github.com/atinc/ngx-tethys/issues/1589)) ([266bfa1](https://github.com/atinc/ngx-tethys/commit/266bfa1e07773ea4241e200a380a465d8e8ae4b2)), closes [#INFR-2872](https://github.com/atinc/ngx-tethys/issues/INFR-2872) [#INFR-2874](https://github.com/atinc/ngx-tethys/issues/INFR-2874)
+
+
+### Features
+
+* **dropdown:** add insideClosable of thyPopoverOptions and set the default value to true #INFR-2890 [#1587](https://github.com/atinc/ngx-tethys/issues/1587) ([bea6047](https://github.com/atinc/ngx-tethys/commit/bea6047b5f014515f594ef14c51a6f5d81f26a8d)), closes [#INFR-2890](https://github.com/atinc/ngx-tethys/issues/INFR-2890)
+
+
+
+## [12.1.17](https://github.com/atinc/ngx-tethys/compare/12.1.16...12.1.17) (2022-04-14)
+
+
+### Bug Fixes
+
+* **mention:** resolve memory leaks ([a97a23e](https://github.com/atinc/ngx-tethys/commit/a97a23ecc677243353a4b7de97b1b7c29a41a074))
+* **popover:** teardown subscriptions ([89448c9](https://github.com/atinc/ngx-tethys/commit/89448c9832d06c4227440c3cc4ff09a560fa66f2))
+
+
+### Features
+
+* **avatar:** add `loading` and `fetchpriority` to avatar image ([#1564](https://github.com/atinc/ngx-tethys/issues/1564)) ([b0d1dc2](https://github.com/atinc/ngx-tethys/commit/b0d1dc2cf724c392bcf367159b6bdf6fae8387e0))
+* **dropdown:** add default width at thyPopoverOptions  BREAKING CHANGE: delete min-width at popover-container INFR-2886 ([1fa524f](https://github.com/atinc/ngx-tethys/commit/1fa524f08020a5bf984e82426d877557ea349f04))
+* **dropdown:** add thyPopoverOptions parameter temporarily supports: placement, width and height #INFR-2857 ([3ea0dee](https://github.com/atinc/ngx-tethys/commit/3ea0deeccdf6d4c39f8f8554d09490d994c41058)), closes [#INFR-2857](https://github.com/atinc/ngx-tethys/issues/INFR-2857)
+* **empty:** add `loading` and `fetchpriority` to image ([7e9c0b8](https://github.com/atinc/ngx-tethys/commit/7e9c0b888d19db6c39fcf999ea7ec20b8d99a6f2))
+
+
+
 <a name="12.1.16"></a>
 ## [12.1.16](https://github.com/atinc/ngx-tethys/compare/12.1.15...12.1.16) (2022-04-02)
 

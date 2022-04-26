@@ -157,7 +157,7 @@ describe('ThyDialog', () => {
         dialog.open(DialogSimpleContentComponent);
         viewContainerFixture.detectChanges();
         const element = getDialogContainerElement() as HTMLElement;
-        expect(dialog.getClosestDialog(element.querySelector('dialog-content-component'))).toBeTruthy();
+        expect(dialog.getClosestDialog(element.querySelector('thy-dialog-content-component'))).toBeTruthy();
     });
 
     it('should open a dialog with a component', () => {

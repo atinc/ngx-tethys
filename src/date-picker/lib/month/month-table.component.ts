@@ -6,6 +6,7 @@ import { DateCell, DateBodyRow } from '../date/types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-table',
     exportAs: 'monthTable',
     templateUrl: 'month-table.component.html'
@@ -81,6 +82,11 @@ export class MonthTableComponent extends CalendarTable implements OnChanges {
             cell.isSelected = true;
         }
         cell.classMap = this.getClassMap(cell);
+    }
+
+    monthCellClick(event: Event, monthCell: DateCell) {
+        event.stopPropagation();
+        return monthCell.isDisabled ? null : monthCell.onClick();
     }
 
     getClassMap(cell: DateCell): { [key: string]: boolean } {

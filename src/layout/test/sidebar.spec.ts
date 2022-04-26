@@ -9,7 +9,7 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
-    selector: 'demo-layout-sidebar',
+    selector: 'thy-demo-layout-sidebar',
     template: `
         <thy-layout>
             <thy-sidebar

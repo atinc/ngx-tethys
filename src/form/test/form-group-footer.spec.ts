@@ -8,7 +8,7 @@ import { ThyFormDirective } from '../form.directive';
 import { THY_FORM_CONFIG } from '../form.class';
 
 @Component({
-    selector: 'form-group-footer',
+    selector: 'thy-test-form-group-footer-basic',
     template: `
         <thy-form-group-footer [thyAlign]="align">
             <button></button>

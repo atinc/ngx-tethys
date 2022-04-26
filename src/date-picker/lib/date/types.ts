@@ -22,7 +22,7 @@ export interface DateCell {
     isNextMonthCell?: boolean;
     isInRange?: boolean;
     classMap?: object;
-    onClick(date: TinyDate): void;
+    onClick(date?: TinyDate): void;
     onMouseEnter(): void;
 }
 

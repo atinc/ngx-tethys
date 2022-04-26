@@ -7,7 +7,7 @@ import { ThyCardContentComponent } from '../content.component';
 import { ThyCardHeaderComponent } from '../header.component';
 
 @Component({
-    selector: 'card-basic',
+    selector: 'thy-card-test-basic',
     template: `
         <thy-card>
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
@@ -22,7 +22,7 @@ class CardBasicComponent implements OnInit {
 }
 
 @Component({
-    selector: 'card-clear-padding',
+    selector: 'thy-card-test-clear-padding',
     template: `
         <thy-card thyHasLeftRightPadding="false">
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
@@ -37,7 +37,7 @@ class CardClearPaddingComponent implements OnInit {
 }
 
 @Component({
-    selector: 'card-divided',
+    selector: 'thy-test-card-divided',
     template: `
         <thy-card thyDivided="true">
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
@@ -52,7 +52,7 @@ class CardDividedComponent implements OnInit {
 }
 
 @Component({
-    selector: 'card-header',
+    selector: 'thy-test-card-header-basic',
     template: `
         <thy-card>
             <thy-card-header thyTitle="This is card header test" [thySize]="size"></thy-card-header>
@@ -65,7 +65,7 @@ class CardHeaderSizeComponent {
 }
 
 @Component({
-    selector: 'card-content',
+    selector: 'thy-test-card-content-scroll',
     template: `
         <thy-card>
             <thy-card-header thyTitle="This is card content test"></thy-card-header>

@@ -4,7 +4,7 @@
     href="javascript:;"
     *ngFor="let item of navList"
     thyNavLink
-    [thyNavLinkActive]="activeIndex == item.index"
+    [thyNavLinkActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
     ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
   >
@@ -31,7 +31,7 @@
     href="javascript:;"
     *ngFor="let item of navList"
     thyNavLink
-    [thyNavLinkActive]="activeIndex == item.index"
+    [thyNavLinkActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
     ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
   >

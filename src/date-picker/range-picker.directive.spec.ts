@@ -18,8 +18,8 @@ import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './stan
 registerLocaleData(zh);
 
 describe('ThyRangePickerDirective', () => {
-    let fixture: ComponentFixture<ThyTestRangePickerDirective>;
-    let fixtureInstance: ThyTestRangePickerDirective;
+    let fixture: ComponentFixture<ThyTestRangePickerComponent>;
+    let fixtureInstance: ThyTestRangePickerComponent;
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -29,14 +29,14 @@ describe('ThyRangePickerDirective', () => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
             providers: [],
-            declarations: [ThyTestRangePickerDirective]
+            declarations: [ThyTestRangePickerComponent]
         });
 
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyTestRangePickerDirective);
+        fixture = TestBed.createComponent(ThyTestRangePickerComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
     });
@@ -176,7 +176,7 @@ describe('ThyRangePickerDirective', () => {
         ></thy-property-operation>
     `
 })
-class ThyTestRangePickerDirective {
+class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
