@@ -726,6 +726,7 @@ export class ThyTableComponent extends _MixinBase
     // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
     ngOnDestroy() {
         super.ngOnDestroy();
+        this.tableDomService.destroy();
         this._destroyInvalidAttribute();
     }
 }

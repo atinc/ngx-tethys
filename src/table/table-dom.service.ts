@@ -100,4 +100,9 @@ export class TableDomService {
 
         return columns;
     }
+
+    public destroy() {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
+    }
 }
