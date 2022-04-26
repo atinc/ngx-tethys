@@ -49,7 +49,8 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     placement: 'bottom' as ThyPlacement,
     insideClosable: false,
     manualClosure: false,
-    originActiveClass: 'thy-popover-origin-active'
+    originActiveClass: 'thy-popover-origin-active',
+    minWidth: '240px'
 };
 
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {

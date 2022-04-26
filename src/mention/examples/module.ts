@@ -1,9 +1,11 @@
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThyMentionModule } from 'ngx-tethys/mention';
+
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyAvatarModule } from 'ngx-tethys/avatar';
-import { ThyMentionModule } from 'ngx-tethys/mention';
-import { ThyInputModule } from 'ngx-tethys/input';
 
 export default {
-    imports: [CommonModule, FormsModule, ThyAvatarModule, ThyMentionModule, ThyInputModule]
+    imports: [CommonModule, FormsModule, ThyAvatarModule, ThyMentionModule, ThyInputModule, ThyListModule]
 };

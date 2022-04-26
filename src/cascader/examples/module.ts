@@ -9,6 +9,7 @@ import { ThyCascaderMoveUnfoldTriggerExampleComponent } from './move-unfold-trig
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgxTethysModule, ThyCascaderModule } from 'ngx-tethys';
+import { ThyCascaderEmptyExampleComponent } from './empty/empty.component';
 const COMPONENTS = [
     ThyCascaderBasicExampleComponent,
     ThyCascaderSizeExampleComponent,
@@ -16,7 +17,8 @@ const COMPONENTS = [
     ThyCascaderSelectChangedExampleComponent,
     ThyCascaderAddCodeExampleComponent,
     ThyCascaderMoveUnfoldExampleComponent,
-    ThyCascaderMoveUnfoldTriggerExampleComponent
+    ThyCascaderMoveUnfoldTriggerExampleComponent,
+    ThyCascaderEmptyExampleComponent
 ];
 
 @NgModule({

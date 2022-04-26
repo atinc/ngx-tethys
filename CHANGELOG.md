@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.20](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.20) (2022-04-24)
+
+
+### Bug Fixes
+
+* **pagination:** should to range less than total #INFR-2978 ([#1600](https://github.com/atinc/ngx-tethys/issues/1600)) ([2a297ea](https://github.com/atinc/ngx-tethys/commit/2a297eac701bc38cc42a70a295083c7f4229c742)), closes [#INFR-2978](https://github.com/atinc/ngx-tethys/issues/INFR-2978)
+* **tree:**  sync tree nodes when add and drag tree node #INFR-2562  ([a29d1a5](https://github.com/atinc/ngx-tethys/commit/a29d1a506b7f9a07e48638e81aaeddc8e3312e9e)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+### Features
+
+* **input:** change clear to thyClear #INFR-2797 ([6763d6c](https://github.com/atinc/ngx-tethys/commit/6763d6c4796063576c5ecc577772afa224532a17)), closes [#INFR-2797](https://github.com/atinc/ngx-tethys/issues/INFR-2797)
+* **mention:** mention support suggestionsTemplateRef ([#1598](https://github.com/atinc/ngx-tethys/issues/1598)) ([eca761f](https://github.com/atinc/ngx-tethys/commit/eca761fe8537d961fc5704dfeebc910f70873ca2))
+* **popover:** add minWidth at popover default config default value is 240px #INFR-2976 ([0afa89a](https://github.com/atinc/ngx-tethys/commit/0afa89a5266651f6f145901cdc51561ac9430f54)), closes [#INFR-2976](https://github.com/atinc/ngx-tethys/issues/INFR-2976)
+* **tree:** add visual scrolling #INFR-2562  ([6f5b623](https://github.com/atinc/ngx-tethys/commit/6f5b623e47a33a2437dc784e799e279c79afaac9)), closes [#INFR-2562](https://github.com/atinc/ngx-tethys/issues/INFR-2562)
+
+
+
 <a name="12.1.19"></a>
 ## [12.1.19](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.19) (2022-04-19)
 
