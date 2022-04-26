@@ -215,7 +215,6 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 tick(500);
                 const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
-                console.log(option);
                 option.click();
                 fixture.detectChanges();
                 flush();
