@@ -20,7 +20,7 @@ import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
 import { filter, map, take, delay, switchMap } from 'rxjs/operators';
-import { ScrollToService } from 'ngx-tethys/core';
+import { ScrollToService, ThyPlacement } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
