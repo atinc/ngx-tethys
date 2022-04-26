@@ -3,10 +3,10 @@ import { Component, ViewChild } from '@angular/core';
 import { bigTreeNodes } from '../mocks';
 
 @Component({
-    selector: 'thy-tree-visual-scrolling-example',
-    templateUrl: './visual-scrolling.component.html'
+    selector: 'thy-tree-virtual-scrolling-example',
+    templateUrl: './virtual-scrolling.component.html'
 })
-export class ThyTreeVisualScrollingExampleComponent {
+export class ThyTreeVirtualScrollingExampleComponent {
     bigTreeNodes = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) tree: any;
