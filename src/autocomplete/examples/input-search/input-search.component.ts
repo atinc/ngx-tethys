@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'thy-autocomplete-input-search-example',
@@ -22,7 +22,6 @@ export class ThyAutocompleteInputSearchExampleComponent implements OnInit {
     }
 
     valueChange(newValue: string) {
-        console.log('valueChange');
         this.listOfOption = this.children.filter(item => item.label.includes(newValue));
     }
 }

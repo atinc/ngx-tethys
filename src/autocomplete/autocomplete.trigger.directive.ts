@@ -24,7 +24,8 @@ import { ScrollToService, ThyPlacement } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
-    selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
+    selector:
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
     exportAs: 'thyAutocompleteTrigger',
     host: {
         '(input)': 'handleInput($event)',
@@ -264,7 +265,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private setValue(value: string) {
-        const input = this.elementRef.nativeElement.querySelector('input[thyInput]');
+        const input = this.elementRef.nativeElement.querySelector('input');
         if (input) {
             input.value = value;
             input.focus();
