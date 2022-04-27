@@ -9,8 +9,8 @@
         <th
           *ngFor="let column of columns"
           [ngClass]="column.headerClassName"
-          [class.thy-table-fixed-column-left]="column.fixedLeft"
-          [class.thy-table-fixed-column-right]="column.fixedRight"
+          [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
+          [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
         >
@@ -100,8 +100,8 @@
           *ngFor="let column of columns; let j = index"
           [ngClass]="column.className"
           [class.thy-table-checkbox-column]="column.type === customType.checkbox"
-          [class.thy-table-fixed-column-left]="column.fixedLeft"
-          [class.thy-table-fixed-column-right]="column.fixedRight"
+          [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
+          [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
           [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null"

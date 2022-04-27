@@ -14,8 +14,7 @@ export interface ThyTableColumn {
     expand: boolean;
     templateRef: TemplateRef<any>;
     headerTemplateRef: TemplateRef<any>;
-    fixedLeft?: boolean;
-    fixedRight?: boolean;
+    fixed?: 'left' | 'right';
     left?: number;
     right?: number;
 }

@@ -230,16 +230,10 @@ module.exports = [
                 default: 'false'
             },
             {
-                name: 'thyFixedLeft',
-                description: '设置左侧固定列',
-                type: 'boolean',
-                default: 'false'
-            },
-            {
-                name: 'thyFixedRight',
-                description: '设置右侧固定列',
-                type: 'boolean',
-                default: 'false'
+                name: 'thyFixed',
+                description: '设置固定列',
+                type: 'left | right',
+                default: '-'
             }
         ]
     }

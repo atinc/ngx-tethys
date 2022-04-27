@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -59,6 +59,10 @@ export type ThyTableMode = 'list' | 'group' | 'tree';
 
 export type ThyTableSize = 'default' | 'sm';
 
+export enum ThyFixedDirection {
+    left = 'left',
+    right = 'right'
+}
 interface ThyTableGroup<T = unknown> {
     id?: string;
     expand?: boolean;
@@ -144,6 +148,8 @@ export class ThyTableComponent extends _MixinBase
     public trackByFn: any;
 
     public wholeRowSelect = false;
+
+    public fixedDirection = ThyFixedDirection;
 
     private _diff: IterableDiffer<any>;
 
@@ -353,15 +359,22 @@ export class ThyTableComponent extends _MixinBase
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         const hasExpand = components.some(item => item.expand === true);
+        const leftColumnsWidth: number[] = [];
+        const rightColumns: ThyTableColumnComponent[] = [];
         this.columns = components.map<ThyTableColumn>((component, i) => {
             const selections = this._getSelectionKeys(component.selections);
+            if (component.fixed === this.fixedDirection.left) {
+                leftColumnsWidth.push(this.buildColumnWidth(component.width));
+            } else if (component.fixed === this.fixedDirection.right) {
+                rightColumns.push(component);
+            }
             return {
                 key: component.key,
                 model: component.model,
                 title: component.title,
                 type: component.type,
                 selections: selections,
-                width: component.width.toString().includes('px') ? component.width : component.width + 'px',
+                width: this.buildColumnWidth(component.width) + 'px',
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
@@ -369,47 +382,27 @@ export class ThyTableComponent extends _MixinBase
                 expand: hasExpand ? component.expand : i === 0,
                 templateRef: component.cellTemplateRef,
                 headerTemplateRef: component.headerTemplateRef,
-                fixedLeft: component.fixedLeft,
-                fixedRight: component.fixedRight,
-                left: component.left,
-                right: component.right
+                fixed: component.fixed,
+                left:
+                    component.fixed === this.fixedDirection.left
+                        ? leftColumnsWidth.reduce((result, currentWidth) => {
+                              return result + currentWidth;
+                          }, 0) - this.buildColumnWidth(component.width)
+                        : null,
+                right: component.fixed === this.fixedDirection.right ? 0 : null
             };
         });
-        this.columns = this.updateColumnsFixedPosition(this.columns);
+
+        const columnsMap = helpers.keyBy(this.columns, 'key');
+        let rightIncrease = 0;
+        rightColumns.reverse().forEach(value => {
+            columnsMap[value.key].right = rightIncrease;
+            rightIncrease = rightIncrease + this.buildColumnWidth(value.width);
+        });
     }
 
-    public updateColumnsFixedPosition(columns: ThyTableColumn[]) {
-        const leftColumns: ThyTableColumn[] = [];
-        const rightColumns: ThyTableColumn[] = [];
-        const freeColumns: ThyTableColumn[] = [];
-        columns.forEach(component => {
-            if (component.fixedLeft) {
-                leftColumns.push(component);
-            } else if (component.fixedRight) {
-                rightColumns.push(component);
-            } else {
-                freeColumns.push(component);
-            }
-        });
-
-        // 计算左侧固定列
-        let leftIncrease = 0;
-        leftColumns.forEach(column => {
-            column.left = leftIncrease;
-            leftIncrease = leftIncrease + parseInt((column.width as string).split('px')[0], 10);
-        });
-        // 计算右侧固定列
-        let rightIncrease = 0;
-        rightColumns.reverse().forEach(column => {
-            column.right = rightIncrease;
-            rightIncrease = rightIncrease + parseInt((column.width as string).split('px')[0], 10);
-        });
-        // 清除非固定列距离左侧、右侧的值
-        freeColumns.forEach(column => {
-            column.left = null;
-            column.right = null;
-        });
-        return columns;
+    private buildColumnWidth(width: string | number) {
+        return Number(width.toString().split('px')[0]);
     }
 
     private _initializeDataModel() {

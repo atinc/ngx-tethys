@@ -10,7 +10,6 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
 
 export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
@@ -20,6 +19,8 @@ export interface IThyTableColumnParentComponent {
  * Injection token used to provide the parent component to options.
  */
 export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableColumnParentComponent>('THY_TABLE_COLUMN_PARENT_COMPONENT');
+
+export type FixedDirection = 'left' | 'right';
 
 @Component({
     selector: 'thy-grid-column,thy-table-column',
@@ -59,9 +60,7 @@ export class ThyTableColumnComponent implements OnInit {
 
     @Input() thyExpand = false;
 
-    @Input() @InputBoolean() thyFixedLeft: boolean;
-
-    @Input() @InputBoolean() thyFixedRight: boolean;
+    @Input() thyFixed: FixedDirection;
 
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
@@ -100,9 +99,7 @@ export class ThyTableColumnComponent implements OnInit {
 
     public expand = false;
 
-    public fixedLeft: boolean;
-
-    public fixedRight: boolean;
+    public fixed: FixedDirection;
 
     public left: number;
 
@@ -127,8 +124,7 @@ export class ThyTableColumnComponent implements OnInit {
         this.defaultText = this.thyDefaultText;
         this._firstChange = false;
         this.expand = this.thyExpand;
-        this.fixedLeft = this.thyFixedLeft;
-        this.fixedRight = this.thyFixedRight;
+        this.fixed = this.thyFixed;
     }
 
     private _generateKey() {
