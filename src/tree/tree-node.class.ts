@@ -63,17 +63,22 @@ export class ThyTreeNode<T = any> {
         this.title = title;
     }
 
-    public setExpanded(expanded: boolean, propagate = false) {
+    private _setExpanded(expanded: boolean, propagate = false) {
         this.origin.expanded = expanded;
         this.isExpanded = expanded;
         if (propagate && this.children) {
-            this.children.forEach(n => n.setExpanded(expanded, propagate));
+            this.children.forEach(n => n._setExpanded(expanded, propagate));
         }
-        this.syncNodeCheckState();
+    }
+
+    public setExpanded(expanded: boolean, propagate = false) {
+        this._setExpanded(expanded, propagate);
+        this.treeService.syncFlattenTreeNodes();
     }
 
     public setLoading(loading: boolean): void {
         this.isLoading = loading;
+        this.treeService.syncFlattenTreeNodes();
     }
 
     public setChecked(checked: boolean, propagateUp = true, propagateDown = true) {

@@ -468,14 +468,14 @@ describe('ThyTreeComponent', () => {
         }));
     });
 
-    describe('visual scrolling tree', () => {
+    describe('virtual scrolling tree', () => {
         let treeElement: HTMLElement;
-        let component: TestVisualScrollingTreeComponent;
-        let fixture: ComponentFixture<TestVisualScrollingTreeComponent>;
+        let component: TestVirtualScrollingTreeComponent;
+        let fixture: ComponentFixture<TestVirtualScrollingTreeComponent>;
 
         beforeEach(fakeAsync(() => {
-            configureThyTreeTestingModule([TestVisualScrollingTreeComponent]);
-            fixture = TestBed.createComponent(TestVisualScrollingTreeComponent);
+            configureThyTreeTestingModule([TestVirtualScrollingTreeComponent]);
+            fixture = TestBed.createComponent(TestVirtualScrollingTreeComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
             tick(100);
@@ -644,14 +644,14 @@ export class TestAsyncTreeComponent {
 }
 
 @Component({
-    selector: 'test-visual-scrolling-tree',
+    selector: 'test-virtual-scrolling-tree',
     template: `
         <div style="height: 300px">
-            <thy-tree #tree [thyNodes]="mockData" [thyVisualScorll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
+            <thy-tree #tree [thyNodes]="mockData" [thyVirtualScroll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
         </div>
     `
 })
-export class TestVisualScrollingTreeComponent {
+export class TestVirtualScrollingTreeComponent {
     mockData = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;

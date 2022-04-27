@@ -122,7 +122,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit {
         } else {
             this.node.setChecked(false);
         }
-        this.thyTreeService.syncFlattenTreeNodes();
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
             event: event,
@@ -133,7 +132,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit {
     public expandNode(event: Event) {
         event.stopPropagation();
         this.node.setExpanded(!this.node.isExpanded);
-        this.thyTreeService.syncFlattenTreeNodes();
         if (this.root.thyShowExpand) {
             this.thyOnExpandChange.emit({
                 eventName: 'expand',
