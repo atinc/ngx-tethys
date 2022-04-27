@@ -4,7 +4,8 @@
 
 .thy-label {
     font-weight: normal;
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
     line-height: 1;
     font-size: variables.$font-size-sm;
     border-radius: variables.$label-border-radius;
@@ -21,12 +22,6 @@
     i {
         // cursor: pointer;
         font-size: variables.$font-size-sm;
-    }
-
-    thy-icon {
-        svg {
-            vertical-align: -0.125em;
-        }
     }
 
     &.thy-label-state {
@@ -113,8 +108,7 @@
 }
 
 .thy-dot-label {
-    margin: 0 3px 1px 0;
-
+    margin: 0 3px 0 0;
     &.thy-label {
         padding: 0;
     }
