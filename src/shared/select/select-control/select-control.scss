@@ -24,7 +24,7 @@
             variables.$input-padding-y-sm - 0.0625rem,
             variables.$input-label-height-sm
         );
-        @include select.select-label-size(variables.$input-label-height-sm, variables.$font-size-sm);
+        @include select.select-label-size(20px, variables.$font-size-sm);
     }
     &.form-control-md {
         @include select.select-control-size(
@@ -33,7 +33,7 @@
             variables.$input-padding-y-md,
             variables.$input-label-height-md
         );
-        @include select.select-label-size(variables.$input-label-height-md, variables.$font-size-sm);
+        @include select.select-label-size(22px, variables.$font-size-sm);
     }
     &.form-control-lg {
         @include select.select-control-size(
@@ -42,7 +42,7 @@
             variables.$input-padding-y-lg,
             variables.$input-label-height-lg
         );
-        @include select.select-label-size(variables.$input-label-height-lg, variables.$font-size-lg);
+        @include select.select-label-size(36px, variables.$font-size-lg);
     }
     .search-input-field {
         width: 100%;
