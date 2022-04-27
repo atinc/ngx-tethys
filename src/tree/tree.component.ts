@@ -109,7 +109,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() thyCheckable: boolean;
 
     @Input() set thyCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) {
-        this.thyTreeService.setCheckStateResolve(resolve);
+        if (resolve) {
+            this.thyTreeService.setCheckStateResolve(resolve);
+        }
     }
 
     @Input() thyAsync = false;
@@ -132,9 +134,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thySize: ThyTreeSize;
 
-    @HostBinding('class.thy-visual-scrolling-tree')
+    @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
-    thyVisualScorll = false;
+    thyVirtualScroll = false;
 
     @Input() thyItemSize = 44;
 
@@ -203,6 +205,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeSize();
         this._instanceSelectionModel();
         this._selectTreeNodes(this._selectedKeys);
+
         this.thyTreeService.flattenNodes$.subscribe(flattenTreeNodes => {
             this.flattenTreeNodes = flattenTreeNodes;
             this.cdr.markForCheck();
@@ -277,7 +280,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this.dragItem = event.item;
         if (this.isShowExpand(event.item) && event.item.isExpanded) {
             event.item.setExpanded(false);
-            this.thyTreeService.syncFlattenTreeNodes();
         }
     }
 
@@ -397,13 +399,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     public expandAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(true, true));
-        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     public collapsedAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(false, true));
-        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     // endregion
