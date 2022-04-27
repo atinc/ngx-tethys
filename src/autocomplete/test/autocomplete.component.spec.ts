@@ -1,6 +1,6 @@
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
-import { FormsModule, FormControl, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, ElementRef, Sanitizer, SecurityContext } from '@angular/core';
+import { TestBed, ComponentFixture, fakeAsync, tick, inject, flush, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, ViewChild, ViewChildren, QueryList, DebugElement } from '@angular/core';
 import { ThyAutocompleteModule } from '../module';
 import { ThyAutocompleteComponent } from '../autocomplete.component';
 import { By } from '@angular/platform-browser';
@@ -8,7 +8,7 @@ import { UpdateHostClassService } from '../../core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ThyFormModule } from '../../form';
-import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { ThyOptionComponent } from '../../shared/option/option.component';
 import { ThyInputModule } from '../../input/module';
@@ -16,6 +16,7 @@ import { CommonModule } from '@angular/common';
 import { ThySharedModule } from '../../shared';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyOptionModule } from '../../shared';
+import { ThyInputSearchComponent } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -59,6 +60,34 @@ class BasicSelectComponent {
 
     valueChange(event: string) {}
 }
+
+@Component({
+    selector: 'thy-input-search-autocomplete',
+    template: `
+        <div>
+            <thy-input-search
+                thyAutocompleteTrigger
+                [(ngModel)]="value"
+                [thyAutocompleteComponent]="auto"
+                (ngModelChange)="valueChange($event)"
+            ></thy-input-search>
+            <thy-autocomplete #auto>
+                <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
+            </thy-autocomplete>
+        </div>
+    `
+})
+class InputSearchSelectComponent {
+    value = '';
+
+    foods: { value: string; viewValue: string }[] = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' }
+    ];
+    @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
+    @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
+}
+
 describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -95,9 +124,11 @@ describe('ThyAutocomplete', () => {
     });
 
     describe('core', () => {
-        beforeEach(async(() => {
-            configureThyCustomSelectTestingModule([BasicSelectComponent]);
-        }));
+        beforeEach(
+            waitForAsync(() => {
+                configureThyCustomSelectTestingModule([BasicSelectComponent, InputSearchSelectComponent]);
+            })
+        );
 
         describe('panel', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
@@ -165,6 +196,30 @@ describe('ThyAutocomplete', () => {
                 fixture.detectChanges();
                 flush();
                 expect(closedSpy).toHaveBeenCalled();
+            }));
+        });
+
+        describe('input-search', () => {
+            let fixture: ComponentFixture<InputSearchSelectComponent>;
+            let debugSearchElement: DebugElement;
+
+            beforeEach(fakeAsync(() => {
+                fixture = TestBed.createComponent(InputSearchSelectComponent);
+                debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearchComponent));
+                fixture.detectChanges();
+                tick(100);
+            }));
+
+            it('should close the panel when option is clicked', fakeAsync(() => {
+                dispatchFakeEvent(debugSearchElement.nativeElement, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+                const option = overlayContainerElement.querySelector('thy-option') as HTMLElement;
+                option.click();
+                fixture.detectChanges();
+                flush();
+                expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
+                expect(debugSearchElement.nativeElement.querySelector('input').value).toEqual('Steak');
             }));
         });
     });

@@ -28,7 +28,8 @@ import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
-    selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger]',
+    selector:
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
     exportAs: 'thyAutocompleteTrigger',
     host: {
         '(input)': 'handleInput($event)',
@@ -258,6 +259,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                 return (
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
+                    !this.elementRef.nativeElement.contains(clickTarget) &&
                     (!formField || !formField.contains(clickTarget)) &&
                     !!this.overlayRef &&
                     !this.overlayRef.overlayElement.contains(clickTarget)
@@ -267,8 +269,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private setValue(value: string) {
-        this.elementRef.nativeElement.value = value;
-        this.elementRef.nativeElement.focus();
+        const input = this.elementRef.nativeElement.querySelector('input');
+        const element = input ? input : this.elementRef.nativeElement;
+        element.value = value;
+        element.focus();
     }
 
     private canOpen(): boolean {
