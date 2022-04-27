@@ -731,7 +731,7 @@ export class ThyTableComponent extends _MixinBase
             });
 
         this.ngZone.runOutsideAngular(() => {
-            this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe((event: WheelEvent) => {
+            this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 this.updateScrollClass();
             });
         });
