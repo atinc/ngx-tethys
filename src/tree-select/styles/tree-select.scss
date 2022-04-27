@@ -3,8 +3,6 @@
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
 
-$thy-select-expand-icon-height: 21px;
-
 @mixin thy-tree-select-option() {
     &:not(.disabled) {
         &.hover,
@@ -33,15 +31,10 @@ $thy-select-expand-icon-height: 21px;
 
         .thy-tree-select-node {
             .thy-tree-select-option-icon {
-                line-height: $thy-select-expand-icon-height;
-                height: $thy-select-expand-icon-height;
                 color: variables.$gray-500;
                 &:hover {
                     cursor: pointer;
                     color: variables.$gray-600;
-                }
-                .node-expand-icon {
-                    line-height: $thy-select-expand-icon-height;
                 }
                 .thy-icon-caret-right-down,
                 .thy-icon-caret-right {
@@ -56,6 +49,8 @@ $thy-select-expand-icon-height: 21px;
             }
             .thy-tree-select-option-text {
                 margin-left: 6px;
+                display: flex;
+                align-items: center;
                 @include text-truncate.text-truncate();
             }
         }
