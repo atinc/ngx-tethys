@@ -526,14 +526,14 @@ export class ThyTableComponent extends _MixinBase
 
     iconIndentComputed(level: number) {
         if (this.mode === 'tree') {
-            return level * this.thyIndent - 10;
+            return level * this.thyIndent - 5;
         }
     }
 
     tdIndentComputed(level: number) {
         return {
             position: 'relative',
-            paddingLeft: `${(level + 1) * this.thyIndent - 10}px`
+            paddingLeft: `${(level + 1) * this.thyIndent - 5}px`
         };
     }
 
