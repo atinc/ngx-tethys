@@ -371,8 +371,8 @@ export class ThyTableComponent extends _MixinBase
                 headerTemplateRef: component.headerTemplateRef,
                 fixedLeft: component.fixedLeft,
                 fixedRight: component.fixedRight,
-                left: component.left || null,
-                right: component.right || null
+                left: component.left,
+                right: component.right
             };
         });
         this.columns = this.updateColumnsFixedPosition(this.columns);
@@ -381,13 +381,17 @@ export class ThyTableComponent extends _MixinBase
     public updateColumnsFixedPosition(columns: ThyTableColumn[]) {
         const leftColumns: ThyTableColumn[] = [];
         const rightColumns: ThyTableColumn[] = [];
+        const freeColumns: ThyTableColumn[] = [];
         columns.forEach(component => {
             if (component.fixedLeft) {
                 leftColumns.push(component);
             } else if (component.fixedRight) {
                 rightColumns.push(component);
+            } else {
+                freeColumns.push(component);
             }
         });
+
         // 计算左侧固定列
         let leftIncrease = 0;
         leftColumns.forEach(column => {
@@ -399,6 +403,11 @@ export class ThyTableComponent extends _MixinBase
         rightColumns.reverse().forEach(column => {
             column.right = rightIncrease;
             rightIncrease = rightIncrease + parseInt((column.width as string).split('px')[0], 10);
+        });
+        // 清除非固定列距离左侧、右侧的值
+        freeColumns.forEach(column => {
+            column.left = null;
+            column.right = null;
         });
         return columns;
     }
