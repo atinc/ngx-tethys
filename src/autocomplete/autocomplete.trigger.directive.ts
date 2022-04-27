@@ -259,6 +259,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                 return (
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
+                    !this.elementRef.nativeElement.contains(clickTarget) &&
                     (!formField || !formField.contains(clickTarget)) &&
                     !!this.overlayRef &&
                     !this.overlayRef.overlayElement.contains(clickTarget)
