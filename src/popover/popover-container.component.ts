@@ -1,7 +1,7 @@
+import { ContentObserver } from '@angular/cdk/observers';
 import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
-import { Observable, timer } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-
+import { from, Observable, Subject, timer } from 'rxjs';
+import { debounceTime, take, takeUntil, filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import {
@@ -49,7 +49,11 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
 
     insideClicked = new EventEmitter();
 
+    updatePosition = new EventEmitter();
+
     outsideClicked = new EventEmitter();
+
+    private destroy$ = new Subject<void>();
 
     beforeAttachPortal(): void {}
 
@@ -58,6 +62,7 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
         public config: ThyPopoverConfig<TData>,
         changeDetectorRef: ChangeDetectorRef,
         private thyClickDispatcher: ThyClickDispatcher,
+        private contentObserver: ContentObserver,
         private ngZone: NgZone
     ) {
         super(popoverAbstractOverlayOptions, changeDetectorRef);
@@ -87,6 +92,20 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
                             });
                         }
                     });
+            });
+        }
+
+        if (this.config.autoAdaptive) {
+            const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
+            this.ngZone.runOutsideAngular(() => {
+                onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+                    this.contentObserver
+                        .observe(this.elementRef)
+                        .pipe(debounceTime(100), takeUntil(this.destroy$))
+                        .subscribe(() => {
+                            this.updatePosition.emit();
+                        });
+                });
             });
         }
     }
@@ -122,8 +141,10 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
     }
 
     ngOnDestroy() {
+        this.destroy$.next();
         super.destroy();
         this.insideClicked.complete();
+        this.updatePosition.complete();
         this.outsideClicked.complete();
     }
 }

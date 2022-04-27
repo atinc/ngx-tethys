@@ -97,6 +97,12 @@ module.exports = [
                 default: 'true'
             },
             {
+                name: 'autoAdaptive',
+                description: '是否开启异步加载内容后更新位置',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
                 name: 'viewContainerRef',
                 description: '当前的组件的 viewContainerRef, 指定后弹出的组件的父注入器为当前组件的注入器',
                 type: 'ViewContainerRef',

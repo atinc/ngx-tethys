@@ -20,6 +20,9 @@ export class ThyInternalPopoverRef<T, TResult = unknown> extends ThyAbstractInte
         // Note: doesn't need to unsubscribe, because `insideClicked` and `outsideClicked`
         // get completed by `ThyPopoverContainerComponent` when the view is destroyed.
         merge(containerInstance.insideClicked, containerInstance.outsideClicked).subscribe(() => this.close());
+        containerInstance.updatePosition.subscribe(() => {
+            this.updatePosition();
+        });
     }
 
     /**

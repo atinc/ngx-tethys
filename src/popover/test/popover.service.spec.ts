@@ -67,11 +67,26 @@ class WithChildViewContainerComponent {
 @Component({
     selector: 'thy-popover-simple-content-component',
     template: `
-        <div>Hello Popover <button>Close</button></div>
+        <div class="simple-content-test">
+            Hello Popover <button>Close</button>
+            <ul>
+                <li *ngFor="let item of demos">
+                    <a href="javascript:;">
+                        <span thyActionMenuItemName>图标{{ item }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     `
 })
-export class PopoverSimpleContentComponent {
+export class PopoverSimpleContentComponent implements OnInit {
+    demos: number[];
     constructor(public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>, public popoverInjector: Injector) {}
+    ngOnInit() {
+        setTimeout(() => {
+            this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+        }, 100);
+    }
 }
 
 @Component({
@@ -376,6 +391,7 @@ describe(`thyPopover`, () => {
             viewContainerFixture.detectChanges();
             expect(openedPopover.length).toEqual(2);
             expect(openedPopover[1]).toEqual(popoverRef1);
+            flush();
         }));
 
         it('should find the closest dialog', fakeAsync(() => {
@@ -402,6 +418,20 @@ describe(`thyPopover`, () => {
                 .closest('.thy-popover-container')
                 .removeAttribute('id');
             expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
+        }));
+
+        it('should update position when autoAdaptive is true', fakeAsync(() => {
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                autoAdaptive: true
+            });
+
+            viewContainerFixture.detectChanges();
+            const element = getPopoverContainerElement() as HTMLElement;
+            tick(1000);
+            flush();
+            expect(element.querySelector('li')).toBeTruthy();
+            expect(popoverRef.updatePosition()).toBeTruthy();
         }));
     });
 

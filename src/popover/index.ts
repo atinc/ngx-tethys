@@ -1,5 +1,5 @@
-import { ThyPopoverBodyComponent } from './body/popover-body.component';
-import { ThyPopoverHeaderComponent } from './header/popover-header.component';
+// import { ThyPopoverBodyComponent } from './body/popover-body.component';
+// import { ThyPopoverHeaderComponent } from './header/popover-header.component';
 
 export * from './popover.service';
 export * from './popover.config';
@@ -11,4 +11,4 @@ export * from './popover-animations';
 export * from './header/popover-header.component';
 export * from './body/popover-body.component';
 
-export { ThyPopoverHeaderComponent, ThyPopoverBodyComponent };
+// export { ThyPopoverHeaderComponent, ThyPopoverBodyComponent };
