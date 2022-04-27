@@ -420,7 +420,7 @@ describe('ThyTreeComponent', () => {
             const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
             expect(updateTreeNodesCount).toEqual(11);
         });
-
+        //
         it('test should successful delete tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
             expect(treeCount).toEqual(10);
