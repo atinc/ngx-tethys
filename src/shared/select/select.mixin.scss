@@ -1,6 +1,6 @@
 @use "../../styles/variables";
 
-@mixin select-control-size($input-height, $input-margin-top, $input-margin-bottom, $input-label-height) {
+@mixin select-control-size($input-height, $input-margin-top, $input-margin-bottom) {
     .select-control-rendered {
         margin-top: $input-margin-top;
         .text-placeholder,
