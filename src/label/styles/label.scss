@@ -23,6 +23,12 @@
         font-size: variables.$font-size-sm;
     }
 
+    thy-icon {
+        svg {
+            vertical-align: -0.125em;
+        }
+    }
+
     &.thy-label-state {
         @include mixin.label-size(md, map-get(variables.$label-size-paddings, md));
     }
