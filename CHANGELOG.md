@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.21"></a>
+## [12.1.21](https://github.com/atinc/ngx-tethys/compare/12.1.20...12.1.21) (2022-04-27)
+
+
+### Bug Fixes
+
+* **tree:** fix scroll styles and update "visual" to "virtual" #INFR-2982  ([3327914](https://github.com/atinc/ngx-tethys/commit/3327914)), closes [#INFR-2982](https://github.com/atinc/ngx-tethys/issues/INFR-2982)
+
+
+### Features
+
+* **cascader:** add empty state #INFR-2986 ([#1610](https://github.com/atinc/ngx-tethys/issues/1610)) ([347de1f](https://github.com/atinc/ngx-tethys/commit/347de1f)), closes [#INFR-2986](https://github.com/atinc/ngx-tethys/issues/INFR-2986)
+
+
+
 ## [12.1.20](https://github.com/atinc/ngx-tethys/compare/12.1.18...12.1.20) (2022-04-24)
 
 

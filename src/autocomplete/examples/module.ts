@@ -9,12 +9,14 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyAutocompleteCustomExampleComponent } from './custom/custom.component';
 import { ThyAutocompleteAutofocusExampleComponent } from './autofocus/autofocus.component';
 import { ThyAutocompleteActiveExampleComponent } from './active/active.component';
+import { ThyAutocompleteInputSearchExampleComponent } from './input-search/input-search.component';
 
 const COMPONENTS = [
     ThyAutocompleteBasicExampleComponent,
     ThyAutocompleteCustomExampleComponent,
     ThyAutocompleteActiveExampleComponent,
-    ThyAutocompleteAutofocusExampleComponent
+    ThyAutocompleteAutofocusExampleComponent,
+    ThyAutocompleteInputSearchExampleComponent
 ];
 
 @NgModule({

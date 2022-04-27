@@ -63,6 +63,12 @@ module.exports = [
                 description: '用户自定义模版',
                 type: 'TemplateRef<any>',
                 default: ''
+            },
+            {
+                name: 'thyEmptyStateText',
+                description: '空状态下的展示文字',
+                type: 'string',
+                default: '无任何选项'
             }
         ]
     }
