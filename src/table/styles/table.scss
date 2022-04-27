@@ -313,6 +313,11 @@
                 }
             }
         }
+
+        .table-bordered thead th,
+        .table-bordered thead td {
+            background-color: variables.$gray-100 !important;
+        }
     }
 
     &-scroll-left {

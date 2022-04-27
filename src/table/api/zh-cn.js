@@ -228,6 +228,18 @@ module.exports = [
                 description: '设置 Tree 模式下折叠展开按钮展示列，不传默认第一列',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'fixedLeft',
+                description: '设置左侧固定列',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'fixedRight',
+                description: '设置右侧固定列',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }

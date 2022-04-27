@@ -2,7 +2,7 @@
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
-import { fromEvent, merge, Observable, of } from 'rxjs';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -30,6 +30,7 @@ import {
     Output,
     PLATFORM_ID,
     QueryList,
+    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -51,7 +52,6 @@ import {
     ThyTableRowEvent
 } from './table.interface';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { TableDomService } from './table-dom.service';
 
 export type ThyTableTheme = 'default' | 'bordered';
 
@@ -82,6 +82,13 @@ const customType = {
     switch: 'switch'
 };
 
+const css = {
+    tableBody: 'thy-table-body',
+    tableScrollLeft: 'thy-table-scroll-left',
+    tableScrollRight: 'thy-table-scroll-right',
+    tableScrollMiddle: 'thy-table-scroll-middle'
+};
+
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -94,8 +101,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
             provide: THY_TABLE_COLUMN_PARENT_COMPONENT,
             useExisting: ThyTableComponent
         },
-        UpdateHostClassService,
-        TableDomService
+        UpdateHostClassService
     ],
     encapsulation: ViewEncapsulation.None
 })
@@ -145,6 +151,16 @@ export class ThyTableComponent extends _MixinBase
 
     private initialized = false;
     private _oldThyClassName = '';
+
+    private scrollClassName = css.tableScrollLeft;
+
+    private get tableScrollElement(): HTMLElement {
+        return this.elementRef.nativeElement.getElementsByClassName(css.tableBody)[0] as HTMLElement;
+    }
+
+    private get scroll$() {
+        return merge<MouseEvent>(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
+    }
 
     @ContentChild('empty') emptyTemplate: TemplateRef<any>;
 
@@ -318,7 +334,7 @@ export class ThyTableComponent extends _MixinBase
         @Inject(DOCUMENT) private document: any,
         @Inject(PLATFORM_ID) private platformId: string,
         private ngZone: NgZone,
-        private tableDomService: TableDomService
+        private renderer: Renderer2
     ) {
         super();
         this._bindTrackFn();
@@ -359,7 +375,41 @@ export class ThyTableComponent extends _MixinBase
                 right: component.right
             };
         });
-        this.columns = this.tableDomService.updateColumnsFixedPosition(this.columns);
+        this.columns = this.updateColumnsFixedPosition(this.columns);
+    }
+
+    public updateColumnsFixedPosition(columns: ThyTableColumn[]) {
+        const leftColumns: ThyTableColumn[] = [];
+        const rightColumns: ThyTableColumn[] = [];
+        const freeColumns: ThyTableColumn[] = [];
+        columns.forEach(component => {
+            if (component.fixedLeft) {
+                leftColumns.push(component);
+            } else if (component.fixedRight) {
+                rightColumns.push(component);
+            } else {
+                freeColumns.push(component);
+            }
+        });
+
+        // 计算左侧固定列
+        let leftIncrease = 0;
+        leftColumns.forEach(column => {
+            column.left = leftIncrease;
+            leftIncrease = leftIncrease + parseInt((column.width as string).split('px')[0], 10);
+        });
+        // 计算右侧固定列
+        let rightIncrease = 0;
+        rightColumns.reverse().forEach(column => {
+            column.right = rightIncrease;
+            rightIncrease = rightIncrease + parseInt((column.width as string).split('px')[0], 10);
+        });
+        // 清除非固定列距离左侧、右侧的值
+        freeColumns.forEach(column => {
+            column.left = null;
+            column.right = null;
+        });
+        return columns;
     }
 
     private _initializeDataModel() {
@@ -646,6 +696,29 @@ export class ThyTableComponent extends _MixinBase
         group.expand = !group.expand;
     }
 
+    private updateScrollClass() {
+        const scrollElement = this.tableScrollElement;
+        const maxScrollLeft = scrollElement.scrollWidth - scrollElement.offsetWidth;
+        const scrollX = scrollElement.scrollLeft;
+        const lastScrollClassName = this.scrollClassName;
+        this.scrollClassName = '';
+        if (scrollElement.scrollWidth > scrollElement.clientWidth) {
+            if (scrollX >= maxScrollLeft) {
+                this.scrollClassName = css.tableScrollRight;
+            } else if (scrollX === 0) {
+                this.scrollClassName = css.tableScrollLeft;
+            } else {
+                this.scrollClassName = css.tableScrollMiddle;
+            }
+        }
+        if (lastScrollClassName) {
+            this.renderer.removeClass(this.tableScrollElement, lastScrollClassName);
+        }
+        if (this.scrollClassName) {
+            this.renderer.addClass(this.tableScrollElement, this.scrollClassName);
+        }
+    }
+
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
@@ -656,6 +729,12 @@ export class ThyTableComponent extends _MixinBase
             .subscribe(() => {
                 this._refreshColumns();
             });
+
+        this.ngZone.runOutsideAngular(() => {
+            this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe((event: WheelEvent) => {
+                this.updateScrollClass();
+            });
+        });
     }
 
     ngOnChanges(simpleChangs: SimpleChanges) {
@@ -676,7 +755,6 @@ export class ThyTableComponent extends _MixinBase
     }
 
     ngAfterViewInit(): void {
-        this.tableDomService.initialize(this.elementRef);
         if (isPlatformServer(this.platformId)) {
             return;
         }
@@ -726,7 +804,6 @@ export class ThyTableComponent extends _MixinBase
     // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
     ngOnDestroy() {
         super.ngOnDestroy();
-        this.tableDomService.destroy();
         this._destroyInvalidAttribute();
     }
 }

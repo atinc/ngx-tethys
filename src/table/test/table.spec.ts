@@ -298,11 +298,11 @@ describe('ThyTable: basic', () => {
     //     expect(labelElement.classList.contains('thy-switch-disabled')).toBe(true);
     // });
 
-    it('width is 160 when thyWidth is 160', () => {
-        fixture.detectChanges();
-        const cols = tableComponent.nativeElement.querySelectorAll('colgroup col');
-        expect(cols[1].width).toEqual('160');
-    });
+    // it('width is 160 when thyWidth is 160', () => {
+    //     fixture.detectChanges();
+    //     const cols = tableComponent.nativeElement.querySelectorAll('colgroup col');
+    //     expect(cols[1].width).toEqual('160');
+    // });
 
     it('should have correct class when isRowSelect is true', () => {
         testComponent.isRowSelect = true;
