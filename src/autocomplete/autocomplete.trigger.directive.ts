@@ -1,6 +1,7 @@
 import {
     Directive,
     ElementRef,
+    Injectable,
     NgZone,
     OnDestroy,
     Input,
@@ -11,7 +12,10 @@ import {
     Inject,
     ChangeDetectorRef
 } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { ThyOverlayDirectiveBase, ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
@@ -19,8 +23,8 @@ import { ThyOptionComponent, ThyOptionSelectionChangeEvent } from 'ngx-tethys/sh
 import { DOCUMENT } from '@angular/common';
 import { Subject, Observable, merge, fromEvent, of, Subscription } from 'rxjs';
 import { ESCAPE, UP_ARROW, ENTER, DOWN_ARROW, TAB } from 'ngx-tethys/util';
-import { filter, map, take, delay, switchMap } from 'rxjs/operators';
-import { ScrollToService, ThyPlacement } from 'ngx-tethys/core';
+import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
+import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
@@ -255,7 +259,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                 return (
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
-                    !this.elementRef.nativeElement.contains(clickTarget) &&
                     (!formField || !formField.contains(clickTarget)) &&
                     !!this.overlayRef &&
                     !this.overlayRef.overlayElement.contains(clickTarget)
@@ -266,13 +269,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     private setValue(value: string) {
         const input = this.elementRef.nativeElement.querySelector('input');
-        if (input) {
-            input.value = value;
-            input.focus();
-            return;
-        }
-        this.elementRef.nativeElement.value = value;
-        this.elementRef.nativeElement.focus();
+        const element = input ? input : this.elementRef.nativeElement;
+        element.value = value;
+        element.focus();
     }
 
     private canOpen(): boolean {
