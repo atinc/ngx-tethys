@@ -53,7 +53,8 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     insideClosable: false,
     manualClosure: false,
     originActiveClass: 'thy-popover-origin-active',
-    autoAdaptive: false
+    autoAdaptive: false,
+    minWidth: '240px'
 };
 
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {

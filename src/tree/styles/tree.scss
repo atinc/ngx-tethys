@@ -2,13 +2,6 @@
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
 
-.thy-visual-scrolling-tree {
-    height: 100%;
-    .cdk-virtual-scroll-viewport {
-        height: 100%;
-    }
-}
-
 .thy-tree {
     display: block;
     overflow: hidden;
@@ -168,6 +161,24 @@
         padding: 0 30px;
         background-color: #fafafa;
         color: #aaa;
+    }
+}
+
+.thy-virtual-scrolling-tree {
+    height: 100%;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-bottom: 0px;
+    transform: translateY(0px);
+    .cdk-virtual-scroll-viewport {
+        height: 100%;
+        .virtual-trees-container {
+            padding-top: 10px;
+            padding-bottom: 10px;
+            .thy-tree-node {
+                padding: 0 0 0 10px;
+            }
+        }
     }
 }
 

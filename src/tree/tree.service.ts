@@ -28,7 +28,7 @@ export class ThyTreeService implements OnDestroy {
 
     flattenTreeNodes: ThyTreeNode[] = [];
 
-    public treeNodes: ThyTreeNode[];
+    public treeNodes: ThyTreeNode[] = [];
 
     private checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
 
@@ -38,7 +38,6 @@ export class ThyTreeService implements OnDestroy {
 
     public initializeTreeNodes(rootNodes: ThyTreeNode[]) {
         this.treeNodes = rootNodes;
-        this.syncFlattenTreeNodes();
     }
 
     public syncFlattenTreeNodes() {
@@ -96,6 +95,20 @@ export class ThyTreeService implements OnDestroy {
         if (index > -1) {
             children.splice(index, 1);
         }
+        this.syncFlattenTreeNodes();
+    }
+
+    public addTreeNode(node: ThyTreeNode, parent?: ThyTreeNode, index = -1) {
+        if (parent) {
+            parent.addChildren(node, index);
+        } else {
+            if (index > -1) {
+                this.treeNodes.splice(index, 0, node);
+            } else {
+                this.treeNodes.push(node);
+            }
+        }
+        this.syncFlattenTreeNodes();
     }
 
     public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {
@@ -106,6 +119,7 @@ export class ThyTreeService implements OnDestroy {
         needExpandNodes.forEach(node => {
             node.setExpanded(true);
         });
+        this.syncFlattenTreeNodes();
     }
 
     public statusChanged() {

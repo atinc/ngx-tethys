@@ -1,26 +1,31 @@
-<thy-loading [thyDone]="loadingDone"></thy-loading>
-<ng-container *ngIf="loadingDone">
-  <thy-selection-list
-    *ngIf="data?.length > 0; else empty"
-    thyBindKeyEventContainer="body"
-    thyMultiple="false"
-    thyAutoActiveFirstItem="true"
-    thySpaceKeyEnabled="false"
-    [thyScrollContainer]="elementRef"
-    (thySelectionChange)="selectionChange($event)"
-  >
-    <thy-list-option *ngFor="let item of data" [thyValue]="item">
-      <ng-container *ngIf="mention?.displayTemplateRef; else default">
-        <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
-      </ng-container>
-      <ng-template #default>
-        {{ item['name'] || '' }}
-      </ng-template>
-    </thy-list-option>
-  </thy-selection-list>
+<ng-container *ngIf="mention.suggestionsTemplateRef; else default">
+  <ng-container [ngTemplateOutlet]="mention.suggestionsTemplateRef" [ngTemplateOutletContext]="{ data: data }"></ng-container>
 </ng-container>
-<ng-template #empty>
-  <div class="text-desc p-3">
-    {{ mention?.emptyText }}
-  </div>
+<ng-template #default>
+  <thy-loading [thyDone]="loadingDone"></thy-loading>
+  <ng-container *ngIf="loadingDone">
+    <thy-selection-list
+      *ngIf="data?.length > 0; else empty"
+      thyBindKeyEventContainer="body"
+      thyMultiple="false"
+      thyAutoActiveFirstItem="true"
+      thySpaceKeyEnabled="false"
+      [thyScrollContainer]="elementRef"
+      (thySelectionChange)="selectionChange($event)"
+    >
+      <thy-list-option *ngFor="let item of data" [thyValue]="item">
+        <ng-container *ngIf="mention?.displayTemplateRef; else default">
+          <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
+        </ng-container>
+        <ng-template #default>
+          {{ item['name'] || '' }}
+        </ng-template>
+      </thy-list-option>
+    </thy-selection-list>
+  </ng-container>
+  <ng-template #empty>
+    <div class="text-desc p-3">
+      {{ mention?.emptyText }}
+    </div>
+  </ng-template>
 </ng-template>

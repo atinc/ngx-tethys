@@ -1,12 +1,14 @@
-import { Directive, ElementRef, Input, OnInit, EventEmitter, Output, Optional, Self, OnDestroy } from '@angular/core';
-import { NgControl } from '@angular/forms';
-import { Mention, MentionSuggestionSelectEvent, MentionDefaultDataItem } from './interfaces';
-import { ThyPopover, ThyPopoverRef, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
-import { CaretPositioner } from './caret-positioner';
-import { MentionAdapter, createMentionAdapter, MatchedMention, MentionInputorElement } from './adapter';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { EMPTY, fromEvent, Subject } from 'rxjs';
 import { switchMap, takeUntil } from 'rxjs/operators';
+
+import { Directive, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Optional, Output, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
+
+import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorElement } from './adapter';
+import { CaretPositioner } from './caret-positioner';
+import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from './interfaces';
+import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
@@ -29,7 +31,7 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
 export class ThyMentionDirective implements OnInit, OnDestroy {
     private adapter: MentionAdapter = null;
 
-    private openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
+    public openedSuggestionsRef: ThyPopoverRef<ThyMentionSuggestionsComponent>;
 
     private _mentions: Mention<any>[];
     get mentions() {

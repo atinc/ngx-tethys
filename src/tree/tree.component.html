@@ -1,6 +1,7 @@
-<cdk-virtual-scroll-viewport #viewport *ngIf="thyVisualScorll" [itemSize]="thyItemSize" [style.height]="'100%'">
+<cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="thyItemSize" [style.height]="'100%'">
   <div
-    [thyDropContainer]="treeNodes"
+    class="virtual-trees-container"
+    [thyDropContainer]="flattenTreeNodes"
     [thyDropContainerDisabled]="!thyDraggable"
     [thyBeforeDragStart]="thyBeforeDragStart"
     [thyBeforeDragOver]="beforeDragOver"
@@ -29,8 +30,8 @@
 </cdk-virtual-scroll-viewport>
 
 <div
-  *ngIf="!thyVisualScorll"
-  [thyDropContainer]="treeNodes"
+  *ngIf="!thyVirtualScroll"
+  [thyDropContainer]="flattenTreeNodes"
   [thyDropContainerDisabled]="!thyDraggable"
   [thyBeforeDragStart]="thyBeforeDragStart"
   [thyBeforeDragOver]="beforeDragOver"
