@@ -166,15 +166,12 @@
 
 .thy-virtual-scrolling-tree {
     height: 100%;
-    padding-top: 0px;
-    padding-right: 0px;
-    padding-bottom: 0px;
+    padding: 0px;
     transform: translateY(0px);
     .cdk-virtual-scroll-viewport {
         height: 100%;
         .virtual-trees-container {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 10px 20px 10px 10px;
             .thy-tree-node {
                 padding: 0 0 0 10px;
             }
