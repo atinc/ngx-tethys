@@ -1,8 +1,8 @@
 /* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, isString, keyBy, set } from 'ngx-tethys/util';
-import { fromEvent, merge, Observable, of } from 'rxjs';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
@@ -30,6 +30,7 @@ import {
     Output,
     PLATFORM_ID,
     QueryList,
+    Renderer2,
     SimpleChanges,
     TemplateRef,
     ViewChild,
@@ -58,6 +59,10 @@ export type ThyTableMode = 'list' | 'group' | 'tree';
 
 export type ThyTableSize = 'default' | 'sm';
 
+export enum ThyFixedDirection {
+    left = 'left',
+    right = 'right'
+}
 interface ThyTableGroup<T = unknown> {
     id?: string;
     expand?: boolean;
@@ -79,6 +84,13 @@ const customType = {
     checkbox: 'checkbox',
     radio: 'radio',
     switch: 'switch'
+};
+
+const css = {
+    tableBody: 'thy-table-body',
+    tableScrollLeft: 'thy-table-scroll-left',
+    tableScrollRight: 'thy-table-scroll-right',
+    tableScrollMiddle: 'thy-table-scroll-middle'
 };
 
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
@@ -137,12 +149,24 @@ export class ThyTableComponent extends _MixinBase
 
     public wholeRowSelect = false;
 
+    public fixedDirection = ThyFixedDirection;
+
     private _diff: IterableDiffer<any>;
 
     private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
 
     private initialized = false;
     private _oldThyClassName = '';
+
+    private scrollClassName = css.tableScrollLeft;
+
+    private get tableScrollElement(): HTMLElement {
+        return this.elementRef.nativeElement.getElementsByClassName(css.tableBody)[0] as HTMLElement;
+    }
+
+    private get scroll$() {
+        return merge<MouseEvent>(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
+    }
 
     @ContentChild('empty') emptyTemplate: TemplateRef<any>;
 
@@ -315,7 +339,8 @@ export class ThyTableComponent extends _MixinBase
         private updateHostClassService: UpdateHostClassService,
         @Inject(DOCUMENT) private document: any,
         @Inject(PLATFORM_ID) private platformId: string,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private renderer: Renderer2
     ) {
         super();
         this._bindTrackFn();
@@ -334,24 +359,50 @@ export class ThyTableComponent extends _MixinBase
     private _initializeColumns() {
         const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
         const hasExpand = components.some(item => item.expand === true);
+        const leftColumnsWidth: number[] = [];
+        const rightColumns: ThyTableColumnComponent[] = [];
         this.columns = components.map<ThyTableColumn>((component, i) => {
             const selections = this._getSelectionKeys(component.selections);
+            if (component.fixed === this.fixedDirection.left) {
+                leftColumnsWidth.push(this.buildColumnWidth(component.width));
+            } else if (component.fixed === this.fixedDirection.right) {
+                rightColumns.push(component);
+            }
             return {
                 key: component.key,
                 model: component.model,
                 title: component.title,
                 type: component.type,
                 selections: selections,
-                width: component.width,
+                width: parseInt(component.width.toString()) + 'px',
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 defaultText: component.defaultText,
                 expand: hasExpand ? component.expand : i === 0,
                 templateRef: component.cellTemplateRef,
-                headerTemplateRef: component.headerTemplateRef
+                headerTemplateRef: component.headerTemplateRef,
+                fixed: component.fixed,
+                left:
+                    component.fixed === this.fixedDirection.left
+                        ? leftColumnsWidth.reduce((result, currentWidth) => {
+                              return result + currentWidth;
+                          }, 0) - this.buildColumnWidth(component.width)
+                        : null,
+                right: component.fixed === this.fixedDirection.right ? 0 : null
             };
         });
+
+        const columnsMap = helpers.keyBy(this.columns, 'key');
+        let rightIncrease = 0;
+        rightColumns.reverse().forEach(value => {
+            columnsMap[value.key].right = rightIncrease;
+            rightIncrease = rightIncrease + this.buildColumnWidth(value.width);
+        });
+    }
+
+    private buildColumnWidth(width: string | number) {
+        return Number(width.toString().split('px')[0]);
     }
 
     private _initializeDataModel() {
@@ -638,6 +689,29 @@ export class ThyTableComponent extends _MixinBase
         group.expand = !group.expand;
     }
 
+    private updateScrollClass() {
+        const scrollElement = this.tableScrollElement;
+        const maxScrollLeft = scrollElement.scrollWidth - scrollElement.offsetWidth;
+        const scrollX = scrollElement.scrollLeft;
+        const lastScrollClassName = this.scrollClassName;
+        this.scrollClassName = '';
+        if (scrollElement.scrollWidth > scrollElement.clientWidth) {
+            if (scrollX >= maxScrollLeft) {
+                this.scrollClassName = css.tableScrollRight;
+            } else if (scrollX === 0) {
+                this.scrollClassName = css.tableScrollLeft;
+            } else {
+                this.scrollClassName = css.tableScrollMiddle;
+            }
+        }
+        if (lastScrollClassName) {
+            this.renderer.removeClass(this.tableScrollElement, lastScrollClassName);
+        }
+        if (this.scrollClassName) {
+            this.renderer.addClass(this.tableScrollElement, this.scrollClassName);
+        }
+    }
+
     ngOnInit() {
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
@@ -648,6 +722,12 @@ export class ThyTableComponent extends _MixinBase
             .subscribe(() => {
                 this._refreshColumns();
             });
+
+        this.ngZone.runOutsideAngular(() => {
+            this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+                this.updateScrollClass();
+            });
+        });
     }
 
     ngOnChanges(simpleChangs: SimpleChanges) {

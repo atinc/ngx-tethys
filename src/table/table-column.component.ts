@@ -20,6 +20,8 @@ export interface IThyTableColumnParentComponent {
  */
 export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableColumnParentComponent>('THY_TABLE_COLUMN_PARENT_COMPONENT');
 
+export type FixedDirection = 'left' | 'right';
+
 @Component({
     selector: 'thy-grid-column,thy-table-column',
     template: '<ng-content></ng-content>',
@@ -58,6 +60,8 @@ export class ThyTableColumnComponent implements OnInit {
 
     @Input() thyExpand = false;
 
+    @Input() thyFixed: FixedDirection;
+
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
     @ContentChild('cell', { static: true }) cellTemplateRef: TemplateRef<any>;
@@ -95,6 +99,12 @@ export class ThyTableColumnComponent implements OnInit {
 
     public expand = false;
 
+    public fixed: FixedDirection;
+
+    public left: number;
+
+    public right: number;
+
     constructor(
         private el: ElementRef,
         @Optional()
@@ -114,6 +124,7 @@ export class ThyTableColumnComponent implements OnInit {
         this.defaultText = this.thyDefaultText;
         this._firstChange = false;
         this.expand = this.thyExpand;
+        this.fixed = this.thyFixed;
     }
 
     private _generateKey() {
