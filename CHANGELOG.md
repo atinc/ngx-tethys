@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.22](https://github.com/atinc/ngx-tethys/compare/12.1.21...12.1.22) (2022-04-28)
+
+
+### Bug Fixes
+
+* **label:** fix the height of label with icon #INFR-3007 ([#1617](https://github.com/atinc/ngx-tethys/issues/1617)) ([d289542](https://github.com/atinc/ngx-tethys/commit/d2895427b0ad5321e91e14b041d0d84dbec834d7)), closes [#INFR-3007](https://github.com/atinc/ngx-tethys/issues/INFR-3007)
+* **tree:** #INFR-3001 开启虚拟滚动后，原先 tree-node 样式失效，样式调整 ([#1619](https://github.com/atinc/ngx-tethys/issues/1619)) ([bf7e81e](https://github.com/atinc/ngx-tethys/commit/bf7e81e92ab60f2f8663ae9a65ca849f71ecbdf4)), closes [#INFR-3001](https://github.com/atinc/ngx-tethys/issues/INFR-3001)
+* **tree-select:** delete tree select option icon line-height and use flex ([6ab3e30](https://github.com/atinc/ngx-tethys/commit/6ab3e304b3407dff1b1c33fd08b431ba7e8229e2))
+* **tree-select:** fix icon and text align style error #INFR-3004 ([846a4ef](https://github.com/atinc/ngx-tethys/commit/846a4efb404db3cbc6655deac952b8dc49abf3f3)), closes [#INFR-3004](https://github.com/atinc/ngx-tethys/issues/INFR-3004)
+
+
+### Features
+
+* **autocomplete:** supports use with input-search #INFR-2992 ([#1612](https://github.com/atinc/ngx-tethys/issues/1612)) ([ad46721](https://github.com/atinc/ngx-tethys/commit/ad46721061029d3b97794f11d61776f1bc1b571b)), closes [#INFR-2992](https://github.com/atinc/ngx-tethys/issues/INFR-2992)
+* **table:** add fixed column to table(#INFR-2933) ([#1609](https://github.com/atinc/ngx-tethys/issues/1609)) ([b88d2cf](https://github.com/atinc/ngx-tethys/commit/b88d2cffaf4f35c85ccc2a4bdd5aa9032d6377c5)), closes [#INFR-2933](https://github.com/atinc/ngx-tethys/issues/INFR-2933)
+
+
+
 <a name="12.1.21"></a>
 ## [12.1.21](https://github.com/atinc/ngx-tethys/compare/12.1.20...12.1.21) (2022-04-27)
 
