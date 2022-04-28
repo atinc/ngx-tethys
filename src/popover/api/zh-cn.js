@@ -184,6 +184,12 @@ module.exports = [
                 description: '关闭延迟毫秒',
                 type: 'number',
                 default: '0'
+            },
+            {
+                name: 'thyAutoAdaptive',
+                description: '是否开启异步加载内容后更新位置',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }
