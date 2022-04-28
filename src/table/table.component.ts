@@ -374,7 +374,7 @@ export class ThyTableComponent extends _MixinBase
                 title: component.title,
                 type: component.type,
                 selections: selections,
-                width: this.buildColumnWidth(component.width) + 'px',
+                width: parseInt(component.width.toString()) + 'px',
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
