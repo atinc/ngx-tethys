@@ -436,18 +436,13 @@ describe(`thyPopover`, () => {
         }));
 
         it('should update position when autoAdaptive is true', done => {
-            let info = 'unexecuted';
             const popoverRef = popover.open(PopoverSimpleContentComponent, {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin,
                 autoAdaptive: true,
                 placement: 'top'
             });
             const popoverContainerElement = getPopoverContainerElement();
-            const spy = jasmine.createSpy('spy');
-            popoverRef.containerInstance.updatePosition.subscribe(() => {
-                spy();
-                info = 'executed';
-            });
+            const spyUpdatePosition = spyOn(popoverRef, 'updatePosition');
 
             popoverRef.componentInstance.updateContent();
             viewContainerFixture.detectChanges();
@@ -459,10 +454,9 @@ describe(`thyPopover`, () => {
 
             viewContainerFixture.detectChanges();
             setTimeout(() => {
-                expect(spy).toHaveBeenCalled();
-                expect(info).toEqual('executed');
+                expect(spyUpdatePosition).toHaveBeenCalled();
                 done();
-            }, 250);
+            }, 0);
         });
     });
 
