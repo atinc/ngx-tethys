@@ -98,7 +98,7 @@ module.exports = [
             },
             {
                 name: 'autoAdaptive',
-                description: '是否开启异步加载内容后更新位置',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
                 type: 'boolean',
                 default: 'false'
             },
@@ -187,7 +187,7 @@ module.exports = [
             },
             {
                 name: 'thyAutoAdaptive',
-                description: '是否开启异步加载内容后更新位置',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
                 type: 'boolean',
                 default: 'false'
             }

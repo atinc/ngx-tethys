@@ -1,24 +1,6 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Placement">
-    <thy-select name="size" [(ngModel)]="config.placement" name="placement">
-      <option value="top">top</option>
-      <option value="topLeft">topLeft</option>
-      <option value="topRight">topRight</option>
-      <option value="bottom">bottom</option>
-      <option value="bottomLeft">bottomLeft</option>
-      <option value="bottomRight">bottomRight</option>
-      <option value="left">left</option>
-      <option value="leftTop">leftTop</option>
-      <option value="leftBottom">leftBottom</option>
-      <option value="right">right</option>
-      <option value="rightTop">rightTop</option>
-      <option value="rightBottom">rightBottom</option>
-    </thy-select>
-  </thy-form-group>
-</form>
 <div class="demo-buttons d-flex mt-3">
   <button thyButton="secondary" thySize="md" (click)="openPopoverAsyncFetchData($event)">
-    Async Fetch Data
+    Open
   </button>
   <button
     thyButton="primary"
@@ -27,6 +9,6 @@
     [thyConfig]="config"
     [thyAutoAdaptive]="true"
   >
-    autoAdaptive directive
+    Open directive
   </button>
 </div>
