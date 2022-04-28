@@ -8,8 +8,16 @@ import { FormsModule } from '@angular/forms';
 import { ThyPopoverBasicExampleComponent } from './basic/basic.component';
 import { ThyPopoverBasicContentComponent } from './basic/popover-content.component';
 import { ThyPopoverDirectiveExampleComponent } from './directive/directive.component';
+import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-adaptive-content.component';
+import { ThyPopoverAutoAdaptiveExampleComponent } from './auto-adaptive/auto-adaptive.component';
 
-const COMPONENTS = [ThyPopoverBasicContentComponent, ThyPopoverBasicExampleComponent, ThyPopoverDirectiveExampleComponent];
+const COMPONENTS = [
+    ThyPopoverBasicContentComponent,
+    ThyPopoverBasicExampleComponent,
+    ThyPopoverDirectiveExampleComponent,
+    ThyPopoverAutoAdaptiveContentComponent,
+    ThyPopoverAutoAdaptiveExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,

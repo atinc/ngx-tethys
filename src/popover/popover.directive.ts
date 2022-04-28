@@ -41,7 +41,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input('thyHideDelay') hideDelay = 0;
 
-    @Input() autoAdaptive = false;
+    @Input() thyAutoAdaptive = false;
 
     private popoverRef: ThyPopoverRef<any>;
 
@@ -68,7 +68,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
                 viewContainerRef: this.viewContainerRef,
                 placement: this.thyPlacement,
                 offset: this.thyOffset,
-                autoAdaptive: this.autoAdaptive
+                autoAdaptive: this.thyAutoAdaptive
             },
             this.thyConfig
         );

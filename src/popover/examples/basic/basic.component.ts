@@ -27,18 +27,6 @@ export class ThyPopoverBasicExampleComponent implements OnInit {
         });
     }
 
-    openPopoverAsyncFetchData(event: Event) {
-        this.thyPopover.open(ThyPopoverBasicContentComponent, {
-            ...this.config,
-            autoAdaptive: true,
-            origin: event.currentTarget as HTMLElement,
-            panelClass: 'demo-popover',
-            initialState: {
-                isAsync: true
-            }
-        });
-    }
-
     openPopoverOutsideClosable(event: Event) {
         this.thyPopover.open(ThyPopoverBasicContentComponent, {
             ...this.config,

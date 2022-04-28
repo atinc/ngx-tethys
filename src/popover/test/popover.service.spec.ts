@@ -1,9 +1,21 @@
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Directive,
+    ElementRef,
+    Injector,
+    NgModule,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { doesNotReject } from 'assert';
 
 import { isArray, isUndefinedOrNull } from '../../util';
 import { ThyPopoverModule } from '../module';
@@ -79,13 +91,16 @@ class WithChildViewContainerComponent {
         </div>
     `
 })
-export class PopoverSimpleContentComponent implements OnInit {
+export class PopoverSimpleContentComponent {
     demos: number[];
-    constructor(public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>, public popoverInjector: Injector) {}
-    ngOnInit() {
-        setTimeout(() => {
-            this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
-        }, 100);
+    constructor(
+        public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
+        public popoverInjector: Injector,
+        private cdr: ChangeDetectorRef
+    ) {}
+    updateContent() {
+        this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+        this.cdr.detectChanges();
     }
 }
 
@@ -420,19 +435,35 @@ describe(`thyPopover`, () => {
             expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
         }));
 
-        it('should update position when autoAdaptive is true', fakeAsync(() => {
+        it('should update position when autoAdaptive is true', done => {
+            let info = '未执行';
             const popoverRef = popover.open(PopoverSimpleContentComponent, {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin,
-                autoAdaptive: true
+                autoAdaptive: true,
+                placement: 'top'
+            });
+            const spy = jasmine.createSpy('spy');
+            const popoverContainerElement = getPopoverContainerElement();
+            popoverRef.containerInstance.updatePosition.subscribe(() => {
+                spy();
+                info = '执行';
             });
 
+            popoverRef.componentInstance.updateContent();
             viewContainerFixture.detectChanges();
-            const element = getPopoverContainerElement() as HTMLElement;
-            tick(1000);
-            flush();
-            expect(element.querySelector('li')).toBeTruthy();
-            expect(popoverRef.updatePosition()).toBeTruthy();
-        }));
+
+            const ul = popoverContainerElement.querySelector('ul');
+            const li = document.createElement('li');
+            li.innerHTML = `<a href="javascript:;"><span thyActionMenuItemName>图标test</span></a>`;
+            ul.appendChild(li);
+
+            viewContainerFixture.detectChanges();
+            setTimeout(() => {
+                expect(spy).toHaveBeenCalled();
+                expect(info).toEqual('执行');
+                done();
+            }, 250);
+        });
     });
 
     describe('manualClosure', () => {
