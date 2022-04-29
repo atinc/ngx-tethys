@@ -1,7 +1,11 @@
-<div class="thy-table-body thy-table-fixed thy-table-scroll-left">
+<div class="thy-table-body thy-table-fixed">
   <table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
     <colgroup>
-      <col *ngFor="let column of columns" [style.width]="column.width" [style.minWidth]="column.width" />
+      <col
+        *ngFor="let column of columns"
+        [width]="column.width"
+        [style.minWidth]="hasFixed ? buildColumnWidth(column.width) + 'px' : null"
+      />
     </colgroup>
 
     <thead *ngIf="thyShowHeader">
@@ -187,39 +191,39 @@
       </ng-template>
     </tbody>
   </table>
-</div>
 
-<div *ngIf="loadingDone && model.length === 0 && groups.length === 0" class="thy-table-empty clear-hover">
-  <ng-container *ngIf="emptyTemplate; else defaultEmpty">
-    <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
-  </ng-container>
-  <ng-template #defaultEmpty>
-    <thy-empty
-      [thyMessage]="emptyOptions.message"
-      [thyTranslationKey]="emptyOptions.translationKey"
-      [thyTranslationValues]="emptyOptions.translationValues"
-      [thyEntityName]="emptyOptions.entityName"
-      [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
-      [thyIconName]="emptyOptions.iconName"
-      [thySize]="emptyOptions.size"
-      [thyMarginTop]="emptyOptions.marginTop"
-      [thyTopAuto]="emptyOptions.topAuto"
-      [thyContainer]="emptyOptions.container"
-    ></thy-empty>
-  </ng-template>
-</div>
+  <div *ngIf="loadingDone && model.length === 0 && groups.length === 0" class="thy-table-empty clear-hover">
+    <ng-container *ngIf="emptyTemplate; else defaultEmpty">
+      <ng-template [ngTemplateOutlet]="emptyTemplate"></ng-template>
+    </ng-container>
+    <ng-template #defaultEmpty>
+      <thy-empty
+        [thyMessage]="emptyOptions.message"
+        [thyTranslationKey]="emptyOptions.translationKey"
+        [thyTranslationValues]="emptyOptions.translationValues"
+        [thyEntityName]="emptyOptions.entityName"
+        [thyEntityNameTranslateKey]="emptyOptions.entityNameTranslateKey"
+        [thyIconName]="emptyOptions.iconName"
+        [thySize]="emptyOptions.size"
+        [thyMarginTop]="emptyOptions.marginTop"
+        [thyTopAuto]="emptyOptions.topAuto"
+        [thyContainer]="emptyOptions.container"
+      ></thy-empty>
+    </ng-template>
+  </div>
 
-<thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
+  <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
 
-<div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
-  <thy-pagination
-    [thyPageIndex]="pagination.index"
-    [thyTotal]="pagination.total"
-    [thyPageSize]="pagination.size"
-    [thyShowTotal]="showTotal"
-    (thyPageChanged)="onPageChange($event)"
-    (thyPageIndexChange)="onPageIndexChange($event)"
-  ></thy-pagination>
+  <div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
+    <thy-pagination
+      [thyPageIndex]="pagination.index"
+      [thyTotal]="pagination.total"
+      [thyPageSize]="pagination.size"
+      [thyShowTotal]="showTotal"
+      (thyPageChanged)="onPageChange($event)"
+      (thyPageIndexChange)="onPageIndexChange($event)"
+    ></thy-pagination>
+  </div>
 </div>
 
 <ng-template>

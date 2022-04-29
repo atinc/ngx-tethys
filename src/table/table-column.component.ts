@@ -15,6 +15,8 @@ export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
 }
 
+export const DEFAULT_COLUMN_WIDTH = 80;
+
 /**
  * Injection token used to provide the parent component to options.
  */
@@ -105,6 +107,8 @@ export class ThyTableColumnComponent implements OnInit {
 
     public right: number;
 
+    public minWidth: string | number;
+
     constructor(
         private el: ElementRef,
         @Optional()
@@ -117,7 +121,7 @@ export class ThyTableColumnComponent implements OnInit {
         this.model = this.thyModelKey;
         this.title = this.thyTitle;
         this.type = this.thyType;
-        this.width = this.thyWidth;
+        this.width = this.thyWidth || DEFAULT_COLUMN_WIDTH;
         this.className = this.thyClassName;
         this.headerClassName = this.thyHeaderClassName;
         this.disabled = this.thyDisabled;
