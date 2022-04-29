@@ -28,7 +28,7 @@ export class ThyLabelComponent {
 
     @HostBinding('class.thy-label--lg') _classNameLG = false;
 
-    @HostBinding('class.thy-label--maxLg') _classNameXLG = false;
+    @HostBinding('class.thy-label--xlg') _classNameXLG = false;
 
     // 字体前缀，默认 wtf
     @Input() thyIconPrefix: string;

@@ -278,7 +278,6 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     removeHandle(item: SelectOptionBase, $event: Event) {
-        console.log('===removeHandle===');
         this.thyOnRemove.emit({ item: item, $eventOrigin: $event });
     }
 
