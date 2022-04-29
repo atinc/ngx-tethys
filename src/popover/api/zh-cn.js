@@ -97,6 +97,12 @@ module.exports = [
                 default: 'true'
             },
             {
+                name: 'autoAdaptive',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
                 name: 'viewContainerRef',
                 description: '当前的组件的 viewContainerRef, 指定后弹出的组件的父注入器为当前组件的注入器',
                 type: 'ViewContainerRef',
@@ -178,6 +184,12 @@ module.exports = [
                 description: '关闭延迟毫秒',
                 type: 'number',
                 default: '0'
+            },
+            {
+                name: 'thyAutoAdaptive',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }
