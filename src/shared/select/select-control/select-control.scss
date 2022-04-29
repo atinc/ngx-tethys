@@ -34,7 +34,7 @@
         ul {
             width: 100%;
             margin: 0;
-            padding: 0 6px 0 0;
+            padding: 0;
             list-style: none;
             &::after {
                 display: block;
@@ -95,7 +95,7 @@
     }
     .choice {
         float: left;
-        max-width: 100%;
+        max-width: 97%;
         margin-right: 6px;
         color: variables.$gray-800;
         cursor: default;
@@ -103,7 +103,6 @@
             color: variables.$gray-600;
         }
         &.thy-label--sm {
-            // select是sm时，label的高度是20px，search-input的高度是22px，导致label上下不居中
             margin-top: 1px;
         }
         .thy-icon-close {
