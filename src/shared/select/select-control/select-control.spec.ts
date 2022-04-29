@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, flush } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';

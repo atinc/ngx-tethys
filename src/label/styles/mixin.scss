@@ -32,7 +32,12 @@
 }
 
 @mixin label-size($size, $padding, $minusValue: 0px) {
-    @if $size == lg {
+    @if $size == maxLg {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
+            font-size: variables.$font-size-lg;
+        }
+    } @else if $size == lg {
         &--#{$size} {
             padding: #{$padding - $minusValue} 10px;
             font-size: variables.$font-size-base;
