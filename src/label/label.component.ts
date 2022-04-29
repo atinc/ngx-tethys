@@ -4,7 +4,7 @@ import { helpers } from 'ngx-tethys/util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
-export type ThyLabelTypeSize = 'sm' | 'default' | 'md' | 'lg' | 'maxLg';
+export type ThyLabelTypeSize = 'sm' | 'default' | 'md' | 'lg' | 'xlg';
 
 const labelTypeClassesMap = {
     default: ['thy-label', 'thy-label-default'],
@@ -28,7 +28,7 @@ export class ThyLabelComponent {
 
     @HostBinding('class.thy-label--lg') _classNameLG = false;
 
-    @HostBinding('class.thy-label--maxLg') _classNameMaxLG = false;
+    @HostBinding('class.thy-label--maxLg') _classNameXLG = false;
 
     // 字体前缀，默认 wtf
     @Input() thyIconPrefix: string;
@@ -38,7 +38,7 @@ export class ThyLabelComponent {
         this._classNameSM = value === 'sm';
         this._classNameDM = value === 'md';
         this._classNameLG = value === 'lg';
-        this._classNameMaxLG = value === 'maxLg';
+        this._classNameXLG = value === 'xlg';
     }
 
     private nativeElement: HTMLElement;

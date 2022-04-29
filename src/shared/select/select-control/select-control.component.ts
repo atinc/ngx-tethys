@@ -145,7 +145,7 @@ export class ThySelectControlComponent implements OnInit {
         } else if (value === 'md') {
             this.labelSize = 'default';
         } else if (value === 'lg') {
-            this.labelSize = 'maxLg';
+            this.labelSize = 'xlg';
         } else {
             this.labelSize = 'default';
         }
@@ -278,6 +278,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     removeHandle(item: SelectOptionBase, $event: Event) {
+        console.log('===removeHandle===');
         this.thyOnRemove.emit({ item: item, $eventOrigin: $event });
     }
 
