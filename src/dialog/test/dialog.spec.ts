@@ -1,19 +1,17 @@
-import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
-import { of } from 'rxjs';
-import { map } from 'rxjs/operators';
-
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import { ViewContainerRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { bypassSanitizeProvider, dispatchKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { of } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { A, ESCAPE } from '../../util/keycodes';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { ThyDialogRef } from '../dialog-ref';
 import { ThyDialogSizes } from '../dialog.config';
-import { THY_CONFIRM_DEFAULT_OPTIONS, ThyDialog, ThyDialogModule } from '../index';
+import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
 import {
     DialogFullContentComponent,
     DialogSimpleContentComponent,
@@ -24,6 +22,8 @@ import {
     WithTemplateRefComponent,
     WithViewContainerDirective
 } from './module';
+
+
 
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
@@ -1174,7 +1174,7 @@ describe('ThyDialog', () => {
                 });
                 viewContainerFixture.detectChanges();
                 expect(getConfirmElements().headerTitle.textContent).toBe('全局定义标题');
-                expect(getConfirmElements().okButton.textContent).toBe('确认');
+                expect(getConfirmElements().okButton.textContent).toBe('确定');
                 expect(getConfirmElements().cancelButton.textContent).toBe('取消');
                 expect(getConfirmElements().okButton.classList.contains('btn-danger')).toBeTruthy();
                 expect(getConfirmElements().confirmFooter.classList.contains('thy-confirm-footer-left'));
