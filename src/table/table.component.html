@@ -1,4 +1,4 @@
-<div class="thy-table-body thy-table-fixed">
+<div class="thy-table-body" [ngClass]="{ 'thy-table-fixed': hasFixed }">
   <table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
     <colgroup>
       <col
