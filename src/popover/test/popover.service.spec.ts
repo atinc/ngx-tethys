@@ -1,3 +1,4 @@
+import { ContentObserver } from '@angular/cdk/observers';
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
@@ -16,6 +17,7 @@ import {
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { doesNotReject } from 'assert';
+import { Subject } from 'rxjs';
 
 import { isArray, isUndefinedOrNull } from '../../util';
 import { ThyPopoverModule } from '../module';
@@ -435,29 +437,31 @@ describe(`thyPopover`, () => {
             expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
         }));
 
-        it('should update position when autoAdaptive is true', done => {
+        it('should update position when autoAdaptive is true', fakeAsync(() => {
+            const contentObserver = TestBed.inject(ContentObserver);
+            const observeSubject = new Subject();
+            let containerElementRef: ElementRef<HTMLElement> = null;
+            spyOn(contentObserver, 'observe').and.callFake((_containerElementRef: ElementRef<HTMLElement>) => {
+                containerElementRef = _containerElementRef;
+                return observeSubject;
+            });
+
+            expect(containerElementRef).toBeFalsy();
             const popoverRef = popover.open(PopoverSimpleContentComponent, {
                 origin: viewContainerFixture.componentInstance.openPopoverOrigin,
                 autoAdaptive: true,
                 placement: 'top'
             });
-            const popoverContainerElement = getPopoverContainerElement();
+            viewContainerFixture.detectChanges();
+            expect(containerElementRef).toBeTruthy();
+            expect(containerElementRef.nativeElement.classList.contains('thy-popover-container')).toBeTruthy();
             const spyUpdatePosition = spyOn(popoverRef, 'updatePosition');
-
-            popoverRef.componentInstance.updateContent();
-            viewContainerFixture.detectChanges();
-
-            const ul = popoverContainerElement.querySelector('ul');
-            const li = document.createElement('li');
-            li.innerHTML = `<a href="javascript:;"><span thyActionMenuItemName>图标test</span></a>`;
-            ul.appendChild(li);
-
-            viewContainerFixture.detectChanges();
-            setTimeout(() => {
-                expect(spyUpdatePosition).toHaveBeenCalled();
-                done();
-            }, 0);
-        });
+            expect(spyUpdatePosition).not.toHaveBeenCalled();
+            // Need mock content observe change because MutationObserver not patched by zone.js in fakeAsync
+            // detail issue: https://github.com/angular/angular/issues/31695
+            observeSubject.next();
+            expect(spyUpdatePosition).toHaveBeenCalled();
+        }));
     });
 
     describe('manualClosure', () => {
