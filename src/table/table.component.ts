@@ -10,6 +10,7 @@ import { ViewportRuler } from '@angular/cdk/overlay';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import {
     AfterViewInit,
+    ChangeDetectorRef,
     Component,
     ContentChild,
     ContentChildren,
@@ -150,6 +151,8 @@ export class ThyTableComponent extends _MixinBase
     public wholeRowSelect = false;
 
     public fixedDirection = ThyFixedDirection;
+
+    public hasFixed = false;
 
     private _diff: IterableDiffer<any>;
 
@@ -322,6 +325,9 @@ export class ThyTableComponent extends _MixinBase
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
         if (components) {
             this._listOfColumnComponents = components;
+            this.hasFixed = !!this._listOfColumnComponents.find(item => {
+                return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
+            });
             this._initializeColumns();
             this._initializeDataModel();
         }
@@ -332,6 +338,10 @@ export class ThyTableComponent extends _MixinBase
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
 
+    public buildColumnWidth = (width: string | number) => {
+        return Number(width.toString().split('px')[0]);
+    };
+
     constructor(
         public elementRef: ElementRef,
         private _differs: IterableDiffers,
@@ -340,7 +350,8 @@ export class ThyTableComponent extends _MixinBase
         @Inject(DOCUMENT) private document: any,
         @Inject(PLATFORM_ID) private platformId: string,
         private ngZone: NgZone,
-        private renderer: Renderer2
+        private renderer: Renderer2,
+        private cdr: ChangeDetectorRef
     ) {
         super();
         this._bindTrackFn();
@@ -374,7 +385,7 @@ export class ThyTableComponent extends _MixinBase
                 title: component.title,
                 type: component.type,
                 selections: selections,
-                width: parseInt(component.width.toString()) + 'px',
+                width: component.width,
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
@@ -399,10 +410,6 @@ export class ThyTableComponent extends _MixinBase
             columnsMap[value.key].right = rightIncrease;
             rightIncrease = rightIncrease + this.buildColumnWidth(value.width);
         });
-    }
-
-    private buildColumnWidth(width: string | number) {
-        return Number(width.toString().split('px')[0]);
     }
 
     private _initializeDataModel() {
@@ -721,6 +728,8 @@ export class ThyTableComponent extends _MixinBase
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this._refreshColumns();
+                this.updateScrollClass();
+                this.cdr.detectChanges();
             });
 
         this.ngZone.runOutsideAngular(() => {
