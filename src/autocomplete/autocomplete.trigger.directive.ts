@@ -71,6 +71,8 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
+    @Input() thyIsFocusOpen = true;
+
     get activeOption(): ThyOptionComponent | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {
             return this.autocompleteComponent.keyManager.activeItem;
@@ -105,7 +107,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     ngOnInit(): void {}
 
     onFocus() {
-        if (this.canOpen()) {
+        if (this.canOpen() && this.thyIsFocusOpen) {
             this.openPanel();
         }
     }

@@ -45,6 +45,12 @@ module.exports = [
                 description: `下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
                 type: 'string',
                 default: 'bottomLeft'
+            },
+            {
+                name: 'thyIsFocusOpen',
+                description: '是否允许聚焦时打开下拉菜单',
+                type: 'boolean',
+                default: 'true'
             }
         ]
     },
