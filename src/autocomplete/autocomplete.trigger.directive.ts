@@ -71,6 +71,8 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
+    @Input() thyCanOpen = true;
+
     get activeOption(): ThyOptionComponent | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {
             return this.autocompleteComponent.keyManager.activeItem;
@@ -277,7 +279,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     private canOpen(): boolean {
         const element: HTMLInputElement = this.elementRef.nativeElement;
-        return !element.readOnly && !element.disabled;
+        return !element.readOnly && !element.disabled && this.thyCanOpen;
     }
 
     private resetActiveItem(): void {

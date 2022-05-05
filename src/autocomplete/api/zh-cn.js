@@ -45,6 +45,12 @@ module.exports = [
                 description: `下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
                 type: 'string',
                 default: 'bottomLeft'
+            },
+            {
+                name: 'thyCanOpen',
+                description: '是否可以打开下拉菜单',
+                type: 'boolean',
+                default: 'true'
             }
         ]
     },

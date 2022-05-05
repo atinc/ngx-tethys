@@ -69,6 +69,7 @@ class BasicSelectComponent {
                 thyAutocompleteTrigger
                 [(ngModel)]="value"
                 [thyAutocompleteComponent]="auto"
+                [thyCanOpen]="thyCanOpen"
                 (ngModelChange)="valueChange($event)"
             ></thy-input-search>
             <thy-autocomplete #auto>
@@ -80,15 +81,18 @@ class BasicSelectComponent {
 class InputSearchSelectComponent {
     value = '';
 
+    thyCanOpen = true;
+
     foods: { value: string; viewValue: string }[] = [
         { value: 'steak-0', viewValue: 'Steak' },
         { value: 'pizza-1', viewValue: 'Pizza' }
     ];
+
     @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
-describe('ThyAutocomplete', () => {
+fdescribe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
@@ -220,6 +224,19 @@ describe('ThyAutocomplete', () => {
                 flush();
                 expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
                 expect(debugSearchElement.nativeElement.querySelector('input').value).toEqual('Steak');
+                fixture.detectChanges();
+                tick(100);
+            }));
+
+            it('should disable autocomplete open', fakeAsync(() => {
+                fixture.componentInstance.thyCanOpen = false;
+                fixture.detectChanges();
+                tick(100);
+
+                dispatchFakeEvent(debugSearchElement.nativeElement, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+                expect(overlayContainerElement.querySelector('.thy-autocomplete-container')).toBeNull();
             }));
         });
     });
