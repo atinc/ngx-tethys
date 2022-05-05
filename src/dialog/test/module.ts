@@ -1,17 +1,17 @@
-import { ThyDialogModule, ThyDialogRef } from '../';
+import { Directionality } from '@angular/cdk/bidi';
 import {
-    NgModule,
-    ViewChild,
-    TemplateRef,
+    ChangeDetectionStrategy,
     Component,
     Directive,
-    ViewContainerRef,
     Injector,
+    NgModule,
     OnInit,
-    ChangeDetectionStrategy
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Directionality } from '@angular/cdk/bidi';
+import { ThyDialogModule, ThyDialogRef } from '../';
 
 // simple dialog component
 @Component({
@@ -37,7 +37,7 @@ export class DialogSimpleContentComponent {
             <p>dialog body</p>
         </thy-dialog-body>
         <thy-dialog-footer thyDivided="true">
-            <button thyButton="primary" (click)="ok()">确认</button>
+            <button thyButton="primary" (click)="ok()">确定</button>
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
     `

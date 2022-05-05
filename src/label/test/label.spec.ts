@@ -1,6 +1,6 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyLabelModule } from '../label.module';
-import { NgModule, Component } from '@angular/core';
+import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyLabelComponent } from '../label.component';
 import { dispatchFakeEvent } from '../../testing';
@@ -8,7 +8,7 @@ import { dispatchFakeEvent } from '../../testing';
 describe('ThyLabel', () => {
     let fixture: ComponentFixture<ThyDemoLabelBasicComponent>;
     let basicTestComponent: ThyDemoLabelBasicComponent;
-    let labelComponent;
+    let labelComponent: DebugElement;
 
     const sizes = ['sm', 'md', 'lg'];
     const types = ['state', 'pill'];

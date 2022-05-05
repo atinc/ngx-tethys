@@ -148,7 +148,7 @@ class YourDialogComponent {
     <p>dialog body</p>
 </thy-dialog-body>
 <thy-dialog-footer>
-    <button thyButton="primary" (click)="thyDialog.close()">确认</button>
+    <button thyButton="primary" (click)="thyDialog.close()">确定</button>
     <button thyButton="link-secondary" (click)="thyDialog.close()">关闭</button>
     <ng-template #description>
       <span class="text-desc">当前打开的是一个对话框</span>
@@ -185,7 +185,7 @@ Confirm对话框的默认选项可以通过在应用根模块中为`THY_CONFIRM_
 ```ts
 const DEFAULT_OPTIONS = {
   title: '确认删除',
-  okText: '确认',
+  okText: '确定',
   okType: 'danger',
   cancelText: '取消',
   footerAlign: 'left'
