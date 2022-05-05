@@ -932,10 +932,4 @@ describe('ThyTable: fixed', () => {
         fixture.detectChanges();
         expect(tableComponent.query(By.css('.thy-table-fixed-column-right'))).toBeTruthy();
     });
-
-    it('should be scroll fixed column', () => {
-        tableComponent.componentInstance.hasFixed = true;
-        fixture.detectChanges();
-        expect(tableComponent.query(By.css('.thy-table-scroll-left'))).toBeTruthy();
-    });
 });
