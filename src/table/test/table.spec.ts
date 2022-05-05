@@ -875,3 +875,67 @@ describe('ThyTable: empty', () => {
         expect(tableComponent.query(By.css('.custom-empty'))).toBeTruthy();
     });
 });
+
+@Component({
+    selector: 'thy-demo-fixed-table',
+    template: `
+        <thy-table [thyModel]="data" thyRowKey="id">
+            <thy-table-column thyTitle="Id" thyModelKey="id" [thyWidth]="'100px'" [thyFixed]="fixedLeft"></thy-table-column>
+            <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="500" [thyFixed]="fixedLeft"></thy-table-column>
+            <thy-table-column thyTitle="Age" thyModelKey="age" [thyWidth]="'500px'"></thy-table-column>
+            <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'"> </thy-table-column>
+            <thy-table-column thyTitle="Address" thyModelKey="address" [thyWidth]="500"></thy-table-column>
+            <thy-table-column thyTitle="Job" thyModelKey="job" [thyWidth]="'300px'" [thyFixed]="fixedRight"></thy-table-column>
+        </thy-table>
+    `
+})
+class ThyDemoFixedTableComponent {
+    fixedLeft = 'left';
+    fixedRight = '';
+}
+
+describe('ThyTable: fixed', () => {
+    let fixture: ComponentFixture<ThyDemoFixedTableComponent>;
+    let testComponent: ThyDemoFixedTableComponent;
+    let tableComponent: DebugElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyTableModule],
+            declarations: [ThyDemoFixedTableComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoFixedTableComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+    });
+
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
+    });
+
+    it('should be classes when fixed the left column', () => {
+        tableComponent.componentInstance.hasFixed = true;
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-fixed'))).toBeTruthy();
+        testComponent.fixedLeft = 'left';
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-fixed-column-left'))).toBeTruthy();
+    });
+
+    it('should be right classes fixed the right column', () => {
+        tableComponent.componentInstance.hasFixed = true;
+        testComponent.fixedRight = 'right';
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-fixed-column-right'))).toBeTruthy();
+    });
+
+    it('should be scroll fixed column', () => {
+        tableComponent.componentInstance.hasFixed = true;
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-scroll-left'))).toBeTruthy();
+    });
+});
