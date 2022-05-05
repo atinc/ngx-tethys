@@ -1,7 +1,6 @@
 @use "../../styles/variables";
 
 @mixin select-control-size($input-height, $input-padding-y) {
-    // min-height: $input-height;
     .select-control-rendered {
         margin-top: $input-padding-y;
         .text-placeholder,
@@ -11,19 +10,6 @@
         .choice,
         .select-control-search {
             margin-bottom: $input-padding-y;
-        }
-    }
-}
-
-@mixin select-label-size($label-height, $font-size) {
-    .select-control-rendered {
-        .choice,
-        .select-control-search {
-            .choice-content {
-                height: $label-height;
-                line-height: $label-height;
-                font-size: $font-size !important;
-            }
         }
     }
 }

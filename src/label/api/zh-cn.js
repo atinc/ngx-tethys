@@ -11,7 +11,7 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '标签大小，目前可传：sm | default | md | lg, 默认为 default',
+                description: '标签大小，目前可传：sm | default | md | lg | xlg, 默认为 default',
                 type: 'String',
                 default: 'default'
             },

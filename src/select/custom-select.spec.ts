@@ -1363,12 +1363,12 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const removeIcon = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            const removeIcon = fixture.debugElement.query(By.css('.thy-icon-close'));
             expect(removeIcon).not.toBeNull();
 
             fixture.componentInstance.disabled = true;
             fixture.detectChanges();
-            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove'));
+            const removeIcon2 = fixture.debugElement.query(By.css('.thy-icon-close'));
             const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
             tick();
             expect(choice.classList.contains('disabled')).toBeTruthy();
@@ -1381,7 +1381,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const trigger = fixture.debugElement.query(By.css('.choice-remove')).nativeElement;
+            const trigger = fixture.debugElement.query(By.css('.thy-icon-close')).nativeElement;
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
