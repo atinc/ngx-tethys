@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.23](https://github.com/atinc/ngx-tethys/compare/12.1.22...12.1.23) (2022-05-05)
+
+
+### Bug Fixes
+
+* **table:**  fix tree indent and group padding #INFR-3003 ([0c18d9c](https://github.com/atinc/ngx-tethys/commit/0c18d9ca2de31443b1da05fbd5b474e0578e4755)), closes [#INFR-3003](https://github.com/atinc/ngx-tethys/issues/INFR-3003)
+
+
+### Features
+
+* **table:** optimization fixed columns to table(#INFR-2933) ([#1623](https://github.com/atinc/ngx-tethys/issues/1623)) ([45bf687](https://github.com/atinc/ngx-tethys/commit/45bf6871d5032c4d3cb525e875b7675ce6cde7c5)), closes [#INFR-2933](https://github.com/atinc/ngx-tethys/issues/INFR-2933) [#INFR-2933](https://github.com/atinc/ngx-tethys/issues/INFR-2933) [#INFR-2933](https://github.com/atinc/ngx-tethys/issues/INFR-2933) [#INFR-3043](https://github.com/atinc/ngx-tethys/issues/INFR-3043) [#INFR-3043](https://github.com/atinc/ngx-tethys/issues/INFR-3043) [#INFR-3043](https://github.com/atinc/ngx-tethys/issues/INFR-3043) [#INFR-3043](https://github.com/atinc/ngx-tethys/issues/INFR-3043)
+* replace '确认' by '确定' (lifei/#INFR-3047) ([#1624](https://github.com/atinc/ngx-tethys/issues/1624)) ([09a0b14](https://github.com/atinc/ngx-tethys/commit/09a0b14f8fb370f55e261e0d31b0dfc6ab982b20)), closes [lifei/#INFR-3047](https://github.com/atinc/ngx-tethys/issues/INFR-3047)
+* **popover:** support autoAdaptive that watch content size and update popover position #INFR-2794 ([#1615](https://github.com/atinc/ngx-tethys/issues/1615)) ([7c2f03c](https://github.com/atinc/ngx-tethys/commit/7c2f03c058cd1ce36f2620d411d1d43a97d5923f)), closes [#INFR-2794](https://github.com/atinc/ngx-tethys/issues/INFR-2794)
+
+
+
 ## [12.1.22](https://github.com/atinc/ngx-tethys/compare/12.1.21...12.1.22) (2022-04-28)
 
 
