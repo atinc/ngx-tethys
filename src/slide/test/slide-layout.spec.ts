@@ -10,7 +10,6 @@ import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component'
 import { ThySlideHeaderComponent } from '../slide-header/slide-header.component';
 import { ThySlideLayoutComponent } from '../slide-layout/slide-layout.component';
 
-
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
         let thySlideService: ThySlideService;

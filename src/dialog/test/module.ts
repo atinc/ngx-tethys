@@ -1,7 +1,14 @@
 import { Directionality } from '@angular/cdk/bidi';
 import {
-    ChangeDetectionStrategy, Component,
-    Directive, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef
+    ChangeDetectionStrategy,
+    Component,
+    Directive,
+    Injector,
+    NgModule,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule, ThyDialogRef } from '../';

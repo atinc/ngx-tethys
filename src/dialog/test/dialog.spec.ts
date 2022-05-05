@@ -23,8 +23,6 @@ import {
     WithViewContainerDirective
 } from './module';
 
-
-
 describe('ThyDialog', () => {
     let dialog: ThyDialog;
     let overlayContainer: OverlayContainer;
