@@ -1,15 +1,14 @@
-import { TestBed, ComponentFixture, fakeAsync, inject, flush, tick } from '@angular/core/testing';
-import { NgModule, Component, DebugElement } from '@angular/core';
-import { By } from '@angular/platform-browser';
-
-import { ThySlideService, ThySlideModule, ThySlideRef, ThySlideContainerComponent } from '../index';
-import { ThySlideLayoutComponent } from '../slide-layout/slide-layout.component';
-import { ThySlideHeaderComponent } from '../slide-header/slide-header.component';
-import { ThySlideBodyComponent } from '../slide-body/slide-body.component';
-import { ThySlideBodySectionComponent } from '../slide-body/slide-body-section.component';
-import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component';
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
+import { Component, DebugElement, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThySlideModule, ThySlideRef, ThySlideService } from '../index';
+import { ThySlideBodySectionComponent } from '../slide-body/slide-body-section.component';
+import { ThySlideBodyComponent } from '../slide-body/slide-body.component';
+import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component';
+import { ThySlideHeaderComponent } from '../slide-header/slide-header.component';
+import { ThySlideLayoutComponent } from '../slide-layout/slide-layout.component';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
@@ -492,7 +491,7 @@ describe('ThySlide', () => {
             footerButton.triggerEventHandler('click', null);
 
             expect(footerButton.nativeElement.classList.contains('btn-block')).toBe(true);
-            expect(footerButton.nativeElement.innerText).toBe('确认');
+            expect(footerButton.nativeElement.innerText).toBe('确定');
             expect(fixture.componentInstance.data).toBe(1);
         }));
     });
@@ -538,7 +537,7 @@ describe('ThySlide', () => {
                 <thy-slide-body-section [thyDividerBorder]="thyDividerBorder">测试body</thy-slide-body-section>
             </thy-slide-body>
             <thy-slide-footer>
-                <button thyButton="primary-square" (click)="save($event)" class="btn-block">确认</button>
+                <button thyButton="primary-square" (click)="save($event)" class="btn-block">确定</button>
             </thy-slide-footer>
         </thy-slide-layout>
     `

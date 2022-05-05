@@ -1,7 +1,6 @@
+import { InjectionToken } from '@angular/core';
 import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
 import { Observable } from 'rxjs';
-
-import { InjectionToken } from '@angular/core';
 
 export interface ThyConfirmConfig {
     title?: string;
@@ -19,7 +18,7 @@ export const THY_CONFIRM_DEFAULT_OPTIONS = new InjectionToken<ThyConfirmConfig>(
 
 export const THY_CONFIRM_DEFAULT_OPTIONS_VALUE = {
     title: '确认删除',
-    okText: '确认',
+    okText: '确定',
     okType: 'danger',
     cancelText: '取消',
     footerAlign: 'left'
