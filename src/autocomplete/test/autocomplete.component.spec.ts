@@ -69,7 +69,7 @@ class BasicSelectComponent {
                 thyAutocompleteTrigger
                 [(ngModel)]="value"
                 [thyAutocompleteComponent]="auto"
-                [thyCanOpen]="thyCanOpen"
+                [thyIsFocusOpen]="isFocusOpen"
                 (ngModelChange)="valueChange($event)"
             ></thy-input-search>
             <thy-autocomplete #auto>
@@ -81,7 +81,7 @@ class BasicSelectComponent {
 class InputSearchSelectComponent {
     value = '';
 
-    thyCanOpen = true;
+    isFocusOpen = true;
 
     foods: { value: string; viewValue: string }[] = [
         { value: 'steak-0', viewValue: 'Steak' },
@@ -92,7 +92,7 @@ class InputSearchSelectComponent {
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
 
-fdescribe('ThyAutocomplete', () => {
+describe('ThyAutocomplete', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
@@ -229,7 +229,7 @@ fdescribe('ThyAutocomplete', () => {
             }));
 
             it('should disable autocomplete open', fakeAsync(() => {
-                fixture.componentInstance.thyCanOpen = false;
+                fixture.componentInstance.isFocusOpen = false;
                 fixture.detectChanges();
                 tick(100);
 

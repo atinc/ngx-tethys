@@ -47,8 +47,8 @@ module.exports = [
                 default: 'bottomLeft'
             },
             {
-                name: 'thyCanOpen',
-                description: '是否可以打开下拉菜单',
+                name: 'thyIsFocusOpen',
+                description: '是否允许聚焦时打开下拉菜单',
                 type: 'boolean',
                 default: 'true'
             }
