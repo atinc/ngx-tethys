@@ -275,7 +275,7 @@ describe(`ThyPopoverDirective`, () => {
             tick(100);
         }));
 
-        it('should disable show popover when `thyDisabled` is set', fakeAsync(() => {
+        it('should not show popover when `thyDisabled = true` is set', fakeAsync(() => {
             fixture.componentInstance.trigger = 'hover';
             fixture.componentInstance.disabled = true;
             fixture.detectChanges();
@@ -289,7 +289,7 @@ describe(`ThyPopoverDirective`, () => {
             tick(100);
         }));
 
-        it('should set `thyDisabled` to disable show popover when in deferred mode', fakeAsync(() => {
+        it('should not be shown popover when `thyDisabled = true` and in deferred mode', fakeAsync(() => {
             fixture.componentInstance.trigger = 'hover';
             fixture.componentInstance.showDelay = 2000;
             fixture.componentInstance.showDelay = 1000;
