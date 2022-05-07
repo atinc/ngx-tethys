@@ -43,7 +43,7 @@ class TestInputSearchBasicComponent {
 })
 export class InputSearchTestModule {}
 
-fdescribe('input search', () => {
+describe('input search', () => {
     let fixture: ComponentFixture<TestInputSearchBasicComponent>;
     let basicTestComponent: TestInputSearchBasicComponent;
     let debugInputElement: DebugElement;
