@@ -29,6 +29,7 @@ class TestInputSearchBasicComponent {
     thySize = 'sm';
     thyTheme = ``;
     disabled = false;
+    _isFocus = false;
     iconPosition: ThyInputSearchIconPosition;
     onClear() {}
 
@@ -42,7 +43,7 @@ class TestInputSearchBasicComponent {
 })
 export class InputSearchTestModule {}
 
-describe('input search', () => {
+fdescribe('input search', () => {
     let fixture: ComponentFixture<TestInputSearchBasicComponent>;
     let basicTestComponent: TestInputSearchBasicComponent;
     let debugInputElement: DebugElement;
@@ -138,6 +139,18 @@ describe('input search', () => {
         closeIcon.click();
         fixture.detectChanges();
         expect(afterClearSpy).toHaveBeenCalled();
+    }));
+
+    it('after clear input should focus', fakeAsync(() => {
+        basicTestComponent.searchText = 'New Text';
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const closeIcon = debugSearchElement.nativeElement.querySelector('.input-append');
+        closeIcon.click();
+        fixture.detectChanges();
+        const inputEle = debugSearchElement.nativeElement.querySelector('input');
+        expect(inputEle === document.activeElement).toBeTruthy();
     }));
 
     it('disabled and dont support clear when disabled', fakeAsync(() => {
