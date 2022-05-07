@@ -104,7 +104,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
                 const overlayRef = this.createOverlay();
                 this.overlayRef = overlayRef;
                 this.popoverOpened = true;
-                this.cdr.markForCheck();
+                this.cdr.detectChanges();
             }
             this.showTimeoutId = null;
         }, delay);
@@ -119,7 +119,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         this.hideTimeoutId = setTimeout(() => {
             if (this.popoverRef) {
                 this.popoverRef.close();
-                this.cdr.markForCheck();
+                this.cdr.detectChanges();
             }
             this.hideTimeoutId = null;
         }, delay);
