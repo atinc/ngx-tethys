@@ -29,7 +29,6 @@ class TestInputSearchBasicComponent {
     thySize = 'sm';
     thyTheme = ``;
     disabled = false;
-    _isFocus = false;
     iconPosition: ThyInputSearchIconPosition;
     onClear() {}
 
