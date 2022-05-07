@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -262,7 +263,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         private renderer: Renderer2,
         private elementRef: ElementRef,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -289,6 +291,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         if (this.options) {
             this._setSelectionByValues(values);
         }
+        this.changeDetectorRef.markForCheck();
     }
 
     registerOnChange(fn: any): void {
