@@ -13,7 +13,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
@@ -43,7 +43,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input() thyAutoAdaptive = false;
 
-    @Input() set thyDisabled(value: boolean) {
+    @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;
     }
 
