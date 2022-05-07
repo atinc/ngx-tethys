@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty, isEmpty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isArray, isEmpty } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
@@ -606,7 +606,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (index < this.activatedOptions.length - 1) {
             this.activatedOptions = this.activatedOptions.slice(0, index + 1);
         }
-        if (option.children && option.children.length) {
+        if (isArray(option.children) && !option.isLeaf) {
             option.isLeaf = false;
             option.children.forEach(child => (child.parent = option));
             this.setColumnData(option.children, index + 1);
