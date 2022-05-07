@@ -43,7 +43,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input() thyAutoAdaptive = false;
 
-    @Input() thyDisabled(value: boolean) {
+    @Input() set thyDisabled(value: boolean) {
         this.disabled = value;
     }
 
