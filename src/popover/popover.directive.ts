@@ -43,6 +43,10 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input() thyAutoAdaptive = false;
 
+    @Input() thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
+
     private popoverRef: ThyPopoverRef<any>;
 
     constructor(
@@ -96,11 +100,13 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         }
 
         this.showTimeoutId = setTimeout(() => {
-            const overlayRef = this.createOverlay();
-            this.overlayRef = overlayRef;
-            this.popoverOpened = true;
+            if (!this.disabled) {
+                const overlayRef = this.createOverlay();
+                this.overlayRef = overlayRef;
+                this.popoverOpened = true;
+                this.cdr.markForCheck();
+            }
             this.showTimeoutId = null;
-            this.cdr.markForCheck();
         }, delay);
     }
 
