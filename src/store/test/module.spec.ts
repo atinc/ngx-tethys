@@ -1,8 +1,7 @@
-import { NgModule, Injector, Injectable } from '@angular/core';
+import { NgModule, Injectable } from '@angular/core';
 import { async, TestBed } from '@angular/core/testing';
 
 import { ThyStoreModule, Store } from '../index';
-import { getInjector } from '../internals/static-injector';
 
 interface RootStateModel {
     foo: string;
@@ -49,15 +48,6 @@ describe('module', () => {
         });
 
         expect(TestBed.inject(RootStore)).toBeTruthy();
-    });
-
-    it('should get correct injector by getInjector', () => {
-        TestBed.configureTestingModule({
-            imports: [RootModule]
-        });
-        const expectedInjector = TestBed.inject(Injector);
-        expect(getInjector()).toEqual(expectedInjector);
-        expect(TestBed.inject(RootStore)).toEqual(getInjector().get(RootStore));
     });
 
     it('should initialize all modules state', async(() => {

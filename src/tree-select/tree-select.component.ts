@@ -153,7 +153,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
-        warnDeprecation('This parameter has been deprecation');
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('This parameter has been deprecation');
+        }
         // if (type === 'especial') {
         //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
         // } else {

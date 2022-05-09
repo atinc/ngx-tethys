@@ -1,15 +1,9 @@
-import { NgModule, ModuleWithProviders, Type, Injector, NgModuleRef } from '@angular/core';
+import { NgModule, ModuleWithProviders, Type } from '@angular/core';
 import { ROOT_STATE_TOKEN, FEATURE_STATE_TOKEN } from './types';
 import { Store } from './store';
-import { clearInjector, setInjector } from './internals/static-injector';
 
 @NgModule()
-export class ThyRootStoreModule {
-    constructor(ngModuleRef: NgModuleRef<any>) {
-        setInjector(ngModuleRef.injector);
-        ngModuleRef.onDestroy(clearInjector);
-    }
-}
+export class ThyRootStoreModule {}
 
 @NgModule()
 export class ThyFeatureStoreModule {}
