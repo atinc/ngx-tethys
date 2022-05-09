@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.25](https://github.com/atinc/ngx-tethys/compare/12.1.24...12.1.25) (2022-05-09)
+
+
+### Features
+
+* **table:** add cdkScrollable to scrollable element  #INFR-3078 ([#1636](https://github.com/atinc/ngx-tethys/issues/1636)) ([263e3da](https://github.com/atinc/ngx-tethys/commit/263e3da9a8d0010cf2740dde7abe44a0195dc5a7)), closes [#INFR-3078](https://github.com/atinc/ngx-tethys/issues/INFR-3078)
+
+
+### Performance Improvements
+
+* tree-shake warnings and errors in production ([2f4bcd6](https://github.com/atinc/ngx-tethys/commit/2f4bcd61589262e0bb4673a204ae51b708b91769))
+
+
+
 <a name="12.1.24"></a>
 ## [12.1.24](https://github.com/atinc/ngx-tethys/compare/12.1.23...12.1.24) (2022-05-09)
 
