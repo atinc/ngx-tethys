@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="12.1.24"></a>
+## [12.1.24](https://github.com/atinc/ngx-tethys/compare/12.1.23...12.1.24) (2022-05-09)
+
+
+### Bug Fixes
+
+* **cascader:** fix empty children still show data #INFR-3059 ([#1628](https://github.com/atinc/ngx-tethys/issues/1628)) ([4f2b190](https://github.com/atinc/ngx-tethys/commit/4f2b190)), closes [#INFR-3059](https://github.com/atinc/ngx-tethys/issues/INFR-3059)
+* **list:** selection-list write value add makeForCheck #INFR-3065 ([#1629](https://github.com/atinc/ngx-tethys/issues/1629)) ([9a4d823](https://github.com/atinc/ngx-tethys/commit/9a4d823)), closes [#INFR-3065](https://github.com/atinc/ngx-tethys/issues/INFR-3065)
+* **popover:** strictly restricted type ([#1632](https://github.com/atinc/ngx-tethys/issues/1632)) ([1068c0d](https://github.com/atinc/ngx-tethys/commit/1068c0d))
+* **popover:** trigger change detection when show/hide, and add `thyDisabled` #INFR-3053 ([e4e1bea](https://github.com/atinc/ngx-tethys/commit/e4e1bea)), closes [#INFR-3053](https://github.com/atinc/ngx-tethys/issues/INFR-3053)
+
+
+### Features
+
+* **input:** input-search after clear focus again ([#1630](https://github.com/atinc/ngx-tethys/issues/1630)) ([f24df53](https://github.com/atinc/ngx-tethys/commit/f24df53))
+
+
+
 ## [12.1.23](https://github.com/atinc/ngx-tethys/compare/12.1.22...12.1.23) (2022-05-05)
 
 
