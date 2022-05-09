@@ -1,4 +1,8 @@
-<div class="thy-table-body" [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }">
+<div
+  class="thy-table-body"
+  cdkScrollable
+  [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }"
+>
   <table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
     <colgroup>
       <col
