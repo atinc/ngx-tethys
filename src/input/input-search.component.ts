@@ -120,6 +120,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     }
 
     clearSearchText(event: Event) {
+        const element = this.elementRef.nativeElement.querySelector('.input-search-control');
+        element.focus();
         event.stopPropagation();
         if (this.disabled) {
             return;

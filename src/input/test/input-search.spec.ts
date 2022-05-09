@@ -140,6 +140,18 @@ describe('input search', () => {
         expect(afterClearSpy).toHaveBeenCalled();
     }));
 
+    it('after clear input should focus', fakeAsync(() => {
+        basicTestComponent.searchText = 'New Text';
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const closeIcon = debugSearchElement.nativeElement.querySelector('.input-append');
+        closeIcon.click();
+        fixture.detectChanges();
+        const inputEle = debugSearchElement.nativeElement.querySelector('input');
+        expect(inputEle === document.activeElement).toBeTruthy();
+    }));
+
     it('disabled and dont support clear when disabled', fakeAsync(() => {
         basicTestComponent.disabled = true;
         fixture.detectChanges();

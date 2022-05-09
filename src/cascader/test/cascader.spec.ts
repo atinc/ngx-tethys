@@ -141,6 +141,34 @@ const multipleOptions = [
     }
 ];
 
+const emptyOptions = [
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        code: 477200,
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        code: 752100,
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'anhui',
+        label: 'anhui',
+        code: 477201,
+        children: []
+    }
+];
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
@@ -407,7 +435,7 @@ describe('thy-cascader', () => {
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
-        it('should  scroll to active item when menu open', fakeAsync(() => {
+        it('should scroll to active item when menu open', fakeAsync(() => {
             fixture.componentInstance.thyCustomerOptions = multipleOptions;
             fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
             fixture.detectChanges();
@@ -459,7 +487,30 @@ describe('thy-cascader', () => {
             expect((triggerRect as DOMRect).height).toBe(50);
             expect((triggerRect as DOMRect).width).toBe(60);
         }));
+
+        it('should show nothing when children is []', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = emptyOptions;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const haveChildrenItem = items[0];
+            const noChildrenItem = items[1];
+            dispatchFakeEvent(haveChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const secondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(secondMenu.children.length).toEqual(1);
+            dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(emptySecondMenu.children.length).toEqual(0);
+        }));
     });
+
     describe('loadData', () => {
         let fixture: ComponentFixture<CascaderLoadComponent>;
         let component: CascaderLoadComponent;
