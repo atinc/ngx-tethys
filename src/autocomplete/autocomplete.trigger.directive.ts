@@ -57,7 +57,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @Input('thyAutocomplete')
     set autocomplete(data: ThyAutocompleteComponent) {
-        warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
+        }
         this._autocompleteComponent = data;
     }
 

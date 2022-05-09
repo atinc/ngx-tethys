@@ -16,11 +16,13 @@ export const THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER = {
     }
 };
 
-export function sizeExceedsHandler(event: ThyFileSizeExceedsContext) {
-    const exceedsFilesMessage = event.exceedsFiles
-        .map(item => {
-            return `file: ${item.name}, size: ${item.size}`;
-        })
-        .join(',');
-    console.error(`some files(${exceedsFilesMessage}) size exceeds threshold ${event.sizeThreshold}`);
+export function sizeExceedsHandler(event: ThyFileSizeExceedsContext): void {
+    if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        const exceedsFilesMessage = event.exceedsFiles
+            .map(item => {
+                return `file: ${item.name}, size: ${item.size}`;
+            })
+            .join(',');
+        console.error(`some files(${exceedsFilesMessage}) size exceeds threshold ${event.sizeThreshold}`);
+    }
 }

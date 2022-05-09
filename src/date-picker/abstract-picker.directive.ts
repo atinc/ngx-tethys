@@ -51,13 +51,17 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private offset = 4;
     @Input() set thyOffset(value: number) {
-        warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
+        }
         this.offset = value;
     }
 
     private hasBackdrop = true;
     @Input() set thyHasBackdrop(value: boolean) {
-        warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+        }
         this.hasBackdrop = value;
     }
 

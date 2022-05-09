@@ -153,9 +153,11 @@ const IMPORT_EXPORT_MODULES = [
 })
 export class NgxTethysModule {
     constructor() {
-        warnDeprecation(
-            'The NgxTethysModule is deprecated, please use second entry point, we will remove main entry point in next major version'
-        );
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(
+                'The NgxTethysModule is deprecated, please use second entry point, we will remove main entry point in next major version'
+            );
+        }
     }
     static forRoot(): ModuleWithProviders<NgxTethysModule> {
         return {
