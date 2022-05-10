@@ -9,6 +9,9 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyNavModule } from 'ngx-tethys/nav';
 
 import { ThyPopoverBasicExampleComponent } from './basic/basic.component';
 import { ThyPopoverBasicContentComponent } from './basic/popover-content.component';
@@ -26,7 +29,17 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, ThyButtonModule, ThyFormModule, ThySelectModule, ThyIconModule, FormsModule],
+    imports: [
+        CommonModule,
+        ThyButtonModule,
+        ThyFormModule,
+        ThySelectModule,
+        ThyIconModule,
+        ThyActionMenuModule,
+        ThyPopoverModule,
+        ThyNavModule,
+        FormsModule
+    ],
     entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: [
