@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys';
+import { ThySelectionListChange } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-selection-multiple-example',

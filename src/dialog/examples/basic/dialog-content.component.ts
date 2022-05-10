@@ -1,5 +1,5 @@
 import { Component, TemplateRef, OnInit, HostBinding, Input } from '@angular/core';
-import { ThyDialogRef, ThyDialog, ThyDialogFooterAlign } from 'ngx-tethys';
+import { ThyDialogRef, ThyDialog, ThyDialogFooterAlign } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-dialog-basic-content',

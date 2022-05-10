@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyTableRowEvent, helpers } from 'ngx-tethys';
+import { ThyTableRowEvent } from 'ngx-tethys/table';
+import { helpers } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-table-group-example',

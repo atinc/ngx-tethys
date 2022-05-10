@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { ThySidebarComponent } from '../sidebar.component';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 

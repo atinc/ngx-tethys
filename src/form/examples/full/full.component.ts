@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys';
+import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
 
 const provinceCities = [
     {

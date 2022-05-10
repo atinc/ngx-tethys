@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyDialog, ThyDialogConfig } from 'ngx-tethys';
+import { ThyDialog, ThyDialogConfig } from 'ngx-tethys/dialog';
 import { ThyDialogBasicContentComponent } from '../basic/dialog-content.component';
 
 @Component({

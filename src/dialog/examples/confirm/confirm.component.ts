@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyConfirmConfig, ThyDialog } from 'ngx-tethys';
+import { ThyConfirmConfig, ThyDialog } from 'ngx-tethys/dialog';
 import { of } from 'rxjs';
 import { map, delay } from 'rxjs/operators';
 

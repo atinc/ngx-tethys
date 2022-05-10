@@ -6,7 +6,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyCascaderComponent } from 'ngx-tethys';
+import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';

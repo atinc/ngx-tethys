@@ -1,4 +1,4 @@
-import { Mention } from 'ngx-tethys';
+import { Mention } from 'ngx-tethys/mention';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 

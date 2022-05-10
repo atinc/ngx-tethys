@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormLayout } from 'ngx-tethys';
+import { ThyFormLayout } from 'ngx-tethys/form';
 
 interface LayoutInfo {
     value: ThyFormLayout;

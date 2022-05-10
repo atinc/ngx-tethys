@@ -1,8 +1,8 @@
-import { NgxTethysModule, ThyCollapseModule } from 'ngx-tethys';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+
+import { ThyIconModule } from 'ngx-tethys/icon';
 
 import { ThyCollapseAccordionExampleComponent } from './accordion/accordion.component';
 import { ThyCollapseArrowExampleComponent } from './arrow/arrow.component';
@@ -27,7 +27,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, NgxTethysModule, ThyCollapseModule],
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyCollapseModule],
     exports: [...COMPONENTS]
 })
 export class ThyCollapseExamplesModule {}

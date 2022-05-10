@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, EntityStore, EntityState } from 'ngx-tethys';
+import { Action, EntityStore, EntityState } from 'ngx-tethys/store';
 import { produce } from 'ngx-tethys/util';
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';

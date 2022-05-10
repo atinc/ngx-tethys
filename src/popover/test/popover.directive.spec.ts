@@ -8,7 +8,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ThyPopoverModule } from '../module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-demo-popover-basic',

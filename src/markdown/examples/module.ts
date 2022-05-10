@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxTethysModule, ThyMarkdownModule, ThyMarkdownParserService } from 'ngx-tethys';
+import { NgxTethysModule } from 'ngx-tethys';
+import { ThyMarkdownModule, ThyMarkdownParserService } from 'ngx-tethys/markdown';
 import { CustomMarkdownParserService } from './custom-markdown.service';
 
 import { ThyMarkdownParserExampleComponent } from './parser/parser.component';

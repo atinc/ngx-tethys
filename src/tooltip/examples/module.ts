@@ -1,8 +1,9 @@
-import { NgxTethysModule, ThySpaceModule } from 'ngx-tethys';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyButtonModule } from 'ngx-tethys/button';
 
 import { ThyTooltipBasicExampleComponent } from './basic/basic.component';
 import { ThyTooltipPositionExampleComponent } from './position/position.component';
@@ -18,7 +19,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule, ThySpaceModule],
+    imports: [CommonModule, FormsModule, ThyButtonModule, ThyFormModule, ThySelectModule, ThySpaceModule],
     entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
