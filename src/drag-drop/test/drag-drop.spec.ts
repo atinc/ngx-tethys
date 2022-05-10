@@ -11,7 +11,7 @@ import {
     ThyDragOverEvent,
     ThyDragStartEvent,
     ThyDropContainerDirective
-} from 'ngx-tethys';
+} from 'ngx-tethys/drag-drop';
 import { ThyDragDirective } from '../drag.directive';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyDragHandleDirective } from '../drag-handle.directive';

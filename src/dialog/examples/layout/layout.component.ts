@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys';
+import { ThyDialog, ThyDialogLayoutConfig } from 'ngx-tethys/dialog';
 import { ThyDialogFooterLayoutExampleComponent } from './dialog-layout.component';
 
 @Component({

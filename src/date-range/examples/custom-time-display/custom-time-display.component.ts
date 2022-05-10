@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo, endOfMonth, getUnixTime, startOfMonth } from 'ngx-tethys';
+import { endOfMonth, getUnixTime, startOfMonth } from 'ngx-tethys/util';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-custom-time-display-example',

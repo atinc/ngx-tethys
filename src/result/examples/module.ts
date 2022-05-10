@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { NgxTethysModule, ThyResultModule } from 'ngx-tethys';
+import { NgxTethysModule } from 'ngx-tethys';
+import { ThyResultModule } from 'ngx-tethys/result';
 
 import { ThyResultSuccessExampleComponent } from './success/success.component';
 import { ThyResultErrorExampleComponent } from './error/error.component';

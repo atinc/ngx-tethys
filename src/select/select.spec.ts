@@ -4,7 +4,7 @@ import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/co
 import { FormsModule } from '@angular/forms';
 import { ThyIconRegistry } from '../icon';
 import { By } from '@angular/platform-browser';
-import { ThySelectComponent } from 'ngx-tethys';
+import { ThySelectComponent } from 'ngx-tethys/select';
 
 @Component({
     selector: 'app-basic-select-demo',

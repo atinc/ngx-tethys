@@ -1,6 +1,7 @@
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ThyListOptionComponent, ThySelectionListChange } from 'ngx-tethys';
-import { ThySelectionListComponent } from 'ngx-tethys/list/selection/selection-list';
+import { ThyListOptionComponent } from 'ngx-tethys/shared';
+import { ThySelectionListChange } from 'ngx-tethys/list';
+import { ThySelectionListComponent } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-operate-example',

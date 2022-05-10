@@ -1,4 +1,4 @@
-import { ThyNotifyService } from 'ngx-tethys';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 

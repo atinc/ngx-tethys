@@ -1,6 +1,5 @@
 import { Component, HostBinding, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys';
-import { ThyGuiderStepRef } from 'ngx-tethys/guider/guider-step-ref';
+import { ThyGuiderStepRef, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
 
 @Component({
     selector: 'thy-guider-custom-hint-example',

@@ -3,7 +3,7 @@ import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
 @Component({

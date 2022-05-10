@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ThyListModule, ThyTransferModule, ThyIconModule } from 'ngx-tethys';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThyTransferModule } from 'ngx-tethys/transfer';
+import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTransferBasicExampleComponent } from './basic/basic.component';
 import { ThyTransferTemplateExampleComponent } from './template/template.component';
 

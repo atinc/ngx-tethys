@@ -1,4 +1,4 @@
-import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';

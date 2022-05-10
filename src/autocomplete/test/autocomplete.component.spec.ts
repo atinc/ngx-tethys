@@ -8,7 +8,7 @@ import { UpdateHostClassService } from '../../core';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ThyFormModule } from '../../form';
-import { dispatchFakeEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { ThyOptionComponent } from '../../shared/option/option.component';
 import { ThyInputModule } from '../../input/module';

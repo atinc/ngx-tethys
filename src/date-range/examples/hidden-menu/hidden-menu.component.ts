@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-hidden-menu-example',

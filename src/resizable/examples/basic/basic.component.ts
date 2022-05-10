@@ -1,6 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
 import { ThyResizableDirective } from 'ngx-tethys/resizable';
-import { ThyResizeEvent } from 'ngx-tethys/resizable/interface';
+import { ThyResizeEvent } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-basic-example',

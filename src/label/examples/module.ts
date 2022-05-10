@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyLabelModule } from 'ngx-tethys';
+import { ThyLabelModule } from 'ngx-tethys/label';
 import { ThyLabelBasicExampleComponent } from './basic/basic.component';
 import { ThyLabelSizeExampleComponent } from './size/size.component';
 import { ThyLabelTypeExampleComponent } from './type/type.component';

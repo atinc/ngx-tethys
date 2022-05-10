@@ -1,6 +1,6 @@
 import { Component, TemplateRef } from '@angular/core';
 import { OnInit } from '@angular/core';
-import { ThyDialog } from 'ngx-tethys';
+import { ThyDialog } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-stepper-switch-dialog-example',
