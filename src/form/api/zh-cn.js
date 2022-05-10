@@ -11,7 +11,7 @@ module.exports = [
             },
             {
                 name: 'thyFormValidatorConfig',
-                description: '表单验证规则配置项 （更多内容查看：interface）',
+                description: '表单验证规则配置项 （更多内容查看：thyFormValidatorConfig）',
                 type: 'ThyFormValidatorConfig',
                 default: ''
             },
@@ -30,14 +30,15 @@ module.exports = [
         properties: [
             {
                 name: 'showElementError',
-                description: '显示错误方法，默认为 true，以 bootstrap 的方式提示错误',
-                type: 'boolean | ((element: HTMLElement, errorMessages: string[]) => void)',
+                description: `当值为 true 或不传时，执行默认逻辑，当为 false 时，不显示错误；值为 function 时，执行自定义函数处理逻辑，需要注入 THY_VALIDATOR_CONFIG 来使配置生效。`,
+                type: `boolean | ((element: HTMLElement, errorMessages: string[]) => void)`,
                 default: 'true'
             },
             {
                 name: 'removeElementError',
-                description: '移除错误，一般和 showError 匹配使用',
-                type: 'boolean | ((element: HTMLElement) => void)',
+                description:
+                    '移除错误，一般和 showError 匹配使用；当值为 true 或不传时，执行默认逻辑，当为 false 时，不显示错误提示；值为 function 时，执行自定义函数处理逻辑，需要注入 THY_VALIDATOR_CONFIG 来使配置生效。',
+                type: `boolean | ((element: HTMLElement) => void)`,
                 default: 'true'
             },
             {
