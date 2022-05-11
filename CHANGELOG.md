@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
+
+
+### Bug Fixes
+
+* **fullscreen:** access and initialize the launch fullscreen button more explicitly ([faa91c9](https://github.com/atinc/ngx-tethys/commit/faa91c9cc977f401581a347321200f740ac0b490))
+* **tree:** #INFR-3086 Drag problem caused by incorrect data in event in thyOnDragDrop and thyBeforeDragDrop ([#1651](https://github.com/atinc/ngx-tethys/issues/1651)) ([bbe133c](https://github.com/atinc/ngx-tethys/commit/bbe133c11149f000b4c5aa199552f9ec5c816a00)), closes [#INFR-3086](https://github.com/atinc/ngx-tethys/issues/INFR-3086)
+
+
+### Performance Improvements
+
+* **select:** do not run change detection on document clicks when the custom select is closed ([7137488](https://github.com/atinc/ngx-tethys/commit/713748893a2bcf7732ea5f012195619182b3a40e))
+* **tree-select:** do not run change detection on document clicks when the popup is closed ([55443e4](https://github.com/atinc/ngx-tethys/commit/55443e4cab85f13e8a06c7c21b907c4a0615f2e9))
+* tree-shake deprecations and remove unused `getInjector` ([5a7fa76](https://github.com/atinc/ngx-tethys/commit/5a7fa76da7ffb604160e10c50deade23e746f828))
+
+
+
 ## [12.1.25](https://github.com/atinc/ngx-tethys/compare/12.1.24...12.1.25) (2022-05-09)
 
 

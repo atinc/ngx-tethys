@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "12.1.25",
+  "version": "13.0.0-next.0",
   "license": "MIT",
   "engines": {
     "node": "^14.15.0 || >=16.10.0",
@@ -29,7 +29,11 @@
     "pub-only": "npm run pub-tethys-only && npm run pub-cdk-only",
     "pub-cdk-only": "npm publish dist/cdk",
     "pub-tethys-only": "npm publish dist/tethys",
-    "pub": "wpm publish",
+    "pub": "wpm publish && npm run pub-only",
+    "pub-next-only": "npm run pub-next-tethys-only && npm run pub-next-cdk-only",
+    "pub-next-cdk-only": "npm publish dist/cdk --dist-tag next",
+    "pub-next-tethys-only": "npm publish dist/tethys --dist-tag next",
+    "pub-next": "wpm publish && npm run pub-next-only",
     "test": "npm run test-tethys && npm run test-schematics",
     "test-tethys": "ng test ngx-tethys",
     "test-cdk": "ng test cdk",
