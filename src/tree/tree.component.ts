@@ -29,7 +29,7 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
 import { ThyTreeService } from './tree.service';
 
-type ThyTreeSize = 'sm' | '';
+type ThyTreeSize = 'sm' | 'default';
 
 type ThyTreeType = 'default' | 'especial';
 
@@ -40,6 +40,10 @@ const treeTypeClassMap = {
     especial: ['thy-tree-especial']
 };
 
+const treeItemSizeMap = {
+    default: 44,
+    sm: 42
+};
 @Component({
     selector: 'thy-tree',
     templateUrl: './tree.component.html',
@@ -132,13 +136,37 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyIcons: ThyTreeIcons = {};
 
-    @Input() thySize: ThyTreeSize;
+    private _thySize: ThyTreeSize = 'default';
+    @Input()
+    set thySize(size: ThyTreeSize) {
+        this._thySize = size;
+        if (this._thySize) {
+            this._thyItemSize = treeItemSizeMap[this._thySize];
+        } else {
+            this._thyItemSize = treeItemSizeMap.default;
+        }
+    }
+
+    get thySize() {
+        return this._thySize;
+    }
 
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
     thyVirtualScroll = false;
 
-    @Input() thyItemSize = 44;
+    private _thyItemSize = 44;
+    @Input()
+    set thyItemSize(itemSize: number) {
+        if (this.thySize !== 'default') {
+            throw new Error('thyItemSize is only available when thySize is default');
+        }
+        this._thyItemSize = itemSize;
+    }
+
+    get thyItemSize() {
+        return this._thyItemSize;
+    }
 
     @Input() thyTitleTruncate = true;
 
