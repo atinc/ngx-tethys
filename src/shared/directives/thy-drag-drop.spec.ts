@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ComponentFixture, async, TestBed } from '@angular/core/testing';
+import { ComponentFixture, async, TestBed, fakeAsync } from '@angular/core/testing';
 import { ThySharedModule } from '../shared.module';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -35,22 +35,19 @@ describe('thy-drag-drop', () => {
         fixture.detectChanges();
     });
 
-    xit('should has correct class in list when drag item', () => {
+    it('should has correct class in list when drag item', fakeAsync(() => {
         const item = fixture.debugElement.query(By.css('.item1')).nativeElement;
-
         expect(document.body.classList).not.toContain('thy-dragging-body');
-
         dispatchMouseEvent(item, 'mousedown');
         dispatchMouseEvent(document, 'mousemove', 150, 100);
         fixture.detectChanges();
         expect(document.body.classList).toContain('thy-dragging-body');
-
         dispatchMouseEvent(document, 'mouseup');
         fixture.detectChanges();
         expect(document.body.classList).not.toContain('thy-dragging-body');
-    });
+    }));
 
-    xit('should has correct class in list when add a draggable item and drag it', () => {
+    it('should has correct class in list when add a draggable item and drag it', fakeAsync(() => {
         testComponent.showItem2 = true;
         fixture.detectChanges();
         const item = fixture.debugElement.query(By.css('.item2'));
@@ -65,5 +62,5 @@ describe('thy-drag-drop', () => {
         dispatchMouseEvent(document, 'mouseup');
         fixture.detectChanges();
         expect(document.body.classList).not.toContain('thy-dragging-body');
-    });
+    }));
 });
