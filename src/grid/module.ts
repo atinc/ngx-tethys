@@ -7,4 +7,4 @@ import { ThyColDirective } from './thy-col.directive';
     exports: [ThyRowDirective, ThyColDirective],
     imports: []
 })
-export class ThyRasterModule {}
+export class ThyGridModule {}

@@ -1,7 +1,7 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyRadioModule } from 'ngx-tethys/radio';
-import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThySlideModule } from 'ngx-tethys/slide';
 
 import { CommonModule } from '@angular/common';
@@ -26,7 +26,8 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, ThySlideModule, ThyButtonModule, ThyFormModule, ThyRasterModule, ThyRadioModule],
+    entryComponents: COMPONENTS,
+    imports: [CommonModule, FormsModule, ThySlideModule, ThyButtonModule, ThyFormModule, ThyGridModule, ThyRadioModule],
     exports: COMPONENTS
 })
 export class ThySlideExamplesModule {}
