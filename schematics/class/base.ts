@@ -1,6 +1,7 @@
 import ts, { ImportDeclaration, SourceFile, StringLiteral, factory, Program } from 'typescript';
 import { UpdateFileService } from '../utils';
 import { createCssSelectorForTs } from 'cyia-code-util';
+
 export abstract class MigrationBase {
     constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService, protected program: Program) {
         this.selector = createCssSelectorForTs(this.sourceFile);
@@ -19,14 +20,12 @@ export abstract class MigrationBase {
         }
     ) {
         const node = factory.createImportDeclaration(
-            undefined,
-            undefined,
+            /* decorators */ undefined,
+            /* modifiers */ undefined,
             factory.createImportClause(
-                false,
-                undefined,
-                factory.createNamedImports(
-                    importNameList.map(importName => factory.createImportSpecifier(undefined, factory.createIdentifier(importName)))
-                )
+                /* isTypeOnly */ false,
+                /* name */ undefined,
+                factory.createNamedImports(importNameList.map(importName => createImportSpecifier(importName)))
             ),
             factory.createStringLiteral(importPackageName)
         );
@@ -95,16 +94,52 @@ export abstract class MigrationBase {
     }
     /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
     updateImportDeclaration(node: ts.ImportDeclaration, moduleSpecifier?: StringLiteral, importClause?: ts.ImportClause) {
-        return factory.updateImportDeclaration(
-            node,
-            node.decorators,
-            node.modifiers,
-            importClause || node.importClause,
-            moduleSpecifier || node.moduleSpecifier
-        );
+        return updateImportDeclaration(node, moduleSpecifier, importClause);
     }
     /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
     updateImportClause(node: ts.ImportClause, namedImports: ts.NamedImportBindings) {
         return factory.updateImportClause(node, false, node.name, namedImports || node.namedBindings);
     }
+}
+
+/**
+ * Backwards-compatible version of `ts.updateImportDeclaration`
+ * to handle a breaking change between 4.4 and 4.5.
+ */
+function updateImportDeclaration(
+    node: ts.ImportDeclaration,
+    moduleSpecifier?: StringLiteral,
+    importClause?: ts.ImportClause
+): ts.ImportDeclaration {
+    return factory.updateImportDeclaration.length === 5
+        ? (factory.createImportSpecifier as any)(
+              node,
+              node.decorators,
+              node.modifiers,
+              importClause || node.importClause,
+              moduleSpecifier || node.moduleSpecifier
+          )
+        : // The new implementation also accepts `ts.AssertClause` as the last argument.
+          factory.updateImportDeclaration(
+              node,
+              node.decorators,
+              node.modifiers,
+              importClause || node.importClause,
+              moduleSpecifier || node.moduleSpecifier,
+              node.assertClause
+          );
+}
+
+/**
+ * Backwards-compatible version of `ts.createImportSpecifier`
+ * to handle a breaking change between 4.4 and 4.5.
+ */
+function createImportSpecifier(propertyName: string): ts.ImportSpecifier {
+    const isTypeOnly = false;
+    const identifier = factory.createIdentifier(propertyName);
+
+    return factory.createImportSpecifier.length === 3
+        ? // This is the new implementation that contains breaking change.
+          factory.createImportSpecifier(isTypeOnly, /* propertyName */ undefined, identifier)
+        : (factory.createImportSpecifier as any)(isTypeOnly, identifier);
 }

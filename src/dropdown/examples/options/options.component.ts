@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { ThyPlacement, THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys';
+import { THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys/dropdown';
+import { ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-dropdown-options-example',

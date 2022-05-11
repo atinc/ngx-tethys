@@ -109,7 +109,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() thyCheckable: boolean;
 
     @Input() set thyCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) {
-        this.thyTreeService.setCheckStateResolve(resolve);
+        if (resolve) {
+            this.thyTreeService.setCheckStateResolve(resolve);
+        }
     }
 
     @Input() thyAsync = false;
@@ -132,9 +134,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thySize: ThyTreeSize;
 
-    @HostBinding('class.thy-visual-scrolling-tree')
+    @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
-    thyVisualScorll = false;
+    thyVirtualScroll = false;
 
     @Input() thyItemSize = 44;
 
@@ -203,6 +205,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this._setTreeSize();
         this._instanceSelectionModel();
         this._selectTreeNodes(this._selectedKeys);
+
         this.thyTreeService.flattenNodes$.subscribe(flattenTreeNodes => {
             this.flattenTreeNodes = flattenTreeNodes;
             this.cdr.markForCheck();
@@ -259,6 +262,26 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         });
     }
 
+    public beforeDragDrop = (event: ThyDragDropEvent<ThyTreeNode>) => {
+        event.previousItem = this.dragItem;
+        if (event.item.level > 0) {
+            event.containerItems = event.item.parentNode.children;
+        } else {
+            event.containerItems = event.containerItems.filter(item => item.level === 0);
+        }
+        event.currentIndex = (event.containerItems || []).findIndex(item => item.key === event.item.key);
+
+        if (event.previousItem.level > 0) {
+            event.previousContainerItems = event.previousItem.parentNode.children;
+        }
+        event.previousIndex = (event.previousContainerItems || []).findIndex(item => item.key === event.previousItem.key);
+
+        if (this.thyBeforeDragDrop) {
+            return this.thyBeforeDragDrop(event);
+        }
+        return true;
+    };
+
     public isSelected(node: ThyTreeNode) {
         return this._selectionModel.isSelected(node);
     }
@@ -277,12 +300,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         this.dragItem = event.item;
         if (this.isShowExpand(event.item) && event.item.isExpanded) {
             event.item.setExpanded(false);
-            this.thyTreeService.syncFlattenTreeNodes();
         }
     }
 
     public onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        event.previousItem = this.dragItem;
         if (!this.isShowExpand(event.item) && event.position === ThyDropPosition.in) {
             return;
         }
@@ -294,10 +315,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         }
         switch (event.position) {
             case ThyDropPosition.in:
+                event.previousItem.parentNode = event.item;
                 event.item.addChildren(event.previousItem.origin);
                 break;
             case ThyDropPosition.after:
             case ThyDropPosition.before:
+                event.previousItem.parentNode = event.item.parentNode;
                 const targetParent = event.item.parentNode;
                 const index = event.position === ThyDropPosition.before ? 0 : 1;
                 if (targetParent) {
@@ -397,13 +420,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     public expandAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(true, true));
-        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     public collapsedAllNodes() {
         const nodes = this.getRootNodes();
         nodes.forEach(n => n.setExpanded(false, true));
-        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     // endregion

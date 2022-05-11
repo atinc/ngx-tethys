@@ -12,8 +12,7 @@ import {
     OnDestroy,
     Output,
     Inject,
-    Optional,
-    QueryList
+    Optional
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';

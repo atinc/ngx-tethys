@@ -282,7 +282,7 @@ module.exports = [
                 name: 'okText',
                 description: '确认按钮的文案',
                 type: 'string',
-                default: '确认'
+                default: '确定'
             },
             {
                 name: 'cancelText',

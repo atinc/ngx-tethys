@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyProgressStackedValue } from 'ngx-tethys/progress/interfaces';
+import { ThyProgressStackedValue } from 'ngx-tethys/progress';
 
 @Component({
     selector: 'thy-progress-stacked-example',

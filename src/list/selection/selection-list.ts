@@ -9,6 +9,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
     ElementRef,
@@ -262,7 +263,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         private renderer: Renderer2,
         private elementRef: ElementRef,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -276,12 +278,12 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     writeValue(value: any[] | any): void {
-        if (value) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && value) {
             if (this.multiple && !helpers.isArray(value)) {
-                throw new Error(`multiple selection ngModel must be array.`);
+                throw new Error(`The multiple selection ngModel must be an array.`);
             }
             if (!this.multiple && helpers.isArray(value)) {
-                throw new Error(`single selection ngModel not be array.`);
+                throw new Error(`The single selection ngModel should not be an array.`);
             }
         }
         const values = helpers.isArray(value) ? value : value ? [value] : [];
@@ -289,6 +291,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         if (this.options) {
             this._setSelectionByValues(values);
         }
+        this.changeDetectorRef.markForCheck();
     }
 
     registerOnChange(fn: any): void {

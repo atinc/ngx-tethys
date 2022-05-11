@@ -10,7 +10,6 @@ const COMPONENTS = [ThyAffixBasicExampleComponent, ThyAffixChangeExampleComponen
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyAffixModule, ThyButtonModule],
     exports: [...COMPONENTS]
 })

@@ -25,7 +25,6 @@ const COMPONENTS = [
     imports: [CommonModule, FormsModule, NgxTethysModule],
     exports: COMPONENTS,
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     providers: []
 })
 export class ThyDateRangeExamplesModule {}

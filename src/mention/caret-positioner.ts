@@ -66,7 +66,7 @@ export class CaretPositioner {
     // get caret coordinates in input or textarea
     // copy from repo: https://github.com/component/textarea-caret-position
     static getTextareaCaretCoordinates(element: InputOrTextAreaElement, position: number, options?: CaretOptions): CaretCoordinates {
-        if (!isBrowser) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !isBrowser) {
             throw new Error('textarea-caret-position#getCaretCoordinates should only be called in a browser');
         }
 

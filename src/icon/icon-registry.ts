@@ -76,7 +76,7 @@ export class ThyIconRegistry {
 
         const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
 
-        if (!url) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !url) {
             throw new Error(
                 `The URL provided to ThyIconRegistry was not trusted as a resource URL ` +
                     `via Angular's DomSanitizer. Attempted URL was "${url}".`

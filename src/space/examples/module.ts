@@ -20,7 +20,6 @@ const COMPONENTS = [
 @NgModule({
     imports: [CommonModule, ThyButtonModule, ThySpaceModule, ThySharedModule],
     declarations: [...COMPONENTS],
-    exports: [...COMPONENTS],
-    entryComponents: [...COMPONENTS]
+    exports: [...COMPONENTS]
 })
 export class ThySpaceExamplesModule {}

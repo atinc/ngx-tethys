@@ -1,9 +1,23 @@
+import { ContentObserver } from '@angular/cdk/observers';
 import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
-import { Component, Directive, ElementRef, Injector, NgModule, OnInit, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    Directive,
+    ElementRef,
+    Injector,
+    NgModule,
+    OnInit,
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
+} from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { doesNotReject } from 'assert';
+import { Subject } from 'rxjs';
 
 import { isArray, isUndefinedOrNull } from '../../util';
 import { ThyPopoverModule } from '../module';
@@ -67,11 +81,29 @@ class WithChildViewContainerComponent {
 @Component({
     selector: 'thy-popover-simple-content-component',
     template: `
-        <div>Hello Popover <button>Close</button></div>
+        <div class="simple-content-test">
+            Hello Popover <button>Close</button>
+            <ul>
+                <li *ngFor="let item of demos">
+                    <a href="javascript:;">
+                        <span thyActionMenuItemName>图标{{ item }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
     `
 })
 export class PopoverSimpleContentComponent {
-    constructor(public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>, public popoverInjector: Injector) {}
+    demos: number[];
+    constructor(
+        public popoverRef: ThyPopoverRef<PopoverSimpleContentComponent>,
+        public popoverInjector: Injector,
+        private cdr: ChangeDetectorRef
+    ) {}
+    updateContent() {
+        this.demos = [1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8];
+        this.cdr.detectChanges();
+    }
 }
 
 @Component({
@@ -163,7 +195,6 @@ const TEST_COMPONENTS = [
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
-    entryComponents: [PopoverSimpleContentComponent, WithChildViewContainerComponent],
     imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })
@@ -376,6 +407,7 @@ describe(`thyPopover`, () => {
             viewContainerFixture.detectChanges();
             expect(openedPopover.length).toEqual(2);
             expect(openedPopover[1]).toEqual(popoverRef1);
+            flush();
         }));
 
         it('should find the closest dialog', fakeAsync(() => {
@@ -402,6 +434,32 @@ describe(`thyPopover`, () => {
                 .closest('.thy-popover-container')
                 .removeAttribute('id');
             expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
+        }));
+
+        it('should update position when autoAdaptive is true', fakeAsync(() => {
+            const contentObserver = TestBed.inject(ContentObserver);
+            const observeSubject = new Subject();
+            let containerElementRef: ElementRef<HTMLElement> = null;
+            spyOn(contentObserver, 'observe').and.callFake((_containerElementRef: ElementRef<HTMLElement>) => {
+                containerElementRef = _containerElementRef;
+                return observeSubject;
+            });
+
+            expect(containerElementRef).toBeFalsy();
+            const popoverRef = popover.open(PopoverSimpleContentComponent, {
+                origin: viewContainerFixture.componentInstance.openPopoverOrigin,
+                autoAdaptive: true,
+                placement: 'top'
+            });
+            viewContainerFixture.detectChanges();
+            expect(containerElementRef).toBeTruthy();
+            expect(containerElementRef.nativeElement.classList.contains('thy-popover-container')).toBeTruthy();
+            const spyUpdatePosition = spyOn(popoverRef, 'updatePosition');
+            expect(spyUpdatePosition).not.toHaveBeenCalled();
+            // Need mock content observe change because MutationObserver not patched by zone.js in fakeAsync
+            // detail issue: https://github.com/angular/angular/issues/31695
+            observeSubject.next();
+            expect(spyUpdatePosition).toHaveBeenCalled();
         }));
     });
 

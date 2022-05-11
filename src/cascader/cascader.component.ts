@@ -1,4 +1,4 @@
-import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty, isEmpty } from 'ngx-tethys/util';
+import { coerceBooleanProperty, isArray, isEmpty } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
@@ -105,6 +105,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     private cascaderPositon = [...EXPANDED_DROPDOWN_POSITIONS];
     positions: ConnectionPositionPair[];
 
+    public triggerRect: DOMRect;
+
     @Input()
     set thyLabelRender(value: TemplateRef<any>) {
         this.labelRenderTpl = value;
@@ -163,6 +165,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     public inSearch = false;
 
+    public emptyStateText = '无任何选项';
+
     @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
 
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
@@ -211,6 +215,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return this._thySize;
     }
 
+    @Input()
+    set thyEmptyStateText(value: string) {
+        this.emptyStateText = value;
+    }
+
     @Output() thyChange = new EventEmitter<any[]>();
 
     @Output() thySelectionChange = new EventEmitter<CascaderOption[]>();
@@ -223,6 +232,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     @Input() thyChangeOn: (option: CascaderOption, level: number) => boolean;
 
     @Output() thyClear = new EventEmitter<void>();
+
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
 
     @ViewChild('input') input: ElementRef;
 
@@ -243,6 +254,15 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.setClearClass();
         this.setInputClass();
         this.initPosition();
+        this.viewPortRuler
+            .change(100)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                if (this.menuVisible) {
+                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.cdr.markForCheck();
+                }
+            });
     }
 
     private initPosition() {
@@ -397,6 +417,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             this.setClassMap();
             this.setArrowClass();
             this.setMenuClass();
+            if (this.menuVisible) {
+                this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+            }
         }
     }
 
@@ -419,7 +442,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this._menuCls = {
             [`${this.prefixCls}-menus`]: true,
             [`${this.prefixCls}-menus-hidden`]: !this.menuVisible,
-            [`${this.thyMenuClassName}`]: this.thyMenuClassName
+            [`${this.thyMenuClassName}`]: this.thyMenuClassName,
+            [`w-100`]: this.thyColumns.length === 0
         };
     }
 
@@ -511,7 +535,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     @HostListener('click', ['$event'])
-    public trggleClick($event: Event) {
+    public toggleClick($event: Event) {
         if (this.disabled) {
             return;
         }
@@ -522,7 +546,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     @HostListener('mouseover', ['$event'])
-    public trggleHover($event: Event) {
+    public toggleHover($event: Event) {
         if (this.disabled) {
             return;
         }
@@ -582,7 +606,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (index < this.activatedOptions.length - 1) {
             this.activatedOptions = this.activatedOptions.slice(0, index + 1);
         }
-        if (option.children && option.children.length) {
+        if (isArray(option.children) && !option.isLeaf) {
             option.isLeaf = false;
             option.children.forEach(child => (child.parent = option));
             this.setColumnData(option.children, index + 1);
@@ -686,7 +710,12 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private elementRef: ElementRef,
+        private updateHostClassService: UpdateHostClassService,
+        private viewPortRuler: ViewportRuler
+    ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 

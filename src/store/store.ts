@@ -51,11 +51,11 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
 
     private _dispatch(action: any): Observable<any> {
         const meta = this[META_KEY] as StoreMetaInfo;
-        if (!meta) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !meta) {
             throw new Error(`${META_KEY} is not found, current store has not action`);
         }
         const actionMeta = meta.actions[action.type];
-        if (!actionMeta) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !actionMeta) {
             throw new Error(`${action.type} is not found`);
         }
         // let result: any = this[actionMeta.fn](this.snapshot, action.payload);

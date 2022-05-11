@@ -11,7 +11,6 @@ import { FileSelectBaseComponent } from './file-select-base';
 @NgModule({
     declarations: [ThyFileSelectComponent, ThyFileDropComponent, FileSelectBaseComponent],
     imports: [CommonModule, HttpClientModule],
-    entryComponents: [ThyFileDropComponent],
     providers: [ThyUploaderService, THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER],
     exports: [ThyFileSelectComponent, ThyFileDropComponent]
 })

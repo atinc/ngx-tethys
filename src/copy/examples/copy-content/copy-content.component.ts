@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyCopyEvent } from 'ngx-tethys/copy/copy.directive';
+import { ThyCopyEvent } from 'ngx-tethys/copy';
 @Component({
     selector: 'thy-copy-copy-content-example',
     templateUrl: './copy-content.component.html'

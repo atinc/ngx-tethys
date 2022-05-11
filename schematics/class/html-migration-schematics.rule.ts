@@ -69,7 +69,7 @@ export function HtmlMigrationSchematicsRule(migrationList: ClassType<HtmlMigrati
                                 return;
                             }
                             let str = item.initializer.getText();
-                            str = str.substr(1, str.length - 2);
+                            str = str.slice(1, str.length - 1);
                             migrationList.forEach(Item => {
                                 new Item(
                                     sf.fileName,

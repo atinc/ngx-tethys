@@ -30,7 +30,7 @@ export abstract class ImportNameChangeBase extends MigrationBase {
                     contentChangeList.push(
                         new ReplaceContentChange(
                             importSpecifier.propertyName.getStart(),
-                            importSpecifier.propertyName.getWidth(),
+                            importSpecifier.propertyName.getWidth() + 1,
                             replaceName
                         )
                     );

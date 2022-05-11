@@ -30,7 +30,7 @@ export class TextareaMentionAdapter extends MentionAdapter {
     }
 
     public insertMention(item: MentionDefaultDataItem): string {
-        if (!this.matchedMention) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !this.matchedMention) {
             throw new Error(`matchedMention is null`);
         }
         const insertValue = this.getInsertValue(item);

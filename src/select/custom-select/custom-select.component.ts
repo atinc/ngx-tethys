@@ -24,19 +24,12 @@ import {
     SPACE,
     UP_ARROW
 } from 'ngx-tethys/util';
-import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
+import { defer, fromEvent, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    CdkConnectedOverlay,
-    ConnectionPositionPair,
-    Overlay,
-    ScrollDispatcher,
-    ScrollStrategy,
-    ViewportRuler
-} from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -56,11 +49,15 @@ import {
     OnInit,
     Optional,
     Output,
+    PLATFORM_ID,
     QueryList,
     TemplateRef,
     ViewChild
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThyClickDispatcher } from 'ngx-tethys/core';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
@@ -127,7 +124,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public selectionModel: SelectionModel<ThyOptionComponent>;
 
-    public triggerRect: ClientRect;
+    public triggerRect: DOMRect;
 
     public scrollStrategy: ScrollStrategy;
 
@@ -239,9 +236,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() @InputNumber() thyMaxTagCount = 0;
 
-    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
-    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
+    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -254,13 +251,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 event.stopPropagation();
             }
             this.panelOpen ? this.handleOpenKeydown(event) : this.handleClosedKeydown(event);
-        }
-    }
-
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event) {
-        if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
-            this.close();
         }
     }
 
@@ -294,8 +284,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         private updateHostClassService: UpdateHostClassService,
         private viewportRuler: ViewportRuler,
         private changeDetectorRef: ChangeDetectorRef,
-        private scrollDispatcher: ScrollDispatcher,
         private overlay: Overlay,
+        private thyClickDispatcher: ThyClickDispatcher,
+        @Inject(PLATFORM_ID) private platformId: string,
         @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
@@ -330,6 +321,20 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.instanceSelectionModel();
         }
         this.setDropDownClass();
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
+                        this.ngZone.run(() => {
+                            this.close();
+                            this.changeDetectorRef.markForCheck();
+                        });
+                    }
+                });
+        }
     }
 
     ngAfterContentInit() {
@@ -560,8 +565,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         } else if (!this.isMultiple) {
-            const previouslySelectedOption = this.selected;
-
             if (keyCode === HOME || keyCode === END) {
                 keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();

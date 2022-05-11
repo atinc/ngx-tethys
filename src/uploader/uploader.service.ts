@@ -54,7 +54,7 @@ export class ThyUploaderService {
     constructor(private xhrFactory: XhrFactory) {}
 
     private secondsToHuman(sec: number): string {
-        return new Date(sec * 1000).toISOString().substr(11, 8);
+        return new Date(sec * 1000).toISOString().slice(11, 19);
     }
 
     private humanizeBytes(bytes: number): string {

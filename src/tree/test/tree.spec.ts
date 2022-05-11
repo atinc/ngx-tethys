@@ -334,6 +334,42 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getRootNodes()[0].title).toEqual('未分配部门');
         });
 
+        it(`test public function onDragDrop child item after parent item`, () => {
+            expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
+            const item = treeElement.querySelectorAll(treeNodeSelector)[8];
+
+            const dragstartEvent = createDragEvent('dragstart');
+            item.dispatchEvent(dragstartEvent);
+            fixture.detectChanges();
+
+            const dragoverEvent = createDragEvent('dragover');
+            item.dispatchEvent(dragoverEvent);
+            fixture.detectChanges();
+
+            const isShowExpandSpy = spyOn(treeComponent, 'isShowExpand');
+            const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
+            // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
+
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const dataTransfer = new DataTransfer();
+            dataTransfer.dropEffect = 'move';
+            const dropEvent = createDragEvent('drop', dataTransfer, true, true);
+            secondItem.dispatchEvent(dropEvent);
+            fixture.detectChanges();
+
+            expect(isShowExpandSpy).toHaveBeenCalled();
+            expect(treeServiceSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalledWith({
+                afterNode: treeComponent.flattenTreeNodes[0],
+                currentIndex: 1,
+                event: jasmine.any(Object),
+                dragNode: treeComponent.flattenTreeNodes[8],
+                targetNode: null
+            });
+            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
+        });
+
         it(`test public function onDragDrop`, () => {
             const item = treeElement.querySelectorAll(treeNodeSelector)[1];
 
@@ -468,14 +504,14 @@ describe('ThyTreeComponent', () => {
         }));
     });
 
-    describe('visual scrolling tree', () => {
+    describe('virtual scrolling tree', () => {
         let treeElement: HTMLElement;
-        let component: TestVisualScrollingTreeComponent;
-        let fixture: ComponentFixture<TestVisualScrollingTreeComponent>;
+        let component: TestVirtualScrollingTreeComponent;
+        let fixture: ComponentFixture<TestVirtualScrollingTreeComponent>;
 
         beforeEach(fakeAsync(() => {
-            configureThyTreeTestingModule([TestVisualScrollingTreeComponent]);
-            fixture = TestBed.createComponent(TestVisualScrollingTreeComponent);
+            configureThyTreeTestingModule([TestVirtualScrollingTreeComponent]);
+            fixture = TestBed.createComponent(TestVirtualScrollingTreeComponent);
             component = fixture.componentInstance;
             fixture.detectChanges();
             tick(100);
@@ -524,7 +560,7 @@ describe('ThyTreeComponent', () => {
             [thySelectedKeys]="['000000000000000000000000']"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop()"
+            (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()"
@@ -563,8 +599,8 @@ class TestBasicTreeComponent {
 
     onEvent() {}
 
-    dragDrop() {
-        this.dragDropSpy();
+    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
+        this.dragDropSpy(event);
     }
 
     addNode() {
@@ -644,14 +680,14 @@ export class TestAsyncTreeComponent {
 }
 
 @Component({
-    selector: 'test-visual-scrolling-tree',
+    selector: 'test-virtual-scrolling-tree',
     template: `
         <div style="height: 300px">
-            <thy-tree #tree [thyNodes]="mockData" [thyVisualScorll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
+            <thy-tree #tree [thyNodes]="mockData" [thyVirtualScroll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
         </div>
     `
 })
-export class TestVisualScrollingTreeComponent {
+export class TestVirtualScrollingTreeComponent {
     mockData = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;

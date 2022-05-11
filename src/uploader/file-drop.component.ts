@@ -129,9 +129,10 @@ export class ThyFileDropComponent extends FileSelectBaseComponent implements OnI
         return res;
     }
 
-    private getAsEntry(item: DataTransferItem) {
-        let entry;
+    private getAsEntry(item: DataTransferItem): FileSystemEntry {
+        let entry: FileSystemEntry;
         if (item['getAsEntry']) {
+            // https://wiki.whatwg.org/wiki/DragAndDropEntries
             entry = item['getAsEntry']();
         } else if (item.webkitGetAsEntry) {
             entry = item.webkitGetAsEntry();

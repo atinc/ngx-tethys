@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyAvatarModule, NgxTethysModule } from 'ngx-tethys';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { NgxTethysModule } from 'ngx-tethys';
 import { ThyAvatarSizeExampleComponent } from './size/size.component';
 import { ThyAvatarDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyAvatarHasBadgeExampleComponent } from './has-badge/has-badge.component';
@@ -25,7 +26,6 @@ const COMPONENTS = [
     declarations: COMPONENTS,
     imports: [CommonModule, NgxTethysModule, ThyAvatarModule],
     exports: COMPONENTS,
-    providers: [],
-    entryComponents: COMPONENTS
+    providers: []
 })
 export class ThyAvatarExamplesModule {}

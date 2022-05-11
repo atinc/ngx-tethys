@@ -7,18 +7,12 @@ function removeFromArray<T>(array: T[], item: T) {
 }
 
 export class FakeDataTransferItem implements DataTransferItem {
-    private file: File;
-
-    kind: string;
     type: string;
 
-    constructor(file: File, kind: string) {
-        this.file = file;
-        this.kind = kind;
-    }
+    constructor(private entry: FileSystemEntry, public kind: string) {}
 
     getAsFile(): File {
-        return this.file;
+        return (this.entry as unknown) as File;
     }
 
     getAsString(callback: FunctionStringCallback): void {
@@ -26,7 +20,7 @@ export class FakeDataTransferItem implements DataTransferItem {
     }
 
     webkitGetAsEntry() {
-        return this.file;
+        return this.entry;
     }
 }
 

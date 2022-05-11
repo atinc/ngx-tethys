@@ -25,7 +25,6 @@ import { ThyDrawerContainerDirective } from './drawer/drawer-container.directive
         ThySlideFooterComponent,
         ThyDrawerContainerDirective
     ],
-    entryComponents: [ThySlideContainerComponent],
     imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule],
     exports: [
         ThySlideLayoutComponent,

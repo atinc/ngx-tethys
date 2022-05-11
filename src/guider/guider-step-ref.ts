@@ -66,7 +66,7 @@ export class ThyGuiderStepRef {
 
         const targetElement = this.getTargetElement(step);
 
-        if (helpers.isNull(targetElement)) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && helpers.isNull(targetElement)) {
             throw new Error(`there is no target called ${step.target}`);
         }
         this.targetElementObserver = fromEvent(targetElement, 'click').subscribe(() => {

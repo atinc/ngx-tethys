@@ -1,5 +1,5 @@
 import { ThyFormDirective } from './../form.directive';
-import { ThyFormModule } from 'ngx-tethys';
+import { ThyFormModule } from 'ngx-tethys/form';
 import { Component, ViewChild } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
 import { FormControl, Validators, FormsModule, NgModel } from '@angular/forms';

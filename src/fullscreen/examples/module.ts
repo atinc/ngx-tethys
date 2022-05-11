@@ -9,7 +9,6 @@ const COMPONENTS = [ThyFullscreenImmersiveExampleComponent, ThyFullscreenNormalE
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule],
     exports: [...COMPONENTS]
 })

@@ -35,6 +35,9 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
 
     /** Click outside can been close */
     outsideClosable?: boolean;
+
+    /**  autoAdaptive is true when height change can auto update position */
+    autoAdaptive?: boolean;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');
@@ -50,6 +53,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     insideClosable: false,
     manualClosure: false,
     originActiveClass: 'thy-popover-origin-active',
+    autoAdaptive: false,
     minWidth: '240px'
 };
 

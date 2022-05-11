@@ -1,4 +1,5 @@
-import { NgxTethysModule, ThyStoreModule } from 'ngx-tethys';
+import { NgxTethysModule } from 'ngx-tethys';
+import { ThyStoreModule } from 'ngx-tethys/store';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyStoreBasicExampleComponent } from './basic/basic.component';
@@ -10,7 +11,6 @@ const COMPONENTS = [ThyStoreBasicExampleComponent, ThyStoreListExampleComponent,
 @NgModule({
     imports: [CommonModule, NgxTethysModule, ThyStoreModule],
     exports: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     declarations: [...COMPONENTS],
     providers: []
 })

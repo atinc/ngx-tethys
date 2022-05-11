@@ -177,7 +177,6 @@ export class TestDialogService extends ThyAbstractOverlayService<TestDialogConfi
 @NgModule({
     declarations: [TestDialogContainerComponent],
     imports: [CommonModule, OverlayModule, PortalModule],
-    entryComponents: [TestDialogContainerComponent],
     exports: [],
     providers: []
 })

@@ -1,4 +1,4 @@
-import { Mention, ThyMentionDirective } from 'ngx-tethys';
+import { Mention, ThyMentionDirective } from 'ngx-tethys/mention';
 
 import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
 

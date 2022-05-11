@@ -28,8 +28,10 @@ export class ThyGuider {
     ) {}
 
     public create(config: ThyGuiderConfig): ThyGuiderRef {
-        if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
-            throw new Error(`'config.steps' must be an array of length greater than 0`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
+                throw new Error(`'config.steps' must be an array of length greater than 0`);
+            }
         }
         const normalizeConfig = this.normalizeConfig(config);
         this.guiderRef = new ThyGuiderRef(

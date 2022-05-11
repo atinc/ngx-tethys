@@ -1,24 +1,29 @@
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
-import { Observable, of } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { ThyClickDispatcher } from 'ngx-tethys/core';
+import { Observable, of, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
 import {
+    ChangeDetectorRef,
     Component,
     ContentChild,
     ElementRef,
     forwardRef,
     HostBinding,
-    HostListener,
+    Inject,
     Input,
     NgZone,
+    OnDestroy,
     OnInit,
+    PLATFORM_ID,
     Renderer2,
     TemplateRef,
     ViewChild
 } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
@@ -54,7 +59,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         }
     ]
 })
-export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
+export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -85,6 +90,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     };
 
     private initialled = false;
+
+    private destroy$ = new Subject<void>();
 
     public valueIsObject = false;
 
@@ -146,7 +153,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
-        warnDeprecation('This parameter has been deprecation');
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('This parameter has been deprecation');
+        }
         // if (type === 'especial') {
         //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
         // } else {
@@ -192,15 +201,14 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.onModelTouch = fn;
     }
 
-    constructor(public elementRef: ElementRef, public renderer: Renderer2, private ngZone: NgZone) {}
-
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event) {
-        event.stopPropagation();
-        if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
-            this.expandTreeSelectOptions = false;
-        }
-    }
+    constructor(
+        public elementRef: ElementRef,
+        public renderer: Renderer2,
+        private ngZone: NgZone,
+        private ref: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: string,
+        private thyClickDispatcher: ThyClickDispatcher
+    ) {}
 
     ngOnInit() {
         this.positions = getFlexiblePositions('bottom', 4);
@@ -209,6 +217,25 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.setSelectedNodes();
         this.initialled = true;
         this.init();
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    event.stopPropagation();
+                    if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
+                        this.ngZone.run(() => {
+                            this.expandTreeSelectOptions = false;
+                            this.ref.markForCheck();
+                        });
+                    }
+                });
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 
     get selectedValueObject() {

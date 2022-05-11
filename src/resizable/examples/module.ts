@@ -23,7 +23,6 @@ const COMPONENTS = [
 @NgModule({
     imports: [CommonModule, NgxTethysModule, ThyResizableModule],
     declarations: [...COMPONENTS],
-    exports: [...COMPONENTS],
-    entryComponents: [...COMPONENTS]
+    exports: [...COMPONENTS]
 })
 export class ThyResizableExamplesModule {}

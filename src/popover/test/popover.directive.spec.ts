@@ -8,7 +8,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { ThyPopoverModule } from '../module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-demo-popover-basic',
@@ -192,6 +192,7 @@ describe(`ThyTooltip`, () => {
             [thyConfig]="config"
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
+            [thyDisabled]="disabled"
         >
             Use Template
         </button>
@@ -210,6 +211,7 @@ class TestPopoverDirectiveClickComponent {
     config = {
         panelClass: 'demo-popover'
     };
+    disabled = false;
 
     constructor(public elementRef: ElementRef<HTMLElement>) {}
 }
@@ -269,6 +271,39 @@ describe(`ThyPopoverDirective`, () => {
             fixture.detectChanges();
             flush();
             expect(getPopoverVisible()).toBe(true);
+            fixture.detectChanges();
+            tick(100);
+        }));
+
+        it('should not show popover when `thyDisabled = true` is set', fakeAsync(() => {
+            fixture.componentInstance.trigger = 'hover';
+            fixture.componentInstance.disabled = true;
+            fixture.detectChanges();
+            flush();
+
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+            tick(500);
+            expect(getPopoverVisible()).toBe(false);
+            fixture.detectChanges();
+            tick(100);
+        }));
+
+        it('should not be shown popover when `thyDisabled = true` and in deferred mode', fakeAsync(() => {
+            fixture.componentInstance.trigger = 'hover';
+            fixture.componentInstance.showDelay = 2000;
+            fixture.componentInstance.showDelay = 1000;
+            fixture.detectChanges();
+            flush();
+
+            dispatchMouseEvent(buttonElement, 'mouseenter');
+            fixture.detectChanges();
+
+            fixture.componentInstance.disabled = true;
+            fixture.detectChanges();
+            tick(2500);
+
+            expect(getPopoverVisible()).toBe(false);
         }));
     });
 });

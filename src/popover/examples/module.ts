@@ -1,20 +1,45 @@
-import { NgxTethysModule, THY_POPOVER_SCROLL_STRATEGY } from 'ngx-tethys';
+import { THY_POPOVER_SCROLL_STRATEGY } from 'ngx-tethys/popover';
 
 import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyNavModule } from 'ngx-tethys/nav';
+
 import { ThyPopoverBasicExampleComponent } from './basic/basic.component';
 import { ThyPopoverBasicContentComponent } from './basic/popover-content.component';
 import { ThyPopoverDirectiveExampleComponent } from './directive/directive.component';
+import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-adaptive-content.component';
+import { ThyPopoverAutoAdaptiveExampleComponent } from './auto-adaptive/auto-adaptive.component';
 
-const COMPONENTS = [ThyPopoverBasicContentComponent, ThyPopoverBasicExampleComponent, ThyPopoverDirectiveExampleComponent];
+const COMPONENTS = [
+    ThyPopoverBasicContentComponent,
+    ThyPopoverBasicExampleComponent,
+    ThyPopoverDirectiveExampleComponent,
+    ThyPopoverAutoAdaptiveContentComponent,
+    ThyPopoverAutoAdaptiveExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, NgxTethysModule, FormsModule],
-    entryComponents: COMPONENTS,
+    imports: [
+        CommonModule,
+        ThyButtonModule,
+        ThyFormModule,
+        ThySelectModule,
+        ThyIconModule,
+        ThyActionMenuModule,
+        ThyPopoverModule,
+        ThyNavModule,
+        FormsModule
+    ],
     exports: COMPONENTS,
     providers: [
         {

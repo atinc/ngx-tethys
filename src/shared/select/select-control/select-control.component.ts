@@ -12,9 +12,10 @@ import {
 } from '@angular/core';
 import { InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { isArray, isUndefinedOrNull } from 'ngx-tethys/util';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { ThyLabelTypeSize } from 'ngx-tethys/label';
 
-export type SelectControlSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
@@ -41,7 +42,7 @@ export class ThySelectControlComponent implements OnInit {
 
     searchInputControlClass: { [key: string]: boolean };
 
-    choiceContentClass: { [key: string]: boolean };
+    labelSize: ThyLabelTypeSize;
 
     @Input()
     get thyPanelOpened(): boolean {
@@ -138,6 +139,16 @@ export class ThySelectControlComponent implements OnInit {
     set thySize(value: SelectControlSize) {
         this.size = value;
         this.setSelectControlClass();
+
+        if (value === 'sm') {
+            this.labelSize = 'sm';
+        } else if (value === 'md') {
+            this.labelSize = 'default';
+        } else if (value === 'lg') {
+            this.labelSize = 'xlg';
+        } else {
+            this.labelSize = 'default';
+        }
     }
 
     @Input() @InputNumber() thyMaxTagCount = 0;
@@ -234,12 +245,6 @@ export class ThySelectControlComponent implements OnInit {
             [`form-control-${this.thySize}`]: !!this.thySize,
             [`search-input-field`]: true,
             [`hidden`]: !this.thyShowSearch
-        };
-
-        this.choiceContentClass = {
-            [`choice-content`]: true,
-            [`text-truncate`]: true,
-            [`font-size-${this.thySize}`]: !!this.thySize
         };
     }
 

@@ -118,8 +118,8 @@ export abstract class ThyOverlayDirectiveBase {
                 // this.manualListeners.set('blur', () => this.hide());
             } else if (this.trigger === 'click') {
                 this.manualListeners.set('click', () => this.show());
-            } else {
-                throw new Error(`${this.trigger} is not support, only support hover | focus | click`);
+            } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
+                throw new Error(`${this.trigger} is not supporteed, possible values are: hover | focus | click.`);
             }
         } else {
             const touchendListener = () => {

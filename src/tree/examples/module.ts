@@ -7,20 +7,19 @@ import { ThyTreeBasicExampleComponent } from './basic/basic.component';
 import { ThyTreeCheckableExampleComponent } from './checkable/checkable.component';
 import { ThyTreeDragDropExampleComponent } from './drag-drop/drag-drop.component';
 import { ThyTreeTemplateExampleComponent } from './template/template.component';
-import { ThyTreeVisualScrollingExampleComponent } from './visual-scrolling/visual-scrolling.component';
+import { ThyTreeVirtualScrollExampleComponent } from './virtual-scroll/virtual-scroll.component';
 
 const COMPONENTS = [
     ThyTreeBasicExampleComponent,
     ThyTreeTemplateExampleComponent,
     ThyTreeDragDropExampleComponent,
     ThyTreeCheckableExampleComponent,
-    ThyTreeVisualScrollingExampleComponent
+    ThyTreeVirtualScrollExampleComponent
 ];
 
 @NgModule({
     imports: [CommonModule, NgxTethysModule],
     exports: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     declarations: [...COMPONENTS],
     providers: []
 })

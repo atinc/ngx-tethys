@@ -1,4 +1,5 @@
-import { NgxTethysModule, THY_NOTIFY_DEFAULT_OPTIONS } from 'ngx-tethys';
+import { NgxTethysModule } from 'ngx-tethys';
+import { THY_NOTIFY_DEFAULT_OPTIONS } from 'ngx-tethys/notify';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -23,7 +24,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, NgxTethysModule],
     exports: [...COMPONENTS],
     providers: [

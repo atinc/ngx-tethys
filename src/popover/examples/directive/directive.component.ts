@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopoverBasicContentComponent } from '../basic/popover-content.component';
 
 @Component({

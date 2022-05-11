@@ -28,7 +28,8 @@ import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
-    selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger]',
+    selector:
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
     exportAs: 'thyAutocompleteTrigger',
     host: {
         '(input)': 'handleInput($event)',
@@ -56,7 +57,9 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @Input('thyAutocomplete')
     set autocomplete(data: ThyAutocompleteComponent) {
-        warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
+        }
         this._autocompleteComponent = data;
     }
 
@@ -69,6 +72,8 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     @Input() thyAutocompleteWidth: number;
 
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+
+    @Input() thyIsFocusOpen = true;
 
     get activeOption(): ThyOptionComponent | null {
         if (this.autocompleteComponent && this.autocompleteComponent.keyManager) {
@@ -104,7 +109,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     ngOnInit(): void {}
 
     onFocus() {
-        if (this.canOpen()) {
+        if (this.canOpen() && this.thyIsFocusOpen) {
             this.openPanel();
         }
     }
@@ -258,6 +263,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
                 return (
                     this.panelOpened &&
                     clickTarget !== this.elementRef.nativeElement &&
+                    !this.elementRef.nativeElement.contains(clickTarget) &&
                     (!formField || !formField.contains(clickTarget)) &&
                     !!this.overlayRef &&
                     !this.overlayRef.overlayElement.contains(clickTarget)
@@ -267,8 +273,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private setValue(value: string) {
-        this.elementRef.nativeElement.value = value;
-        this.elementRef.nativeElement.focus();
+        const input = this.elementRef.nativeElement.querySelector('input');
+        const element = input ? input : this.elementRef.nativeElement;
+        element.value = value;
+        element.focus();
     }
 
     private canOpen(): boolean {

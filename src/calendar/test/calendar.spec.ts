@@ -1,5 +1,5 @@
 import { endOfMonth, getMonth, getYear, startOfMonth } from 'date-fns';
-import { getUnixTime, TinyDate } from 'ngx-tethys';
+import { TinyDate, getUnixTime } from 'ngx-tethys/util';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { Component, DebugElement } from '@angular/core';

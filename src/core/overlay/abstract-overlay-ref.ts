@@ -182,7 +182,7 @@ export abstract class ThyAbstractInternalOverlayRef<
     updateGlobalPosition(position?: ThyAbstractOverlayPosition): this {
         const strategy = this.getPositionStrategy() as GlobalPositionStrategy;
 
-        if (!(strategy instanceof GlobalPositionStrategy)) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !(strategy instanceof GlobalPositionStrategy)) {
             throw new Error(`current strategy is not GlobalPositionStrategy`);
         }
 

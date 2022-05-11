@@ -2,10 +2,11 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, ViewChild } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
@@ -140,12 +141,41 @@ const multipleOptions = [
     }
 ];
 
+const emptyOptions = [
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        code: 477200,
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        code: 752100,
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'anhui',
+        label: 'anhui',
+        code: 477201,
+        children: []
+    }
+];
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
         <button class="cancel-anchor" *ngIf="thyChangeOnSelect">取消锚点</button>
 
         <thy-cascader
+            #cascader
             [thyOptions]="thyCustomerOptions"
             (ngModelChange)="onChanges($event)"
             [(ngModel)]="curVal"
@@ -167,6 +197,8 @@ class CascaderBasicComponent {
     public thyCustomerOptions: any[] = customerOptions;
     public thyChangeOnSelect = false;
     public thyMenuClassName = 'test-menu-class';
+    @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
+
     changeValue$ = new Subject<string[]>();
     constructor() {}
     onChanges(e: string[]) {
@@ -403,7 +435,7 @@ describe('thy-cascader', () => {
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
-        it('should  scroll to active item when menu open', fakeAsync(() => {
+        it('should scroll to active item when menu open', fakeAsync(() => {
             fixture.componentInstance.thyCustomerOptions = multipleOptions;
             fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
             fixture.detectChanges();
@@ -418,7 +450,67 @@ describe('thy-cascader', () => {
             const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active').getBoundingClientRect();
             expect(activatedOption.top - elementRect.top < 180).toBeTruthy();
         }));
+        it('should show empty state when options is []', fakeAsync(() => {
+            component.thyCustomerOptions = [];
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const emptyContent = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyContent).toBeTruthy();
+        }));
+
+        it('should change height when the window is resized', fakeAsync(() => {
+            const element = component.cascaderRef.trigger.nativeElement as Element;
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+
+            getBoundingClientRect.and.returnValues(
+                {
+                    height: 10,
+                    width: 20,
+                    top: 30,
+                    left: 40
+                },
+                {
+                    height: 50,
+                    width: 60,
+                    top: 70,
+                    left: 80
+                }
+            );
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+            fixture.detectChanges();
+            tick(100);
+            const triggerRect = component.cascaderRef.triggerRect;
+            expect((triggerRect as DOMRect).height).toBe(50);
+            expect((triggerRect as DOMRect).width).toBe(60);
+        }));
+
+        it('should show nothing when children is []', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = emptyOptions;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const haveChildrenItem = items[0];
+            const noChildrenItem = items[1];
+            dispatchFakeEvent(haveChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const secondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(secondMenu.children.length).toEqual(1);
+            dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(emptySecondMenu.children.length).toEqual(0);
+        }));
     });
+
     describe('loadData', () => {
         let fixture: ComponentFixture<CascaderLoadComponent>;
         let component: CascaderLoadComponent;

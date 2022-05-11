@@ -1,3 +1,4 @@
+import { CommonModule } from '@angular/common';
 import { ThyFullscreen } from './../fullscreen.service';
 import { fakeAsync, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyFullscreenModule } from '../fullscreen.module';
@@ -133,20 +134,20 @@ describe('Container ThyFullscreen', () => {
     let testComponent: ThyContainerFullscreenComponent;
     let fullscreenComponent: DebugElement;
 
-    beforeEach(fakeAsync(() => {
-        TestBed.configureTestingModule({
-            imports: [ThyFullscreenModule],
-            declarations: [ThyContainerFullscreenComponent],
-            providers: [
-                {
-                    provider: ThyFullscreen,
-                    useValue: FakeFullscreenService
-                }
-            ]
-        });
-
-        TestBed.compileComponents();
-    }));
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyFullscreenModule],
+                declarations: [ThyContainerFullscreenComponent],
+                providers: [
+                    {
+                        provider: ThyFullscreen,
+                        useValue: FakeFullscreenService
+                    }
+                ]
+            }).compileComponents();
+        })
+    );
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyContainerFullscreenComponent);
@@ -200,6 +201,35 @@ describe('Container ThyFullscreen', () => {
     });
 });
 
+describe('`thy-fulscreen` with dynamic launch button', () => {
+    let fixture: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent>;
+
+    beforeEach(
+        waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [CommonModule, ThyFullscreenModule],
+                declarations: [ThyContainerFullscreenDynamicLaunchComponent]
+            }).compileComponents();
+        })
+    );
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyContainerFullscreenDynamicLaunchComponent);
+        fixture.detectChanges();
+    });
+
+    it('should listen to launch button clicks even if it is dynamic', () => {
+        expect(fixture.debugElement.query(By.css('.fullscreen-button'))).toBe(null);
+
+        fixture.componentInstance.fullscreenLaunchShown = true;
+        fixture.detectChanges();
+
+        const fullscreenLaunchButton = fixture.debugElement.query(By.css('.fullscreen-button'));
+        expect(fullscreenLaunchButton).toBeDefined();
+        expect(fullscreenLaunchButton.nativeElement.eventListeners().length).toBe(1);
+    });
+});
+
 @Component({
     selector: 'thy-container-fullscreen',
     template: `
@@ -224,4 +254,19 @@ class ThyContainerFullscreenComponent {
     classes = 'container-fullscreen';
     constructor() {}
     changeFullscreen(event: boolean) {}
+}
+
+@Component({
+    template: `
+        <thy-fullscreen>
+            <div fullscreen-target [style.backgroundColor]="'#fff'">
+                <button *ngIf="fullscreenLaunchShown" thyFullscreenLaunch class="fullscreen-button">
+                    全屏
+                </button>
+            </div>
+        </thy-fullscreen>
+    `
+})
+class ThyContainerFullscreenDynamicLaunchComponent {
+    fullscreenLaunchShown = false;
 }

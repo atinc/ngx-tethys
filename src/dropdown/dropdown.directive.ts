@@ -80,8 +80,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     createOverlay(): OverlayRef {
-        if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
-            throw new Error(`thyDropdownMenu is required`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
+                throw new Error(`thyDropdownMenu is required`);
+            }
         }
 
         const { placement, width, height, insideClosable, minWidth } = Object.assign(

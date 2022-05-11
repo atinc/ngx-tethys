@@ -1,4 +1,4 @@
-import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys';
+import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys/mention';
 
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 

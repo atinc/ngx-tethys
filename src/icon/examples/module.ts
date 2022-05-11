@@ -24,7 +24,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyIconModule, ThyTooltipModule],
     exports: [...COMPONENTS],
     providers: []
