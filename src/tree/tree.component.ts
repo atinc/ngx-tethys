@@ -159,7 +159,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input()
     set thyItemSize(itemSize: number) {
         if (this.thySize !== 'default') {
-            throw new Error('thyItemSize is only available when thySize is default');
+            throw new Error('setting thySize and thyItemSize at the same time is not allowed');
         }
         this._thyItemSize = itemSize;
     }

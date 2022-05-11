@@ -472,7 +472,7 @@ describe('ThyTreeComponent', () => {
                 component.tree.thySize = 'sm';
                 component.tree.thyItemSize = 55;
             } catch (error) {
-                expect(error.message).toEqual('thyItemSize is only available when thySize is default');
+                expect(error.message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
             }
         });
 
