@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import option from '../cascader-address-options';
 
 @Component({
-    selector: 'thy-cascader-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-cascader-multiple-example',
+    templateUrl: './multiple.component.html'
 })
-export class ThyCascaderBasicExampleComponent implements OnInit {
+export class ThyCascaderMultipleExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
     public values: any[] = [];
@@ -16,7 +16,5 @@ export class ThyCascaderBasicExampleComponent implements OnInit {
         this.areaCode = option;
     }
 
-    public onChanges(values: any): void {
-        console.log('++++++++++', values);
-    }
+    public onChanges(values: any): void {}
 }

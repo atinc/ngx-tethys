@@ -4,74 +4,69 @@
     position: relative;
     display: inline-block;
     cursor: pointer;
-    border: 1px solid variables.$gray-200;
-    border-radius: variables.$input-border-radius-xs;
-    &:hover:not(&-picker-disabled):not(.is-invalid) {
-        border-color: variables.$primary;
-    }
-    &-input.form-control {
-        border: none !important;
-        cursor: pointer;
+    // &-input.form-control {
+    //     border: none !important;
+    //     cursor: pointer;
 
-        &:disabled {
-            cursor: default;
-        }
-    }
-    &-xs,
-    &-sm {
-        font-size: 0.75rem;
-    }
-    &-picker {
-        &-open {
-            border-color: variables.$primary;
-        }
-        &-disabled {
-            color: variables.$gray-600;
-            border-color: 1px solid variables.$gray-400;
-            cursor: default;
-        }
-        &-label {
-            position: absolute;
-            left: 0;
-            height: 20px;
-            line-height: 20px;
-            top: 50%;
-            margin-top: -10px;
-            white-space: nowrap;
-            text-overflow: ellipsis;
-            overflow: hidden;
-            width: 100%;
-            padding: 0 24px 0 12px;
-        }
-        &-arrow {
-            color: variables.$gray-500;
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            font-size: 1rem;
-            margin-top: -8px;
-            line-height: 1;
-            transition: transform 0.2s;
-            &-expand {
-                transform: rotate(180deg);
-            }
-        }
-        &-clear {
-            opacity: 0;
-            position: absolute;
-            right: 13px;
-            z-index: 2;
-            background: variables.$white;
-            top: 50%;
-            font-size: 0.875rem;
-            margin-top: -7px;
-            line-height: 1;
-            transition: color 0.3s ease, opacity 0.15s ease;
-        }
-        &:hover &-clear {
-            opacity: 1;
-        }
-    }
+    //     &:disabled {
+    //         cursor: default;
+    //     }
+    // }
+    // &-xs,
+    // &-sm {
+    //     font-size: 0.75rem;
+    // }
+    // &-picker {
+    //     &-open {
+    //         border-color: variables.$primary;
+    //     }
+    //     &-disabled {
+    //         color: variables.$gray-600;
+    //         border-color: 1px solid variables.$gray-400;
+    //         cursor: default;
+    //     }
+    //     &-label {
+    //         position: absolute;
+    //         left: 0;
+    //         height: 20px;
+    //         line-height: 20px;
+    //         top: 50%;
+    //         margin-top: -10px;
+    //         white-space: nowrap;
+    //         text-overflow: ellipsis;
+    //         overflow: hidden;
+    //         width: 100%;
+    //         padding: 0 24px 0 12px;
+    //     }
+    //     &-arrow {
+    //         color: variables.$gray-500;
+    //         position: absolute;
+    //         right: 12px;
+    //         top: 50%;
+    //         font-size: 1rem;
+    //         margin-top: -8px;
+    //         line-height: 1;
+    //         transition: transform 0.2s;
+    //         &-expand {
+    //             transform: rotate(180deg);
+    //         }
+    //     }
+    //     &-clear {
+    //         opacity: 0;
+    //         position: absolute;
+    //         right: 13px;
+    //         z-index: 2;
+    //         background: variables.$white;
+    //         top: 50%;
+    //         font-size: 0.875rem;
+    //         margin-top: -7px;
+    //         line-height: 1;
+    //         transition: color 0.3s ease, opacity 0.15s ease;
+    //     }
+    //     &:hover &-clear {
+    //         opacity: 1;
+    //     }
+    // }
     &-menus {
         font-size: 14px;
         background: #fff;

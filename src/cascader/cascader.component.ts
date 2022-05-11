@@ -16,11 +16,13 @@ import {
     ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isArray, isEmpty } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
+import { SelectOptionBase } from 'ngx-tethys/shared';
+import { SelectionModel } from '@angular/cdk/collections';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -85,15 +87,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public dropDownPosition = 'bottom';
     public menuVisible = false;
     public isLoading = false;
-    public isOpening = false;
     public showSearch = false;
-    private _thySize = 'md';
-
-    private _arrowCls: { [name: string]: any };
     private _menuCls: { [name: string]: any };
     private _labelCls: { [name: string]: any };
-    private _clearCls: { [name: string]: any };
-    private _inputCls: { [name: string]: any };
 
     private labelRenderTpl: TemplateRef<any>;
     public isLabelRenderTemplate = false;
@@ -121,23 +117,12 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     private selectedOptions: CascaderOption[] = [];
     private activatedOptions: CascaderOption[] = [];
     public thyColumns: CascaderOption[][] = [];
-
+    public selectionModel: SelectionModel<SelectOptionBase>;
     @Input() thyValueProperty = 'value';
 
     @Input() thyLabelProperty = 'label';
 
     @Input() thyPlaceHolder = '请选择';
-
-    private _inputValue = '';
-
-    get inputValue(): string {
-        return this._inputValue;
-    }
-
-    set inputValue(inputValue: string) {
-        this._inputValue = inputValue;
-        const willBeInSearch = !!inputValue;
-    }
 
     @Input() thyLoadData: (node: CascaderOption, index?: number) => PromiseLike<any>;
 
@@ -159,11 +144,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return this.showInput;
     }
 
-    public searchWidthStyle: string;
-    private oldColumnsHolder: any;
-    private oldActivatedOptions: any;
-
-    public inSearch = false;
+    get selected(): SelectOptionBase | SelectOptionBase[] {
+        console.log('selected', this.selectionModel.selected);
+        return this.thyMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+    }
 
     public emptyStateText = '无任何选项';
 
@@ -175,11 +159,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     @Input()
     set thyOptions(options: CascaderOption[] | null) {
-        this.oldColumnsHolder = this.thyColumns = options && options.length ? [options] : [];
-        if (!this.inSearch) {
-            if (this.defaultValue && this.thyColumns.length) {
-                this.initOptions(0);
-            }
+        this.thyColumns = options && options.length ? [options] : [];
+        if (this.defaultValue && this.thyColumns.length) {
+            this.initOptions(0);
         }
     }
 
@@ -204,21 +186,19 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     @Input()
+    @InputBoolean()
     disabled = false;
 
-    @Input()
-    set thySize(v: string) {
-        this._thySize = v;
-    }
-
-    get thySize() {
-        return this._thySize;
-    }
+    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
 
     @Input()
     set thyEmptyStateText(value: string) {
         this.emptyStateText = value;
     }
+
+    @Input()
+    @InputBoolean()
+    thyMultiple = false;
 
     @Output() thyChange = new EventEmitter<any[]>();
 
@@ -249,11 +229,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.setClassMap();
         this.setMenuClass();
         this.setMenuColumnClass();
-        this.setArrowClass();
         this.setLabelClass();
-        this.setClearClass();
-        this.setInputClass();
         this.initPosition();
+        if (!this.selectionModel) {
+            this.selectionModel = new SelectionModel<SelectOptionBase>(this.thyMultiple);
+        }
         this.viewPortRuler
             .change(100)
             .pipe(takeUntil(this.destroy$))
@@ -321,6 +301,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     afterWriteValue(): void {
         this.selectedOptions = this.activatedOptions;
         this.value = this.getSubmitValue();
+        console.log('-----', this.thyMultiple);
         this.buildDisplayLabel();
     }
 
@@ -350,18 +331,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     public getOptionValue(option: CascaderOption): any {
         return option[this.thyValueProperty || 'value'];
-    }
-
-    private hasInput(): boolean {
-        return this.inputValue.length > 0;
-    }
-
-    private hasValue(): boolean {
-        return this.value && this.value.length > 0;
-    }
-
-    public get showPlaceholder(): boolean {
-        return !(this.hasInput() || this.hasValue());
     }
 
     public isActivedOption(option: CascaderOption, index: number): boolean {
@@ -397,11 +366,26 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     private buildDisplayLabel(): void {
         const selectedOptions = this.selectedOptions;
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
-
+        let labelRenderContext;
+        let labelRenderText;
         if (this.isLabelRenderTemplate) {
-            this.labelRenderContext = { labels, selectedOptions };
+            labelRenderContext = { labels, selectedOptions };
         } else {
-            this.labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
+            labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
+            this.labelRenderText = labelRenderText;
+        }
+        if (this.labelRenderText || this.isLabelRenderTemplate) {
+            console.log(12346, this.thyMultiple);
+            this.selectionModel.select({
+                thyRawValue: {
+                    value: selectedOptions,
+                    labelText: labelRenderText,
+                    labelRenderContext: labelRenderContext
+                },
+                thyValue: labels,
+                thyLabelText: labelRenderText
+            });
+            console.log(labelRenderContext, 'labelRenderContext');
         }
     }
 
@@ -415,7 +399,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
             this.initActivatedOptions();
             this.setClassMap();
-            this.setArrowClass();
             this.setMenuClass();
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
@@ -458,28 +441,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         };
     }
 
-    public get arrowCls(): any {
-        return this._arrowCls;
-    }
-
-    private setArrowClass(): void {
-        this._arrowCls = {
-            [`${this.prefixCls}-picker-arrow`]: true,
-            [`${this.prefixCls}-picker-arrow-expand`]: this.menuVisible
-        };
-    }
-
-    public get clearCls(): any {
-        return this._clearCls;
-    }
-
-    private setClearClass(): void {
-        this._clearCls = {
-            [`${this.prefixCls}-picker-clear`]: true,
-            [`remove-link`]: true
-        };
-    }
-
     public get labelCls(): any {
         return this._labelCls;
     }
@@ -489,16 +450,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             [`${this.prefixCls}-picker-label`]: true,
             [`${this.prefixCls}-show-search`]: false,
             [`${this.prefixCls}-focused`]: false
-        };
-    }
-
-    public get inputCls(): any {
-        return this._inputCls;
-    }
-
-    private setInputClass(): void {
-        this._inputCls = {
-            [`${this.prefixCls}-input`]: true
         };
     }
 
@@ -590,7 +541,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     public closeMenu(): void {
         this.setMenuVisible(false);
-        this.setArrowClass();
     }
 
     public setActiveOption(option: CascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
@@ -626,10 +576,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.thySelect.emit({ option, index });
         if (option.isLeaf || this.thyChangeOnSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
+            console.log('+++++++', this.thyMultiple);
             this.buildDisplayLabel();
             this.onValueChange();
         }
-        if (option.isLeaf) {
+        if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
         }
     }
@@ -661,12 +612,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.labelRenderContext = {};
         this.selectedOptions = [];
         this.activatedOptions = [];
-        this.inputValue = '';
+        this.selectionModel.clear();
         this.setMenuVisible(false);
         this.onValueChange();
     }
-
-    public focus() {}
 
     private loadChildren(option: CascaderOption, index: number, success?: () => void, failure?: () => void): void {
         if (this.thyLoadData) {

@@ -1,29 +1,29 @@
-<div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
+<div cdk-overlay-origin #origin="cdkOverlayOrigin" #trigger>
   <ng-container *ngIf="thyShowInput">
-    <input
-      #input
-      thyInput
-      type="text"
+    <div
+      thySelectControl
       [thySize]="thySize"
-      [ngClass]="inputCls"
-      readonly
-      [disabled]="disabled"
-      [placeholder]="showPlaceholder ? thyPlaceHolder : ''"
-    />
-    <span [ngClass]="arrowCls">
-      <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
-    </span>
-    <span [ngClass]="clearCls" *ngIf="!isLoading && !disabled && labelRenderText" (click)="clearSelection($event)">
-      <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
-    </span>
-    <span [ngClass]="labelCls">
-      <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ labelRenderText }}</ng-container>
-      <ng-template #labelTemplate>
-        <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="labelRenderContext"></ng-template>
+      [thyAllowClear]="true"
+      [thySelectedOptions]="selected"
+      (thyOnClear)="clearSelection($event)"
+      [thyDisabled]="disabled"
+      [thyIsMultiple]="thyMultiple"
+      [thyPanelOpened]="menuVisible"
+      [thyPlaceholder]="thyPlaceHolder"
+      [customDisplayTemplate]="customDisplayTemplate"
+    >
+      <ng-template #customDisplayTemplate let-value>
+        <span [ngClass]="labelCls">
+          <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>
+          <ng-template #labelTemplate>
+            <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="value.labelRenderContext"></ng-template>
+          </ng-template>
+        </span>
       </ng-template>
-    </span>
+    </div>
   </ng-container>
 </div>
+
 <ng-template
   cdkConnectedOverlay
   cdkConnectedOverlayHasBackdrop
@@ -45,6 +45,7 @@
           thy-cascader-option
           *ngFor="let option of options"
           [option]="option"
+          [multiple]="thyMultiple"
           (click)="onOptionClick(option, i, $event)"
           (mouseover)="onOptionMouseover(option, i, $event)"
           [thyLabelProperty]="thyLabelProperty"

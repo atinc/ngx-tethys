@@ -19,6 +19,9 @@
   </div>
   <ng-container *ngIf="isMultiple; else single">
     <ul>
+      {{
+        maxSelectedTags
+      }}
       <li
         class="choice"
         [ngClass]="{ disabled: disabled === true }"

@@ -1,0 +1,18 @@
+<thy-cascader
+  [thyOptions]="areaCode"
+  [(ngModel)]="values"
+  [thyMultiple]="true"
+  (ngModelChange)="onChanges($event)"
+  [thyLabelRender]="renderTpl"
+  thyPlaceHolder="自定义PlaceHolder"
+>
+</thy-cascader>
+
+<ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+  <!-- <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+        <span *ngIf="isLast && label">
+          {{ label }}
+        </span>
+      </ng-container> -->
+  1231
+</ng-template>
