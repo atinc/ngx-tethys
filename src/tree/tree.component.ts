@@ -132,18 +132,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thyIcons: ThyTreeIcons = {};
 
-    private _thySize: ThyTreeSize;
-    @Input()
-    set thySize(size: ThyTreeSize) {
-        this._thySize = size;
-        if (size === 'sm' && this.thyItemSize === 44) {
-            this.thyItemSize = 42;
-        }
-    }
-
-    get thySize() {
-        return this._thySize;
-    }
+    @Input() thySize: ThyTreeSize;
 
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
