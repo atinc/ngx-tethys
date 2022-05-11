@@ -608,11 +608,11 @@ export class ThyTableComponent extends _MixinBase
         this.ngZone.runOutsideAngular(() =>
             setTimeout(() => {
                 const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
-                const placeholders: HTMLCollection = event.source._dragRef.getPlaceholderElement().children;
+                const placeholders: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
                 if (preview) {
                     preview.classList.add('thy-table-drag-preview', 'thy-table-native-drag-preview');
                     const dragPreEl = this.document.getElementsByClassName('thy-table-native-drag-preview')[0];
-                    Array.from(dragPreEl.children).forEach((element: HTMLElement, index: number) => {
+                    Array.from(dragPreEl?.children).forEach((element: HTMLElement, index: number) => {
                         element.style.width = `${placeholders[index]?.clientWidth}px`;
                     });
                 }
