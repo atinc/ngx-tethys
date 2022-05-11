@@ -262,6 +262,26 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         });
     }
 
+    public beforeDragDrop = (event: ThyDragDropEvent<ThyTreeNode>) => {
+        event.previousItem = this.dragItem;
+        if (event.item.level > 0) {
+            event.containerItems = event.item.parentNode.children;
+        } else {
+            event.containerItems = event.containerItems.filter(item => item.level === 0);
+        }
+        event.currentIndex = (event.containerItems || []).findIndex(item => item.key === event.item.key);
+
+        if (event.previousItem.level > 0) {
+            event.previousContainerItems = event.previousItem.parentNode.children;
+        }
+        event.previousIndex = (event.previousContainerItems || []).findIndex(item => item.key === event.previousItem.key);
+
+        if (this.thyBeforeDragDrop) {
+            return this.thyBeforeDragDrop(event);
+        }
+        return true;
+    };
+
     public isSelected(node: ThyTreeNode) {
         return this._selectionModel.isSelected(node);
     }
@@ -284,7 +304,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     public onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        event.previousItem = this.dragItem;
         if (!this.isShowExpand(event.item) && event.position === ThyDropPosition.in) {
             return;
         }
@@ -296,10 +315,12 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         }
         switch (event.position) {
             case ThyDropPosition.in:
+                event.previousItem.parentNode = event.item;
                 event.item.addChildren(event.previousItem.origin);
                 break;
             case ThyDropPosition.after:
             case ThyDropPosition.before:
+                event.previousItem.parentNode = event.item.parentNode;
                 const targetParent = event.item.parentNode;
                 const index = event.position === ThyDropPosition.before ? 0 : 1;
                 if (targetParent) {

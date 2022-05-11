@@ -4,7 +4,7 @@ import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
 import { ThyHeaderComponent } from '../header.component';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing/thy-icon';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
 import { ThyContentComponent } from '../content.component';
 import { ThyContentSectionComponent } from '../content-section.component';
 import { ThyContentMainComponent } from '../content-main.component';

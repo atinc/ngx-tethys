@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ThyInputNumberComponent } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
-import { keycodes } from 'ngx-tethys';
+import { keycodes } from 'ngx-tethys/util';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({

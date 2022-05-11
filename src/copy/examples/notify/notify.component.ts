@@ -1,4 +1,4 @@
-import { ThyCopyEvent } from 'ngx-tethys/copy/copy.directive';
+import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 import { Component } from '@angular/core';

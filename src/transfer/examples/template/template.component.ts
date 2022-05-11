@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange, TransferDirection } from 'ngx-tethys';
+import { ThySelectionListChange } from 'ngx-tethys/list';
+import { TransferDirection } from 'ngx-tethys/transfer';
 
 interface ThyTransferTemplateItem {
     _id: string;

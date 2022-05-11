@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyTreeNode, ThyTreeNodeCheckState } from 'ngx-tethys';
+import { ThyTreeNode, ThyTreeNodeCheckState } from 'ngx-tethys/tree';
 import { treeNodes } from '../mocks';
 
 @Component({

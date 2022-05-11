@@ -7,7 +7,7 @@ import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-as
 import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
 import { ThyResizableRasterExampleComponent } from '../examples/raster/raster.component';
 import { ThyResizableModule } from '../module';
-import { ThyRasterModule } from 'ngx-tethys';
+import { ThyRasterModule } from 'ngx-tethys/raster';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { ThyResizableDirective, DEFAULT_RESIZE_DIRECTION } from '../index';

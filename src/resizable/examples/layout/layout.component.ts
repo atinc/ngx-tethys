@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable/interface';
+import { ThyResizeEvent } from 'ngx-tethys/resizable';
 
 @Component({
     selector: 'thy-resizable-layout-example',

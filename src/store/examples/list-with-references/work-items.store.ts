@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Action, EntityStore, EntityState, OnCombineRefs, ReferencesIdDictionary } from 'ngx-tethys';
+import { Action, EntityStore, EntityState, OnCombineRefs, ReferencesIdDictionary } from 'ngx-tethys/store';
 import { of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { workItemResponseData, addWorkItemResponseData } from '../work-items.mock';

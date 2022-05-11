@@ -1,5 +1,7 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy } from '@angular/core';
-import { mixinUnsubscribe, ThyDialogConfig, MixinBase, ThyDialogSizes, ThyDialog, keycodes } from 'ngx-tethys';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { ThyDialogConfig, ThyDialogSizes, ThyDialog } from 'ngx-tethys/dialog';
+import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { takeUntil } from 'rxjs/operators';
 

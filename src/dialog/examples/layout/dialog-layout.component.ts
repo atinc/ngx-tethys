@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys';
+import { ThyDialogLayoutConfig, ThyDialogRef } from 'ngx-tethys/dialog';
 
 @Component({
     selector: 'thy-dialog-footer-layout-example',
