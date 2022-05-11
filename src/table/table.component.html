@@ -65,7 +65,7 @@
           class="thy-sortable-item"
           cdkDrag
           [cdkDragData]="row"
-          (cdkDragStarted)="onDragStarted()"
+          (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
           (thyContextMenu)="onRowContextMenu($event, row)"
@@ -86,7 +86,7 @@
           class="thy-sortable-item"
           cdkDrag
           [cdkDragData]="row"
-          (cdkDragStarted)="onDragStarted()"
+          (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
           (thyContextMenu)="onRowContextMenu($event, row)"
@@ -106,7 +106,6 @@
       <ng-template #tdsTemplate let-row="row" let-i="index" let-level="level">
         <td
           *ngFor="let column of columns; let j = index"
-          [style.width.px]="column.width"
           [ngClass]="column.className"
           [class.thy-table-checkbox-column]="column.type === customType.checkbox"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
