@@ -47,7 +47,7 @@ export class ThyTreeNode<T = any> {
         this.isLoading = false;
         if (node.children) {
             node.children.forEach(childNode => {
-                this.children.push(new ThyTreeNode(childNode, this));
+                this.children.push(new ThyTreeNode(childNode, this, service));
             });
         }
         this.service = service;
