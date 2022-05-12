@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.26](https://github.com/atinc/ngx-tethys/compare/12.1.25...12.1.26) (2022-05-12)
+
+
+### Bug Fixes
+
+* **fullscreen:** access and initialize the launch fullscreen button more explicitly ([faa91c9](https://github.com/atinc/ngx-tethys/commit/faa91c9cc977f401581a347321200f740ac0b490))
+* **table:** fix drag style #INFR-1184 ([#1649](https://github.com/atinc/ngx-tethys/issues/1649)) ([30d10cb](https://github.com/atinc/ngx-tethys/commit/30d10cba351867eb88a00e3acad9e93c0393ccd3)), closes [#INFR-1184](https://github.com/atinc/ngx-tethys/issues/INFR-1184)
+* **tree:** #INFR-3072  incorrect dragline style when thySize is set to 'sm' ([#1652](https://github.com/atinc/ngx-tethys/issues/1652)) ([cf6cc43](https://github.com/atinc/ngx-tethys/commit/cf6cc43cb1c4c5bc3ea084a7da011fe36ce79f5b)), closes [#INFR-3072](https://github.com/atinc/ngx-tethys/issues/INFR-3072)
+* **tree:** #INFR-3086 Drag problem caused by incorrect data in event in thyOnDragDrop and thyBeforeDragDrop ([#1651](https://github.com/atinc/ngx-tethys/issues/1651)) ([bbe133c](https://github.com/atinc/ngx-tethys/commit/bbe133c11149f000b4c5aa199552f9ec5c816a00)), closes [#INFR-3086](https://github.com/atinc/ngx-tethys/issues/INFR-3086)
+
+
+### Performance Improvements
+
+* tree-shake deprecations and remove unused `getInjector` ([5a7fa76](https://github.com/atinc/ngx-tethys/commit/5a7fa76da7ffb604160e10c50deade23e746f828))
+* **select:** do not run change detection on document clicks when the custom select is closed ([7137488](https://github.com/atinc/ngx-tethys/commit/713748893a2bcf7732ea5f012195619182b3a40e))
+* **tree-select:** do not run change detection on document clicks when the popup is closed ([55443e4](https://github.com/atinc/ngx-tethys/commit/55443e4cab85f13e8a06c7c21b907c4a0615f2e9))
+
+
+
 ## [12.1.25](https://github.com/atinc/ngx-tethys/compare/12.1.24...12.1.25) (2022-05-09)
 
 
