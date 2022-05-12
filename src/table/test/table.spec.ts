@@ -559,11 +559,14 @@ describe('ThyTable: basic', () => {
 
         dispatchMouseEvent(rows[1], 'mousemove', 50, 50);
         fixture.detectChanges();
-
-        dispatchMouseEvent(rows[1], 'mouseup', 50, 50);
-        fixture.detectChanges();
         tick(500);
-        fixture.detectChanges();
+        const previewTds = document.querySelector('.thy-table-native-drag-preview').querySelectorAll('td');
+        dispatchMouseEvent(rows[1], 'mouseup', 50, 50);
+        const dragOriginTds = rows[1].querySelectorAll('td');
+        tick(500);
+        previewTds.forEach((item, index) => {
+            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+        });
         expect(spy).toHaveBeenCalled();
     }));
 });
