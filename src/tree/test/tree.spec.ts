@@ -466,6 +466,20 @@ describe('ThyTreeComponent', () => {
             const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
             expect(updateTreeNodesCount).toEqual(1);
         });
+
+        it('test should throw error when thySize and thyItemSize are both assigned ', () => {
+            try {
+                component.tree.thySize = 'sm';
+                component.tree.thyItemSize = 55;
+            } catch (error) {
+                expect(error.message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
+            }
+        });
+
+        it('test should thyItemSize is 42 when thySize is sm', () => {
+            component.tree.thySize = 'sm';
+            expect(component.tree.thyItemSize).toEqual(42);
+        });
     });
 
     describe('async tree', () => {
