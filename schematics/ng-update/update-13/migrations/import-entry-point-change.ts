@@ -4,6 +4,8 @@ export class ImportEntryPointChangeMigrationByNg12 extends ImportEntryPointChang
     readonly changeModulePackageGroup: { [name: string]: { with: string; replace: string } } = {};
 
     readonly changePackageGroup = {
-        'ngx-tethys/store': '@tethys/store'
+        'ngx-tethys/store': '@tethys/store',
+        'ngx-tethys/raster': 'ngx-tethys/grid',
+        'ngx-tethys/uploader': 'ngx-tethys/upload'
     };
 }

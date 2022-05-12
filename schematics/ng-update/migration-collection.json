@@ -11,10 +11,10 @@
       "factory": "./update-11",
       "description": "Updates NGX-TETHYS to v11"
     },
-    "migration-v12": {
-      "version": "12.0.0",
-      "factory": "./update-12",
-      "description": "Updates NGX-TETHYS to v12"
+    "migration-v13": {
+      "version": "13.0.0",
+      "factory": "./update-13",
+      "description": "Updates NGX-TETHYS to v13"
     }
   }
 }

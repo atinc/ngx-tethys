@@ -1,15 +1,17 @@
-import { Rule, Tree, SchematicContext } from '@angular-devkit/schematics';
-import { MigrationBase } from './base';
-import {
-    createUpdateFileService,
-    getAngularJson,
-    getWorkspaceAllTsconfig,
-    creatTreeTsParseConfigHost,
-    createTreeCompilerHost
-} from '../utils';
-import ts from 'typescript';
 import * as path from 'path';
+import ts from 'typescript';
+
+import { Rule, SchematicContext, Tree } from '@angular-devkit/schematics';
+
 import { ClassType } from '../types';
+import {
+    createTreeCompilerHost,
+    createUpdateFileService,
+    creatTreeTsParseConfigHost,
+    getAngularJson,
+    getWorkspaceAllTsconfig
+} from '../utils';
+import { MigrationBase } from './base';
 
 export function TsMigrationSchematicsRule(
     migrationList: ClassType<MigrationBase>[],
