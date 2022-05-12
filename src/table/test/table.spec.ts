@@ -560,7 +560,7 @@ describe('ThyTable: basic', () => {
         dispatchMouseEvent(rows[1], 'mousemove', 50, 50);
         fixture.detectChanges();
         tick(500);
-        const previewTds = document.querySelector('.thy-table-native-drag-preview').querySelectorAll('td');
+        const previewTds = document.querySelector('.thy-table-drag-preview').querySelectorAll('td');
         dispatchMouseEvent(rows[1], 'mouseup', 50, 50);
         const dragOriginTds = rows[1].querySelectorAll('td');
         tick(500);
