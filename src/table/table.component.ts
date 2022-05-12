@@ -338,6 +338,8 @@ export class ThyTableComponent extends _MixinBase
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
 
+    dragPreviewClass = 'thy-table-drag-preview';
+
     public buildColumnWidth = (width: string | number) => {
         return Number(width.toString().split('px')[0]);
     };
@@ -607,13 +609,11 @@ export class ThyTableComponent extends _MixinBase
     onDragStarted(event: CdkDragStart<unknown>) {
         this.ngZone.runOutsideAngular(() =>
             setTimeout(() => {
-                const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
-                const placeholders: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
+                const preview = this.document.getElementsByClassName(this.dragPreviewClass)[0];
+                const originalTds: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
                 if (preview) {
-                    preview.classList.add('thy-table-drag-preview', 'thy-table-native-drag-preview');
-                    const dragPreEl = this.document.getElementsByClassName('thy-table-native-drag-preview')[0];
-                    Array.from(dragPreEl?.children).forEach((element: HTMLElement, index: number) => {
-                        element.style.width = `${placeholders[index]?.clientWidth}px`;
+                    Array.from(preview?.children).forEach((element: HTMLElement, index: number) => {
+                        element.style.width = `${originalTds[index]?.clientWidth}px`;
                     });
                 }
             })

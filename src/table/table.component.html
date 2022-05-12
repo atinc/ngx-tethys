@@ -64,6 +64,7 @@
           *ngFor="let row of model; trackBy: trackByFn; let i = index"
           class="thy-sortable-item"
           cdkDrag
+          [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
           (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
@@ -85,6 +86,7 @@
           #rows
           class="thy-sortable-item"
           cdkDrag
+          [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
           (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
