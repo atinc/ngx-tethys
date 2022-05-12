@@ -17,7 +17,7 @@ export * from 'ngx-tethys/dropdown';
 export * from 'ngx-tethys/empty';
 export * from 'ngx-tethys/form';
 export * from 'ngx-tethys/table';
-export * from 'ngx-tethys/raster';
+export * from 'ngx-tethys/grid';
 export * from 'ngx-tethys/input';
 export * from 'ngx-tethys/input-number';
 export * from 'ngx-tethys/label';

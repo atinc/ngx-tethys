@@ -50,7 +50,7 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyRadioModule } from 'ngx-tethys/radio';
-import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyRateModule } from 'ngx-tethys/rate';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
 import { ThyResultModule } from 'ngx-tethys/result';
@@ -93,7 +93,7 @@ const TETHYS_MODULES = [
     ThyPopoverModule,
     ThyBadgeModule,
     ThyTableModule,
-    ThyRasterModule,
+    ThyGridModule,
     ThyAvatarModule,
     ThyLabelModule,
     ThyNavModule,

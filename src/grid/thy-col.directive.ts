@@ -35,18 +35,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     }
 })
 export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
-    @Input() thyFlex: string | number | null = null;
     @Input() thySpan: number | null = 24;
-    @Input() thyOrder: number | null = null;
-    @Input() thyOffset: number | null = null;
-    @Input() thyPush: number | null = null;
-    @Input() thyPull: number | null = null;
-    @Input() thyXs: number | ThyColEmbeddedProperty | null = null;
-    @Input() thySm: number | ThyColEmbeddedProperty | null = null;
-    @Input() thyMd: number | ThyColEmbeddedProperty | null = null;
-    @Input() thyLg: number | ThyColEmbeddedProperty | null = null;
-    @Input() thyXl: number | ThyColEmbeddedProperty | null = null;
-    @Input() thyXXl: number | ThyColEmbeddedProperty | null = null;
 
     constructor(
         private elementRef: ElementRef,

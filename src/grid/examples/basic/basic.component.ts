@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-raster-basic-example',
+    selector: 'thy-grid-basic-example',
     templateUrl: './basic.component.html',
     styleUrls: ['./basic.component.scss'],
     host: {
-        class: 'rester-section'
+        class: 'grid-section'
     }
 })
-export class ThyRasterBasicExampleComponent implements OnInit {
+export class ThyGridBasicExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}

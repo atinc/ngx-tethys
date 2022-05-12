@@ -12,14 +12,14 @@ subtitle: 栅格
 ## 模块导入
 
 ```ts
-import { ThyRasterModule } from 'ngx-tethys/raster'
+import { ThyGridModule } from 'ngx-tethys/grid'
 ```
 
 ## 组件概述
 
 - 该组件是以 `24 栅格` 布局实现的，具体可详见 `示例` 和 `API`
 
-- 在 `ThyRasterModule` 模块中包含了 `thyRow` 和 `thyCol` 两个属性型指令
+- 在 `ThyGridModule` 模块中包含了 `thyRow` 和 `thyCol` 两个属性型指令
 
 - 需要注意的是，必须在 `thyRow` 中嵌套 `thyCol`
 
@@ -36,4 +36,4 @@ import { ThyRasterModule } from 'ngx-tethys/raster'
 </div>
 ```
 
-<example name="thy-raster-basic-example" />
+<example name="thy-grid-basic-example" />

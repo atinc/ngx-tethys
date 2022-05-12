@@ -19,7 +19,7 @@ module.exports = [
                 name: 'thySpan',
                 description: '栅格占位格数',
                 type: 'number',
-                default: '24'
+                default: ''
             }
         ]
     }
