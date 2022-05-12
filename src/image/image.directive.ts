@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { InputBoolean } from '../core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageMeta } from './image.interface';
 import { ThyImageService } from './image.service';
 
