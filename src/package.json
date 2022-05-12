@@ -5,6 +5,23 @@
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
   },
+  "exports": {
+    ".": {
+      "sass": "./styles/index.scss"
+    },
+    "./styles/variables": {
+      "sass": "./styles/variables.scss"
+    },
+    "./styles/basic": {
+      "sass": "./styles/basic.scss"
+    },
+    "./styles/index": {
+      "sass": "./styles/index.scss"
+    },
+    "./styles/*": {
+      "sass": "./styles/*"
+    }
+  },
   "peerDependencies": {
     "@angular/core": ">=13.0.0",
     "@angular/cdk": ">=13.0.0",
