@@ -36,7 +36,6 @@ import { ThyLayoutModule } from 'ngx-tethys/layout';
 // import { ThyKeySelectModule } from 'ngx-tethys/key-select';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
-import { ThyMarkdownModule } from 'ngx-tethys/markdown';
 import { ThyMentionModule } from 'ngx-tethys/mention';
 import { ThyMenuModule } from 'ngx-tethys/menu';
 import { ThyNavModule } from 'ngx-tethys/nav';
@@ -118,7 +117,6 @@ const IMPORT_EXPORT_MODULES = [
     ThyProgressModule,
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
-    ThyMarkdownModule,
     ThyFlexibleTextModule,
     ThyDragDropModule,
     ThySelectCommonModule,
