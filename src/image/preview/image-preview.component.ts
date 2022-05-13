@@ -14,6 +14,7 @@ import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
     images: ThyImageInfo[] = [];
+    startIndex: number;
     previewConfig: ThyImagePreviewOptions;
     containerClick = new EventEmitter<void>();
 

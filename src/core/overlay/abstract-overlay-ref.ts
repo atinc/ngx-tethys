@@ -15,6 +15,7 @@ export abstract class ThyAbstractOverlayRef<
     id: string;
     componentInstance: TComponent;
     backdropClosable: boolean;
+    disableClose: boolean;
     containerInstance: TContainer;
     abstract getOverlayRef(): OverlayRef;
     abstract close(dialogResult?: TResult, force?: boolean): void;
@@ -113,7 +114,7 @@ export abstract class ThyAbstractInternalOverlayRef<
         // ESC close
         overlayRef
             .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE && this.backdropClosable))
+            .pipe(filter(event => event.keyCode === ESCAPE && (this.backdropClosable || !this.disableClose)))
             .subscribe(() => this.close());
     }
 

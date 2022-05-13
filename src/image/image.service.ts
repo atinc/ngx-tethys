@@ -66,22 +66,16 @@ export class ThyImageService extends ThyAbstractOverlayService<ThyImagePreviewCo
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
-    open<T, TData = unknown, TResult = unknown>(
-        componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
-        config?: ThyImagePreviewConfig<TData>
-    ): ThyImagePreviewRef<T, TResult> {
-        const imagePreviewRef = this.openOverlay(componentOrTemplateRef, config);
-        imagePreviewRef.updatePosition();
-        return imagePreviewRef as ThyImagePreviewRef<T, TResult>;
-    }
-
-    preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions) {
-        return this.open(ThyImagePreviewComponent, {
+    preview(images: ThyImageInfo[], startIndex?: number, options?: ThyImagePreviewOptions): ThyImagePreviewRef<unknown, unknown> {
+        const imagePreviewRef = this.openOverlay(ThyImagePreviewComponent, {
             initialState: {
-                images
+                images,
+                startIndex: startIndex >= 0 && startIndex < images.length ? startIndex : 0
             },
             ...options
         });
+        imagePreviewRef.updatePosition();
+        return imagePreviewRef;
     }
 
     ngOnDestroy() {
