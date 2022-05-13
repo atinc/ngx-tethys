@@ -4,18 +4,12 @@ import { distinctUntilChanged, map, shareReplay } from 'rxjs/operators';
 
 import { Directive, isDevMode, OnDestroy } from '@angular/core';
 
-import { Action } from './action';
-import { ActionState } from './action-state';
-import { getSingletonRootStore, RootStore } from './root-store';
+import { MiniAction } from './action';
+import { MiniActionState } from './action-state';
 import { META_KEY, StoreMetaInfo } from './types';
 
-interface Action {
-    type: string;
-    payload?: any;
-}
-
 @Directive()
-export class Store<T = unknown> implements Observer<T>, OnDestroy {
+export class MiniStore<T = unknown> implements Observer<T>, OnDestroy {
     initialStateCache: any;
 
     public state$: BehaviorSubject<T>;
@@ -28,11 +22,6 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
         this._defaultStoreInstanceId = this._getClassName();
         this.state$ = new BehaviorSubject<T>(initialState);
         this.initialStateCache = { ...initialState };
-        if (this.reduxToolEnabled) {
-            const rootStore: RootStore = getSingletonRootStore();
-            ActionState.changeAction(`Add-${this._defaultStoreInstanceId}`);
-            rootStore.registerStore(this);
-        }
     }
 
     get snapshot() {
@@ -40,7 +29,7 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
     }
 
     public dispatch(type: string, payload?: any): Observable<any> {
-        ActionState.changeAction(`${this._defaultStoreInstanceId}-${type}`);
+        MiniActionState.changeAction(`${this._defaultStoreInstanceId}-${type}`);
         const result = this._dispatch({
             type: type,
             payload: payload
@@ -127,17 +116,12 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
         return this.snapshot;
     }
 
-    @Action()
+    @MiniAction()
     clearState() {
         this.setState(this.initialStateCache);
     }
 
-    ngOnDestroy() {
-        if (this.reduxToolEnabled) {
-            const rootStore: RootStore = getSingletonRootStore();
-            rootStore.unregisterStore(this);
-        }
-    }
+    ngOnDestroy() {}
 
     /**
      * You can override this method if you want to give your container instance a custom id.
@@ -149,20 +133,6 @@ export class Store<T = unknown> implements Observer<T>, OnDestroy {
 
     private _getClassName(): string {
         const name = this.constructor.name || /function (.+)\(/.exec(this.constructor + '')[1];
-        if (this.reduxToolEnabled) {
-            const rootStore: RootStore = getSingletonRootStore();
-            if (!rootStore.existStoreInstanceId(name)) {
-                return name;
-            }
-            let j = 0;
-            for (let i = 1; i < 20; i++) {
-                if (!rootStore.existStoreInstanceId(`${name}-${i}`)) {
-                    j = i;
-                    break;
-                }
-            }
-            return `${name}-${j}`;
-        }
         return name;
     }
 }

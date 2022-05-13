@@ -178,7 +178,7 @@ const TETHYS_MODULES = [
 ```
 
 <label type="info">附录2</label> Markdown 样式和指令清单
-- [markdown/markdown.scss](https://github.com/atinc/ngx-tethys/blob/13.0.0-next/src/markdown/markdown.scss)
-- [thy-markdown-parser.directive.ts](https://github.com/atinc/ngx-tethys/blob/13.0.0-next/src/markdown/thy-markdown-parser.directive.ts)
-- [thy-markdown-parser.service.ts](https://github.com/atinc/ngx-tethys/blob/13.0.0-next/src/markdown/thy-markdown-parser.service.ts)
-- [thy-markdown-text-parser.directive.ts](https://github.com/atinc/ngx-tethys/blob/13.0.0-next/src/markdown/thy-markdown-text-parser.directive.ts)
+- [markdown/markdown.scss](https://github.com/atinc/ngx-tethys/blob/v12.x/src/markdown/markdown.scss)
+- [thy-markdown-parser.directive.ts](https://github.com/atinc/ngx-tethys/blob/v12.x/src/markdown/thy-markdown-parser.directive.ts)
+- [thy-markdown-parser.service.ts](https://github.com/atinc/ngx-tethys/blob/v12.x/src/markdown/thy-markdown-parser.service.ts)
+- [thy-markdown-text-parser.directive.ts](https://github.com/atinc/ngx-tethys/blob/v12.x/src/markdown/thy-markdown-text-parser.directive.ts)

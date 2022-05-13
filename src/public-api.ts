@@ -37,7 +37,6 @@ export * from 'ngx-tethys/select';
 export * from 'ngx-tethys/shared';
 export * from 'ngx-tethys/slide';
 export * from 'ngx-tethys/stepper';
-export * from 'ngx-tethys/store';
 export * from 'ngx-tethys/strength';
 export * from 'ngx-tethys/switch';
 export * from 'ngx-tethys/transfer';
