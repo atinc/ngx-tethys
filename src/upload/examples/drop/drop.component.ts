@@ -1,5 +1,6 @@
+import { ThyUploaderService, ThyUploadFile, ThyUploadStatus } from 'ngx-tethys/upload';
+
 import { Component } from '@angular/core';
-import { ThyUploaderService, ThyUploadStatus, ThyUploadFile } from 'ngx-tethys/uploader';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({

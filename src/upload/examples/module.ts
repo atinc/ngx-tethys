@@ -1,14 +1,16 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ThyUploaderModule } from 'ngx-tethys/uploader';
-import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThyUploaderBasicExampleComponent } from './basic/basic.component';
+import { ThyProgressModule } from 'ngx-tethys/progress';
+import { ThyUploaderModule } from 'ngx-tethys/upload';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ThyUploaderAcceptFolderExampleComponent } from './accept-folder/accept-folder.component';
+import { ThyUploaderBasicExampleComponent } from './basic/basic.component';
 import { ThyUploaderDropExampleComponent } from './drop/drop.component';
 import { ThyUploaderSizeExceedsHandlerExampleComponent } from './size-exceeds-handler/size-exceeds-handler.component';
 

@@ -1,6 +1,7 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ThyUploaderService, ThyUploadStatus, ThyUploadFile, ThyFileSizeExceedsContext } from 'ngx-tethys/uploader';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyFileSizeExceedsContext } from 'ngx-tethys/upload';
+
+import { Component } from '@angular/core';
 
 @Component({
     selector: 'app-uploader-size-exceeds-handler-example',
