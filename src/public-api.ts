@@ -46,7 +46,6 @@ export * from 'ngx-tethys/arrow-switcher';
 export * from 'ngx-tethys/upload';
 export * from 'ngx-tethys/util';
 export * from './version';
-export * from 'ngx-tethys/markdown';
 export * from 'ngx-tethys/popover';
 export * from 'ngx-tethys/flexible-text';
 export * from 'ngx-tethys/drag-drop';
