@@ -4,11 +4,11 @@ import { Component } from '@angular/core';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
-    selector: 'app-uploader-drop-example',
+    selector: 'app-upload-drop-example',
     templateUrl: './drop.component.html',
     styleUrls: ['./drop.scss']
 })
-export class ThyUploaderDropExampleComponent {
+export class ThyUploadDropExampleComponent {
     queueFiles: ThyUploadFile[] = [];
     constructor(private thyUploadService: ThyUploadService) {}
 

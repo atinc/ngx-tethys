@@ -4,10 +4,10 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 @Component({
-    selector: 'app-uploader-accept-folder-example',
+    selector: 'app-upload-accept-folder-example',
     templateUrl: './accept-folder.component.html'
 })
-export class ThyUploaderAcceptFolderExampleComponent {
+export class ThyUploadAcceptFolderExampleComponent {
     @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
     queueFiles: ThyUploadFile[] = [];
     acceptFolder = true;

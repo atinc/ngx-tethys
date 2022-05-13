@@ -9,16 +9,16 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThyUploaderAcceptFolderExampleComponent } from './accept-folder/accept-folder.component';
-import { ThyUploaderBasicExampleComponent } from './basic/basic.component';
-import { ThyUploaderDropExampleComponent } from './drop/drop.component';
-import { ThyUploaderSizeExceedsHandlerExampleComponent } from './size-exceeds-handler/size-exceeds-handler.component';
+import { ThyUploadAcceptFolderExampleComponent } from './accept-folder/accept-folder.component';
+import { ThyUploadBasicExampleComponent } from './basic/basic.component';
+import { ThyUploadDropExampleComponent } from './drop/drop.component';
+import { ThyUploadSizeExceedsHandlerExampleComponent } from './size-exceeds-handler/size-exceeds-handler.component';
 
 const COMPONENTS = [
-    ThyUploaderBasicExampleComponent,
-    ThyUploaderDropExampleComponent,
-    ThyUploaderAcceptFolderExampleComponent,
-    ThyUploaderSizeExceedsHandlerExampleComponent
+    ThyUploadBasicExampleComponent,
+    ThyUploadDropExampleComponent,
+    ThyUploadAcceptFolderExampleComponent,
+    ThyUploadSizeExceedsHandlerExampleComponent
 ];
 
 @NgModule({
@@ -35,4 +35,4 @@ const COMPONENTS = [
     ],
     exports: [...COMPONENTS]
 })
-export class ThyUploaderExamplesModule {}
+export class ThyUploadExamplesModule {}

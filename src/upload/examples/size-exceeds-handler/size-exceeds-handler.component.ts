@@ -4,10 +4,10 @@ import { ThyFileSizeExceedsContext } from 'ngx-tethys/upload';
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'app-uploader-size-exceeds-handler-example',
+    selector: 'app-upload-size-exceeds-handler-example',
     templateUrl: './size-exceeds-handler.component.html'
 })
-export class ThyUploaderSizeExceedsHandlerExampleComponent {
+export class ThyUploadSizeExceedsHandlerExampleComponent {
     sizeThreshold = 10;
 
     constructor(private notifyService: ThyNotifyService) {}

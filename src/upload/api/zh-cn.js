@@ -38,7 +38,7 @@ module.exports = [
     },
     {
         type: 'service',
-        name: 'ThyUploaderService',
+        name: 'ThyUploadService',
         description: '文件远程上传服务',
         properties: [
             {
