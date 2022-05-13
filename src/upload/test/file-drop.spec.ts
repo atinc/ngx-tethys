@@ -5,7 +5,7 @@ import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
 import { ThyFileDropComponent } from '../file-drop.component';
-import { ThyUploaderModule } from '../module';
+import { ThyUploadModule } from '../module';
 import { ThySizeExceedsHandler } from '../types';
 import { createFile } from './utils';
 
@@ -43,7 +43,7 @@ class FileDropBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyUploaderModule],
+    imports: [ThyUploadModule],
     declarations: [FileDropBasicComponent],
     exports: [FileDropBasicComponent]
 })
@@ -57,7 +57,7 @@ describe('thyFileDrop', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploaderModule, FileUploaderTestModule],
+            imports: [ThyUploadModule, FileUploaderTestModule],
             providers: []
         });
         TestBed.compileComponents();
