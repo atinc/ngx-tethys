@@ -6,7 +6,7 @@ import { imageAbstractOverlayOptions, ThyImagePreviewConfig, THY_IMAGE_DEFAULT_P
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.interface';
 import { ThyImagePreviewRef, ThyInternalImageRef } from './preview/image-preview-ref';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
-import { ThyImagePreviewContainerComponent } from './preview/image-preview.container.component';
+import { ThyImagePreviewContainerComponent } from './preview/image-preview-container.component';
 
 @Injectable()
 export class ThyImageService extends ThyAbstractOverlayService<ThyImagePreviewConfig, ThyImagePreviewContainerComponent>

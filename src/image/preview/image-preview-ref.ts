@@ -1,7 +1,7 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 import { imageAbstractOverlayOptions, ThyImagePreviewConfig } from '../image-config';
-import { ThyImagePreviewContainerComponent } from './image-preview.container.component';
+import { ThyImagePreviewContainerComponent } from './image-preview-container.component';
 
 export abstract class ThyImagePreviewRef<T, TResult = unknown> extends ThyAbstractOverlayRef<
     T,
