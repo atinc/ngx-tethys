@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use "../../../styles/variables";
 
 @mixin select-control-size($input-height, $input-padding-y) {
     .select-control-rendered {

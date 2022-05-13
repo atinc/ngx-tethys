@@ -2,7 +2,7 @@
 @use "../../../styles/bootstrap/variables" as bootstrap-variables;
 @use "../../../styles/mixins/utilities";
 @use "../../../styles/variables";
-@use "../select.mixin";
+@use "../styles/select.mixin";
 
 .select-control {
     position: relative;
