@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.3...13.0.0-next.4) (2022-05-13)
+
+
+### Features
+
+* **markdown:** remove markdown component and some js assets #INFR-1638 ([243407e](https://github.com/atinc/ngx-tethys/commit/243407e819a07a5e8fb2bba06d74f1503470f6cc)), closes [#INFR-1638](https://github.com/atinc/ngx-tethys/issues/INFR-1638)
+* **schematics:** add schematics for migrate to v13 ([#1664](https://github.com/atinc/ngx-tethys/issues/1664)) ([291f0ba](https://github.com/atinc/ngx-tethys/commit/291f0ba498359a3b1f4bd82acbe23c0530713a7e))
+* **store:** remove store from tethys and add mini-store to core for time-picker and notify #INFR-2347 ([62aa1f9](https://github.com/atinc/ngx-tethys/commit/62aa1f992de74b0ae57622c12fab4c75700fbf3b)), closes [#INFR-2347](https://github.com/atinc/ngx-tethys/issues/INFR-2347)
+
+
+
 # [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
 
 
