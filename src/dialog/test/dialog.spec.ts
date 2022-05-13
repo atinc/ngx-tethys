@@ -920,7 +920,6 @@ describe('ThyDialog', () => {
         it('should prevent closing via clicks on the backdrop', fakeAsync(() => {
             dialog.open(DialogSimpleContentComponent, {
                 backdropClosable: false,
-                disableClose: true,
                 viewContainerRef: testViewContainerRef
             });
 
@@ -937,7 +936,6 @@ describe('ThyDialog', () => {
         it('should prevent closing via the escape key', fakeAsync(() => {
             dialog.open(DialogSimpleContentComponent, {
                 backdropClosable: false,
-                disableClose: true,
                 viewContainerRef: testViewContainerRef
             });
 
@@ -952,7 +950,6 @@ describe('ThyDialog', () => {
         it('should allow for the backdropClosable option to be updated while open', fakeAsync(() => {
             const dialogRef = dialog.open(DialogSimpleContentComponent, {
                 backdropClosable: false,
-                disableClose: true,
                 viewContainerRef: testViewContainerRef
             });
 

@@ -117,8 +117,12 @@ export abstract class ThyAbstractInternalOverlayRef<
         // ESC close
         overlayRef
             .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE && (this.backdropClosable || !this.disableClose)))
-            .subscribe(() => this.close());
+            .pipe(filter(event => event.keyCode === ESCAPE))
+            .subscribe(() => {
+                if ((this.disableClose !== undefined && !this.disableClose) || this.backdropClosable) {
+                    this.close();
+                }
+            });
     }
 
     /**

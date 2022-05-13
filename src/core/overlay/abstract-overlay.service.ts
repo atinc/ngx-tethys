@@ -60,8 +60,11 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         // When the backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (abstractOverlayRef.backdropClosable || !abstractOverlayRef.disableClose) {
-                    abstractOverlayRef.close();
+                if (
+                    (abstractOverlayRef.disableClose !== undefined && !abstractOverlayRef.disableClose) ||
+                    abstractOverlayRef.backdropClosable
+                ) {
+                    this.close();
                 }
             });
         }
