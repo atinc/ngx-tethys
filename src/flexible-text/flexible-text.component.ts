@@ -50,6 +50,9 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     private destroy$ = new Subject<void>();
+    private resizeObserver: ResizeObserver;
+    private resizeTimerID: number | any;
+    timerDelay = 1500;
 
     constructor(
         private elementRef: ElementRef,
@@ -73,6 +76,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
+        console.log('content init');
         // Note: the zone may be nooped through `BootstrapOptions` when bootstrapping the root module. This means
         // the `onStable` will never emit any value.
         const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
@@ -81,21 +85,34 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.ngZone.runOutsideAngular(() => {
             // Wait for the next time period to avoid blocking the js thread.
             onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+                // this.contentObserver
+                //     .observe(this.elementRef)
+                //     .pipe(debounceTime(100), takeUntil(this.destroy$))
+                //     .subscribe(() => {
+                //         console.log('content');
+                //         this.applyOverflow();
+                //     });
+            });
+            this.resizeObserver = new ResizeObserver((entries) => {
                 this.applyOverflow();
-
-                this.contentObserver
-                    .observe(this.elementRef)
-                    .pipe(debounceTime(100), takeUntil(this.destroy$))
-                    .subscribe(() => {
-                        this.applyOverflow();
-                    });
+                // console.log('resize')
+                // if (this.resizeTimerID) {
+                //     clearTimeout(this.resizeTimerID);
+                //     this.resizeTimerID = null;
+                // }
+                // this.resizeTimerID = setTimeout(() => {
+                   
+                //     this.resizeTimerID = null;
+                // }, this.timerDelay);
             });
         });
+        this.resizeObserver.observe(this.elementRef.nativeElement);
     }
 
     ngOnDestroy() {
         this.destroy$.next();
         this.tooltipService.detach();
+        this.resizeObserver.disconnect();
     }
 
     applyOverflow() {
@@ -105,6 +122,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         } else {
             this.isOverflow = false;
         }
+        console.log('delay', new Date(), this.isOverflow);
+
         this.tooltipService.thyTooltipDirective.thyTooltipDisabled = !this.isOverflow;
     }
 

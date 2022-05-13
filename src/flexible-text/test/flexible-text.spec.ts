@@ -1,7 +1,8 @@
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { Component, Renderer2, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { of } from 'rxjs';
 import { ThyTooltipModule } from '../../tooltip';
 import { ThyFlexibleTextComponent } from '../flexible-text.component';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
@@ -53,6 +54,8 @@ class FlexibleTextTestComponent {
     content = '默认内容。。。';
     trigger = 'click';
     customContainerClass = null;
+    constructor(public render: Renderer2) {
+    }
 }
 
 describe('FlexibleTextComponent', () => {
@@ -168,4 +171,47 @@ describe('FlexibleTextComponent', () => {
         fixture.detectChanges();
         expect(flexibleTextElement.classList).toContain(custom);
     });
+
+    fit('resize increase:show overflow when increase size', fakeAsync(() => {
+        // jasmine.clock().uninstall();
+        const component = componentInstance.flexibleText;
+        const shortContent = `this is short content message`;
+        componentInstance.content = shortContent;
+        invokeCallbacks();
+        fixture.detectChanges();
+        expect(component.isOverflow).toBe(false);
+        const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
+        flexibleTextElement.style.width = '100px';
+        flush();
+        expect(component.isOverflow).toBe(true);
+      
+      
+        // // window.dispatchEvent(new Event('resize'));
+        // // fixture.detectChanges();
+        // fixture.whenStable().then   (() => {
+           
+        // })
+
+        // fixture.detectChanges();
+        // console.log('tick start',new Date());
+
+        // jasmine.clock().tick(component.timerDelay + 1000);
+        // console.log('tick end',new Date());
+
+        // setTimeout(() => {
+        //     fixture.whenStable().then(()=>{
+        //         fixture.detectChanges();
+        //         setTimeout(() => {
+        //             console.log('cb');
+
+        //             expect(component.isOverflow).toBe(true);
+        //         }, component.timerDelay + 10000);
+        //         tick(component.timerDelay + 10000);
+        //         console.log('delay stable',new Date());
+        //         // expect(flexibleTextElement.clientWidth < flexibleTextElement.scrollWidth).toBe(true);
+        //     })
+        // }, component.timerDelay + 1000);
+        // tick(component.timerDelay + 1000)
+        // jasmine.clock().uninstall();
+    }))
 });
