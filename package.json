@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "13.0.0-next.0",
+  "version": "13.0.0-next.1",
   "license": "MIT",
   "engines": {
     "node": "^14.15.0 || >=16.10.0",
@@ -11,19 +11,20 @@
     "ng": "ng",
     "start": "docgeni serve",
     "serve": "docgeni serve",
-    "watch:theme": "npm run build:theme && gulp build-theme:watch",
+    "watch:theme": "npm run build-theme && gulp build-theme:watch",
     "build:demo": "npm run build-site",
     "build:site": "npm run build-site",
     "build-site": "npm run build-docs && ng build site --configuration production --extract-css --baseHref=/ngx-tethys/",
     "build-clean-site": "npm run build-docs && ng build site --configuration production --extract-css",
     "build-docs": "docgeni build --skip-site --progress false",
-    "build": "npm run build:tethys && npm run build:cdk && npm run build:schematics",
-    "build:tethys": "rimraf ./dist/tethys/* && node --max-old-space-size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --configuration production && npm run build:styles && npm run build:testing",
-    "build:styles": "cpx \"./src/**/*.scss\" dist/tethys",
+    "build": "npm run build-tethys && npm run build-cdk && npm run build:schematics",
+    "build-tethys": "rimraf ./dist/tethys/* && node --max-old-space-size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --configuration production && npm run copy-md && npm run build-testing",
+    "build-styles": "cpx \"./src/**/*.scss\" dist/tethys",
+    "copy-md": "cpx \"./README.md\" dist/tethys && cpx \"./CHANGELOG.md\" dist/tethys",
     "scss-bundle": "scss-bundle --config ./scss-bundle.config.json && scss-bundle --config ./scss-bundle-basic.config.json",
-    "build:testing": "cpx \"./src/core/testing/**/*.ts\" ./dist/tethys/core/testing",
-    "build:theme": "gulp build-theme",
-    "build:cdk": "ng build cdk --configuration production",
+    "build-testing": "cpx \"./src/core/testing/**/*.ts\" ./dist/tethys/core/testing",
+    "build-theme": "gulp build-theme",
+    "build-cdk": "ng build cdk --configuration production",
     "release": "wpm release",
     "admin-release": "wpm release --skip.branch --skip.push",
     "pub-only": "npm run pub-tethys-only && npm run pub-cdk-only",
@@ -100,8 +101,6 @@
     "@typescript-eslint/parser": "4.28.2",
     "@worktile/pkg-manager": "^0.0.9",
     "chalk": "^2.4.2",
-    "codelyzer": "^6.0.2",
-    "commander": "^2.19.0",
     "concurrently": "^3.6.0",
     "conventional-changelog-cli": "^2.0.29",
     "coveralls": "^3.0.6",
@@ -135,11 +134,6 @@
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
     "typescript": "~4.6.3"
-  },
-  "ngPackage": {
-    "lib": {
-      "entryFile": "src/index.ts"
-    }
   },
   "husky": {
     "hooks": {

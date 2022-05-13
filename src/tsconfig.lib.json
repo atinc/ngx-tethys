@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../out-tsc/lib",
+    "outDir": "../out-tsc/tethys",
     "target": "es2015",
     "rootDir": ".",
     "baseUrl": "./",
