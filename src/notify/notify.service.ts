@@ -1,17 +1,7 @@
-import { helpers, isFunction } from 'ngx-tethys/util';
+import { isFunction, isString } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
-import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
-import {
-    ApplicationRef,
-    ComponentFactoryResolver,
-    ComponentRef,
-    Inject,
-    Injectable,
-    Injector,
-    OnDestroy,
-    StaticProvider
-} from '@angular/core';
-// import { NotifyPlacement, THY_NOTIFY_DEFAULT_OPTIONS, ThyNotifyOptions } from './notify-option.interface';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentRef, Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { ThyNotifyContainerComponent } from './notify-container.component';
 import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
@@ -135,8 +125,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         protected overlay: Overlay,
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
-        private componentFactoryResolver: ComponentFactoryResolver,
-        private appRef: ApplicationRef,
         private queueStore: NotifyQueueStore,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) protected defaultConfig: ThyNotifyConfig
     ) {
@@ -144,7 +132,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...defaultConfig
         });
-        console.log('notify service constructor !!!!');
     }
 
     open<T, TData = unknown, TResult = unknown>(
@@ -199,7 +186,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
     }
 
     error(title?: string, content?: string, options?: ThyNotifyConfig | string) {
-        const config: ThyNotifyConfig = helpers.isString(options)
+        const config: ThyNotifyConfig = isString(options)
             ? { type: 'error', title: title || '错误', content: content, detail: options }
             : {
                   ...((options || {}) as ThyNotifyConfig),
@@ -223,8 +210,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
             return this.containerRefBottomLeft;
         } else if (placement === 'topLeft') {
             return this.containerRefTopLeft;
-        } else {
-            return;
         }
     }
 
@@ -241,7 +226,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
     }
 
     private formatOptions(options: ThyNotifyConfig) {
-        if (helpers.isString(options.detail)) {
+        if (isString(options.detail)) {
             options = { ...options, detail: { link: '[详情]', content: options.detail as string } };
         }
         return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, options);

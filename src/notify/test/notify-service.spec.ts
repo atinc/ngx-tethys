@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { async, TestBed, ComponentFixture, fakeAsync, flush, inject } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -85,10 +85,10 @@ export class ThyNotifyBasicComponent implements OnInit {
     }
 }
 
-fdescribe('ThyNotify', () => {
+describe('ThyNotify', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    beforeEach(async(() => {
+    beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule, NoopAnimationsModule],
             declarations: [ThyNotifyBasicComponent],
@@ -111,7 +111,7 @@ fdescribe('ThyNotify', () => {
         let btnElement, successElement;
         let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>, linkContainer: NodeListOf<Element>;
 
-        beforeEach(async(() => {
+        beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);
             componentInstance = fixture.debugElement.componentInstance;
             fixture.detectChanges();

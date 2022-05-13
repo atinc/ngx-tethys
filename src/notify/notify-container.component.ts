@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { NotifyQueueStore } from './notify-queue.store';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
-import { ThyNotifyConfig, NotifyPlacement } from './notify.config';
+import { ThyNotifyConfig } from './notify.config';
 import { notifyAbstractOverlayOptions } from './notify.options';
 import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { thyNotifyAnimations } from './notify-animations';
@@ -39,8 +39,6 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     /** State of the notify animation. */
     animationState: 'void' | 'enter' | 'exit' = 'void';
 
-    public placement: NotifyPlacement;
-
     private destroy$ = new Subject<void>();
 
     animationOpeningDone: Observable<AnimationEvent>;
@@ -64,12 +62,12 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     }
 
     ngOnInit() {
-        this.placement = this.config.placement;
-        if (this.placement === 'bottomRight') {
+        const placement = this.config.placement;
+        if (placement === 'bottomRight') {
             this.bottomRight = true;
-        } else if (this.placement === 'bottomLeft') {
+        } else if (placement === 'bottomLeft') {
             this.bottomLeft = true;
-        } else if (this.placement === 'topLeft') {
+        } else if (placement === 'topLeft') {
             this.topLeft = true;
         } else {
             this.topRight = true;
