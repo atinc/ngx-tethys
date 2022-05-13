@@ -1,15 +1,16 @@
 import { InjectionToken } from '@angular/core';
+
 import { ThyFileSizeExceedsContext, ThySizeExceedsHandler } from './types';
 
-export interface ThyUploaderConfig {
+export interface ThyUploadConfig {
     sizeThreshold?: number;
     sizeExceedsHandler?: ThySizeExceedsHandler;
 }
 
-export const THY_UPLOADER_DEFAULT_OPTIONS = new InjectionToken<ThyUploaderConfig>('thy-uploader-default-options');
+export const THY_UPLOAD_DEFAULT_OPTIONS = new InjectionToken<ThyUploadConfig>('thy-uploader-default-options');
 
-export const THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER = {
-    provide: THY_UPLOADER_DEFAULT_OPTIONS,
+export const THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER = {
+    provide: THY_UPLOAD_DEFAULT_OPTIONS,
     useValue: {
         sizeThreshold: 0,
         sizeExceedsHandler: sizeExceedsHandler

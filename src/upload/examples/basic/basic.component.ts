@@ -1,17 +1,17 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { ThyUploaderService, ThyUploadStatus, ThyUploadFile, ThyFileSizeExceedsContext } from 'ngx-tethys/uploader';
-import { ThyNotifyService } from 'ngx-tethys/notify';
+import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
+
+import { Component } from '@angular/core';
 
 const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=2s`;
 // const UPLOAD_URL = `https://run.mocky.io/v3/33ec533f-3558-4689-bdbe-cc30364aa137`;
 @Component({
-    selector: 'app-uploader-basic-example',
+    selector: 'app-upload-basic-example',
     templateUrl: './basic.component.html'
 })
-export class ThyUploaderBasicExampleComponent {
+export class ThyUploadBasicExampleComponent {
     queueFiles: ThyUploadFile[] = [];
 
-    constructor(private thyUploaderService: ThyUploaderService) {}
+    constructor(private thyUploadService: ThyUploadService) {}
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {
@@ -23,7 +23,7 @@ export class ThyUploaderBasicExampleComponent {
                 withCredentials: true
             };
         });
-        this.thyUploaderService.uploadBulk(uploadFiles).subscribe(
+        this.thyUploadService.uploadBulk(uploadFiles).subscribe(
             result => {
                 if (result.status === ThyUploadStatus.started) {
                     console.log(`started: ${result.uploadFile.fileName}`);

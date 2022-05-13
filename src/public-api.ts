@@ -44,7 +44,7 @@ export * from 'ngx-tethys/transfer';
 export * from 'ngx-tethys/tree';
 export * from 'ngx-tethys/tree-select';
 export * from 'ngx-tethys/arrow-switcher';
-export * from 'ngx-tethys/uploader';
+export * from 'ngx-tethys/upload';
 export * from 'ngx-tethys/util';
 export * from './version';
 export * from 'ngx-tethys/markdown';

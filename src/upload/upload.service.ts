@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Observable, Subscriber, from } from 'rxjs';
 import { coerceArray } from 'ngx-tethys/util';
-import { map, tap, mergeMap } from 'rxjs/operators';
+import { from, Observable, Subscriber } from 'rxjs';
+import { map, mergeMap, tap } from 'rxjs/operators';
+
 import { XhrFactory } from '@angular/common';
+import { Injectable } from '@angular/core';
 
 export enum ThyUploadStatus {
     pending = 'pending',
@@ -50,7 +51,7 @@ export interface ThyUploadFilesOptions {
 }
 
 @Injectable()
-export class ThyUploaderService {
+export class ThyUploadService {
     constructor(private xhrFactory: XhrFactory) {}
 
     private secondsToHuman(sec: number): string {

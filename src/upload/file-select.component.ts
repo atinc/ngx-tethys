@@ -1,10 +1,12 @@
-import { Component, Input, Output, Inject, ViewChild, ElementRef, OnDestroy, EventEmitter, NgZone } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { mimeTypeConvert } from './util';
-import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
-import { FileSelectBaseComponent } from './file-select-base';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+
+import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, OnDestroy, Output, ViewChild } from '@angular/core';
+
+import { FileSelectBaseComponent } from './file-select-base';
+import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
+import { mimeTypeConvert } from './util';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
@@ -50,11 +52,7 @@ export class ThyFileSelectComponent extends FileSelectBaseComponent implements O
 
     private destroy$ = new Subject<void>();
 
-    constructor(
-        public elementRef: ElementRef,
-        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig,
-        ngZone: NgZone
-    ) {
+    constructor(public elementRef: ElementRef, @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig, ngZone: NgZone) {
         super(elementRef, defaultConfig);
 
         ngZone.runOutsideAngular(() =>

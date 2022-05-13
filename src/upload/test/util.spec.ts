@@ -1,5 +1,5 @@
 import { MIME_Map } from '../constant';
-import { mimeTypeConvert } from './../util';
+import { mimeTypeConvert } from '../util';
 
 describe(`uploader-util`, () => {
     describe('#mimeTypeConvert', () => {

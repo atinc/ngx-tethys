@@ -1,12 +1,14 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { ThyUploaderModule } from '../module';
-import { NgModule, Component, DebugElement, ApplicationRef } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { ThyFileSelectComponent } from '../file-select.component';
-import { ThyUploadResponse } from '../uploader.service';
-import { Observable } from 'rxjs';
-import { createFile } from './utils';
 import { createFakeEvent } from 'ngx-tethys/testing';
+import { Observable } from 'rxjs';
+
+import { ApplicationRef, Component, DebugElement, NgModule } from '@angular/core';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
+import { ThyFileSelectComponent } from '../file-select.component';
+import { ThyUploadModule } from '../module';
+import { ThyUploadResponse } from '../upload.service';
+import { createFile } from './utils';
 
 @Component({
     selector: 'thy-file-select-basic',
@@ -41,7 +43,7 @@ class FileSelectBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyUploaderModule],
+    imports: [ThyUploadModule],
     declarations: [FileSelectBasicComponent],
     exports: [FileSelectBasicComponent]
 })
@@ -58,7 +60,7 @@ describe('ThyFileSelect', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyUploaderModule, FileUploaderTestModule]
+                imports: [ThyUploadModule, FileUploaderTestModule]
             }).compileComponents();
         })
     );
