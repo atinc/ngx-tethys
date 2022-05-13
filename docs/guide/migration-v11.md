@@ -2,6 +2,7 @@
 title: 11.x 升级指南
 path: 'migration-v11'
 order: 997
+hidden: true
 ---
 
 本文档将帮助你从 ngx-tethys 10.x 版本升级到 11.x 版本。
