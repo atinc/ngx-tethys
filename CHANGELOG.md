@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
+
+
+### Bug Fixes
+
+* **table:**  fix drag style #INFR-1184 ([#1656](https://github.com/atinc/ngx-tethys/issues/1656)) ([c4df7e8](https://github.com/atinc/ngx-tethys/commit/c4df7e87ec964b1a810bbee58aeba31ee97bec6d)), closes [#INFR-1184](https://github.com/atinc/ngx-tethys/issues/INFR-1184)
+
+
+### Features
+
+* **image:** add basic image component #INFR-3098 ([#1658](https://github.com/atinc/ngx-tethys/issues/1658)) ([165264c](https://github.com/atinc/ngx-tethys/commit/165264c96104bafe8904439388d06c4be0356c7a)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
+* **schematics:** replace ngx-tethys/store to @tethys/store at update-12  ([#1653](https://github.com/atinc/ngx-tethys/issues/1653)) ([aae1721](https://github.com/atinc/ngx-tethys/commit/aae17215820006c15d001016062886f5cdc465c7))
+
+
+
+# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
+
+
+
 # [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
 
 
