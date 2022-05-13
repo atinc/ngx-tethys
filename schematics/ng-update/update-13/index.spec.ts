@@ -20,11 +20,12 @@ describe('ng-update v13 Schematic', () => {
             import { Store } from 'ngx-tethys/store';
             import { ThyRasterModule } from 'ngx-tethys/raster';
             import { ThyRasterModule as RasterModule } from 'ngx-tethys/raster';
-            import { ThyUploaderModule } from 'ngx-tethys/uploader';
+            import { ThyUploaderModule, ThyUploaderService, ThyUploaderConfig, THY_UPLOADER_DEFAULT_OPTIONS, THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER } from 'ngx-tethys/uploader';
             import { ThyDropdownModule, ThyEmptyModule } from 'ngx-tethys';
             class TestClass{
-                test(a:ThyRasterModule){
-                    console.log(ThyRasterModule)
+                test(a:ThyRasterModule, thyUploaderService: ThyUploaderService, thyUploaderConfig: ThyUploaderConfig, uploadOption: THY_UPLOADER_DEFAULT_OPTIONS ){
+                    console.log(ThyRasterModule);
+                    console.log(ThyUploaderModule);
                 }
             }`
         );
@@ -51,7 +52,7 @@ describe('ng-update v13 Schematic', () => {
         expect(result).not.toContain(`ngx-tethys/raster`);
     });
 
-    it(`should "ThyRasterModule" to "ThyGridModule"`, async () => {
+    it(`should "ThyRaster*" to "ThyGrid*"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
         expect(result).toContain('ThyGridModule');
         expect(result).not.toContain(`ThyRasterModule`);
@@ -65,6 +66,26 @@ describe('ng-update v13 Schematic', () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
         expect(result).toContain('ngx-tethys/upload');
         expect(result).not.toContain(`ngx-tethys/uploader`);
+    });
+
+    it(`should "ThyUploader*" to "ThyUpload*"`, async () => {
+        const result = workspaceTree.read(TEST_MODULE_PATH).toString();
+        expect(result).toContain('console.log(ThyUploadModule)');
+        expect(result).not.toContain('console.log(ThyUploaderModule)');
+        expect(result).toContain('ThyUploadService');
+        expect(result).not.toContain(`ThyUploaderService`);
+        expect(result).toContain('thyUploaderService: ThyUploadService');
+        expect(result).not.toContain('thyUploaderService: ThyUploaderService');
+        expect(result).toContain(`ThyUploadConfig`);
+        expect(result).not.toContain('ThyUploaderConfig');
+        expect(result).toContain('thyUploaderConfig: ThyUploadConfig');
+        expect(result).not.toContain('thyUploaderConfig: ThyUploaderConfig');
+        expect(result).toContain(`THY_UPLOAD_DEFAULT_OPTIONS`);
+        expect(result).not.toContain('THY_UPLOADER_DEFAULT_OPTIONS');
+        expect(result).toContain('uploadOption: THY_UPLOAD_DEFAULT_OPTIONS');
+        expect(result).not.toContain('uploadOption: THY_UPLOADER_DEFAULT_OPTIONS');
+        expect(result).toContain(`THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER`);
+        expect(result).not.toContain('THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER');
     });
 
     it(`should import from secondary file`, async () => {
