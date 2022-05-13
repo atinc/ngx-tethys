@@ -88,7 +88,8 @@ module.exports = {
                 'input-number',
                 'collapse',
                 'rate',
-                'select-control'
+                'select-control',
+                'image'
             ]
         ]
     }

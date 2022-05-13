@@ -54,9 +54,15 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '支持 `sm` | `default` 两种大小',
+                description: '支持 `sm` | `default` 两种大小，默认值为 `default`',
                 type: 'string',
                 default: ''
+            },
+            {
+                name: 'thyItemSize',
+                description: '开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效',
+                type: 'number',
+                default: '44'
             },
             {
                 name: 'thyAsync',

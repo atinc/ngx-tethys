@@ -67,6 +67,7 @@ import { ThyUploaderModule } from 'ngx-tethys/uploader';
 import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+import { ThyImageModule } from 'ngx-tethys/image';
 
 import { ModuleWithProviders, NgModule } from '@angular/core';
 
@@ -139,7 +140,8 @@ const IMPORT_EXPORT_MODULES = [
     ThyGuiderModule,
     ThyResizableModule,
     ThyCollapseModule,
-    ThyRateModule
+    ThyRateModule,
+    ThyImageModule
 ];
 
 /**
