@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
-import { initialState } from './../../time-picker/time-picker.store';
 import { produce } from 'ngx-tethys/util';
-import { Action } from '../action';
-import { Store } from '../store';
+import { MiniStore, MiniActionState, MiniAction } from '../store';
 import { of } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
@@ -23,7 +21,7 @@ class ZoomState {
 }
 
 @Injectable()
-class ZoomStore extends Store<ZoomState> {
+class ZoomStore extends MiniStore<ZoomState> {
     static animalsSelector = (state: ZoomState) => {
         return state.animals;
     };
@@ -37,7 +35,7 @@ class ZoomStore extends Store<ZoomState> {
         super(initialState);
     }
 
-    @Action()
+    @MiniAction()
     addAnimal(animal: Animal) {
         return of(animal).pipe(
             tap(() => {
@@ -48,14 +46,14 @@ class ZoomStore extends Store<ZoomState> {
         );
     }
 
-    @Action()
+    @MiniAction()
     removeAnimal(id: number) {
         this.setState({
             animals: produce(this.getState().animals).remove(id)
         });
     }
 
-    @Action()
+    @MiniAction()
     addAnimalWithError(animal: Animal, executeFn: () => void) {
         return of(animal).pipe(
             tap(() => {
@@ -66,7 +64,7 @@ class ZoomStore extends Store<ZoomState> {
     }
 }
 
-describe('#store', () => {
+describe('#mini-store', () => {
     function createSomeAnimals(): Animal[] {
         return ['cat', 'dog', 'chicken', 'duck'].map((name, index) => {
             return {

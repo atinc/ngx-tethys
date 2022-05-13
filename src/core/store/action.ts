@@ -2,31 +2,20 @@ import { META_KEY } from './types';
 import { findAndCreateStoreMetadata } from './utils';
 import { Observable, Observer, of, throwError } from 'rxjs';
 import { map, shareReplay, catchError, exhaustMap } from 'rxjs/operators';
-import { ActionState } from './action-state';
+import { MiniActionState } from './action-state';
 import { ActionContext, ActionStatus } from './actions-stream';
-
-export interface DecoratorActionOptions {
-    type: string;
-    payload?: any;
-}
 
 /**
  * Decorates a method with a action information.
  */
-export function Action(action?: DecoratorActionOptions | string) {
+export function MiniAction() {
     return function(target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
-
+        let action: { type: string };
         // default use function name as action type
         if (!action) {
             action = {
                 type: name
-            };
-        }
-        // support string for type
-        if (typeof action === 'string') {
-            action = {
-                type: action
             };
         }
         const type = action.type;
@@ -43,7 +32,7 @@ export function Action(action?: DecoratorActionOptions | string) {
         };
 
         descriptor.value = function(...args: any[]) {
-            ActionState.changeAction(`${target.constructor.name}-${name}`);
+            MiniActionState.changeAction(`${target.constructor.name}-${name}`);
             let result = originalFn.call(this, ...args);
             if (result instanceof Observable) {
                 result = result.pipe(
