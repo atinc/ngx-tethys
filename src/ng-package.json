@@ -4,6 +4,6 @@
   "lib": {
     "entryFile": "public-api.ts"
   },
-  "assets": ["./styles/**/*", "./**/styles/**/*"],
+  "assets": ["./**/*.scss"],
   "allowedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap", "cyia-code-util"]
 }
