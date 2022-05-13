@@ -1,22 +1,24 @@
 import { isEmpty } from 'ngx-tethys/util';
+import { fromEvent, Subject } from 'rxjs';
+import { filter, takeUntil, tap } from 'rxjs/operators';
+
 import {
     Component,
-    OnInit,
     ElementRef,
-    Renderer2,
-    Output,
     EventEmitter,
     HostBinding,
+    Inject,
     Input,
     NgZone,
     OnDestroy,
-    Inject
+    OnInit,
+    Output,
+    Renderer2
 } from '@angular/core';
-import { mimeTypeConvert } from './util';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, filter, tap } from 'rxjs/operators';
-import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+
 import { FileSelectBaseComponent } from './file-select-base';
+import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
+import { mimeTypeConvert } from './util';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -48,7 +50,7 @@ export class ThyFileDropComponent extends FileSelectBaseComponent implements OnI
         public elementRef: ElementRef,
         public renderer: Renderer2,
         public ngZone: NgZone,
-        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
     ) {
         super(elementRef, defaultConfig);
     }

@@ -1,6 +1,6 @@
 ---
 category: form
-title: Uploader
+title: Upload
 subtitle: 上传
 ---
 
@@ -13,7 +13,7 @@ subtitle: 上传
 
 ## 模块导入
 ```ts
-import { ThyUploaderModule } from "ngx-tethys/uploader";
+import { ThyUploadModule } from "ngx-tethys/upload";
 ```
 
 ## 基本使用
@@ -23,17 +23,17 @@ import { ThyUploaderModule } from "ngx-tethys/uploader";
   <button thyButton="primary">上传</button>
 </thy-file-select>
 ```
-选择文件会触发`thyOnFileSelect`事件，可以在组件中通过注入`ThyUploaderService`服务进行文件的远程上传，远程上传过程中可以显示上传进度。
+选择文件会触发`thyOnFileSelect`事件，可以在组件中通过注入`ThyUploadService`服务进行文件的远程上传，远程上传过程中可以显示上传进度。
 
 ```ts
 @Component({
-    selector: 'app-uploader-basic-example',
+    selector: 'app-upload-basic-example',
     templateUrl: './basic.component.html'
 })
-export class ThyUploaderBasicExampleComponent {
+export class ThyUploadBasicExampleComponent {
     queueFiles: ThyUploadFile[] = [];
 
-    constructor(private thyUploaderService: ThyUploaderService) {}
+    constructor(private thyUploadService: ThyUploadService) {}
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {
@@ -45,7 +45,7 @@ export class ThyUploaderBasicExampleComponent {
                 withCredentials: true
             };
         });
-        this.thyUploaderService.uploadBulk(uploadFiles).subscribe(
+        this.thyUploadService.uploadBulk(uploadFiles).subscribe(
             result => {
                 if (result.status === ThyUploadStatus.started) {
                     console.log(`started: ${result.uploadFile.fileName}`);
@@ -66,9 +66,9 @@ export class ThyUploaderBasicExampleComponent {
 }
 ```
 
-## ThyUploaderService 服务
+## ThyUploadService 服务
 
-此模块提供了`ThyUploaderService`服务进行文件的远程上传，支持单个文件上传和批量上传，上传函数返回一个`Observable<ThyUploadResponse>`流，通过订阅流可以获取文件上传的进度和状态。
+此模块提供了`ThyUploadService`服务进行文件的远程上传，支持单个文件上传和批量上传，上传函数返回一个`Observable<ThyUploadResponse>`流，通过订阅流可以获取文件上传的进度和状态。
 
 上传状态有四种，分别为：
 - `pending`: 准备上传中，默认状态

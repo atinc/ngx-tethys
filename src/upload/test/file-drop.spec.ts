@@ -1,12 +1,12 @@
 import { createDragEvent } from 'ngx-tethys/testing';
-import { ThySizeExceedsHandler } from './../types';
-import { fakeAsync, ComponentFixture, TestBed, tick, flush } from '@angular/core/testing';
-import { ThyUploaderModule } from '../module';
-import { NgModule, Component, DebugElement } from '@angular/core';
+
+import { Component, DebugElement, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+
 import { ThyFileDropComponent } from '../file-drop.component';
-import { ThyUploadFile, ThyUploaderService, ThyUploadStatus, ThyUploadResponse } from '../uploader.service';
-import { Observable } from 'rxjs';
+import { ThyUploadModule } from '../module';
+import { ThySizeExceedsHandler } from '../types';
 import { createFile } from './utils';
 
 @Component({
@@ -43,7 +43,7 @@ class FileDropBasicComponent {
 }
 
 @NgModule({
-    imports: [ThyUploaderModule],
+    imports: [ThyUploadModule],
     declarations: [FileDropBasicComponent],
     exports: [FileDropBasicComponent]
 })
@@ -57,7 +57,7 @@ describe('thyFileDrop', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyUploaderModule, FileUploaderTestModule],
+            imports: [ThyUploadModule, FileUploaderTestModule],
             providers: []
         });
         TestBed.compileComponents();

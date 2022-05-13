@@ -1,17 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
-import { ThyFileSelectComponent } from './file-select.component';
+import { NgModule } from '@angular/core';
+
 import { ThyFileDropComponent } from './file-drop.component';
-import { ThyUploaderService } from './uploader.service';
-import { THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER } from './uploader.config';
 import { FileSelectBaseComponent } from './file-select-base';
+import { ThyFileSelectComponent } from './file-select.component';
+import { THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER } from './upload.config';
+import { ThyUploadService } from './upload.service';
+
 // import { ThyDirectiveModule } from 'ngx-tethys/directive';
 
 @NgModule({
     declarations: [ThyFileSelectComponent, ThyFileDropComponent, FileSelectBaseComponent],
     imports: [CommonModule, HttpClientModule],
-    providers: [ThyUploaderService, THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER],
+    providers: [ThyUploadService, THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER],
     exports: [ThyFileSelectComponent, ThyFileDropComponent]
 })
-export class ThyUploaderModule {}
+export class ThyUploadModule {}

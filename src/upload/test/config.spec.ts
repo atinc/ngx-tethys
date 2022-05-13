@@ -1,4 +1,4 @@
-import { sizeExceedsHandler } from '../uploader.config';
+import { sizeExceedsHandler } from '../upload.config';
 
 describe(`uploader-config`, () => {
     it('should console incorrect error message for sizeExceedsHandler', () => {

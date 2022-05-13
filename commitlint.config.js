@@ -73,7 +73,7 @@ module.exports = {
                 'transfer',
                 'tree',
                 'tree-select',
-                'uploader',
+                'upload',
                 'vote',
                 'anchor',
                 'back-top',

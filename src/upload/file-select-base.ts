@@ -1,7 +1,9 @@
-import { isNumber, coerceNumberValue, isUndefinedOrNull } from 'ngx-tethys/util';
-import { Inject, ElementRef, Renderer2, NgZone, Input, EventEmitter, Component, Injectable } from '@angular/core';
-import { THY_UPLOADER_DEFAULT_OPTIONS, ThyUploaderConfig } from './uploader.config';
+import { coerceNumberValue, isNumber } from 'ngx-tethys/util';
+
+import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, Renderer2 } from '@angular/core';
+
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
+import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 
 @Component({
     template: ``
@@ -26,7 +28,7 @@ export class FileSelectBaseComponent {
 
     constructor(
         public elementRef: ElementRef,
-        @Inject(THY_UPLOADER_DEFAULT_OPTIONS) public defaultConfig: ThyUploaderConfig,
+        @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
         public renderer?: Renderer2,
         public ngZone?: NgZone
     ) {
