@@ -1,4 +1,4 @@
-import { ThyUploaderService, ThyUploadFile, ThyUploadStatus } from 'ngx-tethys/upload';
+import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 
@@ -11,10 +11,10 @@ export class ThyUploaderAcceptFolderExampleComponent {
     @ViewChild('file1', { static: true }) file1: ElementRef<HTMLInputElement>;
     queueFiles: ThyUploadFile[] = [];
     acceptFolder = true;
-    constructor(private thyUploaderService: ThyUploaderService) {}
+    constructor(private thyUploadService: ThyUploadService) {}
 
     selectFiles(event: { files: File[] }) {
-        this.thyUploaderService
+        this.thyUploadService
             .upload({
                 nativeFile: event.files[0],
                 url: UPLOAD_URL,

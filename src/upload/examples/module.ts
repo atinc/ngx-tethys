@@ -3,7 +3,7 @@ import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyProgressModule } from 'ngx-tethys/progress';
-import { ThyUploaderModule } from 'ngx-tethys/upload';
+import { ThyUploadModule } from 'ngx-tethys/upload';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -24,7 +24,7 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     imports: [
-        ThyUploaderModule,
+        ThyUploadModule,
         ThyProgressModule,
         ThyButtonModule,
         ThyFormModule,

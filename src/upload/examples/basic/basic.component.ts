@@ -1,4 +1,4 @@
-import { ThyUploaderService, ThyUploadFile, ThyUploadStatus } from 'ngx-tethys/upload';
+import { ThyUploadFile, ThyUploadService, ThyUploadStatus } from 'ngx-tethys/upload';
 
 import { Component } from '@angular/core';
 
@@ -11,7 +11,7 @@ const UPLOAD_URL = `http://www.mocky.io/v2/5cf52b1f2f0000c02c4f072f?mocky-delay=
 export class ThyUploaderBasicExampleComponent {
     queueFiles: ThyUploadFile[] = [];
 
-    constructor(private thyUploaderService: ThyUploaderService) {}
+    constructor(private thyUploadService: ThyUploadService) {}
 
     selectFiles(event: { files: File[] }) {
         const uploadFiles = event.files.map(file => {
@@ -23,7 +23,7 @@ export class ThyUploaderBasicExampleComponent {
                 withCredentials: true
             };
         });
-        this.thyUploaderService.uploadBulk(uploadFiles).subscribe(
+        this.thyUploadService.uploadBulk(uploadFiles).subscribe(
             result => {
                 if (result.status === ThyUploadStatus.started) {
                     console.log(`started: ${result.uploadFile.fileName}`);
