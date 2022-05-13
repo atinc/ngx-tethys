@@ -50,6 +50,9 @@ export abstract class ThyAbstractInternalOverlayRef<
     /** Whether the user is allowed to close the dialog. */
     backdropClosable: boolean = this.config.backdropClosable;
 
+    /** Whether the user is not allowed to close the dialog. */
+    disableClose: boolean = this.config.disableClose;
+
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
 
