@@ -65,7 +65,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyTransferModule } from 'ngx-tethys/transfer';
 import { ThyTreeModule } from 'ngx-tethys/tree';
 import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
-import { ThyUploaderModule } from 'ngx-tethys/upload';
+import { ThyUploadModule } from 'ngx-tethys/upload';
 import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 
@@ -106,7 +106,7 @@ const IMPORT_EXPORT_MODULES = [
     ThyRadioModule,
     ThySelectModule,
     ThyPropertyOperationModule,
-    ThyUploaderModule,
+    ThyUploadModule,
     ThyDateRangeModule,
     ThySharedModule,
     ThyListModule,

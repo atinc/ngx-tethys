@@ -1,21 +1,23 @@
 import { Subject } from 'rxjs';
+
 import { XhrFactory } from '@angular/common';
-import { TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ThyUploaderModule } from '../module';
-import { ThyUploaderService, ThyUploadFile, ThyUploadResponse, ThyUploadStatus } from '../uploader.service';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
+
+import { ThyUploadModule } from '../module';
+import { ThyUploadFile, ThyUploadResponse, ThyUploadService, ThyUploadStatus } from '../upload.service';
 import { createFile } from './utils';
-import { MockXhrFactory, MockXMLHttpRequest } from './xhr-mock';
+import { MockXhrFactory } from './xhr-mock';
 
 const UPLOAD_URL = `http://example.com/upload`;
 
-describe('ThyUploaderService', () => {
-    let uploader: ThyUploaderService;
+describe('ThyUploadService', () => {
+    let uploader: ThyUploadService;
     let mockXhrFactory: MockXhrFactory;
 
     beforeEach(() => {
         mockXhrFactory = new MockXhrFactory();
         TestBed.configureTestingModule({
-            imports: [ThyUploaderModule],
+            imports: [ThyUploadModule],
             providers: [
                 {
                     provide: XhrFactory,
@@ -24,7 +26,7 @@ describe('ThyUploaderService', () => {
             ]
         });
         TestBed.compileComponents();
-        uploader = TestBed.inject(ThyUploaderService);
+        uploader = TestBed.inject(ThyUploadService);
     });
 
     it('should create uploader service success', () => {

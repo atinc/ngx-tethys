@@ -51,7 +51,7 @@ export interface ThyUploadFilesOptions {
 }
 
 @Injectable()
-export class ThyUploaderService {
+export class ThyUploadService {
     constructor(private xhrFactory: XhrFactory) {}
 
     private secondsToHuman(sec: number): string {
