@@ -1,16 +1,5 @@
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    EventEmitter,
-    NgZone,
-    OnInit,
-    ViewEncapsulation
-} from '@angular/core';
-import { fromEvent } from 'rxjs';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnInit, ViewEncapsulation } from '@angular/core';
 import { ThyImageInfo, ThyImagePreviewOptions } from '../image.interface';
-import { takeUntil } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 
 @Component({
@@ -25,27 +14,13 @@ import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
     images: ThyImageInfo[] = [];
+    startIndex: number;
     previewConfig: ThyImagePreviewOptions;
     containerClick = new EventEmitter<void>();
 
-    constructor(private ngZone: NgZone, private host: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) {
+    constructor() {
         super();
     }
 
-    ngOnInit(): void {
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(this.host.nativeElement, 'click')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(event => {
-                    if (event.target === event.currentTarget && !this.previewConfig.disableClose && this.containerClick.observers.length) {
-                        this.ngZone.run(() => this.containerClick.emit());
-                    }
-                });
-        });
-    }
-
-    setImages(images: ThyImageInfo[]): void {
-        this.images = images;
-        this.cdr.markForCheck();
-    }
+    ngOnInit(): void {}
 }

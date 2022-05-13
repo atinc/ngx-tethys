@@ -1,23 +1,29 @@
 import { OverlayRef } from '@angular/cdk/overlay';
-import { ThyImagePreviewOptions } from '../image.interface';
-import { ThyImagePreviewComponent } from './image-preview.component';
-import { filter, take, takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs/internal/Subject';
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+import { imageAbstractOverlayOptions, ThyImagePreviewConfig } from '../image-config';
+import { ThyImagePreviewContainerComponent } from './image-preview-container.component';
 
-export class ThyImagePreviewRef {
-    private destroy$ = new Subject<void>();
-    constructor(public previewInstance: ThyImagePreviewComponent, private config: ThyImagePreviewOptions, private overlayRef: OverlayRef) {
-        overlayRef
-            .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE && !this.config.disableClose))
-            .subscribe(() => this.close());
-        previewInstance.containerClick.pipe(take(1), takeUntil(this.destroy$)).subscribe(() => {
-            this.close();
-        });
+export abstract class ThyImagePreviewRef<T, TResult = unknown> extends ThyAbstractOverlayRef<
+    T,
+    ThyImagePreviewContainerComponent,
+    TResult
+> {}
+
+export class ThyInternalImageRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<
+    T,
+    ThyImagePreviewContainerComponent,
+    TResult
+> {
+    constructor(overlayRef: OverlayRef, previewInstance: ThyImagePreviewContainerComponent, config: ThyImagePreviewConfig) {
+        super(imageAbstractOverlayOptions, overlayRef, previewInstance, config);
     }
 
-    close() {
-        this.overlayRef.dispose();
+    /**
+     * Updates the imagePreview's position.
+     * @param position New image preview position.
+     */
+    updatePosition(position?: ThyAbstractOverlayPosition): this {
+        this.updateGlobalPosition(position);
+        return this;
     }
 }

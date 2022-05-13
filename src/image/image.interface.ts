@@ -16,8 +16,8 @@ export interface ThyImageInfo extends ThyImageMeta {
     };
 }
 
-export class ThyImagePreviewOptions {
-    closeOnNavigation?: boolean = true;
+export interface ThyImagePreviewOptions {
+    closeOnNavigation?: boolean;
     disableClose?: boolean;
     disableKeyboardSelectable?: boolean;
     zoom?: number;
