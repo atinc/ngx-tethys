@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
+
+
+### Bug Fixes
+
+* **image:** fix demo module import path #INFR-3098 ([d830133](https://github.com/atinc/ngx-tethys/commit/d830133785c75032f3ae3cd5c7bc7310306696bb)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
+
+
+
 # [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
 
 
