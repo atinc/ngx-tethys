@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { NotifyQueueStore } from './notify-queue.store';
-import { NotifyPlacement } from './notify.config';
+import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 @Component({
     selector: 'thy-notify-content',
@@ -14,19 +14,18 @@ import { NotifyPlacement } from './notify.config';
     `
 })
 export class ThyNotifyContentComponent implements OnInit, OnDestroy {
-    public notifyQueue: any;
-    public topLeftQueue: any;
-    public topRightQueue: any;
-    public bottomLeftQueue: any;
-    public bottomRightQueue: any;
+    public topLeftQueue: ThyNotifyConfig[];
+    public topRightQueue: ThyNotifyConfig[];
+    public bottomLeftQueue: ThyNotifyConfig[];
+    public bottomRightQueue: ThyNotifyConfig[];
 
-    placement: NotifyPlacement;
+    public placement: NotifyPlacement;
 
     private destroy$ = new Subject<void>();
 
     beforeAttachPortal(): void {}
 
-    constructor(public queueStore: NotifyQueueStore, private cdr: ChangeDetectorRef) {}
+    constructor(public queueStore: NotifyQueueStore) {}
 
     ngOnInit() {
         this.placement = this.placement;
@@ -45,13 +44,8 @@ export class ThyNotifyContentComponent implements OnInit, OnDestroy {
             queueKey = 'bottomRightQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.bottomRightSelector);
         }
-        console.log('container', queue$);
-        queue$ = this.queueStore.select(state => state.notifyQueue);
-
         queue$.pipe(takeUntil(this.destroy$)).subscribe(data => {
-            console.log('-----', data);
             this[queueKey] = data;
-            this.cdr.detectChanges();
         });
     }
 

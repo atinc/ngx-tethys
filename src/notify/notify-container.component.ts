@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
 import { NotifyQueueStore } from './notify-queue.store';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
@@ -30,26 +30,23 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     @HostBinding('class.thy-notify-topLeft') topLeft: boolean;
     @HostBinding('class.thy-notify-topRight') topRight: boolean;
 
+    @HostBinding(`attr.id`)
+    id: string;
+
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
     /** State of the notify animation. */
     animationState: 'void' | 'enter' | 'exit' = 'void';
 
-    initialState: any;
-
-    public notifyQueue: any;
-    public topLeftQueue: any;
-    public topRightQueue: any;
-    public bottomLeftQueue: any;
-    public bottomRightQueue: any;
-
-    placement: NotifyPlacement;
+    public placement: NotifyPlacement;
 
     private destroy$ = new Subject<void>();
 
     animationOpeningDone: Observable<AnimationEvent>;
+
     animationClosingDone: Observable<AnimationEvent>;
+
     beforeAttachPortal(): void {}
 
     constructor(public queueStore: NotifyQueueStore, public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef) {
@@ -67,9 +64,7 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     }
 
     ngOnInit() {
-        // this.placement = this.initialState.placement;
         this.placement = this.config.placement;
-        let queue$, queueKey: string;
         if (this.placement === 'bottomRight') {
             this.bottomRight = true;
         } else if (this.placement === 'bottomLeft') {
@@ -79,35 +74,10 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
         } else {
             this.topRight = true;
         }
-        // if (this.placement === 'topLeft') {
-        //     queueKey = 'topLeftQueue';
-        //     queue$ = this.queueStore.select(NotifyQueueStore.topLeftSelector);
-        // } else if (this.placement === 'topRight') {
-        //     queueKey = 'topRightQueue';
-        //     queue$ = this.queueStore.select(NotifyQueueStore.topRightSelector);
-        // } else if (this.placement === 'bottomLeft') {
-        //     queueKey = 'bottomLeftQueue';
-        //     queue$ = this.queueStore.select(NotifyQueueStore.bottomLeftSelector);
-        // } else if (this.placement === 'bottomRight') {
-        //     queueKey = 'bottomRightQueue';
-        //     queue$ = this.queueStore.select(NotifyQueueStore.bottomRightSelector);
-        // }
-        // console.log('container', queue$);
-        // queue$ = this.queueStore.select(state => state.notifyQueue);
-
-        // queue$.pipe(takeUntil(this.destroy$)).subscribe(data => {
-        //     console.log('-----', data);
-        //     this[queueKey] = data;
-        // });
     }
 
     /** Callback, invoked whenever an animation on the host completes. */
     onAnimationDone(event: AnimationEvent) {
-        // if (event.toState === 'void') {
-        //     this.trapFocus();
-        // } else if (event.toState === 'exit') {
-        //     this.restoreFocus();
-        // }
         this.animationStateChanged.emit(event);
     }
 
@@ -115,7 +85,6 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     onAnimationStart(event: AnimationEvent) {
         this.animationStateChanged.emit(event);
     }
-
     ngOnDestroy(): void {
         this.destroy$.next();
     }

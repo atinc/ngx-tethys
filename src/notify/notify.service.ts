@@ -1,4 +1,4 @@
-import { FunctionProp, helpers, isFunction } from 'ngx-tethys/util';
+import { helpers, isFunction } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { ComponentPortal, DomPortalOutlet } from '@angular/cdk/portal';
 import {
@@ -28,7 +28,6 @@ import {
 import { ComponentTypeOrTemplateRef, POSITION_MAP, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
 import { ThyInternalNotifyRef, ThyNotifyRef } from './notify-ref';
 import { Directionality } from '@angular/cdk/bidi';
-import { ThyNotifyComponent } from './notify.component';
 import { ThyNotifyContentComponent } from './notify-content.component';
 
 const NOTIFY_OPTION_DEFAULT = {
@@ -43,7 +42,6 @@ const NOTIFY_OPTION_DEFAULT = {
 })
 export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig, ThyNotifyContainerComponent> implements OnDestroy {
     notifyQueue$: Subject<any> = new Subject();
-    private readonly ngUnsubscribe$ = new Subject();
 
     private _lastNotifyId = 0;
 
@@ -54,10 +52,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
     private containerRefBottomLeft: ComponentRef<ThyNotifyContainerComponent>;
 
     private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
-
-    private containerRef: ComponentRef<ThyNotifyContainerComponent>;
-
-    private notifyRef: any;
 
     protected buildOverlayConfig(config: ThyNotifyConfig): OverlayConfig {
         const positionStrategy = this.buildPositionStrategy(config);
@@ -98,8 +92,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
         const containerPortal = new ComponentPortal(ThyNotifyContainerComponent, config.viewContainerRef, injector);
         const containerRef = overlay.attach<ThyNotifyContainerComponent>(containerPortal);
-        console.log('containerRef', containerRef);
-        console.log('containerRef.instance', containerRef.instance);
         return containerRef.instance;
     }
 
@@ -159,7 +151,6 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyNotifyConfig<TData>
     ): ThyNotifyRef<T, TResult> {
-        console.log('config', config);
         const notifyRef = this.openOverlay(componentOrTemplateRef, config);
         return notifyRef as ThyNotifyRef<T, TResult>;
     }
@@ -168,18 +159,15 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
-        const configs = this.queueStore.getState().notifyQueue;
-        // this._initContainer(placement);
-        console.log('this.overlayContainer', this.overlayContainer);
-
-        console.log('this.overlayContainer', this.overlayContainer.getContainerElement());
-        if (!this.notifyRef) {
-            this.open(ThyNotifyContentComponent, {
+        const notifyRef = this.getContainer(placement);
+        if (!notifyRef) {
+            const ref = this.open(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement
                 }
             });
+            this.setContainer(placement, ref);
         }
     }
 
@@ -226,36 +214,30 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         this.queueStore.removeNotify(id);
     }
 
-    private _initContainer(placement: NotifyPlacement) {
+    private getContainer(placement: NotifyPlacement) {
         if (placement === 'topRight') {
-            this.containerRefTopRight = this._loadNotifyContainerComponent(this.containerRefTopRight, placement);
+            return this.containerRefTopRight;
         } else if (placement === 'bottomRight') {
-            this.containerRefBottomRight = this._loadNotifyContainerComponent(this.containerRefBottomRight, placement);
+            return this.containerRefBottomRight;
         } else if (placement === 'bottomLeft') {
-            this.containerRefBottomLeft = this._loadNotifyContainerComponent(this.containerRefBottomLeft, placement);
+            return this.containerRefBottomLeft;
         } else if (placement === 'topLeft') {
-            this.containerRefTopLeft = this._loadNotifyContainerComponent(this.containerRefTopLeft, placement);
+            return this.containerRefTopLeft;
         } else {
-            this.containerRef = this._loadNotifyContainerComponent(this.containerRef, placement);
+            return;
         }
     }
 
-    private _loadNotifyContainerComponent(
-        containerRef: ComponentRef<ThyNotifyContainerComponent>,
-        placement: NotifyPlacement
-    ): ComponentRef<ThyNotifyContainerComponent> {
-        if (!containerRef) {
-            const portalOutlet = new DomPortalOutlet(document.body, this.componentFactoryResolver, this.appRef, this.injector);
-            const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
-            containerRef = portalOutlet.attachComponentPortal(componentPortal);
-            Object.assign(containerRef.instance, {
-                initialState: {
-                    placement
-                }
-            });
-            containerRef.changeDetectorRef.detectChanges();
+    private setContainer(placement: NotifyPlacement, ref: any) {
+        if (placement === 'topRight') {
+            this.containerRefTopRight = ref;
+        } else if (placement === 'bottomRight') {
+            this.containerRefBottomRight = ref;
+        } else if (placement === 'bottomLeft') {
+            this.containerRefBottomLeft = ref;
+        } else if (placement === 'topLeft') {
+            this.containerRefTopLeft = ref;
         }
-        return containerRef;
     }
 
     private formatOptions(options: ThyNotifyConfig) {

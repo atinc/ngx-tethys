@@ -3,7 +3,6 @@ import { Store, Action } from 'ngx-tethys/store';
 import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 export interface NotifyQueueState {
-    notifyQueue: ThyNotifyConfig[];
     topLeftQueue: ThyNotifyConfig[];
     topRightQueue: ThyNotifyConfig[];
     bottomLeftQueue: ThyNotifyConfig[];
@@ -11,7 +10,6 @@ export interface NotifyQueueState {
 }
 
 export const notifyQueueInitialState: NotifyQueueState = {
-    notifyQueue: [],
     topLeftQueue: [],
     topRightQueue: [],
     bottomLeftQueue: [],
@@ -31,9 +29,6 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     }
     static bottomRightSelector(state: NotifyQueueState) {
         return state.bottomRightQueue;
-    }
-    static allSelector(state: NotifyQueueState) {
-        return state.notifyQueue;
     }
 
     constructor() {
@@ -62,10 +57,6 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
             state[key].shift();
         }
         state[key].push(options);
-        state.notifyQueue.push(options);
-
-        console.log('store.snapshot', this.snapshot);
-        console.log('state', state);
         this.next(state);
     }
 
@@ -78,9 +69,6 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
                 state[queueKey] = state[queueKey].filter((item: any) => {
                     return item.id !== id;
                 });
-                state.notifyQueue = state.notifyQueue.filter((item: any) => {
-                    return item.id !== id;
-                });
             }
         } else {
             Object.keys(state).forEach(queueKey => {
@@ -89,9 +77,6 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
                         return item.id !== id;
                     });
                 }
-                state.notifyQueue = state.notifyQueue.filter((item: any) => {
-                    return item.id !== id;
-                });
             });
         }
         this.next(state);

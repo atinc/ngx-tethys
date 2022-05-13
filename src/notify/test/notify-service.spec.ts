@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { async, TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
-import { ThyNotifyModule } from '../notify.module';
+import { async, TestBed, ComponentFixture, fakeAsync, flush, inject } from '@angular/core/testing';
+import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyNotifyOptions } from '../notify-option.interface';
+import { ThyNotifyConfig } from '../notify.config';
+import { OverlayContainer } from '@angular/cdk/overlay';
 
 //#region test component
 
@@ -75,7 +76,7 @@ export class ThyNotifyBasicComponent implements OnInit {
 
     ngOnInit() {}
 
-    openComponentNotify(options: ThyNotifyOptions) {
+    openComponentNotify(options: ThyNotifyConfig) {
         this.notifyService.show(options);
     }
 
@@ -84,17 +85,25 @@ export class ThyNotifyBasicComponent implements OnInit {
     }
 }
 
-describe('ThyNotify', () => {
-    let bodyElement: Element;
+fdescribe('ThyNotify', () => {
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
     beforeEach(async(() => {
         TestBed.configureTestingModule({
             imports: [ThyNotifyModule, NoopAnimationsModule],
             declarations: [ThyNotifyBasicComponent],
             providers: []
         });
+        inject([OverlayContainer], (oc: OverlayContainer) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        })();
         TestBed.compileComponents();
-        bodyElement = document.body;
     }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
 
     describe('basic', () => {
         let fixture: ComponentFixture<ThyNotifyBasicComponent>;
@@ -117,7 +126,9 @@ describe('ThyNotify', () => {
             btnElement = fixture.nativeElement.querySelector('.btn-0');
             btnElement.click();
             fixture.detectChanges();
-            notifyContainer = bodyElement.querySelectorAll(`.thy-notify-topRight`);
+            flush();
+            notifyContainer = overlayContainerElement.querySelectorAll('.thy-notify-topRight');
+
             expect(fetchNotifyNum(notifyContainer) === 1).toBeTruthy();
             expect(notifyContainer.length === 1).toBeTruthy();
             btnElement.click();
@@ -131,7 +142,7 @@ describe('ThyNotify', () => {
             btnElement = fixture.nativeElement.querySelector('.btn-2');
             btnElement.click();
             fixture.detectChanges();
-            notifyTopLeftContainer = bodyElement.querySelectorAll(`.thy-notify-topLeft`);
+            notifyTopLeftContainer = overlayContainerElement.querySelectorAll('.thy-notify-topLeft');
             expect(fetchNotifyNum(notifyTopLeftContainer) === 1).toBeTruthy();
             expect(notifyTopLeftContainer.length === 1).toBeTruthy();
             btnElement.click();
@@ -145,8 +156,9 @@ describe('ThyNotify', () => {
             btnElement = fixture.nativeElement.querySelector('.btn-3');
             btnElement.click();
             fixture.detectChanges();
-            const notifyOpenDetailContainer1 = bodyElement.querySelectorAll(`.thy-notify-topRight`);
-            linkContainer = bodyElement.querySelectorAll(`.link-secondary`);
+
+            const notifyOpenDetailContainer1 = overlayContainerElement.querySelectorAll(`.thy-notify-topRight`);
+            linkContainer = overlayContainerElement.querySelectorAll(`.link-secondary`);
             expect(linkContainer[0].textContent === '查看').toBeTruthy();
             const openActionElement = linkContainer[0] as HTMLElement;
             openActionElement.click();
@@ -159,13 +171,13 @@ describe('ThyNotify', () => {
             btnElement = fixture.nativeElement.querySelector('.btn-4');
             btnElement.click();
             fixture.detectChanges();
-            const notifyOpenDetailContainer2 = bodyElement.querySelectorAll(`.thy-notify-topRight`);
-            linkContainer = bodyElement.querySelectorAll(`.link-secondary`);
+            const notifyOpenDetailContainer2 = overlayContainerElement.querySelectorAll(`.thy-notify-topRight`);
+            linkContainer = overlayContainerElement.querySelectorAll(`.link-secondary`);
             expect(linkContainer[1].textContent === '[详情]').toBeTruthy();
             const openDetailElement = linkContainer[1] as HTMLElement;
             openDetailElement.click();
             fixture.detectChanges();
-            const detailContentContainer = bodyElement.querySelectorAll(`.thy-notify-detail`);
+            const detailContentContainer = overlayContainerElement.querySelectorAll(`.thy-notify-detail`);
             expect(detailContentContainer[0].textContent === 'detail中content是文本').toBeTruthy();
             notifyOpenDetailContainer2[0].remove();
         }));
@@ -174,14 +186,14 @@ describe('ThyNotify', () => {
             btnElement = fixture.nativeElement.querySelector('.btn-5');
             btnElement.click();
             fixture.detectChanges();
-            const notifyOpenDetailContainer3 = bodyElement.querySelectorAll(`.thy-notify-topRight`);
-            linkContainer = bodyElement.querySelectorAll(`.link-secondary`);
+            const notifyOpenDetailContainer3 = overlayContainerElement.querySelectorAll(`.thy-notify-topRight`);
+            linkContainer = overlayContainerElement.querySelectorAll(`.link-secondary`);
             expect(linkContainer[2].textContent === '查看').toBeTruthy();
             const openDetailElement = linkContainer[2] as HTMLElement;
             openDetailElement.click();
             fixture.detectChanges();
             expect(componentInstance.count === 1).toBeTruthy();
-            const detailContentContainer = bodyElement.querySelectorAll(`.thy-notify-detail`);
+            const detailContentContainer = overlayContainerElement.querySelectorAll(`.thy-notify-detail`);
             expect(detailContentContainer[0].textContent === '查看的内容').toBeTruthy();
             notifyOpenDetailContainer3[0].remove();
         }));
@@ -190,15 +202,15 @@ describe('ThyNotify', () => {
             successElement = fixture.nativeElement.querySelector('.successBtn');
             successElement.click();
             fixture.detectChanges();
-            const notifyOpenDetailContainer4 = bodyElement.querySelectorAll(`.thy-notify-topRight`);
-            linkContainer = bodyElement.querySelectorAll(`.link-secondary`);
+            const notifyOpenDetailContainer4 = overlayContainerElement.querySelectorAll(`.thy-notify-topRight`);
+            linkContainer = overlayContainerElement.querySelectorAll(`.link-secondary`);
             expect(linkContainer[3].textContent === '[详情]').toBeTruthy();
-            const titleContainer = bodyElement.querySelectorAll(`.thy-notify-title`);
+            const titleContainer = overlayContainerElement.querySelectorAll(`.thy-notify-title`);
             expect(titleContainer[5].textContent === '成功的title').toBeTruthy();
             const openDetailElement = linkContainer[3] as HTMLElement;
             openDetailElement.click();
             fixture.detectChanges();
-            const detailContentContainer = bodyElement.querySelectorAll(`.thy-notify-detail`);
+            const detailContentContainer = overlayContainerElement.querySelectorAll(`.thy-notify-detail`);
             expect(detailContentContainer[0].textContent === '我是成功的detail').toBeTruthy();
             notifyOpenDetailContainer4[0].remove();
         }));
