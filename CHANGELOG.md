@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
+
+
+### Bug Fixes
+
+* update incorrect import path for select.mixin ([24abcc6](https://github.com/atinc/ngx-tethys/commit/24abcc6c97d95ecbadc1c1179688e7b8586981ee))
+
+
+
 # [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
 
 
