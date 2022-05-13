@@ -2,39 +2,39 @@ import { ElementRef, InjectionToken } from '@angular/core';
 
 export const CONTAINER_PLACEMENT = new InjectionToken<{}>('CONTAINER_PLACEMENT');
 
-export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+// export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
-export interface ThyNotifyDetail {
-    link?: string;
-    content?: string;
-    action?: (event?: Event) => void;
-}
+// export interface ThyNotifyDetail {
+//     link?: string;
+//     content?: string;
+//     action?: (event?: Event) => void;
+// }
 
-export interface ThyNotifyOptions {
-    id?: number;
+// export interface ThyNotifyOptions {
+//     id?: number;
 
-    type?: 'blank' | 'success' | 'error' | 'warning' | 'info';
+//     type?: 'blank' | 'success' | 'error' | 'warning' | 'info';
 
-    title?: string;
+//     title?: string;
 
-    content?: string;
+//     content?: string;
 
-    detail?: string | ThyNotifyDetail;
+//     detail?: string | ThyNotifyDetail;
 
-    html?: ElementRef;
+//     html?: ElementRef;
 
-    pauseOnHover?: boolean;
+//     pauseOnHover?: boolean;
 
-    duration?: number;
+//     duration?: number;
 
-    maxStack?: number;
+//     maxStack?: number;
 
-    placement?: NotifyPlacement;
-}
+//     placement?: NotifyPlacement;
+// }
 
-export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOptions>('thy-notify-default-options');
+// export const THY_NOTIFY_DEFAULT_OPTIONS = new InjectionToken<ThyNotifyOptions>('thy-notify-default-options');
 
-export const THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER = {
-    provide: THY_NOTIFY_DEFAULT_OPTIONS,
-    useValue: {}
-};
+// export const THY_NOTIFY_DEFAULT_OPTIONS_PROVIDER = {
+//     provide: THY_NOTIFY_DEFAULT_OPTIONS,
+//     useValue: {}
+// };

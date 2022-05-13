@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Store, Action } from 'ngx-tethys/store';
-import { NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
+import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 export interface NotifyQueueState {
-    topLeftQueue: ThyNotifyOptions[];
-    topRightQueue: ThyNotifyOptions[];
-    bottomLeftQueue: ThyNotifyOptions[];
-    bottomRightQueue: ThyNotifyOptions[];
+    notifyQueue: ThyNotifyConfig[];
+    topLeftQueue: ThyNotifyConfig[];
+    topRightQueue: ThyNotifyConfig[];
+    bottomLeftQueue: ThyNotifyConfig[];
+    bottomRightQueue: ThyNotifyConfig[];
 }
 
 export const notifyQueueInitialState: NotifyQueueState = {
+    notifyQueue: [],
     topLeftQueue: [],
     topRightQueue: [],
     bottomLeftQueue: [],
@@ -29,6 +31,9 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     }
     static bottomRightSelector(state: NotifyQueueState) {
         return state.bottomRightQueue;
+    }
+    static allSelector(state: NotifyQueueState) {
+        return state.notifyQueue;
     }
 
     constructor() {
@@ -50,23 +55,30 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
     }
 
     @Action()
-    addNotify(placement: NotifyPlacement, options: ThyNotifyOptions) {
+    addNotify(placement: NotifyPlacement, options: ThyNotifyConfig) {
         const key = this.convertQueueKey(placement);
         const state = this.snapshot;
         if (state[key].length >= options.maxStack) {
             state[key].shift();
         }
         state[key].push(options);
+        state.notifyQueue.push(options);
+
+        console.log('store.snapshot', this.snapshot);
+        console.log('state', state);
         this.next(state);
     }
 
     @Action()
-    removeNotify(id: number, placement?: NotifyPlacement) {
+    removeNotify(id: string, placement?: NotifyPlacement) {
         const state = this.snapshot;
         if (placement) {
             const queueKey = this.convertQueueKey(placement);
             if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
                 state[queueKey] = state[queueKey].filter((item: any) => {
+                    return item.id !== id;
+                });
+                state.notifyQueue = state.notifyQueue.filter((item: any) => {
                     return item.id !== id;
                 });
             }
@@ -77,6 +89,9 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
                         return item.id !== id;
                     });
                 }
+                state.notifyQueue = state.notifyQueue.filter((item: any) => {
+                    return item.id !== id;
+                });
             });
         }
         this.next(state);

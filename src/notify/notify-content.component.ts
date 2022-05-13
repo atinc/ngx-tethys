@@ -1,23 +1,19 @@
-import { Component, OnInit, HostBinding, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { NotifyPlacement } from './notify-option.interface';
 import { NotifyQueueStore } from './notify-queue.store';
+import { NotifyPlacement } from './notify.config';
 
 @Component({
-    selector: 'thy-notify-container',
-    templateUrl: './notify.container.component.html'
+    selector: 'thy-notify-content',
+    template: `
+        <thy-notify *ngFor="let item of topLeftQueue" [thyOption]="item"></thy-notify>
+        <thy-notify *ngFor="let item of topRightQueue" [thyOption]="item"></thy-notify>
+        <thy-notify *ngFor="let item of bottomLeftQueue" [thyOption]="item"></thy-notify>
+        <thy-notify *ngFor="let item of bottomRightQueue" [thyOption]="item"></thy-notify>
+    `
 })
-export class ThyNotifyContainerComponent implements OnInit, OnDestroy {
-    @HostBinding('class.thy-notify-root') className = true;
-    @HostBinding('class.thy-notify-bottomRight') bottomRight: boolean;
-    @HostBinding('class.thy-notify-bottomLeft') bottomLeft: boolean;
-    @HostBinding('class.thy-notify-topLeft') topLeft: boolean;
-    @HostBinding('class.thy-notify-topRight') topRight: boolean;
-
-    initialState: any;
-
+export class ThyNotifyContentComponent implements OnInit, OnDestroy {
     public notifyQueue: any;
     public topLeftQueue: any;
     public topRightQueue: any;
@@ -28,20 +24,14 @@ export class ThyNotifyContainerComponent implements OnInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    constructor(public queueStore: NotifyQueueStore) {}
+    beforeAttachPortal(): void {}
+
+    constructor(public queueStore: NotifyQueueStore, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
-        this.placement = this.initialState.placement;
+        this.placement = this.placement;
         let queue$, queueKey: string;
-        if (this.placement === 'bottomRight') {
-            this.bottomRight = true;
-        } else if (this.placement === 'bottomLeft') {
-            this.bottomLeft = true;
-        } else if (this.placement === 'topLeft') {
-            this.topLeft = true;
-        } else {
-            this.topRight = true;
-        }
+
         if (this.placement === 'topLeft') {
             queueKey = 'topLeftQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.topLeftSelector);
@@ -55,8 +45,13 @@ export class ThyNotifyContainerComponent implements OnInit, OnDestroy {
             queueKey = 'bottomRightQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.bottomRightSelector);
         }
+        console.log('container', queue$);
+        queue$ = this.queueStore.select(state => state.notifyQueue);
+
         queue$.pipe(takeUntil(this.destroy$)).subscribe(data => {
+            console.log('-----', data);
             this[queueKey] = data;
+            this.cdr.detectChanges();
         });
     }
 
