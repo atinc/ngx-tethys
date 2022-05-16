@@ -1,9 +1,10 @@
-import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
+import { TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
+import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { ThyPaginationModule } from '../pagination.module';
 import { ThyPaginationComponent } from '../pagination.component';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ENTER } from 'ngx-tethys/util';
+import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -16,7 +17,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
             (thyPageChanged)="onPageChange($event)"
             (thyPageIndexChange)="onPageIndexChange($event)"
         ></thy-pagination>
-        <ng-template #total let-total>共计{{ total }}条</ng-template>
+        <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
 class PaginationBasicComponent {
@@ -101,7 +102,7 @@ describe('ThyPagination', () => {
         TestBed.compileComponents();
     });
 
-    describe('basic', () => {
+    fdescribe('basic', () => {
         let fixture: ComponentFixture<PaginationTestComponent>;
         let componentInstance: PaginationTestComponent;
         let paginationDebugElement: DebugElement;
@@ -170,13 +171,19 @@ describe('ThyPagination', () => {
         });
 
         it('should QuickJumper can works', fakeAsync(() => {
-            const input = (paginationElement.querySelector('input').value = '4');
-            function getPickerTriggerElement(): HTMLInputElement {
-                return paginationElement.querySelector('button') as HTMLInputElement;
-            }
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
+            const inputElement = paginationElement.querySelector('input');
+            inputElement.value = '4';
+            dispatchKeyboardEvent(inputElement, 'keydown', ENTER);
             tick(100);
             expect(pagination.pageIndex).toEqual(4);
+            flush();
+            inputElement.value = '3';
+            inputElement.focus();
+            fixture.detectChanges();
+            inputElement.blur();
+            fixture.detectChanges();
+            tick(100);
+            expect(pagination.pageIndex).toEqual(3);
         }));
     });
 
