@@ -128,7 +128,6 @@
               [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
               [style.left.px]="iconIndentComputed(level)"
-              (click)="expandChildren($event, row)"
             ></thy-icon>
             <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
           </ng-container>
@@ -143,7 +142,6 @@
                 [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                 [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                 [style.marginLeft.px]="iconIndentComputed(level)"
-                (click)="expandChildren($event, row)"
               ></thy-icon>
               <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
                 {{ getModelValue(row, column.model) }}
