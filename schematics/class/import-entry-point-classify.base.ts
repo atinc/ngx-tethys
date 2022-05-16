@@ -1,6 +1,6 @@
 import ts from 'typescript';
-import { ContentChange, RemoveContentChange, ReplaceContentChange, UpdateContentChange } from '../types';
 
+import { ContentChange, ReplaceContentChange } from '../types';
 import { MigrationBase } from './base';
 
 export abstract class ImportEntryPointClassifyMigrationBase extends MigrationBase {
@@ -18,12 +18,14 @@ export abstract class ImportEntryPointClassifyMigrationBase extends MigrationBas
             const newImportDeclarationSourceGroup: { [name: string]: string[] } = {};
             const warningList: string[] = [];
             this.getImportDeclarationImportSpecifierList(importDeclaration).forEach(item => {
-                if (this.relation[item.name.text] !== undefined) {
-                    const list = newImportDeclarationSourceGroup[this.relation[item.name.text]] || [];
-                    list.push(item.name.text);
-                    newImportDeclarationSourceGroup[this.relation[item.name.text]] = list;
+                const name = item.propertyName?.text ? item.propertyName.text : item.name.text;
+                const importName = item.propertyName?.text ? `${name} as ${item.name.text}` : name;
+                if (this.relation[name] !== undefined) {
+                    const list = newImportDeclarationSourceGroup[this.relation[name]] || [];
+                    list.push(importName);
+                    newImportDeclarationSourceGroup[this.relation[name]] = list;
                 } else {
-                    warningList.push(item.name.text);
+                    warningList.push(name);
                 }
             });
             if (Object.entries(newImportDeclarationSourceGroup).length) {
