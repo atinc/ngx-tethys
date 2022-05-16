@@ -10,6 +10,7 @@ import { ThyNotifyPlacementExampleComponent } from './placement/placement.compon
 import { ThyNotifyDetailOperationExampleComponent } from './detail-operation/detail-operation.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThySpaceModule } from 'ngx-tethys';
+import { ThyNotifyCloseExampleComponent } from './close/close.component';
 
 const COMPONENTS = [
     ThyNotifyHoverExampleComponent,
@@ -18,7 +19,8 @@ const COMPONENTS = [
     ThyNotifyCustomHtmlExampleComponent,
     ThyNotifyBasicExampleComponent,
     ThyNotifyTypeExampleComponent,
-    ThyNotifyPlacementExampleComponent
+    ThyNotifyPlacementExampleComponent,
+    ThyNotifyCloseExampleComponent
 ];
 
 @NgModule({

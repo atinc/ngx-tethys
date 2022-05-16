@@ -4,7 +4,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ComponentRef, Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { ThyNotifyContainerComponent } from './notify-container.component';
-import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
+import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG_VALUE, THY_NOTIFY_DEFAULT_OPTIONS } from './notify.config';
 import { notifyAbstractOverlayOptions } from './notify.options';
 import {
     GlobalPositionStrategy,
@@ -19,13 +19,6 @@ import { ComponentTypeOrTemplateRef, POSITION_MAP, ThyAbstractOverlayRef, ThyAbs
 import { ThyInternalNotifyRef, ThyNotifyRef } from './notify-ref';
 import { Directionality } from '@angular/cdk/bidi';
 import { ThyNotifyContentComponent } from './notify-content.component';
-
-const NOTIFY_OPTION_DEFAULT = {
-    duration: 4500,
-    pauseOnHover: true,
-    maxStack: 8,
-    placement: 'topRight'
-};
 
 @Injectable({
     providedIn: 'root'
@@ -126,7 +119,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
         private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_CONFIG) protected defaultConfig: ThyNotifyConfig
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected defaultConfig: ThyNotifyConfig
     ) {
         super(notifyAbstractOverlayOptions, overlay, injector, {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
@@ -158,46 +151,46 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         }
     }
 
-    public success(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public success(title?: string, content?: string, config?: ThyNotifyConfig) {
         this.show({
-            ...(options || {}),
+            ...(config || {}),
             type: 'success',
-            title: title || options?.title || '成功',
-            content: content || options?.content
+            title: title || config?.title || '成功',
+            content: content || config?.content
         });
     }
 
-    public info(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public info(title?: string, content?: string, config?: ThyNotifyConfig) {
         this.show({
-            ...(options || {}),
+            ...(config || {}),
             type: 'info',
-            title: title || options?.title || '提示',
-            content: content || options?.content
+            title: title || config?.title || '提示',
+            content: content || config?.content
         });
     }
 
-    public warning(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public warning(title?: string, content?: string, config?: ThyNotifyConfig) {
         this.show({
-            ...(options || {}),
+            ...(config || {}),
             type: 'warning',
-            title: title || options?.title || '警告',
-            content: content || options?.content
+            title: title || config?.title || '警告',
+            content: content || config?.content
         });
     }
 
-    public error(title?: string, content?: string, options?: ThyNotifyConfig | string) {
-        const config: ThyNotifyConfig = isString(options)
-            ? { type: 'error', title: title || '错误', content: content, detail: options }
+    public error(title?: string, content?: string, config?: ThyNotifyConfig | string) {
+        const showConfig: ThyNotifyConfig = isString(config)
+            ? { type: 'error', title: title || '错误', content: content, detail: config }
             : {
-                  ...((options || {}) as ThyNotifyConfig),
+                  ...((config || {}) as ThyNotifyConfig),
                   type: 'error',
-                  title: title || (options as ThyNotifyConfig)?.title || '错误',
-                  content: content || (options as ThyNotifyConfig)?.content
+                  title: title || (config as ThyNotifyConfig)?.title || '错误',
+                  content: content || (config as ThyNotifyConfig)?.content
               };
-        this.show(config);
+        this.show(showConfig);
     }
 
-    removeNotifyById(id: string) {
+    public removeNotifyById(id: string) {
         this.queueStore.removeNotify(id);
     }
 
@@ -229,7 +222,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         if (isString(options.detail)) {
             options = { ...options, detail: { link: '[详情]', content: options.detail as string } };
         }
-        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, options);
+        return Object.assign({}, { id: String(this._lastNotifyId++) }, this.defaultConfig, options);
     }
 
     ngOnDestroy(): void {

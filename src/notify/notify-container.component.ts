@@ -23,7 +23,6 @@ import { thyNotifyAnimations } from './notify-animations';
     }
 })
 export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements OnInit, OnDestroy {
-    @HostBinding('class.thy-notify-root') className = true;
     @HostBinding('class.thy-notify-bottomRight') bottomRight: boolean;
     @HostBinding('class.thy-notify-bottomLeft') bottomLeft: boolean;
     @HostBinding('class.thy-notify-topLeft') topLeft: boolean;

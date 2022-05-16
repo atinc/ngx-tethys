@@ -52,17 +52,17 @@ export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyNotifyConfig>('th
  */
 export const THY_NOTIFY_DEFAULT_OPTIONS = THY_NOTIFY_DEFAULT_CONFIG;
 
-export const THY_NOTIFY_DEFAULT_CONFIG_VALUE = {
+export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyNotifyConfig = {
     hasBackdrop: false,
     panelClass: '',
     offset: '20',
     closeOnNavigation: true,
+    type: 'blank',
     placement: 'topRight' as NotifyPlacement,
     backdropClosable: false,
-    insideClosable: false,
-    manualClosure: false,
-    originActiveClass: 'thy-notify-origin-active',
-    autoAdaptive: false
+    duration: 4500,
+    pauseOnHover: true,
+    maxStack: 8
 };
 
 export const THY_NOTIFY_DEFAULT_CONFIG_PROVIDER = {
