@@ -1,14 +1,19 @@
-import { NgModule } from '@angular/core';
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
+import { ThyTableModule } from 'ngx-tethys/table';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { ThyResizableBasicExampleComponent } from './basic/basic.component';
-import { ThyResizablePreviewExampleComponent } from './preview/preview.component';
-import { ThyResizableLockAspectRatioExampleComponent } from './lock-aspect-ratio/lock-aspect-ratio.component';
 import { ThyResizableCustomizeExampleComponent } from './customize/customize.component';
-import { ThyResizableTableExampleComponent } from './table/table.component';
-import { ThyResizableLayoutExampleComponent } from './layout/layout.component';
 import { ThyResizableGridExampleComponent } from './grid/grid.component';
+import { ThyResizableLayoutExampleComponent } from './layout/layout.component';
+import { ThyResizableLockAspectRatioExampleComponent } from './lock-aspect-ratio/lock-aspect-ratio.component';
+import { ThyResizablePreviewExampleComponent } from './preview/preview.component';
+import { ThyResizableTableExampleComponent } from './table/table.component';
 
 const COMPONENTS = [
     ThyResizableBasicExampleComponent,
@@ -21,7 +26,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, NgxTethysModule, ThyResizableModule],
+    imports: [CommonModule, ThyResizableModule, ThyTableModule, ThyIconModule, ThyLayoutModule, ThyGridModule],
     declarations: [...COMPONENTS],
     exports: [...COMPONENTS]
 })

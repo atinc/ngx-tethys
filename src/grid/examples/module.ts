@@ -1,11 +1,13 @@
-import { NgModule } from '@angular/core';
-import { NgxTethysModule } from 'ngx-tethys';
-import { ThyGridBasicExampleComponent } from './basic/basic.component';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThySharedModule } from 'ngx-tethys/shared';
+
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { ThyGridBasicExampleComponent } from './basic/basic.component';
 
 @NgModule({
-    imports: [CommonModule, NgxTethysModule, ThySharedModule],
+    imports: [CommonModule, ThyGridModule, ThySharedModule],
     declarations: [ThyGridBasicExampleComponent],
     exports: [ThyGridBasicExampleComponent],
     entryComponents: [ThyGridBasicExampleComponent]

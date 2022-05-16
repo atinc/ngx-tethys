@@ -1,4 +1,6 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyNavModule } from 'ngx-tethys/nav';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -27,7 +29,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule, RouterModule],
+    imports: [CommonModule, FormsModule, ThyNavModule, RouterModule, ThyActionMenuModule, ThyIconModule],
     exports: [],
     providers: COMPONENTS
 })
