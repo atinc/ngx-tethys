@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Directive, ElementRef, Input, OnChanges, OnInit, Optional, SimpleChanges } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImageMeta } from './image.interface';
 import { ThyImageService } from './image.service';
 
@@ -14,15 +15,24 @@ export class ThyImageDirective implements OnInit, OnChanges {
     @Input() thySrc: string;
     @Input() thyPreviewSrc: string;
     @Input() thyOriginSrc: string;
-    @Input() ThyImageMeta: ThyImageMeta;
+    @Input() thyImageMeta: ThyImageMeta;
+
     @Input() @InputBoolean() thyDisablePreview: boolean;
 
     get previewable(): boolean {
         return !this.thyDisablePreview;
     }
-    constructor(private thyImageService: ThyImageService, private elementRef: ElementRef) {}
+    constructor(
+        private thyImageService: ThyImageService,
+        @Optional() private parentGroup: ThyImageGroupComponent,
+        private elementRef: ElementRef
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        if (this.parentGroup) {
+            this.parentGroup.addImage(this);
+        }
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thySrc } = changes;
@@ -35,7 +45,14 @@ export class ThyImageDirective implements OnInit, OnChanges {
         if (!this.previewable) {
             return;
         }
-        const previewImages = [{ src: this.thySrc }];
-        this.thyImageService.preview(previewImages);
+        if (this.parentGroup) {
+            const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
+            const previewImages = previewAbleImages.map(e => ({ src: e.thySrc, ...e.thyImageMeta }));
+            const previewIndex = previewAbleImages.findIndex(el => this === el);
+            this.thyImageService.preview(previewImages, previewIndex);
+        } else {
+            const previewImages = [{ src: this.thySrc, ...this.thyImageMeta }];
+            this.thyImageService.preview(previewImages);
+        }
     }
 }

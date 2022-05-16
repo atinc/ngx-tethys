@@ -23,3 +23,10 @@ export interface ThyImagePreviewOptions {
     zoom?: number;
     rotate?: number;
 }
+
+export interface ThyImagePreviewContainerOperation {
+    icon: string;
+    tooltip: string;
+    action(): void;
+    type?: string;
+}
