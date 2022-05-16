@@ -134,7 +134,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    open<T, TData = unknown, TResult = unknown>(
+    public open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyNotifyConfig<TData>
     ): ThyNotifyRef<T, TResult> {
@@ -142,7 +142,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         return notifyRef as ThyNotifyRef<T, TResult>;
     }
 
-    show(config: ThyNotifyConfig) {
+    public show(config: ThyNotifyConfig) {
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
@@ -158,7 +158,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         }
     }
 
-    success(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public success(title?: string, content?: string, options?: ThyNotifyConfig) {
         this.show({
             ...(options || {}),
             type: 'success',
@@ -167,7 +167,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    info(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public info(title?: string, content?: string, options?: ThyNotifyConfig) {
         this.show({
             ...(options || {}),
             type: 'info',
@@ -176,7 +176,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    warning(title?: string, content?: string, options?: ThyNotifyConfig) {
+    public warning(title?: string, content?: string, options?: ThyNotifyConfig) {
         this.show({
             ...(options || {}),
             type: 'warning',
@@ -185,7 +185,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    error(title?: string, content?: string, options?: ThyNotifyConfig | string) {
+    public error(title?: string, content?: string, options?: ThyNotifyConfig | string) {
         const config: ThyNotifyConfig = isString(options)
             ? { type: 'error', title: title || '错误', content: content, detail: options }
             : {

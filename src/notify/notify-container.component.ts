@@ -2,7 +2,6 @@ import { Component, OnInit, HostBinding, OnDestroy, ViewChild, ChangeDetectorRef
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
-import { NotifyQueueStore } from './notify-queue.store';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { ThyNotifyConfig } from './notify.config';
 import { notifyAbstractOverlayOptions } from './notify.options';
@@ -47,7 +46,7 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
 
     beforeAttachPortal(): void {}
 
-    constructor(public queueStore: NotifyQueueStore, public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef) {
+    constructor(public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef) {
         super(notifyAbstractOverlayOptions, cdr);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {

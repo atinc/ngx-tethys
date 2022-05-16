@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flush, inject } from '@angular/core/testing';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyNotifyConfig } from '../notify.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 //#region test component
 
@@ -26,7 +27,8 @@ export class ThyNotifyBasicComponent implements OnInit {
             duration: 0
         },
         {
-            title: 'hhh！',
+            title: 'will disappear in 200ms',
+            placement: 'bottomRight',
             duration: 200
         },
         {
@@ -65,6 +67,22 @@ export class ThyNotifyBasicComponent implements OnInit {
                 }
             },
             duration: 0
+        },
+        {
+            title: 'Placement is bottomLeft！',
+            duration: 0,
+            placement: 'bottomLeft'
+        },
+        {
+            title: 'Placement is bottomRight',
+            duration: 0,
+            placement: 'bottomRight'
+        },
+        {
+            title: 'mouseenter event',
+            duration: 200,
+            placement: 'bottomRight',
+            pauseOnHover: true
         }
     ];
 
@@ -213,6 +231,63 @@ describe('ThyNotify', () => {
             const detailContentContainer = overlayContainerElement.querySelectorAll(`.thy-notify-detail`);
             expect(detailContentContainer[0].textContent === '我是成功的detail').toBeTruthy();
             notifyOpenDetailContainer4[0].remove();
+        }));
+
+        it('body should has thy-notify-bottomLeft', fakeAsync(() => {
+            btnElement = fixture.nativeElement.querySelector('.btn-6');
+            btnElement.click();
+            fixture.detectChanges();
+            const notifyContainer = overlayContainerElement.querySelectorAll('.thy-notify-bottomLeft');
+            expect(fetchNotifyNum(notifyContainer) === 1).toBeTruthy();
+            expect(notifyContainer.length === 1).toBeTruthy();
+        }));
+
+        it('body should has thy-notify-bottomRight', fakeAsync(() => {
+            btnElement = fixture.nativeElement.querySelector('.btn-7');
+            btnElement.click();
+            fixture.detectChanges();
+            const notifyContainer = overlayContainerElement.querySelectorAll('.thy-notify-bottomRight');
+            expect(fetchNotifyNum(notifyContainer) === 1).toBeTruthy();
+            expect(notifyContainer.length === 1).toBeTruthy();
+        }));
+
+        it('should remove notify when click close btn', fakeAsync(() => {
+            btnElement = fixture.nativeElement.querySelector('.btn-7');
+            btnElement.click();
+            fixture.detectChanges();
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-bottomRight');
+            const closeBtn = notifyContainer.querySelector('.thy-notify-close');
+            dispatchFakeEvent(closeBtn, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(notifyContainer).toBeTruthy();
+        }));
+
+        it('should not remove when trigger mouseenter', fakeAsync(() => {
+            // normal
+            btnElement = fixture.nativeElement.querySelector('.btn-1');
+            btnElement.click();
+            fixture.detectChanges();
+            flush();
+            const notifyContainer = overlayContainerElement.querySelector('.thy-notify-bottomRight');
+            const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
+            expect(notify.style.opacity === '1').toBe(true);
+            tick(300);
+            fixture.detectChanges();
+            expect(notify.style.opacity === '0').toBe(true);
+            flush();
+            // mouseenter
+            btnElement = fixture.nativeElement.querySelector('.btn-8');
+            btnElement.click();
+            fixture.detectChanges();
+            tick(100);
+            const notify1 = notifyContainer.querySelector('.thy-notify') as HTMLElement;
+            expect(notify1.style.opacity === '1').toBe(true);
+            dispatchMouseEvent(notify1, 'mouseenter');
+            tick(300);
+            fixture.detectChanges();
+            expect(notify1.style.opacity === '1').toBe(true);
+            flush();
         }));
     });
 });
