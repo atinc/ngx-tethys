@@ -46,11 +46,6 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         containerInstance: TContainer
     ): Injector;
 
-    abstract open<T, TData = undefined, TResult = undefined>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyAbstractOverlayConfig<TData>
-    ): ThyAbstractOverlayRef<T, TContainer, TResult>;
-
     /** Attach component or template ref to overlay container */
     protected attachOverlayContent<T, TResult>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
@@ -65,8 +60,11 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         // When the backdrop is clicked, we want to close it.
         if (config.hasBackdrop) {
             overlayRef.backdropClick().subscribe(() => {
-                if (abstractOverlayRef.backdropClosable) {
-                    abstractOverlayRef.close();
+                if (
+                    (abstractOverlayRef.disableClose !== undefined && !abstractOverlayRef.disableClose) ||
+                    abstractOverlayRef.backdropClosable
+                ) {
+                    this.close();
                 }
             });
         }

@@ -334,6 +334,42 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.getRootNodes()[0].title).toEqual('未分配部门');
         });
 
+        it(`test public function onDragDrop child item after parent item`, () => {
+            expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
+            const item = treeElement.querySelectorAll(treeNodeSelector)[8];
+
+            const dragstartEvent = createDragEvent('dragstart');
+            item.dispatchEvent(dragstartEvent);
+            fixture.detectChanges();
+
+            const dragoverEvent = createDragEvent('dragover');
+            item.dispatchEvent(dragoverEvent);
+            fixture.detectChanges();
+
+            const isShowExpandSpy = spyOn(treeComponent, 'isShowExpand');
+            const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
+            // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
+
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const dataTransfer = new DataTransfer();
+            dataTransfer.dropEffect = 'move';
+            const dropEvent = createDragEvent('drop', dataTransfer, true, true);
+            secondItem.dispatchEvent(dropEvent);
+            fixture.detectChanges();
+
+            expect(isShowExpandSpy).toHaveBeenCalled();
+            expect(treeServiceSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalledWith({
+                afterNode: treeComponent.flattenTreeNodes[0],
+                currentIndex: 1,
+                event: jasmine.any(Object),
+                dragNode: treeComponent.flattenTreeNodes[8],
+                targetNode: null
+            });
+            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
+        });
+
         it(`test public function onDragDrop`, () => {
             const item = treeElement.querySelectorAll(treeNodeSelector)[1];
 
@@ -430,6 +466,20 @@ describe('ThyTreeComponent', () => {
             const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
             expect(updateTreeNodesCount).toEqual(1);
         });
+
+        it('test should throw error when thySize and thyItemSize are both assigned ', () => {
+            try {
+                component.tree.thySize = 'sm';
+                component.tree.thyItemSize = 55;
+            } catch (error) {
+                expect(error.message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
+            }
+        });
+
+        it('test should thyItemSize is 42 when thySize is sm', () => {
+            component.tree.thySize = 'sm';
+            expect(component.tree.thyItemSize).toEqual(42);
+        });
     });
 
     describe('async tree', () => {
@@ -524,7 +574,7 @@ describe('ThyTreeComponent', () => {
             [thySelectedKeys]="['000000000000000000000000']"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
-            (thyOnDragDrop)="dragDrop()"
+            (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()"
@@ -563,8 +613,8 @@ class TestBasicTreeComponent {
 
     onEvent() {}
 
-    dragDrop() {
-        this.dragDropSpy();
+    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
+        this.dragDropSpy(event);
     }
 
     addNode() {

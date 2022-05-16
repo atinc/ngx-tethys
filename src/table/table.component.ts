@@ -5,7 +5,7 @@ import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-t
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
-import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import {
@@ -338,6 +338,8 @@ export class ThyTableComponent extends _MixinBase
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
 
+    dragPreviewClass = 'thy-table-drag-preview';
+
     public buildColumnWidth = (width: string | number) => {
         return Number(width.toString().split('px')[0]);
     };
@@ -604,12 +606,15 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    onDragStarted() {
+    onDragStarted(event: CdkDragStart<unknown>) {
         this.ngZone.runOutsideAngular(() =>
             setTimeout(() => {
-                const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
+                const preview = this.document.getElementsByClassName(this.dragPreviewClass)[0];
+                const originalTds: HTMLCollection = event.source._dragRef.getPlaceholderElement()?.children;
                 if (preview) {
-                    preview.classList.add('thy-table-drag-preview');
+                    Array.from(preview?.children).forEach((element: HTMLElement, index: number) => {
+                        element.style.width = `${originalTds[index]?.clientWidth}px`;
+                    });
                 }
             })
         );

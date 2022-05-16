@@ -15,6 +15,7 @@ export abstract class ThyAbstractOverlayRef<
     id: string;
     componentInstance: TComponent;
     backdropClosable: boolean;
+    disableClose: boolean;
     containerInstance: TContainer;
     abstract getOverlayRef(): OverlayRef;
     abstract close(dialogResult?: TResult, force?: boolean): void;
@@ -48,6 +49,9 @@ export abstract class ThyAbstractInternalOverlayRef<
 
     /** Whether the user is allowed to close the dialog. */
     backdropClosable: boolean = this.config.backdropClosable;
+
+    /** Whether the user is not allowed to close the dialog. */
+    disableClose: boolean = this.config.disableClose;
 
     /** Subject for notifying the user that the dialog has finished opening. */
     private readonly _afterOpened = new Subject<void>();
@@ -113,8 +117,12 @@ export abstract class ThyAbstractInternalOverlayRef<
         // ESC close
         overlayRef
             .keydownEvents()
-            .pipe(filter(event => event.keyCode === ESCAPE && this.backdropClosable))
-            .subscribe(() => this.close());
+            .pipe(filter(event => event.keyCode === ESCAPE))
+            .subscribe(() => {
+                if ((this.disableClose !== undefined && !this.disableClose) || this.backdropClosable) {
+                    this.close();
+                }
+            });
     }
 
     /**
