@@ -1,4 +1,4 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyRadioModule } from 'ngx-tethys/radio';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -20,7 +20,7 @@ const COMPONENTS = [
     ThyRadioSizeExampleComponent
 ];
 @NgModule({
-    imports: [CommonModule, FormsModule, NgxTethysModule],
+    imports: [CommonModule, FormsModule, ThyRadioModule],
     exports: COMPONENTS,
     declarations: COMPONENTS,
     providers: []

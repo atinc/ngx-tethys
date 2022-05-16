@@ -1,16 +1,15 @@
-import { NgxTethysModule } from 'ngx-tethys';
-import { THY_NOTIFY_DEFAULT_OPTIONS } from 'ngx-tethys/notify';
+import { THY_NOTIFY_DEFAULT_OPTIONS, ThyNotifyModule } from 'ngx-tethys/notify';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ThyNotifyBasicExampleComponent } from './basic/basic.component';
 import { ThyNotifyCustomHtmlExampleComponent } from './custom-html/custom-html.component';
+import { ThyNotifyDetailOperationExampleComponent } from './detail-operation/detail-operation.component';
 import { ThyNotifyDetailExampleComponent } from './detail/detail.component';
 import { ThyNotifyHoverExampleComponent } from './hover/hover.component';
-import { ThyNotifyTypeExampleComponent } from './type/type.component';
 import { ThyNotifyPlacementExampleComponent } from './placement/placement.component';
-import { ThyNotifyDetailOperationExampleComponent } from './detail-operation/detail-operation.component';
+import { ThyNotifyTypeExampleComponent } from './type/type.component';
 
 const COMPONENTS = [
     ThyNotifyHoverExampleComponent,
@@ -24,7 +23,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    imports: [CommonModule, NgxTethysModule],
+    imports: [CommonModule, ThyNotifyModule],
     exports: [...COMPONENTS],
     providers: [
         {

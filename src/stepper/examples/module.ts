@@ -1,6 +1,9 @@
-import { NgModule } from '@angular/core';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyStepperModule } from 'ngx-tethys/stepper';
+
 import { CommonModule } from '@angular/common';
-import { NgxTethysModule } from 'ngx-tethys';
+import { NgModule } from '@angular/core';
+
 import { ThyStepperBasicExampleComponent } from './basic/basic.component';
 import { ThyStepperSwitchDialogExampleComponent } from './switch-dialog/switch-dialog.component';
 
@@ -8,7 +11,7 @@ const COMPONENTS = [ThyStepperBasicExampleComponent, ThyStepperSwitchDialogExamp
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, NgxTethysModule],
+    imports: [CommonModule, ThyStepperModule, ThyDialogModule],
     exports: COMPONENTS,
     providers: []
 })
