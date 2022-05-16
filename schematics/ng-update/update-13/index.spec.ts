@@ -17,7 +17,8 @@ describe('ng-update v13 Schematic', () => {
         await factory.addNewFile(
             TEST_MODULE_PATH,
             `
-            import { Store } from 'ngx-tethys/store';
+            import { Store } from "ngx-tethys/store";
+            import { coerceArray, helpers as ngxTethysHelpers, mergeReferences, produce } from 'ngx-tethys';
             import { ThyRasterModule } from 'ngx-tethys/raster';
             import { ThyRasterModule as RasterModule } from 'ngx-tethys/raster';
             import { ThyUploaderModule, ThyUploaderService, ThyUploaderConfig, THY_UPLOADER_DEFAULT_OPTIONS, THY_UPLOADER_DEFAULT_OPTIONS_PROVIDER } from 'ngx-tethys/uploader';
@@ -93,5 +94,10 @@ describe('ng-update v13 Schematic', () => {
         expect(result).toContain(`import { ThyDropdownModule } from "ngx-tethys/dropdown"`);
         expect(result).toContain(`import { ThyEmptyModule } from "ngx-tethys/empty"`);
         expect(result).not.toContain(`import { ThyDropdownModule, ThyEmptyModule } from "ngx-tethys"`);
+    });
+
+    it(`should import ngx-tethys/util when importModule has alias`, async () => {
+        const result = workspaceTree.read(TEST_MODULE_PATH).toString();
+        expect(result).toContain(`import { coerceArray, helpers as ngxTethysHelpers, mergeReferences, produce } from "ngx-tethys/util"`);
     });
 });
