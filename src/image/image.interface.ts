@@ -23,3 +23,12 @@ export interface ThyImagePreviewOptions {
     zoom?: number;
     rotate?: number;
 }
+
+export interface ThyImagePreviewOperation {
+    icon: string;
+    name: string;
+    action: (image?: ThyImageInfo) => void;
+    type?: ThyImagePreviewOperationType;
+}
+
+export type ThyImagePreviewOperationType = 'zoom-out' | 'zoom-in' | 'rotate-right' | 'download';

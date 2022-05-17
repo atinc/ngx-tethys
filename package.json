@@ -84,7 +84,7 @@
     "@docgeni/cli": "1.2.0-next.14",
     "@docgeni/template": "1.2.0-next.14",
     "@schematics/angular": "^12.2.13",
-    "@tethys/icons": "1.1.115",
+    "@tethys/icons": "1.1.124",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
     "@types/jasminewd2": "~2.0.3",
