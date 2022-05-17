@@ -1,5 +1,4 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -16,5 +15,27 @@ export class ThyNotifyTypeExampleComponent implements OnInit {
         this.notifyService.info(null, '你可以尝试创建一个项目。');
         this.notifyService.warning(null, '删除项目后，项目将无法还原！');
         this.notifyService.error(null, '删除项目失败！');
+    }
+
+    openNotify(type: string) {
+        let content: string = '创建项目成功！';
+        switch (type) {
+            case 'success':
+                content = '创建项目成功！';
+                break;
+            case 'info':
+                content = '你可以尝试创建一个项目。';
+                break;
+            case 'warning':
+                content = '删除项目后，项目将无法还原！';
+                break;
+            case 'error':
+                content = '删除项目失败！';
+                break;
+
+            default:
+                break;
+        }
+        this.notifyService[type](null, content);
     }
 }
