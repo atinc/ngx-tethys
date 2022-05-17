@@ -229,8 +229,8 @@ describe('ThyPagination', () => {
             basicTestComponent.pagination.index = 6;
             fixture.detectChanges();
             const list = pageComponent.nativeElement.querySelector('.thy-pagination-pages').children;
-            expect((list[2].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
-            expect((list[list.length - 3].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
+            expect((list[2].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('···');
+            expect((list[list.length - 3].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('···');
             expect(list.length).toEqual(11);
 
             basicTestComponent.pagination.index = 4;
