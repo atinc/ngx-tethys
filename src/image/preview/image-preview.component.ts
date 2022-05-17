@@ -1,18 +1,26 @@
 import {
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
-    ElementRef,
-    EventEmitter,
-    NgZone,
     OnInit,
-    ViewEncapsulation
+    ViewEncapsulation,
+    ChangeDetectorRef,
+    ElementRef,
+    ViewChild,
+    NgZone
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { ThyImageInfo, ThyImagePreviewOptions } from '../image.interface';
-import { takeUntil } from 'rxjs/operators';
+import { ThyImageInfo, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.interface';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ThyDialog } from 'ngx-tethys/dialog';
+import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
 
+const initialPosition = {
+    x: 0,
+    y: 0
+};
+const IMAGE_MAX_ZOOM = 5;
+const IMAGE_MIN_ZOOM = 0.1;
 @Component({
     selector: 'thy-image-preview',
     exportAs: 'thyImagePreview',
@@ -20,32 +28,220 @@ import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
-        class: 'thy-image-preview-wrap'
+        class: 'thy-image-preview-wrap',
+        '[class.thy-image-preview-moving]': 'isDragging'
     }
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
     images: ThyImageInfo[] = [];
+    previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
-    containerClick = new EventEmitter<void>();
+    previewImageTransform = '';
+    previewImageWrapperTransform = '';
+    zoomDisabled = false;
+    zoom: number;
+    position = { ...initialPosition };
+    isDragging = false;
+    previewOperations: ThyImagePreviewOperation[] = [
+        {
+            icon: 'zoom-out',
+            name: '缩小',
+            action: (image: ThyImageInfo) => {
+                this.zoomOut();
+            },
+            type: 'zoom-out'
+        },
+        {
+            icon: 'zoom-in',
+            name: '放大',
+            action: (image: ThyImageInfo) => {
+                this.zoomIn();
+            },
+            type: 'zoom-in'
+        },
+        // {
+        //     icon: 'one-to-one',
+        //     tooltip: '原始尺寸',
+        //     action: () => {}
+        // },
+        // {
+        //     icon: 'one-to-one',
+        //     tooltip: '适应屏幕',
+        //     action: () => {}
+        // },
+        {
+            icon: 'rotate-right',
+            name: '向右旋转',
+            action: (image: ThyImageInfo) => {
+                this.rotateRight();
+            },
+            type: 'rotate-right'
+        },
+        {
+            icon: 'download',
+            name: '下载原图',
+            action: (image: ThyImageInfo) => {
+                this.download(image);
+            },
+            type: 'download'
+        }
+        // {
+        //     icon: 'preview',
+        //     tooltip: '查看原图',
+        //     action: () => {}
+        // },
+        // {
+        //     icon: 'link-insert',
+        //     tooltip: '链接打开',
+        //     action: () => {}
+        // }
+    ];
 
-    constructor(private ngZone: NgZone, private host: ElementRef<HTMLElement>, private cdr: ChangeDetectorRef) {
-        super();
+    private rotate: number;
+
+    get previewImage(): ThyImageInfo {
+        return this.images[this.previewIndex];
     }
 
+    get defaultZoom(): number {
+        if (this.previewConfig?.zoom && this.previewConfig?.zoom > 0) {
+            return this.previewConfig.zoom >= IMAGE_MAX_ZOOM
+                ? IMAGE_MAX_ZOOM
+                : this.previewConfig.zoom <= IMAGE_MIN_ZOOM
+                ? IMAGE_MIN_ZOOM
+                : this.previewConfig.zoom;
+        } else {
+            return 1;
+        }
+    }
+
+    @ViewChild('imgRef') imageRef!: ElementRef<HTMLImageElement>;
+    @ViewChild('imagePreviewWrapper', { static: true }) imagePreviewWrapper!: ElementRef<HTMLElement>;
+
+    constructor(
+        public thyDialog: ThyDialog,
+        private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
+        private host: ElementRef<HTMLElement>
+    ) {
+        super();
+    }
     ngOnInit(): void {
+        this.initPreview();
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.host.nativeElement, 'click')
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(event => {
-                    if (event.target === event.currentTarget && !this.previewConfig.disableClose && this.containerClick.observers.length) {
-                        this.ngZone.run(() => this.containerClick.emit());
+                    if (event.target === event.currentTarget && !this.previewConfig?.disableClose) {
+                        this.ngZone.run(() => this.thyDialog.close());
                     }
+                });
+
+            fromEvent(this.imagePreviewWrapper.nativeElement, 'mousedown')
+                .pipe(takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    this.isDragging = true;
                 });
         });
     }
 
-    setImages(images: ThyImageInfo[]): void {
-        this.images = images;
-        this.cdr.markForCheck();
+    initPreview() {
+        this.rotate = this.previewConfig?.rotate ?? 0;
+        this.zoom = this.defaultZoom;
+        this.updatePreviewImageTransform();
+        this.updatePreviewImageWrapperTransform();
+    }
+
+    download(image: ThyImageInfo) {
+        let img = new Image();
+        img.setAttribute('crossOrigin', 'Anonymous');
+        img.onload = () => {
+            let canvas = document.createElement('canvas');
+            let context = canvas.getContext('2d');
+            canvas.width = img.width;
+            canvas.height = img.height;
+            context.drawImage(img, 0, 0, img.width, img.height);
+            let url = canvas.toDataURL('images/png');
+            let a = document.createElement('a');
+            let event = new MouseEvent('click');
+            a.download = image.name || 'default.png';
+            a.href = url;
+            a.dispatchEvent(event);
+        };
+        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
+    }
+
+    zoomIn(): void {
+        if (this.zoom < 5) {
+            this.zoom += 0.1;
+            this.updatePreviewImageTransform();
+            this.position = { ...initialPosition };
+        }
+    }
+
+    zoomOut(): void {
+        if (this.zoom > 0.2) {
+            this.zoom -= 0.1;
+            this.updatePreviewImageTransform();
+            this.position = { ...initialPosition };
+        }
+    }
+
+    rotateRight(): void {
+        this.rotate += 90;
+        this.updatePreviewImageTransform();
+    }
+
+    prev() {
+        if (this.previewIndex > 0) {
+            this.reset();
+            this.previewIndex--;
+            this.updatePreviewImageTransform();
+            this.cdr.markForCheck();
+        }
+    }
+
+    next() {
+        if (this.previewIndex < this.images.length - 1) {
+            this.reset();
+            this.previewIndex++;
+            this.updatePreviewImageTransform();
+            this.cdr.markForCheck();
+        }
+    }
+
+    dragReleased() {
+        this.isDragging = false;
+        const width = this.imageRef.nativeElement.offsetWidth * this.zoom;
+        const height = this.imageRef.nativeElement.offsetHeight * this.zoom;
+        const { left, top } = getOffset(this.imageRef.nativeElement, window);
+        const { width: clientWidth, height: clientHeight } = getClientSize();
+        const isRotate = this.rotate % 180 !== 0;
+        const fitContentParams = {
+            width: isRotate ? height : width,
+            height: isRotate ? width : height,
+            left,
+            top,
+            clientWidth,
+            clientHeight
+        };
+        const fitContentPos = getFitContentPosition(fitContentParams);
+        if (!isUndefinedOrNull(fitContentPos.x) || !isUndefinedOrNull(fitContentPos.y)) {
+            this.position = { ...this.position, ...fitContentPos };
+        }
+    }
+
+    private reset(): void {
+        this.zoom = this.defaultZoom;
+        this.rotate = 0;
+        this.position = { ...initialPosition };
+    }
+
+    private updatePreviewImageTransform(): void {
+        this.previewImageTransform = `scale3d(${this.zoom}, ${this.zoom}, 1) rotate(${this.rotate}deg)`;
+    }
+
+    private updatePreviewImageWrapperTransform(): void {
+        this.previewImageWrapperTransform = `translate3d(${this.position.x}px, ${this.position.y}px, 0)`;
     }
 }

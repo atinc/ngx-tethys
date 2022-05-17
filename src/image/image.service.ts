@@ -1,49 +1,33 @@
-import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { Injectable, Injector } from '@angular/core';
+import { Inject, Injectable, Optional } from '@angular/core';
+import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image-config';
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.interface';
-import { ThyImagePreviewRef } from './preview/image-preview-ref';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
+import { ThyDialog, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
 
 @Injectable()
 export class ThyImageService {
-    constructor(private overlay: Overlay, private injector: Injector) {}
-
-    preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions): ThyImagePreviewRef {
-        return this.display(images, options);
+    defaultConfig: ThyImagePreviewConfig;
+    constructor(
+        public thyDialog: ThyDialog,
+        @Optional()
+        @Inject(THY_IMAGE_DEFAULT_PREVIEW_OPTIONS)
+        defaultConfig: ThyImagePreviewConfig
+    ) {
+        this.defaultConfig = defaultConfig;
     }
 
-    private display(images: ThyImageInfo[], config?: ThyImagePreviewOptions): ThyImagePreviewRef {
-        const previewConfig = { ...new ThyImagePreviewOptions(), ...(config ?? {}) };
-        const overlayRef = this.createOverlay(previewConfig);
-        const previewComponent = this.attachPreviewComponent(overlayRef, previewConfig);
-        previewComponent.setImages(images);
-        previewComponent.previewConfig = previewConfig;
-        const previewRef = new ThyImagePreviewRef(previewComponent, previewConfig, overlayRef);
-        return previewRef;
-    }
-
-    private attachPreviewComponent(overlayRef: OverlayRef, config: ThyImagePreviewOptions): ThyImagePreviewComponent {
-        const injector = Injector.create({
-            parent: this.injector,
-            providers: [
-                { provide: OverlayRef, useValue: overlayRef },
-                { provide: ThyImagePreviewOptions, useValue: config }
-            ]
+    preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions & { startIndex?: number }): ThyDialogRef<unknown, unknown> {
+        const imagePreviewRef = this.thyDialog.open(ThyImagePreviewComponent, {
+            initialState: {
+                images,
+                previewIndex: options?.startIndex >= 0 && options?.startIndex < images.length ? options.startIndex : 0,
+                previewConfig: { ...this.defaultConfig, ...options }
+            },
+            backdropClass: 'thy-image-preview-backdrop',
+            panelClass: 'thy-image-preview-container',
+            size: ThyDialogSizes.full,
+            ...options
         });
-
-        const containerPortal = new ComponentPortal(ThyImagePreviewComponent, null, injector);
-        const containerRef = overlayRef.attach(containerPortal);
-        return containerRef.instance;
-    }
-
-    createOverlay(config: ThyImagePreviewOptions) {
-        const overLayConfig = new OverlayConfig({
-            hasBackdrop: true,
-            scrollStrategy: this.overlay.scrollStrategies.block(),
-            positionStrategy: this.overlay.position().global(),
-            disposeOnNavigation: config.closeOnNavigation || true
-        });
-        return this.overlay.create(overLayConfig);
+        return imagePreviewRef;
     }
 }

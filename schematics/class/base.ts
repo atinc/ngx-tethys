@@ -1,6 +1,7 @@
-import ts, { ImportDeclaration, SourceFile, StringLiteral, factory, Program } from 'typescript';
-import { UpdateFileService } from '../utils';
 import { createCssSelectorForTs } from 'cyia-code-util';
+import ts, { factory, ImportDeclaration, Program, SourceFile, StringLiteral } from 'typescript';
+
+import { UpdateFileService } from '../utils';
 
 export abstract class MigrationBase {
     constructor(protected sourceFile: SourceFile, protected updateFileService: UpdateFileService, protected program: Program) {
@@ -27,7 +28,7 @@ export abstract class MigrationBase {
                 /* name */ undefined,
                 factory.createNamedImports(importNameList.map(importName => createImportSpecifier(importName)))
             ),
-            factory.createStringLiteral(importPackageName)
+            factory.createStringLiteral(importPackageName, true)
         );
         if (commentOptions && commentOptions.content !== undefined) {
             return ts.addSyntheticLeadingComment(
@@ -49,7 +50,7 @@ export abstract class MigrationBase {
     }
 
     createStringLiteral(string: string) {
-        return factory.createStringLiteral(string);
+        return factory.createStringLiteral(string, true);
     }
 
     getImportDeclarationList(): ts.ImportDeclaration[] {

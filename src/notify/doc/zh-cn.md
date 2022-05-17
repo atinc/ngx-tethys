@@ -31,19 +31,19 @@ import { ThyNotifyModule } from "ngx-tethys/notify";
 
 ## 设置全局默认值
 
-对话框的默认选项可以通过在应用根模块中为`THY_NOTIFY_DEFAULT_OPTIONS`令牌提供一个`ThyDialogConfig`实例来指定。
+对话框的默认选项可以通过在应用根模块中为`THY_NOTIFY_DEFAULT_CONFIG`令牌提供一个`ThyDialogConfig`实例来指定。
 
 ```ts
 @NgModule({
   providers: [
-    { provide: THY_NOTIFY_DEFAULT_OPTIONS, useValue: { placement: 'topRight' }}
+    { provide: THY_NOTIFY_DEFAULT_CONFIG, useValue: { placement: 'topRight' }}
   ]
 })
 ```
 
 默认的配置如下：
 ```ts
-const DEFAULT_OPTIONS = {
+const THY_NOTIFY_DEFAULT_CONFIG_VALUE = {
     type: 'blank',
     pauseOnHover: true,
     duration: 4500,

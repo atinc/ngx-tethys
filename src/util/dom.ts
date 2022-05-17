@@ -100,6 +100,15 @@ export function getOffset(element: HTMLElement, container: HTMLElement | Window)
     return rect;
 }
 
+export function getClientSize(): { width: number; height: number } {
+    const width = document.documentElement.clientWidth;
+    const height = window.innerHeight || document.documentElement.clientHeight;
+    return {
+        width,
+        height
+    };
+}
+
 export type ElementSelector = HTMLElement | ElementRef | string;
 
 export function getHTMLElementBySelector(selector: ElementSelector, defaultElementRef: ElementRef): HTMLElement {
@@ -157,4 +166,105 @@ export function getStyleAsText(styles?: any): string {
 
 export function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
     return event.type.startsWith('touch');
+}
+
+/**
+ *
+ * calc position x,y point
+ *
+ * CASE (width <= clientWidth && height <= clientHeight):
+ *
+ * ------------- clientWidth -------------
+ * |                                     |
+ * |        ------ width ------          |
+ * |        |                 |          |
+ * |        |                 |          |
+ * client   height            |          |
+ * Height   |                 |          |
+ * |        |                 |          |
+ * |        -------------------          |
+ * |                                     |
+ * |                                     |
+ * ---------------------------------------
+ * fixedPosition = { x: 0, y: 0 }
+ *
+ *
+ *
+ * CASE (width > clientWidth || height > clientHeight):
+ *
+ * ------------- clientWidth -------------
+ * |        |                            |
+ * |        top                          |
+ * |        |                            |
+ * |--left--|--------------- width -----------------
+ * |        |                                      |
+ * client   |                                      |
+ * Height   |                                      |
+ * |        |                                      |
+ * |        |                                      |
+ * |        height                                 |
+ * |        |                                      |
+ * ---------|                                      |
+ *          |                                      |
+ *          |                                      |
+ *          |                                      |
+ *          ----------------------------------------
+ *
+ *
+ * - left || top > 0
+ *   left -> 0 || top -> 0
+ *
+ * - (left + width) < clientWidth || (top + height) < clientHeight
+ * - left | top + width | height < clientWidth | clientHeight -> Back left | top + width | height === clientWidth | clientHeight
+ *
+ * DEFAULT:
+ * - hold position
+ *
+ */
+export function getFitContentPosition(params: {
+    width: number;
+    height: number;
+    left: number;
+    top: number;
+    clientWidth: number;
+    clientHeight: number;
+}): { x?: number; y?: number } {
+    let fixPos = {};
+
+    if (params.width <= params.clientWidth && params.height <= params.clientHeight) {
+        fixPos = {
+            x: 0,
+            y: 0
+        };
+    }
+
+    if (params.width > params.clientWidth || params.height > params.clientHeight) {
+        fixPos = {
+            x: fitPoint(params.left, params.width, params.clientWidth),
+            y: fitPoint(params.top, params.height, params.clientHeight)
+        };
+    }
+
+    return fixPos;
+}
+
+function fitPoint(start: number, size: number, clientSize: number): number | null {
+    const startAddSize = start + size;
+    const offsetStart = (size - clientSize) / 2;
+    let distance: number | null = null;
+
+    if (size > clientSize) {
+        if (start > 0) {
+            distance = offsetStart;
+        }
+        if (start < 0 && startAddSize < clientSize) {
+            distance = -offsetStart;
+        }
+    } else {
+        if (start < 0 || startAddSize > clientSize) {
+            distance = start < 0 ? offsetStart : -offsetStart;
+        }
+    }
+
+    return distance;
 }
