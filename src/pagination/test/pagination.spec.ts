@@ -4,7 +4,7 @@ import { ThyPaginationModule } from '../pagination.module';
 import { ThyPaginationComponent } from '../pagination.component';
 import { By } from '@angular/platform-browser';
 import { ENTER } from 'ngx-tethys/util';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -102,7 +102,7 @@ describe('ThyPagination', () => {
         TestBed.compileComponents();
     });
 
-    fdescribe('basic', () => {
+    describe('basic', () => {
         let fixture: ComponentFixture<PaginationTestComponent>;
         let componentInstance: PaginationTestComponent;
         let paginationDebugElement: DebugElement;
@@ -174,15 +174,11 @@ describe('ThyPagination', () => {
             const inputElement = paginationElement.querySelector('input');
             inputElement.value = '4';
             dispatchKeyboardEvent(inputElement, 'keydown', ENTER);
-            tick(100);
             expect(pagination.pageIndex).toEqual(4);
-            flush();
+
             inputElement.value = '3';
-            inputElement.focus();
+            dispatchFakeEvent(inputElement, 'blur');
             fixture.detectChanges();
-            inputElement.blur();
-            fixture.detectChanges();
-            tick(100);
             expect(pagination.pageIndex).toEqual(3);
         }));
     });
