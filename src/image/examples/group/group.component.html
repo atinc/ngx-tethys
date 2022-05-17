@@ -1,0 +1,5 @@
+<thy-image-group>
+  <ng-container *ngFor="let image of images">
+    <img thyImage width="200px" height="200px" [thySrc]="image.src" [thyImageMeta]="image.imageMeta" />
+  </ng-container>
+</thy-image-group>

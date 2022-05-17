@@ -1,14 +1,20 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyImageDirective } from './image.directive';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
 import { ThyImageService } from './image.service';
+import { PortalModule } from '@angular/cdk/portal';
+import { THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER } from './image-config';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 
 @NgModule({
     declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
     exports: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
-    imports: [CommonModule],
-    providers: [ThyImageService]
+    imports: [CommonModule, PortalModule, DragDropModule, ThyIconModule, ThyDividerModule, ThyTooltipModule],
+    providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })
 export class ThyImageModule {}

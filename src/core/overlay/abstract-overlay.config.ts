@@ -40,6 +40,9 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     /** Whether the user can use escape or clicking on the backdrop to close the overlay. */
     backdropClosable? = true;
 
+    /** Whether the user can use escape or clicking on the backdrop to close the overlay. */
+    disableClose? = false;
+
     /** Width of the overlay. */
     width? = '';
 

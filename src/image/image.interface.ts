@@ -1,6 +1,6 @@
 export interface ThyImageMeta {
     name?: string;
-    size?: number;
+    size?: string | number;
 }
 
 export interface ThyImageInfo extends ThyImageMeta {
@@ -16,10 +16,19 @@ export interface ThyImageInfo extends ThyImageMeta {
     };
 }
 
-export class ThyImagePreviewOptions {
-    closeOnNavigation?: boolean = true;
+export interface ThyImagePreviewOptions {
+    closeOnNavigation?: boolean;
     disableClose?: boolean;
     disableKeyboardSelectable?: boolean;
     zoom?: number;
     rotate?: number;
 }
+
+export interface ThyImagePreviewOperation {
+    icon: string;
+    name: string;
+    action: (image?: ThyImageInfo) => void;
+    type?: ThyImagePreviewOperationType;
+}
+
+export type ThyImagePreviewOperationType = 'zoom-out' | 'zoom-in' | 'rotate-right' | 'download';

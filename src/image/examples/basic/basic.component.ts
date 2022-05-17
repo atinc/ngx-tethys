@@ -4,4 +4,9 @@ import { Component } from '@angular/core';
     selector: 'thy-image-basic-example',
     templateUrl: './basic.component.html'
 })
-export class ThyImageBasicExampleComponent {}
+export class ThyImageBasicExampleComponent {
+    imageMeta = {
+        name: 'basic.jpg',
+        size: '66kb'
+    };
+}

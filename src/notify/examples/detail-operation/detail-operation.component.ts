@@ -1,5 +1,4 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThyNotifyDetailOperationExampleComponent implements OnInit {
     openAction = () => {
-        alert(111);
+        alert('Hello World');
     };
     constructor(private notifyService: ThyNotifyService) {}
 

@@ -1,1 +1,6 @@
-<button thyButton="primary" (click)="showNotAutoClose()">各种类型</button>
+<thy-space>
+  <button *thySpaceItem thyButton="success" (click)="openNotify('success')">Success类型</button>
+  <button *thySpaceItem thyButton="info" (click)="openNotify('info')">Info类型</button>
+  <button *thySpaceItem thyButton="warning" (click)="openNotify('warning')">Warning类型</button>
+  <button *thySpaceItem thyButton="danger" (click)="openNotify('error')">Error类型</button>
+</thy-space>
