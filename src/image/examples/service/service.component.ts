@@ -11,18 +11,18 @@ export class ThyImageServiceExampleComponent {
     onClick(): void {
         const images = [
             {
-                src: 'https://img.alicdn.com/tfs/TB1g.mWZAL0gK0jSZFtXXXQCXXa-200-200.svg',
-                width: '200px',
-                height: '200px',
-                alt: 'ng-zorro'
+                src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                alt: 'first',
+                name: 'first.jpg',
+                size: '66kb'
             },
             {
                 src: 'https://img.alicdn.com/tfs/TB1Z0PywTtYBeNjy1XdXXXXyVXa-186-200.svg',
-                width: '200px',
-                height: '200px',
-                alt: 'angular'
+                alt: 'last',
+                name: 'last.jpg',
+                size: '44kb'
             }
         ];
-        this.thyImageService.preview(images);
+        this.thyImageService.preview(images, { zoom: 0.8 });
     }
 }

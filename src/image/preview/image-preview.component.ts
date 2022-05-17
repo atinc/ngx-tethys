@@ -19,6 +19,8 @@ const initialPosition = {
     x: 0,
     y: 0
 };
+const IMAGE_MAX_ZOOM = 5;
+const IMAGE_MIN_ZOOM = 0.1;
 @Component({
     selector: 'thy-image-preview',
     exportAs: 'thyImagePreview',
@@ -101,6 +103,18 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         return this.images[this.previewIndex];
     }
 
+    get defaultZoom(): number {
+        if (this.previewConfig?.zoom && this.previewConfig?.zoom > 0) {
+            return this.previewConfig.zoom >= IMAGE_MAX_ZOOM
+                ? IMAGE_MAX_ZOOM
+                : this.previewConfig.zoom <= IMAGE_MIN_ZOOM
+                ? IMAGE_MIN_ZOOM
+                : this.previewConfig.zoom;
+        } else {
+            return 1;
+        }
+    }
+
     @ViewChild('imgRef') imageRef!: ElementRef<HTMLImageElement>;
     @ViewChild('imagePreviewWrapper', { static: true }) imagePreviewWrapper!: ElementRef<HTMLElement>;
 
@@ -111,13 +125,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         private host: ElementRef<HTMLElement>
     ) {
         super();
-        this.rotate = this.previewConfig?.rotate ?? 0;
-        this.zoom = this.previewConfig?.zoom ?? 1;
-        this.updatePreviewImageTransform();
-        this.updatePreviewImageWrapperTransform();
     }
-
     ngOnInit(): void {
+        this.initPreview();
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.host.nativeElement, 'click')
                 .pipe(takeUntil(this.ngUnsubscribe$))
@@ -133,6 +143,13 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                     this.isDragging = true;
                 });
         });
+    }
+
+    initPreview() {
+        this.rotate = this.previewConfig?.rotate ?? 0;
+        this.zoom = this.defaultZoom;
+        this.updatePreviewImageTransform();
+        this.updatePreviewImageWrapperTransform();
     }
 
     download(image: ThyImageInfo) {
@@ -215,7 +232,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     private reset(): void {
-        this.zoom = 1;
+        this.zoom = this.defaultZoom;
         this.rotate = 0;
         this.position = { ...initialPosition };
     }
