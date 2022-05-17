@@ -20,7 +20,6 @@ function assertButtonIcon(iconElement: Element, icon: string) {
     template: `
         <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
-        <thy-button id="btn-with-square" thySquare="true" [thyType]="type">Square Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `
 })
