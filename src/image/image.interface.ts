@@ -1,6 +1,6 @@
 export interface ThyImageMeta {
     name?: string;
-    size?: number;
+    size?: string | number;
 }
 
 export interface ThyImageInfo extends ThyImageMeta {
