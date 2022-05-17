@@ -26,7 +26,8 @@ $image-preview-prefix-cls: 'thy-image-preview';
             bottom: 0;
             left: 0;
             transition: transform 0.3s $ease-out 0s;
-            padding-top: 96px;
+            display: flex;
+            align-items: center;
             .#{$image-preview-prefix-cls}-img {
                 max-height: calc(100vh - 96px - 106px); // top: 96, bottom: 106
                 max-width: calc(100% - 200px);
