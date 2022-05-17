@@ -112,12 +112,6 @@ describe('ThyButton', () => {
             });
         });
 
-        it('should set thySquare success', () => {
-            const btnWithIcon = fixture.debugElement.query(By.css('#btn-with-square'));
-            const btnElement: HTMLElement = btnWithIcon.nativeElement;
-            expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
-        });
-
         it('should set loading success', () => {
             basicTestComponent.loading = true;
             fixture.detectChanges();
