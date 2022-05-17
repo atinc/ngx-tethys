@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.27](https://github.com/atinc/ngx-tethys/compare/12.1.26...12.1.27) (2022-05-17)
+
+
+### Bug Fixes
+
+* **image:** add limit to image zoom #INFR-3106 ([b2a3a0b](https://github.com/atinc/ngx-tethys/commit/b2a3a0b9afaac4c249e1c34990bc15ee60452d3d)), closes [#INFR-3106](https://github.com/atinc/ngx-tethys/issues/INFR-3106)
+* **image:** fix demo module import path #INFR-3098 ([d830133](https://github.com/atinc/ngx-tethys/commit/d830133785c75032f3ae3cd5c7bc7310306696bb)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
+* **table:**  fix drag style #INFR-1184 ([#1656](https://github.com/atinc/ngx-tethys/issues/1656)) ([c4df7e8](https://github.com/atinc/ngx-tethys/commit/c4df7e87ec964b1a810bbee58aeba31ee97bec6d)), closes [#INFR-1184](https://github.com/atinc/ngx-tethys/issues/INFR-1184)
+
+
+### Features
+
+* **image:** add basic image component #INFR-3098 ([#1658](https://github.com/atinc/ngx-tethys/issues/1658)) ([165264c](https://github.com/atinc/ngx-tethys/commit/165264c96104bafe8904439388d06c4be0356c7a)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
+* **image:** add image preview basic operation and refactor popover open #INFR-3106 ([#1678](https://github.com/atinc/ngx-tethys/issues/1678)) ([9a12940](https://github.com/atinc/ngx-tethys/commit/9a12940325a83466b67cc21c1725040b1d95ad73)), closes [#INFR-3106](https://github.com/atinc/ngx-tethys/issues/INFR-3106)
+
+
+
 ## [12.1.26](https://github.com/atinc/ngx-tethys/compare/12.1.25...12.1.26) (2022-05-12)
 
 
