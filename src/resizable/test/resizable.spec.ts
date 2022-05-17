@@ -1,16 +1,18 @@
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+
+import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
 import { ThyResizableBasicExampleComponent } from '../examples/basic/basic.component';
-import { ViewChild, ElementRef, Component, ApplicationRef } from '@angular/core';
 import { ThyResizableCustomizeExampleComponent } from '../examples/customize/customize.component';
+import { ThyResizableGridExampleComponent } from '../examples/grid/grid.component';
 import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-aspect-ratio/lock-aspect-ratio.component';
 import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
-import { ThyResizableGridExampleComponent } from '../examples/grid/grid.component';
+import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective } from '../index';
 import { ThyResizableModule } from '../module';
-import { ThyGridModule } from 'ngx-tethys';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { By } from '@angular/platform-browser';
-import { ThyResizableDirective, DEFAULT_RESIZE_DIRECTION } from '../index';
 
 @Component({
     template: `
