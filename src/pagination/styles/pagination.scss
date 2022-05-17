@@ -43,6 +43,7 @@
         .select-control {
             .select-control-arrow {
                 padding-bottom: 1px;
+                right: 8px;
             }
         }
     }
@@ -89,7 +90,14 @@
         }
     }
 }
-
+.thy-select-dropdown {
+    .thy-select-dropdown-options {
+        .page-size-option {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
 .thy-page-link {
     position: relative;
     display: flex;

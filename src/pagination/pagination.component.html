@@ -20,7 +20,12 @@
         [thyDisabled]="disabled"
         (ngModelChange)="onPageSizeChange($event)"
       >
-        <thy-option *ngFor="let option of config.pageSizeOptions" [thyValue]="option" [thyLabelText]="option + ' 条/页'"></thy-option>
+        <thy-option
+          class="page-size-option"
+          *ngFor="let option of config.pageSizeOptions"
+          [thyValue]="option"
+          [thyLabelText]="option + ' 条/页'"
+        ></thy-option>
       </thy-custom-select>
     </div>
     <ul class="thy-pagination-pages">
