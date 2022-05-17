@@ -8,12 +8,12 @@ import {
     ViewChild,
     NgZone
 } from '@angular/core';
-import { ThyImageInfo, ThyImagePreviewContainerOperation, ThyImagePreviewOptions } from '../image.interface';
+import { ThyImageInfo, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.interface';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
-import { getClientSize, getFitContentPosition, getOffset, isNotNil } from 'ngx-tethys/util';
+import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
 
 const initialPosition = {
     x: 0,
@@ -40,22 +40,22 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     zoom: number;
     position = { ...initialPosition };
     isDragging = false;
-    previewOperations: ThyImagePreviewContainerOperation[] = [
+    previewOperations: ThyImagePreviewOperation[] = [
         {
             icon: 'zoom-out',
-            tooltip: '缩小',
-            action: () => {
+            name: '缩小',
+            action: (image: ThyImageInfo) => {
                 this.zoomOut();
             },
-            type: 'zoomOut'
+            type: 'zoom-out'
         },
         {
             icon: 'zoom-in',
-            tooltip: '放大',
-            action: () => {
+            name: '放大',
+            action: (image: ThyImageInfo) => {
                 this.zoomIn();
             },
-            type: 'zoomIn'
+            type: 'zoom-in'
         },
         // {
         //     icon: 'one-to-one',
@@ -69,17 +69,17 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         // },
         {
             icon: 'rotate-right',
-            tooltip: '向右旋转',
-            action: () => {
+            name: '向右旋转',
+            action: (image: ThyImageInfo) => {
                 this.rotateRight();
             },
-            type: 'rotateRight'
+            type: 'rotate-right'
         },
         {
             icon: 'download',
-            tooltip: '下载原图',
-            action: () => {
-                this.download();
+            name: '下载原图',
+            action: (image: ThyImageInfo) => {
+                this.download(image);
             },
             type: 'download'
         }
@@ -135,7 +135,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         });
     }
 
-    download() {
+    download(image: ThyImageInfo) {
         let img = new Image();
         img.setAttribute('crossOrigin', 'Anonymous');
         img.onload = () => {
@@ -147,24 +147,24 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let url = canvas.toDataURL('images/png');
             let a = document.createElement('a');
             let event = new MouseEvent('click');
-            a.download = this.previewImage.name || 'default.png';
+            a.download = image.name || 'default.png';
             a.href = url;
             a.dispatchEvent(event);
         };
-        img.src = this.previewImage.origin?.src || this.previewImage.src + '?v=' + Date.now();
+        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
     }
 
     zoomIn(): void {
         if (this.zoom < 5) {
-            this.zoom += 1;
+            this.zoom += 0.1;
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
         }
     }
 
     zoomOut(): void {
-        if (this.zoom > 1) {
-            this.zoom -= 1;
+        if (this.zoom > 0.2) {
+            this.zoom -= 0.1;
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
         }
@@ -188,6 +188,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         if (this.previewIndex < this.images.length - 1) {
             this.reset();
             this.previewIndex++;
+            this.updatePreviewImageTransform();
             this.cdr.markForCheck();
         }
     }
@@ -208,7 +209,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             clientHeight
         };
         const fitContentPos = getFitContentPosition(fitContentParams);
-        if (isNotNil(fitContentPos.x) || isNotNil(fitContentPos.y)) {
+        if (!isUndefinedOrNull(fitContentPos.x) || !isUndefinedOrNull(fitContentPos.y)) {
             this.position = { ...this.position, ...fitContentPos };
         }
     }

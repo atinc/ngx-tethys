@@ -16,13 +16,14 @@ export class ThyImageService {
         this.defaultConfig = defaultConfig;
     }
 
-    preview(images: ThyImageInfo[], previewIndex?: number, options?: ThyImagePreviewOptions): ThyDialogRef<unknown, unknown> {
+    preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions & { startIndex?: number }): ThyDialogRef<unknown, unknown> {
         const imagePreviewRef = this.thyDialog.open(ThyImagePreviewComponent, {
             initialState: {
                 images,
-                previewIndex: previewIndex >= 0 && previewIndex < images.length ? previewIndex : 0,
+                previewIndex: options?.startIndex >= 0 && options?.startIndex < images.length ? options.startIndex : 0,
                 previewConfig: { ...this.defaultConfig, ...options }
             },
+            backdropClass: 'thy-image-preview-backdrop',
             panelClass: 'thy-image-preview-container',
             size: ThyDialogSizes.full,
             ...options

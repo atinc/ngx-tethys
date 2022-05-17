@@ -24,9 +24,11 @@ export interface ThyImagePreviewOptions {
     rotate?: number;
 }
 
-export interface ThyImagePreviewContainerOperation {
+export interface ThyImagePreviewOperation {
     icon: string;
-    tooltip: string;
-    action(): void;
-    type?: string;
+    name: string;
+    action: (image?: ThyImageInfo) => void;
+    type?: ThyImagePreviewOperationType;
 }
+
+export type ThyImagePreviewOperationType = 'zoom-out' | 'zoom-in' | 'rotate-right' | 'download';

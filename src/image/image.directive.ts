@@ -48,8 +48,10 @@ export class ThyImageDirective implements OnInit, OnChanges {
         if (this.parentGroup) {
             const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
             const previewImages = previewAbleImages.map(e => ({ src: e.thySrc, ...e.thyImageMeta }));
-            const previewIndex = previewAbleImages.findIndex(el => this === el);
-            this.thyImageService.preview(previewImages, previewIndex);
+            const startIndex = previewAbleImages.findIndex(el => this === el);
+            this.thyImageService.preview(previewImages, {
+                startIndex
+            });
         } else {
             const previewImages = [{ src: this.thySrc, ...this.thyImageMeta }];
             this.thyImageService.preview(previewImages);

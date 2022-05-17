@@ -6,7 +6,6 @@ import * as dom from './dom';
 export { produce } from './immutable';
 import * as references from './references';
 export * from './dom';
-export * from './check';
 
 export * from './references';
 export { EntityAddOptions as EntityAddOptions$0, EntityMoveOptions, ProducerOptions, Producer } from './immutable';
