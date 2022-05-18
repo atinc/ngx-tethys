@@ -11,13 +11,13 @@ export class ThyImageServiceExampleComponent {
     onClick(): void {
         const images = [
             {
-                src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+                src: 'assets/images/image/first.png',
                 alt: 'first',
                 name: 'first.jpg',
                 size: '66kb'
             },
             {
-                src: 'https://img.alicdn.com/tfs/TB1Z0PywTtYBeNjy1XdXXXXyVXa-186-200.svg',
+                src: 'assets/images/image/last.png',
                 alt: 'last',
                 name: 'last.jpg',
                 size: '44kb'

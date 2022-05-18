@@ -1,6 +1,6 @@
 import { Inject, Injectable, Optional } from '@angular/core';
-import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image-config';
-import { ThyImageInfo, ThyImagePreviewOptions } from './image.interface';
+import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
+import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
 import { ThyDialog, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
 

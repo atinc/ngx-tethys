@@ -1,9 +1,10 @@
-import { TestBed, ComponentFixture, tick, fakeAsync } from '@angular/core/testing';
-import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
+import { TestBed, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
+import { Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { ThyPaginationModule } from '../pagination.module';
 import { ThyPaginationComponent } from '../pagination.component';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ENTER } from 'ngx-tethys/util';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-test-pagination-basic',
@@ -16,7 +17,7 @@ import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
             (thyPageChanged)="onPageChange($event)"
             (thyPageIndexChange)="onPageIndexChange($event)"
         ></thy-pagination>
-        <ng-template #total let-total>共计{{ total }}条</ng-template>
+        <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
 class PaginationBasicComponent {
@@ -170,13 +171,15 @@ describe('ThyPagination', () => {
         });
 
         it('should QuickJumper can works', fakeAsync(() => {
-            const input = (paginationElement.querySelector('input').value = '4');
-            function getPickerTriggerElement(): HTMLInputElement {
-                return paginationElement.querySelector('button') as HTMLInputElement;
-            }
-            dispatchMouseEvent(getPickerTriggerElement(), 'click');
-            tick(100);
+            const inputElement = paginationElement.querySelector('input');
+            inputElement.value = '4';
+            dispatchKeyboardEvent(inputElement, 'keydown', ENTER);
             expect(pagination.pageIndex).toEqual(4);
+
+            inputElement.value = '3';
+            dispatchFakeEvent(inputElement, 'blur');
+            fixture.detectChanges();
+            expect(pagination.pageIndex).toEqual(3);
         }));
     });
 
@@ -226,8 +229,8 @@ describe('ThyPagination', () => {
             basicTestComponent.pagination.index = 6;
             fixture.detectChanges();
             const list = pageComponent.nativeElement.querySelector('.thy-pagination-pages').children;
-            expect((list[2].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
-            expect((list[list.length - 3].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('...');
+            expect((list[2].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('···');
+            expect((list[list.length - 3].querySelector('.thy-page-link') as HTMLElement).innerText).toEqual('···');
             expect(list.length).toEqual(11);
 
             basicTestComponent.pagination.index = 4;

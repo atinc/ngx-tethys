@@ -35,11 +35,16 @@
     }
 
     &-size {
-        width: 100px;
-        margin-right: 12px;
-
+        width: variables.$pagination-page-size-width;
+        margin-right: 10px;
         .selected-value {
             color: variables.$pagination-jumper-input-color !important;
+        }
+        .select-control {
+            .select-control-arrow {
+                padding-bottom: 1px;
+                right: 8px;
+            }
         }
     }
 
@@ -54,7 +59,7 @@
         display: flex;
         align-items: center;
 
-        margin-left: 4px;
+        margin-left: 10px;
         span {
             color: variables.$pagination-total-pages-color;
             margin: 0 2px;
@@ -65,56 +70,47 @@
         display: flex;
         align-items: center;
         &-input {
-            height: 100%;
+            height: variables.$pagination-item-height;
             display: flex;
             justify-content: space-around;
             align-items: center;
             margin: variables.$pagination-jumper-margin;
         }
 
-        input,
-        button {
+        input {
             height: 100%;
             outline: none;
             padding-bottom: 1px;
             border: variables.$pagination-border-width solid variables.$pagination-border-color;
             @include border-radius.border-radius(variables.$border-radius);
-        }
-
-        input {
             color: variables.$pagination-jumper-input-color;
-            width: variables.$pagination-jumper-input-width;
+            width: calc(#{variables.$font-size-base} * 3);
             text-align: center;
-            margin: 0 4px;
-        }
-
-        button {
-            color: variables.$pagination-jumper-button-color;
-            background-color: variables.$pagination-bg;
-            &:hover {
-                cursor: pointer;
-            }
-            &:disabled {
-                color: variables.$pagination-disabled-color;
-            }
+            margin: 0 6px;
         }
     }
 }
-
+.thy-select-dropdown {
+    .thy-select-dropdown-options {
+        .page-size-option {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
 .thy-page-link {
     position: relative;
     display: flex;
     align-items: center;
+    justify-content: center;
     height: 100%;
-    color: variables.$pagination-color;
+    color: variables.$pagination-number-color;
     padding: variables.$pagination-padding-y variables.$pagination-padding-x;
     margin-left: -(variables.$pagination-border-width);
-    line-height: variables.$pagination-line-height;
     background-color: variables.$pagination-bg;
     border: variables.$pagination-border-width solid variables.$pagination-border-color;
 
     &:hover {
-        // z-index: 2;
         color: variables.$pagination-hover-color;
         text-decoration: none;
         background-color: variables.$pagination-hover-bg;
@@ -122,23 +118,41 @@
     }
 
     &:focus {
-        // z-index: 2;
         outline: bootstrap-variables.$pagination-focus-outline;
         box-shadow: variables.$pagination-focus-box-shadow;
     }
 }
 
 .thy-page-item {
+    min-width: variables.$pagination-item-width;
+    height: variables.$pagination-item-height;
+    .thy-page-link {
+        padding: variables.$pagination-padding-y, variables.$pagination-padding-x;
+    }
     &:first-child {
         .thy-page-link {
+            color: variables.$pagination-color;
             margin-left: 0;
             @include border-radius.border-left-radius(variables.$border-radius);
+            &:hover {
+                color: variables.$pagination-hover-color;
+                text-decoration: none;
+                background-color: variables.$pagination-hover-bg;
+                border-color: variables.$pagination-hover-border-color;
+            }
         }
     }
 
     &:last-child {
         .thy-page-link {
+            color: variables.$pagination-color;
             @include border-radius.border-right-radius(variables.$border-radius);
+            &:hover {
+                color: variables.$pagination-hover-color;
+                text-decoration: none;
+                background-color: variables.$pagination-hover-bg;
+                border-color: variables.$pagination-hover-border-color;
+            }
         }
     }
 
@@ -165,20 +179,22 @@
 
 .thy-pagination-lg {
     @include mixin.pagination-size(
-        variables.$pagination-padding-y-lg,
-        variables.$pagination-padding-x-lg,
         variables.$font-size-lg,
+        variables.$border-radius-lg,
+        variables.$pagination-item-width-lg,
+        variables.$pagination-item-height-lg,
         variables.$pagination-line-height-lg,
-        variables.$border-radius-lg
+        variables.$pagination-page-size-width-lg
     );
 }
 
 .thy-pagination-sm {
     @include mixin.pagination-size(
-        variables.$pagination-padding-y-sm,
-        variables.$pagination-padding-x-sm,
         variables.$font-size-sm,
+        variables.$border-radius-sm,
+        variables.$pagination-item-width-sm,
+        variables.$pagination-item-height-sm,
         variables.$pagination-line-height-sm,
-        variables.$border-radius-sm
+        variables.$pagination-page-size-width-sm
     );
 }
