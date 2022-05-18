@@ -28,9 +28,8 @@ $image-preview-prefix-cls: 'thy-image-preview';
             transition: transform 0.3s $ease-out 0s;
             display: flex;
             align-items: center;
+            justify-content: center;
             .#{$image-preview-prefix-cls}-img {
-                max-height: calc(100vh - 96px - 106px); // top: 96, bottom: 106
-                max-width: calc(100% - 200px);
                 margin: 0 auto;
                 pointer-events: all;
                 display: block;
@@ -41,7 +40,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 
         &-operations {
             list-style: none;
-            position: absolute;
+            position: fixed;
             pointer-events: all;
             bottom: 0px;
             padding: 13px 18px;
@@ -57,7 +56,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 list-style: none;
                 display: inline;
                 user-select: none;
-                margin: 0 6px;
+                margin: 0 5px;
                 cursor: pointer;
                 &:first-child {
                     margin-left: 0;
@@ -76,6 +75,9 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 }
                 &-zoom {
                     margin-left: 10px;
+                    display: inline-block;
+                    min-width: 40px;
+                    text-align: center;
                 }
             }
         }
@@ -95,9 +97,23 @@ $image-preview-prefix-cls: 'thy-image-preview';
             }
         }
 
+        .#{$image-preview-prefix-cls}-close,
+        .#{$image-preview-prefix-cls}-exit-fullscreen {
+            line-height: 32px;
+            .thy-icon {
+                font-size: 18px;
+            }
+        }
+
+        .#{$image-preview-prefix-cls}-exit-fullscreen {
+            position: fixed;
+            top: 23px;
+            right: 40px;
+        }
+
         &-switch-left,
         &-switch-right {
-            position: absolute;
+            position: fixed;
             top: 50%;
             z-index: 1;
             display: flex;
@@ -142,7 +158,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
     }
 
     .#{$image-preview-prefix-cls}-header {
-        position: absolute;
+        position: fixed;
         top: 0;
         width: 100%;
         padding: 0 30px;
