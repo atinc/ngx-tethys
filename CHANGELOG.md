@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.28](https://github.com/atinc/ngx-tethys/compare/12.1.27...12.1.28) (2022-05-18)
+
+
+### Bug Fixes
+
+* **image:** export service and class #INFR-3132 ([#1689](https://github.com/atinc/ngx-tethys/issues/1689)) ([a9cc4a7](https://github.com/atinc/ngx-tethys/commit/a9cc4a7c74ab6e21b4f6eabef671a29d4459ff3f)), closes [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132) [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132) [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132)
+
+
+
 ## [12.1.27](https://github.com/atinc/ngx-tethys/compare/12.1.26...12.1.27) (2022-05-17)
 
 
