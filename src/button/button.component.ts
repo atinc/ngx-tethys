@@ -148,12 +148,6 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
-    @Input()
-    set thySquare(value: boolean) {
-        warnDeprecation(`The thyButton's property thySquare is deprecated, the default is already square.`);
-        this._isRadiusSquare = coerceBooleanProperty(value);
-    }
-
     @HostBinding(`class.btn-block`)
     @Input()
     @InputBoolean()
