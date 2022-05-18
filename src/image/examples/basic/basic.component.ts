@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
 })
 export class ThyImageBasicExampleComponent {
     imageMeta = {
-        name: 'basic.jpg',
+        name: 'first.jpg',
         size: '66kb'
     };
 }

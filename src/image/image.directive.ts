@@ -1,7 +1,7 @@
 import { Directive, ElementRef, Input, OnChanges, OnInit, Optional, SimpleChanges } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroupComponent } from './image-group.component';
-import { ThyImageMeta } from './image.interface';
+import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
 
 @Directive({
