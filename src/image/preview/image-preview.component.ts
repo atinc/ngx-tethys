@@ -8,7 +8,7 @@ import {
     ViewChild,
     NgZone
 } from '@angular/core';
-import { ThyImageInfo, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.interface';
+import { ThyImageInfo, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -166,6 +166,14 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let event = new MouseEvent('click');
             a.download = image.name || 'default.png';
             a.href = url;
+            a.dispatchEvent(event);
+        };
+        img.onerror = () => {
+            let a = document.createElement('a');
+            a.download = image.name || 'default.png';
+            a.target = '_blank';
+            a.href = image.origin?.src || image.src;
+            let event = new MouseEvent('click');
             a.dispatchEvent(event);
         };
         img.src = (image.origin?.src || image.src) + '?v=' + Date.now();

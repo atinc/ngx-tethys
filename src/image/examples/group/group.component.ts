@@ -7,14 +7,21 @@ import { Component } from '@angular/core';
 export class ThyImageGroupExampleComponent {
     images = [
         {
-            src: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+            src: 'assets/images/image/first.png',
             imageMeta: {
-                name: 'first.jpg',
+                name: 'first.png',
                 size: '66kb'
             }
         },
         {
-            src: 'https://img.alicdn.com/tfs/TB1Z0PywTtYBeNjy1XdXXXXyVXa-186-200.svg',
+            src: 'assets/images/image/second.png',
+            imageMeta: {
+                name: 'second.jpg',
+                size: '44kb'
+            }
+        },
+        {
+            src: 'assets/images/image/last.png',
             imageMeta: {
                 name: 'last.jpg',
                 size: '44kb'
