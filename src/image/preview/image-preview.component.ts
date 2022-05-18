@@ -6,14 +6,18 @@ import {
     ChangeDetectorRef,
     ElementRef,
     ViewChild,
-    NgZone
+    NgZone,
+    OnDestroy
 } from '@angular/core';
-import { ThyImageInfo, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
+import { ThyFullscreen } from 'ngx-tethys/fullscreen';
+import { ThyCopyEvent } from 'ngx-tethys/copy';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 
 const initialPosition = {
     x: 0,
@@ -21,6 +25,8 @@ const initialPosition = {
 };
 const IMAGE_MAX_ZOOM = 5;
 const IMAGE_MIN_ZOOM = 0.1;
+const HORIZONTAL_SPACE = 100 * 2; // left: 100px; right: 100px
+const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
 @Component({
     selector: 'thy-image-preview',
     exportAs: 'thyImagePreview',
@@ -32,7 +38,7 @@ const IMAGE_MIN_ZOOM = 0.1;
         '[class.thy-image-preview-moving]': 'isDragging'
     }
 })
-export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
+export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
     images: ThyImageInfo[] = [];
     previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
@@ -42,7 +48,10 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     zoom: number;
     position = { ...initialPosition };
     isDragging = false;
-    previewOperations: ThyImagePreviewOperation[] = [
+    isFullScreen = false;
+    currentImageMode: ThyImagePreviewMode = 'original-scale';
+    previewOperations: ThyImagePreviewOperation[];
+    defaultPreviewOperations: ThyImagePreviewOperation[] = [
         {
             icon: 'zoom-out',
             name: '缩小',
@@ -59,16 +68,30 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             },
             type: 'zoom-in'
         },
-        // {
-        //     icon: 'one-to-one',
-        //     tooltip: '原始尺寸',
-        //     action: () => {}
-        // },
-        // {
-        //     icon: 'one-to-one',
-        //     tooltip: '适应屏幕',
-        //     action: () => {}
-        // },
+        {
+            icon: 'one-to-one',
+            name: '原始比例',
+            action: (image: ThyImageInfo) => {
+                this.setOriginalSize();
+            },
+            type: 'original-scale'
+        },
+        {
+            icon: 'max-view',
+            name: '适应屏幕',
+            action: () => {
+                this.setFitScreen();
+            },
+            type: 'fit-screen'
+        },
+        {
+            icon: 'expand-arrows',
+            name: '全屏显示',
+            action: () => {
+                this.fullScreen();
+            },
+            type: 'full-screen'
+        },
         {
             icon: 'rotate-right',
             name: '向右旋转',
@@ -79,24 +102,26 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         },
         {
             icon: 'download',
-            name: '下载原图',
+            name: '下载图片',
             action: (image: ThyImageInfo) => {
                 this.download(image);
             },
             type: 'download'
+        },
+        {
+            icon: 'preview',
+            name: '查看原图',
+            action: () => {
+                this.viewOriginal();
+            },
+            type: 'view-original'
+        },
+        {
+            icon: 'link-insert',
+            name: '复制链接',
+            type: 'copyLink'
         }
-        // {
-        //     icon: 'preview',
-        //     tooltip: '查看原图',
-        //     action: () => {}
-        // },
-        // {
-        //     icon: 'link-insert',
-        //     tooltip: '链接打开',
-        //     action: () => {}
-        // }
     ];
-
     private rotate: number;
 
     get previewImage(): ThyImageInfo {
@@ -110,8 +135,6 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 : this.previewConfig.zoom <= IMAGE_MIN_ZOOM
                 ? IMAGE_MIN_ZOOM
                 : this.previewConfig.zoom;
-        } else {
-            return 1;
         }
     }
 
@@ -120,8 +143,10 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
 
     constructor(
         public thyDialog: ThyDialog,
+        public thyFullscreen: ThyFullscreen,
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
+        private notifyService: ThyNotifyService,
         private host: ElementRef<HTMLElement>
     ) {
         super();
@@ -145,11 +170,70 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         });
     }
 
-    initPreview() {
-        this.rotate = this.previewConfig?.rotate ?? 0;
+    setOriginalSize() {
+        this.reset();
+        this.currentImageMode = 'fit-screen';
+        this.zoom = 1;
+        this.updatePreviewImageTransform();
+        this.cdr.markForCheck();
+    }
+
+    setFitScreen() {
+        this.reset();
+        this.updatePreviewImage();
+    }
+
+    useDefaultZoomUpdate(isUpdateImageWrapper: boolean) {
         this.zoom = this.defaultZoom;
         this.updatePreviewImageTransform();
-        this.updatePreviewImageWrapperTransform();
+        if (isUpdateImageWrapper) {
+            this.updatePreviewImageWrapperTransform();
+        }
+        this.cdr.markForCheck();
+    }
+
+    useCalculateZoomUpdate(isUpdateImageWrapper?: boolean) {
+        let img = new Image();
+        img.src = this.previewImage.src;
+        img.onload = () => {
+            const { offsetWidth, offsetHeight } = this.host.nativeElement;
+            const innerWidth = offsetWidth - HORIZONTAL_SPACE;
+            const innerHeight = offsetHeight - VERTICAL_SPACE;
+            const { naturalWidth, naturalHeight } = img;
+            const xRatio = innerWidth / naturalWidth;
+            const yRatio = innerHeight / naturalHeight;
+            const zoom = Math.min(xRatio, yRatio);
+            if (zoom > 1) {
+                this.zoom = 1;
+                this.imageRef.nativeElement.style.width = naturalWidth + 'px';
+                this.imageRef.nativeElement.style.height = naturalHeight + 'px';
+            } else {
+                this.zoom = zoom;
+            }
+            this.updatePreviewImageTransform();
+            if (isUpdateImageWrapper) {
+                this.updatePreviewImageWrapperTransform();
+            }
+            this.cdr.markForCheck();
+        };
+    }
+
+    updatePreviewImage() {
+        if (this.defaultZoom) {
+            this.useDefaultZoomUpdate(true);
+        } else {
+            this.useCalculateZoomUpdate();
+        }
+    }
+
+    initPreview() {
+        if (Array.isArray(this.previewConfig?.operations) && this.previewConfig?.operations.length) {
+            this.previewOperations = this.defaultPreviewOperations.filter(item => this.previewConfig.operations.includes(item.type));
+        } else {
+            this.previewOperations = this.defaultPreviewOperations;
+        }
+        this.rotate = this.previewConfig?.rotate ?? 0;
+        this.updatePreviewImage();
     }
 
     download(image: ThyImageInfo) {
@@ -180,19 +264,24 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     zoomIn(): void {
-        if (this.zoom < 5) {
-            this.zoom += 0.1;
+        if (this.zoom < IMAGE_MAX_ZOOM) {
+            this.zoom = Math.min(this.zoom + 0.1, IMAGE_MAX_ZOOM);
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
         }
     }
 
     zoomOut(): void {
-        if (this.zoom > 0.2) {
-            this.zoom -= 0.1;
+        if (this.zoom > IMAGE_MIN_ZOOM) {
+            this.zoom = Math.max(this.zoom - 0.1, IMAGE_MIN_ZOOM);
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
         }
+    }
+
+    viewOriginal() {
+        this.reset();
+        this.imageRef.nativeElement.src = this.previewImage?.origin?.src || this.previewImage.src;
     }
 
     rotateRight(): void {
@@ -200,21 +289,39 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.updatePreviewImageTransform();
     }
 
+    fullScreen(): void {
+        const targetElement = document.documentElement.querySelector('.fullscreen-target');
+        this.isFullScreen = true;
+        const fullscreenRef = this.thyFullscreen.launch({
+            target: targetElement
+        });
+        fullscreenRef.afterExited().subscribe(() => {
+            this.isFullScreen = false;
+            this.cdr.markForCheck();
+        });
+    }
+
+    copyLink(event: ThyCopyEvent) {
+        if (event.isSuccess) {
+            this.notifyService.success('复制图片地址成功');
+        } else {
+            this.notifyService.error('复制图片地址失败');
+        }
+    }
+
     prev() {
         if (this.previewIndex > 0) {
-            this.reset();
             this.previewIndex--;
-            this.updatePreviewImageTransform();
-            this.cdr.markForCheck();
+            this.reset();
+            this.updatePreviewImage();
         }
     }
 
     next() {
         if (this.previewIndex < this.images.length - 1) {
-            this.reset();
             this.previewIndex++;
-            this.updatePreviewImageTransform();
-            this.cdr.markForCheck();
+            this.reset();
+            this.updatePreviewImage();
         }
     }
 
@@ -240,8 +347,8 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     private reset(): void {
-        this.zoom = this.defaultZoom;
-        this.rotate = 0;
+        this.currentImageMode = 'original-scale';
+        this.rotate = this.previewConfig?.rotate ?? 0;
         this.position = { ...initialPosition };
     }
 
@@ -251,5 +358,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
 
     private updatePreviewImageWrapperTransform(): void {
         this.previewImageWrapperTransform = `translate3d(${this.position.x}px, ${this.position.y}px, 0)`;
+    }
+
+    ngOnDestroy(): void {
+        super.ngOnDestroy();
     }
 }
