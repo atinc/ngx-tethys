@@ -18,6 +18,7 @@ describe('ng-update v13 Schematic', () => {
             TEST_MODULE_PATH,
             `
             import { Store } from "ngx-tethys/store";
+            import { Action } from "ngx-tethys";
             import { coerceArray, helpers as ngxTethysHelpers, mergeReferences, produce } from 'ngx-tethys';
             import { ThyRasterModule } from 'ngx-tethys/raster';
             import { ThyRasterModule as RasterModule } from 'ngx-tethys/raster';
@@ -44,6 +45,8 @@ describe('ng-update v13 Schematic', () => {
     it(`should "ngx-tethys/store" to "@tethys/store"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
         expect(result).toContain('@tethys/store');
+        expect(result).not.toContain(`'ngx-tethys'`);
+        expect(result).not.toContain(`"ngx-tethys"`);
         expect(result).not.toContain(`ngx-tethys/store`);
     });
 
