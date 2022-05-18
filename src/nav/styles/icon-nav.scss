@@ -1,12 +1,9 @@
-@use "../../styles/bootstrap/mixins/hover";
-@use "../../styles/variables";
-
-$icon-nav-link-padding-x: 0.438rem;
-$icon-nav-link-padding-y: 0.282rem;
+@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/variables.scss";
 
 @mixin icon-nav-link-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
-    padding: $icon-nav-link-padding-y $icon-nav-link-padding-x;
+    padding: variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x;
     // 解决图标不居中问题
     width: 30px;
     height: 30px;
