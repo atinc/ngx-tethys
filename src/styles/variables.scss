@@ -685,16 +685,19 @@ $arrow-switcher-btn-hover-bac: $primary !default;
 $arrow-switcher-btn-hover-color: $white !default;
 
 // pagination
+$pagination-item-width: 2rem;
+$pagination-item-width-sm: 1.75rem;
+$pagination-item-width-lg: 2.75rem;
+$pagination-item-height: 2rem;
+$pagination-item-height-sm: 1.75rem;
+$pagination-item-height-lg: 2.75rem;
+$pagination-line-height: 1.5rem !default;
+$pagination-line-height-lg: 2.1875rem !default;
+$pagination-line-height-sm: 1.375rem !default;
 $pagination-padding-y: 0.282rem !default;
-$pagination-padding-x: 0.757rem !default;
-$pagination-padding-y-sm: 3px !default;
-$pagination-padding-x-sm: 8px !default;
-$pagination-padding-y-lg: 0.282rem !default;
-$pagination-padding-x-lg: 0.757rem !default;
-$pagination-line-height: 1.5 !default;
-$pagination-line-height-lg: 1.65 !default;
-$pagination-line-height-sm: 1.667 !default;
+$pagination-padding-x: 0.375rem !default;
 $pagination-color: $gray-500 !default;
+$pagination-number-color: $gray-700 !default;
 $pagination-font-size: 12px !default;
 $pagination-bg: $white !default;
 $pagination-border-width: 1px !default;
@@ -710,10 +713,12 @@ $pagination-disabled-color: $gray-400 !default;
 $pagination-disabled-bg: $white !default;
 $pagination-disabled-border-color: $gray-200 !default;
 $pagination-total-pages-color: $gray-700;
-$pagination-jumper-margin: 0 12px !default;
-$pagination-jumper-input-width: 38px;
+$pagination-jumper-margin: 0 10px !default;
 $pagination-jumper-input-color: $gray-700;
 $pagination-jumper-button-color: $gray-700;
+$pagination-page-size-width: 6.375rem;
+$pagination-page-size-width-sm: 5.625rem;
+$pagination-page-size-width-lg: 7.875rem;
 
 // tooltip
 $tooltip-font-size: $font-size-base !default;

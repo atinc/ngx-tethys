@@ -226,12 +226,12 @@ export class ThyPaginationComponent implements OnInit {
                 beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
             }
             if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) {
-                beforePages.push(this.makePage(pageIndex - rangeCount, '...', null));
+                beforePages.push(this.makePage(pageIndex - rangeCount, '···', null));
             }
 
             // afterPages
             if (pageIndex + Math.ceil(rangeCount / 2) < pageCount) {
-                afterPages.push(this.makePage(pageIndex + rangeCount, '...', null));
+                afterPages.push(this.makePage(pageIndex + rangeCount, '···', null));
             }
             for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
                 afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
@@ -285,7 +285,6 @@ export class ThyPaginationComponent implements OnInit {
         if (Number.isInteger(pageIndex)) {
             this.selectPage(pageIndex);
         }
-        input.value = '';
     }
 
     onPageSizeChange(event: number) {
