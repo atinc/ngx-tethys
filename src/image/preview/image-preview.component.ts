@@ -169,8 +169,12 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             a.dispatchEvent(event);
         };
         img.onerror = () => {
-            const url = `${image.origin?.src || image.src}?&action=download`;
-            window.open(url);
+            let a = document.createElement('a');
+            a.download = image.name || 'default.png';
+            a.target = '_blank';
+            a.href = image.origin?.src || image.src;
+            let event = new MouseEvent('click');
+            a.dispatchEvent(event);
         };
         img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
     }
