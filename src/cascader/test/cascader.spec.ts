@@ -169,6 +169,37 @@ const emptyOptions = [
     }
 ];
 
+const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[] } = {
+    root: [
+        {
+            value: 'zhejiang',
+            label: 'zhejiang',
+            code: 477200,
+            children: []
+        },
+        {
+            value: 'anhui',
+            label: 'anhui',
+            code: 477201,
+            children: []
+        }
+    ],
+    firstChildren: [
+        {
+            value: 'hangzhou',
+            label: 'hangzhou',
+            children: [
+                {
+                    value: 'xihu',
+                    label: 'xihu',
+                    code: 752100,
+                    isLeaf: true
+                }
+            ]
+        }
+    ]
+};
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
@@ -185,6 +216,7 @@ const emptyOptions = [
             [thyExpandTriggerAction]="thyExpandTriggerAction"
             [thyChangeOnSelect]="thyChangeOnSelect"
             [thyMenuClassName]="thyMenuClassName"
+            [thyLoadData]="loadData"
         >
         </thy-cascader>
     `
@@ -197,6 +229,7 @@ class CascaderBasicComponent {
     public thyCustomerOptions: any[] = customerOptions;
     public thyChangeOnSelect = false;
     public thyMenuClassName = 'test-menu-class';
+    public loadData: any;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     changeValue$ = new Subject<string[]>();
@@ -509,6 +542,36 @@ describe('thy-cascader', () => {
             const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
             expect(emptySecondMenu.children.length).toEqual(0);
         }));
+
+        it('should loadData by thyLoadData when thyLoadData is function', async () => {
+            fixture.componentInstance.thyCustomerOptions = loadDataOption.root;
+            fixture.componentInstance.loadData = (option: any) => {
+                return new Promise<void>((res, rej) => {
+                    if (option.label === 'zhejiang') {
+                        option.children = loadDataOption.firstChildren;
+                    }
+                    res();
+                });
+            };
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const haveChildrenItem = items[0];
+            const noChildrenItem = items[1];
+            dispatchFakeEvent(haveChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const secondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(secondMenu.children.length).toEqual(1);
+            dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(emptySecondMenu.children.length).toEqual(0);
+        });
     });
 
     describe('loadData', () => {
