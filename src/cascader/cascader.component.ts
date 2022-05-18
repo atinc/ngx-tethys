@@ -606,7 +606,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (index < this.activatedOptions.length - 1) {
             this.activatedOptions = this.activatedOptions.slice(0, index + 1);
         }
-        if (isArray(option.children) && !option.isLeaf) {
+        if (isArray(option.children) && option.children.length) {
             option.isLeaf = false;
             option.children.forEach(child => (child.parent = option));
             this.setColumnData(option.children, index + 1);
@@ -690,6 +690,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                     }
                 }
             );
+        } else {
+            this.setColumnData(option.children || [], index + 1);
         }
     }
 
