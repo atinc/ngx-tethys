@@ -214,7 +214,24 @@ describe('ThyPagination', () => {
             const paginationLeft = pageComponent.nativeElement.querySelector('div.thy-pagination-total');
             const paginationLeftContent = paginationLeft.querySelectorAll('div');
             expect(paginationLeft).toBeTruthy();
-            expect(paginationLeftContent.length).toBe(1);
+            expect(paginationLeft.children.nativeElement).toBeFalsy();
+            expect(paginationLeftContent.length).toBe(0);
+            expect(paginationLeftContent.nativeElement).toBeFalsy();
+        });
+
+        it('should hide total when total is change', () => {
+            basicTestComponent.showTotal = true;
+            basicTestComponent.pagination.total = 200;
+            fixture.detectChanges();
+            const paginationLeft = pageComponent.nativeElement.querySelector('div.thy-pagination-total');
+            const paginationLeftContent = paginationLeft.querySelectorAll('div');
+            expect(paginationLeft).toBeTruthy();
+            expect(paginationLeftContent.length).toBe(2);
+
+            fixture.detectChanges();
+            basicTestComponent.pagination.total = 0;
+            expect(paginationLeft).toBeTruthy();
+            expect(paginationLeft.children.nativeElement).toBeFalsy();
         });
 
         it('should have total when showTotal is template', () => {
