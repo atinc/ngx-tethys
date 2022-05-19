@@ -96,9 +96,6 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 border-radius: variables.$input-border-radius-md;
             }
         }
-        .icon-pointer-events-style {
-            cursor: auto;
-        }
 
         .#{$image-preview-prefix-cls}-close,
         .#{$image-preview-prefix-cls}-exit-fullscreen {
