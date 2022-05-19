@@ -52,13 +52,19 @@
     margin-bottom: 0;
     list-style: none;
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-spacing);
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-spacing
+        );
     }
 }
 
 .thy-icon-nav-secondary {
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-secondary-spacing);
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-secondary-spacing
+        );
         @include icon-nav-link-variant(
             variables.$icon-nav-link-secondary-color,
             variables.$icon-nav-link-hover-color,
@@ -69,7 +75,10 @@
 
 .thy-icon-nav-individual {
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-individual-spacing);
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-individual-spacing
+        );
         @include icon-nav-link-variant(
             variables.$icon-nav-link-secondary-color,
             variables.$icon-nav-link-hover-color,
