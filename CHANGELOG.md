@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.29](https://github.com/atinc/ngx-tethys/compare/12.1.28...12.1.29) (2022-05-19)
+
+
+### Bug Fixes
+
+* #INFR-3116 the selected status is lost after dragging  ([a2df98b](https://github.com/atinc/ngx-tethys/commit/a2df98b9b36a7f57679fca4ce552a38ad75e2203)), closes [#INFR-3116](https://github.com/atinc/ngx-tethys/issues/INFR-3116)
+* **cascader:** fix empty data when use loadData property ([#1691](https://github.com/atinc/ngx-tethys/issues/1691)) ([31ed730](https://github.com/atinc/ngx-tethys/commit/31ed730d8b47dacf9b99f83b996805a5d951a3ac))
+* **pagination:**  fix pagination style and add blur methods for quick jump #INFR-3074 ([#1662](https://github.com/atinc/ngx-tethys/issues/1662)) ([b8062a8](https://github.com/atinc/ngx-tethys/commit/b8062a8b352a79c121b0db188d46eaa6ba4b3b65)), closes [#INFR-3074](https://github.com/atinc/ngx-tethys/issues/INFR-3074)
+* **pagination:** hide thy-pagination-total when total is 0 zd/#INFR-3147 ([#1697](https://github.com/atinc/ngx-tethys/issues/1697)) ([6c4f3b6](https://github.com/atinc/ngx-tethys/commit/6c4f3b66d1c1ca1c1b36af9c51162fcda2cebc04)), closes [zd/#INFR-3147](https://github.com/atinc/ngx-tethys/issues/INFR-3147)
+
+
+### Features
+
+* **image:** add preview image operations #INFR-3117 ([59627ca](https://github.com/atinc/ngx-tethys/commit/59627caec7c7806b3946dcd120104b92fdc2cf42)), closes [#INFR-3117](https://github.com/atinc/ngx-tethys/issues/INFR-3117)
+* **image:** the IMAGE_MAX_ZOOM form 5 to 3 #WIK-6644 ([#1699](https://github.com/atinc/ngx-tethys/issues/1699)) ([862259c](https://github.com/atinc/ngx-tethys/commit/862259c706969b8e5875d6ea7138cc0a8b214a0d)), closes [#WIK-6644](https://github.com/atinc/ngx-tethys/issues/WIK-6644)
+* **image:** update operations style with pointer-event #WIK-6643 ([#1700](https://github.com/atinc/ngx-tethys/issues/1700)) ([d473f65](https://github.com/atinc/ngx-tethys/commit/d473f6584f2869ac83a2347dc5ad31ec7986355f)), closes [#WIK-6643](https://github.com/atinc/ngx-tethys/issues/WIK-6643)
+
+
+
 ## [12.1.28](https://github.com/atinc/ngx-tethys/compare/12.1.27...12.1.28) (2022-05-18)
 
 
