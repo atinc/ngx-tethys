@@ -372,6 +372,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             afterNode = event.item.children[event.item.children.length - 2];
             targetNode = event.item;
         }
+        this.thyTreeService.syncNodeCheckState(this.thyTreeService.getTreeNode(event.previousItem.key));
+        if (parent) {
+            this.thyTreeService.syncNodeCheckState(parent);
+        }
         this.thyTreeService.syncFlattenTreeNodes();
         this.thyOnDragDrop.emit({
             event,
