@@ -57,7 +57,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 display: inline;
                 user-select: none;
                 margin: 0 5px;
-                cursor: pointer;
+                cursor: auto;
                 &:first-child {
                     margin-left: 0;
                 }
@@ -184,5 +184,5 @@ $image-preview-prefix-cls: 'thy-image-preview';
     }
 }
 .#{$image-preview-prefix-cls}-backdrop {
-    background: rgba(variables.$black, 0.8);
+    background: rgba(variables.$black, 0.85);
 }
