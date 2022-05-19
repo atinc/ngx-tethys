@@ -214,7 +214,8 @@ describe('ThyPagination', () => {
             const paginationLeft = pageComponent.nativeElement.querySelector('div.thy-pagination-total');
             const paginationLeftContent = paginationLeft.querySelectorAll('div');
             expect(paginationLeft).toBeTruthy();
-            expect(paginationLeftContent.length).toBe(1);
+            expect(paginationLeftContent.length).toBe(0);
+            expect(paginationLeftContent.nativeElement).toBeFalsy();
         });
 
         it('should have total when showTotal is template', () => {
