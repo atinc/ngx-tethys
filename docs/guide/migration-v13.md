@@ -33,14 +33,15 @@ order: 995
 - 所有非 styles 文件夹的样式默认不支持导入，只支持`ngx-tethys/styles/*`样式导入
 
 ## Sass 入口修改
-在过去的版本中如下二级样式文件的导入是允许的，Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://nodejs.org/dist/latest-v16.x/docs/api/packages.html#package-entry-points)，只导出了公开的样式文件（`ngx-tethys/styles/*`），如下的使用在新版中会报错`SassError: Can't find stylesheet to import.`
+在过去的版本中如下子文件夹样式导入是允许的:
 
 ```sass
 @use "ngx-tethys/button/styles/button.scss";
 @use "ngx-tethys/button/styles/mixin.scss";
 ```
+Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://nodejs.org/dist/latest-v16.x/docs/api/packages.html#package-entry-points)，只导出了公开的样式文件（`ngx-tethys/styles/*`），上述使用在新版中会报`SassError: Can't find stylesheet to import.` 错误。
 
-对于所有的组件的`mixin`已经通过`basic`导出，可以按照如下方式使用:
+对于所有的`mixin`已经通过`basic` forward 重新导出，可以按照如下新方式使用:
 
 ```sass
 @use "ngx-tethys/styles/basic.scss" as basic;
