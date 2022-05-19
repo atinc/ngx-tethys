@@ -30,6 +30,51 @@ order: 995
 - 去除 Markdown 组件，如需使用请单独拷贝`附录2`的指令和样式到项目中使用
 - `Raster`模块改为`Grid`，主要提供栅格系统的指令
 - `thyButton`组件移除已经废弃的属性`thySquare`，目前按钮默认就是方形，无需单独传参，这个应该很少使用，所以未加 Schematics 自动修改，如使用请手动移除即可
+- 所有非 styles 文件夹的样式默认不支持导入，只支持`ngx-tethys/styles/*`样式导入
+
+## Sass 入口修改
+在过去的版本中如下二级样式文件的导入是允许的，Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://nodejs.org/dist/latest-v16.x/docs/api/packages.html#package-entry-points)，只导出了公开的样式文件（`ngx-tethys/styles/*`），如下的使用在新版中会报错`SassError: Can't find stylesheet to import.`
+
+```sass
+@use "ngx-tethys/button/styles/button.scss";
+@use "ngx-tethys/button/styles/mixin.scss";
+```
+
+对于所有的组件的`mixin`已经通过`basic`导出，可以按照如下方式使用:
+
+```sass
+@use "ngx-tethys/styles/basic.scss" as basic;
+
+.example {
+    @include basic.button-variant(...);
+    color: basic.$gray-400;
+}
+```
+
+如果需要单独导入某一个组件的样式，默认是不支持的，当然可以通过设置`angular.json`中的`...build.options. stylePreprocessorOptions`参数实现所有二级文件夹某个样式的导入，这是一个有风险的行为，因为内部的 scss 文件名和路径可能会变化。
+ 
+```json
+    "stylePreprocessorOptions": {
+        "includePaths": ["node_modules/"]
+    }
+```
+
+官方提供的新入口如下:
+
+```sass
+// 包含所有的样式
+@use "ngx-tethys/styles/index.scss"; 
+@use "ngx-tethys/styles/index"; 
+@use "ngx-tethys"; 
+
+// 包含所有的变量和mixins
+@use "ngx-tethys/styles/basic.scss";
+@use "ngx-tethys/styles/basic";
+
+// 包含所有的变量
+@use "ngx-tethys/styles/variables.scss";
+@use "ngx-tethys/styles/variables";
+```
 
 ## 废弃
 - `ActionMenu`组件标记为废弃，请使用`Dropdown`组件替换，即将在之后的大版本中彻底移除
