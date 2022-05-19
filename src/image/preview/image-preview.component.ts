@@ -94,7 +94,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         },
         {
             icon: 'rotate-right',
-            name: '向右旋转',
+            name: '旋转',
             action: (image: ThyImageInfo) => {
                 this.rotateRight();
             },
@@ -102,7 +102,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         },
         {
             icon: 'download',
-            name: '下载图片',
+            name: '下载',
             action: (image: ThyImageInfo) => {
                 this.download(image);
             },
