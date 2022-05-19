@@ -41,6 +41,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
         &-operations {
             list-style: none;
             position: fixed;
+            pointer-events: all;
             bottom: 0px;
             padding: 13px 18px;
             border-radius: 8px;
@@ -56,7 +57,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 display: inline;
                 user-select: none;
                 margin: 0 5px;
-                cursor: pointer;
+                cursor: auto;
                 &:first-child {
                     margin-left: 0;
                 }
@@ -94,6 +95,9 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 background: rgba(variables.$white, 0.1);
                 border-radius: variables.$input-border-radius-md;
             }
+        }
+        .icon-pointer-events-style {
+            cursor: auto;
         }
 
         .#{$image-preview-prefix-cls}-close,

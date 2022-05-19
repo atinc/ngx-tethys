@@ -63,7 +63,12 @@
         class="thy-image-preview-operation"
         *ngIf="!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type"
       >
-        <div class="thy-image-preview-operation-icon" [thyTooltip]="option.name" (click)="option.action(previewImage)">
+        <div
+          class="thy-image-preview-operation-icon"
+          [ngClass]="{ 'icon-pointer-events-style': option?.type === 'zoom-out' || option?.type === 'zoom-in' }"
+          [thyTooltip]="option.name"
+          (click)="option.action(previewImage)"
+        >
           <thy-icon [thyIconName]="option.icon"></thy-icon>
         </div>
         <span class="thy-image-preview-operation-zoom" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
