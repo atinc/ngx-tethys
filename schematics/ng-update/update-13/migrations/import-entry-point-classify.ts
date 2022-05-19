@@ -6,7 +6,8 @@ export class ImportEntryPointClassifyMigrationByNg13 extends ImportEntryPointCla
         helpers: 'util',
         dom: 'util',
         keycodes: 'util',
-        references: 'util'
+        references: 'util',
+        NgxTethysModule: ''
     };
 
     readonly relation = Object.assign({}, namePackageRelationsInNg13, this.specifyGroup);

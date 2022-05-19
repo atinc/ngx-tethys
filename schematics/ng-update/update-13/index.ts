@@ -9,8 +9,8 @@ export default function main() {
     return (tree: Tree, ctx: SchematicContext) => {
         return chain([
             TsMigrationSchematicsRule([
-                ImportEntryPointClassifyMigrationByNg13,
                 ImportNameChangeMigrationByNg13,
+                ImportEntryPointClassifyMigrationByNg13,
                 ImportEntryPointChangeMigrationByNg13
             ])
         ]);
