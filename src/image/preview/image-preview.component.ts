@@ -23,7 +23,7 @@ const initialPosition = {
     x: 0,
     y: 0
 };
-const IMAGE_MAX_ZOOM = 5;
+const IMAGE_MAX_ZOOM = 3;
 const IMAGE_MIN_ZOOM = 0.1;
 const HORIZONTAL_SPACE = 100 * 2; // left: 100px; right: 100px
 const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
