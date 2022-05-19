@@ -43,13 +43,13 @@
         <li
           #cascaderOptions
           thy-cascader-option
-          *ngFor="let option of options"
+          *ngFor="let option of options; trackBy: trackByFn"
           [option]="option"
           [multiple]="thyMultiple"
-          (click)="onOptionClick(option, i, $event)"
+          (click)="clickOption(option, i, $event)"
           (mouseover)="onOptionMouseover(option, i, $event)"
           [thyLabelProperty]="thyLabelProperty"
-          [active]="isActivedOption(option, i)"
+          [active]="isActivatedOption(option, i)"
         ></li>
       </ul>
     </ng-container>

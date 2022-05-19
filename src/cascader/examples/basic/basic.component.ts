@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyNotifyService } from 'ngx-tethys';
 import option from '../cascader-address-options';
 
 @Component({
@@ -8,15 +9,15 @@ import option from '../cascader-address-options';
 export class ThyCascaderBasicExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
-    public values: any[] = [];
+    public values: any[] = ['12', '1201', '120102'];
 
-    constructor() {}
+    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = option;
+        this.areaCode = [...option];
     }
 
-    public onChanges(values: any): void {
-        console.log('++++++++++', values);
+    public selectChanges(values: any): void {
+        this.notifyService.info('select', values);
     }
 }

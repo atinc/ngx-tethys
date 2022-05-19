@@ -1,1 +1,5 @@
-<thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" (ngModelChange)="onChanges($event)" [disabled]="true"> </thy-cascader>
+<thy-space>
+  <thy-cascader *thySpaceItem [disabled]="true" style="width:200px"> </thy-cascader>
+
+  <thy-cascader *thySpaceItem [thyOptions]="areaCode" [disabled]="true" [(ngModel)]="curVal" style="width:200px;"> </thy-cascader>
+</thy-space>

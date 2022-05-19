@@ -10,11 +10,11 @@ export class ThyCascaderDisableExampleComponent implements OnInit {
 
     public values: any[] = [];
 
+    public curVal = ['11', '1101', '110102'];
+
     constructor() {}
 
     ngOnInit() {
-        this.areaCode = option;
+        this.areaCode = [...option];
     }
-
-    public onChanges(values: any): void {}
 }

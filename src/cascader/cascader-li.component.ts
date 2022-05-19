@@ -1,7 +1,5 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { CascaderOption } from './types';
 
 @Component({
@@ -19,11 +17,25 @@ export class ThyCascaderOptionComponent implements OnInit {
     @InputBoolean()
     multiple = false;
 
+    @Input()
+    @InputBoolean()
+    isOnlySelectLeaf = true;
+
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
     @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
-    active = false;
+    @InputBoolean()
+    set active(value: boolean) {
+        this.isActive = value;
+        // setTimeout(() => {
+        // this.cdr.detectChanges();
+        // });
+    }
+
+    get active() {
+        return this.isActive;
+    }
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
@@ -37,13 +49,13 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input() thyLabelProperty: string;
 
-    constructor() {}
+    private isActive = false;
+
+    constructor(private cdr: ChangeDetectorRef) {}
 
     public getOptionLabel() {
         return this.option ? this.option[this.thyLabelProperty || 'label'] : '';
     }
 
     ngOnInit() {}
-
-    select() {}
 }

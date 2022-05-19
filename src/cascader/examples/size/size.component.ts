@@ -15,5 +15,5 @@ export class ThyCascaderSizeExampleComponent implements OnInit {
         this.areaCode = option;
     }
 
-    public onChanges(values: any): void {}
+    public selectChanges(values: any): void {}
 }

@@ -1,8 +1,23 @@
-<thy-cascader
-  [thyOptions]="areaCode"
-  (ngModelChange)="onChanges($event)"
-  thyPlaceHolder="自定义PlaceHolder"
-  [(ngModel)]="values"
-  [thyChangeOnSelect]="true"
->
-</thy-cascader>
+<thy-space>
+  <thy-cascader
+    *thySpaceItem
+    [thyOptions]="areaCode"
+    (ngModelChange)="selectChanges($event)"
+    [(ngModel)]="values"
+    [thyChangeOnSelect]="true"
+    style="width: 200px;"
+  >
+  </thy-cascader>
+
+  <thy-cascader
+    *thySpaceItem
+    [thyOptions]="areaCode1"
+    [thyMultiple]="true"
+    [thyChangeOnSelect]="true"
+    [(ngModel)]="multipleValues"
+    (ngModelChange)="selectChanges($event)"
+    (thyClear)="clearChange()"
+    style="width: 200px;"
+  >
+  </thy-cascader>
+</thy-space>

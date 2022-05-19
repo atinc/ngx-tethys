@@ -1,14 +1,31 @@
-<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'lg'">
-</thy-cascader>
-
-<thy-cascader
-  [thyOptions]="areaCode"
-  [(ngModel)]="values"
-  (ngModelChange)="onChanges($event)"
-  thyPlaceHolder="自定义PlaceHolder"
-  [thySize]="'sm'"
->
-</thy-cascader>
-
-<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'xs'">
-</thy-cascader>
+<thy-space thyAlign="end">
+  <thy-cascader
+    *thySpaceItem
+    [thyOptions]="areaCode"
+    [(ngModel)]="values"
+    (ngModelChange)="selectChanges($event)"
+    [thySize]="'sm'"
+    style="width:150px"
+  >
+  </thy-cascader>
+  <thy-cascader
+    *thySpaceItem
+    [thyOptions]="areaCode"
+    [(ngModel)]="values"
+    (ngModelChange)="selectChanges($event)"
+    [thySize]="'md'"
+    style="width:150px"
+  >
+  </thy-cascader>
+  <thy-cascader *thySpaceItem [thyOptions]="areaCode" [(ngModel)]="values" (ngModelChange)="selectChanges($event)" style="width:150px">
+  </thy-cascader>
+  <thy-cascader
+    *thySpaceItem
+    [thyOptions]="areaCode"
+    [(ngModel)]="values"
+    (ngModelChange)="selectChanges($event)"
+    [thySize]="'lg'"
+    style="width:150px"
+  >
+  </thy-cascader>
+</thy-space>

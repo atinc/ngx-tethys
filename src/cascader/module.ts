@@ -9,6 +9,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThySelectCommonModule } from 'ngx-tethys/shared';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { ThySelectCommonModule } from 'ngx-tethys/shared';
         ThyIconModule,
         ThyEmptyModule,
         ThySelectCommonModule,
-        ThyCheckboxModule
+        ThyCheckboxModule,
+        ThyNotifyModule
     ],
     declarations: [ThyCascaderComponent, ThyCascaderOptionComponent],
     exports: [ThyCascaderComponent]

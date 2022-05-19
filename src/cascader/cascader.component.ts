@@ -17,12 +17,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty, isArray, isEmpty } from 'ngx-tethys/util';
+import { helpers, isArray, isEmpty } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
-import { SelectOptionBase } from 'ngx-tethys/shared';
+import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { SelectionModel } from '@angular/cdk/collections';
+import options from './examples/cascader-address-options';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -75,9 +76,49 @@ export type ThyCascaderExpandTrigger = 'click' | 'hover';
     ]
 })
 export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
-    private changeOnSelect = false;
-    private showInput = true;
-    public prefixCls = 'thy-cascader';
+    @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
+
+    @ViewChildren('cascaderOptionContainers', { read: ElementRef }) cascaderOptionContainers: QueryList<ElementRef>;
+
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+
+    @Input() thyValueProperty = 'value';
+
+    @Input() thyLabelProperty = 'label';
+
+    @Input() thyPlaceHolder = '请选择';
+
+    @Input() thySize: SelectControlSize = '';
+
+    @Input()
+    set thyOptions(options: CascaderOption[] | null) {
+        this.thyColumns = options && options.length ? [options] : [];
+        if (this.defaultValue && this.thyColumns.length) {
+            this.initOptions(0);
+        }
+    }
+
+    @Input()
+    @InputBoolean()
+    thyChangeOnSelect = false;
+
+    @Input()
+    @InputBoolean()
+    thyShowInput = true;
+
+    @Input()
+    set thyLabelRender(value: TemplateRef<any>) {
+        this.labelRenderTpl = value;
+        this.isLabelRenderTemplate = value instanceof TemplateRef;
+    }
+
+    get thyLabelRender(): TemplateRef<any> {
+        return this.labelRenderTpl;
+    }
+
+    @Input() thyLoadData: (node: CascaderOption, index?: number) => PromiseLike<any>;
+
+    private prefixCls = 'thy-cascader';
     private menuClassName: string;
     private columnClassName: string;
     private _menuColumnCls: any;
@@ -103,49 +144,17 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     public triggerRect: DOMRect;
 
-    @Input()
-    set thyLabelRender(value: TemplateRef<any>) {
-        this.labelRenderTpl = value;
-        this.isLabelRenderTemplate = value instanceof TemplateRef;
-    }
-
-    get thyLabelRender(): TemplateRef<any> {
-        return this.labelRenderTpl;
-    }
-
     private value: any[];
+
     private selectedOptions: CascaderOption[] = [];
+
     private activatedOptions: CascaderOption[] = [];
+
     public thyColumns: CascaderOption[][] = [];
+
     public selectionModel: SelectionModel<SelectOptionBase>;
-    @Input() thyValueProperty = 'value';
-
-    @Input() thyLabelProperty = 'label';
-
-    @Input() thyPlaceHolder = '请选择';
-
-    @Input() thyLoadData: (node: CascaderOption, index?: number) => PromiseLike<any>;
-
-    @Input()
-    set thyChangeOnSelect(value: boolean) {
-        this.changeOnSelect = coerceBooleanProperty(value);
-    }
-
-    get thyChangeOnSelect(): boolean {
-        return this.changeOnSelect;
-    }
-
-    @Input()
-    set thyShowInput(value: boolean) {
-        this.showInput = coerceBooleanProperty(value);
-    }
-
-    get thyShowInput(): boolean {
-        return this.showInput;
-    }
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
-        console.log('selected', this.selectionModel.selected);
         return this.thyMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
     }
 
@@ -156,14 +165,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
 
     @Input() thyMenuStyle: { [key: string]: string };
-
-    @Input()
-    set thyOptions(options: CascaderOption[] | null) {
-        this.thyColumns = options && options.length ? [options] : [];
-        if (this.defaultValue && this.thyColumns.length) {
-            this.initOptions(0);
-        }
-    }
 
     @Input()
     set thyMenuClassName(value: string) {
@@ -189,8 +190,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     @InputBoolean()
     disabled = false;
 
-    @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
-
     @Input()
     set thyEmptyStateText(value: string) {
         this.emptyStateText = value;
@@ -198,13 +197,29 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     @Input()
     @InputBoolean()
-    thyMultiple = false;
+    set thyMultiple(value: boolean) {
+        this.isMultiple = value;
+        this.initSelectionModel();
+    }
+
+    get thyMultiple(): boolean {
+        return this.isMultiple;
+    }
+
+    @Input()
+    @InputBoolean()
+    isOnlySelectLeaf = true;
 
     @Output() thyChange = new EventEmitter<any[]>();
 
     @Output() thySelectionChange = new EventEmitter<CascaderOption[]>();
 
     @Output() thySelect = new EventEmitter<{
+        option: CascaderOption;
+        index: number;
+    }>();
+
+    @Output() thyDeselect = new EventEmitter<{
         option: CascaderOption;
         index: number;
     }>();
@@ -219,11 +234,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     @ViewChild('menu') menu: ElementRef;
 
-    @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
-
-    @ViewChildren('cascaderOptionContainers', { read: ElementRef }) cascaderOptionContainers: QueryList<ElementRef>;
-
-    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+    private isMultiple = false;
 
     ngOnInit(): void {
         this.setClassMap();
@@ -243,6 +254,14 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                     this.cdr.markForCheck();
                 }
             });
+    }
+
+    private initSelectionModel() {
+        if (this.selectionModel) {
+            this.selectionModel.clear();
+        } else {
+            this.selectionModel = new SelectionModel(this.isMultiple);
+        }
     }
 
     private initPosition() {
@@ -288,21 +307,49 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     writeValue(value: any): void {
-        const vs = (this.defaultValue = toArray(value));
-        if (vs.length) {
-            this.initOptions(0);
+        if (!this.selectionModel) {
+            this.initSelectionModel();
+        }
+        if (!this.isMultiple) {
+            const vs = (this.defaultValue = toArray(value));
+            if (vs.length) {
+                this.initOptions(0);
+            } else {
+                this.value = vs;
+                this.activatedOptions = [];
+                this.afterWriteValue();
+            }
         } else {
-            this.value = vs;
-            this.activatedOptions = [];
-            this.afterWriteValue();
+            const values = toArray(value);
+            values.forEach(item => {
+                const vs = (this.defaultValue = toArray(item));
+                if (vs.length) {
+                    this.initOptions(0);
+                } else {
+                    this.value = vs;
+                    this.activatedOptions = [];
+                    this.afterWriteValue();
+                }
+            });
         }
     }
 
     afterWriteValue(): void {
         this.selectedOptions = this.activatedOptions;
-        this.value = this.getSubmitValue();
-        console.log('-----', this.thyMultiple);
+        this.value = this.getSubmitValue(this.selectedOptions);
+        this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();
+    }
+
+    private addSelectedState(selectOptions: CascaderOption[]) {
+        if (this.isMultiple && this.isOnlySelectLeaf) {
+            selectOptions.forEach(opt => {
+                if (opt.isLeaf) {
+                    opt.selected = true;
+                    this.cdr.markForCheck();
+                }
+            });
+        }
     }
 
     registerOnChange(fn: (_: any) => {}): void {
@@ -333,9 +380,22 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return option[this.thyValueProperty || 'value'];
     }
 
-    public isActivedOption(option: CascaderOption, index: number): boolean {
-        const activeOpt = this.activatedOptions[index];
-        return activeOpt === option;
+    public isActivatedOption(option: CascaderOption, index: number): boolean {
+        if (!this.isMultiple) {
+            const activeOpt = this.activatedOptions[index];
+            return activeOpt === option;
+        } else {
+            if (option.isLeaf) {
+                return option.selected;
+            } else {
+                const selectedOpts = this.selectionModel.selected;
+                const appearIndex = selectedOpts.findIndex(item => {
+                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                    return helpers.shallowEqual(selectedItem, option);
+                });
+                return appearIndex >= 0;
+            }
+        }
     }
 
     public onAttached(): void {
@@ -364,8 +424,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     private buildDisplayLabel(): void {
-        const selectedOptions = this.selectedOptions;
+        const selectedOptions = [...this.selectedOptions];
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
+        if (labels.length === 0) {
+            return;
+        }
         let labelRenderContext;
         let labelRenderText;
         if (this.isLabelRenderTemplate) {
@@ -375,8 +438,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             this.labelRenderText = labelRenderText;
         }
         if (this.labelRenderText || this.isLabelRenderTemplate) {
-            console.log(12346, this.thyMultiple);
-            this.selectionModel.select({
+            const selectedData: SelectOptionBase = {
                 thyRawValue: {
                     value: selectedOptions,
                     labelText: labelRenderText,
@@ -384,8 +446,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                 },
                 thyValue: labels,
                 thyLabelText: labelRenderText
-            });
-            console.log(labelRenderContext, 'labelRenderContext');
+            };
+            this.selectionModel.select(selectedData);
+            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         }
     }
 
@@ -506,7 +570,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
     }
 
-    onOptionClick(option: CascaderOption, index: number, event: Event): void {
+    public clickOption(option: CascaderOption, index: number, event: Event): void {
         if (event) {
             event.preventDefault();
         }
@@ -556,7 +620,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (index < this.activatedOptions.length - 1) {
             this.activatedOptions = this.activatedOptions.slice(0, index + 1);
         }
-        if (isArray(option.children) && !option.isLeaf) {
+        if (isArray(option.children) && option.children.length) {
             option.isLeaf = false;
             option.children.forEach(child => (child.parent = option));
             this.setColumnData(option.children, index + 1);
@@ -574,10 +638,21 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private onSelectOption(option: CascaderOption, index: number): void {
         this.thySelect.emit({ option, index });
-        if (option.isLeaf || this.thyChangeOnSelect || this.shouldPerformSelection(option, index)) {
+        const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
+        if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            console.log('+++++++', this.thyMultiple);
-            this.buildDisplayLabel();
+            option.selected = !option.selected;
+            this.cdr.markForCheck();
+            if (option.selected) {
+                this.buildDisplayLabel();
+            } else {
+                const selectedItems = this.selectionModel.selected;
+                const currentItem = selectedItems.find(item => {
+                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                    return helpers.shallowEqual(selectedItem, option);
+                });
+                this.selectionModel.deselect(currentItem);
+            }
             this.onValueChange();
         }
         if (option.isLeaf && !this.thyMultiple) {
@@ -585,22 +660,33 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
     }
 
+    private deselectOption(option: CascaderOption, index: number) {
+        this.thyDeselect.emit({ option, index });
+    }
+
     private shouldPerformSelection(option: CascaderOption, level: number): boolean {
         return typeof this.thyChangeOn === 'function' ? this.thyChangeOn(option, level) === true : false;
     }
 
     private onValueChange(): void {
-        const value = this.getSubmitValue();
+        const value = this.getValues();
         if (!arrayEquals(this.value, value)) {
             this.defaultValue = null;
             this.value = value;
             this.onChange(value);
-            if (value.length === 0) {
+            if (this.selectionModel.isEmpty()) {
                 this.thyClear.emit();
             }
             this.thySelectionChange.emit(this.selectedOptions);
             this.thyChange.emit(value);
         }
+    }
+
+    private getValues() {
+        let selectedItems: any[];
+        const selected = this.selectionModel.selected;
+        selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
+        return this.isMultiple ? selectedItems : selectedItems[0];
     }
 
     public clearSelection($event: Event): void {
@@ -651,9 +737,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
     }
 
-    public getSubmitValue(): any[] {
+    private getSubmitValue(originOptions: CascaderOption[]): any[] {
         const values: any[] = [];
-        this.selectedOptions.forEach(option => {
+        (originOptions || []).forEach(option => {
             values.push(this.getOptionValue(option));
         });
         return values;
@@ -666,6 +752,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         private viewPortRuler: ViewportRuler
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    public trackByFn(index: number, item: CascaderOption) {
+        return item?.value || item?._id || index;
     }
 
     ngOnDestroy() {

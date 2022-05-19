@@ -3,19 +3,14 @@
 .thy-cascader {
     position: relative;
     display: inline-block;
-    cursor: pointer;
-    // &-input.form-control {
-    //     border: none !important;
-    //     cursor: pointer;
 
-    //     &:disabled {
-    //         cursor: default;
-    //     }
-    // }
-    // &-xs,
-    // &-sm {
-    //     font-size: 0.75rem;
-    // }
+    .form-control {
+        cursor: pointer;
+
+        &.disabled {
+            cursor: default;
+        }
+    }
     // &-picker {
     //     &-open {
     //         border-color: variables.$primary;
