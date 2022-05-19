@@ -119,11 +119,11 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
         private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected defaultConfig: ThyNotifyConfig
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected config: ThyNotifyConfig
     ) {
         super(notifyAbstractOverlayOptions, overlay, injector, {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
-            ...defaultConfig
+            ...config
         });
     }
 
