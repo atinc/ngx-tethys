@@ -22,6 +22,7 @@
     class="thy-image-preview-img-wrapper"
     #imagePreviewWrapper
     cdkDrag
+    [class.thy-image-preview-inside]="isInsideScreen"
     [style.transform]="previewImageWrapperTransform"
     [cdkDragFreeDragPosition]="position"
     (cdkDragReleased)="dragReleased()"
@@ -29,13 +30,15 @@
     <ng-container *ngFor="let image of images; index as imageIndex">
       <img
         #imgRef
-        *ngIf="previewIndex === imageIndex"
+        *ngIf="previewIndex === imageIndex && isLoadingDone"
         class="thy-image-preview-img"
         [src]="image.src"
         [style.transform]="previewImageTransform"
       />
     </ng-container>
+    <thy-loading [thyDone]="isLoadingDone"></thy-loading>
   </div>
+
   <ng-container *ngIf="images.length > 1 && !isFullScreen">
     <div
       class="thy-image-preview-switch-left"

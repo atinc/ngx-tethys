@@ -37,6 +37,13 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 width: auto;
             }
         }
+        &-inside {
+            cursor: zoom-out;
+            pointer-events: all;
+            .#{$image-preview-prefix-cls}-img {
+                pointer-events: none;
+            }
+        }
 
         &-operations {
             list-style: none;
@@ -181,6 +188,12 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 color: variables.$gray-500;
             }
         }
+    }
+    .thy-loading {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 0;
     }
 }
 .#{$image-preview-prefix-cls}-backdrop {

@@ -8,7 +8,7 @@ import { ThyImageService } from './image.service';
     selector: 'img[thyImage]',
     exportAs: 'thyImage',
     host: {
-        '(click)': 'onPreview()'
+        '(click)': 'onPreview($event)'
     }
 })
 export class ThyImageDirective implements OnInit, OnChanges {
@@ -41,8 +41,8 @@ export class ThyImageDirective implements OnInit, OnChanges {
         }
     }
 
-    onPreview() {
-        if (!this.previewable) {
+    onPreview(event: MouseEvent) {
+        if (!this.previewable || event.button !== 0) {
             return;
         }
         if (this.parentGroup) {
