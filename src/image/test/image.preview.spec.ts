@@ -97,28 +97,6 @@ describe('image-preview', () => {
         expect(overlayContainerElement.querySelectorAll('li.thy-image-preview-operation').length).toBe(4);
     });
 
-    it('should automatically calculate zoom when there is no default value', done => {
-        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
-        button.click();
-        fixture.detectChanges();
-
-        expect(overlayContainerElement).toBeTruthy();
-        setTimeout(() => {
-            fixture.detectChanges();
-            expect(basicTestComponent.imageRef.componentInstance.zoom).toBeLessThan(1);
-            const rightSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-right') as HTMLElement;
-            expect(rightSwitch).toBeTruthy();
-            rightSwitch.click();
-            done();
-        }, 3000);
-
-        setTimeout(() => {
-            fixture.detectChanges();
-            expect(basicTestComponent.imageRef.componentInstance.zoom).toBe(1);
-            done();
-        }, 5000);
-    });
-
     it('should zoom out image when click zoom-out icon', () => {
         basicTestComponent.previewConfig.zoom = 0.2;
         fixture.detectChanges();
