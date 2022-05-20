@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
