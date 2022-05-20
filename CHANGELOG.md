@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.30](https://github.com/atinc/ngx-tethys/compare/12.1.29...12.1.30) (2022-05-20)
+
+
+### Bug Fixes
+
+* **notify:** fix assign default config error ([#1703](https://github.com/atinc/ngx-tethys/issues/1703)) ([6ea753f](https://github.com/atinc/ngx-tethys/commit/6ea753f5a18b9585ef07653b657174cb7902c93f))
+
+
+### Features
+
+* **divider:** add thyDeeper param to control whether the color is deepened and set height to 16px for vertical #INFR-3206 ([6a1b38d](https://github.com/atinc/ngx-tethys/commit/6a1b38d1b3c0e0e0b23e8ce093a5912ace19e1c0)), closes [#INFR-3206](https://github.com/atinc/ngx-tethys/issues/INFR-3206)
+* **image:** support keydownEvents and adjust preview interactive #INFR-3204 ([#1705](https://github.com/atinc/ngx-tethys/issues/1705)) ([a8fc56e](https://github.com/atinc/ngx-tethys/commit/a8fc56e42075cceeec44d545647956a0f2e28b96)), closes [#INFR-3204](https://github.com/atinc/ngx-tethys/issues/INFR-3204)
+
+
+
 ## [12.1.29](https://github.com/atinc/ngx-tethys/compare/12.1.28...12.1.29) (2022-05-19)
 
 
