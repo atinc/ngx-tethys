@@ -45,10 +45,12 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     previewImageTransform = '';
     previewImageWrapperTransform = '';
     zoomDisabled = false;
-    zoom: number;
+    zoom: number = 1;
     position = { ...initialPosition };
     isDragging = false;
+    isLoadingDone = false;
     isFullScreen = false;
+    isInsideScreen = true;
     currentImageMode: ThyImagePreviewMode = 'original-scale';
     previewOperations: ThyImagePreviewOperation[];
     defaultPreviewOperations: ThyImagePreviewOperation[] = [
@@ -138,7 +140,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         }
     }
 
-    @ViewChild('imgRef') imageRef!: ElementRef<HTMLImageElement>;
+    @ViewChild('imgRef', { static: false }) imageRef!: ElementRef<HTMLImageElement>;
     @ViewChild('imagePreviewWrapper', { static: true }) imagePreviewWrapper!: ElementRef<HTMLElement>;
 
     constructor(
@@ -157,7 +159,11 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             fromEvent(this.host.nativeElement, 'click')
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(event => {
-                    if (event.target === event.currentTarget && !this.previewConfig?.disableClose) {
+                    if (
+                        (event.target === event.currentTarget ||
+                            (this.isInsideScreen && event.target === this.imagePreviewWrapper.nativeElement)) &&
+                        !this.previewConfig?.disableClose
+                    ) {
                         this.ngZone.run(() => this.thyDialog.close());
                     }
                 });
@@ -165,7 +171,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             fromEvent(this.imagePreviewWrapper.nativeElement, 'mousedown')
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(() => {
-                    this.isDragging = true;
+                    this.isDragging = !this.isInsideScreen && true;
                 });
         });
     }
@@ -185,6 +191,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
 
     useDefaultZoomUpdate(isUpdateImageWrapper: boolean) {
         this.zoom = this.defaultZoom;
+        this.isLoadingDone = true;
         this.updatePreviewImageTransform();
         if (isUpdateImageWrapper) {
             this.updatePreviewImageWrapperTransform();
@@ -196,7 +203,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         let img = new Image();
         img.src = this.previewImage.src;
         img.onload = () => {
-            const { offsetWidth, offsetHeight } = this.host.nativeElement;
+            const { width: offsetWidth, height: offsetHeight } = getClientSize();
             const innerWidth = offsetWidth - HORIZONTAL_SPACE;
             const innerHeight = offsetHeight - VERTICAL_SPACE;
             const { naturalWidth, naturalHeight } = img;
@@ -205,11 +212,10 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             const zoom = Math.min(xRatio, yRatio);
             if (zoom > 1) {
                 this.zoom = 1;
-                this.imageRef.nativeElement.style.width = naturalWidth + 'px';
-                this.imageRef.nativeElement.style.height = naturalHeight + 'px';
             } else {
                 this.zoom = zoom;
             }
+            this.isLoadingDone = true;
             this.updatePreviewImageTransform();
             if (isUpdateImageWrapper) {
                 this.updatePreviewImageWrapperTransform();
@@ -266,6 +272,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     zoomIn(): void {
         if (this.zoom < IMAGE_MAX_ZOOM) {
             this.zoom = Math.min(this.zoom + 0.1, IMAGE_MAX_ZOOM);
+            this.calculateInsideScreen();
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
         }
@@ -274,8 +281,20 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     zoomOut(): void {
         if (this.zoom > IMAGE_MIN_ZOOM) {
             this.zoom = Math.max(this.zoom - 0.1, IMAGE_MIN_ZOOM);
+            this.calculateInsideScreen();
             this.updatePreviewImageTransform();
             this.position = { ...initialPosition };
+        }
+    }
+
+    calculateInsideScreen() {
+        const width = this.imageRef.nativeElement.offsetWidth * this.zoom;
+        const height = this.imageRef.nativeElement.offsetHeight * this.zoom;
+        const { width: clientWidth, height: clientHeight } = getClientSize();
+        if (width >= clientWidth || height >= clientHeight) {
+            this.isInsideScreen = false;
+        } else {
+            this.isInsideScreen = true;
         }
     }
 
@@ -347,6 +366,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     private reset(): void {
+        this.isLoadingDone = false;
         this.currentImageMode = 'original-scale';
         this.rotate = this.previewConfig?.rotate ?? 0;
         this.position = { ...initialPosition };
