@@ -8,8 +8,14 @@ import { FormsModule } from '@angular/forms';
 import { ThyDividerBasicExampleComponent } from './basic/basic.component';
 import { ThyDividerVerticalExampleComponent } from './vertical/vertical.component';
 import { ThyDividerWithTextExampleComponent } from './with-text/with-text.component';
+import { ThyDividerDeeperExampleComponent } from './deeper/deeper.component';
 
-const COMPONENTS = [ThyDividerBasicExampleComponent, ThyDividerVerticalExampleComponent, ThyDividerWithTextExampleComponent];
+const COMPONENTS = [
+    ThyDividerDeeperExampleComponent,
+    ThyDividerBasicExampleComponent,
+    ThyDividerVerticalExampleComponent,
+    ThyDividerWithTextExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,

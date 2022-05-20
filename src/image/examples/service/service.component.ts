@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ThyImagePreviewOperationType } from 'ngx-tethys/image';
 import { ThyImageService } from 'ngx-tethys/image/image.service';
 
 @Component({
@@ -23,6 +24,18 @@ export class ThyImageServiceExampleComponent {
                 size: '44kb'
             }
         ];
-        this.thyImageService.preview(images, { zoom: 0.8 });
+        const previewOperations: ThyImagePreviewOperationType[] = [
+            'zoom-out',
+            'zoom-in',
+            'rotate-right',
+            'download',
+            'copyLink',
+            'view-original',
+            'full-screen'
+        ];
+        this.thyImageService.preview(images, {
+            zoom: 1.5,
+            operations: previewOperations
+        });
     }
 }

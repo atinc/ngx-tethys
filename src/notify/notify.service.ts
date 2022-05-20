@@ -119,20 +119,12 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
         private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected defaultConfig: ThyNotifyConfig
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected config: ThyNotifyConfig
     ) {
         super(notifyAbstractOverlayOptions, overlay, injector, {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
-            ...defaultConfig
+            ...config
         });
-    }
-
-    public open<T, TData = unknown, TResult = unknown>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyNotifyConfig<TData>
-    ): ThyNotifyRef<T, TResult> {
-        const notifyRef = this.openOverlay(componentOrTemplateRef, config);
-        return notifyRef as ThyNotifyRef<T, TResult>;
     }
 
     public show(config: ThyNotifyConfig) {
@@ -141,7 +133,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         this.queueStore.addNotify(placement, notifyConfig);
         const notifyRef = this.getContainer(placement);
         if (!notifyRef) {
-            const ref = this.open(ThyNotifyContentComponent, {
+            const ref = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement

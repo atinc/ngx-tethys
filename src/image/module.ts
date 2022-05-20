@@ -10,11 +10,22 @@ import { THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER } from './image.config';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyCopyModule } from 'ngx-tethys/copy';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
 
 @NgModule({
     declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
     exports: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
-    imports: [CommonModule, PortalModule, DragDropModule, ThyIconModule, ThyDividerModule, ThyTooltipModule],
+    imports: [
+        CommonModule,
+        PortalModule,
+        DragDropModule,
+        ThyIconModule,
+        ThyDividerModule,
+        ThyTooltipModule,
+        ThyCopyModule,
+        ThyLoadingModule
+    ],
     providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })
 export class ThyImageModule {}

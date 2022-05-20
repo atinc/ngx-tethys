@@ -89,7 +89,7 @@
         height: 24px;
         margin: 0 auto;
         padding: 0;
-        color: style.$text-color;
+        color: variables.$text-color;
         line-height: 22px;
         text-align: center;
         background: transparent;
@@ -112,7 +112,7 @@
         }
 
         &:active {
-            color: style.$text-color-inverse;
+            color: variables.$text-color-inverse;
             background: variables.$primary;
         }
     }

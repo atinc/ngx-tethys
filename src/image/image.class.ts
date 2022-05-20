@@ -22,13 +22,24 @@ export interface ThyImagePreviewOptions {
     disableKeyboardSelectable?: boolean;
     zoom?: number;
     rotate?: number;
+    operations?: ThyImagePreviewOperationType[];
 }
 
 export interface ThyImagePreviewOperation {
     icon: string;
     name: string;
-    action: (image?: ThyImageInfo) => void;
+    action?: (image?: ThyImageInfo) => void;
     type?: ThyImagePreviewOperationType;
 }
 
-export type ThyImagePreviewOperationType = 'zoom-out' | 'zoom-in' | 'rotate-right' | 'download';
+export type ThyImagePreviewMode = 'original-scale' | 'fit-screen';
+
+export type ThyImagePreviewOperationType =
+    | 'zoom-out'
+    | 'zoom-in'
+    | 'rotate-right'
+    | 'download'
+    | ThyImagePreviewMode
+    | 'copyLink'
+    | 'view-original'
+    | 'full-screen';

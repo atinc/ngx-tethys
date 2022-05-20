@@ -9,15 +9,21 @@ export class ThyImageGroupExampleComponent {
         {
             src: 'assets/images/image/first.png',
             imageMeta: {
-                name: 'first.png',
+                name: 'first.jpg',
                 size: '66kb'
+            },
+            origin: {
+                src: 'assets/images/image/first.png'
             }
         },
         {
             src: 'assets/images/image/second.png',
             imageMeta: {
-                name: 'second.jpg',
+                name: 'last.jpg',
                 size: '44kb'
+            },
+            origin: {
+                src: 'assets/images/image/second.png'
             }
         },
         {
@@ -25,6 +31,9 @@ export class ThyImageGroupExampleComponent {
             imageMeta: {
                 name: 'last.jpg',
                 size: '44kb'
+            },
+            origin: {
+                src: 'assets/images/image/last.png'
             }
         }
     ];

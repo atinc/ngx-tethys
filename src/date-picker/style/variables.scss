@@ -1,11 +1,7 @@
 @use "sass:color";
 @use "../../styles/variables";
 
-$thy-prefix: 'thy';
 $calendar-prefix-cls: 'thy-calendar';
-
-$text-color: variables.$gray-800;
-$text-color-inverse: variables.$white;
 $heading-color: variables.$gray-800;
 
 // vertical padding for all form controls

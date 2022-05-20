@@ -8,7 +8,7 @@ import { ThyImageService } from './image.service';
     selector: 'img[thyImage]',
     exportAs: 'thyImage',
     host: {
-        '(click)': 'onPreview()'
+        '(click)': 'onPreview($event)'
     }
 })
 export class ThyImageDirective implements OnInit, OnChanges {
@@ -41,19 +41,33 @@ export class ThyImageDirective implements OnInit, OnChanges {
         }
     }
 
-    onPreview() {
-        if (!this.previewable) {
+    onPreview(event: MouseEvent) {
+        if (!this.previewable || event.button !== 0) {
             return;
         }
         if (this.parentGroup) {
             const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
-            const previewImages = previewAbleImages.map(e => ({ src: e.thySrc, ...e.thyImageMeta }));
+            const previewImages = previewAbleImages.map(e => ({
+                src: e.thySrc,
+                ...e.thyImageMeta,
+                origin: {
+                    src: e.thyOriginSrc
+                }
+            }));
             const startIndex = previewAbleImages.findIndex(el => this === el);
             this.thyImageService.preview(previewImages, {
                 startIndex
             });
         } else {
-            const previewImages = [{ src: this.thySrc, ...this.thyImageMeta }];
+            const previewImages = [
+                {
+                    src: this.thySrc,
+                    ...this.thyImageMeta,
+                    origin: {
+                        src: this.thyOriginSrc
+                    }
+                }
+            ];
             this.thyImageService.preview(previewImages);
         }
     }

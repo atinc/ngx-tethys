@@ -67,66 +67,39 @@ All notable changes to this project will be documented in this file. See [standa
 
 # [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
 
-
-
-# [13.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.4...13.0.0-next.5) (2022-05-17)
+## [12.1.30](https://github.com/atinc/ngx-tethys/compare/12.1.29...12.1.30) (2022-05-20)
 
 
 ### Bug Fixes
 
-* **schematics:** fix import error when has alias #INFR-2685 ([98c085f](https://github.com/atinc/ngx-tethys/commit/98c085f1b31c87e265758bc4de01b217ccd420c0)), closes [#INFR-2685](https://github.com/atinc/ngx-tethys/issues/INFR-2685)
+* **notify:** fix assign default config error ([#1703](https://github.com/atinc/ngx-tethys/issues/1703)) ([6ea753f](https://github.com/atinc/ngx-tethys/commit/6ea753f5a18b9585ef07653b657174cb7902c93f))
 
 
 ### Features
 
-* **styles:** export all mixin use forward #INFR-3124 [#1683](https://github.com/atinc/ngx-tethys/issues/1683) ([e126f00](https://github.com/atinc/ngx-tethys/commit/e126f00d4ba11b5dc065c9489560c1756baaebcd)), closes [#INFR-3124](https://github.com/atinc/ngx-tethys/issues/INFR-3124)
+* **divider:** add thyDeeper param to control whether the color is deepened and set height to 16px for vertical #INFR-3206 ([6a1b38d](https://github.com/atinc/ngx-tethys/commit/6a1b38d1b3c0e0e0b23e8ce093a5912ace19e1c0)), closes [#INFR-3206](https://github.com/atinc/ngx-tethys/issues/INFR-3206)
+* **image:** support keydownEvents and adjust preview interactive #INFR-3204 ([#1705](https://github.com/atinc/ngx-tethys/issues/1705)) ([a8fc56e](https://github.com/atinc/ngx-tethys/commit/a8fc56e42075cceeec44d545647956a0f2e28b96)), closes [#INFR-3204](https://github.com/atinc/ngx-tethys/issues/INFR-3204)
 
 
 
-# [13.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.3...13.0.0-next.4) (2022-05-13)
+## [12.1.29](https://github.com/atinc/ngx-tethys/compare/12.1.28...12.1.29) (2022-05-19)
+
+
+### Bug Fixes
+
+* #INFR-3116 the selected status is lost after dragging  ([a2df98b](https://github.com/atinc/ngx-tethys/commit/a2df98b9b36a7f57679fca4ce552a38ad75e2203)), closes [#INFR-3116](https://github.com/atinc/ngx-tethys/issues/INFR-3116)
+* **cascader:** fix empty data when use loadData property ([#1691](https://github.com/atinc/ngx-tethys/issues/1691)) ([31ed730](https://github.com/atinc/ngx-tethys/commit/31ed730d8b47dacf9b99f83b996805a5d951a3ac))
+* **pagination:**  fix pagination style and add blur methods for quick jump #INFR-3074 ([#1662](https://github.com/atinc/ngx-tethys/issues/1662)) ([b8062a8](https://github.com/atinc/ngx-tethys/commit/b8062a8b352a79c121b0db188d46eaa6ba4b3b65)), closes [#INFR-3074](https://github.com/atinc/ngx-tethys/issues/INFR-3074)
+* **pagination:** hide thy-pagination-total when total is 0 zd/#INFR-3147 ([#1697](https://github.com/atinc/ngx-tethys/issues/1697)) ([6c4f3b6](https://github.com/atinc/ngx-tethys/commit/6c4f3b66d1c1ca1c1b36af9c51162fcda2cebc04)), closes [zd/#INFR-3147](https://github.com/atinc/ngx-tethys/issues/INFR-3147)
 
 
 ### Features
 
-* **markdown:** remove markdown component and some js assets #INFR-1638 ([243407e](https://github.com/atinc/ngx-tethys/commit/243407e819a07a5e8fb2bba06d74f1503470f6cc)), closes [#INFR-1638](https://github.com/atinc/ngx-tethys/issues/INFR-1638)
-* **schematics:** add schematics for migrate to v13 ([#1664](https://github.com/atinc/ngx-tethys/issues/1664)) ([291f0ba](https://github.com/atinc/ngx-tethys/commit/291f0ba498359a3b1f4bd82acbe23c0530713a7e))
-* **store:** remove store from tethys and add mini-store to core for time-picker and notify #INFR-2347 ([62aa1f9](https://github.com/atinc/ngx-tethys/commit/62aa1f992de74b0ae57622c12fab4c75700fbf3b)), closes [#INFR-2347](https://github.com/atinc/ngx-tethys/issues/INFR-2347)
+* **image:** add preview image operations #INFR-3117 ([59627ca](https://github.com/atinc/ngx-tethys/commit/59627caec7c7806b3946dcd120104b92fdc2cf42)), closes [#INFR-3117](https://github.com/atinc/ngx-tethys/issues/INFR-3117)
+* **image:** the IMAGE_MAX_ZOOM form 5 to 3 #WIK-6644 ([#1699](https://github.com/atinc/ngx-tethys/issues/1699)) ([862259c](https://github.com/atinc/ngx-tethys/commit/862259c706969b8e5875d6ea7138cc0a8b214a0d)), closes [#WIK-6644](https://github.com/atinc/ngx-tethys/issues/WIK-6644)
+* **image:** update operations style with pointer-event #WIK-6643 ([#1700](https://github.com/atinc/ngx-tethys/issues/1700)) ([d473f65](https://github.com/atinc/ngx-tethys/commit/d473f6584f2869ac83a2347dc5ad31ec7986355f)), closes [#WIK-6643](https://github.com/atinc/ngx-tethys/issues/WIK-6643)
 
 
-
-# [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
-
-
-### Bug Fixes
-
-* update incorrect import path for select.mixin ([24abcc6](https://github.com/atinc/ngx-tethys/commit/24abcc6c97d95ecbadc1c1179688e7b8586981ee))
-
-
-
-# [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
-
-
-### Bug Fixes
-
-* **image:** fix demo module import path #INFR-3098 ([d830133](https://github.com/atinc/ngx-tethys/commit/d830133785c75032f3ae3cd5c7bc7310306696bb)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
-
-
-
-# [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
-
-
-### Bug Fixes
-
-* **table:**  fix drag style #INFR-1184 ([#1656](https://github.com/atinc/ngx-tethys/issues/1656)) ([c4df7e8](https://github.com/atinc/ngx-tethys/commit/c4df7e87ec964b1a810bbee58aeba31ee97bec6d)), closes [#INFR-1184](https://github.com/atinc/ngx-tethys/issues/INFR-1184)
-
-
-### Features
-
-* **image:** add basic image component #INFR-3098 ([#1658](https://github.com/atinc/ngx-tethys/issues/1658)) ([165264c](https://github.com/atinc/ngx-tethys/commit/165264c96104bafe8904439388d06c4be0356c7a)), closes [#INFR-3098](https://github.com/atinc/ngx-tethys/issues/INFR-3098)
-* **schematics:** replace ngx-tethys/store to @tethys/store at update-12  ([#1653](https://github.com/atinc/ngx-tethys/issues/1653)) ([aae1721](https://github.com/atinc/ngx-tethys/commit/aae17215820006c15d001016062886f5cdc465c7))
-
-
-# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
 
 ## [12.1.28](https://github.com/atinc/ngx-tethys/compare/12.1.27...12.1.28) (2022-05-18)
 

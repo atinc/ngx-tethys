@@ -1,7 +1,8 @@
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { Component, ViewChild } from '@angular/core';
+import { Component, Renderer2, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { of, Subject } from 'rxjs';
 import { ThyTooltipModule } from '../../tooltip';
 import { ThyFlexibleTextComponent } from '../flexible-text.component';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
@@ -53,6 +54,7 @@ class FlexibleTextTestComponent {
     content = '默认内容。。。';
     trigger = 'click';
     customContainerClass = null;
+    constructor(public render: Renderer2) {}
 }
 
 describe('FlexibleTextComponent', () => {
@@ -61,6 +63,7 @@ describe('FlexibleTextComponent', () => {
 
     let callbacks: Function[];
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
+    const fakeResizeObserver = new Subject();
 
     beforeEach(
         waitForAsync(() => {
@@ -85,6 +88,11 @@ describe('FlexibleTextComponent', () => {
                     }
                 ]
             }).compileComponents();
+
+            // fake resize observer before create component
+            const createResizeSpy = spyOn(ThyFlexibleTextComponent, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+
             fixture = TestBed.createComponent(FlexibleTextTestComponent);
             componentInstance = fixture.componentInstance;
             fixture.detectChanges();
@@ -168,4 +176,25 @@ describe('FlexibleTextComponent', () => {
         fixture.detectChanges();
         expect(flexibleTextElement.classList).toContain(custom);
     });
+
+    it('resize change:show update tooltips overflow status when changed size', fakeAsync(() => {
+        const component = componentInstance.flexibleText;
+        const shortContent = `this is short content message`;
+        componentInstance.content = shortContent;
+        componentInstance.tooltipContent = shortContent;
+        invokeCallbacks();
+        fixture.detectChanges();
+        expect(component.isOverflow).toBe(false);
+        const flexibleTextElement = fixture.debugElement.query(By.css('.flexible-text-section')).nativeElement;
+        flexibleTextElement.style.width = '100px';
+        // fake resize observer called
+        fakeResizeObserver.next();
+        tick(1000);
+        expect(component.isOverflow).toBe(true);
+        // increase to hide
+        flexibleTextElement.style.width = '500px';
+        fakeResizeObserver.next();
+        tick(1000);
+        expect(component.isOverflow).toBe(false);
+    }));
 });

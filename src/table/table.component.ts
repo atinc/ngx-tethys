@@ -597,8 +597,7 @@ export class ThyTableComponent extends _MixinBase
         };
     }
 
-    expandChildren(event: Event, row: any) {
-        event.stopPropagation();
+    expandChildren(row: any) {
         if (this.isExpanded(row)) {
             this.expandStatusMap[row[this.rowKey]] = false;
         } else {
@@ -632,27 +631,38 @@ export class ThyTableComponent extends _MixinBase
     }
 
     public onRowClick(event: Event, row: any) {
-        if (this.wholeRowSelect) {
-            const column = this.columns.find(item => {
-                return item.type === customType.checkbox || item.type === customType.radio;
-            });
-            if (!column.disabled) {
-                if (column.type === customType.checkbox) {
-                    row[column.key] = !row[column.key];
-                    this.onModelChange(row, column);
-                    this.onMultiSelectChange(event, row, column);
-                }
-                if (column.type === customType.radio) {
-                    this.selectedRadioRow = row;
-                    this.onRadioSelectChange(event, row);
+        const next = this.onRowClickPropagationEventHandler(event, row);
+        if (next) {
+            if (this.wholeRowSelect) {
+                const column = this.columns.find(item => {
+                    return item.type === customType.checkbox || item.type === customType.radio;
+                });
+                if (!column.disabled) {
+                    if (column.type === customType.checkbox) {
+                        row[column.key] = !row[column.key];
+                        this.onModelChange(row, column);
+                        this.onMultiSelectChange(event, row, column);
+                    }
+                    if (column.type === customType.radio) {
+                        this.selectedRadioRow = row;
+                        this.onRadioSelectChange(event, row);
+                    }
                 }
             }
+            const rowEvent = {
+                event: event,
+                row: row
+            };
+            this.thyOnRowClick.emit(rowEvent);
         }
-        const rowEvent = {
-            event: event,
-            row: row
-        };
-        this.thyOnRowClick.emit(rowEvent);
+    }
+
+    private onRowClickPropagationEventHandler(event: Event, row: any): boolean {
+        if ((event.target as Element).closest('.tree-expand-icon')) {
+            this.expandChildren(row);
+            return false;
+        }
+        return true;
     }
 
     public onRowContextMenu(event: Event, row: any) {

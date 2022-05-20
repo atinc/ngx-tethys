@@ -3,7 +3,7 @@ import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnIn
 import { ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
-import { from, Subject, Subscription } from 'rxjs';
+import { from, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 @Component({
@@ -62,6 +62,18 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.updateHostClassService.initializeElement(this.elementRef);
     }
 
+    static createResizeObserver(element: HTMLElement) {
+        return new Observable(observer => {
+            const resize = new ResizeObserver(entries => {
+                observer.next(entries);
+            });
+            resize.observe(element);
+            return () => {
+                resize.disconnect();
+            };
+        });
+    }
+
     ngOnInit() {
         this.updateContainerClass();
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, this.trigger);
@@ -81,10 +93,14 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.ngZone.runOutsideAngular(() => {
             // Wait for the next time period to avoid blocking the js thread.
             onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
-                this.applyOverflow();
-
                 this.contentObserver
                     .observe(this.elementRef)
+                    .pipe(debounceTime(100), takeUntil(this.destroy$))
+                    .subscribe(() => {
+                        this.applyOverflow();
+                    });
+
+                ThyFlexibleTextComponent.createResizeObserver(this.elementRef.nativeElement)
                     .pipe(debounceTime(100), takeUntil(this.destroy$))
                     .subscribe(() => {
                         this.applyOverflow();
