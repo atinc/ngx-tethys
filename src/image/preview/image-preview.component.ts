@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent, Subject } from 'rxjs';
+import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
@@ -45,7 +45,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     previewImageTransform = '';
     previewImageWrapperTransform = '';
     zoomDisabled = false;
-    zoom: number;
+    zoom: number = 1;
     position = { ...initialPosition };
     isDragging = false;
     isFullScreen = false;
@@ -196,9 +196,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         let img = new Image();
         img.src = this.previewImage.src;
         img.onload = () => {
-            const { offsetWidth, offsetHeight } = this.host.nativeElement;
-            const innerWidth = offsetWidth - HORIZONTAL_SPACE;
-            const innerHeight = offsetHeight - VERTICAL_SPACE;
+            let { innerWidth, innerHeight } = window;
+            innerWidth = innerWidth - HORIZONTAL_SPACE;
+            innerHeight = innerHeight - VERTICAL_SPACE;
             const { naturalWidth, naturalHeight } = img;
             const xRatio = innerWidth / naturalWidth;
             const yRatio = innerHeight / naturalHeight;
@@ -210,6 +210,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             } else {
                 this.zoom = zoom;
             }
+
             this.updatePreviewImageTransform();
             if (isUpdateImageWrapper) {
                 this.updatePreviewImageWrapperTransform();
@@ -260,7 +261,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let event = new MouseEvent('click');
             a.dispatchEvent(event);
         };
-        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
+        img.src = image.origin?.src || image.src;
     }
 
     zoomIn(): void {
