@@ -45,7 +45,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     previewImageTransform = '';
     previewImageWrapperTransform = '';
     zoomDisabled = false;
-    zoom: number = 1;
+    zoom: number;
     position = { ...initialPosition };
     isDragging = false;
     isFullScreen = false;
@@ -196,9 +196,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         let img = new Image();
         img.src = this.previewImage.src;
         img.onload = () => {
-            let { innerWidth, innerHeight } = window;
-            innerWidth = innerWidth - HORIZONTAL_SPACE;
-            innerHeight = innerHeight - VERTICAL_SPACE;
+            const { offsetWidth, offsetHeight } = this.host.nativeElement;
+            const innerWidth = offsetWidth - HORIZONTAL_SPACE;
+            const innerHeight = offsetHeight - VERTICAL_SPACE;
             const { naturalWidth, naturalHeight } = img;
             const xRatio = innerWidth / naturalWidth;
             const yRatio = innerHeight / naturalHeight;
@@ -210,7 +210,6 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             } else {
                 this.zoom = zoom;
             }
-
             this.updatePreviewImageTransform();
             if (isUpdateImageWrapper) {
                 this.updatePreviewImageWrapperTransform();
@@ -261,7 +260,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let event = new MouseEvent('click');
             a.dispatchEvent(event);
         };
-        img.src = image.origin?.src || image.src;
+        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
     }
 
     zoomIn(): void {
