@@ -4,6 +4,10 @@ import { LEFT_ARROW, RIGHT_ARROW } from '@angular/cdk/keycodes';
 import { ThyImagePreviewOptions } from '../image.class';
 
 export class ThyImagePreviewRef {
+    get componentInstance() {
+        return this.dialogRef.componentInstance;
+    }
+
     constructor(
         public previewInstance: ThyImagePreviewComponent,
         private config: ThyImagePreviewOptions,
