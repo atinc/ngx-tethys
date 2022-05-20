@@ -20,7 +20,7 @@
     background: variables.$primary;
 
     &:hover {
-        color: style.$text-color-inverse;
+        color: variables.$text-color-inverse;
         background: variables.$primary;
     }
 }

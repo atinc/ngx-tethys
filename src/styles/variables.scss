@@ -1,5 +1,8 @@
 @use "sass:color";
 @use "sass:map";
+
+$thy-prefix: 'thy';
+
 // gray color
 $white: #fff;
 // 直接使用 $gray-70 , $gray-99 会在将来的版本移除
@@ -53,6 +56,9 @@ $font-family-statistics-number: $font-family-base !default;
 $font-size-base: 0.875rem !default; // 14px
 $font-size-lg: 1.25rem !default; // 20px
 $font-size-sm: 0.75rem !default; // 12px
+
+$text-color: $gray-800 !default;
+$text-color-inverse: $white !default;
 
 // line-height
 $line-height-lg: 1.5 !default;
@@ -808,4 +814,6 @@ $popover-body-padding: 15px 20px !default;
 $divider-orientation-margin: 5% !default;
 $divider-text-padding: 1em !default;
 $divider-color: $gray-200 !default;
+$divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
+$divider-text-color: $gray-600 !default;

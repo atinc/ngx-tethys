@@ -1,4 +1,5 @@
-import { Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, TemplateRef, ViewEncapsulation, HostBinding } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 export type ThyDividerStyle = 'solid' | 'dashed';
 
@@ -24,7 +25,8 @@ export type ThyDividerTextDirection = 'left' | 'right' | 'center';
         '[class.thy-divider-with-content-right]': `(textContent || templateContent) && thyTextDirection === 'right'`,
         '[class.thy-divider-with-content-center]': `(textContent || templateContent) && thyTextDirection === 'center'`,
         '[class.thy-divider-solid]': `thyStyle === 'solid'`,
-        '[class.thy-divider-dashed]': `thyStyle === 'dashed'`
+        '[class.thy-divider-dashed]': `thyStyle === 'dashed'`,
+        '[class.thy-divider-deeper]': `!!thyDeeper`
     }
 })
 export class ThyDividerComponent {
@@ -45,6 +47,10 @@ export class ThyDividerComponent {
     @Input() thyStyle: ThyDividerStyle = 'solid';
 
     @Input() thyTextDirection: ThyDividerTextDirection = 'center';
+
+    @InputBoolean()
+    @Input()
+    thyDeeper = false;
 
     constructor() {}
 }
