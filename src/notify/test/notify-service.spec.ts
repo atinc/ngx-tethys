@@ -32,7 +32,7 @@ export class ThyNotifyBasicComponent implements OnInit {
     }
 
     openComponentSuccessNotify(type: string) {
-        this.notifyService[type](`type is ${type}的title`, 'content', { detail: 'this is detail' });
+        this.notifyService[type](`type is ${type}`, 'some content', { detail: 'this is detail' });
     }
 
     closeNotify() {
@@ -65,7 +65,7 @@ describe('ThyNotify', () => {
         let fixture: ComponentFixture<ThyNotifyBasicComponent>;
         let componentInstance: ThyNotifyBasicComponent;
         let btnElement: HTMLElement;
-        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>, linkContainer: NodeListOf<Element>;
+        let notifyContainer: NodeListOf<Element>, notifyTopLeftContainer: NodeListOf<Element>;
 
         beforeEach(fakeAsync(() => {
             fixture = TestBed.createComponent(ThyNotifyBasicComponent);
@@ -76,7 +76,7 @@ describe('ThyNotify', () => {
 
         it('should has thy-notify-container and default is topRight', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加0项目成功!'
+                title: 'ngx tethys notify'
             };
             fixture.detectChanges();
             flush();
@@ -98,7 +98,7 @@ describe('ThyNotify', () => {
 
         it('should has thy-notify-topLeft when set placement is topLeft', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加1项目成功！',
+                title: 'ngx tethys notify',
                 placement: 'topLeft'
             };
             fixture.detectChanges();
@@ -120,7 +120,7 @@ describe('ThyNotify', () => {
 
         it('should auto disappear when not set duration', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加2项目成功！'
+                title: 'ngx tethys notify'
             };
             fixture.detectChanges();
             btnElement.click();
@@ -137,7 +137,7 @@ describe('ThyNotify', () => {
 
         it('should not auto disappear when duration is 0', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加项目3成功！',
+                title: 'ngx tethys notify',
                 duration: 0
             };
             fixture.detectChanges();
@@ -159,14 +159,16 @@ describe('ThyNotify', () => {
 
         it('When detail is an object, it should be a clickable link', fakeAsync(() => {
             const actionSpy = jasmine.createSpy('inside event');
-
+            const detail = {
+                link: 'Preview',
+                content: 'Preview Content'
+            };
             componentInstance.option = {
                 type: 'info',
-                title: '添加项目4成功！',
-                content: '获取数据成功！',
+                title: 'ngx tethys notify',
+                content: 'ngx tethys notify content',
                 detail: {
-                    link: '查看',
-                    content: '查看的内容',
+                    ...detail,
                     action: () => {
                         actionSpy();
                     }
@@ -178,23 +180,23 @@ describe('ThyNotify', () => {
             tick();
             const notifyContainer = overlayContainerElement.querySelector(`.thy-notify-topRight`);
             const linkContainer: HTMLElement = notifyContainer.querySelector(`.link-secondary`);
-            expect(linkContainer.textContent === '查看').toBeTruthy();
+            expect(linkContainer.textContent).toBe(detail.link);
             linkContainer.click();
             fixture.detectChanges();
             expect(actionSpy).toHaveBeenCalled();
             const detailContentContainer = notifyContainer.querySelector(`.thy-notify-detail`);
-            expect(detailContentContainer.textContent).toBe('查看的内容');
+            expect(detailContentContainer.textContent).toBe(detail.content);
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
         }));
 
         it('When detail is string, detail text should be displayed', fakeAsync(() => {
-            const detailText = 'detail中content是文本';
+            const detailText = 'ngx tethys notify detail content';
             componentInstance.option = {
                 type: 'warning',
-                title: '警告 - 添加项目5！',
-                content: '获取数据！',
+                title: 'Warning',
+                content: 'Something is wrong',
                 detail: detailText
             };
             fixture.detectChanges();
@@ -216,7 +218,7 @@ describe('ThyNotify', () => {
         it('should show error type when config.type is error', fakeAsync(() => {
             componentInstance.option = {
                 type: 'error',
-                title: '错误 - 添加项目！'
+                title: 'Error'
             };
             fixture.detectChanges();
             btnElement.click();
@@ -284,7 +286,7 @@ describe('ThyNotify', () => {
 
         it('should remove notify when click close btn', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加项目6成功！'
+                title: 'ngx tethys notify'
             };
             fixture.detectChanges();
             btnElement.click();
@@ -323,7 +325,7 @@ describe('ThyNotify', () => {
 
         it('should not remove when trigger mouseenter', fakeAsync(() => {
             componentInstance.option = {
-                title: '添加项目7成功！',
+                title: 'ngx tethys notify',
                 pauseOnHover: true
             };
             fixture.detectChanges();
@@ -384,8 +386,9 @@ describe('ThyNotify with provider', () => {
         }));
 
         it('should has thy-notify-bottomLeft', fakeAsync(() => {
+            // or can test config with invoke function
             componentInstance.option = {
-                title: '添加0项目成功!'
+                title: 'ngx tethys notify'
             };
             btnElement.click();
             fixture.detectChanges();
