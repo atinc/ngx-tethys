@@ -45,7 +45,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     previewImageTransform = '';
     previewImageWrapperTransform = '';
     zoomDisabled = false;
-    zoom: number;
+    zoom: number = 1;
     position = { ...initialPosition };
     isDragging = false;
     isLoadingDone = false;

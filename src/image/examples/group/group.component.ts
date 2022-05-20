@@ -7,23 +7,23 @@ import { Component } from '@angular/core';
 export class ThyImageGroupExampleComponent {
     images = [
         {
-            src: 'http://atlas-test.pingcode.live/files/public/6284c3e7d2f0dc84ec6d5159/origin-url',
+            src: 'assets/images/image/first.png',
             imageMeta: {
                 name: 'first.jpg',
                 size: '66kb'
             },
             origin: {
-                src: 'http://atlas-test.pingcode.live/files/public/6284c3e7d2f0dc84ec6d5159/origin-url'
+                src: 'assets/images/image/first.png'
             }
         },
         {
-            src: 'http://atlas-test.pingcode.live/files/public/6284c3fad2f0dc84ec6d515b/origin-url',
+            src: 'assets/images/image/second.png',
             imageMeta: {
                 name: 'last.jpg',
                 size: '44kb'
             },
             origin: {
-                src: 'http://atlas-test.pingcode.live/files/public/6284c3fad2f0dc84ec6d515b/origin-url'
+                src: 'assets/images/image/second.png'
             }
         },
         {
