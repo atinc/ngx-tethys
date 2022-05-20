@@ -5,20 +5,26 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: style.$text-color;
+    color: variables.$text-color;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     list-style: none;
     border-top: variables.$divider-width solid variables.$divider-color;
+    &.thy-divider-deeper {
+        border-top-color: variables.$divider-deeper-color;
+    }
     &.thy-divider-vertical {
         position: relative;
         top: -0.06em;
         display: inline-block;
-        height: 0.9em;
+        height: 1rem;
         margin: 0 8px;
         vertical-align: middle;
         border-top: 0;
         border-left: variables.$divider-width solid variables.$divider-color;
+        &.thy-divider-deeper {
+            border-left-color: variables.$divider-deeper-color;
+        }
         &.thy-divider-dashed {
             border-width: 0 0 0 variables.$divider-width;
         }
@@ -32,7 +38,7 @@
         &.thy-divider-with-content {
             display: flex;
             margin: 16px 0;
-            color: style.$text-color;
+            color: variables.$divider-text-color;
             font-weight: normal;
             font-size: variables.$font-size-base;
             white-space: nowrap;
@@ -81,7 +87,6 @@
     }
     &.thy-divider-dashed {
         background: none;
-        border-color: variables.$divider-color;
         border-style: dashed;
         border-width: variables.$divider-width 0 0;
     }

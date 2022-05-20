@@ -53,7 +53,7 @@
     height: 24px;
     margin: 0 auto;
     padding: 0 6px;
-    color: style.$text-color;
+    color: variables.$text-color;
     line-height: 24px;
     text-align: center;
     background: transparent;
@@ -67,11 +67,11 @@
 }
 
 .#{style.$calendar-prefix-cls}-decade-panel-selected-cell .#{style.$calendar-prefix-cls}-decade-panel-decade {
-    color: style.$text-color-inverse;
+    color: variables.$text-color-inverse;
     background: variables.$primary;
 
     &:hover {
-        color: style.$text-color-inverse;
+        color: variables.$text-color-inverse;
         background: variables.$primary;
     }
 }
@@ -79,7 +79,7 @@
 .#{style.$calendar-prefix-cls}-decade-panel-last-century-cell,
 .#{style.$calendar-prefix-cls}-decade-panel-next-century-cell {
     .#{style.$calendar-prefix-cls}-decade-panel-decade {
-        color: style.$text-color;
+        color: variables.$text-color;
         user-select: none;
     }
 }

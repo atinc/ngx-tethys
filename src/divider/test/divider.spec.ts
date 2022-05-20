@@ -14,6 +14,7 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
                 [thyStyle]="styleMode"
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
+                [thyDeeper]="isDeeper"
             ></thy-divider>
             <ng-template #dividerTemplateSelect>
                 <thy-custom-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
@@ -26,6 +27,8 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
 })
 class ThyTestDividerComponent {
     isVertical = false;
+
+    isDeeper = false;
 
     styleMode: ThyDividerStyle = 'solid';
 
@@ -119,6 +122,21 @@ describe('ThyDividerComponent', () => {
             fixture.detectChanges();
             const rightContent = fixture.nativeElement.querySelector('.thy-divider.thy-divider-with-content-right');
             expect(rightContent).toBeTruthy();
+        });
+    });
+
+    describe('deeper', () => {
+        it('should set thy-deeper by thyDeeper', () => {
+            fixture.detectChanges();
+
+            const centerContent: HTMLElement = fixture.nativeElement.querySelector('.thy-divider');
+            expect(centerContent).toBeTruthy();
+
+            expect(centerContent.classList.contains('thy-divider-deeper')).toBeFalsy();
+
+            componentInstance.isDeeper = true;
+            fixture.detectChanges();
+            expect(centerContent.classList.contains('thy-divider-deeper')).toBeTruthy();
         });
     });
 });
