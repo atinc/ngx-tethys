@@ -6,7 +6,7 @@ import { ThyImageModule } from '../module';
 import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
 import { ThyImageService } from '../image.service';
 import { ThyImagePreviewOptions } from '../image.class';
-import { ThyDialogRef } from 'ngx-tethys/dialog/dialog-ref';
+import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -34,7 +34,7 @@ class ImagePreviewTestComponent {
         }
     ];
     previewConfig: ThyImagePreviewOptions = {};
-    imageRef: ThyDialogRef<any>;
+    imageRef: ThyImagePreviewRef;
 
     onClick() {
         this.imageRef = this.thyImageService.preview(this.images, this.previewConfig);
