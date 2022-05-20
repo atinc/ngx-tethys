@@ -61,7 +61,7 @@ describe('image-directive', () => {
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeFalsy();
     });
 
-    it('should open image preview when click image', () => {
+    xit('should open image preview when click image', () => {
         basicTestComponent.src = 'assets/images/image/first.png';
         fixture.detectChanges();
         debugElement.nativeElement.click();
