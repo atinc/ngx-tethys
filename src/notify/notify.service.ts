@@ -127,21 +127,13 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    public open<T, TData = unknown, TResult = unknown>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyNotifyConfig<TData>
-    ): ThyNotifyRef<T, TResult> {
-        const notifyRef = this.openOverlay(componentOrTemplateRef, config);
-        return notifyRef as ThyNotifyRef<T, TResult>;
-    }
-
     public show(config: ThyNotifyConfig) {
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
         const notifyRef = this.getContainer(placement);
         if (!notifyRef) {
-            const ref = this.open(ThyNotifyContentComponent, {
+            const ref = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement
