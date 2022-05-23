@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.31](https://github.com/atinc/ngx-tethys/compare/12.1.30...12.1.31) (2022-05-23)
+
+
+
 ## [12.1.30](https://github.com/atinc/ngx-tethys/compare/12.1.29...12.1.30) (2022-05-20)
 
 
