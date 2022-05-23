@@ -4,6 +4,9 @@ import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImageMeta } from './image.class';
 import { ThyImageService } from './image.service';
 
+/**
+ * thyImage: 预览图片指令，只可绑定到 img 标签上
+ */
 @Directive({
     selector: 'img[thyImage]',
     exportAs: 'thyImage',
@@ -12,16 +15,32 @@ import { ThyImageService } from './image.service';
     }
 })
 export class ThyImageDirective implements OnInit, OnChanges {
+    /**
+     * 图片地址
+     */
     @Input() thySrc: string;
+    /**
+     * 缩略图片地址
+     */
     @Input() thyPreviewSrc: string;
+    /**
+     * 图片原图地址
+     */
     @Input() thyOriginSrc: string;
+    /**
+     * 图片附加信息，包含 { name: string, size?: string | number; }
+     */
     @Input() thyImageMeta: ThyImageMeta;
-
+    /**
+     * 是否禁止预览
+     * @default false
+     */
     @Input() @InputBoolean() thyDisablePreview: boolean;
 
     get previewable(): boolean {
         return !this.thyDisablePreview;
     }
+
     constructor(
         private thyImageService: ThyImageService,
         @Optional() private parentGroup: ThyImageGroupComponent,

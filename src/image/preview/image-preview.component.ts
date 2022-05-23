@@ -27,6 +27,10 @@ const IMAGE_MAX_ZOOM = 3;
 const IMAGE_MIN_ZOOM = 0.1;
 const HORIZONTAL_SPACE = 100 * 2; // left: 100px; right: 100px
 const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
+
+/**
+ * 图片预览组件
+ */
 @Component({
     selector: 'thy-image-preview',
     exportAs: 'thyImagePreview',
@@ -181,6 +185,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.currentImageMode = 'fit-screen';
         this.zoom = 1;
         this.updatePreviewImageTransform();
+        this.isLoadingDone = true;
         this.cdr.markForCheck();
     }
 
@@ -301,6 +306,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     viewOriginal() {
         this.reset();
         this.imageRef.nativeElement.src = this.previewImage?.origin?.src || this.previewImage.src;
+        this.isLoadingDone = true;
     }
 
     rotateRight(): void {

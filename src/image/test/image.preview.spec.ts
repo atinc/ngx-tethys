@@ -103,21 +103,21 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
-        let previousZoom = basicTestComponent.imageRef.componentInstance.zoom;
+        let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const zoomOut = operations[0] as HTMLElement;
         expect(zoomOut.getAttribute('ng-reflect-content')).toBe('缩小');
         zoomOut.click();
 
-        let currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        let currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(currentZoom).toBe(previousZoom - 0.1);
         expect(currentImageTransform).toContain(`scale3d(${previousZoom - 0.1}, ${previousZoom - 0.1}, 1)`);
 
         zoomOut.click();
-        currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(currentZoom).toBe(0.1);
         expect(currentImageTransform).toContain(`scale3d(0.1, 0.1, 1)`);
     });
@@ -128,21 +128,21 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
-        let previousZoom = basicTestComponent.imageRef.componentInstance.zoom;
+        let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const zoomIn = operations[1] as HTMLElement;
         expect(zoomIn.getAttribute('ng-reflect-content')).toBe('放大');
         zoomIn.click();
 
-        let currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        let currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(currentZoom).toBe(previousZoom + 0.1);
         expect(currentImageTransform).toContain(`scale3d(${previousZoom + 0.1}, ${previousZoom + 0.1}, 1)`);
 
         zoomIn.click();
-        currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(currentZoom).toBe(3);
         expect(currentImageTransform).toContain(`scale3d(3, 3, 1)`);
     });
@@ -159,8 +159,8 @@ describe('image-preview', () => {
         originalSize.click();
 
         fixture.detectChanges();
-        let currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        let currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         const fitScreen = overlayContainerElement.querySelectorAll(
             '.thy-image-preview-operation .thy-image-preview-operation-icon'
         )[2] as HTMLElement;
@@ -169,8 +169,8 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`scale3d(1, 1, 1)`);
 
         fitScreen.click();
-        currentZoom = basicTestComponent.imageRef.componentInstance.zoom;
-        currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
+        currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
         const defaultZoom = basicTestComponent.previewConfig.zoom;
         expect(currentZoom).toBe(defaultZoom);
@@ -196,15 +196,15 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const previousRotate = basicTestComponent.imageRef.componentInstance['rotate'];
+        const previousRotate = basicTestComponent.imageRef.previewInstance['rotate'];
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const rotate = operations[4] as HTMLElement;
         expect(rotate.getAttribute('ng-reflect-content')).toBe('旋转');
         expect(previousRotate).toBe(basicTestComponent.previewConfig.rotate);
         rotate.click();
 
-        const currentRotate = basicTestComponent.imageRef.componentInstance['rotate'];
-        const currentImageTransform = basicTestComponent.imageRef.componentInstance.previewImageTransform;
+        const currentRotate = basicTestComponent.imageRef.previewInstance['rotate'];
+        const currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
         expect(currentRotate).toBe(previousRotate + 90);
         expect(currentImageTransform).toContain(`rotate(${previousRotate + 90}deg)`);
     });
