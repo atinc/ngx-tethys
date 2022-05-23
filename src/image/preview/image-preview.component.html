@@ -75,7 +75,7 @@
       <li class="thy-image-preview-operation" *ngIf="option.type === 'copyLink'">
         <div
           class="thy-image-preview-operation-icon"
-          [thyTooltip]="option.name"
+          [thyCopyTips]="option.name"
           (thyCopy)="copyLink($event)"
           [thyShowNotify]="false"
           [thyCopyContent]="previewImage.origin?.src || previewImage.src"
