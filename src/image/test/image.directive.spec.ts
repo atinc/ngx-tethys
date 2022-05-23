@@ -53,7 +53,7 @@ describe('image-directive', () => {
         expect(imageSrc).toBe(basicTestComponent.src);
     });
 
-    it('should not img  open image preview when thyDisablePreview is true', () => {
+    it('should not img open image preview when thyDisablePreview is true', () => {
         basicTestComponent.src = 'assets/images/image/first.png';
         basicTestComponent.disablePreview = true;
         fixture.detectChanges();

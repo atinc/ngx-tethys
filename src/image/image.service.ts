@@ -2,14 +2,17 @@ import { Inject, Injectable, Optional } from '@angular/core';
 import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
-import { ThyDialog, ThyDialogRef, ThyDialogSizes } from 'ngx-tethys/dialog';
+import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
 
-export interface ThyImageService {
-    preview(images: ThyImageInfo[], option?: ThyImagePreviewOptions & { startIndex?: number }): ThyImagePreviewRef;
-}
+/**
+ * 图片预览服务
+ */
 @Injectable()
 export class ThyImageService {
+    /**
+     * 图片预览默认配置，外部可通过注入 THY_IMAGE_DEFAULT_PREVIEW_OPTIONS 进行配置
+     */
     defaultConfig: ThyImagePreviewConfig;
     constructor(
         public thyDialog: ThyDialog,
@@ -20,6 +23,9 @@ export class ThyImageService {
         this.defaultConfig = defaultConfig;
     }
 
+    /**
+     * 图片预览方法
+     */
     preview(images: ThyImageInfo[], options?: ThyImagePreviewOptions & { startIndex?: number }): ThyImagePreviewRef {
         const dialogRef = this.thyDialog.open(ThyImagePreviewComponent, {
             initialState: {

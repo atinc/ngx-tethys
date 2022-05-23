@@ -116,6 +116,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             position: fixed;
             top: 23px;
             right: 40px;
+            z-index: 10;
         }
 
         &-switch-left,
