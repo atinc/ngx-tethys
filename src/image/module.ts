@@ -12,6 +12,7 @@ import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
 
 @NgModule({
     declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
@@ -21,6 +22,7 @@ import { ThyLoadingModule } from 'ngx-tethys/loading';
         PortalModule,
         DragDropModule,
         ThyIconModule,
+        ThyDialogModule,
         ThyDividerModule,
         ThyTooltipModule,
         ThyCopyModule,
