@@ -195,7 +195,6 @@ const TEST_COMPONENTS = [
 ];
 @NgModule({
     declarations: TEST_COMPONENTS,
-    entryComponents: [PopoverSimpleContentComponent, WithChildViewContainerComponent],
     imports: [ThyPopoverModule, NoopAnimationsModule, OverlayModule],
     exports: TEST_COMPONENTS
 })

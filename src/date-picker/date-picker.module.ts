@@ -54,7 +54,6 @@ registerLocaleData(localeZhHans, 'zh-Hans');
         ThyDatePickerDirective,
         ThyRangePickerDirective
     ],
-    entryComponents: [DatePopupComponent],
     providers: [ThyDatePickerConfigService]
 })
 export class ThyDatePickerModule {}

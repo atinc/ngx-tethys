@@ -1,8 +1,9 @@
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThySelectModule } from 'ngx-tethys/select';
+
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-
-import { NgxTethysModule } from 'ngx-tethys';
 
 import { ThyDividerBasicExampleComponent } from './basic/basic.component';
 import { ThyDividerVerticalExampleComponent } from './vertical/vertical.component';
@@ -18,8 +19,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
+    imports: [CommonModule, FormsModule, ThyDividerModule, ThySelectModule],
     exports: COMPONENTS
 })
 export class ThyDividerExamplesModule {}

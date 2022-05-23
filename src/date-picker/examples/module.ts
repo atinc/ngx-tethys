@@ -28,7 +28,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, ThyButtonModule],
     exports: [...COMPONENTS]
 })

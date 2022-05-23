@@ -34,7 +34,6 @@ const COMPONENTS = [
         ThyActionMenuModule,
         ThySpaceModule
     ],
-    entryComponents: COMPONENTS,
     exports: COMPONENTS,
     providers: []
 })

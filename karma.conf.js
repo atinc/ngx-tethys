@@ -16,6 +16,9 @@ module.exports = function(config) {
             jasmine: { random: false },
             clearContext: false // leave Jasmine Spec Runner output visible in browser
         },
+        jasmineHtmlReporter: {
+            suppressAll: true // removes the duplicated traces
+        },
         coverageReporter: {
             dir: 'coverage/tethys',
             subdir: '.',
@@ -37,6 +40,7 @@ module.exports = function(config) {
                 base: 'ChromeHeadless',
                 flags: ['--no-sandbox']
             }
-        }
+        },
+        restartOnFileChange: true
     });
 };

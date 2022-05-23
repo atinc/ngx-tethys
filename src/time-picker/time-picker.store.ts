@@ -1,4 +1,4 @@
-import { Store, Action } from 'ngx-tethys/store';
+import { MiniStore, MiniAction } from 'ngx-tethys/core';
 import { TimeChangeEvent, TimePickerComponentState, Time, TimePickerControls } from './time-picker.models';
 import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from './time-picker-controls.util';
 import { changeTime, setTime, isValidLimit } from './time-picker.utils';
@@ -28,17 +28,17 @@ export const initialState: TimePickerState = {
 };
 
 @Injectable()
-export class ThyTimePickerStore extends Store<TimePickerState> {
+export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     constructor() {
         super(initialState);
     }
 
-    @Action()
+    @MiniAction()
     writeValue(value: Date) {
         this.setState({ value: value });
     }
 
-    @Action()
+    @MiniAction()
     changeHours(event: TimeChangeEvent) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeHours(event, state.controls)) {
@@ -54,7 +54,7 @@ export class ThyTimePickerStore extends Store<TimePickerState> {
         this.setState({ value: _newTime });
     }
 
-    @Action()
+    @MiniAction()
     changeMinutes(event: TimeChangeEvent) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeMinutes(event, state.controls)) {
@@ -70,7 +70,7 @@ export class ThyTimePickerStore extends Store<TimePickerState> {
         this.setState({ value: _newTime });
     }
 
-    @Action()
+    @MiniAction()
     changeSeconds(event: TimeChangeEvent) {
         const state = this.snapshot;
         if (!canChangeValue(state.config, event) || !canChangeSeconds(event, state.controls)) {
@@ -88,7 +88,7 @@ export class ThyTimePickerStore extends Store<TimePickerState> {
         this.setState({ value: _newTime });
     }
 
-    @Action()
+    @MiniAction()
     setTime(value: Time) {
         const state = this.snapshot;
         if (!canChangeValue(state.config)) {
@@ -99,7 +99,7 @@ export class ThyTimePickerStore extends Store<TimePickerState> {
         this.setState({ value: _newTime });
     }
 
-    @Action()
+    @MiniAction()
     updateControls(value: TimePickerComponentState) {
         const state = this.snapshot;
         const _newControlsState = timePickerControls(state.value, value);

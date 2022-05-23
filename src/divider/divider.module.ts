@@ -7,7 +7,6 @@ import { ThyDividerComponent } from './divider.component';
 
 @NgModule({
     declarations: [ThyDividerComponent],
-    entryComponents: [],
     imports: [CommonModule, ThySharedModule, ThyIconModule],
     exports: [ThyDividerComponent],
     providers: []

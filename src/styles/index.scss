@@ -6,17 +6,6 @@
 @forward './bootstrap/type';
 @forward './bootstrap/mixins';
 @forward './bootstrap/utilities';
-// @import "./bootstrap/buttons";
-// @import "./bootstrap/badge";
-// @import "./bootstrap/label";
-// @import './bootstrap/transitions';
-// @import "./bootstrap/nav";
-// @import "./bootstrap/navbar";
-// @import "./bootstrap/forms";
-// @import "./bootstrap/pagination";
-// @import './bootstrap/modal';
-// @import "./bootstrap/forms";
-// @import "./bootstrap/input-group";
 @forward '../button/styles/button';
 @forward '../button/styles/button-group';
 @forward '../alert/styles/alert';
@@ -49,7 +38,7 @@
 @forward '../property-operation/styles/property-operation.scss';
 @forward '../strength/styles/strength.scss';
 @forward '../table/styles/table';
-@forward '../raster/styles/grid.scss';
+@forward '../grid/styles/grid.scss';
 @forward '../date-range/styles/date-range.scss';
 @forward '../list/styles/list.scss';
 @forward '../tree-select/styles/tree-select.scss';
@@ -67,7 +56,6 @@
 @forward '../vote/styles/vote.scss';
 @forward '../result/styles/result.scss';
 @forward '../mention/mention.scss';
-@forward '../markdown/markdown.scss';
 @forward '../date-picker/style/index.scss';
 @forward '../time-picker/style.scss';
 @forward '../statistic/styles/statistic.scss';

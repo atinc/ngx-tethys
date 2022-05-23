@@ -4,7 +4,6 @@ import { ThySwitchComponent } from './switch.component';
 
 @NgModule({
     declarations: [ThySwitchComponent],
-    entryComponents: [ThySwitchComponent],
     imports: [CommonModule],
     exports: [ThySwitchComponent]
 })

@@ -848,49 +848,49 @@ describe('ThyDialog', () => {
         });
     });
 
-    describe('aria-hidden', () => {
-        // it('should toggle `aria-hidden` on the overlay container siblings', fakeAsync(() => {
-        //     const sibling = document.createElement('div');
-        //     overlayContainerElement.parentNode.appendChild(sibling);
-        //     const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        //     viewContainerFixture.detectChanges();
-        //     flush();
-        //     expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden');
-        //     expect(overlayContainerElement.hasAttribute('aria-hidden')).toBe(
-        //         false,
-        //         'Expected overlay container not to be hidden.'
-        //     );
-        //     dialogRef.close();
-        //     viewContainerFixture.detectChanges();
-        //     flush();
-        //     expect(sibling.hasAttribute('aria-hidden')).toBe(false, 'Expected sibling to no longer be hidden.');
-        //     sibling.parentNode.removeChild(sibling);
-        // }));
-        // it('should restore `aria-hidden` to the overlay container siblings on close', fakeAsync(() => {
-        //     const sibling = document.createElement('div');
-        //     sibling.setAttribute('aria-hidden', 'true');
-        //     overlayContainerElement.parentNode.appendChild(sibling);
-        //     const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        //     viewContainerFixture.detectChanges();
-        //     flush();
-        //     expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden.');
-        //     dialogRef.close();
-        //     viewContainerFixture.detectChanges();
-        //     flush();
-        //     expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to remain hidden.');
-        //     sibling.parentNode!.removeChild(sibling);
-        // }));
-        // it('should not set `aria-hidden` on `aria-live` elements', fakeAsync(() => {
-        //     const sibling = document.createElement('div');
-        //     sibling.setAttribute('aria-live', 'polite');
-        //     overlayContainerElement.parentNode.appendChild(sibling);
-        //     dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
-        //     viewContainerFixture.detectChanges();
-        //     flush();
-        //     expect(sibling.hasAttribute('aria-hidden')).toBe(false, 'Expected live element not to be hidden.');
-        //     sibling.parentNode.removeChild(sibling);
-        // }));
-    });
+    // describe('aria-hidden', () => {
+    //     it('should toggle `aria-hidden` on the overlay container siblings', fakeAsync(() => {
+    //         const sibling = document.createElement('div');
+    //         overlayContainerElement.parentNode.appendChild(sibling);
+    //         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         viewContainerFixture.detectChanges();
+    //         flush();
+    //         expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden');
+    //         expect(overlayContainerElement.hasAttribute('aria-hidden')).toBe(
+    //             false,
+    //             'Expected overlay container not to be hidden.'
+    //         );
+    //         dialogRef.close();
+    //         viewContainerFixture.detectChanges();
+    //         flush();
+    //         expect(sibling.hasAttribute('aria-hidden')).toBe(false, 'Expected sibling to no longer be hidden.');
+    //         sibling.parentNode.removeChild(sibling);
+    //     }));
+    //     it('should restore `aria-hidden` to the overlay container siblings on close', fakeAsync(() => {
+    //         const sibling = document.createElement('div');
+    //         sibling.setAttribute('aria-hidden', 'true');
+    //         overlayContainerElement.parentNode.appendChild(sibling);
+    //         const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         viewContainerFixture.detectChanges();
+    //         flush();
+    //         expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to be hidden.');
+    //         dialogRef.close();
+    //         viewContainerFixture.detectChanges();
+    //         flush();
+    //         expect(sibling.getAttribute('aria-hidden')).toBe('true', 'Expected sibling to remain hidden.');
+    //         sibling.parentNode!.removeChild(sibling);
+    //     }));
+    //     it('should not set `aria-hidden` on `aria-live` elements', fakeAsync(() => {
+    //         const sibling = document.createElement('div');
+    //         sibling.setAttribute('aria-live', 'polite');
+    //         overlayContainerElement.parentNode.appendChild(sibling);
+    //         dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+    //         viewContainerFixture.detectChanges();
+    //         flush();
+    //         expect(sibling.hasAttribute('aria-hidden')).toBe(false, 'Expected live element not to be hidden.');
+    //         sibling.parentNode.removeChild(sibling);
+    //     }));
+    // });
 
     describe('hasBackdrop option', () => {
         it('should have a backdrop', () => {

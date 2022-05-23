@@ -6,6 +6,7 @@
     "ngx-tethys": {
       "root": "src",
       "projectType": "library",
+      "sourceRoot": "src",
       "prefix": "thy",
       "architect": {
         "build": {
@@ -16,7 +17,6 @@
           },
           "configurations": {
             "production": {
-              "project": "src/ng-package.prod.json",
               "tsConfig": "src/tsconfig.lib.prod.json"
             }
           }
@@ -91,7 +91,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -142,32 +141,13 @@
             "styles": ["site/src/styles.scss"],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["site/tsconfig.app.json", "site/tsconfig.spec.json", "site/e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "site/e2e/protractor.conf.js",
-            "devServerTarget": "site:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "site:serve:production"
-            }
-          }
         }
       }
     },
     "cdk": {
       "projectType": "library",
       "root": "cdk",
-      "sourceRoot": "",
+      "sourceRoot": "cdk",
       "prefix": "thy",
       "architect": {
         "build": {
@@ -190,13 +170,6 @@
             "karmaConfig": "cdk/karma.conf.js",
             "codeCoverage": true,
             "codeCoverageExclude": ["/cdk/testing/**/*", "cdk/**/test/**/*"]
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["cdk/tsconfig.lib.json", "cdk/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
           }
         }
       }

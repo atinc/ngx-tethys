@@ -1,4 +1,4 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyVoteModule } from 'ngx-tethys/vote';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -18,8 +18,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
+    imports: [CommonModule, FormsModule, ThyVoteModule],
     exports: COMPONENTS,
     providers: []
 })

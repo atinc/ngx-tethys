@@ -1,12 +1,12 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { NgxTethysModule } from 'ngx-tethys';
 import { ThyResultModule } from 'ngx-tethys/result';
 
-import { ThyResultSuccessExampleComponent } from './success/success.component';
-import { ThyResultErrorExampleComponent } from './error/error.component';
-import { ThyResultWarningExampleComponent } from './warning/warning.component';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
 import { ThyResultCustomExampleComponent } from './custom/custom.component';
+import { ThyResultErrorExampleComponent } from './error/error.component';
+import { ThyResultSuccessExampleComponent } from './success/success.component';
+import { ThyResultWarningExampleComponent } from './warning/warning.component';
 
 const COMPONENTS = [
     ThyResultSuccessExampleComponent,
@@ -17,8 +17,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
-    imports: [CommonModule, NgxTethysModule, ThyResultModule],
+    imports: [CommonModule, ThyResultModule],
     exports: [...COMPONENTS],
     providers: []
 })

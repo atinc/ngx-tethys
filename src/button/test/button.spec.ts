@@ -20,7 +20,6 @@ function assertButtonIcon(iconElement: Element, icon: string) {
     template: `
         <button [thyButton]="type" [thyLoading]="loading" [thyLoadingText]="loadingText" [thySize]="size">Basic Button</button>
         <thy-button id="btn-with-icon" [thyIcon]="icon" [thyType]="type">Icon Button</thy-button>
-        <thy-button id="btn-with-square" thySquare="true" [thyType]="type">Square Button</thy-button>
         <thy-button id="btn-only-icon" [thyIcon]="icon" [thyType]="type"></thy-button>
     `
 })
@@ -110,12 +109,6 @@ describe('ThyButton', () => {
                 expect(btnElement.classList.contains(`btn-${type.replace('-square', '')}`)).toBeTruthy();
                 expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
             });
-        });
-
-        it('should set thySquare success', () => {
-            const btnWithIcon = fixture.debugElement.query(By.css('#btn-with-square'));
-            const btnElement: HTMLElement = btnWithIcon.nativeElement;
-            expect(btnElement.classList.contains(`btn-square`)).toBeTruthy();
         });
 
         it('should set loading success', () => {

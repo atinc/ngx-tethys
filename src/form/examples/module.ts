@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyCascaderModule } from 'ngx-tethys/cascader';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyIconModule } from 'ngx-tethys/icon';
@@ -35,14 +35,13 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [
         CommonModule,
         FormsModule,
         ThyButtonModule,
         ThyFormModule,
         ThyDialogModule,
-        ThyRasterModule,
+        ThyGridModule,
         ThyCascaderModule,
         ThyInputModule,
         ThyIconModule,

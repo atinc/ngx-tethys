@@ -1,10 +1,3 @@
-import { Overlay } from '@angular/cdk/overlay';
-import { NgModule } from '@angular/core';
-import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { RouterModule } from '@angular/router';
-import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
-
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThyAffixModule } from 'ngx-tethys/affix';
 import { ThyAlertModule } from 'ngx-tethys/alert';
@@ -32,15 +25,16 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyLabelModule } from 'ngx-tethys/label';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 // import { ThyKeySelectModule } from 'ngx-tethys/key-select';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
-import { ThyMarkdownModule } from 'ngx-tethys/markdown';
 import { ThyMentionModule } from 'ngx-tethys/mention';
 import { ThyMenuModule } from 'ngx-tethys/menu';
 import { ThyNavModule } from 'ngx-tethys/nav';
@@ -50,7 +44,6 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyProgressModule } from 'ngx-tethys/progress';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyRadioModule } from 'ngx-tethys/radio';
-import { ThyRasterModule } from 'ngx-tethys/raster';
 import { ThyRateModule } from 'ngx-tethys/rate';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
 import { ThyResultModule } from 'ngx-tethys/result';
@@ -70,10 +63,15 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyTransferModule } from 'ngx-tethys/transfer';
 import { ThyTreeModule } from 'ngx-tethys/tree';
 import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
-import { ThyUploaderModule } from 'ngx-tethys/uploader';
-import { warnDeprecation } from 'ngx-tethys/util';
+import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
-import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+
+import { Overlay } from '@angular/cdk/overlay';
+import { NgModule } from '@angular/core';
+import { BrowserModule, DomSanitizer } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 
 import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
@@ -93,7 +91,7 @@ const TETHYS_MODULES = [
     ThyPopoverModule,
     ThyBadgeModule,
     ThyTableModule,
-    ThyRasterModule,
+    ThyGridModule,
     ThyAvatarModule,
     ThyLabelModule,
     ThyNavModule,
@@ -120,7 +118,7 @@ const TETHYS_MODULES = [
     ThyRadioModule,
     ThySelectModule,
     ThyPropertyOperationModule,
-    ThyUploaderModule,
+    ThyUploadModule,
     ThyDateRangeModule,
     ThySharedModule,
     ThyListModule,
@@ -132,7 +130,6 @@ const TETHYS_MODULES = [
     ThyProgressModule,
     ThyBreadcrumbModule,
     ThyArrowSwitcherModule,
-    ThyMarkdownModule,
     ThyFlexibleTextModule,
     ThyDragDropModule,
     ThySelectCommonModule,

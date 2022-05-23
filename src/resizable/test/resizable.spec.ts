@@ -1,16 +1,18 @@
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { fakeAsync, TestBed, ComponentFixture, tick } from '@angular/core/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+
+import { ApplicationRef, Component, ElementRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+
 import { ThyResizableBasicExampleComponent } from '../examples/basic/basic.component';
-import { ViewChild, ElementRef, Component, ApplicationRef } from '@angular/core';
 import { ThyResizableCustomizeExampleComponent } from '../examples/customize/customize.component';
+import { ThyResizableGridExampleComponent } from '../examples/grid/grid.component';
 import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-aspect-ratio/lock-aspect-ratio.component';
 import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
-import { ThyResizableRasterExampleComponent } from '../examples/raster/raster.component';
+import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective } from '../index';
 import { ThyResizableModule } from '../module';
-import { ThyRasterModule } from 'ngx-tethys/raster';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { By } from '@angular/platform-browser';
-import { ThyResizableDirective, DEFAULT_RESIZE_DIRECTION } from '../index';
 
 @Component({
     template: `
@@ -74,13 +76,13 @@ function mouseMoveTrigger(el: HTMLElement, from: { x: number; y: number }, to: {
 describe('resizable', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThyResizableModule, ThyRasterModule, ThyIconModule],
+            imports: [ThyResizableModule, ThyGridModule, ThyIconModule],
             declarations: [
                 ThyResizableBasicExampleComponent,
                 ThyResizableCustomizeExampleComponent,
                 ThyResizableLockAspectRatioExampleComponent,
                 ThyResizablePreviewExampleComponent,
-                ThyResizableRasterExampleComponent,
+                ThyResizableGridExampleComponent,
                 ThyTestResizableBoundsComponent
             ],
             providers: []
@@ -561,19 +563,19 @@ describe('resizable', () => {
         }));
     });
 
-    describe('raster', () => {
-        let fixture: ComponentFixture<ThyResizableRasterExampleComponent>;
+    describe('grid', () => {
+        let fixture: ComponentFixture<ThyResizableGridExampleComponent>;
         let resizableEle: HTMLElement;
-        let testComponent: ThyResizableRasterExampleComponent;
+        let testComponent: ThyResizableGridExampleComponent;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(ThyResizableRasterExampleComponent);
+            fixture = TestBed.createComponent(ThyResizableGridExampleComponent);
             testComponent = fixture.debugElement.componentInstance;
             resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
             fixture.detectChanges();
         });
 
-        it('should raster work', fakeAsync(() => {
+        it('should grid work', fakeAsync(() => {
             const rect = resizableEle.getBoundingClientRect();
             const handle = resizableEle.querySelector('.thy-resizable-handle-right') as HTMLElement;
             mouseMoveTrigger(

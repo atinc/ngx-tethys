@@ -1,4 +1,4 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyCopyModule } from 'ngx-tethys/copy';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -12,8 +12,7 @@ const COMPONENTS = [ThyCopyBasicExampleComponent, ThyCopyCopyContentExampleCompo
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
+    imports: [CommonModule, FormsModule, ThyCopyModule],
     exports: COMPONENTS,
     providers: []
 })

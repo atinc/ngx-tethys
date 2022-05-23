@@ -21,7 +21,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyAlertModule],
     exports: [...COMPONENTS]
 })
