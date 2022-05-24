@@ -185,6 +185,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.currentImageMode = 'fit-screen';
         this.zoom = 1;
         this.updatePreviewImageTransform();
+        this.calculateInsideScreen();
         this.isLoadingDone = true;
         this.cdr.markForCheck();
     }
@@ -304,9 +305,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     viewOriginal() {
-        this.reset();
-        this.imageRef.nativeElement.src = this.previewImage?.origin?.src || this.previewImage.src;
-        this.isLoadingDone = true;
+        window.open(this.previewImage?.origin?.src || this.previewImage.src, '_blank');
     }
 
     rotateRight(): void {

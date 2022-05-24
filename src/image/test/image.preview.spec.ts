@@ -156,6 +156,7 @@ describe('image-preview', () => {
         let operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const originalSize = operations[2] as HTMLElement;
         expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
+        const spy = spyOn(basicTestComponent.imageRef.previewInstance, 'calculateInsideScreen').and.callThrough();
         originalSize.click();
 
         fixture.detectChanges();
@@ -164,6 +165,7 @@ describe('image-preview', () => {
         const fitScreen = overlayContainerElement.querySelectorAll(
             '.thy-image-preview-operation .thy-image-preview-operation-icon'
         )[2] as HTMLElement;
+        expect(spy).toHaveBeenCalled();
         expect(fitScreen.getAttribute('ng-reflect-content')).toBe('适应屏幕');
         expect(currentZoom).toBe(1);
         expect(currentImageTransform).toContain(`scale3d(1, 1, 1)`);
@@ -234,7 +236,7 @@ describe('image-preview', () => {
         // test download success
     });
 
-    xit('should view origin image when click origin icon', () => {
+    it('should open new tab with origin src when click origin icon', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
@@ -242,12 +244,14 @@ describe('image-preview', () => {
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const download = operations[6] as HTMLElement;
+        const openSpy = spyOn(window, 'open').and.callFake(() => {
+            return true;
+        });
         expect(download.getAttribute('ng-reflect-content')).toBe('查看原图');
         download.click();
 
-        fixture.detectChanges();
-        const img = overlayContainerElement.querySelector('img') as HTMLElement;
-        expect(img.getAttribute('src')).toBe(basicTestComponent.images[0].origin.src);
+        expect(openSpy).toHaveBeenCalled();
+        expect(openSpy).toHaveBeenCalledWith(basicTestComponent.images[0].origin.src, '_blank');
     });
 
     it('should copy image link when click copy icon', () => {
