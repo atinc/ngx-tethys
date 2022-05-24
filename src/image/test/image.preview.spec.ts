@@ -258,7 +258,7 @@ describe('image-preview', () => {
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const download = operations[7] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-content')).toBe('复制链接');
+        expect(download.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
         // test copy
         // download.click()
     });
