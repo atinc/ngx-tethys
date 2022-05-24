@@ -62,7 +62,7 @@ $ yarn add ngx-tethys
     ```
 - 在`style.scss`中引入预构建样式文件
     ```scss
-    @import "~ngx-tethys/styles/index.scss";
+    @use "ngx-tethys/styles/index.scss";
     ```
 
 ### 引入图标
