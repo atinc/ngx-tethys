@@ -102,7 +102,7 @@ export class ThySidebarComponent implements OnInit, AfterViewInit {
     }
 
     get collapseIconName() {
-        return this.thyCollapsed ? 'indent-bold' : 'outdent-bold';
+        return this.thyCollapsed ? 'indent' : 'outdent';
     }
 
     collapseTip: string;
