@@ -2,9 +2,10 @@
 title: 13.x 升级指南
 path: 'migration-v13'
 order: 995
+label: new
 ---
 
-本文档将帮助你从 ngx-tethys 13.x 版本升级到 13.x 版本。
+<alert>本文档将帮助你从 ngx-tethys 12.x 版本升级到 13.x 版本。</alert>
 
 ## 开始之前
 
@@ -33,7 +34,7 @@ order: 995
 - 所有非 styles 文件夹的样式默认不支持导入，只支持`ngx-tethys/styles/*`样式导入
 
 ## Sass 入口修改
-在过去的版本中如下子文件夹样式导入是允许的:
+在过去的版本中可以子导入任意文件夹的样式文件:
 
 ```sass
 @use "ngx-tethys/button/styles/button.scss";
@@ -41,7 +42,7 @@ order: 995
 ```
 Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://nodejs.org/dist/latest-v16.x/docs/api/packages.html#package-entry-points)，只导出了公开的样式文件（`ngx-tethys/styles/*`），上述使用在新版中会报`SassError: Can't find stylesheet to import.` 错误。
 
-对于所有的`mixin`已经通过`basic` forward 重新导出，可以按照如下新方式使用:
+对于所有的`mixin`已经通过`styles/basic.scss` forward 重新导出，可以按照如下新方式使用:
 
 ```sass
 @use "ngx-tethys/styles/basic.scss" as basic;
@@ -52,7 +53,7 @@ Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://node
 }
 ```
 
-如果需要单独导入某一个组件的样式，默认是不支持的，当然可以通过设置`angular.json`中的`...build.options. stylePreprocessorOptions`参数实现所有二级文件夹某个样式的导入，这是一个有风险的行为，因为内部的 scss 文件名和路径可能会变化。
+如果需要单独导入某一个组件的样式，默认是不支持的，当然可以通过设置`angular.json`中的`...build.options. stylePreprocessorOptions`参数实现所有样式文件的导入，这是一个有风险的行为，因为内部的 scss 文件名和路径可能会变化。
  
 ```json
     "stylePreprocessorOptions": {
@@ -60,7 +61,7 @@ Angular 13 的打包默认采用 Node.js 的 [package entry-points](https://node
     }
 ```
 
-官方提供的新入口如下:
+官方提供的入口如下:
 
 ```sass
 // 包含所有的样式
@@ -113,6 +114,7 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyImageModule } from 'ngx-tethys/image';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyLabelModule } from 'ngx-tethys/label';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
@@ -157,6 +159,7 @@ const TETHYS_MODULES = [
     ThyButtonModule,
     ThyBackTopModule,
     ThyIconModule,
+    ThyImageModule,
     ThyPopoverModule,
     ThyBadgeModule,
     ThyTableModule,

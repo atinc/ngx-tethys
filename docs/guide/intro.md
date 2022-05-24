@@ -18,11 +18,10 @@ order: 0
 ## 当前版本
 [![npm (scoped)](https://img.shields.io/npm/v/ngx-tethys?style=flat-square)](https://www.npmjs.com/package/ngx-tethys)
 ## 版本规则
-`ngx-tethys` 与 `@angular/core` 保持相同的主版本号，目前支持 Angular `^12.0.0` 版本。
+`ngx-tethys` 与 `@angular/core` 保持相同的主版本号，目前支持 Angular `^13.0.0` 版本。
 ## 依赖第三方库
 - Components Dev Kit (CDK)
 - date-fns
-- bootstrap (Only CSS)
 
 ## 安装
 我们强烈推荐使用官方的 `@angular/cli` 工具链辅助进行开发，在实际项目开发中，它可以很好的满足对 TypeScript 代码的构建、调试、代理、打包部署等一系列工程化的需求。
