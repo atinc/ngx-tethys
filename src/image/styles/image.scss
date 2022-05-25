@@ -197,6 +197,15 @@ $image-preview-prefix-cls: 'thy-image-preview';
         left: 0;
     }
 }
+
+.#{$image-preview-prefix-cls}-fullscreen {
+    .#{$image-preview-prefix-cls} {
+        &-inside {
+            cursor: auto;
+        }
+    }
+}
+
 .#{$image-preview-prefix-cls}-backdrop {
     background: rgba(variables.$black, 0.85);
 }

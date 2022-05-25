@@ -56,6 +56,7 @@ describe('image-preview', () => {
         fixture = TestBed.createComponent(ImagePreviewTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement;
+        document.documentElement.requestFullscreen = jasmine.createSpy('requestFullscreen');
         fixture.detectChanges();
     });
 
@@ -188,7 +189,9 @@ describe('image-preview', () => {
         const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
         const fullScreen = operations[3] as HTMLElement;
         expect(fullScreen.getAttribute('ng-reflect-content')).toBe('全屏显示');
-        // test fullscreen
+        fullScreen.click();
+
+        expect(document.documentElement.requestFullscreen).toHaveBeenCalled();
     });
 
     it('should rotate image when click rotate icon', () => {
