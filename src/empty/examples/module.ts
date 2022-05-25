@@ -1,3 +1,4 @@
+import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { Observable } from 'rxjs/internal/Observable';
@@ -35,7 +36,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, TranslateModule.forRoot(), TranslateModule, ThyEmptyModule],
+    imports: [CommonModule, FormsModule, TranslateModule.forRoot(), TranslateModule, ThyEmptyModule, ThyButtonModule],
     exports: [...COMPONENTS],
     providers: [
         {
