@@ -314,7 +314,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     fullScreen(): void {
-        const targetElement = document.documentElement.querySelector('.thy-image-preview');
+        const targetElement = this.host.nativeElement.querySelector('.thy-image-preview');
         this.isFullScreen = true;
         const fullscreenRef = this.thyFullscreen.launch({
             target: targetElement
