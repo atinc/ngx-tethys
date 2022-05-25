@@ -65,12 +65,20 @@
     flex: 0 0 auto;
     transition: all 0.2s;
     position: relative;
-    background: variables.$layout-sidebar-background;
+
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
+
+    &.sidebar-theme-light {
+        background: variables.$layout-sidebar-background-light;
+    }
+
+    &.sidebar-theme-dark {
+        background: variables.$layout-sidebar-background-dark;
+    }
 
     &:hover {
         .sidebar-collapse {
@@ -80,11 +88,14 @@
 
     .sidebar-header {
         padding: 0 10px;
-        min-height: variables.$layout-header-height;
-        line-height: variables.$layout-header-height;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
         display: flex;
         flex-direction: row;
 
+        &.sidebar-header-divided {
+            border-bottom: 1px solid variables.$layout-sidebar-border-color;
+        }
         .title {
             padding: 0px 0px 0px 10px;
             color: variables.$body-color;
@@ -92,9 +103,21 @@
             flex-grow: 1;
         }
 
+        .operation {
+            padding: 0px 10px;
+        }
         .action {
             padding: 0px 10px;
         }
+    }
+
+    .sidebar-footer {
+        padding: 0 10px;
+        border-top: 1px solid variables.$layout-sidebar-border-color;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
     }
 
     .sidebar-content {
