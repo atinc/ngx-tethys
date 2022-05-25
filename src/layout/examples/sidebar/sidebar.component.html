@@ -1,6 +1,6 @@
 <div class="demo-layout-backdrop d-flex-column-fill demo-layout-sidebar">
-  <thy-layout style="height: 100px;">
-    <thy-sidebar>
+  <thy-layout style="height: 300px;">
+    <thy-sidebar [thyTheme]="'light'">
       <thy-sidebar-header thyTitle="Title">
         <ng-template #headerOperation>
           <button thyButtonIcon="plus" thyLight="true"></button>
@@ -10,6 +10,7 @@
       <div class="sidebar-content text-center">
         Sidebar with header and content
       </div>
+      <thy-sidebar-footer></thy-sidebar-footer>
     </thy-sidebar>
     <thy-content> Content </thy-content>
   </thy-layout>

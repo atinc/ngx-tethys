@@ -1,24 +1,15 @@
-import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
 
 @Component({
-    selector: 'thy-sidebar-header',
-    templateUrl: `./sidebar-header.component.html`,
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'thy-sidebar-footer',
+    template: `
+        <ng-content></ng-content>
+    `,
     host: {
-        class: 'sidebar-header',
-        '[class.sidebar-header-divided]': 'thyDivided'
+        class: 'sidebar-footer'
     }
 })
-export class ThySidebarHeaderComponent implements OnInit {
-    @Input()
-    thyTitle: string;
-
-    @ContentChild('headerOperation')
-    public operationTemplateRef: TemplateRef<unknown>;
-
-    @Input() @InputBoolean() thyDivided: boolean | string;
-
+export class ThySidebarFooterComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}

@@ -111,6 +111,15 @@
         }
     }
 
+    .sidebar-footer {
+        padding: 0 10px;
+        border-top: 1px solid variables.$layout-sidebar-border-color;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+    }
+
     .sidebar-content {
         flex: auto;
         height: 100%;
