@@ -18,6 +18,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 
 const LG_WIDTH = 300;
+
+export type ThySidebarTheme = 'white' | 'light' | 'dark';
 @Component({
     selector: 'thy-sidebar',
     preserveWhitespaces: false,
@@ -41,6 +43,10 @@ export class ThySidebarComponent implements OnInit, AfterViewInit {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
 
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
+
+    @HostBinding('class.sidebar-theme-light') sidebarThemeLight = false;
+
+    @HostBinding('class.sidebar-theme-dark') sidebarThemeDark = false;
 
     thyLayoutSidebarWidth: number;
 
@@ -95,6 +101,15 @@ export class ThySidebarComponent implements OnInit, AfterViewInit {
     @Input() @InputBoolean() thyCollapsed = false;
 
     @Input() thyCollapsedWidth = 20;
+
+    @Input()
+    set thyTheme(value: ThySidebarTheme) {
+        if (value === 'light') {
+            this.sidebarThemeLight = true;
+        } else if (value === 'dark') {
+            this.sidebarThemeDark = true;
+        }
+    }
 
     @HostBinding('class.sidebar-collapse-show')
     get collapseVisibility() {
