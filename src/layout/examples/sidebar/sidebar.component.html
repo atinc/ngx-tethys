@@ -1,12 +1,29 @@
 <div class="demo-layout-backdrop d-flex-column-fill demo-layout-sidebar">
   <thy-layout style="height: 100px;">
     <thy-sidebar>
-      <div class="sidebar-header">
-        <span class="title cursor-pointer">Title</span>
-        <button class="action" thyButtonIcon="project-add" thyLight="true" thySize="lg"></button>
-      </div>
+      <thy-sidebar-header thyTitle="Title">
+        <ng-template #headerOperation>
+          <button thyButtonIcon="plus" thyLight="true"></button>
+          <button thyButtonIcon="outdent" class="ml-2" thyLight="true"></button>
+        </ng-template>
+      </thy-sidebar-header>
       <div class="sidebar-content text-center">
         Sidebar with header and content
+      </div>
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar>
+      <thy-sidebar-header thyDivided="true" thyTitle="Title">
+        <ng-template #headerOperation>
+          <button thyButtonIcon="plus" thyLight="true"></button>
+        </ng-template>
+      </thy-sidebar-header>
+
+      <div class="sidebar-content text-center">
+        Sidebar header width divider
       </div>
     </thy-sidebar>
     <thy-content> Content </thy-content>

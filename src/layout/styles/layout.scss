@@ -80,11 +80,14 @@
 
     .sidebar-header {
         padding: 0 10px;
-        min-height: variables.$layout-header-height;
-        line-height: variables.$layout-header-height;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
         display: flex;
         flex-direction: row;
 
+        &.sidebar-header-divided {
+            border-bottom: 1px solid variables.$layout-sidebar-border-color;
+        }
         .title {
             padding: 0px 0px 0px 10px;
             color: variables.$body-color;
@@ -92,6 +95,9 @@
             flex-grow: 1;
         }
 
+        .operation {
+            padding: 0px 10px;
+        }
         .action {
             padding: 0px 10px;
         }
