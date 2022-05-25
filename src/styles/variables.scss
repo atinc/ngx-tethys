@@ -5,10 +5,7 @@ $thy-prefix: 'thy';
 
 // gray color
 $white: #fff;
-// 直接使用 $gray-70 , $gray-99 会在将来的版本移除
-$gray-99: #fdfdfd !default; // 内容区域背景色
 
-$gray-70: #fdfdfd !default; // 内容区域背景色，用于整个内容的背景色，sidebar 背景色
 $gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
 $gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色， Popbox Menu 移上去的背景色
 $gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
@@ -294,7 +291,7 @@ $pop-box-top-margin: 3px !default;
 $zindex-pop-box: 1080 !default;
 
 // Layout
-$layout-header-background: rgba($gray-99, 0.97) !default;
+$layout-header-background: $white !default;
 $layout-header-padding: 0 15px !default;
 $layout-header-height: 56px !default;
 $layout-header-height-sm: 38px !default;
@@ -302,10 +299,11 @@ $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
 
-$layout-content-background: $gray-200 !default;
+$layout-content-background: $white !default;
 $layout-content-padding: 15px 15px 15px 15px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background: rgba($gray-99, 0.97) !default;
+$layout-sidebar-background-light: rgba($gray-80, 0.8) !default;
+$layout-sidebar-background-dark: $gray-800 !default;
 $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;

@@ -65,12 +65,20 @@
     flex: 0 0 auto;
     transition: all 0.2s;
     position: relative;
-    background: variables.$layout-sidebar-background;
+
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
+
+    &.sidebar-theme-light {
+        background: variables.$layout-sidebar-background-light;
+    }
+
+    &.sidebar-theme-dark {
+        background: variables.$layout-sidebar-background-dark;
+    }
 
     &:hover {
         .sidebar-collapse {
