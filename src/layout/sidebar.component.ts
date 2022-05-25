@@ -19,7 +19,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 const LG_WIDTH = 300;
 
-export type ThyTheme = 'white' | 'light' | 'dark';
+export type ThySidebarTheme = 'white' | 'light' | 'dark';
 @Component({
     selector: 'thy-sidebar',
     preserveWhitespaces: false,
@@ -103,7 +103,7 @@ export class ThySidebarComponent implements OnInit, AfterViewInit {
     @Input() thyCollapsedWidth = 20;
 
     @Input()
-    set thyTheme(value: ThyTheme) {
+    set thyTheme(value: ThySidebarTheme) {
         if (value === 'light') {
             this.sidebarThemeLight = true;
         } else if (value === 'dark') {
