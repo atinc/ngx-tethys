@@ -11,6 +11,7 @@ module.exports = {
                 'schematics',
                 'variables',
                 'core',
+                'action',
                 'testing',
                 'shared',
                 'types',
