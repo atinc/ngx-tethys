@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
     host: {}
 })
 export class ThySpaceSizeExampleComponent implements OnInit {
-    sizes = ['sm', 'md', 'lg', 40];
+    sizes = ['zero', 'xs', 'sm', 'md', 'lg', 40];
 
     size = 'md';
 
