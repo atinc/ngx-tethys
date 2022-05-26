@@ -21,15 +21,16 @@ export type ThyNavLink = '' | 'active';
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 @Directive({
-    selector: '[thyNavLink]'
+    selector: '[thyNavLink]',
+    host: {
+        class: 'thy-nav-link'
+    }
 })
 export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     @HostBinding('class.active')
     @Input()
     @InputBoolean()
     thyNavLinkActive: boolean;
-
-    @HostBinding('class.nav-link') navLinkClass = true;
 
     @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
 
@@ -92,9 +93,9 @@ export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, On
 
     setNavLinkHidden(value: boolean) {
         if (value) {
-            this.renderer.addClass(this.elementRef.nativeElement, 'nav-item-hidden');
+            this.renderer.addClass(this.elementRef.nativeElement, 'thy-nav-item-hidden');
         } else {
-            this.renderer.removeClass(this.elementRef.nativeElement, 'nav-item-hidden');
+            this.renderer.removeClass(this.elementRef.nativeElement, 'thy--nav-item-hidden');
         }
     }
 

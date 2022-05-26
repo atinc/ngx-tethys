@@ -37,7 +37,8 @@
     }
 }
 
-@mixin nav-link-size($padding, $margin-right) {
+@mixin nav-link-size($padding, $margin-right, $font-size: variables.$nav-link-font-size) {
+    font-size: $font-size;
     padding: $padding;
     margin-right: $margin-right;
     &:last-child {

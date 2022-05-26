@@ -5,7 +5,7 @@ $thy-prefix: 'thy';
 
 // gray color
 $white: #fff;
-
+$gray-70: #fdfdfd !default;
 $gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
 $gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色， Popbox Menu 移上去的背景色
 $gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
@@ -292,9 +292,9 @@ $zindex-pop-box: 1080 !default;
 
 // Layout
 $layout-header-background: $white !default;
-$layout-header-padding: 0 15px !default;
+$layout-header-padding: 0 20px !default;
 $layout-header-height: 56px !default;
-$layout-header-height-sm: 38px !default;
+$layout-header-height-sm: 50px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
@@ -418,20 +418,36 @@ $avatar-sizes: map.merge(
 );
 // Navs
 $nav-link-disabled-color: $gray-300 !default;
+$nav-link-icon-color: $gray-500 !default;
 $nav-link-color: $gray-600 !default;
+$nav-link-hover-color: $primary !default;
 $nav-link-icon-color: $gray-500 !default;
 $nav-link-primary-color: $gray-800 !default;
-$nav-link-hover-color: $primary !default;
 $nav-border-color: $gray-200 !default;
 $nav-divider-color: $gray-200 !default;
 $nav-border-width: 2px !default;
 $nav-border-bottom: $nav-border-width solid $primary !default;
 $nav-border-left: $nav-border-width solid $primary !default;
-$nav-link-primary-padding-y: 0.813rem !default; // 高度 50px
+$nav-link-font-size: $font-size-base !default;
+// 新的大小
+// md
+$nav-link-padding-y: 0.8125rem !default; // 高度 50px, 文字 15px
+$nav-link-padding-x: 1rem !default;
+$nav-link-right: 20px !default;
+$nav-link-font-size: 14px !default;
+//lg
+$nav-link-padding-y-lg: 0.9512rem !default; // 高度 56px, 文字 15px
+$nav-link-padding-x-lg: 1rem !default;
+$nav-link-right-lg: 20px !default;
+$nav-link-font-size-lg: 15px !default;
+
+$nav-link-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
 $nav-link-primary-padding-x: 1rem !default;
 $nav-link-primary-right: 20px !default;
+$nav-link-primary-font-size: 15px !default;
 $nav-link-primary-min-width: 80px !default;
-$nav-link-secondary-padding-y: 0.438rem !default; // 高度 38px
+
+$nav-link-secondary-padding-y: 0.438rem !default; // 高度 50px
 $nav-link-secondary-padding-x: 0rem !default;
 $nav-link-secondary-right: 40px !default;
 $nav-link-secondary-split-right: 60px !default;

@@ -28,18 +28,20 @@ import { ThyNavLinkDirective } from './nav-link.directive';
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
-export type ThyNavSize = '' | 'sm';
+export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
 const navTypeClassesMap = {
-    primary: ['nav-primary'],
-    secondary: ['nav-secondary'],
-    thirdly: ['nav-thirdly'],
-    'secondary-divider': ['nav-secondary-divider']
+    primary: ['thy-nav-primary'],
+    secondary: ['thy-nav-secondary'],
+    thirdly: ['thy-nav-thirdly'],
+    'secondary-divider': ['thy-nav-secondary-divider']
 };
 
 const navSizeClassesMap = {
-    sm: 'nav-sm'
+    lg: 'thy-nav-lg',
+    md: 'thy-nav-md',
+    sm: 'thy-nav-sm'
 };
 
 const navHorizontalClassesMap = {
@@ -58,7 +60,7 @@ const navHorizontalClassesMap = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
-    private _type: ThyNavType;
+    private _type: ThyNavType = 'primary';
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
     private _initialized = false;
@@ -76,9 +78,9 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
 
-    @ContentChild('more') moreOperation: TemplateRef<any>;
+    @ContentChild('more') moreOperation: TemplateRef<unknown>;
 
-    @ContentChild('morePopover') morePopover: TemplateRef<any>;
+    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
 
     @Input()
     set thyType(type: ThyNavType) {
