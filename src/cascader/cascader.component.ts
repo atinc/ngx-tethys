@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { helpers, isArray, isEmpty } from 'ngx-tethys/util';
+import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
@@ -331,6 +331,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                     this.afterWriteValue();
                 }
             });
+            this.cdr.detectChanges();
         }
     }
 
@@ -346,7 +347,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             selectOptions.forEach(opt => {
                 if (opt.isLeaf) {
                     opt.selected = true;
-                    this.cdr.markForCheck();
+                    set(opt, 'selected', true);
+                    // this.cdr.markForCheck();
                 }
             });
         }
@@ -448,8 +450,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                 thyLabelText: labelRenderText
             };
             this.selectionModel.select(selectedData);
-            this.cdr.markForCheck();
-            this.cdr.detectChanges();
+            // this.cdr.markForCheck();
+            // this.cdr.detectChanges();
         }
     }
 
@@ -574,6 +576,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (event) {
             event.preventDefault();
         }
+        console.log('------ click outside li');
         if (option && option.disabled) {
             return;
         }
@@ -641,8 +644,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            option.selected = !option.selected;
-            this.cdr.markForCheck();
+            const isSelected = !option.selected;
+            console.log('!option.selected', isSelected);
+            option.selected = isSelected;
+            set(option, 'selected', option.selected);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {

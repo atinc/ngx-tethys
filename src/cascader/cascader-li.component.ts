@@ -27,10 +27,9 @@ export class ThyCascaderOptionComponent implements OnInit {
     @Input()
     @InputBoolean()
     set active(value: boolean) {
+        console.log(' inside LI selected state is ', value);
+        console.log(' and option value', this.option.label);
         this.isActive = value;
-        // setTimeout(() => {
-        // this.cdr.detectChanges();
-        // });
     }
 
     get active() {
@@ -58,4 +57,18 @@ export class ThyCascaderOptionComponent implements OnInit {
     }
 
     ngOnInit() {}
+
+    optionChange(event: Event) {
+        console.log('event', event);
+
+        // if (this.option.isLeaf && this.multiple && this.option.selected) {
+        // this.cdr.detectChanges();
+        // }
+    }
+
+    public onStopPropagation(event: Event) {
+        // if (this.wholeRowSelect) {
+        //     event.stopPropagation();
+        // }
+    }
 }

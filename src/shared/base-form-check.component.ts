@@ -54,6 +54,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         } else {
             this._labelText = '';
         }
+        console.log('labelText is ', this._labelText);
     }
 
     /**
@@ -68,6 +69,8 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         if (obj !== this._innerValue) {
             this._innerValue = obj;
             this._isChecked = !!this._innerValue;
+            console.log('this._isChecked', this._isChecked);
+            console.log('++++++++', this._labelText);
         }
     }
 

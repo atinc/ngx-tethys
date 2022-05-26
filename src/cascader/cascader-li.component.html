@@ -1,10 +1,29 @@
 <ng-container>
   <span *ngIf="!multiple || !option.isLeaf"> {{ getOptionLabel() }}</span>
-  <label *ngIf="multiple && option.isLeaf && isOnlySelectLeaf" thyCheckbox [(ngModel)]="active" [thyLabelText]="getOptionLabel()"></label>
-</ng-container>
+  <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
+    <label
+      thyCheckbox
+      [ngModel]="active"
+      (ngModelChange)="optionChange($event)"
+      [name]="option.value || option._id"
+      [thyLabelText]="getOptionLabel()"
+    ></label>
+  </ng-container>
+  <!-- <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
+    <input
+      type="checkbox"
+      [(ngModel)]="active"
+      (ngModelChange)="optionChange()"
+      (click)="onStopPropagation($event)"
+      [disabled]="disabled"
+    />
+    <span>{{ getOptionLabel() }}</span>
+  </ng-container>
+</ng-container> -->
 
-<span
-  *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
-  class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
->
-</span>
+  <span
+    *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
+    class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
+  >
+  </span>
+</ng-container>

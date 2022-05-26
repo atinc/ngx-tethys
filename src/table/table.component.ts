@@ -519,6 +519,7 @@ export class ThyTableComponent extends _MixinBase
 
     public onModelChange(row: any, column: ThyTableColumn) {
         if (column.model) {
+            console.log('column.model', column.model);
             set(row, column.model, row[column.key]);
         }
     }
