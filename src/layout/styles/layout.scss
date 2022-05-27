@@ -201,7 +201,7 @@
         align-items: center;
         flex: 0 0 auto;
 
-        a {
+        a.title-name {
             @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
             &.prefix-icon {
                 &:hover {
@@ -216,19 +216,32 @@
         }
 
         .title-name {
-            padding: 5px;
+            &:not(:last-child) {
+                margin-right: 5px;
+            }
             .thy-icon {
                 margin-left: 6px;
             }
         }
 
         .prefix-icon {
-            padding: 5px;
+            margin-right: 5px;
+            // padding: 5px;
             color: variables.$primary;
             font-size: variables.$layout-header-prefix-icon-size;
             .thy-icon {
                 font-size: variables.$layout-header-prefix-icon-size;
             }
+        }
+
+        // 图标后面跟标题，标题加 5px 的间距，保证最终是10px间距
+        .prefix-icon + .title-name {
+            margin-left: 5px;
+        }
+
+        // 分割线后面跟的是标题加 5px 的间距，保证最终是5px间距
+        .title-separator + .title-name {
+            margin-left: 5px;
         }
 
         .suffix-icon {
@@ -251,4 +264,14 @@
 .thy-layout-header-sm {
     height: variables.$layout-header-height-sm;
     line-height: variables.$layout-header-height-sm;
+}
+
+.thy-layout-header-lg {
+    height: variables.$layout-header-height-lg;
+    line-height: variables.$layout-header-height-lg;
+}
+
+.thy-layout-header-xlg {
+    height: variables.$layout-header-height-xlg;
+    line-height: variables.$layout-header-height-xlg;
 }
