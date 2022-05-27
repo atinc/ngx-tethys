@@ -14,7 +14,13 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
+    collapsed = false;
+
     constructor() {}
 
     ngOnInit(): void {}
+
+    collapsedChange(isCollapsed: boolean) {
+        this.collapsed = isCollapsed;
+    }
 }
