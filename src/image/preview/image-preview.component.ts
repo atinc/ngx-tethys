@@ -168,7 +168,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                             (this.isInsideScreen && event.target === this.imagePreviewWrapper.nativeElement)) &&
                         !this.previewConfig?.disableClose
                     ) {
-                        this.ngZone.run(() => this.thyDialog.close());
+                        this.ngZone.run(() => !this.isFullScreen && this.thyDialog.close());
                     }
                 });
 
@@ -185,6 +185,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.currentImageMode = 'fit-screen';
         this.zoom = 1;
         this.updatePreviewImageTransform();
+        this.calculateInsideScreen();
         this.isLoadingDone = true;
         this.cdr.markForCheck();
     }
@@ -304,9 +305,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     viewOriginal() {
-        this.reset();
-        this.imageRef.nativeElement.src = this.previewImage?.origin?.src || this.previewImage.src;
-        this.isLoadingDone = true;
+        window.open(this.previewImage?.origin?.src || this.previewImage.src, '_blank');
     }
 
     rotateRight(): void {
@@ -315,7 +314,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     fullScreen(): void {
-        const targetElement = document.documentElement.querySelector('.fullscreen-target');
+        const targetElement = this.host.nativeElement.querySelector('.thy-image-preview');
         this.isFullScreen = true;
         const fullscreenRef = this.thyFullscreen.launch({
             target: targetElement
