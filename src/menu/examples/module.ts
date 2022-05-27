@@ -8,8 +8,14 @@ import { NgModule } from '@angular/core';
 import { ThyMenuDividerExampleComponent } from './divider/divider.component';
 import { ThyMenuGroupExampleComponent } from './group/group.component';
 import { ThyMenuItemExampleComponent } from './item/item.component';
+import { ThyMenuThemeExampleComponent } from './theme/theme.component';
 
-const COMPONENTS = [ThyMenuGroupExampleComponent, ThyMenuItemExampleComponent, ThyMenuDividerExampleComponent];
+const COMPONENTS = [
+    ThyMenuGroupExampleComponent,
+    ThyMenuItemExampleComponent,
+    ThyMenuDividerExampleComponent,
+    ThyMenuThemeExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,
