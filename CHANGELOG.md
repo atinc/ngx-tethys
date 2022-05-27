@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+
+
+### Bug Fixes
+
+* **image:** adjust header and operation opacity #WIK-6737 ([#1723](https://github.com/atinc/ngx-tethys/issues/1723)) ([c7d60fe](https://github.com/atinc/ngx-tethys/commit/c7d60fe2f15f4b729af2c297b0ca7b393bf39a02)), closes [#WIK-6737](https://github.com/atinc/ngx-tethys/issues/WIK-6737)
+* **image:** revise the copy link tips #WIK-6715 ([05f4626](https://github.com/atinc/ngx-tethys/commit/05f4626da470b6d73490929bcf3e8306515a02f6)), closes [#WIK-6715](https://github.com/atinc/ngx-tethys/issues/WIK-6715)
+
+
+### Features
+
+* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
+* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+
+
+
 # [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
 
 
