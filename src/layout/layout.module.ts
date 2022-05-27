@@ -9,6 +9,8 @@ import { ThyContentMainComponent } from './content-main.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThySidebarHeaderComponent } from './sidebar-header.component';
+import { ThySidebarFooterComponent } from './sidebar-footer.component';
 
 @NgModule({
     declarations: [
@@ -16,6 +18,8 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
         ThyHeaderComponent,
         ThyContentComponent,
         ThySidebarComponent,
+        ThySidebarHeaderComponent,
+        ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
     ],
@@ -25,6 +29,8 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
         ThyHeaderComponent,
         ThyContentComponent,
         ThySidebarComponent,
+        ThySidebarHeaderComponent,
+        ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
     ]
