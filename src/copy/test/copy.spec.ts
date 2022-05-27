@@ -66,17 +66,33 @@ describe('thy-copy', () => {
             const component = testComponent.copyDirective;
             expect(component.tooltipService.thyTooltipDirective.content as string).toBe(testComponent.copyTooltip);
         }));
+
+        it('thyCopyTipOffset should be correct', fakeAsync(() => {
+            testComponent.copyTipOffset = 10;
+            fixture.detectChanges();
+            const component = testComponent.copyDirective;
+            expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(10);
+        }));
     });
 });
 @Component({
     template: `
-        <p #copyContainer (thyCopy)="copy($event)" thyCopyContent="我是一只猪猪" [thyCopyTips]="copyTooltip" [thyShowNotify]="showNotify">
+        <p
+            #copyContainer
+            (thyCopy)="copy($event)"
+            thyCopyContent="我是一只猪猪"
+            [thyCopyTipOffset]="copyTipOffset"
+            [thyCopyTips]="copyTooltip"
+            [thyShowNotify]="showNotify"
+        >
             点击
         </p>
     `
 })
 class ThyCopyComponent implements OnInit {
-    copyTooltip;
+    copyTooltip: string;
+
+    copyTipOffset: number;
 
     showNotify = true;
 
