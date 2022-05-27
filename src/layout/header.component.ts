@@ -22,6 +22,7 @@ import { InputBoolean } from 'ngx-tethys/core';
         class: `thy-layout-header`,
         '[class.thy-layout-header-sm]': `thySize === 'sm'`,
         '[class.thy-layout-header-lg]': `thySize === 'lg'`,
+        '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
         '[class.thy-layout-header-divided]': `divided`
     }
 })
@@ -50,7 +51,7 @@ export class ThyHeaderComponent implements OnInit {
         this.divided = value as boolean;
     }
 
-    @Input('thySize') thySize: 'sm' | 'lg' | 'md' = 'md';
+    @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
     @Input() thyTitle: string;
 
