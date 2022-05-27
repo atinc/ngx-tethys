@@ -29,6 +29,9 @@
                 position: absolute;
                 left: 3px;
             }
+            .thy-menu-item-icon {
+                padding-left: 6px;
+            }
         }
 
         &.thy-sortable-ghost,
@@ -40,6 +43,11 @@
 
     .thy-menu-group {
         display: block;
+        .thy-menu-group-header-content {
+            display: flex;
+            flex: 1;
+            align-items: center;
+        }
 
         &.collapsed {
             .thy-menu-group-header {
@@ -50,22 +58,23 @@
         }
 
         .thy-menu-group-header {
-            cursor: pointer;
             display: flex;
             height: variables.$menu-height;
             align-items: center;
             font-size: variables.$font-size-base;
             margin: 0 -1000px;
             padding: variables.$menu-group-header-padding;
+            &.thy-menu-group-can-arrow {
+                cursor: pointer;
+            }
 
             &:hover {
-                background: variables.$gray-100;
-
+                background: variables.$gray-80;
                 .thy-menu-group-title {
                     color: variables.$gray-800;
                 }
 
-                .thy-menu-group-more {
+                .thy-menu-group-operaton {
                     visibility: visible;
                 }
             }
@@ -73,14 +82,14 @@
             .thy-menu-group-arrow {
                 transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
                 display: inline-block;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
                 font-size: variables.$font-size-md;
                 width: 12px;
             }
 
             .thy-menu-group-folder {
                 margin-left: 6px;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
             }
 
             .thy-menu-group-title {
@@ -92,9 +101,9 @@
                 text-overflow: ellipsis;
             }
 
-            .thy-menu-group-more {
+            .thy-menu-group-operaton {
                 visibility: hidden;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
             }
         }
 
@@ -106,6 +115,57 @@
             > .thy-menu-group-body {
                 margin-left: 35px;
             }
+        }
+    }
+
+    &.menu-theme-divide {
+        .thy-menu-item {
+            padding: 0;
+            margin-bottom: 8px;
+            &:last-of-type {
+                margin-bottom: 10px;
+            }
+        }
+        .thy-menu-item-content {
+            margin: 0;
+            padding: variables.$menu-divide-item-padding;
+            border-radius: variables.$menu-divide-item-border-radius;
+        }
+        .thy-menu-group {
+            .thy-menu-group-header {
+                margin: 0;
+                padding: 0;
+                height: 50px;
+                .thy-menu-group-title {
+                    padding-left: 10px;
+                    color: variables.$gray-600;
+                }
+
+                &:hover {
+                    background: none;
+                    &.thy-menu-group-can-arrow {
+                        .thy-menu-group-title {
+                            color: variables.$primary;
+                        }
+                    }
+                }
+            }
+            .thy-menu-group-arrow {
+                margin-right: 2px;
+            }
+            .thy-menu-group-body {
+                margin: 0;
+            }
+            &.collapsed {
+                .thy-menu-group-header {
+                    .thy-menu-group-arrow {
+                        transform: rotate(-90deg) translateY(1px);
+                    }
+                }
+            }
+        }
+        .thy-menu-divider {
+            margin: 0;
         }
     }
 
@@ -131,25 +191,20 @@
         align-items: center;
 
         &:hover {
-            background: variables.$gray-100;
-
-            .thy-menu-item-name {
-                color: variables.$gray-800;
-            }
-
+            background: variables.$gray-80;
             .thy-menu-item-action {
                 visibility: visible;
             }
         }
 
         .thy-menu-item-icon {
-            color: variables.$gray-500;
-            padding: 0 8px 0 6px;
+            color: variables.$gray-600;
+            padding-right: 8px;
         }
 
         .thy-menu-item-name {
             flex-grow: 1;
-            color: variables.$gray-700;
+            color: variables.$gray-800;
             font-size: variables.$font-size-base;
         }
 
@@ -161,7 +216,7 @@
 
         .thy-menu-item-action {
             visibility: hidden;
-            color: variables.$gray-500;
+            color: variables.$gray-600;
         }
     }
 
