@@ -102,7 +102,7 @@ export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, On
         if (value) {
             this.renderer.addClass(this.elementRef.nativeElement, 'thy-nav-item-hidden');
         } else {
-            this.renderer.removeClass(this.elementRef.nativeElement, 'thy--nav-item-hidden');
+            this.renderer.removeClass(this.elementRef.nativeElement, 'thy-nav-item-hidden');
         }
     }
 
