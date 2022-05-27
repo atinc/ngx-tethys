@@ -81,7 +81,7 @@
     }
 
     .sidebar-header {
-        padding: 0 10px;
+        padding: variables.$layout-sidebar-header-padding;
         min-height: variables.$layout-sidebar-header-height;
         align-items: center;
         display: flex;
@@ -91,27 +91,15 @@
             border-bottom: 1px solid variables.$layout-sidebar-border-color;
         }
         .title {
-            padding: 0px 0px 0px 10px;
             color: variables.$body-color;
             font-size: variables.$font-size-md;
             flex-grow: 1;
         }
 
-        .operation {
-            padding: 0px 10px;
-        }
+        .operation,
         .action {
-            padding: 0px 10px;
+            margin-right: -8px;
         }
-    }
-
-    .sidebar-footer {
-        padding: 0 10px;
-        border-top: 1px solid variables.$layout-sidebar-border-color;
-        min-height: variables.$layout-sidebar-header-height;
-        align-items: center;
-        display: flex;
-        flex-direction: row;
     }
 
     .sidebar-content {
@@ -122,6 +110,15 @@
         .search-container {
             padding: 0 20px 10px 20px;
         }
+    }
+
+    .sidebar-footer {
+        padding: 0 10px;
+        border-top: 1px solid variables.$layout-sidebar-border-color;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
     }
 
     .sidebar-drag {

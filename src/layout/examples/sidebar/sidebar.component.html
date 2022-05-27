@@ -3,8 +3,8 @@
     <thy-sidebar [thyTheme]="'light'">
       <thy-sidebar-header thyTitle="Title">
         <ng-template #headerOperation>
-          <button thyButtonIcon="plus" thyLight="true"></button>
-          <button thyButtonIcon="outdent" class="ml-2" thyLight="true"></button>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
+          <a href="javascript:;" thyAction thyActionIcon="outdent"></a>
         </ng-template>
       </thy-sidebar-header>
       <div class="sidebar-content text-center">
@@ -19,7 +19,7 @@
     <thy-sidebar>
       <thy-sidebar-header thyDivided="true" thyTitle="Title">
         <ng-template #headerOperation>
-          <button thyButtonIcon="plus" thyLight="true"></button>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
         </ng-template>
       </thy-sidebar-header>
 

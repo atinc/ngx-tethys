@@ -311,6 +311,7 @@ $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;
 $layout-sidebar-drag-background-active: $primary !default;
 $layout-sidebar-header-height: 50px;
+$layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $white !default;
 $layout-content-section-margin-bottom: 15px !default;
@@ -475,6 +476,7 @@ $icon-nav-link-padding-y: 0.282rem !default;
 
 $action-item-color: $gray-600 !default;
 $action-item-hover-color: $primary !default;
+$action-item-hover-bg-color: rgba($primary, 0.1) !default;
 $action-item-padding-x: 0.4375rem !default;
 $action-item-padding-y: 0.4375rem !default;
 $action-item-disabled-color: $gray-300 !default;
