@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'thy-layout-sidebar-example',
@@ -12,7 +12,15 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     width = '';
 
+    @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
+
+    collapsed = false;
+
     constructor() {}
 
     ngOnInit(): void {}
+
+    collapsedChange(isCollapsed: boolean) {
+        this.collapsed = isCollapsed;
+    }
 }

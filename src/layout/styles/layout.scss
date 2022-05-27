@@ -80,12 +80,6 @@
         background: variables.$layout-sidebar-background-dark;
     }
 
-    &:hover {
-        .sidebar-collapse {
-            visibility: visible;
-        }
-    }
-
     .sidebar-header {
         padding: 0 10px;
         min-height: variables.$layout-sidebar-header-height;
@@ -148,6 +142,21 @@
         }
     }
 
+    .sidebar-collapse-line {
+        position: absolute;
+        top: 0;
+        right: -2px;
+        bottom: 0;
+        width: 2px;
+        transition: background 0.2s;
+
+        &:hover {
+            + .sidebar-collapse {
+                visibility: visible;
+            }
+        }
+    }
+
     .sidebar-collapse {
         visibility: hidden;
         position: absolute;
@@ -155,8 +164,8 @@
         justify-content: center;
         align-items: center;
         top: 15px;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         right: 0;
         transform: translateX(50%);
         color: variables.$gray-600;
@@ -165,6 +174,7 @@
         box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
         z-index: 9;
         &:hover {
+            visibility: visible;
             cursor: pointer;
             background-color: variables.$primary;
             .sidebar-collapse-icon {
