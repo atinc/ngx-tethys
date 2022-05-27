@@ -23,19 +23,18 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 @Directive({
     selector: '[thyNavLink],[thyNavItem]',
     host: {
-        class: 'thy-nav-item'
+        class: 'thy-nav-item',
+        '[class.active]': 'thyNavItemActive || thyNavLinkActive'
     }
 })
 export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**
      * @deprecated please use thyNavItemActive
      */
-    @HostBinding('class.active')
     @Input()
     @InputBoolean()
     thyNavLinkActive: boolean;
 
-    @HostBinding('class.active')
     @Input()
     @InputBoolean()
     thyNavItemActive: boolean;

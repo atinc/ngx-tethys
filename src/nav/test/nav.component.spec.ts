@@ -140,7 +140,7 @@ describe(`thy-nav`, () => {
             expect(navElement.classList.contains('custom-nav')).toEqual(true);
         });
 
-        it(`should get correct nav links`, () => {
+        it(`should get correct nav items`, () => {
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
             const links = navDebugElement.queryAll(By.directive(ThyNavLinkDirective));
             expect(links).toBeTruthy();

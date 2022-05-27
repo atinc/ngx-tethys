@@ -12,7 +12,7 @@
     .thy-nav-item {
         display: block;
         text-align: center;
-        // fix nav link bounce when hover or active nav-link, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
+        // fix nav link bounce when hover or active nav-item, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
         // the reason is layout-header-operation has { align-items: center} style
         // set border width always regardless hover or active
         border-bottom-style: solid;
@@ -20,23 +20,23 @@
         border-bottom-color: transparent;
         flex: 0 auto;
 
-        @include mixin.nav-link-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 }
 
 .thy-nav-pulled {
     .thy-nav-item {
-        @include mixin.nav-link-size(
+        @include mixin.nav-item-size(
             variables.$nav-item-padding-y variables.$nav-item-padding-x,
             variables.$nav-item-right,
             variables.$nav-item-font-size
         );
-        @include mixin.nav-link-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 
     &.thy-nav-lg {
         .thy-nav-item {
-            @include mixin.nav-link-size(
+            @include mixin.nav-item-size(
                 variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
                 variables.$nav-item-right-lg,
                 variables.$nav-item-font-size-lg
@@ -47,12 +47,12 @@
 
 .thy-nav-primary {
     .thy-nav-item {
-        @include mixin.nav-link-size(
+        @include mixin.nav-item-size(
             variables.$nav-item-padding-y variables.$nav-item-padding-x,
             variables.$nav-item-right,
             variables.$nav-item-font-size
         );
-        @include mixin.nav-link-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 }
 
@@ -60,7 +60,7 @@
     border-bottom: 1px solid variables.$nav-border-color;
     .thy-nav-item {
         transform: translateY(1px);
-        @include mixin.nav-link-size(
+        @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
             variables.$nav-item-secondary-right
         );
@@ -71,11 +71,11 @@
     border-bottom: 1px solid variables.$nav-border-color;
     .thy-nav-item {
         transform: translateY(1px);
-        @include mixin.nav-link-size(
+        @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
             variables.$nav-item-secondary-split-right
         );
-        @include mixin.nav-link-divider-variant(
+        @include mixin.nav-item-divider-variant(
             variables.$nav-item-hover-color,
             variables.$nav-item-thirdly-split-line-height,
             variables.$nav-item-secondary-split-right
@@ -85,16 +85,16 @@
 
 .thy-nav-thirdly {
     .thy-nav-item {
-        @include mixin.nav-link-size(
+        @include mixin.nav-item-size(
             variables.$nav-item-thirdly-padding-y variables.$nav-item-thirdly-padding-x,
             variables.$nav-item-thirdly-right
         );
-        @include mixin.nav-link-divider-variant(
+        @include mixin.nav-item-divider-variant(
             variables.$nav-item-hover-color,
             variables.$nav-item-thirdly-split-line-height,
             variables.$nav-item-thirdly-right
         );
-        @include mixin.clear-nav-link-bottom();
+        @include mixin.clear-nav-item-bottom();
     }
 }
 
