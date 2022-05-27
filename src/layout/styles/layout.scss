@@ -148,11 +148,9 @@
         right: -2px;
         bottom: 0;
         width: 2px;
-        cursor: ew-resize;
         transition: background 0.2s;
 
         &:hover {
-            background: variables.$primary;
             + .sidebar-collapse {
                 visibility: visible;
             }
