@@ -80,7 +80,7 @@ describe('thy-copy', () => {
         <p
             #copyContainer
             (thyCopy)="copy($event)"
-            thyCopyContent="我是一只猪猪"
+            thyCopyContent="content"
             [thyCopyTipOffset]="copyTipOffset"
             [thyCopyTips]="copyTooltip"
             [thyShowNotify]="showNotify"
