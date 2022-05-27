@@ -69,4 +69,22 @@
     </thy-sidebar>
     <thy-content> Content </thy-content>
   </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar class="p-2" [thyWidth]="550" [thyCollapsible]="true" [thyTrigger]="null">
+      Set sidebar collapsible, but trigger is null, and finally hide the collapse icon
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar class="p-2" [thyCollapsible]="true" [thyCollapsedWidth]="collapsedWidth" [thyTrigger]="customTpl">
+      Sidebar custom trigger
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
 </div>
+
+<ng-template #customTpl>
+  <thy-icon class="sidebar-collapse-icon" thyIconName="enfold"></thy-icon>
+</ng-template>
