@@ -27,11 +27,12 @@ import { ThyNavLinkDirective } from './nav-link.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-export type ThyNavType = 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
 const navTypeClassesMap = {
+    pulled: ['thy-nav-pulled'],
     primary: ['thy-nav-primary'],
     secondary: ['thy-nav-secondary'],
     thirdly: ['thy-nav-thirdly'],
@@ -60,7 +61,7 @@ const navHorizontalClassesMap = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
-    private _type: ThyNavType = 'primary';
+    private _type: ThyNavType = 'pulled';
     private _size: ThyNavSize;
     private _horizontal: ThyNavHorizontal;
     private _initialized = false;

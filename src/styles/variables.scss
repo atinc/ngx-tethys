@@ -295,12 +295,14 @@ $layout-header-background: $white !default;
 $layout-header-padding: 0 20px !default;
 $layout-header-height: 56px !default;
 $layout-header-height-sm: 50px !default;
+$layout-header-height-lg: 62px !default;
+$layout-header-height-xlg: 80px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
 
 $layout-content-background: $white !default;
-$layout-content-padding: 15px 15px 15px 15px !default;
+$layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
 $layout-sidebar-background-light: rgba($gray-80, 0.8) !default;
 $layout-sidebar-background-dark: $gray-800 !default;
@@ -417,48 +419,48 @@ $avatar-sizes: map.merge(
     $avatar-sizes
 );
 // Navs
-$nav-link-disabled-color: $gray-300 !default;
-$nav-link-icon-color: $gray-500 !default;
-$nav-link-color: $gray-600 !default;
-$nav-link-hover-color: $primary !default;
-$nav-link-icon-color: $gray-500 !default;
-$nav-link-primary-color: $gray-800 !default;
+$nav-item-disabled-color: $gray-300 !default;
+$nav-item-icon-color: $gray-500 !default;
+$nav-item-color: $gray-600 !default;
+$nav-item-hover-color: $primary !default;
+$nav-item-icon-color: $gray-500 !default;
+$nav-item-primary-color: $gray-800 !default;
 $nav-border-color: $gray-200 !default;
 $nav-divider-color: $gray-200 !default;
 $nav-border-width: 2px !default;
 $nav-border-bottom: $nav-border-width solid $primary !default;
 $nav-border-left: $nav-border-width solid $primary !default;
-$nav-link-font-size: $font-size-base !default;
+$nav-item-font-size: $font-size-base !default;
 // 新的大小
 // md
-$nav-link-padding-y: 0.8125rem !default; // 高度 50px, 文字 15px
-$nav-link-padding-x: 0.625rem !default;
-$nav-link-right: 20px !default;
-$nav-link-font-size: 14px !default;
+$nav-item-padding-y: 0.8125rem !default; // 高度 50px, 文字 15px
+$nav-item-padding-x: 0.625rem !default;
+$nav-item-right: 20px !default;
+$nav-item-font-size: 14px !default;
 //lg
-$nav-link-padding-y-lg: 0.9512rem !default; // 高度 56px, 文字 15px
-$nav-link-padding-x-lg: 1rem !default;
-$nav-link-right-lg: 20px !default;
-$nav-link-font-size-lg: 15px !default;
+$nav-item-padding-y-lg: 0.9512rem !default; // 高度 56px, 文字 15px
+$nav-item-padding-x-lg: 1rem !default;
+$nav-item-right-lg: 20px !default;
+$nav-item-font-size-lg: 15px !default;
 
-$nav-link-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
-$nav-link-primary-padding-x: 1rem !default;
-$nav-link-primary-right: 20px !default;
-$nav-link-primary-font-size: 15px !default;
-$nav-link-primary-min-width: 80px !default;
+$nav-item-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
+$nav-item-primary-padding-x: 1rem !default;
+$nav-item-primary-right: 20px !default;
+$nav-item-primary-font-size: 15px !default;
+$nav-item-primary-min-width: 80px !default;
 
-$nav-link-secondary-padding-y: 0.438rem !default; // 高度 50px
-$nav-link-secondary-padding-x: 0rem !default;
-$nav-link-secondary-right: 40px !default;
-$nav-link-secondary-split-right: 60px !default;
-$nav-link-thirdly-padding-y: 0.5rem !default; // 高度 38px
-$nav-link-thirdly-padding-x: 0rem !default;
-$nav-link-thirdly-right: 40px !default;
-$nav-link-thirdly-split-line-height: 15px !default;
-$nav-link-thirdly-padding-y-sm: 0.4375rem !default;
-$nav-link-thirdly-padding-x-sm: 0rem !default;
-$nav-link-thirdly-right-sm: 40px !default;
-$nav-link-thirdly-split-line-height-sm: 11px !default;
+$nav-item-secondary-padding-y: 0.438rem !default; // 高度 50px
+$nav-item-secondary-padding-x: 0rem !default;
+$nav-item-secondary-right: 40px !default;
+$nav-item-secondary-split-right: 60px !default;
+$nav-item-thirdly-padding-y: 0.5rem !default; // 高度 38px
+$nav-item-thirdly-padding-x: 0rem !default;
+$nav-item-thirdly-right: 40px !default;
+$nav-item-thirdly-split-line-height: 15px !default;
+$nav-item-thirdly-padding-y-sm: 0.4375rem !default;
+$nav-item-thirdly-padding-x-sm: 0rem !default;
+$nav-item-thirdly-right-sm: 40px !default;
+$nav-item-thirdly-split-line-height-sm: 11px !default;
 $nav-vertical-border-left: 4px solid $primary !default;
 $nav-vertical-border-left-empty: 4px solid transparent !default;
 
@@ -475,7 +477,7 @@ $action-item-color: $gray-600 !default;
 $action-item-hover-color: $primary !default;
 $action-item-padding-x: 0.4375rem !default;
 $action-item-padding-y: 0.4375rem !default;
-
+$action-item-disabled-color: $gray-300 !default;
 $action-item-spacing: 15px !default;
 $action-item-spacing-sm: 10px !default;
 $action-item-spacing-xs: 5px !default;

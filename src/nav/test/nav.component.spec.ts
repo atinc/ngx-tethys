@@ -14,7 +14,7 @@ import { ThyNavComponent, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../na
 import { ThyNavModule } from '../nav.module';
 
 const NAV_CLASS = `thy-nav`;
-const NAV_LINK_CLASS = `nav-link`;
+const NAV_LINK_CLASS = `thy-nav-item`;
 
 @Component({
     selector: 'app-nav-basic',
@@ -136,7 +136,7 @@ describe(`thy-nav`, () => {
             expect(navDebugElement).toBeTruthy();
             expect(navElement).toBeTruthy();
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-            expect(navElement.classList.contains('nav-primary')).toEqual(true);
+            expect(navElement.classList.contains('thy-nav-primary')).toEqual(true);
             expect(navElement.classList.contains('custom-nav')).toEqual(true);
         });
 
@@ -163,18 +163,18 @@ describe(`thy-nav`, () => {
                 const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
                 const navElement: HTMLElement = navDebugElement.nativeElement;
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${type}`)).toEqual(true);
+                expect(navElement.classList.contains(`thy-nav-${type}`)).toEqual(true);
             });
         });
 
         it(`should get correct class when input size`, () => {
-            ['sm'].forEach(size => {
+            ['lg', 'sm'].forEach(size => {
                 fixture.debugElement.componentInstance.size = size;
                 fixture.detectChanges();
                 const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
                 const navElement: HTMLElement = navDebugElement.nativeElement;
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${size}`)).toEqual(true);
+                expect(navElement.classList.contains(`thy-nav-${size}`)).toEqual(true);
             });
         });
 
@@ -239,7 +239,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
         }));
 
         it('should active moreBtn when hidden link is active', fakeAsync(() => {
@@ -287,7 +287,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
         }));
 
         it('should hidden moreBtn when has not navLinks', fakeAsync(() => {
@@ -337,7 +337,7 @@ describe(`thy-nav`, () => {
 
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
-            expect(popover.querySelectorAll('.more-nav-link').length).toEqual(2);
+            expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {
@@ -352,7 +352,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             dispatchFakeEvent(moreBtn.nativeElement, 'click');
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
-            const link = popover.querySelectorAll('.more-nav-link')[0];
+            const link = popover.querySelectorAll('.thy-nav-item-more')[0];
             const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
             dispatchFakeEvent(link, 'click');
             expect(linkSpy).toHaveBeenCalled();
