@@ -5,14 +5,14 @@
       <thy-header thySize="sm">
         <ng-template #headerTitle> </ng-template>
         <ng-template #headerContent>
-          <thy-nav thyType="thirdly" thyHorizontal="left">
+          <thy-nav thyHorizontal="left">
             <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
             <a href="javascript:;" thyNavLink>Link2</a>
             <a href="javascript:;" thyNavLink>Link3</a>
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
-          <thy-nav thyType="thirdly" thyHorizontal="right">
+          <thy-nav thyHorizontal="right">
             <a thyNavLink href="javascript:;">
               <thy-icon [thyIconName]="'edit'"></thy-icon>
               Edit
@@ -30,14 +30,14 @@
   <thy-layout>
     <thy-header thyTitle="Header" thyDivided="true" thyIcon="house-square-fill">
       <ng-template #headerContent>
-        <thy-nav thyType="primary" thyHorizontal="center">
+        <thy-nav thySize="lg" thyHorizontal="center">
           <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
           <a href="javascript:;" thyNavLink>Link2</a>
           <a href="javascript:;" thyNavLink>Link3</a>
         </thy-nav>
       </ng-template>
       <ng-template #headerOperation>
-        <thy-nav thyType="thirdly" thyHorizontal="right">
+        <thy-nav thySize="lg" thyHorizontal="right">
           <a thyNavLink href="javascript:;">
             <thy-icon thyIconName="settings"></thy-icon>
           </a>

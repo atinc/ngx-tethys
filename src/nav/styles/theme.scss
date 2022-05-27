@@ -1,13 +1,13 @@
 .thy-nav {
     .nav-link {
-        @include nav-link-variant($nav-link-color, $nav-link-hover-color, $nav-border-bottom);
+        @include nav-link-variant($nav-item-color, $nav-item-hover-color, $nav-border-bottom);
     }
 }
 
 .nav-primary {
     .nav-link {
-        @include nav-link-size($nav-link-primary-padding-y $nav-link-primary-padding-x, $nav-link-primary-right);
-        @include nav-link-variant($nav-link-primary-color, $nav-link-hover-color, $nav-border-bottom);
+        @include nav-link-size($nav-item-primary-padding-y $nav-item-primary-padding-x, $nav-item-primary-right);
+        @include nav-link-variant($nav-item-primary-color, $nav-item-hover-color, $nav-border-bottom);
     }
 }
 
@@ -18,13 +18,13 @@
 .nav-secondary-divider {
     border-bottom: 1px solid $nav-border-color;
     .nav-link {
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-secondary-split-right);
+        @include nav-link-divider-variant($nav-item-hover-color, $nav-item-thirdly-split-line-height, $nav-item-secondary-split-right);
     }
 }
 
 .nav-thirdly {
     .nav-link {
-        @include nav-link-divider-variant($nav-link-hover-color, $nav-link-thirdly-split-line-height, $nav-link-thirdly-right);
+        @include nav-link-divider-variant($nav-item-hover-color, $nav-item-thirdly-split-line-height, $nav-item-thirdly-right);
         @include clear-nav-link-bottom();
     }
 }

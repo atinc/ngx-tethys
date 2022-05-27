@@ -1,8 +1,8 @@
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 
 import { ThyPropertyOperationBasicExampleComponent } from './basic/basic.component';
 import { ThyPropertyOperationDisabledExampleComponent } from './disabled/disabled.component';
@@ -16,10 +16,6 @@ const COMPONENTS = [
     ThyPropertyOperationShowCloseExampleComponent
 ];
 
-@NgModule({
-    declarations: COMPONENTS,
-    imports: [CommonModule, ThyPropertyOperationModule, ThyAvatarModule],
-    exports: COMPONENTS,
-    providers: []
-})
-export class ThyPropertyOperationExamplesModule {}
+export default {
+    imports: [CommonModule, ThyPropertyOperationModule, ThyAvatarModule, ThyButtonModule]
+};
