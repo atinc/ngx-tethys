@@ -68,7 +68,7 @@ describe('thy-copy', () => {
         }));
 
         it('thyCopyTipOffset should be correct', fakeAsync(() => {
-            testComponent.copyTipOffset = 10;
+            testComponent.copyTipsOffset = 10;
             fixture.detectChanges();
             const component = testComponent.copyDirective;
             expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(10);
@@ -81,7 +81,7 @@ describe('thy-copy', () => {
             #copyContainer
             (thyCopy)="copy($event)"
             thyCopyContent="content"
-            [thyCopyTipOffset]="copyTipOffset"
+            [thyCopyTipsOffset]="copyTipsOffset"
             [thyCopyTips]="copyTooltip"
             [thyShowNotify]="showNotify"
         >
@@ -92,7 +92,7 @@ describe('thy-copy', () => {
 class ThyCopyComponent implements OnInit {
     copyTooltip: string;
 
-    copyTipOffset: number;
+    copyTipsOffset: number;
 
     showNotify = true;
 
