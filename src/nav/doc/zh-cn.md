@@ -18,15 +18,18 @@ import { ThyNavModule } from "ngx-tethys/nav";
 ## 基本使用
 ```html
 <thy-nav thyType="primary">
-  <a href="javascript:;" thyNavLink thyNavLinkActive="true">导航一</a>
-  <a href="javascript:;" thyNavLink>导航二</a>
+  <a href="javascript:;" thyNavItem thyNavItemActive="true">导航一</a>
+  <a href="javascript:;" thyNavItem>导航二</a>
 </thy-nav>
 ```
 展示效果：
 <example name="thy-nav-basic-example"></example>
 
 ## 导航类型
-Nav支持四种类型：primary、secondary、thirdly、secondary-divider
+Nav 支持类型：pulled、primary、secondary、thirdly、secondary-divider
+
+primary、secondary、thirdly、secondary-divider 即将被遗弃，会在之后重构导航类型
+
 
 展示效果：
 <example name="thy-nav-type-example"></example>
