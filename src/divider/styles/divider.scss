@@ -18,7 +18,7 @@
         top: -0.06em;
         display: inline-block;
         height: 1rem;
-        margin: 0 8px;
+        margin: 0 variables.$divider-spacing;
         vertical-align: middle;
         border-top: 0;
         border-left: variables.$divider-width solid variables.$divider-color;
@@ -34,7 +34,7 @@
         clear: both;
         width: 100%;
         min-width: 100%;
-        margin: 24px 0;
+        margin: variables.$divider-spacing 0;
         &.thy-divider-with-content {
             display: flex;
             margin: 16px 0;

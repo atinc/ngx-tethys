@@ -1,8 +1,6 @@
 @use "sass:meta";
 @use "../../src/styles/variables" with(
-    $primary: #6698FF,
-    // 临时改为 e8e8e8 所有分割线改成这个颜色，后期改变量，试试效果怎么样
-    $gray-200: #e8e8e8
+    $primary: #6698FF
 );
 @use './styles/variables.scss' as variables2;
 // docgeni
