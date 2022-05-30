@@ -128,17 +128,32 @@
         position: absolute;
         top: 0;
         bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .thy-resizable-resizing {
+        transition: none;
+    }
+    .sidebar-resize-handle {
+        position: absolute;
+        right: 0;
         width: 2px;
-        cursor: e-resize;
-        pointer-events: none;
-        transition: background 200ms;
+        cursor: ew-resize;
+        transition: none;
 
         &:hover {
-            background: variables.$layout-sidebar-drag-background-hover;
+            background: variables.$primary;
+            .sidebar-collapse {
+                visibility: visible;
+            }
         }
 
         &:active {
-            background: variables.$layout-sidebar-drag-background-active;
+            background: variables.$primary;
+            .sidebar-collapse {
+                visibility: visible;
+            }
         }
     }
 

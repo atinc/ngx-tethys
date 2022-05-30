@@ -11,6 +11,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThySidebarHeaderComponent } from './sidebar-header.component';
 import { ThySidebarFooterComponent } from './sidebar-footer.component';
+import { ThyResizableModule } from '../resizable';
 
 @NgModule({
     declarations: [
@@ -23,7 +24,7 @@ import { ThySidebarFooterComponent } from './sidebar-footer.component';
         ThyContentSectionComponent,
         ThyContentMainComponent
     ],
-    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule],
+    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule, ThyResizableModule],
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,
