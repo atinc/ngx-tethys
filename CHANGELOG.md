@@ -2,6 +2,48 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.1...13.1.0-next.3) (2022-05-30)
+
+
+### Bug Fixes
+
+* **menu:** change menu theme name and group params #INFR-3277 ([6b6578f](https://github.com/atinc/ngx-tethys/commit/6b6578fdaf38f4aa7e085e0a3ebb495678e36bd8)), closes [#INFR-3277](https://github.com/atinc/ngx-tethys/issues/INFR-3277)
+
+
+### Features
+
+* **styles:** update spacer to 0-7(4px、8px、12px、16px、20px、24px、28px) and update space component apply to it, refactor styles doc ([#1748](https://github.com/atinc/ngx-tethys/issues/1748)) ([3bb0bbd](https://github.com/atinc/ngx-tethys/commit/3bb0bbd2bcb00bd0978a11e1524eb2c30785e778))
+
+
+
+# [13.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.1...13.1.0-next.2) (2022-05-27)
+
+
+### Features
+
+* **menu:** menu suport divide theme #INFR-3229 ([2f6930e](https://github.com/atinc/ngx-tethys/commit/2f6930edf7fdaa7fb46bf3fbe05f19d949e7395b)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
+# [13.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.0...13.1.0-next.1) (2022-05-27)
+
+
+### Features
+
+* update nav and thy-header size and refactor styles ([#1741](https://github.com/atinc/ngx-tethys/issues/1741)) ([f86c73e](https://github.com/atinc/ngx-tethys/commit/f86c73ec7b93c155e295710bf5e571199b9c316a))
+
+
+
+# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+
+
+### Features
+
+* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
+* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+
+
+
 ## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.0.1) (2022-05-30)
 
 
