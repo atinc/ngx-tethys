@@ -145,7 +145,6 @@ export class ThySidebarComponent implements OnInit {
     }
 
     resizeHandler({ width }: ThyResizeEvent) {
-        console.log(width);
         if (width === this.thyLayoutSidebarWidth) {
             return;
         }
