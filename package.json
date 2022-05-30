@@ -93,7 +93,7 @@
     "@docgeni/cli": "1.2.0-next.14",
     "@docgeni/template": "1.2.0-next.14",
     "@schematics/angular": "^13.3.2",
-    "@tethys/icons": "1.1.115",
+    "@tethys/icons": "1.1.127",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
     "@types/node": "^12.11.1",
