@@ -1,6 +1,19 @@
 module.exports = [
     {
         type: 'component',
+        name: 'thy-menu',
+        description: '菜单支持`thy-menu,[thy-menu],[thyMenu]`三种形式',
+        properties: [
+            {
+                name: 'thyTheme',
+                description: '主题',
+                type: 'compact' | 'loose',
+                default: 'compact'
+            }
+        ]
+    },
+    {
+        type: 'component',
         name: 'thy-menu-group',
         description: '菜单分组，支持组件`thy-menu-group`和`<div thyMenuGroup></div>`两种形式',
         properties: [
@@ -9,6 +22,18 @@ module.exports = [
                 description: '分组标题',
                 type: 'String',
                 default: ''
+            },
+            {
+                name: 'thyCollapsible',
+                description: '是否支持展开收起',
+                type: 'Boolean',
+                default: 'true'
+            },
+            {
+                name: 'thyCollapsed',
+                description: '是否默认收起',
+                tyoe: 'Boolean',
+                default: 'false'
             },
             {
                 name: 'thyExpand',

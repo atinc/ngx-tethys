@@ -14,6 +14,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
+import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -75,11 +76,12 @@ export class ThyMenuGroupComponent implements OnInit {
     }
 
     @Input('thyCollapsed')
+    @InputBoolean()
     set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
 
-    @Input() thyCollapsible: boolean = true;
+    @Input() @InputBoolean() thyCollapsible: boolean = true;
 
     @Input('thyShowIcon')
     set thyShowIcon(value: boolean) {
@@ -97,12 +99,6 @@ export class ThyMenuGroupComponent implements OnInit {
     }
 
     @Input() thyShowAction = false;
-
-    @Input('thyHeaderContent') set headerContent(template: TemplateRef<any>) {
-        if (template) {
-            this.headerContentTemplateRef = template;
-        }
-    }
 
     @Input() thyActionStopPropagation = true;
 

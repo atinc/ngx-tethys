@@ -9,6 +9,7 @@ import { ThyMenuDividerExampleComponent } from './divider/divider.component';
 import { ThyMenuGroupExampleComponent } from './group/group.component';
 import { ThyMenuItemExampleComponent } from './item/item.component';
 import { ThyMenuThemeExampleComponent } from './theme/theme.component';
+import { ThyDividerModule } from 'ngx-tethys/divider';
 
 const COMPONENTS = [
     ThyMenuGroupExampleComponent,
@@ -19,7 +20,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, ThyMenuModule, ThyIconModule, ThyActionMenuModule],
+    imports: [CommonModule, ThyMenuModule, ThyDividerModule, ThyIconModule, ThyActionMenuModule],
     exports: COMPONENTS,
     providers: []
 })
