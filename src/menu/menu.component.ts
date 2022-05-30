@@ -1,6 +1,6 @@
 import { Component, OnInit, HostBinding, ElementRef, Input, Host } from '@angular/core';
 
-export type ThyMenuTheme = 'default' | 'divide';
+export type ThyMenuTheme = 'compact' | 'loose';
 @Component({
     selector: 'thy-menu,[thy-menu],[thyMenu]',
     templateUrl: './menu.component.html'
@@ -8,14 +8,14 @@ export type ThyMenuTheme = 'default' | 'divide';
 export class ThyMenuComponent implements OnInit {
     @HostBinding('class.thy-menu') isThyMenu = true;
 
-    @HostBinding('class.menu-theme-divide') menuThemeDivide = false;
+    @HostBinding('class.menu-theme-loose') menuThemeLoose = false;
 
-    theme: ThyMenuTheme = 'default';
+    theme: ThyMenuTheme = 'compact';
 
     @Input() set thyTheme(value: ThyMenuTheme) {
         this.theme = value;
-        if (value === 'divide') {
-            this.menuThemeDivide = true;
+        if (value === 'loose') {
+            this.menuThemeLoose = true;
         }
     }
 

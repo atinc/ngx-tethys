@@ -1,4 +1,4 @@
-<div *ngIf="menuTheme === 'default'" class="thy-menu-group-header" (click)="collapseGroup()">
+<div *ngIf="menuTheme === 'compact'" class="thy-menu-group-header" (click)="collapseGroup()">
   <thy-icon thyIconName="caret-right-down" class="thy-menu-group-arrow"></thy-icon>
   <thy-icon *ngIf="showIcon" class="thy-menu-group-folder" [thyIconName]="iconClass"></thy-icon>
   <span class="thy-menu-group-title" [title]="thyTitle">{{ thyTitle }}</span>
@@ -6,20 +6,20 @@
 </div>
 
 <div
-  *ngIf="menuTheme === 'divide'"
+  *ngIf="menuTheme === 'loose'"
   class="thy-menu-group-header"
-  [ngClass]="{ 'thy-menu-group-can-arrow': thyCanArrow }"
+  [ngClass]="{ 'thy-menu-group-collapsible': thyCollapsible }"
   (click)="collapseGroup()"
 >
   <div class="thy-menu-group-header-content">
-    <ng-template *ngIf="headerContentTemplate; else titleTemplete" [ngTemplateOutlet]="headerContentTemplate"></ng-template>
+    <ng-template *ngIf="headerContentTemplateRef; else titleTemplete" [ngTemplateOutlet]="headerContentTemplateRef"></ng-template>
     <ng-template #titleTemplete>
       <span class="thy-menu-group-title" *ngIf="thyTitle">
         <ng-container>{{ thyTitle }}</ng-container>
       </span>
     </ng-template>
   </div>
-  <thy-icon thyIconName="angle-down" *ngIf="thyCanArrow" class="thy-menu-group-arrow"></thy-icon>
+  <thy-icon thyIconName="angle-down" *ngIf="thyCollapsible" class="thy-menu-group-arrow"></thy-icon>
 </div>
 <div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="isCollapsed">
   <ng-content></ng-content>

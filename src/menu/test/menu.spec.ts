@@ -23,8 +23,8 @@ import { ThyMenuModule } from '../menu.module';
             <thy-menu-group
                 thyTitle="工作"
                 [thyExpand]="true"
-                [thyCanArrow]="thyCanArrow"
-                [thyHeaderContent]="headerContentTemplate"
+                [thyCollapsible]="thyCollapsible"
+                [thyHeaderContent]="headerContent"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
@@ -48,6 +48,9 @@ import { ThyMenuModule } from '../menu.module';
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
+                <ng-template #headerContent>
+                    <span class="custom-title">星标</span>
+                </ng-template>
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
@@ -58,10 +61,6 @@ import { ThyMenuModule } from '../menu.module';
             <thy-menu-divider></thy-menu-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
-
-        <ng-template #headerContentTemplate>
-            <span class="custom-title">星标</span>
-        </ng-template>
     `
 })
 class ThyDemoMenuComponent {
@@ -74,7 +73,7 @@ class ThyDemoMenuComponent {
 
     theme = 'default';
 
-    thyCanArrow = true;
+    thyCollapsible = true;
     click() {}
 }
 
@@ -115,10 +114,10 @@ describe('ThyMenu', () => {
         });
 
         it('should theme worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
+            fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('menu-theme-divide')).toBeTruthy();
+            expect(menu.nativeElement.classList.contains('menu-theme-loose')).toBeTruthy();
         });
     });
 
@@ -155,9 +154,9 @@ describe('ThyMenu', () => {
             expect(group.nativeElement.classList.contains('thy-menu-group')).toBeTruthy();
         });
 
-        it('should thyCanArrow worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
-            fixture.debugElement.componentInstance.thyCanArrow = false;
+        it('should thyCollapsible worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
+            fixture.debugElement.componentInstance.thyCollapsible = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
@@ -168,11 +167,11 @@ describe('ThyMenu', () => {
             expect(group.componentInstance.isCollapsed).toBe(false);
         });
 
-        it('should headerContentTemplate worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
+        it('should headerContent worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
-            expect(group.nativeElement.querySelector('.custom-title')).toBeTruthy();
+            expect(group.nativeElement.querySelectorAll('.custom-title')).toBeTruthy();
         });
     });
 
