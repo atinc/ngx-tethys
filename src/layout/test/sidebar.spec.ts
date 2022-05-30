@@ -7,6 +7,8 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/test
 import { ThySidebarComponent, ThySidebarTheme } from '../sidebar.component';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThySidebarHeaderComponent } from '../sidebar-header.component';
+import { ThySidebarContentComponent } from '../sidebar-content.component';
+import { ThySidebarFooterComponent } from '../sidebar-footer.component';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -26,7 +28,10 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyTrigger]="triggerTpl"
             >
                 <thy-sidebar-header [thyDivided]="true" thyTitle="Title"> </thy-sidebar-header>
-                恩
+                <thy-sidebar-content>
+                    Content
+                </thy-sidebar-content>
+                <thy-sidebar-footer> Footer </thy-sidebar-footer>
             </thy-sidebar>
             <<ng-template #customTpl>
                 <div class="custom-collapse"></div>
@@ -123,6 +128,24 @@ describe(`sidebar`, () => {
 
         it(`should get correct class with ThySidebarHeaderComponent has divided`, () => {
             expect(sidebarHeaderElement.classList.contains(`sidebar-header-divided`)).toEqual(true);
+        });
+
+        it(`should get correct class with thy-sidebar-content`, () => {
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarContentComponent));
+            expect(debugElement).toBeTruthy();
+            const element: HTMLElement = debugElement.nativeElement;
+            expect(element).toBeTruthy();
+            expect(element.classList.contains('sidebar-content')).toBeTruthy();
+            expect(element.textContent.includes('Content')).toBeTruthy();
+        });
+
+        it(`should get correct class with thy-sidebar-footer`, () => {
+            const debugElement = fixture.debugElement.query(By.directive(ThySidebarFooterComponent));
+            expect(debugElement).toBeTruthy();
+            const element: HTMLElement = debugElement.nativeElement;
+            expect(element).toBeTruthy();
+            expect(element.classList.contains('sidebar-footer')).toBeTruthy();
+            expect(element.textContent.includes('Footer')).toBeTruthy();
         });
 
         it(`should get correct isolated class when isolated`, () => {

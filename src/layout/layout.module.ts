@@ -11,6 +11,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThySidebarHeaderComponent } from './sidebar-header.component';
 import { ThySidebarFooterComponent } from './sidebar-footer.component';
+import { ThySidebarContentComponent } from './sidebar-content.component';
 
 @NgModule({
     declarations: [
@@ -19,6 +20,7 @@ import { ThySidebarFooterComponent } from './sidebar-footer.component';
         ThyContentComponent,
         ThySidebarComponent,
         ThySidebarHeaderComponent,
+        ThySidebarContentComponent,
         ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
@@ -30,6 +32,7 @@ import { ThySidebarFooterComponent } from './sidebar-footer.component';
         ThyContentComponent,
         ThySidebarComponent,
         ThySidebarHeaderComponent,
+        ThySidebarContentComponent,
         ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
