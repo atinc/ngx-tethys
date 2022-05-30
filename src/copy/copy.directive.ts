@@ -34,6 +34,12 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     @Input() thyCopyTips = '点击复制';
 
+    /**
+     *  偏移量
+     * @default 4
+     */
+    @Input() thyCopyTipsOffset: number;
+
     @Input() thyCopyContent: string | ElementRef | HTMLElement;
 
     @Input() @InputBoolean() thyShowNotify = true;
@@ -49,6 +55,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     ngOnInit() {
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
         this.tooltipService.thyTooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
+        this.tooltipService.thyTooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
     }
 
     private getContent(event: Event) {

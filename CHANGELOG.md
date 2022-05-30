@@ -2,25 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [13.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.1...13.1.0-next.2) (2022-05-27)
-
-
-### Features
-
-* **menu:** menu suport divide theme #INFR-3229 ([2f6930e](https://github.com/atinc/ngx-tethys/commit/2f6930edf7fdaa7fb46bf3fbe05f19d949e7395b)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
-
-
-
-# [13.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.0...13.1.0-next.1) (2022-05-27)
-
-
-### Features
-
-* update nav and thy-header size and refactor styles ([#1741](https://github.com/atinc/ngx-tethys/issues/1741)) ([f86c73e](https://github.com/atinc/ngx-tethys/commit/f86c73ec7b93c155e295710bf5e571199b9c316a))
-
-
-
-# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.0.1) (2022-05-30)
 
 
 ### Bug Fixes
@@ -31,8 +13,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
-* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+* **copy:** add thyCopyTipOffset input #INFR-3254 ([#1735](https://github.com/atinc/ngx-tethys/issues/1735)) ([3f06509](https://github.com/atinc/ngx-tethys/commit/3f065096b9c7e19f459898101c5bcb8636c50d8a)), closes [#INFR-3254](https://github.com/atinc/ngx-tethys/issues/INFR-3254)
 
 
 
