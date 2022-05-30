@@ -32,14 +32,16 @@ export class ThySpaceItemDirective implements OnInit {
     ngOnInit(): void {}
 }
 
-type Size = 'zero' | 'xs' | 'sm' | 'md' | 'lg' | number;
+type Size = 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' | number;
 
 const SIZE_SPACE_MAP = {
     zero: 0,
-    xs: 5,
-    sm: 10,
-    md: 15,
-    lg: 20
+    xxs: 4,
+    xs: 8,
+    sm: 12,
+    md: 16,
+    lg: 20,
+    xlg: 24
 };
 
 const DEFAULT_SIZE: Size = 'md';

@@ -126,20 +126,28 @@ describe('space', () => {
                     space: 0
                 },
                 {
+                    value: 'xxs',
+                    space: 4
+                },
+                {
                     value: 'xs',
-                    space: 5
+                    space: 8
                 },
                 {
                     value: 'sm',
-                    space: 10
+                    space: 12
                 },
                 {
                     value: 'md',
-                    space: 15
+                    space: 16
                 },
                 {
                     value: 'lg',
                     space: 20
+                },
+                {
+                    value: 'xlg',
+                    space: 24
                 }
             ];
             sizes.forEach(size => {
@@ -161,7 +169,7 @@ describe('space', () => {
             fixture.componentInstance.size = 'md-invalid';
             fixture.detectChanges();
             const element: HTMLElement = spaceDebugElement.nativeElement;
-            assertSpaceSize(element, 15);
+            assertSpaceSize(element, 16);
         });
     });
 });
