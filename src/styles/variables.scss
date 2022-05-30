@@ -293,10 +293,10 @@ $zindex-pop-box: 1080 !default;
 // Layout
 $layout-header-background: $white !default;
 $layout-header-padding: 0 20px !default;
-$layout-header-height: 50px !default;
-$layout-header-height-sm: 44px !default;
+$layout-header-height: 52px !default;
+$layout-header-height-sm: 48px !default;
 $layout-header-height-lg: 56px !default;
-$layout-header-height-xlg: 80px !default;
+$layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
@@ -310,7 +310,8 @@ $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;
 $layout-sidebar-drag-background-active: $primary !default;
-$layout-sidebar-header-height: 50px;
+$layout-sidebar-header-height: $layout-header-height !default;
+$layout-sidebar-footer-height: 48px !default;
 $layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $white !default;
@@ -846,7 +847,7 @@ $popover-body-padding: 15px 20px !default;
 
 // divider
 $divider-orientation-margin: 5% !default;
-$divider-spacing: 8px !default;
+$divider-spacing: 16px !default;
 $divider-text-padding: 1em !default;
 $divider-color: $gray-200 !default;
 $divider-deeper-color: $gray-300 !default;
