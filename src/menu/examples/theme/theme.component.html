@@ -15,8 +15,8 @@
         <thy-icon thyIconName="more"></thy-icon>
       </span>
     </a>
-    <thy-menu-divider></thy-menu-divider>
-    <thy-menu-group thyTitle="工作" [thyCollapsible]="true">
+    <thy-divider></thy-divider>
+    <thy-menu-group thyTitle="工作" [thyCollapsible]="true" [thyCollapsed]="true">
       <a thyMenuItem href="javascript:;" class="active">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
@@ -36,7 +36,7 @@
         </span>
       </a>
     </thy-menu-group>
-    <thy-menu-divider></thy-menu-divider>
+    <thy-divider></thy-divider>
   </thy-menu>
 </div>
 
@@ -62,8 +62,8 @@
         </span>
       </a>
     </thy-menu-group>
-    <thy-menu-divider></thy-menu-divider>
-    <thy-menu-group [thyHeaderContent]="headerContent">
+    <thy-divider></thy-divider>
+    <thy-menu-group>
       <a thyMenuItem href="javascript:;">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>

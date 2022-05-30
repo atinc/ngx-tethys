@@ -24,7 +24,6 @@ import { ThyMenuModule } from '../menu.module';
                 thyTitle="工作"
                 [thyExpand]="true"
                 [thyCollapsible]="thyCollapsible"
-                [thyHeaderContent]="headerContent"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
@@ -58,7 +57,7 @@ import { ThyMenuModule } from '../menu.module';
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
-            <thy-menu-divider></thy-menu-divider>
+            <thy-divider></thy-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
     `
@@ -121,22 +120,22 @@ describe('ThyMenu', () => {
         });
     });
 
-    describe('thy-menu-divider', () => {
-        let divider: DebugElement;
+    // describe('thy-menu-divider', () => {
+    //     let divider: DebugElement;
 
-        beforeEach(() => {
-            divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
-        });
+    //     beforeEach(() => {
+    //         divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
+    //     });
 
-        it('should create thy-menu-divider', () => {
-            expect(divider.componentInstance).toBeTruthy();
-            expect(divider.componentInstance === component.divider).toBeTruthy();
-        });
+    //     it('should create thy-menu-divider', () => {
+    //         expect(divider.componentInstance).toBeTruthy();
+    //         expect(divider.componentInstance === component.divider).toBeTruthy();
+    //     });
 
-        it('should have class thy-menu-divider', () => {
-            expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
-        });
-    });
+    //     it('should have class thy-menu-divider', () => {
+    //         expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
+    //     });
+    // });
 
     describe('thy-menu-group', () => {
         let group: DebugElement;
