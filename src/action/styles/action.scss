@@ -1,0 +1,12 @@
+@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as action-mixin;
+
+.thy-action {
+    transition: opacity 0.2s ease-in-out;
+    @include action-mixin.action-variant(
+        variables.$action-item-color,
+        variables.$action-item-hover-color,
+        variables.$action-item-hover-bg-color
+    );
+}

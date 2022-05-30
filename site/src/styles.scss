@@ -1,9 +1,11 @@
 @use "sass:meta";
+@use "../../src/styles/variables" with(
+    $primary: #6698FF
+);
 @use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
 @use '~@docgeni/template/styles/index.scss';
-@use "../../src/styles/variables";
 
 @import './assets/fonts/wtd/iconfont.css';
 @include meta.load-css('../../src/styles/index.scss');

@@ -1,0 +1,44 @@
+@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/variables.scss";
+
+@mixin action-variant($color, $hover-color, $hover-bg-color) {
+    color: $color;
+    padding: variables.$action-item-padding-y variables.$action-item-padding-x;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+
+    &.active {
+        color: $hover-color;
+        text-decoration: none;
+        background: $hover-bg-color;
+        border-radius: variables.$border-radius;
+        // 统一所有操作active状态下，标签展示
+        visibility: visible !important;
+    }
+    @include hover.hover {
+        color: $hover-color;
+        text-decoration: none;
+        background: $hover-bg-color;
+        border-radius: variables.$border-radius;
+    }
+
+    // Disabled state lightens text
+    &.disabled {
+        color: variables.$action-item-disabled-color;
+        border-bottom: none;
+    }
+
+    > .thy-icon + span,
+    > span + .thy-icon {
+        margin-left: 8px;
+    }
+}
+
+@mixin action-item-size($padding, $margin-right) {
+    padding: $padding;
+    margin-right: $margin-right;
+    &:last-child {
+        margin-right: 0;
+    }
+}

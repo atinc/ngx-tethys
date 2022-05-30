@@ -65,35 +65,40 @@
     flex: 0 0 auto;
     transition: all 0.2s;
     position: relative;
-    background: variables.$layout-sidebar-background;
+
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
 
-    &:hover {
-        .sidebar-collapse {
-            visibility: visible;
-        }
+    &.sidebar-theme-light {
+        background: variables.$layout-sidebar-background-light;
+    }
+
+    &.sidebar-theme-dark {
+        background: variables.$layout-sidebar-background-dark;
     }
 
     .sidebar-header {
-        padding: 0 10px;
-        min-height: variables.$layout-header-height;
-        line-height: variables.$layout-header-height;
+        padding: variables.$layout-sidebar-header-padding;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
         display: flex;
         flex-direction: row;
 
+        &.sidebar-header-divided {
+            border-bottom: 1px solid variables.$layout-sidebar-border-color;
+        }
         .title {
-            padding: 0px 0px 0px 10px;
             color: variables.$body-color;
             font-size: variables.$font-size-md;
             flex-grow: 1;
         }
 
+        .operation,
         .action {
-            padding: 0px 10px;
+            margin-right: -8px;
         }
     }
 
@@ -105,6 +110,15 @@
         .search-container {
             padding: 0 20px 10px 20px;
         }
+    }
+
+    .sidebar-footer {
+        padding: 0 10px;
+        border-top: 1px solid variables.$layout-sidebar-border-color;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
     }
 
     .sidebar-drag {
@@ -125,6 +139,21 @@
         }
     }
 
+    .sidebar-collapse-line {
+        position: absolute;
+        top: 0;
+        right: -2px;
+        bottom: 0;
+        width: 2px;
+        transition: background 0.2s;
+
+        &:hover {
+            + .sidebar-collapse {
+                visibility: visible;
+            }
+        }
+    }
+
     .sidebar-collapse {
         visibility: hidden;
         position: absolute;
@@ -132,8 +161,8 @@
         justify-content: center;
         align-items: center;
         top: 15px;
-        width: 20px;
-        height: 20px;
+        width: 24px;
+        height: 24px;
         right: 0;
         transform: translateX(50%);
         color: variables.$gray-600;
@@ -142,6 +171,7 @@
         box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
         z-index: 9;
         &:hover {
+            visibility: visible;
             cursor: pointer;
             background-color: variables.$primary;
             .sidebar-collapse-icon {
@@ -178,7 +208,7 @@
         align-items: center;
         flex: 0 0 auto;
 
-        a {
+        a.title-name {
             @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
             &.prefix-icon {
                 &:hover {
@@ -193,19 +223,32 @@
         }
 
         .title-name {
-            padding: 5px;
+            &:not(:last-child) {
+                margin-right: 5px;
+            }
             .thy-icon {
                 margin-left: 6px;
             }
         }
 
         .prefix-icon {
-            padding: 5px;
+            margin-right: 5px;
+            // padding: 5px;
             color: variables.$primary;
             font-size: variables.$layout-header-prefix-icon-size;
             .thy-icon {
                 font-size: variables.$layout-header-prefix-icon-size;
             }
+        }
+
+        // 图标后面跟标题，标题加 5px 的间距，保证最终是10px间距
+        .prefix-icon + .title-name {
+            margin-left: 5px;
+        }
+
+        // 分割线后面跟的是标题加 5px 的间距，保证最终是5px间距
+        .title-separator + .title-name {
+            margin-left: 5px;
         }
 
         .suffix-icon {
@@ -228,4 +271,14 @@
 .thy-layout-header-sm {
     height: variables.$layout-header-height-sm;
     line-height: variables.$layout-header-height-sm;
+}
+
+.thy-layout-header-lg {
+    height: variables.$layout-header-height-lg;
+    line-height: variables.$layout-header-height-lg;
+}
+
+.thy-layout-header-xlg {
+    height: variables.$layout-header-height-xlg;
+    line-height: variables.$layout-header-height-xlg;
 }

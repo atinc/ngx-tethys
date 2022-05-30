@@ -2,6 +2,7 @@ import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -40,6 +41,10 @@ export class ThyMenuGroupComponent implements OnInit {
 
     public groupHeaderPaddingLeft = 0;
 
+    get menuTheme(): ThyMenuTheme {
+        return this.parent?.thyTheme;
+    }
+
     @ViewChild('thyMenuGroup', { static: true }) _thyMenuGroup: ElementRef;
 
     @HostBinding('class.thy-menu-group') isThyMenuGroup = true;
@@ -65,12 +70,17 @@ export class ThyMenuGroupComponent implements OnInit {
         this.iconClass = value;
     }
 
+    @Input() thyCanArrow: boolean = true;
+
     @Input('thyActionIcon')
     set thyActionIcon(value: string) {
         this.rightIconClass = value;
     }
 
     @Input() thyShowAction = false;
+
+    @Input('thyHeaderContent')
+    headerContentTemplate: TemplateRef<any>;
 
     @Input() thyActionStopPropagation = true;
 
@@ -81,11 +91,14 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    constructor(private popover: ThyPopover) {}
+    constructor(private popover: ThyPopover, public parent: ThyMenuComponent) {}
 
     ngOnInit(): void {}
 
     collapseGroup(): void {
+        if (!this.thyCanArrow) {
+            return;
+        }
         this.isCollapsed = !this.isCollapsed;
     }
 

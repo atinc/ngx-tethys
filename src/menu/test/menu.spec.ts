@@ -19,8 +19,15 @@ import { ThyMenuModule } from '../menu.module';
 @Component({
     selector: 'thy-demo-thy-menu',
     template: `
-        <thy-menu>
-            <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" [thyActionIcon]="'user-group-fill'">
+        <thy-menu [thyTheme]="theme">
+            <thy-menu-group
+                thyTitle="工作"
+                [thyExpand]="true"
+                [thyCanArrow]="thyCanArrow"
+                [thyHeaderContent]="headerContentTemplate"
+                [thyShowAction]="true"
+                [thyActionIcon]="'user-group-fill'"
+            >
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
                         <thy-icon thyIconName="user-group-fill"></thy-icon>
@@ -51,6 +58,10 @@ import { ThyMenuModule } from '../menu.module';
             <thy-menu-divider></thy-menu-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
+
+        <ng-template #headerContentTemplate>
+            <span class="custom-title">星标</span>
+        </ng-template>
     `
 })
 class ThyDemoMenuComponent {
@@ -61,6 +72,9 @@ class ThyDemoMenuComponent {
     @ViewChild(ThyMenuItemActionComponent, { static: true }) action: ThyMenuItemActionComponent;
     @ViewChild(ThyMenuItemNameComponent, { static: true }) name: ThyMenuItemNameComponent;
 
+    theme = 'default';
+
+    thyCanArrow = true;
     click() {}
 }
 
@@ -99,6 +113,13 @@ describe('ThyMenu', () => {
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
             expect(menu.nativeElement.classList.contains('thy-menu')).toBeTruthy();
         });
+
+        it('should theme worked', () => {
+            fixture.debugElement.componentInstance.theme = 'divide';
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('menu-theme-divide')).toBeTruthy();
+        });
     });
 
     describe('thy-menu-divider', () => {
@@ -132,6 +153,26 @@ describe('ThyMenu', () => {
 
         it('should have class thy-menu-group', () => {
             expect(group.nativeElement.classList.contains('thy-menu-group')).toBeTruthy();
+        });
+
+        it('should thyCanArrow worked', () => {
+            fixture.debugElement.componentInstance.theme = 'divide';
+            fixture.debugElement.componentInstance.thyCanArrow = false;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
+            groupHeader.click();
+            fixture.detectChanges();
+            console.log(group.componentInstance, 'group.componentInstance');
+            expect(group.componentInstance.isCollapsed).toBe(false);
+        });
+
+        it('should headerContentTemplate worked', () => {
+            fixture.debugElement.componentInstance.theme = 'divide';
+            fixture.detectChanges();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            expect(group.nativeElement.querySelector('.custom-title')).toBeTruthy();
         });
     });
 

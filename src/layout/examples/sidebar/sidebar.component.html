@@ -1,12 +1,30 @@
 <div class="demo-layout-backdrop d-flex-column-fill demo-layout-sidebar">
-  <thy-layout style="height: 100px;">
-    <thy-sidebar>
-      <div class="sidebar-header">
-        <span class="title cursor-pointer">Title</span>
-        <button class="action" thyButtonIcon="project-add" thyLight="true" thySize="lg"></button>
-      </div>
+  <thy-layout style="height: 300px;">
+    <thy-sidebar [thyTheme]="'light'">
+      <thy-sidebar-header thyTitle="Title">
+        <ng-template #headerOperation>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
+          <a href="javascript:;" thyAction thyActionIcon="outdent"></a>
+        </ng-template>
+      </thy-sidebar-header>
       <div class="sidebar-content text-center">
         Sidebar with header and content
+      </div>
+      <thy-sidebar-footer></thy-sidebar-footer>
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar>
+      <thy-sidebar-header thyDivided="true" thyTitle="Title">
+        <ng-template #headerOperation>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
+        </ng-template>
+      </thy-sidebar-header>
+
+      <div class="sidebar-content text-center">
+        Sidebar header width divider
       </div>
     </thy-sidebar>
     <thy-content> Content </thy-content>
@@ -51,4 +69,29 @@
     </thy-sidebar>
     <thy-content> Content </thy-content>
   </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar class="p-2" [thyWidth]="550" [thyCollapsible]="true" [thyTrigger]="null">
+      Set sidebar collapsible, but trigger is null, and finally hide the collapse icon
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar
+      class="p-2"
+      [thyCollapsible]="true"
+      [thyCollapsed]="collapsed"
+      [thyCollapsedWidth]="collapsedWidth"
+      (thyCollapsedChange)="collapsedChange($event)"
+      [thyTrigger]="customTpl"
+    >
+      Sidebar custom trigger
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
 </div>
+
+<ng-template #customTpl>
+  <thy-icon class="sidebar-collapse-icon" [thyIconName]="collapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>
+</ng-template>

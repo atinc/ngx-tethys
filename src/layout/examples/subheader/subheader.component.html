@@ -1,23 +1,23 @@
 <div class="demo-layout-backdrop d-flex-column-fill">
   <thy-layout>
-    <thy-header thyTitle="Header" thyDivided="true" thyIcon="house-square-fill"> </thy-header>
+    <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill"> </thy-header>
     <thy-layout>
-      <thy-header thySize="sm">
+      <thy-header>
         <ng-template #headerTitle> </ng-template>
         <ng-template #headerContent>
-          <thy-nav thyType="thirdly" thyHorizontal="left">
-            <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
-            <a href="javascript:;" thyNavLink>Link2</a>
-            <a href="javascript:;" thyNavLink>Link3</a>
+          <thy-nav thyType="pulled" thyHorizontal="left">
+            <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
+            <a href="javascript:;" thyNavItem>Link2</a>
+            <a href="javascript:;" thyNavItem>Link3</a>
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
-          <thy-nav thyType="thirdly" thyHorizontal="right">
-            <a thyNavLink href="javascript:;">
+          <thy-nav thyHorizontal="right">
+            <a thyNavItem href="javascript:;">
               <thy-icon [thyIconName]="'edit'"></thy-icon>
               Edit
             </a>
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon thyIconName="list"></thy-icon>
             </a>
           </thy-nav>
@@ -28,24 +28,24 @@
   </thy-layout>
 
   <thy-layout>
-    <thy-header thyTitle="Header" thyDivided="true" thyIcon="house-square-fill">
+    <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill">
       <ng-template #headerContent>
-        <thy-nav thyType="primary" thyHorizontal="center">
-          <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
-          <a href="javascript:;" thyNavLink>Link2</a>
-          <a href="javascript:;" thyNavLink>Link3</a>
+        <thy-nav thyType="pulled" thySize="lg" thyHorizontal="center">
+          <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
+          <a href="javascript:;" thyNavItem>Link2</a>
+          <a href="javascript:;" thyNavItem>Link3</a>
         </thy-nav>
       </ng-template>
       <ng-template #headerOperation>
-        <thy-nav thyType="thirdly" thyHorizontal="right">
-          <a thyNavLink href="javascript:;">
+        <thy-nav thyType="pulled" thySize="lg" thyHorizontal="right">
+          <a thyNavItem href="javascript:;">
             <thy-icon thyIconName="settings"></thy-icon>
           </a>
         </thy-nav>
       </ng-template>
     </thy-header>
     <thy-layout>
-      <thy-header thySize="sm">
+      <thy-header>
         <ng-template #headerTitle> </ng-template>
         <ng-template #headerContent>
           <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
@@ -62,11 +62,11 @@
         </ng-template>
         <ng-template #headerOperation>
           <thy-nav thyType="thirdly" thyHorizontal="right">
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon [thyIconName]="'edit'"></thy-icon>
               Edit
             </a>
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon thyIconName="list"></thy-icon>
             </a>
           </thy-nav>

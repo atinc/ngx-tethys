@@ -86,7 +86,6 @@ $enable-deprecation-messages: true !default;
 
 $spacer: 1rem !default;
 $spacers: () !default;
-// // stylelint-disable-next-line scss/dollar-variable-default
 $spacers: map.merge(
     (
         0: 0,
@@ -96,12 +95,20 @@ $spacers: map.merge(
         2: (
             $spacer * 0.5
         ),
-        3: $spacer,
+        3: (
+            $spacer * 0.75
+        ),
         4: (
-            $spacer * 1.5
+            $spacer * 1
         ),
         5: (
-            $spacer * 3
+            $spacer * 1.25
+        ),
+        6: (
+            $spacer * 1.5
+        ),
+        7: (
+            $spacer * 1.75
         )
     ),
     $spacers

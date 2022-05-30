@@ -1,7 +1,7 @@
 <div class="demo-layout-backdrop d-flex-column-fill">
   <thy-layout>
     <thy-header thyTitle="Header"></thy-header>
-    <thy-content>
+    <thy-content class="bg-brighter">
       Content
     </thy-content>
   </thy-layout>
@@ -15,14 +15,28 @@
 
   <thy-layout>
     <thy-header thyTitle="Header with sm size" thySize="sm"></thy-header>
-    <thy-content>
+    <thy-content class="bg-brighter">
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
-    <thy-header thyTitle="Header" thyIcon="house-square-fill"></thy-header>
-    <thy-content>
+    <thy-header thyTitle="Header with lg size" thySize="lg"></thy-header>
+    <thy-content class="bg-brighter">
+      Content
+    </thy-content>
+  </thy-layout>
+
+  <thy-layout>
+    <thy-header thyTitle="Header with lxg size" thySize="xlg"></thy-header>
+    <thy-content class="bg-brighter">
+      Content
+    </thy-content>
+  </thy-layout>
+
+  <thy-layout>
+    <thy-header thyTitle="Header with icon" thyIcon="house-square-fill"></thy-header>
+    <thy-content class="bg-brighter">
       Content
     </thy-content>
   </thy-layout>
@@ -30,14 +44,14 @@
   <thy-layout>
     <thy-header>
       <ng-template #headerTitle>
-        <a class="prefix-icon" thyTooltip="返回首页" thyTooltipPlacement="bottom" href="javascript:;"
+        <a class="prefix-icon" thyTooltip="Return Home" thyTooltipPlacement="bottom" href="javascript:;"
           ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
         ></a>
         <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
         <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
       </ng-template>
       <ng-template #headerContent>
-        <thy-nav thyType="primary" thyHorizontal="center">
+        <thy-nav thyType="primary" thyHorizontal="center" thySize="lg">
           <a href="javascript:;" thyNavLink [thyNavLinkActive]="'true'">Link1</a>
           <a href="javascript:;" thyNavLink>Link2</a>
         </thy-nav>
@@ -51,7 +65,31 @@
         </thy-nav>
       </ng-template>
     </thy-header>
-    <thy-content>
+    <thy-content class="bg-brighter">
+      Content
+    </thy-content>
+  </thy-layout>
+
+  <thy-layout>
+    <thy-header>
+      <ng-template #headerTitle>
+        <a class="prefix-icon" thyTooltip="Return Home" thyTooltipPlacement="bottom" href="javascript:;"
+          ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
+        ></a>
+        <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
+        <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
+        <thy-divider thyDeeper="true" thyVertical="true"></thy-divider>
+        <a href="javascrpt:;" thyAction class="text-warning" thyActionIcon="star-fill"></a>
+        <a href="javascrpt:;" thyAction thyActionIcon="info-circle"></a>
+      </ng-template>
+      <ng-template #headerContent>
+        <thy-nav thyType="primary" thyHorizontal="center" thySize="lg">
+          <a href="javascript:;" thyNavLink [thyNavLinkActive]="'true'">Link1</a>
+          <a href="javascript:;" thyNavLink>Link2</a>
+        </thy-nav>
+      </ng-template>
+    </thy-header>
+    <thy-content class="bg-brighter">
       Content
     </thy-content>
   </thy-layout>

@@ -542,7 +542,7 @@ describe('ThyRangePickerComponent', () => {
             openPickerByClickTrigger();
             expect(getPickerContainer()).toBeTruthy();
             expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-flexible')).toBeTruthy();
-            const navItem = overlayContainerElement.querySelectorAll('thy-nav .nav-link');
+            const navItem = overlayContainerElement.querySelectorAll('thy-nav .thy-nav-item');
             expect(navItem.length).toBe(2);
             expect((navItem[0] as HTMLElement).innerText).toBe('高级选项');
             expect((navItem[1] as HTMLElement).innerText).toBe('自定义');
@@ -624,7 +624,7 @@ describe('ThyRangePickerComponent', () => {
         it('should select custom date', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            const navItem = overlayContainerElement.querySelectorAll('thy-nav .nav-link');
+            const navItem = overlayContainerElement.querySelectorAll('thy-nav .thy-nav-item');
             fixture.detectChanges();
             dispatchMouseEvent(navItem[1], 'click');
             fixture.detectChanges();
