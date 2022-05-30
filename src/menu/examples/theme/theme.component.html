@@ -1,5 +1,5 @@
 <div class="demo-menu-container">
-  <thy-menu thyTheme="divide">
+  <thy-menu thyTheme="loose">
     <a thyMenuItem href="javascript:;" class="active">
       <span thyMenuItemIcon>
         <thy-icon thyIconName="view-tile"></thy-icon>
@@ -16,7 +16,7 @@
       </span>
     </a>
     <thy-menu-divider></thy-menu-divider>
-    <thy-menu-group thyTitle="工作" [thyExpand]="true">
+    <thy-menu-group thyTitle="工作" [thyCollapsible]="true">
       <a thyMenuItem href="javascript:;" class="active">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
@@ -41,8 +41,8 @@
 </div>
 
 <div class="demo-menu-container">
-  <thy-menu thyTheme="divide">
-    <thy-menu-group thyTitle="计划" [thyExpand]="true" [thyCanArrow]="false">
+  <thy-menu thyTheme="loose">
+    <thy-menu-group thyTitle="计划" [thyCollapsible]="false">
       <a thyMenuItem href="javascript:;">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
@@ -63,24 +63,29 @@
       </a>
     </thy-menu-group>
     <thy-menu-divider></thy-menu-divider>
-    <thy-menu-group [thyHeaderContent]="thyHeaderContent" [thyExpand]="true">
+    <thy-menu-group [thyHeaderContent]="headerContent">
       <a thyMenuItem href="javascript:;">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
         </span>
         <span thyMenuItemName> wt-Testhub </span>
       </a>
+      <ng-template #headerContent>
+        <span class="title">星表</span>
+        <thy-icon thyIconName="star-fill"></thy-icon>
+      </ng-template>
     </thy-menu-group>
-    <ng-template #thyHeaderContent>
-      <span class="title">星表</span>
-      <thy-icon thyIconName="star-fill"></thy-icon>
-    </ng-template>
   </thy-menu>
 </div>
 
 <div class="demo-menu-container">
-  <thy-menu thyTheme="divide">
-    <thy-menu-group [thyHeaderContent]="thyHeaderContent2" [thyExpand]="true">
+  <thy-menu thyTheme="loose">
+    <thy-menu-group>
+      <ng-template #headerContent>
+        <div class="content-title"><thy-icon thyIconName="app-testhub-fill"></thy-icon> <span class="title testhub">Testhub</span></div>
+        <thy-icon thyIconName="repository" class="mr-2 thy-menu-group-operaton"></thy-icon>
+      </ng-template>
+
       <a thyMenuItem href="javascript:;" class="active">
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
@@ -88,9 +93,5 @@
         <span thyMenuItemName> 测试用例管理 </span>
       </a>
     </thy-menu-group>
-    <ng-template #thyHeaderContent2>
-      <div class="content-title"><thy-icon thyIconName="app-testhub-fill"></thy-icon> <span class="title testhub">Testhub</span></div>
-      <thy-icon thyIconName="repository" class="mr-2 thy-menu-group-operaton"></thy-icon>
-    </ng-template>
   </thy-menu>
 </div>
