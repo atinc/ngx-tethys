@@ -75,7 +75,7 @@ describe('space', () => {
             expect(items[0].textContent).toContain('Button1');
             expect(items[0].querySelector('button')).toBeTruthy();
             expect(items[1].querySelector('button')).toBeTruthy();
-            assertSpaceSize(element, 15);
+            assertSpaceSize(element, 16);
         });
 
         it('should dynamic add space item success', () => {
