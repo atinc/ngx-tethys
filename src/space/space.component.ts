@@ -64,7 +64,7 @@ export class ThySpaceComponent extends _MixinBase implements OnInit, AfterConten
     public space: number = SIZE_SPACE_MAP[DEFAULT_SIZE];
 
     /**
-     * 大小，支持 'zero' | 'xs' | 'sm' | 'md' | 'lg' 和自定义数字大小
+     * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
      * @type string | number
      */
     @Input() set thySize(size: Size) {
