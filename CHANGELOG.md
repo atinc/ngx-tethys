@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.4...13.1.0-next.5) (2022-05-31)
+
+
+### Features
+
+* **styles:** add spacers 8,9,10(32px,36px,40px), and improve negative margin docs ([39b947b](https://github.com/atinc/ngx-tethys/commit/39b947b7d288054d9600380d10033e34ad5262ed))
+
+
+
 # [13.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.3...13.1.0-next.4) (2022-05-30)
 
 

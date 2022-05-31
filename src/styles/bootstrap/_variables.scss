@@ -109,6 +109,15 @@ $spacers: map.merge(
         ),
         7: (
             $spacer * 1.75
+        ),
+        8: (
+            $spacer * 2
+        ),
+        9: (
+            $spacer * 2.25
+        ),
+        10: (
+            $spacer * 2.5
         )
     ),
     $spacers
