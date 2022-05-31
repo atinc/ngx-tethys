@@ -17,6 +17,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from '../resizable';
 
 const LG_WIDTH = 300;
+const SIDEBAR_DEFAULT_WIDTH = 240;
 
 export type ThySidebarTheme = 'white' | 'light' | 'dark';
 @Component({
@@ -33,6 +34,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             [thyMinWidth]="thyCollapsedWidth"
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
+            (thyResizeEnd)="resizeEnd()"
         >
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
@@ -48,7 +50,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
         <div
             *ngIf="thyCollapsible && thyTrigger !== null"
             class="sidebar-collapse"
-            [ngClass]="{ 'collapse-visible': collapseVisible }"
+            [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
             (click)="toggleCollapse($event)"
             [thyTooltip]="!thyTrigger && collapseTip"
         >
@@ -68,7 +70,7 @@ export class ThySidebarComponent implements OnInit {
 
     @HostBinding('class.sidebar-theme-dark') sidebarThemeDark = false;
 
-    thyLayoutSidebarWidth: number = 240;
+    thyLayoutSidebarWidth: number;
 
     @HostBinding('style.width.px') get sidebarWidth() {
         if (this.thyCollapsible && this.thyCollapsed) {
@@ -85,7 +87,7 @@ export class ThySidebarComponent implements OnInit {
         if (value === 'lg') {
             value = LG_WIDTH;
         }
-        this.thyLayoutSidebarWidth = value;
+        this.thyLayoutSidebarWidth = value || SIDEBAR_DEFAULT_WIDTH;
     }
 
     @Input('thyHasBorderRight')
@@ -100,7 +102,7 @@ export class ThySidebarComponent implements OnInit {
 
     @Input() @InputBoolean() thyDraggable: boolean = false;
 
-    @Input() thyDragMaxWidth: number = 700;
+    @Input() thyDragMaxWidth: number;
 
     @Input() thyTrigger: null | undefined | TemplateRef<any> = undefined;
 
@@ -136,13 +138,22 @@ export class ThySidebarComponent implements OnInit {
         return this.thyCollapsed;
     }
 
+    @HostBinding('class.remove-transition')
+    get removeTransition() {
+        return this.isRemoveTransition;
+    }
+
     collapseTip: string;
 
     isCollapsed = false;
 
-    originWidth: number = 240;
+    originWidth: number = SIDEBAR_DEFAULT_WIDTH;
 
     collapseVisible: boolean;
+
+    collapseHidden: boolean;
+
+    isRemoveTransition: boolean;
 
     constructor(@Optional() @Host() private thyLayoutComponent: ThyLayoutComponent, public elementRef: ElementRef) {}
 
@@ -170,6 +181,13 @@ export class ThySidebarComponent implements OnInit {
 
     resizeStart() {
         this.originWidth = this.thyLayoutSidebarWidth;
+        this.collapseHidden = true;
+        this.isRemoveTransition = true;
+    }
+
+    resizeEnd() {
+        this.collapseHidden = false;
+        this.isRemoveTransition = false;
     }
 
     resizeHandleHover(event: MouseEvent, type: 'enter' | 'leave') {

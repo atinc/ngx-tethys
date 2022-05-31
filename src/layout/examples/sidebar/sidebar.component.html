@@ -57,14 +57,14 @@
   </thy-layout>
 
   <thy-layout style="height: 100px;">
-    <thy-sidebar [thyDraggable]="true" class="p-2">
+    <thy-sidebar [thyDraggable]="true" [thyCollapsedWidth]="collapsedWidth" [thyDragMaxWidth]="700" class="p-2">
       Sidebar can drag to change width
     </thy-sidebar>
     <thy-content> Content </thy-content>
   </thy-layout>
 
   <thy-layout style="height: 100px;">
-    <thy-sidebar class="p-2" [thyDraggable]="true" [thyCollapsible]="true" [thyCollapsedWidth]="collapsedWidth">
+    <thy-sidebar class="p-2" [thyDraggable]="true" [thyDragMaxWidth]="700" [thyCollapsible]="true" [thyCollapsedWidth]="collapsedWidth">
       Sidebar is collapsible
     </thy-sidebar>
     <thy-content> Content </thy-content>
