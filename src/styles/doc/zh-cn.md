@@ -48,7 +48,18 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 - `5` - (默认) 设置`margin`或者`padding`为`$spacer * 1.25`（20px）
 - `6` - (默认) 设置`margin`或者`padding`为`$spacer * 1.5`（24px）
 - `7` - (默认) 设置`margin`或者`padding`为`$spacer * 1.75`（28px）
+- `8` - (默认) 设置`margin`或者`padding`为`$spacer * 2`（32px）
+- `9` - (默认) 设置`margin`或者`padding`为`$spacer * 2.25`（36px）
+- `10` - (默认) 设置`margin`或者`padding`为`$spacer * 2.5`（40px）
 - `auto` - 设置`margin`为`auto`
+
+在`CSS`中，`margin`属性可以有复数，但是`padding`属性不可以，针对`margin`设置负间距，设置负间距的语法和正间距类似，需要在大小前加一个`n`简写，比如`mt-1`的负间距为`mt-n1`:
+
+```scss
+.mt-n1 {
+  margin-top: -0.25rem !important;
+}
+```
 
 <alert>所有大小通过设置 Sass 变量`$spacers`，非特殊情况所有间距大小均遵循上述规范。</alert>
 

@@ -9,8 +9,8 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "docgeni serve",
-    "serve": "docgeni serve",
+    "start": "docgeni serve --configuration development",
+    "serve": "docgeni serve --configuration development",
     "watch:theme": "npm run build-theme && gulp build-theme:watch",
     "build:demo": "npm run build-site",
     "build:site": "npm run build-site",
