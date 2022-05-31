@@ -851,3 +851,28 @@ $divider-color: $gray-200 !default;
 $divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
 $divider-text-color: $gray-600 !default;
+
+// segmented
+$segmented-container-padding: 2px !default;
+$segmented-border-radius: 2px !default;
+$segmented-bg: $gray-100 !default;
+$segmented-selected-bg: $white !default;
+$segmented-height-default: 36px !default;
+$segmented-height-md: 32px !default;
+$segmented-height-sm: 28px !default;
+$segmented-height-xs: 24px !default;
+$segmented-sizes: (
+    'xs': $segmented-height-xs,
+    'sm': $segmented-height-sm,
+    'md': $segmented-height-md,
+    'default': $segmented-height-default
+) !default;
+$segmented-default-color: $gray-700 !default;
+$segmented-active-color: $gray-800 !default;
+$segmented-hover-color: $gray-800 !default;
+$segmented-icon-with-text-default-color: $gray-600 !default;
+$segmented-icon-with-text-active-color: $gray-700 !default;
+$segmented-icon-with-text-hover-color: $gray-700 !default;
+$segmented-disabled-color: $gray-500 !default;
+$segmented-text-margin-left: 6px !default;
+$segmented-item-padding-x: 10px !default;

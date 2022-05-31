@@ -1,0 +1,41 @@
+<div class="thy-segmented-group">
+  <div
+    *ngIf="animationState"
+    class="thy-segmented-thumb thy-segmented-thumb-motion"
+    [@thumbMotion]="animationState"
+    (@thumbMotion.done)="handleThumbAnimationDone($event)"
+  ></div>
+
+  <label
+    #itemLabels
+    *ngFor="let item of normalizedOptions; let i = index; trackBy: trackByFn"
+    [ngClass]="{
+      'thy-segmented-item': true,
+      'thy-segmented-item-selected': i === selectedIndex,
+      'thy-segmented-item-disabled': item.disabled
+    }"
+  >
+    <div
+      class="thy-segmented-item-label"
+      [thyTooltip]="item.tooltip"
+      [thyTooltipDisabled]="item.labelText || thyLabelTemplate || !item.tooltip"
+      (click)="!item.disabled && handleOptionClick(item, i)"
+    >
+      <ng-container *ngIf="thyLabelTemplate; else defaultTemplate">
+        <ng-container *ngTemplateOutlet="thyLabelTemplate; context: { $implicit: item, index: i }"> </ng-container>
+      </ng-container>
+
+      <ng-template #defaultTemplate>
+        <thy-icon
+          *ngIf="item.icon"
+          class="thy-segmented-item-icon"
+          [ngClass]="{ 'icon-with-text': item.labelText }"
+          [thyIconName]="item.icon"
+        ></thy-icon>
+        <span *ngIf="item.labelText">
+          {{ item.labelText }}
+        </span>
+      </ng-template>
+    </div>
+  </label>
+</div>

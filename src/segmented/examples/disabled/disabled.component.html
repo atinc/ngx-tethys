@@ -1,0 +1,25 @@
+禁用整体：
+<div style="width:220px" class="mt-1">
+  <thy-segmented [thyOptions]="options1" [thyDisabled]="true"></thy-segmented>
+</div>
+
+<div style="width:150px" class="mt-4">
+  <thy-segmented [thyOptions]="options2" [thyDisabled]="true"></thy-segmented>
+</div>
+
+<div style="width:76px" class="mt-4 mb-4">
+  <thy-segmented [thyOptions]="options3" [thyDisabled]="true"></thy-segmented>
+</div>
+
+禁用单个选项：
+<div style="width:220px" class="mt-1">
+  <thy-segmented [thyOptions]="options4" (thyOptionSelect)="selectedOptionChange($event)"></thy-segmented>
+</div>
+
+<div style="width:76px" class="mt-4">
+  <thy-segmented [thyOptions]="options5"></thy-segmented>
+</div>
+
+<div style="width:76px" class="mt-4">
+  <thy-segmented [thyOptions]="options6"></thy-segmented>
+</div>

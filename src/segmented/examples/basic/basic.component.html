@@ -1,0 +1,11 @@
+<div style="width: 220px">
+  <thy-segmented [thyOptions]="options" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
+</div>
+
+<div style="width: 220px" class="mt-4">
+  <thy-segmented [thyOptions]="options2" [thyActive]="2" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
+</div>
+
+<div style="width:  399px" class="mt-4">
+  <thy-segmented [thyOptions]="options3" [(ngModel)]="selectedIndex" (ngModelChange)="onSelectedChange($event)"></thy-segmented>
+</div>
