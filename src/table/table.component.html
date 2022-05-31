@@ -16,12 +16,11 @@
       <tr>
         <th
           *ngFor="let column of columns"
-          [ngClass]="[column.headerClassName, column.sortable ? 'thy-table-sortable' : '']"
+          [ngClass]="[column.headerClassName, column.sortable ? 'thy-table-column-sortable' : '']"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
-          (click)="onColumnHeaderClick($event, column)"
         >
           <ng-container *ngIf="!column.headerTemplateRef">
             {{ column.title }}
@@ -31,10 +30,11 @@
           </ng-container>
           <ng-container *ngIf="column.sortable">
             <thy-icon
-              [class]="['thy-table-sortable-icon', 'ml-2', column.sortDirection]"
+              (click)="onColumnHeaderClick($event, column)"
+              [class]="['thy-table-column-sortable-icon', 'p-2', column.sortDirection]"
               thyIconName="sort-vertical-tt"
               thyIconType="twotone"
-              [thyTwotoneColor]="column.sortDirection === 'desc' ? '#6698FF' : '#888888'"
+              [thyTwotoneColor]="column.sortDirection === sortDirectionEnum.desc ? '#6698FF' : '#888888'"
             >
             </thy-icon>
           </ng-container>

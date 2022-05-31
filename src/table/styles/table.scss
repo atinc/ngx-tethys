@@ -226,12 +226,12 @@
         }
     }
 
-    .thy-table-sortable {
+    .thy-table-column-sortable {
         display: inline-flex;
         align-items: center;
-        cursor: pointer;
         &-icon {
             visibility: hidden;
+            cursor: pointer;
             color: variables.$gray-600;
             &.desc {
                 visibility: visible;
@@ -243,7 +243,7 @@
             }
         }
         &:hover {
-            .thy-table-sortable-icon {
+            .thy-table-column-sortable-icon {
                 visibility: visible;
             }
         }

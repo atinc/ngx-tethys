@@ -68,6 +68,12 @@ export enum ThyFixedDirection {
     left = 'left',
     right = 'right'
 }
+
+export enum ThySortDirection {
+    desc = 'desc',
+    asc = 'asc'
+}
+
 interface ThyTableGroup<T = unknown> {
     id?: string;
     expand?: boolean;
@@ -155,6 +161,8 @@ export class ThyTableComponent extends _MixinBase
     public wholeRowSelect = false;
 
     public fixedDirection = ThyFixedDirection;
+
+    public sortDirectionEnum = ThySortDirection;
 
     public hasFixed = false;
 
