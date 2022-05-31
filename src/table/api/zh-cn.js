@@ -161,6 +161,12 @@ module.exports = [
                 description: '拖动修改事件',
                 type: 'ThyTableDraggableEvent',
                 default: ''
+            },
+            {
+                name: '(thySortChange)',
+                description: '列排序修改事件',
+                type: 'ThyTableSortEvent',
+                default: ''
             }
         ]
     },
@@ -234,6 +240,24 @@ module.exports = [
                 description: '设置固定列',
                 type: 'left | right',
                 default: '-'
+            },
+            {
+                name: 'thySortable',
+                description: '是否开启列排序功能（开启时 thyModelKey 为 必传）',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thySortDirection',
+                description: '默认列排序顺序',
+                type: 'desc | asc',
+                default: '-'
+            },
+            {
+                name: '(thySortChange)',
+                description: '列排序修改事件',
+                type: 'ThyTableSortEvent',
+                default: ''
             }
         ]
     }
