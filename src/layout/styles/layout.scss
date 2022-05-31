@@ -24,7 +24,8 @@
     background: variables.$layout-header-background;
     padding: variables.$layout-header-padding;
     height: variables.$layout-header-height;
-    line-height: variables.$layout-header-height;
+    align-items: center;
+    // line-height: variables.$layout-header-height;
 
     &.header-has-border,
     &.thy-layout-header-divided {
