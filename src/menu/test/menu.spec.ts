@@ -15,6 +15,7 @@ import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
 import { ThyMenuComponent } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
+import { ThyDividerModule } from '../../divider';
 
 @Component({
     selector: 'thy-demo-thy-menu',
@@ -77,7 +78,7 @@ class ThyDemoMenuComponent {
 }
 
 @NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopoverModule, ThyIconModule],
+    imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
     providers: [ThyPopover]
@@ -162,7 +163,6 @@ describe('ThyMenu', () => {
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             groupHeader.click();
             fixture.detectChanges();
-            console.log(group.componentInstance, 'group.componentInstance');
             expect(group.componentInstance.isCollapsed).toBe(false);
         });
 

@@ -182,14 +182,26 @@ module.exports = [
                 default: 'default'
             },
             {
+                name: 'prefix',
+                description: '自定义前置元素，展示在输入框内',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
+                name: 'suffix',
+                description: '自定义后置元素，展示在输入框内',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
                 name: 'append',
-                description: '自定义后置元素',
+                description: '自定义后置元素，独立于输入框之后',
                 type: 'ContentChild<TemplateRef>',
                 default: ''
             },
             {
                 name: 'prepend',
-                description: '自定义前置元素',
+                description: '自定义前置元素，独立于输入框之前',
                 type: 'ContentChild<TemplateRef>',
                 default: ''
             }

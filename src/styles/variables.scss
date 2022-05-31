@@ -209,14 +209,16 @@ $input-line-height-md: $input-btn-line-height-md !default;
 $input-line-height-sm: $input-btn-line-height-sm !default;
 $input-line-height-lg: $input-btn-line-height-lg !default;
 
-$input-padding-x-fixed: 0.625rem !default; // input 所有大小左右间距都是固定的
-$input-padding-x: $input-padding-x-fixed !default;
+// 大于等于 36px 的输入框左右间距 12px，小于 36px 高度的输入框左右间距 8px
+$input-padding-x-fixed: 0.5rem !default;
+$input-padding-x-fixed-lg: 0.75rem !default;
+$input-padding-x: $input-padding-x-fixed-lg !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-md: $input-padding-x-fixed !default;
 $input-padding-y-md: $input-btn-padding-y-md !default;
 $input-padding-x-sm: $input-padding-x-fixed !default;
 $input-padding-y-sm: $input-btn-padding-y-sm !default;
-$input-padding-x-lg: $input-padding-x-fixed !default;
+$input-padding-x-lg: $input-padding-x-fixed-lg !default;
 $input-padding-y-lg: 0.1875rem !default;
 $input-padding-x-xs: $input-padding-x-fixed !default;
 $input-padding-y-xs: 0.125rem !default;
@@ -301,7 +303,7 @@ $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
 
-$layout-content-background: $white !default;
+$layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
 $layout-sidebar-background-light: rgba($gray-80, 0.8) !default;
