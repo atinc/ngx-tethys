@@ -88,8 +88,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **copy:** add thyCopyTipOffset input #INFR-3254 ([#1735](https://github.com/atinc/ngx-tethys/issues/1735)) ([3f06509](https://github.com/atinc/ngx-tethys/commit/3f065096b9c7e19f459898101c5bcb8636c50d8a)), closes [#INFR-3254](https://github.com/atinc/ngx-tethys/issues/INFR-3254)
 
 
-
-<<<<<<< HEAD
 # [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
 
 
@@ -169,8 +167,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-=======
->>>>>>> v12.x
 ## [12.1.31](https://github.com/atinc/ngx-tethys/compare/12.1.30...12.1.31) (2022-05-23)
 
 
