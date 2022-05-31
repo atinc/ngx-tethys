@@ -8,6 +8,10 @@
     align-items: center;
     line-height: 1;
 
+    > span {
+        color: variables.$gray-700;
+    }
+
     &.active {
         color: $hover-color;
         text-decoration: none;
@@ -21,6 +25,9 @@
         text-decoration: none;
         background: $hover-bg-color;
         border-radius: variables.$border-radius;
+        > span {
+            color: $hover-color;
+        }
     }
 
     // Disabled state lightens text
