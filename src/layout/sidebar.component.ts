@@ -115,7 +115,6 @@ export class ThySidebarComponent implements OnInit {
         this.isCollapsed = value;
         setTimeout(() => this.updateCollapseTip(), 200);
         this.thyCollapsedChange.emit(this.thyCollapsed);
-        this.thyLayoutSidebarClearBorderRightClass = !!this.thyCollapsed;
     }
 
     get thyCollapsed() {
