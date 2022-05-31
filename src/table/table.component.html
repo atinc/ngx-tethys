@@ -31,7 +31,7 @@
           <ng-container *ngIf="column.sortable">
             <thy-icon
               (click)="onColumnHeaderClick($event, column)"
-              [class]="['thy-table-column-sortable-icon', 'p-2', column.sortDirection]"
+              [class]="['thy-table-column-sortable-icon', 'p-1', column.sortDirection]"
               thyIconName="sort-vertical-tt"
               thyIconType="twotone"
               [thyTwotoneColor]="column.sortDirection === sortDirectionEnum.desc ? '#6698FF' : '#888888'"
