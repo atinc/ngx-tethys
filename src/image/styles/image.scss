@@ -41,7 +41,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             cursor: zoom-out;
             pointer-events: all;
             .#{$image-preview-prefix-cls}-img {
-                cursor: zoom-out;
+                pointer-events: none;
             }
         }
 

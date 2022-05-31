@@ -165,7 +165,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 .subscribe(event => {
                     if (
                         (event.target === event.currentTarget ||
-                            (this.isInsideScreen && this.imagePreviewWrapper.nativeElement.contains(event.target as HTMLElement))) &&
+                            (this.isInsideScreen && event.target === this.imagePreviewWrapper.nativeElement)) &&
                         !this.previewConfig?.disableClose
                     ) {
                         this.ngZone.run(() => !this.isFullScreen && this.thyDialog.close());
@@ -192,7 +192,6 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
 
     setFitScreen() {
         this.reset();
-        this.isInsideScreen = true;
         this.updatePreviewImage();
     }
 
