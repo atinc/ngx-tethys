@@ -1,5 +1,10 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
 
+export enum ThyTableSortDirection {
+    default = '',
+    asc = 'asc',
+    desc = 'desc'
+}
 export interface ThyTableColumn {
     key: string;
     model: string;
@@ -18,7 +23,7 @@ export interface ThyTableColumn {
     left?: number;
     right?: number;
     sortable?: boolean;
-    sortDirection?: 'desc' | 'asc';
+    sortDirection?: ThyTableSortDirection;
     sortChange?: EventEmitter<ThyTableSortEvent>;
 }
 
@@ -76,7 +81,7 @@ export interface ThyTableDraggableEvent {
 export interface ThyTableSortEvent {
     event: Event;
     key: string;
-    direction: 'desc' | 'asc';
+    direction: ThyTableSortDirection;
 }
 
 export interface ThyTableRowEvent {

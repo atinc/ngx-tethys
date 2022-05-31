@@ -321,27 +321,20 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thySize is default', () => {
+    it('should have correct class when thySize is md', () => {
         testComponent.size = '';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-default')).toBe(true);
+        expect(table.classList.contains('table-md')).toBe(true);
     });
 
-    it('should have correct class when thySize is sm', () => {
-        testComponent.size = 'sm';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-    });
-
-    it('should have correct class when thySize is sm and thyTheme is default', () => {
-        testComponent.size = 'sm';
-        testComponent.theme = 'default';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-        expect(table.classList.contains('table-default-sm-bottom-padding')).toBe(true);
+    it('should have correct class for sizes', () => {
+        ['xs', 'sm', 'md', 'lg', 'default'].forEach(size => {
+            testComponent.size = size;
+            fixture.detectChanges();
+            expect(table.classList.contains('table')).toBe(true);
+            expect(table.classList.contains(`table-${size}`)).toBe(true);
+        });
     });
 
     it('should have correct class when className is class-name', () => {
@@ -350,7 +343,7 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('class-name')).toBe(true);
     });
 
-    it('should have correct class when className is class-name,thySize is sm', () => {
+    it('should have correct class when className is class-name, thySize is sm', () => {
         testComponent.tableClassName = 'class-name';
         testComponent.size = 'sm';
         fixture.detectChanges();
@@ -941,7 +934,12 @@ describe('ThyTable: fixed', () => {
         <thy-table [thyModel]="data" thyRowKey="id">
             <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
             <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-            <thy-table-column thyTitle="Age" thyModelKey="age" [thySortable]="true" (thySortChange)="onThyTableColumnSortChange($event)">
+            <thy-table-column
+                thyTitle="Age"
+                thyModelKey="age"
+                [thySortable]="sortable"
+                (thySortChange)="onThyTableColumnSortChange($event)"
+            >
             </thy-table-column>
             <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
@@ -956,6 +954,7 @@ class ThyDemoSortTableComponent {
         { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' },
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
+    sortable = false;
     onThyTableColumnSortChange() {}
 }
 
@@ -982,21 +981,24 @@ describe('ThyTable: sort', () => {
         expect(tableComponent).toBeTruthy();
     });
 
-    it('should be show sortable-icon when sortable', () => {
+    it('should be hide sortable-icon when not sortable', () => {
         fixture.detectChanges();
-        const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
-        expect(tableSortableIcon).toBeTruthy();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeFalsy();
+    });
+
+    it('should be show sortable-icon when sortable', () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeTruthy();
     });
 
     it('should emit a sortChange event when sortable-icon got clicked', () => {
+        testComponent.sortable = true;
         fixture.detectChanges();
-
         spyOn(testComponent, 'onThyTableColumnSortChange');
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
-
         const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
         tableSortableIcon.nativeElement.dispatchEvent(createFakeEvent('click'));
-
         fixture.detectChanges();
 
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);

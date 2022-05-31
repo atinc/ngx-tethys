@@ -65,6 +65,9 @@
         .justify-content#{$infix}-around {
             justify-content: space-around !important;
         }
+        .justify-content#{$infix}-evenly {
+            justify-content: space-evenly !important;
+        }
 
         .align-items#{$infix}-start {
             align-items: flex-start !important;

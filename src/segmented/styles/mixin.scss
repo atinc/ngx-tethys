@@ -1,0 +1,40 @@
+@use "../../styles/variables.scss";
+
+@mixin segmented-size-variant($size, $height) {
+    &-#{$size} &-item-label {
+        padding: 0 variables.$segmented-item-padding-x;
+        min-height: #{$height - (variables.$segmented-container-padding * 2)};
+        line-height: #{$height - (variables.$segmented-container-padding * 2)};
+
+        @if ($size == xs or $size == sm or $size == md) {
+            font-size: variables.$font-size-sm;
+        } @else {
+            font-size: variables.$font-size-base;
+        }
+    }
+    &-#{$size} &-item-icon {
+        @if ($size == xs) {
+            font-size: variables.$font-size-sm;
+        } @else {
+            font-size: variables.$font-size-base;
+        }
+    }
+}
+
+@mixin segmented-item-active() {
+    background-color: variables.$segmented-item-active-bg;
+    border-radius: variables.$segmented-border-radius;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+@mixin segmented-disabled() {
+    &,
+    &:hover,
+    &:focus {
+        color: variables.$segmented-disabled-color;
+        .icon-with-text {
+            color: variables.$segmented-disabled-color;
+        }
+        cursor: not-allowed;
+    }
+}

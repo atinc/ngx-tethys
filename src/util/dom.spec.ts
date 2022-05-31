@@ -1,4 +1,4 @@
-import { fallbackMatches, getElementOffset, getWindow, isDocument, isElement, match } from './dom';
+import { assertIconOnly, fallbackMatches, getElementOffset, getWindow, isDocument, isElement, match } from './dom';
 
 describe('#dom', () => {
     describe('#match', () => {
@@ -53,6 +53,13 @@ describe('#dom', () => {
             const offset = getElementOffset(element);
             expect(offset).toEqual({ top: 0, left: 0 });
         });
+    });
+
+    it('should assert icon only', () => {
+        expect(assertIconOnly(createElement('<thy-icon></thy-icon>'))).toBe(true);
+        expect(assertIconOnly(createElement('<thy-icon></thy-icon> text'))).toBe(false);
+        expect(assertIconOnly(createElement('<thy-icon></thy-icon> <span></span>'))).toBe(false);
+        expect(assertIconOnly(createElement('<div><thy-icon></thy-icon></div>'))).toBe(false);
     });
 });
 

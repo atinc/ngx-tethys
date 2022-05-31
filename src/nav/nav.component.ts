@@ -23,7 +23,7 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { ThyNavLinkDirective } from './nav-link.directive';
+import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -73,11 +73,11 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         top: 0
     };
 
-    public hiddenItems: ThyNavLinkDirective[] = [];
+    public hiddenItems: ThyNavItemDirective[] = [];
 
     public moreActive: boolean;
 
-    @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
+    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
     @ContentChild('more') moreOperation: TemplateRef<unknown>;
 
@@ -245,7 +245,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         });
     }
 
-    navItemClick(item: ThyNavLinkDirective) {
+    navItemClick(item: ThyNavItemDirective) {
         item.elementRef.nativeElement.click();
     }
 

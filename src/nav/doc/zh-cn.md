@@ -35,6 +35,7 @@ primary、secondary、thirdly、secondary-divider 即将被遗弃，会在之后
 <example name="thy-nav-type-example"></example>
 
 ## 图标导航
+
 <example name="thy-nav-icon-nav-example"></example>
 
 ## 导航大小

@@ -1,0 +1,16 @@
+<div
+  class="thy-segmented-item-label"
+  [ngClass]="{
+    'thy-segmented-item-label-only-icon': isOnlyIcon
+  }"
+>
+  <thy-icon
+    *ngIf="thyIconName"
+    class="thy-segmented-item-icon"
+    [ngClass]="{ 'icon-with-text': !!thyLabelText }"
+    [thyIconName]="thyIconName"
+  ></thy-icon>
+  <span *ngIf="thyLabelText">{{ thyLabelText }}</span>
+
+  <ng-content></ng-content>
+</div>

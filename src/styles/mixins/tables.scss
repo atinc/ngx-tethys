@@ -166,7 +166,6 @@
 }
 
 @mixin table-set-header(
-    $thead-tr-height,
     $thead-text-align,
     $thead-vertical-align,
     $thead-font-weight,
@@ -177,9 +176,6 @@
     $thead-padding
 ) {
     thead {
-        tr {
-            height: $thead-tr-height;
-        }
         th,
         td {
             text-align: $thead-text-align;
@@ -193,15 +189,27 @@
     }
 }
 
-@mixin table-size($table-thead-tr-height, $table-tr-height) {
+@mixin table-size($table-header-height, $table-cell-height, $table-header-padding, $table-cell-padding) {
     thead {
         tr {
-            height: $table-thead-tr-height;
+            height: $table-header-height;
         }
     }
     tbody {
         tr {
-            height: $table-tr-height;
+            height: $table-cell-height;
+            td {
+                padding: $table-cell-padding;
+            }
+        }
+    }
+
+    @if $table-header-padding {
+        thead {
+            th,
+            td {
+                padding: $table-header-padding;
+            }
         }
     }
 }

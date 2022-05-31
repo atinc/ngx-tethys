@@ -43,17 +43,17 @@
         </ng-template>
         <ng-template #headerContent>
           <thy-nav thyType="primary" thyHorizontal="center">
-            <a href="javascript:;" thyNavLink [thyNavLinkActive]="true">Link1</a>
-            <a href="javascript:;" thyNavLink>Link2</a>
+            <a href="javascript:;" thyNavItem [thyNavItemActive]="true">Link1</a>
+            <a href="javascript:;" thyNavItem>Link2</a>
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
           <thy-nav thyType="thirdly" thyHorizontal="right">
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon [thyIconName]="'edit'"></thy-icon>
               Edit
             </a>
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon thyIconName="settings"></thy-icon>
             </a>
           </thy-nav>
@@ -63,17 +63,17 @@
         <ng-template #headerTitle></ng-template>
         <ng-template #headerContent>
           <thy-nav thyType="thirdly" thyHorizontal="left">
-            <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
-            <a href="javascript:;" thyNavLink>Link2</a>
-            <a href="javascript:;" thyNavLink>Link3</a>
+            <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
+            <a href="javascript:;" thyNavItem>Link2</a>
+            <a href="javascript:;" thyNavItem>Link3</a>
           </thy-nav>
         </ng-template>
         <ng-template #headerOperation>
           <thy-nav thyType="thirdly" thyHorizontal="right">
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon [thyIconName]="'edit'"></thy-icon>
             </a>
-            <a thyNavLink href="javascript:;">
+            <a thyNavItem href="javascript:;">
               <thy-icon thyIconName="list"></thy-icon>
             </a>
           </thy-nav>
@@ -87,9 +87,9 @@
           </thy-content-section>
           <thy-content-main>
             <thy-nav thyType="secondary" thyHorizontal="left" class="pl-2">
-              <a href="javascript:;" thyNavLink thyNavLinkActive="true">Link1</a>
-              <a href="javascript:;" thyNavLink>Link2</a>
-              <a href="javascript:;" thyNavLink>Link3</a>
+              <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
+              <a href="javascript:;" thyNavItem>Link2</a>
+              <a href="javascript:;" thyNavItem>Link3</a>
             </thy-nav>
             <div class="p-2">
               Content

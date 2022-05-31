@@ -1,42 +1,42 @@
 <div class="demo-layout-backdrop d-flex-column-fill">
   <thy-layout>
     <thy-header thyTitle="Header"></thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
     <thy-header thyTitle="Header with border" thyDivided="true"></thy-header>
-    <thy-content class="bg-white">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
     <thy-header thyTitle="Header with sm size" thySize="sm"></thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
     <thy-header thyTitle="Header with lg size" thySize="lg"></thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
     <thy-header thyTitle="Header with lxg size" thySize="xlg"></thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
 
   <thy-layout>
     <thy-header thyTitle="Header with icon" thyIcon="house-square-fill"></thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
@@ -52,20 +52,20 @@
       </ng-template>
       <ng-template #headerContent>
         <thy-nav thyType="primary" thyHorizontal="center" thySize="lg">
-          <a href="javascript:;" thyNavLink [thyNavLinkActive]="'true'">Link1</a>
-          <a href="javascript:;" thyNavLink>Link2</a>
+          <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
+          <a href="javascript:;" thyNavItem>Link2</a>
         </thy-nav>
       </ng-template>
       <ng-template #headerOperation>
         <thy-nav thyType="primary" thyHorizontal="right">
-          <a thyNavLink href="javascript:;">
+          <a thyNavItem href="javascript:;">
             <thy-icon [thyIconName]="'settings'"></thy-icon>
             Settings
           </a>
         </thy-nav>
       </ng-template>
     </thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>
@@ -84,12 +84,12 @@
       </ng-template>
       <ng-template #headerContent>
         <thy-nav thyType="primary" thyHorizontal="center" thySize="lg">
-          <a href="javascript:;" thyNavLink [thyNavLinkActive]="'true'">Link1</a>
-          <a href="javascript:;" thyNavLink>Link2</a>
+          <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
+          <a href="javascript:;" thyNavItem>Link2</a>
         </thy-nav>
       </ng-template>
     </thy-header>
-    <thy-content class="bg-brighter">
+    <thy-content>
       Content
     </thy-content>
   </thy-layout>

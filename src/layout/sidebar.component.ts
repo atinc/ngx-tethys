@@ -113,8 +113,6 @@ export class ThySidebarComponent implements OnInit {
 
     @Input() @InputBoolean() set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
-        setTimeout(() => this.updateCollapseTip(), 200);
-        this.thyCollapsedChange.emit(this.thyCollapsed);
     }
 
     get thyCollapsed() {
@@ -172,6 +170,8 @@ export class ThySidebarComponent implements OnInit {
         }
         if (this.thyCollapsible && width === this.thyCollapsedWidth) {
             this.thyCollapsed = true;
+            setTimeout(() => this.updateCollapseTip(), 200);
+            this.thyCollapsedChange.emit(this.isCollapsed);
             this.thyLayoutSidebarWidth = this.originWidth;
             return;
         }
@@ -199,5 +199,7 @@ export class ThySidebarComponent implements OnInit {
 
     toggleCollapse(event: MouseEvent) {
         this.thyCollapsed = !this.thyCollapsed;
+        setTimeout(() => this.updateCollapseTip(), 200);
+        this.thyCollapsedChange.emit(this.isCollapsed);
     }
 }

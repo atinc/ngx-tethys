@@ -1,0 +1,27 @@
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: size === item.value }">
+    {{ item.value }}（{{ item.height }}px）
+  </button>
+</thy-button-group>
+
+<div style="width: 220px;" class="mt-4">
+  <thy-segmented [thySize]="size">
+    <thy-segmented-item thyValue="member">成员</thy-segmented-item>
+    <thy-segmented-item thyValue="department">部门</thy-segmented-item>
+    <thy-segmented-item thyValue="group">用户组</thy-segmented-item>
+  </thy-segmented>
+</div>
+
+<div style="width:150px" class="mt-4">
+  <thy-segmented [thySize]="size">
+    <thy-segmented-item thyValue="1" thyIconName="list" thyLabelText="列表"> </thy-segmented-item>
+    <thy-segmented-item thyValue="2" thyIconName="paperclip" thyLabelText="对齐"></thy-segmented-item>
+  </thy-segmented>
+</div>
+
+<div class="mt-4">
+  <thy-segmented [thySize]="size" thyMode="adaptive">
+    <thy-segmented-item thyValue="1" thyIconName="list"></thy-segmented-item>
+    <thy-segmented-item thyValue="2" thyIconName="paperclip"></thy-segmented-item>
+  </thy-segmented>
+</div>
