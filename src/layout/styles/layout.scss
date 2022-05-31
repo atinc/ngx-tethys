@@ -63,9 +63,8 @@
 
 .thy-layout-sidebar {
     flex: 0 0 auto;
-    transition: all 0.2s;
     position: relative;
-
+    transition: all 0.2s;
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
@@ -132,17 +131,37 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 2px;
-        cursor: e-resize;
-        pointer-events: none;
-        transition: background 200ms;
+        left: 0;
+        right: 0;
+    }
 
+    .thy-resizable-resizing {
+        transition: none;
+    }
+    .sidebar-resize-handle {
+        position: absolute;
+        cursor: ew-resize;
+        transition: none;
+        width: 20px;
+        right: -10px;
+
+        .sidebar-resize-line {
+            width: 2px;
+            height: 100%;
+            margin-left: 10px;
+            transition: all 180ms linear;
+            border-right: 2px solid transparent;
+        }
         &:hover {
-            background: variables.$layout-sidebar-drag-background-hover;
+            .sidebar-resize-line {
+                border-color: variables.$primary;
+            }
         }
 
         &:active {
-            background: variables.$layout-sidebar-drag-background-active;
+            .sidebar-resize-line {
+                background: variables.$primary;
+            }
         }
     }
 
@@ -185,7 +204,14 @@
                 color: variables.$white;
             }
         }
+        &.collapse-visible {
+            visibility: visible;
+        }
+        &.collapse-hidden {
+            visibility: hidden;
+        }
     }
+
     .sidebar-collapse-icon svg {
         font-size: 12px;
     }
@@ -202,6 +228,9 @@
         .sidebar-collapse {
             visibility: visible;
         }
+    }
+    &.remove-transition {
+        transition: none;
     }
 }
 
