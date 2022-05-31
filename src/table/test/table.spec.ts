@@ -1,10 +1,8 @@
-import { ThySwitchComponent } from 'ngx-tethys/switch';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTableComponent } from '../table.component';
 import { ThyTableModule } from '../table.module';
 
@@ -934,5 +932,73 @@ describe('ThyTable: fixed', () => {
         testComponent.fixedRight = 'right';
         fixture.detectChanges();
         expect(tableComponent.query(By.css('.thy-table-fixed-column-right'))).toBeTruthy();
+    });
+});
+
+@Component({
+    selector: 'thy-demo-sort-table',
+    template: `
+        <thy-table [thyModel]="data" thyRowKey="id">
+            <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+            <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+            <thy-table-column thyTitle="Age" thyModelKey="age" [thySortable]="true" (thySortChange)="onThyTableColumnSortChange($event)">
+            </thy-table-column>
+            <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+            <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+        </thy-table>
+    `
+})
+class ThyDemoSortTableComponent {
+    data = [
+        { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
+        { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
+        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' },
+        { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' },
+        { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
+    ];
+    onThyTableColumnSortChange() {}
+}
+
+describe('ThyTable: sort', () => {
+    let fixture: ComponentFixture<ThyDemoSortTableComponent>;
+    let testComponent: ThyDemoSortTableComponent;
+    let tableComponent: DebugElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyTableModule],
+            declarations: [ThyDemoSortTableComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoSortTableComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+    });
+
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
+    });
+
+    it('should be show sortable-icon when sortable', () => {
+        fixture.detectChanges();
+        const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
+        expect(tableSortableIcon).toBeTruthy();
+    });
+
+    it('should emit a sortChange event when sortable-icon got clicked', () => {
+        fixture.detectChanges();
+
+        spyOn(testComponent, 'onThyTableColumnSortChange');
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
+
+        const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
+        tableSortableIcon.nativeElement.dispatchEvent(createFakeEvent('click'));
+
+        fixture.detectChanges();
+
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);
     });
 });

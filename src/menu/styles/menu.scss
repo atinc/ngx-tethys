@@ -64,7 +64,7 @@
             font-size: variables.$font-size-base;
             margin: 0 -1000px;
             padding: variables.$menu-group-header-padding;
-            &.thy-menu-group-can-arrow {
+            &.thy-menu-group-collapsible {
                 cursor: pointer;
             }
 
@@ -95,7 +95,6 @@
             .thy-menu-group-title {
                 flex-grow: 1;
                 padding-left: 8px;
-                color: variables.$gray-700;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
@@ -118,32 +117,33 @@
         }
     }
 
-    &.menu-theme-divide {
+    &.menu-theme-loose {
+        .thy-menu-item,
+        .thy-menu-item-content {
+            min-height: 36px;
+        }
         .thy-menu-item {
             padding: 0;
-            margin-bottom: 8px;
-            &:last-of-type {
-                margin-bottom: 10px;
-            }
+            margin-bottom: 12px;
         }
         .thy-menu-item-content {
             margin: 0;
-            padding: variables.$menu-divide-item-padding;
-            border-radius: variables.$menu-divide-item-border-radius;
+            padding: variables.$menu-loose-item-padding;
+            border-radius: variables.$menu-loose-item-border-radius;
         }
         .thy-menu-group {
             .thy-menu-group-header {
                 margin: 0;
                 padding: 0;
-                height: 50px;
+                height: 52px;
                 .thy-menu-group-title {
-                    padding-left: 10px;
+                    padding-left: 0;
                     color: variables.$gray-600;
                 }
 
                 &:hover {
                     background: none;
-                    &.thy-menu-group-can-arrow {
+                    &.thy-menu-group-collapsible {
                         .thy-menu-group-title {
                             color: variables.$primary;
                         }
@@ -159,20 +159,14 @@
             &.collapsed {
                 .thy-menu-group-header {
                     .thy-menu-group-arrow {
-                        transform: rotate(-90deg) translateY(1px);
+                        transform: rotate(-180deg) translateY(1px);
                     }
                 }
             }
         }
-        .thy-menu-divider {
+        .thy-divider {
             margin: 0;
         }
-    }
-
-    .thy-menu-divider {
-        margin: variables.$menu-divider-margin;
-        display: block;
-        border-top: solid 1px variables.$gray-200;
     }
 }
 
@@ -191,7 +185,7 @@
         align-items: center;
 
         &:hover {
-            background: variables.$gray-80;
+            background: variables.$gray-100;
             .thy-menu-item-action {
                 visibility: visible;
             }

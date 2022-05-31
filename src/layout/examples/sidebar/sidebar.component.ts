@@ -8,7 +8,7 @@ import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 export class ThyLayoutSidebarExampleComponent implements OnInit {
     isolated = false;
 
-    collapsedWidth = 80;
+    collapsedWidth = 90;
 
     width = '';
 
@@ -16,11 +16,9 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     collapsed = false;
 
+    triggerCollapsed = false;
+
     constructor() {}
 
     ngOnInit(): void {}
-
-    collapsedChange(isCollapsed: boolean) {
-        this.collapsed = isCollapsed;
-    }
 }

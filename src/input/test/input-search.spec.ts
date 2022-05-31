@@ -119,6 +119,11 @@ describe('input search', () => {
         basicTestComponent.thyTheme = 'ellipse';
         fixture.detectChanges();
         expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(true);
+
+        basicTestComponent.thyTheme = 'transparent';
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('thy-input-search-transparent')).toBe(true);
+        expect(searchElement.classList.contains('thy-input-search-ellipse')).toBe(false);
     });
 
     it('thyClear EventEmitter', fakeAsync(() => {

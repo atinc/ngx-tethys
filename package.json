@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "13.1.0-next.2",
+  "version": "13.1.0-next.5",
   "license": "MIT",
   "engines": {
     "node": "^14.15.0 || >=16.10.0",
@@ -9,8 +9,8 @@
   },
   "scripts": {
     "ng": "ng",
-    "start": "docgeni serve",
-    "serve": "docgeni serve",
+    "start": "docgeni serve --configuration development",
+    "serve": "docgeni serve --configuration development",
     "watch:theme": "npm run build-theme && gulp build-theme:watch",
     "build:demo": "npm run build-site",
     "build:site": "npm run build-site",
@@ -93,7 +93,7 @@
     "@docgeni/cli": "1.2.0-next.14",
     "@docgeni/template": "1.2.0-next.14",
     "@schematics/angular": "^13.3.2",
-    "@tethys/icons": "1.1.115",
+    "@tethys/icons": "1.1.128",
     "@types/highlight.js": "^9.12.4",
     "@types/jasmine": "~2.8.6",
     "@types/node": "^12.11.1",

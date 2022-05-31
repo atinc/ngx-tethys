@@ -3,10 +3,14 @@
 
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
-    padding: variables.$action-item-padding-y variables.$action-item-padding-x;
+    padding: variables.$action-padding-y variables.$action-padding-x;
     display: inline-flex;
     align-items: center;
     line-height: 1;
+
+    > span {
+        color: variables.$gray-700;
+    }
 
     &.active {
         color: $hover-color;
@@ -21,11 +25,14 @@
         text-decoration: none;
         background: $hover-bg-color;
         border-radius: variables.$border-radius;
+        > span {
+            color: $hover-color;
+        }
     }
 
     // Disabled state lightens text
     &.disabled {
-        color: variables.$action-item-disabled-color;
+        color: variables.$action-disabled-color;
         border-bottom: none;
     }
 

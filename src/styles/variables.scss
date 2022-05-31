@@ -13,7 +13,7 @@ $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个�
 $gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
 $gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
 $gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #888 !default; // 次要文字,如 Tab 切换文字
+$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
 $gray-700: #666 !default; // 主要文字
 $gray-800: #333 !default; // 标题和重点文字
 $gray-900: #212529 !default;
@@ -209,14 +209,16 @@ $input-line-height-md: $input-btn-line-height-md !default;
 $input-line-height-sm: $input-btn-line-height-sm !default;
 $input-line-height-lg: $input-btn-line-height-lg !default;
 
-$input-padding-x-fixed: 0.625rem !default; // input 所有大小左右间距都是固定的
-$input-padding-x: $input-padding-x-fixed !default;
+// 大于等于 36px 的输入框左右间距 12px，小于 36px 高度的输入框左右间距 8px
+$input-padding-x-fixed: 0.5rem !default;
+$input-padding-x-fixed-lg: 0.75rem !default;
+$input-padding-x: $input-padding-x-fixed-lg !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-md: $input-padding-x-fixed !default;
 $input-padding-y-md: $input-btn-padding-y-md !default;
 $input-padding-x-sm: $input-padding-x-fixed !default;
 $input-padding-y-sm: $input-btn-padding-y-sm !default;
-$input-padding-x-lg: $input-padding-x-fixed !default;
+$input-padding-x-lg: $input-padding-x-fixed-lg !default;
 $input-padding-y-lg: 0.1875rem !default;
 $input-padding-x-xs: $input-padding-x-fixed !default;
 $input-padding-y-xs: 0.125rem !default;
@@ -293,15 +295,15 @@ $zindex-pop-box: 1080 !default;
 // Layout
 $layout-header-background: $white !default;
 $layout-header-padding: 0 20px !default;
-$layout-header-height: 50px !default;
-$layout-header-height-sm: 44px !default;
+$layout-header-height: 52px !default;
+$layout-header-height-sm: 48px !default;
 $layout-header-height-lg: 56px !default;
-$layout-header-height-xlg: 80px !default;
+$layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
 
-$layout-content-background: $white !default;
+$layout-content-background: $gray-80 !default;
 $layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
 $layout-sidebar-background-light: rgba($gray-80, 0.8) !default;
@@ -310,7 +312,8 @@ $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;
 $layout-sidebar-drag-background-active: $primary !default;
-$layout-sidebar-header-height: 50px;
+$layout-sidebar-header-height: $layout-header-height !default;
+$layout-sidebar-footer-height: 48px !default;
 $layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $white !default;
@@ -434,7 +437,7 @@ $nav-border-left: $nav-border-width solid $primary !default;
 $nav-item-font-size: $font-size-base !default;
 // 新的大小
 // md
-$nav-item-padding-y: 0.8125rem !default; // 高度 50px, 文字 15px
+$nav-item-padding-y: 0.875rem !default; // 高度 52px, 文字 15px
 $nav-item-padding-x: 0.625rem !default;
 $nav-item-right: 20px !default;
 $nav-item-font-size: 14px !default;
@@ -474,16 +477,16 @@ $icon-nav-link-individual-spacing: 0px !default;
 $icon-nav-link-padding-x: 0.438rem !default;
 $icon-nav-link-padding-y: 0.282rem !default;
 
-$action-item-color: $gray-600 !default;
-$action-item-hover-color: $primary !default;
-$action-item-hover-bg-color: rgba($primary, 0.1) !default;
-$action-item-padding-x: 0.4375rem !default;
-$action-item-padding-y: 0.4375rem !default;
-$action-item-disabled-color: $gray-300 !default;
-$action-item-spacing: 15px !default;
-$action-item-spacing-sm: 10px !default;
-$action-item-spacing-xs: 5px !default;
-$action-item-spacing-xs: 5px !default;
+$action-color: $gray-600 !default;
+$action-hover-color: $primary !default;
+$action-hover-bg-color: rgba($primary, 0.1) !default;
+$action-padding-x: 0.5rem !default;
+$action-padding-y: 0.5rem !default;
+$action-disabled-color: $gray-300 !default;
+$action-spacing: 15px !default;
+$action-spacing-sm: 10px !default;
+$action-spacing-xs: 5px !default;
+$action-spacing-xs: 5px !default;
 
 // Modals
 // Padding applied to the modal body
@@ -693,7 +696,7 @@ $scrollbar-thumb: $gray-300 !default;
 
 // breadcrumb
 
-$breadcrumb-icon-color: $gray-500 !default;
+$breadcrumb-icon-color: $gray-600 !default;
 $breadcrumb-separator-color: $gray-500 !default;
 $breadcrumb-text-color: $gray-600 !default;
 $breadcrumb-active-color: $gray-800 !default;
@@ -705,8 +708,8 @@ $menu-item-padding: 0 20px !default;
 $menu-group-header-padding: 0 1020px !default;
 $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
-$menu-divide-item-padding: 0 10px !default;
-$menu-divide-item-border-radius: 4px !default;
+$menu-loose-item-padding: 0 12px !default;
+$menu-loose-item-border-radius: 4px !default;
 
 // editable
 $editable-border-color: $gray-200 !default;
@@ -846,6 +849,7 @@ $popover-body-padding: 15px 20px !default;
 
 // divider
 $divider-orientation-margin: 5% !default;
+$divider-spacing: 16px !default;
 $divider-text-padding: 1em !default;
 $divider-color: $gray-200 !default;
 $divider-deeper-color: $gray-300 !default;

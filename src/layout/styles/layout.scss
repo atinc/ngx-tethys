@@ -24,7 +24,8 @@
     background: variables.$layout-header-background;
     padding: variables.$layout-header-padding;
     height: variables.$layout-header-height;
-    line-height: variables.$layout-header-height;
+    align-items: center;
+    // line-height: variables.$layout-header-height;
 
     &.header-has-border,
     &.thy-layout-header-divided {
@@ -63,9 +64,8 @@
 
 .thy-layout-sidebar {
     flex: 0 0 auto;
-    transition: all 0.2s;
     position: relative;
-
+    transition: all 0.2s;
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
@@ -96,9 +96,16 @@
             flex-grow: 1;
         }
 
-        .operation,
-        .action {
+        .operation {
             margin-right: -8px;
+
+            .thy-action + .thy-action {
+                margin-left: 4px;
+            }
+
+            .action {
+                margin-right: 4px;
+            }
         }
     }
 
@@ -115,7 +122,7 @@
     .sidebar-footer {
         padding: 0 10px;
         border-top: 1px solid variables.$layout-sidebar-border-color;
-        min-height: variables.$layout-sidebar-header-height;
+        min-height: variables.$layout-sidebar-footer-height;
         align-items: center;
         display: flex;
         flex-direction: row;
@@ -125,17 +132,37 @@
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 2px;
-        cursor: e-resize;
-        pointer-events: none;
-        transition: background 200ms;
+        left: 0;
+        right: 0;
+    }
 
+    .thy-resizable-resizing {
+        transition: none;
+    }
+    .sidebar-resize-handle {
+        position: absolute;
+        cursor: ew-resize;
+        transition: none;
+        width: 20px;
+        right: -10px;
+
+        .sidebar-resize-line {
+            width: 2px;
+            height: 100%;
+            margin-left: 10px;
+            transition: all 180ms linear;
+            border-right: 2px solid transparent;
+        }
         &:hover {
-            background: variables.$layout-sidebar-drag-background-hover;
+            .sidebar-resize-line {
+                border-color: variables.$primary;
+            }
         }
 
         &:active {
-            background: variables.$layout-sidebar-drag-background-active;
+            .sidebar-resize-line {
+                background: variables.$primary;
+            }
         }
     }
 
@@ -178,7 +205,14 @@
                 color: variables.$white;
             }
         }
+        &.collapse-visible {
+            visibility: visible;
+        }
+        &.collapse-hidden {
+            visibility: hidden;
+        }
     }
+
     .sidebar-collapse-icon svg {
         font-size: 12px;
     }
@@ -195,6 +229,9 @@
         .sidebar-collapse {
             visibility: visible;
         }
+    }
+    &.remove-transition {
+        transition: none;
     }
 }
 
@@ -219,20 +256,20 @@
 
         .title-separator {
             color: variables.$layout-header-separator-color;
-            padding: 3px;
+            padding: 4px;
         }
 
         .title-name {
             &:not(:last-child) {
-                margin-right: 5px;
+                margin-right: 4px;
             }
             .thy-icon {
-                margin-left: 6px;
+                margin-left: 4px;
             }
         }
 
         .prefix-icon {
-            margin-right: 5px;
+            margin-right: 4px;
             // padding: 5px;
             color: variables.$primary;
             font-size: variables.$layout-header-prefix-icon-size;
@@ -243,16 +280,16 @@
 
         // 图标后面跟标题，标题加 5px 的间距，保证最终是10px间距
         .prefix-icon + .title-name {
-            margin-left: 5px;
+            margin-left: 4px;
         }
 
-        // 分割线后面跟的是标题加 5px 的间距，保证最终是5px间距
+        // 分割线后面跟的是标题加 4px 的间距，保证最终是8px间距
         .title-separator + .title-name {
-            margin-left: 5px;
+            margin-left: 4px;
         }
 
         .suffix-icon {
-            margin-left: 10px;
+            margin-left: 8px;
             color: variables.$primary;
         }
     }

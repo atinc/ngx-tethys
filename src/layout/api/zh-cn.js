@@ -35,7 +35,7 @@ module.exports = [
                 default: 'true'
             },
             {
-                name: 'thyIsDraggableWidth',
+                name: 'thyDraggable',
                 description: '宽度是否可以拖拽',
                 type: 'boolean',
                 default: 'false'

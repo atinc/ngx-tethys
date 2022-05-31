@@ -3,7 +3,7 @@ category: layout
 title: Grid
 subtitle: 栅格
 ---
-<alert>响应式栅格布局组件</alert>
+<alert>响应式栅格布局组件。</alert>
 
 ## 何时使用
 

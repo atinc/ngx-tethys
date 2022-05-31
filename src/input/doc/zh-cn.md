@@ -43,10 +43,14 @@ import { ThyInputModule } from "ngx-tethys/input";
 
 <example name="thy-input-group-example" />  
 
-## 输入框内部前后置元素
-`thy-input` 组件内部也支持 `prepend` 和 `append` 模板，不同于 Input Group，模板会嵌入到输入框内部。
+## 输入框前后缀元素
 
 <example name="thy-input-pre-suffix-example" />  
+
+## thy-input 前后置元素
+`thy-input` 组件内部也支持 `prepend` 和 `append` 模板，即将废弃，请使用 thy-input-group 的`prefix`和`suffix`代替。
+
+<example name="thy-input-append-prepend-example" />  
 
 ## 搜索输入框
 Input 组件提供了`thy-input-search`组件实现搜索功能，同时也可以通过`thy-input-group`和`thy-input`的 append 模板组合搜索输入框，自带的搜索组件支持清除操作，组合实现的需要自行实现。

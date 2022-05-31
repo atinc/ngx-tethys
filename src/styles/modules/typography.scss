@@ -31,7 +31,7 @@
         margin-top: 5px;
         padding-left: 10px;
     }
-    &.thy-typography-markdown {
+    &.thy-styles-markdown {
         em {
             font-size: variables.$font-size-base;
             font-style: normal;
@@ -53,7 +53,7 @@
         }
     }
 
-    &.thy-typography-rich {
+    &.thy-styles-rich {
         .ql-code-block-container {
             background: variables.$gray-80;
             color: variables.$gray-700;

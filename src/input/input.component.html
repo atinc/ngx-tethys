@@ -1,7 +1,6 @@
 <div #prepend class="input-prepend" *ngIf="prependTemplate">
   <ng-template *ngTemplateOutlet="prependTemplate"></ng-template>
 </div>
-<span class="input-label input-label-{{ thySize }}" [class.active]="showLabel">{{ thyLabelText }}</span>
 <input
   #input
   thyInput
@@ -17,6 +16,7 @@
   (blur)="onInputBlur($event)"
   [readonly]="readonly"
 />
+<span class="input-label input-label-{{ thySize }}" [class.active]="showLabel">{{ thyLabelText }}</span>
 <div #append class="input-append" *ngIf="appendTemplate">
   <ng-template *ngTemplateOutlet="appendTemplate"></ng-template>
 </div>

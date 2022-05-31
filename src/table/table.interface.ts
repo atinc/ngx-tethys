@@ -1,4 +1,4 @@
-import { TemplateRef } from '@angular/core';
+import { EventEmitter, TemplateRef } from '@angular/core';
 
 export interface ThyTableColumn {
     key: string;
@@ -17,6 +17,9 @@ export interface ThyTableColumn {
     fixed?: 'left' | 'right';
     left?: number;
     right?: number;
+    sortable?: boolean;
+    sortDirection?: 'desc' | 'asc';
+    sortChange?: EventEmitter<ThyTableSortEvent>;
 }
 
 export interface ThyPage {
@@ -68,6 +71,12 @@ export interface ThyTableDraggableEvent {
     model?: any;
     models?: Array<any>;
     [key: string]: any;
+}
+
+export interface ThyTableSortEvent {
+    event: Event;
+    key: string;
+    direction: 'desc' | 'asc';
 }
 
 export interface ThyTableRowEvent {

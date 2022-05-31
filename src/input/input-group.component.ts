@@ -1,25 +1,40 @@
-import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    ContentChild,
+    TemplateRef,
+    ElementRef,
+    ViewEncapsulation,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
 
-export type InputGroupSize = 'sm' | 'lg' | '';
+export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
 const inputGroupSizeMap = {
     sm: ['input-group-sm'],
-    lg: ['input-group-lg']
+    lg: ['input-group-lg'],
+    md: ['input-group-md']
 };
 
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
     providers: [UpdateHostClassService],
-    encapsulation: ViewEncapsulation.None
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'thy-input-group',
+        '[class.form-control]': 'prefixTemplate || suffixTemplate',
+        '[class.thy-input-group-with-prefix]': 'prefixTemplate',
+        '[class.thy-input-group-with-suffix]': 'suffixTemplate'
+    }
 })
 export class ThyInputGroupComponent {
     public appendText: string;
 
     public prependText: string;
-
-    @HostBinding('class.thy-input-group') _isInputGroup = true;
 
     @Input()
     set thyAppendText(value: string) {
@@ -54,9 +69,13 @@ export class ThyInputGroupComponent {
         }
     }
 
-    @ContentChild('append') appendTemplate: TemplateRef<any>;
+    @ContentChild('append') appendTemplate: TemplateRef<unknown>;
 
-    @ContentChild('prepend') prependTemplate: TemplateRef<any>;
+    @ContentChild('prepend') prependTemplate: TemplateRef<unknown>;
+
+    @ContentChild('prefix') prefixTemplate: TemplateRef<unknown>;
+
+    @ContentChild('suffix') suffixTemplate: TemplateRef<unknown>;
 
     constructor(
         private thyTranslate: ThyTranslate,

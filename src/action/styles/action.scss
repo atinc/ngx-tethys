@@ -4,9 +4,5 @@
 
 .thy-action {
     transition: opacity 0.2s ease-in-out;
-    @include action-mixin.action-variant(
-        variables.$action-item-color,
-        variables.$action-item-hover-color,
-        variables.$action-item-hover-bg-color
-    );
+    @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
 }

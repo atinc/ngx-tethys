@@ -15,6 +15,7 @@ import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
 import { ThyMenuComponent } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
+import { ThyDividerModule } from '../../divider';
 
 @Component({
     selector: 'thy-demo-thy-menu',
@@ -23,8 +24,7 @@ import { ThyMenuModule } from '../menu.module';
             <thy-menu-group
                 thyTitle="工作"
                 [thyExpand]="true"
-                [thyCanArrow]="thyCanArrow"
-                [thyHeaderContent]="headerContentTemplate"
+                [thyCollapsible]="thyCollapsible"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
@@ -48,6 +48,9 @@ import { ThyMenuModule } from '../menu.module';
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
+                <ng-template #headerContent>
+                    <span class="custom-title">星标</span>
+                </ng-template>
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
@@ -55,13 +58,9 @@ import { ThyMenuModule } from '../menu.module';
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
-            <thy-menu-divider></thy-menu-divider>
+            <thy-divider></thy-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
-
-        <ng-template #headerContentTemplate>
-            <span class="custom-title">星标</span>
-        </ng-template>
     `
 })
 class ThyDemoMenuComponent {
@@ -74,12 +73,12 @@ class ThyDemoMenuComponent {
 
     theme = 'default';
 
-    thyCanArrow = true;
+    thyCollapsible = true;
     click() {}
 }
 
 @NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopoverModule, ThyIconModule],
+    imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
     declarations: [ThyDemoMenuComponent],
     exports: [ThyDemoMenuComponent],
     providers: [ThyPopover]
@@ -115,29 +114,29 @@ describe('ThyMenu', () => {
         });
 
         it('should theme worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
+            fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('menu-theme-divide')).toBeTruthy();
+            expect(menu.nativeElement.classList.contains('menu-theme-loose')).toBeTruthy();
         });
     });
 
-    describe('thy-menu-divider', () => {
-        let divider: DebugElement;
+    // describe('thy-menu-divider', () => {
+    //     let divider: DebugElement;
 
-        beforeEach(() => {
-            divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
-        });
+    //     beforeEach(() => {
+    //         divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
+    //     });
 
-        it('should create thy-menu-divider', () => {
-            expect(divider.componentInstance).toBeTruthy();
-            expect(divider.componentInstance === component.divider).toBeTruthy();
-        });
+    //     it('should create thy-menu-divider', () => {
+    //         expect(divider.componentInstance).toBeTruthy();
+    //         expect(divider.componentInstance === component.divider).toBeTruthy();
+    //     });
 
-        it('should have class thy-menu-divider', () => {
-            expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
-        });
-    });
+    //     it('should have class thy-menu-divider', () => {
+    //         expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
+    //     });
+    // });
 
     describe('thy-menu-group', () => {
         let group: DebugElement;
@@ -155,24 +154,23 @@ describe('ThyMenu', () => {
             expect(group.nativeElement.classList.contains('thy-menu-group')).toBeTruthy();
         });
 
-        it('should thyCanArrow worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
-            fixture.debugElement.componentInstance.thyCanArrow = false;
+        it('should thyCollapsible worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
+            fixture.debugElement.componentInstance.thyCollapsible = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
             const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
             groupHeader.click();
             fixture.detectChanges();
-            console.log(group.componentInstance, 'group.componentInstance');
             expect(group.componentInstance.isCollapsed).toBe(false);
         });
 
-        it('should headerContentTemplate worked', () => {
-            fixture.debugElement.componentInstance.theme = 'divide';
+        it('should headerContent worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
-            expect(group.nativeElement.querySelector('.custom-title')).toBeTruthy();
+            expect(group.nativeElement.querySelectorAll('.custom-title')).toBeTruthy();
         });
     });
 

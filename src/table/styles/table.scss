@@ -226,6 +226,29 @@
         }
     }
 
+    .thy-table-column-sortable {
+        display: inline-flex;
+        align-items: center;
+        &-icon {
+            visibility: hidden;
+            cursor: pointer;
+            color: variables.$gray-600;
+            &.desc {
+                visibility: visible;
+                color: variables.$gray-600;
+            }
+            &.asc {
+                visibility: visible;
+                color: variables.$primary;
+            }
+        }
+        &:hover {
+            .thy-table-column-sortable-icon {
+                visibility: visible;
+            }
+        }
+    }
+
     .tree-expand-icon {
         position: absolute;
         left: 0;
