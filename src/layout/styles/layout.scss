@@ -226,20 +226,20 @@
 
         .title-separator {
             color: variables.$layout-header-separator-color;
-            padding: 3px;
+            padding: 4px;
         }
 
         .title-name {
             &:not(:last-child) {
-                margin-right: 5px;
+                margin-right: 4px;
             }
             .thy-icon {
-                margin-left: 6px;
+                margin-left: 4px;
             }
         }
 
         .prefix-icon {
-            margin-right: 5px;
+            margin-right: 4px;
             // padding: 5px;
             color: variables.$primary;
             font-size: variables.$layout-header-prefix-icon-size;
@@ -250,16 +250,16 @@
 
         // 图标后面跟标题，标题加 5px 的间距，保证最终是10px间距
         .prefix-icon + .title-name {
-            margin-left: 5px;
+            margin-left: 4px;
         }
 
-        // 分割线后面跟的是标题加 5px 的间距，保证最终是5px间距
+        // 分割线后面跟的是标题加 4px 的间距，保证最终是8px间距
         .title-separator + .title-name {
-            margin-left: 5px;
+            margin-left: 4px;
         }
 
         .suffix-icon {
-            margin-left: 10px;
+            margin-left: 8px;
             color: variables.$primary;
         }
     }

@@ -10,6 +10,8 @@ import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 export default {
     imports: [
@@ -24,6 +26,8 @@ export default {
         ThyGridModule,
         ThyDropdownModule,
         ThyIconModule,
-        ThyTooltipModule
+        ThyTooltipModule,
+        ThyDividerModule,
+        ThyActionModule
     ]
 };
