@@ -31,7 +31,7 @@ import { ThyInputModule } from "ngx-tethys/input";
 
 <example name="thy-input-size-example" /> 
 
-## 输入框外部前后置元素
+## 输入框前后置元素
 
 通过 `thy-input-group` 组件，可以实现输入框前后追加元素，追加的元素是独立于输入框的，支持`thyPrependText`和`thyAppendText`，以及自定义模板。
 
@@ -43,7 +43,7 @@ import { ThyInputModule } from "ngx-tethys/input";
 
 <example name="thy-input-group-example" />  
 
-## 输入框内部前后置元素
+## 输入框前后缀元素
 
 <example name="thy-input-pre-suffix-example" />  
 

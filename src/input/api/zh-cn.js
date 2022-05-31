@@ -122,7 +122,7 @@ module.exports = [
             },
             {
                 name: 'thyTheme',
-                description: `搜索框风格，分为'default'和'ellipse'两种`,
+                description: `搜索框风格，分为'default' | 'ellipse' | 'transparent'`,
                 type: 'string',
                 default: 'default'
             },
@@ -183,13 +183,13 @@ module.exports = [
             },
             {
                 name: 'prefix',
-                description: '自定义前置元素，展示在输入框内',
+                description: '自定义前缀元素，展示在输入框内',
                 type: 'ContentChild<TemplateRef>',
                 default: ''
             },
             {
                 name: 'suffix',
-                description: '自定义后置元素，展示在输入框内',
+                description: '自定义后缀元素，展示在输入框内',
                 type: 'ContentChild<TemplateRef>',
                 default: ''
             },
