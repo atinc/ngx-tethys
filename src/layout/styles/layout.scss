@@ -63,7 +63,6 @@
 
 .thy-layout-sidebar {
     flex: 0 0 auto;
-    transition: all 0.2s;
     position: relative;
 
     min-width: 0;
@@ -125,17 +124,26 @@
         position: absolute;
         top: 0;
         bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+    .thy-resizable-resizing {
+        transition: none;
+    }
+    .sidebar-resize-handle {
+        position: absolute;
+        right: -2px;
         width: 2px;
-        cursor: e-resize;
-        pointer-events: none;
-        transition: background 200ms;
+        cursor: ew-resize;
+        transition: none;
 
         &:hover {
-            background: variables.$layout-sidebar-drag-background-hover;
+            background: variables.$primary;
         }
 
         &:active {
-            background: variables.$layout-sidebar-drag-background-active;
+            background: variables.$primary;
         }
     }
 
@@ -178,7 +186,11 @@
                 color: variables.$white;
             }
         }
+        &.collapse-visible {
+            visibility: visible;
+        }
     }
+
     .sidebar-collapse-icon svg {
         font-size: 12px;
     }
