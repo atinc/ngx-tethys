@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [12.1.33](https://github.com/atinc/ngx-tethys/compare/12.1.32...12.1.33) (2022-05-31)
+
+### Bug Fixes
+
+* **image:** fix image can not copy when preview ([#1763](https://github.com/atinc/ngx-tethys/issues/1763)) ([03c3b72](https://github.com/atinc/ngx-tethys/commit/03c3b72680f000d2e64f081b2f0f9cbf2a08e599))
+
+
+
 # [13.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.4...13.1.0-next.5) (2022-05-31)
 
 
@@ -66,6 +74,9 @@ All notable changes to this project will be documented in this file. See [standa
 ## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.0.1) (2022-05-30)
 
 
+## [12.1.32](https://github.com/atinc/ngx-tethys/compare/12.1.31...12.1.32) (2022-05-27)
+
+
 ### Bug Fixes
 
 * **image:** adjust header and operation opacity #WIK-6737 ([#1723](https://github.com/atinc/ngx-tethys/issues/1723)) ([c7d60fe](https://github.com/atinc/ngx-tethys/commit/c7d60fe2f15f4b729af2c297b0ca7b393bf39a02)), closes [#WIK-6737](https://github.com/atinc/ngx-tethys/issues/WIK-6737)
@@ -75,7 +86,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * **copy:** add thyCopyTipOffset input #INFR-3254 ([#1735](https://github.com/atinc/ngx-tethys/issues/1735)) ([3f06509](https://github.com/atinc/ngx-tethys/commit/3f065096b9c7e19f459898101c5bcb8636c50d8a)), closes [#INFR-3254](https://github.com/atinc/ngx-tethys/issues/INFR-3254)
-
 
 
 # [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
