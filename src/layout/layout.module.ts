@@ -12,7 +12,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThySidebarHeaderComponent } from './sidebar-header.component';
 import { ThySidebarFooterComponent } from './sidebar-footer.component';
 import { ThySidebarContentComponent } from './sidebar-content.component';
-import { ThyResizableModule } from '../resizable';
+import { ThyResizableModule } from 'ngx-tethys/resizable';
 
 @NgModule({
     declarations: [

@@ -14,7 +14,7 @@ import {
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyResizeEvent } from '../resizable';
+import { ThyResizeEvent } from 'ngx-tethys/resizable';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
