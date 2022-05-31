@@ -16,11 +16,9 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     collapsed = false;
 
+    triggerCollapsed = false;
+
     constructor() {}
 
     ngOnInit(): void {}
-
-    collapsedChange(isCollapsed: boolean) {
-        this.collapsed = isCollapsed;
-    }
 }

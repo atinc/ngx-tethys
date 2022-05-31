@@ -88,9 +88,8 @@
     <thy-sidebar
       class="p-2"
       [thyCollapsible]="true"
-      [thyCollapsed]="collapsed"
+      [(thyCollapsed)]="triggerCollapsed"
       [thyCollapsedWidth]="collapsedWidth"
-      (thyCollapsedChange)="collapsedChange($event)"
       [thyTrigger]="customTpl"
     >
       Sidebar custom trigger
@@ -100,5 +99,5 @@
 </div>
 
 <ng-template #customTpl>
-  <thy-icon class="sidebar-collapse-icon" [thyIconName]="collapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>
+  <thy-icon class="sidebar-collapse-icon" [thyIconName]="triggerCollapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>
 </ng-template>
