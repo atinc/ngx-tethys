@@ -3,7 +3,6 @@ import {
     Component,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     Output,
     ViewEncapsulation,
@@ -34,7 +33,9 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-input form-control thy-input-search'
+        class: 'thy-input form-control thy-input-search',
+        '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
+        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"'
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
@@ -48,20 +49,13 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
 
     public iconPosition: ThyInputSearchIconPosition = 'before';
 
-    @HostBinding('class.thy-input-search-ellipse') _isSearchEllipse = false;
-
     searchText: string;
 
     @Input() name = '';
 
     @Input() placeholder = '';
 
-    @Input()
-    set thyTheme(value: ThyInputSearchTheme) {
-        if (value === 'ellipse') {
-            this._isSearchEllipse = true;
-        }
-    }
+    @Input() thyTheme: ThyInputSearchTheme;
 
     @Input()
     set thySearchFocus(value: boolean) {
