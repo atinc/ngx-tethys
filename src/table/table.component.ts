@@ -1,12 +1,7 @@
 /* eslint-disable @angular-eslint/no-conflicting-lifecycle */
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
-import { Dictionary } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
-import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
-import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import {
     AfterViewInit,
@@ -38,8 +33,17 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-
-import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Dictionary } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
+import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import {
+    IThyTableColumnParentComponent,
+    SortDirection,
+    ThyTableColumnComponent,
+    THY_TABLE_COLUMN_PARENT_COMPONENT
+} from './table-column.component';
 import {
     PageChangedEvent,
     ThyMultiSelectEvent,
@@ -50,9 +54,9 @@ import {
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
-    ThyTableRowEvent
+    ThyTableRowEvent,
+    ThyTableSortEvent
 } from './table.interface';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 export type ThyTableTheme = 'default' | 'bordered';
 
@@ -162,6 +166,8 @@ export class ThyTableComponent extends _MixinBase
     private _oldThyClassName = '';
 
     private scrollClassName = css.tableScrollLeft;
+
+    private sortDirections: SortDirection[] = ['desc', 'asc'];
 
     private get tableScrollElement(): HTMLElement {
         return this.elementRef.nativeElement.getElementsByClassName(css.tableBody)[0] as HTMLElement;
@@ -317,6 +323,8 @@ export class ThyTableComponent extends _MixinBase
 
     @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
+    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+
     @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
     @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
@@ -374,6 +382,7 @@ export class ThyTableComponent extends _MixinBase
         const hasExpand = components.some(item => item.expand === true);
         const leftColumnsWidth: number[] = [];
         const rightColumns: ThyTableColumnComponent[] = [];
+
         this.columns = components.map<ThyTableColumn>((component, i) => {
             const selections = this._getSelectionKeys(component.selections);
             if (component.fixed === this.fixedDirection.left) {
@@ -391,6 +400,9 @@ export class ThyTableComponent extends _MixinBase
                 className: component.className,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
+                sortable: component.sortable,
+                sortDirection: component.sortDirection,
+                sortChange: component.thySortChange,
                 defaultText: component.defaultText,
                 expand: hasExpand ? component.expand : i === 0,
                 templateRef: component.cellTemplateRef,
@@ -628,6 +640,26 @@ export class ThyTableComponent extends _MixinBase
         };
         moveItemInArray(this.model, event.previousIndex, event.currentIndex);
         this.thyOnDraggableChange.emit(dragEvent);
+    }
+
+    getNextSortDirection(sortDirections: SortDirection[], current: SortDirection): SortDirection {
+        const index = sortDirections.indexOf(current);
+        if (index === sortDirections.length - 1) {
+            return sortDirections[0];
+        } else {
+            return sortDirections[index + 1];
+        }
+    }
+
+    onColumnHeaderClick(event: Event, column: ThyTableColumn) {
+        if (column.sortable) {
+            const { sortDirection, model, sortChange } = column;
+            const direction = this.getNextSortDirection(this.sortDirections, sortDirection);
+            column.sortDirection = direction;
+            const sortEvent = { event, key: model, direction };
+            sortChange.emit(sortEvent);
+            this.thySortChange.emit(sortEvent);
+        }
     }
 
     public onRowClick(event: Event, row: any) {
