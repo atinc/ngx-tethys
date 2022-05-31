@@ -102,14 +102,14 @@ describe(`sidebar`, () => {
         });
 
         it(`should get correct 300px width when input lg`, () => {
-            expect(sidebarElement.style.width).toEqual('');
+            expect(sidebarElement.style.width).toEqual('240px');
             fixture.componentInstance.width = 'lg';
             fixture.detectChanges();
             expect(sidebarElement.style.width).toEqual('300px');
         });
 
         it(`should get correct 200px width when input 200`, () => {
-            expect(sidebarElement.style.width).toEqual('');
+            expect(sidebarElement.style.width).toEqual('240px');
             fixture.componentInstance.width = 200;
             fixture.detectChanges();
             expect(sidebarElement.style.width).toEqual('200px');
@@ -187,6 +187,7 @@ describe(`sidebar`, () => {
 
         it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
             const inputCollapseWidth = 80;
+            const originWidth = sidebarDebugElement.nativeElement.style.width;
             fixture.debugElement.componentInstance.collapsible = true;
             fixture.debugElement.componentInstance.collapsibleWidth = inputCollapseWidth;
             fixture.detectChanges();
@@ -195,11 +196,11 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(true);
-            expect(sidebarDebugElement.nativeElement.style.width).toEqual(fixture.debugElement.componentInstance.collapsibleWidth + 'px');
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(false);
-            expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
+            expect(sidebarDebugElement.nativeElement.style.width).toEqual(originWidth);
             flush();
         }));
 
