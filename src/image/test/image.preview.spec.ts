@@ -169,7 +169,6 @@ describe('image-preview', () => {
         expect(spy).toHaveBeenCalled();
         expect(fitScreen.getAttribute('ng-reflect-content')).toBe('适应屏幕');
         expect(currentZoom).toBe(1);
-        expect(basicTestComponent.imageRef.componentInstance.isInsideScreen).toBe(true);
         expect(currentImageTransform).toContain(`scale3d(1, 1, 1)`);
 
         fitScreen.click();
