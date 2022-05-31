@@ -96,9 +96,16 @@
             flex-grow: 1;
         }
 
-        .operation,
-        .action {
+        .operation {
             margin-right: -8px;
+
+            .thy-action + .thy-action {
+                margin-left: 4px;
+            }
+
+            .action {
+                margin-right: 4px;
+            }
         }
     }
 
