@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+
+export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
 /**
  * 立即操作组件
@@ -7,6 +9,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 @Component({
     selector: 'thy-action, [thyAction]',
     templateUrl: './action.component.html',
+    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-action',
@@ -15,6 +18,8 @@ import { InputBoolean } from 'ngx-tethys/core';
 })
 export class ThyActionComponent implements OnInit, AfterViewInit {
     icon: string;
+
+    _type: string;
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
@@ -31,7 +36,21 @@ export class ThyActionComponent implements OnInit, AfterViewInit {
     @InputBoolean()
     thyActionActive: string | boolean;
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2) {}
+    /**
+     * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
+     */
+    @Input()
+    set thyType(value: ThyActionType) {
+        this.setActionType(value || 'primary');
+    }
+
+    constructor(
+        private elementRef: ElementRef<HTMLElement>,
+        private renderer: Renderer2,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+    }
 
     ngOnInit(): void {}
 
@@ -49,5 +68,16 @@ export class ThyActionComponent implements OnInit, AfterViewInit {
                 this.renderer.appendChild(span, node);
             }
         });
+    }
+
+    private setActionType(value: ThyActionType) {
+        this._type = value;
+        this.updateClasses();
+    }
+
+    private updateClasses() {
+        let classNames: string[] = [];
+        classNames.push(`action-${this._type}`);
+        this.updateHostClassService.updateClass(classNames);
     }
 }
