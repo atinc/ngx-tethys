@@ -5,9 +5,9 @@ import { Component } from '@angular/core';
     templateUrl: './only-icon.component.html'
 })
 export class ThySegmentedOnlyIconExampleComponent {
-    options = [{ icon: 'list' }, { icon: 'paperclip' }];
+    onlyIconOptions = [{ icon: 'list' }, { icon: 'paperclip' }];
 
-    options2 = [
+    hasTooltipOptions = [
         { icon: 'list', tooltip: '列表' },
         { icon: 'paperclip', tooltip: '对齐' }
     ];

@@ -871,6 +871,9 @@ $segmented-sizes: (
     'md': $segmented-height-md,
     'default': $segmented-height-default
 ) !default;
+$segmented-item-only-icon-width: 36px !default;
+$segmented-text-margin-left: 6px !default;
+$segmented-item-padding-x: 10px !default;
 $segmented-default-color: $gray-700 !default;
 $segmented-active-color: $gray-800 !default;
 $segmented-hover-color: $gray-800 !default;
@@ -878,5 +881,3 @@ $segmented-icon-with-text-default-color: $gray-600 !default;
 $segmented-icon-with-text-active-color: $gray-700 !default;
 $segmented-icon-with-text-hover-color: $gray-700 !default;
 $segmented-disabled-color: $gray-500 !default;
-$segmented-text-margin-left: 6px !default;
-$segmented-item-padding-x: 10px !default;

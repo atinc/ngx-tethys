@@ -17,6 +17,9 @@
   >
     <div
       class="thy-segmented-item-label"
+      [ngClass]="{
+        'thy-segmented-item-label-only-icon': !thyLabelTemplate && !item.labelText && item.icon && thyMode === 'adaptive'
+      }"
       [thyTooltip]="item.tooltip"
       [thyTooltipDisabled]="item.labelText || thyLabelTemplate || !item.tooltip"
       (click)="!item.disabled && handleOptionClick(item, i)"

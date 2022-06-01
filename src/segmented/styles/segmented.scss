@@ -48,6 +48,9 @@
             @include text-truncate.text-truncate();
             word-break: keep-all;
             text-align: center;
+            &-only-icon {
+                width: variables.$segmented-item-only-icon-width;
+            }
         }
 
         &-selected {
@@ -60,7 +63,7 @@
 
         &-icon + * {
             display: inline-block;
-            margin-left: 6px;
+            margin-left: variables.$segmented-text-margin-left;
         }
     }
 

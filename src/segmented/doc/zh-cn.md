@@ -17,7 +17,7 @@ import { ThySegmentedModule } from "ngx-tethys/segmented";
 
 ## 基本使用
 ```html
-<thy-segmented [thyOptions]="options" (thyOptionSelect)="selectedOptionChange($event)"></thy-segmented>
+<thy-segmented [thyOptions]="options" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
 ```
 
 展示效果：
