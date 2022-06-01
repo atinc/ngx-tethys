@@ -84,19 +84,24 @@
     }
 
     .thy-table-column-sortable {
-        display: inline-flex;
-        align-items: center;
         &-icon {
             visibility: hidden;
+            vertical-align: middle;
             cursor: pointer;
             color: variables.$gray-600;
             &.desc {
                 visibility: visible;
                 color: variables.$gray-600;
+                svg g path:last-child {
+                    fill: variables.$primary;
+                }
             }
             &.asc {
                 visibility: visible;
                 color: variables.$primary;
+                svg g path:last-child {
+                    fill: variables.$gray-600;
+                }
             }
         }
         &:hover {

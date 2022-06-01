@@ -934,7 +934,12 @@ describe('ThyTable: fixed', () => {
         <thy-table [thyModel]="data" thyRowKey="id">
             <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
             <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-            <thy-table-column thyTitle="Age" thyModelKey="age" [thySortable]="true" (thySortChange)="onThyTableColumnSortChange($event)">
+            <thy-table-column
+                thyTitle="Age"
+                thyModelKey="age"
+                [thySortable]="sortable"
+                (thySortChange)="onThyTableColumnSortChange($event)"
+            >
             </thy-table-column>
             <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
@@ -949,6 +954,7 @@ class ThyDemoSortTableComponent {
         { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' },
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
+    sortable = false;
     onThyTableColumnSortChange() {}
 }
 
@@ -975,21 +981,24 @@ describe('ThyTable: sort', () => {
         expect(tableComponent).toBeTruthy();
     });
 
-    it('should be show sortable-icon when sortable', () => {
+    it('should be hide sortable-icon when not sortable', () => {
         fixture.detectChanges();
-        const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
-        expect(tableSortableIcon).toBeTruthy();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeFalsy();
+    });
+
+    it('should be show sortable-icon when sortable', () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeTruthy();
     });
 
     it('should emit a sortChange event when sortable-icon got clicked', () => {
+        testComponent.sortable = true;
         fixture.detectChanges();
-
         spyOn(testComponent, 'onThyTableColumnSortChange');
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
-
         const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
         tableSortableIcon.nativeElement.dispatchEvent(createFakeEvent('click'));
-
         fixture.detectChanges();
 
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);

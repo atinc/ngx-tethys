@@ -1,13 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
+import { ThyTableSortDirection, ThyTableSortEvent } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-sortable-example',
     templateUrl: './sortable.component.html'
 })
 export class ThyTableSortableExampleComponent implements OnInit {
-    public sortDirectionEnum = ThySortDirection;
-
     data = [
         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
@@ -31,9 +29,9 @@ export class ThyTableSortableExampleComponent implements OnInit {
     }
 
     sortData(key: string, direction: string) {
-        if (direction === this.sortDirectionEnum.asc) {
+        if (direction === ThyTableSortDirection.asc) {
             this.data.sort((a, b) => a[key] - b[key]);
-        } else {
+        } else if (direction === ThyTableSortDirection.desc) {
             this.data.sort((a, b) => b[key] - a[key]);
         }
     }

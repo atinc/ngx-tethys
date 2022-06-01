@@ -12,7 +12,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
-import { ThyTableSortEvent } from './table.interface';
+import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
 export interface IThyTableColumnParentComponent {
     updateColumnSelections(key: string, selections: any): void;
@@ -25,7 +25,6 @@ export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableCol
 
 export type FixedDirection = 'left' | 'right';
 
-export type SortDirection = 'desc' | 'asc';
 @Component({
     selector: 'thy-grid-column,thy-table-column',
     template: '<ng-content></ng-content>',
@@ -77,7 +76,7 @@ export class ThyTableColumnComponent implements OnInit {
         }
     }
 
-    @Input() thySortDirection: SortDirection = null;
+    @Input() thySortDirection = ThyTableSortDirection.default;
 
     @Input() thyFixed: FixedDirection;
 
@@ -122,7 +121,7 @@ export class ThyTableColumnComponent implements OnInit {
 
     public sortable = false;
 
-    public sortDirection: SortDirection;
+    public sortDirection: ThyTableSortDirection;
 
     public fixed: FixedDirection;
 
