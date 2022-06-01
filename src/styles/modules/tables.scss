@@ -1,9 +1,9 @@
 @use "sass:map";
-@use "../bootstrap/mixins/breakpoints";
-@use "../bootstrap/mixins/hover";
-@use "../bootstrap/variables" as bootstrap-variables;
-@use "../mixins/tables";
-@use "../variables";
+@use "../bootstrap/mixins/breakpoints.scss";
+@use "../bootstrap/mixins/hover.scss";
+@use "../bootstrap/variables.scss" as bootstrap-variables;
+@use "../mixins/tables.scss";
+@use "../variables.scss";
 
 .table {
     width: 100%;
@@ -19,12 +19,6 @@
         border-bottom: variables.$table-border-width solid variables.$table-border-color;
     }
 
-    .table {
-        background-color: bootstrap-variables.$body-bg;
-    }
-}
-
-.table {
     tbody tr {
         &.clear-hover {
             cursor: default !important;
@@ -36,14 +30,21 @@
             }
         }
     }
+
+    @include tables.table-size(
+        variables.$table-cell-height,
+        variables.$table-cell-height,
+        variables.$table-header-padding,
+        variables.$table-cell-padding
+    );
+
+    .table {
+        background-color: bootstrap-variables.$body-bg;
+    }
 }
 
 .table-default {
-    tr {
-        height: variables.$table-default-cell-height;
-    }
     @include tables.table-set-header(
-        variables.$table-default-header-height,
         left,
         bottom,
         400,
@@ -53,32 +54,53 @@
         variables.$table-default-head-color,
         variables.$table-default-header-padding
     );
+}
 
-    &.table-sm {
-        @include tables.table-size(0, variables.$table-sm-cell-height);
-        thead {
-            th,
-            td {
-                padding: variables.$table-default-sm-header-padding;
-            }
-        }
-    }
+.table-lg {
+    @include tables.table-size(
+        variables.$table-cell-height-lg,
+        variables.$table-cell-height-lg,
+        variables.$table-header-padding-lg,
+        variables.$table-cell-padding-lg
+    );
+}
+
+.table-md {
+    @include tables.table-size(
+        variables.$table-cell-height,
+        variables.$table-cell-height,
+        variables.$table-header-padding,
+        variables.$table-cell-padding
+    );
+}
+
+.table-sm {
+    @include tables.table-size(
+        variables.$table-cell-height-sm,
+        variables.$table-cell-height-sm,
+        variables.$table-header-padding-sm,
+        variables.$table-cell-padding-sm
+    );
+}
+
+.table-xs {
+    @include tables.table-size(
+        variables.$table-cell-height-xs,
+        variables.$table-cell-height-xs,
+        variables.$table-header-padding-xs,
+        variables.$table-cell-padding-xs
+    );
 }
 
 .table-bordered {
     border: variables.$table-border-width solid variables.$table-border-color;
-    tr {
-        height: variables.$table-bordered-cell-height;
-    }
 
     th,
     td {
-        // padding: $table-bordered-padding;
         border: variables.$table-border-width solid variables.$table-border-color;
     }
 
     @include tables.table-set-header(
-        variables.$table-bordered-cell-height,
         center,
         middle,
         400,
@@ -88,10 +110,6 @@
         variables.$table-bordered-head-color,
         0
     );
-}
-
-.table-sm {
-    @include tables.table-size(variables.$table-sm-cell-height, variables.$table-sm-cell-height);
 }
 
 .table-fixed {

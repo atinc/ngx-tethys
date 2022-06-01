@@ -321,27 +321,20 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thySize is default', () => {
+    it('should have correct class when thySize is md', () => {
         testComponent.size = '';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-default')).toBe(true);
+        expect(table.classList.contains('table-md')).toBe(true);
     });
 
-    it('should have correct class when thySize is sm', () => {
-        testComponent.size = 'sm';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-    });
-
-    it('should have correct class when thySize is sm and thyTheme is default', () => {
-        testComponent.size = 'sm';
-        testComponent.theme = 'default';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-        expect(table.classList.contains('table-default-sm-bottom-padding')).toBe(true);
+    it('should have correct class for sizes', () => {
+        ['xs', 'sm', 'md', 'lg', 'default'].forEach(size => {
+            testComponent.size = size;
+            fixture.detectChanges();
+            expect(table.classList.contains('table')).toBe(true);
+            expect(table.classList.contains(`table-${size}`)).toBe(true);
+        });
     });
 
     it('should have correct class when className is class-name', () => {
@@ -350,7 +343,7 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('class-name')).toBe(true);
     });
 
-    it('should have correct class when className is class-name,thySize is sm', () => {
+    it('should have correct class when className is class-name, thySize is sm', () => {
         testComponent.tableClassName = 'class-name';
         testComponent.size = 'sm';
         fixture.detectChanges();
