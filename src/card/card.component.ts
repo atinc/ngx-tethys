@@ -1,26 +1,30 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { Component, HostBinding, Input, ChangeDetectionStrategy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-card',
     template: `
         <ng-content></ng-content>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-card',
+        '[class.thy-card--divided]': '!!thyDivided',
+        '[class.thy-card--clear-left-right-padding]': '!thyHasLeftRightPadding',
+        '[class.thy-card-sm]': 'thySize === "sm"',
+        '[class.thy-card-lg]': 'thySize === "lg"'
+    }
 })
 export class ThyCardComponent {
-    @HostBinding('class.thy-card') thyCardClass = true;
-
-    @HostBinding('class.thy-card--clear-left-right-padding') clearLeftRightPadding = false;
-
-    @HostBinding('class.thy-card--divided') _thyDivided = false;
-
     @Input('thyHasLeftRightPadding')
-    set thyHasLeftRightPadding(value: any) {
-        this.clearLeftRightPadding = !coerceBooleanProperty(value);
-    }
+    @InputBoolean()
+    thyHasLeftRightPadding: boolean | string = true;
 
     @Input('thyDivided')
-    set thyDivided(value: boolean) {
-        this._thyDivided = coerceBooleanProperty(value);
-    }
+    @InputBoolean()
+    thyDivided: boolean | string;
+
+    @Input()
+    thySize: 'md' | 'sm' | 'lg';
 }

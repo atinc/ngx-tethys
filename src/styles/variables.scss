@@ -549,8 +549,21 @@ $card-title-icon-color: $primary !default;
 $card-title-color: $gray-800 !default;
 $card-title-info-color: $gray-500 !default;
 $card-header-divider-color: $gray-200 !default;
-// divided 分割模式，头部和内容区域的上下间距
-$card-divided-spacing-y: 15px;
+$card-header-padding-x: 20px !default;
+$card-header-padding-y: 20px !default;
+$card-content-padding-x: 20px !default;
+$card-content-padding-y: 20px !default;
+$card-header-padding-x-lg: 28px !default;
+$card-header-padding-y-lg: 24px !default;
+$card-content-padding-x-lg: 28px !default;
+$card-content-padding-y-lg: 24px !default;
+$card-header-padding-x-sm: 16px !default;
+$card-header-padding-y-sm: 16px !default;
+$card-content-padding-x-sm: 16px !default;
+$card-content-padding-y-sm: 16px !default;
+
+// divided 分割模式，内容区域的上下间距
+$card-divided-content-spacing-y: 12px;
 
 //Datepicker
 $datepicker-z-index: 1100 !default;

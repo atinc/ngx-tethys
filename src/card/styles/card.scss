@@ -8,21 +8,19 @@
     border-radius: variables.$card-border-radius;
 
     .thy-card-header {
-        padding: 10px 20px;
         display: flex;
         flex: 0 0 auto;
         align-items: center;
         // @deprecated remove in v11
         .card-header-icon {
             display: block;
-            margin-right: 7px;
+            margin-right: 8px;
             width: 0;
             height: 14px;
             @include mixin.card-head-title-icon(variables.$card-title-icon-color);
         }
 
         .card-header-title {
-            line-height: 20px;
             color: variables.$card-title-color;
         }
 
@@ -35,7 +33,37 @@
         .card-header-operation {
             margin-left: auto;
         }
+    }
 
+    @include mixin.card-set-size(
+        variables.$card-header-padding-x,
+        variables.$card-header-padding-y,
+        variables.$card-content-padding-x,
+        variables.$card-content-padding-y,
+        variables.$card-divided-content-spacing-y
+    );
+
+    &.thy-card-lg {
+        @include mixin.card-set-size(
+            variables.$card-header-padding-x-lg,
+            variables.$card-header-padding-y-lg,
+            variables.$card-content-padding-x-lg,
+            variables.$card-content-padding-y-lg,
+            variables.$card-divided-content-spacing-y
+        );
+    }
+
+    &.thy-card-sm {
+        @include mixin.card-set-size(
+            variables.$card-header-padding-x-sm,
+            variables.$card-header-padding-y-sm,
+            variables.$card-content-padding-x-sm,
+            variables.$card-content-padding-y-sm,
+            variables.$card-divided-content-spacing-y
+        );
+    }
+
+    .thy-card-header {
         &--sm {
             padding-top: 0;
         }
@@ -49,7 +77,6 @@
     }
 
     .thy-card-content {
-        padding: 10px 20px 20px 20px;
         flex: auto;
 
         // @deprecated remove in v11
@@ -75,32 +102,12 @@
     &--divided {
         .thy-card-header {
             position: relative;
-            padding: {
-                top: variables.$card-divided-spacing-y;
-                bottom: variables.$card-divided-spacing-y;
-            }
             &::after {
                 position: absolute;
                 content: ' ';
                 bottom: 0;
                 height: 1px;
                 background-color: variables.$card-header-divider-color;
-                left: 20px;
-                right: 20px;
-            }
-            // @deprecated remove in v11
-            .card-header-icon {
-                display: none;
-            }
-        }
-        .thy-card-content {
-            padding: {
-                top: variables.$card-divided-spacing-y;
-                bottom: variables.$card-divided-spacing-y;
-            }
-
-            &--sm {
-                padding-top: 10px;
             }
         }
     }
