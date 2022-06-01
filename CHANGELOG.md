@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.7](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.6...13.1.0-next.7) (2022-06-01)
+
+
+### Bug Fixes
+
+* **layout:** remove thyCollapsed change emit in set accessor #INFR-3255 ([#1781](https://github.com/atinc/ngx-tethys/issues/1781)) ([e27bd3f](https://github.com/atinc/ngx-tethys/commit/e27bd3fd7bc860205fe8a658b3724bff954b950b)), closes [#INFR-3255](https://github.com/atinc/ngx-tethys/issues/INFR-3255)
+* **table:** table column sort sortDirections add 'null' ([#1777](https://github.com/atinc/ngx-tethys/issues/1777)) ([5bee45b](https://github.com/atinc/ngx-tethys/commit/5bee45b102d056d428ff54c5406e80b463f6c629))
+
+
+
 # [13.1.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.33...13.1.0-next.6) (2022-06-01)
 
 
