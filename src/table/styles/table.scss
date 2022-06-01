@@ -17,149 +17,6 @@
     }
 }
 
-/**
- * @deprecated .thy-grid is deprecated, please use .thy-table
- */
-
-.thy-grid-modal-wrap {
-    margin: 0 -30px;
-    padding: 0 30px;
-    overflow-y: auto;
-    max-height: 400px;
-
-    thy-grid {
-        .table {
-            margin-bottom: 0;
-        }
-
-        .pagination {
-            margin-bottom: 0;
-        }
-    }
-}
-
-.thy-operation-links {
-    > button,
-    > a {
-        display: inline-block;
-        margin-right: variables.$operation-link-margin-y;
-
-        &:last-child {
-            margin-right: 0;
-        }
-    }
-}
-
-.thy-grid {
-    display: flex;
-    flex-direction: column;
-    flex: auto;
-
-    .thy-grid-empty {
-        display: flex;
-        min-height: 280px;
-        flex: auto;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .thy-grid-group {
-        &:hover {
-            cursor: pointer;
-            background-color: variables.$table-hover-color;
-        }
-
-        td {
-            padding: 0;
-        }
-
-        .thy-grid-group-container {
-            display: flex;
-            align-items: center;
-
-            .expand-icon {
-                color: variables.$gray-500;
-                margin-right: 5px;
-            }
-        }
-    }
-
-    .tree-expand-icon {
-        position: absolute;
-        left: 0;
-        top: 50%;
-        margin-top: -8px;
-        color: variables.$gray-500;
-    }
-
-    .thy-grid-checkbox-column {
-        line-height: initial;
-    }
-
-    &.thy-grid-hover-display-operation {
-        .thy-operation-links {
-            a,
-            button {
-                visibility: hidden;
-            }
-        }
-
-        table {
-            tr {
-                @include hover.hover {
-                    .thy-operation-links {
-                        a,
-                        button {
-                            visibility: visible;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    .thy-grid-item-hover-display-operation {
-        .thy-operation-links {
-            a,
-            button {
-                visibility: hidden;
-            }
-        }
-
-        @include hover.hover {
-            .thy-operation-links {
-                a,
-                button {
-                    visibility: visible;
-                }
-            }
-        }
-    }
-
-    .thy-grid-footer {
-        // display: flex;
-        // justify-content: flex-end;
-
-        &.thy-grid-footer-has-padding {
-            padding: variables.$table-footer-padding;
-        }
-    }
-}
-
-.thy-grid-drag-preview {
-    display: table;
-
-    td {
-        display: table-cell;
-        vertical-align: middle;
-        padding-left: variables.$table-draggable-first-td-padding-left;
-
-        .table-draggable-icon {
-            display: none;
-        }
-    }
-}
-
 // .thy-table
 
 .thy-table-modal-wrap {
@@ -217,11 +74,11 @@
         .thy-table-group-container {
             display: flex;
             align-items: center;
-            padding-left: 15px;
+            padding-left: 16px;
 
             .expand-icon {
                 color: variables.$gray-500;
-                margin-right: 5px;
+                margin-right: 8px;
             }
         }
     }

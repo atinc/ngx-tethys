@@ -62,7 +62,7 @@ export type ThyTableTheme = 'default' | 'bordered';
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
 
-export type ThyTableSize = 'default' | 'sm';
+export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'default';
 
 export enum ThyFixedDirection {
     left = 'left',
@@ -84,10 +84,6 @@ interface ThyTableGroup<T = unknown> {
 const tableThemeMap = {
     default: 'table-default',
     bordered: 'table-bordered'
-};
-
-const tableSizeMap = {
-    sm: 'table-sm'
 };
 
 const customType = {
@@ -140,7 +136,7 @@ export class ThyTableComponent extends _MixinBase
 
     public className = '';
 
-    public size: ThyTableSize = 'default';
+    public size: ThyTableSize = 'md';
 
     public rowClassName: string | Function;
 
@@ -498,15 +494,13 @@ export class ThyTableComponent extends _MixinBase
             return;
         }
         const classNames: string[] = [];
-        if (tableSizeMap[this.size]) {
-            classNames.push(tableSizeMap[this.size]);
+        if (this.size) {
+            classNames.push(`table-${this.size}`);
         }
         if (tableThemeMap[this.theme]) {
             classNames.push(tableThemeMap[this.theme]);
         }
-        if (tableSizeMap[this.size] === tableSizeMap['sm'] && tableThemeMap[this.theme] === tableThemeMap['default']) {
-            classNames.push('table-default-sm-bottom-padding');
-        }
+
         this.updateHostClassService.updateClass(classNames);
     }
 
