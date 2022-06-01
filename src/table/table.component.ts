@@ -171,7 +171,7 @@ export class ThyTableComponent extends _MixinBase
 
     private scrollClassName = css.tableScrollLeft;
 
-    private sortDirections: SortDirection[] = ['desc', 'asc'];
+    private sortDirections: SortDirection[] = [null, 'asc', 'desc'];
 
     private get tableScrollElement(): HTMLElement {
         return this.elementRef.nativeElement.getElementsByClassName(css.tableBody)[0] as HTMLElement;

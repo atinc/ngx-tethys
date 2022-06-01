@@ -33,7 +33,7 @@ export class ThyTableSortableExampleComponent implements OnInit {
     sortData(key: string, direction: string) {
         if (direction === this.sortDirectionEnum.asc) {
             this.data.sort((a, b) => a[key] - b[key]);
-        } else {
+        } else if (direction === this.sortDirectionEnum.desc) {
             this.data.sort((a, b) => b[key] - a[key]);
         }
     }
