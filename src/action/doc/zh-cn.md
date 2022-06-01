@@ -41,3 +41,15 @@ import { ThyActionModule } from "ngx-tethys/action";
 
 展示效果:
 <example name="thy-action-group-example" />
+
+
+## 图标类型
+支持 `primary`、`success`、`danger`、`warning` 四种类型，默认 `primary`。
+
+```html
+<a thyAction thyType="danger" thyActionIcon="vertical-view-lines" href="javascript:;"> View</a>
+```
+
+展示效果：
+<example name="thy-action-type-example"/>
+
