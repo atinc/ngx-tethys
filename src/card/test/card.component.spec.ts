@@ -9,13 +9,15 @@ import { ThyCardHeaderComponent } from '../header.component';
 @Component({
     selector: 'thy-card-test-basic',
     template: `
-        <thy-card>
+        <thy-card [thySize]="size">
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `
 })
 class CardBasicComponent implements OnInit {
+    size: 'md' | 'sm' | 'lg' = 'md';
+
     constructor() {}
 
     ngOnInit(): void {}
@@ -109,12 +111,23 @@ describe('thy-card', () => {
             const cardElement: HTMLElement = cardBasicDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card')).toBe(true);
         });
+
         it('should header and content align', () => {
             const headerDebugElement = cardBasicDebugElement.query(By.css('.card-header-title'));
             const contentDebugElement = cardBasicDebugElement.query(By.directive(ThyCardContentComponent));
             expect((headerDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left).toEqual(
                 (contentDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left
             );
+        });
+
+        it('should set size', () => {
+            ['lg', 'sm'].forEach(size => {
+                basicFixture.componentInstance.size = size as 'lg' | 'sm';
+                basicFixture.detectChanges();
+                const cardElement: HTMLElement = cardBasicDebugElement.nativeElement;
+                expect(cardElement.classList.contains('thy-card')).toBe(true);
+                expect(cardElement.classList.contains(`thy-card-${size}`)).toBe(true);
+            });
         });
     });
 
