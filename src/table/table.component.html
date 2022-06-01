@@ -33,8 +33,6 @@
               (click)="onColumnHeaderClick($event, column)"
               [class]="['thy-table-column-sortable-icon', 'p-1', column.sortDirection]"
               thyIconName="sort-vertical-tt"
-              thyIconType="twotone"
-              [thyTwotoneColor]="column.sortDirection === sortDirectionEnum.desc ? '#6698FF' : '#999999'"
             >
             </thy-icon>
           </ng-container>

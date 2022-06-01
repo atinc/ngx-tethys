@@ -92,10 +92,16 @@
             &.desc {
                 visibility: visible;
                 color: variables.$gray-600;
+                svg g path:last-child {
+                    fill: variables.$primary;
+                }
             }
             &.asc {
                 visibility: visible;
                 color: variables.$primary;
+                svg g path:last-child {
+                    fill: variables.$gray-600;
+                }
             }
         }
         &:hover {
