@@ -2,6 +2,170 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.33...13.1.0-next.6) (2022-06-01)
+
+
+### Features
+
+* **action:** add thyType for action(#INFR-3243) ([89f042d](https://github.com/atinc/ngx-tethys/commit/89f042dfb1794eea08252231af619139665451b6)), closes [#INFR-3243](https://github.com/atinc/ngx-tethys/issues/INFR-3243)
+* **action:** update action-text color to [#666](https://github.com/atinc/ngx-tethys/issues/666)(#INFR-3294) ([489ebc1](https://github.com/atinc/ngx-tethys/commit/489ebc18f656db0bd917e37e4ebc9523d64c5a8d)), closes [#INFR-3294](https://github.com/atinc/ngx-tethys/issues/INFR-3294)
+* **card:** add size sm and lg to thy-card #INFR-3305 ([#1779](https://github.com/atinc/ngx-tethys/issues/1779)) ([3c17867](https://github.com/atinc/ngx-tethys/commit/3c178676b5654b4d6c87fda4d6917403f8eb1ca0)), closes [#INFR-3305](https://github.com/atinc/ngx-tethys/issues/INFR-3305)
+* **input:** add prefix and suffix template to thy-input-group instead if thy-input append and prepend #INFR-3292 ([40d40e6](https://github.com/atinc/ngx-tethys/commit/40d40e6e7fdd418bbba55854391fbcdfa806a439)), closes [#INFR-3292](https://github.com/atinc/ngx-tethys/issues/INFR-3292)
+* **input:** add transparent to thyTheme for thy-input-search #INFR-3304 ([ba9ac4b](https://github.com/atinc/ngx-tethys/commit/ba9ac4baa98b60e9ff8dd83b64c19d0a1f6ababb)), closes [#INFR-3304](https://github.com/atinc/ngx-tethys/issues/INFR-3304)
+* **table:** add lg, md, sm, xs sizes for table and update spacing #INFR-3306 ([8f73a71](https://github.com/atinc/ngx-tethys/commit/8f73a71a4fe946ba68a9e17e337e666782edf6b7)), closes [#INFR-3306](https://github.com/atinc/ngx-tethys/issues/INFR-3306)
+* **table:** table component support header sort #INFR-3237 ([#1762](https://github.com/atinc/ngx-tethys/issues/1762)) ([34dc042](https://github.com/atinc/ngx-tethys/commit/34dc0424119e4aa67821036b8ddcbed47e4614b0)), closes [#INFR-3237](https://github.com/atinc/ngx-tethys/issues/INFR-3237)
+
+
+### Reverts
+
+* Revert "Merge branch 'v12.x' into master (#1766)" ([5c5d405](https://github.com/atinc/ngx-tethys/commit/5c5d4053d29b3517a38eb993a18663a63ba26ddd)), closes [#1766](https://github.com/atinc/ngx-tethys/issues/1766)
+
+
+
+# [13.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.4...13.1.0-next.5) (2022-05-31)
+
+
+### Features
+
+* **styles:** add spacers 8,9,10(32px,36px,40px), and improve negative margin docs ([39b947b](https://github.com/atinc/ngx-tethys/commit/39b947b7d288054d9600380d10033e34ad5262ed))
+
+
+
+# [13.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.3...13.1.0-next.4) (2022-05-30)
+
+
+### Features
+
+* **action:** update x of action-padding to 0.5rem #INFR-3285 ([cafc1e8](https://github.com/atinc/ngx-tethys/commit/cafc1e8f9ffb492a022107a96d7f456ae1266536)), closes [#INFR-3285](https://github.com/atinc/ngx-tethys/issues/INFR-3285)
+* **layout:** add thy-sidebar-content component with sidebar-content class and refactor header sizes [#1755](https://github.com/atinc/ngx-tethys/issues/1755) ([#1756](https://github.com/atinc/ngx-tethys/issues/1756)) ([a4479bc](https://github.com/atinc/ngx-tethys/commit/a4479bcc72a8ca6a979a83a95c9c9569674794e5))
+
+
+
+# [13.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.1...13.1.0-next.3) (2022-05-30)
+
+
+### Bug Fixes
+
+* **menu:** change menu theme name and group params #INFR-3277 ([6b6578f](https://github.com/atinc/ngx-tethys/commit/6b6578fdaf38f4aa7e085e0a3ebb495678e36bd8)), closes [#INFR-3277](https://github.com/atinc/ngx-tethys/issues/INFR-3277)
+
+
+
+## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.2...13.0.1) (2022-05-30)
+
+
+### Features
+
+* **styles:** update spacer to 0-7(4px、8px、12px、16px、20px、24px、28px) and update space component apply to it, refactor styles doc ([#1748](https://github.com/atinc/ngx-tethys/issues/1748)) ([3bb0bbd](https://github.com/atinc/ngx-tethys/commit/3bb0bbd2bcb00bd0978a11e1524eb2c30785e778))
+
+
+
+# [13.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.1...13.1.0-next.2) (2022-05-27)
+
+
+### Features
+
+* **menu:** menu suport divide theme #INFR-3229 ([2f6930e](https://github.com/atinc/ngx-tethys/commit/2f6930edf7fdaa7fb46bf3fbe05f19d949e7395b)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
+# [13.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.32...13.1.0-next.1) (2022-05-27)
+
+
+### Features
+
+* update nav and thy-header size and refactor styles ([#1741](https://github.com/atinc/ngx-tethys/issues/1741)) ([f86c73e](https://github.com/atinc/ngx-tethys/commit/f86c73ec7b93c155e295710bf5e571199b9c316a))
+
+
+
+# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+
+
+### Features
+
+* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
+* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+
+
+
+# [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
+
+
+
+# [13.0.0-next.8](https://github.com/atinc/ngx-tethys/compare/12.1.30...13.0.0-next.8) (2022-05-20)
+
+
+### Bug Fixes
+
+* **schematics:** fix order migrations ([8aeeefc](https://github.com/atinc/ngx-tethys/commit/8aeeefc97a20b5e2ad5206b3eafcafa65a4fc01e))
+
+
+
+# [13.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.28...13.0.0-next.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* **schematics:** fix path when import Action from ngx-tethys ([6c168cf](https://github.com/atinc/ngx-tethys/commit/6c168cf543c93bb128f7c419e07dd57b4c1921e0))
+* **styles:** use -nav-link-padding-y by variables fix errors and add Sass desc in migration-v13 ([#1698](https://github.com/atinc/ngx-tethys/issues/1698)) ([8d33df9](https://github.com/atinc/ngx-tethys/commit/8d33df9a7bdd6a89f4711002ae1fbcfdbc01f981))
+
+
+### Features
+
+* **button:** remove deprecated @Input thySquare, the default type is already square [#1686](https://github.com/atinc/ngx-tethys/issues/1686) #INFR-3125 ([#1687](https://github.com/atinc/ngx-tethys/issues/1687)) ([390d8aa](https://github.com/atinc/ngx-tethys/commit/390d8aa890f61b327fd9e2e96742cde341c940c9)), closes [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125) [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125)
+
+
+
+# [13.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/12.1.27...13.0.0-next.5) (2022-05-17)
+
+
+### Bug Fixes
+
+* **schematics:** fix import error when has alias #INFR-2685 ([98c085f](https://github.com/atinc/ngx-tethys/commit/98c085f1b31c87e265758bc4de01b217ccd420c0)), closes [#INFR-2685](https://github.com/atinc/ngx-tethys/issues/INFR-2685)
+
+
+### Features
+
+* **styles:** export all mixin use forward #INFR-3124 [#1683](https://github.com/atinc/ngx-tethys/issues/1683) ([e126f00](https://github.com/atinc/ngx-tethys/commit/e126f00d4ba11b5dc065c9489560c1756baaebcd)), closes [#INFR-3124](https://github.com/atinc/ngx-tethys/issues/INFR-3124)
+
+
+
+# [13.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.3...13.0.0-next.4) (2022-05-13)
+
+
+### Features
+
+* **markdown:** remove markdown component and some js assets #INFR-1638 ([243407e](https://github.com/atinc/ngx-tethys/commit/243407e819a07a5e8fb2bba06d74f1503470f6cc)), closes [#INFR-1638](https://github.com/atinc/ngx-tethys/issues/INFR-1638)
+* **schematics:** add schematics for migrate to v13 ([#1664](https://github.com/atinc/ngx-tethys/issues/1664)) ([291f0ba](https://github.com/atinc/ngx-tethys/commit/291f0ba498359a3b1f4bd82acbe23c0530713a7e))
+* **store:** remove store from tethys and add mini-store to core for time-picker and notify #INFR-2347 ([62aa1f9](https://github.com/atinc/ngx-tethys/commit/62aa1f992de74b0ae57622c12fab4c75700fbf3b)), closes [#INFR-2347](https://github.com/atinc/ngx-tethys/issues/INFR-2347)
+
+
+
+# [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
+
+
+### Bug Fixes
+
+* update incorrect import path for select.mixin ([a867c54](https://github.com/atinc/ngx-tethys/commit/a867c548d5d95bb06ddc26fad583bbd1c2da7625))
+
+
+
+# [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
+
+
+
+# [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
+
+
+### Features
+
+* **schematics:** replace ngx-tethys/store to @tethys/store at update-12  ([#1653](https://github.com/atinc/ngx-tethys/issues/1653)) ([aae1721](https://github.com/atinc/ngx-tethys/commit/aae17215820006c15d001016062886f5cdc465c7))
+
+
+
+# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
+
+
+
 ## [12.1.33](https://github.com/atinc/ngx-tethys/compare/12.1.32...12.1.33) (2022-05-31)
 
 ### Bug Fixes
