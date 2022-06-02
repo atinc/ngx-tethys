@@ -27,4 +27,22 @@ import { ThyCardModule } from "ngx-tethys/card";
   </thy-card>
 ```
 展示效果：
-<example name="thy-card-basic-example" inline>
+<example name="thy-card-basic-example">
+
+## 大小
+
+目前 Card 组件提供了三种大小，每种大小对应头部的高度和内容区域的间距不同。
+
+<example name="thy-card-size-example">
+
+## 分割模式
+
+<example name="thy-card-divided-example">
+
+## 内容区域滚动
+
+<example name="thy-card-content-scroll-example">
+
+## 自定义头
+
+<example name="thy-card-custom-header-example">

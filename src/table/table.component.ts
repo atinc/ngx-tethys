@@ -38,12 +38,7 @@ import { Dictionary } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-import {
-    IThyTableColumnParentComponent,
-    SortDirection,
-    ThyTableColumnComponent,
-    THY_TABLE_COLUMN_PARENT_COMPONENT
-} from './table-column.component';
+import { IThyTableColumnParentComponent, ThyTableColumnComponent, THY_TABLE_COLUMN_PARENT_COMPONENT } from './table-column.component';
 import {
     PageChangedEvent,
     ThyMultiSelectEvent,
@@ -55,6 +50,7 @@ import {
     ThyTableEmptyOptions,
     ThyTableEvent,
     ThyTableRowEvent,
+    ThyTableSortDirection,
     ThyTableSortEvent
 } from './table.interface';
 
@@ -62,16 +58,11 @@ export type ThyTableTheme = 'default' | 'bordered';
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
 
-export type ThyTableSize = 'default' | 'sm';
+export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'default';
 
 export enum ThyFixedDirection {
     left = 'left',
     right = 'right'
-}
-
-export enum ThySortDirection {
-    desc = 'desc',
-    asc = 'asc'
 }
 
 interface ThyTableGroup<T = unknown> {
@@ -84,10 +75,6 @@ interface ThyTableGroup<T = unknown> {
 const tableThemeMap = {
     default: 'table-default',
     bordered: 'table-bordered'
-};
-
-const tableSizeMap = {
-    sm: 'table-sm'
 };
 
 const customType = {
@@ -140,7 +127,7 @@ export class ThyTableComponent extends _MixinBase
 
     public className = '';
 
-    public size: ThyTableSize = 'default';
+    public size: ThyTableSize = 'md';
 
     public rowClassName: string | Function;
 
@@ -162,8 +149,6 @@ export class ThyTableComponent extends _MixinBase
 
     public fixedDirection = ThyFixedDirection;
 
-    public sortDirectionEnum = ThySortDirection;
-
     public hasFixed = false;
 
     private _diff: IterableDiffer<any>;
@@ -174,8 +159,6 @@ export class ThyTableComponent extends _MixinBase
     private _oldThyClassName = '';
 
     private scrollClassName = css.tableScrollLeft;
-
-    private sortDirections: SortDirection[] = ['desc', 'asc'];
 
     private get tableScrollElement(): HTMLElement {
         return this.elementRef.nativeElement.getElementsByClassName(css.tableBody)[0] as HTMLElement;
@@ -498,15 +481,13 @@ export class ThyTableComponent extends _MixinBase
             return;
         }
         const classNames: string[] = [];
-        if (tableSizeMap[this.size]) {
-            classNames.push(tableSizeMap[this.size]);
+        if (this.size) {
+            classNames.push(`table-${this.size}`);
         }
         if (tableThemeMap[this.theme]) {
             classNames.push(tableThemeMap[this.theme]);
         }
-        if (tableSizeMap[this.size] === tableSizeMap['sm'] && tableThemeMap[this.theme] === tableThemeMap['default']) {
-            classNames.push('table-default-sm-bottom-padding');
-        }
+
         this.updateHostClassService.updateClass(classNames);
     }
 
@@ -650,19 +631,17 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnDraggableChange.emit(dragEvent);
     }
 
-    getNextSortDirection(sortDirections: SortDirection[], current: SortDirection): SortDirection {
-        const index = sortDirections.indexOf(current);
-        if (index === sortDirections.length - 1) {
-            return sortDirections[0];
-        } else {
-            return sortDirections[index + 1];
-        }
-    }
-
     onColumnHeaderClick(event: Event, column: ThyTableColumn) {
         if (column.sortable) {
             const { sortDirection, model, sortChange } = column;
-            const direction = this.getNextSortDirection(this.sortDirections, sortDirection);
+            let direction;
+            if (sortDirection === ThyTableSortDirection.default) {
+                direction = ThyTableSortDirection.asc;
+            } else if (sortDirection === ThyTableSortDirection.asc) {
+                direction = ThyTableSortDirection.desc;
+            } else {
+                direction = ThyTableSortDirection.default;
+            }
             column.sortDirection = direction;
             const sortEvent = { event, key: model, direction };
             sortChange.emit(sortEvent);

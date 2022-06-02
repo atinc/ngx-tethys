@@ -9,7 +9,7 @@ import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ThyIconModule } from '../../icon';
-import { ThyNavLinkDirective } from '../nav-link.directive';
+import { ThyNavItemDirective } from '../nav-item.directive';
 import { ThyNavComponent, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
 import { ThyNavModule } from '../nav.module';
 
@@ -85,9 +85,9 @@ export class NavResponsiveComponent implements OnInit {
 
     navLinks = [{ name: 'link1' }, { name: 'link2' }, { name: 'link3' }];
 
-    @ViewChildren(ThyNavLinkDirective) links: ThyNavLinkDirective[];
+    @ViewChildren(ThyNavItemDirective) links: ThyNavItemDirective[];
 
-    @ViewChildren(ThyNavLinkDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
+    @ViewChildren(ThyNavItemDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
 
     @ViewChild(ThyNavComponent) nav: ThyNavComponent;
 
@@ -142,7 +142,7 @@ describe(`thy-nav`, () => {
 
         it(`should get correct nav items`, () => {
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const links = navDebugElement.queryAll(By.directive(ThyNavLinkDirective));
+            const links = navDebugElement.queryAll(By.directive(ThyNavItemDirective));
             expect(links).toBeTruthy();
             expect(links.length).toEqual(2);
             const activeLink: HTMLElement = links[0].nativeElement;
@@ -360,7 +360,7 @@ describe(`thy-nav`, () => {
     });
 });
 
-function spyLinksAndNavOffset(links: ThyNavLinkDirective[], nav: ThyNavComponent) {
+function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNavComponent) {
     (links || []).forEach((link, index) => {
         link.offset = {
             width: 30,

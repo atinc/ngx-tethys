@@ -7,12 +7,12 @@
     align-items: center;
 
     .thy-breadcrumb-icon {
-        margin-right: 5px;
+        margin-right: 8px;
         color: variables.$breadcrumb-icon-color;
     }
 
     .thy-breadcrumb-item {
-        margin-right: 5px;
+        margin-right: 8px;
         color: variables.$breadcrumb-text-color;
         a {
             @include link.link-variant(variables.$breadcrumb-text-color, none, variables.$primary, none);
@@ -27,7 +27,7 @@
             }
         }
         .default-icon {
-            margin-left: 5px;
+            margin-left: 8px;
             color: variables.$breadcrumb-separator-color;
             font-size: variables.$font-size-base;
         }
@@ -42,7 +42,7 @@
             &::after {
                 content: '/';
                 font: normal normal normal 14px/1 wtf;
-                margin-left: 5px;
+                margin-left: 8px;
                 color: variables.$breadcrumb-separator-color;
             }
             &:last-child {

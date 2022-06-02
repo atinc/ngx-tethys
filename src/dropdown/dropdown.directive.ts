@@ -55,6 +55,11 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
+     * 弹出菜单后的当前触发元素的激活样式类
+     */
+    @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
+
+    /**
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottom", width: "240px", insideClosable: true, minWidth: "240px" }`
      * @default { placement: "bottom", width: "240px", insideClosable: true: minWidth: "240px" }
      */
@@ -100,7 +105,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             width,
             height,
             insideClosable,
-            minWidth
+            minWidth,
+            originActiveClass: this.thyActiveClass
         };
         this.popoverRef = this.popover.open(this.menu.templateRef, config);
 

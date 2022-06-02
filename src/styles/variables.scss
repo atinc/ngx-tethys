@@ -319,8 +319,6 @@ $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $white !default;
 $layout-content-section-margin-bottom: 15px !default;
 // Tables
-$table-cell-padding: 12px 15px !default;
-$table-sm-cell-padding: 0.3rem !default;
 $table-color: $gray-800;
 $table-bg: transparent !default;
 $table-accent-bg: rgba($black, 0.05) !default;
@@ -332,10 +330,19 @@ $table-border-width: 1px !default;
 $table-border-color: $gray-200 !default;
 $table-head-bg: $gray-200 !default;
 $table-head-color: $gray-700 !default;
-$table-default-head-color: $gray-600 !default;
-$table-default-cell-height: 55px !default;
-$table-sm-cell-height: 44px !default;
-$table-bordered-padding: 11px 15px !default;
+$table-default-head-color: $gray-700 !default;
+$table-cell-height-lg: 56px !default;
+$table-cell-height: 52px !default;
+$table-cell-height-sm: 48px !default;
+$table-cell-height-xs: 44px !default;
+$table-header-padding-lg: 12px 24px !default;
+$table-header-padding: 12px 16px !default;
+$table-header-padding-sm: 8px 16px !default;
+$table-header-padding-xs: 8px 16px !default;
+$table-cell-padding-lg: 12px 24px !default;
+$table-cell-padding: 12px 16px !default;
+$table-cell-padding-sm: 8px 16px !default;
+$table-cell-padding-xs: 8px 16px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-head-color: $gray-700 !default;
 $table-draggable-first-th-padding-left: 20px !default;
@@ -343,11 +350,10 @@ $table-draggable-first-td-padding-left: 20px !default;
 $table-draggable-icon-color: $gray-600 !default;
 $table-draggable-icon-left: 2px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
-$table-default-header-cell-padding: 0 15px !default;
-$table-default-header-padding: 12px 15px !default;
-$table-default-sm-header-padding: 8px 15px !default;
+$table-default-header-cell-padding: 0 16px !default;
+$table-default-header-padding: 12px 16px !default;
+$table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
-$table-bordered-cell-height: 50px !default;
 $table-group-first-cell-padding-left: 43px !default;
 // grid
 $table-footer-padding: 0 20px !default;
@@ -470,10 +476,10 @@ $nav-vertical-border-left-empty: 4px solid transparent !default;
 
 $icon-nav-link-color: $gray-600 !default;
 $icon-nav-link-hover-color: $primary !default;
-$icon-nav-link-spacing: 15px !default;
+$icon-nav-link-spacing: 16px !default;
 $icon-nav-link-secondary-color: $gray-400 !default;
-$icon-nav-link-secondary-spacing: 10px !default;
-$icon-nav-link-individual-spacing: 0px !default;
+$icon-nav-link-secondary-spacing: 8px !default;
+$icon-nav-link-individual-spacing: 4px !default;
 $icon-nav-link-padding-x: 0.438rem !default;
 $icon-nav-link-padding-y: 0.282rem !default;
 
@@ -483,10 +489,6 @@ $action-hover-bg-color: rgba($primary, 0.1) !default;
 $action-padding-x: 0.5rem !default;
 $action-padding-y: 0.5rem !default;
 $action-disabled-color: $gray-300 !default;
-$action-spacing: 15px !default;
-$action-spacing-sm: 10px !default;
-$action-spacing-xs: 5px !default;
-$action-spacing-xs: 5px !default;
 
 // Modals
 // Padding applied to the modal body
@@ -547,10 +549,24 @@ $card-border-radius: 0 !default;
 $card-title-icon-color: $primary !default;
 // change from $gray-700(#888) to $gray-800 (#333) by Terry required
 $card-title-color: $gray-800 !default;
+$card-title-font-size: 15px !default;
 $card-title-info-color: $gray-500 !default;
 $card-header-divider-color: $gray-200 !default;
-// divided 分割模式，头部和内容区域的上下间距
-$card-divided-spacing-y: 15px;
+$card-header-padding-x: 20px !default;
+$card-header-padding-y: 18px !default;
+$card-content-padding-x: 20px !default;
+$card-content-padding-y: 20px !default;
+$card-header-padding-x-lg: 28px !default;
+$card-header-padding-y-lg: 24px !default;
+$card-content-padding-x-lg: 28px !default;
+$card-content-padding-y-lg: 24px !default;
+$card-header-padding-x-sm: 16px !default;
+$card-header-padding-y-sm: 16px !default;
+$card-content-padding-x-sm: 16px !default;
+$card-content-padding-y-sm: 16px !default;
+
+// divided 分割模式，内容区域的上下间距
+$card-divided-content-spacing-y: 12px;
 
 //Datepicker
 $datepicker-z-index: 1100 !default;
