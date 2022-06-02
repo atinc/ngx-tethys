@@ -25,8 +25,9 @@
     border-radius: 50%;
 }
 
-// 比 light 更亮，但是还没有到达白色 #f3f3f3f3
-@include background-variant.bg-variant('.bg-brighter', variables.$gray-100);
+// 新增比 light 更亮的2个背景色
+@include background-variant.bg-variant('.bg-lighter', variables.$gray-100);
+@include background-variant.bg-variant('.bg-bright', variables.$gray-80);
 
 // text-placeholder #cacaca
 @include utilities.text-emphasis-variant('.text-placeholder', variables.$gray-400);
