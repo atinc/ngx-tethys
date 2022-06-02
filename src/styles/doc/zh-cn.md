@@ -131,13 +131,13 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 $white: #fff;
 $gray-70: #fdfdfd !default;
 $gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
-$gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色， Popbox Menu 移上去的背景色
+$gray-100: #f5f5f5 !default; // bordered 表格的背景色, 完成任务卡片颜色， Menu Item 移上去的背景色
 $gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
 $gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
 $gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
 $gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #888 !default; // 次要文字,如 Tab 切换文字
+$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
 $gray-700: #666 !default; // 主要文字
 $gray-800: #333 !default; // 标题和重点文字
 $gray-900: #212529 !default;
