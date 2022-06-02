@@ -591,7 +591,7 @@ class DropdownOptionsTestComponent {
     popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
 }
 
-describe('dropdown popover options', () => {
+describe('dropdown options', () => {
     let fixture: ComponentFixture<DropdownOptionsTestComponent>;
     let btnElement: HTMLElement;
     let overlayContainer: OverlayContainer;
@@ -672,7 +672,25 @@ describe('dropdown popover options', () => {
                     height: undefined,
                     insideClosable: true,
                     hasBackdrop: true,
-                    offset: 0
+                    offset: 0,
+                    originActiveClass: 'thy-dropdown-origin-active'
+                })
+            );
+        });
+
+        it('should set thyActiveClass', () => {
+            dropdown.thyActiveClass = 'active';
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    placement: 'bottom',
+                    width: THY_DROPDOWN_DEFAULT_WIDTH,
+                    height: undefined,
+                    insideClosable: true,
+                    hasBackdrop: true,
+                    offset: 0,
+                    originActiveClass: 'active'
                 })
             );
         });
