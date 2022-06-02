@@ -85,28 +85,20 @@
 
     .thy-table-column-sortable {
         &-icon {
-            visibility: hidden;
             vertical-align: middle;
             cursor: pointer;
-            color: variables.$gray-600;
+            color: variables.$gray-300;
             &.desc {
-                visibility: visible;
-                color: variables.$gray-600;
+                color: variables.$gray-300;
                 svg g path:last-child {
                     fill: variables.$primary;
                 }
             }
             &.asc {
-                visibility: visible;
                 color: variables.$primary;
                 svg g path:last-child {
-                    fill: variables.$gray-600;
+                    fill: variables.$gray-300;
                 }
-            }
-        }
-        &:hover {
-            .thy-table-column-sortable-icon {
-                visibility: visible;
             }
         }
     }
