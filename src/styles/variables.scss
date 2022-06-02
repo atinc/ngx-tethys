@@ -476,10 +476,10 @@ $nav-vertical-border-left-empty: 4px solid transparent !default;
 
 $icon-nav-link-color: $gray-600 !default;
 $icon-nav-link-hover-color: $primary !default;
-$icon-nav-link-spacing: 15px !default;
+$icon-nav-link-spacing: 16px !default;
 $icon-nav-link-secondary-color: $gray-400 !default;
-$icon-nav-link-secondary-spacing: 10px !default;
-$icon-nav-link-individual-spacing: 0px !default;
+$icon-nav-link-secondary-spacing: 8px !default;
+$icon-nav-link-individual-spacing: 4px !default;
 $icon-nav-link-padding-x: 0.438rem !default;
 $icon-nav-link-padding-y: 0.282rem !default;
 
@@ -489,10 +489,6 @@ $action-hover-bg-color: rgba($primary, 0.1) !default;
 $action-padding-x: 0.5rem !default;
 $action-padding-y: 0.5rem !default;
 $action-disabled-color: $gray-300 !default;
-$action-spacing: 15px !default;
-$action-spacing-sm: 10px !default;
-$action-spacing-xs: 5px !default;
-$action-spacing-xs: 5px !default;
 
 // Modals
 // Padding applied to the modal body
