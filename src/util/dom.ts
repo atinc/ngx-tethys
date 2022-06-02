@@ -169,6 +169,18 @@ export function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEven
 }
 
 /**
+ * Assert wrapper element whether only contains icon.
+ */
+export function assertIconOnly(wrapperElement: Element): boolean {
+    const listOfNode = Array.from(wrapperElement.childNodes);
+    const iconCount = listOfNode.filter(node => ['THY-ICON', 'I'].includes(node.nodeName)).length;
+    const noText = listOfNode.every(node => node.nodeName !== '#text');
+    const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
+    const isIconOnly = noSpan && noText && iconCount >= 1;
+    return isIconOnly;
+}
+
+/**
  *
  * calc position x,y point
  *
