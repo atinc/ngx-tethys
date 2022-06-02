@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.8](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.7...13.1.0-next.8) (2022-06-02)
+
+
+### Features
+
+* **dropdown:** add thyActiveClass for active origin class, default is  thy-dropdown-origin-active #INFR-3380 ([1fdc10b](https://github.com/atinc/ngx-tethys/commit/1fdc10bbd977761a2417cd0471daa317aa7f3e4e)), closes [#INFR-3380](https://github.com/atinc/ngx-tethys/issues/INFR-3380)
+* **nav:** update icon-nav size and color to 32px and  999  and add warnDeprecation for thy-icon-nav [#1787](https://github.com/atinc/ngx-tethys/issues/1787) #INFR-3378 ([1e57caa](https://github.com/atinc/ngx-tethys/commit/1e57caa7137509eaae49dd24591df2f69088f9ea)), closes [#INFR-3378](https://github.com/atinc/ngx-tethys/issues/INFR-3378)
+* **util:** add assertIconOnly function that assert a wrapper element whether only contains icon and refactor buttom use it #INFR-3375 [#1785](https://github.com/atinc/ngx-tethys/issues/1785) ([6b5ec91](https://github.com/atinc/ngx-tethys/commit/6b5ec915238139a9b6f0565758dab38987ab1e13)), closes [#INFR-3375](https://github.com/atinc/ngx-tethys/issues/INFR-3375)
+
+
+
 # [13.1.0-next.7](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.6...13.1.0-next.7) (2022-06-01)
 
 
