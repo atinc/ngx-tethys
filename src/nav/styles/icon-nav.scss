@@ -5,8 +5,8 @@
     color: $color;
     padding: variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x;
     // 解决图标不居中问题
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
 
@@ -65,11 +65,11 @@
             variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
             variables.$icon-nav-link-secondary-spacing
         );
-        @include icon-nav-link-variant(
-            variables.$icon-nav-link-secondary-color,
-            variables.$icon-nav-link-hover-color,
-            rgba(variables.$primary, 0.1)
-        );
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }
 
@@ -79,10 +79,10 @@
             variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
             variables.$icon-nav-link-individual-spacing
         );
-        @include icon-nav-link-variant(
-            variables.$icon-nav-link-secondary-color,
-            variables.$icon-nav-link-hover-color,
-            rgba(variables.$primary, 0.1)
-        );
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }

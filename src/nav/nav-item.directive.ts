@@ -27,7 +27,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.active]': 'thyNavItemActive || thyNavLinkActive'
     }
 })
-export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**
      * @deprecated please use thyNavItemActive
      */
@@ -39,7 +39,7 @@ export class ThyNavLinkDirective extends _MixinBase implements AfterViewInit, On
     @InputBoolean()
     thyNavItemActive: boolean;
 
-    @ContentChildren(ThyNavLinkDirective, { descendants: true }) links: QueryList<ThyNavLinkDirective>;
+    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
     @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
 

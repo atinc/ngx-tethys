@@ -3,8 +3,8 @@
     class="nav-tab"
     href="javascript:;"
     *ngFor="let item of navList"
-    thyNavLink
-    [thyNavLinkActive]="activeIndex === item.index"
+    thyNavItem
+    [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
     ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
   >
@@ -30,8 +30,8 @@
     class="nav-tab"
     href="javascript:;"
     *ngFor="let item of navList"
-    thyNavLink
-    [thyNavLinkActive]="activeIndex === item.index"
+    thyNavItem
+    [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
     ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
   >
