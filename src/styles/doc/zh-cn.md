@@ -88,6 +88,171 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 
 <example name="thy-styles-display-example" />
 
+## Flex
+
+设置元素为`display: flex;`通过如下工具类即可:
+```html
+<div class="d-flex p-2 bd-highlight">I'm a flexbox container!</div>
+
+<div class="d-inline-flex p-2 bd-highlight">I'm an inline flexbox container!</div>
+```
+
+响应式的变种同样存在`.d-flex`和`.d-inline-flex`
+- `.d-flex`
+- `.d-inline-flex`
+- `.d-sm-flex`
+- `.d-sm-inline-flex`
+- `.d-md-flex`
+- `.d-md-inline-flex`
+- `.d-lg-flex`
+- `.d-lg-inline-flex`
+- `.d-xl-flex`
+- `.d-xl-inline-flex`
+
+### Direction
+通过`.flex-row`、`.flex-row-reverse`、`flex-column`和`.flex-column-reverse`设置方向:
+
+```html
+<div class="d-flex flex-row bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div>
+</div>
+<div class="d-flex flex-row-reverse bd-highlight">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div>
+</div>
+
+<div class="d-flex flex-column bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div>
+</div>
+<div class="d-flex flex-column-reverse bd-highlight">
+  <div class="p-2 bd-highlight">Flex item 1</div>
+  <div class="p-2 bd-highlight">Flex item 2</div>
+  <div class="p-2 bd-highlight">Flex item 3</div>
+</div>
+```
+
+### Justify content
+
+```html
+<div class="d-flex justify-content-start">...</div>
+<div class="d-flex justify-content-end">...</div>
+<div class="d-flex justify-content-center">...</div>
+<div class="d-flex justify-content-between">...</div>
+<div class="d-flex justify-content-around">...</div>
+<div class="d-flex justify-content-evenly">...</div>
+```
+
+### Align items
+```html
+<div class="d-flex align-items-start">...</div>
+<div class="d-flex align-items-end">...</div>
+<div class="d-flex align-items-center">...</div>
+<div class="d-flex align-items-baseline">...</div>
+<div class="d-flex align-items-stretch">...</div>
+```
+
+### Align self
+
+```html
+<div class="align-self-start">Aligned flex item</div>
+<div class="align-self-end">Aligned flex item</div>
+<div class="align-self-center">Aligned flex item</div>
+<div class="align-self-baseline">Aligned flex item</div>
+<div class="align-self-stretch">Aligned flex item</div>
+```
+
+Fill
+
+```html
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-fill bd-highlight">Flex item with a lot of content</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+  <div class="p-2 flex-fill bd-highlight">Flex item</div>
+</div>
+```
+
+### Grow and shrink
+
+```html
+<div class="d-flex bd-highlight">
+  <div class="p-2 flex-grow-1 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Third flex item</div>
+</div>
+
+<div class="d-flex bd-highlight">
+  <div class="p-2 w-100 bd-highlight">Flex item</div>
+  <div class="p-2 flex-shrink-1 bd-highlight">Flex item</div>
+</div>
+```
+
+### Auto margins
+
+```html
+<div class="d-flex bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+</div>
+
+<div class="d-flex bd-highlight mb-3">
+  <div class="mr-auto p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+</div>
+
+<div class="d-flex bd-highlight mb-3">
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="ml-auto p-2 bd-highlight">Flex item</div>
+</div>
+```
+
+With align-items
+
+```html
+<div class="d-flex align-items-start flex-column bd-highlight mb-3" style="height: 200px;">
+  <div class="mb-auto p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+</div>
+
+<div class="d-flex align-items-end flex-column bd-highlight mb-3" style="height: 200px;">
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="p-2 bd-highlight">Flex item</div>
+  <div class="mt-auto p-2 bd-highlight">Flex item</div>
+</div>
+```
+
+### Wrap
+- `.flex-nowrap`
+- `.flex-wrap`
+- `.flex-wrap-reverse`
+
+### Order
+`order-0` - `order-12`
+```html
+<div class="d-flex flex-nowrap bd-highlight">
+  <div class="order-3 p-2 bd-highlight">First flex item</div>
+  <div class="order-2 p-2 bd-highlight">Second flex item</div>
+  <div class="order-1 p-2 bd-highlight">Third flex item</div>
+</div>
+```
+
+### Align content
+
+- `align-content-start`
+- `align-content-end`
+- `align-content-center`
+- `align-content-between`
+- `align-content-around`
+- `align-content-stretch`
+
 ## 可见性(Visibility)
 与`display`不同，使用如下类不会改变元素的`display`属性，对布局不会产生影响，设置了`.invisible`的 HTML 元素仍然占据页面空间。页面内容在视觉上以及对使用辅助技术/屏幕阅读器的用户来说都是隐藏的。
 
