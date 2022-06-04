@@ -19,12 +19,18 @@
         border-radius: variables.$border-radius;
         // 统一所有操作active状态下，标签展示
         visibility: visible !important;
+
+        > span {
+            color: $hover-color;
+        }
     }
+
     @include hover.hover {
         color: $hover-color;
         text-decoration: none;
         background: $hover-bg-color;
         border-radius: variables.$border-radius;
+
         > span {
             color: $hover-color;
         }
@@ -45,6 +51,7 @@
 @mixin action-item-size($padding, $margin-right) {
     padding: $padding;
     margin-right: $margin-right;
+
     &:last-child {
         margin-right: 0;
     }
