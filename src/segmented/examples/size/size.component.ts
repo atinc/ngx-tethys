@@ -25,20 +25,4 @@ export class ThySegmentedSizeExampleComponent {
     ];
 
     size = this.sizes[0].value;
-
-    options1 = [
-        { value: 1, labelText: '成员' },
-        { value: 2, labelText: '部门' },
-        { value: 3, labelText: '用户组' }
-    ];
-
-    options2 = [
-        { value: 1, labelText: '列表', icon: 'list' },
-        { value: 2, labelText: '对齐', icon: 'paperclip' }
-    ];
-
-    options3 = [
-        { value: 'list', icon: 'list' },
-        { value: 'paperclip', icon: 'paperclip' }
-    ];
 }

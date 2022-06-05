@@ -5,10 +5,9 @@ import { Component } from '@angular/core';
     templateUrl: './template.component.html'
 })
 export class ThySegmentedTemplateExampleComponent {
-    options = [
+    items = [
         { value: 'fuqiang', labelText: '富强', avatar: 'Fuqiang' },
         { value: 'minzhu', labelText: '民主', avatar: 'Minzhu' },
-        { value: 'wenming', labelText: '文明', avatar: 'Wenming' },
-        { value: 'hexie', labelText: '和谐', avatar: 'Hexie' }
+        { value: 'wenming', labelText: '文明', avatar: 'Wenming' }
     ];
 }

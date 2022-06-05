@@ -17,7 +17,11 @@ import { ThySegmentedModule } from "ngx-tethys/segmented";
 
 ## 基本使用
 ```html
-<thy-segmented [thyOptions]="options" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
+<thy-segmented (thySelectChange)="selectedChange($event)">
+    <thy-segmented-item thyValue="member">成员</thy-segmented-item>
+    <thy-segmented-item thyValue="department">部门</thy-segmented-item>
+    <thy-segmented-item thyValue="group">用户组</thy-segmented-item>
+</thy-segmented>
 ```
 
 展示效果：
@@ -38,13 +42,6 @@ import { ThySegmentedModule } from "ngx-tethys/segmented";
 
 
 
-## 图标和文本组合
-Segmented 选项带有 Icon。
-<example name="thy-segmented-with-icon-example" />
-
-## 仅有图标
-Segmented 选项中只设置 Icon。
-<example name="thy-segmented-only-icon-example" />
 
 
 ## 模式
@@ -56,10 +53,8 @@ Segmented 选项中只设置 Icon。
 <example name="thy-segmented-mode-example" />
 
 
-## 不可用
-Segmented 不可用。
+## 禁用
 <example name="thy-segmented-disabled-example" />
 
 ## 自定义模板
-可以通过`thyLabelTemplate`传入自定义模板。
 <example name="thy-segmented-template-example" />

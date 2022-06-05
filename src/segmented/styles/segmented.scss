@@ -36,11 +36,28 @@
             color: variables.$segmented-icon-with-text-default-color;
         }
 
-        &:hover,
-        &:focus {
-            color: variables.$segmented-hover-color;
-            .icon-with-text {
-                color: variables.$segmented-icon-with-text-hover-color;
+        &:not(.disabled) {
+            &:hover,
+            &:focus {
+                color: variables.$segmented-hover-color;
+                .icon-with-text {
+                    color: variables.$segmented-icon-with-text-hover-color;
+                }
+            }
+
+            &.active {
+                @include segmented-mixin.segmented-item-active();
+                color: variables.$segmented-active-color;
+                .icon-with-text {
+                    color: variables.$segmented-icon-with-text-active-color;
+                }
+            }
+        }
+
+        &.disabled {
+            .#{variables.$thy-prefix}-segmented-item-label,
+            .#{variables.$thy-prefix}-segmented-item-icon {
+                @include segmented-mixin.segmented-disabled();
             }
         }
 
@@ -50,14 +67,6 @@
             text-align: center;
             &-only-icon {
                 width: variables.$segmented-item-only-icon-width;
-            }
-        }
-
-        &-selected {
-            @include segmented-mixin.segmented-item-selected();
-            color: variables.$segmented-active-color;
-            .icon-with-text {
-                color: variables.$segmented-icon-with-text-active-color;
             }
         }
 
@@ -79,8 +88,7 @@
         }
     }
 
-    &-disabled,
-    &-item-disabled {
+    &.disabled {
         .#{variables.$thy-prefix}-segmented-item-label,
         .#{variables.$thy-prefix}-segmented-item-icon {
             @include segmented-mixin.segmented-disabled();
@@ -88,7 +96,7 @@
     }
 
     &-thumb {
-        @include segmented-mixin.segmented-item-selected();
+        @include segmented-mixin.segmented-item-active();
         position: absolute;
         top: 0;
         left: 0;

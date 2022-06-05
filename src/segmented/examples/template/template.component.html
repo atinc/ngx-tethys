@@ -1,25 +1,19 @@
 <div style="width: 370px">
-  <thy-segmented [thyLabelTemplate]="temp2" [thyOptions]="options"></thy-segmented>
+  <thy-segmented>
+    <ng-container *ngFor="let item of items">
+      <thy-segmented-item [thyValue]="item.value">
+        <div style="padding: 8px 0px 4px;">
+          <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
+          <div>{{ item.labelText }}</div>
+        </div>
+      </thy-segmented-item>
+    </ng-container>
+
+    <thy-segmented-item thyValue="hexie">
+      <div style="padding: 8px 0px 4px;">
+        <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
+        <div>⭐️和谐⭐️</div>
+      </div>
+    </thy-segmented-item>
+  </thy-segmented>
 </div>
-
-<ng-template #temp1 let-item>
-  <div style="padding:4px">
-    <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
-    <div>{{ item.labelText }}</div>
-  </div>
-</ng-template>
-
-<ng-template #temp2 let-item let-index="index">
-  <ng-container [ngSwitch]="index">
-    <div style="padding:4px">
-      <ng-container *ngSwitchCase="2">
-        <thy-avatar thySize="sm" thyName="文明"></thy-avatar>
-        <div>⭐️文明⭐️</div>
-      </ng-container>
-      <ng-container *ngSwitchDefault>
-        <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
-        <div>{{ item.labelText }}</div>
-      </ng-container>
-    </div>
-  </ng-container>
-</ng-template>

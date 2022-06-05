@@ -1,23 +1,20 @@
 import {
+    AfterContentInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
-    ElementRef,
+    ContentChildren,
     EventEmitter,
-    forwardRef,
+    HostBinding,
     Input,
     Output,
     QueryList,
-    TemplateRef,
-    ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean, InputNumber, ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
-import { isNumber } from 'ngx-tethys/util';
-import { noop } from 'rxjs';
-import { ThySegmentedEvent, thySegmentedOption, thySegmentedCustomOption } from './types';
+import { ThySegmentedItemComponent } from './segmented-item.component';
+import { ThySegmentedEvent } from './types';
 
 export type ThySegmentedSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -30,33 +27,17 @@ export type ThySegmentedMode = 'block' | 'adaptive';
     animations: [thumbMotion],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [
-        {
-            provide: NG_VALUE_ACCESSOR,
-            useExisting: forwardRef(() => ThySegmentedComponent),
-            multi: true
-        }
-    ],
     host: {
         class: 'thy-segmented',
         '[class.thy-segmented-xs]': `thySize === 'xs'`,
         '[class.thy-segmented-sm]': `thySize === 'sm'`,
         '[class.thy-segmented-md]': `thySize === 'md'`,
         '[class.thy-segmented-default]': `!thySize || thySize === 'default'`,
-        '[class.thy-segmented-block]': `thyMode === 'block'`,
-        '[class.thy-segmented-disabled]': '!!thyDisabled'
+        '[class.thy-segmented-block]': `thyMode === 'block'`
     }
 })
-export class ThySegmentedComponent implements ControlValueAccessor {
-    @ViewChildren('itemLabels', { read: ElementRef }) listOfOptions!: QueryList<ElementRef>;
-
-    /**
-     * 分段控制器的选项
-     * @default []
-     */
-    @Input() set thyOptions(customOptions: thySegmentedCustomOption[]) {
-        this.normalizedOptions = normalizeOptions(customOptions);
-    }
+export class ThySegmentedComponent implements AfterContentInit {
+    @ContentChildren(ThySegmentedItemComponent) options!: QueryList<ThySegmentedItemComponent>;
 
     /**
      * 大小，分别为 'xs' | 'sm' | 'md' | 'default'
@@ -71,114 +52,63 @@ export class ThySegmentedComponent implements ControlValueAccessor {
     @Input() thyMode: ThySegmentedMode = 'block';
 
     /**
-     * 是否属于禁用状态
+     * 是否禁用
      * @default false
      */
-    @Input() @InputBoolean() thyDisabled = false;
+    @Input()
+    @InputBoolean()
+    @HostBinding(`class.disabled`)
+    thyDisabled = false;
 
     /**
-     * 当前激活的选项的索引
+     * 默认选中的选项的索引
      * @default 0
      */
-    @Input() @InputNumber() set thyActive(index: number) {
-        if (isNumber(index) && index > -1) {
-            this.selectedIndex = index;
-        }
-    }
-
-    /**
-     * 自定义选项的渲染模板
-     * @default null
-     */
-    @Input() thyLabelTemplate: TemplateRef<{ $implicit: thySegmentedOption; index: number }> | null = null;
+    @Input() @InputNumber() thyActive: number = 0;
 
     /**
      * 选项被选中的回调事件
      */
-    @Output() readonly thyOptionSelect = new EventEmitter<ThySegmentedEvent>();
+    @Output() readonly thySelectChange = new EventEmitter<ThySegmentedEvent>();
 
-    public selectedIndex: number = 0;
-
-    public transitionedToIndex: number = -1;
+    public selectedItem: ThySegmentedItemComponent;
 
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
-    public normalizedOptions: thySegmentedOption[] = [];
-
-    private onTouchedCallback: () => void = noop;
-
-    private onChangeCallback: (_: any) => void = noop;
+    public transitionedTo: any = null;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
-    handleOptionClick(option: thySegmentedOption, index: number): void {
-        if (this.thyDisabled) {
-            return;
-        }
-        this.changeSelectedIndex(index);
-        this.onChangeCallback(index);
-        this.thyOptionSelect.emit({ option: option, index: index });
+    ngAfterContentInit(): void {
+        this.selectedItem = this.options.get(this.thyActive || 0);
     }
 
-    handleThumbAnimationDone(e: any): void {
-        if (e.fromState === 'from') {
-            this.selectedIndex = this.transitionedToIndex;
-            this.transitionedToIndex = -1;
-            this.animationState = null;
-            this.cdr.detectChanges();
-        }
-    }
-
-    writeValue(value: number | null): void {
-        if (typeof value === 'number' && value > -1) {
-            this.changeSelectedIndex(value);
-            this.cdr.markForCheck();
-        }
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
-    }
-
-    trackByFn(index: number, item: thySegmentedOption) {
-        return item.value;
-    }
-
-    private changeSelectedIndex(index: number): void {
-        if (!this.listOfOptions || this.selectedIndex === -1 || this.selectedIndex === index) {
-            return;
-        }
+    changeSelectedItem(event: Event, item: ThySegmentedItemComponent): void {
+        this.thySelectChange.emit({ event: event, value: item.thyValue });
 
         this.animationState = {
             value: 'from',
-            params: getThumbAnimationProps(this.listOfOptions.get(this.selectedIndex)!.nativeElement!)
+            params: getThumbAnimationProps(this.selectedItem.elementRef.nativeElement!)
         };
-        this.selectedIndex = -1;
+        this.selectedItem = null;
         this.cdr.detectChanges();
 
         this.animationState = {
             value: 'to',
-            params: getThumbAnimationProps(this.listOfOptions.get(index)!.nativeElement!)
+            params: getThumbAnimationProps(item.elementRef.nativeElement!)
         };
-        this.transitionedToIndex = index;
+        this.transitionedTo = item;
         this.cdr.detectChanges();
     }
-}
 
-function normalizeOptions(customOptions: thySegmentedCustomOption[]): thySegmentedOption[] {
-    return customOptions.map(item => {
-        if (typeof item === 'string' || typeof item === 'number') {
-            return {
-                labelText: `${item}`,
-                value: item
-            } as thySegmentedOption;
+    handleThumbAnimationDone(e: any): void {
+        if (e.fromState === 'from') {
+            this.selectedItem = this.transitionedTo;
+            this.transitionedTo = null;
+            this.animationState = null;
+            this.cdr.detectChanges();
         }
-        return item as thySegmentedOption;
-    });
+    }
 }
 
 function getThumbAnimationProps(element: HTMLElement): ThumbAnimationProps {

@@ -1,11 +1,21 @@
 <div style="width: 220px">
-  <thy-segmented [thyOptions]="options" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
+  <thy-segmented (thySelectChange)="selectedChange($event)">
+    <thy-segmented-item thyValue="member">成员</thy-segmented-item>
+    <thy-segmented-item thyValue="department">部门</thy-segmented-item>
+    <thy-segmented-item thyValue="group">用户组</thy-segmented-item>
+  </thy-segmented>
 </div>
 
-<div style="width: 220px" class="mt-4">
-  <thy-segmented [thyOptions]="options2" [thyActive]="2" (thyOptionSelect)="selectedChange($event)"></thy-segmented>
+<div style="width: 150px" class="mt-4">
+  <thy-segmented [thyActive]="selectedIndex" (thySelectChange)="selectedChange($event)">
+    <thy-segmented-item thyValue="1" thyIconName="list" thyLabelText="列表"> </thy-segmented-item>
+    <thy-segmented-item thyValue="2" thyIconName="paperclip" thyLabelText="对齐"></thy-segmented-item>
+  </thy-segmented>
 </div>
 
-<div style="width:  399px" class="mt-4">
-  <thy-segmented [thyOptions]="options3" [(ngModel)]="selectedIndex" (ngModelChange)="onSelectedChange($event)"></thy-segmented>
+<div class="mt-4">
+  <thy-segmented thyMode="adaptive" (thySelectChange)="selectedChange($event)">
+    <thy-segmented-item thyValue="1" thyIconName="list"></thy-segmented-item>
+    <thy-segmented-item thyValue="2" thyIconName="paperclip"></thy-segmented-item>
+  </thy-segmented>
 </div>

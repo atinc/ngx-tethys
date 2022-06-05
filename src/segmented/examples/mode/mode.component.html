@@ -1,7 +1,15 @@
 <div style="width: 666px;">
-  <thy-segmented [thyOptions]="options" thyMode="block"></thy-segmented>
+  <thy-segmented thyMode="block">
+    <ng-container *ngFor="let item of items">
+      <thy-segmented-item [thyValue]="item.value">{{ item.text }}</thy-segmented-item>
+    </ng-container>
+  </thy-segmented>
 </div>
 
 <div class="mt-4">
-  <thy-segmented [thyOptions]="options" thyMode="adaptive"></thy-segmented>
+  <thy-segmented thyMode="adaptive">
+    <ng-container *ngFor="let item of items">
+      <thy-segmented-item [thyValue]="item.value">{{ item.text }}</thy-segmented-item>
+    </ng-container>
+  </thy-segmented>
 </div>
