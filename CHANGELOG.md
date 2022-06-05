@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.9](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.8...13.1.0-next.9) (2022-06-02)
+
+
+### Features
+
+* **styles:** add bg-lighter(#f5f5f5) and bg-bright(#fafafa) utils ([167ee3a](https://github.com/atinc/ngx-tethys/commit/167ee3a11a3f4d03f92e5c450158b98730a971b2)), closes [#f5f5f5](https://github.com/atinc/ngx-tethys/issues/f5f5f5)
+* **styles:** add justify-content-evenly to flex ([2161403](https://github.com/atinc/ngx-tethys/commit/21614032c6dc69d4398490901c73d2bc0d09691c))
+* **table:** adjust table header text color & table column sort icon style #INFR-3386 ([da94a67](https://github.com/atinc/ngx-tethys/commit/da94a67475d0a5eaa9430291e7c5cdbf70ca18b8)), closes [#INFR-3386](https://github.com/atinc/ngx-tethys/issues/INFR-3386)
+
+
+
 # [13.1.0-next.8](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.7...13.1.0-next.8) (2022-06-02)
 
 

@@ -1,7 +1,6 @@
 @use "sass:meta";
 @use "../../src/styles/variables" with(
-    $primary: #6698FF,
-    $gray-100: #f5f5f5
+    $primary: #6698FF
 );
 @use './styles/variables.scss' as variables2;
 // docgeni
