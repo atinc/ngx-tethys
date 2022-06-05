@@ -23,7 +23,7 @@ module.exports = [
                 description: '禁用分段控制器'
             },
             {
-                name: 'thyActive',
+                name: 'thyActiveIndex',
                 type: 'number',
                 default: '0',
                 description: '默认选中的选项的索引'

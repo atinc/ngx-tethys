@@ -14,6 +14,7 @@ import {
 import { InputBoolean, InputNumber, ThumbAnimationProps } from 'ngx-tethys/core';
 import { thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentedItemComponent } from './segmented-item.component';
+import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.token';
 import { ThySegmentedEvent } from './types';
 
 export type ThySegmentedSize = 'xs' | 'sm' | 'md' | 'default';
@@ -27,6 +28,12 @@ export type ThySegmentedMode = 'block' | 'adaptive';
     animations: [thumbMotion],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: THY_SEGMENTED_COMPONENT,
+            useExisting: ThySegmentedComponent
+        }
+    ],
     host: {
         class: 'thy-segmented',
         '[class.thy-segmented-xs]': `thySize === 'xs'`,
@@ -36,7 +43,7 @@ export type ThySegmentedMode = 'block' | 'adaptive';
         '[class.thy-segmented-block]': `thyMode === 'block'`
     }
 })
-export class ThySegmentedComponent implements AfterContentInit {
+export class ThySegmentedComponent implements IThySegmentedComponent, AfterContentInit {
     @ContentChildren(ThySegmentedItemComponent) options!: QueryList<ThySegmentedItemComponent>;
 
     /**
@@ -64,7 +71,7 @@ export class ThySegmentedComponent implements AfterContentInit {
      * 默认选中的选项的索引
      * @default 0
      */
-    @Input() @InputNumber() thyActive: number = 0;
+    @Input() @InputNumber() thyActiveIndex: number = 0;
 
     /**
      * 选项被选中的回调事件
@@ -80,7 +87,8 @@ export class ThySegmentedComponent implements AfterContentInit {
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.thyActive || 0);
+        this.selectedItem = this.options.get(this.thyActiveIndex || 0);
+        this.selectedItem.select();
     }
 
     changeSelectedItem(event: Event, item: ThySegmentedItemComponent): void {
@@ -104,6 +112,7 @@ export class ThySegmentedComponent implements AfterContentInit {
     handleThumbAnimationDone(e: any): void {
         if (e.fromState === 'from') {
             this.selectedItem = this.transitionedTo;
+            this.selectedItem.select();
             this.transitionedTo = null;
             this.animationState = null;
             this.cdr.detectChanges();
