@@ -358,9 +358,9 @@ describe('segmented', () => {
             expect(segmentedInstance.thyMode).toBe('block');
             expect(segmentedElement.classList.contains('thy-segmented-block')).toBeTruthy();
 
-            fixture.debugElement.componentInstance.mode = 'adaptive';
+            fixture.debugElement.componentInstance.mode = 'inline';
             fixture.detectChanges();
-            expect(segmentedInstance.thyMode).toBe('adaptive');
+            expect(segmentedInstance.thyMode).toBe('inline');
             expect(segmentedElement.classList.contains('thy-segmented-block')).toBeFalsy();
         });
     });

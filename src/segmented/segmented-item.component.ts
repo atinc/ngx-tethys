@@ -14,6 +14,9 @@ import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.tok
 import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
 
+/**
+ * 分段控制器的选项组件
+ */
 @Component({
     selector: 'thy-segmented-item,[thy-segmented-item]',
     templateUrl: './segmented-item.component.html',
@@ -22,22 +25,19 @@ import { assertIconOnly } from 'ngx-tethys/util';
         class: 'thy-segmented-item'
     }
 })
-export class ThySegmentedItemComponent implements AfterViewInit {
+export class ThySegmentedItemComponent<TValue = unknown> implements AfterViewInit {
     /**
      * 选项的值
-     * @default ''
      */
-    @Input() thyValue: string;
+    @Input() thyValue: TValue;
 
     /**
      * 选项的图标
-     * @default ''
      */
     @Input() thyIcon: string;
 
     /**
      * 选项的文本
-     * @default ''
      */
     @Input() thyLabelText: string;
 
@@ -59,7 +59,7 @@ export class ThySegmentedItemComponent implements AfterViewInit {
     ) {}
 
     ngAfterViewInit(): void {
-        this.isOnlyIcon = assertIconOnly(this.elementRef.nativeElement.children[0]) && this.parent.thyMode === 'adaptive';
+        this.isOnlyIcon = assertIconOnly(this.elementRef.nativeElement.children[0]) && this.parent.thyMode === 'inline';
         this.cdr.detectChanges();
     }
 

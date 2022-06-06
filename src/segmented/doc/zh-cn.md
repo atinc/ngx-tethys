@@ -45,9 +45,9 @@ import { ThySegmentedModule } from "ngx-tethys/segmented";
 
 
 ## 模式
-可传的两种模式分别为: 'block' | 'adaptive'，默认为'block'。
+可传的两种模式分别为: 'block' | 'inline'，默认为'block'。
 - block: 将其宽度适应父元素的宽度。
-- adaptive: 根据文字的多少自适应宽度。
+- inline: 根据文字的多少自适应宽度。
 
 展示效果：
 <example name="thy-segmented-mode-example" />

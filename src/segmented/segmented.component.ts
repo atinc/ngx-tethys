@@ -19,8 +19,11 @@ import { ThySegmentedEvent } from './types';
 
 export type ThySegmentedSize = 'xs' | 'sm' | 'md' | 'default';
 
-export type ThySegmentedMode = 'block' | 'adaptive';
+export type ThySegmentedMode = 'block' | 'inline';
 
+/**
+ * 分段控制组件
+ */
 @Component({
     selector: 'thy-segmented',
     templateUrl: './segmented.component.html',
@@ -44,6 +47,9 @@ export type ThySegmentedMode = 'block' | 'adaptive';
     }
 })
 export class ThySegmentedComponent implements IThySegmentedComponent, AfterContentInit {
+    /**
+     * @internal
+     */
     @ContentChildren(ThySegmentedItemComponent) options!: QueryList<ThySegmentedItemComponent>;
 
     /**
@@ -53,7 +59,7 @@ export class ThySegmentedComponent implements IThySegmentedComponent, AfterConte
     @Input() thySize: ThySegmentedSize = 'default';
 
     /**
-     * 模式，分别为 'block' | 'adaptive'
+     * 模式，分别为 'block' | 'inline'
      * @default 'block'
      */
     @Input() thyMode: ThySegmentedMode = 'block';
