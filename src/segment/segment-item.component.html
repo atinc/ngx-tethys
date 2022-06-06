@@ -4,12 +4,7 @@
     'thy-segment-item-label-only-icon': isOnlyIcon
   }"
 >
-  <thy-icon
-    *ngIf="thyIcon"
-    class="thy-segment-item-icon"
-    [ngClass]="{ 'icon-with-text': !!thyLabelText }"
-    [thyIconName]="thyIcon"
-  ></thy-icon>
+  <thy-icon *ngIf="thyIcon" class="thy-segment-item-icon" [ngClass]="{ 'icon-with-text': isWithText }" [thyIconName]="thyIcon"></thy-icon>
   <span *ngIf="thyLabelText">{{ thyLabelText }}</span>
 
   <ng-content></ng-content>

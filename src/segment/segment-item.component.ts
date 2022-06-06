@@ -56,6 +56,8 @@ export class ThySegmentItemComponent<TValue = unknown> implements AfterViewInit,
 
     public isOnlyIcon: boolean;
 
+    public isWithText: boolean;
+
     private destroy$ = new Subject<void>();
 
     constructor(
@@ -102,6 +104,11 @@ export class ThySegmentItemComponent<TValue = unknown> implements AfterViewInit,
                 const parent = this.renderer.parentNode(node);
                 this.renderer.insertBefore(parent, span, node);
                 this.renderer.appendChild(span, node);
+            }
+
+            if (node.nodeName === '#text' || node.nodeName === 'SPAN') {
+                this.isWithText = true;
+                this.cdr.detectChanges();
             }
         });
     }
