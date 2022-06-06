@@ -5,10 +5,10 @@
   }"
 >
   <thy-icon
-    *ngIf="thyIconName"
+    *ngIf="thyIcon"
     class="thy-segmented-item-icon"
     [ngClass]="{ 'icon-with-text': !!thyLabelText }"
-    [thyIconName]="thyIconName"
+    [thyIconName]="thyIcon"
   ></thy-icon>
   <span *ngIf="thyLabelText">{{ thyLabelText }}</span>
 

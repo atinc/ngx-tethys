@@ -48,7 +48,7 @@ module.exports = [
                 description: '选项的值'
             },
             {
-                name: 'thyIconName',
+                name: 'thyIcon',
                 type: 'string',
                 default: '',
                 description: '选项的图标'

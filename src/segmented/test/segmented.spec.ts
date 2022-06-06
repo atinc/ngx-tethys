@@ -42,8 +42,8 @@ class TestSegmentedOnlyTextComponent {}
     selector: 'test-segmented-only-icon',
     template: `
         <thy-segmented>
-            <thy-segmented-item thyValue="1" thyIconName="list"> </thy-segmented-item>
-            <thy-segmented-item thyValue="2" thyIconName="paperclip"></thy-segmented-item>
+            <thy-segmented-item thyValue="1" thyIcon="list"> </thy-segmented-item>
+            <thy-segmented-item thyValue="2" thyIcon="paperclip"></thy-segmented-item>
         </thy-segmented>
     `
 })
@@ -53,8 +53,8 @@ class TestSegmentedOnlyIconComponent {}
     selector: 'test-segmented-icon-and-text',
     template: `
         <thy-segmented>
-            <thy-segmented-item thyValue="1" thyIconName="list" thyLabelText="列表"> </thy-segmented-item>
-            <thy-segmented-item thyValue="2" thyIconName="paperclip" thyLabelText="对齐"></thy-segmented-item>
+            <thy-segmented-item thyValue="1" thyIcon="list" thyLabelText="列表"> </thy-segmented-item>
+            <thy-segmented-item thyValue="2" thyIcon="paperclip" thyLabelText="对齐"></thy-segmented-item>
         </thy-segmented>
     `
 })
@@ -218,7 +218,7 @@ describe('segmented', () => {
         });
     });
 
-    describe('thyIconName', () => {
+    describe('thyIcon', () => {
         let fixture: ComponentFixture<TestSegmentedOnlyIconComponent>;
         let segmentedDebugElement: DebugElement;
 
@@ -241,7 +241,7 @@ describe('segmented', () => {
         });
     });
 
-    describe('thyIconName and thyLabelText', () => {
+    describe('thyIcon and thyLabelText', () => {
         let fixture: ComponentFixture<TestSegmentedIconAndTextComponent>;
         let segmentedDebugElement: DebugElement;
 

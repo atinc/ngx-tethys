@@ -21,7 +21,7 @@ export class ThySegmentedItemComponent implements AfterViewInit {
      * 选项的图标
      * @default ''
      */
-    @Input() thyIconName: string;
+    @Input() thyIcon: string;
 
     /**
      * 选项的文本
