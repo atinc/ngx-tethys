@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostBinding, HostListener, Inject, Input, OnInit, Optional } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Inject, Input, Optional } from '@angular/core';
 import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.token';
 import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
@@ -10,7 +10,7 @@ import { assertIconOnly } from 'ngx-tethys/util';
         class: 'thy-segmented-item'
     }
 })
-export class ThySegmentedItemComponent implements OnInit {
+export class ThySegmentedItemComponent implements AfterViewInit {
     @Input() thyValue: string;
 
     @Input() thyIconName: string;
@@ -24,10 +24,15 @@ export class ThySegmentedItemComponent implements OnInit {
 
     public isOnlyIcon: boolean;
 
-    constructor(public elementRef: ElementRef, @Optional() @Inject(THY_SEGMENTED_COMPONENT) public parent: IThySegmentedComponent) {}
+    constructor(
+        public elementRef: ElementRef,
+        @Optional() @Inject(THY_SEGMENTED_COMPONENT) public parent: IThySegmentedComponent,
+        private cdr: ChangeDetectorRef
+    ) {}
 
-    ngOnInit() {
+    ngAfterViewInit(): void {
         this.isOnlyIcon = assertIconOnly(this.elementRef.nativeElement.children[0]) && this.parent.thyMode === 'adaptive';
+        this.cdr.detectChanges();
     }
 
     @HostListener('click', ['$event'])
@@ -38,11 +43,11 @@ export class ThySegmentedItemComponent implements OnInit {
         }
     }
 
-    select() {
+    public select() {
         this.elementRef.nativeElement.classList.add('active');
     }
 
-    unselect() {
+    private unselect() {
         this.elementRef.nativeElement.classList.remove('active');
     }
 }

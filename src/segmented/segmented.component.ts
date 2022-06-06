@@ -91,7 +91,7 @@ export class ThySegmentedComponent implements IThySegmentedComponent, AfterConte
         this.selectedItem.select();
     }
 
-    changeSelectedItem(event: Event, item: ThySegmentedItemComponent): void {
+    public changeSelectedItem(event: Event, item: ThySegmentedItemComponent): void {
         this.thySelectChange.emit({ event: event, value: item.thyValue });
 
         this.animationState = {
@@ -109,7 +109,7 @@ export class ThySegmentedComponent implements IThySegmentedComponent, AfterConte
         this.cdr.detectChanges();
     }
 
-    handleThumbAnimationDone(e: any): void {
+    public handleThumbAnimationDone(e: any): void {
         if (e.fromState === 'from') {
             this.selectedItem = this.transitionedTo;
             this.selectedItem.select();
