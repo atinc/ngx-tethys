@@ -29,11 +29,11 @@ import { takeUntil } from 'rxjs/operators';
         class: 'thy-segment-item'
     }
 })
-export class ThySegmentItemComponent<TValue = unknown> implements AfterViewInit, OnDestroy {
+export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
     /**
      * 选项的值
      */
-    @Input() thyValue: TValue;
+    @Input() thyValue: any;
 
     /**
      * 选项的图标
