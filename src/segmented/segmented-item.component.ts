@@ -1,4 +1,15 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Inject, Input, Optional } from '@angular/core';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    HostBinding,
+    HostListener,
+    Inject,
+    Input,
+    Optional
+} from '@angular/core';
 import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.token';
 import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
@@ -6,6 +17,7 @@ import { assertIconOnly } from 'ngx-tethys/util';
 @Component({
     selector: 'thy-segmented-item,[thy-segmented-item]',
     templateUrl: './segmented-item.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-segmented-item'
     }
