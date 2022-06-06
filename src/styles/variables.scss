@@ -871,3 +871,31 @@ $divider-color: $gray-200 !default;
 $divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
 $divider-text-color: $gray-600 !default;
+
+// segment
+$segment-container-padding: 2px !default;
+$segment-border-radius: 2px !default;
+$segment-bg: $gray-100 !default;
+$segment-item-active-bg: $white !default;
+$segment-height-default: 36px !default;
+$segment-height-md: 32px !default;
+$segment-height-sm: 28px !default;
+$segment-height-xs: 24px !default;
+$segment-sizes: (
+    'xs': $segment-height-xs,
+    'sm': $segment-height-sm,
+    'md': $segment-height-md,
+    'default': $segment-height-default
+) !default;
+$segment-item-only-icon-xs-width: 28px !default;
+$segment-item-only-icon-width: 38px !default;
+$segment-text-margin-left: 8px !default;
+$segment-item-xs-padding-x: 8px !default;
+$segment-item-padding-x: 12px !default;
+$segment-default-color: $gray-700 !default;
+$segment-active-color: $gray-800 !default;
+$segment-hover-color: $gray-800 !default;
+$segment-icon-with-text-default-color: $gray-600 !default;
+$segment-icon-with-text-active-color: $gray-700 !default;
+$segment-icon-with-text-hover-color: $gray-700 !default;
+$segment-disabled-color: $gray-500 !default;

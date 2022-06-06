@@ -89,7 +89,8 @@ module.exports = {
                 'collapse',
                 'rate',
                 'select-control',
-                'image'
+                'image',
+                'segment'
             ]
         ]
     }

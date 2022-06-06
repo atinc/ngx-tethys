@@ -1,0 +1,10 @@
+<div class="thy-segment-group">
+  <div
+    *ngIf="animationState"
+    class="thy-segment-thumb thy-segment-thumb-motion"
+    [@thumbMotion]="animationState"
+    (@thumbMotion.done)="handleThumbAnimationDone($event)"
+  ></div>
+
+  <ng-content></ng-content>
+</div>

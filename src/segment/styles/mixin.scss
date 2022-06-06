@@ -1,0 +1,51 @@
+@use "../../styles/variables.scss";
+
+@mixin segment-size-variant($size, $height) {
+    &-#{$size} &-item-label {
+        min-height: #{$height - (variables.$segment-container-padding * 2)};
+        line-height: #{$height - (variables.$segment-container-padding * 2)};
+
+        @if ($size == xs) {
+            padding: 0 variables.$segment-item-xs-padding-x;
+            &-only-icon {
+                width: variables.$segment-item-only-icon-xs-width;
+            }
+        } @else {
+            padding: 0 variables.$segment-item-padding-x;
+            &-only-icon {
+                width: variables.$segment-item-only-icon-width;
+            }
+        }
+
+        @if ($size == xs or $size == sm or $size == md) {
+            font-size: variables.$font-size-sm;
+        } @else {
+            font-size: variables.$font-size-base;
+        }
+    }
+    &-#{$size} &-item-icon {
+        @if ($size == xs) {
+            font-size: variables.$font-size-sm;
+        } @else {
+            font-size: variables.$font-size-base;
+        }
+    }
+}
+
+@mixin segment-item-active() {
+    background-color: variables.$segment-item-active-bg;
+    border-radius: variables.$segment-border-radius;
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.1), 0 1px 4px -1px rgba(0, 0, 0, 0.1);
+}
+
+@mixin segment-disabled() {
+    &,
+    &:hover,
+    &:focus {
+        color: variables.$segment-disabled-color;
+        .icon-with-text {
+            color: variables.$segment-disabled-color;
+        }
+        cursor: not-allowed;
+    }
+}
