@@ -5,14 +5,16 @@ import {
     Component,
     ElementRef,
     HostBinding,
-    HostListener,
     Inject,
     Input,
+    NgZone,
     Optional
 } from '@angular/core';
 import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.token';
 import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
+import { Subject, fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 /**
  * 分段控制器的选项组件
@@ -52,23 +54,31 @@ export class ThySegmentedItemComponent<TValue = unknown> implements AfterViewIni
 
     public isOnlyIcon: boolean;
 
+    private destroy$ = new Subject<void>();
+
     constructor(
         public elementRef: ElementRef,
-        @Optional() @Inject(THY_SEGMENTED_COMPONENT) public parent: IThySegmentedComponent,
-        private cdr: ChangeDetectorRef
-    ) {}
+        private ngZone: NgZone,
+        private cdr: ChangeDetectorRef,
+        @Optional() @Inject(THY_SEGMENTED_COMPONENT) private parent: IThySegmentedComponent
+    ) {
+        ngZone.runOutsideAngular(() =>
+            fromEvent(elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: Event) => {
+                    if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem !== this) {
+                        ngZone.run(() => {
+                            this.parent.selectedItem.unselect();
+                            this.parent.changeSelectedItem(event, this);
+                        });
+                    }
+                })
+        );
+    }
 
     ngAfterViewInit(): void {
         this.isOnlyIcon = assertIconOnly(this.elementRef.nativeElement.children[0]) && this.parent.thyMode === 'inline';
         this.cdr.detectChanges();
-    }
-
-    @HostListener('click', ['$event'])
-    onClick(event: Event) {
-        if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem !== this) {
-            this.parent.selectedItem.unselect();
-            this.parent.changeSelectedItem(event, this);
-        }
     }
 
     public select() {
@@ -77,5 +87,10 @@ export class ThySegmentedItemComponent<TValue = unknown> implements AfterViewIni
 
     private unselect() {
         this.elementRef.nativeElement.classList.remove('active');
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

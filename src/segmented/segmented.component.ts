@@ -16,6 +16,7 @@ import { thumbMotion } from 'ngx-tethys/core';
 import { ThySegmentedItemComponent } from './segmented-item.component';
 import { IThySegmentedComponent, THY_SEGMENTED_COMPONENT } from './segmented.token';
 import { ThySegmentedEvent } from './types';
+import { AnimationEvent } from '@angular/animations';
 
 export type ThySegmentedSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -115,8 +116,8 @@ export class ThySegmentedComponent implements IThySegmentedComponent, AfterConte
         this.cdr.detectChanges();
     }
 
-    public handleThumbAnimationDone(e: any): void {
-        if (e.fromState === 'from') {
+    public handleThumbAnimationDone(event: AnimationEvent): void {
+        if (event.fromState === 'from') {
             this.selectedItem = this.transitionedTo;
             this.selectedItem.select();
             this.transitionedTo = null;
