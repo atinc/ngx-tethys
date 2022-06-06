@@ -23,7 +23,7 @@ export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 export type ThySegmentMode = 'block' | 'inline';
 
 /**
- * 分段控制组件
+ * 分段控制器组件
  */
 @Component({
     selector: 'thy-segment',
