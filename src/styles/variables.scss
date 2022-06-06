@@ -872,28 +872,28 @@ $divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
 $divider-text-color: $gray-600 !default;
 
-// segmented
-$segmented-container-padding: 2px !default;
-$segmented-border-radius: 2px !default;
-$segmented-bg: $gray-100 !default;
-$segmented-item-active-bg: $white !default;
-$segmented-height-default: 36px !default;
-$segmented-height-md: 32px !default;
-$segmented-height-sm: 28px !default;
-$segmented-height-xs: 24px !default;
-$segmented-sizes: (
-    'xs': $segmented-height-xs,
-    'sm': $segmented-height-sm,
-    'md': $segmented-height-md,
-    'default': $segmented-height-default
+// segment
+$segment-container-padding: 2px !default;
+$segment-border-radius: 2px !default;
+$segment-bg: $gray-100 !default;
+$segment-item-active-bg: $white !default;
+$segment-height-default: 36px !default;
+$segment-height-md: 32px !default;
+$segment-height-sm: 28px !default;
+$segment-height-xs: 24px !default;
+$segment-sizes: (
+    'xs': $segment-height-xs,
+    'sm': $segment-height-sm,
+    'md': $segment-height-md,
+    'default': $segment-height-default
 ) !default;
-$segmented-item-only-icon-width: 36px !default;
-$segmented-text-margin-left: 6px !default;
-$segmented-item-padding-x: 10px !default;
-$segmented-default-color: $gray-700 !default;
-$segmented-active-color: $gray-800 !default;
-$segmented-hover-color: $gray-800 !default;
-$segmented-icon-with-text-default-color: $gray-600 !default;
-$segmented-icon-with-text-active-color: $gray-700 !default;
-$segmented-icon-with-text-hover-color: $gray-700 !default;
-$segmented-disabled-color: $gray-500 !default;
+$segment-item-only-icon-width: 36px !default;
+$segment-text-margin-left: 6px !default;
+$segment-item-padding-x: 10px !default;
+$segment-default-color: $gray-700 !default;
+$segment-active-color: $gray-800 !default;
+$segment-hover-color: $gray-800 !default;
+$segment-icon-with-text-default-color: $gray-600 !default;
+$segment-icon-with-text-active-color: $gray-700 !default;
+$segment-icon-with-text-hover-color: $gray-700 !default;
+$segment-disabled-color: $gray-500 !default;

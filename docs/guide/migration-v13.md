@@ -153,7 +153,7 @@ import { ThyUploadModule } from 'ngx-tethys/upload';
 import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
-import { ThySegmentedModule } from 'ngx-tethys/segmented';
+import { ThySegmentModule } from 'ngx-tethys/segment';
 
 const TETHYS_MODULES = [
     ThyLayoutModule,
@@ -225,7 +225,7 @@ const TETHYS_MODULES = [
     ThyResizableModule,
     ThyCollapseModule,
     ThyRateModule,
-    ThySegmentedModule
+    ThySegmentModule
 ];
 ```
 
