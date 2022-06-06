@@ -17,6 +17,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * 分段控制器的选项组件
@@ -33,7 +34,7 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
     /**
      * 选项的值
      */
-    @Input() thyValue: any;
+    @Input() thyValue: SafeAny;
 
     /**
      * 选项的图标
