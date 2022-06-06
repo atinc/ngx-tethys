@@ -1,0 +1,18 @@
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of colors" (click)="color = item" [ngClass]="{ active: color === item }">
+    {{ item }}
+  </button>
+</thy-button-group>
+
+<thy-divider [thyColor]="color"></thy-divider>
+<thy-divider [thyColor]="color" [thyStyle]="'dashed'"></thy-divider>
+<thy-divider [thyColor]="color" thyText="Text"></thy-divider>
+<thy-divider [thyColor]="color" thyText="Text" [thyStyle]="'dashed'"></thy-divider>
+
+<div>
+  Text
+  <thy-divider [thyColor]="color" [thyVertical]="true"></thy-divider>
+  <a href="javascript:">Link</a>
+  <thy-divider [thyColor]="color" [thyVertical]="true"></thy-divider>
+  <a href="javascript:">Link</a>
+</div>

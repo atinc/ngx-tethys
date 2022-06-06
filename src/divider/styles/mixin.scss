@@ -1,0 +1,22 @@
+@mixin divider-variant($divider-width, $divider-color) {
+    &.thy-divider-vertical {
+        border-left: $divider-width solid $divider-color;
+    }
+
+    &.thy-divider-horizontal {
+        border-top: $divider-width solid $divider-color;
+        &.thy-divider-with-content {
+            border-top-color: $divider-color;
+            &::before,
+            &::after {
+                border-top-color: $divider-color;
+            }
+        }
+    }
+
+    &.thy-divider-dashed {
+        background: none;
+        border-style: dashed;
+        border-width: $divider-width 0 0;
+    }
+}
