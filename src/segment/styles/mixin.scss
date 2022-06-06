@@ -2,9 +2,20 @@
 
 @mixin segment-size-variant($size, $height) {
     &-#{$size} &-item-label {
-        padding: 0 variables.$segment-item-padding-x;
         min-height: #{$height - (variables.$segment-container-padding * 2)};
         line-height: #{$height - (variables.$segment-container-padding * 2)};
+
+        @if ($size == xs) {
+            padding: 0 variables.$segment-item-xs-padding-x;
+            &-only-icon {
+                width: variables.$segment-item-only-icon-xs-width;
+            }
+        } @else {
+            padding: 0 variables.$segment-item-padding-x;
+            &-only-icon {
+                width: variables.$segment-item-only-icon-width;
+            }
+        }
 
         @if ($size == xs or $size == sm or $size == md) {
             font-size: variables.$font-size-sm;

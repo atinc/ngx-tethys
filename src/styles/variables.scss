@@ -887,9 +887,11 @@ $segment-sizes: (
     'md': $segment-height-md,
     'default': $segment-height-default
 ) !default;
-$segment-item-only-icon-width: 36px !default;
-$segment-text-margin-left: 6px !default;
-$segment-item-padding-x: 10px !default;
+$segment-item-only-icon-xs-width: 28px !default;
+$segment-item-only-icon-width: 38px !default;
+$segment-text-margin-left: 8px !default;
+$segment-item-xs-padding-x: 8px !default;
+$segment-item-padding-x: 12px !default;
 $segment-default-color: $gray-700 !default;
 $segment-active-color: $gray-800 !default;
 $segment-hover-color: $gray-800 !default;
