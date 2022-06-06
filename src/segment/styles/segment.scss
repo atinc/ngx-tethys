@@ -34,6 +34,7 @@
 
         .icon-with-text {
             color: variables.$segment-icon-with-text-default-color;
+            transition: color 0.3s ease-in-out;
         }
 
         &:not(.disabled) {
