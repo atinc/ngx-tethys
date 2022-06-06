@@ -25,8 +25,8 @@ class TestSegmentBasicComponent {
     selector: 'test-segment-only-text',
     template: `
         <thy-segment>
-            <thy-segment-item thyValue="1" thyLabelText="列表"> </thy-segment-item>
-            <thy-segment-item thyValue="2" thyLabelText="对齐"></thy-segment-item>
+            <thy-segment-item thyValue="1">列表</thy-segment-item>
+            <thy-segment-item thyValue="2">对齐</thy-segment-item>
         </thy-segment>
     `
 })
@@ -47,8 +47,8 @@ class TestSegmentOnlyIconComponent {}
     selector: 'test-segment-icon-and-text',
     template: `
         <thy-segment>
-            <thy-segment-item thyValue="1" thyIcon="list" thyLabelText="列表"> </thy-segment-item>
-            <thy-segment-item thyValue="2" thyIcon="paperclip" thyLabelText="对齐"></thy-segment-item>
+            <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
+            <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
         </thy-segment>
     `
 })
@@ -189,7 +189,7 @@ describe('segment', () => {
         });
     });
 
-    describe('thyLabelText', () => {
+    describe('only text', () => {
         let fixture: ComponentFixture<TestSegmentOnlyTextComponent>;
         let segmentedDebugElement: DebugElement;
 
@@ -212,7 +212,7 @@ describe('segment', () => {
         });
     });
 
-    describe('thyIcon', () => {
+    describe('only icon', () => {
         let fixture: ComponentFixture<TestSegmentOnlyIconComponent>;
         let segmentedDebugElement: DebugElement;
 
@@ -235,7 +235,7 @@ describe('segment', () => {
         });
     });
 
-    describe('thyIcon and thyLabelText', () => {
+    describe('icon and text', () => {
         let fixture: ComponentFixture<TestSegmentIconAndTextComponent>;
         let segmentedDebugElement: DebugElement;
 

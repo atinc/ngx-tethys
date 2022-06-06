@@ -41,11 +41,6 @@ export class ThySegmentItemComponent<TValue = unknown> implements AfterViewInit,
     @Input() thyIcon: string;
 
     /**
-     * 选项的文本
-     */
-    @Input() thyLabelText: string;
-
-    /**
      * 是否禁用该选项
      * @default false
      */

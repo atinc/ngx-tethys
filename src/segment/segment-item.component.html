@@ -5,7 +5,5 @@
   }"
 >
   <thy-icon *ngIf="thyIcon" class="thy-segment-item-icon" [ngClass]="{ 'icon-with-text': isWithText }" [thyIconName]="thyIcon"></thy-icon>
-  <span *ngIf="thyLabelText">{{ thyLabelText }}</span>
-
   <ng-content></ng-content>
 </div>
