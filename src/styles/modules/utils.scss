@@ -28,6 +28,7 @@
 // 新增比 light 更亮的2个背景色
 @include background-variant.bg-variant('.bg-lighter', variables.$gray-100);
 @include background-variant.bg-variant('.bg-bright', variables.$gray-80);
+@include background-variant.bg-variant('.bg-content', variables.$layout-content-background);
 
 // text-placeholder #cacaca
 @include utilities.text-emphasis-variant('.text-placeholder', variables.$gray-400);
