@@ -65,7 +65,7 @@
 .thy-layout-sidebar {
     flex: 0 0 auto;
     position: relative;
-    transition: all 0.2s;
+    transition: width 0.2s;
     min-width: 0;
     width: variables.$layout-sidebar-width;
     border-right: variables.$layout-sidebar-border-right;
