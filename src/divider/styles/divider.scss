@@ -1,5 +1,5 @@
-@use "../../date-picker/style/variables.scss" as style;
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as divider-mixin;
 
 .thy-divider {
     box-sizing: border-box;
@@ -9,10 +9,9 @@
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     list-style: none;
-    border-top: variables.$divider-width solid variables.$divider-color;
-    &.thy-divider-deeper {
-        border-top-color: variables.$divider-deeper-color;
-    }
+
+    @include divider-mixin.divider-variant(variables.$divider-width, variables.$divider-color);
+
     &.thy-divider-vertical {
         position: relative;
         top: -0.06em;
@@ -21,10 +20,8 @@
         margin: 0 variables.$divider-spacing;
         vertical-align: middle;
         border-top: 0;
-        border-left: variables.$divider-width solid variables.$divider-color;
-        &.thy-divider-deeper {
-            border-left-color: variables.$divider-deeper-color;
-        }
+        // border-left: variables.$divider-width solid variables.$divider-color;
+
         &.thy-divider-dashed {
             border-width: 0 0 0 variables.$divider-width;
         }
@@ -44,7 +41,7 @@
             white-space: nowrap;
             text-align: center;
             border-top: 0;
-            border-top-color: variables.$divider-color;
+            // border-top-color: variables.$divider-color;
             &::before,
             &::after {
                 position: relative;
@@ -94,5 +91,11 @@
     .thy-divider-inner-text {
         display: inline-block;
         padding: 0 variables.$divider-text-padding;
+    }
+}
+
+@each $color, $value in variables.$divider-colors {
+    .thy-divider-#{$color} {
+        @include divider-mixin.divider-variant(variables.$divider-width, $value);
     }
 }
