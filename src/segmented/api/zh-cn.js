@@ -20,7 +20,7 @@ module.exports = [
                 name: 'thyDisabled',
                 type: 'boolean',
                 default: 'false',
-                description: '禁用分段控制器'
+                description: '是否禁用分段控制器'
             },
             {
                 name: 'thyActiveIndex',
@@ -63,7 +63,7 @@ module.exports = [
                 name: 'thyDisabled',
                 type: 'boolean',
                 default: 'false',
-                description: '禁用该选项'
+                description: '是否禁用该选项'
             }
         ]
     }

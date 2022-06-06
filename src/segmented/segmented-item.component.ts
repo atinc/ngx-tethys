@@ -11,12 +11,28 @@ import { assertIconOnly } from 'ngx-tethys/util';
     }
 })
 export class ThySegmentedItemComponent implements AfterViewInit {
+    /**
+     * 选项的值
+     * @default ''
+     */
     @Input() thyValue: string;
 
+    /**
+     * 选项的图标
+     * @default ''
+     */
     @Input() thyIconName: string;
 
+    /**
+     * 选项的文本
+     * @default ''
+     */
     @Input() thyLabelText: string;
 
+    /**
+     * 是否禁用该选项
+     * @default false
+     */
     @Input()
     @InputBoolean()
     @HostBinding(`class.disabled`)

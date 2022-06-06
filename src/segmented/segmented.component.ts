@@ -59,7 +59,7 @@ export class ThySegmentedComponent implements IThySegmentedComponent, AfterConte
     @Input() thyMode: ThySegmentedMode = 'block';
 
     /**
-     * 是否禁用
+     * 是否禁用分段控制器
      * @default false
      */
     @Input()
