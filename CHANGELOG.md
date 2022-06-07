@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.10](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.9...13.1.0-next.10) (2022-06-07)
+
+
+### Bug Fixes
+
+* **action:** fix action text color not change when thyActonActive is true ([ea9ad0a](https://github.com/atinc/ngx-tethys/commit/ea9ad0ab8afcd299025ebaee3f9a0459c422b81a))
+* **layout:** change layout sidebar transition all to width #INFR-3399 ([#1797](https://github.com/atinc/ngx-tethys/issues/1797)) ([0d350df](https://github.com/atinc/ngx-tethys/commit/0d350df6896bdf0ca7c7a7476cf84072c6652385)), closes [#INFR-3399](https://github.com/atinc/ngx-tethys/issues/INFR-3399)
+
+
+### Features
+
+* **divider:** add thyColor as ['default', 'light', 'danger', 'primary', 'success', 'warning'] #INFR-3383 ([#1798](https://github.com/atinc/ngx-tethys/issues/1798)) ([8f85755](https://github.com/atinc/ngx-tethys/commit/8f857559f27adf106bf2bba1bc9d95fa8b2db9f6)), closes [#INFR-3383](https://github.com/atinc/ngx-tethys/issues/INFR-3383)
+* **segment:** add segment module and component #INFR-3073 ([#1775](https://github.com/atinc/ngx-tethys/issues/1775)) ([b36e694](https://github.com/atinc/ngx-tethys/commit/b36e694f1e23333d82e95b1080c39635e42c2d78)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **segment:** add segment module and component #INFR-3073 ([#1799](https://github.com/atinc/ngx-tethys/issues/1799)) ([420d520](https://github.com/atinc/ngx-tethys/commit/420d52034efc717ffc080245800c815f948be8d2)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **styles:** add bg-content(#fafafa) to background utils ([31ce76e](https://github.com/atinc/ngx-tethys/commit/31ce76eefcb7f753d782edf89629e415473bc315))
+
+
+
 # [13.1.0-next.9](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.8...13.1.0-next.9) (2022-06-02)
 
 
