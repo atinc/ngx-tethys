@@ -13,9 +13,11 @@ import {
     Inject,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
@@ -33,7 +35,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTreeNodeComponent implements OnDestroy, OnInit {
+export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     @Input() node: ThyTreeNode;
 
     @Input() thyAsync = false;
@@ -62,6 +64,8 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit {
     @ViewChild('treeNodeWrapper', { static: true }) treeNodeWrapper: ElementRef<HTMLElement>;
 
     @HostBinding('class.thy-tree-node') thyTreeNodeClass = true;
+
+    @HostBinding('class') itemClass: string;
 
     @Input() thyItemSize = 44;
 
@@ -149,6 +153,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit {
     }
 
     ngOnInit(): void {
+        this.itemClass = this.node?.itemClass?.join(' ');
         this.ngZone.runOutsideAngular(() => {
             fromEvent(this.treeNodeWrapper.nativeElement, 'mouseenter', passiveEventListenerOptions)
                 .pipe(takeUntil(this.destroy$))
@@ -180,6 +185,12 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit {
                     }
                 });
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.node && !changes.node.isFirstChange()) {
+            this.itemClass = changes?.node?.currentValue.itemClass?.join(' ');
+        }
     }
 
     ngOnDestroy(): void {
