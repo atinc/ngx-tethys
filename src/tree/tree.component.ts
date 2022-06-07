@@ -247,6 +247,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         if (changes.thyMultiple && !changes.thyMultiple.isFirstChange()) {
             this._instanceSelectionModel();
         }
+
+        if (changes.thySelectedKeys && !changes.thySelectedKeys.isFirstChange()) {
+            this._selectTreeNodes(changes.thySelectedKeys.currentValue);
+        }
     }
 
     renderView = () => {};
@@ -412,6 +416,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     public selectTreeNode(node: ThyTreeNode) {
         this._selectionModel.select(node);
+        this.thyTreeService.syncFlattenTreeNodes();
     }
 
     public getRootNodes(): ThyTreeNode[] {
