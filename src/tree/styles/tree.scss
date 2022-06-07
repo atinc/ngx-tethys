@@ -10,6 +10,10 @@
     color: variables.$gray-700;
     transform: translateY(-10px);
 
+    .cdk-virtual-scroll-viewport {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
     > div > .thy-tree-node {
         padding: 0 0 0 10px;
     }
