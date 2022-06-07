@@ -2,7 +2,7 @@ import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-teth
 import { animationFrameScheduler } from 'rxjs';
 
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ApplicationRef, Component, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -596,6 +596,18 @@ describe('ThyTreeComponent', () => {
             expect(firstNodeElementText !== updateFirstNodeElementText).toBeTruthy();
             expect(nodeElements.length).toEqual(12);
         }));
+
+        it('should successful set node class', fakeAsync(() => {
+            fixture.detectChanges();
+            const nodeElements = treeElement.querySelectorAll('.node-test');
+            expect(nodeElements.length).toEqual(1);
+
+            component.setNodeItemClass('node-test2', 0);
+            tick(200);
+            fixture.detectChanges();
+            const nodeElements2 = treeElement.querySelectorAll('.node-test2');
+            expect(nodeElements2.length).toEqual(1);
+        }));
     });
 });
 
@@ -742,10 +754,19 @@ export class TestAsyncTreeComponent {
         </div>
     `
 })
-export class TestVirtualScrollingTreeComponent {
+export class TestVirtualScrollingTreeComponent implements OnInit {
     mockData = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
+    setNodeItemClass(className: string, index: number): void {
+        this.mockData[index].itemClass = className;
+        this.mockData = [...this.mockData];
+    }
+
     constructor() {}
+
+    ngOnInit(): void {
+        this.setNodeItemClass('node-test', 0);
+    }
 }

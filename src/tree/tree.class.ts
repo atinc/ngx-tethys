@@ -31,9 +31,7 @@ export interface ThyTreeNodeData<T = any> {
 
     data?: T;
 
-    treeNodeWrapperClass?: string | string[];
-
-    treeNodeContentClass?: string | string[];
+    itemClass?: string | string[];
 
     [key: string]: any;
 }

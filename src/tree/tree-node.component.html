@@ -1,7 +1,7 @@
 <div
   thyDragContent
   #treeNodeWrapper
-  class="thy-tree-node-wrapper thy-sortable-item {{ node?.treeNodeWrapperClass?.join(' ') }}"
+  class="thy-tree-node-wrapper thy-sortable-item"
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
   [style.height]="thyItemSize + 'px'"
@@ -26,7 +26,7 @@
     </ng-container>
   </span>
 
-  <span class="thy-tree-node-content {{ node?.treeNodeContentClass?.join(' ') }}">
+  <span class="thy-tree-node-content">
     <input
       *ngIf="thyCheckable"
       type="checkbox"

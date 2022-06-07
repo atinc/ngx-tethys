@@ -24,9 +24,7 @@ export class ThyTreeNode<T = any> {
 
     isDisabled: boolean;
 
-    treeNodeWrapperClass?: string[];
-
-    treeNodeContentClass?: string[];
+    itemClass?: string[];
 
     private readonly service: ThyTreeService;
 
@@ -49,11 +47,8 @@ export class ThyTreeNode<T = any> {
         this.isExpanded = node.expanded || false;
         this.isChecked = node.checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
         this.isLoading = false;
-        if (node.treeNodeWrapperClass) {
-            this.treeNodeWrapperClass = isArray(node.treeNodeWrapperClass) ? node.treeNodeWrapperClass : [node.treeNodeWrapperClass];
-        }
-        if (node.treeNodeContentClass) {
-            this.treeNodeContentClass = isArray(node.treeNodeContentClass) ? node.treeNodeContentClass : [node.treeNodeContentClass];
+        if (node.itemClass) {
+            this.itemClass = isArray(node.itemClass) ? node.itemClass : [node.itemClass];
         }
         if (node.children) {
             node.children.forEach(childNode => {
