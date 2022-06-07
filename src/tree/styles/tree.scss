@@ -1,6 +1,6 @@
 @use './mixin.scss';
 @use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
 
 .thy-tree {
     display: block;
@@ -35,7 +35,7 @@
             .thy-tree-expand {
                 width: 16px;
                 line-height: 16px;
-                color: #cacaca;
+                color: variables.$gray-600;
                 text-align: center;
                 margin-right: 8px;
                 display: inline-block;
@@ -45,7 +45,7 @@
                 }
 
                 &:hover {
-                    color: variables.$gray-600;
+                    color: variables.$gray-700;
                 }
             }
 
