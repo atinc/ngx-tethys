@@ -54,6 +54,21 @@ class CardDividedComponent implements OnInit {
 }
 
 @Component({
+    selector: 'thy-test-card-bordered',
+    template: `
+        <thy-card thyBordered="true">
+            <thy-card-header thyTitle="This is basic test"></thy-card-header>
+            <thy-card-content>This is content</thy-card-content>
+        </thy-card>
+    `
+})
+class CardBorderedComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit(): void {}
+}
+
+@Component({
     selector: 'thy-test-card-header-basic',
     template: `
         <thy-card>
@@ -87,6 +102,7 @@ describe('thy-card', () => {
             declarations: [
                 CardBasicComponent,
                 CardDividedComponent,
+                CardBorderedComponent,
                 CardClearPaddingComponent,
                 CardHeaderSizeComponent,
                 CardContentSizeAndScrollComponent
@@ -146,6 +162,25 @@ describe('thy-card', () => {
             expect(cardDebugElement).toBeTruthy();
             const cardElement: HTMLElement = cardDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card--divided')).toBe(true);
+        });
+    });
+
+    describe('bordered', () => {
+        let fixture: ComponentFixture<CardBorderedComponent>;
+        let cardDebugElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CardBorderedComponent);
+            fixture.detectChanges();
+            cardDebugElement = fixture.debugElement.query(By.directive(ThyCardComponent));
+        });
+
+        it('should get correct bordered thy-card--bordered class', () => {
+            fixture.detectChanges();
+            expect(fixture).toBeTruthy();
+            expect(cardDebugElement).toBeTruthy();
+            const cardElement: HTMLElement = cardDebugElement.nativeElement;
+            expect(cardElement.classList.contains('thy-card--bordered')).toBe(true);
         });
     });
 

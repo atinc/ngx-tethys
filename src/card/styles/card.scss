@@ -130,4 +130,8 @@
             }
         }
     }
+
+    &--bordered {
+        border: 1px solid variables.$card-border-color;
+    }
 }
