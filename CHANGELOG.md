@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.11](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.10...13.1.0-next.11) (2022-06-07)
+
+
+### Bug Fixes
+
+* **segment:** fix ng-package.json for segment module #INFR-3073 ([#1802](https://github.com/atinc/ngx-tethys/issues/1802)) ([ca461b9](https://github.com/atinc/ngx-tethys/commit/ca461b9140e6c9b6d4769fc18ba2dd28306b3c3a)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+
+
+
 # [13.1.0-next.10](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.9...13.1.0-next.10) (2022-06-07)
 
 
