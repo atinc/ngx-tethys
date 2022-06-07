@@ -16,6 +16,12 @@ module.exports = [
                 description: `大小，可选值为：sm、md、lg`
             },
             {
+                name: 'thyBordered',
+                type: 'boolean',
+                default: 'false',
+                description: '是否有边框，边框颜色为#eee'
+            },
+            {
                 name: 'thyHasLeftRightPadding',
                 type: 'boolean',
                 default: 'true',
