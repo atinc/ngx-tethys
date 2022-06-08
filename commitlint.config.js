@@ -44,6 +44,7 @@ module.exports = {
                 'icon',
                 'input',
                 'label',
+                'tag',
                 'layout',
                 'link',
                 'list',

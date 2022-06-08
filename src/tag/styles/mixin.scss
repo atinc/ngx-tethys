@@ -1,0 +1,76 @@
+@use "sass:color";
+@use '../../styles/variables.scss';
+
+@mixin tag-bg-variant($bg-color) {
+    background-color: $bg-color;
+    &.thy-tag-hover {
+        &:focus,
+        &:hover {
+            background-color: color.adjust($bg-color, $lightness: -10%);
+            cursor: pointer;
+        }
+    }
+}
+
+@mixin tag-color-variant($color, $hover-color) {
+    color: $color;
+    &.thy-tag-hover {
+        thy-icon.thy-icon-close,
+        &:focus,
+        &:hover {
+            color: $hover-color;
+            cursor: pointer;
+            thy-icon.thy-icon-close {
+                display: inline-block;
+            }
+        }
+    }
+}
+
+@mixin tag-border-variant($color, $border-color) {
+    color: $color;
+    border-color: $border-color;
+}
+
+@mixin tag-size($size, $height, $padding-x) {
+    @if $size == lg {
+        &-#{$size} {
+            height: $height;
+            padding: {
+                left: $padding-x * 1.5;
+                right: $padding-x * 1.5;
+            }
+            font-size: variables.$font-size-base;
+            .i,
+            .thy-icon {
+                font-size: variables.$font-size-md;
+            }
+        }
+    } @else if $size == md {
+        &-#{$size} {
+            height: $height;
+            font-size: variables.$font-size-base;
+            padding: {
+                left: $padding-x;
+                right: $padding-x;
+            }
+            .i,
+            .thy-icon {
+                font-size: variables.$font-size-base;
+            }
+        }
+    } @else {
+        &-#{$size} {
+            height: $height;
+            font-size: variables.$font-size-sm;
+            padding: {
+                left: $padding-x;
+                right: $padding-x;
+            }
+            .i,
+            .thy-icon {
+                font-size: variables.$font-size-sm;
+            }
+        }
+    }
+}

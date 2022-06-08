@@ -411,6 +411,31 @@ $label-success-bg: $success !default;
 $label-info-bg: $info !default;
 $label-warning-bg: $warning !default;
 $label-danger-bg: $danger !default;
+
+// tag
+$tag-default-color: $gray-700 !default;
+$tag-default-border-color: $gray-200 !default;
+$tag-default-bg: $gray-100 !default;
+$tag-colors: () !default;
+$tag-colors: map.merge(
+    (
+        'primary': $primary,
+        'secondary': $secondary,
+        'info': $info,
+        'success': $success,
+        'warning': $warning,
+        'danger': $danger
+    ),
+    $tag-colors
+);
+$tag-size-heights: () !default;
+$tag-size-heights: (
+    sm: 20px,
+    md: 24px,
+    lg: 28px
+);
+$tag-border-radius: 3px !default;
+
 //avatar
 $avatar-sizes: () !default;
 $avatar-sizes: map.merge(
