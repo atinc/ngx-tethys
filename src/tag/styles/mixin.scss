@@ -4,9 +4,8 @@
 @mixin tag-bg-variant($bg-color) {
     background-color: $bg-color;
     &.thy-tag-hover {
-        &:focus,
         &:hover {
-            background-color: color.adjust($bg-color, $lightness: -10%);
+            background-color: color.adjust($bg-color, $lightness: -5%);
             cursor: pointer;
         }
     }
@@ -16,7 +15,6 @@
     color: $color;
     &.thy-tag-hover {
         thy-icon.thy-icon-close,
-        &:focus,
         &:hover {
             color: $hover-color;
             cursor: pointer;
