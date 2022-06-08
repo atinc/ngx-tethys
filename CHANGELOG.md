@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.14](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.13...13.1.0-next.14) (2022-06-08)
+
+
+### Bug Fixes
+
+* **table:** update table header color to [#333](https://github.com/atinc/ngx-tethys/issues/333) #INFR-3430 ([d1e6e1f](https://github.com/atinc/ngx-tethys/commit/d1e6e1fe00432342233a6714fd131ebc971a62c3)), closes [#INFR-3430](https://github.com/atinc/ngx-tethys/issues/INFR-3430)
+
+
+### Features
+
+* **dropdown:** use thy-divider instead of thy-dropdown-menu-divider,update margin for it in menu #INFR-3429 [#1822](https://github.com/atinc/ngx-tethys/issues/1822) ([#1823](https://github.com/atinc/ngx-tethys/issues/1823)) ([181ec5e](https://github.com/atinc/ngx-tethys/commit/181ec5e784ac85b607a86579d9869b01bc238edf)), closes [#INFR-3429](https://github.com/atinc/ngx-tethys/issues/INFR-3429)
+
+
+
 # [13.1.0-next.13](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.12...13.1.0-next.13) (2022-06-08)
 
 
