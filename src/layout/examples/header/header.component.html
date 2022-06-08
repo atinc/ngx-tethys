@@ -71,19 +71,22 @@
   </thy-layout>
 
   <thy-layout>
-    <thy-header>
+    <thy-header thyDivided="true">
       <ng-template #headerTitle>
         <a class="prefix-icon" thyTooltip="Return Home" thyTooltipPlacement="bottom" href="javascript:;"
           ><thy-icon thyIconName="house-square" thyIconType="fill"></thy-icon
         ></a>
         <thy-icon class="title-separator" thyIconName="angle-right"></thy-icon>
         <a href="javascript:;" class="title-name">Custom header<thy-icon thyIconName="angle-down"></thy-icon></a>
-        <thy-divider thyDeeper="true" thyVertical="true"></thy-divider>
-        <a href="javascrpt:;" thyAction class="text-warning" thyActionIcon="star-fill"></a>
-        <a href="javascrpt:;" thyAction thyActionIcon="info-circle"></a>
+        <thy-divider class="mx-2" thyColor="light" thyVertical="true"></thy-divider>
+        <thy-space thySize="xxs">
+          <a *thySpaceItem href="javascrpt:;" thyAction class="text-warning" thyActionIcon="star-fill"></a>
+          <a *thySpaceItem href="javascrpt:;" thyAction thyActionIcon="info-circle"></a>
+        </thy-space>
+        <thy-divider class="ml-2" thyColor="light" thyVertical="true"></thy-divider>
       </ng-template>
       <ng-template #headerContent>
-        <thy-nav thyType="primary" thyHorizontal="center" thySize="lg">
+        <thy-nav thyType="primary" thySize="lg">
           <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
           <a href="javascript:;" thyNavItem>Link2</a>
         </thy-nav>

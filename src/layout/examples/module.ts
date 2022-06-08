@@ -10,6 +10,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThySpaceModule } from 'ngx-tethys/space';
 
 import { FormsModule } from '@angular/forms';
 
@@ -26,6 +27,7 @@ export default {
         ThyInputModule,
         ThyTooltipModule,
         ThyActionModule,
-        ThyDividerModule
+        ThyDividerModule,
+        ThySpaceModule
     ]
 };
