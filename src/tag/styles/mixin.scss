@@ -49,7 +49,7 @@
     } @else if $size == md {
         &-#{$size} {
             height: $height;
-            font-size: variables.$font-size-base;
+            font-size: variables.$font-size-sm;
             padding: {
                 left: $padding-x;
                 right: $padding-x;
