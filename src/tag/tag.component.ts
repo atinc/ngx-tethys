@@ -61,9 +61,9 @@ export class ThyTagComponent implements OnInit, OnChanges {
     }
 
     /**
-     * 标签主题，fill 为颜色填充，outline 为线框，emboss 为背景色0.1透明度效果
+     * 标签主题，fill 为颜色填充，outline 为线框，weak-fill 为背景色0.1透明度效果
      */
-    @Input() thyTheme: 'outline' | 'fill' | 'emboss' = 'fill';
+    @Input() thyTheme: 'outline' | 'fill' | 'weak-fill' = 'fill';
 
     /**
      * 标签大小
