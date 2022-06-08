@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.12](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.11...13.1.0-next.12) (2022-06-08)
+
+
+### Bug Fixes
+
+* **tree:** 在safari等有些版本的浏览器下，出现横向滚动条 #INFR-3408  ([f912b45](https://github.com/atinc/ngx-tethys/commit/f912b45e3ead45c7b64453c128f1aec1941d774e)), closes [#INFR-3408](https://github.com/atinc/ngx-tethys/issues/INFR-3408)
+
+
+### Features
+
+* #INFR-3394 【Tree】移入展开收起箭头颜色默认为 [#999999](https://github.com/atinc/ngx-tethys/issues/999999) 移入以后改为 [#666666](https://github.com/atinc/ngx-tethys/issues/666666) ([45f759d](https://github.com/atinc/ngx-tethys/commit/45f759d5246975aa3a08077693c2741c1fee6ac9)), closes [#INFR-3394](https://github.com/atinc/ngx-tethys/issues/INFR-3394)
+* **avatar:** update margin-left of avatar-name to 8px #INFR-3416 ([#1815](https://github.com/atinc/ngx-tethys/issues/1815)) ([7330702](https://github.com/atinc/ngx-tethys/commit/7330702a561242dddac231de949ed2f897badb6a)), closes [#INFR-3416](https://github.com/atinc/ngx-tethys/issues/INFR-3416)
+* **card:** card support set thyBordered #INFR-3410 ([5360dc4](https://github.com/atinc/ngx-tethys/commit/5360dc4d2a0cf1e593b983bef8568f7f83387c27)), closes [#INFR-3410](https://github.com/atinc/ngx-tethys/issues/INFR-3410)
+* **card:** change card's border radius to 2px #INFR-3393 ([#1808](https://github.com/atinc/ngx-tethys/issues/1808)) ([002d6ec](https://github.com/atinc/ngx-tethys/commit/002d6ec0311a7e0503978ac137b352e6ef172bce)), closes [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393) [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393) [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393)
+* **layout:** change layout content section margin bottom to 12px #INFR-3405 ([21da8e5](https://github.com/atinc/ngx-tethys/commit/21da8e5571205307a88414bac1117a15522dd74b)), closes [#INFR-3405](https://github.com/atinc/ngx-tethys/issues/INFR-3405)
+* **layout:** change layout content section margin bottom to 8px #INFR-3405 ([7e67c82](https://github.com/atinc/ngx-tethys/commit/7e67c82ba77ba033f097b3b4414708038cf59f04)), closes [#INFR-3405](https://github.com/atinc/ngx-tethys/issues/INFR-3405)
+* **segment:** adjust segment padding for block mode #INFR-3073 ([4f3d0b0](https://github.com/atinc/ngx-tethys/commit/4f3d0b00a453955b29ca11196642fe5f21100e26)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **segment:** remove segment item padding for block mode #INFR-3073 ([af1665b](https://github.com/atinc/ngx-tethys/commit/af1665bafa41997dddb38aa9242af883e4e6584c)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **tag:** add thy-tag component #INFR-3415 [#1813](https://github.com/atinc/ngx-tethys/issues/1813) ([#1814](https://github.com/atinc/ngx-tethys/issues/1814)) ([f658b1d](https://github.com/atinc/ngx-tethys/commit/f658b1d6504a5bd1ea56852f28fe95f1169ce944)), closes [#INFR-3415](https://github.com/atinc/ngx-tethys/issues/INFR-3415)
+* **tree:** ThyTreeNodeData adds itemClass  parameters to expose the ability to inject classnames into different levels of a single node node #INFR-3402 ([563661c](https://github.com/atinc/ngx-tethys/commit/563661c784742391eecaceee06c39b8ce7fee969)), closes [#INFR-3402](https://github.com/atinc/ngx-tethys/issues/INFR-3402) [#INFR-3402](https://github.com/atinc/ngx-tethys/issues/INFR-3402)
+
+
+
 # [13.1.0-next.11](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.10...13.1.0-next.11) (2022-06-07)
 
 
