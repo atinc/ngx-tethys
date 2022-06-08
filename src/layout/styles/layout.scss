@@ -245,8 +245,23 @@
         align-items: center;
         flex: 0 0 auto;
 
+        .title-name {
+            &:not(:last-child) {
+                margin-right: 4px;
+            }
+            .thy-icon {
+                margin-left: 8px;
+                color: variables.$gray-600;
+            }
+        }
+
         a.title-name {
             @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
+            &:hover {
+                .thy-icon {
+                    color: variables.$primary;
+                }
+            }
             &.prefix-icon {
                 &:hover {
                     opacity: variables.$layout-header-icon-link-opacity;
@@ -257,15 +272,6 @@
         .title-separator {
             color: variables.$layout-header-separator-color;
             padding: 4px;
-        }
-
-        .title-name {
-            &:not(:last-child) {
-                margin-right: 4px;
-            }
-            .thy-icon {
-                margin-left: 4px;
-            }
         }
 
         .prefix-icon {
