@@ -9,32 +9,9 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
-import { ThyDropdownIconExampleComponent } from './icon/icon.component';
-import { ThyDropdownTypeExampleComponent } from './type/type.component';
-import { ThyDropdownBasicExampleComponent } from './basic/basic.component';
-import { ThyDropdownGroupExampleComponent } from './group/group.component';
-import { ThyDropdownSplitExampleComponent } from './split/split.component';
-import { ThyDropdownOptionsExampleComponent } from './options/options.component';
-import { ThyDropdownSubmenuExampleComponent } from './submenu/submenu.component';
-import { ThyDropdownTriggerExampleComponent } from './trigger/trigger.component';
-import { ThyDropdownDisabledExampleComponent } from './disabled/disabled.component';
-import { NgModule } from '@angular/core';
+import { ThyDividerModule } from 'ngx-tethys/divider';
 
-const COMPONENTS = [
-    ThyDropdownIconExampleComponent,
-    ThyDropdownTypeExampleComponent,
-    ThyDropdownBasicExampleComponent,
-    ThyDropdownGroupExampleComponent,
-    ThyDropdownSplitExampleComponent,
-    ThyDropdownOptionsExampleComponent,
-    ThyDropdownSubmenuExampleComponent,
-    ThyDropdownTriggerExampleComponent,
-    ThyDropdownDisabledExampleComponent
-];
-
-@NgModule({
-    declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
+export default {
     imports: [
         ThyDropdownModule,
         ThyButtonModule,
@@ -46,8 +23,7 @@ const COMPONENTS = [
         ThySelectModule,
         ThyFormModule,
         FormsModule,
-        ThyInputNumberModule
-    ],
-    exports: COMPONENTS
-})
-export class DropdownExampleModule {}
+        ThyInputNumberModule,
+        ThyDividerModule
+    ]
+};

@@ -163,6 +163,13 @@
         }
     }
 
+    // 配合 thy-divider 组件使用，修改间距
+    .thy-divider {
+        &.thy-divider-horizontal {
+            margin: variables.$dropdown-menu-divider-margin-y variables.$dropdown-menu-divider-margin-x;
+        }
+    }
+
     &--group {
         width: variables.$dropdown-menu-group-width;
         .dropdown-menu-item {
