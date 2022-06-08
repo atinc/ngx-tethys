@@ -6,6 +6,7 @@
     display: block;
     width: variables.$action-menu-width;
     background: variables.$action-menu-bg;
+    border-radius: variables.$border-radius;
 
     .action-menu-group {
         &-title {
