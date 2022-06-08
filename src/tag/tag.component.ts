@@ -14,7 +14,7 @@ import { helpers, hexToRgb } from 'ngx-tethys/util';
 
 export type ThyTagColor = ThyThemeColor | string;
 
-export type ThyTagShape = 'pill' | 'square';
+export type ThyTagShape = 'pill' | 'rectangle';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg' | 'xs';
 
@@ -41,13 +41,15 @@ export class ThyTagComponent implements OnInit, OnChanges {
      */
     @Input()
     set thyTag(value: ThyTagColor) {
-        this.color = value;
+        if (value) {
+            this.color = value;
+        }
     }
 
     /**
-     * 标签形状，可选值为 `pill` 或 `square`
+     * 标签形状，可选值为 `pill` 或 `rectangle`
      */
-    @Input() thyShape: ThyTagShape = 'square';
+    @Input() thyShape: ThyTagShape = 'rectangle';
 
     /**
      * 标签颜色，支持设置主题色和颜色值，主题色为 default、primary、success、info、warning、danger
