@@ -1,4 +1,14 @@
-import { Component, Input, TemplateRef, ViewEncapsulation, OnChanges, SimpleChanges, ElementRef, OnInit } from '@angular/core';
+import {
+    Component,
+    Input,
+    TemplateRef,
+    ViewEncapsulation,
+    OnChanges,
+    SimpleChanges,
+    ElementRef,
+    OnInit,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
@@ -34,7 +44,8 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-dashed]': `thyStyle === 'dashed'`,
         '[class.thy-divider-deeper]': `!!thyDeeper`
     },
-    providers: [UpdateHostClassService]
+    providers: [UpdateHostClassService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyDividerComponent implements OnChanges, OnInit {
     templateContent: TemplateRef<HTMLElement>;
