@@ -1,0 +1,82 @@
+@use "../../styles/variables.scss";
+@use "../../styles/mixins/link.scss";
+@use "./mixin";
+@use "sass:map";
+
+.#{variables.$thy-prefix}-tag {
+    font-weight: normal;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: variables.$font-size-sm;
+    border-radius: variables.$tag-border-radius;
+    color: variables.$white;
+    border: 1px solid transparent;
+    padding: {
+        left: 8px;
+        right: 8px;
+    }
+    a {
+        // color: inherit;
+        // &:hover {
+        //     text-decoration: none;
+        //     color: inherit;
+        // }
+        @include link.link-variant(inherit, none, inherit, none);
+    }
+
+    thy-icon,
+    i {
+        // cursor: pointer;
+        font-size: variables.$font-size-sm;
+    }
+    .thy-icon:first-child {
+        margin-right: 4px;
+    }
+
+    &.thy-tag-pill {
+        font-size: variables.$font-size-sm;
+        border-radius: variables.$label-pill-radius;
+    }
+
+    /**** size ****/
+    @each $size, $height in variables.$tag-size-heights {
+        @include mixin.tag-size($size, $height, 8px);
+    }
+
+    /**** colors ****/
+    @each $color, $value in variables.$tag-colors {
+        &-#{$color} {
+            @include mixin.tag-bg-variant($value);
+            @include mixin.tag-color-variant(variables.$white, variables.$white);
+        }
+        &-emboss-#{$color} {
+            @include mixin.tag-bg-variant(rgba($value, 0.1));
+            @include mixin.tag-color-variant($value, $value);
+        }
+        &-outline-#{$color} {
+            @include mixin.tag-border-variant($value, $value);
+        }
+    }
+
+    /**** label type ****/
+    &-default {
+        @include mixin.tag-bg-variant(variables.$tag-default-bg);
+        @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
+    }
+
+    &-emboss-default {
+        @include mixin.tag-bg-variant(rgba(variables.$tag-default-color, 0.1));
+        @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
+    }
+
+    &-outline-default {
+        @include mixin.tag-border-variant(variables.$tag-default-color, variables.$tag-default-border-color);
+    }
+
+    &-outline {
+        border-width: 1px;
+        border-style: solid;
+        background: transparent;
+    }
+}

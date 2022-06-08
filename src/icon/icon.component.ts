@@ -23,7 +23,7 @@ const iconSuffixMap = {
 };
 
 @Component({
-    selector: 'thy-icon',
+    selector: 'thy-icon, [thy-icon]',
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
