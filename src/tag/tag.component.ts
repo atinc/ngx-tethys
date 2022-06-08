@@ -9,7 +9,7 @@ import {
     ChangeDetectionStrategy,
     SimpleChanges
 } from '@angular/core';
-import { isThemeColor, ThyThemeColor, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, isThemeColor, ThyThemeColor, UpdateHostClassService } from 'ngx-tethys/core';
 import { helpers, hexToRgb } from 'ngx-tethys/util';
 
 export type ThyTagColor = ThyThemeColor | string;
@@ -26,6 +26,7 @@ export type ThyTagSize = 'sm' | 'md' | 'lg' | 'xs';
         class: 'thy-tag',
         '[class.thy-tag-pill]': 'thyShape === "pill"',
         '[class.thy-tag-outline]': 'thyTheme === "outline"',
+        '[class.thy-tag-hover]': 'thyHoverable',
         '[class.thy-tag-md]': 'thySize === "md"',
         '[class.thy-tag-sm]': 'thySize === "sm"',
         '[class.thy-tag-xs]': 'thySize === "xs"',
@@ -68,6 +69,13 @@ export class ThyTagComponent implements OnInit, OnChanges {
      * 标签大小
      */
     @Input() thySize: ThyTagSize = 'md';
+
+    /**
+     * 可 Hover 悬停的标签，设置为 true 时会有一个 Hover 效果
+     */
+    @Input()
+    @InputBoolean()
+    thyHoverable: boolean | string;
 
     constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         this.updateHostClassService.initializeElement(this.elementRef);

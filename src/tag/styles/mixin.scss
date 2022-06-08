@@ -3,7 +3,7 @@
 
 @mixin tag-bg-variant($bg-color) {
     background-color: $bg-color;
-    &.tag-has-hover {
+    &.thy-tag-hover {
         &:focus,
         &:hover {
             background-color: color.adjust($bg-color, $lightness: -10%);
@@ -14,7 +14,7 @@
 
 @mixin tag-color-variant($color, $hover-color) {
     color: $color;
-    &.tag-has-hover {
+    &.thy-tag-hover {
         thy-icon.thy-icon-close,
         &:focus,
         &:hover {
@@ -56,7 +56,7 @@
             }
             .i,
             .thy-icon {
-                font-size: variables.$font-size-md;
+                font-size: variables.$font-size-base;
             }
         }
     } @else {
@@ -66,6 +66,10 @@
             padding: {
                 left: $padding-x;
                 right: $padding-x;
+            }
+            .i,
+            .thy-icon {
+                font-size: variables.$font-size-sm;
             }
         }
     }

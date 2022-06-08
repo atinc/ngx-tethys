@@ -61,3 +61,6 @@ import { ThyTagModule } from "ngx-tethys/tag";
 ## 自定义颜色
 <example name="thy-tag-custom-example" />
 
+## 可移入的标签
+<example name="thy-tag-hoverable-example" />
+

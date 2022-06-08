@@ -20,11 +20,6 @@
         @include link.link-variant(inherit, none, inherit, none);
     }
 
-    thy-icon,
-    i {
-        // cursor: pointer;
-        font-size: variables.$font-size-base;
-    }
     .thy-icon:first-child {
         margin-right: 4px;
     }
@@ -60,7 +55,7 @@
     }
 
     &-emboss-default {
-        @include mixin.tag-bg-variant(rgba(variables.$tag-default-color, 0.1));
+        @include mixin.tag-bg-variant(variables.$tag-default-bg);
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
 
