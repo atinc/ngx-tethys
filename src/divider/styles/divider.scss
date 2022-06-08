@@ -29,8 +29,6 @@
     &.thy-divider-horizontal {
         display: flex;
         clear: both;
-        width: 100%;
-        min-width: 100%;
         margin: variables.$divider-spacing 0;
         &.thy-divider-with-content {
             display: flex;
