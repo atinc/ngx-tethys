@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.13](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.12...13.1.0-next.13) (2022-06-08)
+
+
+### Bug Fixes
+
+* **menu:** delete menu padding and transform #INFR-3389 ([ac160e7](https://github.com/atinc/ngx-tethys/commit/ac160e73aca0a228e19b230a670835198051fff7)), closes [#INFR-3389](https://github.com/atinc/ngx-tethys/issues/INFR-3389)
+* **tag:** remove focus style and update lightness to -5% for hover ([ebb4674](https://github.com/atinc/ngx-tethys/commit/ebb4674a76994cc3936e3f553a7c3ffed4a6d506))
+
+
+### Features
+
+* **dropdown:** add border-radius of popover menu to 4px(#INFR-3384) ([#1818](https://github.com/atinc/ngx-tethys/issues/1818)) ([ab1341e](https://github.com/atinc/ngx-tethys/commit/ab1341e19a40b1f8e53b15aba88ada1f8477b53e)), closes [#INFR-3384](https://github.com/atinc/ngx-tethys/issues/INFR-3384)
+
+
+
 # [13.1.0-next.12](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.11...13.1.0-next.12) (2022-06-08)
 
 
