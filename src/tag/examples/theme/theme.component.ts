@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./theme.component.scss']
 })
 export class ThyTagThemeExampleComponent implements OnInit {
-    themes = ['fill', 'outline', 'emboss'];
+    themes = ['fill', 'outline', 'weak-fill'];
 
     theme = 'fill';
 

@@ -40,7 +40,7 @@ import { ThyTagModule } from "ngx-tethys/tag";
 标签有三种主题，分别为：
 - `fill`: 背景色填充，文字颜色为白色或者灰色
 - `outline`: 带边框颜色，文字颜色和边框同色
-- `emboss`: 背景色为文字颜色的透明度 0.1
+- `weak-fill`: 背景色为文字颜色的透明度 0.1
 
 <example name="thy-tag-theme-example"/>
 

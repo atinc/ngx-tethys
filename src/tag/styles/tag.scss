@@ -39,7 +39,7 @@
             @include mixin.tag-bg-variant($value);
             @include mixin.tag-color-variant(variables.$white, variables.$white);
         }
-        &-emboss-#{$color} {
+        &-weak-fill-#{$color} {
             @include mixin.tag-bg-variant(rgba($value, 0.1));
             @include mixin.tag-color-variant($value, $value);
         }
@@ -54,7 +54,7 @@
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
 
-    &-emboss-default {
+    &-weak-fill-default {
         @include mixin.tag-bg-variant(variables.$tag-default-bg);
         @include mixin.tag-color-variant(variables.$tag-default-color, variables.$tag-default-color);
     }
