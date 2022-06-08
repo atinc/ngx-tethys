@@ -17,25 +17,19 @@
         right: 8px;
     }
     a {
-        // color: inherit;
-        // &:hover {
-        //     text-decoration: none;
-        //     color: inherit;
-        // }
         @include link.link-variant(inherit, none, inherit, none);
     }
 
     thy-icon,
     i {
         // cursor: pointer;
-        font-size: variables.$font-size-sm;
+        font-size: variables.$font-size-base;
     }
     .thy-icon:first-child {
         margin-right: 4px;
     }
 
     &.thy-tag-pill {
-        font-size: variables.$font-size-sm;
         border-radius: variables.$label-pill-radius;
     }
 

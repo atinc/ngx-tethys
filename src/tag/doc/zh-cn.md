@@ -34,7 +34,7 @@ import { ThyTagModule } from "ngx-tethys/tag";
 
 展示效果：
 
-<example name="thy-tag-basic-example" inline/>
+<example name="thy-tag-basic-example"/>
 
 ## 主题
 标签有三种主题，分别为：
@@ -42,23 +42,22 @@ import { ThyTagModule } from "ngx-tethys/tag";
 - `outline`: 带边框颜色，文字颜色和边框同色
 - `emboss`: 背景色为文字颜色的透明度 0.1
 
-<example name="thy-tag-theme-example" inline/>
+<example name="thy-tag-theme-example"/>
 
 ## 形状
 
-<example name="thy-tag-shape-example" inline/>
+<example name="thy-tag-shape-example" />
 
 ## 图标
-<example name="thy-icon-shape-example" inline/>
+<example name="thy-tag-icon-example" />
 
 ## 大小
-大小有
 - `sm`: 高度 20px
 - `md`: 高度 24px（默认大小）
 - `lg`: 高度 28px
 
-<example name="thy-tag-size-example" inline/>
+<example name="thy-tag-size-example" />
 
 ## 自定义颜色
-<example name="thy-icon-custom-example" inline/>
+<example name="thy-tag-custom-example" />
 

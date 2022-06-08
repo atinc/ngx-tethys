@@ -47,15 +47,17 @@
             }
         }
     } @else if $size == md {
-        height: $height;
-        font-size: variables.$font-size-base;
-        .i,
-        .thy-icon {
-            font-size: variables.$font-size-md;
-        }
-        padding: {
-            left: $padding-x;
-            right: $padding-x;
+        &-#{$size} {
+            height: $height;
+            font-size: variables.$font-size-base;
+            padding: {
+                left: $padding-x;
+                right: $padding-x;
+            }
+            .i,
+            .thy-icon {
+                font-size: variables.$font-size-md;
+            }
         }
     } @else {
         &-#{$size} {
