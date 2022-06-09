@@ -27,7 +27,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     menu!: ThyDropdownMenu;
 
     /**
-     * Dropdown 下拉菜单组件
+     * Dropdown 下拉菜单，支持 thy-dropdown-menu 组件、TemplateRef 和自定义菜单组件
      */
     @Input() set thyDropdownMenu(menu: ThyDropdownMenu) {
         this.menu = menu;
