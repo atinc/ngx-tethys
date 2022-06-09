@@ -59,7 +59,7 @@
             display: flex;
             height: variables.$menu-height;
             align-items: center;
-            font-size: variables.$font-size-base;
+            font-size: variables.$font-size-sm;
             margin: 0 -1000px;
             padding: variables.$menu-group-header-padding;
             &.thy-menu-group-collapsible {
