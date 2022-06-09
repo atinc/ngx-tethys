@@ -11,7 +11,7 @@
 
     thy-icon {
         display: inline-block;
-        margin-right: 6px;
+        margin-right: variables.$icon-text-horizontal-space;
         width: 20px;
         font-size: 20px;
         svg {
