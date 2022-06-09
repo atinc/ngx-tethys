@@ -284,9 +284,9 @@
             }
         }
 
-        // 图标后面跟标题，标题加 5px 的间距，保证最终是10px间距
+        // 图标后面跟标题，标题加 8px 的间距
         .prefix-icon + .title-name {
-            margin-left: 4px;
+            margin-left: 8px;
         }
 
         // 分割线后面跟的是标题加 4px 的间距，保证最终是8px间距
