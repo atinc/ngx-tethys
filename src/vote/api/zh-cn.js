@@ -12,13 +12,13 @@ module.exports = [
             },
             {
                 name: 'thyLayout',
-                description: '标签类型（horizontal、vertical)',
+                description: '标签布局类型（horizontal、vertical)',
                 type: 'thyLayout',
                 default: 'horizontal'
             },
             {
                 name: 'thySize',
-                description: 'thyLayout="vertical"支持"sm"和"default"',
+                description: 'thyLayout="vertical"支持"sm"、"md"、"lg"和"default"。出于兼容考虑，"lg"与"default"大小相同。',
                 type: 'string',
                 default: 'default'
             },

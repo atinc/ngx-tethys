@@ -3,38 +3,47 @@
 @mixin vote-color-variant($color) {
     background: rgba($color, 0.1);
     color: $color;
+
     &:hover {
         background: rgba($color, 0.2);
         color: $color;
     }
+
     &.has-voted {
         background: $color;
         color: variables.$white;
     }
 }
+
 @mixin vote-color-variant-weak($color) {
     background-color: variables.$gray-100;
     color: variables.$gray-600;
+
     &:hover {
         background: rgba($color, 0.2);
         color: $color;
     }
+
     &.has-voted {
         background: rgba($color, 0.1);
         color: $color;
+
         &:hover {
             background: rgba($color, 0.2);
             color: $color;
         }
     }
 }
+
 @mixin vote-variant($padding, $fontSize, $iconSize) {
     padding: $padding;
     line-height: $fontSize;
     font-size: $fontSize;
+
     .thy-icon {
         font-size: $iconSize;
     }
+
     img {
         width: $iconSize;
         height: $iconSize;
@@ -45,18 +54,22 @@
     display: inline-flex;
     border-radius: 4px;
     cursor: pointer;
+
     .thy-icon,
     img {
         display: block;
     }
 }
+
 .thy-vote-vertical {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
+
     .thy-icon {
         margin-bottom: variables.$vote-layout-vertical-icon-margin-bottom;
     }
+
     img {
         margin-bottom: variables.$vote-layout-vertical-icon-margin-bottom;
     }
@@ -67,7 +80,13 @@
     @include vote-variant(variables.$vote-layout-vertical-padding-sm, variables.$font-size-xs, variables.$font-size-sm);
 }
 
-.thy-vote-vertical-size-default {
+.thy-vote-vertical-size-md {
+    width: variables.$vote-layout-vertical-md;
+    @include vote-variant(variables.$vote-layout-vertical-padding-md, variables.$font-size-xs, variables.$font-size-sm);
+}
+
+.thy-vote-vertical-size-default,
+.thy-vote-vertical-size-lg {
     width: variables.$vote-layout-vertical-default;
     @include vote-variant(variables.$vote-layout-vertical-padding-default, variables.$font-size-base, variables.$font-size-md);
 }
@@ -75,9 +94,11 @@
 .thy-vote-horizontal {
     align-items: center;
     justify-content: space-between;
+
     .thy-icon {
         margin-right: variables.$vote-layout-horizontal-icon-margin-right;
     }
+
     img {
         margin-right: variables.$vote-layout-horizontal-icon-margin-right;
     }
@@ -87,7 +108,12 @@
     @include vote-variant(variables.$vote-layout-horizontal-padding, variables.$font-size-sm, variables.$font-size-sm);
 }
 
-.thy-vote-horizontal-size-default {
+.thy-vote-horizontal-size-md {
+    @include vote-variant(variables.$vote-layout-horizontal-padding, variables.$font-size-sm, variables.$font-size-sm);
+}
+
+.thy-vote-horizontal-size-default,
+.thy-vote-horizontal-size-lg {
     @include vote-variant(variables.$vote-layout-horizontal-padding, variables.$font-size-base, variables.$font-size-md);
 }
 

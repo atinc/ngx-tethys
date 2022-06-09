@@ -27,6 +27,15 @@
     (click)="toggleVote($event)"
   ></span>
   <span
+    class="mr-3"
+    [thyVote]="'success'"
+    [thyLayout]="'vertical'"
+    [thyVoteCount]="vote_count"
+    [thySize]="'md'"
+    [thyHasVoted]="has_voted"
+    (click)="toggleVote($event)"
+  ></span>
+  <span
     [thyVote]="'success'"
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"

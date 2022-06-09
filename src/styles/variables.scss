@@ -773,9 +773,13 @@ $thy-list-item-meta-title-font-size: 18px !default;
 $thy-list-item-meta-description-margin-top: 10px !default;
 
 // vote
-$vote-layout-vertical-sm: 36px;
+$vote-layout-vertical-sm: 32px;
+$vote-layout-vertical-md: 36px;
+$vote-layout-vertical-lg: 48px;
 $vote-layout-vertical-default: 48px;
-$vote-layout-vertical-padding-sm: 5px;
+$vote-layout-vertical-padding-sm: 3px;
+$vote-layout-vertical-padding-md: 5px;
+$vote-layout-vertical-padding-lg: 7px;
 $vote-layout-vertical-padding-default: 7px;
 $vote-layout-vertical-icon-margin-bottom: 4px;
 $vote-layout-horizontal-padding: 4px 7px;
