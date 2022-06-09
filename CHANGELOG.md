@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.16](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.15...13.1.0-next.16) (2022-06-09)
+
+
+### Features
+
+* **styles:** update margin-left of prefix-icon title-name to 8px and menu-group-header font-size to 12px #INFR-3443 ([18a7be3](https://github.com/atinc/ngx-tethys/commit/18a7be3b0e5ea7d435b319f7ae35cdbf3d2434e8)), closes [#INFR-3443](https://github.com/atinc/ngx-tethys/issues/INFR-3443)
+
+
+
 # [13.1.0-next.15](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.14...13.1.0-next.15) (2022-06-09)
 
 
