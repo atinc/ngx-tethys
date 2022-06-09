@@ -46,6 +46,15 @@
     [thyLayout]="'vertical'"
     [thyVoteCount]="vote_count"
     [thyHasVoted]="has_voted"
+    thySize="md"
+    (click)="toggleVote($event)"
+  ></span>
+  <span
+    class="mr-3"
+    [thyVote]="'success-weak'"
+    [thyLayout]="'vertical'"
+    [thyVoteCount]="vote_count"
+    [thyHasVoted]="has_voted"
     (click)="toggleVote($event)"
   ></span>
 </div>

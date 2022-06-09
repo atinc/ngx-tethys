@@ -1,9 +1,8 @@
+import { Component, ContentChild, ElementRef, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { Component, ContentChild, ElementRef, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
-
-export type ThyVoteSizes = 'default' | 'sm';
+export type ThyVoteSizes = 'default' | 'lg' | 'md' | 'sm';
 
 export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak';
 

@@ -1,7 +1,6 @@
 import { Component, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
 import { ThyVoteComponent } from '../vote.component';
 import { ThyVoteModule } from '../vote.module';
 
@@ -48,7 +47,7 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-success-weak')).toBe(true);
     });
 
-    it('should have thy-vote-vertical and hy-vote-vertical-size-sm when thyLayout is vertical', () => {
+    it('should have thy-vote-vertical and thy-vote-vertical-size-default when thyLayout is vertical', () => {
         basicTestComponent.layout = `vertical`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
@@ -57,13 +56,33 @@ describe('ThyVote', () => {
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 
-    it('should have thy-vote-vertical and thy-vote-vertical-size-sm when thySize is md', () => {
+    it('should have thy-vote-vertical and thy-vote-vertical-size-sm when thySize is sm', () => {
         basicTestComponent.layout = `vertical`;
         basicTestComponent.size = `sm`;
         fixture.detectChanges();
         expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-sm')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
+    });
+
+    it('should have thy-vote-vertical and thy-vote-vertical-size-md when thySize is md', () => {
+        basicTestComponent.layout = `vertical`;
+        basicTestComponent.size = `md`;
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-md')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
+    });
+
+    it('should have thy-vote-vertical and thy-vote-vertical-size-lg when thySize is lg', () => {
+        basicTestComponent.layout = `vertical`;
+        basicTestComponent.size = `lg`;
+        fixture.detectChanges();
+        expect(voteComponent.nativeElement.classList.contains('thy-vote')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical')).toBe(true);
+        expect(voteComponent.nativeElement.classList.contains('thy-vote-vertical-size-lg')).toBe(true);
         expect(voteComponent.nativeElement.classList.contains('thy-vote-horizontal')).toBe(false);
     });
 
