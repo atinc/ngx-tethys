@@ -1,24 +1,18 @@
-import {
-    Directive,
-    HostBinding,
-    ElementRef,
-    OnInit,
-    ChangeDetectionStrategy,
-    Input,
-    Renderer2,
-    NgZone,
-    ViewContainerRef
-} from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef, THY_POPOVER_DEFAULT_CONFIG_VALUE } from 'ngx-tethys/popover';
-import { ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
-import { OverlayRef } from '@angular/cdk/overlay';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
+import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { SafeAny } from 'ngx-tethys/types';
+import { isClass, isTemplateRef } from 'ngx-tethys/util';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
 export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
+
+type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | ComponentType<SafeAny>;
 
 /**
  * thyDropdown 触发下拉菜单指令
@@ -30,19 +24,19 @@ export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
     }
 })
 export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
-    menu!: ThyDropdownMenuComponent;
+    menu!: ThyDropdownMenu;
 
     /**
      * Dropdown 下拉菜单组件
      */
-    @Input() set thyDropdownMenu(menu: ThyDropdownMenuComponent) {
+    @Input() set thyDropdownMenu(menu: ThyDropdownMenu) {
         this.menu = menu;
     }
 
     /**
      * Dropdown 下拉菜单组件，和 thyDropdownMenu 参与相同，快捷传下拉菜单组件参数
      */
-    @Input() set thyDropdown(menu: ThyDropdownMenuComponent) {
+    @Input() set thyDropdown(menu: ThyDropdownMenu) {
         this.menu = menu;
     }
 
@@ -85,8 +79,14 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     createOverlay(): OverlayRef {
+        let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
+        if (this.menu && this.menu instanceof ThyDropdownMenuComponent) {
+            componentTypeOrTemplateRef = this.menu.templateRef;
+        } else if (isClass(this.menu) || isTemplateRef(this.menu)) {
+            componentTypeOrTemplateRef = this.menu as ComponentTypeOrTemplateRef<SafeAny>;
+        }
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
+            if (!componentTypeOrTemplateRef) {
                 throw new Error(`thyDropdownMenu is required`);
             }
         }
@@ -108,7 +108,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             minWidth,
             originActiveClass: this.thyActiveClass
         };
-        this.popoverRef = this.popover.open(this.menu.templateRef, config);
+        this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
 
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
