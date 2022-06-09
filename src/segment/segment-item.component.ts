@@ -67,7 +67,7 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
             fromEvent(elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: Event) => {
-                    if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem !== this) {
+                    if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem && this.parent.selectedItem !== this) {
                         ngZone.run(() => {
                             this.parent.selectedItem.unselect();
                             this.parent.changeSelectedItem(event, this);
