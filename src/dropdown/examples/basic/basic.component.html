@@ -1,5 +1,6 @@
 <button thyButton="primary" [thyDropdown]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
-<a class="ml-3" [thyDropdown]="menu" href="javascript:;">Click me</a>
+<a class="ml-3" thyAction thyActionIcon="plus" thyActiveClass="active" [thyDropdown]="menu" href="javascript:;"></a>
+<a class="ml-3 link-major" [thyDropdown]="menu" href="javascript:;">Click me</a>
 
 <thy-dropdown-menu #menu>
   <a thyDropdownMenuItem href="javascript:;">

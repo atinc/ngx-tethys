@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentTypeOrTemplateRef, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyDropdownMenuComponent } from '../dropdown-menu.component';
+import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownSubmenuDirection } from '../dropdown-submenu.component';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
@@ -569,6 +569,74 @@ describe('dropdown submenu', () => {
         dropdown.hide();
         tick();
         flush();
+    }));
+});
+
+@Component({
+    selector: 'thy-dropdown-custom-menu',
+    template: `
+        <a thyDropdownMenuItem href="javascript:;">
+            <span>Custom Menu Item1</span>
+        </a>
+        <a thyDropdownMenuItem href="javascript:;">
+            <span>Custom Menu Item2</span>
+        </a>
+    `
+})
+class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
+
+@Component({
+    selector: 'thy-dropdown-component-test',
+    template: `
+        <button [thyDropdown]="menu" thyButton="primary">Dropdown</button>
+    `
+})
+class DropdownComponentTestComponent {
+    menu = DropdownCustomMenuComponent;
+}
+
+describe('dropdown-component', () => {
+    let fixture: ComponentFixture<DropdownComponentTestComponent>;
+    let btnElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let dropdownElement: HTMLElement;
+    let dropdown: ThyDropdownDirective;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
+            declarations: [DropdownComponentTestComponent, DropdownCustomMenuComponent]
+        }).compileComponents();
+        fixture = TestBed.createComponent(DropdownComponentTestComponent);
+        fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+        const btnDebugElement = fixture.debugElement.query(By.css('button'));
+        btnElement = btnDebugElement.nativeElement;
+        const dropdownDebugElement = fixture.debugElement.query(By.directive(ThyDropdownDirective));
+        dropdownElement = dropdownDebugElement.nativeElement;
+        dropdown = dropdownDebugElement.injector.get(ThyDropdownDirective);
+    });
+
+    beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    it('should open component menu', fakeAsync(() => {
+        dropdownElement.click();
+        tick(200);
+        fixture.detectChanges();
+        const customMenu = overlayContainerElement.querySelector('thy-dropdown-custom-menu');
+        expect(customMenu).toBeTruthy();
+        expect(customMenu.classList.contains('thy-dropdown-menu')).toBeTruthy();
+        expect(customMenu.textContent).toContain('Custom Menu Item1');
+        expect(customMenu.textContent).toContain('Custom Menu Item2');
     }));
 });
 

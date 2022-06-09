@@ -125,6 +125,10 @@ export function isBoolean(value: any): value is boolean {
     return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
+export function isClass(value: any): value is Function {
+    return isFunction(value) && /^\s*class\s+/.test(value.toString());
+}
+
 export function htmlElementIsEmpty(element: HTMLElement) {
     if (element && element.childNodes) {
         const nodes = element.childNodes;

@@ -14,6 +14,11 @@ import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
+@Directive()
+export class ThyDropdownAbstractMenu {
+    @HostBinding('class.thy-dropdown-menu') addDropdownMenuClass = true;
+}
+
 /**
  * 下拉菜单组件
  */
