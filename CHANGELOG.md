@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.15](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.14...13.1.0-next.15) (2022-06-09)
+
+
+### Bug Fixes
+
+* **dropdown:** update isClass to isFunction for menu component ([c2ca9b2](https://github.com/atinc/ngx-tethys/commit/c2ca9b2ab5e10934305e610571f6167cf2a5f578))
+
+
+### Features
+
+* **dropdown:** support templateRef and ComponentType for thyDropdown and thyDropdownMenu #INFR-3434 [#1827](https://github.com/atinc/ngx-tethys/issues/1827) ([#1830](https://github.com/atinc/ngx-tethys/issues/1830)) ([f7f6b3f](https://github.com/atinc/ngx-tethys/commit/f7f6b3f93a5a1043bfef1506b395ee5e5419d9c2)), closes [#INFR-3434](https://github.com/atinc/ngx-tethys/issues/INFR-3434)
+* **layout:** update color of thy-icon in title-name to $gray-600 ([df7f886](https://github.com/atinc/ngx-tethys/commit/df7f88637ce04143ca44d614ab7eb0d65108abe1))
+* **styles:** adjust icon-text margin to 8px #INFR-3435 ([ea49836](https://github.com/atinc/ngx-tethys/commit/ea498369c4d5cfb9a1df9ca120ee158af2f20a51)), closes [#INFR-3435](https://github.com/atinc/ngx-tethys/issues/INFR-3435)
+
+
+
 # [13.1.0-next.14](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.13...13.1.0-next.14) (2022-06-08)
 
 
