@@ -6,7 +6,7 @@ import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SafeAny } from 'ngx-tethys/types';
-import { isClass, isTemplateRef } from 'ngx-tethys/util';
+import { isFunction, isTemplateRef } from 'ngx-tethys/util';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
@@ -82,7 +82,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
         if (this.menu && this.menu instanceof ThyDropdownMenuComponent) {
             componentTypeOrTemplateRef = this.menu.templateRef;
-        } else if (isClass(this.menu) || isTemplateRef(this.menu)) {
+        } else if (isFunction(this.menu) || isTemplateRef(this.menu)) {
             componentTypeOrTemplateRef = this.menu as ComponentTypeOrTemplateRef<SafeAny>;
         }
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
