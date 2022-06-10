@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.17](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.16...13.1.0-next.17) (2022-06-10)
+
+
+### Bug Fixes
+
+* **segment:** fix quickly click the same item twice bug #INFR-3444 ([6516b4b](https://github.com/atinc/ngx-tethys/commit/6516b4beb3471804efc01cd9c1ae7cbf1998dd7e)), closes [#INFR-3444](https://github.com/atinc/ngx-tethys/issues/INFR-3444)
+
+
+### Features
+
+* **card:** update card size #INFR-3455 ([d16f11f](https://github.com/atinc/ngx-tethys/commit/d16f11f9f7d1d0610b7ae26a4a46db73de3c4fe2)), closes [#INFR-3455](https://github.com/atinc/ngx-tethys/issues/INFR-3455)
+
+
+
 # [13.1.0-next.16](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.15...13.1.0-next.16) (2022-06-09)
 
 
