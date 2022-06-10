@@ -23,7 +23,7 @@
         .card-header-title {
             color: variables.$card-title-color;
             font-size: variables.$card-title-font-size;
-            line-height: 16px;
+            line-height: variables.$card-title-line-height;
         }
 
         .card-header-description {
