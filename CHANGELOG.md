@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.15](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.17...13.1.0-next.15) (2022-06-10)
+
+
+### Bug Fixes
+
+* **table:** set px-1 to sort icon #INFR-3459 ([d7fe3a2](https://github.com/atinc/ngx-tethys/commit/d7fe3a265620a8aba7f742caabb7ebfd5668f2ca)), closes [#INFR-3459](https://github.com/atinc/ngx-tethys/issues/INFR-3459)
+
+
+
 # [13.1.0-next.17](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.16...13.1.0-next.17) (2022-06-10)
 
 
