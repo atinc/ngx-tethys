@@ -20,12 +20,14 @@
         &:last-child {
             color: variables.$breadcrumb-active-color;
             a {
-                color: variables.$breadcrumb-active-color;
+                @include link.link-variant(variables.$breadcrumb-active-color, none, variables.$primary, none);
             }
+            .separator-icon,
             .default-icon {
                 display: none;
             }
         }
+        .separator-icon,
         .default-icon {
             margin-left: 8px;
             color: variables.$breadcrumb-separator-color;
@@ -33,14 +35,13 @@
         }
     }
 
-    &.separator-slash,
-    &.separator-backslash {
+    &.thy-breadcrumb-separator {
         .thy-breadcrumb-item {
+            .separator-icon,
             .default-icon {
                 display: none;
             }
             &::after {
-                content: '/';
                 font: normal normal normal 14px/1 wtf;
                 margin-left: 8px;
                 color: variables.$breadcrumb-separator-color;
@@ -53,10 +54,26 @@
         }
     }
 
-    &.separator-backslash {
+    &.thy-breadcrumb-separator-slash {
+        .thy-breadcrumb-item {
+            &::after {
+                content: '/';
+            }
+        }
+    }
+
+    &.thy-breadcrumb-separator-backslash {
         .thy-breadcrumb-item {
             &::after {
                 content: '\\';
+            }
+        }
+    }
+
+    &.thy-breadcrumb-separator-vertical-line {
+        .thy-breadcrumb-item {
+            &::after {
+                content: '|';
             }
         }
     }

@@ -30,19 +30,25 @@ import { ThyBreadcrumbModule } from 'ngx-tethys/breadcrumb';
 最基本的使用如下：
 
 ```html
-<thy-breadcrumb thyIcon="house">
-  <thy-breadcrumb-item><span>首页</span></thy-breadcrumb-item>
+<thy-breadcrumb>
+  <thy-breadcrumb-item><span>Home</span></thy-breadcrumb-item>
   <thy-breadcrumb-item>
-    <a href="javascript:;">产品研发部</a>
+    <a href="javascript:;">Applications</a>
   </thy-breadcrumb-item>
   <thy-breadcrumb-item>
-    <a href="javascript:;">架构</a>
-  </thy-breadcrumb-item>
-  <thy-breadcrumb-item>
-    <a href="javascript:;">基础 <thy-icon thyIconName="angle-down"></thy-icon></a>
+    Application 1
   </thy-breadcrumb-item>
 </thy-breadcrumb>
 ```
 
 展示效果如下：
 <example name="thy-breadcrumb-basic-example"></example>
+
+## 带图标的
+
+<example name="thy-breadcrumb-icon-example"></example>
+
+
+## 分割线
+
+<example name="thy-breadcrumb-separator-example"></example>

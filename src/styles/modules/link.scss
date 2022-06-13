@@ -15,18 +15,21 @@ a {
     .wtf {
         // font-size: $font-size-md;
         display: inline-block;
-    }
-
-    .thy-icon:first-child {
         font-size: variables.$font-size-base;
         svg {
             // 字体变为 14px 后图标和文字不对齐，需要单独设置一下 vertical-align
             vertical-align: -0.12em;
         }
-        padding-right: variables.$link-icon-padding-right;
+    }
+
+    .thy-icon:first-child {
+        padding-right: variables.$link-icon-padding-x;
+    }
+    .thy-icon:last-child:not(:first-child) {
+        padding-left: variables.$link-icon-padding-x;
     }
     .wtf:first-child() {
-        padding-right: variables.$link-icon-padding-right;
+        padding-right: variables.$link-icon-padding-x;
     }
 }
 
@@ -51,7 +54,7 @@ a:not([href]):not([tabindex]) {
 a.link-has-icon {
     .thy-icon,
     .wtf {
-        padding-right: variables.$link-icon-padding-right;
+        padding-right: variables.$link-icon-padding-x;
     }
     // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
     .thy-icon {

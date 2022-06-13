@@ -1,4 +1,4 @@
 ---
-title: Slash
+title: With Icon
 order: 20
 ---

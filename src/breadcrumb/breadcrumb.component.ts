@@ -1,5 +1,8 @@
 import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
 
+/**
+ * 面包屑组件
+ */
 @Component({
     selector: 'thy-breadcrumb',
     template: `
@@ -12,30 +15,31 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular
         <ng-content></ng-content>
     `,
     exportAs: 'ThyBreadcrumb',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-breadcrumb',
+        '[class.thy-breadcrumb-separator]': '!!thySeparator',
+        '[class.thy-breadcrumb-separator-slash]': 'thySeparator === "slash"',
+        '[class.thy-breadcrumb-separator-backslash]': 'thySeparator === "backslash"',
+        '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator === "vertical-line"'
+    }
 })
 export class ThyBreadcrumbComponent {
-    @HostBinding(`class.thy-breadcrumb`) _isBreadcrumb = true;
-    @HostBinding(`class.separator-slash`) isSlash = false;
-    @HostBinding(`class.separator-backslash`) isBackslash = false;
-
     iconClasses: string[];
     svgIconName: string;
 
+    /**
+     * 面包屑的前缀 展示图标，如 folder-fill
+     */
     @Input()
     set thyIcon(icon: string) {
         this.setIcon(icon);
     }
 
-    @Input()
-    set thySeparator(type: string) {
-        if (type === 'slash') {
-            this.isSlash = true;
-        }
-        if (type === 'backslash') {
-            this.isBackslash = true;
-        }
-    }
+    /**
+     * 面包屑的分隔符，不传值默认为 ">", thySeparator 可选值为 'slash' | 'backslash' | 'vertical-line'
+     */
+    @Input() thySeparator: 'slash' | 'backslash' | 'vertical-line';
 
     private setIcon(icon: string) {
         if (icon) {
