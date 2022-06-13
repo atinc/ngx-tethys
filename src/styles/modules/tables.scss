@@ -1,6 +1,6 @@
 @use "sass:map";
 @use "../bootstrap/mixins/breakpoints.scss";
-@use "../bootstrap/mixins/hover.scss";
+@use "../mixins/hover.scss";
 @use "../bootstrap/variables.scss" as bootstrap-variables;
 @use "../mixins/tables.scss";
 @use "../variables.scss";

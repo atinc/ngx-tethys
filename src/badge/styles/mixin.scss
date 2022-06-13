@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "../../styles/bootstrap/functions";
-@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/mixins/hover";
 
 @mixin set-badge-color($color, $badge-bg) {
     color: $color;
