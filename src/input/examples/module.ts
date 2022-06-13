@@ -1,32 +1,33 @@
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ThyInputAppendExampleComponent } from './append/append.component';
-import { ThyInputBasicExampleComponent } from './basic/basic.component';
-import { ThyInputLabelExampleComponent } from './label/label.component';
-import { ThyInputPasswordExampleComponent } from './password/password.component';
-import { ThyInputPrependAppendExampleComponent } from './prepend-append/prepend-append.component';
-import { ThyInputSearchExampleComponent } from './search/search.component';
-import { ThyInputSizeExampleComponent } from './size/size.component';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThySelectModule } from 'ngx-tethys/select';
+import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyActionModule } from 'ngx-tethys/action';
 
-const COMPONENTS = [
-    ThyInputAppendExampleComponent,
-    ThyInputBasicExampleComponent,
-    ThyInputLabelExampleComponent,
-    ThyInputPasswordExampleComponent,
-    ThyInputPrependAppendExampleComponent,
-    ThyInputSearchExampleComponent,
-    ThyInputSizeExampleComponent
-];
-
-@NgModule({
-    declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyActionMenuModule, ThySharedModule, ThySelectModule],
-    exports: [...COMPONENTS]
-})
-export class ThyInputExamplesModule {}
+export default {
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyInputModule,
+        ThyActionMenuModule,
+        ThySharedModule,
+        ThySelectModule,
+        ThySpaceModule,
+        ThyButtonModule,
+        ThyGridModule,
+        ThyDropdownModule,
+        ThyIconModule,
+        ThyTooltipModule,
+        ThyDividerModule,
+        ThyActionModule
+    ]
+};

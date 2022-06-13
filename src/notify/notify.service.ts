@@ -1,20 +1,29 @@
-import { Injectable, Injector, ApplicationRef, ComponentFactoryResolver, ComponentRef, Inject } from '@angular/core';
-import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions, THY_NOTIFY_DEFAULT_OPTIONS } from './notify-option.interface';
-import { ThyNotifyContainerComponent } from './notify.container.component';
-import { Subject } from 'rxjs';
-import { DomPortalOutlet, ComponentPortal } from '@angular/cdk/portal';
+import { isFunction, isString } from 'ngx-tethys/util';
+import { of, Subject } from 'rxjs';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { ComponentRef, Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
 import { NotifyQueueStore } from './notify-queue.store';
-import { helpers } from 'ngx-tethys/util';
+import { ThyNotifyContainerComponent } from './notify-container.component';
+import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG_VALUE, THY_NOTIFY_DEFAULT_OPTIONS } from './notify.config';
+import { notifyAbstractOverlayOptions } from './notify.options';
+import {
+    GlobalPositionStrategy,
+    Overlay,
+    OverlayConfig,
+    OverlayContainer,
+    OverlayRef,
+    PositionStrategy,
+    ScrollStrategy
+} from '@angular/cdk/overlay';
+import { ComponentTypeOrTemplateRef, POSITION_MAP, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import { ThyInternalNotifyRef, ThyNotifyRef } from './notify-ref';
+import { Directionality } from '@angular/cdk/bidi';
+import { ThyNotifyContentComponent } from './notify-content.component';
 
-const NOTIFY_OPTION_DEFAULT = {
-    duration: 4500,
-    pauseOnHover: true,
-    maxStack: 8,
-    placement: 'topRight'
-};
-
-@Injectable()
-export class ThyNotifyService {
+@Injectable({
+    providedIn: 'root'
+})
+export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig, ThyNotifyContainerComponent> implements OnDestroy {
     notifyQueue$: Subject<any> = new Subject();
 
     private _lastNotifyId = 0;
@@ -27,105 +36,188 @@ export class ThyNotifyService {
 
     private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
 
-    constructor(
-        private injector: Injector,
-        private componentFactoryResolver: ComponentFactoryResolver,
-        private appRef: ApplicationRef,
-        private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) private defaultConfig: ThyNotifyOptions
-    ) {}
-
-    show(options: ThyNotifyOptions) {
-        const notifyConfig = this.formatOptions(options);
-        const { placement } = notifyConfig;
-        this.queueStore.addNotify(placement, notifyConfig);
-        this._initContainer(placement);
+    protected buildOverlayConfig(config: ThyNotifyConfig): OverlayConfig {
+        const positionStrategy = this.buildPositionStrategy(config);
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
+        return overlayConfig;
     }
 
-    success(title?: string, content?: string, options?: ThyNotifyOptions) {
-        this.show({
-            ...(options || {}),
-            type: 'success',
-            title: title || options?.title || '成功',
-            content: content || options?.content
-        });
+    private buildPositionStrategy<TData>(config: ThyNotifyConfig<TData>): PositionStrategy {
+        const placement = config.placement;
+        const positionStrategy = new GlobalPositionStrategy();
+        const positionPair = POSITION_MAP[placement];
+        positionStrategy[positionPair.originY](config.offset);
+        if (config.placement.endsWith('Left')) {
+            positionStrategy.left(config.offset);
+        } else if (placement.endsWith('Right')) {
+            positionStrategy.right(config.offset);
+        }
+        return positionStrategy;
     }
 
-    info(title?: string, content?: string, options?: ThyNotifyOptions) {
-        this.show({
-            ...(options || {}),
-            type: 'info',
-            title: title || options?.title || '提示',
-            content: content || options?.content
-        });
-    }
-
-    warning(title?: string, content?: string, options?: ThyNotifyOptions) {
-        this.show({
-            ...(options || {}),
-            type: 'warning',
-            title: title || options?.title || '警告',
-            content: content || options?.content
-        });
-    }
-
-    error(title?: string, content?: string, options?: ThyNotifyOptions | string) {
-        const config: ThyNotifyOptions = helpers.isString(options)
-            ? { type: 'error', title: title || '错误', content: content, detail: options }
-            : {
-                  ...((options || {}) as ThyNotifyOptions),
-                  type: 'error',
-                  title: title || (options as ThyNotifyOptions)?.title || '错误',
-                  content: content || (options as ThyNotifyOptions)?.content
-              };
-        this.show(config);
-    }
-
-    /**
-     * @deprecated The removeItemById will be deprecated, please use removeNotifyById.
-     */
-    removeItemById(id: number) {
-        this.removeNotifyById(id);
-    }
-
-    removeNotifyById(id: number) {
-        this.queueStore.removeNotify(id);
-    }
-
-    private _initContainer(placement: NotifyPlacement) {
-        if (placement === 'topRight') {
-            this.containerRefTopRight = this._loadNotifyContainerComponent(this.containerRefTopRight, placement);
-        } else if (placement === 'bottomRight') {
-            this.containerRefBottomRight = this._loadNotifyContainerComponent(this.containerRefBottomRight, placement);
-        } else if (placement === 'bottomLeft') {
-            this.containerRefBottomLeft = this._loadNotifyContainerComponent(this.containerRefBottomLeft, placement);
-        } else if (placement === 'topLeft') {
-            this.containerRefTopLeft = this._loadNotifyContainerComponent(this.containerRefTopLeft, placement);
+    private buildScrollStrategy(config: ThyNotifyConfig): ScrollStrategy {
+        if (config.scrollStrategy) {
+            return config.scrollStrategy;
+        } else if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
         }
     }
 
-    private _loadNotifyContainerComponent(
-        containerRef: ComponentRef<ThyNotifyContainerComponent>,
-        placement: NotifyPlacement
-    ): ComponentRef<ThyNotifyContainerComponent> {
-        if (!containerRef) {
-            const portalOutlet = new DomPortalOutlet(document.body, this.componentFactoryResolver, this.appRef, this.injector);
-            const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null);
-            containerRef = portalOutlet.attachComponentPortal(componentPortal);
-            Object.assign(containerRef.instance, {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyNotifyConfig<any>): ThyNotifyContainerComponent {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+        const injector = Injector.create({
+            parent: userInjector || this.injector,
+            providers: [{ provide: ThyNotifyConfig, useValue: config }]
+        });
+        const containerPortal = new ComponentPortal(ThyNotifyContainerComponent, config.viewContainerRef, injector);
+        const containerRef = overlay.attach<ThyNotifyContainerComponent>(containerPortal);
+        return containerRef.instance;
+    }
+
+    protected createAbstractOverlayRef<T, TResult = unknown>(
+        overlayRef: OverlayRef,
+        containerInstance: ThyNotifyContainerComponent,
+        config: ThyNotifyConfig
+    ): ThyAbstractOverlayRef<T, ThyNotifyContainerComponent, TResult> {
+        return new ThyInternalNotifyRef(overlayRef, containerInstance, config);
+    }
+
+    protected createInjector<T>(
+        config: ThyNotifyConfig,
+        notifyRef: ThyNotifyRef<T>,
+        notifyContainer: ThyNotifyContainerComponent
+    ): Injector {
+        const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
+
+        const injectionTokens: StaticProvider[] = [
+            { provide: ThyNotifyContainerComponent, useValue: notifyContainer },
+            {
+                provide: ThyNotifyRef,
+                useValue: notifyRef
+            }
+        ];
+
+        if (config.direction && (!userInjector || !userInjector.get<Directionality | null>(Directionality, null))) {
+            injectionTokens.push({
+                provide: Directionality,
+                useValue: {
+                    value: config.direction,
+                    change: of()
+                }
+            });
+        }
+
+        return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
+    }
+
+    constructor(
+        protected overlay: Overlay,
+        public overlayContainer: OverlayContainer,
+        protected injector: Injector,
+        private queueStore: NotifyQueueStore,
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected config: ThyNotifyConfig
+    ) {
+        super(notifyAbstractOverlayOptions, overlay, injector, {
+            ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
+            ...config
+        });
+    }
+
+    public show(config: ThyNotifyConfig) {
+        const notifyConfig = this.formatOptions(config);
+        const { placement } = notifyConfig;
+        this.queueStore.addNotify(placement, notifyConfig);
+        const notifyRef = this.getContainer(placement);
+        if (!notifyRef) {
+            const ref = this.openOverlay(ThyNotifyContentComponent, {
+                ...notifyConfig,
                 initialState: {
                     placement
                 }
             });
-            containerRef.changeDetectorRef.detectChanges();
+            this.setContainer(placement, ref);
         }
-        return containerRef;
     }
 
-    private formatOptions(options: ThyNotifyOptions) {
-        if (helpers.isString(options.detail)) {
+    public success(title?: string, content?: string, config?: ThyNotifyConfig) {
+        this.show({
+            ...(config || {}),
+            type: 'success',
+            title: title || config?.title || '成功',
+            content: content || config?.content
+        });
+    }
+
+    public info(title?: string, content?: string, config?: ThyNotifyConfig) {
+        this.show({
+            ...(config || {}),
+            type: 'info',
+            title: title || config?.title || '提示',
+            content: content || config?.content
+        });
+    }
+
+    public warning(title?: string, content?: string, config?: ThyNotifyConfig) {
+        this.show({
+            ...(config || {}),
+            type: 'warning',
+            title: title || config?.title || '警告',
+            content: content || config?.content
+        });
+    }
+
+    public error(title?: string, content?: string, config?: ThyNotifyConfig | string) {
+        const showConfig: ThyNotifyConfig = isString(config)
+            ? { type: 'error', title: title || '错误', content: content, detail: config }
+            : {
+                  ...((config || {}) as ThyNotifyConfig),
+                  type: 'error',
+                  title: title || (config as ThyNotifyConfig)?.title || '错误',
+                  content: content || (config as ThyNotifyConfig)?.content
+              };
+        this.show(showConfig);
+    }
+
+    public removeNotifyById(id: string) {
+        this.queueStore.removeNotify(id);
+    }
+
+    private getContainer(placement: NotifyPlacement) {
+        if (placement === 'topRight') {
+            return this.containerRefTopRight;
+        } else if (placement === 'bottomRight') {
+            return this.containerRefBottomRight;
+        } else if (placement === 'bottomLeft') {
+            return this.containerRefBottomLeft;
+        } else if (placement === 'topLeft') {
+            return this.containerRefTopLeft;
+        }
+    }
+
+    private setContainer(placement: NotifyPlacement, ref: any) {
+        if (placement === 'topRight') {
+            this.containerRefTopRight = ref;
+        } else if (placement === 'bottomRight') {
+            this.containerRefBottomRight = ref;
+        } else if (placement === 'bottomLeft') {
+            this.containerRefBottomLeft = ref;
+        } else if (placement === 'topLeft') {
+            this.containerRefTopLeft = ref;
+        }
+    }
+
+    private formatOptions(options: ThyNotifyConfig) {
+        if (isString(options.detail)) {
             options = { ...options, detail: { link: '[详情]', content: options.detail as string } };
         }
-        return Object.assign({}, NOTIFY_OPTION_DEFAULT, { id: this._lastNotifyId++ }, this.defaultConfig, options);
+        return Object.assign({}, { id: String(this._lastNotifyId++) }, this.defaultConfig, options);
+    }
+
+    ngOnDestroy(): void {
+        this.dispose();
     }
 }

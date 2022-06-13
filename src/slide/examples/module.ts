@@ -1,25 +1,33 @@
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThySlideModule } from 'ngx-tethys/slide';
+
+import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
-import { ThySlideBasicExampleComponent } from './basic/basic.component';
-import { ThySlideBasicLayoutExampleComponent } from './basic-layout/basic-layout.component';
-import { ThySlideCustomLayoutExampleComponent } from './custom-layout/custom-layout.component';
-import { NgxTethysModule, THY_SLIDE_DEFAULT_CONFIG } from 'ngx-tethys';
 
-const COMPONENTS = [ThySlideBasicExampleComponent, ThySlideBasicLayoutExampleComponent, ThySlideCustomLayoutExampleComponent];
+import { ThySlideBasicExampleComponent } from './basic/basic.component';
+import { ThySlideDirectionExampleComponent } from './direction/direction.component';
+import { ThySlideDrawerContainerExampleComponent } from './drawer-container/drawer-container.component';
+import { ThySlideLayoutExampleComponent } from './layout/layout.component';
+import { ThySlideModeExampleComponent } from './mode/mode.component';
+import { ThySlideDemoContentComponent } from './slide-content.component';
+
+const COMPONENTS = [
+    ThySlideBasicExampleComponent,
+    ThySlideDirectionExampleComponent,
+    ThySlideModeExampleComponent,
+    ThySlideLayoutExampleComponent,
+    ThySlideDemoContentComponent,
+    ThySlideDrawerContainerExampleComponent
+];
 
 @NgModule({
     declarations: COMPONENTS,
     entryComponents: COMPONENTS,
-    imports: [CommonModule, FormsModule, NgxTethysModule],
-    exports: COMPONENTS,
-    providers: [
-        {
-            provide: THY_SLIDE_DEFAULT_CONFIG,
-            useValue: {
-                drawerContainer: 'dg-channel'
-            }
-        }
-    ]
+    imports: [CommonModule, FormsModule, ThySlideModule, ThyButtonModule, ThyFormModule, ThyGridModule, ThyRadioModule],
+    exports: COMPONENTS
 })
 export class ThySlideExamplesModule {}

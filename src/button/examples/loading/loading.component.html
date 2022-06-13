@@ -1,3 +1,14 @@
-<button thyButton="primary" [thyLoading]="loading" (click)="startLoading()" [thyLoadingText]="'加载中... ' + loadingSeconds + 's 后恢复'">
-  点击加载
-</button>
+<div class="demo-buttons">
+  <button thyButton="primary" [thyLoading]="'true'" [thyLoadingText]="'Loading...'">
+    Loading
+  </button>
+  <button
+    thyButton="primary"
+    thyIcon="plus"
+    [thyLoading]="loading"
+    (click)="startLoading()"
+    [thyLoadingText]="'Loading... ' + loadingSeconds + 's'"
+  >
+    Click me!
+  </button>
+</div>

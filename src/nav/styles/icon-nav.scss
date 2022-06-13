@@ -1,12 +1,12 @@
-$icon-nav-link-padding-x: 0.438rem;
-$icon-nav-link-padding-y: 0.282rem;
+@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/variables.scss";
 
 @mixin icon-nav-link-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
-    padding: $icon-nav-link-padding-y $icon-nav-link-padding-x;
+    padding: variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x;
     // 解决图标不居中问题
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
 
@@ -14,20 +14,20 @@ $icon-nav-link-padding-y: 0.282rem;
         color: $hover-color;
         text-decoration: none;
         background: $hover-bg-color;
-        border-radius: $border-radius;
+        border-radius: variables.$border-radius;
         // 统一所有操作active状态下，标签展示
         visibility: visible !important;
     }
-    @include hover {
+    @include hover.hover {
         color: $hover-color;
         text-decoration: none;
         background: $hover-bg-color;
-        border-radius: $border-radius;
+        border-radius: variables.$border-radius;
     }
 
     // Disabled state lightens text
     &.disabled {
-        color: $nav-link-disabled-color;
+        color: variables.$nav-item-disabled-color;
         border-bottom: none;
     }
 }
@@ -42,7 +42,7 @@ $icon-nav-link-padding-y: 0.282rem;
 
 .thy-icon-nav-link {
     transition: opacity 0.2s ease-in-out;
-    @include icon-nav-link-variant($icon-nav-link-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+    @include icon-nav-link-variant(variables.$icon-nav-link-color, variables.$icon-nav-link-hover-color, rgba(variables.$primary, 0.1));
 }
 
 .thy-icon-nav {
@@ -52,26 +52,37 @@ $icon-nav-link-padding-y: 0.282rem;
     margin-bottom: 0;
     list-style: none;
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, $icon-nav-link-spacing);
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-spacing
+        );
     }
 }
 
 .thy-icon-nav-secondary {
     .thy-icon-nav-link {
         @include icon-nav-link-size(
-            $icon-nav-link-padding-y $icon-nav-link-padding-x,
-            $icon-nav-link-secondary-spacing
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-secondary-spacing
         );
-        @include icon-nav-link-variant($icon-nav-link-secondary-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }
 
 .thy-icon-nav-individual {
     .thy-icon-nav-link {
         @include icon-nav-link-size(
-            $icon-nav-link-padding-y $icon-nav-link-padding-x,
-            $icon-nav-link-individual-spacing
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-individual-spacing
         );
-        @include icon-nav-link-variant($icon-nav-link-secondary-color, $icon-nav-link-hover-color, rgba($primary, 0.1));
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }

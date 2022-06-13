@@ -1,30 +1,67 @@
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "mixin";
+@use "./variables.scss" as style;
+
 $input-box-height: 34px;
 
-.#{$calendar-prefix-cls}-range-picker-input {
+.#{style.$calendar-prefix-cls}-range-picker-input {
     width: 44%;
     height: 99%;
     text-align: center;
     background-color: transparent;
     border: 0;
     outline: 0;
-    @include placeholder();
+    @include mixin.placeholder();
 
     &[disabled] {
         cursor: not-allowed;
     }
 }
 
-.#{$calendar-prefix-cls}-range {
-    width: 552px;
+.#{style.$calendar-prefix-cls}-range {
     overflow: hidden;
+    &.#{style.$calendar-prefix-cls}-picker-shortcut-bottom {
+        .#{style.$calendar-prefix-cls}-picker-shortcut {
+            width: 540px;
+            .#{style.$calendar-prefix-cls}-picker-shortcut-item {
+                width: 118px;
+            }
+        }
+    }
 
-    .#{$calendar-prefix-cls}-date-panel {
+    .#{style.$calendar-prefix-cls}-date-panel {
         &::after {
             display: block;
             clear: both;
             height: 0;
             visibility: hidden;
             content: '.';
+        }
+
+        &-flexible {
+            .#{style.$calendar-prefix-cls}-picker-inner-popup {
+                width: 338px;
+                .thy-calendar-body {
+                    padding: 0px 10px 10px 10px;
+                }
+            }
+            &-tab {
+                border-bottom: 1px solid variables.$gray-200;
+                position: relative;
+                .thy-nav {
+                    padding: 0 18px;
+                    border: none;
+                }
+                .clear-date-button {
+                    position: absolute;
+                    right: 18px;
+                    bottom: 8px;
+                }
+            }
+        }
+        &-advanced {
+            padding: 20px 20px 0 20px;
         }
     }
     &-part {
@@ -47,41 +84,41 @@ $input-box-height: 34px;
         height: $input-box-height;
         margin: 1px 0 0 0;
         padding: 0 200px 0 0;
-        color: $secondary;
+        color: variables.$secondary;
         line-height: $input-box-height;
         text-align: center;
         transform: translateX(-50%);
         pointer-events: none;
     }
 
-    &.#{$calendar-prefix-cls}-time &-middle {
+    &.#{style.$calendar-prefix-cls}-time &-middle {
         padding: 0 10px 0 0;
         transform: translateX(-50%);
     }
 
-    .#{$calendar-prefix-cls}-today
-        :not(.#{$calendar-prefix-cls}-disabled-cell)
-        :not(.#{$calendar-prefix-cls}-last-month-cell)
-        :not(.#{$calendar-prefix-cls}-next-month-btn-day) {
-        .#{$calendar-prefix-cls}-date {
-            color: $primary;
-            background: $primary;
-            border-color: $primary;
+    .#{style.$calendar-prefix-cls}-today
+        :not(.#{style.$calendar-prefix-cls}-disabled-cell)
+        :not(.#{style.$calendar-prefix-cls}-last-month-cell)
+        :not(.#{style.$calendar-prefix-cls}-next-month-btn-day) {
+        .#{style.$calendar-prefix-cls}-date {
+            color: variables.$primary;
+            background: variables.$primary;
+            border-color: variables.$primary;
         }
     }
 
-    .#{$calendar-prefix-cls}-selected-start-date,
-    .#{$calendar-prefix-cls}-selected-end-date {
-        @include calendar-selected-cell;
+    .#{style.$calendar-prefix-cls}-selected-start-date,
+    .#{style.$calendar-prefix-cls}-selected-end-date {
+        @include mixin.calendar-selected-cell;
     }
 
-    .#{$calendar-prefix-cls}-input,
+    .#{style.$calendar-prefix-cls}-input,
     .#{calendar-timepicker-prefix-cls}-input {
         // .input;
-        height: $input-height-sm;
+        height: bootstrap-variables.$input-height-sm;
         padding-right: 0;
         padding-left: 0;
-        line-height: $input-height-sm;
+        line-height: bootstrap-variables.$input-height-sm;
         border: 0;
         box-shadow: none;
 
@@ -94,24 +131,24 @@ $input-box-height: 34px;
         display: none;
     }
 
-    &.#{$calendar-prefix-cls}-week-number {
+    &.#{style.$calendar-prefix-cls}-week-number {
         width: 574px;
 
-        .#{$calendar-prefix-cls}-range-part {
+        .#{style.$calendar-prefix-cls}-range-part {
             width: 286px;
         }
     }
 
-    .#{$calendar-prefix-cls}-month-panel .#{$calendar-prefix-cls}-year-panel {
+    .#{style.$calendar-prefix-cls}-month-panel .#{style.$calendar-prefix-cls}-year-panel {
         top: 0;
     }
-    .#{$calendar-prefix-cls}-decade-panel-table,
-    .#{$calendar-prefix-cls}-year-panel-table,
-    .#{$calendar-prefix-cls}-month-panel-table {
+    .#{style.$calendar-prefix-cls}-decade-panel-table,
+    .#{style.$calendar-prefix-cls}-year-panel-table,
+    .#{style.$calendar-prefix-cls}-month-panel-table {
         height: 208px;
     }
 
-    .#{$calendar-prefix-cls}-in-range-cell {
+    .#{style.$calendar-prefix-cls}-in-range-cell {
         position: relative;
         border-radius: 0;
         > div {
@@ -119,8 +156,9 @@ $input-box-height: 34px;
             z-index: 1;
         }
         &::before {
+            height: 24px;
             position: absolute;
-            top: 4px;
+            top: 3px;
             right: 0;
             bottom: 4px;
             left: 0;
@@ -128,11 +166,12 @@ $input-box-height: 34px;
             border: 0;
             border-radius: 0;
             content: '';
-            background: $disabled-bg;
+            opacity: 0.1;
+            background: variables.$primary;
         }
     }
 
-    .#{$calendar-prefix-cls}-footer-extra {
+    .#{style.$calendar-prefix-cls}-footer-extra {
         float: left;
     }
 
@@ -146,15 +185,15 @@ $input-box-height: 34px;
     }
 
     thy-calendar,
-    .#{$calendar-prefix-cls}-month-panel,
-    .#{$calendar-prefix-cls}-year-panel,
-    .#{$calendar-prefix-cls}-decade-panel {
+    .#{style.$calendar-prefix-cls}-month-panel,
+    .#{style.$calendar-prefix-cls}-year-panel,
+    .#{style.$calendar-prefix-cls}-decade-panel {
         &-header {
             border-bottom: 0;
         }
     }
 
-    &.#{$calendar-prefix-cls}-time {
+    &.#{style.$calendar-prefix-cls}-time {
         .#{calendar-timepicker-prefix-cls} {
             top: 68px;
             z-index: 2; // cover ..#{$calendar-prefix-cls}-range ..#{$calendar-prefix-cls}-in-range-cell > div (z-index: 1)
@@ -174,8 +213,8 @@ $input-box-height: 34px;
             &-combobox {
                 display: inline-block;
                 height: 100%;
-                background-color: $white;
-                border-top: $border-width-base $border-style-base $border-color-split;
+                background-color: variables.$white;
+                border-top: style.$border-width-base style.$border-style-base style.$border-color-split;
             }
             &-select {
                 height: 100%;
@@ -184,7 +223,7 @@ $input-box-height: 34px;
                 }
             }
         }
-        .#{$calendar-prefix-cls}-today-btn {
+        .#{style.$calendar-prefix-cls}-today-btn {
             height: 22px;
             margin: 8px 12px;
             line-height: 22px;

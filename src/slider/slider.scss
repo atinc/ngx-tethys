@@ -1,12 +1,74 @@
+@use "../styles/variables";
+
 @mixin slider-type($color) {
     .thy-slider-rail {
-        background-color: $gray-200;
+        background-color: variables.$gray-200;
         .thy-slider-track {
             background-color: $color;
         }
         .thy-slider-pointer {
             border-color: $color;
-            background-color: $white;
+            background-color: variables.$white;
+        }
+    }
+}
+
+@mixin slider-pointer-size($size) {
+    @if $size == variables.$slide-height-sm {
+        width: 15px;
+        height: 15px;
+    } @else if $size == variables.$slide-height-md {
+        width: 20px;
+        height: 20px;
+    } @else if $size == variables.$slide-height-lg {
+        width: 25px;
+        height: 25px;
+    }
+}
+
+@mixin slider-track-radius($size) {
+    @if $size == variables.$slide-height-sm {
+        border-radius: 5px;
+    } @else if $size == variables.$slide-height-md {
+        border-radius: 20px;
+    } @else if $size == variables.$slide-height-lg {
+        border-radius: 100px;
+    }
+}
+
+@mixin set-slider-size($size) {
+    .thy-slider-rail {
+        height: $size;
+        @include slider-track-radius($size);
+        .thy-slider-track {
+            height: $size;
+            @include slider-track-radius($size);
+        }
+        .thy-slider-pointer {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            @include slider-pointer-size($size);
+        }
+    }
+
+    &.slider-vertical {
+        height: 100%;
+        width: $size;
+        display: inline-block;
+        .thy-slider-rail {
+            width: $size;
+            height: 100%;
+            .thy-slider-track {
+                width: $size;
+                height: 100%;
+            }
+            .thy-slider-pointer {
+                transform: translate(-50%, 50%);
+                left: 50%;
+                bottom: 0;
+                top: unset;
+            }
         }
     }
 }
@@ -19,24 +81,24 @@
     .thy-slider-rail {
         position: relative;
         width: 100%;
-        height: 5px;
+        height: 6px;
         border-radius: 5px;
-        background-color: $gray-200;
+        background-color: variables.$gray-200;
         .thy-slider-track {
             position: absolute;
-            height: 5px;
+            height: 6px;
             border-radius: 5px;
         }
         .thy-slider-pointer {
             position: absolute;
             top: 50%;
             transform: translate(-50%, -50%);
-            width: 14px;
-            height: 14px;
+            width: 15px;
+            height: 15px;
             border-radius: 50%;
             border-width: 2px;
             border-style: solid;
-            background-color: $white;
+            background-color: variables.$white;
         }
     }
 
@@ -45,10 +107,10 @@
         width: 15px;
         display: inline-block;
         .thy-slider-rail {
-            width: 5px;
+            width: 6px;
             height: 100%;
             .thy-slider-track {
-                width: 5px;
+                width: 6px;
                 bottom: 0;
             }
             .thy-slider-pointer {
@@ -63,30 +125,42 @@
     &.slider-disabled {
         cursor: not-allowed;
         .thy-slider-rail {
-            background-color: $gray-100;
+            background-color: variables.$gray-100;
             .thy-slider-track {
-                background-color: $gray-400;
+                background-color: variables.$gray-400;
             }
             .thy-slider-pointer {
-                border-color: $gray-100;
+                border-color: variables.$gray-100;
             }
         }
     }
 
     &.thy-slider-primary {
-        @include slider-type($primary);
+        @include slider-type(variables.$primary);
     }
     &,
     &.thy-slider-success {
-        @include slider-type($success);
+        @include slider-type(variables.$success);
     }
     &.thy-slider-info {
-        @include slider-type($info);
+        @include slider-type(variables.$info);
     }
     &.thy-slider-warning {
-        @include slider-type($warning);
+        @include slider-type(variables.$warning);
     }
     &.thy-slider-danger {
-        @include slider-type($danger);
+        @include slider-type(variables.$danger);
+    }
+
+    &.thy-slider-sm {
+        @include set-slider-size(variables.$slide-height-sm);
+    }
+
+    &.thy-slider-md {
+        @include set-slider-size(variables.$slide-height-md);
+    }
+
+    &.thy-slider-lg {
+        @include set-slider-size(variables.$slide-height-lg);
     }
 }

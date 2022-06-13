@@ -5,6 +5,7 @@ export interface ThyPaginationConfigModel {
     maxCount?: number;
     rangeCount?: number;
     showQuickJumper?: boolean;
+    showTotalPageCount?: boolean;
     firstText?: string;
     lastText?: string;
     previousText?: string;
@@ -14,6 +15,8 @@ export interface ThyPaginationConfigModel {
     previousIcon?: string;
     nextIcon?: string;
     totalPagesFormat?: string;
+    showSizeChanger?: boolean;
+    pageSizeOptions?: number[];
 }
 
 export interface ThyPaginationChangedEvent {

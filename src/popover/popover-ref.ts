@@ -1,23 +1,27 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
-import { GlobalPositionStrategy, OverlayRef, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
-import { Observable, Subject } from 'rxjs';
-import { filter, take } from 'rxjs/operators';
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys/core';
+
+import { OverlayRef } from '@angular/cdk/overlay';
+import { merge } from 'rxjs';
+
 import { ThyPopoverContainerComponent } from './popover-container.component';
-import { ThyUpperOverlayRef, ThyInternalUpperOverlayRef } from 'ngx-tethys/core';
-import { popoverUpperOverlayOptions } from './popover.options';
 import { ThyPopoverConfig } from './popover.config';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
-export abstract class ThyPopoverRef<T, TResult = any> extends ThyUpperOverlayRef<T, ThyPopoverContainerComponent, TResult> {}
+export abstract class ThyPopoverRef<T, TResult = unknown, TData = unknown> extends ThyAbstractOverlayRef<
+    T,
+    ThyPopoverContainerComponent<TData>,
+    TResult
+> {}
 
-export class ThyInternalPopoverRef<T, TResult = any> extends ThyInternalUpperOverlayRef<T, ThyPopoverContainerComponent, TResult>
+export class ThyInternalPopoverRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyPopoverContainerComponent, TResult>
     implements ThyPopoverRef<T, TResult> {
     constructor(overlayRef: OverlayRef, containerInstance: ThyPopoverContainerComponent, config: ThyPopoverConfig) {
-        super(popoverUpperOverlayOptions, overlayRef, containerInstance, config);
-        containerInstance.insideClicked.subscribe(() => {
-            this.close();
-        });
-        containerInstance.outsideClicked.subscribe(() => {
-            this.close();
+        super(popoverAbstractOverlayOptions, overlayRef, containerInstance, config);
+        // Note: doesn't need to unsubscribe, because `insideClicked` and `outsideClicked`
+        // get completed by `ThyPopoverContainerComponent` when the view is destroyed.
+        merge(containerInstance.insideClicked, containerInstance.outsideClicked).subscribe(() => this.close());
+        containerInstance.updatePosition.subscribe(() => {
+            this.updatePosition();
         });
     }
 

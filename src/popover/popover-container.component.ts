@@ -1,29 +1,24 @@
+import { ContentObserver } from '@angular/cdk/observers';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
+import { from, Observable, Subject, timer } from 'rxjs';
+import { take, takeUntil, filter } from 'rxjs/operators';
+import { AnimationEvent } from '@angular/animations';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
 import {
+    AfterViewInit,
+    ChangeDetectorRef,
     Component,
-    ComponentRef,
-    ViewChild,
-    EmbeddedViewRef,
-    Inject,
     ElementRef,
     EventEmitter,
     HostListener,
-    ChangeDetectorRef,
-    OnInit,
-    AfterViewInit,
     NgZone,
-    OnDestroy
+    OnDestroy,
+    ViewChild
 } from '@angular/core';
-import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { AnimationEvent } from '@angular/animations';
 
-import { ThyPopoverConfig } from './popover.config';
 import { thyPopoverAnimations } from './popover-animations';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
-import { popoverUpperOverlayOptions } from './popover.options';
-import { Observable, fromEvent, timer } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyPopoverConfig } from './popover.config';
+import { popoverAbstractOverlayOptions } from './popover.options';
 
 @Component({
     selector: 'thy-popover-container',
@@ -33,12 +28,13 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
+        '[attr.id]': 'id',
         '[@popoverContainer]': 'animationState',
         '(@popoverContainer.start)': 'onAnimationStart($event)',
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit, OnDestroy {
+export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
@@ -53,19 +49,21 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
 
     insideClicked = new EventEmitter();
 
+    updatePosition = new EventEmitter();
+
     outsideClicked = new EventEmitter();
 
     beforeAttachPortal(): void {}
 
     constructor(
         private elementRef: ElementRef,
-        @Inject(DOCUMENT) private document: any,
-        public config: ThyPopoverConfig,
+        public config: ThyPopoverConfig<TData>,
         changeDetectorRef: ChangeDetectorRef,
         private thyClickDispatcher: ThyClickDispatcher,
+        private contentObserver: ContentObserver,
         private ngZone: NgZone
     ) {
-        super(popoverUpperOverlayOptions, changeDetectorRef);
+        super(popoverAbstractOverlayOptions, changeDetectorRef);
 
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
@@ -92,6 +90,20 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
                             });
                         }
                     });
+            });
+        }
+
+        if (this.config.autoAdaptive) {
+            const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
+            this.ngZone.runOutsideAngular(() => {
+                onStable$.pipe(takeUntil(this.containerDestroy)).subscribe(() => {
+                    this.contentObserver
+                        .observe(this.elementRef)
+                        .pipe(takeUntil(this.containerDestroy))
+                        .subscribe(() => {
+                            this.updatePosition.emit();
+                        });
+                });
             });
         }
     }
@@ -128,5 +140,8 @@ export class ThyPopoverContainerComponent extends ThyUpperOverlayContainer imple
 
     ngOnDestroy() {
         super.destroy();
+        this.insideClicked.complete();
+        this.updatePosition.complete();
+        this.outsideClicked.complete();
     }
 }

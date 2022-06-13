@@ -1,11 +1,16 @@
 module.exports = {
-    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*'],
+    allowBranch: ['master', 'v7.*', 'v8.*', 'v9.*', 'v10.*', 'v11.*', 'v12.*', 'v13.*'],
     bumpFiles: [
         'package.json',
         'package-lock.json',
         'src/package.json',
+        'cdk/package.json',
         {
             filename: './src/version.ts',
+            type: 'code'
+        },
+        {
+            filename: './schematics/version.ts',
             type: 'code'
         }
     ],
@@ -15,7 +20,6 @@ module.exports = {
     // otherwise, the changelog will rebuild, and will be lost past versions
     tagPrefix: '',
     hooks: {
-        prepublish: 'npm run build',
-        postpublish: 'npm run pub-only'
+        prepublish: 'npm run build'
     }
 };

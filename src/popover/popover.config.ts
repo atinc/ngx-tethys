@@ -1,9 +1,9 @@
-import { ElementRef, ViewContainerRef, InjectionToken } from '@angular/core';
-import { Directionality } from '@angular/cdk/bidi';
-import { ThyPlacement, ThyUpperOverlayConfig } from 'ngx-tethys/core';
-import { ScrollStrategy, PositionStrategy } from '@angular/cdk/overlay';
+import { ThyPlacement, ThyAbstractOverlayConfig } from 'ngx-tethys/core';
 
-export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> {
+import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
+import { ElementRef, InjectionToken } from '@angular/core';
+
+export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /** Origin Element, for overlay flexible connected to */
     origin: ElementRef<any> | HTMLElement;
 
@@ -35,22 +35,41 @@ export class ThyPopoverConfig<TData = any> extends ThyUpperOverlayConfig<TData> 
 
     /** Click outside can been close */
     outsideClosable?: boolean;
+
+    /**  autoAdaptive is true when height change can auto update position */
+    autoAdaptive?: boolean;
 }
 
 export const THY_POPOVER_DEFAULT_CONFIG = new InjectionToken<ThyPopoverConfig>('thy-popover-default-config');
 
+export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
+    hasBackdrop: true,
+    backdropClass: 'thy-popover-backdrop',
+    panelClass: '',
+    offset: 4,
+    backdropClosable: true,
+    closeOnNavigation: true,
+    placement: 'bottom' as ThyPlacement,
+    insideClosable: false,
+    manualClosure: false,
+    originActiveClass: 'thy-popover-origin-active',
+    autoAdaptive: false,
+    minWidth: '240px'
+};
+
 export const THY_POPOVER_DEFAULT_CONFIG_PROVIDER = {
     provide: THY_POPOVER_DEFAULT_CONFIG,
-    useValue: {
-        hasBackdrop: true,
-        backdropClass: 'thy-popover-backdrop',
-        panelClass: '',
-        offset: 4,
-        backdropClosable: true,
-        closeOnNavigation: true,
-        placement: 'bottom',
-        insideClosable: false,
-        manualClosure: false,
-        originActiveClass: 'thy-popover-origin-active'
-    }
+    useValue: THY_POPOVER_DEFAULT_CONFIG_VALUE
+};
+
+export const THY_POPOVER_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('thy-popover-scroll-strategy');
+
+export const THY_POPOVER_SCROLL_STRATEGY_FACTORY = (overlay: Overlay) => {
+    return () => overlay.scrollStrategies.block();
+};
+
+export const THY_POPOVER_SCROLL_STRATEGY_PROVIDER = {
+    provide: THY_POPOVER_SCROLL_STRATEGY,
+    deps: [Overlay],
+    useFactory: THY_POPOVER_SCROLL_STRATEGY_FACTORY
 };

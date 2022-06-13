@@ -1,0 +1,42 @@
+<form thyForm thyLayout="inline">
+  <thy-form-group thyLabelText="Placement">
+    <thy-select [(ngModel)]="popoverOptions.placement" name="placement">
+      <option value="top">top</option>
+      <option value="topLeft">topLeft</option>
+      <option value="topRight">topRight</option>
+      <option value="bottom">bottom</option>
+      <option value="bottomLeft">bottomLeft</option>
+      <option value="bottomRight">bottomRight</option>
+      <option value="left">left</option>
+      <option value="leftTop">leftTop</option>
+      <option value="leftBottom">leftBottom</option>
+      <option value="right">right</option>
+      <option value="rightTop">rightTop</option>
+      <option value="rightBottom">rightBottom</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Width">
+    <input thyInput type="number" [(ngModel)]="popoverOptions.width" name="width" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="Height">
+    <input thyInput type="number" [(ngModel)]="popoverOptions.height" name="height" />
+  </thy-form-group>
+  <thy-form-group thyLabelText="MinWidth">
+    <thy-input-number [(ngModel)]="popoverOptions.minWidth" name="min-width"></thy-input-number>
+  </thy-form-group>
+</form>
+
+<button class="mt-3" thyButton="primary" [thyDropdown]="menu" [thyPopoverOptions]="popoverOptions">
+  Dropdown <thy-icon thyIconName="caret-down"></thy-icon>
+</button>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem thyType="danger" href="javascript:;">
+    <thy-icon thyIconName="trash" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>Delete</span>
+  </a>
+  <a thyDropdownMenuItem thyType="success" href="javascript:;">
+    <thy-icon thyIconName="plus" thyDropdownMenuItemIcon></thy-icon>
+    <span thyDropdownMenuItemName>New</span>
+  </a>
+</thy-dropdown-menu>

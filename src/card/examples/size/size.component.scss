@@ -1,0 +1,12 @@
+.demo-cards {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    .thy-card {
+        width: 300px;
+        height: 160px;
+        margin-right: 20px;
+        justify-content: space-around;
+        flex-grow: 0;
+    }
+}

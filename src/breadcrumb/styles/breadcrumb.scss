@@ -1,32 +1,35 @@
+@use "../../styles/mixins/link";
+@use "../../styles/variables";
+
 .thy-breadcrumb {
     display: flex;
     flex-direction: row;
     align-items: center;
 
     .thy-breadcrumb-icon {
-        margin-right: 5px;
-        color: $breadcrumb-icon-color;
+        margin-right: 8px;
+        color: variables.$breadcrumb-icon-color;
     }
 
     .thy-breadcrumb-item {
-        margin-right: 5px;
-        color: $breadcrumb-text-color;
+        margin-right: 8px;
+        color: variables.$breadcrumb-text-color;
         a {
-            @include link-variant($breadcrumb-text-color, none, $primary, none);
+            @include link.link-variant(variables.$breadcrumb-text-color, none, variables.$primary, none);
         }
         &:last-child {
-            color: $breadcrumb-active-color;
+            color: variables.$breadcrumb-active-color;
             a {
-                color: $breadcrumb-active-color;
+                color: variables.$breadcrumb-active-color;
             }
             .default-icon {
                 display: none;
             }
         }
         .default-icon {
-            margin-left: 5px;
-            color: $breadcrumb-separator-color;
-            font-size: $font-size-base;
+            margin-left: 8px;
+            color: variables.$breadcrumb-separator-color;
+            font-size: variables.$font-size-base;
         }
     }
 
@@ -39,8 +42,8 @@
             &::after {
                 content: '/';
                 font: normal normal normal 14px/1 wtf;
-                margin-left: 5px;
-                color: $breadcrumb-separator-color;
+                margin-left: 8px;
+                color: variables.$breadcrumb-separator-color;
             }
             &:last-child {
                 &::after {

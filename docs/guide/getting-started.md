@@ -5,7 +5,7 @@ order: 1
 ---
 
 ## 使用 CLI 搭建本地项目
-我们强烈建议使用官方的 @angular/cli 工具链辅助进行开发，下面我们用一个简单的实例来说明，你可以阅读 [官网文档搭建环境](https://angular.cn/guide/setup-local) 搭建本地开发环境和工作空间。
+我们强烈建议使用官方的 @angular/cli 工具链辅助进行开发，下面我们用一个简单的示例来说明，你可以阅读 [官网文档搭建环境](https://angular.cn/guide/setup-local) 搭建本地开发环境和工作空间。
 ### 安装脚手架工具
 ```bash
 npm install -g @angular/cli
@@ -28,7 +28,7 @@ $ ng add ngx-tethys
 
 <img class="mb-2" src="https://cdn.pingcode.com/open-sources/ngx-tethys/images/ng-add.png" />
 
-开发者可以通过增加参数来完成个性化的初始化配置，例如国际化或者自定义主题等，详细可以参考 [脚手架](http://lib.worktile.live/ngx-tethys/docs/schematics) 部分。
+开发者可以通过增加参数来完成个性化的初始化配置，例如样式或者图标引入等，详细可以参考 [脚手架](http://lib.worktile.live/ngx-tethys/docs/schematics) 部分。
 
 
 ### 开发调试
@@ -56,13 +56,13 @@ $ yarn add ngx-tethys
     ```
     {
         "styles": [
-            "node_modules/ngx-tethys/styles/main.bundle.scss"
+            "node_modules/ngx-tethys/styles/index.scss"
         ]
     }
     ```
 - 在`style.scss`中引入预构建样式文件
     ```scss
-    @import "~ngx-tethys/styles/main.bundle.scss";
+    @use "ngx-tethys/styles/index.scss";
     ```
 
 ### 引入图标
@@ -106,4 +106,5 @@ export class AppModule { }
 <button thyButton="primary">主要按钮</button>
 ```
 
-> 在 <=9.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。
+> 在 <=11.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。
+

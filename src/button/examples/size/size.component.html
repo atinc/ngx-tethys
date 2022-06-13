@@ -1,31 +1,21 @@
-<div class="demo-card">
-  <thy-button-group thySize="md" thyType="outline-default">
-    <button thyButton *ngFor="let size of btnSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
-      {{ size.name }} - {{ size.height }}px
-    </button>
-  </thy-button-group>
-  <div class="demo-buttons mt-4">
-    <button thyButton="primary" [thySize]="currentSize.name">确定</button>
-    <button thyButton="info" [thySize]="currentSize.name">信息按钮</button>
-    <button thyButton="warning" [thySize]="currentSize.name">警告按钮</button>
-    <button thyButton="danger" [thySize]="currentSize.name">删除</button>
-  </div>
-  <div class="demo-buttons mt-2">
-    <button thyButton="outline-primary" [thySize]="currentSize.name">确定</button>
-    <button thyButton="outline-info" [thySize]="currentSize.name">信息按钮</button>
-    <button thyButton="outline-warning" [thySize]="currentSize.name">警告按钮</button>
-    <button thyButton="outline-danger" [thySize]="currentSize.name">删除</button>
-  </div>
-  <div class="demo-buttons mt-2">
-    <button thyButton="primary-square" [thySize]="currentSize.name">确定</button>
-    <button thyButton="info-square" [thySize]="currentSize.name">信息按钮</button>
-    <button thyButton="warning-square" [thySize]="currentSize.name">警告按钮</button>
-    <button thyButton="danger-square" [thySize]="currentSize.name">删除</button>
-  </div>
-  <div class="demo-buttons mt-2">
-    <button thyButton="outline-primary-square" [thySize]="currentSize.name">确定</button>
-    <button thyButton="outline-info-square" [thySize]="currentSize.name">信息按钮</button>
-    <button thyButton="outline-warning-square" [thySize]="currentSize.name">警告按钮</button>
-    <button thyButton="outline-danger-square" [thySize]="currentSize.name">删除</button>
-  </div>
-</div>
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: size === item.value }">
+    {{ item.value }}
+  </button>
+</thy-button-group>
+<thy-space class="mt-4">
+  <button *thySpaceItem thyButton="primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="info" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton="warning" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton="danger" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="success" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton="primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
+</thy-space>
+<thy-space class="mt-2">
+  <button *thySpaceItem thyButton="outline-primary" [thySize]="size">Primary</button>
+  <button *thySpaceItem thyButton="outline-info" [thySize]="size">Info</button>
+  <button *thySpaceItem thyButton="outline-warning" [thySize]="size">Warning</button>
+  <button *thySpaceItem thyButton="outline-danger" [thySize]="size">Danger</button>
+  <button *thySpaceItem thyButton="outline-success" [thySize]="size">Success</button>
+  <button *thySpaceItem thyButton="outline-primary" [thySize]="size"><thy-icon thyIconName="house"></thy-icon></button>
+</thy-space>

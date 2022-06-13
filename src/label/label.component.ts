@@ -4,7 +4,9 @@ import { helpers } from 'ngx-tethys/util';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
-const labelTypeClassesMap: any = {
+export type ThyLabelTypeSize = 'sm' | 'default' | 'md' | 'lg' | 'xlg';
+
+const labelTypeClassesMap = {
     default: ['thy-label', 'thy-label-default'],
     primary: ['thy-label', 'thy-label-primary'],
     success: ['thy-label', 'thy-label-success'],
@@ -13,6 +15,7 @@ const labelTypeClassesMap: any = {
     danger: ['thy-label', 'thy-label-danger']
 };
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyLabel]',
     templateUrl: './label.component.html'
 })
@@ -25,6 +28,8 @@ export class ThyLabelComponent {
 
     @HostBinding('class.thy-label--lg') _classNameLG = false;
 
+    @HostBinding('class.thy-label--xlg') _classNameXLG = false;
+
     // 字体前缀，默认 wtf
     @Input() thyIconPrefix: string;
 
@@ -33,6 +38,7 @@ export class ThyLabelComponent {
         this._classNameSM = value === 'sm';
         this._classNameDM = value === 'md';
         this._classNameLG = value === 'lg';
+        this._classNameXLG = value === 'xlg';
     }
 
     private nativeElement: HTMLElement;
@@ -176,7 +182,7 @@ export class ThyLabelComponent {
         this.renderer.removeClass(this.nativeElement, className);
     }
 
-    remove() {
-        this.thyOnRemove.emit();
+    remove($event: Event) {
+        this.thyOnRemove.emit($event);
     }
 }

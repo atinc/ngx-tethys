@@ -1,8 +1,11 @@
-import { TestBed, ComponentFixture, async, tick, fakeAsync, flush } from '@angular/core/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component } from '@angular/core';
 import { DomSanitizer, By } from '@angular/platform-browser';
+import { Observable, Subscriber } from 'rxjs';
+
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
+import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
 
 @Component({
     template: `
@@ -15,24 +18,45 @@ import { ThyAvatarService } from '../avatar.service';
             <thy-avatar *ngSwitchCase="3" [thyName]="name" [thySize]="size"></thy-avatar>
             <!-- Suite 4 for test thyDisabled and thyShowRemove -->
             <thy-avatar *ngSwitchCase="4" [thyName]="name" thyDisabled="true" thyShowRemove="true"></thy-avatar>
-            <!-- Suite 5 for test thySrc with thyOnError -->
-            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'"></thy-avatar>
+            <!-- Suite 5 for test thySrc with thyError -->
+            <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
+            <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
+            <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
         </ng-container>
     `
 })
 class ThyTestAvatarComponent {
-    useSuite: 1 | 2 | 3 | 4 | 5;
+    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {
+        this.errorEmit$ = new Observable<Event>(subscriber => {
+            this.errorSubscriber = subscriber;
+        });
+    }
+
+    useSuite: 1 | 2 | 3 | 4 | 5 | 6;
 
     name = 'LiLei';
 
     size: number | string = 0;
 
-    constructor(private thyAvatarService: ThyAvatarService, private domSanitizer: DomSanitizer) {}
+    errorSubscriber: Subscriber<Event>;
+
+    errorEmit$: Observable<Event>;
+
+    spyThyError = jasmine.createSpy('ThyError emit');
+
+    loading?: ThyAvatarLoading;
+
+    fetchPriority?: ThyAvatarFetchPriority;
 
     rewriteNameTransform() {
         this.thyAvatarService.nameTransform = (name: string) => {
             return this.domSanitizer.bypassSecurityTrustHtml(`<code>${name}</code>`);
         };
+    }
+
+    thyError(event: Event): void {
+        this.spyThyError();
+        this.errorSubscriber.next(event);
     }
 }
 
@@ -54,10 +78,10 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('default avatarName', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             componentInstance.useSuite = 1;
             fixture.detectChanges();
-        }));
+        });
 
         it('should show the avatarName default', () => {
             const component = componentInstance.name;
@@ -66,11 +90,11 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('custom avatarName', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             componentInstance.useSuite = 1;
             componentInstance.rewriteNameTransform();
             fixture.detectChanges();
-        }));
+        });
 
         it('should show the custom avatarName', () => {
             const customValue = fixture.nativeElement.querySelector(`.avatar-name`).firstChild;
@@ -81,9 +105,9 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('the avatar should be 36px size which is the default size When thySize is empty', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             componentInstance.useSuite = 2;
-        }));
+        });
 
         it('the avatar should be 36px size which is the default size When thySize is empty', () => {
             fixture.detectChanges();
@@ -94,9 +118,9 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('show different size when input different thySize value', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             componentInstance.useSuite = 3;
-        }));
+        });
 
         it('the avatar should be 24px size When input xs string', () => {
             componentInstance.size = 'xs';
@@ -159,17 +183,43 @@ describe('ThyAvatarComponent', () => {
     });
 
     describe('img thySrc load fail', () => {
-        beforeEach(function() {
+        beforeEach(() => {
             componentInstance.useSuite = 5;
         });
 
-        it('should name instead of img when load fail', async(() => {
+        it('should name span instead of img, and emit thyError', (done: DoneFn) => {
             fixture.detectChanges();
-            setTimeout(() => {
+            fixture.componentInstance.errorEmit$.subscribe(() => {
                 fixture.detectChanges();
                 const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+                expect(avatarContainer.querySelector('img')).toBeFalsy();
                 expect(avatarContainer.querySelector('span')).toBeTruthy();
-            }, 1000);
-        }));
+                expect(fixture.componentInstance.spyThyError).toHaveBeenCalled();
+                done();
+            });
+        });
+    });
+
+    describe('avatar with thyLoading and thyFetchPriority', () => {
+        beforeEach(() => {
+            componentInstance.useSuite = 6;
+        });
+
+        it('should set and remove `loading` and `fetchpriority` attributes when those are changed', () => {
+            fixture.detectChanges();
+
+            const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+            const image: HTMLImageElement = avatarContainer.querySelector('img');
+
+            expect(image.hasAttribute('loading')).toEqual(false);
+            expect(image.hasAttribute('fetchpriority')).toEqual(false);
+
+            componentInstance.loading = 'lazy';
+            componentInstance.fetchPriority = 'auto';
+            fixture.detectChanges();
+
+            expect(image.getAttribute('loading')).toEqual('lazy');
+            expect(image.getAttribute('fetchpriority')).toEqual('auto');
+        });
     });
 });

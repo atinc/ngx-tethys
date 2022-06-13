@@ -12,8 +12,7 @@ import {
     OnDestroy,
     Output,
     Inject,
-    Optional,
-    QueryList
+    Optional
 } from '@angular/core';
 import { Highlightable } from '@angular/cdk/a11y';
 import { SelectOptionBase } from './select-option-base';
@@ -159,13 +158,13 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
 
     matchSearchText(searchText: string): boolean {
         if (this.thySearchKey) {
-            if (this.thySearchKey.indexOf(searchText) >= 0) {
+            if (this.thySearchKey.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
             }
         } else {
-            if (this.thyLabelText.indexOf(searchText) >= 0) {
+            if (this.thyLabelText.toLowerCase().indexOf(searchText.toLowerCase()) >= 0) {
                 return true;
             } else {
                 return false;
@@ -183,8 +182,8 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
         this.cdr.markForCheck();
     }
 
-    getLabel?(): string {
-        return this.thyLabelText || (this.getHostElement().textContent || '').trim();
+    getLabel(): string {
+        return '';
     }
 
     private emitSelectionChangeEvent(isUserInput = false): void {

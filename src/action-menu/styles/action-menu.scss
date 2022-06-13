@@ -1,13 +1,17 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .action-menu {
-    padding: $action-menu-padding-y 0;
+    padding: variables.$action-menu-padding-y 0;
     display: block;
-    width: $action-menu-width;
-    background: $action-menu-bg;
+    width: variables.$action-menu-width;
+    background: variables.$action-menu-bg;
+    border-radius: variables.$border-radius;
 
     .action-menu-group {
         &-title {
-            margin: $action-menu-group-name-padding-y $action-menu-group-name-padding-x 0;
-            color: $action-menu-group-name-color;
+            margin: variables.$action-menu-group-name-padding-y variables.$action-menu-group-name-padding-x 0;
+            color: variables.$action-menu-group-name-color;
         }
     }
 
@@ -15,33 +19,33 @@
         display: flex;
         flex-wrap: wrap;
         align-items: flex-start;
-        padding: $action-menu-item-padding-y $action-menu-item-padding-x;
+        padding: variables.$action-menu-item-padding-y variables.$action-menu-item-padding-x;
         position: relative;
-        color: $action-menu-item-color;
+        color: variables.$action-menu-item-color;
         align-items: center;
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;
 
         &:not(.action-menu-item--disabled).active {
-            background-color: rgba($primary, 0.1);
+            background-color: rgba(variables.$primary, 0.1);
             &:not(.action-menu-sub-item) {
-                color: $action-menu-item-hover-color;
+                color: variables.$action-menu-item-hover-color;
             }
         }
 
         &:not(.action-menu-item--disabled):hover {
-            background-color: $action-menu-item-hover-bg;
+            background-color: variables.$action-menu-item-hover-bg;
             &:not(.info),
             &:not(.action-menu-sub-item) {
-                color: $action-menu-item-hover-color;
+                color: variables.$action-menu-item-hover-color;
             }
         }
 
         .icon {
             display: flex;
             margin-right: 8px;
-            color: $action-menu-item-icon-color;
+            color: variables.$action-menu-item-icon-color;
             transition: margin-left 200ms;
         }
 
@@ -65,13 +69,13 @@
             width: 100%;
             line-height: 1.5;
             font-size: 12px;
-            color: $gray-500;
+            color: variables.$gray-500;
         }
 
         .extend-icon {
             display: flex;
             margin-left: auto;
-            color: $action-menu-item-extend-color;
+            color: variables.$action-menu-item-extend-color;
         }
 
         .action-menu-sub-item {
@@ -82,15 +86,15 @@
             z-index: 1;
             padding: 10px 0;
             width: 240px;
-            background: $action-menu-bg;
-            box-shadow: $box-shadow;
+            background: variables.$action-menu-bg;
+            box-shadow: variables.$box-shadow;
         }
 
         &.action-menu-item-right {
             .action-menu-sub-item {
                 left: 100%;
             }
-            @include action-menu-item-hover-sub-item-display();
+            @include mixin.action-menu-item-hover-sub-item-display();
         }
 
         &.action-menu-item-left {
@@ -98,11 +102,11 @@
                 right: 100%;
                 left: auto;
             }
-            @include action-menu-item-hover-sub-item-display();
+            @include mixin.action-menu-item-hover-sub-item-display();
         }
 
         &.action-menu-item-auto {
-            @include action-menu-item-hover-sub-item-display(none);
+            @include mixin.action-menu-item-hover-sub-item-display(none);
         }
 
         &--disabled {
@@ -111,7 +115,7 @@
             cursor: not-allowed;
         }
 
-        @include action-menu-item-hover-sub-item-display();
+        @include mixin.action-menu-item-hover-sub-item-display();
 
         &:not(.action-menu-item--disabled):hover {
             > .action-menu-sub-item {
@@ -120,11 +124,11 @@
         }
 
         &--danger {
-            @include action-menu-item-type-hover($danger);
+            @include mixin.action-menu-item-type-hover(variables.$danger);
         }
 
         &--success {
-            @include action-menu-item-type-hover($success);
+            @include mixin.action-menu-item-type-hover(variables.$success);
         }
     }
 
@@ -139,16 +143,16 @@
     }
 
     .action-menu-divider {
-        margin: $action-menu-divider-margin-y $action-menu-divider-margin-x;
+        margin: variables.$action-menu-divider-margin-y variables.$action-menu-divider-margin-x;
         display: block;
-        border-top: solid 1px $action-menu-divider-border-color;
+        border-top: solid 1px variables.$action-menu-divider-border-color;
         &-crossing {
             margin: 0;
         }
     }
 
     &--group {
-        width: $action-menu-group-width;
+        width: variables.$action-menu-group-width;
         .action-menu-item {
             padding: 12px 30px 12px 45px;
         }
@@ -159,7 +163,7 @@
                 display: inline-block;
                 margin-left: -15px;
                 padding-right: 10px;
-                color: $action-menu-divider-title-color;
+                color: variables.$action-menu-divider-title-color;
                 background: #ffffff;
                 transform: translateY(-50%);
             }
@@ -168,6 +172,6 @@
 }
 
 .action-menu-height-limit {
-    max-height: $action-menu-max-height;
+    max-height: variables.$action-menu-max-height;
     overflow-y: auto;
 }

@@ -1,0 +1,70 @@
+@use "../../styles/variables";
+.thy-date-picker-advanced-carousel {
+    .carousel-item {
+        margin-bottom: 30px;
+        &-title {
+            font-size: 14px;
+            color: variables.$gray-600;
+            margin-bottom: 10px;
+        }
+        &-content {
+            display: flex;
+            .selectable-button {
+                height: 28px;
+                display: flex;
+                width: 48px;
+                align-items: center;
+                justify-content: center;
+                border: 1px dashed variables.$gray-300;
+                border-radius: 4px;
+                cursor: pointer;
+                position: relative;
+                .year-tip {
+                    position: absolute;
+                    top: -30px;
+                    font-size: 12px;
+                    color: variables.$gray-500;
+                }
+                .thy-icon,
+                span {
+                    pointer-events: none;
+                }
+                .thy-icon {
+                    font-size: 12px;
+                }
+
+                &.in-hover-range {
+                    background: variables.$gray-80;
+                    color: variables.$gray-300;
+                }
+                &:hover {
+                    background: variables.$gray-80;
+                }
+                &.active {
+                    background: variables.$primary;
+                    color: variables.$white;
+                    border-color: transparent;
+                }
+                &.active:hover {
+                    background: rgba($color: variables.$primary, $alpha: 0.8);
+                }
+                &.out-range {
+                    background: rgba($color: variables.$primary, $alpha: 0.5);
+                }
+
+                &.indeterminate {
+                    border-color: variables.$primary;
+                }
+            }
+
+            .right-space {
+                margin-right: 10px;
+            }
+        }
+    }
+    .carousel-item-year {
+        .selectable-button {
+            flex: auto;
+        }
+    }
+}

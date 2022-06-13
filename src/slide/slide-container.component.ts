@@ -1,14 +1,16 @@
-import { Component, ElementRef, ViewChild, Inject, ChangeDetectorRef, Renderer2, OnDestroy } from '@angular/core';
+import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
+import { helpers } from 'ngx-tethys/util';
+import { Observable, Subject } from 'rxjs';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
+
+import { AnimationEvent } from '@angular/animations';
+import { ViewportRuler } from '@angular/cdk/overlay';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
-import { Observable, Subject } from 'rxjs';
-import { AnimationEvent } from '@angular/animations';
-import { slideUpperOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
-import { filter, map, takeUntil, startWith } from 'rxjs/operators';
+import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+
 import { thySlideAnimations } from './slide-animations';
-import { helpers } from 'ngx-tethys/util';
-import { ViewportRuler } from '@angular/cdk/overlay';
+import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 
 @Component({
     selector: 'thy-slide-container',
@@ -31,7 +33,7 @@ import { ViewportRuler } from '@angular/cdk/overlay';
         '[style.max-height.px]': 'slideContainerStyles.height'
     }
 })
-export class ThySlideContainerComponent extends ThyUpperOverlayContainer implements OnDestroy {
+export class ThySlideContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
@@ -94,7 +96,7 @@ export class ThySlideContainerComponent extends ThyUpperOverlayContainer impleme
         private renderer: Renderer2,
         private viewportRuler: ViewportRuler
     ) {
-        super(slideUpperOverlayOptions, changeDetectorRef);
+        super(slideAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
                 return event.phaseName === 'done' && event.toState === this.animationState;

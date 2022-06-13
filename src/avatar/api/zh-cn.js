@@ -7,7 +7,7 @@ module.exports = [
             {
                 name: 'thySrc',
                 description:
-                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 avatarSrcTransform 方法实现转换',
+                    '头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换',
                 type: 'string',
                 default: ''
             },
@@ -32,18 +32,19 @@ module.exports = [
             {
                 name: 'thyOnRemove',
                 description: '移除按钮的事件, 当 thyShowRemove 为 true 时起作用',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
                 name: 'thyError',
                 description: '头像 img 加载 error 时触发',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: '头像大小，可选择 22, 24, 28, 32, 36, 48, 68, 110, 160 | xxs(22px), xs(24px), sm(32px), md(36px), lg(48px)',
+                description:
+                    '头像大小，可选择 22, 24, 28, 32, 36, 44, 48, 68, 110, 160 | xxs(22px), xs(24px), sm(32px), md(36px), lg(48px)',
                 type: 'number | string',
                 default: 'md'
             },
@@ -52,6 +53,18 @@ module.exports = [
                 description: '禁用',
                 type: 'Boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyLoading',
+                description: '图片加载策略 (https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading)',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyFetchPriority',
+                description: '图片加载优先级 (https://wicg.github.io/priority-hints/#idl-index)',
+                type: 'string',
+                default: ''
             }
         ]
     }

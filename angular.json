@@ -6,17 +6,17 @@
     "ngx-tethys": {
       "root": "src",
       "projectType": "library",
+      "sourceRoot": "src",
       "prefix": "thy",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "src/tsconfig.lib.json",
             "project": "src/ng-package.json"
           },
           "configurations": {
             "production": {
-              "project": "src/ng-package.prod.json",
               "tsConfig": "src/tsconfig.lib.prod.json"
             }
           }
@@ -27,16 +27,15 @@
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "codeCoverage": true,
-            "codeCoverageExclude": ["/src/core/testing/**/*"],
+            "codeCoverageExclude": ["/src/testing/**/*", "src/**/test/**/*", "src/markdown/*", "src/action-menu/*"],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": ["src/tsconfig.lib.json", "src/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         }
       }
@@ -60,18 +59,26 @@
             "main": "site/src/main.ts",
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
-            "aot": true,
+            "stylePreprocessorOptions": {
+              "includePaths": ["./site/src/styles"]
+            },
             "assets": [
               "site/src/favicon.ico",
               "site/src/assets",
               {
                 "glob": "**/*",
-                "input": "./node_modules/@tethys/icons/defs",
-                "output": "/assets/icons/defs/"
+                "input": "./node_modules/@tethys/icons",
+                "output": "/assets/icons/"
               }
             ],
             "styles": ["site/src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -84,7 +91,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -101,8 +107,16 @@
                   "maximumError": "10kb"
                 }
               ]
+            },
+            "development": {
+              "sourceMap": true,
+              "namedChunks": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": false
             }
-          }
+          },
+          "defaultConfiguration": "production"
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -114,8 +128,12 @@
           "configurations": {
             "production": {
               "browserTarget": "site:build:production"
+            },
+            "development": {
+              "browserTarget": "site:build:development"
             }
-          }
+          },
+          "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -134,24 +152,35 @@
             "styles": ["site/src/styles.scss"],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+        }
+      }
+    },
+    "cdk": {
+      "projectType": "library",
+      "root": "cdk",
+      "sourceRoot": "cdk",
+      "prefix": "thy",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
-            "tsConfig": ["site/tsconfig.app.json", "site/tsconfig.spec.json", "site/e2e/tsconfig.json"],
-            "exclude": ["**/node_modules/**"]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "site/e2e/protractor.conf.js",
-            "devServerTarget": "site:serve"
+            "tsConfig": "cdk/tsconfig.lib.json",
+            "project": "cdk/ng-package.json"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "site:serve:production"
+              "tsConfig": "cdk/tsconfig.lib.prod.json"
             }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "cdk/test.ts",
+            "tsConfig": "cdk/tsconfig.spec.json",
+            "karmaConfig": "cdk/karma.conf.js",
+            "codeCoverage": true,
+            "codeCoverageExclude": ["/cdk/testing/**/*", "cdk/**/test/**/*"]
           }
         }
       }

@@ -1,11 +1,12 @@
+/**
+ * @type {import('@docgeni/core').DocgeniConfig}
+ */
 module.exports = {
     mode: 'full',
-    title: 'NgxTethys',
-    docsPath: './docs',
+    title: 'TETHYS',
     siteProjectName: 'site',
-    output: 'dist/docs-site',
     repoUrl: 'https://github.com/atinc/ngx-tethys',
-    logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png',
+    logoUrl: 'https://cdn.worktile.com/open-sources/ngx-tethys/logos/tethys.png?100',
     navs: [
         null,
         {
@@ -39,7 +40,8 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
-            exclude: [],
+            exclude: ['shared', 'core', 'time-picker'],
+            apiMode: 'compatible',
             categories: [
                 {
                     id: 'general',
@@ -104,13 +106,21 @@ module.exports = {
                         }
                     }
                 }
-            ]
+            ],
+            labels: {
+                'lack-doc': {
+                    text: 'Lack Doc',
+                    color: '#2dbcff'
+                }
+            }
         }
     ],
+    footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",
     locales: [
         {
             key: 'zh-cn',
             name: 'ZH'
         }
-    ]
+    ],
+    defaultLocale: 'zh-cn'
 };

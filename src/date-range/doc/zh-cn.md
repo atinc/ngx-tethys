@@ -2,14 +2,20 @@
 category: form
 title: DateRange
 subtitle: 时间区间
-order: 1
 ---
 
-## 预设及自定义时间区间选择组件
+<alert>预设及自定义时间区间选择组件。</alert>
 
-用于通过下拉菜单选择预设好的时间区间以及自定义时间段选择。  
-如果单纯的是时间段选择，请使用 [thy-range-picker](http://lib.worktile.live/ngx-tethys/components/date-picker/overview) 时间段选择组件或相关的 [Directive](https://angular.cn/guide/attribute-directives).  
-## 简单使用
+## 何时使用
+- 需要通过下拉菜单选择预设好的时间区间。  
+- 需要选择自定义时间段。
+
+## 模块导入
+```ts
+import { ThyDateRangeModule } from "ngx-tethys/date-range";
+```
+
+## 基本使用
 
 ```html
 <thy-date-range [(ngModel)]="date" (ngModelChange)="changeDate()"></thy-date-range>

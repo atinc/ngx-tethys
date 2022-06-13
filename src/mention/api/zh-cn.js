@@ -5,13 +5,13 @@ module.exports = [
         properties: [
             {
                 name: 'thyMention',
-                description: `大小，xs | sm | md | lg`,
-                type: 'Mention',
+                description: `提及输入配置参数，同时支持多个提及规则`,
+                type: 'Mention[]',
                 default: ''
             },
             {
                 name: 'thyPopoverConfig',
-                description: `Popover弹出层参数配置`,
+                description: `Popover 弹出层参数配置`,
                 type: 'ThyPopoverConfig',
                 default: ''
             },
@@ -24,7 +24,7 @@ module.exports = [
         ]
     },
     {
-        type: 'class',
+        type: 'interface',
         name: 'Mention 参数',
         properties: [
             {
@@ -37,6 +37,12 @@ module.exports = [
                 name: 'data',
                 description: 'Mention 选择数据源',
                 type: 'Array<Item>',
+                default: ''
+            },
+            {
+                name: 'suggestionsTemplateRef',
+                description: 'Mention 列表自定义模版',
+                type: 'TemplateRef<{ data: Array<Item> }>',
                 default: ''
             },
             {

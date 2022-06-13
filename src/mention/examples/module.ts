@@ -1,18 +1,11 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThyMentionModule } from 'ngx-tethys/mention';
 
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThyMentionAsyncExampleComponent } from './async/async.component';
-import { ThyMentionBasicExampleComponent } from './basic/basic.component';
-
-const COMPONENTS = [ThyMentionBasicExampleComponent, ThyMentionAsyncExampleComponent];
-
-@NgModule({
-    declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, NgxTethysModule],
-    exports: [...COMPONENTS]
-})
-export class ThyMentionExamplesModule {}
+export default {
+    imports: [CommonModule, FormsModule, ThyAvatarModule, ThyMentionModule, ThyInputModule, ThyListModule]
+};

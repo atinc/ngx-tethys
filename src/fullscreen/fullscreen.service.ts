@@ -1,5 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, NgZone } from '@angular/core';
 import { ThyFullscreenRef } from './fullscreen-ref';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
 
@@ -7,7 +7,7 @@ import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
     providedIn: 'root'
 })
 export class ThyFullscreen {
-    constructor(@Inject(DOCUMENT) protected document: any) {}
+    constructor(@Inject(DOCUMENT) protected document: Document, private ngZone: NgZone) {}
 
     private fullscreenRefs: ThyFullscreenRef[] = [];
 
@@ -17,7 +17,7 @@ export class ThyFullscreen {
      */
     launch<TResult = unknown>(config: ThyFullscreenConfig): ThyFullscreenRef<TResult> {
         config.mode = config.mode || ThyFullscreenMode.immersive;
-        const fullscreenRef = new ThyFullscreenRef<TResult>(this.document);
+        const fullscreenRef = new ThyFullscreenRef<TResult>(this.document, this.ngZone);
         fullscreenRef.fullscreenConfig = config;
         fullscreenRef.launch();
         this.fullscreenRefs.push(fullscreenRef);

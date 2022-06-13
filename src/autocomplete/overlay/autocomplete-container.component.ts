@@ -1,29 +1,15 @@
-import {
-    Component,
-    ComponentRef,
-    ViewChild,
-    EmbeddedViewRef,
-    Inject,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    ChangeDetectorRef,
-    OnInit,
-    AfterViewInit,
-    NgZone,
-    TemplateRef
-} from '@angular/core';
-import { ComponentPortal, TemplatePortal, CdkPortalOutlet } from '@angular/cdk/portal';
-import { DOCUMENT } from '@angular/common';
-import { AnimationEvent } from '@angular/animations';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
+import { Observable } from 'rxjs';
+import { filter } from 'rxjs/operators';
 
-import { ThyAutocompleteConfig } from './autocomplete.config';
+import { AnimationEvent } from '@angular/animations';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, NgZone, ViewChild } from '@angular/core';
+
 import { thyAutocompleteAnimations } from './autocomplete-animations';
-import { ThyUpperOverlayContainer } from 'ngx-tethys/core';
-import { autocompleteUpperOverlayOptions } from './autocomplete.options';
-import { Observable, fromEvent, timer } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
-import { ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyAutocompleteConfig } from './autocomplete.config';
+import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
 @Component({
     selector: 'thy-autocomplete-container',
@@ -38,7 +24,7 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer implements AfterViewInit {
+export class ThyAutocompleteContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit {
     @ViewChild(CdkPortalOutlet, { static: true })
     portalOutlet: CdkPortalOutlet;
 
@@ -61,7 +47,7 @@ export class ThyAutocompleteContainerComponent extends ThyUpperOverlayContainer 
         private thyClickDispatcher: ThyClickDispatcher,
         private ngZone: NgZone
     ) {
-        super(autocompleteUpperOverlayOptions, changeDetectorRef);
+        super(autocompleteAbstractOverlayOptions, changeDetectorRef);
 
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {

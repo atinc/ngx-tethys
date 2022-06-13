@@ -1,0 +1,10 @@
+@use 'variables.scss' as variables2;
+
+.demo-slides {
+    display: flex;
+    flex-direction: row;
+    thy-slide-layout {
+        margin-right: 20px;
+        background: variables2.$white;
+    }
+}

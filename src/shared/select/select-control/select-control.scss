@@ -1,31 +1,25 @@
+@use "../../../select/custom-select/styles/mixin";
+@use "../../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../../styles/mixins/utilities";
+@use "../../../styles/variables";
+@use "../styles/select.mixin";
+
 .select-control {
     position: relative;
-    @include select-control-size($input-height, $input-padding-y);
+    @include select.select-control-size(bootstrap-variables.$input-height, variables.$input-padding-y);
     padding-right: 23px;
     &.form-control-custom {
         padding-top: 0;
         padding-bottom: 0;
     }
     &.form-control-sm {
-        @include select-control-size($input-height-sm, $input-padding-y-sm);
+        @include select.select-control-size(bootstrap-variables.$input-height-sm, variables.$input-padding-y-sm);
     }
     &.form-control-md {
-        @include select-control-size($input-height-md, $input-padding-y-md);
-        .choice-content {
-            font-size: $font-size-base !important;
-        }
+        @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md);
     }
     &.form-control-lg {
-        @include select-control-size($input-height-lg, $input-padding-y-lg);
-        .select-control-rendered {
-            .choice,
-            .select-control-search {
-                .choice-content {
-                    height: 36px;
-                    line-height: 36px;
-                }
-            }
-        }
+        @include select.select-control-size(bootstrap-variables.$input-height-lg, variables.$input-padding-y-lg);
     }
     .search-input-field {
         width: 100%;
@@ -57,7 +51,7 @@
         }
     }
     &.panel-is-opened {
-        border-color: $primary;
+        border-color: variables.$primary;
         .select-control-arrow {
             svg {
                 transform: rotate(180deg);
@@ -70,13 +64,13 @@
         }
     }
     .select-control-arrow {
-        @include select-arrow-variant();
+        @include mixin.select-arrow-variant();
     }
     .select-control-clear {
         display: none;
         right: 12px;
         z-index: 10;
-        @include absolute-vertical-align-middle(false);
+        @include utilities.absolute-vertical-align-middle(false);
     }
     &:not(.disabled):hover {
         .select-control-clear {
@@ -100,24 +94,20 @@
         }
     }
     .choice {
-        position: relative;
         float: left;
         max-width: 97%;
         margin-right: 6px;
-        padding: 0 20px 0 10px;
-        overflow: hidden;
-        color: $gray-800;
-        background-color: $gray-200;
-        border-radius: $border-radius-sm;
+        color: variables.$gray-800;
         cursor: default;
-        .choice-content {
-            max-width: 100%;
+        &.disabled {
+            color: variables.$gray-600;
         }
-    }
-    .choice-remove {
-        cursor: pointer;
-        @include absolute-vertical-align-middle(false);
-        color: $gray-500;
-        right: 4px;
+        &.thy-label--sm {
+            margin-top: 1px;
+        }
+        .thy-icon-close {
+            cursor: pointer;
+            color: variables.$gray-500;
+        }
     }
 }

@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './label.component.html'
 })
 export class ThyInputLabelExampleComponent implements OnInit {
-    public value: any;
+    public value: string;
 
     constructor() {}
 

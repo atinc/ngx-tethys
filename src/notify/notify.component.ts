@@ -1,9 +1,9 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
-import { ThyNotifyDetail, NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { helpers } from 'ngx-tethys/util';
+import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -40,7 +40,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     @HostBinding('class') className = '';
 
-    option: ThyNotifyOptions;
+    option: ThyNotifyConfig;
 
     notifyIconName = '';
 
@@ -53,7 +53,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
     placement: NotifyPlacement;
 
     @Input()
-    set thyOption(value: ThyNotifyOptions) {
+    set thyOption(value: ThyNotifyConfig) {
         this.option = value;
         const type = value.type;
         this.placement = value.placement || 'topRight';
@@ -65,7 +65,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone) {}
+    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone, private elementRef: ElementRef) {}
 
     ngOnInit() {
         const iconName = {
@@ -81,6 +81,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this._clearCloseTimer();
+        // fix dom not removed normally under firefox
+        this.elementRef.nativeElement.remove();
     }
 
     extendContent() {

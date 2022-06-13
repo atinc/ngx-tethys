@@ -1,5 +1,7 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy } from '@angular/core';
-import { mixinUnsubscribe, ThyDialogConfig, ThyDialogLayoutConfig, MixinBase, ThyDialogSizes, ThyDialog, keycodes } from 'ngx-tethys';
+import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { ThyDialogConfig, ThyDialogSizes, ThyDialog } from 'ngx-tethys/dialog';
+import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
 import { takeUntil } from 'rxjs/operators';
 
@@ -64,6 +66,20 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
                         data: `This is Pass Data`,
                         align: this.layoutConfig.align,
                         divider: this.layoutConfig.divider
+                    },
+                    canClose: () => {
+                        this.thyDialog.confirm({
+                            title: '确认归档',
+                            content: '确认要归档选中的6项任务吗？',
+                            footerAlign: 'right',
+                            okType: 'primary',
+                            okText: '确认归档',
+                            cancelText: '取消归档',
+                            onOk: () => {
+                                dialogRef.close(null, true);
+                            }
+                        });
+                        return false;
                     }
                 },
                 this.config

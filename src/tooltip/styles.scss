@@ -1,24 +1,28 @@
+@use "../styles/bootstrap/mixins/border-radius";
+@use "../styles/bootstrap/mixins/reset-text";
+@use "../styles/variables";
+
 .thy-tooltip {
     // position: absolute;
     display: block;
     // margin: $tooltip-margin;
     // Our parent element can be arbitrary since tooltips are by default inserted as a sibling of their target element.
     // So reset our font and text properties to avoid inheriting weird values.
-    @include reset-text();
-    font-size: $tooltip-font-size;
+    @include reset-text.reset-text();
+    font-size: variables.$tooltip-font-size;
     // Allow breaking very long words so they don't overflow the tooltip's bounds
     word-wrap: break-word;
     // opacity: 0;
 
     &.show {
-        opacity: $tooltip-opacity;
+        opacity: variables.$tooltip-opacity;
     }
 
     .thy-tooltip-arrow {
         position: absolute;
         display: block;
-        width: $tooltip-arrow-width;
-        height: $tooltip-arrow-height;
+        width: variables.$tooltip-arrow-width;
+        height: variables.$tooltip-arrow-height;
 
         &::before {
             position: absolute;
@@ -34,26 +38,26 @@ $tooltip-un-center-arrow-offset: 16px;
 
 @mixin tooltip-top-bottom($placement, $main, $opposite) {
     .thy-tooltip-#{$placement} {
-        padding-#{$opposite}: $tooltip-arrow-height;
+        padding-#{$opposite}: variables.$tooltip-arrow-height;
 
         .thy-tooltip-arrow {
-            #{$opposite}: -$tooltip-arrow-height;
+            #{$opposite}: -(variables.$tooltip-arrow-height);
             @content;
             &::before {
                 #{$main}: 0;
                 @if $main == 'top' {
-                    border-width: $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                    border-width: variables.$tooltip-arrow-height (variables.$tooltip-arrow-width * 0.5) 0;
                 } @else {
-                    border-width: 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                    border-width: 0 (variables.$tooltip-arrow-width * 0.5) variables.$tooltip-arrow-height;
                 }
-                border-#{$main}-color: $tooltip-arrow-color;
+                border-#{$main}-color: variables.$tooltip-arrow-color;
             }
         }
     }
 }
 
 @include tooltip-top-bottom('top', 'top', 'bottom') {
-    left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+    left: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-top-bottom('topLeft', 'top', 'bottom') {
     left: $tooltip-un-center-arrow-offset;
@@ -63,7 +67,7 @@ $tooltip-un-center-arrow-offset: 16px;
 }
 
 @include tooltip-top-bottom('bottom', 'bottom', 'top') {
-    left: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+    left: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-top-bottom('bottomLeft', 'bottom', 'top') {
     left: $tooltip-un-center-arrow-offset;
@@ -74,28 +78,34 @@ $tooltip-un-center-arrow-offset: 16px;
 
 @mixin tooltip-left-right($placement, $main, $opposite) {
     .thy-tooltip-#{$placement} {
-        padding-#{$opposite}: $tooltip-arrow-height;
+        padding-#{$opposite}: variables.$tooltip-arrow-height;
 
         .thy-tooltip-arrow {
-            #{$opposite}: -$tooltip-arrow-height;
-            width: $tooltip-arrow-height;
-            height: $tooltip-arrow-width;
+            #{$opposite}: -(variables.$tooltip-arrow-height);
+            width: variables.$tooltip-arrow-height;
+            height: variables.$tooltip-arrow-width;
             @content;
             &::before {
                 #{$main}: 0;
                 @if $main == 'left' {
-                    border-width: ($tooltip-arrow-width / 2) 0 ($tooltip-arrow-width / 2) $tooltip-arrow-height;
+                    border-width: (variables.$tooltip-arrow-width * 0.5)
+                        0
+                        (variables.$tooltip-arrow-width * 0.5)
+                        variables.$tooltip-arrow-height;
                 } @else {
-                    border-width: ($tooltip-arrow-width / 2) $tooltip-arrow-height ($tooltip-arrow-width / 2) 0;
+                    border-width: (variables.$tooltip-arrow-width * 0.5)
+                        variables.$tooltip-arrow-height
+                        (variables.$tooltip-arrow-width * 0.5)
+                        0;
                 }
-                border-#{$main}-color: $tooltip-arrow-color;
+                border-#{$main}-color: variables.$tooltip-arrow-color;
             }
         }
     }
 }
 
 @include tooltip-left-right('left', 'left', 'right') {
-    top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+    top: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-left-right('leftTop', 'left', 'right') {
     bottom: $tooltip-un-center-arrow-offset;
@@ -105,7 +115,7 @@ $tooltip-un-center-arrow-offset: 16px;
 }
 
 @include tooltip-left-right('right', 'right', 'left') {
-    top: calc(100% / 2 - #{$tooltip-arrow-width / 2});
+    top: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-left-right('rightTop', 'right', 'left') {
     bottom: $tooltip-un-center-arrow-offset;
@@ -131,13 +141,13 @@ $tooltip-un-center-arrow-offset: 16px;
 
 // Wrapper for the tooltip content
 .thy-tooltip-content {
-    max-width: $tooltip-max-width;
-    padding: $tooltip-padding-y $tooltip-padding-x;
-    color: $tooltip-color;
-    text-align: center;
-    background-color: $tooltip-bg;
-    box-shadow: $tooltip-box-shadow; // $box-shadow;
-    min-height: $tooltip-content-min-height;
+    max-width: variables.$tooltip-max-width;
+    padding: variables.$tooltip-padding-y variables.$tooltip-padding-x;
+    color: variables.$tooltip-color;
+    text-align: left;
+    background-color: variables.$tooltip-bg;
+    box-shadow: variables.$tooltip-box-shadow; // $box-shadow;
+    min-height: variables.$tooltip-content-min-height;
 
-    @include border-radius($tooltip-border-radius);
+    @include border-radius.border-radius(variables.$tooltip-border-radius);
 }

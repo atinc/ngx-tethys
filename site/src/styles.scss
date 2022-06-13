@@ -1,52 +1,19 @@
+@use "sass:meta";
+@use "../../src/styles/variables" with(
+    $primary: #6698FF
+);
+@use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
-@import '~@docgeni/template/styles/index.scss';
-
-.dg-tab-links,
-.dg-sidebar,
-.dg-navbar {
-    a {
-        &:hover {
-            text-decoration: none;
-        }
-    }
-}
-.dg-label {
-    display: inline-flex;
-    margin-bottom: 0px;
-}
-
-.dg-doc-viewer {
-    .dg-component-viewer {
-        .dg-component-api {
-            .dg-api-properties-table {
-                .dg-api-properties-header-row {
-                    .dg-api-properties-name-th {
-                        width: 100px;
-                    }
-                    .dg-api-properties-type-th {
-                        min-width: 80px;
-                        width: auto;
-                    }
-
-                    .dg-api-properties-default-th {
-                        width: 80px;
-                    }
-                }
-            }
-        }
-    }
-}
-
-.dg-layout .content {
-    display: block;
-    overflow-y: auto;
-}
-
-// ngx-tethys
-$primary: #348fe4;
-$font-family-statistics-number: 'Statistic-Number';
+@use '~@docgeni/template/styles/index.scss';
 
 @import './assets/fonts/wtd/iconfont.css';
-@import '../../src/styles/index.scss';
-@import './styles/index.scss';
+@include meta.load-css('../../src/styles/index.scss');
+@include meta.load-css('./styles/index.scss');
+
+@import './styles/docgeni.scss';
+
+html,
+body {
+    height: 100%;
+}

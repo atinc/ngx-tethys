@@ -1,9 +1,11 @@
-import { Injectable, SecurityContext, inject, Inject } from '@angular/core';
-import { SafeResourceUrl, SafeHtml, DomSanitizer } from '@angular/platform-browser';
-import { Observable, of, forkJoin, throwError } from 'rxjs';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { finalize, share, map, tap, catchError } from 'rxjs/operators';
+import { forkJoin, Observable, of, throwError } from 'rxjs';
+import { catchError, finalize, map, share, tap } from 'rxjs/operators';
+
 import { DOCUMENT } from '@angular/common';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Inject, Injectable, SecurityContext } from '@angular/core';
+import { DomSanitizer, SafeHtml, SafeResourceUrl } from '@angular/platform-browser';
+import { isString } from 'ngx-tethys/util';
 
 class SvgIconConfig {
     url: SafeResourceUrl | null;
@@ -12,7 +14,7 @@ class SvgIconConfig {
     constructor(data: SafeResourceUrl | SVGElement) {
         // Note that we can't use `instanceof SVGElement` here,
         // because it'll break during server-side rendering.
-        if (!!(data as any).nodeName) {
+        if (data && !!(data as any).nodeName) {
             this.svgElement = data as SVGElement;
         } else {
             this.url = data as SafeResourceUrl;
@@ -21,6 +23,8 @@ class SvgIconConfig {
 }
 
 export type IconMode = 'font' | 'svg';
+
+export type SvgResourceUrl = SafeResourceUrl | string;
 
 @Injectable({
     providedIn: 'root'
@@ -44,7 +48,7 @@ export class ThyIconRegistry {
 
     private getIconFailedToSanitizeLiteralError(literal: SafeHtml): Error {
         return Error(
-            `The literal provided to MatIconRegistry was not trusted as safe HTML by ` +
+            `The literal provided to ThyIconRegistry was not trusted as safe HTML by ` +
                 `Angular's DomSanitizer. Attempted literal was "${literal}".`
         );
     }
@@ -72,7 +76,7 @@ export class ThyIconRegistry {
 
         const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, safeUrl);
 
-        if (!url) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && !url) {
             throw new Error(
                 `The URL provided to ThyIconRegistry was not trusted as a resource URL ` +
                     `via Angular's DomSanitizer. Attempted URL was "${url}".`
@@ -278,11 +282,11 @@ export class ThyIconRegistry {
         return this;
     }
 
-    buildIconKey(namespace: string, name: string) {
+    public buildIconKey(namespace: string, name: string) {
         return namespace + ':' + name;
     }
 
-    splitIconName(iconName: string): [string, string] {
+    public splitIconName(iconName: string): [string, string] {
         if (!iconName) {
             return ['', ''];
         }
@@ -297,15 +301,16 @@ export class ThyIconRegistry {
         }
     }
 
-    addSvgIconSetInNamespace(namespace: string, url: SafeResourceUrl): this {
+    public addSvgIconSetInNamespace(namespace: string, url: SvgResourceUrl): this {
+        url = isString(url) ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : url;
         return this.internalAddSvgIconSet(namespace, new SvgIconConfig(url));
     }
 
-    addSvgIconSet(url: SafeResourceUrl): this {
+    public addSvgIconSet(url: SvgResourceUrl): this {
         return this.addSvgIconSetInNamespace('', url);
     }
 
-    addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml): this {
+    public addSvgIconSetLiteralInNamespace(namespace: string, literal: SafeHtml): this {
         const sanitizedLiteral = this.sanitizer.sanitize(SecurityContext.HTML, literal);
 
         if (!sanitizedLiteral) {
@@ -316,7 +321,7 @@ export class ThyIconRegistry {
         return this.internalAddSvgIconSet(namespace, new SvgIconConfig(svgElement));
     }
 
-    addSvgIconSetLiteral(literal: SafeHtml): this {
+    public addSvgIconSetLiteral(literal: SafeHtml): this {
         return this.addSvgIconSetLiteralInNamespace('', literal);
     }
 
@@ -326,7 +331,8 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    addSvgIconInNamespace(namespace: string, iconName: string, url: SafeResourceUrl): this {
+    public addSvgIconInNamespace(namespace: string, iconName: string, url: SvgResourceUrl): this {
+        url = isString(url) ? this.sanitizer.bypassSecurityTrustResourceUrl(url) : url;
         return this.internalAddSvgIconConfig(namespace, iconName, new SvgIconConfig(url));
     }
 
@@ -335,7 +341,7 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
-    addSvgIcon(iconName: string, url: SafeResourceUrl): this {
+    public addSvgIcon(iconName: string, url: SvgResourceUrl): this {
         return this.addSvgIconInNamespace('', iconName, url);
     }
 
@@ -344,7 +350,7 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    addSvgIconLiteral(iconName: string, literal: SafeHtml): this {
+    public addSvgIconLiteral(iconName: string, literal: SafeHtml): this {
         return this.addSvgIconLiteralInNamespace('', iconName, literal);
     }
 
@@ -354,7 +360,7 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this {
+    public addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this {
         const sanitizedLiteral = this.sanitizer.sanitize(SecurityContext.HTML, literal);
 
         if (!sanitizedLiteral) {
@@ -365,15 +371,15 @@ export class ThyIconRegistry {
         return this.internalAddSvgIconConfig(namespace, iconName, new SvgIconConfig(svgElement));
     }
 
-    getDefaultFontSetClass() {
+    public getDefaultFontSetClass() {
         return this.defaultFontSetClass;
     }
 
-    getFontSetClassByAlias(fontSet: string) {
+    public getFontSetClassByAlias(fontSet: string) {
         return fontSet;
     }
 
-    getSvgIcon(name: string, namespace: string = ''): Observable<SVGElement> {
+    public getSvgIcon(name: string, namespace: string = ''): Observable<SVGElement> {
         // Return (copy of) cached icon if possible.
         const key = this.buildIconKey(namespace, name);
         const config = this.svgIconConfigs.get(key);
@@ -392,7 +398,7 @@ export class ThyIconRegistry {
         return throwError(this.getIconNameNotFoundError(key));
     }
 
-    setIconMode(mode: IconMode) {
+    public setIconMode(mode: IconMode) {
         this.internalIconMode = mode;
     }
 }

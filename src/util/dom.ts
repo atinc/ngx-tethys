@@ -4,19 +4,13 @@ import * as helpers from './helpers';
 const proto = Element.prototype;
 const vendor =
     proto.matches ||
-    (proto as any).matchesSelector ||
-    proto.webkitMatchesSelector ||
-    (proto as any).mozMatchesSelector ||
-    (proto as any).msMatchesSelector ||
-    (proto as any).oMatchesSelector;
+    proto['matchesSelector'] ||
+    proto['webkitMatchesSelector'] ||
+    proto['mozMatchesSelector'] ||
+    proto['msMatchesSelector'] ||
+    proto['oMatchesSelector'];
 
-/**
- * Match `el` to `selector`.
- */
-export function match(el: any, selector: string) {
-    if (vendor) {
-        return vendor.call(el, selector);
-    }
+export function fallbackMatches(el: Element | Node, selector: string) {
     const nodes = el.parentNode.querySelectorAll(selector);
     for (let i = 0; i < nodes.length; i++) {
         if (nodes[i] === el) {
@@ -25,18 +19,26 @@ export function match(el: any, selector: string) {
     }
     return false;
 }
+/**
+ * Match `el` to `selector`.
+ */
+export function match(el: Element | Node, selector: string) {
+    if (vendor) {
+        return vendor.call(el, selector);
+    }
+    return fallbackMatches(el, selector);
+}
 
-export function isDocument(element: any) {
+export function isDocument(element: any): element is Document {
     return (
-        (typeof HTMLDocument !== 'undefined' && element instanceof HTMLDocument) ||
-        (element.nodeType && element.nodeType === element.DOCUMENT_NODE)
+        (typeof element !== 'undefined' && element instanceof Document) || (element.nodeType && element.nodeType === element.DOCUMENT_NODE)
     );
 }
 
 export function isElement(element: any) {
     return (
         (typeof HTMLElement !== 'undefined' && element instanceof HTMLElement) ||
-        (element.nodeType && element.nodeType === element.ELEMENT_NODE)
+        (element && element.nodeType && element.nodeType === element.ELEMENT_NODE)
     );
 }
 
@@ -98,13 +100,13 @@ export function getOffset(element: HTMLElement, container: HTMLElement | Window)
     return rect;
 }
 
-export function getElementOuterHeight(element: any) {
-    const _element = element.documentElement ? element.documentElement : element;
-    let height = _element.clientHeight;
-    const computedStyle = window.getComputedStyle(_element);
-    height += parseInt(computedStyle.marginTop, 10);
-    height += parseInt(computedStyle.marginBottom, 10);
-    return height;
+export function getClientSize(): { width: number; height: number } {
+    const width = document.documentElement.clientWidth;
+    const height = window.innerHeight || document.documentElement.clientHeight;
+    return {
+        width,
+        height
+    };
 }
 
 export type ElementSelector = HTMLElement | ElementRef | string;
@@ -160,4 +162,121 @@ export function getStyleAsText(styles?: any): string {
             return `${key}:${typeof val === 'string' ? val : val + 'px'}`;
         })
         .join(';');
+}
+
+export function isTouchEvent(event: MouseEvent | TouchEvent): event is TouchEvent {
+    return event.type.startsWith('touch');
+}
+
+/**
+ * Assert wrapper element whether only contains icon.
+ */
+export function assertIconOnly(wrapperElement: Element): boolean {
+    const listOfNode = Array.from(wrapperElement.childNodes);
+    const iconCount = listOfNode.filter(node => ['THY-ICON', 'I'].includes(node.nodeName)).length;
+    const noText = listOfNode.every(node => node.nodeName !== '#text');
+    const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
+    const isIconOnly = noSpan && noText && iconCount >= 1;
+    return isIconOnly;
+}
+
+/**
+ *
+ * calc position x,y point
+ *
+ * CASE (width <= clientWidth && height <= clientHeight):
+ *
+ * ------------- clientWidth -------------
+ * |                                     |
+ * |        ------ width ------          |
+ * |        |                 |          |
+ * |        |                 |          |
+ * client   height            |          |
+ * Height   |                 |          |
+ * |        |                 |          |
+ * |        -------------------          |
+ * |                                     |
+ * |                                     |
+ * ---------------------------------------
+ * fixedPosition = { x: 0, y: 0 }
+ *
+ *
+ *
+ * CASE (width > clientWidth || height > clientHeight):
+ *
+ * ------------- clientWidth -------------
+ * |        |                            |
+ * |        top                          |
+ * |        |                            |
+ * |--left--|--------------- width -----------------
+ * |        |                                      |
+ * client   |                                      |
+ * Height   |                                      |
+ * |        |                                      |
+ * |        |                                      |
+ * |        height                                 |
+ * |        |                                      |
+ * ---------|                                      |
+ *          |                                      |
+ *          |                                      |
+ *          |                                      |
+ *          ----------------------------------------
+ *
+ *
+ * - left || top > 0
+ *   left -> 0 || top -> 0
+ *
+ * - (left + width) < clientWidth || (top + height) < clientHeight
+ * - left | top + width | height < clientWidth | clientHeight -> Back left | top + width | height === clientWidth | clientHeight
+ *
+ * DEFAULT:
+ * - hold position
+ *
+ */
+export function getFitContentPosition(params: {
+    width: number;
+    height: number;
+    left: number;
+    top: number;
+    clientWidth: number;
+    clientHeight: number;
+}): { x?: number; y?: number } {
+    let fixPos = {};
+
+    if (params.width <= params.clientWidth && params.height <= params.clientHeight) {
+        fixPos = {
+            x: 0,
+            y: 0
+        };
+    }
+
+    if (params.width > params.clientWidth || params.height > params.clientHeight) {
+        fixPos = {
+            x: fitPoint(params.left, params.width, params.clientWidth),
+            y: fitPoint(params.top, params.height, params.clientHeight)
+        };
+    }
+
+    return fixPos;
+}
+
+function fitPoint(start: number, size: number, clientSize: number): number | null {
+    const startAddSize = start + size;
+    const offsetStart = (size - clientSize) / 2;
+    let distance: number | null = null;
+
+    if (size > clientSize) {
+        if (start > 0) {
+            distance = offsetStart;
+        }
+        if (start < 0 && startAddSize < clientSize) {
+            distance = -offsetStart;
+        }
+    } else {
+        if (start < 0 || startAddSize > clientSize) {
+            distance = start < 0 ? offsetStart : -offsetStart;
+        }
+    }
+
+    return distance;
 }

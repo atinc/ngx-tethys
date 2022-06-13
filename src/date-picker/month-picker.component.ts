@@ -11,14 +11,14 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { HeaderPickerComponent, SupportHeaderPanel } from './header-picker.component';
+import { BasePickerComponent } from './base-picker.component';
+import { ThyPanelMode } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-month-picker',
     exportAs: 'thyMonthPicker',
-    templateUrl: './header-picker.component.html',
+    templateUrl: './base-picker.component.html',
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -27,10 +27,10 @@ import { HeaderPickerComponent, SupportHeaderPanel } from './header-picker.compo
         }
     ]
 })
-export class ThyMonthPickerComponent extends HeaderPickerComponent {
+export class ThyMonthPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy-MM';
 
-    endPanelMode: SupportHeaderPanel = 'month';
+    thyMode: ThyPanelMode = 'month';
 
     constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
         super(cdr);

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DateRangeItemInfo } from 'ngx-tethys';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'app-date-range-basic-example',
@@ -12,5 +12,7 @@ export class ThyDateRangeBasicExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    changeDate() {}
+    changeDate(date: DateRangeItemInfo) {
+        console.log(date);
+    }
 }

@@ -2,7 +2,7 @@ import { ThyInputComponent } from './../input.component';
 import { ThyInputModule } from './../module';
 import { ThyInputDirective } from './../input.directive';
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
@@ -22,11 +22,15 @@ import { CommonModule } from '@angular/common';
             placeholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
-        ></thy-input>
+            [disabled]="disabled"
+        >
+            <ng-template #prepend>前置模版</ng-template>
+        </thy-input>
         <thy-input class="input2">
             <ng-template #prepend>前置模版</ng-template>
             <ng-template #append>后置模版</ng-template>
         </thy-input>
+        <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `
 })
 class TestBedComponent {
@@ -34,9 +38,10 @@ class TestBedComponent {
     thyType = 'text';
     thyAutocomplete;
     readonly;
+    passwordValue = '12345';
     checkFocus = false;
     checkBlur = false;
-
+    disabled = false;
     onFocus() {
         this.checkFocus = true;
     }
@@ -147,4 +152,44 @@ describe('input component', () => {
         fixture.detectChanges();
         expect(debugElement.nativeElement.readOnly).toBe(true);
     });
+
+    it('disabled', fakeAsync(() => {
+        basicTestComponent.disabled = true;
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        expect(debugContainerElement.attributes.class.includes('disabled')).toBe(true);
+    }));
+
+    it('password input', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+
+        const passwordInput = fixture.debugElement.query(By.css('.password'));
+        const passwordAppend = passwordInput.nativeElement.querySelector('.input-password-icon');
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye')).toBeTruthy();
+
+        passwordAppend.click();
+        fixture.detectChanges();
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye-invisible')).toBeTruthy();
+
+        passwordAppend.click();
+        fixture.detectChanges();
+        expect(passwordAppend.children[0].classList.contains('thy-icon-eye')).toBeTruthy();
+    }));
+
+    it('focus and blur ', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
+        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputComponent)).componentInstance;
+
+        debugInputInstance.onInputFocus();
+        fixture.detectChanges();
+        expect(basicTestComponent.checkFocus).toBe(true);
+
+        debugInputInstance.onInputBlur();
+        fixture.detectChanges();
+        expect(basicTestComponent.checkBlur).toBe(true);
+    }));
 });

@@ -1,43 +1,52 @@
-# ngx-tethys [![CircleCI](https://circleci.com/gh/atinc/ngx-tethys.svg?style=shield)](https://circleci.com/gh/atinc/ngx-tethys)
+# ngx-tethys 
+An UI components based on Worktile Design and Angular.
 
->An UI components based on Worktile Design and Angular.
+[![CircleCI](https://circleci.com/gh/atinc/ngx-tethys.svg?style=shield)](https://circleci.com/gh/atinc/ngx-tethys)
+[![Coverage Status][coveralls-image]][coveralls-url]
+![](https://img.shields.io/badge/Made%20with%20Angular-red?logo=angular)
+[![npm (scoped)](https://img.shields.io/npm/v/ngx-tethys?style=flat)](https://www.npmjs.com/package/ngx-tethys)
+[![npm](https://img.shields.io/npm/dm/ngx-tethys)](https://www.npmjs.com/package/ngx-tethys)
+[![release](https://img.shields.io/github/release-date/atinc/ngx-tethys.svg?style=flat-square
+)](https://github.com/atinc/ngx-tethys)
+[![docgeni](https://img.shields.io/badge/docs%20by-docgeni-348fe4)](https://github.com/docgeni/docgeni)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg?style=flat-square)](https://github.com/prettier/prettier)
 
-## Notes:
-**This repo is only public, it's a long way from the open source, not recommended in production environment. we do not promise that there will be no breaking changes, use only in worktile.**
+
+[coveralls-image]: https://coveralls.io/repos/github/atinc/ngx-tethys/badge.svg?branch=master
+[coveralls-url]: https://coveralls.io/github/atinc/ngx-tethys
+
+
+## Note:
+**This repo is only public now, it's far from the level of open source, we not recommended use it in production environment. we do not promise that there will be no breaking changes, only for [Worktile](https://worktile.com/) and [PingCode](https://pingcode.com/)**
 
 # Getting Started
 
 ## Installation
 
-Install ngx-tethys from npm
+Run 
+```
+ng add ngx-tethys
+```
+![ng-add-nex-tethys](https://cdn.pingcode.com/open-sources/ngx-tethys/images/ng-add.png)
+Manual install via
 
 ```
 npm install ngx-tethys --save
+// or 
+yarn add ngx-tethys
 ```
 
 ## Usage
 
-Import root module into every module (e.g. `AppModule`) where you want to use the components, directives, and services.
-
-```
-import { NgxTethysModule } from 'ngx-tethys';
-
-@NgModule({
-  imports: [ NgxTethysModule ]
-})
-export class AppModule {
-}
-```
-
-You can freely import the specified feature modules.
-
+Import some module into every module (e.g. `AppModule`) where you want to use the components, directives, and services.
 
 ```
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 
+
 @NgModule({
-    imports: [ ThyButtonModule, ThyLayoutModule ]
+  imports: [ ThyButtonModule, ThyLayoutModule ]
 })
 export class AppModule {
 }

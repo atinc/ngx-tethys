@@ -3,3 +3,4 @@ export * from './fullscreen.component';
 export * from './fullscreen.service';
 export * from './fullscreen-ref';
 export * from './fullscreen.config';
+export * from './fullscreen-launch.directive';

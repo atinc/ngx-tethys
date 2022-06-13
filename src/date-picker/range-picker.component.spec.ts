@@ -1,3 +1,6 @@
+import { endOfDay, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -5,10 +8,10 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+
 import { ThyDatePickerModule } from './date-picker.module';
-import { dispatchMouseEvent, typeInElement } from 'ngx-tethys/testing';
-import { isSameDay, fromUnixTime } from 'date-fns';
-import { RangeEntry } from './standard-types';
+import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -205,6 +208,109 @@ describe('ThyRangePickerComponent', () => {
             expect(getFirstSelectedDayCell().textContent.trim()).toBe('11');
         }));
 
+        it('should support thyShowShortcut', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut')).toBeTruthy();
+        }));
+
+        it('should support thyShortcutPosition', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutPosition = 'bottom';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
+        }));
+
+        it('should support more thyShortcutRanges', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutRanges = [
+                {
+                    title: '回家那几天',
+                    begin: new Date('2022-01-29').getTime(),
+                    end: new Date('2022-02-8').getTime()
+                }
+            ];
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
+            dispatchMouseEvent(shortcutItems[shortcutItems.length - 1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate('2022-01-29').startOfDay().getUnixTime(),
+                end: new TinyDate('2022-02-8').endOfDay().getUnixTime()
+            });
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(new TinyDate('2022-01-29').getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate('2022-02-8').getDate());
+        }));
+
+        it('should support thyShortcutValueChange', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            const thyShortcutValueChange = spyOn(fixtureInstance, 'thyShortcutValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyShortcutValueChange).toHaveBeenCalled();
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
+                new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6).getDate()
+            );
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+        }));
+
+        it('should default shortcut the last 30 days worked', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
+                new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29).getDate()
+            );
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+        }));
+
+        it('should default shortcut this week worked', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[2], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
+                new TinyDate(new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime()).getDate()
+            );
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+        }));
+
+        it('should default shortcut this month worked', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[3], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
+                new TinyDate(new TinyDate().startOfMonth().getTime()).getDate()
+            );
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+        }));
+
         it('should support thyOnCalendarChange', fakeAsync(() => {
             const thyOnCalendarChange = spyOn(fixtureInstance, 'thyOnCalendarChange');
             fixture.detectChanges();
@@ -230,6 +336,29 @@ describe('ThyRangePickerComponent', () => {
             expect((result[1] as Date).getDate()).toBe(+rightText);
         }));
 
+        it('should first date is startOfDay,last date is endOfDay', fakeAsync(() => {
+            const thyOnCalendarChange = spyOn(fixtureInstance, 'thyOnCalendarChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const left = getFirstCell('left');
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            let result = (thyOnCalendarChange.calls.allArgs()[0] as Date[][])[0];
+            expect(result[0]).toEqual(startOfDay(result[0]));
+
+            const right = getFirstCell('right');
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnCalendarChange).toHaveBeenCalled();
+            result = (thyOnCalendarChange.calls.allArgs()[1] as Date[][])[0];
+            expect(result[1]).toEqual(endOfDay(result[1]));
+        }));
+
         it('should support thyOnChange', fakeAsync(() => {
             fixtureInstance.modelValue = { begin: new Date('2018-11-11'), end: new Date('2018-11-11') };
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
@@ -249,7 +378,7 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalled();
-            const result = (thyOnChange.calls.allArgs()[0] as RangeEntry[])[0];
+            const result = (thyOnChange.calls.allArgs()[0] as ThyDateRangeEntry[])[0];
             expect(fromUnixTime(result.begin as number).getDate()).toBe(+leftText);
             expect(fromUnixTime(result.end as number).getDate()).toBe(+rightText);
         }));
@@ -259,29 +388,54 @@ describe('ThyRangePickerComponent', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
         it('should support date panel changes', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2018-6-11'), end: new Date('2018-12-12') };
+            fixtureInstance.modelValue = { begin: new Date('2018-6-11'), end: new Date('2020-12-12') };
             fixture.detectChanges();
             openPickerByClickTrigger();
             // Click previous year button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2017') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-btn').textContent.indexOf('2017') > -1).toBeTruthy();
             // Click next year button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-select').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year-btn').textContent.indexOf('2019') > -1).toBeTruthy();
             // Click previous month button
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-month-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('5') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('5') > -1).toBeTruthy();
             // Click next month button * 2
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
             dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn'), 'click');
             fixture.detectChanges();
-            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-select').textContent.indexOf('7') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('7') > -1).toBeTruthy();
+        }));
+
+        it('should show current thy-calendar-next-month-btn and thy-calendar-next-year-btn', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-10-11'), end: new Date('2018-12-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeFalsy();
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left  .thy-calendar-header .thy-calendar-next-month-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeFalsy();
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-month-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-month-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeDefined();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-pre-year-btn')).toBeDefined();
         }));
     }); // /panel switch and move forward/afterward
 
@@ -326,7 +480,199 @@ describe('ThyRangePickerComponent', () => {
         }));
     });
 
-    ////////////
+    describe('month mode', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyMode = 'month';
+        });
+
+        it('should show month panel', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2020-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.trim()).toEqual('2018年');
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.trim()).toEqual('2020年');
+        }));
+        it('should support previous and next year', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.indexOf('2019') > -1).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).not.toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).not.toBeTruthy();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-prev-year-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2017') > -1).toBeTruthy();
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn')).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-prev-year-btn')).toBeTruthy();
+            fixture.detectChanges();
+            tick(500);
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-next-year-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
+        }));
+        it('should support panel changes', fakeAsync(() => {
+            fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn'), 'click');
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-year')).toBeTruthy();
+        }));
+    });
+
+    describe('flexible range picker', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 4;
+            fixtureInstance.thyMode = 'flexible';
+        });
+
+        it('should show flexible panel', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getPickerContainer()).toBeTruthy();
+            expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-flexible')).toBeTruthy();
+            const navItem = overlayContainerElement.querySelectorAll('thy-nav .thy-nav-item');
+            expect(navItem.length).toBe(2);
+            expect((navItem[0] as HTMLElement).innerText).toBe('高级选项');
+            expect((navItem[1] as HTMLElement).innerText).toBe('自定义');
+            fixture.detectChanges();
+            dispatchMouseEvent(navItem[1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-advanced').hasAttribute('hidden'));
+        }));
+
+        it('should show flexible custom panel', fakeAsync(() => {
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-date-panel .thy-calendar-date-panel-advanced').hasAttribute('hidden'));
+        }));
+
+        it('should select advanced year', fakeAsync(() => {
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getPickerContainer()).toBeTruthy();
+            const selectableButtons = overlayContainerElement.querySelectorAll('.selectable-button');
+            const yearBtns = Array.from(selectableButtons).slice(0, 3);
+            dispatchMouseEvent(yearBtns[0], 'click');
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getFullYear()).toBe(new Date().getFullYear());
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('year');
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate().startOfYear().getUnixTime(),
+                end: new TinyDate().endOfYear().getUnixTime(),
+                granularity: 'year'
+            });
+            expect(getRangePickerInput().value).toBe(new Date().getFullYear() + '年');
+        }));
+
+        it('should select advanced quarter', fakeAsync(() => {
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getPickerContainer()).toBeTruthy();
+            const selectableButtons = overlayContainerElement.querySelectorAll('.selectable-button');
+            const quarterBtns = Array.from(selectableButtons).slice(3, 7);
+            dispatchMouseEvent(quarterBtns[0], 'click');
+            fixture.detectChanges();
+            expect(new TinyDate(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number)).getQuarter()).toBe(
+                new TinyDate().getQuarter()
+            );
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('quarter');
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate().startOfQuarter().getUnixTime(),
+                end: new TinyDate().endOfQuarter().getUnixTime(),
+                granularity: 'quarter'
+            });
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 Q${new TinyDate().getQuarter()}`);
+        }));
+
+        it('should select advanced month', fakeAsync(() => {
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getPickerContainer()).toBeTruthy();
+            const selectableButtons = overlayContainerElement.querySelectorAll('.selectable-button');
+            const monthBtns = Array.from(selectableButtons).slice(7);
+            dispatchMouseEvent(monthBtns[0], 'click');
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getMonth()).toBe(new Date().getMonth());
+            expect(fixtureInstance.flexibleDateRange.granularity).toBe('month');
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate().startOfMonth().getUnixTime(),
+                end: new TinyDate().endOfMonth().getUnixTime(),
+                granularity: 'month'
+            });
+            expect(getRangePickerInput().value).toBe(`${new TinyDate().getYear()}年 ${new TinyDate().getMonth() + 1}月`);
+        }));
+
+        it('should select custom date', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const navItem = overlayContainerElement.querySelectorAll('thy-nav .thy-nav-item');
+            fixture.detectChanges();
+            dispatchMouseEvent(navItem[1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const cells = overlayContainerElement.querySelectorAll(
+                `.thy-calendar-date-panel-flexible tbody.thy-calendar-tbody td.thy-calendar-cell`
+            );
+            const left = cells[0];
+            const right = cells[1];
+            const leftText = left.textContent.trim();
+            const rightText = right.textContent.trim();
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.begin as number).getDate()).toBe(+leftText);
+            expect(fromUnixTime(fixtureInstance.flexibleDateRange.end as number).getDate()).toBe(+rightText);
+        }));
+
+        it('should clear worked', fakeAsync(() => {
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12'), granularity: 'month' };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const clearBtn = overlayContainerElement.querySelector('.thy-calendar-date-panel-flexible-tab button');
+            fixture.detectChanges();
+            dispatchMouseEvent(clearBtn, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.granularity).toBeFalsy();
+            tick(500);
+            fixture.detectChanges();
+
+            fixtureInstance.flexibleDateRange = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            dispatchMouseEvent(clearBtn, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
+            expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
+        }));
+    });
 
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker .thy-calendar-picker-input')).nativeElement as HTMLInputElement;
@@ -377,11 +723,16 @@ describe('ThyRangePickerComponent', () => {
                 [thyPanelClassName]="thyPanelClassName"
                 [thySize]="thySize"
                 [thySuffixIcon]="thySuffixIcon"
+                [thyShowShortcut]="thyShowShortcut"
+                [thyShortcutRanges]="thyShortcutRanges"
+                [thyShortcutPosition]="thyShortcutPosition"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
+                [thyMode]="thyMode"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                (thyShortcutValueChange)="thyShortcutValueChange($event)"
             ></thy-range-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
@@ -393,11 +744,20 @@ describe('ThyRangePickerComponent', () => {
 
             <!-- Suite 3 -->
             <thy-range-picker *ngSwitchCase="3" thyOpen [(ngModel)]="modelValue"></thy-range-picker>
+
+            <!-- Suite 4 flexible range picker -->
+            <thy-range-picker
+                #rangePicker
+                *ngSwitchCase="4"
+                [(ngModel)]="flexibleDateRange"
+                thyMode="flexible"
+                (ngModelChange)="modelValueChange($event)"
+            ></thy-range-picker>
         </ng-container>
     `
 })
 class ThyTestRangePickerComponent {
-    useSuite: 1 | 2 | 3;
+    useSuite: 1 | 2 | 3 | 4;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
     @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
 
@@ -408,11 +768,17 @@ class ThyTestRangePickerComponent {
     thyPanelClassName: string;
     thySize: string;
     thySuffixIcon: string;
-    modelValue: RangeEntry;
+    modelValue: ThyDateRangeEntry;
+    thyMode: ThyPanelMode;
     thyOpen: boolean;
+    thyShowShortcut: boolean;
+    thyShortcutPosition: ThyShortcutPosition = 'left';
+    thyShortcutRanges: ThyShortcutRange[];
+    flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}
     modelValueChange(): void {}
     thyOnPanelChange(): void {}
     thyOnCalendarChange(): void {}
+    thyShortcutValueChange(): void {}
     thyOnOk(): void {}
 }

@@ -11,7 +11,10 @@
   <div #contentElement>
     <ng-content></ng-content>
   </div>
-  <ng-container *ngIf="value">{{ value }}</ng-container>
+  <ng-container *ngIf="value">
+    <span thyFlexibleText [thyTooltipContent]="value">{{ value }}</span>
+  </ng-container>
+
   <div class="thy-tips" *ngIf="!value || (!labelHideWhenHasValue && value)">{{ labelText }}</div>
 </div>
 <span *ngIf="showClose && !disabled" (click)="remove($event)" class="close-link close-link-danger">

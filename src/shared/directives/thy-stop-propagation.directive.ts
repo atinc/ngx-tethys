@@ -1,4 +1,6 @@
-import { Directive, Renderer2, Input, HostListener, ElementRef, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Input, NgZone, OnDestroy } from '@angular/core';
+import { fromEvent, Observable, Subject } from 'rxjs';
+import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 /**
  * 将来会移动到 thy 组件库中
@@ -6,27 +8,51 @@ import { Directive, Renderer2, Input, HostListener, ElementRef, OnInit, OnDestro
 @Directive({
     selector: '[thyStopPropagation]'
 })
-export class ThyStopPropagationDirective implements OnInit, OnDestroy {
-    private _listener: () => void;
-
+export class ThyStopPropagationDirective implements OnDestroy {
     private _eventName = 'click';
 
+    private _shouldStopPropagation = true;
+
     @Input()
-    set thyStopPropagation(value: string) {
-        this._eventName = value || 'click';
+    set thyStopPropagation(value: string | boolean) {
+        if (value === false || value === 'false') {
+            this._shouldStopPropagation = false;
+        } else {
+            this._shouldStopPropagation = true;
+            if (!value || value === true || value === 'true') {
+                this._eventName = 'click';
+            } else {
+                this._eventName = value as string;
+            }
+        }
+
+        this._changes$.next();
     }
 
-    constructor(private _elementRef: ElementRef, private _renderer: Renderer2) {}
+    private _changes$ = new Subject<void>();
+    private _destroy$ = new Subject<void>();
 
-    ngOnInit() {
-        this._listener = this._renderer.listen(this._elementRef.nativeElement, this._eventName, ($event: Event) => {
-            $event.stopPropagation();
-        });
+    constructor(_host: ElementRef<HTMLElement>, _ngZone: NgZone) {
+        this._changes$
+            .pipe(
+                // Note: we start the stream immediately since the `thyStopPropagation` setter may never be reached.
+                startWith<null, null>(null),
+                switchMap(
+                    () =>
+                        new Observable<Event>(subscriber =>
+                            _ngZone.runOutsideAngular(() => fromEvent(_host.nativeElement, this._eventName).subscribe(subscriber))
+                        )
+                ),
+                takeUntil(this._destroy$)
+            )
+            .subscribe(event => {
+                if (this._shouldStopPropagation) {
+                    event.stopPropagation();
+                }
+            });
     }
 
     ngOnDestroy() {
-        if (this._listener) {
-            this._listener();
-        }
+        this._destroy$.next();
     }
 }

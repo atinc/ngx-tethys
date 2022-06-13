@@ -1,3 +1,10 @@
+@use "../../styles/bootstrap/functions";
+@use "../../styles/bootstrap/functions-variables";
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "mixin";
+
 //
 // Base styles
 //
@@ -6,10 +13,10 @@
     display: flex;
     align-items: center;
     position: relative;
-    padding: $alert-padding-y $alert-padding-x;
-    margin-bottom: $alert-margin-bottom;
-    border: $alert-border-width solid transparent;
-    @include border-radius($alert-border-radius);
+    padding: variables.$alert-padding-y variables.$alert-padding-x;
+    margin-bottom: bootstrap-variables.$alert-margin-bottom;
+    border: bootstrap-variables.$alert-border-width solid transparent;
+    @include border-radius.border-radius(bootstrap-variables.$alert-border-radius);
 
     &.thy-alert-hidden {
         display: none;
@@ -22,7 +29,7 @@
     }
 
     .thy-alert-operation {
-        margin-left: $alert-operation-margin-left;
+        margin-left: variables.$alert-operation-margin-left;
         .thy-alert-action {
             margin: 0 10px;
             position: relative;
@@ -64,7 +71,7 @@
 
 // Provide class for links that match alerts
 .thy-alert-link {
-    font-weight: $alert-link-font-weight;
+    font-weight: bootstrap-variables.$alert-link-font-weight;
 }
 
 // Dismissible alerts
@@ -72,14 +79,14 @@
 // Expand the right padding and account for the close button's positioning.
 
 .thy-alert-dismissible {
-    padding-right: ($close-font-size + $alert-padding-x * 2);
+    padding-right: (variables.$close-font-size + variables.$alert-padding-x * 2);
 
     // Adjust close link position
     .close {
         position: absolute;
         top: 0;
         right: 0;
-        padding: $alert-padding-y $alert-padding-x;
+        padding: variables.$alert-padding-y variables.$alert-padding-x;
         color: inherit;
     }
 }
@@ -88,14 +95,14 @@
 //
 // Generate contextual modifier classes for colorizing the alert.
 
-@each $color, $value in $theme-colors {
+@each $color, $value in functions-variables.$theme-colors {
     .thy-alert-#{$color} {
-        @include thy-alert-variant(theme-color($color));
+        @include mixin.thy-alert-variant(functions.theme-color($color));
     }
 }
 
-@each $key, $color in $thy-alert-week-colors {
+@each $key, $color in variables.$thy-alert-weak-colors {
     .thy-alert-#{$key} {
-        @include thy-alert-week-variant($color);
+        @include mixin.thy-alert-weak-variant($color);
     }
 }

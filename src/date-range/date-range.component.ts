@@ -1,7 +1,6 @@
-import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
-import { helpers } from 'ngx-tethys/util';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
@@ -38,6 +37,10 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
     @Input() thyPickerFormat: string;
+
+    @Input() thyDisabledDate: (d: Date) => boolean;
+
+    @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     public selectedDate?: DateRangeItemInfo;
 
@@ -103,14 +106,6 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         };
     }
 
-    private _getNewDate(fullDate: Date, timestamp: { year?: number; month?: number; day?: number } = {}) {
-        const newYear = fullDate.getFullYear() + (timestamp.year || 0);
-        const newMonth = fullDate.getMonth() + (timestamp.month || 0);
-        const newDate = fullDate.getDate() + (timestamp.day || 0);
-
-        return helpers.formatDate(new Date(newYear, newMonth, newDate));
-    }
-
     private _calculateNewTime(type: string) {
         if (this.selectedDate.timestamp) {
             const beginDate = new Date(this.selectedDate.begin * 1000);
@@ -135,13 +130,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                        end: getUnixTime(addMonths(endDate, -1 * interval)),
+                        end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
                         key: this.thyCustomKey
                     };
                 } else {
                     return {
                         begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                        end: getUnixTime(addMonths(endDate, 1 * interval)),
+                        end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
                         key: this.thyCustomKey
                     };
                 }
@@ -211,9 +206,13 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 maxDate: this.thyMaxDate,
                 customValue: this.thyCustomTextValue,
                 customKey: this.thyCustomKey,
+                disabledDate: this.thyDisabledDate,
                 selectedDateRange: (dateRange: DateRangeItemInfo) => {
                     this.onModelChange(dateRange);
                     this.selectedDate = dateRange;
+                },
+                calendarChange: (date: Date[]) => {
+                    this.thyOnCalendarChange.emit(date);
                 }
             }
         });

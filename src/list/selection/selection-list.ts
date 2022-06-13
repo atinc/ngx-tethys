@@ -1,32 +1,32 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ContentChildren,
-    QueryList,
-    ChangeDetectionStrategy,
-    AfterContentInit,
-    Renderer2,
-    ElementRef,
-    OnInit,
-    EventEmitter,
-    Output,
-    OnDestroy,
-    NgZone,
-    forwardRef
-} from '@angular/core';
-import { FocusKeyManager, ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { SelectionModel } from '@angular/cdk/collections';
-import { ThyListOptionComponent, THY_LIST_OPTION_PARENT_COMPONENT, IThyListOptionParentComponent, ThyListLayout } from 'ngx-tethys/shared';
-import { keycodes, helpers, dom } from 'ngx-tethys/util';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { Subscription, throwError } from 'rxjs';
-import { ThySelectionListChange } from './selection.interface';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ScrollToService, InputBoolean } from 'ngx-tethys/core';
-import { warnDeprecation } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOptionComponent } from 'ngx-tethys/shared';
+import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
+import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+
+import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { SelectionModel } from '@angular/cdk/collections';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    QueryList,
+    Renderer2
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThySelectionListChange } from './selection.interface';
 
 export type ThyListSize = 'sm' | 'md' | 'lg';
 
@@ -76,7 +76,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     @HostBinding(`class.thy-grid-list`) isLayoutGrid = false;
 
     /** The option components contained within this selection-list. */
-    @ContentChildren(ThyListOptionComponent) options: QueryList<ThyListOptionComponent>;
+    @ContentChildren(ThyListOptionComponent, { descendants: true }) options: QueryList<ThyListOptionComponent>;
 
     @Input()
     set thyMultiple(value: any) {
@@ -100,14 +100,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     @Input() set thyLayout(value: ThyListLayout) {
         this.layout = value;
         this.isLayoutGrid = value === 'grid';
-    }
-
-    /**
-     * @deprecated thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem
-     */
-    @Input() set thyFirstItemDefaultActive(value: boolean) {
-        warnDeprecation(`thyFirstItemDefaultActive will be deprecated, please use thyAutoActiveFirstItem.`);
-        this.autoActiveFirstItem = coerceBooleanProperty(value);
     }
 
     @Input() set thyAutoActiveFirstItem(value: boolean) {
@@ -271,7 +263,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         private renderer: Renderer2,
         private elementRef: ElementRef,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -285,12 +278,12 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     writeValue(value: any[] | any): void {
-        if (value) {
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && value) {
             if (this.multiple && !helpers.isArray(value)) {
-                throw new Error(`multiple selection ngModel must be array.`);
+                throw new Error(`The multiple selection ngModel must be an array.`);
             }
             if (!this.multiple && helpers.isArray(value)) {
-                throw new Error(`single selection ngModel not be array.`);
+                throw new Error(`The single selection ngModel should not be an array.`);
             }
         }
         const values = helpers.isArray(value) ? value : value ? [value] : [];
@@ -298,6 +291,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         if (this.options) {
             this._setSelectionByValues(values);
         }
+        this.changeDetectorRef.markForCheck();
     }
 
     registerOnChange(fn: any): void {
@@ -400,11 +394,6 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
                 }
             }
         });
-
-        // if (this._tempValues) {
-        //     this._setSelectionByValues(this._tempValues);
-        //     this._tempValues = null;
-        // }
     }
 
     ngOnDestroy() {

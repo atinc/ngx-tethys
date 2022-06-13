@@ -19,22 +19,32 @@ export enum ThyEnterKeyMode {
 @Directive({
     selector: '[thyForm],[thy-form]',
     providers: [UpdateHostClassService, ThyFormValidatorService],
-    exportAs: 'thyForm'
+    exportAs: 'thyForm',
+    host: {
+        class: 'thy-form'
+    }
 })
 export class ThyFormDirective implements OnInit, OnDestroy {
-    private _layout: ThyFormLayout;
+    private layout: ThyFormLayout;
+
+    private initialized = false;
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
-        this._layout = value;
+        if (value) {
+            this.layout = value;
+            if (this.initialized) {
+                this.updateClasses();
+            }
+        }
     }
 
     get thyLayout(): ThyFormLayout {
-        return this._layout;
+        return this.layout;
     }
 
     get isHorizontal() {
-        return this._layout === 'horizontal';
+        return this.layout === 'horizontal';
     }
 
     @Input() thyEnterKeyMode: ThyEnterKeyMode;
@@ -60,32 +70,30 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+        this.layout = this.config.layout;
     }
 
     ngOnInit(): void {
         this.ngZone.runOutsideAngular(() => {
             this._unsubscribe = this.renderer.listen(this.elementRef.nativeElement, 'keydown', this.onKeydown.bind(this));
         });
-        this.setLayout();
-        this.updateHostClassService.updateClassByMap({
-            'thy-form': true,
-            [`thy-form-${this.thyLayout}`]: true
-        });
+        this.updateClasses();
+        this.initialized = true;
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
-    private setLayout() {
-        if (!this._layout) {
-            this._layout = this.config.layout;
-        }
-    }
-
-    submit($event: any) {
+    submit($event: Event) {
         if (this.validator.validate($event)) {
-            this.onSubmitSuccess($event);
+            this.onSubmitSuccess && this.onSubmitSuccess($event);
         } else {
             // this.wasValidated = true;
         }
+    }
+
+    updateClasses() {
+        this.updateHostClassService.updateClassByMap({
+            [`thy-form-${this.thyLayout}`]: true
+        });
     }
 
     submitRunInZone($event: any) {

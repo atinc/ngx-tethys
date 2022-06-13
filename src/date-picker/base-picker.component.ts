@@ -1,10 +1,11 @@
+import { ThyPlacement } from 'ngx-tethys/core';
+import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
+
 import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
-import { TinyDate } from 'ngx-tethys/util';
-import { coerceBooleanProperty, FunctionProp } from 'ngx-tethys/util';
-
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, PanelMode, CompatibleValue } from './standard-types';
+import { CompatibleDate, ThyPanelMode } from './standard-types';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 @Component({
     template: ``
@@ -12,9 +13,11 @@ import { CompatibleDate, PanelMode, CompatibleValue } from './standard-types';
 export class BasePickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
     showWeek = false;
 
+    panelMode: ThyPanelMode | ThyPanelMode[];
+
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode | PanelMode[];
-    @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
+
+    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
@@ -27,6 +30,8 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     @Input() thyMustShowTime = false;
 
+    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
 
     constructor(cdr: ChangeDetectorRef) {
@@ -35,27 +40,36 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     ngOnInit(): void {
         super.ngOnInit();
-
-        if (!this.thyFormat) {
-            if (this.showWeek) {
-                this.thyFormat = 'yyyy-ww';
-            } else {
-                this.thyFormat = this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
-            }
-        }
         this.setDefaultTimePickerState();
     }
 
-    onValueChange(value: CompatibleValue): void {
-        this.restoreTimePickerState(value);
+    onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
+        this.restoreTimePickerState(value as CompatibleValue);
         super.onValueChange(value);
-
-        this.closeOverlay();
+        if (!this.flexible) {
+            this.closeOverlay();
+        }
     }
 
     // Displays the time directly when the time must be displayed by default
     setDefaultTimePickerState() {
+        this.thyMode = this.thyMode || 'date';
         this.withTime = this.thyMustShowTime;
+        if (this.isRange) {
+            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
+        } else {
+            this.panelMode = this.thyMode;
+        }
+        this.showWeek = this.thyMode === 'week';
+        if (!this.thyFormat) {
+            const inputFormats: { [key in ThyPanelMode]?: string } = {
+                year: 'yyyy',
+                month: 'yyyy-MM',
+                week: 'yyyy-ww',
+                date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
+            };
+            this.thyFormat = this.flexible ? inputFormats['date'] : inputFormats[this.thyMode];
+        }
     }
 
     // Restore after clearing time to select whether the original picker time is displayed or not

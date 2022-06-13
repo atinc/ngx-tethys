@@ -4,6 +4,7 @@ import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
+import { coerceArray } from '@angular/cdk/coercion';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -13,6 +14,7 @@ import {
     Input,
     OnChanges,
     OnDestroy,
+    OnInit,
     Output,
     SimpleChange,
     TemplateRef
@@ -20,16 +22,19 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { CompatibleValue, PanelMode } from './standard-types';
+import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { CompatibleValue } from './inner-types';
 
 @Directive()
-export abstract class PickerDirective extends AbstractPickerComponent implements AfterViewInit, OnDestroy, OnChanges {
+export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
-    @Input() thyMode: PanelMode | PanelMode[];
+    @Input() thyMode: ThyPanelMode = 'date';
 
-    @Output() readonly thyOnPanelChange = new EventEmitter<PanelMode | PanelMode[]>();
+    panelMode: ThyPanelMode | ThyPanelMode[];
+
+    @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
@@ -46,19 +51,29 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     private offset = 4;
     @Input() set thyOffset(value: number) {
-        warnDeprecation(`This parameter will be deprecated, please use thyPopoverOptions instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
+        }
         this.offset = value;
     }
 
     private hasBackdrop = true;
     @Input() set thyHasBackdrop(value: boolean) {
-        warnDeprecation(`This parameter will be deprecated, please use thyPopoverOptions instead.`);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
+        }
         this.hasBackdrop = value;
     }
 
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
     @Input() thyStopPropagation = true;
+
+    thyShowShortcut: boolean;
+
+    shortcutPosition: ThyShortcutPosition;
+
+    shortcutRanges: ThyShortcutRange[];
 
     private destroy$ = new Subject();
     private el: HTMLElement = this.elementRef.nativeElement;
@@ -71,6 +86,17 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         mapTo(true)
     );
 
+    ngOnInit() {
+        this.thyMode = this.thyMode || 'date';
+        this.flexible = this.thyMode === 'flexible';
+
+        if (this.isRange) {
+            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
+        } else {
+            this.panelMode = this.thyMode;
+        }
+    }
+
     private openOverlay(): void {
         const popoverRef = this.thyPopover.open(
             DatePopupComponent,
@@ -82,6 +108,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                     offset: this.offset,
                     initialState: {
                         isRange: this.isRange,
+                        panelMode: this.panelMode,
                         showWeek: this.showWeek,
                         value: this.thyValue,
                         showTime: this.thyShowTime,
@@ -93,7 +120,12 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         className: this.thyPanelClassName,
                         defaultPickerValue: this.thyDefaultPickerValue,
                         minDate: this.thyMinDate,
-                        maxDate: this.thyMaxDate
+                        maxDate: this.thyMaxDate,
+                        showShortcut: this.thyShowShortcut,
+                        shortcutRanges: this.shortcutRanges,
+                        shortcutPosition: this.shortcutPosition,
+                        flexible: this.flexible,
+                        flexibleDateGranularity: this.flexibleDateGranularity
                     },
                     placement: this.thyPlacement
                 },
@@ -103,11 +135,27 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         if (popoverRef) {
             const componentInstance = popoverRef.componentInstance;
             componentInstance.valueChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => this.onValueChange(event));
+            componentInstance.calendarChange.pipe(takeUntil(this.destroy$)).subscribe((event: CompatibleValue) => {
+                const rangeValue = coerceArray(event).map(x => x.nativeDate);
+                this.thyOnCalendarChange.emit(rangeValue);
+            });
             componentInstance.showTimePickerChange
                 .pipe(takeUntil(this.destroy$))
                 .subscribe((event: boolean) => this.onShowTimePickerChange(event));
-            // tslint:disable-next-line: max-line-length
+            // eslint-disable-next-line max-len
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
+            componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
+                this.thyShortcutValueChange.emit(event);
+                this.closeOverlay();
+            });
+            popoverRef
+                .afterOpened()
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => this.thyOpenChange.emit(true));
+            popoverRef
+                .afterClosed()
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => this.thyOpenChange.emit(false));
         }
     }
 
@@ -140,8 +188,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     onValueChange(value: CompatibleValue): void {
         this.restoreTimePickerState(value);
         super.onValueChange(value);
-
-        this.closeOverlay();
+        if (!this.flexible) {
+            this.closeOverlay();
+        }
     }
 
     // Displays the time directly when the time must be displayed by default

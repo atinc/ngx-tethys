@@ -1,12 +1,13 @@
 <div
   thyDragContent
+  #treeNodeWrapper
   class="thy-tree-node-wrapper thy-sortable-item"
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
+  [style.height]="thyItemSize + 'px'"
   (click)="clickNode($event)"
-  (mouseenter)="nodeMouseEnter($event)"
-  (mouseleave)="nodeMouseLeave($event)"
 >
+  <span class="thy-tree-index" [style.width.px]="node.level * 25"></span>
   <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
@@ -49,33 +50,6 @@
     </ng-container>
   </span>
 </div>
-<div
-  class="thy-tree-node-children"
-  *ngIf="isShowExpand(node) && node.isExpanded"
-  [thyDropContainer]="node.children"
-  [thyDropContainerDisabled]="!root.thyDraggable"
-  [thyBeforeDragStart]="root.thyBeforeDragStart"
-  [thyBeforeDragOver]="root.beforeDragOver"
-  [thyBeforeDragDrop]="root.thyBeforeDragDrop"
-  (thyDragDropped)="root.onDragDrop($event)"
-  (thyDragStarted)="root.onDragStart($event)"
->
-  <thy-tree-node
-    *ngFor="let node of node.children; trackBy: root.trackByFn; let i = index"
-    [node]="node"
-    [thyDrag]="node"
-    [templateRef]="templateRef"
-    [thyAsync]="thyAsync"
-    [thyMultiple]="thyMultiple"
-    [thyDraggable]="thyDraggable"
-    [thyCheckable]="thyCheckable"
-    [thyTitleTruncate]="thyTitleTruncate"
-    (thyOnClick)="thyOnClick.emit($event)"
-    (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"
-    (thyOnExpandChange)="thyOnExpandChange.emit($event)"
-  >
-  </thy-tree-node>
-  <ng-container *ngIf="thyAsync">
-    <thy-loading *ngIf="node.isLoading" [thyDone]="!node.isLoading"></thy-loading>
-  </ng-container>
-</div>
+<ng-container *ngIf="thyAsync">
+  <thy-loading *ngIf="node.isLoading" [thyDone]="!node.isLoading"></thy-loading>
+</ng-container>

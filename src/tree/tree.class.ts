@@ -1,4 +1,5 @@
 import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
+
 import { ThyTreeNode } from './tree-node.class';
 
 export enum ThyTreeNodeCheckState {
@@ -29,6 +30,8 @@ export interface ThyTreeNodeData<T = any> {
     checked?: boolean;
 
     data?: T;
+
+    itemClass?: string | string[];
 
     [key: string]: any;
 }

@@ -1,8 +1,10 @@
+@use "../../styles/variables";
+
 .thy-guider-tip-container {
     width: 310px;
     display: block;
     .thy-guider-tip-top {
-        background-color: $primary;
+        background-color: variables.$primary;
         width: 100%;
         height: 190px;
         position: relative;
@@ -13,14 +15,14 @@
             display: block;
         }
         &-btn {
-            color: rgba($white, 0.8);
+            color: rgba(variables.$white, 0.8);
             font-size: 12px;
             position: absolute;
             right: 20px;
             top: 14px;
             background-color: rgba(0, 0, 0, 0);
             &:hover {
-                color: rgba($white, 1);
+                color: rgba(variables.$white, 1);
                 text-decoration: none;
             }
         }
@@ -34,11 +36,11 @@
         display: flex;
         &-title {
             font-size: 16px;
-            color: $gray-800;
+            color: variables.$gray-800;
             margin-bottom: 12px;
         }
         font-size: 14px;
-        color: $gray-700;
+        color: variables.$gray-700;
         letter-spacing: 0;
         line-height: 26px;
         &-description {
@@ -64,11 +66,11 @@
                     height: 3px;
                     display: inline-block;
                     border-radius: 50%;
-                    background-color: rgba($primary, 0.4);
+                    background-color: rgba(variables.$primary, 0.4);
                     margin: 2px 4px;
                     box-sizing: border-box;
                     &.active {
-                        border: 2px solid $primary;
+                        border: 2px solid variables.$primary;
                         background-color: #fff;
                         width: 7px;
                         height: 7px;
@@ -84,16 +86,16 @@
             }
             &-pre {
                 margin-right: 30px;
-                color: $gray-500;
+                color: variables.$gray-500;
                 &:hover {
-                    color: $gray-700;
+                    color: variables.$gray-700;
                 }
             }
             &-next {
                 margin-right: 10px;
-                color: rgba($primary, 0.8);
+                color: rgba(variables.$primary, 0.8);
                 &:hover {
-                    color: $primary;
+                    color: variables.$primary;
                 }
             }
         }

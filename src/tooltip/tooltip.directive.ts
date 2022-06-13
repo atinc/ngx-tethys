@@ -1,16 +1,5 @@
 import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef, Inject } from '@angular/core';
-import {
-    Overlay,
-    ScrollDispatcher,
-    OverlayRef,
-    ScrollStrategy,
-    FlexibleConnectedPositionStrategy,
-    OriginConnectionPosition,
-    OverlayConnectionPosition,
-    HorizontalConnectionPos,
-    VerticalConnectionPos,
-    ConnectedOverlayPositionChange
-} from '@angular/cdk/overlay';
+import { Overlay, ScrollDispatcher, OverlayRef, ScrollStrategy, FlexibleConnectedPositionStrategy } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil, take } from 'rxjs/operators';
 
@@ -18,7 +7,7 @@ import { ThyTooltipOptions, DEFAULT_TOOLTIP_OPTIONS } from './interface';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { ThyTooltipComponent } from './tooltip.component';
-import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyPlacement, ThyOverlayDirectiveBase, ThyOverlayTrigger, InputBoolean } from 'ngx-tethys/core';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { THY_TOOLTIP_DEFAULT_CONFIG_TOKEN, ThyTooltipConfig } from './tooltip.config';
 
@@ -55,7 +44,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         }
     }
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipPlacement') placement: ThyPlacement = 'top';
 
     @Input('thyTooltipClass')
@@ -66,14 +55,17 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         }
     }
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipShowDelay') showDelay = this.options.showDelay;
 
-    // tslint:disable-next-line:no-input-rename
+    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipHideDelay') hideDelay = this.options.hideDelay;
 
-    // tslint:disable-next-line:no-input-rename
-    @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click' = 'hover';
+    _trigger: ThyOverlayTrigger = 'hover';
+    // eslint-disable-next-line @angular-eslint/no-input-rename
+    @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
+        this.trigger = value;
+    }
 
     /** Disables the display of the tooltip. */
     @Input('thyTooltipDisabled')
@@ -89,7 +81,11 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input('thyTooltipOffset') tooltipOffset: number;
 
-    @Input('thyTooltipPin') tooltipPin: boolean;
+    @Input('thyTooltipPin')
+    @InputBoolean()
+    set tooltipPin(value: boolean) {
+        this.overlayPin = value;
+    }
 
     private detach() {
         if (this.overlayRef && this.overlayRef.hasAttached()) {

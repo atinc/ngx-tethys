@@ -1,47 +1,29 @@
-import { Injectable, TemplateRef, Injector, Optional, OnDestroy, Inject } from '@angular/core';
-import { Location } from '@angular/common';
-import { of, Subject } from 'rxjs';
-import { ComponentType, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ThyDialogConfig, ThyDialogSizes, THY_DIALOG_DEFAULT_OPTIONS } from './dialog.config';
-import { Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
+import { ThyAbstractOverlayRef, ThyAbstractOverlayService, ThyClickPositioner } from 'ngx-tethys/core';
+import { of } from 'rxjs';
+
+import { Directionality } from '@angular/cdk/bidi';
+import { Overlay, OverlayConfig, OverlayRef } from '@angular/cdk/overlay';
+import { ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { Inject, Injectable, Injector, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
+
+import { ThyConfirmConfig } from './confirm.config';
+import { ThyConfirmAbstractComponent, THY_CONFIRM_COMPONENT_TOKEN } from './confirm/token';
 import { ThyDialogContainerComponent } from './dialog-container.component';
 import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
-import { Directionality } from '@angular/cdk/bidi';
-import { helpers } from 'ngx-tethys/util';
-import { ThyClickPositioner } from 'ngx-tethys/core';
-import { ThyConfirmComponent } from './confirm/confirm.component';
-import { ThyConfirmConfig } from './confirm.config';
-import { ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
-import { dialogUpperOverlayOptions } from './dialog.options';
-import { StaticProvider } from '@angular/core';
+import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
+import { dialogAbstractOverlayOptions } from './dialog.options';
 
-@Injectable({
-    providedIn: 'root'
-})
-export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
-    private getOverlayPanelClasses(dialogConfig: ThyDialogConfig) {
-        let classes = [`cdk-overlay-pane`, `dialog-overlay-pane`];
-        const size = dialogConfig.size || ThyDialogSizes.md;
-        classes.push(`dialog-${size}`);
-        if (dialogConfig.panelClass) {
-            if (helpers.isArray(dialogConfig.panelClass)) {
-                classes = classes.concat(dialogConfig.panelClass);
-            } else {
-                classes.push(dialogConfig.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
+@Injectable()
+export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
-        const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.panelClass = this.getOverlayPanelClasses(config);
+        const size = config.size || ThyDialogSizes.md;
+        const overlayConfig = this.buildBaseOverlayConfig(config, [`dialog-${size}`]);
         overlayConfig.positionStrategy = this.overlay.position().global();
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyDialogConfig<any>): ThyDialogContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -53,11 +35,11 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T, TResult>(
         overlayRef: OverlayRef,
         containerInstance: ThyDialogContainerComponent,
         config: ThyDialogConfig<any>
-    ): ThyUpperOverlayRef<T, any> {
+    ): ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {
         return new ThyInternalDialogRef(overlayRef, containerInstance, config);
     }
 
@@ -95,17 +77,18 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
         @Optional()
         @Inject(THY_DIALOG_DEFAULT_OPTIONS)
         defaultConfig: ThyDialogConfig,
-        clickPositioner: ThyClickPositioner
+        clickPositioner: ThyClickPositioner,
+        @Inject(THY_CONFIRM_COMPONENT_TOKEN) private confirmComponentType: ComponentType<ThyConfirmAbstractComponent>
     ) {
-        super(dialogUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(dialogAbstractOverlayOptions, overlay, injector, defaultConfig);
         clickPositioner.initialize();
     }
 
-    open<T, TData = any, TResult = any>(
+    open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
     ): ThyDialogRef<T, TResult> {
-        const dialogRef = this.openUpperOverlay(componentOrTemplateRef, config);
+        const dialogRef = this.openOverlay(componentOrTemplateRef, config);
         const dialogRefInternal = dialogRef as ThyInternalDialogRef<T, TResult>;
         dialogRefInternal.updateSizeAndPosition(
             dialogRef.containerInstance.config.width,
@@ -116,7 +99,7 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
     }
 
     confirm(options: ThyConfirmConfig) {
-        return this.open(ThyConfirmComponent, {
+        return this.open(this.confirmComponentType, {
             initialState: {
                 options: options
             }
@@ -124,7 +107,11 @@ export class ThyDialog extends ThyUpperOverlayService<ThyDialogConfig, ThyDialog
     }
 
     getDialogById(id: string): ThyDialogRef<any> | undefined {
-        return this.getUpperOverlayById(id) as ThyDialogRef<any> | undefined;
+        return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
+    }
+
+    getOpenedDialogs(): ThyDialogRef<any>[] {
+        return this.getAbstractOverlays();
     }
 
     /**

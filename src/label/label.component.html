@@ -5,8 +5,8 @@
 <thy-icon
   class="ml-1"
   [thyIconName]="afterIconName"
-  (click)="remove()"
+  (click)="remove($event)"
   [ngStyle]="{ color: _color }"
   *ngIf="afterIconName"
 ></thy-icon>
-<i class="ml-1" [ngClass]="afterIconClass" *ngIf="afterIconClass" (click)="remove()"></i>
+<i class="ml-1" [ngClass]="afterIconClass" *ngIf="afterIconClass" (click)="remove($event)"></i>

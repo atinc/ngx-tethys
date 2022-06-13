@@ -1,5 +1,4 @@
-import { ThyNotifyService } from 'ngx-tethys';
-
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import { Component, OnInit } from '@angular/core';
 
 @Component({

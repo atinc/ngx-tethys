@@ -1,52 +1,65 @@
+import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
 import {
-    Component,
-    forwardRef,
-    HostBinding,
-    Input,
-    ElementRef,
-    OnInit,
-    ContentChildren,
-    QueryList,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    ContentChild,
-    ViewChild,
-    Renderer2,
-    OnDestroy,
-    ChangeDetectorRef,
-    NgZone,
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    HostListener,
-    Attribute
-} from '@angular/core';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import {
+    IThyOptionParentComponent,
+    SelectControlSize,
+    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
-    THY_OPTION_PARENT_COMPONENT,
-    IThyOptionParentComponent
+    ThySelectOptionGroupComponent
 } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, isArray } from 'ngx-tethys/util';
 import {
-    ScrollStrategy,
-    Overlay,
-    ViewportRuler,
-    ConnectionPositionPair,
-    ScrollDispatcher,
-    CdkConnectedOverlay
-} from '@angular/cdk/overlay';
-import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
-import { Subject, Observable, merge, defer, Subscription, timer } from 'rxjs';
-import { getFlexiblePositions } from 'ngx-tethys/core';
-import { ThySelectOptionGroupComponent, SelectControlSize } from 'ngx-tethys/shared';
-import { SelectionModel } from '@angular/cdk/collections';
-import { helpers } from 'ngx-tethys/util';
+    A,
+    coerceBooleanProperty,
+    DOWN_ARROW,
+    END,
+    ENTER,
+    FunctionProp,
+    hasModifierKey,
+    helpers,
+    HOME,
+    isArray,
+    isFunction,
+    LEFT_ARROW,
+    RIGHT_ARROW,
+    SPACE,
+    UP_ARROW
+} from 'ngx-tethys/util';
+import { defer, fromEvent, merge, Observable, Subject, Subscription, timer } from 'rxjs';
+import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
+
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
-import { ScrollToService } from 'ngx-tethys/core';
-import { DOWN_ARROW, UP_ARROW, LEFT_ARROW, RIGHT_ARROW, ENTER, SPACE, hasModifierKey, HOME, END, A } from 'ngx-tethys/util';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ContentChildren,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    HostListener,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    PLATFORM_ID,
+    QueryList,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThyClickDispatcher } from 'ngx-tethys/core';
+
+import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
 
@@ -111,7 +124,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public selectionModel: SelectionModel<ThyOptionComponent>;
 
-    public triggerRect: ClientRect;
+    public triggerRect: DOMRect;
+
+    public scrollStrategy: ScrollStrategy;
 
     private selectionModelSubscription: Subscription;
 
@@ -190,6 +205,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     @Input()
+    @InputBoolean()
     thyEnableScrollLoad = false;
 
     @Input() thyAllowClear = false;
@@ -205,6 +221,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     thyFooterTemplate: TemplateRef<any>;
 
     @Input()
+    thyPlacement: ThyPlacement = 'bottom';
+
+    @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
@@ -215,9 +234,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @InputBoolean()
     thyHasBackdrop = false;
 
-    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
+    @Input() @InputNumber() thyMaxTagCount = 0;
 
-    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<any>;
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
+
+    @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
 
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
@@ -233,32 +254,48 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event) {
-        if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
-            this.close();
+    get optionsChanges$() {
+        let previousOptions: ThyOptionComponent[] = this.options.toArray();
+        return this.options.changes.pipe(
+            map(data => {
+                return this.options.toArray();
+            }),
+            filter(data => {
+                const res = previousOptions.length !== data.length || previousOptions.some((op, index) => op !== data[index]);
+                previousOptions = data;
+                return res;
+            })
+        );
+    }
+
+    private buildScrollStrategy() {
+        if (this.scrollStrategyFactory && isFunction(this.scrollStrategyFactory)) {
+            this.scrollStrategy = this.scrollStrategyFactory();
+        } else {
+            this.scrollStrategy = this.overlay.scrollStrategies.reposition();
         }
     }
+
+    private isSearching = false;
 
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
         private updateHostClassService: UpdateHostClassService,
-        private renderer: Renderer2,
-        private overlay: Overlay,
         private viewportRuler: ViewportRuler,
         private changeDetectorRef: ChangeDetectorRef,
-        private scrollDispatcher: ScrollDispatcher,
-        @Attribute('tabindex') tabIndex: string
+        private overlay: Overlay,
+        private thyClickDispatcher: ThyClickDispatcher,
+        @Inject(PLATFORM_ID) private platformId: string,
+        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
+        this.buildScrollStrategy();
     }
 
     writeValue(value: any): void {
         this.modalValue = value;
-        if (this.options && this.options.length > 0) {
-            this.setSelectionByModelValue(this.modalValue);
-        }
+        this.setSelectionByModelValue(this.modalValue);
     }
 
     registerOnChange(fn: any): void {
@@ -284,13 +321,31 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.instanceSelectionModel();
         }
         this.setDropDownClass();
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    if (!this.elementRef.nativeElement.contains(event.target) && this.panelOpen) {
+                        this.ngZone.run(() => {
+                            this.close();
+                            this.changeDetectorRef.markForCheck();
+                        });
+                    }
+                });
+        }
     }
 
     ngAfterContentInit() {
-        this.options.changes.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(() => {
+        this.optionsChanges$.pipe(startWith(null), takeUntil(this.destroy$)).subscribe(data => {
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
+            if (this.isSearching) {
+                this.highlightCorrectOption(false);
+                this.isSearching = false;
+            }
             this.changeDetectorRef.markForCheck();
         });
         if (this.thyAutoExpand) {
@@ -329,13 +384,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onOptionsScrolled(elementRef: ElementRef) {
-        const scroll = this.elementRef.nativeElement.scrollTop,
-            height = this.elementRef.nativeElement.clientHeight,
-            scrollHeight = this.elementRef.nativeElement.scrollHeight;
+        const scroll = elementRef.nativeElement.scrollTop,
+            height = elementRef.nativeElement.clientHeight,
+            scrollHeight = elementRef.nativeElement.scrollHeight;
+
         if (scroll + height + 10 >= scrollHeight) {
-            this.ngZone.run(() => {
-                this.thyOnScrollToBottom.emit();
-            });
+            if (this.thyOnScrollToBottom.observers.length > 0) {
+                this.ngZone.run(() => {
+                    this.thyOnScrollToBottom.emit();
+                });
+            }
         }
     }
 
@@ -344,16 +402,20 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public onSearchFilter(searchText: string) {
+        searchText = searchText.trim();
         if (this.thyServerSearch) {
+            this.isSearching = true;
             this.thyOnSearch.emit(searchText);
         } else {
-            this.options.forEach(option => {
+            const options = this.options.toArray();
+            options.forEach(option => {
                 if (option.matchSearchText(searchText)) {
                     option.showOption();
                 } else {
                     option.hideOption();
                 }
             });
+            this.highlightCorrectOption(false);
             this.updateCdkConnectedOverlayPositions();
         }
     }
@@ -449,9 +511,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         this.updateCdkConnectedOverlayPositions();
     }
 
-    private highlightCorrectOption(): void {
-        if (this.keyManager) {
-            if (this.isMultiple) {
+    private highlightCorrectOption(fromOpenPanel: boolean = true): void {
+        if (this.keyManager && this.panelOpen) {
+            if (fromOpenPanel) {
                 if (this.keyManager.activeItem) {
                     return;
                 }
@@ -461,12 +523,16 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                     this.keyManager.setActiveItem(this.selectionModel.selected[0]);
                 }
             } else {
-                this.keyManager.setActiveItem(-1);
+                // always set first option active
+                this.keyManager.setFirstItemActive();
             }
         }
     }
 
     private initKeyManager() {
+        if (this.keyManager && this.keyManager.activeItem) {
+            this.keyManager.activeItem.setInactiveStyles();
+        }
         this.keyManager = new ActiveDescendantKeyManager<ThyOptionComponent>(this.options)
             .withTypeAhead()
             .withWrap()
@@ -499,8 +565,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             event.preventDefault(); // prevents the page from scrolling down when pressing space
             this.open();
         } else if (!this.isMultiple) {
-            const previouslySelectedOption = this.selected;
-
             if (keyCode === HOME || keyCode === END) {
                 keyCode === HOME ? manager.setFirstItemActive() : manager.setLastItemActive();
                 event.preventDefault();
@@ -560,7 +624,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions('bottom', this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions(this.thyPlacement, this.defaultOffset);
     }
 
     private instanceSelectionModel() {
@@ -579,7 +643,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private resetOptions() {
-        const changedOrDestroyed$ = merge(this.options.changes, this.destroy$);
+        const changedOrDestroyed$ = merge(this.optionsChanges$, this.destroy$);
 
         this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
             this.onSelect(event.option, event.isUserInput);
@@ -631,7 +695,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         } else {
-            this.selectionModel.clear();
             const selectedOption = this.options.find(option => {
                 return option.thyValue === modalValue;
             });

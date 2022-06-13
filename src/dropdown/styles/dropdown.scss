@@ -1,57 +1,203 @@
-.thy-dropdown-toggle {
-    // Generate the caret automatically
-    @include caret;
-    &.btn {
-        padding-left: $dropdown-toggle-y-l;
-        padding-right: $dropdown-toggle-y-r;
-    }
-    &::after {
-        margin-left: 1.25rem;
+@use "../../styles/variables";
+@use "mixin";
+
+.thy-dropdown-pane {
+    .thy-popover-container {
+        margin-top: 4px;
+        margin-bottom: 4px;
     }
 }
 
-.thy-dropdown-toggle-split {
-    &.btn {
-        &::before {
-            position: absolute;
-            content: '';
-            width: $btn-border-width;
-            height: 100%;
-            top: 0;
-            left: 0px;
-            background: rgba($white, 0.3);
+.thy-dropdown-menu {
+    padding: variables.$dropdown-menu-padding-y 0;
+    display: block;
+    width: 100%;
+    background: variables.$dropdown-menu-bg;
+    border-radius: variables.$border-radius;
+
+    .dropdown-menu-group {
+        &:first-child {
+            .dropdown-menu-group-title {
+                padding-top: 0px;
+            }
         }
-        min-width: inherit;
+        .dropdown-menu-group-title {
+            padding: variables.$dropdown-menu-group-name-padding-y variables.$dropdown-menu-group-name-padding-x;
+            color: variables.$dropdown-menu-group-name-color;
+        }
     }
-    &::after {
-        margin-left: 0;
+
+    .dropdown-menu-item {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: flex-start;
+        padding: variables.$dropdown-menu-item-padding-y variables.$dropdown-menu-item-padding-x;
+        position: relative;
+        color: variables.$dropdown-menu-item-color;
+        align-items: center;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 200ms;
+
+        &:not(.dropdown-menu-item--disabled).active {
+            background-color: rgba(variables.$primary, 0.1);
+            &:not(.dropdown-submenu) {
+                color: variables.$dropdown-menu-item-hover-color;
+            }
+        }
+
+        &:not(.dropdown-menu-item--disabled):hover {
+            background-color: variables.$dropdown-menu-item-hover-bg;
+            &:not(.desc),
+            &:not(.dropdown-submenu) {
+                color: variables.$dropdown-menu-item-hover-color;
+            }
+        }
+
+        i,
+        .thy-icon {
+            &:first-child {
+                margin-right: 8px;
+                color: variables.$dropdown-menu-item-icon-color;
+            }
+        }
+        .icon {
+            display: flex;
+            margin-right: 8px;
+            color: variables.$dropdown-menu-item-icon-color;
+            transition: margin-left 200ms;
+        }
+
+        .name {
+            flex: 1;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            transition: margin-left 200ms;
+        }
+
+        .meta {
+            padding-top: 2px;
+            margin-left: 4px;
+            font-size: 12px;
+        }
+
+        .desc {
+            margin-top: 4px;
+            padding-right: 8px;
+            width: 100%;
+            line-height: 1.5;
+            font-size: 12px;
+            color: variables.$gray-500;
+        }
+
+        .extend-icon {
+            display: flex;
+            margin-left: auto;
+            color: variables.$dropdown-menu-item-extend-color;
+        }
+
+        .dropdown-submenu {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            z-index: 1;
+            padding: 8px 0;
+            width: 100%;
+            background: variables.$dropdown-menu-bg;
+            box-shadow: variables.$box-shadow;
+        }
+
+        &.dropdown-submenu-right {
+            .dropdown-submenu {
+                left: 100%;
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
+        &.dropdown-submenu-left {
+            .dropdown-submenu {
+                right: 100%;
+                left: auto;
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
+        &.dropdown-submenu-auto {
+            @include mixin.dropdown-submenu-hover-display(none);
+        }
+
+        &--disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+
+        @include mixin.dropdown-submenu-hover-display();
+
+        &:not(.dropdown-menu-item--disabled):hover {
+            > .dropdown-submenu {
+                display: block;
+            }
+        }
+
+        &--danger {
+            @include mixin.dropdown-menu-item-type-hover(variables.$danger);
+        }
+
+        &--success {
+            @include mixin.dropdown-menu-item-type-hover(variables.$success);
+        }
     }
-}
-.btn-group > .btn {
-    &.thy-dropdown-toggle-split {
-        padding: $btn-padding-y $btn-group-btn-dropdown-padding-x;
+
+    &:not(&--group) {
+        .dropdown-menu-divider {
+            &:first-child,
+            &:last-child,
+            + .dropdown-menu-divider {
+                display: none;
+            }
+        }
     }
-}
-.btn-group-xs > .btn {
-    &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-xs $btn-group-btn-dropdown-padding-x-xs;
+
+    .dropdown-menu-divider {
+        margin: variables.$dropdown-menu-divider-margin-y variables.$dropdown-menu-divider-margin-x;
+        display: block;
+        border-top: solid 1px variables.$dropdown-menu-divider-border-color;
+        &-crossing {
+            margin: 0;
+        }
+    }
+
+    // 配合 thy-divider 组件使用，修改间距
+    .thy-divider {
+        &.thy-divider-horizontal {
+            margin: variables.$dropdown-menu-divider-margin-y variables.$dropdown-menu-divider-margin-x;
+        }
+    }
+
+    &--group {
+        width: variables.$dropdown-menu-group-width;
+        .dropdown-menu-item {
+            padding: 12px 30px 12px 45px;
+        }
+        .dropdown-menu-divider {
+            margin: 10px 30px;
+            transform: translateY(50%);
+            .dropdown-menu-divider-title {
+                display: inline-block;
+                margin-left: -15px;
+                padding-right: 10px;
+                color: variables.$dropdown-menu-divider-title-color;
+                background: #ffffff;
+                transform: translateY(-50%);
+            }
+        }
     }
 }
 
-.btn-group-sm > .btn {
-    &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-sm $btn-group-btn-dropdown-padding-x-sm;
-    }
-}
-
-.btn-group-md > .btn {
-    &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-md $btn-group-btn-dropdown-padding-x-md;
-    }
-}
-
-.btn-group-lg > .btn {
-    &.thy-dropdown-toggle-split {
-        padding: $btn-group-btn-padding-y-lg $btn-group-btn-dropdown-padding-x-lg;
-    }
+.dropdown-menu-height-limit {
+    max-height: variables.$dropdown-menu-max-height;
+    overflow-y: auto;
 }

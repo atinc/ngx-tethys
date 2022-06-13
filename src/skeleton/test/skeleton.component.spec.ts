@@ -1,8 +1,9 @@
 import { Component, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { ThySkeletonModule } from '../module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ThySkeletonModule } from '../module';
 import { ThySkeletonComponent } from '../skeleton.component';
 
 const defaultValues = {
@@ -20,7 +21,7 @@ const defaultValues = {
 };
 
 @Component({
-    selector: 'demo-skeleton-basic',
+    selector: 'thy-skeleton-basic',
     template: `
         <thy-skeleton></thy-skeleton>
     `
@@ -28,7 +29,15 @@ const defaultValues = {
 class SkeletonBasicComponent {}
 
 @Component({
-    selector: 'demo-skeleton-custom-content',
+    selector: 'thy-demo-skeleton-base-url',
+    template: `
+        <thy-skeleton [thyBaseUrl]="'/context1.html'"></thy-skeleton>
+    `
+})
+class SkeletonBaseUrlComponent {}
+
+@Component({
+    selector: 'thy-demo-skeleton-custom-content',
     template: `
         <thy-skeleton>
             <ng-template #content>
@@ -41,7 +50,7 @@ class SkeletonBasicComponent {}
 class SkeletonCustomContentComponent {}
 
 @Component({
-    selector: 'demo-skeleton-title-template',
+    selector: 'thy-demo-skeleton-title-template',
     template: `
         <thy-skeleton>
             <thy-skeleton-title-template [thyWidth]="width" [thyHeight]="height"> </thy-skeleton-title-template>
@@ -56,7 +65,7 @@ class SkeletonTitleComponent {
 describe('#skeleton', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [SkeletonBasicComponent, SkeletonCustomContentComponent, SkeletonTitleComponent],
+            declarations: [SkeletonBasicComponent, SkeletonCustomContentComponent, SkeletonTitleComponent, SkeletonBaseUrlComponent],
             imports: [ThySkeletonModule, NoopAnimationsModule],
             providers: [
                 // { provide: Location, useClass: SpyLocation }
@@ -152,6 +161,30 @@ describe('#skeleton', () => {
                 fill: `url(${skeleton.thyBaseUrl}#${skeleton.idGradient})`
             });
             expect(skeleton.clipPath).toEqual(`url(${skeleton.thyBaseUrl}#${skeleton.idClip})`);
+        });
+    });
+
+    describe('base-url', () => {
+        let fixture: ComponentFixture<SkeletonBaseUrlComponent>;
+        let skeletonDebugElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(SkeletonBaseUrlComponent);
+            fixture.detectChanges();
+            skeletonDebugElement = fixture.debugElement.query(By.directive(ThySkeletonComponent));
+        });
+
+        it('should set base url', () => {
+            const skeleton: ThySkeletonComponent = skeletonDebugElement.componentInstance;
+            expect(skeleton.thyBaseUrl).toEqual('/context1.html');
+        });
+
+        it('should set basic skeleton properties', () => {
+            const skeleton: ThySkeletonComponent = skeletonDebugElement.componentInstance;
+            const basicSkeleton = TestBed.createComponent(SkeletonBasicComponent).debugElement.query(By.directive(ThySkeletonComponent))
+                .componentInstance;
+            skeleton.assignInputProperties(basicSkeleton);
+            expect(skeleton.thyBaseUrl).toEqual('');
         });
     });
 

@@ -1,15 +1,17 @@
 <thy-pagination
-  [(thyPageIndex)]="pagination.pageIndex"
-  [thyPageSize]="pagination.pageSize"
-  [thyTotal]="pagination.total"
+  [(thyPageIndex)]="currentIndex"
+  [thyPageSize]="10"
+  [thyTotal]="500"
   [thySize]="'sm'"
-  [thyShowQuickJumper]="true"
+  [thyShowSizeChanger]="true"
 ></thy-pagination>
 <br />
+<thy-pagination [(thyPageIndex)]="currentIndex" [thyPageSize]="10" [thyTotal]="500" [thyShowSizeChanger]="true"></thy-pagination>
+<br />
 <thy-pagination
-  [(thyPageIndex)]="pagination.pageIndex"
-  [thyPageSize]="pagination.pageSize"
-  [thyTotal]="pagination.total"
+  [(thyPageIndex)]="currentIndex"
+  [thyPageSize]="10"
+  [thyTotal]="500"
   [thySize]="'lg'"
-  [thyShowQuickJumper]="true"
+  [thyShowSizeChanger]="true"
 ></thy-pagination>

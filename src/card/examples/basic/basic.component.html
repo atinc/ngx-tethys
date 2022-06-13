@@ -1,29 +1,21 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Header Size">
-    <thy-select name="headerSize" [(ngModel)]="headerSize">
-      <option value="">默认</option>
-      <option value="lg">大</option>
-      <option value="sm">小</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group thyLabelText="Content Size">
-    <thy-select name="contentSize" [(ngModel)]="contentSize">
-      <option value="">默认</option>
-      <option value="sm">小</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox name="hasLeftRightPadding" [(ngModel)]="hasLeftRightPadding" thyLabelText="左右是否显示 Padding"></label>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox name="contentAlignTitle" [(ngModel)]="contentAlignTitle" thyLabelText="内容对齐头部文字"></label>
-  </thy-form-group>
-</form>
-<div class="demo-inner-wrapper demo-layout-backdrop mt-3">
-  <thy-card [thyHasLeftRightPadding]="hasLeftRightPadding">
-    <thy-card-header thyTitle="头部标题" thyDescription="(共10人)" [thySize]="headerSize"> </thy-card-header>
-    <thy-card-content [thySize]="contentSize" [thyAlign]="contentAlignTitle ? 'title' : ''">
-      我是 content
+<div class="demo-inner-wrapper demo-layout-backdrop demo-cards">
+  <thy-card>
+    <thy-card-header thyTitle="Card title"> </thy-card-header>
+    <thy-card-content>
+      Card content<br />
+      Card content
+    </thy-card-content>
+  </thy-card>
+  <thy-card>
+    <thy-card-header thyTitle="Card title" thyDescription="(Total: 10)">
+      <ng-template #headerOperation>
+        <a href="javascript:;" class="link-secondary mr-2">More</a>
+        <button thyButton="primary" thySize="md">New</button>
+      </ng-template>
+    </thy-card-header>
+    <thy-card-content>
+      Card content<br />
+      Card content
     </thy-card-content>
   </thy-card>
 </div>

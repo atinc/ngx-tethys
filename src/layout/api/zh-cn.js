@@ -24,7 +24,7 @@ module.exports = [
             },
             {
                 name: 'thyIsolated',
-                description: '是否和右侧隔离, 当为 true 是距右侧会有 margin, 同时边宽会去掉',
+                description: '是否和右侧隔离, 当为 true 时距右侧会有 margin, 同时边框会去掉',
                 type: 'boolean',
                 default: 'false'
             },
@@ -35,10 +35,34 @@ module.exports = [
                 default: 'true'
             },
             {
-                name: 'thyIsDraggableWidth',
+                name: 'thyDraggable',
                 description: '宽度是否可以拖拽',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyCollapsible',
+                description: '开启收起/展开功能',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyCollapsed',
+                description: '是否是收起',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyCollapsedWidth',
+                description: '收起后的宽度',
+                type: 'number',
+                default: '20'
+            },
+            {
+                name: 'thyCollapsedChange',
+                description: '收起状态改变后的事件',
+                type: 'EventEmitter<boolean>',
+                default: ''
             }
         ]
     },
@@ -61,12 +85,18 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '头部大小，md | sm，`md`高度50px，`sm`高度38px',
+                description: `头部大小，'md' | 'sm' | 'lg'，'md'高度50px，'lg'高度56px，'xlg'高度80px`,
                 type: 'string',
                 default: 'md'
             },
             {
                 name: 'thyHasBorder',
+                description: '底部是否有边框，已弃用，请使用 thyDivided 代替',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyDivided',
                 description: '底部是否有边框',
                 type: 'boolean',
                 default: 'false'

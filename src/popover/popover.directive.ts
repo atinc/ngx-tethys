@@ -1,19 +1,19 @@
 import {
     Directive,
     ElementRef,
-    Injectable,
     NgZone,
     OnDestroy,
     Input,
     TemplateRef,
     OnInit,
     ViewContainerRef,
-    HostBinding
+    HostBinding,
+    ChangeDetectorRef
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
@@ -41,19 +41,24 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     @Input('thyHideDelay') hideDelay = 0;
 
+    @Input() thyAutoAdaptive = false;
+
+    @Input() @InputBoolean() set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
+
     private popoverRef: ThyPopoverRef<any>;
 
-    tooltipPin = true;
-
     constructor(
-        elementRef: ElementRef,
+        public elementRef: ElementRef,
         platform: Platform,
         focusMonitor: FocusMonitor,
         ngZone: NgZone,
         private popover: ThyPopover,
-        private viewContainerRef: ViewContainerRef
+        private viewContainerRef: ViewContainerRef,
+        private cdr: ChangeDetectorRef
     ) {
-        super(elementRef, platform, focusMonitor, ngZone);
+        super(elementRef, platform, focusMonitor, ngZone, true);
     }
 
     ngOnInit(): void {
@@ -67,7 +72,8 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
                 hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
                 viewContainerRef: this.viewContainerRef,
                 placement: this.thyPlacement,
-                offset: this.thyOffset
+                offset: this.thyOffset,
+                autoAdaptive: this.thyAutoAdaptive
             },
             this.thyConfig
         );
@@ -94,9 +100,12 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         }
 
         this.showTimeoutId = setTimeout(() => {
-            const overlayRef = this.createOverlay();
-            this.overlayRef = overlayRef;
-            this.popoverOpened = true;
+            if (!this.disabled) {
+                const overlayRef = this.createOverlay();
+                this.overlayRef = overlayRef;
+                this.popoverOpened = true;
+                this.cdr.markForCheck();
+            }
             this.showTimeoutId = null;
         }, delay);
     }
@@ -110,6 +119,7 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
         this.hideTimeoutId = setTimeout(() => {
             if (this.popoverRef) {
                 this.popoverRef.close();
+                this.cdr.markForCheck();
             }
             this.hideTimeoutId = null;
         }, delay);

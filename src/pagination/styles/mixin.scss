@@ -1,23 +1,43 @@
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/vendor/rfs";
+
 // Pagination
 
-@mixin pagination-size($padding-y, $padding-x, $font-size, $line-height, $border-radius) {
+@mixin pagination-size($font-size, $border-radius, $item-width, $item-height, $line-height, $page-size-width) {
     font-size: $font-size;
     .thy-page-link {
-        padding: $padding-y $padding-x;
-        @include font-size($font-size);
-        line-height: $line-height;
+        @include rfs.font-size($font-size);
     }
-
+    .thy-pagination-jumper {
+        input {
+            height: $item-height;
+            width: calc(#{$font-size} * 3);
+        }
+    }
+    .thy-pagination-total {
+        font-size: $font-size;
+    }
+    .thy-pagination-size {
+        width: $page-size-width;
+        .thy-select-custom {
+            .select-control.form-control-custom {
+                font-size: $font-size;
+                line-height: $line-height;
+            }
+        }
+    }
     .thy-page-item {
+        min-width: $item-width;
+        height: $item-height;
         &:first-child {
             .thy-page-link {
-                @include border-left-radius($border-radius);
+                @include border-radius.border-left-radius($border-radius);
             }
         }
 
         &:last-child {
             .thy-page-link {
-                @include border-right-radius($border-radius);
+                @include border-radius.border-right-radius($border-radius);
             }
         }
     }

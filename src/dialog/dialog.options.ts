@@ -1,6 +1,6 @@
-import { ThyUpperOverlayOptions } from 'ngx-tethys/core';
+import { ThyAbstractOverlayOptions } from 'ngx-tethys/core';
 
-export const dialogUpperOverlayOptions: ThyUpperOverlayOptions = {
+export const dialogAbstractOverlayOptions: ThyAbstractOverlayOptions = {
     name: 'dialog',
     animationEnabled: true,
     disposeWhenClose: true

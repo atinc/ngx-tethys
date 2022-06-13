@@ -1,22 +1,17 @@
-import { Component, HostBinding, Input, ContentChild, TemplateRef, ElementRef, ViewEncapsulation, OnInit } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyButtonType } from '.';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type buttonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
+import { Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-export type buttonGroupType = 'outline-primary' | 'outline-default';
+export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
+
+export type ButtonGroupType = 'outline-primary' | 'outline-default';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
     md: ['btn-group-md'],
     lg: ['btn-group-lg'],
     xs: ['btn-group-xs']
-};
-
-const buttonGroupTypeMap = {
-    'outline-primary': ['btn-group-outline-primary'],
-    'outline-default': ['btn-group-outline-default']
 };
 
 @Component({
@@ -33,7 +28,7 @@ export class ThyButtonGroupComponent implements OnInit {
     private size: string;
 
     @Input()
-    set thySize(size: buttonGroupSize) {
+    set thySize(size: ButtonGroupSize) {
         this.size = size;
         if (this.initialized) {
             this.setClasses();
@@ -41,7 +36,7 @@ export class ThyButtonGroupComponent implements OnInit {
     }
 
     @Input()
-    set thyType(type: ThyButtonType) {
+    set thyType(type: ButtonGroupType) {
         this.type = type;
         if (this.initialized) {
             this.setClasses();
@@ -68,8 +63,8 @@ export class ThyButtonGroupComponent implements OnInit {
 
     private setClasses() {
         let classNames: string[] = [];
-        if (buttonGroupTypeMap[this.type]) {
-            classNames = [...buttonGroupTypeMap[this.type]];
+        if (this.type) {
+            classNames.push(`btn-group-${this.type}`);
         }
         if (buttonGroupSizeMap[this.size]) {
             classNames.push(buttonGroupSizeMap[this.size]);

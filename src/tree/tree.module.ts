@@ -1,19 +1,21 @@
-import { NgModule } from '@angular/core';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
+import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyListModule } from 'ngx-tethys/list';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
+import { ThyOptionModule, ThySharedModule } from 'ngx-tethys/shared';
+
+import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
-import { ThyTreeComponent } from './tree.component';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
 import { ThyTreeNodeComponent } from './tree-node.component';
 import { ThyTreeReplaceRegionComponent } from './tree-replace-region.component';
-import { ThyInputModule } from 'ngx-tethys/input';
-import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThyTreeComponent } from './tree.component';
 import { ThyTreeService } from './tree.service';
-import { ThyListModule } from 'ngx-tethys/list';
-import { ThyOptionModule } from 'ngx-tethys/shared';
-import { FormsModule } from '@angular/forms';
-import { ThyLoadingModule } from 'ngx-tethys/loading';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
-import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 
 @NgModule({
     declarations: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
@@ -28,9 +30,9 @@ import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
         ThyLoadingModule,
         ThyIconModule,
         ThyDragDropModule,
-        ThyCheckboxModule
+        ThyCheckboxModule,
+        ScrollingModule
     ],
-    entryComponents: [ThyTreeComponent],
     exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
     providers: [ThyTreeService]
 })

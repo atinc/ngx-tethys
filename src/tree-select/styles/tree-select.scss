@@ -1,25 +1,28 @@
-$thy-select-expand-icon-height: 21px;
+@use "../../shared/option/styles/option.mixin";
+@use "../../shared/select/styles/select.mixin";
+@use "../../styles/bootstrap/mixins/text-truncate";
+@use "../../styles/variables";
 
 @mixin thy-tree-select-option() {
     &:not(.disabled) {
         &.hover,
         &:hover {
             .thy-tree-select-option-icon {
-                color: $gray-500;
+                color: variables.$gray-500;
             }
         }
     }
 }
 
 .thy-tree-select-selection-text {
-    @include text-truncate();
+    @include text-truncate.text-truncate();
 }
 
 .thy-tree-select-dropdown {
-    @include thy-select-options-dropdown();
+    @include select.thy-select-options-dropdown();
 
     .thy-tree-select-options {
-        @include thy-select-options-container();
+        @include select.thy-select-options-container();
 
         .loading-more {
             min-height: auto;
@@ -28,35 +31,32 @@ $thy-select-expand-icon-height: 21px;
 
         .thy-tree-select-node {
             .thy-tree-select-option-icon {
-                line-height: $thy-select-expand-icon-height;
-                height: $thy-select-expand-icon-height;
-                color: $gray-500;
+                color: variables.$gray-500;
                 &:hover {
                     cursor: pointer;
-                    color: $gray-600;
-                }
-                .node-expand-icon {
-                    line-height: $thy-select-expand-icon-height;
+                    color: variables.$gray-600;
                 }
                 .thy-icon-caret-right-down,
                 .thy-icon-caret-right {
                     padding-right: 5px;
-                    font-size: $font-size-md;
+                    font-size: variables.$font-size-md;
                 }
                 .thy-icon-minus-square,
                 .thy-icon-plus-square {
                     padding-right: 10px;
-                    font-size: $font-size-base;
+                    font-size: variables.$font-size-base;
                 }
             }
             .thy-tree-select-option-text {
                 margin-left: 6px;
-                @include text-truncate();
+                display: flex;
+                align-items: center;
+                @include text-truncate.text-truncate();
             }
         }
 
         .thy-option-item {
-            @include thy-option();
+            @include option.thy-option();
             @include thy-tree-select-option();
         }
     }
@@ -64,7 +64,7 @@ $thy-select-expand-icon-height: 21px;
     &.thy-tree-select-dropdown-multiple {
         .thy-tree-select-options {
             .thy-option-item {
-                @include thy-multiple-option();
+                @include option.thy-multiple-option();
                 @include thy-tree-select-option();
             }
         }

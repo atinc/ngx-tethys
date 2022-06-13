@@ -1,4 +1,4 @@
 ---
-order: 10
-title: 导航类型
+order: 20
+title: Type
 ---

@@ -1,10 +1,103 @@
 <div class="demo-layout-backdrop d-flex-column-fill demo-layout-sidebar">
-  <thy-layout>
-    <thy-sidebar [thyWidth]="width" [thyIsolated]="isolated" class="p-2 bg-white">
-      <h2>侧边栏</h2>
-      <label thyCheckbox thyInline="true" [(ngModel)]="isolated" thyLabelText="侧边栏独立展示"></label>
-      <input thyInput [(ngModel)]="width" [max]="500" placeholder="侧边栏的宽度，默认240px, 输入 lg 是300px" />
+  <thy-layout style="height: 300px;">
+    <thy-sidebar [thyTheme]="'light'">
+      <thy-sidebar-header thyTitle="Title">
+        <ng-template #headerOperation>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
+          <a href="javascript:;" thyAction thyActionIcon="outdent"></a>
+        </ng-template>
+      </thy-sidebar-header>
+      <thy-sidebar-content class="text-center pt-5">
+        Sidebar with header and content
+      </thy-sidebar-content>
+      <thy-sidebar-footer></thy-sidebar-footer>
     </thy-sidebar>
-    <thy-content-main> </thy-content-main>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar>
+      <thy-sidebar-header thyDivided="true" thyTitle="Title">
+        <ng-template #headerOperation>
+          <a href="javascript:;" thyAction thyActionIcon="plus"></a>
+        </ng-template>
+      </thy-sidebar-header>
+
+      <thy-sidebar-content class="text-center pt-5">
+        Sidebar header width divider
+      </thy-sidebar-content>
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+  <thy-layout style="height: 100px;">
+    <thy-sidebar thyWidth="lg" class="p-2">
+      Sidebar with custom width lg
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+  <thy-layout style="height: 100px;">
+    <thy-sidebar [thyWidth]="400" class="p-2">
+      Sidebar with custom width 400
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar [thyIsolated]="true" class="p-2">
+      Sidebar with isolated
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar thyHasBorderRight="false" class="p-2">
+      Sidebar without border
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar [thyDraggable]="true" [thyCollapsedWidth]="collapsedWidth" [thyDragMaxWidth]="700" class="p-2">
+      Sidebar can drag to change width
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar
+      class="p-2"
+      [thyDraggable]="true"
+      [thyDragMaxWidth]="700"
+      [thyCollapsible]="true"
+      [(thyCollapsed)]="collapsed"
+      [thyCollapsedWidth]="collapsedWidth"
+    >
+      Sidebar is collapsible
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar class="p-2" [thyWidth]="550" [thyCollapsible]="true" [thyTrigger]="null">
+      Set sidebar collapsible, but trigger is null, and finally hide the collapse icon
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
+  </thy-layout>
+
+  <thy-layout style="height: 100px;">
+    <thy-sidebar
+      class="p-2"
+      [thyCollapsible]="true"
+      [(thyCollapsed)]="triggerCollapsed"
+      [thyCollapsedWidth]="collapsedWidth"
+      [thyTrigger]="customTpl"
+    >
+      Sidebar custom trigger
+    </thy-sidebar>
+    <thy-content> Content </thy-content>
   </thy-layout>
 </div>
+
+<ng-template #customTpl>
+  <thy-icon class="sidebar-collapse-icon" [thyIconName]="triggerCollapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>
+</ng-template>

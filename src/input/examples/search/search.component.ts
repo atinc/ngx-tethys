@@ -6,7 +6,7 @@ import { InputSize } from 'ngx-tethys/input';
     templateUrl: './search.component.html'
 })
 export class ThyInputSearchExampleComponent implements OnInit {
-    public searchText = 'worktile';
+    public searchText = '';
 
     constructor() {}
 
@@ -15,6 +15,4 @@ export class ThyInputSearchExampleComponent implements OnInit {
     public change() {
         console.log(this.searchText);
     }
-
-    public thySize: InputSize = 'sm';
 }

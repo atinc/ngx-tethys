@@ -1,0 +1,23 @@
+<button thyDropdown thyButton="primary" [thyDropdownMenu]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
+<thy-dropdown-menu #menu>
+  <thy-dropdown-menu-group thyTitle="Group1">
+    <a thyDropdownMenuItem href="javascript:;">
+      <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
+      <span thyDropdownMenuItemName>New</span>
+    </a>
+    <a thyDropdownMenuItem href="javascript:;">
+      <thy-icon thyDropdownMenuItemIcon thyIconName="edit"></thy-icon>
+      <span thyDropdownMenuItemName>Edit</span>
+    </a>
+  </thy-dropdown-menu-group>
+  <thy-dropdown-menu-group thyTitle="Group2">
+    <a thyDropdownMenuItem href="javascript:;">
+      <thy-icon thyDropdownMenuItemIcon thyIconName="copy"></thy-icon>
+      <span thyDropdownMenuItemName>Copy</span>
+    </a>
+    <a thyDropdownMenuItem href="javascript:;">
+      <thy-icon thyDropdownMenuItemIcon thyIconName="sort"></thy-icon>
+      <span thyDropdownMenuItemName>Sort</span>
+    </a>
+  </thy-dropdown-menu-group>
+</thy-dropdown-menu>

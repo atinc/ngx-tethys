@@ -1,9 +1,0 @@
-{
-  "$schema": "../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../built",
-  "deleteDestPath": true,
-  "lib": {
-    "entryFile": "public-api.ts"
-  },
-  "whitelistedNonPeerDependencies": ["tslib", "angular", "date-fns", "@tethys/icons", "bootstrap"]
-}

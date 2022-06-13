@@ -1,3 +1,12 @@
-<input thyInput [(ngModel)]="value" [thyAutofocus]="true" (thyEnter)="enter()" placeholder="请输入" />
-<br />
-<input thyInput readonly [(ngModel)]="value" placeholder="只读，不可输入" />
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <input thyInput [(ngModel)]="value" placeholder="Please type (thyInput)" />
+    <input thyInput readonly [(ngModel)]="value" placeholder="Readonly, can't type (thyInput)" class="mt-3" />
+    <input thyInput [disabled]="true" [(ngModel)]="value" placeholder="Disabled, can't type (thyInput)" class="mt-3" />
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input [(ngModel)]="value" placeholder="Please type (thy-input)"></thy-input>
+    <thy-input thyInput readonly [(ngModel)]="value" placeholder="Readonly, can't type (thy-input)" class="mt-3"></thy-input>
+    <thy-input [(ngModel)]="value" [disabled]="true" placeholder="Disabled, can't type (thy-input)" class="mt-3"></thy-input>
+  </div>
+</div>

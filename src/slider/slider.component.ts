@@ -24,6 +24,8 @@ import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
+export type ThySliderSize = 'sm' | 'md' | 'lg';
+
 @Component({
     selector: 'thy-slider',
     templateUrl: './slider.component.html',
@@ -64,14 +66,38 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() thyStep = 1;
 
     @Input() set thyType(type: ThySliderType) {
-        this.updateHostClassService.updateClass(type ? [`thy-slider-${type}`] : []);
+        if (type) {
+            if (this.typeClassName) {
+                this.updateHostClassService.removeClass(this.typeClassName);
+            }
+            this.updateHostClassService.addClass(type ? `thy-slider-${type}` : '');
+            this.typeClassName = `thy-slider-${type}`;
+        }
     }
 
     @Input() thyColor: string;
 
+    /**
+     * 滑动输入条大小: `'sm' | 'md' | 'lg'`
+     * @default sm
+     */
+    @Input() set thySize(size: ThySliderSize) {
+        if (size) {
+            if (this.sizeClassName) {
+                this.updateHostClassService.removeClass(this.sizeClassName);
+            }
+            this.updateHostClassService.addClass(size ? `thy-slider-${size}` : '');
+            this.sizeClassName = `thy-slider-${size}`;
+        }
+    }
+
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;
+
+    private typeClassName = '';
+
+    private sizeClassName = '';
 
     private dragStartListener: Observable<number>;
 
@@ -99,8 +125,11 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     ngOnInit() {
-        this.verificationValues();
-        this.verificationStepValue();
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            verifyMinAndMax(this);
+            verifyStepValues(this);
+        }
+
         this.toggleDisabled();
         if (this.value === null || this.value === undefined) {
             this.setValue(this.ensureValueInRange(null));
@@ -125,35 +154,23 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (changes.hasOwnProperty('thyMin') || changes.hasOwnProperty('thyMax') || changes.hasOwnProperty('thyStep')) {
-            this.verificationValues();
-            this.verificationStepValue();
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (changes.hasOwnProperty('thyMin') || changes.hasOwnProperty('thyMax') || changes.hasOwnProperty('thyStep')) {
+                verifyMinAndMax(this);
+                verifyStepValues(this);
+            }
         }
     }
 
     ngOnDestroy() {
-        this.unsubscribeMouseActions();
-    }
-
-    private verificationValues() {
-        if (this.thyMin >= this.thyMax) {
-            throw new Error('min value must less than max value.');
-        }
-    }
-
-    private verificationStepValue() {
-        if (this.thyStep <= 0 || !!!this.thyStep) {
-            throw new Error('step value must be greater than 0.');
-        } else if (Number.isInteger(this.thyStep) && (this.thyMax - this.thyMin) % this.thyStep) {
-            throw new Error('(max -min) must be divisible by step.');
-        }
+        this.unsubscribeMouseListeners();
     }
 
     private toggleDisabled() {
         if (this.thyDisabled) {
-            this.unsubscribeMouseActions();
+            this.unsubscribeMouseListeners();
         } else {
-            this.subscribeMouseActions(['start']);
+            this.subscribeMouseListeners(['start']);
         }
     }
 
@@ -193,7 +210,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         this.sliderPointer.nativeElement.style[orientFields[1]] = `${percentage * 100}%`;
     }
 
-    private unsubscribeMouseActions(actions: string[] = ['start', 'move', 'end']) {
+    private unsubscribeMouseListeners(actions: string[] = ['start', 'move', 'end']) {
         if (actions.includes('start') && this.dragStartHandler) {
             this.dragStartHandler.unsubscribe();
             this.dragStartHandler = null;
@@ -208,7 +225,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         }
     }
 
-    private subscribeMouseActions(actions: string[] = ['start', 'move', 'end']) {
+    private subscribeMouseListeners(actions: string[] = ['start', 'move', 'end']) {
         if (actions.includes('start') && this.dragStartListener && !this.dragStartHandler) {
             this.dragStartHandler = this.dragStartListener.subscribe(this.mouseStartMoving.bind(this));
         }
@@ -240,9 +257,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private pointerController(movable: boolean) {
         if (movable) {
-            this.subscribeMouseActions(['move', 'end']);
+            this.subscribeMouseListeners(['move', 'end']);
         } else {
-            this.unsubscribeMouseActions(['move', 'end']);
+            this.unsubscribeMouseListeners(['move', 'end']);
         }
     }
     private registerMouseEventsListeners() {
@@ -323,5 +340,22 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         const valueString = value.toString();
         const integerLength = valueString.indexOf('.') + 1;
         return integerLength >= 0 ? valueString.length - integerLength : 0;
+    }
+}
+
+// Note: keep `verifyMinAndMax` and `verifyStepValues` as separate functions (not as class properties)
+// so they're tree-shakable in production mode.
+
+function verifyMinAndMax(ctx: ThySliderComponent): void | never {
+    if (ctx.thyMin >= ctx.thyMax) {
+        throw new Error('min value must less than max value.');
+    }
+}
+
+function verifyStepValues(ctx: ThySliderComponent): void | never {
+    if (ctx.thyStep <= 0 || !ctx.thyStep) {
+        throw new Error('step value must be greater than 0.');
+    } else if (Number.isInteger(ctx.thyStep) && (ctx.thyMax - ctx.thyMin) % ctx.thyStep) {
+        throw new Error('(max - min) must be divisible by step.');
     }
 }

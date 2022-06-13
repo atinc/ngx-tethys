@@ -1,4 +1,4 @@
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -11,8 +11,7 @@ const COMPONENTS = [ThyLoadingMaskExampleComponent, ThyLoadingBasicExampleCompon
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
+    imports: [CommonModule, ThyLoadingModule],
     exports: COMPONENTS,
     providers: []
 })

@@ -1,51 +1,54 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-notify-root {
     position: fixed;
-    z-index: $notify-z-index;
-    top: $notify-spacing;
-    right: $notify-spacing;
+    z-index: variables.$notify-z-index;
+    top: variables.$notify-spacing;
+    right: variables.$notify-spacing;
 
     .thy-notify {
-        width: $notify-width;
-        padding: $notify-padding;
-        margin-bottom: $notify-margin-bottom;
+        width: variables.$notify-width;
+        padding: variables.$notify-padding;
+        margin-bottom: variables.$notify-margin-bottom;
         position: relative;
         display: flex;
-        border-radius: $notify-border-radius-width;
-        background: $notify-bg;
-        box-shadow: $notify-box-shadow;
+        border-radius: variables.$notify-border-radius-width;
+        background: variables.$notify-bg;
+        box-shadow: variables.$notify-box-shadow;
 
         &-icon-container {
             position: relative;
-            padding-right: $notify-icon-padding-right;
+            padding-right: variables.$notify-icon-padding-right;
             margin-top: 2px;
             .thy-icon {
                 line-height: 1;
-                font-size: $notify-icon-font-size;
+                font-size: variables.$notify-icon-font-size;
             }
         }
 
         &-close {
             position: absolute;
-            right: $notify-padding - 4;
-            top: $notify-padding;
+            right: variables.$notify-padding - 4;
+            top: variables.$notify-padding;
             text-align: center;
-            width: $font-size-base * $notify-line-height;
-            font-size: $font-size-base;
-            color: $notify-close-color;
+            width: variables.$font-size-base * variables.$notify-line-height;
+            font-size: variables.$font-size-base;
+            color: variables.$notify-close-color;
             text-decoration: none;
-            transition: color $transition-duration-normal;
+            transition: color variables.$transition-duration-normal;
             &:hover {
-                color: $gray-600;
+                color: variables.$gray-600;
             }
         }
 
         &-main {
             flex: 1;
             .thy-notify-title {
-                padding-right: $font-size-base * $notify-line-height;
+                padding-right: variables.$font-size-base * variables.$notify-line-height;
                 margin-top: 1px;
-                font-size: $font-size-base;
-                color: $notify-title-color;
+                font-size: variables.$font-size-base;
+                color: variables.$notify-title-color;
                 word-break: break-all;
             }
             .thy-notify-content {
@@ -54,15 +57,15 @@
                     &:hover {
                         text-decoration: underline;
                     }
-                    font-size: $font-size-base;
-                    color: $primary;
+                    font-size: variables.$font-size-base;
+                    color: variables.$primary;
                 }
             }
             .thy-notify-content,
             .thy-notify-detail {
                 flex: 1;
-                font-size: $font-size-base;
-                color: $notify-content-color;
+                font-size: variables.$font-size-base;
+                color: variables.$notify-content-color;
                 word-break: break-all;
                 &--extend {
                     -webkit-line-clamp: initial;
@@ -71,25 +74,25 @@
         }
     }
 
-    @each $state, $color in $notify-states {
-        @include thy-notify-state($state, $color);
+    @each $state, $color in variables.$notify-states {
+        @include mixin.thy-notify-state($state, $color);
     }
 }
 .thy-notify-bottomRight {
     top: auto;
-    bottom: $notify-spacing;
-    right: $notify-spacing;
+    bottom: variables.$notify-spacing;
+    right: variables.$notify-spacing;
     left: auto;
 }
 .thy-notify-bottomLeft {
     top: auto;
-    bottom: $notify-spacing;
-    left: $notify-spacing;
+    bottom: variables.$notify-spacing;
+    left: variables.$notify-spacing;
     right: auto;
 }
 .thy-notify-topLeft {
-    top: $notify-spacing;
+    top: variables.$notify-spacing;
     bottom: auto;
-    left: $notify-spacing;
+    left: variables.$notify-spacing;
     right: auto;
 }

@@ -1,0 +1,44 @@
+@use 'variables.scss' as variables2;
+
+:host {
+    > :not(:first-child).thy-layout {
+        margin-top: 20px;
+    }
+}
+
+:host ::ng-deep {
+    .thy-layout {
+        .thy-layout-header {
+            background: rgba($color: variables2.$primary, $alpha: 0.6);
+            .layout-header-title {
+                color: variables2.$primary;
+                .title-name {
+                    color: variables2.$white;
+                }
+            }
+        }
+
+        .thy-layout-sidebar {
+            background: rgba($color: variables2.$primary, $alpha: 0.75);
+            color: variables2.$white;
+            text-align: center;
+            padding-top: 20px;
+        }
+
+        .thy-layout-content {
+            background: rgba($color: variables2.$primary, $alpha: 0.9);
+            color: variables2.$white;
+
+            .thy-layout-content-section {
+                background: rgba($color: variables2.$warning, $alpha: 0.9);
+                text-align: center;
+            }
+
+            .thy-layout-content-main {
+                background: #ffa8b4;
+                text-align: center;
+                padding-top: 10px;
+            }
+        }
+    }
+}

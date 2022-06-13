@@ -6,14 +6,14 @@ module.exports = [
         properties: [
             {
                 name: 'thySize',
-                description: '大小',
-                type: `'xs' | 'sm' | 'md' | 'lg'`,
-                default: ''
+                description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
+                type: `string`,
+                default: 'default'
             },
             {
                 name: 'thyAutocomplete',
-                description: '自动表单',
-                type: 'Boolean',
+                description: '输入字段是否应该启用自动完成功能',
+                type: 'boolean',
                 default: 'false'
             }
         ]
@@ -25,62 +25,74 @@ module.exports = [
         properties: [
             {
                 name: 'placeholder',
-                description: '提示文字',
-                type: 'String',
+                description: '输入框的 Placeholder',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: '大小',
-                type: `'xs' | 'sm' | 'md' | 'lg'`,
-                default: ''
+                description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
+                type: `string`,
+                default: 'default'
             },
             {
                 name: 'thyAutofocus',
-                description: '自动焦点',
-                type: 'Boolean',
+                description: '是否自动聚焦',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'type',
-                description: 'input的类型',
-                type: 'String',
+                description: '输入框的类型，与 input 的类型一致，已经废弃，请使用 thyType',
+                type: 'string',
                 default: 'text'
             },
             {
                 name: 'thyType',
-                description: 'input的类型',
-                type: 'String',
+                description: `输入框的类型，与 input 的类型一致，当类型为'password'时，输入框支持密码可见`,
+                type: 'string',
                 default: 'text'
             },
             {
                 name: 'thyLabelText',
-                description: 'label的文字',
-                type: 'String',
+                description: '输入框的label提示文字',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'readonly',
                 description: 'input只读',
-                type: 'Boolean',
+                type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyAutocomplete',
-                description: '自动表单',
-                type: 'Boolean',
+                description: '输入字段是否应该启用自动完成功能',
+                type: 'boolean',
                 default: 'false'
             },
             {
-                name: 'focus EventEmitter',
+                name: 'focus',
                 description: '焦点激活事件',
-                type: 'Event',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
-                name: 'blur EventEmitter',
-                description: '失去焦点事件',
-                type: 'Event',
+                name: 'blur',
+                description: '焦点失去事件',
+                type: 'EventEmitter<Event>',
+                default: ''
+            },
+            {
+                name: 'append',
+                description: '自定义后置元素',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
+                name: 'prepend',
+                description: '自定义前置元素',
+                type: 'ContentChild<TemplateRef>',
                 default: ''
             }
         ]
@@ -92,39 +104,45 @@ module.exports = [
         properties: [
             {
                 name: 'name',
-                description: 'property name of NgModel',
-                type: 'String',
+                description: 'input元素名称',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'placeholder',
-                description: '提示文字',
-                type: 'String',
+                description: '搜索框placeholder',
+                type: 'string',
                 default: ''
+            },
+            {
+                name: 'thyIconPosition',
+                description: `搜索图标位置，当传入 after 时，搜索图标在输入框后方显示，有内容时显示为关闭按钮`,
+                type: `'before' | 'after'`,
+                default: 'before'
             },
             {
                 name: 'thyTheme',
-                description: '主题',
-                type: '' | 'ellipse',
-                default: ''
+                description: `搜索框风格，分为'default' | 'ellipse' | 'transparent'`,
+                type: 'string',
+                default: 'default'
             },
             {
                 name: 'thySearchFocus',
-                description: '自动焦点',
-                type: 'Boolean',
+                description: '是否自动聚焦',
+                type: 'boolean',
                 default: 'false'
             },
             {
-                name: 'clear EventEmitter',
-                description: '点击清空事件',
-                type: 'Event',
+                name: 'clear',
+                description: '清除搜索事件',
+                type: 'EventEmitter<Event>',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: '大小',
-                type: `'' | 'md' | 'lg'`,
-                default: ''
+                description: `搜索框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
+                type: 'string',
+                default: 'default'
             }
         ]
     },
@@ -135,57 +153,57 @@ module.exports = [
         properties: [
             {
                 name: 'thyAppendText',
-                description: '追加文字',
-                type: 'String',
+                description: '输入框上添加的后置文本',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyAppendTextTranslateKey',
-                description: '追加文本多语言 Key',
-                type: 'String',
+                description: '输入框上添加的后置文本的多语言 Key',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyPrependText',
-                description: '前置文本',
-                type: 'String',
+                description: '输入框上添加的前置文本',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thyPrependTextTranslateKey',
-                description: '前置文本多语言 key',
-                type: 'String',
-                default: ''
-            },
-            {
-                name: 'append',
-                description: '追加的自定义 Template',
-                type: 'NgTemplate',
-                default: ''
-            },
-            {
-                name: 'prepend',
-                description: '前置的自定义 Template',
-                type: 'NgTemplate',
+                description: '输入框上添加的前置文本的多语言 key',
+                type: 'string',
                 default: ''
             },
             {
                 name: 'thySize',
-                description: '大小',
-                type: `'' | 'md' | 'lg'`,
+                description: `输入框大小，目前可传的大小有'xs' | 'sm' | 'md' | 'default' | 'lg'`,
+                type: 'string',
+                default: 'default'
+            },
+            {
+                name: 'prefix',
+                description: '自定义前缀元素，展示在输入框内',
+                type: 'ContentChild<TemplateRef>',
                 default: ''
             },
             {
-                name: 'readonly',
-                description: 'input只读',
-                type: 'Boolean',
-                default: 'false'
+                name: 'suffix',
+                description: '自定义后缀元素，展示在输入框内',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             },
             {
-                name: 'thySearchFocus',
-                description: '自动焦点',
-                type: 'Boolean',
-                default: 'false'
+                name: 'append',
+                description: '自定义后置元素，独立于输入框之后',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
+            },
+            {
+                name: 'prepend',
+                description: '自定义前置元素，独立于输入框之前',
+                type: 'ContentChild<TemplateRef>',
+                default: ''
             }
         ]
     }

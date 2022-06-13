@@ -6,8 +6,4 @@ import { Component } from '@angular/core';
 })
 export class ThyProgressBasicExampleComponent {
     value = 40;
-
-    max = 100;
-
-    size = 'md';
 }

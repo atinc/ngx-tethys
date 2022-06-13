@@ -1,13 +1,9 @@
-<span class="step1 display-inline-block font-weight-normal">step 1</span>
-
+<span class="step2 display-inline-block font-weight-normal">step 2</span>
 <div class="my-3"></div>
-<span class="step2 font-weight-normal">step 2</span>
-<div class="my-3"></div>
-
-<button thyButton="danger" class="step3" (click)="showText()">step 3</button>
-<ng-container *ngIf="text">
-  {{ text }}
-</ng-container>
+<span id="step3" class="font-weight-normal">step 3</span>
 <div class="my-3"></div>
 
-<button thyButton="primary" (click)="startTour()">开始</button>
+<button class="mb-3" thyButton="info" (click)="startTour()">开始</button>
+<p>调用 <code>end()</code> 方法结束新手引导流程。</p>
+
+<button thyButton="warning" (click)="endTour()">结束</button>

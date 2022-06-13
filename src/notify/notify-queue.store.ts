@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from 'ngx-tethys/store';
-import { NotifyPlacement, ThyNotifyOptions } from './notify-option.interface';
+import { MiniStore, MiniAction } from 'ngx-tethys/core';
+import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 export interface NotifyQueueState {
-    topLeftQueue: ThyNotifyOptions[];
-    topRightQueue: ThyNotifyOptions[];
-    bottomLeftQueue: ThyNotifyOptions[];
-    bottomRightQueue: ThyNotifyOptions[];
+    topLeftQueue: ThyNotifyConfig[];
+    topRightQueue: ThyNotifyConfig[];
+    bottomLeftQueue: ThyNotifyConfig[];
+    bottomRightQueue: ThyNotifyConfig[];
 }
 
 export const notifyQueueInitialState: NotifyQueueState = {
@@ -17,7 +17,7 @@ export const notifyQueueInitialState: NotifyQueueState = {
 };
 
 @Injectable()
-export class NotifyQueueStore extends Store<NotifyQueueState> {
+export class NotifyQueueStore extends MiniStore<NotifyQueueState> {
     static topRightSelector(state: NotifyQueueState) {
         return state.topRightQueue;
     }
@@ -49,19 +49,19 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
         return key;
     }
 
-    @Action()
-    addNotify(placement: NotifyPlacement, options: ThyNotifyOptions) {
+    @MiniAction()
+    addNotify(placement: NotifyPlacement, options: ThyNotifyConfig) {
         const key = this.convertQueueKey(placement);
         const state = this.snapshot;
-        if (state[key].length > options.maxStack) {
+        if (state[key].length >= options.maxStack) {
             state[key].shift();
         }
         state[key].push(options);
         this.next(state);
     }
 
-    @Action()
-    removeNotify(id: number, placement?: NotifyPlacement) {
+    @MiniAction()
+    removeNotify(id: string, placement?: NotifyPlacement) {
         const state = this.snapshot;
         if (placement) {
             const queueKey = this.convertQueueKey(placement);

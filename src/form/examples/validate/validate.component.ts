@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys';
+import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
 
 @Component({
     selector: 'thy-form-validate-example',
@@ -15,14 +15,14 @@ export class ThyFormValidateExampleComponent implements OnInit {
     validateConfig: ThyFormValidatorConfig = {
         validationMessages: {
             username: {
-                required: '用户名不能为空'
+                required: 'Username is required'
             },
             password: {
-                required: '密码不能为空'
+                required: 'Password is required'
             },
             email: {
-                required: '密码不能为空',
-                email: '恩，你输入的邮箱格式不正确'
+                required: 'Email is required',
+                email: 'Typed email is invalid'
             }
         }
     };

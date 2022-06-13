@@ -1,4 +1,7 @@
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { getFlexiblePositions, ThyPlacement } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
+
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange } from '@angular/cdk/overlay';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -8,15 +11,13 @@ import {
     EventEmitter,
     Input,
     Output,
-    ViewChild,
-    Renderer2
+    ViewChild
 } from '@angular/core';
-import { TinyDate } from 'ngx-tethys/util';
-import { DateHelperService } from './date-helper.service';
-import { CompatibleValue } from './standard-types';
-import { getFlexiblePositions } from 'ngx-tethys/core';
 
-export type RangePartType = 'left' | 'right';
+import { DateHelperService } from './date-helper.service';
+import { ThyDateGranularity } from './standard-types';
+import { getFlexibleAdvancedReadableValue } from './picker.util';
+import { CompatibleValue, RangePartType } from './inner-types';
 
 @Component({
     selector: 'thy-picker',
@@ -37,6 +38,9 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
     @Input() value: TinyDate | TinyDate[] | null;
     @Input() suffixIcon: string;
+    @Input() placement: ThyPlacement = 'bottomLeft';
+    @Input() flexible: boolean = false;
+    @Input() flexibleDateGranularity: ThyDateGranularity;
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
@@ -47,7 +51,7 @@ export class ThyPickerComponent implements AfterViewInit {
     prefixCls = 'thy-calendar';
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined
-    overlayPositions = getFlexiblePositions('bottomLeft', 4);
+    overlayPositions = getFlexiblePositions(this.placement, 4);
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -57,6 +61,7 @@ export class ThyPickerComponent implements AfterViewInit {
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
 
     ngAfterViewInit(): void {
+        this.overlayPositions = getFlexiblePositions(this.placement, 4);
         if (this.autoFocus) {
             this.focus();
         }
@@ -140,9 +145,13 @@ export class ThyPickerComponent implements AfterViewInit {
     getReadableValue(): string | null {
         let value: TinyDate;
         if (this.isRange) {
-            const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
-            const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';
-            return start && end ? `${start} ~ ${end}` : null;
+            if (this.flexible && this.flexibleDateGranularity !== 'day') {
+                return getFlexibleAdvancedReadableValue(this.value as TinyDate[], this.flexibleDateGranularity);
+            } else {
+                const start = this.value[0] ? this.dateHelper.format(this.value[0].nativeDate, this.format) : '';
+                const end = this.value[1] ? this.dateHelper.format(this.value[1].nativeDate, this.format) : '';
+                return start && end ? `${start} ~ ${end}` : null;
+            }
         } else {
             value = this.value as TinyDate;
             return value ? this.dateHelper.format(value.nativeDate, this.format) : null;

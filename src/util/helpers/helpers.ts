@@ -1,38 +1,32 @@
-import { IndexableObject } from './../tiny-date';
 import { TemplateRef, ElementRef } from '@angular/core';
 import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
-import { warnDeprecation } from '../logger';
-export function inputValueToBoolean(value: boolean | string): boolean {
-    warnDeprecation(`The method inputValueToBoolean will be deprecated, please use coerceBooleanProperty instead.`);
-    return value === '' || (value && value !== 'false');
-}
 
-export function isUndefined(value: any) {
+export function isUndefined(value: any): value is undefined {
     return value === undefined;
 }
 
-export function isNull(value: any) {
+export function isNull(value: any): value is null {
     return value === null;
 }
 
-export function isUndefinedOrNull(value: any) {
+export function isUndefinedOrNull(value: any): value is undefined | null {
     return isUndefined(value) || isNull(value);
 }
 
-export function isArray(value: any): boolean {
+export function isArray<T = any>(value: any): value is Array<T> {
     return value && baseGetTag(value) === '[object Array]';
 }
 
-export function isEmpty(value: any): boolean {
+export function isEmpty(value?: any): boolean {
     return !(isArray(value) && value.length > 0);
 }
 
-export function isString(value: any): boolean {
-    return value && baseGetTag(value) === '[object String]';
+export function isString(value?: any): value is string {
+    return typeof value == 'string' || (!isArray(value) && isObjectLike(value) && baseGetTag(value) === '[object String]');
 }
 
-function isObjectLike(value: any) {
-    return typeof value === 'object' && value !== null;
+function isObjectLike(value: any): value is object {
+    return value !== null && typeof value === 'object';
 }
 
 function baseGetTag(value: any) {
@@ -66,23 +60,23 @@ function baseGetTag(value: any) {
     return result;
 }
 
-export function isNumber(value: any) {
+export function isNumber(value: any): value is number {
     return typeof value === 'number' || (isObjectLike(value) && baseGetTag(value) === '[object Number]');
 }
 
-export function isObject(value: any) {
+export function isObject(value: any): value is object {
     // Avoid a V8 JIT bug in Chrome 19-20.
     // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
     const type = typeof value;
     return !!value && (type === 'object' || type === 'function');
 }
 
-export function isFunction(value: any) {
+export function isFunction(value: any): value is Function {
     const type = typeof value;
     return !!value && type === 'function';
 }
 
-export function isDate(value: any) {
+export function isDate(value: any): value is Date {
     const type = typeof value;
     return !!value && type === 'object' && !!value.getTime;
 }
@@ -91,7 +85,7 @@ export function coerceArray<T>(value: T | T[]): T[] {
     return Array.isArray(value) ? value : [value];
 }
 
-export function get(object: any, path: string, defaultValue?: any) {
+export function get(object: any, path: string, defaultValue?: any): any {
     const paths = path.split('.');
     let result = object[paths.shift()];
     while (result && paths.length) {
@@ -100,7 +94,7 @@ export function get(object: any, path: string, defaultValue?: any) {
     return result === undefined ? defaultValue : result;
 }
 
-export function set(object: any, path: string, value: any) {
+export function set(object: any, path: string, value: any): void {
     if (object == null) {
         return object;
     }
@@ -127,16 +121,12 @@ export function set(object: any, path: string, value: any) {
     return object;
 }
 
-export function isBoolean(value: any) {
+export function isBoolean(value: any): value is boolean {
     return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
-export function fromArray(value: any): any[] {
-    if (Array.from && isFunction(Array.from)) {
-        return Array.from(value);
-    } else {
-        return Array.prototype.slice.call(value);
-    }
+export function isClass(value: any): value is Function {
+    return isFunction(value) && /^\s*class\s+/.test(value.toString());
 }
 
 export function htmlElementIsEmpty(element: HTMLElement) {
@@ -170,7 +160,7 @@ export function hexToRgb(hexValue: string, alpha?: number): string {
     }
 }
 
-export function formatDate(date: Date | number): number {
+export function dateToUnixTimestamp(date: Date | number): number {
     if (isNumber(date)) {
         if (date.toString().length === 10) {
             return date as number;
@@ -225,15 +215,15 @@ export function generateRandomStr() {
         .substring(2);
 }
 
-export function isTemplateRef(value: any): boolean {
+export function isTemplateRef<C = any>(value: any): value is TemplateRef<C> {
     return value instanceof TemplateRef;
 }
 
-export function isHTMLElement(value: any): boolean {
+export function isHTMLElement(value: any): value is HTMLElement {
     return value instanceof HTMLElement;
 }
 
-export function isElementRef(value: any): boolean {
+export function isElementRef(value: any): value is ElementRef {
     return value instanceof ElementRef;
 }
 
@@ -261,7 +251,7 @@ export function valueFunctionProp<T>(prop: FunctionProp<T>, ...args: any[]): T {
     return typeof prop === 'function' ? prop(...args) : prop;
 }
 
-export function shallowEqual(objA?: IndexableObject, objB?: IndexableObject): boolean {
+export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, any>): boolean {
     if (objA === objB) {
         return true;
     }
@@ -279,7 +269,7 @@ export function shallowEqual(objA?: IndexableObject, objB?: IndexableObject): bo
 
     const bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
 
-    // tslint:disable-next-line:prefer-for-of
+    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let idx = 0; idx < keysA.length; idx++) {
         const key = keysA[idx];
         if (!bHasOwnProperty(key)) {
@@ -291,4 +281,22 @@ export function shallowEqual(objA?: IndexableObject, objB?: IndexableObject): bo
     }
 
     return true;
+}
+
+export function concatArray<TItem>(items: TItem | TItem[], originalItems: TItem | TItem[] = []): TItem[] {
+    let _originalItems: TItem[] = [];
+    if (!originalItems) {
+        _originalItems = [];
+    } else {
+        _originalItems = coerceArray(originalItems);
+    }
+    if (items) {
+        if (isArray(items)) {
+            return [..._originalItems, ...items];
+        } else {
+            return [..._originalItems, items];
+        }
+    } else {
+        return _originalItems;
+    }
 }

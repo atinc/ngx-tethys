@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture, fakeAsync, tick, inject, flush, discardPeriodicTasks } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, flush } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
@@ -10,7 +10,7 @@ import { ThySelectControlComponent, SelectControlSize } from './select-control.c
 import { SelectOptionBase } from '../../option';
 
 @Component({
-    selector: 'basic-select-control',
+    selector: 'thy-basic-select-control',
     template: `
         <thy-select-control
             [thyPlaceholder]="placeholder"
@@ -21,6 +21,7 @@ import { SelectOptionBase } from '../../option';
             [thySize]="thySize"
             [thyIsMultiple]="thyIsMultiple"
             [thyPanelOpened]="thyPanelOpened"
+            [thyMaxTagCount]="thyMaxTagCount"
         ></thy-select-control>
     `
 })
@@ -40,6 +41,8 @@ class BasicSelectControlComponent {
     thyIsMultiple = false;
 
     thyPanelOpened = false;
+
+    thyMaxTagCount = 0;
 
     @ViewChild(ThySelectControlComponent, { static: true })
     selectControlComponent: ThySelectControlComponent;
@@ -190,6 +193,40 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
                 flush();
                 expect(fixture.componentInstance.selectControlComponent.inputValue).toEqual(typeValue);
+            }));
+
+            it('should just show max tag', fakeAsync(() => {
+                fixture.componentInstance.thyIsMultiple = true;
+                let selectedOptions = [
+                    { thyLabelText: '1', thyRawValue: {}, thyValue: '1' },
+                    { thyLabelText: '2', thyRawValue: {}, thyValue: '2' },
+                    { thyLabelText: '3', thyRawValue: {}, thyValue: '3' }
+                ];
+                fixture.componentInstance.selectedOptions = selectedOptions;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                let lis = selectElement.querySelectorAll('.choice');
+                expect(lis.length).toEqual(3);
+                let maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
+                expect(maxTagCountChoic).toBeNull();
+
+                fixture.componentInstance.selectedOptions = [
+                    ...selectedOptions,
+                    { thyLabelText: '4', thyRawValue: {}, thyValue: '4' },
+                    { thyLabelText: '5', thyRawValue: {}, thyValue: '5' }
+                ];
+                fixture.componentInstance.thyMaxTagCount = 3;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
+                lis = selectElement.querySelectorAll('.choice');
+                expect(lis.length).toEqual(3);
+                maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
+                expect(maxTagCountChoic).toBeTruthy();
             }));
         });
     });

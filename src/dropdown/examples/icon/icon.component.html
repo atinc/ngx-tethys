@@ -1,0 +1,32 @@
+<button thyButton="primary" [thyDropdown]="menu" thyPlacement="bottom">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon class="icon" thyIconName="plus"></thy-icon>
+    <span thyDropdownMenuItemName>New</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyDropdownMenuItemIcon thyIconName="edit"></thy-icon>
+    <span thyDropdownMenuItemName>Edit</span>
+    <thy-icon thyDropdownMenuItemExtendIcon thyIconName="angle-right"></thy-icon>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyDropdownMenuItemIcon thyIconName="copy"></thy-icon>
+    <span thyDropdownMenuItemName>Copy</span>
+    <thy-icon class="text-primary" thyDropdownMenuItemExtendIcon thyIconName="check"></thy-icon>
+  </a>
+  <thy-divider></thy-divider>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyDropdownMenuItemIcon thyIconName="sort"></thy-icon>
+    <span thyDropdownMenuItemName>Sort</span>
+    <span thyDropdownMenuItemMeta>(Default Sort)</span>
+    <div thyDropdownMenuItemDesc>
+      By default, you can drag and drop work item; other sorting can only be displayed and cannot be dragged
+    </div>
+  </a>
+  <thy-divider></thy-divider>
+  <a thyDropdownMenuItem href="javascript:;">
+    <thy-icon thyDropdownMenuItemIcon thyIconName="more-vertical"></thy-icon>
+    <span thyDropdownMenuItemName>Lorem ipsum dolor sit amet, consectetur adipiscing elit</span>
+  </a>
+</thy-dropdown-menu>

@@ -1,20 +1,21 @@
-import {
-    Directive,
-    ElementRef,
-    OnInit,
-    HostListener,
-    Input,
-    Inject,
-    ViewContainerRef,
-    OnDestroy,
-    Output,
-    EventEmitter
-} from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
+import { ThyNotifyService } from 'ngx-tethys/notify';
+import { TooltipService } from 'ngx-tethys/tooltip';
 
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { TooltipService } from 'ngx-tethys/tooltip';
-import { ThyNotifyService } from 'ngx-tethys/notify';
+import {
+    Directive,
+    ElementRef,
+    EventEmitter,
+    HostListener,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewContainerRef
+} from '@angular/core';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;
@@ -23,7 +24,7 @@ export interface ThyCopyEvent {
 
 @Directive({
     selector: '[thyCopy]',
-    providers: [TooltipService, ThyNotifyService]
+    providers: [TooltipService]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     // 默认为点击标签，可传复制目标标签
@@ -33,7 +34,15 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     @Input() thyCopyTips = '点击复制';
 
+    /**
+     *  偏移量
+     * @default 4
+     */
+    @Input() thyCopyTipsOffset: number;
+
     @Input() thyCopyContent: string | ElementRef | HTMLElement;
+
+    @Input() @InputBoolean() thyShowNotify = true;
 
     constructor(
         @Inject(DOCUMENT) private document: any,
@@ -46,6 +55,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     ngOnInit() {
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
         this.tooltipService.thyTooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
+        this.tooltipService.thyTooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
     }
 
     private getContent(event: Event) {
@@ -65,10 +75,14 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         try {
             document.execCommand('copy', false, null);
             this.thyCopy.emit({ isSuccess: true, event });
-            this.notifyService.success(this.thyCopySuccessText);
+            if (this.thyShowNotify) {
+                this.notifyService.success(this.thyCopySuccessText);
+            }
         } catch (err) {
             this.thyCopy.emit({ isSuccess: false, event });
-            this.notifyService.error('复制失败');
+            if (this.thyShowNotify) {
+                this.notifyService.error('复制失败');
+            }
         } finally {
             textarea.remove();
         }

@@ -2,35 +2,34 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-empty',
-        description: '显示空状态组件',
         properties: [
             {
                 name: 'thyMessage',
-                description: `显示文本提示信息`,
+                description: `显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高`,
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thyTranslationKey',
-                description: `显示文本提示信息多语言 Key`,
+                description: `显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高`,
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thyTranslationValues',
-                description: `显示文本提示信息多语言 Key 的 Values`,
+                description: `显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效`,
                 type: 'object',
                 default: ''
             },
             {
                 name: 'thyEntityName',
-                description: `显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}`,
+                description: `显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高`,
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thyEntityNameTranslateKey',
-                description: `thyEntityName 的多语言 Key`,
+                description: `thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效`,
                 type: 'string',
                 default: ''
             },
@@ -46,7 +45,18 @@ module.exports = [
                 type: 'string',
                 default: ''
             },
-
+            {
+                name: 'thyLoading',
+                description: '图片加载策略 (https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading)',
+                type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyFetchPriority',
+                description: '图片加载优先级 (https://wicg.github.io/priority-hints/#idl-index)',
+                type: 'string',
+                default: ''
+            },
             {
                 name: 'thySize',
                 description: `大小, md, lg, sm`,
@@ -55,26 +65,26 @@ module.exports = [
             },
             {
                 name: 'thyMarginTop',
-                description: `margin-top`,
+                description: `距上距离`,
                 type: 'number',
                 default: ''
             },
             {
                 name: 'thyTopAuto',
-                description: `自动根据父容器计算高度，垂直居中`,
+                description: `是否自动根据父容器计算高度，垂直居中`,
                 type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyContainer',
-                description: `自动计算高度传入父容器`,
-                type: 'elementRef',
+                description: `自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器`,
+                type: 'ElementRef',
                 default: ''
             },
             {
                 name: 'extra',
-                description: `除提示图片，文本外的其他信息传入模版`,
-                type: 'templateRef',
+                description: `除提示图片，文本外的其他信息传入模板`,
+                type: 'TemplateRef<any>',
                 default: ''
             },
             {

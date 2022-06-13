@@ -1,7 +1,8 @@
 .thy-card {
-  .thy-card-header {
-    .card-header-icon {
-      @include card-head-title-icon($primary);
+    .thy-card-header {
+        // @deprecated remove in v11
+        .card-header-icon {
+            @include card-head-title-icon($primary);
+        }
     }
-  }
 }

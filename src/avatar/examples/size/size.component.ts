@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-    selector: 'avatar-size-example',
+    selector: 'thy-avatar-size-example',
     templateUrl: './size.component.html'
 })
 export class ThyAvatarSizeExampleComponent {

@@ -1,0 +1,72 @@
+@use "sass:math";
+@use "../variables";
+@use "breakpoints";
+
+/// Grid system
+//
+// Generate semantic grid columns with these mixins.
+
+@mixin make-container($gutter: variables.$grid-gutter-width) {
+    width: 100%;
+    padding-right: $gutter * 0.5;
+    padding-left: $gutter * 0.5;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+// For each breakpoint, define the maximum width of the container in a media query
+@mixin make-container-max-widths($max-widths: variables.$container-max-widths, $breakpoints: variables.$grid-breakpoints) {
+    @each $breakpoint, $container-max-width in $max-widths {
+        @include breakpoints.media-breakpoint-up($breakpoint, $breakpoints) {
+            max-width: $container-max-width;
+        }
+    }
+}
+
+@mixin make-row($gutter: variables.$grid-gutter-width) {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -$gutter * 0.5;
+    margin-left: -$gutter * 0.5;
+}
+
+@mixin make-col-ready($gutter: variables.$grid-gutter-width) {
+    position: relative;
+    // Prevent columns from becoming too narrow when at smaller grid tiers by
+    // always setting `width: 100%;`. This works because we use `flex` values
+    // later on to override this initial width.
+    width: 100%;
+    padding-right: $gutter * 0.5;
+    padding-left: $gutter * 0.5;
+}
+
+@mixin make-col($size, $columns: variables.$grid-columns) {
+    flex: 0 0 math.percentage(math.div($size, $columns));
+    // Add a `max-width` to ensure content within each column does not blow out
+    // the width of the column. Applies to IE10+ and Firefox. Chrome and Safari
+    // do not appear to require this.
+    max-width: math.percentage(math.div($size, $columns));
+}
+
+@mixin make-col-auto() {
+    flex: 0 0 auto;
+    width: auto;
+    max-width: 100%; // Reset earlier grid tiers
+}
+
+@mixin make-col-offset($size, $columns: variables.$grid-columns) {
+    $num: math.div($size, $columns);
+    margin-left: if($num == 0, 0, math.percentage($num));
+}
+
+// Row columns
+//
+// Specify on a parent element(e.g., .row) to force immediate children into NN
+// numberof columns. Supports wrapping to new lines, but does not do a Masonry
+// style grid.
+@mixin row-cols($count) {
+    & > * {
+        flex: 0 0 math.div(100%, $count);
+        max-width: math.div(100%, $count);
+    }
+}

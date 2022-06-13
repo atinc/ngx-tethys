@@ -1,6 +1,6 @@
 module.exports = [
     {
-        type: 'component',
+        type: 'directive',
         name: 'thy-tooltip',
         description: '用于文字提示',
         properties: [
@@ -18,7 +18,7 @@ module.exports = [
             },
             {
                 name: 'thyTooltipPlacement',
-                description: '提示位置， top | bottom | left | right',
+                description: `提示位置， 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
                 type: 'string',
                 default: 'top'
             },

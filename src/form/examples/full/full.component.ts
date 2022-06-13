@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys';
+import { ThyFormValidatorConfig, ThyFormDirective } from 'ngx-tethys/form';
 
 const provinceCities = [
     {
@@ -72,9 +72,11 @@ export class ThyFormFullExampleComponent implements OnInit {
     provinceCities = provinceCities;
 
     /** ngModel value */
-    values: any[] = null;
+    values: string[] = null;
 
-    model: any = {
+    model = {
+        name: '',
+        display_name: '',
         select: 1,
         checkbox: 0,
         group: 1
@@ -83,11 +85,11 @@ export class ThyFormFullExampleComponent implements OnInit {
     options = [
         {
             _id: 1,
-            value: '选项1'
+            value: 'Option1'
         },
         {
             _id: 2,
-            value: '选项2'
+            value: 'Option2'
         }
     ];
 

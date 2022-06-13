@@ -1,54 +1,85 @@
-import { ThyGuiderRef } from './guider-ref';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { StepInfo, ThyGuiderConfig, defaultTipPlacement, GuiderOffset, pointOffset } from './guider.class';
-import { ThyGuiderStepRef } from './guider-step-ref';
-import { Injectable, RendererFactory2 } from '@angular/core';
-import { Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { helpers } from 'ngx-tethys/util';
 import { DOCUMENT } from '@angular/common';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { ThyGuiderRef } from './guider-ref';
+import { Inject, NgZone } from '@angular/core';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyGuiderManager } from './guider-manager';
+import { Injectable, RendererFactory2 } from '@angular/core';
+import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
+import { Overlay } from '@angular/cdk/overlay';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ThyGuider {
-    private stepsRef: ThyGuiderStepRef[];
+    private guiderRef: ThyGuiderRef;
 
-    private defaultTipPlacement: ThyPlacement;
+    private guiderRefs: ThyGuiderRef[] = [];
 
-    private tipDefaultOffset: number;
-
-    private pointOffset: GuiderOffset;
-
-    constructor(private readonly rendererFactory: RendererFactory2, private popover: ThyPopover, @Inject(DOCUMENT) private document: any) {}
+    constructor(
+        private readonly rendererFactory: RendererFactory2,
+        private popover: ThyPopover,
+        private router: Router,
+        private guiderManager: ThyGuiderManager,
+        private ngZone: NgZone,
+        private overlay: Overlay,
+        @Inject(DOCUMENT) private document: any
+    ) {}
 
     public create(config: ThyGuiderConfig): ThyGuiderRef {
-        this.adapterConfig(config);
-        this.stepsRef = config.steps.map(step => {
-            return new ThyGuiderStepRef(step, this.rendererFactory, this.popover, this.document);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            if (!config || !config?.steps || !helpers.isArray(config?.steps)) {
+                throw new Error(`'config.steps' must be an array of length greater than 0`);
+            }
+        }
+        const normalizeConfig = this.normalizeConfig(config);
+        this.guiderRef = new ThyGuiderRef(
+            normalizeConfig,
+            this.rendererFactory,
+            this.popover,
+            this.router,
+            this.guiderManager,
+            this.ngZone,
+            this.overlay,
+            this.document
+        );
+        this.guiderRef.closed().subscribe(() => {
+            const index = this.guiderRefs.findIndex(guiderRef => guiderRef === this.guiderRef);
+            this.guiderRefs.splice(index, 1);
         });
-
-        return new ThyGuiderRef(config, this.stepsRef);
+        this.guiderRefs.push(this.guiderRef);
+        return this.guiderRef;
     }
-    private adapterConfig(config: ThyGuiderConfig) {
-        this.defaultTipPlacement = config.tipPlacement || defaultTipPlacement;
-        this.tipDefaultOffset = config.tipOffset || 0;
-        this.pointOffset = config.pointOffset || pointOffset;
 
-        config.steps = config.steps.map(step => {
-            return this.adapterStep(step);
+    private normalizeConfig(config: ThyGuiderConfig): ThyGuiderConfig {
+        const normalizeConfig = Object.assign({}, defaultGuiderPositionConfig, config);
+        normalizeConfig.steps = normalizeConfig.steps.map(step => {
+            return this.normalizeStep(step, normalizeConfig);
         });
+        return normalizeConfig;
     }
 
-    private adapterStep(step: StepInfo): StepInfo {
+    private normalizeStep(step: ThyGuiderStep, config: ThyGuiderConfig): ThyGuiderStep {
         const tempStep = Object.assign(
             {
-                tipPlacement: this.defaultTipPlacement,
-                tipOffset: this.tipDefaultOffset,
-                pointOffset: this.pointOffset
+                hintPlacement: config.hintPlacement,
+                hintOffset: config.hintOffset,
+                pointOffset: config.pointOffset
             },
             step
         );
 
         return tempStep;
+    }
+
+    close() {
+        if (this.guiderRefs.length > 0) {
+            const lasGuiderRef = this.guiderRefs[this.guiderRefs.length - 1];
+            if (lasGuiderRef) {
+                lasGuiderRef.close();
+                this.guiderRefs.pop();
+            }
+        }
     }
 }

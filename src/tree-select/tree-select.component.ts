@@ -1,28 +1,32 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    forwardRef,
-    HostBinding,
-    ContentChild,
-    TemplateRef,
-    ElementRef,
-    ViewChild,
-    NgZone,
-    HostListener,
-    Renderer2
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { isObject, isArray } from 'ngx-tethys/util';
-import { BehaviorSubject, combineLatest, Observable, of } from 'rxjs';
-import { CdkOverlayOrigin, CdkConnectedOverlay, ConnectionPositionPair } from '@angular/cdk/overlay';
 import { getFlexiblePositions } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
+import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { ThyClickDispatcher } from 'ngx-tethys/core';
+import { Observable, of, Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
-import { take } from 'rxjs/operators';
-import { produce } from 'ngx-tethys/util';
-import { warnDeprecation } from 'ngx-tethys/util';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    ElementRef,
+    forwardRef,
+    HostBinding,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    PLATFORM_ID,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -55,7 +59,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         }
     ]
 })
-export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
+export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -86,6 +90,8 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     };
 
     private initialled = false;
+
+    private destroy$ = new Subject<void>();
 
     public valueIsObject = false;
 
@@ -147,7 +153,9 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
 
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
-        warnDeprecation('This parameter has been deprecation');
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('This parameter has been deprecation');
+        }
         // if (type === 'especial') {
         //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
         // } else {
@@ -193,15 +201,14 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.onModelTouch = fn;
     }
 
-    constructor(public elementRef: ElementRef, public renderer: Renderer2, private ngZone: NgZone) {}
-
-    @HostListener('document:click', ['$event'])
-    onDocumentClick(event: Event) {
-        event.stopPropagation();
-        if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
-            this.expandTreeSelectOptions = false;
-        }
-    }
+    constructor(
+        public elementRef: ElementRef,
+        public renderer: Renderer2,
+        private ngZone: NgZone,
+        private ref: ChangeDetectorRef,
+        @Inject(PLATFORM_ID) private platformId: string,
+        private thyClickDispatcher: ThyClickDispatcher
+    ) {}
 
     ngOnInit() {
         this.positions = getFlexiblePositions('bottom', 4);
@@ -210,6 +217,25 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
         this.setSelectedNodes();
         this.initialled = true;
         this.init();
+
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    event.stopPropagation();
+                    if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
+                        this.ngZone.run(() => {
+                            this.expandTreeSelectOptions = false;
+                            this.ref.markForCheck();
+                        });
+                    }
+                });
+        }
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 
     get selectedValueObject() {
@@ -217,7 +243,7 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
     }
 
     searchValue(searchText: string) {
-        this.treeNodes = filterTreeData(this.originTreeNodes, searchText, this.thyShowKey);
+        this.treeNodes = filterTreeData(this.originTreeNodes, searchText.trim(), this.thyShowKey);
     }
 
     public setPosition() {
@@ -383,5 +409,113 @@ export class ThyTreeSelectComponent implements OnInit, ControlValueAccessor {
             });
             return result;
         }
+    }
+}
+
+@Component({
+    selector: 'thy-tree-select-nodes',
+    templateUrl: './tree-select-nodes.component.html'
+})
+export class ThyTreeSelectNodesComponent implements OnInit {
+    @HostBinding('class') class: string;
+
+    @Input() treeNodes: ThyTreeSelectNode[];
+
+    public primaryKey = this.parent.thyPrimaryKey;
+
+    public showKey = this.parent.thyShowKey;
+
+    public isMultiple = this.parent.thyMultiple;
+
+    public valueIsObject = this.parent.valueIsObject;
+
+    public selectedValue = this.parent.selectedValue;
+
+    public childCountKey = this.parent.thyChildCountKey;
+
+    public treeNodeTemplateRef = this.parent.treeNodeTemplateRef;
+
+    constructor(public parent: ThyTreeSelectComponent) {}
+
+    ngOnInit() {
+        this.class = this.isMultiple ? 'thy-tree-select-dropdown thy-tree-select-dropdown-multiple' : 'thy-tree-select-dropdown';
+    }
+
+    treeNodeIsSelected(node: ThyTreeSelectNode) {
+        if (this.parent.thyMultiple) {
+            return (this.parent.selectedNodes || []).find(item => {
+                return item[this.primaryKey] === node[this.primaryKey];
+            });
+        } else {
+            return this.parent.selectedNode && this.parent.selectedNode[this.primaryKey] === node[this.primaryKey];
+        }
+    }
+
+    treeNodeIsHidden(node: ThyTreeSelectNode) {
+        if (this.parent.thyHiddenNodeKey) {
+            return node[this.parent.thyHiddenNodeKey];
+        }
+        if (this.parent.thyHiddenNodeFn) {
+            return this.parent.thyHiddenNodeFn(node);
+        }
+        return false;
+    }
+
+    treeNodeIsDisable(node: ThyTreeSelectNode) {
+        if (this.parent.thyDisableNodeKey) {
+            return node[this.parent.thyDisableNodeKey];
+        }
+        if (this.parent.thyDisableNodeFn) {
+            return this.parent.thyDisableNodeFn(node);
+        }
+        return false;
+    }
+
+    treeNodeIsExpand(node: ThyTreeSelectNode) {
+        let isSelectedNodeParent = false;
+        if (this.parent.thyMultiple) {
+            isSelectedNodeParent = !!(this.parent.selectedNodes || []).find(item => {
+                return item.parentValues.indexOf(node[this.primaryKey]) > -1;
+            });
+        } else {
+            isSelectedNodeParent = this.parent.selectedNode
+                ? this.parent.selectedNode.parentValues.indexOf(node[this.primaryKey]) > -1
+                : false;
+        }
+        const isExpand = node.expand || (Object.keys(node).indexOf('expand') < 0 && isSelectedNodeParent);
+        node.expand = isExpand;
+        return isExpand;
+    }
+
+    getNodeChildren(node: ThyTreeSelectNode) {
+        return this.parent.getNodeChildren(node);
+    }
+
+    selectTreeNode(event: Event, node: ThyTreeSelectNode) {
+        event.stopPropagation();
+        if (this.treeNodeIsDisable(node)) {
+            return;
+        }
+        this.parent.selectNode(node);
+    }
+
+    nodeExpandToggle(event: Event, node: ThyTreeSelectNode) {
+        event.stopPropagation();
+        if (Object.keys(node).indexOf('expand') > -1) {
+            node.expand = !node.expand;
+        } else {
+            if (this.treeNodeIsExpand(node)) {
+                node.expand = false;
+            } else {
+                node.expand = true;
+            }
+        }
+
+        if (node.expand && this.parent.thyAsyncNode) {
+            this.getNodeChildren(node).subscribe(() => {
+                this.parent.setPosition();
+            });
+        }
+        this.parent.setPosition();
     }
 }

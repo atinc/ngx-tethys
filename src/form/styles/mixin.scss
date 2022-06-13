@@ -1,3 +1,9 @@
+@use "sass:color";
+@use "../../styles/bootstrap/mixins/gradients";
+@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+
 // Form control focus state
 //
 // Generate a customized focus state and for any input with the specified color,
@@ -12,15 +18,19 @@
 // contrast against a dark gray background.
 @mixin form-control-focus() {
     &:focus {
-        color: $input-focus-color;
-        background-color: $input-focus-bg;
-        border-color: $input-focus-border-color;
+        color: bootstrap-variables.$input-focus-color;
+        border-color: variables.$input-focus-border-color;
         outline: 0;
         // Avoid using mixin so we can pass custom focus shadow properly
-        @if $enable-shadows {
-            box-shadow: $input-box-shadow, $input-focus-box-shadow;
+        @if variables.$enable-shadows {
+            box-shadow: variables.$input-box-shadow, bootstrap-variables.$input-focus-box-shadow;
         } @else {
-            box-shadow: $input-focus-box-shadow;
+            box-shadow: bootstrap-variables.$input-focus-box-shadow;
+        }
+    }
+    &:not([disabled]):not(.disabled):not(.is-invalid) {
+        &:focus {
+            border-color: variables.$input-focus-border-color;
         }
     }
 }
@@ -37,7 +47,7 @@
     .#{$state}-feedback {
         display: none;
         width: 100%;
-        margin-top: $form-feedback-margin-top;
+        margin-top: bootstrap-variables.$form-feedback-margin-top;
         // font-size: $form-feedback-font-size;
         color: $color;
     }
@@ -106,7 +116,7 @@
                 color: $color;
 
                 &::before {
-                    background-color: lighten($color, 25%);
+                    background-color: color.adjust($color, $lightness: 25%);
                 }
             }
 
@@ -117,13 +127,13 @@
 
             &:checked {
                 ~ .custom-control-label::before {
-                    @include gradient-bg(lighten($color, 10%));
+                    @include gradients.gradient-bg(color.adjust($color, $lightness: 10%));
                 }
             }
 
             &:focus {
                 ~ .custom-control-label::before {
-                    box-shadow: 0 0 0 1px $body-bg, 0 0 0 $input-focus-width rgba($color, 0.25);
+                    box-shadow: 0 0 0 1px bootstrap-variables.$body-bg, 0 0 0 bootstrap-variables.$input-focus-width rgba($color, 0.25);
                 }
             }
         }
@@ -148,7 +158,7 @@
 
             &:focus {
                 ~ .custom-file-label {
-                    box-shadow: 0 0 0 $input-focus-width rgba($color, 0.25);
+                    box-shadow: 0 0 0 bootstrap-variables.$input-focus-width rgba($color, 0.25);
                 }
             }
         }
@@ -157,7 +167,7 @@
 
 @mixin set-input-hover-border($border-color: $input-hover-border) {
     &:not([disabled]):not(.disabled):not(.is-invalid) {
-        @include hover {
+        @include hover.hover {
             border-color: $border-color;
         }
     }
@@ -168,9 +178,9 @@
     font: normal normal normal 14px/1 wtf;
     position: absolute;
     right: 12px;
-    bottom: $input-padding-y + ($font-size-base * $line-height-base - $font-size-md) / 2;
-    font-size: $font-size-md;
+    bottom: variables.$input-padding-y + (variables.$font-size-base * variables.$line-height-base - variables.$font-size-md) * 0.5;
+    font-size: variables.$font-size-md;
     pointer-events: none;
-    color: $gray-500;
+    color: variables.$gray-500;
     z-index: 10;
 }

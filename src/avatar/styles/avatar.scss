@@ -1,3 +1,6 @@
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-avatar {
     display: inline-block;
     position: relative;
@@ -14,11 +17,11 @@
         text-align: center;
         overflow: hidden;
         zoom: 1;
-        color: $white;
+        color: variables.$white;
         text-shadow: transparent 0 0 0;
     }
     .avatar-name {
-        margin-left: 5px;
+        margin-left: 8px;
         display: inline-block;
         max-width: 130px;
         overflow: hidden;
@@ -35,7 +38,7 @@
     }
     .thy-avatar-disabled {
         position: absolute;
-        background-color: rgba($black, 0.3);
+        background-color: rgba(variables.$black, 0.3);
         top: 0;
         left: 0;
         border-radius: 50%;
@@ -43,13 +46,13 @@
         justify-content: center;
         align-items: center;
         &-icon {
-            color: $gray-100;
+            color: variables.$gray-100;
         }
     }
 }
 
-@each $size, $value in $avatar-sizes {
+@each $size, $value in variables.$avatar-sizes {
     .thy-avatar-#{$size} {
-        @include avatarSize($size, $value);
+        @include mixin.avatarSize($size, $value);
     }
 }

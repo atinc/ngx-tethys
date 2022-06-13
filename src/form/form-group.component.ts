@@ -8,6 +8,8 @@ const internalIconMap = {
     date: 'wtf wtf-schedule-o'
 };
 
+type TipsMode = 'default' | 'label';
+
 @Component({
     selector: 'thy-form-group',
     templateUrl: './form-group.component.html',
@@ -21,6 +23,7 @@ export class ThyFormGroupComponent implements OnInit {
     feedbackIcon: string;
     feedbackSvgIconName: string;
     tips: string;
+    tipMode: TipsMode = 'default';
 
     @HostBinding('class.row-fill') _rowFill = false;
 
@@ -59,9 +62,16 @@ export class ThyFormGroupComponent implements OnInit {
         this.hasFeedback = true;
         if (internalIconMap[value]) {
             this.feedbackIcon = internalIconMap[value];
+            this.feedbackSvgIconName = null;
         } else {
             this.feedbackSvgIconName = value;
+            this.feedbackIcon = null;
         }
+    }
+
+    @Input()
+    set thyTipsMode(mode: TipsMode) {
+        this.tipMode = mode;
     }
 
     @Input()

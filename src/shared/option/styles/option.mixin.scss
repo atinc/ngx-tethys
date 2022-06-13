@@ -1,5 +1,7 @@
-$option-hover-active-bg-color: $gray-100 !default;
-$option-disabled-color: $gray-400 !default;
+@use "../../../styles/variables";
+
+$option-hover-active-bg-color: variables.$gray-100 !default;
+$option-disabled-color: variables.$gray-400 !default;
 
 @mixin thy-option-common-layout {
     display: flex;
@@ -9,7 +11,7 @@ $option-disabled-color: $gray-400 !default;
     position: relative;
 }
 
-@mixin thy-option($hover-bg-color: $gray-100, $color: $secondary) {
+@mixin thy-option($hover-bg-color: variables.$gray-100, $color: variables.$secondary) {
     @include thy-option-common-layout();
     min-height: 40px;
     color: $color;
@@ -23,20 +25,20 @@ $option-disabled-color: $gray-400 !default;
 
     // use in tree-select
     .prefix-icon {
-        color: $gray-300;
-        vertical-align: -1px;
+        margin-right: 4px;
+        color: variables.$gray-500;
     }
 
     &:not(.disabled) {
         &.hover,
         &:hover {
             background: $hover-bg-color;
-            color: $body-color;
+            color: variables.$body-color;
         }
 
         &.active {
-            background: rgba($primary, 0.1);
-            color: $primary;
+            background: rgba(variables.$primary, 0.1);
+            color: variables.$primary;
 
             // &.hover,
             // &:hover {
@@ -49,7 +51,7 @@ $option-disabled-color: $gray-400 !default;
             // }
 
             .prefix-icon {
-                color: $primary;
+                color: variables.$primary;
             }
         }
     }
@@ -62,19 +64,19 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-option-theme($hover-bg-color: $gray-100, $color: $secondary) {
+@mixin thy-option-theme($hover-bg-color: variables.$gray-100, $color: variables.$secondary) {
     color: $color;
 
     &:not(.disabled) {
         &.hover,
         &:hover {
             background: $hover-bg-color;
-            color: $body-color;
+            color: variables.$body-color;
         }
 
         &.active {
-            background: rgba($primary, 0.1);
-            color: $primary;
+            background: rgba(variables.$primary, 0.1);
+            color: variables.$primary;
 
             // &.hover,
             // &:hover {
@@ -83,13 +85,13 @@ $option-disabled-color: $gray-400 !default;
             // }
 
             .prefix-icon {
-                color: $primary;
+                color: variables.$primary;
             }
         }
     }
 }
 
-@mixin thy-multiple-option($hover-active-bg-color: $gray-100) {
+@mixin thy-multiple-option($hover-active-bg-color: variables.$gray-100) {
     padding: {
         left: 20px;
         right: 35px;
@@ -109,17 +111,17 @@ $option-disabled-color: $gray-400 !default;
 
         &.active {
             background: transparent;
-            color: $body-color;
+            color: variables.$body-color;
 
             .checked-icon {
                 visibility: visible;
-                color: $primary;
+                color: variables.$primary;
             }
 
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
-                color: $body-color;
+                color: variables.$body-color;
             }
         }
     }
@@ -130,7 +132,7 @@ $option-disabled-color: $gray-400 !default;
     }
 }
 
-@mixin thy-multiple-option-theme($hover-active-bg-color: $gray-100) {
+@mixin thy-multiple-option-theme($hover-active-bg-color: variables.$gray-100) {
     &:not(.disabled) {
         &.hover,
         &:hover {
@@ -139,16 +141,16 @@ $option-disabled-color: $gray-400 !default;
 
         &.active {
             background: transparent;
-            color: $body-color;
+            color: variables.$body-color;
 
             .checked-icon {
-                color: $primary;
+                color: variables.$primary;
             }
 
             &.hover,
             &:hover {
                 background: $hover-active-bg-color;
-                color: $body-color;
+                color: variables.$body-color;
             }
         }
     }
@@ -161,12 +163,12 @@ $option-disabled-color: $gray-400 !default;
         vertical-align: middle;
         justify-content: center;
         position: relative;
-        margin: $list-grid-option-margin;
-        width: $list-grid-option-width;
-        height: $list-grid-option-height;
-        background: $white;
-        border-radius: $border-radius;
-        border: solid 1px $gray-200;
+        margin: variables.$list-grid-option-margin;
+        width: variables.$list-grid-option-width;
+        height: variables.$list-grid-option-height;
+        background: variables.$white;
+        border-radius: variables.$border-radius;
+        border: solid 1px variables.$gray-200;
         cursor: pointer;
         outline-style: none;
 
@@ -175,7 +177,7 @@ $option-disabled-color: $gray-400 !default;
             position: absolute;
             right: 10px;
             top: 10px;
-            color: $primary;
+            color: variables.$primary;
             text-align: center;
             .thy-icon {
                 font-size: 20px;
@@ -185,13 +187,13 @@ $option-disabled-color: $gray-400 !default;
         &:not(.disabled) {
             &.hover,
             &:hover {
-                border: solid 1px $primary;
+                border: solid 1px variables.$primary;
             }
 
             &.active {
-                background: rgba($primary, 0.1);
-                color: $body-color;
-                border: solid 1px $primary;
+                background: rgba(variables.$primary, 0.1);
+                color: variables.$body-color;
+                border: solid 1px variables.$primary;
 
                 .checked-icon {
                     visibility: visible;
@@ -200,43 +202,43 @@ $option-disabled-color: $gray-400 !default;
                 &.hover,
                 &:hover {
                     // background: $white;
-                    border-color: $primary;
+                    border-color: variables.$primary;
                 }
             }
         }
 
         &.disabled {
-            color: $gray-400;
+            color: variables.$gray-400;
             cursor: not-allowed;
-            background-color: $gray-80;
+            background-color: variables.$gray-80;
 
             &.active {
                 .checked-icon {
                     visibility: visible;
-                    color: $gray-400;
+                    color: variables.$gray-400;
                 }
             }
         }
 
         .thy-grid-option-icon {
-            font-size: $list-grid-option-icon-size;
+            font-size: variables.$list-grid-option-icon-size;
         }
 
         img.thy-grid-option-icon {
-            width: $list-grid-option-icon-size;
+            width: variables.$list-grid-option-icon-size;
         }
 
         .thy-grid-option-name {
-            margin-top: $list-grid-option-name-margin-top;
+            margin-top: variables.$list-grid-option-name-margin-top;
         }
     }
 }
 
 @mixin thy-grid-option-sm {
     .thy-grid-option {
-        width: $list-grid-option-sm;
-        height: $list-grid-option-sm;
-        margin: $list-grid-option-margin-sm;
+        width: variables.$list-grid-option-sm;
+        height: variables.$list-grid-option-sm;
+        margin: variables.$list-grid-option-margin-sm;
 
         .checked-icon {
             right: 5px;
@@ -252,30 +254,30 @@ $option-disabled-color: $gray-400 !default;
         }
 
         .thy-grid-option-name {
-            margin-top: $list-grid-option-sm-name-margin-top;
+            margin-top: variables.$list-grid-option-sm-name-margin-top;
         }
     }
 }
 
 @mixin thy-grid-option-theme {
     .checked-icon {
-        background: $primary;
+        background: variables.$primary;
     }
 
     &:not(.disabled) {
         &.hover,
         &:hover {
-            border: solid 1px $primary;
+            border: solid 1px variables.$primary;
         }
 
         &.active {
-            background: rgba($primary, 0.1);
-            color: $body-color;
-            border: solid 1px $primary;
+            background: rgba(variables.$primary, 0.1);
+            color: variables.$body-color;
+            border: solid 1px variables.$primary;
 
             &.hover,
             &:hover {
-                border-color: $primary;
+                border-color: variables.$primary;
             }
         }
     }

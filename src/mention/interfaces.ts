@@ -1,13 +1,15 @@
-import { TemplateRef } from '@angular/core';
 import { Observable } from 'rxjs';
+
+import { TemplateRef } from '@angular/core';
 
 export interface MentionDefaultDataItem {
     name?: string;
 }
 
-export interface Mention<T = any> {
+export interface Mention<T = unknown> {
     trigger: string;
     data: T[];
+    suggestionsTemplateRef?: TemplateRef<{ data: T[] }>;
     limit?: number;
     // content not found closed auto
     autoClose?: boolean;

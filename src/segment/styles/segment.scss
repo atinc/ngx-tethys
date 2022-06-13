@@ -1,0 +1,108 @@
+@use "../../styles/variables.scss";
+@use "../../styles/bootstrap/mixins/text-truncate.scss";
+@use "./mixin.scss" as segment-mixin;
+
+.#{variables.$thy-prefix}-segment {
+    display: inline-block;
+    padding: variables.$segment-container-padding;
+    color: variables.$segment-default-color;
+    background-color: variables.$segment-bg;
+    border-radius: variables.$segment-border-radius;
+    transition: all 0.3s ease-in-out;
+
+    @each $size, $height in variables.$segment-sizes {
+        @include segment-mixin.segment-size-variant($size, $height);
+    }
+
+    &-group {
+        position: relative;
+        display: flex;
+        align-items: stretch;
+        justify-items: flex-start;
+        width: 100%;
+        label {
+            display: unset !important;
+            margin-bottom: unset !important;
+        }
+    }
+
+    &-item {
+        position: relative;
+        text-align: center;
+        cursor: pointer;
+        transition: color 0.3s ease-in-out;
+
+        .icon-with-text {
+            color: variables.$segment-icon-with-text-default-color;
+            transition: color 0.3s ease-in-out;
+        }
+
+        &:not(.disabled) {
+            &:hover,
+            &:focus {
+                color: variables.$segment-hover-color;
+                .icon-with-text {
+                    color: variables.$segment-icon-with-text-hover-color;
+                }
+            }
+
+            &.active {
+                @include segment-mixin.segment-item-active();
+                color: variables.$segment-active-color;
+                .icon-with-text {
+                    color: variables.$segment-icon-with-text-active-color;
+                }
+            }
+        }
+
+        &.disabled {
+            .#{variables.$thy-prefix}-segment-item-label,
+            .#{variables.$thy-prefix}-segment-item-icon {
+                @include segment-mixin.segment-disabled();
+            }
+        }
+
+        &-label {
+            @include text-truncate.text-truncate();
+            word-break: keep-all;
+            text-align: center;
+        }
+
+        &-icon + * {
+            display: inline-block;
+            margin-left: variables.$segment-text-margin-left;
+        }
+    }
+
+    &-block {
+        width: 100%;
+        .#{variables.$thy-prefix}-segment-group {
+            display: flex;
+            .#{variables.$thy-prefix}-segment-item {
+                flex: 1;
+                min-width: 0;
+                max-width: unset;
+                &-label {
+                    padding: 0px 8px;
+                }
+            }
+        }
+    }
+
+    &.disabled {
+        .#{variables.$thy-prefix}-segment-item-label,
+        .#{variables.$thy-prefix}-segment-item-icon {
+            @include segment-mixin.segment-disabled();
+        }
+    }
+
+    &-thumb {
+        @include segment-mixin.segment-item-active();
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        padding: 4px 0;
+    }
+}

@@ -23,6 +23,12 @@ module.exports = [
                 default: '-'
             },
             {
+                name: '[thyCustomPages]',
+                description: `自定义分页页码，设置自定义分页页码后将不根据 Total 和 PageSize 来自动计算页码，完全以传入的页码为准`,
+                type: 'number[]',
+                default: '-'
+            },
+            {
                 type: 'string',
                 name: '[thySize]',
                 description: `设置分页组件的大小 可选值：'sm' | 'lg'`,
@@ -47,6 +53,18 @@ module.exports = [
                 default: '9'
             },
             {
+                name: 'showQuickJumper',
+                description: `设置是否显示快速跳转`,
+                type: 'Boolean',
+                default: 'false'
+            },
+            {
+                name: 'showTotalPageCount',
+                description: `设置是否显示总页数信息`,
+                type: 'Boolean',
+                default: 'true'
+            },
+            {
                 type: 'boolean',
                 name: '[thyDisabled]',
                 description: `禁用`,
@@ -65,13 +83,13 @@ module.exports = [
                 default: 'false'
             },
             {
-                type: 'ThyPaginationChangedEvent: { page }',
+                type: 'EventEmitter<{ page: number }>',
                 name: '(thyPageChanged)',
                 description: `与Bootstrap pagination 兼容，后续版本会进行删除，参数保持与 bootstrap 一致`,
                 default: '-'
             },
             {
-                type: 'ThyPaginationChangedEvent: number',
+                type: 'EventEmitter<number>',
                 name: '(thyPageIndexChange)',
                 description: `页码改变的回调`,
                 default: '-'
@@ -85,7 +103,7 @@ module.exports = [
         ]
     },
     {
-        type: 'service',
+        type: 'TOKEN',
         name: 'PaginationConfig 参数列表',
         description: '分页配置参数，需要一个初始化的默认值，用于设置分页的具体样式和分页首次加载后的默认显示',
         properties: [
@@ -118,6 +136,12 @@ module.exports = [
                 description: `设置是否显示快速跳转`,
                 type: 'Boolean',
                 default: 'false'
+            },
+            {
+                name: 'showTotalPageCount',
+                description: `设置是否显示总页数信息`,
+                type: 'Boolean',
+                default: 'true'
             },
             {
                 type: 'string',

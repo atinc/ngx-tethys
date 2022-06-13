@@ -1,9 +1,9 @@
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { ThySliderModule } from './slider.module';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { By } from '@angular/platform-browser';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 
 @Component({
     template: `
@@ -17,6 +17,8 @@ import { By } from '@angular/platform-browser';
                 [(ngModel)]="value"
                 [thyType]="type"
                 [thyColor]="color"
+                [thySize]="size"
+                (thyAfterChange)="afterChange($event)"
             ></thy-slider>
         </div>
     `,
@@ -38,6 +40,11 @@ class ThyTestSliderComponent {
     vertical = false;
     type = '';
     color = '';
+    size = 'sm';
+    spy = jasmine.createSpy('after change');
+    afterChange(result: { value: number }) {
+        this.spy(result);
+    }
 }
 
 describe('ThyTestSliderComponent', () => {
@@ -67,12 +74,44 @@ describe('ThyTestSliderComponent', () => {
             const pointerElementRect = pointerElement.getBoundingClientRect();
 
             fixture.detectChanges();
-            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left + 500, pointerElementRect.height);
+            dispatchMouseEvent(pointerElement, 'mousedown');
+            dispatchMouseEvent(pointerElement, 'mousemove', pointerElementRect.left + 10, pointerElementRect.height);
+            fixture.detectChanges();
+            expect(fixtureInstance.value).not.toEqual(fixtureInstance.min);
 
+            dispatchMouseEvent(pointerElement, 'mousemove', pointerElementRect.left + 500, pointerElementRect.height);
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
-
             expect(fixtureInstance.value).toEqual(100);
+        }));
+
+        it('should not show when thyStep is out of range', fakeAsync(() => {
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull;
+
+            expect(() => {
+                fixtureInstance.min = 9999;
+                fixture.detectChanges();
+            }).toThrowError('min value must less than max value.');
+
+            fixtureInstance.min = 0;
+            fixture.detectChanges();
+            expect(() => {
+                fixtureInstance.step = -10;
+                fixture.detectChanges();
+            }).toThrowError('step value must be greater than 0.');
+        }));
+
+        it('should not show when thyStep can not divisible by max- min value', fakeAsync(() => {
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement).not.toBeNull;
+
+            expect(() => {
+                fixtureInstance.step = 9;
+                fixtureInstance.min = 2;
+                fixtureInstance.max = 17;
+                fixture.detectChanges();
+            }).toThrowError('(max - min) must be divisible by step.');
         }));
 
         it('min/max value will be right', fakeAsync(() => {
@@ -102,6 +141,8 @@ describe('ThyTestSliderComponent', () => {
             const value = 50;
             fixtureInstance.value = value;
             fixture.detectChanges();
+            expect(fixtureInstance.value).toEqual(value);
+
             const containerClassList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
 
             expect(containerClassList).toContain('slider-disabled');
@@ -120,8 +161,15 @@ describe('ThyTestSliderComponent', () => {
             fixtureInstance.vertical = true;
             fixture.detectChanges();
             const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
-
             expect(classList).toContain('slider-vertical');
+
+            const pointerElement = getSliderPointerElement();
+            const pointerElementRect = pointerElement.getBoundingClientRect();
+            fixture.detectChanges();
+            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left, pointerElementRect.height - 500);
+            dispatchMouseEvent(pointerElement, 'mouseup');
+            fixture.detectChanges();
+            expect(fixtureInstance.value).toBe(fixtureInstance.max);
         });
 
         it('slider should be warning color when thyType is warning', () => {
@@ -129,8 +177,18 @@ describe('ThyTestSliderComponent', () => {
             fixtureInstance.type = type;
             fixture.detectChanges();
             const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
-
             expect(classList).toContain(`thy-slider-${type}`);
+        });
+
+        it('slider should be remove color when thyType change', () => {
+            const type = 'warning';
+            fixtureInstance.type = type;
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement.classList).toContain(`thy-slider-${type}`);
+            fixtureInstance.type = 'info';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).not.toContain(`thy-slider-${type}`);
         });
 
         it('slider track should show custom color when thyColor is custom color', () => {
@@ -141,6 +199,39 @@ describe('ThyTestSliderComponent', () => {
 
             expect(color).toEqual(customColor);
         });
+
+        it('slider should be setting size when thySize', () => {
+            const sliderSize = 'md';
+            fixtureInstance.size = sliderSize;
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).toContain(`thy-slider-${sliderSize}`);
+        });
+
+        it('slider should be remove size when thySize change', () => {
+            const sliderSize = 'md';
+            fixtureInstance.size = sliderSize;
+            fixture.detectChanges();
+            expect(debugElement.query(By.css('.thy-slider')).nativeElement.classList).toContain(`thy-slider-${sliderSize}`);
+            fixtureInstance.size = 'lg';
+            fixture.detectChanges();
+            const classList = debugElement.query(By.css('.thy-slider')).nativeElement.classList;
+            expect(classList).not.toContain(`thy-slider-${sliderSize}`);
+        });
+
+        it('should be notify when moving done', fakeAsync(() => {
+            const pointerElement = getSliderPointerElement();
+            const pointerElementRect = pointerElement.getBoundingClientRect();
+            fixture.detectChanges();
+            expect(fixtureInstance.spy).not.toHaveBeenCalled();
+
+            dispatchMouseEvent(pointerElement, 'mousedown', pointerElementRect.left + 500, pointerElementRect.height);
+            dispatchMouseEvent(pointerElement, 'mouseup');
+            fixture.detectChanges();
+            expect(fixtureInstance.spy).toHaveBeenCalled();
+
+            expect(fixtureInstance.spy).toHaveBeenCalledWith({ value: fixtureInstance.max });
+        }));
     });
 
     function getSliderPointerElement() {

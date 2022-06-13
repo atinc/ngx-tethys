@@ -1,4 +1,4 @@
-import { ThyTranslate } from 'ngx-tethys/core';
+import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import {
@@ -39,13 +39,18 @@ const sizeMap: any = {
     }
 };
 
+/** https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading */
+export type ThyEmptyImageLoading = 'eager' | 'lazy';
+
+/** https://wicg.github.io/priority-hints/#idl-index */
+export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
+
 @Component({
     selector: 'thy-empty',
-    templateUrl: './empty.component.html'
+    templateUrl: './empty.component.html',
+    providers: [UpdateHostClassService]
 })
 export class ThyEmptyComponent implements OnInit, AfterViewInit {
-    @HostBinding('class') sizeClass = sizeClassMap['md'].join(' ');
-
     // 显示的文本，优先级 100 最高
     @Input() thyMessage: string;
 
@@ -64,9 +69,9 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     @Input()
     set thySize(value: string) {
-        const classList = sizeClassMap[value || 'md'];
-        if (classList) {
-            this.sizeClass = classList.join(' ');
+        this.size = value;
+        if (this._initialized) {
+            this.updateClass();
         }
     }
 
@@ -78,7 +83,15 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     @Input() thyImageUrl: string;
 
+    @Input() thyImageLoading?: ThyEmptyImageLoading;
+
+    @Input() thyImageFetchPriority?: ThyEmptyImageFetchPriority;
+
     @Input() thyDescription: string;
+
+    private size: string = 'md';
+
+    private _initialized = false;
 
     @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
@@ -134,10 +147,23 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         private thyEmptyConfig: ThyEmptyConfig,
         private elementRef: ElementRef,
         private renderer: Renderer2,
-        private ngZone: NgZone
-    ) {}
+        private ngZone: NgZone,
+        private updateHostClassService: UpdateHostClassService
+    ) {
+        this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.updateClass();
+        this._initialized = true;
+    }
+
+    updateClass() {
+        const classList = sizeClassMap[this.size] || sizeClassMap['md'];
+        if (classList) {
+            this.updateHostClassService.updateClass(classList);
+        }
+    }
 
     ngAfterViewInit() {
         this.ngZone.runOutsideAngular(() => {

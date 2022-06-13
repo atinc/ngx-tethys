@@ -1,0 +1,23 @@
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of themes" (click)="theme = item" [ngClass]="{ active: theme === item }">
+    {{ item }}
+  </button>
+</thy-button-group>
+
+<div class="mt-4">
+  <thy-tag [thyTheme]="theme">Tag 1</thy-tag>
+  <thy-tag [thyTheme]="theme" thyColor="primary">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyColor="info">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyColor="success">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyColor="warning">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyColor="danger">Tag 2</thy-tag>
+</div>
+
+<div class="mt-4">
+  <thy-tag [thyTheme]="theme" thyShape="pill">Tag 1</thy-tag>
+  <thy-tag [thyTheme]="theme" thyShape="pill" thyColor="primary">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyShape="pill" thyColor="info">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyShape="pill" thyColor="success">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyShape="pill" thyColor="warning">Tag 2</thy-tag>
+  <thy-tag [thyTheme]="theme" thyShape="pill" thyColor="danger">Tag 2</thy-tag>
+</div>

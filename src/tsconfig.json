@@ -1,7 +1,7 @@
 {
   "extends": "../tsconfig.json",
   "compilerOptions": {
-    "outDir": "../built",
+    "outDir": "../dist/tethys",
     "baseUrl": "./",
     "target": "ES2015",
     "module": "ESNext",
@@ -21,15 +21,13 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "lib": ["dom", "ES2018"],
-    "types": ["jasmine", "node"],
+    "types": ["jasmine", "node", "../typings/ng-dev-mode"],
     "paths": {
-      "ngx-tethys": ["./public-api"],
       "ngx-tethys/*": ["./*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["./**/*.ts", "./public-api.ts"],
-  "files": ["./public-api.ts"],
+  "include": ["./**/*.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
     "strictMetadataEmit": false,

@@ -1,26 +1,32 @@
-import { CommonModule } from '@angular/common';
-import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, TestBed, ComponentFixtureAutoDetect } from '@angular/core/testing';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
+import { CommonModule, registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+import { Component, DebugElement, ViewChild } from '@angular/core';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
-import { ThyCascaderModule } from '../module';
 import { By } from '@angular/platform-browser';
+import { ThyCascaderComponent } from 'ngx-tethys/cascader';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { ThyCascaderTriggerType, ThyCascaderExpandTrigger } from '../cascader.component';
+import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../cascader.component';
+import { ThyCascaderModule } from '../module';
+registerLocaleData(zh);
+
 const customerOptions = [
     {
         value: 'zhejiang',
-        label: 'Zhejiang',
+        label: 'zhejiang',
         code: 477200,
         children: [
             {
                 value: 'hangzhou',
-                label: 'Hangzhou',
+                label: 'hangzhou',
                 children: [
                     {
                         value: 'xihu',
-                        label: 'West Lake',
+                        label: 'xihu',
                         code: 752100,
                         isLeaf: true
                     }
@@ -29,12 +35,178 @@ const customerOptions = [
         ]
     }
 ];
+
+const multipleOptions = [
+    {
+        value: 'beijing',
+        label: 'beijing',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'haidianqu',
+                        label: 'haidianqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'tianjinshi',
+        label: 'tianjinshi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hepingqu',
+                        label: 'hepingqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jilinsheng',
+        label: 'jilinsheng',
+        children: [
+            {
+                value: 'liaoyuanshi',
+                label: 'liaoyuanshi',
+                children: [
+                    {
+                        value: 'kongshanqu',
+                        label: 'kongshanqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'jiangsusheng',
+        label: 'jiangsusheng',
+        children: [
+            {
+                value: 'nanjingshi',
+                label: 'nanjingshi',
+                children: [
+                    {
+                        value: 'xuanxushi',
+                        label: 'xuanxushi',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'shanghaishi',
+        label: 'shanghaishi',
+        children: [
+            {
+                value: 'shixiaqu',
+                label: 'shixiaqu',
+                children: [
+                    {
+                        value: 'hongkouqu',
+                        label: 'hongkouqu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    }
+];
+
+const emptyOptions = [
+    {
+        value: 'zhejiang',
+        label: 'zhejiang',
+        code: 477200,
+        children: [
+            {
+                value: 'hangzhou',
+                label: 'hangzhou',
+                children: [
+                    {
+                        value: 'xihu',
+                        label: 'xihu',
+                        code: 752100,
+                        isLeaf: true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        value: 'anhui',
+        label: 'anhui',
+        code: 477201,
+        children: []
+    }
+];
+
+const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[] } = {
+    root: [
+        {
+            value: 'zhejiang',
+            label: 'zhejiang',
+            code: 477200,
+            children: []
+        },
+        {
+            value: 'anhui',
+            label: 'anhui',
+            code: 477201,
+            children: []
+        }
+    ],
+    firstChildren: [
+        {
+            value: 'hangzhou',
+            label: 'hangzhou',
+            children: [
+                {
+                    value: 'xihu',
+                    label: 'xihu',
+                    code: 752100,
+                    isLeaf: true
+                }
+            ]
+        }
+    ]
+};
+
 @Component({
     selector: 'thy-cascader-basic',
     template: `
         <button class="cancel-anchor" *ngIf="thyChangeOnSelect">取消锚点</button>
 
         <thy-cascader
+            #cascader
             [thyOptions]="thyCustomerOptions"
             (ngModelChange)="onChanges($event)"
             [(ngModel)]="curVal"
@@ -44,6 +216,7 @@ const customerOptions = [
             [thyExpandTriggerAction]="thyExpandTriggerAction"
             [thyChangeOnSelect]="thyChangeOnSelect"
             [thyMenuClassName]="thyMenuClassName"
+            [thyLoadData]="loadData"
         >
         </thy-cascader>
     `
@@ -56,6 +229,9 @@ class CascaderBasicComponent {
     public thyCustomerOptions: any[] = customerOptions;
     public thyChangeOnSelect = false;
     public thyMenuClassName = 'test-menu-class';
+    public loadData: any;
+    @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
+
     changeValue$ = new Subject<string[]>();
     constructor() {}
     onChanges(e: string[]) {
@@ -139,11 +315,22 @@ describe('thy-cascader', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;
         let component: CascaderBasicComponent;
         let debugElement: DebugElement;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(CascaderBasicComponent);
             component = fixture.componentRef.instance;
             debugElement = fixture.debugElement;
         });
+        beforeEach(inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
+            overlayContainer = oc;
+            overlayContainerElement = oc.getContainerElement();
+        }));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
         it('should create', () => {
             expect(fixture).toBeTruthy();
             expect(component).toBeTruthy();
@@ -268,7 +455,125 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
+        it('should active selectedOptions when menu open', fakeAsync(() => {
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-active');
+            const activatedOptionsText: string[] = [];
+            activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
+        }));
+        it('should scroll to active item when menu open', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = multipleOptions;
+            fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus')).nativeElement;
+            el.style.height = 180;
+            const elementRect = el.getBoundingClientRect();
+            const activatedOption = overlayContainerElement.querySelector('.thy-cascader-menu-item-active').getBoundingClientRect();
+            expect(activatedOption.top - elementRect.top < 180).toBeTruthy();
+        }));
+        it('should show empty state when options is []', fakeAsync(() => {
+            component.thyCustomerOptions = [];
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const emptyContent = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyContent).toBeTruthy();
+        }));
+
+        it('should change height when the window is resized', fakeAsync(() => {
+            const element = component.cascaderRef.trigger.nativeElement as Element;
+            const getBoundingClientRect = spyOn(element, 'getBoundingClientRect');
+
+            getBoundingClientRect.and.returnValues(
+                {
+                    height: 10,
+                    width: 20,
+                    top: 30,
+                    left: 40
+                },
+                {
+                    height: 50,
+                    width: 60,
+                    top: 70,
+                    left: 80
+                }
+            );
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const event = new Event('resize');
+            window.dispatchEvent(event);
+            fixture.detectChanges();
+            tick(100);
+            const triggerRect = component.cascaderRef.triggerRect;
+            expect((triggerRect as DOMRect).height).toBe(50);
+            expect((triggerRect as DOMRect).width).toBe(60);
+        }));
+
+        it('should show nothing when children is []', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = emptyOptions;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const haveChildrenItem = items[0];
+            const noChildrenItem = items[1];
+            dispatchFakeEvent(haveChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const secondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(secondMenu.children.length).toEqual(1);
+            dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(emptySecondMenu.children.length).toEqual(0);
+        }));
+
+        it('should loadData by thyLoadData when thyLoadData is function', async () => {
+            fixture.componentInstance.thyCustomerOptions = loadDataOption.root;
+            fixture.componentInstance.loadData = (option: any) => {
+                return new Promise<void>((res, rej) => {
+                    if (option.label === 'zhejiang') {
+                        option.children = loadDataOption.firstChildren;
+                    }
+                    res();
+                });
+            };
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const el = debugElement.query(By.css('.thy-cascader-menus'));
+            const items = el.queryAll(By.css('.thy-cascader-menu-item'));
+            const haveChildrenItem = items[0];
+            const noChildrenItem = items[1];
+            dispatchFakeEvent(haveChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const secondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(secondMenu.children.length).toEqual(1);
+            dispatchFakeEvent(noChildrenItem.nativeElement, 'click', true);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
+            expect(emptySecondMenu.children.length).toEqual(0);
+        });
     });
+
     describe('loadData', () => {
         let fixture: ComponentFixture<CascaderLoadComponent>;
         let component: CascaderLoadComponent;

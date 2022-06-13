@@ -8,3 +8,5 @@ export * from './animation';
 export * from './overlay/index';
 export * from './update-host-class.service';
 export * from './translate';
+export * from './store';
+export * from './color';

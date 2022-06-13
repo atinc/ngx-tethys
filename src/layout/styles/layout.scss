@@ -1,10 +1,13 @@
+@use "../../styles/mixins/link";
+@use "../../styles/variables";
+
 .thy-layout {
     display: flex;
     flex-direction: column;
     flex: auto;
     height: 100%;
     min-height: 0;
-    background: $layout-content-background;
+    background: variables.$layout-content-background;
 
     &--has-sidebar {
         flex-direction: row;
@@ -18,13 +21,15 @@
 .thy-layout-header {
     display: block;
     flex: 0 0 auto;
-    background: $layout-header-background;
-    padding: $layout-header-padding;
-    height: $layout-header-height;
-    line-height: $layout-header-height;
+    background: variables.$layout-header-background;
+    padding: variables.$layout-header-padding;
+    height: variables.$layout-header-height;
+    align-items: center;
+    // line-height: variables.$layout-header-height;
 
-    &.header-has-border {
-        border-bottom: 1px solid $nav-border-color;
+    &.header-has-border,
+    &.thy-layout-header-divided {
+        border-bottom: 1px solid variables.$nav-border-color;
     }
 }
 
@@ -32,23 +37,23 @@
     flex: auto; // = 1 1 auto
     display: flex;
     flex-direction: column;
-    padding: $layout-content-padding;
-    background: $layout-content-background;
+    padding: variables.$layout-content-padding;
+    background: variables.$layout-content-background;
     overflow-y: auto;
 
     .thy-layout-content-section {
         display: block;
         // overflow: hidden;
-        border-radius: $layout-content-section-border-radius;
-        background: $layout-content-section-background;
-        margin-bottom: $layout-content-section-margin-bottom;
+        border-radius: variables.$layout-content-section-border-radius;
+        background: variables.$layout-content-section-background;
+        margin-bottom: variables.$layout-content-section-margin-bottom;
     }
 
     .thy-layout-content-main {
         display: flex;
         flex-direction: column;
         flex: auto;
-        background: $layout-content-section-background;
+        background: variables.$layout-content-section-background;
     }
 
     // &--align-title {
@@ -59,31 +64,48 @@
 
 .thy-layout-sidebar {
     flex: 0 0 auto;
-    transition: all 0.2s;
     position: relative;
-    background: $layout-sidebar-background;
+    transition: width 0.2s;
     min-width: 0;
-    width: $layout-sidebar-width;
-    border-right: $layout-sidebar-border-right;
+    width: variables.$layout-sidebar-width;
+    border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
 
+    &.sidebar-theme-light {
+        background: variables.$layout-sidebar-background-light;
+    }
+
+    &.sidebar-theme-dark {
+        background: variables.$layout-sidebar-background-dark;
+    }
+
     .sidebar-header {
-        padding: 0 10px;
-        min-height: $layout-header-height;
-        line-height: $layout-header-height;
+        padding: variables.$layout-sidebar-header-padding;
+        min-height: variables.$layout-sidebar-header-height;
+        align-items: center;
         display: flex;
         flex-direction: row;
 
+        &.sidebar-header-divided {
+            border-bottom: 1px solid variables.$layout-sidebar-border-color;
+        }
         .title {
-            padding: 0px 0px 0px 10px;
-            color: $body-color;
-            font-size: $font-size-md;
+            color: variables.$body-color;
+            font-size: variables.$font-size-md;
             flex-grow: 1;
         }
 
-        .action {
-            padding: 0px 10px;
+        .operation {
+            margin-right: -8px;
+
+            .thy-action + .thy-action {
+                margin-left: 4px;
+            }
+
+            .action {
+                margin-right: 4px;
+            }
         }
     }
 
@@ -97,22 +119,102 @@
         }
     }
 
+    .sidebar-footer {
+        padding: 0 10px;
+        border-top: 1px solid variables.$layout-sidebar-border-color;
+        min-height: variables.$layout-sidebar-footer-height;
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+    }
+
     .sidebar-drag {
         position: absolute;
         top: 0;
         bottom: 0;
-        width: 2px;
-        cursor: e-resize;
-        pointer-events: none;
-        transition: background 200ms;
+        left: 0;
+        right: 0;
+    }
 
+    .thy-resizable-resizing {
+        transition: none;
+    }
+    .sidebar-resize-handle {
+        position: absolute;
+        cursor: ew-resize;
+        transition: none;
+        width: 20px;
+        right: -10px;
+
+        .sidebar-resize-line {
+            width: 2px;
+            height: 100%;
+            margin-left: 10px;
+            transition: all 180ms linear;
+            border-right: 2px solid transparent;
+        }
         &:hover {
-            background: $layout-sidebar-drag-background-hover;
+            .sidebar-resize-line {
+                border-color: variables.$primary;
+            }
         }
 
         &:active {
-            background: $layout-sidebar-drag-background-active;
+            .sidebar-resize-line {
+                background: variables.$primary;
+            }
         }
+    }
+
+    .sidebar-collapse-line {
+        position: absolute;
+        top: 0;
+        right: -2px;
+        bottom: 0;
+        width: 2px;
+        transition: background 0.2s;
+
+        &:hover {
+            + .sidebar-collapse {
+                visibility: visible;
+            }
+        }
+    }
+
+    .sidebar-collapse {
+        visibility: hidden;
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 15px;
+        width: 24px;
+        height: 24px;
+        right: 0;
+        transform: translateX(50%);
+        color: variables.$gray-600;
+        background-color: variables.$white;
+        border-radius: 50%;
+        box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
+        z-index: 9;
+        &:hover {
+            visibility: visible;
+            cursor: pointer;
+            background-color: variables.$primary;
+            .sidebar-collapse-icon {
+                color: variables.$white;
+            }
+        }
+        &.collapse-visible {
+            visibility: visible;
+        }
+        &.collapse-hidden {
+            visibility: hidden;
+        }
+    }
+
+    .sidebar-collapse-icon svg {
+        font-size: 12px;
     }
 
     &--clear-border-right {
@@ -123,51 +225,78 @@
         margin-right: 10px;
         border-right: none;
     }
+    &.sidebar-collapse-show {
+        .sidebar-collapse {
+            visibility: visible;
+        }
+    }
+    &.remove-transition {
+        transition: none;
+    }
 }
 
 .thy-layout-header {
     display: flex;
 
     .layout-header-title {
-        font-size: $font-size-md;
-        color: $gray-800;
+        font-size: variables.$font-size-md;
+        color: variables.$gray-800;
         display: flex;
         align-items: center;
         flex: 0 0 auto;
 
-        a {
-            @include link-variant($gray-800, none, $primary, none);
+        .title-name {
+            &:not(:last-child) {
+                margin-right: 4px;
+            }
+            .thy-icon {
+                margin-left: 8px;
+                color: variables.$gray-600;
+            }
+        }
+
+        a.title-name {
+            @include link.link-variant(variables.$gray-800, none, variables.$primary, none);
+            &:hover {
+                .thy-icon {
+                    color: variables.$primary;
+                }
+            }
             &.prefix-icon {
                 &:hover {
-                    opacity: $layout-header-icon-link-opacity;
+                    opacity: variables.$layout-header-icon-link-opacity;
                 }
             }
         }
 
         .title-separator {
-            color: $layout-header-separator-color;
-            padding: 3px;
-        }
-
-        .title-name {
-            padding: 5px;
-            .thy-icon {
-                margin-left: 6px;
-            }
+            color: variables.$layout-header-separator-color;
+            padding: 4px;
         }
 
         .prefix-icon {
-            padding: 5px;
-            color: $primary;
-            font-size: $layout-header-prefix-icon-size;
+            margin-right: 4px;
+            // padding: 5px;
+            color: variables.$primary;
+            font-size: variables.$layout-header-prefix-icon-size;
             .thy-icon {
-                font-size: $layout-header-prefix-icon-size;
+                font-size: variables.$layout-header-prefix-icon-size;
             }
         }
 
+        // 图标后面跟标题，标题加 8px 的间距
+        .prefix-icon + .title-name {
+            margin-left: 8px;
+        }
+
+        // 分割线后面跟的是标题加 4px 的间距，保证最终是8px间距
+        .title-separator + .title-name {
+            margin-left: 4px;
+        }
+
         .suffix-icon {
-            margin-left: 10px;
-            color: $primary;
+            margin-left: 8px;
+            color: variables.$primary;
         }
     }
 
@@ -183,6 +312,16 @@
 }
 
 .thy-layout-header-sm {
-    height: $layout-header-height-sm;
-    line-height: $layout-header-height-sm;
+    height: variables.$layout-header-height-sm;
+    line-height: variables.$layout-header-height-sm;
+}
+
+.thy-layout-header-lg {
+    height: variables.$layout-header-height-lg;
+    line-height: variables.$layout-header-height-lg;
+}
+
+.thy-layout-header-xlg {
+    height: variables.$layout-header-height-xlg;
+    line-height: variables.$layout-header-height-xlg;
 }

@@ -1,11 +1,9 @@
-import { ThyNotifyService } from 'ngx-tethys';
-
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-placement-example',
-    templateUrl: './placement.component.html',
-    styleUrls: ['./placement.component.scss']
+    templateUrl: './placement.component.html'
 })
 export class ThyNotifyPlacementExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}

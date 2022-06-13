@@ -36,7 +36,7 @@ import { ThyTimePickerStore } from './time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
-    /* tslint:disable-next-line: no-use-before-declare */
+    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
     useExisting: forwardRef(() => ThyTimePickerComponent),
     multi: true
 };
@@ -47,8 +47,7 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
     templateUrl: './time-picker.component.html'
 })
-export class ThyTimePickerComponent
-    implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
+export class ThyTimePickerComponent implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
     /** hours change step */
     @Input() hourStep: number;
     /** hours change step */
@@ -117,27 +116,31 @@ export class ThyTimePickerComponent
     onChange = Function.prototype;
     onTouched = Function.prototype;
 
-    timePickerSub: Subscription;
+    private timerPickerSubscription = new Subscription();
 
     constructor(_config: TimePickerConfig, private _cd: ChangeDetectorRef, private _store: ThyTimePickerStore) {
         Object.assign(this, _config);
 
-        this.timePickerSub = _store
-            .select(state => state.value)
-            .subscribe((value: Date) => {
-                // update UI values if date changed
-                this._renderTime(value);
-                this.onChange(value);
-                this._store.updateControls(getControlsValue(this));
-            });
+        this.timerPickerSubscription.add(
+            _store
+                .select(state => state.value)
+                .subscribe((value: Date) => {
+                    // update UI values if date changed
+                    this._renderTime(value);
+                    this.onChange(value);
+                    this._store.updateControls(getControlsValue(this));
+                })
+        );
 
-        _store
-            .select(state => state.controls)
-            .subscribe((controlsState: TimePickerControls) => {
-                this.isValid.emit(isInputValid(this.hours, this.minutes, this.seconds, this.isPM()));
-                Object.assign(this, controlsState);
-                _cd.markForCheck();
-            });
+        this.timerPickerSubscription.add(
+            _store
+                .select(state => state.controls)
+                .subscribe((controlsState: TimePickerControls) => {
+                    this.isValid.emit(isInputValid(this.hours, this.minutes, this.seconds, this.isPM()));
+                    Object.assign(this, controlsState);
+                    _cd.markForCheck();
+                })
+        );
     }
 
     resetValidation(): void {
@@ -293,7 +296,7 @@ export class ThyTimePickerComponent
     }
 
     ngOnDestroy(): void {
-        this.timePickerSub.unsubscribe();
+        this.timerPickerSubscription.unsubscribe();
     }
 
     private _renderTime(value: string | Date): void {

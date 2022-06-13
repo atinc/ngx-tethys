@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TransferDirection, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys';
+import { TransferDirection, ThyTransferItem, ThyTransferDragEvent } from 'ngx-tethys/transfer';
 
 @Component({
     selector: 'thy-transfer-basic-example',

@@ -2,7 +2,7 @@ module.exports = [
     {
         type: 'component',
         name: 'thy-badge',
-        description: '徽标',
+        description: '徽标，支持组件`thy-badge`和`thyBadge`指令两种形式',
         properties: [
             {
                 name: 'thyType',

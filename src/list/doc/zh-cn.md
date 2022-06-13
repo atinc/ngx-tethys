@@ -2,14 +2,21 @@
 category: display
 title: List
 subtitle: 列表
-order: 1
+description: 通用的列表组件。
 ---
 
-## 介绍
-最基础的列表展示，可承载文字、列表、图片、段落。提供多选、grid 样式展示等多种可选功能。
+<alert>通用的列表组件</alert>
 
-## 基础使用
-通过 `thy-list` 包裹相应的 `thy-list-item` 即可展示基本的列表：
+## 何时使用
+基础的列表展示，可承载文字、列表、图片、段落，用于展示多条结构类似的数据。
+
+## 模块导入
+```ts
+import { ThyListModule } from "ngx-tethys/list";
+```
+
+## 如何使用
+`thy-list`与`thy-list-item`组件一起配合使用，基本的使用如下：
 ```html
 <thy-list>
   <thy-list-item>
@@ -23,33 +30,22 @@ order: 1
   </thy-list-item>
 </thy-list>
 ```  
+展示效果：
 <example name="thy-list-basic-example" />  
 
-## 展示 Grid 模式
-还可以使用 `thy-selection-list` 展示 Grid 模式的列表：
+`thy-selection-list` 与 `thy-list-option` 一起组合使用，提供多选、grid 样式展示等多种可选功能，使用如下：
 ```html
   <thy-selection-list
-    [(ngModel)]="selectedValues"
+    [(ngModel)]="selectionModel.selectedValues"
+    [thyMultiple]="isMultiple"
+    [thyBeforeKeydown]="thyBeforeKeydown"
     [thyBindKeyEventContainer]="body"
-    [thyLayout]="'grid'"
     (thySelectionChange)="selectionChange($event)"
   >
-    <thy-list-option *ngFor="let item of gridItems" [thyValue]="item?.id">
-      <thy-icon thyIconName="app-agile-fill" class="thy-grid-option-icon"></thy-icon>
-      <div class="thy-grid-option-name">{{ item.name }}</div>
+    <thy-list-option *ngFor="let item of items" [thyDisabled]="item.id === 3" [thyValue]="item?.id">
+      {{ item.name }}
     </thy-list-option>
   </thy-selection-list>
-```
-<example name="thy-list-grid-example" />  
-
-## 展示预设的 list 样式
-使用 `thy-list-item-meta` 来展示预设样式的列表：
-```html
-<thy-list [thyDivided]="true">
-  <thy-list-item *ngFor="let item of listItems">
-    <thy-list-item-meta [thyTitle]="item.title" [thyAvatar]="item.avatar" [thyDescription]="item.description"> </thy-list-item-meta>
-  </thy-list-item>
-</thy-list>
-
-```
-<example name="thy-list-item-meta-example" />
+```  
+展示效果：
+<example name="thy-list-selection-example" />  

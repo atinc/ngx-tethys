@@ -1,0 +1,9 @@
+@use 'variables.scss' as variables2;
+
+:host {
+    .demo-layout-backdrop {
+        > :not(:first-child).thy-layout {
+            margin-top: 20px;
+        }
+    }
+}

@@ -1,6 +1,8 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+
 import { createTestWorkspaceFactory } from '../../testing';
+
 describe('ng-update v9 Schematic', () => {
     let tree: Tree;
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
@@ -46,7 +48,7 @@ describe('ng-update v9 Schematic', () => {
 
     it(`should entry point change`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
-        expect(result).toContain('import { Id, PaginationInfo } from "ngx-tethys/types";');
+        expect(result).toContain(`import { Id, PaginationInfo } from 'ngx-tethys/types';`);
         expect(result).not.toContain(`import { Id,PaginationInfo } from 'ngx-tethys/store';`);
     });
 
@@ -58,7 +60,7 @@ describe('ng-update v9 Schematic', () => {
 
     it(`should multi level entry point to second`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
-        const list = result.match(/"ngx-tethys\/[^"]*"/g);
+        const list = result.match(/'ngx-tethys\/[^']*'/g);
         list.forEach(str => {
             expect(str.split('/').length).toBe(2);
         });
@@ -67,15 +69,15 @@ describe('ng-update v9 Schematic', () => {
     it(`should classify entry point`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
         [
-            `import { ThyInputModule } from "ngx-tethys/input";`,
-            `import { ThyOptionModule } from "ngx-tethys/shared";`,
-            `import { ThySelectModule } from "ngx-tethys/select";`,
-            `import { ThyDatePickerModule } from "ngx-tethys/date-picker";`,
-            `import { ThyGridModule } from "ngx-tethys/grid";`,
-            `import { ThyRasterModule } from "ngx-tethys/raster";`,
-            `import { ThyIconModule } from "ngx-tethys/icon";`,
-            `import { ThyDialogModule } from "ngx-tethys/dialog";`,
-            `import { ThyNotifyModule } from "ngx-tethys/notify";`
+            `import { ThyInputModule } from 'ngx-tethys/input';`,
+            `import { ThyOptionModule } from 'ngx-tethys/shared';`,
+            `import { ThySelectModule } from 'ngx-tethys/select';`,
+            `import { ThyDatePickerModule } from 'ngx-tethys/date-picker';`,
+            `import { ThyGridModule } from 'ngx-tethys/grid';`,
+            `import { ThyRasterModule } from 'ngx-tethys/raster';`,
+            `import { ThyIconModule } from 'ngx-tethys/icon';`,
+            `import { ThyDialogModule } from 'ngx-tethys/dialog';`,
+            `import { ThyNotifyModule } from 'ngx-tethys/notify';`
         ].forEach(str => {
             expect(result).toContain(str);
         });

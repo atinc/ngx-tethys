@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
 import { ThyAlertBasicExampleComponent } from './basic/basic.component';
-import { ThyAlertCloseExampleComponent } from './close/close.component';
+import { ThyAlertClosableExampleComponent } from './closable/closable.component';
 import { ThyAlertIconExampleComponent } from './icon/icon.component';
 import { ThyAlertMessageTemplateExampleComponent } from './message-template/message-template.component';
 import { ThyAlertOperationExampleComponent } from './operation/operation.component';
@@ -15,13 +15,12 @@ const COMPONENTS = [
     ThyAlertMessageTemplateExampleComponent,
     ThyAlertIconExampleComponent,
     ThyAlertWeakExampleComponent,
-    ThyAlertCloseExampleComponent,
+    ThyAlertClosableExampleComponent,
     ThyAlertOperationExampleComponent
 ];
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyAlertModule],
     exports: [...COMPONENTS]
 })

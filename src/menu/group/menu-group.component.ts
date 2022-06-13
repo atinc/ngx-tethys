@@ -1,7 +1,20 @@
-import { Component, OnInit, HostBinding, Input, Output, EventEmitter, ElementRef, ViewChild, TemplateRef } from '@angular/core';
+import {
+    Component,
+    OnInit,
+    HostBinding,
+    Input,
+    Output,
+    EventEmitter,
+    ElementRef,
+    ViewChild,
+    TemplateRef,
+    ContentChild
+} from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
+import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
@@ -40,13 +53,20 @@ export class ThyMenuGroupComponent implements OnInit {
 
     public groupHeaderPaddingLeft = 0;
 
+    get menuTheme(): ThyMenuTheme {
+        return this.parent?.thyTheme;
+    }
+
     @ViewChild('thyMenuGroup', { static: true }) _thyMenuGroup: ElementRef;
+
+    @ContentChild('headerContent')
+    headerContentTemplateRef: TemplateRef<any>;
 
     @HostBinding('class.thy-menu-group') isThyMenuGroup = true;
 
     @HostBinding('class.has-icon') showIcon = false;
 
-    @HostBinding('class.collapsed') isCollapsed = true;
+    @HostBinding('class.collapsed') isCollapsed = false;
 
     @Input() thyTitle = '';
 
@@ -54,6 +74,14 @@ export class ThyMenuGroupComponent implements OnInit {
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }
+
+    @Input('thyCollapsed')
+    @InputBoolean()
+    set thyCollapsed(value: boolean) {
+        this.isCollapsed = value;
+    }
+
+    @Input() @InputBoolean() thyCollapsible: boolean = true;
 
     @Input('thyShowIcon')
     set thyShowIcon(value: boolean) {
@@ -81,11 +109,14 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    constructor(private popover: ThyPopover) {}
+    constructor(private popover: ThyPopover, public parent: ThyMenuComponent) {}
 
     ngOnInit(): void {}
 
     collapseGroup(): void {
+        if (!this.thyCollapsible) {
+            return;
+        }
         this.isCollapsed = !this.isCollapsed;
     }
 

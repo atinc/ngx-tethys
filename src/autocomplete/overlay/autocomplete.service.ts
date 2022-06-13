@@ -1,34 +1,32 @@
+import { getFlexiblePositions, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import { of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Directionality } from '@angular/cdk/bidi';
+import { coerceArray, coerceElement } from '@angular/cdk/coercion';
 import {
     ComponentType,
+    FlexibleConnectedPositionStrategy,
     Overlay,
     OverlayConfig,
+    OverlayContainer,
     OverlayRef,
     PositionStrategy,
-    ScrollDispatcher,
-    OverlayContainer
+    ScrollDispatcher
 } from '@angular/cdk/overlay';
-import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
-import { coerceElement, coerceArray } from '@angular/cdk/coercion';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
-import { ThyAutocompleteConfig, THY_AUTOCOMPLETE_DEFAULT_CONFIG } from './autocomplete.config';
-import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
-import { Directionality } from '@angular/cdk/bidi';
-import { of, Subject } from 'rxjs';
-import { getFlexiblePositions, ThyUpperOverlayService, ThyUpperOverlayRef } from 'ngx-tethys/core';
-import { takeUntil } from 'rxjs/operators';
-import { isArray } from 'ngx-tethys/util';
-import { autocompleteUpperOverlayOptions } from './autocomplete.options';
+import { Platform } from '@angular/cdk/platform';
+import { ComponentPortal } from '@angular/cdk/portal';
 import { ViewportRuler } from '@angular/cdk/scrolling';
 import { DOCUMENT } from '@angular/common';
-import { Platform } from '@angular/cdk/platform';
-import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
-import { StaticProvider } from '@angular/core';
+import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, StaticProvider, TemplateRef } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
-export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
+import { ThyAutocompleteContainerComponent } from './autocomplete-container.component';
+import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-ref';
+import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
+import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
+
+@Injectable()
+export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
     implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
@@ -61,29 +59,16 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         return positionStrategy;
     }
 
-    private buildOverlayPanelClasses(config: ThyAutocompleteConfig) {
-        let classes = [`cdk-overlay-pane`];
-        if (config.panelClass) {
-            if (isArray(config.panelClass)) {
-                classes = classes.concat(config.panelClass);
-            } else {
-                classes.push(config.panelClass as string);
-            }
-        }
-        return classes;
-    }
-
     protected buildOverlayConfig<TData>(config: ThyAutocompleteConfig<TData>): OverlayConfig {
         const strategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
         overlayConfig.positionStrategy = strategy;
         overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
         overlayConfig.width = config.width;
-        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyAutocompleteConfig<any>): ThyAutocompleteContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyAutocompleteConfig<any>): ThyAutocompleteContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -94,7 +79,7 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T>(
         overlayRef: OverlayRef,
         containerInstance: ThyAutocompleteContainerComponent,
         config: ThyAutocompleteConfig<any>
@@ -155,7 +140,7 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         private _platform: Platform,
         private _overlayContainer: OverlayContainer
     ) {
-        super(autocompleteUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(autocompleteAbstractOverlayOptions, overlay, injector, defaultConfig);
     }
 
     open<T, TData = any, TResult = any>(
@@ -163,7 +148,7 @@ export class ThyAutocompleteService extends ThyUpperOverlayService<ThyAutocomple
         config?: ThyAutocompleteConfig<TData>
     ): ThyAutocompleteRef<T, TResult> {
         const originElement = coerceElement(config.origin);
-        const autocompleteRef = this.openUpperOverlay(componentOrTemplateRef, config) as ThyAutocompleteRef<T>;
+        const autocompleteRef = this.openOverlay(componentOrTemplateRef, config) as ThyAutocompleteRef<T>;
         config = autocompleteRef.containerInstance.config;
         autocompleteRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);

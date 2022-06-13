@@ -1,5 +1,38 @@
 module.exports = [
     {
+        type: 'service',
+        name: 'ThyPopover',
+        properties: [
+            {
+                name: 'open',
+                description: '打开 Popover',
+                type: `(
+                    componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
+                    config?: ThyPopoverConfig
+                ) => ThyPopoverRef`,
+                default: ''
+            },
+            {
+                name: 'getPopoverById',
+                description: '根据 id 获取 Popover',
+                type: `(id: string) => ThyPopoverRef`,
+                default: ''
+            },
+            {
+                name: 'getOpenedPopovers',
+                description: '获取所有打开的 Popover',
+                type: `() => ThyPopoverRef[]`,
+                default: ''
+            },
+            {
+                name: 'getClosestPopover',
+                description: '获取与指定元素最接近的 ThyPopoverRef',
+                type: `(element: HTMLElement) => ThyPopoverRef`,
+                default: ''
+            }
+        ]
+    },
+    {
         type: 'CLASS',
         name: 'Config参数',
         properties: [
@@ -62,6 +95,12 @@ module.exports = [
                 description: '切换浏览器导航是否自动关闭弹出框',
                 type: 'boolean',
                 default: 'true'
+            },
+            {
+                name: 'autoAdaptive',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
+                type: 'boolean',
+                default: 'false'
             },
             {
                 name: 'viewContainerRef',
@@ -145,6 +184,12 @@ module.exports = [
                 description: '关闭延迟毫秒',
                 type: 'number',
                 default: '0'
+            },
+            {
+                name: 'thyAutoAdaptive',
+                description: '是否开启自动适配大小模式，开启后当弹出框内容宽高发生变化后自动更新位置',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }

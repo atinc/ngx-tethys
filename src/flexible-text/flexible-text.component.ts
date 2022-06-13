@@ -1,11 +1,10 @@
-import { Component, Input, TemplateRef, ElementRef, OnInit, ViewContainerRef, OnDestroy, AfterContentInit } from '@angular/core';
-import { timer, Subject, Subscription } from 'rxjs';
-import { TooltipService } from 'ngx-tethys/tooltip';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ContentObserver } from '@angular/cdk/observers';
-import { debounceTime } from 'rxjs/operators';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { from, Observable, Subject, Subscription } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
@@ -50,14 +49,29 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
+    private destroy$ = new Subject<void>();
+
     constructor(
         private elementRef: ElementRef,
         private viewContainerRef: ViewContainerRef,
         public tooltipService: TooltipService,
         private updateHostClassService: UpdateHostClassService,
-        private contentObserver: ContentObserver
+        private contentObserver: ContentObserver,
+        private ngZone: NgZone
     ) {
         this.updateHostClassService.initializeElement(this.elementRef);
+    }
+
+    static createResizeObserver(element: HTMLElement) {
+        return new Observable(observer => {
+            const resize = new ResizeObserver(entries => {
+                observer.next(entries);
+            });
+            resize.observe(element);
+            return () => {
+                resize.disconnect();
+            };
+        });
     }
 
     ngOnInit() {
@@ -71,25 +85,38 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     }
 
     ngAfterContentInit() {
-        this.applyOverflow();
-        this.subscription = this.contentObserver
-            .observe(this.elementRef)
-            .pipe(debounceTime(100))
-            .subscribe((value: MutationRecord[]) => {
-                this.applyOverflow();
+        // Note: the zone may be nooped through `BootstrapOptions` when bootstrapping the root module. This means
+        // the `onStable` will never emit any value.
+        const onStable$ = this.ngZone.isStable ? from(Promise.resolve()) : this.ngZone.onStable.pipe(take(1));
+        // Normally this isn't in the zone, but it can cause performance regressions for apps
+        // using `zone-patch-rxjs` because it'll trigger a change detection when it unsubscribes.
+        this.ngZone.runOutsideAngular(() => {
+            // Wait for the next time period to avoid blocking the js thread.
+            onStable$.pipe(takeUntil(this.destroy$)).subscribe(() => {
+                this.contentObserver
+                    .observe(this.elementRef)
+                    .pipe(debounceTime(100), takeUntil(this.destroy$))
+                    .subscribe(() => {
+                        this.applyOverflow();
+                    });
+
+                ThyFlexibleTextComponent.createResizeObserver(this.elementRef.nativeElement)
+                    .pipe(debounceTime(100), takeUntil(this.destroy$))
+                    .subscribe(() => {
+                        this.applyOverflow();
+                    });
             });
+        });
     }
 
     ngOnDestroy() {
+        this.destroy$.next();
         this.tooltipService.detach();
-        if (this.subscription) {
-            this.subscription.unsubscribe();
-        }
     }
 
     applyOverflow() {
         const nativeElement = this.elementRef.nativeElement;
-        if (nativeElement.clientWidth < nativeElement.scrollWidth) {
+        if (nativeElement.clientWidth < nativeElement.scrollWidth || nativeElement.clientHeight < nativeElement.scrollHeight) {
             this.isOverflow = true;
         } else {
             this.isOverflow = false;

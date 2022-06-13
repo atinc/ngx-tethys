@@ -8,6 +8,11 @@ import { ThyContentSectionComponent } from './content-section.component';
 import { ThyContentMainComponent } from './content-main.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThySidebarHeaderComponent } from './sidebar-header.component';
+import { ThySidebarFooterComponent } from './sidebar-footer.component';
+import { ThySidebarContentComponent } from './sidebar-content.component';
+import { ThyResizableModule } from 'ngx-tethys/resizable';
 
 @NgModule({
     declarations: [
@@ -15,15 +20,21 @@ import { ThyIconModule } from 'ngx-tethys/icon';
         ThyHeaderComponent,
         ThyContentComponent,
         ThySidebarComponent,
+        ThySidebarHeaderComponent,
+        ThySidebarContentComponent,
+        ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
     ],
-    imports: [CommonModule, DragDropModule, ThyIconModule],
+    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule, ThyResizableModule],
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,
         ThyContentComponent,
         ThySidebarComponent,
+        ThySidebarHeaderComponent,
+        ThySidebarContentComponent,
+        ThySidebarFooterComponent,
         ThyContentSectionComponent,
         ThyContentMainComponent
     ]

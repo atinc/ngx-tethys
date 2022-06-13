@@ -1,10 +1,16 @@
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/mixins/lists";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "mixin";
+
 .thy-pagination {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    color: $pagination-color;
-    font-size: $font-size-base;
+    color: variables.$pagination-color;
+    font-size: variables.$font-size-base;
 
     &-has-total {
         justify-content: space-between;
@@ -12,36 +18,50 @@
     &-total {
         display: flex;
         padding-right: 10px;
-        color: $gray-600;
+        color: variables.$gray-600;
 
         > div {
             display: inline-block;
         }
 
         .number {
-            color: $gray-800;
+            color: variables.$gray-800;
         }
     }
 
     &-content {
         display: flex;
-        align-items: stretch;
+        align-items: center;
+    }
+
+    &-size {
+        width: variables.$pagination-page-size-width;
+        margin-right: 10px;
+        .selected-value {
+            color: variables.$pagination-jumper-input-color !important;
+        }
+        .select-control {
+            .select-control-arrow {
+                padding-bottom: 1px;
+                right: 8px;
+            }
+        }
     }
 
     &-pages {
         display: flex;
         margin: 0;
-        @include list-unstyled();
-        @include border-radius();
+        @include lists.list-unstyled();
+        @include border-radius.border-radius();
     }
 
     &-count {
         display: flex;
         align-items: center;
 
-        margin-left: 4px;
+        margin-left: 10px;
         span {
-            color: $pagination-total-pages-color;
+            color: variables.$pagination-total-pages-color;
             margin: 0 2px;
         }
     }
@@ -50,95 +70,106 @@
         display: flex;
         align-items: center;
         &-input {
-            height: 100%;
+            height: variables.$pagination-item-height;
             display: flex;
             justify-content: space-around;
             align-items: center;
-            margin: $pagination-jumper-margin;
-        }
-
-        input,
-        button {
-            height: 100%;
-            outline: none;
-            padding-bottom: 1px;
-            border: $pagination-border-width solid $pagination-border-color;
-            @include border-radius($border-radius);
+            margin: variables.$pagination-jumper-margin;
         }
 
         input {
-            color: $pagination-jumper-input-color;
-            width: $pagination-jumper-input-width;
+            height: 100%;
+            outline: none;
+            padding-bottom: 1px;
+            border: variables.$pagination-border-width solid variables.$pagination-border-color;
+            @include border-radius.border-radius(variables.$border-radius);
+            color: variables.$pagination-jumper-input-color;
+            width: calc(#{variables.$font-size-base} * 3);
             text-align: center;
-            margin: 0 4px;
-        }
-
-        button {
-            color: $pagination-jumper-button-color;
-            background-color: $pagination-bg;
-            &:hover {
-                cursor: pointer;
-            }
-            &:disabled {
-                color: $pagination-disabled-color;
-            }
+            margin: 0 6px;
         }
     }
 }
-
+.thy-select-dropdown {
+    .thy-select-dropdown-options {
+        .page-size-option {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+    }
+}
 .thy-page-link {
     position: relative;
-    display: block;
-    color: $pagination-color;
-    padding: $pagination-padding-y $pagination-padding-x;
-    margin-left: -$pagination-border-width;
-    line-height: $pagination-line-height;
-    background-color: $pagination-bg;
-    border: $pagination-border-width solid $pagination-border-color;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    color: variables.$pagination-number-color;
+    padding: variables.$pagination-padding-y variables.$pagination-padding-x;
+    margin-left: -(variables.$pagination-border-width);
+    background-color: variables.$pagination-bg;
+    border: variables.$pagination-border-width solid variables.$pagination-border-color;
 
     &:hover {
-        // z-index: 2;
-        color: $pagination-hover-color;
+        color: variables.$pagination-hover-color;
         text-decoration: none;
-        background-color: $pagination-hover-bg;
-        border-color: $pagination-hover-border-color;
+        background-color: variables.$pagination-hover-bg;
+        border-color: variables.$pagination-hover-border-color;
     }
 
     &:focus {
-        // z-index: 2;
-        outline: $pagination-focus-outline;
-        box-shadow: $pagination-focus-box-shadow;
+        outline: bootstrap-variables.$pagination-focus-outline;
+        box-shadow: variables.$pagination-focus-box-shadow;
     }
 }
 
 .thy-page-item {
+    min-width: variables.$pagination-item-width;
+    height: variables.$pagination-item-height;
+    .thy-page-link {
+        padding: variables.$pagination-padding-y, variables.$pagination-padding-x;
+    }
     &:first-child {
         .thy-page-link {
+            color: variables.$pagination-color;
             margin-left: 0;
-            @include border-left-radius($border-radius);
+            @include border-radius.border-left-radius(variables.$border-radius);
+            &:hover {
+                color: variables.$pagination-hover-color;
+                text-decoration: none;
+                background-color: variables.$pagination-hover-bg;
+                border-color: variables.$pagination-hover-border-color;
+            }
         }
     }
 
     &:last-child {
         .thy-page-link {
-            @include border-right-radius($border-radius);
+            color: variables.$pagination-color;
+            @include border-radius.border-right-radius(variables.$border-radius);
+            &:hover {
+                color: variables.$pagination-hover-color;
+                text-decoration: none;
+                background-color: variables.$pagination-hover-bg;
+                border-color: variables.$pagination-hover-border-color;
+            }
         }
     }
 
     &.active .thy-page-link {
         z-index: 1;
-        color: $pagination-active-color;
-        background-color: $pagination-active-bg;
-        border-color: $pagination-active-border-color;
+        color: variables.$pagination-active-color;
+        background-color: variables.$pagination-active-bg;
+        border-color: variables.$pagination-active-border-color;
     }
 
     &.disabled .thy-page-link {
-        color: $pagination-disabled-color;
+        color: variables.$pagination-disabled-color;
         pointer-events: none;
         // Opinionated: remove the "hand" cursor set previously for .page-link
         cursor: auto;
-        background-color: $pagination-disabled-bg;
-        border-color: $pagination-disabled-border-color;
+        background-color: variables.$pagination-disabled-bg;
+        border-color: variables.$pagination-disabled-border-color;
     }
 }
 
@@ -147,9 +178,23 @@
 //
 
 .thy-pagination-lg {
-    @include pagination-size($pagination-padding-y-lg, $pagination-padding-x-lg, $font-size-lg, $line-height-lg, $border-radius-lg);
+    @include mixin.pagination-size(
+        variables.$font-size-lg,
+        variables.$border-radius-lg,
+        variables.$pagination-item-width-lg,
+        variables.$pagination-item-height-lg,
+        variables.$pagination-line-height-lg,
+        variables.$pagination-page-size-width-lg
+    );
 }
 
 .thy-pagination-sm {
-    @include pagination-size($pagination-padding-y-sm, $pagination-padding-x-sm, $font-size-sm, $line-height-sm, $border-radius-sm);
+    @include mixin.pagination-size(
+        variables.$font-size-sm,
+        variables.$border-radius-sm,
+        variables.$pagination-item-width-sm,
+        variables.$pagination-item-height-sm,
+        variables.$pagination-line-height-sm,
+        variables.$pagination-page-size-width-sm
+    );
 }

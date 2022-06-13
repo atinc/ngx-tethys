@@ -1,15 +1,21 @@
+@use "../../styles/variables";
+
 .thy-cascader {
     position: relative;
     display: inline-block;
     cursor: pointer;
-    border: 1px solid $gray-200;
-    border-radius: $input-border-radius-xs;
+    border: 1px solid variables.$gray-200;
+    border-radius: variables.$input-border-radius-xs;
     &:hover:not(&-picker-disabled):not(.is-invalid) {
-        border-color: $primary;
+        border-color: variables.$primary;
     }
     &-input.form-control {
         border: none !important;
         cursor: pointer;
+
+        &:disabled {
+            cursor: default;
+        }
     }
     &-xs,
     &-sm {
@@ -17,10 +23,12 @@
     }
     &-picker {
         &-open {
-            border-color: $primary;
+            border-color: variables.$primary;
         }
         &-disabled {
-            border-color: 1px solid $gray-400;
+            color: variables.$gray-600;
+            border-color: 1px solid variables.$gray-400;
+            cursor: default;
         }
         &-label {
             position: absolute;
@@ -36,7 +44,7 @@
             padding: 0 24px 0 12px;
         }
         &-arrow {
-            color: $gray-500;
+            color: variables.$gray-500;
             position: absolute;
             right: 12px;
             top: 50%;
@@ -53,7 +61,7 @@
             position: absolute;
             right: 13px;
             z-index: 2;
-            background: $white;
+            background: variables.$white;
             top: 50%;
             font-size: 0.875rem;
             margin-top: -7px;
@@ -112,22 +120,22 @@
         cursor: pointer;
         white-space: nowrap;
         transition: all 0.3s;
-        color: $gray-700;
+        color: variables.$gray-700;
         &:hover {
             box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08);
-            color: $body-color;
+            color: variables.$body-color;
         }
         &-active:not(&-disabled) {
             &,
             &:hover {
-                background: rgba($primary, 0.1);
-                color: $primary;
+                background: rgba(variables.$primary, 0.1);
+                color: variables.$primary;
             }
         }
         &-disabled {
             &,
             &:hover {
-                color: $gray-400;
+                color: variables.$gray-400;
                 cursor: default;
             }
         }
@@ -143,11 +151,11 @@
         }
         &-active &-expand-icon,
         &-active &-loading-icon {
-            color: $primary;
+            color: variables.$primary;
         }
         &-disabled &-expand-icon,
         &-disabled &-loading-icon {
-            color: $gray-400;
+            color: variables.$gray-400;
         }
         & &-keyword {
             color: #e6f7ff;

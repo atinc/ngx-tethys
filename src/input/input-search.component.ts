@@ -1,9 +1,21 @@
-import { ChangeDetectorRef, Component, EventEmitter, forwardRef, HostBinding, Input, Output, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    forwardRef,
+    Input,
+    Output,
+    ViewEncapsulation,
+    ChangeDetectionStrategy,
+    ElementRef,
+    OnInit
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { UpdateHostClassService, mixinInitialized, ThyInitialized, Constructor, MixinBase } from 'ngx-tethys/core';
 import { InputSize } from './input.directive';
 
-export type InputSearchTheme = 'ellipse' | '';
+export type ThyInputSearchTheme = 'ellipse' | '';
+export type ThyInputSearchIconPosition = 'before' | 'after';
 
 export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -13,13 +25,20 @@ export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
 
 const noop = () => {};
 
+const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitialized(MixinBase);
 @Component({
     selector: 'thy-input-search',
     templateUrl: './input-search.component.html',
     providers: [UpdateHostClassService, CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-input form-control thy-input-search',
+        '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
+        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"'
+    }
 })
-export class ThyInputSearchComponent implements ControlValueAccessor {
+export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
     public onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -28,9 +47,7 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     public autoFocus = false;
 
-    @HostBinding('class.input-search-container') _isSearchContainer = true;
-
-    @HostBinding('class.input-search-ellipse') _isSearchEllipse = false;
+    public iconPosition: ThyInputSearchIconPosition = 'before';
 
     searchText: string;
 
@@ -38,23 +55,42 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
 
     @Input() placeholder = '';
 
-    @Input()
-    set thyTheme(value: InputSearchTheme) {
-        if (value === 'ellipse') {
-            this._isSearchEllipse = true;
-        }
-    }
+    @Input() thyTheme: ThyInputSearchTheme;
 
     @Input()
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
     }
 
+    @Input() set thyIconPosition(value: ThyInputSearchIconPosition) {
+        this.iconPosition = value || 'before';
+        this.updateClasses();
+    }
+
     @Input() thySize: InputSize;
 
+    /**
+     * @deprecated please use thyClear
+     */
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
+
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
+        super();
+        updateHostClassService.initializeElement(this.elementRef.nativeElement);
+    }
+
+    ngOnInit(): void {
+        super.ngOnInit();
+        this.updateClasses(true);
+    }
+
+    updateClasses(forceUpdate = false) {
+        if (this.initialized || forceUpdate) {
+            this.updateHostClassService.updateClass([`thy-input-search-${this.iconPosition}`]);
+        }
+    }
 
     writeValue(value: any): void {
         this.searchText = value;
@@ -78,6 +114,8 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
     }
 
     clearSearchText(event: Event) {
+        const element = this.elementRef.nativeElement.querySelector('.input-search-control');
+        element.focus();
         event.stopPropagation();
         if (this.disabled) {
             return;
@@ -85,5 +123,6 @@ export class ThyInputSearchComponent implements ControlValueAccessor {
         this.searchText = '';
         this.onChangeCallback(this.searchText);
         this.clear.emit(event);
+        this.thyClear.emit(event);
     }
 }

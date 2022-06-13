@@ -1,17 +1,17 @@
-import { inject, TestBed, async, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
+import { inject, TestBed, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
 import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ThyClickPositioner } from '../click-positioner';
 import { Subscription, Observable } from 'rxjs';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ClickPositionerTestModule]
         });
 
         TestBed.compileComponents();
-    }));
+    });
 
     let clickPositioner: ThyClickPositioner;
     let fixture: ComponentFixture<ClickPositionerComponent>;
@@ -83,7 +83,6 @@ const TEST_COMPONENTS = [ClickPositionerComponent];
     imports: [],
     providers: [ClickPositionerComponent],
     exports: TEST_COMPONENTS,
-    declarations: TEST_COMPONENTS,
-    entryComponents: TEST_COMPONENTS
+    declarations: TEST_COMPONENTS
 })
 class ClickPositionerTestModule {}

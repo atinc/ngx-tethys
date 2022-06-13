@@ -35,7 +35,21 @@ describe('thy-copy', () => {
             tick(4500);
             flush();
             expect(spy).toHaveBeenCalledTimes(1);
+            expect(document.body.querySelectorAll(`thy-notify-container`).length).toEqual(1);
             document.body.querySelectorAll(`thy-notify-container`)[0].remove();
+        }));
+
+        it('notify not show when thyShowNotify is false', fakeAsync(() => {
+            const spy = testComponent.copy;
+            fixture.componentInstance.showNotify = false;
+            fixture.detectChanges();
+            const el = fixture.componentInstance.copyContainer.nativeElement;
+            dispatchFakeEvent(el, 'click');
+            fixture.detectChanges();
+            tick(4500);
+            flush();
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(document.body.querySelectorAll(`thy-notify-container`).length).toEqual(0);
         }));
     });
 
@@ -52,15 +66,35 @@ describe('thy-copy', () => {
             const component = testComponent.copyDirective;
             expect(component.tooltipService.thyTooltipDirective.content as string).toBe(testComponent.copyTooltip);
         }));
+
+        it('thyCopyTipOffset should be correct', fakeAsync(() => {
+            testComponent.copyTipsOffset = 10;
+            fixture.detectChanges();
+            const component = testComponent.copyDirective;
+            expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(10);
+        }));
     });
 });
 @Component({
     template: `
-        <p #copyContainer (thyCopy)="copy($event)" thyCopyContent="我是一只猪猪" [thyCopyTips]="copyTooltip">点击</p>
+        <p
+            #copyContainer
+            (thyCopy)="copy($event)"
+            thyCopyContent="content"
+            [thyCopyTipsOffset]="copyTipsOffset"
+            [thyCopyTips]="copyTooltip"
+            [thyShowNotify]="showNotify"
+        >
+            点击
+        </p>
     `
 })
 class ThyCopyComponent implements OnInit {
-    copyTooltip;
+    copyTooltip: string;
+
+    copyTipsOffset: number;
+
+    showNotify = true;
 
     @ViewChild('copyContainer', { read: false }) copyContainer: ElementRef<Element>;
 

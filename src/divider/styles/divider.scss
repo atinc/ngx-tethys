@@ -1,0 +1,99 @@
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as divider-mixin;
+
+.thy-divider {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: variables.$text-color;
+    font-size: variables.$font-size-base;
+    line-height: variables.$line-height-base;
+    list-style: none;
+
+    @include divider-mixin.divider-variant(variables.$divider-width, variables.$divider-color);
+
+    &.thy-divider-vertical {
+        position: relative;
+        top: -0.06em;
+        display: inline-block;
+        height: 1rem;
+        margin: 0 variables.$divider-spacing;
+        vertical-align: middle;
+        border-top: 0;
+        // border-left: variables.$divider-width solid variables.$divider-color;
+
+        &.thy-divider-dashed {
+            border-width: 0 0 0 variables.$divider-width;
+        }
+    }
+    &.thy-divider-horizontal {
+        display: flex;
+        clear: both;
+        margin: variables.$divider-spacing 0;
+        &.thy-divider-with-content {
+            display: flex;
+            margin: 16px 0;
+            color: variables.$divider-text-color;
+            font-weight: normal;
+            font-size: variables.$font-size-base;
+            white-space: nowrap;
+            text-align: center;
+            border-top: 0;
+            // border-top-color: variables.$divider-color;
+            &::before,
+            &::after {
+                position: relative;
+                top: 50%;
+                width: 50%;
+                border-top: variables.$divider-width solid transparent;
+                border-top-color: inherit; /* Chrome not accept `inherit` in `border-top` */
+                border-bottom: 0;
+                transform: translateY(50%);
+                content: '';
+            }
+            &.thy-divider-dashed {
+                border-top: 0;
+                &::before,
+                &::after {
+                    border-style: dashed none none;
+                }
+            }
+        }
+        &.thy-divider-with-content-left {
+            &::before {
+                top: 50%;
+                width: variables.$divider-orientation-margin;
+            }
+            &::after {
+                top: 50%;
+                width: 100% - variables.$divider-orientation-margin;
+            }
+        }
+        &.thy-divider-with-content-right {
+            &::before {
+                top: 50%;
+                width: 100% - variables.$divider-orientation-margin;
+            }
+            &::after {
+                top: 50%;
+                width: variables.$divider-orientation-margin;
+            }
+        }
+    }
+    &.thy-divider-dashed {
+        background: none;
+        border-style: dashed;
+        border-width: variables.$divider-width 0 0;
+    }
+    .thy-divider-inner-template,
+    .thy-divider-inner-text {
+        display: inline-block;
+        padding: 0 variables.$divider-text-padding;
+    }
+}
+
+@each $color, $value in variables.$divider-colors {
+    .thy-divider-#{$color} {
+        @include divider-mixin.divider-variant(variables.$divider-width, $value);
+    }
+}

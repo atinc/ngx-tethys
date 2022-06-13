@@ -1,6 +1,6 @@
 import { DOCUMENT, PlatformLocation } from '@angular/common';
-import { Injector } from '@angular/core';
-import { TestBed } from '@angular/core/testing';
+import { ApplicationRef, Injector, ɵglobal } from '@angular/core';
+import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 
 import { ThyScrollService } from './scroll';
 
@@ -13,6 +13,9 @@ describe('ThyScrollService', () => {
     class MockDocument {
         body = new MockElement();
         documentElement = new MockDocumentElement();
+        // Needed for the `DOMTestComponentRenderer.removeAllRootElements` since it uses
+        // `DOCUMENT` token to remove DOM elements.
+        querySelectorAll = ɵglobal.document.querySelectorAll.bind(ɵglobal.document);
     }
 
     class MockDocumentElement {
@@ -57,5 +60,21 @@ describe('ThyScrollService', () => {
             expect(el.scrollTop).toBe(TOP);
             scrollService.setScrollTop(el, 0);
         });
+    });
+
+    describe('change detection behavior', () => {
+        const tickAnimationFrame = (): void => tick(16);
+
+        it('should not trigger change detection when calling `scrollTo`', fakeAsync(() => {
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+
+            scrollService.setScrollTop(window, TOP);
+
+            tickAnimationFrame();
+
+            expect(document.body.scrollTop).toBe(TOP);
+            expect(appRef.tick).not.toHaveBeenCalled();
+        }));
     });
 });

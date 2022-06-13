@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, StepInfo, ThyGuider } from 'ngx-tethys';
+import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
 
 @Component({
     selector: 'thy-guider-basic-tip-example',
@@ -21,15 +21,15 @@ export class ThyGuiderBasicTipExampleComponent implements OnInit {
         return {
             steps: [
                 {
-                    key: 'basic-tip-target',
-                    target: '.basic-tip-target',
+                    key: 'basic-hint-target',
+                    target: '.basic-hint-target',
                     data: {
-                        cover: '',
-                        title: 'basic-tip-title',
-                        description: 'description for basic tip'
+                        image: 'assets/images/guider/start.png',
+                        title: '基础新手引导的使用',
+                        description: '设置相关的信息即可使用'
                     }
                 }
-            ] as StepInfo[]
+            ] as ThyGuiderStep[]
         };
     }
 

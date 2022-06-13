@@ -3,12 +3,11 @@ import { ThyDialogModule } from '../dialog.module';
 import { Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
-import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing/thy-icon';
-import { DialogFooterComponent } from '../footer/dialog-footer.component';
+import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
 @Component({
-    selector: 'dialog-header-basic',
+    selector: 'thy-test-dialog-header-basic',
     template: `
         <thy-dialog-header [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header>
     `
@@ -18,7 +17,7 @@ class DialogHeaderBasicComponent {
 }
 
 @Component({
-    selector: 'dialog-footer-basic',
+    selector: 'thy-test-dialog-footer-basic',
     template: `
         <thy-dialog-footer class="new" [thyAlign]="align" [thyDivided]="divided">
             <div class="btn-pair"></div>
@@ -26,7 +25,7 @@ class DialogHeaderBasicComponent {
                 <span>这是描述</span>
             </ng-template>
         </thy-dialog-footer>
-        <thy-dialog-footer class="showBorder" [thyShowBorderTop]="showBorderTop"> </thy-dialog-footer>
+        <thy-dialog-footer class="showBorder" [thyDivided]="showBorderTop"> </thy-dialog-footer>
         <thy-dialog-footer class="noConfig"></thy-dialog-footer>
     `
 })
@@ -35,8 +34,16 @@ class DialogFooterBasicComponent {
 
     align = '';
 
-    divided;
+    divided: boolean;
 }
+
+@Component({
+    selector: 'thy-test-dialog-header-basic',
+    template: `
+        <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header>
+    `
+})
+class DialogHeaderTitleTranslationComponent {}
 
 describe('dialog-layout', () => {
     describe('dialog-header', () => {
@@ -81,6 +88,34 @@ describe('dialog-layout', () => {
         });
     });
 
+    describe('dialog-header-title-translation', () => {
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyDialogModule],
+                declarations: [DialogHeaderTitleTranslationComponent],
+                providers: [bypassSanitizeProvider]
+            });
+            TestBed.compileComponents();
+
+            injectDefaultSvgIconSet();
+        });
+
+        let dialogBasicFixture: ComponentFixture<DialogHeaderTitleTranslationComponent>;
+        let dialogHeaderDebugElement: DebugElement;
+        let dialogHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            dialogBasicFixture = TestBed.createComponent(DialogHeaderTitleTranslationComponent);
+            dialogBasicFixture.detectChanges();
+            dialogHeaderDebugElement = dialogBasicFixture.debugElement.query(By.directive(DialogHeaderComponent));
+            dialogHeaderElement = dialogHeaderDebugElement.nativeElement;
+        });
+
+        it('should show thyTitle when header only set thyTitleTranslationKey', () => {
+            expect(dialogHeaderElement.innerHTML.includes('Translation Key Title')).toBeTruthy();
+        });
+    });
+
     describe('dialog-footer', () => {
         let dialogBasicFixture: ComponentFixture<DialogFooterBasicComponent>;
         let dialogFooterNewDebugElement: DebugElement;
@@ -117,18 +152,18 @@ describe('dialog-layout', () => {
                 expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is none', () => {
+            it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is true', () => {
+            it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is false', () => {
+            it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
@@ -249,18 +284,18 @@ describe('dialog-layout', () => {
                 expect(dialogFooterNewDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();
             });
 
-            it('should get correct class when thyShowBorderTop is none', () => {
+            it('should get correct class when thyDivided is none', () => {
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterNoConfigDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is true', () => {
+            it('should get correct class when thyDivided is true', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = true;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeTruthy();
             });
 
-            it('should get correct class when thyShowBorderTop is false', () => {
+            it('should get correct class when thyDivided is false', () => {
                 dialogBasicFixture.componentInstance.showBorderTop = false;
                 dialogBasicFixture.detectChanges();
                 expect(dialogFooterBorderDebugElement.nativeElement.classList.contains('dialog-footer-border-top')).toBeFalsy();

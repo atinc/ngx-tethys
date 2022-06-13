@@ -87,9 +87,4 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
     }
 } as {}) as { [key: string]: ConnectionPositionPair };
 
-export const EXPANDED_DROPDOWN_POSITIONS = [
-    POSITION_MAP.bottomLeft,
-    POSITION_MAP.bottomRight,
-    POSITION_MAP.topLeft,
-    POSITION_MAP.topRight
-];
+export const EXPANDED_DROPDOWN_POSITIONS = [POSITION_MAP.bottomLeft, POSITION_MAP.bottomRight, POSITION_MAP.topLeft, POSITION_MAP.topRight];

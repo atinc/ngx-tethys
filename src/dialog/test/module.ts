@@ -1,21 +1,21 @@
-import { ThyDialogModule, ThyDialogRef } from '../';
+import { Directionality } from '@angular/cdk/bidi';
 import {
-    NgModule,
-    ViewChild,
-    TemplateRef,
+    ChangeDetectionStrategy,
     Component,
     Directive,
-    ViewContainerRef,
     Injector,
+    NgModule,
     OnInit,
-    ChangeDetectionStrategy
+    TemplateRef,
+    ViewChild,
+    ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { Directionality } from '@angular/cdk/bidi';
+import { ThyDialogModule, ThyDialogRef } from '../';
 
 // simple dialog component
 @Component({
-    selector: 'dialog-content-component',
+    selector: 'thy-dialog-content-component',
     template: `
         <div>Hello Dialog <button>Close</button></div>
     `
@@ -30,14 +30,14 @@ export class DialogSimpleContentComponent {
 
 // full dialog component
 @Component({
-    selector: 'dialog-full-content-component',
+    selector: 'thy-dialog-full-content-component',
     template: `
-        <thy-dialog-header thyTitle="Install Angular"> </thy-dialog-header>
-        <thy-dialog-body>
+        <thy-dialog-header thyTitleTranslationKey="Translation Key Title"> </thy-dialog-header>
+        <thy-dialog-body thyClearPadding>
             <p>dialog body</p>
         </thy-dialog-body>
-        <thy-dialog-footer thyShowBorderTop="true">
-            <button thyButton="primary" (click)="ok()">确认</button>
+        <thy-dialog-footer thyDivided="true">
+            <button thyButton="primary" (click)="ok()">确定</button>
             <button thyButton="link-secondary" (click)="close()">取消</button>
         </thy-dialog-footer>
     `
@@ -54,15 +54,16 @@ export class DialogFullContentComponent {
     }
 }
 
-@Directive({ selector: 'with-view-container-directive' })
+// eslint-disable-next-line @angular-eslint/directive-selector
+@Directive({ selector: 'thy-with-view-container-directive' })
 export class WithViewContainerDirective {
     constructor(public viewContainerRef: ViewContainerRef) {}
 }
 
 @Component({
-    selector: 'with-child-view-component',
+    selector: 'thy-with-child-view-component',
     template: `
-        <with-view-container-directive></with-view-container-directive>
+        <thy-with-view-container-directive></thy-with-view-container-directive>
     `
 })
 export class WithChildViewContainerComponent {
@@ -75,7 +76,7 @@ export class WithChildViewContainerComponent {
 }
 
 @Component({
-    selector: 'arbitrary-component-with-template-ref',
+    selector: 'thy-arbitrary-component-with-template-ref',
     template: `
         <ng-template let-initialState let-dialogRef="dialogRef">
             Cheese {{ localValue }} {{ initialState?.value }}{{ setDialogRef(dialogRef) }}</ng-template
@@ -122,17 +123,6 @@ const TEST_DIRECTIVES = [
 @NgModule({
     imports: [ThyDialogModule, NoopAnimationsModule],
     exports: TEST_DIRECTIVES,
-    declarations: TEST_DIRECTIVES,
-    entryComponents: [
-        DialogSimpleContentComponent,
-        DialogFullContentComponent,
-        WithInjectedDataDialogComponent,
-        WithChildViewContainerComponent,
-        WithOnPushViewContainerComponent
-        //   ComponentWithTemplateRef,
-        //   ContentElementDialog,
-        //   DialogWithInjectedData,
-        //   DialogWithoutFocusableElements,
-    ]
+    declarations: TEST_DIRECTIVES
 })
 export class DialogTestModule {}

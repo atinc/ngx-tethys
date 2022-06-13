@@ -1,0 +1,28 @@
+<thy-table [thyModel]="data" thyRowKey="id" thyMode="tree" thyWholeRowSelect="true" thyTheme="bordered">
+  <thy-table-column thyTitle="Name" thyModelKey="name" [thyExpand]="true"></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+</thy-table>
+
+<thy-table class="mt-4" [thyModel]="data" thyRowKey="id" thyMode="tree" thyWholeRowSelect="true" thyTheme="bordered">
+  <thy-table-column thyModelKey="checked" thyType="checkbox" [thySelections]="selections" [thyWidth]="40"> </thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" [thyExpand]="true"></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+</thy-table>
+
+<thy-table class="mt-4" [thyModel]="data" thyRowKey="id" thyMode="tree" thyWholeRowSelect="true" thyTheme="bordered">
+  <thy-table-column thyModelKey="checked" thyType="checkbox" [thySelections]="selections" [thyWidth]="40"> </thy-table-column>
+  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" [thyExpand]="true">
+    <ng-template #cell let-row>
+      <thy-icon class="broad-icon wiki-page-icon text-desc" thyIconName="file"></thy-icon>
+      <span class="ml-2">{{ row?.name }}</span>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+</thy-table>

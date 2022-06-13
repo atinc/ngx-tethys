@@ -9,10 +9,15 @@ import {
     QueryList,
     TemplateRef
 } from '@angular/core';
-import { ThyProgressTypes, ThyStackedValue } from './interfaces';
+import { ThyProgressType, ThyProgressStackedValue } from './interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
+import { isNumber } from 'ngx-tethys/util';
 
+/**
+ * 进度条组件
+ * @name thy-progress
+ */
 @Component({
     selector: 'thy-progress',
     templateUrl: './progress.component.html',
@@ -27,9 +32,13 @@ import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } fr
     ]
 })
 export class ThyProgressComponent implements ThyParentProgress {
-    value: number | ThyStackedValue[];
+    value: number | ThyProgressStackedValue[];
 
     bars: ThyProgressBarComponent[] = [];
+
+    barsTotalValue: number;
+
+    private settedMax: number;
 
     @HostBinding('attr.max') max = 100;
 
@@ -42,34 +51,64 @@ export class ThyProgressComponent implements ThyParentProgress {
         this.bars = value.toArray();
     }
 
-    @Input() thyType: ThyProgressTypes;
+    /**
+     * 进度条类型: `'primary' | 'success' | 'info' | 'warning' | 'danger'`
+     */
+    @Input() thyType: ThyProgressType = 'primary';
 
-    @Input() thyTips: string | TemplateRef<HTMLElement>;
-
-    @Input() set thyValue(value: number | ThyStackedValue[]) {
-        this.isStacked = Array.isArray(value);
-        this.value = value;
-
-        // 自动求和计算 max
-        if (this.isStacked) {
-            this.thyMax = (value as ThyStackedValue[]).reduce((total, item) => {
-                return total + item.value;
-            }, 0);
-        }
-    }
-
+    /**
+     * 进度条大小: `'sm' | 'md' 'xs'`
+     * @default md
+     */
     @Input() set thySize(size: string) {
         this.updateHostClassService.updateClass(size ? [`progress-${size}`] : []);
     }
 
-    @Input() set thyMax(max: number) {
-        this.max = max;
-        this.bars.forEach(bar => {
-            bar.recalculatePercentage();
-        });
+    /**
+     * 进度值，传入数字时显示百分比 = value / max * 100, 当传入数组时显示多个 bar, stacked 模式的进度条
+     */
+    @Input() set thyValue(value: number | ThyProgressStackedValue[]) {
+        // 自动求和计算 max
+        if (Array.isArray(value)) {
+            this.isStacked = true;
+            this.value = [...value].filter(item => item.value !== 0);
+            this.barsTotalValue = this.value.reduce((total, item) => {
+                return total + item.value;
+            }, 0);
+            this.calculateMax();
+        } else {
+            this.value = value;
+        }
     }
+
+    /**
+     * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
+     */
+    @Input() set thyMax(max: number) {
+        this.settedMax = max;
+        this.calculateMax();
+    }
+
+    /**
+     * 鼠标移入进度条时显示的提示文案或者模板
+     */
+    @Input() thyTips: string | TemplateRef<unknown>;
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    calculateMax() {
+        if (isNumber(this.settedMax) && this.settedMax > 0) {
+            this.max = this.settedMax;
+        } else {
+            this.max = this.barsTotalValue;
+        }
+        if (this.max < this.barsTotalValue) {
+            this.max = this.barsTotalValue;
+        }
+        this.bars.forEach(bar => {
+            bar.recalculatePercentage();
+        });
     }
 }

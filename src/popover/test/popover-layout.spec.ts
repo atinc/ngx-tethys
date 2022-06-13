@@ -5,13 +5,21 @@ import { ThyPopoverBodyComponent, ThyPopoverHeaderComponent } from '../index';
 import { ThyPopoverModule } from '../module';
 
 @Component({
-    selector: 'popover-header-basic',
-    template: '<thy-popover-header thyTitle="I am popover header"></thy-popover-header>'
+    selector: 'thy-popover-header-basic',
+    template: '<thy-popover-header thyTitle="I am popover header" (thyClosed)="close()"></thy-popover-header>'
 })
-class PopoverHeaderBasicComponent {}
+class PopoverHeaderBasicComponent {
+    close() {}
+}
 
 @Component({
-    selector: 'popover-body-basic',
+    selector: 'thy-popover-header-translation',
+    template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>'
+})
+class PopoverHeaderTranslationComponent {}
+
+@Component({
+    selector: 'thy-popover-body-basic',
     template: '<thy-popover-body></thy-popover-body>'
 })
 class PopoverBodyBasicComponent {}
@@ -70,6 +78,45 @@ describe('popover-layout', () => {
 
         it('should has correct title', () => {
             expect(popoverHeaderElement.textContent.includes('I am popover header')).toBeTruthy();
+        });
+
+        it('should support thyClosed', () => {
+            const closeSpy = jasmine.createSpy('after thyClosed subscribe spy');
+            popoverHeaderDebugElement.componentInstance.thyClosed.subscribe(() => {
+                closeSpy();
+            });
+
+            const closeButton = popoverBasicFixture.nativeElement.querySelector('.close');
+            closeButton.click();
+            popoverBasicFixture.detectChanges();
+            expect(closeSpy).toHaveBeenCalled();
+        });
+    });
+
+    describe('popover-header-translation', () => {
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyPopoverModule],
+                declarations: [PopoverHeaderTranslationComponent]
+            }).compileComponents();
+        });
+
+        let fixture: ComponentFixture<PopoverHeaderTranslationComponent>;
+        let popoverHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PopoverHeaderTranslationComponent);
+            fixture.detectChanges();
+            popoverHeaderElement = fixture.debugElement.query(By.directive(ThyPopoverHeaderComponent)).nativeElement;
+        });
+
+        it('should create', () => {
+            expect(fixture).toBeTruthy();
+            expect(popoverHeaderElement).toBeTruthy();
+        });
+
+        it('should show thyTitle when popover header only set thyTitleTranslationKey', () => {
+            expect(popoverHeaderElement.textContent.includes('Translation Key Title')).toBeTruthy();
         });
     });
 

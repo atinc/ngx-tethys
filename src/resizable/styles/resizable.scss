@@ -1,0 +1,101 @@
+@use "../../styles/variables";
+
+$resizable-prefix-cls: 'thy-resizable';
+$resize-height: 10px;
+$resize-top: -5px;
+
+.#{$resizable-prefix-cls} {
+    &-preview {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 8;
+        border: 1px dashed variables.$gray-300;
+    }
+    &-handle {
+        position: absolute;
+        user-select: none;
+        z-index: 8;
+        &-top {
+            width: 100%;
+            height: $resize-height;
+            top: $resize-top;
+            left: 0;
+        }
+        &-right {
+            width: $resize-height;
+            height: 100%;
+            top: 0;
+            right: $resize-top;
+        }
+        &-bottom {
+            width: 100%;
+            height: $resize-height;
+            bottom: $resize-top;
+            left: 0;
+        }
+        &-left {
+            width: $resize-height;
+            height: 100%;
+            top: 0;
+            left: $resize-top;
+        }
+        &-topRight {
+            width: 20px;
+            height: 20px;
+            top: $resize-top;
+            right: $resize-top;
+            z-index: 10;
+        }
+        &-bottomRight {
+            width: 20px;
+            height: 20px;
+            right: $resize-top;
+            bottom: $resize-top;
+            z-index: 10;
+        }
+        &-bottomLeft {
+            width: 20px;
+            height: 20px;
+            bottom: $resize-top;
+            left: $resize-top;
+            z-index: 10;
+        }
+        &-topLeft {
+            width: 20px;
+            height: 20px;
+            top: $resize-top;
+            left: $resize-top;
+            z-index: 10;
+        }
+    }
+
+    &:not(.#{$resizable-prefix-cls}-resizing) {
+        .#{$resizable-prefix-cls}-handle {
+            &-top,
+            &-bottom {
+                cursor: ns-resize;
+            }
+            &-right,
+            &-left {
+                cursor: ew-resize;
+            }
+            &-bottomRight,
+            &-topLeft {
+                cursor: nwse-resize;
+            }
+            &-bottomLeft,
+            &-topRight {
+                cursor: nesw-resize;
+            }
+        }
+    }
+
+    &-disabled {
+        .#{$resizable-prefix-cls} {
+            &-handle {
+                pointer-events: none;
+            }
+        }
+    }
+}

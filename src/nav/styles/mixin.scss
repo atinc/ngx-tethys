@@ -1,8 +1,12 @@
-@mixin nav-link-variant($color, $hover-color, $border-bottom) {
+@use "../../styles/bootstrap/mixins/hover" as mixins-hover;
+@use "../../styles/mixins/hover";
+@use "../../styles/variables";
+
+@mixin nav-item-variant($color, $hover-color, $border-bottom) {
     color: $color;
     > i,
     > .thy-icon {
-        color: $nav-link-icon-color;
+        color: variables.$nav-item-icon-color;
     }
 
     &.active {
@@ -15,7 +19,7 @@
             color: $hover-color;
         }
     }
-    @include hover-focus-active {
+    @include hover.hover-active {
         color: $hover-color;
         text-decoration: none;
         @if $border-bottom {
@@ -28,12 +32,13 @@
     }
     // Disabled state lightens text
     &.disabled {
-        color: $nav-link-disabled-color;
+        color: variables.$nav-item-disabled-color;
         border-bottom: none;
     }
 }
 
-@mixin nav-link-size($padding, $margin-right) {
+@mixin nav-item-size($padding, $margin-right, $font-size: variables.$nav-item-font-size) {
+    font-size: $font-size;
     padding: $padding;
     margin-right: $margin-right;
     &:last-child {
@@ -41,22 +46,22 @@
     }
 }
 
-@mixin nav-link-clear-margin-right() {
+@mixin nav-item-clear-margin-right() {
     &:last-child {
         margin-right: 0;
     }
 }
 
-@mixin nav-link-divider-variant($nav-link-hover-color, $divider-height, $nav-link-padding-right) {
+@mixin nav-item-divider-variant($nav-item-hover-color, $divider-height, $nav-item-padding-right) {
     position: relative;
     &:after {
         display: block;
         position: absolute;
         width: 0;
         content: '';
-        border-right: 1px solid $nav-divider-color;
+        border-right: 1px solid variables.$nav-divider-color;
         top: calc(50% - #{$divider-height} / 2);
-        right: ($nav-link-padding-right / 2) * -1;
+        right: ($nav-item-padding-right * 0.5) * -1;
         height: $divider-height;
     }
     &:last-child {
@@ -64,22 +69,22 @@
             display: none;
         }
     }
-    @include hover-focus-active {
-        color: $nav-link-hover-color;
+    @include hover.hover-active {
+        color: $nav-item-hover-color;
         text-decoration: none;
     }
     .thy-icon,
     i {
-        margin-right: $rem-5px;
+        margin-right: variables.$rem-5px;
     }
 }
 
-@mixin clear-nav-link-bottom {
+@mixin clear-nav-item-bottom {
     border-bottom: none;
     &.active {
         border-bottom: none;
     }
-    @include hover-focus-active {
+    @include mixins-hover.hover-focus-active {
         border-bottom: none;
     }
 }

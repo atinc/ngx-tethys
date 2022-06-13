@@ -1,17 +1,4 @@
-import {
-    Component,
-    ViewEncapsulation,
-    OnInit,
-    Input,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    ChangeDetectorRef
-} from '@angular/core';
-import { taskTypes } from '../mock-data';
+import { Component, OnInit } from '@angular/core';
 import { timer } from 'rxjs';
 
 @Component({
@@ -44,8 +31,6 @@ export class ThySelectServerSearchExampleComponent implements OnInit {
             display_name: '企业b'
         }
     ];
-
-    constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         for (let i = 10; i < 36; i++) {

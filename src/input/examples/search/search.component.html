@@ -1,19 +1,48 @@
-<div class="mt-2 mb-2">自定义大小</div>
-<thy-select [(ngModel)]="thySize" style="width: 500px;">
-  <option value="sm">小</option>
-  <option value="md">中</option>
-  <option value="">默认</option>
-  <option value="lg">大</option>
-</thy-select>
-<div class="mt-2 mb-2">展示</div>
-<thy-input-search
-  name="search"
-  [thySize]="thySize"
-  (keydown.enter)="change()"
-  [thySearchFocus]="true"
-  [(ngModel)]="searchText"
-  (ngModelChange)="change()"
-  (clear)="change()"
-></thy-input-search>
-<br />
-<thy-input-search name="search1" thyTheme="ellipse" [(ngModel)]="searchText"></thy-input-search>
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <thy-input-search
+      (keydown.enter)="change()"
+      [(ngModel)]="searchText"
+      (ngModelChange)="change()"
+      (thyClear)="change()"
+      placeholder="Search"
+    ></thy-input-search>
+    <br />
+    <thy-input-search
+      (keydown.enter)="change()"
+      [(ngModel)]="searchText"
+      (ngModelChange)="change()"
+      (thyClear)="change()"
+      thyIconPosition="after"
+      placeholder="Search"
+    ></thy-input-search>
+    <br />
+    <thy-input-search
+      (keydown.enter)="change()"
+      [(ngModel)]="searchText"
+      (ngModelChange)="change()"
+      (thyClear)="change()"
+      thyTheme="transparent"
+      placeholder="Search"
+    ></thy-input-search>
+    <br />
+    <thy-input-group>
+      <thy-input placeholder="Search"></thy-input>
+      <ng-template #append>
+        <button thyButton="primary"><thy-icon thyIconName="search"></thy-icon></button>
+      </ng-template>
+    </thy-input-group>
+    <br />
+  </div>
+  <div thyCol [thySpan]="12">
+    <thy-input-search thyTheme="ellipse" placeholder="Search" [(ngModel)]="searchText"></thy-input-search>
+    <br />
+    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" thyIconPosition="after" placeholder="Search"></thy-input-search>
+    <br />
+    <thy-input placeholder="Search">
+      <ng-template #append>
+        <thy-icon class="text-desc" thyIconName="search"></thy-icon>
+      </ng-template>
+    </thy-input>
+  </div>
+</div>

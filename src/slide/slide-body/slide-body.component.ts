@@ -8,7 +8,4 @@ import { Component, HostBinding } from '@angular/core';
 })
 export class ThySlideBodyComponent {
     @HostBinding('class.thy-slide-body') slideLayoutBody = true;
-
-    ngOnInit() {}
-
 }

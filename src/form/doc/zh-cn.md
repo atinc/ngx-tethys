@@ -2,19 +2,27 @@
 category: form
 title: Form
 subtitle: 表单
-order: 1
 ---
 
-表单具有数据收集、校验和提交功能，内部包含复选框、单选框、输入框、下拉选择框等元素。
-> 使用该组件前请确保您已经阅读并掌握了[Angular Forms](https://angular.io/guide/forms#forms)的使用方式。
+<alert>表单验证和布局组件。</alert>
 
-ThyForm 提供了如下功能：
+## 何时使用
+
+表单具有数据收集、校验和提交功能，内部包含复选框、单选框、输入框、下拉选择框等元素。
+> 使用该组件前请确保您已经阅读并掌握了 [Angular Forms](https://angular.io/guide/forms#forms) 的使用方式。
+
+## 模块导入
+```ts
+import { ThyFormModule } from "ngx-tethys/form";
+```
+## 具备功能
 
 - 统一表单布局，使用`thyForm`指令
 - 统一表单控件，使用`thy-form-group`组件
-- 基于Angular的验证统一设置验证规则和错误反馈
+- 基于 Angular 表单统一设置验证规则和错误反馈
 
-基本使用如下：
+## 基本使用
+
 <example name="thy-form-basic-example" />
 
 ## 布局
@@ -47,7 +55,7 @@ ThyForm 提供了如下功能：
 </form>
 ```
 
-## 多行展示
+## 多列展示
 表单要在同一行展示多个表单控件，需要和布局组件配合使用，使用`thyRow`、`thyCol`设置布局规则。
 ```html
 <form
@@ -71,7 +79,7 @@ ThyForm 提供了如下功能：
 
 ```
 ## 全局配置
-比如表单布局，footer对齐方式，每个组件都支持参数单独设置，如果需要全局替换默认的配置，可以通过注入`THY_FORM_CONFIG`配置，如下：
+对于表单的布局，Footer的对齐方式，对应的组件都支持参数单独设置，如果需要全局替换默认的配置，可以通过注入令牌为`THY_FORM_CONFIG`的值进行配置，如下：
 ```ts
 @NgModule({
     providers: [

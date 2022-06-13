@@ -1,6 +1,6 @@
 import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
-import { ElementRef, Inject } from '@angular/core';
+import { ElementRef, Inject, NgZone } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
@@ -17,7 +17,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private readonly _afterExited = new Subject<TResult>();
 
-    constructor(@Inject(DOCUMENT) protected document: any) {}
+    constructor(@Inject(DOCUMENT) protected document: Document, private ngZone: NgZone) {}
 
     private onFullscreenChange() {
         const isFullScreen = this.isImmersiveFullscreen();
@@ -42,17 +42,17 @@ export class ThyFullscreenRef<TResult = unknown> {
         return !!(doc['fullscreenElement'] || doc['mozFullScreenElement'] || doc['webkitFullscreenElement'] || doc['msFullscreenElement']);
     }
 
-    private handleKeyDown(event: KeyboardEvent) {
+    private handleKeyDown = (event: KeyboardEvent): void => {
         if (event.keyCode === ESCAPE) {
             if (this.isFullscreen && this.fullscreenConfig.mode === ThyFullscreenMode.emulated) {
-                this.exitNormalFullscreen();
+                this.ngZone.run(() => this.exitNormalFullscreen());
             }
         }
-    }
+    };
 
     private launchNormalFullscreen() {
         const targetElement = this.resetElement(this.fullscreenConfig.target);
-        const classes = this.fullscreenConfig.targetLaunchededClasse;
+        const classes = this.fullscreenConfig.targetLaunchedClass;
         const container = this.fullscreenConfig.emulatedContainer;
         if (container) {
             const containerElement = this.resetElement(container);
@@ -76,7 +76,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private exitNormalFullscreen() {
         const targetElement = this.resetElement(this.fullscreenConfig.target);
-        const classes = this.fullscreenConfig.targetLaunchededClasse;
+        const classes = this.fullscreenConfig.targetLaunchedClass;
         const container = this.fullscreenConfig.emulatedContainer;
         if (container) {
             targetElement.style.transform = ``;
@@ -92,35 +92,40 @@ export class ThyFullscreenRef<TResult = unknown> {
 
         this.isFullscreen = false;
         this._afterExited.next();
+        this._afterExited.complete();
 
         this.ngUnsubscribe$.next();
         this.ngUnsubscribe$.complete();
     }
 
     protected launchImmersiveFullscreen() {
-        const docElement = this.document.documentElement;
+        const { documentElement } = this.document;
 
-        if (docElement.requestFullscreen) {
-            docElement.requestFullscreen();
-        } else if (docElement['mozRequestFullScreen']) {
-            docElement['mozRequestFullScreen']();
-        } else if (docElement['webkitRequestFullscreen']) {
-            docElement['webkitRequestFullscreen']();
-        } else if (docElement['msRequestFullscreen']) {
-            docElement['msRequestFullscreen']();
+        const requestFullscreen: HTMLElement['requestFullscreen'] | undefined =
+            documentElement.requestFullscreen ||
+            documentElement['mozRequestFullScreen'] ||
+            documentElement['webkitRequestFullscreen'] ||
+            documentElement['msRequestFullscreen'];
+
+        if (typeof requestFullscreen === 'function') {
+            // Note: the `requestFullscreen` returns a promise that resolves when the full screen is initiated.
+            // The promise may reject with a `fullscreen error`. The browser warns into the console before rejecting:
+            // `Failed to execute ‘requestFullScreen’ on ‘Element’: API can only be initiated by a user gesture.`.
+            // We explicitly call `catch` and redirect the rejection to `console.error`.
+            // Otherwise, this fill fail in unit tests with the following error:
+            // `An error was thrown in afterAll. Unhandled promise rejection: TypeError: fullscreen error`.
+            requestFullscreen.call(documentElement).catch(console.error);
         }
     }
 
     protected exitImmersiveFullscreen() {
-        const doc = this.document;
-        if (doc['exitFullscreen']) {
-            doc['exitFullscreen']();
-        } else if (doc['mozCancelFullScreen']) {
-            doc['mozCancelFullScreen']();
-        } else if (doc['webkitExitFullscreen']) {
-            doc['webkitExitFullscreen']();
-        } else if (doc['msExitFullscreen']) {
-            doc['msExitFullscreen']();
+        const { document } = this;
+
+        const exitFullscreen: Document['exitFullscreen'] | undefined =
+            document.exitFullscreen || document['mozCancelFullScreen'] || document['webkitExitFullscreen'] || document['msExitFullscreen'];
+
+        if (typeof exitFullscreen === 'function') {
+            exitFullscreen.call(document).catch(console.error);
         }
     }
 
@@ -137,11 +142,12 @@ export class ThyFullscreenRef<TResult = unknown> {
                 });
             this.launchImmersiveFullscreen();
         } else {
-            fromEvent(this.document, 'keydown')
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(event => {
-                    this.handleKeyDown(event as KeyboardEvent);
-                });
+            this.ngZone.runOutsideAngular(() =>
+                fromEvent<KeyboardEvent>(this.document, 'keydown')
+                    .pipe(takeUntil(this.ngUnsubscribe$))
+                    .subscribe(this.handleKeyDown)
+            );
+
             this.launchNormalFullscreen();
         }
     }

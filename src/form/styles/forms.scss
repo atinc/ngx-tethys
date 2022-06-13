@@ -1,3 +1,12 @@
+@use "sass:meta";
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/mixins/breakpoints";
+@use "../../styles/bootstrap/mixins/text-truncate";
+@use "../../styles/bootstrap/mixins/transition";
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/variables";
+@use "mixin";
+
 // stylelint-disable selector-no-qualifying-type
 
 //
@@ -7,25 +16,25 @@
 .form-control {
     display: block;
     width: 100%;
-    padding: $input-padding-y $input-padding-x;
-    font-size: $input-font-size;
-    line-height: $input-line-height;
-    color: $input-color;
-    background-color: $input-bg;
+    padding: variables.$input-padding-y variables.$input-padding-x;
+    font-size: variables.$input-font-size;
+    line-height: bootstrap-variables.$input-line-height;
+    color: variables.$input-color;
+    background-color: bootstrap-variables.$input-bg;
     background-clip: padding-box;
-    border: $input-border-width solid $input-border-color;
+    border: bootstrap-variables.$input-border-width solid variables.$input-border-color;
 
     // Note: This has no effect on <select>s in some browsers, due to the limited stylability of `<select>`s in CSS.
-    @if $enable-rounded {
+    @if bootstrap-variables.$enable-rounded {
         // Manually use the if/else instead of the mixin to account for iOS override
-        border-radius: $input-border-radius;
+        border-radius: bootstrap-variables.$input-border-radius;
     } @else {
         // Otherwise undo the iOS default
         border-radius: 0;
     }
 
     // @include box-shadow($input-box-shadow);
-    @include transition($input-transition);
+    @include transition.transition(bootstrap-variables.$input-transition);
 
     // Unstyle the caret on `<select>`s in IE10+.
     &::-ms-expand {
@@ -34,11 +43,11 @@
     }
 
     // Customize the `:focus` state to imitate native WebKit styles.
-    @include form-control-focus();
+    @include mixin.form-control-focus();
 
     // Placeholder
     &::placeholder {
-        color: $input-placeholder-color;
+        color: variables.$input-placeholder-color;
         // Override Firefox's unusual default opacity; see https://github.com/twbs/bootstrap/pull/11526.
         opacity: 1;
     }
@@ -53,8 +62,8 @@
     // don't honor that edge case; we style them as disabled anyway.
     &.disabled,
     &:disabled {
-        background-color: $input-disabled-bg;
-        color: $input-disabled-color;
+        background-color: variables.$input-disabled-bg;
+        color: variables.$input-disabled-color;
         // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.
         opacity: 1;
         // 如果 input 框禁用了，后面的反馈图标颜色变浅
@@ -72,7 +81,7 @@
     // Thy Custom
     // fix bug about form-control state is invalid can't show hover style
     // 修复当元素有 required 验证时，鼠标移动上去没有边框颜色的 Bug， 因为元素是 invalid 状态
-    @include set-input-hover-border($input-hover-border-color);
+    @include mixin.set-input-hover-border(variables.$input-hover-border-color);
 }
 
 // select.form-control {
@@ -105,11 +114,11 @@
 // For use with horizontal and inline forms, when you need the label (or legend)
 // text to align with the form controls.
 .col-form-label {
-    padding-top: calc(#{$input-padding-y} + #{$input-border-width});
-    padding-bottom: calc(#{$input-padding-y} + #{$input-border-width});
+    padding-top: calc(#{variables.$input-padding-y} + #{bootstrap-variables.$input-border-width});
+    padding-bottom: calc(#{variables.$input-padding-y} + #{bootstrap-variables.$input-border-width});
     margin-bottom: 0; // Override the `<label>/<legend>` default
     font-size: inherit; // Override the `<legend>` default
-    line-height: $input-line-height;
+    line-height: bootstrap-variables.$input-line-height;
     // THY CUSTOM
     // color: $input-label-color;
     text-align: right;
@@ -118,7 +127,12 @@
 
 // THY CUSTOM
 .form-label {
-    color: $form-label-color;
+    color: variables.$form-label-color;
+    .label-tips-icon {
+        margin-left: 6px;
+        font-size: variables.$font-size-base;
+        cursor: pointer;
+    }
 }
 
 // form 左右布局 padding 减少
@@ -127,17 +141,17 @@
 }
 
 .col-form-label-lg {
-    padding-top: calc(#{$input-padding-y-lg} + #{$input-border-width});
-    padding-bottom: calc(#{$input-padding-y-lg} + #{$input-border-width});
-    font-size: $font-size-base;
-    line-height: $input-line-height-lg;
+    padding-top: calc(#{variables.$input-padding-y-lg} + #{bootstrap-variables.$input-border-width});
+    padding-bottom: calc(#{variables.$input-padding-y-lg} + #{bootstrap-variables.$input-border-width});
+    font-size: variables.$font-size-base;
+    line-height: bootstrap-variables.$input-line-height-lg;
 }
 
 .col-form-label-sm {
-    padding-top: calc(#{$input-padding-y-sm} + #{$input-border-width});
-    padding-bottom: calc(#{$input-padding-y-sm} + #{$input-border-width});
-    font-size: $font-size-sm;
-    line-height: $input-line-height-sm;
+    padding-top: calc(#{variables.$input-padding-y-sm} + #{bootstrap-variables.$input-border-width});
+    padding-bottom: calc(#{variables.$input-padding-y-sm} + #{bootstrap-variables.$input-border-width});
+    font-size: variables.$font-size-sm;
+    line-height: bootstrap-variables.$input-line-height-sm;
 }
 
 // Readonly controls as plain text
@@ -148,13 +162,13 @@
 .form-control-plaintext {
     display: block;
     width: 100%;
-    padding-top: $input-padding-y;
-    padding-bottom: $input-padding-y;
+    padding-top: variables.$input-padding-y;
+    padding-bottom: variables.$input-padding-y;
     margin-bottom: 0; // match inputs if this class comes on inputs with default margins
-    line-height: $input-line-height;
+    line-height: bootstrap-variables.$input-line-height;
     background-color: transparent;
     border: solid transparent;
-    border-width: $input-border-width 0;
+    border-width: bootstrap-variables.$input-border-width 0;
     outline: none;
 
     &.form-control-sm,
@@ -172,13 +186,6 @@
 // The `.form-group-* form-control` variations are sadly duplicated to avoid the
 // issue documented in https://github.com/twbs/bootstrap/issues/15074.
 
-.form-control-sm {
-    padding: $input-padding-y-sm $input-padding-x-sm;
-    font-size: $input-font-size-sm;
-    line-height: $input-line-height-sm;
-    @include border-radius($input-border-radius-sm);
-}
-
 // select.form-control-sm {
 //   &:not([size]):not([multiple]) {
 //     height: $input-height-sm;
@@ -186,11 +193,18 @@
 // }
 
 .form-control-lg {
-    padding: $input-padding-y-lg $input-padding-x-lg;
+    padding: variables.$input-padding-y-lg variables.$input-padding-x-lg;
     // 最大的输入框字体是 24px
-    font-size: $input-font-size-lg;
-    line-height: $input-line-height-lg;
-    @include border-radius($input-border-radius-lg);
+    font-size: variables.$input-font-size-lg;
+    line-height: bootstrap-variables.$input-line-height-lg;
+    @include border-radius.border-radius(bootstrap-variables.$input-border-radius-lg);
+}
+
+.form-control-sm {
+    padding: variables.$input-padding-y-sm variables.$input-padding-x-sm;
+    font-size: variables.$input-font-size-sm;
+    line-height: bootstrap-variables.$input-line-height-sm;
+    @include border-radius.border-radius(bootstrap-variables.$input-border-radius-sm);
 }
 
 // select.form-control-lg {
@@ -200,10 +214,10 @@
 // }
 
 .form-control-xs {
-    padding: $input-padding-y-xs $input-padding-x-xs;
-    font-size: $font-size-sm;
-    line-height: $input-line-height-xs;
-    @include border-radius($input-border-radius-xs);
+    padding: variables.$input-padding-y-xs variables.$input-padding-x-xs;
+    font-size: variables.$font-size-sm;
+    line-height: variables.$input-line-height-xs;
+    @include border-radius.border-radius(variables.$input-border-radius-xs);
 }
 
 // select.form-control-xs {
@@ -213,23 +227,23 @@
 // }
 
 .form-control-md {
-    padding: $input-padding-y-md $input-padding-x-md;
-    font-size: $font-size-base;
-    line-height: $input-line-height-md;
-    @include border-radius($input-border-radius-md);
+    padding: variables.$input-padding-y-md variables.$input-padding-x-md;
+    font-size: variables.$font-size-base;
+    line-height: variables.$input-line-height-md;
+    @include border-radius.border-radius(variables.$input-border-radius-md);
 }
 
 .form-control-active {
-    color: $input-focus-color;
-    background-color: $input-focus-bg;
-    border-color: $input-focus-border-color;
+    color: bootstrap-variables.$input-focus-color;
+    background-color: variables.$input-focus-bg;
+    border-color: variables.$input-focus-border-color;
     outline: 0;
 
     // Avoid using mixin so we can pass custom focus shadow properly
-    @if $enable-shadows {
-        box-shadow: $input-box-shadow, $input-focus-box-shadow;
+    @if variables.$enable-shadows {
+        box-shadow: variables.$input-box-shadow, bootstrap-variables.$input-focus-box-shadow;
     } @else {
-        box-shadow: $input-focus-box-shadow;
+        box-shadow: bootstrap-variables.$input-focus-box-shadow;
     }
 }
 
@@ -240,12 +254,12 @@
 
 .form-group {
     // display: block;
-    margin-bottom: $form-group-margin-bottom;
+    margin-bottom: bootstrap-variables.$form-group-margin-bottom;
 }
 
 .form-text {
     display: block;
-    margin-top: $form-text-margin-top;
+    margin-top: bootstrap-variables.$form-text-margin-top;
 }
 
 // Form grid
@@ -273,8 +287,8 @@
 // server side validation.
 
 // @include form-validation-state("valid", $form-feedback-valid-color);
-@include form-validation-state('invalid', $form-feedback-invalid-color);
-@include thy-form-validation-state('invalid', $form-feedback-invalid-color);
+@include mixin.form-validation-state('invalid', bootstrap-variables.$form-feedback-invalid-color);
+@include mixin.thy-form-validation-state('invalid', bootstrap-variables.$form-feedback-invalid-color);
 
 // Inline forms
 //
@@ -299,7 +313,7 @@
     }
 
     // Kick in the inline
-    @include media-breakpoint-up(sm) {
+    @include breakpoints.media-breakpoint-up(sm) {
         label {
             display: flex;
             align-items: center;
@@ -351,7 +365,7 @@
         .form-check-input {
             position: relative;
             margin-top: 0;
-            margin-right: $form-check-input-margin-x;
+            margin-right: bootstrap-variables.$form-check-input-margin-x;
             margin-left: 0;
         }
 
@@ -371,7 +385,7 @@
 .label-required {
     &::before {
         content: '*';
-        color: $danger;
+        color: variables.$danger;
         margin-right: 3px;
         position: relative;
         top: 3px;
@@ -384,7 +398,7 @@
 
         &::after {
             content: '*';
-            color: $danger;
+            color: variables.$danger;
             margin-left: 3px;
             position: relative;
             top: 3px;
@@ -414,7 +428,7 @@
 
         .form-footer-description {
             flex: 1;
-            @include text-truncate();
+            @include text-truncate.text-truncate();
         }
 
         &.form-group-footer-align-left {
@@ -451,7 +465,7 @@
 
             &::after {
                 content: '*';
-                color: $danger;
+                color: variables.$danger;
                 margin-left: 3px;
                 position: relative;
                 top: 0px;
@@ -465,4 +479,4 @@
     font-size: 0.75rem;
 }
 
-@import './form-check';
+@include meta.load-css('./form-check');

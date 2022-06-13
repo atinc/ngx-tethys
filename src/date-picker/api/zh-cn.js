@@ -75,12 +75,18 @@ module.exports = [
                 description: '弹出层 className',
                 type: 'string',
                 default: '""'
+            },
+            {
+                name: 'thyPlacement',
+                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
+                type: 'string',
+                default: 'bottom'
             }
         ]
     },
     {
         type: 'component',
-        name: 'thy-data-picker',
+        name: 'thy-date-picker',
         description: '参数列表',
         properties: [
             {
@@ -122,6 +128,12 @@ module.exports = [
         properties: [
             { name: 'ngModel', description: '日期', type: '{ begin: number | Date, end: number | Date }', default: '-' },
             {
+                name: 'thyMode',
+                description: `支持的选区间模式，| 'year' | 'month' | 'date'`,
+                type: 'string',
+                default: 'date'
+            },
+            {
                 name: 'thyFormat',
                 description: '展示的日期格式',
                 type: 'string',
@@ -138,24 +150,43 @@ module.exports = [
                 description: '时间发生变化的回调',
                 type: 'EventEmitter<Date>',
                 default: '-'
+            },
+            {
+                name: 'thyAutoStartAndEnd',
+                description: '是否取值开始日期的00:00以及截止日期的24:00',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyShowShortcut',
+                description: '是否展示快捷选项面板',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyShortcutPosition',
+                description: '快捷选项面板的显示位置',
+                type: 'left | bottom',
+                default: 'left'
+            },
+            {
+                name: 'thyShortcutRanges',
+                description: '自定义快捷选项',
+                type: 'ThyShortcutRange[]',
+                default: ''
             }
         ]
     },
     {
         type: 'DIRECTIVE',
         name: 'thyDatePicker',
+        description: '参数列表',
         properties: [
             {
                 name: 'thyMode',
                 description: `模式，'decade' | 'year' | 'month' | 'date'`,
                 type: 'string|string[]',
                 default: ''
-            },
-            {
-                name: 'thyPlacement',
-                description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
-                type: 'string',
-                default: 'bottom'
             },
             {
                 name: 'thyOffset',
@@ -174,6 +205,12 @@ module.exports = [
                 description: '是否有幕布',
                 type: 'boolean',
                 default: 'true'
+            },
+            {
+                name: 'thyPopoverOptions',
+                description: 'popover的其他参数',
+                type: 'ThyPopoverConfig',
+                default: '-'
             },
             {
                 name: 'thyStopPropagation',

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyFormLayout } from 'ngx-tethys';
+import { ThyFormLayout } from 'ngx-tethys/form';
 
 interface LayoutInfo {
     value: ThyFormLayout;
@@ -14,19 +14,20 @@ export class ThyFormLayoutExampleComponent implements OnInit {
     layouts: LayoutInfo[] = [
         {
             value: 'horizontal',
-            text: 'Horizontal 水平'
+            text: 'Horizontal'
         },
         {
             value: 'vertical',
-            text: 'Vertical 垂直'
+            text: 'Vertical'
         },
         {
             value: 'inline',
-            text: 'Inline 行内'
+            text: 'Inline'
         }
     ];
 
     showForm = true;
+    saving = false;
 
     currentLayout: LayoutInfo = this.layouts[0];
 
@@ -40,5 +41,15 @@ export class ThyFormLayoutExampleComponent implements OnInit {
         setTimeout(() => {
             this.showForm = true;
         });
+    }
+
+    login() {
+        if (this.saving) {
+            return;
+        }
+        this.saving = true;
+        setTimeout(() => {
+            this.saving = false;
+        }, 2000);
     }
 }

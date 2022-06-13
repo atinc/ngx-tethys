@@ -1,8 +1,11 @@
-import { Component, Input } from '@angular/core';
 import { isEmpty, isString, isTemplateRef } from 'ngx-tethys/util';
-import { DateCell } from './date-table.component';
+
+import { Component, Input } from '@angular/core';
+
+import { DateCell } from './types';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[date-table-cell]',
     exportAs: 'dateTableCell',
     templateUrl: './date-table-cell.component.html'

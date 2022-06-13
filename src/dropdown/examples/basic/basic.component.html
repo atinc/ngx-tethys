@@ -1,11 +1,12 @@
-<button thyDropdown thyButton="primary" thyIcon="wtf-upload" [thyActionMenuToggle]="menuList">下拉菜单</button>
-<ng-template #menuList>
-  <thy-action-menu>
-    <a thyActionMenuItem href="javascript:;">
-      <span>Dropdown link</span>
-    </a>
-    <a thyActionMenuItem href="javascript:;">
-      <span>Dropdown link</span>
-    </a>
-  </thy-action-menu>
-</ng-template>
+<button thyButton="primary" [thyDropdown]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
+<a class="ml-3" thyAction thyActionIcon="plus" thyActiveClass="active" [thyDropdown]="menu" href="javascript:;"></a>
+<a class="ml-3 link-major" [thyDropdown]="menu" href="javascript:;">Click me</a>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item1</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item2</span>
+  </a>
+</thy-dropdown-menu>

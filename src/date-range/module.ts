@@ -11,7 +11,6 @@ import { ThyNavModule } from 'ngx-tethys/nav';
 @NgModule({
     imports: [CommonModule, FormsModule, ThyActionMenuModule, ThySharedModule, ThyIconModule, ThyDatePickerModule, ThyNavModule],
     declarations: [ThyDateRangeComponent, OptionalDateRangesComponent],
-    exports: [ThyDateRangeComponent],
-    entryComponents: [OptionalDateRangesComponent]
+    exports: [ThyDateRangeComponent]
 })
 export class ThyDateRangeModule {}

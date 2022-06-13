@@ -7,7 +7,7 @@ import option from '../cascader-address-options';
 export class ThyCascaderSizeExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
-    public values: any[] = [''];
+    public values: any[] = [];
 
     constructor() {}
 

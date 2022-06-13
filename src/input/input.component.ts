@@ -41,6 +41,9 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     @Input() thyAutofocus = false;
 
+    /**
+     * @deprecated please use thyType
+     */
     @Input() type: string;
 
     @Input()
@@ -71,8 +74,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public value: string;
 
-    public disabled = false;
-
     public autocomplete: boolean;
 
     public showLabel: boolean;
@@ -86,6 +87,8 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @HostBinding('class.form-control') _isFormControl = true;
 
     @HostBinding('class.form-control-active') _isFocus = false;
+
+    @HostBinding('class.disabled') disabled = false;
 
     constructor(private ngZone: NgZone) {}
 

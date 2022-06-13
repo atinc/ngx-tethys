@@ -1,12 +1,14 @@
+@use "../variables";
+
 // font-size-{name}
 $font-sizes: (
-    base: $font-size-base,
-    sm: $font-size-sm,
-    md: $font-size-md,
-    xs: $font-size-xs,
-    lg: $font-size-lg,
-    xlg: $font-size-xlg,
-    max-lg: $font-size-max-lg
+    base: variables.$font-size-base,
+    sm: variables.$font-size-sm,
+    md: variables.$font-size-md,
+    xs: variables.$font-size-xs,
+    lg: variables.$font-size-lg,
+    xlg: variables.$font-size-xlg,
+    max-lg: variables.$font-size-max-lg
 );
 @each $name, $size in $font-sizes {
     .font-size-#{$name} {

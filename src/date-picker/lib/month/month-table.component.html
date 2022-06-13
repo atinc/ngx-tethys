@@ -1,16 +1,16 @@
 <table class="{{ prefixCls }}-month-panel-table" cellSpacing="0" role="grid">
   <tbody class="{{ prefixCls }}-month-panel-tbody">
-    <tr *ngFor="let row of panelMonths; trackBy: trackYear" role="row">
+    <tr *ngFor="let row of bodyRows; trackBy: trackByBodyRow" role="row">
       <td
-        *ngFor="let monthCell of row; trackBy: trackPanelMonth"
+        *ngFor="let monthCell of row.dateCells; trackBy: trackByBodyColumn"
         role="gridcell"
         title="{{ monthCell.title }}"
-        (click)="monthCell.disabled ? null : monthCell.onClick()"
+        (click)="monthCellClick($event, monthCell)"
         [ngClass]="monthCell.classMap"
       >
         <ng-container [ngSwitch]="prefixCls">
           <ng-container *ngSwitchCase="'thy-calendar'">
-            <a class="{{ prefixCls }}-month-panel-month">{{ monthCell.content }}</a>
+            <div class="{{ prefixCls }}-month-panel-month">{{ monthCell.content }}</div>
           </ng-container>
         </ng-container>
       </td>

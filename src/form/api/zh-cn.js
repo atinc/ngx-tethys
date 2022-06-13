@@ -10,11 +10,46 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyFormValidatorConfig',
+                description: '表单验证规则配置项 （更多内容查看：thyFormValidatorConfig）',
+                type: 'ThyFormValidatorConfig',
+                default: ''
+            },
+            {
                 name: 'thyEnterKeyMode',
                 description: `Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit,
                 submit: Textare 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交`,
                 type: 'string',
                 default: 'submit'
+            }
+        ]
+    },
+    {
+        type: 'interface',
+        name: 'thyFormValidatorConfig',
+        properties: [
+            {
+                name: 'showElementError',
+                description: `当值为 true 或不传时，执行默认逻辑，当为 false 时，不显示错误；值为 function 时，执行自定义函数处理逻辑，需要注入 THY_VALIDATOR_CONFIG 来使配置生效。`,
+                type: `boolean | ((element: HTMLElement, errorMessages: string[]) => void)`,
+                default: 'true'
+            },
+            {
+                name: 'removeElementError',
+                description:
+                    '移除错误，一般和 showElementError 匹配使用；当值为 true 或不传时，执行默认逻辑，当为 false 时，不显示错误提示；值为 function 时，执行自定义函数处理逻辑，需要注入 THY_VALIDATOR_CONFIG 来使配置生效。',
+                type: `boolean | ((element: HTMLElement) => void)`,
+                default: 'true'
+            },
+            {
+                name: 'validationMessages',
+                description: `每个字段的验证提示信息配置, validationMessages: {
+                    external_url: {
+                        required: '应用地址不能为空',
+                    }
+                }`,
+                type: 'ThyFormValidationMessages',
+                default: '{}'
             }
         ]
     },
@@ -57,6 +92,12 @@ module.exports = [
                 description: '反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o',
                 type: 'string',
                 default: ''
+            },
+            {
+                name: 'thyTipsMode',
+                description: `提示文字的显示模式，'label'模式表示在 label 后通过图标+Tooltip 提示, 'default'模式在 Form Control 下方直接显示`,
+                type: `'default' | 'label'`,
+                default: 'default'
             },
             {
                 name: 'thyTips',

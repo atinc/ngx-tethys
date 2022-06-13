@@ -1,22 +1,21 @@
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { take } from 'rxjs/operators';
+
 import {
-    Component,
-    OnInit,
     ChangeDetectionStrategy,
-    ViewEncapsulation,
+    Component,
     ElementRef,
-    Input,
     HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
     Renderer2,
     SimpleChanges,
-    OnChanges
+    ViewEncapsulation
 } from '@angular/core';
 
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyIconRegistry } from './icon-registry';
-import { take, tap } from 'rxjs/operators';
-import { Subject, noop, BehaviorSubject } from 'rxjs';
-import { coerceArray, coerceBooleanProperty } from 'ngx-tethys/util';
 import { getWhetherPrintErrorWhenIconNotFound } from './config';
+import { ThyIconRegistry } from './icon-registry';
 
 const iconSuffixMap = {
     fill: 'fill',
@@ -24,7 +23,7 @@ const iconSuffixMap = {
 };
 
 @Component({
-    selector: 'thy-icon',
+    selector: 'thy-icon, [thy-icon]',
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -33,7 +32,7 @@ const iconSuffixMap = {
 export class ThyIconComponent implements OnInit, OnChanges {
     @HostBinding('class.thy-icon') className = true;
 
-    private isInitialized = false;
+    private initialized = false;
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
@@ -45,9 +44,14 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     @Input('thyIconSet') iconSet: string;
 
-    @Input('thyIconLegging') iconLegging: boolean;
+    @HostBinding(`class.thy-icon-legging`)
+    @Input('thyIconLegging')
+    @InputBoolean()
+    iconLegging: boolean;
 
-    @Input('thyIconLinearGradient') iconLinearGradient: boolean;
+    @Input('thyIconLinearGradient')
+    @InputBoolean()
+    iconLinearGradient: boolean;
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
@@ -60,22 +64,21 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         this.updateClasses();
-        this.isInitialized = true;
+        this.initialized = true;
     }
 
     ngOnChanges(changes: SimpleChanges) {
-        if (this.isInitialized) {
-            if (changes['iconName'] || changes['iconSet'] || changes['iconTwotoneColor'] || changes['iconType']) {
+        if (this.initialized) {
+            if (
+                changes['iconName'] ||
+                changes['iconSet'] ||
+                changes['iconTwotoneColor'] ||
+                changes['iconType'] ||
+                changes['iconLinearGradient']
+            ) {
                 this.updateClasses();
             } else if (changes['iconRotate']) {
                 this.setStyleRotate();
-            }
-        }
-        if (changes['iconLegging']) {
-            if (coerceBooleanProperty(this.iconLegging)) {
-                this.updateHostClassService.addClass('thy-icon-legging');
-            } else {
-                this.updateHostClassService.removeClass('thy-icon-legging');
             }
         }
     }
@@ -88,7 +91,9 @@ export class ThyIconComponent implements OnInit, OnChanges {
                     .getSvgIcon(this.buildIconNameByType(iconName), namespace)
                     .pipe(take(1))
                     .subscribe(
-                        svg => this.setSvgElement(svg),
+                        svg => {
+                            this.setSvgElement(svg);
+                        },
                         (error: Error) => {
                             if (getWhetherPrintErrorWhenIconNotFound()) {
                                 console.error(`Error retrieving icon: ${error.message}`);
@@ -189,13 +194,11 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
     /**
      * Support Safari SVG LinearGradient.
-     *
-     *
      * @param svg
      */
     private setBaseUrl(svg: SVGElement) {
-        const styleElements = svg.querySelectorAll('[style]');
-        styleElements.forEach((n: any) => {
+        const styleElements = svg.querySelectorAll('style');
+        styleElements.forEach((n: HTMLElement) => {
             if (n.style.cssText.includes('url')) {
                 n.style.fill = n.style.fill.replace('url("', 'url("' + location.pathname);
             }
@@ -206,6 +209,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
     }
 
     private clearTitleElement(svg: SVGElement) {
-        svg.querySelector('title').remove();
+        const titleElement = svg.querySelector('title');
+        titleElement && titleElement.remove();
     }
 }

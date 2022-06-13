@@ -17,17 +17,29 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
 import { ThyPickerComponent } from './picker.component';
-import { CompatibleDate, CompatibleValue, DisabledDateFn, DateEntry, RangeEntry } from './standard-types';
+import {
+    CompatibleDate,
+    DisabledDateFn,
+    DateEntry,
+    ThyDateRangeEntry,
+    ThyPanelMode,
+    ThyShortcutPosition,
+    ThyShortcutRange,
+    ThyShortcutValueChange,
+    ThyDateGranularity
+} from './standard-types';
 import { transformDateValue, makeValue } from './picker.util';
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 @Directive()
 export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
+    @Input() thyMode: ThyPanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
     @Input() @InputBoolean() thyAutoFocus = false;
     @Input() @InputBoolean() thyDisabled = false;
     @Input() @InputBoolean() thyOpen: boolean;
-    @Input() thyDisabledDate: (d: Date) => boolean;
+    @Input() thyDisabledDate: DisabledDateFn;
     @Input() thyMinDate: Date | number;
     @Input() thyMaxDate: Date | number;
     @Input() thyPlaceHolder: string | string[];
@@ -36,18 +48,30 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyPanelClassName: string;
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
     @Input() thyFormat: string;
-    // tslint:disable-next-line: max-line-length
+    // eslint-disable-next-line max-len
     @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
+
+    @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
-    isRange = false;
+    shortcutPosition: ThyShortcutPosition;
+
+    shortcutRanges: ThyShortcutRange[];
+
+    thyShowShortcut: boolean;
+
+    isRange: boolean;
 
     withTime: boolean;
+
+    flexible: boolean;
+
+    flexibleDateGranularity: ThyDateGranularity;
 
     protected destroyed$: Subject<void> = new Subject();
     protected isCustomPlaceHolder = false;
@@ -67,6 +91,16 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
         this.initValue();
+        this.isFlexible();
+    }
+
+    isFlexible() {
+        this.flexible = this.thyMode === 'flexible';
+    }
+
+    onShortcutValueChange(event: ThyShortcutValueChange) {
+        this.thyShortcutValueChange.emit(event);
+        this.closeOverlay();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -84,25 +118,58 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.picker.hideOverlay();
     }
 
-    onValueChange(originalValue: CompatibleValue): void {
+    getAutoStartAndEndValue(begin: TinyDate, end: TinyDate) {
+        let value: { begin: number; end: number };
+        switch (this.thyMode) {
+            case 'date':
+                value = {
+                    begin: begin.startOfDay().getUnixTime(),
+                    end: end.endOfDay().getUnixTime()
+                };
+                break;
+            case 'month':
+                value = {
+                    begin: begin.startOfMonth().getUnixTime(),
+                    end: end.endOfMonth().getUnixTime()
+                };
+                break;
+            case 'year':
+                value = {
+                    begin: begin.startOfYear().getUnixTime(),
+                    end: end.endOfYear().getUnixTime()
+                };
+                break;
+            default:
+                value = {
+                    begin: begin.startOfDay().getUnixTime(),
+                    end: end.endOfDay().getUnixTime()
+                };
+                break;
+        }
+        return value;
+    }
+
+    onValueChange(originalValue: CompatibleValue | RangeAdvancedValue): void {
         this.setFormatRule();
-        this.thyValue = originalValue;
+        const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
+        this.flexibleDateGranularity = flexibleDateGranularity;
+        this.setValue(value);
         if (this.isRange) {
             const vAsRange: any = this.thyValue;
-            let value = { begin: null, end: null } as RangeEntry;
+            let value = { begin: null, end: null } as ThyDateRangeEntry;
             if (vAsRange.length) {
                 const [begin, end] = vAsRange as TinyDate[];
                 if (this.thyAutoStartAndEnd) {
-                    value = {
-                        begin: begin.startOfDay().getUnixTime(),
-                        end: end.endOfDay().getUnixTime()
-                    };
+                    value = this.getAutoStartAndEndValue(begin, end);
                 } else {
                     value = {
                         begin: begin.getUnixTime(),
                         end: end.getUnixTime()
                     };
                 }
+            }
+            if (this.flexible) {
+                value.granularity = flexibleDateGranularity;
             }
             this.onChangeFn(value);
         } else {
@@ -136,11 +203,18 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.thyOpenChange.emit(open);
     }
 
-    onChangeFn: (val: CompatibleDate | DateEntry | RangeEntry | number | null) => void = () => void 0;
+    onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
     onTouchedFn: () => void = () => void 0;
 
-    writeValue(originalValue: CompatibleDate): void {
-        const { value, withTime } = transformDateValue(originalValue);
+    writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
+        const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
+        this.flexibleDateGranularity = flexibleDateGranularity;
+        if (this.flexible && value && (value as Date[]).length) {
+            if (!this.flexibleDateGranularity) {
+                this.flexibleDateGranularity = 'day';
+            }
+        }
+
         this.setValue(value);
         this.setTimePickerState(withTime);
         this.onlyEmitDate = typeof withTime === 'undefined';

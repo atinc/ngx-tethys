@@ -1,0 +1,54 @@
+@use "../mixins/shadow";
+@use "../variables";
+@use "mixins/border-radius";
+@use "variables" as bootstrap-variables;
+@use "vendor/rfs";
+
+// Inline code
+code {
+    @include rfs.font-size(variables.$code-font-size);
+    color: variables.$code-color;
+    word-wrap: break-word;
+
+    // Streamline the style when inside anchors to avoid broken underline and more
+    a > & {
+        color: inherit;
+    }
+}
+
+// User input typically entered via keyboard
+kbd {
+    padding: bootstrap-variables.$kbd-padding-y bootstrap-variables.$kbd-padding-x;
+    @include rfs.font-size(bootstrap-variables.$kbd-font-size);
+    color: bootstrap-variables.$kbd-color;
+    background-color: bootstrap-variables.$kbd-bg;
+    @include border-radius.border-radius(variables.$border-radius-sm);
+    @include shadow.box-shadow(bootstrap-variables.$kbd-box-shadow);
+
+    kbd {
+        padding: 0;
+        @include rfs.font-size(100%);
+        font-weight: bootstrap-variables.$nested-kbd-font-weight;
+        @include shadow.box-shadow(none);
+    }
+}
+
+// Blocks of code
+pre {
+    display: block;
+    @include rfs.font-size(variables.$code-font-size);
+    color: bootstrap-variables.$pre-color;
+
+    // Account for some code outputs that place code tags in pre tags
+    code {
+        @include rfs.font-size(inherit);
+        color: inherit;
+        word-break: normal;
+    }
+}
+
+// Enable scrollable blocks of code
+.pre-scrollable {
+    max-height: bootstrap-variables.$pre-scrollable-max-height;
+    overflow-y: scroll;
+}

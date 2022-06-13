@@ -1,19 +1,22 @@
-import { Injectable } from '@angular/core';
-import { ThyInternalUpperOverlayRef, ThyUpperOverlayPosition, ThyUpperOverlayRef } from 'ngx-tethys/core';
-import { ThySlideContainerComponent } from './slide-container.component';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { slideUpperOverlayOptions, ThySlideConfig } from './slide.config';
+import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayPosition, ThyAbstractOverlayRef } from 'ngx-tethys/core';
 
-export abstract class ThySlideRef<T, TResult = any> extends ThyUpperOverlayRef<T, ThySlideContainerComponent, TResult> {}
+import { OverlayRef } from '@angular/cdk/overlay';
+import { Injectable } from '@angular/core';
+
+import { ThySlideContainerComponent } from './slide-container.component';
+import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';
+
+export abstract class ThySlideRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThySlideContainerComponent, TResult> {}
 
 @Injectable()
-export class ThyInternalSlideRef<T = any, TResult = any> extends ThyInternalUpperOverlayRef<T, ThySlideContainerComponent, TResult>
+export class ThyInternalSlideRef<T = unknown, TResult = unknown>
+    extends ThyAbstractInternalOverlayRef<T, ThySlideContainerComponent, TResult>
     implements ThySlideRef<T> {
     constructor(overlayRef: OverlayRef, containerInstance: ThySlideContainerComponent, config: ThySlideConfig) {
-        super(slideUpperOverlayOptions, overlayRef, containerInstance, config);
+        super(slideAbstractOverlayOptions, overlayRef, containerInstance, config);
     }
 
-    updatePosition(position?: ThyUpperOverlayPosition): this {
+    updatePosition(position?: ThyAbstractOverlayPosition): this {
         return this.updateGlobalPosition(position);
     }
 }

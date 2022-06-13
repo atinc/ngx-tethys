@@ -1,34 +1,39 @@
+import { ComponentTypeOrTemplateRef, getFlexiblePositions, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import { FunctionProp, isFunction } from 'ngx-tethys/util';
+import { of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Directionality } from '@angular/cdk/bidi';
+import { coerceArray, coerceElement } from '@angular/cdk/coercion';
 import {
     ComponentType,
+    FlexibleConnectedPositionStrategy,
+    FlexibleConnectedPositionStrategyOrigin,
     Overlay,
     OverlayConfig,
+    OverlayContainer,
     OverlayRef,
     PositionStrategy,
-    ScrollDispatcher,
-    OverlayContainer
+    ScrollStrategy,
+    ViewportRuler
 } from '@angular/cdk/overlay';
-import { TemplateRef, ViewContainerRef, Injectable, ElementRef, Injector, OnDestroy, Inject, NgZone } from '@angular/core';
-import { coerceElement, coerceArray } from '@angular/cdk/coercion';
-import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
-import { ThyPopoverContainerComponent } from './popover-container.component';
-import { ThyPopoverConfig, THY_POPOVER_DEFAULT_CONFIG } from './popover.config';
-import { ThyPopoverRef, ThyInternalPopoverRef } from './popover-ref';
-import { Directionality } from '@angular/cdk/bidi';
-import { of, Subject } from 'rxjs';
-import { getFlexiblePositions, ThyUpperOverlayService } from 'ngx-tethys/core';
-import { takeUntil } from 'rxjs/operators';
-import { helpers } from 'ngx-tethys/util';
-import { popoverUpperOverlayOptions } from './popover.options';
-import { ViewportRuler } from '@angular/cdk/scrolling';
-import { DOCUMENT } from '@angular/common';
 import { Platform } from '@angular/cdk/platform';
-import { FlexibleConnectedPositionStrategy, FlexibleConnectedPositionStrategyOrigin } from 'ngx-tethys/core';
-import { StaticProvider } from '@angular/core';
+import { ComponentPortal } from '@angular/cdk/portal';
+import { DOCUMENT } from '@angular/common';
+import { ElementRef, Inject, Injectable, Injector, NgZone, OnDestroy, Optional, StaticProvider, TemplateRef } from '@angular/core';
 
-@Injectable({
-    providedIn: 'root'
-})
-export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
+import { ThyPopoverContainerComponent } from './popover-container.component';
+import { ThyInternalPopoverRef, ThyPopoverRef } from './popover-ref';
+import {
+    THY_POPOVER_DEFAULT_CONFIG,
+    THY_POPOVER_DEFAULT_CONFIG_VALUE,
+    THY_POPOVER_SCROLL_STRATEGY,
+    ThyPopoverConfig
+} from './popover.config';
+import { popoverAbstractOverlayOptions } from './popover.options';
+
+@Injectable()
+export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<
@@ -62,28 +67,25 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return positionStrategy;
     }
 
-    private buildOverlayPanelClasses(config: ThyPopoverConfig) {
-        let classes = [`cdk-overlay-pane`];
-        if (config.panelClass) {
-            if (helpers.isArray(config.panelClass)) {
-                classes = classes.concat(config.panelClass);
-            } else {
-                classes.push(config.panelClass as string);
-            }
+    private buildScrollStrategy(config: ThyPopoverConfig): ScrollStrategy {
+        if (config.scrollStrategy) {
+            return config.scrollStrategy;
+        } else if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
         }
-        return classes;
     }
 
     protected buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
-        const strategy = this.buildPositionStrategy(config);
+        const positionStrategy = this.buildPositionStrategy(config);
         const overlayConfig = this.buildBaseOverlayConfig(config);
-        overlayConfig.positionStrategy = strategy;
-        overlayConfig.scrollStrategy = config.scrollStrategy || this.overlay.scrollStrategies.block();
-        overlayConfig.panelClass = this.buildOverlayPanelClasses(config);
+        overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
         return overlayConfig;
     }
 
-    protected attachUpperOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyPopoverConfig<any>): ThyPopoverContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -94,12 +96,12 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return containerRef.instance;
     }
 
-    protected createUpperOverlayRef<T>(
+    protected createAbstractOverlayRef<T, TResult = unknown>(
         overlayRef: OverlayRef,
         containerInstance: ThyPopoverContainerComponent,
-        config: ThyPopoverConfig<any>
-    ): ThyInternalPopoverRef<T> {
-        return new ThyInternalPopoverRef<T>(overlayRef, containerInstance, config);
+        config: ThyPopoverConfig
+    ): ThyAbstractOverlayRef<T, ThyPopoverContainerComponent, TResult> {
+        return new ThyInternalPopoverRef(overlayRef, containerInstance, config);
     }
 
     protected createInjector<T>(
@@ -145,15 +147,27 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
     constructor(
         overlay: Overlay,
         injector: Injector,
-        @Inject(THY_POPOVER_DEFAULT_CONFIG) defaultConfig: ThyPopoverConfig,
-        private scrollDispatcher: ScrollDispatcher,
+        @Optional()
+        @Inject(THY_POPOVER_DEFAULT_CONFIG)
+        defaultConfig: ThyPopoverConfig,
+        @Inject(THY_POPOVER_SCROLL_STRATEGY)
+        scrollStrategy: FunctionProp<ScrollStrategy>,
         private ngZone: NgZone,
         private _viewportRuler: ViewportRuler,
-        @Inject(DOCUMENT) private _document: any,
+        @Optional() @Inject(DOCUMENT) private _document: any,
         private _platform: Platform,
         private _overlayContainer: OverlayContainer
     ) {
-        super(popoverUpperOverlayOptions, overlay, injector, defaultConfig);
+        super(
+            popoverAbstractOverlayOptions,
+            overlay,
+            injector,
+            {
+                ...THY_POPOVER_DEFAULT_CONFIG_VALUE,
+                ...defaultConfig
+            },
+            scrollStrategy
+        );
     }
 
     private ensureCloseClosest(origin: HTMLElement) {
@@ -174,8 +188,8 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         return closeAndEnd;
     }
 
-    open<T, TData = any, TResult = any>(
-        componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
+    open<T, TData = unknown, TResult = unknown>(
+        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyPopoverConfig<TData>
     ): ThyPopoverRef<T, TResult> {
         const originElement = coerceElement(config.origin);
@@ -186,7 +200,7 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
             return;
         }
 
-        const popoverRef = this.openUpperOverlay(componentOrTemplateRef, config) as ThyPopoverRef<T>;
+        const popoverRef = this.openOverlay<T, TResult>(componentOrTemplateRef, config) as ThyPopoverRef<T, TResult, TData>;
         config = popoverRef.containerInstance.config;
         popoverRef.afterClosed().subscribe(() => {
             this.originElementRemoveActiveClass(config);
@@ -200,6 +214,26 @@ export class ThyPopover extends ThyUpperOverlayService<ThyPopoverConfig, ThyPopo
         });
 
         return popoverRef;
+    }
+
+    getPopoverById(id: string): ThyPopoverRef<any> | undefined {
+        return this.getAbstractOverlayById(id) as ThyPopoverRef<any> | undefined;
+    }
+
+    getOpenedPopovers(): ThyPopoverRef<any>[] {
+        return this.getAbstractOverlays();
+    }
+
+    /**
+     * Finds the closest ThyPopoverRef to an element by looking at the DOM.
+     */
+    getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined {
+        const parent = element.closest('.thy-popover-container');
+
+        if (parent && parent.id) {
+            return this.getPopoverById(parent.id);
+        }
+        return null;
     }
 
     ngOnDestroy() {

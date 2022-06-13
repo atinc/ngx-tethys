@@ -1,0 +1,15 @@
+@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/bootstrap/functions-variables";
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as action-mixin;
+
+.thy-action {
+    transition: opacity 0.2s ease-in-out;
+    @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
+}
+
+@each $color, $value in functions-variables.$theme-colors {
+    .action-#{$color} {
+        @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+    }
+}

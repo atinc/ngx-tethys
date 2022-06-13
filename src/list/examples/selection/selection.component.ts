@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThySelectionListChange } from 'ngx-tethys';
+import { ThySelectionListChange } from 'ngx-tethys/list';
 
 @Component({
     selector: 'app-list-selection-example',
@@ -18,29 +18,15 @@ export class ThyListSelectionExampleComponent implements OnInit {
         {
             id: 3,
             name: 'Item 3'
-        },
-        {
-            id: 4,
-            name: 'Item 4'
-        },
-        {
-            id: 5,
-            name: 'Item 5'
-        },
-        {
-            id: 6,
-            name: 'Item 6'
         }
     ];
-
-    // public size = 'md';
 
     public isMultiple = true;
 
     public stopKeyBoardEvent = false;
 
     public selectionModel = {
-        selectedValues: [2, 3]
+        selectedValues: 2
     };
 
     constructor() {}

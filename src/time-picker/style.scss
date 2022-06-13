@@ -1,8 +1,10 @@
+@use "../styles/variables";
+
 .thy-chevron {
     width: 7px;
     height: 7px;
     border-width: 2px 0px 0 2px;
-    border-color: $gray-700;
+    border-color: variables.$gray-700;
     border-style: solid;
     display: block;
     position: relative;
@@ -20,5 +22,5 @@
 
 .thy-time-picker-field {
     width: 50px;
-    padding: $input-padding-y-sm $input-padding-x-sm;
+    padding: variables.$input-padding-y-sm variables.$input-padding-x-sm;
 }

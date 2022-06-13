@@ -1,9 +1,12 @@
+@use "sass:color";
+@use '../../styles/variables.scss';
+
 @mixin label-variant($bg-color) {
     background-color: $bg-color;
     &.label-has-hover {
         &:focus,
         &:hover {
-            background-color: darken($bg-color, 10%);
+            background-color: color.adjust($bg-color, $lightness: -10%);
             cursor: pointer;
         }
     }
@@ -24,6 +27,26 @@
             i.wtf-times {
                 display: inline-block;
             }
+        }
+    }
+}
+
+@mixin label-size($size, $padding, $minusValue: 0px) {
+    @if $size == xlg {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
+            font-size: variables.$font-size-lg;
+        }
+    } @else if $size == lg {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
+            font-size: variables.$font-size-base;
+        }
+    } @else if $size == default {
+        padding: #{$padding - $minusValue} 10px;
+    } @else {
+        &--#{$size} {
+            padding: #{$padding - $minusValue} 10px;
         }
     }
 }

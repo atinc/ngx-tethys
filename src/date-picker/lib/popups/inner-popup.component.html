@@ -1,22 +1,95 @@
-<calendar-header
-  [(panelMode)]="panelMode"
-  (panelModeChange)="panelModeChange.emit($event)"
-  [(value)]="value"
-  (valueChange)="headerChange.emit($event)"
-  [enablePrev]="enablePrev"
-  [enableNext]="enableNext"
-></calendar-header>
+<ng-container *ngIf="showDateRangeInput">
+  <div class="{{ prefixCls }}-picker-inner-popup-range-input">
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[0])" placeholder="开始日期" />
+    <span class="split"></span>
+    <input thyInput thySize="sm" [value]="getReadableValue(selectedValue[1])" placeholder="结束日期" />
+  </div>
+</ng-container>
+<ng-container [ngSwitch]="panelMode">
+  <ng-container *ngSwitchCase="'decade'">
+    <div class="{{ prefixCls }}-decade">
+      <decade-header
+        [(value)]="activeDate"
+        [showSuperPreBtn]="enableSuperPrevNext('prev', 'decade')"
+        [showSuperNextBtn]="enableSuperPrevNext('next', 'decade')"
+        [showNextBtn]="false"
+        [showPreBtn]="false"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)"
+      ></decade-header>
+      <div class="{{ prefixCls }}-body">
+        <decade-table [value]="value" [activeDate]="activeDate" (valueChange)="onChooseDecade($event)"></decade-table>
+      </div>
+    </div>
+  </ng-container>
 
-<div class="{{ prefixCls }}-body">
-  <date-table
-    [showWeek]="showWeek"
-    [value]="value"
-    (valueChange)="onSelectDate($event)"
-    showWeekNumber="false"
-    [disabledDate]="disabledDate"
-    [dateCellRender]="dateRender"
-    [selectedValue]="selectedValue"
-    [hoverValue]="hoverValue"
-    (dayHover)="dayHover.emit($event)"
-  ></date-table>
-</div>
+  <ng-container *ngSwitchCase="'year'">
+    <div class="{{ prefixCls }}-year">
+      <year-header
+        [(value)]="activeDate"
+        [showSuperPreBtn]="enableSuperPrevNext('prev', 'year')"
+        [showSuperNextBtn]="enableSuperPrevNext('next', 'year')"
+        [showNextBtn]="false"
+        [showPreBtn]="false"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)"
+      ></year-header>
+      <div class="{{ prefixCls }}-body">
+        <year-table
+          [value]="value"
+          [activeDate]="activeDate"
+          [disabledDate]="disabledDate"
+          (valueChange)="onChooseYear($event)"
+          [selectedValue]="selectedValue"
+        ></year-table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchCase="'month'">
+    <div class="{{ prefixCls }}-month">
+      <month-header
+        [(value)]="activeDate"
+        [showSuperPreBtn]="enableSuperPrevNext('prev', 'month')"
+        [showSuperNextBtn]="enableSuperPrevNext('next', 'month')"
+        [showNextBtn]="false"
+        [showPreBtn]="false"
+        (panelModeChange)="panelModeChange.emit($event)"
+        (valueChange)="headerChange.emit($event)"
+      ></month-header>
+      <div class="{{ prefixCls }}-body">
+        <month-table
+          [value]="value"
+          [activeDate]="activeDate"
+          [disabledDate]="disabledDate"
+          (valueChange)="onChooseMonth($event)"
+          [selectedValue]="selectedValue"
+        ></month-table>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngSwitchDefault>
+    <date-header
+      [(value)]="activeDate"
+      [showSuperPreBtn]="enableSuperPrevNext('prev', 'date')"
+      [showSuperNextBtn]="enableSuperPrevNext('next', 'date')"
+      [showPreBtn]="enablePrevNext('prev', 'date')"
+      [showNextBtn]="enablePrevNext('next', 'date')"
+      (panelModeChange)="panelModeChange.emit($event)"
+      (valueChange)="headerChange.emit($event)"
+    ></date-header>
+    <div class="{{ prefixCls }}-body">
+      <date-table
+        [showWeek]="showWeek"
+        [value]="value"
+        [activeDate]="activeDate"
+        (valueChange)="onSelectDate($event)"
+        showWeekNumber="false"
+        [disabledDate]="disabledDate"
+        [cellRender]="dateRender"
+        [selectedValue]="selectedValue"
+        [hoverValue]="hoverValue"
+        (dayHover)="dayHover.emit($event)"
+      ></date-table>
+    </div>
+  </ng-container>
+</ng-container>

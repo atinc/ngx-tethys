@@ -38,6 +38,7 @@ export class ThyPaginationComponent implements OnInit {
     @Input()
     set thyPageSize(pageSize: number) {
         this.pageSize = pageSize;
+        this.selectPageSize = pageSize;
         if (this.initialized) {
             this.calculatePageCount();
             this.initializePages(this.pageIndex, this.pageCount);
@@ -48,6 +49,17 @@ export class ThyPaginationComponent implements OnInit {
     @Input()
     set thyTotal(total: number) {
         this.total = total;
+        if (this.initialized) {
+            this.calculatePageCount();
+            this.setPageIndex(this.pageIndex);
+            this.cdr.markForCheck();
+        }
+    }
+
+    @Input()
+    set thyCustomPages(pages: number[]) {
+        this.customPages = pages;
+        this.config.showTotalPageCount = false;
         if (this.initialized) {
             this.calculatePageCount();
             this.initializePages(this.pageIndex, this.pageCount);
@@ -62,8 +74,14 @@ export class ThyPaginationComponent implements OnInit {
         this.config.showQuickJumper = value;
     }
 
+    @Input('thyShowTotalPageCount')
+    set showTotalPageCount(value: boolean) {
+        this.config.showTotalPageCount = value;
+    }
+
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
+        this.selectSize = size;
         this.updateHostClassService.addClass(`thy-pagination-${size}`);
     }
 
@@ -84,11 +102,23 @@ export class ThyPaginationComponent implements OnInit {
         }
     }
 
+    @Input('thyShowSizeChanger')
+    set showSizeChanger(value: boolean) {
+        this.config.showSizeChanger = value;
+    }
+
+    @Input('thyPageSizeOptions')
+    set pageSizeOptions(value: number[]) {
+        this.config.pageSizeOptions = value;
+    }
+
     @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
 
     @Output('thyPageIndexChange') pageIndexChange = new EventEmitter<number>();
 
     @Output('thyPageChanged') pageChanged = new EventEmitter<{ page: number }>();
+
+    @Output('thyPageSizeChanged') pageSizeChanged = new EventEmitter<number>();
 
     public pages: { index?: number; text?: string; active?: boolean }[] = [];
 
@@ -97,6 +127,8 @@ export class ThyPaginationComponent implements OnInit {
     public pageSize: number;
 
     public pageCount: number;
+
+    public customPages: number[];
 
     public total: number;
 
@@ -107,6 +139,10 @@ export class ThyPaginationComponent implements OnInit {
     public isHideOnSinglePage = false;
 
     private initialized = false;
+
+    public selectSize = 'md'; // select size
+
+    public selectPageSize: Number = 20;
 
     @HostBinding('class.thy-pagination') isPaginationClass = true;
 
@@ -141,16 +177,22 @@ export class ThyPaginationComponent implements OnInit {
 
     private setPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex > this.pageCount ? this.pageCount : pageIndex || 1;
+        const toPageSize = this.pageIndex * this.pageSize;
         this.range = {
             from: (this.pageIndex - 1) * this.pageSize + 1,
-            to: this.pageIndex * this.pageSize
+            to: toPageSize > this.total ? this.total : toPageSize
         };
         this.initializePages(this.pageIndex, this.pageCount);
         this.cdr.markForCheck();
     }
 
     private calculatePageCount() {
-        const pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+        let pageCount = null;
+        if (this.customPages && this.customPages.length > 0) {
+            pageCount = this.customPages[this.customPages.length - 1];
+        } else {
+            pageCount = this.pageSize < 1 ? 1 : Math.ceil(this.total / this.pageSize);
+        }
         this.pageCount = Math.max(pageCount || 0, 1);
     }
 
@@ -159,11 +201,21 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     private initializePages(pageIndex: number, pageCount: number) {
+        if (this.customPages && this.customPages.length > 0) {
+            this.pages = this.customPages.map(page => {
+                return {
+                    index: page,
+                    text: page.toString(),
+                    active: page === +pageIndex
+                };
+            });
+            return;
+        }
+
+        let pages = [];
         const marginalCount = this.marginalCount;
         const rangeCount = this.config.rangeCount;
         const maxCount = this.config.maxCount;
-
-        let pages = [];
         const isMaxSized = pageCount > maxCount;
         if (isMaxSized) {
             const beforePages = [];
@@ -174,12 +226,12 @@ export class ThyPaginationComponent implements OnInit {
                 beforePages.push(this.makePage(i, i.toString(), i === pageIndex));
             }
             if (pageIndex - Math.ceil(rangeCount / 2) > this.firstIndex) {
-                beforePages.push(this.makePage(pageIndex - rangeCount, '...', null));
+                beforePages.push(this.makePage(pageIndex - rangeCount, '···', null));
             }
 
             // afterPages
             if (pageIndex + Math.ceil(rangeCount / 2) < pageCount) {
-                afterPages.push(this.makePage(pageIndex + rangeCount, '...', null));
+                afterPages.push(this.makePage(pageIndex + rangeCount, '···', null));
             }
             for (let i = pageCount - marginalCount + 1; i <= pageCount; i++) {
                 afterPages.push(this.makePage(i, i.toString(), i === pageIndex));
@@ -233,6 +285,12 @@ export class ThyPaginationComponent implements OnInit {
         if (Number.isInteger(pageIndex)) {
             this.selectPage(pageIndex);
         }
-        input.value = '';
+    }
+
+    onPageSizeChange(event: number) {
+        this.pageSize = event;
+        this.calculatePageCount();
+        this.setPageIndex(this.pageIndex);
+        this.pageSizeChanged.emit(event);
     }
 }

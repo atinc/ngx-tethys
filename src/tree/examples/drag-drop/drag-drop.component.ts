@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyDragDropEvent, ThyTreeNode } from 'ngx-tethys';
+import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
+import { ThyTreeNode } from 'ngx-tethys/tree';
 import { treeNodes } from '../mocks';
 
 @Component({

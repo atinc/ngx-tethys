@@ -1,0 +1,16 @@
+<div class="demo-card">
+  <thy-button-group thySize="md" thyType="outline-default">
+    <button thyButton *ngFor="let size of selectSizes" (click)="currentSize = size" [ngClass]="{ active: size === currentSize }">
+      {{ size.name }} - {{ size.height }}px
+    </button>
+  </thy-button-group>
+  <thy-custom-select [thySize]="currentSize.name" ngModel="a10">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+  </thy-custom-select>
+  <thy-custom-select [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+  </thy-custom-select>
+  <thy-custom-select [thySize]="currentSize.name" thyMode="multiple" [thyShowSearch]="true" [(ngModel)]="listOfSelectedValue">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.label"> </thy-option>
+  </thy-custom-select>
+</div>

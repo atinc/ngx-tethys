@@ -1,16 +1,10 @@
-import { NgModule } from '@angular/core';
-import { NgxTethysModule } from 'ngx-tethys';
+import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
+import { ThyButtonModule } from 'ngx-tethys/button';
+
 import { CommonModule } from '@angular/common';
-import { ThyFullscreenImmersiveExampleComponent } from './immersive/immersive.component';
-import { ThyFullscreenNormalExampleComponent } from './normal/normal.component';
-import { ThyFullscreenContainerExampleComponent } from './container/container.component';
+import { NgModule } from '@angular/core';
 
-const COMPONENTS = [ThyFullscreenImmersiveExampleComponent, ThyFullscreenNormalExampleComponent, ThyFullscreenContainerExampleComponent];
-
-@NgModule({
-    declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
-    imports: [CommonModule, NgxTethysModule],
-    exports: [...COMPONENTS]
-})
-export class ThyFullscreenExamplesModule {}
+export default {
+    declarations: [],
+    imports: [CommonModule, ThyFullscreenModule, ThyButtonModule]
+};

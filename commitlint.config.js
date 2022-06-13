@@ -1,13 +1,17 @@
 module.exports = {
-    extends: ['@worktile-devkit/commitlint-config'],
+    extends: ['@commitlint/config-angular'],
     rules: {
+        'header-max-length': [0, 'always', 120],
         'scope-enum': [
             2,
             'always',
             [
+                'deps',
+                'cdk',
                 'schematics',
                 'variables',
                 'core',
+                'action',
                 'testing',
                 'shared',
                 'types',
@@ -40,6 +44,7 @@ module.exports = {
                 'icon',
                 'input',
                 'label',
+                'tag',
                 'layout',
                 'link',
                 'list',
@@ -52,11 +57,9 @@ module.exports = {
                 'nav',
                 'pagination',
                 'popover',
-                'positioning',
                 'progress',
                 'property-operation',
                 'radio',
-                'raster',
                 'result',
                 'select',
                 'skeleton',
@@ -72,14 +75,23 @@ module.exports = {
                 'transfer',
                 'tree',
                 'tree-select',
-                'uploader',
+                'upload',
                 'vote',
                 'anchor',
                 'back-top',
                 'timeline',
+                'divider',
+                'space',
                 'calendar',
                 'fullscreen',
-                'guider'
+                'guider',
+                'resizable',
+                'input-number',
+                'collapse',
+                'rate',
+                'select-control',
+                'image',
+                'segment'
             ]
         ]
     }

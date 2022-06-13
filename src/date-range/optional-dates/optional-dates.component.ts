@@ -3,6 +3,7 @@ import { DateRangeItemInfo } from '../date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
+    // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-range-optional',
     templateUrl: './optional-dates.component.html'
 })
@@ -19,7 +20,11 @@ export class OptionalDateRangesComponent implements OnInit {
 
     maxDate: number | Date;
 
+    disabledDate: (d: Date) => boolean;
+
     selectedDateRange: (date: DateRangeItemInfo) => void;
+
+    calendarChange: (date: Date[]) => void;
 
     selectedDate: DateRangeItemInfo;
 

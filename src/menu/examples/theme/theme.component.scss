@@ -1,0 +1,24 @@
+@use 'variables.scss' as variables2;
+
+:host.thy-menu-theme-example {
+    display: flex;
+    justify-content: space-around;
+    .demo-menu-container {
+        width: 240px;
+        border-radius: 1px solid #eee;
+        .group-action {
+            margin-right: 15px;
+        }
+        .content-title {
+            flex: 1;
+        }
+        .title {
+            color: variables2.$gray-700;
+            margin-right: 8px;
+            &.testhub {
+                font-size: 15px;
+                color: variables2.$gray-800;
+            }
+        }
+    }
+}

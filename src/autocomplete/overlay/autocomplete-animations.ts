@@ -1,9 +1,6 @@
 import { animate, state, style, transition, trigger, AnimationTriggerMetadata } from '@angular/animations';
 
-const animationBody = [
-    state('void, exit', style({ opacity: 0, transform: 'scale(0.1)' })),
-    state('enter', style({ transform: 'none' }))
-];
+const animationBody = [state('void, exit', style({ opacity: 0, transform: 'scale(0.1)' })), state('enter', style({ transform: 'none' }))];
 
 /**
  * Animations used by ThyAutocomplete.
