@@ -13,8 +13,8 @@
     color: variables.$white;
     border: 1px solid transparent;
     padding: {
-        left: 8px;
-        right: 8px;
+        left: map.get(variables.$tag-size-paddings, 'md');
+        right: map.get(variables.$tag-size-paddings, 'md');
     }
     a {
         @include link.link-variant(inherit, none, inherit, none);
@@ -30,7 +30,7 @@
 
     /**** size ****/
     @each $size, $height in variables.$tag-size-heights {
-        @include mixin.tag-size($size, $height, 8px);
+        @include mixin.tag-size($size, $height, map.get(variables.$tag-size-paddings, $size));
     }
 
     /**** colors ****/

@@ -435,6 +435,12 @@ $tag-size-heights: (
     md: 24px,
     lg: 28px
 );
+$tag-size-paddings: () !default;
+$tag-size-paddings: (
+    sm: 8px,
+    md: 12px,
+    lg: 12px
+);
 $tag-border-radius: 3px !default;
 
 //avatar
