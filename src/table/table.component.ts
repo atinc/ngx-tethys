@@ -58,7 +58,7 @@ export type ThyTableTheme = 'default' | 'bordered';
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
 
-export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'default';
+export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'xlg' | 'default';
 
 export enum ThyFixedDirection {
     left = 'left',

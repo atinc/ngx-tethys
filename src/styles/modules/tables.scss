@@ -56,6 +56,15 @@
     );
 }
 
+.table-xlg {
+    @include tables.table-size(
+        variables.$table-cell-height-xlg,
+        variables.$table-cell-height-xlg,
+        variables.$table-header-padding-xlg,
+        variables.$table-cell-padding-xlg
+    );
+}
+
 .table-lg {
     @include tables.table-size(
         variables.$table-cell-height-lg,
