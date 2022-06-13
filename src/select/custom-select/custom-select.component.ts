@@ -1,4 +1,12 @@
-import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import {
+    getFlexiblePositions,
+    InputBoolean,
+    InputNumber,
+    ScrollToService,
+    ThyClickDispatcher,
+    ThyPlacement,
+    UpdateHostClassService
+} from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -24,12 +32,13 @@ import {
     SPACE,
     UP_ARROW
 } from 'ngx-tethys/util';
-import { defer, fromEvent, merge, Observable, Subject, Subscription, timer } from 'rxjs';
+import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
+import { isPlatformBrowser } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -54,10 +63,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
-import { ThyClickDispatcher } from 'ngx-tethys/core';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
@@ -173,6 +179,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @Input() thyServerSearch: boolean;
 
     @Input() thyLoadState = true;
+
+    @Input() thyAutoActiveFirstItem = true;
 
     @Input()
     set thyMode(value: SelectMode) {
@@ -518,11 +526,17 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                     return;
                 }
                 if (this.empty) {
+                    if (!this.thyAutoActiveFirstItem) {
+                        return;
+                    }
                     this.keyManager.setFirstItemActive();
                 } else {
                     this.keyManager.setActiveItem(this.selectionModel.selected[0]);
                 }
             } else {
+                if (!this.thyAutoActiveFirstItem) {
+                    return;
+                }
                 // always set first option active
                 this.keyManager.setFirstItemActive();
             }

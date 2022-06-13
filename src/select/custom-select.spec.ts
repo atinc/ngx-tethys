@@ -1,5 +1,11 @@
-import { bypassSanitizeProvider, injectDefaultSvgIconSet, typeInElement } from 'ngx-tethys/testing';
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import {
+    bypassSanitizeProvider,
+    dispatchFakeEvent,
+    dispatchKeyboardEvent,
+    dispatchMouseEvent,
+    injectDefaultSvgIconSet,
+    typeInElement
+} from 'ngx-tethys/testing';
 import { fromEvent, Subject, timer } from 'rxjs';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
@@ -29,6 +35,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [formControl]="control"
                 [required]="isRequired"
                 [thySize]="size"
+                [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -59,6 +66,7 @@ class BasicSelectComponent {
     isRequired: boolean;
     enableScrollLoad: boolean;
     size = '';
+    thyAutoActiveFirstItem = true;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -1924,7 +1932,7 @@ describe('ThyCustomSelect', () => {
         beforeEach(async(() => {
             configureThyCustomSelectTestingModule([BasicSelectComponent]);
         }));
-        it('should active first option when open panel', fakeAsync(() => {
+        it('should default active first option when open panel', fakeAsync(() => {
             const fixture = TestBed.createComponent(BasicSelectComponent);
             fixture.detectChanges();
 
@@ -1934,6 +1942,29 @@ describe('ThyCustomSelect', () => {
             flush();
 
             expect(fixture.componentInstance.select.keyManager.activeItem).toEqual(fixture.componentInstance.select.options.toArray()[0]);
+            const spy = jasmine.createSpy('keydown spy');
+            fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
+                spy();
+            });
+
+            dispatchKeyboardEvent(trigger, 'keydown', ENTER);
+            fixture.detectChanges();
+            flush();
+
+            expect(spy).not.toHaveBeenCalled();
+        }));
+
+        it('should not active first option when open panel and thyAutoActiveFirstItem is false', fakeAsync(() => {
+            const fixture = TestBed.createComponent(BasicSelectComponent);
+            fixture.componentInstance.thyAutoActiveFirstItem = false;
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            expect(fixture.componentInstance.select.keyManager.activeItem).toBeFalsy();
             const spy = jasmine.createSpy('keydown spy');
             fromEvent(fixture.debugElement.nativeElement, 'keydown').subscribe(() => {
                 spy();
