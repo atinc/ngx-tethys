@@ -1,10 +1,10 @@
-@use "../bootstrap/mixins/hover";
+@use "../mixins/hover";
 @use "../variables";
 
 @mixin link-variant($link-color, $link-decoration, $link-hover-color, $link-hover-decoration) {
     color: $link-color;
     text-decoration: $link-decoration;
-    @include hover.hover {
+    @include hover.hover-active {
         color: $link-hover-color;
         text-decoration: $link-hover-decoration;
     }

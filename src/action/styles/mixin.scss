@@ -1,4 +1,4 @@
-@use "../../styles/bootstrap/mixins/hover.scss";
+@use "../../styles/mixins/hover.scss";
 @use "../../styles/variables.scss";
 
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
