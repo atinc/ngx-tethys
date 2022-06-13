@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.19](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.18...13.1.0-next.19) (2022-06-13)
+
+
+### Features
+
+* **badge:** add thyContent instead of thyContext and refactor UI Design ([f1cf9a9](https://github.com/atinc/ngx-tethys/commit/f1cf9a99c957919955c9c1b2f6df11ee6a30bf86))
+* **breadcrumb:** add vertical-line of thySeparator and update last link hover color to primary #INFR-3474 ([#1845](https://github.com/atinc/ngx-tethys/issues/1845)) ([a249c22](https://github.com/atinc/ngx-tethys/commit/a249c22651d0bed8cca07efad28d45ded56715af)), closes [#INFR-3474](https://github.com/atinc/ngx-tethys/issues/INFR-3474) [#INFR-3474](https://github.com/atinc/ngx-tethys/issues/INFR-3474)
+* **button:** update text color of default to $gray-700([#666](https://github.com/atinc/ngx-tethys/issues/666)) #INFR-3303 ([aa9900f](https://github.com/atinc/ngx-tethys/commit/aa9900fe731283ba4a84cefc21cdaa9702d6ebf0)), closes [#INFR-3303](https://github.com/atinc/ngx-tethys/issues/INFR-3303)
+* **link:** add active class for link and update spacing and size for thy-icon:first-child without link-has-icon #INFR-3481 ([cd2fe32](https://github.com/atinc/ngx-tethys/commit/cd2fe320805fad5de37e5d82e23fcd313f588f1f)), closes [#INFR-3481](https://github.com/atinc/ngx-tethys/issues/INFR-3481)
+* **table:** add xlg of size height 64px and update font-size of sidebar header title tp 15px #INFR-3488 ([ef05237](https://github.com/atinc/ngx-tethys/commit/ef052374d878c741a41cadc4eb475a70ae4879d9)), closes [#INFR-3488](https://github.com/atinc/ngx-tethys/issues/INFR-3488)
+* **tag:** update md and lg padding x to 12px #INFR-3494 ([9b3f57e](https://github.com/atinc/ngx-tethys/commit/9b3f57eb6c6ea237edec3135013445d03793fa62)), closes [#INFR-3494](https://github.com/atinc/ngx-tethys/issues/INFR-3494)
+
+
+
 # [13.1.0-next.18](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.17...13.1.0-next.18) (2022-06-10)
 
 
