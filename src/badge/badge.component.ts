@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from '../util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const badgeMutexTypes = ['thy-badge-count', 'thy-badge-dot', 'thy-badge-hollow'];
 const BadgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-secondary'];
