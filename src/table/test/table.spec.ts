@@ -6,9 +6,6 @@ import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-teth
 import { ThyTableComponent } from '../table.component';
 import { ThyTableModule } from '../table.module';
 
-const SizeMap = {
-    sm: 'table-sm'
-};
 @Component({
     selector: 'thy-demo-default-table',
     template: `
@@ -329,7 +326,7 @@ describe('ThyTable: basic', () => {
     });
 
     it('should have correct class for sizes', () => {
-        ['xs', 'sm', 'md', 'lg', 'default'].forEach(size => {
+        ['xs', 'sm', 'md', 'lg', 'default', 'xlg'].forEach(size => {
             testComponent.size = size;
             fixture.detectChanges();
             expect(table.classList.contains('table')).toBe(true);

@@ -26,8 +26,8 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '表格大小，设置 sm 时行高为 44px，default 行高为 55px',
-                type: 'default | sm',
+                description: `表格大小，'xs' | 'sm' | 'md' | 'lg' | 'xlg' 默认为 'md'`,
+                type: `'xs' | 'sm' | 'md' | 'lg' | 'xlg'`,
                 default: 'default'
             },
             {
