@@ -31,6 +31,17 @@
             color: variables.$breadcrumb-separator-color;
             font-size: variables.$font-size-base;
         }
+        &.active {
+            color: variables.$primary;
+            a {
+                color: variables.$primary;
+            }
+            thy-icon {
+                &:not(.default-icon) {
+                    color: variables.$primary;
+                }
+            }
+        }
     }
 
     &.separator-slash,
