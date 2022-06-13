@@ -45,6 +45,22 @@ class BadgeBasicContextComponent implements OnInit {
 }
 
 @Component({
+    selector: 'thy-badge-content',
+    template: `
+        <thy-badge [thyContent]="content">
+            <div>WORKTILE</div>
+        </thy-badge>
+    `
+})
+class BadgeContentTestComponent implements OnInit {
+    constructor() {}
+
+    content = 'Worktile';
+
+    ngOnInit(): void {}
+}
+
+@Component({
     selector: 'thy-badge-hollow',
     template: `
         <thy-badge [thyIsHollow]="isHollow">
@@ -95,6 +111,7 @@ describe('thy-badge', () => {
             imports: [ThyBadgeModule],
             declarations: [
                 BadgeBasicComponent,
+                BadgeContentTestComponent,
                 BadgeBasicContextComponent,
                 BadgeBasicHollowComponent,
                 BadgeBasicDotComponent,
@@ -184,6 +201,33 @@ describe('thy-badge', () => {
                 expect(badgeSpanElement).toBeTruthy();
                 expect(badgeSpanElement.classList.contains(`thy-badge-${size}`)).toBe(true);
             });
+        });
+    });
+
+    describe('content', () => {
+        let fixture: ComponentFixture<BadgeContentTestComponent>;
+        let badgeComponent: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(BadgeContentTestComponent);
+            testComponent = fixture.debugElement.componentInstance;
+            badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
+            badgeElement = badgeComponent.nativeElement;
+        });
+
+        it('should create', () => {
+            expect(fixture).toBeTruthy();
+            expect(badgeComponent).toBeTruthy();
+            expect(badgeElement).toBeTruthy();
+        });
+
+        it('thyContext, should set context success', () => {
+            fixture.detectChanges();
+            const badgeSpanElement = badgeElement.querySelector('.thy-badge');
+            expect(badgeSpanElement.textContent).toBe(`Worktile`);
+            testComponent.content = 'PingCode';
+            fixture.detectChanges();
+            expect(badgeSpanElement.textContent).toBe(`PingCode`);
         });
     });
 
