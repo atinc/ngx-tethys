@@ -8,7 +8,8 @@ import {
     ElementRef,
     ViewChild,
     TemplateRef,
-    ContentChild
+    ContentChild,
+    ChangeDetectionStrategy
 } from '@angular/core';
 import { trigger, state, style, transition, animate } from '@angular/animations';
 import { ComponentType } from '@angular/cdk/portal';
@@ -16,6 +17,9 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 import { InputBoolean } from 'ngx-tethys/core';
 
+/**
+ * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
+ */
 @Component({
     selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
     templateUrl: './menu-group.component.html',
@@ -42,7 +46,8 @@ import { InputBoolean } from 'ngx-tethys/core';
             ),
             transition('* => *', animate('0ms ease-out'))
         ])
-    ]
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyMenuGroupComponent implements OnInit {
     public _actionMenu: ComponentType<any> | TemplateRef<any>;
@@ -68,42 +73,78 @@ export class ThyMenuGroupComponent implements OnInit {
 
     @HostBinding('class.collapsed') isCollapsed = false;
 
+    /**
+     * 分组标题
+     */
     @Input() thyTitle = '';
 
+    /**
+     * 已废弃，请使用 thyCollapsed
+     * @deprecated
+     */
     @Input('thyExpand')
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }
 
+    /**
+     * 是否处于收起状态
+     * @default false
+     */
     @Input('thyCollapsed')
     @InputBoolean()
     set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
 
-    @Input() @InputBoolean() thyCollapsible: boolean = true;
+    /**
+     * 是否支持展开收起
+     * @default false
+     */
+    @Input() @InputBoolean() thyCollapsible: boolean = false;
 
+    /**
+     * 是否显示 Icon
+     */
     @Input('thyShowIcon')
     set thyShowIcon(value: boolean) {
         this.showIcon = value;
     }
 
+    /**
+     * 图标
+     */
     @Input('thyIcon')
     set thyIcon(value: string) {
         this.iconClass = value;
     }
 
+    /**
+     * 操作图标
+     */
     @Input('thyActionIcon')
     set thyActionIcon(value: string) {
         this.rightIconClass = value;
     }
 
+    /**
+     *是否显示操作
+     */
     @Input() thyShowAction = false;
 
+    /**
+     * 操作阻止冒泡事件
+     */
     @Input() thyActionStopPropagation = true;
 
+    /**
+     * Action 点击事件
+     */
     @Output() thyOnActionClick: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * 设置 Action 菜单
+     */
     @Input()
     set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
         this._actionMenu = value;
