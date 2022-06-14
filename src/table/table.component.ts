@@ -393,6 +393,7 @@ export class ThyTableComponent extends _MixinBase
                 selections: selections,
                 width: component.width,
                 className: component.className,
+                operational: component.thyOperational as boolean,
                 headerClassName: component.headerClassName,
                 disabled: component.disabled,
                 sortable: component.sortable,

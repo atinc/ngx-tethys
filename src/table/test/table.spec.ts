@@ -50,7 +50,7 @@ import { ThyTableModule } from '../table.module';
             <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
             <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
-            <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
+            <thy-table-column thyTitle="操作" thyOperational="true">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
@@ -249,32 +249,32 @@ describe('ThyTable: basic', () => {
         expect(firstRowColumnItem[1].innerText.trim()).toEqual('张三');
     });
 
-    it('should td "" when conlunm not set thyDefaultText and row age is ""', () => {
+    it('should td "" when column not set thyDefaultText and row age is ""', () => {
         fixture.detectChanges();
         const firstRowColumnItem = rows[1].querySelectorAll('td');
         expect(firstRowColumnItem[2].innerText.trim()).toEqual('');
     });
 
-    it('should th have correct class when conlunm head set thyHeaderClassName is header-class-name', () => {
+    it('should th have correct class when column head set thyHeaderClassName is header-class-name', () => {
         fixture.detectChanges();
         const firstRowColumnItem = rows[0].querySelectorAll('th');
         expect(firstRowColumnItem[2].classList.contains('header-class-name')).toBe(true);
     });
 
-    it('should td is "这是一条测试数据" when conlunm thyDefaultText is "-" and row item is "这是一条测试数据"', () => {
+    it('should td is "这是一条测试数据" when column thyDefaultText is "-" and row item is "这是一条测试数据"', () => {
         fixture.detectChanges();
         const secondRowColumnItem = rows[2].querySelectorAll('td');
         expect(secondRowColumnItem[3].innerText.trim()).toEqual('这是一条测试数据');
     });
 
-    it('should text is "-" when conlunm thyDefaultText is "-" and row item is ""', () => {
+    it('should text is "-" when column thyDefaultText is "-" and row item is ""', () => {
         fixture.detectChanges();
         const secondRowColumnItem = rows[1].querySelectorAll('td');
         const defaultElement = secondRowColumnItem[3].querySelector('.text-desc');
         expect(defaultElement.innerText.trim()).toEqual('-');
     });
 
-    it('have checkbox when conlunm set thyType checkbox', () => {
+    it('have checkbox when column set thyType checkbox', () => {
         fixture.detectChanges();
         const inputElement = rows[1].querySelector('input');
         expect(inputElement.type).toEqual('checkbox');
@@ -286,7 +286,7 @@ describe('ThyTable: basic', () => {
         expect(switchComponent).toBeTruthy();
     });
 
-    // it('should thy-switch disadled when thyDisabled is true', () => {
+    // it('should thy-switch disabled when thyDisabled is true', () => {
     //     fixture.detectChanges();
     //     const switchComponent = rows[1].querySelector('thy-switch');
     //     const labelElement = switchComponent.querySelector('label');
@@ -358,6 +358,18 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-sm')).toBe(true);
     });
 
+    it('should set operational column', () => {
+        fixture.detectChanges();
+        const rows: HTMLElement[] = tableComponent.nativeElement.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            // 排除表格头的 tr
+            if (index > 0) {
+                const tds = row.querySelectorAll('td');
+                expect(tds[tds.length - 1].classList.contains('thy-operation-links')).toBeTruthy();
+            }
+        });
+    });
+
     it('should have thy-empty component when model is []', () => {
         testComponent.model = [];
         fixture.detectChanges();
@@ -365,7 +377,7 @@ describe('ThyTable: basic', () => {
         expect(defaultEmptyComponent).toBeTruthy();
     });
 
-    it('should have thy-loadin component when isLoadingDone is false', () => {
+    it('should have thy-loading component when isLoadingDone is false', () => {
         testComponent.isLoadingDone = false;
         fixture.detectChanges();
         const loadingComponent = tableComponent.nativeElement.querySelector('thy-loading');

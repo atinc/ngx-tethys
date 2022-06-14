@@ -23,6 +23,7 @@ export interface ThyTableColumn {
     left?: number;
     right?: number;
     sortable?: boolean;
+    operational?: boolean;
     sortDirection?: ThyTableSortDirection;
     sortChange?: EventEmitter<ThyTableSortEvent>;
 }

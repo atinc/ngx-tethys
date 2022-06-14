@@ -12,6 +12,7 @@ import {
     TemplateRef,
     ViewEncapsulation
 } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
 export interface IThyTableColumnParentComponent {
@@ -79,6 +80,8 @@ export class ThyTableColumnComponent implements OnInit {
     @Input() thySortDirection = ThyTableSortDirection.default;
 
     @Input() thyFixed: FixedDirection;
+
+    @Input() @InputBoolean() thyOperational: boolean | string;
 
     @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 

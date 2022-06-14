@@ -200,6 +200,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyOperational',
+                description: '当前列是操作列，设置为 true 时会追加 thy-operation-links 样式类，文字居中',
+                type: 'boolean',
+                default: ''
+            },
+            {
                 name: 'thyHeaderClassName',
                 description: '设置列头部的 Class，即 th 元素上的样式',
                 type: 'string',
