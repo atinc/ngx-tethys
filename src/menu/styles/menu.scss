@@ -120,6 +120,7 @@
     }
 
     &.menu-theme-loose {
+        padding: 0px 12px;
         .thy-menu-item,
         .thy-menu-item-content {
             min-height: 36px;
@@ -137,7 +138,8 @@
             .thy-menu-group-header {
                 margin: 0;
                 padding: 0;
-                height: 52px;
+                height: 48px;
+                padding-left: 8px;
                 .thy-menu-group-title {
                     padding-left: 0;
                     color: variables.$gray-600;
@@ -161,13 +163,16 @@
             &.collapsed {
                 .thy-menu-group-header {
                     .thy-menu-group-arrow {
-                        transform: rotate(-180deg) translateY(1px);
+                        transform: rotate(90deg) translateX(-1px);
                     }
                 }
             }
         }
         .thy-divider {
             margin: 0;
+        }
+        .thy-divider + .thy-menu-item {
+            margin-top: 12px;
         }
     }
 }
