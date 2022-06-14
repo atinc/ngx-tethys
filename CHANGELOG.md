@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.22](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.21...13.1.0-next.22) (2022-06-14)
+
+
+### Bug Fixes
+
+* **link:** remove thy-icon padding in link, continue to use class link-has-icon ([186d62e](https://github.com/atinc/ngx-tethys/commit/186d62e8ddd8fb97f2ca620515d1691e5e022832))
+
+
+
 # [13.1.0-next.21](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.20...13.1.0-next.21) (2022-06-14)
 
 
