@@ -13,7 +13,7 @@ import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.comp
 import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
 import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
-import { ThyMenuComponent } from '../menu.component';
+import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
 import { ThyDividerModule } from '../../divider';
 
@@ -77,25 +77,43 @@ class ThyDemoMenuComponent {
     click() {}
 }
 
-@NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
-    declarations: [ThyDemoMenuComponent],
-    exports: [ThyDemoMenuComponent],
-    providers: [ThyPopover]
+@Component({
+    selector: 'thy-menu-test-basic',
+    template: `
+        <thy-menu [thyTheme]="theme">
+            <a id="default-item" thyMenuItem href="javascript:;">
+                Default Item
+            </a>
+            <a id="with-icon-item" thyMenuItem thyIcon="calendar" href="javascript:;">
+                With Icon Item
+            </a>
+            <a thyMenuItem thyIcon="calendar" href="javascript:;">
+                <span thyMenuItemName>Configuration</span>
+            </a>
+            <thy-divider></thy-divider>
+            <a thyMenuItem href="javascript:;">
+                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyIconName="trash"></thy-icon></span>
+                <span thyMenuItemName>Trash</span>
+            </a>
+        </thy-menu>
+    `
 })
-export class ThyMenuTestModule {}
+class ThyMenuTestBasicComponent {
+    theme: ThyMenuTheme = undefined;
+}
 
 describe('ThyMenu', () => {
     let fixture: ComponentFixture<ThyDemoMenuComponent>;
     let component: ThyDemoMenuComponent;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyMenuModule, ThyMenuTestModule],
-            providers: [bypassSanitizeProvider]
+            declarations: [ThyDemoMenuComponent, ThyMenuTestBasicComponent],
+            imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
+            providers: [bypassSanitizeProvider, ThyPopover]
         }).compileComponents();
         injectDefaultSvgIconSet();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoMenuComponent);
@@ -104,20 +122,48 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu', () => {
+        let fixture: ComponentFixture<ThyMenuTestBasicComponent>;
+        let component: ThyMenuTestBasicComponent;
+        let menuDebugElement: DebugElement;
+        let menuElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyMenuTestBasicComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            menuDebugElement = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            menuElement = menuDebugElement.nativeElement;
+        });
+
         it('should create thy-menu', () => {
-            expect(component).toBeTruthy();
+            expect(menuDebugElement).toBeTruthy();
+            expect(menuElement).toBeTruthy();
+            expect(menuElement.classList.contains('thy-menu')).toBeTruthy();
         });
 
-        it('should have class thy-menu', () => {
-            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('thy-menu')).toBeTruthy();
-        });
-
-        it('should theme worked', () => {
+        it('should set theme loose', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
             expect(menu.nativeElement.classList.contains('menu-theme-loose')).toBeTruthy();
+        });
+
+        it('should get default item', () => {
+            const defaultItem = fixture.debugElement.query(By.css('#default-item'));
+            expect(defaultItem).toBeTruthy();
+            expect(defaultItem.nativeElement.classList.contains('thy-menu-item'));
+            expect(defaultItem.nativeElement.textContent).toContain('Default Item');
+        });
+
+        it('should get item with icon', () => {
+            const iconItem = fixture.debugElement.query(By.css('#with-icon-item'));
+            expect(iconItem).toBeTruthy();
+            const iconItemElement: HTMLElement = iconItem.nativeElement;
+            expect(iconItemElement.classList.contains('thy-menu-item'));
+            expect(iconItemElement.textContent).toContain('With Icon Item');
+            expect(iconItemElement.children[0].classList.contains('thy-icon'));
+            expect(iconItemElement.children[0].classList.contains('thy-menu-item-icon'));
+            expect(iconItemElement.children[0].classList.contains('thy-icon-calendar'));
         });
     });
 
