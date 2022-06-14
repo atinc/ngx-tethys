@@ -6,22 +6,27 @@ import {
     Component,
     ContentChild,
     ElementRef,
-    HostBinding,
+    OnChanges,
     Input,
     NgZone,
     OnInit,
     Renderer2,
-    TemplateRef
+    TemplateRef,
+    SimpleChanges
 } from '@angular/core';
 
 import { ThyEmptyConfig } from './empty.config';
+import { PRESET_SVG } from './svgs';
+import { DomSanitizer } from '@angular/platform-browser';
+import { SafeAny } from 'ngx-tethys/types';
 
-const sizeClassMap: any = {
+const sizeClassMap = {
     lg: ['thy-empty-state', 'thy-empty-state--lg'],
     md: ['thy-empty-state'],
     sm: ['thy-empty-state', 'thy-empty-state--sm']
 };
-const sizeMap: any = {
+
+const sizeMap = {
     lg: {
         height: 168, // 空提示的高度
         offsetTop: 30, // 空提示图标和大小之间的空白距离，需要除去，否则会不居中
@@ -50,7 +55,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     templateUrl: './empty.component.html',
     providers: [UpdateHostClassService]
 })
-export class ThyEmptyComponent implements OnInit, AfterViewInit {
+export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
     // 显示的文本，优先级 100 最高
     @Input() thyMessage: string;
 
@@ -93,6 +98,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
 
     private _initialized = false;
 
+    presetSvg: SafeAny;
+
     @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {
@@ -113,7 +120,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
         }
     }
 
-    _calculatePosition() {
+    private _calculatePosition() {
         const sizeOptions = sizeMap[this.thySize || 'md'];
         const topAuto = coerceBooleanProperty(this.thyTopAuto);
         let marginTop = null;
@@ -142,13 +149,15 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
             this.renderer.setStyle(this.elementRef.nativeElement, 'marginTop', marginTop + 'px');
         }
     }
+
     constructor(
         private thyTranslate: ThyTranslate,
         private thyEmptyConfig: ThyEmptyConfig,
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService
+        private updateHostClassService: UpdateHostClassService,
+        private sanitizer: DomSanitizer
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -156,6 +165,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
     ngOnInit() {
         this.updateClass();
         this._initialized = true;
+        this.setPresetSvg(this.thyIconName);
     }
 
     updateClass() {
@@ -171,5 +181,18 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit {
                 this._calculatePosition();
             }, 50);
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyIconName && changes.thyIconName.currentValue && !changes.thyIconName.firstChange) {
+            this.setPresetSvg(changes.thyIconName.currentValue);
+        }
+    }
+
+    setPresetSvg(icon: string) {
+        this.presetSvg = '';
+        let presetSvg = icon ? PRESET_SVG[icon] : PRESET_SVG.default;
+
+        this.presetSvg = this.sanitizer.bypassSecurityTrustHtml(presetSvg);
     }
 }
