@@ -1,6 +1,7 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { Observable } from 'rxjs/internal/Observable';
 
 import { CommonModule } from '@angular/common';
@@ -36,7 +37,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, TranslateModule.forRoot(), TranslateModule, ThyEmptyModule, ThyButtonModule],
+    imports: [CommonModule, FormsModule, TranslateModule.forRoot(), TranslateModule, ThyEmptyModule, ThyButtonModule, ThyGridModule],
     exports: [...COMPONENTS],
     providers: [
         {
