@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.23](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.22...13.1.0-next.23) (2022-06-14)
+
+
+### Features
+
+* **empty:** update default svg icon #INFR-3509 ([#1862](https://github.com/atinc/ngx-tethys/issues/1862)) ([4366038](https://github.com/atinc/ngx-tethys/commit/4366038e46bdb2f222a605a6558234f2ebe72b29)), closes [#INFR-3509](https://github.com/atinc/ngx-tethys/issues/INFR-3509) [#INFR-3509](https://github.com/atinc/ngx-tethys/issues/INFR-3509)
+
+
+
 # [13.1.0-next.22](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.21...13.1.0-next.22) (2022-06-14)
 
 
