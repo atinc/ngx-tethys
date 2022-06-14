@@ -3,22 +3,10 @@
 
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
-    padding: variables.$action-padding-y variables.$action-padding-x;
-    display: inline-flex;
-    align-items: center;
-    line-height: 1;
-
-    > span {
-        color: variables.$gray-700;
-    }
 
     &.active {
         color: $hover-color;
-        text-decoration: none;
         background: $hover-bg-color;
-        border-radius: variables.$border-radius;
-        // 统一所有操作active状态下，标签展示
-        visibility: visible !important;
 
         > span {
             color: $hover-color;
@@ -27,24 +15,11 @@
 
     @include hover.hover {
         color: $hover-color;
-        text-decoration: none;
         background: $hover-bg-color;
-        border-radius: variables.$border-radius;
 
         > span {
             color: $hover-color;
         }
-    }
-
-    // Disabled state lightens text
-    &.disabled {
-        color: variables.$action-disabled-color;
-        border-bottom: none;
-    }
-
-    > .thy-icon + span,
-    > span + .thy-icon {
-        margin-left: 8px;
     }
 }
 
