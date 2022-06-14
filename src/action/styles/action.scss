@@ -4,6 +4,41 @@
 @use "./mixin.scss" as action-mixin;
 
 .thy-action {
+    padding: variables.$action-padding-y variables.$action-padding-x;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+
+    > span {
+        color: variables.$gray-700;
+    }
+
+    &.active {
+        text-decoration: none;
+        border-radius: variables.$border-radius;
+        visibility: visible !important;
+    }
+
+    @include hover.hover {
+        text-decoration: none;
+        border-radius: variables.$border-radius;
+    }
+
+    // Disabled state lightens text
+    &.disabled {
+        color: variables.$action-disabled-color;
+        border-bottom: none;
+    }
+
+    .thy-icon {
+        font-size: variables.$font-size-md;
+    }
+
+    > .thy-icon + span,
+    > span + .thy-icon {
+        margin-left: 8px;
+    }
+
     transition: opacity 0.2s ease-in-out;
     @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
 }
