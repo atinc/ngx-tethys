@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.20](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.19...13.1.0-next.20) (2022-06-14)
+
+
+### Features
+
+* **menu:** support thyIcon for thy-menu-item and refacor api doc and examples [#1851](https://github.com/atinc/ngx-tethys/issues/1851) ([0918989](https://github.com/atinc/ngx-tethys/commit/0918989a805e52715a1a148fdbcd0be1d1b00ddb))
+* **select:** custom select add thyAutoActiveFirstItem params #INFR-3485 ([#1844](https://github.com/atinc/ngx-tethys/issues/1844)) ([dc73db7](https://github.com/atinc/ngx-tethys/commit/dc73db744d347ce136d9172812fc53f72f0e194d)), closes [#INFR-3485](https://github.com/atinc/ngx-tethys/issues/INFR-3485)
+* **table:** add thyOperational for thy-table-column and set text-align: center for thy-operation-links #INFR-3499 ([0ceee89](https://github.com/atinc/ngx-tethys/commit/0ceee89d2149a5097ded588728c44d2a394b6adb)), closes [#INFR-3499](https://github.com/atinc/ngx-tethys/issues/INFR-3499)
+* **table:** expand the clickable area of table sort to the whole column header #INFR-3466 ([1f740d1](https://github.com/atinc/ngx-tethys/commit/1f740d17b56c5ee3fe9799764f0ad11581adc9fa)), closes [#INFR-3466](https://github.com/atinc/ngx-tethys/issues/INFR-3466)
+* **table:** support boxed theme #INFR-3489 ([#1854](https://github.com/atinc/ngx-tethys/issues/1854)) ([c1e2941](https://github.com/atinc/ngx-tethys/commit/c1e294162943226f70455b383dbd59597200b447)), closes [#INFR-3489](https://github.com/atinc/ngx-tethys/issues/INFR-3489)
+
+
+
 # [13.1.0-next.19](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.18...13.1.0-next.19) (2022-06-13)
 
 
