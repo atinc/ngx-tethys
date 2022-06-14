@@ -311,11 +311,20 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-draggable')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is table-bordered', () => {
+    it('should have correct class when thyTheme is bordered', () => {
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-bordered')).toBe(true);
+    });
+
+    it('should have correct class when thyTheme is boxed', () => {
+        testComponent.theme = 'boxed';
+        fixture.detectChanges();
+        expect(tableComponent.nativeElement.classList.contains('thy-table')).toBe(true);
+        expect(tableComponent.nativeElement.classList.contains('thy-table-boxed')).toBe(true);
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-boxed')).toBe(true);
     });
 
     it('should have correct class when thySize is md', () => {

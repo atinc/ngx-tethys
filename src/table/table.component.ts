@@ -54,7 +54,7 @@ import {
     ThyTableSortEvent
 } from './table.interface';
 
-export type ThyTableTheme = 'default' | 'bordered';
+export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
 
@@ -74,7 +74,8 @@ interface ThyTableGroup<T = unknown> {
 
 const tableThemeMap = {
     default: 'table-default',
-    bordered: 'table-bordered'
+    bordered: 'table-bordered',
+    boxed: 'table-boxed'
 };
 
 const customType = {
@@ -105,7 +106,12 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         },
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'thy-table',
+        '[class.thy-table-bordered]': `theme === 'bordered'`,
+        '[class.thy-table-boxed]': `theme === 'boxed'`
+    }
 })
 export class ThyTableComponent extends _MixinBase
     implements OnInit, OnChanges, AfterViewInit, OnDestroy, DoCheck, IThyTableColumnParentComponent {
@@ -331,8 +337,6 @@ export class ThyTableComponent extends _MixinBase
             this._initializeDataModel();
         }
     }
-
-    @HostBinding('class.thy-table') isTableClass = true;
 
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
