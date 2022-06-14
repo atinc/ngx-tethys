@@ -164,6 +164,36 @@
         }
     }
 
+    &.thy-table-boxed {
+        // 设置  border-radius
+        table {
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: variables.$table-boxed-border-radius;
+
+            thead {
+                tr {
+                    th:first-child {
+                        border-top-left-radius: variables.$table-boxed-border-radius;
+                    }
+                    th:last-child {
+                        border-top-right-radius: variables.$table-boxed-border-radius;
+                    }
+                }
+            }
+            tbody {
+                tr:last-child {
+                    td:first-child {
+                        border-bottom-left-radius: variables.$table-boxed-border-radius;
+                    }
+                    td:last-child {
+                        border-bottom-right-radius: variables.$table-boxed-border-radius;
+                    }
+                }
+            }
+        }
+    }
+
     &-fixed {
         flex: auto;
         width: 100%;
@@ -199,13 +229,29 @@
         .table-bordered {
             thead th,
             thead td {
+                border-bottom: variables.$table-border-width solid variables.$gray-200;
+            }
+        }
+
+        .table-boxed,
+        .table-bordered {
+            thead th,
+            thead td {
                 background-color: variables.$gray-100 !important;
             }
-            th,
-            td {
-                border: 0px;
-                border-right: variables.$table-border-width solid variables.$gray-200;
-                border-bottom: variables.$table-border-width solid variables.$gray-200;
+            tbody {
+                th,
+                td {
+                    border: 0px;
+                    border-right: variables.$table-border-width solid variables.$gray-200;
+                }
+                > tr:not(:last-child) {
+                    th,
+                    td {
+                        // 最后一个 tr 底部不加边框，否则底部会有加粗的线，整个表格有一个边框线
+                        border-bottom: variables.$table-border-width solid variables.$gray-200;
+                    }
+                }
             }
         }
     }

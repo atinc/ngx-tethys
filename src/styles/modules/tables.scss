@@ -56,6 +56,50 @@
     );
 }
 
+.table-bordered {
+    border: variables.$table-border-width solid variables.$table-border-color;
+
+    th,
+    td {
+        border: variables.$table-border-width solid variables.$table-border-color;
+    }
+
+    @include tables.table-set-header(
+        center,
+        middle,
+        400,
+        variables.$table-border-width,
+        variables.$table-bordered-bg,
+        variables.$table-border-color,
+        variables.$table-bordered-head-color,
+        0
+    );
+}
+
+.table-boxed {
+    border: variables.$table-border-width solid variables.$table-border-color;
+
+    tbody {
+        // 最后一行去掉 border-bottom，否则会和 table 的边框重叠加粗
+        tr:last-child {
+            td {
+                border-bottom: 0px;
+            }
+        }
+    }
+
+    @include tables.table-set-header(
+        left,
+        bottom,
+        400,
+        variables.$table-border-width,
+        variables.$table-bordered-bg,
+        variables.$table-border-color,
+        variables.$table-bordered-head-color,
+        0
+    );
+}
+
 .table-xlg {
     @include tables.table-size(
         variables.$table-cell-height-xlg,
@@ -98,26 +142,6 @@
         variables.$table-cell-height-xs,
         variables.$table-header-padding-xs,
         variables.$table-cell-padding-xs
-    );
-}
-
-.table-bordered {
-    border: variables.$table-border-width solid variables.$table-border-color;
-
-    th,
-    td {
-        border: variables.$table-border-width solid variables.$table-border-color;
-    }
-
-    @include tables.table-set-header(
-        center,
-        middle,
-        400,
-        variables.$table-border-width,
-        variables.$table-bordered-bg,
-        variables.$table-border-color,
-        variables.$table-bordered-head-color,
-        0
     );
 }
 
