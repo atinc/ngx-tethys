@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.21](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.20...13.1.0-next.21) (2022-06-14)
+
+
+### Bug Fixes
+
+* **menu:** fix menu component style #INFR-3229 ([#1858](https://github.com/atinc/ngx-tethys/issues/1858)) ([4a441ea](https://github.com/atinc/ngx-tethys/commit/4a441ea03c9d9b8d6ece0633948e307e3ef4d91a)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
 # [13.1.0-next.20](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.19...13.1.0-next.20) (2022-06-14)
 
 
