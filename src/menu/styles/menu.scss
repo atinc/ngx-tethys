@@ -131,8 +131,7 @@
         }
         .thy-menu-item-content {
             margin: 0;
-            padding-right: 12px;
-            padding-left: 20px;
+            padding: variables.$menu-loose-item-padding;
             border-radius: variables.$menu-loose-item-border-radius;
         }
         .thy-menu-group {
@@ -171,6 +170,9 @@
         }
         .thy-divider {
             margin: 0;
+        }
+        .thy-divider + .thy-menu-item {
+            margin-top: 12px;
         }
     }
 }
