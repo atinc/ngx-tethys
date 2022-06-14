@@ -12,7 +12,7 @@ export class ThyTableThemeExampleComponent implements OnInit {
         { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
     ];
 
-    theme: ThyTableTheme = 'bordered';
+    theme: ThyTableTheme = 'default';
 
     constructor() {}
 

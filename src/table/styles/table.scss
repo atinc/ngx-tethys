@@ -229,12 +229,27 @@
         .table-bordered {
             thead th,
             thead td {
+                border: 0px;
+                background-color: variables.$gray-100 !important;
                 border-bottom: variables.$table-border-width solid variables.$gray-200;
+            }
+            tbody {
+                th,
+                td {
+                    border: 0px;
+                    border-right: variables.$table-border-width solid variables.$gray-200;
+                }
+                > tr:not(:last-child) {
+                    th,
+                    td {
+                        // 最后一个 tr 底部不加边框，否则底部会有加粗的线，整个表格有一个边框线
+                        border-bottom: variables.$table-border-width solid variables.$gray-200;
+                    }
+                }
             }
         }
 
-        .table-boxed,
-        .table-bordered {
+        .table-boxed {
             thead th,
             thead td {
                 background-color: variables.$gray-100 !important;
@@ -243,7 +258,6 @@
                 th,
                 td {
                     border: 0px;
-                    border-right: variables.$table-border-width solid variables.$gray-200;
                 }
                 > tr:not(:last-child) {
                     th,
