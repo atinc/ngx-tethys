@@ -998,13 +998,21 @@ describe('ThyTable: sort', () => {
         expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeTruthy();
     });
 
-    it('should emit a sortChange event when sortable-icon got clicked', () => {
+    it('should be have thy-table-column-sortable class in table column header when sortable', () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
+        expect(sortableColumnHeader).toBeTruthy();
+        expect(sortableColumnHeader.name).toEqual('th');
+    });
+
+    it(`should emit a sortChange event when sortable-column's header got clicked`, () => {
         testComponent.sortable = true;
         fixture.detectChanges();
         spyOn(testComponent, 'onThyTableColumnSortChange');
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
-        const tableSortableIcon = tableComponent.query(By.css('.thy-table-column-sortable-icon'));
-        tableSortableIcon.nativeElement.dispatchEvent(createFakeEvent('click'));
+        const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
+        sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
         fixture.detectChanges();
 
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);
