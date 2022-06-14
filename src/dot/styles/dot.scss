@@ -1,0 +1,64 @@
+@use "../../styles/variables.scss";
+
+$colors: (
+    primary: variables.$primary,
+    secondary: variables.$secondary,
+    info: variables.$info,
+    warning: variables.$warning,
+    danger: variables.$danger,
+    success: variables.$success,
+    default: initial,
+    light: variables.$light
+);
+
+$sizes: (
+    xs: 6,
+    sm: 8,
+    md: 10,
+    lg: 12
+);
+
+$border-sizes: (
+    xs: 2,
+    sm: 2,
+    md: 3,
+    lg: 3
+);
+
+.thy-dot {
+    display: inline-block;
+    box-sizing: border-box;
+    border-style: solid;
+    background: transparent;
+}
+
+.thy-dot.dot-shape-circle {
+    border-radius: 50%;
+}
+
+.thy-dot.dot-shape-square {
+    border-radius: 0;
+}
+
+@each $color-key, $color-value in $colors {
+    .thy-dot.dot-color-#{$color-key} {
+        border-color: #{$color-value};
+    }
+}
+
+@each $size-key, $size-value in $sizes {
+    .thy-dot.dot-theme-fill.dot-size-#{$size-key} {
+        border-width: #{calc($size-value / 2) + 'px'};
+    }
+
+    .thy-dot.dot-theme-outline.dot-size-#{$size-key} {
+        width: #{$size-value + 'px'};
+        height: #{$size-value + 'px'};
+    }
+}
+
+@each $size-key, $border-size-value in $border-sizes {
+    .thy-dot.dot-theme-outline.dot-size-#{$size-key} {
+        border-width: #{$border-size-value + 'px'};
+    }
+}
