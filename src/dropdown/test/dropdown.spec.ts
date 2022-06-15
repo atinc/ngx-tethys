@@ -508,6 +508,30 @@ describe('dropdown submenu', () => {
         flush();
     }));
 
+    it('should set direction leftBottom when direction is left', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.right = '20px';
+        dropdownMenu.style.height = '200px';
+        const submenu = dropdownMenu.querySelector('#submenu-left');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
     it('should set direction right', fakeAsync(() => {
         fixture.detectChanges();
         dropdown.show();
@@ -517,6 +541,32 @@ describe('dropdown submenu', () => {
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
         expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
+    it('should set direction rightBottom when direction is right', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.left = '0px';
+        dropdownMenu.style.width = '100px';
+        dropdownMenu.style.height = '200px';
+
+        const submenu = dropdownMenu.querySelector('#submenu-right');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -566,6 +616,56 @@ describe('dropdown submenu', () => {
         tick(200);
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-left')).toBeTruthy();
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
+    it('should set leftBottom when direction is auto', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.right = '20px';
+        dropdownMenu.style.height = '200px';
+
+        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
+    it('should set rightBottom when direction is auto', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.left = '0px';
+        dropdownMenu.style.width = '100px';
+        dropdownMenu.style.height = '200px';
+        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
         dropdown.hide();
         tick();
         flush();
