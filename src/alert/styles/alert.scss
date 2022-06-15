@@ -41,20 +41,20 @@
             }
             &:not(:last-child):after {
                 content: '';
-                border-right: 1px solid #ddd;
+                border-right: 1px solid variables.$gray-300;
                 width: 10px;
                 height: 13px;
                 position: absolute;
-                right: -10px;
+                right: -12px;
                 top: 2px;
             }
         }
     }
 
     .thy-alert-close {
-        color: #cacaca;
+        color: variables.$gray-400;
         &:hover {
-            color: #888;
+            color: variables.$gray-600;
         }
     }
 }

@@ -1,12 +1,18 @@
-import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding } from '@angular/core';
+import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 import { isString } from 'ngx-tethys/util';
 import { Dictionary } from 'ngx-tethys/types';
 
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak';
 
+export type ThyAlertTheme = 'fill' | 'bordered' | 'naked';
+
 @Component({
     selector: 'thy-alert',
-    templateUrl: './alert.component.html'
+    templateUrl: './alert.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-alert'
+    }
 })
 export class ThyAlertComponent implements OnInit {
     @HostBinding('class') class: string;
@@ -18,6 +24,8 @@ export class ThyAlertComponent implements OnInit {
     @Input() set thyType(value: ThyAlertType) {
         this._type = value;
     }
+
+    @Input() thyTheme: ThyAlertTheme = 'fill';
 
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
         if (value instanceof TemplateRef) {
@@ -71,7 +79,7 @@ export class ThyAlertComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.class = `thy-alert thy-alert-${this._type}`;
+        this.class = `thy-alert-${this._type}`;
     }
 
     closeAlert() {
