@@ -116,10 +116,27 @@
             @include mixin.dropdown-submenu-hover-display();
         }
 
+        &.dropdown-submenu-rightBottom {
+            .dropdown-submenu {
+                left: 100%;
+                transform: translateY(calc(-100% + 40px));
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
         &.dropdown-submenu-left {
             .dropdown-submenu {
                 right: 100%;
                 left: auto;
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
+        &.dropdown-submenu-leftBottom {
+            .dropdown-submenu {
+                right: 100%;
+                left: auto;
+                transform: translateY(calc(-100% + 40px));
             }
             @include mixin.dropdown-submenu-hover-display();
         }

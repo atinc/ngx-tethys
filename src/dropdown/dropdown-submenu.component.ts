@@ -2,11 +2,13 @@ import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-te
 import { getElementOffset } from 'ngx-tethys/util';
 import { takeUntil } from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, Component, Directive, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, ElementRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 
 export type ThyDropdownSubmenuDirection = 'left' | 'right' | 'auto';
+
+type InnerDropdownSubmenuDirection = ThyDropdownSubmenuDirection | 'leftBottom' | 'rightBottom';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -24,7 +26,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, OnDestroy {
-    private direction: ThyDropdownSubmenuDirection = 'right';
+    private direction: InnerDropdownSubmenuDirection = 'right';
 
     /**
      * 菜单方向
@@ -34,18 +36,18 @@ export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, O
         this.direction = value;
     }
 
-    constructor(private dropdownMenuItem: ThyDropdownMenuItemDirective) {
+    constructor(private dropdownMenuItem: ThyDropdownMenuItemDirective, private elementRef: ElementRef<HTMLElement>) {
         super();
     }
 
     ngOnInit(): void {
         let direction = this.direction || 'right';
-        if (this.direction === 'auto') {
-            this.updateClassByDirection(direction);
-            this.dropdownMenuItem
-                .bindMouseenterEvent()
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(() => {
+        this.updateClassByDirection(direction);
+        this.dropdownMenuItem
+            .bindMouseenterEvent()
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(() => {
+                if (this.direction === 'auto') {
                     const element = this.dropdownMenuItem.getElement();
                     const offset = getElementOffset(element);
                     if (document.documentElement.clientWidth < offset.left + offset.width + offset.width) {
@@ -54,14 +56,30 @@ export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, O
                         direction = 'right';
                     }
                     this.updateClassByDirection(direction);
-                });
-        } else {
-            this.updateClassByDirection(direction);
-        }
+                }
+                this.updateVerticalDirection(direction);
+            });
     }
 
-    private updateClassByDirection(direction: ThyDropdownSubmenuDirection) {
+    private updateClassByDirection(direction: InnerDropdownSubmenuDirection) {
         this.dropdownMenuItem.updateClass([`${SUBMENU_CLASS_PREFIX}-${direction}`]);
+    }
+
+    private updateVerticalDirection(direction: InnerDropdownSubmenuDirection) {
+        const submenuItems = this.elementRef.nativeElement.querySelectorAll('.dropdown-menu-item');
+        if (submenuItems.length) {
+            let submenuItemHeight = 0;
+            submenuItems.forEach(item => (submenuItemHeight += item.clientHeight));
+            if (
+                document.documentElement.clientHeight - this.dropdownMenuItem.getElement().getBoundingClientRect().bottom <
+                submenuItemHeight
+            ) {
+                direction = direction === 'left' ? 'leftBottom' : 'rightBottom';
+                this.updateClassByDirection(direction);
+            } else {
+                this.updateClassByDirection(direction);
+            }
+        }
     }
 
     ngOnDestroy() {
