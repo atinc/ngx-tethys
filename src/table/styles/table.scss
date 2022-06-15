@@ -87,7 +87,6 @@
     .thy-table-column-sortable {
         cursor: pointer;
         &-icon {
-            vertical-align: middle;
             color: variables.$gray-300;
             &.desc {
                 color: variables.$gray-300;
