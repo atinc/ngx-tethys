@@ -46,8 +46,13 @@ import { ThyTableModule } from '../table.module';
                     ></span>
                 </ng-template>
             </thy-table-column>
-            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
-            <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
+            <thy-table-column
+                thyTitle="姓名"
+                thyModelKey="name"
+                thyWidth="160"
+                [thyHeaderClassName]="columnHeaderClassName"
+            ></thy-table-column>
+            <thy-table-column thyTitle="年龄" thyModelKey="age" [thyHeaderClassName]="columnHeaderClassName"></thy-table-column>
             <thy-table-column thyTitle="备注" thySecondary="true" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
             <thy-table-column thyTitle="操作" thyOperational="true">
@@ -136,7 +141,8 @@ class ThyDemoDefaultTableComponent {
     isRowSelect = false;
     tableClassName = 'class-name';
     tableRowClassName = 'row-class-name';
-    selections = [];
+    columnHeaderClassName = 'header-class-name';
+    selections: any[] = [];
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';
@@ -590,6 +596,16 @@ describe('ThyTable: basic', () => {
         });
         expect(spy).toHaveBeenCalled();
     }));
+
+    it('should column header class updated when column `thyHeaderClassName` changing', () => {
+        fixture.detectChanges();
+        let foundNodes = fixture.debugElement.nativeElement.getElementsByClassName(testComponent.columnHeaderClassName);
+        expect(foundNodes.length).toEqual(2);
+        testComponent.columnHeaderClassName = 'renamed-header-column-name';
+        fixture.detectChanges();
+        foundNodes = fixture.debugElement.nativeElement.getElementsByClassName(testComponent.columnHeaderClassName);
+        expect(foundNodes.length).toEqual(2);
+    });
 });
 
 // table group mode test
@@ -1038,7 +1054,6 @@ describe('ThyTable: sort', () => {
         const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
         sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
         fixture.detectChanges();
-
         expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);
     });
 });

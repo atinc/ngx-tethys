@@ -1,4 +1,3 @@
-/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -9,7 +8,6 @@ import {
     Component,
     ContentChild,
     ContentChildren,
-    DoCheck,
     ElementRef,
     EventEmitter,
     HostBinding,
@@ -45,7 +43,6 @@ import {
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent,
-    ThyTableColumn,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
@@ -113,8 +110,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-table-boxed]': `theme === 'boxed'`
     }
 })
-export class ThyTableComponent extends _MixinBase
-    implements OnInit, OnChanges, AfterViewInit, OnDestroy, DoCheck, IThyTableColumnParentComponent {
+export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -126,8 +122,6 @@ export class ThyTableComponent extends _MixinBase
     public groupBy: string;
 
     public mode: ThyTableMode = 'list';
-
-    public columns: ThyTableColumn[] = [];
 
     public theme: ThyTableTheme = 'default';
 
@@ -157,11 +151,12 @@ export class ThyTableComponent extends _MixinBase
 
     public hasFixed = false;
 
+    public columns: ThyTableColumnComponent[] = [];
+
     private _diff: IterableDiffer<any>;
 
-    private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
-
     private initialized = false;
+
     private _oldThyClassName = '';
 
     private scrollClassName = css.tableScrollLeft;
@@ -265,12 +260,6 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    // coming soon
-    // @Input()
-    // set thyFilter(value: any) {
-    //     this._filter = value;
-    // }
-
     @Input()
     set thyPageIndex(value: number) {
         this.pagination.index = value;
@@ -329,8 +318,8 @@ export class ThyTableComponent extends _MixinBase
     @ContentChildren(ThyTableColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
         if (components) {
-            this._listOfColumnComponents = components;
-            this.hasFixed = !!this._listOfColumnComponents.find(item => {
+            this.columns = components.toArray();
+            this.hasFixed = !!this.columns.find(item => {
                 return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
             });
             this._initializeColumns();
@@ -342,10 +331,6 @@ export class ThyTableComponent extends _MixinBase
     public expandStatusMap: Dictionary<boolean> = {};
 
     dragPreviewClass = 'thy-table-drag-preview';
-
-    public buildColumnWidth = (width: string | number) => {
-        return Number(width.toString().split('px')[0]);
-    };
 
     constructor(
         public elementRef: ElementRef,
@@ -362,64 +347,23 @@ export class ThyTableComponent extends _MixinBase
         this._bindTrackFn();
     }
 
-    private _getSelectionKeys(selections: any) {
-        return selections.map((item: any) => {
-            if (typeof item === 'number' || typeof item === 'string') {
-                return item;
-            } else {
-                return item[this.rowKey];
-            }
-        });
+    private _initializeColumns() {
+        if (!this.columns.some(item => item.expand === true) && this.columns.length > 0) {
+            this.columns[0].expand = true;
+        }
+        this._initializeColumnFixedPositions();
     }
 
-    private _initializeColumns() {
-        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
-        const hasExpand = components.some(item => item.expand === true);
-        const leftColumnsWidth: number[] = [];
-        const rightColumns: ThyTableColumnComponent[] = [];
-
-        this.columns = components.map<ThyTableColumn>((component, i) => {
-            const selections = this._getSelectionKeys(component.selections);
-            if (component.fixed === this.fixedDirection.left) {
-                leftColumnsWidth.push(this.buildColumnWidth(component.width));
-            } else if (component.fixed === this.fixedDirection.right) {
-                rightColumns.push(component);
-            }
-            return {
-                key: component.key,
-                model: component.model,
-                title: component.title,
-                type: component.type,
-                selections: selections,
-                width: component.width,
-                className: component.className,
-                operational: component.thyOperational as boolean,
-                secondary: component.thySecondary as boolean,
-                headerClassName: component.headerClassName,
-                disabled: component.disabled,
-                sortable: component.sortable,
-                sortDirection: component.sortDirection,
-                sortChange: component.thySortChange,
-                defaultText: component.defaultText,
-                expand: hasExpand ? component.expand : i === 0,
-                templateRef: component.cellTemplateRef,
-                headerTemplateRef: component.headerTemplateRef,
-                fixed: component.fixed,
-                left:
-                    component.fixed === this.fixedDirection.left
-                        ? leftColumnsWidth.reduce((result, currentWidth) => {
-                              return result + currentWidth;
-                          }, 0) - this.buildColumnWidth(component.width)
-                        : null,
-                right: component.fixed === this.fixedDirection.right ? 0 : null
-            };
+    private _initializeColumnFixedPositions() {
+        const leftFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.left);
+        leftFixedColumns.forEach((item, index) => {
+            const previous = leftFixedColumns[index - 1];
+            item.left = previous ? previous.left + parseInt(previous.width.toString(), 10) : 0;
         });
-
-        const columnsMap = helpers.keyBy(this.columns, 'key');
-        let rightIncrease = 0;
-        rightColumns.reverse().forEach(value => {
-            columnsMap[value.key].right = rightIncrease;
-            rightIncrease = rightIncrease + this.buildColumnWidth(value.width);
+        const rightFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.right).reverse();
+        rightFixedColumns.forEach((item, index) => {
+            const previous = rightFixedColumns[index - 1];
+            item.right = previous ? previous.right + parseInt(previous.width.toString(), 10) : 0;
         });
     }
 
@@ -432,7 +376,7 @@ export class ThyTableComponent extends _MixinBase
         });
     }
 
-    private _initialSelections(row: object, column: ThyTableColumn) {
+    private _initialSelections(row: object, column: ThyTableColumnComponent) {
         if (column.selections) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
@@ -446,7 +390,7 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    private _initialCustomModelValue(row: object, column: ThyTableColumn) {
+    private _initialCustomModelValue(row: object, column: ThyTableColumnComponent) {
         if (column.type === customType.switch) {
             row[column.key] = get(row, column.model);
         }
@@ -499,7 +443,6 @@ export class ThyTableComponent extends _MixinBase
 
     public updateColumnSelections(key: string, selections: any): void {
         const column = this.columns.find(item => item.key === key);
-        column.selections = this._getSelectionKeys(selections);
         this.model.forEach(row => {
             this._initialSelections(row, column);
         });
@@ -524,7 +467,7 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    public onModelChange(row: any, column: ThyTableColumn) {
+    public onModelChange(row: any, column: ThyTableColumnComponent) {
         if (column.model) {
             set(row, column.model, row[column.key]);
         }
@@ -544,12 +487,12 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnPageIndexChange.emit(event);
     }
 
-    public onCheckboxChange(row: any, column: ThyTableColumn) {
+    public onCheckboxChange(row: any, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
         this.onMultiSelectChange(null, row, column);
     }
 
-    public onMultiSelectChange(event: Event, row: any, column: ThyTableColumn) {
+    public onMultiSelectChange(event: Event, row: any, column: ThyTableColumnComponent) {
         const rows = this.model.filter(item => {
             return item[column.key];
         });
@@ -637,7 +580,7 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnDraggableChange.emit(dragEvent);
     }
 
-    onColumnHeaderClick(event: Event, column: ThyTableColumn) {
+    onColumnHeaderClick(event: Event, column: ThyTableColumnComponent) {
         if (column.sortable) {
             const { sortDirection, model, sortChange } = column;
             let direction;
@@ -699,7 +642,7 @@ export class ThyTableComponent extends _MixinBase
     }
 
     private _refreshColumns() {
-        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
+        const components = this.columns || [];
         const _columns = components.map(component => {
             return {
                 width: component.width,
@@ -779,23 +722,6 @@ export class ThyTableComponent extends _MixinBase
         });
     }
 
-    ngOnChanges(simpleChangs: SimpleChanges) {
-        const modeChange = simpleChangs.thyMode;
-        const thyGroupsChange = simpleChangs.thyGroups;
-        const isGroupMode = modeChange && modeChange.currentValue === 'group';
-        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
-            this.buildGroups(thyGroupsChange.currentValue);
-            this.buildModel();
-        }
-    }
-
-    ngDoCheck() {
-        if (this._diff) {
-            const changes = this._diff.diff(this.model);
-            this._applyDiffChanges(changes);
-        }
-    }
-
     ngAfterViewInit(): void {
         if (isPlatformServer(this.platformId)) {
             return;
@@ -843,7 +769,21 @@ export class ThyTableComponent extends _MixinBase
             });
     }
 
-    // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        const modeChange = simpleChanges.thyMode;
+        const thyGroupsChange = simpleChanges.thyGroups;
+        const isGroupMode = modeChange && modeChange.currentValue === 'group';
+        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+            this.buildGroups(thyGroupsChange.currentValue);
+            this.buildModel();
+        }
+
+        if (this._diff) {
+            const changes = this._diff.diff(this.model);
+            this._applyDiffChanges(changes);
+        }
+    }
+
     ngOnDestroy() {
         super.ngOnDestroy();
         this._destroyInvalidAttribute();

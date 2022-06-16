@@ -5,11 +5,7 @@
 >
   <table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
     <colgroup>
-      <col
-        *ngFor="let column of columns"
-        [width]="column.width"
-        [style.minWidth]="hasFixed ? buildColumnWidth(column.width) + 'px' : null"
-      />
+      <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : null" />
     </colgroup>
 
     <thead *ngIf="thyShowHeader">
@@ -128,7 +124,7 @@
           </ng-container>
 
           <!--template-->
-          <ng-container *ngIf="isTemplateRef(column.templateRef)">
+          <ng-container *ngIf="isTemplateRef(column.cellTemplateRef)">
             <thy-icon
               class="tree-expand-icon cursor-pointer"
               *ngIf="mode === 'tree' && column.expand"
@@ -136,11 +132,11 @@
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
               [style.left.px]="iconIndentComputed(level)"
             ></thy-icon>
-            <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
+            <ng-template [ngTemplateOutlet]="column.cellTemplateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
           </ng-container>
 
           <!--not template-->
-          <ng-container *ngIf="!isTemplateRef(column.templateRef)">
+          <ng-container *ngIf="!isTemplateRef(column.cellTemplateRef)">
             <!-- default -->
             <ng-container *ngIf="column.model && !column.type">
               <thy-icon

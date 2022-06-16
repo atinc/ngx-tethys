@@ -14,25 +14,23 @@ export class ThyTableSortableExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
     ];
 
+    sortBy: string = '';
+
+    sortDirection: ThyTableSortDirection = ThyTableSortDirection.default;
+
     constructor() {}
 
     ngOnInit(): void {}
 
-    onThyTableSortChange($event: ThyTableSortEvent) {
-        const { key, direction } = $event;
-        this.sortData(key, direction);
-    }
-
-    onThyTableColumnSortChange($event: ThyTableSortEvent) {
-        const { key, direction } = $event;
-        this.sortData(key, direction);
-    }
-
-    sortData(key: string, direction: string) {
-        if (direction === ThyTableSortDirection.asc) {
-            this.data.sort((a, b) => a[key] - b[key]);
-        } else if (direction === ThyTableSortDirection.desc) {
-            this.data.sort((a, b) => b[key] - a[key]);
+    onSortChange(event: ThyTableSortEvent) {
+        this.sortBy = event.key;
+        this.sortDirection = event.direction;
+        if (this.sortDirection === ThyTableSortDirection.asc) {
+            this.data.sort((pre, next) => pre[this.sortBy].toString().localeCompare(next[this.sortBy].toString()));
+        } else if (this.sortDirection === ThyTableSortDirection.desc) {
+            this.data.sort((pre, next) => next[this.sortBy].toString().localeCompare(pre[this.sortBy].toString()));
+        } else {
+            this.data.sort((pre, next) => pre.id - next.id);
         }
     }
 }

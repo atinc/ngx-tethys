@@ -13,9 +13,11 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
+import { coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
 
 export interface IThyTableColumnParentComponent {
+    rowKey: string;
     updateColumnSelections(key: string, selections: any): void;
 }
 
@@ -32,42 +34,50 @@ export type FixedDirection = 'left' | 'right';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTableColumnComponent implements OnInit {
-    @Input() thyModelKey = '';
+    @Input('thyModelKey') model = '';
 
-    @Input() thyTitle = '';
+    @Input('thyTitle') title = '';
 
-    @Input() thyType = '';
+    @Input('thyType') type = '';
 
-    @Input() thyWidth: string | number = '';
-
-    @Input() thyClassName = '';
-
-    @Input() thyHeaderClassName = '';
-
-    @Input() thyDisabled = false;
-
+    public width: string = '';
     @Input()
-    set thySelections(value: any) {
+    set thyWidth(value: string | number) {
+        this.width = value.toString().includes('px') ? value.toString() : value + 'px';
+    }
+
+    @Input('thyClassName') className = '';
+
+    @Input('thyHeaderClassName') headerClassName = '';
+
+    @Input('thyDisabled') disabled = false;
+
+    @Input('thySelections')
+    set selections(value: any) {
         if (value) {
-            if (Array.isArray(value)) {
-                this.selections = value;
-            } else {
-                this.selections = [value];
-            }
+            this._selections = isArray(value) ? value : [value];
+            this._selections = this._selections.map((item: string | number | object) => {
+                return isObject(item) ? item[this.parent.rowKey] : item;
+            });
             if (!this._firstChange) {
-                this.parent.updateColumnSelections(this.key, this.selections);
+                this.parent.updateColumnSelections(this.key, this._selections);
             }
         }
     }
 
-    @Input() thyDefaultText = '';
+    get selections() {
+        return this._selections;
+    }
 
-    @Input() thyExpand = false;
+    @Input('thyDefaultText') defaultText = '';
 
+    @Input('thyExpand') expand = false;
+
+    public sortable: boolean;
     @Input()
     set thySortable(value: boolean) {
         if (value) {
-            if (this.thyModelKey) {
+            if (this.model) {
                 this.sortable = true;
             } else {
                 throw new Error(`thyModelKey is required when sortable`);
@@ -77,15 +87,15 @@ export class ThyTableColumnComponent implements OnInit {
         }
     }
 
-    @Input() thySortDirection = ThyTableSortDirection.default;
+    @Input('thySortDirection') sortDirection = ThyTableSortDirection.default;
 
-    @Input() thyFixed: FixedDirection;
+    @Input('thyFixed') fixed: FixedDirection;
 
-    @Input() @InputBoolean() thyOperational: boolean | string;
+    @Input('thyOperational') @InputBoolean() operational: boolean | string;
 
-    @Input() @InputBoolean() thySecondary: boolean | string;
+    @Input('thySecondary') @InputBoolean() secondary: boolean | string;
 
-    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+    @Output('thySortChange') sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;
 
@@ -102,37 +112,13 @@ export class ThyTableColumnComponent implements OnInit {
 
     public key?: string;
 
-    public model: string;
-
-    public title: string;
-
-    public type: string;
-
-    public selections: any = [];
-
-    public width: string | number;
-
-    public className: string;
-
-    public headerClassName: string;
-
-    public disabled: boolean;
-
-    public defaultText: string;
-
-    private _firstChange = true;
-
-    public expand = false;
-
-    public sortable = false;
-
-    public sortDirection: ThyTableSortDirection;
-
-    public fixed: FixedDirection;
-
     public left: number;
 
     public right: number;
+
+    private _selections: any;
+
+    private _firstChange = true;
 
     constructor(
         private el: ElementRef,
@@ -143,18 +129,7 @@ export class ThyTableColumnComponent implements OnInit {
 
     ngOnInit() {
         this.key = this._generateKey();
-        this.model = this.thyModelKey;
-        this.title = this.thyTitle;
-        this.type = this.thyType;
-        this.width = this.thyWidth;
-        this.className = this.thyClassName;
-        this.headerClassName = this.thyHeaderClassName;
-        this.disabled = this.thyDisabled;
-        this.defaultText = this.thyDefaultText;
         this._firstChange = false;
-        this.expand = this.thyExpand;
-        this.fixed = this.thyFixed;
-        this.sortDirection = this.thySortDirection;
     }
 
     private _generateKey() {
