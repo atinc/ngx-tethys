@@ -91,8 +91,7 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     get thyIcon() {
         if (this.showIcon) {
-            const icon = this.theme === 'naked' ? 'lightbulb' : typeIconsMap[this.type];
-            return this.icon || icon;
+            return this.icon || typeIconsMap[this.type];
         } else {
             return null;
         }
@@ -129,6 +128,5 @@ export class ThyAlertComponent implements OnInit, OnChanges {
             type = this.type.split('-')[0] as ThyAlertType;
         }
         this.updateHostClassService.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
-        // this.updateHostClassService.updateClass([`thy-alert-${this.type}`]);
     }
 }

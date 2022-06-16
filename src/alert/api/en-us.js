@@ -13,8 +13,7 @@ module.exports = [
             {
                 name: 'thyType',
                 description: 'Alert type',
-                type: `'success' | 'warning' | 'danger' | 'info' | 'primary' ｜ 'primary-weak' |
-                'success-weak' | 'warning-weak' | 'danger-weak'`,
+                type: `'primary' ｜ 'success' | 'warning' | 'danger' | 'info'`,
                 default: 'info'
             },
             {

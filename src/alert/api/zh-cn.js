@@ -13,8 +13,7 @@ module.exports = [
             {
                 name: 'thyType',
                 description: '指定警告提示的类型',
-                type: `'success' | 'warning' | 'danger' | 'info' | 'primary-weak' |
-                'success-weak' | 'warning-weak' | 'danger-weak'`,
+                type: `'primary' ｜ 'success' | 'warning' | 'danger' | 'info'`,
                 default: 'info'
             },
             {
