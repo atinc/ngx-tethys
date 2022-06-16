@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.24](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.23...13.1.0-next.24) (2022-06-16)
+
+
+### Bug Fixes
+
+* **button:** update only-icon size to same as button in button-group #INFR-3502 ([8273beb](https://github.com/atinc/ngx-tethys/commit/8273beb2a8f248062ecf3c7378e2b216cc0c89e5)), closes [#INFR-3502](https://github.com/atinc/ngx-tethys/issues/INFR-3502)
+* **table:** fix table sort icon style #INFR-3520 ([b195400](https://github.com/atinc/ngx-tethys/commit/b195400f958864e2b9ff9acd713221b2b260c88d)), closes [#INFR-3520](https://github.com/atinc/ngx-tethys/issues/INFR-3520)
+
+
+### Features
+
+* **dropdown:** support sub menu vertical direction (#INFR-3081) ([595b845](https://github.com/atinc/ngx-tethys/commit/595b8457186f34da1049674e386c1b9e39d352d2)), closes [#INFR-3081](https://github.com/atinc/ngx-tethys/issues/INFR-3081)
+* **table:** add thySecondary for thy-table-column that add thy-table-column-secondary class to column and update default table header color to $gray-700 #INFR-3533 ([f7f6610](https://github.com/atinc/ngx-tethys/commit/f7f6610dbaf582b700fe26b0d0e29960da283583)), closes [#INFR-3533](https://github.com/atinc/ngx-tethys/issues/INFR-3533)
+* **table:** update padding-y to 24px for md size #INFR-3529 ([b334cca](https://github.com/atinc/ngx-tethys/commit/b334cca76ff0f29d8d8dcbe492c0b65a469393cf)), closes [#INFR-3529](https://github.com/atinc/ngx-tethys/issues/INFR-3529)
+
+
+
 # [13.1.0-next.23](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.22...13.1.0-next.23) (2022-06-14)
 
 
