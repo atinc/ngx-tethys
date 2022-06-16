@@ -49,6 +49,11 @@
     }
 }
 
+// 次要列，文字颜色为 #999
+.thy-table-column-secondary {
+    color: variables.$gray-600;
+}
+
 .thy-table {
     display: flex;
     flex-direction: column;
