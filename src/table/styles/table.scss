@@ -93,6 +93,8 @@
         cursor: pointer;
         &-icon {
             color: variables.$gray-300;
+            // To align sort icon with text
+            vertical-align: -0.06rem;
             &.desc {
                 color: variables.$gray-300;
                 svg g path:last-child {
