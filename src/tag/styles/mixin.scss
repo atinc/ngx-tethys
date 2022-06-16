@@ -35,8 +35,8 @@
         &-#{$size} {
             height: $height;
             padding: {
-                left: $padding-x * 1.5;
-                right: $padding-x * 1.5;
+                left: $padding-x;
+                right: $padding-x;
             }
             font-size: variables.$font-size-base;
             .i,
