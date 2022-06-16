@@ -93,6 +93,8 @@ export class ThyTableColumnComponent implements OnInit {
 
     @Input('thyOperational') @InputBoolean() operational: boolean | string;
 
+    @Input('thySecondary') @InputBoolean() secondary: boolean | string;
+
     @Output('thySortChange') sortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
     @ContentChild('header', { static: true }) headerTemplateRef: TemplateRef<any>;

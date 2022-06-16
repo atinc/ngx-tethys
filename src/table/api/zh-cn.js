@@ -206,6 +206,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thySecondary',
+                description: '当前列是次要列，设置为 true 时会追加 thy-table-column-secondary 样式类，文字颜色为 $gray-600',
+                type: 'boolean',
+                default: ''
+            },
+            {
                 name: 'thyHeaderClassName',
                 description: '设置列头部的 Class，即 th 元素上的样式',
                 type: 'string',
