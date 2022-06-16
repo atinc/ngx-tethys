@@ -51,7 +51,7 @@
         variables.$table-border-width,
         transparent,
         variables.$table-border-color,
-        variables.$table-default-head-color,
+        variables.$table-default-header-color,
         variables.$table-default-header-padding
     );
 }
@@ -71,7 +71,7 @@
         variables.$table-border-width,
         variables.$table-bordered-bg,
         variables.$table-border-color,
-        variables.$table-bordered-head-color,
+        variables.$table-bordered-header-color,
         0
     );
 }
@@ -95,7 +95,7 @@
         variables.$table-border-width,
         variables.$table-bordered-bg,
         variables.$table-border-color,
-        variables.$table-bordered-head-color,
+        variables.$table-bordered-header-color,
         0
     );
 }

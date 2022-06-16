@@ -115,6 +115,7 @@
           *ngFor="let column of columns; let j = index"
           [ngClass]="column.className"
           [class.thy-operation-links]="!!column.operational"
+          [class.thy-table-column-secondary]="!!column.secondary"
           [class.thy-table-checkbox-column]="column.type === customType.checkbox"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"

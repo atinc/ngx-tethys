@@ -48,7 +48,7 @@ import { ThyTableModule } from '../table.module';
             </thy-table-column>
             <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
             <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
-            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column thyTitle="备注" thySecondary="true" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
             <thy-table-column thyTitle="操作" thyOperational="true">
                 <ng-template #cell let-row>
@@ -358,7 +358,7 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-sm')).toBe(true);
     });
 
-    it('should set operational column', () => {
+    it('should set column as operational', () => {
         fixture.detectChanges();
         const rows: HTMLElement[] = tableComponent.nativeElement.querySelectorAll('tr');
         rows.forEach((row, index) => {
@@ -366,6 +366,18 @@ describe('ThyTable: basic', () => {
             if (index > 0) {
                 const tds = row.querySelectorAll('td');
                 expect(tds[tds.length - 1].classList.contains('thy-operation-links')).toBeTruthy();
+            }
+        });
+    });
+
+    it('should set column as secondary', () => {
+        fixture.detectChanges();
+        const rows: HTMLElement[] = tableComponent.nativeElement.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            // 排除表格头的 tr
+            if (index > 0) {
+                const tds = row.querySelectorAll('td');
+                expect(tds[tds.length - 3].classList.contains('thy-table-column-secondary')).toBeTruthy();
             }
         });
     });
