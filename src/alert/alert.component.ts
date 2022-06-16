@@ -32,8 +32,8 @@ const typeIconsMap: Record<string, string> = {
     warning: 'waring-fill',
     danger: 'close-circle-fill',
     info: 'minus-circle-fill',
-    primary: 'question-circle-fill',
-    'primary-weak': 'question-circle-fill',
+    primary: 'info-circle-fill',
+    'primary-weak': 'info-circle-fill',
     'success-weak': 'check-circle-fill',
     'warning-weak': 'waring-fill',
     'danger-weak': 'close-circle-fill'
@@ -91,10 +91,8 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     get thyIcon() {
         if (this.showIcon) {
-            if (this.theme === 'naked') {
-                this.icon = 'lightbulb';
-            }
-            return this.icon || typeIconsMap[this.type];
+            const icon = this.theme === 'naked' ? 'lightbulb' : typeIconsMap[this.type];
+            return this.icon || icon;
         } else {
             return null;
         }
