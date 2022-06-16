@@ -5,9 +5,15 @@ module.exports = [
         description: 'Show alert messages',
         properties: [
             {
+                name: 'thyTheme',
+                description: 'Alert theme',
+                type: `'fill' | 'bordered' | 'naked' `,
+                default: 'fill'
+            },
+            {
                 name: 'thyType',
                 description: 'Alert type',
-                type: `'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 
+                type: `'success' | 'warning' | 'danger' | 'info' | 'primary' ｜ 'primary-weak' |
                 'success-weak' | 'warning-weak' | 'danger-weak'`,
                 default: 'info'
             },

@@ -12,6 +12,9 @@
     .thy-alert-icon {
         color: $color;
     }
+    .thy-alert-tips {
+        color: $color;
+    }
 }
 
 @mixin thy-alert-variant($color) {
@@ -21,10 +24,15 @@
     @include thy-alert-inner($color);
 }
 
-@mixin thy-alert-weak-variant($color) {
+@mixin thy-alert-bordered-variant($color) {
     color: variables.$gray-600;
     background: variables.$white;
     border-color: variables.$gray-200 variables.$gray-200 variables.$gray-200 $color;
     border-left-width: 2px;
+    @include thy-alert-inner($color);
+}
+
+@mixin thy-alert-naked-variant($color) {
+    color: variables.$gray-800;
     @include thy-alert-inner($color);
 }

@@ -1,5 +1,0 @@
-@each $key, $color in $thy-alert-weak-colors {
-    .thy-alert-#{$key} {
-        @include thy-alert-weak-variant($color);
-    }
-}

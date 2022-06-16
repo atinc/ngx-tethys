@@ -12,7 +12,18 @@ import {
 import { isString } from 'ngx-tethys/util';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
-type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak';
+const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
+
+type ThyAlertType =
+    | 'success'
+    | 'warning'
+    | 'danger'
+    | 'info'
+    | 'primary'
+    | 'primary-weak'
+    | 'success-weak'
+    | 'warning-weak'
+    | 'danger-weak';
 
 export type ThyAlertTheme = 'fill' | 'bordered' | 'naked';
 
@@ -21,6 +32,7 @@ const typeIconsMap: Record<string, string> = {
     warning: 'waring-fill',
     danger: 'close-circle-fill',
     info: 'minus-circle-fill',
+    primary: 'question-circle-fill',
     'primary-weak': 'question-circle-fill',
     'success-weak': 'check-circle-fill',
     'warning-weak': 'waring-fill',
@@ -45,6 +57,8 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     private type: ThyAlertType = 'info';
 
+    public theme: ThyAlertTheme = 'fill';
+
     messageTemplate: TemplateRef<HTMLElement>;
 
     messageText: string;
@@ -53,7 +67,9 @@ export class ThyAlertComponent implements OnInit, OnChanges {
         this.type = value;
     }
 
-    @Input() thyTheme: ThyAlertTheme = 'fill';
+    @Input() set thyTheme(value: ThyAlertTheme) {
+        this.theme = value;
+    }
 
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
         if (value instanceof TemplateRef) {
@@ -75,6 +91,9 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     get thyIcon() {
         if (this.showIcon) {
+            if (this.theme === 'naked') {
+                this.icon = 'lightbulb';
+            }
             return this.icon || typeIconsMap[this.type];
         } else {
             return null;
@@ -104,6 +123,14 @@ export class ThyAlertComponent implements OnInit, OnChanges {
     }
 
     private updateClass() {
-        this.updateHostClassService.updateClass([`thy-alert-${this.type}`]);
+        // 兼容 'primary-weak', 'success-weak', 'warning-weak', 'danger-weak' types
+        let theme = this.theme;
+        let type = this.type;
+        if (weakTypes.includes(this.type)) {
+            theme = 'bordered';
+            type = this.type.split('-')[0] as ThyAlertType;
+        }
+        this.updateHostClassService.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
+        // this.updateHostClassService.updateClass([`thy-alert-${this.type}`]);
     }
 }
