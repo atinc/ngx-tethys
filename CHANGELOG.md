@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.25](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.24...13.1.0-next.25) (2022-06-16)
+
+
+### Bug Fixes
+
+* **table:** fix dynamic update column property not work bug  and refactor columns initialize #INFR-3440  ([#1872](https://github.com/atinc/ngx-tethys/issues/1872)) ([7d6d44a](https://github.com/atinc/ngx-tethys/commit/7d6d44ad2451bcb3ca6763eec2a0a22ebf872a98)), closes [#INFR-3440](https://github.com/atinc/ngx-tethys/issues/INFR-3440)
+* **table:** update padding-x to 16px for all sizes and update vertical-align for align sort icon with text #INFR-3542 ([147aace](https://github.com/atinc/ngx-tethys/commit/147aacec98109304f34bb8ea4c17b6565af08e0d)), closes [#INFR-3542](https://github.com/atinc/ngx-tethys/issues/INFR-3542)
+
+
+### Features
+
+* **tag:** #INFR-3541 update padding-y to 16px for lg size ([fc9432f](https://github.com/atinc/ngx-tethys/commit/fc9432f38e69215772b4b0a89c13eb2b9023dcab)), closes [#INFR-3541](https://github.com/atinc/ngx-tethys/issues/INFR-3541)
+
+
+
 # [13.1.0-next.24](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.23...13.1.0-next.24) (2022-06-16)
 
 
