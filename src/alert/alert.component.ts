@@ -1,28 +1,56 @@
-import { Component, Input, OnInit, ContentChild, TemplateRef, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    Input,
+    OnInit,
+    ContentChild,
+    TemplateRef,
+    OnChanges,
+    ChangeDetectionStrategy,
+    ElementRef,
+    SimpleChanges
+} from '@angular/core';
 import { isString } from 'ngx-tethys/util';
-import { Dictionary } from 'ngx-tethys/types';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 
 type ThyAlertType = 'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 'success-weak' | 'warning-weak' | 'danger-weak';
 
 export type ThyAlertTheme = 'fill' | 'bordered' | 'naked';
 
+const typeIconsMap: Record<string, string> = {
+    success: 'check-circle-fill',
+    warning: 'waring-fill',
+    danger: 'close-circle-fill',
+    info: 'minus-circle-fill',
+    'primary-weak': 'question-circle-fill',
+    'success-weak': 'check-circle-fill',
+    'warning-weak': 'waring-fill',
+    'danger-weak': 'close-circle-fill'
+};
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-alert'
-    }
+        class: 'thy-alert',
+        '[class.thy-alert-hidden]': 'hidden'
+    },
+    providers: [UpdateHostClassService]
 })
-export class ThyAlertComponent implements OnInit {
-    @HostBinding('class') class: string;
+export class ThyAlertComponent implements OnInit, OnChanges {
+    private hidden = false;
+
+    private showIcon = true;
+
+    private icon: string;
+
+    private type: ThyAlertType = 'info';
 
     messageTemplate: TemplateRef<HTMLElement>;
 
     messageText: string;
 
     @Input() set thyType(value: ThyAlertType) {
-        this._type = value;
+        this.type = value;
     }
 
     @Input() thyTheme: ThyAlertTheme = 'fill';
@@ -38,16 +66,16 @@ export class ThyAlertComponent implements OnInit {
     @Input()
     set thyIcon(value: boolean | string) {
         if (value) {
-            this._showIcon = true;
-            this._icon = isString(value) ? value.toString() : null;
+            this.showIcon = true;
+            this.icon = isString(value) ? value.toString() : null;
         } else {
-            this._showIcon = false;
+            this.showIcon = false;
         }
     }
 
     get thyIcon() {
-        if (this._showIcon) {
-            return this._icon || this._typeIcon[this._type];
+        if (this.showIcon) {
+            return this.icon || typeIconsMap[this.type];
         } else {
             return null;
         }
@@ -57,32 +85,25 @@ export class ThyAlertComponent implements OnInit {
 
     @ContentChild('operation') alertOperation: TemplateRef<any>;
 
-    // @ViewChild(TemplateRef) content: TemplateRef<any>;
-
-    private _typeIcon: Dictionary<string> = {
-        success: 'check-circle-fill',
-        warning: 'waring-fill',
-        danger: 'close-circle-fill',
-        info: 'minus-circle-fill',
-        'primary-weak': 'question-circle-fill',
-        'success-weak': 'check-circle-fill',
-        'warning-weak': 'waring-fill',
-        'danger-weak': 'close-circle-fill'
-    };
-
-    private _showIcon = true;
-
-    private _icon: string;
-
-    private _type: ThyAlertType = 'info';
-
-    constructor() {}
+    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef<HTMLElement>) {
+        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
+    }
 
     ngOnInit() {
-        this.class = `thy-alert-${this._type}`;
+        this.updateClass();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if ((changes.thyTheme && !changes.thyTheme.firstChange) || (changes.thyType && !changes.thyType.firstChange)) {
+            this.updateClass();
+        }
     }
 
     closeAlert() {
-        this.class = `${this.class} thy-alert-hidden`;
+        this.hidden = true;
+    }
+
+    private updateClass() {
+        this.updateHostClassService.updateClass([`thy-alert-${this.type}`]);
     }
 }
