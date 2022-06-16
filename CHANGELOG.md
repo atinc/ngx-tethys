@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.26](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.25...13.1.0-next.26) (2022-06-16)
+
+
+### Bug Fixes
+
+* **tag:** update padding-x to 12px for lg tag ([d410ef6](https://github.com/atinc/ngx-tethys/commit/d410ef671fd2f0dd860a54ba98b40185709d8314))
+
+
+### Features
+
+* **alert:** add thyTheme support 'fill' | 'bordered' | 'naked' ([#1867](https://github.com/atinc/ngx-tethys/issues/1867)) ([919e986](https://github.com/atinc/ngx-tethys/commit/919e98656c3cdc9664e2cceeae9fd777f9cd214c))
+
+
+
 # [13.1.0-next.25](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.24...13.1.0-next.25) (2022-06-16)
 
 
