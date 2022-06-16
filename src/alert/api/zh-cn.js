@@ -5,10 +5,15 @@ module.exports = [
         description: '警告提示，展现需要关注的信息',
         properties: [
             {
+                name: 'thyTheme',
+                description: '指定警告提示的主题',
+                type: `'fill' | 'bordered' | 'naked' `,
+                default: 'fill'
+            },
+            {
                 name: 'thyType',
                 description: '指定警告提示的类型',
-                type: `'success' | 'warning' | 'danger' | 'info' | 'primary-weak' | 
-                'success-weak' | 'warning-weak' | 'danger-weak'`,
+                type: `'primary' ｜ 'success' | 'warning' | 'danger' | 'info'`,
                 default: 'info'
             },
             {

@@ -8,13 +8,15 @@ import { ThyAlertClosableExampleComponent } from './closable/closable.component'
 import { ThyAlertIconExampleComponent } from './icon/icon.component';
 import { ThyAlertMessageTemplateExampleComponent } from './message-template/message-template.component';
 import { ThyAlertOperationExampleComponent } from './operation/operation.component';
-import { ThyAlertWeakExampleComponent } from './weak/weak.component';
+import { ThyAlertBorderedExampleComponent } from './bordered/bordered.component';
+import { ThyAlertNakedExampleComponent } from './naked/naked.component';
 
 const COMPONENTS = [
     ThyAlertBasicExampleComponent,
     ThyAlertMessageTemplateExampleComponent,
     ThyAlertIconExampleComponent,
-    ThyAlertWeakExampleComponent,
+    ThyAlertBorderedExampleComponent,
+    ThyAlertNakedExampleComponent,
     ThyAlertClosableExampleComponent,
     ThyAlertOperationExampleComponent
 ];

@@ -18,6 +18,10 @@
     border: bootstrap-variables.$alert-border-width solid transparent;
     @include border-radius.border-radius(bootstrap-variables.$alert-border-radius);
 
+    &.thy-alert-naked {
+        padding: 0;
+    }
+
     &.thy-alert-hidden {
         display: none;
     }
@@ -60,7 +64,7 @@
 }
 
 .thy-alert-icon {
-    margin-right: 10px;
+    margin-right: variables.$alert-icon-margin-right;
 }
 
 // Headings for larger alerts
@@ -96,13 +100,15 @@
 // Generate contextual modifier classes for colorizing the alert.
 
 @each $color, $value in functions-variables.$theme-colors {
-    .thy-alert-#{$color} {
+    .thy-alert-fill-#{$color} {
         @include mixin.thy-alert-variant(functions.theme-color($color));
     }
-}
 
-@each $key, $color in variables.$thy-alert-weak-colors {
-    .thy-alert-#{$key} {
-        @include mixin.thy-alert-weak-variant($color);
+    .thy-alert-bordered-#{$color} {
+        @include mixin.thy-alert-bordered-variant(functions.theme-color($color));
+    }
+
+    .thy-alert-naked-#{$color} {
+        @include mixin.thy-alert-naked-variant(functions.theme-color($color));
     }
 }
