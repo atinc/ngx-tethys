@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.27](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.26...13.1.0-next.27) (2022-06-17)
+
+
+### Bug Fixes
+
+* **alert:** delete alert margin bottom INFR-3546 ([#1877](https://github.com/atinc/ngx-tethys/issues/1877)) ([f6be040](https://github.com/atinc/ngx-tethys/commit/f6be0404cb84889f95879aebf42eb9a4b981a4b0))
+* **divider:** remove  top: -0.06em for thy-divider-vertical ([0abe37c](https://github.com/atinc/ngx-tethys/commit/0abe37c244e0a6a059f0cca4c05eeda7e096b16b))
+
+
+
 # [13.1.0-next.26](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.25...13.1.0-next.26) (2022-06-16)
 
 
