@@ -17,7 +17,7 @@
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
-          (click)="column.sortable && onColumnHeaderClick($event, column)"
+          (click)="onColumnHeaderClick($event, column)"
         >
           <ng-container *ngIf="!column.headerTemplateRef">
             <span>{{ column.title }}</span>
