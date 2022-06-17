@@ -42,7 +42,6 @@
 .progress-stacked {
     .progress-bar {
         background-color: variables.$progress-split-color;
-        min-width: 4px;
         @include border-radius.border-radius(0);
         &:last-child {
             border-right: 1px variables.$progress-split-color solid;
@@ -68,6 +67,7 @@
 .progress-bar {
     display: flex;
     height: 100%;
+    min-width: 4px;
     flex-direction: column;
     justify-content: center;
     color: bootstrap-variables.$progress-bar-color;
