@@ -1,10 +1,10 @@
-<thy-table [thyModel]="data" thyRowKey="id" thyMinWidth="800px" thyLayoutFixed="true">
-  <thy-table-column thyTitle="Id" thyModelKey="id" thyWidth="15%"></thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="25%"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age" thyWidth="15%"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job" thyWidth="15%"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address" thyWidth="20%" thySecondary="true"></thy-table-column>
-  <thy-table-column thyTitle="" thyWidth="10%" thyOperational="true">
+<thy-table [thyModel]="data" thyRowKey="id">
+  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" thySecondary="true"></thy-table-column>
+  <thy-table-column thyTitle="" thyOperational="true">
     <ng-template #cell let-row>
       <a class="link-secondary" href="javascript:;">
         <thy-icon thyIconName="user-add"></thy-icon>
