@@ -11,12 +11,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThyTableColumnComponent } from './table-column.component';
+import { ThyTableColumnComponent, ThyTableColumnWidthObserverDirective } from './table-column.component';
 import { ThyTableComponent } from './table.component';
 import { TableIsValidModelValuePipe } from './table.pipe';
 
 @NgModule({
-    declarations: [ThyTableComponent, ThyTableColumnComponent, TableIsValidModelValuePipe],
+    declarations: [ThyTableComponent, ThyTableColumnComponent, ThyTableColumnWidthObserverDirective, TableIsValidModelValuePipe],
     imports: [
         CommonModule,
         FormsModule,

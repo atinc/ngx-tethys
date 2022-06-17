@@ -12,6 +12,7 @@
       <tr>
         <th
           *ngFor="let column of columns"
+          [thyTableColumnWidthObserver]="column"
           [ngClass]="[column.headerClassName, column.sortable ? 'thy-table-column-sortable' : '']"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"

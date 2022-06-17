@@ -1,6 +1,9 @@
+import { auditTime, startWith } from 'rxjs/operators';
 import {
+    AfterViewInit,
     Component,
     ContentChild,
+    Directive,
     ElementRef,
     EventEmitter,
     Inject,
@@ -13,9 +16,13 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
-import { coerceCssPixelValue, isArray, isObject } from 'ngx-tethys/util';
+import { coerceCssPixelValue, isArray, isObject, coerceNumberValue, isNumber } from 'ngx-tethys/util';
+import { fromEvent } from 'rxjs';
 import { ThyTableSortDirection, ThyTableSortEvent } from './table.interface';
+import { DOCUMENT } from '@angular/common';
+import { _isNumberValue } from '@angular/cdk/coercion';
 
+const PERCENT_REGEX = /^\d+(\.\d+)?%$/;
 export interface IThyTableColumnParentComponent {
     rowKey: string;
     updateColumnSelections(key: string, selections: any): void;
@@ -43,7 +50,17 @@ export class ThyTableColumnComponent implements OnInit {
     public width: string = '';
     @Input()
     set thyWidth(value: string | number) {
-        this.width = value.toString().includes('px') ? value.toString() : value + 'px';
+        if (_isNumberValue(value)) {
+            this.width = value + 'px';
+        } else {
+            this.width = value.toString();
+        }
+    }
+
+    public minWidth: number;
+    @Input()
+    set thyMinWidth(value: string | number) {
+        this.minWidth = parseInt(value.toString(), 10);
     }
 
     @Input('thyClassName') className = '';
@@ -139,5 +156,35 @@ export class ThyTableColumnComponent implements OnInit {
                 .toString(16)
                 .slice(2, 10)
         );
+    }
+}
+
+@Directive({ selector: '[thyTableColumnWidthObserver]' })
+export class ThyTableColumnWidthObserverDirective implements OnInit, AfterViewInit {
+    @Input('thyTableColumnWidthObserver') column: ThyTableColumnComponent;
+
+    private originWidth: string;
+
+    private minFitWindowWidth: number;
+
+    constructor(private elementRef: ElementRef<HTMLElement>, @Inject(DOCUMENT) protected document: Document) {}
+
+    ngOnInit(): void {
+        this.originWidth = this.column.width;
+    }
+
+    ngAfterViewInit(): void {
+        if (this.column.minWidth && (PERCENT_REGEX.test(this.column.width) || this.column.width === 'auto'))
+            fromEvent(window, 'resize')
+                .pipe(startWith(), auditTime(50))
+                .subscribe(() => {
+                    if (this.elementRef.nativeElement.clientWidth < this.column.minWidth) {
+                        this.column.width = coerceCssPixelValue(this.column.minWidth);
+                        this.minFitWindowWidth = this.document.body.clientWidth;
+                    }
+                    if (this.document.body.clientWidth > this.minFitWindowWidth) {
+                        this.column.width = this.originWidth;
+                    }
+                });
     }
 }
