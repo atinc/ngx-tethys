@@ -1,0 +1,5 @@
+.demo-alert {
+    .thy-alert:not(:last-child) {
+        margin-bottom: 16px;
+    }
+}
