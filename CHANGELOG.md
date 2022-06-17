@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.28](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.27...13.1.0-next.28) (2022-06-17)
+
+
+### Bug Fixes
+
+* **breadcrumb:** add icon spacing 4px for first-child and last-child ([a1664c5](https://github.com/atinc/ngx-tethys/commit/a1664c5dc8ac249cedd803935a6b61e89b06a83a))
+* **input:** update $input-icon-color to $gray-400(#cacaca) and update search icon size to 14px #INFR-3560 ([#1885](https://github.com/atinc/ngx-tethys/issues/1885)) ([eecb6c6](https://github.com/atinc/ngx-tethys/commit/eecb6c657f473526734b0da3c4331457144656e6)), closes [#INFR-3560](https://github.com/atinc/ngx-tethys/issues/INFR-3560)
+* **menu:** fix menu style ([35adcea](https://github.com/atinc/ngx-tethys/commit/35adcea4c9745a12b20c47f9e8dbaeb37b68865a))
+* **progress:** set progress bar min width #INFR-3559 ([#1883](https://github.com/atinc/ngx-tethys/issues/1883)) ([a19d88c](https://github.com/atinc/ngx-tethys/commit/a19d88c8e297e8004723a160e490f11f29d14c63)), closes [#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559) [zd/#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559) [zd/#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559)
+* **table:** fix table header input-element be default action #INFR-3544 ([54aa277](https://github.com/atinc/ngx-tethys/commit/54aa277e5a6a156d2836e443715a1e58afa7b48a)), closes [#INFR-3544](https://github.com/atinc/ngx-tethys/issues/INFR-3544)
+
+
+### Features
+
+* **action:** add thyTheme support fill and lite #INFR-3562 ([#1884](https://github.com/atinc/ngx-tethys/issues/1884)) ([3ce39dd](https://github.com/atinc/ngx-tethys/commit/3ce39ddd36b8bf2be2a0203fca32f79fa2a44ccf)), closes [#INFR-3562](https://github.com/atinc/ngx-tethys/issues/INFR-3562)
+* **table:** add thyMinWidth and thyLayoutFixed for thy-table #INFR-3561 #INFR-3547 ([#1882](https://github.com/atinc/ngx-tethys/issues/1882)) ([8a0b31f](https://github.com/atinc/ngx-tethys/commit/8a0b31fd48b85ce879ed41984d6af5f3342dab28)), closes [#INFR-3561](https://github.com/atinc/ngx-tethys/issues/INFR-3561) [#INFR-3547](https://github.com/atinc/ngx-tethys/issues/INFR-3547)
+
+
+
 # [13.1.0-next.27](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.26...13.1.0-next.27) (2022-06-17)
 
 
