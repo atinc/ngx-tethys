@@ -4,16 +4,7 @@
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
 
-    &.active {
-        color: $hover-color;
-        background: $hover-bg-color;
-
-        > span {
-            color: $hover-color;
-        }
-    }
-
-    @include hover.hover {
+    @include hover.hover-active {
         color: $hover-color;
         background: $hover-bg-color;
 

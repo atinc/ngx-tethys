@@ -1,4 +1,14 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    Input,
+    OnInit,
+    AfterViewInit,
+    OnChanges,
+    ElementRef,
+    Renderer2,
+    SimpleChanges
+} from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
@@ -16,10 +26,10 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
         '[class.active]': 'thyActionActive'
     }
 })
-export class ThyActionComponent implements OnInit, AfterViewInit {
+export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     icon: string;
 
-    _type: string;
+    private type: string = 'primary';
 
     /**
      * 操作图标，支持传参同时也支持在投影中写 thy-icon 组件
@@ -44,6 +54,11 @@ export class ThyActionComponent implements OnInit, AfterViewInit {
         this.setActionType(value || 'primary');
     }
 
+    /**
+     * 操作图标主题，默认 fill， `fill` 背景色填充，`lite` 简单文本颜色变化
+     */
+    @Input() thyTheme: 'fill' | 'lite' = 'fill';
+
     constructor(
         private elementRef: ElementRef<HTMLElement>,
         private renderer: Renderer2,
@@ -52,10 +67,18 @@ export class ThyActionComponent implements OnInit, AfterViewInit {
         this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.updateClasses();
+    }
 
     ngAfterViewInit() {
         this.wrapSpanForText(this.elementRef.nativeElement.childNodes);
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if ((changes.thyType && !changes.thyType.firstChange) || (changes.thyTheme && !changes.thyTheme.firstChange)) {
+            this.updateClasses();
+        }
     }
 
     private wrapSpanForText(nodes: NodeList): void {
@@ -71,13 +94,15 @@ export class ThyActionComponent implements OnInit, AfterViewInit {
     }
 
     private setActionType(value: ThyActionType) {
-        this._type = value;
-        this.updateClasses();
+        this.type = value;
     }
 
     private updateClasses() {
         let classNames: string[] = [];
-        classNames.push(`action-${this._type}`);
+        classNames.push(`action-${this.type}`);
+        if (this.thyTheme === 'lite') {
+            classNames.push('thy-action-lite');
+        }
         this.updateHostClassService.updateClass(classNames);
     }
 }
