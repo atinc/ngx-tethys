@@ -14,12 +14,12 @@
     align-items: center;
     position: relative;
     padding: variables.$alert-padding-y variables.$alert-padding-x;
-    margin-bottom: bootstrap-variables.$alert-margin-bottom;
     border: bootstrap-variables.$alert-border-width solid transparent;
     @include border-radius.border-radius(bootstrap-variables.$alert-border-radius);
 
     &.thy-alert-naked {
         padding: 0;
+        border: none;
     }
 
     &.thy-alert-hidden {
