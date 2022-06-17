@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-basic-example',
-    templateUrl: './basic.component.html',
-    styleUrls: ['./basic.component.scss']
+    templateUrl: './basic.component.html'
 })
 export class ThyTableBasicExampleComponent implements OnInit {
     data = [
