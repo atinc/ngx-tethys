@@ -345,6 +345,10 @@ describe('#helper', () => {
             expect(coerceCssPixelValue(1337)).toBe('1337px');
         });
 
+        it('should add pixel units to a string number value', () => {
+            expect(coerceCssPixelValue('1337')).toBe('1337px');
+        });
+
         it('should ignore string values', () => {
             expect(coerceCssPixelValue('1337rem')).toBe('1337rem');
         });

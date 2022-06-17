@@ -1,3 +1,4 @@
+import { _isNumberValue } from '@angular/cdk/coercion';
 import {
     Component,
     ContentChild,
@@ -43,7 +44,7 @@ export class ThyTableColumnComponent implements OnInit {
     public width: string = '';
     @Input()
     set thyWidth(value: string | number) {
-        this.width = value.toString().includes('px') ? value.toString() : value + 'px';
+        this.width = _isNumberValue(value) ? coerceCssPixelValue(value) : value.toString();
     }
 
     @Input('thyClassName') className = '';
