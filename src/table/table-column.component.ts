@@ -44,7 +44,7 @@ export class ThyTableColumnComponent implements OnInit {
     public width: string = '';
     @Input()
     set thyWidth(value: string | number) {
-        this.width = _isNumberValue(value) ? coerceCssPixelValue(value) : value.toString();
+        this.width = coerceCssPixelValue(value);
     }
 
     @Input('thyClassName') className = '';
