@@ -67,6 +67,7 @@
 .progress-bar {
     display: flex;
     height: 100%;
+    min-width: 4px;
     flex-direction: column;
     justify-content: center;
     color: bootstrap-variables.$progress-bar-color;
