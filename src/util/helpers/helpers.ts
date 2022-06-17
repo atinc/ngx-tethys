@@ -244,6 +244,7 @@ export function coerceNumberValue(value: number | string, fallbackValue: number 
 }
 
 export function coerceCssPixelValue(value: number | string): string {
+    value = _isNumberValue(value) ? Number(value) : value;
     return coerceCssPixel(value);
 }
 

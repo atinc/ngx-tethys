@@ -58,6 +58,13 @@
     display: flex;
     flex-direction: column;
     flex: auto;
+    width: 100%;
+
+    .thy-table-body {
+        flex: 1;
+        width: 100%;
+        overflow-x: scroll;
+    }
 
     .thy-table-empty {
         display: flex;

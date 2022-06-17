@@ -31,7 +31,15 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import {
+    Constructor,
+    InputBoolean,
+    InputCssPixel,
+    MixinBase,
+    mixinUnsubscribe,
+    ThyUnsubscribe,
+    UpdateHostClassService
+} from 'ngx-tethys/core';
 import { Dictionary } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
@@ -219,6 +227,13 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.size = value || this.size;
         this._setClass();
     }
+
+    @Input()
+    @InputCssPixel()
+    thyMinWidth: string | number;
+
+    @Input() @InputBoolean() thyLayoutFixed: string | boolean;
+
     @Input()
     set thyClassName(value: string) {
         const list = this.className.split(' ').filter(a => a.trim());
@@ -703,6 +718,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     ngOnInit() {
+        console.log(this.thyMinWidth);
         this.updateHostClassService.initializeElement(this.tableElementRef.nativeElement);
         this._setClass(true);
         this.initialized = true;

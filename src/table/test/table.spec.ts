@@ -17,6 +17,8 @@ import { ThyTableModule } from '../table.module';
             [thyGroups]="groups"
             [thyTheme]="theme"
             [thySize]="size"
+            [thyMinWidth]="tableMinWidth"
+            [thyLayoutFixed]="tableLayoutFixed"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
             [thyClassName]="tableClassName"
@@ -148,10 +150,10 @@ class ThyDemoDefaultTableComponent {
     loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
-
     mode = 'list';
-
     emptyOptions = { message: '空' };
+    tableMinWidth = 500;
+    tableLayoutFixed = false;
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -605,6 +607,22 @@ describe('ThyTable: basic', () => {
         fixture.detectChanges();
         foundNodes = fixture.debugElement.nativeElement.getElementsByClassName(testComponent.columnHeaderClassName);
         expect(foundNodes.length).toEqual(2);
+    });
+
+    it('should set table min-width success', () => {
+        fixture.detectChanges();
+        const tableElement: HTMLTableElement = tableComponent.nativeElement.querySelector('table');
+        expect(tableElement.style.getPropertyValue('min-width')).toEqual('500px');
+        testComponent.tableMinWidth = null;
+        fixture.detectChanges();
+        expect(tableElement.style.getPropertyPriority('minWidth')).toEqual('');
+    });
+
+    it('should set table layout is fixed', () => {
+        testComponent.tableLayoutFixed = true;
+        fixture.detectChanges();
+        const tableElement: HTMLTableElement = tableComponent.nativeElement.querySelector('table');
+        expect(tableElement.classList).toContain('table-fixed');
     });
 });
 
