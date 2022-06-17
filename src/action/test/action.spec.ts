@@ -11,6 +11,7 @@ import { By } from '@angular/platform-browser';
         <a id="with-text" thyAction thyActionIcon="inbox">Inbox</a>
         <a id="with-active" thyAction thyActionActive="true" thyActionIcon="inbox"></a>
         <a id="with-type" thyAction thyType="danger" thyActionIcon="inbox"></a>
+        <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyActionIcon="inbox"></a>
     `
 })
 class ThyActionTestBasicComponent {}
@@ -74,5 +75,14 @@ describe('thy-action', () => {
         expect(actionDebugElement.componentInstance).toBeTruthy();
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
         expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
+    });
+
+    it('should create with lite theme', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-theme-lite'));
+        expect(fixture.componentInstance).toBeTruthy();
+        expect(actionDebugElement.componentInstance).toBeTruthy();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
+        expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
+        expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
     });
 });

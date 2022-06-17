@@ -48,3 +48,9 @@
         @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
     }
 }
+
+.thy-action-lite {
+    @include hover.hover-active {
+        background: none;
+    }
+}
