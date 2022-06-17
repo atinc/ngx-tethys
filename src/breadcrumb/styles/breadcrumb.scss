@@ -16,6 +16,12 @@
         color: variables.$breadcrumb-text-color;
         a {
             @include link.link-variant(variables.$breadcrumb-text-color, none, variables.$primary, none);
+            .thy-icon:first-child {
+                margin-right: 4px;
+            }
+            .thy-icon:last-child {
+                margin-left: 4px;
+            }
         }
         &:last-child {
             color: variables.$breadcrumb-active-color;
