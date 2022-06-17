@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.29](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.28...13.1.0-next.29) (2022-06-17)
+
+
+### Bug Fixes
+
+* **table:** fix table ngclass syntax error and add min-width docs ([890df0f](https://github.com/atinc/ngx-tethys/commit/890df0fdf7655ac7d5433579eb0cd825133e9eca))
+
+
+
 # [13.1.0-next.28](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.27...13.1.0-next.28) (2022-06-17)
 
 
