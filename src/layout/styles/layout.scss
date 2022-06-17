@@ -97,7 +97,9 @@
         }
 
         .operation {
-            margin-right: -8px;
+            .thy-action:last-child {
+                margin-right: -8px;
+            }
 
             .thy-action + .thy-action {
                 margin-left: 4px;
