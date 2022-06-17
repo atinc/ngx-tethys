@@ -25,10 +25,22 @@ module.exports = [
                 default: 'default'
             },
             {
+                name: 'thyLayoutFixed',
+                description: '设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
                 name: 'thySize',
                 description: `表格大小，'xs' | 'sm' | 'md' | 'lg' | 'xlg' 默认为 'md'`,
                 type: `'xs' | 'sm' | 'md' | 'lg' | 'xlg'`,
                 default: 'default'
+            },
+            {
+                name: 'thyMinWidth',
+                description: `设置表格最小宽度，一般是适用于设置列宽为百分之或auto时限制表格最小宽度'`,
+                type: 'number | string',
+                default: ''
             },
             {
                 name: 'thyClassName',

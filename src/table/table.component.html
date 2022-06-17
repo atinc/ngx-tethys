@@ -20,7 +20,8 @@
       <tr>
         <th
           *ngFor="let column of columns"
-          [ngClass]="[column.headerClassName, column.sortable ? 'thy-table-column-sortable' : '']"
+          [ngClass]="column.headerClassName"
+          [class.thy-table-column-sortable]="column.sortable"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
