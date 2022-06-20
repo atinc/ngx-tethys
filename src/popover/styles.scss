@@ -3,6 +3,7 @@
 .thy-popover-container {
     background: variables.$white;
     box-shadow: variables.$box-shadow;
+    border: 1px solid variables.$border-color;
     width: 100%;
     border-radius: variables.$border-radius;
 }

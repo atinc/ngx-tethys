@@ -11,7 +11,7 @@
     list-style: none;
     background-color: variables.$white;
     background-clip: padding-box;
-    border: style.$border-width-base style.$border-style-base style.$border-color-inverse;
+    border: style.$border-width-base style.$border-style-base variables.$border-color;
     border-radius: variables.$border-radius-lg;
     outline: none;
     box-shadow: variables.$box-shadow;
