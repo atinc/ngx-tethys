@@ -565,6 +565,7 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
 
@@ -605,6 +606,7 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.position = 'absolute';
         dropdownMenu.style.top = '200px';
         dropdownMenu.style.right = '20px';
+        dropdownMenu.style.left = '800px';
 
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
@@ -629,6 +631,7 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.position = 'absolute';
         dropdownMenu.style.top = '2000px';
         dropdownMenu.style.right = '20px';
+        dropdownMenu.style.left = '800px';
         dropdownMenu.style.height = '200px';
 
         const submenu = dropdownMenu.querySelector('#submenu-auto');
@@ -835,7 +838,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    placement: 'bottom',
+                    placement: 'bottomLeft',
                     width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
@@ -852,7 +855,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    placement: 'bottom',
+                    placement: 'bottomLeft',
                     width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
