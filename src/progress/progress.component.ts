@@ -29,7 +29,10 @@ import { helpers, isNumber } from 'ngx-tethys/util';
             provide: THY_PROGRESS_COMPONENT,
             useExisting: ThyProgressComponent
         }
-    ]
+    ],
+    host: {
+        class: 'thy-progress progress'
+    }
 })
 export class ThyProgressComponent implements ThyParentProgress {
     value: number | ThyProgressStackedValue[];
@@ -44,15 +47,13 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
-    @HostBinding(`class.progress`) isProgress = true;
-
     @ViewChildren(ThyProgressBarComponent)
     set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
         this.bars = value.toArray();
     }
 
     /**
-     * 进度条类型: `'primary' | 'success' | 'info' | 'warning' | 'danger'`
+     * 进度条类型: 'primary' | 'success' | 'info' | 'warning' | 'danger'
      */
     @Input() thyType: ThyProgressType = 'primary';
 
