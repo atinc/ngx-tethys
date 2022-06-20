@@ -8,6 +8,7 @@
     display: inline-flex;
     align-items: center;
     line-height: 1;
+    position: relative;
 
     > span {
         color: variables.$gray-700;
@@ -39,7 +40,27 @@
         margin-left: 8px;
     }
 
-    transition: opacity 0.2s ease-in-out;
+    // 带 Hover Icon
+    &.thy-action-hover-icon {
+        .thy-icon {
+            transition: opacity 0.2s;
+        }
+        .hover-icon {
+            opacity: 0;
+            position: absolute;
+        }
+
+        &:hover {
+            .thy-icon {
+                opacity: 0;
+            }
+            .hover-icon {
+                opacity: 1;
+            }
+        }
+    }
+
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
     @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
 }
 
