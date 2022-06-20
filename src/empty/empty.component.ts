@@ -193,6 +193,6 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
         this.presetSvg = '';
         let presetSvg = icon ? PRESET_SVG[icon] : PRESET_SVG.default;
 
-        this.presetSvg = this.sanitizer.bypassSecurityTrustHtml(presetSvg);
+        this.presetSvg = presetSvg ? this.sanitizer.bypassSecurityTrustHtml(presetSvg) : '';
     }
 }
