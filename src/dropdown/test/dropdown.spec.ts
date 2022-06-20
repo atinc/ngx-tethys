@@ -565,8 +565,8 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
-        console.log(submenu.parentElement);
         expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
 
         dropdown.hide();
