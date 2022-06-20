@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.30](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.29...13.1.0-next.30) (2022-06-20)
+
+
+### Bug Fixes
+
+* **empty:** update $empty-text-size-lg to 14px and sanitize presetSvg when it is not empty #INFR-3573 ([ef2db52](https://github.com/atinc/ngx-tethys/commit/ef2db52d1d15b595d4da106667f5133cecd3177e)), closes [#INFR-3573](https://github.com/atinc/ngx-tethys/issues/INFR-3573)
+* **popover:** use border and update $box-shadow to 0 0 16px rgb(0 0 0 / 8%) try the effect and change it later #INFR-3582 ([f0c9416](https://github.com/atinc/ngx-tethys/commit/f0c9416d95e33da963488d33a5a5cafd2ea71505)), closes [#INFR-3582](https://github.com/atinc/ngx-tethys/issues/INFR-3582)
+* **progress:** update primary color to $primary #INFR-3563 ([#1890](https://github.com/atinc/ngx-tethys/issues/1890)) ([35bf07d](https://github.com/atinc/ngx-tethys/commit/35bf07de2e5c7eafb99fbd09f1e7790f28a021df)), closes [#INFR-3563](https://github.com/atinc/ngx-tethys/issues/INFR-3563)
+* **table:** update $table-boxed-border-radius to 4px ([#1892](https://github.com/atinc/ngx-tethys/issues/1892)) ([c2441be](https://github.com/atinc/ngx-tethys/commit/c2441be802789aa353028b17659bd1403f97fe72))
+
+
+### Features
+
+* **action:** add thyHoverIcon support hover switch diff icon and add thyIcon, thyActive instead of thyActionIcon, thyActionActive #INFR-3569 ([02d816a](https://github.com/atinc/ngx-tethys/commit/02d816a77975690a16e2db29fbc05fe9c89baf1e)), closes [#INFR-3569](https://github.com/atinc/ngx-tethys/issues/INFR-3569)
+* **dropdown:** update default value of placement to bottomLeft and fix some test cases #INFR-3580 ([#1894](https://github.com/atinc/ngx-tethys/issues/1894)) ([7f7452a](https://github.com/atinc/ngx-tethys/commit/7f7452a007b4d4829a9ab906433143720e847b38)), closes [#INFR-3580](https://github.com/atinc/ngx-tethys/issues/INFR-3580)
+
+
+
 # [13.1.0-next.29](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.28...13.1.0-next.29) (2022-06-17)
 
 
