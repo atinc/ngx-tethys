@@ -55,7 +55,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottom", width: "240px", insideClosable: true, minWidth: "240px" }`
-     * @default { placement: "bottom", width: "240px", insideClosable: true: minWidth: "240px" }
+     * @default { placement: "bottomLeft", width: "240px", insideClosable: true: minWidth: "240px" }
      */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
@@ -92,7 +92,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         }
 
         const { placement, width, height, insideClosable, minWidth } = Object.assign(
-            { placement: 'bottom', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
+            { placement: 'bottomLeft', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
             this.thyPopoverOptions
         );
         const config: ThyPopoverConfig = {
