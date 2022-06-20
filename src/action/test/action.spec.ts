@@ -7,11 +7,12 @@ import { By } from '@angular/platform-browser';
 @Component({
     selector: 'thy-test-action-basic',
     template: `
-        <a id="default" thyAction thyActionIcon="inbox"></a>
-        <a id="with-text" thyAction thyActionIcon="inbox">Inbox</a>
-        <a id="with-active" thyAction thyActionActive="true" thyActionIcon="inbox"></a>
-        <a id="with-type" thyAction thyType="danger" thyActionIcon="inbox"></a>
-        <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyActionIcon="inbox"></a>
+        <a id="default" thyAction thyIcon="inbox"></a>
+        <a id="with-text" thyAction thyIcon="inbox">Inbox</a>
+        <a id="with-active" thyAction thyActive="true" thyIcon="inbox"></a>
+        <a id="with-type" thyAction thyType="danger" thyIcon="inbox"></a>
+        <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyIcon="inbox"></a>
+        <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
     `
 })
 class ThyActionTestBasicComponent {}
@@ -84,5 +85,19 @@ describe('thy-action', () => {
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
         expect(actionDebugElement.nativeElement.classList.contains('action-danger')).toBeTruthy();
         expect(actionDebugElement.nativeElement.classList.contains('thy-action-lite')).toBeTruthy();
+    });
+
+    it('should create with hover icon', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-hover-icon'));
+        expect(fixture.componentInstance).toBeTruthy();
+        expect(actionDebugElement.componentInstance).toBeTruthy();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
+        expect(actionDebugElement.nativeElement.classList.contains('thy-action-hover-icon')).toBeTruthy();
+        const actionElement: HTMLElement = actionDebugElement.nativeElement;
+        const hoverIcon = actionElement.querySelector('.hover-icon');
+        expect(hoverIcon).toBeTruthy();
+        expect(hoverIcon.classList.contains('hover-icon')).toBeTruthy();
+        expect(hoverIcon.classList.contains('thy-icon')).toBeTruthy();
+        expect(hoverIcon.classList.contains('thy-icon-search')).toBeTruthy();
     });
 });

@@ -53,3 +53,8 @@ import { ThyActionModule } from "ngx-tethys/action";
 展示效果：
 <example name="thy-action-type-example"/>
 
+
+## Hover 图标
+
+展示效果:
+<example name="thy-action-hover-example" />
