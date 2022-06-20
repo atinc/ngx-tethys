@@ -66,6 +66,7 @@ $line-height-xs: 1.5 !default;
 $border-radius: 0.25rem !default;
 $border-radius-lg: 0.3rem !default;
 $border-radius-sm: 0.2rem !default;
+$border-color: $gray-200 !default;
 
 $enable-gradients: false !default;
 $enable-shadows: true !default;
@@ -79,7 +80,7 @@ $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-x: 4px !default;
 // box shadow
-$box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
+$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 
 // icon
 $icon-vertical-align: -0.16em !default;
