@@ -12,7 +12,7 @@ module.exports = [
             },
             {
                 name: 'thyType',
-                description: `和\`thyButton\`参与一样，一般使用\`thyButton\`，为了减少参数输入, 当通过\`thy-button\`使用时，只能使用该参数控制类型`,
+                description: `和\`thyButton\`参数一样，一般使用\`thyButton\`，为了减少参数输入, 当通过\`thy-button\`使用时，只能使用该参数控制类型`,
                 type: 'string',
                 default: 'primary'
             },
