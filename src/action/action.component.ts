@@ -108,6 +108,10 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
         }
     }
 
+    setMarginRight(marginRight: string) {
+        this.elementRef.nativeElement.style.marginRight = marginRight;
+    }
+
     private wrapSpanForText(nodes: NodeList): void {
         nodes.forEach(node => {
             if (node.nodeName === '#text') {
