@@ -1,3 +1,4 @@
+import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -7,7 +8,8 @@ import {
     OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges
+    SimpleChanges,
+    HostBinding
 } from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 
@@ -28,6 +30,8 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
     }
 })
 export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
+    @HostBinding('class.disabled') disabled = false;
+
     icon: string;
 
     private active = false;
@@ -85,6 +89,14 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
      * Hover 展示的图标
      */
     @Input() thyHoverIcon: string;
+
+    /**
+     * 是否处于禁用状态
+     */
+    @Input()
+    set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,

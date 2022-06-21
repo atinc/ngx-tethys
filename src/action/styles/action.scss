@@ -27,8 +27,9 @@
 
     // Disabled state lightens text
     &.disabled {
-        color: variables.$action-disabled-color;
+        color: variables.$action-color;
         border-bottom: none;
+        opacity: 0.5;
     }
 
     .thy-icon {
