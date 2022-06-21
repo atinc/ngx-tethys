@@ -16,6 +16,7 @@ import {
     QueryList,
     TemplateRef
 } from '@angular/core';
+import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
 
 /**
  * 间距组件项，使用结构性指令 *thySpaceItem 传入模板
@@ -32,19 +33,7 @@ export class ThySpaceItemDirective implements OnInit {
     ngOnInit(): void {}
 }
 
-type Size = 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' | number;
-
-const SIZE_SPACE_MAP = {
-    zero: 0,
-    xxs: 4,
-    xs: 8,
-    sm: 12,
-    md: 16,
-    lg: 20,
-    xlg: 24
-};
-
-const DEFAULT_SIZE: Size = 'md';
+const DEFAULT_SIZE: ThySpacingSize = 'md';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -61,18 +50,14 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     providers: [UpdateHostClassService]
 })
 export class ThySpaceComponent extends _MixinBase implements OnInit, AfterContentInit {
-    public space: number = SIZE_SPACE_MAP[DEFAULT_SIZE];
+    public space: number = getNumericSize(DEFAULT_SIZE);
 
     /**
      * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
      * @type string | number
      */
-    @Input() set thySize(size: Size) {
-        if (isString(size)) {
-            this.space = SIZE_SPACE_MAP[size] === undefined ? SIZE_SPACE_MAP[DEFAULT_SIZE] : SIZE_SPACE_MAP[size];
-        } else {
-            this.space = size;
-        }
+    @Input() set thySize(size: ThySpacingSize) {
+        this.space = getNumericSize(size, DEFAULT_SIZE);
     }
 
     /**

@@ -65,8 +65,11 @@
 }
 
 @each $color, $value in functions-variables.$theme-colors {
-    .action-#{$color} {
-        @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+    // 默认就是 Primary 无需设置样式，避免覆写 $action-hover-bg-color 颜色失效
+    @if $color != 'primary' {
+        .action-#{$color} {
+            @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+        }
     }
 }
 
@@ -74,4 +77,9 @@
     @include hover.hover-active {
         background: none;
     }
+}
+
+.thy-actions {
+    display: flex;
+    flex-flow: row wrap;
 }
