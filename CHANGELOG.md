@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.31](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.30...13.1.0-next.31) (2022-06-22)
+
+
+### Bug Fixes
+
+* **action:** add thyDisabled param #INFR-3602 ([#1899](https://github.com/atinc/ngx-tethys/issues/1899)) ([bbc49f1](https://github.com/atinc/ngx-tethys/commit/bbc49f1a660cfc2f9f9fb3f32854388fb0377de3)), closes [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602) [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602) [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602)
+* **button:** fix button component api doc text error ([2180814](https://github.com/atinc/ngx-tethys/commit/21808142df58b2dbcbda614c517050150dccacc8))
+* **dropdown:** modify hasBackdrop to always be false #INFR-3615 ([17b88e3](https://github.com/atinc/ngx-tethys/commit/17b88e35017e8f8a31bccfb02e51ee790465ba46)), closes [#INFR-3615](https://github.com/atinc/ngx-tethys/issues/INFR-3615)
+* **dropdown:** update menu item color tp [#333](https://github.com/atinc/ngx-tethys/issues/333) #INFR-3611 ([4ed69cd](https://github.com/atinc/ngx-tethys/commit/4ed69cd43078a91c6406418f41d63c28d065df11)), closes [#INFR-3611](https://github.com/atinc/ngx-tethys/issues/INFR-3611)
+* **form:** fix form component tab keydown event focus error #INFR-3571 ([#1895](https://github.com/atinc/ngx-tethys/issues/1895)) ([c6f41a6](https://github.com/atinc/ngx-tethys/commit/c6f41a66129317e2d7d24c72f7a4e2f64c211e70)), closes [#INFR-3571](https://github.com/atinc/ngx-tethys/issues/INFR-3571)
+
+
+### Features
+
+* **action:** add thy-actions convenient for multiple actions usage #INFR-3588 ([78a940e](https://github.com/atinc/ngx-tethys/commit/78a940e12b969723fc354ff35c10cf8b38eea56f)), closes [#INFR-3588](https://github.com/atinc/ngx-tethys/issues/INFR-3588)
+* **layout:** add titleTemplateRef at sidebar-header (#INFR-3460) ([#1901](https://github.com/atinc/ngx-tethys/issues/1901)) ([bf58915](https://github.com/atinc/ngx-tethys/commit/bf589158473d97b4dad555642055a0aa05c4ab26)), closes [#INFR-3460](https://github.com/atinc/ngx-tethys/issues/INFR-3460) [#INFR-3460](https://github.com/atinc/ngx-tethys/issues/INFR-3460)
+
+
+
 # [13.1.0-next.30](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.29...13.1.0-next.30) (2022-06-20)
 
 
