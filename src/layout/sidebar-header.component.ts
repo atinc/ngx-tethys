@@ -17,6 +17,9 @@ export class ThySidebarHeaderComponent implements OnInit {
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<unknown>;
 
+    @ContentChild('headerTitle')
+    public titleTemplateRef: TemplateRef<any>;
+
     @Input() @InputBoolean() thyDivided: boolean | string;
 
     constructor() {}

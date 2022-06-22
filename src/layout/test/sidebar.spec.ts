@@ -64,10 +64,26 @@ class ThyDemoLayoutSidebarBasicComponent {
     }
 }
 
+@Component({
+    selector: 'thy-demo-layout-custom-sidebar',
+    template: `
+        <thy-layout>
+            <thy-sidebar>
+                <thy-sidebar-header>
+                    <ng-template #headerTitle>My Custom Sidebar Header Title</ng-template>
+                    <ng-template #headerOperation>My Custom Sidebar Header Operation</ng-template>
+                </thy-sidebar-header>
+            </thy-sidebar>
+            <thy-content>Yeah, I am content</thy-content>
+        </thy-layout>
+    `
+})
+class ThyDemoLayoutCustomSidebarComponent {}
+
 describe(`sidebar`, () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDemoLayoutSidebarBasicComponent],
+            declarations: [ThyDemoLayoutSidebarBasicComponent, ThyDemoLayoutCustomSidebarComponent],
             imports: [ThyLayoutModule],
             providers: [bypassSanitizeProvider]
         });
@@ -274,5 +290,43 @@ describe(`sidebar`, () => {
             expect(sidebarElement.style.width).toEqual('100px');
             flush();
         }));
+    });
+
+    describe('custom-sidebar', () => {
+        let fixture: ComponentFixture<ThyDemoLayoutCustomSidebarComponent>;
+        let layoutDebugElement: DebugElement;
+        let layoutElement: HTMLElement;
+        let sidebarDebugElement: DebugElement;
+        let sidebarElement: HTMLElement;
+        let sidebarHeaderDebugElement: DebugElement;
+        let sidebarHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoLayoutCustomSidebarComponent);
+            fixture.detectChanges();
+            layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutComponent));
+            layoutElement = layoutDebugElement.nativeElement;
+            sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebarComponent));
+            sidebarElement = sidebarDebugElement.nativeElement;
+            sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeaderComponent));
+            sidebarHeaderElement = sidebarHeaderDebugElement.nativeElement;
+        });
+
+        it(`should get correct class`, () => {
+            expect(layoutElement.classList.contains(`thy-layout`)).toEqual(true);
+            expect(layoutElement.classList.contains(`thy-layout--has-sidebar`)).toEqual(true);
+            expect(sidebarElement.classList.contains(`thy-layout-sidebar`)).toEqual(true);
+        });
+
+        it(`should get correct custom sidebar template`, () => {
+            const sidebarHeaderTitle = sidebarHeaderElement.querySelector(`.title`);
+            const sidebarHeaderOperation = sidebarHeaderElement.querySelector('.operation');
+
+            expect(sidebarHeaderTitle).toBeTruthy();
+            expect(sidebarHeaderOperation).toBeTruthy();
+
+            expect(sidebarHeaderTitle.innerHTML).toContain('My Custom Sidebar Header Title');
+            expect(sidebarHeaderOperation.innerHTML).toContain('My Custom Sidebar Header Operation');
+        });
     });
 });

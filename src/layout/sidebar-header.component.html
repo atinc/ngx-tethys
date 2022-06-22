@@ -1,4 +1,9 @@
-<span class="title">{{ thyTitle }}</span>
+<span class="title">
+  <ng-template [ngTemplateOutlet]="titleTemplateRef"></ng-template>
+  <ng-container *ngIf="!titleTemplateRef">
+    {{ thyTitle }}
+  </ng-container>
+</span>
 
 <div class="operation">
   <ng-template [ngTemplateOutlet]="operationTemplateRef"></ng-template>
