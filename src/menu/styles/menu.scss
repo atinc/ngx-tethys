@@ -167,10 +167,10 @@
                 }
             }
         }
-        .thy-divider {
+        .thy-divider.thy-divider-horizontal {
             margin: 0;
         }
-        .thy-divider + .thy-menu-item {
+        .thy-divider.thy-divider-horizontal + .thy-menu-item {
             margin-top: 12px;
         }
     }

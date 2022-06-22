@@ -13,6 +13,7 @@ import { By } from '@angular/platform-browser';
         <a id="with-type" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
+        <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
     `
 })
 class ThyActionTestBasicComponent {}
@@ -68,6 +69,13 @@ describe('thy-action', () => {
         expect(actionDebugElement.componentInstance).toBeTruthy();
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
         expect(actionDebugElement.nativeElement.classList.contains('active')).toBeTruthy();
+    });
+
+    it('should disabled', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-text-disabled'));
+        expect(fixture.componentInstance).toBeTruthy();
+        expect(actionDebugElement.componentInstance).toBeTruthy();
+        expect(actionDebugElement.nativeElement.classList.contains('disabled')).toBeTruthy();
     });
 
     it('should create with type', () => {

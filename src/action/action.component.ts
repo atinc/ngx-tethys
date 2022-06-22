@@ -7,7 +7,8 @@ import {
     OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges
+    SimpleChanges,
+    HostBinding
 } from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 
@@ -24,7 +25,8 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
     host: {
         class: 'thy-action',
         '[class.active]': 'active',
-        '[class.thy-action-hover-icon]': 'thyHoverIcon'
+        '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.disabled]': 'thyDisabled'
     }
 })
 export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
@@ -85,6 +87,13 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
      * Hover 展示的图标
      */
     @Input() thyHoverIcon: string;
+
+    /**
+     * 是否处于禁用状态
+     */
+    @Input()
+    @InputBoolean()
+    thyDisabled: boolean;
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
