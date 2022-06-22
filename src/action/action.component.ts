@@ -1,4 +1,3 @@
-import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import {
     ChangeDetectionStrategy,
     Component,
@@ -26,12 +25,11 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
     host: {
         class: 'thy-action',
         '[class.active]': 'active',
-        '[class.thy-action-hover-icon]': 'thyHoverIcon'
+        '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.disabled]': 'thyDisabled'
     }
 })
 export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
-    @HostBinding('class.disabled') disabled = false;
-
     icon: string;
 
     private active = false;
@@ -94,9 +92,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
      * 是否处于禁用状态
      */
     @Input()
-    set thyDisabled(value: boolean) {
-        this.disabled = coerceBooleanProperty(value);
-    }
+    @InputBoolean()
+    thyDisabled: boolean;
 
     constructor(
         private elementRef: ElementRef<HTMLElement>,
