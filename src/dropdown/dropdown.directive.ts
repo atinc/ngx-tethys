@@ -97,13 +97,14 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         );
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
-            hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
+            hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,
             panelClass: 'thy-dropdown-pane',
             placement,
             width,
             height,
+            outsideClosable: true,
             insideClosable,
             minWidth,
             originActiveClass: this.thyActiveClass

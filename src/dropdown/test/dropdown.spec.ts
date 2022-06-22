@@ -120,15 +120,15 @@ describe('basic dropdown', () => {
         assertOverlayShow();
     }));
 
-    it('should has backdrop when trigger is click or focus', fakeAsync(() => {
+    it('should always have no backdrop', fakeAsync(() => {
         [
             {
                 trigger: 'click',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'focus',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'hover',
@@ -316,6 +316,7 @@ describe('dropdown menu', () => {
         dropdown.show();
         tick();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         expect(dropdownMenuElement).toBeTruthy();
 
         const dropdownMenuDivider = dropdownMenuElement.querySelector('thy-dropdown-menu-divider');
@@ -338,6 +339,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         expect(dropdownMenuElement.style.width).toEqual('100px');
     }));
 
@@ -374,6 +376,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
         expect(menuItem.classList.contains('dropdown-menu-item--disabled')).toBeTruthy();
 
@@ -386,6 +389,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
         expect(menuItem.classList.contains('active')).toBeFalsy();
         fixture.componentInstance.active = true;
@@ -736,6 +740,7 @@ describe('dropdown-component', () => {
         tick(200);
         fixture.detectChanges();
         const customMenu = overlayContainerElement.querySelector('thy-dropdown-custom-menu');
+        tick();
         expect(customMenu).toBeTruthy();
         expect(customMenu.classList.contains('thy-dropdown-menu')).toBeTruthy();
         expect(customMenu.textContent).toContain('Custom Menu Item1');
@@ -842,7 +847,7 @@ describe('dropdown options', () => {
                     width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
-                    hasBackdrop: true,
+                    hasBackdrop: false,
                     offset: 0,
                     originActiveClass: 'thy-dropdown-origin-active'
                 })
@@ -859,7 +864,7 @@ describe('dropdown options', () => {
                     width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
-                    hasBackdrop: true,
+                    hasBackdrop: false,
                     offset: 0,
                     originActiveClass: 'active'
                 })
@@ -896,7 +901,7 @@ describe('dropdown options', () => {
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    hasBackdrop: true,
+                    hasBackdrop: false,
                     offset: 0,
                     panelClass: 'thy-dropdown-pane'
                 })
