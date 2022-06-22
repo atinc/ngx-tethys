@@ -120,15 +120,15 @@ describe('basic dropdown', () => {
         assertOverlayShow();
     }));
 
-    it('should has backdrop when trigger is click or focus', fakeAsync(() => {
+    it('should always have no backdrop', fakeAsync(() => {
         [
             {
                 trigger: 'click',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'focus',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'hover',
