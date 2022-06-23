@@ -63,7 +63,7 @@
   "ButtonGroupSize": "button",
   "ButtonGroupType": "button",
   "ThyButtonGroupComponent": "button",
-  "IconShape": "button",
+  "ThyButtonIconShape": "button",
   "ThyButtonIconComponent": "button",
   "ThyButtonType": "button",
   "ThyButtonComponent": "button",
