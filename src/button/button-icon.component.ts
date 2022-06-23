@@ -3,7 +3,15 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-export type IconShape = '' | 'dashed' | 'solid';
+export type IconShape =
+    | ''
+    | 'dashed'
+    | 'solid'
+    | 'circle-dashed'
+    | 'circle-solid'
+    | 'circle-thick-dashed'
+    | 'circle-thick-solid'
+    | 'self-icon';
 
 const sizeClassesMap = {
     lg: ['btn-icon-lg'],
