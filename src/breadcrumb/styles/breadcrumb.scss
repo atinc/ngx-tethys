@@ -1,4 +1,5 @@
 @use "../../styles/mixins/link";
+@use "../../styles/mixins/icon-text.scss";
 @use "../../styles/variables";
 
 .thy-breadcrumb {
@@ -16,12 +17,8 @@
         color: variables.$breadcrumb-text-color;
         a {
             @include link.link-variant(variables.$breadcrumb-text-color, none, variables.$primary, none);
-            .thy-icon:first-child {
-                margin-right: 4px;
-            }
-            .thy-icon:last-child {
-                margin-left: 4px;
-            }
+            @include icon-text.icon-text-variant(variables.$breadcrumb-text-color, variables.$primary);
+            @include icon-text.icon-text-size(8px, 4px);
         }
         &:last-child {
             color: variables.$breadcrumb-active-color;
