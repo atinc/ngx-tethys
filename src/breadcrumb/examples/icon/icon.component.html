@@ -1,9 +1,28 @@
 <thy-breadcrumb thyIcon="house">
   <thy-breadcrumb-item><span>Home</span></thy-breadcrumb-item>
   <thy-breadcrumb-item>
-    <a href="javascript:;"><thy-icon thyIconName="application"></thy-icon>Applications</a>
+    <a href="javascript:;"><thy-icon thyIconName="version"></thy-icon><span>Applications</span></a>
   </thy-breadcrumb-item>
   <thy-breadcrumb-item>
-    <a href="javascript:;"><span> Application 1</span><thy-icon thyIconName="angle-down"></thy-icon></a>
+    <a href="javascript:;"><span>Application 1</span><thy-icon thyIconName="angle-down"></thy-icon></a>
   </thy-breadcrumb-item>
 </thy-breadcrumb>
+
+<thy-breadcrumb>
+  <thy-breadcrumb-item>
+    <a href="javascript:;"><thy-icon thyIconName="house"></thy-icon><span>Home</span></a>
+  </thy-breadcrumb-item>
+  <thy-breadcrumb-item>
+    <a href="javascript:;"><thy-icon thyIconName="version"></thy-icon><span>Applications</span></a>
+  </thy-breadcrumb-item>
+  <thy-breadcrumb-item>
+    <a href="javascript:;" [thyDropdown]="menu" thyActiveClass="active"
+      ><span>Application 1</span><thy-icon thyIconName="angle-down"></thy-icon
+    ></a>
+  </thy-breadcrumb-item>
+</thy-breadcrumb>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">Menu 1</a>
+  <a thyDropdownMenuItem href="javascript:;">Menu 2</a>
+</thy-dropdown-menu>
