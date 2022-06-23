@@ -3,15 +3,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
-export type IconShape =
-    | ''
-    | 'dashed'
-    | 'solid'
-    | 'circle-dashed'
-    | 'circle-solid'
-    | 'circle-thick-dashed'
-    | 'circle-thick-solid'
-    | 'self-icon';
+export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
 const sizeClassesMap = {
     lg: ['btn-icon-lg'],
@@ -57,7 +49,7 @@ export class ThyButtonIconComponent implements OnInit {
     }
 
     @Input()
-    set thyShape(value: IconShape) {
+    set thyShape(value: ThyButtonIconShape) {
         this.shape = value;
         this.setClasses();
     }
@@ -83,7 +75,7 @@ export class ThyButtonIconComponent implements OnInit {
     }
     private initialized = false;
 
-    private shape: IconShape;
+    private shape: ThyButtonIconShape;
 
     private size: string;
 

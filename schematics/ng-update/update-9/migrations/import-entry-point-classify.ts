@@ -63,7 +63,7 @@ const NAME_PACKAGE_RELATION = {
     buttonGroupSize: 'button',
     buttonGroupType: 'button',
     ThyButtonGroupComponent: 'button',
-    IconShape: 'button',
+    ThyButtonIconShape: 'button',
     ThyButtonIconComponent: 'button',
     ThyButtonType: 'button',
     ThyButtonComponent: 'button',
