@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.32](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.31...13.1.0-next.32) (2022-06-24)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update icon color of last child to [#999](https://github.com/atinc/ngx-tethys/issues/999) and link with icon space to 8px #INFR-3638 ([48ec512](https://github.com/atinc/ngx-tethys/commit/48ec5127c87c07a166a7e0cb0de84b4e5483f627)), closes [#INFR-3638](https://github.com/atinc/ngx-tethys/issues/INFR-3638)
+* **button:** rename IncoShape and sync type define from shapeClassesMap ([#1906](https://github.com/atinc/ngx-tethys/issues/1906)) ([5776d87](https://github.com/atinc/ngx-tethys/commit/5776d87bee5c62e94c2af9d3e8ca8cbccf008f7b))
+
+
+### Features
+
+* **table:** set table operation column align left ([773c48f](https://github.com/atinc/ngx-tethys/commit/773c48f3b6860a534ee681e9c0dc1ddc670885b9))
+
+
+
 # [13.1.0-next.31](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.30...13.1.0-next.31) (2022-06-22)
 
 
