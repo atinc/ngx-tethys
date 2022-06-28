@@ -6,7 +6,8 @@ import { Component, HostBinding, OnInit } from '@angular/core';
     styleUrls: ['./theme.component.scss']
 })
 export class ThyMenuThemeExampleComponent implements OnInit {
-    @HostBinding('class.thy-menu-theme-example') menuTheme = true;
+    theme: string = 'loose';
+
     constructor() {}
 
     coll: boolean;

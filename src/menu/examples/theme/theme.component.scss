@@ -1,23 +1,28 @@
 @use 'variables.scss' as variables2;
 
-:host.thy-menu-theme-example {
-    display: flex;
-    justify-content: space-around;
-    .demo-menu-container {
-        width: 240px;
-        border-radius: 1px solid #eee;
-        .group-action {
-            margin-right: 15px;
-        }
-        .content-title {
-            flex: 1;
-        }
-        .title {
-            color: variables2.$gray-700;
-            margin-right: 8px;
-            &.testhub {
-                font-size: 15px;
-                color: variables2.$gray-800;
+:host {
+    .demo-menu-theme-body {
+        margin-top: 20px;
+        display: flex;
+        .demo-menu-container {
+            padding: 10px 0;
+            width: 240px;
+            margin-right: 30px;
+            border-radius: 1px solid #eee;
+            border: 1px solid #eee;
+            .group-action {
+                margin-right: 15px;
+            }
+            .content-title {
+                flex: 1;
+            }
+            .title {
+                color: variables2.$gray-700;
+                margin-right: 8px;
+                &.testhub {
+                    font-size: 15px;
+                    color: variables2.$gray-800;
+                }
             }
         }
     }
