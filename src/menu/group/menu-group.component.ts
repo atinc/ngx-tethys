@@ -58,10 +58,6 @@ export class ThyMenuGroupComponent implements OnInit {
 
     public groupHeaderPaddingLeft = 0;
 
-    get menuTheme(): ThyMenuTheme {
-        return this.parent?.thyTheme;
-    }
-
     @ViewChild('thyMenuGroup', { static: true }) _thyMenuGroup: ElementRef;
 
     @ContentChild('headerContent')

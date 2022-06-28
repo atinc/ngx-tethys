@@ -148,6 +148,13 @@ describe('ThyMenu', () => {
             expect(menu.nativeElement.classList.contains('menu-theme-loose')).toBeTruthy();
         });
 
+        it('should set theme dark', () => {
+            fixture.debugElement.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('menu-theme-dark')).toBeTruthy();
+        });
+
         it('should get default item', () => {
             const defaultItem = fixture.debugElement.query(By.css('#default-item'));
             expect(defaultItem).toBeTruthy();

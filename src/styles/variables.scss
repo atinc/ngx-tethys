@@ -40,6 +40,7 @@ $pass: #2cccda !default;
 $secondary-item-active: rgba($primary, 0.1) !default;
 $item-active-bg-color: rgba($primary, 0.1) !default;
 $light: $gray-300 !default;
+$dark: #48525c !default;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
@@ -756,7 +757,7 @@ $breadcrumb-text-color: $gray-600 !default;
 $breadcrumb-active-color: $gray-800 !default;
 
 // thyMenu
-$menu-height: 42px !default;
+$menu-height: 40px !default;
 $menu-shadow: 0 0 8px 2px $gray-200 !default;
 $menu-item-padding: 0 20px !default;
 $menu-group-header-padding: 0 1020px !default;
@@ -764,6 +765,11 @@ $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
 $menu-loose-item-padding: 0 12px 0 20px !default;
 $menu-loose-item-border-radius: 4px !default;
+$menu-theme-dark-color: $gray-300 !default; // #ddd
+$menu-theme-dark-hover-color: $gray-300 !default;
+$menu-theme-dark-bg-color: $dark !default;
+$menu-theme-dark-hover-bg-color: #39414c !default;
+$menu-theme-dark-divider-color: $gray-700 !default; //#666
 
 // editable
 $editable-border-color: $gray-200 !default;
