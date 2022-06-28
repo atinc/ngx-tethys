@@ -8,7 +8,9 @@
         &:not(.dropdown-menu-sub-item) {
             color: $color;
         }
-        & > .icon {
+        & > .icon,
+        &,
+        .thy-icon {
             color: $color;
         }
     }
