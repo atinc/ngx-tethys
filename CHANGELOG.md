@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.34](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.33...13.1.0-next.34) (2022-06-29)
+
+
+### Features
+
+* **slide:** update slide box-shadow and update height of slide-header and sidebar-header to 48px #box-shadow ([#1916](https://github.com/atinc/ngx-tethys/issues/1916)) ([3653a1e](https://github.com/atinc/ngx-tethys/commit/3653a1e15ec9484301b16e9af22c1cc54e18f7ca))
+
+
+
 # [13.1.0-next.33](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.32...13.1.0-next.33) (2022-06-29)
 
 
