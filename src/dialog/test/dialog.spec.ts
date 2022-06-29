@@ -1051,12 +1051,12 @@ describe('ThyDialog', () => {
             expect(overlayContainerElement.querySelector('.dialog-max-lg')).toBeTruthy();
         });
 
-        it('should have panel class dialog-supper-lg', () => {
+        it('should have panel class dialog-super-lg', () => {
             dialog.open(DialogSimpleContentComponent, {
-                size: ThyDialogSizes.supperLg
+                size: ThyDialogSizes.superLg
             });
             viewContainerFixture.detectChanges();
-            expect(overlayContainerElement.querySelector('.dialog-supper-lg')).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.dialog-super-lg')).toBeTruthy();
         });
     });
 

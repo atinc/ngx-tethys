@@ -173,11 +173,12 @@
 }
 
 // supper lg
-.dialog-supper-lg {
-    width: variables.$dialog-supper-lg-width;
-    height: variables.$dialog-supper-lg-height;
-    max-width: variables.$dialog-supper-lg-max-width;
-    max-height: variables.$dialog-supper-lg-max-height;
+.dialog-supper-lg,
+.dialog-super-lg {
+    width: variables.$dialog-super-lg-width;
+    height: variables.$dialog-super-lg-height;
+    max-width: variables.$dialog-super-lg-max-width;
+    max-height: variables.$dialog-super-lg-max-height;
 }
 
 .thy-confirm-footer {

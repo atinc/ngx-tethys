@@ -29,7 +29,7 @@ export class ThyDialogSizeExampleComponent implements OnInit {
             width: '980px'
         },
         {
-            value: 'supperLg',
+            value: 'superLg',
             width: '94vw'
         },
         {
