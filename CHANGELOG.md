@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.33](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.32...13.1.0-next.33) (2022-06-29)
+
+
+### Bug Fixes
+
+* **dialog:** modify supperLg to superLg #INFR-3685 ([#1912](https://github.com/atinc/ngx-tethys/issues/1912)) ([41230e6](https://github.com/atinc/ngx-tethys/commit/41230e606073c84c2e1ac32ed8a22e66f3588b62)), closes [#INFR-3685](https://github.com/atinc/ngx-tethys/issues/INFR-3685)
+* **dropdown:** fix hover icon color to dropdown(#INFR-3657) ([#1910](https://github.com/atinc/ngx-tethys/issues/1910)) ([6c595da](https://github.com/atinc/ngx-tethys/commit/6c595da64cbc1a71272cb5f8d4bfeab987132a71)), closes [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657) [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657) [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657)
+
+
+### Features
+
+* **calendar:** replace calander cell box shadow #INFR-3654 ([#1911](https://github.com/atinc/ngx-tethys/issues/1911)) ([104db8b](https://github.com/atinc/ngx-tethys/commit/104db8bf58469d1494410b06ab1ed8e3c79f70e6)), closes [#INFR-3654](https://github.com/atinc/ngx-tethys/issues/INFR-3654)
+* **menu:** add dark theme #INFR-3675 ([a6f6c25](https://github.com/atinc/ngx-tethys/commit/a6f6c25d1c1368084bcb9c407439922ef0a00fe8)), closes [#INFR-3675](https://github.com/atinc/ngx-tethys/issues/INFR-3675)
+* **menu:** add thyCollapsed for thy-menu component #INFR-3676 ([63e1449](https://github.com/atinc/ngx-tethys/commit/63e14496184e42686d28e2e5ba3592aab7dea661)), closes [#INFR-3676](https://github.com/atinc/ngx-tethys/issues/INFR-3676)
+
+
+
 # [13.1.0-next.32](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.31...13.1.0-next.32) (2022-06-24)
 
 
