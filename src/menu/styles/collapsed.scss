@@ -1,0 +1,27 @@
+@use '../../styles/variables.scss';
+
+@mixin menu-collapsed {
+    &-collapsed {
+        width: variables.$menu-collapsed-width;
+        .thy-menu-group {
+            display: none;
+        }
+        .thy-menu-item {
+            .thy-menu-item-content {
+                min-height: unset;
+                height: variables.$menu-collapsed-height;
+                > * {
+                    display: none;
+                }
+
+                > .thy-menu-item-icon {
+                    display: inline-block;
+                    font-size: variables.$menu-collapsed-icon-size;
+                    .thy-icon {
+                        font-size: variables.$menu-collapsed-icon-size;
+                    }
+                }
+            }
+        }
+    }
+}

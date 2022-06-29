@@ -18,13 +18,13 @@ import { ThyMenuModule } from '../menu.module';
 import { ThyDividerModule } from '../../divider';
 
 @Component({
-    selector: 'thy-demo-thy-menu',
+    selector: 'thy-demo-menu',
     template: `
         <thy-menu [thyTheme]="theme">
             <thy-menu-group
                 thyTitle="工作"
                 [thyExpand]="true"
-                [thyCollapsible]="thyCollapsible"
+                [thyCollapsible]="collapsible"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
@@ -72,15 +72,15 @@ class ThyDemoMenuComponent {
     @ViewChild(ThyMenuItemNameComponent, { static: true }) name: ThyMenuItemNameComponent;
 
     theme = 'default';
+    collapsible = true;
 
-    thyCollapsible = true;
     click() {}
 }
 
 @Component({
     selector: 'thy-menu-test-basic',
     template: `
-        <thy-menu [thyTheme]="theme">
+        <thy-menu [thyTheme]="theme" [thyCollapsed]="collapsed">
             <a id="default-item" thyMenuItem href="javascript:;">
                 Default Item
             </a>
@@ -100,6 +100,7 @@ class ThyDemoMenuComponent {
 })
 class ThyMenuTestBasicComponent {
     theme: ThyMenuTheme = undefined;
+    collapsed = false;
 }
 
 describe('ThyMenu', () => {
@@ -145,14 +146,21 @@ describe('ThyMenu', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
             fixture.detectChanges();
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('menu-theme-loose')).toBeTruthy();
+            expect(menu.nativeElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
         });
 
         it('should set theme dark', () => {
             fixture.debugElement.componentInstance.theme = 'dark';
             fixture.detectChanges();
             const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('menu-theme-dark')).toBeTruthy();
+            expect(menu.nativeElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should set collapsed success', () => {
+            fixture.debugElement.componentInstance.collapsed = true;
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('thy-menu-collapsed')).toBeTruthy();
         });
 
         it('should get default item', () => {
@@ -207,9 +215,9 @@ describe('ThyMenu', () => {
             expect(group.nativeElement.classList.contains('thy-menu-group')).toBeTruthy();
         });
 
-        it('should thyCollapsible worked', () => {
+        it('should collapsible worked', () => {
             fixture.debugElement.componentInstance.theme = 'loose';
-            fixture.debugElement.componentInstance.thyCollapsible = false;
+            fixture.debugElement.componentInstance.collapsible = false;
             fixture.detectChanges();
             expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
             const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
