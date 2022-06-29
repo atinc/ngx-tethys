@@ -26,6 +26,7 @@
 
 .thy-nav-pulled {
     .thy-nav-item {
+        height: variables.$nav-height;
         @include mixin.nav-item-size(
             variables.$nav-item-padding-y variables.$nav-item-padding-x,
             variables.$nav-item-right,
@@ -36,10 +37,22 @@
 
     &.thy-nav-lg {
         .thy-nav-item {
+            height: variables.$nav-height-lg;
             @include mixin.nav-item-size(
                 variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
                 variables.$nav-item-right-lg,
                 variables.$nav-item-font-size-lg
+            );
+        }
+    }
+
+    &.thy-nav-sm {
+        .thy-nav-item {
+            height: variables.$nav-height-sm;
+            @include mixin.nav-item-size(
+                variables.$nav-item-padding-y-sm variables.$nav-item-padding-x-sm,
+                variables.$nav-item-right-sm,
+                variables.$nav-item-font-size-sm
             );
         }
     }

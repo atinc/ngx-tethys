@@ -1,6 +1,7 @@
 @use "../../styles/variables";
+@use "sass:map";
 
-$slide-border-color: variables.$slide-border-color !default;
+$directions: (('left', 'right'), ('right', 'left'), ('top', 'bottom'), ('bottom', 'top'));
 
 .thy-slide-backdrop {
     background: none;
@@ -15,16 +16,13 @@ $slide-border-color: variables.$slide-border-color !default;
         right: 0;
     }
 
-    &.thy-slide-left {
-        left: 0;
-    }
-
-    &.thy-slide-top {
-        top: 0;
-    }
-
-    &.thy-slide-bottom {
-        bottom: 0;
+    @each $direction, $reverse in $directions {
+        &.thy-slide-#{$direction} {
+            #{$direction}: 0;
+            .thy-slide-container {
+                border-#{$reverse}: 1px solid variables.$slide-border-color;
+            }
+        }
     }
 }
 
@@ -40,10 +38,10 @@ $slide-border-color: variables.$slide-border-color !default;
         box-shadow: variables.$slide-box-shadow;
     }
     &.thy-slide-side {
-        border: solid 1px $slide-border-color;
+        border: solid 1px variables.$slide-border-color;
     }
     &.thy-slide-push {
-        border: solid 1px $slide-border-color;
+        border: solid 1px variables.$slide-border-color;
     }
 }
 
@@ -52,7 +50,7 @@ $slide-border-color: variables.$slide-border-color !default;
 }
 
 .thy-slide {
-    width: 350px;
+    width: variables.$slide-width;
 }
 
 .thy-slide-side-drawer-container {
@@ -82,7 +80,7 @@ $slide-border-color: variables.$slide-border-color !default;
 
         .thy-slide-header-title {
             color: variables.$gray-800;
-            font-size: variables.$font-size-md;
+            font-size: variables.$slide-header-title-font-size;
             line-height: 1.25rem;
             font-weight: normal;
             margin-bottom: 0;
@@ -96,8 +94,8 @@ $slide-border-color: variables.$slide-border-color !default;
         .close {
             outline: none;
             @if variables.$close-pill-enabled {
-                padding: 3px 7px;
-                margin-right: -7px;
+                padding: 3px 8px;
+                margin-right: -8px;
                 &:hover {
                     background: rgba(variables.$primary, 0.1);
                     border-radius: variables.$border-radius;

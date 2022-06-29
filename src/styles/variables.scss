@@ -54,6 +54,8 @@ $font-family-statistics-number: $font-family-base !default;
 $font-size-base: 0.875rem !default; // 14px
 $font-size-lg: 1.25rem !default; // 20px
 $font-size-sm: 0.75rem !default; // 12px
+// 标题字体大小，header Title of card、Layout、Sidebar、Slid
+$font-size-title: 15px;
 
 $text-color: $gray-800 !default;
 $text-color-inverse: $white !default;
@@ -315,8 +317,8 @@ $layout-sidebar-border-color: $gray-200 !default;
 $layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;
 $layout-sidebar-drag-background-active: $primary !default;
-$layout-sidebar-header-height: $layout-header-height !default;
-$layout-sidebar-header-title-font-size: 15px !default;
+$layout-sidebar-header-height: 48px !default;
+$layout-sidebar-header-title-font-size: $font-size-title !default;
 $layout-sidebar-header-padding: $layout-header-padding !default;
 $layout-sidebar-footer-height: 48px !default;
 $layout-content-section-border-radius: 0px !default;
@@ -482,15 +484,23 @@ $nav-border-left: $nav-border-width solid $primary !default;
 $nav-item-font-size: $font-size-base !default;
 // 新的大小
 // md
-$nav-item-padding-y: 0.875rem !default; // 高度 52px, 文字 15px
+$nav-height: $layout-header-height !default;
+$nav-item-padding-y: 0.875rem !default; // 高度 52px,
 $nav-item-padding-x: 0.625rem !default;
 $nav-item-right: 20px !default;
 $nav-item-font-size: 14px !default;
 //lg
+$nav-height-lg: $layout-header-height-lg !default;
 $nav-item-padding-y-lg: 0.9512rem !default; // 高度 56px, 文字 15px
 $nav-item-padding-x-lg: 1rem !default;
 $nav-item-right-lg: 20px !default;
 $nav-item-font-size-lg: 15px !default;
+//sm
+$nav-height-sm: $layout-header-height-sm !default;
+$nav-item-padding-y-sm: 0.6875rem !default; // 高度 48px
+$nav-item-padding-x-sm: 1rem !default;
+$nav-item-right-sm: 20px !default;
+$nav-item-font-size-sm: 14px !default;
 
 $nav-item-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
 $nav-item-primary-padding-x: 1rem !default;
@@ -588,7 +598,7 @@ $card-border-color: $gray-200 !default;
 $card-title-icon-color: $primary !default;
 // change from $gray-700(#888) to $gray-800 (#333) by Terry required
 $card-title-color: $gray-800 !default;
-$card-title-font-size: 15px !default;
+$card-title-font-size: $font-size-title !default;
 $card-title-line-height: 32px !default;
 $card-title-info-color: $gray-500 !default;
 $card-header-divider-color: $gray-200 !default;
@@ -706,9 +716,11 @@ $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
 //Slide
 $slide-bg: $white !default;
+$slide-width: 360px !default;
 $slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
 $slide-z-index: 900 !default;
-$slide-header-height: 45px !default;
+$slide-header-height: 48px !default;
+$slide-header-title-font-size: $font-size-title !default;
 $slide-height-sm: 6px !default;
 $slide-height-md: 10px !default;
 $slide-height-lg: 16px !default;
@@ -719,9 +731,11 @@ $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
 $slide-body-section-padding: 20px !default;
 $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
-$slide-footer-height: 65px !default;
+$slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-$slide-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12) !default;
+$slide-box-shadow: inset 0px 4px 8px 0px #00000008, -4px 0px 12px 4px #00000008 !default;
+// $slide-box-shadow: 6px 0 16px -8px #00000014, 9px 0 28px #0000000d, 12px 0 48px 16px #00000008 !default;
+
 //tree
 $tree-padding: 10px 20px 10px 10px;
 $tree-node-padding: 0 0 0 25px !default;

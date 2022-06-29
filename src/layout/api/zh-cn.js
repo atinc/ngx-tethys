@@ -85,7 +85,7 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: `头部大小，'md' | 'sm' | 'lg'，'md'高度50px，'lg'高度56px，'xlg'高度80px`,
+                description: `头部大小，'md' | 'sm' | 'lg' | 'xlg'`,
                 type: 'string',
                 default: 'md'
             },
