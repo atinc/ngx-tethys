@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding, ElementRef, Input, Host } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
 
@@ -10,13 +11,12 @@ export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
     templateUrl: './menu.component.html',
     host: {
         class: 'thy-menu',
-        '[class.menu-theme-loose]': 'theme === "loose"',
-        '[class.menu-theme-dark]': 'theme === "dark"'
+        '[class.thy-menu-collapsed]': 'thyCollapsed',
+        '[class.thy-menu-theme-loose]': 'theme === "loose"',
+        '[class.thy-menu-theme-dark]': 'theme === "dark"'
     }
 })
 export class ThyMenuComponent implements OnInit {
-    @HostBinding('class.thy-menu') isThyMenu = true;
-
     theme: ThyMenuTheme = 'compact';
 
     /**
@@ -27,9 +27,7 @@ export class ThyMenuComponent implements OnInit {
         this.theme = value;
     }
 
-    get thyTheme() {
-        return this.theme;
-    }
+    @Input() @InputBoolean() thyCollapsed: boolean;
 
     constructor() {}
 

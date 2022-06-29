@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 @use "./theme.scss";
+@use "./collapsed.scss";
 
 .thy-menu {
     position: relative;
@@ -183,4 +184,5 @@
 .thy-menu {
     @include theme.menu-theme-loose();
     @include theme.menu-theme-dark();
+    @include collapsed.menu-collapsed();
 }

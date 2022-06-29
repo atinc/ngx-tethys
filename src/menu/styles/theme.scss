@@ -1,7 +1,7 @@
 @use '../../styles/variables.scss';
 
 @mixin menu-theme-loose {
-    &.menu-theme-loose {
+    &.thy-menu-theme-loose {
         padding: 0px 12px;
         .thy-menu-item,
         .thy-menu-item-content {
@@ -43,7 +43,7 @@
 }
 
 @mixin menu-theme-dark {
-    &.menu-theme-dark {
+    &.thy-menu-theme-dark {
         color: variables.$menu-theme-dark-color;
         background: variables.$menu-theme-dark-bg-color;
 
