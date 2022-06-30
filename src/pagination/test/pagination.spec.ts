@@ -175,11 +175,13 @@ describe('ThyPagination', () => {
             inputElement.value = '4';
             dispatchKeyboardEvent(inputElement, 'keydown', ENTER);
             expect(pagination.pageIndex).toEqual(4);
+            expect(inputElement.value).toEqual('');
 
             inputElement.value = '3';
             dispatchFakeEvent(inputElement, 'blur');
             fixture.detectChanges();
             expect(pagination.pageIndex).toEqual(3);
+            expect(inputElement.value).toEqual('');
         }));
     });
 
