@@ -144,8 +144,6 @@ export class ThyPaginationComponent implements OnInit {
 
     public selectPageSize: Number = 20;
 
-    public inputText: number = null;
-
     @HostBinding('class.thy-pagination') isPaginationClass = true;
 
     // 是否显示范围和total
@@ -287,7 +285,7 @@ export class ThyPaginationComponent implements OnInit {
         if (Number.isInteger(pageIndex)) {
             this.selectPage(pageIndex);
         }
-        this.inputText = null;
+        input.value = '';
     }
 
     onPageSizeChange(event: number) {

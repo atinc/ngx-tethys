@@ -100,14 +100,7 @@
       <div class="thy-pagination-jumper">
         <div class="thy-pagination-jumper-input">
           跳至
-          <input
-            type="text"
-            [disabled]="disabled"
-            #jumperInput
-            (thyEnter)="jumpPage(jumperInput)"
-            (blur)="jumpPage(jumperInput)"
-            [(ngModel)]="inputText"
-          />
+          <input type="text" [disabled]="disabled" #jumperInput (thyEnter)="jumpPage(jumperInput)" (blur)="jumpPage(jumperInput)" />
           页
         </div>
       </div>
