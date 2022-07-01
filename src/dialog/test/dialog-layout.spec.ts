@@ -9,11 +9,13 @@ import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 @Component({
     selector: 'thy-test-dialog-header-basic',
     template: `
-        <thy-dialog-header [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header>
+        <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header>
     `
 })
 class DialogHeaderBasicComponent {
     size: 'lg' | 'md';
+
+    divided = false;
 }
 
 @Component({
@@ -74,7 +76,15 @@ describe('dialog-layout', () => {
         });
 
         it('should get correct class', () => {
-            expect(dialogHeaderElement.classList.contains('dialog-header')).toBeTruthy();
+            expect(dialogHeaderElement.classList.contains('dialog-header')).toBeTruthy(); // dialog-header 样式即将废弃
+            expect(dialogHeaderElement.classList.contains('thy-dialog-header')).toBeTruthy();
+        });
+
+        it('should set header divided', () => {
+            expect(dialogHeaderElement.classList.contains('thy-dialog-header-divided')).toBeFalsy();
+            dialogBasicFixture.componentInstance.divided = true;
+            dialogBasicFixture.detectChanges();
+            expect(dialogHeaderElement.classList.contains('thy-dialog-header-divided')).toBeTruthy();
         });
 
         it('should get correct title', () => {
@@ -84,7 +94,7 @@ describe('dialog-layout', () => {
         it('should get correct class when size is lg', () => {
             dialogBasicFixture.componentInstance.size = 'lg';
             dialogBasicFixture.detectChanges();
-            expect(dialogHeaderElement.classList.contains('dialog-header-lg')).toBeTruthy();
+            expect(dialogHeaderElement.classList.contains('thy-dialog-header-lg')).toBeTruthy();
         });
     });
 
