@@ -91,7 +91,8 @@ module.exports = {
                 'rate',
                 'select-control',
                 'image',
-                'segment'
+                'segment',
+                'dot'
             ]
         ]
     }

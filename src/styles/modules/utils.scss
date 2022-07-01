@@ -18,12 +18,12 @@
     cursor: pointer;
 }
 
-.thy-dot {
-    display: inline-block;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-}
+// .thy-dot {
+//     display: inline-block;
+//     width: 6px;
+//     height: 6px;
+//     border-radius: 50%;
+// }
 
 // 新增比 light 更亮的2个背景色
 @include background-variant.bg-variant('.bg-lighter', variables.$gray-100);
