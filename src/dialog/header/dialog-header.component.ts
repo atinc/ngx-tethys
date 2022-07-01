@@ -13,28 +13,29 @@ import {
 } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { ThyInternalDialogRef } from '../dialog-ref';
 
 @Component({
     selector: 'thy-dialog-header',
     templateUrl: './dialog-header.component.html',
     // changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'thyDialogHeader'
+    exportAs: 'thyDialogHeader',
+    host: {
+        class: 'dialog-header thy-dialog-header',
+        '[class.thy-dialog-header-lg]': `thySize === 'lg'`,
+        '[class.thy-dialog-header-divided]': `thyDivided`
+    }
 })
 export class DialogHeaderComponent implements OnInit {
-    @HostBinding(`class.dialog-header`) isDialogHeader = true;
-
-    @HostBinding(`class.dialog-header-lg`) isDialogHeaderLg = false;
-
     @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
     @Input() thyTitle: string;
 
-    @Input() set thySize(value: 'lg' | 'md') {
-        this.isDialogHeaderLg = value === 'lg';
-    }
+    @Input() thySize: 'lg' | 'md';
+
+    @Input() @InputBoolean() thyDivided: boolean;
 
     @Input()
     set thyTitleTranslationKey(key: string) {

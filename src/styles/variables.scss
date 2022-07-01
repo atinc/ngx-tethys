@@ -565,18 +565,18 @@ $modal-transition: transform 0.3s ease-out !default;
 
 // Dialog
 $dialog-border-radius: 4px !default;
-$dialog-header-height: 50px !default;
+$dialog-header-height: 56px !default;
 $dialog-header-title-line-height: 1.5rem !default;
-$dialog-header-padding: 1.875rem !default;
+$dialog-header-padding: 0rem 2rem !default;
 $dialog-header-padding-lg: 1.25rem !default;
 
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
-$dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-body-padding: 1.25rem 2rem 2rem 2rem !default;
 
 // $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
-$dialog-footer-padding: 0.9375rem 1.875rem !default;
+$dialog-footer-padding: 1rem 2rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 

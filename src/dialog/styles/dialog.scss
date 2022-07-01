@@ -3,6 +3,7 @@
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
 @use "../../styles/modules/utils.scss";
+
 .thy-dialog-container {
     display: flex;
     flex-direction: column;
@@ -29,17 +30,21 @@
 
 // Dialog header
 // Top section of the modal w/ title and dismiss
+.thy-dialog-header,
 .dialog-header {
     display: flex;
     align-items: center;
     justify-content: space-between; // Put modal header elements (title and dismiss) on opposite ends
-    padding: 0 variables.$dialog-header-padding;
+    padding: variables.$dialog-header-padding;
     min-height: variables.$dialog-header-height;
     height: variables.$dialog-header-height;
-    border-bottom: variables.$dialog-header-border-width solid variables.$dialog-header-border-color;
     @include border-radius.border-top-radius(variables.$border-radius-lg);
 
-    &.dialog-header-lg {
+    &.thy-dialog-header-divided {
+        border-bottom: variables.$dialog-header-border-width solid variables.$dialog-header-border-color;
+    }
+
+    &.thy-dialog-header-lg {
         padding: 0 variables.$dialog-header-padding-lg;
     }
 
