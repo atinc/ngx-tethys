@@ -486,7 +486,7 @@ $nav-item-font-size: $font-size-base !default;
 // md
 $nav-height: $layout-header-height !default;
 $nav-item-padding-y: 0.875rem !default; // 高度 52px,
-$nav-item-padding-x: 0.625rem !default;
+$nav-item-padding-x: 1rem !default;
 $nav-item-right: 20px !default;
 $nav-item-font-size: 14px !default;
 //lg
@@ -498,7 +498,7 @@ $nav-item-font-size-lg: 15px !default;
 //sm
 $nav-height-sm: $layout-header-height-sm !default;
 $nav-item-padding-y-sm: 0.6875rem !default; // 高度 48px
-$nav-item-padding-x-sm: 0.625rem !default;
+$nav-item-padding-x-sm: 0.5rem !default;
 $nav-item-right-sm: 20px !default;
 $nav-item-font-size-sm: 14px !default;
 
