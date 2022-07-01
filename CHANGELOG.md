@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.35](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.34...13.1.0-next.35) (2022-07-01)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update suffix icon spacing to 8px ([#1924](https://github.com/atinc/ngx-tethys/issues/1924)) ([62de9dc](https://github.com/atinc/ngx-tethys/commit/62de9dc21390939eee90ebdd0c6f9ede354ee07d))
+* **dropdown:** update icon spacing to child combinator and set icon-text spacing without link for breadcrumb-item ([#1919](https://github.com/atinc/ngx-tethys/issues/1919)) ([6e33af7](https://github.com/atinc/ngx-tethys/commit/6e33af765250008a608be95c9c81f5944a209d8c))
+* **nav:** update $nav-item-padding-x-sm to  0.625rem ([bc9c82f](https://github.com/atinc/ngx-tethys/commit/bc9c82f6686e58ea96a256baaeb0988d94c4588b))
+* **nav:** update sm nav padding-x to 8px and md padding-x to 16px ([#1925](https://github.com/atinc/ngx-tethys/issues/1925)) ([e548186](https://github.com/atinc/ngx-tethys/commit/e5481869053355828b2466e37e44cd9fc18e5a5f))
+* **pagination:** fix jump error #INFR-3701 ([#1918](https://github.com/atinc/ngx-tethys/issues/1918)) ([b28d8e5](https://github.com/atinc/ngx-tethys/commit/b28d8e547701fdc5a4a08724393dde0e2489ab6f)), closes [#INFR-3701](https://github.com/atinc/ngx-tethys/issues/INFR-3701)
+* **table:** fix table expand for group mode #INFR-3721 ([#1922](https://github.com/atinc/ngx-tethys/issues/1922)) ([e13873a](https://github.com/atinc/ngx-tethys/commit/e13873a47304085c3b360b67ab7181459c632fd7)), closes [#INFR-3721](https://github.com/atinc/ngx-tethys/issues/INFR-3721)
+
+
+### Features
+
+* **dialog:** uddate dialog paddings and add thyDivided to thy-dialog-header #INFR-3643 ([2f2d632](https://github.com/atinc/ngx-tethys/commit/2f2d6328b950f7a0f1e23f9bb66be1a09b202881)), closes [#INFR-3643](https://github.com/atinc/ngx-tethys/issues/INFR-3643)
+* **dot:** add dot component #INFR-3042 ([c281a83](https://github.com/atinc/ngx-tethys/commit/c281a83c3e67262e785772033b93c8321f588120)), closes [#INFR-3042](https://github.com/atinc/ngx-tethys/issues/INFR-3042)
+
+
+
 # [13.1.0-next.34](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.33...13.1.0-next.34) (2022-06-29)
 
 
