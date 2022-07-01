@@ -345,6 +345,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
 
+    public expandStatusMapOfGroup: Dictionary<boolean> = {};
+
     dragPreviewClass = 'thy-table-drag-preview';
 
     constructor(
@@ -671,11 +673,17 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     private buildGroups(originGroups: SafeAny) {
-        const collapsedIds = originGroups.filter((group: SafeAny) => !group.expand).map((group: SafeAny) => group.id);
+        const originGroupsMap = helpers.keyBy(originGroups, 'id');
         this.groups = [];
         originGroups.forEach((origin: SafeAny) => {
             const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
-            group.expand = !collapsedIds.includes(group.id);
+
+            if (this.expandStatusMapOfGroup.hasOwnProperty(group.id)) {
+                group.expand = this.expandStatusMapOfGroup[group.id];
+            } else {
+                group.expand = !!(originGroupsMap[group.id] as SafeAny).expand;
+            }
+
             this.groups.push(group);
         });
     }
@@ -692,6 +700,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
+        this.expandStatusMapOfGroup[group.id] = group.expand;
     }
 
     private updateScrollClass() {
