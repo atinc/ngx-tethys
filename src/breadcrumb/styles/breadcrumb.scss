@@ -15,6 +15,7 @@
     .thy-breadcrumb-item {
         margin-right: 8px;
         color: variables.$breadcrumb-text-color;
+        @include icon-text.icon-text-size(8px, 4px);
         a {
             @include link.link-variant(variables.$breadcrumb-text-color, none, variables.$primary, none);
             @include icon-text.icon-text-variant(variables.$breadcrumb-text-color, variables.$primary);

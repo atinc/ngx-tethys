@@ -54,12 +54,10 @@
             }
         }
 
-        i,
-        .thy-icon {
-            &:first-child {
-                margin-right: 8px;
-                color: variables.$dropdown-menu-item-icon-color;
-            }
+        > i:first-child,
+        > .thy-icon:first-child {
+            margin-right: 8px;
+            color: variables.$dropdown-menu-item-icon-color;
         }
         .icon {
             display: flex;
