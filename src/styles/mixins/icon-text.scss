@@ -17,13 +17,13 @@
 
 @mixin icon-text-size($prefix-space, $suffix-space, $icon-font-size: null) {
     @if $prefix-space {
-        .thy-icon:first-child {
+        > .thy-icon:first-child {
             margin-right: $prefix-space;
         }
     }
 
     @if $suffix-space {
-        .thy-icon:last-child {
+        > .thy-icon:last-child {
             margin-left: $suffix-space;
         }
     }
