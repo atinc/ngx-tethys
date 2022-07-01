@@ -664,11 +664,13 @@ class ThyDemoGroupTableComponent {
     groups = [
         {
             id: '11',
-            title: '分组1'
+            title: '分组1',
+            expand: false
         },
         {
             id: '22',
-            title: '分组2'
+            title: '分组2',
+            expand: true
         }
     ];
     model = [
@@ -769,20 +771,26 @@ describe('ThyTable: group', () => {
         expect(groups).toBeTruthy();
     });
 
+    it('should set expand successfully', () => {
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(false);
+        expect(tableComponent.componentInstance.groups[1].expand).toBe(true);
+    });
+
     it('test expand event', fakeAsync(() => {
-        expect(rows.length).toBe(9);
+        expect(rows.length).toBe(6);
 
         const trExpandElement = rows[1];
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
-        expect(rows.length).toBe(6);
+        expect(rows.length).toBe(9);
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
-        expect(rows.length).toBe(9);
+        expect(rows.length).toBe(6);
     }));
 
     it('should throw error when thyDraggable is true', () => {
