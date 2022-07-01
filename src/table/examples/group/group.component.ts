@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyTableRowEvent } from 'ngx-tethys/table';
-import { helpers } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-table-group-example',
@@ -10,15 +9,18 @@ export class ThyTableGroupExampleComponent implements OnInit {
     public groups = [
         {
             id: '1',
-            title: 'Product R&D'
+            title: 'Product R&D',
+            expand: true
         },
         {
             id: '2',
-            title: 'Product Design'
+            title: 'Product Design',
+            expand: false
         },
         {
             id: '3',
-            title: 'DevOps'
+            title: 'DevOps',
+            expand: false
         }
     ];
 
@@ -30,7 +32,26 @@ export class ThyTableGroupExampleComponent implements OnInit {
         { id: 5, name: 'Jill', age: 22, job: 'DevOps', group_id: '3', address: 'Hangzhou' }
     ];
 
+    disable = false;
+
     ngOnInit() {}
+
+    addGroup() {
+        this.groups = [
+            ...this.groups,
+            {
+                id: '4',
+                title: '新增的',
+                expand: false
+            }
+        ];
+        this.data = [
+            ...this.data,
+            { id: 6, name: '哈哈哈', age: 31, job: 'Engineer', group_id: '4', address: 'Yichuan Ningxia' },
+            { id: 7, name: '嘻嘻嘻', age: 22, job: 'DevOps', group_id: '4', address: 'Hangzhou' }
+        ];
+        this.disable = true;
+    }
 
     onRowClick(event: ThyTableRowEvent) {
         console.log(`[thy-table-group-example] clicked ${event.row.name}`);
