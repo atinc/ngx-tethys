@@ -155,8 +155,10 @@ describe('ThyTestDateRangeComponent', () => {
         it('should support thyDisabledDate', fakeAsync(() => {
             fixture.detectChanges();
             const compareDate = addDays(startOfMonth(setMonth(CURRENT_DATE, getMonth(CURRENT_DATE) - 2)), -1);
+            let sameDay = false;
             fixtureInstance.thyDisabledDate = (current: Date) => {
-                return isSameDay(current, compareDate);
+                sameDay = isSameDay(current, compareDate);
+                return sameDay;
             };
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
@@ -166,7 +168,11 @@ describe('ThyTestDateRangeComponent', () => {
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
             );
-            expect(disabledCell).not.toBeNull();
+            if (sameDay) {
+                expect(disabledCell).not.toBeNull();
+            } else {
+                expect(disabledCell).toBeNull();
+            }
         }));
     });
 
