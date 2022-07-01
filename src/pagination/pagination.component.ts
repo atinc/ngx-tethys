@@ -285,6 +285,7 @@ export class ThyPaginationComponent implements OnInit {
         if (Number.isInteger(pageIndex)) {
             this.selectPage(pageIndex);
         }
+        input.value = '';
     }
 
     onPageSizeChange(event: number) {
