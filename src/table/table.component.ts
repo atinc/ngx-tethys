@@ -40,7 +40,7 @@ import {
     ThyUnsubscribe,
     UpdateHostClassService
 } from 'ngx-tethys/core';
-import { Dictionary } from 'ngx-tethys/types';
+import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
@@ -147,11 +147,11 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public draggable = false;
 
-    public selectedRadioRow: any = null;
+    public selectedRadioRow: SafeAny = null;
 
     public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
-    public trackByFn: any;
+    public trackByFn: SafeAny;
 
     public wholeRowSelect = false;
 
@@ -161,7 +161,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public columns: ThyTableColumnComponent[] = [];
 
-    private _diff: IterableDiffer<any>;
+    private _diff: IterableDiffer<SafeAny>;
 
     private initialized = false;
 
@@ -177,9 +177,9 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         return merge<MouseEvent>(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
     }
 
-    @ContentChild('empty') emptyTemplate: TemplateRef<any>;
+    @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
 
-    @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
+    @ViewChild('table', { static: true }) tableElementRef: ElementRef<SafeAny>;
 
     @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
 
@@ -194,19 +194,19 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     @Input()
-    set thyRowKey(value: any) {
+    set thyRowKey(value: SafeAny) {
         this.rowKey = value || this.rowKey;
     }
 
     @Input()
-    set thyGroups(value: any) {
+    set thyGroups(value: SafeAny) {
         if (this.mode === 'group') {
             this.buildGroups(value);
         }
     }
 
     @Input()
-    set thyModel(value: any) {
+    set thyModel(value: SafeAny) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
@@ -328,7 +328,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
-    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
+    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<SafeAny>;
 
     @ContentChildren(ThyTableColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
@@ -352,7 +352,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         private _differs: IterableDiffers,
         private viewportRuler: ViewportRuler,
         private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: any,
+        @Inject(DOCUMENT) private document: SafeAny,
         @Inject(PLATFORM_ID) private platformId: string,
         private ngZone: NgZone,
         private renderer: Renderer2,
@@ -411,22 +411,22 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
-    private _refreshCustomModelValue(row: any) {
+    private _refreshCustomModelValue(row: SafeAny) {
         this.columns.forEach(column => {
             this._initialCustomModelValue(row, column);
         });
     }
 
-    private _applyDiffChanges(changes: IterableChanges<any>) {
+    private _applyDiffChanges(changes: IterableChanges<SafeAny>) {
         if (changes) {
-            changes.forEachAddedItem((record: IterableChangeRecord<any>) => {
+            changes.forEachAddedItem((record: IterableChangeRecord<SafeAny>) => {
                 this._refreshCustomModelValue(record.item);
             });
         }
     }
 
     private _bindTrackFn() {
-        this.trackByFn = function(this: any, index: number, row: any): any {
+        this.trackByFn = function(this: SafeAny, index: number, row: SafeAny): SafeAny {
             return row && this.rowKey ? row[this.rowKey] : index;
         }.bind(this);
     }
@@ -456,22 +456,22 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.updateHostClassService.updateClass(classNames);
     }
 
-    public updateColumnSelections(key: string, selections: any): void {
+    public updateColumnSelections(key: string, selections: SafeAny): void {
         const column = this.columns.find(item => item.key === key);
         this.model.forEach(row => {
             this._initialSelections(row, column);
         });
     }
 
-    public isTemplateRef(ref: any) {
+    public isTemplateRef(ref: SafeAny) {
         return ref instanceof TemplateRef;
     }
 
-    public getModelValue(row: any, path: string) {
+    public getModelValue(row: SafeAny, path: string) {
         return get(row, path);
     }
 
-    public renderRowClassName(row: any, index: number) {
+    public renderRowClassName(row: SafeAny, index: number) {
         if (!this.rowClassName) {
             return null;
         }
@@ -482,7 +482,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
-    public onModelChange(row: any, column: ThyTableColumnComponent) {
+    public onModelChange(row: SafeAny, column: ThyTableColumnComponent) {
         if (column.model) {
             set(row, column.model, row[column.key]);
         }
@@ -502,12 +502,12 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnPageIndexChange.emit(event);
     }
 
-    public onCheckboxChange(row: any, column: ThyTableColumnComponent) {
+    public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
         this.onMultiSelectChange(null, row, column);
     }
 
-    public onMultiSelectChange(event: Event, row: any, column: ThyTableColumnComponent) {
+    public onMultiSelectChange(event: Event, row: SafeAny, column: ThyTableColumnComponent) {
         const rows = this.model.filter(item => {
             return item[column.key];
         });
@@ -519,7 +519,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnMultiSelectChange.emit(multiSelectEvent);
     }
 
-    public onRadioSelectChange(event: Event, row: any) {
+    public onRadioSelectChange(event: Event, row: SafeAny) {
         const radioSelectEvent: ThyRadioSelectEvent = {
             event: event,
             row: row
@@ -527,11 +527,11 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
-    public onSwitchChange(event: Event, row: any, column: any) {
+    public onSwitchChange(event: Event, row: SafeAny, column: SafeAny) {
         const switchEvent: ThySwitchEvent = {
             event: event,
             row: row,
-            refresh: (value: any) => {
+            refresh: (value: SafeAny) => {
                 value = value || row;
                 setTimeout(() => {
                     value[column.key] = get(value, column.model);
@@ -541,11 +541,11 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnSwitchChange.emit(switchEvent);
     }
 
-    showExpand(row: any) {
+    showExpand(row: SafeAny) {
         return row[this.thyChildrenKey] && row[this.thyChildrenKey].length > 0;
     }
 
-    isExpanded(row: any) {
+    isExpanded(row: SafeAny) {
         return this.expandStatusMap[row[this.rowKey]];
     }
 
@@ -562,7 +562,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         };
     }
 
-    expandChildren(row: any) {
+    expandChildren(row: SafeAny) {
         if (this.isExpanded(row)) {
             this.expandStatusMap[row[this.rowKey]] = false;
         } else {
@@ -613,7 +613,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
-    public onRowClick(event: Event, row: any) {
+    public onRowClick(event: Event, row: SafeAny) {
         const next = this.onRowClickPropagationEventHandler(event, row);
         if (next) {
             if (this.wholeRowSelect) {
@@ -640,7 +640,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
-    private onRowClickPropagationEventHandler(event: Event, row: any): boolean {
+    private onRowClickPropagationEventHandler(event: Event, row: SafeAny): boolean {
         if ((event.target as Element).closest('.tree-expand-icon')) {
             this.expandChildren(row);
             return false;
@@ -648,7 +648,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         return true;
     }
 
-    public onRowContextMenu(event: Event, row: any) {
+    public onRowContextMenu(event: Event, row: SafeAny) {
         const contextMenuEvent: ThyTableEvent = {
             event: event,
             row: row
@@ -670,10 +670,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         });
     }
 
-    private buildGroups(originGroups: any) {
-        const collapsedIds = this.groups.filter(group => !group.expand).map(group => group.id);
+    private buildGroups(originGroups: SafeAny) {
+        const collapsedIds = originGroups.filter((group: SafeAny) => !group.expand).map((group: SafeAny) => group.id);
         this.groups = [];
-        originGroups.forEach((origin: any) => {
+        originGroups.forEach((origin: SafeAny) => {
             const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
             group.expand = !collapsedIds.includes(group.id);
             this.groups.push(group);
