@@ -1,7 +1,6 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent } from '../../testing';
 import { ThyDotModule } from '../dot.module';
 import {
     COMPONENT_CLASS_NAME,
@@ -64,22 +63,23 @@ describe('ThyDot', () => {
         expect(dotComponent.nativeElement.classList.contains(`dot-theme-${DEFAULT_THEME_NAME}`)).toBe(true);
     });
 
-    it('should have correct class', () => {
-        const randomColor = getRandomAttributes<ThyColorType>(colors);
-        const randomSize = getRandomAttributes<ThySizeType>(sizes);
-        const randomShape = getRandomAttributes<ThyShapeType>(shapes);
-        const randomTheme = getRandomAttributes<ThyThemeType>(themes);
-        basicTestComponent.thyColor = randomColor;
-        basicTestComponent.thyShape = randomShape;
-        basicTestComponent.thySize = randomSize;
-        basicTestComponent.thyTheme = randomTheme;
-        fixture.detectChanges();
-        expect(dotComponent.nativeElement.classList.contains(COMPONENT_CLASS_NAME)).toBe(true);
-        expect(dotComponent.nativeElement.classList.contains(`dot-color-${randomColor}`)).toBe(true);
-        expect(dotComponent.nativeElement.classList.contains(`dot-size-${randomSize}`)).toBe(true);
-        expect(dotComponent.nativeElement.classList.contains(`dot-shape-${randomShape}`)).toBe(true);
-        expect(dotComponent.nativeElement.classList.contains(`dot-theme-${randomTheme}`)).toBe(true);
-    });
+    // it('should have correct class', () => {
+    //     const randomColor = getRandomAttributes<ThyColorType>(colors);
+    //     const randomSize = getRandomAttributes<ThySizeType>(sizes);
+    //     const randomShape = getRandomAttributes<ThyShapeType>(shapes);
+    //     const randomTheme = getRandomAttributes<ThyThemeType>(themes);
+    //     basicTestComponent.thyColor = randomColor;
+    //     basicTestComponent.thyShape = randomShape;
+    //     basicTestComponent.thySize = randomSize;
+    //     basicTestComponent.thyTheme = randomTheme;
+    //     fixture.detectChanges();
+    //     expect(dotComponent.nativeElement.classList.contains(COMPONENT_CLASS_NAME)).toBe(true);
+    //     expect(dotComponent.nativeElement.classList.contains(`dot-color-${randomColor}`)).toBe(true);
+    //     expect(dotComponent.nativeElement.classList.contains(`dot-size-${randomSize}`)).toBe(true);
+    //     expect(dotComponent.nativeElement.classList.contains(`dot-shape-${randomShape}`)).toBe(true);
+    //     expect(dotComponent.nativeElement.classList.contains(`dot-theme-${randomTheme}`)).toBe(true);
+    // });
+
     it('should have color style when use custom color', () => {
         const randomColor = getRandomColor();
         basicTestComponent.thyColor = randomColor;
