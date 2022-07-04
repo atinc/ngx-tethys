@@ -30,11 +30,11 @@
 }
 
 .thy-list-option {
-    @include option.thy-option();
+    @include option.thy-option($color: variables.$gray-800);
 }
 
 .thy-list-item {
-    @include option.thy-option(variables.$gray-80);
+    @include option.thy-option(variables.$gray-80, variables.$gray-800);
 }
 
 .thy-multiple-selection-list {
