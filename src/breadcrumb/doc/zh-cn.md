@@ -52,3 +52,7 @@ import { ThyBreadcrumbModule } from 'ngx-tethys/breadcrumb';
 ## 分割线
 
 <example name="thy-breadcrumb-separator-example"></example>
+
+## Active
+
+<example name="thy-breadcrumb-with-active-example"></example>

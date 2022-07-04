@@ -23,6 +23,7 @@
         }
         &:last-child {
             color: variables.$breadcrumb-active-color;
+            @include icon-text.icon-text-variant(variables.$breadcrumb-text-color);
             a {
                 @include link.link-variant(variables.$breadcrumb-active-color, none, variables.$primary, none);
             }
