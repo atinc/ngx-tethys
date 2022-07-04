@@ -793,6 +793,41 @@ describe('ThyTable: group', () => {
         expect(rows.length).toBe(6);
     }));
 
+    it('should keep expand or collapse status', () => {
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(false);
+
+        const trExpandElement = rows[1];
+        dispatchFakeEvent(trExpandElement, 'click');
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(true);
+
+        const buildGroupsSpy = spyOn(tableComponent.componentInstance, 'buildGroups');
+        testComponent.groups = [
+            ...testComponent.groups,
+            {
+                id: '33',
+                title: '分组3',
+                expand: true
+            }
+        ];
+        testComponent.model = [
+            ...testComponent.model,
+            {
+                group_id: '33',
+                id: 7,
+                name: '花花',
+                age: 10,
+                checked: false,
+                desc: '这是一条测试数据'
+            }
+        ];
+
+        fixture.detectChanges();
+        expect(buildGroupsSpy).toHaveBeenCalled();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(true);
+    });
+
     it('should throw error when thyDraggable is true', () => {
         expect(() => {
             testComponent.draggable = true;
