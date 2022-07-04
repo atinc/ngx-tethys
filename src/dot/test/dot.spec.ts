@@ -21,7 +21,7 @@ describe('ThyDot', () => {
     let basicTestComponent: ThyDemoDotComponent;
     let dotComponent: DebugElement;
 
-    const colors = ['primary', 'secondary', 'info', 'danger', 'warning', 'success'];
+    const colors = ['primary', 'info', 'danger', 'warning', 'success'];
     const sizes = ['xs', 'sm', 'md'];
     const shapes = ['square', 'circle'];
     const themes = ['outline', 'fill'];
