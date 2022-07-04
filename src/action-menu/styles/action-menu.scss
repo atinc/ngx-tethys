@@ -1,4 +1,5 @@
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
+@use "../../styles/mixins/shadow.scss";
 @use "mixin";
 
 .action-menu {
@@ -87,7 +88,8 @@
             padding: 10px 0;
             width: 240px;
             background: variables.$action-menu-bg;
-            box-shadow: variables.$box-shadow;
+            border-radius: variables.$border-radius;
+            @include shadow.section-box-shadow();
         }
 
         &.action-menu-item-right {

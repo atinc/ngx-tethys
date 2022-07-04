@@ -1,7 +1,15 @@
+@use "../variables.scss";
+
 @mixin box-shadow($value) {
     box-shadow: $value;
 }
 
 @mixin item-box-shadow($color: rgba(0, 0, 0, 0.08)) {
     @include box-shadow(0px 0px 8px 2px $color);
+}
+
+// box-shadow for popover, dropdown-menu
+@mixin section-box-shadow {
+    box-shadow: variables.$box-shadow;
+    border: 1px solid variables.$border-color;
 }
