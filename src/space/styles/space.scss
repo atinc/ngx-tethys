@@ -1,17 +1,16 @@
-$thy-space-padding: 4px;
+$thy-space-row-gap: 8px;
 
 .thy-space {
     display: flex;
     flex-flow: row wrap;
     justify-content: flex-start;
-    margin: -$thy-space-padding 0px -$thy-space-padding 0px;
+    row-gap: $thy-space-row-gap;
 
     &.thy-space-vertical {
         flex-direction: column;
     }
 
     .thy-space-item {
-        padding: $thy-space-padding 0px $thy-space-padding 0px;
     }
 
     // > * {
