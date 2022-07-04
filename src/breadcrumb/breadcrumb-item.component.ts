@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
+import { Component, ChangeDetectionStrategy, AfterViewInit, ElementRef, Renderer2 } from '@angular/core';
 
 /**
  * 面包屑 Item 组件
@@ -12,4 +12,26 @@ import { Component, ChangeDetectionStrategy, HostBinding } from '@angular/core';
         class: 'thy-breadcrumb-item'
     }
 })
-export class ThyBreadcrumbItemComponent {}
+export class ThyBreadcrumbItemComponent implements AfterViewInit {
+    constructor(private renderer: Renderer2, private elementRef: ElementRef) {}
+
+    ngAfterViewInit() {
+        this.wrapSpanForText(this.elementRef.nativeElement.childNodes);
+        const link: HTMLElement = this.elementRef.nativeElement.querySelector('a');
+        if (link && link.childNodes) {
+            this.wrapSpanForText(link.childNodes);
+        }
+    }
+
+    private wrapSpanForText(nodes: NodeList): void {
+        nodes.forEach(node => {
+            if (node.nodeName === '#text') {
+                const span = this.renderer.createElement('span');
+                const parent = this.renderer.parentNode(node);
+                this.renderer.addClass(span, 'thy-wrap-span');
+                this.renderer.insertBefore(parent, span, node);
+                this.renderer.appendChild(span, node);
+            }
+        });
+    }
+}

@@ -35,7 +35,7 @@ class ThyDemoBreadcrumbBasicComponent {
 })
 export class BreadcrumbTestModule {}
 
-describe('ThyBreadcrumb', () => {
+fdescribe('ThyBreadcrumb', () => {
     let fixture: ComponentFixture<ThyDemoBreadcrumbBasicComponent>;
     let basicTestComponent: ThyDemoBreadcrumbBasicComponent;
     let breadcrumbComponent: DebugElement;
