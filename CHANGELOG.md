@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.37](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.36...13.1.0-next.37) (2022-07-04)
+
+
+### Bug Fixes
+
+* **dot:** fix dot component color options ([#1934](https://github.com/atinc/ngx-tethys/issues/1934)) ([a4f7350](https://github.com/atinc/ngx-tethys/commit/a4f7350bd5779c5dc5184c35fd748f0ce515decd))
+* **dropdown:** update dropdown-submenu's shadow as same as popover #INFR-3736 ([#1935](https://github.com/atinc/ngx-tethys/issues/1935)) ([5453537](https://github.com/atinc/ngx-tethys/commit/5453537b7b85e5d1a650f30c024a083adac74a6b)), closes [#INFR-3736](https://github.com/atinc/ngx-tethys/issues/INFR-3736)
+
+
+
 # [13.1.0-next.36](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.35...13.1.0-next.36) (2022-07-04)
 
 
