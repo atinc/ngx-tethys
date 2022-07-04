@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.36](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.35...13.1.0-next.36) (2022-07-04)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update last child icon color to [#999](https://github.com/atinc/ngx-tethys/issues/999) without link and add wrap span for item text node #INFR-3739 ([#1929](https://github.com/atinc/ngx-tethys/issues/1929)) ([e1a276c](https://github.com/atinc/ngx-tethys/commit/e1a276c29003ad4896ad7bacb0a6e9bf847ca341)), closes [#INFR-3739](https://github.com/atinc/ngx-tethys/issues/INFR-3739) [#INFR-3739](https://github.com/atinc/ngx-tethys/issues/INFR-3739)
+* **dialog:** update $dialog-body-padding to 0.5rem 2rem 1rem 2rem ([#1932](https://github.com/atinc/ngx-tethys/issues/1932)) ([fd48905](https://github.com/atinc/ngx-tethys/commit/fd489051639d851d34a6f694bea7b8be3897c2ce))
+* **table:** keep expand or collapse status for group mode #INFR-3721 ([73b89ff](https://github.com/atinc/ngx-tethys/commit/73b89ff4b2ca7358f86760f830653f49cc1b88d1)), closes [#INFR-3721](https://github.com/atinc/ngx-tethys/issues/INFR-3721)
+* **transfer:** change transfer width to 596 #INFR-3735 ([#1928](https://github.com/atinc/ngx-tethys/issues/1928)) ([e53e9c8](https://github.com/atinc/ngx-tethys/commit/e53e9c836cc3bd8a630f5c7c37c3ab97371093cd)), closes [#INFR-3735](https://github.com/atinc/ngx-tethys/issues/INFR-3735)
+
+
+
 # [13.1.0-next.35](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.34...13.1.0-next.35) (2022-07-01)
 
 
