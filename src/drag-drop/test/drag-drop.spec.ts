@@ -175,6 +175,25 @@ describe('drag-drop basic directive', () => {
         expect(fixture.componentInstance.beforeStartSpy).not.toHaveBeenCalled();
         expect(fixture.componentInstance.dragStartSpy).not.toHaveBeenCalled();
     });
+
+    it('should not emit drag event when drag outside element', () => {
+        fixture.detectChanges();
+
+        const item = fixture.debugElement.query(By.css('.outside-element')).nativeElement;
+
+        const dragoverEvent = createDragEvent('dragover');
+        item.dispatchEvent(dragoverEvent);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.dragOverSpy).not.toHaveBeenCalled();
+
+        const dataTransfer = new DataTransfer();
+        dataTransfer.dropEffect = 'move';
+        const dropEvent = createDragEvent('drop', dataTransfer, true, true);
+
+        item.dispatchEvent(dropEvent);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.dragDropSpy).not.toHaveBeenCalled();
+    });
 });
 
 describe('with handle', () => {
@@ -225,7 +244,7 @@ describe('with handle', () => {
                 </li>
             </ng-container>
         </ul>
-
+        <div class="outside-element">outside element</div>
         <ng-template #itemTemplate let-item="item" let-level="level">
             <div>{{ item.title }}</div>
             <ng-container *ngIf="item.children">
