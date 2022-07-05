@@ -138,7 +138,7 @@ export class ThyMenuGroupComponent implements OnInit {
      */
     @Output() thyOnActionClick: EventEmitter<Event> = new EventEmitter<Event>();
 
-    @Output() thyOnToggle: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() thyCollapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /**
      * 设置 Action 菜单
@@ -157,7 +157,7 @@ export class ThyMenuGroupComponent implements OnInit {
             return;
         }
         this.isCollapsed = !this.isCollapsed;
-        this.thyOnToggle.emit(this.isCollapsed);
+        this.thyCollapsedChange.emit(this.isCollapsed);
     }
 
     onActionClick(event: Event): void {

@@ -25,7 +25,7 @@ import { ThyDividerModule } from '../../divider';
                 thyTitle="工作"
                 [thyExpand]="true"
                 [thyCollapsible]="collapsible"
-                (thyOnToggle)="toggle($event)"
+                (thyCollapsedChange)="toggle($event)"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
