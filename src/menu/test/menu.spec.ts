@@ -25,6 +25,7 @@ import { ThyDividerModule } from '../../divider';
                 thyTitle="工作"
                 [thyExpand]="true"
                 [thyCollapsible]="collapsible"
+                (thyOnToggle)="toggle($event)"
                 [thyShowAction]="true"
                 [thyActionIcon]="'user-group-fill'"
             >
@@ -75,6 +76,8 @@ class ThyDemoMenuComponent {
     collapsible = true;
 
     click() {}
+
+    toggle(event: any) {}
 }
 
 @Component({
@@ -225,6 +228,17 @@ describe('ThyMenu', () => {
             groupHeader.click();
             fixture.detectChanges();
             expect(group.componentInstance.isCollapsed).toBe(false);
+        });
+
+        it('should toggle worked', () => {
+            fixture.detectChanges();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
+            const spy = spyOn(fixture.componentInstance, 'toggle');
+            groupHeader.click();
+            fixture.detectChanges();
+            expect(group.componentInstance.isCollapsed).toBe(true);
+            expect(spy).toHaveBeenCalledTimes(1);
         });
 
         it('should headerContent worked', () => {
