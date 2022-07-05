@@ -47,6 +47,10 @@ export class ThyFormDialogExampleComponent implements OnInit {
             });
     }
 
+    openNotify() {
+        this.notifyService.success(`Project create success`);
+    }
+
     close() {
         this.dialog.close();
     }

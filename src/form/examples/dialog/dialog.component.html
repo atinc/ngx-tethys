@@ -7,6 +7,7 @@
     <thy-dialog-header [thyTitle]="'New Project'"></thy-dialog-header>
     <thy-dialog-body>
       <form thyForm name="modalForm" [thyFormValidatorConfig]="validatorConfig">
+        <button (click)="openNotify()">打开通知</button>
         <thy-form-group thyLabelText="Name">
           <input thyInput name="projectName" [(ngModel)]="model.projectName" required placeholder="Please type project name" />
         </thy-form-group>

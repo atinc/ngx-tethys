@@ -1,4 +1,4 @@
-import { Component, OnInit, HostBinding, OnDestroy, ViewChild, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostBinding, OnDestroy, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { AnimationEvent } from '@angular/animations';
@@ -45,7 +45,7 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
 
     beforeAttachPortal(): void {}
 
-    constructor(public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef) {
+    constructor(public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef, private elementRef: ElementRef<HTMLElement>) {
         super(notifyAbstractOverlayOptions, cdr);
         this.animationOpeningDone = this.animationStateChanged.pipe(
             filter((event: AnimationEvent) => {
@@ -81,6 +81,13 @@ export class ThyNotifyContainerComponent<TData = unknown> extends ThyAbstractOve
     onAnimationStart(event: AnimationEvent) {
         this.animationStateChanged.emit(event);
     }
+
+    moveToTop() {
+        const globalOverlayWrapper = this.elementRef.nativeElement.closest('.cdk-global-overlay-wrapper');
+        const overlayContainer = globalOverlayWrapper.parentElement;
+        overlayContainer.appendChild(globalOverlayWrapper);
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next();
     }

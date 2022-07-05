@@ -140,6 +140,8 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
                 }
             });
             this.setContainer(placement, ref);
+        } else {
+            (notifyRef as any).containerInstance.moveToTop();
         }
     }
 
