@@ -1,6 +1,6 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
-import { createDragEvent } from 'ngx-tethys/testing';
+import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { helpers } from 'ngx-tethys/util';
 import {
@@ -193,9 +193,9 @@ describe('drag-drop basic directive', () => {
     it('should not emit drag event when drag outside element', () => {
         fixture.detectChanges();
 
-        const item = fixture.debugElement.query(By.css('.outside-element')).nativeElement;
-
+        const item = fixture.debugElement.query(By.css('.drag-second')).nativeElement;
         const dragoverEvent = createDragEvent('dragover');
+
         item.dispatchEvent(dragoverEvent);
         fixture.detectChanges();
         expect(fixture.componentInstance.dragOverSpy).not.toHaveBeenCalled();
@@ -217,7 +217,7 @@ describe('with handle', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThySharedModule, ThyDragDropModule],
-            declarations: [TestWithHandleDragDropComponent, ThyDropContainerDirective, ThyDragHandleDirective],
+            declarations: [TestWithHandleDragDropComponent, ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective],
             providers: []
         }).compileComponents();
     }));
@@ -235,6 +235,18 @@ describe('with handle', () => {
         const lastDragHandle = testComponent.dragHandles.last;
         expect(firstDragHandle.disabled).toEqual(nodesData[0].handleDisabled);
         expect(lastDragHandle.disabled).toEqual(nodesData[nodesData.length - 1].handleDisabled);
+    });
+
+    it('should get right target for drag handle', () => {
+        fixture.detectChanges();
+        const item = fixture.debugElement.query(By.css('.drag-handle-4')).nativeElement;
+        dispatchFakeEvent(item, 'mouseover', true);
+        const target = testComponent.drags.last.dragRef['target'];
+        console.log(testComponent.drags.last);
+        expect(target).toEqual(item);
+        const dragstartEvent = createDragEvent('dragstart');
+
+        item.dispatchEvent(dragstartEvent);
     });
 });
 
@@ -344,7 +356,7 @@ export class TestBasicDragDropComponent {
         <ul [thyDropContainer]="basicNodes">
             <ng-container *ngFor="let item of basicNodes">
                 <li [thyDrag]="item">
-                    <span thyDragHandle [thyDisabled]="item.handleDisabled" class="cursor-pointer">🖐️</span>
+                    <span thyDragHandle [ngClass]="item.class" [thyDisabled]="item.handleDisabled" class="cursor-pointer">🖐️</span>
                     <span thyDragContent>{{ item.title }}</span>
                 </li>
             </ng-container>
@@ -375,6 +387,7 @@ export class TestWithHandleDragDropComponent {
             key: '000004',
             title: '000004',
             draggable: true,
+            class: 'drag-handle-4',
             handleDisabled: false
         }
     ];
@@ -382,6 +395,8 @@ export class TestWithHandleDragDropComponent {
     public disabled = false;
 
     @ViewChild(ThyDragContentDirective, { static: true }) dropContainer: ThyDragContentDirective;
+
+    @ViewChildren(ThyDragDirective) drags: QueryList<ThyDragDirective>;
 
     @ViewChildren(ThyDragHandleDirective) dragHandles: QueryList<ThyDragHandleDirective>;
 }
