@@ -7,7 +7,7 @@ import { ThyDragDropService } from './drag-drop.service';
 import { ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent, ThyDragDropEvent, ThyDropPosition } from './drag-drop.class';
 import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
-import { coerceArray } from 'ngx-tethys/util';
+import { coerceArray, isEmpty } from 'ngx-tethys/util';
 
 const dropPositionClass = {
     [ThyDropPosition.in]: 'thy-drop-position-in',
@@ -132,12 +132,12 @@ export class DragRef<T = any> {
     }
 
     private getPreviousEventData() {
-        const previousItem = this.dragDropService.previousDrag.data;
-        const previousContainerItems = this.dragDropService.previousDrag.container.data;
+        const previousItem = this.dragDropService.previousDrag?.data;
+        const previousContainerItems = this.dragDropService.previousDrag?.container?.data;
         return {
             previousItem: previousItem,
-            previousContainerItems: this.dragDropService.previousDrag.container.data,
-            previousIndex: previousContainerItems.indexOf(previousItem)
+            previousContainerItems,
+            previousIndex: isEmpty(previousContainerItems) ? -1 : previousContainerItems.indexOf(previousItem)
         };
     }
 
@@ -156,13 +156,17 @@ export class DragRef<T = any> {
         event.preventDefault();
 
         const dropPosition = this.calcDropPosition(event);
+        const previousEventData = this.getPreviousEventData();
+        if (previousEventData.previousIndex < 0) {
+            return;
+        }
         const dragOverEvent: ThyDragOverEvent<T> = {
             event: event,
             item: this.drag.data,
             containerItems: this.drag.container.data,
             currentIndex: this.container.data.indexOf(this.drag.data),
             position: dropPosition,
-            ...this.getPreviousEventData()
+            ...previousEventData
         };
 
         if (this.isContinueDragOver(dragOverEvent, this.container)) {
@@ -183,13 +187,17 @@ export class DragRef<T = any> {
     private dragDrop(event: DragEvent) {
         event.stopPropagation();
         this.clearDragPositionClass();
+        const previousEventData = this.getPreviousEventData();
+        if (previousEventData.previousIndex < 0) {
+            return;
+        }
         const dragDropEvent: ThyDragDropEvent<T> = {
             event: event,
             item: this.drag.data,
             containerItems: this.drag.container.data,
             currentIndex: this.container.data.indexOf(this.drag.data),
             position: this.calcDropPosition(event),
-            ...this.getPreviousEventData()
+            ...previousEventData
         };
         if (this.dragDropService.previousDrag === this.drag || (this.container.beforeDrop && !this.container.beforeDrop(dragDropEvent))) {
             event.preventDefault();
@@ -208,6 +216,7 @@ export class DragRef<T = any> {
                 containerItems: this.container.data
             });
         });
+        this.dragDropService.previousDrag = undefined;
     }
 
     private dragLeave(event: DragEvent) {
