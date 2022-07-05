@@ -114,6 +114,20 @@ describe('drag-drop basic directive', () => {
         expect(fixture.componentInstance.beforeOverSpy).toHaveBeenCalled();
         expect(fixture.componentInstance.dragOverSpy).toHaveBeenCalled();
 
+        fixture.detectChanges();
+        const dragenterItem = testComponent.drags.first;
+        const dragenterSpy = jasmine.createSpy('drag enter');
+        dragenterItem.dragRef.entered.asObservable().subscribe(() => {
+            dragenterSpy();
+        });
+
+        fixture.detectChanges();
+        const dragenterEvent = createDragEvent('dragenter');
+        item.dispatchEvent(dragenterEvent);
+        fixture.detectChanges();
+
+        expect(dragenterSpy).toHaveBeenCalled();
+
         const secondItem = debugElement.query(By.css('.drag-second')).nativeElement;
         const dataTransfer = new DataTransfer();
         dataTransfer.dropEffect = 'move';
