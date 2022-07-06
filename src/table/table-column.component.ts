@@ -47,6 +47,12 @@ export class ThyTableColumnComponent implements OnInit {
         this.width = coerceCssPixelValue(value);
     }
 
+    public minWidth: string = '';
+    @Input()
+    set thyMinWidth(value: string | number) {
+        this.minWidth = coerceCssPixelValue(value);
+    }
+
     @Input('thyClassName') className = '';
 
     @Input('thyHeaderClassName') headerClassName = '';
