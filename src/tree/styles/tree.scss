@@ -175,7 +175,7 @@
     .cdk-virtual-scroll-viewport {
         height: 100%;
         .virtual-trees-container {
-            padding: 10px 20px 10px 10px;
+            padding: variables.$tree-padding;
             .thy-tree-node {
                 padding: 0 0 0 10px;
             }
