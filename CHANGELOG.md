@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.38](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.37...13.1.0-next.38) (2022-07-06)
+
+
+### Bug Fixes
+
+* **drag-drop:** remove indicator line when not drag item #INFR-3765 ([#1939](https://github.com/atinc/ngx-tethys/issues/1939)) ([e2cde5a](https://github.com/atinc/ngx-tethys/commit/e2cde5a774ce811a22b81f7b3cde0c2c61a42202)), closes [#INFR-3765](https://github.com/atinc/ngx-tethys/issues/INFR-3765)
+
+
+### Features
+
+* **menu:** support thyCollapsed event for thy-menu-group #INFR-3766 ([661004f](https://github.com/atinc/ngx-tethys/commit/661004fd71e35968f66d9f37d08c65c411272cb3)), closes [#INFR-3766](https://github.com/atinc/ngx-tethys/issues/INFR-3766)
+* **table:** add column minWidth #INFR-3782 ([#1940](https://github.com/atinc/ngx-tethys/issues/1940)) ([e5058aa](https://github.com/atinc/ngx-tethys/commit/e5058aa06d0af1de0f0b8518acbd10fb25b018e2)), closes [#INFR-3782](https://github.com/atinc/ngx-tethys/issues/INFR-3782)
+
+
+
 # [13.1.0-next.37](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.36...13.1.0-next.37) (2022-07-04)
 
 
