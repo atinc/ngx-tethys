@@ -206,6 +206,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyMinWidth',
+                description: '设置列的最小宽度',
+                type: 'string | number',
+                default: ''
+            },
+            {
                 name: 'thyClassName',
                 description: '设置列的 Class，即 td 元素上的样式',
                 type: 'string',

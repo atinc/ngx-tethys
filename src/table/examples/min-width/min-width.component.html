@@ -1,9 +1,9 @@
 <thy-table [thyModel]="data" thyRowKey="id" thyMinWidth="800px" thyLayoutFixed="true">
   <thy-table-column thyTitle="Id" thyModelKey="id" thyWidth="10%"></thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="20%"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="auto"></thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age" thyWidth="15%"></thy-table-column>
   <thy-table-column thyTitle="Job" thyModelKey="job" thyWidth="15%"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address" thyWidth="25%" thySecondary="true"></thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" thyWidth="25%" thyMinWidth="240px" thySecondary="true"></thy-table-column>
   <thy-table-column thyTitle="" thyWidth="15%" thyOperational="true">
     <ng-template #cell let-row>
       <a class="link-secondary" href="javascript:;">

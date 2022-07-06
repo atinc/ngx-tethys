@@ -13,7 +13,7 @@
     [style.min-width]="thyMinWidth"
   >
     <colgroup>
-      <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : null" />
+      <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : column.minWidth" />
     </colgroup>
 
     <thead *ngIf="thyShowHeader">
