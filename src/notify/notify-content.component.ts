@@ -1,55 +1,50 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subject } from 'rxjs';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { ThyNotifyContainerRef } from './notify-container-ref';
 import { NotifyQueueStore } from './notify-queue.store';
 import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 @Component({
     selector: 'thy-notify-content',
     template: `
-        <thy-notify *ngFor="let item of topLeftQueue" [thyOption]="item"></thy-notify>
-        <thy-notify *ngFor="let item of topRightQueue" [thyOption]="item"></thy-notify>
-        <thy-notify *ngFor="let item of bottomLeftQueue" [thyOption]="item"></thy-notify>
-        <thy-notify *ngFor="let item of bottomRightQueue" [thyOption]="item"></thy-notify>
+        <thy-notify *ngFor="let item of notifyItems" [thyOption]="item"></thy-notify>
     `
 })
 export class ThyNotifyContentComponent implements OnInit, OnDestroy {
-    public topLeftQueue: ThyNotifyConfig[];
-    public topRightQueue: ThyNotifyConfig[];
-    public bottomLeftQueue: ThyNotifyConfig[];
-    public bottomRightQueue: ThyNotifyConfig[];
+    notifyItems: ThyNotifyConfig[];
 
-    public placement: NotifyPlacement;
+    @Input()
+    placement: NotifyPlacement;
 
     private destroy$ = new Subject<void>();
 
     beforeAttachPortal(): void {}
 
-    constructor(public queueStore: NotifyQueueStore) {}
+    constructor(public queueStore: NotifyQueueStore, public notifyContainerRef: ThyNotifyContainerRef<ThyNotifyContentComponent>) {}
 
     ngOnInit() {
         this.placement = this.placement;
-        let queue$, queueKey: string;
-
+        let queue$: Observable<ThyNotifyConfig[]>;
         if (this.placement === 'topLeft') {
-            queueKey = 'topLeftQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.topLeftSelector);
         } else if (this.placement === 'topRight') {
-            queueKey = 'topRightQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.topRightSelector);
         } else if (this.placement === 'bottomLeft') {
-            queueKey = 'bottomLeftQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.bottomLeftSelector);
         } else if (this.placement === 'bottomRight') {
-            queueKey = 'bottomRightQueue';
             queue$ = this.queueStore.select(NotifyQueueStore.bottomRightSelector);
         }
         queue$.pipe(takeUntil(this.destroy$)).subscribe(data => {
-            this[queueKey] = data;
+            this.notifyItems = data;
+            if (data.length === 0) {
+                this.notifyContainerRef.close();
+            }
         });
     }
 
     ngOnDestroy(): void {
         this.destroy$.next();
+        this.destroy$.complete();
     }
 }

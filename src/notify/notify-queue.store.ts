@@ -61,7 +61,7 @@ export class NotifyQueueStore extends MiniStore<NotifyQueueState> {
     }
 
     @MiniAction()
-    removeNotify(id: string, placement?: NotifyPlacement) {
+    removeNotifyById(id: string, placement?: NotifyPlacement) {
         const state = this.snapshot;
         if (placement) {
             const queueKey = this.convertQueueKey(placement);
@@ -75,6 +75,28 @@ export class NotifyQueueStore extends MiniStore<NotifyQueueState> {
                 if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
                     state[queueKey] = state[queueKey].filter((item: any) => {
                         return item.id !== id;
+                    });
+                }
+            });
+        }
+        this.next(state);
+    }
+
+    @MiniAction()
+    removeNotify(config: ThyNotifyConfig, placement?: NotifyPlacement) {
+        const state = this.snapshot;
+        if (placement) {
+            const queueKey = this.convertQueueKey(placement);
+            if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
+                state[queueKey] = state[queueKey].filter((item: any) => {
+                    return item !== config;
+                });
+            }
+        } else {
+            Object.keys(state).forEach(queueKey => {
+                if (state.hasOwnProperty(queueKey) && state[queueKey].length) {
+                    state[queueKey] = state[queueKey].filter((item: any) => {
+                        return item !== config;
                     });
                 }
             });

@@ -1,27 +1,19 @@
-import { ThyAbstractInternalOverlayRef, ThyAbstractOverlayRef } from 'ngx-tethys/core';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { ThyNotifyContainerComponent } from './notify-container.component';
+import { ThyNotifyContainerRef } from './notify-container-ref';
+import { NotifyQueueStore } from './notify-queue.store';
 import { ThyNotifyConfig } from './notify.config';
-import { notifyAbstractOverlayOptions } from './notify.options';
 
-export abstract class ThyNotifyRef<T, TResult = unknown, TData = unknown> extends ThyAbstractOverlayRef<
-    T,
-    ThyNotifyContainerComponent<TData>,
-    TResult
-> {}
+export class ThyNotifyRef {
+    constructor(
+        private queueStore: NotifyQueueStore,
+        private thyNotifyContainerRef: ThyNotifyContainerRef<unknown>,
+        private option: ThyNotifyConfig
+    ) {}
 
-export class ThyInternalNotifyRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyNotifyContainerComponent, TResult>
-    implements ThyNotifyRef<T, TResult> {
-    constructor(overlayRef: OverlayRef, containerInstance: ThyNotifyContainerComponent, config: ThyNotifyConfig) {
-        super(notifyAbstractOverlayOptions, overlayRef, containerInstance, config);
+    get containerRef() {
+        return this.thyNotifyContainerRef;
     }
 
-    /**
-     * Updates the notify's position.
-     * @param position New notify position.
-     */
-    updatePosition(): this {
-        this.overlayRef.updatePosition();
-        return this;
+    close() {
+        this.queueStore.removeNotify(this.option);
     }
 }

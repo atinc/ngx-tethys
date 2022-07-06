@@ -1,7 +1,7 @@
 import { isFunction, isString } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { ComponentRef, Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
+import { Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { ThyNotifyContainerComponent } from './notify-container.component';
 import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG_VALUE, THY_NOTIFY_DEFAULT_OPTIONS } from './notify.config';
@@ -15,9 +15,10 @@ import {
     PositionStrategy,
     ScrollStrategy
 } from '@angular/cdk/overlay';
-import { ComponentTypeOrTemplateRef, POSITION_MAP, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
-import { ThyInternalNotifyRef, ThyNotifyRef } from './notify-ref';
+import { POSITION_MAP, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
+import { ThyInternalNotifyRef, ThyNotifyContainerRef } from './notify-container-ref';
 import { Directionality } from '@angular/cdk/bidi';
+import { ThyNotifyRef } from './notify-ref';
 import { ThyNotifyContentComponent } from './notify-content.component';
 
 @Injectable({
@@ -28,13 +29,13 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
 
     private _lastNotifyId = 0;
 
-    private containerRefTopRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopRight: ThyNotifyContainerRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomRight: ThyNotifyContainerRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomLeft: ThyNotifyContainerRef<ThyNotifyContentComponent>;
 
-    private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopLeft: ThyNotifyContainerRef<ThyNotifyContentComponent>;
 
     protected buildOverlayConfig(config: ThyNotifyConfig): OverlayConfig {
         const positionStrategy = this.buildPositionStrategy(config);
@@ -88,7 +89,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
 
     protected createInjector<T>(
         config: ThyNotifyConfig,
-        notifyRef: ThyNotifyRef<T>,
+        notifyRef: ThyNotifyContainerRef<T>,
         notifyContainer: ThyNotifyContainerComponent
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
@@ -96,7 +97,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         const injectionTokens: StaticProvider[] = [
             { provide: ThyNotifyContainerComponent, useValue: notifyContainer },
             {
-                provide: ThyNotifyRef,
+                provide: ThyNotifyContainerRef,
                 useValue: notifyRef
             }
         ];
@@ -127,26 +128,27 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         });
     }
 
-    public show(config: ThyNotifyConfig) {
+    public show(config: ThyNotifyConfig): ThyNotifyRef {
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
-        const notifyRef = this.getContainer(placement);
-        if (!notifyRef) {
-            const ref = this.openOverlay(ThyNotifyContentComponent, {
+        let notifyRef = this.getContainer(placement);
+        if (!notifyRef || !notifyRef.getOverlayRef().hasAttached()) {
+            notifyRef = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement
                 }
             });
-            this.setContainer(placement, ref);
+            this.setContainer(placement, notifyRef);
         } else {
-            (notifyRef as any).containerInstance.moveToTop();
+            notifyRef.containerInstance.moveToTop();
         }
+        return new ThyNotifyRef(this.queueStore, notifyRef, config);
     }
 
     public success(title?: string, content?: string, config?: ThyNotifyConfig) {
-        this.show({
+        return this.show({
             ...(config || {}),
             type: 'success',
             title: title || config?.title || '成功',
@@ -155,7 +157,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
     }
 
     public info(title?: string, content?: string, config?: ThyNotifyConfig) {
-        this.show({
+        return this.show({
             ...(config || {}),
             type: 'info',
             title: title || config?.title || '提示',
@@ -164,7 +166,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
     }
 
     public warning(title?: string, content?: string, config?: ThyNotifyConfig) {
-        this.show({
+        return this.show({
             ...(config || {}),
             type: 'warning',
             title: title || config?.title || '警告',
@@ -181,11 +183,11 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
                   title: title || (config as ThyNotifyConfig)?.title || '错误',
                   content: content || (config as ThyNotifyConfig)?.content
               };
-        this.show(showConfig);
+        return this.show(showConfig);
     }
 
     public removeNotifyById(id: string) {
-        this.queueStore.removeNotify(id);
+        this.queueStore.removeNotifyById(id);
     }
 
     private getContainer(placement: NotifyPlacement) {
