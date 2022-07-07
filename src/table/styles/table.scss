@@ -38,14 +38,18 @@
 
 .thy-operation-links {
     text-align: left;
-    > button,
-    > a {
+    > button:not(:first-child),
+    > a:not(:first-child) {
         display: inline-block;
-        margin-right: variables.$operation-link-margin-y;
+        margin-left: variables.$table-operation-column-spacing;
+    }
 
-        &:last-child {
-            margin-right: 0;
-        }
+    > .thy-action + a,
+    > a + .thy-action {
+        margin-left: variables.$operation-link-margin-y - 8px;
+    }
+    > .thy-action + .thy-action {
+        margin-left: variables.$operation-link-margin-y - 16px;
     }
 }
 
