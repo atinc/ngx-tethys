@@ -6,14 +6,19 @@
     flex-direction: column;
     flex: auto;
     height: 100%;
-    min-height: 0;
+    min-height: 0px;
     background: variables.$layout-content-background;
 
     &--has-sidebar {
         flex-direction: row;
 
-        > .thy-layout-content {
-            overflow-x: hidden;
+        // > .thy-layout-content {
+        //     overflow-x: hidden;
+        // }
+        > .thy-layout-content,
+        > .thy-layout {
+            // 在 flex-direction 为 row 的场景下，内容区域宽度因为被 Flex 布局撑开无法触发横向滚动，必须加 min-width: 0px;
+            min-width: 0px;
         }
     }
 }
