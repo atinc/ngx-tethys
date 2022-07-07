@@ -29,6 +29,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
         >
             <a thyNavLink thyNavLinkActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
+            <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
     `
 })
@@ -144,7 +145,7 @@ describe(`thy-nav`, () => {
             const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
             const links = navDebugElement.queryAll(By.directive(ThyNavItemDirective));
             expect(links).toBeTruthy();
-            expect(links.length).toEqual(2);
+            expect(links.length).toEqual(3);
             const activeLink: HTMLElement = links[0].nativeElement;
             const link2: HTMLElement = links[1].nativeElement;
             expect(activeLink.textContent).toContain('Link1');
@@ -154,6 +155,15 @@ describe(`thy-nav`, () => {
             expect(link2.textContent).toContain('Link2');
             expect(link2.classList.contains(NAV_LINK_CLASS)).toEqual(true);
             expect(link2.classList.contains('active')).toEqual(false);
+        });
+
+        it(`should set disabled class when thyNavItemDisabled is true`, () => {
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            const disabledLink = navDebugElement.query(By.css('#disabled')).nativeElement;
+
+            expect(disabledLink.textContent).toContain('Link3');
+            expect(disabledLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
+            expect(disabledLink.classList.contains('disabled')).toEqual(true);
         });
 
         it(`should get correct class when input type`, () => {
