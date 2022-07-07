@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.40](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.39...13.1.0-next.40) (2022-07-07)
+
+
+### Bug Fixes
+
+* **table:** set thy-avatar display to flex and  align-items: center for name truncate ([#1952](https://github.com/atinc/ngx-tethys/issues/1952)) ([0fa933c](https://github.com/atinc/ngx-tethys/commit/0fa933caadc17a6446dd8411f9871339db6fdcbf))
+
+
+
 # [13.1.0-next.39](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.38...13.1.0-next.39) (2022-07-07)
 
 
