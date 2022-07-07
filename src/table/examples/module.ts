@@ -13,6 +13,7 @@ import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
 
 export default {
     imports: [
@@ -30,6 +31,7 @@ export default {
         ThySpaceModule,
         ThyGridModule,
         ThyEmptyModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyAvatarModule
     ]
 };

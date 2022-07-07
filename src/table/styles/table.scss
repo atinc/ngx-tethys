@@ -41,19 +41,28 @@
     > button,
     > a {
         display: inline-block;
-        margin-left: variables.$table-operation-column-spacing;
-        &:first-child {
-            margin-left: 0px;
+        margin-right: variables.$table-operation-column-spacing;
+        &:last-child {
+            margin-right: 0px;
         }
     }
+    // 目前只处理链接，不处理 Action，因为会影响首页的星标操作区域，等首页操作区域重构后再修改为如下样式
+    // > button,
+    // > a {
+    //     display: inline-block;
+    //     margin-left: variables.$table-operation-column-spacing;
+    //     &:first-child {
+    //         margin-left: 0px;
+    //     }
+    // }
 
-    > .thy-action + a,
-    > a + .thy-action {
-        margin-left: variables.$table-operation-column-spacing - 8px;
-    }
-    > .thy-action + .thy-action {
-        margin-left: variables.$table-operation-column-spacing - 16px;
-    }
+    // > .thy-action + a,
+    // > a + .thy-action {
+    //     margin-left: variables.$table-operation-column-spacing - 8px;
+    // }
+    // > .thy-action + .thy-action {
+    //     margin-left: variables.$table-operation-column-spacing - 16px;
+    // }
 }
 
 // 次要列，文字颜色为 #999
