@@ -32,7 +32,7 @@
     }
     // Disabled state lightens text
     &.disabled {
-        color: variables.$nav-item-disabled-color;
+        color: variables.$gray-400;
         border-bottom: none;
     }
 }
