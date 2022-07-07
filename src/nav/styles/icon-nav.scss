@@ -27,7 +27,7 @@
 
     // Disabled state lightens text
     &.disabled {
-        color: variables.$gray-400;
+        color: variables.$nav-item-disabled-color;
         border-bottom: none;
     }
 }

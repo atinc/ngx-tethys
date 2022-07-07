@@ -29,7 +29,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
         >
             <a thyNavLink thyNavLinkActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
-            <a thyNavLink thyNavItemDisabled="true">Link3</a>
+            <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
     `
 })
@@ -156,6 +156,11 @@ describe(`thy-nav`, () => {
             expect(link2.textContent).toContain('Link2');
             expect(link2.classList.contains(NAV_LINK_CLASS)).toEqual(true);
             expect(link2.classList.contains('active')).toEqual(false);
+        });
+
+        it(`should set disabled class when thyNavItemDisabled is true`, () => {
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            const disabledLink = navDebugElement.query(By.css('#disabled')).nativeElement;
 
             expect(disabledLink.textContent).toContain('Link3');
             expect(disabledLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
