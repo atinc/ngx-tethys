@@ -1,31 +1,9 @@
 @use "../../styles/variables";
 @use "mixin";
 
-.empty-state {
-    display: block;
-    text-align: center;
-    .empty-icon {
-        i {
-            color: variables.$empty-icon-color;
-        }
-    }
-
-    .empty-text {
-        color: variables.$empty-text-color;
-        // margin-left: 15px;
-    }
-
-    @include mixin.set-empty-state-size(variables.$empty-icon-size, variables.$empty-text-size);
-
-    &--lg {
-        @include mixin.set-empty-state-size(variables.$empty-icon-size-lg, variables.$empty-text-size-lg);
-    }
-}
-
 .thy-empty-state {
     display: block;
     text-align: center;
-    line-height: 1;
     .thy-empty-icon .empty-icon {
         svg {
             color: variables.$empty-icon-color;
