@@ -365,6 +365,8 @@ $table-default-header-padding: 12px 16px !default;
 $table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
 $table-group-first-cell-padding-left: 43px !default;
+$table-operation-column-spacing: 32px !default;
+
 // grid
 $table-footer-padding: 0 20px !default;
 // action-menu
@@ -677,8 +679,6 @@ $empty-description-color: $gray-600 !default;
 $empty-description-size: $font-size-base !default;
 $empty-description-margin-top: 14px !default;
 
-//util
-$operation-link-margin-y: 20px !default;
 //switch
 // $switch-lg-width: 48px !default;
 // $switch-lg-height: 28px !default;

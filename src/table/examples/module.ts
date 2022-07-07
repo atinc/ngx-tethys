@@ -12,6 +12,7 @@ import { ThyNotifyModule } from 'ngx-tethys/notify';
 import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 export default {
     imports: [
@@ -28,6 +29,7 @@ export default {
         ThyNotifyModule,
         ThySpaceModule,
         ThyGridModule,
-        ThyEmptyModule
+        ThyEmptyModule,
+        ThyActionModule
     ]
 };
