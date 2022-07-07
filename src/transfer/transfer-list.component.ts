@@ -1,4 +1,4 @@
-import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {
     Component,
     DoCheck,
@@ -124,6 +124,10 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     lockListEnterPredicate = () => {
         return this.lockItems.length < this.maxLock;
+    };
+
+    unlockListEnterPredicate = (event: CdkDrag<ThyTransferItem>) => {
+        return !event.data.isFixed;
     };
 
     onSelectItem = (item: ThyTransferItem) => {

@@ -38,6 +38,7 @@
       id="unlock"
       [cdkDropListData]="unlockItems"
       (cdkDropListDropped)="drop($event)"
+      [cdkDropListEnterPredicate]="unlockListEnterPredicate"
     >
       <div class="cdk-drop-list-empty" *ngIf="unlockItems.length === 0"></div>
       <thy-list-item
