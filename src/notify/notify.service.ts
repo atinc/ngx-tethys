@@ -28,13 +28,13 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
 
     private _lastNotifyId = 0;
 
-    private containerRefTopRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
     protected buildOverlayConfig(config: ThyNotifyConfig): OverlayConfig {
         const positionStrategy = this.buildPositionStrategy(config);
@@ -131,15 +131,17 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
-        const notifyRef = this.getContainer(placement);
+        let notifyRef = this.getContainer(placement);
         if (!notifyRef) {
-            const ref = this.openOverlay(ThyNotifyContentComponent, {
+            notifyRef = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement
                 }
             });
-            this.setContainer(placement, ref);
+            this.setContainer(placement, notifyRef);
+        } else {
+            notifyRef.containerInstance.toOverlayTop();
         }
     }
 
