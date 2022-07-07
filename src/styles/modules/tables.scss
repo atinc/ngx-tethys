@@ -17,6 +17,12 @@
         padding: variables.$table-default-header-cell-padding;
         vertical-align: middle;
         border-bottom: variables.$table-border-width solid variables.$table-border-color;
+
+        // 处理名称长度过长表格换行的问题
+        .thy-avatar {
+            display: flex;
+            align-items: center;
+        }
     }
 
     tbody tr {
