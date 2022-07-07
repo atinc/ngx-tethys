@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.39](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.38...13.1.0-next.39) (2022-07-07)
+
+
+### Bug Fixes
+
+* **empty:** remove class empty-state and line-height for .thy-empty-state #INFR-3793 ([c41b7a8](https://github.com/atinc/ngx-tethys/commit/c41b7a8c20833fe14ffedc5504abc487fd30bb37)), closes [#INFR-3793](https://github.com/atinc/ngx-tethys/issues/INFR-3793)
+* **layout:** set min-width to 0px for .thy-layout and content trigger x-scroll in layout--sidebar #INFR-3789 ([#1943](https://github.com/atinc/ngx-tethys/issues/1943)) ([14a59b2](https://github.com/atinc/ngx-tethys/commit/14a59b2b4ed668b6d64e66f4051c7bfa63bf2b33)), closes [#INFR-3789](https://github.com/atinc/ngx-tethys/issues/INFR-3789)
+* **notify:** add toOverlayTop to resolve notify is covered issue #INFR-3214 ([c6f654d](https://github.com/atinc/ngx-tethys/commit/c6f654d1696c4888b3ca22fc4c07f11387676911)), closes [#INFR-3214](https://github.com/atinc/ngx-tethys/issues/INFR-3214)
+* **table:** update link spacing to 32px for operational column #INFR-3800 ([#1950](https://github.com/atinc/ngx-tethys/issues/1950)) ([1500702](https://github.com/atinc/ngx-tethys/commit/15007025e6ea2d5eb4b059d8ae475969be269c42)), closes [#INFR-3800](https://github.com/atinc/ngx-tethys/issues/INFR-3800)
+
+
+### Features
+
+* **nav:** add thyNavItemDisabled for nav item #INFR-3791 ([#1947](https://github.com/atinc/ngx-tethys/issues/1947)) ([a53daaa](https://github.com/atinc/ngx-tethys/commit/a53daaa56df943b687d7273b17e3489a07d2efa6)), closes [#INFR-3791](https://github.com/atinc/ngx-tethys/issues/INFR-3791)
+* **transfer:** lock has fixed item can not be move to unlock zd/#INFR-3706 ([0a57171](https://github.com/atinc/ngx-tethys/commit/0a571710293217d7facb8a002cbba3c15280d8f5)), closes [zd/#INFR-3706](https://github.com/atinc/ngx-tethys/issues/INFR-3706)
+
+
+
 # [13.1.0-next.38](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.37...13.1.0-next.38) (2022-07-06)
 
 
