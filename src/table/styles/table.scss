@@ -38,10 +38,13 @@
 
 .thy-operation-links {
     text-align: left;
-    > button:not(:first-child),
-    > a:not(:first-child) {
+    > button,
+    > a {
         display: inline-block;
         margin-left: variables.$table-operation-column-spacing;
+        &:first-child {
+            margin-left: 0px;
+        }
     }
 
     > .thy-action + a,
