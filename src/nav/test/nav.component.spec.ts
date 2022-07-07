@@ -148,7 +148,6 @@ describe(`thy-nav`, () => {
             expect(links.length).toEqual(3);
             const activeLink: HTMLElement = links[0].nativeElement;
             const link2: HTMLElement = links[1].nativeElement;
-            const disabledLink: HTMLElement = links[2].nativeElement;
             expect(activeLink.textContent).toContain('Link1');
             expect(activeLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
             expect(activeLink.classList.contains('active')).toEqual(true);
