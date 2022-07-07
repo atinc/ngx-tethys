@@ -150,13 +150,11 @@
         position: absolute;
         cursor: ew-resize;
         transition: none;
-        width: 20px;
-        right: -10px;
+        right: -2px;
+        width: 2px;
 
         .sidebar-resize-line {
-            width: 2px;
             height: 100%;
-            margin-left: 10px;
             transition: all 180ms linear;
             border-right: 2px solid transparent;
         }
