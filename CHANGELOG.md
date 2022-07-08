@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.41](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.40...13.1.0-next.41) (2022-07-08)
+
+
+### Bug Fixes
+
+* **dot:** fix dot size attribute and document ([1dbf940](https://github.com/atinc/ngx-tethys/commit/1dbf9402a3012f1066e5c203240f2e3075cfaa4c))
+* **fullscreen:** fix fullscreen bug on Immersive mode #INFR-3823 ([#1962](https://github.com/atinc/ngx-tethys/issues/1962)) ([ca3ba49](https://github.com/atinc/ngx-tethys/commit/ca3ba4968ad78bc75add6ce09e3424f937b1b016)), closes [#INFR-3823](https://github.com/atinc/ngx-tethys/issues/INFR-3823)
+* **menu:** set last thy-action  margin-right: -8px; and group arrow translateX(-2px) for collapsed #INFR-3824 ([#1961](https://github.com/atinc/ngx-tethys/issues/1961)) ([8d9ab3d](https://github.com/atinc/ngx-tethys/commit/8d9ab3d4260bddf7b05bf8c0543b875b8b35681e)), closes [#INFR-3824](https://github.com/atinc/ngx-tethys/issues/INFR-3824)
+* **table:** restore tree-padding #INFR-3784 ([10a11c9](https://github.com/atinc/ngx-tethys/commit/10a11c9689550f18b64293b5f73f6a4fc6bc2379)), closes [#INFR-3784](https://github.com/atinc/ngx-tethys/issues/INFR-3784)
+
+
+### Features
+
+* **table:** add operation space to 32px for operational column in bordered and boxed table #INFR-3825 ([#1960](https://github.com/atinc/ngx-tethys/issues/1960)) ([a9bf90e](https://github.com/atinc/ngx-tethys/commit/a9bf90e8d3bf7933f1f5ba76ea59237c81dac319)), closes [#INFR-3825](https://github.com/atinc/ngx-tethys/issues/INFR-3825)
+* **table:** set thy-operation-links nowrap #INFR-3812 ([#1955](https://github.com/atinc/ngx-tethys/issues/1955)) ([b897e62](https://github.com/atinc/ngx-tethys/commit/b897e628700f8bb0db51577ca83201dc11bd8aa9)), closes [#INFR-3812](https://github.com/atinc/ngx-tethys/issues/INFR-3812)
+
+
+
 # [13.1.0-next.40](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.39...13.1.0-next.40) (2022-07-07)
 
 
