@@ -6,20 +6,22 @@ $colors: (
     warning: variables.$warning,
     danger: variables.$danger,
     success: variables.$success,
-    default: initial,
+    default: variables.$gray-100,
     light: variables.$light
 );
 
 $sizes: (
     xs: 6,
-    sm: 10,
-    md: 12
+    sm: 8,
+    md: 10,
+    lg: 12
 );
 
 $border-sizes: (
     xs: 2,
     sm: 2,
-    md: 2
+    md: 2,
+    lg: 12
 );
 
 .thy-dot {
@@ -27,6 +29,8 @@ $border-sizes: (
     box-sizing: border-box;
     border-style: solid;
     background: transparent;
+    width: 0;
+    height: 0;
 }
 
 .thy-dot.dot-shape-circle {

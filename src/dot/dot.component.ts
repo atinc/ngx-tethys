@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewE
 import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 
 export type ThyColorType = ThyThemeColor | string;
-export type ThySizeType = 'xs' | 'sm' | 'md';
+export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg';
 export type ThyThemeType = 'outline' | 'fill';
 export type ThyShapeType = 'square' | 'circle';
 
@@ -28,7 +28,8 @@ export const DEFAULT_SHAPE_NAME = 'circle';
 
         '[class.dot-size-md]': 'size === "md"',
         '[class.dot-size-sm]': 'size === "sm"',
-        '[class.dot-size-xs]': 'size === "xs"'
+        '[class.dot-size-xs]': 'size === "xs"',
+        '[class.dot-size-lg]': 'size === "lg"'
     }
 })
 export class ThyDotComponent {

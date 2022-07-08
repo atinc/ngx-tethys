@@ -13,7 +13,7 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '大小，可选值为： `xs `   `sm `   `md `',
+                description: '大小，可选值为： `xs `   `sm `   `md `  `lg `',
                 type: 'string',
                 default: 'sm'
             },
