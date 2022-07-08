@@ -145,6 +145,9 @@
                     margin-right: 0;
                 }
             }
+            .thy-action:last-child {
+                margin-right: -8px;
+            }
         }
 
         &-wrapper {
