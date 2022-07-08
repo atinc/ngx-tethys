@@ -27,12 +27,15 @@ import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-export type ThyNavType = 'pulled' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'tabs' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
 export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
 
 const navTypeClassesMap = {
     pulled: ['thy-nav-pulled'],
+    tabs: ['thy-nav-tabs'],
+    lite: ['thy-nav-lite'],
+    //如下类型已经废弃
     primary: ['thy-nav-primary'],
     secondary: ['thy-nav-secondary'],
     thirdly: ['thy-nav-thirdly'],
