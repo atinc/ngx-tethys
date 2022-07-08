@@ -1,10 +1,10 @@
 import { coerceElement } from '@angular/cdk/coercion';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { ElementRef, Inject, NgZone } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
-import { ESCAPE } from '@angular/cdk/keycodes';
 
 export class ThyFullscreenRef<TResult = unknown> {
     fullscreenConfig: ThyFullscreenConfig;
@@ -114,7 +114,7 @@ export class ThyFullscreenRef<TResult = unknown> {
             // We explicitly call `catch` and redirect the rejection to `console.error`.
             // Otherwise, this fill fail in unit tests with the following error:
             // `An error was thrown in afterAll. Unhandled promise rejection: TypeError: fullscreen error`.
-            requestFullscreen.call(documentElement).catch(console.error);
+            requestFullscreen.call(documentElement)?.catch(console.error);
         }
     }
 
@@ -125,7 +125,7 @@ export class ThyFullscreenRef<TResult = unknown> {
             document.exitFullscreen || document['mozCancelFullScreen'] || document['webkitExitFullscreen'] || document['msExitFullscreen'];
 
         if (typeof exitFullscreen === 'function') {
-            exitFullscreen.call(document).catch(console.error);
+            exitFullscreen.call(document)?.catch(console.error);
         }
     }
 
