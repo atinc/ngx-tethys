@@ -10,8 +10,33 @@ order: 30
 `thy-icon`使得在应用程序中更容易使用基于矢量的图标，此组件支持图标字体和SVG图标，但不支持基于位图的格式（png、jpg等）
 
 ## 模块导入
+根模块注册：
+```ts
+export class AppModule {
+    constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer) {
+        const iconSvgUrl = `assets/icons/defs/svg/sprite.defs.svg`;
+        iconRegistry.addSvgIconSet(sanitizer.bypassSecurityTrustResourceUrl(iconSvgUrl));
+    }
+}
+```
+
+模块导入：
 ```ts
 import { ThyIconModule } from "ngx-tethys/icon";
+
+@NgModule({
+    declarations: [
+        ...
+    ],
+    imports: [
+        ...
+        ThyIconModule
+    ],
+    exports: [
+        ...
+    ]
+})
+export class FooModule { }
 ```
 
 ## 图标集合
