@@ -26,7 +26,7 @@ export class AppModule {
 }
 ```
 
-> 未注册图标为则将出现 `Error retrieving icon: Unable to find icon with the name ":icon-name"` 错误。
+> 未注册图标库则将出现 `Error retrieving icon: Unable to find icon with the name ":icon-name"` 错误。
 
 ## 模块导入
 
