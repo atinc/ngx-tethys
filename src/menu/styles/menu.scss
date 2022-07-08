@@ -52,7 +52,7 @@
         &.collapsed {
             .thy-menu-group-header {
                 .thy-menu-group-arrow {
-                    transform: rotate(90deg) translateY(1px);
+                    transform: rotate(90deg) translateX(-2px);
                 }
             }
         }
@@ -167,6 +167,9 @@
         .thy-menu-item-action {
             visibility: hidden;
             color: variables.$gray-600;
+            .thy-action:last-child {
+                margin-right: -8px;
+            }
         }
     }
 
