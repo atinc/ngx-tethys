@@ -1,7 +1,6 @@
 import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
 import { NgModule, Component, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent } from '../../testing';
 import { ThyDotModule } from '../dot.module';
 import {
     COMPONENT_CLASS_NAME,
@@ -22,7 +21,7 @@ describe('ThyDot', () => {
     let dotComponent: DebugElement;
 
     const colors = ['primary', 'info', 'danger', 'warning', 'success'];
-    const sizes = ['xs', 'sm', 'md'];
+    const sizes = ['xs', 'sm', 'md', 'lg'];
     const shapes = ['square', 'circle'];
     const themes = ['outline', 'fill'];
 
