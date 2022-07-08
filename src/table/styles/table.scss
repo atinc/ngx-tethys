@@ -66,6 +66,36 @@
     // }
 }
 
+// 目前只处理 bordered 和 boxed 类型表格，不处理 default 表格
+.table-bordered,
+.table-boxed {
+    .thy-operation-links {
+        > button,
+        > a {
+            display: inline-block;
+            margin-right: variables.$table-operation-column-spacing;
+            &:first-child {
+                &.thy-action {
+                    margin-left: -8px;
+                    margin-right: variables.$table-operation-column-spacing - 16px;
+                }
+            }
+            &:last-child {
+                margin-right: 0px;
+            }
+        }
+
+        > .thy-action + a:not(:last-child),
+        > a + .thy-action:not(:last-child) {
+            margin-right: variables.$table-operation-column-spacing - 8px;
+        }
+
+        > .thy-action + .thy-action:not(:last-child) {
+            margin-right: variables.$table-operation-column-spacing - 16px;
+        }
+    }
+}
+
 // 次要列，文字颜色为 #999
 .thy-table-column-secondary {
     color: variables.$gray-600;

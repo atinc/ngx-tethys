@@ -30,14 +30,10 @@
   <thy-table-column thyTitle="Age" thyModelKey="age" thyWidth="100"></thy-table-column>
   <thy-table-column thyTitle="Job" thyModelKey="job" thyWidth="100"> </thy-table-column>
   <thy-table-column thyTitle="Address" thyModelKey="address" thyWidth="300"></thy-table-column>
-  <thy-table-column thyTitle="" thyOperational="true" thyWidth="200">
+  <thy-table-column thyTitle="Operation" thyOperational="true" thyWidth="200">
     <ng-template #cell let-row>
-      <a class="link-secondary" href="javascript:;">
-        <thy-icon thyIconName="user-add"></thy-icon>
-      </a>
-      <a class="link-danger-weak" href="javascript:;" (click)="deleteItem(row)">
-        <thy-icon thyIconName="trash"></thy-icon>
-      </a>
+      <a class="link-secondary" href="javascript:;" thyAction thyActionIcon="user-add"> </a>
+      <a href="javascript:;" thyAction thyActionIcon="trash" thyType="danger" (click)="deleteItem(row)"> </a>
     </ng-template>
   </thy-table-column>
 </thy-table>
