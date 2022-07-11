@@ -1,0 +1,7 @@
+@use "../../styles/variables.scss";
+@use "../../styles/mixins/link.scss";
+@use "sass:map";
+
+.thy-virtual-list-wrap {
+    height: 100px;
+}

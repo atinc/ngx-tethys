@@ -154,6 +154,7 @@ import { warnDeprecation } from 'ngx-tethys/util';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThySegmentModule } from 'ngx-tethys/segment';
+import { ThyVirtualListModule } from 'ngx-tethys/virtual-list';
 
 const TETHYS_MODULES = [
     ThyLayoutModule,
@@ -225,7 +226,8 @@ const TETHYS_MODULES = [
     ThyResizableModule,
     ThyCollapseModule,
     ThyRateModule,
-    ThySegmentModule
+    ThySegmentModule,
+    ThyVirtualListModule
 ];
 ```
 
