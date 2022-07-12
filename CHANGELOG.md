@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.42](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.41...13.1.0-next.42) (2022-07-12)
+
+
+### Bug Fixes
+
+* **image:** handle copy relative url and use detectChanges #WIK-7628 ([#1966](https://github.com/atinc/ngx-tethys/issues/1966)) ([e25ac57](https://github.com/atinc/ngx-tethys/commit/e25ac57c68fbe1fe696ad3c367acca86c766c5f5)), closes [#WIK-7628](https://github.com/atinc/ngx-tethys/issues/WIK-7628)
+* **tree:** modify thy-action margin(from -8px to -10px) #INFR-3835 ([bb0ecc3](https://github.com/atinc/ngx-tethys/commit/bb0ecc323bd84b9bd814189e7a2574b3e68ce063)), closes [#INFR-3835](https://github.com/atinc/ngx-tethys/issues/INFR-3835)
+
+
+
 # [13.1.0-next.41](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.40...13.1.0-next.41) (2022-07-08)
 
 
