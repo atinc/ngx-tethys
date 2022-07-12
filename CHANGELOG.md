@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.43](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.42...13.1.0-next.43) (2022-07-12)
+
+
+### Bug Fixes
+
+* **notify:** handle overlay is destroyed case #INFR-3838 ([#1968](https://github.com/atinc/ngx-tethys/issues/1968)) ([09df47c](https://github.com/atinc/ngx-tethys/commit/09df47ccb4f935b7c90b311ff2e14001156c1f22)), closes [#INFR-3838](https://github.com/atinc/ngx-tethys/issues/INFR-3838)
+
+
+
 # [13.1.0-next.42](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.41...13.1.0-next.42) (2022-07-12)
 
 
