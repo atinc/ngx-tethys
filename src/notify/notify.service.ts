@@ -132,7 +132,7 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
         let notifyRef = this.getContainer(placement);
-        if (!notifyRef) {
+        if (!notifyRef || !notifyRef.getOverlayRef().hasAttached()) {
             notifyRef = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
