@@ -134,6 +134,14 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         return this.images[this.previewIndex];
     }
 
+    get previewImageSrc() {
+        let imageSrc = this.previewImage.origin?.src || this.previewImage.src;
+        if (imageSrc.startsWith('./')) {
+            return window.location.host + '/' + imageSrc.split('./')[1];
+        }
+        return imageSrc;
+    }
+
     get defaultZoom(): number {
         if (this.previewConfig?.zoom && this.previewConfig?.zoom > 0) {
             return this.previewConfig.zoom >= IMAGE_MAX_ZOOM
@@ -187,7 +195,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.updatePreviewImageTransform();
         this.calculateInsideScreen();
         this.isLoadingDone = true;
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     setFitScreen() {
@@ -203,7 +211,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         if (isUpdateImageWrapper) {
             this.updatePreviewImageWrapperTransform();
         }
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     useCalculateZoomUpdate(isUpdateImageWrapper?: boolean) {
@@ -227,7 +235,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             if (isUpdateImageWrapper) {
                 this.updatePreviewImageWrapperTransform();
             }
-            this.cdr.markForCheck();
+            this.cdr.detectChanges();
         };
     }
 
@@ -337,6 +345,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     prev() {
         if (this.previewIndex > 0) {
             this.previewIndex--;
+            this.isLoadingDone = false;
             this.reset();
             this.updatePreviewImage();
         }
@@ -345,6 +354,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     next() {
         if (this.previewIndex < this.images.length - 1) {
             this.previewIndex++;
+            this.isLoadingDone = false;
             this.reset();
             this.updatePreviewImage();
         }
@@ -372,10 +382,10 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     private reset(): void {
-        this.isLoadingDone = false;
         this.currentImageMode = 'original-scale';
         this.rotate = this.previewConfig?.rotate ?? 0;
         this.position = { ...initialPosition };
+        this.cdr.detectChanges();
     }
 
     private updatePreviewImageTransform(): void {
