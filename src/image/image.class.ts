@@ -1,3 +1,5 @@
+import { SafeUrl } from '@angular/platform-browser';
+
 export interface ThyImageMeta {
     name?: string;
     size?: string | number;
@@ -14,6 +16,10 @@ export interface ThyImageInfo extends ThyImageMeta {
         height?: string | number;
         alt?: string;
     };
+}
+
+export interface InternalImageInfo extends ThyImageInfo {
+    objectURL?: SafeUrl;
 }
 
 export interface ThyImagePreviewOptions {

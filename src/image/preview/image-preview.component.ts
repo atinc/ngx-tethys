@@ -9,7 +9,7 @@ import {
     NgZone,
     OnDestroy
 } from '@angular/core';
-import { ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -18,6 +18,8 @@ import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } fr
 import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { DomSanitizer } from '@angular/platform-browser';
+import { getImageSizeByUrl } from '../utils';
 
 const initialPosition = {
     x: 0,
@@ -43,7 +45,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     }
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
-    images: ThyImageInfo[] = [];
+    images: InternalImageInfo[] = [];
     previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
     previewImageTransform = '';
@@ -130,11 +132,11 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     ];
     private rotate: number;
 
-    get previewImage(): ThyImageInfo {
+    get previewImage(): InternalImageInfo {
         return this.images[this.previewIndex];
     }
 
-    get previewImageSrc() {
+    get previewImageOriginSrc() {
         let imageSrc = this.previewImage.origin?.src || this.previewImage.src;
         if (imageSrc.startsWith('./')) {
             return window.location.host + '/' + imageSrc.split('./')[1];
@@ -161,10 +163,12 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private notifyService: ThyNotifyService,
-        private host: ElementRef<HTMLElement>
+        private host: ElementRef<HTMLElement>,
+        private sanitizer: DomSanitizer
     ) {
         super();
     }
+
     ngOnInit(): void {
         this.initPreview();
         this.ngZone.runOutsideAngular(() => {
@@ -240,10 +244,22 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     updatePreviewImage() {
-        if (this.defaultZoom) {
-            this.useDefaultZoomUpdate(true);
+        if (this.previewImage.objectURL) {
+            if (this.defaultZoom) {
+                this.useDefaultZoomUpdate(true);
+            } else {
+                this.useCalculateZoomUpdate();
+            }
         } else {
-            this.useCalculateZoomUpdate();
+            getImageSizeByUrl(this.previewImage.src).subscribe(blob => {
+                var urlCreator = window.URL || window.webkitURL;
+                var objectURL = urlCreator.createObjectURL(blob);
+                this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+                if (!this.previewImage.size) {
+                    this.previewImage.size = Math.floor((blob.size / 1024) * 100) / 100 + 'KB';
+                }
+                this.updatePreviewImage();
+            });
         }
     }
 
@@ -272,6 +288,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             a.download = image.name || 'default.png';
             a.href = url;
             a.dispatchEvent(event);
+            console.log('onload');
         };
         img.onerror = () => {
             let a = document.createElement('a');
