@@ -150,7 +150,7 @@ export const disabledOptionTreeSelectData: ThyTreeSelectNode[] = [
         title: 'parent-1',
         level: 0,
         icon: '',
-        fnHidden: true,
+        fnHidden: false,
         children: [
             {
                 key: 'parent-001-a',
@@ -187,7 +187,7 @@ export const disabledOptionTreeSelectData: ThyTreeSelectNode[] = [
         level: 0,
         icon: '',
         hidden: false,
-        disabled: false,
+        disabled: true,
         fnHidden: false,
         children: [
             {
@@ -198,6 +198,15 @@ export const disabledOptionTreeSelectData: ThyTreeSelectNode[] = [
                 children: []
             }
         ]
+    },
+    {
+        key: 'parent-003',
+        title: 'parent-3',
+        level: 0,
+        icon: '',
+        hidden: false,
+        disabled: true,
+        fnHidden: false
     }
 ];
 

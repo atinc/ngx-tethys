@@ -493,10 +493,9 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     selectTreeNode(event: Event, node: ThyTreeSelectNode) {
         event.stopPropagation();
-        if (this.treeNodeIsDisable(node)) {
-            return;
+        if (!this.treeNodeIsDisable(node)) {
+            this.parent.selectNode(node);
         }
-        this.parent.selectNode(node);
     }
 
     nodeExpandToggle(event: Event, node: ThyTreeSelectNode) {
