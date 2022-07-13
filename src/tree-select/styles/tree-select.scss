@@ -4,6 +4,9 @@
 @use "../../styles/variables";
 
 @mixin thy-tree-select-option() {
+    &.disabled {
+        pointer-events: unset;
+    }
     &:not(.disabled) {
         &.hover,
         &:hover {
