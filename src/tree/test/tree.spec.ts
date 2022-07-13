@@ -508,18 +508,9 @@ describe('ThyTreeComponent', () => {
             expect(updateTreeNodesCount).toEqual(1);
         });
 
-        it('test should throw error when thySize and thyItemSize are both assigned ', () => {
-            try {
-                component.tree.thySize = 'sm';
-                component.tree.thyItemSize = 55;
-            } catch (error) {
-                expect(error.message).toEqual('setting thySize and thyItemSize at the same time is not allowed');
-            }
-        });
-
-        it('test should thyItemSize is 42 when thySize is sm', () => {
+        it('test should itemSize is 42 when thySize is sm', () => {
             component.tree.thySize = 'sm';
-            expect(component.tree.thyItemSize).toEqual(42);
+            expect(component.tree.itemSize).toEqual(42);
         });
     });
 
@@ -607,6 +598,13 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             const nodeElements2 = treeElement.querySelectorAll('.node-test2');
             expect(nodeElements2.length).toEqual(1);
+        }));
+
+        it('test should itemSize equals thySize when thySize is number', fakeAsync(() => {
+            const size = 60;
+            component.size = size;
+            fixture.detectChanges();
+            expect(component.treeComponent.itemSize).toEqual(size);
         }));
     });
 });
@@ -750,7 +748,7 @@ export class TestAsyncTreeComponent {
     selector: 'test-virtual-scrolling-tree',
     template: `
         <div style="height: 300px">
-            <thy-tree #tree [thyNodes]="mockData" [thyVirtualScroll]="true" [thyCheckable]="true" [thyItemSize]="44"> </thy-tree>
+            <thy-tree #tree [thyNodes]="mockData" [thyVirtualScroll]="true" [thyCheckable]="true" [thySize]="size"> </thy-tree>
         </div>
     `
 })
@@ -763,6 +761,8 @@ export class TestVirtualScrollingTreeComponent implements OnInit {
         this.mockData[index].itemClass = className;
         this.mockData = [...this.mockData];
     }
+
+    size = 44;
 
     constructor() {}
 

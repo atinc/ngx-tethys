@@ -1,4 +1,4 @@
-<cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="thyItemSize" [style.height]="'100%'">
+<cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="itemSize" [style.height]="'100%'">
   <div
     class="virtual-trees-container"
     [thyDropContainer]="flattenTreeNodes"
@@ -20,7 +20,7 @@
       [thyCheckable]="thyCheckable"
       [thyMultiple]="thyMultiple"
       [thyTitleTruncate]="thyTitleTruncate"
-      [thyItemSize]="thyItemSize"
+      [thyItemSize]="itemSize"
       (thyOnClick)="thyOnClick.emit($event)"
       (thyOnExpandChange)="eventTriggerChanged($event)"
       (thyOnCheckboxChange)="eventTriggerChanged($event)"
@@ -50,7 +50,7 @@
     [thyCheckable]="thyCheckable"
     [thyMultiple]="thyMultiple"
     [thyTitleTruncate]="thyTitleTruncate"
-    [thyItemSize]="thyItemSize"
+    [thyItemSize]="itemSize"
     (thyOnClick)="thyOnClick.emit($event)"
     (thyOnExpandChange)="eventTriggerChanged($event)"
     (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"

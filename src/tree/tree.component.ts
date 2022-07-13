@@ -29,7 +29,7 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
 import { ThyTreeService } from './tree.service';
 
-type ThyTreeSize = 'sm' | 'default';
+type ThyTreeSize = 'sm' | 'default' | number;
 
 type ThyTreeType = 'default' | 'especial';
 
@@ -137,13 +137,18 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() thyIcons: ThyTreeIcons = {};
 
     private _thySize: ThyTreeSize = 'default';
+
     @Input()
     set thySize(size: ThyTreeSize) {
-        this._thySize = size;
-        if (this._thySize) {
-            this._thyItemSize = treeItemSizeMap[this._thySize];
+        if (this.thyVirtualScroll) {
+            this.itemSize = size as number;
         } else {
-            this._thyItemSize = treeItemSizeMap.default;
+            this._thySize = size;
+            if (this._thySize) {
+                this.itemSize = treeItemSizeMap[this._thySize];
+            } else {
+                this.itemSize = treeItemSizeMap.default;
+            }
         }
     }
 
@@ -155,18 +160,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input()
     thyVirtualScroll = false;
 
-    private _thyItemSize = 44;
-    @Input()
-    set thyItemSize(itemSize: number) {
-        if (this.thySize !== 'default') {
-            throw new Error('setting thySize and thyItemSize at the same time is not allowed');
-        }
-        this._thyItemSize = itemSize;
-    }
-
-    get thyItemSize() {
-        return this._thyItemSize;
-    }
+    public itemSize = 44;
 
     @Input() thyTitleTruncate = true;
 
