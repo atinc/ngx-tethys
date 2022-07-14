@@ -19,7 +19,7 @@ import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { DomSanitizer } from '@angular/platform-browser';
-import { getImageSizeByUrl } from '../utils';
+import { fetchImageBlob } from '../utils';
 
 const initialPosition = {
     x: 0,
@@ -268,7 +268,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 subscriber.next(true);
                 subscriber.complete();
             } else {
-                getImageSizeByUrl(this.previewImage.src).subscribe(
+                fetchImageBlob(this.previewImage.src).subscribe(
                     blob => {
                         var urlCreator = window.URL || window.webkitURL;
                         var objectURL = urlCreator.createObjectURL(blob);

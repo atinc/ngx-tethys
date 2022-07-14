@@ -1,7 +1,7 @@
 import { fromEvent } from 'rxjs';
 import { map, take } from 'rxjs/operators';
 
-export const getImageSizeByUrl = (url: string) => {
+export const fetchImageBlob = (url: string) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', url);
     xhr.responseType = 'blob';
