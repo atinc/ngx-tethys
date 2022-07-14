@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.44](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.43...13.1.0-next.44) (2022-07-14)
+
+
+### Bug Fixes
+
+* **slide:** add ngZone to viewportRuler.change #INFR-3840 ([ec993a3](https://github.com/atinc/ngx-tethys/commit/ec993a3fee19301192ec5b7f1bc6eaae5e8aafec)), closes [#INFR-3840](https://github.com/atinc/ngx-tethys/issues/INFR-3840)
+* **tree-select:** set tree node can be extend when disabled #INFR-3848 ([#1970](https://github.com/atinc/ngx-tethys/issues/1970)) ([4e704a4](https://github.com/atinc/ngx-tethys/commit/4e704a49a27574ed2971214ae276e9ee15e322c7)), closes [#INFR-3848](https://github.com/atinc/ngx-tethys/issues/INFR-3848)
+
+
+### Features
+
+* **image:** get all images under the outermost thy-image-group #INFR-3853 ([#1973](https://github.com/atinc/ngx-tethys/issues/1973)) ([7b74035](https://github.com/atinc/ngx-tethys/commit/7b740351bba738bc7325a1424d6cec08eb33b6c0)), closes [#INFR-3853](https://github.com/atinc/ngx-tethys/issues/INFR-3853)
+
+
+
 # [13.1.0-next.43](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.42...13.1.0-next.43) (2022-07-12)
 
 
