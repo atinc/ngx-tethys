@@ -209,3 +209,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 .#{$image-preview-prefix-cls}-backdrop {
     background: rgba(variables.$black, 0.85);
 }
+
+.thy-image {
+    cursor: zoom-in;
+}

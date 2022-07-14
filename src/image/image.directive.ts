@@ -1,4 +1,17 @@
-import { Directive, ElementRef, Input, OnChanges, OnInit, Optional, SimpleChanges } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Host,
+    InjectFlags,
+    Input,
+    OnChanges,
+    OnInit,
+    Optional,
+    Self,
+    SimpleChanges,
+    SkipSelf,
+    Injector
+} from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImageMeta } from './image.class';
@@ -11,7 +24,8 @@ import { ThyImageService } from './image.service';
     selector: 'img[thyImage]',
     exportAs: 'thyImage',
     host: {
-        '(click)': 'onPreview($event)'
+        '(click)': 'onPreview($event)',
+        class: 'thy-image'
     }
 })
 export class ThyImageDirective implements OnInit, OnChanges {
@@ -20,7 +34,7 @@ export class ThyImageDirective implements OnInit, OnChanges {
      */
     @Input() thySrc: string;
     /**
-     * 缩略图片地址
+     * 预览图片地址
      */
     @Input() thyPreviewSrc: string;
     /**
@@ -41,13 +55,24 @@ export class ThyImageDirective implements OnInit, OnChanges {
         return !this.thyDisablePreview;
     }
 
-    constructor(
-        private thyImageService: ThyImageService,
-        @Optional() private parentGroup: ThyImageGroupComponent,
-        private elementRef: ElementRef
-    ) {}
+    private parentGroup: ThyImageGroupComponent;
+
+    constructor(private thyImageService: ThyImageService, private injector: Injector, private elementRef: ElementRef) {}
 
     ngOnInit(): void {
+        this.addParentGroupImage();
+    }
+
+    addParentGroupImage() {
+        while (true) {
+            // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
+            const injector = this.parentGroup?.injector || this.injector;
+            const parentGroup = injector.get(ThyImageGroupComponent, null, InjectFlags.SkipSelf);
+            if (!parentGroup) {
+                break;
+            }
+            this.parentGroup = parentGroup;
+        }
         if (this.parentGroup) {
             this.parentGroup.addImage(this);
         }
@@ -67,7 +92,7 @@ export class ThyImageDirective implements OnInit, OnChanges {
         if (this.parentGroup) {
             const previewAbleImages = this.parentGroup.images.filter(e => e.previewable);
             const previewImages = previewAbleImages.map(e => ({
-                src: e.thySrc,
+                src: e.thyPreviewSrc || e.thySrc,
                 ...e.thyImageMeta,
                 origin: {
                     src: e.thyOriginSrc
@@ -80,7 +105,7 @@ export class ThyImageDirective implements OnInit, OnChanges {
         } else {
             const previewImages = [
                 {
-                    src: this.thySrc,
+                    src: this.thyPreviewSrc || this.thySrc,
                     ...this.thyImageMeta,
                     origin: {
                         src: this.thyOriginSrc

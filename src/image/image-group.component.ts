@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, Injector } from '@angular/core';
 import { ThyImageDirective } from './image.directive';
 
 /**
@@ -12,6 +12,8 @@ import { ThyImageDirective } from './image.directive';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyImageGroupComponent {
+    constructor(public injector: Injector) {}
+
     images: ThyImageDirective[] = [];
 
     addImage(image: ThyImageDirective): void {
