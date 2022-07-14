@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 
 @Component({
     selector: 'thy-calendar-basic-example',
@@ -6,29 +7,11 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./basic.component.scss']
 })
 export class ThyCalendarBasicExampleComponent implements OnInit {
-    // date = new Date(2012, 11, 21);
-
-    listDataMap = {
-        eight: [
-            { type: 'warning', content: 'This is warning event.' },
-            { type: 'success', content: 'This is usual event.' }
-        ],
-        ten: [
-            { type: 'warning', content: 'This is warning event.' },
-            { type: 'success', content: 'This is usual event.' },
-            { type: 'error', content: 'This is error event.' }
-        ],
-        eleven: [
-            { type: 'warning', content: 'This is warning event' },
-            { type: 'success', content: 'This is very long usual event........' },
-            { type: 'error', content: 'This is error event 1.' },
-            { type: 'error', content: 'This is error event 2.' },
-            { type: 'error', content: 'This is error event 3.' },
-            { type: 'error', content: 'This is error event 4.' }
-        ]
-    };
+    date = new Date();
 
     constructor() {}
 
     ngOnInit() {}
+
+    onValueChange(e: Date) {}
 }
