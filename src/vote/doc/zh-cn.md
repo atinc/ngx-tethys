@@ -45,4 +45,12 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 当前操作并非主要操作时。
 
 展示效果: 
-<example name="thy-vote-weak-example">
+<example name="thy-vote-weak-example" />
+
+## 使用外部图标
+
+可以使用外部自定义的 Icon。
+
+展示效果:
+
+<example name="thy-vote-custom-icon-example" />

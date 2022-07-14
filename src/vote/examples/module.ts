@@ -8,12 +8,14 @@ import { ThyVoteBasicExampleComponent } from './basic/basic.component';
 import { ThyVoteDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyVoteIconExampleComponent } from './icon/icon.component';
 import { ThyVoteWeakExampleComponent } from './weak/weak.component';
+import { ThyVoteCustomIconExampleComponent } from './custom-icon/custom-icon.component';
 
 const COMPONENTS = [
     ThyVoteBasicExampleComponent,
     ThyVoteIconExampleComponent,
     ThyVoteWeakExampleComponent,
-    ThyVoteDisabledExampleComponent
+    ThyVoteDisabledExampleComponent,
+    ThyVoteCustomIconExampleComponent
 ];
 
 @NgModule({
