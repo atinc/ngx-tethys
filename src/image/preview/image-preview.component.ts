@@ -247,6 +247,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         this.resolvePreviewImage().subscribe(result => {
             if (!result) {
                 // error
+                this.isLoadingDone = true;
                 return;
             }
             // image size
