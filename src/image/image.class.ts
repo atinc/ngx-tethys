@@ -20,6 +20,7 @@ export interface ThyImageInfo extends ThyImageMeta {
 
 export interface InternalImageInfo extends ThyImageInfo {
     objectURL?: SafeUrl;
+    blob?: Blob;
 }
 
 export interface ThyImagePreviewOptions {
