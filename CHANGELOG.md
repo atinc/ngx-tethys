@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.45](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.44...13.1.0-next.45) (2022-07-14)
+
+
+### Features
+
+* **image:** support calc image size #WIK-6711 ([#1972](https://github.com/atinc/ngx-tethys/issues/1972)) ([e411f97](https://github.com/atinc/ngx-tethys/commit/e411f977f8b33ba93b53e588750e09fdb47b2edc)), closes [#WIK-6711](https://github.com/atinc/ngx-tethys/issues/WIK-6711)
+
+
+
 # [13.1.0-next.44](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.43...13.1.0-next.44) (2022-07-14)
 
 
