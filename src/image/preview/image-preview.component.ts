@@ -251,7 +251,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 return;
             }
             // image size
-            if (!this.previewImage.size) {
+            if (!this.previewImage.size && this.previewImage.blob) {
                 this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + ' KB';
             }
             if (this.defaultZoom) {
@@ -264,6 +264,12 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
 
     resolvePreviewImage() {
         return new Observable<Boolean>(subscriber => {
+            if (this.previewImage.src.startsWith('blob:')) {
+                this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(this.previewImage.src);
+                subscriber.next(true);
+                subscriber.complete();
+                return;
+            }
             if (this.previewImage.objectURL) {
                 subscriber.next(true);
                 subscriber.complete();
