@@ -3,7 +3,7 @@ import { Component, DebugElement, OnInit } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
@@ -308,4 +308,29 @@ describe('image-preview', () => {
         fixture.detectChanges();
         expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[1].src);
     });
+
+    it(
+        'should resolve image objectURL and size',
+        waitForAsync(() => {
+            basicTestComponent.images = [
+                {
+                    src: 'assets/images/image/first.png',
+                    alt: 'first',
+                    name: 'first.jpg',
+                    origin: {
+                        src: 'assets/images/image/second.png'
+                    }
+                }
+            ];
+            const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+            button.click();
+            fixture.detectChanges();
+
+            basicTestComponent.imageRef.previewInstance.resolvePreviewImage().subscribe(() => {
+                expect(basicTestComponent.images[0].size).toBeTruthy();
+                expect(basicTestComponent.images[0].objectURL).toBeTruthy();
+                expect(basicTestComponent.images[0].blob).toBeTruthy();
+            });
+        })
+    );
 });
