@@ -252,7 +252,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             }
             // image size
             if (!this.previewImage.size) {
-                this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + 'KB';
+                this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + ' KB';
             }
             if (this.defaultZoom) {
                 this.useDefaultZoomUpdate(true);
