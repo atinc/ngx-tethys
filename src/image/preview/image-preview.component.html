@@ -32,7 +32,7 @@
         #imgRef
         *ngIf="previewIndex === imageIndex && isLoadingDone"
         class="thy-image-preview-img"
-        [src]="image.src"
+        [src]="image.objectURL"
         [style.transform]="previewImageTransform"
       />
     </ng-container>
@@ -84,7 +84,7 @@
           [thyCopyTipsOffset]="13"
           (thyCopy)="copyLink($event)"
           [thyShowNotify]="false"
-          [thyCopyContent]="previewImageSrc"
+          [thyCopyContent]="previewImageOriginSrc"
         >
           <thy-icon [thyIconName]="option.icon"></thy-icon>
         </div>

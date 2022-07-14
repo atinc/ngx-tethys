@@ -9,15 +9,17 @@ import {
     NgZone,
     OnDestroy
 } from '@angular/core';
-import { ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent } from 'rxjs';
+import { fromEvent, Observable, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
+import { DomSanitizer } from '@angular/platform-browser';
+import { fetchImageBlob } from '../utils';
 
 const initialPosition = {
     x: 0,
@@ -43,7 +45,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     }
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
-    images: ThyImageInfo[] = [];
+    images: InternalImageInfo[] = [];
     previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
     previewImageTransform = '';
@@ -130,11 +132,11 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     ];
     private rotate: number;
 
-    get previewImage(): ThyImageInfo {
+    get previewImage(): InternalImageInfo {
         return this.images[this.previewIndex];
     }
 
-    get previewImageSrc() {
+    get previewImageOriginSrc() {
         let imageSrc = this.previewImage.origin?.src || this.previewImage.src;
         if (imageSrc.startsWith('./')) {
             return window.location.host + '/' + imageSrc.split('./')[1];
@@ -161,10 +163,12 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
         private notifyService: ThyNotifyService,
-        private host: ElementRef<HTMLElement>
+        private host: ElementRef<HTMLElement>,
+        private sanitizer: DomSanitizer
     ) {
         super();
     }
+
     ngOnInit(): void {
         this.initPreview();
         this.ngZone.runOutsideAngular(() => {
@@ -240,11 +244,52 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     updatePreviewImage() {
-        if (this.defaultZoom) {
-            this.useDefaultZoomUpdate(true);
-        } else {
-            this.useCalculateZoomUpdate();
-        }
+        this.resolvePreviewImage().subscribe(result => {
+            if (!result) {
+                // error
+                this.isLoadingDone = true;
+                return;
+            }
+            // image size
+            if (!this.previewImage.size && this.previewImage.blob) {
+                this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + ' KB';
+            }
+            if (this.defaultZoom) {
+                this.useDefaultZoomUpdate(true);
+            } else {
+                this.useCalculateZoomUpdate();
+            }
+        });
+    }
+
+    resolvePreviewImage() {
+        return new Observable<Boolean>(subscriber => {
+            if (this.previewImage.src.startsWith('blob:')) {
+                this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(this.previewImage.src);
+                subscriber.next(true);
+                subscriber.complete();
+                return;
+            }
+            if (this.previewImage.objectURL) {
+                subscriber.next(true);
+                subscriber.complete();
+            } else {
+                fetchImageBlob(this.previewImage.src).subscribe(
+                    blob => {
+                        var urlCreator = window.URL || window.webkitURL;
+                        var objectURL = urlCreator.createObjectURL(blob);
+                        this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+                        this.previewImage.blob = blob;
+                        subscriber.next(true);
+                        subscriber.complete();
+                    },
+                    error => {
+                        subscriber.next(false);
+                        subscriber.complete();
+                    }
+                );
+            }
+        });
     }
 
     initPreview() {
