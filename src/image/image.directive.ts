@@ -1,17 +1,4 @@
-import {
-    Directive,
-    ElementRef,
-    Host,
-    InjectFlags,
-    Input,
-    OnChanges,
-    OnInit,
-    Optional,
-    Self,
-    SimpleChanges,
-    SkipSelf,
-    Injector
-} from '@angular/core';
+import { Directive, ElementRef, InjectFlags, Input, OnChanges, OnInit, SimpleChanges, Injector, OnDestroy } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImageMeta } from './image.class';
@@ -28,7 +15,7 @@ import { ThyImageService } from './image.service';
         class: 'thy-image'
     }
 })
-export class ThyImageDirective implements OnInit, OnChanges {
+export class ThyImageDirective implements OnInit, OnChanges, OnDestroy {
     /**
      * 图片地址
      */
@@ -60,10 +47,13 @@ export class ThyImageDirective implements OnInit, OnChanges {
     constructor(private thyImageService: ThyImageService, private injector: Injector, private elementRef: ElementRef) {}
 
     ngOnInit(): void {
-        this.addParentGroupImage();
+        this.getParentGroup();
+        if (this.parentGroup) {
+            this.addParentImage();
+        }
     }
 
-    addParentGroupImage() {
+    getParentGroup() {
         while (true) {
             // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
@@ -73,9 +63,13 @@ export class ThyImageDirective implements OnInit, OnChanges {
             }
             this.parentGroup = parentGroup;
         }
-        if (this.parentGroup) {
-            this.parentGroup.addImage(this);
-        }
+    }
+
+    addParentImage() {
+        const parentElement: HTMLElement = this.elementRef.nativeElement.parentElement;
+        const images = parentElement.querySelectorAll('img[thyImage]');
+        const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
+        this.parentGroup.addImage(this, index);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -113,6 +107,13 @@ export class ThyImageDirective implements OnInit, OnChanges {
                 }
             ];
             this.thyImageService.preview(previewImages);
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.parentGroup) {
+            const index = this.parentGroup.images.findIndex(item => item === this);
+            this.parentGroup.removeImage(index);
         }
     }
 }

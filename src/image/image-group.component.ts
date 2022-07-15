@@ -16,7 +16,11 @@ export class ThyImageGroupComponent {
 
     images: ThyImageDirective[] = [];
 
-    addImage(image: ThyImageDirective): void {
-        this.images.push(image);
+    addImage(image: ThyImageDirective, index: number): void {
+        this.images.splice(index, 0, image);
+    }
+
+    removeImage(index: number) {
+        this.images.splice(index, 1);
     }
 }
