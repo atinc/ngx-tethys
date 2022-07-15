@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.47](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.46...13.1.0-next.47) (2022-07-15)
+
+
+### Bug Fixes
+
+* **image:** add setTimeout when get parentElement #INFR-3862 ([#1981](https://github.com/atinc/ngx-tethys/issues/1981)) ([f47580f](https://github.com/atinc/ngx-tethys/commit/f47580fbf019bec9274bfbccd78663892ee8baa7)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+* **image:** modify the background color transparency when hovering #INFR-3872 ([#1983](https://github.com/atinc/ngx-tethys/issues/1983)) ([4e2c38d](https://github.com/atinc/ngx-tethys/commit/4e2c38dfd4167d51a7be97da71a151972d4d7c53)), closes [#INFR-3872](https://github.com/atinc/ngx-tethys/issues/INFR-3872)
+
+
+
 # [13.1.0-next.46](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.45...13.1.0-next.46) (2022-07-15)
 
 
