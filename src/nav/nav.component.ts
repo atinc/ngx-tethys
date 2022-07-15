@@ -1,7 +1,7 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { merge } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { merge, Observable } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 import { ViewportRuler } from '@angular/cdk/overlay';
 import {
@@ -86,6 +86,16 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
 
+    private resize$ = new Observable(observer => {
+        const _resize = new ResizeObserver(entries => {
+            observer.next(entries);
+        });
+        _resize.observe(this.elementRef.nativeElement);
+        return () => {
+            _resize.disconnect();
+        };
+    });
+
     @Input()
     set thyType(type: ThyNavType) {
         this._type = type || 'primary';
@@ -162,7 +172,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                 this.setHiddenItems();
             });
 
-            merge(this.links.changes, this.viewportRuler.change(100))
+            merge(this.links.changes, this.resize$.pipe(debounceTime(100)))
                 .pipe(takeUntil(this.ngUnsubscribe$))
                 .subscribe(() => {
                     this.resetSizes();
