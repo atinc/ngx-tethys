@@ -94,7 +94,7 @@ describe('image-directive', () => {
         expect((overlayContainerElement.querySelector('.thy-image-size') as HTMLElement).innerText).toBe('66kb');
     });
 
-    describe('preview clsoe', () => {
+    describe('preview close', () => {
         beforeEach(() => {
             basicTestComponent.src = 'assets/images/image/first.png';
             basicTestComponent.imageMeta = {
