@@ -1,4 +1,15 @@
-import { Directive, ElementRef, InjectFlags, Input, OnChanges, OnInit, SimpleChanges, Injector, OnDestroy } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    InjectFlags,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    Injector,
+    OnDestroy,
+    AfterViewInit
+} from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImageMeta } from './image.class';
@@ -15,7 +26,7 @@ import { ThyImageService } from './image.service';
         class: 'thy-image'
     }
 })
-export class ThyImageDirective implements OnInit, OnChanges, OnDestroy {
+export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**
      * 图片地址
      */
@@ -48,6 +59,9 @@ export class ThyImageDirective implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit(): void {
         this.getParentGroup();
+    }
+
+    ngAfterViewInit(): void {
         if (this.parentGroup) {
             this.addParentImage();
         }
@@ -66,10 +80,16 @@ export class ThyImageDirective implements OnInit, OnChanges, OnDestroy {
     }
 
     addParentImage() {
-        const parentElement: HTMLElement = this.elementRef.nativeElement.parentElement;
-        const images = parentElement.querySelectorAll('img[thyImage]');
-        const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
-        this.parentGroup.addImage(this, index);
+        setTimeout(() => {
+            const parentElement: HTMLElement = this.parentGroup.element.nativeElement;
+            const images = parentElement.querySelectorAll('img[thyImage]');
+            const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
+            if (index >= 0) {
+                this.parentGroup.addImage(this, index);
+            } else {
+                this.parentGroup.addImage(this, this.parentGroup.images.length);
+            }
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
