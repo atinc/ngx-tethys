@@ -99,7 +99,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             pointer-events: all;
             cursor: pointer;
             &:hover {
-                background: rgba(variables.$white, 0.1);
+                background: rgba(variables.$white, 0.2);
                 border-radius: variables.$input-border-radius-md;
             }
         }
