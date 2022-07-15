@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.46](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.45...13.1.0-next.46) (2022-07-15)
+
+
+### Bug Fixes
+
+* **date-picker:** in chooseDecade can not set year when value is null #INFR-3858 ([#1978](https://github.com/atinc/ngx-tethys/issues/1978)) ([392ae77](https://github.com/atinc/ngx-tethys/commit/392ae7798e61b0cf2145786d5148ca9a9ae0ff4b)), closes [#INFR-3858](https://github.com/atinc/ngx-tethys/issues/INFR-3858)
+* **image:** insert image at correct position and remove image  when destroy #INFR-3862 ([#1979](https://github.com/atinc/ngx-tethys/issues/1979)) ([d4786e5](https://github.com/atinc/ngx-tethys/commit/d4786e54e1173990fa7a509ebc8171058d0a3311)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+
+
+
 # [13.1.0-next.45](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.44...13.1.0-next.45) (2022-07-14)
 
 
