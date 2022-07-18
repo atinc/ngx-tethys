@@ -2,7 +2,6 @@
 category: display
 title: Calendar
 subtitle: 日历
-label: New
 ---
 
 <alert>按照日历形式展示数据的容器。</alert>
