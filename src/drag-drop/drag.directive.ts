@@ -2,7 +2,7 @@ import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, O
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -19,11 +19,12 @@ export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
     @HostBinding('attr.draggable') isDraggable = true;
 
     private _disabled = false;
-    @Input('thyDragDisabled') set disabled(isDisabled: boolean) {
+
+    @Input('thyDragDisabled')
+    @InputBoolean()
+    set disabled(isDisabled: boolean) {
         this._disabled = isDisabled;
-        if (isDisabled) {
-            this.isDraggable = false;
-        }
+        this.isDraggable = !isDisabled;
     }
     get disabled() {
         return this._disabled;
