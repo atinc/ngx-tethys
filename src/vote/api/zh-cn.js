@@ -45,6 +45,18 @@ module.exports = [
                 description: '是否是偏圆型',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyDisabled',
+                description: '是否禁用',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'voteIcon',
+                description: '自定义Icon',
+                type: 'ContentChild<TemplateRef>',
+                default: '-'
             }
         ]
     }
