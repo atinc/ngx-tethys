@@ -86,15 +86,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
 
-    private resize$ = new Observable(observer => {
-        const _resize = new ResizeObserver(entries => {
-            observer.next(entries);
-        });
-        _resize.observe(this.elementRef.nativeElement);
-        return () => {
-            _resize.disconnect();
-        };
-    });
+    private resize$: Observable<any>;
 
     @Input()
     set thyType(type: ThyNavType) {
@@ -158,6 +150,17 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     ) {
         super();
         this.updateHostClass.initializeElement(elementRef.nativeElement);
+        this.resize$ = this.ngZone.runOutsideAngular(() => {
+            return new Observable(observer => {
+                const _resize = new ResizeObserver(entries => {
+                    observer.next(entries);
+                });
+                _resize.observe(this.elementRef.nativeElement);
+                return () => {
+                    _resize.disconnect();
+                };
+            });
+        });
     }
 
     ngOnInit() {
