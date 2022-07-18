@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.48](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.47...13.1.0-next.48) (2022-07-18)
+
+
+### Bug Fixes
+
+* **drag-drop:** reset draggable when change thyDragDisabled #INFR-3887 ([#1987](https://github.com/atinc/ngx-tethys/issues/1987)) ([3272ffb](https://github.com/atinc/ngx-tethys/commit/3272ffbad36c37c95159cbd07540793ae6734d91)), closes [#INFR-3887](https://github.com/atinc/ngx-tethys/issues/INFR-3887)
+* **guider:** fix doc error #INFR-3879 ([#1985](https://github.com/atinc/ngx-tethys/issues/1985)) ([9ab467c](https://github.com/atinc/ngx-tethys/commit/9ab467c142951db48a626dfd17b4323a07340a94)), closes [#INFR-3879](https://github.com/atinc/ngx-tethys/issues/INFR-3879)
+
+
+
 # [13.1.0-next.47](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.46...13.1.0-next.47) (2022-07-15)
 
 
