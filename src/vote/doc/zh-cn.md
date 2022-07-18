@@ -34,7 +34,9 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 
 ## 自定义图标
 
-描述收藏、喜欢等操作时, 可以使用 `thyIcon` 属性自定义图标, 在图标章节中可供选择。
+描述收藏、喜欢等操作时，可以使用 `thyIcon` 属性自定义图标，在图标章节中可供选择。
+
+支持使用外部自定义的模版，参照如下用法。
 
 展示效果: 
 <example name="thy-vote-icon-example" />
@@ -46,11 +48,3 @@ import { ThyVoteModule } from 'ngx-tethys/vote';
 
 展示效果: 
 <example name="thy-vote-weak-example" />
-
-## 使用外部图标
-
-可以使用外部自定义的 Icon。
-
-展示效果:
-
-<example name="thy-vote-custom-icon-example" />
