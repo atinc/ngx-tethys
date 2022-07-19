@@ -50,23 +50,35 @@ $ npm install ngx-tethys --save
 // or
 $ yarn add ngx-tethys
 ```
+
+### 安装依赖
+
+```
+npm i @tethys/icons @angular/cdk date-fns@^2.6.0 --save
+```
+
 ### 引入样式
 
-- 在 angular.json 中引入
-    ```
+- 在`angular.json`中某个项目的`architect.build.options.styles`配置中引入样式
+
+    ```json
     {
         "styles": [
+            ...
             "node_modules/ngx-tethys/styles/index.scss"
         ]
     }
     ```
-- 在`style.scss`中引入预构建样式文件
+
+- 或者在`style.scss`中引入预构建样式文件
     ```scss
     @use "ngx-tethys/styles/index.scss";
     ```
 
 ### 引入图标
-在 angular.json 中引入 assets 配置
+
+在`angular.json`中`architect.build.options.assets`引入`assets`配置
+
   ```
     "assets": [
         ...
@@ -106,5 +118,5 @@ export class AppModule { }
 <button thyButton="primary">主要按钮</button>
 ```
 
-> 在 <=11.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。
+<alert>在 <=11.0.0 版本，`ngx-tethys` 提供了根入口`NgxTethysModule`导入所有模块，将来的版本会移出，请避免使用根入口模块。</alert>
 
