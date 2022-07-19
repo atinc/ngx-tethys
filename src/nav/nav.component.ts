@@ -1,7 +1,7 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { merge } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { merge, Observable, of } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
 import { ViewportRuler } from '@angular/cdk/overlay';
 import {
@@ -162,13 +162,15 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                 this.setHiddenItems();
             });
 
-            merge(this.links.changes, this.viewportRuler.change(100))
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(() => {
-                    this.resetSizes();
-                    this.setHiddenItems();
-                    this.calculateMoreIsActive();
-                });
+            this.ngZone.runOutsideAngular(() => {
+                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
+                    .pipe(takeUntil(this.ngUnsubscribe$))
+                    .subscribe(() => {
+                        this.resetSizes();
+                        this.setHiddenItems();
+                        this.calculateMoreIsActive();
+                    });
+            });
         }
     }
 
@@ -182,6 +184,20 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
+    }
+
+    createResizeObserver(element: HTMLElement) {
+        return typeof ResizeObserver === 'undefined'
+            ? of(null)
+            : new Observable(observer => {
+                  const resize = new ResizeObserver(entries => {
+                      observer.next(entries);
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
     }
 
     private calculateMoreIsActive() {
