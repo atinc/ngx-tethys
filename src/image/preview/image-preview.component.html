@@ -32,7 +32,7 @@
         #imgRef
         *ngIf="previewIndex === imageIndex && isLoadingDone"
         class="thy-image-preview-img"
-        [src]="image.objectURL"
+        [src]="image.objectURL || image.src"
         [style.transform]="previewImageTransform"
       />
     </ng-container>

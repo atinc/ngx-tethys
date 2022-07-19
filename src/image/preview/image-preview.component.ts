@@ -270,7 +270,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 subscriber.complete();
                 return;
             }
-            if (this.previewImage.objectURL) {
+            if (this.previewImage.objectURL || !this.previewConfig.resolveSize) {
                 subscriber.next(true);
                 subscriber.complete();
             } else {

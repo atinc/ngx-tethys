@@ -320,6 +320,7 @@ describe('image-preview', () => {
                     }
                 }
             ];
+            basicTestComponent.previewConfig.resolveSize = true;
             const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
             button.click();
             fixture.detectChanges();
