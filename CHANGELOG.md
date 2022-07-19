@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0-next.49](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.48...13.1.0-next.49) (2022-07-19)
+
+
+### Features
+
+* **image:** support thyResolveSize ([#1993](https://github.com/atinc/ngx-tethys/issues/1993)) ([4c10412](https://github.com/atinc/ngx-tethys/commit/4c10412e9feafec572ba30c656a2e56f6fe67993))
+* update issue template ([aa9cd49](https://github.com/atinc/ngx-tethys/commit/aa9cd49c6b7d366dacf9313d0cb9aa85ec5f31f7))
+
+
+
 # [13.1.0-next.48](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.47...13.1.0-next.48) (2022-07-18)
 
 
