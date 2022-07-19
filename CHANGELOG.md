@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.1.0](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.49...13.1.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* **action:** move border-radius from hover to thy-action to fix border-radius disappear when mouse leave action ([df75ec0](https://github.com/atinc/ngx-tethys/commit/df75ec059efad35085a3d67027f1f60bb9cb4b39))
+* **nav:** hidden overflow nvaItem when container change size ([#1991](https://github.com/atinc/ngx-tethys/issues/1991)) ([5bc2ac6](https://github.com/atinc/ngx-tethys/commit/5bc2ac6f83981dd3b8295dee6d82763011c63d98))
+
+
+
 # [13.1.0-next.49](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.48...13.1.0-next.49) (2022-07-19)
 
 
