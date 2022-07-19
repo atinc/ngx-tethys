@@ -35,7 +35,6 @@ module.exports = [
             //     type: `EventEmitter<{ date: Date, mode: 'month' | 'year' }>'`,
             //     default: '-',
             //     description: '面板变化的回调'
-
             // },
             {
                 name: 'thySelectChange',
@@ -45,19 +44,19 @@ module.exports = [
             },
             {
                 name: 'thyDateRangeChange',
-                type: 'EventEmitter<Date>',
+                type: 'EventEmitter<DateRangeItemInfo>',
                 default: '-',
                 description: '日期选择范围变化的回调'
             },
             {
                 name: 'thyDateCell',
-                type: 'TemplateRef<Date>',
+                type: 'TemplateRef<{ $implicit: Date }>',
                 default: '-',
                 description: '（可作为内容）自定义渲染日期单元格，模版内容会被追加到单元格'
             },
             {
                 name: 'thyCalendarHeaderOperation',
-                type: 'TemplateRef<Date>',
+                type: 'TemplateRef<{ $implicit: Date }>',
                 default: '-',
                 description: '（可作为内容）自定义渲染组件右上角'
             }
