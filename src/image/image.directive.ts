@@ -53,7 +53,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
      * 是否自动计算图片资源大小
      * @default false
      */
-    @Input() @InputBoolean() thyResolveImageSize = false;
+    @Input() @InputBoolean() thyResolveSize = false;
 
     get previewable(): boolean {
         return !this.thyDisablePreview;
@@ -121,7 +121,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
             const startIndex = previewAbleImages.findIndex(el => this === el);
             this.thyImageService.preview(previewImages, {
                 startIndex,
-                resolveImageSize: this.thyResolveImageSize
+                resolveSize: this.thyResolveSize
             });
         } else {
             const previewImages = [
@@ -133,7 +133,7 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
                     }
                 }
             ];
-            this.thyImageService.preview(previewImages, { resolveImageSize: this.thyResolveImageSize });
+            this.thyImageService.preview(previewImages, { resolveSize: this.thyResolveSize });
         }
     }
 
