@@ -51,7 +51,7 @@ class ImagePreviewTestComponent implements OnInit {
     }
 }
 
-describe('image-preview', () => {
+fdescribe('image-preview', () => {
     let fixture: ComponentFixture<ImagePreviewTestComponent>;
     let basicTestComponent: ImagePreviewTestComponent;
     let debugElement: DebugElement;
@@ -322,6 +322,7 @@ describe('image-preview', () => {
                     }
                 }
             ];
+            basicTestComponent.previewConfig.resolveImageSize = true;
             const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
             button.click();
             fixture.detectChanges();

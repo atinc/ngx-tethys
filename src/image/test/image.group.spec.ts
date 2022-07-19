@@ -34,7 +34,7 @@ class ImageGroupTestComponent {
     ];
 }
 
-describe('image-group', () => {
+fdescribe('image-group', () => {
     let fixture: ComponentFixture<ImageGroupTestComponent>;
     let basicTestComponent: ImageGroupTestComponent;
     let debugElement: DebugElement;

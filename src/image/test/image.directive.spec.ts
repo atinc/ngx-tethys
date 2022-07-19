@@ -19,7 +19,7 @@ class ImageDirectiveTestComponent {
     disablePreview = false;
 }
 
-describe('image-directive', () => {
+fdescribe('image-directive', () => {
     let fixture: ComponentFixture<ImageDirectiveTestComponent>;
     let basicTestComponent: ImageDirectiveTestComponent;
     let debugElement: DebugElement;

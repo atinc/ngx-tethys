@@ -30,6 +30,7 @@ export interface ThyImagePreviewOptions {
     zoom?: number;
     rotate?: number;
     operations?: ThyImagePreviewOperationType[];
+    resolveImageSize?: boolean;
 }
 
 export interface ThyImagePreviewOperation {
