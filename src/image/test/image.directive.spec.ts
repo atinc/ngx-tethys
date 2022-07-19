@@ -107,7 +107,7 @@ describe('image-directive', () => {
         it('should close image preview when click close icon', fakeAsync(() => {
             expect(overlayContainerElement).toBeTruthy();
             expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-            const iconElement = overlayContainerElement.querySelector('.thy-image-preview-close') as HTMLElement;
+            const iconElement = (overlayContainerElement.querySelector('.thy-icon-close') as HTMLElement).parentNode as HTMLElement;
             iconElement.click();
 
             fixture.detectChanges();
