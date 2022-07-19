@@ -1,6 +1,6 @@
 @use "../../styles/variables";
-@use 'ngx-tethys/styles/bootstrap/variables.scss' as bootstrapVariables;
-@use 'ngx-tethys/styles/basic.scss';
+@use '../../styles/bootstrap/variables.scss' as bootstrapVariables;
+@use '../../styles/basic.scss';
 $ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
 $image-preview-prefix-cls: 'thy-image-preview';
 
