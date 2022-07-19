@@ -6,7 +6,6 @@ import {
     ContentChildren,
     Directive,
     ElementRef,
-    HostBinding,
     Input,
     NgZone,
     OnDestroy,
@@ -96,9 +95,11 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
 
     linkIsActive() {
         return (
+            this.thyNavItemActive ||
             this.thyNavLinkActive ||
             (this.routerLinkActive && this.routerLinkActive.isActive) ||
             this.routers.some(router => router.isActive) ||
+            this.links.some(item => item.thyNavItemActive) ||
             this.links.some(item => item.thyNavLinkActive)
         );
     }
