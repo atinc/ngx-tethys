@@ -61,30 +61,19 @@ export class NavBasicComponent implements OnInit {
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
             class="custom-nav"
+            style="width: 100px;height: 60px;display:block"
         >
             <a
                 *ngFor="let item of navLinks; index as i"
                 class="test-link"
                 thyNavLink
-                [thyNavLinkActive]="item.isActive"
+                [thyNavItemActive]="item.isActive"
                 [routerLink]="[item.name]"
                 routerLinkActive="active"
                 >{{ item.name }}</a
             >
         </thy-nav>
-    `,
-    styles: [
-        `
-            .custom-nav {
-                width: 100px;
-                display: block;
-                height: 50px;
-            }
-            .thy-nav--vertical .thy-nav-item {
-                display: block;
-            }
-        `
-    ]
+    `
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
