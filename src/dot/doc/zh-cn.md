@@ -5,7 +5,7 @@ subtitle: 点
 order: 31
 ---
 
-<alert>展示一个点的组件</alert>
+<alert>展示一个点的组件。</alert>
 
 
 ## 模块导入
