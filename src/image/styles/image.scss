@@ -57,19 +57,18 @@ $image-preview-prefix-cls: 'thy-image-preview';
             background: variables.$gray-800;
             left: 50%;
             transform: translateX(-50%);
-            &-item {
+            &-text {
                 display: inline-block;
                 min-width: bootstrapVariables.$spacer * 2.5;
                 text-align: center;
                 user-select: none;
             }
-            &-divider.thy-divider.thy-divider-vertical {
+            .thy-divider {
                 border-color: variables.$gray-700;
             }
         }
 
-        .#{$image-preview-prefix-cls}-icon {
-            border-radius: variables.$input-border-radius-md;
+        .thy-action {
             pointer-events: all;
             cursor: pointer;
             @include basic.action-variant(variables.$white, variables.$white, rgba(variables.$white, 0.2));

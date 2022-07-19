@@ -6,10 +6,10 @@
       </p>
       <span class="thy-image-size"> {{ previewImage?.size }}</span>
     </div>
-    <a class="thy-image-preview-icon" thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
+    <a thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
   </div>
   <a
-    class="thy-image-preview-icon thy-image-preview-exit-fullscreen"
+    class="thy-image-preview-exit-fullscreen"
     *ngIf="isFullScreen"
     thyAction
     thyIcon="close"
@@ -62,7 +62,6 @@
   <thy-actions thySize="xs" class="thy-image-preview-operations py-3 px-4" *ngIf="!isFullScreen">
     <ng-container *ngFor="let option of previewOperations; let i = index">
       <a
-        class="thy-image-preview-icon"
         *ngIf="!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type"
         href="javascript:;"
         thyAction
@@ -71,14 +70,13 @@
         [thyTooltipOffset]="13"
         (click)="option.action(previewImage)"
       ></a>
-      <span class="thy-image-preview-operations-item mr-2" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
+      <span class="mr-2" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
       <thy-divider
         class="thy-image-preview-operations-divider ml-2"
         [thyVertical]="true"
         *ngIf="option?.type === 'rotate-right'"
       ></thy-divider>
       <a
-        class="thy-image-preview-icon"
         *ngIf="option.type === 'copyLink'"
         href="javascript:;"
         thyAction
@@ -90,7 +88,7 @@
         [thyShowNotify]="false"
       ></a>
     </ng-container>
-    <thy-divider class="thy-image-preview-operations-divider" [thyVertical]="true"></thy-divider>
-    <span class="thy-image-preview-operations-item"> {{ previewIndex + 1 }} / {{ images.length }} </span>
+    <thy-divider [thyVertical]="true"></thy-divider>
+    <span class="thy-image-preview-operations-text"> {{ previewIndex + 1 }} / {{ images.length }} </span>
   </thy-actions>
 </div>
