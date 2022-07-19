@@ -2,7 +2,6 @@
 category: other
 title: DragDrop
 subtitle: 拖拽
-label: new
 ---
 
 <alert>用于Tree结构的拖拽，支持拖入拖出更改层级结构，也支持同级的排序。</alert>
@@ -16,5 +15,5 @@ label: new
 <example name="thy-drag-drop-basic-example" />
 
 ## 自定义可拖拽区域内容和可放置区域
-thyDragHandle自定义可拖拽区域，thyDragContent自定义可放置区域
+`thyDragHandle` 自定义可拖拽区域，`thyDragContent` 自定义可放置区域
 <example name="thy-drag-drop-with-handle-example" />

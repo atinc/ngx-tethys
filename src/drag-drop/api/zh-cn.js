@@ -23,21 +23,21 @@ module.exports = [
             },
             {
                 name: 'thyBeforeDragStart',
-                type: 'e: ThyDragStartEvent<T>) => boolean',
+                type: '(e: ThyDragStartEvent<T>) => boolean',
                 default: 'false',
-                description: '拖拽之前的回调，函数返回false则阻止拖拽'
+                description: '拖拽之前的回调，函数返回 false 则阻止拖拽'
             },
             {
                 name: 'thyBeforeDragOver',
                 type: '(e: ThyDragOverEvent<T>) => boolean',
                 default: '-',
-                description: '拖拽时回调，函数返回false则阻止移入'
+                description: '拖拽时回调，函数返回 false 则阻止移入'
             },
             {
                 name: 'thyBeforeDragDrop',
                 type: '(e: ThyDragDropEvent<T>) => boolean',
                 default: '-',
-                description: '拖放到元素时回调，函数返回false则阻止放置'
+                description: '拖放到元素时回调，函数返回 false 则阻止放置'
             },
             {
                 name: 'thyDragStarted',
@@ -49,19 +49,19 @@ module.exports = [
                 name: 'thyDragEnded',
                 type: 'EventEmitter<ThyDragEndEvent<ThyDragDirective>>',
                 default: '-',
-                description: 'dragend触发时调用'
+                description: 'dragend 触发时调用'
             },
             {
                 name: 'thyDragOvered',
                 type: 'EventEmitter<ThyDragOverEvent<ThyDragDirective>>',
                 default: '-',
-                description: 'dragover触发时调用'
+                description: 'dragover 触发时调用'
             },
             {
                 name: 'thyDragDropped',
                 type: 'EventEmitter<ThyDragDropEvent<ThyDragDirective>>',
                 default: '-',
-                description: 'drop触发时调用'
+                description: 'drop 触发时调用'
             }
         ]
     },
