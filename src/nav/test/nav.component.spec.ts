@@ -61,7 +61,7 @@ export class NavBasicComponent implements OnInit {
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
             class="custom-nav"
-            style="width: 100px;height: 60px;display:block"
+            style="width: 100px;height: 50px;display:block"
         >
             <a
                 *ngFor="let item of navLinks; index as i"
