@@ -31,10 +31,7 @@ import { ThySpaceModule } from "ngx-tethys/space";
 <example name="thy-space-basic-example" />
 
 ## 大小
-Space 支持3种内置大小，同时支持自定义数字大小，其实就是每个`thySpaceItem`的间距。
-- `sm`: 10px
-- `md`: 20px，默认大小
-- `lg`: 30px
+Space 支持大小`'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg'`，同时支持自定义数字。分别为 0px, 4px, 8px, 12px, 16px, 20px, 24px, 28px。
 
 展示效果：
 <example name="thy-space-size-example" />
