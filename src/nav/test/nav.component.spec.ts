@@ -73,7 +73,14 @@ export class NavBasicComponent implements OnInit {
                 >{{ item.name }}</a
             >
         </thy-nav>
-    `
+    `,
+    styles: [
+        `
+            .thy-nav--vertical .thy-nav-item {
+                display: block;
+            }
+        `
+    ]
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
