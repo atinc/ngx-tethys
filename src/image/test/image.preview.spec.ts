@@ -51,7 +51,7 @@ class ImagePreviewTestComponent implements OnInit {
     }
 }
 
-fdescribe('image-preview', () => {
+describe('image-preview', () => {
     let fixture: ComponentFixture<ImagePreviewTestComponent>;
     let basicTestComponent: ImagePreviewTestComponent;
     let debugElement: DebugElement;
