@@ -71,11 +71,7 @@
         (click)="option.action(previewImage)"
       ></a>
       <span class="mr-2" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
-      <thy-divider
-        class="thy-image-preview-operations-divider ml-2"
-        [thyVertical]="true"
-        *ngIf="option?.type === 'rotate-right'"
-      ></thy-divider>
+      <thy-divider class="ml-2" [thyVertical]="true" *ngIf="option?.type === 'rotate-right'"></thy-divider>
       <a
         *ngIf="option.type === 'copyLink'"
         href="javascript:;"
