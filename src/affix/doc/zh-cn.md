@@ -37,3 +37,11 @@ import { ThyAffixModule } from 'ngx-tethys/affix';
 
 展示效果：
 <example name="thy-affix-basic-example" />
+
+<alert>注意：thy-affix 内的元素不要使用绝对定位，如需要绝对定位的效果，可以直接设置 thy-affix 为绝对定位。</alert>
+展示效果：
+```ts
+<thy-affix style="position: absolute; top: 10px, left: 10px">
+  ...
+</thy-affix>
+```
