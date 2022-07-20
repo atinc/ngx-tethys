@@ -84,6 +84,8 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     public showMore = true;
 
+    private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
+
     @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
     @ContentChild('more') moreOperation: TemplateRef<unknown>;
@@ -162,6 +164,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     ngAfterViewInit() {
         if (this.thyResponsive) {
+            this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
@@ -189,6 +192,13 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
+    }
+
+    private setMoreBtnOffset() {
+        this.moreBtnOffset = {
+            height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
+            width: this.defaultMoreOperation?.nativeElement?.offsetWidth
+        };
     }
 
     createResizeObserver(element: HTMLElement) {
@@ -244,7 +254,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         for (let i = 0; i < tabsLength; i += 1) {
             const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset.width : totalWidth + tabs[i].offset.width + tabItemRight;
             if (_totalWidth > this.wrapperOffset.width) {
-                let moreOperationWidth = this.defaultMoreOperation.nativeElement.offsetWidth;
+                let moreOperationWidth = this.moreBtnOffset.width;
                 if (totalWidth + moreOperationWidth <= this.wrapperOffset.width) {
                     endIndex = i - 1;
                 } else {
@@ -266,7 +276,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         for (let i = 0; i < tabsLength; i += 1) {
             const _totalHeight = totalHeight + tabs[i].offset.height;
             if (_totalHeight > this.wrapperOffset.height) {
-                let moreOperationHeight = this.defaultMoreOperation.nativeElement.offsetHeight;
+                let moreOperationHeight = this.moreBtnOffset.height;
                 if (totalHeight + moreOperationHeight <= this.wrapperOffset.height) {
                     endIndex = i - 1;
                 } else {
