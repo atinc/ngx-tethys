@@ -22,7 +22,7 @@ import { ThyImageService } from './image.service';
     selector: 'img[thyImage]',
     exportAs: 'thyImage',
     host: {
-        '(click)': 'onPreview($event)',
+        '(mousedown)': 'onPreview($event)',
         class: 'thy-image'
     }
 })
