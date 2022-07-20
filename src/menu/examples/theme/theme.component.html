@@ -17,9 +17,15 @@
         <span thyMenuItemIcon>
           <thy-icon thyIconName="view-tile"></thy-icon>
         </span>
-        <span thyMenuItemName> 我的工作 </span>
+        <span thyMenuItemName class="d-flex">
+          <span class="text-truncate">是我的工作呀呀呀呀呀呀呀呀呀呀呀呀</span>
+          <span>
+            <span class="mx-1">·</span>
+            6
+          </span>
+        </span>
         <span thyMenuItemAction>
-          <thy-icon thyIconName="more"></thy-icon>
+          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
         </span>
       </a>
       <thy-divider></thy-divider>
@@ -30,7 +36,7 @@
           </span>
           <span thyMenuItemName> 我的工作 </span>
           <span thyMenuItemAction>
-            <thy-icon thyIconName="more"></thy-icon>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>
         <a thyMenuItem href="javascript:;">
@@ -39,7 +45,7 @@
           </span>
           <span thyMenuItemName> 我的工作 </span>
           <span thyMenuItemAction>
-            <thy-icon thyIconName="more"></thy-icon>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>
       </thy-menu-group>
@@ -56,7 +62,7 @@
           </span>
           <span thyMenuItemName> 我负责的 </span>
           <span thyMenuItemAction>
-            <thy-icon thyIconName="more"></thy-icon>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>
         <a thyMenuItem href="javascript:;">
@@ -65,7 +71,7 @@
           </span>
           <span thyMenuItemName> 我参与的 </span>
           <span thyMenuItemAction>
-            <thy-icon thyIconName="more"></thy-icon>
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
           </span>
         </a>
       </thy-menu-group>

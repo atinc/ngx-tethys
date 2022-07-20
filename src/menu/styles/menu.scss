@@ -143,7 +143,8 @@
         &:hover {
             background: variables.$gray-100;
             .thy-menu-item-action {
-                visibility: visible;
+                display: inline-block;
+                margin-left: 4px;
             }
         }
 
@@ -165,7 +166,7 @@
         }
 
         .thy-menu-item-action {
-            visibility: hidden;
+            display: none;
             color: variables.$gray-600;
             .thy-action:last-child {
                 margin-right: -8px;
