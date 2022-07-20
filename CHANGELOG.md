@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.1](https://github.com/atinc/ngx-tethys/compare/13.1.0...13.1.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* **nav:** set moreBtnOffset when init ([d3b8f05](https://github.com/atinc/ngx-tethys/commit/d3b8f059c763bda8cba0a94b1162d66eec66925b))
+
+
+
 # [13.1.0](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.49...13.1.0) (2022-07-19)
 
 
