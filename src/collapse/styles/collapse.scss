@@ -6,6 +6,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
     display: block;
     position: relative;
     border: 1px solid variables.$gray-200;
+    color: variables.$gray-600;
     border-bottom: 0;
     background-color: variables.$gray-80;
     border-radius: 2px;
@@ -16,10 +17,16 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             border-radius: 0 0 2px 2px;
         }
         .#{$thy-collapse-prefix-cls}-header {
-            padding: 12px 16px;
+            padding: 12px 8px;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
             position: relative;
             cursor: pointer;
             transition: all 0.3s, visibility 0s;
+            .#{$thy-collapse-prefix-cls}-title {
+                flex: 1;
+            }
             .#{$thy-collapse-prefix-cls}-icon {
                 margin-right: 12px;
             }
@@ -31,7 +38,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             border-top: 1px solid variables.$gray-200;
             background-color: variables.$white;
             &-box {
-                padding: 16px;
+                padding: 16px 8px;
             }
         }
     }
@@ -67,11 +74,14 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 
 .#{$thy-collapse-prefix-cls}-borderless {
     border: 0;
-    background-color: variables.$gray-80;
+    background: transparent;
     .#{$thy-collapse-prefix-cls}-item {
         &:last-child,
         &:last-child > .#{$thy-collapse-prefix-cls}-header {
             border-radius: 0;
+        }
+        &:first-child {
+            border-top: 1px solid variables.$gray-200;
         }
         .#{$thy-collapse-prefix-cls}-content {
             background: transparent;
@@ -85,11 +95,11 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 
 .#{$thy-collapse-prefix-cls}-icon-position-right {
     .#{$thy-collapse-prefix-cls}-item > .#{$thy-collapse-prefix-cls}-header {
-        padding: 12px 40px 12px 16px;
+        padding: 12px 40px 12px 8px;
         .#{$thy-collapse-prefix-cls}-icon {
             position: absolute;
             top: 50%;
-            right: 16px;
+            right: 8px;
             left: auto;
             margin: 0;
             transform: translateY(-50%);
