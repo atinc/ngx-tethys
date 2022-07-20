@@ -326,7 +326,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let event = new MouseEvent('click');
             a.dispatchEvent(event);
         };
-        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
+        img.src = image.origin?.src || image.src;
     }
 
     zoomIn(): void {
