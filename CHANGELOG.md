@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.2](https://github.com/atinc/ngx-tethys/compare/13.1.1...13.1.2) (2022-07-20)
+
+
+### Bug Fixes
+
+* **image:** remove time #INFR-3912 ([#2004](https://github.com/atinc/ngx-tethys/issues/2004)) ([00d6d0f](https://github.com/atinc/ngx-tethys/commit/00d6d0f5fdc73bc96fa6ca3ad7dffd95a104a9de)), closes [#INFR-3912](https://github.com/atinc/ngx-tethys/issues/INFR-3912)
+
+
+
 ## [13.1.1](https://github.com/atinc/ngx-tethys/compare/13.1.0...13.1.1) (2022-07-20)
 
 
