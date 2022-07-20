@@ -1,17 +1,5 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ElementRef,
-    ChangeDetectorRef,
-    Inject,
-    forwardRef,
-    InjectionToken,
-    HostListener,
-    Optional,
-    OnInit
-} from '@angular/core';
-import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
+import { Highlightable } from '@angular/cdk/a11y';
+import { ChangeDetectorRef, Component, ElementRef, HostBinding, HostListener, Inject, Input, Optional } from '@angular/core';
 // import { SelectionModel } from '@angular/cdk/collections';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
@@ -64,8 +52,9 @@ export class ThyListOptionComponent implements Highlightable {
         @Optional() @Inject(THY_LIST_OPTION_PARENT_COMPONENT) public parentSelectionList: IThyListOptionParentComponent
     ) {}
 
-    @HostListener('click', ['$event'])
+    @HostListener('mousedown', ['$event'])
     onClick(event: Event) {
+        event.preventDefault();
         if (this.parentSelectionList.multiple || !this.parentSelectionList.isSelected(this)) {
             this.parentSelectionList.toggleOption(this, event);
             this.parentSelectionList.setActiveOption(this);
