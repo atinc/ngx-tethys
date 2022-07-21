@@ -17,7 +17,8 @@ export const THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER = {
         hasBackdrop: true,
         closeOnNavigation: true,
         disableClose: false,
-        disableKeyboardSelectable: false
+        disableKeyboardSelectable: false,
+        restoreFocus: false
     }
 };
 
