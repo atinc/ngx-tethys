@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     template: `
-        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyExpandIconPosition]="position" [thyGhost]="ghost">
+        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyExpandIconPosition]="position">
             <thy-collapse-panel thyTitle="这是一个头部标题">isAccording</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
@@ -141,7 +141,7 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-bordered');
         });
 
-        it('should collapse have thy-collapse-bordered class when thyBordered is true', () => {
+        it('should collapse have thy-collapse-bordered class when theme is bordered', () => {
             fixture.detectChanges();
             component.theme = 'bordered';
 
@@ -158,7 +158,7 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-collapse-icon-position-left');
         });
 
-        it('should collapse have thy-collapse-bordered class when thyBordered is true', () => {
+        it('should collapse have position class correct', () => {
             fixture.detectChanges();
             component.position = 'right';
             fixture.detectChanges();
@@ -175,7 +175,7 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-ghost');
         });
 
-        it('should collapse have thy-collapse-bordered class when thyBordered is true', () => {
+        it('should collapse have thy-collapse-ghost class when theme is ghost', () => {
             fixture.detectChanges();
             component.theme = 'ghost';
             fixture.detectChanges();

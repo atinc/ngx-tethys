@@ -15,6 +15,9 @@ export type Position = 'left' | 'right';
         </ng-container>
     `,
     host: {
+        '[class.thy-collapse-divided]': `thyTheme === 'divided'`,
+        '[class.thy-collapse-bordered]': `thyTheme === 'bordered'`,
+        '[class.thy-collapse-ghost]': `thyTheme === 'ghost'`,
         '[class.thy-collapse-icon-position-right]': `thyExpandIconPosition === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyExpandIconPosition === 'left'`
     },
@@ -25,32 +28,28 @@ export class ThyCollapseComponent implements OnInit {
 
     @HostBinding('class.thy-collapse') isCollapse = true;
 
-    @HostBinding('class.thy-collapse-ghost') themeGhost = false;
+    // @HostBinding('class.thy-collapse-ghost') themeGhost = false;
 
-    @HostBinding('class.thy-collapse-bordered') themeBordered = false;
+    // @HostBinding('class.thy-collapse-bordered') themeBordered = false;
 
-    @HostBinding('class.thy-collapse-divided') themeDivided = true;
+    // @HostBinding('class.thy-collapse-divided') themeDivided = true;
 
     @Input() thyAccordion: boolean;
 
-    @Input() thyBordered: boolean = true;
-
     @Input() thyExpandIconPosition: Position = 'left';
 
-    @Input()
-    set thyTheme(value: ThyTheme) {
-        if (value === 'bordered') {
-            this.themeBordered = true;
-            this.themeDivided = false;
-        } else if (value === 'ghost') {
-            this.themeGhost = true;
-            this.themeDivided = false;
-        } else {
-            this.themeDivided = true;
-        }
-    }
-
-    @Input() thyGhost: boolean;
+    @Input() thyTheme: ThyTheme = 'divided';
+    // set thyTheme(value: ThyTheme) {
+    // if (value === 'bordered') {
+    //     this.themeBordered = true;
+    //     this.themeDivided = false;
+    // } else if (value === 'ghost') {
+    //     this.themeGhost = true;
+    //     this.themeDivided = false;
+    // } else {
+    //     this.themeDivided = true;
+    // }
+    // }
 
     private listOfCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
 

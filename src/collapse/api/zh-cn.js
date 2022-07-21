@@ -10,16 +10,10 @@ module.exports = [
                 description: `是否每次只打开一个tab`
             },
             {
-                name: 'thyBordered',
-                type: 'boolean',
-                default: 'true',
-                description: `是否有边框`
-            },
-            {
-                name: 'thyGhost',
-                type: 'boolean',
-                default: 'false',
-                description: `使折叠面板透明且无边框`
+                name: 'thyTheme',
+                type: 'divided' | 'bordered' | 'ghost',
+                default: 'divided',
+                description: `设置主题支持不同样式的折叠面板`
             },
             {
                 name: 'thyExpandIconPosition',

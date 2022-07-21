@@ -5,7 +5,7 @@ subtitle: 折叠面板
 order: 1
 ---
 
-<div class="dg-alert dg-alert-info">可折叠展开的内容区域</div>
+<div class="dg-alert dg-alert-info">可折叠展开的内容区域。</div>
 
 # 何时使用
 
@@ -17,7 +17,7 @@ import { ThyCollapseModule } from "ngx-tethys/collapse";
 ```
 
 ## 基本使用
-`thy-collapse`组件需要与`thy-collapse-panel`组件一起配合使用，基本的使用如下：
+`thy-collapse`组件需要与`thy-collapse-panel`组件一起配合使用，支持主题默认divided，基本的使用如下：
 ```html
 <thy-collapse>
   <thy-collapse-panel thyTitle="这是一个头部标题" [thyActive]="true">内容区域</thy-collapse-panel>
@@ -41,13 +41,41 @@ import { ThyCollapseModule } from "ngx-tethys/collapse";
 展示效果：
 <example name="thy-collapse-accordion-example">
 
+## 带边框折叠面板
+
+带边框折叠面板，设置thyTheme="bordered"
+```html
+<thy-collapse thyTheme="bordered">
+  <thy-collapse-panel thyTitle="这是一个头部标题" [thyActive]="true">内容区域</thy-collapse-panel>
+  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
+  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域3</thy-collapse-panel>
+</thy-collapse>
+
+```
+展示效果：
+<example name="thy-collapse-bordered-example">
+
+
+## 幽灵面板
+
+将折叠面板的背景变成透明且无边框，设置thyTheme="ghost"
+```html
+<thy-collapse thyTheme="ghost">
+  <thy-collapse-panel thyTitle="这是一个头部标题" [thyActive]="true">内容区域</thy-collapse-panel>
+  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
+  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域3</thy-collapse-panel>
+</thy-collapse>
+
+```
+展示效果：
+<example name="thy-collapse-ghost-example">
 
 ## 自定义
 
 折叠面板可以自定义各个面板的背景色、圆角、边距和图标，右上角展示内容
 
 ```html
-<thy-collapse [thyBordered]="false">
+<thy-collapse>
   <thy-collapse-panel
     *ngFor="let item of panels"
     [thyTitle]="item.name"
@@ -90,19 +118,5 @@ import { ThyCollapseModule } from "ngx-tethys/collapse";
 ```
 展示效果：
 <example name="thy-collapse-tree-example">
-
-## 幽灵面板
-
-将折叠面板的背景变成透明且无边框
-```html
-<thy-collapse [thyGhost]="true">
-  <thy-collapse-panel thyTitle="这是一个头部标题" [thyActive]="true">内容区域</thy-collapse-panel>
-  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
-  <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域3</thy-collapse-panel>
-</thy-collapse>
-
-```
-展示效果：
-<example name="thy-collapse-ghost-example">
 
 
