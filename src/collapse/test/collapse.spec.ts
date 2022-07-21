@@ -20,8 +20,6 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 export class TestCollapseBasicComponent {
     accordion = false;
 
-    // border = true;
-
     theme = 'divided';
 
     position = 'left';
