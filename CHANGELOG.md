@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.3](https://github.com/atinc/ngx-tethys/compare/13.1.2...13.1.3) (2022-07-21)
+
+
+### Bug Fixes
+
+* **image:** set restoreFocus false when open dialog #WIK-7834 ([#2007](https://github.com/atinc/ngx-tethys/issues/2007)) ([eb353cc](https://github.com/atinc/ngx-tethys/commit/eb353ccb5aabdf8a6b5479f403def79546d231b5)), closes [#WIK-7834](https://github.com/atinc/ngx-tethys/issues/WIK-7834)
+* **menu:** modify more icon m-l #INFR-3717 ([c49642f](https://github.com/atinc/ngx-tethys/commit/c49642f4e0a3172c9bd1650c77a4eab14b53cb50)), closes [#INFR-3717](https://github.com/atinc/ngx-tethys/issues/INFR-3717)
+
+
+
 ## [13.1.2](https://github.com/atinc/ngx-tethys/compare/13.1.1...13.1.2) (2022-07-20)
 
 
