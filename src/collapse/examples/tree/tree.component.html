@@ -1,8 +1,8 @@
-<thy-collapse>
+<thy-collapse thyTheme="bordered">
   <thy-collapse-panel *ngFor="let item of panels" [thyTitle]="item.name" [thyExpandedIcon]="item.icon" [thyActive]="item.active">
     内容区域
     <ng-container *ngIf="item.children && item.children.length">
-      <thy-collapse>
+      <thy-collapse thyTheme="bordered">
         <thy-collapse-panel
           *ngFor="let childPanel of item.children"
           [thyTitle]="childPanel.name"

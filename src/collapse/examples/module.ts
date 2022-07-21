@@ -10,7 +10,7 @@ import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyCollapseAccordionExampleComponent } from './accordion/accordion.component';
 import { ThyCollapseArrowExampleComponent } from './arrow/arrow.component';
 import { ThyCollapseBasicExampleComponent } from './basic/basic.component';
-import { ThyCollapseBorderlessExampleComponent } from './borderless/borderless.component';
+import { ThyCollapseBorderedExampleComponent } from './bordered/bordered.component';
 import { ThyCollapseCustomExampleComponent } from './custom/custom.component';
 import { ThyCollapseDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyCollapseGhostExampleComponent } from './ghost/ghost.component';
@@ -24,7 +24,7 @@ const COMPONENTS = [
     ThyCollapseCustomExampleComponent,
     ThyCollapseTreeExampleComponent,
     ThyCollapseGhostExampleComponent,
-    ThyCollapseBorderlessExampleComponent
+    ThyCollapseBorderedExampleComponent
 ];
 
 @NgModule({
