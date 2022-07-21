@@ -28,28 +28,11 @@ export class ThyCollapseComponent implements OnInit {
 
     @HostBinding('class.thy-collapse') isCollapse = true;
 
-    // @HostBinding('class.thy-collapse-ghost') themeGhost = false;
-
-    // @HostBinding('class.thy-collapse-bordered') themeBordered = false;
-
-    // @HostBinding('class.thy-collapse-divided') themeDivided = true;
-
     @Input() thyAccordion: boolean;
 
     @Input() thyExpandIconPosition: Position = 'left';
 
     @Input() thyTheme: ThyTheme = 'divided';
-    // set thyTheme(value: ThyTheme) {
-    // if (value === 'bordered') {
-    //     this.themeBordered = true;
-    //     this.themeDivided = false;
-    // } else if (value === 'ghost') {
-    //     this.themeGhost = true;
-    //     this.themeDivided = false;
-    // } else {
-    //     this.themeDivided = true;
-    // }
-    // }
 
     private listOfCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
 
