@@ -193,9 +193,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: calc(
-            (variables.$layout-sidebar-header-height - variables.$icon-default-height) / 2
-        ); /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
+        top: (variables.$layout-sidebar-header-height - variables.$icon-default-height) * 0.5; /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
         width: variables.$icon-default-width;
         height: variables.$icon-default-height;
         right: 0;
