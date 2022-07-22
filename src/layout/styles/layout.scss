@@ -185,6 +185,14 @@
                 visibility: visible;
             }
         }
+        &::after {
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            right: -10px;
+            top: 0;
+            content: '';
+        }
     }
 
     .sidebar-collapse {
