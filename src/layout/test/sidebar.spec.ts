@@ -27,6 +27,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
                 (thyCollapsedChange)="collapsedChange($event)"
+                (thyDragWidthChange)="dragWidthChange($event)"
                 [thyTrigger]="triggerTpl"
             >
                 <thy-sidebar-header [thyDivided]="true" thyTitle="Title"> </thy-sidebar-header>
@@ -54,6 +55,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     collapsibleWidth = 0;
     thyTheme: ThySidebarTheme;
     isCollapsed = false;
+    dragWidth: number;
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
@@ -61,6 +63,10 @@ class ThyDemoLayoutSidebarBasicComponent {
 
     collapsedChange(isCollapsed: boolean) {
         this.isCollapsed = isCollapsed;
+    }
+
+    dragWidthChange(width: number) {
+        this.dragWidth = width;
     }
 }
 
@@ -185,11 +191,12 @@ describe(`sidebar`, () => {
             fixture.debugElement.componentInstance.draggable = true;
             fixture.detectChanges();
             tick();
-            const dragElement = fixture.debugElement.query(By.css('.sidebar-resize-handle')).nativeElement;
+            const dragElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-resize-handle')).nativeElement;
             dispatchMouseEvent(dragElement, 'mousedown');
-            dispatchMouseEvent(dragElement, 'mousemove', dragElement.left + 20, dragElement.height);
+            const dragElementRect = dragElement.getBoundingClientRect();
+            dispatchMouseEvent(dragElement, 'mousemove', dragElementRect.left + 50, dragElementRect.top);
             dispatchMouseEvent(dragElement, 'mouseup');
-            fixture.detectChanges();
+            expect(fixture.debugElement.componentInstance.dragWidth).toEqual(50);
         }));
 
         it('should enable thyCollapsible', fakeAsync(() => {
