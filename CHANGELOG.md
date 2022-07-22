@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.4](https://github.com/atinc/ngx-tethys/compare/13.1.3...13.1.4) (2022-07-22)
+
+
+### Bug Fixes
+
+* **layout:** adjust layout sidebar collaspe icon top #INFR-3937 ([#2011](https://github.com/atinc/ngx-tethys/issues/2011)) ([d9376b0](https://github.com/atinc/ngx-tethys/commit/d9376b0aeca57b8b9f08c34615c781c2e7fdcd34)), closes [#INFR-3937](https://github.com/atinc/ngx-tethys/issues/INFR-3937)
+* **layout:** adjust the sidebar-collapse-line style  #INFR-3939 ([b29e255](https://github.com/atinc/ngx-tethys/commit/b29e255fb2c372d42126e839837f6547f7ad4187)), closes [#INFR-3939](https://github.com/atinc/ngx-tethys/issues/INFR-3939)
+
+
+### Features
+
+* **collapse:** add thyTheme support divided, bordered and ghost, deprecate thyBordered and thyGhost #INFR-3904 ([#2003](https://github.com/atinc/ngx-tethys/issues/2003)) ([0570a3b](https://github.com/atinc/ngx-tethys/commit/0570a3b933f481b0d065aeb8eaa6415493b82887)), closes [#INFR-3904](https://github.com/atinc/ngx-tethys/issues/INFR-3904)
+* **layout:** add thyDragWidthChange for thy-sidebar #INFR-3942 ([c4e07d5](https://github.com/atinc/ngx-tethys/commit/c4e07d5f3738b55b621c976ddd8dbb1b0d31cc82)), closes [#INFR-3942](https://github.com/atinc/ngx-tethys/issues/INFR-3942)
+* **menu:** add action active class #INFR-3930 ([#2010](https://github.com/atinc/ngx-tethys/issues/2010)) ([3ac436f](https://github.com/atinc/ngx-tethys/commit/3ac436f9d6ee17eb377970dbaf3e88ad74f00a3e)), closes [#INFR-3930](https://github.com/atinc/ngx-tethys/issues/INFR-3930)
+
+
+
 ## [13.1.3](https://github.com/atinc/ngx-tethys/compare/13.1.2...13.1.3) (2022-07-21)
 
 
