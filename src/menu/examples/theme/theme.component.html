@@ -7,48 +7,40 @@
 <div class="demo-menu-theme-body">
   <div class="demo-menu-container">
     <thy-menu [thyTheme]="theme">
-      <a thyMenuItem href="javascript:;" class="active">
-        <span thyMenuItemIcon>
-          <thy-icon thyIconName="view-tile"></thy-icon>
-        </span>
-        <span thyMenuItemName> 我的工作 </span>
-      </a>
-      <a thyMenuItem href="javascript:;">
-        <span thyMenuItemIcon>
-          <thy-icon thyIconName="view-tile"></thy-icon>
-        </span>
-        <span thyMenuItemName class="d-flex">
-          <span class="text-truncate">是我的工作呀呀呀呀呀呀呀呀呀呀呀呀</span>
-          <span>
-            <span class="mx-1">·</span>
-            6
-          </span>
-        </span>
-        <span thyMenuItemAction>
-          <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
-        </span>
-      </a>
+      <ng-container *ngFor="let item of menuNodes">
+        <div thyMenuItem>
+          <ng-template
+            [ngTemplateOutlet]="menuItemTpl"
+            [ngTemplateOutletContext]="{
+              $implicit: item
+            }"
+          ></ng-template>
+        </div>
+      </ng-container>
+
       <thy-divider></thy-divider>
-      <thy-menu-group thyTitle="工作" [thyCollapsible]="true" [thyCollapsed]="true">
-        <a thyMenuItem href="javascript:;" class="active">
-          <span thyMenuItemIcon>
-            <thy-icon thyIconName="view-tile"></thy-icon>
-          </span>
-          <span thyMenuItemName> 我的工作 </span>
-          <span thyMenuItemAction>
-            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
-          </span>
-        </a>
-        <a thyMenuItem href="javascript:;">
-          <span thyMenuItemIcon>
-            <thy-icon thyIconName="view-tile"></thy-icon>
-          </span>
-          <span thyMenuItemName> 我的工作 </span>
-          <span thyMenuItemAction>
-            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
-          </span>
-        </a>
-      </thy-menu-group>
+      <ng-container *ngFor="let group of groupNodes">
+        <thy-menu-group
+          [thyTitle]="group.name"
+          [thyCollapsible]="true"
+          [thyCollapsed]="true"
+          [thyShowAction]="true"
+          [thyActionMenu]="menuTpl"
+          [thyMenuItemValue]="group"
+        >
+          <ng-container *ngFor="let item of group.children">
+            <div thyMenuItem>
+              <ng-template
+                [ngTemplateOutlet]="menuItemTpl"
+                [ngTemplateOutletContext]="{
+                  $implicit: item
+                }"
+              ></ng-template>
+            </div>
+          </ng-container>
+        </thy-menu-group>
+      </ng-container>
+
       <thy-divider></thy-divider>
     </thy-menu>
   </div>
@@ -98,15 +90,41 @@
           <div class="content-title">
             <thy-icon thyIconName="app-testhub-fill"></thy-icon> <span class="title testhub ml-2">Testhub</span>
           </div>
-          <thy-icon thyIconName="repository" class="mr-2 thy-menu-group-operaton"></thy-icon>
+          <thy-icon thyIconName="repository" class="mr-2 thy-menu-group-operation"></thy-icon>
         </ng-template>
         <a thyMenuItem href="javascript:;" class="active">
           <span thyMenuItemIcon>
             <thy-icon thyIconName="view-tile"></thy-icon>
           </span>
           <span thyMenuItemName> 测试用例管理 </span>
+          <span thyMenuItemAction [thyActionMenu]="menuTpl">
+            <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" href="javascript:;"></a>
+          </span>
         </a>
       </thy-menu-group>
     </thy-menu>
   </div>
 </div>
+
+<ng-template #menuItemTpl let-item>
+  <span thyMenuItemIcon>
+    <thy-icon thyIconName="view-tile"></thy-icon>
+  </span>
+  <span thyMenuItemName> {{ item?.name }} </span>
+  <span thyMenuItemAction [thyActionMenu]="menuTpl" [thyMenuItemValue]="item">
+    <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" href="javascript:;"></a>
+  </span>
+</ng-template>
+
+<ng-template #menuTpl let-initialState>
+  <thy-action-menu>
+    <a thyActionMenuItem href="javascript:;" (click)="edit(initialState.itemValue)">
+      <span thyActionMenuItemIcon><thy-icon thyIconName="edit"></thy-icon> </span>
+      <span thyActionMenuItemName>编辑</span>
+    </a>
+    <a thyActionMenuItem thyType="danger" href="javascript:;" (click)="delete(initialState.itemValue)">
+      <span thyActionMenuItemIcon> <thy-icon thyIconName="trash"></thy-icon> </span>
+      <span thyActionMenuItemName>删除</span>
+    </a>
+  </thy-action-menu>
+</ng-template>

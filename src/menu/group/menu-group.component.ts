@@ -1,21 +1,22 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ComponentType } from '@angular/cdk/portal';
 import {
+    ChangeDetectionStrategy,
     Component,
-    OnInit,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
     HostBinding,
     Input,
+    OnInit,
     Output,
-    EventEmitter,
-    ElementRef,
-    ViewChild,
     TemplateRef,
-    ContentChild,
-    ChangeDetectionStrategy
+    ViewChild
 } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ComponentType } from '@angular/cdk/portal';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { SafeAny } from 'ngx-tethys/types';
+import { ThyMenuComponent } from '../menu.component';
 
 /**
  * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
@@ -52,7 +53,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 export class ThyMenuGroupComponent implements OnInit {
     public _actionMenu: ComponentType<any> | TemplateRef<any>;
 
-    public rightIconClass = 'more';
+    public rightIconClass = 'more-vertical';
 
     public iconClass = 'folder-bold';
 
@@ -148,6 +149,12 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
+    /**
+     * Action 菜单所在行的 menu 数据
+     */
+    @Input()
+    thyMenuItemValue: SafeAny;
+
     constructor(private popover: ThyPopover, public parent: ThyMenuComponent) {}
 
     ngOnInit(): void {}
@@ -164,12 +171,26 @@ export class ThyMenuGroupComponent implements OnInit {
         if (this.thyActionStopPropagation) {
             event.stopPropagation();
         }
+        const moreClass = 'thy-more-active';
+        let wrapDOM: Element;
+        wrapDOM = (event.target as HTMLElement).closest('.thy-menu-group-header');
+        if (wrapDOM) {
+            wrapDOM.classList.add(moreClass);
+        }
         if (this._actionMenu) {
-            this.popover.open(this._actionMenu, {
+            const popoverRef = this.popover.open(this._actionMenu, {
                 origin: event.currentTarget as HTMLElement,
                 insideClosable: true,
-                placement: 'bottom'
+                placement: 'bottomLeft',
+                initialState: { itemValue: this.thyMenuItemValue }
             });
+            if (popoverRef) {
+                popoverRef.afterClosed().subscribe(() => {
+                    if (wrapDOM) {
+                        wrapDOM.classList.remove(moreClass);
+                    }
+                });
+            }
         } else {
             this.thyOnActionClick.emit(event);
         }

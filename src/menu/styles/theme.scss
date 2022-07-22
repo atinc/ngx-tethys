@@ -74,6 +74,10 @@
                 .thy-menu-item-name {
                     color: variables.$menu-theme-dark-color;
                 }
+
+                .thy-menu-item-action {
+                    display: none;
+                }
             }
         }
 
@@ -94,7 +98,8 @@
                     color: variables.$menu-theme-dark-color;
                 }
 
-                .thy-menu-group-operaton {
+                .thy-menu-group-operation {
+                    display: none;
                     color: variables.$menu-theme-dark-color;
                 }
             }

@@ -1,14 +1,15 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyMenuComponent } from './menu.component';
-import { ThyMenuItemComponent } from './item/menu-item.component';
-import { ThyMenuGroupComponent } from './group/menu-group.component';
-import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
-import { ThyMenuItemIconComponent } from './item/icon/menu-item-icon.component';
-import { ThyMenuItemActionComponent } from './item/action/menu-item-action.component';
-import { ThyMenuDividerComponent } from './divider/menu-divider.component';
+import { NgModule } from '@angular/core';
+import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThyMenuDividerComponent } from './divider/menu-divider.component';
+import { ThyMenuGroupComponent } from './group/menu-group.component';
+import { ThyMenuItemActionComponent } from './item/action/menu-item-action.component';
+import { ThyMenuItemIconComponent } from './item/icon/menu-item-icon.component';
+import { ThyMenuItemComponent } from './item/menu-item.component';
+import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
+import { ThyMenuComponent } from './menu.component';
 
 @NgModule({
     declarations: [
@@ -20,7 +21,7 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
         ThyMenuItemActionComponent,
         ThyMenuDividerComponent
     ],
-    imports: [CommonModule, ThyIconModule, ThyPopoverModule],
+    imports: [CommonModule, ThyIconModule, ThyPopoverModule, ThyActionModule],
     exports: [
         ThyMenuComponent,
         ThyMenuGroupComponent,
