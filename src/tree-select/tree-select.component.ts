@@ -217,7 +217,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
         this.setSelectedNodes();
         this.initialled = true;
-        this.init();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -233,6 +232,12 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                     }
                 });
         }
+        this.viewportRuler
+            .change()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                this.init();
+            });
     }
 
     ngOnDestroy(): void {
