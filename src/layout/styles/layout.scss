@@ -152,12 +152,12 @@
         transition: none;
         right: -2px;
         width: 2px;
-        z-index: variables.$z-index-7;
 
         .sidebar-resize-line {
             height: 100%;
             transition: all 180ms linear;
             border-right: 2px solid transparent;
+            z-index: variables.$z-index-7;
         }
         &:hover {
             .sidebar-resize-line {
@@ -193,9 +193,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 12px; /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
-        width: 24px;
-        height: 24px;
+        top: calc(
+            (variables.$layout-sidebar-header-height - variables.$icon-default-height) / 2
+        ); /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
+        width: variables.$icon-default-width;
+        height: variables.$icon-default-height;
         right: 0;
         transform: translateX(50%);
         color: variables.$gray-600;
