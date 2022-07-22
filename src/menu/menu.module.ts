@@ -1,6 +1,5 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyMenuDividerComponent } from './divider/menu-divider.component';
@@ -21,7 +20,7 @@ import { ThyMenuComponent } from './menu.component';
         ThyMenuItemActionComponent,
         ThyMenuDividerComponent
     ],
-    imports: [CommonModule, ThyIconModule, ThyPopoverModule, ThyActionModule],
+    imports: [CommonModule, ThyIconModule, ThyPopoverModule],
     exports: [
         ThyMenuComponent,
         ThyMenuGroupComponent,

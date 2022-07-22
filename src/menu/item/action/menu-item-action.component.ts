@@ -1,7 +1,6 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * 菜单项操作组件
@@ -29,12 +28,6 @@ export class ThyMenuItemActionComponent implements OnDestroy {
         }
     }
 
-    /**
-     * Action 菜单所在行的 menu 数据
-     */
-    @Input()
-    thyMenuItemValue: SafeAny;
-
     @Input() thyStopPropagation = true;
 
     private bindClickEvent() {
@@ -46,26 +39,12 @@ export class ThyMenuItemActionComponent implements OnDestroy {
             if (this.thyStopPropagation) {
                 event.stopPropagation();
             }
-            const moreClass = 'thy-more-active';
-            let wrapDOM: Element;
-            wrapDOM = (event.target as HTMLElement).closest('.thy-menu-item-content');
-            if (wrapDOM) {
-                wrapDOM.classList.add(moreClass);
-            }
             if (this._actionMenu) {
-                const popoverRef = this.popover.open(this._actionMenu, {
+                this.popover.open(this._actionMenu, {
                     origin: event.currentTarget as HTMLElement,
                     insideClosable: true,
-                    placement: 'bottomLeft',
-                    initialState: { itemValue: this.thyMenuItemValue }
+                    placement: 'bottom'
                 });
-                if (popoverRef) {
-                    popoverRef.afterClosed().subscribe(() => {
-                        if (wrapDOM) {
-                            wrapDOM.classList.remove(moreClass);
-                        }
-                    });
-                }
             }
         });
     }

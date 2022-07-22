@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { SafeAny } from 'ngx-tethys/types';
 import { ThyMenuComponent } from '../menu.component';
 
 /**
@@ -53,7 +52,7 @@ import { ThyMenuComponent } from '../menu.component';
 export class ThyMenuGroupComponent implements OnInit {
     public _actionMenu: ComponentType<any> | TemplateRef<any>;
 
-    public rightIconClass = 'more-vertical';
+    public rightIconClass = 'more';
 
     public iconClass = 'folder-bold';
 
@@ -149,12 +148,6 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    /**
-     * Action 菜单所在行的 menu 数据
-     */
-    @Input()
-    thyMenuItemValue: SafeAny;
-
     constructor(private popover: ThyPopover, public parent: ThyMenuComponent) {}
 
     ngOnInit(): void {}
@@ -171,26 +164,12 @@ export class ThyMenuGroupComponent implements OnInit {
         if (this.thyActionStopPropagation) {
             event.stopPropagation();
         }
-        const moreClass = 'thy-more-active';
-        let wrapDOM: Element;
-        wrapDOM = (event.target as HTMLElement).closest('.thy-menu-group-header');
-        if (wrapDOM) {
-            wrapDOM.classList.add(moreClass);
-        }
         if (this._actionMenu) {
-            const popoverRef = this.popover.open(this._actionMenu, {
+            this.popover.open(this._actionMenu, {
                 origin: event.currentTarget as HTMLElement,
                 insideClosable: true,
-                placement: 'bottomLeft',
-                initialState: { itemValue: this.thyMenuItemValue }
+                placement: 'bottom'
             });
-            if (popoverRef) {
-                popoverRef.afterClosed().subscribe(() => {
-                    if (wrapDOM) {
-                        wrapDOM.classList.remove(moreClass);
-                    }
-                });
-            }
         } else {
             this.thyOnActionClick.emit(event);
         }

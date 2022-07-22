@@ -8,17 +8,12 @@
       </span>
     </ng-template>
   </div>
-  <a
+  <thy-icon
     *ngIf="thyShowAction"
-    thyAction
-    thyTooltip="更多"
-    thyStopPropagation
-    href="javascript:;"
     class="thy-menu-group-operation"
-    [thyActionIcon]="rightIconClass"
+    [thyIconName]="rightIconClass"
     (click)="onActionClick($event)"
-  ></a>
-
+  ></thy-icon>
   <thy-icon thyIconName="angle-up" *ngIf="thyCollapsible" class="thy-menu-group-arrow"></thy-icon>
 </div>
 <div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="isCollapsed">
