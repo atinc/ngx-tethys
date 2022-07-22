@@ -49,12 +49,6 @@
             align-items: center;
         }
 
-        &.thy-action-active {
-            .thy-menu-group-operation {
-                visibility: visible !important;
-            }
-        }
-
         &.collapsed {
             .thy-menu-group-header {
                 .thy-menu-group-arrow {
@@ -108,7 +102,7 @@
 
             .thy-menu-group-operation {
                 visibility: hidden;
-                margin-right: 8px;
+                color: variables.$gray-600;
             }
         }
 
