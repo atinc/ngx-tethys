@@ -107,7 +107,10 @@ export class ThySidebarComponent implements OnInit {
     @Input() thyTrigger: null | undefined | TemplateRef<any> = undefined;
 
     @Output()
-    thyCollapsedChange = new EventEmitter();
+    thyCollapsedChange = new EventEmitter<boolean>();
+
+    @Output()
+    thyDragWidthChange = new EventEmitter<number>();
 
     @Input() @InputBoolean() thyCollapsible = false;
 
@@ -176,6 +179,7 @@ export class ThySidebarComponent implements OnInit {
             return;
         }
         this.thyLayoutSidebarWidth = width;
+        this.thyDragWidthChange.emit(width);
     }
 
     resizeStart() {
