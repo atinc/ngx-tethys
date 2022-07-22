@@ -4,6 +4,8 @@ import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnInit } 
 
 import { ThyCollapsePanelComponent } from './collapse-panel.component';
 
+export type ThyTheme = 'divided' | 'bordered' | 'ghost';
+
 export type Position = 'left' | 'right';
 @Component({
     selector: 'thy-collapse',
@@ -13,8 +15,9 @@ export type Position = 'left' | 'right';
         </ng-container>
     `,
     host: {
-        '[class.thy-collapse-ghost]': 'thyGhost',
-        '[class.thy-collapse-borderless]': '!thyBordered',
+        '[class.thy-collapse-divided]': `thyTheme === 'divided'`,
+        '[class.thy-collapse-bordered]': `thyTheme === 'bordered'`,
+        '[class.thy-collapse-ghost]': `thyTheme === 'ghost'`,
         '[class.thy-collapse-icon-position-right]': `thyExpandIconPosition === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyExpandIconPosition === 'left'`
     },
@@ -27,11 +30,9 @@ export class ThyCollapseComponent implements OnInit {
 
     @Input() thyAccordion: boolean;
 
-    @Input() thyBordered: boolean = true;
-
     @Input() thyExpandIconPosition: Position = 'left';
 
-    @Input() thyGhost: boolean;
+    @Input() thyTheme: ThyTheme = 'divided';
 
     private listOfCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
 

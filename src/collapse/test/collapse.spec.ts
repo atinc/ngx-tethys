@@ -10,7 +10,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     template: `
-        <thy-collapse [thyAccordion]="accordion" [thyBordered]="border" [thyExpandIconPosition]="position" [thyGhost]="ghost">
+        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyExpandIconPosition]="position">
             <thy-collapse-panel thyTitle="这是一个头部标题">isAccording</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
@@ -20,7 +20,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 export class TestCollapseBasicComponent {
     accordion = false;
 
-    border = true;
+    theme = 'divided';
 
     position = 'left';
 
@@ -133,20 +133,21 @@ describe('collapse', () => {
             fixture.detectChanges();
         });
 
-        it('should collapse not have thy-collapse-borderless class default', () => {
-            const borderLessClass = fixture.debugElement.query(By.css('.thy-collapse-borderless'));
-            expect(borderLessClass).toBeFalsy();
-            expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-borderless');
+        it('should collapse not have thy-collapse-bordered class default', () => {
+            const borderedClass = fixture.debugElement.query(By.css('.thy-collapse-bordered'));
+            expect(borderedClass).toBeFalsy();
+            expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-bordered');
         });
 
-        it('should collapse have thy-collapse-borderless class when thyBordered is true', () => {
+        it('should collapse have thy-collapse-bordered class when theme is bordered', () => {
             fixture.detectChanges();
-            component.border = false;
+            component.theme = 'bordered';
+
             fixture.detectChanges();
 
-            const borderLessClass = fixture.debugElement.query(By.css('.thy-collapse-borderless'));
-            expect(borderLessClass).toBeTruthy();
-            expect(debugElement.nativeElement.classList).toContain('thy-collapse-borderless');
+            const borderedClass = fixture.debugElement.query(By.css('.thy-collapse-bordered'));
+            expect(borderedClass).toBeTruthy();
+            expect(debugElement.nativeElement.classList).toContain('thy-collapse-bordered');
         });
 
         it('should collapse have thy-collapse-icon-position-left class default', () => {
@@ -155,7 +156,7 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).toContain('thy-collapse-icon-position-left');
         });
 
-        it('should collapse have thy-collapse-borderless class when thyBordered is true', () => {
+        it('should collapse have position class correct', () => {
             fixture.detectChanges();
             component.position = 'right';
             fixture.detectChanges();
@@ -172,9 +173,9 @@ describe('collapse', () => {
             expect(debugElement.nativeElement.classList).not.toContain('thy-collapse-ghost');
         });
 
-        it('should collapse have thy-collapse-borderless class when thyBordered is true', () => {
+        it('should collapse have thy-collapse-ghost class when theme is ghost', () => {
             fixture.detectChanges();
-            component.ghost = true;
+            component.theme = 'ghost';
             fixture.detectChanges();
 
             const positionLeft = fixture.debugElement.query(By.css('.thy-collapse-ghost'));
