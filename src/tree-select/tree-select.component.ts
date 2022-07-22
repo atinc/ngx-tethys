@@ -5,7 +5,7 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -207,7 +207,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         private ngZone: NgZone,
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,
-        private thyClickDispatcher: ThyClickDispatcher
+        private thyClickDispatcher: ThyClickDispatcher,
+        private viewportRuler: ViewportRuler
     ) {}
 
     ngOnInit() {
@@ -232,6 +233,12 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                     }
                 });
         }
+        // this.viewportRuler
+        //     .change()
+        //     .pipe(takeUntil(this.destroy$))
+        //     .subscribe(() => {
+        //         this.init();
+        //     });
     }
 
     ngOnDestroy(): void {
@@ -257,6 +264,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     private init() {
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
+        console.log(this.cdkConnectOverlayWidth);
     }
 
     private flattenNodes(
