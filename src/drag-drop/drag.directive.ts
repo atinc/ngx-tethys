@@ -1,4 +1,4 @@
-import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional } from '@angular/core';
+import { Directive, NgZone, ElementRef, HostBinding, Input, Inject, OnDestroy, Optional, Renderer2 } from '@angular/core';
 import { DragRef } from './drag-ref';
 import { DOCUMENT } from '@angular/common';
 import { ThyDragDropService } from './drag-drop.service';
@@ -37,10 +37,11 @@ export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
         @Optional() @Inject(THY_DROP_CONTAINER_DIRECTIVE) public container: IThyDropContainerDirective,
         ngZone: NgZone,
         private elementRef: ElementRef<HTMLElement>,
-        service: ThyDragDropService<T>
+        service: ThyDragDropService<T>,
+        renderer: Renderer2
     ) {
         super();
-        this.dragRef = new DragRef<T>(elementRef, this, container, service, document, ngZone);
+        this.dragRef = new DragRef<T>(elementRef, this, container, service, document, ngZone, renderer);
     }
 
     ngOnDestroy() {
