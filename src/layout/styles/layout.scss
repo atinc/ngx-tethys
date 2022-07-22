@@ -192,7 +192,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 15px;
+        top: 12px; /* 按照 layout-header 标准尺寸（48px）居中 ((48-24) / 2) */
         width: 24px;
         height: 24px;
         right: 0;
