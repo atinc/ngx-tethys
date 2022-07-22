@@ -88,6 +88,8 @@ $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 // icon
 $icon-vertical-align: -0.16em !default;
 $icon-text-horizontal-space: 0.5rem !default;
+$icon-default-height: 24px !default;
+$icon-default-width: 24px !default;
 
 // 扩展
 $font-size-md: 1rem !default; // 16px
@@ -976,3 +978,15 @@ $segment-icon-with-text-default-color: $gray-600 !default;
 $segment-icon-with-text-active-color: $gray-700 !default;
 $segment-icon-with-text-hover-color: $gray-700 !default;
 $segment-disabled-color: $gray-500 !default;
+
+// z-index
+$z-index-1: 10;
+$z-index-2: 20;
+$z-index-3: 30;
+$z-index-4: 40;
+$z-index-5: 50;
+$z-index-6: 60;
+$z-index-7: 70;
+$z-index-8: 80;
+$z-index-9: 90;
+$z-index-10: 100;

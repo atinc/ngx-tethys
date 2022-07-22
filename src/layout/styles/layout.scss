@@ -157,6 +157,7 @@
             height: 100%;
             transition: all 180ms linear;
             border-right: 2px solid transparent;
+            z-index: variables.$z-index-7;
         }
         &:hover {
             .sidebar-resize-line {
@@ -192,16 +193,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 15px;
-        width: 24px;
-        height: 24px;
+        top: (variables.$layout-sidebar-header-height - variables.$icon-default-height) * 0.5; /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
+        width: variables.$icon-default-width;
+        height: variables.$icon-default-height;
         right: 0;
         transform: translateX(50%);
         color: variables.$gray-600;
         background-color: variables.$white;
         border-radius: 50%;
         box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
-        z-index: 9;
+        z-index: variables.$z-index-6;
         &:hover {
             visibility: visible;
             cursor: pointer;

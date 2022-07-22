@@ -274,7 +274,7 @@
         .thy-table-fixed-column-right {
             background-color: variables.$white;
             position: sticky !important;
-            z-index: 50;
+            z-index: variables.$z-index-5;
         }
 
         .table-hover {
