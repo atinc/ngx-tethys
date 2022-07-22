@@ -75,7 +75,7 @@
                     }
                 }
 
-                .thy-menu-group-operaton {
+                .thy-menu-group-operation {
                     visibility: visible;
                 }
             }
@@ -100,7 +100,7 @@
                 text-overflow: ellipsis;
             }
 
-            .thy-menu-group-operaton {
+            .thy-menu-group-operation {
                 visibility: hidden;
                 color: variables.$gray-600;
             }
@@ -170,6 +170,11 @@
             color: variables.$gray-600;
             .thy-action:last-child {
                 margin-right: -8px;
+            }
+
+            &.active {
+                display: inline-block !important;
+                margin-left: 4px;
             }
         }
     }

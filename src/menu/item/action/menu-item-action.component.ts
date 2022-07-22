@@ -1,5 +1,5 @@
-import { Component, HostBinding, ElementRef, Input, Renderer2, TemplateRef, OnDestroy } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 /**
@@ -18,7 +18,7 @@ export class ThyMenuItemActionComponent implements OnDestroy {
     _actionMenu: ComponentType<any> | TemplateRef<any>;
 
     /**
-     * 操作菜单
+     * 设置 Action 菜单
      */
     @Input()
     set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
