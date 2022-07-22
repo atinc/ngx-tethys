@@ -152,12 +152,12 @@
         transition: none;
         right: -2px;
         width: 2px;
+        z-index: variables.$z-index-6;
 
         .sidebar-resize-line {
             height: 100%;
             transition: all 180ms linear;
             border-right: 2px solid transparent;
-            z-index: variables.$z-index-7;
         }
         &:hover {
             .sidebar-resize-line {
