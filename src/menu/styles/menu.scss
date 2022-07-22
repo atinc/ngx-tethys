@@ -133,13 +133,6 @@
         text-decoration: none;
     }
 
-    &.thy-action-active {
-        .thy-menu-item-action {
-            display: inline-block !important;
-            margin-left: 4px;
-        }
-    }
-
     .thy-menu-item-content {
         display: flex;
         min-height: variables.$menu-height;
@@ -177,6 +170,11 @@
             color: variables.$gray-600;
             .thy-action:last-child {
                 margin-right: -8px;
+            }
+
+            &.active {
+                display: inline-block !important;
+                margin-left: 4px;
             }
         }
     }

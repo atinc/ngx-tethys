@@ -23,13 +23,13 @@
             6
           </span>
         </span>
-        <span thyMenuItemAction>
+        <span thyMenuItemAction (click)="openActionMenu($event, menuTpl)">
           <a thyAction thyActionIcon="more-vertical" thyTooltip="更多" thyStopPropagation href="javascript:;"></a>
         </span>
       </a>
       <thy-divider></thy-divider>
       <thy-menu-group thyTitle="工作" [thyCollapsible]="true" [thyCollapsed]="true">
-        <a thyMenuItem href="javascript:;" class="thy-action-active">
+        <a thyMenuItem href="javascript:;">
           <span thyMenuItemIcon>
             <thy-icon thyIconName="view-tile"></thy-icon>
           </span>
@@ -107,3 +107,16 @@
     </thy-menu>
   </div>
 </div>
+
+<ng-template #menuTpl let-initialState>
+  <thy-action-menu>
+    <a thyActionMenuItem href="javascript:;">
+      <span thyActionMenuItemIcon> <thy-icon thyIconName="edit"></thy-icon> </span>
+      <span thyActionMenuItemName>编辑</span>
+    </a>
+    <a thyActionMenuItem thyType="danger" href="javascript:;">
+      <span thyActionMenuItemIcon> <thy-icon thyIconName="trash"></thy-icon> </span>
+      <span thyActionMenuItemName>删除</span>
+    </a>
+  </thy-action-menu>
+</ng-template>
