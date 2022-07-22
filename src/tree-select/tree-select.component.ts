@@ -233,12 +233,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                     }
                 });
         }
-        // this.viewportRuler
-        //     .change()
-        //     .pipe(takeUntil(this.destroy$))
-        //     .subscribe(() => {
-        //         this.init();
-        //     });
     }
 
     ngOnDestroy(): void {
@@ -264,7 +258,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     private init() {
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-        console.log(this.cdkConnectOverlayWidth);
     }
 
     private flattenNodes(
