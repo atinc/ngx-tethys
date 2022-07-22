@@ -31,7 +31,7 @@ export class ThyTableSizeExampleComponent implements OnInit {
         },
         {
             value: 'xlg',
-            height: 64
+            height: 60
         }
     ];
     size: ThyTableSize = 'md';
