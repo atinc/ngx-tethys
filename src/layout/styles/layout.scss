@@ -152,6 +152,7 @@
         transition: none;
         right: -2px;
         width: 2px;
+        z-index: variables.$z-index-7;
 
         .sidebar-resize-line {
             height: 100%;
@@ -201,7 +202,7 @@
         background-color: variables.$white;
         border-radius: 50%;
         box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
-        z-index: 9;
+        z-index: variables.$z-index-6;
         &:hover {
             visibility: visible;
             cursor: pointer;
