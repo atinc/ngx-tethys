@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.5](https://github.com/atinc/ngx-tethys/compare/13.1.4...13.1.5) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** move z-index to sidebar-resize-handle from sidebar-resize-line ([a123609](https://github.com/atinc/ngx-tethys/commit/a123609ce5d76ac2b329047b479f702fd4c16e04))
+* **table:** update xlg height to 60px and cell-padding-xlg to 12px ([642b8fe](https://github.com/atinc/ngx-tethys/commit/642b8fe70fa8e2fb9e83e638dece887411b71093))
+
+
+### Features
+
+* **collapse:** refactor components api, docs and examples ([#2016](https://github.com/atinc/ngx-tethys/issues/2016)) ([345d182](https://github.com/atinc/ngx-tethys/commit/345d18216dfa6e2d765d21b8aa8e0adf3b70afd0))
+
+
+
 ## [13.1.4](https://github.com/atinc/ngx-tethys/compare/13.1.3...13.1.4) (2022-07-22)
 
 
