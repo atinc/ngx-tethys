@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.7](https://github.com/atinc/ngx-tethys/compare/13.1.6...13.1.7) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display contents when collapseVisible is not false ([c57534a](https://github.com/atinc/ngx-tethys/commit/c57534ad88eb0cc58e2c6da5349a1be91a2c00c5))
+
+
+
 ## [13.1.6](https://github.com/atinc/ngx-tethys/compare/13.1.5...13.1.6) (2022-07-23)
 
 
