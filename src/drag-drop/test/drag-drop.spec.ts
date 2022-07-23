@@ -242,7 +242,6 @@ describe('with handle', () => {
         const item = fixture.debugElement.query(By.css('.drag-handle-4')).nativeElement;
         dispatchFakeEvent(item, 'mouseover', true);
         const target = testComponent.drags.last.dragRef['target'];
-        console.log(testComponent.drags.last);
         expect(target).toEqual(item);
         const dragstartEvent = createDragEvent('dragstart');
 
