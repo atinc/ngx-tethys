@@ -177,6 +177,7 @@ export class ThySidebarComponent implements OnInit {
             setTimeout(() => this.updateCollapseTip(), 200);
             this.thyCollapsedChange.emit(this.isCollapsed);
             this.thyLayoutSidebarWidth = this.originWidth;
+            this.collapseVisible = false;
             return;
         }
         this.thyLayoutSidebarWidth = width;
