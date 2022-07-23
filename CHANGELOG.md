@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.6](https://github.com/atinc/ngx-tethys/compare/13.1.5...13.1.6) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display: contents to sidebar-drag ([9b7f55a](https://github.com/atinc/ngx-tethys/commit/9b7f55a996a67a43ab7bf8a44a4834e0cd86bd33))
+* **layout:** remove sidebar-drag styles for fix can't click sidebar when set thyDraggable as true ([d4f62e5](https://github.com/atinc/ngx-tethys/commit/d4f62e5d55bf6d7d34773a671094376d4fa7744c))
+
+
+
 ## [13.1.5](https://github.com/atinc/ngx-tethys/compare/13.1.4...13.1.5) (2022-07-23)
 
 
