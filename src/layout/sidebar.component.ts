@@ -35,6 +35,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
+            [style.display]="!collapseVisible ? 'contents' : null"
         >
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
