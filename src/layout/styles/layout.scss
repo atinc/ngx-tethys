@@ -135,6 +135,15 @@
         flex-direction: row;
     }
 
+    .sidebar-drag {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        display: contents;
+    }
+
     .thy-resizable-resizing {
         transition: none;
     }
