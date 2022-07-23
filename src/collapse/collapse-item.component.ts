@@ -26,7 +26,7 @@ import { SafeAny } from 'ngx-tethys/types';
     animations: [collapseMotion],
     host: {
         '[class.thy-collapse-item]': 'true',
-        '[class.thy-collapse-no-arrow]': '!thyShowArrow',
+        '[class.thy-collapse-no-arrow]': '!showArrow',
         '[class.thy-collapse-item-active]': 'thyActive',
         '[class.thy-collapse-item-disabled]': 'thyDisabled'
     }

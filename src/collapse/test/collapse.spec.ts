@@ -192,12 +192,12 @@ describe('collapse-panel', () => {
         let icon: any;
         let iconRotateSpy: any;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
                 declarations: [TestCollapsePanelBasicComponent]
             }).compileComponents();
-        }));
+        });
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestCollapsePanelBasicComponent);
