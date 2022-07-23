@@ -276,8 +276,8 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             } else {
                 fetchImageBlob(this.previewImage.src).subscribe(
                     blob => {
-                        var urlCreator = window.URL || window.webkitURL;
-                        var objectURL = urlCreator.createObjectURL(blob);
+                        const urlCreator = window.URL || window.webkitURL;
+                        const objectURL = urlCreator.createObjectURL(blob);
                         this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
                         this.previewImage.blob = blob;
                         subscriber.next(true);

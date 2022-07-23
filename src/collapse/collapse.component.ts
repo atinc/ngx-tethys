@@ -1,12 +1,16 @@
 import { UpdateHostClassService } from 'ngx-tethys/core';
 
-import { ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
 
-import { ThyCollapsePanelComponent } from './collapse-panel.component';
+import { ThyCollapseItemComponent } from './collapse-item.component';
 
-export type ThyTheme = 'divided' | 'bordered' | 'ghost';
+export type ThyCollapseTheme = 'divided' | 'bordered' | 'ghost';
 
-export type Position = 'left' | 'right';
+export type ThyCollapsedIconPosition = 'left' | 'right';
+
+/**
+ * 折叠面板组件
+ */
 @Component({
     selector: 'thy-collapse',
     template: `
@@ -15,50 +19,59 @@ export type Position = 'left' | 'right';
         </ng-container>
     `,
     host: {
+        class: 'thy-collapse',
         '[class.thy-collapse-divided]': `thyTheme === 'divided'`,
         '[class.thy-collapse-bordered]': `thyTheme === 'bordered'`,
         '[class.thy-collapse-ghost]': `thyTheme === 'ghost'`,
-        '[class.thy-collapse-icon-position-right]': `thyExpandIconPosition === 'right'`,
-        '[class.thy-collapse-icon-position-left]': `thyExpandIconPosition === 'left'`
+        '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition === 'right'`,
+        '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition === 'left'`
     },
-    providers: [UpdateHostClassService]
+    providers: [UpdateHostClassService],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyCollapseComponent implements OnInit {
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {}
+    /**
+     * 折叠面板主题，支持 divided' | 'bordered' | 'ghost'
+     */
+    @Input() thyTheme: ThyCollapseTheme = 'divided';
 
-    @HostBinding('class.thy-collapse') isCollapse = true;
-
+    /**
+     * 是否为手风琴模式，手风琴模式下，只能展开一个面板
+     */
     @Input() thyAccordion: boolean;
 
-    @Input() thyExpandIconPosition: Position = 'left';
+    /**
+     * 展开收起图标的位置
+     */
+    @Input() thyArrowIconPosition: ThyCollapsedIconPosition = 'left';
 
-    @Input() thyTheme: ThyTheme = 'divided';
+    private listOfCollapsePanelComponent: ThyCollapseItemComponent[] = [];
 
-    private listOfCollapsePanelComponent: ThyCollapsePanelComponent[] = [];
+    constructor() {}
 
     ngOnInit() {}
 
-    addPanel(value: ThyCollapsePanelComponent): void {
+    addPanel(value: ThyCollapseItemComponent): void {
         this.listOfCollapsePanelComponent.push(value);
     }
 
-    removePanel(value: ThyCollapsePanelComponent): void {
+    removePanel(value: ThyCollapseItemComponent): void {
         this.listOfCollapsePanelComponent.splice(this.listOfCollapsePanelComponent.indexOf(value), 1);
     }
 
-    click(collapse: ThyCollapsePanelComponent, event: Event): void {
-        if (this.thyAccordion && !collapse.thyActive) {
+    click(collapseItem: ThyCollapseItemComponent, event: Event): void {
+        if (this.thyAccordion && !collapseItem.thyActive) {
             this.listOfCollapsePanelComponent
-                .filter(item => item !== collapse)
+                .filter(item => item !== collapseItem)
                 .forEach(item => {
                     if (item.thyActive) {
                         item.thyActive = false;
-                        item.thyExpandChange.emit({ expanded: collapse.thyActive, event });
+                        item.thyActiveChange.emit({ active: collapseItem.thyActive, event });
                         item.markForCheck();
                     }
                 });
         }
-        collapse.thyActive = !collapse.thyActive;
-        collapse.thyExpandChange.emit({ expanded: collapse.thyActive, event });
+        collapseItem.thyActive = !collapseItem.thyActive;
+        collapseItem.thyActiveChange.emit({ active: collapseItem.thyActive, event });
     }
 }

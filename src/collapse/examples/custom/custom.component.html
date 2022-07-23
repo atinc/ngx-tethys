@@ -1,14 +1,33 @@
 <thy-collapse>
-  <thy-collapse-panel
-    *ngFor="let item of panels"
-    [thyTitle]="item.name"
-    [thyExpandedIcon]="item.icon"
-    [ngStyle]="item.customStyle"
-    [thyExtraTemplate]="extra"
-    >{{ item.name + 'content' }}</thy-collapse-panel
-  >
+  <thy-collapse-item thyTitle="Title 1" class="custom-collapse-item" [thyExtra]="extra"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+    <ng-template #extra>
+      <thy-icon class="text-muted" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
+    </ng-template>
+  </thy-collapse-item>
+  <thy-collapse-item thyTitle="Title 2" class="custom-collapse-item"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+  </thy-collapse-item>
 </thy-collapse>
 
-<ng-template #extra>
-  <thy-icon thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
-</ng-template>
+<thy-collapse thyTheme="ghost">
+  <thy-divider class="my-0"></thy-divider>
+  <thy-collapse-item thyTitle="Title 1" [thyExtra]="extra"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+    <ng-template #extra>
+      <thy-icon class="text-muted" thyIconName="settings" (click)="$event.stopPropagation()"></thy-icon>
+    </ng-template>
+  </thy-collapse-item>
+  <thy-divider class="my-0"></thy-divider>
+  <thy-collapse-item thyTitle="Title 2"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+  </thy-collapse-item>
+</thy-collapse>

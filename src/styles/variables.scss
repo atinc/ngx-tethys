@@ -979,6 +979,13 @@ $segment-icon-with-text-active-color: $gray-700 !default;
 $segment-icon-with-text-hover-color: $gray-700 !default;
 $segment-disabled-color: $gray-500 !default;
 
+// collapse
+$collapse-border-color: $gray-200 !default;
+$collapse-header-hover-color: null !default;
+$collapse-header-font-size: $font-size-base !default;
+$collapse-spacing-x: 8px !default;
+$collapse-spacing-y: 12px !default;
+
 // z-index
 $z-index-1: 10;
 $z-index-2: 20;
