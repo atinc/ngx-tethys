@@ -5,13 +5,11 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 .#{$thy-collapse-prefix-cls} {
     display: block;
     position: relative;
-    border: 1px solid variables.$gray-200;
-    color: variables.$gray-600;
+    // border: 1px solid variables.$gray-200;
     border-bottom: 0;
     border-radius: 2px;
     .#{$thy-collapse-prefix-cls}-item {
         display: block;
-        border-bottom: 1px solid variables.$gray-200;
         &:last-child {
             border-radius: 0 0 2px 2px;
         }
@@ -27,7 +25,8 @@ $thy-collapse-prefix-cls: 'thy-collapse';
                 flex: 1;
             }
             .#{$thy-collapse-prefix-cls}-icon {
-                margin-right: 12px;
+                margin-right: 8px;
+                color: variables.$gray-600;
             }
             .#{$thy-collapse-prefix-cls}-extra {
                 float: right;
@@ -73,7 +72,9 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 }
 
 .#{$thy-collapse-prefix-cls}-bordered {
+    border: 1px solid variables.$collapse-border-color;
     .#{$thy-collapse-prefix-cls}-item {
+        border-bottom: 1px solid variables.$collapse-border-color;
         &:last-child,
         &:last-child > .#{$thy-collapse-prefix-cls}-header {
             border-radius: 0;
@@ -83,7 +84,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
         }
         .#{$thy-collapse-prefix-cls}-content {
             background: transparent;
-            border-top: 1px solid variables.$gray-200;
+            border-top: 1px solid variables.$collapse-border-color;
             .#{$thy-collapse-prefix-cls}-content-box {
                 padding-top: 4px;
             }
@@ -92,15 +93,13 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 }
 
 .#{$thy-collapse-prefix-cls}-divided {
-    border: 0;
-    background: transparent;
     .#{$thy-collapse-prefix-cls}-item {
         &:last-child,
         &:last-child > .#{$thy-collapse-prefix-cls}-header {
             border-radius: 0;
         }
-        &:first-child {
-            border-top: 1px solid variables.$gray-200;
+        &:not(:last-child) {
+            border-bottom: 1px solid variables.$collapse-border-color;
         }
         .#{$thy-collapse-prefix-cls}-content {
             background: transparent;

@@ -4,13 +4,13 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 @Component({
     template: `
-        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyExpandIconPosition]="position">
+        <thy-collapse [thyAccordion]="accordion" [thyTheme]="theme" [thyArrowIconPosition]="position">
             <thy-collapse-panel thyTitle="这是一个头部标题">isAccording</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域2</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域3</thy-collapse-panel>
@@ -30,7 +30,7 @@ export class TestCollapseBasicComponent {
 @Component({
     template: `
         <thy-collapse>
-            <thy-collapse-panel [thyTitle]="title" [thyDisabled]="disabled" [thyShowArrow]="showArrow" [thyActive]="active"
+            <thy-collapse-panel [thyTitle]="title" [thyDisabled]="disabled" [thyArrowIcon]="showArrow" [thyActive]="active"
                 >内容区域0</thy-collapse-panel
             >
             <thy-collapse-panel [thyHeaderTemplate]="headerTemplate">内容区域1</thy-collapse-panel>
@@ -69,12 +69,12 @@ describe('collapse', () => {
         let icon: any;
         let iconRotateSpy: any;
 
-        beforeEach(async(() => {
+        beforeEach(() => {
             TestBed.configureTestingModule({
                 imports: [ThyCollapseModule, ThyIconModule, CommonModule, NoopAnimationsModule],
                 declarations: [TestCollapseBasicComponent]
             }).compileComponents();
-        }));
+        });
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestCollapseBasicComponent);

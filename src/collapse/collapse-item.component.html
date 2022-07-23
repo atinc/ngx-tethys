@@ -1,10 +1,10 @@
-<div class="thy-collapse-header font-size-sm" (click)="activeChange($event)">
-  <ng-container *ngIf="thyShowArrow">
-    <ng-container *ngIf="expandedIconTemplate; else defaultIcon">
-      <ng-template [ngTemplateOutlet]="expandedIconTemplate"></ng-template>
+<div class="thy-collapse-header" (click)="activeChange($event)">
+  <ng-container *ngIf="showArrow">
+    <ng-container *ngIf="arrowIconTemplate; else defaultIcon">
+      <ng-template [ngTemplateOutlet]="arrowIconTemplate"></ng-template>
     </ng-container>
     <ng-template #defaultIcon>
-      <thy-icon [thyIconName]="thyExpandedIcon || 'angle-right'" class="thy-collapse-icon" [thyIconRotate]="thyActive ? -90 : 0"></thy-icon>
+      <thy-icon [thyIconName]="arrowIcon || 'angle-right'" class="thy-collapse-icon" [thyIconRotate]="thyActive ? -90 : 0"></thy-icon>
     </ng-template>
   </ng-container>
 
@@ -17,8 +17,8 @@
     >
   </ng-template>
 
-  <div class="thy-collapse-extra" *ngIf="thyExtraTemplate">
-    <ng-container><ng-template [ngTemplateOutlet]="thyExtraTemplate"></ng-template></ng-container>
+  <div class="thy-collapse-extra" *ngIf="thyExtra">
+    <ng-template [ngTemplateOutlet]="thyExtra"></ng-template>
   </div>
 </div>
 <div class="thy-collapse-content" [@collapseMotion]="thyActive ? 'expanded' : 'hidden'">
