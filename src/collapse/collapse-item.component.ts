@@ -5,7 +5,7 @@ import {
     Component,
     EventEmitter,
     Host,
-    HostBinding,
+    ChangeDetectionStrategy,
     Input,
     OnDestroy,
     OnInit,
@@ -15,7 +15,9 @@ import {
 
 import { ThyCollapseComponent } from './collapse.component';
 import { SafeAny } from 'ngx-tethys/types';
+import { isString } from 'ngx-tethys/util';
 
+const DEFAULT_ARROW_ICON = 'angle-right';
 /**
  * 折叠面板项组件
  */
@@ -29,14 +31,15 @@ import { SafeAny } from 'ngx-tethys/types';
         '[class.thy-collapse-no-arrow]': '!showArrow',
         '[class.thy-collapse-item-active]': 'thyActive',
         '[class.thy-collapse-item-disabled]': 'thyDisabled'
-    }
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyCollapseItemComponent implements OnInit, OnDestroy {
     public showArrow: boolean = true;
 
     public arrowIconTemplate: TemplateRef<SafeAny>;
 
-    public arrowIcon: string = 'angle-right';
+    public arrowIcon: string = DEFAULT_ARROW_ICON;
 
     /**
      * 标题
@@ -63,13 +66,15 @@ export class ThyCollapseItemComponent implements OnInit, OnDestroy {
      * @type {string | TemplateRef<SafeAny> | false}
      */
     @Input()
-    set thyArrowIcon(value: string | TemplateRef<SafeAny> | false) {
+    set thyArrowIcon(value: string | TemplateRef<SafeAny> | boolean) {
         if (value instanceof TemplateRef) {
             this.arrowIconTemplate = value as TemplateRef<SafeAny>;
-        } else if (value) {
+        } else if (isString(value)) {
             this.arrowIcon = value as string;
         } else {
-            this.showArrow = false;
+            this.showArrow = value;
+            this.arrowIconTemplate = null;
+            this.arrowIcon = DEFAULT_ARROW_ICON;
         }
     }
 

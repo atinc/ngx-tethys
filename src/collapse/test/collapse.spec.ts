@@ -1,4 +1,4 @@
-import { ThyCollapseComponent, ThyCollapseModule } from 'ngx-tethys/collapse';
+import { ThyCollapseComponent, ThyCollapseItemComponent, ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyIconComponent, ThyIconModule } from 'ngx-tethys/icon';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
@@ -30,15 +30,14 @@ export class TestCollapseBasicComponent {
 @Component({
     template: `
         <thy-collapse>
-            <thy-collapse-panel [thyTitle]="title" [thyDisabled]="disabled" [thyArrowIcon]="showArrow" [thyActive]="active"
-                >内容区域0</thy-collapse-panel
-            >
+            <thy-collapse-panel [thyTitle]="title" [thyDisabled]="disabled" [thyActive]="active">内容区域0</thy-collapse-panel>
             <thy-collapse-panel [thyHeaderTemplate]="headerTemplate">内容区域1</thy-collapse-panel>
-            <thy-collapse-panel thyTitle="这是一个头部标题1" [thyExpandedIcon]="'bell'">内容区域1</thy-collapse-panel>
-            <thy-collapse-panel thyTitle="这是一个头部标题0" [thyExpandedIcon]="headerIconTemplate">内容区域2</thy-collapse-panel>
-            <thy-collapse-panel thyTitle="这是一个头部标题4" [thyExtraTemplate]="extraTemplate">内容区域3</thy-collapse-panel>
+            <thy-collapse-panel thyTitle="这是一个头部标题1" [thyArrowIcon]="'bell'">内容区域1</thy-collapse-panel>
+            <thy-collapse-panel thyTitle="这是一个头部标题0" [thyArrowIcon]="headerIconTemplate">内容区域2</thy-collapse-panel>
+            <thy-collapse-panel thyTitle="这是一个头部标题4" [thyExtra]="extraTemplate">内容区域3</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题2">内容区域4</thy-collapse-panel>
             <thy-collapse-panel thyTitle="这是一个头部标题3">内容区域5</thy-collapse-panel>
+            <thy-collapse-panel id="without-arrow-icon" thyTitle="without-arrow-icon" [thyArrowIcon]="null">内容区域5</thy-collapse-panel>
         </thy-collapse>
         <ng-template #headerTemplate>
             <div class="header-template">头部模版</div>
@@ -184,6 +183,7 @@ describe('collapse', () => {
         });
     });
 });
+
 describe('collapse-panel', () => {
     describe('basic', () => {
         let component: TestCollapsePanelBasicComponent;
@@ -244,17 +244,22 @@ describe('collapse-panel', () => {
             expect(iconRotateSpy).toHaveBeenCalled();
         });
 
-        it('should not have thy-collapse-no-arrow when thyShowArrow is true default', () => {
-            const collapseNoArrow = fixture.debugElement.query(By.css('.thy-collapse-no-arrow'));
-            expect(collapseNoArrow).toBeFalsy();
+        it('should have thy-collapse-no-arrow with arrowIcon null', () => {
+            fixture.detectChanges();
+            const withoutArrowIcon = fixture.debugElement.query(By.css('#without-arrow-icon'));
+            expect(withoutArrowIcon).toBeTruthy();
+            expect(withoutArrowIcon.nativeElement.classList.contains('thy-collapse-no-arrow')).toBeTruthy();
         });
 
-        it('should have thy-collapse-no-arrow when thyShowArrow is false', () => {
-            component.showArrow = false;
+        it('should set correct icon when set arrowIcon as boolean', () => {
             fixture.detectChanges();
-
-            const collapseNoArrow = fixture.debugElement.query(By.css('.thy-collapse-no-arrow'));
-            expect(collapseNoArrow).toBeTruthy();
+            const withoutArrowIcon = fixture.debugElement.query(By.css('#without-arrow-icon'));
+            const collapseItem = withoutArrowIcon.componentInstance as ThyCollapseItemComponent;
+            collapseItem.thyArrowIcon = true;
+            expect(collapseItem.arrowIcon).toEqual('angle-right');
+            expect(collapseItem.showArrow).toEqual(true);
+            collapseItem.thyArrowIcon = false;
+            expect(collapseItem.showArrow).toEqual(false);
         });
 
         it('should have thy-collapse-item-active when thyActive is true or click header', () => {
