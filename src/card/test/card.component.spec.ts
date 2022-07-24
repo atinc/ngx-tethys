@@ -216,12 +216,13 @@ describe('thy-card', () => {
 
         it('should set card header size success', () => {
             fixture.detectChanges();
-            expect(cardHeaderElement.querySelector('.thy-card-header')).toBeTruthy;
+            expect(cardHeaderElement).toBeTruthy();
+            expect(cardHeaderElement.classList.contains('thy-card-header')).toBeTruthy();
 
             ['lg', 'sm'].forEach(size => {
                 fixture.debugElement.componentInstance.size = size;
                 fixture.detectChanges();
-                expect(cardHeaderElement.querySelector(`.thy-card-header-${size}`));
+                expect(cardHeaderElement.classList.contains(`thy-card-header-${size}`));
             });
         });
     });
@@ -240,18 +241,19 @@ describe('thy-card', () => {
 
         it('should set card content size success', () => {
             fixture.detectChanges();
-            expect(cardContentElement.querySelector('.thy-card-content')).toBeTruthy;
+            expect(cardContentElement).toBeTruthy();
+            expect(cardContentElement.classList.contains('thy-card-content')).toBeTruthy();
             fixture.debugElement.componentInstance.size = `sm`;
             fixture.detectChanges();
-            expect(cardContentElement.querySelector(`.thy-card-content--sm`)).toBeTruthy;
+            expect(cardContentElement.classList.contains(`thy-card-content--sm`)).toBeTruthy();
         });
 
         it('should set card content scroll success', () => {
             fixture.detectChanges();
-            expect(cardContentElement.querySelector('.thy-card-content--scroll')).toBeFalsy;
+            expect(cardContentElement.classList.contains('thy-card-content--scroll')).toBeFalsy();
             fixture.debugElement.componentInstance.isScroll = true;
             fixture.detectChanges();
-            expect(cardContentElement.querySelector(`.thy-card-content--scroll`)).toBeTruthy;
+            expect(cardContentElement.classList.contains(`thy-card-content--scroll`)).toBeTruthy();
         });
     });
 });
