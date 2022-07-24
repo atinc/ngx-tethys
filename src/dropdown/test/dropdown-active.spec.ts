@@ -48,16 +48,26 @@ describe('dropdown-active', () => {
     });
 
     it('should set active class for wrapper and origin element when open menu', fakeAsync(() => {
+        const wrapperElement = fixture.debugElement.query(By.css('#wrapper-active'));
         dropdown.show();
         tick();
         fixture.detectChanges();
-        tick(200);
+        tick();
+
         expect(btnElement.classList.contains('active')).toBeTruthy();
-        const wrapperElement = fixture.debugElement.query(By.css('#wrapper-active'));
         expect(wrapperElement.nativeElement.classList.contains('active')).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        expect(btnElement.classList.contains('active')).toBeFalsy();
+        expect(wrapperElement.nativeElement.classList.contains('active')).toBeFalsy();
     }));
 
     it('should set active classes for wrapper and origin element when open menu', fakeAsync(() => {
+        const wrapperElement = fixture.debugElement.query(By.css('#wrapper-active'));
         fixture.componentInstance.activeClass = ['active1', 'active2'];
         dropdown.show();
         tick();
@@ -65,8 +75,17 @@ describe('dropdown-active', () => {
         tick(200);
         expect(btnElement.classList.contains('active1')).toBeTruthy();
         expect(btnElement.classList.contains('active2')).toBeTruthy();
-        const wrapperElement = fixture.debugElement.query(By.css('#wrapper-active'));
         expect(wrapperElement.nativeElement.classList.contains('active1')).toBeTruthy();
         expect(wrapperElement.nativeElement.classList.contains('active2')).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        fixture.detectChanges();
+        tick();
+
+        expect(btnElement.classList.contains('active1')).toBeFalsy();
+        expect(btnElement.classList.contains('active2')).toBeFalsy();
+        expect(wrapperElement.nativeElement.classList.contains('active1')).toBeFalsy();
+        expect(wrapperElement.nativeElement.classList.contains('active2')).toBeFalsy();
     }));
 });
