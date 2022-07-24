@@ -1,0 +1,17 @@
+<thy-list>
+  <thy-list-item>
+    Only Active Action <a thyAction thyIcon="plus" thyDropdownActive="active" [thyDropdown]="menu" href="javascript:;"></a>
+  </thy-list-item>
+  <thy-list-item thyDropdownActive="hover">
+    Active Wrapper Item <a thyAction thyIcon="plus" thyDropdownActive="active" [thyDropdown]="menu" href="javascript:;"></a>
+  </thy-list-item>
+</thy-list>
+
+<thy-dropdown-menu #menu>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item1</span>
+  </a>
+  <a thyDropdownMenuItem href="javascript:;">
+    <span>Menu Item2</span>
+  </a>
+</thy-dropdown-menu>

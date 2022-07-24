@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
@@ -7,6 +7,7 @@ import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SafeAny } from 'ngx-tethys/types';
 import { isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { Observable, Subject } from 'rxjs';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
@@ -25,6 +26,10 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
 })
 export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
     menu!: ThyDropdownMenu;
+
+    private popoverRef: ThyPopoverRef<unknown>;
+
+    popoverOpened = false;
 
     /**
      * Dropdown 下拉菜单，支持 thy-dropdown-menu 组件、TemplateRef 和自定义菜单组件
@@ -59,9 +64,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
-    popoverOpened = false;
-
-    private popoverRef: ThyPopoverRef<unknown>;
+    /**
+     * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
+     */
+    @Output() thyActiveChange = new EventEmitter<boolean>();
 
     constructor(
         private viewContainerRef: ViewContainerRef,
@@ -110,9 +116,12 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             originActiveClass: this.thyActiveClass
         };
         this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
-
+        this.popoverRef.afterOpened().subscribe(() => {
+            this.thyActiveChange.emit(true);
+        });
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
+            this.thyActiveChange.emit(false);
         });
 
         return this.popoverRef.getOverlayRef();

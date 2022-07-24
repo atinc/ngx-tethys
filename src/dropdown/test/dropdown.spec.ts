@@ -17,7 +17,7 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 @Component({
     selector: 'thy-dropdown-test',
     template: `
-        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary">Dropdown</button>
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" (thyActiveChange)="activeChange($event)" thyButton="primary">Dropdown</button>
         <thy-dropdown-menu #menu>
             <a thyDropdownMenuItem href="javascript:;">
                 <span>Menu Item1</span>
@@ -30,6 +30,12 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
+
+    active: boolean;
+
+    activeChange(active: boolean) {
+        this.active = active;
+    }
 }
 
 describe('basic dropdown', () => {
@@ -84,13 +90,12 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         expect(overlayContainerElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement).style.width).toEqual('240px');
-
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayPaneElement).toBeTruthy();
+        expect(overlayPaneElement.style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
         const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
         expect(dropdownMenuElement).toBeTruthy();
-
         expect(dropdownMenuElement.textContent).toContain('Menu Item1');
         expect(dropdownMenuElement.textContent).toContain('Menu Item2');
         flush();
@@ -100,6 +105,24 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         assertOverlayHide();
+        flush();
+    }));
+
+    it('should invoke active change for open and close dropdown menu', fakeAsync(() => {
+        expect(fixture.componentInstance.active).toBe(undefined);
+        btnElement.click();
+        // delay open
+        tick();
+        fixture.detectChanges();
+        tick();
+        expect(fixture.componentInstance.active).toBe(true);
+        flush();
+        dropdown.hide();
+        // delay hide
+        tick();
+        fixture.detectChanges();
+        tick();
+        expect(fixture.componentInstance.active).toBe(false);
         flush();
     }));
 
