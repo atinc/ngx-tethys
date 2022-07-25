@@ -4,8 +4,10 @@ import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { setPrintErrorWhenIconNotFound } from './icon';
+import { setWarnDeprecation } from './util';
 
 setPrintErrorWhenIconNotFound(false);
+setWarnDeprecation(false);
 
 declare const require: any;
 
