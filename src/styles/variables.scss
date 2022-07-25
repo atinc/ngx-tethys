@@ -339,8 +339,8 @@ $table-border-color: $gray-200 !default;
 $table-head-bg: $gray-200 !default;
 $table-head-color: $gray-800 !default;
 $table-default-header-color: $gray-700 !default;
-$table-cell-height-xlg: 64px !default;
-$table-cell-padding-xlg: 16px 16px !default;
+$table-cell-height-xlg: 60px !default;
+$table-cell-padding-xlg: 12px 16px !default;
 $table-header-padding-xlg: 16px 16px !default;
 $table-cell-height-lg: 56px !default;
 $table-cell-padding-lg: 12px 16px !default;
@@ -978,6 +978,13 @@ $segment-icon-with-text-default-color: $gray-600 !default;
 $segment-icon-with-text-active-color: $gray-700 !default;
 $segment-icon-with-text-hover-color: $gray-700 !default;
 $segment-disabled-color: $gray-500 !default;
+
+// collapse
+$collapse-border-color: $gray-200 !default;
+$collapse-header-hover-color: null !default;
+$collapse-header-font-size: $font-size-base !default;
+$collapse-spacing-x: 8px !default;
+$collapse-spacing-y: 12px !default;
 
 // z-index
 $z-index-1: 10;

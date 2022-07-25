@@ -47,6 +47,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyDragMaxWidth',
+                description: '拖拽的最大宽度',
+                type: 'number',
+                default: 'null'
+            },
+            {
                 name: 'thyCollapsible',
                 description: '开启收起/展开功能',
                 type: 'boolean',
@@ -68,6 +74,12 @@ module.exports = [
                 name: 'thyCollapsedChange',
                 description: '收起状态改变后的事件',
                 type: 'EventEmitter<boolean>',
+                default: ''
+            },
+            {
+                name: 'thyDragWidthChange',
+                description: '拖拽宽度的修改事件',
+                type: 'EventEmitter<number>',
                 default: ''
             }
         ]

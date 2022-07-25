@@ -8,7 +8,12 @@
       </span>
     </ng-template>
   </div>
-  <thy-icon *ngIf="thyShowAction" class="thy-menu-group-operaton" [thyIconName]="rightIconClass" (click)="onActionClick($event)"></thy-icon>
+  <thy-icon
+    *ngIf="thyShowAction"
+    class="thy-menu-group-operation"
+    [thyIconName]="rightIconClass"
+    (click)="onActionClick($event)"
+  ></thy-icon>
   <thy-icon thyIconName="angle-up" *ngIf="thyCollapsible" class="thy-menu-group-arrow"></thy-icon>
 </div>
 <div class="thy-menu-group-body" #thyMenuGroup [@detailsContentAnimation]="isCollapsed">

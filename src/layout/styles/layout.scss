@@ -141,6 +141,7 @@
         bottom: 0;
         left: 0;
         right: 0;
+        // display: contents;
     }
 
     .thy-resizable-resizing {
@@ -152,12 +153,12 @@
         transition: none;
         right: -2px;
         width: 2px;
+        z-index: variables.$z-index-6;
 
         .sidebar-resize-line {
             height: 100%;
             transition: all 180ms linear;
             border-right: 2px solid transparent;
-            z-index: variables.$z-index-7;
         }
         &:hover {
             .sidebar-resize-line {
@@ -184,6 +185,14 @@
             + .sidebar-collapse {
                 visibility: visible;
             }
+        }
+        &::after {
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            right: -10px;
+            top: 0;
+            content: '';
         }
     }
 

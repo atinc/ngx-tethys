@@ -2,6 +2,57 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.7](https://github.com/atinc/ngx-tethys/compare/13.1.6...13.1.7) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display contents when collapseVisible is not false ([c57534a](https://github.com/atinc/ngx-tethys/commit/c57534ad88eb0cc58e2c6da5349a1be91a2c00c5))
+
+
+
+## [13.1.6](https://github.com/atinc/ngx-tethys/compare/13.1.5...13.1.6) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display: contents to sidebar-drag ([9b7f55a](https://github.com/atinc/ngx-tethys/commit/9b7f55a996a67a43ab7bf8a44a4834e0cd86bd33))
+* **layout:** remove sidebar-drag styles for fix can't click sidebar when set thyDraggable as true ([d4f62e5](https://github.com/atinc/ngx-tethys/commit/d4f62e5d55bf6d7d34773a671094376d4fa7744c))
+
+
+
+## [13.1.5](https://github.com/atinc/ngx-tethys/compare/13.1.4...13.1.5) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** move z-index to sidebar-resize-handle from sidebar-resize-line ([a123609](https://github.com/atinc/ngx-tethys/commit/a123609ce5d76ac2b329047b479f702fd4c16e04))
+* **table:** update xlg height to 60px and cell-padding-xlg to 12px ([642b8fe](https://github.com/atinc/ngx-tethys/commit/642b8fe70fa8e2fb9e83e638dece887411b71093))
+
+
+### Features
+
+* **collapse:** refactor components api, docs and examples ([#2016](https://github.com/atinc/ngx-tethys/issues/2016)) ([345d182](https://github.com/atinc/ngx-tethys/commit/345d18216dfa6e2d765d21b8aa8e0adf3b70afd0))
+
+
+
+## [13.1.4](https://github.com/atinc/ngx-tethys/compare/13.1.3...13.1.4) (2022-07-22)
+
+
+### Bug Fixes
+
+* **layout:** adjust layout sidebar collaspe icon top #INFR-3937 ([#2011](https://github.com/atinc/ngx-tethys/issues/2011)) ([d9376b0](https://github.com/atinc/ngx-tethys/commit/d9376b0aeca57b8b9f08c34615c781c2e7fdcd34)), closes [#INFR-3937](https://github.com/atinc/ngx-tethys/issues/INFR-3937)
+* **layout:** adjust the sidebar-collapse-line style  #INFR-3939 ([b29e255](https://github.com/atinc/ngx-tethys/commit/b29e255fb2c372d42126e839837f6547f7ad4187)), closes [#INFR-3939](https://github.com/atinc/ngx-tethys/issues/INFR-3939)
+
+
+### Features
+
+* **collapse:** add thyTheme support divided, bordered and ghost, deprecate thyBordered and thyGhost #INFR-3904 ([#2003](https://github.com/atinc/ngx-tethys/issues/2003)) ([0570a3b](https://github.com/atinc/ngx-tethys/commit/0570a3b933f481b0d065aeb8eaa6415493b82887)), closes [#INFR-3904](https://github.com/atinc/ngx-tethys/issues/INFR-3904)
+* **layout:** add thyDragWidthChange for thy-sidebar #INFR-3942 ([c4e07d5](https://github.com/atinc/ngx-tethys/commit/c4e07d5f3738b55b621c976ddd8dbb1b0d31cc82)), closes [#INFR-3942](https://github.com/atinc/ngx-tethys/issues/INFR-3942)
+* **menu:** add action active class #INFR-3930 ([#2010](https://github.com/atinc/ngx-tethys/issues/2010)) ([3ac436f](https://github.com/atinc/ngx-tethys/commit/3ac436f9d6ee17eb377970dbaf3e88ad74f00a3e)), closes [#INFR-3930](https://github.com/atinc/ngx-tethys/issues/INFR-3930)
+
+
+
 ## [13.1.3](https://github.com/atinc/ngx-tethys/compare/13.1.2...13.1.3) (2022-07-21)
 
 

@@ -12,6 +12,8 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     width = '';
 
+    trigger: undefined | null = undefined;
+
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
     collapsed = false;
@@ -21,4 +23,8 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
+
+    collapsedChange(collapsed: boolean) {
+        this.trigger = collapsed ? null : undefined;
+    }
 }

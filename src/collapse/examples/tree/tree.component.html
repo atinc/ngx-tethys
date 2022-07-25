@@ -1,16 +1,36 @@
 <thy-collapse thyTheme="bordered">
-  <thy-collapse-panel *ngFor="let item of panels" [thyTitle]="item.name" [thyExpandedIcon]="item.icon" [thyActive]="item.active">
-    内容区域
-    <ng-container *ngIf="item.children && item.children.length">
-      <thy-collapse thyTheme="bordered">
-        <thy-collapse-panel
-          *ngFor="let childPanel of item.children"
-          [thyTitle]="childPanel.name"
-          [thyExpandedIcon]="childPanel.icon"
-          [thyActive]="childPanel.active"
-          >子内容
-        </thy-collapse-panel>
-      </thy-collapse>
-    </ng-container>
-  </thy-collapse-panel>
+  <thy-collapse-item thyTitle="Title 1" [thyActive]="true">
+    <div class="pb-2">
+      The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+      about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+      well on mobile interfaces or whenever vertical space is at a premium.
+    </div>
+    <thy-collapse thyTheme="bordered">
+      <thy-collapse-item thyTitle="Title 1" [thyActive]="true"
+        >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key
+        details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work
+        especially well on mobile interfaces or whenever vertical space is at a premium.
+      </thy-collapse-item>
+      <thy-collapse-item thyTitle="Title 2"
+        >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key
+        details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work
+        especially well on mobile interfaces or whenever vertical space is at a premium.
+      </thy-collapse-item>
+      <thy-collapse-item thyTitle="Title 3"
+        >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key
+        details about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work
+        especially well on mobile interfaces or whenever vertical space is at a premium.
+      </thy-collapse-item>
+    </thy-collapse>
+  </thy-collapse-item>
+  <thy-collapse-item thyTitle="Title 2"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+  </thy-collapse-item>
+  <thy-collapse-item thyTitle="Title 3"
+    >The accordion component delivers large amounts of content in a small space through progressive disclosure. The user gets key details
+    about the underlying content and can choose to expand that content within the constraints of the accordion. Accordions work especially
+    well on mobile interfaces or whenever vertical space is at a premium.
+  </thy-collapse-item>
 </thy-collapse>

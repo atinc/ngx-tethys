@@ -1,21 +1,21 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { ComponentType } from '@angular/cdk/portal';
 import {
+    ChangeDetectionStrategy,
     Component,
-    OnInit,
+    ContentChild,
+    ElementRef,
+    EventEmitter,
     HostBinding,
     Input,
+    OnInit,
     Output,
-    EventEmitter,
-    ElementRef,
-    ViewChild,
     TemplateRef,
-    ContentChild,
-    ChangeDetectionStrategy
+    ViewChild
 } from '@angular/core';
-import { trigger, state, style, transition, animate } from '@angular/animations';
-import { ComponentType } from '@angular/cdk/portal';
-import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyMenuComponent } from '../menu.component';
 
 /**
  * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
