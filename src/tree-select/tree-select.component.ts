@@ -362,8 +362,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.onModelChange(this.selectedValue);
     }
 
-    removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $event: Event }) {
-        this.removeSelectedNode(event.item, event.$event);
+    removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {
+        this.removeSelectedNode(event.item, event.$eventOrigin);
     }
 
     // thyMultiple = true 时，移除数据时调用
