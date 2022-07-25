@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.8](https://github.com/atinc/ngx-tethys/compare/13.1.7...13.1.8) (2022-07-25)
+
+
+### Bug Fixes
+
+* **layout:** restore collapseVisible when drag width to thyCollapsedWidth ([b2a4264](https://github.com/atinc/ngx-tethys/commit/b2a4264ea41c96f9c2457bf12bb234be6e1715a7))
+
+
+### Features
+
+* **dropdown:** add thyDropdownActive directive that set active classes of origin and it's ancestors [#2021](https://github.com/atinc/ngx-tethys/issues/2021) ([#2023](https://github.com/atinc/ngx-tethys/issues/2023)) ([bc8bbe6](https://github.com/atinc/ngx-tethys/commit/bc8bbe6c679f114ee25ba6a8dcb63946d8c3ec66))
+
+
+
 ## [13.1.7](https://github.com/atinc/ngx-tethys/compare/13.1.6...13.1.7) (2022-07-23)
 
 
