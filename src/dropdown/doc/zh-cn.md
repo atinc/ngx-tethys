@@ -35,6 +35,10 @@ import { ThyDropdownModule } from "ngx-tethys/dropdown";
 
 <example name="thy-dropdown-group-example" />
 
+## Active
+
+<example name="thy-dropdown-active-example" />
+
 ## 分割菜单
 
 <example name="thy-dropdown-group-example" />
