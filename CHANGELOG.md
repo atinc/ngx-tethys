@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.9](https://github.com/atinc/ngx-tethys/compare/13.1.8...13.1.9) (2022-07-26)
+
+
+### Bug Fixes
+
+* **image:** use merge config when open dialog #WIK-7850 ([#2025](https://github.com/atinc/ngx-tethys/issues/2025)) ([fd4e0b3](https://github.com/atinc/ngx-tethys/commit/fd4e0b346e23d38832fdd3eb80b25a508776c67a)), closes [#WIK-7850](https://github.com/atinc/ngx-tethys/issues/WIK-7850)
+
+
+
 ## [13.1.8](https://github.com/atinc/ngx-tethys/compare/13.1.7...13.1.8) (2022-07-25)
 
 
