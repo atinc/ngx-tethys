@@ -302,7 +302,7 @@ export function concatArray<TItem>(items: TItem | TItem[], originalItems: TItem 
     }
 }
 
-export function humanizeBytes(bytes: number, fractionDigits = 1): string {
+export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1): string {
     if (bytes === 0) {
         return '0 Byte';
     }
@@ -311,5 +311,5 @@ export function humanizeBytes(bytes: number, fractionDigits = 1): string {
     const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
     const i: number = Math.floor(Math.log(bytes) / Math.log(k));
 
-    return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + ' ' + sizes[i];
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + (noSpace ? '' : ' ') + sizes[i];
 }
