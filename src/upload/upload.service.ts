@@ -96,7 +96,7 @@ export class ThyUploadService {
                 uploadFile.progress.status = ThyUploadStatus.uploading;
                 uploadFile.progress.percentage = percentage;
                 uploadFile.progress.speed = speed;
-                uploadFile.progress.speedHuman = `${humanizeBytes(speed)}/s`;
+                uploadFile.progress.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
                 uploadFile.progress.startTime = progressStartTime;
                 uploadFile.progress.estimatedTime = estimatedTime;
                 uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime);
@@ -115,7 +115,7 @@ export class ThyUploadService {
                 uploadFile.progress.status = ThyUploadStatus.done;
                 uploadFile.progress.percentage = 100;
                 uploadFile.progress.speed = speedAverage;
-                uploadFile.progress.speedHuman = `${humanizeBytes(speed)}/s`;
+                uploadFile.progress.speedHuman = `${humanizeBytes(speed, false, 2)}/s`;
                 uploadFile.progress.estimatedTime = estimatedTime;
                 uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime || 0);
 
