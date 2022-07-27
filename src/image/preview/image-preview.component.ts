@@ -14,13 +14,12 @@ import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
-import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
+import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { DomSanitizer } from '@angular/platform-browser';
 import { fetchImageBlob } from '../utils';
-import { humanizeBytes, isNumber } from '../../util/helpers/helpers';
 
 const initialPosition = {
     x: 0,
