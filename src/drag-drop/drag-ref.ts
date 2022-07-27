@@ -63,7 +63,7 @@ export class DragRef<T = any> {
     }
 
     subAddPositionClass() {
-        this.addPositionClass$.pipe(auditTime(30)).subscribe(data => {
+        this.addPositionClass$.pipe(auditTime(30), takeUntil(this.ngUnsubscribe$)).subscribe(data => {
             this.removeExistClassByMap(this.dragDropService.classMap);
             this.dragDropService.classMap.set(data.element, data.class);
             this.renderer.addClass(data.element, data.class);
