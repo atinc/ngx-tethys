@@ -20,6 +20,7 @@ import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { DomSanitizer } from '@angular/platform-browser';
 import { fetchImageBlob } from '../utils';
+import { humanizeBytes, isNumber } from '../../util/helpers/helpers';
 
 const initialPosition = {
     x: 0,
@@ -133,7 +134,14 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     private rotate: number;
 
     get previewImage(): InternalImageInfo {
-        return this.images[this.previewIndex];
+        const image = this.images[this.previewIndex];
+        if (image.size) {
+            return {
+                ...image,
+                size: isNumber(image.size) ? humanizeBytes(image.size) : image.size
+            };
+        }
+        return image;
     }
 
     get previewImageOriginSrc() {
@@ -252,7 +260,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             }
             // image size
             if (!this.previewImage.size && this.previewImage.blob) {
-                this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + ' KB';
+                this.previewImage.size = humanizeBytes(this.previewImage.blob.size);
             }
             if (this.defaultZoom) {
                 this.useDefaultZoomUpdate(true);

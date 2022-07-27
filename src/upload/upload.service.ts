@@ -1,4 +1,4 @@
-import { coerceArray } from 'ngx-tethys/util';
+import { coerceArray, humanizeBytes } from 'ngx-tethys/util';
 import { from, Observable, Subscriber } from 'rxjs';
 import { map, mergeMap, tap } from 'rxjs/operators';
 
@@ -58,18 +58,6 @@ export class ThyUploadService {
         return new Date(sec * 1000).toISOString().slice(11, 19);
     }
 
-    private humanizeBytes(bytes: number): string {
-        if (bytes === 0) {
-            return '0 Byte';
-        }
-
-        const k = 1024;
-        const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
-        const i: number = Math.floor(Math.log(bytes) / Math.log(k));
-
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    }
-
     private normalizeUploadFiles(uploadFiles: ThyUploadFile | ThyUploadFile[]) {
         coerceArray(uploadFiles).forEach(uploadFile => {
             if (!uploadFile.progress) {
@@ -108,7 +96,7 @@ export class ThyUploadService {
                 uploadFile.progress.status = ThyUploadStatus.uploading;
                 uploadFile.progress.percentage = percentage;
                 uploadFile.progress.speed = speed;
-                uploadFile.progress.speedHuman = `${this.humanizeBytes(speed)}/s`;
+                uploadFile.progress.speedHuman = `${humanizeBytes(speed)}/s`;
                 uploadFile.progress.startTime = progressStartTime;
                 uploadFile.progress.estimatedTime = estimatedTime;
                 uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime);
@@ -127,7 +115,7 @@ export class ThyUploadService {
                 uploadFile.progress.status = ThyUploadStatus.done;
                 uploadFile.progress.percentage = 100;
                 uploadFile.progress.speed = speedAverage;
-                uploadFile.progress.speedHuman = `${this.humanizeBytes(speed)}/s`;
+                uploadFile.progress.speedHuman = `${humanizeBytes(speed)}/s`;
                 uploadFile.progress.estimatedTime = estimatedTime;
                 uploadFile.progress.estimatedTimeHuman = this.secondsToHuman(estimatedTime || 0);
 
