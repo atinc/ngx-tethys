@@ -11,6 +11,7 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyListModule } from 'ngx-tethys/list';
 import { CustomMenuComponent } from './component/custom-menu.component';
 
 export default {
@@ -28,6 +29,7 @@ export default {
         FormsModule,
         ThyInputNumberModule,
         ThyDividerModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyListModule
     ]
 };

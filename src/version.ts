@@ -1,3 +1,3 @@
 import { Version } from '@angular/core';
 
-export const VERSION = new Version('13.1.7');
+export const VERSION = new Version('13.1.9');

@@ -3,3 +3,4 @@ export * from './dropdown.directive';
 export * from './dropdown-menu.component';
 export * from './dropdown-menu-item.directive';
 export * from './dropdown-submenu.component';
+export * from './dropdown-active.directive';
