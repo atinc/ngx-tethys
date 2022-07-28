@@ -1,0 +1,18 @@
+<thy-nav thyType="pulled" thySize="sm">
+  <a
+    href="javascript:;"
+    thyNavItem
+    [thyNavItemActive]="i === thyActiveIndex"
+    *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
+    (click)="activeTab(tab, i)"
+    >{{ tab.thyTitle }}</a
+  >
+</thy-nav>
+
+<div class="thy-tabs-content">
+  <ng-container *ngFor="let tab of tabs; index as i; trackBy: tabTrackBy">
+    <div *ngIf="i === thyActiveIndex">
+      <ng-container *ngTemplateOutlet="tab?.content"></ng-container>
+    </div>
+  </ng-container>
+</div>
