@@ -1,77 +1,65 @@
 import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
-import { Subject } from 'rxjs';
+import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
+import { MutationObserverFactory } from '@angular/cdk/observers';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-const MAX_Z_INDEX = 2147483647;
-interface CanvasConfig {
-    width?: string;
-    height?: string;
-    font?: string;
-    fillStyle?: string;
-    rotate?: number;
-    textLineHeight?: number;
-    topStart?: number;
-    leftStart?: number;
-}
 
-const DEFAULT_WATERMARK_STYLE = {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    width: '100%',
-    height: '100%',
-    'pointer-events': 'none',
-    'background-repeat': 'repeat',
-    'z-index': MAX_Z_INDEX,
-    'background-image': ''
-};
+type CanvasConfig = typeof DEFAULT_CANVAS_CONFIG;
+type WatermarkConfig = typeof DEFAULT_WATERMARK_CONFIG;
 
-let DEFAULT_CANVAS_CONFIG = {
-    width: '400px',
-    height: '200px',
-    font: '12px microsoft yahei',
-    fillStyle: 'rgba(184, 184, 184, 0.8)',
-    rotate: -15,
-    textLineHeight: 20,
-    topStart: 20,
-    leftStart: 0
-};
-class MutationObserverFactory {
-    create(callback: MutationCallback): MutationObserver | null {
-        return typeof MutationObserver === 'undefined' ? null : new MutationObserver(callback);
-    }
-}
 @Directive({
     selector: '[thyWatermark]'
 })
 export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
-    @Input() thyWatermarkEnable: boolean;
-    @Input() thyMutationObserver: boolean = true;
+    @Input() @InputBoolean() thyWatermarkDisabled: boolean = false;
+    @Input() thyWatermarkConfig: WatermarkConfig;
+    @Input() thyWatermarkCanvasConfig: CanvasConfig;
 
+    content: string;
     @Input()
     set thyWatermark(value: string) {
         this.content = value;
     }
-    @Input()
-    set thyWatermarkConfig(value: CanvasConfig) {
-        DEFAULT_CANVAS_CONFIG = { ...DEFAULT_CANVAS_CONFIG, ...value };
-    }
+
     constructor(private el: ElementRef) {
         super();
     }
 
-    content: string;
     observer: MutationObserver;
 
-    ngOnInit() {}
+    ngOnInit() {
+        if (!this.thyWatermarkDisabled) {
+            this.canvasWM();
+        }
+    }
     ngOnChanges(changes: SimpleChanges): void {
-        if ('' + changes.thyWatermarkEnable?.currentValue === 'false') return;
-        this.canvasWM();
+        const { thyWatermark, thyWatermarkDisabled } = changes;
+        if (thyWatermarkDisabled?.currentValue && !thyWatermarkDisabled?.firstChange) {
+            this.clearCanvas();
+            return;
+        }
+        if (thyWatermark.currentValue && !thyWatermark.firstChange) {
+            this.canvasWM();
+        }
     }
 
-    private canvasWM({ width, height, font, fillStyle, rotate, textLineHeight, topStart, leftStart } = DEFAULT_CANVAS_CONFIG) {
+    private clearCanvas() {
+        const __wm = this.el.nativeElement.querySelector('.__wm');
+        if (__wm) {
+            this.el.nativeElement.removeChild(__wm);
+            this.observer?.disconnect();
+        }
+    }
+
+    private canvasWM() {
+        const { width, height, font, fillStyle, rotate, textLineHeight, topStart, leftStart } = {
+            ...DEFAULT_CANVAS_CONFIG,
+            ...this.thyWatermarkCanvasConfig
+        };
+
         const content = this.content || '';
         const canvas = document.createElement('canvas');
         canvas.setAttribute('width', width);
@@ -92,29 +80,30 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const watermarkDiv = __wm || document.createElement('div');
 
         const watermarkStyle = {
-            ...DEFAULT_WATERMARK_STYLE,
+            ...DEFAULT_WATERMARK_CONFIG,
+            ...this.thyWatermarkConfig,
             'background-image': `url(${canvas.toDataURL()})`
         };
 
         const styleStr = Object.keys(watermarkStyle).reduce((pre, next) => ((pre += `${next}:${watermarkStyle[next]};`), pre), '');
 
         watermarkDiv.setAttribute('style', styleStr);
-        watermarkDiv.classList.add('__wm');
 
-        const parentNode = this.el.nativeElement;
+        if (!__wm) {
+            const parentNode = this.el.nativeElement;
+            watermarkDiv.classList.add('__wm');
+            parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
+        }
 
-        !__wm && parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
-
-        this.thyMutationObserver && this.setMutationObserver(parentNode);
+        this.observeAttributes();
     }
-    setMutationObserver(container: HTMLElement) {
+
+    private observeAttributes() {
         const stream = new Subject<MutationRecord[]>();
         this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
         if (this.observer) {
-            this.observer.observe(container, {
-                characterData: true,
-                childList: true,
-                subtree: true,
+            const __wm = this.el.nativeElement.querySelector('.__wm');
+            this.observer.observe(__wm, {
                 attributes: true
             });
         }
@@ -122,14 +111,12 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             const __wm = this.el.nativeElement.querySelector('.__wm');
             if (__wm) {
                 this.observer.disconnect();
-                this.observer = null;
                 this.canvasWM();
             }
         });
     }
-
     ngOnDestroy(): void {
-        this.observer?.disconnect();
-        this.observer = null;
+        this?.observer.disconnect();
+        super.ngOnDestroy();
     }
 }

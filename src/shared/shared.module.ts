@@ -8,7 +8,6 @@ import { ThyStopPropagationDirective } from './directives/thy-stop-propagation.d
 import { ThyContextMenuDirective } from './directives/thy-contextmenu.directive';
 import { ThyScrollDirective } from './directives/thy-scroll.directive';
 import { ThyDragDropDirective } from './directives/thy-drag-drop.directive';
-import { ThyWatermarkDirective } from './directives/thy-watermark.directive';
 
 @NgModule({
     declarations: [
@@ -20,8 +19,7 @@ import { ThyWatermarkDirective } from './directives/thy-watermark.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyDragDropDirective,
-        ThyWatermarkDirective
+        ThyDragDropDirective
     ],
     exports: [
         ThyTranscludeDirective,
@@ -32,8 +30,7 @@ import { ThyWatermarkDirective } from './directives/thy-watermark.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyDragDropDirective,
-        ThyWatermarkDirective
+        ThyDragDropDirective
     ],
     providers: []
 })
