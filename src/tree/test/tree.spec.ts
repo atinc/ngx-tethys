@@ -521,6 +521,12 @@ describe('ThyTreeComponent', () => {
             component.tree.thySize = 'sm';
             expect(component.tree.thyItemSize).toEqual(42);
         });
+
+        it('test tree node nodeIconStyle', () => {
+            treeComponent.thySize = null;
+            fixture.detectChanges();
+            expect(treeComponent.thyItemSize).toEqual(44);
+        });
     });
 
     describe('async tree', () => {
@@ -641,6 +647,9 @@ describe('ThyTreeComponent', () => {
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
+            </ng-template>
+            <ng-template #emptyChildrenTemplate>
+                <div>empty template</div>
             </ng-template>
         </thy-tree>
     `
