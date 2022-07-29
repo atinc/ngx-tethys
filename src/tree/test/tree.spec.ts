@@ -395,7 +395,7 @@ describe('ThyTreeComponent', () => {
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
             secondItem.dispatchEvent(dropEvent);
             fixture.detectChanges();
-
+            tick(300);
             expect(isShowExpandSpy).toHaveBeenCalled();
             expect(treeServiceSpy).toHaveBeenCalled();
             expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalled();

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.10](https://github.com/atinc/ngx-tethys/compare/13.1.9...13.1.10) (2022-07-27)
+
+
+### Bug Fixes
+
+* **drag-drop:** fix slow drag when too many element #INFR-3935 ([#2009](https://github.com/atinc/ngx-tethys/issues/2009)) ([8ff3904](https://github.com/atinc/ngx-tethys/commit/8ff3904ba3696682f05ae793999c01c1e0ad9c2e)), closes [#INFR-3935](https://github.com/atinc/ngx-tethys/issues/INFR-3935)
+
+
+
 ## [13.1.9](https://github.com/atinc/ngx-tethys/compare/13.1.8...13.1.9) (2022-07-26)
 
 

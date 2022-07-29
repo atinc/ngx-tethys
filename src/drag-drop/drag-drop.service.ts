@@ -6,5 +6,6 @@ import { ThyDropPosition } from './drag-drop.class';
 export class ThyDragDropService<T = any> {
     public previousDrag: ThyDragDirective<T>;
     public dropPosition: ThyDropPosition;
+    public classMap = new Map<Element, string>();
     constructor() {}
 }
