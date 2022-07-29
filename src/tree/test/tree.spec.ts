@@ -648,9 +648,6 @@ describe('ThyTreeComponent', () => {
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
             </ng-template>
-            <ng-template #emptyChildrenTemplate>
-                <div>empty template</div>
-            </ng-template>
         </thy-tree>
     `
 })
