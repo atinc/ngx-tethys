@@ -93,7 +93,8 @@ module.exports = {
                 'image',
                 'segment',
                 'dot',
-                'affix'
+                'affix',
+                'watermark'
             ]
         ]
     }

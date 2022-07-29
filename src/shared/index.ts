@@ -9,5 +9,6 @@ export * from './directives/thy-stop-propagation.directive';
 export * from './directives/thy-scroll.directive';
 export * from './directives/thy-drag-drop.directive';
 export * from './directives/thy-contextmenu.directive';
+export * from './directives/thy-watermark.directive';
 export * from './select/index';
 export * from './option/index';
