@@ -3,12 +3,13 @@ import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe 
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
+import { CanvasConfig, WatermarkConfig } from './interfaces';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-type CanvasConfig = typeof DEFAULT_CANVAS_CONFIG;
-type WatermarkConfig = typeof DEFAULT_WATERMARK_CONFIG;
+// type CanvasConfig = typeof DEFAULT_CANVAS_CONFIG;
+// type WatermarkConfig = typeof DEFAULT_WATERMARK_CONFIG;
 
 @Directive({
     selector: '[thyWatermark]'
@@ -32,7 +33,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     ngOnInit() {
         if (!this.thyWatermarkDisabled) {
-            this.canvasWM();
+            this.createCanvas();
         }
     }
     ngOnChanges(changes: SimpleChanges): void {
@@ -42,7 +43,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             return;
         }
         if (thyWatermark.currentValue && !thyWatermark.firstChange) {
-            this.canvasWM();
+            this.createCanvas();
         }
     }
 
@@ -54,13 +55,12 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         }
     }
 
-    private canvasWM() {
+    private createCanvas() {
         const { width, height, font, fillStyle, rotate, textLineHeight, topStart, leftStart } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...this.thyWatermarkCanvasConfig
         };
 
-        const content = this.content || '';
         const canvas = document.createElement('canvas');
         canvas.setAttribute('width', width);
         canvas.setAttribute('height', height);
@@ -70,8 +70,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         ctx.fillStyle = fillStyle;
         ctx.rotate((Math.PI / 180) * rotate);
 
-        const contentArr = content.split('&');
-        contentArr.map((k, i) => {
+        this.content.split('&').map((k, i) => {
             ctx.fillText(k, leftStart, topStart + textLineHeight * i, parseFloat(width));
         });
 
@@ -111,7 +110,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             const __wm = this.el.nativeElement.querySelector('.__wm');
             if (__wm) {
                 this.observer.disconnect();
-                this.canvasWM();
+                this.createCanvas();
             }
         });
     }
