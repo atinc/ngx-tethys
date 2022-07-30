@@ -1,4 +1,14 @@
 .thy-tabs {
+    .thy-tabs-nav {
+        display: flex;
+        align-items: center;
+        .thy-tabs-nav-wrap {
+            display: flex;
+            flex: auto;
+        }
+        .thy-tabs-extra-content {
+        }
+    }
     .thy-tabs-content {
         padding: 10px 0px;
     }

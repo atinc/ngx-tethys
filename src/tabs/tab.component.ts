@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef, ContentChild } from '@angular/core';
 
 /**
  * thy-tab
@@ -11,6 +11,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateR
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyTabComponent implements OnInit {
+    @ContentChild('title') titleTemplateRef: TemplateRef<unknown>;
+
     @ViewChild('content', { static: true }) content: TemplateRef<HTMLElement>;
 
     /**
@@ -18,9 +20,16 @@ export class ThyTabComponent implements OnInit {
      */
     @Input() thyTitle: string;
 
+    /**
+     * 选项的唯一标识
+     */
+    @Input() set thyId(id: string) {
+        this.id = id;
+    }
+
+    public id: string;
+
     constructor() {}
 
-    ngOnInit(): void {
-        debugger;
-    }
+    ngOnInit(): void {}
 }

@@ -1,5 +1,16 @@
-import { ChangeDetectionStrategy, Component, ContentChildren, Input, OnInit, QueryList } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ContentChildren,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    QueryList,
+    TemplateRef
+} from '@angular/core';
 import { ThyTabComponent } from './tab.component';
+import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 
 /**
  * thy-tabs
@@ -15,14 +26,35 @@ import { ThyTabComponent } from './tab.component';
 export class ThyTabsComponent implements OnInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
 
-    @Input() thyActiveIndex = 0;
+    /**
+     * 激活的项
+     */
+    @Input() thyActiveTab: ThyActiveTabInfo = {
+        id: this.tabs[0]?.id || null,
+        index: 0
+    };
+
+    /**
+     * 附加操作
+     */
+    @Input() thyExtra: TemplateRef<unknown>;
+
+    /**
+     * 激活的项发生改变时的回调
+     */
+    @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
 
     constructor() {}
 
     ngOnInit(): void {}
 
     activeTab(tab: ThyTabComponent, index: number) {
-        this.thyActiveIndex = index;
+        this.thyActiveTab = {
+            id: tab.id || null,
+            index
+        };
+
+        this.thyActiveTabChange.emit(this.thyActiveTab);
     }
 
     tabTrackBy(index: number, item: ThyTabComponent) {
