@@ -1,7 +1,7 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyTagModule } from 'ngx-tethys/tabs';
+import { ThyTabsModule } from 'ngx-tethys/tabs';
 
 export default {
-    imports: [ThyTagModule, ThyIconModule, ThyButtonModule]
+    imports: [ThyTabsModule, ThyIconModule, ThyButtonModule]
 };

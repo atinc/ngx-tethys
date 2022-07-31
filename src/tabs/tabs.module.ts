@@ -10,4 +10,4 @@ import { ThyNavModule } from 'ngx-tethys/nav';
     imports: [CommonModule, ThyIconModule, ThyNavModule],
     exports: [ThyTabsComponent, ThyTabComponent]
 })
-export class ThyTagModule {}
+export class ThyTabsModule {}
