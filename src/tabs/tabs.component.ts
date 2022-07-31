@@ -12,6 +12,8 @@ import {
 import { ThyTabComponent } from './tab.component';
 import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 
+export type ThyTabsSize = 'lg' | 'md' | 'sm';
+
 /**
  * thy-tabs
  */
@@ -25,6 +27,11 @@ import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 })
 export class ThyTabsComponent implements OnInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
+
+    /**
+     * 选项卡的大小
+     */
+    @Input() thySize: ThyTabsSize = 'sm';
 
     /**
      * 激活的项
