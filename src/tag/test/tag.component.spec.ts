@@ -9,10 +9,12 @@ import { ThyTagModule } from '../tag.module';
     template: `
         <thy-tag id="default">Default Tag</thy-tag>
         <thy-tag id="color" [thyColor]="color">Tag 1</thy-tag>
+        <thy-tag id="theme" [thyTag]="color" [thyColor]="color" [thyTheme]="theme">Tag 2</thy-tag>
     `
 })
 export class ThyTagBasicTestComponent implements OnInit {
     color: ThyTagColor = 'default';
+    theme: string;
 
     constructor() {}
 
@@ -53,5 +55,18 @@ describe('thy-tag', () => {
             fixture.detectChanges();
             expect(tagElement.classList.contains(`thy-tag-${color}`)).toBeTruthy();
         });
+    });
+    it('should create tag with theme styles', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#theme'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.color = '#fa8b7c';
+
+        fixture.componentInstance.theme = 'outline';
+        fixture.detectChanges();
+        expect(tagElement.style.borderColor === 'rgb(250, 139, 124)').toBe(true);
+
+        fixture.componentInstance.theme = 'weak-fill';
+        fixture.detectChanges();
+        expect(tagElement.style.backgroundColor === 'rgba(250, 139, 124, 0.1)').toBe(true);
     });
 });
