@@ -12,7 +12,6 @@ export class ThyDialogSidebarExampleComponent {
     openDialog() {
         this.thyDialog.open(ThyDialogSidebarContentExampleComponent, {
             height: '650px',
-            hasSidebar: true,
             size: ThyDialogSizes.maxLg
         });
     }

@@ -6,7 +6,7 @@ import { ThyDialogRef } from 'ngx-tethys/dialog';
     templateUrl: './dialog-sidebar.component.html'
 })
 export class ThyDialogSidebarContentExampleComponent {
-    @HostBinding('class.h-100') class = true;
+    @HostBinding('class.thy-dialog-content') class = true;
 
     configs = [
         {

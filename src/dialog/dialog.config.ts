@@ -35,8 +35,6 @@ export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
 
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;
-
-    hasSidebar?: boolean;
 }
 
 /** Injection token that can be used to specify default dialog options. */
