@@ -240,7 +240,7 @@ export class DragRef<T = any> {
             const classMap = this.dragDropService.classMap;
             this.removeExistClassByMap(classMap);
             classMap.clear();
-        });
+        }, 30);
     }
 
     private removeExistClassByMap(classMap: Map<Element, string>) {
