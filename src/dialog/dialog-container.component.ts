@@ -56,6 +56,8 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
     @HostBinding(`attr.id`)
     id: string;
 
+    @HostBinding('class.thy-dialog-container-has-sidebar') class = this.config.hasSidebar;
+
     /** State of the dialog animation. */
     animationState: 'void' | 'enter' | 'exit' = 'void';
 

@@ -23,6 +23,19 @@
     box-shadow: variables.$dialog-box-shadow;
 }
 
+.thy-dialog-container-has-sidebar {
+    .thy-layout-sidebar {
+        .sidebar-header {
+            min-height: variables.$dialog-header-height;
+            padding: variables.$dialog-header-padding;
+        }
+    }
+    .thy-layout-content {
+        padding: 0;
+        background: variables.$white;
+    }
+}
+
 .thy-dialog-content {
     @extend .d-flex-column-fill;
     overflow: hidden;

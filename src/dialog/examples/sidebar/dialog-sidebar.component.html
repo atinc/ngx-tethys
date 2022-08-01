@@ -1,0 +1,41 @@
+<thy-layout>
+  <thy-sidebar thyTheme="light">
+    <thy-sidebar-header #headerTitle>
+      <span>渠道设置</span>
+    </thy-sidebar-header>
+    <thy-sidebar-content>
+      <thy-menu thyTheme="loose" class="pt-0">
+        <a
+          href="javascript:;"
+          thyMenuItem
+          *ngFor="let config of configs"
+          [class.active]="currentConfig.type === config.type"
+          (click)="configChange(config)"
+        >
+          <span thyMenuItemName>{{ config.name }}</span>
+        </a>
+      </thy-menu>
+    </thy-sidebar-content>
+  </thy-sidebar>
+  <thy-content>
+    <thy-dialog-header>
+      <ng-template #dialogHeader>
+        <span class="dialog-title">{{ currentConfig.name }}</span>
+        <button type="button" class="close" (click)="close()">
+          <thy-icon thyIconName="close-bold"></thy-icon>
+        </button>
+      </ng-template>
+    </thy-dialog-header>
+    <thy-dialog-body>
+      <div [hidden]="currentConfig.type !== 'display'">展示设置 content</div>
+      <div [hidden]="currentConfig.type !== 'tickets'">工单设置 content</div>
+      <div [hidden]="currentConfig.type !== 'access'">访问设置 content</div>
+      <div [hidden]="currentConfig.type !== 'components'">组件设置 content</div>
+      <div [hidden]="currentConfig.type !== 'basic'">基本设置 content</div>
+    </thy-dialog-body>
+    <thy-dialog-footer thyAlign="right">
+      <button thyButton="link-secondary" (click)="close()">取消</button>
+      <button thyButton="primary" (click)="ok()">确定</button>
+    </thy-dialog-footer>
+  </thy-content>
+</thy-layout>
