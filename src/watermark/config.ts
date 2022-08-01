@@ -11,12 +11,12 @@ export const DEFAULT_WATERMARK_CONFIG = {
 };
 
 export const DEFAULT_CANVAS_CONFIG = {
-    width: '400px',
-    height: '200px',
+    width: '20px',
+    height: '30px',
     font: '12px microsoft yahei',
     fillStyle: 'rgba(184, 184, 184, 0.8)',
     rotate: -15,
     textLineHeight: 20,
-    topStart: 20,
+    topStart: 30,
     leftStart: 0
 };

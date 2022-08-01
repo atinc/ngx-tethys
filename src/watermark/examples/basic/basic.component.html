@@ -1,5 +1,13 @@
-<div
-  style="width: 500px;height:300px;position:relative"
-  thyWatermark="很多年以前&我在worktile&pingcode"
-  [thyWatermarkDisabled]="thyWatermarkDisabled"
-></div>
+<div style="display: flex; width: 100%;">
+  <div
+    style="height:300px;position:relative; flex: 1;"
+    thyWatermark="worktile好啊真的好\n 我在worktile \n pingcode"
+    [thyWatermarkDisabled]="thyWatermarkDisabled"
+  ></div>
+
+  <div
+    style="height:300px;position:relative; flex: 1;border-left: 1px solid #ccc;"
+    thyWatermark="此处调整了长和宽"
+    [thyWatermarkCanvasConfig]="thyWatermarkCanvasConfig"
+  ></div>
+</div>

@@ -5,8 +5,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyWatermarkBasicExampleComponent } from './basic/basic.component';
+import { ThyWatermarkTextareaExampleComponent } from './textarea/textarea.component';
 
-const COMPONENTS = [ThyWatermarkBasicExampleComponent];
+const COMPONENTS = [ThyWatermarkBasicExampleComponent, ThyWatermarkTextareaExampleComponent];
 
 @NgModule({
     declarations: COMPONENTS,

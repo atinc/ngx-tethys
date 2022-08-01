@@ -5,8 +5,6 @@ export interface CanvasConfig {
     fillStyle?: string;
     rotate?: number;
     textLineHeight?: number;
-    topStart?: number;
-    leftStart?: number;
 }
 export interface WatermarkConfig {
     position?: string;
