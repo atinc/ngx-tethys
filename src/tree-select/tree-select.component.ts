@@ -5,7 +5,7 @@ import { ThyClickDispatcher } from 'ngx-tethys/core';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
-import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -207,7 +207,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         private ngZone: NgZone,
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,
-        private thyClickDispatcher: ThyClickDispatcher
+        private thyClickDispatcher: ThyClickDispatcher,
+        private viewportRuler: ViewportRuler
     ) {}
 
     ngOnInit() {
@@ -216,7 +217,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
         this.setSelectedNodes();
         this.initialled = true;
-        this.init();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -232,6 +232,12 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                     }
                 });
         }
+        this.viewportRuler
+            .change()
+            .pipe(takeUntil(this.destroy$))
+            .subscribe(() => {
+                this.init();
+            });
     }
 
     ngOnDestroy(): void {
@@ -356,8 +362,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.onModelChange(this.selectedValue);
     }
 
-    removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $event: Event }) {
-        this.removeSelectedNode(event.item, event.$event);
+    removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {
+        this.removeSelectedNode(event.item, event.$eventOrigin);
     }
 
     // thyMultiple = true 时，移除数据时调用
