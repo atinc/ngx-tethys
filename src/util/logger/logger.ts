@@ -2,6 +2,8 @@ import { isDevMode } from '@angular/core';
 
 const record: Record<string, boolean> = {};
 
+let logWarnDeprecation = true;
+
 export const PREFIX = '[NGX-TETHYS]:';
 
 function notRecorded(...args: any[]): boolean {
@@ -28,7 +30,9 @@ export function createWarnDeprecation(prefix: string): (...args: any[]) => void 
     return (...args: any[]) => {
         const stack = new Error().stack;
         return consoleCommonBehavior((...arg: any[]) => {
-            console.warn(prefix, 'deprecated:', ...arg, stack);
+            if (logWarnDeprecation) {
+                console.warn(prefix, 'deprecated:', ...arg, stack);
+            }
         }, ...args);
     };
 }
@@ -41,3 +45,7 @@ export const log = (...args: any[]) => {
         console.log(PREFIX, ...args);
     }
 };
+
+export function setWarnDeprecation(enabled: boolean) {
+    logWarnDeprecation = enabled;
+}

@@ -5,7 +5,7 @@
   <a
     href="javascript:;"
     class="thy-nav-more-container"
-    [class.d-none]="hiddenItems.length === 0"
+    [class.d-none]="!showMore"
     #moreOperationContainer
     thyNavLink
     [thyNavLinkActive]="moreActive"

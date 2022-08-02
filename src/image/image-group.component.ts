@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewEncapsulation, Injector } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ViewEncapsulation, Injector, ElementRef } from '@angular/core';
 import { ThyImageDirective } from './image.directive';
 
 /**
@@ -12,11 +12,15 @@ import { ThyImageDirective } from './image.directive';
     encapsulation: ViewEncapsulation.None
 })
 export class ThyImageGroupComponent {
-    constructor(public injector: Injector) {}
+    constructor(public injector: Injector, public element: ElementRef) {}
 
     images: ThyImageDirective[] = [];
 
-    addImage(image: ThyImageDirective): void {
-        this.images.push(image);
+    addImage(image: ThyImageDirective, index: number): void {
+        this.images.splice(index, 0, image);
+    }
+
+    removeImage(index: number) {
+        this.images.splice(index, 1);
     }
 }

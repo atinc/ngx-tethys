@@ -1,12 +1,13 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, OnInit } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyImageService } from '../image.service';
-import { ThyImagePreviewOptions } from '../image.class';
+import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -14,9 +15,9 @@ import { ThyImagePreviewRef } from '../preview/image-preview-ref';
         <button thyButton="primary" (click)="onClick()">Preview</button>
     `
 })
-class ImagePreviewTestComponent {
-    constructor(private thyImageService: ThyImageService) {}
-    images = [
+class ImagePreviewTestComponent implements OnInit {
+    constructor(private thyImageService: ThyImageService, private sanitizer: DomSanitizer) {}
+    images: InternalImageInfo[] = [
         {
             src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
             alt: 'first',
@@ -35,6 +36,15 @@ class ImagePreviewTestComponent {
     ];
     previewConfig: ThyImagePreviewOptions = {};
     imageRef: ThyImagePreviewRef;
+
+    ngOnInit(): void {
+        var urlCreator = window.URL || window.webkitURL;
+        this.images.forEach(img => {
+            img.blob = new File([''], img.name, { type: 'image/jpeg' });
+            var objectURL = urlCreator.createObjectURL(img.blob);
+            img.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
+        });
+    }
 
     onClick() {
         this.imageRef = this.thyImageService.preview(this.images, this.previewConfig);
@@ -92,21 +102,19 @@ describe('image-preview', () => {
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-        expect(overlayContainerElement.querySelector('img') as HTMLElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
         expect(overlayContainerElement.querySelector('.thy-image-preview-operations')).toBeTruthy();
-        expect(overlayContainerElement.querySelectorAll('li.thy-image-preview-operation').length).toBe(4);
+        expect(overlayContainerElement.querySelectorAll('.thy-actions .thy-action').length).toBe(4);
     });
 
     it('should zoom out image when click zoom-out icon', () => {
         basicTestComponent.previewConfig.zoom = 0.2;
-        fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
+        fixture.detectChanges();
 
         let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomOut = operations[0] as HTMLElement;
         expect(zoomOut.getAttribute('ng-reflect-content')).toBe('缩小');
         zoomOut.click();
@@ -131,7 +139,7 @@ describe('image-preview', () => {
 
         let previousZoom = basicTestComponent.imageRef.previewInstance.zoom;
         expect(previousZoom).toBe(basicTestComponent.previewConfig.zoom);
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const zoomIn = operations[1] as HTMLElement;
         expect(zoomIn.getAttribute('ng-reflect-content')).toBe('放大');
         zoomIn.click();
@@ -154,7 +162,7 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
 
-        let operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        let operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const originalSize = operations[2] as HTMLElement;
         expect(originalSize.getAttribute('ng-reflect-content')).toBe('原始比例');
         const spy = spyOn(basicTestComponent.imageRef.previewInstance, 'calculateInsideScreen').and.callThrough();
@@ -163,9 +171,7 @@ describe('image-preview', () => {
         fixture.detectChanges();
         let currentZoom = basicTestComponent.imageRef.previewInstance.zoom;
         let currentImageTransform = basicTestComponent.imageRef.previewInstance.previewImageTransform;
-        const fitScreen = overlayContainerElement.querySelectorAll(
-            '.thy-image-preview-operation .thy-image-preview-operation-icon'
-        )[2] as HTMLElement;
+        const fitScreen = overlayContainerElement.querySelectorAll('.thy-actions .thy-action')[2] as HTMLElement;
         expect(spy).toHaveBeenCalled();
         expect(fitScreen.getAttribute('ng-reflect-content')).toBe('适应屏幕');
         expect(currentZoom).toBe(1);
@@ -187,7 +193,7 @@ describe('image-preview', () => {
         button.click();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-fullscreen-active')).toBeFalsy();
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const fullScreen = operations[3] as HTMLElement;
         expect(fullScreen.getAttribute('ng-reflect-content')).toBe('全屏显示');
         fullScreen.click();
@@ -203,7 +209,7 @@ describe('image-preview', () => {
 
         fixture.detectChanges();
         const previousRotate = basicTestComponent.imageRef.previewInstance['rotate'];
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const rotate = operations[4] as HTMLElement;
         expect(rotate.getAttribute('ng-reflect-content')).toBe('旋转');
         expect(previousRotate).toBe(basicTestComponent.previewConfig.rotate);
@@ -221,7 +227,7 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
         // const spy = jasmine.createSpyObj('a', ['click']);
         // const createElementSpy = spyOn(document, 'createElement').and.returnValue(spy);
@@ -246,7 +252,7 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[6] as HTMLElement;
         const openSpy = spyOn(window, 'open').and.callFake(() => {
             return true;
@@ -264,7 +270,7 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const operations = overlayContainerElement.querySelectorAll('.thy-image-preview-operation .thy-image-preview-operation-icon');
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[7] as HTMLElement;
         expect(download.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
         // test copy
@@ -300,4 +306,30 @@ describe('image-preview', () => {
         fixture.detectChanges();
         expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[1].src);
     });
+
+    it(
+        'should resolve image objectURL and size',
+        waitForAsync(() => {
+            basicTestComponent.images = [
+                {
+                    src: 'assets/images/image/first.png',
+                    alt: 'first',
+                    name: 'first.jpg',
+                    origin: {
+                        src: 'assets/images/image/second.png'
+                    }
+                }
+            ];
+            basicTestComponent.previewConfig.resolveSize = true;
+            const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+            button.click();
+            fixture.detectChanges();
+
+            basicTestComponent.imageRef.previewInstance.resolvePreviewImage().subscribe(() => {
+                expect(basicTestComponent.images[0].size).toBeTruthy();
+                expect(basicTestComponent.images[0].objectURL).toBeTruthy();
+                expect(basicTestComponent.images[0].blob).toBeTruthy();
+            });
+        })
+    );
 });

@@ -1,3 +1,5 @@
+import { SafeUrl } from '@angular/platform-browser';
+
 export interface ThyImageMeta {
     name?: string;
     size?: string | number;
@@ -16,6 +18,11 @@ export interface ThyImageInfo extends ThyImageMeta {
     };
 }
 
+export interface InternalImageInfo extends ThyImageInfo {
+    objectURL?: SafeUrl;
+    blob?: Blob;
+}
+
 export interface ThyImagePreviewOptions {
     closeOnNavigation?: boolean;
     disableClose?: boolean;
@@ -23,6 +30,7 @@ export interface ThyImagePreviewOptions {
     zoom?: number;
     rotate?: number;
     operations?: ThyImagePreviewOperationType[];
+    resolveSize?: boolean;
 }
 
 export interface ThyImagePreviewOperation {

@@ -35,6 +35,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
+            [style.display]="!collapseVisible ? 'contents' : null"
         >
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
@@ -107,7 +108,10 @@ export class ThySidebarComponent implements OnInit {
     @Input() thyTrigger: null | undefined | TemplateRef<any> = undefined;
 
     @Output()
-    thyCollapsedChange = new EventEmitter();
+    thyCollapsedChange = new EventEmitter<boolean>();
+
+    @Output()
+    thyDragWidthChange = new EventEmitter<number>();
 
     @Input() @InputBoolean() thyCollapsible = false;
 
@@ -173,9 +177,11 @@ export class ThySidebarComponent implements OnInit {
             setTimeout(() => this.updateCollapseTip(), 200);
             this.thyCollapsedChange.emit(this.isCollapsed);
             this.thyLayoutSidebarWidth = this.originWidth;
+            this.collapseVisible = false;
             return;
         }
         this.thyLayoutSidebarWidth = width;
+        this.thyDragWidthChange.emit(width);
     }
 
     resizeStart() {

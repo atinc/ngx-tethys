@@ -7,7 +7,6 @@
     flex: auto;
     height: 100%;
     min-height: 0px;
-    background: variables.$layout-content-background;
 
     &--has-sidebar {
         flex-direction: row;
@@ -141,6 +140,7 @@
         bottom: 0;
         left: 0;
         right: 0;
+        // display: contents;
     }
 
     .thy-resizable-resizing {
@@ -152,6 +152,7 @@
         transition: none;
         right: -2px;
         width: 2px;
+        z-index: variables.$z-index-6;
 
         .sidebar-resize-line {
             height: 100%;
@@ -184,6 +185,14 @@
                 visibility: visible;
             }
         }
+        &::after {
+            width: 20px;
+            height: 100%;
+            position: absolute;
+            right: -10px;
+            top: 0;
+            content: '';
+        }
     }
 
     .sidebar-collapse {
@@ -192,16 +201,16 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        top: 15px;
-        width: 24px;
-        height: 24px;
+        top: (variables.$layout-sidebar-header-height - variables.$icon-default-height) * 0.5; /* 按照 layout-header 高度（48px）居中 ((48-24) / 2) */
+        width: variables.$icon-default-width;
+        height: variables.$icon-default-height;
         right: 0;
         transform: translateX(50%);
         color: variables.$gray-600;
         background-color: variables.$white;
         border-radius: 50%;
         box-shadow: 0px 2px 6px 0px rgb(0 0 0 / 10%);
-        z-index: 9;
+        z-index: variables.$z-index-6;
         &:hover {
             visibility: visible;
             cursor: pointer;

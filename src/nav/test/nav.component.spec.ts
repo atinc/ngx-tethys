@@ -1,4 +1,5 @@
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { Subject } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
@@ -60,18 +61,26 @@ export class NavBasicComponent implements OnInit {
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
             class="custom-nav"
+            style="width: 100px;height: 50px;display:block"
         >
             <a
                 *ngFor="let item of navLinks; index as i"
                 class="test-link"
                 thyNavLink
-                [thyNavLinkActive]="item.isActive"
+                [thyNavItemActive]="item.isActive"
                 [routerLink]="[item.name]"
                 routerLinkActive="active"
                 >{{ item.name }}</a
             >
         </thy-nav>
-    `
+    `,
+    styles: [
+        `
+            .thy-nav--vertical .thy-nav-item {
+                display: block;
+            }
+        `
+    ]
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
@@ -83,6 +92,8 @@ export class NavResponsiveComponent implements OnInit {
     isVertical = false;
 
     horizontal: ThyNavHorizontal;
+
+    responsive = false;
 
     navLinks = [{ name: 'link1' }, { name: 'link2' }, { name: 'link3' }];
 
@@ -114,6 +125,8 @@ const routes: Routes = [
 ];
 
 describe(`thy-nav`, () => {
+    const fakeResizeObserver = new Subject();
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [NavBasicComponent, NavResponsiveComponent, NavRouteComponent],
@@ -242,7 +255,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -258,7 +273,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -275,7 +292,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
             router.navigate(['.', 'link2']);
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -291,7 +310,10 @@ describe(`thy-nav`, () => {
             fixture.debugElement.componentInstance.isVertical = true;
             fixture.detectChanges();
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
+            fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
@@ -338,7 +360,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -355,7 +379,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();

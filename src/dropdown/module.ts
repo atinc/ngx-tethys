@@ -13,11 +13,13 @@ import {
     ThyDropdownMenuItemActiveDirective
 } from './dropdown-menu-item.directive';
 import { ThyDropdownSubmenuComponent } from './dropdown-submenu.component';
+import { ThyDropdownActiveDirective } from './dropdown-active.directive';
 
 @NgModule({
     imports: [CommonModule, ThyPopoverModule],
     declarations: [
         ThyDropdownDirective,
+        ThyDropdownActiveDirective,
         ThyDropdownMenuComponent,
         ThyDropdownSubmenuComponent,
         ThyDropdownMenuGroupComponent,
@@ -32,6 +34,7 @@ import { ThyDropdownSubmenuComponent } from './dropdown-submenu.component';
     ],
     exports: [
         ThyDropdownDirective,
+        ThyDropdownActiveDirective,
         ThyDropdownMenuComponent,
         ThyDropdownSubmenuComponent,
         ThyDropdownMenuGroupComponent,

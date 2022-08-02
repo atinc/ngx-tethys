@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DecadeCell, DateBodyRow } from '../date/types';
 
@@ -25,7 +26,7 @@ export class DecadeTableComponent extends CalendarTable implements OnChanges {
     }
 
     private chooseDecade(startYear: number): void {
-        this.value = this.value.setYear(startYear);
+        this.value = (this.value || new TinyDate()).setYear(startYear);
         this.valueChange.emit(this.value);
     }
 

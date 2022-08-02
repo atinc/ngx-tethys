@@ -19,6 +19,7 @@
         border-bottom-width: variables.$nav-border-width;
         border-bottom-color: transparent;
         flex: 0 auto;
+        white-space: nowrap;
 
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
@@ -199,4 +200,5 @@
 .thy-nav-more-container {
     flex: 1 !important;
     flex-grow: 0 !important;
+    white-space: nowrap;
 }

@@ -2,6 +2,196 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.11](https://github.com/atinc/ngx-tethys/compare/13.1.10...13.1.11) (2022-08-02)
+
+
+### Bug Fixes
+
+* **date-range:** fix date range test #INFR-4051 ([3013cbc](https://github.com/atinc/ngx-tethys/commit/3013cbc716ebceddfaa7733012b6395a86eed9dd)), closes [#INFR-4051](https://github.com/atinc/ngx-tethys/issues/INFR-4051)
+* **tree-select:** fix bubble caused by deletion#INFR-3950 ([1e61ab9](https://github.com/atinc/ngx-tethys/commit/1e61ab97c5dbe2f91bb7befa4c15521a99d2b1fe)), closes [deletion#INFR-3950](https://github.com/deletion/issues/INFR-3950)
+* **tree-select:** fix input init twinkle#INFR-3915 ([c8a8fd9](https://github.com/atinc/ngx-tethys/commit/c8a8fd94de29bf593829ff1748ca754e9337bb4f)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([2484e26](https://github.com/atinc/ngx-tethys/commit/2484e267df52c8cdfa1e078a00caeaaf5a5b5255)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([bf0fccd](https://github.com/atinc/ngx-tethys/commit/bf0fccda8fc6b63d289179eb59fdefc731a420a5)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree:** fix parent checked state error when initial data has check… ([#2032](https://github.com/atinc/ngx-tethys/issues/2032)) ([c3828ab](https://github.com/atinc/ngx-tethys/commit/c3828ab9dac84e2247966a2ef27c3c5217f567c9)), closes [#INFR-4029](https://github.com/atinc/ngx-tethys/issues/INFR-4029)
+
+
+### Features
+
+* **dialog:** add hasSidebar config to support layout style in dialog… ([#2033](https://github.com/atinc/ngx-tethys/issues/2033)) ([10610a3](https://github.com/atinc/ngx-tethys/commit/10610a32001d6108c4b07e0a714ebf8aee61b415))
+* **watermark:**  add ThyWatermarkDirective #INFR-4001 ([#2031](https://github.com/atinc/ngx-tethys/issues/2031)) ([484eb95](https://github.com/atinc/ngx-tethys/commit/484eb954cdb53a0828ada8811dcc80c05944fd29)), closes [#INFR-4001](https://github.com/atinc/ngx-tethys/issues/INFR-4001)
+
+
+
+## [13.1.10](https://github.com/atinc/ngx-tethys/compare/13.1.9...13.1.10) (2022-07-27)
+
+
+### Bug Fixes
+
+* **drag-drop:** fix slow drag when too many element #INFR-3935 ([#2009](https://github.com/atinc/ngx-tethys/issues/2009)) ([8ff3904](https://github.com/atinc/ngx-tethys/commit/8ff3904ba3696682f05ae793999c01c1e0ad9c2e)), closes [#INFR-3935](https://github.com/atinc/ngx-tethys/issues/INFR-3935)
+
+
+
+## [13.1.9](https://github.com/atinc/ngx-tethys/compare/13.1.8...13.1.9) (2022-07-26)
+
+
+### Bug Fixes
+
+* **image:** use merge config when open dialog #WIK-7850 ([#2025](https://github.com/atinc/ngx-tethys/issues/2025)) ([fd4e0b3](https://github.com/atinc/ngx-tethys/commit/fd4e0b346e23d38832fdd3eb80b25a508776c67a)), closes [#WIK-7850](https://github.com/atinc/ngx-tethys/issues/WIK-7850)
+
+
+
+## [13.1.8](https://github.com/atinc/ngx-tethys/compare/13.1.7...13.1.8) (2022-07-25)
+
+
+### Bug Fixes
+
+* **layout:** restore collapseVisible when drag width to thyCollapsedWidth ([b2a4264](https://github.com/atinc/ngx-tethys/commit/b2a4264ea41c96f9c2457bf12bb234be6e1715a7))
+
+
+### Features
+
+* **dropdown:** add thyDropdownActive directive that set active classes of origin and it's ancestors [#2021](https://github.com/atinc/ngx-tethys/issues/2021) ([#2023](https://github.com/atinc/ngx-tethys/issues/2023)) ([bc8bbe6](https://github.com/atinc/ngx-tethys/commit/bc8bbe6c679f114ee25ba6a8dcb63946d8c3ec66))
+
+
+
+## [13.1.7](https://github.com/atinc/ngx-tethys/compare/13.1.6...13.1.7) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display contents when collapseVisible is not false ([c57534a](https://github.com/atinc/ngx-tethys/commit/c57534ad88eb0cc58e2c6da5349a1be91a2c00c5))
+
+
+
+## [13.1.6](https://github.com/atinc/ngx-tethys/compare/13.1.5...13.1.6) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display: contents to sidebar-drag ([9b7f55a](https://github.com/atinc/ngx-tethys/commit/9b7f55a996a67a43ab7bf8a44a4834e0cd86bd33))
+* **layout:** remove sidebar-drag styles for fix can't click sidebar when set thyDraggable as true ([d4f62e5](https://github.com/atinc/ngx-tethys/commit/d4f62e5d55bf6d7d34773a671094376d4fa7744c))
+
+
+
+## [13.1.5](https://github.com/atinc/ngx-tethys/compare/13.1.4...13.1.5) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** move z-index to sidebar-resize-handle from sidebar-resize-line ([a123609](https://github.com/atinc/ngx-tethys/commit/a123609ce5d76ac2b329047b479f702fd4c16e04))
+* **table:** update xlg height to 60px and cell-padding-xlg to 12px ([642b8fe](https://github.com/atinc/ngx-tethys/commit/642b8fe70fa8e2fb9e83e638dece887411b71093))
+
+
+### Features
+
+* **collapse:** refactor components api, docs and examples ([#2016](https://github.com/atinc/ngx-tethys/issues/2016)) ([345d182](https://github.com/atinc/ngx-tethys/commit/345d18216dfa6e2d765d21b8aa8e0adf3b70afd0))
+
+
+
+## [13.1.4](https://github.com/atinc/ngx-tethys/compare/13.1.3...13.1.4) (2022-07-22)
+
+
+### Bug Fixes
+
+* **layout:** adjust layout sidebar collaspe icon top #INFR-3937 ([#2011](https://github.com/atinc/ngx-tethys/issues/2011)) ([d9376b0](https://github.com/atinc/ngx-tethys/commit/d9376b0aeca57b8b9f08c34615c781c2e7fdcd34)), closes [#INFR-3937](https://github.com/atinc/ngx-tethys/issues/INFR-3937)
+* **layout:** adjust the sidebar-collapse-line style  #INFR-3939 ([b29e255](https://github.com/atinc/ngx-tethys/commit/b29e255fb2c372d42126e839837f6547f7ad4187)), closes [#INFR-3939](https://github.com/atinc/ngx-tethys/issues/INFR-3939)
+
+
+### Features
+
+* **collapse:** add thyTheme support divided, bordered and ghost, deprecate thyBordered and thyGhost #INFR-3904 ([#2003](https://github.com/atinc/ngx-tethys/issues/2003)) ([0570a3b](https://github.com/atinc/ngx-tethys/commit/0570a3b933f481b0d065aeb8eaa6415493b82887)), closes [#INFR-3904](https://github.com/atinc/ngx-tethys/issues/INFR-3904)
+* **layout:** add thyDragWidthChange for thy-sidebar #INFR-3942 ([c4e07d5](https://github.com/atinc/ngx-tethys/commit/c4e07d5f3738b55b621c976ddd8dbb1b0d31cc82)), closes [#INFR-3942](https://github.com/atinc/ngx-tethys/issues/INFR-3942)
+* **menu:** add action active class #INFR-3930 ([#2010](https://github.com/atinc/ngx-tethys/issues/2010)) ([3ac436f](https://github.com/atinc/ngx-tethys/commit/3ac436f9d6ee17eb377970dbaf3e88ad74f00a3e)), closes [#INFR-3930](https://github.com/atinc/ngx-tethys/issues/INFR-3930)
+
+
+
+## [13.1.3](https://github.com/atinc/ngx-tethys/compare/13.1.2...13.1.3) (2022-07-21)
+
+
+### Bug Fixes
+
+* **image:** set restoreFocus false when open dialog #WIK-7834 ([#2007](https://github.com/atinc/ngx-tethys/issues/2007)) ([eb353cc](https://github.com/atinc/ngx-tethys/commit/eb353ccb5aabdf8a6b5479f403def79546d231b5)), closes [#WIK-7834](https://github.com/atinc/ngx-tethys/issues/WIK-7834)
+* **menu:** modify more icon m-l #INFR-3717 ([c49642f](https://github.com/atinc/ngx-tethys/commit/c49642f4e0a3172c9bd1650c77a4eab14b53cb50)), closes [#INFR-3717](https://github.com/atinc/ngx-tethys/issues/INFR-3717)
+
+
+
+## [13.1.2](https://github.com/atinc/ngx-tethys/compare/13.1.1...13.1.2) (2022-07-20)
+
+
+### Bug Fixes
+
+* **image:** remove time #INFR-3912 ([#2004](https://github.com/atinc/ngx-tethys/issues/2004)) ([00d6d0f](https://github.com/atinc/ngx-tethys/commit/00d6d0f5fdc73bc96fa6ca3ad7dffd95a104a9de)), closes [#INFR-3912](https://github.com/atinc/ngx-tethys/issues/INFR-3912)
+
+
+
+## [13.1.1](https://github.com/atinc/ngx-tethys/compare/13.1.0...13.1.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* **nav:** set moreBtnOffset when init ([d3b8f05](https://github.com/atinc/ngx-tethys/commit/d3b8f059c763bda8cba0a94b1162d66eec66925b))
+
+
+
+# [13.1.0](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.49...13.1.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* **action:** move border-radius from hover to thy-action to fix border-radius disappear when mouse leave action ([df75ec0](https://github.com/atinc/ngx-tethys/commit/df75ec059efad35085a3d67027f1f60bb9cb4b39))
+* **nav:** hidden overflow nvaItem when container change size ([#1991](https://github.com/atinc/ngx-tethys/issues/1991)) ([5bc2ac6](https://github.com/atinc/ngx-tethys/commit/5bc2ac6f83981dd3b8295dee6d82763011c63d98))
+
+
+
+# [13.1.0-next.49](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.48...13.1.0-next.49) (2022-07-19)
+
+
+### Features
+
+* **image:** support thyResolveSize ([#1993](https://github.com/atinc/ngx-tethys/issues/1993)) ([4c10412](https://github.com/atinc/ngx-tethys/commit/4c10412e9feafec572ba30c656a2e56f6fe67993))
+* update issue template ([aa9cd49](https://github.com/atinc/ngx-tethys/commit/aa9cd49c6b7d366dacf9313d0cb9aa85ec5f31f7))
+
+
+
+# [13.1.0-next.48](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.47...13.1.0-next.48) (2022-07-18)
+
+
+### Bug Fixes
+
+* **drag-drop:** reset draggable when change thyDragDisabled #INFR-3887 ([#1987](https://github.com/atinc/ngx-tethys/issues/1987)) ([3272ffb](https://github.com/atinc/ngx-tethys/commit/3272ffbad36c37c95159cbd07540793ae6734d91)), closes [#INFR-3887](https://github.com/atinc/ngx-tethys/issues/INFR-3887)
+* **guider:** fix doc error #INFR-3879 ([#1985](https://github.com/atinc/ngx-tethys/issues/1985)) ([9ab467c](https://github.com/atinc/ngx-tethys/commit/9ab467c142951db48a626dfd17b4323a07340a94)), closes [#INFR-3879](https://github.com/atinc/ngx-tethys/issues/INFR-3879)
+
+
+
+# [13.1.0-next.47](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.46...13.1.0-next.47) (2022-07-15)
+
+
+### Bug Fixes
+
+* **image:** add setTimeout when get parentElement #INFR-3862 ([#1981](https://github.com/atinc/ngx-tethys/issues/1981)) ([f47580f](https://github.com/atinc/ngx-tethys/commit/f47580fbf019bec9274bfbccd78663892ee8baa7)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+* **image:** modify the background color transparency when hovering #INFR-3872 ([#1983](https://github.com/atinc/ngx-tethys/issues/1983)) ([4e2c38d](https://github.com/atinc/ngx-tethys/commit/4e2c38dfd4167d51a7be97da71a151972d4d7c53)), closes [#INFR-3872](https://github.com/atinc/ngx-tethys/issues/INFR-3872)
+
+
+
+# [13.1.0-next.46](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.45...13.1.0-next.46) (2022-07-15)
+
+
+### Bug Fixes
+
+* **date-picker:** in chooseDecade can not set year when value is null #INFR-3858 ([#1978](https://github.com/atinc/ngx-tethys/issues/1978)) ([392ae77](https://github.com/atinc/ngx-tethys/commit/392ae7798e61b0cf2145786d5148ca9a9ae0ff4b)), closes [#INFR-3858](https://github.com/atinc/ngx-tethys/issues/INFR-3858)
+* **image:** insert image at correct position and remove image  when destroy #INFR-3862 ([#1979](https://github.com/atinc/ngx-tethys/issues/1979)) ([d4786e5](https://github.com/atinc/ngx-tethys/commit/d4786e54e1173990fa7a509ebc8171058d0a3311)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+
+
+
+# [13.1.0-next.45](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.44...13.1.0-next.45) (2022-07-14)
+
+
+### Features
+
+* **image:** support calc image size #WIK-6711 ([#1972](https://github.com/atinc/ngx-tethys/issues/1972)) ([e411f97](https://github.com/atinc/ngx-tethys/commit/e411f977f8b33ba93b53e588750e09fdb47b2edc)), closes [#WIK-6711](https://github.com/atinc/ngx-tethys/issues/WIK-6711)
+
+
+
 # [13.1.0-next.44](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.43...13.1.0-next.44) (2022-07-14)
 
 

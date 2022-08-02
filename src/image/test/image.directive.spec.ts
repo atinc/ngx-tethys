@@ -94,39 +94,36 @@ describe('image-directive', () => {
         expect((overlayContainerElement.querySelector('.thy-image-size') as HTMLElement).innerText).toBe('66kb');
     });
 
-    it('should close image preview when click close icon', fakeAsync(() => {
-        basicTestComponent.src = 'assets/images/image/first.png';
-        basicTestComponent.imageMeta = {
-            name: 'first.jpg',
-            size: '66kb'
-        };
-        fixture.detectChanges();
-        debugElement.nativeElement.click();
+    describe('preview close', () => {
+        beforeEach(() => {
+            basicTestComponent.src = 'assets/images/image/first.png';
+            basicTestComponent.imageMeta = {
+                name: 'first.jpg',
+                size: '66kb'
+            };
+            fixture.detectChanges();
+            debugElement.nativeElement.click();
+        });
+        it('should close image preview when click close icon', fakeAsync(() => {
+            expect(overlayContainerElement).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
+            const iconElement = (overlayContainerElement.querySelector('.thy-icon-close') as HTMLElement).parentNode as HTMLElement;
+            iconElement.click();
 
-        expect(overlayContainerElement).toBeTruthy();
-        expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-        const iconElement = overlayContainerElement.querySelector('.thy-image-preview-close') as HTMLElement;
-        iconElement.click();
-        fixture.detectChanges();
-        flush();
-        expect(overlayContainerElement.innerHTML).toBe('');
-    }));
+            fixture.detectChanges();
+            flush();
+            expect(overlayContainerElement.innerHTML).toBe('');
+        }));
 
-    it('should close image preview when click backdrop', fakeAsync(() => {
-        basicTestComponent.src = 'assets/images/image/first.png';
-        basicTestComponent.imageMeta = {
-            name: 'first.jpg',
-            size: '66kb'
-        };
-        fixture.detectChanges();
-        debugElement.nativeElement.click();
-        expect(overlayContainerElement).toBeTruthy();
-        const previewElement = overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement;
-        expect(previewElement).toBeTruthy();
-        previewElement.click();
+        it('should close image preview when click backdrop', fakeAsync(() => {
+            expect(overlayContainerElement).toBeTruthy();
+            const previewElement = overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement;
+            expect(previewElement).toBeTruthy();
+            previewElement.click();
 
-        fixture.detectChanges();
-        flush();
-        expect(overlayContainerElement.innerHTML).toBe('');
-    }));
+            fixture.detectChanges();
+            flush();
+            expect(overlayContainerElement.innerHTML).toBe('');
+        }));
+    });
 });

@@ -6,7 +6,7 @@
     thyNavItem
     [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
-    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+    > <span class="ml-1">{{ item.name }}</span></a
   >
 
   <ng-template #morePopover let-context>
@@ -33,7 +33,7 @@
     thyNavItem
     [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
-    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+    ><span class="ml-1">{{ item.name }}</span></a
   >
 
   <ng-template #more>
