@@ -12,8 +12,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     selector: '[thyWatermark]'
 })
 export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
-    @Input() @InputBoolean() thyWatermarkDisabled: boolean = false;
-    @Input() thyWatermarkCanvasConfig: CanvasConfig;
+    @Input() @InputBoolean() thyDisabled: boolean = false;
+    @Input() thyCanvasStyles: CanvasConfig;
 
     content: string;
     @Input()
@@ -29,7 +29,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     ngOnInit() {
-        if (!this.thyWatermarkDisabled) {
+        if (!this.thyDisabled) {
             this.createCanvas$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 this.observeAttributes()
                     .pipe(takeUntil(this.ngUnsubscribe$))
@@ -39,8 +39,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         }
     }
     ngOnChanges(changes: SimpleChanges): void {
-        const { thyWatermark, thyWatermarkDisabled } = changes;
-        if (thyWatermarkDisabled?.currentValue && !thyWatermarkDisabled?.firstChange) {
+        const { thyWatermark, thyDisabled } = changes;
+        if (thyDisabled?.currentValue && !thyDisabled?.firstChange) {
             this.clearCanvas();
             return;
         }
@@ -59,7 +59,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     private createCanvas() {
         const { width, height, font, fillStyle, rotate, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
-            ...this.thyWatermarkCanvasConfig
+            ...this.thyCanvasStyles
         };
 
         let virtualDiv = this.el.nativeElement.querySelector('.content-wrap');

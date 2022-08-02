@@ -13,8 +13,8 @@ interface CanvasConfig {
     templateUrl: './basic.component.html'
 })
 export class ThyWatermarkBasicExampleComponent implements OnInit {
-    thyWatermarkDisabled: boolean = false;
-    get thyWatermarkCanvasConfig(): CanvasConfig {
+    thyDisabled: boolean = false;
+    get thyCanvasStyles(): CanvasConfig {
         return {
             width: '100px',
             height: '0px'

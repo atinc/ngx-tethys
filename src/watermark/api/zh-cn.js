@@ -11,13 +11,13 @@ module.exports = [
                 default: 'primary'
             },
             {
-                name: 'thyWatermarkDisabled',
+                name: 'thyDisabled',
                 description: '是否禁用',
                 type: 'boolean',
                 default: 'false'
             },
             {
-                name: 'thyWatermarkCanvasConfig',
+                name: 'thyCanvasStyles',
                 description:
                     'canvas默认设置，可传递width(最小值已内置为水印内容宽度),height:(最小值已内置为水印内容高度),font, fillStyle,rotate(文本偏移角度)，textLineHeight(行高)',
                 type: '{width?: string;height?: string;font?: string;fillStyle?: string;rotate?: number;textLineHeight?: number}',
