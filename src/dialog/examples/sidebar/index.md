@@ -1,4 +1,4 @@
 ---
-title: Dialog Has Sidebar
+title: Dialog with Sidebar
 order: 50
 ---

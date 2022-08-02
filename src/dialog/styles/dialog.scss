@@ -30,6 +30,11 @@
             }
         }
     }
+    .thy-layout {
+        .dialog-title {
+            font-size: variables.$rem-14px;
+        }
+    }
 }
 
 .thy-dialog-content {

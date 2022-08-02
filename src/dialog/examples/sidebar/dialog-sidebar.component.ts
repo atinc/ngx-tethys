@@ -10,29 +10,29 @@ export class ThyDialogSidebarContentExampleComponent {
 
     configs = [
         {
-            name: '基本设置',
-            type: 'basic',
-            title: '基本设置'
+            name: '苹果',
+            type: 'apple',
+            title: '🍎'
         },
         {
-            name: '访问设置',
-            type: 'access',
-            title: '访问设置'
+            name: '西瓜',
+            type: 'watermelon',
+            title: '🍉'
         },
         {
-            name: '工单设置',
-            type: 'tickets',
-            title: '工单设置'
+            name: '草莓',
+            type: 'strawberry',
+            title: '🍓'
         },
         {
-            name: '组件设置',
-            type: 'components',
-            title: '组件设置'
+            name: '蔬菜',
+            type: 'vegetables',
+            title: '🥗'
         },
         {
-            name: '展示设置',
-            type: 'display',
-            title: '展示设置'
+            name: '肉',
+            type: 'meet',
+            title: '🍖'
         }
     ];
 
