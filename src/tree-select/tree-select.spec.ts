@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { waitForAsync, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -121,6 +121,8 @@ class BasicTreeSelectComponent {
     multiple = true;
 
     thyPlaceholder = '';
+
+    cdkConnectOverlayWidth = 0;
 
     @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
@@ -437,6 +439,16 @@ describe('ThyTreeSelect', () => {
                 fixture.detectChanges();
                 flush();
                 expect(extendBtn.classList.contains('thy-icon-angle-down')).toBeTruthy();
+            }));
+            it('should get correct width when the window is resized', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                const event = new Event('resize');
+                window.dispatchEvent(event);
+                fixture.detectChanges();
+                tick(100);
+                const initDomWidth = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.getBoundingClientRect().width;
+                fixture.componentInstance.cdkConnectOverlayWidth = initDomWidth;
+                expect(initDomWidth).toEqual(document.body.clientWidth);
             }));
         });
 
