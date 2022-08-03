@@ -31,6 +31,9 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     /** Custom class for the overlay pane. */
     panelClass?: string | string[] = '';
 
+    /** Custom class for the overlay component's host element. */
+    hostClass?: string | string[];
+
     /** Whether the v has a backdrop. */
     hasBackdrop? = true;
 
@@ -90,8 +93,6 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     closeOnNavigation? = true;
 
     canClose?: (result?: unknown) => boolean;
-
-    hostClass?: string | string[];
 }
 
 export interface ThyAbstractOverlayOptions {

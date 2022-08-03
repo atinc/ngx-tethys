@@ -84,9 +84,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             }
             if (config.hostClass) {
                 const hostClass = coerceArray(config.hostClass);
-                ((hostClass as string[]) || []).forEach((item: string) => {
-                    contentRef.location.nativeElement.className += ' ' + item;
-                });
+                contentRef.location.nativeElement.classList.add(...hostClass);
             }
             abstractOverlayRef.componentInstance = contentRef.instance;
         }
