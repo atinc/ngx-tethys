@@ -59,14 +59,14 @@ describe('thy-tag', () => {
     it('should create tag with theme styles', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#theme'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
-        fixture.componentInstance.color = '#fa8b7c';
+        fixture.componentInstance.color = '#56abfb';
 
         fixture.componentInstance.theme = 'outline';
         fixture.detectChanges();
-        expect(tagElement.style.borderColor === 'rgb(250, 139, 124)').toBe(true);
+        expect(tagElement.style.borderColor === 'rgb(86, 171, 251)').toBe(true);
 
         fixture.componentInstance.theme = 'weak-fill';
         fixture.detectChanges();
-        expect(tagElement.style.backgroundColor === 'rgba(250, 139, 124, 0.1)').toBe(true);
+        expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
     });
 });
