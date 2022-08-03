@@ -90,6 +90,8 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     closeOnNavigation? = true;
 
     canClose?: (result?: unknown) => boolean;
+
+    hostClass?: string | string[];
 }
 
 export interface ThyAbstractOverlayOptions {
