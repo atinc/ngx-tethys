@@ -56,13 +56,13 @@ module.exports = [
             },
             {
                 name: 'thyLoading',
-                description: '图片加载策略 (https://html.spec.whatwg.org/multipage/embedded-content.html#attr-img-loading)',
+                description: '图片加载策略,可选择:eager(立即加载)、lazy(延迟加载)',
                 type: 'string',
                 default: ''
             },
             {
                 name: 'thyFetchPriority',
-                description: '图片加载优先级 (https://wicg.github.io/priority-hints/#idl-index)',
+                description: '图片加载优先级,可选择:auto(默认)、high(高)、low(低)',
                 type: 'string',
                 default: ''
             }
