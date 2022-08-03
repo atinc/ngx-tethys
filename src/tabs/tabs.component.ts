@@ -37,7 +37,7 @@ export class ThyTabsComponent implements OnInit {
     /**
      * 选项卡的大小
      */
-    @Input() thySize: ThyTabsSize = 'sm';
+    @Input() thySize: ThyTabsSize = 'md';
 
     /**
      * 激活的项
