@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.11](https://github.com/atinc/ngx-tethys/compare/13.1.10...13.1.11) (2022-08-02)
+
+
+### Bug Fixes
+
+* **date-range:** fix date range test #INFR-4051 ([3013cbc](https://github.com/atinc/ngx-tethys/commit/3013cbc716ebceddfaa7733012b6395a86eed9dd)), closes [#INFR-4051](https://github.com/atinc/ngx-tethys/issues/INFR-4051)
+* **tree-select:** fix bubble caused by deletion#INFR-3950 ([1e61ab9](https://github.com/atinc/ngx-tethys/commit/1e61ab97c5dbe2f91bb7befa4c15521a99d2b1fe)), closes [deletion#INFR-3950](https://github.com/deletion/issues/INFR-3950)
+* **tree-select:** fix input init twinkle#INFR-3915 ([c8a8fd9](https://github.com/atinc/ngx-tethys/commit/c8a8fd94de29bf593829ff1748ca754e9337bb4f)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([2484e26](https://github.com/atinc/ngx-tethys/commit/2484e267df52c8cdfa1e078a00caeaaf5a5b5255)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([bf0fccd](https://github.com/atinc/ngx-tethys/commit/bf0fccda8fc6b63d289179eb59fdefc731a420a5)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree:** fix parent checked state error when initial data has check… ([#2032](https://github.com/atinc/ngx-tethys/issues/2032)) ([c3828ab](https://github.com/atinc/ngx-tethys/commit/c3828ab9dac84e2247966a2ef27c3c5217f567c9)), closes [#INFR-4029](https://github.com/atinc/ngx-tethys/issues/INFR-4029)
+
+
+### Features
+
+* **dialog:** add hasSidebar config to support layout style in dialog… ([#2033](https://github.com/atinc/ngx-tethys/issues/2033)) ([10610a3](https://github.com/atinc/ngx-tethys/commit/10610a32001d6108c4b07e0a714ebf8aee61b415))
+* **watermark:**  add ThyWatermarkDirective #INFR-4001 ([#2031](https://github.com/atinc/ngx-tethys/issues/2031)) ([484eb95](https://github.com/atinc/ngx-tethys/commit/484eb954cdb53a0828ada8811dcc80c05944fd29)), closes [#INFR-4001](https://github.com/atinc/ngx-tethys/issues/INFR-4001)
+
+
+
+## [13.1.10](https://github.com/atinc/ngx-tethys/compare/13.1.9...13.1.10) (2022-07-27)
+
+
+### Bug Fixes
+
+* **drag-drop:** fix slow drag when too many element #INFR-3935 ([#2009](https://github.com/atinc/ngx-tethys/issues/2009)) ([8ff3904](https://github.com/atinc/ngx-tethys/commit/8ff3904ba3696682f05ae793999c01c1e0ad9c2e)), closes [#INFR-3935](https://github.com/atinc/ngx-tethys/issues/INFR-3935)
+
+
+
 ## [13.1.9](https://github.com/atinc/ngx-tethys/compare/13.1.8...13.1.9) (2022-07-26)
 
 

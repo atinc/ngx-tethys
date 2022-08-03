@@ -55,14 +55,16 @@ export const treeNodes: any[] = [
                                 _id: '0000001',
                                 name: '张三',
                                 type: 'member',
-                                disabled: true
+                                disabled: true,
+                                checked: true
                             },
                             {
                                 key: '0000002',
                                 title: '李四',
                                 _id: '0000003',
                                 name: '李四',
-                                type: 'member'
+                                type: 'member',
+                                checked: true
                             },
                             {
                                 key: '0000003',
@@ -120,7 +122,8 @@ export const treeNodes: any[] = [
                         parent_id: '5d4e5c0c5fadf30311c3d88a',
                         position: 327680,
                         member_count: 0,
-                        children: []
+                        children: [],
+                        checked: true
                     },
                     {
                         key: '5d4e61295fadf30311c3d88e',
@@ -132,7 +135,8 @@ export const treeNodes: any[] = [
                         parent_id: '5d4e5c0c5fadf30311c3d88a',
                         position: 393216,
                         member_count: 0,
-                        children: []
+                        children: [],
+                        checked: true
                     },
                     {
                         key: '5d4e924f5fadf30311c3d899',

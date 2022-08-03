@@ -94,7 +94,8 @@ module.exports = {
                 'segment',
                 'dot',
                 'affix',
-                'tabs'
+                'tabs',
+                'watermark'
             ]
         ]
     }
