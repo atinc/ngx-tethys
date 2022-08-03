@@ -66,7 +66,7 @@ const tabItemRight = 20;
 })
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
     private type: ThyNavType = 'pulled';
-    private size: ThyNavSize;
+    private size: ThyNavSize = 'md';
     private initialized = false;
 
     public horizontal: ThyNavHorizontal;

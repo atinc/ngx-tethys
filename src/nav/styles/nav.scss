@@ -1,5 +1,8 @@
 @use "sass:meta";
+@use "sass:list";
+@use "sass:map";
 @use "../../styles/variables";
+@use "../../tag/styles/mixin" as tag;
 @use "mixin";
 
 .thy-nav {
@@ -57,16 +60,31 @@
 
 .thy-nav-pills {
     .thy-nav-item {
-        height: 24px;
+        // height: variables.$nav-height - 28px;
         display: inline-flex;
         align-items: center;
         border-bottom-width: 0px;
-        padding: {
-            left: 12px;
-            right: 12px;
-        }
+        // padding: {
+        //     left: 12px;
+        //     right: 12px;
+        // }
+        // @include tag.tag-size('md')
         @include mixin.nav-item-size(null, variables.$nav-item-right, variables.$font-size-sm);
-        @include mixin.nav-item-pills-variant(variables.$nav-item-color, variables.$nav-item-hover-color);
+        @include mixin.nav-item-pills-variant(variables.$tag-default-color, variables.$nav-item-hover-color);
+    }
+
+    @each $size, $height in variables.$tag-size-heights {
+        &.thy-nav-#{$size} {
+            .thy-nav-item {
+                $font-sizes: map.get(variables.$tag-size-font-sizes, $size);
+                @include tag.tag-size(
+                    $height,
+                    map.get(variables.$tag-size-paddings, $size),
+                    list.nth($font-sizes, 1),
+                    list.nth($font-sizes, 2)
+                );
+            }
+        }
     }
 }
 

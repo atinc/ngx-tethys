@@ -454,6 +454,14 @@ $tag-size-paddings: (
     md: 12px,
     lg: 12px
 );
+
+$tag-size-font-sizes: () !default;
+$tag-size-font-sizes: (
+    sm: $font-size-sm $font-size-sm,
+    md: $font-size-sm $font-size-base,
+    lg: $font-size-base $font-size-md
+);
+
 $tag-border-radius: 3px !default;
 
 //avatar

@@ -41,7 +41,7 @@
 @mixin nav-item-pills-variant($color, $hover-color, $background: variables.$gray-100, $border-radius: 18px) {
     background: $background;
     color: $color;
-    border-radius: 18px;
+    border-radius: $border-radius;
     @include hover.hover-active {
         text-decoration: none;
         background: rgba($hover-color, 0.1);
