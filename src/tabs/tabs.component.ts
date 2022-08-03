@@ -14,6 +14,7 @@ import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
+export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
 /**
  * thy-tabs
  */
@@ -29,9 +30,14 @@ export class ThyTabsComponent implements OnInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
 
     /**
+     * 标签类型
+     */
+    @Input() thyType: ThyTabsType = 'tabs';
+
+    /**
      * 选项卡的大小
      */
-    @Input() thySize: ThyTabsSize = 'sm';
+    @Input() thySize: ThyTabsSize = 'md';
 
     /**
      * 激活的项

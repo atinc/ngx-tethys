@@ -1,5 +1,5 @@
 ---
-order: 10
-title: Basic 
+order: 21
+title: Pills 
 className: bg-example
 ---

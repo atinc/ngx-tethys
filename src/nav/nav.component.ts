@@ -27,13 +27,14 @@ import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-export type ThyNavType = 'pulled' | 'tabs' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
-export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
+export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
 const navTypeClassesMap = {
     pulled: ['thy-nav-pulled'],
     tabs: ['thy-nav-tabs'],
+    pills: ['thy-nav-pills'],
     lite: ['thy-nav-lite'],
     //如下类型已经废弃
     primary: ['thy-nav-primary'],
@@ -48,14 +49,12 @@ const navSizeClassesMap = {
     sm: 'thy-nav-sm'
 };
 
-const navHorizontalClassesMap = {
-    left: '',
-    center: 'justify-content-center',
-    right: 'justify-content-end'
-};
-
 const tabItemRight = 20;
 
+/**
+ * 导航组件
+ * @name thy-nav
+ */
 @Component({
     selector: 'thy-nav',
     templateUrl: './nav.component.html',
@@ -66,11 +65,11 @@ const tabItemRight = 20;
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
-    private _type: ThyNavType = 'pulled';
-    private _size: ThyNavSize;
-    private _horizontal: ThyNavHorizontal;
-    private _initialized = false;
+    private type: ThyNavType = 'pulled';
+    private size: ThyNavSize = 'md';
+    private initialized = false;
 
+    public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
         height: 0,
         width: 0,
@@ -86,62 +85,103 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
 
-    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
-
-    @ContentChild('more') moreOperation: TemplateRef<unknown>;
-
-    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
-
-    @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
-
+    /**
+     * 导航类型
+     * @default pulled
+     */
     @Input()
     set thyType(type: ThyNavType) {
-        this._type = type || 'primary';
-        if (this._initialized) {
-            this._updateClasses();
+        this.type = type || 'pulled';
+        if (this.initialized) {
+            this.updateClasses();
         }
     }
-
+    /**
+     * 导航大小
+     * @type "lg" | "md" | "sm"
+     * @default md
+     */
     @Input()
     set thySize(size: ThyNavSize) {
-        this._size = size;
-        if (this._initialized) {
-            this._updateClasses();
+        this.size = size;
+        if (this.initialized) {
+            this.updateClasses();
         }
     }
 
+    /**
+     * 水平排列
+     * @type "start" | "center" | "end"
+     * @default false
+     */
     @Input()
     set thyHorizontal(horizontal: ThyNavHorizontal) {
-        this._horizontal = horizontal;
-        if (this._initialized) {
-            this._updateClasses();
-        }
+        this.horizontal = (horizontal as string) === 'right' ? 'end' : horizontal;
     }
 
+    /**
+     * 是否垂直排列
+     * @default false
+     */
     @HostBinding('class.thy-nav--vertical')
     @Input()
     @InputBoolean()
     thyVertical: boolean;
 
+    /**
+     * 填充模式
+     * @default false
+     */
     @HostBinding('class.thy-nav--fill')
     @Input()
     @InputBoolean()
-    thyFill: boolean;
+    thyFill: boolean = false;
 
+    /**
+     * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
+     */
     @Input()
     @InputBoolean()
     thyResponsive: boolean;
 
-    private _updateClasses() {
+    /**
+     * 右侧额外区域模板
+     */
+    @Input() thyExtra: TemplateRef<unknown>;
+
+    /**
+     * @private
+     */
+    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+
+    /**
+     * 响应式模式下更多操作模板
+     * @type TemplateRef
+     */
+    @ContentChild('more') moreOperation: TemplateRef<unknown>;
+
+    /**
+     * 响应式模式下更多弹框模板
+     * @type TemplateRef
+     */
+    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
+
+    /**
+     * 右侧额外区域模板，支持 thyExtra 传参和 <ng-template #extra></ng-template> 模板
+     * @name extra
+     * @type TemplateRef
+     */
+    @ContentChild('extra') extra: TemplateRef<unknown>;
+
+    @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
+
+    private updateClasses() {
         let classNames: string[] = [];
-        if (navTypeClassesMap[this._type]) {
-            classNames = [...navTypeClassesMap[this._type]];
+        if (navTypeClassesMap[this.type]) {
+            classNames = [...navTypeClassesMap[this.type]];
         }
-        if (navSizeClassesMap[this._size]) {
-            classNames.push(navSizeClassesMap[this._size]);
-        }
-        if (navHorizontalClassesMap[this._horizontal]) {
-            classNames.push(navHorizontalClassesMap[this._horizontal]);
+        if (navSizeClassesMap[this.size]) {
+            classNames.push(navSizeClassesMap[this.size]);
         }
         this.updateHostClass.updateClass(classNames);
     }
@@ -158,8 +198,8 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     }
 
     ngOnInit() {
-        this._initialized = true;
-        this._updateClasses();
+        this.initialized = true;
+        this.updateClasses();
     }
 
     ngAfterViewInit() {

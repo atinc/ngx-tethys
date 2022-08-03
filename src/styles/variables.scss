@@ -454,6 +454,14 @@ $tag-size-paddings: (
     md: 12px,
     lg: 12px
 );
+
+$tag-size-font-sizes: () !default;
+$tag-size-font-sizes: (
+    sm: $font-size-sm $font-size-sm,
+    md: $font-size-sm $font-size-base,
+    lg: $font-size-base $font-size-md
+);
+
 $tag-border-radius: 3px !default;
 
 //avatar
@@ -476,7 +484,8 @@ $avatar-sizes: map.merge(
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
 $nav-item-icon-color: $gray-500 !default;
-$nav-item-color: $gray-600 !default;
+$nav-item-color: $gray-800 !default;
+$nav-item-weak-color: $gray-600 !default;
 $nav-item-hover-color: $primary !default;
 $nav-item-icon-color: $gray-500 !default;
 $nav-item-primary-color: $gray-800 !default;
@@ -524,8 +533,8 @@ $nav-item-thirdly-padding-y-sm: 0.4375rem !default;
 $nav-item-thirdly-padding-x-sm: 0rem !default;
 $nav-item-thirdly-right-sm: 40px !default;
 $nav-item-thirdly-split-line-height-sm: 11px !default;
-$nav-vertical-border-left: 4px solid $primary !default;
-$nav-vertical-border-left-empty: 4px solid transparent !default;
+$nav-vertical-border-left: 2px solid $primary !default;
+$nav-vertical-border-left-empty: 2px solid transparent !default;
 
 $icon-nav-link-color: $gray-600 !default;
 $icon-nav-link-hover-color: $primary !default;
