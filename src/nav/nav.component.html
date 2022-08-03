@@ -1,8 +1,7 @@
-<ng-container *ngIf="thyResponsive; else fixed">
-  <div class="thy-nav-list" #navList>
-    <ng-container [ngTemplateOutlet]="content"></ng-container>
-  </div>
+<div class="thy-nav-list" [ngClass]="horizontal ? 'justify-content-' + horizontal : ''" #navList>
+  <ng-container [ngTemplateOutlet]="content"></ng-container>
   <a
+    *ngIf="thyResponsive"
     href="javascript:;"
     class="thy-nav-more-container"
     [class.d-none]="!showMore"
@@ -16,7 +15,7 @@
       更多
     </ng-template>
   </a>
-</ng-container>
+</div>
 
 <ng-template #navListPopover>
   <ng-container
@@ -39,10 +38,10 @@
   </ng-template>
 </ng-template>
 
-<ng-template #fixed>
-  <ng-container [ngTemplateOutlet]="content"></ng-container>
-</ng-template>
-
 <ng-template #content>
   <ng-content></ng-content>
 </ng-template>
+
+<div *ngIf="thyExtra || extra" class="thy-nav-extra">
+  <ng-container [ngTemplateOutlet]="thyExtra || extra"></ng-container>
+</div>

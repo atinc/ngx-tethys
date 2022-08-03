@@ -3,11 +3,24 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyAlertModule } from 'ngx-tethys/alert';
 import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyCardModule } from 'ngx-tethys/card';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 export default {
-    imports: [CommonModule, FormsModule, ThyNavModule, RouterModule, ThyActionMenuModule, ThyIconModule, ThyAlertModule, ThyDividerModule]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyNavModule,
+        RouterModule,
+        ThyActionMenuModule,
+        ThyIconModule,
+        ThyAlertModule,
+        ThyDividerModule,
+        ThyCardModule,
+        ThyActionModule
+    ]
 };

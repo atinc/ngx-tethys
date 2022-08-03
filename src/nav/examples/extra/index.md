@@ -1,5 +1,5 @@
 ---
-order: 10
-title: Basic 
+order: 40
+title: Extra
 className: bg-example
 ---

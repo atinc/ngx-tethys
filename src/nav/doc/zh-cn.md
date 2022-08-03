@@ -25,18 +25,11 @@ import { ThyNavModule } from "ngx-tethys/nav";
 展示效果：
 <example name="thy-nav-basic-example"></example>
 
-## 导航类型
-Nav 支持类型：pulled、primary、secondary、thirdly、secondary-divider
+## 标签页
+<example name="thy-nav-tabs-example"></example>
 
-primary、secondary、thirdly、secondary-divider 即将被遗弃，会在之后重构导航类型
-
-
-展示效果：
-<example name="thy-nav-type-example"></example>
-
-## 图标导航
-
-<example name="thy-nav-icon-nav-example"></example>
+## Pills
+<example name="thy-nav-pills-example"></example>
 
 ## 导航大小
 <example name="thy-nav-size-example"></example>
