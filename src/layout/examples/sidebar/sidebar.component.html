@@ -1,125 +1,123 @@
-<div class="demo-layout-backdrop d-flex-column-fill demo-layout-sidebar">
-  <thy-layout style="height: 300px;">
-    <thy-sidebar [thyTheme]="'light'">
-      <thy-sidebar-header thyTitle="Title">
-        <ng-template #headerOperation>
-          <a href="javascript:;" thyAction thyIcon="plus"></a>
-          <a href="javascript:;" thyAction thyIcon="outdent"></a>
-        </ng-template>
-      </thy-sidebar-header>
-      <thy-sidebar-content class="text-center pt-5">
-        Sidebar with header and content
-      </thy-sidebar-content>
-      <thy-sidebar-footer></thy-sidebar-footer>
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 300px;">
+  <thy-sidebar [thyTheme]="'light'">
+    <thy-sidebar-header thyTitle="Title">
+      <ng-template #headerOperation>
+        <a href="javascript:;" thyAction thyIcon="plus"></a>
+        <a href="javascript:;" thyAction thyIcon="outdent"></a>
+      </ng-template>
+    </thy-sidebar-header>
+    <thy-sidebar-content class="text-center pt-5">
+      Sidebar with header and content
+    </thy-sidebar-content>
+    <thy-sidebar-footer></thy-sidebar-footer>
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar>
-      <thy-sidebar-header thyDivided="true" thyTitle="Title">
-        <ng-template #headerOperation>
-          <a href="javascript:;" thyAction thyIcon="plus"></a>
-        </ng-template>
-      </thy-sidebar-header>
+<thy-layout style="height: 100px;">
+  <thy-sidebar>
+    <thy-sidebar-header thyDivided="true" thyTitle="Title">
+      <ng-template #headerOperation>
+        <a href="javascript:;" thyAction thyIcon="plus"></a>
+      </ng-template>
+    </thy-sidebar-header>
 
-      <thy-sidebar-content class="text-center pt-5">
-        Sidebar header width divider
-      </thy-sidebar-content>
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
-  <thy-layout style="height: 100px;">
-    <thy-sidebar>
-      <thy-sidebar-header thyDivided="true">
-        <ng-template #headerTitle>
-          <thy-nav thyType="pulled" thySize="sm">
-            <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
-            <a href="javascript:;" thyNavItem>Link2</a>
-          </thy-nav>
-        </ng-template>
-        <ng-template #headerOperation>
-          <a href="javascript:;" thyAction thyIcon="plus"></a>
-        </ng-template>
-      </thy-sidebar-header>
+    <thy-sidebar-content class="text-center pt-5">
+      Sidebar header width divider
+    </thy-sidebar-content>
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar>
+    <thy-sidebar-header thyDivided="true">
+      <ng-template #headerTitle>
+        <thy-nav thyType="pulled">
+          <a href="javascript:;" thyNavItem [thyNavItemActive]="'true'">Link1</a>
+          <a href="javascript:;" thyNavItem>Link2</a>
+        </thy-nav>
+      </ng-template>
+      <ng-template #headerOperation>
+        <a href="javascript:;" thyAction thyIcon="plus"></a>
+      </ng-template>
+    </thy-sidebar-header>
 
-      <thy-sidebar-content class="text-center pt-5">
-        Sidebar header width headerTitle
-      </thy-sidebar-content>
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
-  <thy-layout style="height: 100px;">
-    <thy-sidebar thyWidth="lg" class="p-2">
-      Sidebar with custom width lg
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
-  <thy-layout style="height: 100px;">
-    <thy-sidebar [thyWidth]="400" class="p-2">
-      Sidebar with custom width 400
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+    <thy-sidebar-content class="text-center pt-5">
+      Sidebar header width headerTitle
+    </thy-sidebar-content>
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar thyWidth="lg" class="p-2">
+    Sidebar with custom width lg
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar [thyWidth]="400" class="p-2">
+    Sidebar with custom width 400
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar [thyIsolated]="true" class="p-2">
-      Sidebar with isolated
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar [thyIsolated]="true" class="p-2">
+    Sidebar with isolated
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar thyHasBorderRight="false" class="p-2">
-      Sidebar without border
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar thyHasBorderRight="false" class="p-2">
+    Sidebar without border
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar [thyDraggable]="true" [thyCollapsedWidth]="collapsedWidth" [thyDragMaxWidth]="700" class="p-2">
-      Sidebar can drag to change width
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar [thyDraggable]="true" [thyCollapsedWidth]="collapsedWidth" [thyDragMaxWidth]="700" class="p-2">
+    Sidebar can drag to change width
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar
-      class="p-2"
-      [thyDraggable]="true"
-      [thyDragMaxWidth]="700"
-      [thyCollapsible]="true"
-      [(thyCollapsed)]="collapsed"
-      [thyCollapsedWidth]="collapsedWidth"
-      [thyTrigger]="trigger"
-      (thyCollapsedChange)="collapsedChange($event)"
-    >
-      Sidebar with collapsible
-      <a *ngIf="collapsed" href="javascript:;" (click)="collapsed = !collapsed">Expand</a>
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar
+    class="p-2"
+    [thyDraggable]="true"
+    [thyDragMaxWidth]="700"
+    [thyCollapsible]="true"
+    [(thyCollapsed)]="collapsed"
+    [thyCollapsedWidth]="collapsedWidth"
+    [thyTrigger]="trigger"
+    (thyCollapsedChange)="collapsedChange($event)"
+  >
+    Sidebar with collapsible
+    <a *ngIf="collapsed" href="javascript:;" (click)="collapsed = !collapsed">Expand</a>
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar class="p-2" [thyWidth]="550" [thyCollapsible]="true" [thyTrigger]="null">
-      Set sidebar collapsible, but trigger is null, and finally hide the collapse icon
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
+<thy-layout style="height: 100px;">
+  <thy-sidebar class="p-2" [thyWidth]="550" [thyCollapsible]="true" [thyTrigger]="null">
+    Set sidebar collapsible, but trigger is null, and finally hide the collapse icon
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
-  <thy-layout style="height: 100px;">
-    <thy-sidebar
-      class="p-2"
-      [thyCollapsible]="true"
-      [(thyCollapsed)]="triggerCollapsed"
-      [thyCollapsedWidth]="collapsedWidth"
-      [thyTrigger]="customTpl"
-    >
-      Sidebar custom trigger
-    </thy-sidebar>
-    <thy-content> Content </thy-content>
-  </thy-layout>
-</div>
+<thy-layout style="height: 100px;">
+  <thy-sidebar
+    class="p-2"
+    [thyCollapsible]="true"
+    [(thyCollapsed)]="triggerCollapsed"
+    [thyCollapsedWidth]="collapsedWidth"
+    [thyTrigger]="customTpl"
+  >
+    Sidebar custom trigger
+  </thy-sidebar>
+  <thy-content> Content </thy-content>
+</thy-layout>
 
 <ng-template #customTpl>
   <thy-icon class="sidebar-collapse-icon" [thyIconName]="triggerCollapsed ? 'arrow-right' : 'arrow-left'"></thy-icon>

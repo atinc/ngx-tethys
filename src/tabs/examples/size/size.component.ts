@@ -2,21 +2,22 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-tabs-size-example',
-    templateUrl: './size.component.html'
+    templateUrl: './size.component.html',
+    styleUrls: ['./size.component.scss']
 })
 export class ThyTabsSizeExampleComponent implements OnInit {
     sizes = [
         {
             value: 'sm',
-            height: 48
+            height: 44
         },
         {
             value: 'md',
-            height: 52
+            height: 48
         },
         {
             value: 'lg',
-            height: 56
+            height: 52
         }
     ];
 
