@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.1.12](https://github.com/atinc/ngx-tethys/compare/13.1.11...13.1.12) (2022-08-03)
+
+
+### Bug Fixes
+
+* **dropdown:** remove unnecessary style ([3dfd8be](https://github.com/atinc/ngx-tethys/commit/3dfd8bee13c67eec80b8b9de578951762a71dd5d))
+
+
+### Features
+
+* **dialog:** add hostClass to automatically add class when dynamical… ([#2039](https://github.com/atinc/ngx-tethys/issues/2039)) ([204c67d](https://github.com/atinc/ngx-tethys/commit/204c67d53d14dfd0f848c0d27467cea327df9bd1)), closes [#INFR-4042](https://github.com/atinc/ngx-tethys/issues/INFR-4042)
+* **nav:** add pills and tabs for nav and add thyExtra template, refactor tabs component #INFR-3762 ([#2040](https://github.com/atinc/ngx-tethys/issues/2040)) ([33c8028](https://github.com/atinc/ngx-tethys/commit/33c8028664a4ddb524f569bd2d333e2d30282d29)), closes [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762) [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762) [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762)
+* **tabs:** add tabs module contains thy-tabs and thy-tab components #INFR-78 ([#2029](https://github.com/atinc/ngx-tethys/issues/2029)) ([5567c1c](https://github.com/atinc/ngx-tethys/commit/5567c1ca39a6fe793cef0475c88ba42cf395bbbe)), closes [#INFR-78](https://github.com/atinc/ngx-tethys/issues/INFR-78)
+
+
+
 ## [13.1.11](https://github.com/atinc/ngx-tethys/compare/13.1.10...13.1.11) (2022-08-02)
 
 
