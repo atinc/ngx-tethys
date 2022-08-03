@@ -5,7 +5,7 @@ import { Component, OnInit, ElementRef } from '@angular/core';
     templateUrl: './textarea.component.html'
 })
 export class ThyWatermarkTextareaExampleComponent implements OnInit {
-    value: string;
+    value: string = '名字可以有十五个字这么长长长长';
     get getValue() {
         return JSON.stringify(this.value);
     }
