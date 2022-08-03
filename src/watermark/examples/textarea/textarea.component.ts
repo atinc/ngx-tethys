@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef } from '@angular/core';
 
 @Component({
     selector: 'thy-watermark-textarea-example',
@@ -9,7 +9,7 @@ export class ThyWatermarkTextareaExampleComponent implements OnInit {
     get getValue() {
         return JSON.stringify(this.value);
     }
-    constructor() {}
+    constructor(private el: ElementRef<HTMLElement>) {}
 
     ngOnInit() {}
 }

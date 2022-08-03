@@ -1,13 +1,22 @@
-<div style="display: flex; width: 100%;">
-  <div
-    style="height:300px;position:relative; flex: 1;"
-    thyWatermark="worktile好啊真的好\n 我在worktile \n pingcode"
-    [thyDisabled]="thyDisabled"
-  ></div>
+<!-- <div
+    style="height:300px;position:relative; "
+    thyWatermark="worktile好啊真的好\n 我 \n p2"
+  ></div> -->
 
-  <div
-    style="height:300px;position:relative; flex: 1;border-left: 1px solid #ccc;"
-    thyWatermark="此处调整了长和宽"
-    [thyCanvasStyles]="thyCanvasStyles"
-  ></div>
+<!-- <div class="basic-wrap">
+    <div>
+
+    </div>
+  </div> -->
+
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <p>基础使用</p>
+    <div class="demo-col-section" thyWatermark="worktile\npingcode"></div>
+  </div>
+
+  <div thyCol [thySpan]="12">
+    <p>样式调整</p>
+    <div class="demo-col-section" thyWatermark="worktile\npingcode" [thyCanvasStyles]="thyCanvasStyles"></div>
+  </div>
 </div>

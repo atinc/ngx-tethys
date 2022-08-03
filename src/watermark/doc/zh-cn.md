@@ -13,7 +13,8 @@ label: Lack Doc
 
 ## 使用条件
 
-<strong>注： 宿主节点必须设置相对定位！！</strong>  
+<div class="dg-alert dg-alert-info"><strong>注： 宿主节点必须设置相对定位！！</strong>  </div>
+
 
 ## 模块导入
 
@@ -30,9 +31,3 @@ import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 展示效果: 
 
 <example name="thy-watermark-basic-example" />
-
-## 实时预览生成
-支持换行，实时预览。
-
-展示效果: 
-<example name="thy-watermark-textarea-example" />

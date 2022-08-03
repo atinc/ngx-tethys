@@ -1,4 +1,5 @@
 <div style="display: flex;">
-  <div style="width: 500px;height:300px;position:relative" [thyWatermark]="getValue"></div>
-  <textarea style="width: 200px;" placeholder="请输入水印内容 支持换行" thyInput [(ngModel)]="value"></textarea>
+  <div style="width: 500px;height:300px;position:relative; flex: 1" [thyWatermark]="getValue"></div>
+
+  <textarea style="width: 200px;margin-left: 50px;" placeholder="请输入水印内容 支持换行" thyInput [(ngModel)]="value"></textarea>
 </div>
