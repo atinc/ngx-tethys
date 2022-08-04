@@ -13,7 +13,7 @@ label: Lack Doc
 
 ## 使用条件
 
-<div class="dg-alert dg-alert-info"><strong>注： 宿主节点必须设置相对定位！！</strong>  </div><div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置key或Id属性</strong>  </div>
+<div class="dg-alert dg-alert-info"><strong>注： 宿主节点必须设置相对定位！！</strong>  </div><div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置Id属性</strong>  </div>
 
 
 ## 模块导入
