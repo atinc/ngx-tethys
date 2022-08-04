@@ -8,9 +8,9 @@
     min-height: 300px;
 }
 
-.demo-layout-backdrop {
+:host {
     > :not(:first-child).thy-layout {
-        margin-top: 20px;
+        margin-top: 16px;
     }
 
     .thy-layout-content {
