@@ -7,14 +7,17 @@ export class ThyWatermarkBasicExampleComponent implements OnInit {
     thyDisabled: boolean = false;
     get thyCanvasStyles() {
         return {
-            rotate: 15, // 偏移角度
-            textLineHeight: 20, // 行高
+            canvasStyles: {
+                rotate: 15, // 偏移角度
+                fillStyle: 'rgba(184, 184, 184, 0.8)',
+                fontsize: '12px', // 水印字体大小
+                color: 'pink', // 字体颜色
+                textAlign: 'left',
+                textBaseline: 'middle'
+            },
             xSpace: 200, // 水印x轴间隔
             ySpace: 160, // 水印y轴间隔
-            fontsize: '12px', // 水印字体大小
-            color: 'pink', // 字体颜色
-            textAlign: 'left',
-            textBaseline: 'middle'
+            textLineHeight: 20 // 行高
         };
     }
     isChecked: boolean = false;
