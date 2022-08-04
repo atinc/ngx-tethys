@@ -4,19 +4,23 @@ export const DEFAULT_WATERMARK_CONFIG = {
     left: 0,
     width: '100%',
     height: '100%',
-    'pointer-events': 'none',
+    opacity: '0.8',
     'background-repeat': 'repeat',
+    'pointer-events': 'none',
     'z-index': 2147483647,
     'background-image': ''
 };
 
 export const DEFAULT_CANVAS_CONFIG = {
-    width: '20px',
-    height: '30px',
-    font: '12px microsoft yahei',
-    fillStyle: 'rgba(184, 184, 184, 0.8)',
-    rotate: -15,
+    canvasStyles: {
+        rotate: 15,
+        color: '#ccc',
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fillStyle: 'rgba(184, 184, 184, 0.8)',
+        fontsize: '14px'
+    },
     textLineHeight: 20,
-    topStart: 30,
-    leftStart: 0
+    xSpace: 40, // x轴间隔
+    ySpace: 20 // y轴间隔
 };
