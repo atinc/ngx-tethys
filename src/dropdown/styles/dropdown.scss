@@ -31,11 +31,10 @@
     .dropdown-menu-item {
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-start;
+        align-items: center;
         padding: variables.$dropdown-menu-item-padding-y variables.$dropdown-menu-item-padding-x;
         position: relative;
         color: variables.$dropdown-menu-item-color;
-        align-items: center;
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;

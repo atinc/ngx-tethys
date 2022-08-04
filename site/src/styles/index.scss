@@ -1,8 +1,13 @@
 @use './demo-button.scss';
 @use './demo-alert.scss';
 
+.bg-example {
+    background: #edf1f6;
+}
+
+.bg-example-striped,
 .demo-layout-backdrop {
-    padding: 15px;
+    padding: 12px;
     background-size: 25px 25px;
     background-color: #ccc;
     background-image: -webkit-gradient(

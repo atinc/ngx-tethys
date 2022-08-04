@@ -75,6 +75,7 @@
     border-right: variables.$layout-sidebar-border-right;
     display: flex;
     flex-direction: column;
+    background: variables.$white;
 
     &.sidebar-theme-light {
         background: variables.$layout-sidebar-background-light;

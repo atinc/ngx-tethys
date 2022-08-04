@@ -1,5 +1,5 @@
 @use "../../styles/variables";
-
+@use "../examples/basic/basic.component.scss";
 .content-wrap {
     display: inline-block;
     border: 1px solid #ccc;

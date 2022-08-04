@@ -1,5 +1,8 @@
 @use "sass:meta";
+@use "sass:list";
+@use "sass:map";
 @use "../../styles/variables";
+@use "../../tag/styles/mixin" as tag;
 @use "mixin";
 
 .thy-nav {
@@ -21,7 +24,12 @@
         flex: 0 auto;
         white-space: nowrap;
 
-        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        // @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+
+    .thy-nav-extra {
+        display: inline-flex;
+        align-items: center;
     }
 }
 
@@ -33,9 +41,55 @@
             variables.$nav-item-right,
             variables.$nav-item-font-size
         );
-        @include mixin.nav-item-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+}
+
+.thy-nav-tabs {
+    border-bottom: 1px solid variables.$nav-border-color;
+    .thy-nav-item {
+        height: variables.$nav-height;
+        @include mixin.nav-item-size(
+            variables.$nav-item-padding-y variables.$nav-item-padding-x,
+            variables.$nav-item-right,
+            variables.$nav-item-font-size
+        );
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+}
+
+.thy-nav-pills {
+    .thy-nav-item {
+        // height: variables.$nav-height - 28px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom-width: 0px;
+        // padding: {
+        //     left: 12px;
+        //     right: 12px;
+        // }
+        // @include tag.tag-size('md')
+        @include mixin.nav-item-size(null, variables.$nav-item-right, variables.$font-size-sm);
+        @include mixin.nav-item-pills-variant(variables.$tag-default-color, variables.$nav-item-hover-color);
     }
 
+    @each $size, $height in variables.$tag-size-heights {
+        &.thy-nav-#{$size} {
+            .thy-nav-item {
+                $font-sizes: map.get(variables.$tag-size-font-sizes, $size);
+                @include tag.tag-size(
+                    $height,
+                    map.get(variables.$tag-size-paddings, $size),
+                    list.nth($font-sizes, 1),
+                    list.nth($font-sizes, 2)
+                );
+            }
+        }
+    }
+}
+
+.thy-nav-pulled,
+.thy-nav-tabs {
     &.thy-nav-lg {
         .thy-nav-item {
             height: variables.$nav-height-lg;
@@ -59,15 +113,6 @@
     }
 }
 
-.thy-nav-tabs {
-    border-bottom: 1px solid variables.$nav-border-color;
-    .thy-nav-item {
-        height: variables.$nav-height;
-        @include mixin.nav-item-size(variables.$nav-item-padding-y 0, variables.$nav-item-right, variables.$nav-item-font-size);
-        @include mixin.nav-item-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
-    }
-}
-
 .thy-nav-primary {
     .thy-nav-item {
         @include mixin.nav-item-size(
@@ -75,7 +120,7 @@
             variables.$nav-item-right,
             variables.$nav-item-font-size
         );
-        @include mixin.nav-item-variant(variables.$nav-item-primary-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 }
 
@@ -87,12 +132,14 @@
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
             variables.$nav-item-secondary-right
         );
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 }
 
 .thy-nav-secondary-divider {
     border-bottom: 1px solid variables.$nav-border-color;
     .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
         transform: translateY(1px);
         @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
@@ -108,6 +155,7 @@
 
 .thy-nav-thirdly {
     .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
         @include mixin.nav-item-size(
             variables.$nav-item-thirdly-padding-y variables.$nav-item-thirdly-padding-x,
             variables.$nav-item-thirdly-right
@@ -119,17 +167,16 @@
         );
         @include mixin.clear-nav-item-bottom();
     }
-}
-
-.thy-nav-sm {
-    .thy-nav-item {
-        padding: variables.$nav-item-thirdly-padding-y-sm variables.$nav-item-thirdly-padding-x-sm;
-        margin-right: variables.$nav-item-thirdly-right-sm;
-        font-size: variables.$font-size-sm;
-        &:after {
-            top: calc(50% - #{variables.$nav-item-thirdly-split-line-height-sm}/ 2);
-            right: variables.$nav-item-thirdly-right-sm * 0.5 * -1;
-            height: variables.$nav-item-thirdly-split-line-height-sm;
+    .thy-nav-sm {
+        .thy-nav-item {
+            padding: variables.$nav-item-thirdly-padding-y-sm variables.$nav-item-thirdly-padding-x-sm;
+            margin-right: variables.$nav-item-thirdly-right-sm;
+            font-size: variables.$font-size-sm;
+            &:after {
+                top: calc(50% - #{variables.$nav-item-thirdly-split-line-height-sm}/ 2);
+                right: variables.$nav-item-thirdly-right-sm * 0.5 * -1;
+                height: variables.$nav-item-thirdly-split-line-height-sm;
+            }
         }
     }
 }
@@ -148,6 +195,9 @@
 
 .thy-nav--vertical {
     display: block;
+    .thy-nav-list {
+        display: block;
+    }
     .thy-nav-item {
         margin-right: 0;
         text-align: left;
@@ -176,7 +226,7 @@
 .thy-nav-list {
     display: flex;
     flex-wrap: nowrap;
-    flex: 0 auto;
+    flex: 1 auto;
     overflow: hidden;
     .thy-nav-item-hidden {
         display: none;
