@@ -7,7 +7,7 @@ import { MutationObserverFactory } from '@angular/cdk/observers';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-type TheCanvasStylesType = typeof DEFAULT_CANVAS_CONFIG;
+type TheCanvasConfigType = typeof DEFAULT_CANVAS_CONFIG;
 @Directive({
     selector: '[thyWatermark]'
 })
@@ -26,13 +26,13 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     @Input()
     set thyWatermark(value: string) {
         value = value?.replace(/^\"|\"$/g, '');
-        this.content = !!value ? value : 'worktile&pingcode';
+        this.content = !!value ? value : '';
     }
 
     /**
      * canvas样式配置
      */
-    @Input() thyCanvasStyles: TheCanvasStylesType;
+    @Input() thyCanvasConfig: TheCanvasConfigType;
 
     private createCanvas$ = new Subject<string>();
 
@@ -90,7 +90,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     private createCanvas() {
         let { xSpace, ySpace, fontsize, color, rotate, textLineHeight, textAlign, textBaseline } = {
             ...DEFAULT_CANVAS_CONFIG,
-            ...this.thyCanvasStyles
+            ...DEFAULT_CANVAS_CONFIG.canvasStyles,
+            ...(this.thyCanvasConfig || {}),
+            ...(this.thyCanvasConfig?.canvasStyles || {})
         };
 
         const canvas = document.createElement('canvas');

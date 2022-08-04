@@ -12,13 +12,15 @@ export const DEFAULT_WATERMARK_CONFIG = {
 };
 
 export const DEFAULT_CANVAS_CONFIG = {
-    rotate: 15,
+    canvasStyles: {
+        rotate: 15,
+        color: '#ccc',
+        textAlign: 'center',
+        textBaseline: 'middle',
+        fillStyle: 'rgba(184, 184, 184, 0.8)',
+        fontsize: '14px'
+    },
     textLineHeight: 20,
-    xSpace: 40, // 水印x轴间隔
-    ySpace: 20, // 水印y轴间隔
-    fontsize: '14px', // 水印字体大小
-    color: '#ccc',
-    textAlign: 'center',
-    textBaseline: 'middle',
-    fillStyle: 'rgba(184, 184, 184, 0.8)'
+    xSpace: 40, // x轴间隔
+    ySpace: 20 // y轴间隔
 };
