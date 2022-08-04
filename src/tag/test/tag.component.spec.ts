@@ -13,7 +13,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
         <thy-tag id="shape" [thyShape]="shape">Tag 3</thy-tag>
         <thy-tag id="icon"> <thy-icon class="text-primary" thyIconName="smile"></thy-icon>Tag 4 </thy-tag>
         <thy-tag id="size" [thySize]="size">Tag 5</thy-tag>
-        <thy-tag id="custom" thyColor="#8913cd">Tag 6</thy-tag>
+        <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
         <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>
     `
 })
@@ -108,7 +108,7 @@ describe('thy-tag', () => {
     it('should set color with custom color value', () => {
         const tagDebugElement = fixture.debugElement.query(By.css('#custom'));
         const tagElement: HTMLElement = tagDebugElement.nativeElement;
-        expect(tagElement.style.backgroundColor === 'rgb(137, 19, 205)').toBe(true);
+        expect(tagElement.style.backgroundColor === 'rgb(86, 171, 251)').toBe(true);
     });
 
     it('should set hover with thyHoverable', () => {
