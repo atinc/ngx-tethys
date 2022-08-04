@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.0...13.2.0-next.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **drag-drop:** add 30ms when exec setTimeout #INFR-4050 ([#2035](https://github.com/atinc/ngx-tethys/issues/2035)) ([64ca39e](https://github.com/atinc/ngx-tethys/commit/64ca39e7b61e8a03f4b04b510e6b5a204ce18db5)), closes [#INFR-4050](https://github.com/atinc/ngx-tethys/issues/INFR-4050)
+* **watermark:** adjust the watermark style #INFR-4058 ([#2045](https://github.com/atinc/ngx-tethys/issues/2045)) ([395c9ee](https://github.com/atinc/ngx-tethys/commit/395c9eefc578b0afa7d4a37dac6fd34b0b3c75dc)), closes [#INFR-4058](https://github.com/atinc/ngx-tethys/issues/INFR-4058)
+
+
+### Features
+
+* update default size to 48px for thy-nav, thy-layout and thy-tabs, lg: 52px, sm: 44px #INFR-4075 ([#2046](https://github.com/atinc/ngx-tethys/issues/2046)) ([8146b98](https://github.com/atinc/ngx-tethys/commit/8146b98906b14f08ab4838655607173a9bd1603c)), closes [#INFR-4075](https://github.com/atinc/ngx-tethys/issues/INFR-4075) [#INFR-4075](https://github.com/atinc/ngx-tethys/issues/INFR-4075)
+
+
+
 # [13.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.1.11...13.2.0-next.0) (2022-08-03)
 
 
