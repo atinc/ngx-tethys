@@ -290,7 +290,7 @@ describe('ThyTreeComponent', () => {
             expect(appRef.tick).not.toHaveBeenCalled();
         });
 
-        it('test ngOnChanges methods called when multiple or thyType was modified after init', () => {
+        it('test ngOnChanges methods called when multiple or thyType or thySelectedKeys was modified after init', () => {
             const selectionModelSpy = spyOn<any>(treeComponent, `_instanceSelectionModel`);
 
             treeInstance.options.multiple = true;
@@ -304,6 +304,15 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
 
             expect(treeTypeSpy).toHaveBeenCalledTimes(1);
+
+            const treeNodesSpy = spyOn<any>(treeComponent, '_selectTreeNodes');
+
+            const onChangesData = JSON.parse(JSON.stringify(treeNodes));
+            onChangesData.pop();
+            treeInstance.selectedKeys = ['000000000000000000000000', '111111111111111111111111'];
+            fixture.detectChanges();
+
+            expect(treeNodesSpy).toHaveBeenCalledTimes(1);
         });
 
         it(`test public function onDragDrop not has parent`, () => {
@@ -660,7 +669,7 @@ describe('ThyTreeComponent', () => {
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
-            [thySelectedKeys]="['000000000000000000000000']"
+            [thySelectedKeys]="selectedKeys"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
@@ -699,6 +708,8 @@ class TestBasicTreeComponent {
     };
 
     dragDropSpy = jasmine.createSpy('drag drop');
+
+    selectedKeys = ['000000000000000000000000'];
 
     onEvent() {}
 
