@@ -50,7 +50,8 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
-        restoreFocus: true
+        restoreFocus: true,
+        hostClass: 'thy-dialog-content'
     }
 };
 

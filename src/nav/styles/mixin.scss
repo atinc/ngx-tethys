@@ -1,3 +1,4 @@
+@use "sass:color";
 @use "../../styles/mixins/hover" as mixins-hover;
 @use "../../styles/mixins/hover";
 @use "../../styles/variables";
@@ -37,9 +38,25 @@
     }
 }
 
+@mixin nav-item-pills-variant($color, $hover-color, $background: variables.$gray-100, $border-radius: 18px) {
+    background: $background;
+    color: $color;
+    border-radius: $border-radius;
+    @include hover.hover-active {
+        text-decoration: none;
+        background: rgba($hover-color, 0.1);
+        color: $hover-color;
+    }
+    &.disabled {
+        color: variables.$nav-item-disabled-color;
+    }
+}
+
 @mixin nav-item-size($padding, $margin-right, $font-size: variables.$nav-item-font-size) {
     font-size: $font-size;
-    padding: $padding;
+    @if $padding {
+        padding: $padding;
+    }
     margin-right: $margin-right;
     &:last-child {
         margin-right: 0;

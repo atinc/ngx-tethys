@@ -1,27 +1,20 @@
-<div class="thy-tabs-nav">
-  <div class="thy-tabs-nav-wrap">
-    <thy-nav thyType="pulled" [thySize]="thySize">
-      <a
-        href="javascript:;"
-        thyNavItem
-        [id]="tab.id"
-        [thyNavItemActive]="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index"
-        *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
-        (click)="activeTab(tab, i)"
-      >
-        <ng-container *ngIf="tab.titleTemplateRef; else titleName">
-          <ng-template [ngTemplateOutlet]="tab.titleTemplateRef"></ng-template>
-        </ng-container>
-        <ng-template #titleName>
-          {{ tab.thyTitle }}
-        </ng-template>
-      </a>
-    </thy-nav>
-  </div>
-  <div class="thy-tabs-extra-content" *ngIf="thyExtra">
-    <ng-template [ngTemplateOutlet]="thyExtra"></ng-template>
-  </div>
-</div>
+<thy-nav class="thy-tabs-nav" [thyType]="thyType" [thySize]="thySize" [thyExtra]="thyExtra">
+  <a
+    href="javascript:;"
+    thyNavItem
+    [id]="tab.id"
+    [thyNavItemActive]="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index"
+    *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
+    (click)="activeTab(tab, i)"
+  >
+    <ng-container *ngIf="tab.titleTemplateRef; else titleName">
+      <ng-template [ngTemplateOutlet]="tab.titleTemplateRef"></ng-template>
+    </ng-container>
+    <ng-template #titleName>
+      {{ tab.thyTitle }}
+    </ng-template>
+  </a>
+</thy-nav>
 <div class="thy-tabs-content">
   <ng-container *ngFor="let tab of tabs; index as i; trackBy: tabTrackBy">
     <div *ngIf="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index">

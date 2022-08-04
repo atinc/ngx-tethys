@@ -30,45 +30,55 @@
     border-color: $border-color;
 }
 
-@mixin tag-size($size, $height, $padding-x) {
-    @if $size == lg {
-        &-#{$size} {
-            height: $height;
-            padding: {
-                left: $padding-x;
-                right: $padding-x;
-            }
-            font-size: variables.$font-size-base;
-            .i,
-            .thy-icon {
-                font-size: variables.$font-size-md;
-            }
-        }
-    } @else if $size == md {
-        &-#{$size} {
-            height: $height;
-            font-size: variables.$font-size-sm;
-            padding: {
-                left: $padding-x;
-                right: $padding-x;
-            }
-            .i,
-            .thy-icon {
-                font-size: variables.$font-size-base;
-            }
-        }
-    } @else {
-        &-#{$size} {
-            height: $height;
-            font-size: variables.$font-size-sm;
-            padding: {
-                left: $padding-x;
-                right: $padding-x;
-            }
-            .i,
-            .thy-icon {
-                font-size: variables.$font-size-sm;
-            }
-        }
+@mixin tag-size($height, $padding-x, $font-size, $icon-font-size) {
+    height: $height;
+    padding: {
+        left: $padding-x;
+        right: $padding-x;
     }
+    font-size: $font-size;
+    .i,
+    .thy-icon {
+        font-size: $icon-font-size;
+    }
+    // @if $size == lg {
+    //     &-#{$size} {
+    //         height: $height;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         font-size: variables.$font-size-base;
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-md;
+    //         }
+    //     }
+    // } @else if $size == md {
+    //     &-#{$size} {
+    //         height: $height;
+    //         font-size: variables.$font-size-sm;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-base;
+    //         }
+    //     }
+    // } @else {
+    //     &-#{$size} {
+    //         height: $height;
+    //         font-size: variables.$font-size-sm;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-sm;
+    //         }
+    //     }
+    // }
 }

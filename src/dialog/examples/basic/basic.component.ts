@@ -16,7 +16,8 @@ export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) 
         size: ThyDialogSizes.md,
         hasBackdrop: true,
         backdropClosable: true,
-        closeOnNavigation: true
+        closeOnNavigation: true,
+        hostClass: ['test-dialog-content', 'another-test-dialog-content']
     };
 
     public layoutConfig = {

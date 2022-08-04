@@ -13,7 +13,9 @@ label: Lack Doc
 
 ## 使用条件
 
-<strong>注： 宿主节点必须设置相对定位！！</strong>  
+<div class="dg-alert dg-alert-info"><strong>注： 宿主节点必须设置相对定位！！</strong>  </div>
+<div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置Id属性</strong>  </div>
+
 
 ## 模块导入
 
@@ -23,16 +25,20 @@ import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 
 ## 基本使用
 
+### 可调整水印样式
+* rotate  // 偏移角度
+* textLineHeight// 行高
+* xSpace  // x轴间隔
+* ySpace  // y轴间隔
+* fontsize   // 字体大小
+* color   // 字体颜色
+* textAlign  // 对齐方式
+* textBaseline   // 当前文本基线
+
 ``` ts
-<div style="position:relative;" thyWatermark="pingcode好啊真的好"> </div> 
+<div  thyWatermark="worktile\npingcode" [thyCanvasConfig]="thyCanvasStyles" id="basic2"></div>
 ```
 
 展示效果: 
 
 <example name="thy-watermark-basic-example" />
-
-## 实时预览生成
-支持换行，实时预览。
-
-展示效果: 
-<example name="thy-watermark-textarea-example" />

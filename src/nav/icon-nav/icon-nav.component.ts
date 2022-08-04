@@ -3,6 +3,10 @@ import { UpdateHostClassService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
 type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
+
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
