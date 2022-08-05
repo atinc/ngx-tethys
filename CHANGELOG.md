@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.3...13.2.0-next.4) (2022-08-05)
+
+
+### Bug Fixes
+
+* **tree:** fix tree loop nesting error (#INFR-4077) ([bc8774d](https://github.com/atinc/ngx-tethys/commit/bc8774d4e25fefe2d5810d00a00fa2ced1e5a8e7)), closes [#INFR-4077](https://github.com/atinc/ngx-tethys/issues/INFR-4077)
+
+
+### Features
+
+* **property:** add thy-properties and thy-property-item components  #INFR-4044 ([#2054](https://github.com/atinc/ngx-tethys/issues/2054)) ([921d53a](https://github.com/atinc/ngx-tethys/commit/921d53a98d4652fb2d5e86f3ae3c74baa292c748)), closes [#INFR-4044](https://github.com/atinc/ngx-tethys/issues/INFR-4044)
+
+
+
 # [13.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.2...13.2.0-next.3) (2022-08-05)
 
 
