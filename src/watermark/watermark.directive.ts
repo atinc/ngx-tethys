@@ -88,7 +88,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private createCanvas() {
-        let { xSpace, ySpace, fontsize, color, rotate, textLineHeight, textAlign, textBaseline } = {
+        let { xSpace, ySpace, fontSize, color, rotate, textLineHeight, textAlign, textBaseline } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...DEFAULT_CANVAS_CONFIG.styles,
             ...(this.thyCanvasConfig || {}),
@@ -99,7 +99,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const ctx = canvas.getContext('2d');
 
         const contentArr = this.content.split('\\n');
-        ctx.font = `${fontsize} microsoft yahei`;
+        ctx.font = `${fontSize} microsoft yahei`;
 
         const canvasWidth = Math.max(...contentArr.map(k => ctx.measureText(k).width));
         const canvasHeight = Math.sin(rotate) * canvasWidth;
@@ -108,6 +108,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         canvas.setAttribute('height', '' + (canvasHeight + ySpace + textLineHeight * (contentArr.length - 1)));
         this.canvas = canvas;
 
+        ctx.font = `${fontSize} microsoft yahei`;
         ctx.textAlign = textAlign as CanvasTextAlign;
         ctx.textBaseline = textBaseline as CanvasTextBaseline;
         ctx.fillStyle = color;
