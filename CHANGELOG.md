@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.1...13.2.0-next.2) (2022-08-05)
+
+
+### Bug Fixes
+
+* **watermark:** adjust the canvas style #INFR-4089 ([#2051](https://github.com/atinc/ngx-tethys/issues/2051)) ([e301f73](https://github.com/atinc/ngx-tethys/commit/e301f73053b294a5b5e93bca150c88540f3f9ff9)), closes [#INFR-4089](https://github.com/atinc/ngx-tethys/issues/INFR-4089)
+
+
+### Features
+
+* **tabs:** tabs support set tab id #INFR-4082 ([04b5a12](https://github.com/atinc/ngx-tethys/commit/04b5a12e992b0dd83bc7ca4fe0393fcbe88b4068)), closes [#INFR-4082](https://github.com/atinc/ngx-tethys/issues/INFR-4082)
+
+
+
 # [13.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.0...13.2.0-next.1) (2022-08-04)
 
 
