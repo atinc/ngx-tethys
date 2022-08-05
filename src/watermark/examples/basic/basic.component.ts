@@ -9,7 +9,7 @@ export class ThyWatermarkBasicExampleComponent implements OnInit {
     thyCanvasConfig = {
         styles: {
             rotate: 15, // 偏移角度
-            fontsize: '14px', // 水印字体大小
+            fontSize: '14px', // 水印字体大小
             color: 'pink', // 字体颜色
             textAlign: 'left',
             textBaseline: 'middle'
