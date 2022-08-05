@@ -18,7 +18,7 @@ label: new
 import { ThyPropertyModule } from "ngx-tethys/property";
 ```
 
-## 展示效果
+## 基本使用
 <example name="thy-property-basic-example"/>
 
 ## 展示模式
