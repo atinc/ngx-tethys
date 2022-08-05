@@ -1,18 +1,28 @@
 import { Component, OnInit } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTagColor } from '../tag.component';
+import { ThyTagColor, ThyTagShape } from '../tag.component';
 import { ThyTagModule } from '../tag.module';
-
+import { ThyIconModule } from 'ngx-tethys/icon';
 @Component({
     selector: 'thy-tag-basic-test',
     template: `
         <thy-tag id="default">Default Tag</thy-tag>
         <thy-tag id="color" [thyColor]="color">Tag 1</thy-tag>
+        <thy-tag id="theme" [thyTag]="color" [thyColor]="color" [thyTheme]="theme">Tag 2</thy-tag>
+        <thy-tag id="shape" [thyShape]="shape">Tag 3</thy-tag>
+        <thy-tag id="icon"> <thy-icon class="text-primary" thyIconName="smile"></thy-icon>Tag 4 </thy-tag>
+        <thy-tag id="size" [thySize]="size">Tag 5</thy-tag>
+        <thy-tag id="custom" thyColor="#56abfb">Tag 6</thy-tag>
+        <thy-tag id="hoverable" [thyHoverable]="hoverable">Tag 7</thy-tag>
     `
 })
 export class ThyTagBasicTestComponent implements OnInit {
+    size: string = 'md';
     color: ThyTagColor = 'default';
+    theme: 'outline' | 'fill' | 'weak-fill' = 'fill';
+    shape: ThyTagShape = 'rectangle';
+    hoverable: boolean;
 
     constructor() {}
 
@@ -25,7 +35,7 @@ describe('thy-tag', () => {
         waitForAsync(() => {
             TestBed.configureTestingModule({
                 declarations: [ThyTagBasicTestComponent],
-                imports: [ThyTagModule]
+                imports: [ThyTagModule, ThyIconModule]
             }).compileComponents();
         })
     );
@@ -53,5 +63,59 @@ describe('thy-tag', () => {
             fixture.detectChanges();
             expect(tagElement.classList.contains(`thy-tag-${color}`)).toBeTruthy();
         });
+    });
+
+    it('should create tag with theme style', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#theme'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.color = '#56abfb';
+
+        fixture.componentInstance.theme = 'outline';
+        fixture.detectChanges();
+        expect(tagElement.style.borderColor === 'rgb(86, 171, 251)').toBe(true);
+
+        fixture.componentInstance.theme = 'weak-fill';
+        fixture.detectChanges();
+        expect(tagElement.style.backgroundColor === 'rgba(86, 171, 251, 0.1)').toBe(true);
+    });
+
+    it('should show icon with thy-icon', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#icon'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        const iconElement = tagElement.children[0];
+        expect(iconElement).toBeTruthy();
+        expect(iconElement.classList.contains('thy-icon-smile')).toBe(true);
+    });
+
+    it('should set size with thySize', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#size'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        ['sm', 'md', 'lg', 'xs'].forEach(size => {
+            fixture.componentInstance.size = size;
+            fixture.detectChanges();
+            expect(tagElement.classList.contains(`thy-tag-${size}`)).toBe(true);
+        });
+    });
+
+    it('should set shape with thyShape', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#shape'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.shape = 'pill';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-pill`)).toBe(true);
+    });
+
+    it('should set color with custom color value', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#custom'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        expect(tagElement.style.backgroundColor === 'rgb(86, 171, 251)').toBe(true);
+    });
+
+    it('should set hover with thyHoverable', () => {
+        const tagDebugElement = fixture.debugElement.query(By.css('#hoverable'));
+        const tagElement: HTMLElement = tagDebugElement.nativeElement;
+        fixture.componentInstance.hoverable = true;
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-hover`)).toBe(true);
     });
 });
