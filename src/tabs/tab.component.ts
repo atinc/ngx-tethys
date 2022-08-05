@@ -23,11 +23,7 @@ export class ThyTabComponent implements OnInit {
     /**
      * 选项的唯一标识
      */
-    @Input() set thyId(id: string) {
-        this.id = id;
-    }
-
-    public id: string;
+    @Input() id: string;
 
     constructor() {}
 
