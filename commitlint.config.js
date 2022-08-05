@@ -95,7 +95,8 @@ module.exports = {
                 'dot',
                 'affix',
                 'tabs',
-                'watermark'
+                'watermark',
+                'property'
             ]
         ]
     }

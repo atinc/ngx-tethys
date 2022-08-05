@@ -1,0 +1,60 @@
+@use "../../styles/variables.scss";
+
+.thy-properties {
+    width: 100%;
+
+    &.thy-properties-horizontal {
+        .thy-properties-item-container {
+            width: 100%;
+            min-height: variables.$property-item-min-height;
+            display: flex;
+            align-items: center;
+
+            .thy-properties-item-label {
+                width: 25%;
+            }
+
+            .thy-properties-item-content {
+                flex: 1;
+            }
+        }
+    }
+
+    &.thy-properties-vertical {
+        .thy-properties-item-content {
+            min-height: variables.$property-item-min-height;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        td {
+            padding: variables.$property-item-padding;
+        }
+    }
+
+    .thy-properties-item-label {
+        color: variables.$property-item-label-color;
+    }
+
+    .thy-properties-item-content {
+        color: variables.$property-item-content-color;
+
+        .thy-properties-item-content-editor {
+            display: none;
+        }
+
+        &-editing {
+            .thy-properties-item-content-text {
+                display: none;
+            }
+
+            .thy-properties-item-content-editor {
+                display: inline-block;
+            }
+        }
+    }
+}

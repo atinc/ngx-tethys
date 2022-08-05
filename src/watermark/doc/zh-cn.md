@@ -30,7 +30,7 @@ import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 * textLineHeight// 行高
 * xSpace  // x轴间隔
 * ySpace  // y轴间隔
-* fontsize   // 字体大小
+* fontSize   // 字体大小
 * color   // 字体颜色
 * textAlign  // 对齐方式
 * textBaseline   // 当前文本基线

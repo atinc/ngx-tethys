@@ -46,12 +46,6 @@ export class ThyTreeNode<T = any> {
         this.isDisabled = node.disabled || false;
         this.isExpanded = node.expanded || false;
         this.isChecked = node.checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
-        // 等待所有子节点push完成后设置父节点选中状态
-        Promise.resolve().then(() => {
-            if (service && service.setNodeChecked) {
-                service.setNodeChecked(this, node.checked, true, false);
-            }
-        });
         this.isLoading = false;
         if (node.itemClass) {
             this.itemClass = isArray(node.itemClass) ? node.itemClass : [node.itemClass];
@@ -62,6 +56,9 @@ export class ThyTreeNode<T = any> {
             });
         }
         this.service = service;
+        if (node.children && node.children.length && service) {
+            this.isChecked = service.checkStateResolve(this);
+        }
     }
 
     public setKey(key: string) {
