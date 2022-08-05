@@ -6,7 +6,7 @@ description: 属性列表
 label: new
 ---
 
-<alert>属性列表展示组件</alert>
+<alert>属性列表展示组件。</alert>
 
 ## 何时使用
 
@@ -18,27 +18,7 @@ label: new
 import { ThyPropertyModule } from "ngx-tethys/property";
 ```
 
-## 基本使用
-
-```html
- <thy-properties>
-  <thy-property-item thyLabelText="姓名">张萌</thy-property-item>
-  <thy-property-item thyLabelText="年龄">24</thy-property-item>
-  <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
-  <thy-property-item>
-    <ng-template #label>
-      爱好🏸
-    </ng-template>
-    <thy-tag class="mr-1" thyShape="pill" thyColor="success">羽毛球</thy-tag>
-    <thy-tag class="mr-1" thyShape="pill" thyColor="success">跑步</thy-tag>
-    <thy-tag class="mr-1" thyShape="pill" thyColor="success">撸铁</thy-tag>
-  </thy-property-item>
-  <thy-property-item thyLabelText="居住地址">北京市朝阳区十八里店小区26号10001</thy-property-item>
-</thy-properties>
-```
-
-展示效果：
-
+## 展示效果
 <example name="thy-property-basic-example"/>
 
 ## 展示模式

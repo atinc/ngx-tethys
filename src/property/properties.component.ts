@@ -7,7 +7,8 @@ import {
     AfterContentInit,
     ChangeDetectionStrategy,
     OnDestroy,
-    ElementRef
+    ElementRef,
+    NgZone
 } from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
 import { fromEvent, Subject } from 'rxjs';
@@ -62,7 +63,7 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
 
     private destroy$ = new Subject();
 
-    constructor(private elementRef: ElementRef<HTMLElement>) {}
+    constructor(private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone) {}
 
     ngOnInit() {
         this.bindTriggerEvent();
@@ -105,32 +106,34 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
     }
 
     private bindTriggerEvent() {
-        if (this.thyEditTrigger === 'hover') {
-            fromEvent(this.elementRef.nativeElement, 'mouseover')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                    if (editContentElement) {
-                        editContentElement.classList.add(itemContentEditingClass);
-                    }
-                });
-            fromEvent(this.elementRef.nativeElement, 'mouseout')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                    if (editContentElement) {
-                        editContentElement.classList.remove(itemContentEditingClass);
-                    }
-                });
-        } else {
-            fromEvent(this.elementRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                    if (editContentElement) {
-                        editContentElement.classList.add(itemContentEditingClass);
-                    }
-                });
-        }
+        this.ngZone.runOutsideAngular(() => {
+            if (this.thyEditTrigger === 'hover') {
+                fromEvent(this.elementRef.nativeElement, 'mouseover')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe(event => {
+                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
+                        if (editContentElement) {
+                            editContentElement.classList.add(itemContentEditingClass);
+                        }
+                    });
+                fromEvent(this.elementRef.nativeElement, 'mouseout')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe(event => {
+                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
+                        if (editContentElement) {
+                            editContentElement.classList.remove(itemContentEditingClass);
+                        }
+                    });
+            } else {
+                fromEvent(this.elementRef.nativeElement, 'click')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe(event => {
+                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
+                        if (editContentElement) {
+                            editContentElement.classList.add(itemContentEditingClass);
+                        }
+                    });
+            }
+        });
     }
 }
