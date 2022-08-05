@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.2...13.2.0-next.3) (2022-08-05)
+
+
+### Bug Fixes
+
+* **watermark:** add fontSize config #INFR-4101 ([d4a130d](https://github.com/atinc/ngx-tethys/commit/d4a130d5432e63bdd8b6806e1d13e8a286e37c94)), closes [#INFR-4101](https://github.com/atinc/ngx-tethys/issues/INFR-4101)
+
+
+
 # [13.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.1...13.2.0-next.2) (2022-08-05)
 
 
