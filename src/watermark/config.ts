@@ -20,6 +20,6 @@ export const DEFAULT_CANVAS_CONFIG = {
         fontsize: '12px'
     },
     textLineHeight: 20,
-    xSpace: 40, // x轴间隔
-    ySpace: 20 // y轴间隔
+    xSpace: 200, // x轴间隔
+    ySpace: 200 // y轴间隔
 };
