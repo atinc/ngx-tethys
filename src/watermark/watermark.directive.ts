@@ -13,7 +13,7 @@ type TheCanvasConfigType = typeof DEFAULT_CANVAS_CONFIG;
 })
 export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
     /**
-     * 是否禁用，默认为'false'
+     * 是否禁用，默认为 false
      */
     @Input()
     @InputBoolean()
@@ -21,7 +21,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     content: string;
     /**
-     * 水印内容，默认'worktile&pingcode'
+     * 水印内容
      */
     @Input()
     set thyWatermark(value: string) {
@@ -79,7 +79,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     private clearCanvas() {
         const parentNode = this.el.nativeElement;
-        const key = parentNode.key || parentNode.id;
+        const key = parentNode.id;
 
         const __wm = this.el.nativeElement.querySelector(`.${key}_vm`);
         if (__wm) {
@@ -90,25 +90,24 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     private createCanvas() {
         let { xSpace, ySpace, fontsize, color, rotate, textLineHeight, textAlign, textBaseline } = {
             ...DEFAULT_CANVAS_CONFIG,
-            ...DEFAULT_CANVAS_CONFIG.canvasStyles,
+            ...DEFAULT_CANVAS_CONFIG.styles,
             ...(this.thyCanvasConfig || {}),
-            ...(this.thyCanvasConfig?.canvasStyles || {})
+            ...(this.thyCanvasConfig?.styles || {})
         };
 
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
         const contentArr = this.content.split('\\n');
-        const maxLengthItem = contentArr.reduce((a, b) => ((a = b?.length > a?.length ? b : a), a), '');
-        ctx.font = fontsize + ' microsoft yahei'; // 非冗余，measureText所需
-        const canvasWidth = Math.ceil(ctx.measureText(maxLengthItem).width);
+        ctx.font = `${fontsize} microsoft yahei`;
 
+        const canvasWidth = Math.max(...contentArr.map(k => ctx.measureText(k).width));
         const canvasHeight = Math.sin(rotate) * canvasWidth;
+
         canvas.setAttribute('width', '' + (canvasWidth + xSpace));
         canvas.setAttribute('height', '' + (canvasHeight + ySpace + textLineHeight * (contentArr.length - 1)));
         this.canvas = canvas;
 
-        ctx.font = fontsize + ' microsoft yahei';
         ctx.textAlign = textAlign as CanvasTextAlign;
         ctx.textBaseline = textBaseline as CanvasTextBaseline;
         ctx.fillStyle = color;
@@ -122,7 +121,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         this.createWatermark();
     }
     private createWatermark() {
-        const key = this.el.nativeElement.key || this.el.nativeElement.id;
+        const key = this.el.nativeElement.id;
         const __wm = this.el.nativeElement.querySelector(`.${key}_vm`);
         const watermarkDiv = __wm || document.createElement('div');
 
@@ -149,7 +148,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             const stream = new Subject<MutationRecord[]>();
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
             const parentNode = this.el.nativeElement;
-            const key = parentNode.key || parentNode.id;
+            const key = parentNode.id;
             if (this.observer) {
                 const __wm = parentNode.querySelector(`.${key}_vm`);
 
@@ -159,7 +158,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             }
             stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 const parentNode = this.el.nativeElement;
-                const key = parentNode.key || parentNode.id;
+                const key = parentNode.id;
                 const __wm = parentNode.querySelector(`.${key}_vm`);
                 if (__wm) {
                     this?.observer?.disconnect();
