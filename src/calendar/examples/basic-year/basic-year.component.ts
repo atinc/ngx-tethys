@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-calendar-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-calendar-basic-year-example',
+    templateUrl: './basic-year.component.html'
 })
-export class ThyCalendarBasicExampleComponent implements OnInit {
+export class ThyCalendarBasicYearExampleComponent implements OnInit {
     date: Date;
 
     constructor() {}
