@@ -94,7 +94,7 @@ describe('image-directive', () => {
         expect((overlayContainerElement.querySelector('.thy-image-size') as HTMLElement).innerText).toBe('66kb');
     });
 
-    describe('preview clsoe', () => {
+    describe('preview close', () => {
         beforeEach(() => {
             basicTestComponent.src = 'assets/images/image/first.png';
             basicTestComponent.imageMeta = {
@@ -107,7 +107,7 @@ describe('image-directive', () => {
         it('should close image preview when click close icon', fakeAsync(() => {
             expect(overlayContainerElement).toBeTruthy();
             expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-            const iconElement = overlayContainerElement.querySelector('.thy-image-preview-close') as HTMLElement;
+            const iconElement = (overlayContainerElement.querySelector('.thy-icon-close') as HTMLElement).parentNode as HTMLElement;
             iconElement.click();
 
             fixture.detectChanges();

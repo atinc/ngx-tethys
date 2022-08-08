@@ -1,0 +1,146 @@
+name: Bug Report
+description: File a bug report
+title: 'TITLE'
+labels: ['bug']
+body:
+  - type: dropdown
+    id: name
+    attributes:
+      label: Component
+      options:
+        - cdk
+        - schematics
+        - variables
+        - core
+        - action
+        - shared
+        - types
+        - util
+        - styles
+        - action-menu
+        - alert
+        - arrow-switcher
+        - copy
+        - autocomplete
+        - avatar
+        - badge
+        - breadcrumb
+        - button
+        - card
+        - cascader
+        - checkbox
+        - date-picker
+        - date-range
+        - datepicker
+        - dialog
+        - directive
+        - drag-drop
+        - dropdown
+        - empty
+        - flexible-text
+        - form
+        - grid
+        - table
+        - icon
+        - input
+        - label
+        - tag
+        - layout
+        - link
+        - list
+        - loading
+        - markdown
+        - mention
+        - menu
+        - nav
+        - notify
+        - pagination
+        - popover
+        - progress
+        - property-operation
+        - radio
+        - result
+        - select
+        - skeleton
+        - slide
+        - slider
+        - statistic
+        - stepper
+        - store
+        - strength
+        - switch
+        - time-picker
+        - tooltip
+        - transfer
+        - tree
+        - tree-select
+        - upload
+        - vote
+        - anchor
+        - back-top
+        - timeline
+        - divider
+        - space
+        - calendar
+        - fullscreen
+        - guider
+        - resizable
+        - input-number
+        - collapse
+        - rate
+        - select-control
+        - image
+        - segment
+        - dot
+        - other
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: Provide version of software.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is expected
+    validations:
+      required: true
+  - type: textarea
+    id: happening
+    attributes:
+      label: What is actually happening
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Url
+      placeholder: provide a link to a minimal reproduction of the bug.
+    validations:
+      required: false
+  - type: dropdown
+    id: browsers
+    attributes:
+      label: Browsers
+      description: provide browser to a minimal reproduction of the bug?
+      options:
+        - Chrome
+        - Safari
+        - Microsoft Edge
+    validations:
+      required: false
+  - type: textarea
+    id: additionalComments
+    attributes:
+      label: Any additional comments
+    validations:
+      required: false

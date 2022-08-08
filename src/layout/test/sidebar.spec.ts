@@ -9,7 +9,7 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThySidebarHeaderComponent } from '../sidebar-header.component';
 import { ThySidebarContentComponent } from '../sidebar-content.component';
 import { ThySidebarFooterComponent } from '../sidebar-footer.component';
-import { ThyResizableDirective } from '../../resizable';
+import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -27,6 +27,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
                 (thyCollapsedChange)="collapsedChange($event)"
+                (thyDragWidthChange)="dragWidthChange($event)"
                 [thyTrigger]="triggerTpl"
             >
                 <thy-sidebar-header [thyDivided]="true" thyTitle="Title"> </thy-sidebar-header>
@@ -54,6 +55,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     collapsibleWidth = 0;
     thyTheme: ThySidebarTheme;
     isCollapsed = false;
+    dragWidth: number;
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
@@ -61,6 +63,10 @@ class ThyDemoLayoutSidebarBasicComponent {
 
     collapsedChange(isCollapsed: boolean) {
         this.isCollapsed = isCollapsed;
+    }
+
+    dragWidthChange(width: number) {
+        this.dragWidth = width;
     }
 }
 
@@ -181,16 +187,39 @@ describe(`sidebar`, () => {
             expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
         });
 
-        it('thyDraggable', fakeAsync(() => {
-            fixture.debugElement.componentInstance.draggable = true;
-            fixture.detectChanges();
-            tick();
-            const dragElement = fixture.debugElement.query(By.css('.sidebar-resize-handle')).nativeElement;
-            dispatchMouseEvent(dragElement, 'mousedown');
-            dispatchMouseEvent(dragElement, 'mousemove', dragElement.left + 20, dragElement.height);
-            dispatchMouseEvent(dragElement, 'mouseup');
-            fixture.detectChanges();
-        }));
+        describe('thyDraggable', () => {
+            it('should drag width', fakeAsync(() => {
+                fixture.debugElement.componentInstance.draggable = true;
+                fixture.detectChanges();
+                tick();
+                const dragElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-drag')).nativeElement;
+                const resizeHandleElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-resize-handle')).nativeElement;
+                expect(dragElement).toBeTruthy();
+                expect(resizeHandleElement).toBeTruthy();
+                dispatchMouseEvent(resizeHandleElement, 'mouseenter');
+                dispatchMouseEvent(resizeHandleElement, 'mousedown');
+                const dragElementRect = resizeHandleElement.getBoundingClientRect();
+                dispatchMouseEvent(resizeHandleElement, 'mousemove', dragElementRect.left + 50, dragElementRect.top);
+                dispatchMouseEvent(resizeHandleElement, 'mouseleave');
+                // expect(fixture.debugElement.componentInstance.dragWidth > dragElementRect.left).toEqual(true);
+            }));
+
+            it('should collapse sidebar when drag width equal thyCollapsedWidth', fakeAsync(() => {
+                fixture.debugElement.componentInstance.draggable = true;
+                fixture.detectChanges();
+                tick();
+                const sidebarComponent = sidebarDebugElement.componentInstance as ThySidebarComponent;
+                sidebarComponent.collapseVisible = true;
+                sidebarComponent.thyCollapsedWidth = 20;
+                sidebarComponent.thyCollapsible = true;
+                expect(sidebarComponent.isCollapsed).toEqual(false);
+                sidebarComponent.resizeHandler(({ width: sidebarComponent.thyCollapsedWidth } as unknown) as ThyResizeEvent);
+                expect(sidebarComponent.collapseVisible).toEqual(false);
+                expect(sidebarComponent.isCollapsed).toEqual(true);
+                tick(200);
+                expect(sidebarComponent.collapseTip).toEqual('展开');
+            }));
+        });
 
         it('should enable thyCollapsible', fakeAsync(() => {
             fixture.debugElement.componentInstance.collapsible = true;

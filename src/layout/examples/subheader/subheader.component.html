@@ -1,78 +1,76 @@
-<div class="demo-layout-backdrop d-flex-column-fill">
+<thy-layout>
+  <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill"> </thy-header>
   <thy-layout>
-    <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill"> </thy-header>
-    <thy-layout>
-      <thy-header thyDivided="true" thySize="sm">
-        <ng-template #headerTitle> </ng-template>
-        <ng-template #headerContent>
-          <thy-nav thyType="pulled" thyHorizontal="left">
-            <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
-            <a href="javascript:;" thyNavItem>Link2</a>
-            <a href="javascript:;" thyNavItem>Link3</a>
-          </thy-nav>
-        </ng-template>
-        <ng-template #headerOperation>
-          <thy-nav thyHorizontal="right">
-            <a thyNavItem href="javascript:;">
-              <thy-icon [thyIconName]="'edit'"></thy-icon>
-              Edit
-            </a>
-            <a thyNavItem href="javascript:;">
-              <thy-icon thyIconName="list"></thy-icon>
-            </a>
-          </thy-nav>
-        </ng-template>
-      </thy-header>
-      <thy-content>Content</thy-content>
-    </thy-layout>
-  </thy-layout>
-
-  <thy-layout>
-    <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill">
+    <thy-header thyDivided="true" thySize="sm">
+      <ng-template #headerTitle> </ng-template>
       <ng-template #headerContent>
-        <thy-nav thyType="pulled" thySize="lg" thyHorizontal="center">
+        <thy-nav thyType="pulled" thyHorizontal="left" thySize="sm">
           <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
           <a href="javascript:;" thyNavItem>Link2</a>
           <a href="javascript:;" thyNavItem>Link3</a>
         </thy-nav>
       </ng-template>
       <ng-template #headerOperation>
-        <thy-nav thyType="pulled" thySize="lg" thyHorizontal="right">
+        <thy-nav thyHorizontal="right">
           <a thyNavItem href="javascript:;">
-            <thy-icon thyIconName="settings"></thy-icon>
+            <thy-icon [thyIconName]="'edit'"></thy-icon>
+            Edit
+          </a>
+          <a thyNavItem href="javascript:;">
+            <thy-icon thyIconName="list"></thy-icon>
           </a>
         </thy-nav>
       </ng-template>
     </thy-header>
-    <thy-layout>
-      <thy-header thyDivided="true" thySize="sm">
-        <ng-template #headerTitle> </ng-template>
-        <ng-template #headerContent>
-          <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
-            <thy-breadcrumb-item>
-              <a href="javascript:;">Home</a>
-            </thy-breadcrumb-item>
-            <thy-breadcrumb-item>
-              <a href="javascript:;">Item1</a>
-            </thy-breadcrumb-item>
-            <thy-breadcrumb-item>
-              <a href="javascript:;">Item2</a>
-            </thy-breadcrumb-item>
-          </thy-breadcrumb>
-        </ng-template>
-        <ng-template #headerOperation>
-          <thy-nav thyType="thirdly" thyHorizontal="right">
-            <a thyNavItem href="javascript:;">
-              <thy-icon [thyIconName]="'edit'"></thy-icon>
-              Edit
-            </a>
-            <a thyNavItem href="javascript:;">
-              <thy-icon thyIconName="list"></thy-icon>
-            </a>
-          </thy-nav>
-        </ng-template>
-      </thy-header>
-      <thy-content>Content</thy-content>
-    </thy-layout>
+    <thy-content>Content</thy-content>
   </thy-layout>
-</div>
+</thy-layout>
+
+<thy-layout>
+  <thy-header thySize="lg" thyTitle="Header" thyDivided="true" thyIcon="house-square-fill">
+    <ng-template #headerContent>
+      <thy-nav thyType="pulled" thySize="lg" thyHorizontal="center">
+        <a href="javascript:;" thyNavItem thyNavItemActive="true">Link1</a>
+        <a href="javascript:;" thyNavItem>Link2</a>
+        <a href="javascript:;" thyNavItem>Link3</a>
+      </thy-nav>
+    </ng-template>
+    <ng-template #headerOperation>
+      <thy-nav thyType="pulled" thySize="lg" thyHorizontal="right">
+        <a thyNavItem href="javascript:;">
+          <thy-icon thyIconName="settings"></thy-icon>
+        </a>
+      </thy-nav>
+    </ng-template>
+  </thy-header>
+  <thy-layout>
+    <thy-header thyDivided="true" thySize="sm">
+      <ng-template #headerTitle> </ng-template>
+      <ng-template #headerContent>
+        <thy-breadcrumb thySeparator="slash" thyIcon="house" class="text-truncate" style="margin-right:30px;">
+          <thy-breadcrumb-item>
+            <a href="javascript:;">Home</a>
+          </thy-breadcrumb-item>
+          <thy-breadcrumb-item>
+            <a href="javascript:;">Item1</a>
+          </thy-breadcrumb-item>
+          <thy-breadcrumb-item>
+            <a href="javascript:;">Item2</a>
+          </thy-breadcrumb-item>
+        </thy-breadcrumb>
+      </ng-template>
+      <ng-template #headerOperation>
+        <thy-nav thyType="thirdly" thyHorizontal="right">
+          <a thyNavItem href="javascript:;">
+            <thy-icon [thyIconName]="'edit'"></thy-icon>
+            Edit
+          </a>
+          <a thyNavItem href="javascript:;">
+            <thy-icon thyIconName="list"></thy-icon>
+          </a>
+        </thy-nav>
+      </ng-template>
+    </thy-header>
+    <thy-content>Content</thy-content>
+  </thy-layout>
+</thy-layout>

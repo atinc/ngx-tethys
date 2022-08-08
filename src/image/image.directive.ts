@@ -1,16 +1,14 @@
 import {
     Directive,
     ElementRef,
-    Host,
     InjectFlags,
     Input,
     OnChanges,
     OnInit,
-    Optional,
-    Self,
     SimpleChanges,
-    SkipSelf,
-    Injector
+    Injector,
+    OnDestroy,
+    AfterViewInit
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyImageGroupComponent } from './image-group.component';
@@ -28,7 +26,7 @@ import { ThyImageService } from './image.service';
         class: 'thy-image'
     }
 })
-export class ThyImageDirective implements OnInit, OnChanges {
+export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**
      * 图片地址
      */
@@ -51,6 +49,12 @@ export class ThyImageDirective implements OnInit, OnChanges {
      */
     @Input() @InputBoolean() thyDisablePreview: boolean;
 
+    /**
+     * 是否自动计算图片资源大小
+     * @default false
+     */
+    @Input() @InputBoolean() thyResolveSize = false;
+
     get previewable(): boolean {
         return !this.thyDisablePreview;
     }
@@ -60,10 +64,16 @@ export class ThyImageDirective implements OnInit, OnChanges {
     constructor(private thyImageService: ThyImageService, private injector: Injector, private elementRef: ElementRef) {}
 
     ngOnInit(): void {
-        this.addParentGroupImage();
+        this.getParentGroup();
     }
 
-    addParentGroupImage() {
+    ngAfterViewInit(): void {
+        if (this.parentGroup) {
+            this.addParentImage();
+        }
+    }
+
+    getParentGroup() {
         while (true) {
             // 多层 thy-image-group 嵌套时，获取最外层 thy-image-group 下的所有图片
             const injector = this.parentGroup?.injector || this.injector;
@@ -73,9 +83,19 @@ export class ThyImageDirective implements OnInit, OnChanges {
             }
             this.parentGroup = parentGroup;
         }
-        if (this.parentGroup) {
-            this.parentGroup.addImage(this);
-        }
+    }
+
+    addParentImage() {
+        setTimeout(() => {
+            const parentElement: HTMLElement = this.parentGroup.element.nativeElement;
+            const images = parentElement.querySelectorAll('img[thyImage]');
+            const index = Array.prototype.indexOf.call(images, this.elementRef.nativeElement);
+            if (index >= 0) {
+                this.parentGroup.addImage(this, index);
+            } else {
+                this.parentGroup.addImage(this, this.parentGroup.images.length);
+            }
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -100,7 +120,8 @@ export class ThyImageDirective implements OnInit, OnChanges {
             }));
             const startIndex = previewAbleImages.findIndex(el => this === el);
             this.thyImageService.preview(previewImages, {
-                startIndex
+                startIndex,
+                resolveSize: this.thyResolveSize
             });
         } else {
             const previewImages = [
@@ -112,7 +133,14 @@ export class ThyImageDirective implements OnInit, OnChanges {
                     }
                 }
             ];
-            this.thyImageService.preview(previewImages);
+            this.thyImageService.preview(previewImages, { resolveSize: this.thyResolveSize });
+        }
+    }
+
+    ngOnDestroy(): void {
+        if (this.parentGroup) {
+            const index = this.parentGroup.images.findIndex(item => item === this);
+            this.parentGroup.removeImage(index);
         }
     }
 }

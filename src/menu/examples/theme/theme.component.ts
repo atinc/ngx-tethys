@@ -1,4 +1,5 @@
-import { Component, HostBinding, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef } from '@angular/core';
+import { ThyPopover } from 'ngx-tethys/popover';
 
 @Component({
     selector: 'thy-menu-theme-example',
@@ -8,9 +9,18 @@ import { Component, HostBinding, OnInit } from '@angular/core';
 export class ThyMenuThemeExampleComponent implements OnInit {
     theme: string = 'loose';
 
-    constructor() {}
+    constructor(private popover: ThyPopover) {}
 
     coll: boolean;
 
     ngOnInit(): void {}
+
+    openActionMenu(event: Event, menuTpl: TemplateRef<any>) {
+        this.popover.open(menuTpl, {
+            origin: event.currentTarget as HTMLElement,
+            placement: 'bottomLeft',
+            insideClosable: true,
+            originActiveClass: 'active'
+        });
+    }
 }

@@ -6,7 +6,6 @@ import {
     ContentChildren,
     Directive,
     ElementRef,
-    HostBinding,
     Input,
     NgZone,
     OnDestroy,
@@ -20,6 +19,10 @@ export type ThyNavLink = '' | 'active';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * 导航项
+ * @name thyNavItem
+ */
 @Directive({
     selector: '[thyNavLink],[thyNavItem]',
     host: {
@@ -30,22 +33,38 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 })
 export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**
+     * 是否激活状态
+     * @default false
+     */
+    @Input()
+    @InputBoolean()
+    thyNavItemActive: boolean;
+
+    /**
+     * 已经废弃，请使用 thyNavItemActive
      * @deprecated please use thyNavItemActive
+     * @default false
      */
     @Input()
     @InputBoolean()
     thyNavLinkActive: boolean;
 
-    @Input()
-    @InputBoolean()
-    thyNavItemActive: boolean;
-
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input()
     @InputBoolean()
     thyNavItemDisabled: boolean;
 
+    /**
+     * @private
+     */
     @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
+    /**
+     * @private
+     */
     @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
 
     // @HostBinding('attr.href') navLinkHref = 'javascript:;';
@@ -96,9 +115,11 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
 
     linkIsActive() {
         return (
+            this.thyNavItemActive ||
             this.thyNavLinkActive ||
             (this.routerLinkActive && this.routerLinkActive.isActive) ||
             this.routers.some(router => router.isActive) ||
+            this.links.some(item => item.thyNavItemActive) ||
             this.links.some(item => item.thyNavLinkActive)
         );
     }

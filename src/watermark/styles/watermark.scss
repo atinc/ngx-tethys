@@ -1,0 +1,10 @@
+@use "../../styles/variables";
+@use "../examples/basic/basic.component.scss";
+.content-wrap {
+    display: inline-block;
+    border: 1px solid #ccc;
+    font-size: 12px;
+    word-wrap: break-word;
+    font-family: inherit;
+    white-space: pre-line;
+}

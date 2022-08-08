@@ -2,6 +2,7 @@
 @use "../../styles/mixins/link.scss";
 @use "./mixin";
 @use "sass:map";
+@use "sass:list";
 
 .#{variables.$thy-prefix}-tag {
     font-weight: normal;
@@ -30,7 +31,15 @@
 
     /**** size ****/
     @each $size, $height in variables.$tag-size-heights {
-        @include mixin.tag-size($size, $height, map.get(variables.$tag-size-paddings, $size));
+        &-#{$size} {
+            $font-sizes: map.get(variables.$tag-size-font-sizes, $size);
+            @include mixin.tag-size(
+                $height,
+                map.get(variables.$tag-size-paddings, $size),
+                list.nth($font-sizes, 1),
+                list.nth($font-sizes, 2)
+            );
+        }
     }
 
     /**** colors ****/

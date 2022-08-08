@@ -14,7 +14,7 @@ import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { fromEvent, Observable, of } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
-import { getClientSize, getFitContentPosition, getOffset, isUndefinedOrNull } from 'ngx-tethys/util';
+import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyCopyEvent } from 'ngx-tethys/copy';
 import { ThyNotifyService } from 'ngx-tethys/notify';
@@ -133,7 +133,14 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     private rotate: number;
 
     get previewImage(): InternalImageInfo {
-        return this.images[this.previewIndex];
+        const image = this.images[this.previewIndex];
+        if (image.size) {
+            return {
+                ...image,
+                size: isNumber(image.size) ? humanizeBytes(image.size) : image.size
+            };
+        }
+        return image;
     }
 
     get previewImageOriginSrc() {
@@ -252,7 +259,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             }
             // image size
             if (!this.previewImage.size && this.previewImage.blob) {
-                this.previewImage.size = Math.floor((this.previewImage.blob.size / 1024) * 100) / 100 + ' KB';
+                this.previewImage.size = humanizeBytes(this.previewImage.blob.size);
             }
             if (this.defaultZoom) {
                 this.useDefaultZoomUpdate(true);
@@ -270,14 +277,14 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 subscriber.complete();
                 return;
             }
-            if (this.previewImage.objectURL) {
+            if (this.previewImage.objectURL || !this.previewConfig.resolveSize) {
                 subscriber.next(true);
                 subscriber.complete();
             } else {
                 fetchImageBlob(this.previewImage.src).subscribe(
                     blob => {
-                        var urlCreator = window.URL || window.webkitURL;
-                        var objectURL = urlCreator.createObjectURL(blob);
+                        const urlCreator = window.URL || window.webkitURL;
+                        const objectURL = urlCreator.createObjectURL(blob);
                         this.previewImage.objectURL = this.sanitizer.bypassSecurityTrustUrl(objectURL);
                         this.previewImage.blob = blob;
                         subscriber.next(true);
@@ -326,7 +333,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             let event = new MouseEvent('click');
             a.dispatchEvent(event);
         };
-        img.src = (image.origin?.src || image.src) + '?v=' + Date.now();
+        img.src = image.origin?.src || image.src;
     }
 
     zoomIn(): void {

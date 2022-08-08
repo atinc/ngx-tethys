@@ -280,4 +280,25 @@ describe('abstract-overlay', () => {
             expect(paneElement.classList.contains('two-class')).toBeTruthy();
         });
     });
+
+    describe('hostClass', () => {
+        it('should have not class when hostClass is null', () => {
+            dialog.open(TestDialogBasicContentComponent);
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            expect(basicContentComponent.classList.length).toEqual(0);
+        });
+
+        it('should get custom host class "test-dialog-content"', () => {
+            dialog.open(TestDialogBasicContentComponent, { hostClass: 'test-dialog-content' });
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            expect(basicContentComponent.classList.contains('test-dialog-content')).toBeTruthy();
+        });
+
+        it('should get custom host classes ["test-dialog-content", "another-test-dialog-content"]', () => {
+            dialog.open(TestDialogBasicContentComponent, { hostClass: ['test-dialog-content', 'another-test-dialog-content'] });
+            const basicContentComponent = overlayContainerElement.querySelector('test-dialog-basic');
+            expect(basicContentComponent.classList.contains('test-dialog-content')).toBeTruthy();
+            expect(basicContentComponent.classList.contains('another-test-dialog-content')).toBeTruthy();
+        });
+    });
 });

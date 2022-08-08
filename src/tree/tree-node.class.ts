@@ -56,6 +56,9 @@ export class ThyTreeNode<T = any> {
             });
         }
         this.service = service;
+        if (node.children && node.children.length && service) {
+            this.isChecked = service.checkStateResolve(this);
+        }
     }
 
     public setKey(key: string) {

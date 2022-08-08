@@ -1,5 +1,5 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
 import { helpers } from 'ngx-tethys/util';
@@ -96,7 +96,7 @@ describe('drag-drop basic directive', () => {
         expect(childrenItems.length).toBe(totalChildrenCount);
     });
 
-    it('should emit drag event when drag', () => {
+    it('should emit drag event when drag', fakeAsync(() => {
         fixture.detectChanges();
 
         const item = debugElement.query(By.css('.drag-first')).nativeElement;
@@ -107,12 +107,17 @@ describe('drag-drop basic directive', () => {
         fixture.detectChanges();
         expect(fixture.componentInstance.beforeStartSpy).toHaveBeenCalled();
         expect(fixture.componentInstance.dragStartSpy).toHaveBeenCalled();
+        const lastDrag = fixture.componentInstance.drags.last;
 
+        expect(lastDrag.dragRef['dragDropService'].previousDrag).not.toBeUndefined();
+        expect(lastDrag.dragRef['dragDropService'].classMap.size).toBe(0);
         const dragoverEvent = createDragEvent('dragover');
         item.dispatchEvent(dragoverEvent);
         fixture.detectChanges();
+        tick(100);
         expect(fixture.componentInstance.beforeOverSpy).toHaveBeenCalled();
         expect(fixture.componentInstance.dragOverSpy).toHaveBeenCalled();
+        expect(lastDrag.dragRef['dragDropService'].classMap.size).toBe(1);
 
         fixture.detectChanges();
         const dragenterItem = testComponent.drags.first;
@@ -142,6 +147,7 @@ describe('drag-drop basic directive', () => {
         fixture.detectChanges();
         expect(fixture.componentInstance.beforeDropSpy).toHaveBeenCalled();
         expect(fixture.componentInstance.dragEndSpy).toHaveBeenCalled();
+        expect(lastDrag.dragRef['dragDropService'].previousDrag).toBeUndefined();
 
         fixture.detectChanges();
         const drag = testComponent.drags.first;
@@ -154,9 +160,11 @@ describe('drag-drop basic directive', () => {
         const dragleaveEvent = createDragEvent('dragleave');
         item.dispatchEvent(dragleaveEvent);
         fixture.detectChanges();
+        flush();
 
         expect(spy).toHaveBeenCalled();
-    });
+        expect(lastDrag.dragRef['dragDropService'].classMap.size).toBe(0);
+    }));
 
     it('should get right disabled value when set thyDragDisabled for thyDrag item', () => {
         fixture.detectChanges();
@@ -242,7 +250,6 @@ describe('with handle', () => {
         const item = fixture.debugElement.query(By.css('.drag-handle-4')).nativeElement;
         dispatchFakeEvent(item, 'mouseover', true);
         const target = testComponent.drags.last.dragRef['target'];
-        console.log(testComponent.drags.last);
         expect(target).toEqual(item);
         const dragstartEvent = createDragEvent('dragstart');
 

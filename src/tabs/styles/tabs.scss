@@ -1,0 +1,19 @@
+.thy-tabs {
+    display: block;
+    .thy-tabs-nav {
+    }
+    .thy-tabs-content {
+        padding: 12px 0px;
+    }
+
+    &-left {
+        display: flex;
+        .thy-tabs-nav {
+            border-bottom: unset;
+        }
+        .thy-tabs-content {
+            flex: auto;
+            padding: 0px 12px;
+        }
+    }
+}

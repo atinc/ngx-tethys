@@ -1,29 +1,17 @@
 import { Directive } from '@angular/core';
 
+/**
+ * 自定义日期单元格，模版内容会被追加到单元格，可通过 *thyDateCell 传入模板
+ */
 @Directive({
     selector: '[thyDateCell]',
     exportAs: 'thyDateCell'
 })
 export class ThyDateCellDirective {}
 
-@Directive({
-    selector: '[thyMonthCell]',
-    exportAs: 'thyMonthCell'
-})
-export class ThyMonthCellDirective {}
-
-@Directive({
-    selector: '[thyDateFullCell]',
-    exportAs: 'thyDateFullCell'
-})
-export class ThyDateFullCellDirective {}
-
-@Directive({
-    selector: '[thyMonthFullCell]',
-    exportAs: 'thyMonthFullCell'
-})
-export class ThyMonthFullCellDirective {}
-
+/**
+ * 自定义右上角操作项，可通过 *thyCalendarHeaderOperation传入模板
+ */
 @Directive({
     selector: '[thyCalendarHeaderOperation]',
     exportAs: 'thyCalendarHeaderOperation'

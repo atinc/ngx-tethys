@@ -92,7 +92,11 @@ module.exports = {
                 'select-control',
                 'image',
                 'segment',
-                'dot'
+                'dot',
+                'affix',
+                'tabs',
+                'watermark',
+                'property'
             ]
         ]
     }

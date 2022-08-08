@@ -75,7 +75,7 @@
                     }
                 }
 
-                .thy-menu-group-operaton {
+                .thy-menu-group-operation {
                     visibility: visible;
                 }
             }
@@ -100,7 +100,7 @@
                 text-overflow: ellipsis;
             }
 
-            .thy-menu-group-operaton {
+            .thy-menu-group-operation {
                 visibility: hidden;
                 color: variables.$gray-600;
             }
@@ -143,7 +143,8 @@
         &:hover {
             background: variables.$gray-100;
             .thy-menu-item-action {
-                visibility: visible;
+                display: inline-block;
+                margin-left: 4px;
             }
         }
 
@@ -165,10 +166,15 @@
         }
 
         .thy-menu-item-action {
-            visibility: hidden;
+            display: none;
             color: variables.$gray-600;
             .thy-action:last-child {
                 margin-right: -8px;
+            }
+
+            &.active {
+                display: inline-block !important;
+                margin-left: 4px;
             }
         }
     }

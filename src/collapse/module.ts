@@ -6,12 +6,12 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { ThyCollapsePanelComponent } from './collapse-panel.component';
+import { ThyCollapseItemComponent } from './collapse-item.component';
 import { ThyCollapseComponent } from './collapse.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyIconModule],
-    declarations: [ThyCollapseComponent, ThyCollapsePanelComponent],
-    exports: [ThyCollapseComponent, ThyCollapsePanelComponent]
+    declarations: [ThyCollapseComponent, ThyCollapseItemComponent],
+    exports: [ThyCollapseComponent, ThyCollapseItemComponent]
 })
 export class ThyCollapseModule {}

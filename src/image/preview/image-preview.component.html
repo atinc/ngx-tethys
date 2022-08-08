@@ -1,23 +1,23 @@
 <div class="thy-image-preview" [class.thy-image-preview-fullscreen]="isFullScreen">
-  <div class="thy-image-preview-header" *ngIf="!isFullScreen">
+  <div class="thy-image-preview-header pl-10 pr-8" *ngIf="!isFullScreen">
     <div class="thy-image-preview-header-info">
       <p class="thy-image-name text-truncate" [thyTooltipDisabled]="previewImage?.name?.length < 32" [thyTooltip]="previewImage?.name">
         {{ previewImage?.name }}
       </p>
       <span class="thy-image-size"> {{ previewImage?.size }}</span>
     </div>
-    <div class="thy-image-preview-operation-icon thy-image-preview-close" (click)="thyDialog.close()" thyTooltip="退出预览">
-      <thy-icon thyIconName="close"></thy-icon>
-    </div>
+    <a thyAction thyIcon="close" thyTooltip="退出预览" href="javascript:;" (click)="thyDialog.close()"></a>
   </div>
-  <div
-    class="thy-image-preview-operation-icon thy-image-preview-exit-fullscreen"
+  <a
+    class="thy-image-preview-exit-fullscreen"
     *ngIf="isFullScreen"
+    thyAction
+    thyIcon="close"
+    thyTooltip="退出预览"
+    href="javascript:;"
     (click)="thyFullscreen.exit()"
     thyTooltip="退出全屏"
-  >
-    <thy-icon thyIconName="close"></thy-icon>
-  </div>
+  ></a>
   <div
     class="thy-image-preview-img-wrapper"
     #imagePreviewWrapper
@@ -32,7 +32,7 @@
         #imgRef
         *ngIf="previewIndex === imageIndex && isLoadingDone"
         class="thy-image-preview-img"
-        [src]="image.objectURL"
+        [src]="image.objectURL || image.src"
         [style.transform]="previewImageTransform"
       />
     </ng-container>
@@ -59,38 +59,32 @@
       <thy-icon thyIconName="angle-right-bold"> </thy-icon>
     </div>
   </ng-container>
-
-  <ul class="thy-image-preview-operations" *ngIf="!isFullScreen">
+  <thy-actions thySize="xs" class="thy-image-preview-operations py-3 px-4" *ngIf="!isFullScreen">
     <ng-container *ngFor="let option of previewOperations; let i = index">
-      <li
-        class="thy-image-preview-operation"
+      <a
         *ngIf="!['original-scale', 'fit-screen', 'copyLink'].includes(option.type) || currentImageMode === option.type"
-      >
-        <div
-          class="thy-image-preview-operation-icon"
-          [thyTooltip]="option.name"
-          [thyTooltipOffset]="13"
-          (click)="option.action(previewImage)"
-        >
-          <thy-icon [thyIconName]="option.icon"></thy-icon>
-        </div>
-        <span class="thy-image-preview-operation-zoom" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
-        <thy-divider class="thy-image-preview-operation-divider" [thyVertical]="true" *ngIf="option?.type === 'rotate-right'"></thy-divider>
-      </li>
-      <li class="thy-image-preview-operation" *ngIf="option.type === 'copyLink'">
-        <div
-          class="thy-image-preview-operation-icon"
-          [thyCopyTips]="option.name"
-          [thyCopyTipsOffset]="13"
-          (thyCopy)="copyLink($event)"
-          [thyShowNotify]="false"
-          [thyCopyContent]="previewImageOriginSrc"
-        >
-          <thy-icon [thyIconName]="option.icon"></thy-icon>
-        </div>
-      </li>
+        href="javascript:;"
+        thyAction
+        [thyActionIcon]="option.icon"
+        [thyTooltip]="option.name"
+        [thyTooltipOffset]="13"
+        (click)="option.action(previewImage)"
+      ></a>
+      <span class="mr-2" *ngIf="option?.type === 'zoom-out'"> {{ (zoom * 100).toFixed(0) + '%' }} </span>
+      <thy-divider class="ml-2" [thyVertical]="true" *ngIf="option?.type === 'rotate-right'"></thy-divider>
+      <a
+        *ngIf="option.type === 'copyLink'"
+        href="javascript:;"
+        thyAction
+        [thyCopyTips]="option.name"
+        [thyActionIcon]="option.icon"
+        [thyCopyTipsOffset]="13"
+        (thyCopy)="copyLink($event)"
+        [thyCopyContent]="previewImageOriginSrc"
+        [thyShowNotify]="false"
+      ></a>
     </ng-container>
     <thy-divider [thyVertical]="true"></thy-divider>
-    <span class="thy-image-preview-operation"> {{ previewIndex + 1 }} / {{ images.length }} </span>
-  </ul>
+    <span class="thy-image-preview-operations-text"> {{ previewIndex + 1 }} / {{ images.length }} </span>
+  </thy-actions>
 </div>

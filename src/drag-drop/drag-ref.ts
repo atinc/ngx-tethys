@@ -1,13 +1,13 @@
-import { NgZone, ElementRef } from '@angular/core';
+import { NgZone, ElementRef, Renderer2 } from '@angular/core';
 import { coerceElement } from '@angular/cdk/coercion';
 import { Subject, fromEvent } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { auditTime, takeUntil } from 'rxjs/operators';
 import { ThyDragHandleDirective } from './drag-handle.directive';
 import { ThyDragDropService } from './drag-drop.service';
 import { ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent, ThyDragDropEvent, ThyDropPosition } from './drag-drop.class';
 import { ThyDragDirective } from './drag.directive';
 import { IThyDropContainerDirective } from './drop-container.class';
-import { coerceArray, isEmpty } from 'ngx-tethys/util';
+import { coerceArray, isEmpty, isString } from 'ngx-tethys/util';
 
 const dropPositionClass = {
     [ThyDropPosition.in]: 'thy-drop-position-in',
@@ -47,15 +47,27 @@ export class DragRef<T = any> {
         this._disabled = value;
     }
 
+    private addPositionClass$ = new Subject<{ element: HTMLElement; class: string }>();
+
     constructor(
         element: ElementRef<HTMLElement> | HTMLElement,
         private drag: ThyDragDirective,
         private container: IThyDropContainerDirective<T>,
         private dragDropService: ThyDragDropService<T>,
         private document: any,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private renderer: Renderer2
     ) {
         this.withRootElement(element);
+        this.subAddPositionClass();
+    }
+
+    subAddPositionClass() {
+        this.addPositionClass$.pipe(auditTime(30), takeUntil(this.ngUnsubscribe$)).subscribe(data => {
+            this.removeExistClassByMap(this.dragDropService.classMap);
+            this.dragDropService.classMap.set(data.element, data.class);
+            this.renderer.addClass(data.element, data.class);
+        });
     }
 
     withRootElement(rootElement: ElementRef<HTMLElement> | HTMLElement): this {
@@ -177,10 +189,7 @@ export class DragRef<T = any> {
 
     private dragOverHandler(position: ThyDropPosition) {
         const element = this.contentElement || this.rootElement;
-        if (this.dragDropService.dropPosition !== position) {
-            this.clearDragPositionClass();
-        }
-        element.classList.add(dropPositionClass[position]);
+        this.addPositionClass$.next({ element, class: dropPositionClass[position] });
         this.dragDropService.dropPosition = position;
     }
 
@@ -209,6 +218,7 @@ export class DragRef<T = any> {
     }
 
     private dragEnd(event: DragEvent) {
+        this.clearDragPositionClass();
         this.ngZone.run(() => {
             this.ended.next({
                 event: event,
@@ -225,13 +235,20 @@ export class DragRef<T = any> {
         this.leaved.next(event);
     }
 
-    private clearDragPositionClass(): void {
-        const element = this.contentElement || this.rootElement;
-        for (const key in dropPositionClass) {
-            if (dropPositionClass[key]) {
-                element.classList.remove(dropPositionClass[key]);
+    private clearDragPositionClass() {
+        setTimeout(() => {
+            const classMap = this.dragDropService.classMap;
+            this.removeExistClassByMap(classMap);
+            classMap.clear();
+        }, 30);
+    }
+
+    private removeExistClassByMap(classMap: Map<Element, string>) {
+        classMap.forEach((value, key) => {
+            if (isString(value) && key) {
+                this.renderer.removeClass(key, value);
             }
-        }
+        });
     }
 
     private calcDropPosition(event: DragEvent): ThyDropPosition {

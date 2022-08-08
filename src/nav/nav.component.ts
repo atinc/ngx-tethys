@@ -1,9 +1,8 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { merge } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { merge, Observable, of } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
-import { ViewportRuler } from '@angular/cdk/overlay';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -20,20 +19,22 @@ import {
     OnDestroy,
     OnInit,
     QueryList,
-    TemplateRef
+    TemplateRef,
+    ViewChild
 } from '@angular/core';
 
 import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-export type ThyNavType = 'pulled' | 'tabs' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
+export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
-export type ThyNavHorizontal = '' | 'left' | 'center' | 'right';
+export type ThyNavHorizontal = '' | 'start' | 'center' | 'end';
 
 const navTypeClassesMap = {
     pulled: ['thy-nav-pulled'],
     tabs: ['thy-nav-tabs'],
+    pills: ['thy-nav-pills'],
     lite: ['thy-nav-lite'],
     //如下类型已经废弃
     primary: ['thy-nav-primary'],
@@ -48,12 +49,12 @@ const navSizeClassesMap = {
     sm: 'thy-nav-sm'
 };
 
-const navHorizontalClassesMap = {
-    left: '',
-    center: 'justify-content-center',
-    right: 'justify-content-end'
-};
+const tabItemRight = 20;
 
+/**
+ * 导航组件
+ * @name thy-nav
+ */
 @Component({
     selector: 'thy-nav',
     templateUrl: './nav.component.html',
@@ -64,11 +65,11 @@ const navHorizontalClassesMap = {
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
-    private _type: ThyNavType = 'pulled';
-    private _size: ThyNavSize;
-    private _horizontal: ThyNavHorizontal;
-    private _initialized = false;
+    private type: ThyNavType = 'pulled';
+    private size: ThyNavSize = 'md';
+    private initialized = false;
 
+    public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
         height: 0,
         width: 0,
@@ -80,60 +81,108 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     public moreActive: boolean;
 
-    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+    public showMore = true;
 
-    @ContentChild('more') moreOperation: TemplateRef<unknown>;
+    private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
 
-    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
-
+    /**
+     * 导航类型
+     * @default pulled
+     */
     @Input()
     set thyType(type: ThyNavType) {
-        this._type = type || 'primary';
-        if (this._initialized) {
-            this._updateClasses();
+        this.type = type || 'pulled';
+        if (this.initialized) {
+            this.updateClasses();
         }
     }
-
+    /**
+     * 导航大小
+     * @type "lg" | "md" | "sm"
+     * @default md
+     */
     @Input()
     set thySize(size: ThyNavSize) {
-        this._size = size;
-        if (this._initialized) {
-            this._updateClasses();
+        this.size = size;
+        if (this.initialized) {
+            this.updateClasses();
         }
     }
 
+    /**
+     * 水平排列
+     * @type "start" | "center" | "end"
+     * @default false
+     */
     @Input()
     set thyHorizontal(horizontal: ThyNavHorizontal) {
-        this._horizontal = horizontal;
-        if (this._initialized) {
-            this._updateClasses();
-        }
+        this.horizontal = (horizontal as string) === 'right' ? 'end' : horizontal;
     }
 
+    /**
+     * 是否垂直排列
+     * @default false
+     */
     @HostBinding('class.thy-nav--vertical')
     @Input()
     @InputBoolean()
     thyVertical: boolean;
 
+    /**
+     * 填充模式
+     * @default false
+     */
     @HostBinding('class.thy-nav--fill')
     @Input()
     @InputBoolean()
-    thyFill: boolean;
+    thyFill: boolean = false;
 
+    /**
+     * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
+     */
     @Input()
     @InputBoolean()
     thyResponsive: boolean;
 
-    private _updateClasses() {
+    /**
+     * 右侧额外区域模板
+     * @type TemplateRef
+     */
+    @Input() thyExtra: TemplateRef<unknown>;
+
+    /**
+     * @private
+     */
+    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+
+    /**
+     * 响应式模式下更多操作模板
+     * @type TemplateRef
+     */
+    @ContentChild('more') moreOperation: TemplateRef<unknown>;
+
+    /**
+     * 响应式模式下更多弹框模板
+     * @type TemplateRef
+     */
+    @ContentChild('morePopover') morePopover: TemplateRef<unknown>;
+
+    /**
+     * 右侧额外区域模板，支持 thyExtra 传参和 <ng-template #extra></ng-template> 模板
+     * @name extra
+     * @type TemplateRef
+     */
+    @ContentChild('extra') extra: TemplateRef<unknown>;
+
+    @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
+
+    private updateClasses() {
         let classNames: string[] = [];
-        if (navTypeClassesMap[this._type]) {
-            classNames = [...navTypeClassesMap[this._type]];
+        if (navTypeClassesMap[this.type]) {
+            classNames = [...navTypeClassesMap[this.type]];
         }
-        if (navSizeClassesMap[this._size]) {
-            classNames.push(navSizeClassesMap[this._size]);
-        }
-        if (navHorizontalClassesMap[this._horizontal]) {
-            classNames.push(navHorizontalClassesMap[this._horizontal]);
+        if (navSizeClassesMap[this.size]) {
+            classNames.push(navSizeClassesMap[this.size]);
         }
         this.updateHostClass.updateClass(classNames);
     }
@@ -141,7 +190,6 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     constructor(
         private updateHostClass: UpdateHostClassService,
         private elementRef: ElementRef,
-        private viewportRuler: ViewportRuler,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
         private popover: ThyPopover
@@ -151,24 +199,27 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     }
 
     ngOnInit() {
-        this._initialized = true;
-        this._updateClasses();
+        this.initialized = true;
+        this.updateClasses();
     }
 
     ngAfterViewInit() {
         if (this.thyResponsive) {
+            this.setMoreBtnOffset();
             this.ngZone.onStable.pipe(take(1)).subscribe(() => {
                 this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
 
-            merge(this.links.changes, this.viewportRuler.change(100))
-                .pipe(takeUntil(this.ngUnsubscribe$))
-                .subscribe(() => {
-                    this.resetSizes();
-                    this.setHiddenItems();
-                    this.calculateMoreIsActive();
-                });
+            this.ngZone.runOutsideAngular(() => {
+                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
+                    .pipe(takeUntil(this.ngUnsubscribe$))
+                    .subscribe(() => {
+                        this.resetSizes();
+                        this.setHiddenItems();
+                        this.calculateMoreIsActive();
+                    });
+            });
         }
     }
 
@@ -184,6 +235,27 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         this.calculateMoreIsActive();
     }
 
+    private setMoreBtnOffset() {
+        this.moreBtnOffset = {
+            height: this.defaultMoreOperation?.nativeElement?.offsetHeight,
+            width: this.defaultMoreOperation?.nativeElement?.offsetWidth
+        };
+    }
+
+    createResizeObserver(element: HTMLElement) {
+        return typeof ResizeObserver === 'undefined'
+            ? of(null)
+            : new Observable(observer => {
+                  const resize = new ResizeObserver(entries => {
+                      observer.next(entries);
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
+    }
+
     private calculateMoreIsActive() {
         this.moreActive = this.hiddenItems.some(item => {
             return item.linkIsActive();
@@ -196,36 +268,68 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         const tabs = this.links.toArray();
         if (!tabs.length) {
             this.hiddenItems = [];
+            this.showMore = this.hiddenItems.length > 0;
             return;
         }
 
-        const len = tabs.length;
-        let endIndex = len;
-        for (let i = len - 1; i >= 0; i -= 1) {
-            tabs[i].setNavLinkHidden(true);
-            if (this.thyVertical) {
-                if (tabs[i].offset.top + tabs[i].offset.height < this.wrapperOffset.height + this.wrapperOffset.top) {
-                    endIndex = i;
-                    break;
-                }
-            } else {
-                if (tabs[i].offset.left + tabs[i].offset.width < this.wrapperOffset.width + this.wrapperOffset.left) {
-                    endIndex = i;
-                    break;
-                }
-            }
-        }
+        const endIndex = this.thyVertical ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
 
-        if (endIndex === len - 1) {
-            tabs[endIndex].setNavLinkHidden(false);
-        }
-
-        const showItems = tabs.slice(0, endIndex);
+        const showItems = tabs.slice(0, endIndex + 1);
         (showItems || []).forEach(item => {
             item.setNavLinkHidden(false);
         });
 
-        this.hiddenItems = endIndex === len - 1 ? [] : [...tabs.slice(endIndex)];
+        this.hiddenItems = endIndex === tabs.length - 1 ? [] : tabs.slice(endIndex + 1);
+        (this.hiddenItems || []).forEach(item => {
+            item.setNavLinkHidden(true);
+        });
+
+        this.showMore = this.hiddenItems.length > 0;
+    }
+
+    private getShowItemsEndIndexWhenHorizontal(tabs: ThyNavItemDirective[]) {
+        const tabsLength = tabs.length;
+        let endIndex = tabsLength;
+        let totalWidth = 0;
+
+        for (let i = 0; i < tabsLength; i += 1) {
+            const _totalWidth = i === tabsLength - 1 ? totalWidth + tabs[i].offset.width : totalWidth + tabs[i].offset.width + tabItemRight;
+            if (_totalWidth > this.wrapperOffset.width) {
+                let moreOperationWidth = this.moreBtnOffset.width;
+                if (totalWidth + moreOperationWidth <= this.wrapperOffset.width) {
+                    endIndex = i - 1;
+                } else {
+                    endIndex = i - 2;
+                }
+                break;
+            } else {
+                totalWidth = _totalWidth;
+                endIndex = i;
+            }
+        }
+        return endIndex;
+    }
+
+    private getShowItemsEndIndexWhenVertical(tabs: ThyNavItemDirective[]) {
+        const tabsLength = tabs.length;
+        let endIndex = tabsLength;
+        let totalHeight = 0;
+        for (let i = 0; i < tabsLength; i += 1) {
+            const _totalHeight = totalHeight + tabs[i].offset.height;
+            if (_totalHeight > this.wrapperOffset.height) {
+                let moreOperationHeight = this.moreBtnOffset.height;
+                if (totalHeight + moreOperationHeight <= this.wrapperOffset.height) {
+                    endIndex = i - 1;
+                } else {
+                    endIndex = i - 2;
+                }
+                break;
+            } else {
+                totalHeight = _totalHeight;
+                endIndex = i;
+            }
+        }
+        return endIndex;
     }
 
     private resetSizes() {

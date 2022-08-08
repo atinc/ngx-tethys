@@ -1,4 +1,5 @@
 ---
-order: 20
+order: 40
 title: Type
+className: bg-example
 ---

@@ -66,6 +66,7 @@ import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
 import { ThyDotModule } from 'ngx-tethys/dot';
+import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 
 import { Overlay } from '@angular/cdk/overlay';
 import { NgModule } from '@angular/core';
@@ -153,7 +154,8 @@ const TETHYS_MODULES = [
     ThyResizableModule,
     ThyCollapseModule,
     ThyRateModule,
-    ThyDotModule
+    ThyDotModule,
+    ThyWatermarkModule
 ];
 
 @NgModule({

@@ -13,6 +13,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyCopyModule } from 'ngx-tethys/copy';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
     declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
@@ -26,7 +27,8 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
         ThyDividerModule,
         ThyTooltipModule,
         ThyCopyModule,
-        ThyLoadingModule
+        ThyLoadingModule,
+        ThyActionModule
     ],
     providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })
