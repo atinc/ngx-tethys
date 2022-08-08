@@ -41,3 +41,5 @@ import { ThyTabsModule } from "ngx-tethys/tabs";
 ## 默认激活
 <example name="thy-tabs-active-example" />
 
+## 位置
+<example name="thy-tabs-position-example" />

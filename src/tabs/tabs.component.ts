@@ -15,6 +15,9 @@ import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
 export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
+
+export type ThyTabsPosition = 'top' | 'left';
+
 /**
  * thy-tabs
  */
@@ -23,7 +26,9 @@ export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
     templateUrl: './tabs.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'thy-tabs'
+        class: 'thy-tabs',
+        '[class.thy-tabs-top]': `thyPosition === 'top'`,
+        '[class.thy-tabs-left]': `thyPosition === 'left'`
     }
 })
 export class ThyTabsComponent implements OnInit {
@@ -51,6 +56,12 @@ export class ThyTabsComponent implements OnInit {
      * 附加操作
      */
     @Input() thyExtra: TemplateRef<unknown>;
+
+    /**
+     * 选项卡的位置
+     * @default 'top'
+     */
+    @Input() thyPosition: ThyTabsPosition = 'top';
 
     /**
      * 激活的项发生改变时的回调
