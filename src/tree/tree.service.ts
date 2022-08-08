@@ -30,7 +30,7 @@ export class ThyTreeService implements OnDestroy {
 
     public treeNodes: ThyTreeNode[] = [];
 
-    private checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
+    public checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
 
     $statusChange = new Subject<ThyTreeFormatEmitEvent>();
 

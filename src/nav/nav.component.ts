@@ -146,6 +146,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     /**
      * 右侧额外区域模板
+     * @type TemplateRef
      */
     @Input() thyExtra: TemplateRef<unknown>;
 

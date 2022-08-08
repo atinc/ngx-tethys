@@ -17,7 +17,7 @@ export const DEFAULT_CANVAS_CONFIG = {
         textAlign: 'center',
         textBaseline: 'middle',
         color: 'rgba(51, 51, 51, 0.12)',
-        fontsize: '12px'
+        fontSize: '12px'
     },
     textLineHeight: 20,
     xSpace: 200, // x轴间隔
