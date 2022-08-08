@@ -29,6 +29,9 @@ import { ThyTabsModule } from "ngx-tethys/tabs";
 展示效果
 <example name="thy-tabs-basic-example" />
 
+## 类型
+<example name="thy-tabs-type-example" />
+
 ## 大小
 <example name="thy-tabs-size-example" />
 

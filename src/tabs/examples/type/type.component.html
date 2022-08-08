@@ -1,0 +1,11 @@
+<thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
+  <button thyButton *ngFor="let type of types" (click)="currentType = type" [ngClass]="{ active: currentType === type }">
+    {{ type }}
+  </button>
+</thy-button-group>
+
+<thy-tabs [thyType]="currentType">
+  <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+  <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+  <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+</thy-tabs>
