@@ -3,6 +3,7 @@
     href="javascript:;"
     thyNavItem
     [id]="tab.id"
+    [thyNavItemDisabled]="tab.thyDisabled"
     [thyNavItemActive]="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index"
     *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
     (click)="activeTab(tab, i)"

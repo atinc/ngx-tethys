@@ -11,6 +11,9 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateR
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyTabComponent implements OnInit {
+    /**
+     * 自定义选项标题的模板
+     */
     @ContentChild('title') titleTemplateRef: TemplateRef<unknown>;
 
     @ViewChild('content', { static: true }) content: TemplateRef<HTMLElement>;
@@ -24,6 +27,11 @@ export class ThyTabComponent implements OnInit {
      * 选项的唯一标识
      */
     @Input() id: string;
+
+    /**
+     * 禁用选项
+     */
+    @Input() thyDisabled: boolean;
 
     constructor() {}
 
