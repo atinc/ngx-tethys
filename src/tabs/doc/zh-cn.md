@@ -41,3 +41,6 @@ import { ThyTabsModule } from "ngx-tethys/tabs";
 ## 默认激活
 <example name="thy-tabs-active-example" />
 
+## 禁用
+<example name="thy-tabs-disabled-example" />
+
