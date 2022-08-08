@@ -1,0 +1,402 @@
+import { ComponentType } from '@angular/cdk/portal';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { ThyNavComponent } from 'ngx-tethys/nav';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { SafeAny } from 'ngx-tethys/types';
+import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
+import { ThyTabsModule } from '../tabs.module';
+import { ThyActiveTabInfo, ThyTabChangeEvent } from '../types';
+
+@Component({
+    selector: 'test-tabs-basic',
+    template: `
+        <thy-tabs (thyActiveTabChange)="activeTabChange($event)">
+            <thy-tab id="tab1" thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsBasicComponent {
+    activeTabChange(event: ThyTabChangeEvent) {}
+}
+
+@Component({
+    selector: 'test-tabs-type',
+    template: `
+        <thy-tabs [thyType]="type">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsTypeComponent {
+    type: ThyTabsType;
+}
+
+@Component({
+    selector: 'test-tabs-size',
+    template: `
+        <thy-tabs [thySize]="size">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsSizeComponent {
+    size: ThyTabsSize;
+}
+
+@Component({
+    selector: 'test-tabs-custom-title',
+    template: `
+        <thy-tabs>
+            <thy-tab> <ng-template #title>小龙虾🦞</ng-template>Tab1 Content </thy-tab>
+            <thy-tab> <ng-template #title>烤全羊🐑</ng-template>Tab2 Content</thy-tab>
+            <thy-tab> <ng-template #title>烤乳鸽🐦</ng-template>Tab3 Content</thy-tab>
+            <thy-tab> <ng-template #title>烤乳猪🐷</ng-template>Tab4 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsCustomTitleComponent {}
+
+@Component({
+    selector: 'test-tabs-extra',
+    template: `
+        <thy-tabs [thyExtra]="extraTemplate">
+            <thy-tab id="tab1" thyTitle="Tab1">
+                Tab1 Content
+            </thy-tab>
+            <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+
+        <ng-template #extraTemplate>
+            <button thyButton="outline-default" thySize="md">Extra Action</button>
+        </ng-template>
+    `
+})
+class TestTabsExtraComponent {}
+
+@Component({
+    selector: 'test-tabs-position',
+    template: `
+        <thy-tabs [thyPosition]="position">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsPositionComponent {
+    position: ThyTabsPosition;
+}
+
+@Component({
+    selector: 'test-tabs-active',
+    template: `
+        <thy-tabs [thyActiveTab]="activeTab">
+            <thy-tab id="tab1" thyTitle="Tab1">
+                Tab1 Content
+            </thy-tab>
+            <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsActiveComponent {
+    activeTab: ThyActiveTabInfo = {
+        id: 'tab2',
+        index: 1
+    };
+}
+
+@Component({
+    selector: 'test-tabs-dynamic-add',
+    template: `
+        <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
+
+        <thy-tabs [thyActiveTab]="activeTab">
+            <ng-container *ngFor="let tab of tabs; let i = index; trackBy: trackByFn">
+                <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
+            </ng-container>
+        </thy-tabs>
+    `
+})
+class TestTabsDynamicAddComponent {
+    tabs = [
+        { id: 'tab1', title: 'Tab1' },
+        { id: 'tab2', title: 'Tab2' },
+        { id: 'tab3', title: 'Tab3' }
+    ];
+
+    activeTab = {
+        id: 'tab1'
+    };
+
+    addTab() {
+        this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
+        this.activeTab = { id: this.tabs[this.tabs.length - 1].id };
+    }
+
+    trackByFn(index: number, item: { id: string }) {
+        return item.id;
+    }
+}
+
+@Component({
+    selector: 'test-tabs-disabled',
+    template: `
+        <thy-tabs (thyActiveTabChange)="activeTabChange($event)">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2" thyDisabled="true">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsDisabledComponent {
+    activeTabChange(event: ThyTabChangeEvent) {}
+}
+
+describe('tabs', () => {
+    describe('basic', () => {
+        let fixture: ComponentFixture<TestTabsBasicComponent>;
+        let tabsDebugElement: DebugElement;
+        let tabsElement: HTMLElement;
+        let tabsInstance: ThyTabsComponent;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsBasicComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsBasicComponent);
+            tabsDebugElement = getDebugElement(fixture, ThyTabsComponent);
+            tabsElement = tabsDebugElement.nativeElement;
+            tabsInstance = tabsDebugElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should create tabs successfully', () => {
+            expect(tabsElement).toBeTruthy();
+
+            expect(tabsElement.classList.contains('thy-tabs')).toBeTruthy();
+            expect(tabsInstance.tabs.length).toBe(3);
+        });
+
+        it('should emit correct data when change active tab', () => {
+            const tabsInstance = tabsDebugElement.componentInstance;
+            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabChangeEvent) => {
+                expect(event).toEqual({ id: 'tab2', index: 1 });
+            });
+            const tabElement = document.querySelectorAll('.thy-nav-item')[1];
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+        });
+    });
+
+    describe('thyType', () => {
+        let fixture: ComponentFixture<TestTabsTypeComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsTypeComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsTypeComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thyType successfully', fakeAsync(() => {
+            ['pulled', 'tabs', 'pills', 'lite'].forEach(type => {
+                fixture.debugElement.componentInstance.type = type;
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const navElement = getDebugElement(fixture, ThyNavComponent).nativeElement;
+                expect(navElement.classList.contains(`thy-nav-${type}`)).toBeTruthy();
+            });
+        }));
+    });
+
+    describe('thySize', () => {
+        let fixture: ComponentFixture<TestTabsSizeComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsSizeComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsSizeComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thySize successfully', fakeAsync(() => {
+            ['lg', 'md', 'sm'].forEach(size => {
+                fixture.debugElement.componentInstance.size = size;
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                const tabsElement = getDebugElement(fixture, ThyNavComponent).nativeElement;
+                expect(tabsElement.classList.contains(`thy-nav-${size}`)).toBeTruthy();
+            });
+        }));
+    });
+
+    describe('custom title template', () => {
+        let fixture: ComponentFixture<TestTabsCustomTitleComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsCustomTitleComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsCustomTitleComponent);
+            fixture.detectChanges();
+        });
+
+        it('should support set custom title', () => {
+            const tabElement = getDebugElement(fixture, '.thy-nav-item').nativeElement;
+            expect(tabElement.innerText).toEqual('小龙虾🦞');
+        });
+    });
+
+    describe('thyExtra', () => {
+        let fixture: ComponentFixture<TestTabsExtraComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsExtraComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsExtraComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thyExtra successfully', () => {
+            const extraDebugElement = getDebugElement(fixture, '.thy-nav-extra');
+            expect(extraDebugElement).toBeTruthy();
+            const extraElement = extraDebugElement.nativeElement;
+            expect(extraElement.querySelector('button')).toBeTruthy();
+        });
+    });
+
+    describe('thyPosition', () => {
+        let fixture: ComponentFixture<TestTabsPositionComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsPositionComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsPositionComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thyPosition successfully', fakeAsync(() => {
+            fixture.debugElement.componentInstance.position = 'top';
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(getTabsClassList().contains(`thy-tabs-top`)).toBeTruthy();
+
+            fixture.debugElement.componentInstance.position = 'left';
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(getTabsClassList().contains(`thy-tabs-left`)).toBeTruthy();
+        }));
+
+        function getTabsClassList() {
+            return fixture.debugElement.query(By.directive(ThyTabsComponent)).nativeElement.classList;
+        }
+    });
+
+    describe('thyActiveTab', () => {
+        let fixture: ComponentFixture<TestTabsActiveComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsActiveComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsActiveComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thyActiveTab successfully', () => {
+            const activeElement = getDebugElement(fixture, '#tab2').nativeElement;
+            expect(activeElement.classList.contains('active')).toBeTruthy();
+        });
+    });
+
+    describe('add tab dynamically', () => {
+        let fixture: ComponentFixture<TestTabsDynamicAddComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsDynamicAddComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsDynamicAddComponent);
+            fixture.detectChanges();
+        });
+
+        it('should support add tab dynamically', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.tabs.length).toBe(3);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(tabsInstance.tabs.length).toBe(4);
+        }));
+    });
+
+    describe('thyDisabled', () => {
+        let fixture: ComponentFixture<TestTabsDisabledComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsDisabledComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsDisabledComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set thyDisabled successfully', fakeAsync(() => {
+            const spy = jasmine.createSpy('spy on tab click');
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabChangeEvent) => {
+                spy();
+            });
+            const tabElement = fixture.debugElement.queryAll(By.css('.thy-nav-item'))[1].nativeElement;
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+        }));
+    });
+
+    function getDebugElement(fixture: ComponentFixture<SafeAny>, selector: string | ComponentType<SafeAny>): DebugElement {
+        if (typeof selector === 'string') {
+            return fixture.debugElement.query(By.css(selector));
+        } else {
+            return fixture.debugElement.query(By.directive(selector));
+        }
+    }
+});
