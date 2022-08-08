@@ -38,8 +38,14 @@ import { ThyTabsModule } from "ngx-tethys/tabs";
 ## 附加操作
 <example name="thy-tabs-extra-example" />
 
+## 位置
+<example name="thy-tabs-position-example" />
+
 ## 默认激活
 <example name="thy-tabs-active-example" />
 
 ## 动态添加
 <example name="thy-tabs-dynamic-example" />
+
+## 禁用
+<example name="thy-tabs-disabled-example" />
