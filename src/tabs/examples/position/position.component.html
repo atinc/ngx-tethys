@@ -1,0 +1,11 @@
+<thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
+  <button thyButton *ngFor="let item of ['top', 'left']" (click)="position = item" [ngClass]="{ active: position === item }">
+    {{ item }}
+  </button>
+</thy-button-group>
+
+<thy-tabs [thyPosition]="position">
+  <thy-tab thyTitle="Tab1">Tab1的内容</thy-tab>
+  <thy-tab thyTitle="Tab2">Tab2的内容</thy-tab>
+  <thy-tab thyTitle="Tab3">Tab3的内容</thy-tab>
+</thy-tabs>
