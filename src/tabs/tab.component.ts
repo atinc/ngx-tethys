@@ -34,12 +34,6 @@ export class ThyTabComponent implements OnInit {
      */
     @Input() thyDisabled: boolean;
 
-    // /**
-    //  * 是否强制渲染
-    //  * @default false
-    //  */
-    // @Input() thyAlwaysRender: boolean;
-
     constructor() {}
 
     ngOnInit(): void {}
