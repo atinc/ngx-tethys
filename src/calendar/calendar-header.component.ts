@@ -3,7 +3,9 @@ import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { endOfMonth, FunctionProp, getUnixTime, startOfMonth, TinyDate } from 'ngx-tethys/util';
 
 import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef } from '@angular/core';
-
+/**
+ * 日历头部操作栏组件
+ */
 @Component({
     selector: 'thy-calendar-header',
     templateUrl: './calendar-header.component.html'
@@ -11,23 +13,32 @@ import { ChangeDetectorRef, Component, EventEmitter, HostBinding, Input, OnInit,
 export class ThyCalendarHeaderComponent implements OnInit {
     @HostBinding('class.thy-calendar-full-header-container') className = true;
 
-    // @Input() mode: 'month' | 'year' = 'month';
-
-    // @Input() fullscreen = true;
-
+    /**
+     * 当前选中日期
+     */
     @Input()
     set currentDate(value: TinyDate) {
         this.setDate(value);
     }
 
+    /**
+     * 	自定义渲染右侧操作项
+     */
     @Input() operationRender: FunctionProp<TemplateRef<any>>;
 
-    // @Output() readonly modeChange: EventEmitter<'month' | 'year'> = new EventEmitter();
-
+    /**
+     * 日期选择范围（年）发生变化的回调
+     */
     @Output() readonly yearChange: EventEmitter<number> = new EventEmitter();
 
+    /**
+     * 日期选择范围（月）发生变化的回调
+     */
     @Output() readonly monthChange: EventEmitter<number> = new EventEmitter();
 
+    /**
+     * 日期选择范围（日期）发生变化的回调
+     */
     @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
     public dateRanges: DateRangeItemInfo[] = [

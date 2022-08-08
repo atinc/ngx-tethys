@@ -5,13 +5,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyCalendarHeaderComponent } from './calendar-header.component';
 import { ThyCalendarComponent } from './calendar.component';
-import {
-    ThyCalendarHeaderOperationDirective,
-    ThyDateCellDirective,
-    ThyDateFullCellDirective,
-    ThyMonthCellDirective,
-    ThyMonthFullCellDirective
-} from './calendar-cells';
+import { ThyCalendarHeaderOperationDirective, ThyDateCellDirective } from './calendar-cells';
 import { LibPackerModule } from 'ngx-tethys/date-picker';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyRadioModule } from 'ngx-tethys/radio';
@@ -30,23 +24,7 @@ import { ThyDateRangeModule } from 'ngx-tethys/date-range';
         ThyButtonModule,
         ThyDateRangeModule
     ],
-    declarations: [
-        ThyCalendarHeaderComponent,
-        ThyCalendarComponent,
-        ThyDateCellDirective,
-        ThyDateFullCellDirective,
-        ThyMonthCellDirective,
-        ThyMonthFullCellDirective,
-        ThyCalendarHeaderOperationDirective
-    ],
-    exports: [
-        ThyCalendarHeaderComponent,
-        ThyCalendarComponent,
-        ThyDateCellDirective,
-        ThyDateFullCellDirective,
-        ThyMonthCellDirective,
-        ThyMonthFullCellDirective,
-        ThyCalendarHeaderOperationDirective
-    ]
+    declarations: [ThyCalendarHeaderComponent, ThyCalendarComponent, ThyDateCellDirective, ThyCalendarHeaderOperationDirective],
+    exports: [ThyCalendarHeaderComponent, ThyCalendarComponent, ThyDateCellDirective, ThyCalendarHeaderOperationDirective]
 })
 export class ThyCalendarModule {}

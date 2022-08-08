@@ -5,11 +5,13 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic-year.component.html'
 })
 export class ThyCalendarBasicYearExampleComponent implements OnInit {
-    date = new Date();
+    date: Date;
 
     constructor() {}
 
     ngOnInit() {}
 
-    onValueChange(e: Date) {}
+    onValueChange(e: Date) {
+        this.date = e;
+    }
 }

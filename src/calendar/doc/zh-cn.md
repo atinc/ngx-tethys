@@ -15,14 +15,17 @@ subtitle: 日历
 <thy-calendar [thyValue]="date" (thySelectChange)="onValueChange($event)"></thy-calendar>
 ```
 展示效果：
-<example name="thy-calendar-basic-example">
+<example name="thy-calendar-basic-example" />
 
 ## 按年切换的
-```html
-<thy-calendar thyMode="year" [thyValue]="date" (thySelectChange)="onValueChange($event)"></thy-calendar>
-```
-展示效果：
-<example name="thy-calendar-basic-year-example">
+<example name="thy-calendar-basic-year-example" />
+
+## 自定义不可选中的日期
+按月切换的，自定义不可选中的日期
+<example name="thy-calendar-disabled-mode-month-example" />
+
+按年切换的，自定义不可选中的日期
+<example name="thy-calendar-disabled-mode-year-example" />
 
 ## 自定义需要渲染的数据模板
 一个复杂的应用示例，用 `thyDateCell` 模版来自定义需要渲染的数据，用 `thyCalendarHeaderOperation` 来自定义右上角显示
@@ -56,4 +59,4 @@ subtitle: 日历
 </thy-calendar>
 ```
 展示效果：
-<example name="thy-calendar-custom-cell-example">
+<example name="thy-calendar-custom-cell-example" />
