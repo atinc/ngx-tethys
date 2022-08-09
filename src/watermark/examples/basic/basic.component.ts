@@ -8,14 +8,13 @@ export class ThyWatermarkBasicExampleComponent implements OnInit {
     thyDisabled: boolean = false;
     thyCanvasConfig = {
         styles: {
-            rotate: 15, // 偏移角度
-            fontSize: '14px', // 水印字体大小
+            degree: 15, // 偏移角度
+            fontSize: 12,
             color: 'pink', // 字体颜色
-            textAlign: 'left',
-            textBaseline: 'middle'
+            textAlign: 'center',
+            textBaseline: 'top'
         },
-        xSpace: 30, // 水印x轴间隔
-        ySpace: 60, // 水印y轴间隔
+        distributeType: 'less',
         textLineHeight: 20 // 行高
     };
     isChecked: boolean = false;

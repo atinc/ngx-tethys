@@ -13,13 +13,17 @@ export const DEFAULT_WATERMARK_CONFIG = {
 
 export const DEFAULT_CANVAS_CONFIG = {
     styles: {
-        rotate: 15,
-        textAlign: 'center',
-        textBaseline: 'middle',
+        degree: 15,
+        textAlign: 'left',
+        textBaseline: 'top',
         color: 'rgba(51, 51, 51, 0.12)',
-        fontSize: '12px'
+        fontSize: 12
     },
     textLineHeight: 20,
-    xSpace: 200, // x轴间隔
-    ySpace: 200 // y轴间隔
+    distributeType: 'more' //分布类型： more密集 less松散
 };
+
+export const spaceByDistributeType = new Map([
+    ['more', [5, 5]],
+    ['less', [200, 200]]
+]);
