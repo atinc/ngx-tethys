@@ -127,7 +127,6 @@
 .thy-nav-secondary {
     border-bottom: 1px solid variables.$nav-border-color;
     .thy-nav-item {
-        transform: translateY(1px);
         @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
             variables.$nav-item-secondary-right
@@ -140,7 +139,6 @@
     border-bottom: 1px solid variables.$nav-border-color;
     .thy-nav-item {
         @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
-        transform: translateY(1px);
         @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
             variables.$nav-item-secondary-split-right
