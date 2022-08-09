@@ -14,7 +14,7 @@ export class ThyWatermarkBasicExampleComponent implements OnInit {
             textAlign: 'center',
             textBaseline: 'top'
         },
-        distributeType: 'less',
+        distributeType: 'more',
         textLineHeight: 20 // 行高
     };
     isChecked: boolean = false;

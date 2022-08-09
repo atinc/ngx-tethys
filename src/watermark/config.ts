@@ -15,12 +15,11 @@ export const DEFAULT_CANVAS_CONFIG = {
     styles: {
         degree: 15,
         textAlign: 'left',
-        textBaseline: 'top',
         color: 'rgba(51, 51, 51, 0.12)',
         fontSize: 12
     },
     textLineHeight: 20,
-    distributeType: 'more' //分布类型： more密集 less松散
+    distributeType: 'less' //分布类型： more密集 less松散
 };
 
 export const spaceByDistributeType = new Map([

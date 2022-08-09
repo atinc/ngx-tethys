@@ -87,8 +87,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         }
     }
 
-    private createCanvas() {
-        let { distributeType, fontSize, color, degree, textLineHeight, textAlign, textBaseline } = {
+    createCanvas() {
+        let { distributeType, fontSize, color, degree, textLineHeight, textAlign } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...DEFAULT_CANVAS_CONFIG.styles,
             ...(this.thyCanvasConfig || {}),
@@ -125,7 +125,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
         ctx.font = `${fontSize}px microsoft yahei`;
         ctx.textAlign = textAlign as CanvasTextAlign;
-        ctx.textBaseline = textBaseline as CanvasTextBaseline;
+        ctx.textBaseline = 'top';
         ctx.fillStyle = color;
         ctx.rotate(0 - (degree * Math.PI) / 180);
         contentArr.map((k, i) => {
