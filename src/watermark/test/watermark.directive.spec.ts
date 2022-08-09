@@ -54,13 +54,13 @@ describe('WatermarkDirective', () => {
         watermarkDirective = divDebugElement.injector.get<ThyWatermarkDirective>(ThyWatermarkDirective);
     }));
 
-    fit('should create watermark success', () => {
+    it('should create watermark success', () => {
         const id = divDebugElement.nativeElement.id;
         const panelElement = document.querySelector(`.${id}_vm`);
         expect(panelElement).toBeTruthy();
     });
 
-    fit('should remove watermark when thyDisabled is true', () => {
+    it('should remove watermark when thyDisabled is true', () => {
         testComponent.isDisabled = true;
         fixture.detectChanges();
         const id = divDebugElement.nativeElement.id;
@@ -68,7 +68,7 @@ describe('WatermarkDirective', () => {
         expect(panelElement).toBeFalsy();
     });
 
-    fit('should refresh watermark when watermarkContent has been modified', () => {
+    it('should refresh watermark when watermarkContent has been modified', () => {
         testComponent.watermarkContent = 'PingCode';
         fixture.detectChanges();
         const id = divDebugElement.nativeElement.id;
@@ -76,7 +76,7 @@ describe('WatermarkDirective', () => {
         expect(panelElement).toBeTruthy();
     });
 
-    fit('should refresh watermark when watermark’s attribute has been modified', () => {
+    it('should refresh watermark when watermark’s attribute has been modified', () => {
         testComponent.isDisabled = false;
         testComponent.watermarkContent = 'PingCode';
         const id = divDebugElement.nativeElement.id;

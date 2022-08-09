@@ -11,8 +11,7 @@ export class ThyWatermarkBasicExampleComponent implements OnInit {
             degree: 15, // 偏移角度
             fontSize: 12,
             color: 'pink', // 字体颜色
-            textAlign: 'center',
-            textBaseline: 'top'
+            textAlign: 'center'
         },
         distributeType: 'more',
         textLineHeight: 20 // 行高
