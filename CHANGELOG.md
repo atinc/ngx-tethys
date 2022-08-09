@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.4...13.2.0-next.5) (2022-08-09)
+
+
+### Bug Fixes
+
+* **nav:** remove transform: translateY(1px); from thy-nav-item for secondary type #INFR-4132 ([#2065](https://github.com/atinc/ngx-tethys/issues/2065)) ([ce805a6](https://github.com/atinc/ngx-tethys/commit/ce805a63059fe146a83e044d0a74638188a4820b)), closes [#INFR-4132](https://github.com/atinc/ngx-tethys/issues/INFR-4132)
+* **shared:** fix option-group group-name style error #INFR-3841 ([beeed04](https://github.com/atinc/ngx-tethys/commit/beeed048eb07739bc4953f95514c24e0c1239233)), closes [#INFR-3841](https://github.com/atinc/ngx-tethys/issues/INFR-3841)
+
+
+### Features
+
+* **tabs:** tabs support disable tab #INFR-4104 ([#2059](https://github.com/atinc/ngx-tethys/issues/2059)) ([b7433f3](https://github.com/atinc/ngx-tethys/commit/b7433f358ce348756078f1c08f1d418e3fd54877)), closes [#INFR-4104](https://github.com/atinc/ngx-tethys/issues/INFR-4104)
+* **tabs:** tabs support set thyPosition #INFR-4026 ([#2058](https://github.com/atinc/ngx-tethys/issues/2058)) ([e4eb60d](https://github.com/atinc/ngx-tethys/commit/e4eb60d97a5f569c8a589dfe889df214c39388c1)), closes [#INFR-4026](https://github.com/atinc/ngx-tethys/issues/INFR-4026)
+
+
+
 # [13.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.3...13.2.0-next.4) (2022-08-05)
 
 
