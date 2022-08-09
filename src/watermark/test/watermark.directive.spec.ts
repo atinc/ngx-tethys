@@ -95,7 +95,7 @@ describe('WatermarkDirective', () => {
             'background-repeat': 'repeat',
             'pointer-events': 'none',
             'z-index': 2147483647,
-            'background-image': `url${watermarkDirective.createCanvas().toDataURL()}`
+            'background-image': `url(${watermarkDirective.createCanvas().toDataURL()})`
         };
         const styleStr = Object.keys(DEFAULT_WATERMARK_CONFIG).reduce(
             (pre, next) => ((pre += `${next}:${DEFAULT_WATERMARK_CONFIG[next]};`), pre),
