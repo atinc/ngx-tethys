@@ -29,7 +29,10 @@ import { ThyTabsModule } from "ngx-tethys/tabs";
 展示效果
 <example name="thy-tabs-basic-example" />
 
-## Pills
+## Lite 模式
+<example name="thy-tabs-lite-example" />
+
+## Pills 模式
 <example name="thy-tabs-pills-example" />
 
 ## 大小

@@ -63,6 +63,39 @@
     }
 }
 
+@mixin set-nav-size($nav-item-right-offset: 0px) {
+    .thy-nav-item {
+        height: variables.$nav-height;
+        @include nav-item-size(
+            variables.$nav-item-padding-y variables.$nav-item-padding-x,
+            variables.$nav-item-right - $nav-item-right-offset,
+            variables.$nav-item-font-size
+        );
+    }
+
+    &.thy-nav-lg {
+        .thy-nav-item {
+            height: variables.$nav-height-lg;
+            @include nav-item-size(
+                variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
+                variables.$nav-item-right-lg - $nav-item-right-offset,
+                variables.$nav-item-font-size-lg
+            );
+        }
+    }
+
+    &.thy-nav-sm {
+        .thy-nav-item {
+            height: variables.$nav-height-sm;
+            @include nav-item-size(
+                variables.$nav-item-padding-y-sm variables.$nav-item-padding-x-sm,
+                variables.$nav-item-right-sm - $nav-item-right-offset,
+                variables.$nav-item-font-size-sm
+            );
+        }
+    }
+}
+
 @mixin nav-item-clear-margin-right() {
     &:last-child {
         margin-right: 0;

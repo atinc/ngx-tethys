@@ -2,10 +2,10 @@
 category: nav
 title: Nav
 subtitle: 导航
-description: 切换不同的组件内容。
+description: 切换不同的组件或者路由。
 ---
 
-<alert>切换不同的组件内容。</alert>
+<alert>切换不同的组件或者路由的导航。</alert>
 
 ## 何时使用
 
@@ -16,19 +16,15 @@ description: 切换不同的组件内容。
 import { ThyNavModule } from "ngx-tethys/nav";
 ```
 ## 基本使用
-```html
-<thy-nav thyType="primary">
-  <a href="javascript:;" thyNavItem thyNavItemActive="true">导航一</a>
-  <a href="javascript:;" thyNavItem>导航二</a>
-</thy-nav>
-```
-展示效果：
 <example name="thy-nav-basic-example"></example>
 
 ## 标签页
 <example name="thy-nav-tabs-example"></example>
 
-## Pills
+## Lite 模式
+<example name="thy-nav-lite-example"></example>
+
+## Pills 模式
 <example name="thy-nav-pills-example"></example>
 
 ## 导航大小
