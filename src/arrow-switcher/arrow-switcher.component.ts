@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
     index: number;
     event: Event;
@@ -35,9 +36,15 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     total: number;
 
+    theme: ThyArrowSwitcherTheme = 'default';
+
     @Output() thyPrevious = new EventEmitter<ThyArrowSwitcherEvent>();
 
     @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
+
+    @Input() set thyTheme(value: ThyArrowSwitcherTheme) {
+        this.theme = value;
+    }
 
     @Input()
     set thyTotal(value: number) {
