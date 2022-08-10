@@ -35,27 +35,33 @@
 
 .thy-nav-pulled {
     .thy-nav-item {
-        height: variables.$nav-height;
-        @include mixin.nav-item-size(
-            variables.$nav-item-padding-y variables.$nav-item-padding-x,
-            variables.$nav-item-right,
-            variables.$nav-item-font-size
-        );
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
+    @include mixin.set-nav-size();
 }
 
 .thy-nav-tabs {
-    border-bottom: 1px solid variables.$nav-border-color;
+    position: relative;
+    .thy-nav-list::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        border-bottom: 1px solid variables.$nav-border-color;
+        content: '';
+    }
     .thy-nav-item {
-        height: variables.$nav-height;
-        @include mixin.nav-item-size(
-            variables.$nav-item-padding-y variables.$nav-item-padding-x,
-            variables.$nav-item-right,
-            variables.$nav-item-font-size
-        );
+        z-index: 1;
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
+    @include mixin.set-nav-size();
+}
+
+.thy-nav-lite {
+    .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
+    }
+    @include mixin.set-nav-size(12px);
 }
 
 .thy-nav-pills {
@@ -84,31 +90,6 @@
                     list.nth($font-sizes, 2)
                 );
             }
-        }
-    }
-}
-
-.thy-nav-pulled,
-.thy-nav-tabs {
-    &.thy-nav-lg {
-        .thy-nav-item {
-            height: variables.$nav-height-lg;
-            @include mixin.nav-item-size(
-                variables.$nav-item-padding-y-lg variables.$nav-item-padding-x-lg,
-                variables.$nav-item-right-lg,
-                variables.$nav-item-font-size-lg
-            );
-        }
-    }
-
-    &.thy-nav-sm {
-        .thy-nav-item {
-            height: variables.$nav-height-sm;
-            @include mixin.nav-item-size(
-                variables.$nav-item-padding-y-sm variables.$nav-item-padding-x-sm,
-                variables.$nav-item-right-sm,
-                variables.$nav-item-font-size-sm
-            );
         }
     }
 }
