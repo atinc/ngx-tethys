@@ -29,7 +29,8 @@ export class ThyTabComponent implements OnInit {
     @Input() id: string;
 
     /**
-     * 禁用选项
+     * 是否禁用选项
+     * @default false
      */
     @Input() thyDisabled: boolean;
 

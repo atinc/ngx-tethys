@@ -73,6 +73,9 @@ export class ThyTabsComponent implements OnInit {
     ngOnInit(): void {}
 
     activeTab(tab: ThyTabComponent, index: number) {
+        if (tab.thyDisabled) {
+            return;
+        }
         this.thyActiveTab = {
             id: tab.id || null,
             index
