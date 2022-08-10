@@ -24,7 +24,6 @@ describe('ThyArrowSwitcher', () => {
         fixture = TestBed.createComponent(ThyDemoArrowSwitcherComponent);
         testComponent = fixture.debugElement.componentInstance;
         arrowSwitcherComponent = fixture.debugElement.query(By.directive(ThyArrowSwitcherComponent));
-        // btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
     });
 
     it('should create', () => {
