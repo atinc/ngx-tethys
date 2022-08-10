@@ -190,13 +190,11 @@ describe('tabs', () => {
         });
 
         it('should emit correct data when change active tab', () => {
-            const tabsInstance = tabsDebugElement.componentInstance;
-            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabChangeEvent) => {
-                expect(event).toEqual({ id: 'tab2', index: 1 });
-            });
+            const activeTabChangeSpy = spyOn(fixture.debugElement.componentInstance, 'activeTabChange');
             const tabElement = document.querySelectorAll('.thy-nav-item')[1];
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
+            expect(activeTabChangeSpy).toHaveBeenCalledWith({ id: 'tab2', index: 1 });
         });
     });
 
