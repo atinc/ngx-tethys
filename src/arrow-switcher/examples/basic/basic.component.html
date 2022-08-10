@@ -6,3 +6,13 @@
     (thyNext)="onNextClick($event)"
   ></thy-arrow-switcher>
 </div>
+
+<div class="demo-card">
+  <thy-arrow-switcher
+    [(ngModel)]="index"
+    [thyTotal]="totalCount"
+    (thyPrevious)="onPreviousClick($event)"
+    (thyNext)="onNextClick($event)"
+    thyTheme="lite"
+  ></thy-arrow-switcher>
+</div>

@@ -24,7 +24,7 @@ describe('ThyArrowSwitcher', () => {
         fixture = TestBed.createComponent(ThyDemoArrowSwitcherComponent);
         testComponent = fixture.debugElement.componentInstance;
         arrowSwitcherComponent = fixture.debugElement.query(By.directive(ThyArrowSwitcherComponent));
-        btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
+        // btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
     });
 
     it('should create', () => {
@@ -40,6 +40,15 @@ describe('ThyArrowSwitcher', () => {
         testComponent.size = `sm`;
         fixture.detectChanges();
         expect(arrowSwitcherComponent.nativeElement.classList.contains('thy-arrow-switcher-small')).toBe(true);
+    });
+
+    it('should create correct when theme is lite', () => {
+        testComponent.theme = `lite`;
+        fixture.detectChanges();
+        const actionElements = arrowSwitcherComponent.nativeElement.querySelectorAll('.thy-action');
+        expect(actionElements.length).toBe(2);
+        expect(actionElements[0]).toBeTruthy();
+        expect(actionElements[0].classList.contains('thy-action')).toBe(true);
     });
 
     it('should show correct total', () => {
@@ -78,6 +87,7 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
+        btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
         (btnElements[0] as HTMLElement).click();
         fixture.detectChanges();
         expect(arrowSwitcherComponent.componentInstance.index).toEqual(2);
@@ -88,6 +98,7 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
+        btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
         (btnElements[1] as HTMLElement).click();
         fixture.detectChanges();
         expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
@@ -102,6 +113,7 @@ describe('ThyArrowSwitcher', () => {
             [(ngModel)]="index"
             [thyTotal]="totalCount"
             [thySize]="size"
+            [thyTheme]="theme"
             [disabled]="disabled"
             (thyPrevious)="previousClick()"
             (thyNext)="nextClick()"
@@ -111,6 +123,7 @@ describe('ThyArrowSwitcher', () => {
 class ThyDemoArrowSwitcherComponent {
     index = 0;
     totalCount = 10;
+    theme = 'default';
     disabled = false;
     size = ``;
 
