@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.1](https://github.com/atinc/ngx-tethys/compare/13.2.0...13.2.1) (2022-08-11)
+
+
+### Bug Fixes
+
+* **property:** fix property can not dynamic rendering property-item (#INFR-4163) ([8f273a0](https://github.com/atinc/ngx-tethys/commit/8f273a0d4a672d6b39903a6620a3760bdb0c70a8)), closes [#INFR-4163](https://github.com/atinc/ngx-tethys/issues/INFR-4163)
+
+
+
 # [13.2.0](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.6...13.2.0) (2022-08-11)
 
 

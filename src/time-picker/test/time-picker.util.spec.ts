@@ -1,5 +1,5 @@
 import { startOfDay } from 'date-fns';
-import { Time, TimePickerComponentState } from '../time-picker.models';
+import { Time, TimePickerComponentState } from '../inner/inner-time-picker.class';
 import { isValidLimit, setTime } from '../time-picker.utils';
 
 describe('ThyTimePickerUtil', () => {
