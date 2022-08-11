@@ -186,7 +186,6 @@
       }
     }
   },
-  "defaultProject": "ngx-tethys",
   "cli": {
     "analytics": "320b41d2-079c-4f3e-9bb4-38b51babf41c",
     "cache": {

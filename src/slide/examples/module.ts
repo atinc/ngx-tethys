@@ -26,7 +26,6 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
     imports: [CommonModule, FormsModule, ThySlideModule, ThyButtonModule, ThyFormModule, ThyGridModule, ThyRadioModule],
     exports: COMPONENTS
 })

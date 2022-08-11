@@ -39,7 +39,7 @@
 
 /** Evergreen browsers require these. **/
 // Used for reflect-metadata in JIT. If you use AOT (and only Angular decorators), you can remove.
-import 'core-js/proposals/reflect-metadata';
+// import 'core-js/proposals/reflect-metadata';
 
 /**
  * By default, zone.js will patch all possible macroTask and DomEvents

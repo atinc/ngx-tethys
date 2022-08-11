@@ -17,6 +17,7 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
+import { ThyInputSize } from './input.directive';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -37,7 +38,7 @@ const password = 'password';
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() placeholder = '';
 
-    @Input() thySize: string;
+    @Input() thySize: ThyInputSize;
 
     @Input() thyAutofocus = false;
 

@@ -1,4 +1,4 @@
-export function getWorkspaceAllTsconfig(json) {
+export function getWorkspaceAllTsconfig(json: any) {
     if (!json || !json.projects) {
         throw new Error('error angular.json');
     }

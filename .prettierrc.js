@@ -7,6 +7,8 @@ module.exports = {
     proseWrap: 'preserve',
     trailingComma: 'none',
     singleQuote: true,
+    arrowParens: 'avoid',
+    bracketSameLine: true,
     overrides: [
         {
             files: '*.js',
