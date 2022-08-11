@@ -6,14 +6,14 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyInnerTimePickerComponent } from '../inner/time-picker.component';
+import { ThyInnerTimePickerComponent } from '../inner/inner-time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
 registerLocaleData(zh);
 
 const CONTAINER_CLASS = 'time-picker-container';
 
-describe('ThyTimePickerComponent', () => {
+describe('ThyInnerTimePickerComponent', () => {
     let fixture: ComponentFixture<ThyTestInnerTimePickerBaseComponent>;
     let fixtureInstance: ThyTestInnerTimePickerBaseComponent;
     let debugElement: DebugElement;
