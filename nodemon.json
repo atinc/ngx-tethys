@@ -1,0 +1,11 @@
+{
+  "ignore": [".git", "node_modules", ".gitignore", "dist"],
+  "env": {
+    "NODE_ENV": "development",
+    "port": 9527
+  },
+  "delay": "1000",
+  "watch": ["src/watermark"],
+  "ext": "*",
+  "exec": "npm run build && cd dist/tethys && yalc push"
+}

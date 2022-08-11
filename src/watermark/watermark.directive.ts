@@ -54,6 +54,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             });
             this.createCanvas();
         }
+        console.log('少时诵诗书');
     }
 
     ngOnChanges(changes: SimpleChanges): void {

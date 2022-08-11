@@ -10,6 +10,7 @@
   "scripts": {
     "ng": "ng",
     "start": "docgeni serve --configuration development",
+    "watch": "nodemon --config nodemon.json",
     "serve": "docgeni serve --configuration development",
     "watch:theme": "npm run build-theme && gulp build-theme:watch",
     "build:demo": "npm run build-site",
