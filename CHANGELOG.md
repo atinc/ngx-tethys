@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.5...13.2.0-next.6) (2022-08-11)
+
+
+### Features
+
+* **arrow-switcher:** add lite theme for arrow switcher zd/#INFR-4138 ([#2067](https://github.com/atinc/ngx-tethys/issues/2067)) ([01cc602](https://github.com/atinc/ngx-tethys/commit/01cc602398b7c60714e94c2ca07786426a48c1c1)), closes [zd/#INFR-4138](https://github.com/atinc/ngx-tethys/issues/INFR-4138)
+* **nav:** add lite mode for nav and tabs #INFR-4149 ([#2068](https://github.com/atinc/ngx-tethys/issues/2068)) ([4774de3](https://github.com/atinc/ngx-tethys/commit/4774de3e39061e145df9d22a58cccd9e538804f7)), closes [#INFR-4149](https://github.com/atinc/ngx-tethys/issues/INFR-4149)
+
+
+
 # [13.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.4...13.2.0-next.5) (2022-08-09)
 
 
