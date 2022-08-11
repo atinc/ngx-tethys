@@ -57,7 +57,7 @@ import { ThyStepperModule } from 'ngx-tethys/stepper';
 import { ThyStrengthModule } from 'ngx-tethys/strength';
 import { ThySwitchModule } from 'ngx-tethys/switch';
 import { ThyTableModule } from 'ngx-tethys/table';
-import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { ThyInnerTimePickerModule } from 'ngx-tethys/inner-time-picker';
 import { ThyTimelineModule } from 'ngx-tethys/timeline';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyTransferModule } from 'ngx-tethys/transfer';
@@ -142,7 +142,7 @@ const TETHYS_MODULES = [
     ThyDatePickerModule,
     ThyTimelineModule,
     ThyDividerModule,
-    ThyTimePickerModule,
+    ThyInnerTimePickerModule,
     ThyStatisticModule,
     ThyAutocompleteModule,
     ThyAnchorModule,

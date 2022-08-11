@@ -40,7 +40,7 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
-            exclude: ['shared', 'core', 'time-picker'],
+            exclude: ['shared', 'core', 'inner-time-picker'],
             apiMode: 'compatible',
             categories: [
                 {

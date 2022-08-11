@@ -2,7 +2,7 @@ import { startOfDay } from 'date-fns';
 import { Time, TimePickerComponentState } from '../time-picker.models';
 import { isValidLimit, setTime } from '../time-picker.utils';
 
-describe('ThyTimePickerUtil', () => {
+describe('ThyInnerTimePickerUtil', () => {
     describe('utils function test', () => {
         describe('isValidLimit', () => {
             it('min false', () => {

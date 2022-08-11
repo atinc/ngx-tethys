@@ -11,7 +11,7 @@ import { DateTableComponent } from './date/date-table.component';
 import { DateTableCellComponent } from './date/date-table-cell.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
+import { ThyInnerTimePickerModule } from 'ngx-tethys/inner-time-picker';
 import { YearTableComponent } from './year/year-table.component';
 import { YearHeaderComponent } from './year/year-header.component';
 import { DecadeHeaderComponent } from './decade/decade-header.component';
@@ -23,7 +23,7 @@ import { DateCarouselComponent } from './date-carousel/date-carousel.component';
 import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule, ThyNavModule, ThyInputModule],
+    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyInnerTimePickerModule, ThyNavModule, ThyInputModule],
     exports: [
         CalendarFooterComponent,
         DateTableComponent,
