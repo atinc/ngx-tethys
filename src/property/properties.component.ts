@@ -8,7 +8,8 @@ import {
     ChangeDetectionStrategy,
     OnDestroy,
     ElementRef,
-    NgZone
+    NgZone,
+    ChangeDetectorRef
 } from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
 import { fromEvent, Subject } from 'rxjs';
@@ -63,7 +64,7 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
 
     private destroy$ = new Subject();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone) {}
+    constructor(private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
         this.bindTriggerEvent();
@@ -72,6 +73,7 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
     ngAfterContentInit(): void {
         this.items.changes.pipe(startWith(this.items), takeUntil(this.destroy$)).subscribe(() => {
             this.splitItems();
+            this.cdr.detectChanges();
         });
     }
 
