@@ -38,6 +38,7 @@
 
     &.thy-layout-header-shadow {
         box-shadow: variables.$layout-header-box-shadow;
+        // 添加 relative 和 z-index 让阴影不被下面的元素遮住
         position: relative;
         z-index: 2;
     }
