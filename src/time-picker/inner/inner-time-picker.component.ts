@@ -15,9 +15,9 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { getControlsValue } from '../time-picker-controls.util';
-import { TimePickerConfig } from '../time-picker.config';
+import { TimePickerConfig } from './inner-time-picker.config';
 
-import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from '../time-picker.models';
+import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from './inner-time-picker.class';
 
 import {
     isValidDate,
@@ -32,7 +32,7 @@ import {
 
 import { Subscription } from 'rxjs';
 
-import { ThyTimePickerStore } from '../time-picker.store';
+import { ThyTimePickerStore } from './inner-time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,

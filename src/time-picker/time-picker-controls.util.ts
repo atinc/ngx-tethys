@@ -1,5 +1,5 @@
 import { changeTime } from './time-picker.utils';
-import { TimeChangeEvent, TimePickerComponentState, TimePickerControls } from './time-picker.models';
+import { TimeChangeEvent, TimePickerComponentState, TimePickerControls } from './inner/inner-time-picker.class';
 
 export function canChangeValue(state: TimePickerComponentState, event?: TimeChangeEvent): boolean {
     if (state.readonlyInput || state.disabled) {
