@@ -73,7 +73,7 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
     ngAfterContentInit(): void {
         this.items.changes.pipe(startWith(this.items), takeUntil(this.destroy$)).subscribe(() => {
             this.splitItems();
-            this.cdr.detectChanges();
+            this.cdr.markForCheck();
         });
     }
 
@@ -91,6 +91,7 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
 
     private splitItems(): void {
         const items = this.items.toArray();
+        const rows = [];
         for (let i = 0; i < this.items.length; i += this.thyColumn) {
             const rowItems = items.slice(i, i + this.thyColumn);
             if (rowItems.length < this.thyColumn) {
@@ -99,8 +100,9 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
                     rowItems.push(null);
                 }
             }
-            this.rows.push(rowItems);
+            rows.push(rowItems);
         }
+        this.rows = rows;
     }
 
     private getEditContentElement(target: HTMLElement) {
