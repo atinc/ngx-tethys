@@ -121,7 +121,6 @@ describe(`thy-properties`, () => {
             basicComponent.isShow = true;
             fixture.detectChanges();
             const trs = fixture.debugElement.queryAll(By.css('tr'));
-            console.log(trs, 'trs');
             expect(trs.length).toEqual(3);
             basicComponent.isShow = false;
             fixture.detectChanges();
