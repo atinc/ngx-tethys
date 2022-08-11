@@ -14,10 +14,10 @@ import {
 
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { getControlsValue } from './time-picker-controls.util';
-import { TimePickerConfig } from './time-picker.config';
+import { getControlsValue } from '../time-picker-controls.util';
+import { TimePickerConfig } from '../time-picker.config';
 
-import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from './time-picker.models';
+import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from '../time-picker.models';
 
 import {
     isValidDate,
@@ -28,26 +28,27 @@ import {
     isMinuteInputValid,
     isSecondInputValid,
     isInputLimitValid
-} from './time-picker.utils';
+} from '../time-picker.utils';
 
 import { Subscription } from 'rxjs';
 
-import { ThyTimePickerStore } from './time-picker.store';
+import { ThyTimePickerStore } from '../time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
     /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-    useExisting: forwardRef(() => ThyTimePickerComponent),
+    useExisting: forwardRef(() => ThyInnerTimePickerComponent),
     multi: true
 };
 
 @Component({
-    selector: 'thy-time-picker',
+    selector: 'thy-inner-time-picker',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
-    templateUrl: './time-picker.component.html'
+    templateUrl: './inner-time-picker.component.html'
 })
-export class ThyTimePickerComponent implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
+export class ThyInnerTimePickerComponent
+    implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
     /** hours change step */
     @Input() hourStep: number;
     /** hours change step */
