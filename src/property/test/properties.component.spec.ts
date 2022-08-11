@@ -1,10 +1,11 @@
 import { NgModule, Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent } from '../properties.component';
+import { CommonModule } from '@angular/common';
 
 const itemLabelClass = 'thy-properties-item-label';
 const itemContentClass = 'thy-properties-item-content';
@@ -21,6 +22,7 @@ const itemContentEditingClass = 'thy-properties-item-content-editing';
                     <input />
                 </ng-template>
             </thy-property-item>
+            <thy-property-item *ngIf="isShow" thyLabelText="地址">这里是一个地址</thy-property-item>
         </thy-properties>
     `
 })
@@ -33,6 +35,8 @@ class ThyPropertiesTestBasicComponent {
         name: '张萌',
         age: 24
     };
+
+    isShow = false;
 }
 
 @Component({
@@ -49,7 +53,7 @@ class ThyPropertiesTestBasicComponent {
 class ThyPropertiesTestColumnComponent {}
 
 @NgModule({
-    imports: [ThyPropertyModule],
+    imports: [ThyPropertyModule, CommonModule],
     declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent],
     exports: []
 })
@@ -62,7 +66,7 @@ describe(`thy-properties`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule],
+                imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
                 providers: []
             });
             TestBed.compileComponents();
@@ -110,6 +114,16 @@ describe(`thy-properties`, () => {
             basicComponent.propertiesComponent.cancelEditing();
             const itemContentElements = fixture.debugElement.queryAll(By.css(`.${itemContentClass}`));
             expect(itemContentElements[1].nativeElement.classList).not.toContain(itemContentEditingClass);
+        });
+
+        it('should dynamic rendering property item', () => {
+            fixture.detectChanges();
+            basicComponent.isShow = true;
+            fixture.detectChanges();
+            const trs = fixture.debugElement.queryAll(By.css('tr'));
+            expect(trs.length).toEqual(3);
+            basicComponent.isShow = false;
+            fixture.detectChanges();
         });
     });
 
