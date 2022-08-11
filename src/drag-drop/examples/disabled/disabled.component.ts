@@ -9,7 +9,8 @@ const nodes = [
     },
     {
         key: '000002',
-        title: '000002'
+        title: '000002(不可拖拽项)',
+        disabled: true
     },
     {
         key: '000003',
@@ -35,11 +36,13 @@ export interface ThyDragDropEvent<T = any> {
 type DragDropNode = typeof nodes[0];
 
 @Component({
-    selector: 'thy-drag-drop-basic-example',
-    templateUrl: './basic.component.html'
+    selector: 'thy-drag-drop-disabled-example',
+    templateUrl: './disabled.component.html'
 })
-export class ThyDragDropBasicExampleComponent implements OnInit {
+export class ThyDragDropDisabledExampleComponent implements OnInit {
     nodes = nodes;
+
+    disabled = false;
 
     constructor() {}
 

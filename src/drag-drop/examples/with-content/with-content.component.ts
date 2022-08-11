@@ -3,10 +3,10 @@ import { Component, OnInit } from '@angular/core';
 import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 
 @Component({
-    selector: 'thy-drag-drop-with-handle-example',
-    templateUrl: './with-handle.component.html'
+    selector: 'thy-drag-drop-with-content-example',
+    templateUrl: './with-content.component.html'
 })
-export class ThyDragDropWithHandleExampleComponent implements OnInit {
+export class ThyDragDropWithContentExampleComponent implements OnInit {
     nodes = [
         {
             key: '000001',

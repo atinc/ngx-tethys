@@ -1,8 +1,8 @@
 <thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
   <ng-container *ngFor="let item of nodes">
     <thy-list-item [thyDrag]="item">
-      <span thyDragHandle [thyDisabled]="item.handleDisabled" class="cursor-pointer"><thy-icon thyIconName="drag"></thy-icon></span>
-      <span>{{ item.title }}</span>
+      <span class="cursor-pointer"><thy-icon thyIconName="drag"></thy-icon></span>
+      <span thyDragContent>{{ item.title }}</span>
     </thy-list-item>
   </ng-container>
 </thy-list>
