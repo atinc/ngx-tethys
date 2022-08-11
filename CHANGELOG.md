@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [13.2.0](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.6...13.2.0) (2022-08-11)
+
+
+### Features
+
+* **layout:** add thyShadow for thy-header #INFR-4049 ([#2071](https://github.com/atinc/ngx-tethys/issues/2071)) ([d662cf5](https://github.com/atinc/ngx-tethys/commit/d662cf57860de2a312dac0a66d065ec2aded1e79)), closes [#INFR-4049](https://github.com/atinc/ngx-tethys/issues/INFR-4049)
+
+
+
 # [13.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.5...13.2.0-next.6) (2022-08-11)
 
 
