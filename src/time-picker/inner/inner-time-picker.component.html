@@ -11,10 +11,7 @@
       <td *ngIf="showMinutes">&nbsp;&nbsp;&nbsp;</td>
       <!-- increment minutes button -->
       <td *ngIf="showMinutes">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canIncrementMinutes || !isEditable"
-          (click)="changeMinutes(minuteStep)"
+        <a class="btn btn-link" [class.disabled]="!canIncrementMinutes || !isEditable" (click)="changeMinutes(minuteStep)"
           ><span class="thy-chevron thy-chevron-up"></span
         ></a>
       </td>
@@ -22,11 +19,7 @@
       <td *ngIf="showSeconds">&nbsp;</td>
       <!-- increment seconds button -->
       <td *ngIf="showSeconds">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canIncrementSeconds || !isEditable"
-          (click)="changeSeconds(secondsStep)"
-        >
+        <a class="btn btn-link" [class.disabled]="!canIncrementSeconds || !isEditable" (click)="changeSeconds(secondsStep)">
           <span class="thy-chevron thy-chevron-up"></span>
         </a>
       </td>
@@ -118,11 +111,7 @@
       <td *ngIf="showMinutes">&nbsp;&nbsp;&nbsp;</td>
       <!-- decrement minutes button-->
       <td *ngIf="showMinutes">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canDecrementMinutes || !isEditable"
-          (click)="changeMinutes(-minuteStep)"
-        >
+        <a class="btn btn-link" [class.disabled]="!canDecrementMinutes || !isEditable" (click)="changeMinutes(-minuteStep)">
           <span class="thy-chevron thy-chevron-down"></span>
         </a>
       </td>
@@ -130,11 +119,7 @@
       <td *ngIf="showSeconds">&nbsp;</td>
       <!-- decrement seconds button-->
       <td *ngIf="showSeconds">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canDecrementSeconds || !isEditable"
-          (click)="changeSeconds(-secondsStep)"
-        >
+        <a class="btn btn-link" [class.disabled]="!canDecrementSeconds || !isEditable" (click)="changeSeconds(-secondsStep)">
           <span class="thy-chevron thy-chevron-down"></span>
         </a>
       </td>

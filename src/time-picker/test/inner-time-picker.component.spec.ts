@@ -6,29 +6,29 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyTimePickerComponent } from '../time-picker.component';
+import { ThyInnerTimePickerComponent } from '../inner/inner-time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
 registerLocaleData(zh);
 
 const CONTAINER_CLASS = 'time-picker-container';
 
-describe('ThyTimePickerComponent', () => {
-    let fixture: ComponentFixture<ThyTestTimePickerBaseComponent>;
-    let fixtureInstance: ThyTestTimePickerBaseComponent;
+describe('ThyInnerTimePickerComponent', () => {
+    let fixture: ComponentFixture<ThyTestInnerTimePickerBaseComponent>;
+    let fixtureInstance: ThyTestInnerTimePickerBaseComponent;
     let debugElement: DebugElement;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyTimePickerModule],
-            declarations: [ThyTestTimePickerBaseComponent]
+            declarations: [ThyTestInnerTimePickerBaseComponent]
         });
 
         TestBed.compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyTestTimePickerBaseComponent);
+        fixture = TestBed.createComponent(ThyTestInnerTimePickerBaseComponent);
         fixtureInstance = fixture.componentInstance;
         debugElement = fixture.debugElement;
     });
@@ -454,7 +454,7 @@ describe('ThyTimePickerComponent', () => {
 
 @Component({
     template: `
-        <thy-time-picker
+        <thy-inner-time-picker
             #timePicker
             [class]="containerClass"
             [readonlyInput]="readonly"
@@ -474,13 +474,13 @@ describe('ThyTimePickerComponent', () => {
             [max]="max"
             [ngModel]="startDate"
             (ngModelChange)="onDateChange($event)"
-        ></thy-time-picker>
+        ></thy-inner-time-picker>
     `
 })
-class ThyTestTimePickerBaseComponent {
+class ThyTestInnerTimePickerBaseComponent {
     public containerClass = CONTAINER_CLASS;
 
-    @ViewChild('timePicker') timePicker: ThyTimePickerComponent;
+    @ViewChild('timePicker') timePicker: ThyInnerTimePickerComponent;
     // 默认值与 timePicker 的默认值一致，见 ../time-picker.config.ts
     readonly = false;
 
