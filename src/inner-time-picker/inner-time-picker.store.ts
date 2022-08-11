@@ -1,9 +1,9 @@
 import { MiniStore, MiniAction } from 'ngx-tethys/core';
-import { TimeChangeEvent, TimePickerComponentState, Time, TimePickerControls } from './time-picker.models';
-import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from './time-picker-controls.util';
-import { changeTime, setTime, isValidLimit } from './time-picker.utils';
+import { TimeChangeEvent, TimePickerComponentState, Time, TimePickerControls } from './inner-time-picker.models';
+import { canChangeHours, canChangeMinutes, canChangeSeconds, canChangeValue, timePickerControls } from './inner-time-picker-controls.util';
+import { changeTime, setTime, isValidLimit } from './inner-time-picker.utils';
 import { Injectable } from '@angular/core';
-import { TimePickerConfig } from './time-picker.config';
+import { TimePickerConfig } from './inner-time-picker.config';
 
 export interface TimePickerState {
     value: Date;

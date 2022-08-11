@@ -1,6 +1,6 @@
 import { startOfDay } from 'date-fns';
-import { Time, TimePickerComponentState } from '../time-picker.models';
-import { isValidLimit, setTime } from '../time-picker.utils';
+import { Time, TimePickerComponentState } from '../inner-time-picker.models';
+import { isValidLimit, setTime } from '../inner-time-picker.utils';
 
 describe('ThyInnerTimePickerUtil', () => {
     describe('utils function test', () => {
