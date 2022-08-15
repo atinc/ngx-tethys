@@ -1,9 +1,11 @@
+@use '../../styles/variables.scss' as variables;
+
 .thy-tabs {
     display: block;
     .thy-tabs-nav {
     }
     .thy-tabs-content {
-        padding: 12px 0px;
+        padding: variables.$tabs-content-padding 0px;
     }
 
     &-left {
@@ -13,7 +15,7 @@
         }
         .thy-tabs-content {
             flex: auto;
-            padding: 0px 12px;
+            padding: 0px variables.$tabs-content-padding;
         }
     }
 }

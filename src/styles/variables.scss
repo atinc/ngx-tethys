@@ -994,11 +994,14 @@ $collapse-header-font-size: $font-size-base !default;
 $collapse-spacing-x: 8px !default;
 $collapse-spacing-y: 12px !default;
 
-//property
+// property
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
 $property-item-min-height: 28px !default;
 $property-item-padding: 8px 0px !default;
+
+// tabs
+$tabs-content-padding: 1rem;
 
 // z-index
 $z-index-1: 10;
