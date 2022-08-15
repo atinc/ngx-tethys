@@ -101,16 +101,14 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const ctx = canvas.getContext('2d');
 
         const getFakeSize = () => {
-            let fakeBox = this.el.nativeElement.querySelector('.fake-wrap');
-            if (!fakeBox) {
-                fakeBox = document.createElement('div');
-                fakeBox.classList.add('fake-wrap');
-                this.el.nativeElement.insertBefore(fakeBox, this.el.nativeElement.firstChild);
-            }
+            const fakeBox = document.createElement('div');
+            fakeBox.classList.add('fake-wrap');
+            document.querySelector('body').insertBefore(fakeBox, document.querySelector('body').firstChild);
             fakeBox.setAttribute('style', `font-size: ${parseFloat('' + fontSize)}px`);
             fakeBox.innerHTML = this.content.replace(/(\\n)/gm, '</br>');
             const { width, height } = fakeBox.getBoundingClientRect();
-            fakeBox.setAttribute('style', `display: none`);
+
+            fakeBox.remove();
             return { width, height };
         };
         const { width: fakeBoxWidth, height: fakeBoxHeight } = getFakeSize();
