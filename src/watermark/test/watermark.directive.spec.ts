@@ -55,32 +55,28 @@ describe('WatermarkDirective', () => {
     }));
 
     it('should create watermark success', () => {
-        const id = divDebugElement.nativeElement.id;
-        const panelElement = document.querySelector(`.${id}_vm`);
+        const panelElement = document.querySelector(`._vm`);
         expect(panelElement).toBeTruthy();
     });
 
     it('should remove watermark when thyDisabled is true', () => {
         testComponent.isDisabled = true;
         fixture.detectChanges();
-        const id = divDebugElement.nativeElement.id;
-        const panelElement = document.querySelector(`.${id}_vm`);
+        const panelElement = document.querySelector(`._vm`);
         expect(panelElement).toBeFalsy();
     });
 
     it('should refresh watermark when watermarkContent has been modified', () => {
         testComponent.watermarkContent = 'PingCode';
         fixture.detectChanges();
-        const id = divDebugElement.nativeElement.id;
-        const panelElement = document.querySelector(`.${id}_vm`);
+        const panelElement = document.querySelector(`._vm`);
         expect(panelElement).toBeTruthy();
     });
 
     it('should refresh watermark when watermark’s attribute has been modified', () => {
         testComponent.isDisabled = false;
         testComponent.watermarkContent = 'PingCode';
-        const id = divDebugElement.nativeElement.id;
-        const panelElement = document.querySelector(`.${id}_vm`);
+        const panelElement = document.querySelector(`._vm`);
         panelElement.setAttribute('style', 'top: 1');
 
         fixture.detectChanges();
@@ -101,6 +97,6 @@ describe('WatermarkDirective', () => {
             (pre, next) => ((pre += `${next}:${DEFAULT_WATERMARK_CONFIG[next]};`), pre),
             ''
         );
-        expect(styleStr === document.querySelector(`.${id}_vm`).getAttribute('style')).toBeTruthy();
+        expect(styleStr === document.querySelector(`._vm`).getAttribute('style')).toBeTruthy();
     });
 });

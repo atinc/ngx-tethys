@@ -11,12 +11,6 @@ label: Lack Doc
 
 对模块增加水印以及水印生成预览。 
 
-<!-- ## 使用条件
-
-<div class="dg-alert dg-alert-info"><strong>注1： 宿主节点必须设置相对定位！！</strong>  </div>
-<div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置Id属性</strong>  </div> -->
-
-
 ## 模块导入
 
 ``` ts
