@@ -11,34 +11,32 @@ label: Lack Doc
 
 对模块增加水印以及水印生成预览。 
 
-## 使用条件
+<!-- ## 使用条件
 
-<div class="dg-alert dg-alert-info"><strong>注： 宿主节点必须设置相对定位！！</strong>  </div>
-<div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置Id属性</strong>  </div>
+<div class="dg-alert dg-alert-info"><strong>注1： 宿主节点必须设置相对定位！！</strong>  </div>
+<div class="dg-alert dg-alert-info"><strong>注2： 宿主节点必须设置Id属性</strong>  </div> -->
 
 
 ## 模块导入
 
 ``` ts
-import { ThyWatermarkModule } from 'ngx-tethys/watermark';
+import { ThyWatermarkModule, ThyCanvasConfigType } from 'ngx-tethys/watermark';
 ```
 
 ## 基本使用
+<div class="dg-alert dg-alert-info">父节点需设置position: relative，否则水印将相对于最近非 static 定位的祖先元素进行定位。  </div>
 
-### 可调整水印样式
-* rotate  // 偏移角度
-* textLineHeight// 行高
-* xSpace  // x轴间隔
-* ySpace  // y轴间隔
-* fontSize   // 字体大小
-* color   // 字体颜色
-* textAlign  // 对齐方式
-* textBaseline   // 当前文本基线
-
-``` ts
-<div  thyWatermark="worktile\npingcode" [thyCanvasConfig]="thyCanvasStyles" id="basic2"></div>
+```js
+// 可调整水印样式
+interface ThyCanvasConfigType {
+    degree: number; // 偏移角度
+    color: string; // 字体颜色
+    fontSize: number | string; // 字体大小 12 || 12px
+    textLineHeight: number; // 行高
+    distributeType: string; //分布类型： more密集 less松散
+}
 ```
 
-展示效果: 
-
-<example name="thy-watermark-basic-example" />
+``` ts
+<div thyWatermark="worktile\npingcode" [thyCanvasConfig]="thyCanvasStyles" style="position: relative"></div>
+```

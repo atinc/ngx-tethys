@@ -7,9 +7,9 @@ import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThySwitchModule } from 'ngx-tethys/switch';
 
 import { ThyWatermarkBasicExampleComponent } from './basic/basic.component';
-import { ThyWatermarkTextareaExampleComponent } from './textarea/textarea.component';
+import { ThyWatermarkCanvasConfigExampleComponent } from './config/config.component';
 
-const COMPONENTS = [ThyWatermarkBasicExampleComponent, ThyWatermarkTextareaExampleComponent];
+const COMPONENTS = [ThyWatermarkBasicExampleComponent, ThyWatermarkCanvasConfigExampleComponent];
 
 @NgModule({
     declarations: COMPONENTS,

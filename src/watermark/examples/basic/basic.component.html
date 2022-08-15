@@ -1,17 +1,9 @@
-<div thyRow [thyGutter]="30">
-  <div thyCol [thySpan]="8">
-    <p>基础使用-thyWatermark</p>
-    <div class="demo-col-section" thyWatermark="worktile\npingcode" id="basic1"></div>
-  </div>
-
-  <div thyCol [thySpan]="8">
-    <p>样式调整-thyCanvasConfig</p>
-    <div class="demo-col-section" thyWatermark="worktile\npingcode" [thyCanvasConfig]="thyCanvasConfig" id="basic2"></div>
-  </div>
-
-  <div thyCol [thySpan]="8" style="text-align: center;">
-    <p>禁用-thyDisabled</p>
-    <div class="demo-col-section" thyWatermark="worktile\npingcode" [thyDisabled]="isChecked" id="basic3"></div>
-    <thy-switch [(ngModel)]="isChecked" style="margin-top: 10px; display: block;"></thy-switch>
-  </div>
+<div style="display: flex; flex-direction: column;height: 250px;">
+  <textarea
+    style="width: 50%;height:100px;margin-bottom: 20px;"
+    placeholder="请输入水印内容 支持换行"
+    thyInput
+    [(ngModel)]="value"
+  ></textarea>
+  <div style="height:150px;position:relative; flex: 1" [thyWatermark]="getValue"></div>
 </div>
