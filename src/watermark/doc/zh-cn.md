@@ -3,13 +3,14 @@ category: other
 title: Watermark
 subtitle: 水印
 order: 10
-label: Lack Doc
+label: new
 ---
 <div class="dg-alert dg-alert-info"> 用于水印生成、实时预览。</div>
 
 ## 何时使用
 
-当页面需要添加水印时；当页面需要水印生成预览时。
+* 当页面需要添加水印时；
+* 当页面需要水印生成预览时。
 
 ## 模块导入
 
@@ -18,7 +19,7 @@ import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 ```
 
 ## 基本使用
-父节点需设置position: relative，否则水印将相对于最近非 static 定位的祖先元素进行定位。
+父节点需设置 ```position: relative```，否则水印将相对于最近非 static 定位的祖先元素进行定位。
 
 <example name="thy-watermark-basic-example" />
 
