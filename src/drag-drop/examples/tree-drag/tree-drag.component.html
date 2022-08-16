@@ -1,3 +1,4 @@
+<p>一个复杂的应用示例，类似树结构，可拖动改变层级结构</p>
 <ul
   [thyDropContainer]="nodes"
   [thyBeforeDragStart]="beforeDragStart"
@@ -25,7 +26,7 @@
       (thyDragDropped)="onDragDrop($event)"
     >
       <ng-container *ngFor="let subItem of item.children">
-        <li [style.paddingLeft.px]="level * 10" [thyDrag]="item">
+        <li [style.paddingLeft.px]="level * 10" [thyDrag]="subItem">
           <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
         </li>
       </ng-container>

@@ -1,3 +1,4 @@
+<p><code>thyDragContent</code> 自定义可放置区域，本示例中，只可在文本部分进行放置</p>
 <thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
   <ng-container *ngFor="let item of nodes">
     <thy-list-item [thyDrag]="item">

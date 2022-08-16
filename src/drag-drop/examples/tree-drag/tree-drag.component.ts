@@ -11,20 +11,17 @@ const nodes = [
             {
                 key: '000001-01',
                 title: '000001-01',
-                draggable: true,
-                children: []
+                draggable: true
             },
             {
                 key: '000001-02',
                 title: '000001-02',
-                draggable: true,
-                children: []
+                draggable: true
             },
             {
                 key: '000001-03',
                 title: '000001-03',
-                draggable: true,
-                children: []
+                draggable: true
             }
         ]
     },
@@ -59,7 +56,12 @@ export interface ThyDragDropEvent<T = any> {
     previousContainerItems?: T[];
 }
 
-type DragDropNode = typeof nodes[0];
+interface DragDropNode {
+    key: string;
+    title: string;
+    draggable: true;
+    children?: DragDropNode[];
+}
 
 @Component({
     selector: 'thy-drag-drop-tree-drag-example',
@@ -78,11 +80,11 @@ export class ThyDragDropTreeDragExampleComponent implements OnInit {
     };
 
     beforeDragOver = (event: ThyDragOverEvent<DragDropNode>) => {
-        return true;
+        return !this.IsWillDropOnChildNode(event.previousItem, event.item);
     };
 
     beforeDragDrop = (event: ThyDragDropEvent<DragDropNode>) => {
-        return true;
+        return !this.IsWillDropOnChildNode(event.previousItem, event.item);
     };
 
     onDragStart(event: ThyDragStartEvent) {}
@@ -90,12 +92,34 @@ export class ThyDragDropTreeDragExampleComponent implements OnInit {
     onDragOver(event: ThyDragStartEvent) {}
 
     onDragDrop(event: ThyDragDropEvent<DragDropNode>) {
-        console.log(event);
+        const dragItem = event.previousItem;
         if (event.position === ThyDropPosition.in && event.item.children) {
-            event.item.children.push(event.previousItem);
+            event.item.children.push(dragItem);
             event.previousContainerItems.splice(event.previousIndex, 1);
-        } else {
+            return;
+        }
+
+        const prevIsInContainer = event.containerItems.find(item => item.key === dragItem.key);
+        if (prevIsInContainer) {
             moveItemInArray(event.containerItems, event.previousIndex, event.currentIndex - 1);
+        } else {
+            event.containerItems.splice(event.currentIndex, 0, dragItem);
+            event.previousContainerItems.splice(event.previousIndex, 1);
+        }
+    }
+
+    IsWillDropOnChildNode(dragItem: DragDropNode, willDropItem: DragDropNode) {
+        if (!dragItem.children?.length) {
+            return false;
+        }
+        const IsInChildren = dragItem.children.some(item => item.key === willDropItem.key);
+        if (IsInChildren) {
+            return true;
+        } else {
+            const isInGrandChildren = dragItem.children.some(item => {
+                return item.children && item.children.length && this.IsWillDropOnChildNode(item, willDropItem);
+            });
+            return isInGrandChildren;
         }
     }
 }
