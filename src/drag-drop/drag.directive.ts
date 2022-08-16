@@ -7,19 +7,34 @@ import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * 拖拽项
+ */
 @Directive({ selector: 'thy-drag,[thyDrag]' })
 export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
+    /**
+     * 元数据
+     * @type any
+     */
     @Input('thyDrag')
     set dragData(data: T) {
         this.data = data;
     }
 
+    /**
+     * 元数据
+     * @type any
+     */
     @Input('thyDragData') data: T;
 
     @HostBinding('attr.draggable') isDraggable = true;
 
     private _disabled = false;
 
+    /**
+     * 是否禁用拖拽
+     * @default false
+     */
     @Input('thyDragDisabled')
     @InputBoolean()
     set disabled(isDisabled: boolean) {
