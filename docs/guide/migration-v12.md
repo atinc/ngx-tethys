@@ -2,6 +2,7 @@
 title: 12.x 升级指南
 path: 'migration-v12'
 order: 996
+hidden: true
 ---
 
 本文档将帮助你从 ngx-tethys 11.x 版本升级到 12.x 版本。
