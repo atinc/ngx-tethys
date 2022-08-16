@@ -1,6 +1,6 @@
 import { chain, SchematicContext, Tree } from '@angular-devkit/schematics';
 
-import { TsMigrationSchematicsRule } from '../../class';
+import { migrationSchematicsRule } from '../../class';
 import { HtmlMigrationSchematicsRule } from '../../class/html-migration-schematics.rule';
 import { ComponentTagChangeMigrationByNg11 } from './migrations/component-tag-change';
 import { ImportEntryPointChangeMigrationByNg11 } from './migrations/import-entry-point-change';
@@ -8,7 +8,7 @@ import { ImportNameChangeMigrationByNg11, IMPORT_NAME_CHANGE_RELATION } from './
 export default function main() {
     return (tree: Tree, ctx: SchematicContext) => {
         return chain([
-            TsMigrationSchematicsRule([ImportEntryPointChangeMigrationByNg11, ImportNameChangeMigrationByNg11], compilerHost => {
+            migrationSchematicsRule([ImportEntryPointChangeMigrationByNg11, ImportNameChangeMigrationByNg11], compilerHost => {
                 const oldDirectoryExists = compilerHost.directoryExists;
                 compilerHost.directoryExists = (fileName: string) => {
                     if (
