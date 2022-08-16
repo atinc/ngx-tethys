@@ -1,0 +1,26 @@
+@use "../../styles/variables";
+
+$time-picker-prefix-cls: 'thy-time-picker';
+
+$font-size-base: variables.$font-size-base;
+
+$time-picker-icon-margin-right: 16px;
+
+$time-picker-panel-height: 230px;
+$time-picker-panel-content-height: 180px;
+$time-picker-panel-bottom-operation-height: 48px;
+
+$time-picker-panel-column-2: 130px;
+$time-picker-panel-column-3: 194px;
+
+$time-picker-panel-column-cell-width: 64px;
+$time-picker-panel-column-cell-height: 24px;
+$time-picker-panel-column-cell-padding-left: 23px;
+$time-picker-panel-column-cell-spacing: 5px;
+
+$time-picker-column-hover-bg-color: rgba(variables.$primary, 0.1);
+$time-picker-column-hover-color: variables.$primary;
+
+$time-picker-panel-padding: 12px;
+
+$time-picker-panel-border-color: variables.$gray-200;

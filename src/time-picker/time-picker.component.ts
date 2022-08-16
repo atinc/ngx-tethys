@@ -1,0 +1,312 @@
+import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { isPlatformBrowser } from '@angular/common';
+import {
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Inject,
+    Input,
+    OnDestroy,
+    OnInit,
+    Output,
+    PLATFORM_ID,
+    ViewChild
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isValid } from 'date-fns';
+import { getFlexiblePositions, InputBoolean, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
+
+@Component({
+    selector: 'thy-time-picker',
+    templateUrl: './time-picker.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => ThyTimePickerComponent)
+        }
+    ],
+    host: {
+        class: 'thy-time-picker',
+        '[class.thy-time-picker-disabled]': `thyDisabled`,
+        '[class.thy-time-picker-readonly]': `thyReadonly`
+    }
+})
+export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
+
+    @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
+
+    @ViewChild('pickerInput', { static: true }) inputRef: ElementRef<HTMLInputElement>;
+
+    @ViewChild('overlayContainer', { static: false }) overlayContainer: ElementRef<HTMLElement>;
+
+    @Input() thySize: TimePickerSize = 'default';
+
+    @Input() thyPlaceholder: string = '选择时间';
+
+    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+
+    @Input() thyFormat: string = 'HH:mm:ss';
+
+    @Input() thyHourStep: number = 1;
+
+    @Input() thyMinuteStep: number = 1;
+
+    @Input() thySecondStep: number = 1;
+
+    @Input() thyPopupClass: string;
+
+    @Input() @InputBoolean() thyBackdrop: boolean;
+
+    @Input() @InputBoolean() thyDisabled: boolean;
+
+    @Input() @InputBoolean() thyReadonly: boolean;
+
+    @Input() @InputBoolean() thyAutoFocus: boolean;
+
+    @Input() @InputBoolean() thyShowSelectNow = true;
+
+    @Input() @InputBoolean() thyAllowClear = true;
+
+    @Output() thyOpenChange = new EventEmitter<boolean>();
+
+    prefixCls = 'thy-time-picker';
+
+    overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+
+    showText: string = '';
+
+    openState: boolean;
+
+    value: Date;
+
+    originValue: Date;
+
+    confirmed: boolean;
+
+    keepFocus: boolean;
+
+    onValueChangeFn: (val: number | Date) => void = () => void 0;
+
+    onTouchedFn: () => void = () => void 0;
+
+    private readonly destroy$ = new Subject<void>();
+
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private elementRef: ElementRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        @Inject(PLATFORM_ID) private platformId: string
+    ) {}
+
+    ngOnInit() {
+        this.value = new TinyDate().setHms(0, 0, 0).nativeDate;
+        if (isPlatformBrowser(this.platformId)) {
+            this.thyClickDispatcher
+                .clicked(0)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe((event: Event) => {
+                    if (
+                        this.openState &&
+                        !this.elementRef.nativeElement.contains(event.target) &&
+                        !this.overlayContainer.nativeElement.contains(event.target as Node)
+                    ) {
+                        this.closeOverlay();
+                        this.cdr.detectChanges();
+                    }
+                });
+        }
+    }
+
+    ngAfterViewInit() {
+        this.overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+    }
+
+    onInputPickerClick() {
+        if (this.disabledUserOperation()) {
+            return;
+        }
+        this.confirmed = false;
+        this.openOverlay();
+    }
+
+    onInputPickerBlur() {
+        if (this.keepFocus) {
+            this.focus();
+        }
+    }
+
+    onPickTime(value: Date) {
+        this.setValue(value);
+    }
+
+    onPickTimeConfirm(value: Date) {
+        this.confirmValue(value);
+    }
+
+    onClearTime(e: Event) {
+        e.stopPropagation();
+        this.setOriginValue(null);
+        this.focus();
+        this.openOverlay();
+        this.emitValue();
+        this.cdr.markForCheck();
+    }
+
+    onCustomizeInput(value: string) {
+        this.formatInputValue(value);
+        this.cdr.detectChanges();
+    }
+
+    onKeyupEnter() {
+        this.confirmValue(this.value);
+        this.closeOverlay();
+    }
+
+    onKeyupEsc() {
+        this.closeOverlay();
+    }
+
+    onPositionChange(e: Event) {
+        this.cdr.detectChanges();
+    }
+
+    onClickBackdrop() {
+        this.closeOverlay();
+    }
+
+    onOverlayDetach() {
+        this.closeOverlay();
+    }
+
+    openOverlay() {
+        if (this.disabledUserOperation()) {
+            return;
+        }
+        this.keepFocus = true;
+        this.openState = true;
+        setTimeout(() => {
+            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                this.cdkConnectedOverlay.overlayRef.updatePosition();
+            }
+        }, 0);
+        this.thyOpenChange.emit(this.openState);
+    }
+
+    closeOverlay() {
+        this.keepFocus = false;
+        this.openState = false;
+        this.blur();
+        if (!this.confirmed) {
+            this.useOriginValueToCurrent();
+        }
+        this.thyOpenChange.emit(this.openState);
+    }
+
+    focus() {
+        if (this.inputRef) {
+            this.inputRef.nativeElement.focus();
+        }
+    }
+
+    blur() {
+        if (this.inputRef) {
+            this.inputRef.nativeElement.blur();
+        }
+    }
+
+    writeValue(value: Date): void {
+        this.setValue(value);
+    }
+
+    registerOnChange(fn: any): void {
+        this.onValueChangeFn = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedFn = fn;
+    }
+
+    private setValue(value: Date) {
+        if (value && isValid(value)) {
+            this.value = value;
+            this.showText = new TinyDate(this.value).format(this.thyFormat);
+        } else {
+            this.value = null;
+            this.showText = '';
+        }
+        this.cdr.markForCheck();
+    }
+
+    private setOriginValue(value: Date) {
+        this.originValue = isValid(value) ? new Date(value) : null;
+        this.setValue(value);
+    }
+
+    private confirmValue(value: Date) {
+        this.confirmed = true;
+        this.setOriginValue(value);
+        this.closeOverlay();
+        this.emitValue();
+        this.cdr.markForCheck();
+    }
+
+    private useOriginValueToCurrent() {
+        if (this.originValue) {
+            this.setValue(isValid(this.originValue) ? new Date(this.originValue) : null);
+        } else {
+            this.setValue(null);
+        }
+    }
+
+    private emitValue() {
+        if (this.onValueChangeFn) {
+            this.onValueChangeFn(this.value);
+        }
+        if (this.onTouchedFn) {
+            this.onTouchedFn();
+        }
+    }
+
+    private formatInputValue(value: string) {
+        if (!this.openState) {
+            this.openOverlay();
+        }
+        if (value?.length > 0) {
+            let matched: boolean = false;
+            const formatRule = this.thyFormat.split(':');
+            const formatter = value.split(':');
+            matched = !formatRule.map((m, i) => m.length === formatter[i]?.length).includes(false);
+            if (matched) {
+                const hour = formatter[0] || 0;
+                const minute = formatter[1] || 0;
+                const second = formatter[2] || 0;
+                this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate);
+            }
+        } else {
+            this.useOriginValueToCurrent();
+        }
+        this.cdr.detectChanges();
+    }
+
+    private disabledUserOperation() {
+        return this.thyDisabled || this.thyReadonly;
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
+    }
+}

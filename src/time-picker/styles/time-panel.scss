@@ -1,0 +1,103 @@
+@use "../../styles/variables";
+@use './variables.scss' as vars;
+
+$column-border: 1px solid vars.$time-picker-panel-border-color;
+
+.#{vars.$time-picker-prefix-cls}-panel {
+    display: flex;
+    height: vars.$time-picker-panel-content-height;
+    border: $column-border;
+    border-radius: variables.$border-radius-lg;
+    box-shadow: variables.$box-shadow;
+    background-color: variables.$white;
+    flex-direction: column;
+    &-columns-2 {
+        width: vars.$time-picker-panel-column-2;
+    }
+    &-columns-3 {
+        width: vars.$time-picker-panel-column-3;
+    }
+    &-content {
+        display: flex;
+        flex: 1;
+        height: vars.$time-picker-panel-content-height;
+        overflow: hidden;
+        .#{vars.$time-picker-prefix-cls}-panel-time-column {
+            flex: 1 0 auto;
+            height: 100%;
+            width: vars.$time-picker-panel-column-cell-width;
+            padding: 0px;
+            margin: 0px;
+            list-style: none;
+            outline: none;
+            border: none;
+            overflow: hidden;
+            text-align: left;
+            &::after {
+                content: '';
+                display: block;
+                height: calc(
+                    vars.$time-picker-panel-content-height - vars.$time-picker-panel-column-cell-height -
+                        vars.$time-picker-panel-column-cell-spacing
+                );
+            }
+            &-cell {
+                display: block;
+                height: vars.$time-picker-panel-column-cell-height;
+                line-height: vars.$time-picker-panel-column-cell-height;
+                font-size: vars.$font-size-base;
+                color: variables.$gray-800;
+                overflow: hidden;
+                user-select: none;
+                &:hover,
+                &-selected {
+                    background-color: vars.$time-picker-column-hover-bg-color;
+                    color: vars.$time-picker-column-hover-color;
+                }
+                &-disabled {
+                }
+                .#{vars.$time-picker-prefix-cls}-panel-time-column-cell-inner {
+                    position: relative;
+                    display: inline-block;
+                    width: 100%;
+                    height: vars.$time-picker-panel-column-cell-height;
+                    line-height: vars.$time-picker-panel-column-cell-height;
+                    padding-left: vars.$time-picker-panel-column-cell-padding-left;
+                }
+            }
+            li {
+                margin: 0;
+                margin-top: vars.$time-picker-panel-column-cell-spacing;
+                padding: 0px;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+            & + .#{vars.$time-picker-prefix-cls}-panel-time-column {
+                border-left: $column-border;
+            }
+
+            &:hover {
+                overflow-y: auto;
+            }
+        }
+    }
+    &-bottom-operation {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0px vars.$time-picker-panel-padding;
+        height: vars.$time-picker-panel-bottom-operation-height;
+        border-top: $column-border;
+        .#{vars.$time-picker-prefix-cls}-panel-time-now {
+            color: variables.$gray-600;
+            font-size: variables.$font-size-sm;
+            &:hover {
+                text-decoration: none;
+            }
+        }
+    }
+    &-has-bottom-operation {
+        height: vars.$time-picker-panel-height;
+    }
+}
