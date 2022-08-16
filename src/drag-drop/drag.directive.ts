@@ -33,6 +33,7 @@ export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
 
     /**
      * 是否禁用拖拽
+     * @default false
      */
     @Input('thyDragDisabled')
     @InputBoolean()

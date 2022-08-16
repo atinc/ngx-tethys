@@ -35,6 +35,7 @@ export class ThyDropContainerDirective<T = any> extends _MixinBase implements On
 
     /**
      * 是否禁用拖拽
+     * @default false
      */
     @Input('thyDropContainerDisabled') disabled: boolean;
 
