@@ -1,9 +1,4 @@
-<div style="display: flex; flex-direction: column;height: 250px;">
-  <textarea
-    style="width: 50%;height:100px;margin-bottom: 20px;"
-    placeholder="请输入水印内容 支持换行"
-    thyInput
-    [(ngModel)]="value"
-  ></textarea>
-  <div style="height:150px;position:relative; flex: 1" [thyWatermark]="getValue"></div>
+<div>
+  <textarea style="min-height:100px;margin-bottom: 10px;" placeholder="请输入水印内容 支持换行" thyInput [(ngModel)]="value"></textarea>
+  <div class="demo-col-section" style="height:300px;position:relative;" [thyWatermark]="getValue"></div>
 </div>

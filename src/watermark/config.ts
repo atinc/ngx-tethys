@@ -16,10 +16,5 @@ export const DEFAULT_CANVAS_CONFIG = {
     color: 'rgba(51, 51, 51, 0.12)',
     fontSize: 12,
     textLineHeight: 20,
-    distributeType: 'less' //分布类型： more密集 less松散
-};
-
-export const distributeTypeObj = {
-    more: [5, 5],
-    less: [250, 200]
+    gutter: [250, 200]
 };

@@ -5,32 +5,33 @@ subtitle: 水印
 order: 10
 label: Lack Doc
 ---
-<div class="dg-alert dg-alert-info">【指令】类型。 用于水印生成、实时预览</div>
+<div class="dg-alert dg-alert-info"> 用于水印生成、实时预览。</div>
 
 ## 何时使用
 
-对模块增加水印以及水印生成预览。 
+当页面需要添加水印时；当页面需要水印生成预览时。
 
 ## 模块导入
 
 ``` ts
-import { ThyWatermarkModule, ThyCanvasConfigType } from 'ngx-tethys/watermark';
+import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 ```
 
 ## 基本使用
-<div class="dg-alert dg-alert-info">父节点需设置position: relative，否则水印将相对于最近非 static 定位的祖先元素进行定位。  </div>
+父节点需设置position: relative，否则水印将相对于最近非 static 定位的祖先元素进行定位。
 
+<example name="thy-watermark-basic-example" />
+
+## 自定义样式
 ```js
 // 可调整水印样式
 interface ThyCanvasConfigType {
-    degree: number; // 偏移角度
-    color: string; // 字体颜色
-    fontSize: number | string; // 字体大小 12 || 12px
-    textLineHeight: number; // 行高
-    distributeType: string; //分布类型： more密集 less松散
+    degree?: number; // 偏移角度
+    color?: string; // 字体颜色
+    fontSize?: number | string; // 字体大小 12 || 12px
+    textLineHeight?: number; // 行高
+    gutter?: number[];  // 横纵间距
 }
 ```
 
-``` ts
-<div thyWatermark="worktile\npingcode" [thyCanvasConfig]="thyCanvasStyles" style="position: relative"></div>
-```
+<example name="thy-watermark-custom-example" />

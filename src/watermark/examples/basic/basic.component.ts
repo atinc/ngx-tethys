@@ -4,7 +4,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyWatermarkBasicExampleComponent implements OnInit {
-    value: string = '名字可以有十五个字这么长长长长';
+    value: string = 'worktile\npingcode';
     get getValue() {
         return JSON.stringify(this.value);
     }

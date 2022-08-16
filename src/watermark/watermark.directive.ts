@@ -2,17 +2,17 @@ import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChang
 import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG, distributeTypeObj } from './config';
+import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export interface ThyCanvasConfigType {
-    degree: number;
-    color: string;
-    fontSize: number | string;
-    textLineHeight: number;
-    distributeType: string;
+    degree?: number;
+    color?: string;
+    fontSize?: number | string;
+    textLineHeight?: number;
+    gutter?: number[];
 }
 @Directive({
     selector: '[thyWatermark]'
@@ -91,12 +91,12 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     createCanvas() {
-        let { distributeType, fontSize, color, degree, textLineHeight } = {
+        let { gutter, fontSize, color, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
             ...(this.thyCanvasConfig || {})
         };
 
-        const [xSpace, ySpace] = distributeTypeObj[distributeType];
+        const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
@@ -116,11 +116,11 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const angle = (degree * Math.PI) / 180;
         const contentArr = this.content.split('\\n');
         const canvasHeight = Math.sin(angle) * fakeBoxWidth + fakeBoxHeight;
-        let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
 
+        let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
         const canvasWidth = start + fakeBoxWidth;
-        canvas.setAttribute('width', '' + (canvasWidth + xSpace));
-        canvas.setAttribute('height', '' + (canvasHeight + ySpace));
+        canvas.setAttribute('width', '' + (canvasWidth + xGutter));
+        canvas.setAttribute('height', '' + (canvasHeight + yGutter));
 
         ctx.font = `${parseFloat('' + fontSize)}px microsoft yahei`;
         ctx.textAlign = 'center';
