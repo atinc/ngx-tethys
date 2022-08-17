@@ -40,6 +40,7 @@
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   (positionChange)="onPositionChange($event)"
   (backdropClick)="onClickBackdrop()"
+  (overlayOutsideClick)="onOutsideClick($event)"
   (detach)="onOverlayDetach()"
   (attach)="onOverlayAttach()"
 >

@@ -1,5 +1,4 @@
 import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
-import { isPlatformBrowser } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectionStrategy,
@@ -8,12 +7,10 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    Inject,
     Input,
     OnDestroy,
     OnInit,
     Output,
-    PLATFORM_ID,
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -21,7 +18,6 @@ import { isValid } from 'date-fns';
 import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
@@ -42,7 +38,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         '[class.thy-time-picker-readonly]': `thyReadonly`
     }
 })
-export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy, ControlValueAccessor {
+export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlValueAccessor {
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
@@ -99,24 +95,9 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     onTouchedFn: () => void = () => void 0;
 
-    private readonly destroy$ = new Subject<void>();
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {}
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, @Inject(PLATFORM_ID) private platformId: string) {}
-
-    ngOnInit() {
-        if (isPlatformBrowser(this.platformId)) {
-            this.cdkConnectedOverlay.overlayOutsideClick.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
-                if (
-                    this.openState &&
-                    !this.elementRef.nativeElement.contains(event.target) &&
-                    !this.overlayContainer.nativeElement.contains(event.target as Node)
-                ) {
-                    this.closeOverlay();
-                    this.cdr.detectChanges();
-                }
-            });
-        }
-    }
+    ngOnInit() {}
 
     ngAfterViewInit() {
         this.overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
@@ -180,6 +161,17 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     onOverlayDetach() {
         this.closeOverlay();
+    }
+
+    onOutsideClick(event: Event) {
+        if (
+            this.openState &&
+            !this.elementRef.nativeElement.contains(event.target) &&
+            !this.overlayContainer.nativeElement.contains(event.target as Node)
+        ) {
+            this.closeOverlay();
+            this.cdr.detectChanges();
+        }
     }
 
     onOverlayAttach() {
@@ -301,10 +293,5 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     private disabledUserOperation() {
         return this.thyDisabled || this.thyReadonly;
-    }
-
-    ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }
