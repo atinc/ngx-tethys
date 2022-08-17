@@ -92,10 +92,6 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     value: Date;
 
-    originValue: Date;
-
-    confirmed: boolean;
-
     keepFocus: boolean;
 
     onValueChangeFn: (val: number | Date) => void = () => void 0;
@@ -138,18 +134,22 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         if (this.disabledUserOperation()) {
             return;
         }
-        this.confirmed = false;
         this.openOverlay();
     }
 
     onInputPickerBlur() {
         if (this.keepFocus) {
             this.focus();
+        } else {
+            if (this.openState) {
+                this.closeOverlay();
+            }
         }
     }
 
     onPickTime(value: Date) {
         this.setValue(value);
+        this.emitValue();
     }
 
     onPickTimeConfirm(value: Date) {
@@ -158,11 +158,10 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     onClearTime(e: Event) {
         e.stopPropagation();
-        this.setOriginValue(null);
+        this.setValue(null);
         this.focus();
         this.openOverlay();
         this.emitValue();
-        this.cdr.markForCheck();
     }
 
     onCustomizeInput(value: string) {
@@ -209,9 +208,6 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.keepFocus = false;
         this.openState = false;
         this.blur();
-        if (!this.confirmed) {
-            this.useOriginValueToCurrent();
-        }
         this.thyOpenChange.emit(this.openState);
     }
 
@@ -241,7 +237,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     private setValue(value: Date) {
         if (value && isValid(value)) {
-            this.value = value;
+            this.value = new Date(value);
             this.showText = new TinyDate(this.value).format(this.thyFormat);
         } else {
             this.value = null;
@@ -250,25 +246,10 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.cdr.markForCheck();
     }
 
-    private setOriginValue(value: Date) {
-        this.originValue = isValid(value) ? new Date(value) : null;
-        this.setValue(value);
-    }
-
     private confirmValue(value: Date) {
-        this.confirmed = true;
-        this.setOriginValue(value);
         this.closeOverlay();
         this.emitValue();
         this.cdr.markForCheck();
-    }
-
-    private useOriginValueToCurrent() {
-        if (this.originValue) {
-            this.setValue(isValid(this.originValue) ? new Date(this.originValue) : null);
-        } else {
-            this.setValue(null);
-        }
     }
 
     private emitValue() {
@@ -288,17 +269,26 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
             let matched: boolean = false;
             const formatRule = this.thyFormat.split(':');
             const formatter = value.split(':');
-            matched = !formatRule.map((m, i) => m.length === formatter[i]?.length).includes(false);
+            matched = !formatRule
+                .map((m, i) => {
+                    if (m.toLowerCase().includes('h')) {
+                        return !!formatter[i];
+                    } else {
+                        return m.length === formatter[i]?.length;
+                    }
+                })
+                .includes(false);
             if (matched) {
                 const hour = formatter[0] || 0;
                 const minute = formatter[1] || 0;
                 const second = formatter[2] || 0;
                 this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate);
+                this.emitValue();
             }
         } else {
-            this.useOriginValueToCurrent();
+            this.setValue(new Date());
+            this.emitValue();
         }
-        this.cdr.detectChanges();
     }
 
     private disabledUserOperation() {

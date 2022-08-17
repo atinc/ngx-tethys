@@ -90,11 +90,16 @@ $column-border: 1px solid vars.$time-picker-panel-border-color;
         height: vars.$time-picker-panel-bottom-operation-height;
         border-top: $column-border;
         .#{vars.$time-picker-prefix-cls}-panel-time-now {
-            color: variables.$gray-600;
             font-size: variables.$font-size-sm;
+            color: variables.$gray-600;
             &:hover {
-                text-decoration: none;
+                color: variables.$primary;
             }
+        }
+        .#{vars.$time-picker-prefix-cls}-panel-time-confirm {
+            padding-left: 8px;
+            padding-right: 8px;
+            min-width: 46px;
         }
     }
     &-has-bottom-operation {

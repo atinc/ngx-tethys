@@ -5,7 +5,15 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyTimePickerBasicExampleComponent implements OnInit {
+    fullTime: Date;
+
+    time: Date;
+
     constructor() {}
 
     ngOnInit() {}
+
+    onChange(e: Date) {
+        this.fullTime = e;
+    }
 }

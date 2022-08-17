@@ -14,6 +14,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isValid } from 'date-fns';
 import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
@@ -70,7 +71,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     @Output() thyPickChange = new EventEmitter<Date>();
 
     // margin-top + 1px border
-    SCROLL_OFFSET_SPACING = 6;
+    SCROLL_OFFSET_SPACING = 5;
 
     SCROLL_DEFAULT_DURATION = 120;
 
@@ -109,6 +110,9 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     ngOnInit(): void {
         this.generateTimeRange();
         this.initialValue();
+        setTimeout(() => {
+            this.initialScrollPosition = true;
+        });
     }
 
     generateTimeRange() {
@@ -122,7 +126,6 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.hour = hours.value;
         this.thyPickChange.emit(this.value);
         this.scrollTo(this.hourListRef.nativeElement, index);
-        this.cdr.markForCheck();
     }
 
     pickMinutes(minutes: { value: number; disabled: boolean }, index: number) {
@@ -130,7 +133,6 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.minute = minutes.value;
         this.thyPickChange.emit(this.value);
         this.scrollTo(this.minuteListRef.nativeElement, index);
-        this.cdr.markForCheck();
     }
 
     pickSeconds(seconds: { value: number; disabled: boolean }, index: number) {
@@ -138,7 +140,6 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.second = seconds.value;
         this.thyPickChange.emit(this.value);
         this.scrollTo(this.secondListRef.nativeElement, index);
-        this.cdr.markForCheck();
     }
 
     selectNow() {
@@ -158,13 +159,14 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     }
 
     writeValue(value: Date): void {
-        if (value) {
-            this.value = value;
+        if (value && isValid(value)) {
+            this.value = new Date(value);
             this.setHMSProperty();
             this.autoScroll(this.initialScrollPosition ? this.SCROLL_DEFAULT_DURATION : 0);
-            if (!this.initialScrollPosition) {
-                this.initialScrollPosition = true;
-            }
+        } else {
+            this.hour = -1;
+            this.minute = -1;
+            this.second = -1;
         }
 
         this.cdr.markForCheck();
