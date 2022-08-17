@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.2](https://github.com/atinc/ngx-tethys/compare/13.2.1...13.2.2) (2022-08-17)
+
+
+### Bug Fixes
+
+* **collapse:** fix collapse empty box style #INFR-4220 ([1f5a788](https://github.com/atinc/ngx-tethys/commit/1f5a7882aef62b23895c290b35787058f3d7bdce)), closes [#INFR-4220](https://github.com/atinc/ngx-tethys/issues/INFR-4220)
+* **watermark:** adjust the var name & add test #INFO-4106 ([#2085](https://github.com/atinc/ngx-tethys/issues/2085)) ([aa4ad36](https://github.com/atinc/ngx-tethys/commit/aa4ad361337935a23fbf35bf41f516e8f326bada)), closes [#INFO-4106](https://github.com/atinc/ngx-tethys/issues/INFO-4106)
+
+
+### Features
+
+* **tabs:** change padding of tabs content  to 16px #INFR-4204 ([#2082](https://github.com/atinc/ngx-tethys/issues/2082)) ([330c1de](https://github.com/atinc/ngx-tethys/commit/330c1deff97b4008e77db9442c2c876f84e9d6f0)), closes [#INFR-4204](https://github.com/atinc/ngx-tethys/issues/INFR-4204)
+* **time-picker:** add new TimePicker #INFR-4147 ([#2087](https://github.com/atinc/ngx-tethys/issues/2087)) ([fa8cc62](https://github.com/atinc/ngx-tethys/commit/fa8cc62f18446ea727a848dc4b76c7222cdf7a53)), closes [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147)
+
+
+
 ## [13.2.1](https://github.com/atinc/ngx-tethys/compare/13.2.0...13.2.1) (2022-08-11)
 
 
