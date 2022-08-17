@@ -201,8 +201,12 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.keepFocus = false;
         this.openState = false;
         this.blur();
-        if (this.showText?.length && !this.validateCustomizeInput(this.showText)) {
-            this.setValue(this.value);
+        if (this.showText?.length) {
+            if (!this.validateCustomizeInput(this.showText)) {
+                this.setValue(this.value);
+            } else {
+                this.showText = new TinyDate(this.value).format(this.thyFormat);
+            }
         }
         this.thyOpenChange.emit(this.openState);
     }
@@ -235,10 +239,12 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.disabled = isDisabled;
     }
 
-    private setValue(value: Date) {
+    private setValue(value: Date, formatText: boolean = true) {
         if (value && isValid(value)) {
             this.value = new Date(value);
-            this.showText = new TinyDate(this.value).format(this.thyFormat);
+            if (formatText) {
+                this.showText = new TinyDate(this.value).format(this.thyFormat);
+            }
         } else {
             this.value = null;
             this.showText = '';
@@ -272,7 +278,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
                 const hour = formatter[0] || 0;
                 const minute = formatter[1] || 0;
                 const second = formatter[2] || 0;
-                this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate);
+                this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate, false);
                 this.emitValue();
             }
         } else {
@@ -287,11 +293,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         const formatter = value.split(':');
         valid = !formatRule
             .map((m, i) => {
-                if (m.toLowerCase().includes('h')) {
-                    return !!formatter[i];
-                } else {
-                    return m.length === formatter[i]?.length;
-                }
+                return !!formatter[i];
             })
             .includes(false);
         return valid;
