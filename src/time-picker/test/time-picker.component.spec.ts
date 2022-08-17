@@ -119,8 +119,6 @@ describe('ThyTimePickerComponent', () => {
         fixture.detectChanges();
     }
 
-    function setDefaultValue() {}
-
     function getTimePickerInput() {
         return debugElement.query(By.css('thy-time-picker.thy-time-picker input')).nativeElement as HTMLElement;
     }
