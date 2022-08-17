@@ -7,13 +7,13 @@ import { Component, OnInit } from '@angular/core';
 export class ThyTimePickerBasicExampleComponent implements OnInit {
     fullTime: Date;
 
-    time: Date;
+    time: Date = new Date();
 
     constructor() {}
 
     ngOnInit() {}
 
     onChange(e: Date) {
-        this.fullTime = e;
+        console.log(e);
     }
 }

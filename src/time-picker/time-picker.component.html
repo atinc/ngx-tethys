@@ -9,7 +9,7 @@
       [class.thy-time-picker-panel-opened]="openState"
       [(ngModel)]="showText"
       [thySize]="thySize"
-      [disabled]="thyDisabled"
+      [disabled]="disabled"
       [readonly]="thyReadonly"
       [placeholder]="thyPlaceholder"
       (blur)="onInputPickerBlur()"
@@ -22,13 +22,8 @@
 </span>
 
 <ng-template #rightIcon>
-  <span class="{{ prefixCls }}-clear">
-    <thy-icon
-      thyIconName="close-circle-bold-fill"
-      *ngIf="!thyDisabled && thyAllowClear && !thyReadonly"
-      (click)="onClearTime($event)"
-      ngClass="remove-link remove-link-{{ thySize }}"
-    ></thy-icon>
+  <span class="{{ prefixCls }}-clear" *ngIf="!thyDisabled && thyAllowClear && !thyReadonly && showText">
+    <thy-icon thyIconName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
   </span>
   <span class="{{ prefixCls }}-icon">
     <thy-icon [thyIconName]="'clock-circle-moment'" ngClass="remove-link-{{ thySize }}"></thy-icon>
@@ -46,6 +41,7 @@
   (positionChange)="onPositionChange($event)"
   (backdropClick)="onClickBackdrop()"
   (detach)="onOverlayDetach()"
+  (attach)="onOverlayAttach()"
 >
   <div #overlayContainer style="position: relative;">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
@@ -56,6 +52,7 @@
       [thyHourStep]="thyHourStep"
       [thyMinuteStep]="thyMinuteStep"
       [thySecondStep]="thySecondStep"
+      [thyShowSelectNow]="thyShowSelectNow"
       (ngModelChange)="onPickTimeConfirm($event)"
       (thyPickChange)="onPickTime($event)"
     ></thy-time-picker-panel>

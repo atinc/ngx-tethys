@@ -10,7 +10,6 @@ import {
     OnDestroy,
     OnInit,
     Output,
-    Renderer2,
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -83,11 +82,11 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
 
     secondRange: ReadonlyArray<{ value: number; disabled: boolean }> = [];
 
-    showHourColumn: boolean;
+    showHourColumn = true;
 
-    showMinuteColumn: boolean;
+    showMinuteColumn = true;
 
-    showSecondColumn: boolean;
+    showSecondColumn = true;
 
     showColumnCount: number = 3;
 
@@ -101,11 +100,11 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
 
     initialScrollPosition: boolean;
 
-    onValueChangeFn: (val: number | Date) => void = () => void 0;
+    onValueChangeFn: (val: Date) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private renderer: Renderer2, private elementRef: ElementRef) {}
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         this.generateTimeRange();
@@ -172,11 +171,11 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.cdr.markForCheck();
     }
 
-    registerOnChange(fn: any): void {
+    registerOnChange(fn: (value: Date) => void): void {
         this.onValueChangeFn = fn;
     }
 
-    registerOnTouched(fn: any): void {
+    registerOnTouched(fn: () => void): void {
         this.onTouchedFn = fn;
     }
 

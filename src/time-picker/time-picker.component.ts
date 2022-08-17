@@ -8,7 +8,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Inject,
     Input,
     OnDestroy,
@@ -19,7 +18,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
-import { getFlexiblePositions, InputBoolean, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -70,11 +69,11 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     @Input() @InputBoolean() thyBackdrop: boolean;
 
-    @Input() @InputBoolean() thyDisabled: boolean;
+    @Input() @InputBoolean() set thyDisabled(value: boolean) {
+        this.disabled = value;
+    }
 
     @Input() @InputBoolean() thyReadonly: boolean;
-
-    @Input() @InputBoolean() thyAutoFocus: boolean;
 
     @Input() @InputBoolean() thyShowSelectNow = true;
 
@@ -86,11 +85,13 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
 
+    disabled: boolean;
+
     showText: string = '';
 
     openState: boolean;
 
-    value: Date;
+    value: Date = new TinyDate().setHms(0, 0, 0).nativeDate;
 
     keepFocus: boolean;
 
@@ -100,29 +101,20 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     private readonly destroy$ = new Subject<void>();
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private elementRef: ElementRef,
-        private thyClickDispatcher: ThyClickDispatcher,
-        @Inject(PLATFORM_ID) private platformId: string
-    ) {}
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, @Inject(PLATFORM_ID) private platformId: string) {}
 
     ngOnInit() {
-        this.value = new TinyDate().setHms(0, 0, 0).nativeDate;
         if (isPlatformBrowser(this.platformId)) {
-            this.thyClickDispatcher
-                .clicked(0)
-                .pipe(takeUntil(this.destroy$))
-                .subscribe((event: Event) => {
-                    if (
-                        this.openState &&
-                        !this.elementRef.nativeElement.contains(event.target) &&
-                        !this.overlayContainer.nativeElement.contains(event.target as Node)
-                    ) {
-                        this.closeOverlay();
-                        this.cdr.detectChanges();
-                    }
-                });
+            this.cdkConnectedOverlay.overlayOutsideClick.pipe(takeUntil(this.destroy$)).subscribe((event: Event) => {
+                if (
+                    this.openState &&
+                    !this.elementRef.nativeElement.contains(event.target) &&
+                    !this.overlayContainer.nativeElement.contains(event.target as Node)
+                ) {
+                    this.closeOverlay();
+                    this.cdr.detectChanges();
+                }
+            });
         }
     }
 
@@ -190,17 +182,18 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.closeOverlay();
     }
 
+    onOverlayAttach() {
+        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            this.cdkConnectedOverlay.overlayRef.updatePosition();
+        }
+    }
+
     openOverlay() {
         if (this.disabledUserOperation()) {
             return;
         }
         this.keepFocus = true;
         this.openState = true;
-        setTimeout(() => {
-            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
-            }
-        }, 0);
         this.thyOpenChange.emit(this.openState);
     }
 
@@ -208,6 +201,9 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
         this.keepFocus = false;
         this.openState = false;
         this.blur();
+        if (this.showText?.length && !this.validateCustomizeInput(this.showText)) {
+            this.setValue(this.value);
+        }
         this.thyOpenChange.emit(this.openState);
     }
 
@@ -233,6 +229,10 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
 
     registerOnTouched(fn: any): void {
         this.onTouchedFn = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 
     private setValue(value: Date) {
@@ -266,19 +266,8 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
             this.openOverlay();
         }
         if (value?.length > 0) {
-            let matched: boolean = false;
-            const formatRule = this.thyFormat.split(':');
-            const formatter = value.split(':');
-            matched = !formatRule
-                .map((m, i) => {
-                    if (m.toLowerCase().includes('h')) {
-                        return !!formatter[i];
-                    } else {
-                        return m.length === formatter[i]?.length;
-                    }
-                })
-                .includes(false);
-            if (matched) {
+            if (this.validateCustomizeInput(value)) {
+                const formatter = value.split(':');
                 const hour = formatter[0] || 0;
                 const minute = formatter[1] || 0;
                 const second = formatter[2] || 0;
@@ -286,9 +275,25 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
                 this.emitValue();
             }
         } else {
-            this.setValue(new Date());
+            this.setValue(null);
             this.emitValue();
         }
+    }
+
+    private validateCustomizeInput(value: string): boolean {
+        let valid: boolean = false;
+        const formatRule = this.thyFormat.split(':');
+        const formatter = value.split(':');
+        valid = !formatRule
+            .map((m, i) => {
+                if (m.toLowerCase().includes('h')) {
+                    return !!formatter[i];
+                } else {
+                    return m.length === formatter[i]?.length;
+                }
+            })
+            .includes(false);
+        return valid;
     }
 
     private disabledUserOperation() {

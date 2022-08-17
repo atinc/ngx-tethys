@@ -28,7 +28,7 @@
     &:hover &-clear {
         opacity: 1;
     }
-    &:hover &-icon {
+    &:hover &-clear + &-icon {
         opacity: 0;
     }
     &-disabled:hover,
