@@ -1,10 +1,10 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
@@ -62,10 +62,20 @@ describe('ThyTimePickerComponent', () => {
 
             openOverlay();
 
-            dispatchMouseEvent(queryFromOverlay('.cdk-overlay-backdrop'), 'click');
+            dispatchMouseEvent(overlayQuery('.cdk-overlay-backdrop'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            expect(getTimePickerPanel()).toBeNull();
+            flush();
+        }));
+
+        it('should close by "Escape" key', fakeAsync(() => {
+            openOverlay();
+
+            getTimePickerInput().focus();
+            fixture.detectChanges();
+            dispatchKeyboardEvent(getTimePickerInput(), 'keydown', ESCAPE);
             expect(getTimePickerPanel()).toBeNull();
         }));
 
@@ -75,6 +85,30 @@ describe('ThyTimePickerComponent', () => {
             fixture.detectChanges();
             expect(getTimePickerInput().getAttribute('placeholder')).toBe(placeholder);
         });
+
+        it('should support thyAllowClear and emit change', fakeAsync(() => {
+            const clearBtnSelector = '.thy-time-picker-clear';
+            const value = new Date();
+            fixtureInstance.value = value;
+            fixture.detectChanges();
+
+            fixtureInstance.allowClear = false;
+            fixture.detectChanges();
+            expect(debugElementQuery(clearBtnSelector)).toBeNull();
+
+            fixtureInstance.allowClear = true;
+            tick(500);
+            fixture.detectChanges();
+            expect(debugElementQuery(clearBtnSelector)).not.toBeNull();
+
+            const onValueChange = spyOn(fixtureInstance, 'onValueChange');
+            debugElementQuery(`${clearBtnSelector} thy-icon`).nativeElement.click();
+            fixture.detectChanges();
+            expect(fixtureInstance.value).toBe(null);
+            expect(onValueChange).toHaveBeenCalledWith(null);
+            expect(debugElementQuery(clearBtnSelector)).toBeNull();
+            flush();
+        }));
     });
 
     function openOverlay() {
@@ -85,16 +119,22 @@ describe('ThyTimePickerComponent', () => {
         fixture.detectChanges();
     }
 
+    function setDefaultValue() {}
+
     function getTimePickerInput() {
         return debugElement.query(By.css('thy-time-picker.thy-time-picker input')).nativeElement as HTMLElement;
     }
 
     function getTimePickerPanel() {
-        return queryFromOverlay('.thy-time-picker-panel');
+        return overlayQuery('.thy-time-picker-panel');
     }
 
-    function queryFromOverlay(selector: string) {
+    function overlayQuery(selector: string) {
         return overlayContainerElement.querySelector(selector) as HTMLElement;
+    }
+
+    function debugElementQuery(selector: string) {
+        return debugElement.query(By.css(selector));
     }
 });
 
@@ -124,7 +164,7 @@ class ThyTestTimePickerBaseComponent {
 
     value: Date;
 
-    format: string;
+    format: string = 'HH:mm:ss';
 
     readonly = false;
 

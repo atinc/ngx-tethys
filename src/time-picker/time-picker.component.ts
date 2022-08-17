@@ -132,8 +132,6 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     onClearTime(e: Event) {
         e.stopPropagation();
         this.setValue(null);
-        this.focus();
-        this.openOverlay();
         this.emitValue();
     }
 
