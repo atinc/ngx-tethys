@@ -6,7 +6,7 @@ description: 属性列表
 label: new
 ---
 
-<alert>属性列表展示组件。</alert>
+<!-- <alert>属性列表展示组件。</alert>
 
 ## 何时使用
 
@@ -41,6 +41,6 @@ import { ThyPropertyModule } from "ngx-tethys/property";
   </thy-property-item>
 </thy-properties>
 
-```
+``` -->
 
 <example name="thy-property-editable-example"/>

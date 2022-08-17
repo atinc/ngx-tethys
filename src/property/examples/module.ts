@@ -7,7 +7,18 @@ import { ThyTagModule } from 'ngx-tethys/tag';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { FormsModule } from '@angular/forms';
+import { ThySelectModule } from 'ngx-tethys/select';
 
 export default {
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyTagModule, ThyInputModule, ThyAvatarModule, ThyPropertyModule, ThySharedModule]
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyButtonModule,
+        ThyTagModule,
+        ThyInputModule,
+        ThyAvatarModule,
+        ThyPropertyModule,
+        ThySelectModule,
+        ThySharedModule
+    ]
 };
