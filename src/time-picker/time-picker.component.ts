@@ -247,6 +247,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, OnDestroy,
     }
 
     private confirmValue(value: Date) {
+        this.setValue(value);
         this.closeOverlay();
         this.emitValue();
         this.cdr.markForCheck();

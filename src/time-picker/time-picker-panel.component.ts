@@ -149,7 +149,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     }
 
     confirmPickTime() {
-        this.onValueChangeFn(this.value);
+        this.onValueChangeFn(this.value || new Date());
     }
 
     scrollTo(container: HTMLElement, index: number = 0, duration: number = this.SCROLL_DEFAULT_DURATION) {
@@ -158,15 +158,9 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     }
 
     writeValue(value: Date): void {
-        if (value && isValid(value)) {
-            this.value = new Date(value);
-            this.setHMSProperty();
-            this.autoScroll(this.initialScrollPosition ? this.SCROLL_DEFAULT_DURATION : 0);
-        } else {
-            this.hour = -1;
-            this.minute = -1;
-            this.second = -1;
-        }
+        this.value = value && isValid(value) ? new Date(value) : new Date();
+        this.setHMSProperty();
+        this.autoScroll(this.initialScrollPosition ? this.SCROLL_DEFAULT_DURATION : 0);
 
         this.cdr.markForCheck();
     }
