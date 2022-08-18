@@ -1,10 +1,11 @@
-<thy-skeleton class="skeleton-container">
-  <ng-template #content>
-    <svg:circle cx="30" cy="30" r="30" />
-    <svg:rect x="70" y="15" rx="4" ry="4" width="117" height="6" />
-    <svg:rect x="70" y="35" rx="3" ry="3" width="85" height="6" />
-    <svg:rect x="0" y="80" rx="3" ry="3" width="350" height="6" />
-    <svg:rect x="0" y="100" rx="3" ry="3" width="380" height="6" />
-    <svg:rect x="0" y="120" rx="3" ry="3" width="201" height="6" />
+<thy-skeleton styleClass="mb-2 ml-2" [uiLoading]="true" [thyCustomTemplate]="custom">
+  <ng-template #custom>
+    <div class="d-flex mb-2">
+      <thy-skeleton-item shape="circle" size="5rem"></thy-skeleton-item>
+      <div style="flex: 1; display: flex;flex-direction: column;" class="ml-2">
+        <thy-skeleton-item width="100%" styleClass="mb-3" *ngFor="let item of [1, 2, 3]"></thy-skeleton-item>
+      </div>
+    </div>
+    <thy-skeleton-item width="100%" styleClass="mb-2" *ngFor="let item of [1, 2, 3]"></thy-skeleton-item>
   </ng-template>
 </thy-skeleton>

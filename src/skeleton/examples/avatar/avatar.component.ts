@@ -1,10 +1,11 @@
-import { OnInit, Component } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-avatar-example',
+    selector: 'thy-skeleton-avatar',
     templateUrl: './avatar.component.html'
 })
-export class ThySkeletonAvatarExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
-    ngOnInit(): void {}
+export class ThySkeletonAvatarComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit() {}
 }

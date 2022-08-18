@@ -1,5 +1,6 @@
-<thy-skeleton class="skeleton-container">
-  <ng-template #content>
-    <svg:circle cx="30" cy="30" r="30" />
-  </ng-template>
-</thy-skeleton>
+<div class="d-flex">
+  <!-- 调用上层组件 -->
+  <thy-skeleton type="avatar" size="5rem" styleClass="mr-5"></thy-skeleton>
+  <!-- 或直接调用底层组件 -->
+  <thy-skeleton-item shape="circle" size="5rem" class="ml-10"></thy-skeleton-item>
+</div>

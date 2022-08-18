@@ -1,130 +1,70 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    Inject,
-    PLATFORM_ID,
-    SimpleChanges,
-    OnChanges,
-    HostBinding,
-    TemplateRef,
-    ContentChild
-} from '@angular/core';
-import { generateRandomStr } from 'ngx-tethys/util';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton',
-    templateUrl: './skeleton.component.html'
+    template: `
+        <ng-container *ngIf="uiLoading">
+            <div class="el-skeleton">
+                <ng-container *ngIf="thyCustomTemplate; else thyDefaultTemplate">
+                    <div *ngFor="let i of [1, 2, 3]">
+                        <ng-template *ngTemplateOutlet="thyCustomTemplate"></ng-template>
+                    </div>
+                </ng-container>
+                <ng-template #thyDefaultTemplate>
+                    <div *ngIf="type === 'avatar'">
+                        <thy-skeleton-item shape="circle" [size]="size" [styleClass]="styleClass"></thy-skeleton-item>
+                    </div>
+
+                    <div *ngIf="type === 'list'" class="mb-2">
+                        <ng-container *ngFor="let item of rowsCount">
+                            <thy-skeleton-item width="100%" styleClass="mb-2" [height]="listHeight"></thy-skeleton-item>
+                        </ng-container>
+                    </div>
+
+                    <div *ngIf="type === 'paragraph'" class="mb-2">
+                        <thy-skeleton-item [width]="firstWidth" styleClass="mb-2"></thy-skeleton-item>
+                        <ng-container *ngFor="let item of rowsCount">
+                            <thy-skeleton-item width="100%" styleClass="mb-2"></thy-skeleton-item>
+                        </ng-container>
+                        <thy-skeleton-item [width]="lastWidth" styleClass="mb-2"></thy-skeleton-item>
+                    </div>
+
+                    <div *ngIf="type === 'bulletList'" class="mb-2">
+                        <thy-list>
+                            <thy-list-item class="d-flex" *ngFor="let item of rowsCount">
+                                <thy-skeleton-item shape="circle" [size]="size"></thy-skeleton-item>
+                                <div style="flex: 1">
+                                    <thy-skeleton-item width="100%" styleClass="ml-2" [height]="listHeight"></thy-skeleton-item>
+                                </div>
+                            </thy-list-item>
+                        </thy-list>
+                    </div>
+                    <ng-content select="[custom]"></ng-content>
+                </ng-template>
+            </div>
+        </ng-container>
+        <!-- <ng-template #renderDom>
+            <ng-template *ngTemplateOutlet="thyRealDomTemplate"> </ng-template>
+        </ng-template> -->
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonComponent implements OnInit, OnChanges {
-    @HostBinding('class.thy-skeleton') addSkeletonClass = true;
+export class ThySkeletonComponent {
+    @Input() size: string = '1rem';
+    @Input() type: string = '';
+    @Input() uiLoading: boolean = true;
+    @Input() listHeight: string = '1rem';
+    @Input() firstWidth: string = '33%';
+    @Input() lastWidth: string = '66%';
 
-    @Input() thyAnimate = true;
-
-    @Input() thyBaseUrl = '';
-
-    @Input() thyWidth: string | number = '100%';
-
-    @Input() thyHeight: string | number = '100%';
-
-    @Input() thyViewBoxWidth: string | number = 400;
-
-    @Input() thyViewBoxHeight: string | number = 130;
-
-    @Input() thySpeed = 2;
-
-    @Input() thyPreserveAspectRatio = 'none'; // xMidYMid meet
-
-    @Input() thyPrimaryColor = '#f0f0f0';
-
-    @Input() thySecondaryColor = '#e0e0e0';
-
-    @Input() thyPrimaryOpacity = 1;
-
-    @Input() thySecondaryOpacity = 1;
-
-    @Input() thyUniqueKey: string;
-
-    @Input() thyRtl: string;
-
-    @Input() thyStyle: { [key: string]: string };
-
-    @Input() thyIgnoreBaseUrl = false;
-
-    @Input() thyLoadingDone = false;
-
-    @ContentChild('content')
-    customTemplate: TemplateRef<any>;
-
-    contentTemplates: TemplateRef<any>[] = [];
-
-    idClip = generateRandomStr();
-
-    idGradient = generateRandomStr();
-
-    defaultAnimation = ['-3; 1', '-2; 2', '-1; 3'];
-
-    rtlAnimation = ['1; -3', '2; -2', '3; -1'];
-
-    animationValues: string[];
-
-    fillStyle: { fill: string };
-
-    clipPath: string;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: string) {}
-
-    ngOnInit() {
-        this.animationValues = this.thyRtl ? this.rtlAnimation : this.defaultAnimation;
-
-        if (this.thyBaseUrl === '' && !this.thyIgnoreBaseUrl && isPlatformBrowser(this.platformId)) {
-            this.thyBaseUrl = window.location.pathname;
-        }
-
-        this.setFillStyle();
-        this.setClipPath();
+    rowsCount: number[];
+    @Input('rows')
+    set rowsChange(value: number | string) {
+        this.rowsCount = Array.from({ length: +value });
     }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['thyBaseUrl']) {
-            if (changes['thyBaseUrl'].previousValue !== changes['thyBaseUrl'].currentValue) {
-                this.setFillStyle();
-                this.setClipPath();
-            }
-        }
-    }
-
-    setFillStyle() {
-        this.fillStyle = {
-            fill: `url(${this.thyBaseUrl}#${this.idGradient})`
-        };
-    }
-
-    setClipPath() {
-        this.clipPath = `url(${this.thyBaseUrl}#${this.idClip})`;
-    }
-
-    assignInputProperties(input: ThySkeletonComponent) {
-        this.thyAnimate = input.thyAnimate;
-        this.thyBaseUrl = input.thyBaseUrl;
-        this.thyHeight = input.thyHeight;
-        this.thyWidth = input.thyWidth;
-        this.thyViewBoxHeight = input.thyViewBoxHeight;
-        this.thyViewBoxWidth = input.thyViewBoxWidth;
-        this.thyPreserveAspectRatio = input.thyPreserveAspectRatio;
-        this.thyPrimaryColor = input.thyPrimaryColor;
-        this.thyPrimaryOpacity = input.thyPrimaryOpacity;
-        this.thySecondaryColor = input.thySecondaryColor;
-        this.thySecondaryOpacity = input.thySecondaryOpacity;
-        this.thyRtl = this.thyRtl;
-        this.thySpeed = this.thySpeed;
-        this.thyUniqueKey = this.thyUniqueKey;
-    }
-
-    addTemplate(template: TemplateRef<any>) {
-        if (template) {
-            this.contentTemplates.push(template);
-        }
-    }
+    @Input() animated: boolean = true;
+    @Input() thyCustomTemplate: TemplateRef<HTMLElement>;
+    // @Input() thyRealDomTemplate: TemplateRef<HTMLElement>;
+    @Input() styleClass: string | null;
 }
