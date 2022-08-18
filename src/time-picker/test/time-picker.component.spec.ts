@@ -1,7 +1,7 @@
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -42,7 +42,6 @@ describe('ThyTimePickerComponent', () => {
     describe('general property testing', () => {
         it('should open by click overlay origin', fakeAsync(() => {
             openOverlay();
-
             expect(getTimePickerPanel()).not.toBeNull();
         }));
 
@@ -61,13 +60,11 @@ describe('ThyTimePickerComponent', () => {
             fixture.detectChanges();
 
             openOverlay();
-
             dispatchMouseEvent(overlayQuery('.cdk-overlay-backdrop'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
             expect(getTimePickerPanel()).toBeNull();
-            flush();
         }));
 
         it('should close by "Escape" key', fakeAsync(() => {
@@ -101,13 +98,165 @@ describe('ThyTimePickerComponent', () => {
             fixture.detectChanges();
             expect(debugElementQuery(clearBtnSelector)).not.toBeNull();
 
-            const onValueChange = spyOn(fixtureInstance, 'onValueChange');
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
             debugElementQuery(`${clearBtnSelector} thy-icon`).nativeElement.click();
             fixture.detectChanges();
             expect(fixtureInstance.value).toBe(null);
-            expect(onValueChange).toHaveBeenCalledWith(null);
+            expect(valueChange).toHaveBeenCalledWith(null);
             expect(debugElementQuery(clearBtnSelector)).toBeNull();
-            flush();
+        }));
+
+        it('should support thyFormat', fakeAsync(() => {
+            let date = new Date();
+            date.setHours(8, 20, 6);
+            fixtureInstance.value = date;
+            fixture.detectChanges();
+            tick(500);
+
+            fixtureInstance.format = 'HH:mm:ss';
+            fixture.detectChanges();
+            expect(fixtureInstance.timePickerRef.showText === '08:20:06').toBeTruthy();
+            tick(200);
+            expect(getTimePickerInput().value === '08:20:06').toBeTruthy();
+
+            fixtureInstance.format = 'H:mm:ss';
+            fixture.detectChanges();
+            expect(fixtureInstance.timePickerRef.showText === '8:20:06').toBeTruthy();
+            tick(200);
+            expect(getTimePickerInput().value === '8:20:06').toBeTruthy();
+
+            fixtureInstance.format = 'HH:mm';
+            fixture.detectChanges();
+            expect(fixtureInstance.timePickerRef.showText === '08:20').toBeTruthy();
+            tick(200);
+            expect(getTimePickerInput().value === '08:20').toBeTruthy();
+
+            fixtureInstance.format = 'H:mm';
+            fixture.detectChanges();
+            expect(fixtureInstance.timePickerRef.showText === '8:20').toBeTruthy();
+            tick(200);
+            expect(getTimePickerInput().value === '8:20').toBeTruthy();
+        }));
+
+        it('should support thyDisabled', fakeAsync(() => {
+            fixtureInstance.value = new Date();
+            fixtureInstance.disabled = true;
+            fixture.detectChanges();
+            expect(debugElementQuery('thy-time-picker.thy-time-picker-disabled')).not.toBeNull();
+            expect(debugElementQuery('.thy-time-picker-input.thy-input-disabled')).not.toBeNull();
+            expect(debugElementQuery('.thy-time-picker-clear')).toBeNull();
+
+            openOverlay();
+            expect(getTimePickerPanel()).toBeNull();
+
+            fixtureInstance.disabled = false;
+            tick(500);
+            fixture.detectChanges();
+            expect(debugElementQuery('thy-time-picker.thy-time-picker-disabled')).toBeNull();
+            expect(debugElementQuery('.thy-time-picker-input.thy-input-disabled')).toBeNull();
+            expect(debugElementQuery('.thy-time-picker-clear')).not.toBeNull();
+
+            openOverlay();
+            expect(getTimePickerPanel()).not.toBeNull();
+        }));
+
+        it('should support thyReadonly', fakeAsync(() => {
+            fixtureInstance.value = new Date();
+            fixtureInstance.readonly = true;
+            fixture.detectChanges();
+            expect(debugElementQuery('thy-time-picker.thy-time-picker-readonly')).not.toBeNull();
+            expect(debugElementQuery('.thy-time-picker-input.thy-input-readonly')).not.toBeNull();
+            expect(debugElementQuery('.thy-time-picker-clear')).toBeNull();
+
+            openOverlay();
+            expect(getTimePickerPanel()).toBeNull();
+
+            fixtureInstance.readonly = false;
+            tick(500);
+            fixture.detectChanges();
+            expect(debugElementQuery('thy-time-picker.thy-time-picker-readonly')).toBeNull();
+            expect(debugElementQuery('.thy-time-picker-input.thy-input-readonly')).toBeNull();
+            expect(debugElementQuery('.thy-time-picker-clear')).not.toBeNull();
+
+            openOverlay();
+            expect(getTimePickerPanel()).not.toBeNull();
+        }));
+
+        it('should support thyPopupClass', fakeAsync(() => {
+            const customClass = 'open-overlay-custom-class';
+            fixtureInstance.popupClass = customClass;
+            fixture.detectChanges();
+
+            openOverlay();
+            expect(overlayQuery(`.${customClass}`)).not.toBeNull();
+        }));
+
+        it('should support thyHourStep,thyMinuteStep,thySecondStep', fakeAsync(() => {
+            fixtureInstance.hourStep = 5;
+            fixtureInstance.minuteStep = 10;
+            fixtureInstance.secondStep = 20;
+            fixture.detectChanges();
+
+            openOverlay();
+
+            expect(getHourColumnElement().children.length === Math.ceil(24 / 5)).toBeTruthy();
+            expect(getMinuteColumnElement().children.length === Math.ceil(60 / 10)).toBeTruthy();
+            expect(getSecondColumnElement().children.length === Math.ceil(60 / 20)).toBeTruthy();
+        }));
+
+        it('should emit openChange on open/close overlay', fakeAsync(() => {
+            const openChange = spyOn(fixtureInstance, 'onOpenChange');
+
+            openOverlay();
+            expect(openChange).toHaveBeenCalledWith(true);
+
+            dispatchMouseEvent(document.body, 'click');
+            expect(openChange).toHaveBeenCalledWith(false);
+        }));
+    });
+
+    describe('ngModel testing', () => {
+        it('should support default value', fakeAsync(() => {
+            const date = new Date();
+            date.setHours(10, 20, 3);
+            fixtureInstance.value = date;
+            fixture.detectChanges();
+            tick(500);
+
+            expect(fixtureInstance.timePickerRef.value.getTime() === date.getTime()).toBeTruthy();
+            expect(fixtureInstance.timePickerRef.showText === '10:20:03').toBeTruthy();
+        }));
+
+        it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
+            const date = new Date();
+            date.setHours(10, 20, 3);
+            let newDate = new Date(date);
+            fixtureInstance.value = date;
+            fixture.detectChanges();
+            tick(500);
+            expect(fixtureInstance.timePickerRef.value.getTime() === new Date(date).getTime()).toBeTruthy();
+
+            openOverlay();
+
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+
+            getHourColumnChildren(5).click();
+            newDate.setHours(5);
+            expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
+
+            tick(200);
+
+            getMinuteColumnChildren(10).click();
+            newDate.setMinutes(10);
+            expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
+
+            tick(200);
+
+            getSecondColumnChildren(30).click();
+            newDate.setSeconds(30);
+            expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
+
+            expect(getTimePickerPanel()).not.toBeNull();
         }));
     });
 
@@ -120,11 +269,35 @@ describe('ThyTimePickerComponent', () => {
     }
 
     function getTimePickerInput() {
-        return debugElement.query(By.css('thy-time-picker.thy-time-picker input')).nativeElement as HTMLElement;
+        return debugElementQuery('thy-time-picker.thy-time-picker input').nativeElement as HTMLInputElement;
     }
 
     function getTimePickerPanel() {
         return overlayQuery('.thy-time-picker-panel');
+    }
+
+    function getHourColumnElement() {
+        return overlayQuery(`.thy-time-picker-panel-hour-column`);
+    }
+
+    function getHourColumnChildren(index: number) {
+        return getHourColumnElement().children[index] as HTMLElement;
+    }
+
+    function getMinuteColumnElement() {
+        return overlayQuery('.thy-time-picker-panel-minute-column');
+    }
+
+    function getMinuteColumnChildren(index: number) {
+        return getMinuteColumnElement().children[index] as HTMLElement;
+    }
+
+    function getSecondColumnElement() {
+        return overlayQuery('.thy-time-picker-panel-second-column');
+    }
+
+    function getSecondColumnChildren(index: number) {
+        return getSecondColumnElement().children[index] as HTMLElement;
     }
 
     function overlayQuery(selector: string) {
@@ -154,6 +327,7 @@ describe('ThyTimePickerComponent', () => {
             [thyPlaceholder]="placeholder"
             [thyShowSelectNow]="showSelectNow"
             (ngModelChange)="onValueChange($event)"
+            (thyOpenChange)="onOpenChange($event)"
         ></thy-time-picker>
     `
 })
@@ -168,7 +342,7 @@ class ThyTestTimePickerBaseComponent {
 
     disabled = false;
 
-    allowClear: boolean;
+    allowClear: boolean = true;
 
     size: TimePickerSize;
 
@@ -187,4 +361,6 @@ class ThyTestTimePickerBaseComponent {
     backdrop: boolean;
 
     onValueChange(value: Date) {}
+
+    onOpenChange(state: boolean) {}
 }
