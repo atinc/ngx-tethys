@@ -1,6 +1,9 @@
 @use "../../styles/variables";
 @use "../examples/basic/basic.component.scss";
-.content-wrap {
+.fake-wrap {
+    position: absolute;
+    top: 0;
+    left: 0;
     display: inline-block;
     border: 1px solid #ccc;
     font-size: 12px;

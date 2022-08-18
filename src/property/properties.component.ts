@@ -9,15 +9,16 @@ import {
     OnDestroy,
     ElementRef,
     NgZone,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    ViewChildren,
+    AfterViewInit,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil, startWith } from 'rxjs/operators';
+import { EMPTY, fromEvent, merge, Subject } from 'rxjs';
+import { takeUntil, startWith, map } from 'rxjs/operators';
 import { ThyPropertyItemComponent } from './property-item.component';
-
-const itemContentEditableClass = 'thy-properties-item-content-editable';
-const itemContentEditingClass = 'thy-properties-item-content-editing';
 
 /**
  * 属性列表组件
@@ -33,7 +34,7 @@ const itemContentEditingClass = 'thy-properties-item-content-editing';
         '[class.thy-properties-horizontal]': 'thyLayout === "horizontal"'
     }
 })
-export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestroy {
+export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
@@ -60,15 +61,20 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
      */
     @ContentChildren(ThyPropertyItemComponent) items!: QueryList<ThyPropertyItemComponent>;
 
+    /**
+     * @private
+     */
+    @ViewChildren('item', { read: ElementRef }) itemElements: QueryList<ElementRef<HTMLElement>>;
+
     rows: ThyPropertyItemComponent[][] = [];
 
     private destroy$ = new Subject();
 
+    private editTrigger$ = new Subject();
+
     constructor(private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
-    ngOnInit() {
-        this.bindTriggerEvent();
-    }
+    ngOnInit() {}
 
     ngAfterContentInit(): void {
         this.items.changes.pipe(startWith(this.items), takeUntil(this.destroy$)).subscribe(() => {
@@ -77,16 +83,22 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
         });
     }
 
+    ngAfterViewInit(): void {
+        this.itemElements.changes.pipe(startWith(this.itemElements), takeUntil(this.destroy$)).subscribe(event => {
+            this.bindTriggerEvent();
+        });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyEditTrigger && !changes.thyEditTrigger.firstChange) {
+            this.editTrigger$.next();
+            this.bindTriggerEvent();
+        }
+    }
+
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
-    }
-
-    cancelEditing() {
-        const editingElements = this.elementRef.nativeElement.querySelectorAll(`.${itemContentEditingClass}`);
-        editingElements.forEach(element => {
-            element.classList.remove(itemContentEditingClass);
-        });
     }
 
     private splitItems(): void {
@@ -105,37 +117,54 @@ export class ThyPropertiesComponent implements OnInit, AfterContentInit, OnDestr
         this.rows = rows;
     }
 
-    private getEditContentElement(target: HTMLElement) {
-        return target.classList.contains(`.${itemContentEditableClass}`) ? target : target.closest(`.${itemContentEditableClass}`);
+    private mergeEditorsEvent(eventName: string) {
+        return merge<{ event: Event; itemComponent: ThyPropertyItemComponent }>(
+            ...this.itemElements.map((element, index) => {
+                const itemComponent = this.items.get(index);
+                if (itemComponent.thyEditable) {
+                    return fromEvent(element.nativeElement, eventName).pipe(
+                        map(event => {
+                            return { event, itemComponent };
+                        })
+                    );
+                } else {
+                    return EMPTY;
+                }
+            })
+        );
     }
 
     private bindTriggerEvent() {
         this.ngZone.runOutsideAngular(() => {
+            const eventDestroy$ = merge(this.itemElements.changes, this.editTrigger$, this.destroy$);
             if (this.thyEditTrigger === 'hover') {
-                fromEvent(this.elementRef.nativeElement, 'mouseover')
-                    .pipe(takeUntil(this.destroy$))
+                this.mergeEditorsEvent('mouseenter')
+                    .pipe(takeUntil(eventDestroy$))
                     .subscribe(event => {
-                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                        if (editContentElement) {
-                            editContentElement.classList.add(itemContentEditingClass);
-                        }
+                        this.ngZone.run(() => {
+                            event.itemComponent.setEditing(true);
+                            this.cdr.markForCheck();
+                        });
                     });
-                fromEvent(this.elementRef.nativeElement, 'mouseout')
-                    .pipe(takeUntil(this.destroy$))
+
+                this.mergeEditorsEvent('mouseleave')
+                    .pipe(takeUntil(eventDestroy$))
                     .subscribe(event => {
-                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                        if (editContentElement) {
-                            editContentElement.classList.remove(itemContentEditingClass);
+                        if (!event.itemComponent.keepEditing) {
+                            this.ngZone.run(() => {
+                                event.itemComponent.setEditing(false);
+                                this.cdr.markForCheck();
+                            });
                         }
                     });
             } else {
-                fromEvent(this.elementRef.nativeElement, 'click')
-                    .pipe(takeUntil(this.destroy$))
+                this.mergeEditorsEvent('click')
+                    .pipe(takeUntil(eventDestroy$))
                     .subscribe(event => {
-                        const editContentElement = this.getEditContentElement(event.target as HTMLElement);
-                        if (editContentElement) {
-                            editContentElement.classList.add(itemContentEditingClass);
-                        }
+                        this.ngZone.run(() => {
+                            event.itemComponent.setEditing(true);
+                            this.cdr.markForCheck();
+                        });
                     });
             }
         });

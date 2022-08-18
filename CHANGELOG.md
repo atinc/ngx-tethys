@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file. See [standa
 
 # [14.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.0.0-next.0...14.0.0-next.1) (2022-08-16)
 
-
+- build: upgrade Angular to 14
 
 # [14.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.2.1...14.0.0-next.0) (2022-08-11)
 
-
+- build: upgrade Angular to 14
 
 ## [13.2.1](https://github.com/atinc/ngx-tethys/compare/13.2.0...13.2.1) (2022-08-11)
 

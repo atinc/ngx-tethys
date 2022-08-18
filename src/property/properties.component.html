@@ -50,9 +50,14 @@
 </ng-template>
 
 <ng-template #itemContent let-item="item">
-  <div class="thy-properties-item-content" [class.thy-properties-item-content-editable]="item?.thyEditable">
+  <div
+    #item
+    class="thy-properties-item-content"
+    [class.thy-properties-item-content-editable]="item?.thyEditable"
+    [class.thy-properties-item-content-editing]="item?.editing"
+  >
     <div class="thy-properties-item-content-text">
-      <ng-template *ngIf="item?.content" [ngTemplateOutlet]="item.content"></ng-template>
+      <span><ng-template *ngIf="item?.content" [ngTemplateOutlet]="item.content"></ng-template></span>
     </div>
     <div class="thy-properties-item-content-editor" *ngIf="item?.thyEditable">
       <ng-template *ngIf="item?.editor" [ngTemplateOutlet]="item.editor"></ng-template>

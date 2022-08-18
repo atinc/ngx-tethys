@@ -18,29 +18,65 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ]
 })
 export class ThyDropContainerDirective<T = any> extends _MixinBase implements OnInit, AfterContentInit, IThyDropContainerDirective {
+    /**
+     * 元数据
+     * @type any[]
+     */
     @Input('thyDropContainer')
     set dragContainer(data: T[]) {
         this.data = data;
     }
 
+    /**
+     * 元数据
+     * @type any[]
+     */
     @Input('thyDropContainerData') data: T[];
 
+    /**
+     * 是否禁用拖拽
+     * @default false
+     */
     @Input('thyDropContainerDisabled') disabled: boolean;
 
+    /**
+     * 拖拽之前的回调，函数返回 false 则阻止拖拽
+     */
     @Input('thyBeforeDragStart') beforeStart: (e: ThyDragStartEvent<T>) => boolean;
 
+    /**
+     * 拖拽时回调，函数返回 false 则阻止移入
+     */
     @Input('thyBeforeDragOver') beforeOver: (e: ThyDragOverEvent<T>) => boolean;
 
+    /**
+     * 拖放到元素时回调，函数返回 false 则阻止放置
+     */
     @Input('thyBeforeDragDrop') beforeDrop: (e: ThyDragDropEvent<T>) => boolean;
 
+    /**
+     * 开始拖拽时调用
+     */
     @Output('thyDragStarted') started = new EventEmitter<ThyDragStartEvent<ThyDragDirective>>();
 
+    /**
+     * dragend 触发时调用
+     */
     @Output('thyDragEnded') ended = new EventEmitter<ThyDragEndEvent<ThyDragDirective>>();
 
+    /**
+     * dragover 触发时调用
+     */
     @Output('thyDragOvered') overed = new EventEmitter<ThyDragOverEvent<ThyDragDirective>>();
 
+    /**
+     * drop 触发时调用
+     */
     @Output('thyDragDropped') dropped = new EventEmitter<ThyDragDropEvent<ThyDragDirective>>();
 
+    /**
+     * @internal
+     */
     @ContentChildren(ThyDragDirective, {
         descendants: false
     })
