@@ -1,11 +1,12 @@
 import { NgModule, Component, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent } from '../properties.component';
 import { CommonModule } from '@angular/common';
+import { ThyPropertyItemComponent } from '../property-item.component';
 
 const itemLabelClass = 'thy-properties-item-label';
 const itemContentClass = 'thy-properties-item-content';
@@ -14,12 +15,12 @@ const itemContentEditingClass = 'thy-properties-item-content-editing';
 @Component({
     selector: 'thy-properties-test-basic',
     template: `
-        <thy-properties #properties [thyLayout]="layout">
+        <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
             <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
-            <thy-property-item thyLabelText="年龄" thyEditable="true">
-                <span class="content-age">{{ user.age }}</span>
+            <thy-property-item #editItem thyLabelText="年龄" thyEditable="true">
+                <span>{{ user.age }}</span>
                 <ng-template #editor>
-                    <input />
+                    <input class="age-input" />
                 </ng-template>
             </thy-property-item>
             <thy-property-item *ngIf="isShow" thyLabelText="地址">这里是一个地址</thy-property-item>
@@ -29,7 +30,11 @@ const itemContentEditingClass = 'thy-properties-item-content-editing';
 class ThyPropertiesTestBasicComponent {
     @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
 
+    @ViewChild('editItem') editItemComponent: ThyPropertyItemComponent;
+
     layout = 'horizontal';
+
+    editTrigger = 'hover';
 
     user = {
         name: '张萌',
@@ -64,13 +69,15 @@ describe(`thy-properties`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestBasicComponent>;
         let basicComponent: ThyPropertiesTestBasicComponent;
 
-        beforeEach(fakeAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
-                providers: []
-            });
-            TestBed.compileComponents();
-        }));
+        beforeEach(
+            waitForAsync(() => {
+                TestBed.configureTestingModule({
+                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
+                    providers: []
+                });
+                TestBed.compileComponents();
+            })
+        );
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyPropertiesTestBasicComponent);
@@ -99,21 +106,33 @@ describe(`thy-properties`, () => {
             expect(trs[3].nativeElement.innerText).toEqual(basicComponent.user.age.toString());
         });
 
-        it('should displayed input when age content hovered', () => {
-            const ageContentElement = fixture.debugElement.query(By.css('.content-age'));
-            dispatchMouseEvent(ageContentElement.nativeElement, 'mouseover');
-            const itemContentElements = fixture.debugElement.queryAll(By.css(`.${itemContentClass}`));
-            expect(itemContentElements[1].nativeElement.classList).toContain(itemContentEditingClass);
-            dispatchMouseEvent(ageContentElement.nativeElement, 'mouseout');
-            expect(itemContentElements[1].nativeElement.classList).not.toContain(itemContentEditingClass);
+        it('should displayed input when age item hovered', () => {
+            const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseenter');
+            fixture.detectChanges();
+            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
         });
 
-        it('should cancel editing success', () => {
-            const ageContentElement = fixture.debugElement.query(By.css('.content-age'));
-            dispatchMouseEvent(ageContentElement.nativeElement, 'mouseover');
-            basicComponent.propertiesComponent.cancelEditing();
-            const itemContentElements = fixture.debugElement.queryAll(By.css(`.${itemContentClass}`));
-            expect(itemContentElements[1].nativeElement.classList).not.toContain(itemContentEditingClass);
+        it('should displayed input when age item clicked', () => {
+            basicComponent.editTrigger = 'click';
+            fixture.detectChanges();
+            const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'click');
+            fixture.detectChanges();
+            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
+        });
+
+        it('should set keep editing success', () => {
+            const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseenter');
+            basicComponent.editItemComponent.setKeepEditing(true);
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseleave');
+            fixture.detectChanges();
+            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
+            basicComponent.editItemComponent.setKeepEditing(false);
+            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseleave');
+            fixture.detectChanges();
+            expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain(itemContentEditingClass);
         });
 
         it('should dynamic rendering property item', () => {

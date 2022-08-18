@@ -43,6 +43,9 @@
     .thy-properties-item-content {
         color: variables.$property-item-content-color;
 
+        .thy-properties-item-content-text {
+        }
+
         .thy-properties-item-content-editor {
             display: none;
         }
@@ -51,9 +54,13 @@
             .thy-properties-item-content-text {
                 display: none;
             }
-
             .thy-properties-item-content-editor {
-                display: inline-block;
+                display: block;
+
+                // 优化 edit状态下使用 form-control 组件抖动，9px（input padding 8px + border 1px）
+                .form-control {
+                    transform: translateX(calc((variables.$input-padding-x-fixed + 1px) * -1));
+                }
             }
         }
     }

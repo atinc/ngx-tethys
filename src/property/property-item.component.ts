@@ -25,7 +25,7 @@ export class ThyPropertyItemComponent implements OnInit {
      * @type sting
      * @default false
      */
-    @Input() thyEditable: string;
+    @Input() thyEditable: boolean;
 
     /**
      * 属性名称自定义模板
@@ -44,7 +44,22 @@ export class ThyPropertyItemComponent implements OnInit {
      */
     @ViewChild(TemplateRef, { static: true }) content!: TemplateRef<void>;
 
+    editing: boolean;
+
+    keepEditing: boolean;
+
     constructor() {}
 
     ngOnInit() {}
+
+    setEditing(editing: boolean) {
+        this.editing = editing;
+    }
+
+    setKeepEditing(keep: boolean) {
+        this.keepEditing = keep;
+        if (!keep) {
+            this.setEditing(false);
+        }
+    }
 }
