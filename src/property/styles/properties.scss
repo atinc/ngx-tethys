@@ -7,7 +7,6 @@
         .thy-properties-item-container {
             width: 100%;
             display: flex;
-            align-items: baseline;
 
             .thy-properties-item-label {
                 min-height: variables.$property-item-min-height;
@@ -17,6 +16,8 @@
 
             .thy-properties-item-content {
                 flex: 1;
+                display: flex;
+                align-items: center;
             }
         }
     }
