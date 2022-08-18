@@ -15,18 +15,19 @@ export class ThyPopoverAutoAdaptiveExampleComponent implements OnInit {
         originActiveClass: 'active'
     };
 
-    contentComponent = ThyPopoverAutoAdaptiveContentComponent;
+    content = ThyPopoverAutoAdaptiveContentComponent;
 
     constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit(): void {}
 
-    openPopoverAsyncFetchData(event: Event) {
+    openPopover(event: Event) {
         this.thyPopover.open(ThyPopoverAutoAdaptiveContentComponent, {
             ...this.config,
             autoAdaptive: true,
             origin: event.currentTarget as HTMLElement,
-            panelClass: 'demo-popover'
+            panelClass: 'demo-popover',
+            width: '200px'
         });
     }
 }

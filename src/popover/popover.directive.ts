@@ -19,30 +19,61 @@ import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
 import { ThyPopoverConfig } from './popover.config';
 
+/**
+ * 弹出悬浮层指令
+ * @name thyPopover
+ */
 @Directive({
     selector: '[thyPopover]'
 })
 export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     @HostBinding(`class.thy-popover-opened`) popoverOpened = false;
 
+    /**
+     * 悬浮组件或者模板
+     */
     @Input('thyPopover') content: ComponentType<any> | TemplateRef<any>;
 
+    /**
+     * 弹出悬浮层的触发方式
+     */
     @Input() set thyTrigger(trigger: ThyOverlayTrigger) {
         this.trigger = trigger;
     }
 
-    @Input() thyPlacement: ThyPlacement;
+    /**
+     * 弹出悬浮层的位置
+     */
+    @Input() thyPlacement: ThyPlacement = 'bottom';
 
-    @Input() thyOffset: number;
+    /**
+     * 弹出悬浮层的偏移量
+     */
+    @Input() thyOffset: number = 0;
 
+    /**
+     * 弹出悬浮层的配置
+     */
     @Input() thyConfig: ThyPopoverConfig;
 
+    /**
+     * 显示延迟时间
+     */
     @Input('thyShowDelay') showDelay = 0;
 
+    /**
+     * 隐藏延迟时间
+     */
     @Input('thyHideDelay') hideDelay = 0;
 
+    /**
+     * 自动适配内容变化重新计算位置
+     */
     @Input() thyAutoAdaptive = false;
 
+    /**
+     * 禁用打开悬浮层
+     */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;
     }

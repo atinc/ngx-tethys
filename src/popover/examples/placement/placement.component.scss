@@ -1,0 +1,34 @@
+$space: 10px;
+$btn-width: 120px;
+
+.btn {
+    width: $btn-width;
+}
+
+.top-group,
+.bottom-group {
+    padding-left: 50px;
+    .btn {
+        margin-right: $space;
+    }
+}
+
+.left-group {
+    float: left;
+    width: $btn-width;
+    .btn {
+        margin-top: $space;
+    }
+}
+
+.right-group {
+    margin-left: 380px;
+    width: $btn-width;
+    .btn {
+        margin-top: $space;
+    }
+}
+
+.bottom-group {
+    margin-top: $space;
+}

@@ -5,46 +5,13 @@ import { ThyPopoverBasicContentComponent } from './popover-content.component';
 
 @Component({
     selector: 'thy-popover-basic-example',
-    templateUrl: './basic.component.html'
+    templateUrl: './basic.component.html',
+    styleUrls: ['./basic.component.scss']
 })
 export class ThyPopoverBasicExampleComponent implements OnInit {
-    config: Partial<ThyPopoverConfig<unknown>> = {
-        hasBackdrop: true,
-        backdropClosable: true,
-        placement: 'bottom',
-        originActiveClass: 'active'
-    };
+    content = ThyPopoverBasicContentComponent;
 
-    constructor(private thyPopover: ThyPopover) {}
+    constructor() {}
 
     ngOnInit(): void {}
-
-    openPopover(event: Event) {
-        this.thyPopover.open(ThyPopoverBasicContentComponent, {
-            ...this.config,
-            origin: event.currentTarget as HTMLElement,
-            panelClass: 'demo-popover'
-        });
-    }
-
-    openPopoverOutsideClosable(event: Event) {
-        this.thyPopover.open(ThyPopoverBasicContentComponent, {
-            ...this.config,
-            origin: event.currentTarget as HTMLElement,
-            panelClass: 'demo-popover'
-        });
-    }
-
-    openTemplatePopover(event: Event, template: TemplateRef<HTMLElement>) {
-        this.thyPopover.open(template, {
-            ...this.config,
-            offset: 10,
-            origin: event.currentTarget as HTMLElement,
-            panelClass: 'demo-popover'
-        });
-    }
-
-    close() {
-        this.thyPopover.close();
-    }
 }

@@ -1,8 +1,7 @@
-<button thyButton="primary" [thyPopover]="content">
+<button thyButton="primary" (click)="openComponent($event)">
   Open Component
 </button>
-
-<button thyButton="primary" [thyPopover]="template">
+<button thyButton="primary" (click)="openTemplate($event, template)">
   Open Template
 </button>
 

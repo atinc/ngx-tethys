@@ -40,6 +40,10 @@ export class ThyDropdownMenuComponent {
 
     width: number;
 
+    get template() {
+        return this.templateRef;
+    }
+
     @ViewChild(TemplateRef, { static: true }) templateRef!: TemplateRef<SafeAny>;
 
     /**

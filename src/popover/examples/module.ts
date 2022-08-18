@@ -4,51 +4,48 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyNavModule } from 'ngx-tethys/nav';
+import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyActionModule } from 'ngx-tethys/action';
 import { THY_POPOVER_SCROLL_STRATEGY, ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThySelectModule } from 'ngx-tethys/select';
-
-import { Overlay } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
-import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-adaptive-content.component';
-import { ThyPopoverAutoAdaptiveExampleComponent } from './auto-adaptive/auto-adaptive.component';
-import { ThyPopoverBasicExampleComponent } from './basic/basic.component';
 import { ThyPopoverBasicContentComponent } from './basic/popover-content.component';
-import { ThyPopoverDirectiveExampleComponent } from './directive/directive.component';
+import { ThyPopoverAutoAdaptiveContentComponent } from './auto-adaptive/auto-adaptive-content.component';
+import { ThyPopoverManualContentComponent } from './manual/popover-content.component';
+import { ThyPopoverPassDataContentComponent } from './pass-data/popover-content.component';
+import { Overlay } from '@angular/cdk/overlay';
 
-const COMPONENTS = [
-    ThyPopoverBasicContentComponent,
-    ThyPopoverBasicExampleComponent,
-    ThyPopoverDirectiveExampleComponent,
-    ThyPopoverAutoAdaptiveContentComponent,
-    ThyPopoverAutoAdaptiveExampleComponent
-];
-
-@NgModule({
-    declarations: COMPONENTS,
+export default {
+    declarations: [
+        ThyPopoverBasicContentComponent,
+        ThyPopoverManualContentComponent,
+        ThyPopoverAutoAdaptiveContentComponent,
+        ThyPopoverPassDataContentComponent
+    ],
     imports: [
         CommonModule,
         ThyButtonModule,
         ThyFormModule,
         ThySelectModule,
         ThyIconModule,
+        ThyActionModule,
+        ThySpaceModule,
         ThyActionMenuModule,
+        ThyDropdownModule,
         ThyPopoverModule,
         ThyNavModule,
         FormsModule,
         ThyInputModule
-    ],
-    exports: COMPONENTS,
-    providers: [
-        {
-            provide: THY_POPOVER_SCROLL_STRATEGY,
-            deps: [Overlay],
-            useFactory: (overlay: Overlay) => {
-                return () => overlay.scrollStrategies.close();
-            }
-        }
     ]
-})
-export class ThyPopoverExamplesModule {}
+    // providers: [
+    //     {
+    //         provide: THY_POPOVER_SCROLL_STRATEGY,
+    //         deps: [Overlay],
+    //         useFactory: (overlay: Overlay) => {
+    //             return () => overlay.scrollStrategies.close();
+    //         }
+    //     }
+    // ]
+};
