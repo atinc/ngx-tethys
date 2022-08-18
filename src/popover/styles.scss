@@ -1,6 +1,10 @@
 @use "../styles/variables.scss";
 @use "../styles/mixins/shadow.scss";
 
+.thy-popover-panel {
+    padding: 4px;
+}
+
 .thy-popover-container {
     background: variables.$white;
     width: 100%;

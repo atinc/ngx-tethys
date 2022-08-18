@@ -25,7 +25,7 @@ Dialog组件提供了一个ThyDialog服务，用于配置和打开模态框。
 通过调用`open`方法并传要加载的组件和可选的配置对象可以打开对话框，`open`方法将返回一个`ThyDialogRef`的实例：
 
 ```ts
-let dialogRef = dialog.open(ProfileComponent, {
+const dialogRef = dialog.open(ProfileComponent, {
   height: '400px',
   width: '600px',
 });
@@ -62,7 +62,7 @@ export class YourDialog {
 
 ```ts
 openProfile(template: TemplateRef<any>) {
-    let dialogRef = dialog.open(template, {
+    const dialogRef = dialog.open(template, {
         height: '400px',
         width: '600px',
     });
@@ -122,7 +122,7 @@ const DEFAULT_CONFIG = {
 如果要和对话框共享数据，可以通过`initialState`参数把信息传给该组件。
 
 ```ts
-let dialogRef = dialog.open(YourDialogComponent, {
+const dialogRef = dialog.open(YourDialogComponent, {
   initialState: { name: 'peter' },
 });
 

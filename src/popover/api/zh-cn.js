@@ -171,7 +171,7 @@ module.exports = [
                 name: 'thyOffset',
                 description: '弹出 Popover 的偏移量',
                 type: 'number',
-                default: '4'
+                default: '0'
             },
             {
                 name: 'thyShowDelay',

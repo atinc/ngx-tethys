@@ -31,6 +31,7 @@ import {
     ThyPopoverConfig
 } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Injectable()
 export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
@@ -79,7 +80,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
 
     protected buildOverlayConfig<TData>(config: ThyPopoverConfig<TData>): OverlayConfig {
         const positionStrategy = this.buildPositionStrategy(config);
-        const overlayConfig = this.buildBaseOverlayConfig(config);
+        const overlayConfig = this.buildBaseOverlayConfig(config, 'thy-popover-panel');
         overlayConfig.positionStrategy = positionStrategy;
         overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
         return overlayConfig;
@@ -188,6 +189,9 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return closeAndEnd;
     }
 
+    /**
+     * 打开 Popover
+     */
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config?: ThyPopoverConfig<TData>
@@ -216,16 +220,23 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return popoverRef;
     }
 
+    /**
+     * 根据Id获取打开的悬浮层
+     */
     getPopoverById(id: string): ThyPopoverRef<any> | undefined {
         return this.getAbstractOverlayById(id) as ThyPopoverRef<any> | undefined;
     }
 
-    getOpenedPopovers(): ThyPopoverRef<any>[] {
+    /**
+     * 获取已经打开的悬浮层
+     */
+    getOpenedPopovers(): ThyPopoverRef<SafeAny>[] {
         return this.getAbstractOverlays();
     }
 
     /**
-     * Finds the closest ThyPopoverRef to an element by looking at the DOM.
+     * 通过 Dom 元素查找最近弹出的悬浮层
+     * @description.en-us Finds the closest ThyPopoverRef to an element by looking at the DOM.
      */
     getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined {
         const parent = element.closest('.thy-popover-container');
@@ -236,6 +247,16 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         return null;
     }
 
+    /**
+     * 关闭悬浮层
+     */
+    close<T>(result?: T, force?: boolean) {
+        super.close(result, force);
+    }
+
+    /**
+     * @internal
+     */
     ngOnDestroy() {
         this.dispose();
     }

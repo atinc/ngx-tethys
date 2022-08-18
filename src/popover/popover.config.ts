@@ -46,7 +46,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     hasBackdrop: true,
     backdropClass: 'thy-popover-backdrop',
     panelClass: '',
-    offset: 4,
+    offset: 0,
     backdropClosable: true,
     closeOnNavigation: true,
     placement: 'bottom' as ThyPlacement,
