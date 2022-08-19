@@ -1,10 +1,10 @@
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
@@ -60,7 +60,9 @@ describe('ThyTimePickerComponent', () => {
             fixture.detectChanges();
 
             openOverlay();
-            dispatchMouseEvent(overlayQuery('.cdk-overlay-backdrop'), 'click');
+
+            dispatchMouseEvent(overlayQuery('.cdk-overlay-transparent-backdrop'), 'click');
+            // dispatchMouseEvent(overlayQuery('.cdk-overlay-backdrop'), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
@@ -69,10 +71,13 @@ describe('ThyTimePickerComponent', () => {
 
         it('should close by "Escape" key', fakeAsync(() => {
             openOverlay();
+            expect(getTimePickerPanel()).not.toBeNull();
 
-            getTimePickerInput().focus();
-            fixture.detectChanges();
+            tick(200);
             dispatchKeyboardEvent(getTimePickerInput(), 'keydown', ESCAPE);
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
             expect(getTimePickerPanel()).toBeNull();
         }));
 
@@ -204,6 +209,19 @@ describe('ThyTimePickerComponent', () => {
             expect(getSecondColumnElement().children.length === Math.ceil(60 / 20)).toBeTruthy();
         }));
 
+        it('should keep input focus when overlay opened', fakeAsync(() => {
+            openOverlay();
+            dispatchFakeEvent(getTimePickerInput(), 'blur');
+            fixture.detectChanges();
+            expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeTruthy();
+
+            dispatchMouseEvent(document.body, 'click');
+            fixture.detectChanges();
+            dispatchFakeEvent(getTimePickerInput(), 'blur');
+            fixture.detectChanges();
+            expect(document.activeElement.classList.contains('thy-time-picker-input')).toBeFalsy();
+        }));
+
         it('should emit openChange on open/close overlay', fakeAsync(() => {
             const openChange = spyOn(fixtureInstance, 'onOpenChange');
 
@@ -212,6 +230,29 @@ describe('ThyTimePickerComponent', () => {
 
             dispatchMouseEvent(document.body, 'click');
             expect(openChange).toHaveBeenCalledWith(false);
+        }));
+
+        it('should change value when custom input', fakeAsync(() => {
+            const fakeInputValue = '10:20:03';
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+            fixture.detectChanges();
+            getTimePickerInput().value = fakeInputValue;
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            expect(valueChange).toHaveBeenCalled();
+            tick();
+            expect(valueChange.calls.mostRecent().args[0].getTime() === new Date().setHours(10, 20, 3)).toBeTruthy();
+
+            fixture.detectChanges();
+            getTimePickerInput().value = '';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick();
+            expect(valueChange).toHaveBeenCalled();
+            tick();
+            expect(valueChange.calls.mostRecent().args[0]).toBeNull();
         }));
     });
 
@@ -227,7 +268,7 @@ describe('ThyTimePickerComponent', () => {
             expect(fixtureInstance.timePickerRef.showText === '10:20:03').toBeTruthy();
         }));
 
-        it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
+        it('should emit change when pick hour,minute,second and click confirm button', fakeAsync(() => {
             const date = new Date();
             date.setHours(10, 20, 3);
             let newDate = new Date(date);
@@ -242,21 +283,46 @@ describe('ThyTimePickerComponent', () => {
 
             getHourColumnChildren(5).click();
             newDate.setHours(5);
+            expect(valueChange).toHaveBeenCalled();
             expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
 
             tick(200);
 
             getMinuteColumnChildren(10).click();
             newDate.setMinutes(10);
+            expect(valueChange).toHaveBeenCalled();
             expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
 
             tick(200);
 
             getSecondColumnChildren(30).click();
             newDate.setSeconds(30);
+            expect(valueChange).toHaveBeenCalled();
             expect(valueChange.calls.mostRecent().args[0].getTime() === newDate.getTime()).toBeTruthy();
 
             expect(getTimePickerPanel()).not.toBeNull();
+        }));
+
+        it('should emit change when click confirm button and press enter key', fakeAsync(() => {
+            const date = new Date();
+            date.setHours(10, 20, 3);
+            fixtureInstance.value = date;
+            fixture.detectChanges();
+
+            openOverlay();
+
+            const valueChange = spyOn(fixtureInstance, 'onValueChange');
+
+            overlayQuery('.thy-time-picker-panel-time-confirm').click();
+            expect(valueChange).toHaveBeenCalled();
+            expect(valueChange.calls.mostRecent().args[0].getTime() === date.getTime()).toBeTruthy();
+
+            tick(200);
+
+            dispatchKeyboardEvent(getTimePickerInput(), 'keydown', ENTER);
+            // dispatchKeyboardEvent(getTimePickerInput(), 'keyup', ENTER);
+            expect(valueChange).toHaveBeenCalled();
+            expect(valueChange.calls.mostRecent().args[0].getTime() === date.getTime()).toBeTruthy();
         }));
     });
 
@@ -318,6 +384,7 @@ describe('ThyTimePickerComponent', () => {
             [thyFormat]="format"
             [thyBackdrop]="backdrop"
             [thyDisabled]="disabled"
+            [disabled]="disabled"
             [thyReadonly]="readonly"
             [thyHourStep]="hourStep"
             [thyMinuteStep]="minuteStep"

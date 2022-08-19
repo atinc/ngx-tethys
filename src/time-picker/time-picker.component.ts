@@ -128,10 +128,6 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     onInputPickerBlur() {
         if (this.keepFocus) {
             this.focus();
-        } else {
-            if (this.openState) {
-                this.closeOverlay();
-            }
         }
     }
 
