@@ -1,0 +1,7 @@
+@use '../../styles/variables.scss';
+
+.thy-text {
+    display: inline-block;
+    position: relative;
+    font-size: variables.$font-size-base;
+}
