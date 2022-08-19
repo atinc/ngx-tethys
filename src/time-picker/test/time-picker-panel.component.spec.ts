@@ -66,6 +66,10 @@ describe('ThyTimePanelComponent', () => {
             fixtureInstance.showSelectNow = true;
             fixture.detectChanges();
             expect(debugElementQuery('.thy-time-picker-panel-time-now')).toBeTruthy();
+
+            const valueChange = spyOn(fixtureInstance, 'onPickTime');
+            debugElementQuery('.thy-time-picker-panel-time-now').nativeElement.click();
+            expect(valueChange).toHaveBeenCalled();
         });
 
         it('should support thyShowOperations', () => {

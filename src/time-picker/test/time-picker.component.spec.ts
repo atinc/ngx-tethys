@@ -1,10 +1,9 @@
-import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent, dispatchEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { ThyTimePickerComponent, TimePickerSize } from '../time-picker.component';
 import { ThyTimePickerModule } from '../time-picker.module';
 
@@ -62,21 +61,17 @@ describe('ThyTimePickerComponent', () => {
             openOverlay();
 
             dispatchMouseEvent(overlayQuery('.cdk-overlay-transparent-backdrop'), 'click');
-            // dispatchMouseEvent(overlayQuery('.cdk-overlay-backdrop'), 'click');
-            fixture.detectChanges();
-            tick(500);
             fixture.detectChanges();
             expect(getTimePickerPanel()).toBeNull();
+
+            flush();
         }));
 
         it('should close by "Escape" key', fakeAsync(() => {
             openOverlay();
             expect(getTimePickerPanel()).not.toBeNull();
 
-            tick(200);
-            dispatchKeyboardEvent(getTimePickerInput(), 'keydown', ESCAPE);
-            fixture.detectChanges();
-            tick(500);
+            getTimePickerInput().dispatchEvent(new KeyboardEvent('keyup', { key: 'escape' }));
             fixture.detectChanges();
             expect(getTimePickerPanel()).toBeNull();
         }));
@@ -319,8 +314,7 @@ describe('ThyTimePickerComponent', () => {
 
             tick(200);
 
-            dispatchKeyboardEvent(getTimePickerInput(), 'keydown', ENTER);
-            // dispatchKeyboardEvent(getTimePickerInput(), 'keyup', ENTER);
+            getTimePickerInput().dispatchEvent(new KeyboardEvent('keyup', { key: 'enter' }));
             expect(valueChange).toHaveBeenCalled();
             expect(valueChange.calls.mostRecent().args[0].getTime() === date.getTime()).toBeTruthy();
         }));
