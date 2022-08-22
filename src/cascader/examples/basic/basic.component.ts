@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyNotifyService } from 'ngx-tethys';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import option from '../cascader-address-options';
 
 @Component({

@@ -23,7 +23,6 @@ import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { SelectionModel } from '@angular/cdk/collections';
-import options from './examples/cascader-address-options';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -573,10 +572,12 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     public clickOption(option: CascaderOption, index: number, event: Event): void {
-        if (event) {
-            event.preventDefault();
+        // if (event instanceof Event) {
+        //     event.preventDefault();
+        // }
+        if (option.isLeaf && event instanceof Event && this.isMultiple) {
+            return;
         }
-        console.log('------ click outside li');
         if (option && option.disabled) {
             return;
         }
@@ -645,9 +646,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
             const isSelected = !option.selected;
-            console.log('!option.selected', isSelected);
-            option.selected = isSelected;
-            set(option, 'selected', option.selected);
+            // option.selected = isSelected;
+            set(option, 'selected', isSelected);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {

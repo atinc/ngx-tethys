@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import option from '../cascader-address-options';
 @Component({
-    selector: 'thy-cascader-selectchanged-example',
+    selector: 'thy-cascader-select-changed-example',
     templateUrl: './select-changed.component.html'
 })
 export class ThyCascaderSelectChangedExampleComponent implements OnInit {

@@ -46,9 +46,10 @@
           *ngFor="let option of options; trackBy: trackByFn"
           [option]="option"
           [multiple]="thyMultiple"
+          (toggleSelectChange)="clickOption(option, i, $event)"
           (click)="clickOption(option, i, $event)"
           (mouseover)="onOptionMouseover(option, i, $event)"
-          [thyLabelProperty]="thyLabelProperty"
+          [labelProperty]="thyLabelProperty"
           [active]="isActivatedOption(option, i)"
         ></li>
       </ul>

@@ -1,5 +1,15 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    ViewEncapsulation
+} from '@angular/core';
 import { CascaderOption } from './types';
 
 @Component({
@@ -27,8 +37,6 @@ export class ThyCascaderOptionComponent implements OnInit {
     @Input()
     @InputBoolean()
     set active(value: boolean) {
-        console.log(' inside LI selected state is ', value);
-        console.log(' and option value', this.option.label);
         this.isActive = value;
     }
 
@@ -46,29 +54,21 @@ export class ThyCascaderOptionComponent implements OnInit {
         return this.option && !this.option.isLeaf;
     }
 
-    @Input() thyLabelProperty: string;
+    @Input() labelProperty: string = 'label';
+
+    @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 
     private isActive = false;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
     public getOptionLabel() {
-        return this.option ? this.option[this.thyLabelProperty || 'label'] : '';
+        return this.option ? this.option[this.labelProperty] : '';
     }
 
     ngOnInit() {}
 
-    optionChange(event: Event) {
-        console.log('event', event);
-
-        // if (this.option.isLeaf && this.multiple && this.option.selected) {
-        // this.cdr.detectChanges();
-        // }
-    }
-
-    public onStopPropagation(event: Event) {
-        // if (this.wholeRowSelect) {
-        //     event.stopPropagation();
-        // }
+    public toggleOption(value: boolean) {
+        this.toggleSelectChange.emit(value);
     }
 }
