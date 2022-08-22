@@ -21,13 +21,7 @@
     <span *ngIf="user.likes.length === 0">无</span>
     <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
     <ng-template #editor>
-      <thy-custom-select
-        thyMode="multiple"
-        thySize="sm"
-        [(ngModel)]="user.likes"
-        (click)="hobby.setKeepEditing(true)"
-        (thyOnExpandStatusChange)="hobby.setKeepEditing($event)"
-      >
+      <thy-custom-select thyMode="multiple" thySize="sm" [(ngModel)]="user.likes" (thyOnExpandStatusChange)="hobby.setKeepEditing($event)">
         <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
         <thy-option [thyValue]="'跑步'" [thyLabelText]="'跑步'"> </thy-option>
         <thy-option [thyValue]="'撸铁'" [thyLabelText]="'撸铁'"> </thy-option>
