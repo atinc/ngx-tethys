@@ -5,6 +5,9 @@
     position: relative;
     display: inline-block;
     width: 100%;
+    &-wrapper {
+        position: relative;
+    }
     &-input {
         outline: none;
         padding-right: 38px;
