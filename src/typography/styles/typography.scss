@@ -1,7 +1,20 @@
 @use '../../styles/variables.scss';
+@use "./mixin";
 
-.thy-text {
+.#{variables.$thy-prefix}-text {
     display: inline-block;
     position: relative;
     font-size: variables.$font-size-base;
+
+    .thy-icon {
+        vertical-align: text-bottom;
+        margin-right: 8px;
+    }
+
+    /**** colors ****/
+    @each $color, $value in variables.$text-colors {
+        &-#{$color} {
+            @include mixin.text-color-variant($value);
+        }
+    }
 }

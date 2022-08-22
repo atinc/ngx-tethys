@@ -465,6 +465,25 @@ $tag-size-font-sizes: (
 
 $tag-border-radius: 3px !default;
 
+// typography
+$text-colors: () !default;
+$text-colors: map.merge(
+    (
+        'primary': $primary,
+        'default': $body-color,
+        'info': $info,
+        'success': $success,
+        'warning': $warning,
+        'danger': $danger,
+        'secondary': $secondary,
+        'light': $light,
+        'muted': $gray-600,
+        'desc': $gray-500,
+        'placeholder': $gray-400
+    ),
+    $text-colors
+);
+
 //avatar
 $avatar-sizes: () !default;
 $avatar-sizes: map.merge(

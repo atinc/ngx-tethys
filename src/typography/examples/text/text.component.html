@@ -1,1 +1,10 @@
-<span thyText thyColor="primary">This is a Text</span>
+<thy-custom-select class="w-25 mb-3" [(ngModel)]="color">
+  <thy-option *ngFor="let item of presetColors" [thyValue]="item" [thyLabelText]="item"> </thy-option>
+</thy-custom-select>
+<span>预设文本颜色：</span>
+<span thyText [thyColor]="color">This is a Text</span>
+
+<hr />
+
+<span>自定义文本颜色：</span>
+<thy-text thyColor="#c9584e">This is a text</thy-text>
