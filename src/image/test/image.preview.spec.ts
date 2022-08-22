@@ -3,7 +3,7 @@ import { Component, DebugElement, OnInit } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed, waitForAsync, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
 import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
