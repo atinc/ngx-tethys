@@ -15,7 +15,7 @@ import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 ```
 ## 如何使用
 
-时间选择提供组件 `thy-date-picker` 选择时间。
+时间选择提供组件 `thy-time-picker` 选择时间。
 
 ## 组件使用
 
