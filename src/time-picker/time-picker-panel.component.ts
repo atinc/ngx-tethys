@@ -158,8 +158,12 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     }
 
     writeValue(value: Date): void {
-        this.value = value && isValid(value) ? new Date(value) : new Date();
-        this.setHMSProperty();
+        if (value && isValid(value)) {
+            this.value = new Date(value);
+            this.setHMSProperty();
+        } else {
+            this.initialValue();
+        }
         this.autoScroll(this.initialScrollPosition ? this.SCROLL_DEFAULT_DURATION : 0);
 
         this.cdr.markForCheck();

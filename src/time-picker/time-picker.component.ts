@@ -53,7 +53,12 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
 
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
-    @Input() thyFormat: string = 'HH:mm:ss';
+    @Input() set thyFormat(value: string) {
+        this.format = value || 'HH:mm:ss';
+        if (this.value && isValid(this.value)) {
+            this.showText = new TinyDate(this.value).format(this.format);
+        }
+    }
 
     @Input() thyHourStep: number = 1;
 
@@ -77,9 +82,19 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
 
     @Output() thyOpenChange = new EventEmitter<boolean>();
 
+    get thyFormat() {
+        return this.format;
+    }
+
+    get thyDisabled() {
+        return this.disabled;
+    }
+
     prefixCls = 'thy-time-picker';
 
     overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+
+    format: string = 'HH:mm:ss';
 
     disabled: boolean;
 
@@ -113,10 +128,6 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     onInputPickerBlur() {
         if (this.keepFocus) {
             this.focus();
-        } else {
-            if (this.openState) {
-                this.closeOverlay();
-            }
         }
     }
 
