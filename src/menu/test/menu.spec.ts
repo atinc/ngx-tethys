@@ -13,14 +13,22 @@ import { ThyMenuItemActionComponent } from '../item/action/menu-item-action.comp
 import { ThyMenuItemIconComponent } from '../item/icon/menu-item-icon.component';
 import { ThyMenuItemComponent } from '../item/menu-item.component';
 import { ThyMenuItemNameComponent } from '../item/name/menu-item-name.component';
-import { ThyMenuComponent } from '../menu.component';
+import { ThyMenuComponent, ThyMenuTheme } from '../menu.component';
 import { ThyMenuModule } from '../menu.module';
+import { ThyDividerModule } from '../../divider';
 
 @Component({
-    selector: 'thy-demo-thy-menu',
+    selector: 'thy-demo-menu',
     template: `
-        <thy-menu>
-            <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" [thyActionIcon]="'user-group-fill'">
+        <thy-menu [thyTheme]="theme">
+            <thy-menu-group
+                thyTitle="工作"
+                [thyExpand]="true"
+                [thyCollapsible]="collapsible"
+                (thyCollapsedChange)="toggle($event)"
+                [thyShowAction]="true"
+                [thyActionIcon]="'user-group-fill'"
+            >
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
                         <thy-icon thyIconName="user-group-fill"></thy-icon>
@@ -41,6 +49,9 @@ import { ThyMenuModule } from '../menu.module';
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
+                <ng-template #headerContent>
+                    <span class="custom-title">星标</span>
+                </ng-template>
             </thy-menu-group>
             <thy-menu-item>
                 <thy-menu-item-icon class="hasColorIcon" thyColor="red">
@@ -48,7 +59,7 @@ import { ThyMenuModule } from '../menu.module';
                 </thy-menu-item-icon>
                 <thy-menu-item-name [thyOverflowEllipsis]="false" class="thyOverflowEllipsis">配置中心</thy-menu-item-name>
             </thy-menu-item>
-            <thy-menu-divider></thy-menu-divider>
+            <thy-divider></thy-divider>
         </thy-menu>
         <ng-template #action><div id="actionTemplate" class="actionTemplate">aa</div></ng-template>
     `
@@ -61,28 +72,52 @@ class ThyDemoMenuComponent {
     @ViewChild(ThyMenuItemActionComponent, { static: true }) action: ThyMenuItemActionComponent;
     @ViewChild(ThyMenuItemNameComponent, { static: true }) name: ThyMenuItemNameComponent;
 
+    theme = 'default';
+    collapsible = true;
+
     click() {}
+
+    toggle(event: any) {}
 }
 
-@NgModule({
-    imports: [ThyMenuModule, BrowserAnimationsModule, ThyPopoverModule, ThyIconModule],
-    declarations: [ThyDemoMenuComponent],
-    exports: [ThyDemoMenuComponent],
-    providers: [ThyPopover]
+@Component({
+    selector: 'thy-menu-test-basic',
+    template: `
+        <thy-menu [thyTheme]="theme" [thyCollapsed]="collapsed">
+            <a id="default-item" thyMenuItem href="javascript:;">
+                Default Item
+            </a>
+            <a id="with-icon-item" thyMenuItem thyIcon="calendar" href="javascript:;">
+                With Icon Item
+            </a>
+            <a thyMenuItem thyIcon="calendar" href="javascript:;">
+                <span thyMenuItemName>Configuration</span>
+            </a>
+            <thy-divider></thy-divider>
+            <a thyMenuItem href="javascript:;">
+                <span thyMenuItemIcon thyColor="#ff5b57"><thy-icon thyIconName="trash"></thy-icon></span>
+                <span thyMenuItemName>Trash</span>
+            </a>
+        </thy-menu>
+    `
 })
-export class ThyMenuTestModule {}
+class ThyMenuTestBasicComponent {
+    theme: ThyMenuTheme = undefined;
+    collapsed = false;
+}
 
 describe('ThyMenu', () => {
     let fixture: ComponentFixture<ThyDemoMenuComponent>;
     let component: ThyDemoMenuComponent;
 
-    beforeEach(async(() => {
+    beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyMenuModule, ThyMenuTestModule],
-            providers: [bypassSanitizeProvider]
+            declarations: [ThyDemoMenuComponent, ThyMenuTestBasicComponent],
+            imports: [ThyMenuModule, BrowserAnimationsModule, ThyDividerModule, ThyPopoverModule, ThyIconModule],
+            providers: [bypassSanitizeProvider, ThyPopover]
         }).compileComponents();
         injectDefaultSvgIconSet();
-    }));
+    });
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoMenuComponent);
@@ -91,32 +126,81 @@ describe('ThyMenu', () => {
     });
 
     describe('thy-menu', () => {
-        it('should create thy-menu', () => {
-            expect(component).toBeTruthy();
-        });
-
-        it('should have class thy-menu', () => {
-            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
-            expect(menu.nativeElement.classList.contains('thy-menu')).toBeTruthy();
-        });
-    });
-
-    describe('thy-menu-divider', () => {
-        let divider: DebugElement;
+        let fixture: ComponentFixture<ThyMenuTestBasicComponent>;
+        let component: ThyMenuTestBasicComponent;
+        let menuDebugElement: DebugElement;
+        let menuElement: HTMLElement;
 
         beforeEach(() => {
-            divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
+            fixture = TestBed.createComponent(ThyMenuTestBasicComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            menuDebugElement = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            menuElement = menuDebugElement.nativeElement;
         });
 
-        it('should create thy-menu-divider', () => {
-            expect(divider.componentInstance).toBeTruthy();
-            expect(divider.componentInstance === component.divider).toBeTruthy();
+        it('should create thy-menu', () => {
+            expect(menuDebugElement).toBeTruthy();
+            expect(menuElement).toBeTruthy();
+            expect(menuElement.classList.contains('thy-menu')).toBeTruthy();
         });
 
-        it('should have class thy-menu-divider', () => {
-            expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
+        it('should set theme loose', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('thy-menu-theme-loose')).toBeTruthy();
+        });
+
+        it('should set theme dark', () => {
+            fixture.debugElement.componentInstance.theme = 'dark';
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('thy-menu-theme-dark')).toBeTruthy();
+        });
+
+        it('should set collapsed success', () => {
+            fixture.debugElement.componentInstance.collapsed = true;
+            fixture.detectChanges();
+            const menu = fixture.debugElement.query(By.directive(ThyMenuComponent));
+            expect(menu.nativeElement.classList.contains('thy-menu-collapsed')).toBeTruthy();
+        });
+
+        it('should get default item', () => {
+            const defaultItem = fixture.debugElement.query(By.css('#default-item'));
+            expect(defaultItem).toBeTruthy();
+            expect(defaultItem.nativeElement.classList.contains('thy-menu-item'));
+            expect(defaultItem.nativeElement.textContent).toContain('Default Item');
+        });
+
+        it('should get item with icon', () => {
+            const iconItem = fixture.debugElement.query(By.css('#with-icon-item'));
+            expect(iconItem).toBeTruthy();
+            const iconItemElement: HTMLElement = iconItem.nativeElement;
+            expect(iconItemElement.classList.contains('thy-menu-item'));
+            expect(iconItemElement.textContent).toContain('With Icon Item');
+            expect(iconItemElement.children[0].classList.contains('thy-icon'));
+            expect(iconItemElement.children[0].classList.contains('thy-menu-item-icon'));
+            expect(iconItemElement.children[0].classList.contains('thy-icon-calendar'));
         });
     });
+
+    // describe('thy-menu-divider', () => {
+    //     let divider: DebugElement;
+
+    //     beforeEach(() => {
+    //         divider = fixture.debugElement.query(By.directive(ThyMenuDividerComponent));
+    //     });
+
+    //     it('should create thy-menu-divider', () => {
+    //         expect(divider.componentInstance).toBeTruthy();
+    //         expect(divider.componentInstance === component.divider).toBeTruthy();
+    //     });
+
+    //     it('should have class thy-menu-divider', () => {
+    //         expect(divider.nativeElement.classList.contains('thy-menu-divider')).toBeTruthy();
+    //     });
+    // });
 
     describe('thy-menu-group', () => {
         let group: DebugElement;
@@ -132,6 +216,36 @@ describe('ThyMenu', () => {
 
         it('should have class thy-menu-group', () => {
             expect(group.nativeElement.classList.contains('thy-menu-group')).toBeTruthy();
+        });
+
+        it('should collapsible worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
+            fixture.debugElement.componentInstance.collapsible = false;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.thy-menu-group-arrow'))).toBeFalsy();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
+            groupHeader.click();
+            fixture.detectChanges();
+            expect(group.componentInstance.isCollapsed).toBe(false);
+        });
+
+        it('should toggle worked', () => {
+            fixture.detectChanges();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            const groupHeader = group.nativeElement.querySelector('.thy-menu-group-header');
+            const spy = spyOn(fixture.componentInstance, 'toggle');
+            groupHeader.click();
+            fixture.detectChanges();
+            expect(group.componentInstance.isCollapsed).toBe(true);
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+
+        it('should headerContent worked', () => {
+            fixture.debugElement.componentInstance.theme = 'loose';
+            fixture.detectChanges();
+            const group = fixture.debugElement.query(By.directive(ThyMenuGroupComponent));
+            expect(group.nativeElement.querySelectorAll('.custom-title')).toBeTruthy();
         });
     });
 

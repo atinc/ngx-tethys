@@ -1,6 +1,6 @@
 @use './mixin.scss';
 @use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
 
 .thy-tree {
     display: block;
@@ -10,6 +10,10 @@
     color: variables.$gray-700;
     transform: translateY(-10px);
 
+    .cdk-virtual-scroll-viewport {
+        overflow-x: hidden;
+        overflow-y: auto;
+    }
     > div > .thy-tree-node {
         padding: 0 0 0 10px;
     }
@@ -35,7 +39,7 @@
             .thy-tree-expand {
                 width: 16px;
                 line-height: 16px;
-                color: #cacaca;
+                color: variables.$gray-600;
                 text-align: center;
                 margin-right: 8px;
                 display: inline-block;
@@ -45,7 +49,7 @@
                 }
 
                 &:hover {
-                    color: variables.$gray-600;
+                    color: variables.$gray-700;
                 }
             }
 
@@ -141,6 +145,9 @@
                     margin-right: 0;
                 }
             }
+            .thy-action:last-child {
+                margin-right: -10px;
+            }
         }
 
         &-wrapper {
@@ -171,7 +178,7 @@
     .cdk-virtual-scroll-viewport {
         height: 100%;
         .virtual-trees-container {
-            padding: 10px 20px 10px 10px;
+            padding: variables.$tree-padding;
             .thy-tree-node {
                 padding: 0 0 0 10px;
             }

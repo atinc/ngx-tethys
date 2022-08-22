@@ -1,18 +1,25 @@
-import { Component, HostBinding, ElementRef, Input, Renderer2, TemplateRef, OnDestroy } from '@angular/core';
 import { ComponentType } from '@angular/cdk/portal';
+import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 
+/**
+ * 菜单项操作组件
+ */
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
-    templateUrl: './menu-item-action.component.html'
+    templateUrl: './menu-item-action.component.html',
+    host: {
+        class: 'thy-menu-item-action'
+    }
 })
 export class ThyMenuItemActionComponent implements OnDestroy {
     _boundEvent = false;
 
     _actionMenu: ComponentType<any> | TemplateRef<any>;
 
-    @HostBinding('class.thy-menu-item-action') isThyMenuItemIconMore = true;
-
+    /**
+     * 设置 Action 菜单
+     */
     @Input()
     set thyActionMenu(value: ComponentType<any> | TemplateRef<any>) {
         this._actionMenu = value;

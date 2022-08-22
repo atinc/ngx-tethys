@@ -86,7 +86,6 @@ $enable-deprecation-messages: true !default;
 
 $spacer: 1rem !default;
 $spacers: () !default;
-// // stylelint-disable-next-line scss/dollar-variable-default
 $spacers: map.merge(
     (
         0: 0,
@@ -96,12 +95,29 @@ $spacers: map.merge(
         2: (
             $spacer * 0.5
         ),
-        3: $spacer,
+        3: (
+            $spacer * 0.75
+        ),
         4: (
-            $spacer * 1.5
+            $spacer * 1
         ),
         5: (
-            $spacer * 3
+            $spacer * 1.25
+        ),
+        6: (
+            $spacer * 1.5
+        ),
+        7: (
+            $spacer * 1.75
+        ),
+        8: (
+            $spacer * 2
+        ),
+        9: (
+            $spacer * 2.25
+        ),
+        10: (
+            $spacer * 2.5
         )
     ),
     $spacers
@@ -190,7 +206,7 @@ $grid-row-columns: 6 !default;
 // $line-height-sm: 1.5 !default;
 
 $border-width: 1px !default;
-$border-color: variables.$gray-300 !default;
+$border-color: variables.$gray-200 !default;
 
 // $border-radius: 0.25rem !default;
 // $border-radius-lg: 0.3rem !default;
@@ -924,7 +940,7 @@ $pagination-focus-outline: 0 !default;
 
 // $alert-padding-y: 0.75rem !default;
 // $alert-padding-x: 1.25rem !default;
-$alert-margin-bottom: 1rem !default;
+// $alert-margin-bottom: 1rem !default;
 $alert-border-radius: variables.$border-radius !default;
 $alert-link-font-weight: $font-weight-bold !default;
 $alert-border-width: $border-width !default;

@@ -1,5 +1,8 @@
 @use "sass:meta";
+@use "sass:list";
+@use "sass:map";
 @use "../../styles/variables";
+@use "../../tag/styles/mixin" as tag;
 @use "mixin";
 
 .thy-nav {
@@ -9,87 +12,150 @@
     margin-bottom: 0;
     list-style: none;
 
-    .thy-nav-item,
-    .nav-link {
+    .thy-nav-item {
         display: block;
         text-align: center;
-        // fix nav link bounce when hover or active nav-link, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
+        // fix nav link bounce when hover or active nav-item, see https://at.worktile.com/agile/items/5e5f0bf810ae8c0a4db1e53f
         // the reason is layout-header-operation has { align-items: center} style
         // set border width always regardless hover or active
         border-bottom-style: solid;
         border-bottom-width: variables.$nav-border-width;
         border-bottom-color: transparent;
         flex: 0 auto;
+        white-space: nowrap;
 
-        @include mixin.nav-link-variant(variables.$nav-link-color, variables.$nav-link-hover-color, variables.$nav-border-bottom);
+        // @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+
+    .thy-nav-extra {
+        display: inline-flex;
+        align-items: center;
     }
 }
 
-.nav-primary {
-    .nav-link {
-        @include mixin.nav-link-size(
-            variables.$nav-link-primary-padding-y variables.$nav-link-primary-padding-x,
-            variables.$nav-link-primary-right
-        );
-        min-width: variables.$nav-link-primary-min-width;
-        @include mixin.nav-link-variant(variables.$nav-link-primary-color, variables.$nav-link-hover-color, variables.$nav-border-bottom);
+.thy-nav-pulled {
+    .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+    @include mixin.set-nav-size();
+}
+
+.thy-nav-tabs {
+    position: relative;
+    .thy-nav-list::after {
+        position: absolute;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        border-bottom: 1px solid variables.$nav-border-color;
+        content: '';
     }
     .thy-nav-item {
-        @include mixin.nav-item-size(variables.$nav-link-primary-right);
+        z-index: 1;
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+    @include mixin.set-nav-size();
+}
+
+.thy-nav-lite {
+    .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
+    }
+    @include mixin.set-nav-size(12px);
+}
+
+.thy-nav-pills {
+    .thy-nav-item {
+        // height: variables.$nav-height - 28px;
+        display: inline-flex;
+        align-items: center;
+        border-bottom-width: 0px;
+        // padding: {
+        //     left: 12px;
+        //     right: 12px;
+        // }
+        // @include tag.tag-size('md')
+        @include mixin.nav-item-size(null, variables.$nav-item-right, variables.$font-size-sm);
+        @include mixin.nav-item-pills-variant(variables.$tag-default-color, variables.$nav-item-hover-color);
+    }
+
+    @each $size, $height in variables.$tag-size-heights {
+        &.thy-nav-#{$size} {
+            .thy-nav-item {
+                $font-sizes: map.get(variables.$tag-size-font-sizes, $size);
+                @include tag.tag-size(
+                    $height,
+                    map.get(variables.$tag-size-paddings, $size),
+                    list.nth($font-sizes, 1),
+                    list.nth($font-sizes, 2)
+                );
+            }
+        }
     }
 }
 
-.nav-secondary {
+.thy-nav-primary {
+    .thy-nav-item {
+        @include mixin.nav-item-size(
+            variables.$nav-item-padding-y variables.$nav-item-padding-x,
+            variables.$nav-item-right,
+            variables.$nav-item-font-size
+        );
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+    }
+}
+
+.thy-nav-secondary {
     border-bottom: 1px solid variables.$nav-border-color;
-    .nav-link {
-        transform: translateY(1px);
-        @include mixin.nav-link-size(
-            variables.$nav-link-secondary-padding-y variables.$nav-link-secondary-padding-x,
-            variables.$nav-link-secondary-right
+    .thy-nav-item {
+        @include mixin.nav-item-size(
+            variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
+            variables.$nav-item-secondary-right
         );
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 }
 
-.nav-secondary-divider {
+.thy-nav-secondary-divider {
     border-bottom: 1px solid variables.$nav-border-color;
-    .nav-link {
-        transform: translateY(1px);
-        @include mixin.nav-link-size(
-            variables.$nav-link-secondary-padding-y variables.$nav-link-secondary-padding-x,
-            variables.$nav-link-secondary-split-right
+    .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-size(
+            variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
+            variables.$nav-item-secondary-split-right
         );
-        @include mixin.nav-link-divider-variant(
-            variables.$nav-link-hover-color,
-            variables.$nav-link-thirdly-split-line-height,
-            variables.$nav-link-secondary-split-right
+        @include mixin.nav-item-divider-variant(
+            variables.$nav-item-hover-color,
+            variables.$nav-item-thirdly-split-line-height,
+            variables.$nav-item-secondary-split-right
         );
     }
 }
 
-.nav-thirdly {
-    .nav-link {
-        @include mixin.nav-link-size(
-            variables.$nav-link-thirdly-padding-y variables.$nav-link-thirdly-padding-x,
-            variables.$nav-link-thirdly-right
+.thy-nav-thirdly {
+    .thy-nav-item {
+        @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-size(
+            variables.$nav-item-thirdly-padding-y variables.$nav-item-thirdly-padding-x,
+            variables.$nav-item-thirdly-right
         );
-        @include mixin.nav-link-divider-variant(
-            variables.$nav-link-hover-color,
-            variables.$nav-link-thirdly-split-line-height,
-            variables.$nav-link-thirdly-right
+        @include mixin.nav-item-divider-variant(
+            variables.$nav-item-hover-color,
+            variables.$nav-item-thirdly-split-line-height,
+            variables.$nav-item-thirdly-right
         );
-        @include mixin.clear-nav-link-bottom();
+        @include mixin.clear-nav-item-bottom();
     }
-}
-
-.nav-sm {
-    .nav-link {
-        padding: variables.$nav-link-thirdly-padding-y-sm variables.$nav-link-thirdly-padding-x-sm;
-        margin-right: variables.$nav-link-thirdly-right-sm;
-        font-size: variables.$font-size-sm;
-        &:after {
-            top: calc(50% - #{variables.$nav-link-thirdly-split-line-height-sm}/ 2);
-            right: variables.$nav-link-thirdly-right-sm * 0.5 * -1;
-            height: variables.$nav-link-thirdly-split-line-height-sm;
+    .thy-nav-sm {
+        .thy-nav-item {
+            padding: variables.$nav-item-thirdly-padding-y-sm variables.$nav-item-thirdly-padding-x-sm;
+            margin-right: variables.$nav-item-thirdly-right-sm;
+            font-size: variables.$font-size-sm;
+            &:after {
+                top: calc(50% - #{variables.$nav-item-thirdly-split-line-height-sm}/ 2);
+                right: variables.$nav-item-thirdly-right-sm * 0.5 * -1;
+                height: variables.$nav-item-thirdly-split-line-height-sm;
+            }
         }
     }
 }
@@ -100,15 +166,18 @@
 
 .thy-layout-header .nav-primary {
     // 为了和字体大 2px 的标题在一条线上
-    .nav-link {
-        padding: (variables.$nav-link-primary-padding-y + 0.0625rem) variables.$nav-link-primary-padding-x
-            (variables.$nav-link-primary-padding-y - 0.0625rem) variables.$nav-link-primary-padding-x;
+    .thy-nav-item {
+        padding: (variables.$nav-item-primary-padding-y + 0.0625rem) variables.$nav-item-primary-padding-x
+            (variables.$nav-item-primary-padding-y - 0.0625rem) variables.$nav-item-primary-padding-x;
     }
 }
 
 .thy-nav--vertical {
     display: block;
-    .nav-link {
+    .thy-nav-list {
+        display: block;
+    }
+    .thy-nav-item {
         margin-right: 0;
         text-align: left;
         border-left: variables.$nav-vertical-border-left-empty;
@@ -125,7 +194,7 @@
 }
 
 .thy-nav--fill {
-    .nav-link {
+    .thy-nav-item {
         flex: 1 1 auto;
         text-align: center;
     }
@@ -136,22 +205,19 @@
 .thy-nav-list {
     display: flex;
     flex-wrap: nowrap;
-    flex: 0 auto;
+    flex: 1 auto;
     overflow: hidden;
-    .nav-item-hidden {
+    .thy-nav-item-hidden {
         display: none;
     }
 }
 
 .thy-nav-list-popover {
-    .thy-nav-item {
-        display: none;
-    }
-    .nav-item-hidden {
+    .thy-nav-item-hidden {
         display: block;
     }
-    .more-nav-link,
-    .more-nav-link * {
+    .thy-nav-item-more,
+    .thy-nav-item-more * {
         text-decoration: none;
         color: variables.$secondary;
         &:hover {
@@ -163,4 +229,5 @@
 .thy-nav-more-container {
     flex: 1 !important;
     flex-grow: 0 !important;
+    white-space: nowrap;
 }

@@ -63,6 +63,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyAutoActiveFirstItem',
+                description: '是否自动设置选项第一条为高亮状态',
+                type: 'boolean',
+                default: 'true'
+            },
+            {
                 name: 'thyOnScrollToBottom',
                 description: 'output event: 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载',
                 type: '()=>{}'

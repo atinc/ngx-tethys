@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ThyActionMenuToggleDirective } from './action-menu-toggle.component';
 import {
     ThyActionMenuComponent,
@@ -18,6 +19,8 @@ import {
 } from './action-menu-item.directive';
 import { ThyActionMenuSubItemDirective } from './action-menu-sub-item.directive';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyFormModule } from 'ngx-tethys/form';
 
 @NgModule({
     declarations: [
@@ -35,7 +38,7 @@ import { ThyPopoverModule } from 'ngx-tethys/popover';
         ThyActionMenuItemActiveDirective,
         ThyActionMenuGroupComponent
     ],
-    imports: [CommonModule, ThyPopoverModule],
+    imports: [CommonModule, FormsModule, ThyPopoverModule, ThySelectModule, ThyFormModule],
     providers: [],
     exports: [
         ThyActionMenuToggleDirective,

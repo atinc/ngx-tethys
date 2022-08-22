@@ -12,7 +12,7 @@ import {
 import { ThyProgressType, ThyProgressStackedValue } from './interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
-import { isNumber } from 'ngx-tethys/util';
+import { helpers, isNumber } from 'ngx-tethys/util';
 
 /**
  * 进度条组件
@@ -29,7 +29,10 @@ import { isNumber } from 'ngx-tethys/util';
             provide: THY_PROGRESS_COMPONENT,
             useExisting: ThyProgressComponent
         }
-    ]
+    ],
+    host: {
+        class: 'thy-progress progress'
+    }
 })
 export class ThyProgressComponent implements ThyParentProgress {
     value: number | ThyProgressStackedValue[];
@@ -44,15 +47,13 @@ export class ThyProgressComponent implements ThyParentProgress {
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
-    @HostBinding(`class.progress`) isProgress = true;
-
     @ViewChildren(ThyProgressBarComponent)
     set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
         this.bars = value.toArray();
     }
 
     /**
-     * 进度条类型: `'primary' | 'success' | 'info' | 'warning' | 'danger'`
+     * 进度条类型: 'primary' | 'success' | 'info' | 'warning' | 'danger'
      */
     @Input() thyType: ThyProgressType = 'primary';
 
@@ -85,7 +86,7 @@ export class ThyProgressComponent implements ThyParentProgress {
      * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
      */
     @Input() set thyMax(max: number) {
-        this.settedMax = max;
+        this.settedMax = helpers.coerceNumberValue(max);
         this.calculateMax();
     }
 

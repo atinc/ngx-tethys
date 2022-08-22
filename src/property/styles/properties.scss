@@ -1,0 +1,69 @@
+@use "../../styles/variables.scss";
+
+.thy-properties {
+    width: 100%;
+
+    &.thy-properties-horizontal {
+        .thy-properties-item-container {
+            width: 100%;
+            display: flex;
+
+            .thy-properties-item-label {
+                min-height: variables.$property-item-min-height;
+                line-height: variables.$property-item-min-height;
+                width: 25%;
+            }
+
+            .thy-properties-item-content {
+                flex: 1;
+                display: flex;
+                align-items: center;
+            }
+        }
+    }
+
+    &.thy-properties-vertical {
+        .thy-properties-item-content {
+            min-height: variables.$property-item-min-height;
+            display: flex;
+            align-items: center;
+        }
+    }
+
+    table {
+        width: 100%;
+        table-layout: fixed;
+        td {
+            padding: variables.$property-item-padding;
+        }
+    }
+
+    .thy-properties-item-label {
+        color: variables.$property-item-label-color;
+    }
+
+    .thy-properties-item-content {
+        color: variables.$property-item-content-color;
+
+        .thy-properties-item-content-text {
+        }
+
+        .thy-properties-item-content-editor {
+            display: none;
+        }
+
+        &-editing {
+            .thy-properties-item-content-text {
+                display: none;
+            }
+            .thy-properties-item-content-editor {
+                display: block;
+
+                // 优化 edit状态下使用 form-control 组件抖动，9px（input padding 8px + border 1px）
+                .form-control {
+                    transform: translateX(calc((variables.$input-padding-x-fixed + 1px) * -1));
+                }
+            }
+        }
+    }
+}

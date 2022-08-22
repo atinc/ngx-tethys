@@ -33,7 +33,6 @@ import { ThyTreeService } from './tree.service';
         ThyCheckboxModule,
         ScrollingModule
     ],
-    entryComponents: [ThyTreeComponent],
     exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
     providers: [ThyTreeService]
 })

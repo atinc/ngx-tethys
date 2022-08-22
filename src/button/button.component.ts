@@ -1,5 +1,5 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
+import { assertIconOnly, coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -148,12 +148,6 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
-    @Input()
-    set thySquare(value: boolean) {
-        warnDeprecation(`The thyButton's property thySquare is deprecated, the default is already square.`);
-        this._isRadiusSquare = coerceBooleanProperty(value);
-    }
-
     @HostBinding(`class.btn-block`)
     @Input()
     @InputBoolean()
@@ -220,7 +214,11 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        this.assertIconOnly();
+        if (assertIconOnly(this.nativeElement)) {
+            this.renderer.addClass(this.nativeElement, iconOnlyClass);
+        } else {
+            this.renderer.removeClass(this.nativeElement, iconOnlyClass);
+        }
         this.wrapSpanForText(this.nativeElement.childNodes);
     }
 
@@ -234,18 +232,5 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
                 this.renderer.appendChild(span, node);
             }
         });
-    }
-
-    private assertIconOnly(): void {
-        const listOfNode = Array.from(this.nativeElement.childNodes);
-        const iconCount = listOfNode.filter(node => ['THY-ICON', 'I'].includes(node.nodeName)).length;
-        const noText = listOfNode.every(node => node.nodeName !== '#text');
-        const noSpan = listOfNode.every(node => node.nodeName !== 'SPAN');
-        const isIconOnly = noSpan && noText && iconCount >= 1;
-        if (isIconOnly) {
-            this.renderer.addClass(this.nativeElement, iconOnlyClass);
-        } else {
-            this.renderer.removeClass(this.nativeElement, iconOnlyClass);
-        }
     }
 }

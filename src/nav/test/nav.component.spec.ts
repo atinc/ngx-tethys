@@ -1,4 +1,5 @@
 import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { Subject } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component, DebugElement, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
@@ -9,12 +10,12 @@ import { Router, Routes } from '@angular/router';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { ThyIconModule } from '../../icon';
-import { ThyNavLinkDirective } from '../nav-link.directive';
+import { ThyNavItemDirective } from '../nav-item.directive';
 import { ThyNavComponent, ThyNavHorizontal, ThyNavSize, ThyNavType } from '../nav.component';
 import { ThyNavModule } from '../nav.module';
 
 const NAV_CLASS = `thy-nav`;
-const NAV_LINK_CLASS = `nav-link`;
+const NAV_LINK_CLASS = `thy-nav-item`;
 
 @Component({
     selector: 'app-nav-basic',
@@ -26,10 +27,15 @@ const NAV_LINK_CLASS = `nav-link`;
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             class="custom-nav"
+            [thyExtra]="extra"
         >
             <a thyNavLink thyNavLinkActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
+            <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
         </thy-nav>
+        <ng-template #extra>
+            <a href="javascript:;">Extra</a>
+        </ng-template>
     `
 })
 export class NavBasicComponent implements OnInit {
@@ -59,18 +65,26 @@ export class NavBasicComponent implements OnInit {
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
             class="custom-nav"
+            style="width: 100px;height: 50px;display:block"
         >
             <a
                 *ngFor="let item of navLinks; index as i"
                 class="test-link"
                 thyNavLink
-                [thyNavLinkActive]="item.isActive"
+                [thyNavItemActive]="item.isActive"
                 [routerLink]="[item.name]"
                 routerLinkActive="active"
                 >{{ item.name }}</a
             >
         </thy-nav>
-    `
+    `,
+    styles: [
+        `
+            .thy-nav--vertical .thy-nav-item {
+                display: block;
+            }
+        `
+    ]
 })
 export class NavResponsiveComponent implements OnInit {
     type: ThyNavType;
@@ -83,11 +97,13 @@ export class NavResponsiveComponent implements OnInit {
 
     horizontal: ThyNavHorizontal;
 
+    responsive = false;
+
     navLinks = [{ name: 'link1' }, { name: 'link2' }, { name: 'link3' }];
 
-    @ViewChildren(ThyNavLinkDirective) links: ThyNavLinkDirective[];
+    @ViewChildren(ThyNavItemDirective) links: ThyNavItemDirective[];
 
-    @ViewChildren(ThyNavLinkDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
+    @ViewChildren(ThyNavItemDirective, { read: ElementRef }) linksElement: QueryList<ElementRef>;
 
     @ViewChild(ThyNavComponent) nav: ThyNavComponent;
 
@@ -113,6 +129,8 @@ const routes: Routes = [
 ];
 
 describe(`thy-nav`, () => {
+    const fakeResizeObserver = new Subject();
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             declarations: [NavBasicComponent, NavResponsiveComponent, NavRouteComponent],
@@ -125,26 +143,27 @@ describe(`thy-nav`, () => {
 
     describe('basic', () => {
         let fixture: ComponentFixture<NavBasicComponent>;
+        let navDebugElement: DebugElement;
+        let navElement: HTMLElement;
         beforeEach(() => {
             fixture = TestBed.createComponent(NavBasicComponent);
             fixture.detectChanges();
+            navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            navElement = navDebugElement.nativeElement;
         });
 
         it(`should get correct class for default nav`, () => {
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const navElement: HTMLElement = navDebugElement.nativeElement;
             expect(navDebugElement).toBeTruthy();
             expect(navElement).toBeTruthy();
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-            expect(navElement.classList.contains('nav-primary')).toEqual(true);
+            expect(navElement.classList.contains('thy-nav-pulled')).toEqual(true);
             expect(navElement.classList.contains('custom-nav')).toEqual(true);
         });
 
-        it(`should get correct nav links`, () => {
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const links = navDebugElement.queryAll(By.directive(ThyNavLinkDirective));
+        it(`should get correct nav items`, () => {
+            const links = navDebugElement.queryAll(By.directive(ThyNavItemDirective));
             expect(links).toBeTruthy();
-            expect(links.length).toEqual(2);
+            expect(links.length).toEqual(3);
             const activeLink: HTMLElement = links[0].nativeElement;
             const link2: HTMLElement = links[1].nativeElement;
             expect(activeLink.textContent).toContain('Link1');
@@ -156,33 +175,41 @@ describe(`thy-nav`, () => {
             expect(link2.classList.contains('active')).toEqual(false);
         });
 
+        it(`should set extra success`, () => {
+            const extraElement = navElement.querySelector('.thy-nav-extra');
+            expect(extraElement).toBeTruthy();
+            expect(extraElement.textContent).toContain('Extra');
+        });
+
+        it(`should set disabled class when thyNavItemDisabled is true`, () => {
+            const disabledLink = navDebugElement.query(By.css('#disabled')).nativeElement;
+
+            expect(disabledLink.textContent).toContain('Link3');
+            expect(disabledLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
+            expect(disabledLink.classList.contains('disabled')).toEqual(true);
+        });
+
         it(`should get correct class when input type`, () => {
-            ['primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
+            ['pulled', 'pills', 'tabs', 'lite', 'primary', 'secondary', 'thirdly', 'secondary-divider'].forEach(type => {
                 fixture.debugElement.componentInstance.type = type;
                 fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${type}`)).toEqual(true);
+                expect(navElement.classList.contains(`thy-nav-${type}`)).toEqual(true);
             });
         });
 
         it(`should get correct class when input size`, () => {
-            ['sm'].forEach(size => {
+            ['lg', 'sm'].forEach(size => {
                 fixture.debugElement.componentInstance.size = size;
                 fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
                 expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(`nav-${size}`)).toEqual(true);
+                expect(navElement.classList.contains(`thy-nav-${size}`)).toEqual(true);
             });
         });
 
         it(`should get correct class when is fill`, () => {
             fixture.debugElement.componentInstance.isFill = true;
             fixture.detectChanges();
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const navElement: HTMLElement = navDebugElement.nativeElement;
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
             expect(navElement.classList.contains(`thy-nav--fill`)).toEqual(true);
         });
@@ -190,8 +217,6 @@ describe(`thy-nav`, () => {
         it(`should get correct class when is vertical`, () => {
             fixture.debugElement.componentInstance.isVertical = true;
             fixture.detectChanges();
-            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-            const navElement: HTMLElement = navDebugElement.nativeElement;
             expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
             expect(navElement.classList.contains(`thy-nav--vertical`)).toEqual(true);
         });
@@ -200,16 +225,15 @@ describe(`thy-nav`, () => {
             const navHorizontalClassesMap = {
                 left: '',
                 center: 'justify-content-center',
-                right: 'justify-content-end'
+                end: 'justify-content-end'
             };
 
-            ['center', 'right'].forEach(item => {
+            ['center', 'end'].forEach(item => {
                 fixture.debugElement.componentInstance.horizontal = item;
                 fixture.detectChanges();
-                const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-                const navElement: HTMLElement = navDebugElement.nativeElement;
-                expect(navElement.classList.contains(NAV_CLASS)).toEqual(true);
-                expect(navElement.classList.contains(navHorizontalClassesMap[item])).toEqual(true);
+                const navListElement: HTMLElement = navDebugElement.nativeElement.querySelector('.thy-nav-list');
+                expect(navDebugElement.nativeElement.classList.contains(NAV_CLASS)).toEqual(true);
+                expect(navListElement.classList.contains(navHorizontalClassesMap[item])).toEqual(true);
             });
         });
     });
@@ -232,14 +256,16 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
         }));
 
         it('should active moreBtn when hidden link is active', fakeAsync(() => {
@@ -248,7 +274,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -265,7 +293,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
             router.navigate(['.', 'link2']);
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -281,13 +311,16 @@ describe(`thy-nav`, () => {
             fixture.debugElement.componentInstance.isVertical = true;
             fixture.detectChanges();
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
+            fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
         }));
 
         it('should hidden moreBtn when has not navLinks', fakeAsync(() => {
@@ -328,7 +361,9 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
@@ -337,7 +372,7 @@ describe(`thy-nav`, () => {
 
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
-            expect(popover.querySelectorAll('.more-nav-link').length).toEqual(2);
+            expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {
@@ -345,14 +380,16 @@ describe(`thy-nav`, () => {
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
-            dispatchFakeEvent(window, 'resize');
+            const createResizeSpy = spyOn(fixture.componentInstance.nav, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fakeResizeObserver.next();
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             dispatchFakeEvent(moreBtn.nativeElement, 'click');
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
-            const link = popover.querySelectorAll('.more-nav-link')[0];
+            const link = popover.querySelectorAll('.thy-nav-item-more')[0];
             const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
             dispatchFakeEvent(link, 'click');
             expect(linkSpy).toHaveBeenCalled();
@@ -360,7 +397,7 @@ describe(`thy-nav`, () => {
     });
 });
 
-function spyLinksAndNavOffset(links: ThyNavLinkDirective[], nav: ThyNavComponent) {
+function spyLinksAndNavOffset(links: ThyNavItemDirective[], nav: ThyNavComponent) {
     (links || []).forEach((link, index) => {
         link.offset = {
             width: 30,

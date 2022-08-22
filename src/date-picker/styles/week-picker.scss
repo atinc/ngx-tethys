@@ -1,0 +1,24 @@
+@use "./variables.scss" as style;
+@use "../../styles/variables.scss";
+
+.#{style.$calendar-prefix-cls}-week-number {
+    &-cell {
+        opacity: 0.5;
+    }
+    .#{style.$calendar-prefix-cls}-body tr {
+        cursor: pointer;
+        transition: all 0.3s;
+        &:hover {
+            background: style.$primary-1;
+        }
+        &.#{style.$calendar-prefix-cls}-active-week {
+            font-weight: bold;
+            background: style.$primary-2;
+        }
+        .#{style.$calendar-prefix-cls}-selected-day .#{style.$calendar-prefix-cls}-date,
+        .#{style.$calendar-prefix-cls}-selected-day:hover .#{style.$calendar-prefix-cls}-date {
+            color: variables.$text-color;
+            background: transparent;
+        }
+    }
+}

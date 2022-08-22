@@ -1,12 +1,6 @@
-/* eslint-disable @angular-eslint/no-conflicting-lifecycle */
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
-import { Dictionary } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
-import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
-import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-
 import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
+import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
 import {
     AfterViewInit,
@@ -14,7 +8,6 @@ import {
     Component,
     ContentChild,
     ContentChildren,
-    DoCheck,
     ElementRef,
     EventEmitter,
     HostBinding,
@@ -38,32 +31,45 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-
-import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
+import {
+    Constructor,
+    InputBoolean,
+    InputCssPixel,
+    MixinBase,
+    mixinUnsubscribe,
+    ThyUnsubscribe,
+    UpdateHostClassService
+} from 'ngx-tethys/core';
+import { Dictionary, SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
+import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
+import { IThyTableColumnParentComponent, ThyTableColumnComponent, THY_TABLE_COLUMN_PARENT_COMPONENT } from './table-column.component';
 import {
     PageChangedEvent,
     ThyMultiSelectEvent,
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent,
-    ThyTableColumn,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
-    ThyTableRowEvent
+    ThyTableRowEvent,
+    ThyTableSortDirection,
+    ThyTableSortEvent
 } from './table.interface';
-import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
-export type ThyTableTheme = 'default' | 'bordered';
+export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
 
 export type ThyTableMode = 'list' | 'group' | 'tree';
 
-export type ThyTableSize = 'default' | 'sm';
+export type ThyTableSize = 'md' | 'sm' | 'xs' | 'lg' | 'xlg' | 'default';
 
 export enum ThyFixedDirection {
     left = 'left',
     right = 'right'
 }
+
 interface ThyTableGroup<T = unknown> {
     id?: string;
     expand?: boolean;
@@ -73,11 +79,8 @@ interface ThyTableGroup<T = unknown> {
 
 const tableThemeMap = {
     default: 'table-default',
-    bordered: 'table-bordered'
-};
-
-const tableSizeMap = {
-    sm: 'table-sm'
+    bordered: 'table-bordered',
+    boxed: 'table-boxed'
 };
 
 const customType = {
@@ -108,10 +111,14 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         },
         UpdateHostClassService
     ],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'thy-table',
+        '[class.thy-table-bordered]': `theme === 'bordered'`,
+        '[class.thy-table-boxed]': `theme === 'boxed'`
+    }
 })
-export class ThyTableComponent extends _MixinBase
-    implements OnInit, OnChanges, AfterViewInit, OnDestroy, DoCheck, IThyTableColumnParentComponent {
+export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     public customType = customType;
 
     public model: object[] = [];
@@ -124,13 +131,11 @@ export class ThyTableComponent extends _MixinBase
 
     public mode: ThyTableMode = 'list';
 
-    public columns: ThyTableColumn[] = [];
-
     public theme: ThyTableTheme = 'default';
 
     public className = '';
 
-    public size: ThyTableSize = 'default';
+    public size: ThyTableSize = 'md';
 
     public rowClassName: string | Function;
 
@@ -142,11 +147,11 @@ export class ThyTableComponent extends _MixinBase
 
     public draggable = false;
 
-    public selectedRadioRow: any = null;
+    public selectedRadioRow: SafeAny = null;
 
     public pagination: ThyPage = { index: 1, size: 20, total: 0 };
 
-    public trackByFn: any;
+    public trackByFn: SafeAny;
 
     public wholeRowSelect = false;
 
@@ -154,11 +159,12 @@ export class ThyTableComponent extends _MixinBase
 
     public hasFixed = false;
 
-    private _diff: IterableDiffer<any>;
+    public columns: ThyTableColumnComponent[] = [];
 
-    private _listOfColumnComponents: QueryList<ThyTableColumnComponent>;
+    private _diff: IterableDiffer<SafeAny>;
 
     private initialized = false;
+
     private _oldThyClassName = '';
 
     private scrollClassName = css.tableScrollLeft;
@@ -171,9 +177,9 @@ export class ThyTableComponent extends _MixinBase
         return merge<MouseEvent>(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
     }
 
-    @ContentChild('empty') emptyTemplate: TemplateRef<any>;
+    @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
 
-    @ViewChild('table', { static: true }) tableElementRef: ElementRef<any>;
+    @ViewChild('table', { static: true }) tableElementRef: ElementRef<SafeAny>;
 
     @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
 
@@ -188,19 +194,19 @@ export class ThyTableComponent extends _MixinBase
     }
 
     @Input()
-    set thyRowKey(value: any) {
+    set thyRowKey(value: SafeAny) {
         this.rowKey = value || this.rowKey;
     }
 
     @Input()
-    set thyGroups(value: any) {
+    set thyGroups(value: SafeAny) {
         if (this.mode === 'group') {
             this.buildGroups(value);
         }
     }
 
     @Input()
-    set thyModel(value: any) {
+    set thyModel(value: SafeAny) {
         this.model = value || [];
         this._diff = this._differs.find(this.model).create();
         this._initializeDataModel();
@@ -221,6 +227,13 @@ export class ThyTableComponent extends _MixinBase
         this.size = value || this.size;
         this._setClass();
     }
+
+    @Input()
+    @InputCssPixel()
+    thyMinWidth: string | number;
+
+    @Input() @InputBoolean() thyLayoutFixed: string | boolean;
+
     @Input()
     set thyClassName(value: string) {
         const list = this.className.split(' ').filter(a => a.trim());
@@ -261,12 +274,6 @@ export class ThyTableComponent extends _MixinBase
             throw new Error('Only list mode sorting is supported');
         }
     }
-
-    // coming soon
-    // @Input()
-    // set thyFilter(value: any) {
-    //     this._filter = value;
-    // }
 
     @Input()
     set thyPageIndex(value: number) {
@@ -317,15 +324,17 @@ export class ThyTableComponent extends _MixinBase
 
     @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
+    @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
+
     @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();
 
-    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<any>;
+    @ContentChild('group', { static: true }) groupTemplate: TemplateRef<SafeAny>;
 
     @ContentChildren(ThyTableColumnComponent)
     set listOfColumnComponents(components: QueryList<ThyTableColumnComponent>) {
         if (components) {
-            this._listOfColumnComponents = components;
-            this.hasFixed = !!this._listOfColumnComponents.find(item => {
+            this.columns = components.toArray();
+            this.hasFixed = !!this.columns.find(item => {
                 return item.fixed === this.fixedDirection.left || item.fixed === this.fixedDirection.right;
             });
             this._initializeColumns();
@@ -333,23 +342,19 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    @HostBinding('class.thy-table') isTableClass = true;
-
     // 数据的折叠展开状态
     public expandStatusMap: Dictionary<boolean> = {};
 
-    dragPreviewClass = 'thy-table-drag-preview';
+    public expandStatusMapOfGroup: Dictionary<boolean> = {};
 
-    public buildColumnWidth = (width: string | number) => {
-        return Number(width.toString().split('px')[0]);
-    };
+    dragPreviewClass = 'thy-table-drag-preview';
 
     constructor(
         public elementRef: ElementRef,
         private _differs: IterableDiffers,
         private viewportRuler: ViewportRuler,
         private updateHostClassService: UpdateHostClassService,
-        @Inject(DOCUMENT) private document: any,
+        @Inject(DOCUMENT) private document: SafeAny,
         @Inject(PLATFORM_ID) private platformId: string,
         private ngZone: NgZone,
         private renderer: Renderer2,
@@ -359,58 +364,23 @@ export class ThyTableComponent extends _MixinBase
         this._bindTrackFn();
     }
 
-    private _getSelectionKeys(selections: any) {
-        return selections.map((item: any) => {
-            if (typeof item === 'number' || typeof item === 'string') {
-                return item;
-            } else {
-                return item[this.rowKey];
-            }
-        });
+    private _initializeColumns() {
+        if (!this.columns.some(item => item.expand === true) && this.columns.length > 0) {
+            this.columns[0].expand = true;
+        }
+        this._initializeColumnFixedPositions();
     }
 
-    private _initializeColumns() {
-        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
-        const hasExpand = components.some(item => item.expand === true);
-        const leftColumnsWidth: number[] = [];
-        const rightColumns: ThyTableColumnComponent[] = [];
-        this.columns = components.map<ThyTableColumn>((component, i) => {
-            const selections = this._getSelectionKeys(component.selections);
-            if (component.fixed === this.fixedDirection.left) {
-                leftColumnsWidth.push(this.buildColumnWidth(component.width));
-            } else if (component.fixed === this.fixedDirection.right) {
-                rightColumns.push(component);
-            }
-            return {
-                key: component.key,
-                model: component.model,
-                title: component.title,
-                type: component.type,
-                selections: selections,
-                width: component.width,
-                className: component.className,
-                headerClassName: component.headerClassName,
-                disabled: component.disabled,
-                defaultText: component.defaultText,
-                expand: hasExpand ? component.expand : i === 0,
-                templateRef: component.cellTemplateRef,
-                headerTemplateRef: component.headerTemplateRef,
-                fixed: component.fixed,
-                left:
-                    component.fixed === this.fixedDirection.left
-                        ? leftColumnsWidth.reduce((result, currentWidth) => {
-                              return result + currentWidth;
-                          }, 0) - this.buildColumnWidth(component.width)
-                        : null,
-                right: component.fixed === this.fixedDirection.right ? 0 : null
-            };
+    private _initializeColumnFixedPositions() {
+        const leftFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.left);
+        leftFixedColumns.forEach((item, index) => {
+            const previous = leftFixedColumns[index - 1];
+            item.left = previous ? previous.left + parseInt(previous.width.toString(), 10) : 0;
         });
-
-        const columnsMap = helpers.keyBy(this.columns, 'key');
-        let rightIncrease = 0;
-        rightColumns.reverse().forEach(value => {
-            columnsMap[value.key].right = rightIncrease;
-            rightIncrease = rightIncrease + this.buildColumnWidth(value.width);
+        const rightFixedColumns = this.columns.filter(item => item.fixed === ThyFixedDirection.right).reverse();
+        rightFixedColumns.forEach((item, index) => {
+            const previous = rightFixedColumns[index - 1];
+            item.right = previous ? previous.right + parseInt(previous.width.toString(), 10) : 0;
         });
     }
 
@@ -423,7 +393,7 @@ export class ThyTableComponent extends _MixinBase
         });
     }
 
-    private _initialSelections(row: object, column: ThyTableColumn) {
+    private _initialSelections(row: object, column: ThyTableColumnComponent) {
         if (column.selections) {
             if (column.type === 'checkbox') {
                 row[column.key] = column.selections.includes(row[this.rowKey]);
@@ -437,28 +407,28 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    private _initialCustomModelValue(row: object, column: ThyTableColumn) {
+    private _initialCustomModelValue(row: object, column: ThyTableColumnComponent) {
         if (column.type === customType.switch) {
             row[column.key] = get(row, column.model);
         }
     }
 
-    private _refreshCustomModelValue(row: any) {
+    private _refreshCustomModelValue(row: SafeAny) {
         this.columns.forEach(column => {
             this._initialCustomModelValue(row, column);
         });
     }
 
-    private _applyDiffChanges(changes: IterableChanges<any>) {
+    private _applyDiffChanges(changes: IterableChanges<SafeAny>) {
         if (changes) {
-            changes.forEachAddedItem((record: IterableChangeRecord<any>) => {
+            changes.forEachAddedItem((record: IterableChangeRecord<SafeAny>) => {
                 this._refreshCustomModelValue(record.item);
             });
         }
     }
 
     private _bindTrackFn() {
-        this.trackByFn = function(this: any, index: number, row: any): any {
+        this.trackByFn = function(this: SafeAny, index: number, row: SafeAny): SafeAny {
             return row && this.rowKey ? row[this.rowKey] : index;
         }.bind(this);
     }
@@ -478,35 +448,32 @@ export class ThyTableComponent extends _MixinBase
             return;
         }
         const classNames: string[] = [];
-        if (tableSizeMap[this.size]) {
-            classNames.push(tableSizeMap[this.size]);
+        if (this.size) {
+            classNames.push(`table-${this.size}`);
         }
         if (tableThemeMap[this.theme]) {
             classNames.push(tableThemeMap[this.theme]);
         }
-        if (tableSizeMap[this.size] === tableSizeMap['sm'] && tableThemeMap[this.theme] === tableThemeMap['default']) {
-            classNames.push('table-default-sm-bottom-padding');
-        }
+
         this.updateHostClassService.updateClass(classNames);
     }
 
-    public updateColumnSelections(key: string, selections: any): void {
+    public updateColumnSelections(key: string, selections: SafeAny): void {
         const column = this.columns.find(item => item.key === key);
-        column.selections = this._getSelectionKeys(selections);
         this.model.forEach(row => {
             this._initialSelections(row, column);
         });
     }
 
-    public isTemplateRef(ref: any) {
+    public isTemplateRef(ref: SafeAny) {
         return ref instanceof TemplateRef;
     }
 
-    public getModelValue(row: any, path: string) {
+    public getModelValue(row: SafeAny, path: string) {
         return get(row, path);
     }
 
-    public renderRowClassName(row: any, index: number) {
+    public renderRowClassName(row: SafeAny, index: number) {
         if (!this.rowClassName) {
             return null;
         }
@@ -517,7 +484,7 @@ export class ThyTableComponent extends _MixinBase
         }
     }
 
-    public onModelChange(row: any, column: ThyTableColumn) {
+    public onModelChange(row: SafeAny, column: ThyTableColumnComponent) {
         if (column.model) {
             console.log('column.model', column.model);
             set(row, column.model, row[column.key]);
@@ -538,12 +505,12 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnPageIndexChange.emit(event);
     }
 
-    public onCheckboxChange(row: any, column: ThyTableColumn) {
+    public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
         this.onMultiSelectChange(null, row, column);
     }
 
-    public onMultiSelectChange(event: Event, row: any, column: ThyTableColumn) {
+    public onMultiSelectChange(event: Event, row: SafeAny, column: ThyTableColumnComponent) {
         const rows = this.model.filter(item => {
             return item[column.key];
         });
@@ -555,7 +522,7 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnMultiSelectChange.emit(multiSelectEvent);
     }
 
-    public onRadioSelectChange(event: Event, row: any) {
+    public onRadioSelectChange(event: Event, row: SafeAny) {
         const radioSelectEvent: ThyRadioSelectEvent = {
             event: event,
             row: row
@@ -563,11 +530,11 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnRadioSelectChange.emit(radioSelectEvent);
     }
 
-    public onSwitchChange(event: Event, row: any, column: any) {
+    public onSwitchChange(event: Event, row: SafeAny, column: SafeAny) {
         const switchEvent: ThySwitchEvent = {
             event: event,
             row: row,
-            refresh: (value: any) => {
+            refresh: (value: SafeAny) => {
                 value = value || row;
                 setTimeout(() => {
                     value[column.key] = get(value, column.model);
@@ -577,11 +544,11 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnSwitchChange.emit(switchEvent);
     }
 
-    showExpand(row: any) {
+    showExpand(row: SafeAny) {
         return row[this.thyChildrenKey] && row[this.thyChildrenKey].length > 0;
     }
 
-    isExpanded(row: any) {
+    isExpanded(row: SafeAny) {
         return this.expandStatusMap[row[this.rowKey]];
     }
 
@@ -598,8 +565,7 @@ export class ThyTableComponent extends _MixinBase
         };
     }
 
-    expandChildren(event: Event, row: any) {
-        event.stopPropagation();
+    expandChildren(row: SafeAny) {
         if (this.isExpanded(row)) {
             this.expandStatusMap[row[this.rowKey]] = false;
         } else {
@@ -632,31 +598,60 @@ export class ThyTableComponent extends _MixinBase
         this.thyOnDraggableChange.emit(dragEvent);
     }
 
-    public onRowClick(event: Event, row: any) {
-        if (this.wholeRowSelect) {
-            const column = this.columns.find(item => {
-                return item.type === customType.checkbox || item.type === customType.radio;
-            });
-            if (!column.disabled) {
-                if (column.type === customType.checkbox) {
-                    row[column.key] = !row[column.key];
-                    this.onModelChange(row, column);
-                    this.onMultiSelectChange(event, row, column);
-                }
-                if (column.type === customType.radio) {
-                    this.selectedRadioRow = row;
-                    this.onRadioSelectChange(event, row);
-                }
+    onColumnHeaderClick(event: Event, column: ThyTableColumnComponent) {
+        if (column.sortable) {
+            const { sortDirection, model, sortChange } = column;
+            let direction;
+            if (sortDirection === ThyTableSortDirection.default) {
+                direction = ThyTableSortDirection.asc;
+            } else if (sortDirection === ThyTableSortDirection.asc) {
+                direction = ThyTableSortDirection.desc;
+            } else {
+                direction = ThyTableSortDirection.default;
             }
+            column.sortDirection = direction;
+            const sortEvent = { event, key: model, direction };
+            sortChange.emit(sortEvent);
+            this.thySortChange.emit(sortEvent);
         }
-        const rowEvent = {
-            event: event,
-            row: row
-        };
-        this.thyOnRowClick.emit(rowEvent);
     }
 
-    public onRowContextMenu(event: Event, row: any) {
+    public onRowClick(event: Event, row: SafeAny) {
+        const next = this.onRowClickPropagationEventHandler(event, row);
+        if (next) {
+            if (this.wholeRowSelect) {
+                const column = this.columns.find(item => {
+                    return item.type === customType.checkbox || item.type === customType.radio;
+                });
+                if (!column.disabled) {
+                    if (column.type === customType.checkbox) {
+                        row[column.key] = !row[column.key];
+                        this.onModelChange(row, column);
+                        this.onMultiSelectChange(event, row, column);
+                    }
+                    if (column.type === customType.radio) {
+                        this.selectedRadioRow = row;
+                        this.onRadioSelectChange(event, row);
+                    }
+                }
+            }
+            const rowEvent = {
+                event: event,
+                row: row
+            };
+            this.thyOnRowClick.emit(rowEvent);
+        }
+    }
+
+    private onRowClickPropagationEventHandler(event: Event, row: SafeAny): boolean {
+        if ((event.target as Element).closest('.tree-expand-icon')) {
+            this.expandChildren(row);
+            return false;
+        }
+        return true;
+    }
+
+    public onRowContextMenu(event: Event, row: SafeAny) {
         const contextMenuEvent: ThyTableEvent = {
             event: event,
             row: row
@@ -665,7 +660,7 @@ export class ThyTableComponent extends _MixinBase
     }
 
     private _refreshColumns() {
-        const components = this._listOfColumnComponents ? this._listOfColumnComponents.toArray() : [];
+        const components = this.columns || [];
         const _columns = components.map(component => {
             return {
                 width: component.width,
@@ -678,12 +673,18 @@ export class ThyTableComponent extends _MixinBase
         });
     }
 
-    private buildGroups(originGroups: any) {
-        const collapsedIds = this.groups.filter(group => !group.expand).map(group => group.id);
+    private buildGroups(originGroups: SafeAny) {
+        const originGroupsMap = helpers.keyBy(originGroups, 'id');
         this.groups = [];
-        originGroups.forEach((origin: any) => {
+        originGroups.forEach((origin: SafeAny) => {
             const group: ThyTableGroup = { id: origin[this.rowKey], children: [], origin };
-            group.expand = !collapsedIds.includes(group.id);
+
+            if (this.expandStatusMapOfGroup.hasOwnProperty(group.id)) {
+                group.expand = this.expandStatusMapOfGroup[group.id];
+            } else {
+                group.expand = !!(originGroupsMap[group.id] as SafeAny).expand;
+            }
+
             this.groups.push(group);
         });
     }
@@ -700,6 +701,7 @@ export class ThyTableComponent extends _MixinBase
 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
+        this.expandStatusMapOfGroup[group.id] = group.expand;
     }
 
     private updateScrollClass() {
@@ -743,23 +745,6 @@ export class ThyTableComponent extends _MixinBase
                 this.updateScrollClass();
             });
         });
-    }
-
-    ngOnChanges(simpleChangs: SimpleChanges) {
-        const modeChange = simpleChangs.thyMode;
-        const thyGroupsChange = simpleChangs.thyGroups;
-        const isGroupMode = modeChange && modeChange.currentValue === 'group';
-        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
-            this.buildGroups(thyGroupsChange.currentValue);
-            this.buildModel();
-        }
-    }
-
-    ngDoCheck() {
-        if (this._diff) {
-            const changes = this._diff.diff(this.model);
-            this._applyDiffChanges(changes);
-        }
     }
 
     ngAfterViewInit(): void {
@@ -809,7 +794,21 @@ export class ThyTableComponent extends _MixinBase
             });
     }
 
-    // eslint-disable-next-line @angular-eslint/no-conflicting-lifecycle
+    ngOnChanges(simpleChanges: SimpleChanges) {
+        const modeChange = simpleChanges.thyMode;
+        const thyGroupsChange = simpleChanges.thyGroups;
+        const isGroupMode = modeChange && modeChange.currentValue === 'group';
+        if (isGroupMode && thyGroupsChange && thyGroupsChange.firstChange) {
+            this.buildGroups(thyGroupsChange.currentValue);
+            this.buildModel();
+        }
+
+        if (this._diff) {
+            const changes = this._diff.diff(this.model);
+            this._applyDiffChanges(changes);
+        }
+    }
+
     ngOnDestroy() {
         super.ngOnDestroy();
         this._destroyInvalidAttribute();

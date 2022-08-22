@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Store, Action } from 'ngx-tethys/store';
+import { MiniStore, MiniAction } from 'ngx-tethys/core';
 import { NotifyPlacement, ThyNotifyConfig } from './notify.config';
 
 export interface NotifyQueueState {
@@ -17,7 +17,7 @@ export const notifyQueueInitialState: NotifyQueueState = {
 };
 
 @Injectable()
-export class NotifyQueueStore extends Store<NotifyQueueState> {
+export class NotifyQueueStore extends MiniStore<NotifyQueueState> {
     static topRightSelector(state: NotifyQueueState) {
         return state.topRightQueue;
     }
@@ -49,7 +49,7 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
         return key;
     }
 
-    @Action()
+    @MiniAction()
     addNotify(placement: NotifyPlacement, options: ThyNotifyConfig) {
         const key = this.convertQueueKey(placement);
         const state = this.snapshot;
@@ -60,7 +60,7 @@ export class NotifyQueueStore extends Store<NotifyQueueState> {
         this.next(state);
     }
 
-    @Action()
+    @MiniAction()
     removeNotify(id: string, placement?: NotifyPlacement) {
         const state = this.snapshot;
         if (placement) {

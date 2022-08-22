@@ -23,13 +23,11 @@
     "lib": ["dom", "ES2018"],
     "types": ["jasmine", "node", "../typings/ng-dev-mode"],
     "paths": {
-      "ngx-tethys": ["./public-api"],
       "ngx-tethys/*": ["./*"]
     }
   },
   "exclude": ["node_modules"],
-  "include": ["./**/*.ts", "./public-api.ts"],
-  "files": ["./public-api.ts"],
+  "include": ["./**/*.ts"],
   "angularCompilerOptions": {
     "genDir": "../temp/factories",
     "strictMetadataEmit": false,

@@ -36,6 +36,10 @@ export class ThyProgressStackedExampleComponent {
             color: '#ddd'
         }
     ];
-    maxLessValue: ThyProgressStackedValue[] = [{ value: 0 }, { value: 20 }, { value: 20 }];
+    maxLessValue: ThyProgressStackedValue[] = [
+        { value: 0, type: 'primary' },
+        { value: 20, type: 'success' },
+        { value: 20, type: 'info' }
+    ];
     valueEmpty: ThyProgressStackedValue[] = [{ value: 0 }];
 }

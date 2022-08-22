@@ -3,13 +3,17 @@
   cdkScrollable
   [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }"
 >
-  <table #table class="table" [ngClass]="[className]" [class.table-draggable]="draggable" [class.table-group]="mode === 'group'">
+  <table
+    #table
+    class="table"
+    [ngClass]="[className]"
+    [class.table-fixed]="thyLayoutFixed"
+    [class.table-draggable]="draggable"
+    [class.table-group]="mode === 'group'"
+    [style.min-width]="thyMinWidth"
+  >
     <colgroup>
-      <col
-        *ngFor="let column of columns"
-        [width]="column.width"
-        [style.minWidth]="hasFixed ? buildColumnWidth(column.width) + 'px' : null"
-      />
+      <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : column.minWidth" />
     </colgroup>
 
     <thead *ngIf="thyShowHeader">
@@ -17,16 +21,22 @@
         <th
           *ngFor="let column of columns"
           [ngClass]="column.headerClassName"
+          [class.thy-table-column-sortable]="column.sortable"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
+          (click)="onColumnHeaderClick($event, column)"
         >
           <ng-container *ngIf="!column.headerTemplateRef">
-            {{ column.title }}
+            <span>{{ column.title }}</span>
           </ng-container>
           <ng-container *ngIf="column.headerTemplateRef">
             <ng-template [ngTemplateOutlet]="column.headerTemplateRef" [ngTemplateOutletContext]="{ $implicit: column }"></ng-template>
+          </ng-container>
+          <ng-container *ngIf="column.sortable">
+            <thy-icon [ngClass]="['thy-table-column-sortable-icon', 'px-1', column.sortDirection]" thyIconName="sort-vertical-tt">
+            </thy-icon>
           </ng-container>
         </th>
       </tr>
@@ -109,6 +119,8 @@
         <td
           *ngFor="let column of columns; let j = index"
           [ngClass]="column.className"
+          [class.thy-operation-links]="!!column.operational"
+          [class.thy-table-column-secondary]="!!column.secondary"
           [class.thy-table-checkbox-column]="column.type === customType.checkbox"
           [class.thy-table-fixed-column-left]="column.fixed === fixedDirection.left"
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
@@ -121,20 +133,19 @@
           </ng-container>
 
           <!--template-->
-          <ng-container *ngIf="isTemplateRef(column.templateRef)">
+          <ng-container *ngIf="isTemplateRef(column.cellTemplateRef)">
             <thy-icon
               class="tree-expand-icon cursor-pointer"
               *ngIf="mode === 'tree' && column.expand"
               [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
               [style.left.px]="iconIndentComputed(level)"
-              (click)="expandChildren($event, row)"
             ></thy-icon>
-            <ng-template [ngTemplateOutlet]="column.templateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
+            <ng-template [ngTemplateOutlet]="column.cellTemplateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
           </ng-container>
 
           <!--not template-->
-          <ng-container *ngIf="!isTemplateRef(column.templateRef)">
+          <ng-container *ngIf="!isTemplateRef(column.cellTemplateRef)">
             <!-- default -->
             <ng-container *ngIf="column.model && !column.type">
               <thy-icon
@@ -143,7 +154,6 @@
                 [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                 [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
                 [style.marginLeft.px]="iconIndentComputed(level)"
-                (click)="expandChildren($event, row)"
               ></thy-icon>
               <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
                 {{ getModelValue(row, column.model) }}

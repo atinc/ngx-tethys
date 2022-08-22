@@ -1,19 +1,18 @@
-@use "../bootstrap/mixins/hover";
-@use "../mixins/link";
-@use "../variables";
+@use "../mixins/hover.scss" as hover;
+@use "../mixins/link.scss";
+@use "../variables.scss";
 
 a {
     color: variables.$link-color;
     text-decoration: variables.$link-decoration;
     background-color: transparent; // Remove the gray background on active links in IE 10.
     -webkit-text-decoration-skip: objects; // Remove gaps in links underline in iOS 8+ and Safari 8+.
-    @include hover.hover {
+    @include hover.hover-active {
         color: variables.$link-hover-color;
         text-decoration: variables.$link-hover-decoration;
     }
     .thy-icon,
     .wtf {
-        // font-size: $font-size-md;
         display: inline-block;
     }
 }
@@ -39,11 +38,16 @@ a:not([href]):not([tabindex]) {
 a.link-has-icon {
     .thy-icon,
     .wtf {
-        padding-right: variables.$link-icon-padding-right;
+        padding-right: variables.$link-icon-padding-x;
     }
+
     // 新的 SVG 图标字体16px偏大, 所以改成14px, 之前的字体不变
     .thy-icon {
         font-size: variables.$font-size-base;
+        svg {
+            // 字体变为 14px 后图标和文字不对齐，需要单独设置一下 vertical-align
+            vertical-align: -0.12em;
+        }
     }
 }
 

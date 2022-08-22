@@ -30,7 +30,6 @@ import { DialogHeaderComponent } from './header/dialog-header.component';
             useValue: ThyConfirmComponent
         }
     ],
-    entryComponents: [ThyDialogContainerComponent, ThyConfirmComponent],
     exports: [ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent]
 })
 export class ThyDialogModule {}

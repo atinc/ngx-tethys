@@ -1,0 +1,32 @@
+<thy-layout>
+  <thy-sidebar thyTheme="light">
+    <thy-sidebar-header thyTitle="每日必备"></thy-sidebar-header>
+    <thy-sidebar-content>
+      <thy-menu thyTheme="loose" class="pt-0">
+        <a
+          href="javascript:;"
+          thyMenuItem
+          *ngFor="let config of configs"
+          [class.active]="currentConfig.type === config.type"
+          (click)="configChange(config)"
+        >
+          <span thyMenuItemName>{{ config.name }}</span>
+        </a>
+      </thy-menu>
+    </thy-sidebar-content>
+  </thy-sidebar>
+  <thy-layout>
+    <thy-dialog-header [thyTitle]="currentConfig.title"></thy-dialog-header>
+    <thy-dialog-body>
+      <div [hidden]="currentConfig.type !== 'apple'">苹果补充维生素</div>
+      <div [hidden]="currentConfig.type !== 'watermelon'">夏天吃西瓜不需要解释</div>
+      <div [hidden]="currentConfig.type !== 'strawberry'">草莓永远不需要解释</div>
+      <div [hidden]="currentConfig.type !== 'vegetables'">这个没办法</div>
+      <div [hidden]="currentConfig.type !== 'meet'">补充蛋白质！</div>
+    </thy-dialog-body>
+    <thy-dialog-footer thyAlign="right">
+      <button thyButton="link-secondary" (click)="close()">取消</button>
+      <button thyButton="primary" (click)="ok()">确定</button>
+    </thy-dialog-footer>
+  </thy-layout>
+</thy-layout>

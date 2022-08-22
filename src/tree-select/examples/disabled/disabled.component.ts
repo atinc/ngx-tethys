@@ -22,6 +22,6 @@ export class ThyTreeSelectDisabledExampleComponent implements OnInit {
     }
 
     disabledNodeFn(node: ThyTreeSelectNode) {
-        return node.fnHidden;
+        return node.disabled;
     }
 }

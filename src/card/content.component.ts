@@ -1,17 +1,19 @@
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-card-content',
     preserveWhitespaces: false,
     template: `
         <ng-content></ng-content>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-card-content'
+    }
 })
 export class ThyCardContentComponent implements OnInit {
-    @HostBinding('class.thy-card-content') thyCardContentClass = true;
-
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;
 
     @Input('thyScroll')

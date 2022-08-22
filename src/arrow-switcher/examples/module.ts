@@ -5,11 +5,16 @@ import { ThyArrowSwitcherBasicExampleComponent } from './basic/basic.component';
 import { FormsModule } from '@angular/forms';
 import { ThyArrowSwitcherSizeExampleComponent } from './size/size.component';
 import { ThyArrowSwitcherDisabledExampleComponent } from './disabled/disabled.component';
+import { ThyArrowSwitcherLiteExampleComponent } from './lite/lite.component';
 
-const COMPONENTS = [ThyArrowSwitcherBasicExampleComponent, ThyArrowSwitcherSizeExampleComponent, ThyArrowSwitcherDisabledExampleComponent];
+const COMPONENTS = [
+    ThyArrowSwitcherBasicExampleComponent,
+    ThyArrowSwitcherLiteExampleComponent,
+    ThyArrowSwitcherSizeExampleComponent,
+    ThyArrowSwitcherDisabledExampleComponent
+];
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyArrowSwitcherModule, FormsModule],
     exports: [...COMPONENTS]
 })

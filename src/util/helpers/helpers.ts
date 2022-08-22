@@ -125,6 +125,10 @@ export function isBoolean(value: any): value is boolean {
     return value === true || value === false || (isObjectLike(value) && baseGetTag(value) === '[object Boolean]');
 }
 
+export function isClass(value: any): value is Function {
+    return isFunction(value) && /^\s*class\s+/.test(value.toString());
+}
+
 export function htmlElementIsEmpty(element: HTMLElement) {
     if (element && element.childNodes) {
         const nodes = element.childNodes;
@@ -240,6 +244,7 @@ export function coerceNumberValue(value: number | string, fallbackValue: number 
 }
 
 export function coerceCssPixelValue(value: number | string): string {
+    value = _isNumberValue(value) ? Number(value) : value;
     return coerceCssPixel(value);
 }
 
@@ -295,4 +300,16 @@ export function concatArray<TItem>(items: TItem | TItem[], originalItems: TItem 
     } else {
         return _originalItems;
     }
+}
+
+export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1): string {
+    if (bytes === 0) {
+        return '0 Byte';
+    }
+
+    const k = 1024;
+    const sizes: string[] = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'];
+    const i: number = Math.floor(Math.log(bytes) / Math.log(k));
+
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + (noSpace ? '' : ' ') + sizes[i];
 }

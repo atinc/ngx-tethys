@@ -1,0 +1,66 @@
+<ng-container *ngIf="thyLayout === 'horizontal'">
+  <table>
+    <tbody>
+      <tr *ngFor="let row of rows; let i = index">
+        <ng-container *ngFor="let item of rows[i]">
+          <td>
+            <div class="thy-properties-item-container">
+              <ng-template [ngTemplateOutlet]="itemLabel" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
+              <ng-template [ngTemplateOutlet]="itemContent" [ngTemplateOutletContext]="{ item: item }"></ng-template>
+            </div>
+          </td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-container *ngIf="thyLayout === 'vertical'">
+  <table>
+    <tbody>
+      <ng-container *ngFor="let row of rows; let i = index">
+        <tr>
+          <ng-container *ngFor="let item of rows[i]">
+            <td>
+              <ng-template [ngTemplateOutlet]="itemLabel" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
+            </td>
+          </ng-container>
+        </tr>
+        <tr>
+          <ng-container *ngFor="let item of rows[i]">
+            <td>
+              <ng-template [ngTemplateOutlet]="itemContent" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #itemLabel let-item="item">
+  <span class="thy-properties-item-label">
+    <ng-container *ngIf="item?.thyLabelText">
+      {{ item.thyLabelText }}
+    </ng-container>
+    <ng-container *ngIf="item?.label">
+      <ng-template [ngTemplateOutlet]="item.label"></ng-template>
+    </ng-container>
+  </span>
+</ng-template>
+
+<ng-template #itemContent let-item="item">
+  <div
+    #item
+    class="thy-properties-item-content"
+    [class.thy-properties-item-content-editable]="item?.thyEditable"
+    [class.thy-properties-item-content-editing]="item?.editing"
+  >
+    <div class="thy-properties-item-content-text">
+      <ng-template *ngIf="item?.content" [ngTemplateOutlet]="item.content"></ng-template>
+    </div>
+    <div class="thy-properties-item-content-editor" *ngIf="item?.thyEditable">
+      <ng-template *ngIf="item?.editor" [ngTemplateOutlet]="item.editor"></ng-template>
+    </div>
+  </div>
+</ng-template>

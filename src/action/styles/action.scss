@@ -1,0 +1,85 @@
+@use "../../styles/mixins/hover.scss";
+@use "../../styles/bootstrap/functions-variables";
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as action-mixin;
+
+.thy-action {
+    padding: variables.$action-padding-y variables.$action-padding-x;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    position: relative;
+    border-radius: variables.$border-radius;
+
+    > span {
+        color: variables.$gray-700;
+    }
+
+    &.active {
+        text-decoration: none;
+        visibility: visible !important;
+    }
+
+    @include hover.hover {
+        text-decoration: none;
+    }
+
+    // Disabled state lightens text
+    &.disabled {
+        color: variables.$action-color;
+        border-bottom: none;
+        opacity: 0.5;
+    }
+
+    .thy-icon {
+        font-size: variables.$font-size-md;
+    }
+
+    > .thy-icon + span,
+    > span + .thy-icon {
+        margin-left: 8px;
+    }
+
+    // 带 Hover Icon
+    &.thy-action-hover-icon {
+        .thy-icon {
+            transition: opacity 0.2s;
+        }
+        .hover-icon {
+            opacity: 0;
+            position: absolute;
+        }
+
+        &:hover {
+            .thy-icon {
+                opacity: 0;
+            }
+            .hover-icon {
+                opacity: 1;
+            }
+        }
+    }
+
+    transition: background 0.2s ease-in-out, color 0.2s ease-in-out;
+    @include action-mixin.action-variant(variables.$action-color, variables.$action-hover-color, variables.$action-hover-bg-color);
+}
+
+@each $color, $value in functions-variables.$theme-colors {
+    // 默认就是 Primary 无需设置样式，避免覆写 $action-hover-bg-color 颜色失效
+    @if $color != 'primary' {
+        .action-#{$color} {
+            @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+        }
+    }
+}
+
+.thy-action-lite {
+    @include hover.hover-active {
+        background: none;
+    }
+}
+
+.thy-actions {
+    display: flex;
+    flex-flow: row wrap;
+}

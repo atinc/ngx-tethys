@@ -1,6 +1,6 @@
-import * as _provinces from 'china-division/dist/provinces.json';
-import * as _cities from 'china-division/dist/cities.json';
-import * as _areas from 'china-division/dist/areas.json';
+import * as _provinces from './_china-division/provinces.json';
+import * as _cities from './_china-division/cities.json';
+import * as _areas from './_china-division/areas.json';
 
 const provincesAll = _provinces as any;
 const citiesAll = _cities as any;

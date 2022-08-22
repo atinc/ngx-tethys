@@ -1,12 +1,13 @@
-<thy-nav thyType="primary" [thyResponsive]="true" class="responsive-nav">
+<thy-nav thyType="tabs" [thyResponsive]="true" class="responsive-nav">
   <a
     class="nav-tab"
     href="javascript:;"
     *ngFor="let item of navList"
-    thyNavLink
-    [thyNavLinkActive]="activeIndex === item.index"
+    thyNavItem
+    [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
-    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+  >
+    <span class="ml-1">{{ item.name }}</span></a
   >
 
   <ng-template #morePopover let-context>
@@ -14,7 +15,7 @@
       <span thyActionMenuItem>自定义</span>
       <ng-container *ngFor="let item of context">
         <span
-          class="more-nav-link"
+          class="thy-nav-item-more"
           thyActionMenuItem
           [thyActionMenuItemActive]="item.isActive"
           (click)="navItemClick(item)"
@@ -25,15 +26,15 @@
   </ng-template>
 </thy-nav>
 
-<thy-nav thyType="primary" [thyResponsive]="true" class="responsive-nav">
+<thy-nav thyType="tabs" [thyResponsive]="true" class="responsive-nav">
   <a
     class="nav-tab"
     href="javascript:;"
     *ngFor="let item of navList"
-    thyNavLink
-    [thyNavLinkActive]="activeIndex === item.index"
+    thyNavItem
+    [thyNavItemActive]="activeIndex === item.index"
     (click)="activeIndex = item.index"
-    ><thy-icon thyIconName="more-circle"></thy-icon> <span class="ml-1">{{ item.name }}</span></a
+    ><span class="ml-1">{{ item.name }}</span></a
   >
 
   <ng-template #more>

@@ -1,49 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 
 @Component({
     selector: 'thy-collapse-custom-example',
-    templateUrl: './custom.component.html'
+    templateUrl: './custom.component.html',
+    styleUrls: ['./custom.component.scss'],
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyCollapseCustomExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
-
-    panels = [
-        {
-            active: true,
-            key: Math.random(),
-            name: '这是头部标题 1',
-            customStyle: {
-                background: '#f7f7f7',
-                'border-radius': '4px',
-                'margin-bottom': '28px',
-                border: '0px'
-            }
-        },
-        {
-            active: false,
-            key: Math.random(),
-            name: '这是头部标题  2',
-            icon: 'caret-right',
-            customStyle: {
-                background: '#f7f7f7',
-                'border-radius': '4px',
-                'margin-bottom': '28px',
-                border: '0px'
-            }
-        },
-        {
-            active: false,
-            key: Math.random(),
-            name: '这是头部标题 3',
-            icon: 'arrow-right',
-            customStyle: {
-                background: '#f7f7f7',
-                'border-radius': '4px',
-                'margin-bottom': '28px',
-                border: '0px'
-            }
-        }
-    ];
 }

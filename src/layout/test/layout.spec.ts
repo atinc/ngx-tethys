@@ -13,7 +13,8 @@ import { ThyContentMainComponent } from '../content-main.component';
     selector: 'thy-demo-layout-basic',
     template: `
         <thy-layout>
-            <thy-header [thyDivided]="isDivided" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName"> </thy-header>
+            <thy-header [thyDivided]="isDivided" [thyShadow]="shadow" [thySize]="size" thyTitle="I am header" [thyIcon]="iconName">
+            </thy-header>
             <thy-content>
                 <thy-content-section>Content section</thy-content-section>
                 <thy-content-main>Content main</thy-content-main>
@@ -23,6 +24,7 @@ import { ThyContentMainComponent } from '../content-main.component';
 })
 class ThyDemoLayoutBasicComponent {
     isDivided = false;
+    shadow = false;
     size = '';
     iconName = '';
 }
@@ -117,6 +119,18 @@ describe(`layout`, () => {
             fixture.componentInstance.isDivided = true;
             fixture.detectChanges();
             expect(headerElement.classList.contains(`thy-layout-header-divided`)).toBeTruthy();
+        });
+
+        it('should get shadow header', () => {
+            const headerDebugElement = fixture.debugElement.query(By.directive(ThyHeaderComponent));
+            expect(headerDebugElement).toBeTruthy();
+            const headerElement: HTMLElement = headerDebugElement.nativeElement;
+            expect(headerElement).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header`)).toBeTruthy();
+            expect(headerElement.classList.contains(`thy-layout-header-shadow`)).toBeFalsy();
+            fixture.componentInstance.shadow = true;
+            fixture.detectChanges();
+            expect(headerElement.classList.contains(`thy-layout-header-shadow`)).toBeTruthy();
         });
 
         it('layout header thyIcon', () => {

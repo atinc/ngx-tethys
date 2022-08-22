@@ -1,9 +1,12 @@
 @use "../../shared/option/styles/option.mixin";
-@use "../../shared/select/select.mixin";
+@use "../../shared/select/styles/select.mixin";
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
 
 @mixin thy-tree-select-option() {
+    &.disabled {
+        pointer-events: unset;
+    }
     &:not(.disabled) {
         &.hover,
         &:hover {

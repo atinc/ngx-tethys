@@ -1,7 +1,12 @@
 import { Component, OnInit, HostBinding, Input, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+import { warnDeprecation } from 'ngx-tethys/util';
 
 type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
+
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
@@ -33,6 +38,9 @@ export class ThyIconNavComponent implements OnInit {
         elementRef: ElementRef<HTMLElement>
     ) {
         this.updateHostClassService.initializeElement(elementRef);
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation('thy-icon-nav has been deprecated, please use thyAction and thy-space components instead of it');
+        }
     }
 
     ngOnInit(): void {

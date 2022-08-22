@@ -1,10 +1,10 @@
 import { coerceElement } from '@angular/cdk/coercion';
+import { ESCAPE } from '@angular/cdk/keycodes';
 import { DOCUMENT } from '@angular/common';
 import { ElementRef, Inject, NgZone } from '@angular/core';
 import { fromEvent, merge, Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyFullscreenConfig, ThyFullscreenMode } from './fullscreen.config';
-import { ESCAPE } from '@angular/cdk/keycodes';
 
 export class ThyFullscreenRef<TResult = unknown> {
     fullscreenConfig: ThyFullscreenConfig;
@@ -99,29 +99,33 @@ export class ThyFullscreenRef<TResult = unknown> {
     }
 
     protected launchImmersiveFullscreen() {
-        const docElement = this.document.documentElement;
+        const { documentElement } = this.document;
 
-        if (docElement.requestFullscreen) {
-            docElement.requestFullscreen();
-        } else if (docElement['mozRequestFullScreen']) {
-            docElement['mozRequestFullScreen']();
-        } else if (docElement['webkitRequestFullscreen']) {
-            docElement['webkitRequestFullscreen']();
-        } else if (docElement['msRequestFullscreen']) {
-            docElement['msRequestFullscreen']();
+        const requestFullscreen: HTMLElement['requestFullscreen'] | undefined =
+            documentElement.requestFullscreen ||
+            documentElement['mozRequestFullScreen'] ||
+            documentElement['webkitRequestFullscreen'] ||
+            documentElement['msRequestFullscreen'];
+
+        if (typeof requestFullscreen === 'function') {
+            // Note: the `requestFullscreen` returns a promise that resolves when the full screen is initiated.
+            // The promise may reject with a `fullscreen error`. The browser warns into the console before rejecting:
+            // `Failed to execute ‘requestFullScreen’ on ‘Element’: API can only be initiated by a user gesture.`.
+            // We explicitly call `catch` and redirect the rejection to `console.error`.
+            // Otherwise, this fill fail in unit tests with the following error:
+            // `An error was thrown in afterAll. Unhandled promise rejection: TypeError: fullscreen error`.
+            requestFullscreen.call(documentElement)?.catch(console.error);
         }
     }
 
     protected exitImmersiveFullscreen() {
-        const doc = this.document;
-        if (doc['exitFullscreen']) {
-            doc['exitFullscreen']();
-        } else if (doc['mozCancelFullScreen']) {
-            doc['mozCancelFullScreen']();
-        } else if (doc['webkitExitFullscreen']) {
-            doc['webkitExitFullscreen']();
-        } else if (doc['msExitFullscreen']) {
-            doc['msExitFullscreen']();
+        const { document } = this;
+
+        const exitFullscreen: Document['exitFullscreen'] | undefined =
+            document.exitFullscreen || document['mozCancelFullScreen'] || document['webkitExitFullscreen'] || document['msExitFullscreen'];
+
+        if (typeof exitFullscreen === 'function') {
+            exitFullscreen.call(document)?.catch(console.error);
         }
     }
 

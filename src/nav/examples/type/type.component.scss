@@ -1,0 +1,11 @@
+:host {
+    // display: block;
+    // background: #ddd;
+    // padding: 16px 8px;
+    .thy-nav {
+        background: #fff;
+        &:not(:last-child) {
+            margin-bottom: 20px;
+        }
+    }
+}

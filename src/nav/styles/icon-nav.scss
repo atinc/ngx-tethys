@@ -1,15 +1,12 @@
-@use "../../styles/bootstrap/mixins/hover";
-@use "../../styles/variables";
-
-$icon-nav-link-padding-x: 0.438rem;
-$icon-nav-link-padding-y: 0.282rem;
+@use "../../styles/mixins/hover.scss";
+@use "../../styles/variables.scss";
 
 @mixin icon-nav-link-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
-    padding: $icon-nav-link-padding-y $icon-nav-link-padding-x;
+    padding: variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x;
     // 解决图标不居中问题
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     display: flex;
     align-items: center;
 
@@ -30,7 +27,7 @@ $icon-nav-link-padding-y: 0.282rem;
 
     // Disabled state lightens text
     &.disabled {
-        color: variables.$nav-link-disabled-color;
+        color: variables.$nav-item-disabled-color;
         border-bottom: none;
     }
 }
@@ -55,28 +52,37 @@ $icon-nav-link-padding-y: 0.282rem;
     margin-bottom: 0;
     list-style: none;
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-spacing);
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-spacing
+        );
     }
 }
 
 .thy-icon-nav-secondary {
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-secondary-spacing);
-        @include icon-nav-link-variant(
-            variables.$icon-nav-link-secondary-color,
-            variables.$icon-nav-link-hover-color,
-            rgba(variables.$primary, 0.1)
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-secondary-spacing
         );
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }
 
 .thy-icon-nav-individual {
     .thy-icon-nav-link {
-        @include icon-nav-link-size($icon-nav-link-padding-y $icon-nav-link-padding-x, variables.$icon-nav-link-individual-spacing);
-        @include icon-nav-link-variant(
-            variables.$icon-nav-link-secondary-color,
-            variables.$icon-nav-link-hover-color,
-            rgba(variables.$primary, 0.1)
+        @include icon-nav-link-size(
+            variables.$icon-nav-link-padding-y variables.$icon-nav-link-padding-x,
+            variables.$icon-nav-link-individual-spacing
         );
+        // @include icon-nav-link-variant(
+        //     variables.$icon-nav-link-secondary-color,
+        //     variables.$icon-nav-link-hover-color,
+        //     rgba(variables.$primary, 0.1)
+        // );
     }
 }

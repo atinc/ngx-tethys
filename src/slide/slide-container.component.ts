@@ -7,7 +7,7 @@ import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { NgZone, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 
 import { thySlideAnimations } from './slide-animations';
 import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
@@ -94,7 +94,8 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
         public config: ThySlideConfig,
         changeDetectorRef: ChangeDetectorRef,
         private renderer: Renderer2,
-        private viewportRuler: ViewportRuler
+        private viewportRuler: ViewportRuler,
+        private readonly ngZone: NgZone
     ) {
         super(slideAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
@@ -147,7 +148,7 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
             .change(100)
             .pipe(startWith(null), takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
-                this.setSlideContainerStyles();
+                this.ngZone.run(() => this.setSlideContainerStyles());
             });
     }
 

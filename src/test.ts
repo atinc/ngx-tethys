@@ -4,13 +4,17 @@ import 'zone.js/testing';
 import { getTestBed } from '@angular/core/testing';
 import { BrowserDynamicTestingModule, platformBrowserDynamicTesting } from '@angular/platform-browser-dynamic/testing';
 import { setPrintErrorWhenIconNotFound } from './icon';
+import { setWarnDeprecation } from './util';
 
 setPrintErrorWhenIconNotFound(false);
+setWarnDeprecation(false);
 
 declare const require: any;
 
 // First, initialize the Angular testing environment.
-getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting());
+getTestBed().initTestEnvironment(BrowserDynamicTestingModule, platformBrowserDynamicTesting(), {
+    teardown: { destroyAfterEach: true }
+});
 
 // Then we find all the tests.
 const context = require.context('./', true, /\.spec\.ts$/);

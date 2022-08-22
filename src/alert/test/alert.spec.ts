@@ -1,6 +1,6 @@
 import { fakeAsync, ComponentFixture, TestBed } from '@angular/core/testing';
 import { ThyAlertModule } from '../alert.module';
-import { NgModule, Component, ViewChild, TemplateRef } from '@angular/core';
+import { NgModule, Component, ViewChild, TemplateRef, DebugElement } from '@angular/core';
 import { By } from '@angular/platform-browser';
 import { ThyAlertComponent } from '../alert.component';
 import { bypassSanitizeProvider, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
@@ -18,9 +18,9 @@ describe('ThyAlert', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<ThyDemoAlertComponent>;
         let testComponent: ThyDemoAlertComponent;
-        let alertComponent;
-        let alertElement;
-        let alertContentElement;
+        let alertComponent: DebugElement;
+        let alertElement: HTMLElement;
+        let alertContentElement: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoAlertComponent);
@@ -39,14 +39,23 @@ describe('ThyAlert', () => {
             fixture.detectChanges();
             const iconElement = alertContentElement.children[0];
             expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-info')).toBe(true);
+            expect(alertElement.classList.contains('thy-alert-fill-info')).toBe(true);
             expect(iconElement.classList.contains('thy-icon-minus-circle-fill')).toBe(true);
         });
 
         it('should have correct text', () => {
             fixture.detectChanges();
             const textElement = alertContentElement.children[1];
-            expect(textElement.textContent).toContain(testComponent.message);
+            expect(textElement.textContent).toContain(testComponent.message as string);
+        });
+
+        it('should have correct class when type is primary', () => {
+            testComponent.type = `primary`;
+            fixture.detectChanges();
+            const iconElement = alertContentElement.children[0];
+            expect(iconElement).toBeTruthy();
+            expect(alertElement.classList.contains('thy-alert-fill-primary')).toBe(true);
+            expect(iconElement.classList.contains('thy-icon-info-circle-fill')).toBe(true);
         });
 
         it('should have correct class when type is success', () => {
@@ -54,7 +63,7 @@ describe('ThyAlert', () => {
             fixture.detectChanges();
             const iconElement = alertContentElement.children[0];
             expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-success')).toBe(true);
+            expect(alertElement.classList.contains('thy-alert-fill-success')).toBe(true);
             expect(iconElement.classList.contains('thy-icon-check-circle-fill')).toBe(true);
         });
 
@@ -63,7 +72,7 @@ describe('ThyAlert', () => {
             fixture.detectChanges();
             const iconElement = alertContentElement.children[0];
             expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-warning')).toBe(true);
+            expect(alertElement.classList.contains('thy-alert-fill-warning')).toBe(true);
             expect(iconElement.classList.contains('thy-icon-waring-fill')).toBe(true);
         });
 
@@ -72,7 +81,7 @@ describe('ThyAlert', () => {
             fixture.detectChanges();
             const iconElement = alertContentElement.children[0];
             expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-danger')).toBe(true);
+            expect(alertElement.classList.contains('thy-alert-fill-danger')).toBe(true);
             expect(iconElement.classList.contains('thy-icon-close-circle-fill')).toBe(true);
         });
 
@@ -81,8 +90,8 @@ describe('ThyAlert', () => {
             fixture.detectChanges();
             const iconElement = alertContentElement.children[0];
             expect(iconElement).toBeTruthy();
-            expect(alertElement.classList.contains('thy-alert-primary-weak')).toBe(true);
-            expect(iconElement.classList.contains('thy-icon-question-circle-fill')).toBe(true);
+            expect(alertElement.classList.contains('thy-alert-bordered-primary')).toBe(true);
+            expect(iconElement.classList.contains('thy-icon-info-circle-fill')).toBe(true);
         });
 
         it('should have correct class when icon is available string', () => {
@@ -106,7 +115,7 @@ describe('ThyAlert', () => {
             const childrenLen = alertElement.children.length;
             const textElement = alertContentElement.children[0];
             expect(childrenLen).toBe(1);
-            expect(textElement.textContent).toContain(testComponent.message);
+            expect(textElement.textContent).toContain(testComponent.message as string);
         });
 
         it('should have not text element when message is null', () => {
@@ -134,7 +143,7 @@ describe('ThyAlert', () => {
         it('should close alert when click close', () => {
             testComponent.close = true;
             fixture.detectChanges();
-            const closeElement = alertElement.children[1];
+            const closeElement = alertElement.children[1] as HTMLElement;
             expect(closeElement).toBeTruthy();
             closeElement.click();
             fixture.detectChanges();
@@ -147,13 +156,27 @@ describe('ThyAlert', () => {
             const operationElement = alertContentElement.children[2];
             expect(operationElement).toBeTruthy();
         });
+
+        it('should have correct class when theme is bordered', () => {
+            testComponent.theme = `bordered`;
+            fixture.detectChanges();
+            expect(alertElement.classList.contains('thy-alert-bordered')).toBe(true);
+        });
+
+        it('should have correct class and element when theme is naked', () => {
+            testComponent.theme = `naked`;
+            fixture.detectChanges();
+            const tipsElement = alertContentElement.children[0];
+            expect(tipsElement).toBeTruthy();
+            expect(alertElement.classList.contains('thy-alert-naked')).toBe(true);
+        });
     });
 });
 
 @Component({
     selector: 'thy-demo-alert',
     template: `
-        <thy-alert [thyType]="type" [thyCloseable]="close" [thyMessage]="message" [thyIcon]="icon">
+        <thy-alert [thyTheme]="theme" [thyType]="type" [thyCloseable]="close" [thyMessage]="message" [thyIcon]="icon">
             <ng-template #operation>
                 <a href="javascript:;" thyAlertActionItem>恢复</a>
                 <a href="javascript:;" thyAlertActionItem class="link-danger">彻底删除</a>
@@ -167,6 +190,7 @@ describe('ThyAlert', () => {
     `
 })
 class ThyDemoAlertComponent {
+    theme = 'fill';
     type = `info`;
     message: string | TemplateRef<HTMLElement> = `this is a message`;
     icon: string | boolean = true;

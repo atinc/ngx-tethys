@@ -1,19 +1,19 @@
 @use "sass:color";
 @use "sass:map";
+
+$thy-prefix: 'thy';
+
 // gray color
 $white: #fff;
-// 直接使用 $gray-70 , $gray-99 会在将来的版本移除
-$gray-99: #fdfdfd !default; // 内容区域背景色
-
-$gray-70: #fdfdfd !default; // 内容区域背景色，用于整个内容的背景色，sidebar 背景色
+$gray-70: #fdfdfd !default;
 $gray-80: #fafafa !default; // 选项鼠标移上去的背景色，主要用于表格 Hover 移上去的颜色 和表格的编号背景色,
-$gray-100: #f3f3f3 !default; // 搜索框背景色，消息栏置顶色, 完成任务卡片颜色， Popbox Menu 移上去的背景色
+$gray-100: #f5f5f5 !default; // bordered 表格的背景色, 完成任务卡片颜色， Menu Item 移上去的背景色
 $gray-200: #eee !default; // 模块左侧导航鼠标移上去的阴影, 次分割线，部分控件描边, 消息评论图标使用
 $gray-210: #e9e9e9 !default; //整块区域的背景色为 #f3f3f3 后，某个卡片模块的背景色，用于文件详情
 $gray-300: #ddd !default; // 主分割线, 进度条背景色，三级图标色
 $gray-400: #cacaca !default; // 搜索框默认文字， 禁用图标颜色, 部分图标颜色,
 $gray-500: #aaa !default; // 添加参与人,负责人等操作图标的边框颜色,说明文字, 搜索框文字
-$gray-600: #888 !default; // 次要文字,如 Tab 切换文字
+$gray-600: #999 !default; // 次要文字,如 Tab 切换文字
 $gray-700: #666 !default; // 主要文字
 $gray-800: #333 !default; // 标题和重点文字
 $gray-900: #212529 !default;
@@ -28,7 +28,7 @@ $rem-20px: 1.25rem;
 $rem-26px: 1.625rem;
 // color
 $body-color: $gray-800 !default;
-$primary: #348fe4 !default;
+$primary: #6698ff !default;
 // deprecated
 $primary-active: color.adjust($primary, $lightness: -10%) !default;
 $secondary: $gray-700 !default;
@@ -40,6 +40,7 @@ $pass: #2cccda !default;
 $secondary-item-active: rgba($primary, 0.1) !default;
 $item-active-bg-color: rgba($primary, 0.1) !default;
 $light: $gray-300 !default;
+$dark: #48525c !default;
 // $light : $gray-100;
 // $dark : $gray-800;
 // enable-gradients
@@ -53,6 +54,11 @@ $font-family-statistics-number: $font-family-base !default;
 $font-size-base: 0.875rem !default; // 14px
 $font-size-lg: 1.25rem !default; // 20px
 $font-size-sm: 0.75rem !default; // 12px
+// 标题字体大小，header Title of card、Layout、Sidebar、Slid
+$font-size-title: 15px;
+
+$text-color: $gray-800 !default;
+$text-color-inverse: $white !default;
 
 // line-height
 $line-height-lg: 1.5 !default;
@@ -63,6 +69,7 @@ $line-height-xs: 1.5 !default;
 $border-radius: 0.25rem !default;
 $border-radius-lg: 0.3rem !default;
 $border-radius-sm: 0.2rem !default;
+$border-color: $gray-200 !default;
 
 $enable-gradients: false !default;
 $enable-shadows: true !default;
@@ -74,12 +81,15 @@ $link-color: $primary !default;
 $link-decoration: none !default;
 $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
-$link-icon-padding-right: 4px !default;
+$link-icon-padding-x: 4px !default;
 // box shadow
-$box-shadow: 0 0 24px rgba(0, 0, 0, 0.18) !default;
+$box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 
 // icon
 $icon-vertical-align: -0.16em !default;
+$icon-text-horizontal-space: 0.5rem !default;
+$icon-default-height: 24px !default;
+$icon-default-width: 24px !default;
 
 // 扩展
 $font-size-md: 1rem !default; // 16px
@@ -206,14 +216,16 @@ $input-line-height-md: $input-btn-line-height-md !default;
 $input-line-height-sm: $input-btn-line-height-sm !default;
 $input-line-height-lg: $input-btn-line-height-lg !default;
 
-$input-padding-x-fixed: 0.625rem !default; // input 所有大小左右间距都是固定的
-$input-padding-x: $input-padding-x-fixed !default;
+// 大于等于 36px 的输入框左右间距 12px，小于 36px 高度的输入框左右间距 8px
+$input-padding-x-fixed: 0.5rem !default;
+$input-padding-x-fixed-lg: 0.75rem !default;
+$input-padding-x: $input-padding-x-fixed-lg !default;
 $input-padding-y: $input-btn-padding-y !default;
 $input-padding-x-md: $input-padding-x-fixed !default;
 $input-padding-y-md: $input-btn-padding-y-md !default;
 $input-padding-x-sm: $input-padding-x-fixed !default;
 $input-padding-y-sm: $input-btn-padding-y-sm !default;
-$input-padding-x-lg: $input-padding-x-fixed !default;
+$input-padding-x-lg: $input-padding-x-fixed-lg !default;
 $input-padding-y-lg: 0.1875rem !default;
 $input-padding-x-xs: $input-padding-x-fixed !default;
 $input-padding-y-xs: 0.125rem !default;
@@ -238,7 +250,7 @@ $input-border-color: $gray-200 !default;
 $input-hover-border-color: $primary !default;
 $input-disabled-bg: $gray-100 !default;
 $input-disabled-color: $gray-600 !default;
-$input-icon-color: $gray-500 !default;
+$input-icon-color: $gray-400 !default;
 $input-group-addon-color: $gray-700 !default;
 $input-group-addon-bg: $gray-100 !default;
 $form-text-margin-top: 0.5rem !default;
@@ -264,14 +276,14 @@ $dropdown-menu-max-height: 400px !default;
 $dropdown-menu-bg: $white !default;
 $dropdown-menu-item-padding-x: 20px !default;
 $dropdown-menu-item-padding-y: 9px !default;
-$dropdown-menu-item-color: $gray-700 !default;
+$dropdown-menu-item-color: $gray-800 !default;
 $dropdown-menu-item-hover-color: $gray-800 !default;
 $dropdown-menu-item-icon-color: $gray-500 !default;
 $dropdown-menu-item-extend-color: $gray-500 !default;
 $dropdown-menu-item-hover-bg: $gray-100 !default;
 $dropdown-menu-divider-title-color: $gray-400 !default;
 $dropdown-menu-divider-border-color: $gray-200 !default;
-$dropdown-menu-divider-margin-y: 5px !default;
+$dropdown-menu-divider-margin-y: 4px !default;
 $dropdown-menu-divider-margin-x: 20px !default;
 $dropdown-menu-group-name-color: $gray-400 !default;
 $dropdown-menu-group-name-padding-y: 2px;
@@ -288,27 +300,34 @@ $pop-box-top-margin: 3px !default;
 $zindex-pop-box: 1080 !default;
 
 // Layout
-$layout-header-background: rgba($gray-99, 0.97) !default;
-$layout-header-padding: 0 15px !default;
-$layout-header-height: 50px !default;
+$layout-header-background: $white !default;
+$layout-header-padding: 0 20px !default;
+$layout-header-height: 48px !default;
+$layout-header-height-sm: 44px !default;
+$layout-header-height-lg: 52px !default;
+$layout-header-height-xlg: 100px !default;
 $layout-header-prefix-icon-size: 20px !default;
 $layout-header-separator-color: $gray-500 !default;
 $layout-header-icon-link-opacity: 0.85;
+$layout-header-box-shadow: 0 4px 8px 0px #00000008 !default;
 
-$layout-content-background: $gray-200 !default;
-$layout-content-padding: 15px 15px 15px 15px !default;
+$layout-content-background: $gray-80 !default;
+$layout-content-padding: 15px 20px 15px 20px !default;
 $layout-sidebar-width: 240px !default;
-$layout-sidebar-background: rgba($gray-99, 0.97) !default;
-$layout-sidebar-border-right: 1px solid $gray-300 !default;
+$layout-sidebar-background-light: scale-color($gray-80, $lightness: +20%);
+$layout-sidebar-background-dark: $gray-800 !default;
+$layout-sidebar-border-color: $gray-200 !default;
+$layout-sidebar-border-right: 1px solid $layout-sidebar-border-color !default;
 $layout-sidebar-drag-background-hover: $gray-300 !default;
 $layout-sidebar-drag-background-active: $primary !default;
-$layout-header-height-sm: 38px !default;
+$layout-sidebar-header-height: 48px !default;
+$layout-sidebar-header-title-font-size: $font-size-title !default;
+$layout-sidebar-header-padding: $layout-header-padding !default;
+$layout-sidebar-footer-height: 48px !default;
 $layout-content-section-border-radius: 0px !default;
 $layout-content-section-background: $white !default;
-$layout-content-section-margin-bottom: 15px !default;
+$layout-content-section-margin-bottom: 8px !default;
 // Tables
-$table-cell-padding: 12px 15px !default;
-$table-sm-cell-padding: 0.3rem !default;
 $table-color: $gray-800;
 $table-bg: transparent !default;
 $table-accent-bg: rgba($black, 0.05) !default;
@@ -319,24 +338,38 @@ $table-hover-color: $gray-80;
 $table-border-width: 1px !default;
 $table-border-color: $gray-200 !default;
 $table-head-bg: $gray-200 !default;
-$table-head-color: $gray-700 !default;
-$table-default-head-color: $gray-600 !default;
-$table-default-cell-height: 55px !default;
-$table-sm-cell-height: 44px !default;
-$table-bordered-padding: 11px 15px !default;
+$table-head-color: $gray-800 !default;
+$table-default-header-color: $gray-700 !default;
+$table-cell-height-xlg: 60px !default;
+$table-cell-padding-xlg: 12px 16px !default;
+$table-header-padding-xlg: 16px 16px !default;
+$table-cell-height-lg: 56px !default;
+$table-cell-padding-lg: 12px 16px !default;
+$table-header-padding-lg: 12px 16px !default;
+$table-cell-height: 52px !default;
+$table-cell-padding: 12px 16px !default;
+$table-header-padding: 12px 16px !default;
+$table-cell-height-sm: 48px !default;
+$table-cell-padding-sm: 8px 16px !default;
+$table-header-padding-sm: 8px 16px !default;
+$table-cell-height-xs: 44px !default;
+$table-cell-padding-xs: 8px 16px !default;
+$table-header-padding-xs: 8px 16px !default;
 $table-bordered-bg: $gray-100 !default;
-$table-bordered-head-color: $gray-700 !default;
+$table-bordered-header-color: $gray-800 !default;
+$table-boxed-border-radius: 4px !default;
 $table-draggable-first-th-padding-left: 20px !default;
 $table-draggable-first-td-padding-left: 20px !default;
 $table-draggable-icon-color: $gray-600 !default;
 $table-draggable-icon-left: 2px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
-$table-default-header-cell-padding: 0 15px !default;
-$table-default-header-padding: 12px 15px !default;
-$table-default-sm-header-padding: 8px 15px !default;
+$table-default-header-cell-padding: 0 16px !default;
+$table-default-header-padding: 12px 16px !default;
+$table-default-sm-header-padding: 8px 16px !default;
 $table-default-header-height: inherit !default;
-$table-bordered-cell-height: 50px !default;
 $table-group-first-cell-padding-left: 43px !default;
+$table-operation-column-spacing: 32px !default;
+
 // grid
 $table-footer-padding: 0 20px !default;
 // action-menu
@@ -347,7 +380,7 @@ $action-menu-max-height: 400px !default;
 $action-menu-bg: $white !default;
 $action-menu-item-padding-x: 20px !default;
 $action-menu-item-padding-y: 9px !default;
-$action-menu-item-color: $gray-700 !default;
+$action-menu-item-color: $gray-800 !default;
 $action-menu-item-hover-color: $gray-800 !default;
 $action-menu-item-icon-color: $gray-500 !default;
 $action-menu-item-extend-color: $gray-500 !default;
@@ -393,6 +426,45 @@ $label-success-bg: $success !default;
 $label-info-bg: $info !default;
 $label-warning-bg: $warning !default;
 $label-danger-bg: $danger !default;
+
+// tag
+$tag-default-color: $gray-700 !default;
+$tag-default-border-color: $gray-200 !default;
+$tag-default-bg: $gray-100 !default;
+$tag-colors: () !default;
+$tag-colors: map.merge(
+    (
+        'primary': $primary,
+        'secondary': $secondary,
+        'info': $info,
+        'success': $success,
+        'warning': $warning,
+        'danger': $danger
+    ),
+    $tag-colors
+);
+$tag-size-heights: () !default;
+$tag-size-heights: (
+    sm: 20px,
+    md: 24px,
+    lg: 28px
+);
+$tag-size-paddings: () !default;
+$tag-size-paddings: (
+    sm: 8px,
+    md: 12px,
+    lg: 12px
+);
+
+$tag-size-font-sizes: () !default;
+$tag-size-font-sizes: (
+    sm: $font-size-sm $font-size-sm,
+    md: $font-size-sm $font-size-base,
+    lg: $font-size-base $font-size-md
+);
+
+$tag-border-radius: 3px !default;
+
 //avatar
 $avatar-sizes: () !default;
 $avatar-sizes: map.merge(
@@ -411,41 +483,74 @@ $avatar-sizes: map.merge(
     $avatar-sizes
 );
 // Navs
-$nav-link-disabled-color: $gray-300 !default;
-$nav-link-color: $gray-600 !default;
-$nav-link-icon-color: $gray-500 !default;
-$nav-link-primary-color: $gray-800 !default;
-$nav-link-hover-color: $primary !default;
+$nav-item-disabled-color: $gray-400 !default;
+$nav-item-icon-color: $gray-500 !default;
+$nav-item-color: $gray-800 !default;
+$nav-item-weak-color: $gray-600 !default;
+$nav-item-hover-color: $primary !default;
+$nav-item-icon-color: $gray-500 !default;
+$nav-item-primary-color: $gray-800 !default;
 $nav-border-color: $gray-200 !default;
 $nav-divider-color: $gray-200 !default;
 $nav-border-width: 2px !default;
 $nav-border-bottom: $nav-border-width solid $primary !default;
 $nav-border-left: $nav-border-width solid $primary !default;
-$nav-link-primary-padding-y: 0.813rem !default; // 高度 50px
-$nav-link-primary-padding-x: 1rem !default;
-$nav-link-primary-right: 20px !default;
-$nav-link-primary-min-width: 80px !default;
-$nav-link-secondary-padding-y: 0.438rem !default; // 高度 38px
-$nav-link-secondary-padding-x: 0rem !default;
-$nav-link-secondary-right: 40px !default;
-$nav-link-secondary-split-right: 60px !default;
-$nav-link-thirdly-padding-y: 0.5rem !default; // 高度 38px
-$nav-link-thirdly-padding-x: 0rem !default;
-$nav-link-thirdly-right: 40px !default;
-$nav-link-thirdly-split-line-height: 15px !default;
-$nav-link-thirdly-padding-y-sm: 0.4375rem !default;
-$nav-link-thirdly-padding-x-sm: 0rem !default;
-$nav-link-thirdly-right-sm: 40px !default;
-$nav-link-thirdly-split-line-height-sm: 11px !default;
-$nav-vertical-border-left: 4px solid $primary !default;
-$nav-vertical-border-left-empty: 4px solid transparent !default;
+$nav-item-font-size: $font-size-base !default;
+// 新的大小
+//lg
+$nav-height-lg: $layout-header-height-lg !default;
+$nav-item-padding-y-lg: 0.875rem !default; // 高度 52px, 文字 15px
+$nav-item-padding-x-lg: 1rem !default;
+$nav-item-right-lg: 20px !default;
+$nav-item-font-size-lg: 15px !default;
+// md
+$nav-height: $layout-header-height !default;
+$nav-item-padding-y: 0.75rem !default; // 高度 48px,
+$nav-item-padding-x: 0.5rem !default;
+$nav-item-right: 20px !default;
+$nav-item-font-size: 14px !default;
+//sm
+$nav-height-sm: $layout-header-height-sm !default;
+$nav-item-padding-y-sm: 0.625rem !default; // 高度 44px
+$nav-item-padding-x-sm: 0.5rem !default;
+$nav-item-right-sm: 20px !default;
+$nav-item-font-size-sm: 14px !default;
+
+$nav-item-primary-padding-y: 0.9512rem !default; // 高度 56px, 文字 15px
+$nav-item-primary-padding-x: 1rem !default;
+$nav-item-primary-right: 20px !default;
+$nav-item-primary-font-size: 15px !default;
+$nav-item-primary-min-width: 80px !default;
+
+$nav-item-secondary-padding-y: 0.438rem !default; // 高度 50px
+$nav-item-secondary-padding-x: 0rem !default;
+$nav-item-secondary-right: 40px !default;
+$nav-item-secondary-split-right: 60px !default;
+$nav-item-thirdly-padding-y: 0.5rem !default; // 高度 38px
+$nav-item-thirdly-padding-x: 0rem !default;
+$nav-item-thirdly-right: 40px !default;
+$nav-item-thirdly-split-line-height: 15px !default;
+$nav-item-thirdly-padding-y-sm: 0.4375rem !default;
+$nav-item-thirdly-padding-x-sm: 0rem !default;
+$nav-item-thirdly-right-sm: 40px !default;
+$nav-item-thirdly-split-line-height-sm: 11px !default;
+$nav-vertical-border-left: 2px solid $primary !default;
+$nav-vertical-border-left-empty: 2px solid transparent !default;
 
 $icon-nav-link-color: $gray-600 !default;
 $icon-nav-link-hover-color: $primary !default;
-$icon-nav-link-spacing: 15px !default;
+$icon-nav-link-spacing: 16px !default;
 $icon-nav-link-secondary-color: $gray-400 !default;
-$icon-nav-link-secondary-spacing: 10px !default;
-$icon-nav-link-individual-spacing: 0px !default;
+$icon-nav-link-secondary-spacing: 8px !default;
+$icon-nav-link-individual-spacing: 4px !default;
+$icon-nav-link-padding-x: 0.438rem !default;
+$icon-nav-link-padding-y: 0.282rem !default;
+
+$action-color: $gray-600 !default;
+$action-hover-color: $primary !default;
+$action-hover-bg-color: rgba($primary, 0.1) !default;
+$action-padding-x: 0.5rem !default;
+$action-padding-y: 0.5rem !default;
 
 // Modals
 // Padding applied to the modal body
@@ -474,18 +579,18 @@ $modal-transition: transform 0.3s ease-out !default;
 
 // Dialog
 $dialog-border-radius: 4px !default;
-$dialog-header-height: 50px !default;
+$dialog-header-height: 56px !default;
 $dialog-header-title-line-height: 1.5rem !default;
-$dialog-header-padding: 1.875rem !default;
+$dialog-header-padding: 0rem 2rem !default;
 $dialog-header-padding-lg: 1.25rem !default;
 
 $dialog-header-border-width: 1px !default;
 $dialog-header-border-color: $gray-200 !default;
 $dialog-box-shadow: 0 0 24px rgba(0, 0, 0, 0.25) !default;
-$dialog-body-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
+$dialog-body-padding: 0.5rem 2rem 1rem 2rem !default;
 
 // $dialog-footer-padding: 1.25rem 1.875rem 1.875rem 1.875rem !default;
-$dialog-footer-padding: 0.9375rem 1.875rem !default;
+$dialog-footer-padding: 1rem 2rem !default;
 $dialog-footer-border-width: 1px !default;
 $dialog-footer-border-color: $dialog-header-border-color !default;
 
@@ -494,22 +599,38 @@ $dialog-max-lg: 980px !default; //
 $dialog-lg: 800px !default;
 $dialog-md: 660px !default; //
 $dialog-sm: 400px !default; //
-$dialog-supper-lg-max-height: 1000px !default;
-$dialog-supper-lg-max-width: 1800px !default;
-$dialog-supper-lg-height: 94vh !default;
-$dialog-supper-lg-width: 94vw !default;
+$dialog-super-lg-max-height: 1000px !default;
+$dialog-super-lg-max-width: 1800px !default;
+$dialog-super-lg-height: 94vh !default;
+$dialog-super-lg-width: 94vw !default;
 
 $btn-dialog-confirm-cancel: $btn-pair-child-link-margin-left !default;
 
 // Card
-$card-border-radius: 0 !default;
+$card-border-radius: 2px !default;
+$card-border-color: $gray-200 !default;
 $card-title-icon-color: $primary !default;
 // change from $gray-700(#888) to $gray-800 (#333) by Terry required
 $card-title-color: $gray-800 !default;
+$card-title-font-size: $font-size-title !default;
+$card-title-line-height: 32px !default;
 $card-title-info-color: $gray-500 !default;
 $card-header-divider-color: $gray-200 !default;
-// divided 分割模式，头部和内容区域的上下间距
-$card-divided-spacing-y: 15px;
+$card-header-padding-x: 20px !default;
+$card-header-padding-y: 12px !default;
+$card-content-padding-x: 20px !default;
+$card-content-padding-y: 20px !default;
+$card-header-padding-x-lg: 28px !default;
+$card-header-padding-y-lg: 16px !default;
+$card-content-padding-x-lg: 28px !default;
+$card-content-padding-y-lg: 24px !default;
+$card-header-padding-x-sm: 16px !default;
+$card-header-padding-y-sm: 8px !default;
+$card-content-padding-x-sm: 16px !default;
+$card-content-padding-y-sm: 16px !default;
+
+// divided 分割模式，内容区域的上下间距
+$card-divided-content-spacing-y: 12px;
 
 //Datepicker
 $datepicker-z-index: 1100 !default;
@@ -561,7 +682,7 @@ $empty-svg-height-sm: 58px !default;
 $empty-text-color: $gray-400 !default;
 $empty-text-color-with-extra: $gray-800 !default;
 $empty-text-size: $font-size-base !default;
-$empty-text-size-lg: $font-size-md !default;
+$empty-text-size-lg: $font-size-base !default;
 $empty-text-size-sm: $font-size-base !default;
 $empty-text-margin-top: 12px !default;
 $empty-text-margin-top-lg: 18px !default;
@@ -570,8 +691,6 @@ $empty-description-color: $gray-600 !default;
 $empty-description-size: $font-size-base !default;
 $empty-description-margin-top: 14px !default;
 
-//util
-$operation-link-margin-y: 20px !default;
 //switch
 // $switch-lg-width: 48px !default;
 // $switch-lg-height: 28px !default;
@@ -584,7 +703,7 @@ $switch-xs-width: 24px !default;
 $switch-xs-height: 16px !default;
 $switch-margin-bottom: 0 !default;
 //Transfer
-$transfer-width: 600px !default;
+$transfer-width: 596px !default;
 $transfer-list-header-padding: 10px 0 !default;
 $transfer-list-header-font-color: $gray-600 !default;
 $transfer-list-header-font-size: $font-size-base !default;
@@ -607,25 +726,26 @@ $progress-height-sm: 6px !default;
 $progress-height-xs: 4px !default;
 $progress-bar-bg: $gray-200 !default;
 $progress-split-color: $white !default;
-$progress-bar-primary-bg: #73d897;
 //Slide
 $slide-bg: $white !default;
-$slide-height: calc(100vh - #{$layout-header-height} - #{$layout-header-height-sm}) !default;
+$slide-width: 360px !default;
 $slide-z-index: 900 !default;
-$slide-header-height: 45px !default;
-$slide-height-sm: 6px !default;
-$slide-height-md: 10px !default;
-$slide-height-lg: 16px !default;
-// $slide-header-padding: 0.75rem 1.25rem !default;
+$slide-header-height: $layout-header-height !default;
+$slide-header-title-font-size: $font-size-title !default;
 $slide-header-padding: 1.25rem !default;
 $slide-header-main-padding: 0 20px !default;
 $slide-body-content-padding: 0 1.25rem 0.75rem 1.25rem !default;
 $slide-body-section-padding: 20px !default;
 $slide-divider: $gray-200 !default;
 $slide-footer-padding: 15px 20px 0 !default;
-$slide-footer-height: 65px !default;
+$slide-footer-height: 56px !default;
 $slide-border-color: $gray-200 !default;
-$slide-box-shadow: 0 16px 24px 2px rgba(0, 0, 0, 0.04), 0 6px 30px 5px rgba(0, 0, 0, 0.08), 0 8px 10px -5px rgba(0, 0, 0, 0.12) !default;
+$slide-box-shadow: inset 0px 4px 8px 0px #00000008, -4px 0px 12px 4px #00000008 !default;
+// $slide-box-shadow: 6px 0 16px -8px #00000014, 9px 0 28px #0000000d, 12px 0 48px 16px #00000008 !default;
+//slider
+$slider-height-sm: 6px !default;
+$slider-height-md: 10px !default;
+$slider-height-lg: 16px !default;
 //tree
 $tree-padding: 10px 20px 10px 10px;
 $tree-node-padding: 0 0 0 25px !default;
@@ -655,18 +775,28 @@ $scrollbar-thumb: $gray-300 !default;
 
 // breadcrumb
 
-$breadcrumb-icon-color: $gray-500 !default;
+$breadcrumb-icon-color: $gray-600 !default;
 $breadcrumb-separator-color: $gray-500 !default;
 $breadcrumb-text-color: $gray-600 !default;
 $breadcrumb-active-color: $gray-800 !default;
 
 // thyMenu
-$menu-height: 42px !default;
+$menu-height: 40px !default;
 $menu-shadow: 0 0 8px 2px $gray-200 !default;
 $menu-item-padding: 0 20px !default;
 $menu-group-header-padding: 0 1020px !default;
 $menu-group-margin-left: 15px !default;
 $menu-divider-margin: 10px 20px !default;
+$menu-loose-item-padding: 0 12px 0 20px !default;
+$menu-loose-item-border-radius: 4px !default;
+$menu-theme-dark-color: $gray-300 !default; // #ddd
+$menu-theme-dark-hover-color: $gray-300 !default;
+$menu-theme-dark-bg-color: $dark !default;
+$menu-theme-dark-hover-bg-color: #39414c !default;
+$menu-theme-dark-divider-color: $gray-700 !default; //#666
+$menu-collapsed-width: 60px !default;
+$menu-collapsed-height: 60px !default;
+$menu-collapsed-icon-size: 20px !default;
 
 // editable
 $editable-border-color: $gray-200 !default;
@@ -685,16 +815,19 @@ $arrow-switcher-btn-hover-bac: $primary !default;
 $arrow-switcher-btn-hover-color: $white !default;
 
 // pagination
+$pagination-item-width: 2rem;
+$pagination-item-width-sm: 1.75rem;
+$pagination-item-width-lg: 2.75rem;
+$pagination-item-height: 2rem;
+$pagination-item-height-sm: 1.75rem;
+$pagination-item-height-lg: 2.75rem;
+$pagination-line-height: 1.5rem !default;
+$pagination-line-height-lg: 2.1875rem !default;
+$pagination-line-height-sm: 1.375rem !default;
 $pagination-padding-y: 0.282rem !default;
-$pagination-padding-x: 0.757rem !default;
-$pagination-padding-y-sm: 3px !default;
-$pagination-padding-x-sm: 8px !default;
-$pagination-padding-y-lg: 0.282rem !default;
-$pagination-padding-x-lg: 0.757rem !default;
-$pagination-line-height: 1.5 !default;
-$pagination-line-height-lg: 1.65 !default;
-$pagination-line-height-sm: 1.667 !default;
+$pagination-padding-x: 0.375rem !default;
 $pagination-color: $gray-500 !default;
+$pagination-number-color: $gray-700 !default;
 $pagination-font-size: 12px !default;
 $pagination-bg: $white !default;
 $pagination-border-width: 1px !default;
@@ -710,10 +843,12 @@ $pagination-disabled-color: $gray-400 !default;
 $pagination-disabled-bg: $white !default;
 $pagination-disabled-border-color: $gray-200 !default;
 $pagination-total-pages-color: $gray-700;
-$pagination-jumper-margin: 0 12px !default;
-$pagination-jumper-input-width: 38px;
+$pagination-jumper-margin: 0 10px !default;
 $pagination-jumper-input-color: $gray-700;
 $pagination-jumper-button-color: $gray-700;
+$pagination-page-size-width: 6.375rem;
+$pagination-page-size-width-sm: 5.625rem;
+$pagination-page-size-width-lg: 7.875rem;
 
 // tooltip
 $tooltip-font-size: $font-size-base !default;
@@ -742,9 +877,10 @@ $thy-alert-weak-colors: (
     'danger-weak': $danger
 ) !default;
 $alert-operation-margin-left: 40px !default;
+$alert-icon-margin-right: 8px !default;
 
 // list
-$list-item-padding: 0.554rem 10px !default;
+$list-item-padding: 4px 8px !default;
 $list-grid-option-margin: 0 25px 25px 0 !default;
 $list-grid-option-width: 150px !default;
 $list-grid-option-height: 120px !default;
@@ -801,6 +937,80 @@ $popover-body-padding: 15px 20px !default;
 
 // divider
 $divider-orientation-margin: 5% !default;
-$divider-text-padding: 1em !default;
+$divider-spacing: 16px !default;
+$divider-text-padding: 8px !default;
 $divider-color: $gray-200 !default;
+$divider-deeper-color: $gray-300 !default;
 $divider-width: 1px !default;
+$divider-text-color: $gray-600 !default;
+$divider-colors: () !default;
+$divider-colors: map.merge(
+    (
+        'primary': $primary,
+        'secondary': $secondary,
+        'success': $success,
+        'warning': $warning,
+        'danger': $danger,
+        'default': $gray-200,
+        'lighter': $gray-200,
+        'light': $gray-300,
+        'deeper': $gray-300
+    ),
+    $divider-colors
+);
+
+// segment
+$segment-container-padding: 2px !default;
+$segment-border-radius: 2px !default;
+$segment-bg: $gray-100 !default;
+$segment-item-active-bg: $white !default;
+$segment-height-default: 36px !default;
+$segment-height-md: 32px !default;
+$segment-height-sm: 28px !default;
+$segment-height-xs: 24px !default;
+$segment-sizes: (
+    'xs': $segment-height-xs,
+    'sm': $segment-height-sm,
+    'md': $segment-height-md,
+    'default': $segment-height-default
+) !default;
+$segment-item-only-icon-xs-width: 28px !default;
+$segment-item-only-icon-width: 38px !default;
+$segment-text-margin-left: 8px !default;
+$segment-item-xs-padding-x: 8px !default;
+$segment-item-padding-x: 12px !default;
+$segment-default-color: $gray-700 !default;
+$segment-active-color: $gray-800 !default;
+$segment-hover-color: $gray-800 !default;
+$segment-icon-with-text-default-color: $gray-600 !default;
+$segment-icon-with-text-active-color: $gray-700 !default;
+$segment-icon-with-text-hover-color: $gray-700 !default;
+$segment-disabled-color: $gray-500 !default;
+
+// collapse
+$collapse-border-color: $gray-200 !default;
+$collapse-header-hover-color: null !default;
+$collapse-header-font-size: $font-size-base !default;
+$collapse-spacing-x: 8px !default;
+$collapse-spacing-y: 12px !default;
+
+// property
+$property-item-label-color: $gray-700 !default;
+$property-item-content-color: $gray-800 !default;
+$property-item-min-height: 28px !default;
+$property-item-padding: 8px 0px !default;
+
+// tabs
+$tabs-content-space: 1rem !default;
+
+// z-index
+$z-index-1: 10;
+$z-index-2: 20;
+$z-index-3: 30;
+$z-index-4: 40;
+$z-index-5: 50;
+$z-index-6: 60;
+$z-index-7: 70;
+$z-index-8: 80;
+$z-index-9: 90;
+$z-index-10: 100;

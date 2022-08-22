@@ -1,24 +1,26 @@
-@use "../../date-picker/style/variables.scss" as style;
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
+@use "./mixin.scss" as divider-mixin;
 
 .thy-divider {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: style.$text-color;
+    color: variables.$text-color;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     list-style: none;
-    border-top: variables.$divider-width solid variables.$divider-color;
+
+    @include divider-mixin.divider-variant(variables.$divider-width, variables.$divider-color);
+
     &.thy-divider-vertical {
         position: relative;
-        top: -0.06em;
         display: inline-block;
-        height: 0.9em;
-        margin: 0 8px;
+        height: 1rem;
+        margin: 0 variables.$divider-spacing;
         vertical-align: middle;
         border-top: 0;
-        border-left: variables.$divider-width solid variables.$divider-color;
+        // border-left: variables.$divider-width solid variables.$divider-color;
+
         &.thy-divider-dashed {
             border-width: 0 0 0 variables.$divider-width;
         }
@@ -26,19 +28,17 @@
     &.thy-divider-horizontal {
         display: flex;
         clear: both;
-        width: 100%;
-        min-width: 100%;
-        margin: 24px 0;
+        margin: variables.$divider-spacing 0;
         &.thy-divider-with-content {
             display: flex;
             margin: 16px 0;
-            color: style.$text-color;
+            color: variables.$divider-text-color;
             font-weight: normal;
             font-size: variables.$font-size-base;
             white-space: nowrap;
             text-align: center;
             border-top: 0;
-            border-top-color: variables.$divider-color;
+            // border-top-color: variables.$divider-color;
             &::before,
             &::after {
                 position: relative;
@@ -81,7 +81,6 @@
     }
     &.thy-divider-dashed {
         background: none;
-        border-color: variables.$divider-color;
         border-style: dashed;
         border-width: variables.$divider-width 0 0;
     }
@@ -89,5 +88,11 @@
     .thy-divider-inner-text {
         display: inline-block;
         padding: 0 variables.$divider-text-padding;
+    }
+}
+
+@each $color, $value in variables.$divider-colors {
+    .thy-divider-#{$color} {
+        @include divider-mixin.divider-variant(variables.$divider-width, $value);
     }
 }

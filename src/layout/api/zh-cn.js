@@ -35,10 +35,22 @@ module.exports = [
                 default: 'true'
             },
             {
-                name: 'thyIsDraggableWidth',
+                name: 'thyTrigger',
+                description: '展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态',
+                type: 'null | undefined | TemplateRef<any>',
+                default: 'undefined'
+            },
+            {
+                name: 'thyDraggable',
                 description: '宽度是否可以拖拽',
                 type: 'boolean',
                 default: 'false'
+            },
+            {
+                name: 'thyDragMaxWidth',
+                description: '拖拽的最大宽度',
+                type: 'number',
+                default: 'null'
             },
             {
                 name: 'thyCollapsible',
@@ -63,6 +75,12 @@ module.exports = [
                 description: '收起状态改变后的事件',
                 type: 'EventEmitter<boolean>',
                 default: ''
+            },
+            {
+                name: 'thyDragWidthChange',
+                description: '拖拽宽度的修改事件',
+                type: 'EventEmitter<number>',
+                default: ''
             }
         ]
     },
@@ -85,7 +103,7 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: '头部大小，md | sm，`md`高度50px，`sm`高度38px',
+                description: `头部大小，'md' | 'sm' | 'lg' | 'xlg'`,
                 type: 'string',
                 default: 'md'
             },
@@ -98,6 +116,12 @@ module.exports = [
             {
                 name: 'thyDivided',
                 description: '底部是否有边框',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyShadow',
+                description: '底部是否有阴影',
                 type: 'boolean',
                 default: 'false'
             },

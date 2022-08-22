@@ -1,0 +1,30 @@
+@use './hover.scss';
+
+@mixin icon-text-variant($icon-color: null, $icon-hover-color: null) {
+    .thy-icon {
+        @if $icon-color {
+            color: $icon-color;
+        }
+    }
+    @if $icon-hover-color {
+        @include hover.hover-active {
+            .thy-icon {
+                color: $icon-hover-color;
+            }
+        }
+    }
+}
+
+@mixin icon-text-size($prefix-space, $suffix-space, $icon-font-size: null) {
+    @if $prefix-space {
+        > .thy-icon:first-child {
+            margin-right: $prefix-space;
+        }
+    }
+
+    @if $suffix-space {
+        > .thy-icon:last-child {
+            margin-left: $suffix-space;
+        }
+    }
+}

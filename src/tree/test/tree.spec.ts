@@ -2,7 +2,7 @@ import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-teth
 import { animationFrameScheduler } from 'rxjs';
 
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { ApplicationRef, Component, ViewChild } from '@angular/core';
+import { ApplicationRef, Component, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -15,7 +15,7 @@ import { ThyTreeNode } from '../tree-node.class';
 import { ThyTreeEmitEvent } from '../tree.class';
 import { ThyTreeComponent } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
-import { bigTreeNodes, treeNodes } from './mock';
+import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -290,7 +290,7 @@ describe('ThyTreeComponent', () => {
             expect(appRef.tick).not.toHaveBeenCalled();
         });
 
-        it('test ngOnChanges methods called when multiple or thyType was modified after init', () => {
+        it('test ngOnChanges methods called when multiple or thyType or thySelectedKeys was modified after init', () => {
             const selectionModelSpy = spyOn<any>(treeComponent, `_instanceSelectionModel`);
 
             treeInstance.options.multiple = true;
@@ -304,6 +304,15 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
 
             expect(treeTypeSpy).toHaveBeenCalledTimes(1);
+
+            const treeNodesSpy = spyOn<any>(treeComponent, '_selectTreeNodes');
+
+            const onChangesData = JSON.parse(JSON.stringify(treeNodes));
+            onChangesData.pop();
+            treeInstance.selectedKeys = ['000000000000000000000000', '111111111111111111111111'];
+            fixture.detectChanges();
+
+            expect(treeNodesSpy).toHaveBeenCalledTimes(1);
         });
 
         it(`test public function onDragDrop not has parent`, () => {
@@ -369,6 +378,47 @@ describe('ThyTreeComponent', () => {
             });
             expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
         });
+
+        it(`test public function onDragDrop child item after parent item when item is checked`, fakeAsync(() => {
+            expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
+            treeComponent.flattenTreeNodes[8].setChecked(true);
+            expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(2);
+
+            const item = treeElement.querySelectorAll(treeNodeSelector)[8];
+
+            const dragstartEvent = createDragEvent('dragstart');
+            item.dispatchEvent(dragstartEvent);
+            fixture.detectChanges();
+
+            const dragoverEvent = createDragEvent('dragover');
+            item.dispatchEvent(dragoverEvent);
+            fixture.detectChanges();
+
+            const isShowExpandSpy = spyOn(treeComponent, 'isShowExpand');
+            const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
+            // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
+
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const dataTransfer = new DataTransfer();
+            dataTransfer.dropEffect = 'move';
+            const dropEvent = createDragEvent('drop', dataTransfer, true, true);
+            secondItem.dispatchEvent(dropEvent);
+            fixture.detectChanges();
+            tick(300);
+            expect(isShowExpandSpy).toHaveBeenCalled();
+            expect(treeServiceSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalled();
+            expect(fixture.componentInstance.dragDropSpy).toHaveBeenCalledWith({
+                afterNode: treeComponent.flattenTreeNodes[0],
+                currentIndex: 1,
+                event: jasmine.any(Object),
+                dragNode: treeComponent.flattenTreeNodes[8],
+                targetNode: null
+            });
+            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
+            expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(0);
+            expect(treeComponent.flattenTreeNodes[8].isChecked).toEqual(1);
+        }));
 
         it(`test public function onDragDrop`, () => {
             const item = treeElement.querySelectorAll(treeNodeSelector)[1];
@@ -480,6 +530,12 @@ describe('ThyTreeComponent', () => {
             component.tree.thySize = 'sm';
             expect(component.tree.thyItemSize).toEqual(42);
         });
+
+        it('test tree node nodeIconStyle', () => {
+            treeComponent.thySize = null;
+            fixture.detectChanges();
+            expect(treeComponent.thyItemSize).toEqual(44);
+        });
     });
 
     describe('async tree', () => {
@@ -555,6 +611,48 @@ describe('ThyTreeComponent', () => {
             expect(firstNodeElementText !== updateFirstNodeElementText).toBeTruthy();
             expect(nodeElements.length).toEqual(12);
         }));
+
+        it('should successful set node class', fakeAsync(() => {
+            fixture.detectChanges();
+            const nodeElements = treeElement.querySelectorAll('.node-test');
+            expect(nodeElements.length).toEqual(1);
+
+            component.setNodeItemClass('node-test2', 0);
+            tick(200);
+            fixture.detectChanges();
+            const nodeElements2 = treeElement.querySelectorAll('.node-test2');
+            expect(nodeElements2.length).toEqual(1);
+        }));
+    });
+
+    describe('has checked nodes tree', () => {
+        let treeElement: HTMLElement;
+        let treeInstance: TestHasCheckedTreeComponent;
+        let component: TestHasCheckedTreeComponent;
+        let fixture: ComponentFixture<TestHasCheckedTreeComponent>;
+        let treeComponent: ThyTreeComponent;
+
+        beforeEach(fakeAsync(() => {
+            configureThyTreeTestingModule([TestHasCheckedTreeComponent, TestMultipleTreeComponent]);
+            fixture = TestBed.createComponent(TestHasCheckedTreeComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            treeInstance = fixture.debugElement.componentInstance;
+            treeComponent = fixture.debugElement.componentInstance.tree;
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
+
+        it('should create', () => {
+            expect(component).toBeDefined();
+        });
+
+        it('parent node should has checked', () => {
+            fixture.detectChanges();
+            const productAGroupCheckbox = treeElement.querySelectorAll('.thy-tree-node-check')[2];
+            expect(treeComponent.getCheckedNodes().length).toEqual(2);
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(3);
+            expect(productAGroupCheckbox.className.includes('form-check-indeterminate')).toBeTruthy();
+        });
     });
 });
 
@@ -571,7 +669,7 @@ describe('ThyTreeComponent', () => {
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
-            [thySelectedKeys]="['000000000000000000000000']"
+            [thySelectedKeys]="selectedKeys"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
@@ -610,6 +708,8 @@ class TestBasicTreeComponent {
     };
 
     dragDropSpy = jasmine.createSpy('drag drop');
+
+    selectedKeys = ['000000000000000000000000'];
 
     onEvent() {}
 
@@ -701,10 +801,91 @@ export class TestAsyncTreeComponent {
         </div>
     `
 })
-export class TestVirtualScrollingTreeComponent {
+export class TestVirtualScrollingTreeComponent implements OnInit {
     mockData = bigTreeNodes;
 
     @ViewChild('tree', { static: true }) treeComponent: ThyTreeComponent;
 
+    setNodeItemClass(className: string, index: number): void {
+        this.mockData[index].itemClass = className;
+        this.mockData = [...this.mockData];
+    }
+
     constructor() {}
+
+    ngOnInit(): void {
+        this.setNodeItemClass('node-test', 0);
+    }
+}
+
+@Component({
+    selector: 'test-has-checked-tree',
+    template: `
+        <thy-tree
+            #tree
+            [thyNodes]="hasCheckTreeNodes"
+            [thySize]="'sm'"
+            [thyIcons]="options.treeIcons"
+            [thyType]="treeType"
+            [thyDraggable]="options.draggable"
+            [thyCheckable]="options.checkable"
+            [thyCheckStateResolve]="options.checkStateResolve"
+            [thyMultiple]="options.multiple"
+            [thySelectedKeys]="['000000000000000000000000']"
+            [thyShowExpand]="true"
+            [thyBeforeDragStart]="options.beforeDragStart"
+            (thyOnDragDrop)="dragDrop($event)"
+            (thyOnClick)="onEvent()"
+            (thyOnCheckboxChange)="onEvent()"
+            (thyOnExpandChange)="onEvent()"
+        >
+            <ng-template #treeNodeTemplate let-node="node" let-data="origin">
+                <thy-icon
+                    *ngIf="data.type !== 'member'"
+                    class="thy-tree-node-icon"
+                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
+                ></thy-icon>
+                <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
+                    {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
+                </div>
+            </ng-template>
+        </thy-tree>
+    `
+})
+class TestHasCheckedTreeComponent {
+    @ViewChild('tree', { static: true }) tree: ThyTreeComponent;
+
+    // mock 不可变数据
+    hasCheckTreeNodes = JSON.parse(JSON.stringify(hasCheckTreeNodes));
+
+    treeType = 'especial';
+
+    options: any = {
+        draggable: true,
+        checkable: true,
+        multiple: false,
+        beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
+            return !event.item.title.includes('不可拖拽');
+        }
+    };
+
+    dragDropSpy = jasmine.createSpy('drag drop');
+
+    onEvent() {}
+
+    dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
+        this.dragDropSpy(event);
+    }
+
+    addNode() {
+        // mock 不可变数据
+        this.hasCheckTreeNodes = JSON.parse(JSON.stringify(hasCheckTreeNodes));
+        this.hasCheckTreeNodes[0].children = [
+            ...this.hasCheckTreeNodes[0].children,
+            {
+                key: new Date().getTime(),
+                title: '测试'
+            }
+        ];
+    }
 }

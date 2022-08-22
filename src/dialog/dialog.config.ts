@@ -8,7 +8,12 @@ export type ThyDialogRole = 'dialog' | 'alertdialog';
 
 export enum ThyDialogSizes {
     lg = 'lg',
+    /**
+     * 已废弃，命名错误，请使用 superLg
+     * @deprecated
+     */
     supperLg = 'supper-lg',
+    superLg = 'super-lg',
     maxLg = 'max-lg',
     md = 'md',
     sm = 'sm',
@@ -45,7 +50,8 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         backdropClosable: true,
         closeOnNavigation: true,
         autoFocus: true,
-        restoreFocus: true
+        restoreFocus: true,
+        hostClass: 'thy-dialog-content'
     }
 };
 

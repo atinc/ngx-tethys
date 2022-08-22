@@ -14,7 +14,7 @@ import { ThyCalendarModule } from '../module';
 @Component({
     template: `
         <thy-calendar (thyDateRangeChange)="dateRangeChange($event)" (thySelectChange)="selectedChange($event)" [thyValue]="value">
-            <ul *thyDateFullCell="let date">
+            <ul *thyDateCell="let date">
                 <ng-container [ngSwitch]="date.getDate()">
                     <ng-container *ngSwitchCase="8">
                         <li *ngFor="let item of listDataMap.eight">

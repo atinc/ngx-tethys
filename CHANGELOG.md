@@ -2,6 +2,1226 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.3](https://github.com/atinc/ngx-tethys/compare/13.2.2...13.2.3) (2022-08-19)
+
+
+### Bug Fixes
+
+* **property:** update property item  align-items is baseline #INFR-4285 ([d8d7c22](https://github.com/atinc/ngx-tethys/commit/d8d7c2295d017e15cb3bb1ad8328dff87678bdc0)), closes [#INFR-4285](https://github.com/atinc/ngx-tethys/issues/INFR-4285)
+* **property:** update style, property label aalways top alignment ##INFR-4285 ([005344b](https://github.com/atinc/ngx-tethys/commit/005344b39b145b8870cbc5752f959c0e21b402c6)), closes [#INFR-4285](https://github.com/atinc/ngx-tethys/issues/INFR-4285)
+* **watermark:** adjust the fake-box style #INFR-4287 ([7e4d96e](https://github.com/atinc/ngx-tethys/commit/7e4d96e076a455e2ac9873f6006a20a098929b33)), closes [#INFR-4287](https://github.com/atinc/ngx-tethys/issues/INFR-4287)
+
+
+### Features
+
+* **property:** support keep editing #INFR-4275 ([#2091](https://github.com/atinc/ngx-tethys/issues/2091)) ([ceb67a0](https://github.com/atinc/ngx-tethys/commit/ceb67a0564155154be57dc58e923a3f826425831)), closes [#INFR-4275](https://github.com/atinc/ngx-tethys/issues/INFR-4275)
+
+
+
+## [13.2.2](https://github.com/atinc/ngx-tethys/compare/13.2.1...13.2.2) (2022-08-17)
+
+
+### Bug Fixes
+
+* **collapse:** fix collapse empty box style #INFR-4220 ([1f5a788](https://github.com/atinc/ngx-tethys/commit/1f5a7882aef62b23895c290b35787058f3d7bdce)), closes [#INFR-4220](https://github.com/atinc/ngx-tethys/issues/INFR-4220)
+* **watermark:** adjust the var name & add test #INFO-4106 ([#2085](https://github.com/atinc/ngx-tethys/issues/2085)) ([aa4ad36](https://github.com/atinc/ngx-tethys/commit/aa4ad361337935a23fbf35bf41f516e8f326bada)), closes [#INFO-4106](https://github.com/atinc/ngx-tethys/issues/INFO-4106)
+
+
+### Features
+
+* **tabs:** change padding of tabs content  to 16px #INFR-4204 ([#2082](https://github.com/atinc/ngx-tethys/issues/2082)) ([330c1de](https://github.com/atinc/ngx-tethys/commit/330c1deff97b4008e77db9442c2c876f84e9d6f0)), closes [#INFR-4204](https://github.com/atinc/ngx-tethys/issues/INFR-4204)
+* **time-picker:** add new TimePicker #INFR-4147 ([#2087](https://github.com/atinc/ngx-tethys/issues/2087)) ([fa8cc62](https://github.com/atinc/ngx-tethys/commit/fa8cc62f18446ea727a848dc4b76c7222cdf7a53)), closes [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147)
+
+
+
+## [13.2.1](https://github.com/atinc/ngx-tethys/compare/13.2.0...13.2.1) (2022-08-11)
+
+
+### Bug Fixes
+
+* **property:** fix property can not dynamic rendering property-item (#INFR-4163) ([8f273a0](https://github.com/atinc/ngx-tethys/commit/8f273a0d4a672d6b39903a6620a3760bdb0c70a8)), closes [#INFR-4163](https://github.com/atinc/ngx-tethys/issues/INFR-4163)
+
+
+
+# [13.2.0](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.6...13.2.0) (2022-08-11)
+
+
+### Features
+
+* **layout:** add thyShadow for thy-header #INFR-4049 ([#2071](https://github.com/atinc/ngx-tethys/issues/2071)) ([d662cf5](https://github.com/atinc/ngx-tethys/commit/d662cf57860de2a312dac0a66d065ec2aded1e79)), closes [#INFR-4049](https://github.com/atinc/ngx-tethys/issues/INFR-4049)
+
+
+
+# [13.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.5...13.2.0-next.6) (2022-08-11)
+
+
+### Features
+
+* **arrow-switcher:** add lite theme for arrow switcher zd/#INFR-4138 ([#2067](https://github.com/atinc/ngx-tethys/issues/2067)) ([01cc602](https://github.com/atinc/ngx-tethys/commit/01cc602398b7c60714e94c2ca07786426a48c1c1)), closes [zd/#INFR-4138](https://github.com/atinc/ngx-tethys/issues/INFR-4138)
+* **nav:** add lite mode for nav and tabs #INFR-4149 ([#2068](https://github.com/atinc/ngx-tethys/issues/2068)) ([4774de3](https://github.com/atinc/ngx-tethys/commit/4774de3e39061e145df9d22a58cccd9e538804f7)), closes [#INFR-4149](https://github.com/atinc/ngx-tethys/issues/INFR-4149)
+
+
+
+# [13.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.4...13.2.0-next.5) (2022-08-09)
+
+
+### Bug Fixes
+
+* **nav:** remove transform: translateY(1px); from thy-nav-item for secondary type #INFR-4132 ([#2065](https://github.com/atinc/ngx-tethys/issues/2065)) ([ce805a6](https://github.com/atinc/ngx-tethys/commit/ce805a63059fe146a83e044d0a74638188a4820b)), closes [#INFR-4132](https://github.com/atinc/ngx-tethys/issues/INFR-4132)
+* **shared:** fix option-group group-name style error #INFR-3841 ([beeed04](https://github.com/atinc/ngx-tethys/commit/beeed048eb07739bc4953f95514c24e0c1239233)), closes [#INFR-3841](https://github.com/atinc/ngx-tethys/issues/INFR-3841)
+
+
+### Features
+
+* **tabs:** tabs support disable tab #INFR-4104 ([#2059](https://github.com/atinc/ngx-tethys/issues/2059)) ([b7433f3](https://github.com/atinc/ngx-tethys/commit/b7433f358ce348756078f1c08f1d418e3fd54877)), closes [#INFR-4104](https://github.com/atinc/ngx-tethys/issues/INFR-4104)
+* **tabs:** tabs support set thyPosition #INFR-4026 ([#2058](https://github.com/atinc/ngx-tethys/issues/2058)) ([e4eb60d](https://github.com/atinc/ngx-tethys/commit/e4eb60d97a5f569c8a589dfe889df214c39388c1)), closes [#INFR-4026](https://github.com/atinc/ngx-tethys/issues/INFR-4026)
+
+
+
+# [13.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.3...13.2.0-next.4) (2022-08-05)
+
+
+### Bug Fixes
+
+* **tree:** fix tree loop nesting error (#INFR-4077) ([bc8774d](https://github.com/atinc/ngx-tethys/commit/bc8774d4e25fefe2d5810d00a00fa2ced1e5a8e7)), closes [#INFR-4077](https://github.com/atinc/ngx-tethys/issues/INFR-4077)
+
+
+### Features
+
+* **property:** add thy-properties and thy-property-item components  #INFR-4044 ([#2054](https://github.com/atinc/ngx-tethys/issues/2054)) ([921d53a](https://github.com/atinc/ngx-tethys/commit/921d53a98d4652fb2d5e86f3ae3c74baa292c748)), closes [#INFR-4044](https://github.com/atinc/ngx-tethys/issues/INFR-4044)
+
+
+
+# [13.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.2...13.2.0-next.3) (2022-08-05)
+
+
+### Bug Fixes
+
+* **watermark:** add fontSize config #INFR-4101 ([d4a130d](https://github.com/atinc/ngx-tethys/commit/d4a130d5432e63bdd8b6806e1d13e8a286e37c94)), closes [#INFR-4101](https://github.com/atinc/ngx-tethys/issues/INFR-4101)
+
+
+
+# [13.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.1...13.2.0-next.2) (2022-08-05)
+
+
+### Bug Fixes
+
+* **watermark:** adjust the canvas style #INFR-4089 ([#2051](https://github.com/atinc/ngx-tethys/issues/2051)) ([e301f73](https://github.com/atinc/ngx-tethys/commit/e301f73053b294a5b5e93bca150c88540f3f9ff9)), closes [#INFR-4089](https://github.com/atinc/ngx-tethys/issues/INFR-4089)
+
+
+### Features
+
+* **tabs:** tabs support set tab id #INFR-4082 ([04b5a12](https://github.com/atinc/ngx-tethys/commit/04b5a12e992b0dd83bc7ca4fe0393fcbe88b4068)), closes [#INFR-4082](https://github.com/atinc/ngx-tethys/issues/INFR-4082)
+
+
+
+# [13.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.2.0-next.0...13.2.0-next.1) (2022-08-04)
+
+
+### Bug Fixes
+
+* **drag-drop:** add 30ms when exec setTimeout #INFR-4050 ([#2035](https://github.com/atinc/ngx-tethys/issues/2035)) ([64ca39e](https://github.com/atinc/ngx-tethys/commit/64ca39e7b61e8a03f4b04b510e6b5a204ce18db5)), closes [#INFR-4050](https://github.com/atinc/ngx-tethys/issues/INFR-4050)
+* **watermark:** adjust the watermark style #INFR-4058 ([#2045](https://github.com/atinc/ngx-tethys/issues/2045)) ([395c9ee](https://github.com/atinc/ngx-tethys/commit/395c9eefc578b0afa7d4a37dac6fd34b0b3c75dc)), closes [#INFR-4058](https://github.com/atinc/ngx-tethys/issues/INFR-4058)
+
+
+### Features
+
+* update default size to 48px for thy-nav, thy-layout and thy-tabs, lg: 52px, sm: 44px #INFR-4075 ([#2046](https://github.com/atinc/ngx-tethys/issues/2046)) ([8146b98](https://github.com/atinc/ngx-tethys/commit/8146b98906b14f08ab4838655607173a9bd1603c)), closes [#INFR-4075](https://github.com/atinc/ngx-tethys/issues/INFR-4075) [#INFR-4075](https://github.com/atinc/ngx-tethys/issues/INFR-4075)
+
+
+
+# [13.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.1.11...13.2.0-next.0) (2022-08-03)
+
+
+### Bug Fixes
+
+* **dropdown:** remove unnecessary style ([3dfd8be](https://github.com/atinc/ngx-tethys/commit/3dfd8bee13c67eec80b8b9de578951762a71dd5d))
+
+
+### Features
+
+* **dialog:** add hostClass to automatically add class when dynamical… ([#2039](https://github.com/atinc/ngx-tethys/issues/2039)) ([204c67d](https://github.com/atinc/ngx-tethys/commit/204c67d53d14dfd0f848c0d27467cea327df9bd1)), closes [#INFR-4042](https://github.com/atinc/ngx-tethys/issues/INFR-4042)
+* **nav:** add pills and tabs for nav and add thyExtra template, refactor tabs component #INFR-3762 ([#2040](https://github.com/atinc/ngx-tethys/issues/2040)) ([33c8028](https://github.com/atinc/ngx-tethys/commit/33c8028664a4ddb524f569bd2d333e2d30282d29)), closes [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762) [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762) [#INFR-3762](https://github.com/atinc/ngx-tethys/issues/INFR-3762)
+* **tabs:** add tabs module contains thy-tabs and thy-tab components #INFR-78 ([#2029](https://github.com/atinc/ngx-tethys/issues/2029)) ([5567c1c](https://github.com/atinc/ngx-tethys/commit/5567c1ca39a6fe793cef0475c88ba42cf395bbbe)), closes [#INFR-78](https://github.com/atinc/ngx-tethys/issues/INFR-78)
+
+
+
+## [13.1.11](https://github.com/atinc/ngx-tethys/compare/13.1.10...13.1.11) (2022-08-02)
+
+
+### Bug Fixes
+
+* **date-range:** fix date range test #INFR-4051 ([3013cbc](https://github.com/atinc/ngx-tethys/commit/3013cbc716ebceddfaa7733012b6395a86eed9dd)), closes [#INFR-4051](https://github.com/atinc/ngx-tethys/issues/INFR-4051)
+* **tree-select:** fix bubble caused by deletion#INFR-3950 ([1e61ab9](https://github.com/atinc/ngx-tethys/commit/1e61ab97c5dbe2f91bb7befa4c15521a99d2b1fe)), closes [deletion#INFR-3950](https://github.com/deletion/issues/INFR-3950)
+* **tree-select:** fix input init twinkle#INFR-3915 ([c8a8fd9](https://github.com/atinc/ngx-tethys/commit/c8a8fd94de29bf593829ff1748ca754e9337bb4f)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([2484e26](https://github.com/atinc/ngx-tethys/commit/2484e267df52c8cdfa1e078a00caeaaf5a5b5255)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree-select:** fix input init twinkle#INFR-3915 ([bf0fccd](https://github.com/atinc/ngx-tethys/commit/bf0fccda8fc6b63d289179eb59fdefc731a420a5)), closes [twinkle#INFR-3915](https://github.com/twinkle/issues/INFR-3915)
+* **tree:** fix parent checked state error when initial data has check… ([#2032](https://github.com/atinc/ngx-tethys/issues/2032)) ([c3828ab](https://github.com/atinc/ngx-tethys/commit/c3828ab9dac84e2247966a2ef27c3c5217f567c9)), closes [#INFR-4029](https://github.com/atinc/ngx-tethys/issues/INFR-4029)
+
+
+### Features
+
+* **dialog:** add hasSidebar config to support layout style in dialog… ([#2033](https://github.com/atinc/ngx-tethys/issues/2033)) ([10610a3](https://github.com/atinc/ngx-tethys/commit/10610a32001d6108c4b07e0a714ebf8aee61b415))
+* **watermark:**  add ThyWatermarkDirective #INFR-4001 ([#2031](https://github.com/atinc/ngx-tethys/issues/2031)) ([484eb95](https://github.com/atinc/ngx-tethys/commit/484eb954cdb53a0828ada8811dcc80c05944fd29)), closes [#INFR-4001](https://github.com/atinc/ngx-tethys/issues/INFR-4001)
+
+
+
+## [13.1.10](https://github.com/atinc/ngx-tethys/compare/13.1.9...13.1.10) (2022-07-27)
+
+
+### Bug Fixes
+
+* **drag-drop:** fix slow drag when too many element #INFR-3935 ([#2009](https://github.com/atinc/ngx-tethys/issues/2009)) ([8ff3904](https://github.com/atinc/ngx-tethys/commit/8ff3904ba3696682f05ae793999c01c1e0ad9c2e)), closes [#INFR-3935](https://github.com/atinc/ngx-tethys/issues/INFR-3935)
+
+
+
+## [13.1.9](https://github.com/atinc/ngx-tethys/compare/13.1.8...13.1.9) (2022-07-26)
+
+
+### Bug Fixes
+
+* **image:** use merge config when open dialog #WIK-7850 ([#2025](https://github.com/atinc/ngx-tethys/issues/2025)) ([fd4e0b3](https://github.com/atinc/ngx-tethys/commit/fd4e0b346e23d38832fdd3eb80b25a508776c67a)), closes [#WIK-7850](https://github.com/atinc/ngx-tethys/issues/WIK-7850)
+
+
+
+## [13.1.8](https://github.com/atinc/ngx-tethys/compare/13.1.7...13.1.8) (2022-07-25)
+
+
+### Bug Fixes
+
+* **layout:** restore collapseVisible when drag width to thyCollapsedWidth ([b2a4264](https://github.com/atinc/ngx-tethys/commit/b2a4264ea41c96f9c2457bf12bb234be6e1715a7))
+
+
+### Features
+
+* **dropdown:** add thyDropdownActive directive that set active classes of origin and it's ancestors [#2021](https://github.com/atinc/ngx-tethys/issues/2021) ([#2023](https://github.com/atinc/ngx-tethys/issues/2023)) ([bc8bbe6](https://github.com/atinc/ngx-tethys/commit/bc8bbe6c679f114ee25ba6a8dcb63946d8c3ec66))
+
+
+
+## [13.1.7](https://github.com/atinc/ngx-tethys/compare/13.1.6...13.1.7) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display contents when collapseVisible is not false ([c57534a](https://github.com/atinc/ngx-tethys/commit/c57534ad88eb0cc58e2c6da5349a1be91a2c00c5))
+
+
+
+## [13.1.6](https://github.com/atinc/ngx-tethys/compare/13.1.5...13.1.6) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** add display: contents to sidebar-drag ([9b7f55a](https://github.com/atinc/ngx-tethys/commit/9b7f55a996a67a43ab7bf8a44a4834e0cd86bd33))
+* **layout:** remove sidebar-drag styles for fix can't click sidebar when set thyDraggable as true ([d4f62e5](https://github.com/atinc/ngx-tethys/commit/d4f62e5d55bf6d7d34773a671094376d4fa7744c))
+
+
+
+## [13.1.5](https://github.com/atinc/ngx-tethys/compare/13.1.4...13.1.5) (2022-07-23)
+
+
+### Bug Fixes
+
+* **layout:** move z-index to sidebar-resize-handle from sidebar-resize-line ([a123609](https://github.com/atinc/ngx-tethys/commit/a123609ce5d76ac2b329047b479f702fd4c16e04))
+* **table:** update xlg height to 60px and cell-padding-xlg to 12px ([642b8fe](https://github.com/atinc/ngx-tethys/commit/642b8fe70fa8e2fb9e83e638dece887411b71093))
+
+
+### Features
+
+* **collapse:** refactor components api, docs and examples ([#2016](https://github.com/atinc/ngx-tethys/issues/2016)) ([345d182](https://github.com/atinc/ngx-tethys/commit/345d18216dfa6e2d765d21b8aa8e0adf3b70afd0))
+
+
+
+## [13.1.4](https://github.com/atinc/ngx-tethys/compare/13.1.3...13.1.4) (2022-07-22)
+
+
+### Bug Fixes
+
+* **layout:** adjust layout sidebar collaspe icon top #INFR-3937 ([#2011](https://github.com/atinc/ngx-tethys/issues/2011)) ([d9376b0](https://github.com/atinc/ngx-tethys/commit/d9376b0aeca57b8b9f08c34615c781c2e7fdcd34)), closes [#INFR-3937](https://github.com/atinc/ngx-tethys/issues/INFR-3937)
+* **layout:** adjust the sidebar-collapse-line style  #INFR-3939 ([b29e255](https://github.com/atinc/ngx-tethys/commit/b29e255fb2c372d42126e839837f6547f7ad4187)), closes [#INFR-3939](https://github.com/atinc/ngx-tethys/issues/INFR-3939)
+
+
+### Features
+
+* **collapse:** add thyTheme support divided, bordered and ghost, deprecate thyBordered and thyGhost #INFR-3904 ([#2003](https://github.com/atinc/ngx-tethys/issues/2003)) ([0570a3b](https://github.com/atinc/ngx-tethys/commit/0570a3b933f481b0d065aeb8eaa6415493b82887)), closes [#INFR-3904](https://github.com/atinc/ngx-tethys/issues/INFR-3904)
+* **layout:** add thyDragWidthChange for thy-sidebar #INFR-3942 ([c4e07d5](https://github.com/atinc/ngx-tethys/commit/c4e07d5f3738b55b621c976ddd8dbb1b0d31cc82)), closes [#INFR-3942](https://github.com/atinc/ngx-tethys/issues/INFR-3942)
+* **menu:** add action active class #INFR-3930 ([#2010](https://github.com/atinc/ngx-tethys/issues/2010)) ([3ac436f](https://github.com/atinc/ngx-tethys/commit/3ac436f9d6ee17eb377970dbaf3e88ad74f00a3e)), closes [#INFR-3930](https://github.com/atinc/ngx-tethys/issues/INFR-3930)
+
+
+
+## [13.1.3](https://github.com/atinc/ngx-tethys/compare/13.1.2...13.1.3) (2022-07-21)
+
+
+### Bug Fixes
+
+* **image:** set restoreFocus false when open dialog #WIK-7834 ([#2007](https://github.com/atinc/ngx-tethys/issues/2007)) ([eb353cc](https://github.com/atinc/ngx-tethys/commit/eb353ccb5aabdf8a6b5479f403def79546d231b5)), closes [#WIK-7834](https://github.com/atinc/ngx-tethys/issues/WIK-7834)
+* **menu:** modify more icon m-l #INFR-3717 ([c49642f](https://github.com/atinc/ngx-tethys/commit/c49642f4e0a3172c9bd1650c77a4eab14b53cb50)), closes [#INFR-3717](https://github.com/atinc/ngx-tethys/issues/INFR-3717)
+
+
+
+## [13.1.2](https://github.com/atinc/ngx-tethys/compare/13.1.1...13.1.2) (2022-07-20)
+
+
+### Bug Fixes
+
+* **image:** remove time #INFR-3912 ([#2004](https://github.com/atinc/ngx-tethys/issues/2004)) ([00d6d0f](https://github.com/atinc/ngx-tethys/commit/00d6d0f5fdc73bc96fa6ca3ad7dffd95a104a9de)), closes [#INFR-3912](https://github.com/atinc/ngx-tethys/issues/INFR-3912)
+
+
+
+## [13.1.1](https://github.com/atinc/ngx-tethys/compare/13.1.0...13.1.1) (2022-07-20)
+
+
+### Bug Fixes
+
+* **nav:** set moreBtnOffset when init ([d3b8f05](https://github.com/atinc/ngx-tethys/commit/d3b8f059c763bda8cba0a94b1162d66eec66925b))
+
+
+
+# [13.1.0](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.49...13.1.0) (2022-07-19)
+
+
+### Bug Fixes
+
+* **action:** move border-radius from hover to thy-action to fix border-radius disappear when mouse leave action ([df75ec0](https://github.com/atinc/ngx-tethys/commit/df75ec059efad35085a3d67027f1f60bb9cb4b39))
+* **nav:** hidden overflow nvaItem when container change size ([#1991](https://github.com/atinc/ngx-tethys/issues/1991)) ([5bc2ac6](https://github.com/atinc/ngx-tethys/commit/5bc2ac6f83981dd3b8295dee6d82763011c63d98))
+
+
+
+# [13.1.0-next.49](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.48...13.1.0-next.49) (2022-07-19)
+
+
+### Features
+
+* **image:** support thyResolveSize ([#1993](https://github.com/atinc/ngx-tethys/issues/1993)) ([4c10412](https://github.com/atinc/ngx-tethys/commit/4c10412e9feafec572ba30c656a2e56f6fe67993))
+* update issue template ([aa9cd49](https://github.com/atinc/ngx-tethys/commit/aa9cd49c6b7d366dacf9313d0cb9aa85ec5f31f7))
+
+
+
+# [13.1.0-next.48](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.47...13.1.0-next.48) (2022-07-18)
+
+
+### Bug Fixes
+
+* **drag-drop:** reset draggable when change thyDragDisabled #INFR-3887 ([#1987](https://github.com/atinc/ngx-tethys/issues/1987)) ([3272ffb](https://github.com/atinc/ngx-tethys/commit/3272ffbad36c37c95159cbd07540793ae6734d91)), closes [#INFR-3887](https://github.com/atinc/ngx-tethys/issues/INFR-3887)
+* **guider:** fix doc error #INFR-3879 ([#1985](https://github.com/atinc/ngx-tethys/issues/1985)) ([9ab467c](https://github.com/atinc/ngx-tethys/commit/9ab467c142951db48a626dfd17b4323a07340a94)), closes [#INFR-3879](https://github.com/atinc/ngx-tethys/issues/INFR-3879)
+
+
+
+# [13.1.0-next.47](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.46...13.1.0-next.47) (2022-07-15)
+
+
+### Bug Fixes
+
+* **image:** add setTimeout when get parentElement #INFR-3862 ([#1981](https://github.com/atinc/ngx-tethys/issues/1981)) ([f47580f](https://github.com/atinc/ngx-tethys/commit/f47580fbf019bec9274bfbccd78663892ee8baa7)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+* **image:** modify the background color transparency when hovering #INFR-3872 ([#1983](https://github.com/atinc/ngx-tethys/issues/1983)) ([4e2c38d](https://github.com/atinc/ngx-tethys/commit/4e2c38dfd4167d51a7be97da71a151972d4d7c53)), closes [#INFR-3872](https://github.com/atinc/ngx-tethys/issues/INFR-3872)
+
+
+
+# [13.1.0-next.46](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.45...13.1.0-next.46) (2022-07-15)
+
+
+### Bug Fixes
+
+* **date-picker:** in chooseDecade can not set year when value is null #INFR-3858 ([#1978](https://github.com/atinc/ngx-tethys/issues/1978)) ([392ae77](https://github.com/atinc/ngx-tethys/commit/392ae7798e61b0cf2145786d5148ca9a9ae0ff4b)), closes [#INFR-3858](https://github.com/atinc/ngx-tethys/issues/INFR-3858)
+* **image:** insert image at correct position and remove image  when destroy #INFR-3862 ([#1979](https://github.com/atinc/ngx-tethys/issues/1979)) ([d4786e5](https://github.com/atinc/ngx-tethys/commit/d4786e54e1173990fa7a509ebc8171058d0a3311)), closes [#INFR-3862](https://github.com/atinc/ngx-tethys/issues/INFR-3862)
+
+
+
+# [13.1.0-next.45](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.44...13.1.0-next.45) (2022-07-14)
+
+
+### Features
+
+* **image:** support calc image size #WIK-6711 ([#1972](https://github.com/atinc/ngx-tethys/issues/1972)) ([e411f97](https://github.com/atinc/ngx-tethys/commit/e411f977f8b33ba93b53e588750e09fdb47b2edc)), closes [#WIK-6711](https://github.com/atinc/ngx-tethys/issues/WIK-6711)
+
+
+
+# [13.1.0-next.44](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.43...13.1.0-next.44) (2022-07-14)
+
+
+### Bug Fixes
+
+* **slide:** add ngZone to viewportRuler.change #INFR-3840 ([ec993a3](https://github.com/atinc/ngx-tethys/commit/ec993a3fee19301192ec5b7f1bc6eaae5e8aafec)), closes [#INFR-3840](https://github.com/atinc/ngx-tethys/issues/INFR-3840)
+* **tree-select:** set tree node can be extend when disabled #INFR-3848 ([#1970](https://github.com/atinc/ngx-tethys/issues/1970)) ([4e704a4](https://github.com/atinc/ngx-tethys/commit/4e704a49a27574ed2971214ae276e9ee15e322c7)), closes [#INFR-3848](https://github.com/atinc/ngx-tethys/issues/INFR-3848)
+
+
+### Features
+
+* **image:** get all images under the outermost thy-image-group #INFR-3853 ([#1973](https://github.com/atinc/ngx-tethys/issues/1973)) ([7b74035](https://github.com/atinc/ngx-tethys/commit/7b740351bba738bc7325a1424d6cec08eb33b6c0)), closes [#INFR-3853](https://github.com/atinc/ngx-tethys/issues/INFR-3853)
+
+
+
+# [13.1.0-next.43](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.42...13.1.0-next.43) (2022-07-12)
+
+
+### Bug Fixes
+
+* **notify:** handle overlay is destroyed case #INFR-3838 ([#1968](https://github.com/atinc/ngx-tethys/issues/1968)) ([09df47c](https://github.com/atinc/ngx-tethys/commit/09df47ccb4f935b7c90b311ff2e14001156c1f22)), closes [#INFR-3838](https://github.com/atinc/ngx-tethys/issues/INFR-3838)
+
+
+
+# [13.1.0-next.42](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.41...13.1.0-next.42) (2022-07-12)
+
+
+### Bug Fixes
+
+* **image:** handle copy relative url and use detectChanges #WIK-7628 ([#1966](https://github.com/atinc/ngx-tethys/issues/1966)) ([e25ac57](https://github.com/atinc/ngx-tethys/commit/e25ac57c68fbe1fe696ad3c367acca86c766c5f5)), closes [#WIK-7628](https://github.com/atinc/ngx-tethys/issues/WIK-7628)
+* **tree:** modify thy-action margin(from -8px to -10px) #INFR-3835 ([bb0ecc3](https://github.com/atinc/ngx-tethys/commit/bb0ecc323bd84b9bd814189e7a2574b3e68ce063)), closes [#INFR-3835](https://github.com/atinc/ngx-tethys/issues/INFR-3835)
+
+
+
+# [13.1.0-next.41](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.40...13.1.0-next.41) (2022-07-08)
+
+
+### Bug Fixes
+
+* **dot:** fix dot size attribute and document ([1dbf940](https://github.com/atinc/ngx-tethys/commit/1dbf9402a3012f1066e5c203240f2e3075cfaa4c))
+* **fullscreen:** fix fullscreen bug on Immersive mode #INFR-3823 ([#1962](https://github.com/atinc/ngx-tethys/issues/1962)) ([ca3ba49](https://github.com/atinc/ngx-tethys/commit/ca3ba4968ad78bc75add6ce09e3424f937b1b016)), closes [#INFR-3823](https://github.com/atinc/ngx-tethys/issues/INFR-3823)
+* **menu:** set last thy-action  margin-right: -8px; and group arrow translateX(-2px) for collapsed #INFR-3824 ([#1961](https://github.com/atinc/ngx-tethys/issues/1961)) ([8d9ab3d](https://github.com/atinc/ngx-tethys/commit/8d9ab3d4260bddf7b05bf8c0543b875b8b35681e)), closes [#INFR-3824](https://github.com/atinc/ngx-tethys/issues/INFR-3824)
+* **table:** restore tree-padding #INFR-3784 ([10a11c9](https://github.com/atinc/ngx-tethys/commit/10a11c9689550f18b64293b5f73f6a4fc6bc2379)), closes [#INFR-3784](https://github.com/atinc/ngx-tethys/issues/INFR-3784)
+
+
+### Features
+
+* **table:** add operation space to 32px for operational column in bordered and boxed table #INFR-3825 ([#1960](https://github.com/atinc/ngx-tethys/issues/1960)) ([a9bf90e](https://github.com/atinc/ngx-tethys/commit/a9bf90e8d3bf7933f1f5ba76ea59237c81dac319)), closes [#INFR-3825](https://github.com/atinc/ngx-tethys/issues/INFR-3825)
+* **table:** set thy-operation-links nowrap #INFR-3812 ([#1955](https://github.com/atinc/ngx-tethys/issues/1955)) ([b897e62](https://github.com/atinc/ngx-tethys/commit/b897e628700f8bb0db51577ca83201dc11bd8aa9)), closes [#INFR-3812](https://github.com/atinc/ngx-tethys/issues/INFR-3812)
+
+
+
+# [13.1.0-next.40](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.39...13.1.0-next.40) (2022-07-07)
+
+
+### Bug Fixes
+
+* **table:** set thy-avatar display to flex and  align-items: center for name truncate ([#1952](https://github.com/atinc/ngx-tethys/issues/1952)) ([0fa933c](https://github.com/atinc/ngx-tethys/commit/0fa933caadc17a6446dd8411f9871339db6fdcbf))
+
+
+
+# [13.1.0-next.39](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.38...13.1.0-next.39) (2022-07-07)
+
+
+### Bug Fixes
+
+* **empty:** remove class empty-state and line-height for .thy-empty-state #INFR-3793 ([c41b7a8](https://github.com/atinc/ngx-tethys/commit/c41b7a8c20833fe14ffedc5504abc487fd30bb37)), closes [#INFR-3793](https://github.com/atinc/ngx-tethys/issues/INFR-3793)
+* **layout:** set min-width to 0px for .thy-layout and content trigger x-scroll in layout--sidebar #INFR-3789 ([#1943](https://github.com/atinc/ngx-tethys/issues/1943)) ([14a59b2](https://github.com/atinc/ngx-tethys/commit/14a59b2b4ed668b6d64e66f4051c7bfa63bf2b33)), closes [#INFR-3789](https://github.com/atinc/ngx-tethys/issues/INFR-3789)
+* **notify:** add toOverlayTop to resolve notify is covered issue #INFR-3214 ([c6f654d](https://github.com/atinc/ngx-tethys/commit/c6f654d1696c4888b3ca22fc4c07f11387676911)), closes [#INFR-3214](https://github.com/atinc/ngx-tethys/issues/INFR-3214)
+* **table:** update link spacing to 32px for operational column #INFR-3800 ([#1950](https://github.com/atinc/ngx-tethys/issues/1950)) ([1500702](https://github.com/atinc/ngx-tethys/commit/15007025e6ea2d5eb4b059d8ae475969be269c42)), closes [#INFR-3800](https://github.com/atinc/ngx-tethys/issues/INFR-3800)
+
+
+### Features
+
+* **nav:** add thyNavItemDisabled for nav item #INFR-3791 ([#1947](https://github.com/atinc/ngx-tethys/issues/1947)) ([a53daaa](https://github.com/atinc/ngx-tethys/commit/a53daaa56df943b687d7273b17e3489a07d2efa6)), closes [#INFR-3791](https://github.com/atinc/ngx-tethys/issues/INFR-3791)
+* **transfer:** lock has fixed item can not be move to unlock zd/#INFR-3706 ([0a57171](https://github.com/atinc/ngx-tethys/commit/0a571710293217d7facb8a002cbba3c15280d8f5)), closes [zd/#INFR-3706](https://github.com/atinc/ngx-tethys/issues/INFR-3706)
+
+
+
+# [13.1.0-next.38](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.37...13.1.0-next.38) (2022-07-06)
+
+
+### Bug Fixes
+
+* **drag-drop:** remove indicator line when not drag item #INFR-3765 ([#1939](https://github.com/atinc/ngx-tethys/issues/1939)) ([e2cde5a](https://github.com/atinc/ngx-tethys/commit/e2cde5a774ce811a22b81f7b3cde0c2c61a42202)), closes [#INFR-3765](https://github.com/atinc/ngx-tethys/issues/INFR-3765)
+
+
+### Features
+
+* **menu:** support thyCollapsed event for thy-menu-group #INFR-3766 ([661004f](https://github.com/atinc/ngx-tethys/commit/661004fd71e35968f66d9f37d08c65c411272cb3)), closes [#INFR-3766](https://github.com/atinc/ngx-tethys/issues/INFR-3766)
+* **table:** add column minWidth #INFR-3782 ([#1940](https://github.com/atinc/ngx-tethys/issues/1940)) ([e5058aa](https://github.com/atinc/ngx-tethys/commit/e5058aa06d0af1de0f0b8518acbd10fb25b018e2)), closes [#INFR-3782](https://github.com/atinc/ngx-tethys/issues/INFR-3782)
+
+
+
+# [13.1.0-next.37](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.36...13.1.0-next.37) (2022-07-04)
+
+
+### Bug Fixes
+
+* **dot:** fix dot component color options ([#1934](https://github.com/atinc/ngx-tethys/issues/1934)) ([a4f7350](https://github.com/atinc/ngx-tethys/commit/a4f7350bd5779c5dc5184c35fd748f0ce515decd))
+* **dropdown:** update dropdown-submenu's shadow as same as popover #INFR-3736 ([#1935](https://github.com/atinc/ngx-tethys/issues/1935)) ([5453537](https://github.com/atinc/ngx-tethys/commit/5453537b7b85e5d1a650f30c024a083adac74a6b)), closes [#INFR-3736](https://github.com/atinc/ngx-tethys/issues/INFR-3736)
+
+
+
+# [13.1.0-next.36](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.35...13.1.0-next.36) (2022-07-04)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update last child icon color to [#999](https://github.com/atinc/ngx-tethys/issues/999) without link and add wrap span for item text node #INFR-3739 ([#1929](https://github.com/atinc/ngx-tethys/issues/1929)) ([e1a276c](https://github.com/atinc/ngx-tethys/commit/e1a276c29003ad4896ad7bacb0a6e9bf847ca341)), closes [#INFR-3739](https://github.com/atinc/ngx-tethys/issues/INFR-3739) [#INFR-3739](https://github.com/atinc/ngx-tethys/issues/INFR-3739)
+* **dialog:** update $dialog-body-padding to 0.5rem 2rem 1rem 2rem ([#1932](https://github.com/atinc/ngx-tethys/issues/1932)) ([fd48905](https://github.com/atinc/ngx-tethys/commit/fd489051639d851d34a6f694bea7b8be3897c2ce))
+* **table:** keep expand or collapse status for group mode #INFR-3721 ([73b89ff](https://github.com/atinc/ngx-tethys/commit/73b89ff4b2ca7358f86760f830653f49cc1b88d1)), closes [#INFR-3721](https://github.com/atinc/ngx-tethys/issues/INFR-3721)
+* **transfer:** change transfer width to 596 #INFR-3735 ([#1928](https://github.com/atinc/ngx-tethys/issues/1928)) ([e53e9c8](https://github.com/atinc/ngx-tethys/commit/e53e9c836cc3bd8a630f5c7c37c3ab97371093cd)), closes [#INFR-3735](https://github.com/atinc/ngx-tethys/issues/INFR-3735)
+
+
+
+# [13.1.0-next.35](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.34...13.1.0-next.35) (2022-07-01)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update suffix icon spacing to 8px ([#1924](https://github.com/atinc/ngx-tethys/issues/1924)) ([62de9dc](https://github.com/atinc/ngx-tethys/commit/62de9dc21390939eee90ebdd0c6f9ede354ee07d))
+* **dropdown:** update icon spacing to child combinator and set icon-text spacing without link for breadcrumb-item ([#1919](https://github.com/atinc/ngx-tethys/issues/1919)) ([6e33af7](https://github.com/atinc/ngx-tethys/commit/6e33af765250008a608be95c9c81f5944a209d8c))
+* **nav:** update $nav-item-padding-x-sm to  0.625rem ([bc9c82f](https://github.com/atinc/ngx-tethys/commit/bc9c82f6686e58ea96a256baaeb0988d94c4588b))
+* **nav:** update sm nav padding-x to 8px and md padding-x to 16px ([#1925](https://github.com/atinc/ngx-tethys/issues/1925)) ([e548186](https://github.com/atinc/ngx-tethys/commit/e5481869053355828b2466e37e44cd9fc18e5a5f))
+* **pagination:** fix jump error #INFR-3701 ([#1918](https://github.com/atinc/ngx-tethys/issues/1918)) ([b28d8e5](https://github.com/atinc/ngx-tethys/commit/b28d8e547701fdc5a4a08724393dde0e2489ab6f)), closes [#INFR-3701](https://github.com/atinc/ngx-tethys/issues/INFR-3701)
+* **table:** fix table expand for group mode #INFR-3721 ([#1922](https://github.com/atinc/ngx-tethys/issues/1922)) ([e13873a](https://github.com/atinc/ngx-tethys/commit/e13873a47304085c3b360b67ab7181459c632fd7)), closes [#INFR-3721](https://github.com/atinc/ngx-tethys/issues/INFR-3721)
+
+
+### Features
+
+* **dialog:** uddate dialog paddings and add thyDivided to thy-dialog-header #INFR-3643 ([2f2d632](https://github.com/atinc/ngx-tethys/commit/2f2d6328b950f7a0f1e23f9bb66be1a09b202881)), closes [#INFR-3643](https://github.com/atinc/ngx-tethys/issues/INFR-3643)
+* **dot:** add dot component #INFR-3042 ([c281a83](https://github.com/atinc/ngx-tethys/commit/c281a83c3e67262e785772033b93c8321f588120)), closes [#INFR-3042](https://github.com/atinc/ngx-tethys/issues/INFR-3042)
+
+
+
+# [13.1.0-next.34](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.33...13.1.0-next.34) (2022-06-29)
+
+
+### Features
+
+* **slide:** update slide box-shadow and update height of slide-header and sidebar-header to 48px #box-shadow ([#1916](https://github.com/atinc/ngx-tethys/issues/1916)) ([3653a1e](https://github.com/atinc/ngx-tethys/commit/3653a1e15ec9484301b16e9af22c1cc54e18f7ca))
+
+
+
+# [13.1.0-next.33](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.32...13.1.0-next.33) (2022-06-29)
+
+
+### Bug Fixes
+
+* **dialog:** modify supperLg to superLg #INFR-3685 ([#1912](https://github.com/atinc/ngx-tethys/issues/1912)) ([41230e6](https://github.com/atinc/ngx-tethys/commit/41230e606073c84c2e1ac32ed8a22e66f3588b62)), closes [#INFR-3685](https://github.com/atinc/ngx-tethys/issues/INFR-3685)
+* **dropdown:** fix hover icon color to dropdown(#INFR-3657) ([#1910](https://github.com/atinc/ngx-tethys/issues/1910)) ([6c595da](https://github.com/atinc/ngx-tethys/commit/6c595da64cbc1a71272cb5f8d4bfeab987132a71)), closes [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657) [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657) [#INFR-3657](https://github.com/atinc/ngx-tethys/issues/INFR-3657)
+
+
+### Features
+
+* **calendar:** replace calander cell box shadow #INFR-3654 ([#1911](https://github.com/atinc/ngx-tethys/issues/1911)) ([104db8b](https://github.com/atinc/ngx-tethys/commit/104db8bf58469d1494410b06ab1ed8e3c79f70e6)), closes [#INFR-3654](https://github.com/atinc/ngx-tethys/issues/INFR-3654)
+* **menu:** add dark theme #INFR-3675 ([a6f6c25](https://github.com/atinc/ngx-tethys/commit/a6f6c25d1c1368084bcb9c407439922ef0a00fe8)), closes [#INFR-3675](https://github.com/atinc/ngx-tethys/issues/INFR-3675)
+* **menu:** add thyCollapsed for thy-menu component #INFR-3676 ([63e1449](https://github.com/atinc/ngx-tethys/commit/63e14496184e42686d28e2e5ba3592aab7dea661)), closes [#INFR-3676](https://github.com/atinc/ngx-tethys/issues/INFR-3676)
+
+
+
+# [13.1.0-next.32](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.31...13.1.0-next.32) (2022-06-24)
+
+
+### Bug Fixes
+
+* **breadcrumb:** update icon color of last child to [#999](https://github.com/atinc/ngx-tethys/issues/999) and link with icon space to 8px #INFR-3638 ([48ec512](https://github.com/atinc/ngx-tethys/commit/48ec5127c87c07a166a7e0cb0de84b4e5483f627)), closes [#INFR-3638](https://github.com/atinc/ngx-tethys/issues/INFR-3638)
+* **button:** rename IncoShape and sync type define from shapeClassesMap ([#1906](https://github.com/atinc/ngx-tethys/issues/1906)) ([5776d87](https://github.com/atinc/ngx-tethys/commit/5776d87bee5c62e94c2af9d3e8ca8cbccf008f7b))
+
+
+### Features
+
+* **table:** set table operation column align left ([773c48f](https://github.com/atinc/ngx-tethys/commit/773c48f3b6860a534ee681e9c0dc1ddc670885b9))
+
+
+
+# [13.1.0-next.31](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.30...13.1.0-next.31) (2022-06-22)
+
+
+### Bug Fixes
+
+* **action:** add thyDisabled param #INFR-3602 ([#1899](https://github.com/atinc/ngx-tethys/issues/1899)) ([bbc49f1](https://github.com/atinc/ngx-tethys/commit/bbc49f1a660cfc2f9f9fb3f32854388fb0377de3)), closes [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602) [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602) [#INFR-3602](https://github.com/atinc/ngx-tethys/issues/INFR-3602)
+* **button:** fix button component api doc text error ([2180814](https://github.com/atinc/ngx-tethys/commit/21808142df58b2dbcbda614c517050150dccacc8))
+* **dropdown:** modify hasBackdrop to always be false #INFR-3615 ([17b88e3](https://github.com/atinc/ngx-tethys/commit/17b88e35017e8f8a31bccfb02e51ee790465ba46)), closes [#INFR-3615](https://github.com/atinc/ngx-tethys/issues/INFR-3615)
+* **dropdown:** update menu item color tp [#333](https://github.com/atinc/ngx-tethys/issues/333) #INFR-3611 ([4ed69cd](https://github.com/atinc/ngx-tethys/commit/4ed69cd43078a91c6406418f41d63c28d065df11)), closes [#INFR-3611](https://github.com/atinc/ngx-tethys/issues/INFR-3611)
+* **form:** fix form component tab keydown event focus error #INFR-3571 ([#1895](https://github.com/atinc/ngx-tethys/issues/1895)) ([c6f41a6](https://github.com/atinc/ngx-tethys/commit/c6f41a66129317e2d7d24c72f7a4e2f64c211e70)), closes [#INFR-3571](https://github.com/atinc/ngx-tethys/issues/INFR-3571)
+
+
+### Features
+
+* **action:** add thy-actions convenient for multiple actions usage #INFR-3588 ([78a940e](https://github.com/atinc/ngx-tethys/commit/78a940e12b969723fc354ff35c10cf8b38eea56f)), closes [#INFR-3588](https://github.com/atinc/ngx-tethys/issues/INFR-3588)
+* **layout:** add titleTemplateRef at sidebar-header (#INFR-3460) ([#1901](https://github.com/atinc/ngx-tethys/issues/1901)) ([bf58915](https://github.com/atinc/ngx-tethys/commit/bf589158473d97b4dad555642055a0aa05c4ab26)), closes [#INFR-3460](https://github.com/atinc/ngx-tethys/issues/INFR-3460) [#INFR-3460](https://github.com/atinc/ngx-tethys/issues/INFR-3460)
+
+
+
+# [13.1.0-next.30](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.29...13.1.0-next.30) (2022-06-20)
+
+
+### Bug Fixes
+
+* **empty:** update $empty-text-size-lg to 14px and sanitize presetSvg when it is not empty #INFR-3573 ([ef2db52](https://github.com/atinc/ngx-tethys/commit/ef2db52d1d15b595d4da106667f5133cecd3177e)), closes [#INFR-3573](https://github.com/atinc/ngx-tethys/issues/INFR-3573)
+* **popover:** use border and update $box-shadow to 0 0 16px rgb(0 0 0 / 8%) try the effect and change it later #INFR-3582 ([f0c9416](https://github.com/atinc/ngx-tethys/commit/f0c9416d95e33da963488d33a5a5cafd2ea71505)), closes [#INFR-3582](https://github.com/atinc/ngx-tethys/issues/INFR-3582)
+* **progress:** update primary color to $primary #INFR-3563 ([#1890](https://github.com/atinc/ngx-tethys/issues/1890)) ([35bf07d](https://github.com/atinc/ngx-tethys/commit/35bf07de2e5c7eafb99fbd09f1e7790f28a021df)), closes [#INFR-3563](https://github.com/atinc/ngx-tethys/issues/INFR-3563)
+* **table:** update $table-boxed-border-radius to 4px ([#1892](https://github.com/atinc/ngx-tethys/issues/1892)) ([c2441be](https://github.com/atinc/ngx-tethys/commit/c2441be802789aa353028b17659bd1403f97fe72))
+
+
+### Features
+
+* **action:** add thyHoverIcon support hover switch diff icon and add thyIcon, thyActive instead of thyActionIcon, thyActionActive #INFR-3569 ([02d816a](https://github.com/atinc/ngx-tethys/commit/02d816a77975690a16e2db29fbc05fe9c89baf1e)), closes [#INFR-3569](https://github.com/atinc/ngx-tethys/issues/INFR-3569)
+* **dropdown:** update default value of placement to bottomLeft and fix some test cases #INFR-3580 ([#1894](https://github.com/atinc/ngx-tethys/issues/1894)) ([7f7452a](https://github.com/atinc/ngx-tethys/commit/7f7452a007b4d4829a9ab906433143720e847b38)), closes [#INFR-3580](https://github.com/atinc/ngx-tethys/issues/INFR-3580)
+
+
+
+# [13.1.0-next.29](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.28...13.1.0-next.29) (2022-06-17)
+
+
+### Bug Fixes
+
+* **table:** fix table ngclass syntax error and add min-width docs ([890df0f](https://github.com/atinc/ngx-tethys/commit/890df0fdf7655ac7d5433579eb0cd825133e9eca))
+
+
+
+# [13.1.0-next.28](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.27...13.1.0-next.28) (2022-06-17)
+
+
+### Bug Fixes
+
+* **breadcrumb:** add icon spacing 4px for first-child and last-child ([a1664c5](https://github.com/atinc/ngx-tethys/commit/a1664c5dc8ac249cedd803935a6b61e89b06a83a))
+* **input:** update $input-icon-color to $gray-400(#cacaca) and update search icon size to 14px #INFR-3560 ([#1885](https://github.com/atinc/ngx-tethys/issues/1885)) ([eecb6c6](https://github.com/atinc/ngx-tethys/commit/eecb6c657f473526734b0da3c4331457144656e6)), closes [#INFR-3560](https://github.com/atinc/ngx-tethys/issues/INFR-3560)
+* **menu:** fix menu style ([35adcea](https://github.com/atinc/ngx-tethys/commit/35adcea4c9745a12b20c47f9e8dbaeb37b68865a))
+* **progress:** set progress bar min width #INFR-3559 ([#1883](https://github.com/atinc/ngx-tethys/issues/1883)) ([a19d88c](https://github.com/atinc/ngx-tethys/commit/a19d88c8e297e8004723a160e490f11f29d14c63)), closes [#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559) [zd/#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559) [zd/#INFR-3559](https://github.com/atinc/ngx-tethys/issues/INFR-3559)
+* **table:** fix table header input-element be default action #INFR-3544 ([54aa277](https://github.com/atinc/ngx-tethys/commit/54aa277e5a6a156d2836e443715a1e58afa7b48a)), closes [#INFR-3544](https://github.com/atinc/ngx-tethys/issues/INFR-3544)
+
+
+### Features
+
+* **action:** add thyTheme support fill and lite #INFR-3562 ([#1884](https://github.com/atinc/ngx-tethys/issues/1884)) ([3ce39dd](https://github.com/atinc/ngx-tethys/commit/3ce39ddd36b8bf2be2a0203fca32f79fa2a44ccf)), closes [#INFR-3562](https://github.com/atinc/ngx-tethys/issues/INFR-3562)
+* **table:** add thyMinWidth and thyLayoutFixed for thy-table #INFR-3561 #INFR-3547 ([#1882](https://github.com/atinc/ngx-tethys/issues/1882)) ([8a0b31f](https://github.com/atinc/ngx-tethys/commit/8a0b31fd48b85ce879ed41984d6af5f3342dab28)), closes [#INFR-3561](https://github.com/atinc/ngx-tethys/issues/INFR-3561) [#INFR-3547](https://github.com/atinc/ngx-tethys/issues/INFR-3547)
+
+
+
+# [13.1.0-next.27](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.26...13.1.0-next.27) (2022-06-17)
+
+
+### Bug Fixes
+
+* **alert:** delete alert margin bottom INFR-3546 ([#1877](https://github.com/atinc/ngx-tethys/issues/1877)) ([f6be040](https://github.com/atinc/ngx-tethys/commit/f6be0404cb84889f95879aebf42eb9a4b981a4b0))
+* **divider:** remove  top: -0.06em for thy-divider-vertical ([0abe37c](https://github.com/atinc/ngx-tethys/commit/0abe37c244e0a6a059f0cca4c05eeda7e096b16b))
+
+
+
+# [13.1.0-next.26](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.25...13.1.0-next.26) (2022-06-16)
+
+
+### Bug Fixes
+
+* **tag:** update padding-x to 12px for lg tag ([d410ef6](https://github.com/atinc/ngx-tethys/commit/d410ef671fd2f0dd860a54ba98b40185709d8314))
+
+
+### Features
+
+* **alert:** add thyTheme support 'fill' | 'bordered' | 'naked' ([#1867](https://github.com/atinc/ngx-tethys/issues/1867)) ([919e986](https://github.com/atinc/ngx-tethys/commit/919e98656c3cdc9664e2cceeae9fd777f9cd214c))
+
+
+
+# [13.1.0-next.25](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.24...13.1.0-next.25) (2022-06-16)
+
+
+### Bug Fixes
+
+* **table:** fix dynamic update column property not work bug  and refactor columns initialize #INFR-3440  ([#1872](https://github.com/atinc/ngx-tethys/issues/1872)) ([7d6d44a](https://github.com/atinc/ngx-tethys/commit/7d6d44ad2451bcb3ca6763eec2a0a22ebf872a98)), closes [#INFR-3440](https://github.com/atinc/ngx-tethys/issues/INFR-3440)
+* **table:** update padding-x to 16px for all sizes and update vertical-align for align sort icon with text #INFR-3542 ([147aace](https://github.com/atinc/ngx-tethys/commit/147aacec98109304f34bb8ea4c17b6565af08e0d)), closes [#INFR-3542](https://github.com/atinc/ngx-tethys/issues/INFR-3542)
+
+
+### Features
+
+* **tag:** #INFR-3541 update padding-y to 16px for lg size ([fc9432f](https://github.com/atinc/ngx-tethys/commit/fc9432f38e69215772b4b0a89c13eb2b9023dcab)), closes [#INFR-3541](https://github.com/atinc/ngx-tethys/issues/INFR-3541)
+
+
+
+# [13.1.0-next.24](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.23...13.1.0-next.24) (2022-06-16)
+
+
+### Bug Fixes
+
+* **button:** update only-icon size to same as button in button-group #INFR-3502 ([8273beb](https://github.com/atinc/ngx-tethys/commit/8273beb2a8f248062ecf3c7378e2b216cc0c89e5)), closes [#INFR-3502](https://github.com/atinc/ngx-tethys/issues/INFR-3502)
+* **table:** fix table sort icon style #INFR-3520 ([b195400](https://github.com/atinc/ngx-tethys/commit/b195400f958864e2b9ff9acd713221b2b260c88d)), closes [#INFR-3520](https://github.com/atinc/ngx-tethys/issues/INFR-3520)
+
+
+### Features
+
+* **dropdown:** support sub menu vertical direction (#INFR-3081) ([595b845](https://github.com/atinc/ngx-tethys/commit/595b8457186f34da1049674e386c1b9e39d352d2)), closes [#INFR-3081](https://github.com/atinc/ngx-tethys/issues/INFR-3081)
+* **table:** add thySecondary for thy-table-column that add thy-table-column-secondary class to column and update default table header color to $gray-700 #INFR-3533 ([f7f6610](https://github.com/atinc/ngx-tethys/commit/f7f6610dbaf582b700fe26b0d0e29960da283583)), closes [#INFR-3533](https://github.com/atinc/ngx-tethys/issues/INFR-3533)
+* **table:** update padding-y to 24px for md size #INFR-3529 ([b334cca](https://github.com/atinc/ngx-tethys/commit/b334cca76ff0f29d8d8dcbe492c0b65a469393cf)), closes [#INFR-3529](https://github.com/atinc/ngx-tethys/issues/INFR-3529)
+
+
+
+# [13.1.0-next.23](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.22...13.1.0-next.23) (2022-06-14)
+
+
+### Features
+
+* **empty:** update default svg icon #INFR-3509 ([#1862](https://github.com/atinc/ngx-tethys/issues/1862)) ([4366038](https://github.com/atinc/ngx-tethys/commit/4366038e46bdb2f222a605a6558234f2ebe72b29)), closes [#INFR-3509](https://github.com/atinc/ngx-tethys/issues/INFR-3509) [#INFR-3509](https://github.com/atinc/ngx-tethys/issues/INFR-3509)
+
+
+
+# [13.1.0-next.22](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.21...13.1.0-next.22) (2022-06-14)
+
+
+### Bug Fixes
+
+* **link:** remove thy-icon padding in link, continue to use class link-has-icon ([186d62e](https://github.com/atinc/ngx-tethys/commit/186d62e8ddd8fb97f2ca620515d1691e5e022832))
+
+
+
+# [13.1.0-next.21](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.20...13.1.0-next.21) (2022-06-14)
+
+
+### Bug Fixes
+
+* **menu:** fix menu component style #INFR-3229 ([#1858](https://github.com/atinc/ngx-tethys/issues/1858)) ([4a441ea](https://github.com/atinc/ngx-tethys/commit/4a441ea03c9d9b8d6ece0633948e307e3ef4d91a)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
+# [13.1.0-next.20](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.19...13.1.0-next.20) (2022-06-14)
+
+
+### Features
+
+* **menu:** support thyIcon for thy-menu-item and refacor api doc and examples [#1851](https://github.com/atinc/ngx-tethys/issues/1851) ([0918989](https://github.com/atinc/ngx-tethys/commit/0918989a805e52715a1a148fdbcd0be1d1b00ddb))
+* **select:** custom select add thyAutoActiveFirstItem params #INFR-3485 ([#1844](https://github.com/atinc/ngx-tethys/issues/1844)) ([dc73db7](https://github.com/atinc/ngx-tethys/commit/dc73db744d347ce136d9172812fc53f72f0e194d)), closes [#INFR-3485](https://github.com/atinc/ngx-tethys/issues/INFR-3485)
+* **table:** add thyOperational for thy-table-column and set text-align: center for thy-operation-links #INFR-3499 ([0ceee89](https://github.com/atinc/ngx-tethys/commit/0ceee89d2149a5097ded588728c44d2a394b6adb)), closes [#INFR-3499](https://github.com/atinc/ngx-tethys/issues/INFR-3499)
+* **table:** expand the clickable area of table sort to the whole column header #INFR-3466 ([1f740d1](https://github.com/atinc/ngx-tethys/commit/1f740d17b56c5ee3fe9799764f0ad11581adc9fa)), closes [#INFR-3466](https://github.com/atinc/ngx-tethys/issues/INFR-3466)
+* **table:** support boxed theme #INFR-3489 ([#1854](https://github.com/atinc/ngx-tethys/issues/1854)) ([c1e2941](https://github.com/atinc/ngx-tethys/commit/c1e294162943226f70455b383dbd59597200b447)), closes [#INFR-3489](https://github.com/atinc/ngx-tethys/issues/INFR-3489)
+
+
+
+# [13.1.0-next.19](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.18...13.1.0-next.19) (2022-06-13)
+
+
+### Features
+
+* **badge:** add thyContent instead of thyContext and refactor UI Design ([f1cf9a9](https://github.com/atinc/ngx-tethys/commit/f1cf9a99c957919955c9c1b2f6df11ee6a30bf86))
+* **breadcrumb:** add vertical-line of thySeparator and update last link hover color to primary #INFR-3474 ([#1845](https://github.com/atinc/ngx-tethys/issues/1845)) ([a249c22](https://github.com/atinc/ngx-tethys/commit/a249c22651d0bed8cca07efad28d45ded56715af)), closes [#INFR-3474](https://github.com/atinc/ngx-tethys/issues/INFR-3474) [#INFR-3474](https://github.com/atinc/ngx-tethys/issues/INFR-3474)
+* **button:** update text color of default to $gray-700([#666](https://github.com/atinc/ngx-tethys/issues/666)) #INFR-3303 ([aa9900f](https://github.com/atinc/ngx-tethys/commit/aa9900fe731283ba4a84cefc21cdaa9702d6ebf0)), closes [#INFR-3303](https://github.com/atinc/ngx-tethys/issues/INFR-3303)
+* **link:** add active class for link and update spacing and size for thy-icon:first-child without link-has-icon #INFR-3481 ([cd2fe32](https://github.com/atinc/ngx-tethys/commit/cd2fe320805fad5de37e5d82e23fcd313f588f1f)), closes [#INFR-3481](https://github.com/atinc/ngx-tethys/issues/INFR-3481)
+* **table:** add xlg of size height 64px and update font-size of sidebar header title tp 15px #INFR-3488 ([ef05237](https://github.com/atinc/ngx-tethys/commit/ef052374d878c741a41cadc4eb475a70ae4879d9)), closes [#INFR-3488](https://github.com/atinc/ngx-tethys/issues/INFR-3488)
+* **tag:** update md and lg padding x to 12px #INFR-3494 ([9b3f57e](https://github.com/atinc/ngx-tethys/commit/9b3f57eb6c6ea237edec3135013445d03793fa62)), closes [#INFR-3494](https://github.com/atinc/ngx-tethys/issues/INFR-3494)
+
+
+
+# [13.1.0-next.18](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.17...13.1.0-next.18) (2022-06-10)
+
+
+### Bug Fixes
+
+* **table:** set px-1 to sort icon #INFR-3459 ([d7fe3a2](https://github.com/atinc/ngx-tethys/commit/d7fe3a265620a8aba7f742caabb7ebfd5668f2ca)), closes [#INFR-3459](https://github.com/atinc/ngx-tethys/issues/INFR-3459)
+
+
+
+# [13.1.0-next.17](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.16...13.1.0-next.17) (2022-06-10)
+
+
+### Bug Fixes
+
+* **segment:** fix quickly click the same item twice bug #INFR-3444 ([6516b4b](https://github.com/atinc/ngx-tethys/commit/6516b4beb3471804efc01cd9c1ae7cbf1998dd7e)), closes [#INFR-3444](https://github.com/atinc/ngx-tethys/issues/INFR-3444)
+
+
+### Features
+
+* **card:** update card size #INFR-3455 ([d16f11f](https://github.com/atinc/ngx-tethys/commit/d16f11f9f7d1d0610b7ae26a4a46db73de3c4fe2)), closes [#INFR-3455](https://github.com/atinc/ngx-tethys/issues/INFR-3455)
+
+
+
+# [13.1.0-next.16](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.15...13.1.0-next.16) (2022-06-09)
+
+
+### Features
+
+* **styles:** update margin-left of prefix-icon title-name to 8px and menu-group-header font-size to 12px #INFR-3443 ([18a7be3](https://github.com/atinc/ngx-tethys/commit/18a7be3b0e5ea7d435b319f7ae35cdbf3d2434e8)), closes [#INFR-3443](https://github.com/atinc/ngx-tethys/issues/INFR-3443)
+
+
+
+# [13.1.0-next.15](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.14...13.1.0-next.15) (2022-06-09)
+
+
+### Bug Fixes
+
+* **dropdown:** update isClass to isFunction for menu component ([c2ca9b2](https://github.com/atinc/ngx-tethys/commit/c2ca9b2ab5e10934305e610571f6167cf2a5f578))
+
+
+### Features
+
+* **dropdown:** support templateRef and ComponentType for thyDropdown and thyDropdownMenu #INFR-3434 [#1827](https://github.com/atinc/ngx-tethys/issues/1827) ([#1830](https://github.com/atinc/ngx-tethys/issues/1830)) ([f7f6b3f](https://github.com/atinc/ngx-tethys/commit/f7f6b3f93a5a1043bfef1506b395ee5e5419d9c2)), closes [#INFR-3434](https://github.com/atinc/ngx-tethys/issues/INFR-3434)
+* **layout:** update color of thy-icon in title-name to $gray-600 ([df7f886](https://github.com/atinc/ngx-tethys/commit/df7f88637ce04143ca44d614ab7eb0d65108abe1))
+* **styles:** adjust icon-text margin to 8px #INFR-3435 ([ea49836](https://github.com/atinc/ngx-tethys/commit/ea498369c4d5cfb9a1df9ca120ee158af2f20a51)), closes [#INFR-3435](https://github.com/atinc/ngx-tethys/issues/INFR-3435)
+
+
+
+# [13.1.0-next.14](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.13...13.1.0-next.14) (2022-06-08)
+
+
+### Bug Fixes
+
+* **table:** update table header color to [#333](https://github.com/atinc/ngx-tethys/issues/333) #INFR-3430 ([d1e6e1f](https://github.com/atinc/ngx-tethys/commit/d1e6e1fe00432342233a6714fd131ebc971a62c3)), closes [#INFR-3430](https://github.com/atinc/ngx-tethys/issues/INFR-3430)
+
+
+### Features
+
+* **dropdown:** use thy-divider instead of thy-dropdown-menu-divider,update margin for it in menu #INFR-3429 [#1822](https://github.com/atinc/ngx-tethys/issues/1822) ([#1823](https://github.com/atinc/ngx-tethys/issues/1823)) ([181ec5e](https://github.com/atinc/ngx-tethys/commit/181ec5e784ac85b607a86579d9869b01bc238edf)), closes [#INFR-3429](https://github.com/atinc/ngx-tethys/issues/INFR-3429)
+
+
+
+# [13.1.0-next.13](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.12...13.1.0-next.13) (2022-06-08)
+
+
+### Bug Fixes
+
+* **menu:** delete menu padding and transform #INFR-3389 ([ac160e7](https://github.com/atinc/ngx-tethys/commit/ac160e73aca0a228e19b230a670835198051fff7)), closes [#INFR-3389](https://github.com/atinc/ngx-tethys/issues/INFR-3389)
+* **tag:** remove focus style and update lightness to -5% for hover ([ebb4674](https://github.com/atinc/ngx-tethys/commit/ebb4674a76994cc3936e3f553a7c3ffed4a6d506))
+
+
+### Features
+
+* **dropdown:** add border-radius of popover menu to 4px(#INFR-3384) ([#1818](https://github.com/atinc/ngx-tethys/issues/1818)) ([ab1341e](https://github.com/atinc/ngx-tethys/commit/ab1341e19a40b1f8e53b15aba88ada1f8477b53e)), closes [#INFR-3384](https://github.com/atinc/ngx-tethys/issues/INFR-3384)
+
+
+
+# [13.1.0-next.12](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.11...13.1.0-next.12) (2022-06-08)
+
+
+### Bug Fixes
+
+* **tree:** 在safari等有些版本的浏览器下，出现横向滚动条 #INFR-3408  ([f912b45](https://github.com/atinc/ngx-tethys/commit/f912b45e3ead45c7b64453c128f1aec1941d774e)), closes [#INFR-3408](https://github.com/atinc/ngx-tethys/issues/INFR-3408)
+
+
+### Features
+
+* #INFR-3394 【Tree】移入展开收起箭头颜色默认为 [#999999](https://github.com/atinc/ngx-tethys/issues/999999) 移入以后改为 [#666666](https://github.com/atinc/ngx-tethys/issues/666666) ([45f759d](https://github.com/atinc/ngx-tethys/commit/45f759d5246975aa3a08077693c2741c1fee6ac9)), closes [#INFR-3394](https://github.com/atinc/ngx-tethys/issues/INFR-3394)
+* **avatar:** update margin-left of avatar-name to 8px #INFR-3416 ([#1815](https://github.com/atinc/ngx-tethys/issues/1815)) ([7330702](https://github.com/atinc/ngx-tethys/commit/7330702a561242dddac231de949ed2f897badb6a)), closes [#INFR-3416](https://github.com/atinc/ngx-tethys/issues/INFR-3416)
+* **card:** card support set thyBordered #INFR-3410 ([5360dc4](https://github.com/atinc/ngx-tethys/commit/5360dc4d2a0cf1e593b983bef8568f7f83387c27)), closes [#INFR-3410](https://github.com/atinc/ngx-tethys/issues/INFR-3410)
+* **card:** change card's border radius to 2px #INFR-3393 ([#1808](https://github.com/atinc/ngx-tethys/issues/1808)) ([002d6ec](https://github.com/atinc/ngx-tethys/commit/002d6ec0311a7e0503978ac137b352e6ef172bce)), closes [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393) [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393) [#INFR-3393](https://github.com/atinc/ngx-tethys/issues/INFR-3393)
+* **layout:** change layout content section margin bottom to 12px #INFR-3405 ([21da8e5](https://github.com/atinc/ngx-tethys/commit/21da8e5571205307a88414bac1117a15522dd74b)), closes [#INFR-3405](https://github.com/atinc/ngx-tethys/issues/INFR-3405)
+* **layout:** change layout content section margin bottom to 8px #INFR-3405 ([7e67c82](https://github.com/atinc/ngx-tethys/commit/7e67c82ba77ba033f097b3b4414708038cf59f04)), closes [#INFR-3405](https://github.com/atinc/ngx-tethys/issues/INFR-3405)
+* **segment:** adjust segment padding for block mode #INFR-3073 ([4f3d0b0](https://github.com/atinc/ngx-tethys/commit/4f3d0b00a453955b29ca11196642fe5f21100e26)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **segment:** remove segment item padding for block mode #INFR-3073 ([af1665b](https://github.com/atinc/ngx-tethys/commit/af1665bafa41997dddb38aa9242af883e4e6584c)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **tag:** add thy-tag component #INFR-3415 [#1813](https://github.com/atinc/ngx-tethys/issues/1813) ([#1814](https://github.com/atinc/ngx-tethys/issues/1814)) ([f658b1d](https://github.com/atinc/ngx-tethys/commit/f658b1d6504a5bd1ea56852f28fe95f1169ce944)), closes [#INFR-3415](https://github.com/atinc/ngx-tethys/issues/INFR-3415)
+* **tree:** ThyTreeNodeData adds itemClass  parameters to expose the ability to inject classnames into different levels of a single node node #INFR-3402 ([563661c](https://github.com/atinc/ngx-tethys/commit/563661c784742391eecaceee06c39b8ce7fee969)), closes [#INFR-3402](https://github.com/atinc/ngx-tethys/issues/INFR-3402) [#INFR-3402](https://github.com/atinc/ngx-tethys/issues/INFR-3402)
+
+
+
+# [13.1.0-next.11](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.10...13.1.0-next.11) (2022-06-07)
+
+
+### Bug Fixes
+
+* **segment:** fix ng-package.json for segment module #INFR-3073 ([#1802](https://github.com/atinc/ngx-tethys/issues/1802)) ([ca461b9](https://github.com/atinc/ngx-tethys/commit/ca461b9140e6c9b6d4769fc18ba2dd28306b3c3a)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+
+
+
+# [13.1.0-next.10](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.9...13.1.0-next.10) (2022-06-07)
+
+
+### Bug Fixes
+
+* **action:** fix action text color not change when thyActonActive is true ([ea9ad0a](https://github.com/atinc/ngx-tethys/commit/ea9ad0ab8afcd299025ebaee3f9a0459c422b81a))
+* **layout:** change layout sidebar transition all to width #INFR-3399 ([#1797](https://github.com/atinc/ngx-tethys/issues/1797)) ([0d350df](https://github.com/atinc/ngx-tethys/commit/0d350df6896bdf0ca7c7a7476cf84072c6652385)), closes [#INFR-3399](https://github.com/atinc/ngx-tethys/issues/INFR-3399)
+
+
+### Features
+
+* **divider:** add thyColor as ['default', 'light', 'danger', 'primary', 'success', 'warning'] #INFR-3383 ([#1798](https://github.com/atinc/ngx-tethys/issues/1798)) ([8f85755](https://github.com/atinc/ngx-tethys/commit/8f857559f27adf106bf2bba1bc9d95fa8b2db9f6)), closes [#INFR-3383](https://github.com/atinc/ngx-tethys/issues/INFR-3383)
+* **segment:** add segment module and component #INFR-3073 ([#1775](https://github.com/atinc/ngx-tethys/issues/1775)) ([b36e694](https://github.com/atinc/ngx-tethys/commit/b36e694f1e23333d82e95b1080c39635e42c2d78)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **segment:** add segment module and component #INFR-3073 ([#1799](https://github.com/atinc/ngx-tethys/issues/1799)) ([420d520](https://github.com/atinc/ngx-tethys/commit/420d52034efc717ffc080245800c815f948be8d2)), closes [#INFR-3073](https://github.com/atinc/ngx-tethys/issues/INFR-3073)
+* **styles:** add bg-content(#fafafa) to background utils ([31ce76e](https://github.com/atinc/ngx-tethys/commit/31ce76eefcb7f753d782edf89629e415473bc315))
+
+
+
+# [13.1.0-next.9](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.8...13.1.0-next.9) (2022-06-02)
+
+
+### Features
+
+* **styles:** add bg-lighter(#f5f5f5) and bg-bright(#fafafa) utils ([167ee3a](https://github.com/atinc/ngx-tethys/commit/167ee3a11a3f4d03f92e5c450158b98730a971b2)), closes [#f5f5f5](https://github.com/atinc/ngx-tethys/issues/f5f5f5)
+* **styles:** add justify-content-evenly to flex ([2161403](https://github.com/atinc/ngx-tethys/commit/21614032c6dc69d4398490901c73d2bc0d09691c))
+* **table:** adjust table header text color & table column sort icon style #INFR-3386 ([da94a67](https://github.com/atinc/ngx-tethys/commit/da94a67475d0a5eaa9430291e7c5cdbf70ca18b8)), closes [#INFR-3386](https://github.com/atinc/ngx-tethys/issues/INFR-3386)
+
+
+
+# [13.1.0-next.8](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.7...13.1.0-next.8) (2022-06-02)
+
+
+### Features
+
+* **dropdown:** add thyActiveClass for active origin class, default is  thy-dropdown-origin-active #INFR-3380 ([1fdc10b](https://github.com/atinc/ngx-tethys/commit/1fdc10bbd977761a2417cd0471daa317aa7f3e4e)), closes [#INFR-3380](https://github.com/atinc/ngx-tethys/issues/INFR-3380)
+* **nav:** update icon-nav size and color to 32px and  999  and add warnDeprecation for thy-icon-nav [#1787](https://github.com/atinc/ngx-tethys/issues/1787) #INFR-3378 ([1e57caa](https://github.com/atinc/ngx-tethys/commit/1e57caa7137509eaae49dd24591df2f69088f9ea)), closes [#INFR-3378](https://github.com/atinc/ngx-tethys/issues/INFR-3378)
+* **util:** add assertIconOnly function that assert a wrapper element whether only contains icon and refactor buttom use it #INFR-3375 [#1785](https://github.com/atinc/ngx-tethys/issues/1785) ([6b5ec91](https://github.com/atinc/ngx-tethys/commit/6b5ec915238139a9b6f0565758dab38987ab1e13)), closes [#INFR-3375](https://github.com/atinc/ngx-tethys/issues/INFR-3375)
+
+
+
+# [13.1.0-next.7](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.6...13.1.0-next.7) (2022-06-01)
+
+
+### Bug Fixes
+
+* **layout:** remove thyCollapsed change emit in set accessor #INFR-3255 ([#1781](https://github.com/atinc/ngx-tethys/issues/1781)) ([e27bd3f](https://github.com/atinc/ngx-tethys/commit/e27bd3fd7bc860205fe8a658b3724bff954b950b)), closes [#INFR-3255](https://github.com/atinc/ngx-tethys/issues/INFR-3255)
+* **table:** table column sort sortDirections add 'null' ([#1777](https://github.com/atinc/ngx-tethys/issues/1777)) ([5bee45b](https://github.com/atinc/ngx-tethys/commit/5bee45b102d056d428ff54c5406e80b463f6c629))
+
+
+
+# [13.1.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.33...13.1.0-next.6) (2022-06-01)
+
+
+### Features
+
+* **action:** add thyType for action(#INFR-3243) ([89f042d](https://github.com/atinc/ngx-tethys/commit/89f042dfb1794eea08252231af619139665451b6)), closes [#INFR-3243](https://github.com/atinc/ngx-tethys/issues/INFR-3243)
+* **action:** update action-text color to [#666](https://github.com/atinc/ngx-tethys/issues/666)(#INFR-3294) ([489ebc1](https://github.com/atinc/ngx-tethys/commit/489ebc18f656db0bd917e37e4ebc9523d64c5a8d)), closes [#INFR-3294](https://github.com/atinc/ngx-tethys/issues/INFR-3294)
+* **card:** add size sm and lg to thy-card #INFR-3305 ([#1779](https://github.com/atinc/ngx-tethys/issues/1779)) ([3c17867](https://github.com/atinc/ngx-tethys/commit/3c178676b5654b4d6c87fda4d6917403f8eb1ca0)), closes [#INFR-3305](https://github.com/atinc/ngx-tethys/issues/INFR-3305)
+* **input:** add prefix and suffix template to thy-input-group instead if thy-input append and prepend #INFR-3292 ([40d40e6](https://github.com/atinc/ngx-tethys/commit/40d40e6e7fdd418bbba55854391fbcdfa806a439)), closes [#INFR-3292](https://github.com/atinc/ngx-tethys/issues/INFR-3292)
+* **input:** add transparent to thyTheme for thy-input-search #INFR-3304 ([ba9ac4b](https://github.com/atinc/ngx-tethys/commit/ba9ac4baa98b60e9ff8dd83b64c19d0a1f6ababb)), closes [#INFR-3304](https://github.com/atinc/ngx-tethys/issues/INFR-3304)
+* **table:** add lg, md, sm, xs sizes for table and update spacing #INFR-3306 ([8f73a71](https://github.com/atinc/ngx-tethys/commit/8f73a71a4fe946ba68a9e17e337e666782edf6b7)), closes [#INFR-3306](https://github.com/atinc/ngx-tethys/issues/INFR-3306)
+* **table:** table component support header sort #INFR-3237 ([#1762](https://github.com/atinc/ngx-tethys/issues/1762)) ([34dc042](https://github.com/atinc/ngx-tethys/commit/34dc0424119e4aa67821036b8ddcbed47e4614b0)), closes [#INFR-3237](https://github.com/atinc/ngx-tethys/issues/INFR-3237)
+
+
+### Reverts
+
+* Revert "Merge branch 'v12.x' into master (#1766)" ([5c5d405](https://github.com/atinc/ngx-tethys/commit/5c5d4053d29b3517a38eb993a18663a63ba26ddd)), closes [#1766](https://github.com/atinc/ngx-tethys/issues/1766)
+
+
+
+# [13.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.4...13.1.0-next.5) (2022-05-31)
+
+
+### Features
+
+* **styles:** add spacers 8,9,10(32px,36px,40px), and improve negative margin docs ([39b947b](https://github.com/atinc/ngx-tethys/commit/39b947b7d288054d9600380d10033e34ad5262ed))
+
+
+
+# [13.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.3...13.1.0-next.4) (2022-05-30)
+
+
+### Features
+
+* **action:** update x of action-padding to 0.5rem #INFR-3285 ([cafc1e8](https://github.com/atinc/ngx-tethys/commit/cafc1e8f9ffb492a022107a96d7f456ae1266536)), closes [#INFR-3285](https://github.com/atinc/ngx-tethys/issues/INFR-3285)
+* **layout:** add thy-sidebar-content component with sidebar-content class and refactor header sizes [#1755](https://github.com/atinc/ngx-tethys/issues/1755) ([#1756](https://github.com/atinc/ngx-tethys/issues/1756)) ([a4479bc](https://github.com/atinc/ngx-tethys/commit/a4479bcc72a8ca6a979a83a95c9c9569674794e5))
+
+
+
+# [13.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.1...13.1.0-next.3) (2022-05-30)
+
+
+### Bug Fixes
+
+* **menu:** change menu theme name and group params #INFR-3277 ([6b6578f](https://github.com/atinc/ngx-tethys/commit/6b6578fdaf38f4aa7e085e0a3ebb495678e36bd8)), closes [#INFR-3277](https://github.com/atinc/ngx-tethys/issues/INFR-3277)
+
+
+
+## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.2...13.0.1) (2022-05-30)
+
+
+### Features
+
+* **styles:** update spacer to 0-7(4px、8px、12px、16px、20px、24px、28px) and update space component apply to it, refactor styles doc ([#1748](https://github.com/atinc/ngx-tethys/issues/1748)) ([3bb0bbd](https://github.com/atinc/ngx-tethys/commit/3bb0bbd2bcb00bd0978a11e1524eb2c30785e778))
+
+
+
+# [13.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.1...13.1.0-next.2) (2022-05-27)
+
+
+### Features
+
+* **menu:** menu suport divide theme #INFR-3229 ([2f6930e](https://github.com/atinc/ngx-tethys/commit/2f6930edf7fdaa7fb46bf3fbe05f19d949e7395b)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
+# [13.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.32...13.1.0-next.1) (2022-05-27)
+
+
+### Features
+
+* update nav and thy-header size and refactor styles ([#1741](https://github.com/atinc/ngx-tethys/issues/1741)) ([f86c73e](https://github.com/atinc/ngx-tethys/commit/f86c73ec7b93c155e295710bf5e571199b9c316a))
+
+
+
+# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+
+
+### Features
+
+* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
+* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+
+
+
+# [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
+
+
+
+# [13.0.0-next.8](https://github.com/atinc/ngx-tethys/compare/12.1.30...13.0.0-next.8) (2022-05-20)
+
+
+### Bug Fixes
+
+* **schematics:** fix order migrations ([8aeeefc](https://github.com/atinc/ngx-tethys/commit/8aeeefc97a20b5e2ad5206b3eafcafa65a4fc01e))
+
+
+
+# [13.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.28...13.0.0-next.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* **schematics:** fix path when import Action from ngx-tethys ([6c168cf](https://github.com/atinc/ngx-tethys/commit/6c168cf543c93bb128f7c419e07dd57b4c1921e0))
+* **styles:** use -nav-link-padding-y by variables fix errors and add Sass desc in migration-v13 ([#1698](https://github.com/atinc/ngx-tethys/issues/1698)) ([8d33df9](https://github.com/atinc/ngx-tethys/commit/8d33df9a7bdd6a89f4711002ae1fbcfdbc01f981))
+
+
+### Features
+
+* **button:** remove deprecated @Input thySquare, the default type is already square [#1686](https://github.com/atinc/ngx-tethys/issues/1686) #INFR-3125 ([#1687](https://github.com/atinc/ngx-tethys/issues/1687)) ([390d8aa](https://github.com/atinc/ngx-tethys/commit/390d8aa890f61b327fd9e2e96742cde341c940c9)), closes [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125) [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125)
+
+
+
+# [13.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/12.1.27...13.0.0-next.5) (2022-05-17)
+
+
+### Bug Fixes
+
+* **schematics:** fix import error when has alias #INFR-2685 ([98c085f](https://github.com/atinc/ngx-tethys/commit/98c085f1b31c87e265758bc4de01b217ccd420c0)), closes [#INFR-2685](https://github.com/atinc/ngx-tethys/issues/INFR-2685)
+
+
+### Features
+
+* **styles:** export all mixin use forward #INFR-3124 [#1683](https://github.com/atinc/ngx-tethys/issues/1683) ([e126f00](https://github.com/atinc/ngx-tethys/commit/e126f00d4ba11b5dc065c9489560c1756baaebcd)), closes [#INFR-3124](https://github.com/atinc/ngx-tethys/issues/INFR-3124)
+
+
+
+# [13.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.3...13.0.0-next.4) (2022-05-13)
+
+
+### Features
+
+* **markdown:** remove markdown component and some js assets #INFR-1638 ([243407e](https://github.com/atinc/ngx-tethys/commit/243407e819a07a5e8fb2bba06d74f1503470f6cc)), closes [#INFR-1638](https://github.com/atinc/ngx-tethys/issues/INFR-1638)
+* **schematics:** add schematics for migrate to v13 ([#1664](https://github.com/atinc/ngx-tethys/issues/1664)) ([291f0ba](https://github.com/atinc/ngx-tethys/commit/291f0ba498359a3b1f4bd82acbe23c0530713a7e))
+* **store:** remove store from tethys and add mini-store to core for time-picker and notify #INFR-2347 ([62aa1f9](https://github.com/atinc/ngx-tethys/commit/62aa1f992de74b0ae57622c12fab4c75700fbf3b)), closes [#INFR-2347](https://github.com/atinc/ngx-tethys/issues/INFR-2347)
+
+
+
+# [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
+
+
+### Bug Fixes
+
+* update incorrect import path for select.mixin ([a867c54](https://github.com/atinc/ngx-tethys/commit/a867c548d5d95bb06ddc26fad583bbd1c2da7625))
+
+
+
+# [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
+
+
+
+# [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
+
+
+### Features
+
+* **schematics:** replace ngx-tethys/store to @tethys/store at update-12  ([#1653](https://github.com/atinc/ngx-tethys/issues/1653)) ([aae1721](https://github.com/atinc/ngx-tethys/commit/aae17215820006c15d001016062886f5cdc465c7))
+
+
+
+# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
+
+
+
+## [12.1.33](https://github.com/atinc/ngx-tethys/compare/12.1.32...12.1.33) (2022-05-31)
+
+### Bug Fixes
+
+* **image:** fix image can not copy when preview ([#1763](https://github.com/atinc/ngx-tethys/issues/1763)) ([03c3b72](https://github.com/atinc/ngx-tethys/commit/03c3b72680f000d2e64f081b2f0f9cbf2a08e599))
+
+
+# [13.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.4...13.1.0-next.5) (2022-05-31)
+
+
+### Features
+
+* **styles:** add spacers 8,9,10(32px,36px,40px), and improve negative margin docs ([39b947b](https://github.com/atinc/ngx-tethys/commit/39b947b7d288054d9600380d10033e34ad5262ed))
+
+
+
+# [13.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.3...13.1.0-next.4) (2022-05-30)
+
+
+### Features
+
+* **action:** update x of action-padding to 0.5rem #INFR-3285 ([cafc1e8](https://github.com/atinc/ngx-tethys/commit/cafc1e8f9ffb492a022107a96d7f456ae1266536)), closes [#INFR-3285](https://github.com/atinc/ngx-tethys/issues/INFR-3285)
+* **layout:** add thy-sidebar-content component with sidebar-content class and refactor header sizes [#1755](https://github.com/atinc/ngx-tethys/issues/1755) ([#1756](https://github.com/atinc/ngx-tethys/issues/1756)) ([a4479bc](https://github.com/atinc/ngx-tethys/commit/a4479bcc72a8ca6a979a83a95c9c9569674794e5))
+
+
+
+# [13.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.1...13.1.0-next.3) (2022-05-30)
+
+
+### Bug Fixes
+
+* **menu:** change menu theme name and group params #INFR-3277 ([6b6578f](https://github.com/atinc/ngx-tethys/commit/6b6578fdaf38f4aa7e085e0a3ebb495678e36bd8)), closes [#INFR-3277](https://github.com/atinc/ngx-tethys/issues/INFR-3277)
+
+
+### Features
+
+* **styles:** update spacer to 0-7(4px、8px、12px、16px、20px、24px、28px) and update space component apply to it, refactor styles doc ([#1748](https://github.com/atinc/ngx-tethys/issues/1748)) ([3bb0bbd](https://github.com/atinc/ngx-tethys/commit/3bb0bbd2bcb00bd0978a11e1524eb2c30785e778))
+
+
+
+# [13.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.1...13.1.0-next.2) (2022-05-27)
+
+
+### Features
+
+* **menu:** menu suport divide theme #INFR-3229 ([2f6930e](https://github.com/atinc/ngx-tethys/commit/2f6930edf7fdaa7fb46bf3fbe05f19d949e7395b)), closes [#INFR-3229](https://github.com/atinc/ngx-tethys/issues/INFR-3229)
+
+
+
+# [13.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/13.1.0-next.0...13.1.0-next.1) (2022-05-27)
+
+
+### Features
+
+* update nav and thy-header size and refactor styles ([#1741](https://github.com/atinc/ngx-tethys/issues/1741)) ([f86c73e](https://github.com/atinc/ngx-tethys/commit/f86c73ec7b93c155e295710bf5e571199b9c316a))
+
+
+
+# [13.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.1.0-next.0) (2022-05-27)
+
+
+### Features
+
+* **action:** add thy-action compoent #INFR-3240 [#1729](https://github.com/atinc/ngx-tethys/issues/1729) ([921abc6](https://github.com/atinc/ngx-tethys/commit/921abc6a5c01ce82408ff444a1ade169c84344af)), closes [#INFR-3240](https://github.com/atinc/ngx-tethys/issues/INFR-3240)
+* **layout:** add thy-sidebar-header and thy-sidebar-footer, add thyTheme input to thy-sidebar, refactor styles (#INFR-3226) ([#1728](https://github.com/atinc/ngx-tethys/issues/1728)) ([0e6a5e9](https://github.com/atinc/ngx-tethys/commit/0e6a5e9db91b18972b484ed3008cb0b91ff984e8)), closes [#INFR-3226](https://github.com/atinc/ngx-tethys/issues/INFR-3226)
+
+
+
+## [13.0.1](https://github.com/atinc/ngx-tethys/compare/13.0.0...13.0.1) (2022-05-30)
+
+
+## [12.1.32](https://github.com/atinc/ngx-tethys/compare/12.1.31...12.1.32) (2022-05-27)
+
+### Bug Fixes
+
+* **image:** adjust header and operation opacity #WIK-6737 ([#1723](https://github.com/atinc/ngx-tethys/issues/1723)) ([c7d60fe](https://github.com/atinc/ngx-tethys/commit/c7d60fe2f15f4b729af2c297b0ca7b393bf39a02)), closes [#WIK-6737](https://github.com/atinc/ngx-tethys/issues/WIK-6737)
+* **image:** revise the copy link tips #WIK-6715 ([05f4626](https://github.com/atinc/ngx-tethys/commit/05f4626da470b6d73490929bcf3e8306515a02f6)), closes [#WIK-6715](https://github.com/atinc/ngx-tethys/issues/WIK-6715)
+
+
+### Features
+
+* **copy:** add thyCopyTipOffset input #INFR-3254 ([#1735](https://github.com/atinc/ngx-tethys/issues/1735)) ([3f06509](https://github.com/atinc/ngx-tethys/commit/3f065096b9c7e19f459898101c5bcb8636c50d8a)), closes [#INFR-3254](https://github.com/atinc/ngx-tethys/issues/INFR-3254)
+
+
+
+# [13.0.0](https://github.com/atinc/ngx-tethys/compare/12.1.31...13.0.0) (2022-05-23)
+
+
+
+# [13.0.0-next.8](https://github.com/atinc/ngx-tethys/compare/12.1.30...13.0.0-next.8) (2022-05-20)
+
+
+### Bug Fixes
+
+* **schematics:** fix order migrations ([8aeeefc](https://github.com/atinc/ngx-tethys/commit/8aeeefc97a20b5e2ad5206b3eafcafa65a4fc01e))
+
+
+
+# [13.0.0-next.6](https://github.com/atinc/ngx-tethys/compare/12.1.28...13.0.0-next.6) (2022-05-19)
+
+
+### Bug Fixes
+
+* **schematics:** fix path when import Action from ngx-tethys ([6c168cf](https://github.com/atinc/ngx-tethys/commit/6c168cf543c93bb128f7c419e07dd57b4c1921e0))
+* **styles:** use -nav-link-padding-y by variables fix errors and add Sass desc in migration-v13 ([#1698](https://github.com/atinc/ngx-tethys/issues/1698)) ([8d33df9](https://github.com/atinc/ngx-tethys/commit/8d33df9a7bdd6a89f4711002ae1fbcfdbc01f981))
+
+
+### Features
+
+* **button:** remove deprecated @Input thySquare, the default type is already square [#1686](https://github.com/atinc/ngx-tethys/issues/1686) #INFR-3125 ([#1687](https://github.com/atinc/ngx-tethys/issues/1687)) ([390d8aa](https://github.com/atinc/ngx-tethys/commit/390d8aa890f61b327fd9e2e96742cde341c940c9)), closes [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125) [#INFR-3125](https://github.com/atinc/ngx-tethys/issues/INFR-3125)
+
+
+
+# [13.0.0-next.5](https://github.com/atinc/ngx-tethys/compare/12.1.27...13.0.0-next.5) (2022-05-17)
+
+
+### Bug Fixes
+
+* **schematics:** fix import error when has alias #INFR-2685 ([98c085f](https://github.com/atinc/ngx-tethys/commit/98c085f1b31c87e265758bc4de01b217ccd420c0)), closes [#INFR-2685](https://github.com/atinc/ngx-tethys/issues/INFR-2685)
+
+
+### Features
+
+* **styles:** export all mixin use forward #INFR-3124 [#1683](https://github.com/atinc/ngx-tethys/issues/1683) ([e126f00](https://github.com/atinc/ngx-tethys/commit/e126f00d4ba11b5dc065c9489560c1756baaebcd)), closes [#INFR-3124](https://github.com/atinc/ngx-tethys/issues/INFR-3124)
+
+
+
+# [13.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.3...13.0.0-next.4) (2022-05-13)
+
+
+### Features
+
+* **markdown:** remove markdown component and some js assets #INFR-1638 ([243407e](https://github.com/atinc/ngx-tethys/commit/243407e819a07a5e8fb2bba06d74f1503470f6cc)), closes [#INFR-1638](https://github.com/atinc/ngx-tethys/issues/INFR-1638)
+* **schematics:** add schematics for migrate to v13 ([#1664](https://github.com/atinc/ngx-tethys/issues/1664)) ([291f0ba](https://github.com/atinc/ngx-tethys/commit/291f0ba498359a3b1f4bd82acbe23c0530713a7e))
+* **store:** remove store from tethys and add mini-store to core for time-picker and notify #INFR-2347 ([62aa1f9](https://github.com/atinc/ngx-tethys/commit/62aa1f992de74b0ae57622c12fab4c75700fbf3b)), closes [#INFR-2347](https://github.com/atinc/ngx-tethys/issues/INFR-2347)
+
+
+
+# [13.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.2...13.0.0-next.3) (2022-05-13)
+
+
+### Bug Fixes
+
+* update incorrect import path for select.mixin ([a867c54](https://github.com/atinc/ngx-tethys/commit/a867c548d5d95bb06ddc26fad583bbd1c2da7625))
+
+
+
+# [13.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/13.0.0-next.1...13.0.0-next.2) (2022-05-13)
+
+
+
+# [13.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/12.1.26...13.0.0-next.1) (2022-05-13)
+
+
+### Features
+
+* **schematics:** replace ngx-tethys/store to @tethys/store at update-12  ([#1653](https://github.com/atinc/ngx-tethys/issues/1653)) ([aae1721](https://github.com/atinc/ngx-tethys/commit/aae17215820006c15d001016062886f5cdc465c7))
+
+
+
+# [13.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/12.1.25...13.0.0-next.0) (2022-05-11)
+
+
+
+## [12.1.31](https://github.com/atinc/ngx-tethys/compare/12.1.30...12.1.31) (2022-05-23)
+
+
+
+## [12.1.30](https://github.com/atinc/ngx-tethys/compare/12.1.29...12.1.30) (2022-05-20)
+
+
+### Bug Fixes
+
+* **notify:** fix assign default config error ([#1703](https://github.com/atinc/ngx-tethys/issues/1703)) ([6ea753f](https://github.com/atinc/ngx-tethys/commit/6ea753f5a18b9585ef07653b657174cb7902c93f))
+
+
+### Features
+
+* **divider:** add thyDeeper param to control whether the color is deepened and set height to 16px for vertical #INFR-3206 ([6a1b38d](https://github.com/atinc/ngx-tethys/commit/6a1b38d1b3c0e0e0b23e8ce093a5912ace19e1c0)), closes [#INFR-3206](https://github.com/atinc/ngx-tethys/issues/INFR-3206)
+* **image:** support keydownEvents and adjust preview interactive #INFR-3204 ([#1705](https://github.com/atinc/ngx-tethys/issues/1705)) ([a8fc56e](https://github.com/atinc/ngx-tethys/commit/a8fc56e42075cceeec44d545647956a0f2e28b96)), closes [#INFR-3204](https://github.com/atinc/ngx-tethys/issues/INFR-3204)
+
+
+
+## [12.1.29](https://github.com/atinc/ngx-tethys/compare/12.1.28...12.1.29) (2022-05-19)
+
+
+### Bug Fixes
+
+* #INFR-3116 the selected status is lost after dragging  ([a2df98b](https://github.com/atinc/ngx-tethys/commit/a2df98b9b36a7f57679fca4ce552a38ad75e2203)), closes [#INFR-3116](https://github.com/atinc/ngx-tethys/issues/INFR-3116)
+* **cascader:** fix empty data when use loadData property ([#1691](https://github.com/atinc/ngx-tethys/issues/1691)) ([31ed730](https://github.com/atinc/ngx-tethys/commit/31ed730d8b47dacf9b99f83b996805a5d951a3ac))
+* **pagination:**  fix pagination style and add blur methods for quick jump #INFR-3074 ([#1662](https://github.com/atinc/ngx-tethys/issues/1662)) ([b8062a8](https://github.com/atinc/ngx-tethys/commit/b8062a8b352a79c121b0db188d46eaa6ba4b3b65)), closes [#INFR-3074](https://github.com/atinc/ngx-tethys/issues/INFR-3074)
+* **pagination:** hide thy-pagination-total when total is 0 zd/#INFR-3147 ([#1697](https://github.com/atinc/ngx-tethys/issues/1697)) ([6c4f3b6](https://github.com/atinc/ngx-tethys/commit/6c4f3b66d1c1ca1c1b36af9c51162fcda2cebc04)), closes [zd/#INFR-3147](https://github.com/atinc/ngx-tethys/issues/INFR-3147)
+
+
+### Features
+
+* **image:** add preview image operations #INFR-3117 ([59627ca](https://github.com/atinc/ngx-tethys/commit/59627caec7c7806b3946dcd120104b92fdc2cf42)), closes [#INFR-3117](https://github.com/atinc/ngx-tethys/issues/INFR-3117)
+* **image:** the IMAGE_MAX_ZOOM form 5 to 3 #WIK-6644 ([#1699](https://github.com/atinc/ngx-tethys/issues/1699)) ([862259c](https://github.com/atinc/ngx-tethys/commit/862259c706969b8e5875d6ea7138cc0a8b214a0d)), closes [#WIK-6644](https://github.com/atinc/ngx-tethys/issues/WIK-6644)
+* **image:** update operations style with pointer-event #WIK-6643 ([#1700](https://github.com/atinc/ngx-tethys/issues/1700)) ([d473f65](https://github.com/atinc/ngx-tethys/commit/d473f6584f2869ac83a2347dc5ad31ec7986355f)), closes [#WIK-6643](https://github.com/atinc/ngx-tethys/issues/WIK-6643)
+
+
+
+## [12.1.28](https://github.com/atinc/ngx-tethys/compare/12.1.27...12.1.28) (2022-05-18)
+
+
+### Bug Fixes
+
+* **image:** export service and class #INFR-3132 ([#1689](https://github.com/atinc/ngx-tethys/issues/1689)) ([a9cc4a7](https://github.com/atinc/ngx-tethys/commit/a9cc4a7c74ab6e21b4f6eabef671a29d4459ff3f)), closes [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132) [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132) [#INFR-3132](https://github.com/atinc/ngx-tethys/issues/INFR-3132)
+
+
+
 ## [12.1.27](https://github.com/atinc/ngx-tethys/compare/12.1.26...12.1.27) (2022-05-17)
 
 

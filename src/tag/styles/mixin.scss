@@ -1,0 +1,84 @@
+@use "sass:color";
+@use '../../styles/variables.scss';
+
+@mixin tag-bg-variant($bg-color) {
+    background-color: $bg-color;
+    &.thy-tag-hover {
+        &:hover {
+            background-color: color.adjust($bg-color, $lightness: -5%);
+            cursor: pointer;
+        }
+    }
+}
+
+@mixin tag-color-variant($color, $hover-color) {
+    color: $color;
+    &.thy-tag-hover {
+        thy-icon.thy-icon-close,
+        &:hover {
+            color: $hover-color;
+            cursor: pointer;
+            thy-icon.thy-icon-close {
+                display: inline-block;
+            }
+        }
+    }
+}
+
+@mixin tag-border-variant($color, $border-color) {
+    color: $color;
+    border-color: $border-color;
+}
+
+@mixin tag-size($height, $padding-x, $font-size, $icon-font-size) {
+    height: $height;
+    padding: {
+        left: $padding-x;
+        right: $padding-x;
+    }
+    font-size: $font-size;
+    .i,
+    .thy-icon {
+        font-size: $icon-font-size;
+    }
+    // @if $size == lg {
+    //     &-#{$size} {
+    //         height: $height;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         font-size: variables.$font-size-base;
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-md;
+    //         }
+    //     }
+    // } @else if $size == md {
+    //     &-#{$size} {
+    //         height: $height;
+    //         font-size: variables.$font-size-sm;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-base;
+    //         }
+    //     }
+    // } @else {
+    //     &-#{$size} {
+    //         height: $height;
+    //         font-size: variables.$font-size-sm;
+    //         padding: {
+    //             left: $padding-x;
+    //             right: $padding-x;
+    //         }
+    //         .i,
+    //         .thy-icon {
+    //             font-size: variables.$font-size-sm;
+    //         }
+    //     }
+    // }
+}

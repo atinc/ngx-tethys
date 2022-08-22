@@ -6,15 +6,30 @@ import { ThyImageGroupComponent } from './image-group.component';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
 import { ThyImageService } from './image.service';
 import { PortalModule } from '@angular/cdk/portal';
-import { THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER } from './image-config';
+import { THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER } from './image.config';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThyCopyModule } from 'ngx-tethys/copy';
+import { ThyLoadingModule } from 'ngx-tethys/loading';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
     declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
     exports: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
-    imports: [CommonModule, PortalModule, DragDropModule, ThyIconModule, ThyDividerModule, ThyTooltipModule],
+    imports: [
+        CommonModule,
+        PortalModule,
+        DragDropModule,
+        ThyIconModule,
+        ThyDialogModule,
+        ThyDividerModule,
+        ThyTooltipModule,
+        ThyCopyModule,
+        ThyLoadingModule,
+        ThyActionModule
+    ],
     providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })
 export class ThyImageModule {}

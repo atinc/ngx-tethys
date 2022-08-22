@@ -1,17 +1,24 @@
-import { NgModule } from '@angular/core';
+import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyMenuModule } from 'ngx-tethys/menu';
+import { ThyActionModule } from 'ngx-tethys/action';
+
 import { CommonModule } from '@angular/common';
-import { NgxTethysModule } from 'ngx-tethys';
-import { ThyMenuGroupExampleComponent } from './group/group.component';
-import { ThyMenuItemExampleComponent } from './item/item.component';
-import { ThyMenuDividerExampleComponent } from './divider/divider.component';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { FormsModule } from '@angular/forms';
 
-const COMPONENTS = [ThyMenuGroupExampleComponent, ThyMenuItemExampleComponent, ThyMenuDividerExampleComponent];
-
-@NgModule({
-    declarations: COMPONENTS,
-    imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
-    exports: COMPONENTS,
-    providers: []
-})
-export class ThyMenuExamplesModule {}
+export default {
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyMenuModule,
+        ThyGridModule,
+        ThyDividerModule,
+        ThyIconModule,
+        ThyActionMenuModule,
+        ThyRadioModule,
+        ThyActionModule
+    ]
+};

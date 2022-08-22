@@ -73,7 +73,7 @@ module.exports = [
             },
             {
                 name: 'size',
-                description: '弹出框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), supperLg (94vw), full (全屏)',
+                description: '弹出框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), superLg (94vw), full (全屏)',
                 type: 'ThyDialogSizes',
                 default: 'md'
             },

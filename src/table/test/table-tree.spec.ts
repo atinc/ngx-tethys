@@ -143,12 +143,12 @@ describe('ThyTable: tree', () => {
 
         const secondRowColumnItem = rows[1].querySelectorAll('td');
         const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         tick(100);
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
 
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
@@ -160,7 +160,7 @@ describe('ThyTable: tree', () => {
 
         const secondRowColumnItem = tableComponent.nativeElement.querySelectorAll('tr')[1].querySelectorAll('td');
         const expandElement = secondRowColumnItem[0].querySelector('.tree-expand-icon');
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         tick(100);
 
@@ -168,13 +168,13 @@ describe('ThyTable: tree', () => {
             .querySelectorAll('tr')[2]
             .querySelectorAll('td')[0]
             .querySelector('.tree-expand-icon');
-        dispatchFakeEvent(twoExpandElement, 'click');
+        dispatchFakeEvent(twoExpandElement, 'click', true);
         fixture.detectChanges();
         tick(100);
 
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(10);
 
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
@@ -193,14 +193,14 @@ describe('ThyTable: tree', () => {
 
         expect(expandElement).toBeTruthy();
 
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
 
         tick(100);
 
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(9);
 
-        dispatchFakeEvent(expandElement, 'click');
+        dispatchFakeEvent(expandElement, 'click', true);
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);

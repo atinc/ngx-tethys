@@ -9,13 +9,15 @@ import { ThyCardHeaderComponent } from '../header.component';
 @Component({
     selector: 'thy-card-test-basic',
     template: `
-        <thy-card>
+        <thy-card [thySize]="size">
             <thy-card-header thyTitle="This is basic test"></thy-card-header>
             <thy-card-content>This is content</thy-card-content>
         </thy-card>
     `
 })
 class CardBasicComponent implements OnInit {
+    size: 'md' | 'sm' | 'lg' = 'md';
+
     constructor() {}
 
     ngOnInit(): void {}
@@ -46,6 +48,21 @@ class CardClearPaddingComponent implements OnInit {
     `
 })
 class CardDividedComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit(): void {}
+}
+
+@Component({
+    selector: 'thy-test-card-bordered',
+    template: `
+        <thy-card thyBordered="true">
+            <thy-card-header thyTitle="This is basic test"></thy-card-header>
+            <thy-card-content>This is content</thy-card-content>
+        </thy-card>
+    `
+})
+class CardBorderedComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
@@ -85,6 +102,7 @@ describe('thy-card', () => {
             declarations: [
                 CardBasicComponent,
                 CardDividedComponent,
+                CardBorderedComponent,
                 CardClearPaddingComponent,
                 CardHeaderSizeComponent,
                 CardContentSizeAndScrollComponent
@@ -109,12 +127,23 @@ describe('thy-card', () => {
             const cardElement: HTMLElement = cardBasicDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card')).toBe(true);
         });
+
         it('should header and content align', () => {
             const headerDebugElement = cardBasicDebugElement.query(By.css('.card-header-title'));
             const contentDebugElement = cardBasicDebugElement.query(By.directive(ThyCardContentComponent));
             expect((headerDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left).toEqual(
                 (contentDebugElement.nativeElement as HTMLElement).getBoundingClientRect().left
             );
+        });
+
+        it('should set size', () => {
+            ['lg', 'sm'].forEach(size => {
+                basicFixture.componentInstance.size = size as 'lg' | 'sm';
+                basicFixture.detectChanges();
+                const cardElement: HTMLElement = cardBasicDebugElement.nativeElement;
+                expect(cardElement.classList.contains('thy-card')).toBe(true);
+                expect(cardElement.classList.contains(`thy-card-${size}`)).toBe(true);
+            });
         });
     });
 
@@ -133,6 +162,25 @@ describe('thy-card', () => {
             expect(cardDebugElement).toBeTruthy();
             const cardElement: HTMLElement = cardDebugElement.nativeElement;
             expect(cardElement.classList.contains('thy-card--divided')).toBe(true);
+        });
+    });
+
+    describe('bordered', () => {
+        let fixture: ComponentFixture<CardBorderedComponent>;
+        let cardDebugElement: DebugElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CardBorderedComponent);
+            fixture.detectChanges();
+            cardDebugElement = fixture.debugElement.query(By.directive(ThyCardComponent));
+        });
+
+        it('should get correct bordered thy-card--bordered class', () => {
+            fixture.detectChanges();
+            expect(fixture).toBeTruthy();
+            expect(cardDebugElement).toBeTruthy();
+            const cardElement: HTMLElement = cardDebugElement.nativeElement;
+            expect(cardElement.classList.contains('thy-card--bordered')).toBe(true);
         });
     });
 
@@ -168,12 +216,13 @@ describe('thy-card', () => {
 
         it('should set card header size success', () => {
             fixture.detectChanges();
-            expect(cardHeaderElement.querySelector('.thy-card-header')).toBeTruthy;
+            expect(cardHeaderElement).toBeTruthy();
+            expect(cardHeaderElement.classList.contains('thy-card-header')).toBeTruthy();
 
             ['lg', 'sm'].forEach(size => {
                 fixture.debugElement.componentInstance.size = size;
                 fixture.detectChanges();
-                expect(cardHeaderElement.querySelector(`.thy-card-header-${size}`));
+                expect(cardHeaderElement.classList.contains(`thy-card-header-${size}`));
             });
         });
     });
@@ -192,18 +241,19 @@ describe('thy-card', () => {
 
         it('should set card content size success', () => {
             fixture.detectChanges();
-            expect(cardContentElement.querySelector('.thy-card-content')).toBeTruthy;
+            expect(cardContentElement).toBeTruthy();
+            expect(cardContentElement.classList.contains('thy-card-content')).toBeTruthy();
             fixture.debugElement.componentInstance.size = `sm`;
             fixture.detectChanges();
-            expect(cardContentElement.querySelector(`.thy-card-content--sm`)).toBeTruthy;
+            expect(cardContentElement.classList.contains(`thy-card-content--sm`)).toBeTruthy();
         });
 
         it('should set card content scroll success', () => {
             fixture.detectChanges();
-            expect(cardContentElement.querySelector('.thy-card-content--scroll')).toBeFalsy;
+            expect(cardContentElement.classList.contains('thy-card-content--scroll')).toBeFalsy();
             fixture.debugElement.componentInstance.isScroll = true;
             fixture.detectChanges();
-            expect(cardContentElement.querySelector(`.thy-card-content--scroll`)).toBeTruthy;
+            expect(cardContentElement.classList.contains(`thy-card-content--scroll`)).toBeTruthy();
         });
     });
 });

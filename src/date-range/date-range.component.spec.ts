@@ -21,7 +21,7 @@ import {
     addMonths,
     endOfWeek,
     format,
-    isSameDay
+    differenceInDays
 } from 'date-fns';
 
 registerLocaleData(zh);
@@ -154,15 +154,15 @@ describe('ThyTestDateRangeComponent', () => {
 
         it('should support thyDisabledDate', fakeAsync(() => {
             fixture.detectChanges();
-            const compareDate = addDays(startOfMonth(setMonth(CURRENT_DATE, getMonth(CURRENT_DATE) - 2)), -1);
-            fixtureInstance.thyDisabledDate = (current: Date) => {
-                return isSameDay(current, compareDate);
+            fixtureInstance.thyDisabledDate = (date: Date) => {
+                const tooLate = differenceInDays(date, CURRENT_DATE) > 7;
+                const tooEarly = differenceInDays(CURRENT_DATE, date) > 7;
+                return tooEarly || tooLate;
             };
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
             const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-action-menu-container');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
-
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
             );

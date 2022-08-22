@@ -1,4 +1,3 @@
-import { InputBoolean } from 'ngx-tethys/core';
 import { DateRangeItemInfo } from 'ngx-tethys/date-range';
 import { TinyDate } from 'ngx-tethys/util';
 
@@ -25,6 +24,9 @@ import { ThyCalendarHeaderOperationDirective as HeaderOperation, ThyDateCellDire
 export type CalendarMode = 'month' | 'year';
 type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
 
+/**
+ * Calendar 组件
+ */
 @Component({
     selector: 'thy-calendar',
     templateUrl: './calendar.component.html',
@@ -37,55 +39,61 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
 
     @HostBinding('class.thy-calendar-full') className1 = true;
 
-    // @HostBinding('class.thy-pick-calendar-mini') className2 = !thyFullscreen;
-
+    /**
+     * 展示模式，默认为'month'，'month' | 'year'
+     */
     @Input() thyMode: CalendarMode = 'month';
 
+    /**
+     * （可双向绑定）展示日期，默认为当前日期
+     */
     @Input() thyValue?: Date;
 
+    /**
+     * 不可选择的日期
+     */
     @Input() thyDisabledDate?: (date: Date) => boolean;
 
-    @Output() thyModeChange: EventEmitter<CalendarMode> = new EventEmitter();
-
-    @Output() thyPanelChange: EventEmitter<{ date: Date; mode: CalendarMode }> = new EventEmitter();
-
+    /**
+     * 日期选择变化的回调
+     */
     @Output() thySelectChange: EventEmitter<Date> = new EventEmitter();
 
+    /**
+     * 日期选择变化的回调
+     */
     @Output() thyValueChange: EventEmitter<Date> = new EventEmitter();
 
+    /**
+     * 日期选择范围变化的回调
+     */
     @Output() thyDateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
+    /**
+     * （可作为内容）自定义渲染日期单元格，模版内容会被追加到单元格
+     */
     @Input() thyDateCell?: CalendarDateTemplate;
+
+    /**
+     *  追加到单元格的自定义模板
+     */
     @ContentChild(DateCell, { read: TemplateRef }) thyDateCellChild?: CalendarDateTemplate;
     get dateCell(): CalendarDateTemplate {
         return (this.thyDateCell || this.thyDateCellChild)!;
     }
 
-    // @Input() thyDateFullCell?: CalendarDateTemplate;
-    // @ContentChild(DateFullCell, { read: TemplateRef }) thyDateFullCellChild?: CalendarDateTemplate;
-    // get dateFullCell(): CalendarDateTemplate {
-    //     return (this.thyDateFullCell || this.thyDateFullCellChild)!;
-    // }
-
-    // @Input() thyMonthCell?: CalendarDateTemplate;
-    // @ContentChild(MonthCell, { read: TemplateRef }) thyMonthCellChild?: CalendarDateTemplate;
-    // get monthCell(): CalendarDateTemplate {
-    //     return (this.thyMonthCell || this.thyMonthCellChild)!;
-    // }
-
-    // @Input() thyMonthFullCell?: CalendarDateTemplate;
-    // @ContentChild(MonthFullCell, { read: TemplateRef }) thyMonthFullCellChild?: CalendarDateTemplate;
-    // get monthFullCell(): CalendarDateTemplate {
-    //     return (this.thyMonthFullCell || this.thyMonthFullCellChild)!;
-    // }
-
+    /**
+     * （可作为内容）自定义渲染右上角操作项
+     */
     @Input() thyCalendarHeaderOperation?: CalendarDateTemplate;
+
+    /**
+     * 右上角操作项的自定义模板
+     */
     @ContentChild(HeaderOperation, { read: TemplateRef }) thyCalendarHeaderOperationChild?: CalendarDateTemplate;
     get headerOperation(): CalendarDateTemplate {
         return (this.thyCalendarHeaderOperation || this.thyCalendarHeaderOperationChild)!;
     }
-
-    @Input() @InputBoolean() thyFullscreen = true;
 
     public currentDate = new TinyDate();
 
@@ -98,11 +106,6 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {}
-
-    // onModeChange(mode: CalendarMode): void {
-    //     this.thyModeChange.emit(mode);
-    //     this.thyPanelChange.emit({ date: this.currentDate.nativeDate, mode });
-    // }
 
     onYearSelect(year: number): void {
         const date = this.currentDate.setYear(year);

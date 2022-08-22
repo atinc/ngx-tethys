@@ -8,26 +8,13 @@ import { ThyBreadcrumbModule } from 'ngx-tethys/breadcrumb';
 import { ThyMenuModule } from 'ngx-tethys/menu';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThyLayoutBasicExampleComponent } from './basic/basic.component';
-import { ThyLayoutFullExampleComponent } from './full/full.component';
-import { ThyLayoutHeaderExampleComponent } from './header/header.component';
-import { ThyLayoutSidebarExampleComponent } from './sidebar/sidebar.component';
+import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThySpaceModule } from 'ngx-tethys/space';
+
 import { FormsModule } from '@angular/forms';
-import { ThyLayoutSubheaderExampleComponent } from './subheader/subheader.component';
-import { ThyLayoutContentExampleComponent } from './content/content.component';
 
-const COMPONENTS = [
-    ThyLayoutBasicExampleComponent,
-    ThyLayoutFullExampleComponent,
-    ThyLayoutHeaderExampleComponent,
-    ThyLayoutSidebarExampleComponent,
-    ThyLayoutSubheaderExampleComponent,
-    ThyLayoutContentExampleComponent
-];
-
-@NgModule({
-    declarations: COMPONENTS,
-    entryComponents: COMPONENTS,
+export default {
     imports: [
         CommonModule,
         FormsModule,
@@ -38,9 +25,9 @@ const COMPONENTS = [
         ThyBreadcrumbModule,
         ThyMenuModule,
         ThyInputModule,
-        ThyTooltipModule
-    ],
-    exports: COMPONENTS,
-    providers: []
-})
-export class ThyLayoutExamplesModule {}
+        ThyTooltipModule,
+        ThyActionModule,
+        ThyDividerModule,
+        ThySpaceModule
+    ]
+};

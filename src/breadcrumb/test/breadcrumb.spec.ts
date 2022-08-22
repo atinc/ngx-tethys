@@ -25,7 +25,7 @@ import { ThyIconModule } from './../../icon/icon.module';
 })
 class ThyDemoBreadcrumbBasicComponent {
     thyIconName = `folder-fill`;
-    thySeparator = `slash`;
+    thySeparator = ``;
 }
 
 @NgModule({
@@ -89,7 +89,7 @@ describe('ThyBreadcrumb', () => {
         fixture.detectChanges();
         assertBreadcrumbComponentAndItemsClass();
         assertBreadcrumbIconClass(`folder-fill`);
-        expect(breadcrumbComponent.nativeElement.classList.contains('separator-slash')).toBe(true);
+        expect(breadcrumbComponent.nativeElement.classList.contains('thy-breadcrumb-separator')).toBe(false);
     });
 
     it('should have correct class when change icon name', () => {
@@ -113,10 +113,13 @@ describe('ThyBreadcrumb', () => {
         expect(breadcrumbIcon).toBeNull();
     });
 
-    it('should have correct class when separator is backslash', () => {
-        basicTestComponent.thySeparator = `backslash`;
-        fixture.detectChanges();
-        expect(breadcrumbComponent.nativeElement.classList.contains('separator-backslash')).toBe(true);
+    it('should have correct class when separator is backslash or backslash or vertical-line', () => {
+        ['backslash', 'backslash', 'vertical-line'].forEach(separator => {
+            basicTestComponent.thySeparator = separator;
+            fixture.detectChanges();
+            expect(breadcrumbComponent.nativeElement.classList.contains('thy-breadcrumb-separator')).toBe(true);
+            expect(breadcrumbComponent.nativeElement.classList.contains(`thy-breadcrumb-separator-${separator}`)).toBe(true);
+        });
     });
 
     it('should have correct class when separator is null', () => {

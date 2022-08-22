@@ -1,0 +1,93 @@
+@use "../../styles/variables";
+@use "mixin";
+@use "./variables.scss" as style;
+
+.#{style.$calendar-prefix-cls}-year-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: style.$zindex-picker-panel;
+    background: variables.$white;
+    border-radius: variables.$border-radius-lg;
+    outline: none;
+    display: flex;
+    flex-direction: column;
+    background: variables.$white;
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-hidden {
+    display: none;
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-header {
+    @include mixin.calendarPanelHeader('thy-calendar-year-panel');
+    position: relative;
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-body {
+    flex: 1;
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-footer {
+    border-top: style.$border-width-base style.$border-style-base style.$border-color-split;
+    .#{style.$calendar-prefix-cls}-footer-extra {
+        padding: 0 12px;
+    }
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-table {
+    width: 100%;
+    height: 100%;
+    table-layout: fixed;
+    border-collapse: separate;
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-cell {
+    text-align: center;
+    &.#{style.$calendar-prefix-cls}-year-panel-cell-disabled .#{style.$calendar-prefix-cls}-year-panel-year {
+        &,
+        &:hover {
+            color: style.$disabled-color;
+            background: style.$disabled-bg;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-year {
+    display: inline-block;
+    height: 24px;
+    margin: 0 auto;
+    padding: 0 8px;
+    color: variables.$text-color;
+    line-height: 24px;
+    text-align: center;
+    background: transparent;
+    border-radius: variables.$border-radius-lg;
+    transition: background 0.3s ease;
+
+    &:hover {
+        background: style.$item-hover-bg;
+        cursor: pointer;
+    }
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-selected-cell .#{style.$calendar-prefix-cls}-year-panel-year {
+    color: variables.$text-color-inverse;
+    background: variables.$primary;
+
+    &:hover {
+        color: variables.$text-color-inverse;
+        background: variables.$primary;
+    }
+}
+
+.#{style.$calendar-prefix-cls}-year-panel-last-decade-cell,
+.#{style.$calendar-prefix-cls}-year-panel-next-decade-cell {
+    .#{style.$calendar-prefix-cls}-year-panel-year {
+        color: variables.$text-color;
+        user-select: none;
+    }
+}

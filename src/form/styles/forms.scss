@@ -5,6 +5,7 @@
 @use "../../styles/bootstrap/mixins/transition";
 @use "../../styles/bootstrap/variables" as bootstrap-variables;
 @use "../../styles/variables";
+@use "../../styles/mixins/link";
 @use "mixin";
 
 // stylelint-disable selector-no-qualifying-type
@@ -132,6 +133,7 @@
         margin-left: 6px;
         font-size: variables.$font-size-base;
         cursor: pointer;
+        @include link.link-variant(variables.$gray-500, none, variables.$primary, none);
     }
 }
 

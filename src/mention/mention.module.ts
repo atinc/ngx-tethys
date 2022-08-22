@@ -13,7 +13,6 @@ import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.compon
     declarations: [ThyMentionDirective, ThyMentionSuggestionsComponent],
     imports: [CommonModule, FormsModule, ThyPopoverModule, ThyListModule, ThyLoadingModule],
     exports: [ThyMentionDirective],
-    providers: [],
-    entryComponents: [ThyMentionSuggestionsComponent]
+    providers: []
 })
 export class ThyMentionModule {}

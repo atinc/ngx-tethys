@@ -93,6 +93,7 @@
 .input-group-prepend {
     margin-right: -(bootstrap-variables.$input-border-width);
 }
+
 .input-group-append {
     margin-left: -(bootstrap-variables.$input-border-width);
 }
@@ -141,6 +142,14 @@
     @extend .form-control-lg;
 }
 
+.thy-input-group-md > .form-control,
+.thy-input-group-md > .input-group-prepend > .input-group-text,
+.thy-input-group-md > .input-group-append > .input-group-text,
+.thy-input-group-md > .input-group-prepend > .btn,
+.thy-input-group-md > .input-group-append > .btn {
+    @extend .form-control-md;
+}
+
 .thy-input-group-sm > .form-control,
 .thy-input-group-sm > .input-group-prepend > .input-group-text,
 .thy-input-group-sm > .input-group-append > .input-group-text,
@@ -171,4 +180,37 @@
 .thy-input-group > .input-group-prepend:first-child > .btn:not(:first-child),
 .thy-input-group > .input-group-prepend:first-child > .input-group-text:not(:first-child) {
     @include border-radius.border-left-radius(0);
+}
+
+.thy-input-group-with-prefix,
+.thy-input-group-with-suffix {
+    position: relative;
+    width: 100%;
+    padding: 0 !important;
+    display: flex !important;
+    align-items: center;
+    .form-control {
+        flex: 1;
+        border: 0;
+    }
+
+    .input-group-prefix {
+        margin-left: variables.$input-padding-x-fixed;
+    }
+
+    .input-group-suffix {
+        margin-right: variables.$input-padding-x-fixed;
+    }
+}
+
+.thy-input-group-with-prefix {
+    .form-control {
+        padding-right: variables.$input-padding-x-fixed;
+    }
+}
+
+.thy-input-group-with-prefix {
+    .form-control {
+        padding-left: variables.$input-padding-x-fixed;
+    }
 }

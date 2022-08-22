@@ -1,16 +1,11 @@
-import { ThySwitchComponent } from 'ngx-tethys/switch';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTableComponent } from '../table.component';
 import { ThyTableModule } from '../table.module';
 
-const SizeMap = {
-    sm: 'table-sm'
-};
 @Component({
     selector: 'thy-demo-default-table',
     template: `
@@ -22,6 +17,8 @@ const SizeMap = {
             [thyGroups]="groups"
             [thyTheme]="theme"
             [thySize]="size"
+            [thyMinWidth]="tableMinWidth"
+            [thyLayoutFixed]="tableLayoutFixed"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
             [thyClassName]="tableClassName"
@@ -51,11 +48,16 @@ const SizeMap = {
                     ></span>
                 </ng-template>
             </thy-table-column>
-            <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
-            <thy-table-column thyTitle="年龄" thyModelKey="age" thyHeaderClassName="header-class-name"></thy-table-column>
-            <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
+            <thy-table-column
+                thyTitle="姓名"
+                thyModelKey="name"
+                thyWidth="160"
+                [thyHeaderClassName]="columnHeaderClassName"
+            ></thy-table-column>
+            <thy-table-column thyTitle="年龄" thyModelKey="age" [thyHeaderClassName]="columnHeaderClassName"></thy-table-column>
+            <thy-table-column thyTitle="备注" thySecondary="true" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
-            <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">
+            <thy-table-column thyTitle="操作" thyOperational="true">
                 <ng-template #cell let-row>
                     <a href="javascript:;">设置</a>
                     <a class="link-secondary" href="javascript:;">
@@ -141,16 +143,17 @@ class ThyDemoDefaultTableComponent {
     isRowSelect = false;
     tableClassName = 'class-name';
     tableRowClassName = 'row-class-name';
-    selections = [];
+    columnHeaderClassName = 'header-class-name';
+    selections: any[] = [];
     theme = 'default';
     isLoadingDone = true;
     loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
-
     mode = 'list';
-
     emptyOptions = { message: '空' };
+    tableMinWidth = 500;
+    tableLayoutFixed = false;
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -254,32 +257,32 @@ describe('ThyTable: basic', () => {
         expect(firstRowColumnItem[1].innerText.trim()).toEqual('张三');
     });
 
-    it('should td "" when conlunm not set thyDefaultText and row age is ""', () => {
+    it('should td "" when column not set thyDefaultText and row age is ""', () => {
         fixture.detectChanges();
         const firstRowColumnItem = rows[1].querySelectorAll('td');
         expect(firstRowColumnItem[2].innerText.trim()).toEqual('');
     });
 
-    it('should th have correct class when conlunm head set thyHeaderClassName is header-class-name', () => {
+    it('should th have correct class when column head set thyHeaderClassName is header-class-name', () => {
         fixture.detectChanges();
         const firstRowColumnItem = rows[0].querySelectorAll('th');
         expect(firstRowColumnItem[2].classList.contains('header-class-name')).toBe(true);
     });
 
-    it('should td is "这是一条测试数据" when conlunm thyDefaultText is "-" and row item is "这是一条测试数据"', () => {
+    it('should td is "这是一条测试数据" when column thyDefaultText is "-" and row item is "这是一条测试数据"', () => {
         fixture.detectChanges();
         const secondRowColumnItem = rows[2].querySelectorAll('td');
         expect(secondRowColumnItem[3].innerText.trim()).toEqual('这是一条测试数据');
     });
 
-    it('should text is "-" when conlunm thyDefaultText is "-" and row item is ""', () => {
+    it('should text is "-" when column thyDefaultText is "-" and row item is ""', () => {
         fixture.detectChanges();
         const secondRowColumnItem = rows[1].querySelectorAll('td');
         const defaultElement = secondRowColumnItem[3].querySelector('.text-desc');
         expect(defaultElement.innerText.trim()).toEqual('-');
     });
 
-    it('have checkbox when conlunm set thyType checkbox', () => {
+    it('have checkbox when column set thyType checkbox', () => {
         fixture.detectChanges();
         const inputElement = rows[1].querySelector('input');
         expect(inputElement.type).toEqual('checkbox');
@@ -291,7 +294,7 @@ describe('ThyTable: basic', () => {
         expect(switchComponent).toBeTruthy();
     });
 
-    // it('should thy-switch disadled when thyDisabled is true', () => {
+    // it('should thy-switch disabled when thyDisabled is true', () => {
     //     fixture.detectChanges();
     //     const switchComponent = rows[1].querySelector('thy-switch');
     //     const labelElement = switchComponent.querySelector('label');
@@ -316,34 +319,36 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('table-draggable')).toBe(true);
     });
 
-    it('should have correct class when thyTheme is table-bordered', () => {
+    it('should have correct class when thyTheme is bordered', () => {
         testComponent.theme = 'bordered';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-bordered')).toBe(true);
     });
 
-    it('should have correct class when thySize is default', () => {
+    it('should have correct class when thyTheme is boxed', () => {
+        testComponent.theme = 'boxed';
+        fixture.detectChanges();
+        expect(tableComponent.nativeElement.classList.contains('thy-table')).toBe(true);
+        expect(tableComponent.nativeElement.classList.contains('thy-table-boxed')).toBe(true);
+        expect(table.classList.contains('table')).toBe(true);
+        expect(table.classList.contains('table-boxed')).toBe(true);
+    });
+
+    it('should have correct class when thySize is md', () => {
         testComponent.size = '';
         fixture.detectChanges();
         expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-default')).toBe(true);
+        expect(table.classList.contains('table-md')).toBe(true);
     });
 
-    it('should have correct class when thySize is sm', () => {
-        testComponent.size = 'sm';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-    });
-
-    it('should have correct class when thySize is sm and thyTheme is default', () => {
-        testComponent.size = 'sm';
-        testComponent.theme = 'default';
-        fixture.detectChanges();
-        expect(table.classList.contains('table')).toBe(true);
-        expect(table.classList.contains('table-sm')).toBe(true);
-        expect(table.classList.contains('table-default-sm-bottom-padding')).toBe(true);
+    it('should have correct class for sizes', () => {
+        ['xs', 'sm', 'md', 'lg', 'default', 'xlg'].forEach(size => {
+            testComponent.size = size;
+            fixture.detectChanges();
+            expect(table.classList.contains('table')).toBe(true);
+            expect(table.classList.contains(`table-${size}`)).toBe(true);
+        });
     });
 
     it('should have correct class when className is class-name', () => {
@@ -352,13 +357,37 @@ describe('ThyTable: basic', () => {
         expect(table.classList.contains('class-name')).toBe(true);
     });
 
-    it('should have correct class when className is class-name,thySize is sm', () => {
+    it('should have correct class when className is class-name, thySize is sm', () => {
         testComponent.tableClassName = 'class-name';
         testComponent.size = 'sm';
         fixture.detectChanges();
         expect(table.classList.contains('class-name')).toBe(true);
         expect(table.classList.contains('table')).toBe(true);
         expect(table.classList.contains('table-sm')).toBe(true);
+    });
+
+    it('should set column as operational', () => {
+        fixture.detectChanges();
+        const rows: HTMLElement[] = tableComponent.nativeElement.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            // 排除表格头的 tr
+            if (index > 0) {
+                const tds = row.querySelectorAll('td');
+                expect(tds[tds.length - 1].classList.contains('thy-operation-links')).toBeTruthy();
+            }
+        });
+    });
+
+    it('should set column as secondary', () => {
+        fixture.detectChanges();
+        const rows: HTMLElement[] = tableComponent.nativeElement.querySelectorAll('tr');
+        rows.forEach((row, index) => {
+            // 排除表格头的 tr
+            if (index > 0) {
+                const tds = row.querySelectorAll('td');
+                expect(tds[tds.length - 3].classList.contains('thy-table-column-secondary')).toBeTruthy();
+            }
+        });
     });
 
     it('should have thy-empty component when model is []', () => {
@@ -368,7 +397,7 @@ describe('ThyTable: basic', () => {
         expect(defaultEmptyComponent).toBeTruthy();
     });
 
-    it('should have thy-loadin component when isLoadingDone is false', () => {
+    it('should have thy-loading component when isLoadingDone is false', () => {
         testComponent.isLoadingDone = false;
         fixture.detectChanges();
         const loadingComponent = tableComponent.nativeElement.querySelector('thy-loading');
@@ -569,6 +598,32 @@ describe('ThyTable: basic', () => {
         });
         expect(spy).toHaveBeenCalled();
     }));
+
+    it('should column header class updated when column `thyHeaderClassName` changing', () => {
+        fixture.detectChanges();
+        let foundNodes = fixture.debugElement.nativeElement.getElementsByClassName(testComponent.columnHeaderClassName);
+        expect(foundNodes.length).toEqual(2);
+        testComponent.columnHeaderClassName = 'renamed-header-column-name';
+        fixture.detectChanges();
+        foundNodes = fixture.debugElement.nativeElement.getElementsByClassName(testComponent.columnHeaderClassName);
+        expect(foundNodes.length).toEqual(2);
+    });
+
+    it('should set table min-width success', () => {
+        fixture.detectChanges();
+        const tableElement: HTMLTableElement = tableComponent.nativeElement.querySelector('table');
+        expect(tableElement.style.getPropertyValue('min-width')).toEqual('500px');
+        testComponent.tableMinWidth = null;
+        fixture.detectChanges();
+        expect(tableElement.style.getPropertyPriority('minWidth')).toEqual('');
+    });
+
+    it('should set table layout is fixed', () => {
+        testComponent.tableLayoutFixed = true;
+        fixture.detectChanges();
+        const tableElement: HTMLTableElement = tableComponent.nativeElement.querySelector('table');
+        expect(tableElement.classList).toContain('table-fixed');
+    });
 });
 
 // table group mode test
@@ -609,11 +664,13 @@ class ThyDemoGroupTableComponent {
     groups = [
         {
             id: '11',
-            title: '分组1'
+            title: '分组1',
+            expand: false
         },
         {
             id: '22',
-            title: '分组2'
+            title: '分组2',
+            expand: true
         }
     ];
     model = [
@@ -714,21 +771,62 @@ describe('ThyTable: group', () => {
         expect(groups).toBeTruthy();
     });
 
+    it('should set expand successfully', () => {
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(false);
+        expect(tableComponent.componentInstance.groups[1].expand).toBe(true);
+    });
+
     it('test expand event', fakeAsync(() => {
-        expect(rows.length).toBe(9);
+        expect(rows.length).toBe(6);
 
         const trExpandElement = rows[1];
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
-        expect(rows.length).toBe(6);
+        expect(rows.length).toBe(9);
 
         dispatchFakeEvent(trExpandElement, 'click');
         fixture.detectChanges();
         rows = tableComponent.nativeElement.querySelectorAll('tr');
-        expect(rows.length).toBe(9);
+        expect(rows.length).toBe(6);
     }));
+
+    it('should keep expand or collapse status', () => {
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(false);
+
+        const trExpandElement = rows[1];
+        dispatchFakeEvent(trExpandElement, 'click');
+        fixture.detectChanges();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(true);
+
+        const buildGroupsSpy = spyOn(tableComponent.componentInstance, 'buildGroups');
+        testComponent.groups = [
+            ...testComponent.groups,
+            {
+                id: '33',
+                title: '分组3',
+                expand: true
+            }
+        ];
+        testComponent.model = [
+            ...testComponent.model,
+            {
+                group_id: '33',
+                id: 7,
+                name: '花花',
+                age: 10,
+                checked: false,
+                desc: '这是一条测试数据'
+            }
+        ];
+
+        fixture.detectChanges();
+        expect(buildGroupsSpy).toHaveBeenCalled();
+        expect(tableComponent.componentInstance.groups[0].expand).toBe(true);
+    });
 
     it('should throw error when thyDraggable is true', () => {
         expect(() => {
@@ -934,5 +1032,89 @@ describe('ThyTable: fixed', () => {
         testComponent.fixedRight = 'right';
         fixture.detectChanges();
         expect(tableComponent.query(By.css('.thy-table-fixed-column-right'))).toBeTruthy();
+    });
+});
+
+@Component({
+    selector: 'thy-demo-sort-table',
+    template: `
+        <thy-table [thyModel]="data" thyRowKey="id">
+            <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+            <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+            <thy-table-column
+                thyTitle="Age"
+                thyModelKey="age"
+                [thySortable]="sortable"
+                (thySortChange)="onThyTableColumnSortChange($event)"
+            >
+            </thy-table-column>
+            <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+            <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+        </thy-table>
+    `
+})
+class ThyDemoSortTableComponent {
+    data = [
+        { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
+        { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
+        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' },
+        { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' },
+        { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
+    ];
+    sortable = false;
+    onThyTableColumnSortChange() {}
+}
+
+describe('ThyTable: sort', () => {
+    let fixture: ComponentFixture<ThyDemoSortTableComponent>;
+    let testComponent: ThyDemoSortTableComponent;
+    let tableComponent: DebugElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyTableModule],
+            declarations: [ThyDemoSortTableComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoSortTableComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+    });
+
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
+    });
+
+    it('should be hide sortable-icon when not sortable', () => {
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeFalsy();
+    });
+
+    it('should be show sortable-icon when sortable', () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        expect(tableComponent.query(By.css('.thy-table-column-sortable-icon'))).toBeTruthy();
+    });
+
+    it('should be have thy-table-column-sortable class in table column header when sortable', () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
+        expect(sortableColumnHeader).toBeTruthy();
+        expect(sortableColumnHeader.name).toEqual('th');
+    });
+
+    it(`should emit a sortChange event when sortable-column's header got clicked`, () => {
+        testComponent.sortable = true;
+        fixture.detectChanges();
+        spyOn(testComponent, 'onThyTableColumnSortChange');
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(0);
+        const sortableColumnHeader = tableComponent.query(By.css('.thy-table-column-sortable'));
+        sortableColumnHeader.nativeElement.dispatchEvent(createFakeEvent('click'));
+        fixture.detectChanges();
+        expect(testComponent.onThyTableColumnSortChange).toHaveBeenCalledTimes(1);
     });
 });

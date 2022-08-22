@@ -1,12 +1,14 @@
-import { Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'thy-content-section',
     preserveWhitespaces: false,
     template: `
         <ng-content></ng-content>
-    `
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-layout-content-section'
+    }
 })
-export class ThyContentSectionComponent {
-    @HostBinding('class.thy-layout-content-section') thyLayoutContentSectionClass = true;
-}
+export class ThyContentSectionComponent {}

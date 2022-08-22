@@ -14,9 +14,13 @@
     align-items: center;
     position: relative;
     padding: variables.$alert-padding-y variables.$alert-padding-x;
-    margin-bottom: bootstrap-variables.$alert-margin-bottom;
     border: bootstrap-variables.$alert-border-width solid transparent;
     @include border-radius.border-radius(bootstrap-variables.$alert-border-radius);
+
+    &.thy-alert-naked {
+        padding: 0;
+        border: none;
+    }
 
     &.thy-alert-hidden {
         display: none;
@@ -41,26 +45,26 @@
             }
             &:not(:last-child):after {
                 content: '';
-                border-right: 1px solid #ddd;
+                border-right: 1px solid variables.$gray-300;
                 width: 10px;
                 height: 13px;
                 position: absolute;
-                right: -10px;
+                right: -12px;
                 top: 2px;
             }
         }
     }
 
     .thy-alert-close {
-        color: #cacaca;
+        color: variables.$gray-400;
         &:hover {
-            color: #888;
+            color: variables.$gray-600;
         }
     }
 }
 
 .thy-alert-icon {
-    margin-right: 10px;
+    margin-right: variables.$alert-icon-margin-right;
 }
 
 // Headings for larger alerts
@@ -96,13 +100,15 @@
 // Generate contextual modifier classes for colorizing the alert.
 
 @each $color, $value in functions-variables.$theme-colors {
-    .thy-alert-#{$color} {
+    .thy-alert-fill-#{$color} {
         @include mixin.thy-alert-variant(functions.theme-color($color));
     }
-}
 
-@each $key, $color in variables.$thy-alert-weak-colors {
-    .thy-alert-#{$key} {
-        @include mixin.thy-alert-weak-variant($color);
+    .thy-alert-bordered-#{$color} {
+        @include mixin.thy-alert-bordered-variant(functions.theme-color($color));
+    }
+
+    .thy-alert-naked-#{$color} {
+        @include mixin.thy-alert-naked-variant(functions.theme-color($color));
     }
 }

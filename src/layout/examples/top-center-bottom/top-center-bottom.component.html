@@ -1,0 +1,26 @@
+<thy-layout>
+  <thy-header thyIcon="house-square-fill" thyTitle="Title" thyDivided="true"></thy-header>
+  <thy-layout>
+    <thy-header thyDivided="true" thySize="sm">
+      <ng-template #headerContent>
+        <thy-breadcrumb>
+          <thy-breadcrumb-item
+            ><a href="javascript:;"><thy-icon thyIconName="view-tile"></thy-icon><span>Home</span></a></thy-breadcrumb-item
+          >
+          <thy-breadcrumb-item
+            ><a href="javascript:;"><span>Applications</span></a>
+          </thy-breadcrumb-item>
+          <thy-breadcrumb-item>Application 1</thy-breadcrumb-item>
+        </thy-breadcrumb>
+      </ng-template>
+    </thy-header>
+    <thy-content>
+      <thy-content-main class="p-4">
+        Content
+      </thy-content-main>
+      <div class="d-flex justify-content-center align-items-center pt-4">
+        Tethys Design ©2022 By PingCode
+      </div>
+    </thy-content>
+  </thy-layout>
+</thy-layout>

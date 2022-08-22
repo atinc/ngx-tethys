@@ -1,4 +1,4 @@
-import { concatArray, FunctionProp } from 'ngx-tethys/util';
+import { coerceArray, concatArray, FunctionProp } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import { ComponentType, Overlay, OverlayConfig, OverlayRef, ScrollStrategy } from '@angular/cdk/overlay';
@@ -81,6 +81,10 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             const contentRef = containerInstance.attachComponentPortal<T>(new ComponentPortal(componentOrTemplateRef, undefined, injector));
             if (config.initialState) {
                 Object.assign(contentRef.instance, config.initialState);
+            }
+            if (config.hostClass) {
+                const hostClass = coerceArray(config.hostClass);
+                contentRef.location.nativeElement.classList.add(...hostClass);
             }
             abstractOverlayRef.componentInstance = contentRef.instance;
         }

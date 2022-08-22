@@ -31,21 +31,21 @@
     // vertical-align: baseline;
     color: variables.$badge-color;
     background-color: variables.$badge-bg;
-    @include mixin.set-badge-size(variables.$font-size-sm, 2px, 0.3rem);
+    @include mixin.set-badge-size(1rem, 0.75rem, 4px);
 }
 
 .thy-badge-dot {
     padding: 0;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     // vertical-align: middle;
 }
 
 .thy-badge-hollow {
     padding: 0;
-    width: 6px;
-    height: 6px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     // vertical-align: middle;
     border: solid 1px variables.$badge-bg;
@@ -96,20 +96,16 @@
     z-index: 1;
 }
 
-.thy-badge-multiple-words {
-    padding-left: 7px;
-    padding-right: 7px;
-}
-
 .thy-badge-lg {
     &.thy-badge-count {
-        @include mixin.set-badge-size(variables.$font-size-sm, 6px, 9px);
+        @include mixin.set-badge-size(1.5rem, 0.875rem, 4px);
     }
     &.thy-badge-dot,
     &.thy-badge-hollow {
         width: 10px;
         height: 10px;
     }
+
     &.thy-badge-hollow {
         border-width: 2px;
     }
@@ -117,7 +113,12 @@
 
 .thy-badge-sm {
     &.thy-badge-count {
-        @include mixin.set-badge-size(variables.$font-size-xs, 1px, 4px);
+        @include mixin.set-badge-size(0.875rem, 0.75rem, 3px);
+    }
+    &.thy-badge-dot,
+    &.thy-badge-hollow {
+        width: 6px;
+        height: 6px;
     }
 }
 

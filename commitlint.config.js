@@ -11,6 +11,7 @@ module.exports = {
                 'schematics',
                 'variables',
                 'core',
+                'action',
                 'testing',
                 'shared',
                 'types',
@@ -43,6 +44,7 @@ module.exports = {
                 'icon',
                 'input',
                 'label',
+                'tag',
                 'layout',
                 'link',
                 'list',
@@ -58,7 +60,6 @@ module.exports = {
                 'progress',
                 'property-operation',
                 'radio',
-                'raster',
                 'result',
                 'select',
                 'skeleton',
@@ -74,7 +75,7 @@ module.exports = {
                 'transfer',
                 'tree',
                 'tree-select',
-                'uploader',
+                'upload',
                 'vote',
                 'anchor',
                 'back-top',
@@ -89,7 +90,13 @@ module.exports = {
                 'collapse',
                 'rate',
                 'select-control',
-                'image'
+                'image',
+                'segment',
+                'dot',
+                'affix',
+                'tabs',
+                'watermark',
+                'property'
             ]
         ]
     }

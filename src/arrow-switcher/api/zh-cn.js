@@ -17,6 +17,12 @@ module.exports = [
                 default: '-'
             },
             {
+                name: 'thyTheme',
+                description: '展示主题,可选值为： 默认`default`  轻量`lite`',
+                type: 'string',
+                default: 'default'
+            },
+            {
                 name: 'thySize',
                 description: '尺寸大小,默认尺寸为大号，取值为sm时展示小号',
                 type: 'string',

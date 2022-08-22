@@ -10,8 +10,10 @@ import { ThyRadioModule } from 'ngx-tethys/radio';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyNotifyModule } from 'ngx-tethys/notify';
 import { ThySpaceModule } from 'ngx-tethys/space';
-import { ThyRasterModule } from 'ngx-tethys/raster';
+import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
 
 export default {
     imports: [
@@ -27,7 +29,9 @@ export default {
         ThyButtonModule,
         ThyNotifyModule,
         ThySpaceModule,
-        ThyRasterModule,
-        ThyEmptyModule
+        ThyGridModule,
+        ThyEmptyModule,
+        ThyActionModule,
+        ThyAvatarModule
     ]
 };

@@ -1,13 +1,7 @@
 @use 'variables.scss' as variables2;
 
 :host {
-    .demo-layout-backdrop {
-        > :not(:first-child).thy-layout {
-            margin-top: 20px;
-        }
-
-        .thy-layout-content {
-            background: variables2.$gray-200;
-        }
+    > :not(:first-child).thy-layout {
+        margin-top: 16px;
     }
 }

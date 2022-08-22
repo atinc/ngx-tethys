@@ -730,6 +730,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                     }
                 }
             );
+        } else {
+            this.setColumnData(option.children || [], index + 1);
         }
     }
 

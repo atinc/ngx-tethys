@@ -1,12 +1,20 @@
-import { Component, OnInit, HostBinding, Input, ElementRef, Renderer2 } from '@angular/core';
+import { Component, OnInit, HostBinding, Input, ElementRef, Renderer2, ChangeDetectionStrategy } from '@angular/core';
 
+/**
+ * 菜单项图标组件
+ */
 @Component({
     selector: 'thy-menu-item-icon,[thy-menu-item-icon],[thyMenuItemIcon]',
-    templateUrl: './menu-item-icon.component.html'
+    templateUrl: './menu-item-icon.component.html',
+    host: {
+        class: 'thy-menu-item-icon'
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyMenuItemIconComponent implements OnInit {
-    @HostBinding('class.thy-menu-item-icon') isThyMenuItemIcon = true;
-
+    /**
+     * 设置图标颜色
+     */
     @Input()
     set thyColor(value: string) {
         if (value) {

@@ -1,9 +1,12 @@
-import { NgModule } from '@angular/core';
+import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
+
 import { CommonModule } from '@angular/common';
-import { NgxTethysModule } from 'ngx-tethys';
-import { ThyPropertyOperationGroupExampleComponent } from './group/group.component';
+
 import { ThyPropertyOperationBasicExampleComponent } from './basic/basic.component';
 import { ThyPropertyOperationDisabledExampleComponent } from './disabled/disabled.component';
+import { ThyPropertyOperationGroupExampleComponent } from './group/group.component';
 import { ThyPropertyOperationShowCloseExampleComponent } from './show-close/show-close.component';
 
 const COMPONENTS = [
@@ -13,11 +16,6 @@ const COMPONENTS = [
     ThyPropertyOperationShowCloseExampleComponent
 ];
 
-@NgModule({
-    declarations: COMPONENTS,
-    imports: [CommonModule, NgxTethysModule],
-    entryComponents: COMPONENTS,
-    exports: COMPONENTS,
-    providers: []
-})
-export class ThyPropertyOperationExamplesModule {}
+export default {
+    imports: [CommonModule, ThyPropertyOperationModule, ThyAvatarModule, ThyButtonModule]
+};

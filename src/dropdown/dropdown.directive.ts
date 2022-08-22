@@ -1,24 +1,19 @@
-import {
-    Directive,
-    HostBinding,
-    ElementRef,
-    OnInit,
-    ChangeDetectionStrategy,
-    Input,
-    Renderer2,
-    NgZone,
-    ViewContainerRef
-} from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef, THY_POPOVER_DEFAULT_CONFIG_VALUE } from 'ngx-tethys/popover';
-import { ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
-import { OverlayRef } from '@angular/cdk/overlay';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
+import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { SafeAny } from 'ngx-tethys/types';
+import { isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { Observable, Subject } from 'rxjs';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
 export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
+
+type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | ComponentType<SafeAny>;
 
 /**
  * thyDropdown 触发下拉菜单指令
@@ -30,19 +25,23 @@ export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
     }
 })
 export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
-    menu!: ThyDropdownMenuComponent;
+    menu!: ThyDropdownMenu;
+
+    private popoverRef: ThyPopoverRef<unknown>;
+
+    popoverOpened = false;
 
     /**
-     * Dropdown 下拉菜单组件
+     * Dropdown 下拉菜单，支持 thy-dropdown-menu 组件、TemplateRef 和自定义菜单组件
      */
-    @Input() set thyDropdownMenu(menu: ThyDropdownMenuComponent) {
+    @Input() set thyDropdownMenu(menu: ThyDropdownMenu) {
         this.menu = menu;
     }
 
     /**
      * Dropdown 下拉菜单组件，和 thyDropdownMenu 参与相同，快捷传下拉菜单组件参数
      */
-    @Input() set thyDropdown(menu: ThyDropdownMenuComponent) {
+    @Input() set thyDropdown(menu: ThyDropdownMenu) {
         this.menu = menu;
     }
 
@@ -55,14 +54,20 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
+     * 弹出菜单后的当前触发元素的激活样式类
+     */
+    @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
+
+    /**
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottom", width: "240px", insideClosable: true, minWidth: "240px" }`
-     * @default { placement: "bottom", width: "240px", insideClosable: true: minWidth: "240px" }
+     * @default { placement: "bottomLeft", width: "240px", insideClosable: true: minWidth: "240px" }
      */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
-    popoverOpened = false;
-
-    private popoverRef: ThyPopoverRef<unknown>;
+    /**
+     * 菜单 Active 事件，打开菜单返回 true，关闭返回 false
+     */
+    @Output() thyActiveChange = new EventEmitter<boolean>();
 
     constructor(
         private viewContainerRef: ViewContainerRef,
@@ -80,32 +85,43 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     createOverlay(): OverlayRef {
+        let componentTypeOrTemplateRef: ComponentTypeOrTemplateRef<SafeAny>;
+        if (this.menu && this.menu instanceof ThyDropdownMenuComponent) {
+            componentTypeOrTemplateRef = this.menu.templateRef;
+        } else if (isFunction(this.menu) || isTemplateRef(this.menu)) {
+            componentTypeOrTemplateRef = this.menu as ComponentTypeOrTemplateRef<SafeAny>;
+        }
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            if (!this.menu || !(this.menu instanceof ThyDropdownMenuComponent)) {
+            if (!componentTypeOrTemplateRef) {
                 throw new Error(`thyDropdownMenu is required`);
             }
         }
 
         const { placement, width, height, insideClosable, minWidth } = Object.assign(
-            { placement: 'bottom', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
+            { placement: 'bottomLeft', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
             this.thyPopoverOptions
         );
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
-            hasBackdrop: this.trigger === 'click' || this.trigger === 'focus',
+            hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,
             panelClass: 'thy-dropdown-pane',
             placement,
             width,
             height,
+            outsideClosable: true,
             insideClosable,
-            minWidth
+            minWidth,
+            originActiveClass: this.thyActiveClass
         };
-        this.popoverRef = this.popover.open(this.menu.templateRef, config);
-
+        this.popoverRef = this.popover.open(componentTypeOrTemplateRef, config);
+        this.popoverRef.afterOpened().subscribe(() => {
+            this.thyActiveChange.emit(true);
+        });
         this.popoverRef.afterClosed().subscribe(() => {
             this.popoverOpened = false;
+            this.thyActiveChange.emit(false);
         });
 
         return this.popoverRef.getOverlayRef();

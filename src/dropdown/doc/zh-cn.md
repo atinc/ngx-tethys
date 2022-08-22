@@ -35,6 +35,10 @@ import { ThyDropdownModule } from "ngx-tethys/dropdown";
 
 <example name="thy-dropdown-group-example" />
 
+## Active
+
+<example name="thy-dropdown-active-example" />
+
 ## 分割菜单
 
 <example name="thy-dropdown-group-example" />
@@ -54,6 +58,23 @@ import { ThyDropdownModule } from "ngx-tethys/dropdown";
 ## 菜单类型
 
 <example name="thy-dropdown-type-example" />
+
+## 组件菜单
+业务中通常需要在多个地方弹出同一个菜单，那么定义个可以复用的菜单组件，然后通过`[thyDropdown]="menuComponent"`在多个地方使用就变得十分必要，自定义的菜单组件需要在外层加`thy-dropdown-menu`样式类，我们可以直接继承`ThyDropdownAbstractMenu`组件实现样式的自动添加。
+
+```ts
+@Component({
+    selector: 'thy-custom-menu',
+    template: `
+        <a thyDropdownMenuItem href="javascript:;">
+            <span>Menu Item1</span>
+        </a>
+    `
+})
+export class CustomMenuComponent extends ThyDropdownAbstractMenu {}
+```
+
+<example name="thy-dropdown-component-example" />
 
 ## 可传入popoverOptions
 thyPopoverOptions默认值为`{ placement: 'bottom', width: '240px' }`

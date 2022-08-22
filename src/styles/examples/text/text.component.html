@@ -1,0 +1,60 @@
+<thy-divider thyText="文本对齐"></thy-divider>
+<div>
+  <p class="text-left">左对齐</p>
+  <p class="text-center">居中</p>
+  <p class="text-right">右对齐</p>
+</div>
+
+<div>
+  <p class="text-sm-left">Left aligned text on viewports sized SM (small) or wider.</p>
+  <p class="text-md-left">Left aligned text on viewports sized MD (medium) or wider.</p>
+  <p class="text-lg-left">Left aligned text on viewports sized LG (large) or wider.</p>
+  <p class="text-xl-left">Left aligned text on viewports sized XL (extra-large) or wider.</p>
+</div>
+
+<thy-divider thyText="文字折行和溢出"></thy-divider>
+<div class="bg-light text-primary text-wrap p-2" style="width: 6rem;">
+  This text should wrap.
+</div>
+
+<div class="text-nowrap bd-highlight mt-3" style="width: 8rem;">
+  This text should overflow the parent.
+</div>
+
+<p>
+  对于较长的内容，你可以通过添加<code>.text-truncate</code>类将文本截断并添加省略号。但必须是<code>display: inline-block</code>或<code
+    >display: block</code
+  >类型。
+</p>
+
+<!-- Block level -->
+<div class="row mt-3">
+  <div class="col-2 text-truncate">
+    Praeterea iter est quasdam res quas ex communi.
+  </div>
+</div>
+
+<!-- Inline level -->
+<span class="d-inline-block text-truncate" style="max-width: 150px;">
+  Praeterea iter est quasdam res quas ex communi.
+</span>
+
+<thy-divider thyText="单词中断"></thy-divider>
+
+<p class="text-break">mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm</p>
+
+<thy-divider thyText="文本转换"></thy-divider>
+<p>使用文本大小写类转换组件中的文本。</p>
+<p class="text-lowercase">Lowercased text.</p>
+<p class="text-uppercase">Uppercased text.</p>
+<p class="text-capitalize">CapiTaliZed text.</p>
+
+<thy-divider thyText="重置颜色"></thy-divider>
+<p>用<code>.text-reset</code>类重置文本或链接的颜色，以便从父元素继承颜色属性。</p>
+
+<p class="text-muted">Muted text with a <a href="#" class="text-reset">重置链接的颜色</a>.</p>
+
+<thy-divider thyText="文字装饰"></thy-divider>
+<p>用<code>.text-decoration-none</code>类去除文字的装饰。</p>
+
+<a href="#" class="text-decoration-none">不带下划线的链接</a>

@@ -1,4 +1,4 @@
-import { helpers } from 'ngx-tethys/util';
+import { helpers, isArray } from 'ngx-tethys/util';
 
 import { ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
 import { ThyTreeService } from './tree.service';
@@ -24,6 +24,8 @@ export class ThyTreeNode<T = any> {
 
     isDisabled: boolean;
 
+    itemClass?: string[];
+
     private readonly service: ThyTreeService;
 
     get treeService(): ThyTreeService {
@@ -45,12 +47,18 @@ export class ThyTreeNode<T = any> {
         this.isExpanded = node.expanded || false;
         this.isChecked = node.checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
         this.isLoading = false;
+        if (node.itemClass) {
+            this.itemClass = isArray(node.itemClass) ? node.itemClass : [node.itemClass];
+        }
         if (node.children) {
             node.children.forEach(childNode => {
                 this.children.push(new ThyTreeNode(childNode, this, service));
             });
         }
         this.service = service;
+        if (node.children && node.children.length && service) {
+            this.isChecked = service.checkStateResolve(this);
+        }
     }
 
     public setKey(key: string) {

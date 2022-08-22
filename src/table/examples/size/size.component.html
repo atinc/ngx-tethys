@@ -1,20 +1,10 @@
-<thy-table [thyModel]="data" thyRowKey="id" thySize="default">
-  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
-  <thy-table-column thyTitle="" thyClassName="thy-operation-links">
-    <ng-template #cell let-row>
-      <a class="link-secondary" href="javascript:;">
-        <thy-icon thyIconName="user-add"></thy-icon>
-      </a>
-      <a class="link-danger-weak" href="javascript:;">
-        <thy-icon thyIconName="trash"></thy-icon>
-      </a>
-    </ng-template>
-  </thy-table-column>
-</thy-table>
-<thy-table [thyModel]="data" thyRowKey="id" thySize="sm" class="mt-4">
+<thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: item.value === size }">
+    {{ item.value }}({{ item.height }})
+  </button>
+</thy-button-group>
+
+<thy-table [thyModel]="data" thyRowKey="id" [thySize]="size">
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
   <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>

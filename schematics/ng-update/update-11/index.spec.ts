@@ -1,10 +1,13 @@
 import { Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+
 import { createTestWorkspaceFactory } from '../../testing';
+
 describe('ng-update v11 Schematic', () => {
     let tree: Tree;
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
     const TEST_MODULE_PATH = '/projects/update11test/src/app/module1.ts';
+    const TEST_MODULE_PATH1 = '/projects/update11test/src/app/module2.ts';
     const TEST_HTML_PATH = '/projects/update11test/src/app/app.component.html';
     let workspaceTree: UnitTestTree;
 
@@ -35,8 +38,31 @@ describe('ng-update v11 Schematic', () => {
             export class TestComponent2 implements OnInit {}
 `
         );
+        await factory.addNewFile(
+            TEST_MODULE_PATH1,
+            `
+            import { Dictionary } from 'ngx-tethys/types';
+            import { ThyGridModule,ThyGridColumn } from 'ngx-tethys/grid'
+            import { ThyGridModule as testAlias } from 'ngx-tethys/grid'
+            console.log(testAlias)
+            console.log(ThyGridModule)
+            class TestClass{
+                test(a:ThyGridModule){}
+            }
+          {  let ThyGridColumn='not to be convert'
+        console.log(ThyGridColumn)}
+            @Component({
+                template: '<thy-grid></thy-grid>',
+            })
+            export class TestComponent1 implements OnInit {}
+            @Component({
+                template: \`<thy-grid></thy-grid>\`,
+            })
+            export class TestComponent2 implements OnInit {}
+`
+        );
         tree = factory.getTree();
-        tree.overwrite('/projects/update11test/src/main.ts', `import './app/module1';`);
+        tree.overwrite('/projects/update11test/src/main.ts', `import './app/module1'; import './app/module2';`);
         tree.overwrite(
             TEST_HTML_PATH,
             `<thy-grid>
@@ -48,6 +74,7 @@ describe('ng-update v11 Schematic', () => {
 
     it(`should "ngx-tethys/grid" to "ngx-tethys/table"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
+        const result1 = workspaceTree.read(TEST_MODULE_PATH1).toString();
         expect(result).toContain('ngx-tethys/table');
         expect(result).not.toContain(`ngx-tethys/grid`);
     });
@@ -60,8 +87,8 @@ describe('ng-update v11 Schematic', () => {
     });
     it(`should not convert "ThyGridColumn" when without relation`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();
-        expect(result).toContain(`let ThyGridColumn='not to be convert'`);
-        expect(result).toContain(`console.log(ThyGridColumn)`);
+        expect(result).toContain(`let ThyTableColumn='not to be convert'`);
+        expect(result).toContain(`console.log(ThyTableColumn)`);
     });
     it(`should convert alias import "ThyGridModule" to "ThyTableModule"`, async () => {
         const result = workspaceTree.read(TEST_MODULE_PATH).toString();

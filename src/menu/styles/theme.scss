@@ -1,73 +1,107 @@
-.thy-menu {
-    .thy-menu-item {
-        &.active .thy-menu-item-content {
-            background: rgba($primary, 0.1);
+@use '../../styles/variables.scss';
+
+@mixin menu-theme-loose {
+    &.thy-menu-theme-loose {
+        padding: 0px 12px;
+        .thy-menu-item,
+        .thy-menu-item-content {
+            min-height: 36px;
         }
-    }
-
-    .thy-menu-group {
-        .thy-menu-group-header {
-            &:hover {
-                background: $gray-100;
-
+        .thy-menu-item {
+            padding: 0;
+            margin-bottom: 12px;
+        }
+        .thy-menu-item-content {
+            margin: 0;
+            padding: variables.$menu-loose-item-padding;
+            border-radius: variables.$menu-loose-item-border-radius;
+        }
+        .thy-menu-group {
+            .thy-menu-group-header {
+                margin: 0;
+                height: 48px;
+                padding: 0 8px;
                 .thy-menu-group-title {
-                    color: $gray-800;
+                    padding-left: 0;
+                    color: variables.$gray-600;
                 }
             }
-
             .thy-menu-group-arrow {
-                color: $gray-500;
+                margin-right: 2px;
             }
-
-            .thy-menu-group-folder {
-                color: $gray-500;
-            }
-
-            .thy-menu-group-title {
-                color: $gray-700;
-            }
-
-            .thy-menu-group-more {
-                color: $gray-500;
+            .thy-menu-group-body {
+                margin: 0;
             }
         }
-    }
-
-    .thy-menu-divider {
-        border-top: solid 1px $gray-200;
+        .thy-divider.thy-divider-horizontal {
+            margin: 0;
+        }
+        .thy-divider.thy-divider-horizontal + .thy-menu-item {
+            margin-top: 12px;
+        }
     }
 }
 
-.thy-menu-item {
-    .thy-menu-item-content {
-        &:hover {
-            background: $gray-100;
+@mixin menu-theme-dark {
+    &.thy-menu-theme-dark {
+        color: variables.$menu-theme-dark-color;
+        background: variables.$menu-theme-dark-bg-color;
 
-            .thy-menu-item-name {
-                color: $gray-800;
+        .thy-menu-item {
+            &.active {
+                .thy-menu-item-content {
+                    background: variables.$menu-theme-dark-hover-bg-color;
+
+                    .thy-menu-item-icon {
+                        color: variables.$menu-theme-dark-hover-color;
+                    }
+
+                    .thy-menu-item-name {
+                        color: variables.$menu-theme-dark-hover-color;
+                    }
+                }
+            }
+
+            .thy-menu-item-content {
+                &:hover {
+                    background: variables.$menu-theme-dark-hover-bg-color;
+                }
+
+                .thy-menu-item-icon {
+                    color: variables.$menu-theme-dark-color;
+                }
+
+                .thy-menu-item-name {
+                    color: variables.$menu-theme-dark-color;
+                }
             }
         }
 
-        .thy-menu-item-icon {
-            color: $gray-500;
+        .thy-menu-group {
+            .thy-menu-group-header {
+                &:hover {
+                    background: variables.$menu-theme-dark-hover-bg-color;
+                    .thy-menu-group-title {
+                        color: variables.$menu-theme-dark-hover-color;
+                    }
+                }
+
+                .thy-menu-group-arrow {
+                    color: variables.$menu-theme-dark-color;
+                }
+
+                .thy-menu-group-folder {
+                    color: variables.$menu-theme-dark-color;
+                }
+
+                .thy-menu-group-operation {
+                    color: variables.$menu-theme-dark-color;
+                }
+            }
         }
 
-        .thy-menu-item-name {
-            color: $gray-700;
-        }
-
-        .thy-menu-item-action {
-            color: $gray-500;
-        }
-    }
-
-    &.active .thy-menu-item-content {
-        .thy-menu-item-icon {
-            color: $primary;
-        }
-
-        .thy-menu-item-name {
-            color: $primary;
+        .thy-divider.thy-divider-horizontal {
+            border-color: variables.$menu-theme-dark-divider-color;
         }
     }
 }

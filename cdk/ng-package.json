@@ -3,5 +3,6 @@
   "dest": "../dist/cdk",
   "lib": {
     "entryFile": "public-api.ts"
-  }
+  },
+  "assets": ["./README.md"]
 }

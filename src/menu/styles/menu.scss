@@ -1,11 +1,11 @@
 @use "../../styles/variables";
+@use "./theme.scss";
+@use "./collapsed.scss";
 
 .thy-menu {
     position: relative;
     display: block;
     overflow-x: hidden;
-    padding: 10px 0;
-    transform: translateY(-10px);
 
     .thy-menu-item {
         padding: variables.$menu-item-padding;
@@ -29,6 +29,9 @@
                 position: absolute;
                 left: 3px;
             }
+            .thy-menu-item-icon {
+                padding-left: 6px;
+            }
         }
 
         &.thy-sortable-ghost,
@@ -40,32 +43,39 @@
 
     .thy-menu-group {
         display: block;
+        .thy-menu-group-header-content {
+            display: flex;
+            flex: 1;
+            align-items: center;
+        }
 
         &.collapsed {
             .thy-menu-group-header {
                 .thy-menu-group-arrow {
-                    transform: rotate(-45deg) translateY(1px);
+                    transform: rotate(90deg) translateX(-2px);
                 }
             }
         }
 
         .thy-menu-group-header {
-            cursor: pointer;
             display: flex;
             height: variables.$menu-height;
             align-items: center;
-            font-size: variables.$font-size-base;
+            font-size: variables.$font-size-sm;
             margin: 0 -1000px;
             padding: variables.$menu-group-header-padding;
+            &.thy-menu-group-collapsible {
+                cursor: pointer;
+            }
 
             &:hover {
-                background: variables.$gray-100;
-
-                .thy-menu-group-title {
-                    color: variables.$gray-800;
+                &.thy-menu-group-collapsible {
+                    .thy-menu-group-title {
+                        color: variables.$primary;
+                    }
                 }
 
-                .thy-menu-group-more {
+                .thy-menu-group-operation {
                     visibility: visible;
                 }
             }
@@ -73,28 +83,26 @@
             .thy-menu-group-arrow {
                 transition: all 0.2s cubic-bezier(0.4, 0.1, 0.5, 1) 0.1s;
                 display: inline-block;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
                 font-size: variables.$font-size-md;
                 width: 12px;
             }
 
             .thy-menu-group-folder {
                 margin-left: 6px;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
             }
 
             .thy-menu-group-title {
                 flex-grow: 1;
-                padding-left: 8px;
-                color: variables.$gray-700;
                 overflow: hidden;
                 white-space: nowrap;
                 text-overflow: ellipsis;
             }
 
-            .thy-menu-group-more {
+            .thy-menu-group-operation {
                 visibility: hidden;
-                color: variables.$gray-500;
+                color: variables.$gray-600;
             }
         }
 
@@ -109,15 +117,17 @@
         }
     }
 
-    .thy-menu-divider {
-        margin: variables.$menu-divider-margin;
-        display: block;
-        border-top: solid 1px variables.$gray-200;
+    .thy-divider.thy-divider-horizontal {
+        margin: 8px 0px;
     }
 }
 
 .thy-menu-item {
     display: block;
+
+    &.active {
+        text-decoration: none;
+    }
 
     &:hover {
         text-decoration: none;
@@ -132,24 +142,20 @@
 
         &:hover {
             background: variables.$gray-100;
-
-            .thy-menu-item-name {
-                color: variables.$gray-800;
-            }
-
             .thy-menu-item-action {
-                visibility: visible;
+                display: inline-block;
+                margin-left: 4px;
             }
         }
 
         .thy-menu-item-icon {
-            color: variables.$gray-500;
-            padding: 0 8px 0 6px;
+            color: variables.$gray-600;
+            padding-right: 8px;
         }
 
         .thy-menu-item-name {
             flex-grow: 1;
-            color: variables.$gray-700;
+            color: variables.$gray-800;
             font-size: variables.$font-size-base;
         }
 
@@ -160,8 +166,16 @@
         }
 
         .thy-menu-item-action {
-            visibility: hidden;
-            color: variables.$gray-500;
+            display: none;
+            color: variables.$gray-600;
+            .thy-action:last-child {
+                margin-right: -8px;
+            }
+
+            &.active {
+                display: inline-block !important;
+                margin-left: 4px;
+            }
         }
     }
 
@@ -174,4 +188,10 @@
             color: variables.$primary;
         }
     }
+}
+
+.thy-menu {
+    @include theme.menu-theme-loose();
+    @include theme.menu-theme-dark();
+    @include collapsed.menu-collapsed();
 }

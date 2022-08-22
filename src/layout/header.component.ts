@@ -1,22 +1,38 @@
-import { Component, HostBinding, Input, OnInit, TemplateRef, Optional, ViewChild, ContentChild, ViewContainerRef } from '@angular/core';
+import {
+    Component,
+    HostBinding,
+    Input,
+    OnInit,
+    TemplateRef,
+    Optional,
+    ViewChild,
+    ContentChild,
+    ViewContainerRef,
+    ChangeDetectionStrategy
+} from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,
-    templateUrl: './header.component.html'
+    templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: `thy-layout-header`,
+        '[class.thy-layout-header-sm]': `thySize === 'sm'`,
+        '[class.thy-layout-header-lg]': `thySize === 'lg'`,
+        '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
+        '[class.thy-layout-header-divided]': `divided`,
+        '[class.thy-layout-header-shadow]': `thyShadow`
+    }
 })
 export class ThyHeaderComponent implements OnInit {
     public iconClass: string;
 
     public svgIconName: string;
 
-    @HostBinding('class.thy-layout-header') thyLayoutHeaderClass = true;
-
-    @HostBinding('class.thy-layout-header-divided') divided = false;
-
-    @HostBinding('class.thy-layout-header-sm') _thySizeSm = false;
+    divided = false;
 
     /**
      * 底部是否有分割线
@@ -36,10 +52,7 @@ export class ThyHeaderComponent implements OnInit {
         this.divided = value as boolean;
     }
 
-    @Input('thySize')
-    set thySize(value: string) {
-        this._thySizeSm = value === 'sm';
-    }
+    @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
     @Input() thyTitle: string;
 
@@ -58,6 +71,11 @@ export class ThyHeaderComponent implements OnInit {
             this.svgIconName = null;
         }
     }
+
+    /**
+     * 底部是否有阴影
+     */
+    @Input() @InputBoolean() thyShadow = false;
 
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;

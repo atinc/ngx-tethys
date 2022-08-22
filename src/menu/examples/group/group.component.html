@@ -1,45 +1,90 @@
-<div class="demo-menu-container">
-  <thy-menu>
-    <thy-menu-group thyTitle="工作" [thyExpand]="true" [thyShowAction]="true" (thyOnActionClick)="openActionMenu($event, menu)">
-      <a thyMenuItem href="javascript:;">
-        <span thyMenuItemIcon>
-          <thy-icon thyIconName="user-check-fill"></thy-icon>
-        </span>
-        <span thyMenuItemName> 我的工作 </span>
-        <span thyMenuItemAction>
-          <thy-icon thyIconName="more"></thy-icon>
-        </span>
-      </a>
+<div thyRow [thyGutter]="30">
+  <div thyCol [thySpan]="12">
+    <div class="demo-menu-container">
+      <thy-menu>
+        <a thyMenuItem thyIcon="dashboard" href="javascript:;">
+          Dashboard
+        </a>
+        <a thyMenuItem thyIcon="list" href="javascript:;">
+          All Projects
+        </a>
+        <thy-divider></thy-divider>
+        <thy-menu-group thyTitle="Item1" thyCollapsible="true">
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 1
+            <thy-menu-item-action>
+              <a thyAction thyIcon="more"></a>
+            </thy-menu-item-action>
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 2
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 3
+          </a>
+        </thy-menu-group>
+        <thy-divider></thy-divider>
+        <thy-menu-group thyTitle="Item2">
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 4
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 5
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 6
+          </a>
+        </thy-menu-group>
 
-      <a thyMenuItem class="active" href="javascript:;">
-        <span thyMenuItemIcon><thy-icon thyIconName="pie-fill"></thy-icon></span>
-        <span thyMenuItemName> 统计报表 </span>
-        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
-      </a>
-    </thy-menu-group>
+        <thy-divider></thy-divider>
+        <a thyMenuItem thyIcon="horizontal-two-lines" href="javascript:;">
+          <span thyMenuItemName>Configuration</span>
+        </a>
+      </thy-menu>
+    </div>
+  </div>
+  <div thyCol [thySpan]="12">
+    <div class="demo-menu-container">
+      <thy-menu thyTheme="loose">
+        <a thyMenuItem thyIcon="dashboard" href="javascript:;">
+          Dashboard
+        </a>
+        <a thyMenuItem thyIcon="list" href="javascript:;">
+          All Projects
+        </a>
+        <thy-divider></thy-divider>
+        <thy-menu-group thyTitle="Item1" thyCollapsible="true">
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 1
+            <thy-menu-item-action>
+              <a thyAction thyIcon="more"></a>
+            </thy-menu-item-action>
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 2
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 3
+          </a>
+        </thy-menu-group>
+        <thy-divider></thy-divider>
+        <thy-menu-group thyTitle="Item2">
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 4
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 5
+          </a>
+          <a thyMenuItem thyIcon="inbox" href="javascript:;">
+            Project 6
+          </a>
+        </thy-menu-group>
 
-    <thy-menu-group thyTitle="项目" [thyExpand]="true" [thyShowAction]="true" (thyOnActionClick)="openActionMenu($event, menu)">
-      <div thyMenuItem href="javascript:;">
-        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目1 </span>
-        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
-      </div>
-      <div thyMenuItem href="javascript:;">
-        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目2 </span>
-        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
-      </div>
-      <div thyMenuItem href="javascript:;">
-        <span thyMenuItemIcon><thy-icon thyIconName="app-project"></thy-icon></span> <span thyMenuItemName> 项目3 </span>
-        <span thyMenuItemAction><thy-icon thyIconName="more"></thy-icon></span>
-      </div>
-    </thy-menu-group>
-  </thy-menu>
+        <thy-divider></thy-divider>
+        <a thyMenuItem thyIcon="horizontal-two-lines" href="javascript:;">
+          <span thyMenuItemName>Configuration</span>
+        </a>
+      </thy-menu>
+    </div>
+  </div>
 </div>
-
-<ng-template #menu>
-  <thy-action-menu>
-    <a thyActionMenuItem thyDisabled="true" thyActionMenuItemActive="true" href="javascript:;">
-      <span thyActionMenuItemIcon> <thy-icon thyIconName="edit"></thy-icon> </span>
-      <span thyActionMenuItemName>编辑</span>
-    </a>
-  </thy-action-menu>
-</ng-template>

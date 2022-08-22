@@ -5,33 +5,50 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 .#{$thy-collapse-prefix-cls} {
     display: block;
     position: relative;
-    border: 1px solid variables.$gray-200;
+    // border: 1px solid variables.$gray-200;
     border-bottom: 0;
-    background-color: variables.$gray-80;
     border-radius: 2px;
     .#{$thy-collapse-prefix-cls}-item {
         display: block;
-        border-bottom: 1px solid variables.$gray-200;
         &:last-child {
             border-radius: 0 0 2px 2px;
         }
         .#{$thy-collapse-prefix-cls}-header {
-            padding: 12px 16px;
+            padding: variables.$collapse-spacing-y variables.$collapse-spacing-x;
+            min-height: 48px;
+            display: flex;
+            align-items: center;
             position: relative;
             cursor: pointer;
             transition: all 0.3s, visibility 0s;
+            .#{$thy-collapse-prefix-cls}-title {
+                flex: 1;
+                font-size: variables.$collapse-header-font-size;
+            }
             .#{$thy-collapse-prefix-cls}-icon {
-                margin-right: 12px;
+                margin-right: 8px;
+                color: variables.$gray-600;
             }
             .#{$thy-collapse-prefix-cls}-extra {
                 float: right;
+            }
+
+            @if variables.$collapse-header-hover-color {
+                &:hover {
+                    .#{$thy-collapse-prefix-cls}-title {
+                        color: variables.$collapse-header-hover-color;
+                    }
+                }
             }
         }
         .#{$thy-collapse-prefix-cls}-content {
             border-top: 1px solid variables.$gray-200;
             background-color: variables.$white;
             &-box {
-                padding: 16px;
+                padding: 0px variables.$collapse-spacing-x (variables.$collapse-spacing-y + 4) variables.$collapse-spacing-x;
+            }
+            &-box:empty {
+                display: none;
             }
         }
     }
@@ -45,10 +62,11 @@ $thy-collapse-prefix-cls: 'thy-collapse';
 
     .#{$thy-collapse-prefix-cls}-no-arrow {
         .#{$thy-collapse-prefix-cls}-header {
-            padding: 12px;
+            // padding: 12px;
         }
     }
 }
+
 .#{$thy-collapse-prefix-cls}-ghost {
     border: 0;
     background-color: transparent;
@@ -57,39 +75,65 @@ $thy-collapse-prefix-cls: 'thy-collapse';
         > .#{$thy-collapse-prefix-cls}-content {
             background-color: transparent;
             border-top: 0;
-            > .#{$thy-collapse-prefix-cls}-content-box {
-                padding-top: 12px;
-                padding-bottom: 12px;
+            // > .#{$thy-collapse-prefix-cls}-content-box {
+            //     padding-top: 12px;
+            //     padding-bottom: 12px;
+            // }
+        }
+    }
+}
+
+.#{$thy-collapse-prefix-cls}-bordered {
+    border: 1px solid variables.$collapse-border-color;
+    .#{$thy-collapse-prefix-cls}-item {
+        border-bottom: 1px solid variables.$collapse-border-color;
+        &:last-child,
+        &:last-child > .#{$thy-collapse-prefix-cls}-header {
+            border-radius: 0;
+        }
+        .#{$thy-collapse-prefix-cls}-header {
+            background-color: variables.$gray-80;
+            padding: {
+                left: 12px;
+                right: 12px;
+            }
+        }
+        .#{$thy-collapse-prefix-cls}-content {
+            background: transparent;
+            border-top: 1px solid variables.$collapse-border-color;
+            .#{$thy-collapse-prefix-cls}-content-box {
+                padding: 12px;
             }
         }
     }
 }
 
-.#{$thy-collapse-prefix-cls}-borderless {
-    border: 0;
-    background-color: variables.$gray-80;
+.#{$thy-collapse-prefix-cls}-divided {
     .#{$thy-collapse-prefix-cls}-item {
         &:last-child,
         &:last-child > .#{$thy-collapse-prefix-cls}-header {
             border-radius: 0;
         }
+        &:not(:last-child) {
+            border-bottom: 1px solid variables.$collapse-border-color;
+        }
         .#{$thy-collapse-prefix-cls}-content {
             background: transparent;
             border-top: 0;
-            .#{$thy-collapse-prefix-cls}-content-box {
-                padding-top: 4px;
-            }
+            // .#{$thy-collapse-prefix-cls}-content-box {
+            //     padding-top: 4px;
+            // }
         }
     }
 }
 
 .#{$thy-collapse-prefix-cls}-icon-position-right {
     .#{$thy-collapse-prefix-cls}-item > .#{$thy-collapse-prefix-cls}-header {
-        padding: 12px 40px 12px 16px;
+        // padding: 12px 40px 12px 8px;
         .#{$thy-collapse-prefix-cls}-icon {
             position: absolute;
             top: 50%;
-            right: 16px;
+            right: 8px;
             left: auto;
             margin: 0;
             transform: translateY(-50%);

@@ -1,4 +1,4 @@
-import { ThyNavLinkDirective } from 'ngx-tethys/nav';
+import { ThyNavItemDirective } from 'ngx-tethys/nav';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -35,7 +35,7 @@ export class ThyNavResponsiveExampleComponent implements OnInit {
         this.activeIndex = value;
     }
 
-    navItemClick(item: ThyNavLinkDirective) {
+    navItemClick(item: ThyNavItemDirective) {
         item.elementRef.nativeElement.click();
     }
 }

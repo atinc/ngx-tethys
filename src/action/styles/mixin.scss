@@ -1,0 +1,24 @@
+@use "../../styles/mixins/hover.scss";
+@use "../../styles/variables.scss";
+
+@mixin action-variant($color, $hover-color, $hover-bg-color) {
+    color: $color;
+
+    @include hover.hover-active {
+        color: $hover-color;
+        background: $hover-bg-color;
+
+        > span {
+            color: $hover-color;
+        }
+    }
+}
+
+@mixin action-item-size($padding, $margin-right) {
+    padding: $padding;
+    margin-right: $margin-right;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}

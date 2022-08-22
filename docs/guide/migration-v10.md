@@ -2,6 +2,7 @@
 title: 10.x 升级指南
 path: 'migration-v10'
 order: 998
+hidden: true
 ---
 
 本文档将帮助你从 ngx-tethys 9.x 版本升级到 10.x 版本。

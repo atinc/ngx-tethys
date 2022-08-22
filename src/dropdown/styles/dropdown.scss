@@ -1,4 +1,5 @@
-@use "../../styles/variables";
+@use "../../styles/variables.scss";
+@use "../../styles/mixins/shadow.scss";
 @use "mixin";
 
 .thy-dropdown-pane {
@@ -13,6 +14,7 @@
     display: block;
     width: 100%;
     background: variables.$dropdown-menu-bg;
+    border-radius: variables.$border-radius;
 
     .dropdown-menu-group {
         &:first-child {
@@ -29,11 +31,10 @@
     .dropdown-menu-item {
         display: flex;
         flex-wrap: wrap;
-        align-items: flex-start;
+        align-items: center;
         padding: variables.$dropdown-menu-item-padding-y variables.$dropdown-menu-item-padding-x;
         position: relative;
         color: variables.$dropdown-menu-item-color;
-        align-items: center;
         cursor: pointer;
         text-decoration: none;
         transition: background 200ms;
@@ -53,6 +54,11 @@
             }
         }
 
+        > i:first-child,
+        > .thy-icon:first-child {
+            margin-right: 8px;
+            color: variables.$dropdown-menu-item-icon-color;
+        }
         .icon {
             display: flex;
             margin-right: 8px;
@@ -70,13 +76,13 @@
 
         .meta {
             padding-top: 2px;
-            margin-left: 5px;
+            margin-left: 4px;
             font-size: 12px;
         }
 
         .desc {
-            margin-top: 5px;
-            padding-right: 10px;
+            margin-top: 4px;
+            padding-right: 8px;
             width: 100%;
             line-height: 1.5;
             font-size: 12px;
@@ -95,10 +101,11 @@
             top: 0;
             left: 100%;
             z-index: 1;
-            padding: 10px 0;
+            padding: 8px 0;
             width: 100%;
             background: variables.$dropdown-menu-bg;
-            box-shadow: variables.$box-shadow;
+            border-radius: variables.$border-radius;
+            @include shadow.section-box-shadow();
         }
 
         &.dropdown-submenu-right {
@@ -108,10 +115,27 @@
             @include mixin.dropdown-submenu-hover-display();
         }
 
+        &.dropdown-submenu-rightBottom {
+            .dropdown-submenu {
+                left: 100%;
+                transform: translateY(calc(-100% + 40px));
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
         &.dropdown-submenu-left {
             .dropdown-submenu {
                 right: 100%;
                 left: auto;
+            }
+            @include mixin.dropdown-submenu-hover-display();
+        }
+
+        &.dropdown-submenu-leftBottom {
+            .dropdown-submenu {
+                right: 100%;
+                left: auto;
+                transform: translateY(calc(-100% + 40px));
             }
             @include mixin.dropdown-submenu-hover-display();
         }
@@ -159,6 +183,13 @@
         border-top: solid 1px variables.$dropdown-menu-divider-border-color;
         &-crossing {
             margin: 0;
+        }
+    }
+
+    // 配合 thy-divider 组件使用，修改间距
+    .thy-divider {
+        &.thy-divider-horizontal {
+            margin: variables.$dropdown-menu-divider-margin-y variables.$dropdown-menu-divider-margin-x;
         }
     }
 

@@ -11,7 +11,6 @@ const COMPONENTS = [ThyTransferBasicExampleComponent, ThyTransferTemplateExample
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, FormsModule, ThyTransferModule, ThyListModule, ThyIconModule],
     exports: [...COMPONENTS]
 })

@@ -1,5 +1,5 @@
 @use "../../../styles/variables";
-@use "../../select/select.mixin";
+@use "../../select/styles/select.mixin";
 @use "option.mixin";
 
 .thy-select-dropdown-options {
@@ -29,8 +29,7 @@
         .group-name {
             width: 100%;
             height: 30px;
-            display: flex;
-            align-items: center;
+            line-height: 30px;
             color: variables.$gray-600;
             background-color: variables.$gray-80;
             padding: {

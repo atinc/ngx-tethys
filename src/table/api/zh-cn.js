@@ -25,10 +25,22 @@ module.exports = [
                 default: 'default'
             },
             {
+                name: 'thyLayoutFixed',
+                description: '设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
                 name: 'thySize',
-                description: '表格大小，设置 sm 时行高为 44px，default 行高为 55px',
-                type: 'default | sm',
+                description: `表格大小，'xs' | 'sm' | 'md' | 'lg' | 'xlg' 默认为 'md'`,
+                type: `'xs' | 'sm' | 'md' | 'lg' | 'xlg'`,
                 default: 'default'
+            },
+            {
+                name: 'thyMinWidth',
+                description: `设置表格最小宽度，一般是适用于设置列宽为百分之或auto时限制表格最小宽度'`,
+                type: 'number | string',
+                default: ''
             },
             {
                 name: 'thyClassName',
@@ -161,6 +173,12 @@ module.exports = [
                 description: '拖动修改事件',
                 type: 'ThyTableDraggableEvent',
                 default: ''
+            },
+            {
+                name: '(thySortChange)',
+                description: '列排序修改事件',
+                type: 'ThyTableSortEvent',
+                default: ''
             }
         ]
     },
@@ -188,9 +206,27 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyMinWidth',
+                description: '设置列的最小宽度',
+                type: 'string | number',
+                default: ''
+            },
+            {
                 name: 'thyClassName',
                 description: '设置列的 Class，即 td 元素上的样式',
                 type: 'string',
+                default: ''
+            },
+            {
+                name: 'thyOperational',
+                description: '当前列是操作列，设置为 true 时会追加 thy-operation-links 样式类，文字居中',
+                type: 'boolean',
+                default: ''
+            },
+            {
+                name: 'thySecondary',
+                description: '当前列是次要列，设置为 true 时会追加 thy-table-column-secondary 样式类，文字颜色为 $gray-600',
+                type: 'boolean',
                 default: ''
             },
             {
@@ -234,6 +270,24 @@ module.exports = [
                 description: '设置固定列',
                 type: 'left | right',
                 default: '-'
+            },
+            {
+                name: 'thySortable',
+                description: '是否开启列排序功能（开启时 thyModelKey 为 必传）',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thySortDirection',
+                description: '默认列排序顺序',
+                type: 'desc | asc',
+                default: '-'
+            },
+            {
+                name: '(thySortChange)',
+                description: '列排序修改事件',
+                type: 'ThyTableSortEvent',
+                default: ''
             }
         ]
     }

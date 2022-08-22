@@ -1,7 +1,7 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { waitForAsync, fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
+import { waitForAsync, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -38,6 +38,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyMultiple]="multiple"
                 [thyPlaceholder]="thyPlaceholder"
                 thyShowKey="title"
+                thyDisableNodeKey="disabled"
             ></thy-tree-select>
         </div>
     `
@@ -49,6 +50,7 @@ class BasicTreeSelectComponent {
             title: 'root1',
             level: 0,
             icon: 'wtf wtf-drive-o',
+            disabled: true,
             children: [
                 {
                     key: '0101',
@@ -119,6 +121,8 @@ class BasicTreeSelectComponent {
     multiple = true;
 
     thyPlaceholder = '';
+
+    cdkConnectOverlayWidth = 0;
 
     @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
@@ -419,6 +423,33 @@ describe('ThyTreeSelect', () => {
                 dispatchMouseEvent(treeSelectElement, 'click');
                 expect(appRef.tick).not.toHaveBeenCalled();
             });
+
+            it('should disabled worked', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const disabledNode = overlayContainerElement.querySelector('.thy-option-item');
+                const extendBtn = fixture.debugElement.query(By.css('.thy-tree-select-option-icon')).nativeElement.children[0];
+                expect(disabledNode.classList.contains(`disabled`)).toBeTruthy();
+                expect(extendBtn.classList.contains('thy-icon-angle-right')).toBeTruthy();
+                extendBtn.click();
+                fixture.detectChanges();
+                flush();
+                expect(extendBtn.classList.contains('thy-icon-angle-down')).toBeTruthy();
+            }));
+            it('should get correct width when the window is resized', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                const event = new Event('resize');
+                window.dispatchEvent(event);
+                fixture.detectChanges();
+                tick(100);
+                const initDomWidth = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.getBoundingClientRect().width;
+                fixture.componentInstance.cdkConnectOverlayWidth = initDomWidth;
+                expect(initDomWidth).toEqual(document.body.clientWidth);
+            }));
         });
 
         describe('with thyPlaceHolder', () => {

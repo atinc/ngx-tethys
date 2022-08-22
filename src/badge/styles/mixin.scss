@@ -1,6 +1,6 @@
 @use "sass:color";
 @use "../../styles/bootstrap/functions";
-@use "../../styles/bootstrap/mixins/hover";
+@use "../../styles/mixins/hover";
 
 @mixin set-badge-color($color, $badge-bg) {
     color: $color;
@@ -12,9 +12,13 @@
     }
 }
 
-@mixin set-badge-size($font-size, $padding-horizontal, $padding-vertical) {
+@mixin set-badge-size($diameter, $font-size, $padding) {
+    min-width: $diameter;
+    height: $diameter;
+    border-radius: $diameter;
+    line-height: $diameter;
     font-size: $font-size;
-    padding: $padding-horizontal $padding-vertical;
+    padding: 0px $padding;
 }
 
 // bootstrap 4

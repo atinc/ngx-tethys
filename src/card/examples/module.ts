@@ -11,18 +11,19 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { FormsModule } from '@angular/forms';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyCardBorderedExampleComponent } from './bordered/bordered.component';
 
 const COMPONENTS = [
     ThyCardBasicExampleComponent,
     ThyCardContentScrollExampleComponent,
     ThyCardCustomHeaderExampleComponent,
     ThyCardDividedExampleComponent,
-    ThyCardSizeExampleComponent
+    ThyCardSizeExampleComponent,
+    ThyCardBorderedExampleComponent
 ];
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, FormsModule, ThyCardModule, ThyFormModule, ThySelectModule, ThyCheckboxModule, ThyButtonModule],
     exports: [...COMPONENTS]
 })

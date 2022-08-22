@@ -19,15 +19,15 @@
         border: 0;
     }
     .input-prepend {
-        margin-left: variables.$input-padding-x;
+        margin-left: variables.$input-padding-x-fixed;
         line-height: 1;
     }
     .input-append {
-        margin-right: variables.$input-padding-x;
+        margin-right: variables.$input-padding-x-fixed;
         line-height: 1;
     }
     .input-password-icon {
-        color: variables.$gray-300;
+        color: variables.$gray-400;
         .thy-icon {
             font-size: 20px;
         }
@@ -35,7 +35,7 @@
     .input-label {
         position: absolute;
         top: 1px;
-        left: 10px;
+        left: variables.$input-padding-x-fixed;
         background: variables.$white;
         padding: 0 5px;
         font-size: variables.$font-size-sm;
@@ -76,47 +76,51 @@
 
     &.thy-input-search-before {
         .input-search-control {
-            padding-left: variables.$input-padding-x + variables.$input-padding-x + 1rem;
+            padding-left: variables.$input-padding-x-fixed + variables.$input-padding-x-fixed + 0.875rem;
         }
     }
 
     &.thy-input-search-after {
         .input-search-control {
-            padding-right: 3 * variables.$input-padding-x + 1rem;
+            padding-right: 3 * variables.$input-padding-x-fixed + 0.875rem;
         }
     }
 
     .input-prepend {
         margin-left: 0px;
-        left: variables.$input-padding-x;
-        top: calc((100% - 16px) / 2);
+        font-size: variables.$font-size-base;
+        left: variables.$input-padding-x-fixed;
+        top: calc((100% - 14px) / 2);
         color: variables.$input-icon-color;
     }
 
     .input-append {
-        right: variables.$input-padding-x;
-        top: calc((100% - 16px) / 2);
+        right: variables.$input-padding-x-fixed;
+        font-size: variables.$font-size-base;
+        top: calc((100% - 14px) / 2);
         margin-right: 0px;
         line-height: 1;
 
+        .thy-icon,
         .close {
             font-size: variables.$font-size-base;
         }
         &.input-append-divider {
             &::after {
                 width: 1px;
-                height: 18px;
+                height: 16px;
                 content: ' ';
                 position: absolute;
                 // top: 50%;
-                right: 26px;
+                top: -1px;
+                right: 22px;
                 background: variables.$gray-200;
             }
         }
     }
 
     .input-search-control {
-        padding-right: variables.$input-padding-x + variables.$input-padding-x + 1rem;
+        padding-right: variables.$input-padding-x-fixed + variables.$input-padding-x-fixed + 0.875rem;
         transition: none;
     }
 
@@ -135,6 +139,15 @@
                     border-color: variables.$input-ellipse-focus-border-color;
                 }
             }
+        }
+    }
+
+    &.thy-input-search-transparent {
+        border: 0px;
+        background-color: transparent;
+        .input-search-control {
+            border: 0px;
+            background-color: transparent;
         }
     }
 }

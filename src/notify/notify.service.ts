@@ -28,13 +28,13 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
 
     private _lastNotifyId = 0;
 
-    private containerRefTopRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomRight: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefBottomLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefTopLeft: ComponentRef<ThyNotifyContainerComponent>;
+    private containerRefTopLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
     protected buildOverlayConfig(config: ThyNotifyConfig): OverlayConfig {
         const positionStrategy = this.buildPositionStrategy(config);
@@ -119,35 +119,29 @@ export class ThyNotifyService extends ThyAbstractOverlayService<ThyNotifyConfig,
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
         private queueStore: NotifyQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected defaultConfig: ThyNotifyConfig
+        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected config: ThyNotifyConfig
     ) {
         super(notifyAbstractOverlayOptions, overlay, injector, {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
-            ...defaultConfig
+            ...config
         });
-    }
-
-    public open<T, TData = unknown, TResult = unknown>(
-        componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
-        config?: ThyNotifyConfig<TData>
-    ): ThyNotifyRef<T, TResult> {
-        const notifyRef = this.openOverlay(componentOrTemplateRef, config);
-        return notifyRef as ThyNotifyRef<T, TResult>;
     }
 
     public show(config: ThyNotifyConfig) {
         const notifyConfig = this.formatOptions(config);
         const { placement } = notifyConfig;
         this.queueStore.addNotify(placement, notifyConfig);
-        const notifyRef = this.getContainer(placement);
-        if (!notifyRef) {
-            const ref = this.open(ThyNotifyContentComponent, {
+        let notifyRef = this.getContainer(placement);
+        if (!notifyRef || !notifyRef.getOverlayRef().hasAttached()) {
+            notifyRef = this.openOverlay(ThyNotifyContentComponent, {
                 ...notifyConfig,
                 initialState: {
                     placement
                 }
             });
-            this.setContainer(placement, ref);
+            this.setContainer(placement, notifyRef);
+        } else {
+            notifyRef.containerInstance.toOverlayTop();
         }
     }
 

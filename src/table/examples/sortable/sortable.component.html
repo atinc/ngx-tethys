@@ -1,0 +1,13 @@
+<thy-table [thyModel]="data" thyRowKey="id" (thySortChange)="onSortChange($event)">
+  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
+  <thy-table-column
+    thyTitle="Name"
+    thyModelKey="name"
+    [thySortable]="true"
+    [thySortDirection]="sortBy === 'name' ? sortDirection : ''"
+  ></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age" [thySortable]="true" [thySortDirection]="sortBy === 'age' ? sortDirection : ''">
+  </thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+</thy-table>

@@ -1,0 +1,21 @@
+@use '../../styles/variables.scss' as variables;
+
+.thy-tabs {
+    display: block;
+    .thy-tabs-nav {
+    }
+    .thy-tabs-content {
+        padding: variables.$tabs-content-space 0px;
+    }
+
+    &-left {
+        display: flex;
+        .thy-tabs-nav {
+            border-bottom: unset;
+        }
+        .thy-tabs-content {
+            flex: auto;
+            padding: 0px variables.$tabs-content-space;
+        }
+    }
+}

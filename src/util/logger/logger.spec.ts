@@ -1,6 +1,14 @@
-import { PREFIX, log, warn, warnDeprecation, createWarnDeprecation } from './logger';
+import { PREFIX, log, warn, warnDeprecation, createWarnDeprecation, setWarnDeprecation } from './logger';
 
 describe('#logger', () => {
+    beforeEach(() => {
+        setWarnDeprecation(true);
+    });
+
+    afterEach(() => {
+        setWarnDeprecation(false);
+    });
+
     beforeEach(function() {
         if (typeof console === 'undefined') {
             console = { warn: function() {}, log: function() {} } as Console;
@@ -39,6 +47,7 @@ describe('#logger', () => {
 
             warnDeprecation('Spec diff warn has no expectations.');
             expect(console.warn).toHaveBeenCalledTimes(1);
+            setWarnDeprecation(false);
         });
     });
 

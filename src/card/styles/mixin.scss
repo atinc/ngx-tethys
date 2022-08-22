@@ -2,3 +2,39 @@
 @mixin card-head-title-icon($card-title-icon-color) {
     border-left: solid 3px $card-title-icon-color;
 }
+
+@mixin card-set-size(
+    $card-header-padding-x,
+    $card-header-padding-y,
+    $card-content-padding-x,
+    $card-content-padding-y,
+    $divided-content-padding-y
+) {
+    .thy-card-header {
+        padding: $card-header-padding-y $card-header-padding-x;
+    }
+
+    .thy-card-content {
+        padding: 0px $card-content-padding-x $card-content-padding-y $card-content-padding-x;
+    }
+
+    // 分割模式下单独处理 content 的上下间距
+    &.thy-card--divided {
+        .thy-card-header {
+            &::after {
+                left: $card-header-padding-x;
+                right: $card-header-padding-x;
+            }
+        }
+        .thy-card-content {
+            padding: {
+                top: $divided-content-padding-y;
+                bottom: $divided-content-padding-y;
+            }
+            // 兼容 content 的 sm 大小，新的 card 大小完全由 thy-card 的 thySize 决定
+            &--sm {
+                padding-top: 12px;
+            }
+        }
+    }
+}

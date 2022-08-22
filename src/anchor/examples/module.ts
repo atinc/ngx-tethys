@@ -9,7 +9,6 @@ const COMPONENTS = [ThyAnchorBasicExampleComponent, ThyAnchorNavFakeExampleCompo
 
 @NgModule({
     declarations: [...COMPONENTS],
-    entryComponents: [...COMPONENTS],
     imports: [CommonModule, ThyAnchorModule],
     exports: [...COMPONENTS]
 })

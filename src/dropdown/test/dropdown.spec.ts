@@ -9,7 +9,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ComponentTypeOrTemplateRef, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyDropdownMenuComponent } from '../dropdown-menu.component';
+import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownSubmenuDirection } from '../dropdown-submenu.component';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
@@ -17,7 +17,7 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 @Component({
     selector: 'thy-dropdown-test',
     template: `
-        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary">Dropdown</button>
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" (thyActiveChange)="activeChange($event)" thyButton="primary">Dropdown</button>
         <thy-dropdown-menu #menu>
             <a thyDropdownMenuItem href="javascript:;">
                 <span>Menu Item1</span>
@@ -30,6 +30,12 @@ import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 })
 class DropdownBasicTestComponent {
     trigger: ThyOverlayTrigger = 'click';
+
+    active: boolean;
+
+    activeChange(active: boolean) {
+        this.active = active;
+    }
 }
 
 describe('basic dropdown', () => {
@@ -84,13 +90,12 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         expect(overlayContainerElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement).style.width).toEqual('240px');
-
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayPaneElement).toBeTruthy();
+        expect(overlayPaneElement.style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
         const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
         expect(dropdownMenuElement).toBeTruthy();
-
         expect(dropdownMenuElement.textContent).toContain('Menu Item1');
         expect(dropdownMenuElement.textContent).toContain('Menu Item2');
         flush();
@@ -100,6 +105,24 @@ describe('basic dropdown', () => {
         fixture.detectChanges();
         tick();
         assertOverlayHide();
+        flush();
+    }));
+
+    it('should invoke active change for open and close dropdown menu', fakeAsync(() => {
+        expect(fixture.componentInstance.active).toBe(undefined);
+        btnElement.click();
+        // delay open
+        tick();
+        fixture.detectChanges();
+        tick();
+        expect(fixture.componentInstance.active).toBe(true);
+        flush();
+        dropdown.hide();
+        // delay hide
+        tick();
+        fixture.detectChanges();
+        tick();
+        expect(fixture.componentInstance.active).toBe(false);
         flush();
     }));
 
@@ -120,15 +143,15 @@ describe('basic dropdown', () => {
         assertOverlayShow();
     }));
 
-    it('should has backdrop when trigger is click or focus', fakeAsync(() => {
+    it('should always have no backdrop', fakeAsync(() => {
         [
             {
                 trigger: 'click',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'focus',
-                hasBackdrop: true
+                hasBackdrop: false
             },
             {
                 trigger: 'hover',
@@ -316,6 +339,7 @@ describe('dropdown menu', () => {
         dropdown.show();
         tick();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         expect(dropdownMenuElement).toBeTruthy();
 
         const dropdownMenuDivider = dropdownMenuElement.querySelector('thy-dropdown-menu-divider');
@@ -338,6 +362,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         expect(dropdownMenuElement.style.width).toEqual('100px');
     }));
 
@@ -374,6 +399,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
         expect(menuItem.classList.contains('dropdown-menu-item--disabled')).toBeTruthy();
 
@@ -386,6 +412,7 @@ describe('dropdown menu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         const menuItem: HTMLElement = dropdownMenuElement.querySelector('#menu-item');
         expect(menuItem.classList.contains('active')).toBeFalsy();
         fixture.componentInstance.active = true;
@@ -508,6 +535,30 @@ describe('dropdown submenu', () => {
         flush();
     }));
 
+    it('should set direction leftBottom when direction is left', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.right = '20px';
+        dropdownMenu.style.height = '200px';
+        const submenu = dropdownMenu.querySelector('#submenu-left');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains(`dropdown-submenu-left`)).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
     it('should set direction right', fakeAsync(() => {
         fixture.detectChanges();
         dropdown.show();
@@ -517,6 +568,33 @@ describe('dropdown submenu', () => {
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
         expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
+    it('should set direction rightBottom when direction is right', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.left = '0px';
+        dropdownMenu.style.width = '100px';
+        dropdownMenu.style.height = '200px';
+
+        const submenu = dropdownMenu.querySelector('#submenu-right');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains(`dropdown-submenu-right`)).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
 
         dropdown.hide();
         tick();
@@ -555,6 +633,7 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.position = 'absolute';
         dropdownMenu.style.top = '200px';
         dropdownMenu.style.right = '20px';
+        dropdownMenu.style.left = '800px';
 
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
@@ -569,6 +648,126 @@ describe('dropdown submenu', () => {
         dropdown.hide();
         tick();
         flush();
+    }));
+
+    it('should set leftBottom when direction is auto', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.right = '20px';
+        dropdownMenu.style.left = '800px';
+        dropdownMenu.style.height = '200px';
+
+        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-leftBottom')).toBeTruthy();
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+
+    it('should set rightBottom when direction is auto', fakeAsync(() => {
+        fixture.detectChanges();
+        dropdown.show();
+        tick();
+        const dropdownMenu = getDropdownMenu();
+        dropdownMenu.style.position = 'absolute';
+        dropdownMenu.style.top = '2000px';
+        dropdownMenu.style.left = '0px';
+        dropdownMenu.style.width = '100px';
+        dropdownMenu.style.height = '200px';
+        const submenu = dropdownMenu.querySelector('#submenu-auto');
+        expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
+
+        expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeTruthy();
+
+        dispatchMouseEvent(submenu.parentElement, 'mouseenter');
+        tick(200);
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
+        expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
+        dropdown.hide();
+        tick();
+        flush();
+    }));
+});
+
+@Component({
+    selector: 'thy-dropdown-custom-menu',
+    template: `
+        <a thyDropdownMenuItem href="javascript:;">
+            <span>Custom Menu Item1</span>
+        </a>
+        <a thyDropdownMenuItem href="javascript:;">
+            <span>Custom Menu Item2</span>
+        </a>
+    `
+})
+class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
+
+@Component({
+    selector: 'thy-dropdown-component-test',
+    template: `
+        <button [thyDropdown]="menu" thyButton="primary">Dropdown</button>
+    `
+})
+class DropdownComponentTestComponent {
+    menu = DropdownCustomMenuComponent;
+}
+
+describe('dropdown-component', () => {
+    let fixture: ComponentFixture<DropdownComponentTestComponent>;
+    let btnElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let dropdownElement: HTMLElement;
+    let dropdown: ThyDropdownDirective;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
+            declarations: [DropdownComponentTestComponent, DropdownCustomMenuComponent]
+        }).compileComponents();
+        fixture = TestBed.createComponent(DropdownComponentTestComponent);
+        fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+        const btnDebugElement = fixture.debugElement.query(By.css('button'));
+        btnElement = btnDebugElement.nativeElement;
+        const dropdownDebugElement = fixture.debugElement.query(By.directive(ThyDropdownDirective));
+        dropdownElement = dropdownDebugElement.nativeElement;
+        dropdown = dropdownDebugElement.injector.get(ThyDropdownDirective);
+    });
+
+    beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    it('should open component menu', fakeAsync(() => {
+        dropdownElement.click();
+        tick(200);
+        fixture.detectChanges();
+        const customMenu = overlayContainerElement.querySelector('thy-dropdown-custom-menu');
+        tick();
+        expect(customMenu).toBeTruthy();
+        expect(customMenu.classList.contains('thy-dropdown-menu')).toBeTruthy();
+        expect(customMenu.textContent).toContain('Custom Menu Item1');
+        expect(customMenu.textContent).toContain('Custom Menu Item2');
     }));
 });
 
@@ -591,7 +790,7 @@ class DropdownOptionsTestComponent {
     popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
 }
 
-describe('dropdown popover options', () => {
+describe('dropdown options', () => {
     let fixture: ComponentFixture<DropdownOptionsTestComponent>;
     let btnElement: HTMLElement;
     let overlayContainer: OverlayContainer;
@@ -667,12 +866,30 @@ describe('dropdown popover options', () => {
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    placement: 'bottom',
+                    placement: 'bottomLeft',
                     width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
-                    hasBackdrop: true,
-                    offset: 0
+                    hasBackdrop: false,
+                    offset: 0,
+                    originActiveClass: 'thy-dropdown-origin-active'
+                })
+            );
+        });
+
+        it('should set thyActiveClass', () => {
+            dropdown.thyActiveClass = 'active';
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    placement: 'bottomLeft',
+                    width: THY_DROPDOWN_DEFAULT_WIDTH,
+                    height: undefined,
+                    insideClosable: true,
+                    hasBackdrop: false,
+                    offset: 0,
+                    originActiveClass: 'active'
                 })
             );
         });
@@ -707,7 +924,7 @@ describe('dropdown popover options', () => {
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    hasBackdrop: true,
+                    hasBackdrop: false,
                     offset: 0,
                     panelClass: 'thy-dropdown-pane'
                 })
