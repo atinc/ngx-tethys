@@ -1,7 +1,8 @@
-<div [style.width.px]="194" [style.marginTop.px]="16">
-  <thy-time-picker [(ngModel)]="fullTime" (ngModelChange)="onChange($event)"></thy-time-picker>
-</div>
-
-<div [style.width.px]="130" [style.marginTop.px]="16">
-  <thy-time-picker [(ngModel)]="time" thyFormat="HH:mm"></thy-time-picker>
-</div>
+<thy-space>
+  <div *thySpaceItem [style.width.px]="194">
+    <thy-time-picker [(ngModel)]="fullTime" (ngModelChange)="onChange($event)"></thy-time-picker>
+  </div>
+  <div *thySpaceItem [style.width.px]="130">
+    <thy-time-picker [(ngModel)]="time" thyFormat="HH:mm"></thy-time-picker>
+  </div>
+</thy-space>
