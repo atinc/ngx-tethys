@@ -23,7 +23,8 @@ import { InputBoolean } from 'ngx-tethys/core';
         '[class.thy-layout-header-sm]': `thySize === 'sm'`,
         '[class.thy-layout-header-lg]': `thySize === 'lg'`,
         '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
-        '[class.thy-layout-header-divided]': `divided`
+        '[class.thy-layout-header-divided]': `divided`,
+        '[class.thy-layout-header-shadow]': `thyShadow`
     }
 })
 export class ThyHeaderComponent implements OnInit {
@@ -70,6 +71,11 @@ export class ThyHeaderComponent implements OnInit {
             this.svgIconName = null;
         }
     }
+
+    /**
+     * 底部是否有阴影
+     */
+    @Input() @InputBoolean() thyShadow = false;
 
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;

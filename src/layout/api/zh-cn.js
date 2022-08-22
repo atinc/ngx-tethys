@@ -120,6 +120,12 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyShadow',
+                description: '底部是否有阴影',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
                 name: 'thyIconPrefix',
                 description: '图标前缀，被弃用，图标使用 SVG 图标',
                 type: 'string',

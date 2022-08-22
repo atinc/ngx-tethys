@@ -1,147 +1,61 @@
-<table>
-  <tbody>
-    <tr class="text-center" [hidden]="!showSpinners">
-      <!-- increment hours button-->
-      <td>
-        <a class="btn btn-link" [class.disabled]="!canIncrementHours || !isEditable" (click)="changeHours(hourStep)"
-          ><span class="thy-chevron thy-chevron-up"></span
-        ></a>
-      </td>
-      <!-- divider -->
-      <td *ngIf="showMinutes">&nbsp;&nbsp;&nbsp;</td>
-      <!-- increment minutes button -->
-      <td *ngIf="showMinutes">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canIncrementMinutes || !isEditable"
-          (click)="changeMinutes(minuteStep)"
-          ><span class="thy-chevron thy-chevron-up"></span
-        ></a>
-      </td>
-      <!-- divider -->
-      <td *ngIf="showSeconds">&nbsp;</td>
-      <!-- increment seconds button -->
-      <td *ngIf="showSeconds">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canIncrementSeconds || !isEditable"
-          (click)="changeSeconds(secondsStep)"
-        >
-          <span class="thy-chevron thy-chevron-up"></span>
-        </a>
-      </td>
-      <!-- space between -->
-      <td *ngIf="showMeridian">&nbsp;&nbsp;&nbsp;</td>
-      <!-- meridian placeholder-->
-      <td *ngIf="showMeridian"></td>
-    </tr>
-    <tr>
-      <!-- hours -->
-      <td class="form-group" [class.has-error]="invalidHours">
-        <input
-          type="text"
-          [class.is-invalid]="invalidHours"
-          class="form-control text-center thy-time-picker-field"
-          [placeholder]="hoursPlaceholder"
-          maxlength="2"
-          [readonly]="readonlyInput"
-          [disabled]="disabled"
-          [value]="hours"
-          (wheel)="prevDef($event); changeHours(hourStep * wheelSign($event), 'wheel')"
-          (keydown.ArrowUp)="changeHours(hourStep, 'key')"
-          (keydown.ArrowDown)="changeHours(-hourStep, 'key')"
-          (change)="updateHours($event.target.value)"
-        />
-      </td>
+<span cdkOverlayOrigin #origin="cdkOverlayOrigin" (click)="onInputPickerClick()">
+  <ng-container>
+    <input
+      #pickerInput
+      thyInput
+      class="form-control {{ prefixCls }}-input"
+      [class.thy-input-disabled]="thyDisabled"
+      [class.thy-input-readonly]="thyReadonly"
+      [class.thy-time-picker-panel-opened]="openState"
+      [(ngModel)]="showText"
+      [thySize]="thySize"
+      [disabled]="disabled"
+      [readonly]="thyReadonly"
+      [placeholder]="thyPlaceholder"
+      (blur)="onInputPickerBlur()"
+      (keyup.enter)="onKeyupEnter()"
+      (keyup.escape)="onKeyupEsc()"
+      (ngModelChange)="onCustomizeInput($event)"
+    />
+    <ng-container *ngTemplateOutlet="rightIcon"></ng-container>
+  </ng-container>
+</span>
 
-      <!-- divider -->
-      <td *ngIf="showMinutes">&nbsp;:&nbsp;</td>
-      <!-- minutes -->
-      <td class="form-group" *ngIf="showMinutes" [class.has-error]="invalidMinutes">
-        <input
-          type="text"
-          [class.is-invalid]="invalidMinutes"
-          class="form-control text-center thy-time-picker-field"
-          [placeholder]="minutesPlaceholder"
-          maxlength="2"
-          [readonly]="readonlyInput"
-          [disabled]="disabled"
-          [value]="minutes"
-          (wheel)="prevDef($event); changeMinutes(minuteStep * wheelSign($event), 'wheel')"
-          (keydown.ArrowUp)="changeMinutes(minuteStep, 'key')"
-          (keydown.ArrowDown)="changeMinutes(-minuteStep, 'key')"
-          (change)="updateMinutes($event.target.value)"
-        />
-      </td>
-      <!-- divider -->
-      <td *ngIf="showSeconds">&nbsp;:&nbsp;</td>
-      <!-- seconds -->
-      <td class="form-group" *ngIf="showSeconds" [class.has-error]="invalidSeconds">
-        <input
-          type="text"
-          [class.is-invalid]="invalidSeconds"
-          class="form-control text-center thy-time-picker-field"
-          [placeholder]="secondsPlaceholder"
-          maxlength="2"
-          [readonly]="readonlyInput"
-          [disabled]="disabled"
-          [value]="seconds"
-          (wheel)="prevDef($event); changeSeconds(secondsStep * wheelSign($event), 'wheel')"
-          (keydown.ArrowUp)="changeSeconds(secondsStep, 'key')"
-          (keydown.ArrowDown)="changeSeconds(-secondsStep, 'key')"
-          (change)="updateSeconds($event.target.value)"
-        />
-      </td>
-      <!-- space between -->
-      <td *ngIf="showMeridian">&nbsp;&nbsp;&nbsp;</td>
-      <!-- meridian -->
-      <td *ngIf="showMeridian">
-        <button
-          type="button"
-          class="btn btn-default text-center"
-          [disabled]="!isEditable || !canToggleMeridian"
-          [class.disabled]="!isEditable || !canToggleMeridian"
-          (click)="toggleMeridian()"
-        >
-          {{ meridian }}
-        </button>
-      </td>
-    </tr>
-    <tr class="text-center" [hidden]="!showSpinners">
-      <!-- decrement hours button-->
-      <td>
-        <a class="btn btn-link" [class.disabled]="!canDecrementHours || !isEditable" (click)="changeHours(-hourStep)">
-          <span class="thy-chevron thy-chevron-down"></span>
-        </a>
-      </td>
-      <!-- divider -->
-      <td *ngIf="showMinutes">&nbsp;&nbsp;&nbsp;</td>
-      <!-- decrement minutes button-->
-      <td *ngIf="showMinutes">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canDecrementMinutes || !isEditable"
-          (click)="changeMinutes(-minuteStep)"
-        >
-          <span class="thy-chevron thy-chevron-down"></span>
-        </a>
-      </td>
-      <!-- divider -->
-      <td *ngIf="showSeconds">&nbsp;</td>
-      <!-- decrement seconds button-->
-      <td *ngIf="showSeconds">
-        <a
-          class="btn btn-link"
-          [class.disabled]="!canDecrementSeconds || !isEditable"
-          (click)="changeSeconds(-secondsStep)"
-        >
-          <span class="thy-chevron thy-chevron-down"></span>
-        </a>
-      </td>
-      <!-- space between -->
-      <td *ngIf="showMeridian">&nbsp;&nbsp;&nbsp;</td>
-      <!-- meridian placeholder-->
-      <td *ngIf="showMeridian"></td>
-    </tr>
-  </tbody>
-</table>
+<ng-template #rightIcon>
+  <span class="{{ prefixCls }}-clear" *ngIf="!thyDisabled && thyAllowClear && !thyReadonly && showText">
+    <thy-icon thyIconName="close-circle-bold-fill" (click)="onClearTime($event)" ngClass="remove-link remove-link-{{ thySize }}"></thy-icon>
+  </span>
+  <span class="{{ prefixCls }}-icon">
+    <thy-icon [thyIconName]="'clock-circle-moment'" ngClass="remove-link-{{ thySize }}"></thy-icon>
+  </span>
+</ng-template>
+
+<!-- Overlay -->
+<ng-template
+  cdkConnectedOverlay
+  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOpen]="openState"
+  [cdkConnectedOverlayHasBackdrop]="thyBackdrop"
+  [cdkConnectedOverlayPositions]="overlayPositions"
+  cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+  (positionChange)="onPositionChange($event)"
+  (backdropClick)="onClickBackdrop()"
+  (overlayOutsideClick)="onOutsideClick($event)"
+  (detach)="onOverlayDetach()"
+  (attach)="onOverlayAttach()"
+>
+  <div #overlayContainer style="position: relative;">
+    <!-- Compatible for overlay that not support offset dynamically and immediately -->
+    <thy-time-picker-panel
+      [ngClass]="thyPopupClass"
+      [(ngModel)]="value"
+      [thyFormat]="thyFormat"
+      [thyHourStep]="thyHourStep"
+      [thyMinuteStep]="thyMinuteStep"
+      [thySecondStep]="thySecondStep"
+      [thyShowSelectNow]="thyShowSelectNow"
+      (ngModelChange)="onPickTimeConfirm($event)"
+      (thyPickChange)="onPickTime($event)"
+    ></thy-time-picker-panel>
+  </div>
+</ng-template>

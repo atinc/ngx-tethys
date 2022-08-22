@@ -7,7 +7,13 @@ import { MutationObserverFactory } from '@angular/cdk/observers';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
-type TheCanvasConfigType = typeof DEFAULT_CANVAS_CONFIG;
+export interface ThyCanvasConfigType {
+    degree?: number;
+    color?: string;
+    fontSize?: number | string;
+    textLineHeight?: number;
+    gutter?: number[];
+}
 @Directive({
     selector: '[thyWatermark]'
 })
@@ -32,9 +38,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     /**
      * canvas样式配置
      */
-    @Input() thyCanvasConfig: TheCanvasConfigType;
+    @Input() thyCanvasConfig: ThyCanvasConfigType;
 
-    private createCanvas$ = new Subject<string>();
+    private createWatermark$ = new Subject<string>();
 
     private observer: MutationObserver;
 
@@ -47,12 +53,12 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     ngOnInit() {
         if (!this.thyDisabled) {
-            this.createCanvas$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+            this.createWatermark$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 this.observeAttributes()
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {});
             });
-            this.createCanvas();
+            this.createWatermark();
         }
     }
 
@@ -61,97 +67,113 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const thyWatermarkChange = () => {
             if (thyWatermark.firstChange) return;
             if (thyWatermark.currentValue) {
-                this.refreshCanvas();
+                this.refreshWatermark();
             }
         };
         const thyDisabledChange = () => {
             if (thyDisabled.firstChange) return;
-            thyDisabled?.currentValue ? this.clearCanvas() : this.refreshCanvas();
+            thyDisabled?.currentValue ? this.removeWatermark() : this.refreshWatermark();
         };
         thyWatermark && thyWatermarkChange();
         thyDisabled && thyDisabledChange();
     }
 
-    private refreshCanvas() {
-        this.clearCanvas();
-        this.createCanvas();
+    private refreshWatermark() {
+        this.removeWatermark();
+        this.createWatermark();
     }
 
-    private clearCanvas() {
-        const parentNode = this.el.nativeElement;
-        const key = parentNode.id;
-
-        const __wm = this.el.nativeElement.querySelector(`.${key}_vm`);
+    private removeWatermark() {
+        const __wm = this.el.nativeElement.querySelector(`._vm`);
         if (__wm) {
             this.el.nativeElement.removeChild(__wm);
         }
     }
 
-    private createCanvas() {
-        let { xSpace, ySpace, fontSize, color, rotate, textLineHeight, textAlign, textBaseline } = {
+    createCanvas() {
+        let { gutter, fontSize, color, degree, textLineHeight } = {
             ...DEFAULT_CANVAS_CONFIG,
-            ...DEFAULT_CANVAS_CONFIG.styles,
-            ...(this.thyCanvasConfig || {}),
-            ...(this.thyCanvasConfig?.styles || {})
+            ...(this.thyCanvasConfig || {})
         };
 
+        const [xGutter, yGutter] = gutter;
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
 
+        const getFakeSize = () => {
+            const fakeBox = document.createElement('div');
+            const fakeBoxStyle = {
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                display: 'inline-block',
+                'font-size': `${parseFloat('' + fontSize)}px`,
+                'word-wrap': 'break-word',
+                'font-family': 'inherit',
+                'white-space': 'pre-line'
+            };
+            const styleStr = Object.keys(fakeBoxStyle).reduce((pre, next) => ((pre += `${next}:${fakeBoxStyle[next]};`), pre), '');
+            fakeBox.setAttribute('style', styleStr);
+
+            fakeBox.innerHTML = this.content.replace(/(\\n)/gm, '</br>');
+            document.querySelector('body').insertBefore(fakeBox, document.querySelector('body').firstChild);
+            const { width, height } = fakeBox.getBoundingClientRect();
+            fakeBox.remove();
+            return { width, height };
+        };
+        const { width: fakeBoxWidth, height: fakeBoxHeight } = getFakeSize();
+
+        const angle = (degree * Math.PI) / 180;
         const contentArr = this.content.split('\\n');
-        ctx.font = `${fontSize} microsoft yahei`;
+        const canvasHeight = Math.sin(angle) * fakeBoxWidth + fakeBoxHeight;
 
-        const canvasWidth = Math.max(...contentArr.map(k => ctx.measureText(k).width));
-        const canvasHeight = Math.sin(rotate) * canvasWidth;
+        let start = Math.ceil(Math.sin(angle) * fakeBoxWidth * Math.sin(angle));
+        const canvasWidth = start + fakeBoxWidth;
+        canvas.setAttribute('width', '' + (canvasWidth + xGutter));
+        canvas.setAttribute('height', '' + (canvasHeight + yGutter));
 
-        canvas.setAttribute('width', '' + (canvasWidth + xSpace));
-        canvas.setAttribute('height', '' + (canvasHeight + ySpace + textLineHeight * (contentArr.length - 1)));
-        this.canvas = canvas;
-
-        ctx.font = `${fontSize} microsoft yahei`;
-        ctx.textAlign = textAlign as CanvasTextAlign;
-        ctx.textBaseline = textBaseline as CanvasTextBaseline;
+        ctx.font = `${parseFloat('' + fontSize)}px microsoft yahei`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'top';
         ctx.fillStyle = color;
-        ctx.rotate(0 - (rotate * Math.PI) / 180);
+        ctx.rotate(0 - (degree * Math.PI) / 180);
         contentArr.map((k, i) => {
-            ctx.save();
-            ctx.fillText(k, Math.abs(Math.tan(rotate) * canvasHeight), canvasHeight + textLineHeight * i);
-            ctx.restore();
+            ctx.fillText(k, -start + Math.ceil(canvasWidth / 2), Math.sin(angle) * canvasWidth + textLineHeight * i);
+            start += Math.sin(angle) * textLineHeight;
         });
-
-        this.createWatermark();
+        this.canvas = canvas;
+        return canvas;
     }
-    private createWatermark() {
-        const key = this.el.nativeElement.id;
-        const __wm = this.el.nativeElement.querySelector(`.${key}_vm`);
+
+    private createWatermark(isRefresh = true) {
+        const __wm = this.el.nativeElement.querySelector(`._vm`);
         const watermarkDiv = __wm || document.createElement('div');
 
+        const background = !isRefresh ? this.canvas.toDataURL() : this.createCanvas().toDataURL();
         const watermarkStyle = {
             ...DEFAULT_WATERMARK_CONFIG,
-            'background-image': `url(${this.canvas.toDataURL()})`
+            'background-image': `url(${background})`
         };
 
         const styleStr = Object.keys(watermarkStyle).reduce((pre, next) => ((pre += `${next}:${watermarkStyle[next]};`), pre), '');
-
         watermarkDiv.setAttribute('style', styleStr);
 
         if (!__wm) {
             const parentNode = this.el.nativeElement;
-            watermarkDiv.classList.add(`${key}_vm`);
+            watermarkDiv.classList.add(`_vm`);
             parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
         }
-        this.createCanvas$.next('');
+        this.createWatermark$.next('');
     }
 
     private observeAttributes() {
-        this?.observer?.disconnect();
+        this.observer?.disconnect();
         return new Observable(observe => {
             const stream = new Subject<MutationRecord[]>();
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
             const parentNode = this.el.nativeElement;
-            const key = parentNode.id;
             if (this.observer) {
-                const __wm = parentNode.querySelector(`.${key}_vm`);
+                const __wm = parentNode.querySelector(`._vm`);
 
                 this.observer.observe(__wm, {
                     attributes: true
@@ -159,11 +181,10 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             }
             stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 const parentNode = this.el.nativeElement;
-                const key = parentNode.id;
-                const __wm = parentNode.querySelector(`.${key}_vm`);
+                const __wm = parentNode.querySelector(`._vm`);
                 if (__wm) {
                     this?.observer?.disconnect();
-                    this.createWatermark();
+                    this.createWatermark(false);
                 }
             });
             observe.next(stream);

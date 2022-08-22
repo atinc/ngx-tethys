@@ -2,8 +2,10 @@
 category: display
 title: Label
 subtitle: 标签
+label: deprecated
 ---
 
+<alert type="warning">此组件已经废弃，请使用 Tag 组件代替。</alert>
 
 <alert>进行标记和分类的标签组件。</alert>
 

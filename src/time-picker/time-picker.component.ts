@@ -1,329 +1,306 @@
+import { CdkConnectedOverlay, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
+    AfterViewInit,
     ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ElementRef,
     EventEmitter,
     forwardRef,
     Input,
-    OnChanges,
     OnDestroy,
+    OnInit,
     Output,
-    SimpleChanges,
-    StaticProvider
+    ViewChild
 } from '@angular/core';
-
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { isValid } from 'date-fns';
+import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
+import { TinyDate } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
 
-import { getControlsValue } from './time-picker-controls.util';
-import { TimePickerConfig } from './time-picker.config';
-
-import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from './time-picker.models';
-
-import {
-    isValidDate,
-    padNumber,
-    parseTime,
-    isInputValid,
-    isHourInputValid,
-    isMinuteInputValid,
-    isSecondInputValid,
-    isInputLimitValid
-} from './time-picker.utils';
-
-import { Subscription } from 'rxjs';
-
-import { ThyTimePickerStore } from './time-picker.store';
-
-export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
-    provide: NG_VALUE_ACCESSOR,
-    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
-    useExisting: forwardRef(() => ThyTimePickerComponent),
-    multi: true
-};
+export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
 @Component({
     selector: 'thy-time-picker',
+    templateUrl: './time-picker.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
-    templateUrl: './time-picker.component.html'
+    providers: [
+        {
+            provide: NG_VALUE_ACCESSOR,
+            multi: true,
+            useExisting: forwardRef(() => ThyTimePickerComponent)
+        }
+    ],
+    host: {
+        class: 'thy-time-picker',
+        '[class.thy-time-picker-disabled]': `thyDisabled`,
+        '[class.thy-time-picker-readonly]': `thyReadonly`
+    }
 })
-export class ThyTimePickerComponent implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {
-    /** hours change step */
-    @Input() hourStep: number;
-    /** hours change step */
-    @Input() minuteStep: number;
-    /** seconds change step */
-    @Input() secondsStep: number;
-    /** if true hours and minutes fields will be readonly */
-    @Input() readonlyInput: boolean;
-    /** if true hours and minutes fields will be disabled */
-    @Input() disabled: boolean;
-    /** if true scroll inside hours and minutes inputs will change time */
-    @Input() mousewheel: boolean;
-    /** if true the values of hours and minutes can be changed using the up/down arrow keys on the keyboard */
-    @Input() arrowKeys: boolean;
-    /** if true spinner arrows above and below the inputs will be shown */
-    @Input() showSpinners: boolean;
-    /** if true meridian button will be shown */
-    @Input() showMeridian: boolean;
-    /** show minutes in timePicker */
-    @Input() showMinutes: boolean;
-    /** show seconds in timePicker */
-    @Input() showSeconds: boolean;
-    /** meridian labels based on locale */
-    @Input() meridians: string[];
-    /** minimum time user can select */
-    @Input() min: Date;
-    /** maximum time user can select */
-    @Input() max: Date;
-    /** placeholder for hours field in timePicker */
-    @Input() hoursPlaceholder: string;
-    /** placeholder for minutes field in timePicker */
-    @Input() minutesPlaceholder: string;
-    /** placeholder for seconds field in timePicker */
-    @Input() secondsPlaceholder: string;
+export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlValueAccessor {
+    @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
-    /** emits true if value is a valid date */
-    @Output() isValid = new EventEmitter<boolean>();
+    @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
 
-    // ui variables
-    hours: string;
-    minutes: string;
-    seconds: string;
-    meridian: string;
+    @ViewChild('pickerInput', { static: true }) inputRef: ElementRef<HTMLInputElement>;
 
-    get isEditable(): boolean {
-        return !(this.readonlyInput || this.disabled);
+    @ViewChild('overlayContainer', { static: false }) overlayContainer: ElementRef<HTMLElement>;
+
+    @Input() thySize: TimePickerSize = 'default';
+
+    @Input() thyPlaceholder: string = '选择时间';
+
+    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+
+    @Input() set thyFormat(value: string) {
+        this.format = value || 'HH:mm:ss';
+        if (this.value && isValid(this.value)) {
+            this.showText = new TinyDate(this.value).format(this.format);
+        }
     }
 
-    // min/max validation for input fields
-    invalidHours = false;
-    invalidMinutes = false;
-    invalidSeconds = false;
+    @Input() thyHourStep: number = 1;
 
-    // time picker controls state
-    canIncrementHours: boolean;
-    canIncrementMinutes: boolean;
-    canIncrementSeconds: boolean;
+    @Input() thyMinuteStep: number = 1;
 
-    canDecrementHours: boolean;
-    canDecrementMinutes: boolean;
-    canDecrementSeconds: boolean;
+    @Input() thySecondStep: number = 1;
 
-    canToggleMeridian: boolean;
+    @Input() thyPopupClass: string;
 
-    // control value accessor methods
-    onChange = Function.prototype;
-    onTouched = Function.prototype;
+    @Input() @InputBoolean() thyBackdrop: boolean;
 
-    private timerPickerSubscription = new Subscription();
-
-    constructor(_config: TimePickerConfig, private _cd: ChangeDetectorRef, private _store: ThyTimePickerStore) {
-        Object.assign(this, _config);
-
-        this.timerPickerSubscription.add(
-            _store
-                .select(state => state.value)
-                .subscribe((value: Date) => {
-                    // update UI values if date changed
-                    this._renderTime(value);
-                    this.onChange(value);
-                    this._store.updateControls(getControlsValue(this));
-                })
-        );
-
-        this.timerPickerSubscription.add(
-            _store
-                .select(state => state.controls)
-                .subscribe((controlsState: TimePickerControls) => {
-                    this.isValid.emit(isInputValid(this.hours, this.minutes, this.seconds, this.isPM()));
-                    Object.assign(this, controlsState);
-                    _cd.markForCheck();
-                })
-        );
+    @Input() @InputBoolean() set thyDisabled(value: boolean) {
+        this.disabled = value;
     }
 
-    resetValidation(): void {
-        this.invalidHours = false;
-        this.invalidMinutes = false;
-        this.invalidSeconds = false;
+    @Input() @InputBoolean() thyReadonly: boolean;
+
+    @Input() @InputBoolean() thyShowSelectNow = true;
+
+    @Input() @InputBoolean() thyAllowClear = true;
+
+    @Output() thyOpenChange = new EventEmitter<boolean>();
+
+    get thyFormat() {
+        return this.format;
     }
 
-    isPM(): boolean {
-        return this.showMeridian && this.meridian === this.meridians[1];
+    get thyDisabled() {
+        return this.disabled;
     }
 
-    prevDef($event: Event) {
-        $event.preventDefault();
+    prefixCls = 'thy-time-picker';
+
+    overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
+
+    format: string = 'HH:mm:ss';
+
+    disabled: boolean;
+
+    showText: string = '';
+
+    openState: boolean;
+
+    value: Date = new TinyDate().setHms(0, 0, 0).nativeDate;
+
+    keepFocus: boolean;
+
+    onValueChangeFn: (val: number | Date) => void = () => void 0;
+
+    onTouchedFn: () => void = () => void 0;
+
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {}
+
+    ngOnInit() {}
+
+    ngAfterViewInit() {
+        this.overlayPositions = getFlexiblePositions(this.thyPlacement, 4);
     }
 
-    wheelSign($event: WheelEventInit): number {
-        return Math.sign($event.deltaY) * -1;
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        this._store.updateControls(getControlsValue(this));
-    }
-
-    changeHours(step: number, source: TimeChangeSource = ''): void {
-        this.resetValidation();
-        this._store.changeHours({ step, source });
-    }
-
-    changeMinutes(step: number, source: TimeChangeSource = ''): void {
-        this.resetValidation();
-        this._store.changeMinutes({ step, source });
-    }
-
-    changeSeconds(step: number, source: TimeChangeSource = ''): void {
-        this.resetValidation();
-        this._store.changeSeconds({ step, source });
-    }
-
-    updateHours(hours: string): void {
-        this.resetValidation();
-        this.hours = hours;
-
-        const isValid = isHourInputValid(this.hours, this.isPM()) && this.isValidLimit();
-
-        if (!isValid) {
-            this.invalidHours = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-
+    onInputPickerClick() {
+        if (this.disabledUserOperation()) {
             return;
         }
-
-        this._updateTime();
+        this.openOverlay();
     }
 
-    updateMinutes(minutes: string) {
-        this.resetValidation();
-        this.minutes = minutes;
+    onInputPickerBlur() {
+        if (this.keepFocus) {
+            this.focus();
+        }
+    }
 
-        const isValid = isMinuteInputValid(this.minutes) && this.isValidLimit();
+    onPickTime(value: Date) {
+        this.setValue(value);
+        this.emitValue();
+    }
 
-        if (!isValid) {
-            this.invalidMinutes = true;
-            this.isValid.emit(false);
-            this.onChange(null);
+    onPickTimeConfirm(value: Date) {
+        this.confirmValue(value);
+    }
 
+    onClearTime(e: Event) {
+        e.stopPropagation();
+        this.setValue(null);
+        this.emitValue();
+    }
+
+    onCustomizeInput(value: string) {
+        this.formatInputValue(value);
+        this.cdr.detectChanges();
+    }
+
+    onKeyupEnter() {
+        this.confirmValue(this.value);
+        this.closeOverlay();
+    }
+
+    onKeyupEsc() {
+        this.closeOverlay();
+    }
+
+    onPositionChange(e: Event) {
+        this.cdr.detectChanges();
+    }
+
+    onClickBackdrop() {
+        this.closeOverlay();
+    }
+
+    onOverlayDetach() {
+        this.closeOverlay();
+    }
+
+    onOutsideClick(event: Event) {
+        if (
+            this.openState &&
+            !this.elementRef.nativeElement.contains(event.target) &&
+            !this.overlayContainer.nativeElement.contains(event.target as Node)
+        ) {
+            this.closeOverlay();
+            this.cdr.detectChanges();
+        }
+    }
+
+    onOverlayAttach() {
+        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+            this.cdkConnectedOverlay.overlayRef.updatePosition();
+        }
+    }
+
+    openOverlay() {
+        if (this.disabledUserOperation()) {
             return;
         }
-
-        this._updateTime();
+        this.keepFocus = true;
+        this.openState = true;
+        this.thyOpenChange.emit(this.openState);
     }
 
-    updateSeconds(seconds: string) {
-        this.resetValidation();
-        this.seconds = seconds;
-
-        const isValid = isSecondInputValid(this.seconds) && this.isValidLimit();
-
-        if (!isValid) {
-            this.invalidSeconds = true;
-            this.isValid.emit(false);
-            this.onChange(null);
-
-            return;
-        }
-
-        this._updateTime();
-    }
-
-    isValidLimit(): boolean {
-        return isInputLimitValid(
-            {
-                hour: this.hours,
-                minute: this.minutes,
-                seconds: this.seconds,
-                isPM: this.isPM()
-            },
-            this.max,
-            this.min
-        );
-    }
-
-    _updateTime() {
-        const _seconds = this.showSeconds ? this.seconds : void 0;
-        const _minutes = this.showMinutes ? this.minutes : void 0;
-        if (!isInputValid(this.hours, _minutes, _seconds, this.isPM())) {
-            this.isValid.emit(false);
-            this.onChange(null);
-
-            return;
-        }
-
-        this._store.setTime({
-            hour: this.hours,
-            minute: this.minutes,
-            seconds: this.seconds,
-            isPM: this.isPM()
-        });
-    }
-
-    toggleMeridian(): void {
-        if (!this.showMeridian || !this.isEditable) {
-            return;
-        }
-
-        const _hoursPerDayHalf = 12;
-        this._store.changeHours({
-            step: _hoursPerDayHalf,
-            source: ''
-        });
-    }
-
-    writeValue(obj: string | null | undefined | Date): void {
-        if (isValidDate(obj)) {
-            this._store.writeValue(parseTime(obj));
-        } else if (obj == null) {
-            this._store.writeValue(null);
-        }
-    }
-
-    registerOnChange(fn: (_: any) => {}): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: () => {}): void {
-        this.onTouched = fn;
-    }
-
-    setDisabledState(isDisabled: boolean): void {
-        this.disabled = isDisabled;
-        this._cd.markForCheck();
-    }
-
-    ngOnDestroy(): void {
-        this.timerPickerSubscription.unsubscribe();
-    }
-
-    private _renderTime(value: string | Date): void {
-        if (!isValidDate(value)) {
-            this.hours = '';
-            this.minutes = '';
-            this.seconds = '';
-            this.meridian = this.meridians[0];
-
-            return;
-        }
-
-        const _value = parseTime(value);
-        const _hoursPerDayHalf = 12;
-        let _hours = _value.getHours();
-
-        if (this.showMeridian) {
-            this.meridian = this.meridians[_hours >= _hoursPerDayHalf ? 1 : 0];
-            _hours = _hours % _hoursPerDayHalf;
-            // should be 12 PM, not 00 PM
-            if (_hours === 0) {
-                _hours = _hoursPerDayHalf;
+    closeOverlay() {
+        this.keepFocus = false;
+        this.openState = false;
+        this.blur();
+        if (this.showText?.length) {
+            if (!this.validateCustomizeInput(this.showText)) {
+                this.setValue(this.value);
+            } else {
+                this.showText = new TinyDate(this.value).format(this.thyFormat);
             }
         }
+        this.thyOpenChange.emit(this.openState);
+    }
 
-        this.hours = padNumber(_hours);
-        this.minutes = padNumber(_value.getMinutes());
-        this.seconds = padNumber(_value.getUTCSeconds());
+    focus() {
+        if (this.inputRef) {
+            this.inputRef.nativeElement.focus();
+        }
+    }
+
+    blur() {
+        if (this.inputRef) {
+            this.inputRef.nativeElement.blur();
+        }
+    }
+
+    writeValue(value: Date): void {
+        this.setValue(value);
+    }
+
+    registerOnChange(fn: any): void {
+        this.onValueChangeFn = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchedFn = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
+    }
+
+    private setValue(value: Date, formatText: boolean = true) {
+        if (value && isValid(value)) {
+            this.value = new Date(value);
+            if (formatText) {
+                this.showText = new TinyDate(this.value).format(this.thyFormat);
+            }
+        } else {
+            this.value = null;
+            this.showText = '';
+        }
+        this.cdr.markForCheck();
+    }
+
+    private confirmValue(value: Date) {
+        this.setValue(value);
+        this.closeOverlay();
+        this.emitValue();
+        this.cdr.markForCheck();
+    }
+
+    private emitValue() {
+        if (this.onValueChangeFn) {
+            this.onValueChangeFn(this.value);
+        }
+        if (this.onTouchedFn) {
+            this.onTouchedFn();
+        }
+    }
+
+    private formatInputValue(value: string) {
+        if (!this.openState) {
+            this.openOverlay();
+        }
+        if (value?.length > 0) {
+            if (this.validateCustomizeInput(value)) {
+                const formatter = value.split(':');
+                const hour = formatter[0] || 0;
+                const minute = formatter[1] || 0;
+                const second = formatter[2] || 0;
+                this.setValue(new TinyDate().setHms(+hour, +minute, +second).nativeDate, false);
+                this.emitValue();
+            }
+        } else {
+            this.setValue(null);
+            this.emitValue();
+        }
+    }
+
+    private validateCustomizeInput(value: string): boolean {
+        let valid: boolean = false;
+        const formatRule = this.thyFormat.split(':');
+        const formatter = value.split(':');
+        valid = !formatRule
+            .map((m, i) => {
+                return !!formatter[i];
+            })
+            .includes(false);
+        return valid;
+    }
+
+    private disabledUserOperation() {
+        return this.thyDisabled || this.thyReadonly;
     }
 }

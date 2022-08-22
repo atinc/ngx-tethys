@@ -1,22 +1,30 @@
-import { TestBed, ComponentFixture, fakeAsync, tick, inject, flush, waitForAsync } from '@angular/core/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Component, ViewChild, ViewChildren, QueryList, DebugElement } from '@angular/core';
-import { ThyAutocompleteModule } from '../module';
-import { ThyAutocompleteComponent } from '../autocomplete.component';
-import { By } from '@angular/platform-browser';
-import { UpdateHostClassService } from '../../core';
+import { ThyInputSearchComponent } from 'ngx-tethys/input';
+import {
+    bypassSanitizeProvider,
+    dispatchFakeEvent,
+    dispatchKeyboardEvent,
+    injectDefaultSvgIconSet,
+    typeInElement
+} from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ThyFormModule } from '../../form';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { typeInElement, injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
-import { ThyOptionComponent } from '../../shared/option/option.component';
-import { ThyInputModule } from '../../input/module';
 import { CommonModule } from '@angular/common';
-import { ThySharedModule } from '../../shared';
+import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyOptionModule } from '../../shared';
-import { ThyInputSearchComponent } from 'ngx-tethys/input';
+
+import { UpdateHostClassService } from '../../core';
+import { ThyFormModule } from '../../form';
+import { ThyInputModule } from '../../input/module';
+import { ThyOptionModule, ThySharedModule } from '../../shared';
+import { ThyOptionComponent } from '../../shared/option/option.component';
+import { ThyAutocompleteComponent } from '../autocomplete.component';
+import { ThyAutocompleteTriggerDirective } from '../autocomplete.trigger.directive';
+import { ThyAutocompleteModule } from '../module';
 
 @Component({
     selector: 'thy-basic-autocomplete',
@@ -49,9 +57,10 @@ class BasicSelectComponent {
         { value: 'chips-4', viewValue: 'Chips' },
         { value: 'eggs-5', viewValue: 'Eggs' },
         { value: 'pasta-6', viewValue: 'Pasta' },
-        { value: 'sushi-7', viewValue: 'Sushi' }
+        { value: null, viewValue: 'Sushi' }
     ];
     @ViewChild(ThyAutocompleteComponent, { static: true }) autocomplete: ThyAutocompleteComponent;
+    @ViewChild(ThyAutocompleteTriggerDirective, { static: true }) autocompleteDirective: ThyAutocompleteTriggerDirective;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     opened() {
@@ -145,6 +154,14 @@ describe('ThyAutocomplete', () => {
                 trigger = fixture.debugElement.query(By.css('input')).nativeElement;
             }));
 
+            it('should component be created', fakeAsync(() => {
+                expect(fixture.componentInstance).toBeTruthy();
+                expect(fixture.componentInstance.autocomplete.dropDownClass).toEqual({
+                    'thy-select-dropdown': true,
+                    'thy-select-dropdown-single': true
+                });
+            }));
+
             it('should open the panel when trigger focused', fakeAsync(() => {
                 expect(fixture.componentInstance.autocomplete.isOpened).toBe(false);
                 dispatchFakeEvent(trigger, 'focusin');
@@ -167,11 +184,113 @@ describe('ThyAutocomplete', () => {
                 expect(overlayContainerElement.textContent).toContain('Tacos');
             }));
 
-            it('should emit opend event when the panel opened', fakeAsync(() => {
+            it('should emit opened event when the panel opened', fakeAsync(() => {
                 dispatchFakeEvent(trigger, 'focusin');
                 fixture.detectChanges();
                 tick(500);
                 expect(fixture.componentInstance.openedSpy).toHaveBeenCalled();
+            }));
+
+            it('should onKeydown be called when focusin and keydown', fakeAsync(() => {
+                dispatchFakeEvent(trigger, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+
+                const keydownSpy = spyOn(fixture.componentInstance.autocompleteDirective, 'onKeydown');
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
+                fixture.detectChanges();
+                tick(500);
+                expect(keydownSpy).toHaveBeenCalled();
+
+                const clickOutsideSpy = spyOn<any>(fixture.componentInstance.autocompleteDirective, 'setValueAndClose');
+                dispatchFakeEvent(document, 'click', false);
+                fixture.detectChanges();
+                tick(500);
+                expect(clickOutsideSpy).toHaveBeenCalled();
+            }));
+
+            it('should get correct activeItem  when keydown DOWN_ARROW and ENTER', fakeAsync(() => {
+                dispatchFakeEvent(trigger, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+
+                fixture.componentInstance.autocompleteDirective['autocompleteRef'].updatePosition();
+                fixture.detectChanges();
+                tick(500);
+
+                const activeItem = fixture.componentInstance.autocompleteDirective.autocompleteComponent?.keyManager?.activeItem;
+                expect(activeItem).toBeFalsy();
+
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
+                fixture.detectChanges();
+                tick(500);
+                const newActiveItem = fixture.componentInstance.autocompleteDirective.autocompleteComponent?.keyManager?.activeItem;
+                expect(newActiveItem?.thyLabelText).toContain('Steak');
+
+                const selectViaInteractionSpy = spyOn(fixture.componentInstance.autocompleteDirective.activeOption, 'selectViaInteraction');
+                const resetActiveItemSpy = spyOn<any>(fixture.componentInstance.autocompleteDirective, 'resetActiveItem');
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.ENTER);
+                fixture.detectChanges();
+                tick(500);
+                expect(selectViaInteractionSpy).toHaveBeenCalled();
+                expect(resetActiveItemSpy).toHaveBeenCalled();
+            }));
+
+            it('should get highlight activeItem  when thyAutoActiveFirstOption is true', fakeAsync(() => {
+                fixture.componentInstance.autocomplete.thyAutoActiveFirstOption = true;
+                fixture.detectChanges();
+                tick(500);
+
+                dispatchFakeEvent(trigger, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+
+                const activeItem = fixture.componentInstance.autocompleteDirective.autocompleteComponent?.keyManager?.activeItem;
+                expect(activeItem).toBeTruthy();
+
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
+                fixture.detectChanges();
+                tick(500);
+                const newActiveItem = fixture.componentInstance.autocompleteDirective.autocompleteComponent?.keyManager?.activeItem;
+                expect(newActiveItem?.thyLabelText).toContain('Pizza');
+            }));
+
+            it('should openPanel be called when keydown DOWN_ARROW not focusin', fakeAsync(() => {
+                const openPanelSpy = spyOn(fixture.componentInstance.autocompleteDirective, 'openPanel');
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
+                fixture.detectChanges();
+                tick(500);
+                expect(openPanelSpy).toHaveBeenCalled();
+            }));
+
+            it('should openPanel when keydown DOWN_ARROW not focusin', fakeAsync(() => {
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.DOWN_ARROW);
+                fixture.detectChanges();
+                tick(500);
+                expect(fixture.componentInstance.autocompleteDirective.panelOpened).toBe(true);
+
+                const resetActiveItemSpy = spyOn<any>(fixture.componentInstance.autocompleteDirective, 'resetActiveItem');
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.ESCAPE);
+                fixture.detectChanges();
+                tick(500);
+                expect(resetActiveItemSpy).toHaveBeenCalled();
+            }));
+
+            it('should selectionModel be clear and deselect will be called when keydown focusin and UP_ARROW', fakeAsync(() => {
+                dispatchFakeEvent(trigger, 'focusin');
+                fixture.detectChanges();
+                tick(500);
+
+                const selectionModelSpy = spyOn(fixture.componentInstance.autocomplete.selectionModel, 'clear');
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.UP_ARROW);
+                fixture.detectChanges();
+                tick(500);
+
+                dispatchKeyboardEvent(trigger, 'keydown', keycodes.ENTER);
+                fixture.detectChanges();
+                tick(500);
+
+                expect(selectionModelSpy).toHaveBeenCalled();
             }));
 
             it('should close the panel when option is clicked', fakeAsync(() => {
@@ -210,8 +329,17 @@ describe('ThyAutocomplete', () => {
             beforeEach(fakeAsync(() => {
                 fixture = TestBed.createComponent(InputSearchSelectComponent);
                 debugSearchElement = fixture.debugElement.query(By.directive(ThyInputSearchComponent));
+                fixture.componentInstance.autocomplete.isMultiple = true;
                 fixture.detectChanges();
                 tick(100);
+            }));
+
+            it('should component be created', fakeAsync(() => {
+                expect(fixture.componentInstance).toBeTruthy();
+                expect(fixture.componentInstance.autocomplete.dropDownClass).toEqual({
+                    'thy-select-dropdown': true,
+                    'thy-select-dropdown-': true
+                });
             }));
 
             it('should close the panel when option is clicked', fakeAsync(() => {

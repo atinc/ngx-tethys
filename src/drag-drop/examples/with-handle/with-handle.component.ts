@@ -1,9 +1,10 @@
+import { moveItemInArray } from '@angular/cdk/drag-drop';
 import { Component, OnInit } from '@angular/core';
+import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 
 @Component({
     selector: 'thy-drag-drop-with-handle-example',
-    templateUrl: './with-handle.component.html',
-    styleUrls: ['./with-handle.component.scss']
+    templateUrl: './with-handle.component.html'
 })
 export class ThyDragDropWithHandleExampleComponent implements OnInit {
     nodes = [
@@ -36,4 +37,8 @@ export class ThyDragDropWithHandleExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    onDragDrop(event: ThyDragDropEvent) {
+        moveItemInArray(event.containerItems, event.previousIndex, event.currentIndex);
+    }
 }
