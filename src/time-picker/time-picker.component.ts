@@ -236,7 +236,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     writeValue(value: Date | number): void {
         if (value && isValid(value)) {
             this.originValue = new Date(value);
-            this.setValue(new TinyDate().nativeDate);
+            this.setValue(new TinyDate(value).nativeDate);
         } else {
             this.value = new TinyDate().setHms(0, 0, 0).nativeDate;
         }
