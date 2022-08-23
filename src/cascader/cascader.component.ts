@@ -640,7 +640,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
             const isSelected = !option.selected;
-            // option.selected = isSelected;
             set(option, 'selected', isSelected);
             if (option.selected) {
                 this.buildDisplayLabel();
