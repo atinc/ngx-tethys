@@ -88,8 +88,7 @@
                 width: 12px;
             }
 
-            .thy-menu-group-folder {
-                margin-left: 6px;
+            .thy-menu-group-title-icon {
                 color: variables.$gray-600;
             }
 
@@ -111,8 +110,8 @@
         }
 
         &.has-icon {
-            > .thy-menu-group-body {
-                margin-left: 35px;
+            .thy-menu-group-title-text {
+                font-size: variables.$font-size-base;
             }
         }
     }
