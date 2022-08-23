@@ -1,4 +1,4 @@
-import { Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ContentChild, Input, OnInit, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
 
 /**
  * 属性组件
@@ -46,20 +46,19 @@ export class ThyPropertyItemComponent implements OnInit {
 
     editing: boolean;
 
-    keepEditing: boolean;
-
-    constructor() {}
+    constructor(@SkipSelf() protected parentCdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
     setEditing(editing: boolean) {
         this.editing = editing;
+        this.parentCdr.markForCheck();
     }
 
+    /**
+     * @deprecated please use setEditing(editing: boolean)
+     */
     setKeepEditing(keep: boolean) {
-        this.keepEditing = keep;
-        if (!keep) {
-            this.setEditing(false);
-        }
+        this.setEditing(keep);
     }
 }

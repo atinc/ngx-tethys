@@ -1,5 +1,14 @@
 @use "../../styles/variables.scss";
 
+@mixin _displayItemEditor {
+    .thy-properties-item-content-text {
+        display: none;
+    }
+    .thy-properties-item-content-editor {
+        display: block;
+    }
+}
+
 .thy-properties {
     width: 100%;
 
@@ -11,7 +20,7 @@
             .thy-properties-item-label {
                 min-height: variables.$property-item-min-height;
                 line-height: variables.$property-item-min-height;
-                width: 25%;
+                width: variables.$property-item-horizontal-label-width;
             }
 
             .thy-properties-item-content {
@@ -30,11 +39,19 @@
         }
     }
 
+    &.thy-properties-edit-trigger-hover {
+        .thy-properties-item-content-editable {
+            &:hover {
+                @include _displayItemEditor();
+            }
+        }
+    }
+
     table {
         width: 100%;
         table-layout: fixed;
         td {
-            padding: variables.$property-item-padding;
+            padding: variables.$property-item-padding-y variables.$property-item-padding-x;
         }
     }
 
@@ -43,27 +60,19 @@
     }
 
     .thy-properties-item-content {
+        width: 100%;
         color: variables.$property-item-content-color;
 
-        .thy-properties-item-content-text {
-        }
-
         .thy-properties-item-content-editor {
+            width: 100%;
             display: none;
+            .form-control {
+                margin-left: calc(variables.$property-item-padding-x + 0.0625rem) * -1;
+            }
         }
 
         &-editing {
-            .thy-properties-item-content-text {
-                display: none;
-            }
-            .thy-properties-item-content-editor {
-                display: block;
-
-                // 优化 edit状态下使用 form-control 组件抖动，9px（input padding 8px + border 1px）
-                .form-control {
-                    transform: translateX(calc((variables.$input-padding-x-fixed + 1px) * -1));
-                }
-            }
+            @include _displayItemEditor();
         }
     }
 }
