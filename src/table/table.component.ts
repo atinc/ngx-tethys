@@ -486,7 +486,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public onModelChange(row: SafeAny, column: ThyTableColumnComponent) {
         if (column.model) {
-            console.log('column.model', column.model);
             set(row, column.model, row[column.key]);
         }
     }

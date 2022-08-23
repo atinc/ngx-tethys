@@ -63,7 +63,9 @@ export class ThyCascaderCustomTemplateExampleComponent implements OnInit {
         this.thyCustomerOptions = customerOptions;
     }
 
-    public selectChange(values: any): void {}
+    public selectChange(values: any): void {
+        console.log(values);
+    }
 
     public handleAreaClick($event: any, label: any, selectedOptions: any) {}
 }

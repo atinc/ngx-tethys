@@ -1,1 +1,8 @@
-<thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" (ngModelChange)="selectChanges($event)" style="width:200px"> </thy-cascader>
+<thy-cascader
+  [thyOptions]="areaCode"
+  [(ngModel)]="values"
+  (ngModelChange)="selectChanges($event)"
+  thyPlaceholder="00000"
+  thyColumnClassName="column-class-name"
+>
+</thy-cascader>

@@ -1,15 +1,17 @@
-<div cdk-overlay-origin #origin="cdkOverlayOrigin" #trigger>
+<div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
   <ng-container *ngIf="thyShowInput">
     <div
       thySelectControl
       [thySize]="thySize"
       [thyAllowClear]="true"
       [thySelectedOptions]="selected"
+      [thyMaxTagCount]="thyMaxTagCount"
+      (thyOnRemove)="removeSelectedItem($event)"
       (thyOnClear)="clearSelection($event)"
       [thyDisabled]="disabled"
       [thyIsMultiple]="thyMultiple"
       [thyPanelOpened]="menuVisible"
-      [thyPlaceholder]="thyPlaceHolder"
+      [thyPlaceholder]="thyPlaceholder"
       [customDisplayTemplate]="customDisplayTemplate"
     >
       <ng-template #customDisplayTemplate let-value>
@@ -33,24 +35,25 @@
   [cdkConnectedOverlayWidth]="triggerRect?.width"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
-  (attach)="onAttached()"
-  (positionChange)="onPositionChange($event)"
+  (attach)="attached()"
+  (positionChange)="positionChange($event)"
   [cdkConnectedOverlayOpen]="menuVisible"
 >
-  <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onMenuMouseleave($event)">
-    <ng-container *ngIf="thyColumns.length > 0; else emptyPlaceholder">
-      <ul #cascaderOptionContainers *ngFor="let options of thyColumns; let i = index" [ngClass]="menuColumnCls">
+  <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
+    <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
+      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
         <li
           #cascaderOptions
           thy-cascader-option
           *ngFor="let option of options; trackBy: trackByFn"
           [option]="option"
           [multiple]="thyMultiple"
-          (toggleSelectChange)="clickOption(option, i, $event)"
-          (click)="clickOption(option, i, $event)"
-          (mouseover)="onOptionMouseover(option, i, $event)"
+          [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
           [labelProperty]="thyLabelProperty"
           [active]="isActivatedOption(option, i)"
+          (toggleSelectChange)="clickOption(option, i, $event)"
+          (click)="clickOption(option, i, $event)"
+          (mouseover)="mouseoverOption(option, i, $event)"
         ></li>
       </ul>
     </ng-container>

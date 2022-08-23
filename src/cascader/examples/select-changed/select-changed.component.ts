@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import option from '../cascader-address-options';
+import options from '../cascader-address-options';
+
 @Component({
     selector: 'thy-cascader-select-changed-example',
     templateUrl: './select-changed.component.html'
 })
 export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     public areaCode: any[] = [];
-
-    public areaCode1: any[] = [];
 
     public values: any[] = [];
 
@@ -17,12 +16,10 @@ export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = [...option];
-        this.areaCode1 = JSON.parse(JSON.stringify(option));
+        this.areaCode = [...options];
     }
 
     public selectChanges(values: any): void {
-        console.log(values);
         this.notifyService.info('select', values);
     }
 

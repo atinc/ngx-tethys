@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import option from '../cascader-address-options';
 
 @Component({
-    selector: 'thy-cascader-disable-example',
-    templateUrl: './disable.component.html'
+    selector: 'thy-cascader-disabled-example',
+    templateUrl: './disabled.component.html'
 })
-export class ThyCascaderDisableExampleComponent implements OnInit {
+export class ThyCascaderDisabledExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
     public values: any[] = [];

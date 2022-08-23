@@ -1,15 +1,5 @@
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Output,
-    ViewEncapsulation
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CascaderOption } from './types';
 
 @Component({
@@ -36,13 +26,7 @@ export class ThyCascaderOptionComponent implements OnInit {
     @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
     @InputBoolean()
-    set active(value: boolean) {
-        this.isActive = value;
-    }
-
-    get active() {
-        return this.isActive;
-    }
+    active: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
@@ -58,9 +42,7 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 
-    private isActive = false;
-
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor() {}
 
     public getOptionLabel() {
         return this.option ? this.option[this.labelProperty] : '';
