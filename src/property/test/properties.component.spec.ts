@@ -47,7 +47,7 @@ class ThyPropertiesTestBasicComponent {
 @Component({
     selector: 'thy-properties-test-column',
     template: `
-        <thy-properties thyColumn="3">
+        <thy-properties #properties thyColumn="3">
             <thy-property-item thyLabelText="姓名">张萌</thy-property-item>
             <thy-property-item thyLabelText="年龄">24</thy-property-item>
             <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
@@ -55,7 +55,9 @@ class ThyPropertiesTestBasicComponent {
         </thy-properties>
     `
 })
-class ThyPropertiesTestColumnComponent {}
+class ThyPropertiesTestColumnComponent {
+    @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
+}
 
 @NgModule({
     imports: [ThyPropertyModule, CommonModule],
@@ -148,7 +150,7 @@ describe(`thy-properties`, () => {
 
     describe(`with column`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestColumnComponent>;
-        let basicComponent: ThyPropertiesTestColumnComponent;
+        let testColumnComponent: ThyPropertiesTestColumnComponent;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
@@ -160,7 +162,7 @@ describe(`thy-properties`, () => {
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyPropertiesTestColumnComponent);
-            basicComponent = fixture.debugElement.componentInstance;
+            testColumnComponent = fixture.debugElement.componentInstance;
             fixture.detectChanges();
         });
 
@@ -169,6 +171,12 @@ describe(`thy-properties`, () => {
             const tds = fixture.debugElement.queryAll(By.css('td'));
             expect(trs.length).toEqual(2);
             expect(tds.length).toEqual(6);
+        });
+
+        it('should render item elements length eq property items length ', () => {
+            expect(testColumnComponent.propertiesComponent.items.length).toEqual(
+                testColumnComponent.propertiesComponent.itemElements.length
+            );
         });
     });
 });
