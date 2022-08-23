@@ -39,7 +39,7 @@ export class ThyTextComponent implements OnInit {
 
     private setColor() {
         if (isThemeColor(this.color) || isTextColor(this.color)) {
-            this.updateHostClassService.updateClass([`thy-text-${this.color}`]);
+            this.updateHostClassService.updateClass([`text-${this.color}`]);
         } else {
             this.elementRef.nativeElement.style.color = this.color;
         }
