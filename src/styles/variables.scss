@@ -1007,10 +1007,10 @@ $property-item-padding: 8px 0px !default;
 $tabs-content-space: 1rem !default;
 
 // select-control
-$select-control-padding-y-sm: 2px;
-$select-control-padding-y-md: 3px;
-$select-control-padding-y-default: 5px;
-$select-control-padding-y-lg: 7px;
+$select-control-padding-y-sm: 2px !default;
+$select-control-padding-y-md: 3px !default;
+$select-control-padding-y-default: 5px !default;
+$select-control-padding-y-lg: 7px !default;
 
 // z-index
 $z-index-1: 10;
