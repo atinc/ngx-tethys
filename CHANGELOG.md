@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.4](https://github.com/atinc/ngx-tethys/compare/13.2.3...13.2.4) (2022-08-23)
+
+
+### Bug Fixes
+
+* **image:** fix blob image preview error #INFR-4333 ([#2103](https://github.com/atinc/ngx-tethys/issues/2103)) ([2e8c34d](https://github.com/atinc/ngx-tethys/commit/2e8c34d72ed436ce6dee4eadf5ad997e72a719d5)), closes [#INFR-4333](https://github.com/atinc/ngx-tethys/issues/INFR-4333)
+
+
+
 ## [13.2.3](https://github.com/atinc/ngx-tethys/compare/13.2.2...13.2.3) (2022-08-19)
 
 
