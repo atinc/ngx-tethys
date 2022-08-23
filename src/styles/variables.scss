@@ -443,11 +443,14 @@ $tag-colors: map.merge(
     ),
     $tag-colors
 );
+$tag-height-sm: 20px !default;
+$tag-height-md: 24px !default;
+$tag-height-lg: 28px !default;
 $tag-size-heights: () !default;
 $tag-size-heights: (
-    sm: 20px,
-    md: 24px,
-    lg: 28px
+    sm: $tag-height-sm,
+    md: $tag-height-md,
+    lg: $tag-height-lg
 );
 $tag-size-paddings: () !default;
 $tag-size-paddings: (
@@ -1002,6 +1005,12 @@ $property-item-padding: 8px 0px !default;
 
 // tabs
 $tabs-content-space: 1rem !default;
+
+// select-control
+$select-control-padding-y-sm: 2px;
+$select-control-padding-y-md: 3px;
+$select-control-padding-y-default: 5px;
+$select-control-padding-y-lg: 7px;
 
 // z-index
 $z-index-1: 10;
