@@ -6,16 +6,18 @@
     &.thy-properties-horizontal {
         .thy-properties-item-container {
             width: 100%;
-            min-height: variables.$property-item-min-height;
             display: flex;
-            align-items: center;
 
             .thy-properties-item-label {
+                min-height: variables.$property-item-min-height;
+                line-height: variables.$property-item-min-height;
                 width: 25%;
             }
 
             .thy-properties-item-content {
                 flex: 1;
+                display: flex;
+                align-items: center;
             }
         }
     }

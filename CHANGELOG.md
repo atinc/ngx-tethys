@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.4](https://github.com/atinc/ngx-tethys/compare/13.2.3...13.2.4) (2022-08-23)
+
+
+### Bug Fixes
+
+* **image:** fix blob image preview error #INFR-4333 ([#2103](https://github.com/atinc/ngx-tethys/issues/2103)) ([2e8c34d](https://github.com/atinc/ngx-tethys/commit/2e8c34d72ed436ce6dee4eadf5ad997e72a719d5)), closes [#INFR-4333](https://github.com/atinc/ngx-tethys/issues/INFR-4333)
+
+
+
+## [13.2.3](https://github.com/atinc/ngx-tethys/compare/13.2.2...13.2.3) (2022-08-19)
+
+
+### Bug Fixes
+
+* **property:** update property item  align-items is baseline #INFR-4285 ([d8d7c22](https://github.com/atinc/ngx-tethys/commit/d8d7c2295d017e15cb3bb1ad8328dff87678bdc0)), closes [#INFR-4285](https://github.com/atinc/ngx-tethys/issues/INFR-4285)
+* **property:** update style, property label aalways top alignment ##INFR-4285 ([005344b](https://github.com/atinc/ngx-tethys/commit/005344b39b145b8870cbc5752f959c0e21b402c6)), closes [#INFR-4285](https://github.com/atinc/ngx-tethys/issues/INFR-4285)
+* **watermark:** adjust the fake-box style #INFR-4287 ([7e4d96e](https://github.com/atinc/ngx-tethys/commit/7e4d96e076a455e2ac9873f6006a20a098929b33)), closes [#INFR-4287](https://github.com/atinc/ngx-tethys/issues/INFR-4287)
+
+
+### Features
+
+* **property:** support keep editing #INFR-4275 ([#2091](https://github.com/atinc/ngx-tethys/issues/2091)) ([ceb67a0](https://github.com/atinc/ngx-tethys/commit/ceb67a0564155154be57dc58e923a3f826425831)), closes [#INFR-4275](https://github.com/atinc/ngx-tethys/issues/INFR-4275)
+
+
+
+## [13.2.2](https://github.com/atinc/ngx-tethys/compare/13.2.1...13.2.2) (2022-08-17)
+
+
+### Bug Fixes
+
+* **collapse:** fix collapse empty box style #INFR-4220 ([1f5a788](https://github.com/atinc/ngx-tethys/commit/1f5a7882aef62b23895c290b35787058f3d7bdce)), closes [#INFR-4220](https://github.com/atinc/ngx-tethys/issues/INFR-4220)
+* **watermark:** adjust the var name & add test #INFO-4106 ([#2085](https://github.com/atinc/ngx-tethys/issues/2085)) ([aa4ad36](https://github.com/atinc/ngx-tethys/commit/aa4ad361337935a23fbf35bf41f516e8f326bada)), closes [#INFO-4106](https://github.com/atinc/ngx-tethys/issues/INFO-4106)
+
+
+### Features
+
+* **tabs:** change padding of tabs content  to 16px #INFR-4204 ([#2082](https://github.com/atinc/ngx-tethys/issues/2082)) ([330c1de](https://github.com/atinc/ngx-tethys/commit/330c1deff97b4008e77db9442c2c876f84e9d6f0)), closes [#INFR-4204](https://github.com/atinc/ngx-tethys/issues/INFR-4204)
+* **time-picker:** add new TimePicker #INFR-4147 ([#2087](https://github.com/atinc/ngx-tethys/issues/2087)) ([fa8cc62](https://github.com/atinc/ngx-tethys/commit/fa8cc62f18446ea727a848dc4b76c7222cdf7a53)), closes [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147)
+
 # [14.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.0.0-next.0...14.0.0-next.1) (2022-08-16)
 
 - build: upgrade Angular to 14
