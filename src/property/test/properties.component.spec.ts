@@ -108,13 +108,6 @@ describe(`thy-properties`, () => {
             expect(trs[3].nativeElement.innerText).toEqual(basicComponent.user.age.toString());
         });
 
-        it('should displayed input when age item hovered', () => {
-            const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
-            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseenter');
-            fixture.detectChanges();
-            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
-        });
-
         it('should displayed input when age item clicked', () => {
             basicComponent.editTrigger = 'click';
             fixture.detectChanges();
@@ -124,15 +117,19 @@ describe(`thy-properties`, () => {
             expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
         });
 
-        it('should set keep editing success', () => {
+        it('should add hover trigger class when thyEditTrigger is hover', () => {
+            basicComponent.editTrigger = 'hover';
+            fixture.detectChanges();
+            const element = fixture.debugElement.query(By.css('.thy-properties'));
+            expect(element.nativeElement.classList).toContain('thy-properties-edit-trigger-hover');
+        });
+
+        it('should set editing success', () => {
             const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
-            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseenter');
-            basicComponent.editItemComponent.setKeepEditing(true);
-            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseleave');
+            basicComponent.editItemComponent.setEditing(true);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
-            basicComponent.editItemComponent.setKeepEditing(false);
-            dispatchMouseEvent(ageEditorElement.nativeElement, 'mouseleave');
+            basicComponent.editItemComponent.setEditing(false);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain(itemContentEditingClass);
         });

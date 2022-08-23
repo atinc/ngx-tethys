@@ -31,7 +31,8 @@ import { ThyPropertyItemComponent } from './property-item.component';
     host: {
         class: 'thy-properties',
         '[class.thy-properties-vertical]': 'thyLayout === "vertical"',
-        '[class.thy-properties-horizontal]': 'thyLayout === "horizontal"'
+        '[class.thy-properties-horizontal]': 'thyLayout === "horizontal"',
+        '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger === "hover"'
     }
 })
 export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
@@ -72,7 +73,7 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
 
     private editTrigger$ = new Subject();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
 
@@ -137,27 +138,7 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
     private bindTriggerEvent() {
         this.ngZone.runOutsideAngular(() => {
             const eventDestroy$ = merge(this.itemElements.changes, this.editTrigger$, this.destroy$);
-            if (this.thyEditTrigger === 'hover') {
-                this.mergeEditorsEvent('mouseenter')
-                    .pipe(takeUntil(eventDestroy$))
-                    .subscribe(event => {
-                        this.ngZone.run(() => {
-                            event.itemComponent.setEditing(true);
-                            this.cdr.markForCheck();
-                        });
-                    });
-
-                this.mergeEditorsEvent('mouseleave')
-                    .pipe(takeUntil(eventDestroy$))
-                    .subscribe(event => {
-                        if (!event.itemComponent.keepEditing) {
-                            this.ngZone.run(() => {
-                                event.itemComponent.setEditing(false);
-                                this.cdr.markForCheck();
-                            });
-                        }
-                    });
-            } else {
+            if (this.thyEditTrigger === 'click') {
                 this.mergeEditorsEvent('click')
                     .pipe(takeUntil(eventDestroy$))
                     .subscribe(event => {
