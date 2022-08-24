@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.5](https://github.com/atinc/ngx-tethys/compare/13.2.4...13.2.5) (2022-08-24)
+
+
+### Bug Fixes
+
+* **form:** fix label-required margin to 4px(#INFR-4338) ([#2107](https://github.com/atinc/ngx-tethys/issues/2107)) ([79d5bb5](https://github.com/atinc/ngx-tethys/commit/79d5bb59ae692d852b456eae7fdcc6d618e347ff)), closes [#INFR-4338](https://github.com/atinc/ngx-tethys/issues/INFR-4338)
+* **property:**  don't render item element when property item is null  #INFR-4359 ([f8ad288](https://github.com/atinc/ngx-tethys/commit/f8ad288aa0a454b6b446e8ad14f78c795a0c05b7)), closes [#INFR-4359](https://github.com/atinc/ngx-tethys/issues/INFR-4359)
+* **property:** optimize property editing #INFR-4361 #INFR-4363 ([#2109](https://github.com/atinc/ngx-tethys/issues/2109)) ([19153fd](https://github.com/atinc/ngx-tethys/commit/19153fd8e3f09b02bd77fec40165dccececa1872)), closes [#INFR-4361](https://github.com/atinc/ngx-tethys/issues/INFR-4361) [#INFR-4363](https://github.com/atinc/ngx-tethys/issues/INFR-4363)
+
+
+### Features
+
+* **menu:** show group icon when thyCollapsed is true #INFR-4366 ([433dbb5](https://github.com/atinc/ngx-tethys/commit/433dbb510920516f53e994c33ce7e56cc55f6e53)), closes [#INFR-4366](https://github.com/atinc/ngx-tethys/issues/INFR-4366)
+
+
+
 ## [13.2.4](https://github.com/atinc/ngx-tethys/compare/13.2.3...13.2.4) (2022-08-23)
 
 
