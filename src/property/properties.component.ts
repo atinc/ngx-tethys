@@ -17,7 +17,7 @@ import {
 } from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
 import { EMPTY, fromEvent, merge, Subject } from 'rxjs';
-import { takeUntil, startWith, map } from 'rxjs/operators';
+import { takeUntil, startWith, map, filter } from 'rxjs/operators';
 import { ThyPropertyItemComponent } from './property-item.component';
 
 /**
@@ -82,6 +82,16 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
             this.splitItems();
             this.cdr.markForCheck();
         });
+
+        merge(...this.items.map(item => item.changes$))
+            .pipe(
+                filter(changes => changes.thySpan && !changes.thySpan.firstChange),
+                takeUntil(merge(this.items.changes, this.destroy$))
+            )
+            .subscribe(() => {
+                this.splitItems();
+                this.cdr.markForCheck();
+            });
     }
 
     ngAfterViewInit(): void {
@@ -104,17 +114,25 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
 
     private splitItems(): void {
         const items = this.items.toArray();
-        const rows = [];
-        for (let i = 0; i < this.items.length; i += this.thyColumn) {
-            const rowItems = items.slice(i, i + this.thyColumn);
-            if (rowItems.length < this.thyColumn) {
-                const fillCount = this.thyColumn - rowItems.length;
-                for (let j = 0; j < fillCount; j++) {
-                    rowItems.push(null);
-                }
+        const rows: ThyPropertyItemComponent[][] = [[]];
+        items.forEach(item => {
+            const lastRowItems = rows[rows.length - 1];
+            const totalSpan = lastRowItems.reduce((result, item) => result + item.thySpan, 0);
+            // 计算最后一行剩余 span 空间是否容纳下当前 item 的 span，如果容纳不下则新增一行
+            if (item.thySpan <= this.thyColumn - totalSpan) {
+                lastRowItems.push(item);
+            } else {
+                rows.push([item]);
             }
-            rows.push(rowItems);
-        }
+        });
+        // 循环处理所有行，若行数据的总 span 小于设置的 column 值，则补充行内最后一个 item 的 span 值进行填充
+        rows.forEach(rowItems => {
+            const totalSpan = rowItems.reduce((result, item) => result + item.thySpan, 0);
+            if (totalSpan < this.thyColumn) {
+                const lastItem = rowItems[rowItems.length - 1];
+                lastItem.computedSpan = lastItem.thySpan + (this.thyColumn - totalSpan);
+            }
+        });
         this.rows = rows;
     }
 

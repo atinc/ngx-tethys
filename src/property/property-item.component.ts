@@ -1,4 +1,17 @@
-import { ChangeDetectorRef, Component, ContentChild, Input, OnInit, SkipSelf, TemplateRef, ViewChild } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges,
+    SkipSelf,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { InputNumber } from 'ngx-tethys/core';
+import { Subject } from 'rxjs';
 
 /**
  * 属性组件
@@ -12,7 +25,7 @@ import { ChangeDetectorRef, Component, ContentChild, Input, OnInit, SkipSelf, Te
         </ng-template>
     `
 })
-export class ThyPropertyItemComponent implements OnInit {
+export class ThyPropertyItemComponent implements OnInit, OnChanges {
     /**
      * 属性名称
      * @type sting
@@ -26,6 +39,13 @@ export class ThyPropertyItemComponent implements OnInit {
      * @default false
      */
     @Input() thyEditable: boolean;
+
+    /**
+     * 设置跨列的数量
+     * @type sting
+     * @default 1
+     */
+    @Input() @InputNumber() thySpan: number = 1;
 
     /**
      * 属性名称自定义模板
@@ -46,9 +66,18 @@ export class ThyPropertyItemComponent implements OnInit {
 
     editing: boolean;
 
+    // 适配布局时通过计算动态设置的 span 值
+    computedSpan: number;
+
+    changes$ = new Subject<SimpleChanges>();
+
     constructor(@SkipSelf() protected parentCdr: ChangeDetectorRef) {}
 
     ngOnInit() {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        this.changes$.next(changes);
+    }
 
     setEditing(editing: boolean) {
         this.editing = editing;
