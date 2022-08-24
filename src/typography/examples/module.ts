@@ -1,31 +1,9 @@
-import { ThyIconModule } from 'ngx-tethys/icon';
-
 import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyTypographyModule } from 'ngx-tethys/typography';
 
-import { ThyTypographyBackgroundExampleComponent } from './background/background.component';
-import { ThyTypographyBootstrapExampleComponent } from './bootstrap/bootstrap.component';
-import { ThyTypographyColorExampleComponent } from './color/color.component';
-import { ThyTypographyEditableExampleComponent } from './editable/editable.component';
-import { ThyTypographyFontSizeExampleComponent } from './font-size/font-size.component';
-import { ThyTypographyIconTextExampleComponent } from './icon-text/icon-text.component';
-import { ThyTypographyTitleExampleComponent } from './title/title.component';
-
-const COMPONENTS = [
-    ThyTypographyTitleExampleComponent,
-    ThyTypographyFontSizeExampleComponent,
-    ThyTypographyColorExampleComponent,
-    ThyTypographyIconTextExampleComponent,
-    ThyTypographyEditableExampleComponent,
-    ThyTypographyBootstrapExampleComponent,
-    ThyTypographyBackgroundExampleComponent
-];
-
-@NgModule({
-    declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, ThyIconModule],
-    exports: [],
-    providers: COMPONENTS
-})
-export class ThyTypographyExamplesModule {}
+export default {
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTypographyModule, ThySpaceModule]
+};

@@ -96,6 +96,7 @@ module.exports = {
                 'affix',
                 'tabs',
                 'watermark',
+                'typography',
                 'property'
             ]
         ]
