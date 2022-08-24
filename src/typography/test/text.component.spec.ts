@@ -8,9 +8,8 @@ import { ThyTypographyModule } from '../module';
 @Component({
     selector: 'thy-text-basic-test',
     template: `
-        <span id="default" thyText>default text</span>
-        <span id="themeColor" thyText [thyColor]="color">{{ color }}</span>
-        <thy-text id="customColor" thyColor="#c9584e">This is a text</thy-text>
+        <span id="themeColor" [thyTextColor]="color">{{ color }}</span>
+        <thy-text id="customColor" thyTextColor="#c9584e">This is a text</thy-text>
         <span id="icon" thyText thyIcon="version">This is a Text</span>
     `
 })
@@ -35,15 +34,6 @@ describe('thy-text', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyTextBasicTestComponent);
         fixture.detectChanges();
-    });
-
-    it('should create text without color', () => {
-        const textDebugElement = fixture.debugElement.query(By.css('#default'));
-        expect(textDebugElement).toBeTruthy();
-        const textElement: HTMLElement = textDebugElement.nativeElement;
-        expect(textElement.classList.contains('thy-text')).toBeTruthy();
-        expect(textElement.classList.length).toEqual(1);
-        expect(textElement.textContent).toContain('default text');
     });
 
     it('should create tag with theme colors', () => {
