@@ -51,12 +51,15 @@ class ThyPropertiesTestBasicComponent {
             <thy-property-item thyLabelText="姓名">张萌</thy-property-item>
             <thy-property-item thyLabelText="年龄">24</thy-property-item>
             <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
-            <thy-property-item thyLabelText="居住地址">北京市朝阳区十八里店小区26号10001</thy-property-item>
+            <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
+            <thy-property-item thyLabelText="居住地址" [thySpan]="addressItemSpan">北京市朝阳区十八里店小区26号10001</thy-property-item>
         </thy-properties>
     `
 })
 class ThyPropertiesTestColumnComponent {
     @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
+
+    addressItemSpan = 2;
 }
 
 @NgModule({
@@ -167,13 +170,28 @@ describe(`thy-properties`, () => {
             const trs = fixture.debugElement.queryAll(By.css('tr'));
             const tds = fixture.debugElement.queryAll(By.css('td'));
             expect(trs.length).toEqual(2);
-            expect(tds.length).toEqual(6);
+            expect(tds.length).toEqual(5);
         });
 
         it('should render item elements length eq property items length ', () => {
             expect(testColumnComponent.propertiesComponent.items.length).toEqual(
                 testColumnComponent.propertiesComponent.itemElements.length
             );
+        });
+
+        it('should set item span is work', () => {
+            let trs = fixture.debugElement.queryAll(By.css('tr'));
+            expect(trs.length).toEqual(2);
+            expect(trs[1].nativeElement.childElementCount).toEqual(2);
+            expect(trs[1].queryAll(By.css('td'))[1].attributes.colspan).toBe('2');
+            testColumnComponent.addressItemSpan = 3;
+            fixture.detectChanges();
+            trs = fixture.debugElement.queryAll(By.css('tr'));
+            expect(trs.length).toEqual(3);
+            expect(trs[1].nativeElement.childElementCount).toEqual(1);
+            expect(trs[1].queryAll(By.css('td'))[0].attributes.colspan).toBe('3');
+            expect(trs[2].nativeElement.childElementCount).toEqual(1);
+            expect(trs[2].queryAll(By.css('td'))[0].attributes.colspan).toBe('3');
         });
     });
 });
