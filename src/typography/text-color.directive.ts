@@ -25,6 +25,7 @@ export class ThyTextColorDirective implements OnInit {
 
     private setColor() {
         if (isThemeColor(this.color) || isTextColor(this.color)) {
+            this.elementRef.nativeElement.style.color = '';
             this.updateHostClassService.updateClass([`text-${this.color}`]);
         } else {
             this.elementRef.nativeElement.style.color = this.color;

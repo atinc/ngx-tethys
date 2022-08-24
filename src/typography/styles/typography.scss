@@ -11,9 +11,4 @@
         vertical-align: text-bottom;
         margin-right: 8px;
     }
-
-    /**** colors ****/
-    @each $color, $value in variables.$text-colors {
-        @include utilities.text-emphasis-variant('.text-#{$color}', $value);
-    }
 }
