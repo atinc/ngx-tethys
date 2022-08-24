@@ -998,7 +998,9 @@ $collapse-spacing-y: 12px !default;
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
 $property-item-min-height: 28px !default;
-$property-item-padding: 8px 0px !default;
+$property-item-padding-x: 0.5rem !default;
+$property-item-padding-y: 0.5rem !default;
+$property-item-horizontal-label-width: 30% !default;
 
 // tabs
 $tabs-content-space: 1rem !default;

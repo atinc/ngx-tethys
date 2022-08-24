@@ -4,7 +4,19 @@
     &-collapsed {
         width: variables.$menu-collapsed-width;
         .thy-menu-group {
-            display: none;
+            .thy-menu-group-header .thy-menu-group-arrow,
+            .thy-menu-group-header .thy-menu-group-title-text,
+            .thy-menu-group-body {
+                display: none;
+            }
+
+            .thy-menu-group-header {
+                height: variables.$menu-collapsed-height;
+                .thy-menu-group-title-icon {
+                    display: inline-block;
+                    font-size: variables.$menu-collapsed-icon-size;
+                }
+            }
         }
         .thy-menu-item {
             .thy-menu-item-content {
