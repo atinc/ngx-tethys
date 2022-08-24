@@ -1,4 +1,4 @@
 ---
-title: Serve Search
+title: Server Search
 order: 10
 ---

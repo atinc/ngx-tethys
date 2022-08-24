@@ -11,39 +11,47 @@ export class ThySelectServerSearchExampleComponent implements OnInit {
     defaultEnterpriseList = [
         {
             _id: 'aaa',
-            display_name: '企业A'
+            display_name: '选项一'
         },
         {
             _id: 'bbb',
-            display_name: '企业b'
+            display_name: '选项二'
         }
     ];
 
     selectedEnterprise = [this.defaultEnterpriseList[0]._id, this.defaultEnterpriseList[1]._id];
 
-    searchEnterpriseList = [
+    enterpriseList = [
         {
             _id: 'aaa',
-            display_name: '企业A'
+            display_name: '选项一'
         },
         {
             _id: 'bbb',
-            display_name: '企业b'
+            display_name: '选项二'
+        },
+        {
+            _id: 'ccc',
+            display_name: '选项三'
+        },
+        {
+            _id: 'ddd',
+            display_name: '选项四'
+        },
+        {
+            _id: 'eee',
+            display_name: '选项五'
         }
     ];
 
     ngOnInit() {
-        for (let i = 10; i < 36; i++) {
-            this.searchEnterpriseList.push({ _id: i.toString(36) + i, display_name: i.toString(36) + i });
-        }
-        this.searchEnterpriseList = this.searchEnterpriseList.concat(this.defaultEnterpriseList);
         this.thyOnSearch('');
     }
 
     thyOnSearch(value: string) {
         // fake api response data
         timer(100).subscribe(() => {
-            const result = this.searchEnterpriseList
+            const result = this.enterpriseList
                 .filter(
                     option =>
                         option.display_name.includes(value) &&
