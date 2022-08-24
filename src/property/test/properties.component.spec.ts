@@ -69,7 +69,7 @@ class ThyPropertiesTestColumnComponent {
 })
 export class ProgressTestModule {}
 
-fdescribe(`thy-properties`, () => {
+describe(`thy-properties`, () => {
     describe(`basic`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestBasicComponent>;
         let basicComponent: ThyPropertiesTestBasicComponent;
