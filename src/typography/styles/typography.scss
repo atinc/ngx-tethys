@@ -1,7 +1,14 @@
 @use '../../styles/variables.scss';
+@use "../../styles/mixins/utilities.scss";
+@use "./mixin";
 
-.thy-text {
+.#{variables.$thy-prefix}-text {
     display: inline-block;
     position: relative;
     font-size: variables.$font-size-base;
+
+    .thy-icon {
+        vertical-align: text-bottom;
+        margin-right: 8px;
+    }
 }
