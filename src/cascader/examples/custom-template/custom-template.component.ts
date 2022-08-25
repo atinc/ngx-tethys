@@ -47,10 +47,10 @@ const customerOptions = [
 ];
 
 @Component({
-    selector: 'thy-cascader-add-code-example',
-    templateUrl: './add-code.component.html'
+    selector: 'thy-cascader-custom-template-example',
+    templateUrl: './custom-template.component.html'
 })
-export class ThyCascaderAddCodeExampleComponent implements OnInit {
+export class ThyCascaderCustomTemplateExampleComponent implements OnInit {
     public values: any[] = [];
 
     public curVal = 'zhejiang';
@@ -63,7 +63,9 @@ export class ThyCascaderAddCodeExampleComponent implements OnInit {
         this.thyCustomerOptions = customerOptions;
     }
 
-    public onChanges(values: any): void {}
+    public selectChange(values: any): void {
+        console.log(values);
+    }
 
     public handleAreaClick($event: any, label: any, selectedOptions: any) {}
 }

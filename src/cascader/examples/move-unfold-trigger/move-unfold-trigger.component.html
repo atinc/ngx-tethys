@@ -1,10 +1,9 @@
 <thy-cascader
   [thyOptions]="areaCode"
-  (ngModelChange)="onChanges($event)"
-  thyPlaceHolder="自定义PlaceHolder"
+  (ngModelChange)="selectChanges($event)"
   [(ngModel)]="values"
-  style="width:200px;"
   thyExpandTriggerAction="hover"
   thyTriggerAction="hover"
+  style="width:200px;"
 >
 </thy-cascader>

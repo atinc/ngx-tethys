@@ -3,15 +3,17 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 import options from '../cascader-address-options';
 
 @Component({
-    selector: 'thy-cascader-select-changed-example',
-    templateUrl: './select-changed.component.html'
+    selector: 'thy-cascader-multiple-example',
+    templateUrl: './multiple.component.html'
 })
-export class ThyCascaderSelectChangedExampleComponent implements OnInit {
+export class ThyCascaderMultipleExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
-    public values: any[] = [];
-
-    public multipleValues: any[] = [];
+    public values: any[] = [
+        ['12', '1201', '120102'],
+        ['12', '1201', '120103'],
+        ['14', '1404', '140406']
+    ];
 
     constructor(private notifyService: ThyNotifyService) {}
 
@@ -20,10 +22,6 @@ export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info('select', values);
-    }
-
-    public clearChange() {
-        this.notifyService.success('Clear');
+        this.notifyService.info('selected Value is', values);
     }
 }
