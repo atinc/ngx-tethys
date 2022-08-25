@@ -8,6 +8,7 @@ import {
     Component,
     ContentChild,
     Input,
+    NgZone,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -79,7 +80,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private destroy$ = new Subject();
 
-    constructor(@SkipSelf() protected parentCdr: ChangeDetectorRef, private thyClickDispatcher: ThyClickDispatcher) {}
+    constructor(
+        @SkipSelf() protected parentCdr: ChangeDetectorRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        private ngZone: NgZone
+    ) {}
 
     ngOnInit() {}
 
@@ -88,8 +93,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     setEditing(editing: boolean) {
-        this.editing = editing;
-        this.parentCdr.detectChanges();
+        this.ngZone.run(() => {
+            this.editing = editing;
+            this.parentCdr.markForCheck();
+        });
     }
 
     /**
