@@ -1,4 +1,7 @@
-<thy-properties #properties thyEditTrigger="hover">
+<thy-properties #properties thyEditTrigger="click">
+  <thy-property-item thyLabelText="更新时间" thyEditable="false">
+    {{ user.update_at | date: 'yyyy-MM-dd HH:mm' }}
+  </thy-property-item>
   <thy-property-item thyLabelText="姓名" thyEditable="true">
     {{ user.name }}
     <ng-template #editor>
@@ -17,11 +20,20 @@
       <input thyInput thySize="sm" placeholder="" [(ngModel)]="user.phone" />
     </ng-template>
   </thy-property-item>
+  <thy-property-item thyLabelText="性别" thyEditable="true" #hobby>
+    <span>{{ user.sex || '无' }}</span>
+    <ng-template #editor>
+      <thy-custom-select thySize="sm" [(ngModel)]="user.sex">
+        <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
+        <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
+      </thy-custom-select>
+    </ng-template>
+  </thy-property-item>
   <thy-property-item thyLabelText="爱好" thyEditable="true" #hobby>
     <span *ngIf="user.likes.length === 0">无</span>
     <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
     <ng-template #editor>
-      <thy-custom-select thyMode="multiple" thySize="sm" [(ngModel)]="user.likes" (thyOnExpandStatusChange)="hobby.setKeepEditing($event)">
+      <thy-custom-select thyMode="multiple" thySize="sm" [(ngModel)]="user.likes">
         <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
         <thy-option [thyValue]="'跑步'" [thyLabelText]="'跑步'"> </thy-option>
         <thy-option [thyValue]="'撸铁'" [thyLabelText]="'撸铁'"> </thy-option>
@@ -35,6 +47,19 @@
     {{ user.address }}
     <ng-template #editor>
       <input class="form-control" thyInput thySize="sm" [(ngModel)]="user.address" rows="4" />
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="操作时间" thyEditable="true">
+    {{ (user.create_at | date: 'yyyy-MM-dd HH:mm') || '无' }}
+    <ng-template #editor>
+      <thy-date-picker
+        thyPlaceHolder="选择时间"
+        thyShowTime
+        thySize="sm"
+        [(ngModel)]="user.create_at"
+        (ngModelChange)="onChange($event)"
+        [thyFormat]="{ date: 0, with_time: 1 } | thyDatePickerFormatString"
+      ></thy-date-picker>
     </ng-template>
   </thy-property-item>
 </thy-properties>

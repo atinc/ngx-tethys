@@ -1,17 +1,21 @@
+import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyDatePickerComponent } from 'ngx-tethys/date-picker';
+import { fromEvent, Subject } from 'rxjs';
+import { filter, take, takeUntil, tap } from 'rxjs/operators';
+
 import {
     ChangeDetectorRef,
     Component,
     ContentChild,
     Input,
     OnChanges,
+    OnDestroy,
     OnInit,
     SimpleChanges,
     SkipSelf,
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { InputNumber } from 'ngx-tethys/core';
-import { Subject } from 'rxjs';
 
 /**
  * 属性组件
@@ -25,7 +29,7 @@ import { Subject } from 'rxjs';
         </ng-template>
     `
 })
-export class ThyPropertyItemComponent implements OnInit, OnChanges {
+export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * 属性名称
      * @type sting
@@ -38,7 +42,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges {
      * @type sting
      * @default false
      */
-    @Input() thyEditable: boolean;
+    @Input() @InputBoolean() thyEditable: boolean;
 
     /**
      * 设置跨列的数量
@@ -64,6 +68,8 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges {
      */
     @ViewChild(TemplateRef, { static: true }) content!: TemplateRef<void>;
 
+    @ContentChild(ThyDatePickerComponent) datePicker: ThyDatePickerComponent;
+
     editing: boolean;
 
     // 适配布局时通过计算动态设置的 span 值
@@ -71,7 +77,9 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges {
 
     changes$ = new Subject<SimpleChanges>();
 
-    constructor(@SkipSelf() protected parentCdr: ChangeDetectorRef) {}
+    private destroy$ = new Subject();
+
+    constructor(@SkipSelf() protected parentCdr: ChangeDetectorRef, private thyClickDispatcher: ThyClickDispatcher) {}
 
     ngOnInit() {}
 
@@ -81,7 +89,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges {
 
     setEditing(editing: boolean) {
         this.editing = editing;
-        this.parentCdr.markForCheck();
+        this.parentCdr.detectChanges();
     }
 
     /**
@@ -89,5 +97,52 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges {
      */
     setKeepEditing(keep: boolean) {
         this.setEditing(keep);
+    }
+
+    private datePickerExpandChange() {
+        this.datePicker.thyOpenChange
+            .pipe(
+                filter(event => {
+                    return !event;
+                }),
+                take(1),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.setEditing(false);
+            });
+    }
+
+    private subscribeDocumentClick(editorElement: HTMLElement) {
+        if (!this.datePicker) {
+            return this.thyClickDispatcher
+                .clicked(0)
+                .pipe(
+                    filter(event => {
+                        return !editorElement.contains(event.target as HTMLElement);
+                    }),
+                    take(1),
+                    takeUntil(this.destroy$)
+                )
+                .subscribe(() => {
+                    this.setEditing(false);
+                });
+        } else {
+            this.datePickerExpandChange();
+        }
+    }
+
+    editorClick(editorElement: HTMLElement) {
+        return fromEvent(editorElement, 'click').pipe(
+            tap(() => {
+                this.setEditing(true);
+                this.subscribeDocumentClick(editorElement);
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }
