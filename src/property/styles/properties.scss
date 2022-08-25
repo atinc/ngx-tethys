@@ -63,12 +63,14 @@
         width: 100%;
         color: variables.$property-item-content-color;
 
+        .thy-properties-item-content-text {
+            width: 100%;
+        }
+
         .thy-properties-item-content-editor {
             width: 100%;
             display: none;
-            .form-control {
-                margin-left: calc(variables.$property-item-padding-x + 0.0625rem) * -1;
-            }
+            margin-left: variables.$property-item-editor-offset;
         }
 
         &-editing {

@@ -11,6 +11,7 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         name: '张萌',
         phone: 18800010001,
         age: 24,
+        birth_date: 1234567890,
         address: '北京市朝阳区十八里店小区26号10001',
         likes: ['羽毛球']
     };
