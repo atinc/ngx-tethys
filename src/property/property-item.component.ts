@@ -1,8 +1,9 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { ThyDatePickerComponent } from 'ngx-tethys/date-picker';
 import { fromEvent, Subject } from 'rxjs';
-import { filter, take, takeUntil, tap } from 'rxjs/operators';
+import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
 
+import { OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
+import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
 import {
     ChangeDetectorRef,
     Component,
@@ -69,8 +70,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
      */
     @ViewChild(TemplateRef, { static: true }) content!: TemplateRef<void>;
 
-    @ContentChild(ThyDatePickerComponent) datePicker: ThyDatePickerComponent;
-
     editing: boolean;
 
     // 适配布局时通过计算动态设置的 span 值
@@ -80,11 +79,16 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private destroy$ = new Subject();
 
+    private originOverlays: OverlayReference[] = [];
+
     constructor(
         @SkipSelf() protected parentCdr: ChangeDetectorRef,
         private thyClickDispatcher: ThyClickDispatcher,
-        private ngZone: NgZone
-    ) {}
+        private ngZone: NgZone,
+        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
+    ) {
+        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+    }
 
     ngOnInit() {}
 
@@ -106,11 +110,23 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         this.setEditing(keep);
     }
 
-    private datePickerExpandChange() {
-        this.datePicker.thyOpenChange
+    private hasOverlay() {
+        return this.overlayOutsideClickDispatcher._attachedOverlays.length > this.originOverlays.length;
+    }
+
+    private subscribeOverlayClick() {
+        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+
+        this.thyClickDispatcher
+            .clicked(0)
             .pipe(
+                skip(1),
                 filter(event => {
-                    return !event;
+                    return (
+                        newOpenedOverlays.findIndex(overlay => {
+                            return overlay.overlayElement.contains(event.target as HTMLElement);
+                        }) < 0
+                    );
                 }),
                 take(1),
                 takeUntil(this.destroy$)
@@ -121,21 +137,25 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private subscribeDocumentClick(editorElement: HTMLElement) {
-        if (!this.datePicker) {
-            return this.thyClickDispatcher
-                .clicked(0)
-                .pipe(
-                    filter(event => {
-                        return !editorElement.contains(event.target as HTMLElement);
-                    }),
-                    take(1),
-                    takeUntil(this.destroy$)
-                )
-                .subscribe(() => {
-                    this.setEditing(false);
-                });
+        this.thyClickDispatcher
+            .clicked(0)
+            .pipe(
+                filter(event => {
+                    return !editorElement.contains(event.target as HTMLElement);
+                }),
+                take(1),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.setEditing(false);
+            });
+    }
+
+    private bindEditorBlurEvent(editorElement: HTMLElement) {
+        if (this.hasOverlay()) {
+            this.subscribeOverlayClick();
         } else {
-            this.datePickerExpandChange();
+            this.subscribeDocumentClick(editorElement);
         }
     }
 
@@ -143,7 +163,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         return fromEvent(editorElement, 'click').pipe(
             tap(() => {
                 this.setEditing(true);
-                this.subscribeDocumentClick(editorElement);
+                this.bindEditorBlurEvent(editorElement);
             })
         );
     }
