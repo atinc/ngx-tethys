@@ -2,6 +2,7 @@ import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
 import { ThyPropertyModule } from 'ngx-tethys/property';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThySharedModule } from 'ngx-tethys/shared';
@@ -17,8 +18,10 @@ export default {
         ThyButtonModule,
         ThyTagModule,
         ThyInputModule,
+        ThyInputNumberModule,
         ThyAvatarModule,
         ThyPropertyModule,
+        ThyDatePickerModule,
         ThySelectModule,
         ThySharedModule,
         ThyDatePickerModule

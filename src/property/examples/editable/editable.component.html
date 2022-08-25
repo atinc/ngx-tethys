@@ -5,19 +5,38 @@
   <thy-property-item thyLabelText="姓名" thyEditable="true">
     {{ user.name }}
     <ng-template #editor>
-      <input class="active" thyInput thySize="sm" [(ngModel)]="user.name" />
+      <input class="active" thyInput thySize="md" [(ngModel)]="user.name" />
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="年龄" thyEditable="true">
     {{ user.age }}
     <ng-template #editor>
-      <input thyInput thySize="sm" placeholder="" [(ngModel)]="user.age" />
+      <thy-input-number
+        thySize="md"
+        [(ngModel)]="user.age"
+        [thyAutoFocus]="true"
+        thyPrecision="0"
+        [thyMax]="100"
+        [thyStep]="1"
+      ></thy-input-number>
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="出生日期" thyEditable="true" #item>
+    {{ user.birth_date * 1000 | date: 'yyyy-MM-dd' }}
+    <ng-template #editor>
+      <thy-date-picker
+        [thyFormat]="'yyyy-MM-dd'"
+        thyPlaceHolder="选择时间"
+        [(ngModel)]="user.birth_date"
+        thySize="md"
+        (thyOpenChange)="item.setKeepEditing($event)"
+      ></thy-date-picker>
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="电话" thyEditable="true">
     {{ user.phone }}
     <ng-template #editor>
-      <input thyInput thySize="sm" placeholder="" [(ngModel)]="user.phone" />
+      <input thyInput thySize="md" placeholder="" [(ngModel)]="user.phone" />
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="性别" thyEditable="true" #hobby>
@@ -46,7 +65,7 @@
   <thy-property-item thyLabelText="居住地址" thyEditable="true">
     {{ user.address }}
     <ng-template #editor>
-      <input class="form-control" thyInput thySize="sm" [(ngModel)]="user.address" rows="4" />
+      <input class="form-control" thyInput thySize="md" [(ngModel)]="user.address" rows="4" />
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="操作时间" thyEditable="true">
