@@ -12,10 +12,17 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         phone: 18800010001,
         age: 24,
         address: '北京市朝阳区十八里店小区26号10001',
-        likes: ['羽毛球']
+        likes: ['羽毛球'],
+        sex: '女',
+        create_at: new Date().getTime(),
+        update_at: new Date().getTime()
     };
 
     constructor() {}
 
     ngOnInit() {}
+
+    onChange(event: number): void {
+        this.user.create_at = event ? event * 1000 : event;
+    }
 }

@@ -1,13 +1,14 @@
-import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThySharedModule } from 'ngx-tethys/shared';
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { ThyPropertyModule } from 'ngx-tethys/property';
-import { ThyTagModule } from 'ngx-tethys/tag';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { FormsModule } from '@angular/forms';
+import { ThyPropertyModule } from 'ngx-tethys/property';
 import { ThySelectModule } from 'ngx-tethys/select';
+import { ThySharedModule } from 'ngx-tethys/shared';
+import { ThyTagModule } from 'ngx-tethys/tag';
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 export default {
     imports: [
@@ -19,6 +20,7 @@ export default {
         ThyAvatarModule,
         ThyPropertyModule,
         ThySelectModule,
-        ThySharedModule
+        ThySharedModule,
+        ThyDatePickerModule
     ]
 };
