@@ -13,7 +13,8 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         age: 24,
         birth_date: 1234567890,
         address: '北京市朝阳区十八里店小区26号10001',
-        likes: ['羽毛球']
+        likes: ['羽毛球'],
+        sex: '女'
     };
 
     constructor() {}

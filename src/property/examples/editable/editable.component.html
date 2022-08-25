@@ -19,15 +19,9 @@
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="出生日期" thyEditable="true" #item>
-    {{ user.birth_date * 1000 | date: 'yyyy-MM-dd' }}
+    {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
     <ng-template #editor>
-      <thy-date-picker
-        [thyFormat]="'yyyy-MM-dd'"
-        thyPlaceHolder="选择时间"
-        [(ngModel)]="user.birth_date"
-        thySize="md"
-        (thyOpenChange)="item.setKeepEditing($event)"
-      ></thy-date-picker>
+      <thy-property-editable-date-inner [user]="user"></thy-property-editable-date-inner>
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="电话" thyEditable="true">
@@ -36,11 +30,20 @@
       <input thyInput thySize="md" placeholder="" [(ngModel)]="user.phone" />
     </ng-template>
   </thy-property-item>
+  <thy-property-item thyLabelText="性别" thyEditable="true" #hobby>
+    <span>{{ user.sex || '无' }}</span>
+    <ng-template #editor>
+      <thy-custom-select thySize="md" [(ngModel)]="user.sex">
+        <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
+        <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
+      </thy-custom-select>
+    </ng-template>
+  </thy-property-item>
   <thy-property-item thyLabelText="爱好" thyEditable="true" #hobby>
     <span *ngIf="user.likes.length === 0">无</span>
     <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
     <ng-template #editor>
-      <thy-custom-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes" (thyOnExpandStatusChange)="hobby.setKeepEditing($event)">
+      <thy-custom-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes">
         <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
         <thy-option [thyValue]="'跑步'" [thyLabelText]="'跑步'"> </thy-option>
         <thy-option [thyValue]="'撸铁'" [thyLabelText]="'撸铁'"> </thy-option>
