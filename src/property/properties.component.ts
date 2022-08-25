@@ -141,17 +141,16 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
     private bindTriggerEvent() {
         this.ngZone.runOutsideAngular(() => {
             const eventDestroy$ = merge(this.itemElements.changes, this.editTrigger$, this.destroy$);
-            if (this.thyEditTrigger === 'click') {
-                this.itemElements.forEach((element, index) => {
-                    const itemComponent = this.items.get(index);
-                    if (itemComponent.thyEditable) {
-                        return itemComponent
-                            .editorClick(element.nativeElement)
-                            .pipe(takeUntil(eventDestroy$))
-                            .subscribe();
-                    }
-                });
-            }
+
+            this.itemElements.forEach((element, index) => {
+                const itemComponent = this.items.get(index);
+                if (itemComponent.thyEditable) {
+                    return itemComponent
+                        .editorClick(element.nativeElement)
+                        .pipe(takeUntil(eventDestroy$))
+                        .subscribe();
+                }
+            });
         });
     }
 }

@@ -39,9 +39,11 @@
         }
     }
 
-    .thy-properties-item-content-editable {
-        &:hover {
-            @include _displayItemEditor();
+    &.thy-properties-edit-trigger-hover {
+        .thy-properties-item-content-editable {
+            &:hover {
+                @include _displayItemEditor();
+            }
         }
     }
 

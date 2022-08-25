@@ -14,16 +14,10 @@ export class ThyPropertyEditableExampleComponent implements OnInit {
         birth_date: 1234567890,
         address: '北京市朝阳区十八里店小区26号10001',
         likes: ['羽毛球'],
-        sex: '女',
-        create_at: new Date().getTime(),
-        update_at: new Date().getTime()
+        sex: '女'
     };
 
     constructor() {}
 
     ngOnInit() {}
-
-    onChange(event: number): void {
-        this.user.create_at = event ? event * 1000 : event;
-    }
 }

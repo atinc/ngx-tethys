@@ -1,7 +1,4 @@
-<thy-properties #properties thyEditTrigger="click">
-  <thy-property-item thyLabelText="更新时间" thyEditable="false">
-    {{ user.update_at | date: 'yyyy-MM-dd HH:mm' }}
-  </thy-property-item>
+<thy-properties #properties thyEditTrigger="hover">
   <thy-property-item thyLabelText="姓名" thyEditable="true">
     {{ user.name }}
     <ng-template #editor>
@@ -22,14 +19,14 @@
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="出生日期" thyEditable="true" #item>
-    {{ user.birth_date * 1000 | date: 'yyyy-MM-dd' }}
+    {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
     <ng-template #editor>
       <thy-date-picker
-        [thyFormat]="'yyyy-MM-dd'"
+        thyShowTime
+        [thyFormat]="'yyyy-MM-dd HH:mm'"
         thyPlaceHolder="选择时间"
         [(ngModel)]="user.birth_date"
         thySize="md"
-        (thyOpenChange)="item.setKeepEditing($event)"
       ></thy-date-picker>
     </ng-template>
   </thy-property-item>
@@ -42,7 +39,7 @@
   <thy-property-item thyLabelText="性别" thyEditable="true" #hobby>
     <span>{{ user.sex || '无' }}</span>
     <ng-template #editor>
-      <thy-custom-select thySize="sm" [(ngModel)]="user.sex">
+      <thy-custom-select thySize="md" [(ngModel)]="user.sex">
         <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
         <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
       </thy-custom-select>
@@ -52,7 +49,7 @@
     <span *ngIf="user.likes.length === 0">无</span>
     <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
     <ng-template #editor>
-      <thy-custom-select thyMode="multiple" thySize="sm" [(ngModel)]="user.likes">
+      <thy-custom-select thyMode="multiple" thySize="md" [(ngModel)]="user.likes">
         <thy-option [thyValue]="'羽毛球'" [thyLabelText]="'羽毛球'"> </thy-option>
         <thy-option [thyValue]="'跑步'" [thyLabelText]="'跑步'"> </thy-option>
         <thy-option [thyValue]="'撸铁'" [thyLabelText]="'撸铁'"> </thy-option>
@@ -66,19 +63,6 @@
     {{ user.address }}
     <ng-template #editor>
       <input class="form-control" thyInput thySize="md" [(ngModel)]="user.address" rows="4" />
-    </ng-template>
-  </thy-property-item>
-  <thy-property-item thyLabelText="操作时间" thyEditable="true">
-    {{ (user.create_at | date: 'yyyy-MM-dd HH:mm') || '无' }}
-    <ng-template #editor>
-      <thy-date-picker
-        thyPlaceHolder="选择时间"
-        thyShowTime
-        thySize="sm"
-        [(ngModel)]="user.create_at"
-        (ngModelChange)="onChange($event)"
-        [thyFormat]="{ date: 0, with_time: 1 } | thyDatePickerFormatString"
-      ></thy-date-picker>
     </ng-template>
   </thy-property-item>
 </thy-properties>
