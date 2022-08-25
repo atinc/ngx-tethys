@@ -60,7 +60,7 @@ describe('ThyTimePickerComponent', () => {
 
             openOverlay();
 
-            dispatchMouseEvent(overlayQuery('.cdk-overlay-transparent-backdrop'), 'click');
+            overlayQuery('.cdk-overlay-backdrop').click();
             fixture.detectChanges();
             expect(getTimePickerPanel()).toBeNull();
 
@@ -106,6 +106,38 @@ describe('ThyTimePickerComponent', () => {
             expect(debugElementQuery(clearBtnSelector)).toBeNull();
         }));
 
+        it('should use origin value when thyAllowClear is false and input not valid value', fakeAsync(() => {
+            const value = new Date();
+            value.setHours(10, 20, 30);
+            fixtureInstance.value = value;
+            fixture.detectChanges();
+
+            fixtureInstance.allowClear = false;
+            fixture.detectChanges();
+
+            openOverlay();
+            getTimePickerInput().value = '12aw42312';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick(200);
+            dispatchMouseEvent(document.body, 'click');
+            fixture.detectChanges();
+            tick(200);
+            expect(getTimePickerInput().value === `10:20:30`).toBeTruthy();
+            expect(fixtureInstance.timePickerRef.showText === '10:20:30').toBeTruthy();
+
+            openOverlay();
+            getTimePickerInput().value = '';
+            dispatchFakeEvent(getTimePickerInput(), 'input');
+            fixture.detectChanges();
+            tick(200);
+            dispatchMouseEvent(document.body, 'click');
+            fixture.detectChanges();
+            tick(200);
+            expect(getTimePickerInput().value === `10:20:30`).toBeTruthy();
+            expect(fixtureInstance.timePickerRef.showText === '10:20:30').toBeTruthy();
+        }));
+
         it('should support thyFormat', fakeAsync(() => {
             let date = new Date();
             date.setHours(8, 20, 6);
@@ -136,6 +168,12 @@ describe('ThyTimePickerComponent', () => {
             expect(fixtureInstance.timePickerRef.showText === '8:20').toBeTruthy();
             tick(200);
             expect(getTimePickerInput().value === '8:20').toBeTruthy();
+
+            fixtureInstance.format = null;
+            fixture.detectChanges();
+            expect(fixtureInstance.timePickerRef.showText === '08:20:06').toBeTruthy();
+            tick(200);
+            expect(getTimePickerInput().value === '08:20:06').toBeTruthy();
         }));
 
         it('should support thyDisabled', fakeAsync(() => {
@@ -257,10 +295,18 @@ describe('ThyTimePickerComponent', () => {
             date.setHours(10, 20, 3);
             fixtureInstance.value = date;
             fixture.detectChanges();
-            tick(500);
+            tick(200);
 
             expect(fixtureInstance.timePickerRef.value.getTime() === date.getTime()).toBeTruthy();
             expect(fixtureInstance.timePickerRef.showText === '10:20:03').toBeTruthy();
+
+            const value = new Date().setHours(10, 20, 30);
+            fixtureInstance.value = value;
+            fixture.detectChanges();
+            tick(200);
+
+            expect(fixtureInstance.timePickerRef.value.getTime() === value).toBeTruthy();
+            expect(fixtureInstance.timePickerRef.showText === '10:20:30').toBeTruthy();
         }));
 
         it('should emit change when pick hour,minute,second and click confirm button', fakeAsync(() => {
@@ -395,7 +441,7 @@ describe('ThyTimePickerComponent', () => {
 class ThyTestTimePickerBaseComponent {
     @ViewChild('timePicker', { static: false }) timePickerRef: ThyTimePickerComponent;
 
-    value: Date;
+    value: Date | number;
 
     format: string = 'HH:mm:ss';
 
