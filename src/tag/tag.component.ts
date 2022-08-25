@@ -1,22 +1,12 @@
-import {
-    Component,
-    ElementRef,
-    OnChanges,
-    Input,
-    Output,
-    EventEmitter,
-    OnInit,
-    ChangeDetectionStrategy,
-    SimpleChanges
-} from '@angular/core';
+import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { InputBoolean, isThemeColor, ThyThemeColor, UpdateHostClassService } from 'ngx-tethys/core';
-import { helpers, hexToRgb } from 'ngx-tethys/util';
+import { hexToRgb } from 'ngx-tethys/util';
 
 export type ThyTagColor = ThyThemeColor | string;
 
 export type ThyTagShape = 'pill' | 'rectangle';
 
-export type ThyTagSize = 'sm' | 'md' | 'lg' | 'xs';
+export type ThyTagSize = 'sm' | 'md' | 'lg';
 
 @Component({
     selector: 'thy-tag, [thyTag]',

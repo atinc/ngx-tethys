@@ -1,25 +1,24 @@
 @use "../../../select/custom-select/styles/mixin";
-@use "../../../styles/bootstrap/variables" as bootstrap-variables;
 @use "../../../styles/mixins/utilities";
 @use "../../../styles/variables";
 @use "../styles/select.mixin";
 
 .select-control {
     position: relative;
-    @include select.select-control-size(bootstrap-variables.$input-height, variables.$input-padding-y);
+    @include select.select-control-size(variables.$tag-height-md, variables.$select-control-padding-y-default);
     padding-right: 23px;
     &.form-control-custom {
         padding-top: 0;
         padding-bottom: 0;
     }
     &.form-control-sm {
-        @include select.select-control-size(bootstrap-variables.$input-height-sm, variables.$input-padding-y-sm);
+        @include select.select-control-size(variables.$tag-height-sm, variables.$select-control-padding-y-sm);
     }
     &.form-control-md {
-        @include select.select-control-size(variables.$input-height-md, variables.$input-padding-y-md);
+        @include select.select-control-size(variables.$tag-height-md, variables.$select-control-padding-y-md);
     }
     &.form-control-lg {
-        @include select.select-control-size(bootstrap-variables.$input-height-lg, variables.$input-padding-y-lg);
+        @include select.select-control-size(variables.$tag-height-lg, variables.$select-control-padding-y-lg);
     }
     .search-input-field {
         width: 100%;
@@ -102,7 +101,7 @@
         &.disabled {
             color: variables.$gray-600;
         }
-        &.thy-label--sm {
+        &.thy-tag-sm {
             margin-top: 1px;
         }
         .thy-icon-close {
