@@ -11,6 +11,8 @@ import { ThyTagModule } from 'ngx-tethys/tag';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
+import { ThyPropertyEditableDateInnerComponent } from './editable/date.component';
+
 export default {
     imports: [
         CommonModule,
@@ -25,5 +27,6 @@ export default {
         ThySelectModule,
         ThySharedModule,
         ThyDatePickerModule
-    ]
+    ],
+    declarations: [ThyPropertyEditableDateInnerComponent]
 };

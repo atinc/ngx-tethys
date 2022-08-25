@@ -21,13 +21,7 @@
   <thy-property-item thyLabelText="出生日期" thyEditable="true" #item>
     {{ user.birth_date * 1000 | date: 'yyyy-MM-dd HH:mm' }}
     <ng-template #editor>
-      <thy-date-picker
-        thyShowTime
-        [thyFormat]="'yyyy-MM-dd HH:mm'"
-        thyPlaceHolder="选择时间"
-        [(ngModel)]="user.birth_date"
-        thySize="md"
-      ></thy-date-picker>
+      <thy-property-editable-date-inner [user]="user"></thy-property-editable-date-inner>
     </ng-template>
   </thy-property-item>
   <thy-property-item thyLabelText="电话" thyEditable="true">
