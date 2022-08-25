@@ -63,6 +63,10 @@
         width: 100%;
         color: variables.$property-item-content-color;
 
+        .thy-properties-item-content-text {
+            width: 100%;
+        }
+
         .thy-properties-item-content-editor {
             width: 100%;
             display: none;
