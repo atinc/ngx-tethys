@@ -66,9 +66,7 @@
         .thy-properties-item-content-editor {
             width: 100%;
             display: none;
-            .form-control {
-                margin-left: calc(variables.$property-item-padding-x + 0.0625rem) * -1;
-            }
+            margin-left: variables.$property-item-editor-offset;
         }
 
         &-editing {

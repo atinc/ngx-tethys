@@ -997,10 +997,11 @@ $collapse-spacing-y: 12px !default;
 // property
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
-$property-item-min-height: 28px !default;
+$property-item-min-height: 32px !default;
 $property-item-padding-x: 0.5rem !default;
-$property-item-padding-y: 0.5rem !default;
+$property-item-padding-y: 0.4rem !default;
 $property-item-horizontal-label-width: 100px !default;
+$property-item-editor-offset: calc($property-item-padding-x + 0.0625rem) * -1;
 
 // tabs
 $tabs-content-space: 1rem !default;
