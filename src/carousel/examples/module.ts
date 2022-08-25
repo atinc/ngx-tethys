@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ThyCarouselBasicComponent } from './basic/basic.component';
 import { CommonModule } from '@angular/common';
-
+import { ThyCarouselBasicExampleComponent } from './basic/basic.component';
 import { ThyCarouselModule } from 'ngx-tethys/carousel';
 
-const COMPONENTS = [ThyCarouselBasicComponent];
+const COMPONENTS = [ThyCarouselBasicExampleComponent];
 
 @NgModule({
     imports: [CommonModule, ThyCarouselModule],

@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThyCarouselComponent } from './carousel.component';
+import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
 
-const COMPONENTS = [ThyCarouselComponent];
+const COMPONENTS = [ThyCarouselComponent, ThyCarouselItemDirective];
 
 @NgModule({
-    imports: [CommonModule],
     declarations: [...COMPONENTS],
-    exports: [...COMPONENTS]
+    exports: [...COMPONENTS],
+    imports: [CommonModule]
 })
 export class ThyCarouselModule {}
