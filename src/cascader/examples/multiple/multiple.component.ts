@@ -18,7 +18,7 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = JSON.parse(JSON.stringify(options));
+        this.areaCode = [...options];
     }
 
     public selectChanges(values: any): void {

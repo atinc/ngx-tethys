@@ -334,7 +334,7 @@ class CascaderMultipleComponent {
     }
 }
 
-fdescribe('thy-cascader', () => {
+describe('thy-cascader', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
@@ -773,8 +773,8 @@ fdescribe('thy-cascader', () => {
             const originSelectedCount = component.multipleVal?.length;
             dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
             fixture.detectChanges();
-
             const firstLevelItem = getOptionByLevel();
+            const originFirstLevelItemLength = firstLevelItem.length;
             dispatchFakeEvent(firstLevelItem[0].nativeElement, 'click');
             fixture.detectChanges();
 
@@ -790,6 +790,9 @@ fdescribe('thy-cascader', () => {
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
             const labels = debugElement.queryAll(By.css('.choice'));
             expect(labels.length).toBe(component.multipleVal.length);
+
+            const updateFirstLevelItem = getOptionByLevel();
+            expect(originFirstLevelItemLength).toBe(updateFirstLevelItem.length);
         });
 
         it('should show nothing when ngModel is []', fakeAsync(() => {
