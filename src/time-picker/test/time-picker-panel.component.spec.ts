@@ -42,6 +42,14 @@ describe('ThyTimePanelComponent', () => {
             expect(columns.find(m => m.classes[hourColumnClass])).toBeTruthy();
             expect(columns.find(m => m.classes[minuteColumnClass])).toBeTruthy();
 
+            fixtureInstance.format = null;
+            fixture.detectChanges();
+            columns = debugElementQueryAll('.thy-time-picker-panel-time-column');
+            expect(columns.length === 3).toBeTruthy();
+            expect(columns.find(m => m.classes[hourColumnClass])).toBeTruthy();
+            expect(columns.find(m => m.classes[minuteColumnClass])).toBeTruthy();
+            expect(columns.find(m => m.classes[secondColumnClass])).toBeTruthy();
+
             flush();
         }));
 
@@ -68,8 +76,11 @@ describe('ThyTimePanelComponent', () => {
             expect(debugElementQuery('.thy-time-picker-panel-time-now')).toBeTruthy();
 
             const valueChange = spyOn(fixtureInstance, 'onPickTime');
+            const closePanel = spyOn(fixtureInstance, 'closePanel');
+
             debugElementQuery('.thy-time-picker-panel-time-now').nativeElement.click();
             expect(valueChange).toHaveBeenCalled();
+            expect(closePanel).toHaveBeenCalled();
         });
 
         it('should support thyShowOperations', () => {
@@ -107,6 +118,16 @@ describe('ThyTimePanelComponent', () => {
             expect(fixtureInstance.timePanelRef.hour === 10).toBeTruthy();
             expect(fixtureInstance.timePanelRef.minute === 20).toBeTruthy();
             expect(fixtureInstance.timePanelRef.second === 3).toBeTruthy();
+
+            const value = new Date().setHours(10, 20, 30);
+            fixtureInstance.value = value;
+            fixture.detectChanges();
+            tick(500);
+
+            expect(fixtureInstance.timePanelRef.value.getTime() === value).toBeTruthy();
+            expect(fixtureInstance.timePanelRef.hour === 10).toBeTruthy();
+            expect(fixtureInstance.timePanelRef.minute === 20).toBeTruthy();
+            expect(fixtureInstance.timePanelRef.second === 30).toBeTruthy();
         }));
 
         it('should support pick hour,minute,second and emit change event', fakeAsync(() => {
@@ -215,13 +236,14 @@ describe('ThyTimePanelComponent', () => {
             [thyShowOperations]="showOperations"
             (thyPickChange)="onPickTime($event)"
             (ngModelChange)="onValueChange($event)"
+            (thyClosePanel)="closePanel()"
         ></thy-time-picker-panel>
     `
 })
 class ThyTestTimePanelComponent {
     @ViewChild('panel') timePanelRef: ThyTimePanelComponent;
 
-    value: Date;
+    value: Date | number;
 
     format: string = 'HH:mm:ss';
 
@@ -238,4 +260,6 @@ class ThyTestTimePanelComponent {
     onPickTime(value: Date) {}
 
     onValueChange(value: Date) {}
+
+    closePanel() {}
 }

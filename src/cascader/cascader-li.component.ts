@@ -1,7 +1,5 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
-import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
-
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { CascaderOption } from './types';
 
 @Component({
@@ -15,11 +13,20 @@ import { CascaderOption } from './types';
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: CascaderOption;
 
+    @Input()
+    @InputBoolean()
+    multiple = false;
+
+    @Input()
+    @InputBoolean()
+    isOnlySelectLeaf = true;
+
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
     @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
-    active = false;
+    @InputBoolean()
+    active: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
@@ -31,13 +38,19 @@ export class ThyCascaderOptionComponent implements OnInit {
         return this.option && !this.option.isLeaf;
     }
 
-    @Input() thyLabelProperty: string;
+    @Input() labelProperty: string = 'label';
+
+    @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 
     constructor() {}
 
     public getOptionLabel() {
-        return this.option ? this.option[this.thyLabelProperty || 'label'] : '';
+        return this.option ? this.option[this.labelProperty] : '';
     }
 
     ngOnInit() {}
+
+    public toggleOption(value: boolean) {
+        this.toggleSelectChange.emit(value);
+    }
 }

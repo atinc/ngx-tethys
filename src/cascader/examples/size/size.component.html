@@ -1,14 +1,9 @@
-<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'lg'">
-</thy-cascader>
+<thy-button-group thySize="sm" thyType="outline-default">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item" [ngClass]="{ active: size === item }">
+    {{ item }}
+  </button>
+</thy-button-group>
 
-<thy-cascader
-  [thyOptions]="areaCode"
-  [(ngModel)]="values"
-  (ngModelChange)="onChanges($event)"
-  thyPlaceHolder="自定义PlaceHolder"
-  [thySize]="'sm'"
->
-</thy-cascader>
-
-<thy-cascader [thyOptions]="areaCode" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder" [thySize]="'xs'">
-</thy-cascader>
+<div class="mt-4">
+  <thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" [thySize]="size" style="width:200px"> </thy-cascader>
+</div>

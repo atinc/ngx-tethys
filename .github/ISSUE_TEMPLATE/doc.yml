@@ -1,4 +1,3 @@
-
 name: Documentation
 description: Documentation
 title: 'TITLE'
@@ -97,4 +96,3 @@ body:
       placeholder: Provide a brief summary of what you would like to see changed in our documentation.
     validations:
       required: true
- 

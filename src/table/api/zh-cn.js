@@ -49,6 +49,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyRowClassName',
+                description: '设置 Table 行 的 Class',
+                type: 'string | Function',
+                default: ''
+            },
+            {
                 name: 'thyLoadingDone',
                 description: '设置加载状态',
                 type: 'boolean',

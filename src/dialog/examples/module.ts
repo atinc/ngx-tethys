@@ -11,12 +11,14 @@ import { ThyLayoutModule } from 'ngx-tethys/layout';
 import { ThyDialogFooterLayoutExampleComponent } from './layout/dialog-layout.component';
 import { ThyDialogBasicContentComponent } from './basic/dialog-content.component';
 import { ThyDialogSidebarContentExampleComponent } from './sidebar/dialog-sidebar.component';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 
 export default {
     declarations: [ThyDialogFooterLayoutExampleComponent, ThyDialogBasicContentComponent, ThyDialogSidebarContentExampleComponent],
     imports: [
         CommonModule,
         FormsModule,
+        ThyCheckboxModule,
         ThyDialogModule,
         CdkScrollableModule,
         ThySelectModule,

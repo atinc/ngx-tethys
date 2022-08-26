@@ -3,7 +3,7 @@
     <tbody>
       <tr *ngFor="let row of rows; let i = index">
         <ng-container *ngFor="let item of rows[i]">
-          <td>
+          <td [attr.colspan]="item.computedSpan || item.thySpan">
             <div *ngIf="item" class="thy-properties-item-container">
               <ng-template [ngTemplateOutlet]="itemLabel" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
               <ng-template [ngTemplateOutlet]="itemContent" [ngTemplateOutletContext]="{ item: item }"></ng-template>
@@ -21,14 +21,14 @@
       <ng-container *ngFor="let row of rows; let i = index">
         <tr>
           <ng-container *ngFor="let item of rows[i]">
-            <td>
+            <td [attr.colspan]="item.computedSpan || item.thySpan">
               <ng-template *ngIf="item" [ngTemplateOutlet]="itemLabel" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
             </td>
           </ng-container>
         </tr>
         <tr>
           <ng-container *ngFor="let item of rows[i]">
-            <td>
+            <td [attr.colspan]="item.computedSpan || item.thySpan">
               <ng-template *ngIf="item" [ngTemplateOutlet]="itemContent" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
             </td>
           </ng-container>
@@ -40,9 +40,7 @@
 
 <ng-template #itemLabel let-item="item">
   <span class="thy-properties-item-label">
-    <ng-container *ngIf="item.thyLabelText">
-      {{ item.thyLabelText }}
-    </ng-container>
+    <span *ngIf="item.thyLabelText" thyFlexibleText [thyTooltipContent]="item.thyLabelText">{{ item.thyLabelText }}</span>
     <ng-container *ngIf="item.label">
       <ng-template [ngTemplateOutlet]="item.label"></ng-template>
     </ng-container>
