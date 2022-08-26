@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.7](https://github.com/atinc/ngx-tethys/compare/13.2.6...13.2.7) (2022-08-26)
+
+
+### Bug Fixes
+
+* **button:** add active class and fix btn-icon-active style error #INFR-4378 ([#2129](https://github.com/atinc/ngx-tethys/issues/2129)) ([2919678](https://github.com/atinc/ngx-tethys/commit/291967843281bf5176f815ea2e9e4ff2c4226864)), closes [#INFR-4378](https://github.com/atinc/ngx-tethys/issues/INFR-4378)
+* **property:** set thy-properties block and set padding-right for property label ([61aaddf](https://github.com/atinc/ngx-tethys/commit/61aaddfca7023044ff475911c1c841c34086fc91))
+* **select:** center select control value ([#2131](https://github.com/atinc/ngx-tethys/issues/2131)) ([f3dab37](https://github.com/atinc/ngx-tethys/commit/f3dab37397ed435269fb35ad46c5aefcab71b807))
+
+
+### Features
+
+* **property:** blur when click in  previous overlay ([a291edf](https://github.com/atinc/ngx-tethys/commit/a291edf0680a34c4277ebc442da552024d6486a6))
+
+
+
 ## [13.2.6](https://github.com/atinc/ngx-tethys/compare/13.2.5...13.2.6) (2022-08-25)
 
 
