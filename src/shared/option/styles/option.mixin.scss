@@ -55,6 +55,8 @@
 
     // 禁用状态透明度改为 0.5
     &.disabled {
+        background: none;
+        cursor: default; // not-allowed;
         opacity: variables.$select-option-disabled-opacity;
     }
 }
