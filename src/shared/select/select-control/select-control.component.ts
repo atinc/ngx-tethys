@@ -13,7 +13,7 @@ import {
 import { InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
-import { ThyLabelTypeSize } from 'ngx-tethys/label';
+import { ThyTagSize } from 'ngx-tethys/tag';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
@@ -42,7 +42,7 @@ export class ThySelectControlComponent implements OnInit {
 
     searchInputControlClass: { [key: string]: boolean };
 
-    labelSize: ThyLabelTypeSize;
+    tagSize: ThyTagSize;
 
     @Input()
     get thyPanelOpened(): boolean {
@@ -141,13 +141,11 @@ export class ThySelectControlComponent implements OnInit {
         this.setSelectControlClass();
 
         if (value === 'sm') {
-            this.labelSize = 'sm';
-        } else if (value === 'md') {
-            this.labelSize = 'default';
+            this.tagSize = 'sm';
         } else if (value === 'lg') {
-            this.labelSize = 'xlg';
+            this.tagSize = 'lg';
         } else {
-            this.labelSize = 'default';
+            this.tagSize = 'md';
         }
     }
 

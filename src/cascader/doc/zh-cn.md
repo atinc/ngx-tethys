@@ -70,4 +70,4 @@ import { ThyCascaderModule } from 'ngx-tethys/cascader';
 ```
 
 展示效果如下：
-<example name='thy-cascader-add-code-example'>
+<example name='thy-cascader-custom-template-example'>

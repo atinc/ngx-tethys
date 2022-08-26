@@ -1,8 +1,8 @@
 <thy-cascader
   [thyOptions]="areaCode"
-  (ngModelChange)="onChanges($event)"
-  thyPlaceHolder="自定义PlaceHolder"
+  (ngModelChange)="selectChanges($event)"
   [(ngModel)]="values"
   [thyChangeOnSelect]="true"
+  style="width: 200px;"
 >
 </thy-cascader>
