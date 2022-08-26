@@ -17,6 +17,12 @@
         border: none;
         background: none;
     }
+
+    &.active,
+    &.btn-icon-active {
+        @include mixin.btn-icon-active(variables.$primary);
+    }
+
     @include mixin.btn-icon-size-variant(
         variables.$font-size-md,
         variables.$btn-icon-circle-padding-base,
@@ -60,7 +66,7 @@
         .thy-icon {
             border-width: 2px;
         }
-        &:not(:hover):not(.invalid).circle-solid {
+        &:not(:hover):not(.invalid):not(.active):not(.btn-icon-active).circle-solid {
             i,
             .wtf,
             .thy-icon {
@@ -68,7 +74,7 @@
                 border-color: variables.$btn-icon-thick-solid-color;
             }
         }
-        &:not(:hover):not(.invalid).circle-dashed {
+        &:not(:hover):not(.invalid):not(.active):not(.btn-icon-active).circle-dashed {
             i,
             .wtf,
             .thy-icon {
@@ -105,7 +111,7 @@
             }
         }
     }
-    &:not(:hover).circle-dashed {
+    &:not(:hover):not(.active):not(.btn-icon-active).circle-dashed {
         i,
         .wtf,
         .thy-icon {
@@ -119,16 +125,16 @@
             border-style: solid;
         }
     }
+
+    &.active,
+    &.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-base);
+    }
 }
 
 .btn-icon-light {
     color: variables.$btn-icon-light-color;
 }
-
-.btn-icon-active {
-    color: variables.$primary;
-}
-
 .btn-icon-xs {
     @include mixin.btn-icon-size-variant(
         variables.$font-size-base,
@@ -136,6 +142,10 @@
         variables.$font-size-base,
         variables.$input-btn-height-xs
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-xs);
+    }
 }
 
 .btn-icon-sm {
@@ -145,6 +155,10 @@
         variables.$font-size-base,
         variables.$input-btn-height-md
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-sm);
+    }
 }
 
 .btn-icon-lg {
@@ -154,6 +168,10 @@
         variables.$font-size-lg,
         variables.$input-btn-height-lg
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-lg);
+    }
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
