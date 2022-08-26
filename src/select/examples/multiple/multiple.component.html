@@ -13,7 +13,3 @@
 >
   <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
 </thy-custom-select>
-<div class="mb-2 mt-2">禁用情况下的多选展示</div>
-<thy-custom-select ngModel="option1" thyMode="multiple" [thyDisabled]="true" [(ngModel)]="listOfSelectedValue" style="width: 400px;">
-  <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
-</thy-custom-select>
