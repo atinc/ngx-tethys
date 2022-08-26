@@ -56,11 +56,9 @@ $option-disabled-color: variables.$gray-400 !default;
         }
     }
 
-    // 禁用状态没有背景色, 字体颜色为禁用
+    // 禁用状态透明度改为 0.5
     &.disabled {
-        background: none;
-        color: $option-disabled-color;
-        cursor: default; // not-allowed;
+        opacity: 0.5;
     }
 }
 
