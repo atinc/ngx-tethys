@@ -10,6 +10,7 @@
 }
 
 .thy-properties {
+    display: block;
     width: 100%;
 
     &.thy-properties-horizontal {
@@ -18,9 +19,12 @@
             display: flex;
 
             .thy-properties-item-label {
-                min-height: variables.$property-item-min-height;
-                line-height: variables.$property-item-min-height;
                 width: variables.$property-item-horizontal-label-width;
+                min-height: variables.$property-item-min-height;
+                padding-right: variables.$property-item-padding-x;
+                span {
+                    line-height: variables.$property-item-min-height;
+                }
             }
 
             .thy-properties-item-content {
