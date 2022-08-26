@@ -2,6 +2,51 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [13.2.6](https://github.com/atinc/ngx-tethys/compare/13.2.5...13.2.6) (2022-08-25)
+
+
+### Bug Fixes
+
+* **dialog:** import ThyCheckboxModule #INFR-4410 ([08ea36f](https://github.com/atinc/ngx-tethys/commit/08ea36f4e95dfac80bfb900ffed50324ce709c18)), closes [#INFR-4410](https://github.com/atinc/ngx-tethys/issues/INFR-4410)
+* **property:** add thyFlexibleText for label text and add property-item-editor-offset for margin-left #INFR-4394 ([#2117](https://github.com/atinc/ngx-tethys/issues/2117)) ([7ab2c9e](https://github.com/atinc/ngx-tethys/commit/7ab2c9e6158684495950a9004e8034d06f33b7a5)), closes [#INFR-4394](https://github.com/atinc/ngx-tethys/issues/INFR-4394)
+* **time-picker:** fix use origin value when input not valid date and improve test #INFR-4316 ([#2108](https://github.com/atinc/ngx-tethys/issues/2108)) ([153e7eb](https://github.com/atinc/ngx-tethys/commit/153e7ebc824c2f6ccc557dad8fe0869fc5032074)), closes [#INFR-4316](https://github.com/atinc/ngx-tethys/issues/INFR-4316)
+
+
+### Features
+
+* **cascader:** add mulitple feature #INFR-2596 ([#2111](https://github.com/atinc/ngx-tethys/issues/2111)) ([8e745fb](https://github.com/atinc/ngx-tethys/commit/8e745fb29ff331d9b3bf3d0d4673e524be32b7cf)), closes [#INFR-2596](https://github.com/atinc/ngx-tethys/issues/INFR-2596)
+* **mention:** add isOpened for mention directive #INFR-4414 ([e342745](https://github.com/atinc/ngx-tethys/commit/e3427458f0889f643bcadf38e04b037cc6333985)), closes [#INFR-4414](https://github.com/atinc/ngx-tethys/issues/INFR-4414)
+* **property:** add thySpan for thy-property-item #INFR-4358 ([#2116](https://github.com/atinc/ngx-tethys/issues/2116)) ([d902859](https://github.com/atinc/ngx-tethys/commit/d902859d40b8695012ca2a802013b33e98ad9221)), closes [#INFR-4358](https://github.com/atinc/ngx-tethys/issues/INFR-4358)
+* **property:** support property editing ([#2120](https://github.com/atinc/ngx-tethys/issues/2120)) ([20edd1a](https://github.com/atinc/ngx-tethys/commit/20edd1a5527c063feef824c6106f2dc9b9ce074c))
+* **typography:** add typography module contains thy-text #INFR-4234 ([#2099](https://github.com/atinc/ngx-tethys/issues/2099)) ([16aa7ba](https://github.com/atinc/ngx-tethys/commit/16aa7ba4e099d44018ee08678efba5a92d72374a)), closes [#INFR-4234](https://github.com/atinc/ngx-tethys/issues/INFR-4234)
+
+
+
+## [13.2.5](https://github.com/atinc/ngx-tethys/compare/13.2.4...13.2.5) (2022-08-24)
+
+
+### Bug Fixes
+
+* **form:** fix label-required margin to 4px(#INFR-4338) ([#2107](https://github.com/atinc/ngx-tethys/issues/2107)) ([79d5bb5](https://github.com/atinc/ngx-tethys/commit/79d5bb59ae692d852b456eae7fdcc6d618e347ff)), closes [#INFR-4338](https://github.com/atinc/ngx-tethys/issues/INFR-4338)
+* **property:**  don't render item element when property item is null  #INFR-4359 ([f8ad288](https://github.com/atinc/ngx-tethys/commit/f8ad288aa0a454b6b446e8ad14f78c795a0c05b7)), closes [#INFR-4359](https://github.com/atinc/ngx-tethys/issues/INFR-4359)
+* **property:** optimize property editing #INFR-4361 #INFR-4363 ([#2109](https://github.com/atinc/ngx-tethys/issues/2109)) ([19153fd](https://github.com/atinc/ngx-tethys/commit/19153fd8e3f09b02bd77fec40165dccececa1872)), closes [#INFR-4361](https://github.com/atinc/ngx-tethys/issues/INFR-4361) [#INFR-4363](https://github.com/atinc/ngx-tethys/issues/INFR-4363)
+
+
+### Features
+
+* **menu:** show group icon when thyCollapsed is true #INFR-4366 ([433dbb5](https://github.com/atinc/ngx-tethys/commit/433dbb510920516f53e994c33ce7e56cc55f6e53)), closes [#INFR-4366](https://github.com/atinc/ngx-tethys/issues/INFR-4366)
+
+
+
+## [13.2.4](https://github.com/atinc/ngx-tethys/compare/13.2.3...13.2.4) (2022-08-23)
+
+
+### Bug Fixes
+
+* **image:** fix blob image preview error #INFR-4333 ([#2103](https://github.com/atinc/ngx-tethys/issues/2103)) ([2e8c34d](https://github.com/atinc/ngx-tethys/commit/2e8c34d72ed436ce6dee4eadf5ad997e72a719d5)), closes [#INFR-4333](https://github.com/atinc/ngx-tethys/issues/INFR-4333)
+
+
+
 ## [13.2.3](https://github.com/atinc/ngx-tethys/compare/13.2.2...13.2.3) (2022-08-19)
 
 

@@ -3,8 +3,8 @@
     <ng-template *ngIf="headerContentTemplateRef; else defaultTitle" [ngTemplateOutlet]="headerContentTemplateRef"></ng-template>
     <ng-template #defaultTitle>
       <span class="thy-menu-group-title">
-        <thy-icon *ngIf="showIcon" class="thy-menu-group-folder" [thyIconName]="iconClass"></thy-icon>
-        <ng-container>{{ thyTitle }}</ng-container>
+        <thy-icon *ngIf="showIcon" class="thy-menu-group-title-icon mr-2" [thyIconName]="iconClass"></thy-icon>
+        <span class="thy-menu-group-title-text">{{ thyTitle }}</span>
       </span>
     </ng-template>
   </div>

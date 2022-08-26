@@ -3,10 +3,21 @@
     <thy-avatar thyName="张萌" thySize="xxs" thyShowName="true"></thy-avatar>
   </thy-property-item>
   <thy-property-item thyLabelText="年龄">24</thy-property-item>
-  <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
+  <thy-property-item thyLabelText="电话" thyEditable="true"
+    >18500010001
+    <ng-template #editor>
+      <input thyInput thySize="sm" [value]="'18500010001'" />
+    </ng-template>
+  </thy-property-item>
   <thy-property-item thyLabelText="爱好">
     <thy-tag class="mr-1" thyShape="pill" thyColor="success">羽毛球</thy-tag>
     <thy-tag class="mr-1" thyShape="pill" thyColor="success">跑步</thy-tag>
     <thy-tag class="mr-1" thyShape="pill" thyColor="success">撸铁</thy-tag>
+  </thy-property-item>
+  <thy-property-item thyLabelText="邮编">
+    📮 100065
+  </thy-property-item>
+  <thy-property-item thyLabelText="地址" thySpan="3">
+    北京市海淀区高新街道科技二路60号T9栋清华科技园研发中心8888室
   </thy-property-item>
 </thy-properties>

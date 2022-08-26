@@ -1,6 +1,16 @@
 @use "../../styles/variables.scss";
 
+@mixin _displayItemEditor {
+    .thy-properties-item-content-text {
+        display: none;
+    }
+    .thy-properties-item-content-editor {
+        display: block;
+    }
+}
+
 .thy-properties {
+    display: block;
     width: 100%;
 
     &.thy-properties-horizontal {
@@ -9,9 +19,12 @@
             display: flex;
 
             .thy-properties-item-label {
+                width: variables.$property-item-horizontal-label-width;
                 min-height: variables.$property-item-min-height;
-                line-height: variables.$property-item-min-height;
-                width: 25%;
+                padding-right: variables.$property-item-padding-x;
+                span {
+                    line-height: variables.$property-item-min-height;
+                }
             }
 
             .thy-properties-item-content {
@@ -30,11 +43,19 @@
         }
     }
 
+    &.thy-properties-edit-trigger-hover {
+        .thy-properties-item-content-editable {
+            &:hover {
+                @include _displayItemEditor();
+            }
+        }
+    }
+
     table {
         width: 100%;
         table-layout: fixed;
         td {
-            padding: variables.$property-item-padding;
+            padding: variables.$property-item-padding-y variables.$property-item-padding-x;
         }
     }
 
@@ -43,27 +64,21 @@
     }
 
     .thy-properties-item-content {
+        width: 100%;
         color: variables.$property-item-content-color;
 
         .thy-properties-item-content-text {
+            width: 100%;
         }
 
         .thy-properties-item-content-editor {
+            width: 100%;
             display: none;
+            margin-left: variables.$property-item-editor-offset;
         }
 
         &-editing {
-            .thy-properties-item-content-text {
-                display: none;
-            }
-            .thy-properties-item-content-editor {
-                display: block;
-
-                // 优化 edit状态下使用 form-control 组件抖动，9px（input padding 8px + border 1px）
-                .form-control {
-                    transform: translateX(calc((variables.$input-padding-x-fixed + 1px) * -1));
-                }
-            }
+            @include _displayItemEditor();
         }
     }
 }

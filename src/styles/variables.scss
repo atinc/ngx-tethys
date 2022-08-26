@@ -443,11 +443,14 @@ $tag-colors: map.merge(
     ),
     $tag-colors
 );
+$tag-height-sm: 20px !default;
+$tag-height-md: 24px !default;
+$tag-height-lg: 28px !default;
 $tag-size-heights: () !default;
 $tag-size-heights: (
-    sm: 20px,
-    md: 24px,
-    lg: 28px
+    sm: $tag-height-sm,
+    md: $tag-height-md,
+    lg: $tag-height-lg
 );
 $tag-size-paddings: () !default;
 $tag-size-paddings: (
@@ -997,11 +1000,21 @@ $collapse-spacing-y: 12px !default;
 // property
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
-$property-item-min-height: 28px !default;
-$property-item-padding: 8px 0px !default;
+$property-item-min-height: 32px !default;
+$property-item-padding-x: 0.5rem !default;
+$property-item-padding-y: 0.4rem !default;
+$property-item-horizontal-label-width: 100px !default;
+$property-item-editor-offset: calc($property-item-padding-x + 0.0625rem) * -1;
 
 // tabs
 $tabs-content-space: 1rem !default;
+
+// select-control
+$select-control-padding-y-sm: 2px !default;
+$select-control-padding-y-md: 3px !default;
+$select-control-padding-y-default: 5px !default;
+$select-control-padding-y-lg: 7px !default;
+$select-option-disabled-opacity: 0.5 !default;
 
 // z-index
 $z-index-1: 10;

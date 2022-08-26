@@ -1,5 +1,18 @@
 <ng-container>
-    {{ getOptionLabel() }}
+  <span *ngIf="!multiple || !option.isLeaf"> {{ getOptionLabel() }}</span>
+  <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
+    <label
+      thyCheckbox
+      [(ngModel)]="active"
+      (ngModelChange)="toggleOption(active)"
+      [name]="option.value || option._id"
+      [thyLabelText]="getOptionLabel()"
+    ></label>
+  </ng-container>
+
+  <span
+    *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
+    class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
+  >
+  </span>
 </ng-container>
-<span *ngIf="!option.isLeaf || option.children && option.children.length || option.loading" class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
-</span>

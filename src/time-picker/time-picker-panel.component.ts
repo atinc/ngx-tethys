@@ -53,7 +53,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
             this.showMinuteColumn = true;
             this.showSecondColumn = true;
         }
-        this.showColumnCount = this.showSecondColumn ? 3 : 2;
+        this.showColumnCount = [this.showHourColumn, this.showMinuteColumn, this.showSecondColumn].filter(m => m).length;
         this.cdr.markForCheck();
     }
 
@@ -68,6 +68,8 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     @Input() @InputBoolean() thyShowOperations = true;
 
     @Output() thyPickChange = new EventEmitter<Date>();
+
+    @Output() thyClosePanel = new EventEmitter<void>();
 
     // margin-top + 1px border
     SCROLL_OFFSET_SPACING = 5;
@@ -145,11 +147,12 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.value = new Date();
         this.setHMSProperty();
         this.thyPickChange.emit(this.value);
-        this.autoScroll();
+        this.thyClosePanel.emit();
     }
 
     confirmPickTime() {
         this.onValueChangeFn(this.value || new Date());
+        this.thyClosePanel.emit();
     }
 
     scrollTo(container: HTMLElement, index: number = 0, duration: number = this.SCROLL_DEFAULT_DURATION) {
@@ -157,9 +160,13 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.runScrollAnimationFrame(container, offsetTop, duration);
     }
 
-    writeValue(value: Date): void {
-        this.value = value && isValid(value) ? new Date(value) : new Date();
-        this.setHMSProperty();
+    writeValue(value: Date | number): void {
+        if (value && isValid(value)) {
+            this.value = new Date(value);
+            this.setHMSProperty();
+        } else {
+            this.initialValue();
+        }
         this.autoScroll(this.initialScrollPosition ? this.SCROLL_DEFAULT_DURATION : 0);
 
         this.cdr.markForCheck();

@@ -1,6 +1,6 @@
 @use "../../../styles/variables";
 
-@mixin select-control-size($input-height, $input-padding-y) {
+@mixin select-control-size($tag-height, $input-padding-y) {
     .select-control-rendered {
         margin-top: $input-padding-y;
         .text-placeholder,
@@ -10,6 +10,21 @@
         .choice,
         .select-control-search {
             margin-bottom: $input-padding-y;
+        }
+
+        .selected-value,
+        .select-control-search > .form-control-lg {
+            @if $tag-height == variables.$tag-height-lg {
+                font-size: 1.125rem;
+            }
+        }
+
+        .select-control-search {
+            @if $tag-height == variables.$tag-height-md or $tag-height == variables.$tag-height-lg {
+                height: $tag-height;
+            } @else {
+                height: unset;
+            }
         }
     }
 }

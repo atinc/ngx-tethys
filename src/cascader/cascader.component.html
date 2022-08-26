@@ -1,29 +1,31 @@
 <div cdkOverlayOrigin #origin="cdkOverlayOrigin" #trigger>
   <ng-container *ngIf="thyShowInput">
-    <input
-      #input
-      thyInput
-      type="text"
+    <div
+      thySelectControl
       [thySize]="thySize"
-      [ngClass]="inputCls"
-      readonly
-      [disabled]="disabled"
-      [placeholder]="showPlaceholder ? thyPlaceHolder : ''"
-    />
-    <span [ngClass]="arrowCls">
-      <thy-icon thyIconName="angle-down" class="font-size-base"></thy-icon>
-    </span>
-    <span [ngClass]="clearCls" *ngIf="!isLoading && !disabled && labelRenderText" (click)="clearSelection($event)">
-      <thy-icon class="remove-link-icon font-size-base" thyIconName="close-circle-bold-fill"></thy-icon>
-    </span>
-    <span [ngClass]="labelCls">
-      <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ labelRenderText }}</ng-container>
-      <ng-template #labelTemplate>
-        <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="labelRenderContext"></ng-template>
+      [thyAllowClear]="true"
+      [thySelectedOptions]="selected"
+      [thyMaxTagCount]="thyMaxTagCount"
+      (thyOnRemove)="removeSelectedItem($event)"
+      (thyOnClear)="clearSelection($event)"
+      [thyDisabled]="disabled"
+      [thyIsMultiple]="thyMultiple"
+      [thyPanelOpened]="menuVisible"
+      [thyPlaceholder]="thyPlaceholder"
+      [customDisplayTemplate]="customDisplayTemplate"
+    >
+      <ng-template #customDisplayTemplate let-value>
+        <span [ngClass]="labelCls">
+          <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>
+          <ng-template #labelTemplate>
+            <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="value.labelRenderContext"></ng-template>
+          </ng-template>
+        </span>
       </ng-template>
-    </span>
+    </div>
   </ng-container>
 </div>
+
 <ng-template
   cdkConnectedOverlay
   cdkConnectedOverlayHasBackdrop
@@ -33,22 +35,25 @@
   [cdkConnectedOverlayWidth]="triggerRect?.width"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
-  (attach)="onAttached()"
-  (positionChange)="onPositionChange($event)"
+  (attach)="attached()"
+  (positionChange)="positionChange($event)"
   [cdkConnectedOverlayOpen]="menuVisible"
 >
-  <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="onMenuMouseleave($event)">
-    <ng-container *ngIf="thyColumns.length > 0; else emptyPlaceholder">
-      <ul #cascaderOptionContainers *ngFor="let options of thyColumns; let i = index" [ngClass]="menuColumnCls">
+  <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
+    <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
+      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
         <li
           #cascaderOptions
           thy-cascader-option
-          *ngFor="let option of options"
+          *ngFor="let option of options; trackBy: trackByFn"
           [option]="option"
-          (click)="onOptionClick(option, i, $event)"
-          (mouseover)="onOptionMouseover(option, i, $event)"
-          [thyLabelProperty]="thyLabelProperty"
-          [active]="isActivedOption(option, i)"
+          [multiple]="thyMultiple"
+          [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
+          [labelProperty]="thyLabelProperty"
+          [active]="isActivatedOption(option, i)"
+          (toggleSelectChange)="clickOption(option, i, $event)"
+          (click)="clickOption(option, i, $event)"
+          (mouseover)="mouseoverOption(option, i, $event)"
         ></li>
       </ul>
     </ng-container>

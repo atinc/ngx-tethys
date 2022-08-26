@@ -7,9 +7,20 @@ import { ThyCascaderComponent } from './cascader.component';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
+import { ThySelectCommonModule } from 'ngx-tethys/shared';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyIconModule, ThyEmptyModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        OverlayModule,
+        ThyInputModule,
+        ThyIconModule,
+        ThyEmptyModule,
+        ThySelectCommonModule,
+        ThyCheckboxModule
+    ],
     declarations: [ThyCascaderComponent, ThyCascaderOptionComponent],
     exports: [ThyCascaderComponent]
 })

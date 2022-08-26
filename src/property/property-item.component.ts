@@ -1,4 +1,23 @@
-import { Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
+import { fromEvent, Subject } from 'rxjs';
+import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
+
+import { OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
+import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
+import {
+    ChangeDetectorRef,
+    Component,
+    ContentChild,
+    Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
+    OnInit,
+    SimpleChanges,
+    SkipSelf,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 
 /**
  * 属性组件
@@ -12,7 +31,7 @@ import { Component, ContentChild, Input, OnInit, TemplateRef, ViewChild } from '
         </ng-template>
     `
 })
-export class ThyPropertyItemComponent implements OnInit {
+export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * 属性名称
      * @type sting
@@ -25,7 +44,14 @@ export class ThyPropertyItemComponent implements OnInit {
      * @type sting
      * @default false
      */
-    @Input() thyEditable: boolean;
+    @Input() @InputBoolean() thyEditable: boolean;
+
+    /**
+     * 设置跨列的数量
+     * @type sting
+     * @default 1
+     */
+    @Input() @InputNumber() thySpan: number = 1;
 
     /**
      * 属性名称自定义模板
@@ -46,20 +72,104 @@ export class ThyPropertyItemComponent implements OnInit {
 
     editing: boolean;
 
-    keepEditing: boolean;
+    // 适配布局时通过计算动态设置的 span 值
+    computedSpan: number;
 
-    constructor() {}
+    changes$ = new Subject<SimpleChanges>();
+
+    private destroy$ = new Subject();
+
+    private originOverlays: OverlayReference[] = [];
+
+    constructor(
+        @SkipSelf() protected parentCdr: ChangeDetectorRef,
+        private thyClickDispatcher: ThyClickDispatcher,
+        private ngZone: NgZone,
+        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
+    ) {
+        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+    }
 
     ngOnInit() {}
 
-    setEditing(editing: boolean) {
-        this.editing = editing;
+    ngOnChanges(changes: SimpleChanges): void {
+        this.changes$.next(changes);
     }
 
+    setEditing(editing: boolean) {
+        this.ngZone.run(() => {
+            this.editing = editing;
+            this.parentCdr.markForCheck();
+        });
+    }
+
+    /**
+     * @deprecated please use setEditing(editing: boolean)
+     */
     setKeepEditing(keep: boolean) {
-        this.keepEditing = keep;
-        if (!keep) {
-            this.setEditing(false);
+        this.setEditing(keep);
+    }
+
+    private hasOverlay() {
+        return this.overlayOutsideClickDispatcher._attachedOverlays.length > this.originOverlays.length;
+    }
+
+    private subscribeOverlayClick() {
+        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+
+        this.thyClickDispatcher
+            .clicked(0)
+            .pipe(
+                skip(1),
+                filter(event => {
+                    return (
+                        newOpenedOverlays.findIndex(overlay => {
+                            return overlay.overlayElement.contains(event.target as HTMLElement);
+                        }) < 0
+                    );
+                }),
+                take(1),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.setEditing(false);
+            });
+    }
+
+    private subscribeDocumentClick(editorElement: HTMLElement) {
+        this.thyClickDispatcher
+            .clicked(0)
+            .pipe(
+                filter(event => {
+                    return !editorElement.contains(event.target as HTMLElement);
+                }),
+                take(1),
+                takeUntil(this.destroy$)
+            )
+            .subscribe(() => {
+                this.setEditing(false);
+            });
+    }
+
+    private bindEditorBlurEvent(editorElement: HTMLElement) {
+        if (this.hasOverlay()) {
+            this.subscribeOverlayClick();
+        } else {
+            this.subscribeDocumentClick(editorElement);
         }
+    }
+
+    editorClick(editorElement: HTMLElement) {
+        return fromEvent(editorElement, 'click').pipe(
+            tap(() => {
+                this.setEditing(true);
+                this.bindEditorBlurEvent(editorElement);
+            })
+        );
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
+        this.destroy$.complete();
     }
 }

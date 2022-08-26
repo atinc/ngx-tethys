@@ -16,11 +16,13 @@ import {
     ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { coerceBooleanProperty, isArray, isEmpty } from 'ngx-tethys/util';
+import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
+import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
+import { SelectionModel } from '@angular/cdk/collections';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -73,39 +75,29 @@ export type ThyCascaderExpandTrigger = 'click' | 'hover';
     ]
 })
 export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
-    private changeOnSelect = false;
-    private showInput = true;
-    public prefixCls = 'thy-cascader';
-    private menuClassName: string;
-    private columnClassName: string;
-    private _menuColumnCls: any;
-    private defaultValue: any[];
-    private readonly destroy$ = new Subject<void>();
+    @Input() thyValueProperty = 'value';
 
-    public dropDownPosition = 'bottom';
-    public menuVisible = false;
-    public isLoading = false;
-    public isOpening = false;
-    public showSearch = false;
-    private _thySize = 'md';
+    @Input() thyLabelProperty = 'label';
 
-    private _arrowCls: { [name: string]: any };
-    private _menuCls: { [name: string]: any };
-    private _labelCls: { [name: string]: any };
-    private _clearCls: { [name: string]: any };
-    private _inputCls: { [name: string]: any };
+    @Input() thyPlaceholder = '请选择';
 
-    private labelRenderTpl: TemplateRef<any>;
-    public isLabelRenderTemplate = false;
-    public labelRenderText: string;
-    public labelRenderContext: any = {};
+    @Input() thySize: SelectControlSize = '';
 
-    onChange: any = Function.prototype;
-    onTouched: any = Function.prototype;
-    private cascaderPositon = [...EXPANDED_DROPDOWN_POSITIONS];
-    positions: ConnectionPositionPair[];
+    @Input()
+    set thyOptions(options: CascaderOption[] | null) {
+        this.columns = options && options.length ? [options] : [];
+        if (this.defaultValue && this.columns.length) {
+            this.initOptions(0);
+        }
+    }
 
-    public triggerRect: DOMRect;
+    @Input()
+    @InputBoolean()
+    thyChangeOnSelect = false;
+
+    @Input()
+    @InputBoolean()
+    thyShowInput = true;
 
     @Input()
     set thyLabelRender(value: TemplateRef<any>) {
@@ -117,71 +109,13 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return this.labelRenderTpl;
     }
 
-    private value: any[];
-    private selectedOptions: CascaderOption[] = [];
-    private activatedOptions: CascaderOption[] = [];
-    public thyColumns: CascaderOption[][] = [];
-
-    @Input() thyValueProperty = 'value';
-
-    @Input() thyLabelProperty = 'label';
-
-    @Input() thyPlaceHolder = '请选择';
-
-    private _inputValue = '';
-
-    get inputValue(): string {
-        return this._inputValue;
-    }
-
-    set inputValue(inputValue: string) {
-        this._inputValue = inputValue;
-        const willBeInSearch = !!inputValue;
-    }
-
     @Input() thyLoadData: (node: CascaderOption, index?: number) => PromiseLike<any>;
-
-    @Input()
-    set thyChangeOnSelect(value: boolean) {
-        this.changeOnSelect = coerceBooleanProperty(value);
-    }
-
-    get thyChangeOnSelect(): boolean {
-        return this.changeOnSelect;
-    }
-
-    @Input()
-    set thyShowInput(value: boolean) {
-        this.showInput = coerceBooleanProperty(value);
-    }
-
-    get thyShowInput(): boolean {
-        return this.showInput;
-    }
-
-    public searchWidthStyle: string;
-    private oldColumnsHolder: any;
-    private oldActivatedOptions: any;
-
-    public inSearch = false;
-
-    public emptyStateText = '无任何选项';
 
     @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
 
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
 
     @Input() thyMenuStyle: { [key: string]: string };
-
-    @Input()
-    set thyOptions(options: CascaderOption[] | null) {
-        this.oldColumnsHolder = this.thyColumns = options && options.length ? [options] : [];
-        if (!this.inSearch) {
-            if (this.defaultValue && this.thyColumns.length) {
-                this.initOptions(0);
-            }
-        }
-    }
 
     @Input()
     set thyMenuClassName(value: string) {
@@ -204,21 +138,32 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     @Input()
+    @InputBoolean()
     disabled = false;
-
-    @Input()
-    set thySize(v: string) {
-        this._thySize = v;
-    }
-
-    get thySize() {
-        return this._thySize;
-    }
 
     @Input()
     set thyEmptyStateText(value: string) {
         this.emptyStateText = value;
     }
+
+    @Input()
+    @InputBoolean()
+    set thyMultiple(value: boolean) {
+        this.isMultiple = value;
+        this.initSelectionModel();
+    }
+
+    get thyMultiple(): boolean {
+        return this.isMultiple;
+    }
+
+    @Input() @InputNumber() thyMaxTagCount = 0;
+
+    @Input()
+    @InputBoolean()
+    thyIsOnlySelectLeaf = true;
+
+    @Input() thyChangeOn: (option: CascaderOption, level: number) => boolean;
 
     @Output() thyChange = new EventEmitter<any[]>();
 
@@ -229,15 +174,12 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         index: number;
     }>();
 
-    @Input() thyChangeOn: (option: CascaderOption, level: number) => boolean;
+    @Output() thyDeselect = new EventEmitter<{
+        option: CascaderOption;
+        index: number;
+    }>();
 
     @Output() thyClear = new EventEmitter<void>();
-
-    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
-
-    @ViewChild('input') input: ElementRef;
-
-    @ViewChild('menu') menu: ElementRef;
 
     @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
 
@@ -245,15 +187,60 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
 
+    @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<any>;
+
+    @ViewChild('input') input: ElementRef;
+
+    @ViewChild('menu') menu: ElementRef;
+
+    public dropDownPosition = 'bottom';
+    public menuVisible = false;
+    public isLoading = false;
+    public showSearch = false;
+    public labelRenderText: string;
+    public labelRenderContext: any = {};
+    public isLabelRenderTemplate = false;
+    public triggerRect: DOMRect;
+    public columns: CascaderOption[][] = [];
+    public emptyStateText = '无任何选项';
+
+    public selectionModel: SelectionModel<SelectOptionBase>;
+    private prefixCls = 'thy-cascader';
+    private menuClassName: string;
+    private columnClassName: string;
+    private _menuColumnCls: any;
+    private defaultValue: any[];
+    private readonly destroy$ = new Subject<void>();
+    private _menuCls: { [name: string]: any };
+    private _labelCls: { [name: string]: any };
+    private labelRenderTpl: TemplateRef<any>;
+    onChange: any = Function.prototype;
+    onTouched: any = Function.prototype;
+    private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
+    positions: ConnectionPositionPair[];
+
+    private value: any[];
+
+    private selectedOptions: CascaderOption[] = [];
+
+    private activatedOptions: CascaderOption[] = [];
+
+    get selected(): SelectOptionBase | SelectOptionBase[] {
+        this.cdkConnectedOverlay?.overlayRef?.updatePosition();
+        return this.thyMultiple ? this.selectionModel.selected : this.selectionModel.selected[0];
+    }
+
+    private isMultiple = false;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
         this.setMenuColumnClass();
-        this.setArrowClass();
         this.setLabelClass();
-        this.setClearClass();
-        this.setInputClass();
         this.initPosition();
+        if (!this.selectionModel) {
+            this.selectionModel = new SelectionModel<SelectOptionBase>(this.thyMultiple);
+        }
         this.viewPortRuler
             .change(100)
             .pipe(takeUntil(this.destroy$))
@@ -265,12 +252,20 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             });
     }
 
+    private initSelectionModel() {
+        if (this.selectionModel) {
+            this.selectionModel.clear();
+        } else {
+            this.selectionModel = new SelectionModel(this.isMultiple);
+        }
+    }
+
     private initPosition() {
-        this.cascaderPositon[0].offsetY = 10; // 左下
-        this.cascaderPositon[1].offsetY = 10; // 右下
-        this.cascaderPositon[2].offsetY = -10; // 右下
-        this.cascaderPositon[3].offsetY = -10; // 右下
-        this.positions = this.cascaderPositon;
+        this.cascaderPosition[0].offsetY = 10; // 左下
+        this.cascaderPosition[1].offsetY = 10; // 右下
+        this.cascaderPosition[2].offsetY = -10; // 右下
+        this.cascaderPosition[3].offsetY = -10; // 右下
+        this.positions = this.cascaderPosition;
     }
 
     private initOptions(index: number) {
@@ -308,20 +303,50 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     writeValue(value: any): void {
-        const vs = (this.defaultValue = toArray(value));
-        if (vs.length) {
-            this.initOptions(0);
+        if (!this.selectionModel) {
+            this.initSelectionModel();
+        }
+        if (!this.isMultiple) {
+            const vs = (this.defaultValue = toArray(value));
+            if (vs.length) {
+                this.initOptions(0);
+            } else {
+                this.value = vs;
+                this.activatedOptions = [];
+                this.afterWriteValue();
+            }
         } else {
-            this.value = vs;
-            this.activatedOptions = [];
-            this.afterWriteValue();
+            const values = toArray(value);
+            values.forEach(item => {
+                const vs = (this.defaultValue = toArray(item));
+                if (vs.length) {
+                    this.initOptions(0);
+                } else {
+                    this.value = vs;
+                    this.activatedOptions = [];
+                    this.afterWriteValue();
+                }
+            });
+            this.cdr.detectChanges();
         }
     }
 
     afterWriteValue(): void {
         this.selectedOptions = this.activatedOptions;
-        this.value = this.getSubmitValue();
+        this.value = this.getSubmitValue(this.selectedOptions);
+        this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();
+    }
+
+    private addSelectedState(selectOptions: CascaderOption[]) {
+        if (this.isMultiple && this.thyIsOnlySelectLeaf) {
+            selectOptions.forEach(opt => {
+                if (opt.isLeaf) {
+                    opt.selected = true;
+                    set(opt, 'selected', true);
+                }
+            });
+        }
     }
 
     registerOnChange(fn: (_: any) => {}): void {
@@ -332,7 +357,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.onTouched = fn;
     }
 
-    public onPositionChange(position: ConnectedOverlayPositionChange): void {
+    public positionChange(position: ConnectedOverlayPositionChange): void {
         const newValue = position.connectionPair.originY === 'bottom' ? 'bottom' : 'top';
         if (this.dropDownPosition !== newValue) {
             this.dropDownPosition = newValue;
@@ -341,7 +366,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     private isLoaded(index: number): boolean {
-        return this.thyColumns[index] && this.thyColumns[index].length > 0;
+        return this.columns[index] && this.columns[index].length > 0;
     }
 
     public getOptionLabel(option: CascaderOption): any {
@@ -352,24 +377,25 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return option[this.thyValueProperty || 'value'];
     }
 
-    private hasInput(): boolean {
-        return this.inputValue.length > 0;
+    public isActivatedOption(option: CascaderOption, index: number): boolean {
+        if (!this.isMultiple) {
+            const activeOpt = this.activatedOptions[index];
+            return activeOpt === option;
+        } else {
+            if (option.isLeaf) {
+                return option.selected;
+            } else {
+                const selectedOpts = this.selectionModel.selected;
+                const appearIndex = selectedOpts.findIndex(item => {
+                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                    return helpers.shallowEqual(selectedItem, option);
+                });
+                return appearIndex >= 0;
+            }
+        }
     }
 
-    private hasValue(): boolean {
-        return this.value && this.value.length > 0;
-    }
-
-    public get showPlaceholder(): boolean {
-        return !(this.hasInput() || this.hasValue());
-    }
-
-    public isActivedOption(option: CascaderOption, index: number): boolean {
-        const activeOpt = this.activatedOptions[index];
-        return activeOpt === option;
-    }
-
-    public onAttached(): void {
+    public attached(): void {
         this.cdkConnectedOverlay.positionChange.pipe(take(1), takeUntil(this.destroy$)).subscribe(() => {
             if (!isEmpty(this.selectedOptions)) {
                 const activeOptions = this.cascaderOptions.filter(item =>
@@ -386,7 +412,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     private findOption(option: any, index: number): CascaderOption {
-        const options: CascaderOption[] = this.thyColumns[index];
+        const options: CascaderOption[] = this.columns[index];
         if (options) {
             const value = typeof option === 'object' ? this.getOptionValue(option) : option;
             return options.find(o => value === this.getOptionValue(o));
@@ -395,13 +421,30 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     private buildDisplayLabel(): void {
-        const selectedOptions = this.selectedOptions;
+        const selectedOptions = [...this.selectedOptions];
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
-
+        if (labels.length === 0) {
+            return;
+        }
+        let labelRenderContext;
+        let labelRenderText;
         if (this.isLabelRenderTemplate) {
-            this.labelRenderContext = { labels, selectedOptions };
+            labelRenderContext = { labels, selectedOptions };
         } else {
-            this.labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
+            labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
+            this.labelRenderText = labelRenderText;
+        }
+        if (this.labelRenderText || this.isLabelRenderTemplate) {
+            const selectedData: SelectOptionBase = {
+                thyRawValue: {
+                    value: selectedOptions,
+                    labelText: labelRenderText,
+                    labelRenderContext: labelRenderContext
+                },
+                thyValue: labels,
+                thyLabelText: labelRenderText
+            };
+            this.selectionModel.select(selectedData);
         }
     }
 
@@ -415,7 +458,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
             this.initActivatedOptions();
             this.setClassMap();
-            this.setArrowClass();
             this.setMenuClass();
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
@@ -428,9 +470,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             return;
         }
         this.activatedOptions = [...this.selectedOptions];
-        this.thyColumns[1] = this.activatedOptions[0].children;
+        this.columns[1] = this.activatedOptions[0].children;
         if (this.activatedOptions[1] && !this.activatedOptions[1].isLeaf) {
-            this.thyColumns[2] = this.activatedOptions[1].children;
+            this.columns[2] = this.activatedOptions[1].children;
         }
     }
 
@@ -443,7 +485,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             [`${this.prefixCls}-menus`]: true,
             [`${this.prefixCls}-menus-hidden`]: !this.menuVisible,
             [`${this.thyMenuClassName}`]: this.thyMenuClassName,
-            [`w-100`]: this.thyColumns.length === 0
+            [`w-100`]: this.columns.length === 0
         };
     }
 
@@ -458,28 +500,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         };
     }
 
-    public get arrowCls(): any {
-        return this._arrowCls;
-    }
-
-    private setArrowClass(): void {
-        this._arrowCls = {
-            [`${this.prefixCls}-picker-arrow`]: true,
-            [`${this.prefixCls}-picker-arrow-expand`]: this.menuVisible
-        };
-    }
-
-    public get clearCls(): any {
-        return this._clearCls;
-    }
-
-    private setClearClass(): void {
-        this._clearCls = {
-            [`${this.prefixCls}-picker-clear`]: true,
-            [`remove-link`]: true
-        };
-    }
-
     public get labelCls(): any {
         return this._labelCls;
     }
@@ -489,16 +509,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             [`${this.prefixCls}-picker-label`]: true,
             [`${this.prefixCls}-show-search`]: false,
             [`${this.prefixCls}-focused`]: false
-        };
-    }
-
-    public get inputCls(): any {
-        return this._inputCls;
-    }
-
-    private setInputClass(): void {
-        this._inputCls = {
-            [`${this.prefixCls}-input`]: true
         };
     }
 
@@ -555,9 +565,12 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
     }
 
-    onOptionClick(option: CascaderOption, index: number, event: Event): void {
-        if (event) {
-            event.preventDefault();
+    public clickOption(option: CascaderOption, index: number, event: Event): void {
+        // if (event instanceof Event) {
+        //     event.preventDefault();
+        // }
+        if (option.isLeaf && event instanceof Event && this.isMultiple) {
+            return;
         }
         if (option && option.disabled) {
             return;
@@ -565,7 +578,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.setActiveOption(option, index, true);
     }
 
-    onOptionMouseover(option: CascaderOption, index: number, event: Event): void {
+    public mouseoverOption(option: CascaderOption, index: number, event: Event): void {
         if (event) {
             event.preventDefault();
         }
@@ -578,7 +591,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.setActiveOption(option, index, false);
     }
 
-    onMenuMouseleave(event: Event) {
+    public mouseleaveMenu(event: Event) {
         if (event) {
             event.preventDefault();
         }
@@ -590,7 +603,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     public closeMenu(): void {
         this.setMenuVisible(false);
-        this.setArrowClass();
     }
 
     public setActiveOption(option: CascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
@@ -613,43 +625,82 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         } else if (!option.isLeaf && loadChildren) {
             this.loadChildren(option, index);
         } else {
-            if (index < this.thyColumns.length - 1) {
-                this.thyColumns = this.thyColumns.slice(0, index + 1);
+            if (index < this.columns.length - 1) {
+                this.columns = this.columns.slice(0, index + 1);
             }
         }
         if (select) {
-            this.onSelectOption(option, index);
+            this.selectOption(option, index);
         }
     }
 
-    private onSelectOption(option: CascaderOption, index: number): void {
+    private selectOption(option: CascaderOption, index: number): void {
         this.thySelect.emit({ option, index });
-        if (option.isLeaf || this.thyChangeOnSelect || this.shouldPerformSelection(option, index)) {
+        const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
+        if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            this.buildDisplayLabel();
-            this.onValueChange();
+            const isSelected = !option.selected;
+            set(option, 'selected', isSelected);
+            if (option.selected) {
+                this.buildDisplayLabel();
+            } else {
+                const selectedItems = this.selectionModel.selected;
+                const currentItem = selectedItems.find(item => {
+                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                    return helpers.shallowEqual(selectedItem, option);
+                });
+                this.selectionModel.deselect(currentItem);
+            }
+            this.valueChange();
         }
-        if (option.isLeaf) {
+        if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
         }
+    }
+
+    public removeSelectedItem(event: { item: SelectOptionBase; $eventOrigin: Event }) {
+        const selectedItems = this.selectionModel.selected;
+        event.$eventOrigin.stopPropagation();
+        const currentItem = selectedItems.find(item => {
+            return helpers.shallowEqual(item.thyValue, event.item.thyValue);
+        });
+        this.deselectOption(currentItem);
+        this.selectionModel.deselect(currentItem);
+        this.valueChange();
+    }
+
+    private deselectOption(option: SelectOptionBase) {
+        const value: CascaderOption[] = option.thyRawValue.value;
+        value.forEach(item => {
+            if (item.isLeaf && item.selected) {
+                set(item, 'selected', false);
+            }
+        });
     }
 
     private shouldPerformSelection(option: CascaderOption, level: number): boolean {
         return typeof this.thyChangeOn === 'function' ? this.thyChangeOn(option, level) === true : false;
     }
 
-    private onValueChange(): void {
-        const value = this.getSubmitValue();
+    private valueChange(): void {
+        const value = this.getValues();
         if (!arrayEquals(this.value, value)) {
             this.defaultValue = null;
             this.value = value;
             this.onChange(value);
-            if (value.length === 0) {
+            if (this.selectionModel.isEmpty()) {
                 this.thyClear.emit();
             }
             this.thySelectionChange.emit(this.selectedOptions);
             this.thyChange.emit(value);
         }
+    }
+
+    private getValues() {
+        let selectedItems: any[];
+        const selected = this.selectionModel.selected;
+        selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
+        return this.isMultiple ? selectedItems : selectedItems[0] ?? selectedItems;
     }
 
     public clearSelection($event: Event): void {
@@ -661,12 +712,16 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.labelRenderContext = {};
         this.selectedOptions = [];
         this.activatedOptions = [];
-        this.inputValue = '';
+        this.deselectAllSelected();
         this.setMenuVisible(false);
-        this.onValueChange();
+        this.valueChange();
     }
 
-    public focus() {}
+    private deselectAllSelected() {
+        const selectedOptions = this.selectionModel.selected;
+        selectedOptions.forEach(item => this.deselectOption(item));
+        this.selectionModel.clear();
+    }
 
     private loadChildren(option: CascaderOption, index: number, success?: () => void, failure?: () => void): void {
         if (this.thyLoadData) {
@@ -696,17 +751,17 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     }
 
     private setColumnData(options: CascaderOption[], index: number): void {
-        if (!arrayEquals(this.thyColumns[index], options)) {
-            this.thyColumns[index] = options;
-            if (index < this.thyColumns.length - 1) {
-                this.thyColumns = this.thyColumns.slice(0, index + 1);
+        if (!arrayEquals(this.columns[index], options)) {
+            this.columns[index] = options;
+            if (index < this.columns.length - 1) {
+                this.columns = this.columns.slice(0, index + 1);
             }
         }
     }
 
-    public getSubmitValue(): any[] {
+    private getSubmitValue(originOptions: CascaderOption[]): any[] {
         const values: any[] = [];
-        this.selectedOptions.forEach(option => {
+        (originOptions || []).forEach(option => {
             values.push(this.getOptionValue(option));
         });
         return values;
@@ -719,6 +774,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         private viewPortRuler: ViewportRuler
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    public trackByFn(index: number, item: CascaderOption) {
+        return item?.value || item?._id || index;
     }
 
     ngOnDestroy() {
