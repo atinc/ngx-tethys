@@ -1,8 +1,5 @@
 @use "../../../styles/variables";
 
-$option-hover-active-bg-color: variables.$gray-100 !default;
-$option-disabled-color: variables.$gray-400 !default;
-
 @mixin thy-option-common-layout {
     display: flex;
     align-items: center;
@@ -58,7 +55,7 @@ $option-disabled-color: variables.$gray-400 !default;
 
     // 禁用状态透明度改为 0.5
     &.disabled {
-        opacity: 0.5;
+        opacity: variables.$select-option-disabled-opacity;
     }
 }
 
@@ -122,11 +119,6 @@ $option-disabled-color: variables.$gray-400 !default;
                 color: variables.$body-color;
             }
         }
-    }
-
-    &.disabled {
-        background: none;
-        color: $option-disabled-color;
     }
 }
 

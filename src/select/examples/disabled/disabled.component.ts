@@ -16,7 +16,7 @@ import { listOfOption } from '../mock-data';
 export class ThySelectDisabledExampleComponent implements OnInit {
     listOfOption = listOfOption;
 
-    listOfSelectedValue = ['option1', 'option2'];
+    listOfSelectedValue = ['option1', 'option3'];
 
     ngOnInit() {}
 }
