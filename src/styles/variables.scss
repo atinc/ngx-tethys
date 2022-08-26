@@ -1010,11 +1010,15 @@ $property-item-editor-offset: calc($property-item-padding-x + 0.0625rem) * -1;
 $tabs-content-space: 1rem !default;
 
 // select-control
-$select-control-padding-y-sm: 2px !default;
+$select-control-padding-y-sm: 3px !default;
 $select-control-padding-y-md: 3px !default;
 $select-control-padding-y-default: 5px !default;
 $select-control-padding-y-lg: 7px !default;
 $select-option-disabled-opacity: 0.5 !default;
+$select-control-height-sm: 22px;
+$select-control-height-md: 24px;
+$select-control-height-default: 24px;
+$select-control-height-lg: 28px;
 
 // z-index
 $z-index-1: 10;
