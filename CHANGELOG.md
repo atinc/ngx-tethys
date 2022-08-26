@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.1](https://github.com/atinc/ngx-tethys/compare/13.2.7...14.0.1) (2022-08-26)
+
+
+
+# [14.0.0](https://github.com/atinc/ngx-tethys/compare/13.2.5...14.0.0) (2022-08-24)
+
+
+
+# [14.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.0.0-next.0...14.0.0-next.1) (2022-08-16)
+
+
+
+# [14.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.2.1...14.0.0-next.0) (2022-08-11)
+
+
+
 # [14.0.0](https://github.com/atinc/ngx-tethys/compare/13.2.5...14.0.0) (2022-08-24)
 
 
