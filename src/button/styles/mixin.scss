@@ -237,3 +237,11 @@
         font-size: $font-size;
     }
 }
+
+@mixin btn-icon-active($active-color) {
+    color: $active-color;
+    .thy-icon {
+        color: $active-color;
+        border-color: $active-color;
+    }
+}
