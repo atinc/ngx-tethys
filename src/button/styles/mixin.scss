@@ -245,3 +245,12 @@
         border-color: $active-color;
     }
 }
+
+@mixin btn-icon-circle-active($active-color, $round-padding) {
+    @include btn-icon-active($active-color);
+    .thy-icon {
+        border-style: solid;
+        border-width: 2px;
+        padding: $round-padding - variables.$btn-icon-circle-padding-difference;
+    }
+}

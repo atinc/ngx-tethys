@@ -111,7 +111,7 @@
             }
         }
     }
-    &:not(:hover).circle-dashed {
+    &:not(:hover):not(.active):not(.btn-icon-active).circle-dashed {
         i,
         .wtf,
         .thy-icon {
@@ -125,6 +125,11 @@
             border-style: solid;
         }
     }
+
+    &.active,
+    &.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-base);
+    }
 }
 
 .btn-icon-light {
@@ -137,6 +142,10 @@
         variables.$font-size-base,
         variables.$input-btn-height-xs
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-xs);
+    }
 }
 
 .btn-icon-sm {
@@ -146,6 +155,10 @@
         variables.$font-size-base,
         variables.$input-btn-height-md
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-sm);
+    }
 }
 
 .btn-icon-lg {
@@ -155,6 +168,10 @@
         variables.$font-size-lg,
         variables.$input-btn-height-lg
     );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-lg);
+    }
 }
 
 // 属性操作鼠标移上去  btn-icon-circle 样式的变化
