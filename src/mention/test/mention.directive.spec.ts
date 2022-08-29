@@ -129,7 +129,7 @@ describe('MentionDirective', () => {
         expect(mentionDirective).toBeTruthy();
     });
 
-    it('should open suggestions popover success and limit effect', () => {
+    it('should open suggestions popover success', () => {
         mentionDirective['openSuggestions']({ query: { term: 'test1', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
         fixture.detectChanges();
         const panelElement = document.querySelector('.mention-popover-panel');
@@ -137,10 +137,13 @@ describe('MentionDirective', () => {
         const mentionSuggestionsElement = document.querySelector('thy-mention-suggestions');
         expect(mentionSuggestionsElement).toBeTruthy();
         expect(mentionSuggestionsElement.textContent).toContain('test1');
+    });
 
+    it('should limit effect', () => {
+        mentionDirective['openSuggestions']({ query: { term: 'test', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
         fixture.detectChanges();
-        const suggestions = mentionSuggestionsElement.querySelectorAll('.thy-list-option');
-        expect(suggestions.length).toEqual(2);
+        const suggestionsElement = document.querySelectorAll('thy-mention-suggestions .thy-list-option');
+        expect(suggestionsElement.length).toEqual(2);
     });
 
     it('should update ngModel value when select suggestion test1', () => {
