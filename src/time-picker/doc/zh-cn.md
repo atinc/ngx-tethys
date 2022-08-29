@@ -23,7 +23,6 @@ import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 
 ```html
 <thy-time-picker [(ngModel)]="date" (ngModelChange)="onValueChange($event)"></thy-time-picker>
-<thy-time-picker [(ngModel)]="date" thyFormat="HH:mm"></thy-time-picker>
 ```
 
 展示效果：
