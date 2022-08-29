@@ -13,10 +13,6 @@ export abstract class ThyCarouselBasic implements CarouselBasic {
     playTime: number;
     contentWidth: number;
     contentHeight: number;
-    currentDistance: DistanceVector = { x: 0, y: 0 };
-
-    protected unitWidth!: number;
-    protected unitHeight!: number;
 
     protected get maxIndex(): number {
         return this.length - 1;
@@ -39,18 +35,13 @@ export abstract class ThyCarouselBasic implements CarouselBasic {
         this.carouselComponent = thyCarouselComponent;
     }
 
-    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): Observable<ThyCarouselItemDirective[]> {
-        throw new Error('Method not implemented.');
-    }
-    switch(to: number, from: number): Observable<void> {
-        throw new Error('Method not implemented.');
-    }
-    dragging(pointerVector: DistanceVector, rect: DOMRect): void {
-        throw new Error('Method not implemented.');
-    }
-    stagnating(): void {
-        throw new Error('Method not implemented.');
-    }
+    abstract initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): Observable<ThyCarouselItemDirective[]>;
+
+    abstract switch(to: number, from: number): Observable<void>;
+
+    abstract dragging(pointerVector: DistanceVector, rect: DOMRect): void;
+
+    abstract stagnating(): void;
     // initializeCarouselContents() {
     //     const carousel = this.carouselComponent;
     // }
@@ -60,6 +51,8 @@ export abstract class ThyCarouselBasic implements CarouselBasic {
         const { wrapperEl, playTime } = carousel;
         this.wrapperEl = wrapperEl;
         this.playTime = playTime;
+        const { height } = wrapperEl.getBoundingClientRect();
+        this.contentHeight = height;
 
         this.contents = contents?.toArray();
         this.length = this.contents.length;

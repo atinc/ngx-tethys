@@ -105,6 +105,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
             this.engine?.switch(this.activeIndex, index).subscribe(() => {
                 console.log(1);
                 this.activeIndex = to;
+                // todo afterChange
             });
             // this.renderer.setStyle(this.wrapperEl, `transition-duration`, `${this.playTime}ms`);
             // this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${this.currentOffset.x}px,0 , 0)`);
@@ -149,7 +150,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
     contentInit() {
         console.log(`1ffff11`);
         this.engine.initializeCarouselContents(this.carouselItems).subscribe(contents => {
-            console.log(`fdsafdsa-__.>`, contents);
+            console.log(`接收一个list`, contents);
             console.log('初始化列表之后');
         });
     }

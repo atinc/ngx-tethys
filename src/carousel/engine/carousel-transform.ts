@@ -3,7 +3,7 @@ import { Observable, Subject } from 'rxjs';
 import { ThyCarouselComponent } from 'ngx-tethys/carousel';
 import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { CarouselComponentAsSource, DistanceVector } from 'ngx-tethys/carousel/typings';
+import { DistanceVector } from 'ngx-tethys/carousel/typings';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
 
 export class ThyCarouselTransformEngine extends ThyCarouselBasic {
@@ -29,33 +29,17 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
         }
     }
 
-    private horizontalTransform(from: number, to: number): void {
-        console.log(from, to);
-        // const { from: f, to: t } = this.getFromToInBoundary(_f, _t);
-        // const needToAdjust = this.length > 2 && _t !== t;
-        //
-        // if (needToAdjust) {
-        //     this.prepareHorizontalContext(t < f);
-        //     this.renderer.setStyle(this.slickTrackEl, 'transform', `translate3d(${-_t * this.unitWidth}px, 0, 0)`);
-        // } else {
-        //     this.renderer.setStyle(this.slickTrackEl, 'transform', `translate3d(${-t * this.unitWidth}px, 0, 0`);
-        // }
-        this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${-to * this.contentWidth}px,0 , 0)`);
-    }
-
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): Observable<ThyCarouselItemDirective[]> {
         const initialize$ = new Subject<ThyCarouselItemDirective[]>();
         super.initializeContents(contents);
         if (this.platform.isBrowser && this.contents.length) {
-            this.renderer.setStyle(this.wrapperEl, `height`, `${this.unitHeight}px`);
+            this.renderer.setStyle(this.wrapperEl, `height`, `${this.contentHeight}px`);
         }
-        // console.log(this.contents);
         initialize$.next(this.contents);
         setTimeout(() => {
             initialize$.next(this.contents);
             initialize$.complete();
         }, 0);
-        // initialize$.complete();
         return initialize$.asObservable();
     }
 
@@ -71,6 +55,9 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
                 this.prepareHorizontalContext(true);
             } else if (activeIndex === 0) {
                 this.prepareHorizontalContext(false);
+            } else {
+                this.renderer.setStyle(this.lastEl, 'left', null);
+                this.renderer.setStyle(this.firstEl, 'left', null);
             }
         }
         this.renderer.setStyle(this.wrapperEl, 'transform', `translate3d(${-activeIndex * this.contentWidth + x}px,0 , 0)`);
@@ -79,11 +66,15 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
     switch(from: number, to: number): Observable<void> {
         const switch$ = new Subject<void>();
         this.renderer.setStyle(this.wrapperEl, `transition-duration`, `${this.playTime}ms`);
-        this.horizontalTransform(from, to);
+        this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${-to * this.contentWidth}px,0 , 0)`);
         setTimeout(() => {
             switch$.next();
             switch$.complete();
         }, 0);
         return switch$.asObservable();
+    }
+
+    stagnating(): void {
+        throw new Error('not implaments stagnating');
     }
 }
