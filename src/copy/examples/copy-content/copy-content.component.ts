@@ -5,6 +5,10 @@ import { ThyCopyEvent } from 'ngx-tethys/copy';
     templateUrl: './copy-content.component.html'
 })
 export class ThyCopyCopyContentExampleComponent {
+    public copyContent = '我是p标签，点击button复制的是我的文本';
+
+    public inputText = '';
+
     constructor() {}
 
     copy(event: ThyCopyEvent) {
