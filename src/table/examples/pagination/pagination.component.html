@@ -5,9 +5,12 @@
   [thyPageIndex]="pagination.index"
   [thyPageSize]="pagination.size"
   [thyPageTotal]="pagination.total"
+  [thyPageSizeOptions]="pagination.sizeOptions"
   [thyShowTotal]="true"
+  [thyShowSizeChanger]="true"
   [thyLoadingDone]="loadingDone"
   (thyOnPageChange)="onPageChange($event)"
+  (thyOnPageSizeChange)="onPageSizeChange($event)"
 >
   <thy-table-column thyTitle="#" thyType="index"> </thy-table-column>
   <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>

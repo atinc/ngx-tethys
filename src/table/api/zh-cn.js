@@ -103,6 +103,19 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyShowSizeChanger',
+                description: `是否显示调整每页显示条数下拉框`,
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyPageSizeOptions',
+                description: `每页显示条数下拉框可选项`,
+                type: 'number[]',
+                default: 'false'
+            },
+
+            {
                 name: 'thyDraggable',
                 description: '是否开启行拖拽',
                 type: 'boolean',
@@ -153,6 +166,18 @@ module.exports = [
             {
                 name: '(thyOnPageChange)',
                 description: '表格分页回调事件',
+                type: 'PageChangedEvent',
+                default: ''
+            },
+            {
+                name: '(thyOnPageIndexChange)',
+                description: '表格分页当前页改变回调事件',
+                type: 'PageChangedEvent',
+                default: ''
+            },
+            {
+                name: '(onPageSizeChange)',
+                description: '表格分页每页显示条数改变回调事件',
                 type: 'PageChangedEvent',
                 default: ''
             },

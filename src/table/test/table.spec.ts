@@ -5,6 +5,7 @@ import { ThySwitchComponent } from 'ngx-tethys/switch';
 import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyTableComponent } from '../table.component';
 import { ThyTableModule } from '../table.module';
+import { ThyPage } from '../table.interface';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -32,8 +33,11 @@ import { ThyTableModule } from '../table.module';
             [thyPageIndex]="pagination.index"
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
+            [thyPageSizeOptions]="pagination.sizeOptions"
+            [thyShowSizeChanger]="true"
             (thyOnPageChange)="onPageChange($event)"
             (thyOnPageIndexChange)="onPageIndexChange($event)"
+            (thyOnPageSizeChange)="onPageSizeChange($event)"
             (thyOnSwitchChange)="onSwitchChange($event)"
             (thyOnRowContextMenu)="onRowContextMenu($event)"
             (thyOnDraggableChange)="onDraggableChange($event)"
@@ -133,10 +137,11 @@ class ThyDemoDefaultTableComponent {
             desc: '这是一条测试数据'
         }
     ];
-    pagination = {
+    pagination: ThyPage = {
         index: 1,
         size: 3,
-        total: 6
+        total: 6,
+        sizeOptions: [3, 5, 10]
     };
     isShowHeader = true;
     isDraggable = false;
@@ -172,6 +177,8 @@ class ThyDemoDefaultTableComponent {
     }
 
     onPageIndexChange() {}
+
+    onPageSizeChange() {}
 
     onSwitchChange() {
         return 'onSwitchChange is ok';
@@ -551,6 +558,15 @@ describe('ThyTable: basic', () => {
         testComponent.table.onPageIndexChange(event);
         expect(pageIndexChangeSpy).toHaveBeenCalled();
         expect(pageIndexChangeSpy).toHaveBeenCalledWith(event);
+    });
+
+    it('should call onPageSizeChange when call table onPageSizeChange', () => {
+        fixture.detectChanges();
+        const pageSizeChangeSpy = spyOn(testComponent, 'onPageSizeChange');
+        const event = 5;
+        testComponent.table.onPageSizeChange(event);
+        expect(pageSizeChangeSpy).toHaveBeenCalled();
+        expect(pageSizeChangeSpy).toHaveBeenCalledWith(event);
     });
 
     it('should call onSwitchChange when change switch', fakeAsync(() => {

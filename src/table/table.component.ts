@@ -149,7 +149,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public selectedRadioRow: SafeAny = null;
 
-    public pagination: ThyPage = { index: 1, size: 20, total: 0 };
+    public pagination: ThyPage = { index: 1, size: 20, total: 0, sizeOptions: [20, 50, 100] };
 
     public trackByFn: SafeAny;
 
@@ -302,6 +302,13 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     @Input('thyShowTotal') showTotal = false;
 
+    @Input('thyShowSizeChanger') showSizeChanger = false;
+
+    @Input('thyPageSizeOptions')
+    set pageSizeOptions(value: number[]) {
+        this.pagination.sizeOptions = value;
+    }
+
     @Input() thyIndent = 20;
 
     @Input() thyChildrenKey = 'children';
@@ -315,6 +322,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
@@ -502,6 +511,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public onPageIndexChange(event: number) {
         this.thyOnPageIndexChange.emit(event);
+    }
+
+    public onPageSizeChange(event: number) {
+        this.thyOnPageSizeChange.emit(event);
     }
 
     public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
