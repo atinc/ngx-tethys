@@ -27,17 +27,12 @@ export interface ThyCopyEvent {
     providers: [TooltipService]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
-    // 默认为点击标签，可传复制目标标签
     @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
     @Input() thyCopySuccessText = '复制成功';
 
     @Input() thyCopyTips = '点击复制';
 
-    /**
-     *  偏移量
-     * @default 4
-     */
     @Input() thyCopyTipsOffset: number;
 
     @Input() thyCopyContent: string | ElementRef | HTMLElement;
