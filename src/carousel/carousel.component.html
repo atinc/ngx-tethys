@@ -1,6 +1,5 @@
-<p>carousel works!</p>
-<div class="carousel-initialized">
-  <div class="carousel-wrapper">
+<div class="carousel carousel-initialized carousel-point-events">
+  <div #carouselWrapper class="carousel-wrapper" (mousedown)="onDrag($event)" (touchstart)="onDrag($event)">
     <ng-content></ng-content>
   </div>
 </div>
