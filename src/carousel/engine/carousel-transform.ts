@@ -75,6 +75,6 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
     }
 
     stagnating(): void {
-        throw new Error('not implaments stagnating');
+        throw new Error('not implements stagnating');
     }
 }

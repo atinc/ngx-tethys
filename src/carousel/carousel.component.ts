@@ -73,6 +73,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
         const mouseDownTime = new Date().getTime();
         let mouseUpTime: number;
         this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
+        // todo isDragging can't trigger
         console.log(`onDrag`, this.activeIndex);
         this.carouselService.registerDrag(event).subscribe(
             pointerVector => {
