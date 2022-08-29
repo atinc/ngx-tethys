@@ -39,6 +39,7 @@ class ThyTestMentionBasicComponent implements OnInit {
         this.mentions = [
             {
                 trigger: '@',
+                limit: 2,
                 data: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]
             }
         ];
@@ -128,7 +129,7 @@ describe('MentionDirective', () => {
         expect(mentionDirective).toBeTruthy();
     });
 
-    it('should open suggestions popover success', () => {
+    it('should open suggestions popover success and limit effect', () => {
         mentionDirective['openSuggestions']({ query: { term: 'test1', start: 0, end: 1 }, mention: mentionDirective.mentions[0] });
         fixture.detectChanges();
         const panelElement = document.querySelector('.mention-popover-panel');
@@ -136,6 +137,10 @@ describe('MentionDirective', () => {
         const mentionSuggestionsElement = document.querySelector('thy-mention-suggestions');
         expect(mentionSuggestionsElement).toBeTruthy();
         expect(mentionSuggestionsElement.textContent).toContain('test1');
+
+        fixture.detectChanges();
+        const suggestions = mentionSuggestionsElement.querySelectorAll('.thy-list-option');
+        expect(suggestions.length).toEqual(2);
     });
 
     it('should update ngModel value when select suggestion test1', () => {
