@@ -1,11 +1,17 @@
-<thy-skeleton styleClass="mb-2 ml-2" [uiLoading]="true" [thyCustomTemplate]="custom">
-  <ng-template #custom>
-    <div class="d-flex mb-2">
-      <thy-skeleton-item shape="circle" size="5rem"></thy-skeleton-item>
-      <div style="flex: 1; display: flex;flex-direction: column;" class="ml-2">
-        <thy-skeleton-item width="100%" styleClass="mb-3" *ngFor="let item of [1, 2, 3]"></thy-skeleton-item>
-      </div>
+<thy-skeleton thyWidth="300px" [thySize]="model.circleSize + 'rem'" thyRows="4" thyCount="2" [thyAnimated]="true">
+  <div class="d-flex mb-2">
+    <div>
+      <thy-skeleton-circle thySize="4rem"></thy-skeleton-circle>
     </div>
-    <thy-skeleton-item width="100%" styleClass="mb-2" *ngFor="let item of [1, 2, 3]"></thy-skeleton-item>
-  </ng-template>
+    <div class="d-flex flex-column w-100 ml-2">
+      <ng-container *ngFor="let k of [1, 2, 3]">
+        <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+      </ng-container>
+    </div>
+  </div>
+  <div class="d-flex flex-column">
+    <ng-container *ngFor="let k of [1, 2, 3]">
+      <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+    </ng-container>
+  </div>
 </thy-skeleton>

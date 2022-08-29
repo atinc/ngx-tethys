@@ -22,14 +22,11 @@
   </div>
 </form>
 
-<thy-skeleton-paragraph
-  thyRows="4"
-  thyCount="2"
-  thyWidth="100%"
-  thyFirstWidth="33%"
-  thyBorderRadius="3px"
-  thySectionClass="mb-6"
-  thyItemClass="mb-2"
-  thyLastWidth="66%"
+<thy-skeleton-circle
+  [thyAnimated]="model.thyAnimated"
+  [thyAnimatedSpeed]="model.thyAnimatedSpeed"
+  [thySize]="model.thySize + 'rem'"
+  [thyPrimaryColor]="model.thyPrimaryColor"
+  [thySecondaryColor]="model.thySecondaryColor"
 >
-</thy-skeleton-paragraph>
+</thy-skeleton-circle>

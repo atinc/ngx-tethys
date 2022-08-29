@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-example-paragraph',
-    templateUrl: './paragraph.component.html'
+    selector: 'thy-skeleton-circle-example',
+    templateUrl: './circle.component.html'
 })
-export class ThySkeletonExampleParagraphComponent implements OnInit {
+export class ThySkeletonExampleCircleComponent implements OnInit {
+    isDisabled = false;
     model = {
         thySize: 2,
         thyPrimaryColor: '#cccccc',
@@ -13,6 +14,6 @@ export class ThySkeletonExampleParagraphComponent implements OnInit {
         thyAnimated: true
     };
     constructor() {}
-
+    disabledNode() {}
     ngOnInit() {}
 }

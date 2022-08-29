@@ -313,3 +313,19 @@ export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + (noSpace ? '' : ' ') + sizes[i];
 }
+
+export function hexToRgba(hex: string, opacity: number = 1) {
+    if (!hex) return;
+    if (hex.startsWith('rgb')) return hex;
+    return (
+        'rgba(' +
+        parseInt('0x' + hex.slice(1, 3)) +
+        ',' +
+        parseInt('0x' + hex.slice(3, 5)) +
+        ',' +
+        parseInt('0x' + hex.slice(5, 7)) +
+        ',' +
+        opacity +
+        ')'
+    );
+}

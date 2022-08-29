@@ -85,7 +85,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     private removeWatermark() {
         const __wm = this.el.nativeElement.querySelector(`._vm`);
-        if (__wm) {
+        if (__wm && __wm.parentNode === this.el.nativeElement) {
             this.el.nativeElement.removeChild(__wm);
         }
     }
