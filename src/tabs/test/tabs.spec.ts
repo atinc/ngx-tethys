@@ -335,7 +335,7 @@ describe('tabs', () => {
 
         it('should set thyActiveTab successfully', () => {
             const activeElement = getDebugElement(fixture, '#tab2').nativeElement;
-            expect(activeElement.classList.contains('active')).toBeTruthy();
+            expect(activeElement.classList.contains('nav-active')).toBeTruthy();
         });
     });
 
