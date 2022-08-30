@@ -10,8 +10,9 @@
         color: variables.$nav-item-icon-color;
     }
 
-    &.active {
+    &.nav-active {
         color: $hover-color;
+        text-decoration: none;
         @if $border-bottom {
             border-bottom: $border-bottom;
         }

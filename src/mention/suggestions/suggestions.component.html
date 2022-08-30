@@ -13,7 +13,7 @@
       [thyScrollContainer]="elementRef"
       (thySelectionChange)="selectionChange($event)"
     >
-      <thy-list-option *ngFor="let item of data" [thyValue]="item">
+      <thy-list-option *ngFor="let item of data | slice: 0:mention.limit" [thyValue]="item">
         <ng-container *ngIf="mention?.displayTemplateRef; else default">
           <ng-template *ngTemplateOutlet="mention?.displayTemplateRef; context: { $implicit: item }"></ng-template>
         </ng-container>
