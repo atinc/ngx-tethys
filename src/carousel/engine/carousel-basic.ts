@@ -49,9 +49,9 @@ export abstract class ThyCarouselBasic implements CarouselBasic {
     initializeContents(contents: QueryList<ThyCarouselItemDirective> | null) {
         const carousel = this.carouselComponent!;
         const { wrapperEl, playTime } = carousel;
+        const { height } = wrapperEl.getBoundingClientRect();
         this.wrapperEl = wrapperEl;
         this.playTime = playTime;
-        const { height } = wrapperEl.getBoundingClientRect();
         this.contentHeight = height;
 
         this.contents = contents?.toArray();

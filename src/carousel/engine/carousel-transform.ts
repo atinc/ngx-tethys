@@ -69,8 +69,11 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
         this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${-to * this.contentWidth}px,0 , 0)`);
         setTimeout(() => {
             switch$.next();
-            switch$.complete();
         }, 0);
+        setTimeout(() => {
+            this.renderer.setStyle(this.wrapperEl, `transition-duration`, `0s`);
+            switch$.complete();
+        }, this.playTime);
         return switch$.asObservable();
     }
 

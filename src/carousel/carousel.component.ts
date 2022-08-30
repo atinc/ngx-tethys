@@ -5,10 +5,12 @@ import {
     Component,
     ContentChildren,
     ElementRef,
+    EventEmitter,
     Inject,
     Input,
     OnInit,
     Optional,
+    Output,
     QueryList,
     Renderer2,
     ViewChild,
@@ -19,7 +21,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CarouselService } from 'ngx-tethys/carousel/carousel.service';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
-import { CarouselBasic, THY_CUSTOM_ENGINE, ThyCarouselEngineRegistry } from 'ngx-tethys/carousel/typings';
+import { CarouselBasic, FromTo, THY_CUSTOM_ENGINE, ThyCarouselEngineRegistry } from 'ngx-tethys/carousel/typings';
 import { ThyCarouselTransformEngine } from './engine/carousel-transform';
 import { Platform } from '@angular/cdk/platform';
 
@@ -35,6 +37,7 @@ import { Platform } from '@angular/cdk/platform';
 })
 export class ThyCarouselComponent implements OnInit, AfterViewInit {
     isDragging = false;
+    isTransitioning = false;
 
     distance: { x: number; y: number } = { x: 0, y: 0 };
 
@@ -61,6 +64,8 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
 
     @Input('thyPlayTime') @InputNumber() playTime: number = 300;
 
+    @Output() readonly thyBeforeMode = new EventEmitter<FromTo>();
+
     constructor(
         private carouselService: CarouselService,
         protected renderer: Renderer2,
@@ -70,58 +75,57 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
     ) {}
 
     onDrag(event: TouchEvent | MouseEvent) {
-        const mouseDownTime = new Date().getTime();
-        let mouseUpTime: number;
-        this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
-        // todo isDragging can't trigger
-        console.log(`onDrag`, this.activeIndex);
-        this.carouselService.registerDrag(event).subscribe(
-            pointerVector => {
-                this.distance = pointerVector;
-                this.engine?.dragging(this.distance, this.wrapperDomRect);
-            },
-            () => {},
-            () => {
-                mouseUpTime = new Date().getTime();
-                const holdDownTime = mouseUpTime - mouseDownTime;
-                // Fast enough to switch to the next frame
-                // or
-                // If the distance is more than one third switch to the next frame
-                if (Math.abs(this.distance.x) / holdDownTime >= 1 || Math.abs(this.distance.x) > this.wrapperDomRect.width / 3) {
-                    this.moveTo(this.distance.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
-                } else {
-                    this.moveTo(this.activeIndex);
+        if (!this.isDragging && !this.isTransitioning) {
+            const mouseDownTime = new Date().getTime();
+            let mouseUpTime: number;
+            this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
+            // todo isDragging can't trigger
+            console.log(`onDrag`, this.activeIndex);
+            this.carouselService.registerDrag(event).subscribe(
+                pointerVector => {
+                    this.distance = pointerVector;
+                    this.isDragging = true;
+                    this.engine?.dragging(this.distance, this.wrapperDomRect);
+                },
+                () => {},
+                () => {
+                    mouseUpTime = new Date().getTime();
+                    const holdDownTime = mouseUpTime - mouseDownTime;
+                    // Fast enough to switch to the next frame
+                    // or
+                    // If the distance is more than one third switch to the next frame
+                    if (Math.abs(this.distance.x) / holdDownTime >= 1 || Math.abs(this.distance.x) > this.wrapperDomRect.width / 3) {
+                        this.moveTo(this.distance.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
+                    } else {
+                        this.moveTo(this.activeIndex);
+                    }
+                    this.isDragging = false;
                 }
-            }
-        );
+            );
+        }
     }
 
     moveTo(index: number) {
-        if (this.carouselItems && this.carouselItems.length) {
+        if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {
             const len = this.carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
-            // todo beforeChange
+            this.thyBeforeMode.emit({ from, to });
+            this.isTransitioning = true;
             this.currentOffset.x = -index * this.wrapperDomRect.width;
-            this.engine?.switch(this.activeIndex, index).subscribe(() => {
-                console.log(1);
-                this.activeIndex = to;
-                // todo afterChange
-            });
-            // this.renderer.setStyle(this.wrapperEl, `transition-duration`, `${this.playTime}ms`);
-            // this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${this.currentOffset.x}px,0 , 0)`);
-            // todo 这里需要用流处理 动画结束后重置样式  0s
-            setTimeout(() => {
-                this.renderer.setStyle(this.wrapperEl, `transition-duration`, `0s`);
-            }, this.playTime);
+            this.engine?.switch(this.activeIndex, index).subscribe(
+                () => {
+                    this.activeIndex = to;
+                },
+                () => {},
+                () => {
+                    this.isTransitioning = false;
+                }
+            );
         }
         this.markContentActive(this.activeIndex);
         this.cdr.markForCheck();
     }
-
-    // private childrenContentInit() {
-    //     this.
-    // }
 
     private contentChanges = (val: QueryList<ThyCarouselItemDirective>) => {
         this.carouselItemList = val.map((carouselContent: ThyCarouselItemDirective, index: number) => {
