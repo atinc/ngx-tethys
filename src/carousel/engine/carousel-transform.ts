@@ -1,22 +1,38 @@
-import { ThyCarouselBasic } from 'ngx-tethys/carousel/engine/carousel-basic';
 import { Observable, Subject } from 'rxjs';
 import { ThyCarouselComponent } from 'ngx-tethys/carousel';
 import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { DistanceVector } from 'ngx-tethys/carousel/typings';
+import { CarouselBasic, DistanceVector } from 'ngx-tethys/carousel/typings';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
 
-export class ThyCarouselTransformEngine extends ThyCarouselBasic {
+export class ThyCarouselTransformEngine implements CarouselBasic {
+    carouselComponent: ThyCarouselComponent;
+    contents: ThyCarouselItemDirective[];
+    length: number;
+    wrapperEl: HTMLElement;
+    playTime: number;
+    contentWidth: number;
+    contentHeight: number;
+
+    protected get maxIndex(): number {
+        return this.length - 1;
+    }
+
+    protected get firstEl(): HTMLElement {
+        return this.contents[0].el;
+    }
+
+    protected get lastEl(): HTMLElement {
+        return this.contents[this.maxIndex].el;
+    }
+
     constructor(
         thyCarouselComponent: ThyCarouselComponent,
         protected cdr: ChangeDetectorRef,
         protected renderer: Renderer2,
         protected platform: Platform
     ) {
-        super(thyCarouselComponent, cdr, renderer, platform);
-
-        console.log(thyCarouselComponent);
-        console.log(thyCarouselComponent.speed);
+        this.carouselComponent = thyCarouselComponent;
     }
 
     private prepareHorizontalContext(lastToFirst: boolean): void {
@@ -29,9 +45,31 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
         }
     }
 
+    private initializeContents(contents: QueryList<ThyCarouselItemDirective> | null) {
+        const carousel = this.carouselComponent!;
+        const { wrapperEl, playTime } = carousel;
+        this.wrapperEl = wrapperEl;
+        this.playTime = playTime;
+        const { height } = wrapperEl.getBoundingClientRect();
+        this.contentHeight = height;
+
+        this.contents = contents?.toArray();
+        this.length = this.contents.length;
+
+        // if (!this.platform.isBrowser) {
+        //     contents?.forEach((content, index) => {
+        //         if (index === 0) {
+        //             this.renderer.setStyle(content.el, 'width', '100%');
+        //         } else {
+        //             this.renderer.setStyle(content.el, 'display', 'none');
+        //         }
+        //     });
+        // }
+    }
+
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): Observable<ThyCarouselItemDirective[]> {
         const initialize$ = new Subject<ThyCarouselItemDirective[]>();
-        super.initializeContents(contents);
+        this.initializeContents(contents);
         if (this.platform.isBrowser && this.contents.length) {
             this.renderer.setStyle(this.wrapperEl, `height`, `${this.contentHeight}px`);
         }
@@ -50,12 +88,15 @@ export class ThyCarouselTransformEngine extends ThyCarouselBasic {
         this.contentHeight = height;
         const activeIndex = this.carouselComponent!.activeIndex;
         console.log(`dragging`, activeIndex);
-        if (this.length > 0) {
+        if (this.length > 1) {
             if (activeIndex === this.maxIndex) {
+                console.log(`activeIndex === this.maxIndex`);
                 this.prepareHorizontalContext(true);
             } else if (activeIndex === 0) {
+                console.log(`activeIndex === 0`);
                 this.prepareHorizontalContext(false);
             } else {
+                console.log(`activeIndex === this.maxIndex`);
                 this.renderer.setStyle(this.lastEl, 'left', null);
                 this.renderer.setStyle(this.firstEl, 'left', null);
             }

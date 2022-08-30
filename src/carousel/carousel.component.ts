@@ -21,7 +21,7 @@ import { Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CarouselService } from 'ngx-tethys/carousel/carousel.service';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
-import { CarouselBasic, FromTo, THY_CUSTOM_ENGINE, ThyCarouselEngineRegistry } from 'ngx-tethys/carousel/typings';
+import { CarouselBasic, DistanceVector, FromTo, THY_CUSTOM_ENGINE, ThyCarouselEngineRegistry } from 'ngx-tethys/carousel/typings';
 import { ThyCarouselTransformEngine } from './engine/carousel-transform';
 import { Platform } from '@angular/cdk/platform';
 
@@ -39,11 +39,11 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
     isDragging = false;
     isTransitioning = false;
 
-    distance: { x: number; y: number } = { x: 0, y: 0 };
+    pointerVector: DistanceVector = { x: 0, y: 0 };
 
     activeIndex = 0;
 
-    currentOffset: { x: number; y: number } = { x: 0, y: 0 };
+    // currentOffset: { x: number; y: number } = { x: 0, y: 0 };
 
     wrapperEl: HTMLElement;
 
@@ -83,21 +83,27 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
             console.log(`onDrag`, this.activeIndex);
             this.carouselService.registerDrag(event).subscribe(
                 pointerVector => {
-                    this.distance = pointerVector;
+                    this.pointerVector = pointerVector;
                     this.isDragging = true;
-                    this.engine?.dragging(this.distance, this.wrapperDomRect);
+                    this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
+                    // console.log(pointerVector, this.isDragging);
                 },
                 () => {},
                 () => {
-                    mouseUpTime = new Date().getTime();
-                    const holdDownTime = mouseUpTime - mouseDownTime;
-                    // Fast enough to switch to the next frame
-                    // or
-                    // If the distance is more than one third switch to the next frame
-                    if (Math.abs(this.distance.x) / holdDownTime >= 1 || Math.abs(this.distance.x) > this.wrapperDomRect.width / 3) {
-                        this.moveTo(this.distance.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
-                    } else {
-                        this.moveTo(this.activeIndex);
+                    if (this.isDragging) {
+                        mouseUpTime = new Date().getTime();
+                        const holdDownTime = mouseUpTime - mouseDownTime;
+                        // Fast enough to switch to the next frame
+                        // or
+                        // If the pointerVector is more than one third switch to the next frame
+                        if (
+                            Math.abs(this.pointerVector.x) / holdDownTime >= 1 ||
+                            Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3
+                        ) {
+                            this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
+                        } else {
+                            this.moveTo(this.activeIndex);
+                        }
                     }
                     this.isDragging = false;
                 }
@@ -106,24 +112,26 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
     }
 
     moveTo(index: number) {
+        console.log(index);
         if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {
             const len = this.carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
             this.thyBeforeMode.emit({ from, to });
             this.isTransitioning = true;
-            this.currentOffset.x = -index * this.wrapperDomRect.width;
+            // this.currentOffset.x = -index * this.wrapperDomRect.width;
             this.engine?.switch(this.activeIndex, index).subscribe(
                 () => {
                     this.activeIndex = to;
+                    this.markContentActive(this.activeIndex);
                 },
                 () => {},
                 () => {
+                    console.log(this.activeIndex);
                     this.isTransitioning = false;
                 }
             );
         }
-        this.markContentActive(this.activeIndex);
         this.cdr.markForCheck();
     }
 
