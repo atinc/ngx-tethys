@@ -28,7 +28,7 @@
         </tr>
         <tr>
           <ng-container *ngFor="let item of rows[i]">
-            <td [attr.colspan]="item.computedSpan || item.thySpan">
+            <td [attr.colspan]="item.thySpan">
               <ng-template *ngIf="item" [ngTemplateOutlet]="itemContent" [ngTemplateOutletContext]="{ item: item }"> </ng-template>
             </td>
           </ng-container>
