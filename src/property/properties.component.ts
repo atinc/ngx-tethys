@@ -127,14 +127,6 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
                 rows.push([item]);
             }
         });
-        // 循环处理所有行，若行数据的总 span 小于设置的 column 值，则补充行内最后一个 item 的 span 值进行填充
-        rows.forEach(rowItems => {
-            const totalSpan = rowItems.reduce((result, item) => result + item.thySpan, 0);
-            if (totalSpan < this.thyColumn) {
-                const lastItem = rowItems[rowItems.length - 1];
-                lastItem.computedSpan = lastItem.thySpan + (this.thyColumn - totalSpan);
-            }
-        });
         this.rows = rows;
     }
 

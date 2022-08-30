@@ -189,7 +189,7 @@ describe(`thy-properties`, () => {
             trs = fixture.debugElement.queryAll(By.css('tr'));
             expect(trs.length).toEqual(3);
             expect(trs[1].nativeElement.childElementCount).toEqual(1);
-            expect(trs[1].queryAll(By.css('td'))[0].attributes.colspan).toBe('3');
+            expect(trs[1].queryAll(By.css('td'))[0].attributes.colspan).toBe('1');
             expect(trs[2].nativeElement.childElementCount).toEqual(1);
             expect(trs[2].queryAll(By.css('td'))[0].attributes.colspan).toBe('3');
         });

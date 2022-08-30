@@ -72,9 +72,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     editing: boolean;
 
-    // 适配布局时通过计算动态设置的 span 值
-    computedSpan: number;
-
     changes$ = new Subject<SimpleChanges>();
 
     private destroy$ = new Subject();
