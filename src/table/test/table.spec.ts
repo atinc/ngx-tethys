@@ -34,7 +34,7 @@ import { ThyPage } from '../table.interface';
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
             [thyPageSizeOptions]="pagination.sizeOptions"
-            [thyShowSizeChanger]="true"
+            [thyShowSizeChanger]="showSizeChanger"
             (thyOnPageChange)="onPageChange($event)"
             (thyOnPageIndexChange)="onPageIndexChange($event)"
             (thyOnPageSizeChange)="onPageSizeChange($event)"
@@ -155,6 +155,7 @@ class ThyDemoDefaultTableComponent {
     loadingText = 'loading now';
     size = 'sm';
     showTotal = false;
+    showSizeChanger = true;
     mode = 'list';
     emptyOptions = { message: '空' };
     tableMinWidth = 500;
@@ -560,13 +561,28 @@ describe('ThyTable: basic', () => {
         expect(pageIndexChangeSpy).toHaveBeenCalledWith(event);
     });
 
+    it('should pageSizeChanger show correctly', () => {
+        testComponent.showSizeChanger = false;
+        fixture.detectChanges();
+        expect(tableComponent.nativeElement.querySelector('.thy-pagination .thy-pagination-size')).toBeFalsy();
+
+        testComponent.showSizeChanger = true;
+        fixture.detectChanges();
+        expect(tableComponent.nativeElement.querySelector('.thy-pagination .thy-pagination-size')).toBeTruthy();
+    });
+
     it('should call onPageSizeChange when call table onPageSizeChange', () => {
         fixture.detectChanges();
         const pageSizeChangeSpy = spyOn(testComponent, 'onPageSizeChange');
-        const event = 5;
-        testComponent.table.onPageSizeChange(event);
-        expect(pageSizeChangeSpy).toHaveBeenCalled();
-        expect(pageSizeChangeSpy).toHaveBeenCalledWith(event);
+        const paginationElement = tableComponent.nativeElement.querySelector('thy-custom-select .form-control-custom');
+        paginationElement.click();
+        fixture.detectChanges();
+
+        const index = 2;
+        const el = document.querySelector('.thy-select-dropdown-options');
+        (el.querySelectorAll('.thy-option-item')[index] as HTMLElement).click();
+        fixture.detectChanges();
+        expect(pageSizeChangeSpy).toHaveBeenCalledWith(testComponent.pagination.sizeOptions[index]);
     });
 
     it('should call onSwitchChange when change switch', fakeAsync(() => {

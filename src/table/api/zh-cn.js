@@ -166,19 +166,19 @@ module.exports = [
             {
                 name: '(thyOnPageChange)',
                 description: '表格分页回调事件',
-                type: 'PageChangedEvent',
+                type: 'ThyPageChangedEvent',
                 default: ''
             },
             {
                 name: '(thyOnPageIndexChange)',
                 description: '表格分页当前页改变回调事件',
-                type: 'PageChangedEvent',
+                type: 'ThyPageChangedEvent',
                 default: ''
             },
             {
                 name: '(onPageSizeChange)',
                 description: '表格分页每页显示条数改变回调事件',
-                type: 'PageChangedEvent',
+                type: 'ThyPageChangedEvent',
                 default: ''
             },
             {
