@@ -176,7 +176,6 @@ class BasicTreeSelectComponent {
                 [thyMultiple]="multiple"
                 [thyPlaceholder]="thyPlaceholder"
                 thyShowKey="title"
-                [thyAsyncNode]="true"
             ></thy-tree-select>
         </div>
     `
