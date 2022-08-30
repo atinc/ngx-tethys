@@ -2,6 +2,7 @@
 @use "../../shared/select/styles/select.mixin";
 @use "../../styles/bootstrap/mixins/text-truncate";
 @use "../../styles/variables";
+@use "../../styles/mixins/shadow.scss";
 
 @mixin thy-tree-select-option() {
     &.disabled {
@@ -22,7 +23,10 @@
 }
 
 .thy-tree-select-dropdown {
-    @include select.thy-select-options-dropdown();
+    background: variables.$white;
+    width: 100%;
+    border-radius: variables.$border-radius;
+    @include shadow.section-box-shadow();
 
     .thy-tree-select-options {
         @include select.thy-select-options-container();
