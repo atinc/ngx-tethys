@@ -1,6 +1,6 @@
 @use "../../../styles/variables";
 
-@mixin select-control-size($tag-height, $padding-y, $height: auto) {
+@mixin select-control-size($tag-height, $padding-y, $height) {
     &.select-control-single {
         padding: {
             top: $padding-y;
@@ -9,7 +9,6 @@
 
         .select-control-rendered {
             height: $height;
-            line-height: $height;
         }
     }
 
@@ -20,6 +19,7 @@
         }
 
         .select-control-rendered {
+            min-height: $padding-y * 2 + $height;
             padding-top: $padding-y;
             .choice {
                 margin-bottom: $padding-y;
@@ -28,6 +28,7 @@
     }
 
     .select-control-rendered {
+        line-height: $height;
         .select-control-search {
             height: $height;
             line-height: $height;
