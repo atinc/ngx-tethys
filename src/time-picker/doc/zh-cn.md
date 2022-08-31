@@ -13,11 +13,8 @@ label: new
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 
 ```
-## 如何使用
 
-时间选择提供组件 `thy-time-picker` 选择时间。
-
-## 组件使用
+## 基本使用
 
 时间选择组件可以通过 `thyFormat` 属性设置时间类型，默认为 `HH:mm:ss`。
 

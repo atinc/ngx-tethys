@@ -7,7 +7,24 @@ import { Component, OnInit } from '@angular/core';
 export class ThyTimePickerSizeExampleComponent implements OnInit {
     date: Date;
 
-    sizes: string[] = ['default', 'xs', 'sm', 'md', 'lg'];
+    sizes = [
+        {
+            name: 'sm',
+            height: 28
+        },
+        {
+            name: 'md',
+            height: 32
+        },
+        {
+            name: 'default',
+            height: 36
+        },
+        {
+            name: 'lg',
+            height: 44
+        }
+    ];
 
     size: string = 'default';
 

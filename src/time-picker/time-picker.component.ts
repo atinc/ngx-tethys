@@ -72,6 +72,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     /**
      * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
+     * @default HH:mm:ss
      */
     @Input() set thyFormat(value: string) {
         this.format = value || 'HH:mm:ss';

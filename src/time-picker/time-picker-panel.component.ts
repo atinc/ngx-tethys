@@ -48,6 +48,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     /**
      * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
+     * @default HH:mm:ss
      */
     @Input() set thyFormat(value: string) {
         if (value) {
