@@ -4,7 +4,7 @@ import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 
-import { ThyFileDropComponent } from '../file-drop.component';
+import { ThyFileDropDirective } from '../file-drop.directive';
 import { ThyUploadModule } from '../module';
 import { ThySizeExceedsHandler } from '../types';
 import { createFile } from './utils';
@@ -66,7 +66,7 @@ describe('thyFileDrop', () => {
     beforeEach(() => {
         fixture = TestBed.createComponent(FileDropBasicComponent);
         testComponent = fixture.debugElement.componentInstance;
-        fileDropDebugElement = fixture.debugElement.query(By.directive(ThyFileDropComponent));
+        fileDropDebugElement = fixture.debugElement.query(By.directive(ThyFileDropDirective));
         fixture.detectChanges();
 
         const file = createFile();
