@@ -21,7 +21,7 @@
             .thy-properties-item-label {
                 width: variables.$property-item-horizontal-label-width;
                 min-height: variables.$property-item-min-height;
-                padding-right: variables.$property-item-padding-x;
+                padding-right: 2 * variables.$property-item-padding-x;
                 span {
                     line-height: variables.$property-item-min-height;
                 }
