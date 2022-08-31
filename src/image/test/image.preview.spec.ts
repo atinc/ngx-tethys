@@ -3,11 +3,16 @@ import { Component, DebugElement, OnInit } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, inject, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
 import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { DomSanitizer } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
+import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { humanizeBytes, keycodes } from 'ngx-tethys/util';
+import { fromEvent, timer } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -24,7 +29,7 @@ class ImagePreviewTestComponent implements OnInit {
             name: 'first.jpg',
             size: '66kb',
             origin: {
-                src: 'assets/images/image/second.png'
+                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
             }
         },
         {
@@ -57,6 +62,8 @@ describe('image-preview', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    let _document: Document;
+    let formElement: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -66,8 +73,10 @@ describe('image-preview', () => {
         fixture = TestBed.createComponent(ImagePreviewTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement;
+        formElement = debugElement.nativeElement;
         document.documentElement.requestFullscreen = jasmine.createSpy('requestFullscreen');
         fixture.detectChanges();
+        _document = TestBed.inject(DOCUMENT);
     });
 
     beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
@@ -225,23 +234,24 @@ describe('image-preview', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
+        // const spyObj: jasmine.SpyObj<HTMLAnchorElement> = jasmine.createSpyObj('a', ['click', 'setAttribute', 'href']);
+        // const createElementSpy = spyOn(_document, 'createElement').and.returnValue(spyObj);
 
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
-        // const spy = jasmine.createSpyObj('a', ['click']);
-        // const createElementSpy = spyOn(document, 'createElement').and.returnValue(spy);
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
 
-        // fixture.detectChanges();
-        // setTimeout(() => {
-        //     // test download error
-        //     img.onerror = () => {
-        //         expect(createElementSpy).toHaveBeenCalledTimes(1);
-        //     };
-        //     img.src = '';
-        // }, 1000);
+        // const img = new Image();
+        // img.onerror = () => {
+
+        //     // expect(createElementSpy).toHaveBeenCalled();
+        //     // console.log(createElementSpy)
+        //     console.log(createElementSpy);
+        //     done();
+        // };
+        // img.src = 'error';
 
         // test download success
     });
@@ -277,14 +287,16 @@ describe('image-preview', () => {
         // download.click()
     });
 
-    xit('should preview image can be switched correctly', () => {
+    it('should preview image can be switched correctly', done => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
+        const img = new Image();
 
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
+        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+
         const leftSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-left') as HTMLElement;
         const rightSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-right') as HTMLElement;
         expect(leftSwitch).toBeTruthy();
@@ -292,19 +304,61 @@ describe('image-preview', () => {
 
         rightSwitch.click();
         fixture.detectChanges();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[1].src);
+        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
+
+        dispatchKeyboardEvent(formElement, 'keydown', keycodes.RIGHT_ARROW);
+        fixture.detectChanges();
+        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
 
         leftSwitch.click();
         fixture.detectChanges();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
+        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
 
-        leftSwitch.click();
+        dispatchKeyboardEvent(formElement, 'keydown', keycodes.LEFT_ARROW);
         fixture.detectChanges();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
+        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+    });
 
-        rightSwitch.click();
+    it('should close the preview when click backdrop', fakeAsync(() => {
         fixture.detectChanges();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[1].src);
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+
+        expect(overlayContainerElement).toBeTruthy();
+        let wrapper = overlayContainerElement.querySelector('.thy-image-preview-wrap');
+        dispatchMouseEvent(wrapper, 'click', 100, 100);
+        timer(300);
+        fixture.detectChanges();
+        flush();
+        expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeFalsy();
+    }));
+
+    it('should fetch imageBlob when resolveSize is true', done => {
+        basicTestComponent.images = [
+            {
+                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
+                alt: 'first',
+                name: 'first.jpg',
+                origin: {
+                    src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
+                }
+            }
+        ];
+        basicTestComponent.previewConfig.resolveSize = true;
+        fixture.detectChanges();
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+
+        fixture.detectChanges();
+        const xhr = new XMLHttpRequest();
+        xhr.open('GET', basicTestComponent.images[0].src);
+        xhr.responseType = 'blob';
+        xhr.onload = data => {
+            expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(humanizeBytes(xhr.response.size));
+            done();
+        };
+
+        xhr.send();
     });
 
     xit(
@@ -347,3 +401,13 @@ describe('image-preview', () => {
         expect(basicTestComponent.images[0].objectURL).toBeTruthy();
     });
 });
+
+const validImageSrc = (overlayContainerElement: HTMLElement, img: HTMLImageElement, image: InternalImageInfo, done: DoneFn) => {
+    img.onload = () => {
+        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
+            (image.objectURL as any).changingThisBreaksApplicationSecurity
+        );
+        done();
+    };
+    img.src = image.src;
+};
