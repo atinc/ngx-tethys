@@ -14,7 +14,7 @@
     "watch:theme": "npm run build-theme && gulp build-theme:watch",
     "build:demo": "npm run build-site",
     "build:site": "npm run build-site",
-    "build-site": "npm run build-docs && ng build site --configuration production --baseHref=/ngx-tethys/",
+    "build-site": "npm run build-docs && ng build site --configuration production --base-href=/ngx-tethys/",
     "build-clean-site": "npm run build-docs && ng build site --configuration production",
     "build-docs": "docgeni build --skip-site --progress false",
     "build": "npm run build-tethys && npm run build-cdk && npm run build:schematics",
