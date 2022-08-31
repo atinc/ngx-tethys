@@ -1,0 +1,8 @@
+<thy-button-group class="mb-3" thySize="md" thyType="outline-default">
+  <button thyButton *ngFor="let type of formats" (click)="format = type" [ngClass]="{ active: type === format }">
+    {{ type }}
+  </button>
+</thy-button-group>
+<div [style.width.px]="194">
+  <thy-time-picker [(ngModel)]="date" [thyFormat]="format"></thy-time-picker>
+</div>
