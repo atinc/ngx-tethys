@@ -27,21 +27,34 @@ export interface ThyCopyEvent {
     providers: [TooltipService]
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
-    // 默认为点击标签，可传复制目标标签
+    /**
+     * 默认为点击标签，可传复制目标标签
+     */
     @Output() thyCopy = new EventEmitter<ThyCopyEvent>();
 
+    /**
+     * 复制成功时的文案
+     */
     @Input() thyCopySuccessText = '复制成功';
 
+    /**
+     * 提示文案
+     */
     @Input() thyCopyTips = '点击复制';
 
     /**
-     *  偏移量
-     * @default 4
+     * 偏移量
      */
     @Input() thyCopyTipsOffset: number;
 
+    /**
+     * 当为 string 时，复制的是传入的内容；当为 ElementRef | HTMLElement 时，复制的是 dom 节点的 value 或者 textContent
+     */
     @Input() thyCopyContent: string | ElementRef | HTMLElement;
 
+    /**
+     * 是否展示通知
+     */
     @Input() @InputBoolean() thyShowNotify = true;
 
     constructor(

@@ -287,19 +287,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         return (this.flattenTreeNodes || []).find(item => item[this.thyPrimaryKey] === value);
     }
 
-    getShowNodeName() {
-        if (this.thyShowWholeName) {
-            let wholeName = '';
-            (this.selectedNode.parentValues || []).forEach((item: string, index: number) => {
-                const node = this._findTreeNode(item);
-                wholeName = `${wholeName}${node[this.thyShowKey]} > `;
-            });
-            return `${wholeName}${this.selectedNode[this.thyShowKey]}`;
-        } else {
-            return this.selectedNode[this.thyShowKey];
-        }
-    }
-
     private setSelectedNodes() {
         if (this.selectedValue) {
             // 多选数据初始化

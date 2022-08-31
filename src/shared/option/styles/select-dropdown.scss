@@ -46,7 +46,7 @@
     }
 }
 .thy-select-dropdown {
-    @include select.thy-select-options-dropdown();
+    @include select.thy-select-dropdown();
     &.thy-select-dropdown-multiple {
         .thy-select-dropdown-options {
             .thy-option-item {

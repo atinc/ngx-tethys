@@ -60,6 +60,9 @@
             position: absolute;
             user-select: none;
             width: 100%;
+            .thy-tag {
+                vertical-align: top;
+            }
         }
     }
     &.panel-is-opened {

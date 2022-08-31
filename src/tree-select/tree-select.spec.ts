@@ -5,6 +5,7 @@ import { waitForAsync, fakeAsync, flush, inject, TestBed, tick } from '@angular/
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { of } from 'rxjs';
 
 import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
@@ -38,7 +39,12 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyMultiple]="multiple"
                 [thyPlaceholder]="thyPlaceholder"
                 thyShowKey="title"
-                thyDisableNodeKey="disabled"
+                [thyDisable]="disable"
+                [thyAllowClear]="allowClear"
+                [thyAsyncNode]="asyncNode"
+                [thyGetNodeChildren]="fetchNodeChildren"
+                [thyHiddenNodeKey]="hiddenKey"
+                [thyDisableNodeKey]="disableKey"
             ></thy-tree-select>
         </div>
     `
@@ -122,10 +128,41 @@ class BasicTreeSelectComponent {
 
     thyPlaceholder = '';
 
+    disable = false;
+
+    allowClear = true;
+
     cdkConnectOverlayWidth = 0;
+
+    expandTreeSelectOptions = false;
 
     @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
+
+    asyncNode = true;
+
+    hiddenKey = 'hidden';
+
+    disableKey = 'disabled';
+
+    fetchNodeChildren(node: ThyTreeSelectNode) {
+        return of([
+            {
+                _id: '010101',
+                name: 'child-1',
+                level: 2,
+                icon: 'flag',
+                children: []
+            },
+            {
+                _id: '010102',
+                name: 'child-2',
+                level: 2,
+                icon: 'flag',
+                children: []
+            }
+        ]);
+    }
 }
 
 @Component({
@@ -313,7 +350,8 @@ class NgModelTreeSelectComponent {
             children: []
         }
     ];
-    objSelectedValue: ThyTreeSelectNode = null;
+
+    objSelectedValue: ThyTreeSelectNode | string = null;
 
     multiple = false;
 
@@ -440,6 +478,7 @@ describe('ThyTreeSelect', () => {
                 flush();
                 expect(extendBtn.classList.contains('thy-icon-angle-down')).toBeTruthy();
             }));
+
             it('should get correct width when the window is resized', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 const event = new Event('resize');
@@ -450,6 +489,53 @@ describe('ThyTreeSelect', () => {
                 fixture.componentInstance.cdkConnectOverlayWidth = initDomWidth;
                 expect(initDomWidth).toEqual(document.body.clientWidth);
             }));
+
+            it('should allowClear worked', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                optionNodes[1].click();
+                fixture.detectChanges();
+
+                const clearElement = fixture.debugElement.nativeElement.querySelector('.select-control-clear');
+                clearElement.click();
+                fixture.detectChanges();
+                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+            }));
+
+            it('should close popup when click document', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                optionNodes[1].click();
+                document.body.click();
+                fixture.detectChanges();
+                expect(fixture.componentInstance.treeSelect.expandTreeSelectOptions).toBeFalsy();
+            }));
+
+            it('should do not open popup when disable', () => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+
+                fixture.componentInstance.disable = true;
+                fixture.detectChanges();
+
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+
+                expect(overlayContainerElement.querySelectorAll('a').length).toEqual(0);
+            });
         });
 
         describe('with thyPlaceHolder', () => {
@@ -485,6 +571,23 @@ describe('ThyTreeSelect', () => {
                 })
             );
 
+            it('should select item with single when item is clicked', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                fixture.componentInstance.multiple = false;
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                optionNodes[1].click();
+                fixture.detectChanges();
+                const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
+                expect(multipleWrapper.textContent).toContain('root2');
+            }));
+
             it('should select item with multiple when item is clicked', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
@@ -498,9 +601,43 @@ describe('ThyTreeSelect', () => {
                 optionNodes[1].click();
                 fixture.detectChanges();
                 flush();
+                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(2);
+
+                optionNodes[1].click();
+                fixture.detectChanges();
+                flush();
+                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+
+                optionNodes[1].click();
+                fixture.detectChanges();
+                flush();
+                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(2);
 
                 const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
                 expect(multipleWrapper.textContent).toContain('root2');
+
+                const multipleItem = fixture.debugElement.nativeElement.querySelector('li thy-icon');
+                multipleItem.click();
+                fixture.detectChanges();
+                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+            }));
+
+            it('should hiddenKey and disableKey worked', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                fixture.componentInstance.hiddenKey = '';
+                fixture.detectChanges();
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                expect(optionNodes.length).toBe(5);
+
+                fixture.componentInstance.disableKey = '';
+                fixture.detectChanges();
+                expect(optionNodes[0].classList.contains('disabled')).toBeTruthy();
             }));
         });
     });
@@ -524,6 +661,12 @@ describe('ThyTreeSelect', () => {
                 fixture.componentInstance.nodes[fixture.componentInstance.nodes.length - 1]
             );
             expect(treeSelectShowNode.textContent).toContain('root6');
+
+            fixture.componentInstance.objSelectedValue = '04';
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(treeSelectShowNode.textContent).toContain('root4');
         }));
 
         it('show selected text with multiple when set ngModel ', fakeAsync(() => {
@@ -545,6 +688,13 @@ describe('ThyTreeSelect', () => {
             const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
             expect(multipleWrapper.textContent).toContain('root5');
             expect(multipleWrapper.textContent).toContain('root6');
+
+            fixture.componentInstance.objSelectedValue = ['04', '03'];
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            expect(multipleWrapper.textContent).toContain('root4');
+            expect(multipleWrapper.textContent).toContain('root3');
         }));
     });
 
