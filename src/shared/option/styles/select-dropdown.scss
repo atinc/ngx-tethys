@@ -1,5 +1,4 @@
 @use "../../../styles/variables";
-@use "../../../styles/mixins/shadow.scss";
 @use "../../select/styles/select.mixin";
 @use "option.mixin";
 
@@ -47,10 +46,7 @@
     }
 }
 .thy-select-dropdown {
-    background: variables.$white;
-    width: 100%;
-    border-radius: variables.$border-radius;
-    @include shadow.section-box-shadow();
+    @include select.thy-select-dropdown();
     &.thy-select-dropdown-multiple {
         .thy-select-dropdown-options {
             .thy-option-item {
