@@ -208,7 +208,7 @@ describe('ThyIconButton', () => {
     let basicTestComponent: ThyTestButtonIconBasicComponent;
     let buttonIconComponent: DebugElement;
 
-    const sizes = ['lg', 'sm', 'xs'];
+    const sizes = ['lg', 'md', 'sm', 'xs'];
 
     beforeEach(() => {
         TestBed.configureTestingModule({

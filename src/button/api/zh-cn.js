@@ -72,9 +72,9 @@ module.exports = [
             },
             {
                 name: 'thySize',
-                description: `大小，\`xs | sm | lg | 'md'\``,
+                description: `大小，\`xs | sm | md | lg \`,默认36px`,
                 type: 'string',
-                default: 'md'
+                default: '-'
             },
             {
                 name: 'thyTheme',
