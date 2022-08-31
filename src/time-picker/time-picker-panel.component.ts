@@ -17,6 +17,9 @@ import { isValid } from 'date-fns';
 import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
+/**
+ * 时间选择面板组件
+ */
 @Component({
     selector: 'thy-time-picker-panel',
     templateUrl: './time-picker-panel.component.html',
@@ -42,6 +45,10 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
 
     @ViewChild('secondListElement', { static: false }) secondListRef: ElementRef<HTMLElement>;
 
+    /**
+     * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
+     * @type string
+     */
     @Input() set thyFormat(value: string) {
         if (value) {
             const formatSet = new Set(value);
@@ -57,18 +64,51 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.cdr.markForCheck();
     }
 
+    /**
+     * 小时间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyHourStep: number = 1;
 
+    /**
+     * 分钟间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyMinuteStep: number = 1;
 
+    /**
+     * 秒间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thySecondStep: number = 1;
 
+    /**
+     * 展示选择此刻
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyShowSelectNow = true;
 
+    /**
+     * 展示底部操作
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyShowOperations = true;
 
+    /**
+     * 选择时间触发的事件
+     * @type EventEmitter<Date>
+     */
     @Output() thyPickChange = new EventEmitter<Date>();
 
+    /**
+     * 关闭面板事件
+     * @type EventEmitter<void>
+     */
     @Output() thyClosePanel = new EventEmitter<void>();
 
     // margin-top + 1px border

@@ -19,6 +19,9 @@ import { TinyDate } from 'ngx-tethys/util';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
+/**
+ * 时间选择组件
+ */
 @Component({
     selector: 'thy-time-picker',
     templateUrl: './time-picker.component.html',
@@ -45,12 +48,31 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
 
     @ViewChild('overlayContainer', { static: false }) overlayContainer: ElementRef<HTMLElement>;
 
+    /**
+     * 输入框大小
+     * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
+     * @default default
+     */
     @Input() thySize: TimePickerSize = 'default';
 
+    /**
+     * 输入框提示文字
+     * @type string
+     * @default 选择时间
+     */
     @Input() thyPlaceholder: string = '选择时间';
 
+    /**
+     * 弹出位置
+     * @type 'top' | 'topLeft'| 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @default bottomLeft
+     */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
+    /**
+     * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
+     * @type string
+     */
     @Input() set thyFormat(value: string) {
         this.format = value || 'HH:mm:ss';
         if (this.value && isValid(this.value)) {
@@ -58,28 +80,76 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
         }
     }
 
+    /**
+     * 小时间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyHourStep: number = 1;
 
+    /**
+     * 分钟间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyMinuteStep: number = 1;
 
+    /**
+     * 秒间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thySecondStep: number = 1;
 
+    /**
+     * 弹出层组件 class
+     * @type string
+     */
     @Input() thyPopupClass: string;
 
+    /**
+     * 是否显示弹出层遮罩
+     * @type boolean
+     * @default false
+     */
     @Input() @InputBoolean() thyBackdrop: boolean;
 
+    /**
+     * 禁用
+     * @type boolean
+     * @default false
+     */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;
     }
 
+    /**
+     * 只读
+     * @type boolean
+     * @default false
+     */
     @Input() @InputBoolean() set thyReadonly(value: boolean) {
         this.readonly = value;
     }
 
+    /**
+     * 展示选择此刻
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyShowSelectNow = true;
 
+    /**
+     * 可清空值
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyAllowClear = true;
 
+    /**
+     * 打开/关闭弹窗事件
+     * @type EventEmitter<boolean>
+     */
     @Output() thyOpenChange = new EventEmitter<boolean>();
 
     prefixCls = 'thy-time-picker';
