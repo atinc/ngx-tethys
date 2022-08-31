@@ -13,14 +13,15 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": false,
-    "target": "es2015",
+    "target": "es2020",
     "typeRoots": ["node_modules/@types", "@types/node"],
     "lib": ["es2017", "dom"],
     "resolveJsonModule": true
   },
   "angularCompilerOptions": {
-    "strictMetadataEmit": false,
-    "skipTemplateCodegen": true,
-    "fullTemplateTypeCheck": true
+    "enableI18nLegacyMessageIdFormat": false,
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": false
   }
 }

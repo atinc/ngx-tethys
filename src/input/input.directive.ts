@@ -2,7 +2,7 @@ import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@a
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 const inputGroupSizeMap = {
     xs: ['form-control-xs'],
@@ -23,7 +23,7 @@ export class ThyInputDirective implements OnInit {
     private initialized = false;
 
     @Input()
-    set thySize(size: InputSize) {
+    set thySize(size: ThyInputSize) {
         if (size && inputGroupSizeMap[size]) {
             this.updateHostClassService.updateClass(inputGroupSizeMap[size]);
         } else {

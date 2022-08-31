@@ -1,5 +1,5 @@
 export const DEPENDENCIES = {
-    '@angular/cdk': '^12.0.0',
+    '@angular/cdk': '^14.0.0',
     'date-fns': '^2.6.0',
-    '@tethys/icons': '*'
+    '@tethys/icons': '1.4.5'
 };

@@ -6,13 +6,13 @@ import { timer } from 'rxjs';
     templateUrl: './auto-adaptive-content.component.html'
 })
 export class ThyPopoverAutoAdaptiveContentComponent implements OnInit {
-    demoData: number[];
+    loadingDone = false;
 
     constructor() {}
 
     ngOnInit() {
         timer(1000).subscribe(() => {
-            this.demoData = [1, 2, 3, 4];
+            this.loadingDone = true;
         });
     }
 }

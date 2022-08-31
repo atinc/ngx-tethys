@@ -1,10 +1,10 @@
 {
   "name": "@tethys/cdk",
-  "version": "13.2.7",
+  "version": "14.0.2",
   "peerDependencies": {
-    "@angular/common": "^13.0.0",
-    "@angular/core": "^13.0.0",
-    "@angular/cdk": "^13.0.0"
+    "@angular/common": "^14.0.0",
+    "@angular/core": "^14.0.0",
+    "@angular/cdk": "^14.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"

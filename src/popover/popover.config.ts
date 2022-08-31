@@ -19,7 +19,7 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     /** Click inside can been close */
     insideClosable?: boolean;
 
-    /** Offset be relative to origin, default is 4*/
+    /** Offset be relative to origin, default is 0*/
     offset?: number;
 
     /** Manually close it, default rules is which auto close last popover when open a new unless set manualClosure as true */
@@ -46,7 +46,7 @@ export const THY_POPOVER_DEFAULT_CONFIG_VALUE = {
     hasBackdrop: true,
     backdropClass: 'thy-popover-backdrop',
     panelClass: '',
-    offset: 4,
+    offset: 0,
     backdropClosable: true,
     closeOnNavigation: true,
     placement: 'bottom' as ThyPlacement,

@@ -2,8 +2,7 @@ import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
 
-import { OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
-import { OverlayReference } from '@angular/cdk/overlay/overlay-reference';
+import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -76,7 +75,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private destroy$ = new Subject();
 
-    private originOverlays: OverlayReference[] = [];
+    private originOverlays: OverlayRef[] = [];
 
     constructor(
         @SkipSelf() protected parentCdr: ChangeDetectorRef,
@@ -84,7 +83,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         private ngZone: NgZone,
         private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
     ) {
-        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays];
+        this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }
 
     ngOnInit() {}

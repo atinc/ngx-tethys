@@ -2,6 +2,42 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.2](https://github.com/atinc/ngx-tethys/compare/14.0.1...14.0.2) (2022-08-31)
+
+
+### Bug Fixes
+
+* **label:** fix label border-radius #INFR-4486 ([#2148](https://github.com/atinc/ngx-tethys/issues/2148)) ([4ab201e](https://github.com/atinc/ngx-tethys/commit/4ab201efce101847c5def7d337bf6402cd584281)), closes [#INFR-4486](https://github.com/atinc/ngx-tethys/issues/INFR-4486)
+* **nav:** replace nav component active-class 'active' to 'nav-active' #INFR-4482 ([#2143](https://github.com/atinc/ngx-tethys/issues/2143)) ([f333f24](https://github.com/atinc/ngx-tethys/commit/f333f2410a880f31ea2b559f877fd4e9df1972b2)), closes [#INFR-4482](https://github.com/atinc/ngx-tethys/issues/INFR-4482) [#INFR-4482](https://github.com/atinc/ngx-tethys/issues/INFR-4482) [#INFR-4482](https://github.com/atinc/ngx-tethys/issues/INFR-4482) [#INFR-4482](https://github.com/atinc/ngx-tethys/issues/INFR-4482)
+* **property:** remove auto fill item span  logic #INFR-4471 ([b2a9c75](https://github.com/atinc/ngx-tethys/commit/b2a9c750fd77bf45e3b3d1667749cfd378e70123)), closes [#INFR-4471](https://github.com/atinc/ngx-tethys/issues/INFR-4471)
+* **select:** center thy-tag ([#2145](https://github.com/atinc/ngx-tethys/issues/2145)) ([de34ae7](https://github.com/atinc/ngx-tethys/commit/de34ae74c122da4e851a9d4bff5c9a64cecf8cf6))
+* **select:** fix select-control height when empty and center placeholder ([#2150](https://github.com/atinc/ngx-tethys/issues/2150)) ([a650e57](https://github.com/atinc/ngx-tethys/commit/a650e57a024bcbf10f24e0753ea47edbd8f9403b))
+* **watermark:** adjust the refresh condition #INFR-4478 ([e667d73](https://github.com/atinc/ngx-tethys/commit/e667d73b53ce8a8958f170d8611018ffdecfc0b3)), closes [#INFR-4478](https://github.com/atinc/ngx-tethys/issues/INFR-4478)
+
+
+### Features
+
+* **mention:** add show suggestions limit #INFR-176 ([#2140](https://github.com/atinc/ngx-tethys/issues/2140)) ([d68bcb9](https://github.com/atinc/ngx-tethys/commit/d68bcb927ba94c084da11354eceaf03104b0c98d)), closes [#INFR-176](https://github.com/atinc/ngx-tethys/issues/INFR-176)
+* **select:** change select and tree-select border-radius to dropdown… ([#2147](https://github.com/atinc/ngx-tethys/issues/2147)) ([7bf0eae](https://github.com/atinc/ngx-tethys/commit/7bf0eae93be348df3df3450408f31c92f56895d2))
+
+
+
+## [14.0.1](https://github.com/atinc/ngx-tethys/compare/13.2.7...14.0.1) (2022-08-26)
+
+
+
+# [14.0.0](https://github.com/atinc/ngx-tethys/compare/13.2.5...14.0.0) (2022-08-24)
+
+
+
+# [14.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.0.0-next.0...14.0.0-next.1) (2022-08-16)
+
+
+
+# [14.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.2.1...14.0.0-next.0) (2022-08-11)
+
+
+
 ## [13.2.7](https://github.com/atinc/ngx-tethys/compare/13.2.6...13.2.7) (2022-08-26)
 
 
@@ -93,7 +129,13 @@ All notable changes to this project will be documented in this file. See [standa
 * **tabs:** change padding of tabs content  to 16px #INFR-4204 ([#2082](https://github.com/atinc/ngx-tethys/issues/2082)) ([330c1de](https://github.com/atinc/ngx-tethys/commit/330c1deff97b4008e77db9442c2c876f84e9d6f0)), closes [#INFR-4204](https://github.com/atinc/ngx-tethys/issues/INFR-4204)
 * **time-picker:** add new TimePicker #INFR-4147 ([#2087](https://github.com/atinc/ngx-tethys/issues/2087)) ([fa8cc62](https://github.com/atinc/ngx-tethys/commit/fa8cc62f18446ea727a848dc4b76c7222cdf7a53)), closes [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147) [#INFR-4147](https://github.com/atinc/ngx-tethys/issues/INFR-4147)
 
+# [14.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.0.0-next.0...14.0.0-next.1) (2022-08-16)
 
+- build: upgrade Angular to 14
+
+# [14.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/13.2.1...14.0.0-next.0) (2022-08-11)
+
+- build: upgrade Angular to 14
 
 ## [13.2.1](https://github.com/atinc/ngx-tethys/compare/13.2.0...13.2.1) (2022-08-11)
 

@@ -52,17 +52,16 @@ describe('popover-layout', () => {
         });
 
         it('should has correct DOM structure', () => {
-            const thyPopoverHeaderNode = popoverHeaderElement.children[0];
-            expect(thyPopoverHeaderNode.childElementCount).toEqual(2);
-            expect(thyPopoverHeaderNode.classList).toContain('thy-popover-header');
+            expect(popoverHeaderElement.childElementCount).toEqual(2);
+            expect(popoverHeaderElement.classList).toContain('thy-popover-header');
 
-            const thyTitleNode = thyPopoverHeaderNode.children[0];
+            const thyTitleNode = popoverHeaderElement.children[0];
             expect(thyTitleNode.nodeName).toEqual('H5');
             expect(thyTitleNode.nodeType).toEqual(1);
             expect(thyTitleNode.childElementCount).toEqual(0);
             expect(thyTitleNode.classList).toContain('thy-popover-title');
 
-            const closeButtonNode = thyPopoverHeaderNode.children[1];
+            const closeButtonNode = popoverHeaderElement.children[1];
             expect(closeButtonNode.nodeName).toEqual('BUTTON');
             expect(closeButtonNode.nodeType).toEqual(1);
             expect(closeButtonNode.childElementCount).toEqual(1);

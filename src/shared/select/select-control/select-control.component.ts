@@ -203,7 +203,7 @@ export class ThySelectControlComponent implements OnInit {
         if (this.thyMaxTagCount > 0 && this.thySelectedOptions instanceof Array && this.thySelectedOptions.length > this.thyMaxTagCount) {
             return this.thySelectedOptions.slice(0, this.thyMaxTagCount - 1);
         }
-        return this.thySelectedOptions;
+        return this.thySelectedOptions as SelectOptionBase[];
     }
 
     get showClearIcon(): boolean {
@@ -254,8 +254,8 @@ export class ThySelectControlComponent implements OnInit {
         }
     }
 
-    handleBackspace(event: KeyboardEvent & { isComposing: boolean }) {
-        if (event.isComposing) {
+    handleBackspace(event: Event) {
+        if ((event as KeyboardEvent).isComposing) {
             return;
         }
         if (this.inputValue.length === 0 && this.selectedOptions instanceof Array) {

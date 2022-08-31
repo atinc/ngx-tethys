@@ -2,7 +2,7 @@ import { ThyFormDirective } from './../form.directive';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { Component, ViewChild } from '@angular/core';
 import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
-import { FormControl, Validators, FormsModule, NgModel } from '@angular/forms';
+import { UntypedFormControl, Validators, FormsModule, NgModel } from '@angular/forms';
 import { confirmValidator, ThyMaxDirective, ThyMinDirective, ThyUniqueCheckValidator } from './../validator/index';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
 describe('validator', () => {
     describe(`confirm`, () => {
         it('should create confirm attributes and validator true or false', () => {
-            const control = new FormControl('123456');
+            const control = new UntypedFormControl('123456');
             expect(confirmValidator('123456')(control)).toBeNull();
             expect(confirmValidator('111111')(control)).toEqual({
                 confirm: {
@@ -25,10 +25,10 @@ describe('validator', () => {
         it('should not error on 100 when max is 100', () => {
             const maxDirective = new ThyMaxDirective();
             maxDirective.max = '100';
-            expect(maxDirective.validate(new FormControl(1))).toBeNull();
-            expect(maxDirective.validate(new FormControl(99))).toBeNull();
-            expect(maxDirective.validate(new FormControl(100))).toBeNull();
-            expect(maxDirective.validate(new FormControl(101))).toEqual({
+            expect(maxDirective.validate(new UntypedFormControl(1))).toBeNull();
+            expect(maxDirective.validate(new UntypedFormControl(99))).toBeNull();
+            expect(maxDirective.validate(new UntypedFormControl(100))).toBeNull();
+            expect(maxDirective.validate(new UntypedFormControl(101))).toEqual({
                 max: { max: 100, actual: 101 }
             });
         });
@@ -36,7 +36,7 @@ describe('validator', () => {
         it('should error on 101 when max is 100', () => {
             const maxDirective = new ThyMaxDirective();
             maxDirective.max = '100';
-            expect(maxDirective.validate(new FormControl(101))).toEqual({
+            expect(maxDirective.validate(new UntypedFormControl(101))).toEqual({
                 max: { max: 100, actual: 101 }
             });
         });
@@ -89,17 +89,17 @@ describe('validator', () => {
         it('should not error on 100 when min is 100', () => {
             const minDirective = new ThyMinDirective();
             minDirective.min = '100';
-            expect(minDirective.validate(new FormControl(100))).toBeNull();
-            expect(minDirective.validate(new FormControl(101))).toBeNull();
+            expect(minDirective.validate(new UntypedFormControl(100))).toBeNull();
+            expect(minDirective.validate(new UntypedFormControl(101))).toBeNull();
         });
 
         it('should error on 99 when min is 100', () => {
             const minDirective = new ThyMinDirective();
             minDirective.min = '100';
-            expect(minDirective.validate(new FormControl(99))).toEqual({
+            expect(minDirective.validate(new UntypedFormControl(99))).toEqual({
                 min: { min: 100, actual: 99 }
             });
-            expect(minDirective.validate(new FormControl(10))).toEqual({
+            expect(minDirective.validate(new UntypedFormControl(10))).toEqual({
                 min: { min: 100, actual: 10 }
             });
         });
