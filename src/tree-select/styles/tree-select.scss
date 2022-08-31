@@ -22,7 +22,7 @@
 }
 
 .thy-tree-select-dropdown {
-    @include select.thy-select-options-dropdown();
+    @include select.thy-select-dropdown();
 
     .thy-tree-select-options {
         @include select.thy-select-options-container();

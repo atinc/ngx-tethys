@@ -1,4 +1,5 @@
 @use "../../../styles/variables";
+@use "../../../styles/mixins/shadow.scss";
 
 @mixin select-control-size($tag-height, $padding-y, $height) {
     &.select-control-single {
@@ -51,10 +52,11 @@
     }
 }
 
-@mixin thy-select-options-dropdown {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
-    background: variables.$white;
+@mixin thy-select-dropdown {
     width: 100%;
+    background: variables.$white;
+    border-radius: variables.$border-radius;
+    @include shadow.section-box-shadow();
 }
 
 @mixin thy-select-options-container {
