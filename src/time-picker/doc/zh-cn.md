@@ -14,5 +14,6 @@ label: new
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 
 ```
+## 基本使用
 
 <examples />
