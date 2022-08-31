@@ -1,14 +1,10 @@
 import { coerceNumberValue, isNumber } from 'ngx-tethys/util';
-
-import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, Renderer2 } from '@angular/core';
-
+import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone, Renderer2 } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 
-@Component({
-    template: ``
-})
-export class FileSelectBaseComponent {
+@Directive()
+export class FileSelectBaseDirective {
     acceptType: string;
     sizeThreshold: number;
     sizeExceedsHandler: ThySizeExceedsHandler;

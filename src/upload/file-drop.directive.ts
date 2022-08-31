@@ -4,6 +4,7 @@ import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
     Component,
+    Directive,
     ElementRef,
     EventEmitter,
     HostBinding,
@@ -16,18 +17,14 @@ import {
     Renderer2
 } from '@angular/core';
 
-import { FileSelectBaseComponent } from './file-select-base';
+import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
-@Component({
-    // eslint-disable-next-line @angular-eslint/component-selector
-    selector: '[thyFileDrop]',
-    template: `
-        <ng-content></ng-content>
-    `
+@Directive({
+    selector: '[thyFileDrop]'
 })
-export class ThyFileDropComponent extends FileSelectBaseComponent implements OnInit, OnDestroy {
+export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
     @HostBinding('class.drop-over')
     @HostBinding('class.thy-drop-over')
     isDragOver = false;
