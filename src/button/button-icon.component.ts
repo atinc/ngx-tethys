@@ -7,6 +7,7 @@ export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle
 
 const sizeClassesMap = {
     lg: ['btn-icon-lg'],
+    md: ['btn-icon-md'],
     sm: ['btn-icon-sm'],
     xs: ['btn-icon-xs']
 };

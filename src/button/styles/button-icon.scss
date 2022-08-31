@@ -153,11 +153,23 @@
         variables.$font-size-base,
         variables.$btn-icon-circle-padding-sm,
         variables.$font-size-base,
-        variables.$input-btn-height-md
+        variables.$input-btn-height-sm
     );
     &.btn-icon-circle.active,
     &.btn-icon-circle.btn-icon-active {
         @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-sm);
+    }
+}
+.btn-icon-md {
+    @include mixin.btn-icon-size-variant(
+        variables.$font-size-base,
+        variables.$btn-icon-circle-padding-base,
+        variables.$font-size-base,
+        variables.$input-btn-height-md
+    );
+    &.btn-icon-circle.active,
+    &.btn-icon-circle.btn-icon-active {
+        @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-base);
     }
 }
 
