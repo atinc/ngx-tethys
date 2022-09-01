@@ -11,6 +11,7 @@ import {
     ChangeDetectionStrategy,
     SimpleChanges
 } from '@angular/core';
+import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.component';
 import { ThyTimelineService } from './timeline.service';
 
@@ -46,9 +47,9 @@ export class ThyTimelineItemComponent implements OnInit, OnChanges {
 
     @Input() thyPosition: ThyTimeMode;
 
-    @ContentChild('dot', { static: false }) dot: TemplateRef<any>;
+    @ContentChild('dot', { static: false }) dot: TemplateRef<SafeAny>;
 
-    @ContentChild('description', { static: false }) description: TemplateRef<any>;
+    @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
 
     constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}
 

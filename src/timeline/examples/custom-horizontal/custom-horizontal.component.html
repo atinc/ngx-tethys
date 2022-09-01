@@ -1,50 +1,8 @@
-<div>
-  <form class="mb-2" thyForm name="demoForm" #demoForm="ngForm" thyLayout="inline">
-    <thy-form-group thyLabelText="节点颜色">
-      <thy-select [(ngModel)]="thyColor" name="thyColor">
-        <option value="primary">蓝色</option>
-        <option value="success">绿色</option>
-        <option value="warning">黄色</option>
-        <option value="danger">红色</option>
-        <option value="info">灰色</option>
-      </thy-select>
-    </thy-form-group>
-    <thy-form-group thyLabelText="排序">
-      <thy-select [(ngModel)]="thyReverse" name="thyReverse">
-        <option value="sequence">正序</option>
-        <option value="reverse">倒序</option>
-      </thy-select>
-    </thy-form-group>
-  </form>
-  <thy-timeline [thyReverse]="thyReverse === 'reverse'" [thyDirection]="'horizontal'">
-    <thy-timeline-item [thyColor]="thyColor">2019年7月18日</thy-timeline-item>
-    <thy-timeline-item [thyColor]="thyColor">
-      <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
-      <ng-template #description>
-        <span class="state-label" thyLabel="outline" thyLabelColor="#f0f" thySize="sm"><span thyFlexibleText>另一侧模版</span></span>
-      </ng-template>
-    </thy-timeline-item>
-    <thy-timeline-item [thyColor]="thyColor">
-      <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
-      <ng-template #description>
-        <span class="state-label" thyLabel="outline" thyLabelColor="#f0f" thySize="sm"><span thyFlexibleText>另一侧模版</span></span>
-      </ng-template>
-    </thy-timeline-item>
-    <thy-timeline-item [thyColor]="thyColor">
-      <thy-avatar [thyShowName]="true" thyName="terry" thySize="xs"></thy-avatar>
-      <ng-template #description>
-        <span class="state-label" thyLabel="outline" thyLabelColor="#f0f" thySize="sm"><span thyFlexibleText>另一侧模版</span></span>
-      </ng-template>
-    </thy-timeline-item>
-    <thy-timeline-item [thyColor]="thyColor">
-      PingCode 是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。</thy-timeline-item
-    >
-    <thy-timeline-item [thyColor]="thyColor">
-      PingCode 是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。</thy-timeline-item
-    >
-    <thy-timeline-item [thyColor]="thyColor">
-      PingCode 是简单易用的新一代研发管理平台，让研发管理自动化、数据化、智能化，帮助企业提升研发效能。</thy-timeline-item
-    >
-    <thy-timeline-item [thyColor]="thyColor"><button thySize="sm" thyButton>按钮</button> </thy-timeline-item>
-  </thy-timeline>
-</div>
+<thy-timeline [thyDirection]="'horizontal'">
+  <thy-timeline-item><button thySize="sm" thyButton="primary">开始</button> </thy-timeline-item>
+  <thy-timeline-item><ng-template #description>2012年11月</ng-template> 北京易成时代科技有限公司成立</thy-timeline-item>
+  <thy-timeline-item>2013年7月21 Worktile 2.0 发布</thy-timeline-item>
+  <thy-timeline-item>2015年 Worktile 企业版发布，正式开启商业化</thy-timeline-item>
+  <thy-timeline-item>2018年 Worktile 7.0 发布，高度配置化的项目管理工具诞生</thy-timeline-item>
+  <thy-timeline-item><button thySize="sm" thyButton="primary">结束</button> </thy-timeline-item>
+</thy-timeline>
