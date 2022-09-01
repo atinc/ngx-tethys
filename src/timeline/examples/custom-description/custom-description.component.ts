@@ -5,11 +5,5 @@ import { Component, Optional, SkipSelf } from '@angular/core';
     templateUrl: './custom-description.component.html'
 })
 export class ThyTimelineCustomDescriptionExampleComponent {
-    public thyColor = '';
-
-    public thyMode = 'left';
-
-    public thyReverse = 'sequence';
-
     constructor() {}
 }

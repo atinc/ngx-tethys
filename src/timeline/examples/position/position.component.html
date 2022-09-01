@@ -1,4 +1,10 @@
-<thy-timeline>
+<thy-radio-group class="mb-4" [(ngModel)]="mode" thySize="sm">
+  <label thyRadioButton thyLabelText="Left" thyValue="left"></label>
+  <label thyRadioButton thyLabelText="Center" thyValue="center"></label>
+  <label thyRadioButton thyLabelText="Right" thyValue="right"></label>
+</thy-radio-group>
+
+<thy-timeline [thyMode]="mode">
   <thy-timeline-item
     >2012年11月 北京易成时代科技有限公司成立 by <thy-avatar [thyShowName]="true" thyName="Anytao" thySize="xs"></thy-avatar> 和
     <thy-avatar [thyShowName]="true" thyName="Terry" thySize="xs"></thy-avatar
@@ -9,6 +15,6 @@
   <thy-timeline-item>2019年 PingCode 正式发布，新一代的研发管理工具</thy-timeline-item>
   <thy-timeline-item
     >2022年 PingCode 4.0 发布，国内首款集产品+工单的管理工具，UI 2.0 全新上线
-    <button thySize="sm" thyButton="primary">创造未来</button></thy-timeline-item
+    <button thySize="sm" thyButton="primary">一起创造未来</button></thy-timeline-item
   >
 </thy-timeline>
