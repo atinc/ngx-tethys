@@ -69,7 +69,7 @@
         // height: variables.$nav-height - 28px;
         display: inline-flex;
         align-items: center;
-        border-bottom-width: 0;
+        border-bottom-width: 0px;
         // padding: {
         //     left: 12px;
         //     right: 12px;
@@ -182,8 +182,7 @@
         text-align: left;
         border-left: variables.$nav-vertical-border-left-empty;
         // set border width as 0
-        border-bottom-width: 0;
-        &.nav-active,
+        border-bottom-width: 0px;
         &.active,
         &:hover,
         &:focus,

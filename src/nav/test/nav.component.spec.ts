@@ -2,7 +2,7 @@ import { bypassSanitizeProvider, dispatchFakeEvent, injectDefaultSvgIconSet } fr
 import { Subject } from 'rxjs';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { Component, DebugElement, ElementRef, inject, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -168,11 +168,11 @@ describe(`thy-nav`, () => {
             const link2: HTMLElement = links[1].nativeElement;
             expect(activeLink.textContent).toContain('Link1');
             expect(activeLink.classList.contains(NAV_LINK_CLASS)).toEqual(true);
-            expect(activeLink.classList.contains('nav-active')).toEqual(true);
+            expect(activeLink.classList.contains('active')).toEqual(true);
 
             expect(link2.textContent).toContain('Link2');
             expect(link2.classList.contains(NAV_LINK_CLASS)).toEqual(true);
-            expect(link2.classList.contains('nav-active')).toEqual(false);
+            expect(link2.classList.contains('active')).toEqual(false);
         });
 
         it(`should set extra success`, () => {
@@ -283,7 +283,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(moreBtn.nativeElement.classList.contains('nav-active')).toBeTruthy();
+            expect(moreBtn.nativeElement.classList.contains('active')).toBeTruthy();
         }));
 
         it('should active moreBtn when hidden link router is active', fakeAsync(() => {
@@ -303,7 +303,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(moreBtn.nativeElement.classList.contains('nav-active')).toBeTruthy();
+            expect(moreBtn.nativeElement.classList.contains('active')).toBeTruthy();
         }));
 
         it('should show more when responsive and overflow in vertical direction', fakeAsync(() => {
