@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.4](https://github.com/atinc/ngx-tethys/compare/14.0.3...14.0.4) (2022-09-01)
+
+
+### Bug Fixes
+
+* **button:** adjust the padding of button-icon (#INFR-4524) ([0347ce7](https://github.com/atinc/ngx-tethys/commit/0347ce74267003fbb78d5c1cb377b35c43feb07a)), closes [#INFR-4524](https://github.com/atinc/ngx-tethys/issues/INFR-4524)
+* **nav:** add class to origin when open more popover ([#2164](https://github.com/atinc/ngx-tethys/issues/2164)) ([0140a3a](https://github.com/atinc/ngx-tethys/commit/0140a3a7e53d5beb8dce69183403015c72250940))
+* **popover:** add padding offset by placement and remove margin for dropdown-pane #INFR-4536 ([#2166](https://github.com/atinc/ngx-tethys/issues/2166)) ([d2624f2](https://github.com/atinc/ngx-tethys/commit/d2624f2a467bce8a43ca616d38787b2e4f2583d2)), closes [#INFR-4536](https://github.com/atinc/ngx-tethys/issues/INFR-4536)
+* **property:** update padding-right to 16px for thy-properties-item-label ([23435d9](https://github.com/atinc/ngx-tethys/commit/23435d9b021b15e3e4525bbde8e1232e4f1f8aef))
+
+
+### Features
+
+* **button:** add new size md and update sm to 28px (#INFR-4501) ([#2157](https://github.com/atinc/ngx-tethys/issues/2157)) ([a367779](https://github.com/atinc/ngx-tethys/commit/a36777999ed0c5dfcaaa4da50fe5322ae0b2542a)), closes [#INFR-4501](https://github.com/atinc/ngx-tethys/issues/INFR-4501)
+* **tag:** modify tag component border-radius to 4px (#INFR-4518) ([#2156](https://github.com/atinc/ngx-tethys/issues/2156)) ([c805f48](https://github.com/atinc/ngx-tethys/commit/c805f48222c9c798c79e3d92aafaaca13fb2e3a7)), closes [#INFR-4518](https://github.com/atinc/ngx-tethys/issues/INFR-4518)
+* **upload:** update thyFileDrop component to directive #INFR-4529 ([7de2a37](https://github.com/atinc/ngx-tethys/commit/7de2a370cf11f8441407ae77cc2770933dea0747)), closes [#INFR-4529](https://github.com/atinc/ngx-tethys/issues/INFR-4529)
+
+
+### Reverts
+
+* Revert "fix(nav): replace nav component active-class 'active' to 'nav-active' #INFR-4482 (#2143)" ([9a40be1](https://github.com/atinc/ngx-tethys/commit/9a40be18aec1d49060345cf0b5137d8b79ec4073)), closes [#INFR-4482](https://github.com/atinc/ngx-tethys/issues/INFR-4482) [#2143](https://github.com/atinc/ngx-tethys/issues/2143)
+
+
+
 ## [14.0.3](https://github.com/atinc/ngx-tethys/compare/14.0.2...14.0.3) (2022-08-31)
 
 
