@@ -4,6 +4,7 @@ import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
+import { helpers } from 'ngx-tethys/util';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -58,6 +59,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {});
             });
+            this.el.nativeElement.setAttribute('watermark-id', helpers.getUUID(8));
             this.createWatermark();
         }
     }
@@ -84,8 +86,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private removeWatermark() {
-        const __wm = this.el.nativeElement.querySelector(`._vm`);
-        if (__wm && __wm.parentNode === this.el.nativeElement) {
+        const key = this.el.nativeElement.getAttribute('watermark-id');
+        const __wm = this.el.nativeElement.querySelector(`._vm${key}`);
+        if (__wm) {
             this.el.nativeElement.removeChild(__wm);
         }
     }
@@ -146,7 +149,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private createWatermark(isRefresh = true) {
-        const __wm = this.el.nativeElement.querySelector(`._vm`);
+        const key = this.el.nativeElement.getAttribute('watermark-id');
+        const __wm = this.el.nativeElement.querySelector(`._vm${key}`);
         const watermarkDiv = __wm || document.createElement('div');
 
         const background = !isRefresh ? this.canvas.toDataURL() : this.createCanvas().toDataURL();
@@ -160,7 +164,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
         if (!__wm) {
             const parentNode = this.el.nativeElement;
-            watermarkDiv.classList.add(`_vm`);
+            const key = parentNode.getAttribute('watermark-id');
+            watermarkDiv.classList.add(`_vm${key}`, '_vm');
             parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
         }
         this.createWatermark$.next('');
@@ -173,7 +178,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
             const parentNode = this.el.nativeElement;
             if (this.observer) {
-                const __wm = parentNode.querySelector(`._vm`);
+                const key = parentNode.getAttribute('watermark-id');
+                const __wm = parentNode.querySelector(`._vm${key}`);
 
                 this.observer.observe(__wm, {
                     attributes: true
@@ -181,7 +187,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             }
             stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 const parentNode = this.el.nativeElement;
-                const __wm = parentNode.querySelector(`._vm`);
+                const key = parentNode.getAttribute('watermark-id');
+                const __wm = parentNode.querySelector(`._vm${key}`);
                 if (__wm) {
                     this?.observer?.disconnect();
                     this.createWatermark(false);
