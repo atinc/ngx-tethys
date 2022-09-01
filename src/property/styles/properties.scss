@@ -21,7 +21,7 @@
             .thy-properties-item-label {
                 width: variables.$property-item-horizontal-label-width;
                 min-height: variables.$property-item-min-height;
-                padding-right: 2 * variables.$property-item-padding-x;
+                padding-right: variables.$property-item-padding-x;
                 span {
                     line-height: variables.$property-item-min-height;
                 }
@@ -55,7 +55,7 @@
         width: 100%;
         table-layout: fixed;
         td {
-            padding: variables.$property-item-padding-y variables.$property-item-padding-x;
+            padding: variables.$property-item-padding-y variables.$property-item-padding-x variables.$property-item-padding-y 0;
         }
     }
 
@@ -72,9 +72,9 @@
         }
 
         .thy-properties-item-content-editor {
-            width: 100%;
             display: none;
             margin-left: variables.$property-item-editor-offset;
+            width: calc(100% - variables.$property-item-editor-offset);
         }
 
         &-editing {
