@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.5](https://github.com/atinc/ngx-tethys/compare/14.0.4...14.0.5) (2022-09-01)
+
+
+### Bug Fixes
+
+* **property:** update property-item-padding-x to 16px and only set td padding-left to 0px ([1f5e0be](https://github.com/atinc/ngx-tethys/commit/1f5e0be4424c57d64222fd506c60cfd0583f1fb8))
+
+
+
 ## [14.0.4](https://github.com/atinc/ngx-tethys/compare/14.0.3...14.0.4) (2022-09-01)
 
 
