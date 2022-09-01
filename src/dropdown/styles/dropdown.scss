@@ -2,13 +2,6 @@
 @use "../../styles/mixins/shadow.scss";
 @use "mixin";
 
-.thy-dropdown-pane {
-    .thy-popover-container {
-        margin-top: 4px;
-        margin-bottom: 4px;
-    }
-}
-
 .thy-dropdown-menu {
     padding: variables.$dropdown-menu-padding-y 0;
     display: block;

@@ -1,8 +1,31 @@
 @use "../styles/variables.scss";
 @use "../styles/mixins/shadow.scss";
 
+$offset: 4px;
 .thy-popover-panel {
-    padding: 4px;
+    &.thy-popover-topLeft,
+    &.thy-popover-topRight,
+    &.thy-popover-top {
+        padding-bottom: $offset;
+    }
+
+    &.thy-popover-bottomLeft,
+    &.thy-popover-bottomRight,
+    &.thy-popover-bottom {
+        padding-top: $offset;
+    }
+
+    &.thy-popover-left,
+    &.thy-popover-leftTop,
+    &.thy-popover-leftBottom {
+        padding-right: $offset;
+    }
+
+    &.thy-popover-right,
+    &.thy-popover-rightTop,
+    &.thy-popover-rightBottom {
+        padding-left: $offset;
+    }
 }
 
 .thy-popover-container {
