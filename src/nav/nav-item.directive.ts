@@ -27,7 +27,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     selector: '[thyNavLink],[thyNavItem]',
     host: {
         class: 'thy-nav-item',
-        '[class.nav-active]': 'thyNavItemActive || thyNavLinkActive',
+        '[class.active]': 'thyNavItemActive || thyNavLinkActive',
         '[class.disabled]': 'thyNavItemDisabled'
     }
 })
