@@ -135,6 +135,7 @@
 .btn-icon-light {
     color: variables.$btn-icon-light-color;
 }
+
 .btn-icon-xs {
     @include mixin.btn-icon-size-variant(
         variables.$font-size-base,
@@ -160,11 +161,12 @@
         @include mixin.btn-icon-circle-active(variables.$primary, variables.$btn-icon-circle-padding-sm);
     }
 }
+
 .btn-icon-md {
     @include mixin.btn-icon-size-variant(
-        variables.$font-size-base,
-        variables.$btn-icon-circle-padding-base,
-        variables.$font-size-base,
+        variables.$font-size-md,
+        variables.$btn-icon-circle-padding-md,
+        variables.$font-size-md,
         variables.$input-btn-height-md
     );
     &.btn-icon-circle.active,
