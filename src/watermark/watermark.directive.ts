@@ -44,10 +44,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
 
     private observer: MutationObserver;
 
-    canvas: HTMLCanvasElement;
-    canvasContext: CanvasRenderingContext2D;
+    private canvas: HTMLCanvasElement;
 
-    _wm: HTMLElement;
+    private wmDiv: HTMLElement;
 
     constructor(private el: ElementRef) {
         super();
@@ -86,9 +85,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private removeWatermark() {
-        if (this._wm) {
-            this._wm.remove();
-            this._wm = null;
+        if (this.wmDiv) {
+            this.wmDiv.remove();
+            this.wmDiv = null;
         }
     }
 
@@ -148,7 +147,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private createWatermark(isRefresh = true) {
-        const watermarkDiv = this._wm || document.createElement('div');
+        const watermarkDiv = this.wmDiv || document.createElement('div');
 
         const background = !isRefresh ? this.canvas.toDataURL() : this.createCanvas().toDataURL();
         const watermarkStyle = {
@@ -159,10 +158,10 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const styleStr = Object.keys(watermarkStyle).reduce((pre, next) => ((pre += `${next}:${watermarkStyle[next]};`), pre), '');
         watermarkDiv.setAttribute('style', styleStr);
 
-        if (!this._wm) {
+        if (!this.wmDiv) {
             const parentNode = this.el.nativeElement;
             watermarkDiv.classList.add(`_vm`);
-            this._wm = watermarkDiv;
+            this.wmDiv = watermarkDiv;
             parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
         }
         this.createWatermark$.next('');
@@ -174,12 +173,12 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
             const stream = new Subject<MutationRecord[]>();
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
             if (this.observer) {
-                this.observer.observe(this._wm, {
+                this.observer.observe(this.wmDiv, {
                     attributes: true
                 });
             }
             stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
-                if (this._wm) {
+                if (this.wmDiv) {
                     this?.observer?.disconnect();
                     this.createWatermark(false);
                 }
