@@ -47,6 +47,8 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     canvas: HTMLCanvasElement;
     canvasContext: CanvasRenderingContext2D;
 
+    _wm: HTMLElement;
+
     constructor(private el: ElementRef) {
         super();
     }
@@ -84,9 +86,9 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private removeWatermark() {
-        const __wm = this.el.nativeElement.querySelector(`._vm`);
-        if (__wm && __wm.parentNode === this.el.nativeElement) {
-            this.el.nativeElement.removeChild(__wm);
+        if (this._wm) {
+            this._wm.remove();
+            this._wm = null;
         }
     }
 
@@ -146,8 +148,7 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
     }
 
     private createWatermark(isRefresh = true) {
-        const __wm = this.el.nativeElement.querySelector(`._vm`);
-        const watermarkDiv = __wm || document.createElement('div');
+        const watermarkDiv = this._wm || document.createElement('div');
 
         const background = !isRefresh ? this.canvas.toDataURL() : this.createCanvas().toDataURL();
         const watermarkStyle = {
@@ -158,9 +159,10 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         const styleStr = Object.keys(watermarkStyle).reduce((pre, next) => ((pre += `${next}:${watermarkStyle[next]};`), pre), '');
         watermarkDiv.setAttribute('style', styleStr);
 
-        if (!__wm) {
+        if (!this._wm) {
             const parentNode = this.el.nativeElement;
             watermarkDiv.classList.add(`_vm`);
+            this._wm = watermarkDiv;
             parentNode.insertBefore(watermarkDiv, parentNode.firstChild);
         }
         this.createWatermark$.next('');
@@ -171,18 +173,13 @@ export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestr
         return new Observable(observe => {
             const stream = new Subject<MutationRecord[]>();
             this.observer = new MutationObserverFactory().create(mutations => stream.next(mutations));
-            const parentNode = this.el.nativeElement;
             if (this.observer) {
-                const __wm = parentNode.querySelector(`._vm`);
-
-                this.observer.observe(__wm, {
+                this.observer.observe(this._wm, {
                     attributes: true
                 });
             }
             stream.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
-                const parentNode = this.el.nativeElement;
-                const __wm = parentNode.querySelector(`._vm`);
-                if (__wm) {
+                if (this._wm) {
                     this?.observer?.disconnect();
                     this.createWatermark(false);
                 }
