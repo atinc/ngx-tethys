@@ -184,7 +184,7 @@ describe('thy-badge', () => {
         });
 
         it('thyType, should set type success', () => {
-            ['primary', 'warning', 'secondary', 'danger'].forEach(type => {
+            ['primary', 'warning', 'default', 'secondary', 'danger'].forEach(type => {
                 testComponent.type = type;
                 fixture.detectChanges();
                 const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');

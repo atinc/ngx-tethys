@@ -4,8 +4,8 @@ import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const badgeMutexTypes = ['thy-badge-count', 'thy-badge-dot', 'thy-badge-hollow'];
-const BadgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-secondary'];
-const BadgeMutexSize = ['thy-badge-lg', 'thy-badge-sm'];
+const badgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-default', 'thy-badge-secondary'];
+const badgeMutexSize = ['thy-badge-lg', 'thy-badge-sm'];
 
 /**
  * 徽标组件，支持组件`thy-badge`和`thyBadge`指令两种使用方式
@@ -35,6 +35,7 @@ export class ThyBadgeComponent implements OnInit {
         'thy-badge-primary': false,
         'thy-badge-warning': false,
         'thy-badge-secondary': false,
+        'thy-badge-default': false,
         'thy-badge-sup': true
     };
 
@@ -80,7 +81,7 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thyType(value: string) {
-        this.resetBadgeClassNameMap(BadgeMutexTheme);
+        this.resetBadgeClassNameMap(badgeMutexTheme);
         switch (value) {
             case 'danger':
                 this.badgeClassNameMap['thy-badge-danger'] = true;
@@ -90,6 +91,9 @@ export class ThyBadgeComponent implements OnInit {
                 break;
             case 'warning':
                 this.badgeClassNameMap['thy-badge-warning'] = true;
+                break;
+            case 'default':
+                this.badgeClassNameMap['thy-badge-default'] = true;
                 break;
             case 'secondary':
                 this.badgeClassNameMap['thy-badge-secondary'] = true;
@@ -158,7 +162,7 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thySize(value: string) {
-        this.resetBadgeClassNameMap(BadgeMutexSize);
+        this.resetBadgeClassNameMap(badgeMutexSize);
         switch (value) {
             case 'lg':
                 this.badgeClassNameMap['thy-badge-lg'] = true;
@@ -222,7 +226,7 @@ export class ThyBadgeComponent implements OnInit {
     @Input()
     set thyBackgroundColor(value: string) {
         this.backgroundColor = value;
-        this.resetBadgeClassNameMap(BadgeMutexTheme);
+        this.resetBadgeClassNameMap(badgeMutexTheme);
     }
 
     ngOnInit() {

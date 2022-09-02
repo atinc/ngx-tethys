@@ -75,6 +75,18 @@
     }
 }
 
+.thy-badge-default {
+    @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
+    &.thy-badge-dot {
+        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
+    }
+    &.thy-badge-hollow {
+        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
+        background-color: transparent;
+    }
+}
+
+// 使用 thy-badge-default，暂时没有去除
 .thy-badge-secondary {
     @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
     &.thy-badge-dot {
