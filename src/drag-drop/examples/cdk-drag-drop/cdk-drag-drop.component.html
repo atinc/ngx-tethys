@@ -1,18 +1,6 @@
-<thy-list cdkDropList thyDragDrop>
-  <thy-list-item class="active" cdkDrag>
+<thy-list cdkDropList thyDragDrop (cdkDropListDropped)="drop($event)">
+  <thy-list-item cdkDrag *ngFor="let item of nodes">
     <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-    Item 1
-  </thy-list-item>
-  <thy-list-item cdkDrag>
-    <thy-icon thyIconName="drag" class="drag-handle" cdkDragHandle></thy-icon>
-    Item 2
-  </thy-list-item>
-  <thy-list-item cdkDrag>
-    <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-    Item 3
-  </thy-list-item>
-  <thy-list-item cdkDrag>
-    <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
-    Item 4
+    {{ item }}
   </thy-list-item>
 </thy-list>

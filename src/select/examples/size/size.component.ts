@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { listOfOption } from '../mock-data';
 
 @Component({
     selector: 'thy-select-size-example',
@@ -13,9 +14,9 @@ import { Component, OnInit } from '@angular/core';
     ]
 })
 export class ThySelectSizeExampleComponent implements OnInit {
-    listOfOption: Array<{ label: string; value: string }> = [];
+    listOfOption = listOfOption;
 
-    listOfSelectedValue = ['a10', 'b11'];
+    listOfSelectedValue = ['option1', 'option2'];
 
     selectSizes = [
         {
@@ -38,11 +39,5 @@ export class ThySelectSizeExampleComponent implements OnInit {
 
     currentSize = this.selectSizes[2];
 
-    ngOnInit() {
-        const children: Array<{ label: string; value: string }> = [];
-        for (let i = 10; i < 36; i++) {
-            children.push({ label: i.toString(36) + i, value: i.toString(36) + i });
-        }
-        this.listOfOption = children;
-    }
+    ngOnInit() {}
 }

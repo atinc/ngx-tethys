@@ -135,10 +135,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     get previewImage(): InternalImageInfo {
         const image = this.images[this.previewIndex];
         if (image.size) {
-            return {
-                ...image,
-                size: isNumber(image.size) ? humanizeBytes(image.size) : image.size
-            };
+            image.size = isNumber(image.size) ? humanizeBytes(image.size) : image.size;
         }
         return image;
     }

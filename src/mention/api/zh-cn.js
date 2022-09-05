@@ -40,6 +40,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'limit',
+                description: '限制最大显示多少条数据',
+                type: 'number',
+                default: ''
+            },
+            {
                 name: 'suggestionsTemplateRef',
                 description: 'Mention 列表自定义模版',
                 type: 'TemplateRef<{ data: Array<Item> }>',

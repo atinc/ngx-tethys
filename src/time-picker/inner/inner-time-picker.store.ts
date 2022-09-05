@@ -27,6 +27,9 @@ export const initialState: TimePickerState = {
     }
 };
 
+/**
+ * @internal
+ */
 @Injectable()
 export class ThyTimePickerStore extends MiniStore<TimePickerState> {
     constructor() {

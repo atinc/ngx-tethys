@@ -1,21 +1,36 @@
 @use "../../styles/variables.scss";
 
+@mixin _displayItemEditor {
+    .thy-properties-item-content-text {
+        display: none;
+    }
+    .thy-properties-item-content-editor {
+        display: block;
+    }
+}
+
 .thy-properties {
+    display: block;
     width: 100%;
 
     &.thy-properties-horizontal {
         .thy-properties-item-container {
             width: 100%;
-            min-height: variables.$property-item-min-height;
             display: flex;
-            align-items: center;
 
             .thy-properties-item-label {
-                width: 25%;
+                width: variables.$property-item-horizontal-label-width;
+                min-height: variables.$property-item-min-height;
+                padding-right: variables.$property-item-padding-x;
+                span {
+                    line-height: variables.$property-item-min-height;
+                }
             }
 
             .thy-properties-item-content {
                 flex: 1;
+                display: flex;
+                align-items: center;
             }
         }
     }
@@ -28,11 +43,19 @@
         }
     }
 
+    &.thy-properties-edit-trigger-hover {
+        .thy-properties-item-content-editable {
+            &:hover {
+                @include _displayItemEditor();
+            }
+        }
+    }
+
     table {
         width: 100%;
         table-layout: fixed;
         td {
-            padding: variables.$property-item-padding;
+            padding: variables.$property-item-padding-y variables.$property-item-padding-x variables.$property-item-padding-y 0;
         }
     }
 
@@ -41,20 +64,21 @@
     }
 
     .thy-properties-item-content {
+        width: 100%;
         color: variables.$property-item-content-color;
+
+        .thy-properties-item-content-text {
+            width: 100%;
+        }
 
         .thy-properties-item-content-editor {
             display: none;
+            margin-left: variables.$property-item-editor-offset;
+            width: calc(100% - variables.$property-item-editor-offset);
         }
 
         &-editing {
-            .thy-properties-item-content-text {
-                display: none;
-            }
-
-            .thy-properties-item-content-editor {
-                display: inline-block;
-            }
+            @include _displayItemEditor();
         }
     }
 }

@@ -5,3 +5,11 @@ export type ThyThemeColor = typeof presetThemeColors[number];
 export function isThemeColor(color: ThyThemeColor | string): boolean {
     return presetThemeColors.includes(color as ThyThemeColor);
 }
+
+export const presetTextColors = ['secondary', 'muted', 'desc', 'placeholder'] as const;
+
+export type ThyTextColor = typeof presetTextColors[number];
+
+export function isTextColor(color: ThyTextColor | string): boolean {
+    return presetTextColors.includes(color as ThyTextColor);
+}

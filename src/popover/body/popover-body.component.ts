@@ -1,10 +1,16 @@
-import { Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
+/**
+ * 悬浮层内容组件
+ * @name thy-popover-body
+ */
 @Component({
     selector: 'thy-popover-body',
     template: '<ng-content></ng-content>',
-    exportAs: 'thyPopoverBody'
+    exportAs: 'thyPopoverBody',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'thy-popover-body'
+    }
 })
-export class ThyPopoverBodyComponent {
-    @HostBinding('class.thy-popover-body') isPopoverBody = true;
-}
+export class ThyPopoverBodyComponent {}

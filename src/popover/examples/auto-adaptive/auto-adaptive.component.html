@@ -1,14 +1,3 @@
-<div class="demo-buttons d-flex mt-3">
-  <button thyButton="secondary" thySize="md" (click)="openPopoverAsyncFetchData($event)">
-    Open
-  </button>
-  <button
-    thyButton="primary"
-    [thyPopover]="contentComponent"
-    [thyPlacement]="config.placement"
-    [thyConfig]="config"
-    [thyAutoAdaptive]="true"
-  >
-    Open directive
-  </button>
-</div>
+<button thyButton="primary" (click)="openPopover($event)">
+  Open Popover
+</button>

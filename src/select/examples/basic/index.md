@@ -1,4 +1,4 @@
 ---
 title: thy-select
-order: 71
+order: 100
 ---

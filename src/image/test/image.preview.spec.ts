@@ -332,4 +332,18 @@ describe('image-preview', () => {
             });
         })
     );
+
+    it('should set correctly objectURL when src is blob image', () => {
+        basicTestComponent.images = [
+            {
+                src: 'blob:http://at.pingcode.local:15000/51e61005-175f-46de-a79e-9cdc79f57801'
+            }
+        ];
+        fixture.detectChanges();
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+        fixture.detectChanges();
+
+        expect(basicTestComponent.images[0].objectURL).toBeTruthy();
+    });
 });

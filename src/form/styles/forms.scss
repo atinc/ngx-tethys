@@ -388,7 +388,7 @@
     &::before {
         content: '*';
         color: variables.$danger;
-        margin-right: 3px;
+        margin-right: 4px;
         position: relative;
         top: 3px;
     }
@@ -401,7 +401,7 @@
         &::after {
             content: '*';
             color: variables.$danger;
-            margin-left: 3px;
+            margin-left: 4px;
             position: relative;
             top: 3px;
         }
@@ -468,7 +468,7 @@
             &::after {
                 content: '*';
                 color: variables.$danger;
-                margin-left: 3px;
+                margin-left: 4px;
                 position: relative;
                 top: 0px;
             }

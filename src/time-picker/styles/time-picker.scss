@@ -1,0 +1,46 @@
+@use "../../styles/variables";
+@use './variables.scss' as vars;
+
+.#{vars.$time-picker-prefix-cls} {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    &-wrapper {
+        position: relative;
+    }
+    &-input {
+        outline: none;
+        padding-right: 38px;
+    }
+    &-icon,
+    &-clear {
+        position: absolute;
+        right: vars.$time-picker-icon-margin-right;
+        top: 50%;
+        transform: translateY(-50%);
+        transition: opacity 0.3s;
+        user-select: none;
+    }
+    &-icon {
+        color: variables.$gray-400;
+        pointer-events: none;
+    }
+    &-clear {
+        opacity: 0;
+    }
+    &:hover &-clear {
+        opacity: 1;
+    }
+    &:hover &-clear + &-icon {
+        opacity: 0;
+    }
+    &-disabled:hover,
+    &-readonly:hover {
+        .form-control {
+            border-color: variables.$input-border-color;
+        }
+        .#{vars.$time-picker-prefix-cls}-icon {
+            opacity: 1;
+        }
+    }
+}

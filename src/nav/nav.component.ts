@@ -348,7 +348,8 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
             backdropClosable: true,
             insideClosable: true,
             placement: 'bottom',
-            panelClass: 'thy-nav-list-popover'
+            panelClass: 'thy-nav-list-popover',
+            originActiveClass: 'thy-nav-origin-active'
         });
     }
 

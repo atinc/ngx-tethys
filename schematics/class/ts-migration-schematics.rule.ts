@@ -11,7 +11,7 @@ import ts from 'typescript';
 import * as path from 'path';
 import { ClassType } from '../types';
 
-export function TsMigrationSchematicsRule(
+export function migrationSchematicsRule(
     migrationList: ClassType<MigrationBase>[],
     compilerHostHook?: (compilerHost: ts.CompilerHost) => ts.CompilerHost
 ): Rule {

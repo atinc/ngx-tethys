@@ -9,7 +9,6 @@ import { ThyGridBasicExampleComponent } from './basic/basic.component';
 @NgModule({
     imports: [CommonModule, ThyGridModule, ThySharedModule],
     declarations: [ThyGridBasicExampleComponent],
-    exports: [ThyGridBasicExampleComponent],
-    entryComponents: [ThyGridBasicExampleComponent]
+    exports: [ThyGridBasicExampleComponent]
 })
 export class ThyGridExamplesModule {}

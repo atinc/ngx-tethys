@@ -12,7 +12,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService, mixinInitialized, ThyInitialized, Constructor, MixinBase } from 'ngx-tethys/core';
-import { InputSize } from './input.directive';
+import { ThyInputSize } from './input.directive';
 
 export type ThyInputSearchTheme = 'ellipse' | '';
 export type ThyInputSearchIconPosition = 'before' | 'after';
@@ -67,7 +67,7 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
         this.updateClasses();
     }
 
-    @Input() thySize: InputSize;
+    @Input() thySize: ThyInputSize;
 
     /**
      * @deprecated please use thyClear

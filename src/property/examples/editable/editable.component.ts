@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { ThyDialog } from 'ngx-tethys/dialog';
+
+import { Component, OnInit, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'thy-property-editable-example',
@@ -9,12 +11,21 @@ import { Component, OnInit } from '@angular/core';
 export class ThyPropertyEditableExampleComponent implements OnInit {
     user = {
         name: '张萌',
-        phone: '18500010001',
+        phone: 18800010001,
         age: 24,
-        address: '北京市朝阳区十八里店小区26号10001'
+        birth_date: 1234567890,
+        address: '北京市朝阳区十八里店小区26号10001',
+        likes: ['羽毛球'],
+        sex: '女',
+        profession: '教师',
+        punch_time: 1234567890
     };
 
-    constructor() {}
+    constructor(public thyDialog: ThyDialog) {}
 
     ngOnInit() {}
+
+    openTemplateDialog(template: TemplateRef<any>) {
+        this.thyDialog.open(template);
+    }
 }

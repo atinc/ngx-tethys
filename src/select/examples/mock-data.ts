@@ -19,3 +19,11 @@ export const taskTypes = [
         _id: '5b0527cfc8f2ff200a33d4b1'
     }
 ];
+
+export const listOfOption = [
+    { value: 'option1', text: '选项一' },
+    { value: 'option2', text: '选项二' },
+    { value: 'option3', text: '选项三' },
+    { value: 'option4', text: '选项四' },
+    { value: 'option5', text: '选项五' }
+];
