@@ -1,130 +1,61 @@
-import {
-    Component,
-    OnInit,
-    Input,
-    Inject,
-    PLATFORM_ID,
-    SimpleChanges,
-    OnChanges,
-    HostBinding,
-    TemplateRef,
-    ContentChild
-} from '@angular/core';
-import { generateRandomStr } from 'ngx-tethys/util';
-import { isPlatformBrowser } from '@angular/common';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton',
-    templateUrl: './skeleton.component.html'
+    template: `
+        <ng-content></ng-content>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonComponent implements OnInit, OnChanges {
-    @HostBinding('class.thy-skeleton') addSkeletonClass = true;
+export class ThySkeletonComponent {
+    /**
+     * 段落首行长度
+     */
+    @Input() thyFirstWidth: string;
 
-    @Input() thyAnimate = true;
+    /**
+     * 段落尾行长度
+     */
+    @Input() thyLastWidth: string;
 
-    @Input() thyBaseUrl = '';
+    /**
+     * 是否开启动画
+     */
+    @Input() thyAnimated: boolean;
 
-    @Input() thyWidth: string | number = '100%';
+    /**
+     * 动画速度
+     */
+    @Input() thyAnimatedSpeed: string;
 
-    @Input() thyHeight: string | number = '100%';
+    /**
+     * 骨架主色调
+     */
+    @Input() thyPrimaryColor: string;
 
-    @Input() thyViewBoxWidth: string | number = 400;
+    /**
+     * 骨架次色调
+     */
+    @Input() thySecondaryColor: string;
 
-    @Input() thyViewBoxHeight: string | number = 130;
+    /**
+     * rectangle类型圆角尺寸
+     */
+    @Input() thyBorderRadius: string;
 
-    @Input() thySpeed = 2;
+    /**
+     * rectangle类型长度
+     */
+    @Input() thyWidth: string;
 
-    @Input() thyPreserveAspectRatio = 'none'; // xMidYMid meet
+    /**
+     * rectangle类型高度
+     */
+    @Input() thyHeight: string;
 
-    @Input() thyPrimaryColor = '#f0f0f0';
-
-    @Input() thySecondaryColor = '#e0e0e0';
-
-    @Input() thyPrimaryOpacity = 1;
-
-    @Input() thySecondaryOpacity = 1;
-
-    @Input() thyUniqueKey: string;
-
-    @Input() thyRtl: string;
-
-    @Input() thyStyle: { [key: string]: string };
-
-    @Input() thyIgnoreBaseUrl = false;
-
-    @Input() thyLoadingDone = false;
-
-    @ContentChild('content')
-    customTemplate: TemplateRef<any>;
-
-    contentTemplates: TemplateRef<any>[] = [];
-
-    idClip = generateRandomStr();
-
-    idGradient = generateRandomStr();
-
-    defaultAnimation = ['-3; 1', '-2; 2', '-1; 3'];
-
-    rtlAnimation = ['1; -3', '2; -2', '3; -1'];
-
-    animationValues: string[];
-
-    fillStyle: { fill: string };
-
-    clipPath: string;
-
-    constructor(@Inject(PLATFORM_ID) private platformId: string) {}
-
-    ngOnInit() {
-        this.animationValues = this.thyRtl ? this.rtlAnimation : this.defaultAnimation;
-
-        if (this.thyBaseUrl === '' && !this.thyIgnoreBaseUrl && isPlatformBrowser(this.platformId)) {
-            this.thyBaseUrl = window.location.pathname;
-        }
-
-        this.setFillStyle();
-        this.setClipPath();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['thyBaseUrl']) {
-            if (changes['thyBaseUrl'].previousValue !== changes['thyBaseUrl'].currentValue) {
-                this.setFillStyle();
-                this.setClipPath();
-            }
-        }
-    }
-
-    setFillStyle() {
-        this.fillStyle = {
-            fill: `url(${this.thyBaseUrl}#${this.idGradient})`
-        };
-    }
-
-    setClipPath() {
-        this.clipPath = `url(${this.thyBaseUrl}#${this.idClip})`;
-    }
-
-    assignInputProperties(input: ThySkeletonComponent) {
-        this.thyAnimate = input.thyAnimate;
-        this.thyBaseUrl = input.thyBaseUrl;
-        this.thyHeight = input.thyHeight;
-        this.thyWidth = input.thyWidth;
-        this.thyViewBoxHeight = input.thyViewBoxHeight;
-        this.thyViewBoxWidth = input.thyViewBoxWidth;
-        this.thyPreserveAspectRatio = input.thyPreserveAspectRatio;
-        this.thyPrimaryColor = input.thyPrimaryColor;
-        this.thyPrimaryOpacity = input.thyPrimaryOpacity;
-        this.thySecondaryColor = input.thySecondaryColor;
-        this.thySecondaryOpacity = input.thySecondaryOpacity;
-        this.thyRtl = this.thyRtl;
-        this.thySpeed = this.thySpeed;
-        this.thyUniqueKey = this.thyUniqueKey;
-    }
-
-    addTemplate(template: TemplateRef<any>) {
-        if (template) {
-            this.contentTemplates.push(template);
-        }
-    }
+    /**
+     * circle类型骨架尺寸
+     */
+    @Input() thySize: string;
 }

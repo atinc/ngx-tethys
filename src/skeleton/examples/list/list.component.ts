@@ -1,10 +1,13 @@
-import { OnInit, Component } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-list',
-    templateUrl: './list.component.html'
+    selector: 'thy-skeleton-example-list',
+    template: `
+        <thy-skeleton-list thyRows="3" thySections="2" thyBorderRadius="5px" thyWidth="80%"> </thy-skeleton-list>
+    `
 })
-export class ThySkeletonListExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
-    ngOnInit(): void {}
+export class ThySkeletonExampleListComponent implements OnInit {
+    constructor() {}
+
+    ngOnInit() {}
 }

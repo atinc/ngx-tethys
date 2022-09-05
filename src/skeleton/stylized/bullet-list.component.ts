@@ -1,49 +1,119 @@
-import { Component, Input, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { ThySkeletonComponent } from '../skeleton.component';
-
-interface BulletListItem {
-    circle: { cx: number; cy: number; r: number };
-    rect: { x: number; y: number; rx: number; ry: number; width: number | string; height: number | string };
-}
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-bullet-list-template',
+    selector: 'thy-skeleton-bullet-list',
     template: `
-        <ng-template #content>
-            <ng-container *ngFor="let item of items">
-                <svg:circle [attr.cx]="item.circle.cx" [attr.cy]="item.circle.cy" r="8" />
-                <svg:rect [attr.x]="item.rect.x" [attr.y]="item.rect.y" rx="5" ry="5" width="90%" height="10" />
+        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass">
+            <ng-container *ngFor="let item of rowsCount">
+                <div class="d-flex" [ngClass]="thyItemClass">
+                    <thy-skeleton-circle
+                        [thyAnimated]="thyAnimated"
+                        [thyAnimatedSpeed]="thyAnimatedSpeed"
+                        [thySize]="thySize"
+                        [ngClass]="thyCircleClass"
+                        [thyPrimaryColor]="thyPrimaryColor"
+                        [thySecondaryColor]="thySecondaryColor"
+                    >
+                    </thy-skeleton-circle>
+                    <div [ngClass]="thyGutter"></div>
+                    <thy-skeleton-rectangle
+                        [ngClass]="thyRectangleClass"
+                        [thyWidth]="thyWidth"
+                        [thyHeight]="thyHeight"
+                        [thyAnimated]="thyAnimated"
+                        [thyPrimaryColor]="thyPrimaryColor"
+                        [thySecondaryColor]="thySecondaryColor"
+                        [thyBorderRadius]="thyBorderRadius"
+                        [thyAnimatedSpeed]="thyAnimatedSpeed"
+                    ></thy-skeleton-rectangle>
+                </div>
             </ng-container>
-        </ng-template>
-    `
+        </div>
+    `,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonBulletListComponent implements OnInit {
-    @Input() thyCount = 5;
+export class ThySkeletonBulletListComponent {
+    /**
+     * 骨架宽度
+     */
+    @Input() thyWidth: string;
 
-    items: BulletListItem[] = [];
+    /**
+     * 骨架高度
+     */
+    @Input() thyHeight: string;
 
-    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
+    /**
+     * 骨架边框圆角
+     */
+    @Input() thyBorderRadius: string;
 
-    constructor(private skeletonComponent: ThySkeletonComponent) {}
+    /**
+     * 是否开启动画
+     */
+    @Input() thyAnimated: boolean = true;
 
-    ngOnInit() {
-        for (let i = 0; i <= this.thyCount; i++) {
-            this.items.push({
-                circle: {
-                    cx: 10,
-                    cy: i * 30 + 20,
-                    r: 8
-                },
-                rect: {
-                    x: 25,
-                    y: i * 2 * 15 + 15,
-                    rx: 5,
-                    ry: 5,
-                    width: '90%',
-                    height: 10
-                }
-            });
-        }
-        this.skeletonComponent.addTemplate(this.contentTemplateRef);
+    /**
+     * 动画速度
+     */
+    @Input() thyAnimatedSpeed: string;
+
+    /**
+     * 骨架主色
+     */
+    @Input() thyPrimaryColor: string;
+
+    /**
+     * 骨架次色
+     */
+    @Input() thySecondaryColor: string;
+
+    /**
+     * 骨架段落样式
+     */
+    @Input() thySectionClass: string = 'mb-4';
+
+    /**
+     * 骨架行样式
+     */
+    @Input() thyItemClass: string = 'mb-2';
+
+    /**
+     * circle类型骨架样式
+     */
+    @Input() thyCircleClass: string;
+
+    /**
+     * rectangle类型骨架样式
+     */
+    @Input() thyRectangleClass: string;
+
+    /**
+     * circle类型骨架尺寸
+     */
+    @Input() thySize: string;
+
+    /**
+     * 骨架间距样式
+     */
+    @Input() thyGutter: string = 'mr-2';
+
+    sectionCount: number[] = [1];
+    /**
+     * 段落数
+     */
+    @Input()
+    set thySections(value: number | string) {
+        this.sectionCount = Array.from({ length: +value });
+    }
+
+    rowsCount: number[] = [1];
+    /**
+     * 行数
+     */
+    @Input()
+    set thyRows(value: number | string) {
+        this.rowsCount = Array.from({ length: +value });
     }
 }

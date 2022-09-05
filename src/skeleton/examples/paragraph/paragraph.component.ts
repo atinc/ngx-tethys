@@ -1,28 +1,26 @@
-import { OnInit, Component } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-paragraph',
+    selector: 'thy-skeleton-example-paragraph',
     templateUrl: './paragraph.component.html'
 })
-export class ThySkeletonParagraphExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
-    params: {
-        width?: number | string;
-        height?: number | string;
-        viewBoxWidth?: number | string;
-        viewBoxHeight?: number | string;
-        primaryColor?: string;
-        secondaryColor?: string;
-        preserveAspectRatio?: string;
-    } = {
-        width: '100%',
-        height: '100%',
-        primaryColor: '#f0f0f0',
-        secondaryColor: '#e0e0e0',
-        viewBoxWidth: 400,
-        viewBoxHeight: 130,
-        preserveAspectRatio: 'none'
+export class ThySkeletonExampleParagraphComponent implements OnInit {
+    model = {
+        thyRows: 4,
+        thySections: 2,
+        thyFirstWidth: '33%',
+        thyLastWidth: '66%',
+        thyWidth: '100%',
+        thyHeight: '1rem',
+        thyBorderRadius: '4px',
+        thyPrimaryColor: '#cccccc',
+        thySecondaryColor: '#18a0e0',
+        thyAnimatedSpeed: 2,
+        thyAnimated: true,
+        thySectionClass: 'mb-4',
+        thyItemClass: 'mb-2 m3-1'
     };
+    constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit() {}
 }

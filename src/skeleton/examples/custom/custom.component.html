@@ -1,10 +1,17 @@
-<thy-skeleton class="skeleton-container">
-  <ng-template #content>
-    <svg:circle cx="30" cy="30" r="30" />
-    <svg:rect x="70" y="15" rx="4" ry="4" width="117" height="6" />
-    <svg:rect x="70" y="35" rx="3" ry="3" width="85" height="6" />
-    <svg:rect x="0" y="80" rx="3" ry="3" width="350" height="6" />
-    <svg:rect x="0" y="100" rx="3" ry="3" width="380" height="6" />
-    <svg:rect x="0" y="120" rx="3" ry="3" width="201" height="6" />
-  </ng-template>
+<thy-skeleton thyWidth="300px" [thySize]="model.circleSize + 'rem'" thyRows="4" thySections="2" [thyAnimated]="true">
+  <div class="d-flex mb-2">
+    <div>
+      <thy-skeleton-circle thySize="4rem"></thy-skeleton-circle>
+    </div>
+    <div class="d-flex flex-column w-100 ml-2">
+      <ng-container *ngFor="let k of [1, 2, 3]">
+        <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+      </ng-container>
+    </div>
+  </div>
+  <div class="d-flex flex-column">
+    <ng-container *ngFor="let k of [1, 2, 3]">
+      <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+    </ng-container>
+  </div>
 </thy-skeleton>

@@ -1,10 +1,14 @@
-import { OnInit, Component } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-custom',
+    selector: 'thy-skeleton-custom-example',
     templateUrl: './custom.component.html'
 })
-export class ThySkeletonCustomExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
-    ngOnInit(): void {}
+export class ThySkeletonExampleCustomComponent implements OnInit {
+    model = {
+        circleSize: 1
+    };
+    constructor() {}
+
+    ngOnInit() {}
 }
