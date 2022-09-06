@@ -1,7 +1,19 @@
-<thy-skeleton thyWidth="300px" [thySize]="model.circleSize + 'rem'" thyRows="4" thySections="2" [thyAnimated]="true">
+<p class="mb-4">上层组件的传值将作为默认值传递至底层组件。若底层组件有独立传值，则以底层组件优先。</p>
+
+<thy-skeleton
+  thyWidth="300px"
+  [thySize]="model.thySize"
+  [thyAnimated]="model.thyAnimated"
+  [thyAnimatedSpeed]="model.thyAnimatedSpeed"
+  [thySecondaryColor]="model.thySecondaryColor"
+  [thyPrimaryColor]="model.thyPrimaryColor"
+  [thyBorderRadius]="model.thyBorderRadius"
+  [thyHeight]="model.thyHeight"
+  [thyWidth]="model.thyAnimated"
+>
   <div class="d-flex mb-2">
     <div>
-      <thy-skeleton-circle thySize="4rem"></thy-skeleton-circle>
+      <thy-skeleton-circle></thy-skeleton-circle>
     </div>
     <div class="d-flex flex-column w-100 ml-2">
       <ng-container *ngFor="let k of [1, 2, 3]">

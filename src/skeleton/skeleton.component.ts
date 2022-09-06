@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, TemplateRef } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton',

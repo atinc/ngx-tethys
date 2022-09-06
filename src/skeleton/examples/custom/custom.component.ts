@@ -6,7 +6,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThySkeletonExampleCustomComponent implements OnInit {
     model = {
-        circleSize: 1
+        thyWidth: '100%',
+        thyHeight: '1rem',
+        thySize: '4rem',
+        thyBorderRadius: '4px',
+        thyPrimaryColor: '#cccccc',
+        thySecondaryColor: '#18a0e0',
+        thyAnimatedSpeed: 2,
+        thyAnimated: true
     };
     constructor() {}
 
