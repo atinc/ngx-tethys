@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.6](https://github.com/atinc/ngx-tethys/compare/14.0.5...14.0.6) (2022-09-06)
+
+
+### Bug Fixes
+
+* **button:** update icon font-size to 16px for md size #INFR-4501 ([ac62bf2](https://github.com/atinc/ngx-tethys/commit/ac62bf29ad558aac131b37ee33aff982f641c8e1)), closes [#INFR-4501](https://github.com/atinc/ngx-tethys/issues/INFR-4501)
+* **watermark:**  adjust thy way get ._vm #INFR-4556 ([d7434ca](https://github.com/atinc/ngx-tethys/commit/d7434ca4ddea07aa112d79038aac3cbf76c4af97)), closes [#INFR-4556](https://github.com/atinc/ngx-tethys/issues/INFR-4556)
+* **watermark:** adjust the var name #INFR-4556 ([131ebd6](https://github.com/atinc/ngx-tethys/commit/131ebd639fb14715ecfd3a10edbb6419b1dcca34)), closes [#INFR-4556](https://github.com/atinc/ngx-tethys/issues/INFR-4556)
+
+
+
 ## [14.0.5](https://github.com/atinc/ngx-tethys/compare/14.0.4...14.0.5) (2022-09-01)
 
 
