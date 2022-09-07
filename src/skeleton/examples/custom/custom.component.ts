@@ -11,7 +11,7 @@ export class ThySkeletonExampleCustomComponent implements OnInit {
         thySize: '4rem',
         thyBorderRadius: '4px',
         thyPrimaryColor: '#cccccc',
-        thySecondaryColor: '#18a0e0',
+        thySecondaryColor: '#f6c659',
         thyAnimatedSpeed: 2,
         thyAnimated: true
     };

@@ -10,22 +10,22 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
                         [thyAnimated]="thyAnimated"
                         [thyAnimatedSpeed]="thyAnimatedSpeed"
                         [thySize]="thySize"
-                        [ngClass]="thyCircleClass"
                         [thyPrimaryColor]="thyPrimaryColor"
                         [thySecondaryColor]="thySecondaryColor"
                     >
                     </thy-skeleton-circle>
                     <div [ngClass]="thyGutter"></div>
-                    <thy-skeleton-rectangle
-                        [ngClass]="thyRectangleClass"
-                        [thyWidth]="thyWidth"
-                        [thyHeight]="thyHeight"
-                        [thyAnimated]="thyAnimated"
-                        [thyPrimaryColor]="thyPrimaryColor"
-                        [thySecondaryColor]="thySecondaryColor"
-                        [thyBorderRadius]="thyBorderRadius"
-                        [thyAnimatedSpeed]="thyAnimatedSpeed"
-                    ></thy-skeleton-rectangle>
+                    <div style="flex: 1">
+                        <thy-skeleton-rectangle
+                            [thyWidth]="thyWidth"
+                            [thyHeight]="thyHeight"
+                            [thyAnimated]="thyAnimated"
+                            [thyPrimaryColor]="thyPrimaryColor"
+                            [thySecondaryColor]="thySecondaryColor"
+                            [thyBorderRadius]="thyBorderRadius"
+                            [thyAnimatedSpeed]="thyAnimatedSpeed"
+                        ></thy-skeleton-rectangle>
+                    </div>
                 </div>
             </ng-container>
         </div>
@@ -79,15 +79,15 @@ export class ThySkeletonBulletListComponent {
      */
     @Input() thyItemClass: string = 'mb-2';
 
-    /**
-     * circle类型骨架样式
-     */
-    @Input() thyCircleClass: string;
+    // /**
+    //  * circle类型骨架样式
+    //  */
+    // @Input() thyCircleClass: string;
 
-    /**
-     * rectangle类型骨架样式
-     */
-    @Input() thyRectangleClass: string;
+    // /**
+    //  * rectangle类型骨架样式
+    //  */
+    // @Input() thyRectangleClass: string;
 
     /**
      * circle类型骨架尺寸
