@@ -35,6 +35,7 @@ export interface ThyPage {
     index?: number;
     size?: number;
     total?: number;
+    sizeOptions?: number[];
 }
 
 export interface ThyTableEmptyOptions {

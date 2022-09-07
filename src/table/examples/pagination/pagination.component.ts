@@ -13,7 +13,8 @@ export class ThyTablePaginationExampleComponent implements OnInit {
     public pagination = {
         index: 1,
         size: 5,
-        total: 44
+        total: 44,
+        sizeOptions: [5, 10, 20]
     };
 
     loadingDone = false;
@@ -64,6 +65,12 @@ export class ThyTablePaginationExampleComponent implements OnInit {
 
     onPageChange(event: ThyPageChangedEvent) {
         this.pagination.index = event.page;
+        this.generateDataByPageIndex();
+    }
+
+    onPageSizeChange(event: number) {
+        this.pagination.size = event;
+        this.pagination.index = 0;
         this.generateDataByPageIndex();
     }
 
