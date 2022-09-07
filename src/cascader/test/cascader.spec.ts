@@ -334,7 +334,7 @@ class CascaderMultipleComponent {
     }
 }
 
-describe('thy-cascader', () => {
+fdescribe('thy-cascader', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
@@ -620,6 +620,18 @@ describe('thy-cascader', () => {
             const emptySecondMenu = el.queryAll(By.css('.thy-cascader-menu'))[1];
             expect(emptySecondMenu.children.length).toEqual(0);
         });
+
+        it('should only show one column when first opened', fakeAsync(() => {
+            fixture.componentInstance.thyCustomerOptions = emptyOptions;
+            fixture.detectChanges();
+            fixture.componentInstance.curVal = ['anhui'];
+            fixture.detectChanges();
+            flush();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            flush();
+            expect(component.cascaderRef.columns.length).toEqual(1);
+        }));
     });
 
     describe('loadData', () => {
