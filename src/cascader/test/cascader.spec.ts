@@ -334,7 +334,7 @@ class CascaderMultipleComponent {
     }
 }
 
-fdescribe('thy-cascader', () => {
+describe('thy-cascader', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
