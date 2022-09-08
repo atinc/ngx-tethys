@@ -1,3 +1,4 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
@@ -17,12 +18,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CascaderOption } from './types';
-import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { SelectionModel } from '@angular/cdk/collections';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -470,10 +470,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             return;
         }
         this.activatedOptions = [...this.selectedOptions];
-        this.columns[1] = this.activatedOptions[0].children;
-        if (this.activatedOptions[1] && !this.activatedOptions[1].isLeaf) {
-            this.columns[2] = this.activatedOptions[1].children;
-        }
+        this.activatedOptions.forEach((item, index) => {
+            if (!isEmpty(item.children) && !item.isLeaf) {
+                this.columns[index + 1] = item.children;
+            }
+        });
     }
 
     public get menuCls(): any {
