@@ -77,11 +77,11 @@
 
 .thy-badge-default {
     @include mixin.set-badge-color(variables.$gray-600, variables.$gray-200);
-    &.thy-badge-dot {
-        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
-    }
+}
+
+.thy-badge-success {
+    @include mixin.set-badge-color(variables.$white, variables.$success);
     &.thy-badge-hollow {
-        @include mixin.set-badge-color(variables.$gray-600, variables.$gray-400);
         background-color: transparent;
     }
 }
@@ -100,12 +100,14 @@
 
 // #endregion
 // #region
-.thy-badge-sup {
-    position: absolute;
-    top: 0px;
-    right: 0;
-    transform: translateY(-50%) translateX(50%);
-    z-index: 1;
+.thy-badge-wrapper {
+    .thy-badge {
+        position: absolute;
+        top: 0px;
+        right: 0;
+        transform: translateY(-50%) translateX(50%);
+        z-index: 1;
+    }
 }
 
 .thy-badge-lg {

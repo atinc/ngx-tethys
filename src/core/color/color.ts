@@ -6,7 +6,7 @@ export function isThemeColor(color: ThyThemeColor | string): boolean {
     return presetThemeColors.includes(color as ThyThemeColor);
 }
 
-export const presetTextColors = ['secondary', 'muted', 'desc', 'placeholder'] as const;
+export const presetTextColors = [...presetThemeColors, 'secondary', 'muted', 'desc', 'placeholder', 'white', 'body'] as const;
 
 export type ThyTextColor = typeof presetTextColors[number];
 
