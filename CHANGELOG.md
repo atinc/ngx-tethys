@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.7](https://github.com/atinc/ngx-tethys/compare/14.0.6...14.0.7) (2022-09-08)
+
+
+### Bug Fixes
+
+* **cascader:** should only show one column when first opened #INFR-4617 ([#2177](https://github.com/atinc/ngx-tethys/issues/2177)) ([09bfbc9](https://github.com/atinc/ngx-tethys/commit/09bfbc9fc23ce2507d802b8277a83b304041f6f9)), closes [#INFR-4617](https://github.com/atinc/ngx-tethys/issues/INFR-4617) [#INFR-4617](https://github.com/atinc/ngx-tethys/issues/INFR-4617)
+
+
+### Features
+
+* **badge:** add default type instead of secondary and support built-in color for thyTextColor and thyBackgroundColor #INFR-4576 ([#2173](https://github.com/atinc/ngx-tethys/issues/2173)) ([7cc2dcf](https://github.com/atinc/ngx-tethys/commit/7cc2dcff398808337d6b46624e4ae80086210868)), closes [#INFR-4576](https://github.com/atinc/ngx-tethys/issues/INFR-4576)
+* **link:** set opacity to 50% for disabled #INFR-4621 ([#2178](https://github.com/atinc/ngx-tethys/issues/2178)) ([bf4fe5c](https://github.com/atinc/ngx-tethys/commit/bf4fe5ce77a934562aa00b86140574572cb62b9d)), closes [#INFR-4621](https://github.com/atinc/ngx-tethys/issues/INFR-4621)
+* **table:** add page size controller to table pagination #INFR-3371 ([#2138](https://github.com/atinc/ngx-tethys/issues/2138)) ([736f495](https://github.com/atinc/ngx-tethys/commit/736f4956a7e8e7e2b0fb8e01f433acbe9582c0b6)), closes [#INFR-3371](https://github.com/atinc/ngx-tethys/issues/INFR-3371)
+* **timeline:** improve timeline examples and overview #INFR-4538 ([d4267c0](https://github.com/atinc/ngx-tethys/commit/d4267c0a37a11a0e6a76860a3ebbdc610f6ab3e4)), closes [#INFR-4538](https://github.com/atinc/ngx-tethys/issues/INFR-4538)
+
+
+
 ## [14.0.6](https://github.com/atinc/ngx-tethys/compare/14.0.5...14.0.6) (2022-09-06)
 
 
