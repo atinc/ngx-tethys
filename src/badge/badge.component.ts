@@ -1,7 +1,7 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { InputBoolean, UpdateHostClassService, isTextColor } from 'ngx-tethys/core';
+import { InputBoolean, isTextColor, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
@@ -31,7 +31,7 @@ export class ThyBadgeComponent implements OnInit {
     // 是否包裹在元素上
     protected isWrapper = false;
 
-    protected isShowBadge = true;
+    public isShowBadge = true;
 
     private keepShowValue = false;
 
