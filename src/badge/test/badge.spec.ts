@@ -91,12 +91,16 @@ class BadgeBasicDotComponent implements OnInit {
 }
 
 @Component({
-    selector: 'thy-badge-special',
+    selector: 'thy-badge-custom-color',
     template: `
-        <span thyBadge [thyCount]="5" thyTextColor="#00ff00" thyBackgroundColor="#ff00ff"></span>
+        <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span>
     `
 })
-class BadgeBasicSpecialComponent implements OnInit {
+class BadgeBasicCustomColorComponent implements OnInit {
+    textColor = '#00ff00';
+
+    backgroundColor = '#ff00ff';
+
     constructor() {}
 
     ngOnInit(): void {}
@@ -115,7 +119,7 @@ describe('thy-badge', () => {
                 BadgeBasicContextComponent,
                 BadgeBasicHollowComponent,
                 BadgeBasicDotComponent,
-                BadgeBasicSpecialComponent
+                BadgeBasicCustomColorComponent
             ]
         });
         TestBed.compileComponents();
@@ -150,7 +154,7 @@ describe('thy-badge', () => {
             expect(badgeSpanElement.classList.contains('thy-badge')).toBe(true);
             expect(badgeSpanElement.classList.contains('thy-badge-count')).toBe(true);
             expect(badgeSpanElement.classList.contains('thy-badge-danger')).toBe(true);
-            expect(badgeSpanElement.classList.contains('thy-badge-sup')).toBe(true);
+            expect(badgeElement.classList.contains('thy-badge-wrapper')).toBe(true);
         });
 
         it('thyCount, should show set count success', () => {
@@ -184,7 +188,7 @@ describe('thy-badge', () => {
         });
 
         it('thyType, should set type success', () => {
-            ['primary', 'warning', 'secondary', 'danger'].forEach(type => {
+            ['primary', 'warning', 'default', 'secondary', 'danger', 'success'].forEach(type => {
                 testComponent.type = type;
                 fixture.detectChanges();
                 const badgeSpanElement = badgeComponent.nativeElement.querySelector('.thy-badge');
@@ -310,12 +314,12 @@ describe('thy-badge', () => {
         });
     });
 
-    describe('special', () => {
-        let fixture: ComponentFixture<BadgeBasicSpecialComponent>;
+    describe('custom-color', () => {
+        let fixture: ComponentFixture<BadgeBasicCustomColorComponent>;
         let badgeComponent: DebugElement;
 
         beforeEach(() => {
-            fixture = TestBed.createComponent(BadgeBasicSpecialComponent);
+            fixture = TestBed.createComponent(BadgeBasicCustomColorComponent);
             testComponent = fixture.debugElement.componentInstance;
             badgeComponent = fixture.debugElement.query(By.directive(ThyBadgeComponent));
             badgeElement = badgeComponent.nativeElement;
@@ -332,6 +336,28 @@ describe('thy-badge', () => {
             const badgeSpanElement = badgeComponent.nativeElement.children[0];
             expect(badgeSpanElement.style.color).toBe('rgb(0, 255, 0)');
             expect(badgeSpanElement.style.backgroundColor).toBe('rgb(255, 0, 255)');
+        });
+
+        it('should set built-in text color', () => {
+            fixture.detectChanges();
+            const badgeSpanElement = badgeComponent.nativeElement.children[0];
+            ['primary', 'warning', 'default', 'secondary', 'danger', 'success', 'light', 'muted', 'secondary', 'desc'].forEach(color => {
+                fixture.componentInstance.textColor = color;
+                fixture.detectChanges();
+                expect(badgeSpanElement.style.color).toBe('');
+                expect(badgeSpanElement.classList.contains(`text-${color}`)).toBeTruthy();
+            });
+        });
+
+        it('should set built-in background color', () => {
+            fixture.detectChanges();
+            const badgeSpanElement = badgeComponent.nativeElement.children[0];
+            ['primary', 'warning', 'default', 'secondary', 'danger', 'success', 'light'].forEach(color => {
+                fixture.componentInstance.backgroundColor = color;
+                fixture.detectChanges();
+                expect(badgeSpanElement.style.backgroundColor).toBe('');
+                expect(badgeSpanElement.classList.contains(`bg-${color}`)).toBeTruthy();
+            });
         });
     });
 });
