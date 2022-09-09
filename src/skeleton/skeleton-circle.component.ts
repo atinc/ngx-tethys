@@ -67,11 +67,6 @@ export class ThySkeletonCircleComponent implements OnInit {
             animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedSpeed}s infinite` : 'none'
         };
     }
-    getAnimation() {
-        return this.thyAnimatedSpeed
-            ? `thy-skeleton-animation ${this.thyAnimatedSpeed}s infinite`
-            : ` thy-skeleton-animation 1.2s infinite`;
-    }
 
     ngOnInit() {
         if (this._parent) {

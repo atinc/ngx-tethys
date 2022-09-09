@@ -54,8 +54,7 @@ export class ThySkeletonRectangleComponent implements OnInit {
 
     getWrapClass() {
         return {
-            'thy-skeleton': true,
-            'thy-skeleton-animation-none': !this.thyAnimated
+            'thy-skeleton': true
         };
     }
 

@@ -9,15 +9,15 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
     encapsulation: ViewEncapsulation.None
 })
 export class ThySkeletonComponent {
-    /**
-     * 段落首行长度
-     */
-    @Input() thyFirstWidth: string;
+    // /**
+    //  * 段落首行长度
+    //  */
+    // @Input() thyFirstWidth: string;
 
-    /**
-     * 段落尾行长度
-     */
-    @Input() thyLastWidth: string;
+    // /**
+    //  * 段落尾行长度
+    //  */
+    // @Input() thyLastWidth: string;
 
     /**
      * 是否开启动画
