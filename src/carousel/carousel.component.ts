@@ -67,7 +67,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     @Input('thyTouchable') @InputBoolean() touchable = true;
 
-    @Output() readonly thyBeforeMode = new EventEmitter<FromTo>();
+    @Output() readonly thyBeforeChange = new EventEmitter<FromTo>();
+
+    @Output() readonly thyAfterChange = new EventEmitter<number>();
 
     context: CarouselMethod;
 
@@ -137,12 +139,13 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
             const len = this.carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
-            this.thyBeforeMode.emit({ from, to });
+            this.thyBeforeChange.emit({ from, to });
             this.isTransitioning = true;
             this.engine?.switch(this.activeIndex, index).subscribe(
                 () => {
                     this.activeIndex = to;
                     this.markContentActive(this.activeIndex);
+                    this.thyAfterChange.emit(this.activeIndex);
                 },
                 () => {},
                 () => {
