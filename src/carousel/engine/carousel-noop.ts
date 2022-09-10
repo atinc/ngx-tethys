@@ -26,8 +26,6 @@ export class ThyCarouselNoopEngine extends ThyCarouselBasicEngine {
 
     switch(to: number, from: number): Observable<void> {
         const switch$ = new Subject<void>();
-        console.log(to, this.length);
-        console.log(((to + this.length) % this.length) * this.contentWidth);
         this.renderer.setStyle(
             this.wrapperEl,
             `transform`,

@@ -24,6 +24,7 @@ import { CarouselService } from './carousel.service';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod } from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine } from './engine';
+import { ThyCarouselFadeEngine } from 'ngx-tethys/carousel/engine/carousel-fade';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -35,8 +36,7 @@ import { ThyCarouselSlideEngine, ThyCarouselNoopEngine } from './engine';
     }
 })
 export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges {
-    @ContentChildren(ThyCarouselItemDirective, { descendants: false, emitDistinctChangesOnly: true })
-    carouselItems!: QueryList<ThyCarouselItemDirective>;
+    @ContentChildren(ThyCarouselItemDirective) carouselItems!: QueryList<ThyCarouselItemDirective>;
 
     @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
 
@@ -78,7 +78,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     transitionTimer: any = null;
 
-    playTime: number = 300;
+    playTime: number = 500;
 
     constructor(
         private carouselService: CarouselService,
@@ -115,6 +115,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         switch (this.thyEffect) {
             case 'slide':
                 this.engine = new ThyCarouselSlideEngine(this, this.cdr, this.renderer, this.platform);
+                break;
+            case 'fade':
+                this.engine = new ThyCarouselFadeEngine(this, this.cdr, this.renderer, this.platform);
                 break;
             default:
                 this.engine = new ThyCarouselNoopEngine(this, this.cdr, this.renderer, this.platform);
@@ -218,15 +221,21 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         } else {
             this.scheduleNextTransition();
         }
+        this.setInitialValue();
     }
 
     ngAfterViewInit(): void {
         this.switchEngine();
         this.markContentActive(0);
         this.setInitialValue();
+        this.carouselItems.changes.subscribe(changes => {
+            console.log(`渲染完成了`, changes);
+        });
+
+        Promise.resolve().then(() => {
+            this.setInitialValue();
+        });
     }
 
-    ngAfterContentInit() {
-        this.setInitialValue();
-    }
+    ngAfterContentInit() {}
 }

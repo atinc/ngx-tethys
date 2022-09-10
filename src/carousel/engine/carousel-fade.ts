@@ -1,0 +1,63 @@
+import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
+import { Platform } from '@angular/cdk/platform';
+import { Observable, Subject } from 'rxjs';
+import { ThyCarouselComponent } from '../carousel.component';
+import { DistanceVector } from '../typings';
+import { ThyCarouselItemDirective } from '../carousel-item.directive';
+import { ThyCarouselBasicEngine } from '../engine/carousel-basic';
+
+export class ThyCarouselFadeEngine extends ThyCarouselBasicEngine {
+    contentsEl: HTMLElement[];
+    constructor(
+        thyCarouselComponent: ThyCarouselComponent,
+        protected cdr: ChangeDetectorRef,
+        protected renderer: Renderer2,
+        protected platform: Platform
+    ) {
+        super(thyCarouselComponent, cdr, renderer, platform);
+    }
+
+    dragging(pointerVector: DistanceVector, rect: DOMRect): void {
+        const { x } = pointerVector;
+        const { width } = rect;
+        console.log(width, x, `${1 - Math.abs(x) / width}`);
+        const activeIndex = this.carouselComponent!.activeIndex;
+        console.log(this.contentsEl[activeIndex]);
+        const currentContent = this.contentsEl[activeIndex];
+        this.renderer.setStyle(currentContent, 'opacity', `${1 - Math.abs(x) / width}`);
+    }
+
+    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void {
+        this.initializeContents(contents);
+        this.contentsEl = [];
+        contents.forEach((content, index) => {
+            this.contentsEl.push(content.el);
+            this.renderer.setStyle(content.el, 'opacity', this.carouselComponent!.activeIndex === index ? '1' : '0');
+            this.renderer.setStyle(content.el, 'position', 'absolute');
+            this.renderer.setStyle(content.el, 'left', '0');
+            this.renderer.setStyle(content.el, `transition-property`, 'opacity');
+            this.renderer.setStyle(content.el, `transition-timing-function`, 'ease');
+        });
+    }
+
+    switch(to: number, from: number): Observable<void> {
+        const switch$ = new Subject<void>();
+        const currentEl = this.contentsEl[from];
+        const nextEl = this.contentsEl[(to + this.length) % this.length];
+        this.renderer.setStyle(currentEl, `transition-duration`, `${this.playTime}ms`);
+        this.renderer.setStyle(nextEl, `transition-duration`, `${this.playTime}ms`);
+        this.renderer.setStyle(currentEl, 'opacity', '0');
+        this.renderer.setStyle(nextEl, 'opacity', '1');
+        setTimeout(() => {
+            switch$.next();
+        }, 0);
+        setTimeout(() => {
+            this.renderer.setStyle(currentEl, `transition-duration`, `0s`);
+            this.renderer.setStyle(nextEl, `transition-duration`, `0s`);
+            switch$.complete();
+        }, this.playTime);
+        return switch$.asObservable();
+    }
+
+    stagnating(): void {}
+}
