@@ -107,7 +107,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
                     this.pointerVector = pointerVector;
                     this.isDragging = true;
                     this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
-                    // console.log(pointerVector, this.isDragging);
                 },
                 () => {},
                 () => {
@@ -147,7 +146,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
                 },
                 () => {},
                 () => {
-                    console.log(this.activeIndex);
                     this.isTransitioning = false;
                 }
             );
@@ -156,9 +154,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     private switchEngine() {
-        console.log(this.customEngine);
         this.engine = new ThyCarouselTransformEngine(this, this.cdr, this.renderer, this.platform);
-        console.log(this.engine);
     }
 
     private markContentActive(index: number) {
@@ -203,20 +199,12 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     ngAfterViewInit(): void {
-        console.log(`ngAfterViewInit`);
-        this.carouselItems.changes.subscribe(() => {
-            console.log(`初始化完成,fdsafdsa`);
-            // this.markContentActive(0);
-            // this.contentInit();
-        });
         this.switchEngine();
         this.markContentActive(0);
-        console.log('初始化列表之前');
         this.setInitialValue();
     }
 
     ngAfterContentInit() {
-        console.log(`ngAfterContentInit`);
         this.setInitialValue();
     }
 }

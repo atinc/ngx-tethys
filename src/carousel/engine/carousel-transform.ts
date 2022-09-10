@@ -63,7 +63,6 @@ export class ThyCarouselTransformEngine implements CarouselBasic {
 
         this.contents = contents?.toArray();
         this.length = this.contents.length;
-        console.log(width, height);
         if (this.platform.isBrowser && this.contents.length) {
             this.renderer.setStyle(this.wrapperEl, `height`, `${this.contentHeight}px`);
         }
@@ -86,7 +85,6 @@ export class ThyCarouselTransformEngine implements CarouselBasic {
         this.contentWidth = width;
         this.contentHeight = height;
         const activeIndex = this.carouselComponent!.activeIndex;
-        console.log(`dragging`, activeIndex);
         if (this.length > 1) {
             this.prepareHorizontalContext(activeIndex);
         }
@@ -94,11 +92,9 @@ export class ThyCarouselTransformEngine implements CarouselBasic {
     }
 
     switch(from: number, to: number): Observable<void> {
-        console.log(`from -->`, from, `to--->`, to);
         const switch$ = new Subject<void>();
         this.prepareHorizontalContext(to);
         this.renderer.setStyle(this.wrapperEl, `transition-duration`, `${this.playTime}ms`);
-        console.log(`this.renderer --->`, `transform`, `translate3d(${-to * this.contentWidth}px,0 , 0)`);
         this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${-to * this.contentWidth}px,0 , 0)`);
         setTimeout(() => {
             switch$.next();
