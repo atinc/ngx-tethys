@@ -77,7 +77,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     transitionTimer: any = null;
 
-    playTime: number = 500;
+    playTime: number = 400;
 
     constructor(
         private carouselService: CarouselService,

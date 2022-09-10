@@ -8,12 +8,7 @@ import { ThyCarouselBasicEngine } from '../engine/carousel-basic';
 
 export class ThyCarouselFadeEngine extends ThyCarouselBasicEngine {
     contentsEl: HTMLElement[];
-    constructor(
-        thyCarouselComponent: ThyCarouselComponent,
-        protected cdr: ChangeDetectorRef,
-        protected renderer: Renderer2,
-        protected platform: Platform
-    ) {
+    constructor(thyCarouselComponent: ThyCarouselComponent, cdr: ChangeDetectorRef, renderer: Renderer2, platform: Platform) {
         super(thyCarouselComponent, cdr, renderer, platform);
     }
 
