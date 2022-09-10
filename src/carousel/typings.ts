@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
-import { InjectionToken, QueryList } from '@angular/core';
+import { QueryList } from '@angular/core';
 
 export interface DistanceVector {
     x: number;
@@ -14,7 +14,7 @@ export interface FromTo {
 
 export type thyEffectType = 'slide' | 'fade' | 'noop';
 
-export interface CarouselBasic {
+export interface ThyCarouselEngine {
     // Initialize dragging sequences.
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
     // switch item
@@ -25,15 +25,12 @@ export interface CarouselBasic {
     stagnating(): void;
 }
 
-export interface CarouselComponentAsSource {
-    carouselContents: QueryList<ThyCarouselItemDirective>;
-    wrapperEl: HTMLElement;
-    playTime: number;
-}
-
 export interface ThyCarouselEngineRegistry {
     name: string;
-    engine: CarouselBasic;
+    engine: ThyCarouselEngine;
 }
 
-export const THY_CUSTOM_ENGINE = new InjectionToken<ThyCarouselEngineRegistry[]>('thy-custom-engine');
+export interface CarouselMethod {
+    pre: () => void;
+    next: () => void;
+}
