@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
+import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { QueryList } from '@angular/core';
 
 export interface DistanceVector {

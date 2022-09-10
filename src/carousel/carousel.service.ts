@@ -1,7 +1,7 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DistanceVector } from 'ngx-tethys/carousel/typings';
+import { DistanceVector } from './typings';
 
 @Injectable({
     providedIn: 'root'

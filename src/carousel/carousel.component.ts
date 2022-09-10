@@ -23,8 +23,7 @@ import { InputBoolean, InputNumber } from '../core';
 import { CarouselService } from './carousel.service';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod } from './typings';
-import { ThyCarouselSlideEngine, ThyCarouselNoopEngine } from './engine';
-import { ThyCarouselFadeEngine } from 'ngx-tethys/carousel/engine/carousel-fade';
+import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
