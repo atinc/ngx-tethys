@@ -14,17 +14,27 @@ import {
     QueryList,
     Renderer2,
     ViewChild,
-    ViewEncapsulation
+    TemplateRef,
+    ViewEncapsulation,
+    AfterContentInit
 } from '@angular/core';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
-import { Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
 import { CarouselService } from 'ngx-tethys/carousel/carousel.service';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel/carousel-item.directive';
-import { CarouselBasic, DistanceVector, FromTo, THY_CUSTOM_ENGINE, ThyCarouselEngineRegistry } from 'ngx-tethys/carousel/typings';
+import {
+    CarouselBasic,
+    DistanceVector,
+    FromTo,
+    THY_CUSTOM_ENGINE,
+    ThyCarouselEngineRegistry,
+    thyEffectType
+} from 'ngx-tethys/carousel/typings';
 import { ThyCarouselTransformEngine } from './engine/carousel-transform';
 import { Platform } from '@angular/cdk/platform';
-
+interface CarouselMethod {
+    pre: () => void;
+    next: () => void;
+}
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -35,8 +45,34 @@ import { Platform } from '@angular/cdk/platform';
         class: 'thy-carousel'
     }
 })
-export class ThyCarouselComponent implements OnInit, AfterViewInit {
+export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit {
+    @ContentChildren(ThyCarouselItemDirective, { descendants: false, emitDistinctChangesOnly: true })
+    carouselItems!: QueryList<ThyCarouselItemDirective>;
+
+    @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
+
+    @Input('thyAutoPlay') @InputBoolean() autoPlay: boolean = false;
+
+    @Input('thyAutoPlaySpeed') @InputNumber() speed: number = 3000;
+
+    @Input('thyEffect') effect: thyEffectType = 'slide';
+
+    @Input('thyShowDot') @InputBoolean() showDot = true;
+
+    @Input() thyDotTemplate?: TemplateRef<{ $implicit: boolean }>;
+
+    @Input('thyShowArrow') @InputBoolean() showArrow = true;
+
+    @Input() thyArrowTemplate?: TemplateRef<CarouselMethod>;
+
+    @Input('thyTouchable') @InputBoolean() touchable = true;
+
+    @Output() readonly thyBeforeMode = new EventEmitter<FromTo>();
+
+    context: CarouselMethod;
+
     isDragging = false;
+
     isTransitioning = false;
 
     pointerVector: DistanceVector = { x: 0, y: 0 };
@@ -51,20 +87,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
 
     engine: CarouselBasic;
 
-    @ContentChildren(ThyCarouselItemDirective, { descendants: false, emitDistinctChangesOnly: true })
-    carouselItems!: QueryList<ThyCarouselItemDirective>;
-
-    private carouselItemList: ThyCarouselItemDirective[];
-
-    @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
-
-    @Input('thyAutoPlay') @InputBoolean() autoPlay: boolean = false;
-
-    @Input('thyAutoPlaySpeed') @InputNumber() speed: number = 3000;
-
-    @Input('thyPlayTime') @InputNumber() playTime: number = 300;
-
-    @Output() readonly thyBeforeMode = new EventEmitter<FromTo>();
+    playTime: number = 300;
 
     constructor(
         private carouselService: CarouselService,
@@ -79,8 +102,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
             const mouseDownTime = new Date().getTime();
             let mouseUpTime: number;
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
-            // todo isDragging can't trigger
-            console.log(`onDrag`, this.activeIndex);
             this.carouselService.registerDrag(event).subscribe(
                 pointerVector => {
                     this.pointerVector = pointerVector;
@@ -112,14 +133,13 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
     }
 
     moveTo(index: number) {
-        console.log(index);
+        this.setInitialValue();
         if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {
             const len = this.carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
             this.thyBeforeMode.emit({ from, to });
             this.isTransitioning = true;
-            // this.currentOffset.x = -index * this.wrapperDomRect.width;
             this.engine?.switch(this.activeIndex, index).subscribe(
                 () => {
                     this.activeIndex = to;
@@ -131,17 +151,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
                     this.isTransitioning = false;
                 }
             );
+            this.cdr.markForCheck();
         }
-        this.cdr.markForCheck();
     }
-
-    private contentChanges = (val: QueryList<ThyCarouselItemDirective>) => {
-        this.carouselItemList = val.map((carouselContent: ThyCarouselItemDirective, index: number) => {
-            carouselContent.activeIndex = index;
-            carouselContent.classNames = '';
-            return carouselContent;
-        });
-    };
 
     private switchEngine() {
         console.log(this.customEngine);
@@ -156,32 +168,55 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit {
         this.cdr.markForCheck();
     }
 
-    // calcLoopedCarouselItem() {
-    //     // todo 如果循环标识是 false 直接 return
-    // }
+    setInitialValue() {
+        if (this.engine) {
+            this.engine.initializeCarouselContents(this.carouselItems);
+        }
+    }
 
-    contentInit() {
-        console.log(`1ffff11`);
-        this.engine.initializeCarouselContents(this.carouselItems).subscribe(contents => {
-            console.log(`接收一个list`, contents);
-            console.log('初始化列表之后');
-        });
+    dotHandleClick(index: number): void {
+        this.moveTo(index);
+    }
+
+    next(): void {
+        this.moveTo(this.activeIndex + 1);
+    }
+
+    pre(): void {
+        this.moveTo(this.activeIndex - 1);
+    }
+
+    initContext() {
+        this.context = {
+            pre: () => {
+                this.pre();
+            },
+            next: () => {
+                this.next();
+            }
+        };
     }
 
     ngOnInit(): void {
         this.wrapperEl = this.carouselWrapper!.nativeElement;
+        this.initContext();
     }
 
     ngAfterViewInit(): void {
-        // console.log(`fdsafdsa`)
+        console.log(`ngAfterViewInit`);
         this.carouselItems.changes.subscribe(() => {
-            console.log(`fdsafdsa`);
+            console.log(`初始化完成,fdsafdsa`);
             // this.markContentActive(0);
             // this.contentInit();
         });
         this.switchEngine();
         this.markContentActive(0);
         console.log('初始化列表之前');
-        this.contentInit();
+        this.setInitialValue();
+    }
+
+    ngAfterContentInit() {
+        console.log(`ngAfterContentInit`);
+        this.setInitialValue();
     }
 }

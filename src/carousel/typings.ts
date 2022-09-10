@@ -12,9 +12,11 @@ export interface FromTo {
     to: number;
 }
 
+export type thyEffectType = 'slide' | 'fade' | 'noop';
+
 export interface CarouselBasic {
     // Initialize dragging sequences.
-    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): Observable<ThyCarouselItemDirective[]>;
+    initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
     // switch item
     switch(to: number, from: number): Observable<void>;
     // dragging events

@@ -1,7 +1,15 @@
 <div>
-  <thy-carousel>
+  <thy-carousel [thyShowDot]="true" [thyShowArrow]="true" [thyArrowTemplate]="thyArrowTemplate">
     <div thy-carousel-item *ngFor="let index of array">
       <h3>{{ index }}</h3>
     </div>
   </thy-carousel>
 </div>
+<ng-template #thyArrowTemplate let-pre="pre" let-next="next">
+  <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
+    <
+  </div>
+  <div class="carousel-arrow carousel-arrow-right" (click)="next()">
+    >
+  </div>
+</ng-template>

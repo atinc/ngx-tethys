@@ -2,4 +2,35 @@
   <div #carouselWrapper class="carousel-wrapper" (mousedown)="onDrag($event)" (touchstart)="onDrag($event)">
     <ng-content></ng-content>
   </div>
+  <ng-container *ngIf="showArrow">
+    <ng-container *ngTemplateOutlet="thyArrowTemplate || defaultArrowTemplate; context: context"></ng-container>
+  </ng-container>
+  <ng-container *ngIf="showDot">
+    <div class="carousel-dots">
+      <span
+        *ngFor="let content of carouselItems; let i = index"
+        class="carousel-dots-bullet"
+        [class.carousel-dots-active]="i === activeIndex"
+        (click)="dotHandleClick(i)"
+      >
+        <ng-template
+          [ngTemplateOutlet]="thyDotTemplate || defaultDotTemplate"
+          [ngTemplateOutletContext]="{ $implicit: i === activeIndex }"
+        ></ng-template>
+      </span>
+    </div>
+  </ng-container>
 </div>
+
+<ng-template #defaultDotTemplate let-active>
+  <thy-dot [thyColor]="active ? 'primary' : 'default'"></thy-dot>
+</ng-template>
+
+<ng-template #defaultArrowTemplate let-pre="pre" let-next="next">
+  <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
+    <thy-icon thyIconName="angle-left"></thy-icon>
+  </div>
+  <div class="carousel-arrow carousel-arrow-right" (click)="next()">
+    <thy-icon thyIconName="angle-right"></thy-icon>
+  </div>
+</ng-template>
