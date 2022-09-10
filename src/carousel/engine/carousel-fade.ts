@@ -20,9 +20,7 @@ export class ThyCarouselFadeEngine extends ThyCarouselBasicEngine {
     dragging(pointerVector: DistanceVector, rect: DOMRect): void {
         const { x } = pointerVector;
         const { width } = rect;
-        console.log(width, x, `${1 - Math.abs(x) / width}`);
         const activeIndex = this.carouselComponent!.activeIndex;
-        console.log(this.contentsEl[activeIndex]);
         const currentContent = this.contentsEl[activeIndex];
         this.renderer.setStyle(currentContent, 'opacity', `${1 - Math.abs(x) / width}`);
     }

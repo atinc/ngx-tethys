@@ -228,9 +228,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         this.switchEngine();
         this.markContentActive(0);
         this.setInitialValue();
-        this.carouselItems.changes.subscribe(changes => {
-            console.log(`渲染完成了`, changes);
-        });
 
         Promise.resolve().then(() => {
             this.setInitialValue();
