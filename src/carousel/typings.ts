@@ -25,11 +25,6 @@ export interface ThyCarouselEngine {
     stagnating(): void;
 }
 
-export interface ThyCarouselEngineRegistry {
-    name: string;
-    engine: ThyCarouselEngine;
-}
-
 export interface CarouselMethod {
     pre: () => void;
     next: () => void;
