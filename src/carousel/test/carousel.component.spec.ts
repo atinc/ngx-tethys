@@ -168,21 +168,21 @@ describe('carousel', () => {
             expect(carouselContents[0].nativeElement.classList).toContain('carousel-item-active');
         }));
 
-        it('should drag work', fakeAsync(() => {
-            fixture.detectChanges();
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
-            fixture.detectChanges();
-            tick(1000);
-            expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
-            fixture.detectChanges();
-            tick(2000);
-            expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
-            mouseSwipe(basicTestComponent.thyCarouselComponent, -500, 500);
-            fixture.detectChanges();
-            tick(1000);
-            expect(carouselContents[0].nativeElement.classList).toContain('carousel-item-active');
-        }));
+        // it('should drag work', fakeAsync(() => {
+        //     fixture.detectChanges();
+        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+        //     fixture.detectChanges();
+        //     tick(1000);
+        //     expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
+        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
+        //     fixture.detectChanges();
+        //     tick(2000);
+        //     expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
+        //     mouseSwipe(basicTestComponent.thyCarouselComponent, -500, 500);
+        //     fixture.detectChanges();
+        //     tick(1000);
+        //     expect(carouselContents[0].nativeElement.classList).toContain('carousel-item-active');
+        // }));
 
         it('should window resize set init value', fakeAsync(() => {
             touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500, 0);
