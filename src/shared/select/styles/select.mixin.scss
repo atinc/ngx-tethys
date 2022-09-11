@@ -1,23 +1,62 @@
 @use "../../../styles/variables";
+@use "../../../styles/mixins/shadow.scss";
 
-@mixin select-control-size($input-height, $input-padding-y) {
-    .select-control-rendered {
-        margin-top: $input-padding-y;
-        .text-placeholder,
-        .selected-value {
-            margin-bottom: $input-padding-y;
+@mixin select-control-size($tag-height, $padding-y, $height) {
+    &.select-control-single {
+        padding: {
+            top: $padding-y;
+            bottom: $padding-y;
         }
-        .choice,
+
+        .select-control-rendered {
+            height: $height;
+        }
+    }
+
+    &.select-control-multiple {
+        padding: {
+            top: 0;
+            bottom: 0;
+        }
+
+        .select-control-rendered {
+            min-height: $padding-y * 2 + $height;
+            padding-top: $padding-y;
+            .choice {
+                margin-bottom: $padding-y;
+            }
+        }
+    }
+
+    .select-control-rendered {
+        line-height: $height;
         .select-control-search {
-            margin-bottom: $input-padding-y;
+            height: $height;
+            line-height: $height;
+        }
+
+        .selected-value,
+        .select-control-search > .form-control-lg {
+            @if $tag-height == variables.$tag-height-lg {
+                font-size: 1.125rem;
+            }
+        }
+
+        .select-control-search {
+            @if $tag-height == variables.$tag-height-md or $tag-height == variables.$tag-height-lg {
+                height: $tag-height;
+            } @else {
+                height: unset;
+            }
         }
     }
 }
 
-@mixin thy-select-options-dropdown {
-    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.14);
-    background: variables.$white;
+@mixin thy-select-dropdown {
     width: 100%;
+    background: variables.$white;
+    border-radius: variables.$border-radius;
+    @include shadow.section-box-shadow();
 }
 
 @mixin thy-select-options-container {

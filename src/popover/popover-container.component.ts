@@ -20,6 +20,9 @@ import { thyPopoverAnimations } from './popover-animations';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',

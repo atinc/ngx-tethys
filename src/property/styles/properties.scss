@@ -10,6 +10,7 @@
 }
 
 .thy-properties {
+    display: block;
     width: 100%;
 
     &.thy-properties-horizontal {
@@ -18,9 +19,12 @@
             display: flex;
 
             .thy-properties-item-label {
-                min-height: variables.$property-item-min-height;
-                line-height: variables.$property-item-min-height;
                 width: variables.$property-item-horizontal-label-width;
+                min-height: variables.$property-item-min-height;
+                padding-right: variables.$property-item-padding-x;
+                span {
+                    line-height: variables.$property-item-min-height;
+                }
             }
 
             .thy-properties-item-content {
@@ -51,7 +55,7 @@
         width: 100%;
         table-layout: fixed;
         td {
-            padding: variables.$property-item-padding-y variables.$property-item-padding-x;
+            padding: variables.$property-item-padding-y variables.$property-item-padding-x variables.$property-item-padding-y 0;
         }
     }
 
@@ -63,12 +67,14 @@
         width: 100%;
         color: variables.$property-item-content-color;
 
-        .thy-properties-item-content-editor {
+        .thy-properties-item-content-text {
             width: 100%;
+        }
+
+        .thy-properties-item-content-editor {
             display: none;
-            .form-control {
-                margin-left: calc(variables.$property-item-padding-x + 0.0625rem) * -1;
-            }
+            margin-left: variables.$property-item-editor-offset;
+            width: calc(100% - variables.$property-item-editor-offset);
         }
 
         &-editing {

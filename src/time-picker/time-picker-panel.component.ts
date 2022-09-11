@@ -17,6 +17,9 @@ import { isValid } from 'date-fns';
 import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 
+/**
+ * 时间选择面板组件
+ */
 @Component({
     selector: 'thy-time-picker-panel',
     templateUrl: './time-picker-panel.component.html',
@@ -42,6 +45,11 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
 
     @ViewChild('secondListElement', { static: false }) secondListRef: ElementRef<HTMLElement>;
 
+    /**
+     * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
+     * @type string
+     * @default HH:mm:ss
+     */
     @Input() set thyFormat(value: string) {
         if (value) {
             const formatSet = new Set(value);
@@ -53,21 +61,56 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
             this.showMinuteColumn = true;
             this.showSecondColumn = true;
         }
-        this.showColumnCount = this.showSecondColumn ? 3 : 2;
+        this.showColumnCount = [this.showHourColumn, this.showMinuteColumn, this.showSecondColumn].filter(m => m).length;
         this.cdr.markForCheck();
     }
 
+    /**
+     * 小时间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyHourStep: number = 1;
 
+    /**
+     * 分钟间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thyMinuteStep: number = 1;
 
+    /**
+     * 秒间隔步长
+     * @type number
+     * @default 1
+     */
     @Input() thySecondStep: number = 1;
 
+    /**
+     * 展示选择此刻
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyShowSelectNow = true;
 
+    /**
+     * 展示底部操作
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyShowOperations = true;
 
+    /**
+     * 选择时间触发的事件
+     * @type EventEmitter<Date>
+     */
     @Output() thyPickChange = new EventEmitter<Date>();
+
+    /**
+     * 关闭面板事件
+     * @type EventEmitter<void>
+     */
+    @Output() thyClosePanel = new EventEmitter<void>();
 
     // margin-top + 1px border
     SCROLL_OFFSET_SPACING = 5;
@@ -145,11 +188,12 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.value = new Date();
         this.setHMSProperty();
         this.thyPickChange.emit(this.value);
-        this.autoScroll();
+        this.thyClosePanel.emit();
     }
 
     confirmPickTime() {
         this.onValueChangeFn(this.value || new Date());
+        this.thyClosePanel.emit();
     }
 
     scrollTo(container: HTMLElement, index: number = 0, duration: number = this.SCROLL_DEFAULT_DURATION) {
@@ -157,7 +201,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
         this.runScrollAnimationFrame(container, offsetTop, duration);
     }
 
-    writeValue(value: Date): void {
+    writeValue(value: Date | number): void {
         if (value && isValid(value)) {
             this.value = new Date(value);
             this.setHMSProperty();

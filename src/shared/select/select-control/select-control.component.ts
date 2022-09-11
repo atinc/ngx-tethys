@@ -13,7 +13,7 @@ import {
 import { InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SelectOptionBase } from '../../option/select-option-base';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
-import { ThyLabelTypeSize } from 'ngx-tethys/label';
+import { ThyTagSize } from 'ngx-tethys/tag';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
@@ -42,7 +42,7 @@ export class ThySelectControlComponent implements OnInit {
 
     searchInputControlClass: { [key: string]: boolean };
 
-    labelSize: ThyLabelTypeSize;
+    tagSize: ThyTagSize;
 
     @Input()
     get thyPanelOpened(): boolean {
@@ -141,13 +141,11 @@ export class ThySelectControlComponent implements OnInit {
         this.setSelectControlClass();
 
         if (value === 'sm') {
-            this.labelSize = 'sm';
-        } else if (value === 'md') {
-            this.labelSize = 'default';
+            this.tagSize = 'sm';
         } else if (value === 'lg') {
-            this.labelSize = 'xlg';
+            this.tagSize = 'lg';
         } else {
-            this.labelSize = 'default';
+            this.tagSize = 'md';
         }
     }
 
@@ -205,7 +203,7 @@ export class ThySelectControlComponent implements OnInit {
         if (this.thyMaxTagCount > 0 && this.thySelectedOptions instanceof Array && this.thySelectedOptions.length > this.thyMaxTagCount) {
             return this.thySelectedOptions.slice(0, this.thyMaxTagCount - 1);
         }
-        return this.thySelectedOptions;
+        return this.thySelectedOptions as SelectOptionBase[];
     }
 
     get showClearIcon(): boolean {
@@ -256,8 +254,8 @@ export class ThySelectControlComponent implements OnInit {
         }
     }
 
-    handleBackspace(event: KeyboardEvent & { isComposing: boolean }) {
-        if (event.isComposing) {
+    handleBackspace(event: Event) {
+        if ((event as KeyboardEvent).isComposing) {
             return;
         }
         if (this.inputValue.length === 0 && this.selectedOptions instanceof Array) {

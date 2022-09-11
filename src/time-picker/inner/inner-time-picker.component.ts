@@ -41,6 +41,9 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     multi: true
 };
 
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-inner-time-picker',
     changeDetection: ChangeDetectionStrategy.OnPush,

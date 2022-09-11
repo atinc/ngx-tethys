@@ -1,4 +1,4 @@
-import { Mention, MentionSuggestionSelectEvent } from 'ngx-tethys/mention';
+import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
@@ -39,11 +39,19 @@ export class ThyMentionBasicExampleComponent implements OnInit {
         }
     ];
 
+    @ViewChild(ThyMentionDirective) mention: ThyMentionDirective;
+
     constructor() {}
 
     ngOnInit(): void {}
 
     selectSuggestion(event: MentionSuggestionSelectEvent) {
         console.log(event);
+    }
+
+    onEnter(event: KeyboardEvent) {
+        if (!this.mention.isOpened) {
+            console.log(event);
+        }
     }
 }

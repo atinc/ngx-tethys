@@ -1,20 +1,23 @@
-import { Component, ElementRef, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
-
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, isTextColor, UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-const badgeMutexTypes = ['thy-badge-count', 'thy-badge-dot', 'thy-badge-hollow'];
-const BadgeMutexTheme = ['thy-badge-primary', 'thy-badge-warning', 'thy-badge-danger', 'thy-badge-secondary'];
-const BadgeMutexSize = ['thy-badge-lg', 'thy-badge-sm'];
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+
+export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
 /**
  * 徽标组件，支持组件`thy-badge`和`thyBadge`指令两种使用方式
+ * @name thy-badge,[thyBadge]
  */
 @Component({
     selector: 'thy-badge,[thyBadge]',
     templateUrl: './badge.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [UpdateHostClassService]
+    providers: [UpdateHostClassService],
+    host: {
+        class: 'thy-badge-container',
+        '[class.thy-badge-wrapper]': 'isWrapper'
+    }
 })
 export class ThyBadgeComponent implements OnInit {
     displayContent = '';
@@ -23,83 +26,52 @@ export class ThyBadgeComponent implements OnInit {
 
     private nativeElement: any;
 
-    private _initialized = false;
+    private initialized = false;
 
-    private badgeClassNameMap = {
-        'thy-badge-count': true,
-        'thy-badge-dot': false,
-        'thy-badge-hollow': false,
-        'thy-badge-lg': false,
-        'thy-badge-sm': false,
-        'thy-badge-danger': true,
-        'thy-badge-primary': false,
-        'thy-badge-warning': false,
-        'thy-badge-secondary': false,
-        'thy-badge-sup': true
-    };
+    // 是否包裹在元素上
+    protected isWrapper = false;
 
-    st: {
-        value: number | string;
-        isValueOfString: boolean;
-        isSetValue: boolean;
-        isValueKeepShow: boolean;
-        max: {
-            is: boolean;
-            value: number;
-        };
-        isElement: boolean;
-        isSup: boolean;
-        isShowBadge: boolean;
-    } = {
-        value: '',
-        isValueOfString: false,
-        isSetValue: false,
-        isValueKeepShow: false,
-        max: {
-            is: false,
-            value: null
-        },
-        isElement: false,
-        isSup: false,
-        isShowBadge: true
-    };
+    public isShowBadge = true;
 
-    public textColor: string;
+    private keepShowValue = false;
 
-    public backgroundColor: string;
+    private value: number | string = '';
+
+    private valueHasBeenSet = false;
+
+    private maxCount: number;
+
+    private type: string;
+
+    private size: ThyBadgeSize;
+
+    private isDot: boolean;
+
+    private isHollow: boolean;
+
+    protected textColor: string;
+
+    protected builtInTextColorClass: string;
+
+    protected backgroundColor: string;
+
+    protected builtInBackgroundColorClass: string;
+
+    protected supClasses: string[] = [];
 
     constructor(private elementRef: ElementRef) {
         this.nativeElement = this.elementRef.nativeElement;
-        this.st.isElement = this.nativeElement.localName === 'thy-badge';
     }
 
-    @HostBinding('class.thy-badge-container') containerClassName = true;
-
     /**
-     * 徽标类型, 类型为 'primary' | 'danger' | 'warning' | 'secondary'
+     * 徽标类型, 类型为 'default' | 'primary' | 'danger' | 'warning' | 'success'
+     * @default danger
      */
     @Input()
     set thyType(value: string) {
-        this.resetBadgeClassNameMap(BadgeMutexTheme);
-        switch (value) {
-            case 'danger':
-                this.badgeClassNameMap['thy-badge-danger'] = true;
-                break;
-            case 'primary':
-                this.badgeClassNameMap['thy-badge-primary'] = true;
-                break;
-            case 'warning':
-                this.badgeClassNameMap['thy-badge-warning'] = true;
-                break;
-            case 'secondary':
-                this.badgeClassNameMap['thy-badge-secondary'] = true;
-                break;
-            default:
-                this.badgeClassNameMap['thy-badge-danger'] = true;
-                break;
-        }
-        if (this._initialized) {
-            this.combineBadgeClassName();
+        this.type = value;
+        if (this.initialized) {
+            this.combineBadgeClasses();
         }
     }
 
@@ -108,11 +80,11 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thyCount(value: number) {
-        this.st.value = value;
-        this.st.isSetValue = true;
-        if (this._initialized) {
+        this.value = value;
+        this.valueHasBeenSet = true;
+        if (this.initialized) {
             this.combineBadgeDisplayContent();
-            this.combineBadgeClassName();
+            this.combineBadgeClasses();
         }
     }
 
@@ -121,12 +93,11 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thyContent(value: string) {
-        this.st.value = value;
-        this.st.isValueOfString = true;
-        this.st.isSetValue = true;
-        if (this._initialized) {
+        this.value = value;
+        this.valueHasBeenSet = true;
+        if (this.initialized) {
             this.combineBadgeDisplayContent();
-            this.combineBadgeClassName();
+            this.combineBadgeClasses();
         }
     }
 
@@ -144,44 +115,35 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thyMaxCount(value: number) {
-        this.st.max.is = true;
-        this.st.max.value = value;
-        if (this._initialized) {
+        this.maxCount = value;
+        if (this.initialized) {
             this.combineBadgeDisplayContent();
-            this.combineBadgeClassName();
+            this.combineBadgeClasses();
         }
     }
 
     /**
-     * 徽标显示的大小，分别为 `sm` | `md` | `lg`
+     * 徽标显示的大小，分别为 'sm' | 'md' | 'lg'
      * @default md
      */
     @Input()
-    set thySize(value: string) {
-        this.resetBadgeClassNameMap(BadgeMutexSize);
-        switch (value) {
-            case 'lg':
-                this.badgeClassNameMap['thy-badge-lg'] = true;
-                break;
-            case 'sm':
-                this.badgeClassNameMap['thy-badge-sm'] = true;
-                break;
-        }
-        if (this._initialized) {
-            this.combineBadgeClassName();
+    set thySize(value: ThyBadgeSize) {
+        this.size = value;
+
+        if (this.initialized) {
+            this.combineBadgeClasses();
         }
     }
 
     /**
      * 已废弃，徽标是一个实心点，已经被废弃
-     * @default md
      */
     @Input()
+    @InputBoolean()
     set thyIsDot(value: boolean) {
-        this.resetBadgeClassNameMap(badgeMutexTypes);
-        this.badgeClassNameMap['thy-badge-dot'] = coerceBooleanProperty(value);
-        if (this._initialized) {
-            this.combineBadgeClassName();
+        this.isDot = value;
+        if (this.initialized) {
+            this.combineBadgeClasses();
         }
     }
 
@@ -189,11 +151,11 @@ export class ThyBadgeComponent implements OnInit {
      * 已废弃，徽标是一个空心点，
      */
     @Input()
+    @InputBoolean()
     set thyIsHollow(value: boolean) {
-        this.resetBadgeClassNameMap(badgeMutexTypes);
-        this.badgeClassNameMap['thy-badge-hollow'] = coerceBooleanProperty(value);
-        if (this._initialized) {
-            this.combineBadgeClassName();
+        this.isHollow = value;
+        if (this.initialized) {
+            this.combineBadgeClasses();
         }
     }
 
@@ -202,27 +164,44 @@ export class ThyBadgeComponent implements OnInit {
      */
     @Input()
     set thyKeepShow(value: boolean) {
-        this.st.isValueKeepShow = coerceBooleanProperty(value);
-        if (this._initialized) {
+        this.keepShowValue = coerceBooleanProperty(value);
+        if (this.initialized) {
             this.combineBadgeDisplayContent();
         }
     }
 
     /**
-     * 设置徽标字体的颜色
+     * 设置徽标字体的颜色，支持内置颜色和自定义颜色 'primary' | '#87d068' | ...
      */
     @Input()
     set thyTextColor(value: string) {
-        this.textColor = value;
+        if (isTextColor(value)) {
+            this.builtInTextColorClass = `text-${value}`;
+            this.textColor = null;
+        } else {
+            this.textColor = value;
+            this.builtInTextColorClass = null;
+        }
+        if (this.initialized) {
+            this.combineBadgeClasses();
+        }
     }
 
     /**
-     * 设置徽标的背景颜色
+     * 设置徽标的背景颜色，支持内置颜色和自定义颜色 'primary' | '#87d068' | ...
      */
     @Input()
     set thyBackgroundColor(value: string) {
-        this.backgroundColor = value;
-        this.resetBadgeClassNameMap(BadgeMutexTheme);
+        if (isTextColor(value)) {
+            this.builtInBackgroundColorClass = `bg-${value}`;
+            this.backgroundColor = null;
+        } else {
+            this.backgroundColor = value;
+            this.builtInBackgroundColorClass = null;
+        }
+        if (this.initialized) {
+            this.combineBadgeClasses();
+        }
     }
 
     ngOnInit() {
@@ -232,51 +211,50 @@ export class ThyBadgeComponent implements OnInit {
                 childNodeCount++;
             }
         });
-        this.st.isSup = childNodeCount > 0;
+        this.isWrapper = childNodeCount > 0;
 
-        this.combineBadgeClassName();
+        this.combineBadgeClasses();
 
-        if (this.st.isSetValue) {
+        if (this.valueHasBeenSet) {
             this.combineBadgeDisplayContent();
         }
 
-        this._initialized = true;
+        this.initialized = true;
     }
 
-    private combineBadgeClassName() {
-        this.badgeClassNameMap['thy-badge-sup'] = this.st.isSup;
-
-        const _badgeClassNames = [];
-        for (const key in this.badgeClassNameMap) {
-            if (this.badgeClassNameMap.hasOwnProperty(key)) {
-                if (this.badgeClassNameMap[key]) {
-                    _badgeClassNames.push(key);
-                }
-            }
+    private combineBadgeClasses() {
+        const classes: string[] = [];
+        classes.push(`thy-badge-${this.type || 'danger'}`);
+        if (this.size) {
+            classes.push(`thy-badge-${this.size}`);
         }
-        this.badgeClassName = _badgeClassNames.join(' ');
+        if (this.isDot) {
+            classes.push(`thy-badge-dot`);
+        } else if (this.isHollow) {
+            classes.push(`thy-badge-hollow`);
+        } else {
+            classes.push(`thy-badge-count`);
+        }
+
+        if (this.builtInTextColorClass) {
+            classes.push(this.builtInTextColorClass);
+        }
+        if (this.builtInBackgroundColorClass) {
+            classes.push(this.builtInBackgroundColorClass);
+        }
+        this.badgeClassName = classes.join(' ');
     }
 
     private combineBadgeDisplayContent() {
-        this.displayContent = this.st.value as string;
-        if (this.st.value && this.st.max.is && this.st.value > this.st.max.value) {
-            this.displayContent = `${this.st.max.value}+`;
+        this.displayContent = this.value as string;
+        if (this.value && this.maxCount != undefined && this.value > this.maxCount) {
+            this.displayContent = `${this.maxCount}+`;
         }
 
-        if (!this.st.value && !this.st.isValueKeepShow) {
-            this.st.isShowBadge = false;
+        if (!this.value && !this.keepShowValue) {
+            this.isShowBadge = false;
         } else {
-            this.st.isShowBadge = true;
-        }
-    }
-
-    private resetBadgeClassNameMap(mutexArray: any) {
-        for (const key in this.badgeClassNameMap) {
-            if (this.badgeClassNameMap.hasOwnProperty(key)) {
-                if (mutexArray.includes(key)) {
-                    this.badgeClassNameMap[key] = false;
-                }
-            }
+            this.isShowBadge = true;
         }
     }
 }

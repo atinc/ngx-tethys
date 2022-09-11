@@ -235,9 +235,12 @@
       [thyPageIndex]="pagination.index"
       [thyTotal]="pagination.total"
       [thyPageSize]="pagination.size"
+      [thyPageSizeOptions]="pagination.sizeOptions"
+      [thyShowSizeChanger]="showSizeChanger"
       [thyShowTotal]="showTotal"
       (thyPageChanged)="onPageChange($event)"
       (thyPageIndexChange)="onPageIndexChange($event)"
+      (thyPageSizeChanged)="onPageSizeChange($event)"
     ></thy-pagination>
   </div>
 </div>

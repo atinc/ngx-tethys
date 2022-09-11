@@ -1,5 +1,8 @@
 import { Injectable } from '@angular/core';
 
+/**
+ * @internal
+ */
 @Injectable()
 export class TimePickerConfig {
     /** hours change step */

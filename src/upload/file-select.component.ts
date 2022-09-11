@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 
 import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, OnDestroy, Output, ViewChild } from '@angular/core';
 
-import { FileSelectBaseComponent } from './file-select-base';
+import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
@@ -12,7 +12,7 @@ import { mimeTypeConvert } from './util';
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html'
 })
-export class ThyFileSelectComponent extends FileSelectBaseComponent implements OnDestroy {
+export class ThyFileSelectComponent extends FileSelectBaseDirective implements OnDestroy {
     private multiple: boolean;
 
     private acceptFolder: boolean;

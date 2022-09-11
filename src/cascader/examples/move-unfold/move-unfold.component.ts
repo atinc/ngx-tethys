@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import option from '../cascader-address-options';
 @Component({
     selector: 'thy-cascader-move-unfold-example',
@@ -9,11 +10,13 @@ export class ThyCascaderMoveUnfoldExampleComponent implements OnInit {
 
     public values: any[] = [];
 
-    constructor() {}
+    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = option;
+        this.areaCode = [...option];
     }
 
-    public onChanges(values: any): void {}
+    public selectChanges(values: any): void {
+        this.notifyService.info('select', values);
+    }
 }

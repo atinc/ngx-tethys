@@ -12,7 +12,7 @@ import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overla
 import { Platform } from '@angular/cdk/platform';
 import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
-import { FormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { UpdateHostClassService } from '../core';
@@ -62,7 +62,7 @@ class BasicSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
-    control = new FormControl();
+    control = new UntypedFormControl();
     isRequired: boolean;
     enableScrollLoad: boolean;
     size = '';
@@ -142,7 +142,7 @@ class NgModelSelectComponent {
     `
 })
 class SelectWithGroupsAndNgContainerComponent {
-    control = new FormControl();
+    control = new UntypedFormControl();
     pokemonTypes = [
         {
             name: 'Grass',
@@ -248,7 +248,7 @@ class SelectWithSearchComponent {
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
     thyShowSearch = false;
-    control = new FormControl();
+    control = new UntypedFormControl();
     isRequired: boolean;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
@@ -294,7 +294,7 @@ class SelectWithSearchUseSearchKeyComponent {
         }
     ];
     thyShowSearch = true;
-    control = new FormControl();
+    control = new UntypedFormControl();
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 }
@@ -319,7 +319,7 @@ class SelectWithSearchUseSearchKeyComponent {
     `
 })
 class SelectWithSearchAndGroupComponent {
-    control = new FormControl();
+    control = new UntypedFormControl();
     pokemonTypes = [
         {
             name: 'Grass',
@@ -376,7 +376,7 @@ class SelectWithSearchAndServerSearchComponent {
     ];
     selected = this.foods[7];
     thyShowSearch = true;
-    control = new FormControl();
+    control = new UntypedFormControl();
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
     thyOnSearch = jasmine.createSpy('thyServerSearch callback');
@@ -444,7 +444,7 @@ class SelectEimtOptionsChangesComponent {
 })
 class SelectWithExpandStatusComponent {
     foods: any[] = [{ value: 'pizza-1', viewValue: 'Pizza' }];
-    control = new FormControl();
+    control = new UntypedFormControl();
     thyOnExpandStatusChange = jasmine.createSpy('thyOnExpandStatusChange callback');
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
 }
@@ -588,7 +588,7 @@ class SelectWithScrollAndSearchComponent {
     showSearch = true;
     serverSearch = true;
     selected: any = null;
-    control = new FormControl();
+    control = new UntypedFormControl();
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
     thyOnSearch(value: string) {

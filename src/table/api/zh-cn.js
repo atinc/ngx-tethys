@@ -49,6 +49,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyRowClassName',
+                description: '设置 Table 行 的 Class',
+                type: 'string | Function',
+                default: ''
+            },
+            {
                 name: 'thyLoadingDone',
                 description: '设置加载状态',
                 type: 'boolean',
@@ -96,6 +102,19 @@ module.exports = [
                 type: 'boolean | TemplateRef',
                 default: 'false'
             },
+            {
+                name: 'thyShowSizeChanger',
+                description: `是否显示调整每页显示条数下拉框`,
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyPageSizeOptions',
+                description: `每页显示条数下拉框可选项`,
+                type: 'number[]',
+                default: 'false'
+            },
+
             {
                 name: 'thyDraggable',
                 description: '是否开启行拖拽',
@@ -147,7 +166,19 @@ module.exports = [
             {
                 name: '(thyOnPageChange)',
                 description: '表格分页回调事件',
-                type: 'PageChangedEvent',
+                type: 'ThyPageChangedEvent',
+                default: ''
+            },
+            {
+                name: '(thyOnPageIndexChange)',
+                description: '表格分页当前页改变回调事件',
+                type: 'ThyPageChangedEvent',
+                default: ''
+            },
+            {
+                name: '(onPageSizeChange)',
+                description: '表格分页每页显示条数改变回调事件',
+                type: 'ThyPageChangedEvent',
                 default: ''
             },
             {

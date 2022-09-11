@@ -90,7 +90,8 @@ a {
     }
 
     &.disabled {
-        @include link.link-variant(variables.$gray-400, none, variables.$gray-400, none);
+        @include link.link-variant(null, none, null, none);
+        opacity: variables.$link-disabled-opacity;
         pointer-events: none;
     }
 }

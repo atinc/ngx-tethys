@@ -858,14 +858,21 @@ function comparePopoverConfig(expectConfig: ThyPopoverConfig, currentConfig: Thy
     let isSame = false;
     const keys = Object.keys(THY_POPOVER_DEFAULT_CONFIG_VALUE);
     keys.forEach(key => {
-        if (!isUndefinedOrNull(expectConfig[key]) && !isUndefinedOrNull(currentConfig[key])) {
-            if (isArray(currentConfig[key]) && isArray(expectConfig[key])) {
-                isSame = currentConfig[key].join(',') === expectConfig[key].join(',');
-            } else if (expectConfig[key] !== currentConfig[key]) {
+        let expectValue = expectConfig[key];
+
+        // 自动加上 thy-popover-panel
+        if (key === 'panelClass') {
+            expectValue = ['thy-popover-panel', ...expectValue];
+        }
+        if (!isUndefinedOrNull(expectValue) && !isUndefinedOrNull(currentConfig[key])) {
+            if (isArray(currentConfig[key]) && isArray(expectValue)) {
+                isSame = currentConfig[key].join(',') === expectValue.join(',');
+            } else if (expectValue !== currentConfig[key]) {
                 isSame = false;
             }
         }
         return isSame;
     });
+
     return isSame;
 }

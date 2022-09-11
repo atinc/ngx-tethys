@@ -22,10 +22,8 @@
       <li
         class="choice"
         [ngClass]="{ disabled: disabled === true }"
-        thyLabel="default"
-        [thyAfterIcon]="disabled ? '' : 'close'"
-        [thySize]="labelSize"
-        (thyOnRemove)="removeHandle(item, $event)"
+        thyTag
+        [thySize]="tagSize"
         *ngFor="let item of maxSelectedTags; trackBy: trackValue"
       >
         <div class="text-truncate">
@@ -38,11 +36,12 @@
             {{ item.thyLabelText }}
           </ng-container>
         </div>
+        <thy-icon *ngIf="!disabled" class="ml-1 font-size-sm" thyIconName="close" (click)="removeHandle(item, $event)"></thy-icon>
       </li>
       <li
         *ngIf="thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount"
-        thyLabel="default"
-        [thySize]="labelSize"
+        thyTag
+        [thySize]="tagSize"
         class="choice max-tag-count-choice"
         [ngClass]="{ disabled: disabled === true }"
       >

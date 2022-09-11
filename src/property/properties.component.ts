@@ -1,23 +1,25 @@
+import { InputNumber } from 'ngx-tethys/core';
+import { merge, Subject } from 'rxjs';
+import { filter, startWith, takeUntil } from 'rxjs/operators';
+
 import {
+    AfterContentInit,
+    AfterViewInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
+    ElementRef,
     Input,
+    NgZone,
+    OnChanges,
+    OnDestroy,
     OnInit,
     QueryList,
-    AfterContentInit,
-    ChangeDetectionStrategy,
-    OnDestroy,
-    ElementRef,
-    NgZone,
-    ChangeDetectorRef,
-    ViewChildren,
-    AfterViewInit,
-    OnChanges,
-    SimpleChanges
+    SimpleChanges,
+    ViewChildren
 } from '@angular/core';
-import { InputNumber } from 'ngx-tethys/core';
-import { EMPTY, fromEvent, merge, Subject } from 'rxjs';
-import { takeUntil, startWith, map, filter } from 'rxjs/operators';
+
 import { ThyPropertyItemComponent } from './property-item.component';
 
 /**
@@ -125,47 +127,22 @@ export class ThyPropertiesComponent implements OnInit, AfterViewInit, AfterConte
                 rows.push([item]);
             }
         });
-        // 循环处理所有行，若行数据的总 span 小于设置的 column 值，则补充行内最后一个 item 的 span 值进行填充
-        rows.forEach(rowItems => {
-            const totalSpan = rowItems.reduce((result, item) => result + item.thySpan, 0);
-            if (totalSpan < this.thyColumn) {
-                const lastItem = rowItems[rowItems.length - 1];
-                lastItem.computedSpan = lastItem.thySpan + (this.thyColumn - totalSpan);
-            }
-        });
         this.rows = rows;
-    }
-
-    private mergeEditorsEvent(eventName: string) {
-        return merge<{ event: Event; itemComponent: ThyPropertyItemComponent }>(
-            ...this.itemElements.map((element, index) => {
-                const itemComponent = this.items.get(index);
-                if (itemComponent.thyEditable) {
-                    return fromEvent(element.nativeElement, eventName).pipe(
-                        map(event => {
-                            return { event, itemComponent };
-                        })
-                    );
-                } else {
-                    return EMPTY;
-                }
-            })
-        );
     }
 
     private bindTriggerEvent() {
         this.ngZone.runOutsideAngular(() => {
             const eventDestroy$ = merge(this.itemElements.changes, this.editTrigger$, this.destroy$);
-            if (this.thyEditTrigger === 'click') {
-                this.mergeEditorsEvent('click')
-                    .pipe(takeUntil(eventDestroy$))
-                    .subscribe(event => {
-                        this.ngZone.run(() => {
-                            event.itemComponent.setEditing(true);
-                            this.cdr.markForCheck();
-                        });
-                    });
-            }
+
+            this.itemElements.forEach((element, index) => {
+                const itemComponent = this.items.get(index);
+                if (itemComponent.thyEditable) {
+                    return itemComponent
+                        .editorClick(element.nativeElement)
+                        .pipe(takeUntil(eventDestroy$))
+                        .subscribe();
+                }
+            });
         });
     }
 }

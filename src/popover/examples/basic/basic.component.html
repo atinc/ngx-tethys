@@ -1,56 +1,14 @@
-<form thyForm thyLayout="inline">
-  <thy-form-group thyLabelText="Placement">
-    <thy-select name="size" [(ngModel)]="config.placement" name="placement">
-      <option value="top">top</option>
-      <option value="topLeft">topLeft</option>
-      <option value="topRight">topRight</option>
-      <option value="bottom">bottom</option>
-      <option value="bottomLeft">bottomLeft</option>
-      <option value="bottomRight">bottomRight</option>
-      <option value="left">left</option>
-      <option value="leftTop">leftTop</option>
-      <option value="leftBottom">leftBottom</option>
-      <option value="right">right</option>
-      <option value="rightTop">rightTop</option>
-      <option value="rightBottom">rightBottom</option>
-    </thy-select>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox thyLabelText="hasBackdrop" [(ngModel)]="config.hasBackdrop" name="hasBackdrop"></label>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox thyLabelText="backdropClosable" [(ngModel)]="config.backdropClosable" name="backdropClosable"></label>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox thyLabelText="insideClosable" [(ngModel)]="config.insideClosable" name="insideClosable"></label>
-  </thy-form-group>
-  <thy-form-group>
-    <label thyCheckbox thyLabelText="outsideClosable" [(ngModel)]="config.outsideClosable" name="outsideClosable"></label>
-  </thy-form-group>
-</form>
-<div class="demo-buttons d-flex mt-3">
-  <button thyButton="secondary" thySize="md" (click)="openPopover($event)">
-    Use Component
-  </button>
-  <button thyButton="secondary" thySize="md" (click)="openTemplatePopover($event, template)">
-    Use Template
-  </button>
-  <thy-icon-nav class="ml-2">
-    <a
-      href="javascript:;"
-      thyIconNavLink
-      thyIconNavLinkIcon="vertical-view-lines"
-      thyTooltip="视图"
-      thyTooltipPlacement="bottom"
-      (click)="openTemplatePopover($event, template)"
-    ></a>
-  </thy-icon-nav>
-</div>
+<button thyButton="primary" [thyPopover]="content">
+  Open Component
+</button>
+
+<button thyButton="primary" [thyPopover]="template">
+  Open Template
+</button>
+
 <ng-template #template>
-  <p class="p-2">
-    Hello, I am template content
-    <button thyButton="secondary" thySize="md" (click)="close()">
-      Close
-    </button>
-  </p>
+  <thy-popover-header thyTitle="Title"></thy-popover-header>
+  <thy-popover-body>
+    Hi, I'm a template popover!
+  </thy-popover-body>
 </ng-template>

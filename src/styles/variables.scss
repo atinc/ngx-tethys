@@ -82,6 +82,8 @@ $link-decoration: none !default;
 $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-x: 4px !default;
+$link-disabled-opacity: 50% !default;
+
 // box shadow
 $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 
@@ -171,7 +173,8 @@ $btn-icon-thick-solid-color: $gray-400 !default; // #cacaca
 // $btn-icon-circle-padding-xs: 0.25rem;
 $btn-icon-circle-padding-lg: 11px;
 $btn-icon-circle-padding-base: 8px;
-$btn-icon-circle-padding-sm: 7px;
+$btn-icon-circle-padding-md: 7px;
+$btn-icon-circle-padding-sm: 6px;
 $btn-icon-circle-padding-xs: 4px;
 $btn-icon-circle-padding-difference: 1;
 
@@ -419,7 +422,6 @@ $label-size-paddings: (
 );
 $label-border-radius: 3px !default;
 $label-pill-radius: 18px !default;
-$label-border-radius: 3px !default;
 $label-default-bg: $gray-200 !default;
 $label-primary-bg: $primary !default;
 $label-success-bg: $success !default;
@@ -443,11 +445,14 @@ $tag-colors: map.merge(
     ),
     $tag-colors
 );
+$tag-height-sm: 20px !default;
+$tag-height-md: 24px !default;
+$tag-height-lg: 28px !default;
 $tag-size-heights: () !default;
 $tag-size-heights: (
-    sm: 20px,
-    md: 24px,
-    lg: 28px
+    sm: $tag-height-sm,
+    md: $tag-height-md,
+    lg: $tag-height-lg
 );
 $tag-size-paddings: () !default;
 $tag-size-paddings: (
@@ -463,7 +468,7 @@ $tag-size-font-sizes: (
     lg: $font-size-base $font-size-md
 );
 
-$tag-border-radius: 3px !default;
+$tag-border-radius: 4px !default;
 
 //avatar
 $avatar-sizes: () !default;
@@ -997,13 +1002,25 @@ $collapse-spacing-y: 12px !default;
 // property
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
-$property-item-min-height: 28px !default;
-$property-item-padding-x: 0.5rem !default;
-$property-item-padding-y: 0.5rem !default;
+$property-item-min-height: 32px !default;
+$property-item-padding-x: 1rem !default;
+$property-item-padding-y: 0.4rem !default;
 $property-item-horizontal-label-width: 100px !default;
+$property-item-editor-offset: calc($property-item-padding-x * 0.5 + 0.0625rem) * -1;
 
 // tabs
 $tabs-content-space: 1rem !default;
+
+// select-control
+$select-control-padding-y-sm: 3px !default;
+$select-control-padding-y-md: 3px !default;
+$select-control-padding-y-default: 5px !default;
+$select-control-padding-y-lg: 7px !default;
+$select-option-disabled-opacity: 0.5 !default;
+$select-control-height-sm: 20px;
+$select-control-height-md: 24px;
+$select-control-height-default: 24px;
+$select-control-height-lg: 28px;
 
 // z-index
 $z-index-1: 10;
