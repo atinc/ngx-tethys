@@ -47,6 +47,7 @@ export abstract class ThyCarouselBasicEngine implements ThyCarouselEngine {
         this.contents = contents?.toArray();
         this.length = this.contents.length;
         if (this.platform.isBrowser && this.contents.length) {
+            this.renderer.setStyle(this.wrapperEl, 'transform', 'translate3d(0, 0, 0)');
             this.renderer.setStyle(this.wrapperEl, `height`, `${this.contentHeight}px`);
         }
     }

@@ -1,5 +1,11 @@
 <div>
-  <thy-carousel thyEffect="fade" [thyAutoPlay]="true" [thyAutoPlaySpeed]="4000">
+  <thy-carousel
+    thyEffect="fade"
+    (thyBeforeChange)="beforeChange($event)"
+    (thyAfterChange)="afterChange($event)"
+    [thyAutoPlay]="true"
+    [thyAutoPlaySpeed]="4000"
+  >
     <div thy-carousel-item>
       <img src="assets/images/image/first.png" alt="first" />
     </div>

@@ -19,7 +19,7 @@ module.exports = [
                 name: 'thyEffect',
                 type: 'thyEffectType',
                 default: 'slide',
-                description: '动画切换样式（只在组件初始化时执行一次,再次变更不执行）, 支持 `"slide" | "fade" | "noop"`'
+                description: '动画切换样式, 支持 `"slide" | "fade" | "noop"`'
             },
             {
                 name: 'thyShowDot',

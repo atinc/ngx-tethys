@@ -124,6 +124,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     private markContentActive(index: number) {
+        this.activeIndex = index;
         this.carouselItems.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
@@ -171,6 +172,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
             this.carouselService.registerDrag(event).subscribe(
                 pointerVector => {
+                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
                     this.pointerVector = pointerVector;
                     this.isDragging = true;
                     this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
@@ -184,8 +186,8 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
                         // or
                         // If the pointerVector is more than one third switch to the next frame
                         if (
-                            Math.abs(this.pointerVector.x) / holdDownTime >= 1 ||
-                            Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3
+                            Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3 ||
+                            Math.abs(this.pointerVector.x) / holdDownTime >= 1
                         ) {
                             this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
                         } else {
@@ -193,6 +195,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
                         }
                     }
                     this.isDragging = false;
+                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grab');
                 }
             );
         }
@@ -218,6 +221,13 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         });
     }
     ngOnChanges(changes: SimpleChanges) {
+        const { thyEffect } = changes;
+        if (thyEffect && !thyEffect.isFirstChange()) {
+            this.switchEngine();
+            this.markContentActive(0);
+            this.setInitialValue();
+        }
+
         if (!this.thyAutoPlay || !this.thyAutoPlaySpeed) {
             this.clearScheduledTransition();
         } else {
@@ -227,13 +237,16 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     ngAfterViewInit(): void {
+        this.carouselItems.changes.subscribe(() => {
+            this.markContentActive(0);
+            this.setInitialValue();
+        });
         this.switchEngine();
         this.markContentActive(0);
         this.setInitialValue();
-
-        Promise.resolve().then(() => {
-            this.setInitialValue();
-        });
+        if (!this.thyTouchable) {
+            this.renderer.setStyle(this.wrapperEl, 'cursor', 'default');
+        }
     }
 
     ngAfterContentInit() {}
