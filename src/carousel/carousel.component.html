@@ -2,10 +2,10 @@
   <div #carouselWrapper class="carousel-wrapper" (mousedown)="onDrag($event)" (touchstart)="onDrag($event)">
     <ng-content></ng-content>
   </div>
-  <ng-container *ngIf="showArrow && carouselItems.length > 1">
+  <ng-container *ngIf="thyShowArrow && carouselItems.length > 1">
     <ng-container *ngTemplateOutlet="thyArrowTemplate || defaultArrowTemplate; context: context"></ng-container>
   </ng-container>
-  <ng-container *ngIf="showDot">
+  <ng-container *ngIf="thyShowDot">
     <div class="carousel-dots">
       <span
         *ngFor="let content of carouselItems; let i = index"

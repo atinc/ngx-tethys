@@ -45,11 +45,11 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     @Input() thyEffect: thyEffectType = 'slide';
 
-    @Input('thyShowDot') @InputBoolean() showDot = true;
+    @Input() @InputBoolean() thyShowDot = true;
 
     @Input() thyDotTemplate?: TemplateRef<{ $implicit: boolean }>;
 
-    @Input('thyShowArrow') @InputBoolean() showArrow = true;
+    @Input() @InputBoolean() thyShowArrow = true;
 
     @Input() thyArrowTemplate?: TemplateRef<CarouselMethod>;
 
