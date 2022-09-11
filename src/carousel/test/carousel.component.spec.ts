@@ -169,6 +169,7 @@ describe('carousel', () => {
         }));
 
         it('should drag work', fakeAsync(() => {
+            fixture.detectChanges();
             mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
