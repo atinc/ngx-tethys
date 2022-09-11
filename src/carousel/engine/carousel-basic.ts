@@ -58,4 +58,12 @@ export abstract class ThyCarouselBasicEngine implements ThyCarouselEngine {
     abstract stagnating(): void;
 
     abstract switch(to: number, from: number): Observable<void>;
+
+    correctionOffset(): void {
+        const carousel = this.carouselComponent!;
+        const { wrapperEl } = carousel;
+        const { width, height } = wrapperEl.getBoundingClientRect();
+        this.contentWidth = width;
+        this.contentHeight = height;
+    }
 }

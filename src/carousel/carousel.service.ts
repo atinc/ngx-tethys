@@ -1,12 +1,13 @@
 import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { debounceTime, map } from 'rxjs/operators';
 import { DistanceVector } from './typings';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CarouselService {
+    private readonly resizeSource$ = new Subject<void>();
     private currentDragging$: Subject<MouseEvent | Touch> | null = null;
     private handleRegistry = new Set();
     private renderer: Renderer2;
@@ -70,6 +71,13 @@ export class CarouselService {
                 })
             });
         }
+    }
+
+    registerResize(): Observable<void> {
+        this.renderer.listen('window', 'resize', () => {
+            this.resizeSource$.next();
+        });
+        return this.resizeSource$.asObservable().pipe(debounceTime(100));
     }
 
     getEventPotions(event: MouseEvent | TouchEvent): MouseEvent | Touch {

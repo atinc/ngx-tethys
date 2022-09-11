@@ -1,0 +1,19 @@
+<div>
+  <thy-carousel [thyArrowTemplate]="arrowTemplate" [thyDotTemplate]="dotTemplate">
+    <div thy-carousel-item *ngFor="let index of array">
+      <h3>{{ index }}</h3>
+    </div>
+  </thy-carousel>
+</div>
+<ng-template #dotTemplate let-active>
+  <thy-icon thyIconName="aim" [class]="['custom-dots', active ? 'active-color' : 'default-color']"></thy-icon>
+</ng-template>
+
+<ng-template #arrowTemplate let-pre="pre" let-next="next">
+  <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
+    <thy-icon thyIconName="arrow-left-circle"></thy-icon>
+  </div>
+  <div class="carousel-arrow carousel-arrow-right" (click)="next()">
+    <thy-icon thyIconName="arrow-right-circle"></thy-icon>
+  </div>
+</ng-template>

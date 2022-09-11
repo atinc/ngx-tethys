@@ -53,4 +53,6 @@ export class ThyCarouselFadeEngine extends ThyCarouselBasicEngine {
     }
 
     stagnating(): void {}
+
+    correctionOffset(): void {}
 }

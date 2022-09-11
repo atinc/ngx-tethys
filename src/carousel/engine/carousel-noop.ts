@@ -34,4 +34,10 @@ export class ThyCarouselNoopEngine extends ThyCarouselBasicEngine {
         }, 0);
         return switch$.asObservable();
     }
+
+    correctionOffset(): void {
+        super.correctionOffset();
+        const { activeIndex } = this.carouselComponent!;
+        this.renderer.setStyle(this.wrapperEl, `transform`, `translate3d(${-activeIndex * this.contentWidth}px,0 , 0)`);
+    }
 }

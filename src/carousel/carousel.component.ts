@@ -53,7 +53,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     @Input() thyArrowTemplate?: TemplateRef<CarouselMethod>;
 
-    @Input('thyTouchable') @InputBoolean() touchable = true;
+    @Input() @InputBoolean() thyTouchable = true;
 
     @Output() readonly thyBeforeChange = new EventEmitter<FromTo>();
 
@@ -164,7 +164,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     onDrag(event: TouchEvent | MouseEvent): void {
-        if (!this.isDragging && !this.isTransitioning) {
+        if (!this.isDragging && !this.isTransitioning && this.thyTouchable) {
             this.clearScheduledTransition();
             const mouseDownTime = new Date().getTime();
             let mouseUpTime: number;
@@ -213,6 +213,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     ngOnInit(): void {
         this.wrapperEl = this.carouselWrapper!.nativeElement;
         this.initContext();
+        this.carouselService.registerResize().subscribe(() => {
+            this.engine?.correctionOffset();
+        });
     }
     ngOnChanges(changes: SimpleChanges) {
         if (!this.thyAutoPlay || !this.thyAutoPlaySpeed) {

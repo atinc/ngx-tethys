@@ -23,6 +23,8 @@ export interface ThyCarouselEngine {
     dragging(pointerVector: DistanceVector, rect: DOMRect): void;
     // when stagnant
     stagnating(): void;
+    // when window resize
+    correctionOffset(): void;
 }
 
 export interface CarouselMethod {
