@@ -1,11 +1,11 @@
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
+import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from '../../testing/dispatcher-events';
 import { ThyCarouselModule } from '../module';
 import { ThyCarouselComponent } from '../carousel.component';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
-import { By } from '@angular/platform-browser';
-import { thyEffectType } from 'ngx-tethys/carousel';
-import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing/dispatcher-events';
+import { thyEffectType } from '../typings';
 
 @Component({
     selector: 'thy-carousel-basic-example',
