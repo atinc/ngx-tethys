@@ -14,6 +14,8 @@ export interface FromTo {
 
 export type thyEffectType = 'slide' | 'fade' | 'noop';
 
+export type thyTriggerType = 'click' | 'trigger';
+
 export interface ThyCarouselEngine {
     // Initialize dragging sequences.
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;

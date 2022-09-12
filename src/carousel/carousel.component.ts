@@ -22,8 +22,10 @@ import { Platform } from '@angular/cdk/platform';
 import { InputBoolean, InputNumber } from '../core';
 import { CarouselService } from './carousel.service';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
-import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod } from './typings';
+import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod, thyTriggerType } from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
+import { Subject } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -55,6 +57,8 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     @Input() @InputBoolean() thyTouchable = true;
 
+    @Input() thyTrigger: thyTriggerType = 'click';
+
     @Output() readonly thyBeforeChange = new EventEmitter<FromTo>();
 
     @Output() readonly thyAfterChange = new EventEmitter<number>();
@@ -66,6 +70,8 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     private pointerVector: DistanceVector = { x: 0, y: 0 };
 
     private engine: ThyCarouselEngine;
+
+    private trigger$ = new Subject<number>();
 
     context: CarouselMethod;
 
@@ -202,7 +208,16 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     dotHandleClick(index: number): void {
-        this.moveTo(index);
+        if (this.thyTrigger === 'click') {
+            this.moveTo(index);
+        }
+    }
+
+    dotHandleTrigger(index: number): void {
+        if (this.thyTrigger === 'trigger') {
+            this.clearScheduledTransition();
+            this.trigger$.next(index);
+        }
     }
 
     next(): void {
@@ -249,5 +264,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
-    ngAfterContentInit() {}
+    ngAfterContentInit() {
+        this.trigger$.pipe(debounceTime(200)).subscribe(index => {
+            this.moveTo(index);
+        });
+    }
 }

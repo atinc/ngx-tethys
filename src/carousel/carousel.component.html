@@ -11,6 +11,7 @@
         *ngFor="let content of carouselItems; let i = index"
         class="carousel-dots-bullet"
         [class.carousel-dots-active]="i === activeIndex"
+        (mouseenter)="dotHandleTrigger(i)"
         (click)="dotHandleClick(i)"
       >
         <ng-template

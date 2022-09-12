@@ -52,6 +52,12 @@ module.exports = [
                 description: '是否支持手势滑动'
             },
             {
+                name: 'thyTrigger',
+                type: 'string',
+                default: 'click',
+                description: '在 dot 上切换走马灯的触发方式, 支持 `click` | `trigger`'
+            },
+            {
                 name: '(thyAfterChange)',
                 type: 'number',
                 default: '',

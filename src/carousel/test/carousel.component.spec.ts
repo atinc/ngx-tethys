@@ -5,7 +5,7 @@ import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from '../../tes
 import { ThyCarouselModule } from '../module';
 import { ThyCarouselComponent } from '../carousel.component';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
-import { thyEffectType } from '../typings';
+import { thyEffectType, thyTriggerType } from '../typings';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -17,6 +17,7 @@ import { thyEffectType } from '../typings';
                 [thyShowDot]="showDots"
                 [thyShowArrow]="showArrow"
                 [thyEffect]="effect"
+                [thyTrigger]="trigger"
             >
                 <div thy-carousel-item class="custom-class" [thyClass]="'custom-carousel-item'" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
@@ -40,6 +41,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
     showArrow = true;
 
     effect: thyEffectType = 'slide';
+
+    trigger: thyTriggerType = 'click';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {
@@ -221,6 +224,15 @@ describe('carousel', () => {
             expect(carouselWrapper.nativeElement.querySelector('.carousel-wrapper').style.transform).toBe(
                 `translate3d(${-newWidth * 2}px, 0px, 0px)`
             );
+        }));
+
+        it(`should trigger work`, fakeAsync(() => {
+            basicTestComponent.trigger = 'trigger';
+            fixture.detectChanges();
+            dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.carousel-dots').lastElementChild, 'mouseenter');
+            tick(1000);
+            fixture.detectChanges();
+            expect(carouselContents[7].nativeElement.classList).toContain('carousel-item-active');
         }));
     });
 });
