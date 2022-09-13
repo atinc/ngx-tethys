@@ -52,7 +52,5 @@ export class ThyCarouselFadeEngine extends ThyCarouselBasicEngine {
         return switch$.asObservable();
     }
 
-    stagnating(): void {}
-
     correctionOffset(): void {}
 }

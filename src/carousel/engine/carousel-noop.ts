@@ -17,8 +17,6 @@ export class ThyCarouselNoopEngine extends ThyCarouselBasicEngine {
         this.initializeContents(contents);
     }
 
-    stagnating(): void {}
-
     switch(to: number, from: number): Observable<void> {
         const switch$ = new Subject<void>();
         this.renderer.setStyle(

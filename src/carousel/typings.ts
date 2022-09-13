@@ -23,8 +23,6 @@ export interface ThyCarouselEngine {
     switch(to: number, from: number): Observable<void>;
     // dragging events
     dragging(pointerVector: DistanceVector, rect: DOMRect): void;
-    // when stagnant
-    stagnating(): void;
     // when window resize
     correctionOffset(): void;
 }

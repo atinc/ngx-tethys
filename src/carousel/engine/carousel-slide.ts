@@ -67,8 +67,6 @@ export class ThyCarouselSlideEngine extends ThyCarouselBasicEngine {
         return switch$.asObservable();
     }
 
-    stagnating(): void {}
-
     correctionOffset(): void {
         super.correctionOffset();
         const { activeIndex } = this.carouselComponent!;

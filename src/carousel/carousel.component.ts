@@ -16,16 +16,17 @@ import {
     ViewEncapsulation,
     AfterContentInit,
     OnChanges,
-    SimpleChanges
+    SimpleChanges,
+    NgZone,
+    OnDestroy
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { InputBoolean, InputNumber } from '../core';
-import { CarouselService } from './carousel.service';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod, thyTriggerType } from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
-import { Subject } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { fromEvent, Subject } from 'rxjs';
+import { debounceTime, map, takeUntil } from 'rxjs/operators';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -36,31 +37,64 @@ import { debounceTime } from 'rxjs/operators';
         class: 'thy-carousel'
     }
 })
-export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges {
+export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
     @ContentChildren(ThyCarouselItemDirective) carouselItems!: QueryList<ThyCarouselItemDirective>;
 
     @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
 
+    /**
+     * 是否自动切换,默认 false
+     */
     @Input() @InputBoolean() thyAutoPlay: boolean = false;
 
+    /**
+     * 自动切换时间间隔(毫秒)
+     */
     @Input() @InputNumber() thyAutoPlaySpeed: number = 3000;
 
+    /**
+     * 切换动画样式, 默认为 'slide', 支持 `slide` | `fade` | `noop`
+     */
     @Input() thyEffect: thyEffectType = 'slide';
 
+    /**
+     * 是否显示指示点
+     */
     @Input() @InputBoolean() thyShowDot = true;
 
+    /**
+     * 指示点渲染模板
+     */
     @Input() thyDotTemplate?: TemplateRef<{ $implicit: boolean }>;
 
+    /**
+     * 是否显示前进后退按钮
+     */
     @Input() @InputBoolean() thyShowArrow = true;
 
+    /**
+     * 前进/后退 按钮渲染模板
+     */
     @Input() thyArrowTemplate?: TemplateRef<CarouselMethod>;
 
+    /**
+     * 是否支持手势滑动
+     */
     @Input() @InputBoolean() thyTouchable = true;
 
+    /**
+     * 指示点切换的触发条件, 默认为 'click', 支持 `click` | `trigger`
+     */
     @Input() thyTrigger: thyTriggerType = 'click';
 
+    /**
+     * 触发切换帧之前,返回 `{from: number, to: number}`
+     */
     @Output() readonly thyBeforeChange = new EventEmitter<FromTo>();
 
+    /**
+     * 切换帧之后的回调,返回当前帧索引
+     */
     @Output() readonly thyAfterChange = new EventEmitter<number>();
 
     private isDragging = false;
@@ -72,6 +106,10 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     private engine: ThyCarouselEngine;
 
     private trigger$ = new Subject<number>();
+
+    private _destroy$ = new Subject<void>();
+
+    private _dragging$ = new Subject<MouseEvent | Touch>();
 
     context: CarouselMethod;
 
@@ -86,15 +124,15 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     playTime: number = 400;
 
     constructor(
-        private carouselService: CarouselService,
         protected renderer: Renderer2,
         private cdr: ChangeDetectorRef,
+        private ngZone: NgZone,
         private readonly platform: Platform
     ) {}
 
     private moveTo(index: number): void {
-        this.setInitialValue();
         if (this.carouselItems && this.carouselItems.length && !this.isTransitioning) {
+            this.setInitialValue();
             const len = this.carouselItems.length;
             const from = this.activeIndex;
             const to = (index + len) % len;
@@ -170,40 +208,108 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
+    private registerHandler() {
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(document, 'touchmove')
+                .pipe(takeUntil(this._destroy$))
+                .subscribe((event: TouchEvent) => {
+                    if (this._dragging$) {
+                        this._dragging$.next(event.touches[0] || event.changedTouches[0]);
+                    }
+                });
+        });
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(document, 'touchend')
+                .pipe(takeUntil(this._destroy$))
+                .subscribe(() => {
+                    if (this._dragging$) {
+                        this._dragging$.complete();
+                    }
+                });
+        });
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(document, 'mousemove')
+                .pipe(takeUntil(this._destroy$))
+                .subscribe((event: MouseEvent) => {
+                    if (this._dragging$) {
+                        this._dragging$.next(event);
+                    }
+                });
+        });
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(document, 'mouseup')
+                .pipe(takeUntil(this._destroy$))
+                .subscribe(() => {
+                    if (this._dragging$) {
+                        this._dragging$.complete();
+                    }
+                });
+        });
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(window, 'resize')
+                .pipe(takeUntil(this._destroy$), debounceTime(100))
+                .subscribe(() => {
+                    this.engine?.correctionOffset();
+                });
+        });
+    }
+
+    private getEventPotions(event: MouseEvent | TouchEvent): MouseEvent | Touch {
+        if (event instanceof MouseEvent) {
+            return event;
+        } else {
+            return event.touches[0] || event.changedTouches[0];
+        }
+    }
+
     onDrag(event: TouchEvent | MouseEvent): void {
         if (!this.isDragging && !this.isTransitioning && this.thyTouchable) {
-            this.clearScheduledTransition();
             const mouseDownTime = new Date().getTime();
+            const startPoint = this.getEventPotions(event);
             let mouseUpTime: number;
+            if (this._dragging$) {
+                this._dragging$.complete();
+            }
+            this.clearScheduledTransition();
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
-            this.carouselService.registerDrag(event).subscribe(
-                pointerVector => {
-                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
-                    this.pointerVector = pointerVector;
-                    this.isDragging = true;
-                    this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
-                },
-                () => {},
-                () => {
-                    if (this.isDragging) {
-                        mouseUpTime = new Date().getTime();
-                        const holdDownTime = mouseUpTime - mouseDownTime;
-                        // Fast enough to switch to the next frame
-                        // or
-                        // If the pointerVector is more than one third switch to the next frame
-                        if (
-                            Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3 ||
-                            Math.abs(this.pointerVector.x) / holdDownTime >= 1
-                        ) {
-                            this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
-                        } else {
-                            this.moveTo(this.activeIndex);
+            this._dragging$ = new Subject<MouseEvent | Touch>();
+            this._dragging$
+                .pipe(
+                    map(e => {
+                        return {
+                            x: e.pageX - startPoint!.pageX,
+                            y: e.pageY - startPoint!.pageY
+                        };
+                    })
+                )
+                .subscribe(
+                    pointerVector => {
+                        this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
+                        this.pointerVector = pointerVector;
+                        this.isDragging = true;
+                        this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
+                    },
+                    () => {},
+                    () => {
+                        if (this.isDragging) {
+                            mouseUpTime = new Date().getTime();
+                            const holdDownTime = mouseUpTime - mouseDownTime;
+                            // Fast enough to switch to the next frame
+                            // or
+                            // If the pointerVector is more than one third switch to the next frame
+                            if (
+                                Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3 ||
+                                Math.abs(this.pointerVector.x) / holdDownTime >= 1
+                            ) {
+                                this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
+                            } else {
+                                this.moveTo(this.activeIndex);
+                            }
                         }
+                        this.isDragging = false;
+                        this.renderer.setStyle(this.wrapperEl, 'cursor', 'grab');
                     }
-                    this.isDragging = false;
-                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grab');
-                }
-            );
+                );
         }
     }
 
@@ -231,9 +337,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     ngOnInit(): void {
         this.wrapperEl = this.carouselWrapper!.nativeElement;
         this.initContext();
-        this.carouselService.registerResize().subscribe(() => {
-            this.engine?.correctionOffset();
-        });
+        this.registerHandler();
     }
     ngOnChanges(changes: SimpleChanges) {
         const { thyEffect } = changes;
@@ -268,5 +372,11 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         this.trigger$.pipe(debounceTime(200)).subscribe(index => {
             this.moveTo(index);
         });
+    }
+
+    ngOnDestroy() {
+        this.clearScheduledTransition();
+        this._destroy$.next();
+        this._destroy$.complete();
     }
 }

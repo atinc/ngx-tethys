@@ -56,8 +56,6 @@ export abstract class ThyCarouselBasicEngine implements ThyCarouselEngine {
 
     abstract initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
 
-    abstract stagnating(): void;
-
     abstract switch(to: number, from: number): Observable<void>;
 
     correctionOffset(): void {
