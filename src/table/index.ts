@@ -1,5 +1,6 @@
 export * from './table.interface';
 export * from './table.component';
-export * from './table.pipe';
+export * from './pipes/table.pipe';
+export * from './pipes/drag.pipe';
 export * from './table.module';
 export * from './table-column.component';

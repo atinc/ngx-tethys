@@ -4,8 +4,10 @@
   thyRowKey="id"
   thyGroupBy="group_id"
   thyMode="group"
-  thyWholeRowSelect="true"
+  thyWholeRowSelect="false"
   (thyOnRowClick)="onRowClick($event)"
+  [thyDraggable]="true"
+  [thyDragDisabledPredicate]="DragDisabledPredicate"
 >
   <ng-template #group let-group>{{ group?.title }}</ng-template>
   <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>

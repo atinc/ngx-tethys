@@ -1,4 +1,18 @@
-import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+    Constructor,
+    InputBoolean,
+    InputCssPixel,
+    MixinBase,
+    mixinUnsubscribe,
+    ThyUnsubscribe,
+    UpdateHostClassService
+} from 'ngx-tethys/core';
+import { Dictionary, SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
+import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
+
+import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
@@ -31,20 +45,8 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import {
-    Constructor,
-    InputBoolean,
-    InputCssPixel,
-    MixinBase,
-    mixinUnsubscribe,
-    ThyUnsubscribe,
-    UpdateHostClassService
-} from 'ngx-tethys/core';
-import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
-import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
-import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-import { IThyTableColumnParentComponent, ThyTableColumnComponent, THY_TABLE_COLUMN_PARENT_COMPONENT } from './table-column.component';
+
+import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
     PageChangedEvent,
     ThyMultiSelectEvent,
@@ -270,8 +272,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @Input()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
-        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.mode !== 'list' && this.draggable) {
-            throw new Error('Only list mode sorting is supported');
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
+            throw new Error('tree mode sorting is not supported');
         }
     }
 
@@ -316,6 +318,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @HostBinding('class.thy-table-hover-display-operation')
     @Input()
     thyHoverDisplayOperation: boolean;
+
+    @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => true;
 
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
@@ -598,6 +602,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             })
         );
     }
+
+    dropListEnterPredicate = (index: number, drag: CdkDrag, drop: CdkDropList) => {
+        return drop.getSortedItems()[index].data.group_id === drag.data.group_id;
+    };
 
     onDragDropped(event: CdkDragDrop<unknown>) {
         const dragEvent: ThyTableDraggableEvent = {

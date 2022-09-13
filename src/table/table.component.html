@@ -42,11 +42,25 @@
       </tr>
     </thead>
 
-    <tbody *ngIf="loadingDone" thyDragDrop cdkDropList [cdkDropListDisabled]="!draggable" (cdkDropListDropped)="onDragDropped($event)">
+    <tbody
+      *ngIf="loadingDone"
+      thyDragDrop
+      cdkDropList
+      [cdkDropListDisabled]="!draggable"
+      [cdkDropListSortPredicate]="dropListEnterPredicate"
+      (cdkDropListDropped)="onDragDropped($event)"
+    >
       <!-- group -->
       <ng-container *ngIf="mode === 'group'">
         <ng-container *ngFor="let group of groups">
-          <tr class="thy-table-group" (click)="expandGroup(group)">
+          <tr
+            class="thy-table-group"
+            (click)="expandGroup(group)"
+            cdkDrag
+            [cdkDragPreviewClass]="dragPreviewClass"
+            [cdkDragData]="group"
+            [cdkDragDisabled]="(group | TableRowIsDraggable: thyDragDisabledPredicate)"
+          >
             <td [attr.colspan]="columns.length">
               <div class="thy-table-group-container">
                 <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
@@ -76,6 +90,7 @@
           cdkDrag
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
+          [cdkDragDisabled]="(row | TableRowIsDraggable: thyDragDisabledPredicate)"
           (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
@@ -99,6 +114,7 @@
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
           (cdkDragStarted)="onDragStarted($event)"
+          [cdkDragDisabled]="(row | TableRowIsDraggable: thyDragDisabledPredicate)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
           (thyContextMenu)="onRowContextMenu($event, row)"
