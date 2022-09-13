@@ -59,6 +59,12 @@ module.exports = [
                 default: ''
             },
             {
+                name: 'thyIndent',
+                description: '设置缩进距离，缩进距离 = thyIndent * node.level',
+                type: 'number',
+                default: '25'
+            },
+            {
                 name: 'thyItemSize',
                 description: '开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效',
                 type: 'number',

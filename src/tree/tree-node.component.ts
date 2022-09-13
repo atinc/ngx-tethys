@@ -69,6 +69,8 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     @Input() thyItemSize = 44;
 
+    @Input() thyIndent = 25;
+
     public get nodeIcon() {
         return this.node.origin.icon;
     }
