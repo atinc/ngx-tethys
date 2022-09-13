@@ -4,7 +4,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 
 @Component({
-    selector: 'thy-checkbox-group',
+    selector: 'thy-checkbox-group,[thy-checkbox-group],[thyCheckboxGroup]',
     templateUrl: './checkbox-group.component.html',
     providers: [
         {
@@ -15,10 +15,7 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
     ]
 })
 export class ThyCheckboxGroupComponent extends ThyFormCheckBaseComponent {
-    // The internal data model
-    _innerValue: any = null;
-
-    @HostBinding('class.form-check-group')
+    @HostBinding('class.form-checkbox-group')
     @Input()
     thyLabelTextKey: string = 'name';
 
