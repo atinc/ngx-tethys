@@ -30,7 +30,7 @@ class CheckboxGroupTestComponent {
     ];
 }
 
-fdescribe('checkbox-group component', () => {
+describe('checkbox-group component', () => {
     let fixture: ComponentFixture<CheckboxGroupTestComponent>;
     let checkboxGroupTestComponent: CheckboxGroupTestComponent;
     let CheckboxGroupComponent: DebugElement;
