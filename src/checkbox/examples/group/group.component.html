@@ -1,0 +1,12 @@
+<div>
+  <label thyCheckbox thyInline="true" [(ngModel)]="inlineStatus" thyLabelText="Toggle inline"></label>
+  <label
+    thyCheckbox
+    thyInline="true"
+    [(ngModel)]="labelTextKeyStatus"
+    thyLabelText="Toggle labelTextKey"
+    (ngModelChange)="changeLabelTextKey($event)"
+  ></label>
+</div>
+<hr />
+<thy-checkbox-group [(ngModel)]="model" [thyInline]="inlineStatus" [thyLabelTextKey]="labelTextKey" name="group"></thy-checkbox-group>

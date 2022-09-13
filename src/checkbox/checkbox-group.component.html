@@ -1,0 +1,9 @@
+<ng-container *ngFor="let item of _innerValue">
+  <label
+    thyCheckbox
+    [thyLabelText]="item[thyLabelTextKey]"
+    [thyInline]="thyInline"
+    [thyDisabled]="item.disabled"
+    [(ngModel)]="item.checked"
+  ></label>
+</ng-container>

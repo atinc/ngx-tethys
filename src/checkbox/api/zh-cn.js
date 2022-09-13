@@ -47,5 +47,30 @@ module.exports = [
                 default: 'false'
             }
         ]
+    },
+    {
+        type: 'component',
+        name: 'thyCheckboxGroup',
+        description: '多选框组',
+        properties: [
+            {
+                name: 'thyInline',
+                description: '同一行展示',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyLabelTextKey',
+                description: 'Label 文本展示的 key, 默认name',
+                type: 'string',
+                default: 'name'
+            },
+            {
+                name: 'ngModel',
+                description: '表单双向绑定的值',
+                type: '',
+                default: ''
+            }
+        ]
     }
 ];
