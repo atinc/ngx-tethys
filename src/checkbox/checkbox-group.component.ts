@@ -16,6 +16,9 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 })
 export class ThyCheckboxGroupComponent extends ThyFormCheckBaseComponent {
     @HostBinding('class.form-checkbox-group')
+    /**
+     * Label 文本展示的 key, 默认name
+     */
     @Input()
     thyLabelTextKey: string = 'name';
 

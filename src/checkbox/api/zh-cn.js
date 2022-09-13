@@ -49,7 +49,7 @@ module.exports = [
         ]
     },
     {
-        type: 'component',
+        type: 'directive',
         name: 'thyCheckboxGroup',
         description: '多选框组',
         properties: [
