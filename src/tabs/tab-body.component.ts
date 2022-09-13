@@ -23,6 +23,8 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulati
 })
 export class ThyTabBodyComponent {
     @Input() content: TemplateRef<void> | null = null;
+
     @Input() active = false;
+
     @Input() tabPaneAnimated = true;
 }

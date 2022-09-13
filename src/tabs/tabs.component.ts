@@ -65,9 +65,9 @@ export class ThyTabsComponent implements OnInit {
 
     /**
      * 是否使用动画切换 Tabs
-     * @default true
+     * @default false
      */
-    @Input() thyAnimated: boolean = true;
+    @Input() thyAnimated: boolean = false;
 
     /**
      * 激活的项发生改变时的回调
