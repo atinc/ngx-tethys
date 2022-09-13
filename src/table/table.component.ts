@@ -319,7 +319,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @Input()
     thyHoverDisplayOperation: boolean;
 
-    @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => true;
+    @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
 
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
