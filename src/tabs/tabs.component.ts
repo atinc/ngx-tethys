@@ -64,13 +64,32 @@ export class ThyTabsComponent implements OnInit {
     @Input() thyPosition: ThyTabsPosition = 'top';
 
     /**
+     * 是否使用动画切换 Tabs
+     * @default true
+     */
+    @Input() thyAnimated: boolean = true;
+
+    /**
      * 激活的项发生改变时的回调
      */
     @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
 
+    activeTabIndex: number = 0;
+
     constructor() {}
 
     ngOnInit(): void {}
+
+    get tabPaneAnimated(): boolean {
+        return this.thyPosition === 'top' && this.thyAnimated;
+    }
+
+    getTabContentMarginLeft(): string {
+        if (this.tabPaneAnimated) {
+            return `${-(this.activeTabIndex || 0) * 100}%`;
+        }
+        return '';
+    }
 
     activeTab(tab: ThyTabComponent, index: number) {
         if (tab.thyDisabled) {
@@ -80,7 +99,7 @@ export class ThyTabsComponent implements OnInit {
             id: tab.id || null,
             index
         };
-
+        this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
     }
 
