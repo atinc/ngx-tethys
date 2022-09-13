@@ -4,9 +4,9 @@ import { Observable, Subject } from 'rxjs';
 import { ThyCarouselComponent } from '../carousel.component';
 import { DistanceVector } from '../typings';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
-import { ThyCarouselBasicEngine } from '../engine/carousel-basic';
+import { ThyCarouselBaseEngine } from '../engine/carousel-base';
 
-export class ThyCarouselNoopEngine extends ThyCarouselBasicEngine {
+export class ThyCarouselNoopEngine extends ThyCarouselBaseEngine {
     constructor(thyCarouselComponent: ThyCarouselComponent, cdr: ChangeDetectorRef, renderer: Renderer2, platform: Platform) {
         super(thyCarouselComponent, cdr, renderer, platform);
     }

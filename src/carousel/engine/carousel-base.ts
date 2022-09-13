@@ -5,7 +5,7 @@ import { ThyCarouselItemDirective } from '../carousel-item.directive';
 import { ThyCarouselComponent } from '../carousel.component';
 import { DistanceVector, ThyCarouselEngine } from '../typings';
 
-export abstract class ThyCarouselBasicEngine implements ThyCarouselEngine {
+export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
     protected contentWidth: number;
     protected contentHeight: number;
     protected readonly carouselComponent: ThyCarouselComponent;
@@ -50,6 +50,9 @@ export abstract class ThyCarouselBasicEngine implements ThyCarouselEngine {
             this.renderer.setStyle(this.wrapperEl, 'transform', 'translate3d(0, 0, 0)');
             this.renderer.setStyle(this.wrapperEl, `height`, `${this.contentHeight}px`);
         }
+        this.contents.forEach(content => {
+            content.el.removeAttribute('style');
+        });
     }
 
     abstract dragging(pointerVector: DistanceVector, rect: DOMRect): void;

@@ -1,4 +1,4 @@
 ---
-title: Fade
+title: AutoPlay
 order: 2
 ---

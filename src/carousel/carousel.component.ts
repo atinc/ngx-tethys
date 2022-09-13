@@ -172,7 +172,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         this.carouselItems.forEach((carouselContent: ThyCarouselItemDirective, i: number) => {
             carouselContent.isActive = index === i;
         });
-        this.cdr.markForCheck();
+        this.cdr.detectChanges();
     }
 
     private setInitialValue(): void {
@@ -352,7 +352,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         } else {
             this.scheduleNextTransition();
         }
-        this.setInitialValue();
     }
 
     ngAfterViewInit(): void {

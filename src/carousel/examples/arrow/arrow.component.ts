@@ -2,13 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-carousel-basic-example',
-    templateUrl: './custom-template.component.html',
-    styleUrls: ['./custom-template.component.scss']
+    templateUrl: './arrow.component.html',
+    styleUrls: ['./arrow.component.scss']
 })
-export class ThyCarouselCustomTemplateExampleComponent implements OnInit {
+export class ThyCarouselArrowExampleComponent implements OnInit {
     constructor() {}
 
     array: string[] = [];
+
+    isShow = true;
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {
