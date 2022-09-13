@@ -537,7 +537,7 @@ describe('ThyTreeComponent', () => {
             expect(treeComponent.thyItemSize).toEqual(44);
         });
 
-        it('test should thyIndent worked', () => {
+        it('should thyIndent worked', () => {
             const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
             expect(indexElement.style.width).toEqual('10px');
         });
