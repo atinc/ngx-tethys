@@ -273,7 +273,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
-            throw new Error('tree mode sorting is not supported');
+            throw new Error('Tree mode sorting is not supported');
         }
     }
 

@@ -1,11 +1,13 @@
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { ApplicationRef, Component, DebugElement, NgModule, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThySwitchComponent } from 'ngx-tethys/switch';
-import { createFakeEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { ThyTableComponent } from '../table.component';
-import { ThyTableModule } from '../table.module';
 import { ThyPage } from '../table.interface';
+import { ThyTableModule } from '../table.module';
 
 @Component({
     selector: 'thy-demo-default-table',
@@ -860,13 +862,6 @@ describe('ThyTable: group', () => {
         expect(tableComponent.componentInstance.groups[0].expand).toBe(true);
     });
 
-    it('should throw error when thyDraggable is true', () => {
-        expect(() => {
-            testComponent.draggable = true;
-            fixture.detectChanges();
-        }).toThrowError('Only list mode sorting is supported');
-    });
-
     it('should stop propagation on events dispatched on `.thy-sortable-item` rows', () => {
         testComponent.draggable = false;
         fixture.detectChanges();
@@ -878,6 +873,90 @@ describe('ThyTable: group', () => {
         items[0].dispatchEvent(event);
         expect(appRef.tick).not.toHaveBeenCalled();
         expect(event.stopPropagation).toHaveBeenCalled();
+    });
+});
+
+// table group mode test
+@Component({
+    selector: 'thy-demo-tree-table',
+    template: `
+        <thy-table [thyModel]="data" thyRowKey="id" thyMode="tree" thyWholeRowSelect="true" thyTheme="bordered" [thyDraggable]="draggable">
+            <thy-table-column thyTitle="Name" thyModelKey="name" [thyExpand]="true"></thy-table-column>
+            <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+            <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+            <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+        </thy-table>
+    `
+})
+class ThyDemoTreeTableComponent {
+    @ViewChild('table') innerTable: ThyTableComponent;
+
+    data = [
+        {
+            id: '1',
+            name: 'Product R&D',
+            children: [
+                {
+                    id: '1-1',
+                    name: 'Project Team',
+                    children: [
+                        {
+                            id: '1-1-1',
+                            name: 'Peter',
+                            age: 25,
+                            job: 'Engineer',
+                            address: 'Beijing Dong Sheng Technology',
+                            children: [{ id: '1-1-1-1', name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }]
+                        },
+                        { id: '1-1-2', name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
+                    ]
+                }
+            ]
+        },
+        {
+            id: '2',
+            name: 'Product Design',
+            children: [{ id: '2-1', name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' }]
+        },
+        { id: '3', name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' }
+    ];
+
+    draggable = false;
+}
+
+fdescribe('ThyTable: group', () => {
+    let fixture: ComponentFixture<ThyDemoTreeTableComponent>;
+    let testComponent: ThyDemoTreeTableComponent;
+    let tableComponent: DebugElement;
+    let table;
+    let rows;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyTableModule, TableTestModule],
+            declarations: [ThyDemoTreeTableComponent]
+        });
+        TestBed.compileComponents();
+    }));
+
+    beforeEach(() => {
+        fixture = TestBed.createComponent(ThyDemoTreeTableComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        tableComponent = fixture.debugElement.query(By.directive(ThyTableComponent));
+        table = tableComponent.nativeElement.querySelector('table');
+        fixture.detectChanges();
+        rows = table.querySelectorAll('tr');
+    });
+
+    it('should be created table component', () => {
+        expect(tableComponent).toBeTruthy();
+    });
+
+    it('should throw error when thyDraggable is true', () => {
+        expect(() => {
+            testComponent.draggable = true;
+            fixture.detectChanges();
+        }).toThrowError('Tree mode sorting is not supported');
     });
 });
 
