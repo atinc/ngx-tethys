@@ -32,6 +32,7 @@
 
 @mixin tag-size($height, $padding-x, $font-size, $icon-font-size) {
     height: $height;
+    line-height: $height;
     padding: {
         left: $padding-x;
         right: $padding-x;
