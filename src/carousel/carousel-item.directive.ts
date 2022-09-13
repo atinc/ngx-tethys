@@ -6,18 +6,6 @@ import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
 })
 export class ThyCarouselItemDirective {
     private _active = false;
-    /**
-     * 自定义 class
-     */
-    @Input() class: string = '';
-
-    /**
-     * 自定义 class
-     */
-    @Input()
-    set thyClass(val: string) {
-        this.class = [this.class, val].join();
-    }
 
     readonly el: HTMLElement;
 

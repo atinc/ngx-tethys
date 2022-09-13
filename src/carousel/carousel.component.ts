@@ -26,7 +26,8 @@ import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod, thyTriggerType } from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
 import { fromEvent, Subject } from 'rxjs';
-import { debounceTime, map, takeUntil } from 'rxjs/operators';
+import { debounceTime, takeUntil } from 'rxjs/operators';
+import { ThyCarouselService } from 'ngx-tethys/carousel/carousel.service';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -105,11 +106,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     private engine: ThyCarouselEngine;
 
-    private trigger$ = new Subject<number>();
+    private _trigger$ = new Subject<number>();
 
     private _destroy$ = new Subject<void>();
-
-    private _dragging$ = new Subject<MouseEvent | Touch>();
 
     context: CarouselMethod;
 
@@ -127,6 +126,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         protected renderer: Renderer2,
         private cdr: ChangeDetectorRef,
         private ngZone: NgZone,
+        private readonly carouselService: ThyCarouselService,
         private readonly platform: Platform
     ) {}
 
@@ -208,108 +208,40 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
-    private registerHandler() {
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(document, 'touchmove')
-                .pipe(takeUntil(this._destroy$))
-                .subscribe((event: TouchEvent) => {
-                    if (this._dragging$) {
-                        this._dragging$.next(event.touches[0] || event.changedTouches[0]);
-                    }
-                });
-        });
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(document, 'touchend')
-                .pipe(takeUntil(this._destroy$))
-                .subscribe(() => {
-                    if (this._dragging$) {
-                        this._dragging$.complete();
-                    }
-                });
-        });
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(document, 'mousemove')
-                .pipe(takeUntil(this._destroy$))
-                .subscribe((event: MouseEvent) => {
-                    if (this._dragging$) {
-                        this._dragging$.next(event);
-                    }
-                });
-        });
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(document, 'mouseup')
-                .pipe(takeUntil(this._destroy$))
-                .subscribe(() => {
-                    if (this._dragging$) {
-                        this._dragging$.complete();
-                    }
-                });
-        });
-        this.ngZone.runOutsideAngular(() => {
-            fromEvent(window, 'resize')
-                .pipe(takeUntil(this._destroy$), debounceTime(100))
-                .subscribe(() => {
-                    this.engine?.correctionOffset();
-                });
-        });
-    }
-
-    private getEventPotions(event: MouseEvent | TouchEvent): MouseEvent | Touch {
-        if (event instanceof MouseEvent) {
-            return event;
-        } else {
-            return event.touches[0] || event.changedTouches[0];
-        }
-    }
-
     onDrag(event: TouchEvent | MouseEvent): void {
         if (!this.isDragging && !this.isTransitioning && this.thyTouchable) {
             const mouseDownTime = new Date().getTime();
-            const startPoint = this.getEventPotions(event);
             let mouseUpTime: number;
-            if (this._dragging$) {
-                this._dragging$.complete();
-            }
             this.clearScheduledTransition();
             this.wrapperDomRect = this.wrapperEl.getBoundingClientRect();
-            this._dragging$ = new Subject<MouseEvent | Touch>();
-            this._dragging$
-                .pipe(
-                    map(e => {
-                        return {
-                            x: e.pageX - startPoint!.pageX,
-                            y: e.pageY - startPoint!.pageY
-                        };
-                    })
-                )
-                .subscribe(
-                    pointerVector => {
-                        this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
-                        this.pointerVector = pointerVector;
-                        this.isDragging = true;
-                        this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
-                    },
-                    () => {},
-                    () => {
-                        if (this.isDragging) {
-                            mouseUpTime = new Date().getTime();
-                            const holdDownTime = mouseUpTime - mouseDownTime;
-                            // Fast enough to switch to the next frame
-                            // or
-                            // If the pointerVector is more than one third switch to the next frame
-                            if (
-                                Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3 ||
-                                Math.abs(this.pointerVector.x) / holdDownTime >= 1
-                            ) {
-                                this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
-                            } else {
-                                this.moveTo(this.activeIndex);
-                            }
+            this.carouselService.registerDrag(event).subscribe(
+                pointerVector => {
+                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grabbing');
+                    this.pointerVector = pointerVector;
+                    this.isDragging = true;
+                    this.engine?.dragging(this.pointerVector, this.wrapperDomRect);
+                },
+                () => {},
+                () => {
+                    if (this.isDragging) {
+                        mouseUpTime = new Date().getTime();
+                        const holdDownTime = mouseUpTime - mouseDownTime;
+                        // Fast enough to switch to the next frame
+                        // or
+                        // If the pointerVector is more than one third switch to the next frame
+                        if (
+                            Math.abs(this.pointerVector.x) > this.wrapperDomRect.width / 3 ||
+                            Math.abs(this.pointerVector.x) / holdDownTime >= 1
+                        ) {
+                            this.moveTo(this.pointerVector.x > 0 ? this.activeIndex - 1 : this.activeIndex + 1);
+                        } else {
+                            this.moveTo(this.activeIndex);
                         }
-                        this.isDragging = false;
-                        this.renderer.setStyle(this.wrapperEl, 'cursor', 'grab');
                     }
-                );
+                    this.isDragging = false;
+                    this.renderer.setStyle(this.wrapperEl, 'cursor', 'grab');
+                }
+            );
         }
     }
 
@@ -322,7 +254,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     dotHandleTrigger(index: number): void {
         if (this.thyTrigger === 'trigger') {
             this.clearScheduledTransition();
-            this.trigger$.next(index);
+            this._trigger$.next(index);
         }
     }
 
@@ -337,14 +269,24 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     ngOnInit(): void {
         this.wrapperEl = this.carouselWrapper!.nativeElement;
         this.initContext();
-        this.registerHandler();
+        this.ngZone.runOutsideAngular(() => {
+            fromEvent(window, 'resize')
+                .pipe(takeUntil(this._destroy$), debounceTime(100))
+                .subscribe(() => {
+                    this.engine?.correctionOffset();
+                });
+        });
     }
     ngOnChanges(changes: SimpleChanges) {
-        const { thyEffect } = changes;
+        const { thyEffect, thyTouchable } = changes;
         if (thyEffect && !thyEffect.isFirstChange()) {
             this.switchEngine();
             this.markContentActive(0);
             this.setInitialValue();
+        }
+
+        if (thyTouchable && !thyTouchable.isFirstChange()) {
+            this.renderer.setStyle(this.wrapperEl, 'cursor', thyTouchable.currentValue ? 'grab' : 'default');
         }
 
         if (!this.thyAutoPlay || !this.thyAutoPlaySpeed) {
@@ -362,19 +304,22 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         this.switchEngine();
         this.markContentActive(0);
         this.setInitialValue();
+
         if (!this.thyTouchable) {
             this.renderer.setStyle(this.wrapperEl, 'cursor', 'default');
         }
     }
 
     ngAfterContentInit() {
-        this.trigger$.pipe(debounceTime(200)).subscribe(index => {
+        this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(200)).subscribe(index => {
             this.moveTo(index);
         });
     }
 
     ngOnDestroy() {
         this.clearScheduledTransition();
+        this._trigger$.next();
+        this._trigger$.complete();
         this._destroy$.next();
         this._destroy$.complete();
     }
