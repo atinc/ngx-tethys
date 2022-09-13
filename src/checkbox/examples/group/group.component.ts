@@ -18,7 +18,8 @@ export class CheckboxGroupComponent implements OnInit {
         { name: 'item2', key: 'option2', checked: true },
         { name: 'item3', key: 'option3', checked: false },
         { name: 'item4', key: 'option4', disabled: true, checked: false },
-        { name: 'item5', key: 'option5', checked: true }
+        { name: 'item5', key: 'option5', checked: true },
+        { name: 'item6', key: 'option5', checked: false }
     ];
 
     ngOnInit() {}
