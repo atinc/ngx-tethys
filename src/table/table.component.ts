@@ -12,7 +12,7 @@ import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-t
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
-import { CdkDrag, CdkDragDrop, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
@@ -360,6 +360,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public expandStatusMapOfGroup: Dictionary<boolean> = {};
 
+    private expandStatusMapOfGroupBeforeDrag: Dictionary<boolean> = {};
+
     dragPreviewClass = 'thy-table-drag-preview';
 
     constructor(
@@ -589,6 +591,30 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
+    onDragGroupStarted(event: CdkDragStart<unknown>) {
+        this.expandStatusMapOfGroupBeforeDrag = { ...this.expandStatusMapOfGroup };
+        const groups = this.groups.filter(group => group.expand);
+        this.foldGroups(groups);
+        this.cdr.detectChanges();
+    }
+
+    onDragGroupEnd(event: CdkDragEnd<unknown>) {
+        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group.id]);
+        this.expandGroups(groups);
+        this.cdr.detectChanges();
+    }
+
+    private onDragGroupDropped(event: CdkDragDrop<unknown>) {
+        const dragEvent: ThyTableDraggableEvent = {
+            model: event.item,
+            models: this.groups,
+            oldIndex: event.previousIndex,
+            newIndex: event.currentIndex
+        };
+        moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+        this.thyOnDraggableChange.emit(dragEvent);
+    }
+
     onDragStarted(event: CdkDragStart<unknown>) {
         this.ngZone.runOutsideAngular(() =>
             setTimeout(() => {
@@ -607,7 +633,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         return drop.getSortedItems()[index].data.group_id === drag.data.group_id;
     };
 
-    onDragDropped(event: CdkDragDrop<unknown>) {
+    private onDragModelDropped(event: CdkDragDrop<unknown>) {
         const dragEvent: ThyTableDraggableEvent = {
             model: event.item,
             models: this.model,
@@ -616,6 +642,18 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         };
         moveItemInArray(this.model, event.previousIndex, event.currentIndex);
         this.thyOnDraggableChange.emit(dragEvent);
+    }
+
+    private dragItemIsGroup(item: SafeAny) {
+        return this.groups.findIndex(group => group.id === item.id) > -1;
+    }
+
+    onDragDropped(event: CdkDragDrop<unknown>) {
+        if (this.dragItemIsGroup(event.item.data)) {
+            this.onDragGroupDropped(event);
+        } else {
+            this.onDragModelDropped(event);
+        }
     }
 
     onColumnHeaderClick(event: Event, column: ThyTableColumnComponent) {
@@ -722,6 +760,18 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
         this.expandStatusMapOfGroup[group.id] = group.expand;
+    }
+
+    private expandGroups(groups: ThyTableGroup[]) {
+        groups.forEach(group => {
+            this.expandGroup(group);
+        });
+    }
+
+    private foldGroups(groups: ThyTableGroup[]) {
+        groups.forEach(group => {
+            this.expandGroup(group);
+        });
     }
 
     private updateScrollClass() {

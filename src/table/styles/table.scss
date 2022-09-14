@@ -358,8 +358,17 @@
         vertical-align: middle;
         padding-left: variables.$table-draggable-first-td-padding-left;
 
-        .table-draggable-icon {
+        .table-draggable-icon,
+        .expand-icon {
             display: none;
+        }
+    }
+}
+
+.table-draggable {
+    .thy-table-group {
+        .thy-table-group-container {
+            padding-left: 0;
         }
     }
 }

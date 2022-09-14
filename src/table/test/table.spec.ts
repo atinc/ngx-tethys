@@ -924,7 +924,7 @@ class ThyDemoTreeTableComponent {
     draggable = false;
 }
 
-fdescribe('ThyTable: group', () => {
+describe('ThyTable: group', () => {
     let fixture: ComponentFixture<ThyDemoTreeTableComponent>;
     let testComponent: ThyDemoTreeTableComponent;
     let tableComponent: DebugElement;

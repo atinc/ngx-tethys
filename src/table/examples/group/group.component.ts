@@ -1,11 +1,18 @@
-import { ThyTableRowEvent } from 'ngx-tethys/table';
+import { ThyTableDraggableEvent, ThyTableRowEvent } from 'ngx-tethys/table';
 import { SafeAny } from 'ngx-tethys/types';
 
 import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-group-example',
-    templateUrl: './group.component.html'
+    templateUrl: './group.component.html',
+    styles: [
+        `
+            .demo-name {
+                padding-left: 40px;
+            }
+        `
+    ]
 })
 export class ThyTableGroupExampleComponent implements OnInit {
     public groups = [
@@ -41,7 +48,11 @@ export class ThyTableGroupExampleComponent implements OnInit {
         return (
             this.groups.findIndex(item => {
                 return item.id === event.id;
-            }) > -1
+            }) < 0
         );
     };
+
+    thyOnDraggableChange(event: ThyTableDraggableEvent) {
+        console.log(event.models);
+    }
 }
