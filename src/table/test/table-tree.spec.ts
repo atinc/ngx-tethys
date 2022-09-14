@@ -10,7 +10,7 @@ import { ThyTableModule } from '../table.module';
 @Component({
     selector: 'thy-demo-table-tree',
     template: `
-        <thy-table [thyModel]="model" thyRowKey="id" [thyMode]="mode">
+        <thy-table [thyModel]="model" thyRowKey="id" [thyMode]="mode" [thyDraggable]="draggable">
             <thy-table-column thyTitle="姓名" thyModelKey="name" thyWidth="160"></thy-table-column>
             <thy-table-column
                 thyTitle="年龄"
@@ -33,6 +33,7 @@ import { ThyTableModule } from '../table.module';
 })
 class ThyDemoTableTreeComponent {
     showExpand = false;
+
     model = [
         {
             id: 1,
@@ -106,7 +107,10 @@ class ThyDemoTableTreeComponent {
             desc: '这是一条测试数据'
         }
     ];
+
     mode = 'tree';
+
+    draggable: boolean;
 }
 
 @NgModule({
@@ -206,4 +210,11 @@ describe('ThyTable: tree', () => {
         expect(tableComponent.nativeElement.querySelectorAll('tr').length).toBe(7);
         tick(100);
     }));
+
+    it('should throw error when thyDraggable is true', () => {
+        expect(() => {
+            testComponent.draggable = true;
+            fixture.detectChanges();
+        }).toThrowError('Tree mode sorting is not supported');
+    });
 });
