@@ -468,8 +468,8 @@ $tag-size-font-sizes: (
     lg: $font-size-base $font-size-md
 );
 $tag-border-radius: 4px !default;
-$tag-space-row-gap: 8px;
-$tag-space-column-gap: 8px;
+$tag-space-row-gap: 8px !default;
+$tag-space-column-gap: 8px !default;
 
 //avatar
 $avatar-sizes: () !default;
