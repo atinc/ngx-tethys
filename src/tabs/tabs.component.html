@@ -1,4 +1,4 @@
-<!-- tab nav -->
+<!-- tabs nav -->
 <thy-nav class="thy-tabs-nav" [thyType]="thyType" [thySize]="thySize" [thyExtra]="thyExtra" [thyVertical]="thyPosition === 'left'">
   <a
     href="javascript:;"
@@ -17,10 +17,10 @@
     </ng-template>
   </a>
 </thy-nav>
-<!-- tab body -->
+<!-- tabs content -->
 <div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
   <div
-    thy-tab-body
+    thyTabContent
     *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
     [active]="activeTabIndex === i"
     [content]="tab.content"

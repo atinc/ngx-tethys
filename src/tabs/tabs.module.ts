@@ -4,11 +4,11 @@ import { ThyTabsComponent } from './tabs.component';
 import { ThyTabComponent } from './tab.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyNavModule } from 'ngx-tethys/nav';
-import { ThyTabBodyComponent } from './tab-body.component';
+import { ThyTabContentComponent } from './tab-content.component';
 
 @NgModule({
-    declarations: [ThyTabsComponent, ThyTabComponent, ThyTabBodyComponent],
+    declarations: [ThyTabsComponent, ThyTabComponent, ThyTabContentComponent],
     imports: [CommonModule, ThyIconModule, ThyNavModule],
-    exports: [ThyTabsComponent, ThyTabComponent, ThyTabBodyComponent]
+    exports: [ThyTabsComponent, ThyTabComponent, ThyTabContentComponent]
 })
 export class ThyTabsModule {}
