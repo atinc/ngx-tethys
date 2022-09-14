@@ -1,0 +1,22 @@
+.carousel-item {
+    height: 300px !important;
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #73c2fd;
+}
+
+.custom-dots {
+    transition: font-size 500ms linear, color 500ms linear;
+}
+
+.default-color {
+    font-size: 16px;
+    color: #fff;
+}
+.active-color {
+    font-size: 25px;
+    color: #007bff;
+}

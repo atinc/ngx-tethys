@@ -1,0 +1,18 @@
+<thy-button-group thyType="outline-default">
+  <button thyButton (click)="effect = 'slide'" [class]="effect === 'slide' ? 'active' : ''">slide</button>
+  <button thyButton (click)="effect = 'fade'" [class]="effect === 'fade' ? 'active' : ''">fade</button>
+  <button thyButton (click)="effect = 'noop'" [class]="effect === 'noop' ? 'active' : ''">noop</button>
+</thy-button-group>
+<div style="margin-top: 10px">
+  <thy-carousel [thyEffect]="effect">
+    <div class="custom-carousel-item" thy-carousel-item>
+      <img src="assets/images/image/first.png" alt="first" />
+    </div>
+    <div thy-carousel-item class="custom-carousel-item">
+      <img src="assets/images/image/second.png" alt="second" />
+    </div>
+    <div thy-carousel-item class="custom-carousel-item">
+      <img src="assets/images/image/last.png" alt="last" />
+    </div>
+  </thy-carousel>
+</div>
