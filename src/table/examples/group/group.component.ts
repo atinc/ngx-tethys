@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
     styles: [
         `
             .demo-name {
-                padding-left: 40px;
+                padding-left: 20px;
             }
         `
     ]

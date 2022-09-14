@@ -59,13 +59,13 @@
             cdkDrag
             [cdkDragPreviewClass]="dragPreviewClass"
             [cdkDragData]="group"
-            [cdkDragDisabled]="group | TableRowIsDraggable: thyDragDisabledPredicate"
+            [cdkDragDisabled]="group | tableRowDragDisabled: thyDragDisabledPredicate"
             (cdkDragStarted)="onDragGroupStarted($event)"
             (cdkDragEnded)="onDragGroupEnd($event)"
           >
             <td [attr.colspan]="columns.length">
               <div class="thy-table-group-container">
-                <ng-container *ngIf="draggable && !(group | TableRowIsDraggable: thyDragDisabledPredicate)">
+                <ng-container *ngIf="draggable && !(group | tableRowDragDisabled: thyDragDisabledPredicate)">
                   <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
                 </ng-container>
                 <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
@@ -86,7 +86,7 @@
                   row: row,
                   index: i,
                   level: 0,
-                  rowIsDraggable: draggable && !(row | TableRowIsDraggable: thyDragDisabledPredicate)
+                  rowIsDraggable: draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)
                 }"
               ></ng-template>
             </ng-container>
@@ -103,7 +103,7 @@
           cdkDrag
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
-          [cdkDragDisabled]="row | TableRowIsDraggable: thyDragDisabledPredicate"
+          [cdkDragDisabled]="row | tableRowDragDisabled: thyDragDisabledPredicate"
           (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
@@ -115,7 +115,7 @@
               row: row,
               index: i,
               level: 0,
-              rowIsDraggable: draggable && !(row | TableRowIsDraggable: thyDragDisabledPredicate)
+              rowIsDraggable: draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)
             }"
           ></ng-template>
         </tr>
@@ -135,7 +135,7 @@
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
           (cdkDragStarted)="onDragStarted($event)"
-          [cdkDragDisabled]="row | TableRowIsDraggable: thyDragDisabledPredicate"
+          [cdkDragDisabled]="row | tableRowDragDisabled: thyDragDisabledPredicate"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
           (thyContextMenu)="onRowContextMenu($event, row)"
