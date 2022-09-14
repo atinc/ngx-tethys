@@ -605,14 +605,37 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     private onDragGroupDropped(event: CdkDragDrop<unknown>) {
-        const dragEvent: ThyTableDraggableEvent = {
-            model: event.item,
-            models: this.groups,
-            oldIndex: event.previousIndex,
-            newIndex: event.currentIndex
-        };
-        moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
-        this.thyOnDraggableChange.emit(dragEvent);
+        const group = this.groups.find(group => {
+            return event.item.data.id === group.id;
+        });
+        if (group) {
+            // drag group
+            const dragEvent: ThyTableDraggableEvent = {
+                model: event.item,
+                models: this.groups,
+                oldIndex: event.previousIndex,
+                newIndex: event.currentIndex
+            };
+            moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+            this.thyOnDraggableChange.emit(dragEvent);
+        } else {
+            // drag group children
+            const group = this.groups.find(group => {
+                return event.item.data[this.groupBy] === group.id;
+            });
+            const groupIndex =
+                event.container.getSortedItems().findIndex(item => {
+                    return item.data.id === event.item.data[this.groupBy];
+                }) + 1;
+            const dragEvent: ThyTableDraggableEvent = {
+                model: event.item,
+                models: group.children,
+                oldIndex: event.previousIndex - groupIndex,
+                newIndex: event.currentIndex - groupIndex
+            };
+            moveItemInArray(group.children, dragEvent.oldIndex, dragEvent.newIndex);
+            this.thyOnDraggableChange.emit(dragEvent);
+        }
     }
 
     onDragStarted(event: CdkDragStart<unknown>) {
@@ -644,14 +667,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnDraggableChange.emit(dragEvent);
     }
 
-    private dragItemIsGroup(item: SafeAny) {
-        return this.groups.findIndex(group => group.id === item.id) > -1;
-    }
-
     onDragDropped(event: CdkDragDrop<unknown>) {
-        if (this.dragItemIsGroup(event.item.data)) {
+        if (this.mode === 'group') {
             this.onDragGroupDropped(event);
-        } else {
+        } else if (this.mode === 'list') {
             this.onDragModelDropped(event);
         }
     }

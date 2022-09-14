@@ -85,8 +85,7 @@
                 [ngTemplateOutletContext]="{
                   row: row,
                   index: i,
-                  level: 0,
-                  rowIsDraggable: draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)
+                  level: 0
                 }"
               ></ng-template>
             </ng-container>
@@ -114,8 +113,7 @@
             [ngTemplateOutletContext]="{
               row: row,
               index: i,
-              level: 0,
-              rowIsDraggable: draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)
+              level: 0
             }"
           ></ng-template>
         </tr>
@@ -127,7 +125,7 @@
         </ng-container>
       </ng-container>
 
-      <ng-template #trTemplate let-row="row" let-i="index" let-level="level" let-rowIsDraggable="rowIsDraggable">
+      <ng-template #trTemplate let-row="row" let-i="index" let-level="level">
         <tr
           #rows
           class="thy-sortable-item"
@@ -145,8 +143,7 @@
             [ngTemplateOutletContext]="{
               row: row,
               index: i,
-              level: level + 1,
-              rowIsDraggable: rowIsDraggable
+              level: level + 1
             }"
           ></ng-template>
         </tr>
@@ -160,7 +157,7 @@
         </ng-container>
       </ng-template>
 
-      <ng-template #tdsTemplate let-row="row" let-i="index" let-level="level" let-rowIsDraggable="rowIsDraggable">
+      <ng-template #tdsTemplate let-row="row" let-i="index" let-level="level">
         <td
           *ngFor="let column of columns; let j = index"
           [ngClass]="column.className"
@@ -173,7 +170,7 @@
           [style.right.px]="column.right"
           [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null"
         >
-          <ng-container *ngIf="j === 0 && rowIsDraggable">
+          <ng-container *ngIf="j === 0 && draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)">
             <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
           </ng-container>
 
