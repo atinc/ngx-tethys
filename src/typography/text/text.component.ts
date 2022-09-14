@@ -6,7 +6,7 @@ import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor, UpdateHostClass
  * @name thy-text,[thyText]
  */
 @Component({
-    selector: 'thy-text, [thyText]',
+    selector: 'thy-text, [thyText]:not(thy-divider)',
     templateUrl: './text.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
