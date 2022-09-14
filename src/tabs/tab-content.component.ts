@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
 
 @Component({
-    selector: '[thy-tab-body], thy-tab-body',
-    exportAs: 'thyTabBody',
+    selector: 'thy-tab-content, [thyTabContent]',
+    exportAs: 'thyTabContent',
     preserveWhitespaces: false,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,7 +12,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulati
         </ng-container>
     `,
     host: {
-        class: 'thy-tabs-tabpane',
+        class: 'thy-tab-content',
         '[attr.aria-hidden]': '!active',
         '[attr.tabindex]': 'active ? 0 : -1',
         '[style.visibility]': 'tabPaneAnimated ? active ? null : "hidden" : null',
@@ -21,7 +21,7 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulati
         '[style.display]': '!tabPaneAnimated ? active ? null : "none" : null'
     }
 })
-export class ThyTabBodyComponent {
+export class ThyTabContentComponent {
     @Input() content: TemplateRef<void> | null = null;
 
     @Input() active = false;
