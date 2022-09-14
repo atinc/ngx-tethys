@@ -18,6 +18,7 @@ import { thyEffectType, thyTriggerType } from '../typings';
                 [thyShowArrow]="showArrow"
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
+                [thyTouchable]="touchable"
             >
                 <div thy-carousel-item class="custom-class" [thyClass]="'custom-carousel-item'" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
@@ -40,6 +41,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
 
     showArrow = true;
 
+    touchable = true;
+
     effect: thyEffectType = 'slide';
 
     trigger: thyTriggerType = 'click';
@@ -50,19 +53,6 @@ class ThyTestCarouselBasicComponent implements OnInit {
         }
     }
 }
-
-@Component({
-    selector: 'thy-carousel-basic-example',
-    template: `
-        <div>
-            <thy-carousel>
-                <div thy-carousel-item [class]="null">1</div>
-                <div thy-carousel-item [class]="undefined">2</div>
-            </thy-carousel>
-        </div>
-    `
-})
-class ThyTestCarouselNoClassComponent {}
 
 describe('carousel', () => {
     beforeEach(fakeAsync(() => {
@@ -224,6 +214,20 @@ describe('carousel', () => {
             expect(carouselWrapper.nativeElement.querySelector('.carousel-wrapper').style.transform).toBe(
                 `translate3d(${-newWidth * 2}px, 0px, 0px)`
             );
+        }));
+
+        it('should touchable work', fakeAsync(() => {
+            basicTestComponent.touchable = false;
+            fixture.detectChanges();
+            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            fixture.detectChanges();
+            expect(carouselContents[0].nativeElement.classList).toContain('carousel-item-active');
+            basicTestComponent.touchable = true;
+            fixture.detectChanges();
+            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            fixture.detectChanges();
+            tick(1000);
+            expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
         }));
 
         it(`should trigger work`, fakeAsync(() => {
