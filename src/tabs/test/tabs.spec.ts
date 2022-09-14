@@ -162,6 +162,18 @@ class TestTabsDisabledComponent {
     activeTabChange(event: ThyTabChangeEvent) {}
 }
 
+@Component({
+    selector: 'test-tabs-animated',
+    template: `
+        <thy-tabs [thyAnimated]="true">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsAnimatedComponent {}
+
 describe('tabs', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestTabsBasicComponent>;
@@ -387,6 +399,30 @@ describe('tabs', () => {
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
+        }));
+    });
+
+    describe('thyAnimated', () => {
+        let fixture: ComponentFixture<TestTabsAnimatedComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsAnimatedComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsAnimatedComponent);
+            fixture.detectChanges();
+        });
+
+        it('should set animated successfully when thyAnimated was true', fakeAsync(() => {
+            expect(document.querySelector('.thy-tabs-content-animated')).toBeTruthy();
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(tabContent.style.marginLeft === '0%').toBeTruthy();
+            const tabElement = document.querySelectorAll('.thy-nav-item')[1];
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+            expect(tabContent.style.marginLeft === '-100%').toBeTruthy();
         }));
     });
 
