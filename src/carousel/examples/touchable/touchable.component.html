@@ -1,0 +1,11 @@
+<thy-button-group thyType="outline-default">
+  <button thyButton (click)="enable = true" [class]="enable ? 'active' : ''">enable</button>
+  <button thyButton (click)="enable = false" [class]="!enable ? 'active' : ''">disable</button>
+</thy-button-group>
+<div style="margin-top: 10px">
+  <thy-carousel [thyTouchable]="enable">
+    <div thy-carousel-item class="custom-item" *ngFor="let index of array">
+      <h3>{{ index }}</h3>
+    </div>
+  </thy-carousel>
+</div>

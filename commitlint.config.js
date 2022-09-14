@@ -97,7 +97,8 @@ module.exports = {
                 'tabs',
                 'watermark',
                 'typography',
-                'property'
+                'property',
+                'carousel'
             ]
         ]
     }
