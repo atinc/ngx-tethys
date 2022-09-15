@@ -4,8 +4,14 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyTouchable]="enable">
-    <div thy-carousel-item class="custom-item" *ngFor="let index of array">
-      <h3>{{ index }}</h3>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/1.png" alt="1" />
+    </div>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/2.png" alt="2" />
+    </div>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/3.png" alt="3" />
     </div>
   </thy-carousel>
 </div>

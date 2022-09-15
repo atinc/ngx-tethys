@@ -1,7 +1,10 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Renderer2 } from '@angular/core';
 
+/**
+ * @private
+ */
 @Directive({
-    selector: '[thy-carousel-item],[thyCarouselItem]',
+    selector: '[thyCarouselItem],[thy-carousel-item]',
     exportAs: 'thyCarouseItem'
 })
 export class ThyCarouselItemDirective {

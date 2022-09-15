@@ -1,11 +1,17 @@
 <thy-button-group thyType="outline-default">
   <button thyButton (click)="trigger = 'click'" [class]="trigger === 'click' ? 'active' : ''">click</button>
-  <button thyButton (click)="trigger = 'trigger'" [class]="trigger === 'trigger' ? 'active' : ''">trigger</button>
+  <button thyButton (click)="trigger = 'hover'" [class]="trigger === 'hover' ? 'active' : ''">hover</button>
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyTrigger]="trigger">
-    <div thy-carousel-item *ngFor="let index of array">
-      <h3>{{ index }}</h3>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/1.png" alt="1" />
+    </div>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/2.png" alt="2" />
+    </div>
+    <div thyCarouselItem class="custom-carousel-item">
+      <img src="assets/images/carousel/3.png" alt="3" />
     </div>
   </thy-carousel>
 </div>

@@ -20,7 +20,7 @@ import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
                 [thyTrigger]="trigger"
                 [thyTouchable]="touchable"
             >
-                <div thy-carousel-item class="custom-class" [thyClass]="'custom-carousel-item'" *ngFor="let index of array">
+                <div thyCarouselItem class="custom-class" [thyClass]="'custom-carousel-item'" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
                 </div>
             </thy-carousel>
@@ -231,7 +231,7 @@ describe('carousel', () => {
         }));
 
         it(`should trigger work`, fakeAsync(() => {
-            basicTestComponent.trigger = 'trigger';
+            basicTestComponent.trigger = 'hover';
             fixture.detectChanges();
             dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.carousel-dots').lastElementChild, 'mouseenter');
             tick(1000);
