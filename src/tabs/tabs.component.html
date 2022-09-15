@@ -22,7 +22,7 @@
   <div
     thyTabContent
     *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
-    [active]="activeTabIndex === i"
+    [active]="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index"
     [content]="tab.content"
     [tabPaneAnimated]="tabPaneAnimated"
   ></div>

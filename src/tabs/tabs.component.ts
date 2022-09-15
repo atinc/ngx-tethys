@@ -74,8 +74,6 @@ export class ThyTabsComponent implements OnInit {
      */
     @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
 
-    activeTabIndex: number = 0;
-
     constructor() {}
 
     ngOnInit(): void {}
@@ -86,7 +84,7 @@ export class ThyTabsComponent implements OnInit {
 
     getTabContentMarginLeft(): string {
         if (this.tabPaneAnimated) {
-            return `${-(this.activeTabIndex || 0) * 100}%`;
+            return `${-(this.thyActiveTab.index || 0) * 100}%`;
         }
         return '';
     }
@@ -99,7 +97,6 @@ export class ThyTabsComponent implements OnInit {
             id: tab.id || null,
             index
         };
-        this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
     }
 
