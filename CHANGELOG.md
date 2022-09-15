@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.8](https://github.com/atinc/ngx-tethys/compare/14.0.7...14.0.8) (2022-09-15)
+
+
+### Bug Fixes
+
+* **styles:** add min-height: 0px to d-flex-column-fill and min-width: 0px to d-flex-row-fill ([631b010](https://github.com/atinc/ngx-tethys/commit/631b0104d19383855ba5e379bc16eb8e80ef38f0))
+* **tabs:** adjust component name & var name #INFR-4669 ([cb5643a](https://github.com/atinc/ngx-tethys/commit/cb5643ad2dfb68117418480bd1c9453eab2eceae)), closes [#INFR-4669](https://github.com/atinc/ngx-tethys/issues/INFR-4669)
+* **tag:** change the line-height value to the Tag height #INFR-4655 ([af5ae52](https://github.com/atinc/ngx-tethys/commit/af5ae52e2583307cc46657ddcba24a5eccaf7065)), closes [#INFR-4655](https://github.com/atinc/ngx-tethys/issues/INFR-4655)
+* **typography:** update selector [thyText] to [thyText]:not(thy-divider) avoid conflict ([3bef611](https://github.com/atinc/ngx-tethys/commit/3bef61145b3cf6453b7c4363afce7770c5b30cdb))
+
+
+### Features
+
+* **carousel:** add carousel component #INFR-4172 ([#2182](https://github.com/atinc/ngx-tethys/issues/2182)) ([8dd64e3](https://github.com/atinc/ngx-tethys/commit/8dd64e39628d1b6f66651cd5c9fc2cfc93ae69bf)), closes [#INFR-4172](https://github.com/atinc/ngx-tethys/issues/INFR-4172)
+* **tabs:** add tab pane animated #INFR-4635 ([#2185](https://github.com/atinc/ngx-tethys/issues/2185)) ([97d87bc](https://github.com/atinc/ngx-tethys/commit/97d87bcc2b98829040a3805c69d7c92a593e8fc8)), closes [#INFR-4635](https://github.com/atinc/ngx-tethys/issues/INFR-4635)
+* **tag:** add thy-tags component #INFR-4667 [#2187](https://github.com/atinc/ngx-tethys/issues/2187) ([#2188](https://github.com/atinc/ngx-tethys/issues/2188)) ([e6c120c](https://github.com/atinc/ngx-tethys/commit/e6c120c633fcd39dcbf40db0f8e05305a4e917af)), closes [#INFR-4667](https://github.com/atinc/ngx-tethys/issues/INFR-4667)
+* **tree:** add thyIndex property #INFR-4632 ([#2181](https://github.com/atinc/ngx-tethys/issues/2181)) ([1095431](https://github.com/atinc/ngx-tethys/commit/109543145662b1e28aa048b410339515d07ec0a0)), closes [#INFR-4632](https://github.com/atinc/ngx-tethys/issues/INFR-4632) [#INFR-4632](https://github.com/atinc/ngx-tethys/issues/INFR-4632)
+
+
+
 ## [14.0.7](https://github.com/atinc/ngx-tethys/compare/14.0.6...14.0.7) (2022-09-08)
 
 
