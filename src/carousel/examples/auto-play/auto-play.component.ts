@@ -12,9 +12,5 @@ export class ThyCarouselAutoPlayExampleComponent implements OnInit {
 
     authPlay = true;
 
-    ngOnInit(): void {
-        for (let i = 0; i < 8; i++) {
-            this.array.push(`Slide ${i}`);
-        }
-    }
+    ngOnInit(): void {}
 }

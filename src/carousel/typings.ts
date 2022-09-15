@@ -14,7 +14,7 @@ export interface ThyCarouselSwitchData {
 
 export type ThyCarouselEffect = 'slide' | 'fade' | 'noop';
 
-export type ThyCarouselTrigger = 'click' | 'trigger';
+export type ThyCarouselTrigger = 'click' | 'hover';
 
 export interface ThyCarouselEngine {
     // Initialize dragging sequences.

@@ -10,7 +10,7 @@
       <span
         *ngFor="let content of carouselItems; let i = index"
         class="carousel-dots-bullet"
-        [class.carousel-dots-active]="i === activeIndex"
+        [class.carousel-dots-bullet-active]="i === activeIndex"
         (mouseenter)="dotHandleTrigger(i)"
         (click)="dotHandleClick(i)"
       >
@@ -24,14 +24,14 @@
 </div>
 
 <ng-template #defaultDotTemplate let-active>
-  <thy-dot [thyColor]="active ? 'primary' : 'default'"></thy-dot>
+  <thy-dot thyColor="#fff"></thy-dot>
 </ng-template>
 
 <ng-template #defaultArrowTemplate let-pre="pre" let-next="next">
   <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
-    <thy-icon thyIconName="angle-left"></thy-icon>
+    <thy-icon thyIconName="angle-left-bold"></thy-icon>
   </div>
   <div class="carousel-arrow carousel-arrow-right" (click)="next()">
-    <thy-icon thyIconName="angle-right"></thy-icon>
+    <thy-icon thyIconName="angle-right-bold"></thy-icon>
   </div>
 </ng-template>

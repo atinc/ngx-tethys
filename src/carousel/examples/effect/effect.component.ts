@@ -13,9 +13,5 @@ export class ThyCarouselEffectExampleComponent implements OnInit {
 
     effect: ThyCarouselEffect = 'slide';
 
-    ngOnInit(): void {
-        for (let i = 0; i < 8; i++) {
-            this.array.push(`Slide ${i}`);
-        }
-    }
+    ngOnInit(): void {}
 }

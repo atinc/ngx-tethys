@@ -4,6 +4,9 @@ import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ThyDistanceVector } from './typings';
 
+/**
+ * @internal
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -61,7 +64,7 @@ export class ThyCarouselService {
         const moveEventHandler = (e: MouseEvent | TouchEvent) => {
             this.documentDraggingOutside$.next(e instanceof MouseEvent ? e : e.touches[0] || e.changedTouches[0]);
         };
-        const upEventHandler = (e: MouseEvent | TouchEvent) => {
+        const upEventHandler = () => {
             this.documentDraggingOutside$.complete();
             this.clearListeners();
         };

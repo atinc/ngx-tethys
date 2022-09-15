@@ -46,12 +46,19 @@ import { ThyCarouselService } from './carousel.service';
     }
 })
 export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
+    /**
+     * @private
+     */
     @ContentChildren(ThyCarouselItemDirective) carouselItems!: QueryList<ThyCarouselItemDirective>;
 
+    /**
+     * @private
+     */
     @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
 
     /**
      * 是否自动切换,默认 false
+     * @default false
      */
     @Input() @InputBoolean() thyAutoPlay: boolean = false;
 
@@ -91,7 +98,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @Input() @InputBoolean() thyTouchable = true;
 
     /**
-     * 指示点切换的触发条件, 默认为 'click', 支持 `click` | `trigger`
+     * 指示点切换的触发条件, 默认为 'click', 支持 `click` | `hover`
      */
     @Input() thyTrigger: ThyCarouselTrigger = 'click';
 
@@ -259,7 +266,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     dotHandleTrigger(index: number): void {
-        if (this.thyTrigger === 'trigger') {
+        if (this.thyTrigger === 'hover') {
             this.clearScheduledTransition();
             this._trigger$.next(index);
         }

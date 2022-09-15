@@ -37,6 +37,9 @@
                 img {
                     user-select: none;
                     -webkit-user-drag: none;
+                    display: block;
+                    width: 100%;
+                    height: auto;
                 }
             }
         }
@@ -52,16 +55,19 @@
         width: 100%;
         list-style: none;
         text-align: center;
-        transition: 0.3s opacity;
         transform: translate3d(0, 0, 0);
         user-select: none;
 
         &-bullet {
             display: inline-block;
-            margin: 0 4px;
+            padding: 0 4px;
             cursor: pointer;
+            transition: 0.3s opacity;
+            color: variables.$white;
+            opacity: 0.5;
+            &:hover,
             &-active {
-                color: variables.$primary-active;
+                opacity: 1;
             }
         }
     }
@@ -71,17 +77,30 @@
         transform: translateY(-50%);
         z-index: 200;
         cursor: pointer;
-        color: variables.$primary;
+        color: variables.$gray-70;
         user-select: none;
+        overflow: hidden;
+        width: 32px;
+        height: 32px;
+        transition: 0.3s background;
+        background: rgba(vars.$carousel-arrow-default-bg, 0.3);
+        border-radius: 50%;
+        thy-icon {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: currentColor;
+            font-size: 22px;
+        }
+        &:hover {
+            background: rgba(vars.$carousel-arrow-default-bg, 0.6);
+        }
         &-left {
-            left: 10px;
+            left: 12px;
         }
         &-right {
-            right: 10px;
-        }
-        thy-icon {
-            color: currentColor;
-            font-size: 40px;
+            right: 12px;
         }
     }
 }
