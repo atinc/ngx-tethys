@@ -2,7 +2,7 @@ import { ChangeDetectorRef, QueryList, Renderer2 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { Observable, Subject } from 'rxjs';
 import { ThyCarouselComponent } from '../carousel.component';
-import { DistanceVector } from '../typings';
+import { ThyDistanceVector } from '../typings';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
 import { ThyCarouselBaseEngine } from '../engine/carousel-base';
 
@@ -32,7 +32,7 @@ export class ThyCarouselSlideEngine extends ThyCarouselBaseEngine {
         this.initializeContents(contents);
     }
 
-    dragging(pointerVector: DistanceVector, rect: DOMRect): void {
+    dragging(pointerVector: ThyDistanceVector, rect: DOMRect): void {
         const { x } = pointerVector;
         const { width, height } = rect;
         this.contentWidth = width;

@@ -2,19 +2,19 @@ import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
 import { QueryList } from '@angular/core';
 
-export interface DistanceVector {
+export interface ThyDistanceVector {
     x: number;
     y: number;
 }
 
-export interface FromTo {
+export interface ThyCarouselSwitchData {
     from: number;
     to: number;
 }
 
-export type thyEffectType = 'slide' | 'fade' | 'noop';
+export type ThyCarouselEffect = 'slide' | 'fade' | 'noop';
 
-export type thyTriggerType = 'click' | 'trigger';
+export type ThyCarouselTrigger = 'click' | 'trigger';
 
 export interface ThyCarouselEngine {
     // Initialize dragging sequences.
@@ -22,12 +22,12 @@ export interface ThyCarouselEngine {
     // switch item
     switch(to: number, from: number): Observable<void>;
     // dragging events
-    dragging(pointerVector: DistanceVector, rect: DOMRect): void;
+    dragging(pointerVector: ThyDistanceVector, rect: DOMRect): void;
     // when window resize
     correctionOffset(): void;
 }
 
-export interface CarouselMethod {
+export interface ThyCarouselMethod {
     pre: () => void;
     next: () => void;
 }

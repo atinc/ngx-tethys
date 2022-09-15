@@ -5,7 +5,7 @@ import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from '../../tes
 import { ThyCarouselModule } from '../module';
 import { ThyCarouselComponent } from '../carousel.component';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
-import { thyEffectType, thyTriggerType } from '../typings';
+import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -43,9 +43,9 @@ class ThyTestCarouselBasicComponent implements OnInit {
 
     touchable = true;
 
-    effect: thyEffectType = 'slide';
+    effect: ThyCarouselEffect = 'slide';
 
-    trigger: thyTriggerType = 'click';
+    trigger: ThyCarouselTrigger = 'click';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {

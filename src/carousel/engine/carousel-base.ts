@@ -3,7 +3,7 @@ import { Platform } from '@angular/cdk/platform';
 import { Observable } from 'rxjs';
 import { ThyCarouselItemDirective } from '../carousel-item.directive';
 import { ThyCarouselComponent } from '../carousel.component';
-import { DistanceVector, ThyCarouselEngine } from '../typings';
+import { ThyDistanceVector, ThyCarouselEngine } from '../typings';
 
 export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
     protected contentWidth: number;
@@ -55,7 +55,7 @@ export abstract class ThyCarouselBaseEngine implements ThyCarouselEngine {
         });
     }
 
-    abstract dragging(pointerVector: DistanceVector, rect: DOMRect): void;
+    abstract dragging(pointerVector: ThyDistanceVector, rect: DOMRect): void;
 
     abstract initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;
 
