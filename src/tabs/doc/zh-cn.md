@@ -17,41 +17,4 @@ label: new
 import { ThyTabsModule } from "ngx-tethys/tabs";
 ```
 
-## 基本使用
-```html
-<thy-tabs (thyActiveTabChange)="activeTabChange($event)">
-  <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
-  <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
-  <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
-</thy-tabs>
-```
-
-展示效果
-<example name="thy-tabs-basic-example" />
-
-## Lite 模式
-<example name="thy-tabs-lite-example" />
-
-## Pills 模式
-<example name="thy-tabs-pills-example" />
-
-## 大小
-<example name="thy-tabs-size-example" />
-
-## 自定义模板
-<example name="thy-tabs-custom-example" />
-
-## 附加操作
-<example name="thy-tabs-extra-example" />
-
-## 位置
-<example name="thy-tabs-position-example" />
-
-## 默认激活
-<example name="thy-tabs-active-example" />
-
-## 动态添加
-<example name="thy-tabs-dynamic-example" />
-
-## 禁用
-<example name="thy-tabs-disabled-example" />
+<examples />
