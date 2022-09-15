@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { thyTriggerType } from 'ngx-tethys/carousel';
+import { ThyCarouselTrigger } from 'ngx-tethys/carousel';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -11,7 +11,7 @@ export class ThyCarouselTriggerExampleComponent implements OnInit {
 
     array: string[] = [];
 
-    trigger: thyTriggerType = 'click';
+    trigger: ThyCarouselTrigger = 'click';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {

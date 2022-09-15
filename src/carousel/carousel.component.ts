@@ -21,13 +21,20 @@ import {
     OnDestroy
 } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
-import { InputBoolean, InputNumber } from '../core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
-import { ThyCarouselEngine, DistanceVector, FromTo, thyEffectType, CarouselMethod, thyTriggerType } from './typings';
+import {
+    ThyCarouselEngine,
+    ThyDistanceVector,
+    ThyCarouselSwitchData,
+    ThyCarouselEffect,
+    ThyCarouselMethod,
+    ThyCarouselTrigger
+} from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
-import { ThyCarouselService } from 'ngx-tethys/carousel/carousel.service';
+import { ThyCarouselService } from './carousel.service';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -56,7 +63,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 切换动画样式, 默认为 'slide', 支持 `slide` | `fade` | `noop`
      */
-    @Input() thyEffect: thyEffectType = 'slide';
+    @Input() thyEffect: ThyCarouselEffect = 'slide';
 
     /**
      * 是否显示指示点
@@ -76,7 +83,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 前进/后退 按钮渲染模板
      */
-    @Input() thyArrowTemplate?: TemplateRef<CarouselMethod>;
+    @Input() thyArrowTemplate?: TemplateRef<ThyCarouselMethod>;
 
     /**
      * 是否支持手势滑动
@@ -86,12 +93,12 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 指示点切换的触发条件, 默认为 'click', 支持 `click` | `trigger`
      */
-    @Input() thyTrigger: thyTriggerType = 'click';
+    @Input() thyTrigger: ThyCarouselTrigger = 'click';
 
     /**
      * 触发切换帧之前,返回 `{from: number, to: number}`
      */
-    @Output() readonly thyBeforeChange = new EventEmitter<FromTo>();
+    @Output() readonly thyBeforeChange = new EventEmitter<ThyCarouselSwitchData>();
 
     /**
      * 切换帧之后的回调,返回当前帧索引
@@ -102,7 +109,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     private isTransitioning = false;
 
-    private pointerVector: DistanceVector = { x: 0, y: 0 };
+    private pointerVector: ThyDistanceVector = { x: 0, y: 0 };
 
     private engine: ThyCarouselEngine;
 
@@ -110,7 +117,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     private _destroy$ = new Subject<void>();
 
-    context: CarouselMethod;
+    context: ThyCarouselMethod;
 
     wrapperDomRect: DOMRect;
 

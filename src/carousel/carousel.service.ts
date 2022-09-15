@@ -2,7 +2,7 @@ import { Inject, Injectable, NgZone } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { DistanceVector } from './typings';
+import { ThyDistanceVector } from './typings';
 
 @Injectable({
     providedIn: 'root'
@@ -32,7 +32,7 @@ export class ThyCarouselService {
         }
     }
 
-    registerDrag(event: MouseEvent | TouchEvent): Observable<DistanceVector> {
+    registerDrag(event: MouseEvent | TouchEvent): Observable<ThyDistanceVector> {
         if (this.documentDraggingOutside$) {
             this.documentDraggingOutside$.complete();
         }

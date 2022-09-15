@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { thyEffectType } from 'ngx-tethys/carousel';
+import { ThyCarouselEffect } from 'ngx-tethys/carousel';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -11,7 +11,7 @@ export class ThyCarouselEffectExampleComponent implements OnInit {
 
     array: string[] = [];
 
-    effect: thyEffectType = 'slide';
+    effect: ThyCarouselEffect = 'slide';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {

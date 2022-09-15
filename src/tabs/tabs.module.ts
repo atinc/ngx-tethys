@@ -9,6 +9,6 @@ import { ThyTabContentComponent } from './tab-content.component';
 @NgModule({
     declarations: [ThyTabsComponent, ThyTabComponent, ThyTabContentComponent],
     imports: [CommonModule, ThyIconModule, ThyNavModule],
-    exports: [ThyTabsComponent, ThyTabComponent, ThyTabContentComponent]
+    exports: [ThyTabsComponent, ThyTabComponent]
 })
 export class ThyTabsModule {}
