@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.9](https://github.com/atinc/ngx-tethys/compare/14.0.8...14.0.9) (2022-09-15)
+
+
+### Features
+
+* **table:** drag table group #INFR-4620 ([#2186](https://github.com/atinc/ngx-tethys/issues/2186)) ([6420758](https://github.com/atinc/ngx-tethys/commit/64207587128714fc6c19ea4cbdae56f4537062ad)), closes [#INFR-4620](https://github.com/atinc/ngx-tethys/issues/INFR-4620)
+
+
+
 ## [14.0.8](https://github.com/atinc/ngx-tethys/compare/14.0.7...14.0.8) (2022-09-15)
 
 
