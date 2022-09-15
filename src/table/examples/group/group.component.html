@@ -4,11 +4,18 @@
   thyRowKey="id"
   thyGroupBy="group_id"
   thyMode="group"
-  thyWholeRowSelect="true"
+  thyWholeRowSelect="false"
   (thyOnRowClick)="onRowClick($event)"
+  [thyDraggable]="true"
+  [thyDragDisabledPredicate]="dragDisabledPredicate"
+  (thyOnDraggableChange)="thyOnDraggableChange($event)"
 >
   <ng-template #group let-group>{{ group?.title }}</ng-template>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name">
+    <ng-template #cell let-row>
+      <div class="demo-name">{{ row.name }}</div>
+    </ng-template>
+  </thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
   <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
   <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
