@@ -8,11 +8,9 @@ import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { DomSanitizer } from '@angular/platform-browser';
-import { DOCUMENT } from '@angular/common';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { humanizeBytes, keycodes } from 'ngx-tethys/util';
-import { fromEvent, timer } from 'rxjs';
-import { map, take } from 'rxjs/operators';
+import { timer } from 'rxjs';
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -62,7 +60,6 @@ describe('image-preview', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    let _document: Document;
     let formElement: HTMLElement;
 
     beforeEach(() => {
@@ -76,7 +73,6 @@ describe('image-preview', () => {
         formElement = debugElement.nativeElement;
         document.documentElement.requestFullscreen = jasmine.createSpy('requestFullscreen');
         fixture.detectChanges();
-        _document = TestBed.inject(DOCUMENT);
     });
 
     beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
@@ -234,24 +230,11 @@ describe('image-preview', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
-        // const spyObj: jasmine.SpyObj<HTMLAnchorElement> = jasmine.createSpyObj('a', ['click', 'setAttribute', 'href']);
-        // const createElementSpy = spyOn(_document, 'createElement').and.returnValue(spyObj);
-
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
-
-        // const img = new Image();
-        // img.onerror = () => {
-
-        //     // expect(createElementSpy).toHaveBeenCalled();
-        //     // console.log(createElementSpy)
-        //     console.log(createElementSpy);
-        //     done();
-        // };
-        // img.src = 'error';
 
         // test download success
     });
