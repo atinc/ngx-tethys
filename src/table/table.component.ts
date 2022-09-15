@@ -595,6 +595,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.expandStatusMapOfGroupBeforeDrag = { ...this.expandStatusMapOfGroup };
         const groups = this.groups.filter(group => group.expand);
         this.foldGroups(groups);
+        this.onDragStarted(event);
         this.cdr.detectChanges();
     }
 

@@ -7,7 +7,7 @@
   thyWholeRowSelect="false"
   (thyOnRowClick)="onRowClick($event)"
   [thyDraggable]="true"
-  [thyDragDisabledPredicate]="DragDisabledPredicate"
+  [thyDragDisabledPredicate]="dragDisabledPredicate"
   (thyOnDraggableChange)="thyOnDraggableChange($event)"
 >
   <ng-template #group let-group>{{ group?.title }}</ng-template>

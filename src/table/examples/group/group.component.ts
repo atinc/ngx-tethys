@@ -44,7 +44,7 @@ export class ThyTableGroupExampleComponent implements OnInit {
         console.log(`[thy-table-group-example] clicked ${event.row.name}`);
     }
 
-    DragDisabledPredicate = (event: SafeAny) => {
+    dragDisabledPredicate = (event: SafeAny) => {
         return (
             this.groups.findIndex(item => {
                 return item.id === event.id;

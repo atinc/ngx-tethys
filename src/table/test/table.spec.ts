@@ -6,7 +6,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angul
 import { By } from '@angular/platform-browser';
 
 import { ThyTableComponent } from '../table.component';
-import { ThyPage } from '../table.interface';
+import { ThyPage, ThyTableDraggableEvent } from '../table.interface';
 import { ThyTableModule } from '../table.module';
 
 @Component({
@@ -674,6 +674,7 @@ describe('ThyTable: basic', () => {
             [thyPageSize]="pagination.size"
             [thyPageTotal]="pagination.total"
             [thyDraggable]="draggable"
+            (thyOnDraggableChange)="thyOnDraggableChange($event)"
             #table
         >
             <ng-template #group let-group>{{ group.id }}</ng-template>
@@ -690,7 +691,18 @@ describe('ThyTable: basic', () => {
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
-    `
+    `,
+    styles: [
+        `
+            .table-draggable {
+                .thy-table-group {
+                    .thy-table-group-container {
+                        padding-left: 0;
+                    }
+                }
+            }
+        `
+    ]
 })
 class ThyDemoGroupTableComponent {
     @ViewChild('table') innerTable: ThyTableComponent;
@@ -707,6 +719,7 @@ class ThyDemoGroupTableComponent {
             expand: true
         }
     ];
+
     model = [
         {
             group_id: '11',
@@ -756,7 +769,9 @@ class ThyDemoGroupTableComponent {
             desc: '这是一条测试数据'
         }
     ];
+
     mode = 'group';
+
     pagination = {
         index: 1,
         size: 3,
@@ -764,14 +779,27 @@ class ThyDemoGroupTableComponent {
     };
 
     draggable = false;
+
+    DragDisabledPredicate = (event: any) => {
+        return (
+            this.groups.findIndex(item => {
+                return item.id === event.id;
+            }) < 0
+        );
+    };
+
+    thyOnDraggableChange(event: ThyTableDraggableEvent) {
+        console.log(event.models);
+    }
 }
 
 describe('ThyTable: group', () => {
     let fixture: ComponentFixture<ThyDemoGroupTableComponent>;
     let testComponent: ThyDemoGroupTableComponent;
     let tableComponent: DebugElement;
-    let table;
-    let rows;
+    let table: HTMLElement;
+    let rows: any;
+    let dragDropEvent;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -874,6 +902,62 @@ describe('ThyTable: group', () => {
         expect(appRef.tick).not.toHaveBeenCalled();
         expect(event.stopPropagation).toHaveBeenCalled();
     });
+
+    it('should have correct class when thyDraggable is true', () => {
+        testComponent.draggable = true;
+        fixture.detectChanges();
+        expect(table.classList.contains('table-draggable')).toBe(true);
+    });
+
+    it('should add class thy-table-drag-preview when group start drag', fakeAsync(() => {
+        testComponent.draggable = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const spy = spyOn(testComponent, 'thyOnDraggableChange');
+
+        dispatchMouseEvent(rows[1], 'mousedown', 0, 50);
+        fixture.detectChanges();
+
+        dispatchMouseEvent(rows[1], 'mousemove', 50, 100);
+        fixture.detectChanges();
+        tick(500);
+        const previewTds = document.querySelector('.thy-table-drag-preview').querySelectorAll('td');
+
+        dispatchMouseEvent(rows[1], 'mouseup', 50, 100);
+        tick(500);
+        const dragOriginTds = rows[1].querySelectorAll('td');
+        previewTds.forEach((item, index) => {
+            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+        });
+        expect(spy).toHaveBeenCalled();
+    }));
+
+    it('should add class thy-table-drag-preview when children start drag', fakeAsync(() => {
+        testComponent.draggable = true;
+        fixture.detectChanges();
+        rows = tableComponent.nativeElement.querySelectorAll('tr');
+        const spy = spyOn(testComponent, 'thyOnDraggableChange');
+        const offset = {
+            top: rows[4].offsetTop,
+            left: rows[4].offsetLeft
+        };
+
+        dispatchMouseEvent(rows[3], 'mousedown', 0, 50);
+        fixture.detectChanges();
+
+        dispatchMouseEvent(rows[3], 'mousemove', offset.left, offset.top);
+        fixture.detectChanges();
+        tick(500);
+        const previewTds = document.querySelector('.thy-table-drag-preview').querySelectorAll('td');
+
+        dispatchMouseEvent(rows[3], 'mouseup', offset.left, offset.top);
+        tick(500);
+        const dragOriginTds = rows[3].querySelectorAll('td');
+        previewTds.forEach((item, index) => {
+            expect(item.style.width).toBe(dragOriginTds[index].clientWidth + 'px');
+        });
+        expect(spy).toHaveBeenCalled();
+    }));
 });
 
 @Component({
