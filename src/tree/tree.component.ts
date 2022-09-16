@@ -163,7 +163,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Input() thySelectedKeys: string[];
 
-    @Input() thyIndent: number;
+    @Input() thyIndent = 25;
 
     @Input() thyBeforeDragStart: (e: ThyDragStartEvent) => boolean;
 
