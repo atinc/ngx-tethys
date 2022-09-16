@@ -16,6 +16,10 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
     ]
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
+    @HostBinding('class.thy-checkbox') class = true;
+
+    @HostBinding('class.disabled') _disabled: boolean;
+
     isIndeterminate = false;
 
     /**

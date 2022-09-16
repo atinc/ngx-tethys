@@ -1,0 +1,8 @@
+.thy-checkbox {
+    &.disabled {
+        .form-check-input,
+        .form-check-label {
+            cursor: default;
+        }
+    }
+}
