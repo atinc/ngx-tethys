@@ -8,7 +8,9 @@ import {
     Output,
     QueryList,
     TemplateRef,
-    AfterContentInit
+    AfterContentInit,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyTabComponent } from './tab.component';
@@ -36,7 +38,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-tabs-left]': `thyPosition === 'left'`
     }
 })
-export class ThyTabsComponent extends _MixinBase implements OnInit, AfterContentInit {
+export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
 
     /**
@@ -84,6 +86,18 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, AfterContent
     }
 
     ngOnInit(): void {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyActiveTab } = changes;
+        if (thyActiveTab && !thyActiveTab.firstChange && this.thyAnimated) {
+            if (!thyActiveTab?.currentValue?.index) {
+                this.thyActiveTab = {
+                    id: thyActiveTab?.currentValue.id,
+                    index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
+                };
+            }
+        }
+    }
 
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
