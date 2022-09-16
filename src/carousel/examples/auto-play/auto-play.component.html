@@ -1,13 +1,7 @@
 <div>
   <thy-carousel [thyAutoPlay]="authPlay">
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/1.png" alt="1" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/2.png" alt="2" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/3.png" alt="3" />
+    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+      {{ slide }}
     </div>
   </thy-carousel>
 </div>
