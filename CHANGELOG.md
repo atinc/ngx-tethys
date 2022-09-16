@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.10](https://github.com/atinc/ngx-tethys/compare/14.0.9...14.0.10) (2022-09-16)
+
+
+### Bug Fixes
+
+* **tabs:** adjust activeIndexTab #INFR-4697 ([#2200](https://github.com/atinc/ngx-tethys/issues/2200)) ([68d0d80](https://github.com/atinc/ngx-tethys/commit/68d0d804292f57a132fa8dca0621851231f9f6da)), closes [#INFR-4697](https://github.com/atinc/ngx-tethys/issues/INFR-4697)
+* **tabs:** remove tabs overflow: hidden #INFR-4869 ([35d8f59](https://github.com/atinc/ngx-tethys/commit/35d8f59d27aeaea317a68986df1e07f351aa7fc8)), closes [#INFR-4869](https://github.com/atinc/ngx-tethys/issues/INFR-4869)
+* **time-picker:** fix icon position error on Safira #INFR-4681 ([6a9e03f](https://github.com/atinc/ngx-tethys/commit/6a9e03f17719443cb4dc44db0a758136003b9443)), closes [#INFR-4681](https://github.com/atinc/ngx-tethys/issues/INFR-4681)
+* **tree:** fix tree thyIndent default value 25 #INFR-4704 ([#2201](https://github.com/atinc/ngx-tethys/issues/2201)) ([61b139b](https://github.com/atinc/ngx-tethys/commit/61b139b0ac96cff6b84a57b12ffa1045c3a9b533)), closes [#INFR-4704](https://github.com/atinc/ngx-tethys/issues/INFR-4704)
+
+
+### Features
+
+* **carousel:** beautify the carousel components #INFR-4172 ([#2197](https://github.com/atinc/ngx-tethys/issues/2197)) ([585f40a](https://github.com/atinc/ngx-tethys/commit/585f40aa47edf5905f2f06ead3e35702d550136a)), closes [#INFR-4172](https://github.com/atinc/ngx-tethys/issues/INFR-4172)
+
+
+
 ## [14.0.9](https://github.com/atinc/ngx-tethys/compare/14.0.8...14.0.9) (2022-09-15)
 
 
