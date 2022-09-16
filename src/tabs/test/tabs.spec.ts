@@ -386,7 +386,7 @@ describe('tabs', () => {
             expect(tabsInstance.tabs.length).toBe(4);
         }));
 
-        fit('should set thyActiveTab successfully when add tab', fakeAsync(() => {
+        it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
             expect(tabsInstance.tabs.length).toBe(3);
 
@@ -402,7 +402,7 @@ describe('tabs', () => {
             expect(tabElement.getAttribute('tabindex')).toEqual('0');
         }));
 
-        fit('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
+        it('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
             const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
             expect(tabsInstance.tabs.length).toBe(3);
 
