@@ -7,16 +7,23 @@ import {
     OnInit,
     Output,
     QueryList,
-    TemplateRef
+    TemplateRef,
+    AfterContentInit,
+    OnChanges,
+    SimpleChanges
 } from '@angular/core';
+import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyTabComponent } from './tab.component';
 import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
+import { takeUntil } from 'rxjs/operators';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
 export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
 
 export type ThyTabsPosition = 'top' | 'left';
+
+const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * thy-tabs
@@ -31,7 +38,7 @@ export type ThyTabsPosition = 'top' | 'left';
         '[class.thy-tabs-left]': `thyPosition === 'left'`
     }
 })
-export class ThyTabsComponent implements OnInit {
+export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
 
     /**
@@ -76,9 +83,35 @@ export class ThyTabsComponent implements OnInit {
 
     activeTabIndex: number = 0;
 
-    constructor() {}
+    constructor() {
+        super();
+    }
 
     ngOnInit(): void {}
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyActiveTab } = changes;
+        if (thyActiveTab && !thyActiveTab.firstChange && this.thyAnimated) {
+            // if (!thyActiveTab?.currentValue?.index) {
+            //     this.thyActiveTab = {
+            //         id: thyActiveTab?.currentValue.id,
+            //         index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
+            //     };
+            // }
+            this.activeTabIndex =
+                thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
+        }
+    }
+
+    ngAfterContentInit() {
+        this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
+            // this.thyActiveTab = {
+            //     id: data._results[+data.length - 1].id || null,
+            //     index: data.length - 1
+            // };
+            this.activeTabIndex = data.length - 1;
+        });
+    }
 
     get tabPaneAnimated(): boolean {
         return this.thyPosition === 'top' && this.thyAnimated;

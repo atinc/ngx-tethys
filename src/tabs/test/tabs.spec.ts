@@ -99,7 +99,7 @@ class TestTabsPositionComponent {
 @Component({
     selector: 'test-tabs-active',
     template: `
-        <thy-tabs [thyActiveTab]="activeTab">
+        <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             <thy-tab id="tab1" thyTitle="Tab1">
                 Tab1 Content
             </thy-tab>
@@ -113,6 +113,7 @@ class TestTabsActiveComponent {
         id: 'tab2',
         index: 1
     };
+    thyAnimated = false;
 }
 
 @Component({
@@ -120,7 +121,7 @@ class TestTabsActiveComponent {
     template: `
         <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
 
-        <thy-tabs [thyActiveTab]="activeTab">
+        <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             <ng-container *ngFor="let tab of tabs; let i = index; trackBy: trackByFn">
                 <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
             </ng-container>
@@ -137,6 +138,7 @@ class TestTabsDynamicAddComponent {
     activeTab = {
         id: 'tab1'
     };
+    thyAnimated = false;
 
     addTab() {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
@@ -345,9 +347,18 @@ describe('tabs', () => {
             fixture.detectChanges();
         });
 
-        it('should set thyActiveTab successfully', () => {
-            const activeElement = getDebugElement(fixture, '#tab2').nativeElement;
-            expect(activeElement.classList.contains('active')).toBeTruthy();
+        it('should set thyActiveTab successfully when reset activeTab', () => {
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        });
+
+        it('should set thyActiveTab successfully when thyAnimated', () => {
+            fixture.debugElement.componentInstance.thyAnimated = true;
+            fixture.detectChanges();
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
         });
     });
 
@@ -373,6 +384,39 @@ describe('tabs', () => {
             tick();
             fixture.detectChanges();
             expect(tabsInstance.tabs.length).toBe(4);
+        }));
+
+        it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.tabs.length).toBe(3);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.detectChanges();
+            tick();
+            expect(tabsInstance.tabs.length).toBe(4);
+
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(!tabContent.style.marginLeft).toBeTruthy();
+
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[3];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        }));
+
+        it('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.tabs.length).toBe(3);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.debugElement.componentInstance.thyAnimated = true;
+            fixture.detectChanges();
+            tick();
+            expect(tabsInstance.tabs.length).toBe(4);
+
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(tabContent.style.marginLeft === '-300%').toBeTruthy();
+
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[3];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
         }));
     });
 
