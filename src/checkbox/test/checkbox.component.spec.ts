@@ -61,6 +61,7 @@ describe('checkbox component', () => {
     it('should create', () => {
         expect(checkboxTestComponent).toBeTruthy();
         expect(checkboxComponent.nativeElement).toBeTruthy();
+        expect(document.querySelector('.thy-checkbox')).toBeTruthy();
     });
 
     it('should select when click', fakeAsync(() => {
@@ -94,6 +95,16 @@ describe('checkbox component', () => {
         tick(500);
         fixture.detectChanges();
         expect(fixture.nativeElement.children[3].children[0].attributes.disabled).toBeTruthy();
+    }));
+
+    it('should have disabled class when isDisabled is true', fakeAsync(() => {
+        fixture.detectChanges();
+        fixture.componentInstance.isDisabled = true;
+        fixture.detectChanges();
+        tick(500);
+        fixture.detectChanges();
+        expect(fixture.nativeElement.children[3].classList.contains('disabled')).toBeTruthy();
+        expect(window.getComputedStyle(fixture.nativeElement.children[3].children[0], null).getPropertyValue('cursor')).toEqual('default');
     }));
 
     it('should have correct class when it‘s indeterminate is true', fakeAsync(() => {
