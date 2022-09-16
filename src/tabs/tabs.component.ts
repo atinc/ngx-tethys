@@ -81,6 +81,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
      */
     @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
 
+    activeTabIndex: number = 0;
+
     constructor() {
         super();
     }
@@ -90,21 +92,24 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     ngOnChanges(changes: SimpleChanges): void {
         const { thyActiveTab } = changes;
         if (thyActiveTab && !thyActiveTab.firstChange && this.thyAnimated) {
-            if (!thyActiveTab?.currentValue?.index) {
-                this.thyActiveTab = {
-                    id: thyActiveTab?.currentValue.id,
-                    index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
-                };
-            }
+            // if (!thyActiveTab?.currentValue?.index) {
+            //     this.thyActiveTab = {
+            //         id: thyActiveTab?.currentValue.id,
+            //         index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
+            //     };
+            // }
+            this.activeTabIndex =
+                thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
         }
     }
 
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
-            this.thyActiveTab = {
-                id: data._results[+data.length - 1].id || null,
-                index: data.length - 1
-            };
+            // this.thyActiveTab = {
+            //     id: data._results[+data.length - 1].id || null,
+            //     index: data.length - 1
+            // };
+            this.activeTabIndex = data.length - 1;
         });
     }
 
@@ -114,7 +119,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     getTabContentMarginLeft(): string {
         if (this.tabPaneAnimated) {
-            return `${-(this.thyActiveTab?.index || 0) * 100}%`;
+            return `${-(this.activeTabIndex || 0) * 100}%`;
         }
         return '';
     }
@@ -127,6 +132,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             id: tab.id || null,
             index
         };
+        this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
     }
 
