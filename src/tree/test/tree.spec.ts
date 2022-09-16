@@ -651,6 +651,11 @@ describe('ThyTreeComponent', () => {
             expect(component).toBeDefined();
         });
 
+        it(`should indent default is 25px`, () => {
+            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
+            expect(indexElement.style.width).toEqual('25px');
+        });
+
         it('parent node should has checked', () => {
             fixture.detectChanges();
             const productAGroupCheckbox = treeElement.querySelectorAll('.thy-tree-node-check')[2];
