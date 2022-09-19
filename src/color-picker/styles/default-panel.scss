@@ -1,0 +1,95 @@
+@use "../../styles/variables";
+.thy-default-panel {
+    width: 100%;
+    display: block;
+    .main-content {
+        padding: 0 12px;
+    }
+    .no-color {
+        height: 44px;
+        padding: 0 4px;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        padding: 4px 16px 4px 16px;
+        margin-bottom: 8px;
+        &:hover {
+            background-color: variables.$gray-100;
+        }
+        .color-block {
+            width: 18px;
+            height: 18px;
+            background-color: variables.$white;
+            border: 1px solid rgba(238, 238, 238, 1);
+            border-radius: 2px;
+            position: relative;
+            &::after {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 7px;
+                left: -3px;
+                width: 22px;
+                height: 0;
+                border-bottom: 2px solid variables.$danger;
+                transform: rotate(-45deg);
+            }
+        }
+        .no-color-text {
+            margin-left: 8px;
+        }
+    }
+    .recent-color-container {
+        margin-bottom: 12px;
+        display: flex;
+    }
+    .recent-text {
+        margin: 12px 4px;
+    }
+
+    .color-item {
+        width: 18px;
+        height: 18px;
+        cursor: pointer;
+        margin: 4px;
+        border: 1px solid rgba(238, 238, 238, 1);
+        border-radius: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        .check-icon {
+            color: variables.$white;
+            font-size: variables.$font-size-sm;
+            display: none;
+            &.checked {
+                display: block;
+            }
+
+            &.black-check {
+                color: variables.$gray-800;
+            }
+        }
+    }
+    .default-color {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .more-color {
+        height: 44px;
+        padding: 0 16px;
+        border-top: 1px solid variables.$gray-200;
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        &:hover {
+            background-color: variables.$gray-100;
+        }
+        .thy-icon-palette,
+        .thy-icon-angle-right {
+            color: variables.$gray-500;
+        }
+        .custom-text {
+            flex: 1;
+        }
+    }
+}

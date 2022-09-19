@@ -1,0 +1,17 @@
+.thy-indicator {
+    display: block;
+    height: 24px;
+    width: 24px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-align: center;
+    overflow: hidden;
+    background: transparent
+        url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAAh0lEQVRYR+2W0QlAMQgD60zdfwOdqa8TmI/wQMr5K0I5bZLIzLOa2nt37VVVbd+dDx5obgCC3KBLwJ2ff4PnVidkf+ucIhw80HQaCLo3DMH3CRK3iFsmAWVl6hPNDwt8EvNE5q+YuEXcMgkonVM6SdyCoEvAnZ8v1Hjx817MilmxSUB5rdLJDycZgUAZUch/AAAAAElFTkSuQmCC)
+        repeat;
+    .icon-container {
+        width: 100%;
+        height: 100%;
+        line-height: 30px;
+    }
+}
