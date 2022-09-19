@@ -1,29 +1,27 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyCarouselTrigger } from 'ngx-tethys/carousel';
 
 @Component({
     selector: 'thy-carousel-basic-example',
-    templateUrl: './touchable.component.html',
+    templateUrl: './image.component.html',
     styles: [
         `
             .custom-carousel-item {
-                height: 300px !important;
-                text-align: center;
-                font-size: 18px;
+                height: 400px !important;
                 display: flex;
                 color: #fff;
                 justify-content: center;
                 align-items: center;
-                background: #6698ff;
             }
         `
     ]
 })
-export class ThyCarouselTouchableExampleComponent implements OnInit {
+export class ThyCarouselImageExampleComponent implements OnInit {
     constructor() {}
 
     array: string[] = [];
 
-    enable = true;
+    trigger: ThyCarouselTrigger = 'click';
 
     ngOnInit(): void {
         for (let i = 0; i < 6; ) {

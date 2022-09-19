@@ -4,23 +4,17 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyArrowTemplate]="arrowTemplate" [thyShowArrow]="isShow">
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/1.png" alt="1" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/2.png" alt="2" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/3.png" alt="3" />
+    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+      {{ slide }}
     </div>
   </thy-carousel>
 </div>
 
 <ng-template #arrowTemplate let-pre="pre" let-next="next">
   <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
-    <thy-icon thyIconName="arrow-left-circle"></thy-icon>
+    <thy-icon thyIconName="arrow-left-bold"></thy-icon>
   </div>
   <div class="carousel-arrow carousel-arrow-right" (click)="next()">
-    <thy-icon thyIconName="arrow-right-circle"></thy-icon>
+    <thy-icon thyIconName="arrow-right-bold"></thy-icon>
   </div>
 </ng-template>

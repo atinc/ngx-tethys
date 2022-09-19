@@ -4,7 +4,23 @@ import { ThyCarouselEffect } from 'ngx-tethys/carousel';
 @Component({
     selector: 'thy-carousel-basic-example',
     templateUrl: './effect.component.html',
-    styleUrls: ['./effect.component.scss']
+    styles: [
+        `
+            .custom-carousel-item {
+                height: 300px !important;
+                text-align: center;
+                font-size: 18px;
+                display: flex;
+                color: #fff;
+                justify-content: center;
+                align-items: center;
+                background: #6698ff;
+            }
+            .active {
+                color: #6698ff;
+            }
+        `
+    ]
 })
 export class ThyCarouselEffectExampleComponent implements OnInit {
     constructor() {}
@@ -13,5 +29,9 @@ export class ThyCarouselEffectExampleComponent implements OnInit {
 
     effect: ThyCarouselEffect = 'slide';
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        for (let i = 0; i < 6; ) {
+            this.array.push(`Slide ${i++}`);
+        }
+    }
 }
