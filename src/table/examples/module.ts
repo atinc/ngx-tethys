@@ -14,6 +14,7 @@ import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThySwitchModule } from 'ngx-tethys/switch';
 
 export default {
     imports: [
@@ -32,6 +33,7 @@ export default {
         ThyGridModule,
         ThyEmptyModule,
         ThyActionModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThySwitchModule
     ]
 };

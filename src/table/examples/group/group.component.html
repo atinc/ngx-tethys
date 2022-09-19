@@ -1,3 +1,29 @@
+禁用拖拽：
+<thy-table
+  class="mb-5"
+  [thyGroups]="groups"
+  [thyModel]="data"
+  thyRowKey="id"
+  thyGroupBy="group_id"
+  thyMode="group"
+  thyWholeRowSelect="false"
+  (thyOnRowClick)="onRowClick($event)"
+  [thyDraggable]="false"
+  [thyDragDisabledPredicate]="dragDisabledPredicate"
+  (thyOnDraggableChange)="thyOnDraggableChange($event)"
+>
+  <ng-template #group let-group>{{ group?.title }}</ng-template>
+  <thy-table-column thyTitle="Name" thyModelKey="name">
+    <ng-template #cell let-row>
+      <div>{{ row.name }}</div>
+    </ng-template>
+  </thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
+</thy-table>
+
+开启拖拽：
 <thy-table
   [thyGroups]="groups"
   [thyModel]="data"
@@ -13,7 +39,7 @@
   <ng-template #group let-group>{{ group?.title }}</ng-template>
   <thy-table-column thyTitle="Name" thyModelKey="name">
     <ng-template #cell let-row>
-      <div class="demo-name">{{ row.name }}</div>
+      <div>{{ row.name }}</div>
     </ng-template>
   </thy-table-column>
   <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>

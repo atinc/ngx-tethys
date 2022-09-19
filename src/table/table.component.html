@@ -9,7 +9,9 @@
     [ngClass]="[className]"
     [class.table-fixed]="thyLayoutFixed"
     [class.table-draggable]="draggable"
+    [class.table-list-draggable]="mode === 'list' && draggable"
     [class.table-group]="mode === 'group'"
+    [class.table-group-draggable]="mode === 'group' && draggable"
     [style.min-width]="thyMinWidth"
   >
     <colgroup>

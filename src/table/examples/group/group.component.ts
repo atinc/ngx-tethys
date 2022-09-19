@@ -5,14 +5,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-group-example',
-    templateUrl: './group.component.html',
-    styles: [
-        `
-            .demo-name {
-                padding-left: 20px;
-            }
-        `
-    ]
+    templateUrl: './group.component.html'
 })
 export class ThyTableGroupExampleComponent implements OnInit {
     public groups = [

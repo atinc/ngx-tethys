@@ -178,10 +178,6 @@
         td {
             position: relative;
 
-            &:first-child {
-                padding-left: variables.$table-draggable-first-td-padding-left;
-            }
-
             .table-draggable-icon {
                 position: absolute;
                 display: none;
@@ -225,6 +221,16 @@
     }
 }
 
+.table-list-draggable {
+    tbody tr {
+        td {
+            &:first-child {
+                padding-left: variables.$table-draggable-first-td-padding-left;
+            }
+        }
+    }
+}
+
 .table-responsive {
     @each $breakpoint in map.keys(bootstrap-variables.$grid-breakpoints) {
         $next: breakpoints.breakpoint-next($breakpoint, bootstrap-variables.$grid-breakpoints);
@@ -250,5 +256,10 @@
 .table-group {
     td:first-child {
         padding-left: variables.$table-group-first-cell-padding-left;
+    }
+}
+.table-group-draggable {
+    td:first-child {
+        padding-left: variables.$table-group-draggable-first-cell-padding-left;
     }
 }

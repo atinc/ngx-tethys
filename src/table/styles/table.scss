@@ -143,6 +143,14 @@
         }
     }
 
+    .table-group-draggable {
+        .thy-table-group {
+            .thy-table-group-container {
+                padding-left: variables.$table-draggable-first-td-padding-left;
+            }
+        }
+    }
+
     .thy-table-column-sortable {
         cursor: pointer;
         &-icon {
@@ -361,14 +369,6 @@
         .table-draggable-icon,
         .expand-icon {
             display: none;
-        }
-    }
-}
-
-.table-draggable {
-    .thy-table-group {
-        .thy-table-group-container {
-            padding-left: 0;
         }
     }
 }
