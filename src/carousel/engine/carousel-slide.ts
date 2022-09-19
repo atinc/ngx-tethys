@@ -46,7 +46,7 @@ export class ThyCarouselSlideEngine extends ThyCarouselBaseEngine {
 
     switch(to: number, from: number): Observable<void> {
         const switch$ = new Subject<void>();
-        if (Math.abs(from - to) === 1) {
+        if (Math.abs(from - to) === 1 || from === to) {
             this.prepareHorizontalContext(to);
         }
         this.renderer.setStyle(this.wrapperEl, `transition-duration`, `${this.playTime}ms`);
