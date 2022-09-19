@@ -3,7 +3,20 @@ import { Component, OnInit } from '@angular/core';
 @Component({
     selector: 'thy-carousel-basic-example',
     templateUrl: './arrow.component.html',
-    styleUrls: ['./arrow.component.scss']
+    styles: [
+        `
+            .custom-carousel-item {
+                height: 300px !important;
+                text-align: center;
+                font-size: 18px;
+                display: flex;
+                color: #fff;
+                justify-content: center;
+                align-items: center;
+                background: #6698ff;
+            }
+        `
+    ]
 })
 export class ThyCarouselArrowExampleComponent implements OnInit {
     constructor() {}
@@ -12,5 +25,9 @@ export class ThyCarouselArrowExampleComponent implements OnInit {
 
     isShow = true;
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        for (let i = 0; i < 6; ) {
+            this.array.push(`Slide ${i++}`);
+        }
+    }
 }

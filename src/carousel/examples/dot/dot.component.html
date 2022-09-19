@@ -4,17 +4,11 @@
 </thy-button-group>
 <div style="margin-top: 10px">
   <thy-carousel [thyDotTemplate]="dotTemplate" [thyShowDot]="isShow">
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/1.png" alt="1" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/2.png" alt="2" />
-    </div>
-    <div thyCarouselItem class="custom-carousel-item">
-      <img src="assets/images/carousel/3.png" alt="3" />
+    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+      {{ slide }}
     </div>
   </thy-carousel>
 </div>
 <ng-template #dotTemplate let-active>
-  <thy-icon thyIconName="aim" [class]="['custom-dots', active ? 'active-color' : 'default-color']"></thy-icon>
+  <span class="custom-dots" [class]="active ? 'active' : ''"></span>
 </ng-template>
