@@ -4,7 +4,13 @@
 </div>
 <div class="main-content">
   <div class="default-color">
-    <div class="color-item" *ngFor="let item of defaultColors" [ngStyle]="{ background: item }" (click)="selectColor(item)">
+    <div
+      class="color-item"
+      *ngFor="let item of defaultColors"
+      [ngStyle]="{ background: item }"
+      [ngClass]="item === '#FFFFFF' ? 'item-border' : ''"
+      (click)="selectColor(item)"
+    >
       <thy-icon
         thyIconName="check-thick"
         class="check-icon"
@@ -14,7 +20,13 @@
   </div>
   <p class="font-size-sm text-secondary recent-text">最近使用自定义颜色</p>
   <div class="recent-color-container">
-    <div class="color-item" *ngFor="let item of recentColors" [ngStyle]="{ background: item }" (click)="selectColor(item)">
+    <div
+      class="color-item"
+      *ngFor="let item of recentColors"
+      [ngStyle]="{ background: item }"
+      [ngClass]="item === '#FFFFFF' ? 'item-border' : ''"
+      (click)="selectColor(item)"
+    >
       <thy-icon
         thyIconName="check-thick"
         class="check-icon"

@@ -12,7 +12,9 @@ import {
     ViewChild
 } from '@angular/core';
 import Color from '../../helpers/color.class';
-
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-alpha',
     templateUrl: './alpha.component.html',

@@ -19,7 +19,7 @@ import { ThyColorPickerModule } from "ngx-tethys/color-picker";
 
 支持指令使用方式:
 ```html
- <span thyColorPicker [(thyColor)]="color" (thyColorChange)="changeColor($event)">选颜色</span>
+<span thyColorPicker [(ngModel)]="color" (ngModelChange)="change($event)">选颜色</span>
 
 ```
 展示效果:

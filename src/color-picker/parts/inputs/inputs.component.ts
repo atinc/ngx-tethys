@@ -1,6 +1,9 @@
 import { Component, EventEmitter, HostBinding, Input, Output } from '@angular/core';
 import Color from '../../helpers/color.class';
 
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-color-inputs',
     templateUrl: './inputs.component.html'

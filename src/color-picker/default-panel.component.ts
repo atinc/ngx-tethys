@@ -5,7 +5,7 @@ import { DEFAULT_COLORS } from './helpers/constant';
 import { ThyPickerPanelComponent } from './picker-panel.component';
 
 /**
- * 颜色选择器组件
+ * @internal
  */
 @Component({
     selector: 'thy-default-panel',

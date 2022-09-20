@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, forwardRef, HostListener, Input, OnInit, Output } from '@angular/core';
+import { Directive, forwardRef, HostListener, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyDefaultPanelComponent } from './default-panel.component';
@@ -17,16 +17,11 @@ import Color from './helpers/color.class';
     ]
 })
 export class ThyColorPickerDirective implements OnInit {
-    /**
-     * 选中颜色
-     */
-    @Input() thyColor: string;
+    private onChangeFn: (value: number | string) => void = () => {};
 
-    /**
-     * 颜色change事件
-     */
-    @Output()
-    public thyColorChange = new EventEmitter<string>();
+    private onTouchFn: () => void = () => {};
+
+    thyColor: string;
 
     public get backgroundColor(): string {
         return this.thyColor;
@@ -47,9 +42,26 @@ export class ThyColorPickerDirective implements OnInit {
             initialState: {
                 color: new Color(this.thyColor).toHexString(true),
                 colorChange: (value: string) => {
-                    this.thyColorChange.emit(value);
+                    this.onModelChange(value);
                 }
             }
         });
+    }
+
+    writeValue(value: string): void {
+        this.thyColor = value;
+    }
+
+    registerOnChange(fn: any): void {
+        this.onChangeFn = fn;
+    }
+
+    registerOnTouched(fn: any): void {
+        this.onTouchFn = fn;
+    }
+
+    onModelChange(value: string): void {
+        this.thyColor = value;
+        this.onChangeFn(value);
     }
 }

@@ -14,9 +14,10 @@ import { ThyDefaultPanelComponent } from './default-panel.component';
 import { ThyColorInputsComponent } from './parts/inputs/inputs.component';
 import { FormsModule } from '@angular/forms';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @NgModule({
-    imports: [CommonModule, ThyDialogModule, ThyInputModule, ThyIconModule, FormsModule, ThyInputNumberModule],
+    imports: [CommonModule, ThyDialogModule, ThyInputModule, ThyIconModule, FormsModule, ThyInputNumberModule, ThySharedModule],
     declarations: [
         ThyColorPickerDirective,
         ThyPickerPanelComponent,
@@ -28,16 +29,6 @@ import { ThyInputNumberModule } from 'ngx-tethys/input-number';
         ThyDefaultPanelComponent,
         ThyColorInputsComponent
     ],
-    exports: [
-        ThyColorPickerDirective,
-        ThyPickerPanelComponent,
-        ThySaturationComponent,
-        ThyHueComponent,
-        ThyAlphaComponent,
-        ThyIndicatorComponent,
-        ThyCoordinatesDirective,
-        ThyDefaultPanelComponent,
-        ThyColorInputsComponent
-    ]
+    exports: [ThyColorPickerDirective]
 })
 export class ThyColorPickerModule {}

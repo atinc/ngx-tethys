@@ -1,6 +1,1 @@
-selected:
-<span>
-  {{ color }}
-</span>
-<br />
-<span thyColorPicker [(thyColor)]="color" (thyColorChange)="color = $event">选颜色</span>
+<div class="box" [ngStyle]="{ background: color }" thyColorPicker [(ngModel)]="color" (ngModelChange)="change($event)"></div>

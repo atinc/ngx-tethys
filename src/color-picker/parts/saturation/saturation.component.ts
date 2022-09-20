@@ -13,7 +13,7 @@ import {
 import Color from '../../helpers/color.class';
 
 /**
- * 颜色选择器组建
+ * @internal
  */
 @Component({
     selector: 'thy-saturation',

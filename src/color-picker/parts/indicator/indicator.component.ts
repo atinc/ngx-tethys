@@ -1,6 +1,8 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import Color from '../../helpers/color.class';
-
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-indicator',
     templateUrl: './indicator.component.html'

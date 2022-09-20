@@ -2,7 +2,7 @@ import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import Color from './helpers/color.class';
 
 /**
- * 颜色选择器组件
+ * @internal
  */
 @Component({
     selector: 'thy-picker-panel',

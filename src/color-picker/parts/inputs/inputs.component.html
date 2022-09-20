@@ -1,5 +1,13 @@
 <div class="hex-column">
-  <input #elRef thySize="xs" class="px-0 text-center" thyInput [(ngModel)]="color.displayValue" (blur)="onInputChange($event, 'hex')" />
+  <input
+    #elRef
+    thySize="xs"
+    class="px-0 text-center"
+    thyInput
+    [(ngModel)]="color.displayValue"
+    (blur)="onInputChange($event, 'hex')"
+    (thyEnter)="onInputChange($event, 'hex')"
+  />
   <span>HEX</span>
 </div>
 <div class="column">
@@ -10,6 +18,7 @@
     class="px-0 text-center"
     [(ngModel)]="color.rgba.red"
     (thyBlur)="onInputChange($event, 'R')"
+    (thyEnter)="onInputChange($event, 'R')"
   ></thy-input-number>
   <span>R</span>
 </div>
@@ -21,6 +30,7 @@
     class="px-0 text-center"
     [(ngModel)]="color.rgba.green"
     (thyBlur)="onInputChange($event, 'G')"
+    (thyEnter)="onInputChange($event, 'G')"
   ></thy-input-number>
   <span>G</span>
 </div>
@@ -32,6 +42,7 @@
     class="px-0 text-center"
     [(ngModel)]="color.rgba.blue"
     (thyBlur)="onInputChange($event, 'B')"
+    (thyEnter)="onInputChange($event, 'B')"
   ></thy-input-number>
   <span>B</span>
 </div>
@@ -43,6 +54,7 @@
     class="px-0 text-center"
     [(ngModel)]="color.rgba.alpha"
     (thyBlur)="onInputChange($event, 'A')"
+    (thyEnter)="onInputChange($event, 'A')"
   ></thy-input-number>
   <span>A</span>
 </div>
