@@ -42,7 +42,7 @@ export class ThyColorPickerDirective implements OnInit {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             manualClosure: true,
-            width: '260px',
+            width: '286px',
             originActiveClass: 'thy-defaul-picker-active',
             initialState: {
                 color: new Color(this.thyColor).toHexString(true),

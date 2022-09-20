@@ -6,9 +6,9 @@
   <div class="default-color">
     <div class="color-item" *ngFor="let item of defaultColors" [ngStyle]="{ background: item }" (click)="selectColor(item)">
       <thy-icon
-        thyIconName="check"
+        thyIconName="check-thick"
         class="check-icon"
-        [ngClass]="_color === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
+        [ngClass]="colour === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
       ></thy-icon>
     </div>
   </div>
@@ -16,9 +16,9 @@
   <div class="recent-color-container">
     <div class="color-item" *ngFor="let item of recentColors" [ngStyle]="{ background: item }" (click)="selectColor(item)">
       <thy-icon
-        thyIconName="check"
+        thyIconName="check-thick"
         class="check-icon"
-        [ngClass]="_color === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
+        [ngClass]="colour === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
       ></thy-icon>
     </div>
     <div class="font-size-sm px-1 text-muted" *ngIf="recentColors.length === 0">

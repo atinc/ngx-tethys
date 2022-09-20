@@ -38,7 +38,10 @@ export class ThyAlphaComponent implements OnChanges {
         this.renderer.setStyle(
             this.gradient.nativeElement,
             'background',
-            `linear-gradient(to right, rgba(0, 0, 0, 0) 0%, ${this.color.displayValue} 100%)`
+            `linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(${this.color.rgba.red},
+            ${this.color.rgba.green},
+            ${this.color.rgba.blue},
+            1) 100%)`
         );
     }
 

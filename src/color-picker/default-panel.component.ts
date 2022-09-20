@@ -66,8 +66,12 @@ export class ThyDefaultPanelComponent implements OnInit {
         popoverRef.afterClosed().subscribe(() => {
             if (this.newColor) {
                 this.colorChange(this.newColor);
+                const index = this.recentColors.findIndex(item => item === this.newColor);
+                if (index !== -1) {
+                    this.recentColors.splice(index, 1);
+                }
                 this.recentColors.unshift(this.newColor);
-                this.recentColors = this.recentColors.slice(0, 9);
+                this.recentColors = this.recentColors.slice(0, 10);
                 localStorage.setItem('recentColors', JSON.stringify(this.recentColors));
             }
             this.thyPopover.closeAll();
@@ -76,7 +80,7 @@ export class ThyDefaultPanelComponent implements OnInit {
 
     getIconColor(item: string) {
         const rgba = new Color(item).rgba;
-        var yiq = rgba.red * 0.2126 + rgba.green * 0.7152 + rgba.blue * 0.0722;
-        return yiq > 128 ? 'black' : 'white';
+        const hsp = 0.299 * rgba.red + 0.587 * rgba.green + 0.114 * rgba.blue;
+        return hsp > 192 ? 'black' : 'white';
     }
 }

@@ -4,7 +4,7 @@
     border-radius: 2px;
     display: block;
     cursor: pointer;
-    position: relative;
+    padding: 0 3px;
     background: linear-gradient(
         to right,
         red 0%,
@@ -21,6 +21,11 @@
         #ff0080 92%,
         red 100%
     );
+    .hue-contianer {
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
     .pointer-container {
         width: 100%;
         height: 100%;
