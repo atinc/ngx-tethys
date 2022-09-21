@@ -1,10 +1,11 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNavComponent } from 'ngx-tethys/nav';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
+import { ThyTabComponent } from '../tab.component';
 import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
 import { ThyTabsModule } from '../tabs.module';
 import { ThyActiveTabInfo, ThyTabChangeEvent } from '../types';
@@ -167,14 +168,16 @@ class TestTabsDisabledComponent {
 @Component({
     selector: 'test-tabs-animated',
     template: `
-        <thy-tabs [thyAnimated]="true">
+        <thy-tabs #tabs [thyAnimated]="true">
             <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
             <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
     `
 })
-class TestTabsAnimatedComponent {}
+class TestTabsAnimatedComponent {
+    @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabsComponent>;
+}
 
 describe('tabs', () => {
     describe('basic', () => {
@@ -456,6 +459,7 @@ describe('tabs', () => {
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestTabsAnimatedComponent);
+            // tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
             fixture.detectChanges();
         });
 
@@ -467,6 +471,17 @@ describe('tabs', () => {
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
             expect(tabContent.style.marginLeft === '-100%').toBeTruthy();
+        }));
+
+        it('should remove overflow:hidden when transitioning', fakeAsync(() => {
+            const header = fixture.debugElement.nativeNode.querySelector('thy-tabs');
+            const tabElement = document.querySelectorAll('.thy-nav-item')[1];
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+
+            header.dispatchEvent(createFakeEvent('transitionend'));
+            fixture.detectChanges();
+            expect(header.style.overflow === '').toBeTruthy();
         }));
     });
 
