@@ -10,12 +10,15 @@ import {
     TemplateRef,
     AfterContentInit,
     OnChanges,
-    SimpleChanges
+    SimpleChanges,
+    ChangeDetectorRef,
+    ElementRef
 } from '@angular/core';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyTabComponent } from './tab.component';
 import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
 import { takeUntil } from 'rxjs/operators';
+import { fromEvent } from 'rxjs';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -35,7 +38,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     host: {
         class: 'thy-tabs',
         '[class.thy-tabs-top]': `thyPosition === 'top'`,
-        '[class.thy-tabs-left]': `thyPosition === 'left'`
+        '[class.thy-tabs-left]': `thyPosition === 'left'`,
+        '[style.overflow]': `activeTabIndexChange ? "hidden" : null`
     }
 })
 export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
@@ -83,11 +87,20 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     activeTabIndex: number = 0;
 
-    constructor() {
+    activeTabIndexChange: boolean = false;
+
+    constructor(private cd: ChangeDetectorRef, private el: ElementRef) {
         super();
     }
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        fromEvent(this.el.nativeElement, 'transitionend')
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(() => {
+                this.activeTabIndexChange = false;
+                this.cd.markForCheck();
+            });
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyActiveTab } = changes;
@@ -100,6 +113,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             // }
             this.activeTabIndex =
                 thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
+
+            this.activeTabIndexChange = true;
         }
     }
 
@@ -110,6 +125,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             //     index: data.length - 1
             // };
             this.activeTabIndex = data.length - 1;
+            this.activeTabIndexChange = true;
         });
     }
 
@@ -132,6 +148,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             id: tab.id || null,
             index
         };
+        this.activeTabIndexChange = this.activeTabIndex !== index;
+
         this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
     }
