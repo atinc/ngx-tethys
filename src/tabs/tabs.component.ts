@@ -39,7 +39,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         class: 'thy-tabs',
         '[class.thy-tabs-top]': `thyPosition === 'top'`,
         '[class.thy-tabs-left]': `thyPosition === 'left'`,
-        '[style.overflow]': `activeTabIndexChange ? "hidden" : null`
+        '[style.overflow]': `transitionStarted ? "hidden" : null`
     }
 })
 export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
@@ -87,7 +87,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     activeTabIndex: number = 0;
 
-    activeTabIndexChange: boolean = false;
+    transitionStarted: boolean = false;
 
     constructor(private cd: ChangeDetectorRef, private el: ElementRef) {
         super();
@@ -97,7 +97,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
         fromEvent(this.el.nativeElement, 'transitionend')
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
-                this.activeTabIndexChange = false;
+                this.transitionStarted = false;
                 this.cd.markForCheck();
             });
     }
@@ -114,7 +114,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             this.activeTabIndex =
                 thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
 
-            this.activeTabIndexChange = true;
+            this.transitionStarted = true;
         }
     }
 
@@ -125,7 +125,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             //     index: data.length - 1
             // };
             this.activeTabIndex = data.length - 1;
-            this.activeTabIndexChange = true;
+            this.transitionStarted = true;
         });
     }
 
@@ -148,7 +148,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             id: tab.id || null,
             index
         };
-        this.activeTabIndexChange = this.activeTabIndex !== index;
+        this.transitionStarted = this.activeTabIndex !== index;
 
         this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
