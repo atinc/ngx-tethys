@@ -1,7 +1,9 @@
 import { Directive, ElementRef, HostListener, OnDestroy, OnInit, Output } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
-
+/**
+ * @internal
+ */
 @Directive({ selector: '[thyColorCoordinates]' })
 export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     @Output()

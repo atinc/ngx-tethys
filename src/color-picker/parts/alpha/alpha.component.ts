@@ -11,7 +11,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import Color from '../../helpers/color.class';
+import ThyColor from '../../helpers/color.class';
 /**
  * @internal
  */
@@ -23,7 +23,7 @@ import Color from '../../helpers/color.class';
 export class ThyAlphaComponent implements OnChanges {
     @HostBinding('class.thy-alpha') className = true;
 
-    @Input() color: Color;
+    @Input() color: ThyColor;
 
     constructor(private readonly renderer: Renderer2) {}
 
@@ -34,7 +34,7 @@ export class ThyAlphaComponent implements OnChanges {
     public gradient: ElementRef;
 
     @Output()
-    public colorChange = new EventEmitter<Color>(false);
+    public colorChange = new EventEmitter<ThyColor>(false);
 
     setBackground() {
         this.renderer.setStyle(
@@ -77,6 +77,6 @@ export class ThyAlphaComponent implements OnChanges {
             x = Math.round((event.left * 100) / event.containerWidth) / 100;
         }
         this.changePointerPosition(x);
-        this.colorChange.emit(new Color({ h: this.color.hue, s: this.color.saturation, v: this.color.value, alpha: x }));
+        this.colorChange.emit(new ThyColor({ h: this.color.hue, s: this.color.saturation, v: this.color.value, alpha: x }));
     }
 }

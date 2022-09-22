@@ -8,6 +8,7 @@ import { Component } from '@angular/core';
             .box {
                 width: 30px;
                 height: 30px;
+                cursor: pointer;
             }
         `
     ]

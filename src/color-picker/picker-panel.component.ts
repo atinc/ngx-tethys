@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import Color from './helpers/color.class';
+import ThyColor from './helpers/color.class';
 
 /**
  * @internal
@@ -11,7 +11,7 @@ import Color from './helpers/color.class';
 export class ThyPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-picker-panel') className = true;
 
-    colour: Color;
+    colour: ThyColor;
 
     @Input() color?: string;
 
@@ -20,10 +20,10 @@ export class ThyPickerPanelComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.colour = new Color(this.color);
+        this.colour = new ThyColor(this.color);
     }
 
-    colorChangeEvent($event: Color) {
+    colorChangeEvent($event: ThyColor) {
         this.colour = $event;
         this.color = this.colour.displayValue;
         this.pickerColorChange(this.color);

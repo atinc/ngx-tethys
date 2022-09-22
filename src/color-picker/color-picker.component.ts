@@ -1,10 +1,10 @@
 import { Directive, forwardRef, HostListener, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyDefaultPanelComponent } from './default-panel.component';
-import Color from './helpers/color.class';
+import { ThyColorDefaultPanelComponent } from './default-panel.component';
+import ThyColor from './helpers/color.class';
 /**
- * 颜色选择器组件
+ * 颜色选择组件
  */
 @Directive({
     selector: '[thyColorPicker]',
@@ -21,10 +21,10 @@ export class ThyColorPickerDirective implements OnInit {
 
     private onTouchFn: () => void = () => {};
 
-    thyColor: string;
+    color: string;
 
     public get backgroundColor(): string {
-        return this.thyColor;
+        return this.color;
     }
 
     constructor(private thyPopover: ThyPopover) {}
@@ -33,14 +33,14 @@ export class ThyColorPickerDirective implements OnInit {
 
     @HostListener('click', ['$event'])
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyDefaultPanelComponent, {
+        this.thyPopover.open(ThyColorDefaultPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             manualClosure: true,
             width: '286px',
             originActiveClass: 'thy-defaul-picker-active',
             initialState: {
-                color: new Color(this.thyColor).toHexString(true),
+                color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }
@@ -49,7 +49,7 @@ export class ThyColorPickerDirective implements OnInit {
     }
 
     writeValue(value: string): void {
-        this.thyColor = value;
+        this.color = value;
     }
 
     registerOnChange(fn: any): void {
@@ -61,7 +61,7 @@ export class ThyColorPickerDirective implements OnInit {
     }
 
     onModelChange(value: string): void {
-        this.thyColor = value;
+        this.color = value;
         this.onChangeFn(value);
     }
 }

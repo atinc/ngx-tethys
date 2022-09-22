@@ -11,7 +11,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import Color from '../../helpers/color.class';
+import ThyColor from '../../helpers/color.class';
 /**
  * @internal
  */
@@ -23,10 +23,10 @@ import Color from '../../helpers/color.class';
 export class ThyHueComponent implements OnChanges {
     @HostBinding('class.thy-hue') className = true;
 
-    @Input() color: Color;
+    @Input() color: ThyColor;
 
     @Output()
-    public colorChange = new EventEmitter<Color>(false);
+    public colorChange = new EventEmitter<ThyColor>(false);
 
     constructor(private readonly renderer: Renderer2) {}
 
@@ -62,6 +62,6 @@ export class ThyHueComponent implements OnChanges {
             x = Math.round((event.left * 100) / event.containerWidth) / 100;
         }
         this.changePointerPosition(x * 360);
-        this.colorChange.emit(new Color({ h: x * 360, s: this.color.saturation, v: this.color.value, alpha: this.color.alpha }));
+        this.colorChange.emit(new ThyColor({ h: x * 360, s: this.color.saturation, v: this.color.value, alpha: this.color.alpha }));
     }
 }

@@ -6,7 +6,7 @@
  * Blue = ranges from 0-255
  * Alpha = range from 0-1
  */
-export class Rgba {
+export class ThyRgba {
     constructor(public red: number, public green: number, public blue: number, public alpha: number) {}
 
     public toString(showAlphaChannel: boolean = true): string {

@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import Color from '../../helpers/color.class';
+import ThyColor from '../../helpers/color.class';
 /**
  * @internal
  */
@@ -11,9 +11,9 @@ export class ThyIndicatorComponent {
     @HostBinding('class.thy-indicator') className = true;
 
     @Input()
-    public color: Color;
+    public color: ThyColor;
 
     public get backgroundColor(): string {
-        return this.color.displayValue;
+        return this.color.rgba.toString();
     }
 }

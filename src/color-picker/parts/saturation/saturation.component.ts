@@ -10,7 +10,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import Color from '../../helpers/color.class';
+import ThyColor from '../../helpers/color.class';
 
 /**
  * @internal
@@ -29,10 +29,10 @@ export class ThySaturationComponent implements OnChanges {
     public pointer: ElementRef;
 
     @Output()
-    public colorChange = new EventEmitter<Color>(false);
+    public colorChange = new EventEmitter<ThyColor>(false);
 
     @Input()
-    public color: Color;
+    public color: ThyColor;
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.color && changes.color.previousValue !== changes.color.currentValue) {
@@ -81,6 +81,6 @@ export class ThySaturationComponent implements OnChanges {
 
         this.changePointerPosition(s * 100, v * 100);
 
-        this.colorChange.emit(new Color({ h: this.color.hue, s: s * 100, v: v * 100, alpha: this.color.alpha }));
+        this.colorChange.emit(new ThyColor({ h: this.color.hue, s: s * 100, v: v * 100, alpha: this.color.alpha }));
     }
 }

@@ -1,17 +1,17 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import Color from './helpers/color.class';
-import { DEFAULT_COLORS } from './helpers/constant';
+import ThyColor from './helpers/color.class';
+import { DEFAULT_COLORS } from './constant';
 import { ThyPickerPanelComponent } from './picker-panel.component';
 
 /**
  * @internal
  */
 @Component({
-    selector: 'thy-default-panel',
+    selector: 'thy-color-default-panel',
     templateUrl: './default-panel.component.html'
 })
-export class ThyDefaultPanelComponent implements OnInit {
+export class ThyColorDefaultPanelComponent implements OnInit {
     @HostBinding('class.thy-default-panel') className = true;
 
     colour: string;
@@ -79,7 +79,7 @@ export class ThyDefaultPanelComponent implements OnInit {
     }
 
     getIconColor(item: string) {
-        const rgba = new Color(item).rgba;
+        const rgba = new ThyColor(item).rgba;
         const hsp = 0.299 * rgba.red + 0.587 * rgba.green + 0.114 * rgba.blue;
         return hsp > 192 ? 'black' : 'white';
     }

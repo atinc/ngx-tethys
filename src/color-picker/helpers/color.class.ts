@@ -1,11 +1,11 @@
-import { ColorsTable } from './colors-table.class';
-import { Rgba } from './rgba.class';
+import { ThyColorsTable } from './colors-table.class';
+import { ThyRgba } from './rgba.class';
 
 const hsv2hsl = function(hue: number, sat: number, val: number) {
     return [hue, (sat * val) / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue) || 0, hue / 2];
 };
 
-export default class Color {
+export default class ThyColor {
     hue = 0;
     saturation = 0;
     value = 0;
@@ -13,7 +13,7 @@ export default class Color {
     enableAlpha = false;
     format = 'hex';
     displayValue = '#000000'; // 最终展示的值
-    rgba: Rgba = new Rgba(0, 0, 0, 1);
+    rgba: ThyRgba = new ThyRgba(0, 0, 0, 1);
 
     constructor(color?: string | { h: number; s: number; v: number; alpha: number }) {
         if (color) {
@@ -27,7 +27,7 @@ export default class Color {
             /**
              * try to find color by name in table
              */
-            let rgba: Rgba = ColorsTable[str] || null;
+            let rgba: ThyRgba = ThyColorsTable[str] || null;
 
             /**
              * hex find
@@ -49,7 +49,7 @@ export default class Color {
                 }
 
                 if (hexArray.length === 3) {
-                    rgba = new Rgba(parseInt(hexArray[0], 16), parseInt(hexArray[1], 16), parseInt(hexArray[2], 16), this.alpha);
+                    rgba = new ThyRgba(parseInt(hexArray[0], 16), parseInt(hexArray[1], 16), parseInt(hexArray[2], 16), this.alpha);
                 }
             }
             const OpenParenthesis = str.indexOf('(');
@@ -61,7 +61,7 @@ export default class Color {
                     case 'rgba':
                         this.alpha = parseFloat(params.pop());
                     case 'rgb':
-                        rgba = new Rgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
+                        rgba = new ThyRgba(parseInt(params[0], 10), parseInt(params[1], 10), parseInt(params[2], 10), this.alpha);
                         break;
                     case 'hsla':
                         this.alpha = parseFloat(params.pop());
@@ -80,7 +80,7 @@ export default class Color {
                 }
             }
             if (rgba) {
-                this.rgba = new Rgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
+                this.rgba = new ThyRgba(rgba.red, rgba.green, rgba.blue, rgba.alpha);
                 const hsv = this.rgbTohsv(rgba.red, rgba.green, rgba.blue);
                 this.updateColor(hsv.h, hsv.s, hsv.v, rgba.alpha, false);
             }
@@ -141,11 +141,11 @@ export default class Color {
         return { h: Math.round(hue * 360), s: Math.round(saturation * 100), v: Math.round(brightness * 100) };
     }
 
-    public getRgba(): Rgba {
-        return new Rgba(this.rgba.red, this.rgba.green, this.rgba.blue, this.rgba.alpha);
+    public getRgba(): ThyRgba {
+        return new ThyRgba(this.rgba.red, this.rgba.green, this.rgba.blue, this.rgba.alpha);
     }
 
-    private hslaToRgba(h: number, s: number, l: number, a: number): Rgba {
+    private hslaToRgba(h: number, s: number, l: number, a: number): ThyRgba {
         const hue = h / 360;
         const saturation = s / 100;
         const lightness = l / 100;
@@ -168,7 +168,7 @@ export default class Color {
         green = green * 255;
         blue = blue * 255;
 
-        return new Rgba(red, green, blue, alpha);
+        return new ThyRgba(red, green, blue, alpha);
     }
 
     private hueToRgb(p: number, q: number, t: number): number {
@@ -266,7 +266,7 @@ export default class Color {
         green = green * 255;
         blue = blue * 255;
 
-        return new Rgba(Math.round(red), Math.round(green), Math.round(blue), alpha);
+        return new ThyRgba(Math.round(red), Math.round(green), Math.round(blue), alpha);
     }
 
     getFinalValue() {
