@@ -111,9 +111,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             //         index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
             //     };
             // }
-
             const index = thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
-            this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
+            this.transitionStarted = this.activeTabIndex !== index;
             this.activeTabIndex = index;
         }
     }
