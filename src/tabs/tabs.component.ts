@@ -111,10 +111,10 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             //         index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
             //     };
             // }
-            this.activeTabIndex =
-                thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
 
-            this.transitionStarted = true;
+            const index = thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
+            this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
+            this.activeTabIndex = index;
         }
     }
 
@@ -124,8 +124,9 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             //     id: data._results[+data.length - 1].id || null,
             //     index: data.length - 1
             // };
-            this.activeTabIndex = data.length - 1;
-            this.transitionStarted = true;
+            const index = data.length - 1;
+            this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
+            this.activeTabIndex = index;
         });
     }
 
@@ -148,8 +149,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
             id: tab.id || null,
             index
         };
-        this.transitionStarted = this.activeTabIndex !== index;
-
+        this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
         this.activeTabIndex = index;
         this.thyActiveTabChange.emit(this.thyActiveTab);
     }
