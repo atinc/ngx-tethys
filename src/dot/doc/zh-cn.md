@@ -1,8 +1,7 @@
 ---
-category: general
+category: display
 title: Dot
 subtitle: 点
-order: 31
 ---
 
 <alert>展示一个点的组件。</alert>
