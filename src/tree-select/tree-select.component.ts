@@ -1,11 +1,11 @@
-import { getFlexiblePositions } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
-import { ThyClickDispatcher } from 'ngx-tethys/core';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
+import { isPlatformBrowser } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -23,7 +23,6 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { isPlatformBrowser } from '@angular/common';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
@@ -485,7 +484,6 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     }
 
     selectTreeNode(event: Event, node: ThyTreeSelectNode) {
-        event.stopPropagation();
         if (!this.treeNodeIsDisable(node)) {
             this.parent.selectNode(node);
         }

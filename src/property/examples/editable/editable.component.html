@@ -49,6 +49,12 @@
         </thy-custom-select>
       </ng-template>
     </thy-property-item>
+    <thy-property-item thyLabelText="部门" thyEditable="true" #department>
+      <span>{{ user.department?.name || '无' }}</span>
+      <ng-template #editor>
+        <thy-tree-select thySize="md" [thyTreeNodes]="departments" [(ngModel)]="user.department"> </thy-tree-select>
+      </ng-template>
+    </thy-property-item>
     <thy-property-item thyLabelText="爱好" thyEditable="true" #hobby>
       <span *ngIf="user.likes.length === 0">无</span>
       <thy-tag *ngFor="let item of user.likes" class="mr-1" thyShape="pill" thyColor="success">{{ item }}</thy-tag>
