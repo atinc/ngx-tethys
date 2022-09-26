@@ -31,6 +31,18 @@ module.exports = [
                 default: 'false'
             },
             {
+                name: 'thyFixedHeader',
+                description: '是否表头固定',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyHeight',
+                description: `表格高度，thyFixedHeader 设置为 true 时默认 '100%'`,
+                type: `number | string`,
+                default: ''
+            },
+            {
                 name: 'thySize',
                 description: `表格大小，'xs' | 'sm' | 'md' | 'lg' | 'xlg' 默认为 'md'`,
                 type: `'xs' | 'sm' | 'md' | 'lg' | 'xlg'`,
