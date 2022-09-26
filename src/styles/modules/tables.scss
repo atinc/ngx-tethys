@@ -9,7 +9,6 @@
     width: 100%;
     max-width: 100%;
     color: variables.$table-color;
-    margin-bottom: variables.$table-margin-bottom;
     background-color: variables.$table-bg; // Reset for nesting within parents with `background-color`.
 
     th,
