@@ -100,8 +100,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     }
 
     ngOnInit(): void {
-        const tabContent = this.el.nativeElement.querySelector('.thy-tabs-content');
-        fromEvent(tabContent, 'transitionend')
+        const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
+        fromEvent(tabsContent, 'transitionend')
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this.transitionStarted = false;
