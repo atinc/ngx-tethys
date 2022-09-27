@@ -1,19 +1,21 @@
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyTableModule } from 'ngx-tethys/table';
-import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { ThyRadioModule } from 'ngx-tethys/radio';
-import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThyNotifyModule } from 'ngx-tethys/notify';
-import { ThySpaceModule } from 'ngx-tethys/space';
-import { ThyGridModule } from 'ngx-tethys/grid';
-import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyEmptyModule } from 'ngx-tethys/empty';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ThyTableModule } from 'ngx-tethys/table';
+import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 export default {
     imports: [
@@ -32,6 +34,7 @@ export default {
         ThyGridModule,
         ThyEmptyModule,
         ThyActionModule,
-        ThyAvatarModule
+        ThyAvatarModule,
+        ThySwitchModule
     ]
 };
