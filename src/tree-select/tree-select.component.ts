@@ -3,6 +3,7 @@ import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+import { coerceArray, isFunction } from 'ngx-tethys/util';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
@@ -28,6 +29,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
+
+type FlattenAllNodesCb = (treeNode: ThyTreeSelectNode) => boolean;
 
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
@@ -117,6 +120,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             this.setSelectedNodes();
         }
     }
+
+    @Input() thyVirtualHeight: string | null = null;
 
     @Input() thyPrimaryKey = '_id';
 
@@ -217,6 +222,12 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
         this.initialled = true;
 
+        this.thyVirtualHeight && (this.treeNodes = this.tree2list(this.treeNodes));
+
+        // this.thyVirtualHeight && (this.treeNodes = this.getParallelTreeNodes(this.treeNodes));
+
+        console.log(this.treeNodes, 'this.treeNodes');
+
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
                 .clicked(0)
@@ -281,6 +292,37 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         });
         return [...nodes, ...nodesLeafs];
     }
+
+    private getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = [], flattenAllNodes: boolean | FlattenAllNodesCb = true) {
+        const flattenTreeData: ThyTreeSelectNode[] = [];
+        function _getParallelTreeNodes(list: ThyTreeSelectNode[]) {
+            return list.forEach((treeNode, index) => {
+                flattenTreeData.push(treeNode);
+                const flattenAllNodesFlag = isFunction(flattenAllNodes) ? flattenAllNodes(treeNode) : flattenAllNodes;
+                if (flattenAllNodesFlag || treeNode.isExpanded) {
+                    _getParallelTreeNodes(treeNode.children);
+                }
+            });
+        }
+        _getParallelTreeNodes(rootTrees);
+        return flattenTreeData;
+    }
+
+    private tree2list = (tree: ThyTreeSelectNode[] = []) => {
+        let node: ThyTreeSelectNode,
+            list = [];
+        while ((node = tree.shift())) {
+            node.level = node.level || 0;
+            node.expand = true;
+            list.push(node);
+            if (node.children) {
+                tree.unshift(...node.children.map(item => ({ ...item, level: node.level + 1, expand: true, parentValues: [node._id] })));
+                node.childCount = node.children.length;
+                node.children = null;
+            }
+        }
+        return list;
+    };
 
     private _findTreeNode(value: string): ThyTreeSelectNode {
         return (this.flattenTreeNodes || []).find(item => item[this.thyPrimaryKey] === value);
@@ -413,6 +455,8 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     @Input() treeNodes: ThyTreeSelectNode[];
 
+    @Input() thyVirtualHeight: string | null = null;
+
     public primaryKey = this.parent.thyPrimaryKey;
 
     public showKey = this.parent.thyShowKey;
@@ -464,6 +508,7 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     }
 
     treeNodeIsExpand(node: ThyTreeSelectNode) {
+        console.log(this.parent?.selectedNode?.parentValues, 'this.parent.selectedNode.parentValues');
         let isSelectedNodeParent = false;
         if (this.parent.thyMultiple) {
             isSelectedNodeParent = !!(this.parent.selectedNodes || []).find(item => {
@@ -507,5 +552,8 @@ export class ThyTreeSelectNodesComponent implements OnInit {
             });
         }
         this.parent.setPosition();
+    }
+    tabTrackBy(index: number, item: ThyTreeSelectNode) {
+        return index;
     }
 }
