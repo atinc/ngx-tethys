@@ -331,6 +331,17 @@
         }
     }
 
+    &-fixed-header {
+        thead {
+            box-shadow: 0 0 0 1px #eee;
+            background-color: variables.$white;
+            position: sticky;
+            left: 0;
+            top: 0;
+            z-index: 1;
+        }
+    }
+
     .thy-table-bordered-theme {
         border-right: variables.$table-border-width solid variables.$gray-200;
         border-left: variables.$table-border-width solid variables.$gray-200;

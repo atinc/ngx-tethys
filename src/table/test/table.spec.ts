@@ -22,6 +22,8 @@ import { ThyTableModule } from '../table.module';
             [thySize]="size"
             [thyMinWidth]="tableMinWidth"
             [thyLayoutFixed]="tableLayoutFixed"
+            [thyHeaderFixed]="tableHeaderFixed"
+            [thyHeight]="tableHeight"
             [thyWholeRowSelect]="isRowSelect"
             [thyDraggable]="isDraggable"
             [thyClassName]="tableClassName"
@@ -162,6 +164,8 @@ class ThyDemoDefaultTableComponent {
     emptyOptions = { message: '空' };
     tableMinWidth = 500;
     tableLayoutFixed = false;
+    tableHeaderFixed = false;
+    tableHeight: number | string;
 
     @ViewChild('total', { static: true }) totalTemplate: TemplateRef<any>;
 
@@ -657,6 +661,14 @@ describe('ThyTable: basic', () => {
         fixture.detectChanges();
         const tableElement: HTMLTableElement = tableComponent.nativeElement.querySelector('table');
         expect(tableElement.classList).toContain('table-fixed');
+    });
+
+    it('should table fixed header is worked', () => {
+        testComponent.tableHeaderFixed = true;
+        testComponent.tableHeight = 200;
+        fixture.detectChanges();
+        expect(tableComponent.nativeElement.classList).toContain('thy-table-fixed-header');
+        expect(tableComponent.nativeElement.style.height).toEqual('200px');
     });
 });
 
