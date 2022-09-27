@@ -31,14 +31,14 @@ module.exports = [
                 default: 'false'
             },
             {
-                name: 'thyFixedHeader',
-                description: '是否表头固定',
+                name: 'thyHeaderFixed',
+                description: '是否表头固定，若设置为 true， 需要同步设置 thyHeight',
                 type: 'boolean',
                 default: 'false'
             },
             {
                 name: 'thyHeight',
-                description: `表格高度，thyFixedHeader 设置为 true 时默认 '100%'`,
+                description: '表格高度',
                 type: `number | string`,
                 default: ''
             },

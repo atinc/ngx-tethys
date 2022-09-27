@@ -118,15 +118,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         class: 'thy-table',
         '[class.thy-table-bordered]': `theme === 'bordered'`,
         '[class.thy-table-boxed]': `theme === 'boxed'`,
-        '[class.thy-table-fixed-header]': 'thyFixedHeader'
+        '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     }
 })
 export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
-    @HostBinding('style.height')
-    get height() {
-        return this._tableHeight || (this.thyFixedHeader ? '100%' : undefined);
-    }
-
     public customType = customType;
 
     public model: object[] = [];
@@ -174,8 +169,6 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     private initialized = false;
 
     private _oldThyClassName = '';
-
-    private _tableHeight: string;
 
     private scrollClassName = css.tableScrollLeft;
 
@@ -242,14 +235,14 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @InputCssPixel()
     thyMinWidth: string | number;
 
-    @Input() @InputBoolean() thyLayoutFixed: string | boolean;
+    @Input() @InputBoolean() thyLayoutFixed: boolean;
 
-    @Input() @InputBoolean() thyFixedHeader: string | boolean;
+    @Input() @InputBoolean() thyHeaderFixed: boolean;
 
+    @HostBinding('style.height')
     @Input()
-    set thyHeight(value: string | number) {
-        this._tableHeight = coerceCssPixelValue(value);
-    }
+    @InputCssPixel()
+    thyHeight: string;
 
     @Input()
     set thyClassName(value: string) {

@@ -2,15 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-header-fixed-example',
-    templateUrl: './header-fixed.component.html',
-    styles: [
-        `
-            :host {
-                height: 300px;
-                display: block;
-            }
-        `
-    ]
+    templateUrl: './header-fixed.component.html'
 })
 export class ThyTableHeaderFixedExampleComponent implements OnInit {
     data = [
