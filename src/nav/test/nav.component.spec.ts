@@ -99,7 +99,7 @@ export class NavResponsiveComponent implements OnInit {
 
     responsive = false;
 
-    navLinks = [{ name: 'link1' }, { name: 'link2' }, { name: 'link3' }];
+    navLinks = [{ name: 'nav' }, { name: 'link2' }, { name: 'link3' }];
 
     @ViewChildren(ThyNavItemDirective) links: ThyNavItemDirective[];
 
@@ -392,6 +392,7 @@ describe(`thy-nav`, () => {
             const link = popover.querySelectorAll('.thy-nav-item-more')[0];
             const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
             dispatchFakeEvent(link, 'click');
+            fixture.detectChanges();
             expect(linkSpy).toHaveBeenCalled();
         }));
     });

@@ -53,19 +53,8 @@
     .thy-nav-item {
         z-index: 1;
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
-        .thy-icon {
-            transition: 0.2s;
-            transform-origin: center;
-            transform: rotateZ(0deg);
-        }
     }
-    .thy-nav-origin-active {
-        .thy-icon {
-            transition: 0.2s;
-            transform-origin: center;
-            transform: rotateZ(180deg);
-        }
-    }
+
     @include mixin.set-nav-size();
 }
 
@@ -242,4 +231,16 @@
     flex: 1 !important;
     flex-grow: 0 !important;
     white-space: nowrap;
+    .thy-nav-more-icon {
+        transition: 0.2s;
+        transform-origin: center;
+        transform: rotateZ(0deg);
+    }
+}
+.thy-nav-origin-active {
+    .thy-nav-more-icon {
+        transition: 0.2s;
+        transform-origin: center;
+        transform: rotateZ(180deg);
+    }
 }
