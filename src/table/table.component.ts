@@ -124,7 +124,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     @HostBinding('style.height')
     get height() {
-        return this.thyHeight ? coerceCssPixelValue(this.thyHeight) : this.thyFixedHeader ? '100%' : undefined;
+        return this._tableHeight || (this.thyFixedHeader ? '100%' : undefined);
     }
 
     public customType = customType;
@@ -174,6 +174,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     private initialized = false;
 
     private _oldThyClassName = '';
+
+    private _tableHeight: string;
 
     private scrollClassName = css.tableScrollLeft;
 
@@ -244,7 +246,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     @Input() @InputBoolean() thyFixedHeader: string | boolean;
 
-    @Input() thyHeight: string | number;
+    @Input()
+    set thyHeight(value: string | number) {
+        this._tableHeight = coerceCssPixelValue(value);
+    }
 
     @Input()
     set thyClassName(value: string) {
