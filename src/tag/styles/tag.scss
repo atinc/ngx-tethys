@@ -4,11 +4,18 @@
 @use "sass:map";
 @use "sass:list";
 
+.#{variables.$thy-prefix}-tags {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    row-gap: variables.$tag-space-row-gap;
+    column-gap: variables.$tag-space-column-gap;
+}
+
 .#{variables.$thy-prefix}-tag {
     font-weight: normal;
     display: inline-flex;
     align-items: center;
-    line-height: 1;
     font-size: variables.$font-size-sm;
     border-radius: variables.$tag-border-radius;
     color: variables.$white;

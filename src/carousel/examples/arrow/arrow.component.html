@@ -1,0 +1,20 @@
+<thy-button-group thyType="outline-default">
+  <button thyButton (click)="isShow = true" [class]="isShow ? 'active' : ''">show</button>
+  <button thyButton (click)="isShow = false" [class]="!isShow ? 'active' : ''">hide</button>
+</thy-button-group>
+<div style="margin-top: 10px">
+  <thy-carousel [thyArrowTemplate]="arrowTemplate" [thyShowArrow]="isShow">
+    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+      {{ slide }}
+    </div>
+  </thy-carousel>
+</div>
+
+<ng-template #arrowTemplate let-pre="pre" let-next="next">
+  <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
+    <thy-icon thyIconName="arrow-left-bold"></thy-icon>
+  </div>
+  <div class="carousel-arrow carousel-arrow-right" (click)="next()">
+    <thy-icon thyIconName="arrow-right-bold"></thy-icon>
+  </div>
+</ng-template>

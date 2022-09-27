@@ -1,0 +1,11 @@
+<thy-button-group thyType="outline-default">
+  <button thyButton (click)="trigger = 'click'" [class]="trigger === 'click' ? 'active' : ''">click</button>
+  <button thyButton (click)="trigger = 'hover'" [class]="trigger === 'hover' ? 'active' : ''">hover</button>
+</thy-button-group>
+<div style="margin-top: 10px">
+  <thy-carousel [thyTrigger]="trigger">
+    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+      {{ slide }}
+    </div>
+  </thy-carousel>
+</div>

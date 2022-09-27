@@ -5,11 +5,5 @@ import { Component, Optional, SkipSelf } from '@angular/core';
     templateUrl: './basic.component.html'
 })
 export class ThyTimelineBasicExampleComponent {
-    public thyColor = 'primary';
-
-    public thyMode = 'left';
-
-    public thyReverse = 'sequence';
-
     constructor() {}
 }

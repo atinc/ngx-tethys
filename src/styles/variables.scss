@@ -83,6 +83,8 @@ $link-decoration: none !default;
 $link-hover-color: $primary !default;
 $link-hover-decoration: underline !default;
 $link-icon-padding-x: 4px !default;
+$link-disabled-opacity: 50% !default;
+
 // box shadow
 $box-shadow: 0 0 16px rgb(0 0 0 / 8%) !default;
 
@@ -360,10 +362,10 @@ $table-header-padding-xs: 8px 16px !default;
 $table-bordered-bg: $gray-100 !default;
 $table-bordered-header-color: $gray-800 !default;
 $table-boxed-border-radius: 4px !default;
-$table-draggable-first-th-padding-left: 20px !default;
-$table-draggable-first-td-padding-left: 20px !default;
+$table-draggable-first-th-padding-left: 16px !default;
+$table-draggable-first-td-padding-left: 16px !default;
 $table-draggable-icon-color: $gray-600 !default;
-$table-draggable-icon-left: 2px !default;
+$table-draggable-icon-left: 0px !default;
 $table-draggable-bordered-icon-padding-left: 30px !default;
 $table-default-header-cell-padding: 0 16px !default;
 $table-default-header-padding: 12px 16px !default;
@@ -466,8 +468,9 @@ $tag-size-font-sizes: (
     md: $font-size-sm $font-size-base,
     lg: $font-size-base $font-size-md
 );
-
 $tag-border-radius: 4px !default;
+$tag-space-row-gap: 8px !default;
+$tag-space-column-gap: 8px !default;
 
 //avatar
 $avatar-sizes: () !default;

@@ -11,12 +11,13 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
+import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { ThyTableColumnComponent } from './table-column.component';
 import { ThyTableComponent } from './table.component';
-import { TableIsValidModelValuePipe } from './table.pipe';
 
 @NgModule({
-    declarations: [ThyTableComponent, ThyTableColumnComponent, TableIsValidModelValuePipe],
+    declarations: [ThyTableComponent, ThyTableColumnComponent, TableIsValidModelValuePipe, TableRowDragDisabledPipe],
     imports: [
         CommonModule,
         FormsModule,

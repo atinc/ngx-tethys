@@ -1,5 +1,5 @@
-import { Component, forwardRef, HostBinding, HostListener, Input, ElementRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, forwardRef, Input } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
@@ -13,7 +13,11 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
             useExisting: forwardRef(() => ThyCheckboxComponent),
             multi: true
         }
-    ]
+    ],
+    host: {
+        class: 'thy-checkbox',
+        '[class.disabled]': '_disabled'
+    }
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
     isIndeterminate = false;

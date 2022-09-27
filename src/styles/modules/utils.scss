@@ -6,12 +6,14 @@
     flex: auto;
     display: flex;
     flex-direction: column;
+    min-height: 0px;
 }
 
 .d-flex-row-fill {
     flex: auto;
     display: flex;
     flex-direction: row;
+    min-width: 0px;
 }
 
 .cursor-pointer {

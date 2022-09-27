@@ -1,3 +1,4 @@
+<!-- tabs nav -->
 <thy-nav class="thy-tabs-nav" [thyType]="thyType" [thySize]="thySize" [thyExtra]="thyExtra" [thyVertical]="thyPosition === 'left'">
   <a
     href="javascript:;"
@@ -16,10 +17,13 @@
     </ng-template>
   </a>
 </thy-nav>
-<div class="thy-tabs-content">
-  <ng-container *ngFor="let tab of tabs; index as i; trackBy: tabTrackBy">
-    <div *ngIf="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index">
-      <ng-container *ngTemplateOutlet="tab?.content"></ng-container>
-    </div>
-  </ng-container>
+<!-- tabs content -->
+<div class="thy-tabs-content" [class.thy-tabs-content-animated]="tabPaneAnimated" [style.margin-left]="getTabContentMarginLeft()">
+  <div
+    thyTabContent
+    *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
+    [active]="(tab.id && thyActiveTab.id && tab.id === thyActiveTab.id) || i === thyActiveTab.index"
+    [content]="tab.content"
+    [tabPaneAnimated]="tabPaneAnimated"
+  ></div>
 </div>

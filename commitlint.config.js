@@ -97,7 +97,9 @@ module.exports = {
                 'tabs',
                 'watermark',
                 'typography',
-                'property'
+                'property',
+                'carousel',
+                'color-picker'
             ]
         ]
     }

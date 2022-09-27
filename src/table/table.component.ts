@@ -1,4 +1,18 @@
-import { CdkDragDrop, CdkDragStart, moveItemInArray } from '@angular/cdk/drag-drop';
+import {
+    Constructor,
+    InputBoolean,
+    InputCssPixel,
+    MixinBase,
+    mixinUnsubscribe,
+    ThyUnsubscribe,
+    UpdateHostClassService
+} from 'ngx-tethys/core';
+import { Dictionary, SafeAny } from 'ngx-tethys/types';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
+import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
+
+import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { DOCUMENT, isPlatformServer } from '@angular/common';
@@ -31,20 +45,8 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import {
-    Constructor,
-    InputBoolean,
-    InputCssPixel,
-    MixinBase,
-    mixinUnsubscribe,
-    ThyUnsubscribe,
-    UpdateHostClassService
-} from 'ngx-tethys/core';
-import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
-import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
-import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-import { IThyTableColumnParentComponent, ThyTableColumnComponent, THY_TABLE_COLUMN_PARENT_COMPONENT } from './table-column.component';
+
+import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
     PageChangedEvent,
     ThyMultiSelectEvent,
@@ -149,7 +151,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     public selectedRadioRow: SafeAny = null;
 
-    public pagination: ThyPage = { index: 1, size: 20, total: 0 };
+    public pagination: ThyPage = { index: 1, size: 20, total: 0, sizeOptions: [20, 50, 100] };
 
     public trackByFn: SafeAny;
 
@@ -270,8 +272,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @Input()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
-        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.mode !== 'list' && this.draggable) {
-            throw new Error('Only list mode sorting is supported');
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
+            throw new Error('Tree mode sorting is not supported');
         }
     }
 
@@ -302,6 +304,13 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     @Input('thyShowTotal') showTotal = false;
 
+    @Input('thyShowSizeChanger') showSizeChanger = false;
+
+    @Input('thyPageSizeOptions')
+    set pageSizeOptions(value: number[]) {
+        this.pagination.sizeOptions = value;
+    }
+
     @Input() thyIndent = 20;
 
     @Input() thyChildrenKey = 'children';
@@ -310,11 +319,15 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @Input()
     thyHoverDisplayOperation: boolean;
 
+    @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
+
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
     @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
+
+    @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
@@ -346,6 +359,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     public expandStatusMap: Dictionary<boolean> = {};
 
     public expandStatusMapOfGroup: Dictionary<boolean> = {};
+
+    private expandStatusMapOfGroupBeforeDrag: Dictionary<boolean> = {};
 
     dragPreviewClass = 'thy-table-drag-preview';
 
@@ -504,6 +519,10 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.thyOnPageIndexChange.emit(event);
     }
 
+    public onPageSizeChange(event: number) {
+        this.thyOnPageSizeChange.emit(event);
+    }
+
     public onCheckboxChange(row: SafeAny, column: ThyTableColumnComponent) {
         this.onModelChange(row, column);
         this.onMultiSelectChange(null, row, column);
@@ -572,6 +591,54 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
+    onDragGroupStarted(event: CdkDragStart<unknown>) {
+        this.expandStatusMapOfGroupBeforeDrag = { ...this.expandStatusMapOfGroup };
+        const groups = this.groups.filter(group => group.expand);
+        this.foldGroups(groups);
+        this.onDragStarted(event);
+        this.cdr.detectChanges();
+    }
+
+    onDragGroupEnd(event: CdkDragEnd<unknown>) {
+        const groups = this.groups.filter(group => this.expandStatusMapOfGroupBeforeDrag[group.id]);
+        this.expandGroups(groups);
+        this.cdr.detectChanges();
+    }
+
+    private onDragGroupDropped(event: CdkDragDrop<unknown>) {
+        const group = this.groups.find(group => {
+            return event.item.data.id === group.id;
+        });
+        if (group) {
+            // drag group
+            const dragEvent: ThyTableDraggableEvent = {
+                model: event.item,
+                models: this.groups,
+                oldIndex: event.previousIndex,
+                newIndex: event.currentIndex
+            };
+            moveItemInArray(this.groups, event.previousIndex, event.currentIndex);
+            this.thyOnDraggableChange.emit(dragEvent);
+        } else {
+            // drag group children
+            const group = this.groups.find(group => {
+                return event.item.data[this.groupBy] === group.id;
+            });
+            const groupIndex =
+                event.container.getSortedItems().findIndex(item => {
+                    return item.data.id === event.item.data[this.groupBy];
+                }) + 1;
+            const dragEvent: ThyTableDraggableEvent = {
+                model: event.item,
+                models: group.children,
+                oldIndex: event.previousIndex - groupIndex,
+                newIndex: event.currentIndex - groupIndex
+            };
+            moveItemInArray(group.children, dragEvent.oldIndex, dragEvent.newIndex);
+            this.thyOnDraggableChange.emit(dragEvent);
+        }
+    }
+
     onDragStarted(event: CdkDragStart<unknown>) {
         this.ngZone.runOutsideAngular(() =>
             setTimeout(() => {
@@ -586,7 +653,11 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         );
     }
 
-    onDragDropped(event: CdkDragDrop<unknown>) {
+    dropListEnterPredicate = (index: number, drag: CdkDrag, drop: CdkDropList) => {
+        return drop.getSortedItems()[index].data.group_id === drag.data.group_id;
+    };
+
+    private onDragModelDropped(event: CdkDragDrop<unknown>) {
         const dragEvent: ThyTableDraggableEvent = {
             model: event.item,
             models: this.model,
@@ -595,6 +666,14 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         };
         moveItemInArray(this.model, event.previousIndex, event.currentIndex);
         this.thyOnDraggableChange.emit(dragEvent);
+    }
+
+    onDragDropped(event: CdkDragDrop<unknown>) {
+        if (this.mode === 'group') {
+            this.onDragGroupDropped(event);
+        } else if (this.mode === 'list') {
+            this.onDragModelDropped(event);
+        }
     }
 
     onColumnHeaderClick(event: Event, column: ThyTableColumnComponent) {
@@ -701,6 +780,18 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     public expandGroup(group: ThyTableGroup) {
         group.expand = !group.expand;
         this.expandStatusMapOfGroup[group.id] = group.expand;
+    }
+
+    private expandGroups(groups: ThyTableGroup[]) {
+        groups.forEach(group => {
+            this.expandGroup(group);
+        });
+    }
+
+    private foldGroups(groups: ThyTableGroup[]) {
+        groups.forEach(group => {
+            this.expandGroup(group);
+        });
     }
 
     private updateScrollClass() {

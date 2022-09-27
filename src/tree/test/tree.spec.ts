@@ -536,6 +536,11 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             expect(treeComponent.thyItemSize).toEqual(44);
         });
+
+        it('should thyIndent worked', () => {
+            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
+            expect(indexElement.style.width).toEqual('10px');
+        });
     });
 
     describe('async tree', () => {
@@ -646,6 +651,11 @@ describe('ThyTreeComponent', () => {
             expect(component).toBeDefined();
         });
 
+        it(`should indent default is 25px`, () => {
+            const indexElement: HTMLElement = treeElement.querySelectorAll('.thy-tree-node')[1].querySelector('.thy-tree-index');
+            expect(indexElement.style.width).toEqual('25px');
+        });
+
         it('parent node should has checked', () => {
             fixture.detectChanges();
             const productAGroupCheckbox = treeElement.querySelectorAll('.thy-tree-node-check')[2];
@@ -663,6 +673,7 @@ describe('ThyTreeComponent', () => {
             #tree
             [thyNodes]="treeNodes"
             [thySize]="'sm'"
+            [thyIndent]="indent"
             [thyIcons]="options.treeIcons"
             [thyType]="treeType"
             [thyDraggable]="options.draggable"
@@ -697,6 +708,8 @@ class TestBasicTreeComponent {
     treeNodes = JSON.parse(JSON.stringify(treeNodes));
 
     treeType = 'especial';
+
+    indent = 10;
 
     options: any = {
         draggable: true,

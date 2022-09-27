@@ -2,11 +2,11 @@
 @use './variables.scss' as vars;
 
 .#{vars.$time-picker-prefix-cls} {
-    position: relative;
-    display: inline-block;
-    width: 100%;
     &-wrapper {
         position: relative;
+        display: inline-block;
+        width: 100%;
+        outline: none;
     }
     &-input {
         outline: none;

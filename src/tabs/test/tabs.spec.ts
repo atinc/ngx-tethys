@@ -1,10 +1,11 @@
 import { ComponentType } from '@angular/cdk/portal';
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyNavComponent } from 'ngx-tethys/nav';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
+import { ThyTabComponent } from '../tab.component';
 import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
 import { ThyTabsModule } from '../tabs.module';
 import { ThyActiveTabInfo, ThyTabChangeEvent } from '../types';
@@ -99,7 +100,7 @@ class TestTabsPositionComponent {
 @Component({
     selector: 'test-tabs-active',
     template: `
-        <thy-tabs [thyActiveTab]="activeTab">
+        <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             <thy-tab id="tab1" thyTitle="Tab1">
                 Tab1 Content
             </thy-tab>
@@ -113,6 +114,7 @@ class TestTabsActiveComponent {
         id: 'tab2',
         index: 1
     };
+    thyAnimated = false;
 }
 
 @Component({
@@ -120,7 +122,7 @@ class TestTabsActiveComponent {
     template: `
         <button class="mb-2" thyButton="outline-default" (click)="addTab()">添加</button>
 
-        <thy-tabs [thyActiveTab]="activeTab">
+        <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
             <ng-container *ngFor="let tab of tabs; let i = index; trackBy: trackByFn">
                 <thy-tab [id]="tab.id" [thyTitle]="tab.title">Tab{{ i + 1 }} Content</thy-tab>
             </ng-container>
@@ -137,6 +139,7 @@ class TestTabsDynamicAddComponent {
     activeTab = {
         id: 'tab1'
     };
+    thyAnimated = false;
 
     addTab() {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
@@ -160,6 +163,20 @@ class TestTabsDynamicAddComponent {
 })
 class TestTabsDisabledComponent {
     activeTabChange(event: ThyTabChangeEvent) {}
+}
+
+@Component({
+    selector: 'test-tabs-animated',
+    template: `
+        <thy-tabs #tabs [thyAnimated]="true">
+            <thy-tab thyTitle="Tab1">Tab1 Content</thy-tab>
+            <thy-tab thyTitle="Tab2">Tab2 Content</thy-tab>
+            <thy-tab thyTitle="Tab3">Tab3 Content</thy-tab>
+        </thy-tabs>
+    `
+})
+class TestTabsAnimatedComponent {
+    @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabsComponent>;
 }
 
 describe('tabs', () => {
@@ -333,9 +350,18 @@ describe('tabs', () => {
             fixture.detectChanges();
         });
 
-        it('should set thyActiveTab successfully', () => {
-            const activeElement = getDebugElement(fixture, '#tab2').nativeElement;
-            expect(activeElement.classList.contains('active')).toBeTruthy();
+        it('should set thyActiveTab successfully when reset activeTab', () => {
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        });
+
+        it('should set thyActiveTab successfully when thyAnimated', () => {
+            fixture.debugElement.componentInstance.thyAnimated = true;
+            fixture.detectChanges();
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
         });
     });
 
@@ -362,6 +388,39 @@ describe('tabs', () => {
             fixture.detectChanges();
             expect(tabsInstance.tabs.length).toBe(4);
         }));
+
+        it('should set thyActiveTab successfully when add tab', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.tabs.length).toBe(3);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.detectChanges();
+            tick();
+            expect(tabsInstance.tabs.length).toBe(4);
+
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(!tabContent.style.marginLeft).toBeTruthy();
+
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[3];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        }));
+
+        it('should set thyActiveTab successfully when add tab and thyAnimated', fakeAsync(() => {
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.tabs.length).toBe(3);
+
+            fixture.debugElement.componentInstance.addTab();
+            fixture.debugElement.componentInstance.thyAnimated = true;
+            fixture.detectChanges();
+            tick();
+            expect(tabsInstance.tabs.length).toBe(4);
+
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(tabContent.style.marginLeft === '-300%').toBeTruthy();
+
+            const tabElement = tabContent.querySelectorAll('.thy-tab-content')[3];
+            expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        }));
     });
 
     describe('thyDisabled', () => {
@@ -387,6 +446,42 @@ describe('tabs', () => {
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
+        }));
+    });
+
+    describe('thyAnimated', () => {
+        let fixture: ComponentFixture<TestTabsAnimatedComponent>;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                declarations: [TestTabsAnimatedComponent],
+                imports: [ThyTabsModule]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestTabsAnimatedComponent);
+            // tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should set animated successfully when thyAnimated was true', fakeAsync(() => {
+            expect(document.querySelector('.thy-tabs-content-animated')).toBeTruthy();
+            const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
+            expect(tabContent.style.marginLeft === '0%').toBeTruthy();
+            const tabElement = document.querySelectorAll('.thy-nav-item')[1];
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+            expect(tabContent.style.marginLeft === '-100%').toBeTruthy();
+        }));
+
+        it('should remove overflow:hidden when transitioning', fakeAsync(() => {
+            const header = fixture.debugElement.nativeNode.querySelector('thy-tabs');
+            const tabElement = document.querySelectorAll('.thy-nav-item')[1];
+            dispatchFakeEvent(tabElement, 'click');
+            fixture.detectChanges();
+
+            header.dispatchEvent(createFakeEvent('transitionend'));
+            fixture.detectChanges();
+            expect(header.style.overflow === '').toBeTruthy();
         }));
     });
 

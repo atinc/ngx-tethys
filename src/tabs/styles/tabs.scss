@@ -2,12 +2,15 @@
 
 .thy-tabs {
     display: block;
-    .thy-tabs-nav {
-    }
-    .thy-tabs-content {
+    // overflow: hidden;
+    &-content {
         padding: variables.$tabs-content-space 0px;
+        display: flex;
+        width: 100%;
+        &-animated {
+            transition: margin 0.3s;
+        }
     }
-
     &-left {
         display: flex;
         .thy-tabs-nav {
@@ -17,5 +20,9 @@
             flex: auto;
             padding: 0px variables.$tabs-content-space;
         }
+    }
+    .thy-tab-content {
+        flex: none;
+        width: 100%;
     }
 }

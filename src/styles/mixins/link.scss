@@ -2,10 +2,14 @@
 @use "../variables";
 
 @mixin link-variant($link-color, $link-decoration, $link-hover-color, $link-hover-decoration) {
-    color: $link-color;
+    @if $link-color {
+        color: $link-color;
+    }
     text-decoration: $link-decoration;
     @include hover.hover-active {
-        color: $link-hover-color;
+        @if $link-hover-color {
+            color: $link-hover-color;
+        }
         text-decoration: $link-hover-decoration;
     }
 }
