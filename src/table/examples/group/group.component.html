@@ -1,3 +1,4 @@
+是否支持拖拽：<thy-switch [(ngModel)]="isDraggable"></thy-switch>
 <thy-table
   [thyGroups]="groups"
   [thyModel]="data"
@@ -6,7 +7,7 @@
   thyMode="group"
   thyWholeRowSelect="false"
   (thyOnRowClick)="onRowClick($event)"
-  [thyDraggable]="true"
+  [thyDraggable]="isDraggable"
   [thyDragDisabledPredicate]="dragDisabledPredicate"
   (thyOnDraggableChange)="thyOnDraggableChange($event)"
 >

@@ -1,0 +1,23 @@
+.thy-color-inputs {
+    display: flex;
+
+    .hex-column {
+        width: 68px;
+        text-align: center;
+    }
+    .column {
+        margin-left: 5px;
+        width: 36px;
+        text-align: center;
+    }
+    .thy-input-number {
+        .input-number-input {
+            padding-right: 0;
+            padding-left: 0;
+            text-align: center;
+        }
+        .input-number-handler-wrap {
+            display: none;
+        }
+    }
+}

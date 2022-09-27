@@ -98,7 +98,8 @@ module.exports = {
                 'watermark',
                 'typography',
                 'property',
-                'carousel'
+                'carousel',
+                'color-picker'
             ]
         ]
     }
