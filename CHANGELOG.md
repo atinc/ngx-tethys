@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.11](https://github.com/atinc/ngx-tethys/compare/14.0.10...14.0.11) (2022-09-27)
+
+
+### Bug Fixes
+
+* **carousel:** slide animation does not display correctly at the last index #INFR-4172 ([#2207](https://github.com/atinc/ngx-tethys/issues/2207)) ([4317285](https://github.com/atinc/ngx-tethys/commit/431728595f72bb30df35e4aa6bb08ab9cae6b452)), closes [#INFR-4172](https://github.com/atinc/ngx-tethys/issues/INFR-4172)
+* **checkbox:** fix checkbox cursor error when checkbox is disabled (#… ([#2203](https://github.com/atinc/ngx-tethys/issues/2203)) ([9791619](https://github.com/atinc/ngx-tethys/commit/979161919b4edcb2d658ba5ca46589bf9e5359a7))
+* **table:** fix paddingLeft to 16 when drag #INFR-4778 ([#2220](https://github.com/atinc/ngx-tethys/issues/2220)) ([f172093](https://github.com/atinc/ngx-tethys/commit/f172093aaa4817178d91a9a47923e326684d963d)), closes [#INFR-4778](https://github.com/atinc/ngx-tethys/issues/INFR-4778)
+* **table:** setting paddingLeft in table group ([#2219](https://github.com/atinc/ngx-tethys/issues/2219)) ([dec21d1](https://github.com/atinc/ngx-tethys/commit/dec21d1985c64e5703d32255c9dadd99d4d64561))
+* **tabs:** adjust the tabs oveflow #INFR-4674 ([6fc70dc](https://github.com/atinc/ngx-tethys/commit/6fc70dcce213cca019e6bb8c0e8aa0aadd9bb3f7)), closes [#INFR-4674](https://github.com/atinc/ngx-tethys/issues/INFR-4674)
+* **tabs:** adjust the tabs var & add test for transition #INFR-4674 ([9695b91](https://github.com/atinc/ngx-tethys/commit/9695b913b6937ccdf1675271c828763e57ba74a4)), closes [#INFR-4674](https://github.com/atinc/ngx-tethys/issues/INFR-4674)
+* **tabs:** set transitionStarted when activeTabIndex changed and !!thyAnimated #INFR-4745 ([9cde10b](https://github.com/atinc/ngx-tethys/commit/9cde10b94abdd265898bb1106638c37ec9607e57)), closes [#INFR-4745](https://github.com/atinc/ngx-tethys/issues/INFR-4745)
+* **tree-select:** remove stopPropagation when select node ([#2211](https://github.com/atinc/ngx-tethys/issues/2211)) ([b8cbab2](https://github.com/atinc/ngx-tethys/commit/b8cbab27a097427bb6f36c0ee2700fb0af3c3499))
+
+
+### Features
+
+* **carousel:** beautify the carousel components & add image example #INFR-4172 ([#2204](https://github.com/atinc/ngx-tethys/issues/2204)) ([5fe1306](https://github.com/atinc/ngx-tethys/commit/5fe13064dcc576a225785bc149c8f9091f9d8bd7)), closes [#INFR-4172](https://github.com/atinc/ngx-tethys/issues/INFR-4172)
+* **color-picker:** add color component #INFR-4214 ([#2205](https://github.com/atinc/ngx-tethys/issues/2205)) ([5be3d01](https://github.com/atinc/ngx-tethys/commit/5be3d01aaa34a1a03b18869be98fbc56cbba0e80)), closes [#INFR-4214](https://github.com/atinc/ngx-tethys/issues/INFR-4214)
+* **slider:** change the diameter to 18px for slider pointer #INFR-4747 ([beae3eb](https://github.com/atinc/ngx-tethys/commit/beae3eb1440c6def54958b3f635c1701b0cf0da2)), closes [#INFR-4747](https://github.com/atinc/ngx-tethys/issues/INFR-4747)
+
+
+
 ## [14.0.10](https://github.com/atinc/ngx-tethys/compare/14.0.9...14.0.10) (2022-09-16)
 
 

@@ -276,6 +276,7 @@ describe('image-preview', () => {
         button.click();
         const img = new Image();
 
+        fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeTruthy();
         validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
@@ -387,6 +388,7 @@ describe('image-preview', () => {
 
 const validImageSrc = (overlayContainerElement: HTMLElement, img: HTMLImageElement, image: InternalImageInfo, done: DoneFn) => {
     img.onload = () => {
+        expect(overlayContainerElement.querySelector('img')).toBeTruthy();
         expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
             (image.objectURL as any).changingThisBreaksApplicationSecurity
         );
