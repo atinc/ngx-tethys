@@ -20,7 +20,6 @@ export class UpdateHostClassService {
 
     updateClass(classNames: string[]) {
         if (this._classNames) {
-            console.log(this._classNames);
             this._classNames.forEach(className => {
                 if (classNames.indexOf(className) < 0) {
                     this.removeClass(className);
