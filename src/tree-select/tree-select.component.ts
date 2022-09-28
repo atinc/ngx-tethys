@@ -551,7 +551,7 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 this.parent.setPosition();
             });
         }
-        this.parent.syncFlattenTreeNodes();
+        this.thyVirtualHeight && this.parent.syncFlattenTreeNodes();
         this.parent.setPosition();
     }
 
