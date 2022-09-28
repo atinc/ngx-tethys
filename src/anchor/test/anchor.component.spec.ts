@@ -46,7 +46,7 @@ describe('thy-anchor', () => {
             fixture.detectChanges();
             tick(2000);
             const scrollTop = scrollService.getScroll();
-            expect(scrollTop).toEqual(top);
+            expect(Math.floor(scrollTop)).toEqual(top);
         }));
 
         it('should active associated thy-link when scrolling to anchor', (done: () => void) => {
