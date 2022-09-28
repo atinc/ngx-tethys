@@ -81,6 +81,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     public flattenTreeNodes: ThyTreeSelectNode[] = [];
 
+    virtualTreeNodes: ThyTreeSelectNode[] = [];
+
     public cdkConnectOverlayWidth = 0;
 
     public positions: ConnectionPositionPair[];
@@ -187,6 +189,26 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             this.valueIsObject = isObject(this.selectedValue);
         }
     }
+    public syncFlattenTreeNodes() {
+        this.virtualTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
+        console.log(this.virtualTreeNodes, 'this.virtualTreeNodes');
+        return this.virtualTreeNodes;
+    }
+
+    getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = [], flattenAllNodes: boolean | FlattenAllNodesCb = true) {
+        const flattenTreeData: ThyTreeSelectNode[] = [];
+        function _getParallelTreeNodes(list: ThyTreeSelectNode[]) {
+            return list.forEach((treeNode, index) => {
+                flattenTreeData.push(treeNode);
+                const flattenAllNodesFlag = isFunction(flattenAllNodes) ? flattenAllNodes(treeNode) : flattenAllNodes;
+                if (flattenAllNodesFlag || treeNode.expand) {
+                    _getParallelTreeNodes(treeNode.children);
+                }
+            });
+        }
+        _getParallelTreeNodes(rootTrees);
+        return flattenTreeData;
+    }
 
     writeValue(value: any): void {
         this.selectedValue = value;
@@ -222,11 +244,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
         this.initialled = true;
 
-        this.thyVirtualHeight && (this.treeNodes = this.tree2list(this.treeNodes));
-
-        // this.thyVirtualHeight && (this.treeNodes = this.getParallelTreeNodes(this.treeNodes));
-
-        console.log(this.treeNodes, 'this.treeNodes');
+        this.syncFlattenTreeNodes();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -293,21 +311,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         return [...nodes, ...nodesLeafs];
     }
 
-    private getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = [], flattenAllNodes: boolean | FlattenAllNodesCb = true) {
-        const flattenTreeData: ThyTreeSelectNode[] = [];
-        function _getParallelTreeNodes(list: ThyTreeSelectNode[]) {
-            return list.forEach((treeNode, index) => {
-                flattenTreeData.push(treeNode);
-                const flattenAllNodesFlag = isFunction(flattenAllNodes) ? flattenAllNodes(treeNode) : flattenAllNodes;
-                if (flattenAllNodesFlag || treeNode.isExpanded) {
-                    _getParallelTreeNodes(treeNode.children);
-                }
-            });
-        }
-        _getParallelTreeNodes(rootTrees);
-        return flattenTreeData;
-    }
-
     private tree2list = (tree: ThyTreeSelectNode[] = []) => {
         let node: ThyTreeSelectNode,
             list = [];
@@ -317,8 +320,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             list.push(node);
             if (node.children) {
                 tree.unshift(...node.children.map(item => ({ ...item, level: node.level + 1, expand: true, parentValues: [node._id] })));
-                node.childCount = node.children.length;
-                node.children = null;
             }
         }
         return list;
@@ -508,7 +509,6 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     }
 
     treeNodeIsExpand(node: ThyTreeSelectNode) {
-        console.log(this.parent?.selectedNode?.parentValues, 'this.parent.selectedNode.parentValues');
         let isSelectedNodeParent = false;
         if (this.parent.thyMultiple) {
             isSelectedNodeParent = !!(this.parent.selectedNodes || []).find(item => {
@@ -551,8 +551,10 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 this.parent.setPosition();
             });
         }
+        this.parent.syncFlattenTreeNodes();
         this.parent.setPosition();
     }
+
     tabTrackBy(index: number, item: ThyTreeSelectNode) {
         return index;
     }

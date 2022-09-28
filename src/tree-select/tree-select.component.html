@@ -35,5 +35,10 @@
   [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
   (detach)="close()"
 >
-  <thy-tree-select-nodes thyStopPropagation [thyVirtualHeight]="thyVirtualHeight" [treeNodes]="treeNodes"> </thy-tree-select-nodes>
+  <thy-tree-select-nodes
+    thyStopPropagation
+    [thyVirtualHeight]="thyVirtualHeight"
+    [treeNodes]="thyVirtualHeight ? virtualTreeNodes : treeNodes"
+  >
+  </thy-tree-select-nodes>
 </ng-template>
