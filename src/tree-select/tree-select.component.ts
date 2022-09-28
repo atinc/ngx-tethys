@@ -1,10 +1,8 @@
-import { getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
+import { getFlexiblePositions, InputCssPixel, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { coerceArray, isFunction } from 'ngx-tethys/util';
-
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -123,7 +121,11 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         }
     }
 
-    @Input() thyVirtualHeight: string | null = null;
+    @Input()
+    @InputCssPixel()
+    thyVirtualHeight: string | null = null;
+
+    @Input() thyItemSize = 28;
 
     @Input() thyPrimaryKey = '_id';
 
@@ -189,24 +191,22 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             this.valueIsObject = isObject(this.selectedValue);
         }
     }
-    public syncFlattenTreeNodes() {
-        this.virtualTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
+    public buildFlattenTreeNodes() {
+        this.virtualTreeNodes = this.getParallelTreeNodes(this.treeNodes);
         return this.virtualTreeNodes;
     }
 
-    getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = [], flattenAllNodes: boolean | FlattenAllNodesCb = true) {
-        const flattenTreeData: ThyTreeSelectNode[] = [];
-        function _getParallelTreeNodes(list: ThyTreeSelectNode[]) {
-            return list.forEach((treeNode, index) => {
-                flattenTreeData.push(treeNode);
-                const flattenAllNodesFlag = isFunction(flattenAllNodes) ? flattenAllNodes(treeNode) : flattenAllNodes;
-                if (flattenAllNodesFlag || treeNode.expand) {
-                    _getParallelTreeNodes(treeNode.children);
+    getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = []) {
+        const forEachTree = (tree: ThyTreeSelectNode[], fn: any, result: ThyTreeSelectNode[] = []) => {
+            tree.forEach(item => {
+                result.push(item);
+                if (item.children && fn(item)) {
+                    forEachTree(item.children, fn, result);
                 }
             });
-        }
-        _getParallelTreeNodes(rootTrees);
-        return flattenTreeData;
+            return result;
+        };
+        return forEachTree(rootTrees, (node: ThyTreeSelectNode) => !!node.expand);
     }
 
     writeValue(value: any): void {
@@ -243,7 +243,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
         this.initialled = true;
 
-        this.thyVirtualHeight && this.syncFlattenTreeNodes();
+        if (this.thyVirtualHeight) {
+            this.buildFlattenTreeNodes();
+        }
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -443,6 +445,8 @@ export class ThyTreeSelectNodesComponent implements OnInit {
 
     @Input() thyVirtualHeight: string | null = null;
 
+    @Input() thyItemSize = 28;
+
     public primaryKey = this.parent.thyPrimaryKey;
 
     public showKey = this.parent.thyShowKey;
@@ -536,8 +540,11 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 this.parent.setPosition();
             });
         }
-        this.thyVirtualHeight && this.parent.syncFlattenTreeNodes();
         this.parent.setPosition();
+
+        if (this.thyVirtualHeight) {
+            this.parent.buildFlattenTreeNodes();
+        }
     }
 
     tabTrackBy(index: number, item: ThyTreeSelectNode) {

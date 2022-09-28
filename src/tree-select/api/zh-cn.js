@@ -87,6 +87,18 @@ module.exports = [
                 description: '获取节点的子节点，返回 Observable<ThyTreeSelectNode>。',
                 type: 'Function',
                 default: '(node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])'
+            },
+            {
+                name: 'thyItemSize',
+                description: '开启虚拟滚动时，单行节点的高度',
+                type: 'number',
+                default: '28'
+            },
+            {
+                name: 'thyVirtualHeight',
+                description: '虚拟滚动的总高度，设置有值则开启虚拟滚动。',
+                type: 'number | string',
+                default: null
             }
         ]
     }
