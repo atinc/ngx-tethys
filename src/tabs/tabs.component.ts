@@ -81,6 +81,12 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     @Input() thyAnimated: boolean = false;
 
     /**
+     * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
+     * @default false
+     */
+    @Input() thyResponsive: boolean = false;
+
+    /**
      * 激活的项发生改变时的回调
      */
     @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
@@ -94,7 +100,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     }
 
     ngOnInit(): void {
-        fromEvent(this.el.nativeElement, 'transitionend')
+        const tabsContent = this.el.nativeElement.querySelector('.thy-tabs-content');
+        fromEvent(tabsContent, 'transitionend')
             .pipe(takeUntil(this.ngUnsubscribe$))
             .subscribe(() => {
                 this.transitionStarted = false;

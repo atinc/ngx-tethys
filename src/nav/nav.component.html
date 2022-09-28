@@ -13,6 +13,7 @@
     <ng-container *ngIf="moreOperation; else defaultMoreOperation" [ngTemplateOutlet]="moreOperation"></ng-container>
     <ng-template #defaultMoreOperation>
       更多
+      <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
     </ng-template>
   </a>
 </div>
