@@ -231,16 +231,4 @@
     flex: 1 !important;
     flex-grow: 0 !important;
     white-space: nowrap;
-    .thy-nav-more-icon {
-        transition: 0.2s;
-        transform-origin: center;
-        transform: rotateZ(0deg);
-    }
-}
-.thy-nav-origin-active {
-    .thy-nav-more-icon {
-        transition: 0.2s;
-        transform-origin: center;
-        transform: rotateZ(180deg);
-    }
 }
