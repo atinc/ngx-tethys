@@ -191,7 +191,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     }
     public syncFlattenTreeNodes() {
         this.virtualTreeNodes = this.getParallelTreeNodes(this.treeNodes, false);
-        console.log(this.virtualTreeNodes, 'this.virtualTreeNodes');
         return this.virtualTreeNodes;
     }
 
@@ -244,7 +243,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
         this.initialled = true;
 
-        this.syncFlattenTreeNodes();
+        this.thyVirtualHeight && this.syncFlattenTreeNodes();
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -310,20 +309,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         });
         return [...nodes, ...nodesLeafs];
     }
-
-    private tree2list = (tree: ThyTreeSelectNode[] = []) => {
-        let node: ThyTreeSelectNode,
-            list = [];
-        while ((node = tree.shift())) {
-            node.level = node.level || 0;
-            node.expand = true;
-            list.push(node);
-            if (node.children) {
-                tree.unshift(...node.children.map(item => ({ ...item, level: node.level + 1, expand: true, parentValues: [node._id] })));
-            }
-        }
-        return list;
-    };
 
     private _findTreeNode(value: string): ThyTreeSelectNode {
         return (this.flattenTreeNodes || []).find(item => item[this.thyPrimaryKey] === value);
