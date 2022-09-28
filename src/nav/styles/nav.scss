@@ -54,7 +54,6 @@
         z-index: 1;
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
-
     @include mixin.set-nav-size();
 }
 
