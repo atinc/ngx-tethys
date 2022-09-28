@@ -28,8 +28,6 @@ import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
-type FlattenAllNodesCb = (treeNode: ThyTreeSelectNode) => boolean;
-
 export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: string, searchKey: string = 'name') {
     const filterNodes = (node: ThyTreeSelectNode, result: ThyTreeSelectNode[]) => {
         if (node[searchKey] && node[searchKey].indexOf(searchText) !== -1) {
