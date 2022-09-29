@@ -1,4 +1,4 @@
-import { Directive, forwardRef, HostListener, OnInit } from '@angular/core';
+import { Directive, forwardRef, HostListener, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyColorDefaultPanelComponent } from './default-panel.component';
@@ -17,6 +17,8 @@ import ThyColor from './helpers/color.class';
     ]
 })
 export class ThyColorPickerDirective implements OnInit {
+    @Input() thyDefaultPopoverConfigOption = {};
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -33,12 +35,19 @@ export class ThyColorPickerDirective implements OnInit {
 
     @HostListener('click', ['$event'])
     togglePanel(event: Event) {
+        const options = Object.assign(
+            {
+                origin: event.currentTarget as HTMLElement,
+                offset: 0,
+                manualClosure: true,
+                width: '286px',
+                originActiveClass: 'thy-default-picker-active'
+            },
+            this.thyDefaultPopoverConfigOption
+        );
+        console.log(options);
         this.thyPopover.open(ThyColorDefaultPanelComponent, {
-            origin: event.currentTarget as HTMLElement,
-            offset: 0,
-            manualClosure: true,
-            width: '286px',
-            originActiveClass: 'thy-default-picker-active',
+            ...options,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
