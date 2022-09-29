@@ -1,6 +1,8 @@
-import { Directive, forwardRef, HostListener, OnInit } from '@angular/core';
+import { Directive, ElementRef, forwardRef, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
+import { fromEvent, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ThyColorDefaultPanelComponent } from './default-panel.component';
 import ThyColor from './helpers/color.class';
 /**
@@ -16,22 +18,36 @@ import ThyColor from './helpers/color.class';
         }
     ]
 })
-export class ThyColorPickerDirective implements OnInit {
+export class ThyColorPickerDirective implements OnInit, OnDestroy {
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
 
     color: string;
 
+    private destroy$ = new Subject<void>();
+
     public get backgroundColor(): string {
         return this.color;
     }
 
-    constructor(private thyPopover: ThyPopover) {}
+    constructor(
+        private thyPopover: ThyPopover,
+        private zone: NgZone,
+        private elementRef: ElementRef<HTMLElement>,
+        private ngZone: NgZone
+    ) {}
 
-    ngOnInit(): void {}
+    ngOnInit(): void {
+        this.zone.runOutsideAngular(() => {
+            fromEvent<Event>(this.elementRef.nativeElement, 'click')
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(event => {
+                    this.ngZone.run(() => this.togglePanel(event));
+                });
+        });
+    }
 
-    @HostListener('click', ['$event'])
     togglePanel(event: Event) {
         const defaultPanelPopover = this.thyPopover.open(ThyColorDefaultPanelComponent, {
             origin: event.currentTarget as HTMLElement,
@@ -66,5 +82,9 @@ export class ThyColorPickerDirective implements OnInit {
     onModelChange(value: string): void {
         this.color = value;
         this.onChangeFn(value);
+    }
+
+    ngOnDestroy(): void {
+        this.destroy$.next();
     }
 }
