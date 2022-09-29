@@ -45,7 +45,6 @@ export class ThyColorPickerDirective implements OnInit {
             },
             this.thyDefaultPopoverConfigOption
         );
-        console.log(options);
         this.thyPopover.open(ThyColorDefaultPanelComponent, {
             ...options,
             initialState: {
