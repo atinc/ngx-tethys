@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-typography-text-example',
+    selector: 'thy-typography-background-example',
     templateUrl: './background.component.html'
 })
 export class ThyTypographyBackgroundExampleComponent implements OnInit {
