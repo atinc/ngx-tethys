@@ -9,6 +9,8 @@ import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor, UpdateHostClass
 export class ThyTextColorDirective implements OnInit {
     private color: ThyThemeColor | ThyTextColor | string = '';
 
+    private lastClass: string;
+
     /**
      * 文本颜色，支持设置主题色和自定义颜色值，主题色为 default、primary、success、info、warning、danger、light、secondary、muted、desc、placeholder
      */
@@ -24,11 +26,19 @@ export class ThyTextColorDirective implements OnInit {
     ngOnInit(): void {}
 
     private setColor() {
+        this.clearColor();
         if (isThemeColor(this.color) || isTextColor(this.color)) {
-            this.elementRef.nativeElement.style.color = '';
-            this.updateHostClassService.updateClass([`text-${this.color}`]);
+            this.updateHostClassService.addClass(`text-${this.color}`);
+            this.lastClass = `text-${this.color}`;
         } else {
             this.elementRef.nativeElement.style.color = this.color;
+        }
+    }
+
+    private clearColor() {
+        this.elementRef.nativeElement.style.color = '';
+        if (this.lastClass) {
+            this.updateHostClassService.removeClass(this.lastClass);
         }
     }
 }
