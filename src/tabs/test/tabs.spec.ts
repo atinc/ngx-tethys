@@ -475,11 +475,13 @@ describe('tabs', () => {
 
         it('should remove overflow:hidden when transitioning', fakeAsync(() => {
             const header = fixture.debugElement.nativeNode.querySelector('thy-tabs');
+            const content = header.querySelector('.thy-tabs-content');
             const tabElement = document.querySelectorAll('.thy-nav-item')[1];
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
+            expect(header.style.overflow === 'hidden').toBeTruthy();
 
-            header.dispatchEvent(createFakeEvent('transitionend'));
+            content.dispatchEvent(createFakeEvent('transitionend'));
             fixture.detectChanges();
             expect(header.style.overflow === '').toBeTruthy();
         }));
