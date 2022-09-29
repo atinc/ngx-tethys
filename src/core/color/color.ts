@@ -14,7 +14,7 @@ export function isTextColor(color: ThyTextColor | string): boolean {
     return presetTextColors.includes(color as ThyTextColor);
 }
 
-export const presetBgColors = [...presetThemeColors, 'secondary', 'white'] as const;
+export const presetBgColors = [...presetThemeColors, 'secondary', 'dark', 'lighter', 'bright', 'content', 'white', 'transparent'] as const;
 
 export type ThyBgColor = typeof presetBgColors[number];
 
