@@ -1,19 +1,21 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
-import { waitForAsync, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild, OnInit } from '@angular/core';
+import { waitForAsync, fakeAsync, flush, inject, TestBed, tick, ComponentFixture } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { of } from 'rxjs';
-
-import { UpdateHostClassService } from '../core';
-import { ThyFormModule } from '../form';
-import { ThyIconComponent, ThyIconRegistry } from '../icon';
-import { searchTreeSelectData } from './examples/mock-data';
-import { ThyTreeSelectModule } from './module';
-import { ThyTreeSelectNode } from './tree-select.class';
-import { filterTreeData, ThyTreeSelectComponent } from './tree-select.component';
+import { bigTreeNodes } from '../examples/mock-data';
+import { UpdateHostClassService } from '../../core';
+import { ThyFormModule } from '../../form';
+import { ThyIconComponent, ThyIconRegistry } from '../../icon';
+import { searchTreeSelectData } from '../examples/mock-data';
+import { ThyTreeSelectModule } from '../module';
+import { ThyTreeSelectNode } from '../tree-select.class';
+import { filterTreeData, ThyTreeSelectComponent } from '../tree-select.component';
+import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { animationFrameScheduler } from 'rxjs';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -27,6 +29,14 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
         return total;
     };
     return nodes.reduce((pre, current) => filterExpandNodes(current, pre), arr);
+}
+
+function triggerScroll(viewport: CdkVirtualScrollViewport, offset?: number) {
+    if (offset !== undefined) {
+        viewport.scrollToOffset(offset);
+    }
+    dispatchFakeEvent(viewport.elementRef.nativeElement, 'scroll');
+    animationFrameScheduler.flush();
 }
 @Component({
     selector: 'thy-basic-tree-select',
@@ -385,6 +395,21 @@ class SearchTreeSelectComponent {
     treeSelect: ThyTreeSelectComponent;
 }
 
+@Component({
+    selector: 'test-virtual-scrolling-tree-select',
+    template: `
+        <thy-tree-select #treeSelect [thyTreeNodes]="mockData" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
+    `
+})
+export class VirtualScrollingTreeSelectComponent implements OnInit {
+    @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelectComponent;
+
+    mockData = bigTreeNodes;
+    public selectedValue = '';
+    constructor() {}
+    ngOnInit(): void {}
+}
+
 describe('ThyTreeSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -715,6 +740,56 @@ describe('ThyTreeSelect', () => {
             componentInstance.treeSelect.treeNodes = filterNodes;
             fixture.detectChanges();
             expect(treeNodesExpands(componentInstance.treeSelect.treeNodes).length).toEqual(2);
+        }));
+    });
+
+    describe('virtual scrolling tree-select', () => {
+        let treeSelectElement: HTMLElement;
+        let component: VirtualScrollingTreeSelectComponent;
+        let fixture: ComponentFixture<VirtualScrollingTreeSelectComponent>;
+
+        beforeEach(fakeAsync(() => {
+            configureThyCustomSelectTestingModule([VirtualScrollingTreeSelectComponent]);
+            fixture = TestBed.createComponent(VirtualScrollingTreeSelectComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
+
+            treeSelectElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent)).nativeElement;
+        }));
+
+        it('should create', () => {
+            expect(component).toBeDefined();
+        });
+
+        it('should load part of tree nodes', fakeAsync(() => {
+            const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.detectChanges();
+            const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+            expect(optionNodes.length).toBe(12);
+        }));
+
+        it('should scrolling tree nodes', fakeAsync(() => {
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const wrap = document.querySelector('.cdk-virtual-scroll-content-wrapper');
+            dispatchFakeEvent(wrap, 'scroll');
+            animationFrameScheduler.flush();
+
+            tick(100);
+            fixture.detectChanges();
+            const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+            expect(optionNodes.length).toBe(12);
         }));
     });
 });

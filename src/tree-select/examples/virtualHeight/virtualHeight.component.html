@@ -1,2 +1,2 @@
-<thy-tree-select [thyTreeNodes]="treeSelectNodes" [(ngModel)]="selectedValue" [thyVirtualHeight]="'200px'"> </thy-tree-select>
+<thy-tree-select [thyTreeNodes]="treeSelectNodes" [(ngModel)]="selectedValue" [thyVirtualScroll]="true"> </thy-tree-select>
 <p class="my-3">选择的值的 _id：{{ selectedValue | json }}</p>

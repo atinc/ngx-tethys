@@ -1,4 +1,4 @@
-import { getFlexiblePositions, InputCssPixel, ThyClickDispatcher } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -119,11 +119,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         }
     }
 
-    @Input()
-    @InputCssPixel()
-    thyVirtualHeight: string | null = null;
-
-    @Input() thyItemSize = 28;
+    @Input() thyVirtualScroll: boolean = false;
 
     @Input() thyPrimaryKey = '_id';
 
@@ -189,12 +185,13 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             this.valueIsObject = isObject(this.selectedValue);
         }
     }
+
     public buildFlattenTreeNodes() {
-        this.virtualTreeNodes = this.getParallelTreeNodes(this.treeNodes);
+        this.virtualTreeNodes = this.getFlattenTreeNodes(this.treeNodes);
         return this.virtualTreeNodes;
     }
 
-    getParallelTreeNodes(rootTrees: ThyTreeSelectNode[] = []) {
+    private getFlattenTreeNodes(rootTrees: ThyTreeSelectNode[] = this.treeNodes) {
         const forEachTree = (tree: ThyTreeSelectNode[], fn: any, result: ThyTreeSelectNode[] = []) => {
             tree.forEach(item => {
                 result.push(item);
@@ -241,7 +238,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
         this.initialled = true;
 
-        if (this.thyVirtualHeight) {
+        if (this.thyVirtualScroll) {
             this.buildFlattenTreeNodes();
         }
 
@@ -432,6 +429,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     }
 }
 
+const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html'
@@ -439,11 +437,16 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;
 
-    @Input() treeNodes: ThyTreeSelectNode[];
+    nodeList: ThyTreeSelectNode[] = [];
 
-    @Input() thyVirtualHeight: string | null = null;
+    @Input() set treeNodes(value: ThyTreeSelectNode[]) {
+        const treeSelectHeight = this.defaultItemSize * value.length;
+        // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
+        this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
+        this.nodeList = value;
+    }
 
-    @Input() thyItemSize = 28;
+    @Input() thyVirtualScroll: boolean = false;
 
     public primaryKey = this.parent.thyPrimaryKey;
 
@@ -458,6 +461,10 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     public childCountKey = this.parent.thyChildCountKey;
 
     public treeNodeTemplateRef = this.parent.treeNodeTemplateRef;
+
+    public defaultItemSize = DEFAULT_ITEM_SIZE;
+
+    public thyVirtualHeight: string = null;
 
     constructor(public parent: ThyTreeSelectComponent) {}
 
@@ -538,9 +545,8 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 this.parent.setPosition();
             });
         }
-        this.parent.setPosition();
-
-        if (this.thyVirtualHeight) {
+        // this.parent.setPosition();
+        if (this.thyVirtualScroll) {
             this.parent.buildFlattenTreeNodes();
         }
     }

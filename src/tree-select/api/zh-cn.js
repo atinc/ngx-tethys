@@ -89,13 +89,7 @@ module.exports = [
                 default: '(node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])'
             },
             {
-                name: 'thyItemSize',
-                description: '开启虚拟滚动时，单行节点的高度',
-                type: 'number',
-                default: '28'
-            },
-            {
-                name: 'thyVirtualHeight',
+                name: 'thyVirtualScroll',
                 description: '虚拟滚动的总高度，设置有值则开启虚拟滚动。',
                 type: 'number | string',
                 default: null

@@ -1,21 +1,15 @@
-<div class="thy-tree-select-options" *ngIf="treeNodes?.length > 0; else emptyPlaceholder">
+<div class="thy-tree-select-options" *ngIf="nodeList?.length > 0; else emptyPlaceholder">
   <div class="thy-tree-select-node">
-    <ng-container *ngIf="!thyVirtualHeight">
+    <ng-container *ngIf="!thyVirtualScroll">
       <ng-container
-        *ngFor="let node of treeNodes"
+        *ngFor="let node of nodeList"
         [ngTemplateOutlet]="treeSelectNode"
         [ngTemplateOutletContext]="{ $implicit: node }"
       ></ng-container>
     </ng-container>
 
-    <cdk-virtual-scroll-viewport
-      *ngIf="thyVirtualHeight"
-      [class.ant-select-tree-list-holder-inner]="false"
-      [class.ant-tree-list-holder-inner]="false"
-      [itemSize]="'28'"
-      [style.height]="thyVirtualHeight"
-    >
-      <ng-container *cdkVirtualFor="let node of treeNodes; trackBy: tabTrackBy">
+    <cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="defaultItemSize" [style.height]="thyVirtualHeight">
+      <ng-container *cdkVirtualFor="let node of nodeList; trackBy: tabTrackBy">
         <ng-template [ngTemplateOutlet]="treeSelectNode" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
       </ng-container>
     </cdk-virtual-scroll-viewport>
@@ -57,7 +51,7 @@
         <i class="wtf wtf-checked"></i>
       </span>
     </a>
-    <ng-container *ngIf="!thyVirtualHeight && treeNodeIsExpand(node) && node.children?.length > 0">
+    <ng-container *ngIf="!thyVirtualScroll && treeNodeIsExpand(node) && node.children?.length > 0">
       <ng-container [ngTemplateOutlet]="treeSelectNode" *ngFor="let node of node.children" [ngTemplateOutletContext]="{ $implicit: node }">
       </ng-container>
     </ng-container>
