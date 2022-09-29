@@ -14,17 +14,9 @@ import { ThyPickerPanelComponent } from './picker-panel.component';
 export class ThyColorDefaultPanelComponent implements OnInit {
     @HostBinding('class.thy-default-panel') className = true;
 
-    colour: string;
+    @Input() color: string;
 
     @Input() closeCallback: () => {};
-
-    @Input() set color(value: string) {
-        this.colour = value;
-    }
-
-    get color() {
-        return this.colour;
-    }
 
     @Input() colorChange: (color: string) => {};
 
@@ -46,8 +38,8 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     }
 
     selectColor(color: string) {
-        this.colour = color;
-        this.colorChange(this.colour);
+        this.color = color;
+        this.colorChange(this.color);
         this.closeCallback();
         this.popoverRef?.close();
     }
@@ -61,7 +53,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
             width: '260px',
             originActiveClass: 'thy-color-picker-active',
             initialState: {
-                color: this.colour,
+                color: this.color,
                 pickerColorChange: (value: string) => {
                     this.newColor = value;
                 }

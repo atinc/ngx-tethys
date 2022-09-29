@@ -38,7 +38,7 @@ export class ThyColorPickerDirective implements OnInit {
             offset: 0,
             manualClosure: true,
             width: '286px',
-            originActiveClass: 'thy-defaul-picker-active',
+            originActiveClass: 'thy-default-picker-active',
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
