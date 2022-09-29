@@ -14,7 +14,7 @@
       <thy-icon
         thyIconName="check-thick"
         class="check-icon"
-        [ngClass]="colour === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
+        [ngClass]="color === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
       ></thy-icon>
     </div>
   </div>
@@ -30,7 +30,7 @@
       <thy-icon
         thyIconName="check-thick"
         class="check-icon"
-        [ngClass]="colour === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
+        [ngClass]="color === item ? (getIconColor(item) === 'white' ? 'checked white-check' : 'checked black-check') : ''"
       ></thy-icon>
     </div>
     <div class="font-size-sm px-1 text-muted" *ngIf="recentColors.length === 0">
