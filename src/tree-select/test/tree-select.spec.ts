@@ -31,13 +31,6 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     return nodes.reduce((pre, current) => filterExpandNodes(current, pre), arr);
 }
 
-function triggerScroll(viewport: CdkVirtualScrollViewport, offset?: number) {
-    if (offset !== undefined) {
-        viewport.scrollToOffset(offset);
-    }
-    dispatchFakeEvent(viewport.elementRef.nativeElement, 'scroll');
-    animationFrameScheduler.flush();
-}
 @Component({
     selector: 'thy-basic-tree-select',
     template: `

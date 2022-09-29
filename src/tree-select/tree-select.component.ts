@@ -188,7 +188,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     public buildFlattenTreeNodes() {
         this.virtualTreeNodes = this.getFlattenTreeNodes(this.treeNodes);
-        return this.virtualTreeNodes;
     }
 
     private getFlattenTreeNodes(rootTrees: ThyTreeSelectNode[] = this.treeNodes) {

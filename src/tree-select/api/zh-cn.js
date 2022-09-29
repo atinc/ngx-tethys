@@ -90,9 +90,9 @@ module.exports = [
             },
             {
                 name: 'thyVirtualScroll',
-                description: '虚拟滚动的总高度，设置有值则开启虚拟滚动。',
-                type: 'number | string',
-                default: null
+                description: '开启虚拟滚动',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }
