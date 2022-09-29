@@ -16,7 +16,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
 
     colour: string;
 
-    closeCallback: () => {};
+    @Input() closeCallback: () => {};
 
     @Input() set color(value: string) {
         this.colour = value;
