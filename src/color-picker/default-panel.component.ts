@@ -1,5 +1,5 @@
 import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
 import { ThyPickerPanelComponent } from './picker-panel.component';
@@ -15,6 +15,8 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     @HostBinding('class.thy-default-panel') className = true;
 
     colour: string;
+
+    closeCallback: () => {};
 
     @Input() set color(value: string) {
         this.colour = value;
@@ -32,6 +34,8 @@ export class ThyColorDefaultPanelComponent implements OnInit {
 
     newColor: string;
 
+    popoverRef: ThyPopoverRef<any>;
+
     constructor(private thyPopover: ThyPopover) {}
 
     ngOnInit(): void {
@@ -44,11 +48,12 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     selectColor(color: string) {
         this.colour = color;
         this.colorChange(this.colour);
-        this.thyPopover.closeAll();
+        this.closeCallback();
+        this.popoverRef?.close();
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyPickerPanelComponent, {
+        this.popoverRef = this.thyPopover.open(ThyPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             placement: 'rightBottom',
@@ -63,7 +68,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
             }
         });
 
-        popoverRef.afterClosed().subscribe(() => {
+        this.popoverRef.afterClosed().subscribe(() => {
             if (this.newColor) {
                 this.colorChange(this.newColor);
                 const index = this.recentColors.findIndex(item => item === this.newColor);
@@ -74,7 +79,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
                 this.recentColors = this.recentColors.slice(0, 10);
                 localStorage.setItem('recentColors', JSON.stringify(this.recentColors));
             }
-            this.thyPopover.closeAll();
+            this.closeCallback();
         });
     }
 

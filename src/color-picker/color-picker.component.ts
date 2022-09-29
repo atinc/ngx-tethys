@@ -33,7 +33,7 @@ export class ThyColorPickerDirective implements OnInit {
 
     @HostListener('click', ['$event'])
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyColorDefaultPanelComponent, {
+        const defaultPanelPopover = this.thyPopover.open(ThyColorDefaultPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             manualClosure: true,
@@ -43,6 +43,9 @@ export class ThyColorPickerDirective implements OnInit {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
                     this.onModelChange(value);
+                },
+                closeCallback: () => {
+                    defaultPanelPopover.close();
                 }
             }
         });
