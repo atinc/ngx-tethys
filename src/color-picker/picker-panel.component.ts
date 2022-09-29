@@ -11,7 +11,7 @@ import ThyColor from './helpers/color.class';
 export class ThyPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-picker-panel') className = true;
 
-    colour: ThyColor;
+    colorInstance: ThyColor;
 
     @Input() color?: string;
 
@@ -20,12 +20,12 @@ export class ThyPickerPanelComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.colour = new ThyColor(this.color);
+        this.colorInstance = new ThyColor(this.color);
     }
 
     colorChangeEvent($event: ThyColor) {
-        this.colour = $event;
-        this.color = this.colour.displayValue;
+        this.colorInstance = $event;
+        this.color = this.colorInstance.displayValue;
         this.pickerColorChange(this.color);
     }
 }
