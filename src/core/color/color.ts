@@ -13,3 +13,11 @@ export type ThyTextColor = typeof presetTextColors[number];
 export function isTextColor(color: ThyTextColor | string): boolean {
     return presetTextColors.includes(color as ThyTextColor);
 }
+
+export const presetBgColors = [...presetThemeColors, 'secondary', 'dark', 'lighter', 'bright', 'content', 'white', 'transparent'] as const;
+
+export type ThyBgColor = typeof presetBgColors[number];
+
+export function isBgColor(color: ThyBgColor | string): boolean {
+    return presetBgColors.includes(color as ThyBgColor);
+}
