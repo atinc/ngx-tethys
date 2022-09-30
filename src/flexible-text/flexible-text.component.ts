@@ -116,7 +116,19 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     applyOverflow() {
         const nativeElement = this.elementRef.nativeElement;
-        if (nativeElement.clientWidth < nativeElement.scrollWidth || nativeElement.clientHeight < nativeElement.scrollHeight) {
+        const heightTemp = window.getComputedStyle(nativeElement).height === 'auto' ? 0 : window.getComputedStyle(nativeElement).height;
+        const lineHeightTemp =
+            window.getComputedStyle(nativeElement).lineHeight === 'normal' ? 0 : window.getComputedStyle(nativeElement).lineHeight;
+        const singleLineHeight = heightTemp
+            ? heightTemp
+            : lineHeightTemp
+            ? lineHeightTemp
+            : window.getComputedStyle(nativeElement).fontSize;
+        const singleLineHeightNum = +singleLineHeight.slice(0, singleLineHeight.length - 2);
+        if (
+            nativeElement.clientWidth < nativeElement.scrollWidth ||
+            (nativeElement.scrollHeight - nativeElement.clientHeight) / singleLineHeightNum > 1
+        ) {
             this.isOverflow = true;
         } else {
             this.isOverflow = false;
