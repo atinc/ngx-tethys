@@ -16,7 +16,8 @@
     "types": ["../typings/ng-dev-mode"],
     "lib": ["dom", "ES2017"],
     "paths": {
-      "ngx-tethys/*": ["./*"]
+      "ngx-tethys/*": ["./*"],
+      "@tethys/cdk/*": ["../cdk/*"]
     }
   },
   "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "examples/**/*.ts"]
