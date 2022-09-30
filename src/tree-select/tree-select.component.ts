@@ -3,7 +3,6 @@ import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -78,6 +77,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     public flattenTreeNodes: ThyTreeSelectNode[] = [];
 
+    virtualTreeNodes: ThyTreeSelectNode[] = [];
+
     public cdkConnectOverlayWidth = 0;
 
     public positions: ConnectionPositionPair[];
@@ -117,6 +118,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             this.setSelectedNodes();
         }
     }
+
+    @Input() thyVirtualScroll: boolean = false;
 
     @Input() thyPrimaryKey = '_id';
 
@@ -183,6 +186,23 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         }
     }
 
+    public buildFlattenTreeNodes() {
+        this.virtualTreeNodes = this.getFlattenTreeNodes(this.treeNodes);
+    }
+
+    private getFlattenTreeNodes(rootTrees: ThyTreeSelectNode[] = this.treeNodes) {
+        const forEachTree = (tree: ThyTreeSelectNode[], fn: any, result: ThyTreeSelectNode[] = []) => {
+            tree.forEach(item => {
+                result.push(item);
+                if (item.children && fn(item)) {
+                    forEachTree(item.children, fn, result);
+                }
+            });
+            return result;
+        };
+        return forEachTree(rootTrees, (node: ThyTreeSelectNode) => !!node.expand);
+    }
+
     writeValue(value: any): void {
         this.selectedValue = value;
 
@@ -216,6 +236,10 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.flattenTreeNodes = this.flattenNodes(this.treeNodes, this.flattenTreeNodes, []);
         this.setSelectedNodes();
         this.initialled = true;
+
+        if (this.thyVirtualScroll) {
+            this.buildFlattenTreeNodes();
+        }
 
         if (isPlatformBrowser(this.platformId)) {
             this.thyClickDispatcher
@@ -404,6 +428,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     }
 }
 
+const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html'
@@ -411,7 +436,16 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;
 
-    @Input() treeNodes: ThyTreeSelectNode[];
+    nodeList: ThyTreeSelectNode[] = [];
+
+    @Input() set treeNodes(value: ThyTreeSelectNode[]) {
+        const treeSelectHeight = this.defaultItemSize * value.length;
+        // 父级设置了max-height:300 & padding:10 0; 故此处最多设置280，否则将出现滚动条
+        this.thyVirtualHeight = treeSelectHeight > 300 ? '280px' : `${treeSelectHeight}px`;
+        this.nodeList = value;
+    }
+
+    @Input() thyVirtualScroll: boolean = false;
 
     public primaryKey = this.parent.thyPrimaryKey;
 
@@ -426,6 +460,10 @@ export class ThyTreeSelectNodesComponent implements OnInit {
     public childCountKey = this.parent.thyChildCountKey;
 
     public treeNodeTemplateRef = this.parent.treeNodeTemplateRef;
+
+    public defaultItemSize = DEFAULT_ITEM_SIZE;
+
+    public thyVirtualHeight: string = null;
 
     constructor(public parent: ThyTreeSelectComponent) {}
 
@@ -506,6 +544,13 @@ export class ThyTreeSelectNodesComponent implements OnInit {
                 this.parent.setPosition();
             });
         }
-        this.parent.setPosition();
+        // this.parent.setPosition();
+        if (this.thyVirtualScroll) {
+            this.parent.buildFlattenTreeNodes();
+        }
+    }
+
+    tabTrackBy(index: number, item: ThyTreeSelectNode) {
+        return index;
     }
 }
