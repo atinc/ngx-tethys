@@ -28,8 +28,8 @@ export class ThyTextColorDirective implements OnInit {
     private setColor() {
         this.clearColor();
         if (isThemeColor(this.color) || isTextColor(this.color)) {
-            this.updateHostClassService.addClass(`text-${this.color}`);
             this.lastClass = `text-${this.color}`;
+            this.updateHostClassService.addClass(this.lastClass);
         } else {
             this.elementRef.nativeElement.style.color = this.color;
         }
@@ -39,6 +39,7 @@ export class ThyTextColorDirective implements OnInit {
         this.elementRef.nativeElement.style.color = '';
         if (this.lastClass) {
             this.updateHostClassService.removeClass(this.lastClass);
+            this.lastClass = null;
         }
     }
 }

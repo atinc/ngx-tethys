@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { TestBed, waitForAsync, ComponentFixture } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
+import { isBgColor, isThemeColor, ThyBgColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTypographyModule } from '../module';
+import { ThyBackgroundColorDirective } from 'ngx-tethys/typography';
 
 @Component({
     selector: 'thy-text-basic-test',
@@ -19,57 +20,122 @@ export class ThyTextBasicTestComponent {
     constructor() {}
 }
 
-describe('thy-text', () => {
-    let fixture: ComponentFixture<ThyTextBasicTestComponent>;
+@Component({
+    selector: 'thy-text-background-test',
+    template: `
+        <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span>
+    `
+})
+export class ThyTextBackgroundTestComponent {
+    bgColor: ThyThemeColor | ThyBgColor | string = 'primary';
 
+    constructor() {}
+}
+
+describe('thy-text', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [ThyTextBasicTestComponent],
+                declarations: [ThyTextBasicTestComponent, ThyTextBackgroundTestComponent],
                 imports: [ThyTypographyModule, ThyIconModule]
             }).compileComponents();
         })
     );
 
-    beforeEach(() => {
-        fixture = TestBed.createComponent(ThyTextBasicTestComponent);
-        fixture.detectChanges();
-    });
+    describe('basic', () => {
+        let fixture: ComponentFixture<ThyTextBasicTestComponent>;
 
-    it('should create tag with theme colors', () => {
-        const textDebugElement = fixture.debugElement.query(By.css('#themeColor'));
-        const textElement: HTMLElement = textDebugElement.nativeElement;
-        const themeColors = [
-            'primary',
-            'success',
-            'info',
-            'warning',
-            'danger',
-            'default',
-            'light',
-            'secondary',
-            'muted',
-            'desc',
-            'placeholder'
-        ];
-        themeColors.forEach(color => {
-            fixture.componentInstance.color = color;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTextBasicTestComponent);
+            console.log(fixture.debugElement.nativeElement);
             fixture.detectChanges();
-            expect(textElement.classList.contains(`text-${color}`)).toBeTruthy();
+        });
+
+        it('should create tag with theme colors', () => {
+            const textDebugElement = fixture.debugElement.query(By.css('#themeColor'));
+            const textElement: HTMLElement = textDebugElement.nativeElement;
+            const themeColors = [
+                'primary',
+                'success',
+                'info',
+                'warning',
+                'danger',
+                'default',
+                'light',
+                'secondary',
+                'muted',
+                'desc',
+                'placeholder'
+            ];
+            themeColors.forEach(color => {
+                fixture.componentInstance.color = color;
+                fixture.detectChanges();
+                expect(textElement.classList.contains(`text-${color}`)).toBeTruthy();
+            });
+        });
+
+        it('should set color with custom color value', () => {
+            const textDebugElement = fixture.debugElement.query(By.css('#customColor'));
+            const textElement: HTMLElement = textDebugElement.nativeElement;
+            expect(textElement.style.color === 'rgb(201, 88, 78)').toBe(true);
+        });
+
+        it('should show icon with thy-icon', () => {
+            const textDebugElement = fixture.debugElement.query(By.css('#icon'));
+            const textElement: HTMLElement = textDebugElement.nativeElement;
+            const iconElement = textElement.children[0];
+            expect(iconElement).toBeTruthy();
+            expect(iconElement.classList.contains('thy-icon-version')).toBe(true);
         });
     });
 
-    it('should set color with custom color value', () => {
-        const textDebugElement = fixture.debugElement.query(By.css('#customColor'));
-        const textElement: HTMLElement = textDebugElement.nativeElement;
-        expect(textElement.style.color === 'rgb(201, 88, 78)').toBe(true);
-    });
+    describe('bg-color', () => {
+        let fixture: ComponentFixture<ThyTextBackgroundTestComponent>;
+        let bgColorTestComponent: ThyTextBackgroundTestComponent;
+        let textDebugElement: DebugElement;
 
-    it('should show icon with thy-icon', () => {
-        const textDebugElement = fixture.debugElement.query(By.css('#icon'));
-        const textElement: HTMLElement = textDebugElement.nativeElement;
-        const iconElement = textElement.children[0];
-        expect(iconElement).toBeTruthy();
-        expect(iconElement.classList.contains('thy-icon-version')).toBe(true);
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTextBackgroundTestComponent);
+            fixture.detectChanges();
+            bgColorTestComponent = fixture.debugElement.componentInstance;
+            textDebugElement = fixture.debugElement.query(By.directive(ThyBackgroundColorDirective));
+        });
+
+        it(`should create tag with theme colors and custom colors`, () => {
+            const textElement = textDebugElement.nativeElement;
+            const themeBgColors = [
+                'primary',
+                'success',
+                'info',
+                'danger',
+                'warning',
+                'dark',
+                'secondary',
+                'light',
+                'lighter',
+                'bright',
+                'content',
+                '#ffffff',
+                '#e62828',
+                'rgb(201, 88, 78)',
+                'white',
+                'transparent'
+            ];
+            const color2Rgb = {
+                '#ffffff': `rgb(255, 255, 255)`,
+                '#e62828': `rgb(230, 40, 40)`,
+                'rgb(201, 88, 78)': 'rgb(201, 88, 78)'
+            };
+            themeBgColors.forEach(bgColor => {
+                bgColorTestComponent.bgColor = bgColor;
+                fixture.detectChanges();
+                if (isThemeColor(bgColor) || isBgColor(bgColor)) {
+                    expect(textElement.classList).toContain(`bg-${bgColor}`);
+                } else {
+                    expect(textElement.style.backgroundColor === color2Rgb[bgColor]).toBe(true);
+                }
+                expect(textElement.classList).toContain(`text-white`);
+            });
+        });
     });
 });

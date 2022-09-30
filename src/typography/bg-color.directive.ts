@@ -26,17 +26,18 @@ export class ThyBackgroundColorDirective {
     private setBgColor() {
         this.clearBgColor();
         if (isThemeColor(this.bgColor) || isBgColor(this.bgColor)) {
-            this.updateHostClassService.addClass(`bg-${this.bgColor}`);
             this.lastClass = `bg-${this.bgColor}`;
+            this.updateHostClassService.addClass(this.lastClass);
         } else {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'background', this.bgColor);
+            this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', this.bgColor);
         }
     }
 
     private clearBgColor() {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'background', '');
+        this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '');
         if (this.lastClass) {
             this.updateHostClassService.removeClass(this.lastClass);
+            this.lastClass = null;
         }
     }
 }
