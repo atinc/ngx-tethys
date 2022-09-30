@@ -23,13 +23,29 @@ export class ThyDomUseElementRendererTestComponent implements OnInit {
     }
 }
 
-fdescribe('element-renderer', () => {
+@Component({
+    selector: 'thy-dom-use-element-renderer-without-element-test',
+    template: '<div #container></div>'
+})
+export class ThyDomElementRendererWithoutElementTestComponent implements OnInit {
+    @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+
+    containerRenderer = useElementRenderer();
+
+    constructor() {}
+
+    ngOnInit(): void {
+        this.containerRenderer.updateClass(['thy-button', 'thy-button-primary']);
+    }
+}
+
+describe('element-renderer', () => {
     let fixture: ComponentFixture<ThyDomUseElementRendererTestComponent>;
     let debugElement: DebugElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyDomUseElementRendererTestComponent]
+            declarations: [ThyDomUseElementRendererTestComponent, ThyDomElementRendererWithoutElementTestComponent]
         });
 
         fixture = TestBed.createComponent(ThyDomUseElementRendererTestComponent);
@@ -62,5 +78,12 @@ fdescribe('element-renderer', () => {
         expect(divElement.classList.contains('thy-button')).toBeFalsy();
         expect(divElement.classList.contains('thy-button-primary')).toBeTruthy();
         expect(divElement.classList.contains('thy-new-class')).toBeTruthy();
+    });
+
+    it('should throw error when element is not set', () => {
+        expect(() => {
+            fixture = TestBed.createComponent(ThyDomElementRendererWithoutElementTestComponent);
+            fixture.detectChanges();
+        }).toThrowError('Element is null, should call setElement method for ElementRenderer before update dom.');
     });
 });

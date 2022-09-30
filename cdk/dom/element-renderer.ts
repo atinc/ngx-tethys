@@ -9,7 +9,7 @@ export abstract class AbstractElementRenderer {
 
     private get safeElement() {
         if (!this.element) {
-            throw new Error(`element is null, should call setElement for ElementRenderer`);
+            throw new Error(`Element is null, should call setElement method for ElementRenderer before update dom.`);
         }
         return this.element;
     }
