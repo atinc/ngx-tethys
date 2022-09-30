@@ -354,10 +354,12 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.highlightCorrectOption(false);
                 this.isSearching = false;
             }
+            Promise.resolve().then(() => {
+                if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                    this.cdkConnectedOverlay.overlayRef.updatePosition();
+                }
+            });
             this.changeDetectorRef.markForCheck();
-            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
-            }
         });
         if (this.thyAutoExpand) {
             timer().subscribe(() => {
@@ -664,6 +666,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
         this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
             this.onSelect(event.option, event.isUserInput);
+            this.updateCdkConnectedOverlayPositions();
             if (event.isUserInput && !this.isMultiple && this.panelOpen) {
                 this.close();
                 this.focus();
