@@ -1,5 +1,5 @@
-import { Injectable, Renderer2, inject, ElementRef } from '@angular/core';
-import { AbstractElementRenderer } from './element-renderer';
+import { Injectable, inject, ElementRef } from '@angular/core';
+import { AbstractElementRenderer } from './abstract-element-renderer';
 
 @Injectable()
 export class HostRenderer extends AbstractElementRenderer {
