@@ -47,7 +47,6 @@ describe('thy-text', () => {
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyTextBasicTestComponent);
-            console.log(fixture.debugElement.nativeElement);
             fixture.detectChanges();
         });
 
