@@ -19,6 +19,10 @@ export class ThyColorInputsComponent {
         this.innerColor = value;
     }
 
+    get color() {
+        return this.innerColor;
+    }
+
     @Output()
     public colorChange = new EventEmitter<ThyColor>(false);
 

@@ -4,7 +4,7 @@
     thySize="xs"
     class="px-0 text-center"
     thyInput
-    [(ngModel)]="innerColor.displayValue"
+    [(ngModel)]="color.displayValue"
     (blur)="onInputChange($event, 'hex')"
     (thyEnter)="onInputChange($event, 'hex')"
   />
@@ -16,7 +16,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="innerColor.rgba.red"
+    [(ngModel)]="color.rgba.red"
     (thyBlur)="onInputChange($event, 'R')"
     (thyEnter)="onInputChange($event, 'R')"
   ></thy-input-number>
@@ -28,7 +28,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="innerColor.rgba.green"
+    [(ngModel)]="color.rgba.green"
     (thyBlur)="onInputChange($event, 'G')"
     (thyEnter)="onInputChange($event, 'G')"
   ></thy-input-number>
@@ -40,7 +40,7 @@
     [thyMin]="0"
     [thyMax]="255"
     class="px-0 text-center"
-    [(ngModel)]="innerColor.rgba.blue"
+    [(ngModel)]="color.rgba.blue"
     (thyBlur)="onInputChange($event, 'B')"
     (thyEnter)="onInputChange($event, 'B')"
   ></thy-input-number>
