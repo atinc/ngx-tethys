@@ -17,7 +17,12 @@ import ThyColor from './helpers/color.class';
     ]
 })
 export class ThyColorPickerDirective implements OnInit {
-    @Input() thyDefaultPopoverConfigOption = {};
+    /**
+     * 弹框偏移量
+     * @type  number
+     * @default 0
+     */
+    @Input() thyOffset: number = 0;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -35,18 +40,12 @@ export class ThyColorPickerDirective implements OnInit {
 
     @HostListener('click', ['$event'])
     togglePanel(event: Event) {
-        const options = Object.assign(
-            {
-                origin: event.currentTarget as HTMLElement,
-                offset: 0,
-                manualClosure: true,
-                width: '286px',
-                originActiveClass: 'thy-default-picker-active'
-            },
-            this.thyDefaultPopoverConfigOption
-        );
         this.thyPopover.open(ThyColorDefaultPanelComponent, {
-            ...options,
+            origin: event.currentTarget as HTMLElement,
+            offset: this.thyOffset,
+            manualClosure: true,
+            width: '286px',
+            originActiveClass: 'thy-default-picker-active',
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
