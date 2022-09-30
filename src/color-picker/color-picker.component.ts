@@ -1,4 +1,4 @@
-import { Directive, forwardRef, HostListener, OnInit } from '@angular/core';
+import { Directive, forwardRef, HostListener, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyColorDefaultPanelComponent } from './default-panel.component';
@@ -17,6 +17,13 @@ import ThyColor from './helpers/color.class';
     ]
 })
 export class ThyColorPickerDirective implements OnInit {
+    /**
+     * 弹框偏移量
+     * @type  number
+     * @default 0
+     */
+    @Input() thyOffset: number = 0;
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -35,7 +42,7 @@ export class ThyColorPickerDirective implements OnInit {
     togglePanel(event: Event) {
         this.thyPopover.open(ThyColorDefaultPanelComponent, {
             origin: event.currentTarget as HTMLElement,
-            offset: 0,
+            offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
             originActiveClass: 'thy-default-picker-active',
