@@ -101,7 +101,7 @@ describe('thy-text', () => {
             textDebugElement = fixture.debugElement.query(By.directive(ThyBackgroundColorDirective));
         });
 
-        it(`should create tag with theme colors and custom colors`, () => {
+        it(`should create tag with theme background colors and custom background colors`, () => {
             const textElement = textDebugElement.nativeElement;
             const themeBgColors = [
                 'primary',
