@@ -666,7 +666,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
         this.optionSelectionChanges.pipe(takeUntil(changedOrDestroyed$)).subscribe((event: ThyOptionSelectionChangeEvent) => {
             this.onSelect(event.option, event.isUserInput);
-            this.updateCdkConnectedOverlayPositions();
             if (event.isUserInput && !this.isMultiple && this.panelOpen) {
                 this.close();
                 this.focus();
