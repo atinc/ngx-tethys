@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, inject, ElementRef, RendererStyleFlags2 } from '@angular/core';
+import { Renderer2, inject, ElementRef, RendererStyleFlags2 } from '@angular/core';
 
 export abstract class AbstractElementRenderer {
     private renderer = inject(Renderer2);
@@ -7,8 +7,11 @@ export abstract class AbstractElementRenderer {
 
     private classNames: string[] = [];
 
-    setElement(element: Element) {
-        this.element = element;
+    private get safeElement() {
+        if (!this.element) {
+            throw new Error(`element is null, should call setElement for ElementRenderer`);
+        }
+        return this.element;
     }
 
     updateClass(classNames: string[]) {
@@ -43,23 +46,27 @@ export abstract class AbstractElementRenderer {
     }
 
     addClass(className: string) {
-        this.renderer.addClass(this.element, className);
+        this.renderer.addClass(this.safeElement, className);
         return this;
     }
 
     removeClass(className: string) {
-        this.renderer.removeClass(this.element, className);
+        this.renderer.removeClass(this.safeElement, className);
         return this;
     }
 
     setStyle(style: string, value: any, flags?: RendererStyleFlags2) {
-        this.renderer.setStyle(style, value, flags);
+        this.renderer.setStyle(this.safeElement, style, value, flags);
         return this;
     }
 }
 
-export class DefaultElementRenderer extends AbstractElementRenderer {
+export class ManualElementRenderer extends AbstractElementRenderer {
     protected element: Element;
+
+    setElement(element: Element) {
+        this.element = element;
+    }
 
     constructor(element: Element) {
         super();
@@ -67,6 +74,6 @@ export class DefaultElementRenderer extends AbstractElementRenderer {
     }
 }
 
-export function useElementRenderer(element?: Element): AbstractElementRenderer {
-    return new DefaultElementRenderer(element);
+export function useElementRenderer(element?: Element): ManualElementRenderer {
+    return new ManualElementRenderer(element);
 }

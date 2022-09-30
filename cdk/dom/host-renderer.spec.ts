@@ -1,4 +1,6 @@
 import { Component, OnInit, inject, ViewChild, ElementRef } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { useElementRenderer } from './element-renderer';
 import { HostRenderer, useHostRenderer } from './host-renderer';
 
@@ -33,21 +35,41 @@ export class ThyDomUseHostRendererTestComponent implements OnInit {
     }
 }
 
-@Component({
-    selector: 'thy-dom-use-element-renderer-test',
-    template: '<div #container></div>'
-})
-export class ThyDomUseElementRendererTestComponent implements OnInit {
-    @ViewChild('container', { read: ElementRef, static: true }) container: ElementRef;
+fdescribe('host-renderer', () => {
+    let fixture: ComponentFixture<ThyDomUseHostRendererTestComponent>;
+    let hostElement: HTMLElement;
 
-    containerRenderer = useElementRenderer();
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [ThyDomUseHostRendererTestComponent]
+        });
 
-    constructor() {}
+        fixture = TestBed.createComponent(ThyDomUseHostRendererTestComponent);
+        fixture.detectChanges();
+        hostElement = fixture.debugElement.nativeElement;
+    });
 
-    ngOnInit(): void {
-        this.containerRenderer.setElement(this.container.nativeElement);
-        // 必须在之前调用 setElement 设置 Element 元素
-        this.containerRenderer.updateClass(['thy-button', 'thy-button-primary']);
-        this.containerRenderer.setStyle('color', '#000');
-    }
-}
+    it('should set class and style for useHostRenderer', () => {
+        expect(hostElement).toBeTruthy();
+        expect(hostElement.classList.contains('thy-button')).toBeTruthy();
+        expect(hostElement.classList.contains('thy-button-primary')).toBeTruthy();
+        expect(hostElement.style.color).toEqual('rgb(0, 0, 0)');
+    });
+
+    it('should set new classes and remove old classes', () => {
+        fixture.componentInstance.hostRenderer.updateClass(['thy-new-class', 'thy-button-primary']);
+        expect(hostElement.classList.contains('thy-button')).toBeFalsy();
+        expect(hostElement.classList.contains('thy-button-primary')).toBeTruthy();
+        expect(hostElement.classList.contains('thy-new-class')).toBeTruthy();
+    });
+
+    it('should set new classes and remove old classes by map', () => {
+        fixture.componentInstance.hostRenderer.updateClassByMap({
+            'thy-new-class': true,
+            'thy-button-primary': true
+        });
+        expect(hostElement.classList.contains('thy-button')).toBeFalsy();
+        expect(hostElement.classList.contains('thy-button-primary')).toBeTruthy();
+        expect(hostElement.classList.contains('thy-new-class')).toBeTruthy();
+    });
+});
