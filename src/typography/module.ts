@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTextComponent } from './text/text.component';
 import { ThyTextColorDirective } from './text-color.directive';
-import { ThyBackgroundColorDirective } from 'ngx-tethys/typography/bg-color.directive';
+import { ThyBackgroundColorDirective } from './bg-color.directive';
 
 @NgModule({
     declarations: [ThyTextComponent, ThyTextColorDirective, ThyBackgroundColorDirective],
