@@ -244,13 +244,13 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
-    indicatorsHandleClick(index: number): void {
+    indicatorHandleClick(index: number): void {
         if (this.thyTrigger === 'click') {
             this.moveTo(index);
         }
     }
 
-    indicatorsHandleTrigger(index: number): void {
+    indicatorHandleTrigger(index: number): void {
         if (this.thyTrigger === 'hover') {
             this.clearScheduledTransition();
             this._trigger$.next(index);

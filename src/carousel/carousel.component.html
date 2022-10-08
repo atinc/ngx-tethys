@@ -15,8 +15,8 @@
       <span
         *ngFor="let content of carouselItems; let i = index"
         class="thy-carousel-indicator"
-        (mouseenter)="indicatorsHandleTrigger(i)"
-        (click)="indicatorsHandleClick(i)"
+        (mouseenter)="indicatorHandleTrigger(i)"
+        (click)="indicatorHandleClick(i)"
       >
         <ng-template
           [ngTemplateOutlet]="thyIndicatorRender || defaultIndicatorRender"
