@@ -355,9 +355,11 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.isSearching = false;
             }
             this.changeDetectorRef.markForCheck();
-            if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                this.cdkConnectedOverlay.overlayRef.updatePosition();
-            }
+            Promise.resolve().then(() => {
+                if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                    this.cdkConnectedOverlay.overlayRef.updatePosition();
+                }
+            });
         });
         if (this.thyAutoExpand) {
             timer().subscribe(() => {
