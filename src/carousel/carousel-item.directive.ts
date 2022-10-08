@@ -15,9 +15,9 @@ export class ThyCarouselItemDirective {
     set isActive(value: boolean) {
         this._active = value;
         if (this.isActive) {
-            this.renderer.addClass(this.el, 'carousel-item-active');
+            this.renderer.addClass(this.el, 'thy-carousel-item-active');
         } else {
-            this.renderer.removeClass(this.el, 'carousel-item-active');
+            this.renderer.removeClass(this.el, 'thy-carousel-item-active');
         }
     }
 
@@ -27,6 +27,6 @@ export class ThyCarouselItemDirective {
 
     constructor(elementRef: ElementRef, private renderer: Renderer2) {
         this.el = elementRef.nativeElement;
-        this.renderer.addClass(elementRef.nativeElement, 'carousel-item');
+        this.renderer.addClass(elementRef.nativeElement, 'thy-carousel-item');
     }
 }

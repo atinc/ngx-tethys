@@ -3,12 +3,12 @@
   <button thyButton (click)="isShow = false" [class]="!isShow ? 'active' : ''">hide</button>
 </thy-button-group>
 <div style="margin-top: 10px">
-  <thy-carousel [thyDotTemplate]="dotTemplate" [thyShowDot]="isShow">
+  <thy-carousel [thyIndicatorRender]="indicatorRender" [thyIndicators]="isShow">
     <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
       {{ slide }}
     </div>
   </thy-carousel>
 </div>
-<ng-template #dotTemplate let-active>
-  <span class="custom-dots" [class]="active ? 'active' : ''"></span>
+<ng-template #indicatorRender let-active>
+  <span class="custom-indicator" [class]="active ? 'active' : ''"></span>
 </ng-template>
