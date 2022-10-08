@@ -18,7 +18,6 @@ import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
                 [thyControls]="showControls"
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
-                [thyTouchable]="touchable"
             >
                 <div thyCarouselItem class="custom-class" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
@@ -41,11 +40,35 @@ class ThyTestCarouselBasicComponent implements OnInit {
 
     showControls = true;
 
-    touchable = true;
-
     effect: ThyCarouselEffect = 'slide';
 
     trigger: ThyCarouselTrigger = 'click';
+
+    ngOnInit(): void {
+        for (let i = 0; i < 8; i++) {
+            this.array.push(`Slide ${i}`);
+        }
+    }
+}
+
+@Component({
+    selector: 'thy-carousel-touch-example',
+    template: `
+        <div>
+            <thy-carousel [thyTouchable]="touchable">
+                <div thyCarouselItem class="custom-class" *ngFor="let index of array">
+                    <h3>{{ index }}</h3>
+                </div>
+            </thy-carousel>
+        </div>
+    `
+})
+class ThyTestCarouselTouchableComponent implements OnInit {
+    @ViewChild(ThyCarouselComponent, { static: false }) thyCarouselComponent!: ThyCarouselComponent;
+
+    array: string[] = [];
+
+    touchable = false;
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {
@@ -58,7 +81,7 @@ describe('carousel', () => {
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyCarouselModule],
-            declarations: [ThyTestCarouselBasicComponent]
+            declarations: [ThyTestCarouselBasicComponent, ThyTestCarouselTouchableComponent]
         });
         TestBed.compileComponents();
     }));
@@ -161,21 +184,21 @@ describe('carousel', () => {
             expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
 
-        // it('should drag work', fakeAsync(() => {
-        //     fixture.detectChanges();
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
-        //     fixture.detectChanges();
-        //     tick(1000);
-        //     expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
-        //     fixture.detectChanges();
-        //     tick(2000);
-        //     expect(carouselContents[1].nativeElement.classList).toContain('carousel-item-active');
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, -500, 500);
-        //     fixture.detectChanges();
-        //     tick(1000);
-        //     expect(carouselContents[0].nativeElement.classList).toContain('carousel-item-active');
-        // }));
+        it('should drag work', fakeAsync(() => {
+            fixture.detectChanges();
+            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
+            fixture.detectChanges();
+            tick(1000);
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
+            mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
+            fixture.detectChanges();
+            tick(2000);
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
+            mouseSwipe(basicTestComponent.thyCarouselComponent, -500, 500);
+            fixture.detectChanges();
+            tick(1000);
+            expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
+        }));
 
         it('should window resize set init value', fakeAsync(() => {
             touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500, 0);
@@ -216,20 +239,6 @@ describe('carousel', () => {
             );
         }));
 
-        it('should touchable work', fakeAsync(() => {
-            basicTestComponent.touchable = false;
-            fixture.detectChanges();
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
-            fixture.detectChanges();
-            expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
-            basicTestComponent.touchable = true;
-            fixture.detectChanges();
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
-            fixture.detectChanges();
-            tick(1000);
-            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-        }));
-
         it(`should trigger work`, fakeAsync(() => {
             basicTestComponent.trigger = 'hover';
             fixture.detectChanges();
@@ -237,6 +246,34 @@ describe('carousel', () => {
             tick(1000);
             fixture.detectChanges();
             expect(carouselContents[7].nativeElement.classList).toContain('thy-carousel-item-active');
+        }));
+    });
+
+    describe('touchable', () => {
+        let fixture: ComponentFixture<ThyTestCarouselTouchableComponent>;
+        let touchableTestComponent: ThyTestCarouselTouchableComponent;
+        let carouselContents: DebugElement[];
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyTestCarouselTouchableComponent);
+            fixture.detectChanges();
+            touchableTestComponent = fixture.debugElement.componentInstance;
+            carouselContents = fixture.debugElement.queryAll(By.directive(ThyCarouselItemDirective));
+        });
+
+        it('should touchable work', fakeAsync(() => {
+            fixture.detectChanges();
+            mouseSwipe(touchableTestComponent.thyCarouselComponent, 500);
+            fixture.detectChanges();
+            tick(1000);
+            expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
+
+            touchableTestComponent.touchable = true;
+            fixture.detectChanges();
+            mouseSwipe(touchableTestComponent.thyCarouselComponent, 500);
+            fixture.detectChanges();
+            tick(1000);
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
     });
 });
