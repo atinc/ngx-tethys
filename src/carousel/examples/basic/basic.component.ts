@@ -5,7 +5,7 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './basic.component.html',
     styles: [
         `
-            .custom-carousel-item {
+            [thycarouselitem] {
                 height: 300px;
                 text-align: center;
                 font-size: 18px;

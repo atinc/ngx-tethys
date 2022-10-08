@@ -20,7 +20,7 @@ import { ThyCarouselModule } from 'ngx-tethys/carousel';
 
 ## 如何使用
 
-- 自定义 control 样式,模板提供了 `carousel-control` 垂直居中样式与 `carousel-control-left/right` 样式,方便定位到左右两侧。
+- 自定义 control 样式,模板提供了 `thy-carousel-control` 垂直居中样式与 `thy-carousel-control-pre/next` 样式,方便定位到左右两侧。
 
 ```html
 <ng-template #controlPrev>
