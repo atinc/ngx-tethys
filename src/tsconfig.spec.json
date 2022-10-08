@@ -6,7 +6,8 @@
     "types": ["jasmine", "node", "../typings/ng-dev-mode"],
     "paths": {
       "ngx-tethys": ["./public-api"],
-      "ngx-tethys/*": ["./*"]
+      "ngx-tethys/*": ["./*"],
+      "@tethys/cdk/*": ["../cdk/*"]
     }
   },
   "files": ["test.ts", "polyfills.ts"],
