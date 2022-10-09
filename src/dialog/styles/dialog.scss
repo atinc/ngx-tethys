@@ -21,14 +21,8 @@
     max-height: inherit;
     background: variables.$white;
     box-shadow: variables.$dialog-box-shadow;
-    .thy-layout-sidebar {
-        .sidebar-header {
-            min-height: variables.$dialog-header-height;
-            padding: variables.$dialog-header-padding;
-            .title {
-                font-size: variables.$font-size-md;
-            }
-        }
+    .thy-layout-sidebar .sidebar-header .title {
+        font-size: variables.$font-size-md;
     }
     .thy-layout {
         .dialog-title {
@@ -40,6 +34,10 @@
 .thy-dialog-content {
     @extend .d-flex-column-fill;
     overflow: hidden;
+    .thy-layout .thy-layout-sidebar .sidebar-header {
+        min-height: variables.$dialog-header-height;
+        padding: variables.$dialog-header-padding;
+    }
 }
 
 // Dialog header
