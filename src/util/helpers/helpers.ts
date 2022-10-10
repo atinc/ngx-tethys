@@ -154,7 +154,7 @@ export function hexToRgb(hexValue: string, alpha?: number): string {
     const resultR = parseInt(rgb[1], 16);
     const resultG = parseInt(rgb[2], 16);
     const resultB = parseInt(rgb[3], 16);
-    if (alpha !== null || alpha !== undefined) {
+    if (alpha !== null && alpha !== undefined) {
         return `rgba(${resultR}, ${resultG}, ${resultB}, ${alpha})`;
     } else {
         return `rgb(${resultR}, ${resultG}, ${resultB})`;
