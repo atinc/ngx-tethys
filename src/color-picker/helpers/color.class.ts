@@ -282,6 +282,7 @@ export default class ThyColor {
                     break;
                 case 'rgb':
                     this.displayValue = `rgba(${this.rgba.red}, ${this.rgba.green}, ${this.rgba.blue}, ${this.rgba.alpha})`;
+                    break;
                 default:
                     this.displayValue = this.toHexString(true);
             }
