@@ -10,7 +10,7 @@ import { ThyHueComponent } from './parts/hue/hue.component';
 import { ThyAlphaComponent } from './parts/alpha/alpha.component';
 import { ThyIndicatorComponent } from './parts/indicator/indicator.component';
 import { ThyCoordinatesDirective } from './coordinates.directive';
-import { ThyColorDefaultPanelComponent } from './color-picker-panel.component';
+import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { ThyColorInputsComponent } from './parts/inputs/inputs.component';
 import { FormsModule } from '@angular/forms';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
@@ -26,7 +26,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
         ThyAlphaComponent,
         ThyIndicatorComponent,
         ThyCoordinatesDirective,
-        ThyColorDefaultPanelComponent,
+        ThyColorPickerPanelComponent,
         ThyColorInputsComponent
     ],
     exports: [ThyColorPickerDirective]

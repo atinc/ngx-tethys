@@ -3,7 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyColorDefaultPanelComponent } from './color-picker-panel.component';
+import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import ThyColor from './helpers/color.class';
 /**
  * 颜色选择组件
@@ -56,7 +56,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyColorDefaultPanelComponent, {
+        this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,

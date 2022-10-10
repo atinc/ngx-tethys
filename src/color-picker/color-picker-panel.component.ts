@@ -8,11 +8,11 @@ import { ThyPickerPanelComponent } from './custom-color-picker-panel.component';
  * @internal
  */
 @Component({
-    selector: 'thy-color-default-panel',
+    selector: 'thy-color-picker-panel',
     templateUrl: './color-picker-panel.component.html'
 })
-export class ThyColorDefaultPanelComponent implements OnInit {
-    @HostBinding('class.thy-default-panel') className = true;
+export class ThyColorPickerPanelComponent implements OnInit {
+    @HostBinding('class.thy-color-picker-panel') className = true;
 
     @Input() color: string;
 
@@ -27,7 +27,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     constructor(
         private thyPopover: ThyPopover,
         private viewContainerRef: ViewContainerRef,
-        private thyPopoverRef: ThyPopoverRef<ThyColorDefaultPanelComponent>
+        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>
     ) {}
 
     ngOnInit(): void {
