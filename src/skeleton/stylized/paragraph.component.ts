@@ -1,19 +1,20 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
-        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass">
+        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass || 'mb-4'">
             <ng-container *ngFor="let k of rowsCount; index as i">
                 <thy-skeleton-rectangle
-                    [ngClass]="thyItemClass"
+                    [ngClass]="thyItemClass || 'mb-2'"
                     [thyWidth]="i === 0 ? thyFirstWidth : i === rowsCount.length - 1 ? thyLastWidth : thyWidth"
                     [thyHeight]="thyHeight"
                     [thyAnimated]="thyAnimated"
                     [thyPrimaryColor]="thyPrimaryColor"
                     [thySecondaryColor]="thySecondaryColor"
                     [thyBorderRadius]="thyBorderRadius"
-                    [thyAnimatedSpeed]="thyAnimatedSpeed"
+                    [thyAnimatedInterval]="thyAnimatedInterval"
                 ></thy-skeleton-rectangle>
             </ng-container>
         </div>
@@ -25,31 +26,43 @@ export class ThySkeletonParagraphComponent {
     /**
      * 首行宽度
      */
-    @Input() thyFirstWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyFirstWidth: string | number;
     /**
      * 尾行宽度
      */
-    @Input() thyLastWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyLastWidth: string | number;
     /**
      * 骨架宽度
      */
-    @Input() thyWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyWidth: string | number;
     /**
      * 骨架高度
      */
-    @Input() thyHeight: string;
+    @Input()
+    @InputCssPixel()
+    thyHeight: string | number;
     /**
      * 骨架边框圆角
      */
-    @Input() thyBorderRadius: string;
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
     /**
      * 是否开启动画
      */
-    @Input() thyAnimated: boolean = true;
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean;
     /**
      * 动画速度
      */
-    @Input() thyAnimatedSpeed: string;
+    @Input() thyAnimatedInterval: string | number;
     /**
      * 骨架主色
      */
@@ -61,11 +74,11 @@ export class ThySkeletonParagraphComponent {
     /**
      * 骨架分段样式
      */
-    @Input() thySectionClass: string = 'mb-4';
+    @Input() thySectionClass: string = null;
     /**
      * 骨架段落样式
      */
-    @Input() thyItemClass: string = 'mb-2';
+    @Input() thyItemClass: string = null;
 
     sectionCount: number[] = [1];
     /**

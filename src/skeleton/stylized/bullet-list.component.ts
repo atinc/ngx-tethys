@@ -1,20 +1,21 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
-        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass">
+        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass || 'mb-4'">
             <ng-container *ngFor="let item of rowsCount">
-                <div class="d-flex" [ngClass]="thyItemClass">
+                <div class="d-flex" [ngClass]="thyItemClass || 'mb-2'">
                     <thy-skeleton-circle
                         [thyAnimated]="thyAnimated"
-                        [thyAnimatedSpeed]="thyAnimatedSpeed"
+                        [thyAnimatedInterval]="thyAnimatedInterval"
                         [thySize]="thySize"
                         [thyPrimaryColor]="thyPrimaryColor"
                         [thySecondaryColor]="thySecondaryColor"
                     >
                     </thy-skeleton-circle>
-                    <div [ngClass]="thyGutter"></div>
+                    <div [ngClass]="thyGutter || 'mb-2'"></div>
                     <div style="flex: 1">
                         <thy-skeleton-rectangle
                             [thyWidth]="thyWidth"
@@ -23,7 +24,7 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@a
                             [thyPrimaryColor]="thyPrimaryColor"
                             [thySecondaryColor]="thySecondaryColor"
                             [thyBorderRadius]="thyBorderRadius"
-                            [thyAnimatedSpeed]="thyAnimatedSpeed"
+                            [thyAnimatedInterval]="thyAnimatedInterval"
                         ></thy-skeleton-rectangle>
                     </div>
                 </div>
@@ -37,27 +38,35 @@ export class ThySkeletonBulletListComponent {
     /**
      * 骨架宽度
      */
-    @Input() thyWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyWidth: string | number;
 
     /**
      * 骨架高度
      */
-    @Input() thyHeight: string;
+    @Input()
+    @InputCssPixel()
+    thyHeight: string | number;
 
     /**
      * 骨架边框圆角
      */
-    @Input() thyBorderRadius: string;
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
 
     /**
      * 是否开启动画
      */
-    @Input() thyAnimated: boolean = true;
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean;
 
     /**
      * 动画速度
      */
-    @Input() thyAnimatedSpeed: string;
+    @Input() thyAnimatedInterval: string | number;
 
     /**
      * 骨架主色
@@ -72,12 +81,12 @@ export class ThySkeletonBulletListComponent {
     /**
      * 骨架段落样式
      */
-    @Input() thySectionClass: string = 'mb-4';
+    @Input() thySectionClass: string = null;
 
     /**
      * 骨架行样式
      */
-    @Input() thyItemClass: string = 'mb-2';
+    @Input() thyItemClass: string = null;
 
     // /**
     //  * circle类型骨架样式
@@ -92,12 +101,14 @@ export class ThySkeletonBulletListComponent {
     /**
      * circle类型骨架尺寸
      */
-    @Input() thySize: string;
+    @Input()
+    @InputCssPixel()
+    thySize: string | number;
 
     /**
      * 骨架间距样式
      */
-    @Input() thyGutter: string = 'mr-2';
+    @Input() thyGutter: string = null;
 
     sectionCount: number[] = [1];
     /**

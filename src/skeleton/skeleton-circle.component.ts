@@ -1,30 +1,38 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, Optional } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
-import { InputBoolean } from 'ngx-tethys/core';
-
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+interface Style {
+    background?: string;
+    animation?: string;
+}
 @Component({
     selector: 'thy-skeleton-circle',
     host: {
-        '[class]': 'getWrapClass()',
-        '[style]': 'getWrapStyle()'
+        '[class.thy-skeleton]': 'true',
+        '[class.thy-skeleton-circle]': 'true',
+        '[style.background]': 'thyPrimaryColor',
+        '[style.width]': 'thySize',
+        '[style.height]': 'thySize'
     },
     template: `
-        <div class="thy-skeleton-after" [ngStyle]="getAfterStyle()"></div>
+        <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonCircleComponent implements OnInit {
+export class ThySkeletonCircleComponent implements OnInit, OnChanges {
     /**
      * 动画速度
      */
-    @Input() thyAnimatedSpeed: string | number;
+    @Input() thyAnimatedInterval: string | number;
 
     /**
      * 骨架尺寸
      */
-    @Input() thySize: string;
+    @Input()
+    @InputCssPixel()
+    thySize: string | number;
 
     /**
      * 骨架主色
@@ -43,43 +51,34 @@ export class ThySkeletonCircleComponent implements OnInit {
     @InputBoolean()
     thyAnimated: boolean;
 
-    constructor(@Optional() private _parent: ThySkeletonComponent) {}
+    afterStyles: Style = {};
 
-    getWrapClass() {
-        return {
-            'thy-skeleton': true,
-            'thy-skeleton-circle': true
-        };
-    }
-    getWrapStyle() {
-        return {
-            background: `${this.thyPrimaryColor}`,
-            width: this.thySize,
-            height: this.thySize
-        };
-    }
-    getAfterStyle() {
-        return {
-            background: `linear-gradient(90deg, ${helpers.hexToRgba(this.thySecondaryColor, 0)}, ${helpers.hexToRgba(
-                this.thySecondaryColor,
-                0.4
-            )}, ${helpers.hexToRgba(this.thySecondaryColor, 0)}`,
-            animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedSpeed}s infinite` : 'none'
-        };
-    }
-    getAnimation() {
-        return this.thyAnimatedSpeed
-            ? `thy-skeleton-animation ${this.thyAnimatedSpeed}s infinite`
-            : ` thy-skeleton-animation 1.2s infinite`;
-    }
+    constructor(@Optional() private _parent: ThySkeletonComponent) {}
 
     ngOnInit() {
         if (this._parent) {
-            const { thyAnimatedSpeed, thySize, thyPrimaryColor, thySecondaryColor, thyAnimated } = this._parent;
+            const { thyAnimatedInterval, thySize, thyPrimaryColor, thySecondaryColor, thyAnimated } = this._parent;
 
-            for (let key in { thyAnimatedSpeed, thySize, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
+            for (let key in { thyAnimatedInterval, thySize, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
                 this[key] = this[key] || this._parent[key];
             }
         }
+    }
+    ngOnChanges(changes: SimpleChanges): void {
+        const thySecondaryColorChange = () => {
+            this.afterStyles.background = `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
+                this.thySecondaryColor,
+                0.4
+            )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`;
+        };
+        const thyAnimatedChange = () => {
+            this.afterStyles.animation =
+                this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none';
+        };
+
+        const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
+
+        thySecondaryColor?.currentValue && thySecondaryColorChange();
+        (thyAnimated || thyAnimatedInterval) && thyAnimatedChange();
     }
 }

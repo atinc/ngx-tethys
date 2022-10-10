@@ -10,7 +10,7 @@ export class ThySkeletonExampleCircleComponent implements OnInit {
         thySize: 2,
         thyPrimaryColor: '#cccccc',
         thySecondaryColor: '#7cd897',
-        thyAnimatedSpeed: 2,
+        thyAnimatedInterval: 2,
         thyAnimated: true
     };
     constructor() {}

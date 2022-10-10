@@ -1,44 +1,59 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, Optional } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
-
+import { InputCssPixel, InputBoolean } from 'ngx-tethys/core';
+interface Style {
+    background?: string;
+    animation?: string;
+}
 @Component({
     selector: 'thy-skeleton-rectangle',
     host: {
-        '[class]': 'getWrapClass()',
-        '[style]': 'getWrapStyle()'
+        '[class.thy-skeleton]': 'true',
+        '[style.background]': 'thyPrimaryColor',
+        '[style.width]': 'thyWidth',
+        '[style.height]': 'thyHeight',
+        '[style.borderRadius]': 'thyBorderRadius'
     },
     template: `
-        <div class="thy-skeleton-after" [ngStyle]="getAfterStyle()"></div>
+        <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonRectangleComponent implements OnInit {
+export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
     /**
      * 是否开启动画
      */
-    @Input() thyAnimated: boolean = true;
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean = true;
 
     /**
      * 动画速度
      */
-    @Input() thyAnimatedSpeed: number;
+    @Input() thyAnimatedInterval: number;
 
     /**
      * 骨架边框圆角
      */
-    @Input() thyBorderRadius: string;
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
 
     /**
      * 骨架宽度
      */
-    @Input() thyWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyWidth: string | number;
 
     /**
      * 骨架高度
      */
-    @Input() thyHeight: string;
+    @Input()
+    @InputCssPixel()
+    thyHeight: string | number;
 
     /**
      * 骨架主色
@@ -50,38 +65,14 @@ export class ThySkeletonRectangleComponent implements OnInit {
      */
     @Input() thySecondaryColor: string;
 
+    afterStyles: Style = {};
+
     constructor(@Optional() private _parent: ThySkeletonComponent) {}
-
-    getWrapClass() {
-        return {
-            'thy-skeleton': true,
-            'thy-skeleton-animation-none': !this.thyAnimated
-        };
-    }
-
-    getWrapStyle() {
-        return {
-            background: `${this.thyPrimaryColor}`,
-            width: this.thyWidth,
-            height: this.thyHeight,
-            borderRadius: this.thyBorderRadius
-        };
-    }
-
-    getAfterStyle() {
-        return {
-            background: `linear-gradient(90deg, ${helpers.hexToRgba(this.thySecondaryColor, 0)}, ${helpers.hexToRgba(
-                this.thySecondaryColor,
-                0.4
-            )}, ${helpers.hexToRgba(this.thySecondaryColor, 0)}`,
-            animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedSpeed}s infinite` : 'none'
-        };
-    }
 
     ngOnInit() {
         if (this._parent) {
             const {
-                thyAnimatedSpeed,
+                thyAnimatedInterval,
                 thyHeight,
                 thyPrimaryColor,
                 thyBorderRadius,
@@ -90,9 +81,35 @@ export class ThySkeletonRectangleComponent implements OnInit {
                 thyWidth
             } = this._parent;
 
-            for (let key in { thyAnimatedSpeed, thyHeight, thyBorderRadius, thyPrimaryColor, thySecondaryColor, thyAnimated, thyWidth }) {
+            for (let key in {
+                thyAnimatedInterval,
+                thyHeight,
+                thyBorderRadius,
+                thyPrimaryColor,
+                thySecondaryColor,
+                thyAnimated,
+                thyWidth
+            }) {
                 this[key] = this[key] || this._parent[key];
             }
         }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const thySecondaryColorChange = () => {
+            this.afterStyles.background = `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
+                this.thySecondaryColor,
+                0.4
+            )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`;
+        };
+        const thyAnimatedChange = () => {
+            this.afterStyles.animation =
+                this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none';
+        };
+
+        const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
+
+        thySecondaryColor?.currentValue && thySecondaryColorChange();
+        (thyAnimated || thyAnimatedInterval) && thyAnimatedChange();
     }
 }

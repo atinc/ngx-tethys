@@ -150,10 +150,11 @@ export function hexToRgb(hexValue: string, alpha?: number): string {
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!rgb) return;
     const resultR = parseInt(rgb[1], 16);
     const resultG = parseInt(rgb[2], 16);
     const resultB = parseInt(rgb[3], 16);
-    if (alpha) {
+    if (alpha !== null || alpha !== undefined) {
         return `rgba(${resultR}, ${resultG}, ${resultB}, ${alpha})`;
     } else {
         return `rgb(${resultR}, ${resultG}, ${resultB})`;
@@ -312,20 +313,4 @@ export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1
     const i: number = Math.floor(Math.log(bytes) / Math.log(k));
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + (noSpace ? '' : ' ') + sizes[i];
-}
-
-export function hexToRgba(hex: string, opacity: number = 1) {
-    if (!hex) return;
-    if (hex.startsWith('rgb')) return hex;
-    return (
-        'rgba(' +
-        parseInt('0x' + hex.slice(1, 3)) +
-        ',' +
-        parseInt('0x' + hex.slice(3, 5)) +
-        ',' +
-        parseInt('0x' + hex.slice(5, 7)) +
-        ',' +
-        opacity +
-        ')'
-    );
 }

@@ -15,10 +15,10 @@ export class ThySkeletonExampleParagraphComponent implements OnInit {
         thyBorderRadius: '4px',
         thyPrimaryColor: '#cccccc',
         thySecondaryColor: '#18a0e0',
-        thyAnimatedSpeed: 2,
+        thyAnimatedInterval: 2,
         thyAnimated: true,
         thySectionClass: 'mb-4',
-        thyItemClass: 'mb-2 m3-1'
+        thyItemClass: 'mb-2'
     };
     constructor() {}
 

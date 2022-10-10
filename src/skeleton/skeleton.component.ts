@@ -1,5 +1,5 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 @Component({
     selector: 'thy-skeleton',
     template: `
@@ -12,22 +12,28 @@ export class ThySkeletonComponent {
     /**
      * 段落首行长度
      */
-    @Input() thyFirstWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyFirstWidth: string | number;
 
     /**
      * 段落尾行长度
      */
-    @Input() thyLastWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyLastWidth: string | number;
 
     /**
      * 是否开启动画
      */
-    @Input() thyAnimated: boolean;
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean;
 
     /**
      * 动画速度
      */
-    @Input() thyAnimatedSpeed: string;
+    @Input() thyAnimatedInterval: string | number;
 
     /**
      * 骨架主色调
@@ -42,20 +48,28 @@ export class ThySkeletonComponent {
     /**
      * rectangle类型圆角尺寸
      */
-    @Input() thyBorderRadius: string;
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
 
     /**
      * rectangle类型长度
      */
-    @Input() thyWidth: string;
+    @Input()
+    @InputCssPixel()
+    thyWidth: string | number;
 
     /**
      * rectangle类型高度
      */
-    @Input() thyHeight: string;
+    @Input()
+    @InputCssPixel()
+    thyHeight: string | number;
 
     /**
      * circle类型骨架尺寸
      */
-    @Input() thySize: string;
+    @Input()
+    @InputCssPixel()
+    thySize: string | number;
 }
