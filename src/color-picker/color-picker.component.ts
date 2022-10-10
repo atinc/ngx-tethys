@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
