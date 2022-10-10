@@ -122,7 +122,7 @@ class ThyDemoCoordinatesDirectiveComponent {
     };
 }
 
-fdescribe(`color-picker`, () => {
+describe(`color-picker`, () => {
     let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
     let boxElement: HTMLElement;
     let fixtureInstance: ThyDemoColorPickerComponent;
@@ -221,7 +221,7 @@ fdescribe(`color-picker`, () => {
     });
 });
 
-fdescribe('color-default-panel', () => {
+describe('color-default-panel', () => {
     let fixture: ComponentFixture<ThyDemoColorDefaultPanelComponent>;
     let fixtureInstance: ThyDemoColorDefaultPanelComponent;
     let overlayContainer: OverlayContainer;
@@ -314,7 +314,7 @@ fdescribe('color-default-panel', () => {
     });
 });
 
-fdescribe('picker-panel', () => {
+describe('picker-panel', () => {
     let fixture: ComponentFixture<ThyDemoPickerPanelComponent>;
     let fixtureInstance: ThyDemoPickerPanelComponent;
     let overlayContainer: OverlayContainer;
@@ -353,7 +353,7 @@ fdescribe('picker-panel', () => {
     });
 });
 
-fdescribe('coordinates-directive', () => {
+describe('coordinates-directive', () => {
     let fixture: ComponentFixture<ThyDemoCoordinatesDirectiveComponent>;
     let fixtureInstance: ThyDemoCoordinatesDirectiveComponent;
     let boxElement: HTMLElement;
