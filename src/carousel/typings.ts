@@ -26,8 +26,3 @@ export interface ThyCarouselEngine {
     // when window resize
     correctionOffset(): void;
 }
-
-export interface ThyCarouselMethod {
-    pre: () => void;
-    next: () => void;
-}

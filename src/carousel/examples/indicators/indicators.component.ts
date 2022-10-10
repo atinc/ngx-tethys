@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-carousel-basic-example',
-    templateUrl: './dot.component.html',
+    templateUrl: './indicators.component.html',
     styles: [
         `
             .custom-carousel-item {
-                height: 300px !important;
+                height: 300px;
                 text-align: center;
                 font-size: 18px;
                 display: flex;
@@ -16,7 +16,7 @@ import { Component, OnInit } from '@angular/core';
                 background: #6698ff;
             }
 
-            .custom-dots {
+            .custom-indicator {
                 display: block;
                 width: 16px;
                 height: 4px;
@@ -26,28 +26,18 @@ import { Component, OnInit } from '@angular/core';
                 border-radius: 2px;
             }
 
-            .custom-dots:hover {
+            .custom-indicator:hover {
                 opacity: 0.75;
             }
 
-            .custom-dots.active {
+            .custom-indicator.active {
                 width: 24px;
                 opacity: 1;
-            }
-
-            .default-color {
-                font-size: 16px;
-                color: #fff;
-            }
-
-            .active-color {
-                font-size: 25px;
-                color: #007bff;
             }
         `
     ]
 })
-export class ThyCarouselDotExampleComponent implements OnInit {
+export class ThyCarouselIndicatorExampleComponent implements OnInit {
     constructor() {}
 
     array: string[] = [];
