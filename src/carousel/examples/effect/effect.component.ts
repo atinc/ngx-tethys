@@ -7,7 +7,7 @@ import { ThyCarouselEffect } from 'ngx-tethys/carousel';
     styles: [
         `
             .custom-carousel-item {
-                height: 300px !important;
+                height: 300px;
                 text-align: center;
                 font-size: 18px;
                 display: flex;

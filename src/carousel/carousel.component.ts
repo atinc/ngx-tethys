@@ -23,14 +23,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
-import {
-    ThyCarouselEngine,
-    ThyDistanceVector,
-    ThyCarouselSwitchData,
-    ThyCarouselEffect,
-    ThyCarouselMethod,
-    ThyCarouselTrigger
-} from './typings';
+import { ThyCarouselEngine, ThyDistanceVector, ThyCarouselSwitchData, ThyCarouselEffect, ThyCarouselTrigger } from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -65,7 +58,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 自动切换时间间隔(毫秒)
      */
-    @Input() @InputNumber() thyAutoPlaySpeed: number = 3000;
+    @Input() @InputNumber() thyAutoPlayInterval: number = 3000;
 
     /**
      * 切换动画样式, 默认为 'slide', 支持 `slide` | `fade` | `noop`
@@ -73,24 +66,29 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @Input() thyEffect: ThyCarouselEffect = 'slide';
 
     /**
-     * 是否显示指示点
+     * 是否显示切换指示器
      */
-    @Input() @InputBoolean() thyShowDot = true;
+    @Input() @InputBoolean() thyIndicators = true;
 
     /**
-     * 指示点渲染模板
+     * 指示器 Item 的渲染模板
      */
-    @Input() thyDotTemplate?: TemplateRef<{ $implicit: boolean }>;
+    @Input() thyIndicatorRender?: TemplateRef<{ $implicit: boolean }>;
 
     /**
-     * 是否显示前进后退按钮
+     * 是否显示左右切换，支持 boolean
      */
-    @Input() @InputBoolean() thyShowArrow = true;
+    @Input() @InputBoolean() thyControls = true;
 
     /**
-     * 前进/后退 按钮渲染模板
+     * 上一个控制器渲染模板
      */
-    @Input() thyArrowTemplate?: TemplateRef<ThyCarouselMethod>;
+    @Input() thyControlPrev?: TemplateRef<any>;
+
+    /**
+     * 下一个控制器渲染模板
+     */
+    @Input() thyControlNext?: TemplateRef<any>;
 
     /**
      * 是否支持手势滑动
@@ -123,8 +121,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     private _trigger$ = new Subject<number>();
 
     private _destroy$ = new Subject<void>();
-
-    context: ThyCarouselMethod;
 
     wrapperDomRect: DOMRect;
 
@@ -195,23 +191,12 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
-    private initContext(): void {
-        this.context = {
-            pre: () => {
-                this.pre();
-            },
-            next: () => {
-                this.next();
-            }
-        };
-    }
-
     private scheduleNextTransition(): void {
         this.clearScheduledTransition();
         if (this.thyAutoPlay) {
             this.transitionTimer = setTimeout(() => {
                 this.moveTo(this.activeIndex + 1);
-            }, this.thyAutoPlaySpeed);
+            }, this.thyAutoPlayInterval);
         }
     }
 
@@ -259,13 +244,13 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
         }
     }
 
-    dotHandleClick(index: number): void {
+    indicatorHandleClick(index: number): void {
         if (this.thyTrigger === 'click') {
             this.moveTo(index);
         }
     }
 
-    dotHandleTrigger(index: number): void {
+    indicatorHandleTrigger(index: number): void {
         if (this.thyTrigger === 'hover') {
             this.clearScheduledTransition();
             this._trigger$.next(index);
@@ -282,7 +267,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     ngOnInit(): void {
         this.wrapperEl = this.carouselWrapper!.nativeElement;
-        this.initContext();
         this.ngZone.runOutsideAngular(() => {
             fromEvent(window, 'resize')
                 .pipe(takeUntil(this._destroy$), debounceTime(100))
@@ -303,7 +287,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
             this.renderer.setStyle(this.wrapperEl, 'cursor', thyTouchable.currentValue ? 'grab' : 'default');
         }
 
-        if (!this.thyAutoPlay || !this.thyAutoPlaySpeed) {
+        if (!this.thyAutoPlay || !this.thyAutoPlayInterval) {
             this.clearScheduledTransition();
         } else {
             this.scheduleNextTransition();

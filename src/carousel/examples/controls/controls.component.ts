@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-carousel-basic-example',
-    templateUrl: './arrow.component.html',
+    templateUrl: './controls.component.html',
     styles: [
         `
-            .custom-carousel-item {
-                height: 300px !important;
+            [thycarouselitem] {
+                height: 300px;
                 text-align: center;
                 font-size: 18px;
                 display: flex;
@@ -18,7 +18,7 @@ import { Component, OnInit } from '@angular/core';
         `
     ]
 })
-export class ThyCarouselArrowExampleComponent implements OnInit {
+export class ThyCarouselControlsExampleComponent implements OnInit {
     constructor() {}
 
     array: string[] = [];

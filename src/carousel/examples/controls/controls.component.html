@@ -3,18 +3,20 @@
   <button thyButton (click)="isShow = false" [class]="!isShow ? 'active' : ''">hide</button>
 </thy-button-group>
 <div style="margin-top: 10px">
-  <thy-carousel [thyArrowTemplate]="arrowTemplate" [thyShowArrow]="isShow">
-    <div thyCarouselItem *ngFor="let slide of array" class="custom-carousel-item">
+  <thy-carousel [thyControlPrev]="controlPrev" [thyControlNext]="controlNext" [thyControls]="isShow">
+    <div thyCarouselItem *ngFor="let slide of array">
       {{ slide }}
     </div>
   </thy-carousel>
 </div>
 
-<ng-template #arrowTemplate let-pre="pre" let-next="next">
-  <div class="carousel-arrow carousel-arrow-left" (click)="pre()">
+<ng-template #controlPrev>
+  <div class="thy-carousel-control thy-carousel-control-pre">
     <thy-icon thyIconName="arrow-left-bold"></thy-icon>
   </div>
-  <div class="carousel-arrow carousel-arrow-right" (click)="next()">
+</ng-template>
+<ng-template #controlNext>
+  <div class="thy-carousel-control thy-carousel-control-next">
     <thy-icon thyIconName="arrow-right-bold"></thy-icon>
   </div>
 </ng-template>
