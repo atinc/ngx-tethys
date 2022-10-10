@@ -2,21 +2,19 @@ import { Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angula
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyPickerPanelComponent } from './picker-panel.component';
+import { ThyPickerPanelComponent } from './custom-color-picker-panel.component';
 
 /**
  * @internal
  */
 @Component({
     selector: 'thy-color-default-panel',
-    templateUrl: './default-panel.component.html'
+    templateUrl: './color-picker-panel.component.html'
 })
 export class ThyColorDefaultPanelComponent implements OnInit {
     @HostBinding('class.thy-default-panel') className = true;
 
     @Input() color: string;
-
-    @Input() closeCallback: () => {};
 
     @Input() colorChange: (color: string) => {};
 
@@ -26,7 +24,11 @@ export class ThyColorDefaultPanelComponent implements OnInit {
 
     newColor: string;
 
-    constructor(private thyPopover: ThyPopover, private viewContainerRef: ViewContainerRef) {}
+    constructor(
+        private thyPopover: ThyPopover,
+        private viewContainerRef: ViewContainerRef,
+        private thyPopoverRef: ThyPopoverRef<ThyColorDefaultPanelComponent>
+    ) {}
 
     ngOnInit(): void {
         const colors = localStorage.getItem('recentColors');
@@ -38,7 +40,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     selectColor(color: string) {
         this.color = color;
         this.colorChange(this.color);
-        this.closeCallback();
+        this.thyPopoverRef.close();
     }
 
     showMoreColor(event: Event) {
@@ -70,7 +72,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
                 this.recentColors = this.recentColors.slice(0, 10);
                 localStorage.setItem('recentColors', JSON.stringify(this.recentColors));
             }
-            this.closeCallback();
+            this.thyPopoverRef.close();
         });
     }
 

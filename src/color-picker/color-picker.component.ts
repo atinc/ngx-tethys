@@ -1,9 +1,9 @@
-import { Directive, ElementRef, forwardRef, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, forwardRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { ThyColorDefaultPanelComponent } from './default-panel.component';
+import { ThyColorDefaultPanelComponent } from './color-picker-panel.component';
 import ThyColor from './helpers/color.class';
 /**
  * 颜色选择组件
@@ -19,6 +19,13 @@ import ThyColor from './helpers/color.class';
     ]
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
+    /**
+     * 弹框偏移量
+     * @type  number
+     * @default 0
+     */
+    @Input() thyOffset: number = 0;
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -49,9 +56,9 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        const defaultPanelPopover = this.thyPopover.open(ThyColorDefaultPanelComponent, {
+        this.thyPopover.open(ThyColorDefaultPanelComponent, {
             origin: event.currentTarget as HTMLElement,
-            offset: 0,
+            offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
             originActiveClass: 'thy-default-picker-active',
@@ -59,9 +66,6 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
                     this.onModelChange(value);
-                },
-                closeCallback: () => {
-                    defaultPanelPopover.close();
                 }
             }
         });

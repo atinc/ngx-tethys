@@ -1,5 +1,6 @@
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly, coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import {
     ChangeDetectionStrategy,
@@ -53,7 +54,6 @@ const iconOnlyClass = 'thy-btn-icon-only';
 @Component({
     selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
-    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -85,6 +85,8 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
     private get nativeElement(): HTMLElement {
         return this.elementRef.nativeElement;
     }
+
+    private hostRenderer = useHostRenderer();
 
     @Input()
     set thyButton(value: ThyButtonType) {
@@ -201,12 +203,10 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         if (this._loading) {
             classNames.push('loading');
         }
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(this.nativeElement);
-    }
+    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit() {
         this.updateClasses();
@@ -215,9 +215,9 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
 
     ngAfterViewInit() {
         if (assertIconOnly(this.nativeElement)) {
-            this.renderer.addClass(this.nativeElement, iconOnlyClass);
+            this.hostRenderer.addClass(iconOnlyClass);
         } else {
-            this.renderer.removeClass(this.nativeElement, iconOnlyClass);
+            this.hostRenderer.removeClass(iconOnlyClass);
         }
         this.wrapSpanForText(this.nativeElement.childNodes);
     }
