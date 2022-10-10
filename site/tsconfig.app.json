@@ -6,7 +6,8 @@
     "types": ["../typings/ng-dev-mode"],
     "paths": {
       "ngx-tethys": ["../src/public-api"],
-      "ngx-tethys/*": ["../src/*"]
+      "ngx-tethys/*": ["../src/*"],
+      "@tethys/cdk/*": ["../cdk/*"]
     }
   },
   "angularCompilerOptions": {

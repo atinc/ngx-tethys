@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.12](https://github.com/atinc/ngx-tethys/compare/14.0.11...14.0.12) (2022-09-28)
+
+
+### Features
+
+* **table:** add thyHeight and thyHeaderFixed #INFR-4774 ([#2221](https://github.com/atinc/ngx-tethys/issues/2221)) ([3023219](https://github.com/atinc/ngx-tethys/commit/3023219ea4989eca251f04c11e7f9732fa09276f)), closes [#INFR-4774](https://github.com/atinc/ngx-tethys/issues/INFR-4774)
+* **table:** set margin style from table to footer #INFR-4773 ([12cd329](https://github.com/atinc/ngx-tethys/commit/12cd3299e6269bd1c8d07da67e82b3810918294e)), closes [#INFR-4773](https://github.com/atinc/ngx-tethys/issues/INFR-4773)
+* **tabs:**  add thyResponsive to support 'more' #INFR-4600 ([#2215](https://github.com/atinc/ngx-tethys/issues/2215)) ([46ad53e](https://github.com/atinc/ngx-tethys/commit/46ad53ec70023dd62b9dadaa384278cde99f6420)), closes [#INFR-4600](https://github.com/atinc/ngx-tethys/issues/INFR-4600)
+
+
+
 ## [14.0.11](https://github.com/atinc/ngx-tethys/compare/14.0.10...14.0.11) (2022-09-27)
 
 

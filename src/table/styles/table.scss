@@ -217,6 +217,7 @@
     }
 
     .thy-table-footer {
+        margin-top: variables.$table-footer-margin-top;
         // display: flex;
         // justify-content: flex-end;
 
@@ -328,6 +329,17 @@
                     }
                 }
             }
+        }
+    }
+
+    &-fixed-header {
+        thead {
+            box-shadow: 0 0 0 1px #eee;
+            background-color: variables.$white;
+            position: sticky;
+            left: 0;
+            top: 0;
+            z-index: 1;
         }
     }
 

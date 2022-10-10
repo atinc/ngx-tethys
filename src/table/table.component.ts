@@ -8,7 +8,7 @@ import {
     UpdateHostClassService
 } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, coerceCssPixelValue, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -117,7 +117,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     host: {
         class: 'thy-table',
         '[class.thy-table-bordered]': `theme === 'bordered'`,
-        '[class.thy-table-boxed]': `theme === 'boxed'`
+        '[class.thy-table-boxed]': `theme === 'boxed'`,
+        '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     }
 })
 export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
@@ -234,7 +235,14 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     @InputCssPixel()
     thyMinWidth: string | number;
 
-    @Input() @InputBoolean() thyLayoutFixed: string | boolean;
+    @Input() @InputBoolean() thyLayoutFixed: boolean;
+
+    @Input() @InputBoolean() thyHeaderFixed: boolean;
+
+    @HostBinding('style.height')
+    @Input()
+    @InputCssPixel()
+    thyHeight: string;
 
     @Input()
     set thyClassName(value: string) {

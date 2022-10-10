@@ -1,5 +1,22 @@
 import { ThyTreeSelectNode } from './tree-select.class';
 
+const getBigData = (path = '0', level = 2, catalog = 30) => {
+    const list: ThyTreeSelectNode[] = [];
+    Array.from({ length: catalog }).forEach((v, k) => {
+        const key = `${path}-${k}`;
+        const treeNode = {
+            name: key,
+            expand: true,
+            _id: key,
+            ...(level > 0 && { children: getBigData(key, level - 1) })
+        };
+        list.push(treeNode);
+    });
+    return list;
+};
+
+export const bigTreeNodes: any[] = getBigData();
+
 export const basicTreeSelectData: ThyTreeSelectNode[] = [
     {
         _id: 'epic-001',

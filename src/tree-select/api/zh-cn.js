@@ -87,6 +87,12 @@ module.exports = [
                 description: '获取节点的子节点，返回 Observable<ThyTreeSelectNode>。',
                 type: 'Function',
                 default: '(node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])'
+            },
+            {
+                name: 'thyVirtualScroll',
+                description: '开启虚拟滚动',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     }
