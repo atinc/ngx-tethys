@@ -7,12 +7,12 @@
     }
     .no-color {
         height: 44px;
-        padding: 0 4px;
         display: flex;
         align-items: center;
         cursor: pointer;
         padding: 4px 16px 4px 16px;
-        margin-bottom: 8px;
+        margin-top: 8px;
+        margin-bottom: 4px;
         &:hover {
             background-color: variables.$gray-100;
         }
@@ -44,7 +44,7 @@
         display: flex;
     }
     .recent-text {
-        margin: 12px 4px;
+        margin: 12px 4px 8px 4px;
     }
 
     .color-item {
@@ -65,7 +65,7 @@
             }
 
             &.black-check {
-                color: variables.$gray-800;
+                color: variables.$gray-500;
             }
         }
 
