@@ -36,6 +36,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [required]="isRequired"
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
+                [thyDisabled]="selectDisabled"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -62,6 +63,7 @@ class BasicSelectComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
+    selectDisabled = false;
     control = new UntypedFormControl();
     isRequired: boolean;
     enableScrollLoad: boolean;
@@ -669,6 +671,22 @@ describe('ThyCustomSelect', () => {
             it('should get right item count when invoke itemCount method', () => {
                 const ins = fixture.componentInstance.select;
                 expect(fixture.componentInstance.foods.length).toEqual(ins.getItemCount());
+            });
+
+            it('should get correct mode when get thyMode', () => {
+                fixture.componentInstance.select.mode = 'multiple';
+                fixture.detectChanges();
+                expect(fixture.componentInstance.select.thyMode).toEqual('multiple');
+            });
+
+            it('select component modelValue will be null when multiple is false and changeValue length is 0', () => {
+                const selectComponent = fixture.componentInstance.select;
+                selectComponent.mode = '';
+                selectComponent.selectionModel.clear();
+                fixture.detectChanges();
+                selectComponent.clearSelectValue();
+                fixture.detectChanges();
+                expect(selectComponent.modalValue).toBeNull();
             });
         });
 
@@ -1381,6 +1399,36 @@ describe('ThyCustomSelect', () => {
             tick();
             expect(choice.classList.contains('disabled')).toBeTruthy();
             expect(removeIcon2).toBeNull();
+        }));
+
+        it('dispatch remove function should not remove selected value when disabled is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            fixture.componentInstance.select.disabled = true;
+            const closeIcon = fixture.nativeElement.querySelector('.thy-icon-close');
+            dispatchFakeEvent(closeIcon, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.selectedValue.length).toBeTruthy();
+        }));
+
+        it('dispatch remove function when options have not selected value', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const closeIcon = fixture.nativeElement.querySelector('.thy-icon-close');
+            fixture.componentInstance.foods = fixture.componentInstance.foods.filter(item => item.value !== 'sushi-7');
+            fixture.detectChanges();
+            flush();
+            dispatchFakeEvent(closeIcon, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(fixture.componentInstance.selectedValue).toEqual([]);
         }));
 
         it('should remove selected value when click clear icon', fakeAsync(() => {
