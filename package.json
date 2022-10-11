@@ -17,7 +17,7 @@
     "build-site": "npm run build-docs && ng build site --configuration production --base-href=/ngx-tethys/",
     "build-clean-site": "npm run build-docs && ng build site --configuration production",
     "build-docs": "docgeni build --skip-site --progress false",
-    "build": "npm run build-tethys && npm run build-cdk && npm run build:schematics",
+    "build": "npm run build-cdk && npm run build-tethys && npm run build:schematics",
     "build-tethys": "rimraf ./dist/tethys/* && node --max-old-space-size=8096 ./node_modules/@angular/cli/bin/ng build ngx-tethys --configuration production && npm run copy-md && npm run build-testing",
     "build-styles": "cpx \"./src/**/*.scss\" dist/tethys",
     "copy-md": "cpx \"./README.md\" dist/tethys && cpx \"./CHANGELOG.md\" dist/tethys",
