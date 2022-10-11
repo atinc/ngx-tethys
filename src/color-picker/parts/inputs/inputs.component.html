@@ -49,10 +49,10 @@
 <div class="column">
   <thy-input-number
     [thyMin]="0"
-    [thyMax]="1"
+    [thyMax]="100"
     thySize="xs"
     class="px-0 text-center"
-    [(ngModel)]="color.rgba.alpha"
+    [(ngModel)]="alpha"
     (thyBlur)="onInputChange($event, 'A')"
     (thyEnter)="onInputChange($event, 'A')"
   ></thy-input-number>
