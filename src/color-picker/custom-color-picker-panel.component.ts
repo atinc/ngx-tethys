@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, HostListener, Input, OnInit } from '@angular/core';
 import ThyColor from './helpers/color.class';
 
 /**
@@ -10,6 +10,11 @@ import ThyColor from './helpers/color.class';
 })
 export class ThyPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-picker-panel') className = true;
+
+    @HostListener('keydown', ['$event'])
+    preventDefault(e: KeyboardEvent) {
+        e.stopPropagation();
+    }
 
     colorInstance: ThyColor;
 
