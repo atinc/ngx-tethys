@@ -3,7 +3,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { By } from '@angular/platform-browser';
 import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyCarouselModule } from '../module';
-import { ThyCarouselComponent } from 'ngx-tethys/carousel';
+import { ThyCarouselComponent, ThyCarouselPause } from 'ngx-tethys/carousel';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
 
@@ -18,6 +18,7 @@ import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
                 [thyControls]="showControls"
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
+                [thyPause]="pause"
             >
                 <div thyCarouselItem class="custom-class" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
@@ -43,6 +44,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
     effect: ThyCarouselEffect = 'slide';
 
     trigger: ThyCarouselTrigger = 'click';
+
+    pause: ThyCarouselPause = 'false';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {
@@ -200,13 +203,17 @@ describe('carousel', () => {
         //     expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
         // }));
 
-        it('should window resize set init value', fakeAsync(() => {
+        it('should touch event work', fakeAsync(() => {
             touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500, 0);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             fixture.detectChanges();
             tick(1000);
+            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 300, 1000);
+            fixture.detectChanges();
+            tick(2000);
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, -500, 500);
             fixture.detectChanges();
             tick(1000);
@@ -246,6 +253,25 @@ describe('carousel', () => {
             tick(1000);
             fixture.detectChanges();
             expect(carouselContents[7].nativeElement.classList).toContain('thy-carousel-item-active');
+        }));
+
+        it(`should pause when mouseenter`, fakeAsync(() => {
+            basicTestComponent.autoPlay = true;
+            basicTestComponent.pause = 'hover';
+            fixture.detectChanges();
+            tick(4000);
+            fixture.detectChanges();
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
+
+            dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.thy-carousel-indicators').firstElementChild, 'mouseleave');
+            fixture.detectChanges();
+            tick(3500);
+            expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
+
+            dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.thy-carousel-indicators').lastElementChild, 'mouseenter');
+            fixture.detectChanges();
+            tick(3500);
+            expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
     });
 
