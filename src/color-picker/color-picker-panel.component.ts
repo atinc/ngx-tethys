@@ -57,13 +57,13 @@ export class ThyColorPickerPanelComponent implements OnInit {
                 color: this.color,
                 pickerColorChange: (value: string) => {
                     this.newColor = value;
+                    this.colorChange(value);
                 }
             }
         });
 
         popoverRef.afterClosed().subscribe(() => {
             if (this.newColor) {
-                this.colorChange(this.newColor);
                 const index = this.recentColors.findIndex(item => item === this.newColor);
                 if (index !== -1) {
                     this.recentColors.splice(index, 1);
