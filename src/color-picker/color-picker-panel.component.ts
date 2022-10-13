@@ -53,6 +53,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             originActiveClass: 'thy-color-picker-active',
+            outsideClosable: true,
             initialState: {
                 color: this.color,
                 pickerColorChange: (value: string) => {

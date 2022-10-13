@@ -56,12 +56,14 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyColorPickerPanelComponent, {
+        const popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
+            hasBackdrop: false,
             originActiveClass: 'thy-default-picker-active',
+            outsideClosable: false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
@@ -69,6 +71,18 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 }
             }
         });
+        popoverRef
+            .getOverlayRef()
+            .outsidePointerEvents()
+            .subscribe(event => {
+                const closestPopover = this.thyPopover.getClosestPopover(event.target as HTMLElement);
+                if (closestPopover && closestPopover.getOverlayRef().hostElement.querySelector('.thy-picker-panel')) {
+                    return;
+                }
+                if (!popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
+                    popoverRef.close();
+                }
+            });
     }
 
     writeValue(value: string): void {

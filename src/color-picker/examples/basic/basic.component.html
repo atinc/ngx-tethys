@@ -7,3 +7,16 @@
   [(ngModel)]="color"
   (ngModelChange)="change($event)"
 ></div>
+
+<button thyButton="primary" (click)="openToolbar($event, toolbar)">Open Toolbar</button>
+
+<ng-template #toolbar>
+  <div
+    class="box"
+    [ngStyle]="{ background: color }"
+    thyColorPicker
+    [thyOffset]="10"
+    [(ngModel)]="color"
+    (ngModelChange)="change($event)"
+  ></div>
+</ng-template>
