@@ -12,10 +12,8 @@ import {
     Inject,
     ChangeDetectorRef
 } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
@@ -29,8 +27,8 @@ import { warnDeprecation } from 'ngx-tethys/util';
 
 @Directive({
     selector:
-        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
-    exportAs: 'thyAutocompleteTrigger',
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
+    exportAs: 'thyAutocompleteTrigger, thyAutocomplete',
     host: {
         '(input)': 'handleInput($event)',
         '(focusin)': 'onFocus()',
@@ -52,14 +50,14 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @Input('thyAutocompleteComponent')
     set autocompleteComponent(data: ThyAutocompleteComponent) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
+        }
         this._autocompleteComponent = data;
     }
 
     @Input('thyAutocomplete')
     set autocomplete(data: ThyAutocompleteComponent) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
-        }
         this._autocompleteComponent = data;
     }
 
@@ -116,7 +114,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     onKeydown(event: KeyboardEvent) {
         const keyCode = event.keyCode;
-
+        console.log(this.autocompleteComponent, 'this.autocompleteComponent');
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
@@ -285,7 +283,12 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        this.autocompleteComponent.keyManager.setActiveItem(this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1);
+        const activeItem = this.activeOption
+            ? this.autocompleteComponent.options.toArray().indexOf(this.activeOption)
+            : this.autocompleteComponent.thyAutoActiveFirstOption
+            ? 0
+            : -1;
+        this.autocompleteComponent.keyManager.setActiveItem(activeItem);
     }
 
     private destroyPanel(): void {
