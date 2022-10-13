@@ -333,7 +333,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     ngAfterContentInit() {
-        this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(200)).subscribe(index => {
+        this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(this.playTime)).subscribe(index => {
             this.moveTo(index);
         });
     }
