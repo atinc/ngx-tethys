@@ -1,15 +1,17 @@
-import { Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyCustomColorPickerPanelComponent } from './custom-color-picker-panel.component';
+import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
+import { InputBoolean } from '../core/behaviors/decorators';
 
 /**
  * @internal
  */
 @Component({
     selector: 'thy-color-picker-panel',
-    templateUrl: './color-picker-panel.component.html'
+    templateUrl: './color-picker-panel.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyColorPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
@@ -18,7 +20,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     @Input() colorChange: (color: string) => {};
 
-    @Input() popoverOptions: Pick<ThyPopoverConfig, 'hasBackdrop' | 'outsideClosable'>;
+    @Input() @InputBoolean() hasBackdrop: boolean;
 
     defaultColors = DEFAULT_COLORS;
 
@@ -46,24 +48,16 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     showMoreColor(event: Event) {
-        let popoverOptions: ThyPopoverConfig = {
+        const popoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             placement: 'rightBottom',
             manualClosure: true,
             width: '260px',
-            hasBackdrop: false,
+            hasBackdrop: this.hasBackdrop || false,
+            backdropClosable: this.hasBackdrop ? true : false,
             viewContainerRef: this.viewContainerRef,
-            originActiveClass: 'thy-custom-color-picker-active'
-        };
-        if (this.popoverOptions) {
-            popoverOptions = {
-                ...popoverOptions,
-                ...this.popoverOptions
-            };
-        }
-        const popoverRef = this.thyPopover.open(ThyCustomColorPickerPanelComponent, {
-            ...popoverOptions,
+            originActiveClass: 'thy-color-picker-custom-active',
             initialState: {
                 color: this.color,
                 pickerColorChange: (value: string) => {

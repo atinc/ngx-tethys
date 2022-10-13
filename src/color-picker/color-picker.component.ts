@@ -1,10 +1,11 @@
 import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
+import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import ThyColor from './helpers/color.class';
+import { InputBoolean } from '../core/behaviors/decorators';
 /**
  * 颜色选择组件
  */
@@ -20,10 +21,17 @@ import ThyColor from './helpers/color.class';
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
-     * 颜色弹出框的参数，底层使用 Popover 组件
-     * @default { offset: "0", hasBackdrop: "true", outsideClosable: "false" }
+     * 弹框偏移量
+     * @type  number
+     * @default 0
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'offset' | 'hasBackdrop' | 'outsideClosable'>;
+    @Input() thyOffset: number = 0;
+
+    /**
+     * 颜色选择面板是否有幕布，当设置为 false 时，需手动关闭面板。
+     * @default true
+     */
+    @Input() @InputBoolean() thyHasBackdrop: boolean = true;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -55,26 +63,18 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        let popoverOptions: ThyPopoverConfig = {
+        this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             manualClosure: true,
             width: '286px',
-            originActiveClass: 'thy-default-color-picker'
-        };
-        if (this.thyPopoverOptions) {
-            popoverOptions = {
-                ...popoverOptions,
-                ...this.thyPopoverOptions
-            };
-        }
-        this.thyPopover.open(ThyColorPickerPanelComponent, {
-            ...popoverOptions,
+            originActiveClass: 'thy-color-picker-active',
+            hasBackdrop: this.thyHasBackdrop,
+            backdropClosable: this.thyHasBackdrop ? true : false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 popoverOptions: {
-                    hasBackdrop: this.thyPopoverOptions?.hasBackdrop,
-                    outsideClosable: this.thyPopoverOptions?.outsideClosable
+                    hasBackdrop: this.thyHasBackdrop
                 },
                 colorChange: (value: string) => {
                     this.onModelChange(value);
