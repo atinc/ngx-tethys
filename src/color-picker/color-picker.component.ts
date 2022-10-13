@@ -1,6 +1,6 @@
 import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
@@ -20,11 +20,10 @@ import ThyColor from './helpers/color.class';
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
-     * 弹框偏移量
-     * @type  number
-     * @default 0
+     * 颜色弹出框的参数，底层使用 Popover 组件`
+     * @default { offset: "0", hasBackdrop: "true", outsideClosable: "false" }
      */
-    @Input() thyOffset: number = 0;
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'offset' | 'hasBackdrop' | 'outsideClosable'>;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -56,14 +55,27 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyColorPickerPanelComponent, {
+        let popoverOptions: ThyPopoverConfig = {
             origin: event.currentTarget as HTMLElement,
-            offset: this.thyOffset,
+            offset: 0,
             manualClosure: true,
             width: '286px',
-            originActiveClass: 'thy-default-picker-active',
+            originActiveClass: 'thy-color-picker-default-active'
+        };
+        if (this.thyPopoverOptions) {
+            popoverOptions = {
+                ...popoverOptions,
+                ...this.thyPopoverOptions
+            };
+        }
+        this.thyPopover.open(ThyColorPickerPanelComponent, {
+            ...popoverOptions,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
+                popoverOptions: {
+                    hasBackdrop: this.thyPopoverOptions?.hasBackdrop,
+                    outsideClosable: this.thyPopoverOptions?.outsideClosable
+                },
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }

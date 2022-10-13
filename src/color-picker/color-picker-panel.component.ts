@@ -1,8 +1,8 @@
 import { Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
-import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyPickerPanelComponent } from './custom-color-picker-panel.component';
+import { ThyColorPickerPanelCustomComponent } from './custom-color-picker-panel.component';
 
 /**
  * @internal
@@ -17,6 +17,8 @@ export class ThyColorPickerPanelComponent implements OnInit {
     @Input() color: string;
 
     @Input() colorChange: (color: string) => {};
+
+    @Input() popoverOptions: Pick<ThyPopoverConfig, 'hasBackdrop' | 'outsideClosable'>;
 
     defaultColors = DEFAULT_COLORS;
 
@@ -44,7 +46,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyPickerPanelComponent, {
+        let popoverOptions: ThyPopoverConfig = {
             origin: event.currentTarget as HTMLElement,
             offset: 0,
             placement: 'rightBottom',
@@ -52,7 +54,16 @@ export class ThyColorPickerPanelComponent implements OnInit {
             width: '260px',
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
-            originActiveClass: 'thy-color-picker-active',
+            originActiveClass: 'thy-color-picker-custom-active'
+        };
+        if (this.popoverOptions) {
+            popoverOptions = {
+                ...popoverOptions,
+                ...this.popoverOptions
+            };
+        }
+        const popoverRef = this.thyPopover.open(ThyColorPickerPanelCustomComponent, {
+            ...popoverOptions,
             initialState: {
                 color: this.color,
                 pickerColorChange: (value: string) => {
