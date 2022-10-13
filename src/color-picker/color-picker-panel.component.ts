@@ -3,7 +3,6 @@ import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
-import { InputBoolean } from '../core/behaviors/decorators';
 
 /**
  * @internal
@@ -19,8 +18,6 @@ export class ThyColorPickerPanelComponent implements OnInit {
     @Input() color: string;
 
     @Input() colorChange: (color: string) => {};
-
-    @Input() @InputBoolean() hasBackdrop: boolean;
 
     defaultColors = DEFAULT_COLORS;
 
@@ -54,8 +51,8 @@ export class ThyColorPickerPanelComponent implements OnInit {
             placement: 'rightBottom',
             manualClosure: true,
             width: '260px',
-            hasBackdrop: this.hasBackdrop || false,
-            backdropClosable: this.hasBackdrop ? true : false,
+            hasBackdrop: false,
+            outsideClosable: true,
             viewContainerRef: this.viewContainerRef,
             originActiveClass: 'thy-color-picker-custom-active',
             initialState: {

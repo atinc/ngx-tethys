@@ -1,11 +1,12 @@
 import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import ThyColor from './helpers/color.class';
-import { InputBoolean } from '../core/behaviors/decorators';
+
 /**
  * 颜色选择组件
  */
@@ -28,7 +29,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     @Input() thyOffset: number = 0;
 
     /**
-     * 颜色选择面板是否有幕布，当设置为 false 时，需手动关闭面板。
+     * 颜色选择面板是否有幕布。
      * @default true
      */
     @Input() @InputBoolean() thyHasBackdrop: boolean = true;
@@ -70,12 +71,9 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
             width: '286px',
             originActiveClass: 'thy-color-picker-active',
             hasBackdrop: this.thyHasBackdrop,
-            backdropClosable: this.thyHasBackdrop ? true : false,
+            outsideClosable: this.thyHasBackdrop ? false : true,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
-                popoverOptions: {
-                    hasBackdrop: this.thyHasBackdrop
-                },
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }
