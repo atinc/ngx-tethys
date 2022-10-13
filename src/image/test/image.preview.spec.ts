@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
@@ -12,6 +12,8 @@ import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { humanizeBytes, keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
 
+let imageOnload: () => void = null;
+
 @Component({
     selector: 'thy-image-preview-test',
     template: `
@@ -22,18 +24,18 @@ class ImagePreviewTestComponent implements OnInit {
     constructor(private thyImageService: ThyImageService, private sanitizer: DomSanitizer) {}
     images: InternalImageInfo[] = [
         {
-            src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
+            src: 'first.png',
             alt: 'first',
             name: 'first.jpg',
             size: '66kb',
             origin: {
-                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
+                src: 'first.png'
             }
         },
         {
-            src: 'https://angular.cn/assets/images/logos/angular/shield-large.svg',
+            src: 'second.png',
             alt: 'last',
-            name: 'last.jpg',
+            name: 'second.jpg',
             size: '44kb'
         }
     ];
@@ -78,22 +80,32 @@ describe('image-preview', () => {
     beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
         overlayContainer = _overlayContainer;
         overlayContainerElement = _overlayContainer.getContainerElement();
+
+        Object.defineProperty(ɵglobal.Image.prototype, 'onload', {
+            configurable: true,
+            get: function() {
+                return this._onload;
+            },
+            set: function(fn) {
+                imageOnload = fn;
+                this._onload = fn;
+            }
+        });
     }));
 
     afterEach(() => {
         overlayContainer.ngOnDestroy();
     });
 
-    xit('should create image preview when click button', () => {
+    it('should create image preview when click button', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-        expect(overlayContainerElement.querySelector('img') as HTMLElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
         expect(overlayContainerElement.querySelector('.thy-image-preview-operations')).toBeTruthy();
-        expect(overlayContainerElement.querySelectorAll('li.thy-image-preview-operation').length).toBe(8);
+        expect(overlayContainerElement.querySelectorAll('.thy-action').length).toBe(9);
     });
 
     it('should show custom operations', () => {
@@ -231,12 +243,16 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
+        spyOn(document, 'createElement').and.callThrough();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
 
-        // test download success
+        imageOnload();
+        expect(document.createElement).toHaveBeenCalledTimes(2);
+        expect(document.createElement).toHaveBeenCalledWith('canvas');
+        expect(document.createElement).toHaveBeenCalledWith('a');
     });
 
     it('should open new tab with origin src when click origin icon', () => {
@@ -264,22 +280,21 @@ describe('image-preview', () => {
 
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
-        const download = operations[7] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
+        const copy = operations[7] as HTMLElement;
+        expect(copy.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
         // test copy
-        // download.click()
+        // copy.click()
     });
 
-    it('should preview image can be switched correctly', done => {
+    it('should preview image can be switched correctly', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
-        const img = new Image();
 
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeTruthy();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
 
         const leftSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-left') as HTMLElement;
         const rightSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-right') as HTMLElement;
@@ -288,19 +303,19 @@ describe('image-preview', () => {
 
         rightSwitch.click();
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[1]);
 
         dispatchKeyboardEvent(formElement, 'keydown', keycodes.RIGHT_ARROW);
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[1]);
 
         leftSwitch.click();
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
 
         dispatchKeyboardEvent(formElement, 'keydown', keycodes.LEFT_ARROW);
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
     });
 
     it('should close the preview when click backdrop', fakeAsync(() => {
@@ -386,13 +401,10 @@ describe('image-preview', () => {
     });
 });
 
-const validImageSrc = (overlayContainerElement: HTMLElement, img: HTMLImageElement, image: InternalImageInfo, done: DoneFn) => {
-    img.onload = () => {
-        expect(overlayContainerElement.querySelector('img')).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
-            (image.objectURL as any).changingThisBreaksApplicationSecurity
-        );
-        done();
-    };
-    img.src = image.src;
+const validImageSrc = (overlayContainerElement: HTMLElement, image: InternalImageInfo) => {
+    imageOnload();
+    expect(overlayContainerElement.querySelector('img')).toBeTruthy();
+    expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
+        (image.objectURL as any).changingThisBreaksApplicationSecurity
+    );
 };
