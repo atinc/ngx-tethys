@@ -16,6 +16,8 @@ export type ThyCarouselEffect = 'slide' | 'fade' | 'noop';
 
 export type ThyCarouselTrigger = 'click' | 'hover';
 
+export type ThyCarouselPause = 'false' | 'hover';
+
 export interface ThyCarouselEngine {
     // Initialize dragging sequences.
     initializeCarouselContents(contents: QueryList<ThyCarouselItemDirective> | null): void;

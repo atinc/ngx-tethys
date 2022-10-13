@@ -23,7 +23,14 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyCarouselItemDirective } from './carousel-item.directive';
-import { ThyCarouselEngine, ThyDistanceVector, ThyCarouselSwitchData, ThyCarouselEffect, ThyCarouselTrigger } from './typings';
+import {
+    ThyCarouselEngine,
+    ThyDistanceVector,
+    ThyCarouselSwitchData,
+    ThyCarouselEffect,
+    ThyCarouselTrigger,
+    ThyCarouselPause
+} from './typings';
 import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } from './engine';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
@@ -101,6 +108,11 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @Input() thyTrigger: ThyCarouselTrigger = 'click';
 
     /**
+     * 鼠标移动到指示器时是否暂停播放, 默认 `hover`,  支持 `false` | `hover`
+     */
+    @Input() thyPause: ThyCarouselPause = 'hover';
+
+    /**
      * 触发切换帧之前,返回 `{from: number, to: number}`
      */
     @Output() readonly thyBeforeChange = new EventEmitter<ThyCarouselSwitchData>();
@@ -131,6 +143,8 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     transitionTimer: any = null;
 
     playTime: number = 400;
+
+    isPause: boolean = false;
 
     constructor(
         protected renderer: Renderer2,
@@ -193,7 +207,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     private scheduleNextTransition(): void {
         this.clearScheduledTransition();
-        if (this.thyAutoPlay) {
+        if (this.thyAutoPlay && !this.isPause) {
             this.transitionTimer = setTimeout(() => {
                 this.moveTo(this.activeIndex + 1);
             }, this.thyAutoPlayInterval);
@@ -251,9 +265,19 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     indicatorHandleTrigger(index: number): void {
-        if (this.thyTrigger === 'hover') {
+        if (this.thyPause === 'hover') {
+            this.isPause = true;
             this.clearScheduledTransition();
+        }
+        if (this.thyTrigger === 'hover') {
             this._trigger$.next(index);
+        }
+    }
+
+    indicatorHandleLeave() {
+        if (this.thyPause === 'hover') {
+            this.isPause = false;
+            this.scheduleNextTransition();
         }
     }
 
@@ -309,7 +333,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     }
 
     ngAfterContentInit() {
-        this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(200)).subscribe(index => {
+        this._trigger$.pipe(takeUntil(this._destroy$), debounceTime(this.playTime)).subscribe(index => {
             this.moveTo(index);
         });
     }
