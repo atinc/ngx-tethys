@@ -13,7 +13,7 @@ import { ThyCoordinatesDirective } from '../coordinates.directive';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
-import { ThyColorPickerPanelCustomComponent } from '../custom-color-picker-panel.component';
+import { ThyCustomColorPickerPanelComponent } from '../custom-color-picker-panel.component';
 
 @Component({
     selector: 'thy-demo-color-picker-basic',
@@ -78,11 +78,11 @@ class ThyDemoColorDefaultPanelComponent {
 @Component({
     selector: 'thy-demo-picker-panel',
     template: `
-        <thy-picker-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-picker-panel>
+        <thy-custom-color-picker-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-custom-color-picker-panel>
     `
 })
 class ThyDemoPickerPanelComponent {
-    @ViewChild(ThyColorPickerPanelCustomComponent) pickerPanel: ThyColorPickerPanelCustomComponent;
+    @ViewChild(ThyCustomColorPickerPanelComponent) pickerPanel: ThyCustomColorPickerPanelComponent;
 
     color = '#fafafa';
     constructor(public elementRef: ElementRef<HTMLElement>) {}
@@ -205,7 +205,7 @@ describe(`color-picker`, () => {
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-custom-color-picker-panel');
             expect(pickerPanelElement).toBeTruthy();
         }));
 
@@ -345,7 +345,7 @@ describe('picker-panel', () => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
             providers: [ThyPopover, ThyPopoverRef],
-            declarations: [ThyDemoPickerPanelComponent, ThyColorPickerPanelCustomComponent]
+            declarations: [ThyDemoPickerPanelComponent, ThyCustomColorPickerPanelComponent]
         });
         TestBed.compileComponents();
     });

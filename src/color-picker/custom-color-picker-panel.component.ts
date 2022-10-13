@@ -5,11 +5,11 @@ import ThyColor from './helpers/color.class';
  * @internal
  */
 @Component({
-    selector: 'thy-color-picker-custom-panel',
+    selector: 'thy-custom-color-picker-panel',
     templateUrl: './custom-color-picker-panel.component.html'
 })
-export class ThyColorPickerPanelCustomComponent implements OnInit {
-    @HostBinding('class.thy-color-picker-custom-panel') className = true;
+export class ThyCustomColorPickerPanelComponent implements OnInit {
+    @HostBinding('class.thy-custom-color-picker-panel') className = true;
 
     colorInstance: ThyColor;
 

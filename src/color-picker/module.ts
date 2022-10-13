@@ -3,7 +3,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { ThyColorPickerDirective } from './color-picker.component';
-import { ThyColorPickerPanelCustomComponent } from './custom-color-picker-panel.component';
+import { ThyCustomColorPickerPanelComponent } from './custom-color-picker-panel.component';
 import { ThySaturationComponent } from './parts/saturation/saturation.component';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyHueComponent } from './parts/hue/hue.component';
@@ -20,7 +20,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
     imports: [CommonModule, ThyDialogModule, ThyInputModule, ThyIconModule, FormsModule, ThyInputNumberModule, ThySharedModule],
     declarations: [
         ThyColorPickerDirective,
-        ThyColorPickerPanelCustomComponent,
+        ThyCustomColorPickerPanelComponent,
         ThySaturationComponent,
         ThyHueComponent,
         ThyAlphaComponent,

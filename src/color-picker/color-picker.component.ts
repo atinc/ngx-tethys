@@ -20,7 +20,7 @@ import ThyColor from './helpers/color.class';
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
-     * 颜色弹出框的参数，底层使用 Popover 组件`
+     * 颜色弹出框的参数，底层使用 Popover 组件
      * @default { offset: "0", hasBackdrop: "true", outsideClosable: "false" }
      */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'offset' | 'hasBackdrop' | 'outsideClosable'>;
@@ -60,7 +60,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
             offset: 0,
             manualClosure: true,
             width: '286px',
-            originActiveClass: 'thy-color-picker-default-active'
+            originActiveClass: 'thy-default-color-picker'
         };
         if (this.thyPopoverOptions) {
             popoverOptions = {

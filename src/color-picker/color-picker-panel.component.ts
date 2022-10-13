@@ -2,7 +2,7 @@ import { Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angula
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyColorPickerPanelCustomComponent } from './custom-color-picker-panel.component';
+import { ThyCustomColorPickerPanelComponent } from './custom-color-picker-panel.component';
 
 /**
  * @internal
@@ -54,7 +54,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
             width: '260px',
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
-            originActiveClass: 'thy-color-picker-custom-active'
+            originActiveClass: 'thy-custom-color-picker-active'
         };
         if (this.popoverOptions) {
             popoverOptions = {
@@ -62,7 +62,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
                 ...this.popoverOptions
             };
         }
-        const popoverRef = this.thyPopover.open(ThyColorPickerPanelCustomComponent, {
+        const popoverRef = this.thyPopover.open(ThyCustomColorPickerPanelComponent, {
             ...popoverOptions,
             initialState: {
                 color: this.color,
