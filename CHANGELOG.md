@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.14](https://github.com/atinc/ngx-tethys/compare/14.0.13...14.0.14) (2022-10-13)
+
+
+### Bug Fixes
+
+* **form:** checkbox align center zd/#INFR-4881 ([#2248](https://github.com/atinc/ngx-tethys/issues/2248)) ([fb637ed](https://github.com/atinc/ngx-tethys/commit/fb637ed0766f1a58ebf91f54fdf2a32160d33b51)), closes [zd/#INFR-4881](https://github.com/atinc/ngx-tethys/issues/INFR-4881)
+* **select:** change select-options padding#INFR-4893 ([#2251](https://github.com/atinc/ngx-tethys/issues/2251)) ([6089a0b](https://github.com/atinc/ngx-tethys/commit/6089a0bc432f52f7b94cc3d33bf47eb593db9be1)), closes [padding#INFR-4893](https://github.com/padding/issues/INFR-4893)
+
+
+### Features
+
+* **color-picker:** change color true time  in custiom-color-picker-panel #INFR-4897 ([#2253](https://github.com/atinc/ngx-tethys/issues/2253)) ([d49f013](https://github.com/atinc/ngx-tethys/commit/d49f01309152c916481794c107f7744259c23704)), closes [#INFR-4897](https://github.com/atinc/ngx-tethys/issues/INFR-4897)
+
+
+
 ## [14.0.13](https://github.com/atinc/ngx-tethys/compare/14.0.12...14.0.13) (2022-10-11)
 
 
