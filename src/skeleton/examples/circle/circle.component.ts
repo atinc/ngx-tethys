@@ -5,12 +5,11 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './circle.component.html'
 })
 export class ThySkeletonExampleCircleComponent implements OnInit {
-    isDisabled = false;
     model = {
-        thySize: 2,
-        thyPrimaryColor: '#cccccc',
-        thySecondaryColor: '#7cd897',
-        thyAnimatedInterval: 2,
+        thySize: 32,
+        thyPrimaryColor: '#F7F7F7',
+        thySecondaryColor: '#eeeeee',
+        thyAnimatedInterval: 1,
         thyAnimated: true
     };
     constructor() {}

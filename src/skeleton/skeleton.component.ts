@@ -57,14 +57,14 @@ export class ThySkeletonComponent {
      */
     @Input()
     @InputCssPixel()
-    thyWidth: string | number;
+    thyRowWidth: string | number;
 
     /**
      * rectangle类型高度
      */
     @Input()
     @InputCssPixel()
-    thyHeight: string | number;
+    thyRowHeight: string | number;
 
     /**
      * circle类型骨架尺寸

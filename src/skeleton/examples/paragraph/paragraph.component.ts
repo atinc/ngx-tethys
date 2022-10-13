@@ -6,19 +6,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {
     model = {
-        thyRows: 4,
-        thySections: 2,
+        thyRowsCount: 4,
         thyFirstWidth: '33%',
         thyLastWidth: '66%',
-        thyWidth: '100%',
-        thyHeight: '1rem',
+        thyRowWidth: '100%',
+        thyRowHeight: '1rem',
         thyBorderRadius: '4px',
-        thyPrimaryColor: '#cccccc',
-        thySecondaryColor: '#18a0e0',
-        thyAnimatedInterval: 2,
-        thyAnimated: true,
-        thySectionClass: 'mb-4',
-        thyItemClass: 'mb-2'
+        thyPrimaryColor: '#F7F7F7',
+        thySecondaryColor: '#eeeeee',
+        thyAnimatedInterval: 1,
+        thyAnimated: true
     };
     constructor() {}
 

@@ -10,9 +10,10 @@ interface Style {
     selector: 'thy-skeleton-rectangle',
     host: {
         '[class.thy-skeleton]': 'true',
+        '[class.thy-skeleton-rectangle]': 'true',
         '[style.background]': 'thyPrimaryColor',
-        '[style.width]': 'thyWidth',
-        '[style.height]': 'thyHeight',
+        '[style.width]': 'thyRowWidth',
+        '[style.height]': 'thyRowHeight',
         '[style.borderRadius]': 'thyBorderRadius'
     },
     template: `
@@ -31,11 +32,13 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
 
     /**
      * 动画速度
+     * @default 1.2s
      */
     @Input() thyAnimatedInterval: number;
 
     /**
      * 骨架边框圆角
+     * @default 6px
      */
     @Input()
     @InputCssPixel()
@@ -43,25 +46,29 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
 
     /**
      * 骨架宽度
+     * @default 100%
      */
     @Input()
     @InputCssPixel()
-    thyWidth: string | number;
+    thyRowWidth: string | number;
 
     /**
      * 骨架高度
+     * @default 1rem
      */
     @Input()
     @InputCssPixel()
-    thyHeight: string | number;
+    thyRowHeight: string | number;
 
     /**
      * 骨架主色
+     * @default #F7F7F7
      */
     @Input() thyPrimaryColor: string;
 
     /**
      * 骨架次色
+     * @default #eeeeee
      */
     @Input() thySecondaryColor: string;
 
@@ -71,45 +78,30 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         if (this._parent) {
-            const {
-                thyAnimatedInterval,
-                thyHeight,
-                thyPrimaryColor,
-                thyBorderRadius,
-                thySecondaryColor,
-                thyAnimated,
-                thyWidth
-            } = this._parent;
+            const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = this._parent;
 
-            for (let key in {
-                thyAnimatedInterval,
-                thyHeight,
-                thyBorderRadius,
-                thyPrimaryColor,
-                thySecondaryColor,
-                thyAnimated,
-                thyWidth
-            }) {
+            for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
                 this[key] = this[key] || this._parent[key];
             }
         }
     }
 
+    createStyle() {
+        this.afterStyles = {
+            ...(this.thySecondaryColor && {
+                background: `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
+                    this.thySecondaryColor,
+                    0.4
+                )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`
+            }),
+            animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none'
+        };
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
-        const thySecondaryColorChange = () => {
-            this.afterStyles.background = `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
-                this.thySecondaryColor,
-                0.4
-            )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`;
-        };
-        const thyAnimatedChange = () => {
-            this.afterStyles.animation =
-                this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none';
-        };
-
         const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
-
-        thySecondaryColor?.currentValue && thySecondaryColorChange();
-        (thyAnimated || thyAnimatedInterval) && thyAnimatedChange();
+        if (thySecondaryColor?.currentValue || thyAnimated || thyAnimatedInterval) {
+            this.createStyle();
+        }
     }
 }

@@ -5,16 +5,22 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './custom.component.html'
 })
 export class ThySkeletonExampleCustomComponent implements OnInit {
-    model = {
-        thyWidth: '100%',
-        thyHeight: '1rem',
-        thySize: '4rem',
-        thyBorderRadius: '4px',
+    // generalModel为circleSkeleton、rectangleSkeleton公共配置。
+    generalModel = {
         thyPrimaryColor: '#cccccc',
         thySecondaryColor: '#f6c659',
         thyAnimatedInterval: 2,
         thyAnimated: true
     };
+    circleModel = {
+        thySize: '4rem'
+    };
+    rectangleModel = {
+        thyRowWidth: '100%',
+        thyRowHeight: '1rem',
+        thyBorderRadius: '4px'
+    };
+
     constructor() {}
 
     ngOnInit() {}

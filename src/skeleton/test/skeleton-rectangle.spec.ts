@@ -11,7 +11,7 @@ import { ThySkeletonModule } from '../module';
             <thy-skeleton-rectangle
                 [thyAnimated]="model.thyAnimated"
                 [thyAnimatedInterval]="model.thyAnimatedInterval"
-                [thyWidth]="model.thyWidth + 'rem'"
+                [thyRowWidth]="model.thyRowWidth + 'rem'"
                 [thyPrimaryColor]="model.thyPrimaryColor"
                 [thySecondaryColor]="model.thySecondaryColor"
             >
@@ -21,8 +21,8 @@ import { ThySkeletonModule } from '../module';
 })
 class ThySkeletonRectangleTestComponent {
     model = {
-        thyWidth: 3,
-        thyHeight: '1rem',
+        thyRowWidth: 3,
+        thyRowHeight: '1rem',
         thyPrimaryColor: '#cccccc',
         thySecondaryColor: '#7cd897',
         thyAnimatedInterval: 2,

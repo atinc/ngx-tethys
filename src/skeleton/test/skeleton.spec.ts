@@ -8,7 +8,7 @@ import { ThySkeletonModule } from '../module';
 @Component({
     selector: 'thy-skeleton-test',
     template: `
-        <thy-skeleton [thyWidth]="upperWidth" [thySize]="upperSize" thyRows="4" thyCount="2" [thyAnimated]="true">
+        <thy-skeleton [thyRowWidth]="upperWidth" [thySize]="upperSize" thyRows="4" thyCount="2" [thyAnimated]="true">
             <div class="d-flex mb-2">
                 <thy-skeleton-circle [thySize]="circleSize"></thy-skeleton-circle>
                 <thy-skeleton-rectangle class="mb-2"> </thy-skeleton-rectangle>

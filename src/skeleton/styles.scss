@@ -2,14 +2,14 @@
 
 .thy-skeleton {
     display: block;
-    background: variables.$gray-310;
+    background: #f7f7f7;
     border-radius: 6px;
     position: relative;
     overflow: hidden;
     width: 100%;
     height: 1rem;
     & .thy-skeleton-after {
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0));
+        background: linear-gradient(90deg, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.4), rgba(238, 238, 238, 0));
         animation: thy-skeleton-animation 1.2s infinite;
         height: 100%;
         left: 0;
@@ -29,5 +29,23 @@
         to {
             transform: translateX(100%);
         }
+    }
+}
+.thy-skeleton-list-wrap {
+    .vertical-gutter {
+        margin-bottom: 12px;
+    }
+}
+.thy-skeleton-bullet-list-wrap {
+    .horizontal-gutter {
+        margin-left: 12px;
+    }
+    .vertical-gutter {
+        margin-bottom: 12px;
+    }
+}
+.thy-skeleton-paragraph-wrap {
+    .vertical-gutter {
+        margin-bottom: 12px;
     }
 }

@@ -1,71 +1,19 @@
-<form thyForm thyLayout="vertical" #demoForm="thyForm" #demoVerticalForm="ngForm" class="mb-4" name="model">
-  <div thyRow [thyGutter]="20">
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="段落数" thyTips="">
-      <input thyInput name="thySections" [(ngModel)]="model.thySections" required />
-    </thy-form-group>
+<p class="mb-2">默认样式：</p>
+<thy-skeleton-paragraph> </thy-skeleton-paragraph>
 
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="行数" thyTips="">
-      <input thyInput name="thyRows" [(ngModel)]="model.thyRows" required />
-    </thy-form-group>
+<br />
 
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="首行宽度" thyTips="">
-      <input thyInput name="thyFirstWidth" [(ngModel)]="model.thyFirstWidth" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="尾行宽度" thyTips="">
-      <input thyInput name="thyLastWidth" [(ngModel)]="model.thyLastWidth" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="中行宽度" thyTips="">
-      <input thyInput name="thyWidth" [(ngModel)]="model.thyWidth" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架高度" thyTips="">
-      <input thyInput name="thyHeight" [(ngModel)]="model.thyHeight" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架主色" thyTips="">
-      <input thyInput name="thyPrimaryColor" [(ngModel)]="model.thyPrimaryColor" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架次色" thyTips="">
-      <input thyInput name="thySecondaryColor" [(ngModel)]="model.thySecondaryColor" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架段落样式" thyTips="">
-      <input thyInput name="thySectionClass" [(ngModel)]="model.thySectionClass" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架行样式" thyTips="">
-      <input thyInput name="thyItemClass" [(ngModel)]="model.thyItemClass" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="骨架动画速度" thyTips="">
-      <input thyInput name="thyAnimatedInterval" [(ngModel)]="model.thyAnimatedInterval" required />
-    </thy-form-group>
-
-    <thy-form-group thyCol [thySpan]="4" thyLabelText="是否开启动画" thyTips="">
-      <thy-switch [(ngModel)]="model.thyAnimated" name="thyAnimated"></thy-switch>
-    </thy-form-group>
-  </div>
-</form>
-
+<p class="mb-2">自定义样式：</p>
 <thy-skeleton-paragraph
-  [thySections]="model.thySections"
-  [thyRows]="model.thyRows"
+  [thyRowsCount]="model.thyRowsCount"
   [thyFirstWidth]="model.thyFirstWidth"
   [thyLastWidth]="model.thyLastWidth"
-  [thyWidth]="model.thyWidth"
-  [thyHeight]="model.thyHeight"
-  [thySections]="model.thySections"
-  [thyFirstWidth]="model.thyFirstWidth"
+  [thyRowWidth]="model.thyRowWidth"
+  [thyRowHeight]="model.thyRowHeight"
   [thyBorderRadius]="model.thyBorderRadius"
   [thyPrimaryColor]="model.thyPrimaryColor"
   [thySecondaryColor]="model.thySecondaryColor"
   [thyAnimatedInterval]="model.thyAnimatedInterval"
-  [thySectionClass]="model.thySectionClass"
-  [thyItemClass]="model.thyItemClass"
-  [thyPrimaryColor]="model.thyPrimaryColor"
   [thyAnimated]="model.thyAnimated"
 >
 </thy-skeleton-paragraph>

@@ -4,21 +4,22 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
-        <div *ngFor="let item of sectionCount" [ngClass]="thySectionClass || 'mb-4'">
-            <ng-container *ngFor="let k of rowsCount; index as i">
-                <thy-skeleton-rectangle
-                    [ngClass]="thyItemClass || 'mb-2'"
-                    [thyWidth]="i === 0 ? thyFirstWidth : i === rowsCount.length - 1 ? thyLastWidth : thyWidth"
-                    [thyHeight]="thyHeight"
-                    [thyAnimated]="thyAnimated"
-                    [thyPrimaryColor]="thyPrimaryColor"
-                    [thySecondaryColor]="thySecondaryColor"
-                    [thyBorderRadius]="thyBorderRadius"
-                    [thyAnimatedInterval]="thyAnimatedInterval"
-                ></thy-skeleton-rectangle>
-            </ng-container>
-        </div>
+        <ng-container *ngFor="let k of rowsCount; index as i">
+            <thy-skeleton-rectangle
+                [ngClass]="i !== rowsCount.length - 1 && 'vertical-gutter'"
+                [thyRowWidth]="i === 0 ? thyFirstWidth : i === rowsCount.length - 1 ? thyLastWidth : thyRowWidth"
+                [thyRowHeight]="thyRowHeight"
+                [thyAnimated]="thyAnimated"
+                [thyPrimaryColor]="thyPrimaryColor"
+                [thySecondaryColor]="thySecondaryColor"
+                [thyBorderRadius]="thyBorderRadius"
+                [thyAnimatedInterval]="thyAnimatedInterval"
+            ></thy-skeleton-rectangle>
+        </ng-container>
     `,
+    host: {
+        '[class.thy-skeleton-paragraph-wrap]': 'true'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
@@ -40,13 +41,13 @@ export class ThySkeletonParagraphComponent {
      */
     @Input()
     @InputCssPixel()
-    thyWidth: string | number;
+    thyRowWidth: string | number;
     /**
      * 骨架高度
      */
     @Input()
     @InputCssPixel()
-    thyHeight: string | number;
+    thyRowHeight: string | number;
     /**
      * 骨架边框圆角
      */
@@ -71,29 +72,12 @@ export class ThySkeletonParagraphComponent {
      * 骨架次色
      */
     @Input() thySecondaryColor: string;
-    /**
-     * 骨架分段样式
-     */
-    @Input() thySectionClass: string = null;
-    /**
-     * 骨架段落样式
-     */
-    @Input() thyItemClass: string = null;
-
-    sectionCount: number[] = [1];
-    /**
-     * 段落数
-     */
-    @Input('thySections')
-    set sectionChange(value: number | string) {
-        this.sectionCount = Array.from({ length: +value });
-    }
 
     rowsCount: number[] = [1];
     /**
      * 行数
      */
-    @Input('thyRows')
+    @Input('thyRowsCount')
     set rowsChange(value: number | string) {
         this.rowsCount = Array.from({ length: +value });
     }

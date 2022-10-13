@@ -1,29 +1,34 @@
-<p class="mb-4">上层组件 thy-skeleton 的传值将作为默认值传递至底层组件。若底层组件有独立传值，则以底层组件优先。</p>
-
 <thy-skeleton
-  thyWidth="300px"
-  [thySize]="model.thySize"
-  [thyAnimated]="model.thyAnimated"
-  [thyAnimatedInterval]="model.thyAnimatedInterval"
-  [thySecondaryColor]="model.thySecondaryColor"
-  [thyPrimaryColor]="model.thyPrimaryColor"
-  [thyBorderRadius]="model.thyBorderRadius"
-  [thyHeight]="model.thyHeight"
-  [thyWidth]="model.thyAnimated"
+  [thyAnimated]="generalModel.thyAnimated"
+  [thyAnimatedInterval]="generalModel.thyAnimatedInterval"
+  [thySecondaryColor]="generalModel.thySecondaryColor"
+  [thyPrimaryColor]="generalModel.thyPrimaryColor"
 >
   <div class="d-flex mb-2">
     <div>
-      <thy-skeleton-circle></thy-skeleton-circle>
+      <thy-skeleton-circle [thySize]="circleModel.thySize"></thy-skeleton-circle>
     </div>
     <div class="d-flex flex-column w-100 ml-2">
       <ng-container *ngFor="let k of [1, 2, 3]">
-        <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+        <thy-skeleton-rectangle
+          [thyRowWidth]="rectangleModel.thyRowWidth"
+          [thyRowHeight]="rectangleModel.thyRowHeight"
+          [thyBorderRadius]="rectangleModel.thyBorderRadius"
+          class="mb-2"
+        >
+        </thy-skeleton-rectangle>
       </ng-container>
     </div>
   </div>
   <div class="d-flex flex-column">
     <ng-container *ngFor="let k of [1, 2, 3]">
-      <thy-skeleton-rectangle thyWidth="100%" class="mb-2"> </thy-skeleton-rectangle>
+      <thy-skeleton-rectangle
+        class="mb-2"
+        [thyRowWidth]="rectangleModel.thyRowWidth"
+        [thyRowHeight]="rectangleModel.thyRowHeight"
+        [thyBorderRadius]="rectangleModel.thyBorderRadius"
+      >
+      </thy-skeleton-rectangle>
     </ng-container>
   </div>
 </thy-skeleton>
