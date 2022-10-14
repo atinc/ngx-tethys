@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-skeleton-rectangle-example',
     template: `
         <thy-skeleton-rectangle
-            [thyAnimated]="model.thyAnimated"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyRowWidth]="model.thyRowWidth"
             [thyRowHeight]="model.thyRowHeight"
@@ -19,7 +18,7 @@ export class ThySkeletonExampleRectangleComponent implements OnInit {
     model = {
         thyBorderRadius: 6,
         thyRowWidth: '100%',
-        thyRowHeight: 20,
+        thyRowHeight: '1rem',
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1,

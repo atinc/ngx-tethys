@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ThySkeletonModule } from 'ngx-tethys/skeleton';
+import { ThySkeletonModule, THY_SKELETON_CONFIG } from 'ngx-tethys/skeleton';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyInputModule } from 'ngx-tethys/input';
@@ -39,6 +39,37 @@ const COMPONENTS = [
         ThySwitchModule
     ],
     exports: COMPONENTS,
-    providers: []
+    providers: [
+        {
+            provide: THY_SKELETON_CONFIG,
+            useValue: {
+                thyAnimatedInterval: 1,
+                thyPrimaryColor: '#F7F7F7',
+                thySecondaryColor: '#eeeeee',
+                thyAnimated: false,
+                thyListConfig: {
+                    thyRowWidth: '100%',
+                    thyRowHeight: '1rem',
+                    thyBorderRadius: 6,
+                    thyRowsCount: 4
+                },
+                thyBulletListConfig: {
+                    thySize: 20,
+                    thyRowWidth: '80%',
+                    thyRowHeight: '1rem',
+                    thyBorderRadius: '4px',
+                    thyRowsCount: 5
+                },
+                thyParagraphConfig: {
+                    thyFirstWidth: '33%',
+                    thyLastWidth: '66%',
+                    thyRowWidth: '100%',
+                    thyRowHeight: '1rem',
+                    thyBorderRadius: '4',
+                    thyRowsCount: 4
+                }
+            }
+        }
+    ]
 })
 export class ThySkeletonExamplesModule {}

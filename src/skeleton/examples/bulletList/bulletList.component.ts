@@ -21,7 +21,7 @@ export class ThySkeletonExampleBulletListComponent implements OnInit {
     model = {
         thySize: 20,
         thyRowWidth: '90%',
-        thyRowHeight: 20,
+        thyRowHeight: '1rem',
         thyBorderRadius: 6,
         thyRowsCount: 3,
         thyPrimaryColor: '#F7F7F7',

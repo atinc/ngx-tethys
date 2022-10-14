@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Optional, Inject, OnInit } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-
+import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from '../skeleton.config';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
@@ -35,7 +35,7 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonBulletListComponent {
+export class ThySkeletonBulletListComponent implements OnInit {
     /**
      * 骨架宽度
      * @default 100%
@@ -100,5 +100,23 @@ export class ThySkeletonBulletListComponent {
     @Input()
     set thyRowsCount(value: number | string) {
         this.rowsCount = Array.from({ length: +value });
+    }
+    get thyRowsCount() {
+        return this.rowsCount.length;
+    }
+
+    constructor(
+        @Optional()
+        @Inject(THY_SKELETON_CONFIG)
+        private skeletonConfigModel: ThySkeletonConfigModel
+    ) {}
+
+    ngOnInit() {
+        const config = { ...SkeletonDefaultConfig?.thyBulletListConfig, ...this.skeletonConfigModel?.thyBulletListConfig };
+        const { thySize, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount } = config;
+
+        for (let key in { thySize, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount }) {
+            this[key] = this[key] || config[key];
+        }
     }
 }

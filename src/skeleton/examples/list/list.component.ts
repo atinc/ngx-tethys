@@ -7,11 +7,11 @@ import { Component, OnInit } from '@angular/core';
             [thyRowWidth]="model.thyRowWidth"
             [thyRowHeight]="model.thyRowHeight"
             [thyBorderRadius]="model.thyBorderRadius"
-            [thyRowsCount]="model.thyRowsCount"
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated"
+            [thyRowsCount]="model.thyRowsCount"
         >
         </thy-skeleton-list>
     `
@@ -19,7 +19,7 @@ import { Component, OnInit } from '@angular/core';
 export class ThySkeletonExampleListComponent implements OnInit {
     model = {
         thyRowWidth: '90%',
-        thyRowHeight: 20,
+        thyRowHeight: '1rem',
         thyBorderRadius: 6,
         thyRowsCount: 3,
         thyPrimaryColor: '#F7F7F7',

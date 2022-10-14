@@ -1,6 +1,6 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Optional, Inject, OnInit } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-
+import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from '../skeleton.config';
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
@@ -23,7 +23,7 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonParagraphComponent {
+export class ThySkeletonParagraphComponent implements OnInit {
     /**
      * 首行宽度
      */
@@ -77,8 +77,26 @@ export class ThySkeletonParagraphComponent {
     /**
      * 行数
      */
-    @Input('thyRowsCount')
-    set rowsChange(value: number | string) {
+    @Input()
+    set thyRowsCount(value: number | string) {
         this.rowsCount = Array.from({ length: +value });
+    }
+    get thyRowsCount() {
+        return this.rowsCount.length;
+    }
+
+    constructor(
+        @Optional()
+        @Inject(THY_SKELETON_CONFIG)
+        private skeletonConfigModel: ThySkeletonConfigModel
+    ) {}
+
+    ngOnInit() {
+        const config = { ...SkeletonDefaultConfig?.thyParagraphConfig, ...this.skeletonConfigModel?.thyParagraphConfig };
+        const { thyFirstWidth, thyLastWidth, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount } = config;
+
+        for (let key in { thyFirstWidth, thyLastWidth, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount }) {
+            this[key] = this[key] || config[key];
+        }
     }
 }

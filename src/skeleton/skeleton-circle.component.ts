@@ -1,7 +1,19 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit, Optional, OnChanges, SimpleChanges } from '@angular/core';
+import {
+    Component,
+    ChangeDetectionStrategy,
+    ViewEncapsulation,
+    Input,
+    OnInit,
+    Optional,
+    OnChanges,
+    SimpleChanges,
+    Inject
+} from '@angular/core';
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+
 interface Style {
     background?: string;
     animation?: string;
@@ -56,21 +68,26 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
     @InputBoolean()
     thyAnimated: boolean;
 
-    afterStyles: Style = {};
+    public afterStyles: Style = {};
 
-    constructor(@Optional() private _parent: ThySkeletonComponent) {}
+    constructor(
+        @Optional()
+        @Inject(THY_SKELETON_CONFIG)
+        private skeletonConfigModel: ThySkeletonConfigModel,
+        @Optional() private _parent: ThySkeletonComponent
+    ) {}
 
     ngOnInit() {
-        if (this._parent) {
-            const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = this._parent;
+        const config = { ...SkeletonDefaultConfig, ...this.skeletonConfigModel, ...(this._parent || {}) };
+        const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
 
-            for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
-                this[key] = this[key] || this._parent[key];
-            }
+        for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
+            this[key] = this[key] || config[key];
         }
+        this.crateAfterStyles();
     }
 
-    createStyle() {
+    crateAfterStyles() {
         this.afterStyles = {
             ...(this.thySecondaryColor && {
                 background: `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
@@ -84,8 +101,8 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
-        if (thySecondaryColor?.currentValue || thyAnimated || thyAnimatedInterval) {
-            this.createStyle();
+        if (!thySecondaryColor?.firstChange || !thyAnimated?.firstChange || !thyAnimatedInterval?.firstChange) {
+            this.crateAfterStyles();
         }
     }
 }
