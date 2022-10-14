@@ -1,15 +1,16 @@
-import { Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyPickerPanelComponent } from './custom-color-picker-panel.component';
+import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
 
 /**
  * @internal
  */
 @Component({
     selector: 'thy-color-picker-panel',
-    templateUrl: './color-picker-panel.component.html'
+    templateUrl: './color-picker-panel.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyColorPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
@@ -44,9 +45,9 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyPickerPanelComponent, {
+        const popoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
             origin: event.currentTarget as HTMLElement,
-            offset: 0,
+            offset: -4,
             placement: 'rightBottom',
             manualClosure: true,
             width: '260px',
