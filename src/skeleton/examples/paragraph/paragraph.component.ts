@@ -10,11 +10,11 @@ export class ThySkeletonExampleParagraphComponent implements OnInit {
         thyFirstWidth: '33%',
         thyLastWidth: '66%',
         thyRowWidth: '100%',
-        thyRowHeight: '1rem',
+        thyRowHeight: '20px',
         thyBorderRadius: '4px',
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
-        thyAnimatedInterval: 1,
+        thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}

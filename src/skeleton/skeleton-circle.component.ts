@@ -37,7 +37,7 @@ interface Style {
 export class ThySkeletonCircleComponent implements OnInit, OnChanges {
     /**
      * 动画速度
-     * @default 1.2s
+     * @default 1.5s
      */
     @Input() thyAnimatedInterval: string | number;
 

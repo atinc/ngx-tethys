@@ -19,12 +19,12 @@ import { Component, OnInit } from '@angular/core';
 export class ThySkeletonExampleListComponent implements OnInit {
     model = {
         thyRowWidth: '90%',
-        thyRowHeight: '1rem',
-        thyBorderRadius: 6,
+        thyRowHeight: '20px',
+        thyBorderRadius: 4,
         thyRowsCount: 3,
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
-        thyAnimatedInterval: 1,
+        thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}

@@ -17,12 +17,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThySkeletonExampleRectangleComponent implements OnInit {
     model = {
-        thyBorderRadius: 6,
+        thyBorderRadius: 4,
         thyRowWidth: '100%',
-        thyRowHeight: '1rem',
+        thyRowHeight: '20px',
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
-        thyAnimatedInterval: 1,
+        thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}

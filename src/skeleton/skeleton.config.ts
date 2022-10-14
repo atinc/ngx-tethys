@@ -29,20 +29,20 @@ export interface ThySkeletonConfigModel {
 }
 
 export const SkeletonDefaultConfig: ThySkeletonConfigModel = {
-    thyAnimatedInterval: 1,
+    thyAnimatedInterval: 1.5,
     thyPrimaryColor: '#F7F7F7',
     thySecondaryColor: '#eeeeee',
     thyAnimated: false,
     thyListConfig: {
         thyRowWidth: '100%',
-        thyRowHeight: '1rem',
-        thyBorderRadius: 6,
+        thyRowHeight: '20px',
+        thyBorderRadius: 4,
         thyRowsCount: 4
     },
     thyBulletListConfig: {
         thySize: 20,
         thyRowWidth: '80%',
-        thyRowHeight: '1rem',
+        thyRowHeight: '20px',
         thyBorderRadius: '4px',
         thyRowsCount: 5
     },
@@ -50,7 +50,7 @@ export const SkeletonDefaultConfig: ThySkeletonConfigModel = {
         thyFirstWidth: '33%',
         thyLastWidth: '66%',
         thyRowWidth: '100%',
-        thyRowHeight: '1rem',
+        thyRowHeight: '20px',
         thyBorderRadius: '4',
         thyRowsCount: 4
     }

@@ -38,20 +38,20 @@ Skeleton 支持全局统一配置组件动画、动画速度、主色调、次�
            {
             provide: THY_SKELETON_CONFIG,
             useValue: {
-                thyAnimatedInterval: 1,
+                thyAnimatedInterval: 1.5,
                 thyPrimaryColor: '#F7F7F7',
                 thySecondaryColor: '#eeeeee',
                 thyAnimated: true,
                 thyListConfig: {
                     thyRowWidth: '100%',
-                    thyRowHeight: '1rem',
-                    thyBorderRadius: 6,
+                    thyRowHeight: '20px',
+                    thyBorderRadius: 4,
                     thyRowsCount: 4
                 },
                 thyBulletListConfig: {
                     thySize: 20,
                     thyRowWidth: '80%',
-                    thyRowHeight: '1rem',
+                    thyRowHeight: '20px',
                     thyBorderRadius: '4px',
                     thyRowsCount: 5
                 },
@@ -59,7 +59,7 @@ Skeleton 支持全局统一配置组件动画、动画速度、主色调、次�
                     thyFirstWidth: '33%',
                     thyLastWidth: '66%',
                     thyRowWidth: '100%',
-                    thyRowHeight: '1rem',
+                    thyRowHeight: '20px',
                     thyBorderRadius: '4',
                     thyRowsCount: 4
                 }

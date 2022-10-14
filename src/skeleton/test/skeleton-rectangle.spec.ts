@@ -22,7 +22,7 @@ import { ThySkeletonModule } from '../module';
 class ThySkeletonRectangleTestComponent {
     model = {
         thyRowWidth: 3,
-        thyRowHeight: '1rem',
+        thyRowHeight: '20px',
         thyPrimaryColor: '#cccccc',
         thySecondaryColor: '#7cd897',
         thyAnimatedInterval: 2,

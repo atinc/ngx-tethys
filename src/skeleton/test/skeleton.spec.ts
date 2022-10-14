@@ -8,7 +8,7 @@ import { ThySkeletonModule } from '../module';
 @Component({
     selector: 'thy-skeleton-test',
     template: `
-        <thy-skeleton [thyAnimated]="true" [thyAnimatedInterval]="'1.2'" [thySecondaryColor]="'#f6c659'" [thyPrimaryColor]="'#999999'">
+        <thy-skeleton [thyAnimated]="true" [thyAnimatedInterval]="'1.5'" [thySecondaryColor]="'#f6c659'" [thyPrimaryColor]="'#999999'">
             <div class="d-flex mb-2">
                 <thy-skeleton-circle [thySize]="circleSize"></thy-skeleton-circle>
                 <thy-skeleton-rectangle class="mb-2"> </thy-skeleton-rectangle>
@@ -69,13 +69,13 @@ describe('skeleton ', () => {
         expect(
             getComputedStyle(circleElement.querySelector('.thy-skeleton-after'))
                 .getPropertyValue('animation')
-                .includes('1.2')
+                .includes('1.5')
         ).toBeTruthy();
 
         expect(
             getComputedStyle(rectangleElement.querySelector('.thy-skeleton-after'))
                 .getPropertyValue('animation')
-                .includes('1.2')
+                .includes('1.5')
         ).toBeTruthy();
 
         expect(

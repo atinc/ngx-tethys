@@ -44,13 +44,13 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
 
     /**
      * 动画速度
-     * @default 1.2s
+     * @default 1.5s
      */
     @Input() thyAnimatedInterval: number;
 
     /**
      * 骨架边框圆角
-     * @default 6px
+     * @default 4px
      */
     @Input()
     @InputCssPixel()
@@ -66,7 +66,7 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
 
     /**
      * 骨架高度
-     * @default 1rem
+     * @default 20px
      */
     @Input()
     @InputCssPixel()
