@@ -50,7 +50,7 @@ describe(`carousel`, () => {
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-            mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
+            mouseSwipe(basicTestComponent.thyCarouselComponent, 300);
             fixture.detectChanges();
             tick(2000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
