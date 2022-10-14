@@ -18,11 +18,9 @@ import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 ```
 
 ## 基本使用
-### 矩形骨架
-<example name="thy-skeleton-rectangle-example" />
-
-### 圆形骨架
 <example name="thy-skeleton-circle-example" />
+
+<example name="thy-skeleton-rectangle-example" />
 
 ### 自定义组合
 * 通过自定义模版个性化设置自己的骨架图形。
@@ -30,7 +28,7 @@ import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 <example name="thy-skeleton-custom-example" />
 
 ## 全局配置
-Skeleton 支持全局统一配置组件动画、动画速度、主色调、次色调等诸多配置，具体的配置如下::
+Skeleton 支持全局统一配置组件动画、动画速度、主色调、次色调等诸多配置，具体的配置如下:
 
 ```
 @NgModule({
@@ -70,3 +68,5 @@ Skeleton 支持全局统一配置组件动画、动画速度、主色调、次�
     ]
 })
 ```
+配置优先级顺序为：
+> 底层组件配置 > thy-skeleton组件配置 > 全局配置 > 默认配置

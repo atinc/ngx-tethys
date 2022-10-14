@@ -8,7 +8,7 @@ export class ThySkeletonExampleCustomComponent implements OnInit {
     // generalModel为circleSkeleton、rectangleSkeleton公共配置。
     generalModel = {
         thyPrimaryColor: '#cccccc',
-        thySecondaryColor: '#f6c659',
+        thySecondaryColor: '#ffffff',
         thyAnimatedInterval: 2,
         thyAnimated: true
     };

@@ -13,6 +13,7 @@ import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 interface Style {
     background?: string;
@@ -78,9 +79,13 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
     ) {}
 
     ngOnInit() {
-        const config = { ...SkeletonDefaultConfig, ...this.skeletonConfigModel, ...(this._parent || {}) };
+        const config = {
+            ...SkeletonDefaultConfig,
+            ...this.skeletonConfigModel,
+            ...(this._parent || {}),
+            ...(!isUndefinedOrNull(this._parent?.thyAnimated) && { thyAnimated: this._parent.thyAnimated }) // do it because @InputBoolean() lead to cannot get thyAnimated from _parent inject
+        };
         const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
-
         for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
             this[key] = this[key] || config[key];
         }
@@ -101,7 +106,11 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thySecondaryColor, thyAnimated, thyAnimatedInterval } = changes;
-        if (!thySecondaryColor?.firstChange || !thyAnimated?.firstChange || !thyAnimatedInterval?.firstChange) {
+        if (
+            (thySecondaryColor && !thySecondaryColor?.firstChange) ||
+            (thyAnimated && !thyAnimated?.firstChange) ||
+            (thyAnimatedInterval && !thyAnimatedInterval?.firstChange)
+        ) {
             this.crateAfterStyles();
         }
     }

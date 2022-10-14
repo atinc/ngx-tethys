@@ -8,7 +8,7 @@ import { ThySkeletonModule } from '../module';
 @Component({
     selector: 'thy-skeleton-test',
     template: `
-        <thy-skeleton [thyRowWidth]="upperWidth" [thySize]="upperSize" thyRows="4" thyCount="2" [thyAnimated]="true">
+        <thy-skeleton [thyAnimated]="true" [thyAnimatedInterval]="'1.2'" [thySecondaryColor]="'#f6c659'" [thyPrimaryColor]="'#999999'">
             <div class="d-flex mb-2">
                 <thy-skeleton-circle [thySize]="circleSize"></thy-skeleton-circle>
                 <thy-skeleton-rectangle class="mb-2"> </thy-skeleton-rectangle>
@@ -17,8 +17,6 @@ import { ThySkeletonModule } from '../module';
     `
 })
 class thySkeletonTestComponent {
-    upperSize: string = '30px';
-    upperWidth: string = '300px';
     circleSize: string = null;
 }
 
@@ -55,10 +53,42 @@ describe('skeleton ', () => {
 
     it('should set children style by parent parameter when child parameter is null', () => {
         fixture.detectChanges();
-        expect(getComputedStyle(circleElement).getPropertyValue('width') === skeletonComponent.upperSize).toBeTruthy();
-        expect(getComputedStyle(circleElement).getPropertyValue('height') === skeletonComponent.upperSize).toBeTruthy();
 
-        expect(getComputedStyle(rectangleElement).getPropertyValue('width') === skeletonComponent.upperWidth).toBeTruthy();
+        expect(
+            getComputedStyle(circleElement.querySelector('.thy-skeleton-after'))
+                .getPropertyValue('animation')
+                .includes('thy-skeleton-animation')
+        ).toBeTruthy();
+
+        expect(
+            getComputedStyle(rectangleElement.querySelector('.thy-skeleton-after'))
+                .getPropertyValue('animation')
+                .includes('thy-skeleton-animation')
+        ).toBeTruthy();
+
+        expect(
+            getComputedStyle(circleElement.querySelector('.thy-skeleton-after'))
+                .getPropertyValue('animation')
+                .includes('1.2')
+        ).toBeTruthy();
+
+        expect(
+            getComputedStyle(rectangleElement.querySelector('.thy-skeleton-after'))
+                .getPropertyValue('animation')
+                .includes('1.2')
+        ).toBeTruthy();
+
+        expect(
+            getComputedStyle(circleElement)
+                .getPropertyValue('background')
+                .includes('rgb(153, 153, 153)')
+        ).toBeTruthy();
+
+        expect(
+            getComputedStyle(rectangleElement)
+                .getPropertyValue('background')
+                .includes('rgb(153, 153, 153)')
+        ).toBeTruthy();
     });
 
     it('should set children style by it"s own parameter', () => {
