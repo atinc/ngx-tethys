@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.15](https://github.com/atinc/ngx-tethys/compare/14.0.14...14.0.15) (2022-10-14)
+
+
+### Features
+
+* **carousel:** carousel component add thyPause #INFR-4861 ([#2250](https://github.com/atinc/ngx-tethys/issues/2250)) ([6e78892](https://github.com/atinc/ngx-tethys/commit/6e78892f8f22ff4bd20d8944b74963e400580c7a)), closes [#INFR-4861](https://github.com/atinc/ngx-tethys/issues/INFR-4861)
+* **color-picker:** add thyHasBackdrop and close popover inside #INFR-4899 ([#2258](https://github.com/atinc/ngx-tethys/issues/2258)) ([9902fae](https://github.com/atinc/ngx-tethys/commit/9902fae87b4a13013fe8696c86ef33e23230fc94)), closes [#INFR-4899](https://github.com/atinc/ngx-tethys/issues/INFR-4899)
+
+
+
 ## [14.0.14](https://github.com/atinc/ngx-tethys/compare/14.0.13...14.0.14) (2022-10-13)
 
 
