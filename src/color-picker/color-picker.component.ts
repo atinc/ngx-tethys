@@ -83,8 +83,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 .getOverlayRef()
                 .outsidePointerEvents()
                 .subscribe(event => {
-                    const closestPopover = this.thyPopover.getClosestPopover(event.target as HTMLElement);
-                    if (closestPopover && closestPopover.getOverlayRef().hostElement.querySelector('.thy-color-picker-custom-panel')) {
+                    if ((event.target as HTMLElement).closest('.thy-color-picker-custom-panel')) {
                         return;
                     }
                     if (!popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
