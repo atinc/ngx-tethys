@@ -246,7 +246,7 @@ describe(`color-picker`, () => {
             dispatchMouseEvent(pickerPanelElement, 'click');
             fixture.detectChanges();
             expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
-            expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeFalsy();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeTruthy();
         }));
     });
 });
