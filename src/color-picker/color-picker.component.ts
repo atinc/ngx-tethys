@@ -1,5 +1,6 @@
 import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -25,6 +26,12 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      * @default 0
      */
     @Input() thyOffset: number = 0;
+
+    /**
+     * 颜色选择面板是否有幕布。
+     * @default true
+     */
+    @Input() @InputBoolean() thyHasBackdrop: boolean = true;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -56,12 +63,14 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        this.thyPopover.open(ThyColorPickerPanelComponent, {
+        const popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
             originActiveClass: 'thy-default-picker-active',
+            hasBackdrop: this.thyHasBackdrop,
+            outsideClosable: false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 colorChange: (value: string) => {
@@ -69,6 +78,20 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 }
             }
         });
+        if (popoverRef && !this.thyHasBackdrop) {
+            popoverRef
+                .getOverlayRef()
+                .outsidePointerEvents()
+                .subscribe(event => {
+                    const closestPopover = this.thyPopover.getClosestPopover(event.target as HTMLElement);
+                    if (closestPopover && closestPopover.getOverlayRef().hostElement.querySelector('.thy-color-picker-custom-panel')) {
+                        return;
+                    }
+                    if (!popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
+                        popoverRef.close();
+                    }
+                });
+        }
     }
 
     writeValue(value: string): void {

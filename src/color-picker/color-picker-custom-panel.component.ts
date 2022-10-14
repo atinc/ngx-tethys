@@ -1,15 +1,16 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
 import ThyColor from './helpers/color.class';
 
 /**
  * @internal
  */
 @Component({
-    selector: 'thy-picker-panel',
-    templateUrl: './custom-color-picker-panel.component.html'
+    selector: 'thy-color-picker-custom-panel',
+    templateUrl: './color-picker-custom-panel.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyPickerPanelComponent implements OnInit {
-    @HostBinding('class.thy-picker-panel') className = true;
+export class ThyColorPickerCustomPanelComponent implements OnInit {
+    @HostBinding('class.thy-color-picker-custom-panel') className = true;
 
     colorInstance: ThyColor;
 

@@ -1,6 +1,6 @@
 export * from './module';
 export * from './color-picker.component';
-export * from './custom-color-picker-panel.component';
+export * from './color-picker-custom-panel.component';
 export * from './color-picker-panel.component';
 export * from './parts/saturation/saturation.component';
 export * from './parts/hue/hue.component';

@@ -13,13 +13,20 @@ import { ThyCoordinatesDirective } from '../coordinates.directive';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
-import { ThyPickerPanelComponent } from '../custom-color-picker-panel.component';
+import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 
 @Component({
     selector: 'thy-demo-color-picker-basic',
     template: `
         <span>已选择颜色：</span>
-        <div class="box" [ngStyle]="{ background: color }" thyColorPicker [(ngModel)]="color" (ngModelChange)="change($event)"></div>
+        <div
+            class="box"
+            [ngStyle]="{ background: color }"
+            [thyHasBackdrop]="hasBackdrop"
+            thyColorPicker
+            [(ngModel)]="color"
+            (ngModelChange)="change($event)"
+        ></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
     styles: [
@@ -38,6 +45,9 @@ class ThyDemoColorPickerComponent {
     color = '#ddd';
 
     defaultPanelColor = '#fafafa';
+
+    hasBackdrop = true;
+
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
     change(color: string) {}
@@ -65,11 +75,11 @@ class ThyDemoColorDefaultPanelComponent {
 @Component({
     selector: 'thy-demo-picker-panel',
     template: `
-        <thy-picker-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-picker-panel>
+        <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel>
     `
 })
 class ThyDemoPickerPanelComponent {
-    @ViewChild(ThyPickerPanelComponent) pickerPanel: ThyPickerPanelComponent;
+    @ViewChild(ThyColorPickerCustomPanelComponent) pickerPanel: ThyColorPickerCustomPanelComponent;
 
     color = '#fafafa';
     constructor(public elementRef: ElementRef<HTMLElement>) {}
@@ -162,7 +172,7 @@ describe(`color-picker`, () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('color-picker directive', () => {
+    fdescribe('color-picker directive', () => {
         function openDefaultPanel() {
             fixture.detectChanges();
             dispatchMouseEvent(boxElement, 'click');
@@ -185,14 +195,14 @@ describe(`color-picker`, () => {
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
-        it('should  open picker panel', fakeAsync(() => {
+        it('should open picker panel', fakeAsync(() => {
             openDefaultPanel();
             const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
             expect(moreButton).toBeTruthy();
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-picker-panel');
+            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
             expect(pickerPanelElement).toBeTruthy();
         }));
 
@@ -217,6 +227,26 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             expect(fixtureInstance.defaultPanel.recentColors).toEqual(['#ff0000']);
             localStorage.setItem('recentColors', '');
+        }));
+
+        it('should not has backdrop when thyHasBackdrop is false', fakeAsync(() => {
+            fixtureInstance.hasBackdrop = false;
+            openDefaultPanel();
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-popover-container')).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.cdk-overlay-backdrop')).toBeFalsy();
+
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            expect(moreButton).toBeTruthy();
+            dispatchMouseEvent(moreButton, 'click');
+            fixture.detectChanges();
+            flush();
+
+            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            dispatchMouseEvent(pickerPanelElement, 'click');
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeFalsy();
         }));
     });
 });
@@ -324,7 +354,7 @@ describe('picker-panel', () => {
         TestBed.configureTestingModule({
             imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
             providers: [ThyPopover, ThyPopoverRef],
-            declarations: [ThyDemoPickerPanelComponent, ThyPickerPanelComponent]
+            declarations: [ThyDemoPickerPanelComponent, ThyColorPickerCustomPanelComponent]
         });
         TestBed.compileComponents();
     });
