@@ -172,7 +172,7 @@ describe(`color-picker`, () => {
         overlayContainer.ngOnDestroy();
     });
 
-    fdescribe('color-picker directive', () => {
+    describe('color-picker directive', () => {
         function openDefaultPanel() {
             fixture.detectChanges();
             dispatchMouseEvent(boxElement, 'click');
