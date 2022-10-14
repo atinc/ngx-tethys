@@ -1,11 +1,12 @@
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyCarouselModule } from '../module';
 import { ThyCarouselComponent, ThyCarouselPause } from 'ngx-tethys/carousel';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
+import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -299,43 +300,3 @@ describe('carousel', () => {
         }));
     });
 });
-
-function mouseSwipe(carousel: ThyCarouselComponent, distance: number, delay = 0): void {
-    carousel.onDrag(
-        new MouseEvent('mousedown', {
-            clientX: 500,
-            clientY: 0
-        })
-    );
-
-    dispatchMouseEvent(document, 'mousemove', 500 - distance, 0);
-    setTimeout(() => {
-        dispatchMouseEvent(document, 'mouseup');
-    }, delay);
-}
-
-function touchSwipe(carousel: ThyCarouselComponent, target: HTMLElement, distance: number, delay = 0): void {
-    const touchObj = new Touch({
-        clientX: 500,
-        clientY: 0,
-        pageX: 500,
-        identifier: Date.now(),
-        target: target
-    });
-
-    carousel.onDrag(
-        new TouchEvent('touchstart', {
-            touches: [touchObj],
-            changedTouches: [touchObj]
-        })
-    );
-
-    dispatchTouchEvent(document, 'touchmove', 500 - distance, 0);
-    setTimeout(() => {
-        dispatchTouchEvent(document, 'touchend');
-    }, delay);
-}
-
-function windowResize() {
-    dispatchEvent(window, new Event('resize'));
-}
