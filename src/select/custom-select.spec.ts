@@ -23,6 +23,7 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -597,6 +598,57 @@ class SelectWithScrollAndSearchComponent {
         timer(100).subscribe(() => {
             this.foods = this.foods.slice(5);
         });
+    }
+}
+
+@Component({
+    selector: 'thy-select-with-load-state',
+    template: `
+        <thy-custom-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
+            <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
+            </thy-option>
+        </thy-custom-select>
+    `
+})
+class SelectWithAsyncLoadComponent implements OnInit {
+    @ViewChild(ThySelectCustomComponent) customSelect: ThySelectCustomComponent;
+
+    loadState = true;
+
+    showSearch = false;
+
+    foods: any[] = [];
+
+    fetchOptions() {
+        this.loadState = false;
+        return timer(1500).pipe(
+            tap(() => {
+                this.foods = [
+                    { value: 'steak-0', viewValue: 'Steak' },
+                    { value: 'pizza-1', viewValue: 'Pizza' },
+                    { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+                    { value: 'sandwich-3', viewValue: 'Sandwich' },
+                    { value: 'chips-4', viewValue: 'Chips' },
+                    { value: 'eggs-5', viewValue: 'Eggs' },
+                    { value: 'pasta-6', viewValue: 'Pasta' },
+                    { value: 'sushi-7', viewValue: 'Sushi' }
+                ];
+            })
+        );
+    }
+
+    ngOnInit(): void {
+        this.fetchOptions().subscribe(() => {
+            this.loadState = false;
+        });
+    }
+
+    expandChange(expand: boolean) {
+        if (expand) {
+            this.fetchOptions().subscribe(() => {
+                this.loadState = true;
+            });
+        }
     }
 }
 
@@ -2081,6 +2133,32 @@ describe('ThyCustomSelect', () => {
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW, '', { alt: true });
             expect(fixture.componentInstance.select.panelOpen).toBe(false);
+        }));
+    });
+
+    describe('async load data', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
+        }));
+
+        it('should dispatch component focus when showSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+            fixture.detectChanges();
+
+            fixture.componentInstance.showSearch = true;
+            fixture.detectChanges();
+
+            const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.detectChanges();
+            tick(2000);
+            fixture.detectChanges();
+
+            expect(componentFocusSpy).toHaveBeenCalled();
         }));
     });
 });
