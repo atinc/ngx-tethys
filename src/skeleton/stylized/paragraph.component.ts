@@ -1,13 +1,12 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Optional, Inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from '../skeleton.config';
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
-        <ng-container *ngFor="let k of rowsCount; index as i">
+        <ng-container *ngFor="let k of rowCount; index as i">
             <thy-skeleton-rectangle
-                [ngClass]="i !== rowsCount.length - 1 && 'vertical-gutter'"
-                [thyRowWidth]="i === 0 ? thyFirstWidth : i === rowsCount.length - 1 ? thyLastWidth : thyRowWidth"
+                class="vertical-gap"
+                [thyRowWidth]="i === 0 ? thyFirstWidth : i === rowCount.length - 1 ? thyLastWidth : thyRowWidth"
                 [thyRowHeight]="thyRowHeight"
                 [thyAnimated]="thyAnimated"
                 [thyPrimaryColor]="thyPrimaryColor"
@@ -18,12 +17,12 @@ import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } fr
         </ng-container>
     `,
     host: {
-        '[class.thy-skeleton-paragraph-wrap]': 'true'
+        '[class.thy-skeleton-paragraph]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonParagraphComponent implements OnInit {
+export class ThySkeletonParagraphComponent {
     /**
      * 首行宽度
      */
@@ -73,30 +72,15 @@ export class ThySkeletonParagraphComponent implements OnInit {
      */
     @Input() thySecondaryColor: string;
 
-    rowsCount: number[] = [1];
+    rowCount: number[] = [];
     /**
      * 行数
      */
     @Input()
-    set thyRowsCount(value: number | string) {
-        this.rowsCount = Array.from({ length: +value });
+    set thyRowCount(value: number | string) {
+        this.rowCount = Array.from({ length: +value });
     }
-    get thyRowsCount() {
-        return this.rowsCount.length;
-    }
-
-    constructor(
-        @Optional()
-        @Inject(THY_SKELETON_CONFIG)
-        private skeletonConfigModel: ThySkeletonConfigModel
-    ) {}
-
-    ngOnInit() {
-        const config = { ...SkeletonDefaultConfig?.thyParagraphConfig, ...this.skeletonConfigModel?.thyParagraphConfig };
-        const { thyFirstWidth, thyLastWidth, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount } = config;
-
-        for (let key in { thyFirstWidth, thyLastWidth, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount }) {
-            this[key] = this[key] || config[key];
-        }
+    get thyRowCount() {
+        return this.rowCount.length;
     }
 }

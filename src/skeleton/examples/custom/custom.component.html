@@ -1,6 +1,3 @@
-<p class="mb-2">上层组件 thy-skeleton 的传值将作为默认值传递至底层组件。若底层组件有独立传值，则以底层组件优先。</p>
-<p>支持的参数：thyAnimated、thyAnimatedInterval、thySecondaryColor、thyPrimaryColor</p>
-
 <thy-skeleton
   [thyAnimated]="generalModel.thyAnimated"
   [thyAnimatedInterval]="generalModel.thyAnimatedInterval"
@@ -25,7 +22,7 @@
   </div>
   <div class="d-flex flex-column">
     <thy-skeleton-list
-      thyRowsCount="3"
+      thyRowCount="3"
       [thyRowWidth]="rectangleModel.thyRowWidth"
       [thyRowHeight]="rectangleModel.thyRowHeight"
       [thyBorderRadius]="rectangleModel.thyBorderRadius"

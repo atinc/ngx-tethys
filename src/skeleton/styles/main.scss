@@ -1,16 +1,16 @@
-@use "../styles/variables.scss";
+@use "../../styles/variables.scss" as vars;
 
 .thy-skeleton {
     display: block;
-    background: #f7f7f7;
-    border-radius: 4px;
     position: relative;
     overflow: hidden;
-    width: 100%;
-    height: 20px;
+    background: vars.$skeleton-primary-color;
+    border-radius: vars.$skeleton-radius;
+    height: vars.$skeleton-height;
+    width: vars.$skeleton-width;
     & .thy-skeleton-after {
         background: linear-gradient(90deg, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.4), rgba(238, 238, 238, 0));
-        animation: thy-skeleton-animation 1.5s infinite;
+        animation: thy-skeleton-animation vars.$skeleton-animated-interval infinite;
         height: 100%;
         left: 0;
         position: absolute;
@@ -19,9 +19,6 @@
         transform: translateX(-100%);
         z-index: 1;
     }
-    &.thy-skeleton-circle {
-        border-radius: 50%;
-    }
     @keyframes thy-skeleton-animation {
         from {
             transform: translateX(-100%);
@@ -29,23 +26,5 @@
         to {
             transform: translateX(100%);
         }
-    }
-}
-.thy-skeleton-list-wrap {
-    .vertical-gutter {
-        margin-bottom: 12px;
-    }
-}
-.thy-skeleton-bullet-list-wrap {
-    .horizontal-gutter {
-        margin-left: 12px;
-    }
-    .vertical-gutter {
-        margin-bottom: 12px;
-    }
-}
-.thy-skeleton-paragraph-wrap {
-    .vertical-gutter {
-        margin-bottom: 12px;
     }
 }

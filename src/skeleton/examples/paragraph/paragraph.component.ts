@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {
     model = {
-        thyRowsCount: 4,
+        thyRowCount: 4,
         thyFirstWidth: '33%',
         thyLastWidth: '66%',
         thyRowWidth: '100%',

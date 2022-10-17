@@ -1,11 +1,10 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Optional, Inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from '../skeleton.config';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
-        <ng-container *ngFor="let item of rowsCount; index as i">
-            <div class="d-flex" [ngClass]="i !== rowsCount.length - 1 && 'vertical-gutter'">
+        <ng-container *ngFor="let item of rowCount; index as i">
+            <div class="d-flex vertical-gap">
                 <thy-skeleton-circle
                     [thyAnimated]="thyAnimated"
                     [thyAnimatedInterval]="thyAnimatedInterval"
@@ -14,7 +13,7 @@ import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } fr
                     [thySecondaryColor]="thySecondaryColor"
                 >
                 </thy-skeleton-circle>
-                <div class="horizontal-gutter"></div>
+                <div class="horizontal-gap"></div>
                 <div style="flex: 1">
                     <thy-skeleton-rectangle
                         [thyRowWidth]="thyRowWidth"
@@ -30,12 +29,12 @@ import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } fr
         </ng-container>
     `,
     host: {
-        '[class.thy-skeleton-bullet-list-wrap]': 'true'
+        '[class.thy-skeleton-bullet-list]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonBulletListComponent implements OnInit {
+export class ThySkeletonBulletListComponent {
     /**
      * 骨架宽度
      * @default 100%
@@ -93,30 +92,17 @@ export class ThySkeletonBulletListComponent implements OnInit {
     @InputCssPixel()
     thySize: string | number;
 
-    rowsCount: number[] = [1];
+    rowCount: number[] = [];
     /**
      * 行数
      */
     @Input()
-    set thyRowsCount(value: number | string) {
-        this.rowsCount = Array.from({ length: +value });
+    set thyRowCount(value: number | string) {
+        this.rowCount = Array.from({ length: +value });
     }
-    get thyRowsCount() {
-        return this.rowsCount.length;
+    get thyRowCount() {
+        return this.rowCount.length;
     }
 
-    constructor(
-        @Optional()
-        @Inject(THY_SKELETON_CONFIG)
-        private skeletonConfigModel: ThySkeletonConfigModel
-    ) {}
-
-    ngOnInit() {
-        const config = { ...SkeletonDefaultConfig?.thyBulletListConfig, ...this.skeletonConfigModel?.thyBulletListConfig };
-        const { thySize, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount } = config;
-
-        for (let key in { thySize, thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount }) {
-            this[key] = this[key] || config[key];
-        }
-    }
+    constructor() {}
 }

@@ -12,7 +12,7 @@ import {
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
+import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
 interface Style {
@@ -80,7 +80,6 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
 
     ngOnInit() {
         const config = {
-            ...SkeletonDefaultConfig,
             ...this.skeletonConfigModel,
             ...(this._parent || {}),
             ...(!isUndefinedOrNull(this._parent?.thyAnimated) && { thyAnimated: this._parent.thyAnimated }) // do it because @InputBoolean() lead to cannot get thyAnimated from _parent inject

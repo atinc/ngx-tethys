@@ -51,14 +51,14 @@ const COMPONENTS = [
                     thyRowWidth: '100%',
                     thyRowHeight: '20px',
                     thyBorderRadius: 4,
-                    thyRowsCount: 4
+                    thyRowCount: 4
                 },
                 thyBulletListConfig: {
                     thySize: 20,
                     thyRowWidth: '80%',
                     thyRowHeight: '20px',
                     thyBorderRadius: '4px',
-                    thyRowsCount: 5
+                    thyRowCount: 5
                 },
                 thyParagraphConfig: {
                     thyFirstWidth: '33%',
@@ -66,7 +66,7 @@ const COMPONENTS = [
                     thyRowWidth: '100%',
                     thyRowHeight: '20px',
                     thyBorderRadius: '4',
-                    thyRowsCount: 4
+                    thyRowCount: 4
                 }
             }
         }

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
             [thyRowWidth]="model.thyRowWidth"
             [thyRowHeight]="model.thyRowHeight"
             [thyBorderRadius]="model.thyBorderRadius"
-            [thyRowsCount]="model.thyRowsCount"
+            [thyRowCount]="model.thyRowCount"
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
@@ -23,7 +23,7 @@ export class ThySkeletonExampleBulletListComponent implements OnInit {
         thyRowWidth: '90%',
         thyRowHeight: '20px',
         thyBorderRadius: 4,
-        thyRowsCount: 3,
+        thyRowCount: 3,
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1.5,

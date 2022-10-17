@@ -11,7 +11,7 @@ import { Component, OnInit } from '@angular/core';
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated"
-            [thyRowsCount]="model.thyRowsCount"
+            [thyRowCount]="model.thyRowCount"
         >
         </thy-skeleton-list>
     `
@@ -21,7 +21,7 @@ export class ThySkeletonExampleListComponent implements OnInit {
         thyRowWidth: '90%',
         thyRowHeight: '20px',
         thyBorderRadius: 4,
-        thyRowsCount: 3,
+        thyRowCount: 3,
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1.5,

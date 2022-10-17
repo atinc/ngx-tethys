@@ -1,12 +1,11 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, Optional, Inject, OnInit } from '@angular/core';
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
-import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } from '../skeleton.config';
 @Component({
     selector: 'thy-skeleton-list',
     template: `
-        <ng-container *ngFor="let k of rowsCount; index as i">
+        <ng-container *ngFor="let k of rowCount; index as i">
             <thy-skeleton-rectangle
-                [ngClass]="i !== rowsCount.length - 1 && 'vertical-gutter'"
+                class="vertical-gap"
                 [thyRowWidth]="thyRowWidth"
                 [thyRowHeight]="thyRowHeight"
                 [thyAnimated]="thyAnimated"
@@ -18,12 +17,12 @@ import { SkeletonDefaultConfig, THY_SKELETON_CONFIG, ThySkeletonConfigModel } fr
         </ng-container>
     `,
     host: {
-        '[class.thy-skeleton-list-wrap]': 'true'
+        '[class.thy-skeleton-list]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonListComponent implements OnInit {
+export class ThySkeletonListComponent {
     /**
      * 骨架宽度
      */
@@ -66,30 +65,15 @@ export class ThySkeletonListComponent implements OnInit {
      */
     @Input() thySecondaryColor: string;
 
-    rowsCount: number[] = [1];
+    rowCount: number[] = [];
     /**
      * 行数
      */
     @Input()
-    set thyRowsCount(value: number | string) {
-        this.rowsCount = Array.from({ length: +value });
+    set thyRowCount(value: number | string) {
+        this.rowCount = Array.from({ length: +value });
     }
-    get thyRowsCount() {
-        return this.rowsCount.length;
-    }
-
-    constructor(
-        @Optional()
-        @Inject(THY_SKELETON_CONFIG)
-        private skeletonConfigModel: ThySkeletonConfigModel
-    ) {}
-
-    ngOnInit() {
-        const config = { ...SkeletonDefaultConfig?.thyListConfig, ...this.skeletonConfigModel?.thyListConfig };
-        const { thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount } = config;
-
-        for (let key in { thyRowWidth, thyRowHeight, thyBorderRadius, thyRowsCount }) {
-            this[key] = this[key] || config[key];
-        }
+    get thyRowCount() {
+        return this.rowCount.length;
     }
 }
