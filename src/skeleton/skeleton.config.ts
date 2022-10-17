@@ -1,6 +1,4 @@
 import { InjectionToken } from '@angular/core';
-// @ts-ignore
-import variables from '../styles/variables.scss';
 export interface ThySkeletonConfigModel {
     thyAnimatedInterval?: string | number;
     thyPrimaryColor?: string;
