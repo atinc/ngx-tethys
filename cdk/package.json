@@ -1,6 +1,6 @@
 {
   "name": "@tethys/cdk",
-  "version": "14.0.15",
+  "version": "14.0.16",
   "peerDependencies": {
     "@angular/common": "^14.0.0",
     "@angular/core": "^14.0.0",
