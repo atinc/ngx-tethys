@@ -7,8 +7,7 @@
 
 .form-check {
     position: relative;
-    display: flex;
-    align-items: center;
+    display: block;
     padding-left: 1.25rem;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
@@ -51,7 +50,7 @@
 
 input[type='radio'],
 input[type='checkbox'] {
-    margin-top: 0px;
+    margin-top: 3px;
     -webkit-appearance: none;
     appearance: none;
     width: variables.$input-form-check-size;
