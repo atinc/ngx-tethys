@@ -1,18 +1,19 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import ThyColor from './helpers/color.class';
 import { DEFAULT_COLORS } from './constant';
-import { ThyPickerPanelComponent } from './picker-panel.component';
+import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
 
 /**
  * @internal
  */
 @Component({
-    selector: 'thy-color-default-panel',
-    templateUrl: './default-panel.component.html'
+    selector: 'thy-color-picker-panel',
+    templateUrl: './color-picker-panel.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyColorDefaultPanelComponent implements OnInit {
-    @HostBinding('class.thy-default-panel') className = true;
+export class ThyColorPickerPanelComponent implements OnInit {
+    @HostBinding('class.thy-color-picker-panel') className = true;
 
     @Input() color: string;
 
@@ -24,7 +25,11 @@ export class ThyColorDefaultPanelComponent implements OnInit {
 
     newColor: string;
 
-    constructor(private thyPopover: ThyPopover) {}
+    constructor(
+        private thyPopover: ThyPopover,
+        private viewContainerRef: ViewContainerRef,
+        private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>
+    ) {}
 
     ngOnInit(): void {
         const colors = localStorage.getItem('recentColors');
@@ -36,28 +41,30 @@ export class ThyColorDefaultPanelComponent implements OnInit {
     selectColor(color: string) {
         this.color = color;
         this.colorChange(this.color);
-        this.thyPopover.closeAll();
+        this.thyPopoverRef.close();
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyPickerPanelComponent, {
+        const popoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
             origin: event.currentTarget as HTMLElement,
-            offset: 0,
+            offset: -4,
             placement: 'rightBottom',
             manualClosure: true,
             width: '260px',
+            hasBackdrop: false,
+            viewContainerRef: this.viewContainerRef,
             originActiveClass: 'thy-color-picker-active',
             initialState: {
                 color: this.color,
                 pickerColorChange: (value: string) => {
                     this.newColor = value;
+                    this.colorChange(value);
                 }
             }
         });
 
         popoverRef.afterClosed().subscribe(() => {
             if (this.newColor) {
-                this.colorChange(this.newColor);
                 const index = this.recentColors.findIndex(item => item === this.newColor);
                 if (index !== -1) {
                     this.recentColors.splice(index, 1);
@@ -66,7 +73,7 @@ export class ThyColorDefaultPanelComponent implements OnInit {
                 this.recentColors = this.recentColors.slice(0, 10);
                 localStorage.setItem('recentColors', JSON.stringify(this.recentColors));
             }
-            this.thyPopover.closeAll();
+            this.thyPopoverRef.close();
         });
     }
 

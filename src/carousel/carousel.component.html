@@ -16,6 +16,7 @@
         *ngFor="let content of carouselItems; let i = index"
         class="thy-carousel-indicator"
         (mouseenter)="indicatorHandleTrigger(i)"
+        (mouseleave)="indicatorHandleLeave()"
         (click)="indicatorHandleClick(i)"
       >
         <ng-template

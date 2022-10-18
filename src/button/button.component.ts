@@ -1,6 +1,5 @@
-import { InputBoolean } from 'ngx-tethys/core';
-import { assertIconOnly, coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
-import { useHostRenderer } from '@tethys/cdk/dom';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { assertIconOnly } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -11,7 +10,8 @@ import {
     OnInit,
     Renderer2,
     ViewEncapsulation,
-    AfterViewInit
+    AfterViewInit,
+    inject
 } from '@angular/core';
 
 export type ThyButtonType =
@@ -58,7 +58,8 @@ const iconOnlyClass = 'thy-btn-icon-only';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-btn btn'
-    }
+    },
+    providers: [UpdateHostClassService]
 })
 export class ThyButtonComponent implements OnInit, AfterViewInit {
     private _initialized = false;
@@ -86,7 +87,7 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         return this.elementRef.nativeElement;
     }
 
-    private hostRenderer = useHostRenderer();
+    private hostRenderer = inject(UpdateHostClassService);
 
     @Input()
     set thyButton(value: ThyButtonType) {
@@ -206,7 +207,9 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         this.hostRenderer.updateClass(classNames);
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(private elementRef: ElementRef, private renderer: Renderer2) {
+        this.hostRenderer.initializeElement(elementRef);
+    }
 
     ngOnInit() {
         this.updateClasses();

@@ -2,6 +2,68 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.0.16](https://github.com/atinc/ngx-tethys/compare/14.0.15...14.0.16) (2022-10-17)
+
+
+### Bug Fixes
+
+* **checkbox:** back checkbox UI style zd/#INFR-4881 ([0edde96](https://github.com/atinc/ngx-tethys/commit/0edde96f229a7516228bebf9380cb6155e3828dc)), closes [zd/#INFR-4881](https://github.com/atinc/ngx-tethys/issues/INFR-4881)
+* **select:** dispatch focus when options changed (#INFR-4805) ([cc8c4b0](https://github.com/atinc/ngx-tethys/commit/cc8c4b0bcd62f6ed8cf9ca86adc7c1f908d0abe2)), closes [#INFR-4805](https://github.com/atinc/ngx-tethys/issues/INFR-4805)
+
+
+
+## [14.0.15](https://github.com/atinc/ngx-tethys/compare/14.0.14...14.0.15) (2022-10-14)
+
+
+### Features
+
+* **carousel:** carousel component add thyPause #INFR-4861 ([#2250](https://github.com/atinc/ngx-tethys/issues/2250)) ([6e78892](https://github.com/atinc/ngx-tethys/commit/6e78892f8f22ff4bd20d8944b74963e400580c7a)), closes [#INFR-4861](https://github.com/atinc/ngx-tethys/issues/INFR-4861)
+* **color-picker:** add thyHasBackdrop and close popover inside #INFR-4899 ([#2258](https://github.com/atinc/ngx-tethys/issues/2258)) ([9902fae](https://github.com/atinc/ngx-tethys/commit/9902fae87b4a13013fe8696c86ef33e23230fc94)), closes [#INFR-4899](https://github.com/atinc/ngx-tethys/issues/INFR-4899)
+
+
+
+## [14.0.14](https://github.com/atinc/ngx-tethys/compare/14.0.13...14.0.14) (2022-10-13)
+
+
+### Bug Fixes
+
+* **form:** checkbox align center zd/#INFR-4881 ([#2248](https://github.com/atinc/ngx-tethys/issues/2248)) ([fb637ed](https://github.com/atinc/ngx-tethys/commit/fb637ed0766f1a58ebf91f54fdf2a32160d33b51)), closes [zd/#INFR-4881](https://github.com/atinc/ngx-tethys/issues/INFR-4881)
+* **select:** change select-options padding#INFR-4893 ([#2251](https://github.com/atinc/ngx-tethys/issues/2251)) ([6089a0b](https://github.com/atinc/ngx-tethys/commit/6089a0bc432f52f7b94cc3d33bf47eb593db9be1)), closes [padding#INFR-4893](https://github.com/padding/issues/INFR-4893)
+
+
+### Features
+
+* **color-picker:** change color true time  in custiom-color-picker-panel #INFR-4897 ([#2253](https://github.com/atinc/ngx-tethys/issues/2253)) ([d49f013](https://github.com/atinc/ngx-tethys/commit/d49f01309152c916481794c107f7744259c23704)), closes [#INFR-4897](https://github.com/atinc/ngx-tethys/issues/INFR-4897)
+
+
+
+## [14.0.13](https://github.com/atinc/ngx-tethys/compare/14.0.12...14.0.13) (2022-10-11)
+
+
+### Bug Fixes
+
+* **avatar:** dealwith name which words more , when avatar is flex or inline-flex (#INFR-4801) ([#2228](https://github.com/atinc/ngx-tethys/issues/2228)) ([533b567](https://github.com/atinc/ngx-tethys/commit/533b567952d209428fe054f400817e843246157d)), closes [#INFR-4801](https://github.com/atinc/ngx-tethys/issues/INFR-4801)
+* **color-picker:**  change alpha 0-1 to 0-100 #INFR-4796 ([#2230](https://github.com/atinc/ngx-tethys/issues/2230)) ([9d1f056](https://github.com/atinc/ngx-tethys/commit/9d1f056962f177fc383d8d39b93541709c7cc331)), closes [#INFR-4796](https://github.com/atinc/ngx-tethys/issues/INFR-4796)
+* **color-picker:**  fix style for default-color-picker-panel #INFR-4864 ([#2243](https://github.com/atinc/ngx-tethys/issues/2243)) ([8002bef](https://github.com/atinc/ngx-tethys/commit/8002bef172ef9a48fb012e66e92dbd5e8ca799a7)), closes [#INFR-4864](https://github.com/atinc/ngx-tethys/issues/INFR-4864)
+* **color-picker:** fix closeAll bug #INFR-4807 ([#2229](https://github.com/atinc/ngx-tethys/issues/2229)) ([95cbe7a](https://github.com/atinc/ngx-tethys/commit/95cbe7af41e1085cee4d8eb55bb26471aacdc5ac))
+* **color-picker:** fix error words #INFR-4797 ([#2231](https://github.com/atinc/ngx-tethys/issues/2231)) ([162a463](https://github.com/atinc/ngx-tethys/commit/162a463274e75bc509e8123bb5f404e3d38f3b4b)), closes [#INFR-4797](https://github.com/atinc/ngx-tethys/issues/INFR-4797)
+* **dialog:** change sidebar-header styles selector #INFR-4777 ([61e80e0](https://github.com/atinc/ngx-tethys/commit/61e80e045f251d09a545624019fd3c758f81c675)), closes [#INFR-4777](https://github.com/atinc/ngx-tethys/issues/INFR-4777)
+* **dialog:** change sidebar-header styles selector #INFR-4777 ([66d37eb](https://github.com/atinc/ngx-tethys/commit/66d37ebd7ed8e5cb3371d361e07143c4a555b662)), closes [#INFR-4777](https://github.com/atinc/ngx-tethys/issues/INFR-4777)
+* **select:** delayed trigger updatePosition at thy-custom-select (#IN… ([#2239](https://github.com/atinc/ngx-tethys/issues/2239)) ([e7d702b](https://github.com/atinc/ngx-tethys/commit/e7d702b128a6437a72e639ad92152c43d312a192))
+* **select:** update select options position when options data changed (#INFR-4793) ([cb92ff8](https://github.com/atinc/ngx-tethys/commit/cb92ff8a2d59342a91a8dfa5f0bd8e97d04e3974)), closes [#INFR-4793](https://github.com/atinc/ngx-tethys/issues/INFR-4793)
+* **tabs:** fix outline style when enter to tab content component(#INFR-4868) ([229041c](https://github.com/atinc/ngx-tethys/commit/229041cf979d92cfc0e03cfa8be002d9946f9bf0)), closes [#INFR-4868](https://github.com/atinc/ngx-tethys/issues/INFR-4868)
+
+
+### Features
+
+* **carousel:** carousel component refactoring api #INFR-4802 ([#2238](https://github.com/atinc/ngx-tethys/issues/2238)) ([87c9fe1](https://github.com/atinc/ngx-tethys/commit/87c9fe16385e8e180c27f3a1e208005f2528c440)), closes [#INFR-4802](https://github.com/atinc/ngx-tethys/issues/INFR-4802)
+* **cdk:** add dom contains HostRenderer and ManualElementRenderer, useHostRenderer and useElementRenderer ([#2234](https://github.com/atinc/ngx-tethys/issues/2234)) ([e3a6657](https://github.com/atinc/ngx-tethys/commit/e3a6657edfa10948c1edb004bc51117ff740e929))
+* **color-picker:** add thyOffset parameter to control popover panel #INFR-4806 ([#2232](https://github.com/atinc/ngx-tethys/issues/2232)) ([34632af](https://github.com/atinc/ngx-tethys/commit/34632afef2e423c4e1abe86b4f205ec355ce6290)), closes [#INFR-4806](https://github.com/atinc/ngx-tethys/issues/INFR-4806)
+* **tree-select:** add virtual scroll #INFR-2684 ([#2223](https://github.com/atinc/ngx-tethys/issues/2223)) ([5e65ca7](https://github.com/atinc/ngx-tethys/commit/5e65ca7f7515fb4a5350beafee423b890e891902)), closes [#INFR-2684](https://github.com/atinc/ngx-tethys/issues/INFR-2684)
+* **typography:** add thyBgColor directive #INFR-4780 ([#2227](https://github.com/atinc/ngx-tethys/issues/2227)) ([2eb2103](https://github.com/atinc/ngx-tethys/commit/2eb2103c5de832975155f28fe063c82790cb85a9)), closes [#INFR-4780](https://github.com/atinc/ngx-tethys/issues/INFR-4780)
+
+
+
 ## [14.0.12](https://github.com/atinc/ngx-tethys/compare/14.0.11...14.0.12) (2022-09-28)
 
 
