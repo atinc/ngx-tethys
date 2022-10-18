@@ -103,7 +103,6 @@ describe(`carousel`, () => {
             it(`should drag work`, fakeAsync(() => {
                 drag();
             }));
-            // drag();
 
             it('should trigger slide when window is resized', fakeAsync(() => {
                 horizontalStructure();
