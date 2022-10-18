@@ -1,0 +1,30 @@
+@use "../../styles/variables.scss" as vars;
+
+.thy-skeleton {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: vars.$skeleton-primary-color;
+    border-radius: vars.$skeleton-row-radius;
+    height: vars.$skeleton-row-height;
+    width: vars.$skeleton-row-width;
+    & .thy-skeleton-after {
+        background: linear-gradient(90deg, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.4), rgba(238, 238, 238, 0));
+        animation: thy-skeleton-animation vars.$skeleton-animated-interval infinite;
+        height: 100%;
+        left: 0;
+        position: absolute;
+        right: 0;
+        top: 0;
+        transform: translateX(-100%);
+        z-index: 1;
+    }
+    @keyframes thy-skeleton-animation {
+        from {
+            transform: translateX(-100%);
+        }
+        to {
+            transform: translateX(100%);
+        }
+    }
+}

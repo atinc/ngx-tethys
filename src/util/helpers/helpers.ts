@@ -150,10 +150,11 @@ export function hexToRgb(hexValue: string, alpha?: number): string {
     const rgx = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
     const hex = hexValue.replace(rgx, (m: any, r: any, g: any, b: any) => r + r + g + g + b + b);
     const rgb = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    if (!rgb) return;
     const resultR = parseInt(rgb[1], 16);
     const resultG = parseInt(rgb[2], 16);
     const resultB = parseInt(rgb[3], 16);
-    if (alpha) {
+    if (!isUndefinedOrNull(alpha)) {
         return `rgba(${resultR}, ${resultG}, ${resultB}, ${alpha})`;
     } else {
         return `rgb(${resultR}, ${resultG}, ${resultB})`;
