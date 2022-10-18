@@ -1,8 +1,14 @@
 import { ThyCarouselComponent } from 'ngx-tethys/carousel';
 import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ComponentFixture, tick } from '@angular/core/testing';
+import { SafeAny } from 'ngx-tethys/types';
 
-export function mouseSwipe(carousel: ThyCarouselComponent, distance: number, delay = 0, fixture?: any): void {
+export function mouseSwipe<T extends ComponentFixture<SafeAny>>(
+    carousel: ThyCarouselComponent,
+    distance: number,
+    delay = 0,
+    fixture?: T
+): void {
     carousel.onDrag(
         new MouseEvent('mousedown', {
             clientX: 500,
@@ -17,7 +23,13 @@ export function mouseSwipe(carousel: ThyCarouselComponent, distance: number, del
     dispatchMouseEvent(document, 'mouseup');
 }
 
-export function touchSwipe(carousel: ThyCarouselComponent, target: HTMLElement, distance: number, delay = 0, fixture?: any): void {
+export function touchSwipe<T extends ComponentFixture<SafeAny>>(
+    carousel: ThyCarouselComponent,
+    target: HTMLElement,
+    distance: number,
+    delay = 0,
+    fixture?: T
+): void {
     const touchObj = new Touch({
         clientX: 500,
         clientY: 0,
@@ -34,9 +46,11 @@ export function touchSwipe(carousel: ThyCarouselComponent, target: HTMLElement, 
     );
 
     dispatchTouchEvent(document, 'touchmove', 500 - distance, 0);
-    setTimeout(() => {
-        dispatchTouchEvent(document, 'touchend');
-    }, delay);
+    if (delay) {
+        tick(delay);
+        fixture.detectChanges();
+    }
+    dispatchTouchEvent(document, 'touchend');
 }
 
 export function windowResize() {

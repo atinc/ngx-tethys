@@ -3,7 +3,6 @@ import { ThyCarouselComponent, ThyCarouselEffect, ThyCarouselItemDirective, ThyC
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { mouseSwipe, windowResize } from './carousel-events';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-carousel-engine',
@@ -46,31 +45,15 @@ describe(`carousel`, () => {
         let carouselWrapper: DebugElement;
         let carouselContents: DebugElement[];
         const drag = () => {
-            console.log(`start`);
             fixture.detectChanges();
             mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
             fixture.detectChanges();
             tick(1000);
-            carouselContents.forEach(item => {
-                console.log(item.nativeElement.classList);
-            });
-            console.log(`-----`);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             mouseSwipe(basicTestComponent.thyCarouselComponent, 100, 1000, fixture);
-
-            console.log(6);
             fixture.detectChanges();
-            console.log(7);
             tick(2000);
-            carouselContents.forEach(item => {
-                console.log(item.nativeElement.classList);
-            });
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-            console.log(`end`);
-            // mouseSwipe(basicTestComponent.thyCarouselComponent, -500);
-            // fixture.detectChanges();
-            // tick(1000);
-            // expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
         };
         const horizontalStructure = () => {
             mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
