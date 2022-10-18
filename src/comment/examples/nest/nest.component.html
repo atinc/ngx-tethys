@@ -1,0 +1,12 @@
+<ng-template #commentTemplateRef let-comment="comment">
+  <thy-comment [thyAuthor]="comment.author" [thyAvatar]="comment.avatar" [thyDate]="comment.date">
+    <div thyCommentContent>{{ comment.content }}</div>
+    <ng-container *ngIf="comment.children && comment.children.length">
+      <ng-template ngFor let-child [ngForOf]="comment.children">
+        <ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: child }"></ng-template>
+      </ng-template>
+    </ng-container>
+  </thy-comment>
+</ng-template>
+
+<ng-template [ngTemplateOutlet]="commentTemplateRef" [ngTemplateOutletContext]="{ comment: data }"></ng-template>

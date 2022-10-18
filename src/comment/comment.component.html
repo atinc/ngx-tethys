@@ -1,0 +1,19 @@
+<div class="thy-comment-inner">
+  <div class="thy-comment-avatar">
+    <thy-avatar [thyName]="thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
+  </div>
+  <div class="thy-comment-content">
+    <div class="thy-comment-content-author">
+      <span *ngIf="thyAuthor" class="thy-comment-content-author-name">
+        <ng-container>{{ thyAuthor }}</ng-container>
+      </span>
+      <span *ngIf="thyDate" class="thy-comment-content-author-time">
+        <ng-container>{{ thyDate }}</ng-container>
+      </span>
+    </div>
+    <ng-content select="div[thyCommentContent]"></ng-content>
+  </div>
+</div>
+<div class="thy-comment-nested">
+  <ng-content></ng-content>
+</div>
