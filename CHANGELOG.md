@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.1.0](https://github.com/atinc/ngx-tethys/compare/14.0.16...14.1.0) (2022-10-18)
+
+
+### Features
+
+* **skeleton:** refactor the skeleton #INFR-4046 ([#2175](https://github.com/atinc/ngx-tethys/issues/2175)) ([9585160](https://github.com/atinc/ngx-tethys/commit/9585160c248f317406a93461a14f9bd0d72fc97a)), closes [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046)
+
+
+
 ## [14.0.16](https://github.com/atinc/ngx-tethys/compare/14.0.15...14.0.16) (2022-10-17)
 
 
