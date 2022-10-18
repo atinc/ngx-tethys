@@ -5,9 +5,9 @@
     position: relative;
     overflow: hidden;
     background: vars.$skeleton-primary-color;
-    border-radius: vars.$skeleton-radius;
-    height: vars.$skeleton-height;
-    width: vars.$skeleton-width;
+    border-radius: vars.$skeleton-row-radius;
+    height: vars.$skeleton-row-height;
+    width: vars.$skeleton-row-width;
     & .thy-skeleton-after {
         background: linear-gradient(90deg, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.4), rgba(238, 238, 238, 0));
         animation: thy-skeleton-animation vars.$skeleton-animated-interval infinite;

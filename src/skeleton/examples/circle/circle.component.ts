@@ -2,7 +2,15 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton-circle-example',
-    templateUrl: './circle.component.html'
+    template: `
+        <thy-skeleton-circle
+            [thyAnimated]="model.thyAnimated"
+            [thySize]="model.thySize"
+            [thyPrimaryColor]="model.thyPrimaryColor"
+            [thySecondaryColor]="model.thySecondaryColor"
+        >
+        </thy-skeleton-circle>
+    `
 })
 export class ThySkeletonExampleCircleComponent implements OnInit {
     model = {
@@ -13,6 +21,5 @@ export class ThySkeletonExampleCircleComponent implements OnInit {
         thyAnimated: true
     };
     constructor() {}
-    disabledNode() {}
     ngOnInit() {}
 }

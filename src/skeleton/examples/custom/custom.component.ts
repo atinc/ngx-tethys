@@ -22,6 +22,5 @@ export class ThySkeletonExampleCustomComponent implements OnInit {
     };
 
     constructor() {}
-
     ngOnInit() {}
 }

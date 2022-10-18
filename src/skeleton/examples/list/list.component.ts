@@ -21,11 +21,11 @@ export class ThySkeletonExampleListComponent implements OnInit {
         thyRowWidth: '90%',
         thyRowHeight: '20px',
         thyBorderRadius: 4,
-        thyRowCount: 3,
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1.5,
-        thyAnimated: true
+        thyAnimated: true,
+        thyRowCount: 3
     };
     constructor() {}
     ngOnInit() {}

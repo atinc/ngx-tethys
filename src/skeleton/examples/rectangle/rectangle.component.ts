@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
     selector: 'thy-skeleton-rectangle-example',
     template: `

@@ -2,7 +2,21 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-skeleton-example-paragraph',
-    templateUrl: './paragraph.component.html'
+    template: `
+        <thy-skeleton-paragraph
+            [thyRowCount]="model.thyRowCount"
+            [thyFirstWidth]="model.thyFirstWidth"
+            [thyLastWidth]="model.thyLastWidth"
+            [thyRowWidth]="model.thyRowWidth"
+            [thyRowHeight]="model.thyRowHeight"
+            [thyBorderRadius]="model.thyBorderRadius"
+            [thyPrimaryColor]="model.thyPrimaryColor"
+            [thySecondaryColor]="model.thySecondaryColor"
+            [thyAnimatedInterval]="model.thyAnimatedInterval"
+            [thyAnimated]="model.thyAnimated"
+        >
+        </thy-skeleton-paragraph>
+    `
 })
 export class ThySkeletonExampleParagraphComponent implements OnInit {
     model = {
