@@ -17,7 +17,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'thyDate',
+                name: 'ThyDatetime',
                 description: '展示评论时间',
                 type: 'string',
                 default: ''

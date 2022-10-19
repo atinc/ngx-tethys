@@ -19,7 +19,7 @@ import { ThyCommentModule } from 'ngx-tethys/comment';
 ## 基本使用
 
 ``` ts
-<thy-comment [thyAuthor]="'章三'" [thyDate]="time">
+<thy-comment [thyAuthor]="'章三'" [ThyDatetime]="time">
   <div thyCommentContent>
    Content
   </div>
