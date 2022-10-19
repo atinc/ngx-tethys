@@ -4,13 +4,12 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyCommentComponent } from './comment.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
-import { ThyCommentContentDirective, ThyCommentActionsDirective } from './comment-cell';
-
-const THY_COMMENT_CELLS = [ThyCommentContentDirective, ThyCommentActionsDirective];
+import { ThyCommentContentDirective } from './comment.content.directive';
+import { ThyCommentActionsDirective } from './comment.actions.directive';
 @NgModule({
-    declarations: [ThyCommentComponent, ...THY_COMMENT_CELLS],
+    declarations: [ThyCommentComponent, ThyCommentContentDirective, ThyCommentActionsDirective],
     imports: [CommonModule, ThySharedModule, ThyIconModule, ThyAvatarModule],
-    exports: [ThyCommentComponent, ...THY_COMMENT_CELLS],
+    exports: [ThyCommentComponent, ThyCommentContentDirective, ThyCommentActionsDirective],
     providers: []
 })
 export class ThyCommentModule {}

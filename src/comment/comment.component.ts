@@ -1,20 +1,18 @@
-import { Component, Input } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
+import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
 @Component({
     selector: 'thy-comment',
     templateUrl: './comment.component.html',
     host: {
         class: 'thy-comment'
     },
-    providers: [UpdateHostClassService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyCommentComponent {
-    @Input() thyAuthor?: string;
+    @Input() thyAuthor?: string | TemplateRef<void>;
 
-    @Input() thyDatetime?: string;
+    @Input() thyDatetime?: string | TemplateRef<void>;
 
-    @Input() thyAvatar?: string;
+    @Input() thyAvatar?: string | TemplateRef<void>;
 
     constructor() {}
 }

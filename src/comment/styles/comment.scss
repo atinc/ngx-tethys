@@ -34,7 +34,7 @@
         margin-right: variables.$comment-avatar-margin-right;
     }
 
-    &-content {
+    &-body {
         position: relative;
         flex: 1 1 auto;
         min-width: 1px;
@@ -67,7 +67,7 @@
             }
         }
 
-        &-detail {
+        &-content {
             margin-bottom: variables.$comment-content-margin-bottom;
         }
     }

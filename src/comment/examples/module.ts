@@ -17,4 +17,4 @@ const COMPONENTS = [ThyCommentBasicExampleComponent, ThyCommentNestExampleCompon
     exports: COMPONENTS,
     providers: []
 })
-export class ThyVoteExamplesModule {}
+export class ThyCommentExamplesModule {}
