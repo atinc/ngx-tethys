@@ -1,37 +1,29 @@
 import { Component, OnInit } from '@angular/core';
-
 @Component({
-    selector: 'thy-skeleton-example-paragraph',
+    selector: 'thy-skeleton-rectangle-example',
     template: `
-        <thy-skeleton-paragraph
-            [thyRowCount]="model.thyRowCount"
-            [thyFirstWidth]="model.thyFirstWidth"
-            [thyLastWidth]="model.thyLastWidth"
+        <thy-skeleton-rectangle
+            [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyRowWidth]="model.thyRowWidth"
             [thyRowHeight]="model.thyRowHeight"
-            [thyBorderRadius]="model.thyBorderRadius"
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor"
-            [thyAnimatedInterval]="model.thyAnimatedInterval"
+            [thyBorderRadius]="model.thyBorderRadius"
             [thyAnimated]="model.thyAnimated"
         >
-        </thy-skeleton-paragraph>
+        </thy-skeleton-rectangle>
     `
 })
-export class ThySkeletonExampleParagraphComponent implements OnInit {
+export class ThySkeletonExampleRectangleComponent implements OnInit {
     model = {
-        thyRowCount: 4,
-        thyFirstWidth: '33%',
-        thyLastWidth: '66%',
+        thyBorderRadius: 4,
         thyRowWidth: '100%',
         thyRowHeight: '20px',
-        thyBorderRadius: '4px',
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}
-
     ngOnInit() {}
 }

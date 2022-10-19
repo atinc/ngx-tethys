@@ -1,37 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-example-paragraph',
+    selector: 'thy-skeleton-example-bullet-list',
     template: `
-        <thy-skeleton-paragraph
-            [thyRowCount]="model.thyRowCount"
-            [thyFirstWidth]="model.thyFirstWidth"
-            [thyLastWidth]="model.thyLastWidth"
+        <thy-skeleton-bullet-list
+            [thySize]="model.thySize"
             [thyRowWidth]="model.thyRowWidth"
             [thyRowHeight]="model.thyRowHeight"
             [thyBorderRadius]="model.thyBorderRadius"
+            [thyRowCount]="model.thyRowCount"
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated"
         >
-        </thy-skeleton-paragraph>
+        </thy-skeleton-bullet-list>
     `
 })
-export class ThySkeletonExampleParagraphComponent implements OnInit {
+export class ThySkeletonExampleBulletListComponent implements OnInit {
     model = {
-        thyRowCount: 4,
-        thyFirstWidth: '33%',
-        thyLastWidth: '66%',
-        thyRowWidth: '100%',
+        thySize: 20,
+        thyRowWidth: '90%',
         thyRowHeight: '20px',
-        thyBorderRadius: '4px',
+        thyBorderRadius: 4,
+        thyRowCount: 3,
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#eeeeee',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}
-
     ngOnInit() {}
 }

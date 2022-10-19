@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.1.0](https://github.com/atinc/ngx-tethys/compare/14.0.16...14.1.0) (2022-10-18)
+
+
+### Features
+
+* **skeleton:** refactor the skeleton #INFR-4046 BREAKING CHANGE: delete legacy thy-skeleton component, place use new component ([#2175](https://github.com/atinc/ngx-tethys/issues/2175)) ([9585160](https://github.com/atinc/ngx-tethys/commit/9585160c248f317406a93461a14f9bd0d72fc97a)), closes [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046)
+
+
+
+## [14.0.16](https://github.com/atinc/ngx-tethys/compare/14.0.15...14.0.16) (2022-10-17)
+
+
+### Bug Fixes
+
+* **checkbox:** back checkbox UI style zd/#INFR-4881 ([0edde96](https://github.com/atinc/ngx-tethys/commit/0edde96f229a7516228bebf9380cb6155e3828dc)), closes [zd/#INFR-4881](https://github.com/atinc/ngx-tethys/issues/INFR-4881)
+* **select:** dispatch focus when options changed (#INFR-4805) ([cc8c4b0](https://github.com/atinc/ngx-tethys/commit/cc8c4b0bcd62f6ed8cf9ca86adc7c1f908d0abe2)), closes [#INFR-4805](https://github.com/atinc/ngx-tethys/issues/INFR-4805)
+
+
+
 ## [14.0.15](https://github.com/atinc/ngx-tethys/compare/14.0.14...14.0.15) (2022-10-14)
 
 

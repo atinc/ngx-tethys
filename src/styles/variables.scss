@@ -1049,3 +1049,12 @@ $comment-actions-padding: 4px !default;
 $comment-actions-border: 1px solid $gray-200 !default;
 $comment-actions-border-radius: 4px !default;
 $comment-nest-indent: 40px !default;
+
+// skeleton
+$skeleton-horizontal-gap: 12px;
+$skeleton-vertical-gap: 12px;
+$skeleton-row-height: 20px;
+$skeleton-row-radius: 4px;
+$skeleton-row-width: 100%;
+$skeleton-primary-color: #f7f7f7;
+$skeleton-animated-interval: 1.5s;
