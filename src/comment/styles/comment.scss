@@ -8,6 +8,26 @@
         display: flex;
     }
 
+    &-inner:hover {
+        > .#{variables.$thy-prefix}-comment-actions {
+            min-height: variables.$comment-actions-min-width;
+            min-width: variables.$comment-actions-min-height;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+            right: variables.$comment-actions-position-right;
+            top: variables.$comment-actions-position-top;
+            z-index: variables.$z-index-1;
+            padding: variables.$comment-actions-padding;
+            border: variables.$comment-actions-border;
+            border-radius: variables.$comment-actions-border-radius;
+            box-shadow: variables.$box-shadow;
+            background-color: variables.$white;
+            cursor: pointer;
+        }
+    }
+
     &-avatar {
         position: relative;
         flex-shrink: 0;
@@ -54,24 +74,6 @@
 
     &-actions {
         display: none;
-    }
-
-    &:hover &-actions {
-        min-height: variables.$comment-actions-min-width;
-        min-width: variables.$comment-actions-min-height;
-        display: inline-flex;
-        justify-content: center;
-        align-items: center;
-        position: absolute;
-        right: variables.$comment-actions-position-right;
-        top: variables.$comment-actions-position-top;
-        z-index: variables.$z-index-1;
-        padding: variables.$comment-actions-padding;
-        border: variables.$comment-actions-border;
-        border-radius: variables.$comment-actions-border-radius;
-        box-shadow: variables.$box-shadow;
-        background-color: variables.$white;
-        cursor: pointer;
     }
 
     &-nested {

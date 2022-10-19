@@ -1,5 +1,4 @@
-import { CdkPortalOutlet, TemplatePortal } from '@angular/cdk/portal';
-import { Directive, ElementRef } from '@angular/core';
+import { Directive } from '@angular/core';
 
 @Directive({
     selector: 'div[thyCommentContent]',
