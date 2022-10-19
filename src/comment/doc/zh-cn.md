@@ -36,3 +36,9 @@ import { ThyCommentModule } from 'ngx-tethys/comment';
 
 展示效果: 
 <example name="thy-comment-nest-example" />
+
+## 更多动作
+
+适用于对当前评论有操作的行为, 当用户 hover 到该条评论时展示
+
+<example name="thy-comment-actions-example">

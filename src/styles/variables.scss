@@ -1038,7 +1038,14 @@ $z-index-10: 100;
 // comment
 $comment-bg: transparent;
 $comment-avatar-margin-right: 12px !default;
+$comment-author-padding-right: 8px !default;
 $comment-author-line-height: 24px !default;
 $comment-content-margin-bottom: 16px !default;
-$comment-author-padding-right: 8px !default;
+$comment-actions-min-width: 40px !default;
+$comment-actions-min-height: 40px !default;
+$comment-actions-position-right: 0 !default;
+$comment-actions-position-top: -10px !default;
+$comment-actions-padding: 4px !default;
+$comment-actions-border: 1px solid $gray-200 !default;
+$comment-actions-border-radius: 4px !default;
 $comment-nest-indent: 40px !default;
