@@ -1,5 +1,8 @@
 import { Directive } from '@angular/core';
 
+/**
+ * @private
+ */
 @Directive({
     selector: '[thyCommentContent]',
     exportAs: 'thyCommentContent',

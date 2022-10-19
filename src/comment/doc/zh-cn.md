@@ -16,4 +16,4 @@ label: New
 import { ThyCommentModule } from 'ngx-tethys/comment';
 ```
 
-<example name="thy-comment-basic-example" />
+<examples/>

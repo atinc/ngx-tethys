@@ -6,9 +6,8 @@ import { ThyActionModule } from 'ngx-tethys/action';
 
 import { ThyCommentBasicExampleComponent } from './basic/basic.component';
 import { ThyCommentNestExampleComponent } from './nest/nest.component';
-import { ThyCommentActionsExampleComponent } from './actions/actions.component';
 
-const COMPONENTS = [ThyCommentBasicExampleComponent, ThyCommentNestExampleComponent, ThyCommentActionsExampleComponent];
+const COMPONENTS = [ThyCommentBasicExampleComponent, ThyCommentNestExampleComponent];
 
 @NgModule({
     declarations: COMPONENTS,
