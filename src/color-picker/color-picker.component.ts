@@ -1,7 +1,7 @@
 import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyPopover } from 'ngx-tethys/popover';
+import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
@@ -39,6 +39,8 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
 
     color: string;
 
+    private popoverRef: ThyPopoverRef<any>;
+
     private destroy$ = new Subject<void>();
 
     public get backgroundColor(): string {
@@ -63,7 +65,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     }
 
     togglePanel(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
+        this.popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: event.currentTarget as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,
@@ -78,19 +80,23 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 }
             }
         });
-        if (popoverRef && !this.thyHasBackdrop) {
-            popoverRef
+        if (this.popoverRef && !this.thyHasBackdrop) {
+            this.popoverRef
                 .getOverlayRef()
                 .outsidePointerEvents()
                 .subscribe(event => {
                     if ((event.target as HTMLElement).closest('.thy-color-picker-custom-panel')) {
                         return;
                     }
-                    if (!popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
-                        popoverRef.close();
+                    if (!this.popoverRef.getOverlayRef().hostElement.contains(event.target as HTMLElement)) {
+                        this.popoverRef.close();
                     }
                 });
         }
+    }
+
+    closePanel() {
+        this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
     }
 
     writeValue(value: string): void {
