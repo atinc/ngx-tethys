@@ -1,5 +1,5 @@
 <ng-template #commentTemplateRef let-comment="comment">
-  <thy-comment [thyAuthor]="comment.author" [thyAvatar]="comment.avatar" [ThyDatetime]="comment.date">
+  <thy-comment [thyAuthor]="comment.author" [thyAvatar]="comment.avatar" [thyDatetime]="comment.date">
     <div thyCommentContent>{{ comment.content }}</div>
     <ng-container *ngIf="comment.children && comment.children.length">
       <ng-template ngFor let-child [ngForOf]="comment.children">

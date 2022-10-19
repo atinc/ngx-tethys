@@ -12,7 +12,7 @@ import { UpdateHostClassService } from 'ngx-tethys/core';
 export class ThyCommentComponent {
     @Input() thyAuthor?: string;
 
-    @Input() thyDate?: string;
+    @Input() thyDatetime?: string;
 
     @Input() thyAvatar?: string;
 

@@ -7,8 +7,8 @@
       <span *ngIf="thyAuthor" class="thy-comment-content-author-name">
         <ng-container>{{ thyAuthor }}</ng-container>
       </span>
-      <span *ngIf="ThyDatetime" class="thy-comment-content-author-time">
-        <ng-container>{{ ThyDatetime }}</ng-container>
+      <span *ngIf="thyDatetime" class="thy-comment-content-author-time">
+        <ng-container>{{ thyDatetime }}</ng-container>
       </span>
     </div>
     <ng-content select="div[thyCommentContent]"></ng-content>
