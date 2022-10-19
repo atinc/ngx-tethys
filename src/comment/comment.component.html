@@ -1,15 +1,15 @@
 <div class="thy-comment-inner">
-  <ng-container *ngIf="isAvatarTemplateRef; else commentAvatar">
+  <ng-container *ngIf="isAvatarTemplateRef; else defaultAvatar">
     <ng-template [ngTemplateOutlet]="thyAvatar"></ng-template>
   </ng-container>
 
   <div class="thy-comment-body">
     <div class="thy-comment-body-author">
-      <ng-container *ngIf="isAuthorTemplateRef; else commentAuthor">
+      <ng-container *ngIf="isAuthorTemplateRef; else defaultAuthor">
         <ng-template [ngTemplateOutlet]="thyAuthor"></ng-template>
       </ng-container>
 
-      <ng-container *ngIf="isDatetimeTemplateRef; else commentDatetime">
+      <ng-container *ngIf="isDatetimeTemplateRef; else defaultDatetime">
         <ng-template [ngTemplateOutlet]="thyDatetime"></ng-template>
       </ng-container>
     </div>
@@ -21,19 +21,19 @@
   <ng-content></ng-content>
 </div>
 
-<ng-template #commentAvatar>
+<ng-template #defaultAvatar>
   <div class="thy-comment-avatar">
     <thy-avatar [thyName]="thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
   </div>
 </ng-template>
 
-<ng-template #commentAuthor>
+<ng-template #defaultAuthor>
   <span *ngIf="thyAuthor" class="thy-comment-content-author-name">
     <ng-container>{{ thyAuthor }}</ng-container>
   </span>
 </ng-template>
 
-<ng-template #commentDatetime>
+<ng-template #defaultDatetime>
   <span *ngIf="thyDatetime" class="thy-comment-content-author-time">
     <ng-container>{{ thyDatetime }}</ng-container>
   </span>

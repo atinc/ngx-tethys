@@ -67,7 +67,7 @@
             }
         }
 
-        &-content {
+        .#{variables.$thy-prefix}-comment-content {
             margin-bottom: variables.$comment-content-margin-bottom;
         }
     }
