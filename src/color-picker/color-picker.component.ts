@@ -39,7 +39,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
 
     color: string;
 
-    private popoverRef: ThyPopoverRef<any>;
+    private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
 
     private destroy$ = new Subject<void>();
 
@@ -95,7 +95,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
         }
     }
 
-    closePanel() {
+    hide() {
         this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
     }
 
@@ -119,5 +119,6 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
+        this.popoverRef = null;
     }
 }
