@@ -4,7 +4,7 @@ title: Comment
 subtitle: 评论
 label: New
 ---
-<div class="dg-alert dg-alert-info">用于单条评论的展示。</div>
+<alert>用于单条评论的展示。</alert>
 
 ## 何时使用
 
