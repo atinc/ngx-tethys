@@ -9,7 +9,7 @@
     height: vars.$skeleton-row-height;
     width: vars.$skeleton-row-width;
     & .thy-skeleton-after {
-        background: linear-gradient(90deg, rgba(238, 238, 238, 0), rgba(238, 238, 238, 0.4), rgba(238, 238, 238, 0));
+        background: linear-gradient(90deg, rgba(170, 170, 170, 0), rgba(170, 170, 170, 0.15), rgba(170, 170, 170, 0));
         animation: thy-skeleton-animation vars.$skeleton-animated-interval infinite;
         height: 100%;
         left: 0;
