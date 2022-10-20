@@ -81,7 +81,7 @@ export class ThySkeletonBulletListComponent {
 
     /**
      * 骨架次色
-     * @default #eeeeee
+     * @default #aaaaaa
      */
     @Input() thySecondaryColor: string;
 

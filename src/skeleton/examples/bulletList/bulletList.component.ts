@@ -25,10 +25,11 @@ export class ThySkeletonExampleBulletListComponent implements OnInit {
         thyBorderRadius: 4,
         thyRowCount: 3,
         thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#eeeeee',
+        thySecondaryColor: '#aaaaaa',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}
+
     ngOnInit() {}
 }

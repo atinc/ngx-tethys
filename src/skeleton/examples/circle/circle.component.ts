@@ -16,10 +16,11 @@ export class ThySkeletonExampleCircleComponent implements OnInit {
     model = {
         thySize: 32,
         thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#eeeeee',
+        thySecondaryColor: '#aaaaaa',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}
+
     ngOnInit() {}
 }
