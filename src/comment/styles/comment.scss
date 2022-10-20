@@ -10,8 +10,8 @@
 
     &-inner:hover {
         > .#{variables.$thy-prefix}-comment-actions {
-            min-height: variables.$comment-actions-min-width;
-            min-width: variables.$comment-actions-min-height;
+            height: variables.$comment-actions-min-width;
+            min-width: variables.$comment-actions-height;
             display: inline-flex;
             justify-content: center;
             align-items: center;
