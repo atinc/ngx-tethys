@@ -1,0 +1,13 @@
+@use "../../styles/variables.scss" as vars;
+
+.thy-skeleton-bullet-list {
+    .horizontal-gap {
+        margin-left: vars.$skeleton-horizontal-gap;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+    .vertical-gap {
+        margin-bottom: vars.$skeleton-vertical-gap;
+    }
+}

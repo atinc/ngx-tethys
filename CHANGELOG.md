@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.1](https://github.com/atinc/ngx-tethys/compare/14.1.0...14.1.1) (2022-10-20)
+
+
+### Features
+
+* **color-picker:** add hide fun with color-picker when shut it down #INFR-4969 ([#2269](https://github.com/atinc/ngx-tethys/issues/2269)) ([91b64f9](https://github.com/atinc/ngx-tethys/commit/91b64f93c5f566d789fd6ed1fa366caf05ca28e4)), closes [#INFR-4969](https://github.com/atinc/ngx-tethys/issues/INFR-4969)
+
+
+
+# [14.1.0](https://github.com/atinc/ngx-tethys/compare/14.0.16...14.1.0) (2022-10-18)
+
+
+### Features
+
+* **skeleton:** refactor the skeleton #INFR-4046 BREAKING CHANGE: delete legacy thy-skeleton component, place use new component ([#2175](https://github.com/atinc/ngx-tethys/issues/2175)) ([9585160](https://github.com/atinc/ngx-tethys/commit/9585160c248f317406a93461a14f9bd0d72fc97a)), closes [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046) [#INFR-4046](https://github.com/atinc/ngx-tethys/issues/INFR-4046)
+
+
+
 ## [14.0.16](https://github.com/atinc/ngx-tethys/compare/14.0.15...14.0.16) (2022-10-17)
 
 

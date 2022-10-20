@@ -1,25 +1,79 @@
-import { Component, ViewChild, TemplateRef, OnInit } from '@angular/core';
-import { ThySkeletonComponent } from '../skeleton.component';
-
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 @Component({
-    selector: 'thy-skeleton-list-template',
+    selector: 'thy-skeleton-list',
     template: `
-        <ng-template #content>
-            <svg:rect x="0" y="0" rx="3" ry="3" width="250" height="10" />
-            <svg:rect x="20" y="20" rx="3" ry="3" width="220" height="10" />
-            <svg:rect x="20" y="40" rx="3" ry="3" width="170" height="10" />
-            <svg:rect x="0" y="60" rx="3" ry="3" width="250" height="10" />
-            <svg:rect x="20" y="80" rx="3" ry="3" width="200" height="10" />
-            <svg:rect x="20" y="100" rx="3" ry="3" width="80" height="10" />
-        </ng-template>
-    `
+        <ng-container *ngFor="let k of rowCount; index as i">
+            <thy-skeleton-rectangle
+                class="vertical-gap"
+                [thyRowWidth]="thyRowWidth"
+                [thyRowHeight]="thyRowHeight"
+                [thyAnimated]="thyAnimated"
+                [thyPrimaryColor]="thyPrimaryColor"
+                [thySecondaryColor]="thySecondaryColor"
+                [thyBorderRadius]="thyBorderRadius"
+                [thyAnimatedInterval]="thyAnimatedInterval"
+            ></thy-skeleton-rectangle>
+        </ng-container>
+    `,
+    host: {
+        '[class.thy-skeleton-list]': 'true'
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonListComponent implements OnInit {
-    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
+export class ThySkeletonListComponent {
+    /**
+     * 骨架宽度
+     */
+    @Input()
+    @InputCssPixel()
+    thyRowWidth: string | number;
 
-    constructor(private skeletonComponent: ThySkeletonComponent) {}
+    /**
+     * 骨架高度
+     */
+    @Input()
+    @InputCssPixel()
+    thyRowHeight: string | number;
 
-    ngOnInit(): void {
-        this.skeletonComponent.addTemplate(this.contentTemplateRef);
+    /**
+     * 骨架边框圆角
+     */
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
+
+    /**
+     * 是否开启动画
+     */
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean;
+
+    /**
+     * 动画速度
+     */
+    @Input() thyAnimatedInterval: string;
+    /**
+     * 骨架主色
+     */
+    @Input() thyPrimaryColor: string;
+
+    /**
+     * 骨架次色
+     */
+    @Input() thySecondaryColor: string;
+
+    rowCount: number[] = [];
+    /**
+     * 行数
+     */
+    @Input()
+    set thyRowCount(value: number | string) {
+        this.rowCount = Array.from({ length: +value });
+    }
+    get thyRowCount() {
+        return this.rowCount.length;
     }
 }
