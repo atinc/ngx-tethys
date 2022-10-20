@@ -248,6 +248,14 @@ describe(`color-picker`, () => {
             expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
             expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeTruthy();
         }));
+
+        it('should normally closed color-picker component used hide func', fakeAsync(() => {
+            openDefaultPanel();
+            expect(overlayContainerElement).toBeTruthy();
+            colorPickerDebugElement.componentInstance.colorPicker.hide();
+            expect(overlayContainerElement.querySelector('thy-default-picker-active')).toBeFalsy();
+            fixture.detectChanges();
+        }));
     });
 });
 
