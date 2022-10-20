@@ -1,15 +1,15 @@
 <div class="thy-comment-inner">
-  <ng-container *ngIf="isAvatarTemplateRef; else defaultAvatar">
+  <ng-container *ngIf="isTemplateRef(this.thyAvatar); else defaultAvatar">
     <ng-template [ngTemplateOutlet]="thyAvatar"></ng-template>
   </ng-container>
 
   <div class="thy-comment-body">
     <div class="thy-comment-body-author">
-      <ng-container *ngIf="isAuthorTemplateRef; else defaultAuthor">
+      <ng-container *ngIf="isTemplateRef(this.thyAvatar); else defaultAuthor">
         <ng-template [ngTemplateOutlet]="thyAuthor"></ng-template>
       </ng-container>
 
-      <ng-container *ngIf="isDatetimeTemplateRef; else defaultDatetime">
+      <ng-container *ngIf="isTemplateRef(this.thyDatetime); else defaultDatetime">
         <ng-template [ngTemplateOutlet]="thyDatetime"></ng-template>
       </ng-container>
     </div>
