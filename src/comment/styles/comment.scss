@@ -1,30 +1,46 @@
 @use "../../styles/variables";
 
+@mixin comment-actions-active() {
+    height: variables.$comment-actions-min-width;
+    min-width: variables.$comment-actions-height;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: variables.$comment-actions-position-right;
+    top: variables.$comment-actions-position-top;
+    z-index: variables.$z-index-1;
+    padding: variables.$comment-actions-padding;
+    border: variables.$comment-actions-border;
+    border-radius: variables.$comment-actions-border-radius;
+    box-shadow: variables.$box-shadow;
+    background-color: variables.$white;
+    cursor: pointer;
+}
+
 .#{variables.$thy-prefix}-comment {
     position: relative;
     background-color: variables.$comment-bg;
 
     &-inner {
         display: flex;
-    }
 
-    &-inner:hover {
-        > .#{variables.$thy-prefix}-comment-actions {
-            height: variables.$comment-actions-min-width;
-            min-width: variables.$comment-actions-height;
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            right: variables.$comment-actions-position-right;
-            top: variables.$comment-actions-position-top;
-            z-index: variables.$z-index-1;
-            padding: variables.$comment-actions-padding;
-            border: variables.$comment-actions-border;
-            border-radius: variables.$comment-actions-border-radius;
-            box-shadow: variables.$box-shadow;
-            background-color: variables.$white;
-            cursor: pointer;
+        .#{variables.$thy-prefix}-comment-actions-default {
+            display: none;
+        }
+
+        &:hover {
+            > .#{variables.$thy-prefix}-comment-actions-default {
+                @include comment-actions-active;
+            }
+        }
+
+        > .#{variables.$thy-prefix}-comment-actions-blank {
+            display: none !important;
+        }
+
+        > .#{variables.$thy-prefix}-comment-actions-active {
+            @include comment-actions-active;
         }
     }
 
@@ -70,10 +86,6 @@
         .#{variables.$thy-prefix}-comment-content {
             margin-bottom: variables.$comment-content-margin-bottom;
         }
-    }
-
-    &-actions {
-        display: none;
     }
 
     &-nested {
