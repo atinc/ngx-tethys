@@ -13,7 +13,7 @@
     &-inner {
         display: flex;
 
-        &:hover .thy-comment-actions {
+        &:hover .#{variables.$thy-prefix}-comment-actions {
             visibility: visible;
         }
     }
@@ -68,7 +68,7 @@
 }
 
 .active {
-    .thy-comment-actions {
+    .#{variables.$thy-prefix}-comment-actions {
         visibility: visible !important;
     }
 }
