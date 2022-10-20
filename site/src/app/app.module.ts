@@ -78,6 +78,7 @@ import { DocgeniTemplateModule, RootComponent } from '@docgeni/template';
 import { ThyIconRegistry } from '../../../src/icon/icon-registry';
 import { EXAMPLE_MODULES } from './content/example-modules';
 import { DOCGENI_SITE_PROVIDERS } from './content/index';
+import { ThyOutletModule } from 'ngx-tethys/core';
 
 function thyPopoverDefaultConfigFactory(overlay: Overlay) {
     return {
@@ -155,7 +156,8 @@ const TETHYS_MODULES = [
     ThyCollapseModule,
     ThyRateModule,
     ThyDotModule,
-    ThyWatermarkModule
+    ThyWatermarkModule,
+    ThyOutletModule
 ];
 
 @NgModule({
