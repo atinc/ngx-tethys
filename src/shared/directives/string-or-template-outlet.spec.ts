@@ -1,8 +1,6 @@
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-
-import { ThyOutletModule } from './module';
 import { ThyStringOrTemplateOutletDirective } from './string-or-template-outlet.directive';
 
 @Component({
@@ -16,7 +14,7 @@ import { ThyStringOrTemplateOutletDirective } from './string-or-template-outlet.
         <ng-template #dataTimeTpl let-data let-time="time">The data is {{ data }}, The time is {{ time }}</ng-template>
     `
 })
-export class ThyStringOrTemplateOutletTestComponent {
+class ThyStringOrTemplateOutletTestComponent {
     @ViewChild('stringTpl') stringTpl!: TemplateRef<any>;
     @ViewChild('emptyTpl') emptyTpl!: TemplateRef<any>;
     @ViewChild('dataTimeTpl') dataTimeTpl!: TemplateRef<any>;
@@ -32,7 +30,6 @@ describe('string or template outlet directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [ThyOutletModule],
             declarations: [ThyStringOrTemplateOutletTestComponent]
         }).compileComponents();
         fixture = TestBed.createComponent(ThyStringOrTemplateOutletTestComponent);
