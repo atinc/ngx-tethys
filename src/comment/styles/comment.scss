@@ -1,46 +1,20 @@
+@use "../../styles/mixins/hover.scss";
 @use "../../styles/variables";
-
-@mixin comment-actions-active() {
-    height: variables.$comment-actions-min-width;
-    min-width: variables.$comment-actions-height;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: variables.$comment-actions-position-right;
-    top: variables.$comment-actions-position-top;
-    z-index: variables.$z-index-1;
-    padding: variables.$comment-actions-padding;
-    border: variables.$comment-actions-border;
-    border-radius: variables.$comment-actions-border-radius;
-    box-shadow: variables.$box-shadow;
-    background-color: variables.$white;
-    cursor: pointer;
-}
+@use "./mixin.scss" as comment-mixin;
 
 .#{variables.$thy-prefix}-comment {
     position: relative;
     background-color: variables.$comment-bg;
 
+    &-actions {
+        @include comment-mixin.comment-actions-active;
+    }
+
     &-inner {
         display: flex;
 
-        .#{variables.$thy-prefix}-comment-actions-default {
-            display: none;
-        }
-
-        &:hover {
-            > .#{variables.$thy-prefix}-comment-actions-default {
-                @include comment-actions-active;
-            }
-        }
-
-        > .#{variables.$thy-prefix}-comment-actions-blank {
-            display: none !important;
-        }
-
-        > .#{variables.$thy-prefix}-comment-actions-active {
-            @include comment-actions-active;
+        &:hover .thy-comment-actions {
+            visibility: visible;
         }
     }
 
@@ -90,5 +64,11 @@
 
     &-nested {
         margin-left: variables.$comment-nest-indent;
+    }
+}
+
+.active {
+    .thy-comment-actions {
+        visibility: visible !important;
     }
 }
