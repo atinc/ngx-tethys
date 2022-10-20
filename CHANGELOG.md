@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.1](https://github.com/atinc/ngx-tethys/compare/14.1.0...14.1.1) (2022-10-20)
+
+
+### Features
+
+* **color-picker:** add hide fun with color-picker when shut it down #INFR-4969 ([#2269](https://github.com/atinc/ngx-tethys/issues/2269)) ([91b64f9](https://github.com/atinc/ngx-tethys/commit/91b64f93c5f566d789fd6ed1fa366caf05ca28e4)), closes [#INFR-4969](https://github.com/atinc/ngx-tethys/issues/INFR-4969)
+
+
+
 # [14.1.0](https://github.com/atinc/ngx-tethys/compare/14.0.16...14.1.0) (2022-10-18)
 
 
