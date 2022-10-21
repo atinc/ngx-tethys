@@ -80,7 +80,9 @@ describe('image-preview', () => {
     beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
         overlayContainer = _overlayContainer;
         overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
 
+    beforeEach(() => {
         Object.defineProperty(ɵglobal.Image.prototype, 'onload', {
             configurable: true,
             get: function() {
@@ -91,7 +93,7 @@ describe('image-preview', () => {
                 this._onload = fn;
             }
         });
-    }));
+    });
 
     afterEach(() => {
         overlayContainer.ngOnDestroy();
@@ -243,16 +245,18 @@ describe('image-preview', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
+
         spyOn(document, 'createElement').and.callThrough();
+        spyOn(XMLHttpRequest.prototype, 'open').and.callThrough();
+        spyOn(XMLHttpRequest.prototype, 'send').and.callThrough();
+
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
 
-        imageOnload();
-        expect(document.createElement).toHaveBeenCalledTimes(2);
-        expect(document.createElement).toHaveBeenCalledWith('canvas');
-        expect(document.createElement).toHaveBeenCalledWith('a');
+        expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
+        expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
     });
 
     it('should open new tab with origin src when click origin icon', () => {
@@ -352,7 +356,7 @@ describe('image-preview', () => {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', basicTestComponent.images[0].src);
         xhr.responseType = 'blob';
-        xhr.onload = data => {
+        xhr.onload = () => {
             expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(humanizeBytes(xhr.response.size));
             done();
         };
