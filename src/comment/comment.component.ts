@@ -1,5 +1,5 @@
 import { isTemplateRef } from 'ngx-tethys/util';
-import { SafeAny } from './../types/common';
+import { SafeAny } from 'ngx-tethys/types';
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 @Component({
