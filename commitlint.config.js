@@ -99,7 +99,8 @@ module.exports = {
                 'typography',
                 'property',
                 'carousel',
-                'color-picker'
+                'color-picker',
+                'comment'
             ]
         ]
     }

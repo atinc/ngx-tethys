@@ -2157,6 +2157,20 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             tick(2000);
             fixture.detectChanges();
+            expect(componentFocusSpy).not.toHaveBeenCalled();
+
+            fixture.componentInstance.foods = [
+                { value: 'steak-0', viewValue: 'Steak' },
+                { value: 'pizza-1', viewValue: 'Pizza' },
+                { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+                { value: 'sandwich-3', viewValue: 'Sandwich' }
+            ];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.detectChanges();
+            tick(2000);
 
             expect(componentFocusSpy).toHaveBeenCalled();
         }));
