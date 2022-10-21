@@ -265,12 +265,12 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(3);
         }));
 
         it('should active moreBtn when hidden link is active', fakeAsync(() => {
             fixture.debugElement.componentInstance.responsive = true;
-            fixture.debugElement.componentInstance.navLinks = [{ name: 'link1' }, { name: 'link2', isActive: true }, { name: 'link3' }];
+            fixture.debugElement.componentInstance.navLinks = [{ name: 'link1' }, { name: 'link2' }, { name: 'link3', isActive: true }];
             fixture.detectChanges();
 
             spyLinksAndNavOffset(fixture.componentInstance.links, fixture.componentInstance.nav);
@@ -320,7 +320,7 @@ describe(`thy-nav`, () => {
             const moreBtn: DebugElement = fixture.debugElement.query(By.css('.thy-nav-more-container'));
             expect(moreBtn).toBeTruthy();
             expect(moreBtn.nativeElement.classList.contains('d-none')).toBeFalsy();
-            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(2);
+            expect(fixture.debugElement.queryAll(By.css('.thy-nav-item-hidden')).length).toEqual(3);
         }));
 
         it('should hidden moreBtn when has not navLinks', fakeAsync(() => {
@@ -372,7 +372,7 @@ describe(`thy-nav`, () => {
 
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
-            expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
+            expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(3);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {
@@ -390,7 +390,7 @@ describe(`thy-nav`, () => {
             dispatchFakeEvent(moreBtn.nativeElement, 'click');
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             const link = popover.querySelectorAll('.thy-nav-item-more')[0];
-            const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[1].nativeElement, 'click');
+            const linkSpy = spyOn(fixture.componentInstance.linksElement.toArray()[0].nativeElement, 'click');
             dispatchFakeEvent(link, 'click');
             fixture.detectChanges();
             expect(linkSpy).toHaveBeenCalled();

@@ -274,12 +274,12 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
         const endIndex = this.thyVertical ? this.getShowItemsEndIndexWhenVertical(tabs) : this.getShowItemsEndIndexWhenHorizontal(tabs);
 
-        const showItems = tabs.slice(0, endIndex + 1);
+        const showItems = tabs.slice(0, endIndex);
         (showItems || []).forEach(item => {
             item.setNavLinkHidden(false);
         });
 
-        this.hiddenItems = endIndex === tabs.length - 1 ? [] : tabs.slice(endIndex + 1);
+        this.hiddenItems = endIndex === tabs.length - 1 ? [] : tabs.slice(endIndex);
         (this.hiddenItems || []).forEach(item => {
             item.setNavLinkHidden(true);
         });
