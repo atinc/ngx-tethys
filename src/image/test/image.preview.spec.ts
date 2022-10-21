@@ -11,6 +11,7 @@ import { DomSanitizer } from '@angular/platform-browser';
 import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { humanizeBytes, keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
+import { fetchImageBlob } from '../utils';
 
 let imageOnload: () => void = null;
 
@@ -240,13 +241,15 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`rotate(${previousRotate + 90}deg)`);
     });
 
-    it('should download image when click download icon', () => {
+    it('should download image when click download icon', done => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
 
-        spyOn(document, 'createElement').and.callThrough();
+        const spyObj = jasmine.createSpyObj('a', ['click']);
+        spyOn(document, 'createElement').and.returnValue(spyObj);
+
         spyOn(XMLHttpRequest.prototype, 'open').and.callThrough();
         spyOn(XMLHttpRequest.prototype, 'send').and.callThrough();
 
@@ -254,6 +257,14 @@ describe('image-preview', () => {
         const download = operations[5] as HTMLElement;
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
+
+        fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
+            expect(document.createElement).toHaveBeenCalledWith('a');
+            expect(spyObj.download).toBe('first.jpg');
+            expect(spyObj.href).toContain('blob:');
+            expect(spyObj.click).toHaveBeenCalledTimes(1);
+            done();
+        });
 
         expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
         expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();

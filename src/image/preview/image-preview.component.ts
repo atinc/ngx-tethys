@@ -316,8 +316,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 let a = document.createElement('a');
                 a.download = image.name || 'default.png';
                 a.href = objectURL;
-                let event = new MouseEvent('click');
-                a.dispatchEvent(event);
+                a.click();
             });
     }
 
