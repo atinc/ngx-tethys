@@ -57,7 +57,7 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
 
     /**
      * 骨架次色
-     * @default #eeeeee
+     * @default #aaaaaa
      */
     @Input() thySecondaryColor: string;
 
@@ -96,7 +96,7 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
             ...(this.thySecondaryColor && {
                 background: `linear-gradient(90deg, ${helpers.hexToRgb(this.thySecondaryColor, 0)}, ${helpers.hexToRgb(
                     this.thySecondaryColor,
-                    0.4
+                    0.15
                 )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`
             }),
             animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none'
