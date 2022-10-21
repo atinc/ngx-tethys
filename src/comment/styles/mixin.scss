@@ -3,7 +3,6 @@
 @mixin comment-actions-active() {
     height: variables.$comment-actions-min-width;
     min-width: variables.$comment-actions-height;
-    display: inline-flex;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -16,5 +15,6 @@
     box-shadow: variables.$box-shadow;
     background-color: variables.$white;
     cursor: pointer;
+    display: inline-flex;
     visibility: hidden;
 }

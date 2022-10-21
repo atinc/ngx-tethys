@@ -10,6 +10,10 @@
         @include comment-mixin.comment-actions-active;
     }
 
+    .active {
+        visibility: visible !important;
+    }
+
     &-inner {
         display: flex;
 
@@ -64,11 +68,5 @@
 
     &-nested {
         margin-left: variables.$comment-nest-indent;
-    }
-}
-
-.active {
-    .#{variables.$thy-prefix}-comment-actions {
-        visibility: visible !important;
     }
 }
