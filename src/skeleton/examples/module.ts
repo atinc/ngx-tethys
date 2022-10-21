@@ -29,7 +29,7 @@ const COMPONENTS = [
             useValue: {
                 thyAnimatedInterval: 1.5,
                 thyPrimaryColor: '#F7F7F7',
-                thySecondaryColor: '#eeeeee',
+                thySecondaryColor: '#aaaaaa',
                 thyAnimated: true
             }
         }

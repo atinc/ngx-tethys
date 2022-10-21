@@ -12,9 +12,11 @@ export class ThySkeletonExampleCustomComponent implements OnInit {
         thyAnimatedInterval: 2,
         thyAnimated: true
     };
+
     circleModel = {
         thySize: '4rem'
     };
+
     rectangleModel = {
         thyRowWidth: '100%',
         thyRowHeight: '20px',
@@ -22,5 +24,6 @@ export class ThySkeletonExampleCustomComponent implements OnInit {
     };
 
     constructor() {}
+
     ngOnInit() {}
 }

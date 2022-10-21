@@ -20,10 +20,11 @@ export class ThySkeletonExampleRectangleComponent implements OnInit {
         thyRowWidth: '100%',
         thyRowHeight: '20px',
         thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#eeeeee',
+        thySecondaryColor: '#aaaaaa',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
     constructor() {}
+
     ngOnInit() {}
 }

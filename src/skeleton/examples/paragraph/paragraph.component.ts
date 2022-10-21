@@ -27,7 +27,7 @@ export class ThySkeletonExampleParagraphComponent implements OnInit {
         thyRowHeight: '20px',
         thyBorderRadius: '4px',
         thyPrimaryColor: '#F7F7F7',
-        thySecondaryColor: '#eeeeee',
+        thySecondaryColor: '#aaaaaa',
         thyAnimatedInterval: 1.5,
         thyAnimated: true
     };
