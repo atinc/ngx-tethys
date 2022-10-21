@@ -307,30 +307,17 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     download(image: ThyImageInfo) {
-        let img = new Image();
-        img.setAttribute('crossOrigin', 'Anonymous');
-        img.onload = () => {
-            let canvas = document.createElement('canvas');
-            let context = canvas.getContext('2d');
-            canvas.width = img.width;
-            canvas.height = img.height;
-            context.drawImage(img, 0, 0, img.width, img.height);
-            let url = canvas.toDataURL('images/png');
-            let a = document.createElement('a');
-            let event = new MouseEvent('click');
-            a.download = image.name || 'default.png';
-            a.href = url;
-            a.dispatchEvent(event);
-        };
-        img.onerror = () => {
-            let a = document.createElement('a');
-            a.download = image.name || 'default.png';
-            a.target = '_blank';
-            a.href = image.origin?.src || image.src;
-            let event = new MouseEvent('click');
-            a.dispatchEvent(event);
-        };
-        img.src = image.origin?.src || image.src;
+        const src = image.origin?.src || image.src;
+        fetchImageBlob(src)
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(blob => {
+                const urlCreator = window.URL || window.webkitURL;
+                const objectURL = urlCreator.createObjectURL(blob);
+                let a = document.createElement('a');
+                a.download = image.name || 'default.png';
+                a.href = objectURL;
+                a.click();
+            });
     }
 
     zoomIn(): void {
