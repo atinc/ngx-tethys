@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.2](https://github.com/atinc/ngx-tethys/compare/14.1.1...14.1.2) (2022-10-21)
+
+
+### Bug Fixes
+
+* **comment:** not exported problem #INFR-4936 ([d443388](https://github.com/atinc/ngx-tethys/commit/d443388cca22ee74755fdb94a4836f1f5ee0ae15)), closes [#INFR-4936](https://github.com/atinc/ngx-tethys/issues/INFR-4936)
+* **select:** fix init auto focus error #INFR-4994 ([#2274](https://github.com/atinc/ngx-tethys/issues/2274)) ([750b5bb](https://github.com/atinc/ngx-tethys/commit/750b5bb19fdc12c11fb74598931aa257eaa0dcf3)), closes [#INFR-4994](https://github.com/atinc/ngx-tethys/issues/INFR-4994)
+
+
+### Features
+
+* **comment:** added comment component #INFR-4936 ([#2268](https://github.com/atinc/ngx-tethys/issues/2268)) ([1d00c8c](https://github.com/atinc/ngx-tethys/commit/1d00c8ce5045b1a970a91447bcfa5180d45449c3)), closes [#INFR-4936](https://github.com/atinc/ngx-tethys/issues/INFR-4936)
+* **shared:** add thyStringOrTemplateOutlet directive #INFR-4973 ([#2272](https://github.com/atinc/ngx-tethys/issues/2272)) ([c57de30](https://github.com/atinc/ngx-tethys/commit/c57de30eee0c0e29364b2212ade5db6f3640807a)), closes [#INFR-4973](https://github.com/atinc/ngx-tethys/issues/INFR-4973)
+* **skeleton:** update thySecondaryColor default value #INFR-4965 ([#2271](https://github.com/atinc/ngx-tethys/issues/2271)) ([e360f41](https://github.com/atinc/ngx-tethys/commit/e360f41369ad4832ea8ef6a3e84963098df43a7b)), closes [#INFR-4965](https://github.com/atinc/ngx-tethys/issues/INFR-4965) [#INFR-4965](https://github.com/atinc/ngx-tethys/issues/INFR-4965)
+
+
+
 ## [14.1.1](https://github.com/atinc/ngx-tethys/compare/14.1.0...14.1.1) (2022-10-20)
 
 
