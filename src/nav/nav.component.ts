@@ -81,7 +81,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     public moreActive: boolean;
 
-    public showMore = true;
+    public showMore = false;
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
 
