@@ -30,7 +30,7 @@ describe('string or template outlet directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyStringOrTemplateOutletTestComponent]
+            declarations: [ThyStringOrTemplateOutletDirective, ThyStringOrTemplateOutletTestComponent]
         }).compileComponents();
         fixture = TestBed.createComponent(ThyStringOrTemplateOutletTestComponent);
         component = fixture.debugElement.componentInstance;
@@ -85,32 +85,28 @@ describe('string or template outlet directive', () => {
         expect(fixture.nativeElement.innerText).toBe('TargetText Empty Template');
     });
 
-    describe('context shape change', () => {
-        it('should work when context shape change', () => {
-            component.stringTemplateOutlet = component.dataTimeTpl;
-            const spyOnUpdateContext = spyOn(component.thyStringOrTemplateOutletDirective as any, 'updateContext').and.callThrough();
-            const spyOnRecreateView = spyOn(component.thyStringOrTemplateOutletDirective as any, 'recreateView').and.callThrough();
-            fixture.detectChanges();
-            expect(fixture.nativeElement.innerText).toBe('TargetText The data is , The time is');
-            component.context = { $implicit: 'data', time: 'time' };
-            fixture.detectChanges();
-            expect(spyOnUpdateContext).toHaveBeenCalledTimes(0);
-            expect(spyOnRecreateView).toHaveBeenCalledTimes(2);
-            expect(fixture.nativeElement.innerText).toBe('TargetText The data is data, The time is time');
-        });
+    it('should work when context shape change', () => {
+        component.stringTemplateOutlet = component.dataTimeTpl;
+        const spyOnUpdateContext = spyOn(component.thyStringOrTemplateOutletDirective as any, 'updateContext').and.callThrough();
+        const spyOnRecreateView = spyOn(component.thyStringOrTemplateOutletDirective as any, 'recreateView').and.callThrough();
+        fixture.detectChanges();
+        expect(fixture.nativeElement.innerText).toBe('TargetText The data is , The time is');
+        component.context = { $implicit: 'data', time: 'time' };
+        fixture.detectChanges();
+        expect(spyOnUpdateContext).toHaveBeenCalledTimes(0);
+        expect(spyOnRecreateView).toHaveBeenCalledTimes(2);
+        expect(fixture.nativeElement.innerText).toBe('TargetText The data is data, The time is time');
     });
-    describe('context data change', () => {
-        it('should work when context implicit change', () => {
-            component.stringTemplateOutlet = component.stringTpl;
-            const spyOnUpdateContext = spyOn(component.thyStringOrTemplateOutletDirective as any, 'updateContext').and.callThrough();
-            const spyOnRecreateView = spyOn(component.thyStringOrTemplateOutletDirective as any, 'recreateView').and.callThrough();
-            fixture.detectChanges();
-            expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
-            component.context = { $implicit: 'data' };
-            fixture.detectChanges();
-            expect(spyOnUpdateContext).toHaveBeenCalledTimes(1);
-            expect(spyOnRecreateView).toHaveBeenCalledTimes(1);
-            expect(fixture.nativeElement.innerText).toBe('TargetText The data is data');
-        });
+    it('should work when context implicit change', () => {
+        component.stringTemplateOutlet = component.stringTpl;
+        const spyOnUpdateContext = spyOn(component.thyStringOrTemplateOutletDirective as any, 'updateContext').and.callThrough();
+        const spyOnRecreateView = spyOn(component.thyStringOrTemplateOutletDirective as any, 'recreateView').and.callThrough();
+        fixture.detectChanges();
+        expect(fixture.nativeElement.innerText).toBe('TargetText The data is');
+        component.context = { $implicit: 'data' };
+        fixture.detectChanges();
+        expect(spyOnUpdateContext).toHaveBeenCalledTimes(1);
+        expect(spyOnRecreateView).toHaveBeenCalledTimes(1);
+        expect(fixture.nativeElement.innerText).toBe('TargetText The data is data');
     });
 });
