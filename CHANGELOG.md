@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.3](https://github.com/atinc/ngx-tethys/compare/14.1.2...14.1.3) (2022-10-24)
+
+
+### Bug Fixes
+
+* **image:** change download image method #INFR-5005 ([#2278](https://github.com/atinc/ngx-tethys/issues/2278)) ([597340a](https://github.com/atinc/ngx-tethys/commit/597340aa65cac26038082c262e628c217190b67f)), closes [#INFR-5005](https://github.com/atinc/ngx-tethys/issues/INFR-5005)
+
+
+
 ## [14.1.2](https://github.com/atinc/ngx-tethys/compare/14.1.1...14.1.2) (2022-10-21)
 
 
