@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.4](https://github.com/atinc/ngx-tethys/compare/14.1.3...14.1.4) (2022-10-24)
+
+
+### Bug Fixes
+
+* **nav:** fix more-operation flashes when initialized #INFR-4986 ([#2280](https://github.com/atinc/ngx-tethys/issues/2280)) ([de5fdf2](https://github.com/atinc/ngx-tethys/commit/de5fdf2db68d691c459419eab40b4c0a7112fb50)), closes [#INFR-4986](https://github.com/atinc/ngx-tethys/issues/INFR-4986)
+
+
+
 ## [14.1.3](https://github.com/atinc/ngx-tethys/compare/14.1.2...14.1.3) (2022-10-24)
 
 
