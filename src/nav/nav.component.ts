@@ -67,7 +67,7 @@ const tabItemRight = 20;
 export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
     private type: ThyNavType = 'pulled';
     private size: ThyNavSize = 'md';
-    private initialized = false;
+    public initialized = false;
 
     public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
@@ -199,7 +199,10 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     }
 
     ngOnInit() {
-        this.initialized = true;
+        if (!this.thyResponsive) {
+            this.initialized = true;
+        }
+
         this.updateClasses();
     }
 
@@ -285,6 +288,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         });
 
         this.showMore = this.hiddenItems.length > 0;
+        this.initialized = true;
     }
 
     private getShowItemsEndIndexWhenHorizontal(tabs: ThyNavItemDirective[]) {
