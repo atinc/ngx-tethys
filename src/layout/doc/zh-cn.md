@@ -10,7 +10,7 @@ subtitle: 布局
 整体布局使用，当使用`ngx-tethys`时要求所有的元素都应该在布局组件中。
 
 ## 模块导入
-```
+```ts
 import { ThyLayoutModule } from "ngx-tethys/layout";
 ```
 ## 组件概述
