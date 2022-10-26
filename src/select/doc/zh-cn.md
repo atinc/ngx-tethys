@@ -11,7 +11,7 @@ subtitle: 选择
 - UI风格需要统一、交互更复杂的场景建议使用 `thy-custom-select`
 
 ## 模块导入
-```
+```ts
 import { ThySelectModule } from "ngx-tethys/select";
 ```
 

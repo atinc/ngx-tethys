@@ -1,12 +1,15 @@
 <thy-result thyStatus="success">
+  <ng-template #thyIcon>
+    <thy-icon thyIconName="angry" style="font-size: 50px;"></thy-icon>
+  </ng-template>
   <ng-template #thyTitle>
-    自定义Title
+    Submission Failed
   </ng-template>
   <ng-template #thySubtitle>
-    自定义subtitle
+    Please check your information before resubmitting.
   </ng-template>
   <ng-template #thyExtra>
-    <button thyButton="primary-square">关闭</button>
-    <button thyButton="outline-primary-square">查看详情</button>
+    <button thyButton="outline-primary-square">close</button>
+    <button thyButton="primary-square">view more</button>
   </ng-template>
 </thy-result>

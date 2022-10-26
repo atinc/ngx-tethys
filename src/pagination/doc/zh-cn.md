@@ -11,7 +11,7 @@ subtitle: 分页
 - 可切换页码浏览数据。
 
 ## 模块导入
-```
+```ts
 import { ThyPaginationModule } from "ngx-tethys/pagination";
 ```
 ## 如何使用
