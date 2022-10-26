@@ -232,6 +232,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private isMultiple = false;
 
+    private lastOption: CascaderOption;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -626,6 +628,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         } else if (!option.isLeaf && loadChildren) {
             this.loadChildren(option, index);
         } else {
+            if (!select && option) {
+                set(option, 'selected', true);
+                this.lastOption = option;
+            }
             if (index < this.columns.length - 1) {
                 this.columns = this.columns.slice(0, index + 1);
             }
@@ -641,7 +647,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
             const isSelected = !option.selected;
+            set(this.lastOption, 'selected', false);
             set(option, 'selected', isSelected);
+            this.lastOption = option;
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
