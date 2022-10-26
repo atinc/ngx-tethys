@@ -12,6 +12,10 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     'left'
 ];
 
+/**
+ * 定义调整手柄的快捷组件
+ * @name thy-resize-handles
+ */
 @Component({
     selector: 'thy-resize-handles',
     exportAs: 'thyResizeHandles',
@@ -21,7 +25,11 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyResizeHandlesComponent implements OnChanges {
+    /**
+     * 定义调整手柄的方向
+     */
     @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
+
     directions = new Set<ThyResizeDirection>(this.thyDirections);
 
     ngOnChanges(changes: SimpleChanges): void {

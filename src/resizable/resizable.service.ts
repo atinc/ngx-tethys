@@ -4,6 +4,9 @@ import { isTouchEvent } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 
+/**
+ * @internal
+ */
 @Injectable()
 export class ThyResizableService implements OnDestroy {
     private document: Document;
