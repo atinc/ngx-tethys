@@ -2,13 +2,17 @@ import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from
 
 type ThyResultStatus = 'success' | 'warning' | 'error';
 
+/**
+ * 结果页
+ * @name thy-result
+ */
 @Component({
     selector: 'thy-result',
     templateUrl: './result.component.html'
 })
 export class ThyResultComponent implements OnInit {
     /**
-     * @description 结果的状态，决定显示的图标
+     * @description 结果的状态，决定显示的图标，包含 `success` | `warning` | `error` 三种
      * @type ThyResultStatus
      */
     @Input() thyStatus: ThyResultStatus;
