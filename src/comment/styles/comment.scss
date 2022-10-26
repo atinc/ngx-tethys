@@ -16,6 +16,7 @@
 
     &-inner {
         display: flex;
+        position: inherit;
 
         &:hover .#{variables.$thy-prefix}-comment-actions {
             visibility: visible;
