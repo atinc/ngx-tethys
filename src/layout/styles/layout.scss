@@ -155,29 +155,12 @@
         transition: none;
     }
     .sidebar-resize-handle {
-        position: absolute;
-        cursor: ew-resize;
-        transition: none;
-        right: -2px;
-        width: 2px;
+        // position: absolute;
+        // cursor: ew-resize;
+        // transition: none;
+        // right: -2px;
+        // width: 2px;
         z-index: variables.$z-index-6;
-
-        .sidebar-resize-line {
-            height: 100%;
-            transition: all 180ms linear;
-            border-right: 2px solid transparent;
-        }
-        &:hover {
-            .sidebar-resize-line {
-                border-color: variables.$primary;
-            }
-        }
-
-        &:active {
-            .sidebar-resize-line {
-                background: variables.$primary;
-            }
-        }
     }
 
     .sidebar-collapse-line {

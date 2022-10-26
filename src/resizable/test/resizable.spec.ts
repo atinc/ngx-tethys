@@ -11,6 +11,7 @@ import { ThyResizableCustomizeExampleComponent } from '../examples/customize/cus
 import { ThyResizableGridExampleComponent } from '../examples/grid/grid.component';
 import { ThyResizableLockAspectRatioExampleComponent } from '../examples/lock-aspect-ratio/lock-aspect-ratio.component';
 import { ThyResizablePreviewExampleComponent } from '../examples/preview/preview.component';
+import { ThyResizableLineExampleComponent } from '../examples/line/line.component';
 import { DEFAULT_RESIZE_DIRECTION, ThyResizableDirective } from '../index';
 import { ThyResizableModule } from '../module';
 
@@ -83,7 +84,8 @@ describe('resizable', () => {
                 ThyResizableLockAspectRatioExampleComponent,
                 ThyResizablePreviewExampleComponent,
                 ThyResizableGridExampleComponent,
-                ThyTestResizableBoundsComponent
+                ThyTestResizableBoundsComponent,
+                ThyResizableLineExampleComponent
             ],
             providers: []
         }).compileComponents();
@@ -722,5 +724,36 @@ describe('resizable', () => {
             expect(testComponent.width).toBe(window.innerWidth);
             expect(testComponent.height).toBe(window.innerHeight);
         }));
+    });
+
+    describe('resize-handles', () => {
+        let fixture: ComponentFixture<ThyResizableLineExampleComponent>;
+        let resizableElement: HTMLElement;
+        let testComponent: ThyTestResizableBoundsComponent;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyResizableLineExampleComponent);
+            testComponent = fixture.debugElement.componentInstance;
+            resizableElement = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement;
+            fixture.detectChanges();
+        });
+
+        it('should has drag line', () => {
+            const resizableHandleElement = resizableElement.querySelector('.thy-resizable-handle');
+            expect(resizableHandleElement).toBeTruthy();
+            expect(resizableHandleElement.children.length).toBe(1);
+            expect(resizableHandleElement.classList.contains('thy-resizable-handle-right')).toBeTruthy();
+            expect(resizableHandleElement.children.length).toBe(1);
+            expect(resizableHandleElement.children[0].classList.contains('thy-resizable-handle-line')).toBeTruthy();
+        });
+
+        it('should has multiple drag line', () => {
+            fixture.componentInstance.directions = ['left', 'right', 'top'];
+            fixture.detectChanges();
+            const resizableHandleElement = resizableElement.querySelector('.thy-resizable-handle');
+            expect(resizableHandleElement).toBeTruthy();
+            const lines = resizableElement.querySelectorAll('.thy-resizable-handle-line');
+            expect(lines.length).toBe(3);
+        });
     });
 });
