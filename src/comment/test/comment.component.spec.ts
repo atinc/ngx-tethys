@@ -15,7 +15,7 @@ describe('thyCommentComponent', () => {
     );
 
     describe('basic', () => {
-        it('it should basic work', () => {
+        it('should basic work', () => {
             const fixture = TestBed.createComponent(ThyCommentBasicExampleComponent);
             const comment = fixture.debugElement.query(By.directive(ThyCommentComponent));
 
