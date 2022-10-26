@@ -25,6 +25,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
+/**
+ * 定义调整手柄及方向
+ * @name thy-resize-handle
+ */
 @Component({
     selector: 'thy-resize-handle, [thy-resize-handle]',
     exportAs: 'thyResizeHandle',
@@ -46,7 +50,14 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     }
 })
 export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
+    /**
+     * 调整方向
+     */
     @Input() thyDirection: ThyResizeDirection = 'bottomRight';
+
+    /**
+     * MouseDown 回调事件
+     */
     @Output() readonly thyMouseDown = new EventEmitter<ThyResizeHandleMouseDownEvent>();
 
     constructor(

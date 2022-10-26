@@ -408,6 +408,20 @@ describe('resizable', () => {
                 expect(testComponent.height).toBeLessThanOrEqual(200);
                 expect(testComponent.height).toBeGreaterThanOrEqual(100);
             }));
+
+            it('should resizing', fakeAsync(() => {
+                const handle = resizableEle.querySelector('.thy-resizable-handle-left') as HTMLElement;
+                expect(resizableEle.classList.contains('thy-resizable-resizing')).toBeFalsy();
+                dispatchMouseEvent(handle, 'mousedown', rect.left, rect.bottom);
+                dispatchMouseEvent(window.document, 'mousemove', rect.left + 100, rect.bottom);
+                fixture.detectChanges();
+                tick(16);
+                fixture.detectChanges();
+                expect(resizableEle.classList.contains('thy-resizable-resizing')).toBeTruthy();
+                dispatchMouseEvent(window.document, 'mouseup');
+                fixture.detectChanges();
+                expect(resizableEle.classList.contains('thy-resizable-resizing')).toBeFalsy();
+            }));
         });
 
         it('should disabled work', fakeAsync(() => {
