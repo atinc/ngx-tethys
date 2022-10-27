@@ -1,4 +1,4 @@
-import { Directive, EmbeddedViewRef, Input, OnChanges, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
+import { Directive, EmbeddedViewRef, Input, OnChanges, Renderer2, SimpleChanges, TemplateRef, ViewContainerRef } from '@angular/core';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 @Directive({
@@ -6,30 +6,47 @@ import { isTemplateRef } from 'ngx-tethys/util';
     exportAs: 'thyStringOrTemplateOutlet'
 })
 export class ThyStringOrTemplateOutletDirective implements OnChanges {
-    private _viewRef: EmbeddedViewRef<any>;
+    private viewRef: EmbeddedViewRef<any>;
+
+    private textNode: Text;
 
     @Input() thyStringOrTemplateOutletContext: any;
 
     @Input() thyStringOrTemplateOutlet: any | TemplateRef<any>;
 
-    constructor(private viewContainerRef: ViewContainerRef, private templateRef: TemplateRef<any>) {}
+    constructor(private viewContainerRef: ViewContainerRef, private renderer: Renderer2) {}
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['thyStringOrTemplateOutlet']) {
-            const viewContainerRef = this.viewContainerRef;
+            this.updateView();
+        } else if (this.viewRef && changes['thyStringOrTemplateOutletContext'] && this.thyStringOrTemplateOutletContext) {
+            this.viewRef.context = this.thyStringOrTemplateOutletContext;
+        }
+    }
 
-            if (this._viewRef) {
-                viewContainerRef.remove(viewContainerRef.indexOf(this._viewRef));
-            }
+    private updateView() {
+        this.clear();
 
-            if (this.thyStringOrTemplateOutlet) {
-                const templateRef = isTemplateRef(this.thyStringOrTemplateOutlet) ? this.thyStringOrTemplateOutlet : this.templateRef;
-                this._viewRef = viewContainerRef.createEmbeddedView(templateRef, this.thyStringOrTemplateOutletContext);
+        if (this.thyStringOrTemplateOutlet) {
+            if (isTemplateRef(this.thyStringOrTemplateOutlet)) {
+                this.viewRef = this.viewContainerRef.createEmbeddedView(
+                    this.thyStringOrTemplateOutlet,
+                    this.thyStringOrTemplateOutletContext
+                );
             } else {
-                this._viewRef = null;
+                this.textNode = this.renderer.createText(this.thyStringOrTemplateOutlet + '');
+                const element = this.viewContainerRef.element.nativeElement as HTMLElement;
+                this.renderer.insertBefore(element.parentNode, this.textNode, element);
             }
-        } else if (this._viewRef && changes['thyStringOrTemplateOutletContext'] && this.thyStringOrTemplateOutletContext) {
-            this._viewRef.context = this.thyStringOrTemplateOutletContext;
+        } else {
+            this.viewRef = null;
+        }
+    }
+
+    private clear() {
+        this.viewContainerRef.clear();
+        if (this.textNode) {
+            this.renderer.removeChild(this.textNode.parentNode, this.textNode);
         }
     }
 }

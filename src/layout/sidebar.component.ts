@@ -41,10 +41,10 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 *ngIf="!thyCollapsed"
                 thyDirection="right"
                 class="sidebar-resize-handle"
+                thyLine="true"
                 (mouseenter)="resizeHandleHover($event, 'enter')"
                 (mouseleave)="resizeHandleHover($event, 'leave')"
             >
-                <div class="sidebar-resize-line"></div>
             </thy-resize-handle>
         </div>
         <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>

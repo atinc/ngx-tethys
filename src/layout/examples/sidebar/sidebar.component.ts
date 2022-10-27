@@ -27,4 +27,9 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
     collapsedChange(collapsed: boolean) {
         this.trigger = collapsed ? null : undefined;
     }
+
+    toggleCollapsed() {
+        this.collapsed = !this.collapsed;
+        this.trigger = this.collapsed ? null : undefined;
+    }
 }
