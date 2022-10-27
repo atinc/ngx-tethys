@@ -232,7 +232,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private isMultiple = false;
 
-    private lastOption: CascaderOption;
+    private lastOptions: CascaderOption[] = [];
 
     ngOnInit(): void {
         this.setClassMap();
@@ -301,7 +301,22 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                           [`${this.thyLabelProperty || 'label'}`]: value
                       };
         }
+        this.activeTrigger(index, option, true);
         this.setActiveOption(option, index, false, false);
+    }
+
+    private activeTrigger(index: number, option: CascaderOption, isInit = false) {
+        if (isInit) {
+            set(option, 'selected', true);
+            this.lastOptions.push(option);
+        } else {
+            const isSelected = !option.selected;
+            while (this.lastOptions.length) {
+                set(this.lastOptions.pop(), 'selected', false);
+            }
+            set(option, 'selected', isSelected);
+            this.lastOptions[index] = option;
+        }
     }
 
     writeValue(value: any): void {
@@ -628,10 +643,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         } else if (!option.isLeaf && loadChildren) {
             this.loadChildren(option, index);
         } else {
-            if (!select && option) {
-                set(option, 'selected', true);
-                this.lastOption = option;
-            }
             if (index < this.columns.length - 1) {
                 this.columns = this.columns.slice(0, index + 1);
             }
@@ -646,10 +657,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            const isSelected = !option.selected;
-            set(this.lastOption, 'selected', false);
-            set(option, 'selected', isSelected);
-            this.lastOption = option;
+            this.activeTrigger(index, option);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
