@@ -232,7 +232,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private isMultiple = false;
 
-    private lastOptions: CascaderOption[] = [];
+    private prevSelectedOptions: CascaderOption[] = [];
 
     ngOnInit(): void {
         this.setClassMap();
@@ -301,21 +301,21 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                           [`${this.thyLabelProperty || 'label'}`]: value
                       };
         }
-        this.activeTrigger(option, true);
+        this.updatePrevSelectedOptions(option, true);
         this.setActiveOption(option, index, false, false);
     }
 
-    private activeTrigger(option: CascaderOption, isInit = false) {
-        if (isInit) {
+    private updatePrevSelectedOptions(option: CascaderOption, isActivateInit = false) {
+        if (isActivateInit) {
             set(option, 'selected', true);
-            this.lastOptions.push(option);
+            this.prevSelectedOptions.push(option);
         } else {
             const isSelected = !option.selected;
-            while (this.lastOptions.length && !this.thyMultiple) {
-                set(this.lastOptions.pop(), 'selected', false);
+            while (this.prevSelectedOptions.length && !this.thyMultiple) {
+                set(this.prevSelectedOptions.pop(), 'selected', false);
             }
             set(option, 'selected', isSelected);
-            this.lastOptions.push(option);
+            this.prevSelectedOptions.push(option);
         }
     }
 
@@ -657,7 +657,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            this.activeTrigger(option);
+            this.updatePrevSelectedOptions(option);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
