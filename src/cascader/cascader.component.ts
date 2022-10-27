@@ -311,7 +311,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             this.lastOptions.push(option);
         } else {
             const isSelected = !option.selected;
-            while (this.lastOptions.length) {
+            while (this.lastOptions.length && !this.thyMultiple) {
                 set(this.lastOptions.pop(), 'selected', false);
             }
             set(option, 'selected', isSelected);
