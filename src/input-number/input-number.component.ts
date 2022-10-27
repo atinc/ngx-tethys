@@ -98,10 +98,8 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     updateValidValue(value: number | string): void {
         if (this.isNotValid(value)) {
             this.validValue = '';
-            this.onChangeFn(this.validValue);
         } else if (this.validValue !== value) {
             this.validValue = value;
-            this.onChangeFn(this.validValue);
         }
         this.disabledUp = this.disabledDown = false;
         if (value || value === 0) {
@@ -118,7 +116,10 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     onModelChange(value: string): void {
         const parseValue = this.parser(value);
         const validValue = this.getCurrentValidValue(parseValue);
-        this.updateValidValue(validValue);
+        if (this.validValue !== validValue) {
+            this.updateValidValue(validValue);
+            this.onChangeFn(this.validValue);
+        }
     }
 
     onBlur(event?: Event) {
@@ -164,6 +165,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
         const outOfRange = val > this.thyMax || val < this.thyMin;
         val = this.getCurrentValidValue(val);
         this.updateValidValue(val);
+        this.onChangeFn(this.validValue);
         this.displayValue = this.formatterValue(val);
         if (outOfRange) {
             return;
@@ -247,8 +249,8 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     getCurrentValidValue(value: string | number): number | string {
         let val = value;
-        if (value === '') {
-            return value;
+        if (value === '' || value === undefined) {
+            return '';
         }
         val = parseFloat(value as string);
         if (this.isNotValid(val)) {

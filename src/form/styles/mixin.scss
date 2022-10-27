@@ -83,6 +83,7 @@
     .custom-select,
     .thy-cascader,
     .thy-date-picker,
+    .thy-input-number,
     .input-label-container {
         .was-validated &:#{$state},
         &.is-#{$state} {
