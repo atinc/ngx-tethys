@@ -301,11 +301,11 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                           [`${this.thyLabelProperty || 'label'}`]: value
                       };
         }
-        this.activeTrigger(index, option, true);
+        this.activeTrigger(option, true);
         this.setActiveOption(option, index, false, false);
     }
 
-    private activeTrigger(index: number, option: CascaderOption, isInit = false) {
+    private activeTrigger(option: CascaderOption, isInit = false) {
         if (isInit) {
             set(option, 'selected', true);
             this.lastOptions.push(option);
@@ -315,7 +315,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                 set(this.lastOptions.pop(), 'selected', false);
             }
             set(option, 'selected', isSelected);
-            this.lastOptions[index] = option;
+            this.lastOptions.push(option);
         }
     }
 
@@ -657,7 +657,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            this.activeTrigger(index, option);
+            this.activeTrigger(option);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
