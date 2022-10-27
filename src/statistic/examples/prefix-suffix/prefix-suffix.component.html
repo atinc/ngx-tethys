@@ -1,0 +1,28 @@
+<h4>Prefix:</h4>
+<div class="statistic-container">
+  <thy-statistic [thyValue]="1010 | number" thyTitle="售价" thyPrefix="¥"></thy-statistic>
+  <thy-statistic thyValue="90" thyTitle="测试覆盖率" [thyPrefixTemplate]="prefixTemplate"></thy-statistic>
+  <thy-statistic [thyValue]="40 | number" thyTitle="已完成任务">
+    <ng-template #prefix>
+      <thy-icon style="font-size: 30px" thyIconName="check-circle"></thy-icon>
+    </ng-template>
+  </thy-statistic>
+</div>
+
+<h4 style="margin-top: 32px;">Suffix:</h4>
+<div class="statistic-container">
+  <thy-statistic [thyValue]="1010 | number" thyTitle="售价" thySuffix="¥"></thy-statistic>
+  <thy-statistic thyValue="90" thyTitle="测试覆盖率" [thySuffixTemplate]="suffixTemplate"></thy-statistic>
+  <thy-statistic [thyValue]="40 | number" thyTitle="已完成任务" thysize="default">
+    <ng-template #suffix>
+      <thy-icon style="font-size: 30px" thyIconName="check-circle"></thy-icon>
+    </ng-template>
+  </thy-statistic>
+</div>
+
+<ng-template #prefixTemplate>
+  <thy-icon style="font-size: 30px" thyIconName="percentage"></thy-icon>
+</ng-template>
+<ng-template #suffixTemplate>
+  <thy-icon style="font-size: 30px" thyIconName="percentage"></thy-icon>
+</ng-template>

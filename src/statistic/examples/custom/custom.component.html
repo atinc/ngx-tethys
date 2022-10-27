@@ -1,0 +1,18 @@
+<div class="statistic-container">
+  <thy-statistic thyTitle="已完成" [thyValueTemplate]="valueTemplate" thyColor="primary" thyShape="card"> </thy-statistic>
+  <thy-statistic thyTitle="交付日期" thyColor="primary" thyShape="card">
+    <ng-template #value>
+      {{ deadline | date }}
+    </ng-template>
+  </thy-statistic>
+  <thy-statistic
+    [thyValue]="20221027 | number"
+    thyTitle="单价"
+    thyPrefix="¥"
+    [thyValueStyle]="{ 'font-size': '40px', color: '#666666' }"
+  ></thy-statistic>
+</div>
+
+<ng-template #valueTemplate>
+  <span>93 / 100</span>
+</ng-template>
