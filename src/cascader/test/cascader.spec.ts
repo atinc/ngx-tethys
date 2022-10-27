@@ -12,6 +12,7 @@ import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../cascader.component';
 import { ThyCascaderModule } from '../module';
+import { clone } from '../examples/cascader-address-options';
 registerLocaleData(zh);
 
 const customerOptions = [
@@ -227,7 +228,7 @@ class CascaderBasicComponent {
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
     public curVal: string | string[] = null;
     public placeholder = '';
-    public thyCustomerOptions: any[] = customerOptions;
+    public thyCustomerOptions: any[] = clone(customerOptions);
     public thyChangeOnSelect = false;
     public thyMenuClassName = 'test-menu-class';
     public columnClassName = 'column-menu-class';
@@ -255,7 +256,7 @@ class CascaderLoadComponent {
     thyLoadData = (option: any) => {
         return new Promise<void>((res, rej) => {
             if (this.success) {
-                option.children = customerOptions;
+                option.children = clone(customerOptions);
                 res();
             } else {
                 rej();
@@ -296,7 +297,7 @@ class CascaderLoadComponent {
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
 
-    public thyCustomerOptions: any[] = customerOptions;
+    public thyCustomerOptions: any[] = clone(customerOptions);
     isDisplayName$ = new Subject();
     constructor() {}
 

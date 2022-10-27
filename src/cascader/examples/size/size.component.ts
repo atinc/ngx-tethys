@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import option from '../cascader-address-options';
+import { clone, options } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-size-example',
@@ -17,6 +17,6 @@ export class ThyCascaderSizeExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {
-        this.areaCode = option;
+        this.areaCode = clone(options);
     }
 }
