@@ -40,4 +40,8 @@ const options = provinces.map((province: { name: any; code: any; children: any }
     children: [...province.children]
 }));
 
-export default options;
+function clone(obj: any) {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+export { options, clone };

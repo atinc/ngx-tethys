@@ -232,6 +232,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private isMultiple = false;
 
+    private prevSelectedOptions: CascaderOption[] = [];
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -299,7 +301,22 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                           [`${this.thyLabelProperty || 'label'}`]: value
                       };
         }
+        this.updatePrevSelectedOptions(option, true);
         this.setActiveOption(option, index, false, false);
+    }
+
+    private updatePrevSelectedOptions(option: CascaderOption, isActivateInit = false) {
+        if (isActivateInit) {
+            set(option, 'selected', true);
+            this.prevSelectedOptions.push(option);
+        } else {
+            const isSelected = !option.selected;
+            while (this.prevSelectedOptions.length && !this.thyMultiple) {
+                set(this.prevSelectedOptions.pop(), 'selected', false);
+            }
+            set(option, 'selected', isSelected);
+            this.prevSelectedOptions.push(option);
+        }
     }
 
     writeValue(value: any): void {
@@ -640,8 +657,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            const isSelected = !option.selected;
-            set(option, 'selected', isSelected);
+            this.updatePrevSelectedOptions(option);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
