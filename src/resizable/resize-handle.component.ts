@@ -14,7 +14,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { fromEvent, merge } from 'rxjs';
 
 export class ThyResizeHandleMouseDownEvent {
@@ -34,6 +34,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     exportAs: 'thyResizeHandle',
     template: `
         <ng-content></ng-content>
+        <div *ngIf="thyLine" class="thy-resizable-handle-line"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -54,6 +55,11 @@ export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDe
      * 调整方向
      */
     @Input() thyDirection: ThyResizeDirection = 'bottomRight';
+
+    /**
+     * 是否展示拖拽线
+     */
+    @Input() @InputBoolean() thyLine = false;
 
     /**
      * MouseDown 回调事件
