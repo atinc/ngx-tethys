@@ -52,6 +52,10 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
+/**
+ * 级联选择菜单
+ * @name thy-cascader
+ */
 @Component({
     selector: 'thy-cascader,[thy-cascader]',
     templateUrl: './cascader.component.html',
