@@ -11,7 +11,7 @@ export type ThyStatisticSizes = 'default';
 export type ThyStatisticTitlePosition = 'top' | 'bottom';
 
 /**
- * 用于展示统计数字
+ * 用于展示数据统计
  * @name thy-statistic
  */
 @Component({
@@ -44,10 +44,10 @@ export class ThyStatisticComponent implements OnInit {
 
     /**
      * @description 展示数据的 css 样式
-     * @type object
+     * @type { [key: string]: string; }
      * @default {}
      */
-    @Input() thyValueStyle = {};
+    @Input() thyValueStyle: { [key: string]: string } = {};
 
     /**
      * @description 展示数据的前缀
@@ -88,7 +88,7 @@ export class ThyStatisticComponent implements OnInit {
     }
 
     /**
-     * @description 主题颜色，可以使用提供的主题色，也可以自定义颜色。ThyStatisticColorType 中包含 `primary` | `success` | `warning` | `danger` | `info`
+     * @description 主题颜色，可以使用提供的主题色，也可以自定义颜色。 `ThyStatisticColorType` 中包含 `primary` | `success` | `warning` | `danger` | `info`
      * @type ThyStatisticColorType ｜ string
      */
     @Input() thyColor: string | ThyStatisticColorType;
