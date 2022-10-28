@@ -98,7 +98,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
      * @type ThyCascaderOption[]
      * @default []
      */
-    @Input() set thyOptions(options: ThyCascaderOption[] | null) {
+    @Input()
+    set thyOptions(options: ThyCascaderOption[] | null) {
         this.columns = options && options.length ? [options] : [];
         if (this.defaultValue && this.columns.length) {
             this.initOptions(0);
