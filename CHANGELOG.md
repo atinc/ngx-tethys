@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.5](https://github.com/atinc/ngx-tethys/compare/14.1.4...14.1.5) (2022-10-27)
+
+
+### Bug Fixes
+
+* **comment:** fixed the actions is displayed incorrectly in firefox #INFR-5042 ([387eb42](https://github.com/atinc/ngx-tethys/commit/387eb428cf3343908e5365d70183181c11fb31a3)), closes [#INFR-5042](https://github.com/atinc/ngx-tethys/issues/INFR-5042)
+* **comment:** test case name optimization #INFR-4936 ([245ba34](https://github.com/atinc/ngx-tethys/commit/245ba34ca4e06d6717a4ec5e2aca86379a5afed2)), closes [#INFR-4936](https://github.com/atinc/ngx-tethys/issues/INFR-4936)
+* **input-number:** trigger ngModel change on init only validated value is not equal ngModel and add error style #INFR-5065 ([f831bcb](https://github.com/atinc/ngx-tethys/commit/f831bcbed4ef8dffaf97a629a4c55b79ebb1d504)), closes [#INFR-5065](https://github.com/atinc/ngx-tethys/issues/INFR-5065)
+* **resizable:** reset resizing in ngZone and update api docs to comment #INFR-4680 ([#2286](https://github.com/atinc/ngx-tethys/issues/2286)) ([7e96659](https://github.com/atinc/ngx-tethys/commit/7e96659ebcef1e60ed7f74d53208735658e2b3d4)), closes [#INFR-4680](https://github.com/atinc/ngx-tethys/issues/INFR-4680)
+* **shared:** simplify use of thyStringOrTemplateOutlet directive when template is string #INFR-5049 ([923570a](https://github.com/atinc/ngx-tethys/commit/923570ada3f80a6db49b89f2f26a8379fdcba62a)), closes [#INFR-5049](https://github.com/atinc/ngx-tethys/issues/INFR-5049)
+
+
+### Features
+
+* **resizable:** support thyLine for thy-resize-handles and thy-resize-handle #INFR-5054 ([#2287](https://github.com/atinc/ngx-tethys/issues/2287)) ([3516fdd](https://github.com/atinc/ngx-tethys/commit/3516fdd53abe30fb690696d00d77a843ca0f7922)), closes [#INFR-5054](https://github.com/atinc/ngx-tethys/issues/INFR-5054)
+
+
+
 ## [14.1.4](https://github.com/atinc/ngx-tethys/compare/14.1.3...14.1.4) (2022-10-24)
 
 

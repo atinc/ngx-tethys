@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import option from '../cascader-address-options';
+import { options, clone } from '../cascader-address-options';
 
 @Component({
     selector: 'thy-cascader-basic-example',
@@ -14,7 +14,7 @@ export class ThyCascaderBasicExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = [...option];
+        this.areaCode = clone(options);
     }
 
     public selectChanges(values: any): void {
