@@ -1,4 +1,15 @@
-import { Directive, AfterViewInit, OnDestroy, ElementRef, Renderer2, NgZone, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Directive,
+    AfterViewInit,
+    OnDestroy,
+    ElementRef,
+    Renderer2,
+    NgZone,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectorRef
+} from '@angular/core';
 import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
@@ -99,7 +110,8 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         private renderer: Renderer2,
         private platform: Platform,
         private ngZone: NgZone,
-        private thyResizableService: ThyResizableService
+        private thyResizableService: ThyResizableService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         super();
         this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
@@ -123,6 +135,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
             if (this.resizing) {
                 this.ngZone.run(() => {
                     this.resizing = false;
+                    this.changeDetectorRef.markForCheck();
                 });
                 this.thyResizableService.documentMouseUpOutsideAngular$.next();
                 this.endResize(event);
