@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.6](https://github.com/atinc/ngx-tethys/compare/14.1.5...14.1.6) (2022-10-28)
+
+
+### Bug Fixes
+
+* **cascader:** result not expect #INFR-5045 ([#2291](https://github.com/atinc/ngx-tethys/issues/2291)) ([5fb7a0c](https://github.com/atinc/ngx-tethys/commit/5fb7a0cefe9c65a15ab7859c54201c7ab4cbc017)), closes [#INFR-5045](https://github.com/atinc/ngx-tethys/issues/INFR-5045) [#INFR-5045](https://github.com/atinc/ngx-tethys/issues/INFR-5045)
+* **resizable:** add markForCheck when rest resizing for OnPush Mode ([#2294](https://github.com/atinc/ngx-tethys/issues/2294)) ([e80fbb0](https://github.com/atinc/ngx-tethys/commit/e80fbb01a5c1f217d5a646ceb5aa7c3c735069f3))
+
+
+
 ## [14.1.5](https://github.com/atinc/ngx-tethys/compare/14.1.4...14.1.5) (2022-10-27)
 
 
