@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.5-0](https://github.com/atinc/ngx-tethys/compare/14.1.4...14.1.5-0) (2022-10-31)
+
+
+### Bug Fixes
+
+* **cascader:** result not expect #INFR-5045 ([#2291](https://github.com/atinc/ngx-tethys/issues/2291)) ([aa747a9](https://github.com/atinc/ngx-tethys/commit/aa747a99d7c31edd70f31f1b568cccb66933c18d)), closes [#INFR-5045](https://github.com/atinc/ngx-tethys/issues/INFR-5045) [#INFR-5045](https://github.com/atinc/ngx-tethys/issues/INFR-5045)
+
+
+
 ## [14.1.4](https://github.com/atinc/ngx-tethys/compare/14.1.3...14.1.4) (2022-10-24)
 
 
