@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.5-1](https://github.com/atinc/ngx-tethys/compare/14.1.5-0...14.1.5-1) (2022-10-31)
+
+
+### Reverts
+
+* revert select auto focus code ([#2300](https://github.com/atinc/ngx-tethys/issues/2300)) ([8306cbf](https://github.com/atinc/ngx-tethys/commit/8306cbf1e7ae42870f0527eaf75ee1eef84b71e7))
+
+
+
 ## [14.1.5-0](https://github.com/atinc/ngx-tethys/compare/14.1.4...14.1.5-0) (2022-10-31)
 
 
