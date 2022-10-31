@@ -5,5 +5,5 @@ button.
   <p *ngFor="let item of demos">
     this is a demo
   </p>
-  <thy-back-top [thyContainer]="divTarget"></thy-back-top>
+  <thy-back-top (visibleChange)="visibleChange($event)" (thyClick)="click($event)" [thyContainer]="divTarget"></thy-back-top>
 </div>

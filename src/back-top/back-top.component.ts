@@ -32,14 +32,31 @@ import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     @HostBinding('class.thy-back-top-container') classNames = true;
 
+    /**
+     * 自定义内容
+     */
     @Input() thyTemplate?: TemplateRef<void>;
 
-    @Input() thyVisibilityHeight = 400;
-
+    /**
+     * 指定对哪个 DOM 元素返回顶部，默认为 window
+     * @default window
+     */
     @Input() thyContainer?: string | HTMLElement;
 
+    /**
+     * 滚动高度达到此参数值才出现 thy-back-top
+     * @default 400
+     */
+    @Input() thyVisibilityHeight = 400;
+
+    /**
+     * 点击按钮的回调函数
+     */
     @Output() readonly thyClick: EventEmitter<boolean> = new EventEmitter();
 
+    /**
+     * 监听按钮显示状态的回调函数
+     */
     @Output() public visibleChange: EventEmitter<boolean> = new EventEmitter();
 
     /** The native `<div class="thy-back-top"></div>` element. */
