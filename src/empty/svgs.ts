@@ -1,5 +1,4 @@
 const defaultSvg = `
-<?xml version="1.0" encoding="UTF-8"?>
 <svg width="180px" height="133px" viewBox="0 0 180 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>180x133</title>
     <defs>
@@ -54,7 +53,7 @@ const defaultSvg = `
 </svg>
 `;
 
-const lightSvg = `<?xml version="1.0" encoding="UTF-8"?>
+const lightSvg = `
 <svg width="180px" height="133px" viewBox="0 0 180 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
     <title>180x133（灰色底）</title>
     <defs>
