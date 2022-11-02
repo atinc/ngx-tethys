@@ -22,6 +22,10 @@ import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
 import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
 
+/**
+ * 回到顶部组件
+ * @name thy-back-top
+ */
 @Component({
     selector: 'thy-back-top,[thyBackTop]',
     templateUrl: './back-top.component.html',
@@ -33,12 +37,13 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     @HostBinding('class.thy-back-top-container') classNames = true;
 
     /**
-     * 自定义内容
+     * 自定义按钮显示模板
      */
     @Input() thyTemplate?: TemplateRef<void>;
 
     /**
      * 指定对哪个 DOM 元素返回顶部，默认为 window
+     * @type string | HTMLElement
      * @default window
      */
     @Input() thyContainer?: string | HTMLElement;

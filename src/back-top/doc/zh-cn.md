@@ -19,27 +19,10 @@ import { ThyBackTopModule } from "ngx-tethys/back-top";
 ```
 
 ## 基本使用
-```html
-<thy-back-top thyContainer="dg-channel"></thy-back-top>
-
-<!-- 自定义内容 -->
-<thy-back-top [thyTemplate]="tpl" thyContainer="dg-channel" (click)="notify()">
-  <ng-template #tpl>
-    <div class="back-top-inner">UP</div>
-  </ng-template>
-</thy-back-top>
-
-<!-- 对指定 DOM 元素返回顶部 -->
-<div #divTarget>
-  ...
-  <thy-back-top (visibleChange)="visibleChange($event)" (thyClick)="click($event)" [thyContainer]="divTarget"></thy-back-top>
-</div>
-```
-
 <example name="thy-back-top-basic-example" />
 
-## 自定义内容
-使用 `thyTemplate` 自定义 thy-back-top 内容
+## 自定义按钮显示模板
+使用 `thyTemplate` 自定义 `thy-back-top` 按钮显示模板
 <example name="thy-back-top-custom-example" />
 
 ## 对指定元素返回顶部
