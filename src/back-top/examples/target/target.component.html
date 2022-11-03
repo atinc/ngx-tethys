@@ -1,9 +1,7 @@
-Scroll down to see the bottom-right
-<strong> gray </strong>
-button.
+<p>Scroll down to see the bottom-right thy-back-top button</p>
 <div class="long-div" #divTarget>
   <p *ngFor="let item of demos">
     this is a demo
   </p>
-  <thy-back-top [thyContainer]="divTarget"></thy-back-top>
+  <thy-back-top (visibleChange)="visibleChange($event)" (thyClick)="click($event)" [thyContainer]="divTarget"></thy-back-top>
 </div>
