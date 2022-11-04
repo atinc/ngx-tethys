@@ -355,19 +355,17 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.isSearching = false;
             }
             this.changeDetectorRef.markForCheck();
-            if (data) {
-                this.ngZone.onStable
-                    .asObservable()
-                    .pipe(take(1))
-                    .subscribe(() => {
-                        if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
-                            this.cdkConnectedOverlay.overlayRef.updatePosition();
-                            if (this.thyShowSearch) {
-                                this.focus();
-                            }
-                        }
-                    });
-            }
+            this.ngZone.onStable
+                .asObservable()
+                .pipe(take(1))
+                .subscribe(() => {
+                    if (this.cdkConnectedOverlay && this.cdkConnectedOverlay.overlayRef) {
+                        this.cdkConnectedOverlay.overlayRef.updatePosition();
+                    }
+                    if (this.thyShowSearch && document.activeElement === document.body) {
+                        this.focus();
+                    }
+                });
         });
         if (this.thyAutoExpand) {
             timer().subscribe(() => {
