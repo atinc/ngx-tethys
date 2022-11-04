@@ -157,7 +157,7 @@ describe('input search', () => {
         expect(inputEle === document.activeElement).toBeTruthy();
     }));
 
-    fit('should highlight border when focus', fakeAsync(() => {
+    it('should highlight border when focus', fakeAsync(() => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(true);
     }));
