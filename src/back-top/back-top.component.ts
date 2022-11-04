@@ -59,7 +59,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     private backTop$ = new BehaviorSubject<ElementRef<HTMLElement> | undefined>(undefined);
 
     private destroy$ = new Subject<void>();
-    private scrollListenerDestroy$ = new Subject();
+    private scrollListenerDestroy$ = new Subject<void>();
 
     private target: HTMLElement | null = null;
 

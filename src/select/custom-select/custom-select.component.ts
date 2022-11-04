@@ -370,7 +370,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             }
         });
         if (this.thyAutoExpand) {
-            timer().subscribe(() => {
+            timer(0).subscribe(() => {
                 this.changeDetectorRef.markForCheck();
                 this.open();
                 this.focus();
