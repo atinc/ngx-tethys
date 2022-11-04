@@ -8,7 +8,8 @@ import {
     ViewEncapsulation,
     ChangeDetectionStrategy,
     ElementRef,
-    OnInit
+    OnInit,
+    HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService, mixinInitialized, ThyInitialized, Constructor, MixinBase } from 'ngx-tethys/core';
@@ -39,6 +40,8 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
+    @HostBinding('class.form-control-active') _isFocus = false;
+
     public onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
