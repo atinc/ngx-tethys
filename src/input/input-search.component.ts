@@ -36,7 +36,8 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"'
+        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
+        '[class.form-control-active]': 'focused'
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
@@ -52,6 +53,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
 
     searchText: string;
 
+    focused = false;
+
     @Input() name = '';
 
     @Input() placeholder = '';
@@ -61,6 +64,7 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     @Input()
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
+        this.focused = value;
     }
 
     @Input() set thyIconPosition(value: ThyInputSearchIconPosition) {
@@ -76,8 +80,6 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
-
-    @HostBinding('class.form-control-active') isFocus = false;
 
     constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         super();

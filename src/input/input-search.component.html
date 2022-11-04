@@ -8,8 +8,8 @@
   [thyAutofocus]="autoFocus"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="isFocus = true"
-  (blur)="isFocus = false && onTouchedCallback()"
+  (focus)="focused = true"
+  (blur)="focused = false && onTouchedCallback()"
   [thySize]="thySize"
 />
 <ng-container *ngIf="iconPosition === 'after'">
