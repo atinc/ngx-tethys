@@ -40,8 +40,6 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
-    @HostBinding('class.form-control-active') _isFocus = false;
-
     public onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -78,6 +76,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     @Output() clear: EventEmitter<Event> = new EventEmitter<Event>();
 
     @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
+
+    @HostBinding('class.form-control-active') isFocus = false;
 
     constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
         super();

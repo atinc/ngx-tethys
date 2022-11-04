@@ -83,11 +83,11 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     private onChangeCallback: (_: any) => void = noop;
 
-    @HostBinding('class.thy-input') _isSearchContainer = true;
+    @HostBinding('class.thy-input') isSearchContainer = true;
 
-    @HostBinding('class.form-control') _isFormControl = true;
+    @HostBinding('class.form-control') isFormControl = true;
 
-    @HostBinding('class.form-control-active') _isFocus = false;
+    @HostBinding('class.form-control-active') isFocus = false;
 
     @HostBinding('class.disabled') disabled = false;
 
@@ -122,13 +122,13 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     }
 
     onInputFocus(event: Event) {
-        this._isFocus = true;
+        this.isFocus = true;
         this.showLabel = true;
         this.focus.emit(event);
     }
 
     onInputBlur(event: Event) {
-        this._isFocus = false;
+        this.isFocus = false;
         this.showLabel = false;
         this.blur.emit(event);
     }
