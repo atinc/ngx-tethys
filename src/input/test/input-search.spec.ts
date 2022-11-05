@@ -157,9 +157,14 @@ describe('input search', () => {
         expect(inputEle === document.activeElement).toBeTruthy();
     }));
 
-    it('should highlight border when focus', fakeAsync(() => {
+    fit('focus and blur', fakeAsync(() => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(true);
+
+        const debugInputInstance = fixture.debugElement.query(By.directive(ThyInputSearchComponent)).componentInstance;
+        debugInputInstance.focused = false;
+        fixture.detectChanges();
+        expect(searchElement.classList.contains('form-control-active')).toBe(false);
     }));
 
     it('disabled and dont support clear when disabled', fakeAsync(() => {
