@@ -157,7 +157,7 @@ describe('input search', () => {
         expect(inputEle === document.activeElement).toBeTruthy();
     }));
 
-    fit('focus and blur', fakeAsync(() => {
+    it('focus and blur', fakeAsync(() => {
         fixture.detectChanges();
         expect(searchElement.classList.contains('form-control-active')).toBe(true);
 
