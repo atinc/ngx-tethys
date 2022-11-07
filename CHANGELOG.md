@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.7](https://github.com/atinc/ngx-tethys/compare/14.1.6...14.1.7) (2022-11-07)
+
+
+### Features
+
+* **empty:** update empty svg #INFR-5123 ([#2302](https://github.com/atinc/ngx-tethys/issues/2302)) ([d8d3faa](https://github.com/atinc/ngx-tethys/commit/d8d3faa76cb07acebe2ec3ddc73e619ada0514c3)), closes [#INFR-5123](https://github.com/atinc/ngx-tethys/issues/INFR-5123)
+* **input:** add 'form-control-active' when thy-input-search focus #INFR-5167 ([72da6c4](https://github.com/atinc/ngx-tethys/commit/72da6c4d0e61edec9e67d9159110a03d2e903a59)), closes [#INFR-5167](https://github.com/atinc/ngx-tethys/issues/INFR-5167)
+
+
+
 ## [14.1.6](https://github.com/atinc/ngx-tethys/compare/14.1.5...14.1.6) (2022-10-28)
 
 
