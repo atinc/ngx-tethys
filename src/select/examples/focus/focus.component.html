@@ -1,0 +1,10 @@
+<thy-input [thyAutofocus]="true" placeholder="Autofocus input"></thy-input>
+<thy-custom-select
+  [ngModel]="listOfSelectedValue"
+  thyEnableScrollLoad="true"
+  style="width: 500px;"
+  (thyOnExpandStatusChange)="expandChange($event)"
+  [thyShowSearch]="true"
+>
+  <thy-option *ngFor="let option of loadMoreData" [thyValue]="option._id" [thyLabelText]="option.thyLabelText"> </thy-option>
+</thy-custom-select>

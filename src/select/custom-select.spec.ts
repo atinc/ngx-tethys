@@ -24,6 +24,7 @@ import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-sel
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
 import { tap } from 'rxjs/operators';
+import { ThyInputComponent, ThyInputModule } from '../input';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -604,6 +605,7 @@ class SelectWithScrollAndSearchComponent {
 @Component({
     selector: 'thy-select-with-load-state',
     template: `
+        <thy-input [thyAutofocus]="inputAutofocus"></thy-input>
         <thy-custom-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
             <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
             </thy-option>
@@ -613,9 +615,13 @@ class SelectWithScrollAndSearchComponent {
 class SelectWithAsyncLoadComponent implements OnInit {
     @ViewChild(ThySelectCustomComponent) customSelect: ThySelectCustomComponent;
 
+    @ViewChild(ThyInputComponent) inputComponent: ThyInputComponent;
+
     loadState = true;
 
     showSearch = false;
+
+    inputAutofocus = true;
 
     foods: any[] = [];
 
@@ -659,7 +665,7 @@ describe('ThyCustomSelect', () => {
 
     function configureThyCustomSelectTestingModule(declarations: any[], providers: any[] = []) {
         TestBed.configureTestingModule({
-            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
+            imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule, ThyInputModule],
             declarations: declarations,
             providers: [UpdateHostClassService, bypassSanitizeProvider, ...providers]
         }).compileComponents();
@@ -2173,6 +2179,18 @@ describe('ThyCustomSelect', () => {
             tick(2000);
 
             expect(componentFocusSpy).toHaveBeenCalled();
+        }));
+
+        it('input should auto focus when select load data', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+            fixture.componentInstance.showSearch = true;
+            fixture.detectChanges();
+
+            tick(1600);
+            flush();
+            expect(fixture.componentInstance.foods).not.toBeNull();
+
+            expect(document.activeElement).toEqual(fixture.debugElement.query(By.css('.thy-input input')).nativeElement);
         }));
     });
 });
