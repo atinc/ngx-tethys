@@ -1,0 +1,12 @@
+<div style="width: 400px;">
+  <div class="d-flex justify-content-between align-items-center" style="height: 30px">
+    <span>是否显示版权信息</span>
+    <thy-switch [(ngModel)]="isChecked" thySize="sm" (ngModelChange)="checkedChange($event)"></thy-switch>
+  </div>
+  <thy-input-count
+    [(ngModel)]="value"
+    [thyAutoFocus]="true"
+    [thyAppendText]="appendText"
+    (ngModelChange)="change($event)"
+  ></thy-input-count>
+</div>

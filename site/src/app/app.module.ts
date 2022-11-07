@@ -30,6 +30,7 @@ import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+import { ThyInputCountModule } from 'ngx-tethys/input-count';
 import { ThyLabelModule } from 'ngx-tethys/label';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 // import { ThyKeySelectModule } from 'ngx-tethys/key-select';
@@ -112,6 +113,7 @@ const TETHYS_MODULES = [
     ThyFormModule,
     ThyInputModule,
     ThyInputNumberModule,
+    ThyInputCountModule,
     ThyDropdownModule,
     ThyCopyModule,
     ThyCheckboxModule,

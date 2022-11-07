@@ -1,0 +1,22 @@
+<thy-input-group>
+  <div class="input-group-prefix" *ngIf="appendText">
+    <span>{{ appendText }}</span>
+  </div>
+  <input
+    thyInput
+    #input
+    autocomplete="off"
+    class="input-count-input form-control"
+    [thySize]="thySize"
+    [thyAutofocus]="thyAutoFocus"
+    [disabled]="thyDisabled"
+    [placeholder]="thyPlaceholder"
+    [(ngModel)]="displayValue"
+    (ngModelChange)="onModelChange($event)"
+    (blur)="onBlur($event)"
+    (focus)="onFocus($event)"
+  />
+  <ng-template #suffix>
+    <span class="text-muted font-size-sm">{{ currentLength }} / {{ maxLength }}</span>
+  </ng-template>
+</thy-input-group>
