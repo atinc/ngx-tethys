@@ -151,7 +151,7 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
             }
         });
         this.selectSort();
-        this.selectedValueChange$.next();
+        this.selectedValueChange$.next(undefined);
     }
 
     deselect(...value: AdvancedSelectableCell[]) {
@@ -159,13 +159,13 @@ export class DateCarouselComponent implements OnInit, ControlValueAccessor, OnDe
             this.selectedValue = this.selectedValue.filter(selected => !selected.startValue.isSameDay(item.startValue));
         });
         this.selectSort();
-        this.selectedValueChange$.next();
+        this.selectedValueChange$.next(undefined);
     }
 
     clearSelect(hidden?: boolean) {
         this.selectedValue = [];
         if (!hidden) {
-            this.selectedValueChange$.next();
+            this.selectedValueChange$.next(undefined);
         }
     }
 

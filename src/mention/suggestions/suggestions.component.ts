@@ -81,7 +81,6 @@ export class ThyMentionSuggestionsComponent<TItem = MentionDefaultDataItem> impl
     }
 
     ngOnDestroy() {
-        this.search$.next();
         this.search$.complete();
     }
 }
