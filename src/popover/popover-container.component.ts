@@ -82,7 +82,7 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
 
     ngAfterViewInit() {
         if (this.config.outsideClosable && !this.config.hasBackdrop) {
-            timer().subscribe(() => {
+            timer(0).subscribe(() => {
                 this.thyClickDispatcher
                     .clicked()
                     .pipe(takeUntil(this.animationClosingDone))

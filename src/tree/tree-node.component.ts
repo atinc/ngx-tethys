@@ -79,7 +79,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
         return this.node.origin.iconStyle;
     }
 
-    private destroy$ = new Subject();
+    private destroy$ = new Subject<void>();
 
     checkState = ThyTreeNodeCheckState;
 

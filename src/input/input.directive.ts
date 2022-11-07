@@ -16,7 +16,7 @@ const inputGroupSizeMap = {
     providers: [UpdateHostClassService]
 })
 export class ThyInputDirective implements OnInit {
-    @HostBinding('class.form-control') _isFormControl = true;
+    @HostBinding('class.form-control') isFormControl = true;
 
     private autocomplete: boolean;
 

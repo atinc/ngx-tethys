@@ -11,7 +11,7 @@ export class ThyFullscreenRef<TResult = unknown> {
 
     private isFullscreen = false;
 
-    private ngUnsubscribe$ = new Subject();
+    private ngUnsubscribe$ = new Subject<void>();
 
     private readonly _afterLaunched = new Subject<TResult>();
 
@@ -71,7 +71,7 @@ export class ThyFullscreenRef<TResult = unknown> {
             targetElement.classList.add(classes);
         }
         this.isFullscreen = true;
-        this._afterLaunched.next();
+        this._afterLaunched.next(undefined);
     }
 
     private exitNormalFullscreen() {
@@ -91,7 +91,7 @@ export class ThyFullscreenRef<TResult = unknown> {
         }
 
         this.isFullscreen = false;
-        this._afterExited.next();
+        this._afterExited.next(undefined);
         this._afterExited.complete();
 
         this.ngUnsubscribe$.next();

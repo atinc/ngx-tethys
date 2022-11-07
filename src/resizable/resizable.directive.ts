@@ -137,7 +137,7 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
                     this.resizing = false;
                     this.changeDetectorRef.markForCheck();
                 });
-                this.thyResizableService.documentMouseUpOutsideAngular$.next();
+                this.thyResizableService.documentMouseUpOutsideAngular$.next(event);
                 this.endResize(event);
             }
         });

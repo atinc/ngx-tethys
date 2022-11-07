@@ -28,7 +28,7 @@ export abstract class ThyOverlayDirectiveBase {
 
     protected overlayRef: OverlayRef;
     protected manualListeners = new Map<string, EventListenerOrEventListenerObject>();
-    protected ngUnsubscribe$ = new Subject();
+    protected ngUnsubscribe$ = new Subject<void>();
     protected focusMonitor: FocusMonitor;
     protected platform: Platform;
     protected ngZone: NgZone;

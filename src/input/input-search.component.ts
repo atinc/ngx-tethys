@@ -8,7 +8,8 @@ import {
     ViewEncapsulation,
     ChangeDetectionStrategy,
     ElementRef,
-    OnInit
+    OnInit,
+    HostBinding
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { UpdateHostClassService, mixinInitialized, ThyInitialized, Constructor, MixinBase } from 'ngx-tethys/core';
@@ -35,7 +36,8 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
     host: {
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
-        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"'
+        '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
+        '[class.form-control-active]': 'focused'
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
@@ -51,6 +53,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
 
     searchText: string;
 
+    focused = false;
+
     @Input() name = '';
 
     @Input() placeholder = '';
@@ -60,6 +64,7 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     @Input()
     set thySearchFocus(value: boolean) {
         this.autoFocus = value;
+        this.focused = value;
     }
 
     @Input() set thyIconPosition(value: ThyInputSearchIconPosition) {

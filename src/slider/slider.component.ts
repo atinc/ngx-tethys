@@ -271,8 +271,8 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
                     e.stopPropagation();
                     e.preventDefault();
                 }),
-                pluck<Event, number>(orientField),
-                map((position: number) => this.mousePositionToAdaptiveValue(position))
+                pluck(orientField),
+                map((position: number, index) => this.mousePositionToAdaptiveValue(position))
             );
         });
 
@@ -286,7 +286,7 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
                     e.stopPropagation();
                     e.preventDefault();
                 }),
-                pluck<Event, number>(orientField),
+                pluck(orientField),
                 distinctUntilChanged(),
                 map((position: number) => this.mousePositionToAdaptiveValue(position)),
                 distinctUntilChanged(),
