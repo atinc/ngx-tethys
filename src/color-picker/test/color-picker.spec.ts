@@ -202,7 +202,13 @@ describe(`color-picker`, () => {
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            let pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            expect(pickerPanelElement).toBeTruthy();
+
+            dispatchMouseEvent(moreButton, 'click');
+            tick(100);
+            fixture.detectChanges();
+            pickerPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
             expect(pickerPanelElement).toBeTruthy();
         }));
 
