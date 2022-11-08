@@ -78,7 +78,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     private links: ThyAnchorLinkComponent[] = [];
     private animating = false;
-    private destroy$ = new Subject();
+    private destroy$ = new Subject<void>();
     private handleScrollTimeoutID = -1;
 
     constructor(

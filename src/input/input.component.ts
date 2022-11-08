@@ -33,7 +33,12 @@ const password = 'password';
     selector: 'thy-input',
     templateUrl: './input.component.html',
     providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'thy-input form-control',
+        '[class.form-control-active]': 'focused',
+        '[class.disabled]': 'disabled'
+    }
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() placeholder = '';
@@ -79,17 +84,13 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public showLabel: boolean;
 
+    public focused = false;
+
+    public disabled = false;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
-
-    @HostBinding('class.thy-input') _isSearchContainer = true;
-
-    @HostBinding('class.form-control') _isFormControl = true;
-
-    @HostBinding('class.form-control-active') _isFocus = false;
-
-    @HostBinding('class.disabled') disabled = false;
 
     constructor(private ngZone: NgZone) {}
 
@@ -122,13 +123,13 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     }
 
     onInputFocus(event: Event) {
-        this._isFocus = true;
+        this.focused = true;
         this.showLabel = true;
         this.focus.emit(event);
     }
 
     onInputBlur(event: Event) {
-        this._isFocus = false;
+        this.focused = false;
         this.showLabel = false;
         this.blur.emit(event);
     }

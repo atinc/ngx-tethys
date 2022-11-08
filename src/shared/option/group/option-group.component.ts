@@ -31,7 +31,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     @ContentChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
-    _destroy$: Subject<any> = new Subject<any>();
+    _destroy$: Subject<void> = new Subject<void>();
 
     optionVisibleChanges: Observable<ThyOptionVisibleChangeEvent> = defer(() => {
         if (this.options) {
