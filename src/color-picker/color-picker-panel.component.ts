@@ -25,6 +25,8 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     newColor: string;
 
+    customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanelComponent>;
+
     constructor(
         private thyPopover: ThyPopover,
         private viewContainerRef: ViewContainerRef,
@@ -45,25 +47,26 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
-            origin: event.currentTarget as HTMLElement,
-            offset: -4,
-            placement: 'rightBottom',
-            manualClosure: true,
-            width: '260px',
-            hasBackdrop: false,
-            viewContainerRef: this.viewContainerRef,
-            originActiveClass: 'thy-color-picker-active',
-            initialState: {
-                color: this.color,
-                pickerColorChange: (value: string) => {
-                    this.newColor = value;
-                    this.colorChange(value);
+        if (!this.customPanelPopoverRef) {
+            this.customPanelPopoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
+                origin: event.currentTarget as HTMLElement,
+                offset: -4,
+                placement: 'rightBottom',
+                manualClosure: true,
+                width: '260px',
+                hasBackdrop: false,
+                viewContainerRef: this.viewContainerRef,
+                originActiveClass: 'thy-color-picker-active',
+                initialState: {
+                    color: this.color,
+                    pickerColorChange: (value: string) => {
+                        this.newColor = value;
+                        this.colorChange(value);
+                    }
                 }
-            }
-        });
-
-        popoverRef.afterClosed().subscribe(() => {
+            });
+        }
+        this.customPanelPopoverRef?.afterClosed().subscribe(() => {
             if (this.newColor) {
                 const index = this.recentColors.findIndex(item => item === this.newColor);
                 if (index !== -1) {
