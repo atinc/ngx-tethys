@@ -47,7 +47,7 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
 
     private drawerContainerElement: HTMLElement;
 
-    private ngUnsubscribe$ = new Subject();
+    private ngUnsubscribe$ = new Subject<void>();
 
     get isPush() {
         return this.config.mode === 'push' && !!this.drawerContainerElement;
