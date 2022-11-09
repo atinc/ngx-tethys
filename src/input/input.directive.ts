@@ -1,4 +1,5 @@
-import { Directive, ElementRef, HostBinding, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnInit, Optional, Renderer2, Self } from '@angular/core';
+import { NgControl } from '@angular/forms';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -11,9 +12,15 @@ const inputGroupSizeMap = {
     lg: ['form-control-lg']
 };
 
+/**
+ * 输入框指令
+ * @name thyInput
+ * @order 10
+ */
 @Directive({
-    selector: '[thyInput]',
-    providers: [UpdateHostClassService]
+    selector: 'input[thyInput], select[thyInput]',
+    providers: [UpdateHostClassService],
+    exportAs: 'thyInput'
 })
 export class ThyInputDirective implements OnInit {
     @HostBinding('class.form-control') isFormControl = true;
@@ -22,6 +29,11 @@ export class ThyInputDirective implements OnInit {
 
     private initialized = false;
 
+    /**
+     * 输入框大小
+     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
+     * @default default
+     */
     @Input()
     set thySize(size: ThyInputSize) {
         if (size && inputGroupSizeMap[size]) {
@@ -31,6 +43,10 @@ export class ThyInputDirective implements OnInit {
         }
     }
 
+    /**
+     * 输入字段是否应该启用自动完成功能
+     * @default false
+     */
     @Input()
     set thyAutocomplete(value: boolean) {
         this.autocomplete = coerceBooleanProperty(value);
@@ -39,7 +55,20 @@ export class ThyInputDirective implements OnInit {
         }
     }
 
-    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef, private render: Renderer2) {
+    get ngControl() {
+        return this.control;
+    }
+
+    get nativeElement(): HTMLInputElement {
+        return this.elementRef.nativeElement;
+    }
+
+    constructor(
+        private updateHostClassService: UpdateHostClassService,
+        private elementRef: ElementRef,
+        private render: Renderer2,
+        @Optional() @Self() private control: NgControl
+    ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
