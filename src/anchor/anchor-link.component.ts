@@ -15,6 +15,10 @@ import {
 
 import { ThyAnchorComponent } from './anchor.component';
 
+/**
+ * 锚点链接组件，可供锚点跳转
+ * @name thy-anchor-link,thyAnchorLink
+ */
 @Component({
     selector: 'thy-link,thy-anchor-link',
     exportAs: 'thyLink,thyAnchorLink',

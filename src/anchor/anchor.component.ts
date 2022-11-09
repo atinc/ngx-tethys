@@ -32,6 +32,10 @@ interface Section {
 
 const sharpMatcherRegx = /#([^#]+)$/;
 
+/**
+ * 锚点组件
+ * @name thy-anchor
+ */
 @Component({
     selector: 'thy-anchor',
     exportAs: 'thyAnchor',
@@ -76,13 +80,9 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     /**
      * 指定滚动的容器
+     * @type string | HTMLElement
      */
     @Input() thyContainer?: string | HTMLElement;
-
-    /**
-     * 指定滚动的容器
-     */
-    @Input() thyTarget: string | HTMLElement = '';
 
     /**
      * 点击项触发
@@ -246,7 +246,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
             };
         }
         if (thyContainer && this.thyContainer) {
-            const container = this.thyContainer || this.thyTarget;
+            const container = this.thyContainer;
             this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
             this.registerScrollEvent();
         }
