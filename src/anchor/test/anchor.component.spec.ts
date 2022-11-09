@@ -1,5 +1,5 @@
-import { Component, DebugElement, ViewChild, OnInit } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync, tick, flush } from '@angular/core/testing';
+import { Component, DebugElement, ViewChild, OnInit, TemplateRef } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { ThyAnchorComponent } from '../anchor.component';
 import { ThyAnchorModule } from '../anchor.module';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -7,6 +7,7 @@ import { ThyScrollService } from '../../core/scroll';
 import { By } from '@angular/platform-browser';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getOffset } from '../../util/dom';
+import { ThyAnchorLinkComponent } from '../anchor-link.component';
 
 describe('thy-anchor', () => {
     describe('default', () => {
@@ -89,6 +90,33 @@ describe('thy-anchor', () => {
                 expect(staticLink.classList).toContain('thy-anchor-link-active');
                 done();
             });
+        });
+    });
+
+    describe('thyAnchorLink', () => {
+        let fixture: ComponentFixture<TestThyAnchorLinkComponent>;
+        let debugElement: DebugElement;
+        let component: ThyAnchorComponent;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyAnchorModule, NoopAnimationsModule],
+                declarations: [TestThyAnchorLinkComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestThyAnchorLinkComponent);
+            component = fixture.componentInstance.thyAnchorComponent;
+            debugElement = fixture.debugElement;
+
+            fixture.detectChanges();
+        });
+
+        it('should set link title', () => {
+            const comp = fixture.componentInstance;
+            const anchorLinkComponent = fixture.debugElement.query(By.directive(ThyAnchorLinkComponent)).componentInstance;
+            comp.title = 'Basic demo title';
+            fixture.detectChanges();
+            expect(anchorLinkComponent.title).toEqual(comp.title);
         });
     });
 });
@@ -178,5 +206,41 @@ class TestContainerAnchorComponent implements OnInit {
         for (let index = 0; index < 20; index++) {
             this.demos.push(index);
         }
+    }
+}
+
+@Component({
+    template: `
+        <div class="demo-card">
+            <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop">
+                <thy-link thyHref="#components-anchor-demo-basic" [thyTitle]="title"></thy-link>
+            </thy-anchor>
+            <div>
+                <h1 id="components-anchor-demo-basic">Basic demo</h1>
+                <p>this is a demo</p>
+                <p>this is a demo</p>
+                <p>this is a demo</p>
+                <p>this is a demo</p>
+                <p>this is a demo</p>
+            </div>
+            <ng-template #titleTemplate>
+                <span>Basic Demo Title</span>
+            </ng-template>
+        </div>
+    `
+})
+class TestThyAnchorLinkComponent implements OnInit {
+    @ViewChild(ThyAnchorComponent, { static: true })
+    thyAnchorComponent: ThyAnchorComponent;
+
+    @ViewChild('titleTemplate', { static: true })
+    titleTemplate: TemplateRef<void>;
+
+    thyOffsetTop = 60;
+
+    title: string | TemplateRef<void>;
+
+    ngOnInit(): void {
+        this.title = this.titleTemplate;
     }
 }
