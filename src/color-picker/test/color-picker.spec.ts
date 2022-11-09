@@ -202,7 +202,13 @@ describe(`color-picker`, () => {
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-            const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            let pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            expect(pickerPanelElement).toBeTruthy();
+
+            dispatchMouseEvent(moreButton, 'click');
+            tick(100);
+            fixture.detectChanges();
+            pickerPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
             expect(pickerPanelElement).toBeTruthy();
         }));
 
@@ -241,12 +247,17 @@ describe(`color-picker`, () => {
             dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
             flush();
-
             const pickerPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
             dispatchMouseEvent(pickerPanelElement, 'click');
             fixture.detectChanges();
             expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
             expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeTruthy();
+
+            dispatchMouseEvent(boxElement, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeFalsy();
         }));
 
         it('should normally closed color-picker component used hide func', fakeAsync(() => {
@@ -312,6 +323,7 @@ describe('color-default-panel', () => {
         it('should return correct icon color', fakeAsync(() => {
             fixture.detectChanges();
             expect(fixtureInstance.defaultPanel.getIconColor('#ffffff')).toEqual('black');
+            expect(fixtureInstance.defaultPanel.getIconColor('#000000')).toEqual('white');
         }));
 
         it('should set correct recent color', fakeAsync(() => {

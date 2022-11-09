@@ -177,7 +177,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     private get scroll$() {
-        return merge<MouseEvent>(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
+        return merge(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
     }
 
     @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
@@ -857,7 +857,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
                     () =>
                         new Observable<Event>(subscriber =>
                             this.ngZone.runOutsideAngular(() =>
-                                merge<Event>(
+                                merge(
                                     ...this.rows.map(row =>
                                         fromEvent(
                                             row.nativeElement,

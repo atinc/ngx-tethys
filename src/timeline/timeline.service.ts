@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { ReplaySubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 @Injectable()
 export class ThyTimelineService {
-    check$ = new ReplaySubject(1);
+    check$ = new Subject<void>();
     markForCheck(): void {
         this.check$.next();
     }
