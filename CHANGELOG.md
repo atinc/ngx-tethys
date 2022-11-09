@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.8](https://github.com/atinc/ngx-tethys/compare/14.1.7...14.1.8) (2022-11-09)
+
+
+### Bug Fixes
+
+* **color-picker:**  clicking showMoreColor button do not close popove… ([#2303](https://github.com/atinc/ngx-tethys/issues/2303)) ([315b42a](https://github.com/atinc/ngx-tethys/commit/315b42abfc693daeaba07a4e0ce4dc909f6187f9))
+
+
+### Features
+
+* **cascader:** change option hover style bg color to $gray-100 #INFR-5072 ([#2292](https://github.com/atinc/ngx-tethys/issues/2292)) ([8d37fa1](https://github.com/atinc/ngx-tethys/commit/8d37fa10015309ed598705d6b10fe528b69e1fdf)), closes [#INFR-5072](https://github.com/atinc/ngx-tethys/issues/INFR-5072)
+* **mention:** change mention selection list padding #INFR-5251 ([#2309](https://github.com/atinc/ngx-tethys/issues/2309)) ([e58d9c1](https://github.com/atinc/ngx-tethys/commit/e58d9c12783ebc40e9895143e03ae917d831d5e9)), closes [#INFR-5251](https://github.com/atinc/ngx-tethys/issues/INFR-5251)
+
+
+### Reverts
+
+* **select:** revert select focus when options changed #INFR-5253 ([#2311](https://github.com/atinc/ngx-tethys/issues/2311)) ([5160955](https://github.com/atinc/ngx-tethys/commit/51609559222f61c4ae2ea1a484ce66bafff2c2ce)), closes [#INFR-5253](https://github.com/atinc/ngx-tethys/issues/INFR-5253)
+
+
+
 ## [14.1.7](https://github.com/atinc/ngx-tethys/compare/14.1.6...14.1.7) (2022-11-07)
 
 
