@@ -11,13 +11,13 @@
 
 .thy-properties {
     display: grid;
-
+    column-gap: variables.$properties-column-gap;
+    row-gap: variables.$properties-row-gap;
     &.thy-properties-horizontal {
         .thy-property-item {
             flex-direction: row;
             .thy-property-item-label {
                 width: variables.$property-item-horizontal-label-width;
-                line-height: variables.$property-item-min-height;
                 padding-right: variables.$property-item-padding-x;
             }
         }
@@ -26,9 +26,6 @@
     &.thy-properties-vertical {
         .thy-property-item {
             flex-direction: column;
-            .thy-property-item-label {
-                margin-bottom: 0.4rem;
-            }
         }
     }
 
@@ -42,12 +39,12 @@
 
     .thy-property-item {
         display: flex;
-        padding: variables.$property-item-padding-y variables.$property-item-padding-x variables.$property-item-padding-y 0;
-
         .thy-property-item-label {
-            width: variables.$property-item-horizontal-label-width;
+            display: inline-grid;
+            align-items: center;
+            height: variables.$property-item-min-height;
             color: variables.$property-item-label-color;
-            display: flex;
+
             span {
                 display: inline-block;
             }
