@@ -4,4 +4,7 @@
     width: variables.$mention-suggestions-width;
     max-height: variables.$mention-suggestions-height;
     overflow-y: auto;
+    .thy-selection-list {
+        padding: variables.$mention-suggestions-list-padding;
+    }
 }
