@@ -22,7 +22,7 @@ import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { ThyAnchorLinkComponent } from './anchor-link.component';
 import { getOffset } from 'ngx-tethys/util';
-import { ThyScrollService } from 'ngx-tethys/core';
+import { InputBoolean, ThyScrollService } from 'ngx-tethys/core';
 import { DOCUMENT } from '@angular/common';
 
 interface Section {
@@ -32,6 +32,10 @@ interface Section {
 
 const sharpMatcherRegx = /#([^#]+)$/;
 
+/**
+ * 锚点组件
+ * @name thy-anchor
+ */
 @Component({
     selector: 'thy-anchor',
     exportAs: 'thyAnchor',
@@ -57,28 +61,51 @@ const sharpMatcherRegx = /#([^#]+)$/;
 export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;
 
-    @Input() thyAffix = true;
+    /**
+     * 固定模式
+     */
+    @Input() @InputBoolean() thyAffix = true;
 
+    /**
+     * 锚点区域边界，单位：px
+     */
     @Input()
     thyBounds = 5;
 
+    /**
+     * 缓冲的偏移量阈值
+     */
     @Input()
     thyOffsetTop?: number = undefined;
 
+    /**
+     * 指定滚动的容器
+     * @type string | HTMLElement
+     */
     @Input() thyContainer?: string | HTMLElement;
-    @Input() thyTarget: string | HTMLElement = '';
 
+    /**
+     * 点击项触发
+     */
     @Output() readonly thyClick = new EventEmitter<ThyAnchorLinkComponent>();
+
+    /**
+     * 滚动到某锚点时触发
+     */
     @Output() readonly thyScroll = new EventEmitter<ThyAnchorLinkComponent>();
 
     visible = false;
+
     wrapperStyle = { 'max-height': '100vh' };
 
     container?: HTMLElement | Window;
 
     private links: ThyAnchorLinkComponent[] = [];
+
     private animating = false;
+
     private destroy$ = new Subject<void>();
+
     private handleScrollTimeoutID = -1;
 
     constructor(
@@ -219,7 +246,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
             };
         }
         if (thyContainer && this.thyContainer) {
-            const container = this.thyContainer || this.thyTarget;
+            const container = this.thyContainer;
             this.container = typeof container === 'string' ? this.document.querySelector(container) : container;
             this.registerScrollEvent();
         }
