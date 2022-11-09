@@ -4,13 +4,13 @@ import { Component, OnInit } from '@angular/core';
     selector: 'thy-anchor-static-example',
     template: `
         <div class="demo-card">
-            <thy-anchor thyAffix="false" [thyOffsetTop]="60">
-                <thy-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-link>
-                <thy-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-link>
-                <thy-link thyHref="#API" thyTitle="API">
-                    <thy-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-link>
-                    <thy-link thyHref="#link-props" thyTitle="thy-link"></thy-link>
-                </thy-link>
+            <thy-anchor thyAffix="false" [thyOffsetTop]="60" thyContainer=".dg-scroll-container">
+                <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
+                <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
+                <thy-anchor-link thyHref="#API" thyTitle="API">
+                    <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
+                    <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
+                </thy-anchor-link>
             </thy-anchor>
         </div>
     `

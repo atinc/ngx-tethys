@@ -16,8 +16,8 @@ import {
 import { ThyAnchorComponent } from './anchor.component';
 
 @Component({
-    selector: 'thy-link',
-    exportAs: 'thyLink',
+    selector: 'thy-link,thy-anchor-link',
+    exportAs: 'thyLink,thyAnchorLink',
     preserveWhitespaces: false,
     template: `
         <a #linkTitle (click)="goToClick($event)" href="{{ thyHref }}" class="thy-anchor-link-title" title="{{ title }}">
@@ -29,11 +29,18 @@ import { ThyAnchorComponent } from './anchor.component';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
-    @Input() thyHref = '#';
-
     title: string | null = '';
+
     titleTemplate?: TemplateRef<any>;
 
+    /**
+     * 锚点链接
+     */
+    @Input() thyHref = '#';
+
+    /**
+     * 文字内容
+     */
     @Input()
     set thyTitle(value: string | TemplateRef<void>) {
         if (value instanceof TemplateRef) {
@@ -45,6 +52,7 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
     }
 
     @ContentChild('thyTemplate') thyTemplate!: TemplateRef<void>;
+
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
     constructor(
@@ -54,6 +62,9 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
         private renderer: Renderer2
     ) {
         this.renderer.addClass(elementRef.nativeElement, 'thy-anchor-link');
+        if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
+            console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);
+        }
     }
 
     ngOnInit(): void {
