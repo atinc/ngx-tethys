@@ -14,6 +14,12 @@
     }
 }
 
+@mixin action-size($font-size) {
+    .thy-icon {
+        font-size: $font-size !important;
+    }
+}
+
 @mixin action-item-size($padding, $margin-right) {
     padding: $padding;
     margin-right: $margin-right;

@@ -14,6 +14,8 @@ import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
+export type ThySizeType = 'sm' | 'md' | 'lg';
+
 /**
  * 立即操作组件
  */
@@ -35,6 +37,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     private active = false;
 
     private type: string = 'primary';
+
+    private size: ThySizeType = 'md';
 
     /**
      * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
@@ -95,6 +99,15 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     @InputBoolean()
     thyDisabled: boolean;
 
+    /**
+     * 操作图标大小，默认 md, 可选值 sm | md
+     */
+
+    @Input()
+    set thySize(value: ThySizeType) {
+        this.setActionSize(value || 'md');
+    }
+
     constructor(
         private elementRef: ElementRef<HTMLElement>,
         private renderer: Renderer2,
@@ -137,9 +150,14 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
         this.type = value;
     }
 
+    private setActionSize(value: ThySizeType) {
+        this.size = value;
+    }
+
     private updateClasses() {
         let classNames: string[] = [];
         classNames.push(`action-${this.type}`);
+        classNames.push(`action-size-${this.size}`);
         if (this.thyTheme === 'lite') {
             classNames.push('thy-action-lite');
         }

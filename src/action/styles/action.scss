@@ -73,6 +73,18 @@
     }
 }
 
+.action-size-md {
+    @include action-mixin.action-size(variables.$font-size-md);
+}
+
+.action-size-sm {
+    @include action-mixin.action-size(variables.$font-size-base);
+}
+
+.action-size-lg {
+    @include action-mixin.action-size(variables.$font-size-lg);
+}
+
 .thy-action-lite {
     @include hover.hover-active {
         background: none;
