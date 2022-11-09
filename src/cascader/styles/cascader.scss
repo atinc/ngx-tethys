@@ -61,7 +61,7 @@
         transition: all 0.3s;
         color: variables.$gray-700;
         &:hover {
-            box-shadow: 0 2px 8px 1px rgba(0, 0, 0, 0.08);
+            background: variables.$gray-100;
             color: variables.$body-color;
         }
         &-active:not(&-disabled) {

@@ -29,6 +29,11 @@ const noop = () => {};
 
 const password = 'password';
 
+/**
+ * 内部集成输入框组件，建议 thy-input-group 和 thyInput 组合使用
+ * @name thy-input
+ * @order 50
+ */
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
@@ -41,37 +46,74 @@ const password = 'password';
     }
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
+    /**
+     * Placeholder
+     */
     @Input() placeholder = '';
 
+    /**
+     * 输入框大小
+     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
+     * @default default
+     */
     @Input() thySize: ThyInputSize;
 
+    /**
+     * 是否自动聚焦
+     * @default false
+     */
     @Input() thyAutofocus = false;
+
+    /**
+     * 输入框类型
+     * @type 'number' | 'input'
+     */
+    @Input()
+    set thyType(value: string) {
+        this.type = value;
+    }
 
     /**
      * @deprecated please use thyType
      */
     @Input() type: string;
 
-    @Input()
-    set thyType(value: string) {
-        this.type = value;
-    }
-
+    /**
+     * 输入 Label 文本
+     */
     @Input() thyLabelText: string;
 
+    /**
+     * 是否只读
+     */
     @Input() readonly = false;
 
+    /**
+     *  输入字段是否应该启用自动完成功能
+     */
     @Input()
     set thyAutocomplete(value: boolean) {
         this.autocomplete = value;
     }
 
+    /**
+     * focus 聚焦事件
+     */
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * blur 失焦事件
+     */
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * 后置模板
+     */
     @ContentChild('append') appendTemplate: TemplateRef<any>;
 
+    /**
+     * 前置模板
+     */
     @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
     @ViewChild('eye', { static: true }) eyeTemplate: TemplateRef<any>;
