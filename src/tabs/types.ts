@@ -1,6 +1,3 @@
-export interface ThyActiveTabInfo {
-    id?: string;
-    index?: number;
-}
+export type ThyActiveTabInfo = string | number;
 
-export interface ThyTabChangeEvent extends ThyActiveTabInfo {}
+export type ThyTabActiveEvent = ThyActiveTabInfo;

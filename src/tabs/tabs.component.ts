@@ -16,7 +16,7 @@ import {
 } from '@angular/core';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyTabComponent } from './tab.component';
-import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
+import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
 import { takeUntil } from 'rxjs/operators';
 import { fromEvent } from 'rxjs';
 import { helpers } from 'ngx-tethys/util';
@@ -60,8 +60,8 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
      * 激活的项
      */
     @Input()
-    set thyActiveTab(value: string | number) {
-        if (helpers.isString) {
+    set thyActiveTab(value: ThyActiveTabInfo) {
+        if (helpers.isString(value)) {
             this.activeTabId = value as string;
         } else {
             this.activeTabIndex = value as number;
@@ -94,7 +94,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     /**
      * 激活的项发生改变时的回调
      */
-    @Output() thyActiveTabChange: EventEmitter<string | number> = new EventEmitter<string | number>();
+    @Output() thyActiveTabChange: EventEmitter<ThyTabActiveEvent> = new EventEmitter<ThyTabActiveEvent>();
 
     activeTabIndex: number = 0;
 

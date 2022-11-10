@@ -18,7 +18,7 @@ export class ThyTabsDynamicExampleComponent {
         this.activeTab = this.tabs[this.tabs.length - 1].id;
     }
 
-    trackByFn(index: number, item: { id: string }) {
-        return item.id;
+    trackByFn(index: number, item: string) {
+        return item;
     }
 }
