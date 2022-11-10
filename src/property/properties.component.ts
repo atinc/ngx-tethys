@@ -24,10 +24,6 @@ export class ThyPropertiesComponent implements OnInit {
 
     layout: ThyPropertiesLayout = 'horizontal';
 
-    get thyLayout() {
-        return this.layout;
-    }
-
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
