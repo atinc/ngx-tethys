@@ -174,7 +174,7 @@ class TestTabsAnimatedComponent {
     @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabsComponent>;
 }
 
-fdescribe('tabs', () => {
+describe('tabs', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestTabsBasicComponent>;
         let tabsDebugElement: DebugElement;
