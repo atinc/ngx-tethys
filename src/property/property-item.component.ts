@@ -93,9 +93,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
     }
 
-    get isVertical() {
-        return this.parent.thyLayout === 'vertical';
-    }
+    isVertical = false;
 
     constructor(
         private cdr: ChangeDetectorRef,
@@ -110,6 +108,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
         this.subscribeClick();
+        this.parent.layout$.pipe(takeUntil(this.destroy$)).subscribe(layout => {
+            this.isVertical = layout === 'vertical';
+            this.cdr.markForCheck();
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
