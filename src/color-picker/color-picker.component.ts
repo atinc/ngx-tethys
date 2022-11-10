@@ -41,7 +41,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
      * 是否显示'无填充色'选项。
      */
-    @Input() @InputBoolean() thyShowTransparentColor: boolean = true;
+    @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -86,7 +86,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 defaultColor: this.thyDefaultColor,
-                showTransparentColor: this.thyShowTransparentColor,
+                transparentColorSelectable: this.thyTransparentColorSelectable,
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }

@@ -28,7 +28,7 @@ export class ThyColorPickerPanelComponent implements OnInit {
         return new ThyColor(this.customDefaultColor).toHexString(true);
     }
 
-    @Input() @InputBoolean() showTransparentColor: boolean;
+    @Input() @InputBoolean() transparentColorSelectable: boolean;
 
     public customDefaultColor: string;
 

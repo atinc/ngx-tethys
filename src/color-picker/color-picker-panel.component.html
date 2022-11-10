@@ -4,7 +4,7 @@
     <span class="ml-2 font-size-sm text-secondary">默认颜色</span>
   </div>
 </ng-container>
-<div *ngIf="!customDefaultColor && showTransparentColor" class="quick-color" (click)="selectColor('transparent')">
+<div *ngIf="!customDefaultColor && transparentColorSelectable" class="quick-color" (click)="selectColor('transparent')">
   <div class="color-block"></div>
   <span class="ml-2 font-size-sm text-secondary">无填充色</span>
 </div>
