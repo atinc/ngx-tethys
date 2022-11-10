@@ -232,7 +232,7 @@ describe(`thy-properties`, () => {
             expect(operation.textContent).toBeTruthy('Add');
         });
 
-        it('should create operation with', () => {
+        it('should create operation with vertical layout', () => {
             testComponent.layout = 'vertical';
             fixture.detectChanges();
             const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
