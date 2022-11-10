@@ -11,7 +11,7 @@ export class ThyTabsBasicExampleComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    activeTabChange(event: ThyTabChangeEvent) {
+    activeTabChange(event: string | number) {
         console.log('激活的项:', event);
     }
 }

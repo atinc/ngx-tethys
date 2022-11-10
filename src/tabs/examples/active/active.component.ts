@@ -6,16 +6,13 @@ import { ThyActiveTabInfo, ThyTabChangeEvent } from 'ngx-tethys/tabs';
     templateUrl: './active.component.html'
 })
 export class ThyTabsActiveExampleComponent implements OnInit {
-    public activeTab: ThyActiveTabInfo = {
-        id: 'tab2',
-        index: 1
-    };
+    public activeTab: string | number = 'tab2';
 
     constructor() {}
 
     ngOnInit(): void {}
 
-    activeTabChange(event: ThyTabChangeEvent) {
+    activeTabChange(event: string | number) {
         console.log('激活的项:', event);
     }
 }

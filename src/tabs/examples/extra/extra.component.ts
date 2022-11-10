@@ -10,9 +10,9 @@ export class ThyTabsExtraExampleComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    activeTab: ThyActiveTabInfo = { id: 'tab1' };
+    activeTab: string | number = 'tab1';
 
-    activeTabChange(event: ThyTabChangeEvent) {
+    activeTabChange(event: string | number) {
         this.activeTab = event;
     }
 }

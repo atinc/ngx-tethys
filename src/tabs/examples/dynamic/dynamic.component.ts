@@ -11,13 +11,11 @@ export class ThyTabsDynamicExampleComponent {
         { id: 'tab3', title: 'Tab3' }
     ];
 
-    public activeTab = {
-        id: 'tab1'
-    };
+    public activeTab = 'tab1';
 
     add() {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
-        this.activeTab = { id: this.tabs[this.tabs.length - 1].id };
+        this.activeTab = this.tabs[this.tabs.length - 1].id;
     }
 
     trackByFn(index: number, item: { id: string }) {
