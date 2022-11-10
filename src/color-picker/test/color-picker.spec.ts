@@ -1,19 +1,19 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, inject, tick, flush } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
+import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
-import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
-import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 
 @Component({
     selector: 'thy-demo-color-picker-basic',
@@ -60,12 +60,19 @@ class ThyDemoColorPickerComponent {
 @Component({
     selector: 'thy-demo-color-default-panel',
     template: `
-        <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
+        <thy-color-picker-panel
+            [colorChange]="defaultPanelColorChange"
+            [color]="defaultPanelColor"
+            [defaultColor]="defaultColor"
+            [showTransparentColor]="showTransparentColor"
+        ></thy-color-picker-panel>
     `
 })
 class ThyDemoColorDefaultPanelComponent {
     @ViewChild(ThyColorPickerPanelComponent) defaultPanel: ThyColorPickerPanelComponent;
     defaultPanelColor = '#fafafa';
+    defaultColor = '';
+    showTransparentColor: boolean;
     constructor(public elementRef: ElementRef<HTMLElement>, public thyPopover: ThyPopover) {}
 
     defaultPanelColorChange = (color: string) => {
@@ -360,6 +367,37 @@ describe('color-default-panel', () => {
             fixture.detectChanges();
             tick(500);
             expect(localStorage.getItem('recentColors')).toEqual('["#fafafa","#aaaaaa"]');
+        }));
+
+        it('should show default color select item when defaultColor has value', fakeAsync(() => {
+            const quickColor = '#333333';
+            fixture.detectChanges();
+            fixtureInstance.defaultColor = quickColor;
+            fixture.detectChanges();
+            flush();
+            const quickColorEl = document.querySelector('.quick-color');
+            expect(quickColorEl.textContent).toBe('默认颜色');
+            expect(fixtureInstance.defaultPanelColor).not.toBe(quickColor);
+            dispatchMouseEvent(quickColorEl, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(fixtureInstance.defaultPanelColor).toBe(quickColor);
+        }));
+
+        it('should show transparent color select item when defaultColor is empty and showTransparentColor is true', fakeAsync(() => {
+            const quickColor = 'transparent';
+            fixture.detectChanges();
+            fixtureInstance.defaultColor = undefined;
+            fixtureInstance.showTransparentColor = true;
+            fixture.detectChanges();
+            flush();
+            const quickColorEl = document.querySelector('.quick-color');
+            expect(quickColorEl.textContent).toBe('无填充色');
+            expect(fixtureInstance.defaultPanelColor).not.toBe(quickColor);
+            dispatchMouseEvent(quickColorEl, 'click');
+            fixture.detectChanges();
+            flush();
+            expect(fixtureInstance.defaultPanelColor).toBe(quickColor);
         }));
     });
 });

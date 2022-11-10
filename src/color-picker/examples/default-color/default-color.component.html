@@ -1,0 +1,10 @@
+<span>已选择颜色：{{ color }}</span>
+<div
+  class="box mt-3 cursor-pointer"
+  [ngStyle]="{ background: color }"
+  thyColorPicker
+  thyDefaultColor="#5DCFFF"
+  [thyOffset]="10"
+  [(ngModel)]="color"
+  (ngModelChange)="change($event)"
+></div>

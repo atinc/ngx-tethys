@@ -5,7 +5,7 @@
     .main-content {
         padding: 0 12px;
     }
-    .no-color {
+    .quick-color {
         height: 44px;
         display: flex;
         align-items: center;
@@ -35,8 +35,8 @@
                 transform: rotate(-45deg);
             }
         }
-        .no-color-text {
-            margin-left: 8px;
+        span {
+            line-height: initial;
         }
     }
     .recent-color-container {

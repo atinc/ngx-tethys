@@ -6,8 +6,9 @@ import { ThyColorPickerModule } from 'ngx-tethys/color-picker';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 
 import { ThyBasicExampleComponent } from './basic/basic.component';
+import { ThyDefaultColorExampleComponent } from './default-color/default-color.component';
 
-const COMPONENTS = [ThyBasicExampleComponent];
+const COMPONENTS = [ThyBasicExampleComponent, ThyDefaultColorExampleComponent];
 
 @NgModule({
     declarations: [...COMPONENTS],
