@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.1.8...14.2.0-next.0) (2022-11-10)
+
+
+### Features
+
+* **anchor:** rename thyLink to thyAnchorLink and fix docs(#INFR-5149) ([#2312](https://github.com/atinc/ngx-tethys/issues/2312)) ([8551e40](https://github.com/atinc/ngx-tethys/commit/8551e4003338a9f43c284d64014ea236303cf4d7)), closes [#INFR-5149](https://github.com/atinc/ngx-tethys/issues/INFR-5149)
+* **input:** add thy-input-count statistical input length #INFR-5028 ([#2315](https://github.com/atinc/ngx-tethys/issues/2315)) ([0d9885e](https://github.com/atinc/ngx-tethys/commit/0d9885ea146319029dee2cb4cc74ab0180ba2ef0)), closes [#INFR-5028](https://github.com/atinc/ngx-tethys/issues/INFR-5028)
+* **property:** add property item operation #INFR-5240 ([#2317](https://github.com/atinc/ngx-tethys/issues/2317)) ([b425fd6](https://github.com/atinc/ngx-tethys/commit/b425fd6dd264793d99c8e7ae40074a1f2db7ea1d)), closes [#INFR-5240](https://github.com/atinc/ngx-tethys/issues/INFR-5240)
+* **property:** add thyOperationTrigger for thy-property-item #INFR-5240 ([f625759](https://github.com/atinc/ngx-tethys/commit/f625759e1169eda26da38c1cfc5a83b2f4aaf8d5)), closes [#INFR-5240](https://github.com/atinc/ngx-tethys/issues/INFR-5240)
+* **property:** update label height to 32px and remove column padding use gap #INFR-5258 ([#2316](https://github.com/atinc/ngx-tethys/issues/2316)) ([7fa55cc](https://github.com/atinc/ngx-tethys/commit/7fa55ccd136428c45a4a0f0e8f4165991b370f0c)), closes [#INFR-5258](https://github.com/atinc/ngx-tethys/issues/INFR-5258)
+
+
+### BREAKING CHANGES
+
+* **property:** - update label height 32px, remove margin-bottom for vertical
+- remove label width 100px for vertical, update  display to inline-grid
+
+
+
 ## [14.1.8](https://github.com/atinc/ngx-tethys/compare/14.1.7...14.1.8) (2022-11-09)
 
 
