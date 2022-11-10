@@ -1,5 +1,8 @@
 import { InputNumber } from 'ngx-tethys/core';
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+export type ThyPropertiesLayout = 'horizontal' | 'vertical';
 
 /**
  * 属性列表组件
@@ -11,18 +14,25 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-properties',
-        '[class.thy-properties-vertical]': 'thyLayout === "vertical"',
-        '[class.thy-properties-horizontal]': 'thyLayout === "horizontal"',
+        '[class.thy-properties-vertical]': 'layout === "vertical"',
+        '[class.thy-properties-horizontal]': 'layout === "horizontal"',
         '[class.thy-properties-edit-trigger-hover]': 'thyEditTrigger === "hover"'
     }
 })
 export class ThyPropertiesComponent implements OnInit {
+    layout$ = new BehaviorSubject<ThyPropertiesLayout>('horizontal');
+
+    layout: ThyPropertiesLayout = 'horizontal';
+
     /**
      * 展示布局
      * @type "horizontal" | "vertical"
      * @default horizontal
      */
-    @Input() thyLayout: 'horizontal' | 'vertical' = 'horizontal';
+    @Input() set thyLayout(layout: ThyPropertiesLayout) {
+        this.layout = layout;
+        this.layout$.next(layout);
+    }
 
     /**
      * 设置一行的可以 property-item 的数量

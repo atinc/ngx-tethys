@@ -68,6 +68,12 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     @ContentChild('editor', { static: true }) editor!: TemplateRef<void>;
 
     /**
+     * 操作区模板
+     * @type TemplateRef
+     */
+    @ContentChild('operation', { static: true }) operation!: TemplateRef<void>;
+
+    /**
      * @private
      */
     @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
@@ -87,6 +93,8 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
     }
 
+    isVertical = false;
+
     constructor(
         private cdr: ChangeDetectorRef,
         private clickDispatcher: ThyClickDispatcher,
@@ -100,6 +108,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     ngOnInit() {
         this.subscribeClick();
+        this.parent.layout$.pipe(takeUntil(this.destroy$)).subscribe(layout => {
+            this.isVertical = layout === 'vertical';
+            this.cdr.markForCheck();
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
