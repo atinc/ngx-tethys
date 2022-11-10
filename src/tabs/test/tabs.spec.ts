@@ -174,7 +174,7 @@ class TestTabsAnimatedComponent {
     @ViewChild('tabs', { static: true }) tabComponent: ElementRef<ThyTabsComponent>;
 }
 
-describe('tabs', () => {
+fdescribe('tabs', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestTabsBasicComponent>;
         let tabsDebugElement: DebugElement;
@@ -349,6 +349,13 @@ describe('tabs', () => {
             const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
             const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
             expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        });
+
+        it('should set thyActiveTab successfully when thyActiveTab type is number', () => {
+            fixture.debugElement.componentInstance.activeTab = 1;
+            fixture.detectChanges();
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.activeTabIndex).toEqual(1);
         });
 
         it('should set thyActiveTab successfully when thyAnimated', () => {
