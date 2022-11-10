@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
 import { CommonModule } from '@angular/common';
-import { ThyPropertyItemComponent } from '../property-item.component';
+import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -66,7 +66,7 @@ class ThyPropertiesTestColumnComponent {
     selector: 'thy-properties-test-operation',
     template: `
         <thy-properties [thyLayout]="layout">
-            <thy-property-item thyLabelText="Name"
+            <thy-property-item thyLabelText="Name" [thyOperationTrigger]="operationTrigger"
                 >Peter
                 <ng-template #operation>
                     <a href="javascript:;">Add</a>
@@ -77,6 +77,7 @@ class ThyPropertiesTestColumnComponent {
 })
 class ThyPropertiesTestOperationComponent {
     layout: ThyPropertiesLayout = 'horizontal';
+    operationTrigger: ThyPropertyItemOperationTrigger = 'always';
 }
 
 @NgModule({
@@ -226,8 +227,10 @@ describe(`thy-properties`, () => {
             const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
             expect(propertyItemDebugElement).toBeTruthy();
             const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
-            expect(propertyItemElement.children.length).toEqual(3);
-            const operation = propertyItemElement.children[2];
+            expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
+            const propertyItemContent: HTMLElement = propertyItemElement.querySelector('.thy-property-item-content');
+            expect(propertyItemContent.children.length).toEqual(2);
+            const operation = propertyItemContent.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
             expect(operation.textContent).toBeTruthy('Add');
         });
@@ -238,6 +241,7 @@ describe(`thy-properties`, () => {
             const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
             expect(propertyItemDebugElement).toBeTruthy();
             const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
             expect(propertyItemElement.children.length).toEqual(2);
             const label = propertyItemElement.children[0];
             expect(label).toBeTruthy();
@@ -245,6 +249,20 @@ describe(`thy-properties`, () => {
             const operation = label.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
             expect(operation.textContent).toBeTruthy('Add');
+        });
+
+        it('should set operation trigger hover', () => {
+            fixture.detectChanges();
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement).toBeTruthy();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeFalsy();
+            testComponent.operationTrigger = 'hover';
+            fixture.detectChanges();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeTruthy();
+            testComponent.operationTrigger = 'always';
+            fixture.detectChanges();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeFalsy();
         });
     });
 });
