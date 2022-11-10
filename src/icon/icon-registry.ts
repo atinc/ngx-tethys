@@ -26,6 +26,8 @@ export type IconMode = 'font' | 'svg';
 
 export type SvgResourceUrl = SafeResourceUrl | string;
 
+export type SvgHtml = SafeHtml | string;
+
 @Injectable({
     providedIn: 'root'
 })
@@ -46,7 +48,7 @@ export class ThyIconRegistry {
         return Error(`Unable to find icon with the name "${iconName}"`);
     }
 
-    private getIconFailedToSanitizeLiteralError(literal: SafeHtml): Error {
+    private getIconFailedToSanitizeLiteralError(literal: SvgHtml): Error {
         return Error(
             `The literal provided to ThyIconRegistry was not trusted as safe HTML by ` +
                 `Angular's DomSanitizer. Attempted literal was "${literal}".`
@@ -350,7 +352,7 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    public addSvgIconLiteral(iconName: string, literal: SafeHtml): this {
+    public addSvgIconLiteral(iconName: string, literal: SvgHtml): this {
         return this.addSvgIconLiteralInNamespace('', iconName, literal);
     }
 
@@ -360,7 +362,8 @@ export class ThyIconRegistry {
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
-    public addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SafeHtml): this {
+    public addSvgIconLiteralInNamespace(namespace: string, iconName: string, literal: SvgHtml): this {
+        literal = isString(literal) ? this.sanitizer.bypassSecurityTrustHtml(literal) : literal;
         const sanitizedLiteral = this.sanitizer.sanitize(SecurityContext.HTML, literal);
 
         if (!sanitizedLiteral) {
