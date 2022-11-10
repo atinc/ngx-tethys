@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, NgZone, Input, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, forwardRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -21,7 +21,7 @@ import ThyColor from './helpers/color.class';
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
-     * 弹框偏移量
+     * 弹框偏移量。
      * @type  number
      * @default 0
      */
@@ -32,6 +32,16 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      * @default true
      */
     @Input() @InputBoolean() thyHasBackdrop: boolean = true;
+
+    /**
+     * 设置颜色选择面板的默认颜色选项值。
+     */
+    @Input() thyDefaultColor: string;
+
+    /**
+     * 是否显示'无填充色'选项。
+     */
+    @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -75,6 +85,8 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
             outsideClosable: false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
+                defaultColor: this.thyDefaultColor,
+                transparentColorSelectable: this.thyTransparentColorSelectable,
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }

@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import ThyColor from './helpers/color.class';
-import { DEFAULT_COLORS } from './constant';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
+import { DEFAULT_COLORS } from './constant';
+import ThyColor from './helpers/color.class';
 
 /**
  * @internal
@@ -18,6 +19,18 @@ export class ThyColorPickerPanelComponent implements OnInit {
     @Input() color: string;
 
     @Input() colorChange: (color: string) => {};
+
+    @Input() set defaultColor(value: string) {
+        this.customDefaultColor = value;
+    }
+
+    get defaultColor() {
+        return new ThyColor(this.customDefaultColor).toHexString(true);
+    }
+
+    @Input() @InputBoolean() transparentColorSelectable: boolean;
+
+    public customDefaultColor: string;
 
     defaultColors = DEFAULT_COLORS;
 
