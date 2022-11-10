@@ -1,0 +1,49 @@
+<thy-properties>
+  <thy-property-item thyLabelText="标题" thyEditable="true">
+    这是一个标题
+    <ng-template #operation>
+      <a href="javascript:;"><thy-action thyIcon="arrow-right-circle"></thy-action></a>
+    </ng-template>
+    <ng-template #editor>
+      <input class="active" thyInput thySize="md" value="这是一个标题" />
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="概要" thyEditable="true">
+    我没有操作菜单
+    <ng-template #editor>
+      <input class="active" thyInput thySize="md" value="我没有操作菜单" />
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="渠道">
+    <span>PingCode</span>
+    <ng-template #operation>
+      <a href="javascript:;"><thy-action thyIcon="publish"></thy-action></a>
+    </ng-template>
+  </thy-property-item>
+</thy-properties>
+
+<thy-divider thyText="垂直布局"></thy-divider>
+
+<thy-properties thyLayout="vertical" thyColumn="2">
+  <thy-property-item thyLabelText="标题" thyEditable="true">
+    这是一个标题
+    <ng-template #operation>
+      <a href="javascript:;"><thy-action thyIcon="arrow-right-circle"></thy-action></a>
+    </ng-template>
+    <ng-template #editor>
+      <input class="active" thyInput thySize="md" value="这是一个标题" />
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="概要" thyEditable="true">
+    我没有操作菜单
+    <ng-template #editor>
+      <input class="active" thyInput thySize="md" value="我没有操作菜单" />
+    </ng-template>
+  </thy-property-item>
+  <thy-property-item thyLabelText="渠道">
+    <span>PingCode</span>
+    <ng-template #operation>
+      <a href="javascript:;"><thy-action thyIcon="publish"></thy-action></a>
+    </ng-template>
+  </thy-property-item>
+</thy-properties>

@@ -44,7 +44,11 @@
             align-items: center;
             height: variables.$property-item-min-height;
             color: variables.$property-item-label-color;
+            grid-template-columns: auto auto;
 
+            .thy-property-item-operation {
+                text-align: end;
+            }
             span {
                 display: inline-block;
             }
@@ -71,6 +75,10 @@
             &-editing {
                 @include _displayItemEditor();
             }
+        }
+
+        .thy-property-item-operation {
+            margin-left: 4px;
         }
     }
 }
