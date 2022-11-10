@@ -1,0 +1,7 @@
+:host {
+    width: 800px;
+    display: block;
+    > :first-child {
+        width: 392px;
+    }
+}

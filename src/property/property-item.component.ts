@@ -68,6 +68,12 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     @ContentChild('editor', { static: true }) editor!: TemplateRef<void>;
 
     /**
+     * 操作区模板
+     * @type TemplateRef
+     */
+    @ContentChild('operation', { static: true }) operation!: TemplateRef<void>;
+
+    /**
      * @private
      */
     @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
@@ -85,6 +91,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     @HostBinding('style.grid-column')
     get gridColumn() {
         return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
+    }
+
+    get isVertical() {
+        return this.parent.thyLayout === 'vertical';
     }
 
     constructor(
