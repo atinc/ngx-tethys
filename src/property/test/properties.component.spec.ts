@@ -4,7 +4,7 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
-import { ThyPropertiesComponent } from '../properties.component';
+import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
 import { CommonModule } from '@angular/common';
 import { ThyPropertyItemComponent } from '../property-item.component';
 
@@ -62,12 +62,29 @@ class ThyPropertiesTestColumnComponent {
     addressItemSpan = 1;
 }
 
+@Component({
+    selector: 'thy-properties-test-operation',
+    template: `
+        <thy-properties [thyLayout]="layout">
+            <thy-property-item thyLabelText="Name"
+                >Peter
+                <ng-template #operation>
+                    <a href="javascript:;">Add</a>
+                </ng-template>
+            </thy-property-item>
+        </thy-properties>
+    `
+})
+class ThyPropertiesTestOperationComponent {
+    layout: ThyPropertiesLayout = 'horizontal';
+}
+
 @NgModule({
     imports: [ThyPropertyModule, CommonModule],
-    declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent],
+    declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent, ThyPropertiesTestOperationComponent],
     exports: []
 })
-export class ProgressTestModule {}
+export class PropertiesTestModule {}
 
 describe(`thy-properties`, () => {
     describe(`basic`, () => {
@@ -77,7 +94,7 @@ describe(`thy-properties`, () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
+                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
                     providers: []
                 });
                 TestBed.compileComponents();
@@ -155,7 +172,7 @@ describe(`thy-properties`, () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule],
+                imports: [ThyPropertyModule, NoopAnimationsModule, PropertiesTestModule],
                 providers: []
             });
             TestBed.compileComponents();
@@ -183,6 +200,51 @@ describe(`thy-properties`, () => {
             testColumnComponent.addressItemSpan = 3;
             fixture.detectChanges();
             expect(propertiesElement.styles.gridColumn).toEqual('span 3 / auto');
+        });
+    });
+
+    describe('property-item-operation', () => {
+        let fixture: ComponentFixture<ThyPropertiesTestOperationComponent>;
+        let testComponent: ThyPropertiesTestOperationComponent;
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyPropertyModule, NoopAnimationsModule],
+                providers: [],
+                declarations: [ThyPropertiesTestOperationComponent]
+            });
+            TestBed.compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyPropertiesTestOperationComponent);
+            testComponent = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should create operation', () => {
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            expect(propertyItemDebugElement).toBeTruthy();
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement.children.length).toEqual(3);
+            const operation = propertyItemElement.children[2];
+            expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
+            expect(operation.textContent).toBeTruthy('Add');
+        });
+
+        it('should create operation with vertical layout', () => {
+            testComponent.layout = 'vertical';
+            fixture.detectChanges();
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            expect(propertyItemDebugElement).toBeTruthy();
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement.children.length).toEqual(2);
+            const label = propertyItemElement.children[0];
+            expect(label).toBeTruthy();
+            expect(label.children.length).toEqual(2);
+            const operation = label.children[1];
+            expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
+            expect(operation.textContent).toBeTruthy('Add');
         });
     });
 });
