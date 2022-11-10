@@ -1,11 +1,19 @@
 @use "../../styles/variables.scss";
 
-@mixin _displayItemEditor {
+@mixin display-item-editor {
     .thy-property-item-content-text {
         display: none;
     }
     .thy-property-item-content-editor {
         display: block;
+    }
+}
+
+@mixin property-item-operation-hover-visible {
+    &:hover {
+        .thy-property-item-operation {
+            visibility: visible;
+        }
     }
 }
 
@@ -20,19 +28,35 @@
                 width: variables.$property-item-horizontal-label-width;
                 padding-right: variables.$property-item-padding-x;
             }
+
+            .thy-property-item-operation {
+                display: flex;
+                flex-grow: 1;
+                justify-content: flex-end;
+            }
+            &.thy-property-item-operational-hover {
+                .thy-property-item-content {
+                    @include property-item-operation-hover-visible();
+                }
+            }
         }
     }
 
     &.thy-properties-vertical {
         .thy-property-item {
             flex-direction: column;
+            &.thy-property-item-operational-hover {
+                .thy-property-item-label {
+                    @include property-item-operation-hover-visible();
+                }
+            }
         }
     }
 
     &.thy-properties-edit-trigger-hover {
         .thy-property-item-content-editable {
             &:hover {
-                @include _displayItemEditor();
+                @include display-item-editor();
             }
         }
     }
@@ -73,12 +97,19 @@
             }
 
             &-editing {
-                @include _displayItemEditor();
+                @include display-item-editor();
             }
         }
 
         .thy-property-item-operation {
             margin-left: 4px;
+        }
+
+        &.thy-property-item-operational-hover {
+            cursor: pointer;
+            .thy-property-item-operation {
+                visibility: hidden;
+            }
         }
     }
 }

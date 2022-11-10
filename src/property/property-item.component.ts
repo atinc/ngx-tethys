@@ -21,6 +21,8 @@ import {
 } from '@angular/core';
 import { ThyPropertiesComponent } from './properties.component';
 
+export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
+
 /**
  * 属性组件
  * @name thy-property-item
@@ -29,7 +31,9 @@ import { ThyPropertiesComponent } from './properties.component';
     selector: 'thy-property-item',
     templateUrl: './property-item.component.html',
     host: {
-        class: 'thy-property-item'
+        class: 'thy-property-item',
+        '[class.thy-property-item-operational]': '!!operation',
+        '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -54,6 +58,13 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
      * @default 1
      */
     @Input() @InputNumber() thySpan: number = 1;
+
+    /**
+     * 设置属性操作现实触发方式，默认 always 一直显示
+     * @type 'hover' | 'always'
+     * @default always
+     */
+    @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
 
     /**
      * 属性名称自定义模板
