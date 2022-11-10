@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.1.9](https://github.com/atinc/ngx-tethys/compare/14.1.8...14.1.9) (2022-11-10)
+
+
+### Features
+
+* **icon:** icon-registry add icon support untrusted url  #INFR-5266 ([ed96a0b](https://github.com/atinc/ngx-tethys/commit/ed96a0bf31efb03ed4f5a324a60ba4545d839db0)), closes [#INFR-5266](https://github.com/atinc/ngx-tethys/issues/INFR-5266)
+
+
+
 ## [14.1.8](https://github.com/atinc/ngx-tethys/compare/14.1.7...14.1.8) (2022-11-09)
 
 
