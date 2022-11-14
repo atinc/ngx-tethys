@@ -99,11 +99,11 @@ $resize-top: -5px;
         .#{$resizable-prefix-cls}-handle {
             &-top,
             &-bottom {
-                cursor: ns-resize;
+                cursor: row-resize;
             }
             &-right,
             &-left {
-                cursor: ew-resize;
+                cursor: col-resize;
             }
             &-bottomRight,
             &-topLeft {
