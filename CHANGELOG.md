@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.1.8...14.2.0-next.1) (2022-11-14)
+
+
+### Bug Fixes
+
+* **tag:** thyColor switch between theme color and custom color can't effect #INFR-5267 ([d5d6fd1](https://github.com/atinc/ngx-tethys/commit/d5d6fd11557e88b66021c59c965f062c83447621)), closes [#INFR-5267](https://github.com/atinc/ngx-tethys/issues/INFR-5267)
+
+
+### Features
+
+* **anchor:** rename thyLink to thyAnchorLink and fix docs(#INFR-5149) ([#2312](https://github.com/atinc/ngx-tethys/issues/2312)) ([8551e40](https://github.com/atinc/ngx-tethys/commit/8551e4003338a9f43c284d64014ea236303cf4d7)), closes [#INFR-5149](https://github.com/atinc/ngx-tethys/issues/INFR-5149)
+* **color-picker:** add default color optional #INFR-5146 ([#2319](https://github.com/atinc/ngx-tethys/issues/2319)) ([f8ef908](https://github.com/atinc/ngx-tethys/commit/f8ef908a9fffa8f487baacbe30b90d578603f4a1)), closes [#INFR-5146](https://github.com/atinc/ngx-tethys/issues/INFR-5146)
+* **icon:** icon-registry add icon support untrusted url  #INFR-5266 ([0b302b7](https://github.com/atinc/ngx-tethys/commit/0b302b73e9a545c4d0a85832f1401394616c9743)), closes [#INFR-5266](https://github.com/atinc/ngx-tethys/issues/INFR-5266)
+* **input:** add thy-input-count statistical input length #INFR-5028 ([#2315](https://github.com/atinc/ngx-tethys/issues/2315)) ([0d9885e](https://github.com/atinc/ngx-tethys/commit/0d9885ea146319029dee2cb4cc74ab0180ba2ef0)), closes [#INFR-5028](https://github.com/atinc/ngx-tethys/issues/INFR-5028)
+* **property:** add property item operation #INFR-5240 ([#2317](https://github.com/atinc/ngx-tethys/issues/2317)) ([b425fd6](https://github.com/atinc/ngx-tethys/commit/b425fd6dd264793d99c8e7ae40074a1f2db7ea1d)), closes [#INFR-5240](https://github.com/atinc/ngx-tethys/issues/INFR-5240)
+* **property:** add thyOperationTrigger for thy-property-item #INFR-5240 ([f625759](https://github.com/atinc/ngx-tethys/commit/f625759e1169eda26da38c1cfc5a83b2f4aaf8d5)), closes [#INFR-5240](https://github.com/atinc/ngx-tethys/issues/INFR-5240)
+* **property:** update label height to 32px and remove column padding use gap #INFR-5258 ([#2316](https://github.com/atinc/ngx-tethys/issues/2316)) ([7fa55cc](https://github.com/atinc/ngx-tethys/commit/7fa55ccd136428c45a4a0f0e8f4165991b370f0c)), closes [#INFR-5258](https://github.com/atinc/ngx-tethys/issues/INFR-5258)
+* **tabs:** change 'thyActiveTab' type to 'string | number'(#INFR-5204) ([#2318](https://github.com/atinc/ngx-tethys/issues/2318)) ([a26ae3c](https://github.com/atinc/ngx-tethys/commit/a26ae3cbdc0a5fb3e7c0feb1438349ba344286e7)), closes [#INFR-5204](https://github.com/atinc/ngx-tethys/issues/INFR-5204)
+
+
+### BREAKING CHANGES
+
+* **property:** - update label height 32px, remove margin-bottom for vertical
+- remove label width 100px for vertical, update  display to inline-grid
+
+
+
 # [14.2.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.1.8...14.2.0-next.0) (2022-11-10)
 
 
