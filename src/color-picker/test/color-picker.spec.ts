@@ -64,7 +64,7 @@ class ThyDemoColorPickerComponent {
             [colorChange]="defaultPanelColorChange"
             [color]="defaultPanelColor"
             [defaultColor]="defaultColor"
-            [showTransparentColor]="showTransparentColor"
+            [transparentColorSelectable]="transparentColorSelectable"
         ></thy-color-picker-panel>
     `
 })
@@ -72,7 +72,7 @@ class ThyDemoColorDefaultPanelComponent {
     @ViewChild(ThyColorPickerPanelComponent) defaultPanel: ThyColorPickerPanelComponent;
     defaultPanelColor = '#fafafa';
     defaultColor = '';
-    showTransparentColor: boolean;
+    transparentColorSelectable: boolean;
     constructor(public elementRef: ElementRef<HTMLElement>, public thyPopover: ThyPopover) {}
 
     defaultPanelColorChange = (color: string) => {
@@ -384,11 +384,11 @@ describe('color-default-panel', () => {
             expect(fixtureInstance.defaultPanelColor).toBe(quickColor);
         }));
 
-        it('should show transparent color select item when defaultColor is empty and showTransparentColor is true', fakeAsync(() => {
+        it('should show transparent color select item when defaultColor is empty and transparentColorSelectable is true', fakeAsync(() => {
             const quickColor = 'transparent';
             fixture.detectChanges();
             fixtureInstance.defaultColor = undefined;
-            fixtureInstance.showTransparentColor = true;
+            fixtureInstance.transparentColorSelectable = true;
             fixture.detectChanges();
             flush();
             const quickColorEl = document.querySelector('.quick-color');
