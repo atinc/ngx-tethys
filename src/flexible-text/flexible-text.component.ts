@@ -6,6 +6,10 @@ import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { from, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
+/**
+ * 文本提示组件，支持组件 thy-flexible-text 和指令 [thyFlexibleText] 两种方式
+ * @name thy-flexible-text,[thyFlexibleText]
+ */
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
@@ -23,8 +27,15 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     subscription: Subscription | null = null;
 
+    /**
+     * 触发提示方式，hover, focus, click
+     * @Default hover
+     */
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
+    /**
+     * 自定义class类，如果不设置默认会包含flexible-text-container
+     */
     @Input('thyContainerClass')
     get thyContainerClass(): string {
         return this.containerClass;
@@ -35,6 +46,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.updateContainerClass();
     }
 
+    /**
+     * 需要展示的全部内容
+     * @type string | TemplateRef<HTMLElement>
+     */
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
         if (this.tooltipService.thyTooltipDirective) {
@@ -42,6 +57,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
+    /**
+     * tooltip 的提示位置，top | bottom | left | right
+     * @Default top
+     */
     @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;
         if (this.tooltipService.thyTooltipDirective) {
