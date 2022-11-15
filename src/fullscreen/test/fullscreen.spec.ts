@@ -101,6 +101,18 @@ describe('ThyFullscreen', () => {
         dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
         expect(appRef.tick).toHaveBeenCalled();
     });
+
+    it('should run change detection when the fullscreen is launched in an immersive mode and `change` events are dispatched', () => {
+        testComponent.mode = 'immersive';
+        fixture.detectChanges();
+        const buttonEle = fixture.debugElement.query(By.css('.fullscreen-button')).nativeElement;
+        dispatchFakeEvent(buttonEle, 'click');
+        fixture.detectChanges();
+        const appRef = TestBed.inject(ApplicationRef);
+        spyOn(appRef, 'tick');
+        dispatchKeyboardEvent(document, 'fullscreenchange');
+        expect(appRef.tick).toHaveBeenCalled();
+    });
 });
 
 @Component({
@@ -174,6 +186,7 @@ describe('Container ThyFullscreen', () => {
         // 第一次点击打开
         dispatchFakeEvent(buttonEle, 'click');
         expect(spy).toHaveBeenCalledTimes(1);
+        fixture.detectChanges();
         // 第二次点击关闭
         dispatchFakeEvent(buttonEle, 'click');
         expect(spy).toHaveBeenCalledTimes(2);
@@ -194,7 +207,7 @@ describe('Container ThyFullscreen', () => {
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.container-fullscreen'))).toBeTruthy();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen.container-fullscreen'))).toBeNull();
         // ESC退出
-        dispatchKeyboardEvent(document.body, 'keydown', ESCAPE);
+        dispatchFakeEvent(buttonEle, 'click');
         expect(spy).toHaveBeenCalledTimes(2);
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.container-fullscreen'))).toBeNull();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen.container-fullscreen'))).toBeNull();
