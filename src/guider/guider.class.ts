@@ -3,7 +3,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 
 export interface ThyGuiderStep<TData = any> {
     key: string;
-    target?: string | [number, number];
+    target?: string | string[] | [number, number];
     data: TData;
     route?: string;
     hintPlacement?: ThyPlacement;

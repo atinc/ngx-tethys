@@ -1,12 +1,13 @@
-import { Renderer2 } from '@angular/core';
-import { ThyGuiderRef } from './guider-ref';
-import { fromEvent, Subscription } from 'rxjs';
-import { RendererFactory2 } from '@angular/core';
-import { ThyGuiderManager } from './guider-manager';
-import { ThyGuiderStep } from './guider.class';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
-import { helpers } from 'ngx-tethys/util';
 import { Overlay } from '@angular/cdk/overlay';
+import { DOCUMENT } from '@angular/common';
+import { Inject, Renderer2, RendererFactory2 } from '@angular/core';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
+import { coerceArray, isArray, isNull, isString, isUndefinedOrNull } from 'ngx-tethys/util';
+import { fromEvent, Subscription } from 'rxjs';
+import { ThyGuiderManager } from './guider-manager';
+import { ThyGuiderRef } from './guider-ref';
+import { ThyGuiderStep } from './guider.class';
+import { isPositionDataType } from './utils';
 
 const pointContainerSize = 28;
 export class ThyGuiderStepRef {
@@ -31,7 +32,7 @@ export class ThyGuiderStepRef {
         private popover: ThyPopover,
         private guiderManager: ThyGuiderManager,
         private overlay: Overlay,
-        private document: any
+        @Inject(DOCUMENT) private document: Document
     ) {
         this.renderer = this.rendererFactory.createRenderer(null, null);
     }
@@ -48,8 +49,13 @@ export class ThyGuiderStepRef {
 
     private getTargetElement(step: ThyGuiderStep) {
         let targetElement: HTMLElement;
-        if (step.target) {
-            targetElement = this.document.querySelector(step.target);
+
+        if (step.target && !isPositionDataType(step.target)) {
+            const target = [...coerceArray(step.target)];
+
+            while (target.length && isUndefinedOrNull(targetElement)) {
+                targetElement = this.document.querySelector(target.shift());
+            }
         } else {
             targetElement = this.guiderManager.getActiveTarget(step.key);
         }
@@ -66,8 +72,8 @@ export class ThyGuiderStepRef {
 
         const targetElement = this.getTargetElement(step);
 
-        if ((typeof ngDevMode === 'undefined' || ngDevMode) && helpers.isNull(targetElement)) {
-            throw new Error(`there is no target called ${step.target}`);
+        if ((typeof ngDevMode === 'undefined' || ngDevMode) && isNull(targetElement)) {
+            throw new Error(`there is no target called ${coerceArray(step.target).join(' or ')}`);
         }
         this.targetElementObserver = fromEvent(targetElement, 'click').subscribe(() => {
             guiderRef.targetClicked().next(step);
@@ -81,15 +87,14 @@ export class ThyGuiderStepRef {
 
     private setStyleForPointContainer(step: ThyGuiderStep, targetElement: Element) {
         const pointPosition = this.getPointPosition(step, targetElement);
-
         const pointContainer = this.setPointPosition(pointPosition);
+
         this.renderPoint(targetElement, pointContainer);
     }
 
     private getPointPosition(step: ThyGuiderStep, targetElement: Element): [number, number] {
         const targetElementClientRect = targetElement.getBoundingClientRect();
         const { width: targetElementWidth, height: targetElementHeight } = targetElementClientRect;
-
         const pointOffset = step.pointOffset;
         // 只通过 pointOffset 控制 point 的位置，默认在 target 的右下角，
         // offset 的基点也为默认位置
@@ -111,10 +116,10 @@ export class ThyGuiderStepRef {
         return currentPointContainer;
     }
     private addPointClass(el: any, pointClass: string | string[]) {
-        if (helpers.isString(pointClass)) {
+        if (isString(pointClass)) {
             this.renderer.addClass(el, pointClass);
         }
-        if (helpers.isArray(pointClass)) {
+        if (isArray(pointClass)) {
             pointClass.forEach(classItem => {
                 this.renderer.addClass(el, classItem);
             });
@@ -165,7 +170,7 @@ export class ThyGuiderStepRef {
     }
 
     private getTipPosition(step: ThyGuiderStep): [number, number] {
-        if (Array.isArray(step.target)) {
+        if (isPositionDataType(step.target)) {
             return step.target;
         }
         return this.guiderRef.config.defaultPosition;
@@ -183,15 +188,9 @@ export class ThyGuiderStepRef {
     }
 
     private tipWithTarget(step: ThyGuiderStep) {
-        let targetElement: Element;
-
-        if (step.target) {
-            targetElement = this.document.querySelector(step.target);
-        } else {
-            targetElement = this.guiderManager.getActiveTarget(step.key);
-        }
-
+        const targetElement = this.getTargetElement(step);
         const hintContainer = this.createTipContainer();
+
         this.renderer.appendChild(targetElement, hintContainer);
         this.lastTipContainer = hintContainer;
 
@@ -263,7 +262,7 @@ export class ThyGuiderStepRef {
 
     private isTipHasTarget(step: ThyGuiderStep): boolean {
         if (step.target) {
-            return !Array.isArray(step.target);
+            return !isPositionDataType(step.target);
         } else {
             return !!this.guiderManager.getActiveTarget(step.key);
         }
