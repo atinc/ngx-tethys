@@ -1,3 +1,5 @@
+import { switchMap } from 'rxjs/operators';
+import { merge, of } from 'rxjs';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -20,6 +22,10 @@ import { ThyAvatarComponent, thyAvatarSizeMap } from '../avatar.component';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+export class AvatarListRemoveEvent extends Event {
+    avatar: ThyAvatarComponent;
+}
+
 export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
@@ -40,11 +46,11 @@ const avatarListTypeClassesMap = {
     providers: [UpdateHostClassService]
 })
 export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, AfterContentInit {
-    @ContentChildren(ThyAvatarComponent, { descendants: true }) avatarList: QueryList<ThyAvatarComponent>;
+    @ContentChildren(ThyAvatarComponent) avatarList: QueryList<ThyAvatarComponent>;
 
     private mode = ThyAvatarListMode.default;
 
-    @Output() thyOnRemove = new EventEmitter();
+    @Output() thyOnRemove = new EventEmitter<AvatarListRemoveEvent>();
 
     @Input()
     set thyMode(value: ThyAvatarListMode) {
@@ -100,10 +106,12 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
             this.setHiddenAvatar(avatarList);
             this.setAvatarSize(avatarList);
             this.setAvatarsThyRemoveAble(avatarList);
+            this.onRemove(avatarList);
         });
         this.setHiddenAvatar(this.avatarList.toArray());
         this.setAvatarSize(this.avatarList.toArray());
         this.setAvatarsThyRemoveAble(this.avatarList.toArray());
+        this.onRemove(this.avatarList.toArray());
     }
 
     private setAvatarsThyRemoveAble(avatarList: ThyAvatarComponent[]) {
@@ -113,6 +121,19 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
             } else {
                 avatar.thyShowRemove = this.thyRemovable;
             }
+        });
+    }
+
+    private onRemove(avatarList: ThyAvatarComponent[]) {
+        const removeObs = avatarList.map(avatar =>
+            avatar.thyOnRemove.pipe(
+                switchMap($event => {
+                    return of({ $event, avatar });
+                })
+            )
+        );
+        merge(...removeObs).subscribe(({ $event, avatar }) => {
+            this.thyOnRemove.emit({ ...$event, avatar });
         });
     }
 
@@ -153,10 +174,6 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
         } else {
             avatar.renderer.removeClass(avatar.elementRef.nativeElement, 'thy-avatar-hidden');
         }
-    }
-
-    remove($event: Event) {
-        this.thyOnRemove.emit($event);
     }
 
     ngOnDestroy() {

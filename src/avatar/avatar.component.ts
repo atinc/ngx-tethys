@@ -1,19 +1,7 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Input,
-    OnInit,
-    Optional,
-    Output,
-    Renderer2
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
-import { ThyAvatarListComponent } from './avatar-list/avatar-list.component';
 import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
@@ -147,8 +135,7 @@ export class ThyAvatarComponent implements OnInit {
         private updateHostClassService: UpdateHostClassService,
         private thyAvatarService: ThyAvatarService,
         public renderer: Renderer2,
-        public elementRef: ElementRef,
-        @Optional() private parent: ThyAvatarListComponent
+        public elementRef: ElementRef
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -161,7 +148,6 @@ export class ThyAvatarComponent implements OnInit {
 
     remove($event: Event) {
         this.thyOnRemove.emit($event);
-        this.parent && this.parent.remove($event);
     }
 
     avatarImgError($event: Event) {
