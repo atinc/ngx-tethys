@@ -5,6 +5,13 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Launch Angular",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:8888/",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "command": "npm run build-docs",
       "name": "Run npm build-docs",
       "request": "launch",

@@ -1,6 +1,8 @@
-<div>
-  <ng-container [ngTemplateOutlet]="content"></ng-container>
-</div>
-<ng-template #content>
-  <ng-content></ng-content>
-</ng-template>
+<ng-container *ngFor="let item of displayAvatars">
+  <div [ngClass]="item.elementRef.nativeElement.classList">
+    <ng-container [ngTemplateOutlet]="item.content"></ng-container>
+  </div>
+</ng-container>
+<span *ngIf="avatarList.length - displayAvatars.length > 0">
+  {{ avatarList.length - displayAvatars.length }}
+</span>

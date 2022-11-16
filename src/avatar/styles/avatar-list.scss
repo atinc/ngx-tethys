@@ -11,7 +11,7 @@
         .thy-avatar-#{$size} {
             @include mixin.avatarSize($size, $value);
             &:not(:first-of-type) {
-                margin-left: -#{$size/2}px;
+                margin-left: -(#{$size/2}) px;
                 margin-right: 0 !important;
             }
             .avatar-default {

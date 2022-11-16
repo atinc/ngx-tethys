@@ -1,4 +1,16 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Output,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
@@ -6,7 +18,7 @@ import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
-const DEFAULT_SIZE = 36;
+export const DEFAULT_SIZE = 36;
 
 export const thyAvatarSizeMap = {
     xxs: 22,
@@ -37,6 +49,12 @@ export class ThyAvatarComponent implements OnInit {
     public avatarSrc: string;
     public avatarName?: string;
     public avatarNameSafeHtml?: SafeHtml;
+
+    @ViewChild('contentTemplate', { static: true }) contentTemplate!: TemplateRef<any>;
+
+    get content(): TemplateRef<any> {
+        return this.contentTemplate;
+    }
 
     @HostBinding('class.thy-avatar') _isAvatar = true;
 
