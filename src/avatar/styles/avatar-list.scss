@@ -1,0 +1,41 @@
+@use "../../styles/variables";
+@use "mixin";
+
+.thy-avatar-list {
+    display: inline-flex;
+    flex: 1;
+    line-height: initial;
+}
+
+.thy-avatar-list-overlap {
+    @each $size, $value in variables.$avatar-sizes {
+        .thy-avatar-#{$size} {
+            @include mixin.avatarSize($size, $value);
+            margin-right: 0 !important;
+            &:not(:first-of-type) {
+                margin-left: #{- calc($size / 2)}px;
+            }
+
+            .avatar-default {
+                border: 1px solid variables.$white;
+            }
+        }
+    }
+}
+
+.thy-avatar-exceed {
+    background-color: rgba(variables.$black, 0.3);
+    top: 0;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    right: 0;
+    left: 0;
+    color: variables.$white;
+}
+
+.thy-avatar-hidden {
+    display: none;
+}

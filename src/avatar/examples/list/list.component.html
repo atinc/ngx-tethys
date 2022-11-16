@@ -1,0 +1,51 @@
+<div>
+  <thy-avatar-list [thySize]="'md'">
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <ng-template #append>
+      <a href="javascript:;" thyAction thyIcon="user-add-bold" class="mr-2"></a>
+    </ng-template>
+  </thy-avatar-list>
+</div>
+
+<div class="mt-4">
+  <thy-avatar-list [thyRemovable]="true" (thyOnRemove)="remove($event)">
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <ng-template #append>
+      <a href="javascript:;" thyAction thyIcon="user-add-bold" class="mr-2"></a>
+    </ng-template>
+  </thy-avatar-list>
+</div>
+
+<div class="mt-4">
+  <thy-avatar-list [thyMode]="'overlap'">
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <thy-avatar thyName="Peter" class="mr-2"></thy-avatar>
+    <ng-template #append>
+      <a href="javascript:;" thyAction thyIcon="user-add-bold" class="mr-2"></a>
+    </ng-template>
+  </thy-avatar-list>
+</div>
+
+<div class="mt-4">
+  <thy-avatar-list [thyMode]="'overlap'" thyMaxLength="3">
+    <thy-avatar thyName="Peter"></thy-avatar>
+    <thy-avatar thyName="Peter"></thy-avatar>
+    <thy-avatar thyName="Peter"></thy-avatar>
+    <thy-avatar thyName="Peter"></thy-avatar>
+    <thy-avatar thyName="Peter"></thy-avatar>
+    <ng-template #append>
+      <a href="javascript:;" thyAction thyIcon="user-add-bold" class="mr-2"></a>
+    </ng-template>
+  </thy-avatar-list>
+</div>

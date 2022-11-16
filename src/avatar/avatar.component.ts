@@ -1,7 +1,19 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    HostBinding,
+    Input,
+    OnInit,
+    Optional,
+    Output,
+    Renderer2
+} from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { ThyAvatarListComponent } from './avatar-list/avatar-list.component';
 import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
@@ -79,12 +91,14 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input() thyFetchPriority?: ThyAvatarFetchPriority;
 
-    private _setAvatarSize(size: number) {
+    _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
         } else {
             this._size = this.findClosestSize(sizeArray, size);
         }
+
+        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
     }
 
     private findClosestSize(sizes: number[], value: number): number {
@@ -131,8 +145,10 @@ export class ThyAvatarComponent implements OnInit {
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef,
-        private thyAvatarService: ThyAvatarService
+        private thyAvatarService: ThyAvatarService,
+        public renderer: Renderer2,
+        public elementRef: ElementRef,
+        @Optional() private parent: ThyAvatarListComponent
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
     }
@@ -141,11 +157,11 @@ export class ThyAvatarComponent implements OnInit {
         if (!this._size) {
             this._setAvatarSize(DEFAULT_SIZE);
         }
-        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
     }
 
     remove($event: Event) {
         this.thyOnRemove.emit($event);
+        this.parent && this.parent.remove($event);
     }
 
     avatarImgError($event: Event) {
