@@ -1,5 +1,5 @@
 import { OverlayContainer, ViewportRuler } from '@angular/cdk/overlay';
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { Component, DebugElement, ElementRef, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -68,6 +68,22 @@ describe('ThySlide', () => {
             assertSlideSimpleContentComponent(slideRef);
             expect(querySelectorSpy).not.toHaveBeenCalled();
         });
+
+        it('should open new slide ref when config.id is null', fakeAsync(() => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                from: 'right'
+            });
+            const slideCloseSpy = spyOn(slideRef, 'close');
+            assertSlideSimpleContentComponent(slideRef);
+
+            const anotherSlideRef = thySlideService.open(SlideLayoutTestComponent, {
+                from: 'right'
+            });
+            assertSlideSimpleContentComponent(anotherSlideRef);
+
+            expect(slideCloseSpy).toHaveBeenCalled();
+            expect(anotherSlideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+        }));
 
         it('should close slideRef when slideRef id is opened', fakeAsync(() => {
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
@@ -159,6 +175,115 @@ describe('ThySlide', () => {
             flush();
             expect(element.classList).not.toContain('thy-slide-push-drawer-container');
             expect(element.style).not.toContain('transform');
+        }));
+
+        it('should open a slide with "push" mode when mode="push" and have drawerContainer when drawerContainer is ElementRef', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const drawerContainerElement: ElementRef<HTMLDivElement> = new ElementRef(document.querySelector('#demo-host'));
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'push',
+                drawerContainer: drawerContainerElement
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            expect(element.style).toContain('transform');
+            slideRef.close();
+            viewContainerFixture.detectChanges();
+            flush();
+            expect(element.classList).not.toContain('thy-slide-push-drawer-container');
+            expect(element.style).not.toContain('transform');
+        }));
+
+        it('should open a slide with "push" mode when mode="push" and have drawerContainer when drawerContainer is HTMLElement', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const drawerContainerElement: HTMLElement = document.querySelector('#demo-host');
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'push',
+                drawerContainer: drawerContainerElement
+            });
+            viewContainerFixture.detectChanges();
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            expect(element.style).toContain('transform');
+            slideRef.close();
+            viewContainerFixture.detectChanges();
+            flush();
+            expect(element.classList).not.toContain('thy-slide-push-drawer-container');
+            expect(element.style).not.toContain('transform');
+        }));
+
+        it('drawerContainerElement transform style should correct', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'left',
+                mode: 'push',
+                drawerContainer: '#demo-host'
+            });
+            viewContainerFixture.detectChanges();
+            const drawerContainerElement = document.querySelector('#demo-host');
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            expect(element.classList).toContain('thy-slide-push-drawer-container');
+            expect(element.style).toContain('transform');
+            expect((drawerContainerElement as HTMLDivElement).style.transform).toEqual(
+                `translateX(${document.querySelector('.thy-slide-container').clientWidth}px)`
+            );
+        }));
+
+        it('drawerContainerElement transform style should correct when from is top', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'top',
+                mode: 'push',
+                drawerContainer: '#demo-host'
+            });
+            viewContainerFixture.detectChanges();
+            const drawerContainerElement = document.querySelector('#demo-host');
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            expect(element.classList).toContain('thy-slide-push-drawer-container');
+            expect(element.style).toContain('transform');
+            expect((drawerContainerElement as HTMLDivElement).style.transform).toEqual(
+                `translateY(${document.querySelector('.thy-slide-container').clientHeight}px)`
+            );
+        }));
+
+        it('drawerContainerElement transform style should correct when from is bottom', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'bottom',
+                mode: 'push',
+                drawerContainer: '#demo-host'
+            });
+            viewContainerFixture.detectChanges();
+            const drawerContainerElement = document.querySelector('#demo-host');
+            expect(slideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
+            expect(element.classList).toContain('thy-slide-push-drawer-container');
+            expect(element.style).toContain('transform');
+            expect((drawerContainerElement as HTMLDivElement).style.transform).toEqual(
+                `translateY(${document.querySelector('.thy-slide-container').clientHeight}px)`
+            );
         }));
 
         it('should open a slide with "side" mode when mode="side" and not drawerContainer', fakeAsync(() => {
