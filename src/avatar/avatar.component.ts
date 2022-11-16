@@ -79,7 +79,7 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input() thyFetchPriority?: ThyAvatarFetchPriority;
 
-    _setAvatarSize(size: number) {
+    private _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
         } else {
