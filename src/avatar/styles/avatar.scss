@@ -1,3 +1,4 @@
+@use "sass:meta";
 @use "../../styles/variables";
 @use "mixin";
 
@@ -56,3 +57,5 @@
         @include mixin.avatarSize($size, $value);
     }
 }
+
+@include meta.load-css('./avatar-list.scss');

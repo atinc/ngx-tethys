@@ -1,5 +1,6 @@
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyBadgeModule } from 'ngx-tethys/badge';
+import { ThyButtonModule } from 'ngx-tethys/button';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
@@ -12,6 +13,7 @@ import { ThyAvatarImgErrorExampleComponent } from './img-error/img-error.compone
 import { ThyAvatarNameExampleComponent } from './name/name.component';
 import { ThyAvatarRemoveExampleComponent } from './remove/remove.component';
 import { ThyAvatarSizeExampleComponent } from './size/size.component';
+import { ThyAvatarListExampleComponent } from './list/list.component';
 
 const COMPONENTS = [
     ThyAvatarBasicExampleComponent,
@@ -21,12 +23,13 @@ const COMPONENTS = [
     ThyAvatarNameExampleComponent,
     ThyAvatarRemoveExampleComponent,
     ThyAvatarCustomExampleComponent,
-    ThyAvatarImgErrorExampleComponent
+    ThyAvatarImgErrorExampleComponent,
+    ThyAvatarListExampleComponent
 ];
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, ThyAvatarModule, ThyBadgeModule],
+    imports: [CommonModule, ThyAvatarModule, ThyBadgeModule, ThyButtonModule],
     exports: COMPONENTS,
     providers: []
 })
