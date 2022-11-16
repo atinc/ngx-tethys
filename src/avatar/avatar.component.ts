@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output, Renderer2 } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
@@ -79,12 +79,14 @@ export class ThyAvatarComponent implements OnInit {
 
     @Input() thyFetchPriority?: ThyAvatarFetchPriority;
 
-    private _setAvatarSize(size: number) {
+    _setAvatarSize(size: number) {
         if (sizeArray.indexOf(size) > -1) {
             this._size = size;
         } else {
             this._size = this.findClosestSize(sizeArray, size);
         }
+
+        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
     }
 
     private findClosestSize(sizes: number[], value: number): number {
@@ -131,7 +133,8 @@ export class ThyAvatarComponent implements OnInit {
 
     constructor(
         private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef,
+        public renderer: Renderer2,
+        public elementRef: ElementRef,
         private thyAvatarService: ThyAvatarService
     ) {
         updateHostClassService.initializeElement(elementRef.nativeElement);
@@ -141,7 +144,6 @@ export class ThyAvatarComponent implements OnInit {
         if (!this._size) {
             this._setAvatarSize(DEFAULT_SIZE);
         }
-        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
     }
 
     remove($event: Event) {
@@ -151,5 +153,13 @@ export class ThyAvatarComponent implements OnInit {
     avatarImgError($event: Event) {
         this._setAvatarSrc(null);
         this.thyError.emit($event);
+    }
+
+    setAvatarHidden(value: boolean) {
+        if (value) {
+            this.renderer.addClass(this.elementRef.nativeElement, 'thy-avatar-hidden');
+        } else {
+            this.renderer.removeClass(this.elementRef.nativeElement, 'thy-avatar-hidden');
+        }
     }
 }
