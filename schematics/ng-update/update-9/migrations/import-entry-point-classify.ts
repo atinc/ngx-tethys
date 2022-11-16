@@ -622,7 +622,6 @@ const NAME_PACKAGE_RELATION = {
     ThyTransferModule: 'transfer',
     ThyTreeNode: 'tree',
     ThyTreeNodeComponent: 'tree',
-    ThyTreeReplaceRegionComponent: 'tree',
     ThyTreeNodeCheckState: 'tree',
     ThyTreeNodeData: 'tree',
     ThyTreeEmitEvent: 'tree',
