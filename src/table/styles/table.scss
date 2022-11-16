@@ -39,6 +39,9 @@
 .thy-operation-links {
     white-space: nowrap;
     text-align: left;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+
     > button,
     > a {
         display: inline-block;
