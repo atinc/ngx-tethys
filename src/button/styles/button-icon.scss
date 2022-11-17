@@ -138,9 +138,9 @@
 
 .btn-icon-xs {
     @include mixin.btn-icon-size-variant(
-        variables.$font-size-base,
+        variables.$font-size-sm,
         variables.$btn-icon-circle-padding-xs,
-        variables.$font-size-base,
+        variables.$font-size-sm,
         variables.$input-btn-height-xs
     );
     &.btn-icon-circle.active,
