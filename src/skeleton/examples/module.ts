@@ -9,6 +9,7 @@ import { ThySkeletonExampleCustomComponent } from './custom/custom.component';
 import { ThySkeletonExampleBulletListComponent } from './bulletList/bulletList.component';
 import { ThySkeletonExampleRectangleComponent } from './rectangle/rectangle.component';
 import { ThySkeletonExampleCircleComponent } from './circle/circle.component';
+import { ThySkeletonExampleTableComponent } from './table/table.component';
 
 const COMPONENTS = [
     ThySkeletonExampleListComponent,
@@ -16,7 +17,8 @@ const COMPONENTS = [
     ThySkeletonExampleParagraphComponent,
     ThySkeletonExampleCustomComponent,
     ThySkeletonExampleRectangleComponent,
-    ThySkeletonExampleCircleComponent
+    ThySkeletonExampleCircleComponent,
+    ThySkeletonExampleTableComponent
 ];
 
 @NgModule({

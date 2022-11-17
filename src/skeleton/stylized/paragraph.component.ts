@@ -29,44 +29,52 @@ export class ThySkeletonParagraphComponent {
     @Input()
     @InputCssPixel()
     thyFirstWidth: string | number;
+
     /**
      * 尾行宽度
      */
     @Input()
     @InputCssPixel()
     thyLastWidth: string | number;
+
     /**
      * 骨架宽度
      */
     @Input()
     @InputCssPixel()
     thyRowWidth: string | number;
+
     /**
      * 骨架高度
      */
     @Input()
     @InputCssPixel()
     thyRowHeight: string | number;
+
     /**
      * 骨架边框圆角
      */
     @Input()
     @InputCssPixel()
     thyBorderRadius: string | number;
+
     /**
      * 是否开启动画
      */
     @Input()
     @InputBoolean()
     thyAnimated: boolean;
+
     /**
      * 动画速度
      */
     @Input() thyAnimatedInterval: string | number;
+
     /**
      * 骨架主色
      */
     @Input() thyPrimaryColor: string;
+
     /**
      * 骨架次色
      */
