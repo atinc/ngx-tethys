@@ -12,12 +12,10 @@ import {
     EventEmitter,
     Input,
     NgZone,
-    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
-    SimpleChanges,
     TemplateRef
 } from '@angular/core';
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
@@ -44,7 +42,7 @@ const avatarListTypeClassesMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [UpdateHostClassService]
 })
-export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
+export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
     private mode = ThyAvatarListMode.default;
 
     private appendWidth = 0;
@@ -87,19 +85,6 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
         this.updateClasses();
     }
 
-    ngOnChanges(changes: SimpleChanges) {
-        if (changes.thyMaxLength && !changes.thyMaxLength.firstChange && this.avatarList) {
-            this.setAvailableAvatar();
-        }
-        if (changes.thySize && !changes.thySize.firstChange && this.avatarList) {
-            this.setAvatarSize();
-        }
-
-        if (changes.thyRemovable && !changes.thyRemovable.firstChange && this.avatarList) {
-            this.setAvatarsThyRemoveAble();
-        }
-    }
-
     ngAfterContentInit() {
         this.setAvatarSize();
         this.setAvailableAvatar();
@@ -110,6 +95,7 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
             this.setAppendOffset();
         });
+
         if (this.thyResponsive) {
             this.ngZone.runOutsideAngular(() => {
                 merge(this.avatarList.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
@@ -127,7 +113,7 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
     }
 
     private setAvatarsThyRemoveAble() {
-        (this.avatarList || []).forEach((avatar: ThyAvatarComponent) => {
+        this.avatarList.toArray().forEach((avatar: ThyAvatarComponent) => {
             if (this.mode === ThyAvatarListMode.overlap) {
                 avatar.thyShowRemove = false;
             } else {
@@ -196,7 +182,6 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnChan
         if (avatarListTypeClassesMap[this.mode]) {
             classNames = [...avatarListTypeClassesMap[this.mode]];
         }
-
         this.updateHostClass.updateClass(classNames);
     }
 

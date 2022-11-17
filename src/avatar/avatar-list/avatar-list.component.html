@@ -1,11 +1,11 @@
 <ng-template>
   <ng-content></ng-content>
 </ng-template>
-<ng-container *ngFor="let avatar of avatars; let i = index">
+<ng-container *ngFor="let avatar of avatars">
   <thy-avatar
     [thyShowName]="avatar.thyShowName"
     [thySrc]="avatar._src"
-    [thyName]="i + avatar.avatarName"
+    [thyName]="avatar.avatarName"
     [thySize]="avatar._size"
     [thyShowRemove]="avatar._showRemove"
     [thyImgClass]="avatar.thyImgClass"
