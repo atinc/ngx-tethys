@@ -1,4 +1,4 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
 import { helpers } from 'ngx-tethys/util';
 
@@ -109,6 +109,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      */
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
+    @InputBoolean()
     thyMultiple = false;
 
     /**
@@ -117,6 +118,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      */
     @HostBinding('class.thy-tree-draggable')
     @Input()
+    @InputBoolean()
     set thyDraggable(value: boolean) {
         this._draggable = value;
     }
@@ -129,7 +131,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      * 设置 TreeNode 是否支持 Checkbox 选择
      * @default false
      */
-    @Input() thyCheckable: boolean;
+    @Input() @InputBoolean() thyCheckable: boolean;
 
     /**
      * 设置 check 状态的计算策略
@@ -142,8 +144,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置 TreeNode 是否支持异步加载
+     * @default false
      */
-    @Input() thyAsync = false;
+    @Input() @InputBoolean() thyAsync = false;
 
     private _thyType: ThyTreeType = 'default';
 
@@ -196,11 +199,14 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      */
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
+    @InputBoolean()
     thyVirtualScroll = false;
 
     private _thyItemSize = 44;
+
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
+     * @default 44
      */
     @Input()
     set thyItemSize(itemSize: number) {
@@ -216,16 +222,19 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置节点名称是否支持超出截取
+     * @default true
      */
-    @Input() thyTitleTruncate = true;
+    @Input() @InputBoolean() thyTitleTruncate = true;
 
     /**
      * 已选中的 node 节点集合
+     * @type string[]
      */
     @Input() thySelectedKeys: string[];
 
     /**
      * 设置缩进距离，缩进距离 = thyIndent * node.level
+     * @default 25
      */
     @Input() thyIndent = 25;
 

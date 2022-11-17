@@ -27,6 +27,7 @@ import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstra
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -47,28 +48,33 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     /**
      * 设置 TreeNode 是否支持异步加载
+     * @default false
      */
-    @Input() thyAsync = false;
+    @Input() @InputBoolean() thyAsync = false;
 
     /**
      * 设置 TreeNode 是否支持多选
+     * @default false
      */
-    @Input() thyMultiple = false;
+    @Input() @InputBoolean() thyMultiple = false;
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
+     * @default false
      */
-    @Input() thyDraggable = false;
+    @Input() @InputBoolean() thyDraggable = false;
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
+     * @default false
      */
-    @Input() thyCheckable = false;
+    @Input() @InputBoolean() thyCheckable = false;
 
     /**
      * 设置节点名称是否支持超出截取
+     * @default false
      */
-    @Input() thyTitleTruncate: boolean;
+    @Input() @InputBoolean() thyTitleTruncate: boolean;
 
     /**
      * 设置 TreeNode 的渲染模板
@@ -109,11 +115,13 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
+     * @default 44
      */
     @Input() thyItemSize = 44;
 
     /**
      * 设置节点缩进距离，缩进距离 = thyIndent * node.level
+     * @default 25
      */
     @Input() thyIndent = 25;
 
