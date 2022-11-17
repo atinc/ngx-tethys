@@ -33,15 +33,15 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
     },
     rightTop: {
         originX: 'end',
-        originY: 'top',
-        overlayX: 'start',
-        overlayY: 'top'
-    },
-    rightBottom: {
-        originX: 'end',
         originY: 'bottom',
         overlayX: 'start',
         overlayY: 'bottom'
+    },
+    rightBottom: {
+        originX: 'end',
+        originY: 'top',
+        overlayX: 'start',
+        overlayY: 'top'
     },
     bottom: {
         originX: 'center',
@@ -75,15 +75,15 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
     },
     leftTop: {
         originX: 'start',
-        originY: 'top',
-        overlayX: 'end',
-        overlayY: 'top'
-    },
-    leftBottom: {
-        originX: 'start',
         originY: 'bottom',
         overlayX: 'end',
         overlayY: 'bottom'
+    },
+    leftBottom: {
+        originX: 'start',
+        originY: 'top',
+        overlayX: 'end',
+        overlayY: 'top'
     }
 } as {}) as { [key: string]: ConnectionPositionPair };
 
