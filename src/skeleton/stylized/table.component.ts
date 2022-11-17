@@ -94,7 +94,9 @@ export class ThySkeletonTableComponent implements OnChanges {
         const createTableData = () => {
             this.data = this.rowCount.map(k => {
                 return this.cols.reduce(
-                    (k, v, i) => ((k['col' + i] = Math.round((Math.random() * (RANDOM_MAX - RANDOM_MIN) + RANDOM_MIN) * +v) + 'px'), k),
+                    (k, v, i) => (
+                        (k['col' + i] = v ? Math.round((Math.random() * (RANDOM_MAX - RANDOM_MIN) + RANDOM_MIN) * +v) + 'px' : '100%'), k
+                    ),
                     {}
                 );
             });

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-example-table-list',
+    selector: 'thy-skeleton-example-table',
     template: `
         <thy-skeleton-table
             [thyRowHeight]="model.thyRowHeight"
@@ -21,7 +21,8 @@ export class ThySkeletonExampleTableComponent implements OnInit {
         thyBorderRadius: 2,
         thyRowCount: 5,
         thyRowHeight: '18px',
-        thyCols: [100, 200, 200, '300px'],
+        // thyCols: 4,
+        thyCols: [100, '200px', 200, '300px', 300],
         thyPrimaryColor: '#F7F7F7',
         thySecondaryColor: '#aaaaaa',
         thyAnimatedInterval: 1,
