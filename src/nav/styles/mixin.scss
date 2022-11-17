@@ -23,9 +23,7 @@
     @include hover.hover-active {
         color: $hover-color;
         text-decoration: none;
-        @if $border-bottom {
-            border-bottom: $border-bottom;
-        }
+
         > i,
         > .thy-icon {
             color: $hover-color;

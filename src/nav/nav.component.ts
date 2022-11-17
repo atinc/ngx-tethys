@@ -236,6 +236,7 @@ export class ThyNavComponent extends _MixinBase
                         this.resetSizes();
                         this.setHiddenItems();
                         this.calculateMoreIsActive();
+                        this.alignInkBarToSelectedTab();
                     });
             });
         }
@@ -385,9 +386,13 @@ export class ThyNavComponent extends _MixinBase
     }
 
     private alignInkBarToSelectedTab(): void {
-        const selectedItem = this.links && this.links.length ? this.links.find(item => item.thyNavItemActive) : null;
-        const selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
+        const tabs = this.links?.toArray() ?? [];
+        const selectedItem = tabs.find(item => item.thyNavItemActive);
+        let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
+        if (this.moreActive) {
+            selectedItemElement = this.defaultMoreOperation.nativeElement;
+        }
         if (selectedItemElement) {
             this.prevActiveIndex = this.curActiveIndex;
             this.inkBar.alignToElement(selectedItemElement);
