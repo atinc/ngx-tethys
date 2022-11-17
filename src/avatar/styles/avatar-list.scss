@@ -23,20 +23,3 @@
         }
     }
 }
-
-.thy-avatar-exceed {
-    background-color: rgba(variables.$black, 0.3);
-    top: 0;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    right: 0;
-    left: 0;
-    color: variables.$white;
-}
-
-.thy-avatar-hidden {
-    display: none;
-}

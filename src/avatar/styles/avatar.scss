@@ -55,11 +55,6 @@
 @each $size, $value in variables.$avatar-sizes {
     .thy-avatar-#{$size} {
         @include mixin.avatarSize($size, $value);
-        .thy-avatar-exceed {
-            width: #{$size}px;
-            height: #{$size}px;
-            font-size: #{$value}px;
-        }
     }
 }
 
