@@ -97,11 +97,8 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
         const avatars = this.avatarList.toArray();
         const endIndex = this.getShowAvatarEndIndex();
         const max = this.thyMaxLength || avatars.length;
-        const showIndex = Math.max(0, Math.min(max, avatars.length, endIndex));
-        this.avatars = avatars.slice(0, showIndex);
-
-        console.log(endIndex, max, avatars.length, 's');
-        console.log(avatars, showIndex, this.avatars, 'avatars');
+        const showCount = Math.max(0, Math.min(max, avatars.length, endIndex + 1));
+        this.avatars = avatars.slice(0, showCount);
     }
 
     private setAvatar() {
@@ -121,13 +118,15 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
             const avatarWidth = avatars[i]._size;
             const _totalWidth = totalWidth + avatarWidth;
             if (_totalWidth > wrapperWidth) {
-                if (totalWidth + this.appendWidth < wrapperWidth) {
+                if (totalWidth + this.appendWidth <= wrapperWidth) {
                     endIndex = i - 1;
+                } else {
+                    endIndex = i - 2;
                 }
                 break;
             } else {
                 totalWidth = _totalWidth;
-                endIndex = i + 1;
+                endIndex = i;
             }
         }
         return endIndex;
