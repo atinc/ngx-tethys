@@ -23,8 +23,11 @@
             height: $height * 2;
             @include border-radius.border-radius(0 $height * 2 $height * 2 0);
         }
+        &:first-child {
+            @include border-radius.border-left-radius($height * 2);
+        }
         &:last-child {
-            @include border-radius.border-radius(0 $height * 2 $height * 2 0);
+            @include border-radius.border-right-radius($height * 2);
         }
     }
 }
@@ -44,7 +47,6 @@
 .progress-stacked {
     .progress-bar {
         background-color: variables.$progress-split-color;
-        @include border-radius.border-radius(0);
         &:last-child {
             border-right: 1px variables.$progress-split-color solid;
         }
