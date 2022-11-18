@@ -11,7 +11,7 @@
   <thy-property-item [thyOperationTrigger]="operationTrigger" thyLabelText="标题" thyEditable="true">
     这是一个标题
     <ng-template #operation>
-      <a href="javascript:;"><thy-action thyIcon="arrow-right-circle"></thy-action></a>
+      <a href="javascript:;" thyAction thyIcon="arrow-right-circle"></a>
     </ng-template>
     <ng-template #editor>
       <input class="active" thyInput thySize="md" value="这是一个标题" />
@@ -26,7 +26,7 @@
   <thy-property-item thyLabelText="渠道" [thyOperationTrigger]="operationTrigger">
     <span>PingCode</span>
     <ng-template #operation>
-      <a href="javascript:;"><thy-action thyIcon="publish"></thy-action></a>
+      <a href="javascript:;" thyAction thyIcon="publish"></a>
     </ng-template>
   </thy-property-item>
 </thy-properties>
@@ -37,7 +37,7 @@
   <thy-property-item thyLabelText="标题" thyEditable="true" [thyOperationTrigger]="operationTrigger">
     这是一个标题
     <ng-template #operation>
-      <a href="javascript:;"><thy-action thyIcon="arrow-right-circle"></thy-action></a>
+      <a href="javascript:;" thyAction thyIcon="arrow-right-circle"></a>
     </ng-template>
     <ng-template #editor>
       <input class="active" thyInput thySize="md" value="这是一个标题" />
@@ -52,7 +52,8 @@
   <thy-property-item thyLabelText="渠道" [thyOperationTrigger]="operationTrigger">
     <span>PingCode</span>
     <ng-template #operation>
-      <a href="javascript:;"><thy-action thyIcon="publish"></thy-action></a>
+      <a href="javascript:;" thyAction thyIcon="edit"></a>
+      <a href="javascript:;" thyAction thyIcon="publish"></a>
     </ng-template>
   </thy-property-item>
 </thy-properties>
