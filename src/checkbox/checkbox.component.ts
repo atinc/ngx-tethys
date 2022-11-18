@@ -1,8 +1,8 @@
 import { Component, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
@@ -16,7 +16,8 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
     ],
     host: {
         class: 'thy-checkbox',
-        '[class.disabled]': '_disabled'
+        '[class.disabled]': '_disabled',
+        '[class.mb-0]': '_isFormCheckInline'
     }
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
