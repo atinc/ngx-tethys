@@ -1,9 +1,8 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Component, DebugElement, OnInit } from '@angular/core';
-import { ThyAvatarModule } from '../avatar.module';
-import { ThyAvatarListComponent } from '../avatar-list/avatar-list.component';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyAvatarComponent } from '../avatar.component';
+import { ThyAvatarListComponent } from '../avatar-list/avatar-list.component';
+import { ThyAvatarModule } from '../avatar.module';
 
 @Component({
     template: `
@@ -50,27 +49,6 @@ describe('thy-avatar-list', () => {
         it('should create', () => {
             expect(fixture).toBeTruthy();
             expect(testComponent).toBeTruthy();
-        });
-
-        it('should get correct class for default avatar-list', () => {
-            expect(avatarListDebugElement).toBeTruthy();
-            expect(avatarListElement).toBeTruthy();
-            expect(avatarListElement.classList.contains('thy-avatar-list')).toEqual(true);
-            expect(avatarListElement.classList.contains('thy-avatar-list thy-avatar-list-overlap')).toEqual(false);
-        });
-
-        it('should get correct thy-avatar', () => {
-            const avatarList = avatarListDebugElement.queryAll(By.directive(ThyAvatarComponent));
-            expect(avatarList).toBeTruthy();
-            expect(avatarList.length).toEqual(5);
-            const avatarElement: HTMLElement = avatarList[0].nativeElement;
-            expect(avatarElement.classList.contains('thy-avatar-28')).toEqual(true);
-        });
-
-        it('should thySize default  28px', () => {
-            const avatarList = avatarListDebugElement.queryAll(By.directive(ThyAvatarComponent));
-            const avatarElement: HTMLElement = avatarList[0].nativeElement;
-            expect(avatarElement.classList.contains('thy-avatar-28')).toEqual(true);
         });
 
         it('should set append is success', () => {

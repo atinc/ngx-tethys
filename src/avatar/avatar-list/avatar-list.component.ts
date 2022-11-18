@@ -1,5 +1,3 @@
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
-import { merge, Observable, of } from 'rxjs';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -19,7 +17,9 @@ import {
     TemplateRef
 } from '@angular/core';
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
-import { ThyAvatarComponent } from '../avatar.component';
+import { merge, Observable, of } from 'rxjs';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -28,42 +28,32 @@ export const enum ThyAvatarListMode {
     default = 'default'
 }
 
-const avatarListTypeClassesMap = {
-    overlap: ['thy-avatar-list', 'thy-avatar-list-overlap'],
-    default: ['thy-avatar-list']
-};
-
 @Component({
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
     host: {
-        class: 'thy-avatar-list'
+        class: 'thy-avatar-list',
+        '[class.thy-avatar-list-overlap]': 'thyMode === "overlap"'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [UpdateHostClassService]
 })
 export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
-    private mode = ThyAvatarListMode.default;
-
     private appendWidth = 0;
 
     public avatars: ThyAvatarComponent[];
 
     @Output() thyOnRemove = new EventEmitter();
 
-    @Input()
-    set thyMode(value: ThyAvatarListMode) {
-        this.mode = value || this.mode;
-        this.updateClasses();
-    }
+    @Input() thyMode: ThyAvatarListMode;
 
     @Input()
     @InputBoolean()
     thyResponsive: boolean;
 
-    @Input() thyMaxLength = 10;
+    @Input() thyMaxLength: number;
 
-    @Input() thySize = 28;
+    @Input() thySize = DEFAULT_SIZE;
 
     @Input() thyRemovable = false;
 
@@ -71,24 +61,15 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
 
     @ContentChildren(ThyAvatarComponent) avatarList: QueryList<ThyAvatarComponent>;
 
-    constructor(
-        private updateHostClass: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private ngZone: NgZone,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor(private elementRef: ElementRef, private ngZone: NgZone, private cdr: ChangeDetectorRef) {
         super();
-        this.updateHostClass.initializeElement(elementRef.nativeElement);
     }
 
-    ngOnInit() {
-        this.updateClasses();
-    }
+    ngOnInit() {}
 
     ngAfterContentInit() {
-        this.setAvatarSize();
+        this.setAvatar();
         this.setAvailableAvatar();
-        this.setAvatarsThyRemoveAble();
     }
 
     ngAfterViewInit() {
@@ -112,26 +93,21 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
         this.thyOnRemove.emit($event);
     }
 
-    private setAvatarsThyRemoveAble() {
-        this.avatarList.toArray().forEach((avatar: ThyAvatarComponent) => {
-            if (this.mode === ThyAvatarListMode.overlap) {
-                avatar.thyShowRemove = false;
-            } else {
-                avatar.thyShowRemove = this.thyRemovable;
-            }
-        });
-    }
-
     private setAvailableAvatar() {
         const avatars = this.avatarList.toArray();
         const endIndex = this.getShowAvatarEndIndex();
-        const showIndex = Math.max(0, Math.min(this.thyMaxLength, avatars.length, endIndex));
+        const max = this.thyMaxLength || avatars.length;
+        const showIndex = Math.max(0, Math.min(max, avatars.length, endIndex));
         this.avatars = avatars.slice(0, showIndex);
+
+        console.log(endIndex, max, avatars.length, 's');
+        console.log(avatars, showIndex, this.avatars, 'avatars');
     }
 
-    private setAvatarSize() {
+    private setAvatar() {
         this.avatarList.toArray().forEach((avatar: ThyAvatarComponent) => {
             avatar.thySize = this.thySize;
+            avatar.thyShowRemove = this.thyMode === ThyAvatarListMode.overlap ? false : this.thyRemovable;
         });
     }
 
@@ -151,7 +127,7 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
                 break;
             } else {
                 totalWidth = _totalWidth;
-                endIndex = i;
+                endIndex = i + 1;
             }
         }
         return endIndex;
@@ -175,18 +151,5 @@ export class ThyAvatarListComponent extends _MixinBase implements OnInit, OnDest
                       resize.disconnect();
                   };
               });
-    }
-
-    private updateClasses() {
-        let classNames: string[] = [];
-        if (avatarListTypeClassesMap[this.mode]) {
-            classNames = [...avatarListTypeClassesMap[this.mode]];
-        }
-        this.updateHostClass.updateClass(classNames);
-    }
-
-    ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
     }
 }

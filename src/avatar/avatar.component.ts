@@ -6,7 +6,7 @@ import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
-const DEFAULT_SIZE = 36;
+export const DEFAULT_SIZE = 36;
 
 export const thyAvatarSizeMap = {
     xxs: 22,
