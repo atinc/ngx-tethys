@@ -54,6 +54,22 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
+     * 打开延迟毫秒
+     * @default 100
+     */
+    @Input('thyShowDelay') set thyShowDelay(value: number) {
+        this.showDelay = value;
+    }
+
+    /**
+     * 关闭延迟毫秒
+     * @default 100
+     */
+    @Input('thyHideDelay') set thyHideDelay(value: number) {
+        this.hideDelay = value;
+    }
+
+    /**
      * 弹出菜单后的当前触发元素的激活样式类
      */
     @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
