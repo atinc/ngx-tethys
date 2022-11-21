@@ -32,7 +32,7 @@ export abstract class ThyOverlayDirectiveBase {
     protected focusMonitor: FocusMonitor;
     protected platform: Platform;
     protected ngZone: NgZone;
-    protected showDelay? = 0;
+    protected showDelay? = 100;
     protected hideDelay? = 100;
     protected touchendHideDelay? = 0;
     protected disabled = false;
