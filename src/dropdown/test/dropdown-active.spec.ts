@@ -1,6 +1,6 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Component } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from 'ngx-tethys/button';
@@ -58,9 +58,9 @@ describe('dropdown-active', () => {
         expect(wrapperElement.nativeElement.classList.contains('active')).toBeTruthy();
 
         dropdown.hide();
-        tick();
+        tick(100);
         fixture.detectChanges();
-        tick();
+        tick(100);
 
         expect(btnElement.classList.contains('active')).toBeFalsy();
         expect(wrapperElement.nativeElement.classList.contains('active')).toBeFalsy();
@@ -79,9 +79,9 @@ describe('dropdown-active', () => {
         expect(wrapperElement.nativeElement.classList.contains('active2')).toBeTruthy();
 
         dropdown.hide();
-        tick();
+        tick(100);
         fixture.detectChanges();
-        tick();
+        tick(100);
 
         expect(btnElement.classList.contains('active1')).toBeFalsy();
         expect(btnElement.classList.contains('active2')).toBeFalsy();
