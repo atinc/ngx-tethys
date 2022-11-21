@@ -39,6 +39,7 @@
 .thy-operation-links {
     white-space: nowrap;
     text-align: left;
+
     > button,
     > a {
         display: inline-block;
@@ -64,6 +65,12 @@
     // > .thy-action + .thy-action {
     //     margin-left: variables.$table-operation-column-spacing - 16px;
     // }
+}
+
+// 利用层级消除 td 的 padding,以免 operationLinks 中的 icon 撑高 td
+.thy-table .thy-table-body tr td.thy-operation-links {
+    padding-top: 0;
+    padding-bottom: 0;
 }
 
 // 目前只处理 bordered 和 boxed 类型表格，不处理 default 表格
