@@ -83,20 +83,21 @@ export abstract class ThyOverlayDirectiveBase {
                         this.show();
                     })
                     .set('mouseleave', (event: MouseEvent) => {
-                        // element which mouse moved to
+                        // Delay 100ms to avoid the overlay being closed immediately when the cursor is moved to the overlay container
+                        this.hide(100);
                         const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
-                        const toElement = event['toElement'] || event.relatedTarget;
-                        // if element which moved to is in overlayElement, don't hide tooltip
-                        if (overlayElement && overlayElement.contains && overlayElement.contains(toElement as Element) && this.overlayPin) {
-                            fromEvent(overlayElement, 'mouseleave')
+                        if (overlayElement && this.overlayPin) {
+                            fromEvent(overlayElement, 'mouseenter')
                                 .pipe(take(1))
                                 .subscribe(() => {
-                                    this.hide();
+                                    this.clearTimer();
+                                    fromEvent(overlayElement, 'mouseleave')
+                                        .pipe(take(1))
+                                        .subscribe(() => {
+                                            this.hide();
+                                        });
                                 });
-                        } else {
-                            this.hide();
                         }
-
                         // if showDelay is too long and mouseleave immediately, overlayRef is not exist, we should clearTimeout
                         if (!this.overlayRef) {
                             this.clearTimer();
