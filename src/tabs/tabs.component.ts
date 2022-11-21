@@ -1,25 +1,25 @@
 import {
+    AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
+    ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     OnInit,
     Output,
     QueryList,
-    TemplateRef,
-    AfterContentInit,
-    OnChanges,
     SimpleChanges,
-    ChangeDetectorRef,
-    ElementRef
+    TemplateRef
 } from '@angular/core';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { isString } from 'ngx-tethys/util';
+import { fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { ThyTabComponent } from './tab.component';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
-import { takeUntil } from 'rxjs/operators';
-import { fromEvent } from 'rxjs';
-import { helpers } from 'ngx-tethys/util';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -61,10 +61,12 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
      */
     @Input()
     set thyActiveTab(value: ThyActiveTabInfo) {
-        if (helpers.isString(value)) {
-            this.activeTabId = value as string;
+        if (isString(value)) {
+            this.activeTabId = value;
+            this.activeTabIndex = undefined;
         } else {
-            this.activeTabIndex = value as number;
+            this.activeTabIndex = value;
+            this.activeTabId = undefined;
         }
     }
 
