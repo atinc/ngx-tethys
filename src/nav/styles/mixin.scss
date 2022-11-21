@@ -10,7 +10,6 @@
         color: variables.$nav-item-icon-color;
     }
 
-    &.active,
     &.thy-nav-origin-active {
         color: $hover-color;
         @if $border-bottom {
@@ -24,9 +23,7 @@
     @include hover.hover-active {
         color: $hover-color;
         text-decoration: none;
-        @if $border-bottom {
-            border-bottom: $border-bottom;
-        }
+
         > i,
         > .thy-icon {
             color: $hover-color;

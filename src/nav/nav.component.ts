@@ -16,13 +16,16 @@ import {
     HostBinding,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild
 } from '@angular/core';
 
+import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -64,7 +67,8 @@ const tabItemRight = 20;
     providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
+export class ThyNavComponent extends _MixinBase
+    implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
     private type: ThyNavType = 'pulled';
     private size: ThyNavSize = 'md';
     public initialized = false;
@@ -176,6 +180,13 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
 
+    @ViewChild(ThyNavInkBarDirective, { static: true }) inkBar!: ThyNavInkBarDirective;
+
+    get showInkBar(): boolean {
+        const showTypes: ThyNavType[] = ['pulled', 'tabs'];
+        return showTypes.includes(this.type);
+    }
+
     private updateClasses() {
         let classNames: string[] = [];
         if (navTypeClassesMap[this.type]) {
@@ -186,6 +197,10 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         }
         this.updateHostClass.updateClass(classNames);
     }
+
+    private curActiveIndex: number;
+
+    private prevActiveIndex: number = NaN;
 
     constructor(
         private updateHostClass: UpdateHostClassService,
@@ -221,6 +236,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                         this.resetSizes();
                         this.setHiddenItems();
                         this.calculateMoreIsActive();
+                        this.alignInkBarToSelectedTab();
                     });
             });
         }
@@ -236,6 +252,14 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
+        if (this.showInkBar) {
+            this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.thyNavItemActive) : null;
+            if (this.curActiveIndex !== this.prevActiveIndex) {
+                this.alignInkBarToSelectedTab();
+            }
+        } else {
+            this.inkBar.hide();
+        }
     }
 
     private setMoreBtnOffset() {
@@ -359,6 +383,32 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     navItemClick(item: ThyNavItemDirective) {
         item.elementRef.nativeElement.click();
+    }
+
+    private alignInkBarToSelectedTab(): void {
+        const tabs = this.links?.toArray() ?? [];
+        const selectedItem = tabs.find(item => item.thyNavItemActive);
+        let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
+
+        if (this.moreActive) {
+            selectedItemElement = this.defaultMoreOperation.nativeElement;
+        }
+        if (selectedItemElement) {
+            this.prevActiveIndex = this.curActiveIndex;
+            this.inkBar.alignToElement(selectedItemElement);
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyVertical, thyType } = changes;
+
+        if (thyType?.currentValue !== thyType?.previousValue || thyVertical?.currentValue !== thyVertical?.previousValue) {
+            if (this.showInkBar) {
+                this.alignInkBarToSelectedTab();
+            } else {
+                this.inkBar.hide();
+            }
+        }
     }
 
     ngOnDestroy() {
