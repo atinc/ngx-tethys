@@ -8,11 +8,10 @@ import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { DomSanitizer } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchKeyboardEvent, dispatchMouseEvent, MockXhrFactory } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
 import { fetchImageBlob } from '../utils';
-import { MockXhrFactory } from './xhr-mock';
 import { XhrFactory } from '@angular/common';
 
 let imageOnload: () => void = null;
@@ -79,7 +78,8 @@ describe('image-preview', () => {
                     useValue: mockXhrFactory
                 }
             ]
-        }).compileComponents();
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(ImagePreviewTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement;
@@ -375,6 +375,7 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
+        mockXhrFactory.build();
         mockXhrFactory.mock.open('GET', basicTestComponent.images[0].src);
         mockXhrFactory.mock.responseType = 'blob';
         mockXhrFactory.mock.listeners.load = () => {
@@ -385,7 +386,10 @@ describe('image-preview', () => {
             code: 200,
             data: { size: '77kb' }
         });
-        mockXhrFactory.mock.send();
+        mockXhrFactory.mock.send({
+            code: 200,
+            data: { size: '77kb' }
+        });
     });
 
     xit(
