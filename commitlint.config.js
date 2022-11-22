@@ -100,7 +100,8 @@ module.exports = {
                 'property',
                 'carousel',
                 'color-picker',
-                'comment'
+                'comment',
+                'dynamic-form'
             ]
         ]
     }

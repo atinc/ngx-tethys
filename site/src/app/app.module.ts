@@ -24,6 +24,7 @@ import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyDynamicFormModule } from 'ngx-tethys/dynamic-form';
 import { ThyFullscreenModule } from 'ngx-tethys/fullscreen';
 import { ThyGridModule } from 'ngx-tethys/grid';
 import { ThyGuiderModule } from 'ngx-tethys/guider';
@@ -155,7 +156,8 @@ const TETHYS_MODULES = [
     ThyCollapseModule,
     ThyRateModule,
     ThyDotModule,
-    ThyWatermarkModule
+    ThyWatermarkModule,
+    ThyDynamicFormModule
 ];
 
 @NgModule({
