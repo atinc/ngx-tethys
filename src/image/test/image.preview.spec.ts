@@ -8,10 +8,11 @@ import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { DomSanitizer } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { humanizeBytes, keycodes } from 'ngx-tethys/util';
+import { dispatchKeyboardEvent, dispatchMouseEvent, MockXhrFactory } from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
 import { fetchImageBlob } from '../utils';
+import { XhrFactory } from '@angular/common';
 
 let imageOnload: () => void = null;
 
@@ -64,12 +65,21 @@ describe('image-preview', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let formElement: HTMLElement;
+    let mockXhrFactory: MockXhrFactory;
 
     beforeEach(() => {
+        mockXhrFactory = new MockXhrFactory();
         TestBed.configureTestingModule({
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImagePreviewTestComponent]
-        }).compileComponents();
+            declarations: [ImagePreviewTestComponent],
+            providers: [
+                {
+                    provide: XhrFactory,
+                    useValue: mockXhrFactory
+                }
+            ]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(ImagePreviewTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement;
@@ -350,11 +360,12 @@ describe('image-preview', () => {
     it('should fetch imageBlob when resolveSize is true', done => {
         basicTestComponent.images = [
             {
-                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
+                src: 'first.png',
                 alt: 'first',
                 name: 'first.jpg',
+                size: '77kb',
                 origin: {
-                    src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
+                    src: 'first.png'
                 }
             }
         ];
@@ -364,15 +375,21 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', basicTestComponent.images[0].src);
-        xhr.responseType = 'blob';
-        xhr.onload = () => {
-            expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(humanizeBytes(xhr.response.size));
+        mockXhrFactory.build();
+        mockXhrFactory.mock.open('GET', basicTestComponent.images[0].src);
+        mockXhrFactory.mock.responseType = 'blob';
+        mockXhrFactory.mock.listeners.load = () => {
+            expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(mockXhrFactory.mock.response.data.size);
             done();
         };
-
-        xhr.send();
+        mockXhrFactory.mock.mockFlush(XMLHttpRequest.DONE, 'SUCCESS', {
+            code: 200,
+            data: { size: '77kb' }
+        });
+        mockXhrFactory.mock.send({
+            code: 200,
+            data: { size: '77kb' }
+        });
     });
 
     xit(
