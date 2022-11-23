@@ -2,6 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.1...14.2.0-next.2) (2022-11-22)
+
+
+### Bug Fixes
+
+* **progress:**  add left border-radius in safari #INFR-5407 ([bfa6bc2](https://github.com/atinc/ngx-tethys/commit/bfa6bc22ecd9456a3323af5dd7e6307b0f177630)), closes [#INFR-5407](https://github.com/atinc/ngx-tethys/issues/INFR-5407)
+* **property:** add min-width to 0px for thy-property-item, content and  content-text ([6659107](https://github.com/atinc/ngx-tethys/commit/6659107a5d13a3cd1e2e5a25b471104d96b21602))
+* **resizable:** update cursor of handle to row-resize and col-resize #INFR-5291 ([8ae0edb](https://github.com/atinc/ngx-tethys/commit/8ae0edb6134c24f93ae69d3b01c493d56d2339d0)), closes [#INFR-5291](https://github.com/atinc/ngx-tethys/issues/INFR-5291)
+* **skeleton:** adjust the style to compatible safari #INFR-5083 ([#2328](https://github.com/atinc/ngx-tethys/issues/2328)) ([123a6d0](https://github.com/atinc/ngx-tethys/commit/123a6d0f43a2fa9d29171fd661b48fcd20029d71)), closes [#INFR-5083](https://github.com/atinc/ngx-tethys/issues/INFR-5083)
+* **table:** not render td default node when defaultText is empty ([c002573](https://github.com/atinc/ngx-tethys/commit/c0025736820e8fa61525ce1e68c938e449efc55a))
+* **table:** remove operation-links td padding #INFR-5338 ([#2340](https://github.com/atinc/ngx-tethys/issues/2340)) ([d808cd3](https://github.com/atinc/ngx-tethys/commit/d808cd32ea804d02e76c104e389298af66f70fc1)), closes [#INFR-5338](https://github.com/atinc/ngx-tethys/issues/INFR-5338)
+* **tabs:** show right activeTab when use activeTabId #INFR-5430 ([#2352](https://github.com/atinc/ngx-tethys/issues/2352)) ([c16ac4d](https://github.com/atinc/ngx-tethys/commit/c16ac4d7d2d106154ed34ffdfeff65ab6b1c02d1)), closes [#INFR-5430](https://github.com/atinc/ngx-tethys/issues/INFR-5430)
+* **tooltip:**  fix tooltip arrow position #INFR-5310 ([161bc0b](https://github.com/atinc/ngx-tethys/commit/161bc0b05e923bd6bdfb32642eee0d71f360e44a)), closes [#INFR-5310](https://github.com/atinc/ngx-tethys/issues/INFR-5310)
+
+
+### Features
+
+* **button:** fix icon size to '12px 'when thyButtonIcon size is 'xs'.(#INFR-5336) ([#2342](https://github.com/atinc/ngx-tethys/issues/2342)) ([2134bb6](https://github.com/atinc/ngx-tethys/commit/2134bb6cec57f2c817be2835d60443c63715820f)), closes [#INFR-5336](https://github.com/atinc/ngx-tethys/issues/INFR-5336)
+* **dropdown:** add thyShowDelay and thyHideDelay property for dropdown directive, default 100ms ([84560aa](https://github.com/atinc/ngx-tethys/commit/84560aa015b6425d13056fd588d010d9967e7e31))
+* **guider:** guider step support multi targets #INFR-5201 ([#2327](https://github.com/atinc/ngx-tethys/issues/2327)) ([2367039](https://github.com/atinc/ngx-tethys/commit/23670391b6aa9023cf5ef2c77096a4023c63a7b0)), closes [#INFR-5201](https://github.com/atinc/ngx-tethys/issues/INFR-5201)
+* **nav:** add animation for pulled and tabs types #INFR-5203 ([#2339](https://github.com/atinc/ngx-tethys/issues/2339)) ([51b91c9](https://github.com/atinc/ngx-tethys/commit/51b91c933477e71bf8b1d0444eee6477c2210fe6)), closes [#INFR-5203](https://github.com/atinc/ngx-tethys/issues/INFR-5203)
+* **popover:** apply the base class's thyShowDelay and thyHidenDelay properties ([4ebf47e](https://github.com/atinc/ngx-tethys/commit/4ebf47eb1384165ad027f53839ee4e21428e3ade))
+
+
+
 # [14.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.1.8...14.2.0-next.1) (2022-11-14)
 
 

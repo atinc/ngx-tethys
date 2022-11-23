@@ -12,7 +12,7 @@
     thyNavItem
     [id]="tab.id"
     [thyNavItemDisabled]="tab.thyDisabled"
-    [thyNavItemActive]="(tab.id && activeTabId && tab.id === activeTabId) || i === activeTabIndex"
+    [thyNavItemActive]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
     *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
     (click)="activeTab(tab, i)"
   >
@@ -29,7 +29,7 @@
   <div
     thyTabContent
     *ngFor="let tab of tabs; let i = index; trackBy: tabTrackBy"
-    [active]="(tab.id && activeTabId && tab.id === activeTabId) || i === activeTabIndex"
+    [active]="(tab.id && activeTabId && tab.id === activeTabId) ?? i === activeTabIndex"
     [content]="tab.content"
     [tabPaneAnimated]="tabPaneAnimated"
   ></div>

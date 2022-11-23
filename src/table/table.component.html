@@ -201,7 +201,7 @@
                 {{ getModelValue(row, column.model) }}
               </ng-container>
               <ng-template #default>
-                <div class="text-desc">
+                <div *ngIf="column.defaultText" class="text-desc">
                   {{ column.defaultText }}
                 </div>
               </ng-template>

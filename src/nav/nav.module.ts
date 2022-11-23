@@ -8,12 +8,20 @@ import { RouterModule } from '@angular/router';
 
 import { ThyIconNavLinkComponent } from './icon-nav/icon-nav-link.directive';
 import { ThyIconNavComponent } from './icon-nav/icon-nav.component';
+import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 import { ThyNavComponent } from './nav.component';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
 @NgModule({
-    declarations: [ThyNavComponent, ThyNavItemDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe],
+    declarations: [
+        ThyNavComponent,
+        ThyNavItemDirective,
+        ThyIconNavComponent,
+        ThyIconNavLinkComponent,
+        BypassSecurityTrustHtmlPipe,
+        ThyNavInkBarDirective
+    ],
     imports: [CommonModule, ThyIconModule, ThyPopoverModule, ThyActionMenuModule, RouterModule],
     exports: [ThyNavComponent, ThyNavItemDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe]
 })
