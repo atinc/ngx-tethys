@@ -80,14 +80,10 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
     }
 
     private overlayIsOpened(config: ThySlideConfig) {
-        let openedOverlay = this.getAbstractOverlayById(config.id);
-        if (!config.id && this.getAbstractOverlays().length > 0) {
-            openedOverlay = this.getAbstractOverlays().find(overlay => !overlay.containerInstance.config.id);
-        }
-        if (openedOverlay) {
-            this.removeOpenedOverlay(openedOverlay);
-            openedOverlay.close();
-            openedOverlay = null;
+        const openedOverlay = this.getAbstractOverlayById(config.id);
+        const fullConfig = { ...this.defaultConfig, ...config };
+        if (fullConfig.isCloseLatest) {
+            this.close(openedOverlay);
         }
         return openedOverlay;
     }

@@ -69,52 +69,70 @@ describe('ThySlide', () => {
             expect(querySelectorSpy).not.toHaveBeenCalled();
         });
 
-        it('should open new slide ref when config.id is null', fakeAsync(() => {
-            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
-                from: 'right'
-            });
-            const slideCloseSpy = spyOn(slideRef, 'close');
-            assertSlideSimpleContentComponent(slideRef);
+        it('should open a slide and close latest slideRef', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
 
-            const anotherSlideRef = thySlideService.open(SlideLayoutTestComponent, {
-                from: 'right'
-            });
-            assertSlideSimpleContentComponent(anotherSlideRef);
-
-            expect(slideCloseSpy).toHaveBeenCalled();
-            expect(anotherSlideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
-        }));
-
-        it('should close slideRef when slideRef id is opened', fakeAsync(() => {
-            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
-                id: 'slide-id-1',
-                from: 'right'
-            });
-            const slideCloseSpy = spyOn(slideRef, 'close');
-            assertSlideSimpleContentComponent(slideRef);
-
-            const anotherSlideRef = thySlideService.open(SlideLayoutTestComponent, {
-                id: 'slide-id-1',
-                from: 'right'
-            });
-            assertSlideSimpleContentComponent(anotherSlideRef);
-
-            expect(slideCloseSpy).toHaveBeenCalled();
-            expect(anotherSlideRef.componentInstance instanceof SlideLayoutTestComponent).toBe(true);
-        }));
-
-        it('should not close slideRef at slideRef id is not opened', fakeAsync(() => {
             const slideRef = thySlideService.open(SlideLayoutTestComponent, {
                 id: '1',
-                from: 'right'
+                from: 'right',
+                mode: 'side',
+                drawerContainer: '#demo-host'
             });
+            const slideCloseSpy = spyOn(slideRef, 'close');
             assertSlideSimpleContentComponent(slideRef);
+            viewContainerFixture.detectChanges();
+
             const anotherSlideRef = thySlideService.open(SlideLayoutTestComponent, {
                 id: '2',
-                from: 'right'
+                from: 'right',
+                mode: 'side',
+                drawerContainer: '#demo-host'
             });
             assertSlideSimpleContentComponent(anotherSlideRef);
-            expect(slideRef).toBeTruthy();
+            viewContainerFixture.detectChanges();
+            expect(slideCloseSpy).toHaveBeenCalled();
+        }));
+
+        it('should open a slide but not close latest slideRef', fakeAsync(() => {
+            const element = document.createElement('div');
+            const querySelectorSpy = spyOn(document, 'querySelector');
+            querySelectorSpy.and.returnValue(element as Element);
+
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '1',
+                from: 'right',
+                mode: 'side',
+                drawerContainer: '#demo-host'
+            });
+            const slideCloseSpy = spyOn(slideRef, 'close');
+            assertSlideSimpleContentComponent(slideRef);
+            viewContainerFixture.detectChanges();
+
+            const anotherSlideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '2',
+                from: 'right',
+                mode: 'side',
+                drawerContainer: '#demo-host',
+                isCloseLatest: false
+            });
+            const anotherCloseSpy = spyOn(anotherSlideRef, 'close');
+            assertSlideSimpleContentComponent(anotherSlideRef);
+            viewContainerFixture.detectChanges();
+
+            expect(slideCloseSpy).not.toHaveBeenCalled();
+
+            const thirdSlideRef = thySlideService.open(SlideLayoutTestComponent, {
+                id: '3',
+                from: 'right',
+                mode: 'side',
+                drawerContainer: '#demo-host'
+            });
+            assertSlideSimpleContentComponent(thirdSlideRef);
+            viewContainerFixture.detectChanges();
+
+            expect(anotherCloseSpy).toHaveBeenCalled();
         }));
 
         it('should open a slide with "side" mode when mode="side" and have drawerContainer', fakeAsync(() => {

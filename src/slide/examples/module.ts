@@ -14,7 +14,6 @@ import { ThySlideDrawerContainerExampleComponent } from './drawer-container/draw
 import { ThySlideLayoutExampleComponent } from './layout/layout.component';
 import { ThySlideModeExampleComponent } from './mode/mode.component';
 import { ThySlideDemoContentComponent } from './slide-content.component';
-import { ThySlideMultipleSlideExampleComponent } from './multiple-slide/multiple-slide.component';
 
 const COMPONENTS = [
     ThySlideBasicExampleComponent,
@@ -22,8 +21,7 @@ const COMPONENTS = [
     ThySlideModeExampleComponent,
     ThySlideLayoutExampleComponent,
     ThySlideDemoContentComponent,
-    ThySlideDrawerContainerExampleComponent,
-    ThySlideMultipleSlideExampleComponent
+    ThySlideDrawerContainerExampleComponent
 ];
 
 @NgModule({
