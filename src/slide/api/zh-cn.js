@@ -144,7 +144,7 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'isCloseLatest',
+                name: 'config',
                 description: '是否关闭上一个已打开的slideRef',
                 type: 'boolean',
                 default: 'true'

@@ -32,7 +32,7 @@ export class ThySlideBasicExampleComponent {
     showSlideNotCloseLatest() {
         this.thySlideNewService.open(ThySlideDemoContentComponent, {
             hasBackdrop: false,
-            isCloseLatest: false
+            disableCloseLatest: true
         });
     }
 }

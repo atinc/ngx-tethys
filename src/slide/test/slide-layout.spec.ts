@@ -115,7 +115,7 @@ describe('ThySlide', () => {
                 from: 'right',
                 mode: 'side',
                 drawerContainer: '#demo-host',
-                isCloseLatest: false
+                disableCloseLatest: true
             });
             const anotherCloseSpy = spyOn(anotherSlideRef, 'close');
             assertSlideSimpleContentComponent(anotherSlideRef);
