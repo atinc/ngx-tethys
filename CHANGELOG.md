@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.2...14.2.0-next.3) (2022-11-23)
+
+
+### Bug Fixes
+
+* **nav:** show ink bar when use routerLinkActive #INFR-5455 ([#2360](https://github.com/atinc/ngx-tethys/issues/2360)) ([365eb7b](https://github.com/atinc/ngx-tethys/commit/365eb7b4be12aea682bcdade340068cc838b2281)), closes [#INFR-5455](https://github.com/atinc/ngx-tethys/issues/INFR-5455)
+
+
+### Features
+
+* **slide:** slide add disableCloseLatest support disable auto close latest slideRef #INFR-5263 ([81d02de](https://github.com/atinc/ngx-tethys/commit/81d02de9c225250075d6b23eef3b6daef99ac98f)), closes [#INFR-5263](https://github.com/atinc/ngx-tethys/issues/INFR-5263)
+* **table:** add border-radius for table-bordered #INFR-5441 ([#2358](https://github.com/atinc/ngx-tethys/issues/2358)) ([7ca4e98](https://github.com/atinc/ngx-tethys/commit/7ca4e981c5c4d0ad20bc77be7ee487fa0bb1db81)), closes [#INFR-5441](https://github.com/atinc/ngx-tethys/issues/INFR-5441)
+
+
+
 # [14.2.0-next.2](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.1...14.2.0-next.2) (2022-11-22)
 
 
