@@ -236,20 +236,25 @@ export class ThyNavComponent extends _MixinBase
             });
 
             this.ngZone.runOutsideAngular(() => {
-                merge(
-                    this.links.changes,
-                    this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
-                    ...(this.routers || []).map(router => router?.isActiveChange)
-                )
+                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
                         this.resetSizes();
                         this.setHiddenItems();
                         this.calculateMoreIsActive();
-                        this.alignInkBarToSelectedTab();
                     });
             });
         }
+
+        merge(
+            this.links.changes,
+            this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
+            ...(this.routers || []).map(router => router?.isActiveChange)
+        )
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(() => {
+                this.alignInkBarToSelectedTab();
+            });
     }
 
     ngAfterContentInit(): void {
@@ -262,13 +267,12 @@ export class ThyNavComponent extends _MixinBase
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
-        if (this.showInkBar) {
-            this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.thyNavItemActive) : null;
-            if (this.curActiveIndex !== this.prevActiveIndex) {
-                this.alignInkBarToSelectedTab();
-            }
-        } else {
+
+        this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.linkIsActive()) : -1;
+        if (this.curActiveIndex < 0) {
             this.inkBar.hide();
+        } else if (this.curActiveIndex !== this.prevActiveIndex) {
+            this.alignInkBarToSelectedTab();
         }
     }
 
@@ -396,12 +400,15 @@ export class ThyNavComponent extends _MixinBase
     }
 
     private alignInkBarToSelectedTab(): void {
+        if (!this.showInkBar) {
+            this.inkBar.hide();
+            return;
+        }
         const tabs = this.links?.toArray() ?? [];
         const selectedItem = tabs.find(item => item.linkIsActive());
-
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
-        if (this.moreActive) {
+        if (selectedItem && this.moreActive) {
             selectedItemElement = this.defaultMoreOperation.nativeElement;
         }
         if (selectedItemElement) {
@@ -414,11 +421,7 @@ export class ThyNavComponent extends _MixinBase
         const { thyVertical, thyType } = changes;
 
         if (thyType?.currentValue !== thyType?.previousValue || thyVertical?.currentValue !== thyVertical?.previousValue) {
-            if (this.showInkBar) {
-                this.alignInkBarToSelectedTab();
-            } else {
-                this.inkBar.hide();
-            }
+            this.alignInkBarToSelectedTab();
         }
     }
 

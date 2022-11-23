@@ -10,6 +10,7 @@
         color: variables.$nav-item-icon-color;
     }
 
+    &.active,
     &.thy-nav-origin-active {
         color: $hover-color;
         @if $border-bottom {
@@ -141,5 +142,16 @@
     }
     @include mixins-hover.hover-focus-active {
         border-bottom: none;
+    }
+}
+
+@mixin nav-border-bottom() {
+    &::before {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        border-bottom: 1px solid variables.$nav-border-color;
+        content: '';
     }
 }
