@@ -25,6 +25,7 @@ import {
     ViewChild
 } from '@angular/core';
 
+import { RouterLinkActive } from '@angular/router';
 import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 
@@ -160,6 +161,11 @@ export class ThyNavComponent extends _MixinBase
     @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
     /**
+     * @private
+     */
+    @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
+
+    /**
      * 响应式模式下更多操作模板
      * @type TemplateRef
      */
@@ -230,7 +236,11 @@ export class ThyNavComponent extends _MixinBase
             });
 
             this.ngZone.runOutsideAngular(() => {
-                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
+                merge(
+                    this.links.changes,
+                    this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
+                    ...(this.routers || []).map(router => router?.isActiveChange)
+                )
                     .pipe(takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
                         this.resetSizes();
@@ -387,7 +397,8 @@ export class ThyNavComponent extends _MixinBase
 
     private alignInkBarToSelectedTab(): void {
         const tabs = this.links?.toArray() ?? [];
-        const selectedItem = tabs.find(item => item.thyNavItemActive);
+        const selectedItem = tabs.find(item => item.linkIsActive());
+
         let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
 
         if (this.moreActive) {
