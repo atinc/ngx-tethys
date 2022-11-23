@@ -144,10 +144,10 @@ module.exports = [
                 default: ''
             },
             {
-                name: 'config',
-                description: '是否关闭上一个已打开的slideRef',
+                name: 'disableCloseLatest',
+                description: '是否禁用关闭上一个已打开的slideRef',
                 type: 'boolean',
-                default: 'true'
+                default: 'false'
             }
         ]
     },
