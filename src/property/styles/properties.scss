@@ -63,12 +63,15 @@
 
     .thy-property-item {
         display: flex;
+        // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
+        min-width: 0px;
         .thy-property-item-label {
             display: inline-grid;
             align-items: center;
             height: variables.$property-item-min-height;
             color: variables.$property-item-label-color;
             grid-template-columns: auto auto;
+            flex-shrink: 0;
 
             .thy-property-item-operation {
                 text-align: end;
@@ -84,10 +87,12 @@
             align-items: center;
             color: variables.$property-item-content-color;
             min-height: variables.$property-item-min-height;
+            min-width: 0px;
 
             .thy-property-item-content-text {
                 display: flex;
                 align-items: center;
+                min-width: 0px;
             }
 
             .thy-property-item-content-editor {
@@ -103,6 +108,9 @@
 
         .thy-property-item-operation {
             margin-left: 4px;
+            .thy-action + .thy-action {
+                margin-left: 4px;
+            }
         }
 
         &.thy-property-item-operational-hover {

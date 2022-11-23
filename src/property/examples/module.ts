@@ -12,6 +12,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyTagModule } from 'ngx-tethys/tag';
 import { ThyTimePickerModule } from 'ngx-tethys/time-picker';
 import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -36,7 +37,8 @@ export default {
         ThyDatePickerModule,
         ThyTimePickerModule,
         ThyDialogModule,
-        ThyTreeSelectModule
+        ThyTreeSelectModule,
+        ThyFlexibleTextModule
     ],
     declarations: [ThyPropertyEditableDateInnerComponent]
 };

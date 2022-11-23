@@ -5,7 +5,6 @@ import { By } from '@angular/platform-browser';
 import { ThyNavComponent } from 'ngx-tethys/nav';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabComponent } from '../tab.component';
 import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
 import { ThyTabsModule } from '../tabs.module';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
@@ -343,6 +342,15 @@ describe('tabs', () => {
 
             fixture = TestBed.createComponent(TestTabsActiveComponent);
             fixture.detectChanges();
+        });
+
+        it('should show right active tab when use activeTabId identifier', () => {
+            const activeTab = fixture.debugElement.queryAll(By.css('.thy-nav-item.active'));
+            const activeTabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
+            expect(activeTab.length).toBe(1);
+
+            const activeContent = activeTabContents.filter(item => item.styles.display !== 'none');
+            expect(activeContent.length).toBe(1);
         });
 
         it('should set thyActiveTab successfully when reset activeTab', () => {

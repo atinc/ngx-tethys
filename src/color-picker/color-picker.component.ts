@@ -57,19 +57,14 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
         return this.color;
     }
 
-    constructor(
-        private thyPopover: ThyPopover,
-        private zone: NgZone,
-        private elementRef: ElementRef<HTMLElement>,
-        private ngZone: NgZone
-    ) {}
+    constructor(private thyPopover: ThyPopover, private zone: NgZone, private elementRef: ElementRef<HTMLElement>) {}
 
     ngOnInit(): void {
         this.zone.runOutsideAngular(() => {
             fromEvent<Event>(this.elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(event => {
-                    this.ngZone.run(() => this.togglePanel(event));
+                    this.zone.run(() => this.togglePanel(event));
                 });
         });
     }

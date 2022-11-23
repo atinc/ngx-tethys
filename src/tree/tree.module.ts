@@ -13,12 +13,11 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { ThyTreeReplaceRegionComponent } from './tree-replace-region.component';
 import { ThyTreeComponent } from './tree.component';
 import { ThyTreeService } from './tree.service';
 
 @NgModule({
-    declarations: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
+    declarations: [ThyTreeComponent, ThyTreeNodeComponent],
     imports: [
         CommonModule,
         ThyInputModule,
@@ -33,7 +32,7 @@ import { ThyTreeService } from './tree.service';
         ThyCheckboxModule,
         ScrollingModule
     ],
-    exports: [ThyTreeComponent, ThyTreeNodeComponent, ThyTreeReplaceRegionComponent],
+    exports: [ThyTreeComponent, ThyTreeNodeComponent],
     providers: [ThyTreeService]
 })
 export class ThyTreeModule {}

@@ -6,7 +6,7 @@ import { fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyUploadModule } from '../module';
 import { ThyUploadFile, ThyUploadResponse, ThyUploadService, ThyUploadStatus } from '../upload.service';
 import { createFile } from './utils';
-import { MockXhrFactory } from './xhr-mock';
+import { MockXhrFactory } from 'ngx-tethys/testing';
 
 const UPLOAD_URL = `http://example.com/upload`;
 

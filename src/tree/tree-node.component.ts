@@ -27,37 +27,83 @@ import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstra
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
+/**
+ * 树形控件的节点组件
+ * @name thy-tree-node
+ */
 @Component({
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
+    /**
+     * node 节点展现所需的数据
+     */
     @Input() node: ThyTreeNode;
 
-    @Input() thyAsync = false;
+    /**
+     * 设置 TreeNode 是否支持异步加载
+     * @default false
+     */
+    @Input() @InputBoolean() thyAsync = false;
 
-    @Input() thyMultiple = false;
+    /**
+     * 设置 TreeNode 是否支持多选
+     * @default false
+     */
+    @Input() @InputBoolean() thyMultiple = false;
 
-    @Input() thyDraggable = false;
+    /**
+     * 设置 TreeNode 是否支持拖拽排序
+     * @default false
+     */
+    @Input() @InputBoolean() thyDraggable = false;
 
-    @Input() thyCheckable = false;
+    /**
+     * 设置 TreeNode 是否支持 Checkbox 选择
+     * @default false
+     */
+    @Input() @InputBoolean() thyCheckable = false;
 
-    @Input() thyTitleTruncate: boolean;
+    /**
+     * 设置节点名称是否支持超出截取
+     * @default false
+     */
+    @Input() @InputBoolean() thyTitleTruncate: boolean;
 
+    /**
+     * 设置 TreeNode 的渲染模板
+     */
     @Input() templateRef: TemplateRef<any>;
 
+    /**
+     * 设置子的空数据渲染模板
+     */
     @Input() emptyChildrenTemplateRef: TemplateRef<any>;
 
+    /**
+     * 设置 node 点击事件
+     */
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 点击展开触发事件
+     */
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 设置 check 选择事件
+     */
     @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 设置 childrenTree 的渲染模板
+     */
     @ContentChild('childrenTree') childrenTreeTemplateRef: TemplateRef<any>;
 
     /** The native `<div class="thy-tree-node-wrapper thy-sortable-item"></div>` element. */
@@ -67,8 +113,16 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     @HostBinding('class') itemClass: string;
 
+    /**
+     * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
+     * @default 44
+     */
     @Input() thyItemSize = 44;
 
+    /**
+     * 设置节点缩进距离，缩进距离 = thyIndent * node.level
+     * @default 25
+     */
     @Input() thyIndent = 25;
 
     public get nodeIcon() {

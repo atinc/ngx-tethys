@@ -746,7 +746,6 @@ export const namePackageRelationsInNg13 = {
     THY_TREE_ABSTRACT_TOKEN: 'tree',
     ThyTreeNode: 'tree',
     ThyTreeNodeComponent: 'tree',
-    ThyTreeReplaceRegionComponent: 'tree',
     ThyTreeNodeCheckState: 'tree',
     ThyTreeNodeData: 'tree',
     ThyTreeEmitEvent: 'tree',
