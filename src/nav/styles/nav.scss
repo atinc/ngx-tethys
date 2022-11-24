@@ -11,6 +11,7 @@
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+    position: relative;
 
     .thy-nav-item {
         display: block;
@@ -43,20 +44,18 @@
 
 .thy-nav-pulled {
     .thy-nav-item {
-        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
     }
     @include mixin.set-nav-size();
 }
 
 .thy-nav-tabs {
-    position: relative;
-
     .thy-nav-list {
-        border-bottom: 1px solid variables.$nav-border-color;
+        @include mixin.nav-border-bottom();
     }
     .thy-nav-item {
         z-index: 1;
-        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
     }
     @include mixin.set-nav-size();
 }
@@ -110,7 +109,7 @@
 }
 
 .thy-nav-secondary {
-    border-bottom: 1px solid variables.$nav-border-color;
+    @include mixin.nav-border-bottom();
     .thy-nav-item {
         @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
@@ -121,7 +120,8 @@
 }
 
 .thy-nav-secondary-divider {
-    border-bottom: 1px solid variables.$nav-border-color;
+    @include mixin.nav-border-bottom();
+
     .thy-nav-item {
         @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
         @include mixin.nav-item-size(
