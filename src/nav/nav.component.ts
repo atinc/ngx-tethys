@@ -1,7 +1,7 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
+import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
 
 import {
     AfterContentChecked,
@@ -234,27 +234,27 @@ export class ThyNavComponent extends _MixinBase
                 this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
-
-            this.ngZone.runOutsideAngular(() => {
-                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(() => {
-                        this.resetSizes();
-                        this.setHiddenItems();
-                        this.calculateMoreIsActive();
-                    });
-            });
         }
-
-        merge(
-            this.links.changes,
-            this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
-            ...(this.routers || []).map(router => router?.isActiveChange)
-        )
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(() => {
-                this.alignInkBarToSelectedTab();
-            });
+        this.ngZone.runOutsideAngular(() => {
+            merge(
+                this.links.changes,
+                this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
+                ...(this.routers || []).map(router => router?.isActiveChange)
+            )
+                .pipe(
+                    takeUntil(this.ngUnsubscribe$),
+                    tap(() => {
+                        if (this.thyResponsive) {
+                            this.resetSizes();
+                            this.setHiddenItems();
+                            this.calculateMoreIsActive();
+                        }
+                    })
+                )
+                .subscribe(() => {
+                    this.alignInkBarToSelectedTab();
+                });
+        });
     }
 
     ngAfterContentInit(): void {
