@@ -23,8 +23,6 @@ export class ThyNotifyContentComponent implements OnInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    beforeAttachPortal(): void {}
-
     constructor(public queueStore: NotifyQueueStore) {}
 
     ngOnInit() {

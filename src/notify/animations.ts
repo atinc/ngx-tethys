@@ -12,10 +12,10 @@ const animationBody = [
  * Animations used by ThyNotify.
  * @docs-private
  */
-export const thyNotifyAnimations: {
-    readonly notifyContainer: AnimationTriggerMetadata;
+export const thyMNAnimations: {
+    readonly container: AnimationTriggerMetadata;
 } = {
-    notifyContainer: trigger('notifyContainer', animationBody)
+    container: trigger('container', animationBody)
 };
 
 // export const setAnimationStart

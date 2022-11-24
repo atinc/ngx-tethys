@@ -52,6 +52,7 @@ module.exports = {
                 'markdown',
                 'mention',
                 'menu',
+                'message',
                 'nav',
                 'notify',
                 'nav',

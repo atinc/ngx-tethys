@@ -667,6 +667,13 @@ $notify-states: (
     'info': $notify-info
 );
 
+// Message
+$message-padding: 8px !default;
+$message-margin-bottom: 10px !default;
+$message-border-radius-width: 4px !default;
+$message-bg: $white !default;
+$message-box-shadow: $box-shadow !default;
+
 //close
 $close-font-size: $font-size-md !default;
 $close-font-weight: normal !default;

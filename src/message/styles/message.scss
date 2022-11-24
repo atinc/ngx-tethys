@@ -1,0 +1,58 @@
+@use "../../styles/variables";
+@use "mixin";
+
+.thy-message-root {
+    position: fixed;
+    z-index: variables.$notify-z-index;
+    top: variables.$notify-spacing;
+    left: 50%;
+    transform: translateX(-50%);
+
+    thy-message-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .thy-message {
+        width: fit-content;
+        padding: 8px 12px;
+        margin-bottom: variables.$message-margin-bottom;
+        position: relative;
+        display: flex;
+        border-radius: variables.$message-border-radius-width;
+        background: variables.$message-bg;
+        box-shadow: variables.$message-box-shadow;
+
+        &-icon-container {
+            position: relative;
+            padding-right: variables.$notify-icon-padding-right;
+            .thy-icon {
+                line-height: 1;
+                font-size: variables.$notify-icon-font-size;
+            }
+        }
+
+        &-close {
+            text-align: center;
+            width: variables.$font-size-base * variables.$notify-line-height;
+            font-size: variables.$font-size-base;
+            color: variables.$notify-close-color;
+            text-decoration: none;
+            transition: color variables.$transition-duration-normal;
+            &:hover {
+                color: variables.$gray-600;
+            }
+        }
+
+        &-main {
+            flex: 1;
+            font-size: variables.$font-size-base;
+            color: variables.$gray-800;
+            word-break: break-all;
+        }
+    }
+
+    @each $state, $color in variables.$notify-states {
+        @include mixin.thy-message-state($state, $color);
+    }
+}
