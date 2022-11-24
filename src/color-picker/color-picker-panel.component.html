@@ -1,5 +1,5 @@
 <ng-container *ngIf="customDefaultColor">
-  <div class="quick-color mb-0 pb-0" (click)="selectColor(defaultColor)">
+  <div class="quick-color" [ngClass]="transparentColorSelectable ? ' mb-0 pb-0' : ''" (click)="selectColor(defaultColor)">
     <ng-template [ngTemplateOutlet]="checkIconTpl" [ngTemplateOutletContext]="{ $implicit: defaultColor }"></ng-template>
     <span class="ml-2 font-size-sm text-secondary">默认颜色</span>
   </div>
