@@ -1,6 +1,19 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    Renderer2,
+    HostBinding,
+    OnDestroy,
+    NgZone,
+    Inject,
+    AfterViewInit,
+    QueryList,
+    ContentChildren
+} from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgControl } from '@angular/forms';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
@@ -24,7 +37,7 @@ export enum ThyEnterKeyMode {
         class: 'thy-form'
     }
 })
-export class ThyFormDirective implements OnInit, OnDestroy {
+export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
     private layout: ThyFormLayout;
 
     private initialized = false;
@@ -60,6 +73,11 @@ export class ThyFormDirective implements OnInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
+    @ContentChildren(NgControl, {
+        descendants: true
+    })
+    public controls: QueryList<NgControl>;
+
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
@@ -80,6 +98,14 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         this.updateClasses();
         this.initialized = true;
         this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    ngAfterViewInit() {
+        this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
+        this.validator.initializeFormControlsValidation(this.controls.toArray());
+        this.controls.changes.subscribe(controls => {
+            this.validator.initializeFormControlsValidation(this.controls.toArray());
+        });
     }
 
     submit($event: Event) {

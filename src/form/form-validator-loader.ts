@@ -52,6 +52,13 @@ export class ThyFormValidatorLoader {
         return this.config.validationMessages;
     }
 
+    get validateOn() {
+        if (!this.config?.validateOn) {
+            this.config.validateOn = 'blur';
+        }
+        return this.config.validateOn;
+    }
+
     getErrorMessage(name: string, key: string): string {
         if (this.validationMessages[name] && this.validationMessages[name][key]) {
             return this.validationMessages[name][key];

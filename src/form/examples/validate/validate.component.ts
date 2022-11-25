@@ -13,6 +13,7 @@ export class ThyFormValidateExampleComponent implements OnInit {
     };
 
     validateConfig: ThyFormValidatorConfig = {
+        validateOn: 'change',
         validationMessages: {
             username: {
                 required: 'Username is required'

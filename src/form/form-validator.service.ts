@@ -1,12 +1,12 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
+import { NgForm, AbstractControl, ValidationErrors, NgControl, FormControlName, FormGroupDirective } from '@angular/forms';
 import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
-import { ThyFormValidatorConfig } from './form.class';
+import { ThyFormValidatorConfig, ThyValidateOn } from './form.class';
 import { Dictionary } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
-
+import { tap, takeUntil, debounceTime, map, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Injectable()
 export class ThyFormValidatorService implements OnDestroy {
     private _ngForm: NgForm;
@@ -16,6 +16,8 @@ export class ThyFormValidatorService implements OnDestroy {
     private _config: ThyFormValidatorConfig;
 
     public errors: string[] = [];
+
+    private _controls: NgControl[] = [];
 
     // 记录所有元素的验证信息
     public validations: Dictionary<{
@@ -57,7 +59,32 @@ export class ThyFormValidatorService implements OnDestroy {
         this.errors = [];
     }
 
-    private _initializeFormControlValidation(name: string, control: AbstractControl) {
+    private _setControlValidateByChange(control: NgControl) {
+        control.valueChanges
+            .pipe(
+                debounceTime(100),
+                distinctUntilChanged(),
+                filter(item => {
+                    return item;
+                }),
+                switchMap(item => {
+                    this.validateControl(control.name as string);
+                    return of([]);
+                })
+            )
+            .subscribe();
+    }
+
+    private _setControlValidateByBlur(control: NgControl) {
+        const element: HTMLElement = this._getElement(control.name as string);
+        if (element) {
+            element.onblur = (event: FocusEvent) => {
+                this.validateControl(control.name as string);
+            };
+        }
+    }
+
+    private _initializeFormControlValidation(name: string, control: AbstractControl | FormControlName | NgControl) {
         this.validations[name] = {
             hasError: false,
             errorMessages: []
@@ -66,6 +93,19 @@ export class ThyFormValidatorService implements OnDestroy {
             this._clearElementError(name);
             this._clearErrors();
         });
+
+        if (this._getValidateOn() === 'change') {
+            this._setControlValidateByChange(control as NgControl);
+        } else {
+            if (this._getValidateOn() === 'blur') {
+                this._setControlValidateByBlur(control as NgControl);
+            }
+
+            control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(item => {
+                this._clearElementError(name);
+                this._clearErrors();
+            });
+        }
     }
 
     private _restFormControlValidation(name: string) {
@@ -121,11 +161,26 @@ export class ThyFormValidatorService implements OnDestroy {
         this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
     }
 
+    private _getValidateOn(): ThyValidateOn {
+        return (this._config && this._config.validateOn) || this.thyFormValidateLoader.validateOn;
+    }
+
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm, formElement: HTMLFormElement) {
         this._ngForm = ngForm;
         this._formElement = formElement;
+    }
+
+    initializeFormControlsValidation(controls: NgControl[]) {
+        if (this._getValidateOn() !== 'submit') {
+            (controls || []).forEach((control: NgControl) => {
+                if (!this._controls.find(item => item.name === control.name)) {
+                    this._initializeFormControlValidation(control.name as string, control);
+                }
+            });
+            this._controls = controls;
+        }
     }
 
     setValidatorConfig(config: ThyFormValidatorConfig) {
