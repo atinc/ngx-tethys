@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.3...14.2.0-next.4) (2022-11-25)
+
+
+### Bug Fixes
+
+* **color-picker:** support simultaneous display #INFR-5439 ([#2364](https://github.com/atinc/ngx-tethys/issues/2364)) ([341dbce](https://github.com/atinc/ngx-tethys/commit/341dbce45e149713d5adf71124398e7e6386ffd8)), closes [#INFR-5439](https://github.com/atinc/ngx-tethys/issues/INFR-5439)
+* **nav:** show ink bar when use routerLinkActive #INFR-5455 ([#2363](https://github.com/atinc/ngx-tethys/issues/2363)) ([d3e3c9a](https://github.com/atinc/ngx-tethys/commit/d3e3c9a5ca2ae48ec06a84f91c18febef61f743c)), closes [#INFR-5455](https://github.com/atinc/ngx-tethys/issues/INFR-5455)
+* **select:** change multi select  choices gap from 6px to 4px #INFR-5445 ([f3afbf0](https://github.com/atinc/ngx-tethys/commit/f3afbf07685326540943c7dfa3b53b3e4083dcb5)), closes [#INFR-5445](https://github.com/atinc/ngx-tethys/issues/INFR-5445)
+* **select:** change multi select  choices gap from 6px to 4px #INFR-5445 ([9355a97](https://github.com/atinc/ngx-tethys/commit/9355a973584e36eddde2a324b6250e55d3c2aa42)), closes [#INFR-5445](https://github.com/atinc/ngx-tethys/issues/INFR-5445)
+* **slide:** merge defaultConfig & open config to check disableCloseLatest #INFR-5263 ([#2362](https://github.com/atinc/ngx-tethys/issues/2362)) ([509aa66](https://github.com/atinc/ngx-tethys/commit/509aa662b759be072b7b34c4865df9ea53d106cf)), closes [#INFR-5263](https://github.com/atinc/ngx-tethys/issues/INFR-5263)
+
+
+
 # [14.2.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.2...14.2.0-next.3) (2022-11-23)
 
 
