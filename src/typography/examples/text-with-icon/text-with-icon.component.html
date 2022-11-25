@@ -1,4 +1,14 @@
-<span thyText thyIcon="version">This is a Text</span>
-<br />
-<br />
-<thy-text thyTextColor="primary"><thy-icon thyIconName="smile" class="mr-2"></thy-icon>这是一个带图标的文本</thy-text>
+<div class="items">
+  <span thyText thyIcon="version">这是一个带图标的文本</span>
+  <thy-text thyTextColor="primary"><thy-icon thyIconName="smile"></thy-icon>这是一个带颜色的图标文本</thy-text>
+  <thy-text style="width: 200px;"
+    ><thy-icon thyIconName="smile"></thy-icon
+    ><span thyFlexibleText thyTooltipContent="这是一个文字过长带省略的文本">这是一个文字过长带省略的文本</span></thy-text
+  >
+</div>
+<thy-divider thyText="图标大小"></thy-divider>
+<div class="items">
+  <span thyText> <thy-icon thyIconName="smile" class="font-size-lg"></thy-icon> 大图标文本</span>
+  <span thyText> <thy-icon thyIconName="smile" class="font-size-md"></thy-icon> md 图标文本</span>
+  <span thyText> <thy-icon thyIconName="smile" class="font-size-sm"></thy-icon> sm 图标文本</span>
+</div>
