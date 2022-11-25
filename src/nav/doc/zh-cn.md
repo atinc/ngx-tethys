@@ -15,19 +15,5 @@ description: 切换不同的组件或者路由。
 ```ts
 import { ThyNavModule } from "ngx-tethys/nav";
 ```
-## 基本使用
-<example name="thy-nav-basic-example"></example>
 
-## 标签页
-<example name="thy-nav-tabs-example"></example>
-
-## Lite 模式
-<example name="thy-nav-lite-example"></example>
-
-## Pills 模式
-<example name="thy-nav-pills-example"></example>
-
-## 导航大小
-<example name="thy-nav-size-example"></example>
-
-
+<examples />
