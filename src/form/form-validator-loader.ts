@@ -54,7 +54,7 @@ export class ThyFormValidatorLoader {
 
     get validateOn() {
         if (!this.config?.validateOn) {
-            this.config.validateOn = 'blur';
+            this.config.validateOn = 'submit';
         }
         return this.config.validateOn;
     }

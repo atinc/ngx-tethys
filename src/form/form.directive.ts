@@ -97,7 +97,6 @@ export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
         });
         this.updateClasses();
         this.initialized = true;
-        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
     }
 
     ngAfterViewInit() {

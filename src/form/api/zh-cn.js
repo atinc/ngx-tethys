@@ -55,7 +55,7 @@ module.exports = [
                 name: 'validateOn',
                 description: `表单验证触发方式; 支持change、submit、blur三种方式触发。默认blur。`,
                 type: 'ThyValidateOn',
-                default: 'blur'
+                default: 'submit'
             }
         ]
     },

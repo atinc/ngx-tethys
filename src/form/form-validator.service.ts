@@ -89,11 +89,6 @@ export class ThyFormValidatorService implements OnDestroy {
             hasError: false,
             errorMessages: []
         };
-        control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
-            this._clearElementError(name);
-            this._clearErrors();
-        });
-
         if (this._getValidateOn() === 'change') {
             this._setControlValidateByChange(control as NgControl);
         } else {
