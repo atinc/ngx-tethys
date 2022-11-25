@@ -53,7 +53,7 @@ module.exports = [
             },
             {
                 name: 'validateOn',
-                description: `表单验证触发方式; 支持change、submit、blur三种方式触发。默认blur。`,
+                description: `表单验证触发方式; 支持change、submit、blur三种方式触发。默认submit。`,
                 type: 'ThyValidateOn',
                 default: 'submit'
             }
