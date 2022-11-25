@@ -239,6 +239,7 @@ export class ThyNavComponent extends _MixinBase
             merge(
                 this.links.changes,
                 this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
+                ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(debounceTime(100))),
                 ...(this.routers || []).map(router => router?.isActiveChange)
             )
                 .pipe(
