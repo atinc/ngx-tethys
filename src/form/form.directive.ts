@@ -1,8 +1,23 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    Renderer2,
+    HostBinding,
+    OnDestroy,
+    NgZone,
+    Inject,
+    ContentChildren,
+    QueryList,
+    AfterContentInit,
+    AfterViewInit
+} from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgControl } from '@angular/forms';
 import { keycodes } from 'ngx-tethys/util';
-import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
+import { ThyFormLayout, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
+import { ThyFormValidatorConfig } from './form-validator.class';
 import { ThyFormValidatorService } from './form-validator.service';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -24,7 +39,7 @@ export enum ThyEnterKeyMode {
         class: 'thy-form'
     }
 })
-export class ThyFormDirective implements OnInit, OnDestroy {
+export class ThyFormDirective implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
     private layout: ThyFormLayout;
 
     private initialized = false;
@@ -60,6 +75,11 @@ export class ThyFormDirective implements OnInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
+    @ContentChildren(NgControl, {
+        descendants: true
+    })
+    public controls: QueryList<NgControl>;
+
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
@@ -79,7 +99,16 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         });
         this.updateClasses();
         this.initialized = true;
-        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    ngAfterContentInit() {}
+
+    ngAfterViewInit() {
+        this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
+        this.validator.initializeFormControlsValidation(this.controls.toArray());
+        this.controls.changes.subscribe(controls => {
+            this.validator.initializeFormControlsValidation(this.controls.toArray());
+        });
     }
 
     submit($event: Event) {

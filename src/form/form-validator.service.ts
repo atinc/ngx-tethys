@@ -1,15 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { NgForm, AbstractControl, ValidationErrors } from '@angular/forms';
+import { NgForm, AbstractControl, ValidationErrors, NgControl, FormControlName, FormGroupDirective } from '@angular/forms';
 import { ThyFormValidatorLoader, ERROR_VALUE_REPLACE_REGEX } from './form-validator-loader';
-import { ThyFormValidatorConfig } from './form.class';
+import { ThyFormValidatorConfig } from './form-validator.class';
 import { Dictionary } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
+import { ThyValidateOn } from './form-validator.class';
 import { takeUntil } from 'rxjs/operators';
-
+import { tap, debounceTime, map, distinctUntilChanged, switchMap, filter } from 'rxjs/operators';
+import { of } from 'rxjs';
 @Injectable()
 export class ThyFormValidatorService implements OnDestroy {
     private _ngForm: NgForm;
+
+    private _controls: NgControl[] = [];
 
     private _formElement: HTMLFormElement;
 
@@ -25,13 +29,16 @@ export class ThyFormValidatorService implements OnDestroy {
 
     private _destroy$ = new Subject<void>();
 
-    private _getElement(name: string) {
-        const element = this._formElement.elements[name];
-        if (element) {
-            return element;
-        } else {
-            return this._formElement.querySelector(`[name='${name}']`);
-        }
+    private _getElement(name: string | number) {
+        var a = this._formElement;
+        console.log(this._formElement.elements, 'this._formElement');
+        // const element = this._formElement[name];
+        // if (element) {
+        //     return element;
+        // } else {
+        //     return this._formElement.querySelector(`[name='${name}']`);
+        // }
+        return this._formElement.querySelector(`[name='${name}']`) as HTMLElement;
     }
 
     private _clearElementError(name: string) {
@@ -57,15 +64,32 @@ export class ThyFormValidatorService implements OnDestroy {
         this.errors = [];
     }
 
-    private _initializeFormControlValidation(name: string, control: AbstractControl) {
+    private _getValidateOn(): ThyValidateOn {
+        return (this._config && this._config.validateOn) || this.thyFormValidateLoader.validateOn;
+    }
+
+    private _initializeFormControlValidation(name: string, control: AbstractControl | FormControlName | NgControl) {
         this.validations[name] = {
             hasError: false,
             errorMessages: []
         };
-        control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
-            this._clearElementError(name);
-            this._clearErrors();
-        });
+
+        console.log(this._getValidateOn(), 'this._getValidateOn');
+        if (this._getValidateOn() === 'change') {
+            this._setControlValidateByChange(control as NgControl);
+        } else {
+            if (this._getValidateOn() === 'blur') {
+                this._setControlValidateByBlur(control as NgControl);
+            }
+
+            control.valueChanges.subscribe(item => {
+                this._clearElementError(name);
+            });
+        }
+        // control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(() => {
+        //     this._clearElementError(name);
+        //     this._clearErrors();
+        // });
     }
 
     private _restFormControlValidation(name: string) {
@@ -118,13 +142,69 @@ export class ThyFormValidatorService implements OnDestroy {
         const validation = this._tryGetValidation(name);
         validation.errorMessages = errorMessages;
         validation.hasError = true;
-        this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
+        Promise.resolve().then(() => {
+            this.thyFormValidateLoader.showError(this._getElement(name), errorMessages);
+        });
+    }
+
+    private _setControlValidateByChange(control: NgControl) {
+        control.valueChanges
+            .pipe(
+                debounceTime(100),
+                distinctUntilChanged(),
+                filter(item => {
+                    return item;
+                }),
+                switchMap(item => {
+                    this.validateControl(control.name as string);
+                    return of([]);
+                })
+            )
+            .subscribe();
+    }
+
+    private _setControlValidateByBlur(control: NgControl) {
+        console.log(control.name, 'element');
+
+        const element: HTMLElement = this._getElement(control.name as string);
+        console.log(element, 'element');
+        if (element) {
+            element.onblur = (event: FocusEvent) => {
+                console.log('fuck');
+                this.validateControl(control.name as string);
+            };
+        }
+    }
+
+    initializeFormControlsValidation(controls: NgControl[]) {
+        if (this._getValidateOn() !== 'submit') {
+            (controls || []).forEach((control: NgControl) => {
+                console.log(this._controls, control.name);
+                if (!this._controls.find(item => item.name === control.name)) {
+                    this._initializeFormControlValidation(control.name as string, control);
+                }
+            });
+            this._controls = controls;
+        }
+    }
+
+    private _getControls() {
+        if (this._ngForm instanceof NgForm) {
+            return (this._ngForm as NgForm).controls;
+        } else if ((this._ngForm as any) instanceof FormGroupDirective) {
+            const controls = {};
+            (this._ngForm as FormGroupDirective).directives.forEach(directive => {
+                controls[directive.name] = directive;
+            });
+            return controls;
+        }
     }
 
     constructor(private thyFormValidateLoader: ThyFormValidatorLoader) {}
 
     initialize(ngForm: NgForm, formElement: HTMLFormElement) {
         this._ngForm = ngForm;
+        console.log(formElement.elements.length, 'formElementlength');
         this._formElement = formElement;
     }
 
@@ -145,7 +225,8 @@ export class ThyFormValidatorService implements OnDestroy {
         // 主要是 无法检测到 ngForm 的 controls 的变化，或者是我没有找到
         // 验证的时候循环 ngForm 的 controls 验证
         // 发现没有 validation 初始化一个，已经存在不会重新初始化，保存缓存数据
-        for (const name in this._ngForm.controls) {
+        const controls = this._getControls();
+        for (const name in controls) {
             if (this._ngForm.controls.hasOwnProperty(name)) {
                 this._tryGetValidation(name);
                 this.validateControl(name);

@@ -1,5 +1,5 @@
 import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
-import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
+import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form-validator.class';
 import { Dictionary } from 'ngx-tethys/types';
 import { ValidationErrors } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
@@ -50,6 +50,13 @@ export class ThyFormValidatorLoader {
 
     get validationMessages() {
         return this.config.validationMessages;
+    }
+
+    get validateOn() {
+        if (!this.config.validateOn) {
+            this.config.validateOn = 'blur';
+        }
+        return this.config.validateOn;
     }
 
     getErrorMessage(name: string, key: string): string {

@@ -1,9 +1,23 @@
 <form thyForm #ngForm="ngForm" name="demoForm" [thyFormValidatorConfig]="validateConfig" #demoForm="thyForm">
+  <div class="form-group">
+    <label for="email1">Email</label>
+    <input
+      type="email"
+      class="form-control"
+      name="email"
+      id="email1"
+      [(ngModel)]="model.email"
+      required
+      email
+      placeholder="Enter email (validators: required & email)"
+    />
+  </div>
+
   <thy-form-group thyLabelText="Username" thyLabelRequired>
-    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
+    <input thyInput name="fuck" [(ngModel)]="model.name" required placeholder="Please type username" />
   </thy-form-group>
   <thy-form-group thyLabelText="Email" thyLabelRequired>
-    <input thyInput name="email" email type="email" [(ngModel)]="model.email" required placeholder="Please type email" />
+    <input thyInput name="shit" email type="email" [(ngModel)]="model.email" required placeholder="Please type email" />
   </thy-form-group>
   <thy-form-group thyLabelText="Password" thyLabelRequired>
     <input thyInput type="password" name="password" [(ngModel)]="model.password" required placeholder="Please type password" />
