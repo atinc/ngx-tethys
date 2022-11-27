@@ -1,7 +1,9 @@
-import { Component, OnInit, ChangeDetectorRef, ElementRef, HostBinding } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ElementRef, HostBinding, ViewChild } from '@angular/core';
 import { ThyMessageConfig } from './message.config';
-import { thyMNAnimations } from 'ngx-tethys/notify';
-import { ThyMNContainerComponent } from 'ngx-tethys/notify';
+import { thyMNAnimations } from './animations';
+import { ThyMNContainerComponent } from './base';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { messageAbstractOverlayOptions } from './message.options';
 
 @Component({
     selector: 'thy-message-container',
@@ -16,11 +18,11 @@ import { ThyMNContainerComponent } from 'ngx-tethys/notify';
         '(@container.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyMessageContainerComponent<TData = unknown> extends ThyMNContainerComponent implements OnInit {
-    @HostBinding('class.thy-message') topRight: boolean;
+export class ThyMessageContainerComponent extends ThyMNContainerComponent implements OnInit {
+    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
 
-    constructor(public config: ThyMessageConfig<TData>, cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>) {
-        super(cdr, elementRef);
+    constructor(cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>) {
+        super(messageAbstractOverlayOptions, cdr, elementRef);
     }
 
     ngOnInit() {}

@@ -3,7 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { NotifyQueueStore } from './notify-queue.store';
 import { helpers } from 'ngx-tethys/util';
 import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
-import { ThyMNComponent } from './base';
+import { ThyMNComponent } from 'ngx-tethys/message';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;

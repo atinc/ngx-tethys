@@ -1,8 +1,8 @@
 import { InjectionToken } from '@angular/core';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
 
-export class ThyMessageConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
-    type?: 'success' | 'error' | 'warning' | 'info' | 'loading';
+export class ThyMessageConfig extends ThyAbstractOverlayConfig {
+    type?: 'success' | 'error' | 'warning' | 'info' | 'loading' | string;
 
     content?: string;
 
@@ -16,19 +16,9 @@ export class ThyMessageConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     offset?: string;
 }
 
-/**
- * @deprecated please use ThyMessageConfig
- */
-export type ThyMessageOptions = ThyMessageConfig;
+export const THY_MESSAGE_DEFAULT_CONFIG = new InjectionToken<ThyMessageConfig>('thy-message-default-config');
 
-export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyMessageConfig>('thy-message-default-config');
-
-/**
- * @deprecated please use THY_NOTIFY_DEFAULT_CONFIG
- */
-export const THY_NOTIFY_DEFAULT_OPTIONS = THY_NOTIFY_DEFAULT_CONFIG;
-
-export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyMessageConfig = {
+export const THY_MESSAGE_DEFAULT_CONFIG_VALUE: ThyMessageConfig = {
     hasBackdrop: false,
     panelClass: '',
     offset: '20',
@@ -40,7 +30,7 @@ export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyMessageConfig = {
     maxStack: 8
 };
 
-export const THY_NOTIFY_DEFAULT_CONFIG_PROVIDER = {
-    provide: THY_NOTIFY_DEFAULT_CONFIG,
-    useValue: THY_NOTIFY_DEFAULT_CONFIG_VALUE
+export const THY_MESSAGE_DEFAULT_CONFIG_PROVIDER = {
+    provide: THY_MESSAGE_DEFAULT_CONFIG,
+    useValue: THY_MESSAGE_DEFAULT_CONFIG_VALUE
 };

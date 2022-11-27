@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angu
 import { ThyMessageModule } from '../module';
 import { ThyMessageService } from '../message.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyMessageConfig, THY_NOTIFY_DEFAULT_OPTIONS } from '../message.config';
+import { ThyMessageConfig, THY_MESSAGE_DEFAULT_OPTIONS } from '../message.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
@@ -354,7 +354,7 @@ describe('ThyMessage with provider', () => {
             declarations: [ThyMessageBasicComponent],
             providers: [
                 {
-                    provide: THY_NOTIFY_DEFAULT_OPTIONS,
+                    provide: THY_MESSAGE_DEFAULT_OPTIONS,
                     useValue: {
                         placement: 'bottomLeft'
                     }

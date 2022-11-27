@@ -1,7 +1,8 @@
 import { Component, OnInit, HostBinding, OnDestroy, ViewChild, ChangeDetectorRef, ElementRef } from '@angular/core';
 import { ThyNotifyConfig } from './notify.config';
-import { thyMNAnimations } from './animations';
-import { ThyMNContainerComponent } from './base';
+import { thyMNAnimations, ThyMNContainerComponent } from 'ngx-tethys/message';
+import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { notifyAbstractOverlayOptions } from './notify.options';
 
 @Component({
     selector: 'thy-notify-container',
@@ -16,14 +17,16 @@ import { ThyMNContainerComponent } from './base';
         '(@container.done)': 'onAnimationDone($event)'
     }
 })
-export class ThyNotifyContainerComponent<TData = unknown> extends ThyMNContainerComponent<TData> implements OnInit {
+export class ThyNotifyContainerComponent extends ThyMNContainerComponent implements OnInit {
     @HostBinding('class.thy-notify-bottomRight') bottomRight: boolean;
     @HostBinding('class.thy-notify-bottomLeft') bottomLeft: boolean;
     @HostBinding('class.thy-notify-topLeft') topLeft: boolean;
     @HostBinding('class.thy-notify-topRight') topRight: boolean;
 
-    constructor(public config: ThyNotifyConfig<TData>, cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>) {
-        super(cdr, elementRef);
+    @ViewChild(CdkPortalOutlet, { static: true }) portalOutlet: CdkPortalOutlet;
+
+    constructor(public config: ThyNotifyConfig, cdr: ChangeDetectorRef, elementRef: ElementRef<HTMLElement>) {
+        super(notifyAbstractOverlayOptions, cdr, elementRef);
     }
 
     ngOnInit() {

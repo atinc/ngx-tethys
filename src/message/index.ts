@@ -6,3 +6,6 @@ export * from './message-container.component';
 export * from './message-queue.store';
 export * from './message.config';
 export * from './message-ref';
+export * from './base';
+export * from './animations';
+export * from './message.options';

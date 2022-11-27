@@ -1,27 +1,53 @@
-import { isString } from 'ngx-tethys/util';
+import { isFunction, isString } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, OnDestroy, StaticProvider } from '@angular/core';
 import { MessageQueueStore } from './message-queue.store';
 import { ThyMessageContainerComponent } from './message-container.component';
-import { ThyMessageConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE, THY_NOTIFY_DEFAULT_OPTIONS } from './message.config';
-import { GlobalPositionStrategy, Overlay, OverlayContainer, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { POSITION_MAP } from 'ngx-tethys/core';
+import { ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
+import {
+    GlobalPositionStrategy,
+    Overlay,
+    OverlayConfig,
+    OverlayContainer,
+    OverlayRef,
+    PositionStrategy,
+    ScrollStrategy
+} from '@angular/cdk/overlay';
+import { POSITION_MAP, ThyAbstractOverlayConfig, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ThyMessageContentComponent } from './message-content.component';
-import { ThyMNService, ThyMNRef } from 'ngx-tethys/notify';
+import { ThyMessageRef, ThyInternalMessageRef } from './message-ref';
+import { messageAbstractOverlayOptions } from './message.options';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyMessageService extends ThyMNService implements OnDestroy {
+export class ThyMessageService extends ThyAbstractOverlayService<ThyAbstractOverlayConfig, ThyMessageContainerComponent>
+    implements OnDestroy {
     messageQueue$: Subject<any> = new Subject();
 
     private _lastMessageId = 0;
 
-    private containerRefTop: ThyMNRef<ThyMessageContentComponent>;
+    private containerRefTop: ThyMessageRef<ThyMessageContentComponent>;
 
-    protected buildPositionStrategy<TData>(config: ThyMessageConfig<TData>): PositionStrategy {
+    protected buildOverlayConfig(config: ThyAbstractOverlayConfig): OverlayConfig {
+        const positionStrategy = this.buildPositionStrategy(config);
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
+        return overlayConfig;
+    }
+
+    protected buildScrollStrategy(config: ThyAbstractOverlayConfig): ScrollStrategy {
+        if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
+        }
+    }
+
+    protected buildPositionStrategy<TData>(config: ThyMessageConfig): PositionStrategy {
         const positionStrategy = new GlobalPositionStrategy();
         const positionPair = POSITION_MAP.top;
         positionStrategy[positionPair.originY](config.offset);
@@ -29,7 +55,7 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
         return positionStrategy;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThyMessageConfig<any>): ThyMessageContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyMessageConfig): ThyMessageContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -40,9 +66,17 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
         return containerRef.instance;
     }
 
+    protected createAbstractOverlayRef<T, TResult = unknown>(
+        overlayRef: OverlayRef,
+        containerInstance: ThyMessageContainerComponent,
+        config: ThyAbstractOverlayConfig
+    ): ThyAbstractOverlayRef<T, ThyMessageContainerComponent, TResult> {
+        return new ThyInternalMessageRef(overlayRef, containerInstance, config);
+    }
+
     protected createInjector<T>(
         config: ThyMessageConfig,
-        messageRef: ThyMNRef<T>,
+        messageRef: ThyMessageRef<T>,
         messageContainer: ThyMessageContainerComponent
     ): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
@@ -50,7 +84,7 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
         const injectionTokens: StaticProvider[] = [
             { provide: ThyMessageContainerComponent, useValue: messageContainer },
             {
-                provide: ThyMNRef,
+                provide: ThyMessageRef,
                 useValue: messageRef
             }
         ];
@@ -73,17 +107,21 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
         public overlayContainer: OverlayContainer,
         protected injector: Injector,
         private queueStore: MessageQueueStore,
-        @Inject(THY_NOTIFY_DEFAULT_OPTIONS) protected config: ThyMessageConfig
+        @Inject(THY_MESSAGE_DEFAULT_CONFIG) protected config: ThyMessageConfig
     ) {
-        super(overlay, overlayContainer, injector, {
-            ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
+        super(messageAbstractOverlayOptions, overlay, injector, {
+            ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
             ...config
         });
     }
 
+    ngOnDestroy(): void {
+        this.dispose();
+    }
+
     public show(config: ThyMessageConfig) {
         const messageConfig = this.formatOptions(config);
-        this.queueStore.addMessage(messageConfig);
+        this.queueStore.add(messageConfig);
         let messageRef = this.getContainer();
         if (!messageRef || !messageRef.getOverlayRef().hasAttached()) {
             messageRef = this.openOverlay(ThyMessageContentComponent, {
@@ -139,7 +177,7 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
     }
 
     public removeMessageById(id: string) {
-        this.queueStore.removeMessage(id);
+        this.queueStore.remove(id);
     }
 
     private getContainer() {
@@ -152,9 +190,5 @@ export class ThyMessageService extends ThyMNService implements OnDestroy {
 
     private formatOptions(options: ThyMessageConfig) {
         return Object.assign({}, { id: String(this._lastMessageId++) }, this.defaultConfig, options);
-    }
-
-    ngOnDestroy(): void {
-        this.dispose();
     }
 }

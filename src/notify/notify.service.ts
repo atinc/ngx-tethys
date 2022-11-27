@@ -1,33 +1,42 @@
-import { isString } from 'ngx-tethys/util';
+import { isFunction, isString } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, StaticProvider } from '@angular/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { ThyNotifyContainerComponent } from './notify-container.component';
 import { NotifyPlacement, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
-import { GlobalPositionStrategy, Overlay, OverlayContainer, OverlayRef, PositionStrategy } from '@angular/cdk/overlay';
-import { POSITION_MAP } from 'ngx-tethys/core';
+import {
+    GlobalPositionStrategy,
+    Overlay,
+    OverlayConfig,
+    OverlayContainer,
+    OverlayRef,
+    PositionStrategy,
+    ScrollStrategy
+} from '@angular/cdk/overlay';
+import { POSITION_MAP, ThyAbstractOverlayConfig, ThyAbstractOverlayRef, ThyAbstractOverlayService } from 'ngx-tethys/core';
 import { Directionality } from '@angular/cdk/bidi';
 import { ThyNotifyContentComponent } from './notify-content.component';
-import { ThyMNService, ThyMNRef } from './base';
+import { ThyInternalNotifyRef, ThyNotifyRef } from './notify-ref';
+import { notifyAbstractOverlayOptions } from './notify.options';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyService extends ThyMNService {
+export class ThyNotifyService extends ThyAbstractOverlayService<ThyAbstractOverlayConfig, ThyNotifyContainerComponent> {
     notifyQueue$: Subject<any> = new Subject();
 
     private _lastNotifyId = 0;
 
-    private containerRefTopRight: ThyMNRef<ThyNotifyContentComponent>;
+    private containerRefTopRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomRight: ThyMNRef<ThyNotifyContentComponent>;
+    private containerRefBottomRight: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefBottomLeft: ThyMNRef<ThyNotifyContentComponent>;
+    private containerRefBottomLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    private containerRefTopLeft: ThyMNRef<ThyNotifyContentComponent>;
+    private containerRefTopLeft: ThyNotifyRef<ThyNotifyContentComponent>;
 
-    buildPositionStrategy<TData>(config: ThyNotifyConfig<TData>): PositionStrategy {
+    buildPositionStrategy(config: ThyNotifyConfig): PositionStrategy {
         const placement = config.placement;
         const positionStrategy = new GlobalPositionStrategy();
         const positionPair = POSITION_MAP[placement];
@@ -40,7 +49,7 @@ export class ThyNotifyService extends ThyMNService {
         return positionStrategy;
     }
 
-    protected attachOverlayContainer(overlay: OverlayRef, config: ThyNotifyConfig<any>): ThyNotifyContainerComponent {
+    protected attachOverlayContainer(overlay: OverlayRef, config: ThyNotifyConfig): ThyNotifyContainerComponent {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
         const injector = Injector.create({
             parent: userInjector || this.injector,
@@ -51,13 +60,13 @@ export class ThyNotifyService extends ThyMNService {
         return containerRef.instance;
     }
 
-    createInjector<T>(config: ThyNotifyConfig, notifyRef: ThyMNRef<T>, notifyContainer: ThyNotifyContainerComponent): Injector {
+    createInjector<T>(config: ThyNotifyConfig, notifyRef: ThyNotifyRef<T>, notifyContainer: ThyNotifyContainerComponent): Injector {
         const userInjector = config && config.viewContainerRef && config.viewContainerRef.injector;
 
         const injectionTokens: StaticProvider[] = [
             { provide: ThyNotifyContainerComponent, useValue: notifyContainer },
             {
-                provide: ThyMNRef,
+                provide: ThyNotifyRef,
                 useValue: notifyRef
             }
         ];
@@ -75,6 +84,30 @@ export class ThyNotifyService extends ThyMNService {
         return Injector.create({ parent: userInjector || this.injector, providers: injectionTokens });
     }
 
+    protected buildOverlayConfig(config: ThyAbstractOverlayConfig): OverlayConfig {
+        const positionStrategy = this.buildPositionStrategy(config);
+        const overlayConfig = this.buildBaseOverlayConfig(config);
+        overlayConfig.positionStrategy = positionStrategy;
+        overlayConfig.scrollStrategy = this.buildScrollStrategy(config);
+        return overlayConfig;
+    }
+
+    protected buildScrollStrategy(config: ThyAbstractOverlayConfig): ScrollStrategy {
+        if (this.scrollStrategy && isFunction(this.scrollStrategy)) {
+            return this.scrollStrategy();
+        } else {
+            this.overlay.scrollStrategies.block();
+        }
+    }
+
+    protected createAbstractOverlayRef<T, TResult = unknown>(
+        overlayRef: OverlayRef,
+        containerInstance: ThyNotifyContainerComponent,
+        config: ThyAbstractOverlayConfig
+    ): ThyAbstractOverlayRef<T, ThyNotifyContainerComponent, TResult> {
+        return new ThyInternalNotifyRef(overlayRef, containerInstance, config);
+    }
+
     constructor(
         protected overlay: Overlay,
         public overlayContainer: OverlayContainer,
@@ -82,7 +115,7 @@ export class ThyNotifyService extends ThyMNService {
         private queueStore: NotifyQueueStore,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) protected config: ThyNotifyConfig
     ) {
-        super(overlay, overlayContainer, injector, {
+        super(notifyAbstractOverlayOptions, overlay, injector, {
             ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
             ...config
         });

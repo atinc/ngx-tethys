@@ -17,7 +17,7 @@ export class MessageQueueStore extends MiniStore<MessageQueueState> {
     }
 
     @MiniAction()
-    addMessage(options: ThyMessageConfig) {
+    add(options: ThyMessageConfig) {
         if (this.snapshot.queue.length >= options.maxStack) {
             this.setState({
                 queue: [...this.snapshot.queue.slice(1)]
@@ -29,7 +29,7 @@ export class MessageQueueStore extends MiniStore<MessageQueueState> {
     }
 
     @MiniAction()
-    removeMessage(id: string) {
+    remove(id: string) {
         this.setState({
             queue: this.snapshot.queue.filter(item => item.id !== id)
         });

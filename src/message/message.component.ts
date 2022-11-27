@@ -3,7 +3,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { MessageQueueStore } from './message-queue.store';
 import { ThyMessageConfig } from './message.config';
-import { ThyMNComponent } from 'ngx-tethys/notify';
+import { ThyMNComponent } from './base';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -27,14 +27,10 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
         ])
     ]
 })
-export class ThyMessageComponent extends ThyMNComponent implements OnInit {
+export class ThyMessageComponent extends ThyMNComponent {
     @HostBinding('@flyInOut') flyInOut = 'flyInOutTop';
 
     @HostBinding('class') className = '';
-
-    option: ThyMessageConfig;
-
-    iconName = '';
 
     @Input()
     set thyOption(value: ThyMessageConfig) {
@@ -43,28 +39,15 @@ export class ThyMessageComponent extends ThyMNComponent implements OnInit {
         this.className = `thy-message thy-message-${type}`;
     }
 
-    constructor(elementRef: ElementRef, private _queueStore: MessageQueueStore, private _ngZone: NgZone) {
+    constructor(elementRef: ElementRef, private store: MessageQueueStore, private _ngZone: NgZone) {
         super(elementRef);
-    }
-
-    ngOnInit() {
-        const iconName = {
-            success: 'check-circle-fill',
-            info: 'info-circle-fill',
-            warning: 'waring-fill',
-            error: 'close-circle-fill',
-            loading: 'sync'
-        };
-
-        this.iconName = iconName[this.option.type];
-        this.createCloseTimer();
     }
 
     close() {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this._queueStore.removeMessage(this.option.id);
+                this.store.remove(this.option.id);
             }, ANIMATION_OUT_DURATION);
         });
     }

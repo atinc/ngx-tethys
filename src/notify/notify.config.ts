@@ -1,6 +1,7 @@
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ElementRef, InjectionToken } from '@angular/core';
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
+import { ThyMessageConfig } from 'ngx-tethys/message';
 
 export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
@@ -10,7 +11,7 @@ export interface ThyNotifyDetail {
     action?: (event?: Event) => void;
 }
 
-export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
+export class ThyNotifyConfig extends ThyMessageConfig {
     /** Position overrides. */
     position?: ThyAbstractOverlayPosition;
 
@@ -26,15 +27,6 @@ export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
     detail?: string | ThyNotifyDetail;
 
     html?: ElementRef;
-
-    pauseOnHover?: boolean;
-
-    duration?: number;
-
-    maxStack?: number;
-
-    /** Offset be relative to global, default is '20' */
-    offset?: string;
 
     /** Scroll strategy to be used for the dialog. */
     scrollStrategy?: ScrollStrategy;

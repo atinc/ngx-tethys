@@ -17,5 +17,3 @@ export const thyMNAnimations: {
 } = {
     container: trigger('container', animationBody)
 };
-
-// export const setAnimationStart
