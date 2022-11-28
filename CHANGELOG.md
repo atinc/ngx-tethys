@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.4...14.2.0-next.5) (2022-11-28)
+
+
+### Bug Fixes
+
+* **nav:** resize item should update ink bar width #INFR-5481 ([#2369](https://github.com/atinc/ngx-tethys/issues/2369)) ([29cc792](https://github.com/atinc/ngx-tethys/commit/29cc7924cc11cd149095f93635ea4fcd94b51408)), closes [#INFR-5481](https://github.com/atinc/ngx-tethys/issues/INFR-5481)
+
+
+
 # [14.2.0-next.4](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.3...14.2.0-next.4) (2022-11-25)
 
 
