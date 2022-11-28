@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ThySkeletonModule, THY_SKELETON_CONFIG } from 'ngx-tethys/skeleton';
 import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { FormsModule } from '@angular/forms';
 
 import { ThySkeletonExampleListComponent } from './list/list.component';
 import { ThySkeletonExampleParagraphComponent } from './paragraph/paragraph.component';
@@ -23,7 +25,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, ThyGridModule, ThySkeletonModule],
+    imports: [CommonModule, ThyGridModule, ThySkeletonModule, ThyRadioModule, FormsModule],
     exports: COMPONENTS,
     providers: [
         {

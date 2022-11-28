@@ -2,23 +2,37 @@ import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, SimpleCha
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { isArray } from 'ngx-tethys/util';
 
-const RANDOM_MIN = 0.7;
-const RANDOM_MAX = 1;
+type columnType = 'circle' | 'rectangle';
+interface columnInfo {
+    type?: columnType;
+    width?: string | number;
+}
 @Component({
     selector: 'thy-skeleton-table',
     template: `
-        <thy-table thyRowKey="id" [thyModel]="data">
-            <thy-table-column thyModelKey="id" *ngFor="let k of cols; index as i">
+        <thy-table thyRowKey="id" [thyModel]="data" [thyTheme]="thyTheme">
+            <thy-table-column thyModelKey="id" *ngFor="let k of columns; index as i">
                 <ng-template #cell let-row>
-                    <thy-skeleton-rectangle
-                        [thyRowWidth]="row['col' + i]"
-                        [thyRowHeight]="thyRowHeight"
-                        [thyBorderRadius]="thyBorderRadius"
-                        [thyAnimated]="thyAnimated"
-                        [thyAnimatedInterval]="thyAnimatedInterval"
-                        [thyPrimaryColor]="thyPrimaryColor"
-                        [thySecondaryColor]="thySecondaryColor"
-                    ></thy-skeleton-rectangle>
+                    <ng-container *ngIf="row['col' + i].type === 'circle'">
+                        <thy-skeleton-circle
+                            [thySize]="row['col' + i].width"
+                            [thyAnimated]="thyAnimated"
+                            [thyAnimatedInterval]="thyAnimatedInterval"
+                            [thyPrimaryColor]="thyPrimaryColor"
+                            [thySecondaryColor]="thySecondaryColor"
+                        ></thy-skeleton-circle>
+                    </ng-container>
+                    <ng-container *ngIf="row['col' + i].type === 'rectangle'">
+                        <thy-skeleton-rectangle
+                            [thyRowWidth]="row['col' + i].width"
+                            [thyRowHeight]="thyRowHeight"
+                            [thyBorderRadius]="thyBorderRadius"
+                            [thyAnimated]="thyAnimated"
+                            [thyAnimatedInterval]="thyAnimatedInterval"
+                            [thyPrimaryColor]="thyPrimaryColor"
+                            [thySecondaryColor]="thySecondaryColor"
+                        ></thy-skeleton-rectangle>
+                    </ng-container>
                 </ng-template>
             </thy-table-column>
         </thy-table>
@@ -67,14 +81,42 @@ export class ThySkeletonTableComponent implements OnChanges {
      */
     @Input() thySecondaryColor: string;
 
-    cols: Array<number | string> = [];
+    /**
+     * 表格主题
+     */
+    @Input() thyTheme: string = 'default';
+
+    columns: columnInfo[] = [];
     /**
      * 列配置
      * @type number | string | Array<number | string>
      */
     @Input()
-    set thyCols(value: number | string | Array<number | string>) {
-        this.cols = isArray(value) ? value.map(k => parseFloat(k + '')) : Array.from({ length: +value });
+    set thyColumns(value: number | string | Array<number | string>) {
+        const createColumn = (item: number | string) => {
+            const createWidth = (width: string) => parseFloat(width) + 'px';
+            const arr = ('' + item).split(':');
+            const obj =
+                arr.length > 1
+                    ? ({
+                          type: arr[0] === 'circle' ? 'circle' : 'rectangle',
+                          width: createWidth(arr[1])
+                      } as columnInfo)
+                    : ({
+                          type: 'rectangle',
+                          width: createWidth(arr[0])
+                      } as columnInfo);
+            return obj;
+        };
+        this.columns = isArray(value)
+            ? value.map(createColumn)
+            : Array.from({ length: +value }).map(
+                  () =>
+                      ({
+                          type: 'rectangle',
+                          width: '100%'
+                      } as columnInfo)
+              );
     }
 
     rowCount: number[] = [];
@@ -90,18 +132,13 @@ export class ThySkeletonTableComponent implements OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        const { thyRowCount, thyCols } = changes;
+        const { thyRowCount, thyColumns } = changes;
         const createTableData = () => {
             this.data = this.rowCount.map(k => {
-                return this.cols.reduce(
-                    (k, v, i) => (
-                        (k['col' + i] = v ? Math.round((Math.random() * (RANDOM_MAX - RANDOM_MIN) + RANDOM_MIN) * +v) + 'px' : '100%'), k
-                    ),
-                    {}
-                );
+                return this.columns.reduce((k, v, i) => ((k['col' + i] = v), k), {});
             });
         };
-        if (thyRowCount || thyCols) {
+        if (thyRowCount || thyColumns) {
             createTableData();
         }
     }
