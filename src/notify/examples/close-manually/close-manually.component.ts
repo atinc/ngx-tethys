@@ -2,8 +2,8 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-notify-close-example',
-    templateUrl: './close.component.html'
+    selector: 'thy-notify-close-manually-example',
+    templateUrl: './close-manually.component.html'
 })
 export class ThyNotifyCloseExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}

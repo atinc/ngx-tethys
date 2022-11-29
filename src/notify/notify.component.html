@@ -14,7 +14,7 @@
       (click)="extendContent()"
     >
       <ng-container *ngIf="option.content">
-        <ng-container *ngIf="isComponentType(option.content); else contentTemplate">
+        <ng-container *ngIf="contentIsComponent; else contentTemplate">
           <ng-container *ngComponentOutlet="option.content"></ng-container>
         </ng-container>
         <ng-template #contentTemplate>

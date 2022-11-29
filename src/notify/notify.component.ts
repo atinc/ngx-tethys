@@ -52,6 +52,8 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     placement: NotifyPlacement;
 
+    contentIsComponent = false;
+
     @Input()
     set thyOption(value: ThyNotifyConfig) {
         this.option = value;
@@ -76,6 +78,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         };
 
         this.notifyIconName = iconName[this.option.type];
+        this.contentIsComponent = this.isComponentType(this.option.content);
         this._creatCloseTimer();
     }
 

@@ -6,7 +6,7 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_OPTIONS } from '../notify.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { ThyNotifyContentExampleComponent } from '../examples/detail/content.component';
+import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
 
 //#region test component
 const DEFAULT_DURATION_TIME = 4500;
