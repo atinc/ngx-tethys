@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick } from '@angular/core/testing';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPeriodicTasks } from '@angular/core/testing';
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_OPTIONS } from '../notify.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
 
 //#region test component
 const DEFAULT_DURATION_TIME = 4500;
@@ -18,9 +19,15 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="warning-btn" (click)="openComponentSuccessNotify('warning')">warning</button>
         <button class="error-btn" (click)="openComponentSuccessNotify('error')">error</button>
         <button class="close-btn" (click)="closeNotify()">Open</button>
+
+        <ng-template #content>
+            <div class="custom-content">Custom Content....</div>
+        </ng-template>
     `
 })
 export class ThyNotifyBasicComponent implements OnInit {
+    @ViewChild('content') contentTemplate: TemplateRef<any>;
+
     option: ThyNotifyConfig;
 
     constructor(private notifyService: ThyNotifyService) {}
@@ -116,6 +123,54 @@ describe('ThyNotify', () => {
             tick(DEFAULT_DURATION_TIME);
             fixture.detectChanges();
             flush();
+        }));
+
+        it('should custom content is string worked correctly', fakeAsync(() => {
+            let content = 'string content';
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                placement: 'topLeft',
+                content
+            };
+            fixture.detectChanges();
+            btnElement.click();
+            fixture.detectChanges();
+            tick();
+            discardPeriodicTasks();
+            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            expect(contentElement.innerHTML).toContain(content);
+        }));
+
+        it('should custom content is templateRef worked correctly', fakeAsync(() => {
+            const content = componentInstance.contentTemplate;
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                placement: 'topLeft',
+                content
+            };
+            fixture.detectChanges();
+            btnElement.click();
+            fixture.detectChanges();
+            tick();
+            discardPeriodicTasks();
+            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            expect(contentElement.querySelector('.custom-content')).toBeTruthy();
+        }));
+
+        it('should custom content is component worked correctly', fakeAsync(() => {
+            const content = ThyNotifyContentExampleComponent;
+            componentInstance.option = {
+                title: 'ngx tethys notify',
+                placement: 'topLeft',
+                content
+            };
+            fixture.detectChanges();
+            btnElement.click();
+            fixture.detectChanges();
+            tick();
+            discardPeriodicTasks();
+            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            expect(contentElement.querySelector('thy-notify-content-example')).toBeTruthy();
         }));
 
         it('should auto disappear when not set duration', fakeAsync(() => {
