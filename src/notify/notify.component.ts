@@ -114,10 +114,6 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         }
     }
 
-    isComponentType(content: string | ComponentTypeOrTemplateRef<any>) {
-        return !isString(content) && !isTemplateRef(content);
-    }
-
     @HostListener('mouseenter') mouseenter() {
         if (this.option.pauseOnHover) {
             this._clearCloseTimer();
@@ -128,6 +124,10 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         if (this.option.pauseOnHover) {
             this._creatCloseTimer();
         }
+    }
+
+    private isComponentType(content: string | ComponentTypeOrTemplateRef<any>) {
+        return !isString(content) && !isTemplateRef(content);
     }
 
     private _creatCloseTimer() {
