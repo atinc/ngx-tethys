@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.5...14.2.0) (2022-11-29)
+
+
+### Features
+
+* add workflow action about auto merge and pub ([#2373](https://github.com/atinc/ngx-tethys/issues/2373)) ([fb4590e](https://github.com/atinc/ngx-tethys/commit/fb4590e1e3cfac871b25df52d5b3b1ffe639882c))
+
+
+
 # [14.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.4...14.2.0-next.5) (2022-11-28)
 
 
