@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
     selector: 'thy-notify-content-example',
     template: `
         <div>
-            <h3>标题</h3>
+            <h3>{{ title }}</h3>
             <div class="mb-1">段落1...</div>
             <div class="mb-1">段落2...</div>
             <div class="mb-1">段落3...</div>
@@ -12,5 +12,7 @@ import { Component } from '@angular/core';
     `
 })
 export class ThyNotifyContentExampleComponent {
+    title: string;
+
     constructor() {}
 }

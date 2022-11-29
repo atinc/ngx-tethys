@@ -1,9 +1,11 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef, ViewChild } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
 import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
+import { CdkPortalOutlet, ComponentPortal, ComponentType } from '@angular/cdk/portal';
+import { take } from 'rxjs/operators';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -54,6 +56,10 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     contentIsComponent = false;
 
+    contentComponentPortal: ComponentPortal<any>;
+
+    @ViewChild(CdkPortalOutlet) portalOutlet: CdkPortalOutlet;
+
     @Input()
     set thyOption(value: ThyNotifyConfig) {
         this.option = value;
@@ -79,7 +85,16 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
         this.notifyIconName = iconName[this.option.type];
         this.contentIsComponent = this.isComponentType(this.option.content);
-        this._creatCloseTimer();
+
+        this._createCloseTimer();
+
+        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
+            if (this.contentIsComponent) {
+                this.contentComponentPortal = new ComponentPortal(this.option.content as ComponentType<any>);
+                const componentRef = this.contentComponentPortal.attach(this.portalOutlet);
+                Object.assign(componentRef.instance, this.option.contentInitialState || {});
+            }
+        });
     }
 
     ngOnDestroy() {
@@ -122,15 +137,15 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     @HostListener('mouseleave') mouseleave() {
         if (this.option.pauseOnHover) {
-            this._creatCloseTimer();
+            this._createCloseTimer();
         }
     }
 
     private isComponentType(content: string | ComponentTypeOrTemplateRef<any>) {
-        return !isString(content) && !isTemplateRef(content);
+        return content && !isString(content) && !isTemplateRef(content);
     }
 
-    private _creatCloseTimer() {
+    private _createCloseTimer() {
         if (this.option.duration) {
             this.closeTimer = setInterval(() => {
                 clearInterval(this.closeTimer);
