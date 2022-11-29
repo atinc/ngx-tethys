@@ -2,6 +2,10 @@
   <button [thyButton]="'primary'" (click)="showSlideWithComponent()">Open with component</button>
 
   <button [thyButton]="'primary'" (click)="showSlideWithTemplate(template)">Open with template</button>
+
+  <button [thyButton]="'primary'" (click)="showSlideWithoutBackdrop()">Open slide without backdrop</button>
+
+  <button [thyButton]="'primary'" (click)="showSlideNotCloseLatest()">Open slide but not close latest</button>
 </div>
 
 <ng-template #template>

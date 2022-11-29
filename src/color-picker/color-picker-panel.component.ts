@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewContainerRef } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import ThyColor from './helpers/color.class';
-import { DEFAULT_COLORS } from './constant';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
+import { DEFAULT_COLORS } from './constant';
+import ThyColor from './helpers/color.class';
 
 /**
  * @internal
@@ -19,11 +20,25 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     @Input() colorChange: (color: string) => {};
 
+    @Input() set defaultColor(value: string) {
+        this.customDefaultColor = value;
+    }
+
+    get defaultColor() {
+        return new ThyColor(this.customDefaultColor).toHexString(true);
+    }
+
+    @Input() @InputBoolean() transparentColorSelectable: boolean;
+
+    public customDefaultColor: string;
+
     defaultColors = DEFAULT_COLORS;
 
     recentColors: string[] = [];
 
     newColor: string;
+
+    customPanelPopoverRef: ThyPopoverRef<ThyColorPickerCustomPanelComponent>;
 
     constructor(
         private thyPopover: ThyPopover,
@@ -45,25 +60,26 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     showMoreColor(event: Event) {
-        const popoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
-            origin: event.currentTarget as HTMLElement,
-            offset: -4,
-            placement: 'rightBottom',
-            manualClosure: true,
-            width: '260px',
-            hasBackdrop: false,
-            viewContainerRef: this.viewContainerRef,
-            originActiveClass: 'thy-color-picker-active',
-            initialState: {
-                color: this.color,
-                pickerColorChange: (value: string) => {
-                    this.newColor = value;
-                    this.colorChange(value);
+        if (!this.customPanelPopoverRef) {
+            this.customPanelPopoverRef = this.thyPopover.open(ThyColorPickerCustomPanelComponent, {
+                origin: event.currentTarget as HTMLElement,
+                offset: -4,
+                placement: 'rightBottom',
+                manualClosure: true,
+                width: '260px',
+                hasBackdrop: false,
+                viewContainerRef: this.viewContainerRef,
+                originActiveClass: 'thy-color-picker-active',
+                initialState: {
+                    color: this.color,
+                    pickerColorChange: (value: string) => {
+                        this.newColor = value;
+                        this.colorChange(value);
+                    }
                 }
-            }
-        });
-
-        popoverRef.afterClosed().subscribe(() => {
+            });
+        }
+        this.customPanelPopoverRef?.afterClosed().subscribe(() => {
             if (this.newColor) {
                 const index = this.recentColors.findIndex(item => item === this.newColor);
                 if (index !== -1) {

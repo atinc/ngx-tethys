@@ -59,12 +59,16 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示延迟时间
      */
-    @Input('thyShowDelay') showDelay = 0;
+    @Input('thyShowDelay') set thyShowDelay(value: number) {
+        this.showDelay = value;
+    }
 
     /**
      * 隐藏延迟时间
      */
-    @Input('thyHideDelay') hideDelay = 0;
+    @Input('thyHideDelay') set thyHideDelay(value: number) {
+        this.hideDelay = value;
+    }
 
     /**
      * 自动适配内容变化重新计算位置

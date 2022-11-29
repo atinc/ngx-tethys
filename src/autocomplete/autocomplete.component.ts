@@ -118,7 +118,7 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
     ngAfterContentInit() {
         this.options.changes.pipe(startWith(null), takeUntil(this.ngUnsubscribe$)).subscribe(() => {
             this.resetOptions();
-            timer().subscribe(() => {
+            timer(0).subscribe(() => {
                 this.isEmptyOptions = this.options.length <= 0;
                 this.changeDetectorRef.detectChanges();
             });

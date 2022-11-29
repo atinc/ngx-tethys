@@ -175,7 +175,7 @@ $btn-icon-circle-padding-lg: 11px;
 $btn-icon-circle-padding-base: 8px;
 $btn-icon-circle-padding-md: 7px;
 $btn-icon-circle-padding-sm: 6px;
-$btn-icon-circle-padding-xs: 4px;
+$btn-icon-circle-padding-xs: 5px;
 $btn-icon-circle-padding-difference: 1;
 
 // min-width
@@ -935,6 +935,7 @@ $markdown-color-border-color: $gray-200 !default;
 // mention
 $mention-suggestions-width: 280px !default;
 $mention-suggestions-height: 315px !default;
+$mention-suggestions-list-padding: 12px 0 !default;
 
 // Popover
 $popover-divider: $gray-100 !default;
@@ -1001,6 +1002,8 @@ $collapse-spacing-x: 8px !default;
 $collapse-spacing-y: 12px !default;
 
 // property
+$properties-row-gap: 0.8rem !default;
+$properties-column-gap: 1rem !default;
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
 $property-item-min-height: 32px !default;

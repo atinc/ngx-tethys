@@ -4,6 +4,7 @@
     display: block;
     position: relative;
     overflow: hidden;
+    z-index: 0;
     background: vars.$skeleton-primary-color;
     border-radius: vars.$skeleton-row-radius;
     height: vars.$skeleton-row-height;

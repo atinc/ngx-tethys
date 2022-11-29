@@ -1,4 +1,4 @@
 ---
-title: Custom Top Display
+title: Custom Display
 order: 70
 ---

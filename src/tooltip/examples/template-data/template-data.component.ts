@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 export class ThyTooltipTemplateDataExampleComponent {
     tooltipConfig = {
         trigger: 'hover',
-        placement: 'top',
+        placement: 'rightTop',
         disabled: false,
         showDelay: 200,
         hideDelay: 100,

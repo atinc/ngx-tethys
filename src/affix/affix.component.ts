@@ -84,7 +84,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
         const { thyOffsetBottom, thyOffsetTop, thyContainer } = changes;
 
         if (thyOffsetBottom || thyOffsetTop) {
-            this.offsetChanged$.next();
+            this.offsetChanged$.next(undefined);
         }
         if (thyContainer) {
             this.registerListeners();

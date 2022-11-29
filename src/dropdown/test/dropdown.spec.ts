@@ -101,9 +101,9 @@ describe('basic dropdown', () => {
         flush();
 
         dropdown.hide();
-        tick();
+        tick(100);
         fixture.detectChanges();
-        tick();
+        tick(100);
         assertOverlayHide();
         flush();
     }));
@@ -119,9 +119,9 @@ describe('basic dropdown', () => {
         flush();
         dropdown.hide();
         // delay hide
-        tick();
+        tick(100);
         fixture.detectChanges();
-        tick();
+        tick(100);
         expect(fixture.componentInstance.active).toBe(false);
         flush();
     }));
@@ -605,6 +605,8 @@ describe('dropdown submenu', () => {
         fixture.detectChanges();
         dropdown.show();
         tick();
+        fixture.detectChanges();
+        flush();
         const dropdownMenu = getDropdownMenu();
         dropdownMenu.style.position = 'absolute';
         dropdownMenu.style.top = '10px';

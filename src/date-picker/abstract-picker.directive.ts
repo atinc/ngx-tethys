@@ -75,7 +75,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     shortcutRanges: ThyShortcutRange[];
 
-    private destroy$ = new Subject();
+    private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;
     readonly $click: Observable<boolean> = fromEvent(this.el, 'click').pipe(
         tap(e => {

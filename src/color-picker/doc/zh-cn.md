@@ -25,3 +25,7 @@ import { ThyColorPickerModule } from "ngx-tethys/color-picker";
 展示效果:
 
 <example name="thy-color-picker-basic-example"/>
+
+<h2>使用'默认颜色'选项</h2>
+
+<example name="thy-color-picker-default-color-example"/>

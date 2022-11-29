@@ -85,6 +85,11 @@ export class ThyTagComponent implements OnInit, OnChanges {
     }
 
     private setColor(): void {
+        this.elementRef.nativeElement.style.removeProperty('background-color');
+        this.elementRef.nativeElement.style.removeProperty('border-color');
+        this.elementRef.nativeElement.style.removeProperty('color');
+        this.updateHostClassService.updateClass([]);
+
         if (isThemeColor(this.color)) {
             this.updateHostClassService.updateClass([`thy-tag-${this.thyTheme === 'fill' ? '' : this.thyTheme + '-'}${this.color}`]);
         } else {

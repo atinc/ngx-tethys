@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTabChangeEvent } from 'ngx-tethys/tabs';
+import { ThyTabActiveEvent } from 'ngx-tethys/tabs';
 
 @Component({
     selector: 'thy-tabs-basic-example',
@@ -11,7 +11,7 @@ export class ThyTabsBasicExampleComponent implements OnInit {
 
     ngOnInit(): void {}
 
-    activeTabChange(event: ThyTabChangeEvent) {
+    activeTabChange(event: ThyTabActiveEvent) {
         console.log('激活的项:', event);
     }
 }

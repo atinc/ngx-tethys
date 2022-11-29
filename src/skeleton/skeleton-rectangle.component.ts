@@ -102,7 +102,7 @@ export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
         const { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated } = config;
 
         for (let key in { thyAnimatedInterval, thyPrimaryColor, thySecondaryColor, thyAnimated }) {
-            this[key] = this[key] || config[key];
+            this[key] = !isUndefinedOrNull(this[key]) ? this[key] : config[key];
         }
         this.crateAfterStyles();
     }

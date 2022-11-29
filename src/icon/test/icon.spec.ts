@@ -231,13 +231,10 @@ describe('IconRegistry', () => {
         assertGetSvgIconSuccess(svgRandomName);
     });
 
-    it('should addSvgIconLiteral fail when svg is not trusted html', () => {
+    it('should addSvgIconLiteral success when url is not trusted url', () => {
         const svg = createFakeSvg(svgRandomName);
-        expect(() => {
-            iconRegistry.addSvgIconLiteral(svgRandomName, svg);
-        }).toThrowError(
-            `The literal provided to ThyIconRegistry was not trusted as safe HTML by Angular's DomSanitizer. Attempted literal was "${svg}".`
-        );
+        iconRegistry.addSvgIconLiteral(svgRandomName, svg);
+        assertGetSvgIconSuccess(svgRandomName);
     });
 
     it('should addSvgIconLiteralInNamespace success', () => {
@@ -246,6 +243,21 @@ describe('IconRegistry', () => {
 
         assertGetSvgIconSuccess(svgRandomName, 'nsp1');
         assertGetSvgIconFail(svgRandomName);
+    });
+
+    it('should addSvgIconLiteralInNamespace success  when url is not trusted url', () => {
+        const svg1Name = generateRandomStr();
+        const svg2Name = generateRandomStr();
+        const svg1 = createFakeSvg(svg1Name);
+        const svg2 = createFakeSvg(svg2Name);
+        const url = createRandomUrl();
+
+        iconRegistry.addSvgIconLiteralInNamespace('nsp1', svg1Name, svg1);
+        iconRegistry.addSvgIconLiteralInNamespace('nsp1', svg2Name, svg2);
+        assertGetSvgIconSuccess(svg1Name, 'nsp1');
+        assertGetSvgIconSuccess(svg2Name, 'nsp1');
+        assertGetSvgIconFail(svg1Name);
+        assertGetSvgIconFail(svg2Name);
     });
 
     it('should addSvgIcon success', () => {

@@ -177,13 +177,13 @@ module.exports = [
                 name: 'thyShowDelay',
                 description: '打开延迟毫秒',
                 type: 'number',
-                default: '0'
+                default: '100'
             },
             {
                 name: 'thyHideDelay',
                 description: '关闭延迟毫秒',
                 type: 'number',
-                default: '0'
+                default: '100'
             },
             {
                 name: 'thyAutoAdaptive',

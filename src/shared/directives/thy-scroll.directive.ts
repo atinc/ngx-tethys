@@ -10,7 +10,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     selector: '[thyScroll]'
 })
 export class ThyScrollDirective implements OnInit, OnDestroy {
-    private _destroyed = new Subject();
+    private _destroyed = new Subject<void>();
     private _enable = true;
     private _initialled = false;
     private _subscription: Subscription;

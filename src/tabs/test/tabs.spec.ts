@@ -5,10 +5,9 @@ import { By } from '@angular/platform-browser';
 import { ThyNavComponent } from 'ngx-tethys/nav';
 import { createFakeEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyTabComponent } from '../tab.component';
 import { ThyTabsComponent, ThyTabsPosition, ThyTabsSize, ThyTabsType } from '../tabs.component';
 import { ThyTabsModule } from '../tabs.module';
-import { ThyActiveTabInfo, ThyTabChangeEvent } from '../types';
+import { ThyActiveTabInfo, ThyTabActiveEvent } from '../types';
 
 @Component({
     selector: 'test-tabs-basic',
@@ -21,7 +20,7 @@ import { ThyActiveTabInfo, ThyTabChangeEvent } from '../types';
     `
 })
 class TestTabsBasicComponent {
-    activeTabChange(event: ThyTabChangeEvent) {}
+    activeTabChange(event: ThyTabActiveEvent) {}
 }
 
 @Component({
@@ -110,10 +109,7 @@ class TestTabsPositionComponent {
     `
 })
 class TestTabsActiveComponent {
-    activeTab: ThyActiveTabInfo = {
-        id: 'tab2',
-        index: 1
-    };
+    activeTab: ThyActiveTabInfo = 'tab2';
     thyAnimated = false;
 }
 
@@ -136,18 +132,16 @@ class TestTabsDynamicAddComponent {
         { id: 'tab3', title: 'Tab3' }
     ];
 
-    activeTab = {
-        id: 'tab1'
-    };
+    activeTab = 'tab1';
     thyAnimated = false;
 
     addTab() {
         this.tabs.push({ id: `tab${this.tabs.length + 1}`, title: `Tab${this.tabs.length + 1}` });
-        this.activeTab = { id: this.tabs[this.tabs.length - 1].id };
+        this.activeTab = this.tabs[this.tabs.length - 1].id;
     }
 
-    trackByFn(index: number, item: { id: string }) {
-        return item.id;
+    trackByFn(index: number, item: string) {
+        return item;
     }
 }
 
@@ -162,7 +156,7 @@ class TestTabsDynamicAddComponent {
     `
 })
 class TestTabsDisabledComponent {
-    activeTabChange(event: ThyTabChangeEvent) {}
+    activeTabChange(event: ThyTabActiveEvent) {}
 }
 
 @Component({
@@ -211,7 +205,7 @@ describe('tabs', () => {
             const tabElement = document.querySelectorAll('.thy-nav-item')[1];
             dispatchFakeEvent(tabElement, 'click');
             fixture.detectChanges();
-            expect(activeTabChangeSpy).toHaveBeenCalledWith({ id: 'tab2', index: 1 });
+            expect(activeTabChangeSpy).toHaveBeenCalledWith('tab2');
         });
     });
 
@@ -350,10 +344,26 @@ describe('tabs', () => {
             fixture.detectChanges();
         });
 
+        it('should show right active tab when use activeTabId identifier', () => {
+            const activeTab = fixture.debugElement.queryAll(By.css('.thy-nav-item.active'));
+            const activeTabContents = fixture.debugElement.queryAll(By.css('.thy-tab-content'));
+            expect(activeTab.length).toBe(1);
+
+            const activeContent = activeTabContents.filter(item => item.styles.display !== 'none');
+            expect(activeContent.length).toBe(1);
+        });
+
         it('should set thyActiveTab successfully when reset activeTab', () => {
             const tabContent = fixture.debugElement.nativeNode.querySelector('.thy-tabs-content');
             const tabElement = tabContent.querySelectorAll('.thy-tab-content')[1];
             expect(tabElement.getAttribute('tabindex')).toEqual('0');
+        });
+
+        it('should set thyActiveTab successfully when thyActiveTab type is number', () => {
+            fixture.debugElement.componentInstance.activeTab = 1;
+            fixture.detectChanges();
+            const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
+            expect(tabsInstance.activeTabIndex).toEqual(1);
         });
 
         it('should set thyActiveTab successfully when thyAnimated', () => {
@@ -439,7 +449,7 @@ describe('tabs', () => {
         it('should set thyDisabled successfully', fakeAsync(() => {
             const spy = jasmine.createSpy('spy on tab click');
             const tabsInstance = getDebugElement(fixture, ThyTabsComponent).componentInstance;
-            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabChangeEvent) => {
+            tabsInstance.thyActiveTabChange.subscribe((event: ThyTabActiveEvent) => {
                 spy();
             });
             const tabElement = fixture.debugElement.queryAll(By.css('.thy-nav-item'))[1].nativeElement;
