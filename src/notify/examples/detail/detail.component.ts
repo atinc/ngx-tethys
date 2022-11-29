@@ -1,5 +1,6 @@
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ThyNotifyContentExampleComponent } from './content.component';
 
 const DETAIL = `chunk {main} main.js (main) 703 kB [initial] [rendered] ℹ ｢wdm｣: Compiled successfully.ℹ ｢wdm｣: Compiling...
 Date: 2018-04-20T08:57:23.362Z - Hash: d96e601a21c551b7c38a
@@ -11,6 +12,8 @@ Date: 2018-04-20T08:57:23.362Z - Hash: d96e601a21c551b7c38a
     templateUrl: './detail.component.html'
 })
 export class ThyNotifyDetailExampleComponent implements OnInit {
+    @ViewChild('contentTemplate', { static: true }) contentTemplate: TemplateRef<any>;
+
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {}
@@ -27,14 +30,14 @@ export class ThyNotifyDetailExampleComponent implements OnInit {
         this.notifyService.show({
             type: 'warning',
             title: '警告',
-            content: '获取数据异常！',
+            content: this.contentTemplate,
             detail: DETAIL,
             duration: 0
         });
         this.notifyService.show({
             type: 'success',
             title: '成功',
-            content: '获取数据成功！',
+            content: ThyNotifyContentExampleComponent,
             detail: DETAIL,
             duration: 0
         });

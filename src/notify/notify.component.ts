@@ -1,8 +1,8 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
-import { helpers } from 'ngx-tethys/util';
+import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
 import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
 
 const ANIMATION_IN_DURATION = 100;
@@ -109,6 +109,10 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         if ((this.option.detail as ThyNotifyDetail).content) {
             this.showDetailToggle();
         }
+    }
+
+    isComponentType(content: string | ComponentTypeOrTemplateRef<any>) {
+        return !isString(content) && !isTemplateRef(content);
     }
 
     @HostListener('mouseenter') mouseenter() {
