@@ -191,15 +191,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
      * 是否只读
      * @default false
      */
-    @Input('thyDisabled')
-    @InputBoolean()
-    set disabled(value: boolean) {
-        this._disabled = value;
-    }
-
-    get disabled(): boolean {
-        return this._disabled;
-    }
+    @Input('thyDisabled') @InputBoolean() disabled = false;
 
     /**
      * 空状态下的展示文字
@@ -293,7 +285,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public emptyStateText = '无任何选项';
 
     public selectionModel: SelectionModel<SelectOptionBase>;
-    private _disabled = false;
     private prefixCls = 'thy-cascader';
     private menuClassName: string;
     private columnClassName: string;
@@ -461,6 +452,10 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     registerOnTouched(fn: () => {}): void {
         this.onTouched = fn;
+    }
+
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 
     public positionChange(position: ConnectedOverlayPositionChange): void {
