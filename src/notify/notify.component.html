@@ -14,11 +14,13 @@
       (click)="extendContent()"
     >
       <ng-container *ngIf="option.content">
-        <ng-container *ngIf="!contentIsComponent">
+        <ng-container *ngIf="!contentIsComponent; else componentTemplate">
           <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
         </ng-container>
-        <ng-template cdkPortalOutlet></ng-template>
-        </ng-container>
+        <ng-template #componentTemplate>
+          <div class="custom-content" #componentContentHost></div>
+        </ng-template>
+      </ng-container>
       <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
     </div>
     <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (option?.detail)['content'] }}</div>
