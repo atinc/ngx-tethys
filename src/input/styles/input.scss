@@ -23,6 +23,7 @@
         line-height: 1;
     }
     .input-append {
+        margin-left: variables.$input-padding-x-fixed;
         margin-right: variables.$input-padding-x-fixed;
         line-height: 1;
     }
@@ -65,6 +66,13 @@
             background-color: variables.$input-disabled-bg;
             pointer-events: none;
         }
+    }
+}
+
+.input-password{
+    .form-control{
+        padding-right: 0;
+
     }
 }
 
