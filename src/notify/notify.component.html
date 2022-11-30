@@ -14,11 +14,11 @@
       (click)="extendContent()"
     >
       <ng-container *ngIf="option.content">
-        <ng-container *ngIf="contentIsComponent; else contentTemplate">
-          <ng-container *ngComponentOutlet="option.content"></ng-container>
+        <ng-container *ngIf="!contentIsComponent; else componentTemplate">
+          <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
         </ng-container>
-        <ng-template #contentTemplate>
-          <ng-container *thyStringOrTemplateOutlet="option.content"></ng-container>
+        <ng-template #componentTemplate>
+          <div class="custom-content" #componentContentHost></div>
         </ng-template>
       </ng-container>
       <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
