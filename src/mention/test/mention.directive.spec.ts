@@ -119,7 +119,6 @@ class ThyTestInputMentionComponent implements OnInit {
     constructor() {}
 
     ngOnInit(): void {}
-
 }
 
 @NgModule({
