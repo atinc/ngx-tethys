@@ -21,7 +21,7 @@ const DEFAULT_DURATION_TIME = 4500;
         <button class="close-btn" (click)="closeNotify()">Open</button>
 
         <ng-template #content>
-            <div class="custom-content">Custom Content....</div>
+            <div class="custom-content-template">Custom Content....</div>
         </ng-template>
     `
 })
@@ -152,26 +152,29 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
+            debugger;
             discardPeriodicTasks();
             const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
-            expect(contentElement.querySelector('.custom-content')).toBeTruthy();
+            expect(contentElement.querySelector('.custom-content-template')).toBeTruthy();
         }));
 
-        it('should custom content is component worked correctly', fakeAsync(() => {
+        it('should custom content is component worked correctly', async () => {
             const content = ThyNotifyContentExampleComponent;
             componentInstance.option = {
                 title: 'ngx tethys notify',
                 placement: 'topLeft',
-                content
+                content,
+                contentInitialState: {
+                    title: 'custom...'
+                }
             };
             fixture.detectChanges();
             btnElement.click();
             fixture.detectChanges();
-            tick();
-            discardPeriodicTasks();
+            await fixture.whenStable();
             const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
-            expect(contentElement.querySelector('thy-notify-content-example')).toBeTruthy();
-        }));
+            expect(contentElement.querySelector('.thy-notify-content-example')).toBeTruthy();
+        });
 
         it('should auto disappear when not set duration', fakeAsync(() => {
             componentInstance.option = {
