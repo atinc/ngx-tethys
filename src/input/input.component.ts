@@ -42,8 +42,7 @@ const password = 'password';
     host: {
         class: 'thy-input form-control',
         '[class.form-control-active]': 'focused',
-        '[class.disabled]': 'disabled',
-        '[class.input-password]': 'isPassword'
+        '[class.disabled]': 'disabled'
     }
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {

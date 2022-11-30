@@ -18,6 +18,9 @@
         flex: 1;
         border: 0;
     }
+    .input-password {
+        padding-right: 0;
+    }
     .input-prepend {
         margin-left: variables.$input-padding-x-fixed;
         line-height: 1;
@@ -66,13 +69,6 @@
             background-color: variables.$input-disabled-bg;
             pointer-events: none;
         }
-    }
-}
-
-.input-password{
-    .form-control{
-        padding-right: 0;
-
     }
 }
 
