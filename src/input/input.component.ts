@@ -130,6 +130,8 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public disabled = false;
 
+    public isPasswordType = false;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
@@ -139,6 +141,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
             if (this.isPassword(this.type)) {
+                this.isPasswordType = true;
                 this.appendTemplate = this.eyeTemplate;
             }
         });
