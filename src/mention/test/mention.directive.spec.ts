@@ -1,9 +1,9 @@
 import { ThyPopover } from 'ngx-tethys/popover';
-import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { ENTER } from 'ngx-tethys/util';
 
 import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -90,9 +90,41 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'thy-test-input-mention',
+    template: `
+        <div class="demo-card">
+            <input
+                placeholder="Mention people using @"
+                thyInput
+                [style]="{ boxSizing: 'border-box' }"
+                [thyMention]="mentions"
+                [(ngModel)]="value"
+            />
+        </div>
+    `
+})
+class ThyTestInputMentionComponent implements OnInit {
+    value = ``;
+
+    mentions: Mention[] = [
+        {
+            trigger: '@',
+            data: [{ name: 'test1' }, { name: 'test2' }, { name: 'test3' }]
+        }
+    ];
+
+    @ViewChild(ThyMentionDirective) mentionDirective: ThyMentionDirective;
+
+    constructor() {}
+
+    ngOnInit(): void {}
+
+}
+
 @NgModule({
     imports: [FormsModule, ThyMentionModule, ThyListModule],
-    declarations: [ThyTestMentionBasicComponent, ThyTestMentionSuggestionsTemplateComponent],
+    declarations: [ThyTestMentionBasicComponent, ThyTestMentionSuggestionsTemplateComponent, ThyTestInputMentionComponent],
     exports: []
 })
 export class MentionTestModule {}
@@ -199,5 +231,45 @@ describe('MentionSuggestionsTemplateDirective', () => {
         const mentionListOptionElement = document.querySelectorAll('thy-list-option');
         expect(mentionGroupElement.length).toEqual(2);
         expect(mentionListOptionElement.length).toEqual(2);
+    });
+});
+
+describe('TestMentionInput', () => {
+    let fixture: ComponentFixture<ThyTestInputMentionComponent>;
+    let mentionDirective: ThyMentionDirective;
+    let inputDebugElement: DebugElement;
+    let inputElement: MentionInputorElement;
+
+    beforeEach(fakeAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [MentionTestModule, NoopAnimationsModule],
+            providers: []
+        });
+        TestBed.compileComponents();
+        fixture = TestBed.createComponent(ThyTestInputMentionComponent);
+        fixture.detectChanges();
+        inputDebugElement = fixture.debugElement.query(By.css('input'));
+        inputElement = inputDebugElement.nativeElement;
+        mentionDirective = inputDebugElement.injector.get<ThyMentionDirective>(ThyMentionDirective);
+    }));
+
+    it('should input @ open suggestions and delete @ close suggestions', fakeAsync(() => {
+        fixture.componentInstance.value = '';
+        fixture.detectChanges();
+        inputElement.value = '@';
+        dispatchFakeEvent(inputElement, 'input', true);
+        expect(fixture.componentInstance.mentionDirective.isOpened).toBeTruthy();
+        inputElement.value = '';
+        dispatchFakeEvent(inputElement, 'input', true);
+        tick(1000);
+        fixture.detectChanges();
+        expect(fixture.componentInstance.mentionDirective.isOpened).toBeFalsy();
+    }));
+
+    it('should click open suggestions before input @', () => {
+        inputElement.value = '@';
+        fixture.detectChanges();
+        dispatchFakeEvent(inputElement, 'click', true);
+        expect(fixture.componentInstance.mentionDirective.isOpened).toBeTruthy();
     });
 });
