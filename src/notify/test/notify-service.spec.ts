@@ -136,9 +136,11 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            discardPeriodicTasks();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
             expect(contentElement.innerHTML).toContain(content);
+            tick(DEFAULT_DURATION_TIME);
+            fixture.detectChanges();
+            flush();
         }));
 
         it('should custom content is templateRef worked correctly', fakeAsync(() => {
@@ -152,12 +154,14 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            discardPeriodicTasks();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
             expect(contentElement.querySelector('.custom-content-template')).toBeTruthy();
+            tick(DEFAULT_DURATION_TIME);
+            fixture.detectChanges();
+            flush();
         }));
 
-        it('should custom content is component worked correctly', async () => {
+        it('should custom content is component worked correctly', fakeAsync(() => {
             const content = ThyNotifyContentExampleComponent;
             componentInstance.option = {
                 title: 'ngx tethys notify',
@@ -170,10 +174,13 @@ describe('ThyNotify', () => {
             fixture.detectChanges();
             btnElement.click();
             fixture.detectChanges();
-            await fixture.whenStable();
-            const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
+            tick();
+            const contentElement = overlayContainerElement.querySelector('.thy-notify .thy-notify-content');
             expect(contentElement.querySelector('.thy-notify-content-example')).toBeTruthy();
-        });
+            tick(DEFAULT_DURATION_TIME);
+            fixture.detectChanges();
+            flush();
+        }));
 
         it('should auto disappear when not set duration', fakeAsync(() => {
             componentInstance.option = {

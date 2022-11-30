@@ -123,7 +123,9 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
         this._clearCloseTimer();
         // fix dom not removed normally under firefox
         this.elementRef.nativeElement.remove();
-        this.applicationRef.detachView(this.componentRef.hostView);
+        if (this.componentRef) {
+            this.applicationRef.detachView(this.componentRef.hostView);
+        }
     }
 
     extendContent() {
