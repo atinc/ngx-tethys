@@ -13,7 +13,14 @@
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
       (click)="extendContent()"
     >
-      {{ option?.content }}
+      <ng-container *ngIf="option.content">
+        <ng-container *ngIf="contentIsComponent; else contentTemplate">
+          <ng-container *ngComponentOutlet="option.content"></ng-container>
+        </ng-container>
+        <ng-template #contentTemplate>
+          <ng-container *thyStringOrTemplateOutlet="option.content"></ng-container>
+        </ng-template>
+      </ng-container>
       <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
     </div>
     <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (option?.detail)['content'] }}</div>

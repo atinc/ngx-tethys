@@ -8,9 +8,10 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { THY_NOTIFY_DEFAULT_CONFIG_PROVIDER } from './notify.config';
 import { ThyNotifyContentComponent } from './notify-content.component';
+import { ThySharedModule } from 'ngx-tethys/shared';
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, PortalModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule],
     declarations: [ThyNotifyContainerComponent, ThyNotifyContentComponent, ThyNotifyComponent],
     exports: [ThyNotifyContainerComponent, ThyNotifyContentComponent, ThyNotifyComponent],
     providers: [NotifyQueueStore, THY_NOTIFY_DEFAULT_CONFIG_PROVIDER]

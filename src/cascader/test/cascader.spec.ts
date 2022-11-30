@@ -10,7 +10,7 @@ import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
-import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../cascader.component';
+import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
 import { ThyCascaderModule } from '../module';
 import { clone } from '../examples/cascader-address-options';
 registerLocaleData(zh);
@@ -219,6 +219,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyMenuClassName]="thyMenuClassName"
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
+            thyEmptyStateText="无选项"
         >
         </thy-cascader>
     `
@@ -267,13 +268,7 @@ class CascaderLoadComponent {
 @Component({
     selector: 'thy-cascader-template',
     template: `
-        <thy-cascader
-            [thyOptions]="thyCustomerOptions"
-            (ngModelChange)="onChanges($event)"
-            [(ngModel)]="curVal"
-            style="width:400px;"
-            [thyLabelRender]="renderTpl"
-        >
+        <thy-cascader [thyOptions]="thyCustomerOptions" [(ngModel)]="curVal" style="width:400px;" [thyLabelRender]="renderTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
@@ -307,7 +302,7 @@ class CascaderTemplateComponent {
 }
 
 @Component({
-    selector: 'test-cascader-multiple',
+    selector: 'thy-test-cascader-multiple',
     template: `
         <thy-cascader
             [thyMultiple]="true"
