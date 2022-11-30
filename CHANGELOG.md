@@ -2,6 +2,27 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.5...14.2.0-next.6) (2022-11-30)
+
+
+### Documentation
+
+* **cascader:** document optimization #INFR-5085 ([#2295](https://github.com/atinc/ngx-tethys/issues/2295)) ([499192e](https://github.com/atinc/ngx-tethys/commit/499192eeb2f7b22410289e38276a09aee308cd1f)), closes [#INFR-5085](https://github.com/atinc/ngx-tethys/issues/INFR-5085)
+
+
+### Features
+
+* add workflow action about auto merge and pub ([#2373](https://github.com/atinc/ngx-tethys/issues/2373)) ([fb4590e](https://github.com/atinc/ngx-tethys/commit/fb4590e1e3cfac871b25df52d5b3b1ffe639882c))
+* **notify:** notify content can be component or templateRef #INFR-1250 ([#2374](https://github.com/atinc/ngx-tethys/issues/2374)) ([ae6ac58](https://github.com/atinc/ngx-tethys/commit/ae6ac5897875a29f7eda564dd978e5faf26a61d6)), closes [#INFR-1250](https://github.com/atinc/ngx-tethys/issues/INFR-1250)
+* **notify:** notify support contentInitialState when content  is templateRef or component #INFR-1250 ([#2378](https://github.com/atinc/ngx-tethys/issues/2378)) ([7da1ee4](https://github.com/atinc/ngx-tethys/commit/7da1ee4a1900c32a3881ed92ea77b3aef74a33cd)), closes [#INFR-1250](https://github.com/atinc/ngx-tethys/issues/INFR-1250)
+
+
+### BREAKING CHANGES
+
+* **cascader:** disabled change to thyDisabled, CascaderOption change to ThyCascaderOption
+
+
+
 # [14.2.0-next.5](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.4...14.2.0-next.5) (2022-11-28)
 
 
