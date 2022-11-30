@@ -23,6 +23,8 @@ export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
 
     content?: string | ComponentTypeOrTemplateRef<any>;
 
+    contentInitialState?: TData;
+
     detail?: string | ThyNotifyDetail;
 
     html?: ElementRef;
