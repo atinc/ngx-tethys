@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit, Renderer2 } from '@angular/core';
 
 @Component({
     selector: 'thy-notify-content-example',
@@ -11,8 +11,10 @@ import { Component } from '@angular/core';
         </div>
     `
 })
-export class ThyNotifyContentExampleComponent {
-    title: string;
+export class ThyNotifyContentExampleComponent implements OnInit {
+    title: string = '默认标题';
 
     constructor() {}
+
+    ngOnInit() {}
 }

@@ -1,11 +1,23 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef, ViewChild } from '@angular/core';
+import {
+    Component,
+    Input,
+    HostBinding,
+    OnInit,
+    HostListener,
+    OnDestroy,
+    NgZone,
+    ElementRef,
+    ViewChild,
+    createComponent,
+    AfterViewInit,
+    ApplicationRef
+} from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
 import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
-import { CdkPortalOutlet, ComponentPortal, ComponentType } from '@angular/cdk/portal';
-import { take } from 'rxjs/operators';
+import { ComponentType } from '@angular/cdk/portal';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -37,7 +49,7 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
         ])
     ]
 })
-export class ThyNotifyComponent implements OnInit, OnDestroy {
+export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostBinding('@flyInOut') flyInOut: string;
 
     @HostBinding('class') className = '';
@@ -56,9 +68,7 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
 
     contentIsComponent = false;
 
-    contentComponentPortal: ComponentPortal<any>;
-
-    @ViewChild(CdkPortalOutlet) portalOutlet: CdkPortalOutlet;
+    @ViewChild('componentContentHost') contentContainer: ElementRef<any>;
 
     @Input()
     set thyOption(value: ThyNotifyConfig) {
@@ -73,7 +83,12 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(private _queueStore: NotifyQueueStore, private _ngZone: NgZone, private elementRef: ElementRef) {}
+    constructor(
+        private _queueStore: NotifyQueueStore,
+        private _ngZone: NgZone,
+        private elementRef: ElementRef,
+        private applicationRef: ApplicationRef
+    ) {}
 
     ngOnInit() {
         const iconName = {
@@ -87,14 +102,18 @@ export class ThyNotifyComponent implements OnInit, OnDestroy {
         this.contentIsComponent = this.isComponentType(this.option.content);
 
         this._createCloseTimer();
+    }
 
-        this._ngZone.onStable.pipe(take(1)).subscribe(() => {
-            if (this.contentIsComponent) {
-                this.contentComponentPortal = new ComponentPortal(this.option.content as ComponentType<any>);
-                const componentRef = this.contentComponentPortal.attach(this.portalOutlet);
-                Object.assign(componentRef.instance, this.option.contentInitialState || {});
-            }
-        });
+    ngAfterViewInit() {
+        if (this.contentIsComponent) {
+            const componentRef = createComponent(this.option.content as ComponentType<any>, {
+                environmentInjector: this.applicationRef.injector,
+                hostElement: this.contentContainer.nativeElement
+            });
+            Object.assign(componentRef.instance, this.option.contentInitialState || {});
+            // // 注册新创建的 componentRef，以将组件视图包括在更改检测周期中。
+            this.applicationRef.attachView(componentRef.hostView);
+        }
     }
 
     ngOnDestroy() {

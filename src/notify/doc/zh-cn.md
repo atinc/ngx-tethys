@@ -63,13 +63,5 @@ notifyService.success(null, '创建项目成功！');
 
 <example name="thy-notify-type-example"></example>
 
-<example name="thy-notify-custom-html-example"></example>
-
-<example name="thy-notify-hover-example"></example>
-
-<example name="thy-notify-detail-example"></example>
-
-<example name="thy-notify-detail-operation-example"></example>
-
 <example name="thy-notify-placement-example"></example>
 
