@@ -10,7 +10,8 @@ import {
     ViewChild,
     createComponent,
     AfterViewInit,
-    ApplicationRef
+    ApplicationRef,
+    ComponentRef
 } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
@@ -68,6 +69,8 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     contentIsComponent = false;
 
+    componentRef: ComponentRef<any>;
+
     @ViewChild('componentContentHost') contentContainer: ElementRef<any>;
 
     @Input()
@@ -106,13 +109,13 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         if (this.contentIsComponent) {
-            const componentRef = createComponent(this.option.content as ComponentType<any>, {
+            this.componentRef = createComponent(this.option.content as ComponentType<any>, {
                 environmentInjector: this.applicationRef.injector,
                 hostElement: this.contentContainer.nativeElement
             });
-            Object.assign(componentRef.instance, this.option.contentInitialState || {});
-            // // 注册新创建的 componentRef，以将组件视图包括在更改检测周期中。
-            this.applicationRef.attachView(componentRef.hostView);
+            Object.assign(this.componentRef.instance, this.option.contentInitialState || {});
+            // 注册新创建的 componentRef，以将组件视图包括在更改检测周期中。
+            this.applicationRef.attachView(this.componentRef.hostView);
         }
     }
 
@@ -120,6 +123,7 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
         this._clearCloseTimer();
         // fix dom not removed normally under firefox
         this.elementRef.nativeElement.remove();
+        this.applicationRef.detachView(this.componentRef.hostView);
     }
 
     extendContent() {

@@ -152,7 +152,6 @@ describe('ThyNotify', () => {
             btnElement.click();
             fixture.detectChanges();
             tick();
-            debugger;
             discardPeriodicTasks();
             const contentElement = overlayContainerElement.querySelector('.thy-notify:last-child .thy-notify-content');
             expect(contentElement.querySelector('.custom-content-template')).toBeTruthy();
