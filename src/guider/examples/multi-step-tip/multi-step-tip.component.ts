@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep, ThyGuider } from 'ngx-tethys/guider';
+import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tethys/guider';
 
 @Component({
     selector: 'thy-guider-multi-step-tip-example',
@@ -64,7 +64,7 @@ export class ThyGuiderMultiStepTipExampleComponent implements OnInit {
                     }
                 }
             ] as ThyGuiderStep[],
-            defaultPosition: [100, 100]
+            defaultPosition: { x: 100, y: 100 }
         };
     }
 
