@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 
-import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 const mockUsers = [
     'Jacob',
@@ -27,7 +27,14 @@ const mockUsers = [
 
 @Component({
     selector: 'thy-mention-basic-example',
-    templateUrl: './contenteditable.component.html'
+    templateUrl: './contenteditable.component.html',
+    styles: [
+        `
+            .example-text {
+                padding: 4px 0 4px 8px;
+            }
+        `
+    ]
 })
 export class ThyMentionContenteditableExampleComponent implements OnInit {
     value = ``;
