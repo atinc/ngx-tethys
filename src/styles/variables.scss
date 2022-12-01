@@ -490,11 +490,10 @@ $avatar-sizes: map.merge(
 );
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
-$nav-item-icon-color: $gray-500 !default;
 $nav-item-color: $gray-800 !default;
 $nav-item-weak-color: $gray-600 !default;
 $nav-item-hover-color: $primary !default;
-$nav-item-icon-color: $gray-500 !default;
+$nav-item-icon-color: $gray-600 !default;
 $nav-item-primary-color: $gray-800 !default;
 $nav-border-color: $gray-200 !default;
 $nav-divider-color: $gray-200 !default;
