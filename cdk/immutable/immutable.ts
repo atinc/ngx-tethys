@@ -1,5 +1,6 @@
 import { coerceArray } from '@angular/cdk/coercion';
-import { isFunction, isUndefinedOrNull } from '@tethys/cdk/is';
+import { isFunction, isUndefinedOrNull, isArray } from '@tethys/cdk/is';
+import { ObjectProducer } from './object-producer';
 
 export type Id = string | number;
 
@@ -167,6 +168,12 @@ export class Producer<TEntity> {
     }
 }
 
-export function produce<TEntity>(entities: TEntity[], options?: ProducerOptions<TEntity>) {
-    return new Producer<TEntity>(entities, options);
+export function produce<TEntity>(entities: TEntity[], options?: ProducerOptions<TEntity>): Producer<TEntity>;
+export function produce<TEntity>(entities: TEntity): ObjectProducer<TEntity>;
+export function produce<TEntity>(entities: TEntity | TEntity[], options?: ProducerOptions<TEntity>) {
+    if (isArray(entities)) {
+        return new Producer<TEntity>(entities, options);
+    } else {
+        return new ObjectProducer<TEntity>(entities);
+    }
 }
