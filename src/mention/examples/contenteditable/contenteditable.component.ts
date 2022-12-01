@@ -1,6 +1,6 @@
 import { Mention, MentionSuggestionSelectEvent, ThyMentionDirective } from 'ngx-tethys/mention';
 
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 const mockUsers = [
     'Jacob',
@@ -37,8 +37,6 @@ const mockUsers = [
     ]
 })
 export class ThyMentionContenteditableExampleComponent implements OnInit {
-    value = ``;
-
     mentions: Mention[] = [
         {
             trigger: '@',
@@ -48,11 +46,13 @@ export class ThyMentionContenteditableExampleComponent implements OnInit {
 
     @ViewChild(ThyMentionDirective) mention: ThyMentionDirective;
 
+    @ViewChild('exampleText') exampleText: ElementRef;
+
     constructor() {}
 
     ngOnInit(): void {}
 
     selectSuggestion(event: MentionSuggestionSelectEvent) {
-        console.log(event);
+        console.log(this.exampleText.nativeElement.innerText);
     }
 }
