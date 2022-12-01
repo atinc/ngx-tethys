@@ -43,5 +43,7 @@
 <p><strong>如果需要设置新手引导的位置是相对于页面</strong>：</p>
 <p>一种方式是配置 <code>defaultPosition</code> 的值:</p>
 <button class="mb-3 custom-guider-position" thyButton="info" (click)="baseOnDefaultPosition()">基于页面位置的配置1</button>
-<p>另一种方式是配置 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为 <code>[number, number]</code> 类型:</p>
+<p>
+  另一种方式是配置 <code>ThyGuiderStep</code> 的 <code>target</code> 属性为 <code>{{ '{' }}x: number, y: number {{ '}' }}</code> 类型:
+</p>
 <button class="custom-guider-position" thyButton="info" (click)="baseOnTargetPosition()">基于页面位置的配置2</button>

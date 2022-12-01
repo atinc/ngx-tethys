@@ -34,7 +34,7 @@ const guiderSteps: ThyGuiderStep[] = [
     },
     {
         key: 'multi-steps-tip-end',
-        target: [500, 500],
+        target: { x: 500, y: 500 },
         data: {
             image: '',
             title: 'step 3/3',
@@ -107,7 +107,7 @@ class GuiderBasicComponent implements OnInit {
 
     public multiStepsOption: ThyGuiderConfig = {
         steps: guiderSteps,
-        defaultPosition: [100, 50]
+        defaultPosition: { x: 100, y: 50 }
     };
 
     public innerText = templateRefInnerText;

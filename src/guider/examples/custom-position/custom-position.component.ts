@@ -28,7 +28,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
         this.thyGuider.close();
 
         const config = {
-            defaultPosition: [100, 100],
+            defaultPosition: { x: 100, y: 100 },
             steps: [
                 {
                     key: 'custom-guider-position',
@@ -76,7 +76,7 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
         this.thyGuider.close();
 
         const config = {
-            defaultPosition: [100, 100],
+            defaultPosition: { x: 100, y: 100 },
             steps: [
                 {
                     key: 'custom-guider-position',
@@ -103,11 +103,11 @@ export class ThyGuiderCustomPositionExampleComponent implements OnInit {
             steps: [
                 {
                     key: 'custom-guider-position',
-                    target: [500, 520],
+                    target: { x: 500, y: 520 },
                     data: {
                         image: 'assets/images/guider/start.png',
                         title: '基于页面的新手引导位置',
-                        description: `通过设置 target 属性类型为 [number, number] 来变更提示框位置`
+                        description: `通过设置 target 属性类型为 {x: number, y: number} 来变更提示框位置`
                     },
                     hintPlacement: this.hintPlacement
                 }
