@@ -31,7 +31,11 @@ export class ThyNotifyCustomContentExampleComponent implements OnInit {
             type: 'success',
             title: '成功 ',
             content: this.contentTemplate,
-            detail: '提示信息'
+            detail: '提示信息',
+            contentInitialState: {
+                $implicit: '标题111',
+                content: '这是内容...'
+            }
         });
     }
 
@@ -40,7 +44,10 @@ export class ThyNotifyCustomContentExampleComponent implements OnInit {
             type: 'success',
             title: '成功 ',
             content: ThyNotifyContentExampleComponent,
-            detail: '提示信息'
+            detail: '提示信息',
+            contentInitialState: {
+                title: '标题111'
+            }
         });
     }
 
