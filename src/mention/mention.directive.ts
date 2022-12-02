@@ -9,6 +9,7 @@ import { createMentionAdapter, MatchedMention, MentionAdapter, MentionInputorEle
 import { CaretPositioner } from './caret-positioner';
 import { Mention, MentionDefaultDataItem, MentionSuggestionSelectEvent } from './interfaces';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
+import { isInputOrTextarea } from 'ngx-tethys/util';
 
 const SUGGESTION_BACKDROP_CLASS = 'thy-mention-suggestions-backdrop';
 
@@ -90,8 +91,12 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
             )
             .subscribe(event => {
                 const newValue = this.adapter.insertMention(event.item);
-                if (this.ngControl && this.ngControl.control) {
-                    this.ngControl.control.setValue(newValue);
+                if (isInputOrTextarea(this.elementRef.nativeElement)) {
+                    if (this.ngControl && this.ngControl.control) {
+                        this.ngControl.control.setValue(newValue);
+                    }
+                } else {
+                    this.elementRef.nativeElement.innerText = newValue;
                 }
                 this.openedSuggestionsRef.close();
                 this.select.emit(event);
