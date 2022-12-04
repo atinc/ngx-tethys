@@ -17,7 +17,8 @@
     "lib": ["dom", "ES2017"],
     "paths": {
       "ngx-tethys/*": ["./*"],
-      "@tethys/cdk/*": ["../cdk/*"]
+      "@tethys/cdk": ["../dist/cdk"],
+      "@tethys/cdk/*": ["../dist/cdk/*"]
     }
   },
   "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "examples/**/*.ts"]

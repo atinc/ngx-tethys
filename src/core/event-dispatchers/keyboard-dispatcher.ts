@@ -8,8 +8,8 @@
 
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, NgZone } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
-import { ThyEventDispatcher } from './event-dispatcher';
+import { Observable } from 'rxjs';
+import { ThyEventDispatcher } from '@tethys/cdk/event';
 
 const DEFAULT_KEYDOWN_TIME = 100;
 

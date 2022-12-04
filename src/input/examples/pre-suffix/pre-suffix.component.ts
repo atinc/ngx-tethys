@@ -8,4 +8,8 @@ export class ThyInputPreSuffixExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    alert(a: any) {
+        window.alert(a);
+    }
 }
