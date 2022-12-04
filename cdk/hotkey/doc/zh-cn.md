@@ -42,3 +42,13 @@ export class ExampleComponent implements OnInit {
 }
 ```
 
+## 工具函数
+
+```ts
+import { hotkey, isHotkey } from "@tethys/cdk/hotkey";
+```
+
+| 函数 | 描述 |
+| ------ | ------ |
+| hotkey(event: KeyboardEvent) | 获取键盘事件对应的 HotkeyCode |
+| isHotkey(event: KeyboardEvent, hotkey: string) | 判断键盘事件是否与传入的 HotkeyCode 一致 |

@@ -21,6 +21,6 @@ export function hotkey(event: KeyboardEvent): string {
     return hotkeyString.join('+');
 }
 
-export function isHotkey(key: string, event: KeyboardEvent) {
+export function isHotkey(event: KeyboardEvent, key: string) {
     return key.toUpperCase() === hotkey(event).toUpperCase();
 }

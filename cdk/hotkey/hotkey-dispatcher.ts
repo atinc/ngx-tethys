@@ -53,12 +53,12 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
         return new Observable<KeyboardEvent>(observer => {
             keydown.pipe(
                 filter((event: KeyboardEvent) => {
-                    return hotkeys.some(key => isHotkey(key, event));
+                    return hotkeys.some(key => isHotkey(event, key));
                 }),
                 tap(event => event.stopPropagation())
             );
             const subscription = keydown
-                .pipe(filter((event: KeyboardEvent) => hotkeys.some(key => isHotkey(key, event))))
+                .pipe(filter((event: KeyboardEvent) => hotkeys.some(key => isHotkey(event, key))))
                 .subscribe((event: KeyboardEvent) => {
                     event.stopPropagation();
                     observer.next(event);
