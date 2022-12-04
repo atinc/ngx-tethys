@@ -1,0 +1,25 @@
+<form thyForm thyLayout="vertical" #demoForm="thyForm" #demoVerticalForm="ngForm">
+  <div thyRow [thyGutter]="30">
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="栅格项的数量">
+      <thy-input-number thySize="sm" name="count" [style.width.px]="200" [(ngModel)]="gridItemCount" [thyMin]="1"></thy-input-number>
+    </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="折叠后的行数">
+      <thy-input-number name="rows" thySize="sm" [style.width.px]="200" [(ngModel)]="collapsedRows" [thyMin]="1"></thy-input-number>
+    </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="打开后缀节点">
+      <thy-switch name="suffix" [(ngModel)]="showSuffix"></thy-switch>
+    </thy-form-group>
+    <thy-form-group thyCol [thySpan]="12" thyLabelText="折叠栅格">
+      <thy-switch name="collapse" [(ngModel)]="isCollapsed"></thy-switch>
+    </thy-form-group>
+  </div>
+</form>
+
+<thy-grid thyCols="5" thyGap="8" [thyCollapsed]="isCollapsed" [thyCollapsedRows]="collapsedRows" #grid>
+  <ng-container *ngFor="let i of gridItems; trackBy: trackByFn">
+    <div thyGridItem class="blue" [ngClass]="{ 'light-blue': !!(i % 2) }"></div>
+  </ng-container>
+  <div thyGridItem [thySuffix]="true" *ngIf="showSuffix" class="suffix">
+    {{ grid.overflow ? '存在溢出' : '不存在溢出' }}
+  </div>
+</thy-grid>
