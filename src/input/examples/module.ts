@@ -12,7 +12,6 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyActionModule } from 'ngx-tethys/action';
-import { ThyHotkeyModule } from '@tethys/cdk/hotkey';
 
 export default {
     imports: [
@@ -29,7 +28,6 @@ export default {
         ThyIconModule,
         ThyTooltipModule,
         ThyDividerModule,
-        ThyActionModule,
-        ThyHotkeyModule
+        ThyActionModule
     ]
 };
