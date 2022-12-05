@@ -1,5 +1,16 @@
 import { ElementRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
-import { isBoolean, isDate, isElementRef, isEmpty, isHTMLElement, isNumber, isObject, isString, isTemplateRef } from './index';
+import {
+    isBoolean,
+    isDate,
+    isElementRef,
+    isEmpty,
+    isFormElement,
+    isHTMLElement,
+    isNumber,
+    isObject,
+    isString,
+    isTemplateRef
+} from './index';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));
@@ -114,6 +125,37 @@ describe('is', () => {
 
         [1, 'xxx', undefined, null, NaN, {}].forEach(value => {
             expect(isHTMLElement(value)).toBeFalsy(`${value} is element`);
+        });
+    });
+
+    it('should get correct value for isFormElement', () => {
+        const createInputElement = function(type: string) {
+            const input = document.createElement('input');
+            input.setAttribute('type', type);
+            return input;
+        };
+        const contentEditableElement = document.createElement('div');
+        const childContentEditableElement = document.createElement('div');
+        contentEditableElement.setAttribute('contenteditable', 'true');
+        contentEditableElement.appendChild(childContentEditableElement);
+        [
+            document.createElement('select'),
+            document.createElement('textarea'),
+            createInputElement('text'),
+            createInputElement('number'),
+            new ElementRef(childContentEditableElement)
+        ].forEach(value => {
+            expect(isFormElement<HTMLElement>(value)).toBeTruthy(`${value} is not form element`);
+        });
+        [
+            document.createElement('div'),
+            createInputElement('submit'),
+            createInputElement('reset'),
+            createInputElement('checkbox'),
+            createInputElement('radio'),
+            createInputElement('file')
+        ].forEach(value => {
+            expect(isFormElement<HTMLElement>(value)).toBeFalsy(`${value} is not form element`);
         });
     });
 

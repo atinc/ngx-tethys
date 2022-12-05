@@ -7,9 +7,6 @@ import { filter, tap } from 'rxjs/operators';
 import { isString } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
 
-/**
- *  @private
- */
 @Injectable({ providedIn: 'root' })
 export class ThyHotkeyDispatcher extends ThyEventDispatcher {
     private hotkeyRecords: { scope: Element | Document; hotkeys: string[] }[] = [];
@@ -20,7 +17,7 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
 
     private createKeydownObservable(scope: Element | Document) {
         if (scope === this.document) {
-            return this.subscribe();
+            return this.subscribe(null);
         } else {
             return fromEvent(scope, 'keydown');
         }
@@ -41,6 +38,9 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
         });
     }
 
+    /**
+     *  热键事件订阅
+     */
     keydown(hotkey: string | string[], scope: ElementRef<Element> | Element | Document = this.document): Observable<KeyboardEvent> {
         const hotkeys = isString(hotkey) ? hotkey.split(',') : hotkey;
         const scopeElement = coerceElement(scope);
@@ -51,12 +51,6 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
         this.hotkeyRecords.push(hotkeyRecord);
         const keydown = this.createKeydownObservable(scopeElement);
         return new Observable<KeyboardEvent>(observer => {
-            keydown.pipe(
-                filter((event: KeyboardEvent) => {
-                    return hotkeys.some(key => isHotkey(event, key));
-                }),
-                tap(event => event.stopPropagation())
-            );
             const subscription = keydown
                 .pipe(filter((event: KeyboardEvent) => hotkeys.some(key => isHotkey(event, key))))
                 .subscribe((event: KeyboardEvent) => {

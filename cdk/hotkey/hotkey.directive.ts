@@ -4,6 +4,9 @@ import { Subscription } from 'rxjs';
 import { isFormElement, isString } from '@tethys/cdk/is';
 import { ThyHotkeyDispatcher } from './hotkey-dispatcher';
 
+/**
+ * @name thyHotkey
+ */
 @Directive({ selector: '[thyHotkey]' })
 export class ThyHotkeyDirective implements OnInit, OnDestroy {
     /**
@@ -33,15 +36,12 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
         const scope = isString(this.thyHotkeyScope) ? this.document.querySelector(this.thyHotkeyScope) : this.thyHotkeyScope;
         this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey, scope).subscribe(event => {
             event.preventDefault();
-            if (this.thyHotkeyListener.observers.length > 0) {
-                this.thyHotkeyListener.emit(event);
+            if (isFormElement(this.elementRef)) {
+                this.elementRef.nativeElement.focus();
             } else {
-                if (isFormElement(this.elementRef)) {
-                    this.elementRef.nativeElement.focus();
-                } else {
-                    this.elementRef.nativeElement.click();
-                }
+                this.elementRef.nativeElement.click();
             }
+            this.thyHotkeyListener.emit(event);
         });
     }
 
