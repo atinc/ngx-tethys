@@ -1,6 +1,6 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
-    <input thyInput thyHotkey="Meta+b,Control+b" [(ngModel)]="value" placeholder="Please type (thyInput)" />
+    <input thyInput [(ngModel)]="value" placeholder="Please type (thyInput)" />
     <input thyInput readonly [(ngModel)]="value" placeholder="Readonly, can't type (thyInput)" class="mt-3" />
     <input thyInput [disabled]="true" [(ngModel)]="value" placeholder="Disabled, can't type (thyInput)" class="mt-3" />
   </div>
