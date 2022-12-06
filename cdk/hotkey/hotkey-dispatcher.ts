@@ -3,8 +3,8 @@ import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
 import { fromEvent, Observable } from 'rxjs';
-import { filter, tap } from 'rxjs/operators';
-import { isString } from '@tethys/cdk/is';
+import { filter } from 'rxjs/operators';
+import { isString, isUndefinedOrNull } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
 
 @Injectable({ providedIn: 'root' })
@@ -41,9 +41,9 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
     /**
      *  热键事件订阅
      */
-    keydown(hotkey: string | string[], scope: ElementRef<Element> | Element | Document = this.document): Observable<KeyboardEvent> {
+    keydown(hotkey: string | string[], scope?: ElementRef<Element> | Element | Document): Observable<KeyboardEvent> {
         const hotkeys = isString(hotkey) ? hotkey.split(',') : hotkey;
-        const scopeElement = coerceElement(scope);
+        const scopeElement = coerceElement(isUndefinedOrNull(scope) ? this.document : scope);
         if (!this.checkHotkeyConflict(scopeElement, hotkeys)) {
             return;
         }

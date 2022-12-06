@@ -7,6 +7,7 @@ import { ThySidebarComponent } from './sidebar.component';
 import { ThyContentSectionComponent } from './content-section.component';
 import { ThyContentMainComponent } from './content-main.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ThyHotkeyModule } from '@tethys/cdk/hotkey';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThySidebarHeaderComponent } from './sidebar-header.component';
@@ -26,7 +27,7 @@ import { ThyResizableModule } from 'ngx-tethys/resizable';
         ThyContentSectionComponent,
         ThyContentMainComponent
     ],
-    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule, ThyResizableModule],
+    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule, ThyResizableModule, ThyHotkeyModule],
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,
