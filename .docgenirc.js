@@ -20,6 +20,16 @@ module.exports = {
             }
         },
         {
+            title: 'CDK',
+            path: 'cdk',
+            lib: 'tethys-cdk',
+            locales: {
+                'en-us': {
+                    title: 'Components'
+                }
+            }
+        },
+        {
             title: 'GitHub',
             path: 'https://github.com/atinc/ngx-tethys',
             isExternal: true
@@ -113,6 +123,14 @@ module.exports = {
                     color: '#2dbcff'
                 }
             }
+        },
+        {
+            name: 'tethys-cdk',
+            abbrName: 'thy',
+            rootDir: './cdk',
+            exclude: ['dom', 'event'],
+            apiMode: 'compatible',
+            categories: []
         }
     ],
     footer: "Copyright © 2020-present Powered by <a href='https://worktile.com' target='_blank' >Worktile</a>",

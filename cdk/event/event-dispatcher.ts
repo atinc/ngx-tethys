@@ -6,16 +6,16 @@ import { Directive, NgZone, OnDestroy } from '@angular/core';
 const DEFAULT_EVENT_TIME = 100;
 
 @Directive()
-export abstract class ThyEventDispatcher implements OnDestroy {
+export abstract class ThyEventDispatcher<T = Event> implements OnDestroy {
     private _globalSubscription: Subscription = null;
 
-    private _event$ = new Subject<Event>();
+    private _event$ = new Subject<T>();
 
     private _subscriptionCount = 0;
 
     private _addGlobalListener() {
         this._globalSubscription = this.ngZone.runOutsideAngular(() => {
-            return fromEvent(this.document, this.eventName).subscribe((event: Event) => {
+            return fromEvent<T>(this.document, this.eventName).subscribe((event: T) => {
                 this._event$.next(event);
             });
         });
@@ -32,9 +32,9 @@ export abstract class ThyEventDispatcher implements OnDestroy {
         return this._globalSubscription;
     }
 
-    constructor(private document: Document, private ngZone: NgZone, private eventName: string) {}
+    constructor(protected document: Document, private ngZone: NgZone, private eventName: string) {}
 
-    protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<Event> {
+    protected subscribe(auditTimeInMs: number = DEFAULT_EVENT_TIME): Observable<T> {
         return new Observable(observer => {
             if (!this._globalSubscription) {
                 this._addGlobalListener();

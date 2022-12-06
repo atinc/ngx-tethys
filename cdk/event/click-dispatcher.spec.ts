@@ -1,8 +1,8 @@
 import { inject, TestBed, async, fakeAsync, ComponentFixture, tick, flushMicrotasks, flush } from '@angular/core/testing';
 import { NgModule, Component, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ThyClickDispatcher } from '../event-dispatchers/click-dispatcher';
+import { dispatchFakeEvent } from '@tethys/cdk/testing';
+import { ThyClickDispatcher } from './click-dispatcher';
 import { Subscription, Observable } from 'rxjs';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 describe('ClickDispatcher', () => {
     beforeEach(() => {
