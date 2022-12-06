@@ -3,9 +3,9 @@ import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core
 import { ThyLayoutModule } from '../layout.module';
 import { By } from '@angular/platform-browser';
 import { ThyLayoutComponent } from '../layout.component';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/testing';
+import { injectDefaultSvgIconSet, bypassSanitizeProvider, createKeyboardEvent } from 'ngx-tethys/testing';
 import { ThySidebarComponent, ThySidebarTheme } from '../sidebar.component';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from '@tethys/cdk/testing';
 import { ThySidebarHeaderComponent } from '../sidebar-header.component';
 import { ThySidebarContentComponent } from '../sidebar-content.component';
 import { ThySidebarFooterComponent } from '../sidebar-footer.component';
@@ -217,7 +217,7 @@ describe(`sidebar`, () => {
                 expect(sidebarComponent.collapseVisible).toEqual(false);
                 expect(sidebarComponent.isCollapsed).toEqual(true);
                 tick(200);
-                expect(sidebarComponent.collapseTip).toEqual('展开');
+                expect(sidebarComponent.collapseTip).toContain('展开');
             }));
         });
 
@@ -229,6 +229,18 @@ describe(`sidebar`, () => {
             expect(sidebarDebugElement.componentInstance.thyCollapsible).toEqual(true);
             expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
         }));
+
+        it('should sidebar expand or collapsed when press mete+/ or control+/', () => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.detectChanges();
+            const spy = spyOn(fixture.componentInstance, 'collapsedChange');
+            const metaEvent = createKeyboardEvent('keydown', null, '/', { meta: true });
+            const controlEvent = createKeyboardEvent('keydown', null, '/', { control: true });
+            document.dispatchEvent(metaEvent);
+            expect(spy).toHaveBeenCalledTimes(1);
+            document.dispatchEvent(controlEvent);
+            expect(spy).toHaveBeenCalledTimes(2);
+        });
 
         it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
             const inputCollapseWidth = 80;
@@ -254,12 +266,12 @@ describe(`sidebar`, () => {
             fixture.debugElement.componentInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('收起');
+            expect(sidebarDebugElement.componentInstance.collapseTip).toContain('收起');
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
-            expect(sidebarDebugElement.componentInstance.collapseTip).toEqual('展开');
+            expect(sidebarDebugElement.componentInstance.collapseTip).toContain('展开');
             flush();
         }));
 
