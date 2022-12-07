@@ -17,12 +17,6 @@ jobs:
     if: startsWith(github.head_ref, 'release-auto-')
     runs-on: ubuntu-latest
     steps:
-      - name: Automerge
-        uses: 'pascalgn/automerge-action@v0.14.3'
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          MERGE_DELETE_BRANCH: false
-          MERGE_LABELS: ''
       - name: Release
         uses: actions/checkout@v2
         with:
@@ -35,6 +29,11 @@ jobs:
       - name: Install dependencies
         run: npm ci --force
       - run: echo '${{toJSON(secrets)}}'
+      - name: Automerge
+        uses: 'pascalgn/automerge-action@v0.14.3'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          MERGE_LABELS: ''
       # - name: Publish
       #   if: startsWith(github.head_ref, 'release-auto-v')
       #   run: npm run pub
