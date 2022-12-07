@@ -22,6 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           MERGE_DELETE_BRANCH: false
+          MERGE_LABELS: ''
       - name: Release
         uses: actions/checkout@v2
         with:
