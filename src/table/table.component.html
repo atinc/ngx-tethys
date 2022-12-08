@@ -1,6 +1,4 @@
-<thy-table-skeleton [hidden]="loadingDone" [thyRowCount]="5"> </thy-table-skeleton>
 <div
-  [hidden]="!loadingDone"
   class="thy-table-body"
   cdkScrollable
   [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }"
@@ -271,6 +269,8 @@
       ></thy-empty>
     </ng-template>
   </div>
+
+  <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
 
   <div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
     <thy-pagination
