@@ -4,87 +4,7 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 const COLUMN_COUNT = 5;
 @Component({
     selector: 'thy-table-skeleton',
-    template: `
-        <table>
-            <thead>
-                <tr>
-                    <th [width]="i === 0 ? '40%' : i === 1 ? '20%' : 'auto'" *ngFor="let key of columnCount; index as i">
-                        <thy-skeleton-rectangle
-                            [thyRowWidth]="titleWidth"
-                            [thyRowHeight]="titleHeight"
-                            [thyBorderRadius]="thyBorderRadius"
-                            [thyAnimated]="thyAnimated"
-                            [thyAnimatedInterval]="thyAnimatedInterval"
-                            [thyPrimaryColor]="thyPrimaryColor"
-                            [thySecondaryColor]="thySecondaryColor"
-                        ></thy-skeleton-rectangle>
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                <ng-template ngFor let-item [ngForOf]="rowCount" let-i="index + 1">
-                    <tr>
-                        <td>
-                            <div class="d-flex" style="align-items:center">
-                                <thy-skeleton-rectangle
-                                    class="mr-2"
-                                    [thyRowWidth]="checkBoxWidth"
-                                    [thyRowHeight]="thyRowHeight"
-                                    [thyBorderRadius]="thyBorderRadius"
-                                    [thyAnimated]="thyAnimated"
-                                    [thyAnimatedInterval]="thyAnimatedInterval"
-                                    [thyPrimaryColor]="thyPrimaryColor"
-                                    [thySecondaryColor]="thySecondaryColor"
-                                ></thy-skeleton-rectangle>
-                                <thy-skeleton-rectangle
-                                    [thyRowWidth]="i % 3 === 1 ? '70%' : i % 3 === 2 ? '85%' : '60%'"
-                                    [thyRowHeight]="thyRowHeight"
-                                    [thyBorderRadius]="thyBorderRadius"
-                                    [thyAnimated]="thyAnimated"
-                                    [thyAnimatedInterval]="thyAnimatedInterval"
-                                    [thyPrimaryColor]="thyPrimaryColor"
-                                    [thySecondaryColor]="thySecondaryColor"
-                                ></thy-skeleton-rectangle>
-                            </div>
-                        </td>
-                        <td>
-                            <div class="d-flex" style="align-items:center">
-                                <thy-skeleton-circle
-                                    class="mr-2"
-                                    [thySize]="avatarSize"
-                                    [thyAnimated]="thyAnimated"
-                                    [thyAnimatedInterval]="thyAnimatedInterval"
-                                    [thyPrimaryColor]="thyPrimaryColor"
-                                    [thySecondaryColor]="thySecondaryColor"
-                                ></thy-skeleton-circle>
-
-                                <thy-skeleton-rectangle
-                                    [thyRowWidth]="i % 3 === 1 ? '50%' : i % 3 === 2 ? '60%' : '40%'"
-                                    [thyRowHeight]="thyRowHeight"
-                                    [thyBorderRadius]="thyBorderRadius"
-                                    [thyAnimated]="thyAnimated"
-                                    [thyAnimatedInterval]="thyAnimatedInterval"
-                                    [thyPrimaryColor]="thyPrimaryColor"
-                                    [thySecondaryColor]="thySecondaryColor"
-                                ></thy-skeleton-rectangle>
-                            </div>
-                        </td>
-                        <td *ngFor="let item of columnCount.slice(2)">
-                            <thy-skeleton-rectangle
-                                [thyRowWidth]="'70%'"
-                                [thyRowHeight]="thyRowHeight"
-                                [thyBorderRadius]="thyBorderRadius"
-                                [thyAnimated]="thyAnimated"
-                                [thyAnimatedInterval]="thyAnimatedInterval"
-                                [thyPrimaryColor]="thyPrimaryColor"
-                                [thySecondaryColor]="thySecondaryColor"
-                            ></thy-skeleton-rectangle>
-                        </td>
-                    </tr>
-                </ng-template>
-            </tbody>
-        </table>
-    `,
+    templateUrl: './table-skeleton.component.html',
     host: {
         class: 'thy-table-skeleton'
     },
@@ -104,7 +24,7 @@ export class ThyTableSkeletonComponent {
      */
     @Input()
     @InputCssPixel()
-    thyRowHeight: string | number;
+    thyRowHeight: string | number = '18px';
 
     /**
      * 是否开启动画

@@ -2,25 +2,14 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-table-skeleton-example',
-    template: `
-        <thy-table-skeleton
-            [thyRowHeight]="model.thyRowHeight"
-            [thyRowCount]="model.thyRowCount"
-            [thyAnimatedInterval]="model.thyAnimatedInterval"
-            [thyAnimated]="model.thyAnimated"
-            [thyBorderRadius]="model.thyBorderRadius"
-        >
-        </thy-table-skeleton>
-    `
+    templateUrl: './skeleton.component.html'
 })
 export class ThyTableSkeletonExampleComponent implements OnInit {
-    model = {
-        thyBorderRadius: 2,
-        thyRowCount: 6,
-        thyRowHeight: '18px',
-        thyAnimatedInterval: 1.2,
-        thyAnimated: true
-    };
+    data = [
+        { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
+        { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
+        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' }
+    ];
     constructor() {}
 
     ngOnInit() {}
