@@ -3,7 +3,6 @@ import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
-import { ThyDialogContainerComponent } from 'ngx-tethys/dialog';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -43,7 +42,6 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
             (click)="toggleCollapse($event)"
             [thyHotkey]="'Control+/,Meta+/'"
-            [thyHotkeyScope]="dialogContainerComponent && dialogContainerComponent.elementRef.nativeElement"
             [thyTooltip]="!thyTrigger && collapseTip"
         >
             <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
@@ -147,11 +145,7 @@ export class ThySidebarComponent implements OnInit {
 
     isRemoveTransition: boolean;
 
-    constructor(
-        @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
-        public elementRef: ElementRef,
-        @Optional() public dialogContainerComponent: ThyDialogContainerComponent
-    ) {}
+    constructor(@Optional() @Host() private thyLayoutComponent: ThyLayoutComponent, public elementRef: ElementRef) {}
 
     ngOnInit() {
         if (this.thyLayoutComponent) {

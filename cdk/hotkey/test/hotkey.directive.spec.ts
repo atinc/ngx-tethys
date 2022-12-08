@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { ThyHotkeyModule } from '../module';
 import { createKeyboardEvent } from '@tethys/cdk/testing';
 
@@ -45,26 +45,32 @@ describe('ThyHotkeyDirective', () => {
         fixture.detectChanges();
     });
 
-    it('should input focus when press Control+m ', () => {
+    it('should input focus when press Control+m ', fakeAsync(() => {
         document.dispatchEvent(createKeyboardEvent('keydown', null, 'm', { control: true }));
+        tick();
         expect(document.activeElement).toEqual(component.input.nativeElement);
-    });
+    }));
 
-    it('should call save when press Control+Enter or Meta+Enter in textarea', () => {
+    it('should call save when press Control+Enter or Meta+Enter in textarea', fakeAsync(() => {
         const saveSpy = spyOn(component, 'save');
         const metaEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { meta: true });
         const controlEnterCodeEvent = createKeyboardEvent('keydown', null, 'Enter', { control: true });
         document.dispatchEvent(metaEnterCodeEvent);
         document.dispatchEvent(controlEnterCodeEvent);
+        tick();
         expect(saveSpy).not.toHaveBeenCalled();
         component.textarea.nativeElement.dispatchEvent(metaEnterCodeEvent);
+        tick();
+        expect(saveSpy).toHaveBeenCalledTimes(1);
         component.textarea.nativeElement.dispatchEvent(controlEnterCodeEvent);
+        tick();
         expect(saveSpy).toHaveBeenCalledTimes(2);
-    });
+    }));
 
-    it('should emit hotkey listener ', () => {
+    it('should emit hotkey listener ', fakeAsync(() => {
         const hotkeyListenerSpy = spyOn(component, 'hotkeyListener');
         document.dispatchEvent(createKeyboardEvent('keydown', null, 'm', { control: true }));
+        tick();
         expect(hotkeyListenerSpy).toHaveBeenCalledTimes(1);
-    });
+    }));
 });

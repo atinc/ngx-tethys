@@ -148,7 +148,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
     }
 
     constructor(
-        public elementRef: ElementRef,
+        private elementRef: ElementRef,
         @Inject(DOCUMENT) private document: any,
         public config: ThyDialogConfig,
         changeDetectorRef: ChangeDetectorRef,
