@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.1](https://github.com/atinc/ngx-tethys/compare/14.2.0...14.2.1) (2022-12-08)
+
+
+### Bug Fixes
+
+* set thy-table-fixed-header box shadow #INFR-5644 ([67bfa9f](https://github.com/atinc/ngx-tethys/commit/67bfa9f80ec9981214868f71acc19c414cd94855)), closes [#INFR-5644](https://github.com/atinc/ngx-tethys/issues/INFR-5644)
+
+
+### Features
+
+* **git:** auto approve before merge pr  ([33ad470](https://github.com/atinc/ngx-tethys/commit/33ad470fec98093952f3e822aa12957fa295e056))
+* **table:** add table-skeleton #INFR-5315 ([#2415](https://github.com/atinc/ngx-tethys/issues/2415)) ([ec67bc4](https://github.com/atinc/ngx-tethys/commit/ec67bc43bfff0da382b612926f753298910870df)), closes [#INFR-5315](https://github.com/atinc/ngx-tethys/issues/INFR-5315)
+
+
+
 # [14.2.0](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.6...14.2.0) (2022-12-08)
 
 
