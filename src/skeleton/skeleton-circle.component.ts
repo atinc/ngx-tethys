@@ -66,7 +66,6 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
      * @default true
      */
     @Input()
-    @InputBoolean()
     thyAnimated: boolean;
 
     public afterStyles: Style = {};
@@ -99,7 +98,9 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
                     0.15
                 )}, ${helpers.hexToRgb(this.thySecondaryColor, 0)}`
             }),
-            animation: this.thyAnimated !== false ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite` : 'none'
+            animation: ![false, 'false'].includes(this.thyAnimated)
+                ? `thy-skeleton-animation ${this.thyAnimatedInterval}s infinite`
+                : 'none'
         };
     }
 
