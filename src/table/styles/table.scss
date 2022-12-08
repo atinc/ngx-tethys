@@ -351,7 +351,7 @@
 
     &-fixed-header {
         thead {
-            box-shadow: 0 0 0 1px #eee;
+            box-shadow: 0 0 0 0.5px #eee;
             background-color: variables.$white;
             position: sticky;
             left: 0;
