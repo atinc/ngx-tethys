@@ -42,7 +42,8 @@ jobs:
         run: npm run pub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+        with:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' 
       - name: Publish-next
         if: startsWith(github.head_ref, 'release-auto-next-v')
         run: npm run pub-next
