@@ -39,11 +39,13 @@ jobs:
       #   run: git checkout ${{github.event.pull_request.base.ref}}
       - name: Publish
         if: startsWith(github.head_ref, 'release-auto-v')
-        run: npm run pub
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          npm run pub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-        with:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}' 
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       - name: Publish-next
         if: startsWith(github.head_ref, 'release-auto-next-v')
         run: npm run pub-next
