@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [14.2.0](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.6...14.2.0) (2022-12-08)
+
+
+### Bug Fixes
+
+* run action when completed ([e2f4c34](https://github.com/atinc/ngx-tethys/commit/e2f4c3471672df81023d596916968f8e9e6310c7))
+
+
+### Features
+
+* **cdk:** add object-producer to immutable #INFR-5526 ([01429e9](https://github.com/atinc/ngx-tethys/commit/01429e95110b25882a41d3a710f5971b21c34e72)), closes [#INFR-5526](https://github.com/atinc/ngx-tethys/issues/INFR-5526)
+* **cdk:** add ThyHotkeyDirective and  ThyHotkeyDispatcher #INFR-5572 ([#2388](https://github.com/atinc/ngx-tethys/issues/2388)) ([1b9d78d](https://github.com/atinc/ngx-tethys/commit/1b9d78d19bdf45d05e6210bdb6f9a2f0dfb6b421)), closes [#INFR-5572](https://github.com/atinc/ngx-tethys/issues/INFR-5572)
+* **cdk:** call last hotkey event when hotkey conflicted #INFR-5572 ([#2410](https://github.com/atinc/ngx-tethys/issues/2410)) ([9e042aa](https://github.com/atinc/ngx-tethys/commit/9e042aa04776c4211c7bae14bce045fc5ddc1156)), closes [#INFR-5572](https://github.com/atinc/ngx-tethys/issues/INFR-5572)
+* **layout:** sidebar collapsible support hotkey #INFR-5570 ([59b7245](https://github.com/atinc/ngx-tethys/commit/59b7245ef43cddcc0e7fe68ea36485cd891b9561)), closes [#INFR-5570](https://github.com/atinc/ngx-tethys/issues/INFR-5570)
+* **mention:** support contenteditable #INFR-175 ([#2382](https://github.com/atinc/ngx-tethys/issues/2382)) ([991a8de](https://github.com/atinc/ngx-tethys/commit/991a8de26133c65100e96f6d9f65301d72523b3b)), closes [#INFR-175](https://github.com/atinc/ngx-tethys/issues/INFR-175)
+* **nav:** nav-item-icon-color change to [#999](https://github.com/atinc/ngx-tethys/issues/999) #INFR-5560 ([3667b05](https://github.com/atinc/ngx-tethys/commit/3667b057268393515db18e3b92e4602ef0009652)), closes [#INFR-5560](https://github.com/atinc/ngx-tethys/issues/INFR-5560)
+
+
+
 # [14.2.0-next.6](https://github.com/atinc/ngx-tethys/compare/14.2.0-next.5...14.2.0-next.6) (2022-11-30)
 
 
