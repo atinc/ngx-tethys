@@ -34,6 +34,9 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           MERGE_LABELS: ''
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "20"
+          MERGE_RETRY_SLEEP: "10000"
   publish:
     if: startsWith(github.head_ref, 'release-auto-')
     needs: [autoMerge]
