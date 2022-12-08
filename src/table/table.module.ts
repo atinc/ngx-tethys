@@ -4,6 +4,7 @@ import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyPaginationModule } from 'ngx-tethys/pagination';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ScrollingModule } from '@angular/cdk/scrolling';
@@ -15,9 +16,15 @@ import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
 import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { ThyTableColumnComponent } from './table-column.component';
 import { ThyTableComponent } from './table.component';
-
+import { ThySkeletonTableComponent } from './expand/table.component';
 @NgModule({
-    declarations: [ThyTableComponent, ThyTableColumnComponent, TableIsValidModelValuePipe, TableRowDragDisabledPipe],
+    declarations: [
+        ThyTableComponent,
+        ThyTableColumnComponent,
+        TableIsValidModelValuePipe,
+        TableRowDragDisabledPipe,
+        ThySkeletonTableComponent
+    ],
     imports: [
         CommonModule,
         FormsModule,
@@ -28,8 +35,9 @@ import { ThyTableComponent } from './table.component';
         ThySharedModule,
         ThyIconModule,
         DragDropModule,
-        ScrollingModule
+        ScrollingModule,
+        ThySkeletonModule
     ],
-    exports: [ThyTableComponent, ThyTableColumnComponent]
+    exports: [ThyTableComponent, ThyTableColumnComponent, ThySkeletonTableComponent]
 })
 export class ThyTableModule {}

@@ -1,5 +1,6 @@
-@forward './main.scss';
-@forward './circle.scss';
-@forward './list.scss';
-@forward './bullet-list.scss';
-@forward './paragraph.scss';
+@use './main.scss';
+@use './circle.scss';
+@use './list.scss';
+@use './bullet-list.scss';
+@use './paragraph.scss';
+@use './table.scss';

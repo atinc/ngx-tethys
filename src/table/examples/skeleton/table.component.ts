@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyTableTheme } from 'ngx-tethys/table';
 @Component({
-    selector: 'thy-skeleton-example-table',
+    selector: 'thy-table-skeleton-example',
     template: `
         <thy-skeleton-table
             [thyRowHeight]="model.thyRowHeight"
@@ -13,7 +12,7 @@ import { ThyTableTheme } from 'ngx-tethys/table';
         </thy-skeleton-table>
     `
 })
-export class ThySkeletonExampleTableComponent implements OnInit {
+export class ThyTableSkeletonExampleComponent implements OnInit {
     model = {
         thyBorderRadius: 2,
         thyRowCount: 6,

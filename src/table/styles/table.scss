@@ -1,5 +1,6 @@
 @use "../../styles/mixins/hover";
 @use "../../styles/variables";
+@use "./skeleton.scss";
 
 @mixin thy-table-scroll-left {
     .thy-table-fixed-column-right {
