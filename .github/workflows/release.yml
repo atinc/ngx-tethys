@@ -22,7 +22,7 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           MERGE_LABELS: ''
-      - run: echo '${{toJSON(github.event.pull_request)}}'
+      # - run: echo '${{toJSON(github.event.pull_request)}}'
       - name: Release
         uses: actions/checkout@v2
         with:
@@ -34,7 +34,9 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: npm ci --force
-      - run: echo '${{toJSON(secrets)}}'
+      # - run: echo '${{toJSON(secrets)}}'
+      - name: checkout branch
+        run: git checkout ${{github.event.pull_request.base.ref}}
       - name: Publish
         if: startsWith(github.head_ref, 'release-auto-v')
         run: npm run pub
