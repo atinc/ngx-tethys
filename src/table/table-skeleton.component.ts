@@ -5,7 +5,7 @@ const COLUMN_COUNT = 5;
 @Component({
     selector: 'thy-table-skeleton',
     template: `
-        <table class="thy-table-skeleton">
+        <table>
             <thead>
                 <tr>
                     <th [width]="i === 0 ? '40%' : i === 1 ? '20%' : 'auto'" *ngFor="let key of columnCount; index as i">
@@ -85,6 +85,9 @@ const COLUMN_COUNT = 5;
             </tbody>
         </table>
     `,
+    host: {
+        class: 'thy-table-skeleton'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None
 })
