@@ -67,6 +67,12 @@ export class ThyTransferComponent implements OnInit {
 
     @Input() thyRightDraggable: boolean;
 
+    @Input() thySearchPlaceholder: string = '搜索';
+
+    @Input() thyShowListSearch: boolean;
+
+    @Input() thyShowOperation: boolean = true;
+
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();

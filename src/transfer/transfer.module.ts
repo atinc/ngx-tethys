@@ -1,16 +1,31 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ThyTransferComponent } from './transfer.component';
-import { ThyTransferListComponent } from './transfer-list.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThySharedModule } from 'ngx-tethys/shared';
-import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
+
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ThyTransferListComponent } from './transfer-list.component';
+import { ThyTransferComponent } from './transfer.component';
+
 @NgModule({
     declarations: [ThyTransferComponent, ThyTransferListComponent],
-    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule, ThySharedModule, ThyFlexibleTextModule],
+    imports: [
+        FormsModule,
+        CommonModule,
+        ThyButtonModule,
+        DragDropModule,
+        ThyIconModule,
+        ThyListModule,
+        ThySharedModule,
+        ThyFlexibleTextModule,
+        ThyInputModule
+    ],
     exports: [ThyTransferComponent]
 })
 export class ThyTransferModule {}

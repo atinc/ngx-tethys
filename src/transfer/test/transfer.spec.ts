@@ -9,11 +9,11 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyTransferComponent } from '../transfer.component';
 import {
+    InnerTransferDragEvent,
     ThyTransferChangeEvent,
     ThyTransferDragEvent,
     ThyTransferItem,
-    TransferDirection,
-    InnerTransferDragEvent
+    TransferDirection
 } from '../transfer.interface';
 import { ThyTransferModule } from '../transfer.module';
 
@@ -142,6 +142,7 @@ function buildDataList() {
             [thyRightCanLock]="true"
             [thyRightLockMax]="maxLock"
             [thyRightMax]="rightMax"
+            [thyShowListSearch]="canShowSearch"
             (thyDraggableUpdate)="onDragUpdate($event)"
             (thyChange)="change($event)"
         >
@@ -155,6 +156,8 @@ class TestTransferComponent {
     titles = ['Source', 'Target'];
 
     rightMax: any;
+
+    canShowSearch = false;
 
     change(ret: ThyTransferChangeEvent): void {}
 
@@ -279,6 +282,34 @@ describe('transfer', () => {
             .expectLeft(COUNT);
         const leftFirst = pageObject.leftList.querySelectorAll('.thy-transfer-list-content-item')[0];
         expect(leftFirst.classList).toContain('disabled');
+    });
+
+    it('should show search when thyShowListSearch is true', () => {
+        const inputElement = dl.nativeElement.querySelector('thy-input-search input');
+        expect(inputElement).toBeFalsy();
+        const leftTransfer = dl.nativeElement.querySelector('thy-transfer-list');
+        const lists = leftTransfer.querySelectorAll('thy-transfer-list thy-list-item');
+        expect(lists.length).toEqual(9);
+
+        instance.canShowSearch = true;
+        fixture.detectChanges();
+
+        const inputEl = dl.nativeElement.querySelector('thy-input-search input');
+        expect(inputEl).toBeTruthy();
+        inputEl.value = '1';
+        inputEl.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+
+        const leftTransfer1 = dl.nativeElement.querySelector('thy-transfer-list');
+        const lists1 = leftTransfer1.querySelectorAll('thy-transfer-list thy-list-item');
+        expect(lists1.length).toEqual(1);
+
+        inputEl.value = '';
+        inputEl.dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        const leftTransfer2 = dl.nativeElement.querySelector('thy-transfer-list');
+        const lists2 = leftTransfer2.querySelectorAll('thy-transfer-list thy-list-item');
+        expect(lists2.length).toEqual(9);
     });
 
     class TransferPageObject {

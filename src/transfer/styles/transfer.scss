@@ -26,13 +26,34 @@
             padding: variables.$transfer-list-padding;
             height: variables.$transfer-list-height;
             vertical-align: middle;
-            overflow-y: auto;
+            overflow-y: hidden;
+
+            .thy-transfer-list-container {
+                height: 100%;
+                overflow-y: auto;
+            }
+
+            .thy-transfer-list-search {
+                width: 100%;
+                position: absolute;
+                top: 8px;
+                padding: 0 15px 0 20px;
+                .thy-input-search {
+                    border-bottom: 1px solid variables.$gray-200;
+                    border-radius: 0;
+                }
+            }
 
             .thy-transfer-list-group-name {
                 padding: 12px 20px;
                 color: variables.$gray-500;
                 line-height: 14px;
             }
+        }
+
+        .thy-transfer-list-body-has-search {
+            padding-top: 50px;
+            position: relative;
         }
 
         .thy-transfer-list-content {
@@ -52,6 +73,7 @@
     }
 
     .thy-transfer-operation {
+        min-width: 32px;
         padding: variables.$transfer-operation-padding;
         display: flex;
         align-items: center;

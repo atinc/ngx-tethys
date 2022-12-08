@@ -53,6 +53,24 @@ module.exports = [
                 default: ''
             },
             {
+                type: 'boolean',
+                name: 'thyShowListSearch',
+                description: 'Transfer左右侧是否展示搜索框',
+                default: 'false'
+            },
+            {
+                type: 'string',
+                name: 'thySearchPlaceholder',
+                description: 'Transfer左右侧搜索的placeholder',
+                default: '搜索'
+            },
+            {
+                type: 'boolean',
+                name: 'thyShowOperation',
+                description: 'Transfer是否展示操作区域',
+                default: 'true'
+            },
+            {
                 type: 'ContentChild<TemplateRef>',
                 name: '#renderTemplate',
                 description: '设置自定义Item渲染数据模板',

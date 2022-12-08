@@ -1,3 +1,5 @@
+import { helpers } from 'ngx-tethys/util';
+
 import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {
     Component,
@@ -22,15 +24,43 @@ import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTrans
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTransferListComponent implements OnInit, DoCheck {
-    public lockItems: ThyTransferItem[] = [];
+    set lockItems(value: ThyTransferItem[]) {
+        this._lockedItems = value;
+        this.searchValueChange();
+    }
 
-    public unlockItems: ThyTransferItem[] = [];
+    get lockItems() {
+        return this._lockedItems;
+    }
+
+    set unlockItems(value: ThyTransferItem[]) {
+        this._unlockedItems = value;
+        this.searchValueChange();
+    }
+
+    get unlockItems() {
+        return this._unlockedItems;
+    }
+
+    public _lockedItems: ThyTransferItem[] = [];
+
+    public _unlockedItems: ThyTransferItem[] = [];
+
+    public lockedFilterItems: ThyTransferItem[] = [];
+
+    public unlockFilterItems: ThyTransferItem[] = [];
 
     private _diff: IterableDiffer<ThyTransferItem>;
 
     private _lockDiff: IterableDiffer<ThyTransferItem>;
 
     private _unlockDiff: IterableDiffer<ThyTransferItem>;
+
+    public searchText: string = '';
+
+    @Input() canShowSearch: boolean;
+
+    @Input() searchPlaceholder: string = '搜索';
 
     @Input() title: string;
 
@@ -85,6 +115,7 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
         } else {
             this.unlockItems = this.items;
         }
+        this.searchValueChange();
     }
 
     private _afterChangeItems(changes: IterableChanges<ThyTransferItem>, items: ThyTransferItem[]) {
@@ -161,5 +192,14 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
             dragEvent: dragEvent,
             listData: { lock: this.lockItems, unlock: this.unlockItems }
         });
+    }
+
+    searchValueChange() {
+        this.lockedFilterItems = helpers.isEmpty(this.searchText)
+            ? this.lockItems.filter(item => item?.title?.includes(this.searchText))
+            : JSON.parse(JSON.stringify(this.lockItems));
+        this.unlockFilterItems = helpers.isEmpty(this.searchText)
+            ? this.unlockItems.filter(item => item?.title?.includes(this.searchText))
+            : JSON.parse(JSON.stringify(this.unlockItems));
     }
 }
