@@ -2,7 +2,7 @@ import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
-import { fromEvent, Observable, queueScheduler, Subscriber } from 'rxjs';
+import { fromEvent, Observable, Subscriber } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { isString, isUndefinedOrNull } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
