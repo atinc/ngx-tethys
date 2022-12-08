@@ -230,17 +230,20 @@ describe(`sidebar`, () => {
             expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
         }));
 
-        it('should sidebar expand or collapsed when press mete+/ or control+/', () => {
+        it('should sidebar expand or collapsed when press mete+/ or control+/', fakeAsync(() => {
             fixture.debugElement.componentInstance.collapsible = true;
             fixture.detectChanges();
             const spy = spyOn(fixture.componentInstance, 'collapsedChange');
             const metaEvent = createKeyboardEvent('keydown', null, '/', { meta: true });
             const controlEvent = createKeyboardEvent('keydown', null, '/', { control: true });
             document.dispatchEvent(metaEvent);
+            tick();
             expect(spy).toHaveBeenCalledTimes(1);
             document.dispatchEvent(controlEvent);
+            tick();
             expect(spy).toHaveBeenCalledTimes(2);
-        });
+            flush();
+        }));
 
         it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
             const inputCollapseWidth = 80;
