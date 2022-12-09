@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.2](https://github.com/atinc/ngx-tethys/compare/14.2.1...14.2.2) (2022-12-09)
+
+
+### Bug Fixes
+
+* **git:** auto merge retry 20 sleep 1m ([#2420](https://github.com/atinc/ngx-tethys/issues/2420)) ([a399ec1](https://github.com/atinc/ngx-tethys/commit/a399ec17f122063e645dc296b075918a8f64982f))
+* **input:** add display inline-flex for input-group-prefix and replace UpdateHostClassService with useHostRenderer for button ([7ccc291](https://github.com/atinc/ngx-tethys/commit/7ccc291b939b66bff3bc7c14067fbf60eecd0e98))
+* **table:** adjust the style of border-radius #INFR-5673 ([#2421](https://github.com/atinc/ngx-tethys/issues/2421)) ([4189d9d](https://github.com/atinc/ngx-tethys/commit/4189d9d278a8fed3f16c5e53e0677b724ab6fa0c)), closes [#INFR-5673](https://github.com/atinc/ngx-tethys/issues/INFR-5673)
+
+
+
 ## [14.2.1](https://github.com/atinc/ngx-tethys/compare/14.2.0...14.2.1) (2022-12-08)
 
 
