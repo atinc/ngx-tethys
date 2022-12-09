@@ -6,6 +6,8 @@ export type Id = string | number;
 
 export type Ids = Id[];
 
+export type IdOrIds = Id | Ids;
+
 export interface EntityAddOptions {
     prepend?: boolean;
 
@@ -87,10 +89,10 @@ export class Producer<TEntity> {
      *   name: 'New Name'
      * });
      */
-    update(id: Id | Id[] | null, newStateFn: (entity: Readonly<TEntity>) => Partial<TEntity>): TEntity[];
-    update(id: Id | Id[] | null, newState?: Partial<TEntity>): TEntity[];
+    update(id: IdOrIds | null, newStateFn: (entity: Readonly<TEntity>) => Partial<TEntity>): TEntity[];
+    update(id: IdOrIds | null, newState?: Partial<TEntity>): TEntity[];
     update(
-        idsOrFn: Id | Id[] | null | Partial<TEntity> | ((entity: Readonly<TEntity>) => boolean),
+        idsOrFn: IdOrIds | null | Partial<TEntity> | ((entity: Readonly<TEntity>) => boolean),
         newStateOrFn?: ((entity: Readonly<TEntity>) => Partial<TEntity>) | Partial<TEntity>
     ): TEntity[] {
         const ids = coerceArray(idsOrFn);
@@ -114,9 +116,9 @@ export class Producer<TEntity> {
      * produce([users]).remove([1,2,3]);
      * produce([users]).remove(entity => entity.id === 1);
      */
-    remove(id: Id | Id[]): TEntity[];
+    remove(id: IdOrIds): TEntity[];
     remove(predicate: (entity: Readonly<TEntity>) => boolean): TEntity[];
-    remove(idsOrFn?: Id | Id[] | ((entity: Readonly<TEntity>) => boolean)): TEntity[] {
+    remove(idsOrFn?: IdOrIds | ((entity: Readonly<TEntity>) => boolean)): TEntity[] {
         if (isFunction(idsOrFn)) {
             this.entities = this.entities.filter(entity => {
                 return !(idsOrFn as any)(entity);

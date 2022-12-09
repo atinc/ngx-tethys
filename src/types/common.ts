@@ -1,3 +1,3 @@
 export type SafeAny = any;
 
-export { Id, Ids } from '@tethys/cdk/immutable';
+export { Id, Ids, IdOrIds } from '@tethys/cdk/immutable';
