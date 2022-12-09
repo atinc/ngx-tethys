@@ -4,6 +4,8 @@ import { ObjectProducer } from './object-producer';
 
 export type Id = string | number;
 
+export type Ids = Id[];
+
 export interface EntityAddOptions {
     prepend?: boolean;
 
