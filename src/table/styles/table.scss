@@ -266,7 +266,8 @@
     }
     &.thy-table-bordered {
         border-radius: variables.$table-boxed-border-radius;
-        box-shadow: 0 0 0 variables.$table-border-width variables.$table-border-color;
+        border: variables.$table-border-width solid variables.$gray-200;
+        overflow: hidden;
         table {
             border-collapse: collapse;
             border-style: hidden;
