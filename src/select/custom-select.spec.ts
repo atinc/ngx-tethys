@@ -1441,12 +1441,12 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const removeIcon = fixture.debugElement.query(By.css('.choice-remove-link .thy-action'));
+            const removeIcon = fixture.debugElement.query(By.css('.choice-remove-link'));
             expect(removeIcon).not.toBeNull();
 
             fixture.componentInstance.disabled = true;
             fixture.detectChanges();
-            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove-link .thy-action'));
+            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove-link'));
             const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
             tick();
             expect(choice.classList.contains('disabled')).toBeTruthy();
@@ -1460,7 +1460,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             fixture.componentInstance.select.disabled = true;
-            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link .thy-action');
+            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             dispatchFakeEvent(closeIcon, 'click');
             fixture.detectChanges();
             flush();
@@ -1473,7 +1473,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link .thy-action');
+            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             fixture.componentInstance.foods = fixture.componentInstance.foods.filter(item => item.value !== 'sushi-7');
             fixture.detectChanges();
             flush();
@@ -1489,7 +1489,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const trigger = fixture.debugElement.query(By.css('.choice-remove-link .thy-action')).nativeElement;
+            const trigger = fixture.debugElement.query(By.css('.choice-remove-link')).nativeElement;
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);

@@ -26,22 +26,28 @@
                 margin-bottom: $padding-y;
                 padding: 0 0 0 8px;
                 border: 0 none;
-
                 .choice-remove-link {
                     height: 100%;
-                    .thy-action {
-                        padding: 0 8px;
+                    transition: background 0.2s ease-in-out;
+                    cursor: pointer;
+                    span{
                         height: 100%;
-                        border-top-left-radius: 0;
-                        border-bottom-left-radius: 0;
+                        padding: 0 8px;
+                        border-top-right-radius: variables.$tag-border-radius;
+                        border-bottom-right-radius: variables.$tag-border-radius;
+                        transition: background 0.2s ease-in-out;
+                        display: block;
                     }
                     .thy-icon {
-                        font-size: variables.$font-size-sm;
-                        margin-right: 0;
+                        transition: color 0.2s ease-in-out;
                     }
+                    
                     &:hover {
                         background-color: variables.$white;
-                        transition: background 0.2s ease-in-out;
+                        span{
+                            background-color: rgba(variables.$danger, 0.1);
+                        }
+                        
                         .thy-icon {
                             color: variables.$danger;
                         }
