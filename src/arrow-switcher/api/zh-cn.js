@@ -45,6 +45,18 @@ module.exports = [
                 description: '点击下一条事件',
                 type: 'EventEmitter<ThyArrowSwitcherEvent>',
                 default: '$event: { index: number, event: Event}'
+            },
+            {
+                name: 'thyPreviousTooltip',
+                description: '上一条 Tooltip (仅 lite 主题下有效) ',
+                type: 'string',
+                default: '-'
+            },
+            {
+                name: 'thyNextTooltip',
+                description: '下一条 Tooltip (仅 lite 主题下有效) ',
+                type: 'string',
+                default: '-'
             }
         ]
     }
