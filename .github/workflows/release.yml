@@ -36,7 +36,7 @@ jobs:
           MERGE_LABELS: ''
           MERGE_FORKS: "false"
           MERGE_RETRIES: "20"
-          MERGE_RETRY_SLEEP: "10000"
+          MERGE_RETRY_SLEEP: "60000"
   publish:
     if: startsWith(github.head_ref, 'release-auto-')
     needs: [autoMerge]
