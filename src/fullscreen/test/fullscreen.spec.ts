@@ -206,7 +206,6 @@ describe('Container ThyFullscreen', () => {
         expect(eleHeight.toFixed(0)).toBe('300');
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.container-fullscreen'))).toBeTruthy();
         expect(fullscreenComponent.query(By.css('.thy-fullscreen.container-fullscreen'))).toBeNull();
-        // ESC退出
         dispatchFakeEvent(buttonEle, 'click');
         expect(spy).toHaveBeenCalledTimes(2);
         expect(fullscreenComponent.query(By.css('.thy-fullscreen-active.container-fullscreen'))).toBeNull();
