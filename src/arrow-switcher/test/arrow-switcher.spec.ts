@@ -6,7 +6,7 @@ import { ThyArrowSwitcherComponent } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
-describe('ThyArrowSwitcher', () => {
+fdescribe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
     let testComponent: ThyDemoArrowSwitcherComponent;
     let arrowSwitcherComponent: DebugElement;
@@ -102,6 +102,17 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
     }));
+
+    it('should support thyPreviousTooltip and thyNextTooltip', fakeAsync(() => {
+        testComponent.previousTooltip = '上一条';
+        testComponent.nextTooltip = '下一条';
+        fixture.detectChanges();
+        const btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
+        const previousText = (btnElements[0] as HTMLElement).getAttribute('ng-reflect-content');
+        const nextText = (btnElements[1] as HTMLElement).getAttribute('ng-reflect-content');
+        expect(previousText).toEqual('上一条');
+        expect(nextText).toEqual('下一条');
+    }));
 });
 
 @Component({
@@ -116,6 +127,8 @@ describe('ThyArrowSwitcher', () => {
             [disabled]="disabled"
             (thyPrevious)="previousClick()"
             (thyNext)="nextClick()"
+            [thyPreviousTooltip]="previousTooltip"
+            [thyNextTooltip]="nextTooltip"
         ></thy-arrow-switcher>
     `
 })
@@ -125,6 +138,8 @@ class ThyDemoArrowSwitcherComponent {
     theme = 'default';
     disabled = false;
     size = ``;
+    previousTooltip: string;
+    nextTooltip: string;
 
     @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcherComponent;
 
