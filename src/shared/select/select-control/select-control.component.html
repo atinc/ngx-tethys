@@ -36,9 +36,9 @@
             {{ item.thyLabelText }}
           </ng-container>
         </div>
-        <div *ngIf="!disabled" class="choice-remove-link">
+        <div *ngIf="!disabled" class="choice-remove-link" (click)="removeHandle(item, $event)">
           <span>
-            <thy-icon thyIconName="close" class="font-size-sm" (click)="removeHandle(item, $event)"></thy-icon>
+            <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
           </span>
         </div>
       </li>
