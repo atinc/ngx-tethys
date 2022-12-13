@@ -6,12 +6,14 @@ import { FormsModule } from '@angular/forms';
 import { ThyArrowSwitcherSizeExampleComponent } from './size/size.component';
 import { ThyArrowSwitcherDisabledExampleComponent } from './disabled/disabled.component';
 import { ThyArrowSwitcherLiteExampleComponent } from './lite/lite.component';
+import { ThyArrowSwitcherTooltipExampleComponent } from './tooltip/tooltip.component';
 
 const COMPONENTS = [
     ThyArrowSwitcherBasicExampleComponent,
     ThyArrowSwitcherLiteExampleComponent,
     ThyArrowSwitcherSizeExampleComponent,
-    ThyArrowSwitcherDisabledExampleComponent
+    ThyArrowSwitcherDisabledExampleComponent,
+    ThyArrowSwitcherTooltipExampleComponent
 ];
 @NgModule({
     declarations: [...COMPONENTS],

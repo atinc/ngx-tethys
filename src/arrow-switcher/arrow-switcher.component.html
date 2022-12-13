@@ -1,8 +1,8 @@
 <div class="switcher-wrapper" *ngIf="theme === 'lite'; else default">
-  <a thyAction href="javascript:;" [thyDisabled]="previousDisabled" class="mr-2" (click)="onPreviousClick($event)"
+  <a thyAction [thyTooltip]="thyPreviousTooltip" href="javascript:;" [thyDisabled]="previousDisabled" class="mr-2" (click)="onPreviousClick($event)"
     ><thy-icon thyIconName="angle-up"></thy-icon
   ></a>
-  <a thyAction href="javascript:;" [thyDisabled]="nextDisabled" (click)="onNextClick($event)"
+  <a thyAction [thyTooltip]="thyNextTooltip" href="javascript:;" [thyDisabled]="nextDisabled" (click)="onNextClick($event)"
     ><thy-icon thyIconName="angle-down"></thy-icon
   ></a>
 </div>
