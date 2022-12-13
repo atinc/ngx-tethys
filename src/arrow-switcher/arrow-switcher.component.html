@@ -9,8 +9,8 @@
 
 <ng-template #default>
   <div class="switcher-wrapper">
-    <button thyButtonIcon="angle-left" [disabled]="previousDisabled" (click)="onPreviousClick($event)"></button>
+    <button thyButtonIcon="angle-left" [thyTooltip]="thyPreviousTooltip" [disabled]="previousDisabled" (click)="onPreviousClick($event)"></button>
     <span>{{ index + 1 }} / {{ total }}</span>
-    <button thyButtonIcon="angle-right" [disabled]="nextDisabled" (click)="onNextClick($event)"></button>
+    <button thyButtonIcon="angle-right" [thyTooltip]="thyNextTooltip" [disabled]="nextDisabled" (click)="onNextClick($event)"></button>
   </div>
 </ng-template>
