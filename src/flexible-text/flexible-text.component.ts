@@ -29,7 +29,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     /**
      * 触发提示方式，hover, focus, click
-     * @Default hover
+     * @default hover
      */
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
@@ -59,7 +59,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     /**
      * tooltip 的提示位置，top | bottom | left | right
-     * @Default top
+     * @default top
      */
     @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;

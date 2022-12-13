@@ -1,0 +1,7 @@
+<thy-alert thyTheme="naked" thyType="info" thyMessage="在键盘上键入所需的组合键以查询对应的 HotkeyCode" [thyIcon]="'lightbulb'">
+</thy-alert>
+
+<div class="hotkey-content">
+  <textarea class="form-control hotkey-code" [value]="hotkeyCode" (keydown)="onKeydown($event)"></textarea>
+  <a class="hotkey-code-copy" thyCopy [thyCopyContent]="hotkeyCode" thyAction thyIcon="copy" href="javascript:;"></a>
+</div>

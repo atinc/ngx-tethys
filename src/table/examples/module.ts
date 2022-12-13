@@ -13,6 +13,7 @@ import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThySwitchModule } from 'ngx-tethys/switch';
 import { ThyTableModule } from 'ngx-tethys/table';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
+import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -35,6 +36,7 @@ export default {
         ThyEmptyModule,
         ThyActionModule,
         ThyAvatarModule,
-        ThySwitchModule
+        ThySwitchModule,
+        ThySkeletonModule
     ]
 };

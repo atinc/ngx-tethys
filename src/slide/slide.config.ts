@@ -41,6 +41,10 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
      * set the render way. one of 'over' or 'push'. Default is 'over'
      */
     mode?: ThySlideMode;
+    /**
+     * set whether to disable close the latest item. Default is false
+     */
+    disableCloseLatest?: boolean;
 }
 
 export class ThySlideOption extends ThySlideConfig {}
@@ -67,7 +71,8 @@ export const slideDefaultConfigValue = {
     offset: 0,
     originActiveClass: 'thy-slide-origin-active',
     mode: 'over',
-    drawerContainer: ''
+    drawerContainer: '',
+    disableCloseLatest: false
 };
 
 export const THY_SLIDE_DEFAULT_CONFIG_PROVIDER = {

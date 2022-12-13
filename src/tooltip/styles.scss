@@ -108,20 +108,20 @@ $tooltip-un-center-arrow-offset: 16px;
     top: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-left-right('leftTop', 'left', 'right') {
-    bottom: $tooltip-un-center-arrow-offset;
+    top: $tooltip-un-center-arrow-offset;
 }
 @include tooltip-left-right('leftBottom', 'left', 'right') {
-    top: $tooltip-un-center-arrow-offset;
+    bottom: $tooltip-un-center-arrow-offset;
 }
 
 @include tooltip-left-right('right', 'right', 'left') {
     top: calc(100% / 2 - #{variables.$tooltip-arrow-width * 0.5});
 }
 @include tooltip-left-right('rightTop', 'right', 'left') {
-    bottom: $tooltip-un-center-arrow-offset;
+    top: $tooltip-un-center-arrow-offset;
 }
 @include tooltip-left-right('rightBottom', 'right', 'left') {
-    top: $tooltip-un-center-arrow-offset;
+    bottom: $tooltip-un-center-arrow-offset;
 }
 
 .thy-tooltip-auto {

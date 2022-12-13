@@ -45,19 +45,21 @@
   </thy-nav>
   <br />
 
-  <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
-    <a
-      class="nav-tab"
-      href="javascript:;"
-      *ngFor="let item of navList"
-      thyNavItem
-      [thyNavItemActive]="activeIndex === item.index"
-      (click)="activeIndex = item.index"
-      ><span class="ml-1">{{ item.name }}</span></a
-    >
+  <div class="py-2 bg-white">
+    <thy-nav thyType="pills" [thyResponsive]="true" class="responsive-nav">
+      <a
+        class="nav-tab"
+        href="javascript:;"
+        *ngFor="let item of navList"
+        thyNavItem
+        [thyNavItemActive]="activeIndex === item.index"
+        (click)="activeIndex = item.index"
+        ><span class="ml-1">{{ item.name }}</span></a
+      >
 
-    <ng-template #more>
-      自定义
-    </ng-template>
-  </thy-nav>
+      <ng-template #more>
+        自定义
+      </ng-template>
+    </thy-nav>
+  </div>
 </div>

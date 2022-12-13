@@ -11,6 +11,7 @@
     padding-left: 0;
     margin-bottom: 0;
     list-style: none;
+    position: relative;
 
     .thy-nav-item {
         display: block;
@@ -23,36 +24,38 @@
         border-bottom-color: transparent;
         flex: 0 auto;
         white-space: nowrap;
-
-        // @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
     }
 
     .thy-nav-extra {
         display: inline-flex;
         align-items: center;
     }
+
+    &-ink-bar {
+        position: absolute;
+        background: variables.$primary;
+        pointer-events: none;
+
+        &-animated {
+            transition: left 0.3s, top 0.3s;
+        }
+    }
 }
 
 .thy-nav-pulled {
     .thy-nav-item {
-        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
     }
     @include mixin.set-nav-size();
 }
 
 .thy-nav-tabs {
-    position: relative;
-    .thy-nav-list::after {
-        position: absolute;
-        right: 0;
-        left: 0;
-        bottom: 0;
-        border-bottom: 1px solid variables.$nav-border-color;
-        content: '';
+    .thy-nav-list {
+        @include mixin.nav-border-bottom();
     }
     .thy-nav-item {
         z-index: 1;
-        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
+        @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
     }
     @include mixin.set-nav-size();
 }
@@ -106,7 +109,7 @@
 }
 
 .thy-nav-secondary {
-    border-bottom: 1px solid variables.$nav-border-color;
+    @include mixin.nav-border-bottom();
     .thy-nav-item {
         @include mixin.nav-item-size(
             variables.$nav-item-secondary-padding-y variables.$nav-item-secondary-padding-x,
@@ -117,7 +120,8 @@
 }
 
 .thy-nav-secondary-divider {
-    border-bottom: 1px solid variables.$nav-border-color;
+    @include mixin.nav-border-bottom();
+
     .thy-nav-item {
         @include mixin.nav-item-variant(variables.$nav-item-weak-color, variables.$nav-item-hover-color, variables.$nav-border-bottom);
         @include mixin.nav-item-size(
@@ -183,13 +187,6 @@
         border-left: variables.$nav-vertical-border-left-empty;
         // set border width as 0
         border-bottom-width: 0px;
-        &.active,
-        &:hover,
-        &:focus,
-        &:active {
-            border-bottom: 0;
-            border-left: variables.$nav-vertical-border-left;
-        }
     }
 }
 
@@ -207,6 +204,8 @@
     flex-wrap: nowrap;
     flex: 1 auto;
     overflow: hidden;
+    position: relative;
+
     .thy-nav-item-hidden {
         display: none;
     }

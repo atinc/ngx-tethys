@@ -101,15 +101,16 @@ describe(`ThyTooltip`, () => {
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            const container = overlayContainerElement.querySelector('.thy-popover-container');
-            dispatchMouseEvent(buttonElement, 'mouseleave', 0, 0, undefined, undefined, container);
+            let container = overlayContainerElement.querySelector('.thy-popover-container');
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            dispatchMouseEvent(container, 'mouseenter');
 
             flush();
             fixture.detectChanges();
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-popover-container'), 'mouseleave');
+            dispatchMouseEvent(container, 'mouseleave');
             flush();
             fixture.detectChanges();
             flush();
@@ -121,22 +122,16 @@ describe(`ThyTooltip`, () => {
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            dispatchMouseEvent(
-                buttonElement,
-                'mouseleave',
-                0,
-                0,
-                0,
-                undefined,
-                overlayContainerElement.querySelector('.thy-popover-container')
-            );
+            container = overlayContainerElement.querySelector('.thy-popover-container');
+            dispatchMouseEvent(buttonElement, 'mouseleave');
+            dispatchMouseEvent(container, 'mouseenter');
 
             flush();
             fixture.detectChanges();
             flush();
             expect(getPopoverVisible()).toBe(true);
 
-            dispatchMouseEvent(overlayContainerElement.querySelector('.thy-popover-container'), 'mouseleave');
+            dispatchMouseEvent(container, 'mouseleave');
             flush();
             fixture.detectChanges();
             flush();

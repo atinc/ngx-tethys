@@ -8,10 +8,11 @@ subtitle: 级联选择菜单
 
 ## 组件概述
 
-本组件提供如下7种用法：
+本组件提供如下用法：
 
 - 基本用法（basic）
 - 禁止选择(disable)
+- 支持多选(multiple)
 - 鼠标移入自动展开菜单(move-unfold)
 - 鼠标移入自动展开菜单+移入触发对应项(move-unfold-trigger)
 - 选择即改变(select-changed)
@@ -39,6 +40,29 @@ import { ThyCascaderModule } from 'ngx-tethys/cascader';
 
 展示效果如下：
 <example name='thy-cascader-basic-example'>
+
+## 支持多选
+通过设置 `thyMultiple` 值为 true, `ngModel` 的绑定值是一个二维数组,二维数组中的数据项数组从左至右依次为 *父节点属性值* 到 *叶子节点属性值*
+```html
+<thy-cascader
+  [thyOptions]="areaCode"
+  [(ngModel)]="values"
+  [thyMultiple]="true"
+  (ngModelChange)="selectChanges($event)"
+  [thyLabelRender]="renderTpl"
+  style="width: 200px;"
+>
+</thy-cascader>
+
+<ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+  <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+    <span *ngIf="isLast && label"> {{ label }}</span>
+  </ng-container>
+</ng-template>
+```
+
+展示效果如下：
+<example name='thy-cascader-multiple-example'>
 
 ## 自定义模版
 
@@ -71,3 +95,4 @@ import { ThyCascaderModule } from 'ngx-tethys/cascader';
 
 展示效果如下：
 <example name='thy-cascader-custom-template-example'>
+
