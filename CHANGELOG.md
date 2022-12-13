@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.3](https://github.com/atinc/ngx-tethys/compare/14.2.2...14.2.3) (2022-12-13)
+
+
+### Bug Fixes
+
+* **dialog:** add style for dialog use setting siderbar header zd/#INFR-5686 ([#2425](https://github.com/atinc/ngx-tethys/issues/2425)) ([abfa03c](https://github.com/atinc/ngx-tethys/commit/abfa03c91f221ee21fc7d57d420173f8e1cb6eb2)), closes [zd/#INFR-5686](https://github.com/atinc/ngx-tethys/issues/INFR-5686)
+
+
+### Features
+
+* **cdk:** add Ids, IdOrIds types and export these from @tethys/cdk/immutable in types and remove unused types #INFR-5683 ([#2424](https://github.com/atinc/ngx-tethys/issues/2424)) ([a53dec2](https://github.com/atinc/ngx-tethys/commit/a53dec272212771f5e7f14f8d6ee4ca0e7d28f61)), closes [#INFR-5683](https://github.com/atinc/ngx-tethys/issues/INFR-5683)
+
+
+
 ## [14.2.2](https://github.com/atinc/ngx-tethys/compare/14.2.1...14.2.2) (2022-12-09)
 
 
