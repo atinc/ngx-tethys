@@ -36,7 +36,9 @@
             {{ item.thyLabelText }}
           </ng-container>
         </div>
-        <thy-icon *ngIf="!disabled" class="ml-1 font-size-sm" thyIconName="close" (click)="removeHandle(item, $event)"></thy-icon>
+        <div *ngIf="!disabled" class="choice-remove-link">
+          <a thyAction thyIcon="close" thyType="danger" href="javascript:;" (click)="removeHandle(item, $event)"></a>
+        </div>
       </li>
       <li
         *ngIf="thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount"

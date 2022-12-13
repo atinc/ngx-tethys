@@ -24,6 +24,32 @@
             padding-top: $padding-y;
             .choice {
                 margin-bottom: $padding-y;
+                padding: 0 0 0 8px;
+                border: 0 none;
+
+                .choice-remove-link {
+                    height: 100%;
+                    .thy-action {
+                        padding: 0 8px;
+                        height: 100%;
+                        border-top-left-radius: 0;
+                        border-bottom-left-radius: 0;
+                    }
+                    .thy-icon {
+                        font-size: variables.$font-size-sm;
+                        margin-right: 0;
+                    }
+                    &:hover {
+                        background-color: variables.$white;
+                        transition: background 0.2s ease-in-out;
+                        .thy-icon {
+                            color: variables.$danger;
+                        }
+                    }
+                }
+                &.disabled {
+                    padding-right: 8px;
+                }
             }
         }
     }

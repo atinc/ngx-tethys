@@ -13,9 +13,10 @@ import { ThySelectControlComponent } from './select-control/select-control.compo
 import { FormsModule } from '@angular/forms';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTagModule } from 'ngx-tethys/tag';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule],
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThyActionModule],
     exports: [ThySelectControlComponent],
     declarations: [ThySelectControlComponent]
 })
