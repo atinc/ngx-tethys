@@ -48,13 +48,13 @@ module.exports = [
             },
             {
                 name: 'thyPreviousTooltip',
-                description: '设置上一条 Hover Tooltip 提示 ',
+                description: '设置上一条 Hover Tooltip 提示',
                 type: 'string',
                 default: '-'
             },
             {
                 name: 'thyNextTooltip',
-                description: '设置下一条 Hover Tooltip 提示 ',
+                description: '设置下一条 Hover Tooltip 提示',
                 type: 'string',
                 default: '-'
             }
