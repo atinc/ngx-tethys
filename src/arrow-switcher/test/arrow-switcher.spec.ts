@@ -7,7 +7,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
-fdescribe('ThyArrowSwitcher', () => {
+describe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
     let testComponent: ThyDemoArrowSwitcherComponent;
     let arrowSwitcherComponent: DebugElement;
@@ -104,7 +104,7 @@ fdescribe('ThyArrowSwitcher', () => {
         expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
     }));
 
-    it('should support thyPreviousTooltip and thyNextTooltip', fakeAsync(() => {
+    it('should tooltip works', fakeAsync(() => {
         fixture.detectChanges();
 
         const tooltipDebugElement = fixture.debugElement.query(By.directive(ThyTooltipDirective));
