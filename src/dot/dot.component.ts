@@ -3,7 +3,7 @@ import { isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Renderer2, ViewEncapsulation } from '@angular/core';
 
 export type ThyColorType = ThyThemeColor | string;
-export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg'|'xlg';
+export type ThySizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xlg';
 export type ThyThemeType = 'outline' | 'fill';
 export type ThyShapeType = 'square' | 'circle';
 
