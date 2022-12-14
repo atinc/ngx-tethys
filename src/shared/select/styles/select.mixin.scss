@@ -36,7 +36,8 @@
                         border-top-right-radius: variables.$tag-border-radius;
                         border-bottom-right-radius: variables.$tag-border-radius;
                         transition: background 0.2s ease-in-out;
-                        display: block;
+                        display: flex;
+                        align-items: center;
                     }
                     .thy-icon {
                         transition: color 0.2s ease-in-out;
