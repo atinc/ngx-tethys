@@ -106,7 +106,6 @@ describe('ThyArrowSwitcher', () => {
 
     it('should tooltip works', fakeAsync(() => {
         fixture.detectChanges();
-
         const tooltipDebugElement = fixture.debugElement.query(By.directive(ThyTooltipDirective));
         expect(tooltipDebugElement).toBeTruthy();
     }));
