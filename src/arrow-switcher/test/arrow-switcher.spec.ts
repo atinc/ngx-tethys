@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyArrowSwitcherComponent } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 fdescribe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
@@ -104,14 +105,10 @@ fdescribe('ThyArrowSwitcher', () => {
     }));
 
     it('should support thyPreviousTooltip and thyNextTooltip', fakeAsync(() => {
-        testComponent.previousTooltip = '上一条';
-        testComponent.nextTooltip = '下一条';
         fixture.detectChanges();
-        const btnElements = arrowSwitcherComponent.nativeElement.querySelectorAll('button');
-        const previousText = (btnElements[0] as HTMLElement).getAttribute('ng-reflect-content');
-        const nextText = (btnElements[1] as HTMLElement).getAttribute('ng-reflect-content');
-        expect(previousText).toEqual('上一条');
-        expect(nextText).toEqual('下一条');
+
+        const tooltipDebugElement = fixture.debugElement.query(By.directive(ThyTooltipDirective));
+        expect(tooltipDebugElement).toBeTruthy();
     }));
 });
 
