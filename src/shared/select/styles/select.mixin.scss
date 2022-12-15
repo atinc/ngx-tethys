@@ -55,7 +55,7 @@
                         }
                     }
                 }
-                &.disabled {
+                &.disabled, &.max-tag-count-choice {
                     padding-right: 8px;
                 }
             }
