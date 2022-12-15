@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyArrowSwitcherComponent } from '../arrow-switcher.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 describe('ThyArrowSwitcher', () => {
     let fixture: ComponentFixture<ThyDemoArrowSwitcherComponent>;
@@ -102,6 +103,12 @@ describe('ThyArrowSwitcher', () => {
         fixture.detectChanges();
         expect(arrowSwitcherComponent.componentInstance.index).toEqual(4);
     }));
+
+    it('should tooltip works', fakeAsync(() => {
+        fixture.detectChanges();
+        const tooltipDebugElement = fixture.debugElement.query(By.directive(ThyTooltipDirective));
+        expect(tooltipDebugElement).toBeTruthy();
+    }));
 });
 
 @Component({
@@ -116,6 +123,8 @@ describe('ThyArrowSwitcher', () => {
             [disabled]="disabled"
             (thyPrevious)="previousClick()"
             (thyNext)="nextClick()"
+            [thyPreviousTooltip]="previousTooltip"
+            [thyNextTooltip]="nextTooltip"
         ></thy-arrow-switcher>
     `
 })
@@ -125,6 +134,8 @@ class ThyDemoArrowSwitcherComponent {
     theme = 'default';
     disabled = false;
     size = ``;
+    previousTooltip: string;
+    nextTooltip: string;
 
     @ViewChild('switcher', { static: true }) switcherComponent: ThyArrowSwitcherComponent;
 
