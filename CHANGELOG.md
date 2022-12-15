@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.4](https://github.com/atinc/ngx-tethys/compare/14.2.3...14.2.4) (2022-12-15)
+
+
+### Features
+
+* **color-picker:** export DEFAULT_COLORS #INFR-5748 ([#2433](https://github.com/atinc/ngx-tethys/issues/2433)) ([04ae626](https://github.com/atinc/ngx-tethys/commit/04ae626c5e2e7ac13a8bd072e717ded9d9c38a93)), closes [#INFR-5748](https://github.com/atinc/ngx-tethys/issues/INFR-5748)
+* **dot:** support xlg size 18px  #INFR-5749 ([#2432](https://github.com/atinc/ngx-tethys/issues/2432)) ([6efbfa4](https://github.com/atinc/ngx-tethys/commit/6efbfa4d648afcffa688ff177dc287266bcf547e)), closes [#INFR-5749](https://github.com/atinc/ngx-tethys/issues/INFR-5749)
+* **select:** 多选清除所选项新的交互 #INFR-5731 ([#2428](https://github.com/atinc/ngx-tethys/issues/2428)) ([e45ffc8](https://github.com/atinc/ngx-tethys/commit/e45ffc8adaada6484b58efac9f7a8e10d1e073d0)), closes [#INFR-5731](https://github.com/atinc/ngx-tethys/issues/INFR-5731) [#INFR-5731](https://github.com/atinc/ngx-tethys/issues/INFR-5731)
+* **select:** remove group-name background #INFR-5692 ([37a97fe](https://github.com/atinc/ngx-tethys/commit/37a97fe978c8cba19e8dd61d63f108aa0cdaf36b)), closes [#INFR-5692](https://github.com/atinc/ngx-tethys/issues/INFR-5692)
+
+
+
 ## [14.2.3](https://github.com/atinc/ngx-tethys/compare/14.2.2...14.2.3) (2022-12-13)
 
 
