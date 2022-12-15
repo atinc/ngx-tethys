@@ -12,6 +12,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyActionModule } from 'ngx-tethys/action';
+import { ThyFormModule } from 'ngx-tethys/form';
 
 export default {
     imports: [
@@ -28,6 +29,7 @@ export default {
         ThyIconModule,
         ThyTooltipModule,
         ThyDividerModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyFormModule
     ]
 };

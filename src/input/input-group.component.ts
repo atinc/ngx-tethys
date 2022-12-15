@@ -6,7 +6,8 @@ import {
     TemplateRef,
     ElementRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    AfterContentChecked
 } from '@angular/core';
 import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyInputDirective } from './input.directive';
@@ -37,10 +38,12 @@ const inputGroupSizeMap = {
         '[class.thy-input-group-with-suffix]': 'suffixTemplate'
     }
 })
-export class ThyInputGroupComponent {
+export class ThyInputGroupComponent implements AfterContentChecked {
     public appendText: string;
 
     public prependText: string;
+
+    @HostBinding('class.disabled') disabled = false;
 
     /**
      * 输入框上添加的后置文本
@@ -123,5 +126,9 @@ export class ThyInputGroupComponent {
         private elementRef: ElementRef
     ) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    }
+
+    ngAfterContentChecked(): void {
+        this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
     }
 }
