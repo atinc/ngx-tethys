@@ -9,7 +9,7 @@ import { dispatchFakeEvent } from 'ngx-tethys/testing';
 import { getOffset } from '../../util/dom';
 import { ThyAnchorLinkComponent } from '../anchor-link.component';
 
-fdescribe('thy-anchor', () => {
+describe('thy-anchor', () => {
     describe('default', () => {
         let fixture: ComponentFixture<TestAnchorComponent>;
         let debugElement: DebugElement;
