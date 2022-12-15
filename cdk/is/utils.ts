@@ -126,3 +126,7 @@ export function isFormElement<T = Element>(elementOrRef: ElementRef<T> | T): boo
         element.isContentEditable
     );
 }
+
+export function isMacPlatform(userAgent = navigator.userAgent) {
+    return /macintosh|mac os x/i.test(userAgent);
+}
