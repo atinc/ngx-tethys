@@ -43,7 +43,6 @@ describe('thy-anchor', () => {
             let invalidId = 'will-not-found-id';
             const beforeClickScrollTop = scrollService.getScroll();
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
-            // const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
             dispatchFakeEvent(staticLink, 'click');
             fixture.detectChanges();
             tick(2000);
