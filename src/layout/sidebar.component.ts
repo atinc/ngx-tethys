@@ -3,6 +3,7 @@ import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { isMacPlatform } from 'ngx-tethys/../cdk/is';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -189,9 +190,8 @@ export class ThySidebarComponent implements OnInit {
     }
 
     private updateCollapseTip() {
-        const isMac = /macintosh|mac os x/i.test(navigator.userAgent);
         this.collapseTip = this.thyCollapsed ? '展开' : '收起';
-        this.collapseTip = this.collapseTip + (isMac ? `（⌘ + /)` : `（Ctrl + /)`);
+        this.collapseTip = this.collapseTip + (isMacPlatform() ? `（⌘ + /)` : `（Ctrl + /)`);
     }
 
     toggleCollapse(event: MouseEvent) {
