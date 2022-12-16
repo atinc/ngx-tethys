@@ -50,7 +50,7 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
-            exclude: ['shared', 'core'],
+            exclude: ['core'],
             apiMode: 'compatible',
             categories: [
                 {
