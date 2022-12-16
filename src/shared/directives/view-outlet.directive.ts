@@ -43,6 +43,7 @@ export class ThyViewOutletDirective implements OnChanges {
         if (changes['thyViewOutlet']) {
             viewContainerRef.clear();
             this.componentRef = undefined;
+            this.embeddedViewRef = undefined;
 
             if (this.thyViewOutlet) {
                 if (this.thyViewOutlet instanceof TemplateRef) {
