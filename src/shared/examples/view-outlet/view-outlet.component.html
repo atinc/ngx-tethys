@@ -1,0 +1,11 @@
+<ng-container *thyViewOutlet="counterComponent; context: { count: count, from: 'Component' }"></ng-container>
+
+<ng-container *thyViewOutlet="counter; context: { count: count, from: 'Template' }"></ng-container>
+
+<ng-template #counter let-count="count" let-from="from">
+  <p>
+    Count: <thy-tag thyColor="danger">{{ count }}</thy-tag> <span class="ml-4">From: {{ from }}</span>
+  </p>
+</ng-template>
+
+<button (click)="count = count + 1" thyButton="primary" thyIcon="plus"></button>

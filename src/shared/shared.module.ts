@@ -9,8 +9,10 @@ import { ThyContextMenuDirective } from './directives/thy-contextmenu.directive'
 import { ThyScrollDirective } from './directives/thy-scroll.directive';
 import { ThyDragDropDirective } from './directives/thy-drag-drop.directive';
 import { ThyStringOrTemplateOutletDirective } from './directives/string-or-template-outlet.directive';
+import { ThyViewOutletDirective } from './directives/view-outlet.directive';
 
 @NgModule({
+    imports: [ThyViewOutletDirective],
     declarations: [
         ThyTranscludeDirective,
         ThyAutofocusDirective,
@@ -33,7 +35,8 @@ import { ThyStringOrTemplateOutletDirective } from './directives/string-or-templ
         ThyContextMenuDirective,
         ThyScrollDirective,
         ThyDragDropDirective,
-        ThyStringOrTemplateOutletDirective
+        ThyStringOrTemplateOutletDirective,
+        ThyViewOutletDirective
     ],
     providers: []
 })

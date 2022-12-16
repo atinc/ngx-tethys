@@ -5,6 +5,10 @@ import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-te
 import { takeUntil, startWith } from 'rxjs/operators';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
+/**
+ * @private
+ */
 @Directive({
     selector: '[thyDragDrop]'
 })
