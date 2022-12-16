@@ -20,7 +20,8 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
     selector: 'thy-shared-view-outlet-counter',
     template: `
         <p>
-            Count: <thy-tag thyColor="warning">{{ count }}</thy-tag><span class="ml-4">From: {{ from }}</span>
+            Count: <thy-tag thyColor="warning">{{ count }}</thy-tag
+            ><span class="ml-4">From: {{ from }}</span>
         </p>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
