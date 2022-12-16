@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.6](https://github.com/atinc/ngx-tethys/compare/14.2.5...14.2.6) (2022-12-16)
+
+
+### Bug Fixes
+
+* **select:** 多选清除按钮修改间距 #INFR-5731 ([4d580a4](https://github.com/atinc/ngx-tethys/commit/4d580a48f443df86f925933ca6bba16d2f71f153)), closes [#INFR-5731](https://github.com/atinc/ngx-tethys/issues/INFR-5731)
+
+
+### Features
+
+* **cdk:** add isMacPlatform ([243185e](https://github.com/atinc/ngx-tethys/commit/243185e75c84b93afc9a8e68959a4664ffd59477))
+* **shared:** add thyViewOutlet directive render component or template and add docs for shared #INFR-5803 ([#2440](https://github.com/atinc/ngx-tethys/issues/2440)) ([033e9b5](https://github.com/atinc/ngx-tethys/commit/033e9b56ae2af30d772db159d2f7a6bc983787f9)), closes [#INFR-5803](https://github.com/atinc/ngx-tethys/issues/INFR-5803)
+
+
+
 ## [14.2.5](https://github.com/atinc/ngx-tethys/compare/14.2.4...14.2.5) (2022-12-16)
 
 
