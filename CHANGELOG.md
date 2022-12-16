@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.5](https://github.com/atinc/ngx-tethys/compare/14.2.4...14.2.5) (2022-12-16)
+
+
+### Bug Fixes
+
+* **input:** thy-input-count 初始化没有赋值设置为 0，验证失败提示信息校验跑版，禁用样式跑版 #INFR-5574 ([#2435](https://github.com/atinc/ngx-tethys/issues/2435)) ([1900130](https://github.com/atinc/ngx-tethys/commit/19001309f767751f3d5cc87541c3907a5a20907e)), closes [#INFR-5574](https://github.com/atinc/ngx-tethys/issues/INFR-5574)
+* **select:** set padding-right: 8px when display max-tag-count-choice tag #INFR-5781 ([d3e481c](https://github.com/atinc/ngx-tethys/commit/d3e481c04ca11459052a435b63e990d81f6c60bd)), closes [#INFR-5781](https://github.com/atinc/ngx-tethys/issues/INFR-5781)
+
+
+### Features
+
+* **arrow-switcher:** tooltip is supported in lite themes #INFR-5735 ([1fbdaae](https://github.com/atinc/ngx-tethys/commit/1fbdaaeca83aa1829dbb277347045f9b4c12a035)), closes [#INFR-5735](https://github.com/atinc/ngx-tethys/issues/INFR-5735)
+
+
+
 ## [14.2.4](https://github.com/atinc/ngx-tethys/compare/14.2.3...14.2.4) (2022-12-15)
 
 
