@@ -3,7 +3,7 @@ import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
-import { isMacPlatform } from 'ngx-tethys/../cdk/is';
+import { isMacPlatform } from '@tethys/cdk/is';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
