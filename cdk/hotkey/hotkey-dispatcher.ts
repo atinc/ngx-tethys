@@ -35,10 +35,12 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
                 .pipe(filter((event: KeyboardEvent) => hotkeys.some(key => isHotkey(event, key))))
                 .subscribe((event: KeyboardEvent) => {
                     this.keydownSubscriber = subscriber;
-                    // setTimeout 是为了解决 Hotkey 冲突时仅执行最后订阅的事件
-                    setTimeout(() => {
-                        this.keydownSubscriber?.next(event);
-                        this.keydownSubscriber = null;
+                    this.ngZone.run(() => {
+                        // setTimeout 是为了解决 Hotkey 冲突时仅执行最后订阅的事件
+                        setTimeout(() => {
+                            this.keydownSubscriber?.next(event);
+                            this.keydownSubscriber = null;
+                        });
                     });
                 });
             return () => {
