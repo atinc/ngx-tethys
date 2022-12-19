@@ -128,10 +128,12 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
             if (this.thyAllowClear) {
                 this.thyValue = 0;
                 this.onChangeCallback(this.thyValue);
+                this.onTouchedCallback();
             }
         } else {
             this.thyValue = _value;
             this.onChangeCallback(this.thyValue);
+            this.onTouchedCallback();
         }
         this.updateItemStyle();
     }
