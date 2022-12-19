@@ -36,6 +36,7 @@ export class ThyHotkeyDirective implements OnInit, OnDestroy {
         const scope = isString(this.thyHotkeyScope) ? this.document.querySelector(this.thyHotkeyScope) : this.thyHotkeyScope;
         this.subscription = this.hotkeyDispatcher.keydown(this.thyHotkey, scope).subscribe(event => {
             event.preventDefault();
+            event.stopPropagation();
             if (isFormElement(this.elementRef)) {
                 this.elementRef.nativeElement.focus();
             } else {
