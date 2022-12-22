@@ -124,6 +124,7 @@ import { ThyMentionModule } from 'ngx-tethys/mention';
 import { ThyMenuModule } from 'ngx-tethys/menu';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyNotifyModule } from 'ngx-tethys/notify';
+import { ThyMessageModule } from 'ngx-tethys/message';
 import { ThyPaginationModule } from 'ngx-tethys/pagination';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyProgressModule } from 'ngx-tethys/progress';
@@ -172,6 +173,7 @@ const TETHYS_MODULES = [
     ThyMenuModule,
     ThyPaginationModule,
     ThyNotifyModule,
+    ThyMessageModule,
     ThyCardModule,
     ThyLoadingModule,
     ThyAlertModule,

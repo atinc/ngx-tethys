@@ -1,0 +1,7 @@
+<ng-container>
+  <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
+  <div class="thy-message-main">{{ option?.content }}</div>
+  <a href="javascript:;" class="thy-message-close ml-2" (click)="close()">
+    <thy-icon thyIconName="close"></thy-icon>
+  </a>
+</ng-container>
