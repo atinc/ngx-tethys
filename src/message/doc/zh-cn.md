@@ -26,7 +26,7 @@ import { ThyMessageModule } from "ngx-tethys/message";
 
 ## 设置全局默认值
 
-对话框的默认选项可以通过在应用根模块中为`THY_MESSAGE_DEFAULT_CONFIG`令牌提供一个`ThyMessageConfig`实例来指定。
+对话框的默认选项可以通过在应用根模块中为`THY_MESSAGE_DEFAULT_CONFIG`令牌提供一个`ThyGlobalMessageConfig`实例来指定。
 
 ```ts
 @NgModule({
@@ -34,11 +34,10 @@ import { ThyMessageModule } from "ngx-tethys/message";
         { 
             provide: THY_MESSAGE_DEFAULT_CONFIG,
             useValue: {
-                type: 'success',
                 pauseOnHover: true,
                 duration: 4500,
                 maxStack: 8,
-                offset: 20
+                offset: '20'
             }
         }
     ]
@@ -48,11 +47,10 @@ import { ThyMessageModule } from "ngx-tethys/message";
 默认的配置如下：
 ```ts
 const THY_MESSAGE_DEFAULT_CONFIG_VALUE = {
-    type: 'success',
     pauseOnHover: true,
     duration: 4500,
     maxStack: 8,
-    offset: 20
+    offset: '20'
 };
 ```
 

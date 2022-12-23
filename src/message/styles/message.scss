@@ -1,7 +1,7 @@
 @use "../../styles/variables";
 @use "mixin";
 
-.thy-message-root {
+.thy-message-container {
     position: fixed;
     z-index: variables.$notify-z-index;
     top: variables.$notify-spacing;

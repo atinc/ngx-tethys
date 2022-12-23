@@ -13,10 +13,8 @@ export class ThyMessageCloseExampleComponent implements OnInit {
     ngOnInit() {}
 
     showHasDetail() {
-        const messageRef = this.messageService.show({
+        const messageRef = this.messageService.error('获取数据失败！', {
             id: 'errorId',
-            type: 'error',
-            content: '获取数据失败！',
             duration: 0
         });
 

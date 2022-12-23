@@ -1,7 +1,7 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ThyMessageStore } from './message-queue.store';
-import { ThyMessageOption } from './message.config';
+import { ThyMessageConfig } from './message.config';
+import { ThyMessageService } from './message.service';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -32,20 +32,20 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
 
     @HostBinding('class') className = '';
 
-    option: ThyMessageOption;
+    option: ThyMessageConfig;
 
     iconName = '';
 
     private closeTimer: any;
 
     @Input()
-    set thyOption(value: ThyMessageOption) {
+    set thyOption(value: ThyMessageConfig) {
         this.option = value;
         const type = value.type;
         this.className = `thy-message thy-message-${type}`;
     }
 
-    constructor(private elementRef: ElementRef, private messageStore: ThyMessageStore, private _ngZone: NgZone) {}
+    constructor(private messageService: ThyMessageService, private _ngZone: NgZone) {}
 
     ngOnInit() {
         const iconName = {
@@ -60,18 +60,15 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         this.createCloseTimer();
     }
 
-    ngOnDestroy() {
-        this.clearCloseTimer();
-        this.elementRef.nativeElement.remove();
-    }
-
-    @HostListener('mouseenter') mouseenter() {
+    @HostListener('mouseenter')
+    mouseenter() {
         if (this.option.pauseOnHover) {
             this.clearCloseTimer();
         }
     }
 
-    @HostListener('mouseleave') mouseleave() {
+    @HostListener('mouseleave')
+    mouseleave() {
         if (this.option.pauseOnHover) {
             this.createCloseTimer();
         }
@@ -81,8 +78,7 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this.messageStore.remove(this.option.id);
-                this.elementRef.nativeElement.remove();
+                this.messageService.remove(this.option.id);
             }, ANIMATION_OUT_DURATION);
         });
     }
@@ -98,5 +94,9 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
 
     private clearCloseTimer() {
         clearInterval(this.closeTimer);
+    }
+
+    ngOnDestroy() {
+        this.clearCloseTimer();
     }
 }

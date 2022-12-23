@@ -11,9 +11,7 @@ export class ThyMessageHoverExampleComponent implements OnInit {
     ngOnInit() {}
 
     showHoverClose() {
-        this.messageService.show({
-            type: 'success',
-            content: '添加项目成功！',
+        this.messageService.success('添加项目成功！', {
             pauseOnHover: false
         });
     }

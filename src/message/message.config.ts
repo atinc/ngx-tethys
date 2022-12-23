@@ -3,11 +3,7 @@ import { Subject } from 'rxjs';
 
 export type ThyMessageType = 'success' | 'error' | 'warning' | 'info' | 'loading';
 
-export class ThyMessageConfig {
-    type?: ThyMessageType;
-
-    content?: string;
-
+export interface ThyGlobalMessageConfig {
     pauseOnHover?: boolean;
 
     duration?: number;
@@ -17,12 +13,11 @@ export class ThyMessageConfig {
     offset?: string;
 }
 
-export const THY_MESSAGE_DEFAULT_CONFIG = new InjectionToken<ThyMessageConfig>('thy-message-default-config');
+export const THY_MESSAGE_DEFAULT_CONFIG = new InjectionToken<ThyGlobalMessageConfig>('thy-message-default-config');
 
-export const THY_MESSAGE_DEFAULT_CONFIG_VALUE: ThyMessageConfig = {
+export const THY_MESSAGE_DEFAULT_CONFIG_VALUE: ThyGlobalMessageConfig = {
     offset: '20',
-    type: 'success',
-    duration: 30000,
+    duration: 4500,
     pauseOnHover: true,
     maxStack: 8
 };
@@ -32,7 +27,7 @@ export const THY_MESSAGE_DEFAULT_CONFIG_PROVIDER = {
     useValue: THY_MESSAGE_DEFAULT_CONFIG_VALUE
 };
 
-export interface ThyMessageOption {
+export interface ThyMessageConfig {
     id?: string;
 
     type?: ThyMessageType;
@@ -46,4 +41,4 @@ export interface ThyMessageOption {
     onClose?: Subject<void>;
 }
 
-export type ThyMessageRef = Pick<ThyMessageOption, 'onClose' | 'id'>;
+export type ThyMessageRef = Pick<ThyMessageConfig, 'onClose' | 'id'>;

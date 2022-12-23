@@ -6,13 +6,12 @@ import { PortalModule } from '@angular/cdk/portal';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyMessageComponent } from './message.component';
 import { ThyMessageContainerComponent } from './message-container.component';
-import { ThyMessageStore } from './message-queue.store';
 import { THY_MESSAGE_DEFAULT_CONFIG_PROVIDER } from './message.config';
 
 @NgModule({
     imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule],
     declarations: [ThyMessageContainerComponent, ThyMessageComponent],
     exports: [ThyMessageContainerComponent, ThyMessageComponent],
-    providers: [ThyMessageStore, THY_MESSAGE_DEFAULT_CONFIG_PROVIDER]
+    providers: [THY_MESSAGE_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThyMessageModule {}
