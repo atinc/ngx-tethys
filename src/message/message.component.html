@@ -1,7 +1,12 @@
-<ng-container>
-  <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
-  <div class="thy-message-main">{{ option?.content }}</div>
-  <a href="javascript:;" class="thy-message-close ml-2" (click)="close()">
-    <thy-icon thyIconName="close"></thy-icon>
-  </a>
-</ng-container>
+<thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
+<div class="thy-message-main">
+  <ng-container *ngIf="!contentIsComponent; else componentTemplate">
+    <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
+  </ng-container>
+  <ng-template #componentTemplate>
+    <div class="custom-content" #componentContentHost></div>
+  </ng-template>
+</div>
+<a href="javascript:;" class="thy-message-close" (click)="close()">
+  <thy-icon thyIconName="close"></thy-icon>
+</a>

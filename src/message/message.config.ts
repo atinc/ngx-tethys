@@ -1,4 +1,5 @@
 import { InjectionToken } from '@angular/core';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { Subject } from 'rxjs';
 
 export type ThyMessageType = 'success' | 'error' | 'warning' | 'info' | 'loading';
@@ -32,13 +33,27 @@ export interface ThyMessageConfig {
 
     type?: ThyMessageType;
 
-    content?: string;
+    content?: string | ComponentTypeOrTemplateRef<any>;
 
     pauseOnHover?: boolean;
 
     duration?: number;
 
-    onClose?: Subject<void>;
+    contentInitialState?: any;
 }
 
-export type ThyMessageRef = Pick<ThyMessageConfig, 'onClose' | 'id'>;
+export class ThyInternalMessageRef {
+    id: string;
+
+    _afterClosed = new Subject<void>();
+
+    constructor(id: string) {
+        this.id = id;
+    }
+
+    afterClosed() {
+        return this._afterClosed.asObservable();
+    }
+}
+
+export type ThyMessageRef = Omit<ThyInternalMessageRef, '_afterClosed'>;

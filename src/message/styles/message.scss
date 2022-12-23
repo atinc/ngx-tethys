@@ -34,6 +34,7 @@
             color: variables.$notify-close-color;
             text-decoration: none;
             transition: color variables.$transition-duration-normal;
+            margin-left: 8px;
             &:hover {
                 color: variables.$gray-600;
             }

@@ -1,9 +1,16 @@
 import { ComponentType, Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector } from '@angular/core';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { ThyMessageContainerComponent } from './message-container.component';
-import { ThyGlobalMessageConfig, ThyMessageConfig, ThyMessageRef, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import {
+    ThyGlobalMessageConfig,
+    ThyMessageConfig,
+    ThyMessageRef,
+    ThyInternalMessageRef,
+    THY_MESSAGE_DEFAULT_CONFIG
+} from './message.config';
 
 @Injectable({
     providedIn: 'root'
@@ -22,6 +29,8 @@ export class ThyMessageService {
         return this.queue$.getValue();
     }
 
+    private messageRefs: ThyInternalMessageRef[] = [];
+
     constructor(
         private overlay: Overlay,
         private injector: Injector,
@@ -31,7 +40,7 @@ export class ThyMessageService {
     /**
      * 打开 success 类型的 Message
      */
-    success(content: string, option?: ThyMessageConfig): ThyMessageRef {
+    success(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'success',
@@ -42,7 +51,7 @@ export class ThyMessageService {
     /**
      * 打开 error 类型的 Message
      */
-    error(content: string, option?: ThyMessageConfig): ThyMessageRef {
+    error(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'error',
@@ -53,7 +62,7 @@ export class ThyMessageService {
     /**
      * 打开 info 类型的 Message
      */
-    info(content: string, option?: ThyMessageConfig): ThyMessageRef {
+    info(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'info',
@@ -64,7 +73,7 @@ export class ThyMessageService {
     /**
      * 打开 warning 类型的 Message
      */
-    warning(content: string, option?: ThyMessageConfig): ThyMessageRef {
+    warning(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'warning',
@@ -75,7 +84,7 @@ export class ThyMessageService {
     /**
      * 打开 loading 类型的 Message
      */
-    loading(content: string, option?: ThyMessageConfig): ThyMessageRef {
+    loading(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'loading',
@@ -90,14 +99,24 @@ export class ThyMessageService {
         if (this.container) {
             const notRemoveItems: ThyMessageConfig[] = [];
             this.queue.forEach(item => {
-                if (!id || item.id === id) {
-                    item.onClose.next();
-                    item.onClose.complete();
+                if (!id) {
+                    this.messageRefs.forEach(messageRef => {
+                        messageRef._afterClosed.next();
+                        messageRef._afterClosed.complete();
+                    });
+
+                    this.messageRefs = [];
+                    this.queue$.next([]);
+                } else if (item.id === id) {
+                    let messageRef = this.messageRefs.find(item => item.id === id);
+                    messageRef?._afterClosed.next();
+                    messageRef?._afterClosed.complete();
+
+                    this.messageRefs = this.messageRefs.filter(item => item.id !== id);
                 } else {
                     notRemoveItems.push(item);
                 }
             });
-
             this.queue$.next(notRemoveItems);
         }
     }
@@ -106,7 +125,13 @@ export class ThyMessageService {
         const messageData = this.formatOptions(option);
         this.container = this.withContainer();
         this.queue$.next([...(this.queue.length >= this.defaultConfig.maxStack ? this.queue.slice(1) : this.queue), messageData]);
-        return messageData;
+
+        const messageRef = new ThyInternalMessageRef(messageData.id);
+        this.messageRefs = [
+            ...(this.queue.length >= this.defaultConfig.maxStack ? this.messageRefs.slice(1) : this.messageRefs),
+            messageRef
+        ];
+        return messageRef as ThyMessageRef;
     }
 
     private withContainer(): ThyMessageContainerComponent {
@@ -125,11 +150,7 @@ export class ThyMessageService {
         return componentRef.instance;
     }
 
-    private formatOptions(option: ThyMessageConfig): ThyMessageConfig {
-        const initData = {
-            id: String(this._lastMessageId++),
-            onClose: new Subject<void>()
-        };
-        return Object.assign({}, initData, this.defaultConfig, option);
+    private formatOptions(option: ThyMessageConfig) {
+        return Object.assign({ id: String(this._lastMessageId++) }, this.defaultConfig, option);
     }
 }

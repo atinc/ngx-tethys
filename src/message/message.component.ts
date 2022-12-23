@@ -1,7 +1,10 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef } from '@angular/core';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef, ComponentRef, createComponent, ApplicationRef, ViewChild, AfterViewInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageService } from './message.service';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { isString, isTemplateRef } from 'ngx-tethys/util';
+import { ComponentType } from '@angular/cdk/portal';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -13,6 +16,9 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
 @Component({
     selector: 'thy-message',
     templateUrl: './message.component.html',
+    host: {
+        '[class]': "'thy-message thy-message-' + option.type"
+    },
     animations: [
         trigger('flyInOut', [
             state('flyIn', style({ transform: 'translateY(0)', opacity: 1, height: '*' })),
@@ -27,25 +33,27 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
         ])
     ]
 })
-export class ThyMessageComponent implements OnInit, OnDestroy {
+export class ThyMessageComponent implements OnInit, AfterViewInit, OnDestroy {
     @HostBinding('@flyInOut') flyInOut = 'flyIn';
-
-    @HostBinding('class') className = '';
 
     option: ThyMessageConfig;
 
     iconName = '';
+
+    contentIsComponent = false;
+
+    componentRef: ComponentRef<any>;
 
     private closeTimer: any;
 
     @Input()
     set thyOption(value: ThyMessageConfig) {
         this.option = value;
-        const type = value.type;
-        this.className = `thy-message thy-message-${type}`;
     }
 
-    constructor(private messageService: ThyMessageService, private _ngZone: NgZone) {}
+    @ViewChild('componentContentHost') contentContainer: ElementRef<any>;
+
+    constructor(private messageService: ThyMessageService, private _ngZone: NgZone, private applicationRef: ApplicationRef) {}
 
     ngOnInit() {
         const iconName = {
@@ -57,7 +65,20 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         };
 
         this.iconName = iconName[this.option.type];
+        this.contentIsComponent = this.isComponentType(this.option.content);
         this.createCloseTimer();
+    }
+
+    ngAfterViewInit() {
+        if (this.contentIsComponent) {
+            this.componentRef = createComponent(this.option.content as ComponentType<any>, {
+                environmentInjector: this.applicationRef.injector,
+                hostElement: this.contentContainer.nativeElement
+            });
+            Object.assign(this.componentRef.instance, this.option.contentInitialState || {});
+            // 注册新创建的 componentRef，以将组件视图包括在更改检测周期中。
+            this.applicationRef.attachView(this.componentRef.hostView);
+        }
     }
 
     @HostListener('mouseenter')
@@ -83,6 +104,10 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         });
     }
 
+    private isComponentType(content: string | ComponentTypeOrTemplateRef<any>) {
+        return content && !isString(content) && !isTemplateRef(content);
+    }
+
     private createCloseTimer() {
         if (this.option.duration) {
             this.closeTimer = setInterval(() => {
@@ -98,5 +123,8 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
 
     ngOnDestroy() {
         this.clearCloseTimer();
+        if (this.componentRef) {
+            this.applicationRef.detachView(this.componentRef.hostView);
+        }
     }
 }

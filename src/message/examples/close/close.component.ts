@@ -18,7 +18,7 @@ export class ThyMessageCloseExampleComponent implements OnInit {
             duration: 0
         });
 
-        messageRef.onClose.subscribe(flag => {
+        messageRef.afterClosed().subscribe(flag => {
             console.log('errorId 被关闭了');
         });
     }
