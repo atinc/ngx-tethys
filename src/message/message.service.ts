@@ -1,16 +1,9 @@
-import { ComponentType, Overlay } from '@angular/cdk/overlay';
+import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Inject, Injectable, Injector } from '@angular/core';
-import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
-import {
-    ThyGlobalMessageConfig,
-    ThyMessageConfig,
-    ThyMessageRef,
-    ThyInternalMessageRef,
-    THY_MESSAGE_DEFAULT_CONFIG
-} from './message.config';
+import { ThyMessageStateService } from './message-state.service';
+import { ThyGlobalMessageConfig, ThyMessageConfig, ThyMessageRef, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 @Injectable({
     providedIn: 'root'
@@ -20,27 +13,19 @@ export class ThyMessageService {
 
     private _lastMessageId = 0;
 
-    /**
-     * 已打开 Message 列表
-     */
-    queue$ = new BehaviorSubject<ThyMessageConfig[]>([]);
-
-    get queue() {
-        return this.queue$.getValue();
-    }
-
-    private messageRefs: ThyInternalMessageRef[] = [];
+    private messageRefs: ThyMessageRef[] = [];
 
     constructor(
         private overlay: Overlay,
         private injector: Injector,
+        private messageStateService: ThyMessageStateService,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig
     ) {}
 
     /**
      * 打开 success 类型的 Message
      */
-    success(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    success(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'success',
@@ -51,7 +36,7 @@ export class ThyMessageService {
     /**
      * 打开 error 类型的 Message
      */
-    error(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    error(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'error',
@@ -62,7 +47,7 @@ export class ThyMessageService {
     /**
      * 打开 info 类型的 Message
      */
-    info(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    info(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'info',
@@ -73,7 +58,7 @@ export class ThyMessageService {
     /**
      * 打开 warning 类型的 Message
      */
-    warning(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    warning(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'warning',
@@ -84,7 +69,7 @@ export class ThyMessageService {
     /**
      * 打开 loading 类型的 Message
      */
-    loading(content: string | ComponentTypeOrTemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    loading(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(option || {}),
             type: 'loading',
@@ -94,44 +79,37 @@ export class ThyMessageService {
 
     /**
      * 移除指定 Message
+     * @param id 不传则移除所有
      */
     remove(id?: string): void {
         if (this.container) {
-            const notRemoveItems: ThyMessageConfig[] = [];
-            this.queue.forEach(item => {
-                if (!id) {
-                    this.messageRefs.forEach(messageRef => {
-                        messageRef._afterClosed.next();
-                        messageRef._afterClosed.complete();
-                    });
+            this.messageStateService.remove(id);
+            if (!id) {
+                this.messageRefs.forEach(messageRef => {
+                    messageRef.close();
+                });
 
-                    this.messageRefs = [];
-                    this.queue$.next([]);
-                } else if (item.id === id) {
-                    let messageRef = this.messageRefs.find(item => item.id === id);
-                    messageRef?._afterClosed.next();
-                    messageRef?._afterClosed.complete();
-
-                    this.messageRefs = this.messageRefs.filter(item => item.id !== id);
-                } else {
-                    notRemoveItems.push(item);
-                }
-            });
-            this.queue$.next(notRemoveItems);
+                this.messageRefs = [];
+            } else {
+                let messageRef = this.messageRefs.find(item => item.id === id);
+                messageRef?.close();
+                this.messageRefs = this.messageRefs.filter(item => item.id !== id);
+            }
         }
     }
 
     protected show(option: ThyMessageConfig): ThyMessageRef {
-        const messageData = this.formatOptions(option);
+        const messageConfig = this.formatOptions(option);
         this.container = this.withContainer();
-        this.queue$.next([...(this.queue.length >= this.defaultConfig.maxStack ? this.queue.slice(1) : this.queue), messageData]);
 
-        const messageRef = new ThyInternalMessageRef(messageData.id);
-        this.messageRefs = [
-            ...(this.queue.length >= this.defaultConfig.maxStack ? this.messageRefs.slice(1) : this.messageRefs),
-            messageRef
-        ];
-        return messageRef as ThyMessageRef;
+        this.messageStateService.add(messageConfig);
+        const messageRef = new ThyMessageRef(messageConfig.id);
+        if (this.messageRefs.length >= this.defaultConfig.maxStack) {
+            const closedRef = this.messageRefs.shift();
+            closedRef.close();
+        }
+        this.messageRefs = [...this.messageRefs, messageRef];
+        return messageRef;
     }
 
     private withContainer(): ThyMessageContainerComponent {

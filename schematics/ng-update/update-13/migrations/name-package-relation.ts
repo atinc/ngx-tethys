@@ -452,7 +452,6 @@ export const namePackageRelationsInNg13 = {
     ThyNotifyContainerComponent: 'notify',
     ThyNotifyModule: 'notify',
     ThyNotifyService: 'notify',
-    ThyMessageModule: 'message',
     ThyPaginationConfigModel: 'pagination',
     ThyPaginationChangedEvent: 'pagination',
     ThyPaginationComponent: 'pagination',

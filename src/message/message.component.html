@@ -1,11 +1,6 @@
 <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
 <div class="thy-message-main">
-  <ng-container *ngIf="!contentIsComponent; else componentTemplate">
-    <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
-  </ng-container>
-  <ng-template #componentTemplate>
-    <div class="custom-content" #componentContentHost></div>
-  </ng-template>
+  <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
 </div>
 <a href="javascript:;" class="thy-message-close" (click)="close()">
   <thy-icon thyIconName="close"></thy-icon>

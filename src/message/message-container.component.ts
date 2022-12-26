@@ -1,8 +1,7 @@
-import { Component, HostBinding, Inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostBinding, Inject } from '@angular/core';
 import { coerceCssPixelValue } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
+import { ThyMessageStateService } from './message-state.service';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
-import { ThyMessageService } from './message.service';
 
 /**
  * @internal
@@ -10,25 +9,19 @@ import { ThyMessageService } from './message.service';
 @Component({
     selector: 'thy-message-container',
     template: `
-        <thy-message *ngFor="let message of service.queue$ | async" [thyOption]="message"></thy-message>
+        <thy-message *ngFor="let message of messageStateService.messages$ | async" [thyOption]="message"></thy-message>
     `,
     host: {
         class: 'thy-message-container'
     }
 })
-export class ThyMessageContainerComponent implements OnInit, OnDestroy {
+export class ThyMessageContainerComponent {
     @HostBinding('style.top') private top: string;
 
-    readonly destroy$ = new Subject<void>();
-
-    constructor(public service: ThyMessageService, @Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig) {
+    constructor(
+        public messageStateService: ThyMessageStateService,
+        @Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig
+    ) {
         this.top = coerceCssPixelValue(defaultConfig.offset);
-    }
-
-    ngOnInit() {}
-
-    ngOnDestroy() {
-        this.destroy$.next();
-        this.destroy$.complete();
     }
 }
