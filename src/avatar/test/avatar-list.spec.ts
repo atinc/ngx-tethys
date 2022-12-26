@@ -50,10 +50,5 @@ describe('thy-avatar-list', () => {
             expect(fixture).toBeTruthy();
             expect(testComponent).toBeTruthy();
         });
-
-        it('should set append is success', () => {
-            const appendElement = avatarListElement.querySelector('.thy-avatar-list-append');
-            expect(appendElement).toBeTruthy();
-        });
     });
 });

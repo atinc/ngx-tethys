@@ -6,6 +6,12 @@
     flex: 1;
     line-height: initial;
     width: 100%;
+    .thy-avatar:not(:last-of-type) {
+        margin-right: variables.$avatar-list-margin;
+    }
+    .thy-avatar-list-append {
+        margin-left: variables.$avatar-list-margin;
+    }
 }
 
 .thy-avatar-list-overlap {
@@ -14,12 +20,15 @@
             @include mixin.avatarSize($size, $value);
             margin-right: 0 !important;
             &:not(:first-of-type) {
-                margin-left: #{- calc($size / 2)}px;
+                margin-left: variables.$avatar-list-overlap;
             }
 
             .avatar-default {
                 border: 1px solid variables.$white;
             }
+        }
+        .thy-avatar-list-append {
+            margin-left: 0;
         }
     }
 }

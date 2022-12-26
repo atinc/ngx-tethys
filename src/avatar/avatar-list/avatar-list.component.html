@@ -1,13 +1,12 @@
 <ng-template>
   <ng-content></ng-content>
 </ng-template>
-<ng-container *ngFor="let avatar of avatars">
+<ng-container *ngFor="let avatar of avatarComponents">
   <thy-avatar
-    [thyShowName]="avatar.thyShowName"
     [thySrc]="avatar._src"
     [thyName]="avatar.avatarName"
-    [thySize]="avatar._size"
-    [thyShowRemove]="avatar._showRemove"
+    [thySize]="thyAvatarSize"
+    [thyShowRemove]="showRemovable"
     [thyImgClass]="avatar.thyImgClass"
     [thyDisabled]="avatar.thyDisabled"
     [thyLoading]="avatar.thyLoading"
@@ -15,6 +14,6 @@
     (thyOnRemove)="remove($event)"
   ></thy-avatar>
 </ng-container>
-<div class="thy-avatar-list-append" *ngIf="append">
+<div #appendContent class="thy-avatar-list-append" *ngIf="append">
   <ng-container [ngTemplateOutlet]="append"></ng-container>
 </div>
