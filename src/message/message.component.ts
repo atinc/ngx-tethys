@@ -1,4 +1,18 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone, ElementRef, ComponentRef, createComponent, ApplicationRef, ViewChild, AfterViewInit } from '@angular/core';
+import {
+    Component,
+    Input,
+    HostBinding,
+    OnInit,
+    HostListener,
+    OnDestroy,
+    NgZone,
+    ElementRef,
+    ComponentRef,
+    createComponent,
+    ApplicationRef,
+    ViewChild,
+    AfterViewInit
+} from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageService } from './message.service';
