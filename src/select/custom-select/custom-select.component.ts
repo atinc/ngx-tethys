@@ -495,6 +495,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             return;
         }
         this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+        this.triggerRect.width = this.trigger.nativeElement.offsetWidth;
         this.panelOpen = true;
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
