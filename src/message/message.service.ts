@@ -2,8 +2,9 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
+import { ThyMessageRef } from './message-ref';
 import { ThyMessageStateService } from './message-state.service';
-import { ThyGlobalMessageConfig, ThyMessageConfig, ThyMessageRef, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 @Injectable({
     providedIn: 'root'

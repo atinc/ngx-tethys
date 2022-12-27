@@ -11,6 +11,8 @@ export interface ThyGlobalMessageConfig {
     maxStack?: number;
 
     offset?: string;
+
+    showClose?: boolean;
 }
 
 export const THY_MESSAGE_DEFAULT_CONFIG = new InjectionToken<ThyGlobalMessageConfig>('thy-message-default-config');
@@ -19,7 +21,8 @@ export const THY_MESSAGE_DEFAULT_CONFIG_VALUE: ThyGlobalMessageConfig = {
     offset: '20',
     duration: 4500,
     pauseOnHover: true,
-    maxStack: 8
+    maxStack: 8,
+    showClose: true
 };
 
 export const THY_MESSAGE_DEFAULT_CONFIG_PROVIDER = {
@@ -39,23 +42,6 @@ export interface ThyMessageConfig {
     duration?: number;
 
     contentInitialState?: any;
-}
 
-export class ThyMessageRef {
-    id: string;
-
-    private _afterClosed = new Subject<void>();
-
-    constructor(id: string) {
-        this.id = id;
-    }
-
-    close() {
-        this._afterClosed.next();
-        this._afterClosed.complete();
-    }
-
-    afterClosed() {
-        return this._afterClosed.asObservable();
-    }
+    showClose?: boolean;
 }

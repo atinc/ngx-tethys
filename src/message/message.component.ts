@@ -52,8 +52,7 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
             success: 'check-circle-fill',
             info: 'info-circle-fill',
             warning: 'waring-fill',
-            error: 'close-circle-fill',
-            loading: 'clock-circle-open'
+            error: 'close-circle-fill'
         };
 
         this.iconName = iconName[this.option.type];
