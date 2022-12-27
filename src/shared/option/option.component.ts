@@ -32,6 +32,9 @@ export class ThyOptionVisibleChangeEvent {
     option: ThyOptionComponent;
 }
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-option',
     templateUrl: './option.component.html',

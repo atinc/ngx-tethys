@@ -4,6 +4,9 @@ import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.compo
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-option-group',
     templateUrl: './option-group.component.html',

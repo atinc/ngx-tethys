@@ -1,6 +1,6 @@
 import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ElementRef, InjectionToken } from '@angular/core';
-import { ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
 
 export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 
@@ -21,7 +21,9 @@ export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
 
     title?: string;
 
-    content?: string;
+    content?: string | ComponentTypeOrTemplateRef<any>;
+
+    contentInitialState?: TData;
 
     detail?: string | ThyNotifyDetail;
 

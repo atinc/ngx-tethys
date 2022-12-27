@@ -36,6 +36,7 @@ import { ThyDotModule } from "ngx-tethys/dot";
 - 8px  `sm`   
 - 10px `md`   
 - 12px `lg`  
+- 18px `xlg` 
 
 <example name="thy-dot-size-example" />
 

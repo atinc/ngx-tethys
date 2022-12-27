@@ -42,6 +42,10 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
 
+    @Input() thyPreviousTooltip: string;
+
+    @Input() thyNextTooltip: string;
+
     @Input() set thyTheme(value: ThyArrowSwitcherTheme) {
         this.theme = value;
     }

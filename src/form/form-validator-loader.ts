@@ -58,6 +58,10 @@ export class ThyFormValidatorLoader {
         }
         return this.config.validateOn;
     }
+    
+    isElementInInputGroup(element: HTMLElement) {
+        return !!(element?.parentElement?.tagName.toUpperCase() === 'THY-INPUT-GROUP');
+    }
 
     getErrorMessage(name: string, key: string): string {
         if (this.validationMessages[name] && this.validationMessages[name][key]) {
@@ -97,22 +101,24 @@ export class ThyFormValidatorLoader {
     }
 
     removeError(element: HTMLElement) {
-        element.classList.remove(INVALID_CLASS);
+        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement : element;
+        formControlElement.classList.remove(INVALID_CLASS);
         if (helpers.isFunction(this.config.removeElementError)) {
-            this.config.removeElementError(element);
+            this.config.removeElementError(formControlElement);
         } else if (this.config.showElementError) {
-            this.defaultRemoveError(element);
+            this.defaultRemoveError(formControlElement);
         } else {
             // do nothings
         }
     }
 
     showError(element: HTMLElement, errorMessages: string[]) {
-        element.classList.add(INVALID_CLASS);
+        const formControlElement = this.isElementInInputGroup(element) ? element.parentElement : element;
+        formControlElement.classList.add(INVALID_CLASS);
         if (helpers.isFunction(this.config.showElementError)) {
-            this.config.showElementError(element, errorMessages);
+            this.config.showElementError(formControlElement, errorMessages);
         } else if (this.config.showElementError) {
-            this.defaultShowError(element, errorMessages);
+            this.defaultShowError(formControlElement, errorMessages);
         } else {
             // do nothings
         }

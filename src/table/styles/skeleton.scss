@@ -1,0 +1,18 @@
+@use "../../styles/variables";
+
+.thy-table-skeleton {
+    table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+
+        td,
+        th {
+            border-bottom: variables.$table-border-width solid variables.$gray-200;
+            text-align: left;
+            padding: 8px 28px;
+            height: 52px;
+        }
+    }
+
+}

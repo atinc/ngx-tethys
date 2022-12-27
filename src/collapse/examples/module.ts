@@ -8,29 +8,6 @@ import { ThyCollapseModule } from 'ngx-tethys/collapse';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 
-import { ThyCollapseAccordionExampleComponent } from './accordion/accordion.component';
-import { ThyCollapseArrowExampleComponent } from './arrow/arrow.component';
-import { ThyCollapseBasicExampleComponent } from './basic/basic.component';
-import { ThyCollapseBorderedExampleComponent } from './bordered/bordered.component';
-import { ThyCollapseCustomExampleComponent } from './custom/custom.component';
-import { ThyCollapseDisabledExampleComponent } from './disabled/disabled.component';
-import { ThyCollapseGhostExampleComponent } from './ghost/ghost.component';
-import { ThyCollapseTreeExampleComponent } from './tree/tree.component';
-
-const COMPONENTS = [
-    ThyCollapseBasicExampleComponent,
-    ThyCollapseDisabledExampleComponent,
-    ThyCollapseAccordionExampleComponent,
-    ThyCollapseArrowExampleComponent,
-    ThyCollapseCustomExampleComponent,
-    ThyCollapseTreeExampleComponent,
-    ThyCollapseGhostExampleComponent,
-    ThyCollapseBorderedExampleComponent
-];
-
-@NgModule({
-    declarations: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTreeModule, ThyCollapseModule, ThyAvatarModule, ThyDividerModule],
-    exports: [...COMPONENTS]
-})
-export class ThyCollapseExamplesModule {}
+export default {
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTreeModule, ThyCollapseModule, ThyAvatarModule, ThyDividerModule]
+};
