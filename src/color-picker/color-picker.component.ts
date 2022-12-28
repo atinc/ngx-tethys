@@ -43,6 +43,11 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      */
     @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
 
+    /**
+     * 禁止选中的颜色数组。
+     */
+    @Input() thyDisabledColors: string[];
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -82,6 +87,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 color: new ThyColor(this.color).toHexString(true),
                 defaultColor: this.thyDefaultColor,
                 transparentColorSelectable: this.thyTransparentColorSelectable,
+                disabledColors: this.thyDisabledColors,
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }

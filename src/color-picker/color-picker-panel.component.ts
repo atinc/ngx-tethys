@@ -4,6 +4,7 @@ import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
+import { coerceArray } from 'ngx-tethys/util';
 
 /**
  * @internal
@@ -29,6 +30,12 @@ export class ThyColorPickerPanelComponent implements OnInit {
     }
 
     @Input() @InputBoolean() transparentColorSelectable: boolean;
+
+    @Input() set disabledColors(value: string[]) {
+        if (value && value.length > 0) {
+            this.defaultColors = this.defaultColors.filter(color => !coerceArray(value).includes(color));
+        }
+    }
 
     public customDefaultColor: string;
 
