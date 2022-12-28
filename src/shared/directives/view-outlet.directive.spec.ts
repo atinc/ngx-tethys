@@ -38,6 +38,37 @@ class ThyViewOutletComponentTestComponent {
     count = 1;
 }
 
+@Component({
+    selector: 'thy-shared-view-outlet-content-multi',
+    template: `
+        Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}
+    `
+})
+class ThyViewOutletContentMultiTestComponent {
+    count = 1;
+
+    innerName: string;
+
+    nameSetInvokeCount = 0;
+
+    set name(value: string) {
+        this.innerName = value;
+        this.nameSetInvokeCount = this.nameSetInvokeCount + 1;
+    }
+}
+
+@Component({
+    selector: 'thy-shared-view-outlet-component-multi-test',
+    template: `
+        <ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container>
+    `
+})
+class ThyViewOutletComponentMultiTestComponent {
+    contentComponent = ThyViewOutletContentMultiTestComponent;
+    count = 1;
+    name = 'peter';
+}
+
 describe('thy-view-outlet', () => {
     describe('template', () => {
         let fixture: ComponentFixture<ThyViewOutletTemplateTestComponent>;
@@ -96,6 +127,44 @@ describe('thy-view-outlet', () => {
             fixtureInstance.count = 10;
             fixture.detectChanges();
             expect(element.textContent).toContain('Count: 10');
+        });
+    });
+
+    describe('component-multi', () => {
+        let fixture: ComponentFixture<ThyViewOutletComponentMultiTestComponent>;
+        let fixtureInstance: ThyViewOutletComponentMultiTestComponent;
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySharedModule],
+                declarations: [ThyViewOutletComponentMultiTestComponent, ThyViewOutletContentMultiTestComponent]
+            }).compileComponents();
+        });
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyViewOutletComponentMultiTestComponent);
+            fixtureInstance = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should render component outlet', () => {
+            const element = fixture.debugElement.nativeElement as HTMLElement;
+            expect(element.textContent).toContain('Count: 1');
+            expect(element.textContent).toContain('Name: peter');
+            expect(element.textContent).toContain('Called: 1');
+        });
+
+        it('should update context that changed', () => {
+            const element = fixture.debugElement.nativeElement as HTMLElement;
+            fixtureInstance.count = 10;
+            fixture.detectChanges();
+            expect(element.textContent).toContain('Count: 10');
+            expect(element.textContent).toContain('Name: peter');
+            expect(element.textContent).toContain('Called: 1');
+            fixtureInstance.name = 'lily';
+            fixture.detectChanges();
+            expect(element.textContent).toContain('Name: lily');
+            expect(element.textContent).toContain('Called: 2');
         });
     });
 });
