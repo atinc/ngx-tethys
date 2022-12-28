@@ -9,7 +9,7 @@ import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.co
 @Component({
     selector: 'thy-message-container',
     template: `
-        <thy-message *ngFor="let message of messageQueue.queues$ | async" [thyOption]="message.config"></thy-message>
+        <thy-message *ngFor="let message of messageQueue.queues$ | async" [thyConfig]="message.config"></thy-message>
     `,
     host: {
         class: 'thy-message-container'
