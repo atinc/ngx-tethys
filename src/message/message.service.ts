@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
-import { ThyMessageQueueService } from './message-queue.service';
+import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 @Injectable({
@@ -17,7 +17,7 @@ export class ThyMessageService {
     constructor(
         private overlay: Overlay,
         private injector: Injector,
-        private messageQueueService: ThyMessageQueueService,
+        private messageQueue: ThyMessageQueue,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig
     ) {}
 
@@ -81,7 +81,7 @@ export class ThyMessageService {
      * @param id 不传则移除所有
      */
     remove(id?: string) {
-        this.messageQueueService.remove(id);
+        this.messageQueue.remove(id);
     }
 
     protected show(option: ThyMessageConfig): ThyMessageRef {
@@ -89,7 +89,7 @@ export class ThyMessageService {
 
         const messageConfig = this.formatOptions(option);
         const messageRef = new ThyMessageRef(messageConfig);
-        this.messageQueueService.add(messageRef);
+        this.messageQueue.add(messageRef);
         return messageRef;
     }
 

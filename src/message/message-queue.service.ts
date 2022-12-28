@@ -9,7 +9,7 @@ import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyMessageQueueService {
+export class ThyMessageQueue {
     queues$ = new BehaviorSubject<ThyMessageRef[]>([]);
 
     get queues() {

@@ -41,7 +41,5 @@ export interface ThyMessageConfig {
 
     duration?: number;
 
-    contentInitialState?: any;
-
     showClose?: boolean;
 }

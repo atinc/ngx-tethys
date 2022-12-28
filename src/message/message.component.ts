@@ -1,17 +1,20 @@
 import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
-import { ThyMessageQueueService } from './message-queue.service';
+import { ThyMessageQueue } from './message-queue.service';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
 const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingTop: 0, paddingBottom: 0, margin: 0 };
 
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-message',
     templateUrl: './message.component.html',
     host: {
-        '[class]': "'thy-message thy-message-' + option.type"
+        '[class]': "'thy-message thy-message-' + config.type"
     },
     animations: [
         trigger('flyInOut', [
@@ -30,21 +33,18 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
 export class ThyMessageComponent implements OnInit, OnDestroy {
     @HostBinding('@flyInOut') flyInOut = 'flyIn';
 
-    option: ThyMessageConfig;
+    config: ThyMessageConfig;
 
     iconName = '';
 
     private closeTimer: any;
 
-    /**
-     * message 配置
-     */
     @Input()
-    set thyOption(value: ThyMessageConfig) {
-        this.option = value;
+    set thyConfig(value: ThyMessageConfig) {
+        this.config = value;
     }
 
-    constructor(private _ngZone: NgZone, private messageQueueService: ThyMessageQueueService) {}
+    constructor(private _ngZone: NgZone, private messageQueue: ThyMessageQueue) {}
 
     ngOnInit() {
         const iconName = {
@@ -54,20 +54,20 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
             error: 'close-circle-fill'
         };
 
-        this.iconName = iconName[this.option.type];
+        this.iconName = iconName[this.config.type];
         this.createCloseTimer();
     }
 
     @HostListener('mouseenter')
     mouseenter() {
-        if (this.option.pauseOnHover) {
+        if (this.config.pauseOnHover) {
             this.clearCloseTimer();
         }
     }
 
     @HostListener('mouseleave')
     mouseleave() {
-        if (this.option.pauseOnHover) {
+        if (this.config.pauseOnHover) {
             this.createCloseTimer();
         }
     }
@@ -76,17 +76,17 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this.messageQueueService.remove(this.option.id);
+                this.messageQueue.remove(this.config.id);
             }, ANIMATION_OUT_DURATION);
         });
     }
 
     private createCloseTimer() {
-        if (this.option.duration) {
+        if (this.config.duration) {
             this.closeTimer = setInterval(() => {
                 this.clearCloseTimer();
                 this.close();
-            }, this.option.duration);
+            }, this.config.duration);
         }
     }
 

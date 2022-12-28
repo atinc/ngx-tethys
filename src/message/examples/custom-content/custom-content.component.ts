@@ -17,12 +17,7 @@ export class ThyMessageCustomContentExampleComponent implements OnInit {
     }
 
     showWithTemplateRef() {
-        this.messageService.success(this.contentTemplate, {
-            contentInitialState: {
-                $implicit: '自定义模板',
-                content: '内容...'
-            }
-        });
+        this.messageService.success(this.contentTemplate);
     }
 
     openAction = () => {
