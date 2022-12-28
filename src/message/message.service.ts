@@ -3,7 +3,7 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
-import { ThyMessageStateService } from './message-state.service';
+import { ThyMessageQueueService } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 @Injectable({
@@ -14,12 +14,10 @@ export class ThyMessageService {
 
     private _lastMessageId = 0;
 
-    private messageRefs: ThyMessageRef[] = [];
-
     constructor(
         private overlay: Overlay,
         private injector: Injector,
-        private messageStateService: ThyMessageStateService,
+        private messageQueueService: ThyMessageQueueService,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig
     ) {}
 
@@ -82,39 +80,22 @@ export class ThyMessageService {
      * 移除指定 Message
      * @param id 不传则移除所有
      */
-    remove(id?: string): void {
-        if (this.container) {
-            this.messageStateService.remove(id);
-            if (!id) {
-                this.messageRefs.forEach(messageRef => {
-                    messageRef.close();
-                });
-
-                this.messageRefs = [];
-            } else {
-                let messageRef = this.messageRefs.find(item => item.id === id);
-                messageRef?.close();
-                this.messageRefs = this.messageRefs.filter(item => item.id !== id);
-            }
-        }
+    remove(id?: string) {
+        this.messageQueueService.remove(id);
     }
 
     protected show(option: ThyMessageConfig): ThyMessageRef {
-        const messageConfig = this.formatOptions(option);
-        this.container = this.withContainer();
+        this.container = this.createContainer();
 
-        this.messageStateService.add(messageConfig);
-        const messageRef = new ThyMessageRef(messageConfig.id);
-        if (this.messageRefs.length >= this.defaultConfig.maxStack) {
-            const closedRef = this.messageRefs.shift();
-            closedRef.close();
-        }
-        this.messageRefs = [...this.messageRefs, messageRef];
+        const messageConfig = this.formatOptions(option);
+        const messageRef = new ThyMessageRef(messageConfig);
+        this.messageQueueService.add(messageRef);
         return messageRef;
     }
 
-    private withContainer(): ThyMessageContainerComponent {
+    private createContainer(): ThyMessageContainerComponent {
         if (this.container) {
+            this.container.toOverlayTop();
             return this.container;
         }
 
@@ -125,7 +106,6 @@ export class ThyMessageService {
         });
         const componentPortal = new ComponentPortal(ThyMessageContainerComponent, null, this.injector);
         const componentRef = overlayRef.attach(componentPortal);
-
         return componentRef.instance;
     }
 

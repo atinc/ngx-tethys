@@ -1,12 +1,16 @@
 import { Subject } from 'rxjs';
+import { ThyMessageConfig } from './message.config';
 
 export class ThyMessageRef {
     id: string;
 
+    config: ThyMessageConfig;
+
     private _afterClosed = new Subject<void>();
 
-    constructor(id: string) {
-        this.id = id;
+    constructor(config: ThyMessageConfig) {
+        this.id = config.id;
+        this.config = config;
     }
 
     close() {

@@ -1,8 +1,7 @@
-import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy,  NgZone, ApplicationRef
-} from '@angular/core';
+import { Component, Input, HostBinding, OnInit, HostListener, OnDestroy, NgZone } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { ThyMessageConfig } from './message.config';
-import { ThyMessageService } from './message.service';
+import { ThyMessageQueueService } from './message-queue.service';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -45,7 +44,7 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         this.option = value;
     }
 
-    constructor(private messageService: ThyMessageService, private _ngZone: NgZone, private applicationRef: ApplicationRef) {}
+    constructor(private _ngZone: NgZone, private messageQueueService: ThyMessageQueueService) {}
 
     ngOnInit() {
         const iconName = {
@@ -77,7 +76,7 @@ export class ThyMessageComponent implements OnInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this.messageService.remove(this.option.id);
+                this.messageQueueService.remove(this.option.id);
             }, ANIMATION_OUT_DURATION);
         });
     }

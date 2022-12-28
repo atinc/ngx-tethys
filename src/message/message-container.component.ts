@@ -1,6 +1,6 @@
-import { Component, HostBinding, Inject } from '@angular/core';
+import { Component, ElementRef, HostBinding, Inject } from '@angular/core';
 import { coerceCssPixelValue } from 'ngx-tethys/util';
-import { ThyMessageStateService } from './message-state.service';
+import { ThyMessageQueueService } from './message-queue.service';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 /**
@@ -9,7 +9,7 @@ import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.co
 @Component({
     selector: 'thy-message-container',
     template: `
-        <thy-message *ngFor="let message of messageStateService.messages$ | async" [thyOption]="message"></thy-message>
+        <thy-message *ngFor="let message of messageQueueService.queues$ | async" [thyOption]="message.config"></thy-message>
     `,
     host: {
         class: 'thy-message-container'
@@ -19,9 +19,16 @@ export class ThyMessageContainerComponent {
     @HostBinding('style.top') private top: string;
 
     constructor(
-        public messageStateService: ThyMessageStateService,
+        public messageQueueService: ThyMessageQueueService,
+        private elementRef: ElementRef,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig
     ) {
         this.top = coerceCssPixelValue(defaultConfig.offset);
+    }
+
+    toOverlayTop() {
+        const globalOverlayWrapper = this.elementRef.nativeElement.closest('.cdk-global-overlay-wrapper');
+        const overlayContainer = globalOverlayWrapper.parentElement;
+        overlayContainer.appendChild(globalOverlayWrapper);
     }
 }
