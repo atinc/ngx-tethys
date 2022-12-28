@@ -1,9 +1,12 @@
 import { Dictionary } from 'ngx-tethys/types';
+
 import { InjectionToken } from '@angular/core';
 
 export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 
 export type ThyFormGroupFooterAlign = 'left' | 'right' | 'center';
+
+export declare type ThyValidateOn = 'submit' | 'blur' | 'change';
 
 export declare type ThyFormValidationMessages = Dictionary<Dictionary<string>>;
 
@@ -11,6 +14,7 @@ export interface ThyFormValidatorConfig {
     showElementError?: boolean | ((element: HTMLElement, errorMessages: string[]) => void);
     removeElementError?: boolean | ((element: HTMLElement) => void);
     validationMessages?: ThyFormValidationMessages;
+    validateOn?: ThyValidateOn;
 }
 export interface ThyFormValidatorGlobalConfig extends ThyFormValidatorConfig {
     globalValidationMessages?: Dictionary<string>;

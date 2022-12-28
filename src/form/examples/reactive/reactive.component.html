@@ -1,0 +1,121 @@
+<div class="d-flex mb-4 align-items-center">
+  <div>updateOn</div>
+  <div class="col-sm-2 col-form-control">
+    <thy-custom-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
+      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </div>
+  <div>validateOn</div>
+  <div class="col-sm-2 col-form-control">
+    <thy-custom-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
+      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </div>
+</div>
+<form *ngIf="loadingDone" thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
+  <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
+    <input thyInput name="username" formControlName="username" placeholder="Please type username" />
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Search" thyLayout="horizontal" thyLabelRequired>
+    <thy-input-search name="search" formControlName="search" placeholder="search"></thy-input-search>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Number" thyLayout="horizontal" thyLabelRequired>
+    <thy-input-number thyPlaceholder="请输入" name="number" formControlName="number" placeholder="search"></thy-input-number>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Select">
+    <thy-select formControlName="select" name="select">
+      <option value="">---Select---</option>
+      <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
+    </thy-select>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="CustomerSelect">
+    <thy-custom-select
+      thyPlaceHolder="请选择"
+      formControlName="customersSelect"
+      name="customersSelect"
+      [thyShowSearch]="true"
+      [thyAllowClear]="true"
+    >
+      <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="TreeSelect">
+    <thy-tree-select
+      formControlName="treeSelect"
+      name="treeSelect"
+      [thyTreeNodes]="basicTreeSelectData"
+      [thyShowSearch]="true"
+      [thyAllowClear]="true"
+    >
+    </thy-tree-select>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Rate" thyLayout="horizontal" thyLabelRequired>
+    <thy-rate name="rate" formControlName="rate"></thy-rate>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Strength" thyLayout="horizontal" thyLabelRequired>
+    <thy-strength name="strength" formControlName="strength"></thy-strength>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Switch" thyLayout="horizontal" thyLabelRequired>
+    <thy-switch name="switch" formControlName="switch"></thy-switch>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="Cascader" thyLabelRequired>
+    <thy-cascader name="province" [thyOptions]="provinceCities" formControlName="province" style="width:200px;"> </thy-cascader>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Textarea" thyLabelRequired>
+    <textarea name="textarea" formControlName="textarea" class="form-control" rows="3"></textarea>
+  </thy-form-group>
+
+  <ng-container *ngIf="loadingDone">
+    <thy-form-group>
+      <ng-template #formGroup>
+        <label class="col-sm-2 col-form-label pr-0">Start Time</label>
+        <div class="col-sm-4 col-form-control">
+          <thy-date-picker thyShowTime name="startTime" required formControlName="startTime"></thy-date-picker>
+        </div>
+        <label class="col-sm-2 col-form-label">End time</label>
+        <div class="col-sm-4 has-feedback col-form-control">
+          <thy-date-picker thyShowTime name="endTime" formControlName="endTime"></thy-date-picker>
+        </div>
+      </ng-template>
+    </thy-form-group>
+    <thy-form-group>
+      <ng-template #formGroup>
+        <label class="col-sm-2 col-form-label pr-0">Date</label>
+        <div class="col-sm-4 col-form-control">
+          <thy-date-picker name="dateFull" formControlName="dateFull"></thy-date-picker>
+        </div>
+        <label class="col-sm-2 col-form-label">Date range</label>
+        <div class="col-sm-4 has-feedback col-form-control">
+          <thy-range-picker name="dateRange" formControlName="dateRange"></thy-range-picker>
+        </div>
+      </ng-template>
+    </thy-form-group>
+  </ng-container>
+
+  <thy-form-group thyLabelText="Radio Button">
+    <thy-radio-group name="radioGroup" formControlName="radioGroup" thyLayout="flex" required>
+      <label thyRadioButton thyLabelText="Option1" thyValue="1"></label>
+      <label thyRadioButton thyLabelText="Option2" thyValue="2"></label>
+      <label thyRadioButton thyLabelText="Option3" thyValue="3"></label>
+      <label thyRadioButton thyLabelText="Option4" thyValue="4"></label>
+      <label thyRadioButton thyLabelText="Option5" thyValue="5"></label>
+    </thy-radio-group>
+  </thy-form-group>
+  <thy-form-group *ngIf="submitSuccess">
+    <div class="text text-success">Submit success!</div>
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save()">
+      Save
+    </button>
+    <button [thyButton]="'link-secondary'">Cancel</button>
+  </thy-form-group-footer>
+</form>

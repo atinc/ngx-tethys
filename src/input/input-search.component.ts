@@ -1,18 +1,19 @@
+import { Constructor, InputBoolean, MixinBase, mixinInitialized, ThyInitialized, UpdateHostClassService } from 'ngx-tethys/core';
+
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
+    ElementRef,
     EventEmitter,
     forwardRef,
     Input,
-    Output,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
-    ElementRef,
     OnInit,
-    HostBinding
+    Output,
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService, mixinInitialized, ThyInitialized, Constructor, MixinBase, InputBoolean } from 'ngx-tethys/core';
+
 import { ThyInputSize } from './input.directive';
 
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
@@ -162,5 +163,13 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
         this.onChangeCallback(this.searchText);
         this.clear.emit(event);
         this.thyClear.emit(event);
+    }
+
+    onBlur(event: Event) {
+        this.focused = false;
+        this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur();
+        }
     }
 }

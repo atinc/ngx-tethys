@@ -1,8 +1,10 @@
-import { InjectionToken, Inject, Injectable, Optional } from '@angular/core';
-import { ThyFormValidatorGlobalConfig, ThyFormValidationMessages, THY_VALIDATOR_CONFIG } from './form.class';
 import { Dictionary } from 'ngx-tethys/types';
-import { ValidationErrors } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
+
+import { Inject, Injectable, Optional } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
+
+import { THY_VALIDATOR_CONFIG, ThyFormValidationMessages, ThyFormValidatorGlobalConfig } from './form.class';
 
 export const ERROR_VALUE_REPLACE_REGEX = /\{(.+?)\}/g;
 
@@ -50,6 +52,13 @@ export class ThyFormValidatorLoader {
 
     get validationMessages() {
         return this.config.validationMessages;
+    }
+
+    get validateOn() {
+        if (!this.config?.validateOn) {
+            this.config.validateOn = 'submit';
+        }
+        return this.config.validateOn;
     }
 
     isElementInInputGroup(element: HTMLElement) {

@@ -9,7 +9,7 @@
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
   (focus)="focused = true"
-  (blur)="focused = false && onTouchedCallback()"
+  (blur)="onBlur($event)"
   [thySize]="thySize"
 />
 <ng-container *ngIf="iconPosition === 'after'">

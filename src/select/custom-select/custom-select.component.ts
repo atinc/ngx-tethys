@@ -436,6 +436,14 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
+    public onBlur(event: Event) {
+        console.log('blur', event);
+        this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur();
+        }
+    }
+
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
@@ -524,6 +532,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             }
         }
         this.onChangeCallback(this.modalValue);
+        this.onTouchedCallback();
         this.updateCdkConnectedOverlayPositions();
     }
 
@@ -717,7 +726,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         } else {
-            const selectedOption = this.options.find(option => {
+            const selectedOption = this.options?.find(option => {
                 return option.thyValue === modalValue;
             });
             if (selectedOption) {
@@ -753,6 +762,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         if (wasSelected !== this.selectionModel.isSelected(option)) {
             this.emitModelValueChange();
         }
+        this.onTouchedCallback();
         this.changeDetectorRef.markForCheck();
     }
 

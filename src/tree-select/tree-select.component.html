@@ -12,6 +12,7 @@
   [customDisplayTemplate]="customDisplayTemplate"
   [thyShowSearch]="thyShowSearch"
   [thyDisabled]="thyDisable"
+  (thyOnBlur)="onBlur($event)"
   (thyOnClear)="clearSelectedValue($event)"
   (thyOnRemove)="removeMultipleSelectedNode($event)"
   (thyOnSearch)="searchValue($event)"

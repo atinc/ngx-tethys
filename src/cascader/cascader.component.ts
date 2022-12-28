@@ -1,3 +1,9 @@
+import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
+import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
@@ -17,12 +23,8 @@ import {
     ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
-import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
-import { ThyCascaderOption, ThyCascaderExpandTrigger, ThyCascaderTriggerType } from './types';
+
+import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -678,6 +680,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             return;
         }
         this.setActiveOption(option, index, true);
+        this.onTouched();
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -816,6 +819,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.deselectAllSelected();
         this.setMenuVisible(false);
         this.valueChange();
+        this.onTouched();
     }
 
     private deselectAllSelected() {

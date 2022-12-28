@@ -1,6 +1,7 @@
-import { Component, forwardRef, HostBinding, Input, ElementRef, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+
+import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -62,6 +63,7 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
 
     ngModelChange() {
         this.onChangeCallback(this._innerValue);
+        this.onTouchedCallback();
     }
 
     ngOnInit() {
@@ -73,5 +75,6 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         event.stopPropagation();
         this._innerValue = '';
         this.onChangeCallback(this._innerValue);
+        this.onTouchedCallback();
     }
 }

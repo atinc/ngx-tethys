@@ -10,6 +10,7 @@
     (ngModelChange)="setInputValue($event)"
     (keydown.backspace)="handleBackspace($event)"
     [disabled]="thyDisabled"
+    (blur)="onBlur($event)"
   />
 </ng-template>
 

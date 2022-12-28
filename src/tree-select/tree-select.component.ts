@@ -3,6 +3,7 @@ import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
 import {
@@ -66,6 +67,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     @HostBinding('class.menu-is-opened') expandTreeSelectOptions = false;
 
     @HostBinding('class.thy-select-custom--multiple') isMulti = false;
+
+    // @HostBinding('attr.tabindex')
+    // tabIndex = '0';
 
     public treeNodes: ThyTreeSelectNode[];
 
@@ -353,12 +357,20 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.expandTreeSelectOptions = false;
     }
 
+    public onBlur(event: Event) {
+        this.onModelTouch();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur();
+        }
+    }
+
     clearSelectedValue(event: Event) {
         event.stopPropagation();
         this.selectedValue = null;
         this.selectedNode = null;
         this.selectedNodes = [];
         this.onModelChange(this.selectedValue);
+        this.onModelTouch();
     }
 
     private _changeSelectValue() {
@@ -370,6 +382,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                 : this.selectedNode[this.thyPrimaryKey];
         }
         this.onModelChange(this.selectedValue);
+        this.onModelTouch();
     }
 
     removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {

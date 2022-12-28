@@ -1,10 +1,24 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { NgForm } from '@angular/forms';
-import { keycodes } from 'ngx-tethys/util';
-import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
+import { coerceBooleanProperty, keycodes } from 'ngx-tethys/util';
+
+import {
+    AfterViewInit,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    HostBinding,
+    Inject,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    QueryList,
+    Renderer2
+} from '@angular/core';
+import { ControlContainer, NgControl, NgForm } from '@angular/forms';
+
 import { ThyFormValidatorService } from './form-validator.service';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -24,7 +38,7 @@ export enum ThyEnterKeyMode {
         class: 'thy-form'
     }
 })
-export class ThyFormDirective implements OnInit, OnDestroy {
+export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private layout: ThyFormLayout;
 
     private initialized = false;
@@ -60,8 +74,13 @@ export class ThyFormDirective implements OnInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
+    @ContentChildren(NgControl, {
+        descendants: true
+    })
+    public controls: QueryList<NgControl>;
+
     constructor(
-        private ngForm: NgForm,
+        private ngForm: ControlContainer,
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
@@ -79,7 +98,14 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         });
         this.updateClasses();
         this.initialized = true;
-        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    ngAfterViewInit() {
+        this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
+        this.validator.initializeFormControlsValidation(this.controls.toArray());
+        this.controls.changes.subscribe(controls => {
+            this.validator.initializeFormControlsValidation(this.controls.toArray());
+        });
     }
 
     submit($event: Event) {
