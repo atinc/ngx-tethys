@@ -37,7 +37,8 @@ import { ThyMessageModule } from "ngx-tethys/message";
                 pauseOnHover: true,
                 duration: 4500,
                 maxStack: 8,
-                offset: '20'
+                offset: '20',
+                showClose: false
             }
         }
     ]
@@ -50,13 +51,17 @@ const THY_MESSAGE_DEFAULT_CONFIG_VALUE = {
     pauseOnHover: true,
     duration: 4500,
     maxStack: 8,
-    offset: '20'
+    offset: '20',
+    showClose: false
 };
 ```
 
 ## 基本使用
 ```ts
-messageService.show({ type: 'success', content: '成功 ' });
+messageService.success('创建项目成功！', {
+    pauseOnHover: false,
+    showClose: true
+});
 messageService.success('创建项目成功！');
 ```
 <example name="thy-message-basic-example"></example>
