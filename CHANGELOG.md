@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.7](https://github.com/atinc/ngx-tethys/compare/14.2.6...14.2.7) (2022-12-28)
+
+
+### Bug Fixes
+
+* **cdk:** remove hotkey conflict logic and don't call hotkey event when active element is form control ([5568e52](https://github.com/atinc/ngx-tethys/commit/5568e52d46d8a54e7497f780b9cb3b9abe8b2dc0))
+* **layout:** custom collapsed template support hotkey #INFR-5804 ([cfbc8a1](https://github.com/atinc/ngx-tethys/commit/cfbc8a16ef87ac628cea3ae4c211c84c58e960ae)), closes [#INFR-5804](https://github.com/atinc/ngx-tethys/issues/INFR-5804)
+* **list:** replace $hover-bg-color $gray-80 to $gray-100 #INFR-5885 ([282ba9b](https://github.com/atinc/ngx-tethys/commit/282ba9ba1e736453df270dd76bc891328053940c)), closes [#INFR-5885](https://github.com/atinc/ngx-tethys/issues/INFR-5885)
+* **select:** get right width #INFR-5909 ([#2449](https://github.com/atinc/ngx-tethys/issues/2449)) ([b40667e](https://github.com/atinc/ngx-tethys/commit/b40667e3356eb52047d1b364af80d7e20d4bb0e2)), closes [#INFR-5909](https://github.com/atinc/ngx-tethys/issues/INFR-5909)
+* time picker disable style #INFR-5888 ([#2448](https://github.com/atinc/ngx-tethys/issues/2448)) ([b748917](https://github.com/atinc/ngx-tethys/commit/b748917368378dcf40640d6f0cec01f91b860de6)), closes [#INFR-5888](https://github.com/atinc/ngx-tethys/issues/INFR-5888)
+
+
+
 ## [14.2.6](https://github.com/atinc/ngx-tethys/compare/14.2.5...14.2.6) (2022-12-16)
 
 
