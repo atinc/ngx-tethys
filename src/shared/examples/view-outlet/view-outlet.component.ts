@@ -26,8 +26,12 @@ export class ThySharedViewOutletExampleComponent implements OnInit {
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyViewOutletCounterComponent {
+export class ThyViewOutletCounterComponent implements OnInit {
     @Input() count: number;
 
     @Input() from: string;
+
+    ngOnInit(): void {
+        // console.log(`ngOnInit ${this.count}, from ${this.from}`);
+    }
 }
