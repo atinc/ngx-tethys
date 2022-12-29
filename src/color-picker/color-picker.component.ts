@@ -5,6 +5,7 @@ import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
+import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
 /**
  * 颜色选择组件
@@ -42,6 +43,12 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      * 是否显示'无填充色'选项。
      */
     @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
+
+    /**
+     * 预设的快捷选择颜色。
+     * @default DEFAULT_COLORS
+     */
+    @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -82,6 +89,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 color: new ThyColor(this.color).toHexString(true),
                 defaultColor: this.thyDefaultColor,
                 transparentColorSelectable: this.thyTransparentColorSelectable,
+                defaultColors: this.thyPresetColors,
                 colorChange: (value: string) => {
                     this.onModelChange(value);
                 }
