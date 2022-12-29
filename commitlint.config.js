@@ -54,6 +54,7 @@ module.exports = {
                 'menu',
                 'nav',
                 'notify',
+                'message',
                 'nav',
                 'pagination',
                 'popover',
