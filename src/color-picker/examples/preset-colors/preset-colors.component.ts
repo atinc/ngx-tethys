@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { DEFAULT_COLORS } from 'ngx-tethys/color-picker';
 
 @Component({
-    selector: 'thy-disabled-colors-example',
-    templateUrl: './disabled-colors.component.html',
+    selector: 'thy-preset-colors-example',
+    templateUrl: './preset-colors.component.html',
     styles: [
         `
             .box {
@@ -13,13 +13,14 @@ import { DEFAULT_COLORS } from 'ngx-tethys/color-picker';
         `
     ]
 })
-export class ThyDisabledColorsExampleComponent implements OnInit {
+export class ThyPresetColorsExampleComponent implements OnInit {
     color = '#6698FF';
 
-    disabledColors: string[] = [];
+    presetColors: string[] = [];
 
     ngOnInit() {
-        this.disabledColors = DEFAULT_COLORS.slice(0, 10).concat(DEFAULT_COLORS.slice(DEFAULT_COLORS.length - 10));
+        this.presetColors = DEFAULT_COLORS.slice(10, DEFAULT_COLORS.length - 10);
+        console.log(this.presetColors, 'preset colors');
     }
 
     change(color: string) {
