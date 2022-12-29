@@ -5,30 +5,73 @@
     display: inline-flex;
     flex: 1;
     line-height: initial;
+    flex-wrap: wrap;
     width: 100%;
-    .thy-avatar:not(:last-of-type) {
-        margin-right: variables.$avatar-list-margin;
+
+    .thy-avatar-content {
+        position: relative;
+        margin-right: variables.$avatar-list-space;
+        margin-bottom: variables.$avatar-list-margin-bottom;
     }
+
+    .thy-avatar-list-fold {
+        margin-right: variables.$avatar-list-space;
+        margin-bottom: variables.$avatar-list-margin-bottom;
+    }
+
     .thy-avatar-list-append {
-        margin-left: variables.$avatar-list-margin;
+        margin-bottom: variables.$avatar-list-margin-bottom;
+    }
+
+    .thy-avatar-content-no-append-fold-last {
+        margin-right: 0;
     }
 }
 
+.thy-avatar-list-no-wrap {
+    flex-wrap: nowrap;
+}
+
 .thy-avatar-list-overlap {
+    margin-left: -(variables.$avatar-list-overlap-space);
+
+    .thy-avatar-content {
+        margin-right: 0 !important;
+        position: relative;
+        margin-left: variables.$avatar-list-overlap-space;
+    }
+
+    .thy-avatar-list-fold-overlap-margin {
+        margin-left: variables.$avatar-list-overlap-space;
+        z-index: 999;
+    }
+
+    .thy-avatar-list-append-overlap-padding {
+        padding-left: variables.$avatar-list-space;
+    }
+
     @each $size, $value in variables.$avatar-sizes {
         .thy-avatar-#{$size} {
             @include mixin.avatarSize($size, $value);
-            margin-right: 0 !important;
-            &:not(:first-of-type) {
-                margin-left: variables.$avatar-list-overlap;
-            }
 
             .avatar-default {
                 border: 1px solid variables.$white;
             }
         }
-        .thy-avatar-list-append {
-            margin-left: 0;
+    }
+}
+
+@each $size, $value in variables.$avatar-sizes {
+    .more-#{$size} {
+        @include mixin.avatarMoreSize($size, $value);
+        background-color: rgba(variables.$black, 0.3);
+        color: variables.$white;
+        position: absolute;
+        left: 0;
+        top: 0;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

@@ -1,13 +1,12 @@
 import {
     AfterContentInit,
     AfterViewInit,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
     Component,
     ContentChild,
     ContentChildren,
     ElementRef,
     EventEmitter,
+    HostBinding,
     Input,
     NgZone,
     OnDestroy,
@@ -19,10 +18,19 @@ import {
 } from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { merge, Observable, of, Subject } from 'rxjs';
-import { debounceTime, takeUntil } from 'rxjs/operators';
+import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
 
-const AVATAR_LIST_MARGIN = 6;
+const AVATAR_LIST_SPACE = 6;
+
+const AvATAR_LIST_OVERLAP_SPACE = -8;
+
+const thyAvatarListSizeMap = {
+    xs: 24,
+    sm: 28,
+    md: 32,
+    lg: 44
+};
 
 export const enum ThyAvatarListMode {
     overlap = 'overlap',
@@ -33,30 +41,49 @@ export const enum ThyAvatarListMode {
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
     host: {
-        class: 'thy-avatar-list',
-        '[class.thy-avatar-list-overlap]': 'thyMode === "overlap"'
+        class: 'thy-avatar-list'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [UpdateHostClassService]
 })
 export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
+    @HostBinding('class.thy-avatar-list-no-wrap') isFold = true;
+
+    @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
+
     private ngUnsubscribe$ = new Subject<void>();
 
-    public avatarComponents: ThyAvatarComponent[];
-
-    public get showRemovable() {
-        return this.thyMode === ThyAvatarListMode.overlap ? false : this.thyRemovable;
+    private get avatarSpace() {
+        return this.overlapMode ? AvATAR_LIST_OVERLAP_SPACE : AVATAR_LIST_SPACE;
     }
 
-    @Input() thyMode: ThyAvatarListMode;
+    public foldCount = 0;
+
+    public get avatarComponents() {
+        return this.avatarList.toArray();
+    }
+
+    public get avatarSize() {
+        if (thyAvatarListSizeMap[this.thyAvatarSize]) {
+            return thyAvatarListSizeMap[this.thyAvatarSize];
+        } else {
+            return DEFAULT_SIZE;
+        }
+    }
+
+    @Input()
+    set thyMode(value: ThyAvatarListMode) {
+        this.overlapMode = value === ThyAvatarListMode.overlap;
+    }
+
+    @Input() thyShowTooltip = true;
 
     @Input()
     @InputBoolean()
-    thyResponsive: boolean;
+    thyResponsive = false;
 
     @Input() thyMax: number;
 
-    @Input() thyAvatarSize = DEFAULT_SIZE;
+    @Input() thyAvatarSize: keyof typeof thyAvatarListSizeMap;
 
     @Input() thyRemovable = false;
 
@@ -68,7 +95,7 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
 
     @ContentChildren(ThyAvatarComponent) avatarList: QueryList<ThyAvatarComponent>;
 
-    constructor(private elementRef: ElementRef, private ngZone: NgZone, private cdr: ChangeDetectorRef) {}
+    constructor(private elementRef: ElementRef, private ngZone: NgZone) {}
 
     ngOnInit() {}
 
@@ -77,38 +104,45 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
     }
 
     ngAfterViewInit() {
+        this.ngZone.onStable.pipe(take(1)).subscribe(() => {
+            if (this.appendContent) {
+                this.setAvailableAvatar();
+            }
+        });
+
         if (this.thyResponsive) {
             this.ngZone.runOutsideAngular(() => {
-                merge(this.avatarList.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
-                    .pipe(takeUntil(this.ngUnsubscribe$))
+                merge(this.avatarList.changes, this.createResizeObserver(this.elementRef.nativeElement))
+                    .pipe(debounceTime(100), takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
                         this.setAvailableAvatar();
-                        this.cdr.detectChanges();
                     });
             });
         }
     }
 
-    remove($event: Event) {
+    public remove($event: Event) {
         this.thyOnRemove.emit($event);
     }
 
+    public toggleAvatar() {
+        this.isFold = !this.isFold;
+    }
+
     private setAvailableAvatar() {
-        const avatars = this.avatarList.toArray();
         const endIndex = this.getShowAvatarEndIndex();
-        const max = this.thyMax || avatars.length;
-        const showCount = Math.max(0, Math.min(max, endIndex + 1));
-        this.avatarComponents = avatars.slice(0, showCount);
+        const max = this.thyMax || this.avatarComponents.length;
+        this.foldCount = Math.max(0, Math.min(max, endIndex + 1));
     }
 
     private getShowAvatarEndIndex() {
-        const avatars = this.avatarList.toArray();
-        const avatarsLength = avatars.length;
+        const avatarsLength = this.avatarComponents.length;
         const wrapperWidth = this.elementRef.nativeElement.offsetWidth;
-        let totalWidth = this.appendContent?.nativeElement.offsetWidth || 0;
+        const appendWidth = this.appendContent?.nativeElement.offsetWidth;
+        let totalWidth = appendWidth || 0;
         let endIndex = avatarsLength;
         for (let i = 0; i < avatarsLength; i++) {
-            const avatarWidth = avatars[i]._size + AVATAR_LIST_MARGIN;
+            const avatarWidth = this.avatarSize + this.avatarSpace;
             const _totalWidth = totalWidth + avatarWidth;
             if (_totalWidth > wrapperWidth) {
                 endIndex = i - 1;
@@ -126,7 +160,9 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
             ? of(null)
             : new Observable(observer => {
                   const resize = new ResizeObserver(entries => {
-                      observer.next(entries);
+                      this.ngZone.run(() => {
+                          observer.next(entries);
+                      });
                   });
                   resize.observe(element);
                   return () => {

@@ -56,6 +56,10 @@
     .thy-avatar-#{$size} {
         @include mixin.avatarSize($size, $value);
     }
+    .more-#{$size} {
+        @include mixin.avatarMoreSize($size, $value);
+        background-color: rgba(variables.$black, 0.3);
+    }
 }
 
 @include meta.load-css('./avatar-list.scss');

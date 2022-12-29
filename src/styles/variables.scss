@@ -490,8 +490,9 @@ $avatar-sizes: map.merge(
 );
 
 //avatar list
-$avatar-list-overlap: -0.5rem;
-$avatar-list-margin: 0.375rem;
+$avatar-list-overlap-space: -0.5rem;
+$avatar-list-space: 0.375rem;
+$avatar-list-margin-bottom: 0.5rem;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
