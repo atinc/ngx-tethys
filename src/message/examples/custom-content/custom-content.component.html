@@ -1,0 +1,8 @@
+<thy-space>
+  <button *thySpaceItem thyButton="primary" (click)="showWithString()">String</button>
+  <button *thySpaceItem thyButton="primary" (click)="showWithTemplateRef()">TemplateRef</button>
+</thy-space>
+<ng-template #content let-title let-content="content">
+  <h3>标题</h3>
+  <div>自定义内容</div>
+</ng-template>

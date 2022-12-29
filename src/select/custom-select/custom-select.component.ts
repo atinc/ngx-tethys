@@ -130,7 +130,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public selectionModel: SelectionModel<ThyOptionComponent>;
 
-    public triggerRect: DOMRect;
+    public triggerRectWidth: number;
 
     public scrollStrategy: ScrollStrategy;
 
@@ -321,7 +321,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
                 if (this.panelOpen) {
-                    this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+                    this.triggerRectWidth = this.trigger.nativeElement.offsetWidth;
                     this.changeDetectorRef.markForCheck();
                 }
             });
@@ -499,7 +499,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         if (this.disabled || !this.options || this.panelOpen) {
             return;
         }
-        this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+        this.triggerRectWidth = this.trigger.nativeElement.offsetWidth;
         this.panelOpen = true;
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);

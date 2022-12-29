@@ -118,6 +118,9 @@
         &:not(.thy-input-readonly) {
             cursor: pointer;
         }
+        &.thy-input-disabled {
+            cursor: auto;
+        }
 
         &.thy-input {
             line-height: variables.$line-height-base;
