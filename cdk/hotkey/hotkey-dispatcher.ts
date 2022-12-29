@@ -4,13 +4,11 @@ import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
 import { fromEvent, Observable, Subscriber } from 'rxjs';
 import { filter } from 'rxjs/operators';
-import { isString, isUndefinedOrNull } from '@tethys/cdk/is';
+import { isFormElement, isString, isUndefinedOrNull } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
 
 @Injectable({ providedIn: 'root' })
 export class ThyHotkeyDispatcher extends ThyEventDispatcher {
-    private keydownSubscriber: Subscriber<KeyboardEvent>;
-
     constructor(@Inject(DOCUMENT) document: any, ngZone: NgZone) {
         super(document, ngZone, 'keydown');
     }
@@ -34,11 +32,12 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
             const subscription = keydown
                 .pipe(filter((event: KeyboardEvent) => hotkeys.some(key => isHotkey(event, key))))
                 .subscribe((event: KeyboardEvent) => {
-                    this.keydownSubscriber = subscriber;
-                    // setTimeout 是为了解决 Hotkey 冲突时仅执行最后订阅的事件
-                    setTimeout(() => {
-                        this.keydownSubscriber?.next(event);
-                        this.keydownSubscriber = null;
+                    // 如果当前焦点的元素是表单元素并且焦点原色不是Hotkey绑定元素则忽略快捷键
+                    if (isFormElement(this.document.activeElement) && this.document.activeElement !== scope) {
+                        return;
+                    }
+                    this.ngZone.run(() => {
+                        subscriber.next(event);
                     });
                 });
             return () => {

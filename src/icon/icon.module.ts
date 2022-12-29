@@ -5,8 +5,8 @@ import { ThyIconComponent } from './icon.component';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
-    declarations: [ThyIconComponent],
-    imports: [CommonModule, FormsModule, HttpClientModule],
+    declarations: [],
+    imports: [ThyIconComponent, CommonModule, FormsModule, HttpClientModule],
     exports: [ThyIconComponent]
 })
 export class ThyIconModule {}

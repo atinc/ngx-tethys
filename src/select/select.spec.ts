@@ -131,7 +131,7 @@ describe(`select`, () => {
             expect(removeIcon.attributes['thyiconname'].nodeType).toEqual(2);
             expect(removeIcon.attributes['thyiconname'].nodeValue).toEqual('close-circle-bold-fill');
             expect(removeIcon.attributes['class'].nodeType).toEqual(2);
-            expect(removeIcon.attributes['class'].nodeValue).toContain('remove-link-icon thy-icon-close-circle-bold-fill thy-icon');
+            expect(removeIcon.attributes['class'].nodeValue).toContain('thy-icon remove-link-icon thy-icon-close-circle-bold-fill');
         }));
 
         it('show clear value when click remove btn', fakeAsync(() => {
