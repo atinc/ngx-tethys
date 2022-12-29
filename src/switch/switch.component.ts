@@ -7,6 +7,7 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
+    HostBinding,
     Input,
     OnChanges,
     OnInit,
@@ -87,6 +88,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
      * @deprecated
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
+
+    @HostBinding('class.thy-switch') className = true;
 
     constructor(public cdr: ChangeDetectorRef) {}
 

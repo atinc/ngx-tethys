@@ -1,3 +1,6 @@
+import { InputBoolean } from 'ngx-tethys/core';
+import { DOWN_ARROW, ENTER, helpers, UP_ARROW } from 'ngx-tethys/util';
+
 import {
     ChangeDetectorRef,
     Component,
@@ -14,8 +17,6 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from 'ngx-tethys/core';
-import { DOWN_ARROW, ENTER, helpers, UP_ARROW } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -76,7 +77,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     @Output() thyFocus = new EventEmitter<Event>();
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {}
 
     ngOnInit() {}
 
@@ -125,6 +126,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     onBlur(event?: Event) {
         this.displayValue = this.formatterValue(this.validValue);
         this.onTouchFn();
+        this.elementRef.nativeElement?.onblur(event);
         this.thyBlur.emit(event);
     }
 

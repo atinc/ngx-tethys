@@ -359,9 +359,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     public onBlur(event: Event) {
         this.onModelTouch();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement.onblur();
-        }
+        this.elementRef.nativeElement?.onblur(event);
     }
 
     clearSelectedValue(event: Event) {

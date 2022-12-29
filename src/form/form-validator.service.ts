@@ -79,7 +79,8 @@ export class ThyFormValidatorService implements OnDestroy {
         const element: HTMLElement = this._getElement(control.name as string);
         if (element) {
             element.onblur = (event: FocusEvent) => {
-                if (!event) {
+                // 兼容customer-select聚焦就会触发失焦事件
+                if ((event.target as HTMLElement)?.tagName === 'INPUT') {
                     this.validateControl(control.name as string);
                 }
             };

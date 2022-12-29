@@ -168,8 +168,6 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     onBlur(event: Event) {
         this.focused = false;
         this.onTouchedCallback();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement.onblur();
-        }
+        this.elementRef.nativeElement?.onblur(event);
     }
 }

@@ -1,18 +1,19 @@
-import { ThyEnterKeyMode } from './../form.directive';
-import { ThyFormModule } from './../module';
-import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing';
-import { ThyFormDirective } from '../form.directive';
-import { ThyLayoutModule } from 'ngx-tethys/layout';
-import { FormsModule } from '@angular/forms';
-import { ThyFormValidatorConfig, THY_FORM_CONFIG } from '../form.class';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { createFakeEvent, dispatchEvent, dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { ThyFormSubmitDirective } from '../form-submit.directive';
-import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { ThyLayoutModule } from 'ngx-tethys/layout';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
+
+import { CommonModule } from '@angular/common';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule, NgForm } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { ThyFormSubmitDirective } from '../form-submit.directive';
+import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
+import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
+import { ThyFormModule } from '../module';
 
 @Component({
     selector: 'app-test-basic-form',
@@ -231,8 +232,9 @@ describe('form validate', () => {
 
     it('should create controls success', fakeAsync(() => {
         expect(formDirective.validator.validations).toEqual({});
-        expect(formDirective['ngForm'].controls).toBeTruthy();
-        const nameControl = formDirective['ngForm'].controls['username'];
+        const controls = (formDirective['ngForm'] as NgForm).controls;
+        expect(controls).toBeTruthy();
+        const nameControl = controls['username'];
         expect(nameControl).toBeTruthy();
     }));
 

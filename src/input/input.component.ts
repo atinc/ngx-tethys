@@ -172,9 +172,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     onInputBlur(event: Event) {
         this.onTouchedCallback();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement?.onblur();
-        }
+        this.elementRef.nativeElement?.onblur(event);
         this.focused = false;
         this.showLabel = false;
         this.blur.emit(event);
