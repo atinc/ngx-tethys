@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.8](https://github.com/atinc/ngx-tethys/compare/14.2.7...14.2.8) (2022-12-29)
+
+
+### Features
+
+* **color-picker:** add thyPresetColors #INFR-5921 ([#2452](https://github.com/atinc/ngx-tethys/issues/2452)) ([9a08aa7](https://github.com/atinc/ngx-tethys/commit/9a08aa72c8521c36a7130d2e8907dc81f4f17b7e)), closes [#INFR-5921](https://github.com/atinc/ngx-tethys/issues/INFR-5921)
+* **icon:** support standalone component and replace UpdateHostClassService with useHostRenderer ([#2453](https://github.com/atinc/ngx-tethys/issues/2453)) ([cc34def](https://github.com/atinc/ngx-tethys/commit/cc34defbed4d4623bd4cb96b498a2eecf6d93858))
+* **message:** add message component #INFR-4779 ([#2446](https://github.com/atinc/ngx-tethys/issues/2446)) ([1d9d0a6](https://github.com/atinc/ngx-tethys/commit/1d9d0a6c236aa515022131a914b6e40881a94979)), closes [#INFR-4779](https://github.com/atinc/ngx-tethys/issues/INFR-4779)
+* **shared:** only update changed property of context for thyViewOutlet #INFR-5923 ([#2451](https://github.com/atinc/ngx-tethys/issues/2451)) ([43c22e0](https://github.com/atinc/ngx-tethys/commit/43c22e0d5d9439c820f99a5d0bad55d5910fc677)), closes [#INFR-5923](https://github.com/atinc/ngx-tethys/issues/INFR-5923)
+
+
+
 ## [14.2.7](https://github.com/atinc/ngx-tethys/compare/14.2.6...14.2.7) (2022-12-28)
 
 
