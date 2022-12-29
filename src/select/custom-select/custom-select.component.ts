@@ -438,7 +438,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     public onBlur(event: Event) {
         this.onTouchedCallback();
-        this.elementRef.nativeElement?.onblur(event);
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur(event);
+        }
     }
 
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {

@@ -126,7 +126,9 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     onBlur(event?: Event) {
         this.displayValue = this.formatterValue(this.validValue);
         this.onTouchFn();
-        this.elementRef.nativeElement?.onblur(event);
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur(event);
+        }
         this.thyBlur.emit(event);
     }
 
