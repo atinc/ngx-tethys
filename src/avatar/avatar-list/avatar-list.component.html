@@ -3,64 +3,27 @@
 </ng-template>
 
 <ng-container *ngFor="let avatar of avatarComponents; index as index; count as count; last as isLast">
-  <ng-template
-    *ngIf="index < foldCount && isFold"
-    [ngTemplateOutlet]="avatarContent"
-    [ngTemplateOutletContext]="{
-      more: count - foldCount,
-      avatar: avatar,
-      isFoldLast: foldCount - 1 === index,
-      showMore: foldCount - 1 === index && count - foldCount
-    }"
-  ></ng-template>
-
-  <ng-template *ngIf="!isFold" [ngTemplateOutlet]="avatarContent" [ngTemplateOutletContext]="{ avatar: avatar }"></ng-template>
-
-  <button
-    *ngIf="!isFold && isLast"
-    [thyShape]="'circle-dashed'"
-    [thySize]="thyAvatarSize"
-    (click)="toggleAvatar()"
-    thyButtonIcon="angle-double-up"
-    href="javascript:;"
-    class="thy-avatar-list-fold"
-    [ngClass]="{
-      'thy-avatar-list-fold-overlap-margin': overlapMode
-    }"
-  ></button>
-</ng-container>
-
-<div
-  #appendContent
-  [ngClass]="{
-    'thy-avatar-list-append-overlap-padding': overlapMode && isFold
-  }"
-  *ngIf="append"
->
-  <ng-container [ngTemplateOutlet]="append"></ng-container>
-</div>
-
-<ng-template #avatarContent let-more="more" let-avatar="avatar" let-showMore="showMore" let-isFoldLast="isFoldLast">
   <div
     class="thy-avatar-content"
     [ngClass]="{
-      'cursor-pointer': showMore,
-      'thy-avatar-content-no-append-fold-last': isFoldLast && !append
+      'thy-avatar-content-last': isLast
     }"
-    [thyTooltip]="showMore ? '点击展开' : avatar.avatarName"
-    [thyTooltipDisabled]="showMore ? false : !thyShowTooltip"
   >
     <thy-avatar
       [thySrc]="avatar._src"
       [thyName]="avatar.avatarName"
       [thySize]="avatarSize"
-      [thyShowRemove]="showMore || overlapMode ? false : thyRemovable"
+      [thyShowRemove]="overlapMode ? false : thyRemovable"
       [thyImgClass]="avatar.thyImgClass"
       [thyDisabled]="avatar.thyDisabled"
       [thyLoading]="avatar.thyLoading"
       [thyFetchPriority]="avatar.thyFetchPriority"
-      (thyOnRemove)="remove($event)"
+      (thyOnRemove)="remove(avatar.avatarName)"
     ></thy-avatar>
-    <span *ngIf="showMore" (click)="toggleAvatar()" ngClass="more-{{ avatarSize }}">+{{ more }} </span>
+    <span *ngIf="isLast" ngClass="more-{{ avatarSize }}">+{{ avatarListArray.length - count }} </span>
   </div>
-</ng-template>
+</ng-container>
+
+<div #appendContent *ngIf="append" class="thy-avatar-list-append">
+  <ng-container [ngTemplateOutlet]="append"></ng-container>
+</div>

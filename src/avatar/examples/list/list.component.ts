@@ -9,7 +9,7 @@ export class ThyAvatarListExampleComponent {
 
     constructor() {}
 
-    remove(event: Event) {
-        console.log(event, 'remove emit');
+    remove(name: string) {
+        console.log(name, 'remove emit');
     }
 }

@@ -20,6 +20,7 @@ import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
+import { SafeAny } from '../../types';
 
 const AVATAR_LIST_SPACE = 6;
 
@@ -36,7 +37,9 @@ export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
 }
-
+/**
+ * 头像列表组件
+ */
 @Component({
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
@@ -46,8 +49,6 @@ export const enum ThyAvatarListMode {
     providers: [UpdateHostClassService]
 })
 export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
-    @HostBinding('class.thy-avatar-list-no-wrap') isFold = true;
-
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
 
     private ngUnsubscribe$ = new Subject<void>();
@@ -56,9 +57,7 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
         return this.overlapMode ? AvATAR_LIST_OVERLAP_SPACE : AVATAR_LIST_SPACE;
     }
 
-    public foldCount = 0;
-
-    public get avatarComponents() {
+    public get avatarListArray() {
         return this.avatarList.toArray();
     }
 
@@ -70,30 +69,61 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
         }
     }
 
+    public avatarComponents: ThyAvatarComponent[];
+
+    /**
+     * 展示方式
+     * @type  'overlap'| 'default'
+     * @default default
+     */
     @Input()
     set thyMode(value: ThyAvatarListMode) {
         this.overlapMode = value === ThyAvatarListMode.overlap;
     }
 
-    @Input() thyShowTooltip = true;
-
+    /**
+     * 响应式，自动计算宽度存放 avatar
+     * @default false
+     */
     @Input()
     @InputBoolean()
     thyResponsive = false;
 
+    /**
+     * 列表组件允许展示 avatar 最大数量
+     */
     @Input() thyMax: number;
 
+    /**
+     * 大小
+     * @type xs(24) | sm(28) | md(32) |default(36) | lg(44)
+     * @default:36
+     */
     @Input() thyAvatarSize: keyof typeof thyAvatarListSizeMap;
 
+    /**
+     * 是否展示移除按钮
+     * @type boolean
+     * @default false
+     */
     @Input() thyRemovable = false;
 
-    @Output() thyOnRemove = new EventEmitter();
+    /**
+     * avatar 移除按钮事件
+     */
+    @Output() thyOnRemove = new EventEmitter<string>();
+
+    /**
+     *  append 自定义操作
+     */
+    @ContentChild('append', { static: false }) append: TemplateRef<SafeAny>;
+
+    /**
+     * @private
+     */
+    @ContentChildren(ThyAvatarComponent) avatarList: QueryList<ThyAvatarComponent>;
 
     @ViewChild('appendContent') appendContent: ElementRef<HTMLInputElement>;
-
-    @ContentChild('append', { static: false }) append: TemplateRef<unknown>;
-
-    @ContentChildren(ThyAvatarComponent) avatarList: QueryList<ThyAvatarComponent>;
 
     constructor(private elementRef: ElementRef, private ngZone: NgZone) {}
 
@@ -121,22 +151,19 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
         }
     }
 
-    public remove($event: Event) {
-        this.thyOnRemove.emit($event);
-    }
-
-    public toggleAvatar() {
-        this.isFold = !this.isFold;
+    public remove(name: string) {
+        this.thyOnRemove.emit(name);
     }
 
     private setAvailableAvatar() {
         const endIndex = this.getShowAvatarEndIndex();
-        const max = this.thyMax || this.avatarComponents.length;
-        this.foldCount = Math.max(0, Math.min(max, endIndex + 1));
+        const max = this.thyMax || this.avatarListArray.length;
+        const showCount = Math.max(0, Math.min(max, endIndex + 1));
+        this.avatarComponents = this.avatarListArray.slice(0, showCount);
     }
 
     private getShowAvatarEndIndex() {
-        const avatarsLength = this.avatarComponents.length;
+        const avatarsLength = this.avatarListArray.length;
         const wrapperWidth = this.elementRef.nativeElement.offsetWidth;
         const appendWidth = this.appendContent?.nativeElement.offsetWidth;
         let totalWidth = appendWidth || 0;
