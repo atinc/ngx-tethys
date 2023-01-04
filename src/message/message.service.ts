@@ -1,30 +1,31 @@
 import { Overlay } from '@angular/cdk/overlay';
-import { ComponentPortal } from '@angular/cdk/portal';
 import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import { ThyMessageBaseService } from './base';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyMessageService {
-    private container: ThyMessageContainerComponent;
-
+export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainerComponent> {
     private _lastMessageId = 0;
 
     constructor(
-        private overlay: Overlay,
-        private injector: Injector,
+        overlay: Overlay,
+        injector: Injector,
         private messageQueue: ThyMessageQueue,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig
-    ) {}
+    ) {
+        super(overlay, injector, messageQueue);
+    }
 
     /**
      * 打开 success 类型的 Message
      */
-    success(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    success(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'success',
@@ -35,7 +36,7 @@ export class ThyMessageService {
     /**
      * 打开 error 类型的 Message
      */
-    error(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    error(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'error',
@@ -46,7 +47,7 @@ export class ThyMessageService {
     /**
      * 打开 info 类型的 Message
      */
-    info(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    info(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'info',
@@ -57,7 +58,7 @@ export class ThyMessageService {
     /**
      * 打开 warning 类型的 Message
      */
-    warning(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    warning(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'warning',
@@ -76,37 +77,13 @@ export class ThyMessageService {
         });
     }
 
-    /**
-     * 移除指定 Message
-     * @param id 不传则移除所有
-     */
-    remove(id?: string) {
-        this.messageQueue.remove(id);
-    }
-
     protected show(config: ThyMessageConfig): ThyMessageRef {
-        this.container = this.createContainer();
+        this.container = this.createContainer(ThyMessageContainerComponent);
 
         const messageConfig = this.formatOptions(config);
         const messageRef = new ThyMessageRef(messageConfig);
         this.messageQueue.add(messageRef);
         return messageRef;
-    }
-
-    private createContainer(): ThyMessageContainerComponent {
-        if (this.container) {
-            this.container.toOverlayTop();
-            return this.container;
-        }
-
-        const overlayRef = this.overlay.create({
-            hasBackdrop: false,
-            scrollStrategy: this.overlay.scrollStrategies.noop(),
-            positionStrategy: this.overlay.position().global()
-        });
-        const componentPortal = new ComponentPortal(ThyMessageContainerComponent, null, this.injector);
-        const componentRef = overlayRef.attach(componentPortal);
-        return componentRef.instance;
     }
 
     private formatOptions(config: ThyMessageConfig) {

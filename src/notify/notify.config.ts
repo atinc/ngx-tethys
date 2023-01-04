@@ -27,7 +27,7 @@ export interface ThyNotifyConfig {
 
     placement?: ThyNotifyPlacement;
 
-    type?: ThyNotifyType;
+    type?: ThyNotifyType | string;
 
     title?: string;
 
@@ -47,7 +47,7 @@ export interface ThyNotifyConfig {
 export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyGlobalNotifyConfig>('thy-notify-default-config');
 
 export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyGlobalNotifyConfig = {
-    placement: 'bottomLeft',
+    placement: 'topRight',
     offset: '20',
     duration: 4500,
     pauseOnHover: true,

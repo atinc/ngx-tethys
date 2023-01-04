@@ -2,7 +2,12 @@
   <thy-icon class="thy-message-icon" [thyIconName]="iconName"></thy-icon>
 </ng-container>
 <div class="thy-message-main">
-  <ng-container *thyStringOrTemplateOutlet="config.content"></ng-container>
+  <ng-container *ngIf="!contentIsComponent; else componentTemplate">
+    <ng-container *thyStringOrTemplateOutlet="config.content; context: config.contentInitialState"></ng-container>
+  </ng-container>
+  <ng-template #componentTemplate>
+    <div class="custom-content" #componentContentHost></div>
+  </ng-template>
 </div>
 <ng-container *ngIf="config.showClose">
   <thy-icon class="thy-message-close" thyIconName="close" (click)="close()"></thy-icon>

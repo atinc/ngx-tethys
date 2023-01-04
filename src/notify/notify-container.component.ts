@@ -1,5 +1,5 @@
-import { coerceCssPixelValue } from '@angular/cdk/coercion';
 import { Component, Inject, ElementRef } from '@angular/core';
+import { ThyMessageContainerBaseComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
 
@@ -11,20 +11,14 @@ import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.confi
         '[attr.role]': `'notify'`
     }
 })
-export class ThyNotifyContainerComponent {
+export class ThyNotifyContainerComponent extends ThyMessageContainerBaseComponent {
     offset: string;
 
     constructor(
         public notifyQueue: ThyNotifyQueue,
-        private elementRef: ElementRef,
+        elementRef: ElementRef,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig
     ) {
-        this.offset = coerceCssPixelValue(defaultConfig.offset);
-    }
-
-    toOverlayTop() {
-        const globalOverlayWrapper = this.elementRef.nativeElement.closest('.cdk-global-overlay-wrapper');
-        const overlayContainer = globalOverlayWrapper.parentElement;
-        overlayContainer.appendChild(globalOverlayWrapper);
+        super(elementRef, defaultConfig);
     }
 }

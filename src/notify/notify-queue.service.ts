@@ -1,4 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
+import { ThyMessageQueue } from 'ngx-tethys/message';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ThyNotifyRef } from './notify-ref';
@@ -10,7 +11,7 @@ import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.confi
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyQueue {
+export class ThyNotifyQueue extends ThyMessageQueue {
     queues$: BehaviorSubject<ThyNotifyRef[]>;
 
     topLeftQueues$: Observable<ThyNotifyRef[]>;
@@ -18,13 +19,8 @@ export class ThyNotifyQueue {
     bottomLeftQueues$: Observable<ThyNotifyRef[]>;
     bottomRightQueues$: Observable<ThyNotifyRef[]>;
 
-    get queues() {
-        return this.queues$.getValue();
-    }
-
-    constructor(@Inject(THY_NOTIFY_DEFAULT_CONFIG) private defaultConfig: ThyGlobalNotifyConfig) {
-        this.defaultConfig = defaultConfig;
-        this.queues$ = new BehaviorSubject([]);
+    constructor(@Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig) {
+        super(defaultConfig);
 
         this.topLeftQueues$ = this.queues$.pipe(map(queues => queues.filter(item => item.config.placement === 'topLeft')));
         this.topRightQueues$ = this.queues$.pipe(map(queues => queues.filter(item => item.config.placement === 'topRight')));
@@ -33,23 +29,10 @@ export class ThyNotifyQueue {
     }
 
     add(notifyRef: ThyNotifyRef) {
-        const queues = this.queues$.getValue();
-        if (this.queues.length >= this.defaultConfig.maxStack) {
-            const closedRef = queues.shift();
-            closedRef.close();
-        }
-        this.queues$.next([...queues, notifyRef]);
+        super.add(notifyRef);
     }
 
     remove(id: string) {
-        if (!id) {
-            this.queues.forEach(item => item.close());
-            this.queues$.next([]);
-        } else {
-            const removeItem = this.queues.find(item => item.id === id);
-            removeItem?.close();
-            const afterRemovedQueues = this.queues.filter(item => item.id !== id);
-            this.queues$.next(afterRemovedQueues);
-        }
+        super.remove(id);
     }
 }

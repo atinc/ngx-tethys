@@ -1,4 +1,5 @@
-import { InjectionToken, TemplateRef } from '@angular/core';
+import { InjectionToken } from '@angular/core';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 
 export type ThyMessageType = 'success' | 'error' | 'warning' | 'info' | 'loading';
 
@@ -32,9 +33,11 @@ export const THY_MESSAGE_DEFAULT_CONFIG_PROVIDER = {
 export interface ThyMessageConfig {
     id?: string;
 
-    type?: ThyMessageType;
+    type?: ThyMessageType | string;
 
-    content?: string | TemplateRef<any>;
+    content?: string | ComponentTypeOrTemplateRef<any>;
+
+    contentInitialState?: any;
 
     pauseOnHover?: boolean;
 

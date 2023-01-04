@@ -1,24 +1,10 @@
-import { Subject } from 'rxjs';
+import { ThyMessageRef } from 'ngx-tethys/message';
 import { ThyNotifyConfig } from './notify.config';
 
-export class ThyNotifyRef {
-    id: string;
-
+export class ThyNotifyRef extends ThyMessageRef {
     config: ThyNotifyConfig;
 
-    private _afterClosed = new Subject<void>();
-
     constructor(config: ThyNotifyConfig) {
-        this.id = config.id;
-        this.config = config;
-    }
-
-    close() {
-        this._afterClosed.next();
-        this._afterClosed.complete();
-    }
-
-    afterClosed() {
-        return this._afterClosed.asObservable();
+        super(config);
     }
 }

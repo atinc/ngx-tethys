@@ -1,45 +1,30 @@
 import { isString } from 'ngx-tethys/util';
-import { ComponentPortal } from '@angular/cdk/portal';
-import { Inject, Injectable, Injector, OnDestroy } from '@angular/core';
+import { Inject, Injectable, Injector } from '@angular/core';
 import { ThyGlobalNotifyConfig, ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
 import { Overlay } from '@angular/cdk/overlay';
 import { ThyNotifyRef } from './notify-ref';
 import { ThyNotifyContainerComponent } from './notify-container.component';
 import { ThyNotifyQueue } from './notify-queue.service';
+import { ThyMessageBaseService } from 'ngx-tethys/message';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyService implements OnDestroy {
+export class ThyNotifyService extends ThyMessageBaseService<ThyNotifyContainerComponent> {
     private _lastNotifyId = 0;
 
-    container: ThyNotifyContainerComponent;
-
     constructor(
-        protected overlay: Overlay,
+        overlay: Overlay,
+        injector: Injector,
         private notifyQueue: ThyNotifyQueue,
-        private injector: Injector,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) protected defaultConfig: ThyGlobalNotifyConfig
-    ) {}
-
-    private createContainer(): ThyNotifyContainerComponent {
-        if (this.container) {
-            return this.container;
-        }
-
-        const overlayRef = this.overlay.create({
-            hasBackdrop: false,
-            scrollStrategy: this.overlay.scrollStrategies.noop(),
-            positionStrategy: this.overlay.position().global()
-        });
-        const componentPortal = new ComponentPortal(ThyNotifyContainerComponent, null, this.injector);
-        const componentRef = overlayRef.attach(componentPortal);
-
-        return componentRef.instance;
+    ) {
+        super(overlay, injector, notifyQueue);
     }
 
     public show(config: ThyNotifyConfig): ThyNotifyRef {
-        this.container = this.createContainer();
+        this.container = this.createContainer(ThyNotifyContainerComponent);
 
         const notifyConfig = this.formatOptions(config);
         const notifyRef = new ThyNotifyRef(notifyConfig);
@@ -47,7 +32,7 @@ export class ThyNotifyService implements OnDestroy {
         return notifyRef;
     }
 
-    public success(title?: string, content?: string, config?: ThyNotifyConfig) {
+    public success(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
             type: 'success',
@@ -56,7 +41,7 @@ export class ThyNotifyService implements OnDestroy {
         });
     }
 
-    public info(title?: string, content?: string, config?: ThyNotifyConfig) {
+    public info(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
             type: 'info',
@@ -65,7 +50,7 @@ export class ThyNotifyService implements OnDestroy {
         });
     }
 
-    public warning(title?: string, content?: string, config?: ThyNotifyConfig) {
+    public warning(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
             type: 'warning',
@@ -74,7 +59,7 @@ export class ThyNotifyService implements OnDestroy {
         });
     }
 
-    public error(title?: string, content?: string, config?: ThyNotifyConfig) {
+    public error(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
             type: 'error',
@@ -83,16 +68,10 @@ export class ThyNotifyService implements OnDestroy {
         });
     }
 
-    public remove(id: string) {
-        this.notifyQueue.remove(id);
-    }
-
     private formatOptions(config: ThyNotifyConfig) {
         if (isString(config.detail)) {
             config = { ...config, detail: { link: '[详情]', content: config.detail as string } };
         }
-        return Object.assign({}, { id: String(this._lastNotifyId++) }, this.defaultConfig, config);
+        return Object.assign({ type: 'blank' }, { id: String(this._lastNotifyId++) }, this.defaultConfig, config);
     }
-
-    ngOnDestroy(): void {}
 }

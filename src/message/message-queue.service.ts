@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ThyMessageRef } from './message-ref';
-import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 /**
  * @internal
@@ -16,8 +16,7 @@ export class ThyMessageQueue {
         return this.queues$.getValue();
     }
 
-    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig) {
-        this.defaultConfig = defaultConfig;
+    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) protected defaultConfig: ThyGlobalMessageConfig) {
         this.queues$ = new BehaviorSubject([]);
     }
 

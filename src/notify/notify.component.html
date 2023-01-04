@@ -1,9 +1,9 @@
 <ng-container *ngIf="!config.html">
-  <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
+  <a href="javascript:;" class="thy-notify-close" (click)="close()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
   <div class="thy-notify-icon-container">
-    <thy-icon [thyIconName]="notifyIconName"></thy-icon>
+    <thy-icon [thyIconName]="iconName"></thy-icon>
   </div>
   <div class="thy-notify-main">
     <div class="thy-notify-title">{{ config?.title }}</div>
@@ -27,7 +27,7 @@
   </div>
 </ng-container>
 <ng-container *ngIf="config?.html">
-  <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
+  <a href="javascript:;" class="thy-notify-close" (click)="close()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
   <div class="thy-notify-main">
