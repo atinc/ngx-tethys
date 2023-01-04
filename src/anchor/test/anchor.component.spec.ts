@@ -39,6 +39,17 @@ describe('thy-anchor', () => {
             expect(debugElement.query(By.css(`[href="#${id}"]`))).toBeTruthy();
         }));
 
+        it(`should do anything when thy-anchor-link's thyHref element is not found`, fakeAsync(() => {
+            let invalidId = 'will-not-found-id';
+            const beforeClickScrollTop = scrollService.getScroll();
+            const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${invalidId}"]`)).nativeElement;
+            dispatchFakeEvent(staticLink, 'click');
+            fixture.detectChanges();
+            tick(2000);
+            const currentScrollTop = scrollService.getScroll();
+            expect(Math.floor(currentScrollTop)).toEqual(beforeClickScrollTop);
+        }));
+
         it('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
             const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
             const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
@@ -125,6 +136,7 @@ describe('thy-anchor', () => {
     template: `
         <div class="demo-card">
             <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop">
+                <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#API" thyTitle="API">

@@ -1,5 +1,6 @@
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import {
     ChangeDetectionStrategy,
@@ -27,11 +28,12 @@ const iconSuffixMap = {
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    providers: [UpdateHostClassService]
+    standalone: true,
+    host: {
+        class: 'thy-icon'
+    }
 })
 export class ThyIconComponent implements OnInit, OnChanges {
-    @HostBinding('class.thy-icon') className = true;
-
     private initialized = false;
 
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
@@ -53,14 +55,9 @@ export class ThyIconComponent implements OnInit, OnChanges {
     @InputBoolean()
     iconLinearGradient: boolean;
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private render: Renderer2,
-        private elementRef: ElementRef,
-        private iconRegistry: ThyIconRegistry
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    private hostRenderer = useHostRenderer();
+
+    constructor(private render: Renderer2, private elementRef: ElementRef, private iconRegistry: ThyIconRegistry) {}
 
     ngOnInit() {
         this.updateClasses();
@@ -100,14 +97,12 @@ export class ThyIconComponent implements OnInit, OnChanges {
                             }
                         }
                     );
-                this.updateHostClassService.updateClass([
-                    `thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`
-                ]);
+                this.hostRenderer.updateClass([`thy-icon${namespace ? `-${namespace}` : ``}-${this.buildIconNameByType(iconName)}`]);
             } else {
                 const fontSetClass = this.iconSet
                     ? this.iconRegistry.getFontSetClassByAlias(this.iconSet)
                     : this.iconRegistry.getDefaultFontSetClass();
-                this.updateHostClassService.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
+                this.hostRenderer.updateClass([fontSetClass, `${fontSetClass}-${this.iconName}`]);
             }
         }
     }

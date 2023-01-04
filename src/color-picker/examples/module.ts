@@ -7,8 +7,15 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
 
 import { ThyBasicExampleComponent } from './basic/basic.component';
 import { ThyDefaultColorExampleComponent } from './default-color/default-color.component';
+import { ThyDisableTransparentColorExampleComponent } from './disable-transparent-color/disable-transparent-color.component';
+import { ThyPresetColorsExampleComponent } from './preset-colors/preset-colors.component';
 
-const COMPONENTS = [ThyBasicExampleComponent, ThyDefaultColorExampleComponent];
+const COMPONENTS = [
+    ThyBasicExampleComponent,
+    ThyDefaultColorExampleComponent,
+    ThyPresetColorsExampleComponent,
+    ThyDisableTransparentColorExampleComponent
+];
 
 @NgModule({
     declarations: [...COMPONENTS],

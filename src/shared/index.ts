@@ -10,5 +10,6 @@ export * from './directives/thy-scroll.directive';
 export * from './directives/thy-drag-drop.directive';
 export * from './directives/thy-contextmenu.directive';
 export * from './directives/string-or-template-outlet.directive';
+export * from './directives/view-outlet.directive';
 export * from './select/index';
 export * from './option/index';

@@ -1,5 +1,6 @@
 @use "../../styles/mixins/hover";
 @use "../../styles/variables";
+@use './skeleton.scss';
 
 @mixin thy-table-scroll-left {
     .thy-table-fixed-column-right {
@@ -233,8 +234,7 @@
         }
     }
 
-    &.thy-table-boxed,
-    &.thy-table-bordered {
+    &.thy-table-boxed {
         // 设置  border-radius
         table {
             border-collapse: separate;
@@ -263,14 +263,16 @@
             }
         }
     }
-    &.thy-table-bordered {
-        border-radius: variables.$table-boxed-border-radius;
-        box-shadow: 0 0 0 variables.$table-border-width variables.$table-border-color;
-        table {
-            border-collapse: collapse;
-            border-style: hidden;
-        }
-    }
+    
+    // &.thy-table-bordered {
+    //     border-radius: variables.$table-boxed-border-radius;
+    //     border: variables.$table-border-width solid variables.$gray-200;
+    //     overflow: hidden;
+    //     table {
+    //         border-collapse: collapse;
+    //         border-style: hidden;
+    //     }
+    // }
 
     &-fixed {
         flex: auto;
@@ -350,7 +352,7 @@
 
     &-fixed-header {
         thead {
-            box-shadow: 0 0 0 1px #eee;
+            box-shadow: 0 0 0 0.5px #eee;
             background-color: variables.$white;
             position: sticky;
             left: 0;

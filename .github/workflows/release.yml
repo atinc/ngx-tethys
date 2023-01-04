@@ -4,25 +4,48 @@ on:
   pull_request:
     types:
       - opened
+      - reopened
   pull_request_review:
     types:
       - submitted
+  check_suite:
+    types:
+      - completed
   status: {}
 
 jobs:
-  merge_release:
+  autoApprove:
     if: startsWith(github.head_ref, 'release-auto-')
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
     steps:
-      - name: Automerge
-        uses: 'pascalgn/automerge-action@v0.14.3'
+      - uses: hmarr/auto-approve-action@v3
+        with:
+          review-message: 'Auto approve sync PRs to auto merge them'
+  autoMerge:
+    if: startsWith(github.head_ref, 'release-auto-')
+    needs: [autoApprove]
+    runs-on: ubuntu-latest
+    steps:
+      - id: autoMerge
+        name: autoMerge
+        uses: 'pascalgn/automerge-action@v0.15.5'
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           MERGE_LABELS: ''
-      - name: Release
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "20"
+          MERGE_RETRY_SLEEP: "60000"
+  publish:
+    if: startsWith(github.head_ref, 'release-auto-')
+    needs: [autoMerge]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
         uses: actions/checkout@v2
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.base.ref }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -30,14 +53,19 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
       - name: Install dependencies
         run: npm ci --force
-      - run: echo '${{toJSON(secrets)}}'
       - name: Publish
         if: startsWith(github.head_ref, 'release-auto-v')
-        run: npm run pub
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          npm run pub
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       - name: Publish-next
         if: startsWith(github.head_ref, 'release-auto-next-v')
-        run: npm run pub-next
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          npm run pub-next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

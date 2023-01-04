@@ -8,7 +8,7 @@
     position: relative;
 }
 
-@mixin thy-option($hover-bg-color: variables.$gray-100, $color: variables.$secondary) {
+@mixin thy-option($hover-bg-color: variables.$gray-100, $color: variables.$body-color) {
     @include thy-option-common-layout();
     min-height: 40px;
     color: $color;
@@ -30,7 +30,6 @@
         &.hover,
         &:hover {
             background: $hover-bg-color;
-            color: variables.$body-color;
         }
 
         &.active {

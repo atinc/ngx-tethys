@@ -196,6 +196,8 @@
 
     .input-group-prefix {
         margin-left: variables.$input-padding-x-fixed;
+        display: inline-flex;
+        align-items: center;
     }
 
     .input-group-suffix {

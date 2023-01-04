@@ -152,10 +152,7 @@ export class ThyGuiderStepRef {
         const position = this.getTipPosition(step);
         this.lastPopoverRef = this.popover.open(this.guiderRef.config.hintComponent, {
             origin: null,
-            originPosition: {
-                x: position[0],
-                y: position[1]
-            },
+            originPosition: position,
             originActiveClass: '',
             panelClass: this.guiderRef.config.hintClass || '',
             backdropClosable: false,
@@ -169,7 +166,7 @@ export class ThyGuiderStepRef {
         });
     }
 
-    private getTipPosition(step: ThyGuiderStep): [number, number] {
+    private getTipPosition(step: ThyGuiderStep): { x: number; y: number } {
         if (isPositionDataType(step.target)) {
             return step.target;
         }

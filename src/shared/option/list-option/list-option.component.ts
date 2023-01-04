@@ -20,6 +20,9 @@ let _uniqueIdCounter = 0;
 
 export type ThyListLayout = 'list' | 'grid';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
 

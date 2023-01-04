@@ -6,7 +6,8 @@ import { ThyTableModule } from 'ngx-tethys/table';
 
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
 
 export default {
-    imports: [CommonModule, ThyResizableModule, ThyTableModule, ThyIconModule, ThyLayoutModule, ThyGridModule]
+    imports: [CommonModule, ThyResizableModule, ThyTableModule, ThyIconModule, ThyLayoutModule, ThyGridModule, ThyDialogModule]
 };

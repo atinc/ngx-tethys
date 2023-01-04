@@ -59,7 +59,7 @@ export class ThyInputCountComponent extends _Base implements OnInit {
                     return input.ngControl.valueChanges;
                 }),
                 tap(value => {
-                    this.inputLength = value?.length;
+                    this.inputLength = value?.length || 0;
                     this.changeDetectorRef.markForCheck();
                 }),
                 takeUntil(this.ngUnsubscribe$)

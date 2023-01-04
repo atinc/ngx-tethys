@@ -3,11 +3,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/spec",
-    "types": ["jasmine"],
+    "types": ["jasmine", "../typings/ng-dev-mode"],
     "baseUrl": "./",
     "paths": {
       "@tethys/cdk": ["public-api"],
-      "@tethys/cdk/*": ["./*"]
+      "@tethys/cdk/*": ["./*"],
+      "ngx-tethys/*": ["../src/*"]
     }
   },
   "include": ["**/*.ts", "**/*.d.ts"]

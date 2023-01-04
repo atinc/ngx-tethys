@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, inject } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroupComponent } from '../input-group.component';
 import { ThyInputModule } from './../module';
@@ -10,7 +10,7 @@ import { ThyTranslate } from '../../core';
     selector: 'thy-test-input-group-basic',
     template: `
         <thy-input-group [thySize]="thySize" thyPrependText="Prepped Text" thyAppendText="Append Text">
-            <input thyInput placeholder="Please type" />
+            <input [disabled]="disabled" thyInput placeholder="Please type" />
             <ng-template #prepend>Prepped Content</ng-template>
             <ng-template #append>Append Content</ng-template>
         </thy-input-group>
@@ -23,6 +23,7 @@ import { ThyTranslate } from '../../core';
 class TestInputGroupBasicComponent {
     value = '';
     thySize = '';
+    disabled = false;
 }
 
 @Component({
@@ -34,7 +35,7 @@ class TestInputGroupBasicComponent {
         </thy-input-group>
 
         <thy-input-group id="with-suffix" [thySize]="thySize">
-            <input thyInput placeholder="Please type" />
+            <input thyInput [disabled]="disabled" placeholder="Please type" />
             <ng-template #suffix>Suffix Content</ng-template>
         </thy-input-group>
     `
@@ -42,6 +43,7 @@ class TestInputGroupBasicComponent {
 class TestInputGroupPrefixAndSuffixComponent {
     value = '';
     thySize = '';
+    disabled = false;
 }
 
 @NgModule({
@@ -130,6 +132,14 @@ describe('input group', () => {
             fixture.detectChanges();
             expect(debugElement.nativeElement.innerText.includes('Append Content')).toBe(true);
         });
+
+        it('group should disabled when thyInput is disabled', fakeAsync(() => {
+            fixture.detectChanges();
+            basicTestComponent.disabled = true;
+            fixture.detectChanges();
+            tick();
+            expect(Array.from(debugElement.nativeElement.classList).includes('disabled')).toBe(true);
+        }));
     });
 
     describe('prefix-suffix', () => {

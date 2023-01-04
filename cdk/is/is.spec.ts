@@ -1,5 +1,17 @@
 import { ElementRef, EmbeddedViewRef, TemplateRef } from '@angular/core';
-import { isBoolean, isDate, isElementRef, isEmpty, isHTMLElement, isNumber, isObject, isString, isTemplateRef } from './index';
+import {
+    isBoolean,
+    isDate,
+    isElementRef,
+    isEmpty,
+    isFormElement,
+    isHTMLElement,
+    isMacPlatform,
+    isNumber,
+    isObject,
+    isString,
+    isTemplateRef
+} from './index';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
 const empties = [[], {}].concat(falsey.slice(1));
@@ -117,6 +129,37 @@ describe('is', () => {
         });
     });
 
+    it('should get correct value for isFormElement', () => {
+        const createInputElement = function(type: string) {
+            const input = document.createElement('input');
+            input.setAttribute('type', type);
+            return input;
+        };
+        const contentEditableElement = document.createElement('div');
+        const childContentEditableElement = document.createElement('div');
+        contentEditableElement.setAttribute('contenteditable', 'true');
+        contentEditableElement.appendChild(childContentEditableElement);
+        [
+            document.createElement('select'),
+            document.createElement('textarea'),
+            createInputElement('text'),
+            createInputElement('number'),
+            new ElementRef(childContentEditableElement)
+        ].forEach(value => {
+            expect(isFormElement<HTMLElement>(value)).toBeTruthy(`${value} is not form element`);
+        });
+        [
+            document.createElement('div'),
+            createInputElement('submit'),
+            createInputElement('reset'),
+            createInputElement('checkbox'),
+            createInputElement('radio'),
+            createInputElement('file')
+        ].forEach(value => {
+            expect(isFormElement<HTMLElement>(value)).toBeFalsy(`${value} is not form element`);
+        });
+    });
+
     it('should get correct value for isTemplateRef', () => {
         class MyTemplateRef extends TemplateRef<unknown> {
             get elementRef(): ElementRef<any> {
@@ -144,5 +187,12 @@ describe('is', () => {
         [1, 'xxx', undefined, null, NaN, {}].forEach(value => {
             expect(isElementRef(value)).toBeFalsy(`${value} is ElementRef`);
         });
+    });
+
+    it('should get correct value for isMacPlatform', () => {
+        spyOnProperty(window.navigator, 'userAgent').and.returnValue(
+            'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/11.1.2 Safari/605.1.15'
+        );
+        expect(isMacPlatform()).toBeTruthy();
     });
 });

@@ -17,6 +17,9 @@ import { ThyTagSize } from 'ngx-tethys/tag';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',

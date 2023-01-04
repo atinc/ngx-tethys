@@ -5,6 +5,9 @@ import { ThyTranslate } from 'ngx-tethys/core';
 
 const noop = () => {};
 
+/**
+ * @private
+ */
 @Directive()
 export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     // The internal data model
