@@ -131,8 +131,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
             this.xGap = this.calculateActualValue(this.thyGap || 0);
             this.yGap = this.xGap;
         } else {
-            this.xGap = this.calculateActualValue(this.thyXGap || this.thyGap || 0);
-            this.yGap = this.calculateActualValue(this.thyYGap || this.thyGap || 0);
+            this.xGap = this.calculateActualValue(this.thyXGap || this.thyGap);
+            this.yGap = this.calculateActualValue(this.thyYGap || this.thyGap);
         }
 
         const gridElement = this.elementRef.nativeElement;

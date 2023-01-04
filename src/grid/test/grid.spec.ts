@@ -29,6 +29,7 @@ export class TestGridDefaultComponent {}
             <div thyGridItem [thySpan]="span2" [thyOffset]="offset2"></div>
             <div thyGridItem></div>
             <div thyGridItem></div>
+            <div *ngIf="show" thyGridItem></div>
         </thy-grid>
     `
 })
@@ -50,6 +51,8 @@ export class TestGridBasicComponent {
     offset: number | ThyGridResponsiveDescription;
 
     offset2: number | ThyGridResponsiveDescription;
+
+    show: boolean;
 }
 
 describe('grid', () => {
@@ -174,17 +177,21 @@ describe('grid', () => {
             it('should support setting grid gap', () => {
                 expect(gridElement.style.gap).toBe('0px');
 
-                testComponent.gap = 8;
-                fixture.detectChanges();
-                gridInstance.ngOnInit();
-                expect(gridElement.style.gap).toBe('8px');
-
-                testComponent.xGap = 12;
-                testComponent.yGap = 16;
-                fixture.detectChanges();
-                gridInstance.ngOnInit();
-                expect(gridElement.style.gap).toBe('16px 12px');
+                assertGap(0, 0, 8, '8px');
+                assertGap(0, 16, 8, '16px 8px');
+                assertGap(16, 0, 8, '8px 16px');
+                assertGap(12, 16, 0, '16px 12px');
+                assertGap(0, 0, 0, '0px');
             });
+
+            function assertGap(xGap: number, yGap: number, gap: number, expectGapValue: string) {
+                testComponent.xGap = xGap;
+                testComponent.yGap = yGap;
+                testComponent.gap = gap;
+                fixture.detectChanges();
+                gridInstance.ngOnInit();
+                expect(gridElement.style.gap).toBe(expectGapValue);
+            }
 
             it('should support responsive setting grid gap', fakeAsync(() => {
                 testComponent.responsive = 'screen';
@@ -197,6 +204,11 @@ describe('grid', () => {
                 assertResponsiveGap(800, 8);
                 assertResponsiveGap(1000, 12);
                 assertResponsiveGap(1200, 16);
+
+                testComponent.gap = 'sm:4';
+                fixture.detectChanges();
+                gridInstance.ngOnInit();
+                assertResponsiveGap(500, 0);
             }));
 
             function assertResponsiveGap(width: number, gap: number) {
@@ -337,5 +349,14 @@ describe('grid', () => {
             fixture.detectChanges();
             tick(1000);
         }
+
+        describe('grid items changes', () => {
+            it('should show correct grid item added dynamically', () => {
+                testComponent.show = true;
+                fixture.detectChanges();
+                const gridItems = gridDebugElement.queryAll(By.directive(ThyGridItemComponent));
+                expect(gridItems.length).toBe(5);
+            });
+        });
     });
 });
