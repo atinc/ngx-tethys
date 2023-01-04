@@ -148,7 +148,7 @@ export class ThyMessageBaseComponent implements OnInit, AfterViewInit, OnDestroy
 export class ThyMessageBaseService<TContainer extends ThyMessageContainerBaseComponent> {
     protected container: TContainer;
 
-    constructor(private overlay: Overlay, private injector: Injector, private queue: ThyMessageQueue) { }
+    constructor(private overlay: Overlay, private injector: Injector, private queue: ThyMessageQueue) {}
 
     protected createContainer(container: ComponentType<TContainer>): TContainer {
         if (this.container) {
