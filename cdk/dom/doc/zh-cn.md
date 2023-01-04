@@ -34,6 +34,7 @@ export class ThyDomUseHostRendererTestComponent implements OnInit {
 ```
 
 ## inject(HostRenderer)
+在使用`inject`函数注入`HostRenderer`时需要在组件级别提供`providers: [HostRenderer]`。
 ```ts
 @Component({
     selector: 'thy-dom-host-renderer-test',
