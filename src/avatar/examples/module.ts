@@ -1,6 +1,5 @@
 import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyBadgeModule } from 'ngx-tethys/badge';
-import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyButtonModule } from 'ngx-tethys/button';
 
 import { CommonModule } from '@angular/common';
@@ -30,7 +29,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, ThyAvatarModule, ThyBadgeModule, ThyActionModule, ThyButtonModule],
+    imports: [CommonModule, ThyAvatarModule, ThyBadgeModule, ThyButtonModule],
     exports: COMPONENTS,
     providers: []
 })
