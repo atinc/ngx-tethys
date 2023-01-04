@@ -1,4 +1,4 @@
-<ng-container *ngIf="!option.html">
+<ng-container *ngIf="!config.html">
   <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
@@ -6,31 +6,31 @@
     <thy-icon [thyIconName]="notifyIconName"></thy-icon>
   </div>
   <div class="thy-notify-main">
-    <div class="thy-notify-title">{{ option?.title }}</div>
+    <div class="thy-notify-title">{{ config?.title }}</div>
     <div
-      *ngIf="option?.detail || option?.content"
+      *ngIf="config?.detail || config?.content"
       class="thy-notify-content"
       [ngClass]="{ 'thy-notify-content--extend': extendContentClass === true }"
       (click)="extendContent()"
     >
-      <ng-container *ngIf="option.content">
+      <ng-container *ngIf="config.content">
         <ng-container *ngIf="!contentIsComponent; else componentTemplate">
-          <ng-container *thyStringOrTemplateOutlet="option.content; context: option.contentInitialState"></ng-container>
+          <ng-container *thyStringOrTemplateOutlet="config.content; context: config.contentInitialState"></ng-container>
         </ng-container>
         <ng-template #componentTemplate>
           <div class="custom-content" #componentContentHost></div>
         </ng-template>
       </ng-container>
-      <a href="javascript:;" *ngIf="option?.detail" class="link-secondary" (click)="triggerDetail()">{{ (option?.detail)['link'] }}</a>
+      <a href="javascript:;" *ngIf="config?.detail" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
     </div>
-    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (option?.detail)['content'] }}</div>
+    <div class="thy-notify-detail" *ngIf="isShowDetail">{{ (config?.detail)['content'] }}</div>
   </div>
 </ng-container>
-<ng-container *ngIf="option?.html">
+<ng-container *ngIf="config?.html">
   <a href="javascript:;" class="thy-notify-close" (click)="closeNotify()">
     <thy-icon thyIconName="close"></thy-icon>
   </a>
   <div class="thy-notify-main">
-    <template [ngTemplateOutlet]="option?.html"></template>
+    <template [ngTemplateOutlet]="config?.html"></template>
   </div>
 </ng-container>

@@ -11,7 +11,7 @@ export class ThyNotifyCloseExampleComponent implements OnInit {
     ngOnInit() {}
 
     showHasDetail() {
-        this.notifyService.show({
+        const ref = this.notifyService.show({
             id: 'errorId',
             type: 'error',
             title: '错误',
@@ -19,9 +19,12 @@ export class ThyNotifyCloseExampleComponent implements OnInit {
             detail: 'TypeError',
             duration: 0
         });
+        ref.afterClosed().subscribe(() => {
+            console.log(ref.id + ' 关闭了');
+        });
     }
 
-    removeNotifyById() {
-        this.notifyService.removeNotifyById('errorId');
+    remove() {
+        this.notifyService.remove('errorId');
     }
 }

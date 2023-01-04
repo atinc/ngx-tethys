@@ -24,9 +24,9 @@ export class ThyMessageService {
     /**
      * 打开 success 类型的 Message
      */
-    success(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    success(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
-            ...(option || {}),
+            ...(config || {}),
             type: 'success',
             content
         });
@@ -35,9 +35,9 @@ export class ThyMessageService {
     /**
      * 打开 error 类型的 Message
      */
-    error(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    error(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
-            ...(option || {}),
+            ...(config || {}),
             type: 'error',
             content
         });
@@ -46,9 +46,9 @@ export class ThyMessageService {
     /**
      * 打开 info 类型的 Message
      */
-    info(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    info(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
-            ...(option || {}),
+            ...(config || {}),
             type: 'info',
             content
         });
@@ -57,9 +57,9 @@ export class ThyMessageService {
     /**
      * 打开 warning 类型的 Message
      */
-    warning(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    warning(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
-            ...(option || {}),
+            ...(config || {}),
             type: 'warning',
             content
         });
@@ -68,9 +68,9 @@ export class ThyMessageService {
     /**
      * 打开 loading 类型的 Message
      */
-    loading(content: string | TemplateRef<any>, option?: ThyMessageConfig): ThyMessageRef {
+    loading(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
-            ...(option || {}),
+            ...(config || {}),
             type: 'loading',
             content
         });
@@ -84,10 +84,10 @@ export class ThyMessageService {
         this.messageQueue.remove(id);
     }
 
-    protected show(option: ThyMessageConfig): ThyMessageRef {
+    protected show(config: ThyMessageConfig): ThyMessageRef {
         this.container = this.createContainer();
 
-        const messageConfig = this.formatOptions(option);
+        const messageConfig = this.formatOptions(config);
         const messageRef = new ThyMessageRef(messageConfig);
         this.messageQueue.add(messageRef);
         return messageRef;
@@ -109,7 +109,7 @@ export class ThyMessageService {
         return componentRef.instance;
     }
 
-    private formatOptions(option: ThyMessageConfig) {
-        return Object.assign({ id: String(this._lastMessageId++) }, this.defaultConfig, option);
+    private formatOptions(config: ThyMessageConfig) {
+        return Object.assign({ id: String(this._lastMessageId++) }, this.defaultConfig, config);
     }
 }

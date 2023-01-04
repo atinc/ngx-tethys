@@ -14,11 +14,11 @@ import {
     ComponentRef
 } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
-import { NotifyQueueStore } from './notify-queue.store';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
-import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
+import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
 import { ComponentType } from '@angular/cdk/portal';
+import { ThyNotifyService } from './notify.service';
 
 const ANIMATION_IN_DURATION = 100;
 const ANIMATION_OUT_DURATION = 150;
@@ -27,7 +27,6 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
 @Component({
     selector: 'thy-notify',
     templateUrl: './notify.component.html',
-    providers: [UpdateHostClassService],
     animations: [
         trigger('flyInOut', [
             state('flyInOutRight', style({ transform: 'translateX(0)', opacity: 1, height: '*' })),
@@ -55,7 +54,7 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     @HostBinding('class') className = '';
 
-    option: ThyNotifyConfig;
+    config: ThyNotifyConfig;
 
     notifyIconName = '';
 
@@ -65,7 +64,7 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
 
     isShowDetail = false;
 
-    placement: NotifyPlacement;
+    placement: ThyNotifyPlacement;
 
     contentIsComponent = false;
 
@@ -74,8 +73,8 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
     @ViewChild('componentContentHost') contentContainer: ElementRef<any>;
 
     @Input()
-    set thyOption(value: ThyNotifyConfig) {
-        this.option = value;
+    set thyConfig(value: ThyNotifyConfig) {
+        this.config = value;
         const type = value.type;
         this.placement = value.placement || 'topRight';
         if (this.placement === 'topLeft' || this.placement === 'bottomLeft') {
@@ -87,10 +86,10 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     constructor(
-        private _queueStore: NotifyQueueStore,
         private _ngZone: NgZone,
         private elementRef: ElementRef,
-        private applicationRef: ApplicationRef
+        private applicationRef: ApplicationRef,
+        private service: ThyNotifyService
     ) {}
 
     ngOnInit() {
@@ -101,19 +100,19 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
             error: 'close-circle-fill'
         };
 
-        this.notifyIconName = iconName[this.option.type];
-        this.contentIsComponent = this.isComponentType(this.option.content);
+        this.notifyIconName = iconName[this.config.type];
+        this.contentIsComponent = this.isComponentType(this.config.content);
 
         this._createCloseTimer();
     }
 
     ngAfterViewInit() {
         if (this.contentIsComponent) {
-            this.componentRef = createComponent(this.option.content as ComponentType<any>, {
+            this.componentRef = createComponent(this.config.content as ComponentType<any>, {
                 environmentInjector: this.applicationRef.injector,
                 hostElement: this.contentContainer.nativeElement
             });
-            Object.assign(this.componentRef.instance, this.option.contentInitialState || {});
+            Object.assign(this.componentRef.instance, this.config.contentInitialState || {});
             // 注册新创建的 componentRef，以将组件视图包括在更改检测周期中。
             this.applicationRef.attachView(this.componentRef.hostView);
         }
@@ -140,28 +139,30 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
         this._ngZone.runOutsideAngular(() => {
             this.flyInOut = 'componentHide';
             setTimeout(() => {
-                this._queueStore.removeNotify(this.option.id, this.placement);
+                this.service.remove(this.config.id);
             }, ANIMATION_OUT_DURATION);
         });
     }
 
     triggerDetail() {
-        if (helpers.isFunction((this.option.detail as ThyNotifyDetail).action)) {
-            (this.option.detail as ThyNotifyDetail).action();
+        if (helpers.isFunction((this.config.detail as ThyNotifyDetail).action)) {
+            (this.config.detail as ThyNotifyDetail).action();
         }
-        if ((this.option.detail as ThyNotifyDetail).content) {
+        if ((this.config.detail as ThyNotifyDetail).content) {
             this.showDetailToggle();
         }
     }
 
-    @HostListener('mouseenter') mouseenter() {
-        if (this.option.pauseOnHover) {
+    @HostListener('mouseenter')
+    mouseenter() {
+        if (this.config.pauseOnHover) {
             this._clearCloseTimer();
         }
     }
 
-    @HostListener('mouseleave') mouseleave() {
-        if (this.option.pauseOnHover) {
+    @HostListener('mouseleave')
+    mouseleave() {
+        if (this.config.pauseOnHover) {
             this._createCloseTimer();
         }
     }
@@ -171,11 +172,11 @@ export class ThyNotifyComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     private _createCloseTimer() {
-        if (this.option.duration) {
+        if (this.config.duration) {
             this.closeTimer = setInterval(() => {
                 clearInterval(this.closeTimer);
                 this.closeNotify();
-            }, this.option.duration);
+            }, this.config.duration);
         }
     }
 

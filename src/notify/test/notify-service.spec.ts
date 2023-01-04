@@ -44,7 +44,7 @@ export class ThyNotifyBasicComponent implements OnInit {
 
     closeNotify() {
         // create notify with id is close
-        this.notifyService.removeNotifyById('close');
+        this.notifyService.remove('close');
     }
 }
 

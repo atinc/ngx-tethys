@@ -1,5 +1,4 @@
 import { InjectionToken, TemplateRef } from '@angular/core';
-import { Subject } from 'rxjs';
 
 export type ThyMessageType = 'success' | 'error' | 'warning' | 'info' | 'loading';
 
