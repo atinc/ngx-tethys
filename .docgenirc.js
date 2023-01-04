@@ -128,7 +128,7 @@ module.exports = {
             name: 'tethys-cdk',
             abbrName: 'thy',
             rootDir: './cdk',
-            exclude: ['dom', 'event'],
+            exclude: ['event'],
             apiMode: 'compatible',
             categories: []
         }
