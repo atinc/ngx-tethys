@@ -1,15 +1,15 @@
 :host {
     .blue,
     .light-blue {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        height: 108px;
+        text-align: center;
+        height: 56px;
+        line-height: 56px;
+        color: white;
     }
     .blue {
-        background: rgb(53, 190, 245);
+        background: #6698ff;
     }
     .light-blue {
-        background: #a1ddf8;
+        background: rgba(#6698ff, 70%);
     }
 }

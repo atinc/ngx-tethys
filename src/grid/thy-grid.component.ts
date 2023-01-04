@@ -7,20 +7,18 @@ import {
     ElementRef,
     Input,
     NgZone,
-    OnChanges,
     OnDestroy,
     OnInit,
     QueryList,
-    Renderer2,
-    SimpleChanges
+    Renderer2
 } from '@angular/core';
-import { InputBoolean, InputNumber, MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridItemComponent } from './thy-grid-item.component';
 
-export type ThyGridResponsiveMode = 'self' | 'screen';
+export type ThyGridResponsiveMode = 'none' | 'self' | 'screen';
 
 export type ThyGridResponsiveDescription = string;
 
@@ -30,16 +28,15 @@ export const THY_GRID_ITEM_DEFAULT_SPAN = 1;
 
 export const screenBreakpointsMap = {
     xs: 0,
-    s: 640,
-    m: 1024,
-    l: 1280,
-    xl: 1536,
-    xxl: 1920,
-    '2xl': 1920
+    sm: 576,
+    md: 768,
+    lg: 992,
+    xl: 1200
 };
 
 /**
  * 栅格组件
+ * @name thy-grid
  */
 @Component({
     selector: 'thy-grid',
@@ -55,7 +52,7 @@ export const screenBreakpointsMap = {
         class: 'thy-grid'
     }
 })
-export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements ThyGridToken, OnChanges, OnInit, AfterContentInit, OnDestroy {
+export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements ThyGridToken, OnInit, AfterContentInit, OnDestroy {
     /**
      * @internal
      */
@@ -87,29 +84,12 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
 
     /**
      * 响应式栅格列数<br/>
+     * none: 不进行响应式布局。<br/>
      * self：根据grid的自身宽度进行响应式布局。<br/>
-     * screen：根据屏幕断点进行响应式布局。
-     * @default self
+     * screen：根据屏幕断点进行响应式布局，目前预设了5种响应式尺寸：`xs: 0, sm: 576, md: 768, lg: 992, xl: 1200`。
+     * @default none
      */
-    @Input() thyResponsive: ThyGridResponsiveMode = 'self';
-
-    /**
-     * 是否响应式栅格项的宽度或偏移
-     * @default false
-     */
-    @Input() @InputBoolean() thyItemResponsive: boolean;
-
-    /**
-     * 是否折叠栅格
-     * @default false
-     */
-    @Input() @InputBoolean() thyCollapsed: boolean;
-
-    /**
-     * 折叠后展示的行数
-     * @default 1
-     */
-    @Input() @InputNumber() thyCollapsedRows: number = 1;
+    @Input() thyResponsive: ThyGridResponsiveMode = 'none';
 
     private cols: number;
 
@@ -123,35 +103,14 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
 
     public gridItemPropValueChange$ = new Subject<void>();
 
-    public overflow: boolean = false;
-
-    get isResponsive() {
-        return (
-            this.thyItemResponsive ||
-            !this.numRegex.test(this.thyCols?.toString().trim()) ||
-            !this.numRegex.test(this.thyGap?.toString().trim()) ||
-            !this.numRegex.test(this.thyXGap?.toString().trim()) ||
-            !this.numRegex.test(this.thyYGap?.toString().trim())
-        );
-    }
-
     constructor(private elementRef: ElementRef, private renderer: Renderer2, private viewportRuler: ViewportRuler, private ngZone: NgZone) {
         super();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        if (
-            (changes.thyCollapsed && !changes.thyCollapsed.firstChange) ||
-            (changes.thyCollapsedRows && !changes.thyCollapsedRows.firstChange)
-        ) {
-            this.handleGridItems();
-        }
     }
 
     ngOnInit(): void {
         this.setGridStyle();
 
-        if (this.isResponsive) {
+        if (this.thyResponsive !== 'none') {
             this.listenResizeEvent();
         }
     }
@@ -194,7 +153,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
                 });
         } else {
             this.ngZone.runOutsideAngular(() => {
-                this.gridResizeObservable(this.elementRef.nativeElement)
+                this.gridResizeObserver(this.elementRef.nativeElement)
                     .pipe(throttleTime(100), takeUntil(this.ngUnsubscribe$))
                     .subscribe(data => {
                         this.responsiveContainerWidth = data[0]?.contentRect?.width;
@@ -206,62 +165,15 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
     }
 
     private handleGridItems() {
-        let suffixSpan: number = 0;
-        const hasSuffix: boolean = this.gridItems.last && this.gridItems.last.thySuffix;
-
-        if (hasSuffix) {
-            const suffix = this.gridItems.last;
-            const rawSpan = getRawSpan(suffix.thySpan);
+        this.gridItems.forEach((gridItem: ThyGridItemComponent) => {
+            const rawSpan = getRawSpan(gridItem.thySpan);
             const span = this.calculateActualValue(rawSpan, THY_GRID_ITEM_DEFAULT_SPAN);
-            const offset = this.calculateActualValue(suffix.thyOffset || 0);
-            suffixSpan = Math.min(span + offset, this.cols);
+            const offset = this.calculateActualValue(gridItem.thyOffset || 0);
 
-            suffix.span = suffixSpan;
-            suffix.offset = offset;
-            suffix.isShow = suffix.span === 0 ? false : true;
-            suffix.suffixColStart = this.cols + 1 - suffixSpan;
-        }
-
-        let spanCounter = 0;
-        let overflow = false;
-        this.gridItems.forEach((gridItem: ThyGridItemComponent, index: number) => {
-            if (hasSuffix && index === this.gridItems.length - 1) {
-                return;
-            }
-
-            if (overflow) {
-                gridItem.isShow = false;
-            } else {
-                const rawSpan = getRawSpan(gridItem.thySpan);
-                const span = this.calculateActualValue(rawSpan, THY_GRID_ITEM_DEFAULT_SPAN);
-                const offset = this.calculateActualValue(gridItem.thyOffset || 0);
-
-                gridItem.span = Math.min(span + offset, this.cols);
-                gridItem.offset = offset;
-                if (gridItem.span === 0) {
-                    gridItem.isShow = false;
-                    return;
-                }
-
-                if (this.thyCollapsed) {
-                    const remainder = spanCounter % this.cols;
-                    if (remainder + gridItem.span > this.cols) {
-                        spanCounter += this.cols - remainder;
-                    }
-                    if (spanCounter + gridItem.span + suffixSpan > this.thyCollapsedRows * this.cols) {
-                        overflow = true;
-                        gridItem.isShow = false;
-                    } else {
-                        spanCounter += gridItem.span;
-                        gridItem.isShow = true;
-                    }
-                } else {
-                    gridItem.isShow = true;
-                }
-            }
+            gridItem.span = Math.min(span + offset, this.cols);
+            gridItem.offset = offset;
         });
 
-        this.overflow = overflow;
         this.gridItemPropValueChange$.next();
     }
 
@@ -273,7 +185,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
             const breakpointKeys = Object.keys(responsiveValueMap);
             const breakpoint = this.calculateBreakPoint(breakpointKeys);
 
-            if (breakpoint) {
+            if (this.thyResponsive !== 'none' && breakpoint) {
                 return responsiveValueMap[breakpoint];
             } else if (breakpointKeys.includes('0')) {
                 return responsiveValueMap['0'];
@@ -312,7 +224,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
         }
     }
 
-    private gridResizeObservable(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+    private gridResizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
         return new Observable(observer => {
             const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
                 observer.next(entries);

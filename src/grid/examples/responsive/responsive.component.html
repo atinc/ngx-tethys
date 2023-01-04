@@ -1,25 +1,44 @@
-<thy-divider thyTextDirection="center" thyText="Self 响应式"></thy-divider>
+<thy-divider thyTextDirection="center" thyText="响应式总列数和间距"></thy-divider>
 
+<span class="demo-desc">Self模式</span>
 <thy-grid thyResponsive="self" thyCols="2 400:4 600:6" thyGap="4 400:8 600:12">
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
 </thy-grid>
+<br />
 
-<thy-divider thyTextDirection="center" thyText="Screen 响应式"></thy-divider>
+<span class="demo-desc">Screen模式</span>
+<thy-grid thyResponsive="screen" thyCols="2 sm:3 md:4 lg:5 xl:6" thyGap="2 sm:4 md:8 lg:12 xl:16">
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+  <div thyGridItem class="light-blue">Col</div>
+  <div thyGridItem class="blue">Col</div>
+</thy-grid>
+<br />
 
-<thy-grid thyResponsive="screen" thyCols="2 s:3 m:4 l:5 xl:6 2xl:7" thyGap="2 s:4 m:8 l:12 xl:16 2xl:20">
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
-  <div thyGridItem class="light-blue"></div>
-  <div thyGridItem class="blue"></div>
+<thy-divider thyTextDirection="center" thyText="响应式跨列和偏移"></thy-divider>
+
+<span class="demo-desc">Self模式</span>
+<thy-grid thyCols="5" thyGap="8" thyResponsive="self">
+  <div thyGridItem thySpan="0 400:1 600:2 800:3" class="light-blue">Col</div>
+  <div thyGridItem thyOffset="4 400:3 600:2 800:1" class="blue">Col</div>
+</thy-grid>
+<br />
+
+<span class="demo-desc">Screen模式</span>
+<thy-grid thyCols="5" thyGap="8" thyResponsive="screen">
+  <div thyGridItem thySpan="0 sm:1 md:2" class="light-blue">Col</div>
+  <div thyGridItem thyOffset="4 sm:3 md:2" class="blue">Col</div>
 </thy-grid>

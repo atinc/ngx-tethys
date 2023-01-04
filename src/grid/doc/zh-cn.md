@@ -48,27 +48,13 @@ import { ThyGridModule } from 'ngx-tethys/grid'
 <example name="thy-grid-offset-example" />
 
 
-## 响应式列数
-有两种响应方式，默认值为 `self`。
+## 响应式
+有两种响应方式，默认值为 `none`。
+- `none`：不进行响应式布局。
 - `self`：根据grid的自身宽度进行响应式布局。
-- `screen`：根据屏幕断点`xs: 0, s: 640, m: 1024, l: 1280, xl: 1536, xxl: 1920`进行响应式布局。
+- `screen`：根据屏幕断点进行响应式布局，目前预设了5种响应式尺寸：`xs: 0, sm: 576, md: 768, lg: 992, xl: 1200`。
 
 <example name="thy-grid-responsive-example" />
-
-
-## 响应式栅格项
-支持响应式跨列，支持响应式左偏移。
-<example name="thy-grid-item-responsive-example" />
-
-
-## 折叠
-折叠在响应式布局下依然生效。
-<example name="thy-grid-collapse-example" />
-
-
-## 设置CSS原生样式值
-支持栅格项通过 thyGridColum 或 thyGridRow 设置原生样式值。
-<example name="thy-grid-use-style-value-example" />
 
 
 ## 旧版栅格

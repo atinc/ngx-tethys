@@ -1,11 +1,15 @@
 :host {
-    .grid-demo {
-        height: 108px;
-        .blue {
-            background: rgb(53, 190, 245);
-        }
-        .light-blue {
-            background: #a1ddf8;
-        }
+    .blue,
+    .light-blue {
+        text-align: center;
+        height: 56px;
+        line-height: 56px;
+        color: white;
+    }
+    .blue {
+        background: #6698ff;
+    }
+    .light-blue {
+        background: rgba(#6698ff, 70%);
     }
 }
