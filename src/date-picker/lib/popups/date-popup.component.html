@@ -13,7 +13,7 @@
         <ng-container *ngIf="flexible; else defaultPanel">
           <div class="{{ prefixCls }}-date-panel-flexible">
             <div class="{{ prefixCls }}-date-panel-flexible-tab">
-              <thy-nav thyType="secondary">
+              <thy-nav thyType="pulled" thySize="sm">
                 <a href="javascript:;" thyNavLink [thyNavLinkActive]="flexibleActiveTab === 'advanced'" (click)="selectTab('advanced')"
                   >高级选项</a
                 >
