@@ -282,7 +282,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public isLabelRenderTemplate = false;
     public triggerRect: DOMRect;
     public columns: ThyCascaderOption[][] = [];
-    public emptyStateText = '无任何选项';
+    public emptyStateText = '暂无数据';
 
     public selectionModel: SelectionModel<SelectOptionBase>;
     private prefixCls = 'thy-cascader';
