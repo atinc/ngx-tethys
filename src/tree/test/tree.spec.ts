@@ -88,7 +88,7 @@ describe('ThyTreeComponent', () => {
         });
 
         it('test tree node disabled state', () => {
-            expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('未分配部门');
+            expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('设计部(禁用)');
         });
 
         it('test expand status when tree nodes changed ', fakeAsync(() => {
@@ -376,7 +376,7 @@ describe('ThyTreeComponent', () => {
                 dragNode: treeComponent.flattenTreeNodes[8],
                 targetNode: null
             });
-            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
+            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
         });
 
         it(`test public function onDragDrop child item after parent item when item is checked`, fakeAsync(() => {
@@ -415,7 +415,7 @@ describe('ThyTreeComponent', () => {
                 dragNode: treeComponent.flattenTreeNodes[8],
                 targetNode: null
             });
-            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部');
+            expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
             expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(0);
             expect(treeComponent.flattenTreeNodes[8].isChecked).toEqual(1);
         }));
