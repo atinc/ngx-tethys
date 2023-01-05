@@ -2,6 +2,26 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.9](https://github.com/atinc/ngx-tethys/compare/14.2.8...14.2.9) (2023-01-05)
+
+
+### Bug Fixes
+
+* **cdk:** hotkey callback run in ngZone #INFR-5955 ([b4ce272](https://github.com/atinc/ngx-tethys/commit/b4ce272cfab3febc280da27c2877e8e27e35d9b2)), closes [#INFR-5955](https://github.com/atinc/ngx-tethys/issues/INFR-5955)
+* **date-picker:** update type of thy-nav from secondary to pulled and update nav height to 40px #INFR-6026 ([60a3adb](https://github.com/atinc/ngx-tethys/commit/60a3adbbd366f6dd9201ee2ed8fbdc7691218d7f)), closes [#INFR-6026](https://github.com/atinc/ngx-tethys/issues/INFR-6026)
+* **select:** update option default color from  $secondary to $body-color([#333](https://github.com/atinc/ngx-tethys/issues/333)) #INFR-5908 ([#2459](https://github.com/atinc/ngx-tethys/issues/2459)) ([a5f8889](https://github.com/atinc/ngx-tethys/commit/a5f88897749e0a9282c4d527cc4c8c334c28040a)), closes [#INFR-5908](https://github.com/atinc/ngx-tethys/issues/INFR-5908)
+* **tree:** click select node when node is not disabled #INFR-6039 ([#2466](https://github.com/atinc/ngx-tethys/issues/2466)) ([6d1ff40](https://github.com/atinc/ngx-tethys/commit/6d1ff403e4c0fafd4022950af693d38780d96987)), closes [#INFR-6039](https://github.com/atinc/ngx-tethys/issues/INFR-6039)
+
+
+### Features
+
+* **cdk:** add behaviors module contains useAction and useAsync behaviors ([39fa4bd](https://github.com/atinc/ngx-tethys/commit/39fa4bdb2f999ceaac2a9ba5b2acd42cd03ba24b))
+* **grid:** add thy-grid and thy-grid-item component #INFR-4684 ([#2389](https://github.com/atinc/ngx-tethys/issues/2389)) ([c4d8fa0](https://github.com/atinc/ngx-tethys/commit/c4d8fa0fee33139e0314004c99665f9b716974fd)), closes [#INFR-4684](https://github.com/atinc/ngx-tethys/issues/INFR-4684)
+* **typography:** update icon color of thy-text to $gray-600 ([#999](https://github.com/atinc/ngx-tethys/issues/999)) [#2461](https://github.com/atinc/ngx-tethys/issues/2461) ([#2462](https://github.com/atinc/ngx-tethys/issues/2462)) ([96ff449](https://github.com/atinc/ngx-tethys/commit/96ff4494f9a73a50eaf7a2f10634f9279a7e1e7c))
+* **Util:**  add date function at util #INFR-5953 ([#2456](https://github.com/atinc/ngx-tethys/issues/2456)) ([e92564c](https://github.com/atinc/ngx-tethys/commit/e92564c09099551da56d32f74c8c9a87e54848cc)), closes [#INFR-5953](https://github.com/atinc/ngx-tethys/issues/INFR-5953)
+
+
+
 ## [14.2.8](https://github.com/atinc/ngx-tethys/compare/14.2.7...14.2.8) (2022-12-29)
 
 
