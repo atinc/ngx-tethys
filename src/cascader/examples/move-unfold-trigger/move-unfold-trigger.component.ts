@@ -17,6 +17,6 @@ export class ThyCascaderMoveUnfoldTriggerExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info('select', values);
+        this.notifyService.info(`selected data is ${values}`);
     }
 }
