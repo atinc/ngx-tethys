@@ -195,7 +195,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     /**
      * 空状态下的展示文字
-     * @default '无任何选项'
+     * @default '暂无数据'
      */
     @Input()
     set thyEmptyStateText(value: string) {
