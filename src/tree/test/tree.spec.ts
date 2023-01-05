@@ -88,7 +88,11 @@ describe('ThyTreeComponent', () => {
         });
 
         it('test tree node disabled state', () => {
-            expect(treeElement.querySelector(`.disabled`).innerHTML).toContain('设计部(禁用)');
+            const disabledElement = treeElement.querySelector(`.disabled`);
+            expect(disabledElement.innerHTML).toContain('设计部(禁用)');
+            (disabledElement as HTMLElement).click();
+            fixture.detectChanges();
+            expect(disabledElement.classList).not.toContain('active');
         });
 
         it('test expand status when tree nodes changed ', fakeAsync(() => {
@@ -216,6 +220,7 @@ describe('ThyTreeComponent', () => {
             const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
             targetNode.click();
             fixture.detectChanges();
+            expect(targetNode.classList).toContain('active');
             expect(clickSpy).toHaveBeenCalledTimes(1);
         }));
 
