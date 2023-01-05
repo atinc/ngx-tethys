@@ -195,7 +195,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     /**
      * 空状态下的展示文字
-     * @default '暂无数据'
+     * @default '暂无可选项'
      */
     @Input()
     set thyEmptyStateText(value: string) {
@@ -282,7 +282,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public isLabelRenderTemplate = false;
     public triggerRect: DOMRect;
     public columns: ThyCascaderOption[][] = [];
-    public emptyStateText = '暂无数据';
+    public emptyStateText = '暂无可选项';
 
     public selectionModel: SelectionModel<SelectOptionBase>;
     private prefixCls = 'thy-cascader';
