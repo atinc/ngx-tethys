@@ -213,15 +213,16 @@ export const treeNodes = [
             },
             {
                 key: '5d512f659f56b571eb95b6ef',
-                title: '设计部',
+                title: '设计部(禁用)',
                 expanded: false,
                 _id: '5d512f659f56b571eb95b6ef',
-                name: '设计部',
+                name: '设计部(禁用)',
                 short_code: null,
                 parent_id: '111111111111111111111111',
                 position: 917504,
                 member_count: 0,
-                children: []
+                children: [],
+                disabled: true
             }
         ]
     },
@@ -232,8 +233,7 @@ export const treeNodes = [
         _id: '000000000000000000000000',
         name: '未分配部门',
         parent_id: '',
-        children: [] as Array<any>,
-        disabled: true
+        children: [] as Array<any>
     }
 ];
 
