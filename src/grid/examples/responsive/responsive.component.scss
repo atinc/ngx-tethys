@@ -1,4 +1,11 @@
 :host {
+    .demo-desc {
+        display: inline-block;
+        margin: 16px 0;
+        padding: 0 8px;
+        color: #999;
+    }
+
     .blue,
     .light-blue {
         text-align: center;

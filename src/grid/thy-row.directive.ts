@@ -1,4 +1,4 @@
-import { Directive, HostBinding, Input, Renderer2, OnChanges, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
+import { Directive, Input, Renderer2, OnChanges, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
@@ -7,6 +7,10 @@ export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
+/**
+ * 栅格行指令
+ */
 @Directive({
     selector: '[thyRow]',
     host: {
@@ -14,6 +18,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     }
 })
 export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+    /**
+     * 栅格的间距
+     */
     @Input() thyGutter: number | { xs?: number; sm?: number; md?: number; lg?: number; xl?: number; xxl?: number };
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
