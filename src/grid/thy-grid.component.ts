@@ -9,14 +9,14 @@ import {
     NgZone,
     OnDestroy,
     OnInit,
-    QueryList,
-    Renderer2
+    QueryList
 } from '@angular/core';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridItemComponent } from './thy-grid-item.component';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyGridResponsiveMode = 'none' | 'self' | 'screen';
 
@@ -91,6 +91,8 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
      */
     @Input() thyResponsive: ThyGridResponsiveMode = 'none';
 
+    private hostRenderer = useHostRenderer();
+
     private cols: number;
 
     public xGap: number;
@@ -103,7 +105,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
 
     public gridItemPropValueChange$ = new Subject<void>();
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2, private viewportRuler: ViewportRuler, private ngZone: NgZone) {
+    constructor(private elementRef: ElementRef, private viewportRuler: ViewportRuler, private ngZone: NgZone) {
         super();
     }
 
@@ -135,10 +137,9 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
             this.yGap = this.calculateActualValue(this.thyYGap || this.thyGap);
         }
 
-        const gridElement = this.elementRef.nativeElement;
-        this.renderer.setStyle(gridElement, 'display', 'grid');
-        this.renderer.setStyle(gridElement, 'grid-template-columns', `repeat(${this.cols}, minmax(0, 1fr))`);
-        this.renderer.setStyle(gridElement, 'gap', `${this.yGap}px ${this.xGap}px`);
+        this.hostRenderer.setStyle('display', 'grid');
+        this.hostRenderer.setStyle('grid-template-columns', `repeat(${this.cols}, minmax(0, 1fr))`);
+        this.hostRenderer.setStyle('gap', `${this.yGap}px ${this.xGap}px`);
     }
 
     private listenResizeEvent() {

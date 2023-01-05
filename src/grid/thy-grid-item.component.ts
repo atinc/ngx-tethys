@@ -1,8 +1,9 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, Optional, Renderer2, OnDestroy, OnInit, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, Optional, OnDestroy, OnInit, Inject } from '@angular/core';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './thy-grid.component';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
  * 栅格项组件
@@ -29,15 +30,13 @@ export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements
      */
     @Input() thyOffset: number | ThyGridResponsiveDescription = 0;
 
+    private hostRenderer = useHostRenderer();
+
     public span: number = THY_GRID_ITEM_DEFAULT_SPAN;
 
     public offset: number = 0;
 
-    constructor(
-        public elementRef: ElementRef,
-        private renderer: Renderer2,
-        @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken
-    ) {
+    constructor(public elementRef: ElementRef, @Optional() @Inject(THY_GRID_COMPONENT) private grid: ThyGridToken) {
         super();
     }
 
@@ -48,15 +47,13 @@ export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements
     }
 
     private setGridItemStyle() {
-        const gridItemElement = this.elementRef.nativeElement;
         const xGap: number = this.grid?.xGap || 0;
 
-        this.renderer.setStyle(gridItemElement, 'display', this.span === 0 ? 'none' : '');
+        this.hostRenderer.setStyle('display', this.span === 0 ? 'none' : '');
 
-        this.renderer.setStyle(gridItemElement, 'grid-column', `span ${this.span}`);
+        this.hostRenderer.setStyle('grid-column', `span ${this.span}`);
 
-        this.renderer.setStyle(
-            gridItemElement,
+        this.hostRenderer.setStyle(
             'margin-left',
             this.offset ? `calc(((100% - ${(this.span - 1) * xGap}px) / ${this.span} + ${xGap}px) * ${this.offset})` : ''
         );
