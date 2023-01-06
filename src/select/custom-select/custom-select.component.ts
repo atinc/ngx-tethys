@@ -114,7 +114,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     mode: SelectMode = '';
 
-    emptyStateText = '无任何选项';
+    emptyStateText = '暂无可选项';
 
     emptySearchMessageText = '没有匹配到任何选项';
 
