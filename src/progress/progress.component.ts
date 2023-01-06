@@ -1,19 +1,45 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ChangeDetectionStrategy,
-    ElementRef,
-    ViewEncapsulation,
-    ViewChildren,
-    QueryList,
-    TemplateRef
-} from '@angular/core';
-import { ThyProgressType, ThyProgressStackedValue } from './interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
 import { helpers, isNumber } from 'ngx-tethys/util';
 
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChildren,
+    ViewEncapsulation
+} from '@angular/core';
+
+import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressBarComponent } from './bar/progress-bar.component';
+import {
+    ThyProgressCirclePath,
+    ThyProgressGapPositionType,
+    ThyProgressPathStyle,
+    ThyProgressShapeType,
+    ThyProgressStackedValue,
+    ThyProgressType
+} from './interfaces';
+
+const typeColorMap = new Map([
+    ['primary', '#6698ff'],
+    ['success', '#73d897'],
+    ['info', '#5dcfff'],
+    ['warning', '#ffcd5d'],
+    ['danger', '#ff7575']
+]);
+
+const sizeMap = new Map([
+    ['xs', 4],
+    ['sm', 6],
+    ['md', 10],
+    ['lg', 16]
+]);
 /**
  * 进度条组件
  * @name thy-progress
@@ -31,10 +57,11 @@ import { helpers, isNumber } from 'ngx-tethys/util';
         }
     ],
     host: {
-        class: 'thy-progress progress'
+        class: 'thy-progress progress',
+        '[class.thy-progress-circle]': `thyShape === 'circle'`
     }
 })
-export class ThyProgressComponent implements ThyParentProgress {
+export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];
 
     bars: ThyProgressBarComponent[] = [];
@@ -62,6 +89,7 @@ export class ThyProgressComponent implements ThyParentProgress {
      * @default md
      */
     @Input() set thySize(size: string) {
+        this.size = size;
         this.updateHostClassService.updateClass(size ? [`progress-${size}`] : []);
     }
 
@@ -95,8 +123,51 @@ export class ThyProgressComponent implements ThyParentProgress {
      */
     @Input() thyTips: string | TemplateRef<unknown>;
 
-    constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
+    /**
+     * 进度形状 'strip' | 'circle'
+     */
+    @Input() thyShape: ThyProgressShapeType = 'strip';
+
+    /**
+     * 仪表盘进度条缺口角度，可取值 0 ~ 360
+     */
+    @Input() thyGapDegree?: number = undefined;
+
+    /**
+     * 	仪表盘进度条缺口位置
+     */
+    @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
+
+    public trailPathStyle: ThyProgressPathStyle | null = null;
+
+    public progressCirclePath: ThyProgressCirclePath[];
+
+    public pathString?: string;
+
+    public width: number;
+
+    private size: string;
+
+    get strokeWidth(): number {
+        return sizeMap.get(this.size) || 6;
+    }
+
+    constructor(private updateHostClassService: UpdateHostClassService, public elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef);
+    }
+
+    ngOnInit() {
+        const { offsetWidth, offsetHeight } = this.elementRef.nativeElement;
+        this.width = (offsetHeight < offsetWidth ? offsetHeight : offsetWidth) || 150;
+        this.getCirclePaths();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyGapDegree, thyValue, thyGapPosition } = changes;
+
+        if (thyGapDegree || thyValue || thyGapPosition) {
+            this.getCirclePaths();
+        }
     }
 
     calculateMax() {
@@ -111,5 +182,80 @@ export class ThyProgressComponent implements ThyParentProgress {
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
+    }
+
+    private getCirclePaths(): void {
+        if (this.thyShape !== 'circle') {
+            return;
+        }
+        let values: ThyProgressStackedValue[] = [];
+
+        if (Array.isArray(this.value)) {
+            let totalValue = 0;
+            values = ((this.value as unknown) as ThyProgressStackedValue[]).map((item, index) => {
+                totalValue += item.value;
+                return { ...item, value: totalValue };
+            });
+        } else {
+            values = [{ value: this.value }];
+        }
+
+        const radius = 50 - this.strokeWidth / 2;
+        const gapPosition = this.thyGapPosition || 'top';
+        const len = Math.PI * 2 * radius;
+        const gapDegree = this.thyGapDegree || 0;
+
+        let beginPositionX = 0;
+        let beginPositionY = -radius;
+        let endPositionX = 0;
+        let endPositionY = radius * -2;
+
+        switch (gapPosition) {
+            case 'left':
+                beginPositionX = -radius;
+                beginPositionY = 0;
+                endPositionX = radius * 2;
+                endPositionY = 0;
+                break;
+            case 'right':
+                beginPositionX = radius;
+                beginPositionY = 0;
+                endPositionX = radius * -2;
+                endPositionY = 0;
+                break;
+            case 'bottom':
+                beginPositionY = radius;
+                endPositionY = radius * 2;
+                break;
+            default:
+        }
+
+        this.pathString = `M 50,50 m ${beginPositionX},${beginPositionY}
+       a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY}
+       a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
+
+        this.trailPathStyle = {
+            strokeDasharray: `${len - gapDegree}px ${len}px`,
+            strokeDashoffset: `-${gapDegree / 2}px`,
+            transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
+        };
+
+        this.progressCirclePath = values
+            .map((item, index) => {
+                return {
+                    stroke: null,
+                    strokePathStyle: {
+                        stroke: item.type || this.thyType ? typeColorMap.get(item.type || this.thyType) : item?.color || null,
+                        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
+                        strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
+                        strokeDashoffset: `-${gapDegree / 2}px`
+                    }
+                };
+            })
+            .reverse();
+    }
+
+    trackByFn(index: number) {
+        return index;
     }
 }
