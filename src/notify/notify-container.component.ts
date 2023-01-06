@@ -1,24 +1,20 @@
 import { Component, Inject, ElementRef } from '@angular/core';
-import { ThyMessageContainerBaseComponent } from 'ngx-tethys/message';
+import { ThyMessageContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
 
 @Component({
     selector: 'thy-notify-container',
-    templateUrl: './notify-container.component.html',
-    host: {
-        class: 'thy-notify-container',
-        '[attr.role]': `'notify'`
-    }
+    templateUrl: './notify-container.component.html'
 })
-export class ThyNotifyContainerComponent extends ThyMessageContainerBaseComponent {
-    offset: string;
+export class ThyNotifyContainerComponent extends ThyMessageContainerComponent {
+    className = 'thy-notify-container';
 
     constructor(
         public notifyQueue: ThyNotifyQueue,
         elementRef: ElementRef,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig
     ) {
-        super(elementRef, defaultConfig);
+        super(notifyQueue, elementRef, defaultConfig);
     }
 }

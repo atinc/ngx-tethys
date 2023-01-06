@@ -4,8 +4,7 @@ import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
-import { ThyMessageBaseService } from './base';
-import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { ThyMessageBaseService } from './message-base.service';
 
 @Injectable({
     providedIn: 'root'
@@ -25,7 +24,7 @@ export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainer
     /**
      * 打开 success 类型的 Message
      */
-    success(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    success(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'success',
@@ -36,7 +35,7 @@ export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainer
     /**
      * 打开 error 类型的 Message
      */
-    error(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    error(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'error',
@@ -47,7 +46,7 @@ export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainer
     /**
      * 打开 info 类型的 Message
      */
-    info(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    info(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'info',
@@ -58,7 +57,7 @@ export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainer
     /**
      * 打开 warning 类型的 Message
      */
-    warning(content: string | ComponentTypeOrTemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
+    warning(content: string | TemplateRef<any>, config?: ThyMessageConfig): ThyMessageRef {
         return this.show({
             ...(config || {}),
             type: 'warning',

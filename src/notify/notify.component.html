@@ -14,12 +14,10 @@
       (click)="extendContent()"
     >
       <ng-container *ngIf="config.content">
-        <ng-container *ngIf="!contentIsComponent; else componentTemplate">
-          <ng-container *thyStringOrTemplateOutlet="config.content; context: config.contentInitialState"></ng-container>
+        <ng-container *ngIf="!contentIsString; else contentText">
+          <ng-container *thyViewOutlet="config.content; context: config.contentInitialState"></ng-container>
         </ng-container>
-        <ng-template #componentTemplate>
-          <div class="custom-content" #componentContentHost></div>
-        </ng-template>
+        <ng-template #contentText>{{ config.content }}</ng-template>
       </ng-container>
       <a href="javascript:;" *ngIf="config?.detail" class="link-secondary" (click)="triggerDetail()">{{ (config?.detail)['link'] }}</a>
     </div>

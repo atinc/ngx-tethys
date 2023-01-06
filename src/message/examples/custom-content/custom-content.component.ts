@@ -1,6 +1,5 @@
 import { ThyMessageService } from 'ngx-tethys/message';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { ThyMessageContentExampleComponent } from './content.component';
 
 @Component({
     selector: 'thy-message-custom-content-example',
@@ -18,20 +17,7 @@ export class ThyMessageCustomContentExampleComponent implements OnInit {
     }
 
     showWithTemplateRef() {
-        this.messageService.success(this.contentTemplate, {
-            contentInitialState: {
-                $implicit: '标题111',
-                content: '这是内容...'
-            }
-        });
-    }
-
-    showWithComponent() {
-        this.messageService.success(ThyMessageContentExampleComponent, {
-            contentInitialState: {
-                title: '标题11'
-            }
-        });
+        this.messageService.success(this.contentTemplate);
     }
 
     openAction = () => {

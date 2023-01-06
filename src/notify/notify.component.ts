@@ -1,6 +1,6 @@
-import { Component, Input, HostBinding, NgZone, ElementRef, ViewChild, ApplicationRef } from '@angular/core';
+import { Component, Input, HostBinding, NgZone, ElementRef, ViewChild, ApplicationRef, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { helpers } from 'ngx-tethys/util';
+import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
 import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
 import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyMessageBaseComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
@@ -28,7 +28,7 @@ import { ThyNotifyQueue } from './notify-queue.service';
         ])
     ]
 })
-export class ThyNotifyComponent extends ThyMessageBaseComponent {
+export class ThyNotifyComponent extends ThyMessageBaseComponent implements OnInit {
     @HostBinding('@flyInOut') animationState: string;
 
     @HostBinding('class') className = '';
@@ -39,9 +39,9 @@ export class ThyNotifyComponent extends ThyMessageBaseComponent {
 
     isShowDetail = false;
 
-    placement: ThyNotifyPlacement;
+    contentIsString = false;
 
-    @ViewChild('componentContentHost') contentContainer: ElementRef<any>;
+    placement: ThyNotifyPlacement;
 
     @Input()
     set thyConfig(value: ThyNotifyConfig) {
@@ -56,8 +56,13 @@ export class ThyNotifyComponent extends ThyMessageBaseComponent {
         this.className = `thy-notify thy-notify-${type}`;
     }
 
-    constructor(ngZone: NgZone, notifyQueue: ThyNotifyQueue, applicationRef: ApplicationRef) {
-        super(ngZone, notifyQueue, applicationRef);
+    constructor(ngZone: NgZone, notifyQueue: ThyNotifyQueue) {
+        super(ngZone, notifyQueue);
+    }
+
+    ngOnInit() {
+        super.ngOnInit();
+        this.contentIsString = isString(this.config.content);
     }
 
     extendContent() {

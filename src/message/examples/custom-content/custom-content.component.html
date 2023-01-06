@@ -1,9 +1,8 @@
 <thy-space>
   <button *thySpaceItem thyButton="primary" (click)="showWithString()">String</button>
   <button *thySpaceItem thyButton="primary" (click)="showWithTemplateRef()">TemplateRef</button>
-  <button *thySpaceItem thyButton="primary" (click)="showWithComponent()">Component</button>
 </thy-space>
-<ng-template #content let-title let-content="content">
-  <h3>{{ title }}</h3>
-  <div>{{ content }}</div>
+<ng-template #content>
+  <h3>标题</h3>
+  <div>内容....</div>
 </ng-template>

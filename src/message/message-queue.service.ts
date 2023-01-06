@@ -16,9 +16,7 @@ export class ThyMessageQueue {
         return this.queues$.getValue();
     }
 
-    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) protected defaultConfig: ThyGlobalMessageConfig) {
-        this.queues$ = new BehaviorSubject([]);
-    }
+    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) protected defaultConfig: ThyGlobalMessageConfig) {}
 
     add(messageRef: ThyMessageRef) {
         const queues = this.queues$.getValue();
