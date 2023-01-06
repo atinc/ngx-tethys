@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.10](https://github.com/atinc/ngx-tethys/compare/14.2.9...14.2.10) (2023-01-06)
+
+
+### Bug Fixes
+
+* **cascader:** return right data when use multi mode #INFR-6044 ([#2469](https://github.com/atinc/ngx-tethys/issues/2469)) ([eb78eef](https://github.com/atinc/ngx-tethys/commit/eb78eef47785c277429db872a29ec5df929b9d39)), closes [#INFR-6044](https://github.com/atinc/ngx-tethys/issues/INFR-6044)
+* **property:** add flex: auto for thy-property-item-content-text ([017a943](https://github.com/atinc/ngx-tethys/commit/017a9434b998fbe1ccfede1af0fd4231530c4a7e))
+
+
+### Features
+
+* **cascader:** change emptyStateText #INFR-6037 ([#2467](https://github.com/atinc/ngx-tethys/issues/2467)) ([d2d2cbb](https://github.com/atinc/ngx-tethys/commit/d2d2cbb7e5eff58be336a000fc281bece23f5386)), closes [#INFR-6037](https://github.com/atinc/ngx-tethys/issues/INFR-6037)
+* **select:** change emptyStateText #INFR-6041 ([#2468](https://github.com/atinc/ngx-tethys/issues/2468)) ([2b2225d](https://github.com/atinc/ngx-tethys/commit/2b2225d0387ed51ddc5c41a7d5fb14df19d146b8)), closes [#INFR-6041](https://github.com/atinc/ngx-tethys/issues/INFR-6041)
+
+
+
 ## [14.2.9](https://github.com/atinc/ngx-tethys/compare/14.2.8...14.2.9) (2023-01-05)
 
 
