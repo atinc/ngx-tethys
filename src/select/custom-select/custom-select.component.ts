@@ -26,6 +26,7 @@ import {
     helpers,
     HOME,
     isArray,
+    isElementRef,
     isFunction,
     LEFT_ARROW,
     RIGHT_ARROW,
@@ -244,6 +245,8 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @Input() @InputNumber() thyMaxTagCount = 0;
 
+    @Input() thyOrigin: ElementRef | HTMLElement;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
@@ -321,7 +324,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             .pipe(takeUntil(this.destroy$))
             .subscribe(() => {
                 if (this.panelOpen) {
-                    this.triggerRectWidth = this.trigger.nativeElement.offsetWidth;
+                    this.triggerRectWidth = this.getOriginRectWidth();
                     this.changeDetectorRef.markForCheck();
                 }
             });
@@ -494,7 +497,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         if (this.disabled || !this.options || this.panelOpen) {
             return;
         }
-        this.triggerRectWidth = this.trigger.nativeElement.offsetWidth;
+        this.triggerRectWidth = this.getOriginRectWidth();
         this.panelOpen = true;
         this.highlightCorrectOption();
         this.thyOnExpandStatusChange.emit(this.panelOpen);
@@ -766,6 +769,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         }
+    }
+
+    private getOriginRectWidth() {
+        if (this.thyOrigin) {
+            return isElementRef(this.thyOrigin) ? this.thyOrigin.nativeElement.offsetWidth : this.thyOrigin.offsetWidth;
+        }
+        return this.trigger.nativeElement.offsetWidth;
     }
 
     ngOnDestroy() {

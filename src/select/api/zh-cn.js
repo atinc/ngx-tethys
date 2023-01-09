@@ -118,6 +118,11 @@ module.exports = [
                 description: '设置多选时最大显示的标签数量，0 表示不限制',
                 type: 'number',
                 default: '0'
+            },
+            {
+                name: 'thyOrigin',
+                description: '自定义 Overlay Origin',
+                type: ElementRef | HTMLElement
             }
         ]
     },
