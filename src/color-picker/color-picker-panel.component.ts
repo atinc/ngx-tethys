@@ -12,7 +12,7 @@ import ThyColor from './helpers/color.class';
     templateUrl: './color-picker-panel.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[style.paddingTop]': '!transparentColorSelectable ? "16px" : null'
+        '[class.pt-4]': '!transparentColorSelectable'
     }
 })
 export class ThyColorPickerPanelComponent implements OnInit {
