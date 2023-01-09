@@ -10,7 +10,10 @@ import ThyColor from './helpers/color.class';
 @Component({
     selector: 'thy-color-picker-panel',
     templateUrl: './color-picker-panel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.pt-4]': '!transparentColorSelectable'
+    }
 })
 export class ThyColorPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
