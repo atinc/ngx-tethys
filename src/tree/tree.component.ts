@@ -519,8 +519,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     // region Public Functions
 
     public selectTreeNode(node: ThyTreeNode) {
-        this._selectionModel.select(node);
-        this.thyTreeService.syncFlattenTreeNodes();
+        if (node && !node.isDisabled) {
+            this._selectionModel.select(node);
+            this.thyTreeService.syncFlattenTreeNodes();
+        }
     }
 
     public getRootNodes(): ThyTreeNode[] {

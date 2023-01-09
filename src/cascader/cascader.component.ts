@@ -22,7 +22,7 @@ import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { ThyCascaderOption, ThyCascaderExpandTrigger, ThyCascaderTriggerType } from './types';
+import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -195,7 +195,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     /**
      * 空状态下的展示文字
-     * @default '无任何选项'
+     * @default '暂无可选项'
      */
     @Input()
     set thyEmptyStateText(value: string) {
@@ -282,7 +282,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public isLabelRenderTemplate = false;
     public triggerRect: DOMRect;
     public columns: ThyCascaderOption[][] = [];
-    public emptyStateText = '无任何选项';
+    public emptyStateText = '暂无可选项';
 
     public selectionModel: SelectionModel<SelectOptionBase>;
     private prefixCls = 'thy-cascader';
@@ -713,7 +713,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
-            if (!this.activatedOptions[i]) {
+            if (!this.activatedOptions[i] || this.activatedOptions[i + 1].parent._id !== this.activatedOptions[i]._id) {
                 this.activatedOptions[i] = this.activatedOptions[i + 1].parent;
             }
         }
