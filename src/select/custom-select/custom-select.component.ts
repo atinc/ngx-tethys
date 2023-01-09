@@ -26,7 +26,6 @@ import {
     helpers,
     HOME,
     isArray,
-    isElementRef,
     isFunction,
     LEFT_ARROW,
     RIGHT_ARROW,
@@ -65,6 +64,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { coerceElement } from '@angular/cdk/coercion';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
@@ -167,22 +167,49 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     @HostBinding('attr.tabindex')
     tabIndex = '0';
 
+    /**
+     * 搜索时回调
+     */
     @Output() thyOnSearch: EventEmitter<string> = new EventEmitter<string>();
 
+    /**
+     * output event: 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载
+     */
     @Output() thyOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
 
+    /**
+     * output event: 下拉菜单展开和折叠状态事件
+     */
     @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
+    /**
+     * 下拉列表是否显示搜索框
+     */
     @Input() thyShowSearch: boolean;
 
+    /**
+     * 选择框默认文字
+     */
     @Input() thyPlaceHolder: string;
 
+    /**
+     * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
+     */
     @Input() thyServerSearch: boolean;
 
+    /**
+     * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
+     */
     @Input() thyLoadState = true;
 
+    /**
+     * 是否自动设置选项第一条为高亮状态
+     */
     @Input() thyAutoActiveFirstItem = true;
 
+    /**
+     * 下拉选择模式
+     */
     @Input()
     set thyMode(value: SelectMode) {
         this.mode = value;
@@ -195,6 +222,9 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         return this.mode;
     }
 
+    /**
+     * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
+     */
     @Input()
     get thySize(): SelectControlSize {
         return this.size;
@@ -203,56 +233,105 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         this.size = value;
     }
 
+    /**
+     * 数据为空时显示的提示文字
+     */
     @Input()
     set thyEmptyStateText(value: string) {
         this.emptyStateText = value;
     }
 
+    /**
+     * 搜索结果为空时显示的提示文字
+     */
     @Input()
     set thyEmptySearchMessageText(value: string) {
         this.emptySearchMessageText = value;
     }
 
+    /**
+     * 滚动加载是否可用, 只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
+     */
     @Input()
     @InputBoolean()
     thyEnableScrollLoad = false;
 
+    /**
+     * 单选( thyMode="" 或者不设置)时，选择框支持清除
+     */
     @Input() thyAllowClear = false;
 
+    /**
+     * 是否禁用
+     */
     @Input()
     set thyDisabled(value: string) {
         this.disabled = coerceBooleanProperty(value);
     }
 
+    /**
+     * 排序比较函数
+     */
     @Input() thySortComparator: (a: ThyOptionComponent, b: ThyOptionComponent, options: ThyOptionComponent[]) => number;
 
+    /**
+     * Footer 模板，默认值为空不显示 Footer
+     */
     @Input()
     thyFooterTemplate: TemplateRef<any>;
 
+    /**
+     * 弹出位置
+     */
     @Input()
     thyPlacement: ThyPlacement = 'bottom';
 
+    /**
+     * 自定义 Overlay Origin
+     */
+    @Input()
+    thyOrigin: ElementRef | HTMLElement;
+
+    /**
+     * 自定义 Footer 模板容器 class
+     */
     @Input()
     thyFooterClass = 'thy-custom-select-footer';
 
+    /**
+     * @private
+     */
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
+    /**
+     * 初始化时，是否展开面板
+     */
     @Input() thyAutoExpand: boolean;
 
+    /**
+     * 是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动
+     */
     @Input()
     @InputBoolean()
     thyHasBackdrop = false;
 
+    /**
+     * 设置多选时最大显示的标签数量，0 表示不限制
+     */
     @Input() @InputNumber() thyMaxTagCount = 0;
-
-    @Input() thyOrigin: ElementRef | HTMLElement;
 
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
 
+    /**
+     * @private
+     */
     @ContentChildren(ThyOptionComponent, { descendants: true }) options: QueryList<ThyOptionComponent>;
 
+    /**
+     * @private
+     */
     @ContentChildren(ThySelectOptionGroupComponent) optionGroups: QueryList<ThySelectOptionGroupComponent>;
 
     @HostListener('keydown', ['$event'])
@@ -772,10 +851,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     private getOriginRectWidth() {
-        if (this.thyOrigin) {
-            return isElementRef(this.thyOrigin) ? this.thyOrigin.nativeElement.offsetWidth : this.thyOrigin.offsetWidth;
-        }
-        return this.trigger.nativeElement.offsetWidth;
+        return this.thyOrigin ? coerceElement(this.thyOrigin).offsetWidth : this.trigger.nativeElement.offsetWidth;
     }
 
     ngOnDestroy() {
