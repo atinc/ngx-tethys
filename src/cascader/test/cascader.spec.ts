@@ -8,11 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
-import { ThyCascaderModule } from '../module';
+import { of, Subject } from 'rxjs';
+import { delay, take } from 'rxjs/operators';
 import { clone } from '../examples/cascader-address-options';
+import { ThyCascaderModule } from '../module';
+import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+
 registerLocaleData(zh);
 
 const customerOptions = [
@@ -240,6 +241,14 @@ class CascaderBasicComponent {
     constructor() {}
     onChanges(e: string[]) {
         this.changeValue$.next(e);
+    }
+
+    public setOptionsForAsync() {
+        of(true)
+            .pipe(delay(200))
+            .subscribe(() => {
+                this.thyCustomerOptions = clone(customerOptions);
+            });
     }
 }
 @Component({
@@ -495,6 +504,27 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
+
+        it('should not error when options get by async way', fakeAsync(() => {
+            const value = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.componentInstance.curVal = value;
+            fixture.componentInstance.thyCustomerOptions = [];
+            fixture.detectChanges();
+            flush();
+            const displayEl = debugElement.query(By.css('.thy-cascader-picker-label'));
+            expect(displayEl).toBeNull();
+
+            fixture.componentInstance.setOptionsForAsync();
+            fixture.detectChanges();
+            tick(300);
+            const newDisplayEl = debugElement.query(By.css('.thy-cascader-picker-label'));
+
+            expect(newDisplayEl).not.toBeNull();
+            const displayName = newDisplayEl.nativeElement.innerText;
+            while (value.length > 0) {
+                expect(displayName).toContain(value.pop());
+            }
+        }));
 
         it('should active selectedOptions when menu open', fakeAsync(() => {
             fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];

@@ -713,8 +713,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
-            if (!this.activatedOptions[i] || this.activatedOptions[i + 1].parent._id !== this.activatedOptions[i]._id) {
-                this.activatedOptions[i] = this.activatedOptions[i + 1].parent;
+            const originOption = this.activatedOptions[i + 1]?.parent;
+            if (!this.activatedOptions[i] || originOption?._id !== this.activatedOptions[i]._id) {
+                this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
             }
         }
         if (index < this.activatedOptions.length - 1) {
