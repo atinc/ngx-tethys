@@ -1,10 +1,12 @@
-import { Component, Input, HostBinding, ElementRef, ViewEncapsulation, InjectionToken, Inject, Host, TemplateRef } from '@angular/core';
-import { ThyProgressType } from '../interfaces';
 import { UpdateHostClassService } from 'ngx-tethys/core';
+
+import { Component, ElementRef, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+
+import { ThyProgressType } from './interfaces';
 
 export interface ThyParentProgress {
     max: number;
-    bars: ThyProgressBarComponent[];
+    bars: ThyProgressStripComponent[];
 }
 export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY_PROGRESS_COMPONENT');
 
@@ -13,13 +15,11 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
  */
 @Component({
     selector: 'thy-progress-bar',
-    templateUrl: './progress-bar.component.html',
+    templateUrl: './progress-strip.component.html',
     encapsulation: ViewEncapsulation.None,
     providers: [UpdateHostClassService]
 })
-export class ThyProgressBarComponent {
-    // private type: ProgressTypes;
-
+export class ThyProgressStripComponent {
     private value: number;
 
     color: string;
@@ -31,7 +31,6 @@ export class ThyProgressBarComponent {
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyType(type: ThyProgressType) {
-        // this.type = type;
         this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`] : []);
     }
 

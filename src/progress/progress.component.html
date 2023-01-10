@@ -1,5 +1,5 @@
 <ng-container>
-  <ng-container *ngIf="this.thyShape === 'strip'; else circleTemplate">
+  <ng-container *ngIf="thyShape === 'strip'; else circleTemplate">
     <ng-container *ngIf="isStacked; else general">
       <thy-progress-bar
         *ngFor="let item of value"
@@ -31,37 +31,19 @@
 </ng-template>
 
 <ng-template #circleTemplate>
-  <div
+  <thy-progress-circle
+    [thyType]="thyType"
     [thyTooltip]="thyTips"
     [thyTooltipDisabled]="!thyTips"
-    [style.width.px]="width"
-    [style.height.px]="width"
-    [style.fontSize.px]="width * 0.15 + 6"
-    class="thy-progress-circle-inner"
+    [thyTooltipTemplateContext]="value"
+    [thyValue]="value"
+    [thySize]="size"
+    [thyMax]="max"
+    [thyGapDegree]="thyGapDegree"
+    [thyGapPosition]="thyGapPosition"
   >
-    <svg class="thy-progress-circle-svg" viewBox="0 0 100 100">
-      <path
-        class="thy-progress-circle-trail"
-        fill-opacity="0"
-        [attr.stroke-width]="strokeWidth"
-        [attr.d]="pathString"
-        [ngStyle]="trailPathStyle"
-      ></path>
-      <path
-        *ngFor="let p of progressCirclePath; trackBy: trackByFn"
-        class="thy-progress-circle-path"
-        fill-opacity="0"
-        [attr.d]="pathString"
-        [attr.stroke-linecap]="'round'"
-        [attr.stroke]="p.stroke"
-        [attr.stroke-width]="value ? strokeWidth : 0"
-        [ngStyle]="p.strokePathStyle"
-      ></path>
-    </svg>
-    <span class="thy-progress-circle-content">
-      <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
-    </span>
-  </div>
+    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template
+  ></thy-progress-circle>
 </ng-template>
 
 <ng-template #contentTemplate>

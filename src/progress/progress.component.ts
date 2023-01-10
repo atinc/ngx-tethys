@@ -16,15 +16,8 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
-import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressBarComponent } from './bar/progress-bar.component';
-import {
-    ThyProgressCirclePath,
-    ThyProgressGapPositionType,
-    ThyProgressPathStyle,
-    ThyProgressShapeType,
-    ThyProgressStackedValue,
-    ThyProgressType
-} from './interfaces';
+import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
 
 const typeColorMap = new Map([
     ['primary', '#6698ff'],
@@ -57,14 +50,15 @@ const sizeMap = new Map([
         }
     ],
     host: {
-        class: 'thy-progress progress',
+        class: `thy-progress progress`,
+        '[class.thy-progress-strip]': `thyShape === 'strip'`,
         '[class.thy-progress-circle]': `thyShape === 'circle'`
     }
 })
 export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];
 
-    bars: ThyProgressBarComponent[] = [];
+    bars: ThyProgressStripComponent[] = [];
 
     barsTotalValue: number;
 
@@ -74,8 +68,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
-    @ViewChildren(ThyProgressBarComponent)
-    set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
+    @ViewChildren(ThyProgressStripComponent)
+    set barsQueryList(value: QueryList<ThyProgressStripComponent>) {
         this.bars = value.toArray();
     }
 
@@ -125,6 +119,7 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     /**
      * 进度形状 'strip' | 'circle'
+     * @default strip
      */
     @Input() thyShape: ThyProgressShapeType = 'strip';
 
@@ -138,37 +133,15 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
      */
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
 
-    public trailPathStyle: ThyProgressPathStyle | null = null;
+    size: string;
 
-    public progressCirclePath: ThyProgressCirclePath[];
-
-    public pathString?: string;
-
-    public width: number;
-
-    private size: string;
-
-    get strokeWidth(): number {
-        return sizeMap.get(this.size) || 6;
+    constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
+        this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
-    constructor(private updateHostClassService: UpdateHostClassService, public elementRef: ElementRef) {
-        this.updateHostClassService.initializeElement(elementRef);
-    }
+    ngOnInit() {}
 
-    ngOnInit() {
-        const { offsetWidth, offsetHeight } = this.elementRef.nativeElement;
-        this.width = (offsetHeight < offsetWidth ? offsetHeight : offsetWidth) || 150;
-        this.getCirclePaths();
-    }
-
-    ngOnChanges(changes: SimpleChanges): void {
-        const { thyGapDegree, thyValue, thyGapPosition } = changes;
-
-        if (thyGapDegree || thyValue || thyGapPosition) {
-            this.getCirclePaths();
-        }
-    }
+    ngOnChanges(changes: SimpleChanges): void {}
 
     calculateMax() {
         if (isNumber(this.settedMax) && this.settedMax > 0) {
@@ -184,78 +157,10 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
         });
     }
 
-    private getCirclePaths(): void {
-        if (this.thyShape !== 'circle') {
-            return;
-        }
-        let values: ThyProgressStackedValue[] = [];
-
-        if (Array.isArray(this.value)) {
-            let totalValue = 0;
-            values = ((this.value as unknown) as ThyProgressStackedValue[]).map((item, index) => {
-                totalValue += item.value;
-                return { ...item, value: totalValue };
-            });
-        } else {
-            values = [{ value: this.value }];
-        }
-
-        const radius = 50 - this.strokeWidth / 2;
-        const gapPosition = this.thyGapPosition || 'top';
-        const len = Math.PI * 2 * radius;
-        const gapDegree = this.thyGapDegree || 0;
-
-        let beginPositionX = 0;
-        let beginPositionY = -radius;
-        let endPositionX = 0;
-        let endPositionY = radius * -2;
-
-        switch (gapPosition) {
-            case 'left':
-                beginPositionX = -radius;
-                beginPositionY = 0;
-                endPositionX = radius * 2;
-                endPositionY = 0;
-                break;
-            case 'right':
-                beginPositionX = radius;
-                beginPositionY = 0;
-                endPositionX = radius * -2;
-                endPositionY = 0;
-                break;
-            case 'bottom':
-                beginPositionY = radius;
-                endPositionY = radius * 2;
-                break;
-            default:
-        }
-
-        this.pathString = `M 50,50 m ${beginPositionX},${beginPositionY}
-       a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY}
-       a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
-
-        this.trailPathStyle = {
-            strokeDasharray: `${len - gapDegree}px ${len}px`,
-            strokeDashoffset: `-${gapDegree / 2}px`,
-            transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s'
-        };
-
-        this.progressCirclePath = values
-            .map((item, index) => {
-                return {
-                    stroke: null,
-                    strokePathStyle: {
-                        stroke: item.type || this.thyType ? typeColorMap.get(item.type || this.thyType) : item?.color || null,
-                        transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
-                        strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
-                        strokeDashoffset: `-${gapDegree / 2}px`
-                    }
-                };
-            })
-            .reverse();
-    }
-
     trackByFn(index: number) {
         return index;
     }
+}
+function ClassBinding(arg0: string) {
+    throw new Error('Function not implemented.');
 }

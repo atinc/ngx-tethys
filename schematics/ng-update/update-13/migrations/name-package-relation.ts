@@ -480,7 +480,7 @@ export const namePackageRelationsInNg13 = {
     ThyPopover: 'popover',
     ThyParentProgress: 'progress',
     THY_PROGRESS_COMPONENT: 'progress',
-    ThyProgressBarComponent: 'progress',
+    ThyProgressStripComponent: 'progress',
     ThyProgressType: 'progress',
     ThyProgressStackedValue: 'progress',
     ThyStackedValue: 'progress',

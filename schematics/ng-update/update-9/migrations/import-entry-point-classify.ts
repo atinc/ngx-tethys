@@ -407,7 +407,7 @@ const NAME_PACKAGE_RELATION = {
     ThyPopover: 'popover',
     ThyParentProgress: 'progress',
     THY_PROGRESS_COMPONENT: 'progress',
-    ThyProgressBarComponent: 'progress',
+    ThyProgressStripComponent: 'progress',
     ThyProgressTypes: 'progress',
     ThyStackedValue: 'progress',
     ThyProgressComponent: 'progress',

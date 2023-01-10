@@ -1,0 +1,24 @@
+<div
+  [thyTooltip]="thyTips"
+  [thyTooltipDisabled]="!thyTips"
+  [style.width.px]="width"
+  [style.height.px]="width"
+  [style.fontSize.px]="width * 0.15 + 6"
+  class="progress-circle-inner"
+>
+  <svg class="progress-circle-svg" viewBox="0 0 100 100">
+    <path class="progress-circle-trail" fill-opacity="0" [attr.d]="pathString" [ngStyle]="trailPathStyle"></path>
+    <path
+      *ngFor="let p of progressCirclePath; trackBy: trackByFn"
+      class="progress-circle-path"
+      fill-opacity="0"
+      [attr.d]="pathString"
+      [attr.stroke-linecap]="'round'"
+      [attr.stroke]="p.stroke"
+      [ngStyle]="p.strokePathStyle"
+    ></path>
+  </svg>
+  <span class="progress-circle-content">
+    <ng-content></ng-content>
+  </span>
+</div>

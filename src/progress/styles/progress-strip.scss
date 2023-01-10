@@ -1,0 +1,51 @@
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/bootstrap/mixins/transition";
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/variables";
+
+.progress-bar {
+    display: flex;
+    height: 100%;
+    min-width: 4px;
+    flex-direction: column;
+    justify-content: center;
+    color: bootstrap-variables.$progress-bar-color;
+    text-align: center;
+    @include transition.transition(bootstrap-variables.$progress-bar-transition);
+    position: relative;
+    &[aria-valuenow='0'] {
+        &:before {
+            display: none;
+        }
+    }
+    &:first-child {
+        &:before {
+            display: none;
+        }
+    }
+
+    &:last-child {
+        .progress-bar-inner {
+            border-right: 1px variables.$progress-split-color solid;
+            @include border-radius.border-radius(0 100px 100px 0);
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        display: block;
+        background: variables.$progress-split-color;
+    }
+
+    .progress-bar-inner {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        color: bootstrap-variables.$progress-bar-color;
+        background-color: variables.$primary;
+        text-align: center;
+    }
+}
