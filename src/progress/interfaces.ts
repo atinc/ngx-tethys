@@ -1,6 +1,6 @@
 import { TemplateRef } from '@angular/core';
 
-import { SafeAny } from '../types';
+import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyProgressType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 

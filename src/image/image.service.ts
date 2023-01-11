@@ -6,13 +6,12 @@ import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
 import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { MixinBase, mixinUnsubscribe } from '../core';
 
 /**
  * 图片预览服务
  */
 @Injectable()
-export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDestroy {
+export class ThyImageService implements OnDestroy {
     /**
      * 图片预览默认配置，外部可通过注入 THY_IMAGE_DEFAULT_PREVIEW_OPTIONS 进行配置
      */
@@ -20,13 +19,14 @@ export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDe
 
     private downloadClicked$ = new Subject<ThyImageInfo>();
 
+    private ngUnsubscribe$ = new Subject<void>();
+
     constructor(
         public thyDialog: ThyDialog,
         @Optional()
         @Inject(THY_IMAGE_DEFAULT_PREVIEW_OPTIONS)
         defaultConfig: ThyImagePreviewConfig
     ) {
-        super();
         this.defaultConfig = defaultConfig;
     }
 
@@ -61,6 +61,7 @@ export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDe
     }
 
     ngOnDestroy() {
-        super.ngOnDestroy();
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
     }
 }
