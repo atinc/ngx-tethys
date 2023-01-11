@@ -7,31 +7,4 @@ import { Component } from '@angular/core';
 })
 export class ThyProgressCircleExampleComponent {
     value = 70;
-
-    values = [
-        {
-            type: 'success',
-            value: 20
-        },
-        {
-            type: 'warning',
-            value: 20
-        },
-        {
-            type: 'danger',
-            value: 20
-        },
-        {
-            type: 'info',
-            value: 30
-        },
-        {
-            value: 30,
-            color: '#2cccda'
-        },
-        {
-            value: 10,
-            color: '#ddd'
-        }
-    ];
 }

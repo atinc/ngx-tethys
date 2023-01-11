@@ -82,7 +82,7 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
      * 进度条大小: `'sm' | 'md' 'xs'`
      * @default md
      */
-    @Input() set thySize(size: string) {
+    @Input() set thySize(size: string | number) {
         this.size = size;
         this.updateHostClassService.updateClass(size ? [`progress-${size}`] : []);
     }
@@ -124,16 +124,21 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     @Input() thyShape: ThyProgressShapeType = 'strip';
 
     /**
-     * 仪表盘进度条缺口角度，可取值 0 ~ 360
+     * 圆形进度条缺口角度，可取值 0 ~ 360
      */
     @Input() thyGapDegree?: number = undefined;
 
     /**
-     * 	仪表盘进度条缺口位置
+     * 	圆形进度条缺口位置
      */
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
 
-    size: string;
+    /**
+     * 	圆形进度条线的宽度
+     */
+    @Input() thyStrokeWidth: number;
+
+    size: string | number;
 
     constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
         this.updateHostClassService.initializeElement(elementRef.nativeElement);

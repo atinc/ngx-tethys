@@ -28,11 +28,11 @@ const typeColorMap = new Map([
     ['danger', '#ff7575']
 ]);
 
-const sizeMap = new Map([
-    ['xs', 4],
-    ['sm', 6],
-    ['md', 10],
-    ['lg', 16]
+const circleMap = new Map([
+    ['xs', 44],
+    ['sm', 80],
+    ['md', 112],
+    ['lg', 160]
 ]);
 @Component({
     selector: 'thy-demo-progress-basic',
@@ -68,6 +68,7 @@ class ThyDemoProgressBasicComponent {
             [thySize]="size"
             [thyGapDegree]="gapDegree"
             [thyGapPosition]="gapPosition"
+            [thyStrokeWidth]="strokeWidth"
         >
             20%
         </thy-progress>
@@ -80,6 +81,7 @@ class ThyDemoProgressCircleComponent {
     tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
     gapDegree = 0;
     gapPosition = 'top';
+    strokeWidth = 6;
     stackedValue = [
         {
             type: 'success',
@@ -371,16 +373,16 @@ describe(`ThyProgressComponent`, () => {
             return tooltipDirective['isTooltipVisible']();
         }
 
-        function computedCirclePath(strokeValue: string, value = 20, gapDegree = 0, size: string = 'md') {
-            const circle = Math.PI * 2 * (50 - sizeMap.get(size) / 2);
+        function computedCirclePath(strokeValue: string, value = 20, gapDegree = 0, strokeWidth = 6, size: string = 'md') {
+            const circle = Math.PI * 2 * (50 - strokeWidth / 2);
             const len = `${(value / 100) * (circle - gapDegree)}px ${circle}px`;
             strokeValue = progressCircleComponent.componentInstance.progressCirclePath[0].strokePathStyle.strokeDasharray;
             expect(strokeValue).toBe(len);
         }
 
-        function computedPathString(position: string = 'top', size: string = 'md') {
+        function computedPathString(position: string = 'top', strokeWidth = 6) {
             let circlePath = progressCircleElement.querySelector('.progress-circle-path');
-            const radius = 50 - sizeMap.get(size) / 2;
+            const radius = 50 - strokeWidth / 2;
             let beginPositionX = 0;
             let beginPositionY = -radius;
             let endPositionX = 0;
@@ -510,7 +512,6 @@ describe(`ThyProgressComponent`, () => {
         it('should show correct gapDegree when input thyGapDegree', fakeAsync(() => {
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
             progressCircleElement = progressCircleComponent.nativeElement;
-            circleTestComponent.size = 'md';
             circleTestComponent.gapDegree = 100;
             fixture.detectChanges();
 
@@ -521,6 +522,22 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             const newStrokeValue: any = null;
             computedCirclePath(newStrokeValue, 20, circleTestComponent.gapDegree);
+        }));
+
+        it('should show correct strokeWidth when input thyStrokeWidth', fakeAsync(() => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            const strokeWidthElement = progressCircleElement.querySelector('path');
+            console.log(strokeWidthElement, strokeWidthElement.getAttribute('stroke-width'));
+            circleTestComponent.strokeWidth = 10;
+            fixture.detectChanges();
+            const strokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            expect(strokeWidth).toBe(circleTestComponent.strokeWidth);
+
+            circleTestComponent.strokeWidth = 20;
+            fixture.detectChanges();
+            const newStrokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            expect(newStrokeWidth).toBe(circleTestComponent.strokeWidth);
         }));
 
         it('should show correct gapPosition when input thyGapPosition', fakeAsync(() => {

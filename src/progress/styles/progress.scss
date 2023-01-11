@@ -39,10 +39,6 @@
     &.thy-progress-circle {
         height: inherit;
         background-color: transparent;
-        .progress-circle-trail,
-        .progress-circle-path {
-            stroke-width: $height;
-        }
     }
 }
 

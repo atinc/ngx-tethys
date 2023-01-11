@@ -1,3 +1,5 @@
+import { isString } from 'ngx-tethys/util';
+
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 
 import { UpdateHostClassService } from '../core';
@@ -18,11 +20,11 @@ const typeColorMap = new Map([
     ['danger', '#ff7575']
 ]);
 
-const sizeMap = new Map([
-    ['xs', 4],
-    ['sm', 6],
-    ['md', 10],
-    ['lg', 16]
+const circleMap = new Map([
+    ['xs', 44],
+    ['sm', 80],
+    ['md', 112],
+    ['lg', 160]
 ]);
 /**
  * @private
@@ -37,50 +39,28 @@ const sizeMap = new Map([
     }
 })
 export class ThyProgressCircleComponent implements OnInit, OnChanges {
-    /**
-     * 进度条类型: 'primary' | 'success' | 'info' | 'warning' | 'danger'
-     */
     @Input() set thyType(type: ThyProgressType) {
         this.updateHostClassService.updateClass(type ? [`progress-circle-${type}`] : []);
     }
 
-    /**
-     * 进度条大小: `'sm' | 'md' 'xs'`
-     * @default md
-     */
-    @Input() set thySize(size: string) {
+    @Input() set thySize(size: string | number) {
         this.size = size;
+        this.width = size ? (isString(size) ? circleMap.get(size) : size) : 112;
     }
 
-    /**
-     * 进度值
-     */
     @Input() thyValue: number | ThyProgressStackedValue[];
 
-    /**
-     * 最大值，主要计算百分比进度的分母使用，当 thyValue 传入数组时，自动累加数组中的 value 之和为 max
-     */
     @Input() thyMax: number;
 
-    /**
-     * 鼠标移入进度条时显示的提示文案或者模板
-     */
     @Input() thyTips: string | TemplateRef<unknown>;
 
-    /**
-     * 进度形状 'strip' | 'circle'
-     */
     @Input() thyShape: ThyProgressShapeType = 'strip';
 
-    /**
-     * 仪表盘进度条缺口角度，可取值 0 ~ 360
-     */
     @Input() thyGapDegree?: number = undefined;
 
-    /**
-     * 	仪表盘进度条缺口位置
-     */
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
+
+    @Input() thyStrokeWidth: number;
 
     public trailPathStyle: ThyProgressPathStyle | null = null;
 
@@ -88,12 +68,12 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
 
     public pathString?: string;
 
-    public width: number;
+    public width: number = 150;
 
-    private size: string;
+    private size: string | number;
 
     get strokeWidth(): number {
-        return sizeMap.get(this.size) || 6;
+        return this.thyStrokeWidth || 6;
     }
 
     constructor(private updateHostClassService: UpdateHostClassService, public elementRef: ElementRef) {
@@ -101,20 +81,18 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        const { offsetWidth, offsetHeight } = this.elementRef.nativeElement;
-        this.width = (offsetHeight < offsetWidth ? offsetHeight : offsetWidth) || 150;
-        this.getCirclePaths();
+        this.createCirclePaths();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyGapDegree, thyValue, thyGapPosition } = changes;
 
         if (thyGapDegree || thyValue || thyGapPosition) {
-            this.getCirclePaths();
+            this.createCirclePaths();
         }
     }
 
-    private getCirclePaths(): void {
+    private createCirclePaths(): void {
         let values: ThyProgressStackedValue[] = [];
 
         if (Array.isArray(this.thyValue)) {

@@ -1,5 +1,6 @@
 @use "../../styles/variables";
 .progress-circle {
+    width: inherit;
     &-inner {
         position: relative;
         display: inline-block;
