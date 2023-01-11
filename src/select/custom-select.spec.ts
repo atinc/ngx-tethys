@@ -10,7 +10,7 @@ import { fromEvent, Subject, timer } from 'rxjs';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
@@ -38,6 +38,7 @@ import { tap } from 'rxjs/operators';
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
+                [thyOrigin]="customizeOrigin"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -51,6 +52,7 @@ import { tap } from 'rxjs/operators';
                 </ng-template>
             </thy-custom-select>
         </form>
+        <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `
 })
 class BasicSelectComponent {
@@ -70,11 +72,14 @@ class BasicSelectComponent {
     enableScrollLoad: boolean;
     size = '';
     thyAutoActiveFirstItem = true;
+    customizeOrigin: ElementRef | HTMLElement;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     @ViewChild('footer', { static: true, read: TemplateRef })
     footerTemplate: TemplateRef<any>;
+
+    @ViewChild('origin', { static: true }) origin: ElementRef;
     thyOnScrollToBottom = jasmine.createSpy('thyOnScrollToBottom callback');
 }
 
@@ -944,6 +949,29 @@ describe('ThyCustomSelect', () => {
                     0,
                     'Expected at least one option to be rendered.'
                 );
+            }));
+
+            it('should custom origin effected when origin is elementRef', fakeAsync(() => {
+                fixture.componentInstance.customizeOrigin = fixture.componentInstance.origin;
+                fixture.detectChanges();
+
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style.width).toBe('200px');
+            }));
+
+            it('should custom origin effected when origin is htmlElement', fakeAsync(() => {
+                const htmlElement = fixture.debugElement.query(By.css('#custom-select-origin')).nativeElement;
+                fixture.componentInstance.customizeOrigin = htmlElement;
+                fixture.detectChanges();
+
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style.width).toBe('200px');
             }));
         });
 

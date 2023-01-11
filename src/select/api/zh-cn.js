@@ -108,6 +108,11 @@ module.exports = [
                 default: 'bottom'
             },
             {
+                name: 'thyOrigin',
+                description: '自定义 Overlay Origin',
+                type: 'ElementRef | HTMLElement'
+            },
+            {
                 name: 'thyHasBackdrop',
                 description: '是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动',
                 type: 'boolean',

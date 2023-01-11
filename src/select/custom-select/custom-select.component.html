@@ -24,7 +24,7 @@
   cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
   [cdkConnectedOverlayHasBackdrop]="thyHasBackdrop"
   [cdkConnectedOverlayPositions]="dropDownPositions"
-  [cdkConnectedOverlayOrigin]="origin"
+  [cdkConnectedOverlayOrigin]="thyOrigin || origin"
   [cdkConnectedOverlayOpen]="panelOpen"
   [cdkConnectedOverlayWidth]="triggerRectWidth"
   [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
