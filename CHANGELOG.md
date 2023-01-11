@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.11](https://github.com/atinc/ngx-tethys/compare/14.2.10...14.2.11) (2023-01-11)
+
+
+### Bug Fixes
+
+* **cascader:** display labels correctly when get options by async way #INFR-6044 ([#2477](https://github.com/atinc/ngx-tethys/issues/2477)) ([e7d1658](https://github.com/atinc/ngx-tethys/commit/e7d165823d90bc4b538b88b0cfc2156ed9e44b9a)), closes [#INFR-6044](https://github.com/atinc/ngx-tethys/issues/INFR-6044)
+* **color-picker:** hide transparentColorSelect change style paddingTop [@wanghuan](https://github.com/wanghuan) ([#2475](https://github.com/atinc/ngx-tethys/issues/2475)) ([a897ebf](https://github.com/atinc/ngx-tethys/commit/a897ebf06ed03832856ac657394d6c3e635e45e4))
+* **option:** #INFR-6128 fix icon color error when option is active [@haifeng](https://github.com/haifeng) ([#2480](https://github.com/atinc/ngx-tethys/issues/2480)) ([6a3a9a9](https://github.com/atinc/ngx-tethys/commit/6a3a9a945b252d18bb637a4c8cd57399e7eeadd7))
+* **table:** remove thy-grid selector #INFR-6124 ([#2479](https://github.com/atinc/ngx-tethys/issues/2479)) ([fe1b5a8](https://github.com/atinc/ngx-tethys/commit/fe1b5a870521252d741e0b5ffc7b203ee07160b1)), closes [#INFR-6124](https://github.com/atinc/ngx-tethys/issues/INFR-6124)
+
+
+### Features
+
+* **image:** support ThyImageService support downloadClicked$ #INFR-6120 ([1d25519](https://github.com/atinc/ngx-tethys/commit/1d25519f3496a21c5fe29fbae4c6e5527ed695c6)), closes [#INFR-6120](https://github.com/atinc/ngx-tethys/issues/INFR-6120)
+* **progress:** progress support circle mode #INFR-5999  ([0f6f241](https://github.com/atinc/ngx-tethys/commit/0f6f2413d621eb5733d5ddbf4a22aebfb68d2bf0)), closes [#INFR-5999](https://github.com/atinc/ngx-tethys/issues/INFR-5999)
+* **select:** custom-select 支持自定义 origin #INFR-5676 ([#2476](https://github.com/atinc/ngx-tethys/issues/2476)) ([eff0157](https://github.com/atinc/ngx-tethys/commit/eff01577899d571f2ab44a35ce3adb01aaeef2f7)), closes [#INFR-5676](https://github.com/atinc/ngx-tethys/issues/INFR-5676)
+
+
+### BREAKING CHANGES
+
+* **table:** table thy-grid selector deprecated
+
+
+
 ## [14.2.10](https://github.com/atinc/ngx-tethys/compare/14.2.9...14.2.10) (2023-01-06)
 
 
