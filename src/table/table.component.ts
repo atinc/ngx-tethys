@@ -104,7 +104,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 @Component({
-    selector: 'thy-grid,thy-table',
+    selector: 'thy-table',
     templateUrl: './table.component.html',
     providers: [
         {
