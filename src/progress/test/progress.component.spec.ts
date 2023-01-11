@@ -1,23 +1,39 @@
-import { NgModule, Component, DebugElement, TemplateRef } from '@angular/core';
-import { ThyProgressModule } from '../progress.module';
-import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { ThyProgressComponent } from '../progress.component';
-import { ThyProgressBarComponent } from '../bar/progress-bar.component';
-import { ThyProgressType, ThyProgressStackedValue } from '../interfaces';
-import { hexToRgb } from '../../util/helpers';
-import { ThyTooltipModule, ThyTooltipDirective } from '../../tooltip';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { Component, DebugElement, NgModule, TemplateRef } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, flushMicrotasks, inject, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { ThyTooltipDirective } from '../../tooltip';
+import { hexToRgb } from '../../util/helpers';
+import { ThyProgressStackedValue, ThyProgressType } from '../interfaces';
+import { ThyProgressCircleComponent } from '../progress-circle.component';
+import { ThyProgressStripComponent } from '../progress-strip.component';
+import { ThyProgressComponent } from '../progress.component';
+import { ThyProgressModule } from '../progress.module';
 
 const PROGRESS_CLASS_NAME = 'progress';
 const PROGRESS_BAR_CLASS_NAME = 'progress-bar';
 const TOOLTIP_CLASS = `thy-tooltip`;
 const TOOLTIP_MESSAGE = 'this is a string tooltip';
 const TOOLTIP_TEMPLATE_MESSAGE = 'this is a template message';
+const typeColorMap = new Map([
+    ['primary', '#6698ff'],
+    ['success', '#73d897'],
+    ['info', '#5dcfff'],
+    ['warning', '#ffcd5d'],
+    ['danger', '#ff7575']
+]);
 
+const circleMap = new Map([
+    ['xs', 44],
+    ['sm', 80],
+    ['md', 112],
+    ['lg', 160]
+]);
 @Component({
     selector: 'thy-demo-progress-basic',
     template: `
@@ -41,6 +57,47 @@ class ThyDemoProgressBasicComponent {
     }
 }
 
+@Component({
+    selector: 'thy-demo-progress-circle',
+    template: `
+        <thy-progress
+            [thyShape]="'circle'"
+            [thyTips]="tips"
+            [thyValue]="value"
+            [thyType]="type"
+            [thySize]="size"
+            [thyGapDegree]="gapDegree"
+            [thyGapPosition]="gapPosition"
+            [thyStrokeWidth]="strokeWidth"
+        >
+            20%
+        </thy-progress>
+    `
+})
+class ThyDemoProgressCircleComponent {
+    value = 20;
+    type: ThyProgressType;
+    size: string = 'md';
+    tips: string | TemplateRef<HTMLElement> = TOOLTIP_MESSAGE;
+    gapDegree = 0;
+    gapPosition = 'top';
+    strokeWidth = 6;
+    stackedValue = [
+        {
+            type: 'success',
+            value: 40
+        },
+        {
+            type: 'danger',
+            value: 60,
+            tips: 'hello world'
+        },
+        {
+            type: 'warning',
+            value: 100
+        }
+    ];
+}
 @Component({
     selector: 'thy-demo-progress-stacked',
     template: `
@@ -125,6 +182,7 @@ function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolea
     imports: [ThyProgressModule],
     declarations: [
         ThyDemoProgressBasicComponent,
+        ThyDemoProgressCircleComponent,
         ThyDemoProgressStackedComponent,
         ThyDemoProgressStackedMaxComponent,
         ThyDemoProgressTooltipTemplateComponent
@@ -172,12 +230,11 @@ describe(`ThyProgressComponent`, () => {
             basicTestComponent = fixture.debugElement.componentInstance;
             progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
             progressElement = progressComponent.nativeElement;
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
         });
 
         function assertProgressAndBarComponentClass(styleWidth: string = '20%') {
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
-
             const barElement = progressBarComponent.nativeElement;
             expect(barElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
             expect(barElement.style.width).toEqual(styleWidth);
@@ -189,14 +246,14 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be correct class by default type', () => {
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             assertProgressAndBarComponentClass();
         });
 
         it('should be correct class when input type is success or warning', () => {
             basicTestComponent.type = 'success';
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
@@ -204,7 +261,7 @@ describe(`ThyProgressComponent`, () => {
 
             basicTestComponent.type = 'warning';
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             progressBarElement = progressBarComponent.nativeElement;
             progressBarInnerElement = fixture.debugElement.query(By.css('.progress-bar-inner')).nativeElement;
             assertProgressAndBarComponentClass();
@@ -214,14 +271,14 @@ describe(`ThyProgressComponent`, () => {
         it('should be correct class when input size is sm', () => {
             basicTestComponent.size = 'sm';
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             assertProgressAndBarComponentClass();
             expect(progressElement.classList.contains('progress-sm')).toBe(true);
         });
 
         it('should be correct percent with dynamically changed values', () => {
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             progressBarElement = progressBarComponent.nativeElement;
             assertProgressAndBarComponentClass();
 
@@ -232,7 +289,7 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be have a tooltip use string', fakeAsync(() => {
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             progressBarElement = progressBarComponent.nativeElement;
 
             tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
@@ -268,7 +325,7 @@ describe(`ThyProgressComponent`, () => {
             const buttonElement = buttonDebugElement.nativeElement;
             buttonElement.click();
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressBarComponent));
+            progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             progressBarElement = progressBarComponent.nativeElement;
 
             tooltipDirective = progressBarComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
@@ -297,6 +354,216 @@ describe(`ThyProgressComponent`, () => {
             // On animation complete, should expect that the tooltip has been detached.
             flushMicrotasks();
             assertTooltipInstance(tooltipDirective, false);
+        }));
+    });
+
+    describe(`circle`, () => {
+        let fixture: ComponentFixture<ThyDemoProgressCircleComponent>;
+        let circleTestComponent: ThyDemoProgressCircleComponent;
+        let progressComponent: DebugElement;
+        let progressCircleComponent: DebugElement;
+        let progressElement: HTMLElement;
+        let progressCircleElement: HTMLElement;
+        let progressCircleInnerElement: HTMLElement;
+        let tooltipDirective: ThyTooltipDirective;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+
+        function getTooltipVisible() {
+            return tooltipDirective['isTooltipVisible']();
+        }
+
+        function computedCirclePath(strokeValue: string, value = 20, gapDegree = 0, strokeWidth = 6, size: string = 'md') {
+            const circle = Math.PI * 2 * (50 - strokeWidth / 2);
+            const len = `${(value / 100) * (circle - gapDegree)}px ${circle}px`;
+            strokeValue = progressCircleComponent.componentInstance.progressCirclePath[0].strokePathStyle.strokeDasharray;
+            expect(strokeValue).toBe(len);
+        }
+
+        function computedPathString(position: string = 'top', strokeWidth = 6) {
+            let circlePath = progressCircleElement.querySelector('.progress-circle-path');
+            const radius = 50 - strokeWidth / 2;
+            let beginPositionX = 0;
+            let beginPositionY = -radius;
+            let endPositionX = 0;
+            let endPositionY = radius * -2;
+            switch (position) {
+                case 'left':
+                    beginPositionX = -radius;
+                    beginPositionY = 0;
+                    endPositionX = radius * 2;
+                    endPositionY = 0;
+                    break;
+                case 'right':
+                    beginPositionX = radius;
+                    beginPositionY = 0;
+                    endPositionX = radius * -2;
+                    endPositionY = 0;
+                    break;
+                case 'bottom':
+                    beginPositionY = radius;
+                    endPositionY = radius * 2;
+                    break;
+                default:
+            }
+
+            const pathString = `M 50,50 m ${beginPositionX},${beginPositionY} a ${radius},${radius} 0 1 1 ${endPositionX},${-endPositionY} a ${radius},${radius} 0 1 1 ${-endPositionX},${endPositionY}`;
+            expect(pathString).toBe(circlePath.getAttribute('d'));
+        }
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyProgressModule, ProgressTestModule, NoopAnimationsModule],
+                providers: []
+            });
+
+            TestBed.compileComponents();
+
+            inject([OverlayContainer, FocusMonitor], (oc: OverlayContainer, fm: FocusMonitor) => {
+                overlayContainer = oc;
+                overlayContainerElement = oc.getContainerElement();
+            })();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoProgressCircleComponent);
+            circleTestComponent = fixture.debugElement.componentInstance;
+            progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressElement = progressComponent.nativeElement;
+            fixture.detectChanges();
+        });
+
+        it('should be created progress component', () => {
+            expect(progressComponent).toBeTruthy();
+            expect(progressElement.classList.contains('thy-progress-circle')).toBe(true);
+        });
+
+        it('should show correct color when input type is success or warning', () => {
+            circleTestComponent.type = 'success';
+            fixture.detectChanges();
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+
+            circleTestComponent.type = 'warning';
+            fixture.detectChanges();
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            progressCircleInnerElement = fixture.debugElement.query(By.css('.progress-circle-inner')).nativeElement;
+            expect(progressCircleElement.classList.contains(`progress-circle-${circleTestComponent.type}`)).toBe(true);
+        });
+
+        it('should show correct size when input size is sm', fakeAsync(() => {
+            circleTestComponent.size = 'sm';
+            fixture.detectChanges();
+            tick(100);
+            progressElement = progressComponent.nativeElement;
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            console.log(progressComponent, progressElement);
+            expect(progressElement.classList.contains('progress-sm')).toBe(true);
+            flush();
+        }));
+
+        it('should be correct percent with dynamically changed values', () => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            circleTestComponent.size = 'md';
+            fixture.detectChanges();
+
+            const strokeValue: any = null;
+            computedCirclePath(strokeValue);
+
+            circleTestComponent.value = 30;
+            fixture.detectChanges();
+            const newStrokeValue: any = null;
+            computedCirclePath(newStrokeValue, circleTestComponent.value);
+        });
+
+        it('should be have a tooltip use string', fakeAsync(() => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+
+            tooltipDirective = progressCircleComponent.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
+            assertTooltipInstance(tooltipDirective, false);
+            // fake mouseenter event
+            dispatchMouseEvent(progressCircleElement, 'mouseenter');
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+            tick(200);
+            expect(getTooltipVisible()).toBe(true);
+            expect(overlayContainerElement.textContent).toEqual('');
+            fixture.detectChanges();
+            const tooltipElement = overlayContainerElement.querySelector(`.${TOOLTIP_CLASS}`) as HTMLElement;
+            expect(tooltipElement instanceof HTMLElement).toBe(true);
+            expect(tooltipElement.textContent.trim()).toEqual(TOOLTIP_MESSAGE);
+            const tooltipHideDelay = 100; // default hide delay is 100
+            // fake mouseleave event
+            dispatchMouseEvent(progressCircleElement, 'mouseleave');
+            expect(getTooltipVisible()).toBe(true);
+
+            tick(tooltipHideDelay);
+            fixture.detectChanges();
+            expect(getTooltipVisible()).toBe(false);
+            assertTooltipInstance(tooltipDirective, true);
+        }));
+
+        it('should show correct gapDegree when input thyGapDegree', fakeAsync(() => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            circleTestComponent.gapDegree = 100;
+            fixture.detectChanges();
+
+            const strokeValue: any = null;
+            computedCirclePath(strokeValue, 20, circleTestComponent.gapDegree);
+
+            circleTestComponent.gapDegree = 70;
+            fixture.detectChanges();
+            const newStrokeValue: any = null;
+            computedCirclePath(newStrokeValue, 20, circleTestComponent.gapDegree);
+        }));
+
+        it('should show correct strokeWidth when input thyStrokeWidth', fakeAsync(() => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            const strokeWidthElement = progressCircleElement.querySelector('path');
+            console.log(strokeWidthElement, strokeWidthElement.getAttribute('stroke-width'));
+            circleTestComponent.strokeWidth = 10;
+            fixture.detectChanges();
+            const strokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            expect(strokeWidth).toBe(circleTestComponent.strokeWidth);
+
+            circleTestComponent.strokeWidth = 20;
+            fixture.detectChanges();
+            const newStrokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));
+            expect(newStrokeWidth).toBe(circleTestComponent.strokeWidth);
+        }));
+
+        it('should show correct gapPosition when input thyGapPosition', fakeAsync(() => {
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            progressCircleElement = progressCircleComponent.nativeElement;
+            computedPathString();
+
+            circleTestComponent.gapPosition = 'bottom';
+            fixture.detectChanges();
+            computedPathString('bottom');
+
+            circleTestComponent.gapPosition = 'left';
+            fixture.detectChanges();
+            computedPathString('left');
+
+            circleTestComponent.gapPosition = 'right';
+            fixture.detectChanges();
+            computedPathString('right');
+        }));
+
+        it('should show correct stakeValue when input value is array', fakeAsync(() => {
+            (circleTestComponent.value as any) = circleTestComponent.stackedValue;
+            fixture.detectChanges();
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            const path = progressCircleComponent.nativeElement.querySelectorAll('.progress-circle-path');
+            expect(path.length).toBe(circleTestComponent.stackedValue.length);
         }));
     });
 
@@ -339,7 +606,7 @@ describe(`ThyProgressComponent`, () => {
             stackedTestComponent = fixture.debugElement.componentInstance;
             progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
             progressElement = progressComponent.nativeElement;
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
         });
 
         it('should be created progress component', () => {
@@ -348,7 +615,7 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be correct class by stacked value', () => {
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -363,7 +630,7 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be have a tooltip in second progress bar', fakeAsync(() => {
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressBarElements.length).toBe(3);
 
@@ -425,7 +692,7 @@ describe(`ThyProgressComponent`, () => {
                 }
             ];
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -479,7 +746,7 @@ describe(`ThyProgressComponent`, () => {
             stackedTestComponent = fixture.debugElement.componentInstance;
             progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
             progressElement = progressComponent.nativeElement;
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
         });
 
         it('should be correct value by custom stacked value has max ', () => {
@@ -505,7 +772,7 @@ describe(`ThyProgressComponent`, () => {
             ];
             stackedTestComponent.max = 180;
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -540,7 +807,7 @@ describe(`ThyProgressComponent`, () => {
             ];
             stackedTestComponent.max = 40;
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -570,7 +837,7 @@ describe(`ThyProgressComponent`, () => {
             ];
             stackedTestComponent.max = 30;
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -592,7 +859,7 @@ describe(`ThyProgressComponent`, () => {
             ];
             stackedTestComponent.max = 90;
             fixture.detectChanges();
-            let progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            let progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('33.33%');
 
             fixture.detectChanges();
@@ -603,7 +870,7 @@ describe(`ThyProgressComponent`, () => {
                 }
             ];
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('100%');
 
             fixture.detectChanges();
@@ -614,19 +881,19 @@ describe(`ThyProgressComponent`, () => {
                 }
             ];
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('50%');
 
             fixture.detectChanges();
             stackedTestComponent.max = 180;
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('25%');
 
             fixture.detectChanges();
             stackedTestComponent.max = 90;
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('50%');
 
             fixture.detectChanges();
@@ -637,7 +904,7 @@ describe(`ThyProgressComponent`, () => {
                 }
             ];
             fixture.detectChanges();
-            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent))[0].nativeElement;
+            progressBarComponent = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent))[0].nativeElement;
             expect(progressBarComponent.style.width).toEqual('100%');
         });
 
@@ -645,7 +912,7 @@ describe(`ThyProgressComponent`, () => {
             stackedTestComponent.value = [];
             stackedTestComponent.max = 0;
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
@@ -696,7 +963,7 @@ describe(`ThyProgressComponent`, () => {
             toolTipTemplateTestComponent = fixture.debugElement.componentInstance;
             progressComponent = fixture.debugElement.query(By.directive(ThyProgressComponent));
             progressElement = progressComponent.nativeElement;
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
         });
 
         it('should be created progress component', () => {
@@ -705,7 +972,7 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be created progress tooltip component width component', fakeAsync(() => {
             fixture.detectChanges();
-            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressBarComponent));
+            progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
             expect(progressBarElements.length).toBe(3);
             progressBarElement = progressBarComponents[0].nativeElement;
