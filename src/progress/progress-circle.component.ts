@@ -2,7 +2,7 @@ import { isString } from 'ngx-tethys/util';
 
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 
-import { UpdateHostClassService } from '../core';
+import { UpdateHostClassService } from 'ngx-tethys/core';
 import {
     ThyProgressCirclePath,
     ThyProgressGapPositionType,
