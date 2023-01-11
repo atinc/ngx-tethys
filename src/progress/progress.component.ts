@@ -166,6 +166,3 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
         return index;
     }
 }
-function ClassBinding(arg0: string) {
-    throw new Error('Function not implemented.');
-}
