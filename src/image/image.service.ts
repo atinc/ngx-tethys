@@ -57,7 +57,7 @@ export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDe
     }
 
     downloadClicked(): Observable<ThyImageInfo> {
-        return this.downloadClicked$;
+        return this.downloadClicked$.asObservable();
     }
 
     ngOnDestroy() {

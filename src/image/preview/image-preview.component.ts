@@ -7,11 +7,13 @@ import {
     ElementRef,
     ViewChild,
     NgZone,
-    OnDestroy
+    OnDestroy,
+    Output,
+    EventEmitter
 } from '@angular/core';
 import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent, Observable, of, Subject } from 'rxjs';
+import { fromEvent, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
@@ -45,6 +47,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
     }
 })
 export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+    @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
     images: InternalImageInfo[] = [];
     previewIndex: number = 0;
     previewConfig: ThyImagePreviewOptions;
@@ -130,8 +133,6 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             type: 'copyLink'
         }
     ];
-
-    private downloadClicked$ = new Subject<ThyImageInfo>();
 
     private rotate: number;
 
@@ -310,7 +311,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     download(image: ThyImageInfo) {
-        this.downloadClicked$.next(image);
+        this.downloadClicked.emit(image);
         const src = image.origin?.src || image.src;
         fetchImageBlob(src)
             .pipe(takeUntil(this.ngUnsubscribe$))
@@ -322,10 +323,6 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 a.href = objectURL;
                 a.click();
             });
-    }
-
-    downloadClicked(): Observable<ThyImageInfo> {
-        return this.downloadClicked$;
     }
 
     zoomIn(): void {

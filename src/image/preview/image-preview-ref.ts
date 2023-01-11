@@ -36,6 +36,6 @@ export class ThyImagePreviewRef {
     }
 
     downloadClicked(): Observable<ThyImageInfo> {
-        return this.previewInstance.downloadClicked();
+        return this.previewInstance.downloadClicked.asObservable();
     }
 }
