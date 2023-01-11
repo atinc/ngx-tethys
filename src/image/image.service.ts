@@ -1,25 +1,32 @@
-import { Inject, Injectable, Optional } from '@angular/core';
+import { Inject, Injectable, OnDestroy, Optional } from '@angular/core';
 import { ThyImagePreviewConfig, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS } from './image.config';
 import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { MixinBase, mixinUnsubscribe } from '../core';
 
 /**
  * 图片预览服务
  */
 @Injectable()
-export class ThyImageService {
+export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDestroy {
     /**
      * 图片预览默认配置，外部可通过注入 THY_IMAGE_DEFAULT_PREVIEW_OPTIONS 进行配置
      */
     defaultConfig: ThyImagePreviewConfig;
+
+    downloadClicked$ = new Subject<ThyImageInfo>();
+
     constructor(
         public thyDialog: ThyDialog,
         @Optional()
         @Inject(THY_IMAGE_DEFAULT_PREVIEW_OPTIONS)
         defaultConfig: ThyImagePreviewConfig
     ) {
+        super();
         this.defaultConfig = defaultConfig;
     }
 
@@ -40,6 +47,16 @@ export class ThyImageService {
             ...config
         });
         const imagePreviewRef = new ThyImagePreviewRef(dialogRef.componentInstance, { ...this.defaultConfig, ...options }, dialogRef);
+        imagePreviewRef
+            .downloadClicked()
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(image => {
+                this.downloadClicked$.next(image);
+            });
         return imagePreviewRef;
+    }
+
+    ngOnDestroy() {
+        super.ngOnDestroy();
     }
 }

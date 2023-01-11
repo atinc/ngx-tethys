@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent, Observable, of } from 'rxjs';
+import { fromEvent, Observable, of, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
 import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
@@ -130,6 +130,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
             type: 'copyLink'
         }
     ];
+
+    downloadClicked$ = new Subject<ThyImageInfo>();
+
     private rotate: number;
 
     get previewImage(): InternalImageInfo {
@@ -307,6 +310,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
     }
 
     download(image: ThyImageInfo) {
+        this.downloadClicked$.next(image);
         const src = image.origin?.src || image.src;
         fetchImageBlob(src)
             .pipe(takeUntil(this.ngUnsubscribe$))

@@ -276,6 +276,10 @@ describe('image-preview', () => {
             done();
         });
 
+        basicTestComponent['thyImageService'].downloadClicked$.subscribe(image => {
+            expect(image.name).toBe('first.jpg');
+        });
+
         expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
         expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
     });
