@@ -10,7 +10,7 @@ export class ThyImageServiceExampleComponent implements OnInit {
     constructor(private thyImageService: ThyImageService) {}
 
     ngOnInit(): void {
-        this.thyImageService.downloadClicked$.subscribe(image => {
+        this.thyImageService.downloadClicked().subscribe(image => {
             console.log(image);
         });
     }

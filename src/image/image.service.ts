@@ -4,7 +4,7 @@ import { ThyImageInfo, ThyImagePreviewOptions } from './image.class';
 import { ThyImagePreviewComponent } from './preview/image-preview.component';
 import { ThyDialog, ThyDialogSizes } from 'ngx-tethys/dialog';
 import { ThyImagePreviewRef } from './preview/image-preview-ref';
-import { Subject } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from '../core';
 
@@ -18,7 +18,7 @@ export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDe
      */
     defaultConfig: ThyImagePreviewConfig;
 
-    downloadClicked$ = new Subject<ThyImageInfo>();
+    private downloadClicked$ = new Subject<ThyImageInfo>();
 
     constructor(
         public thyDialog: ThyDialog,
@@ -54,6 +54,10 @@ export class ThyImageService extends mixinUnsubscribe(MixinBase) implements OnDe
                 this.downloadClicked$.next(image);
             });
         return imagePreviewRef;
+    }
+
+    downloadClicked(): Observable<ThyImageInfo> {
+        return this.downloadClicked$;
     }
 
     ngOnDestroy() {

@@ -131,7 +131,7 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         }
     ];
 
-    downloadClicked$ = new Subject<ThyImageInfo>();
+    private downloadClicked$ = new Subject<ThyImageInfo>();
 
     private rotate: number;
 
@@ -322,6 +322,10 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
                 a.href = objectURL;
                 a.click();
             });
+    }
+
+    downloadClicked(): Observable<ThyImageInfo> {
+        return this.downloadClicked$;
     }
 
     zoomIn(): void {

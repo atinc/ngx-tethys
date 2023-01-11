@@ -276,12 +276,25 @@ describe('image-preview', () => {
             done();
         });
 
-        basicTestComponent['thyImageService'].downloadClicked$.subscribe(image => {
-            expect(image.name).toBe('first.jpg');
-        });
-
         expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
         expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
+    });
+
+    it('should downloadClicked() was subscribed when click download icon', () => {
+        fixture.detectChanges();
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+        fixture.detectChanges();
+
+        const downloadSpy = jasmine.createSpy('download clicked');
+        basicTestComponent['thyImageService'].downloadClicked().subscribe(downloadSpy);
+
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        const download = operations[5] as HTMLElement;
+        expect(download.getAttribute('ng-reflect-content')).toBe('下载');
+        download.click();
+
+        expect(downloadSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
     });
 
     it('should open new tab with origin src when click origin icon', () => {
