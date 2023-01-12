@@ -111,7 +111,10 @@ export class ThySelectControlComponent implements OnInit {
                     this.setInputValue('');
                 });
             }
-            this.inputElement.nativeElement.focus();
+            //等待组件渲染好再聚焦
+            setTimeout(() => {
+                this.inputElement.nativeElement.focus();
+            }, 200);
         }
     }
 
