@@ -6,34 +6,10 @@
 @use "./progress-circle.scss";
 @use "./progress-strip.scss";
 
-@keyframes progress-bar-stripes {
-    from {
-        background-position: variables.$progress-height 0;
-    }
-    to {
-        background-position: 0 0;
-    }
-}
-
 @mixin set-progress-size($height) {
     &.thy-progress-strip {
         height: $height;
         background-color: bootstrap-variables.$progress-bg;
-        .progress-bar {
-            overflow: hidden;
-            &:before {
-                left: -$height * 2 + 3;
-                width: $height * 2;
-                height: $height * 2;
-                @include border-radius.border-radius(0 $height * 2 $height * 2 0);
-            }
-            &:first-child {
-                @include border-radius.border-left-radius($height * 2);
-            }
-            &:last-child {
-                @include border-radius.border-right-radius($height * 2);
-            }
-        }
     }
 
     &.thy-progress-circle {
@@ -53,62 +29,8 @@
     @include set-progress-size(variables.$progress-height);
 }
 
-.progress-stacked {
-    .progress-bar {
-        background-color: variables.$progress-split-color;
-        &:last-child {
-            border-right: 1px variables.$progress-split-color solid;
-        }
-        .progress-bar-inner {
-            @include border-radius.border-radius(0 100px 100px 0);
-        }
+@each $size, $height in variables.$progress-size {
+    .progress-#{$size} {
+        @include set-progress-size($height);
     }
-}
-
-.progress-sm {
-    @include set-progress-size(variables.$progress-height-sm);
-}
-
-.progress-xs {
-    @include set-progress-size(variables.$progress-height-xs);
-}
-
-.progress-lg {
-    @include set-progress-size(variables.$progress-height-lg);
-}
-
-$progress-types: (
-    primary: variables.$primary,
-    success: variables.$success,
-    warning: variables.$warning,
-    danger: variables.$danger,
-    default: variables.$gray-200,
-    info: variables.$info
-);
-
-@each $name, $color in $progress-types {
-    .progress-circle-#{$name} {
-        .progress-circle-path {
-            stroke: $color;
-        }
-    }
-    .thy-progress-circle {
-        .progress-circle-path-#{$name} {
-            stroke: $color;
-        }
-    }
-    .progress-bar-#{$name} {
-        .progress-bar-inner {
-            background: $color;
-        }
-    }
-}
-
-.progress-bar-striped {
-    @include gradients.gradient-striped();
-    background-size: variables.$progress-height variables.$progress-height;
-}
-
-.progress-bar-animated {
-    animation: progress-bar-stripes bootstrap-variables.$progress-bar-animation-timing;
 }

@@ -13,12 +13,6 @@ import {
     ThyProgressType
 } from './interfaces';
 
-const circleMap = new Map([
-    ['xs', 44],
-    ['sm', 80],
-    ['md', 112],
-    ['lg', 160]
-]);
 /**
  * @private
  */
@@ -37,8 +31,13 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
     }
 
     @Input() set thySize(size: string | number) {
-        this.size = size;
-        this.width = size ? (isString(size) ? circleMap.get(size) : size) : 112;
+        if (size) {
+            if (isString(size)) {
+                this.progressSize = `progress-circle-inner-${size}`;
+            } else {
+                this.width = size;
+            }
+        }
     }
 
     @Input() thyValue: number | ThyProgressStackedValue[];
@@ -61,9 +60,9 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
 
     public pathString?: string;
 
-    public width: number = 150;
+    public width: number = 112;
 
-    private size: string | number;
+    public progressSize: string;
 
     get strokeWidth(): number {
         return this.thyStrokeWidth || 6;
