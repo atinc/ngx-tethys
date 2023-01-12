@@ -92,6 +92,11 @@ $progress-types: (
             stroke: $color;
         }
     }
+    .thy-progress-circle {
+        .progress-circle-path-#{$name} {
+            stroke: $color;
+        }
+    }
     .progress-bar-#{$name} {
         .progress-bar-inner {
             background: $color;

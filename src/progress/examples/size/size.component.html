@@ -6,3 +6,11 @@
 
 <thy-progress class="mt-2" thySize="lg" thyType="success" [thyValue]="value"></thy-progress>
 <thy-progress class="mt-2" thySize="lg" thyType="success" [thyValue]="stackedValues"></thy-progress>
+
+<thy-space class="mt-6">
+  <thy-progress *thySpaceItem [thySize]="'sm'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thySize]="90" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thySize]="'md'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thySize]="120" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thySize]="'lg'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+</thy-space>
