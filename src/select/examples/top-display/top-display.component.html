@@ -21,7 +21,7 @@
   </ng-template>
 </thy-custom-select>
 <div class="mt-2 mb-2">多选</div>
-<thy-custom-select thyMode="multiple" thyPlaceHolder="请选择" style="width:500px;">
+<thy-custom-select [thyAllowClear]="true" thyMode="multiple" thyShowSearch="true" thyPlaceHolder="请选择" style="width:500px;">
   <thy-option thyValue="" thyLabelText="空"></thy-option>
   <thy-option
     *ngFor="let option of optionData"

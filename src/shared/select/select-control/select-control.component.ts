@@ -94,10 +94,19 @@ export class ThySelectControlComponent implements OnInit {
 
     set thySelectedOptions(value: SelectOptionBase | SelectOptionBase[]) {
         let sameValue = false;
+        let isAddOption = false;
         const oldValue = this.selectedOptions;
         if (this.isMultiple) {
             if (oldValue instanceof Array && value instanceof Array && oldValue.length === value.length) {
                 sameValue = value.every((option, index) => option.thyValue === oldValue[index].thyValue);
+                isAddOption = sameValue ? false : true;
+            } else if (oldValue instanceof Array && value instanceof Array && oldValue.length > value.length) {
+                const oldThyIds = oldValue.map(item => {
+                    return item.thyRawValue?._id;
+                });
+                isAddOption = !value.every(option => oldThyIds.includes(option.thyRawValue?._id));
+            } else if (oldValue instanceof Array && value instanceof Array && oldValue.length < value.length) {
+                isAddOption = true;
             }
         } else {
             if (oldValue && value) {
@@ -111,6 +120,9 @@ export class ThySelectControlComponent implements OnInit {
                     this.setInputValue('');
                 });
             }
+            this.inputElement.nativeElement.focus();
+        }
+        if (this.isMultiple && this.thyShowSearch && isAddOption) {
             this.inputElement.nativeElement.focus();
         }
     }
