@@ -158,8 +158,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
                 fromEvent(this.elementRef.nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
+                        const editor = (this.elementRef.nativeElement as HTMLElement).querySelector('.thy-property-item-content-editor');
                         this.setEditing(true);
-                        this.bindEditorBlurEvent(this.elementRef.nativeElement);
+                        if (editor) {
+                            this.bindEditorBlurEvent(editor as HTMLElement);
+                        }
                     });
             });
         }
@@ -183,7 +186,9 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
                 takeUntil(this.destroy$)
             )
             .subscribe(() => {
-                this.setEditing(false);
+                if (!this.hasOverlay()) {
+                    this.setEditing(false);
+                }
             });
     }
 
