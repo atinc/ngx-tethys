@@ -1,4 +1,4 @@
-import { Component, Directive, ElementRef, Renderer2, Input, HostBinding, ChangeDetectorRef } from '@angular/core';
+import { Component, Input, HostBinding } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**

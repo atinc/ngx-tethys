@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
-import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor, UpdateHostClassService } from 'ngx-tethys/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 /**
  * 文本组件

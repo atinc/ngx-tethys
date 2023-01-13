@@ -15,7 +15,6 @@ import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
@@ -666,7 +665,7 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, bypassSanitizeProvider, ...providers]
+            providers: [bypassSanitizeProvider, ...providers]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

@@ -1,18 +1,7 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
-
-import {
-    AfterViewInit,
-    ContentChildren,
-    Directive,
-    ElementRef,
-    Input,
-    NgZone,
-    OnDestroy,
-    Optional,
-    QueryList,
-    Renderer2
-} from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { AfterViewInit, ContentChildren, Directive, ElementRef, Input, NgZone, OnDestroy, Optional, QueryList } from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
@@ -85,12 +74,9 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
 
     public isActive: boolean;
 
-    constructor(
-        public elementRef: ElementRef,
-        private renderer: Renderer2,
-        @Optional() private routerLinkActive: RouterLinkActive,
-        private ngZone: NgZone
-    ) {
+    private hostRenderer = useHostRenderer();
+
+    constructor(public elementRef: ElementRef, @Optional() private routerLinkActive: RouterLinkActive, private ngZone: NgZone) {
         super();
     }
 
@@ -126,9 +112,9 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
 
     setNavLinkHidden(value: boolean) {
         if (value) {
-            this.renderer.addClass(this.elementRef.nativeElement, 'thy-nav-item-hidden');
+            this.hostRenderer.addClass('thy-nav-item-hidden');
         } else {
-            this.renderer.removeClass(this.elementRef.nativeElement, 'thy-nav-item-hidden');
+            this.hostRenderer.removeClass('thy-nav-item-hidden');
         }
     }
 

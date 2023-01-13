@@ -1,8 +1,7 @@
 import { isString } from 'ngx-tethys/util';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
 
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import {
     ThyProgressCirclePath,
     ThyProgressGapPositionType,
@@ -33,14 +32,15 @@ const circleMap = new Map([
     selector: 'thy-progress-circle',
     templateUrl: './progress-circle.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers: [UpdateHostClassService],
     host: {
         class: 'progress-circle'
     }
 })
 export class ThyProgressCircleComponent implements OnInit, OnChanges {
+    private hostRenderer = useHostRenderer();
+
     @Input() set thyType(type: ThyProgressType) {
-        this.updateHostClassService.updateClass(type ? [`progress-circle-${type}`] : []);
+        this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
     }
 
     @Input() set thySize(size: string | number) {
@@ -76,9 +76,7 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
         return this.thyStrokeWidth || 6;
     }
 
-    constructor(private updateHostClassService: UpdateHostClassService, public elementRef: ElementRef) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(public elementRef: ElementRef) {}
 
     ngOnInit() {
         this.createCirclePaths();
