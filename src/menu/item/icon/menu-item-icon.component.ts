@@ -1,4 +1,5 @@
-import { Component, OnInit, HostBinding, Input, ElementRef, Renderer2, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
  * 菜单项图标组件
@@ -18,11 +19,13 @@ export class ThyMenuItemIconComponent implements OnInit {
     @Input()
     set thyColor(value: string) {
         if (value) {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'color', value);
+            this.hostRenderer.setStyle('color', value);
         }
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    private hostRenderer = useHostRenderer();
+
+    constructor() {}
 
     ngOnInit(): void {}
 }

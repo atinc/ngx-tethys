@@ -7,21 +7,19 @@ import {
     EventEmitter,
     ChangeDetectorRef,
     HostBinding,
-    ElementRef,
     Optional,
     Inject,
     TemplateRef
 } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 import { PaginationDefaultConfig, DEFAULT_RANGE_COUNT, THY_PAGINATION_CONFIG, ThyPaginationConfig } from './pagination.config';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { isTemplateRef } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-pagination',
     templateUrl: './pagination.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [UpdateHostClassService]
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyPaginationComponent implements OnInit {
     isTemplateRef = isTemplateRef;
@@ -82,7 +80,7 @@ export class ThyPaginationComponent implements OnInit {
     @Input('thySize')
     set size(size: 'sm' | 'lg') {
         this.selectSize = size;
-        this.updateHostClassService.addClass(`thy-pagination-${size}`);
+        this.hostRenderer.addClass(`thy-pagination-${size}`);
     }
 
     @Input('thyMaxCount')
@@ -140,6 +138,8 @@ export class ThyPaginationComponent implements OnInit {
 
     private initialized = false;
 
+    private hostRenderer = useHostRenderer();
+
     public selectSize = 'md'; // select size
 
     public selectPageSize: Number = 20;
@@ -155,12 +155,8 @@ export class ThyPaginationComponent implements OnInit {
         @Optional()
         @Inject(THY_PAGINATION_CONFIG)
         private paginationConfig: ThyPaginationConfig,
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
         private cdr: ChangeDetectorRef
-    ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-    }
+    ) {}
 
     ngOnInit() {
         this.setMarginalCount(this.config.rangeCount);

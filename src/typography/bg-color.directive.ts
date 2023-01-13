@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input } from '@angular/core';
 import { isBgColor, isThemeColor, ThyBgColor, ThyThemeColor } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Directive({
     selector: '[thyBgColor]',
@@ -7,6 +8,8 @@ import { isBgColor, isThemeColor, ThyBgColor, ThyThemeColor } from 'ngx-tethys/c
 })
 export class ThyBackgroundColorDirective {
     private bgColor: ThyThemeColor | ThyBgColor | string = '';
+
+    private hostRenderer = useHostRenderer();
 
     /**
      *  @type ThyThemeColor | ThyBgColor | string
@@ -18,20 +21,20 @@ export class ThyBackgroundColorDirective {
         this.setBgColor();
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(private elementRef: ElementRef) {}
 
     private setBgColor() {
         if (isThemeColor(this.bgColor) || isBgColor(this.bgColor)) {
-            this.renderer.addClass(this.elementRef.nativeElement, `bg-${this.bgColor}`);
+            this.hostRenderer.addClass(`bg-${this.bgColor}`);
         } else {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', this.bgColor);
+            this.hostRenderer.setStyle('background-color', this.bgColor);
         }
     }
 
     private clearBgColor() {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', '');
+        this.hostRenderer.setStyle('background-color', '');
         if (isThemeColor(this.bgColor) || isBgColor(this.bgColor)) {
-            this.renderer.removeClass(this.elementRef.nativeElement, `bg-${this.bgColor}`);
+            this.hostRenderer.removeClass(`bg-${this.bgColor}`);
         }
     }
 }

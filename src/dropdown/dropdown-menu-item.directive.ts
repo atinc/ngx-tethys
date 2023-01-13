@@ -1,8 +1,9 @@
-import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef, OnInit } from '@angular/core';
+import { Directive, HostBinding, Input, HostListener, ElementRef, OnInit } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { debounceTime, shareReplay } from 'rxjs/operators';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 
@@ -10,8 +11,7 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
  * 菜单项
  */
 @Directive({
-    selector: '[thyDropdownMenuItem]',
-    providers: [UpdateHostClassService]
+    selector: '[thyDropdownMenuItem]'
 })
 export class ThyDropdownMenuItemDirective implements OnInit {
     @HostBinding('class.dropdown-menu-item') className = true;
@@ -47,14 +47,14 @@ export class ThyDropdownMenuItemDirective implements OnInit {
         }
     }
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private updateHostClassService: UpdateHostClassService) {}
+    private hostRenderer = useHostRenderer();
 
-    ngOnInit() {
-        this.updateHostClassService.initializeElement(this.elementRef);
-    }
+    constructor(private elementRef: ElementRef<HTMLElement>) {}
+
+    ngOnInit() {}
 
     updateClass(classes: string[]) {
-        this.updateHostClassService.updateClass(classes);
+        this.hostRenderer.updateClass(classes);
     }
 
     getElement() {

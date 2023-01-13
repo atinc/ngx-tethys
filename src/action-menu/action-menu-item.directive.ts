@@ -1,14 +1,13 @@
 import { Directive, HostBinding, Input, ElementRef, OnInit, NgZone, OnDestroy } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, shareReplay, takeUntil } from 'rxjs/operators';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
 
 @Directive({
-    selector: '[thyActionMenuItem]',
-    providers: [UpdateHostClassService]
+    selector: '[thyActionMenuItem]'
 })
 export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-item') className = true;
@@ -31,7 +30,9 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
 
     private destroy$ = new Subject<void>();
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private updateHostClassService: UpdateHostClassService, ngZone: NgZone) {
+    private hostRenderer = useHostRenderer();
+
+    constructor(private elementRef: ElementRef<HTMLElement>, ngZone: NgZone) {
         ngZone.runOutsideAngular(() =>
             fromEvent(elementRef.nativeElement, 'click')
                 .pipe(takeUntil(this.destroy$))
@@ -44,16 +45,14 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
         );
     }
 
-    ngOnInit() {
-        this.updateHostClassService.initializeElement(this.elementRef);
-    }
+    ngOnInit() {}
 
     ngOnDestroy(): void {
         this.destroy$.next();
     }
 
     updateClass(classes: string[]) {
-        this.updateHostClassService.updateClass(classes);
+        this.hostRenderer.updateClass(classes);
     }
 
     getWidth() {

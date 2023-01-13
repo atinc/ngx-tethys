@@ -1,8 +1,8 @@
 import { MutationObserverFactory } from '@angular/cdk/observers';
-import { Component, Renderer2, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { of, Subject } from 'rxjs';
+import { Subject } from 'rxjs';
 import { ThyTooltipModule } from '../../tooltip';
 import { ThyFlexibleTextComponent } from '../flexible-text.component';
 import { ThyFlexibleTextModule } from '../flexible-text.module';
@@ -54,7 +54,7 @@ class FlexibleTextTestComponent {
     content = '默认内容。。。';
     trigger = 'click';
     customContainerClass = null;
-    constructor(public render: Renderer2) {}
+    constructor() {}
 }
 
 describe('FlexibleTextComponent', () => {
