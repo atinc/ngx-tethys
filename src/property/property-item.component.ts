@@ -89,6 +89,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
      */
     @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
 
+    /**
+     * @private
+     */
+    @ViewChild('editorContainer', { static: false }) editorContainer: ElementRef;
+
     editing: boolean;
 
     changes$ = new Subject<SimpleChanges>();
@@ -158,10 +163,9 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
                 fromEvent(this.elementRef.nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
-                        const editor = (this.elementRef.nativeElement as HTMLElement).querySelector('.thy-property-item-content-editor');
                         this.setEditing(true);
-                        if (editor) {
-                            this.bindEditorBlurEvent(editor as HTMLElement);
+                        if (this.editorContainer) {
+                            this.bindEditorBlurEvent(this.editorContainer.nativeElement);
                         }
                     });
             });
