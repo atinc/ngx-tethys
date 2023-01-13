@@ -8,6 +8,16 @@
     table-layout: fixed;
     border-collapse: separate;
     .#{style.$calendar-prefix-cls}-in-range-cell {
+        &:first-child {
+            &::before {
+                left: 14px;
+            }
+        }
+        &:last-child {
+            &::before {
+                right: 14px;
+            }
+        }
         &::before {
             height: 30px;
             top: 11px;

@@ -42,9 +42,21 @@
     height: 100%;
     table-layout: fixed;
     border-collapse: separate;
-    .#{style.$calendar-prefix-cls}-in-range-cell {
-        &::before {
-            top: 14px;
+    tr {
+        .#{style.$calendar-prefix-cls}-in-range-cell {
+            &:first-child {
+                &::before {
+                    left: 14px;
+                }
+            }
+            &:last-child {
+                &::before {
+                    right: 14px;
+                }
+            }
+            &::before {
+                top: 14px;
+            }
         }
     }
 }
