@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.12](https://github.com/atinc/ngx-tethys/compare/14.2.11...14.2.12) (2023-01-13)
+
+
+### Bug Fixes
+
+* **select:** thy-custom-select support auto focus when option change z/#INFR-6122 ([#2485](https://github.com/atinc/ngx-tethys/issues/2485)) ([3fafeee](https://github.com/atinc/ngx-tethys/commit/3fafeee400f7fa954c9f884c8b3ee2a618d21cd2)), closes [z/#INFR-6122](https://github.com/atinc/ngx-tethys/issues/INFR-6122)
+
+
+
 ## [14.2.11](https://github.com/atinc/ngx-tethys/compare/14.2.10...14.2.11) (2023-01-11)
 
 
