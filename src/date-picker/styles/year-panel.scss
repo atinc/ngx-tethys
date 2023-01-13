@@ -42,6 +42,11 @@
     height: 100%;
     table-layout: fixed;
     border-collapse: separate;
+    .#{style.$calendar-prefix-cls}-in-range-cell {
+        &::before {
+            top: 14px;
+        }
+    }
 }
 
 .#{style.$calendar-prefix-cls}-year-panel-cell {
