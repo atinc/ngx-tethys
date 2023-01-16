@@ -3,14 +3,14 @@ import { mimeTypeConvert } from '../util';
 
 describe(`uploader-util`, () => {
     describe('#mimeTypeConvert', () => {
-        it('should get application/vnd.ms-excel,.xls for .xls', () => {
+        it('should get application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx for .xls', () => {
             const result = mimeTypeConvert('.xls');
-            expect(result).toEqual(`application/vnd.ms-excel,.xls`);
+            expect(result).toEqual(`application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx`);
         });
 
-        it('should get application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx for .xlsx', () => {
+        it('should get application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,application/vnd.ms-excel,.xls for .xlsx', () => {
             const result = mimeTypeConvert('.xlsx');
-            expect(result).toEqual(`application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx`);
+            expect(result).toEqual(`application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx,application/vnd.ms-excel,.xls`);
         });
 
         it('should get application/json for .json', () => {
@@ -27,7 +27,9 @@ describe(`uploader-util`, () => {
 
         it('should get result for multiple files', () => {
             const result = mimeTypeConvert(['.json', '.xls']);
-            expect(result).toEqual(`application/json,application/vnd.ms-excel,.xls`);
+            expect(result).toEqual(
+                `application/json,application/vnd.ms-excel,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,.xlsx`
+            );
         });
 
         it('should get origin value When the type does not match', () => {

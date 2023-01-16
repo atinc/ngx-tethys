@@ -125,7 +125,9 @@ describe('ThyFileSelect', () => {
     it('should set accept type success', () => {
         testComponent.acceptType = '.doc';
         fixture.detectChanges();
-        expect(inputElement.getAttribute('accept')).toEqual('application/msword');
+        expect(inputElement.getAttribute('accept')).toEqual(
+            'application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+        );
     });
 
     it('should not invoke thyOnFileSelect when size threshold is 0.001', () => {
