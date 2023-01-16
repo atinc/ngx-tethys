@@ -1,8 +1,9 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { from, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
@@ -14,7 +15,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    providers: [TooltipService, UpdateHostClassService]
+    providers: [TooltipService]
 })
 export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
     isOverflow = false;
@@ -70,16 +71,15 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     private destroy$ = new Subject<void>();
 
+    private hostRenderer = useHostRenderer();
+
     constructor(
         private elementRef: ElementRef,
         private viewContainerRef: ViewContainerRef,
         public tooltipService: TooltipService,
-        private updateHostClassService: UpdateHostClassService,
         private contentObserver: ContentObserver,
         private ngZone: NgZone
-    ) {
-        this.updateHostClassService.initializeElement(this.elementRef);
-    }
+    ) {}
 
     static createResizeObserver(element: HTMLElement) {
         return new Observable(observer => {
@@ -149,6 +149,6 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
             'text-truncate': true,
             [containerClass]: containerClass !== ''
         };
-        this.updateHostClassService.updateClassByMap(flexibleTextClass);
+        this.hostRenderer.updateClassByMap(flexibleTextClass);
     }
 }

@@ -1,7 +1,7 @@
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
 import { helpers } from 'ngx-tethys/util';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
@@ -9,7 +9,6 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    ElementRef,
     EventEmitter,
     forwardRef,
     HostBinding,
@@ -65,8 +64,7 @@ const treeItemSizeMap = {
             provide: THY_TREE_ABSTRACT_TOKEN,
             useExisting: forwardRef(() => ThyTreeComponent)
         },
-        ThyTreeService,
-        UpdateHostClassService
+        ThyTreeService
     ]
 })
 export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
@@ -79,6 +77,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     private _expandedKeys: (string | number)[];
 
     private _selectedKeys: (string | number)[];
+
+    private hostRenderer = useHostRenderer();
 
     public _selectionModel: SelectionModel<ThyTreeNode>;
 
@@ -308,16 +308,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private dragItem: ThyTreeNode;
 
-    constructor(
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
-        public thyTreeService: ThyTreeService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    constructor(public thyTreeService: ThyTreeService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this._initThyNodes();
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this._setTreeType();
         this._setTreeSize();
         this._instanceSelectionModel();
@@ -373,14 +367,14 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     private _setTreeType() {
         if (this.thyType && treeTypeClassMap[this.thyType]) {
             treeTypeClassMap[this.thyType].forEach(className => {
-                this.updateHostClassService.addClass(className);
+                this.hostRenderer.addClass(className);
             });
         }
     }
 
     private _setTreeSize() {
         if (this.thySize) {
-            this.updateHostClassService.addClass(`thy-tree-${this.thySize}`);
+            this.hostRenderer.addClass(`thy-tree-${this.thySize}`);
         }
     }
 

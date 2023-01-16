@@ -4,12 +4,12 @@ import {
     Input,
     ContentChild,
     TemplateRef,
-    ElementRef,
     ViewEncapsulation,
     ChangeDetectionStrategy,
     AfterContentChecked
 } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyTranslate } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
@@ -28,7 +28,6 @@ const inputGroupSizeMap = {
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -39,6 +38,8 @@ const inputGroupSizeMap = {
     }
 })
 export class ThyInputGroupComponent implements AfterContentChecked {
+    private hostRenderer = useHostRenderer();
+
     public appendText: string;
 
     public prependText: string;
@@ -89,9 +90,9 @@ export class ThyInputGroupComponent implements AfterContentChecked {
     @Input()
     set thySize(size: InputGroupSize) {
         if (size && inputGroupSizeMap[size]) {
-            this.updateHostClassService.updateClass(inputGroupSizeMap[size]);
+            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
         } else {
-            this.updateHostClassService.updateClass([]);
+            this.hostRenderer.updateClass([]);
         }
     }
 
@@ -120,13 +121,7 @@ export class ThyInputGroupComponent implements AfterContentChecked {
      */
     @ContentChild(ThyInputDirective, { static: true }) inputDirective: ThyInputDirective;
 
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(private thyTranslate: ThyTranslate) {}
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');

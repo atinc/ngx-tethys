@@ -1,21 +1,9 @@
 import { isEmpty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
-import {
-    Component,
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostBinding,
-    Inject,
-    Input,
-    NgZone,
-    OnDestroy,
-    OnInit,
-    Output,
-    Renderer2
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, Inject, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
@@ -43,9 +31,10 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     private ngUnsubscribe$ = new Subject<void>();
 
+    private hostRenderer = useHostRenderer();
+
     constructor(
         public elementRef: ElementRef,
-        public renderer: Renderer2,
         public ngZone: NgZone,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig
     ) {
@@ -152,9 +141,9 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
     private toggleDropOverClassName() {
         if (this.dragOverCustomClass) {
             if (this.isDragOver) {
-                this.renderer.addClass(this.elementRef.nativeElement, this.dragOverCustomClass);
+                this.hostRenderer.addClass(this.dragOverCustomClass);
             } else {
-                this.renderer.removeClass(this.elementRef.nativeElement, this.dragOverCustomClass);
+                this.hostRenderer.removeClass(this.dragOverCustomClass);
             }
         }
     }

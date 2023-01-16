@@ -1,16 +1,6 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    ViewEncapsulation,
-    OnChanges,
-    SimpleChanges,
-    ElementRef,
-    OnInit,
-    ChangeDetectionStrategy
-} from '@angular/core';
+import { Component, Input, TemplateRef, ViewEncapsulation, OnChanges, SimpleChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyDividerStyle = 'solid' | 'dashed';
 
@@ -44,13 +34,14 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-dashed]': `thyStyle === 'dashed'`,
         '[class.thy-divider-deeper]': `!!thyDeeper`
     },
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyDividerComponent implements OnChanges, OnInit {
     templateContent: TemplateRef<HTMLElement>;
 
     textContent: string;
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 是否垂直方向
@@ -95,9 +86,7 @@ export class ThyDividerComponent implements OnChanges, OnInit {
     @Input()
     thyDeeper = false;
 
-    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef<HTMLElement>) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-    }
+    constructor() {}
 
     ngOnInit(): void {
         this.setColor(this.thyColor);
@@ -110,6 +99,6 @@ export class ThyDividerComponent implements OnChanges, OnInit {
     }
 
     setColor(color: ThyDividerColor) {
-        this.updateHostClassService.updateClass([`thy-divider-${color}`]);
+        this.hostRenderer.updateClass([`thy-divider-${color}`]);
     }
 }

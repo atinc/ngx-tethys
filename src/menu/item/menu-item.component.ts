@@ -18,7 +18,7 @@ export class ThyMenuItemComponent implements OnInit, AfterViewInit {
      */
     @Input() thyIcon: string;
 
-    constructor(private renderer: Renderer2, private elementRef: ElementRef<HTMLElement>) {}
+    constructor(private renderer: Renderer2) {}
 
     ngOnInit(): void {}
 

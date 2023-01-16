@@ -1,7 +1,6 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-import { ChangeDetectionStrategy, Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 export type ThyButtonIconShape = '' | 'circle-dashed' | 'circle-solid' | 'circle-thick-dashed' | 'circle-thick-solid' | 'self-icon';
 
@@ -27,7 +26,6 @@ const themeClassesMap: any = {
 @Component({
     selector: 'thy-button-icon,[thy-button-icon],[thyButtonIcon]',
     templateUrl: './button-icon.component.html',
-    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -71,14 +69,15 @@ export class ThyButtonIconComponent implements OnInit {
         this.setClasses();
     }
 
-    constructor(elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor() {}
+
     private initialized = false;
 
     private shape: ThyButtonIconShape;
 
     private size: string;
+
+    private hostRenderer = useHostRenderer();
 
     iconPrefix = 'wtf';
 
@@ -132,7 +131,7 @@ export class ThyButtonIconComponent implements OnInit {
                 classes.push(className);
             });
         }
-        this.updateHostClassService.updateClass(classes);
+        this.hostRenderer.updateClass(classes);
     }
 
     ngOnInit() {
