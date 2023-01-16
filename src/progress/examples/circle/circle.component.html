@@ -1,16 +1,7 @@
-<thy-space class="d-flex mb-4">
-  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
+<thy-space>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value"></thy-progress>
   <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="info">{{ value }}%</thy-progress>
   <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="warning">{{ value }}%</thy-progress>
-  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="danger">{{ value }}% </thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="success" thyStrokeWidth="10">{{ value }}% </thy-progress>
   <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="danger" [thyGapDegree]="75">{{ value }}% </thy-progress>
-  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="danger" [thyStrokeWidth]="10">{{ value }}% </thy-progress>
-</thy-space>
-
-<thy-space class="d-flex">
-  <thy-progress *thySpaceItem [thySize]="'sm'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
-  <thy-progress *thySpaceItem [thySize]="90" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
-  <thy-progress *thySpaceItem [thySize]="'md'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
-  <thy-progress *thySpaceItem [thySize]="120" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
-  <thy-progress *thySpaceItem [thySize]="'lg'" [thyShape]="'circle'" [thyValue]="value">{{ value }}%</thy-progress>
 </thy-space>
