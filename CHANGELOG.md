@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.13](https://github.com/atinc/ngx-tethys/compare/14.2.12...14.2.13) (2023-01-16)
+
+
+### Features
+
+* **upload:** enhance compatibility of office document when upload file #INFR-6199 ([#2490](https://github.com/atinc/ngx-tethys/issues/2490)) ([c1a0aab](https://github.com/atinc/ngx-tethys/commit/c1a0aab57ad8222be25537cb1a3d4cd839c81a8f)), closes [#INFR-6199](https://github.com/atinc/ngx-tethys/issues/INFR-6199)
+
+
+
 ## [14.2.12](https://github.com/atinc/ngx-tethys/compare/14.2.11...14.2.12) (2023-01-13)
 
 
