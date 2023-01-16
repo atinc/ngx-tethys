@@ -4,3 +4,12 @@
 <thy-progress class="mt-2" [thyValue]="value" [thyMax]="max"></thy-progress>
 <thy-progress class="mt-2" [thyValue]="maxLessValue" thyMax="30"></thy-progress>
 <thy-progress class="mt-2" [thyValue]="valueEmpty" [thyMax]="maxEmpty"></thy-progress>
+
+<thy-space class="mt-6">
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyMax="100"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" thyMax="80" [thyValue]="value"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" [thyMax]="max"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="maxLessValue" thyMax="30"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="valueEmpty" [thyMax]="maxEmpty"></thy-progress>
+</thy-space>

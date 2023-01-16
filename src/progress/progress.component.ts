@@ -1,4 +1,3 @@
-import { useHostRenderer } from '@tethys/cdk/dom';
 import { helpers, isNumber } from 'ngx-tethys/util';
 
 import {
@@ -14,24 +13,11 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
 
-const typeColorMap = new Map([
-    ['primary', '#6698ff'],
-    ['success', '#73d897'],
-    ['info', '#5dcfff'],
-    ['warning', '#ffcd5d'],
-    ['danger', '#ff7575']
-]);
-
-const sizeMap = new Map([
-    ['xs', 4],
-    ['sm', 6],
-    ['md', 10],
-    ['lg', 16]
-]);
 /**
  * 进度条组件
  * @name thy-progress
