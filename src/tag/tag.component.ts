@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnChanges, Input, OnInit, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
-import { InputBoolean, isThemeColor, ThyThemeColor, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, isThemeColor, ThyThemeColor } from 'ngx-tethys/core';
 import { hexToRgb } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyTagColor = ThyThemeColor | string;
 
@@ -21,11 +22,12 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
         '[class.thy-tag-sm]': 'thySize === "sm"',
         '[class.thy-tag-xs]': 'thySize === "xs"',
         '[class.thy-tag-lg]': 'thySize === "lg"'
-    },
-    providers: [UpdateHostClassService]
+    }
 })
 export class ThyTagComponent implements OnInit, OnChanges {
     private color: ThyTagColor = 'default';
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 标签颜色，thyColor 的简写
@@ -67,9 +69,7 @@ export class ThyTagComponent implements OnInit, OnChanges {
     @InputBoolean()
     thyHoverable: boolean | string;
 
-    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(this.elementRef);
-    }
+    constructor(private elementRef: ElementRef) {}
 
     ngOnInit(): void {
         this.setColor();
@@ -88,10 +88,10 @@ export class ThyTagComponent implements OnInit, OnChanges {
         this.elementRef.nativeElement.style.removeProperty('background-color');
         this.elementRef.nativeElement.style.removeProperty('border-color');
         this.elementRef.nativeElement.style.removeProperty('color');
-        this.updateHostClassService.updateClass([]);
+        this.hostRenderer.updateClass([]);
 
         if (isThemeColor(this.color)) {
-            this.updateHostClassService.updateClass([`thy-tag-${this.thyTheme === 'fill' ? '' : this.thyTheme + '-'}${this.color}`]);
+            this.hostRenderer.updateClass([`thy-tag-${this.thyTheme === 'fill' ? '' : this.thyTheme + '-'}${this.color}`]);
         } else {
             if (this.thyTheme === 'fill') {
                 this.elementRef.nativeElement.style.backgroundColor = this.color;

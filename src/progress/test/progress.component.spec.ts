@@ -461,8 +461,19 @@ describe(`ThyProgressComponent`, () => {
             tick(100);
             progressElement = progressComponent.nativeElement;
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
-            console.log(progressComponent, progressElement);
             expect(progressElement.classList.contains('progress-sm')).toBe(true);
+            flush();
+        }));
+
+        it('should show correct size when input size is 16', fakeAsync(() => {
+            circleTestComponent.size = 16 as any;
+            fixture.detectChanges();
+            tick(100);
+            progressElement = progressComponent.nativeElement;
+            progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
+            const circleInner = progressCircleComponent.nativeElement.querySelector('.progress-circle-inner');
+            expect(circleInner.style.width).toBe('16px');
+            expect(circleInner.style.height).toBe('16px');
             flush();
         }));
 
@@ -528,7 +539,6 @@ describe(`ThyProgressComponent`, () => {
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
             progressCircleElement = progressCircleComponent.nativeElement;
             const strokeWidthElement = progressCircleElement.querySelector('path');
-            console.log(strokeWidthElement, strokeWidthElement.getAttribute('stroke-width'));
             circleTestComponent.strokeWidth = 10;
             fixture.detectChanges();
             const strokeWidth = Number(strokeWidthElement.getAttribute('stroke-width'));

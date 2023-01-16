@@ -7,11 +7,11 @@ import {
     Input,
     OnDestroy,
     OnInit,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyAnchorComponent } from './anchor.component';
 
@@ -37,6 +37,8 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
 
     titleTemplate?: TemplateRef<any>;
 
+    private hostRenderer = useHostRenderer();
+
     /**
      * 锚点链接
      */
@@ -59,13 +61,8 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
 
     @ViewChild('linkTitle', { static: true }) linkTitle!: ElementRef<HTMLAnchorElement>;
 
-    constructor(
-        public elementRef: ElementRef,
-        private anchorComponent: ThyAnchorComponent,
-        private platform: Platform,
-        private renderer: Renderer2
-    ) {
-        this.renderer.addClass(elementRef.nativeElement, 'thy-anchor-link');
+    constructor(public elementRef: ElementRef, private anchorComponent: ThyAnchorComponent, private platform: Platform) {
+        this.hostRenderer.addClass('thy-anchor-link');
         if (elementRef.nativeElement.tagName.toLowerCase() === 'thy-link') {
             console.warn(`'thy-link' and 'thyLink' are deprecated, please use 'thy-anchor-link' and 'thyAnchorLink' instead.`);
         }
@@ -80,11 +77,11 @@ export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
     }
 
     setActive(): void {
-        this.renderer.addClass(this.elementRef.nativeElement, 'thy-anchor-link-active');
+        this.hostRenderer.addClass('thy-anchor-link-active');
     }
 
     unsetActive(): void {
-        this.renderer.removeClass(this.elementRef.nativeElement, 'thy-anchor-link-active');
+        this.hostRenderer.removeClass('thy-anchor-link-active');
     }
 
     goToClick(e: Event): void {

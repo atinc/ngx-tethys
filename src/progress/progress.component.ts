@@ -1,4 +1,3 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { helpers, isNumber } from 'ngx-tethys/util';
 
 import {
@@ -29,7 +28,6 @@ import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } 
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [
-        UpdateHostClassService,
         {
             provide: THY_PROGRESS_COMPONENT,
             useExisting: ThyProgressComponent
@@ -49,6 +47,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     barsTotalValue: number;
 
     private settedMax: number;
+
+    private hostRenderer = useHostRenderer();
 
     @HostBinding('attr.max') max = 100;
 
@@ -125,8 +125,6 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     @Input() thyStrokeWidth: number;
 
     size: string | number;
-
-    private hostRenderer = useHostRenderer();
 
     constructor() {}
 

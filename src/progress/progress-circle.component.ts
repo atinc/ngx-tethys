@@ -1,4 +1,3 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 
 import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
@@ -20,12 +19,13 @@ import {
     selector: 'thy-progress-circle',
     templateUrl: './progress-circle.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers: [UpdateHostClassService],
     host: {
         class: 'progress-circle'
     }
 })
 export class ThyProgressCircleComponent implements OnInit, OnChanges {
+    private hostRenderer = useHostRenderer();
+
     @Input() set thyType(type: ThyProgressType) {
         this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
     }
@@ -67,8 +67,6 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
     get strokeWidth(): number {
         return this.thyStrokeWidth || 6;
     }
-
-    private hostRenderer = useHostRenderer();
 
     public value: number | ThyProgressStackedValue[];
 
