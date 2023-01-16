@@ -5,20 +5,41 @@
     &-cell {
         opacity: 0.5;
     }
-    .#{style.$calendar-prefix-cls}-body tr {
+    .#{style.$calendar-prefix-cls}-tbody tr {
         cursor: pointer;
         transition: all 0.3s;
+        position: sticky;
+        &::after {
+            content: '';
+            position: absolute;
+            left: 29.25px;
+            right: 0;
+            top: 3px;
+            border-radius: variables.$border-radius-lg;
+            height: 24px;
+            z-index: -1;
+            opacity: 0;
+        }
         &:hover {
-            background: style.$primary-1;
+            &::after {
+                background: variables.$gray-100;
+                opacity: 1;
+            }
         }
         &.#{style.$calendar-prefix-cls}-active-week {
-            font-weight: bold;
-            background: style.$primary-2;
+            .#{style.$calendar-prefix-cls}-date {
+                color: variables.$white;
+            }
+            &::after {
+                background: variables.$primary;
+                opacity: 1;
+            }
         }
-        .#{style.$calendar-prefix-cls}-selected-day .#{style.$calendar-prefix-cls}-date,
-        .#{style.$calendar-prefix-cls}-selected-day:hover .#{style.$calendar-prefix-cls}-date {
-            color: variables.$text-color;
-            background: transparent;
+
+        .#{style.$calendar-prefix-cls}-date {
+            &:hover {
+                background: none;
+            }
         }
     }
 }
