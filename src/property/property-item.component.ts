@@ -1,5 +1,5 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { fromEvent, Subject } from 'rxjs';
+import { combineLatest, fromEvent, Subject } from 'rxjs';
 import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
@@ -15,7 +15,6 @@ import {
     OnDestroy,
     OnInit,
     SimpleChanges,
-    SkipSelf,
     TemplateRef,
     ViewChild
 } from '@angular/core';
@@ -196,6 +195,18 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
             });
     }
 
+    private subscribeOverlayDetach() {
+        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+        const obs$ = newOpenedOverlays.map(overlay => overlay.detachments());
+        if (obs$.length) {
+            combineLatest(obs$)
+                .pipe(takeUntil(this.destroy$))
+                .subscribe(() => {
+                    this.setEditing(false);
+                });
+        }
+    }
+
     private subscribeDocumentClick(editorElement: HTMLElement) {
         this.clickDispatcher
             .clicked(0)
@@ -214,6 +225,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     private bindEditorBlurEvent(editorElement: HTMLElement) {
         if (this.hasOverlay()) {
             this.subscribeOverlayClick();
+            this.subscribeOverlayDetach();
         } else {
             this.subscribeDocumentClick(editorElement);
         }
