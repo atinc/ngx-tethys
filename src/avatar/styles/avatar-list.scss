@@ -9,27 +9,10 @@
 
     .thy-avatar-content {
         position: relative;
-        margin-right: variables.$avatar-list-space;
-    }
-
-    .thy-avatar-content-last {
-        margin-right: 0;
-    }
-
-    .thy-avatar-list-append {
-        padding-left: variables.$avatar-list-space;
     }
 }
 
 .thy-avatar-list-overlap {
-    margin-left: -(variables.$avatar-list-overlap-space);
-
-    .thy-avatar-content {
-        margin-right: 0;
-        position: relative;
-        margin-left: variables.$avatar-list-overlap-space;
-    }
-
     @each $size, $value in variables.$avatar-sizes {
         .thy-avatar-#{$size} {
             @include mixin.avatarSize($size, $value);

@@ -5,14 +5,12 @@
 <ng-container *ngFor="let avatar of avatarComponents; index as index; count as count; last as isLast">
   <div
     class="thy-avatar-content"
-    [ngClass]="{
-      'thy-avatar-content-last': isLast
-    }"
+    [ngStyle]="overlapMode ? { 'margin-left.px': avatarOverlapSpace } : { 'margin-right.px': isLast ? 0 : avatarSpace }"
   >
     <thy-avatar
       [thySrc]="avatar._src"
       [thyName]="avatar.avatarName"
-      [thySize]="avatarSize"
+      [thySize]="avatar._size"
       [thyShowRemove]="overlapMode ? false : thyRemovable"
       [thyImgClass]="avatar.thyImgClass"
       [thyDisabled]="avatar.thyDisabled"
@@ -20,10 +18,10 @@
       [thyFetchPriority]="avatar.thyFetchPriority"
       (thyOnRemove)="remove(avatar.avatarName)"
     ></thy-avatar>
-    <span *ngIf="isLast" ngClass="more-{{ avatarSize }}">+{{ avatarListArray.length - count }} </span>
+    <span *ngIf="isLast" ngClass="more-{{ avatar._size }}">+{{ avatarListArray.length - count }} </span>
   </div>
 </ng-container>
 
-<div #appendContent *ngIf="append" class="thy-avatar-list-append">
+<div #appendContent *ngIf="append" [ngStyle]="{ 'padding-left.px': avatarSpace }">
   <ng-container [ngTemplateOutlet]="append"></ng-container>
 </div>

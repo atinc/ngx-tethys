@@ -26,13 +26,6 @@ const AVATAR_LIST_SPACE = 6;
 
 const AvATAR_LIST_OVERLAP_SPACE = -8;
 
-const thyAvatarListSizeMap = {
-    xs: 24,
-    sm: 28,
-    md: 32,
-    lg: 44
-};
-
 export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
@@ -44,32 +37,25 @@ export const enum ThyAvatarListMode {
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
     host: {
-        class: 'thy-avatar-list'
+        class: 'thy-avatar-list',
+        '[style.margin-left.px]': 'overlapMode ? -avatarOverlapSpace : 0'
     },
     providers: [UpdateHostClassService]
 })
 export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
 
-    private ngUnsubscribe$ = new Subject<void>();
-
-    private get avatarSpace() {
-        return this.overlapMode ? AvATAR_LIST_OVERLAP_SPACE : AVATAR_LIST_SPACE;
-    }
-
     public get avatarListArray() {
         return this.avatarList.toArray();
     }
 
-    public get avatarSize() {
-        if (thyAvatarListSizeMap[this.thyAvatarSize]) {
-            return thyAvatarListSizeMap[this.thyAvatarSize];
-        } else {
-            return DEFAULT_SIZE;
-        }
-    }
-
     public avatarComponents: ThyAvatarComponent[];
+
+    public avatarSpace = AVATAR_LIST_SPACE;
+
+    public avatarOverlapSpace = AvATAR_LIST_OVERLAP_SPACE;
+
+    private ngUnsubscribe$ = new Subject<void>();
 
     /**
      * 展示方式
@@ -95,11 +81,11 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
     @Input() thyMax: number;
 
     /**
-     * 大小
-     * @type xs(24) | sm(28) | md(32) |default(36) | lg(44)
-     * @default:36
+     * 头像大小
+     * @type 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
+     * @default 36
      */
-    @Input() thyAvatarSize: keyof typeof thyAvatarListSizeMap;
+    @Input() thyAvatarSize: number | string = DEFAULT_SIZE;
 
     /**
      * 是否展示移除按钮
@@ -130,13 +116,14 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
     ngOnInit() {}
 
     ngAfterContentInit() {
-        this.setAvailableAvatar();
+        this.setAvatarSize();
+        this.getRenderAvatar();
     }
 
     ngAfterViewInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
             if (this.appendContent) {
-                this.setAvailableAvatar();
+                this.getRenderAvatar();
             }
         });
 
@@ -145,41 +132,40 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
                 merge(this.avatarList.changes, this.createResizeObserver(this.elementRef.nativeElement))
                     .pipe(debounceTime(100), takeUntil(this.ngUnsubscribe$))
                     .subscribe(() => {
-                        this.setAvailableAvatar();
+                        this.getRenderAvatar();
                     });
             });
         }
+    }
+
+    private setAvatarSize() {
+        this.avatarList.toArray().forEach((avatar: ThyAvatarComponent) => {
+            avatar.thySize = this.thyAvatarSize;
+        });
     }
 
     public remove(name: string) {
         this.thyOnRemove.emit(name);
     }
 
-    private setAvailableAvatar() {
-        const endIndex = this.getShowAvatarEndIndex();
+    private getRenderAvatar() {
+        const endIndex = this.getEndIndex();
         const max = this.thyMax || this.avatarListArray.length;
-        const showCount = Math.max(0, Math.min(max, endIndex + 1));
+        const showCount = Math.max(0, Math.min(max, endIndex));
         this.avatarComponents = this.avatarListArray.slice(0, showCount);
     }
 
-    private getShowAvatarEndIndex() {
-        const avatarsLength = this.avatarListArray.length;
-        const wrapperWidth = this.elementRef.nativeElement.offsetWidth;
-        const appendWidth = this.appendContent?.nativeElement.offsetWidth;
-        let totalWidth = appendWidth || 0;
-        let endIndex = avatarsLength;
-        for (let i = 0; i < avatarsLength; i++) {
-            const avatarWidth = this.avatarSize + this.avatarSpace;
-            const _totalWidth = totalWidth + avatarWidth;
-            if (_totalWidth > wrapperWidth) {
-                endIndex = i - 1;
-                break;
-            } else {
-                totalWidth = _totalWidth;
-                endIndex = i;
-            }
+    private getEndIndex() {
+        if (this.avatarListArray.length) {
+            const space = this.overlapMode ? this.avatarOverlapSpace : this.avatarSpace;
+            const avatarWidth = this.avatarListArray[0]._size + space;
+            const wrapperWidth = this.elementRef.nativeElement.offsetWidth;
+            const appendWidth = this.appendContent?.nativeElement.offsetWidth;
+            const lastAvatarSpecialSpace = this.overlapMode ? space : 0; // overlap 模式下最后一个 avatar 元素占位比其他多 this.avatarSpace 个 px
+            return Math.floor((wrapperWidth - appendWidth + lastAvatarSpecialSpace) / avatarWidth);
+        } else {
+            return 0;
         }
-        return endIndex;
     }
 
     private createResizeObserver(element: HTMLElement) {
