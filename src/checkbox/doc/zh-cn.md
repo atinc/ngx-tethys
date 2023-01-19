@@ -11,9 +11,4 @@ subtitle: 多选框
 import { ThyCheckboxModule } from "ngx-tethys/checkbox";
 ```
 
-## 基本使用
-```html
-<label thyCheckbox thyLabelText="Checkbox"></label>
-```
-显示效果：
-<example inline name="thy-checkbox-basic-example" />  
+<examples />

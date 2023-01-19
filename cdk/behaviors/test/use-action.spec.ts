@@ -44,4 +44,20 @@ describe('use-action', () => {
         expect(action.saving).toEqual(false);
         expect(error).toBe(mockError);
     });
+
+    it('should execute when direct throw error', () => {
+        const mockError = new Error('mock error');
+        const action = useAction(() => {
+            throw mockError;
+        });
+        expect(action.saving).toEqual(false);
+        let error: Error;
+        action.execute({
+            error: _error => {
+                error = _error;
+            }
+        });
+        expect(action.saving).toEqual(false);
+        expect(error).toBe(mockError);
+    });
 });

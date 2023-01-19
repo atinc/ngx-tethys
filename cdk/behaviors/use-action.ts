@@ -1,29 +1,37 @@
-import { Observable } from 'rxjs';
-import { finalize, tap } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
+import { catchError, finalize, tap } from 'rxjs/operators';
 
 class ActionBehavior<T> {
     saving = false;
 
     constructor(private action: () => Observable<T>) {}
 
-    execute(context: { next?: () => void; error?: (error: Error) => void } = {}) {
+    execute(context: { next?: () => void; error?: (error: Error) => void } = {}): void {
         if (this.saving) {
             return;
         }
         this.saving = true;
-        this.action()
-            .pipe(
-                finalize(() => {
-                    this.saving = false;
-                }),
-                tap(value => {
-                    this.saving = false;
-                })
-            )
-            .subscribe({
-                error: context.error,
-                next: context.next
-            });
+        try {
+            this.action()
+                .pipe(
+                    finalize(() => {
+                        this.saving = false;
+                    }),
+                    tap(value => {
+                        this.saving = false;
+                    })
+                )
+                .subscribe({
+                    next: context.next,
+                    error: (error: Error) => {
+                        this.saving = false;
+                        context?.error(error);
+                    }
+                });
+        } catch (error) {
+            this.saving = false;
+            context?.error(error);
+        }
     }
 }
 
