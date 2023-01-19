@@ -22,7 +22,7 @@ import { ThySkeletonModule } from 'ngx-tethys/skeleton';
 
 <example name="thy-skeleton-rectangle-example" />
 
-### 自定义组合
+## 自定义组合
 * 通过自定义模版个性化设置自己的骨架图形。
 
 <example name="thy-skeleton-custom-example" />

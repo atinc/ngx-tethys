@@ -15,10 +15,4 @@ subtitle: 时间区间
 import { ThyDateRangeModule } from "ngx-tethys/date-range";
 ```
 
-## 基本使用
-
-```html
-<thy-date-range [(ngModel)]="date" (ngModelChange)="changeDate()"></thy-date-range>
-```  
-使用上述代码就可以使用预设的日期段（本周 / 本月 / 自定义）进行日期范围的选择：
-<example name="thy-date-range-basic-example" />
+<examples />

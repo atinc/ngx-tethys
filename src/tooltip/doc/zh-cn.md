@@ -15,9 +15,4 @@ subtitle: 文字提示
 import { ThyTooltipModule } from "ngx-tethys/tooltip";
 ```
 
-## 基本使用
-<example name="thy-tooltip-basic-example"></example>
-
-## 模版渲染
-<example name="thy-tooltip-template-example"></example>
-
+<examples />

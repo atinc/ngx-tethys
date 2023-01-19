@@ -15,4 +15,4 @@ subtitle: 锚点
 import { ThyAnchorModule } from 'ngx-tethys/anchor';
 ```
 
-<examples/>
+<examples />
