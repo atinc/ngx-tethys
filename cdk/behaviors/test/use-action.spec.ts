@@ -2,16 +2,22 @@ import { useAction } from '../use-action';
 import { Subject } from 'rxjs';
 
 describe('use-action', () => {
-    it('should execute when next', () => {
+    it('should execute success', () => {
         const subject = new Subject<void>();
         const action = useAction(() => {
             return subject.asObservable();
         });
         expect(action.saving).toEqual(false);
-        action.execute();
+        let success = false;
+        action
+            .success(result => {
+                success = true;
+            })
+            .execute();
         expect(action.saving).toEqual(true);
         subject.next();
         expect(action.saving).toEqual(false);
+        expect(success).toBe(true);
     });
 
     it('should execute when complete', () => {
@@ -33,11 +39,11 @@ describe('use-action', () => {
         });
         expect(action.saving).toEqual(false);
         let error: Error;
-        action.execute({
-            error: _error => {
+        action
+            .error(_error => {
                 error = _error;
-            }
-        });
+            })
+            .execute();
         expect(action.saving).toEqual(true);
         const mockError = new Error('mock error');
         subject.error(mockError);
@@ -52,11 +58,11 @@ describe('use-action', () => {
         });
         expect(action.saving).toEqual(false);
         let error: Error;
-        action.execute({
-            error: _error => {
+        action
+            .error(_error => {
                 error = _error;
-            }
-        });
+            })
+            .execute();
         expect(action.saving).toEqual(false);
         expect(error).toBe(mockError);
     });

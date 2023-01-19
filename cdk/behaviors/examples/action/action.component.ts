@@ -10,14 +10,12 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     styleUrls: ['./action.component.scss']
 })
 export class ThyBehaviorsActionComponent implements OnInit {
-
-    addAction = useAction(() => {
+    addAction = useAction<{ name: string }>((obj: { name: string }) => {
         // 调用 API 添加/修改/删除数据
-        return of(true).pipe(delay(1000));
+        return of(obj).pipe(delay(1000));
     });
 
     addActionWithError = useAction(() => {
-        throw new Error(`Mock Error!`);
         // 调用 API 添加/修改/删除数据
         return of(true).pipe(
             delay(1000),
@@ -34,24 +32,18 @@ export class ThyBehaviorsActionComponent implements OnInit {
     ngOnInit(): void {}
 
     add() {
-        this.addAction.execute({
-            next: () => {
-                this.notifyService.success(`Add successfully!`);
-            },
-            error: error => {
-                this.notifyService.error(error.message);
-            }
-        });
+        this.addAction
+            .success(result => {
+                this.notifyService.success(`Add ${result.name} successfully!`);
+            })
+            .execute({ name: 'Pet' });
     }
 
     addWithError() {
-        this.addActionWithError.execute({
-            next: () => {
-                this.notifyService.success(`Add successfully!`);
-            },
-            error: error => {
+        this.addActionWithError
+            .error(error => {
                 this.notifyService.error(error.message);
-            }
-        });
+            })
+            .execute();
     }
 }

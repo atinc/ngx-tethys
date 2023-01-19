@@ -15,7 +15,7 @@ class AsyncBehavior<T, A extends (...args: any) => Observable<T>> {
     execute(...params: Parameters<A>): ReturnType<A> {
         this.loadingDone = false;
         this.state = 'loading';
-        return this.action.call(undefined, params).pipe(
+        return this.action.apply(undefined, params).pipe(
             finalize(() => {
                 this.loadingDone = true;
             }),
