@@ -14,10 +14,4 @@ subtitle: 分割线
 import { ThyDividerModule } from "ngx-tethys/divider";
 ```
 
-## 基本使用
-
-```html
-<thy-divider [thyStyle]="'solid'"></thy-divider>
-```
-展示效果:
-<example name="thy-divider-basic-example" />
+<examples />

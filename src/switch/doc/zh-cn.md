@@ -11,11 +11,5 @@ subtitle: 开关
 import { ThySwitchModule } from "ngx-tethys/switch";
 ```
 
-## 基本使用
-```html
-<thy-switch [(ngModel)]="isChecked" (ngModelChange)="switchChange()"></thy-switch>
-```
-显示效果：
-<example inline name="thy-switch-basic-example" />  
-
+<examples />
 

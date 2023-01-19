@@ -47,8 +47,7 @@ openSlide(template: TemplateRef<any>) {
 }
 ```
 
-展示效果如下：
-<example name="thy-slide-basic-example" />
+<examples />
 
 ### 设置全局默认值
 

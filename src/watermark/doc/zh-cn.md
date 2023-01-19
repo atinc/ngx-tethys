@@ -18,10 +18,10 @@ label: new
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 ```
 
-## 基本使用
+## 如何使用
 父节点需设置 ```position: relative```，否则水印将相对于最近非 static 定位的祖先元素进行定位。
 
-<example name="thy-watermark-basic-example" />
+<examples />
 
 ## 自定义样式
 ```js
@@ -34,5 +34,3 @@ interface ThyCanvasConfigType {
     gutter?: number[];  // 横纵间距
 }
 ```
-
-<example name="thy-watermark-custom-example" />
