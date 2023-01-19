@@ -1,6 +1,9 @@
 import { Injectable, inject, ElementRef } from '@angular/core';
 import { AbstractElementRenderer } from './abstract-element-renderer';
 
+/**
+ * @private
+ */
 @Injectable()
 export class HostRenderer extends AbstractElementRenderer {
     private elementRef = inject(ElementRef);
