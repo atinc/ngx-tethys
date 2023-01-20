@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.14](https://github.com/atinc/ngx-tethys/compare/14.2.13...14.2.14) (2023-01-20)
+
+
+### Bug Fixes
+
+* **DatePicker:** update year、week range style #INFR-6159 ([#2488](https://github.com/atinc/ngx-tethys/issues/2488)) ([e7d7845](https://github.com/atinc/ngx-tethys/commit/e7d7845c9131400d55bd8da9100c4fa34e8e6b6d)), closes [#INFR-6159](https://github.com/atinc/ngx-tethys/issues/INFR-6159)
+* **tree-select:** fix prefix icon color of multiple option list of tree-select(#INFR-6234) ([#2495](https://github.com/atinc/ngx-tethys/issues/2495)) ([82ca864](https://github.com/atinc/ngx-tethys/commit/82ca86402263d90c832c9ecd5b8a28e7962bd0e9)), closes [#INFR-6234](https://github.com/atinc/ngx-tethys/issues/INFR-6234)
+* **Upload:** fix NG0203 error for inject()  #INFR-6222 ([d89aff9](https://github.com/atinc/ngx-tethys/commit/d89aff9c8f7cc43e38b51d819449fa6285457074)), closes [#INFR-6222](https://github.com/atinc/ngx-tethys/issues/INFR-6222)
+
+
+### Features
+
+* **input:** add textarea[thyInput] selector to ThyInputDirective ([e0c593d](https://github.com/atinc/ngx-tethys/commit/e0c593d9c319c5f955ed33853f334534cc6b20f0))
+
+
+
 ## [14.2.13](https://github.com/atinc/ngx-tethys/compare/14.2.12...14.2.13) (2023-01-16)
 
 
