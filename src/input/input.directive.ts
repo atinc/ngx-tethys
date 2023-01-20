@@ -18,7 +18,7 @@ const inputGroupSizeMap = {
  * @order 10
  */
 @Directive({
-    selector: 'input[thyInput], select[thyInput]',
+    selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
     exportAs: 'thyInput'
 })
 export class ThyInputDirective implements OnInit {
