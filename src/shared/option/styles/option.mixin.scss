@@ -142,6 +142,10 @@
                 background: $hover-active-bg-color;
                 color: variables.$body-color;
             }
+
+            .prefix-icon {
+                color: variables.$gray-500;
+            }
         }
     }
 }
