@@ -1,0 +1,7 @@
+<thy-space>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value"></thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="info">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="warning">{{ value }}%</thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="success" thyStrokeWidth="10">{{ value }}% </thy-progress>
+  <thy-progress *thySpaceItem [thyShape]="'circle'" [thyValue]="value" thyType="danger" [thyGapDegree]="75">{{ value }}% </thy-progress>
+</thy-space>

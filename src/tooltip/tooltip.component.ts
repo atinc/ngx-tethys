@@ -1,19 +1,9 @@
-import {
-    Component,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    HostBinding,
-    ElementRef,
-    TemplateRef,
-    OnInit
-} from '@angular/core';
+import { Component, ViewEncapsulation, ChangeDetectionStrategy, ChangeDetectorRef, HostBinding, TemplateRef, OnInit } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
 import { AnimationEvent } from '@angular/animations';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceArray } from 'ngx-tethys/util';
 
 @Component({
@@ -26,8 +16,7 @@ import { coerceArray } from 'ngx-tethys/util';
         '[@state]': 'visibility',
         '(@state.start)': 'animationStart()',
         '(@state.done)': 'animationDone($event)'
-    },
-    providers: [UpdateHostClassService]
+    }
 })
 export class ThyTooltipComponent implements OnInit {
     @HostBinding(`class.thy-tooltip`) addTooltipContainerClass = true;
@@ -39,6 +28,8 @@ export class ThyTooltipComponent implements OnInit {
     private readonly onHide: Subject<void> = new Subject();
 
     private closeOnInteraction = false;
+
+    private hostRenderer = useHostRenderer();
 
     visibility: ThyTooltipVisibility = 'initial';
 
@@ -66,16 +57,10 @@ export class ThyTooltipComponent implements OnInit {
             classes = classes.concat(this.tooltipClasses);
         }
 
-        this.updateHostClassService.updateClass(classes);
+        this.hostRenderer.updateClass(classes);
     }
 
-    constructor(
-        private changeDetectorRef: ChangeDetectorRef,
-        private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef<HTMLElement>
-    ) {
-        this.updateHostClassService.initializeElement(elementRef);
-    }
+    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     ngOnInit() {}
 

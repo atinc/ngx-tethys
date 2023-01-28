@@ -72,12 +72,6 @@
         }
     }
 
-    &-week-number-header {
-        .#{style.$calendar-prefix-cls}-column-header-inner {
-            display: none;
-        }
-    }
-
     &-cell {
         height: 30px;
         padding: 1px 0;
@@ -96,7 +90,6 @@
         border: style.$border-width-base style.$border-style-base transparent;
         border-radius: variables.$border-radius-lg;
         transition: background 0.3s ease;
-
         &-panel {
             position: relative;
             outline: none;

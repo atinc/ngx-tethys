@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
 import { NgForm, NgControl } from '@angular/forms';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
@@ -31,7 +32,7 @@ export enum ThyEnterKeyMode {
 
 @Directive({
     selector: '[thyForm],[thy-form]',
-    providers: [UpdateHostClassService, ThyFormValidatorService],
+    providers: [ThyFormValidatorService],
     exportAs: 'thyForm',
     host: {
         class: 'thy-form'
@@ -41,6 +42,8 @@ export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
     private layout: ThyFormLayout;
 
     private initialized = false;
+
+    private hostRenderer = useHostRenderer();
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
@@ -83,11 +86,9 @@ export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService,
         public validator: ThyFormValidatorService,
         @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this.layout = this.config.layout;
     }
 
@@ -116,7 +117,7 @@ export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
     }
 
     updateClasses() {
-        this.updateHostClassService.updateClassByMap({
+        this.hostRenderer.updateClassByMap({
             [`thy-form-${this.thyLayout}`]: true
         });
     }

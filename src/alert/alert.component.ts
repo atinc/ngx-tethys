@@ -1,16 +1,6 @@
-import {
-    Component,
-    Input,
-    OnInit,
-    ContentChild,
-    TemplateRef,
-    OnChanges,
-    ChangeDetectionStrategy,
-    ElementRef,
-    SimpleChanges
-} from '@angular/core';
+import { Component, Input, OnInit, ContentChild, TemplateRef, OnChanges, ChangeDetectionStrategy, SimpleChanges } from '@angular/core';
 import { isString } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -45,8 +35,7 @@ const typeIconsMap: Record<string, string> = {
     host: {
         class: 'thy-alert',
         '[class.thy-alert-hidden]': 'hidden'
-    },
-    providers: [UpdateHostClassService]
+    }
 })
 export class ThyAlertComponent implements OnInit, OnChanges {
     private hidden = false;
@@ -56,6 +45,8 @@ export class ThyAlertComponent implements OnInit, OnChanges {
     private icon: string;
 
     private type: ThyAlertType = 'info';
+
+    private hostRenderer = useHostRenderer();
 
     public theme: ThyAlertTheme = 'fill';
 
@@ -101,9 +92,7 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     @ContentChild('operation') alertOperation: TemplateRef<any>;
 
-    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef<HTMLElement>) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-    }
+    constructor() {}
 
     ngOnInit() {
         this.updateClass();
@@ -127,6 +116,6 @@ export class ThyAlertComponent implements OnInit, OnChanges {
             theme = 'bordered';
             type = this.type.split('-')[0] as ThyAlertType;
         }
-        this.updateHostClassService.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
+        this.hostRenderer.updateClass([`thy-alert-${theme}`, `thy-alert-${theme}-${type}`]);
     }
 }

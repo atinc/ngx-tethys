@@ -7,10 +7,10 @@ import {
     OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges,
-    HostBinding
+    SimpleChanges
 } from '@angular/core';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
@@ -20,7 +20,6 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 @Component({
     selector: 'thy-action, [thyAction]',
     templateUrl: './action.component.html',
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-action',
@@ -35,6 +34,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     private active = false;
 
     private type: string = 'primary';
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
@@ -95,13 +96,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     @InputBoolean()
     thyDisabled: boolean;
 
-    constructor(
-        private elementRef: ElementRef<HTMLElement>,
-        private renderer: Renderer2,
-        private updateHostClassService: UpdateHostClassService
-    ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
-    }
+    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2) {}
 
     ngOnInit(): void {
         this.updateClasses();
@@ -143,6 +138,6 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
         if (this.thyTheme === 'lite') {
             classNames.push('thy-action-lite');
         }
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 }

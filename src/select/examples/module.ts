@@ -7,6 +7,7 @@ import { ThyTypographyModule } from 'ngx-tethys/typography';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyInputModule } from 'ngx-tethys/input';
 
 export default {
     imports: [
@@ -18,7 +19,8 @@ export default {
         ThyCheckboxModule,
         ThyIconModule,
         ThyButtonModule,
-        ThyTypographyModule
+        ThyTypographyModule,
+        ThyInputModule
     ],
     providers: [
         {

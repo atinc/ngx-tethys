@@ -2,7 +2,6 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewCon
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { ThyColorPickerCustomPanelComponent } from './color-picker-custom-panel.component';
-import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
 
 /**
@@ -11,7 +10,10 @@ import ThyColor from './helpers/color.class';
 @Component({
     selector: 'thy-color-picker-panel',
     templateUrl: './color-picker-panel.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.pt-4]': '!transparentColorSelectable'
+    }
 })
 export class ThyColorPickerPanelComponent implements OnInit {
     @HostBinding('class.thy-color-picker-panel') className = true;
@@ -30,9 +32,9 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     @Input() @InputBoolean() transparentColorSelectable: boolean;
 
-    public customDefaultColor: string;
+    @Input() defaultColors: string[];
 
-    defaultColors = DEFAULT_COLORS;
+    public customDefaultColor: string;
 
     recentColors: string[] = [];
 

@@ -2,6 +2,125 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.14](https://github.com/atinc/ngx-tethys/compare/14.2.13...14.2.14) (2023-01-20)
+
+
+### Bug Fixes
+
+* **DatePicker:** update year、week range style #INFR-6159 ([#2488](https://github.com/atinc/ngx-tethys/issues/2488)) ([e7d7845](https://github.com/atinc/ngx-tethys/commit/e7d7845c9131400d55bd8da9100c4fa34e8e6b6d)), closes [#INFR-6159](https://github.com/atinc/ngx-tethys/issues/INFR-6159)
+* **tree-select:** fix prefix icon color of multiple option list of tree-select(#INFR-6234) ([#2495](https://github.com/atinc/ngx-tethys/issues/2495)) ([82ca864](https://github.com/atinc/ngx-tethys/commit/82ca86402263d90c832c9ecd5b8a28e7962bd0e9)), closes [#INFR-6234](https://github.com/atinc/ngx-tethys/issues/INFR-6234)
+* **Upload:** fix NG0203 error for inject()  #INFR-6222 ([d89aff9](https://github.com/atinc/ngx-tethys/commit/d89aff9c8f7cc43e38b51d819449fa6285457074)), closes [#INFR-6222](https://github.com/atinc/ngx-tethys/issues/INFR-6222)
+
+
+### Features
+
+* **input:** add textarea[thyInput] selector to ThyInputDirective ([e0c593d](https://github.com/atinc/ngx-tethys/commit/e0c593d9c319c5f955ed33853f334534cc6b20f0))
+
+
+
+## [14.2.13](https://github.com/atinc/ngx-tethys/compare/14.2.12...14.2.13) (2023-01-16)
+
+
+### Features
+
+* **upload:** enhance compatibility of office document when upload file #INFR-6199 ([#2490](https://github.com/atinc/ngx-tethys/issues/2490)) ([c1a0aab](https://github.com/atinc/ngx-tethys/commit/c1a0aab57ad8222be25537cb1a3d4cd839c81a8f)), closes [#INFR-6199](https://github.com/atinc/ngx-tethys/issues/INFR-6199)
+
+
+
+## [14.2.12](https://github.com/atinc/ngx-tethys/compare/14.2.11...14.2.12) (2023-01-13)
+
+
+### Bug Fixes
+
+* **select:** thy-custom-select support auto focus when option change z/#INFR-6122 ([#2485](https://github.com/atinc/ngx-tethys/issues/2485)) ([3fafeee](https://github.com/atinc/ngx-tethys/commit/3fafeee400f7fa954c9f884c8b3ee2a618d21cd2)), closes [z/#INFR-6122](https://github.com/atinc/ngx-tethys/issues/INFR-6122)
+
+
+
+## [14.2.11](https://github.com/atinc/ngx-tethys/compare/14.2.10...14.2.11) (2023-01-11)
+
+
+### Bug Fixes
+
+* **cascader:** display labels correctly when get options by async way #INFR-6044 ([#2477](https://github.com/atinc/ngx-tethys/issues/2477)) ([e7d1658](https://github.com/atinc/ngx-tethys/commit/e7d165823d90bc4b538b88b0cfc2156ed9e44b9a)), closes [#INFR-6044](https://github.com/atinc/ngx-tethys/issues/INFR-6044)
+* **color-picker:** hide transparentColorSelect change style paddingTop [@wanghuan](https://github.com/wanghuan) ([#2475](https://github.com/atinc/ngx-tethys/issues/2475)) ([a897ebf](https://github.com/atinc/ngx-tethys/commit/a897ebf06ed03832856ac657394d6c3e635e45e4))
+* **option:** #INFR-6128 fix icon color error when option is active [@haifeng](https://github.com/haifeng) ([#2480](https://github.com/atinc/ngx-tethys/issues/2480)) ([6a3a9a9](https://github.com/atinc/ngx-tethys/commit/6a3a9a945b252d18bb637a4c8cd57399e7eeadd7))
+* **table:** remove thy-grid selector #INFR-6124 ([#2479](https://github.com/atinc/ngx-tethys/issues/2479)) ([fe1b5a8](https://github.com/atinc/ngx-tethys/commit/fe1b5a870521252d741e0b5ffc7b203ee07160b1)), closes [#INFR-6124](https://github.com/atinc/ngx-tethys/issues/INFR-6124)
+
+
+### Features
+
+* **image:** support ThyImageService support downloadClicked$ #INFR-6120 ([1d25519](https://github.com/atinc/ngx-tethys/commit/1d25519f3496a21c5fe29fbae4c6e5527ed695c6)), closes [#INFR-6120](https://github.com/atinc/ngx-tethys/issues/INFR-6120)
+* **progress:** progress support circle mode #INFR-5999  ([0f6f241](https://github.com/atinc/ngx-tethys/commit/0f6f2413d621eb5733d5ddbf4a22aebfb68d2bf0)), closes [#INFR-5999](https://github.com/atinc/ngx-tethys/issues/INFR-5999)
+* **select:** custom-select 支持自定义 origin #INFR-5676 ([#2476](https://github.com/atinc/ngx-tethys/issues/2476)) ([eff0157](https://github.com/atinc/ngx-tethys/commit/eff01577899d571f2ab44a35ce3adb01aaeef2f7)), closes [#INFR-5676](https://github.com/atinc/ngx-tethys/issues/INFR-5676)
+
+
+### BREAKING CHANGES
+
+* **table:** table thy-grid selector deprecated
+
+
+
+## [14.2.10](https://github.com/atinc/ngx-tethys/compare/14.2.9...14.2.10) (2023-01-06)
+
+
+### Bug Fixes
+
+* **cascader:** return right data when use multi mode #INFR-6044 ([#2469](https://github.com/atinc/ngx-tethys/issues/2469)) ([eb78eef](https://github.com/atinc/ngx-tethys/commit/eb78eef47785c277429db872a29ec5df929b9d39)), closes [#INFR-6044](https://github.com/atinc/ngx-tethys/issues/INFR-6044)
+* **property:** add flex: auto for thy-property-item-content-text ([017a943](https://github.com/atinc/ngx-tethys/commit/017a9434b998fbe1ccfede1af0fd4231530c4a7e))
+
+
+### Features
+
+* **cascader:** change emptyStateText #INFR-6037 ([#2467](https://github.com/atinc/ngx-tethys/issues/2467)) ([d2d2cbb](https://github.com/atinc/ngx-tethys/commit/d2d2cbb7e5eff58be336a000fc281bece23f5386)), closes [#INFR-6037](https://github.com/atinc/ngx-tethys/issues/INFR-6037)
+* **select:** change emptyStateText #INFR-6041 ([#2468](https://github.com/atinc/ngx-tethys/issues/2468)) ([2b2225d](https://github.com/atinc/ngx-tethys/commit/2b2225d0387ed51ddc5c41a7d5fb14df19d146b8)), closes [#INFR-6041](https://github.com/atinc/ngx-tethys/issues/INFR-6041)
+
+
+
+## [14.2.9](https://github.com/atinc/ngx-tethys/compare/14.2.8...14.2.9) (2023-01-05)
+
+
+### Bug Fixes
+
+* **cdk:** hotkey callback run in ngZone #INFR-5955 ([b4ce272](https://github.com/atinc/ngx-tethys/commit/b4ce272cfab3febc280da27c2877e8e27e35d9b2)), closes [#INFR-5955](https://github.com/atinc/ngx-tethys/issues/INFR-5955)
+* **date-picker:** update type of thy-nav from secondary to pulled and update nav height to 40px #INFR-6026 ([60a3adb](https://github.com/atinc/ngx-tethys/commit/60a3adbbd366f6dd9201ee2ed8fbdc7691218d7f)), closes [#INFR-6026](https://github.com/atinc/ngx-tethys/issues/INFR-6026)
+* **select:** update option default color from  $secondary to $body-color([#333](https://github.com/atinc/ngx-tethys/issues/333)) #INFR-5908 ([#2459](https://github.com/atinc/ngx-tethys/issues/2459)) ([a5f8889](https://github.com/atinc/ngx-tethys/commit/a5f88897749e0a9282c4d527cc4c8c334c28040a)), closes [#INFR-5908](https://github.com/atinc/ngx-tethys/issues/INFR-5908)
+* **tree:** click select node when node is not disabled #INFR-6039 ([#2466](https://github.com/atinc/ngx-tethys/issues/2466)) ([6d1ff40](https://github.com/atinc/ngx-tethys/commit/6d1ff403e4c0fafd4022950af693d38780d96987)), closes [#INFR-6039](https://github.com/atinc/ngx-tethys/issues/INFR-6039)
+
+
+### Features
+
+* **cdk:** add behaviors module contains useAction and useAsync behaviors ([39fa4bd](https://github.com/atinc/ngx-tethys/commit/39fa4bdb2f999ceaac2a9ba5b2acd42cd03ba24b))
+* **grid:** add thy-grid and thy-grid-item component #INFR-4684 ([#2389](https://github.com/atinc/ngx-tethys/issues/2389)) ([c4d8fa0](https://github.com/atinc/ngx-tethys/commit/c4d8fa0fee33139e0314004c99665f9b716974fd)), closes [#INFR-4684](https://github.com/atinc/ngx-tethys/issues/INFR-4684)
+* **typography:** update icon color of thy-text to $gray-600 ([#999](https://github.com/atinc/ngx-tethys/issues/999)) [#2461](https://github.com/atinc/ngx-tethys/issues/2461) ([#2462](https://github.com/atinc/ngx-tethys/issues/2462)) ([96ff449](https://github.com/atinc/ngx-tethys/commit/96ff4494f9a73a50eaf7a2f10634f9279a7e1e7c))
+* **Util:**  add date function at util #INFR-5953 ([#2456](https://github.com/atinc/ngx-tethys/issues/2456)) ([e92564c](https://github.com/atinc/ngx-tethys/commit/e92564c09099551da56d32f74c8c9a87e54848cc)), closes [#INFR-5953](https://github.com/atinc/ngx-tethys/issues/INFR-5953)
+
+
+
+## [14.2.8](https://github.com/atinc/ngx-tethys/compare/14.2.7...14.2.8) (2022-12-29)
+
+
+### Features
+
+* **color-picker:** add thyPresetColors #INFR-5921 ([#2452](https://github.com/atinc/ngx-tethys/issues/2452)) ([9a08aa7](https://github.com/atinc/ngx-tethys/commit/9a08aa72c8521c36a7130d2e8907dc81f4f17b7e)), closes [#INFR-5921](https://github.com/atinc/ngx-tethys/issues/INFR-5921)
+* **icon:** support standalone component and replace UpdateHostClassService with useHostRenderer ([#2453](https://github.com/atinc/ngx-tethys/issues/2453)) ([cc34def](https://github.com/atinc/ngx-tethys/commit/cc34defbed4d4623bd4cb96b498a2eecf6d93858))
+* **message:** add message component #INFR-4779 ([#2446](https://github.com/atinc/ngx-tethys/issues/2446)) ([1d9d0a6](https://github.com/atinc/ngx-tethys/commit/1d9d0a6c236aa515022131a914b6e40881a94979)), closes [#INFR-4779](https://github.com/atinc/ngx-tethys/issues/INFR-4779)
+* **shared:** only update changed property of context for thyViewOutlet #INFR-5923 ([#2451](https://github.com/atinc/ngx-tethys/issues/2451)) ([43c22e0](https://github.com/atinc/ngx-tethys/commit/43c22e0d5d9439c820f99a5d0bad55d5910fc677)), closes [#INFR-5923](https://github.com/atinc/ngx-tethys/issues/INFR-5923)
+
+
+
+## [14.2.7](https://github.com/atinc/ngx-tethys/compare/14.2.6...14.2.7) (2022-12-28)
+
+
+### Bug Fixes
+
+* **cdk:** remove hotkey conflict logic and don't call hotkey event when active element is form control ([5568e52](https://github.com/atinc/ngx-tethys/commit/5568e52d46d8a54e7497f780b9cb3b9abe8b2dc0))
+* **layout:** custom collapsed template support hotkey #INFR-5804 ([cfbc8a1](https://github.com/atinc/ngx-tethys/commit/cfbc8a16ef87ac628cea3ae4c211c84c58e960ae)), closes [#INFR-5804](https://github.com/atinc/ngx-tethys/issues/INFR-5804)
+* **list:** replace $hover-bg-color $gray-80 to $gray-100 #INFR-5885 ([282ba9b](https://github.com/atinc/ngx-tethys/commit/282ba9ba1e736453df270dd76bc891328053940c)), closes [#INFR-5885](https://github.com/atinc/ngx-tethys/issues/INFR-5885)
+* **select:** get right width #INFR-5909 ([#2449](https://github.com/atinc/ngx-tethys/issues/2449)) ([b40667e](https://github.com/atinc/ngx-tethys/commit/b40667e3356eb52047d1b364af80d7e20d4bb0e2)), closes [#INFR-5909](https://github.com/atinc/ngx-tethys/issues/INFR-5909)
+* time picker disable style #INFR-5888 ([#2448](https://github.com/atinc/ngx-tethys/issues/2448)) ([b748917](https://github.com/atinc/ngx-tethys/commit/b748917368378dcf40640d6f0cec01f91b860de6)), closes [#INFR-5888](https://github.com/atinc/ngx-tethys/issues/INFR-5888)
+
+
+
 ## [14.2.6](https://github.com/atinc/ngx-tethys/compare/14.2.5...14.2.6) (2022-12-16)
 
 

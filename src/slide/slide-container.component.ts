@@ -2,7 +2,7 @@ import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
 import { Observable, Subject } from 'rxjs';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { CdkPortalOutlet } from '@angular/cdk/portal';
@@ -48,6 +48,8 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
     private drawerContainerElement: HTMLElement;
 
     private ngUnsubscribe$ = new Subject<void>();
+
+    private hostRenderer = useHostRenderer();
 
     get isPush() {
         return this.config.mode === 'push' && !!this.drawerContainerElement;
@@ -131,11 +133,11 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
         if (this.isLeftOrRight) {
             height = drawerContainerElementRect.height;
             top = drawerContainerElementRect.top;
-            this.renderer.setStyle(this.elementRef.nativeElement, 'top', `${top}px`);
+            this.hostRenderer.setStyle('top', `${top}px`);
         } else {
             width = drawerContainerElementRect.width;
             left = drawerContainerElementRect.left;
-            this.renderer.setStyle(this.elementRef.nativeElement, 'left', `${left}px`);
+            this.hostRenderer.setStyle('left', `${left}px`);
         }
         this.slideContainerStyles = {
             width: width,
@@ -182,7 +184,7 @@ export class ThySlideContainerComponent extends ThyAbstractOverlayContainer impl
 
     beforeAttachPortal(): void {
         if (this.config.offset) {
-            this.renderer.setStyle(this.elementRef.nativeElement, this.config.from, `${this.config.offset}px`);
+            this.hostRenderer.setStyle(this.config.from, `${this.config.offset}px`);
             this.animationState = helpers.camelCase(['offset', this.config.from]) as ThySlideFromTypes;
         } else {
             this.animationState = this.config.from;

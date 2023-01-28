@@ -14,7 +14,7 @@ import {
     ComponentRef
 } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ComponentTypeOrTemplateRef, UpdateHostClassService } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 import { NotifyQueueStore } from './notify-queue.store';
 import { helpers, isString, isTemplateRef } from 'ngx-tethys/util';
 import { NotifyPlacement, ThyNotifyConfig, ThyNotifyDetail } from './notify.config';
@@ -27,7 +27,6 @@ const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, paddingT
 @Component({
     selector: 'thy-notify',
     templateUrl: './notify.component.html',
-    providers: [UpdateHostClassService],
     animations: [
         trigger('flyInOut', [
             state('flyInOutRight', style({ transform: 'translateX(0)', opacity: 1, height: '*' })),

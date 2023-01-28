@@ -1,8 +1,8 @@
 <table class="{{ prefixCls }}-table" cellSpacing="0" role="grid">
   <thead>
     <tr role="row">
-      <th *ngIf="showWeek" role="columnheader" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
-        <span class="{{ prefixCls }}-column-header-inner">x</span>
+      <th *ngIf="showWeek" role="columnheader" title="周" class="{{ prefixCls }}-column-header {{ prefixCls }}-week-number-header">
+        <span class="{{ prefixCls }}-column-header-inner">周</span>
       </th>
       <th *ngFor="let cell of headRow" role="columnheader" title="{{ cell.title }}" class="{{ prefixCls }}-column-header">
         <span *ngIf="prefixCls === 'thy-calendar'" class="{{ prefixCls }}-column-header-inner">{{ cell.content }}</span>

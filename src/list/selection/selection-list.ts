@@ -1,9 +1,9 @@
-import { ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { ScrollToService } from 'ngx-tethys/core';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT, ThyListLayout, ThyListOptionComponent } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, dom, helpers, keycodes } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -38,7 +38,6 @@ const listSizesMap = {
     selector: 'thy-selection-list,[thy-selection-list]',
     template: '<ng-content></ng-content>',
     providers: [
-        UpdateHostClassService,
         {
             provide: THY_LIST_OPTION_PARENT_COMPONENT,
             useExisting: ThySelectionListComponent
@@ -59,6 +58,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     private _bindKeyEventUnsubscribe: () => void;
 
     private _modelValues: any[];
+
+    private hostRenderer = useHostRenderer();
 
     /** The currently selected options. */
     selectionModel: SelectionModel<any>;
@@ -251,11 +252,11 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     private _setListSize(size: ThyListSize) {
         for (const key in listSizesMap) {
             if (listSizesMap.hasOwnProperty(key)) {
-                this.updateHostClassService.removeClass(listSizesMap[key]);
+                this.hostRenderer.removeClass(listSizesMap[key]);
             }
         }
         if (size) {
-            this.updateHostClassService.addClass(listSizesMap[size]);
+            this.hostRenderer.addClass(listSizesMap[size]);
         }
     }
 
@@ -263,11 +264,8 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         private renderer: Renderer2,
         private elementRef: ElementRef,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService,
         private changeDetectorRef: ChangeDetectorRef
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    ) {}
 
     ngOnInit() {
         const bindKeyEventElement = this._getElementBySelector(this.thyBindKeyEventContainer);

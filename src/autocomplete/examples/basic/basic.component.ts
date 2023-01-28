@@ -1,4 +1,4 @@
-import { Component, OnInit, Renderer2, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'thy-autocomplete-basic-example',
@@ -12,7 +12,7 @@ export class ThyAutocompleteBasicExampleComponent implements OnInit {
 
     listOfOption: Array<{ label: string; value: string }> = [];
 
-    constructor(private renderer: Renderer2) {}
+    constructor() {}
 
     ngOnInit() {
         for (let i = 10; i < 36; i++) {

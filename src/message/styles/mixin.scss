@@ -1,0 +1,9 @@
+@use "../../styles/variables";
+
+@mixin thy-message-state($state, $color) {
+    .thy-message-#{$state} {
+        .thy-message-icon {
+            color: $color;
+        }
+    }
+}

@@ -15,10 +15,4 @@ import { ThyInputNumberModule } from "ngx-tethys/input-number";
 ```
 
 
-## 如何使用
-
-```html
-<thy-input-number [(ngModel)]="value"></thy-input-number>
-```
-
-<example name="thy-input-number-basic-example" />  
+<examples />

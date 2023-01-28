@@ -2,6 +2,7 @@
 .thy-color-picker-panel {
     width: 100%;
     display: block;
+    padding-top: 8px;
     .main-content {
         padding: 0 12px;
     }
@@ -11,7 +12,6 @@
         align-items: center;
         cursor: pointer;
         padding: 4px 16px 4px 16px;
-        margin-top: 8px;
         margin-bottom: 4px;
         &:hover {
             background-color: variables.$gray-100;

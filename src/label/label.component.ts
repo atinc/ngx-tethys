@@ -1,6 +1,7 @@
-import { Component, ElementRef, Renderer2, Input, Output, EventEmitter, HostBinding } from '@angular/core';
+import { Component, ElementRef, Input, Output, EventEmitter, HostBinding } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { helpers } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -65,9 +66,11 @@ export class ThyLabelComponent {
 
     public _backgroundOpacity?: number = 0.1;
 
+    private hostRenderer = useHostRenderer();
+
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
-    constructor(private el: ElementRef, private renderer: Renderer2) {
+    constructor(private el: ElementRef) {
         this.nativeElement = this.el.nativeElement;
     }
 
@@ -175,11 +178,11 @@ export class ThyLabelComponent {
     }
 
     private _addClass(className: string) {
-        this.renderer.addClass(this.nativeElement, className);
+        this.hostRenderer.addClass(className);
     }
 
     private _removeClass(className: string) {
-        this.renderer.removeClass(this.nativeElement, className);
+        this.hostRenderer.removeClass(className);
     }
 
     remove($event: Event) {

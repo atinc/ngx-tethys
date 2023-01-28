@@ -13,7 +13,8 @@ import {
     OnDestroy,
     NgZone
 } from '@angular/core';
-import { UpdateHostClassService, ThyTranslate } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -22,11 +23,12 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
 @Component({
     selector: 'thy-property-operation',
-    templateUrl: './property-operation.component.html',
-    providers: [UpdateHostClassService]
+    templateUrl: './property-operation.component.html'
 })
 export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, OnDestroy {
     private initialized = false;
+
+    private hostRenderer = useHostRenderer();
 
     labelText: string;
 
@@ -107,7 +109,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
         if (!this.initialized && !first) {
             return;
         }
-        this.updateHostClassService.updateClass(this.type ? [`thy-property-operation-${this.type}`] : []);
+        this.hostRenderer.updateClass(this.type ? [`thy-property-operation-${this.type}`] : []);
     }
 
     private setOnlyHasTips(first = false) {
@@ -123,15 +125,9 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
         }
     }
 
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef<HTMLElement>,
-        private ngZone: NgZone
-    ) {}
+    constructor(private thyTranslate: ThyTranslate, private elementRef: ElementRef<HTMLElement>, private ngZone: NgZone) {}
 
     ngOnInit() {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this.setHostClass(true);
 
         this.ngZone.runOutsideAngular(() =>

@@ -11,6 +11,7 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
+import { DEFAULT_COLORS } from '../constant';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
@@ -26,6 +27,7 @@ import { ThyColorPickerModule } from '../module';
             thyColorPicker
             [(ngModel)]="color"
             (ngModelChange)="change($event)"
+            [thyPresetColors]="presetColors"
         ></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
@@ -47,6 +49,8 @@ class ThyDemoColorPickerComponent {
     defaultPanelColor = '#fafafa';
 
     hasBackdrop = true;
+
+    presetColors: string[];
 
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
@@ -200,6 +204,25 @@ describe(`color-picker`, () => {
             expect(overlayPaneElement.style.width).toEqual('286px');
             const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(colorDefaultPanelElement).toBeTruthy();
+        }));
+
+        it('should open color-picke default panel with preset colors', fakeAsync(() => {
+            fixture.componentInstance.presetColors = DEFAULT_COLORS.slice(0, 1);
+            fixture.detectChanges();
+            openDefaultPanel();
+            expect(overlayContainerElement).toBeTruthy();
+            fixture.detectChanges();
+            const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+            expect(overlayPaneElement).toBeTruthy();
+            fixture.detectChanges();
+            expect(overlayPaneElement.style.width).toEqual('286px');
+            const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            expect(colorDefaultPanelElement).toBeTruthy();
+            expect(overlayContainerElement.querySelectorAll('.color-item').length).toEqual(1);
+            const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
+            expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
+                `rgb(${thyColor.red}, ${thyColor.green}, ${thyColor.blue})`
+            );
         }));
 
         it('should open picker panel', fakeAsync(() => {

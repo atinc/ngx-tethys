@@ -1,21 +1,11 @@
-import {
-    OnInit,
-    OnDestroy,
-    Component,
-    ChangeDetectionStrategy,
-    Input,
-    Output,
-    Renderer2,
-    NgZone,
-    EventEmitter,
-    ElementRef
-} from '@angular/core';
+import { OnInit, OnDestroy, Component, ChangeDetectionStrategy, Input, Output, NgZone, EventEmitter, ElementRef } from '@angular/core';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
 import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { fromEvent, merge } from 'rxjs';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
@@ -66,21 +56,18 @@ export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDe
      */
     @Output() readonly thyMouseDown = new EventEmitter<ThyResizeHandleMouseDownEvent>();
 
-    constructor(
-        private ngZone: NgZone,
-        private thyResizableService: ThyResizableService,
-        private host: ElementRef<HTMLElement>,
-        private renderer: Renderer2
-    ) {
+    private hostRenderer = useHostRenderer();
+
+    constructor(private ngZone: NgZone, private thyResizableService: ThyResizableService, private host: ElementRef<HTMLElement>) {
         super();
     }
 
     ngOnInit(): void {
         this.thyResizableService.mouseEnteredOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(entered => {
             if (entered) {
-                this.renderer.addClass(this.host.nativeElement, 'thy-resizable-handle-box-hover');
+                this.hostRenderer.addClass('thy-resizable-handle-box-hover');
             } else {
-                this.renderer.removeClass(this.host.nativeElement, 'thy-resizable-handle-box-hover');
+                this.hostRenderer.removeClass('thy-resizable-handle-box-hover');
             }
         });
         this.ngZone.runOutsideAngular(() => {

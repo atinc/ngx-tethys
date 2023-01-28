@@ -1,4 +1,4 @@
-import { Renderer2, inject, ElementRef, RendererStyleFlags2 } from '@angular/core';
+import { Renderer2, inject, RendererStyleFlags2 } from '@angular/core';
 
 export abstract class AbstractElementRenderer {
     private renderer = inject(Renderer2);

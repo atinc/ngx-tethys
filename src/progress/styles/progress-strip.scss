@@ -1,0 +1,114 @@
+@use "../../styles/bootstrap/variables" as bootstrap-variables;
+@use "../../styles/bootstrap/mixins/transition";
+@use "../../styles/bootstrap/mixins/border-radius";
+@use "../../styles/bootstrap/mixins/gradients";
+@use "../../styles/variables";
+@keyframes progress-bar-stripes {
+    from {
+        background-position: variables.$progress-height 0;
+    }
+    to {
+        background-position: 0 0;
+    }
+}
+@mixin set-strip-size($height) {
+    .progress-bar {
+        overflow: hidden;
+        &:before {
+            left: -$height * 2 + 3;
+            width: $height * 2;
+            height: $height * 2;
+            @include border-radius.border-radius(0 $height * 2 $height * 2 0);
+        }
+        &:first-child {
+            @include border-radius.border-left-radius($height * 2);
+        }
+        &:last-child {
+            @include border-radius.border-right-radius($height * 2);
+        }
+    }
+}
+
+@include set-strip-size(variables.$progress-height);
+
+.progress-bar {
+    display: flex;
+    height: 100%;
+    min-width: 4px;
+    flex-direction: column;
+    justify-content: center;
+    color: bootstrap-variables.$progress-bar-color;
+    text-align: center;
+    @include transition.transition(bootstrap-variables.$progress-bar-transition);
+    position: relative;
+    &[aria-valuenow='0'] {
+        &:before {
+            display: none;
+        }
+    }
+    &:first-child {
+        &:before {
+            display: none;
+        }
+    }
+
+    &:last-child {
+        .progress-bar-inner {
+            border-right: 1px variables.$progress-split-color solid;
+            @include border-radius.border-radius(0 100px 100px 0);
+        }
+    }
+
+    &:before {
+        content: '';
+        position: absolute;
+        z-index: 1;
+        display: block;
+        background: variables.$progress-split-color;
+    }
+
+    .progress-bar-inner {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        justify-content: center;
+        color: bootstrap-variables.$progress-bar-color;
+        background-color: variables.$primary;
+        text-align: center;
+    }
+}
+
+.progress-bar-striped {
+    @include gradients.gradient-striped();
+    background-size: variables.$progress-height variables.$progress-height;
+}
+
+.progress-stacked {
+    .progress-bar {
+        background-color: variables.$progress-split-color;
+        &:last-child {
+            border-right: 1px variables.$progress-split-color solid;
+        }
+        .progress-bar-inner {
+            @include border-radius.border-radius(0 100px 100px 0);
+        }
+    }
+}
+
+.progress-bar-animated {
+    animation: progress-bar-stripes bootstrap-variables.$progress-bar-animation-timing;
+}
+
+@each $name, $color in variables.$progress-colors {
+    .progress-bar-#{$name} {
+        .progress-bar-inner {
+            background: $color;
+        }
+    }
+}
+
+@each $size, $height in variables.$progress-size {
+    .progress-#{$size} {
+        @include set-strip-size($height);
+    }
+}
