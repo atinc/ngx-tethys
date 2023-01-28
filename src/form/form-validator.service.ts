@@ -68,6 +68,7 @@ export class ThyFormValidatorService implements OnDestroy {
                     return item;
                 }),
                 switchMap(item => {
+                    console.log(item, 3);
                     this.validateControl(control.name as string);
                     return of([]);
                 })
