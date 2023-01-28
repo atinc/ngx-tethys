@@ -58,7 +58,7 @@ export class ThyFormValidatorLoader {
         }
         return this.config.validateOn;
     }
-    
+
     isElementInInputGroup(element: HTMLElement) {
         return !!(element?.parentElement?.tagName.toUpperCase() === 'THY-INPUT-GROUP');
     }
