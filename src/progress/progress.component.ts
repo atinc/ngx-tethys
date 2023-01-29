@@ -3,6 +3,7 @@ import { helpers, isNumber } from 'ngx-tethys/util';
 import {
     ChangeDetectionStrategy,
     Component,
+    ElementRef,
     HostBinding,
     Input,
     OnChanges,
@@ -10,10 +11,11 @@ import {
     QueryList,
     SimpleChanges,
     TemplateRef,
+    ViewChild,
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import { useHostRenderer } from '@tethys/cdk/dom';
+import { useElementRenderer, useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
@@ -34,12 +36,14 @@ import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } 
         }
     ],
     host: {
-        class: `thy-progress progress`,
-        '[class.thy-progress-strip]': `thyShape === 'strip'`,
-        '[class.thy-progress-circle]': `thyShape === 'circle'`
+        class: `d-flex align-items-center thy-progress-container`
     }
 })
 export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
+    @ViewChild('progress', { read: ElementRef, static: true }) container: ElementRef;
+
+    containerRenderer = useElementRenderer();
+
     value: number | ThyProgressStackedValue[];
 
     bars: ThyProgressStripComponent[] = [];
@@ -52,7 +56,7 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     @HostBinding('attr.max') max = 100;
 
-    @HostBinding(`class.progress-stacked`) isStacked = false;
+    isStacked = false;
 
     @ViewChildren(ThyProgressStripComponent)
     set barsQueryList(value: QueryList<ThyProgressStripComponent>) {
@@ -128,7 +132,9 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     constructor() {}
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.setClasses();
+    }
 
     ngOnChanges(changes: SimpleChanges): void {}
 
@@ -148,5 +154,18 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     trackByFn(index: number) {
         return index;
+    }
+
+    private setClasses() {
+        this.containerRenderer.setElement(this.container.nativeElement);
+
+        const classNameList = ['thy-progress', 'progress', 'w-100', `thy-progress-${this.thyShape}`];
+        if (this.size) {
+            classNameList.push(`progress-${this.size}`);
+        }
+        if (this.isStacked) {
+            classNameList.push('progress-stacked');
+        }
+        this.containerRenderer.updateClass(classNameList);
     }
 }

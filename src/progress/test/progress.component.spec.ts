@@ -234,7 +234,7 @@ describe(`ThyProgressComponent`, () => {
         });
 
         function assertProgressAndBarComponentClass(styleWidth: string = '20%') {
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
             const barElement = progressBarComponent.nativeElement;
             expect(barElement.classList.contains(PROGRESS_BAR_CLASS_NAME)).toBe(true);
             expect(barElement.style.width).toEqual(styleWidth);
@@ -273,7 +273,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponent = fixture.debugElement.query(By.directive(ThyProgressStripComponent));
             assertProgressAndBarComponentClass();
-            expect(progressElement.classList.contains('progress-sm')).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains('progress-sm')).toBe(true);
         });
 
         it('should be correct percent with dynamically changed values', () => {
@@ -436,7 +436,7 @@ describe(`ThyProgressComponent`, () => {
 
         it('should be created progress component', () => {
             expect(progressComponent).toBeTruthy();
-            expect(progressElement.classList.contains('thy-progress-circle')).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains('thy-progress-circle')).toBe(true);
         });
 
         it('should show correct color when input type is success or warning', () => {
@@ -627,7 +627,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(3);
             progressBarElements.forEach(progressBarElement => {
@@ -704,7 +704,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(3);
             progressBarElements.forEach(progressBarElement => {
@@ -784,7 +784,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(4);
             progressBarElements.forEach(progressBarElement => {
@@ -819,7 +819,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(2);
             progressBarElements.forEach(progressBarElement => {
@@ -849,7 +849,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(2);
             progressBarElements.forEach(progressBarElement => {
@@ -924,7 +924,7 @@ describe(`ThyProgressComponent`, () => {
             fixture.detectChanges();
             progressBarComponents = fixture.debugElement.queryAll(By.directive(ThyProgressStripComponent));
             progressBarElements = progressBarComponents.map(item => item.nativeElement);
-            expect(progressElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
+            expect(progressComponent.query(By.css('.thy-progress')).nativeElement.classList.contains(PROGRESS_CLASS_NAME)).toBe(true);
 
             expect(progressBarElements.length).toBe(0);
             progressBarElements.forEach(progressBarElement => {

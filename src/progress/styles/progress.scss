@@ -34,3 +34,7 @@
         @include set-progress-size($height);
     }
 }
+
+.progress-text-content:not(:empty) {
+    margin-left: 10px;
+}
