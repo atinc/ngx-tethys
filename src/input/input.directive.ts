@@ -1,7 +1,7 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Optional, Renderer2, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -18,8 +18,7 @@ const inputGroupSizeMap = {
  * @order 10
  */
 @Directive({
-    selector: 'input[thyInput], select[thyInput]',
-    providers: [UpdateHostClassService],
+    selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
     exportAs: 'thyInput'
 })
 export class ThyInputDirective implements OnInit {
@@ -29,6 +28,8 @@ export class ThyInputDirective implements OnInit {
 
     private initialized = false;
 
+    private hostRenderer = useHostRenderer();
+
     /**
      * 输入框大小
      * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
@@ -37,9 +38,9 @@ export class ThyInputDirective implements OnInit {
     @Input()
     set thySize(size: ThyInputSize) {
         if (size && inputGroupSizeMap[size]) {
-            this.updateHostClassService.updateClass(inputGroupSizeMap[size]);
+            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
         } else {
-            this.updateHostClassService.updateClass([]);
+            this.hostRenderer.updateClass([]);
         }
     }
 
@@ -63,14 +64,7 @@ export class ThyInputDirective implements OnInit {
         return this.elementRef.nativeElement;
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private render: Renderer2,
-        @Optional() @Self() private control: NgControl
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(private elementRef: ElementRef, private render: Renderer2, @Optional() @Self() private control: NgControl) {}
 
     ngOnInit() {
         this.initialized = true;

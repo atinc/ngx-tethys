@@ -1,4 +1,3 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 
 import {
@@ -37,7 +36,7 @@ const password = 'password';
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
-    providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+    providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control',

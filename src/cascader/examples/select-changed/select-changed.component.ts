@@ -20,7 +20,7 @@ export class ThyCascaderSelectChangedExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info('select', values);
+        this.notifyService.info(`selected data is ${values}`);
     }
 
     public clearChange() {

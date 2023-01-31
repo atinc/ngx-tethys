@@ -16,12 +16,7 @@ description: 空状态时的展示占位组件。
 import { ThyEmptyModule } from "ngx-tethys/empty";
 ```
 
-## 如何使用
-```html
-<thy-empty></thy-empty>
-```
-展示效果：
-<example name="thy-empty-basic-example">
+<examples />
 
 ## 全局配置
 需要导入多语言模块，并配置默认显示的文本提示信息。

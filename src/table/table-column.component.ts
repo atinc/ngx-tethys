@@ -30,7 +30,7 @@ export const THY_TABLE_COLUMN_PARENT_COMPONENT = new InjectionToken<IThyTableCol
 export type FixedDirection = 'left' | 'right';
 
 @Component({
-    selector: 'thy-grid-column,thy-table-column',
+    selector: 'thy-table-column',
     template: '<ng-content></ng-content>',
     encapsulation: ViewEncapsulation.None
 })

@@ -1,7 +1,8 @@
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { Component, ContentChild, ElementRef, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, ContentChild, HostBinding, Input, OnInit, TemplateRef } from '@angular/core';
 
 export type ThyVoteSizes = 'default' | 'sm';
 
@@ -12,7 +13,6 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
 @Component({
     selector: 'thy-vote,[thyVote]',
     templateUrl: './vote.component.html',
-    providers: [UpdateHostClassService],
     host: {
         '[class.thy-vote-disabled]': `thyDisabled`
     }
@@ -27,6 +27,8 @@ export class ThyVoteComponent implements OnInit {
     _initialized = false;
 
     _isRound = false;
+
+    private hostRenderer = useHostRenderer();
 
     @HostBinding(`class.thy-vote`) class = true;
 
@@ -77,9 +79,7 @@ export class ThyVoteComponent implements OnInit {
 
     @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
 
-    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor() {}
 
     ngOnInit() {
         this._setClassesByType();
@@ -103,6 +103,6 @@ export class ThyVoteComponent implements OnInit {
         classNames.push(`thy-vote-${this._type}`);
         classNames.push(`thy-vote-${this._layout}`);
         classNames.push(`thy-vote-${this._layout}-size-${this._size}`);
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 }

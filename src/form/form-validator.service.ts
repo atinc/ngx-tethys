@@ -1,7 +1,7 @@
 import { Dictionary } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
@@ -67,6 +67,9 @@ export class ThyFormValidatorService implements OnDestroy {
             .pipe(
                 debounceTime(100),
                 distinctUntilChanged(),
+                filter(item => {
+                    return item;
+                }),
                 switchMap(item => {
                     this.validateControl(control.name as string);
                     return of([]);
@@ -93,10 +96,10 @@ export class ThyFormValidatorService implements OnDestroy {
             errorMessages: []
         };
         if (this._getValidateOn() === 'change') {
-            this._setControlValidateByChange((control as unknown) as NgControl);
+            this._setControlValidateByChange(control as NgControl);
         } else {
             if (this._getValidateOn() === 'blur') {
-                this._setControlValidateByBlur((control as unknown) as NgControl);
+                this._setControlValidateByBlur(control as NgControl);
             }
 
             control.valueChanges.pipe(takeUntil(this._destroy$)).subscribe(item => {
@@ -175,7 +178,7 @@ export class ThyFormValidatorService implements OnDestroy {
         if (this._getValidateOn() !== 'submit') {
             (controls || []).forEach((control: NgControl) => {
                 if (!this._controls.find(item => item.name === control.name)) {
-                    this._initializeFormControlValidation(control.name as string, control as any);
+                    this._initializeFormControlValidation(control.name as string, control);
                 }
             });
             this._controls = controls;

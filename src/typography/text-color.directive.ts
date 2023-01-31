@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Directive({
     selector: '[thyTextColor]',
@@ -7,6 +8,8 @@ import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor } from 'ngx-teth
 })
 export class ThyTextColorDirective implements OnInit {
     private color: ThyThemeColor | ThyTextColor | string = '';
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * @type ThyThemeColor | ThyTextColor | string
@@ -18,22 +21,22 @@ export class ThyTextColorDirective implements OnInit {
         this.setColor();
     }
 
-    constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+    constructor(private elementRef: ElementRef) {}
 
     ngOnInit(): void {}
 
     private setColor() {
         if (isThemeColor(this.color) || isTextColor(this.color)) {
-            this.renderer.addClass(this.elementRef.nativeElement, `text-${this.color}`);
+            this.hostRenderer.addClass(`text-${this.color}`);
         } else {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'color', this.color);
+            this.hostRenderer.setStyle('color', this.color);
         }
     }
 
     private clearColor() {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'color', '');
+        this.hostRenderer.setStyle('color', '');
         if (isThemeColor(this.color) || isTextColor(this.color)) {
-            this.renderer.removeClass(this.elementRef.nativeElement, `text-${this.color}`);
+            this.hostRenderer.removeClass(`text-${this.color}`);
         }
     }
 }

@@ -15,5 +15,4 @@ subtitle: 数据统计
 import { ThyStatisticModule } from "ngx-tethys/statistic";
 ```
 
-## 如何使用
 <examples/>

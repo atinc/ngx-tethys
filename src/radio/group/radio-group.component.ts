@@ -1,8 +1,7 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { useHostRenderer } from '../../../cdk/dom';
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { ThyRadioComponent } from '../radio.component';
 
@@ -19,7 +18,6 @@ const radioGroupLayoutMap = {
     selector: 'thy-radio-group',
     templateUrl: './radio-group.component.html',
     providers: [
-        UpdateHostClassService,
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyRadioGroupComponent),
@@ -35,8 +33,6 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     @HostBinding('class.btn-group-outline-default')
     isButtonGroupOutline = false;
-    // @HostBinding('class.radio-group-layout-flex')
-    // isFullLayout = false;
 
     private _size: string;
 
@@ -56,6 +52,8 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     radios: Array<ThyRadioComponent | ThyRadioButtonComponent> = [];
 
+    private hostRenderer = useHostRenderer();
+
     @Input()
     set thyDisabled(value: boolean) {
         this.setDisabledState(value);
@@ -64,13 +62,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
     onChange: (_: string) => void = () => null;
     onTouched: () => void = () => null;
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef,
-        private changeDetectorRef: ChangeDetectorRef
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(private changeDetectorRef: ChangeDetectorRef) {}
 
     addRadio(radio: ThyRadioComponent | ThyRadioButtonComponent): void {
         this.radios.push(radio);
@@ -126,6 +118,6 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
         if (radioGroupLayoutMap[this._layout]) {
             classNames.push(radioGroupLayoutMap[this._layout]);
         }
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 }

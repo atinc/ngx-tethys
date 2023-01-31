@@ -213,7 +213,6 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         setTimeout(() => {
             this.loadingDone = true;
         }, 100);
-        console.log(this.formGroup);
     }
 
     save() {

@@ -16,7 +16,7 @@ subtitle: 新手引导
 import { ThyGuiderModule } from "ngx-tethys/guider";
 ```
 
-## 基本使用
+## 如何使用
 新手引导需要导入 `ThyGuider` 服务。使用服务中提供的 `ThyGuider.create` 方法传入相关的配置生成 `thyGuiderRef`，
 以此来实现对新手引导前进、后退、关闭等操作。 
 
@@ -43,8 +43,8 @@ startTour() {
 ```html
 <button class="basic-hint-target" thyButton="primary" (click)="startTour()">开始</button>
 ```
-展示效果：
-<example name="thy-guider-basic-tip-example" inline>
+
+<examples />
 
 ## 自定义显示的位置
 新手引导可以自定义高亮区域以及提示面板的位置。

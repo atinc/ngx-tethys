@@ -1,21 +1,19 @@
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { animationFrameScheduler, of } from 'rxjs';
+
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { ApplicationRef, Component, DebugElement, Sanitizer, SecurityContext, ViewChild, OnInit } from '@angular/core';
-import { waitForAsync, fakeAsync, flush, inject, TestBed, tick, ComponentFixture } from '@angular/core/testing';
+import { ApplicationRef, Component, DebugElement, OnInit, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
-import { of } from 'rxjs';
-import { bigTreeNodes } from '../examples/mock-data';
-import { UpdateHostClassService } from '../../core';
+
 import { ThyFormModule } from '../../form';
 import { ThyIconComponent, ThyIconRegistry } from '../../icon';
-import { searchTreeSelectData } from '../examples/mock-data';
+import { bigTreeNodes, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { filterTreeData, ThyTreeSelectComponent } from '../tree-select.component';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
-import { createDragEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { animationFrameScheduler } from 'rxjs';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -413,7 +411,6 @@ describe('ThyTreeSelect', () => {
             imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
             providers: [
-                UpdateHostClassService,
                 {
                     provide: Sanitizer,
                     useValue: {
@@ -512,6 +509,8 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
 
+                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onModelTouch');
+
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
                 fixture.detectChanges();
@@ -524,6 +523,7 @@ describe('ThyTreeSelect', () => {
                 clearElement.click();
                 fixture.detectChanges();
                 expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+                expect(touchSpy).toHaveBeenCalled();
             }));
 
             it('should close popup when click document', fakeAsync(() => {
@@ -722,6 +722,16 @@ describe('ThyTreeSelect', () => {
             const fixture = TestBed.createComponent(SearchTreeSelectComponent);
             fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
+
+            const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onModelTouch');
+            const blurSpy = spyOn<any>(fixture.componentInstance.treeSelect.elementRef?.nativeElement, 'onblur');
+            const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
+            dispatchFakeEvent(trigger, 'blur');
+
+            fixture.detectChanges();
+
+            expect(touchSpy).toHaveBeenCalled();
+            expect(blurSpy).toHaveBeenCalled();
         }));
 
         it('should show filter trees when has search text', fakeAsync(() => {

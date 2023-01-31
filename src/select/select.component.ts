@@ -1,7 +1,6 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
-import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -15,8 +14,7 @@ const noop = () => {};
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySelectComponent),
             multi: true
-        },
-        UpdateHostClassService
+        }
     ]
 })
 export class ThySelectComponent implements ControlValueAccessor, OnInit {
@@ -25,7 +23,11 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
     _disabled = false;
     _size: InputSize;
     _expandOptions = false;
+
+    private hostRenderer = useHostRenderer();
+
     private onTouchedCallback: () => void = noop;
+
     private onChangeCallback: (_: any) => void = noop;
 
     @HostBinding('class.thy-select') _isSelect = true;
@@ -57,9 +59,7 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._disabled = isDisabled;
     }
 
-    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor() {}
 
     ngModelChange() {
         this.onChangeCallback(this._innerValue);
@@ -68,7 +68,7 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
 
     ngOnInit() {
         const classes = this._size ? [`thy-select-${this._size}`] : [];
-        this.updateHostClassService.updateClass(classes);
+        this.hostRenderer.updateClass(classes);
     }
 
     clearSelectValue(event: Event) {

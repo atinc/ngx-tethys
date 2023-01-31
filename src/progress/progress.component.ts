@@ -1,18 +1,22 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ChangeDetectionStrategy,
-    ElementRef,
-    ViewEncapsulation,
-    ViewChildren,
-    QueryList,
-    TemplateRef
-} from '@angular/core';
-import { ThyProgressType, ThyProgressStackedValue } from './interfaces';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { THY_PROGRESS_COMPONENT, ThyProgressBarComponent, ThyParentProgress } from './bar/progress-bar.component';
 import { helpers, isNumber } from 'ngx-tethys/util';
+
+import {
+    ChangeDetectionStrategy,
+    Component,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    QueryList,
+    SimpleChanges,
+    TemplateRef,
+    ViewChildren,
+    ViewEncapsulation
+} from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+
+import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
+import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
 
 /**
  * 进度条组件
@@ -24,31 +28,34 @@ import { helpers, isNumber } from 'ngx-tethys/util';
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     providers: [
-        UpdateHostClassService,
         {
             provide: THY_PROGRESS_COMPONENT,
             useExisting: ThyProgressComponent
         }
     ],
     host: {
-        class: 'thy-progress progress'
+        class: `thy-progress progress`,
+        '[class.thy-progress-strip]': `thyShape === 'strip'`,
+        '[class.thy-progress-circle]': `thyShape === 'circle'`
     }
 })
-export class ThyProgressComponent implements ThyParentProgress {
+export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];
 
-    bars: ThyProgressBarComponent[] = [];
+    bars: ThyProgressStripComponent[] = [];
 
     barsTotalValue: number;
 
     private settedMax: number;
 
+    private hostRenderer = useHostRenderer();
+
     @HostBinding('attr.max') max = 100;
 
     @HostBinding(`class.progress-stacked`) isStacked = false;
 
-    @ViewChildren(ThyProgressBarComponent)
-    set barsQueryList(value: QueryList<ThyProgressBarComponent>) {
+    @ViewChildren(ThyProgressStripComponent)
+    set barsQueryList(value: QueryList<ThyProgressStripComponent>) {
         this.bars = value.toArray();
     }
 
@@ -61,8 +68,9 @@ export class ThyProgressComponent implements ThyParentProgress {
      * 进度条大小: `'sm' | 'md' 'xs'`
      * @default md
      */
-    @Input() set thySize(size: string) {
-        this.updateHostClassService.updateClass(size ? [`progress-${size}`] : []);
+    @Input() set thySize(size: string | number) {
+        this.size = size;
+        this.hostRenderer.updateClass(size ? [`progress-${size}`] : []);
     }
 
     /**
@@ -95,9 +103,34 @@ export class ThyProgressComponent implements ThyParentProgress {
      */
     @Input() thyTips: string | TemplateRef<unknown>;
 
-    constructor(private updateHostClassService: UpdateHostClassService, elementRef: ElementRef) {
-        this.updateHostClassService.initializeElement(elementRef);
-    }
+    /**
+     * 进度形状 'strip' | 'circle'
+     * @default strip
+     */
+    @Input() thyShape: ThyProgressShapeType = 'strip';
+
+    /**
+     * 圆形进度条缺口角度，可取值 0 ~ 360
+     */
+    @Input() thyGapDegree?: number = undefined;
+
+    /**
+     * 	圆形进度条缺口位置
+     */
+    @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
+
+    /**
+     * 	圆形进度条线的宽度
+     */
+    @Input() thyStrokeWidth: number;
+
+    size: string | number;
+
+    constructor() {}
+
+    ngOnInit() {}
+
+    ngOnChanges(changes: SimpleChanges): void {}
 
     calculateMax() {
         if (isNumber(this.settedMax) && this.settedMax > 0) {
@@ -111,5 +144,9 @@ export class ThyProgressComponent implements ThyParentProgress {
         this.bars.forEach(bar => {
             bar.recalculatePercentage();
         });
+    }
+
+    trackByFn(index: number) {
+        return index;
     }
 }

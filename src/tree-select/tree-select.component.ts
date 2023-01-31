@@ -19,7 +19,6 @@ import {
     OnDestroy,
     OnInit,
     PLATFORM_ID,
-    Renderer2,
     TemplateRef,
     ViewChild
 } from '@angular/core';
@@ -67,9 +66,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     @HostBinding('class.menu-is-opened') expandTreeSelectOptions = false;
 
     @HostBinding('class.thy-select-custom--multiple') isMulti = false;
-
-    // @HostBinding('attr.tabindex')
-    // tabIndex = '0';
 
     public treeNodes: ThyTreeSelectNode[];
 
@@ -226,7 +222,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     constructor(
         public elementRef: ElementRef,
-        public renderer: Renderer2,
         private ngZone: NgZone,
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,

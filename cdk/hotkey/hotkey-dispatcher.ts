@@ -2,10 +2,21 @@ import { coerceElement } from '@angular/cdk/coercion';
 import { DOCUMENT } from '@angular/common';
 import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
 import { ThyEventDispatcher } from '@tethys/cdk/event';
-import { fromEvent, Observable, Subscriber } from 'rxjs';
+import { fromEvent, Observable, OperatorFunction, Subscriber } from 'rxjs';
 import { filter } from 'rxjs/operators';
 import { isFormElement, isString, isUndefinedOrNull } from '@tethys/cdk/is';
 import { isHotkey } from './hotkey';
+
+function runInZone<T>(zone: NgZone): OperatorFunction<T, T> {
+    return source => {
+        return new Observable(observer => {
+            const onNext = (value: T) => zone.run(() => observer.next(value));
+            const onError = (e: any) => zone.run(() => observer.error(e));
+            const onComplete = () => zone.run(() => observer.complete());
+            return source.subscribe(onNext, onError, onComplete);
+        });
+    };
+}
 
 @Injectable({ providedIn: 'root' })
 export class ThyHotkeyDispatcher extends ThyEventDispatcher {
@@ -36,13 +47,11 @@ export class ThyHotkeyDispatcher extends ThyEventDispatcher {
                     if (isFormElement(this.document.activeElement) && this.document.activeElement !== scope) {
                         return;
                     }
-                    this.ngZone.run(() => {
-                        subscriber.next(event);
-                    });
+                    subscriber.next(event);
                 });
             return () => {
                 subscription.unsubscribe();
             };
-        });
+        }).pipe(runInZone(this.ngZone));
     }
 }

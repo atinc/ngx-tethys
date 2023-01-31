@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { listOfOption } from '../mock-data';
 
 @Component({
@@ -21,6 +21,8 @@ import { listOfOption } from '../mock-data';
 })
 export class ThySelectCustomBasicExampleComponent implements OnInit {
     listOfOption = listOfOption;
+
+    @ViewChild('origin', { read: ElementRef, static: true }) customizeOrigin: ElementRef;
 
     ngOnInit() {}
 }

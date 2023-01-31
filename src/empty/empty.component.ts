@@ -1,6 +1,6 @@
-import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterViewInit,
     Component,
@@ -10,7 +10,6 @@ import {
     Input,
     NgZone,
     OnInit,
-    Renderer2,
     TemplateRef,
     SimpleChanges
 } from '@angular/core';
@@ -52,8 +51,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 
 @Component({
     selector: 'thy-empty',
-    templateUrl: './empty.component.html',
-    providers: [UpdateHostClassService]
+    templateUrl: './empty.component.html'
 })
 export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
     // 显示的文本，优先级 100 最高
@@ -97,6 +95,8 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
     private size: string = 'md';
 
     private _initialized = false;
+
+    private hostRenderer = useHostRenderer();
 
     presetSvg: SafeAny;
 
@@ -146,7 +146,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
             }
         }
         if (marginTop) {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'marginTop', marginTop + 'px');
+            this.hostRenderer.setStyle('marginTop', marginTop + 'px');
         }
     }
 
@@ -154,13 +154,9 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
         private thyTranslate: ThyTranslate,
         private thyEmptyConfig: ThyEmptyConfig,
         private elementRef: ElementRef,
-        private renderer: Renderer2,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService,
         private sanitizer: DomSanitizer
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    ) {}
 
     ngOnInit() {
         this.updateClass();
@@ -171,7 +167,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
     updateClass() {
         const classList = sizeClassMap[this.size] || sizeClassMap['md'];
         if (classList) {
-            this.updateHostClassService.updateClass(classList);
+            this.hostRenderer.updateClass(classList);
         }
     }
 

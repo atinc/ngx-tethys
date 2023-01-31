@@ -1,4 +1,4 @@
-import { InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputNumber } from 'ngx-tethys/core';
 import { ThyTagSize } from 'ngx-tethys/tag';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -14,6 +14,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { SelectOptionBase } from '../../option/select-option-base';
 
@@ -25,7 +26,6 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThySelectControlComponent implements OnInit {
@@ -48,6 +48,8 @@ export class ThySelectControlComponent implements OnInit {
     searchInputControlClass: { [key: string]: boolean };
 
     tagSize: ThyTagSize;
+
+    private hostRenderer = useHostRenderer();
 
     @Input()
     get thyPanelOpened(): boolean {
@@ -113,7 +115,10 @@ export class ThySelectControlComponent implements OnInit {
                     this.setInputValue('');
                 });
             }
-            this.inputElement.nativeElement.focus();
+            //等待组件渲染好再聚焦
+            setTimeout(() => {
+                this.inputElement.nativeElement.focus();
+            }, 200);
         }
     }
 
@@ -225,9 +230,7 @@ export class ThySelectControlComponent implements OnInit {
         );
     }
 
-    constructor(private renderer: Renderer2, private element: ElementRef<any>, private updateHostClassService: UpdateHostClassService) {
-        this.updateHostClassService.initializeElement(this.element.nativeElement);
-    }
+    constructor(private renderer: Renderer2) {}
 
     ngOnInit() {
         this.setSelectControlClass();
@@ -245,7 +248,7 @@ export class ThySelectControlComponent implements OnInit {
             [`panel-is-opened`]: this.panelOpened,
             [`disabled`]: this.disabled
         };
-        this.updateHostClassService.updateClassByMap(selectControlClass);
+        this.hostRenderer.updateClassByMap(selectControlClass);
         this.searchInputControlClass = {
             [`form-control`]: true,
             [`form-control-${this.thySize}`]: !!this.thySize,

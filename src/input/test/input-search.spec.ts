@@ -1,11 +1,13 @@
-import { Component, DebugElement, NgModule } from '@angular/core';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+
+import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+
 import { ThyInputSearchComponent, ThyInputSearchIconPosition } from '../input-search.component';
-import { ThyInputDirective } from './../input.directive';
-import { ThyInputModule } from './../module';
-import { dispatchMouseEvent, dispatchEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { ThyInputDirective } from '../input.directive';
+import { ThyInputModule } from '../module';
 
 @Component({
     selector: 'thy-input-search-basic-test',
@@ -25,6 +27,8 @@ import { dispatchMouseEvent, dispatchEvent, injectDefaultSvgIconSet } from 'ngx-
     `
 })
 class TestInputSearchBasicComponent {
+    @ViewChild(ThyInputSearchComponent, { static: false }) inputSearchComponent: ThyInputSearchComponent;
+
     searchText = '';
     thySize = 'sm';
     thyTheme = ``;
@@ -196,4 +200,18 @@ describe('input search', () => {
         fixture.detectChanges();
         expect(debugSearchElement.nativeElement.children[1].classList.contains('form-control-lg')).toBe(true);
     });
+
+    it('should call blur methods when blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedCallback');
+        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent['elementRef']?.nativeElement, 'onblur');
+        const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
+        dispatchFakeEvent(trigger, 'blur');
+
+        fixture.detectChanges();
+
+        expect(touchSpy).toHaveBeenCalled();
+        expect(blurSpy).toHaveBeenCalled();
+    }));
 });

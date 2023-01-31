@@ -1,12 +1,14 @@
-import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
+
 import { CommonModule } from '@angular/common';
+import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
 import { ThyInputNumberComponent } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
-import { keycodes } from 'ngx-tethys/util';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-input-number-test',
@@ -358,4 +360,16 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
     });
+
+    it('should call blur when blur and validateOn is blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const blurSpy = spyOn<any>(fixture.componentInstance.inputNumberComponent['elementRef']?.nativeElement, 'onblur');
+        const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;
+        dispatchFakeEvent(trigger, 'blur');
+
+        fixture.detectChanges();
+
+        expect(blurSpy).toHaveBeenCalled();
+    }));
 });

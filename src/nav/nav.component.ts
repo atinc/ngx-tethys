@@ -1,8 +1,8 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
 import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -65,7 +65,6 @@ const tabItemRight = 20;
     host: {
         class: 'thy-nav'
     },
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyNavComponent extends _MixinBase
@@ -89,6 +88,8 @@ export class ThyNavComponent extends _MixinBase
     public showMore = true;
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 导航类型
@@ -201,7 +202,7 @@ export class ThyNavComponent extends _MixinBase
         if (navSizeClassesMap[this.size]) {
             classNames.push(navSizeClassesMap[this.size]);
         }
-        this.updateHostClass.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 
     private curActiveIndex: number;
@@ -209,14 +210,12 @@ export class ThyNavComponent extends _MixinBase
     private prevActiveIndex: number = NaN;
 
     constructor(
-        private updateHostClass: UpdateHostClassService,
         private elementRef: ElementRef,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
         private popover: ThyPopover
     ) {
         super();
-        this.updateHostClass.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit() {

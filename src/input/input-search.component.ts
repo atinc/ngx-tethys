@@ -1,4 +1,4 @@
-import { Constructor, InputBoolean, MixinBase, mixinInitialized, ThyInitialized, UpdateHostClassService } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinInitialized, ThyInitialized } from 'ngx-tethys/core';
 
 import {
     ChangeDetectionStrategy,
@@ -13,6 +13,7 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyInputSize } from './input.directive';
 
@@ -37,7 +38,7 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
 @Component({
     selector: 'thy-input-search',
     templateUrl: './input-search.component.html',
-    providers: [UpdateHostClassService, CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
+    providers: [CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -51,6 +52,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     public onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
+
+    private hostRenderer = useHostRenderer();
 
     public disabled = false;
 
@@ -115,9 +118,8 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
      */
     @Output() thyClear: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService) {
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
         super();
-        updateHostClassService.initializeElement(this.elementRef.nativeElement);
     }
 
     ngOnInit(): void {
@@ -127,7 +129,7 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
 
     updateClasses(forceUpdate = false) {
         if (this.initialized || forceUpdate) {
-            this.updateHostClassService.updateClass([`thy-input-search-${this.iconPosition}`]);
+            this.hostRenderer.updateClass([`thy-input-search-${this.iconPosition}`]);
         }
     }
 
