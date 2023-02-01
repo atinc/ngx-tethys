@@ -114,7 +114,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     onKeydown(event: KeyboardEvent) {
         const keyCode = event.keyCode;
-        console.log(this.autocompleteComponent, 'this.autocompleteComponent');
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
