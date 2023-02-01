@@ -1,4 +1,13 @@
-<form thyForm name="demoForm" #demoForm="thyForm" #demoNgForm="ngForm" [thyFormValidatorConfig]="validateConfig">
+<div class="form-group form-inline">
+  <label for="validateOn">validateOn</label>
+  <select name="validateOn" class="form-control ml-2" required [(ngModel)]="validateOn" id="validateOn" (change)="changeValidateOn()">
+    <option value="change">change</option>
+    <option value="blur">blur</option>
+    <option value="submit">submit</option>
+  </select>
+</div>
+
+<form thyForm name="demoForm" #demoForm="thyForm" #demoNgForm="ngForm" [thyFormValidatorConfig]="validateConfig" *ngIf="loadingDone">
   <thy-form-group thyLabelText="Username" thyTips="Type peter to indicate that it already exists" thyLabelRequired>
     <input
       thyInput
@@ -11,7 +20,7 @@
     />
   </thy-form-group>
   <thy-form-group thyLabelText="Age" thyLabelRequired>
-    <input thyInput type="input" name="age" [(ngModel)]="model.age" max="100" min="10" required placeholder="Max is 100, min is 10" />
+    <input thyInput type="number" name="age" [(ngModel)]="model.age" max="100" min="10" required placeholder="Max is 100, min is 10" />
   </thy-form-group>
 
   <thy-form-group thyLabelText="Password" thyLabelRequired>
