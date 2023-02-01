@@ -18,10 +18,4 @@ import { ThyLoadingModule } from 'ngx-tethys/loading';
 ```
 
 
-## 基本使用
-
-```html
-<thy-loading [thyDone]="loadingDone"></thy-loading>
-```
-
-<example name="thy-loading-basic-example" />  
+<examples />

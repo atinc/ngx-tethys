@@ -15,14 +15,4 @@ subtitle: 菜单
 import { ThyMenuModule } from "ngx-tethys/menu";
 ```
 
-## 基本使用
-
-<example name="thy-menu-basic-example" />
-
-## 分组
-
-<example name="thy-menu-group-example" />
-
-## 主题
-
-<example name="thy-menu-theme-example" />
+<examples />

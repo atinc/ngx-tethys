@@ -1,8 +1,7 @@
-import { ThyFormDirective, ThyFormValidatorConfig } from 'ngx-tethys/form';
+import { ThyFormDirective, ThyFormValidatorConfig, ThyValidateOn } from 'ngx-tethys/form';
 import { Component, OnInit } from '@angular/core';
 import { of } from 'rxjs';
 import { map } from 'rxjs/operators';
-
 @Component({
     selector: 'thy-form-validators-example',
     templateUrl: './validators.component.html'
@@ -10,7 +9,12 @@ import { map } from 'rxjs/operators';
 export class ThyFormValidatorsExampleComponent implements OnInit {
     submitSuccess = false;
 
+    validateOn: ThyValidateOn = 'change';
+
+    loadingDone = true;
+
     validateConfig: ThyFormValidatorConfig = {
+        validateOn: 'change',
         validationMessages: {
             username: {
                 required: 'Username is required',
@@ -45,6 +49,14 @@ export class ThyFormValidatorsExampleComponent implements OnInit {
     save() {
         console.log(`submit success!`);
         this.submitSuccess = true;
+    }
+
+    changeValidateOn() {
+        this.loadingDone = false;
+        this.validateConfig.validateOn = this.validateOn;
+        setTimeout(() => {
+            this.loadingDone = true;
+        }, 0);
     }
 
     checkUsername = (name: string) => {

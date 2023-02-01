@@ -1,4 +1,4 @@
-import { InputBoolean, isTextColor, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, isTextColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
@@ -13,7 +13,6 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
     selector: 'thy-badge,[thyBadge]',
     templateUrl: './badge.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [UpdateHostClassService],
     host: {
         class: 'thy-badge-container',
         '[class.thy-badge-wrapper]': 'isWrapper'

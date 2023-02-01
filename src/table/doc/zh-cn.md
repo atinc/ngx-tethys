@@ -18,29 +18,7 @@ name: table
 import { ThyTableModule } from "ngx-tethys/table";
 ```
 
-## 基本使用
-
-```html
-<thy-table [thyModel]="data" thyRowKey="id">
-  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
-  <thy-table-column thyTitle="" thyClassName="thy-operation-links">
-    <ng-template #cell let-row>
-      <a class="link-secondary" href="javascript:;">
-        <thy-icon thyIconName="user-add"></thy-icon>
-      </a>
-      <a class="link-danger-weak" href="javascript:;">
-        <thy-icon thyIconName="trash"></thy-icon>
-      </a>
-    </ng-template>
-  </thy-table-column>
-</thy-table>
-```
-
-<!-- <example name="thy-table-basic-example" /> -->
+<examples />
 
 
 

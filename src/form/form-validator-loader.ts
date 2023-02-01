@@ -52,6 +52,13 @@ export class ThyFormValidatorLoader {
         return this.config.validationMessages;
     }
 
+    get validateOn() {
+        if (!this.config?.validateOn) {
+            this.config.validateOn = 'submit';
+        }
+        return this.config.validateOn;
+    }
+
     isElementInInputGroup(element: HTMLElement) {
         return !!(element?.parentElement?.tagName.toUpperCase() === 'THY-INPUT-GROUP');
     }

@@ -1,5 +1,5 @@
 import { coerceNumberValue, isNumber } from 'ngx-tethys/util';
-import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 
@@ -25,7 +25,6 @@ export class FileSelectBaseDirective {
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
-        public renderer?: Renderer2,
         public ngZone?: NgZone
     ) {
         this.sizeThreshold = defaultConfig.sizeThreshold;

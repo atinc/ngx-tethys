@@ -18,29 +18,4 @@ label: new
 import { ThyCarouselModule } from 'ngx-tethys/carousel';
 ```
 
-## 如何使用
-
-- 自定义 control 样式,模板提供了 `thy-carousel-control` 垂直居中样式与 `thy-carousel-control-pre/next` 样式,方便定位到左右两侧。
-
-```html
-<ng-template #controlPrev>
-    <div class="thy-carousel-control thy-carousel-control-pre">
-        <thy-icon thyIconName="arrow-left-bold"></thy-icon>
-    </div>
-</ng-template>
-<ng-template #controlNext>
-    <div class="thy-carousel-control thy-carousel-control-next">
-        <thy-icon thyIconName="arrow-right-bold"></thy-icon>
-    </div>
-</ng-template>
-```
-
-- 自定义 indicator 样式,模板提供了 `active` 用于自行切换 选中样式 与 默认样式
-
-```html
-<ng-template #indicatorRender let-active>
-    <span class="custom-indicator" [class]="active ? 'active' : ''"></span>
-</ng-template>
-```
-
-<example name="thy-carousel-basic-example" />
+<examples />

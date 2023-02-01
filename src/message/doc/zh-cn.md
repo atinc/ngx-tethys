@@ -56,14 +56,4 @@ const THY_MESSAGE_DEFAULT_CONFIG_VALUE = {
 };
 ```
 
-## 基本使用
-```ts
-messageService.success('创建项目成功！', {
-    pauseOnHover: false,
-    showClose: true
-});
-messageService.success('创建项目成功！');
-```
-<example name="thy-message-basic-example"></example>
-
-<example name="thy-message-hover-example"></example>
+<examples />

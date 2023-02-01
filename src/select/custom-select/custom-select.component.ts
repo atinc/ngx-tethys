@@ -1,12 +1,4 @@
-import {
-    getFlexiblePositions,
-    InputBoolean,
-    InputNumber,
-    ScrollToService,
-    ThyClickDispatcher,
-    ThyPlacement,
-    UpdateHostClassService
-} from 'ngx-tethys/core';
+import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -103,8 +95,7 @@ const noop = () => {};
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySelectCustomComponent),
             multi: true
-        },
-        UpdateHostClassService
+        }
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
@@ -371,7 +362,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     constructor(
         private ngZone: NgZone,
         private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
         private viewportRuler: ViewportRuler,
         private changeDetectorRef: ChangeDetectorRef,
         private overlay: Overlay,
@@ -379,7 +369,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         @Inject(PLATFORM_ID) private platformId: string,
         @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
         this.buildScrollStrategy();
     }
 

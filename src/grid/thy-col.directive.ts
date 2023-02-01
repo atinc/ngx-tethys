@@ -1,5 +1,5 @@
-import { Directive, Input, OnChanges, ElementRef, Optional, Host, AfterViewInit, OnDestroy, Renderer2, OnInit } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { Directive, Input, OnChanges, Optional, Host, AfterViewInit, OnDestroy, OnInit } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyRowDirective } from './thy-row.directive';
 import { takeUntil } from 'rxjs/operators';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
@@ -19,7 +19,6 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
  */
 @Directive({
     selector: '[thyCol]',
-    providers: [UpdateHostClassService],
     host: {
         class: 'thy-col'
     }
@@ -31,14 +30,10 @@ export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, Af
      */
     @Input() thySpan: number | null = 24;
 
-    constructor(
-        private elementRef: ElementRef,
-        private renderer: Renderer2,
-        private updateHostClassService: UpdateHostClassService,
-        @Optional() @Host() public thyRowDirective: ThyRowDirective
-    ) {
+    private hostRenderer = useHostRenderer();
+
+    constructor(@Optional() @Host() public thyRowDirective: ThyRowDirective) {
         super();
-        this.updateHostClassService.initializeElement(this.elementRef);
     }
 
     ngOnInit() {
@@ -53,8 +48,7 @@ export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, Af
         if (this.thyRowDirective) {
             this.thyRowDirective.actualGutter$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(([horizontalGutter, verticalGutter]) => {
                 const renderGutter = (name: string, gutter: number) => {
-                    const nativeElement = this.elementRef.nativeElement;
-                    this.renderer.setStyle(nativeElement, name, `${gutter / 2}px`);
+                    this.hostRenderer.setStyle(name, `${gutter / 2}px`);
                 };
                 if (horizontalGutter > 0) {
                     renderGutter('padding-left', horizontalGutter);
@@ -69,7 +63,7 @@ export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, Af
     }
 
     private _setHostClassMap() {
-        this.updateHostClassService.updateClassByMap({
+        this.hostRenderer.updateClassByMap({
             [`thy-col-${this.thySpan}`]: true
         });
     }

@@ -14,24 +14,8 @@ subtitle: 分页
 ```ts
 import { ThyPaginationModule } from "ngx-tethys/pagination";
 ```
-## 如何使用
 
-最基本的使用如下：
-
-```
-<thy-pagination
-  [(thyPageIndex)]="currentIndex"
-  [thyPageSize]="10"
-  [thyTotal]="50"
-  [thyShowQuickJumper]="false"
-  [thyShowSizeChanger]="true"
-></thy-pagination>
-```
-
-展示效果如下：
-
-<example name="thy-pagination-basic-example" />
-
+<examples />
 
 ## 全局配置
 Pagination 支持全局统一配置组件每页的默认条数，上一页下一页按钮的显示文本等许多个性化的配置，具体的配置如下:

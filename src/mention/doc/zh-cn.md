@@ -38,6 +38,5 @@ export class ThyMentionBasicExampleComponent implements OnInit {
     ];
 }
 ```
-展示效果：
-<example inline name="thy-mention-basic-example" />
 
+<examples />

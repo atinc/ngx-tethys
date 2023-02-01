@@ -1,8 +1,8 @@
 import { isString } from 'ngx-tethys/util';
 
-import { Component, ElementRef, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import {
     ThyProgressCirclePath,
     ThyProgressGapPositionType,
@@ -12,20 +12,6 @@ import {
     ThyProgressType
 } from './interfaces';
 
-const typeColorMap = new Map([
-    ['primary', '#6698ff'],
-    ['success', '#73d897'],
-    ['info', '#5dcfff'],
-    ['warning', '#ffcd5d'],
-    ['danger', '#ff7575']
-]);
-
-const circleMap = new Map([
-    ['xs', 44],
-    ['sm', 80],
-    ['md', 112],
-    ['lg', 160]
-]);
 /**
  * @private
  */
@@ -33,19 +19,25 @@ const circleMap = new Map([
     selector: 'thy-progress-circle',
     templateUrl: './progress-circle.component.html',
     encapsulation: ViewEncapsulation.None,
-    providers: [UpdateHostClassService],
     host: {
         class: 'progress-circle'
     }
 })
 export class ThyProgressCircleComponent implements OnInit, OnChanges {
+    private hostRenderer = useHostRenderer();
+
     @Input() set thyType(type: ThyProgressType) {
-        this.updateHostClassService.updateClass(type ? [`progress-circle-${type}`] : []);
+        this.hostRenderer.updateClass(type ? [`progress-circle-${type}`] : []);
     }
 
     @Input() set thySize(size: string | number) {
-        this.size = size;
-        this.width = size ? (isString(size) ? circleMap.get(size) : size) : 112;
+        if (size) {
+            if (isString(size)) {
+                this.progressSize = `progress-circle-inner-${size}`;
+            } else {
+                this.width = size;
+            }
+        }
     }
 
     @Input() thyValue: number | ThyProgressStackedValue[];
@@ -68,38 +60,38 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
 
     public pathString?: string;
 
-    public width: number = 150;
+    public width: number = 112;
 
-    private size: string | number;
+    public progressSize: string;
 
     get strokeWidth(): number {
         return this.thyStrokeWidth || 6;
     }
 
-    constructor(private updateHostClassService: UpdateHostClassService, public elementRef: ElementRef) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    public value: number | ThyProgressStackedValue[];
+
+    constructor() {}
 
     ngOnInit() {
-        this.createCirclePaths();
+        this.createCircleProgress();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         const { thyGapDegree, thyValue, thyGapPosition } = changes;
 
         if (thyGapDegree || thyValue || thyGapPosition) {
-            this.createCirclePaths();
+            this.createCircleProgress();
         }
     }
 
-    private createCirclePaths(): void {
+    private createCircleProgress(): void {
         let values: ThyProgressStackedValue[] = [];
 
         if (Array.isArray(this.thyValue)) {
             let totalValue = 0;
             values = ((this.thyValue as unknown) as ThyProgressStackedValue[]).map((item, index) => {
                 totalValue += item.value;
-                const currentValue = this.thyMax && this.thyMax > 100 ? +((totalValue / this.thyMax) * 100).toFixed(2) : totalValue;
+                const currentValue = +((totalValue / this.thyMax) * 100).toFixed(2);
                 return { ...item, value: currentValue };
             });
         } else {
@@ -148,8 +140,10 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
             .map((item, index) => {
                 return {
                     stroke: null,
+                    value: +item.value,
+                    className: item.type ? `progress-circle-path-${item.type}` : null,
                     strokePathStyle: {
-                        stroke: item?.color ? item?.color : item.type ? typeColorMap.get(item.type) : null,
+                        stroke: item?.color ? item?.color : null,
                         transition: 'stroke-dashoffset .3s ease 0s, stroke-dasharray .3s ease 0s, stroke .3s, stroke-width .06s ease .3s',
                         strokeDasharray: `${((item.value || 0) / 100) * (len - gapDegree)}px ${len}px`,
                         strokeDashoffset: `-${gapDegree / 2}px`

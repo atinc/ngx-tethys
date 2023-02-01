@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
 import { ThyFormModule } from '../../../form';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { ThyIconModule } from '../../../icon/icon.module';
 import { ThySelectControlComponent, SelectControlSize } from './select-control.component';
 import { SelectOptionBase } from '../../option';
@@ -52,11 +51,8 @@ describe('ThySelectControl', () => {
     function configureThySelectControlTestingModule(declarations: any[]) {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ReactiveFormsModule, FormsModule, ThyIconModule, ThySelectCommonModule],
-            declarations: declarations,
-            providers: [UpdateHostClassService]
+            declarations: declarations
         }).compileComponents();
-
-        // injectDefaultSvgIconSet();
     }
     describe('core', () => {
         const testBaseOption: SelectOptionBase = { thyLabelText: '', thyRawValue: {}, thyValue: '' };

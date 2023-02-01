@@ -1,7 +1,8 @@
-import { Directive, Input, Renderer2, OnChanges, OnInit, AfterViewInit, OnDestroy, ElementRef } from '@angular/core';
+import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
@@ -25,7 +26,9 @@ export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, Af
 
     public actualGutter$ = new ReplaySubject<[number, number]>(1);
 
-    constructor(private renderer: Renderer2, private elementRef: ElementRef) {
+    private hostRenderer = useHostRenderer();
+
+    constructor() {
         super();
     }
 
@@ -43,8 +46,7 @@ export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, Af
         const [horizontalGutter, verticalGutter] = this._getGutter();
         this.actualGutter$.next([horizontalGutter, verticalGutter]);
         const renderGutter = (name: string, gutter: number) => {
-            const nativeElement = this.elementRef.nativeElement;
-            this.renderer.setStyle(nativeElement, name, `-${gutter / 2}px`);
+            this.hostRenderer.setStyle(name, `-${gutter / 2}px`);
         };
         if (horizontalGutter > 0) {
             renderGutter('margin-left', horizontalGutter);
