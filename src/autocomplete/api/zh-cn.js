@@ -23,7 +23,7 @@ module.exports = [
         name: 'thyAutocompleteTrigger',
         properties: [
             {
-                name: 'thyAutocompleteComponent',
+                name: 'thyAutocomplete',
                 description: '下拉菜单组件实例',
                 type: 'ThyAutocompleteComponent',
                 default: ''
