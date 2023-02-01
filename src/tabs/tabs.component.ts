@@ -1,24 +1,25 @@
 import {
+    AfterContentInit,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     Component,
     ContentChildren,
+    ElementRef,
     EventEmitter,
     Input,
+    OnChanges,
     OnInit,
     Output,
     QueryList,
-    TemplateRef,
-    AfterContentInit,
-    OnChanges,
     SimpleChanges,
-    ChangeDetectorRef,
-    ElementRef
+    TemplateRef
 } from '@angular/core';
 import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
-import { ThyTabComponent } from './tab.component';
-import { ThyActiveTabInfo, ThyTabChangeEvent } from './types';
-import { takeUntil } from 'rxjs/operators';
+import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+import { ThyTabComponent } from './tab.component';
+import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -58,10 +59,16 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     /**
      * 激活的项
      */
-    @Input() thyActiveTab: ThyActiveTabInfo = {
-        id: this.tabs[0]?.id || null,
-        index: 0
-    };
+    @Input()
+    set thyActiveTab(value: ThyActiveTabInfo) {
+        if (isString(value)) {
+            this.activeTabId = value;
+            this.activeTabIndex = undefined;
+        } else {
+            this.activeTabIndex = value;
+            this.activeTabId = undefined;
+        }
+    }
 
     /**
      * 附加操作
@@ -89,9 +96,11 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     /**
      * 激活的项发生改变时的回调
      */
-    @Output() thyActiveTabChange: EventEmitter<ThyTabChangeEvent> = new EventEmitter<ThyTabChangeEvent>();
+    @Output() thyActiveTabChange: EventEmitter<ThyTabActiveEvent> = new EventEmitter<ThyTabActiveEvent>();
 
     activeTabIndex: number = 0;
+
+    activeTabId: string;
 
     transitionStarted: boolean = false;
 
@@ -112,12 +121,6 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     ngOnChanges(changes: SimpleChanges): void {
         const { thyActiveTab } = changes;
         if (thyActiveTab && !thyActiveTab.firstChange && this.thyAnimated) {
-            // if (!thyActiveTab?.currentValue?.index) {
-            //     this.thyActiveTab = {
-            //         id: thyActiveTab?.currentValue.id,
-            //         index: Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id)
-            //     };
-            // }
             const index = thyActiveTab?.currentValue?.index || Array.from(this.tabs).findIndex(k => k.id === thyActiveTab?.currentValue.id);
             this.transitionStarted = this.activeTabIndex !== index;
             this.activeTabIndex = index;
@@ -126,10 +129,6 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     ngAfterContentInit() {
         this.tabs.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(data => {
-            // this.thyActiveTab = {
-            //     id: data._results[+data.length - 1].id || null,
-            //     index: data.length - 1
-            // };
             this.thyAnimated && (this.transitionStarted = true);
             this.activeTabIndex = data.length - 1;
         });
@@ -150,13 +149,11 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
         if (tab.thyDisabled) {
             return;
         }
-        this.thyActiveTab = {
-            id: tab.id || null,
-            index
-        };
+        this.activeTabId = tab.id || null;
         this.thyAnimated && (this.transitionStarted = this.activeTabIndex !== index);
         this.activeTabIndex = index;
-        this.thyActiveTabChange.emit(this.thyActiveTab);
+        const activeTab = tab.id ? tab.id : index;
+        this.thyActiveTabChange.emit(activeTab);
     }
 
     tabTrackBy(index: number, item: ThyTabComponent) {

@@ -5,6 +5,7 @@
     href="javascript:;"
     class="thy-nav-more-container"
     [class.d-none]="!showMore"
+    [class.invisible]="!initialized"
     #moreOperationContainer
     thyNavLink
     [thyNavLinkActive]="moreActive"
@@ -16,6 +17,7 @@
       <thy-icon thyIconName="angle-down" class="thy-nav-more-icon"></thy-icon>
     </ng-template>
   </a>
+  <thy-nav-ink-bar [showInkBar]="showInkBar" [isVertical]="thyVertical"></thy-nav-ink-bar>
 </div>
 
 <ng-template #navListPopover>

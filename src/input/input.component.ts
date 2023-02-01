@@ -1,13 +1,10 @@
 import {
-    AfterViewInit,
     Component,
     ContentChild,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     Output,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -15,7 +12,6 @@ import {
     OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 import { ThyInputSize } from './input.directive';
 
@@ -29,44 +25,91 @@ const noop = () => {};
 
 const password = 'password';
 
+/**
+ * 内部集成输入框组件，建议 thy-input-group 和 thyInput 组合使用
+ * @name thy-input
+ * @order 50
+ */
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
-    providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
-    encapsulation: ViewEncapsulation.None
+    providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+    encapsulation: ViewEncapsulation.None,
+    host: {
+        class: 'thy-input form-control',
+        '[class.form-control-active]': 'focused',
+        '[class.disabled]': 'disabled'
+    }
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
+    /**
+     * Placeholder
+     */
     @Input() placeholder = '';
 
+    /**
+     * 输入框大小
+     * @type 'xs' | 'sm' | 'md' | 'default' | 'lg'
+     * @default default
+     */
     @Input() thySize: ThyInputSize;
 
+    /**
+     * 是否自动聚焦
+     * @default false
+     */
     @Input() thyAutofocus = false;
+
+    /**
+     * 输入框类型
+     * @type 'number' | 'input'
+     */
+    @Input()
+    set thyType(value: string) {
+        this.type = value;
+    }
 
     /**
      * @deprecated please use thyType
      */
     @Input() type: string;
 
-    @Input()
-    set thyType(value: string) {
-        this.type = value;
-    }
-
+    /**
+     * 输入 Label 文本
+     */
     @Input() thyLabelText: string;
 
+    /**
+     * 是否只读
+     */
     @Input() readonly = false;
 
+    /**
+     *  输入字段是否应该启用自动完成功能
+     */
     @Input()
     set thyAutocomplete(value: boolean) {
         this.autocomplete = value;
     }
 
+    /**
+     * focus 聚焦事件
+     */
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * blur 失焦事件
+     */
     @Output() blur: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * 后置模板
+     */
     @ContentChild('append') appendTemplate: TemplateRef<any>;
 
+    /**
+     * 前置模板
+     */
     @ContentChild('prepend') prependTemplate: TemplateRef<any>;
 
     @ViewChild('eye', { static: true }) eyeTemplate: TemplateRef<any>;
@@ -79,17 +122,13 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     public showLabel: boolean;
 
+    public focused = false;
+
+    public disabled = false;
+
     private onTouchedCallback: () => void = noop;
 
     private onChangeCallback: (_: any) => void = noop;
-
-    @HostBinding('class.thy-input') _isSearchContainer = true;
-
-    @HostBinding('class.form-control') _isFormControl = true;
-
-    @HostBinding('class.form-control-active') _isFocus = false;
-
-    @HostBinding('class.disabled') disabled = false;
 
     constructor(private ngZone: NgZone) {}
 
@@ -122,13 +161,13 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     }
 
     onInputFocus(event: Event) {
-        this._isFocus = true;
+        this.focused = true;
         this.showLabel = true;
         this.focus.emit(event);
     }
 
     onInputBlur(event: Event) {
-        this._isFocus = false;
+        this.focused = false;
         this.showLabel = false;
         this.blur.emit(event);
     }

@@ -14,6 +14,9 @@ module.exports = {
             type: 'code'
         }
     ],
+    skip: {
+        confirm: true
+    },
     // backward compatibility changelog
     // because we didn't use tag prefix(v) when create tag before
     // should set tagPrefix as empty (default is 'v')

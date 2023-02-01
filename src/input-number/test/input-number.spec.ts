@@ -105,6 +105,10 @@ describe('input-number component', () => {
 
     it('should empty value work', () => {
         fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent.onModelChange('3');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.modelValue).toBe(3);
+        fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('');
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe('');
@@ -113,7 +117,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('aa');
         fixture.detectChanges();
-        expect(inputNumberComponentInstance.modelValue).toBe('');
+        expect(inputNumberComponentInstance.modelValue).toBe(undefined);
         const upElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
         expect(upElement).toBeTruthy();
         tick();

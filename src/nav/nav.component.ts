@@ -1,8 +1,8 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
-import { debounceTime, take, takeUntil } from 'rxjs/operators';
-
+import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import {
     AfterContentChecked,
     AfterContentInit,
@@ -16,13 +16,17 @@ import {
     HostBinding,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild
 } from '@angular/core';
 
+import { RouterLinkActive } from '@angular/router';
+import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
@@ -61,13 +65,13 @@ const tabItemRight = 20;
     host: {
         class: 'thy-nav'
     },
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnDestroy {
+export class ThyNavComponent extends _MixinBase
+    implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {
     private type: ThyNavType = 'pulled';
     private size: ThyNavSize = 'md';
-    private initialized = false;
+    public initialized = false;
 
     public horizontal: ThyNavHorizontal;
     public wrapperOffset: { height: number; width: number; left: number; top: number } = {
@@ -84,6 +88,8 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     public showMore = true;
 
     private moreBtnOffset: { height: number; width: number } = { height: 0, width: 0 };
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 导航类型
@@ -156,6 +162,11 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
     @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
 
     /**
+     * @private
+     */
+    @ContentChildren(RouterLinkActive, { descendants: true }) routers: QueryList<RouterLinkActive>;
+
+    /**
      * 响应式模式下更多操作模板
      * @type TemplateRef
      */
@@ -176,6 +187,13 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     @ViewChild('moreOperationContainer') defaultMoreOperation: ElementRef<HTMLAnchorElement>;
 
+    @ViewChild(ThyNavInkBarDirective, { static: true }) inkBar!: ThyNavInkBarDirective;
+
+    get showInkBar(): boolean {
+        const showTypes: ThyNavType[] = ['pulled', 'tabs'];
+        return showTypes.includes(this.type);
+    }
+
     private updateClasses() {
         let classNames: string[] = [];
         if (navTypeClassesMap[this.type]) {
@@ -184,22 +202,27 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         if (navSizeClassesMap[this.size]) {
             classNames.push(navSizeClassesMap[this.size]);
         }
-        this.updateHostClass.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 
+    private curActiveIndex: number;
+
+    private prevActiveIndex: number = NaN;
+
     constructor(
-        private updateHostClass: UpdateHostClassService,
         private elementRef: ElementRef,
         private ngZone: NgZone,
         private changeDetectorRef: ChangeDetectorRef,
         private popover: ThyPopover
     ) {
         super();
-        this.updateHostClass.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit() {
-        this.initialized = true;
+        if (!this.thyResponsive) {
+            this.initialized = true;
+        }
+
         this.updateClasses();
     }
 
@@ -210,17 +233,28 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
                 this.links.toArray().forEach(link => link.setOffset());
                 this.setHiddenItems();
             });
-
-            this.ngZone.runOutsideAngular(() => {
-                merge(this.links.changes, this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)))
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(() => {
-                        this.resetSizes();
-                        this.setHiddenItems();
-                        this.calculateMoreIsActive();
-                    });
-            });
         }
+        this.ngZone.runOutsideAngular(() => {
+            merge(
+                this.links.changes,
+                this.createResizeObserver(this.elementRef.nativeElement).pipe(debounceTime(100)),
+                ...this.links.map(item => this.createResizeObserver(item.elementRef.nativeElement).pipe(debounceTime(100))),
+                ...(this.routers || []).map(router => router?.isActiveChange)
+            )
+                .pipe(
+                    takeUntil(this.ngUnsubscribe$),
+                    tap(() => {
+                        if (this.thyResponsive) {
+                            this.resetSizes();
+                            this.setHiddenItems();
+                            this.calculateMoreIsActive();
+                        }
+                    })
+                )
+                .subscribe(() => {
+                    this.alignInkBarToSelectedTab();
+                });
+        });
     }
 
     ngAfterContentInit(): void {
@@ -233,6 +267,13 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     ngAfterContentChecked() {
         this.calculateMoreIsActive();
+
+        this.curActiveIndex = this.links && this.links.length ? this.links.toArray().findIndex(item => item.linkIsActive()) : -1;
+        if (this.curActiveIndex < 0) {
+            this.inkBar.hide();
+        } else if (this.curActiveIndex !== this.prevActiveIndex) {
+            this.alignInkBarToSelectedTab();
+        }
     }
 
     private setMoreBtnOffset() {
@@ -285,6 +326,7 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
         });
 
         this.showMore = this.hiddenItems.length > 0;
+        this.initialized = true;
     }
 
     private getShowItemsEndIndexWhenHorizontal(tabs: ThyNavItemDirective[]) {
@@ -355,6 +397,32 @@ export class ThyNavComponent extends _MixinBase implements OnInit, AfterViewInit
 
     navItemClick(item: ThyNavItemDirective) {
         item.elementRef.nativeElement.click();
+    }
+
+    private alignInkBarToSelectedTab(): void {
+        if (!this.showInkBar) {
+            this.inkBar.hide();
+            return;
+        }
+        const tabs = this.links?.toArray() ?? [];
+        const selectedItem = tabs.find(item => item.linkIsActive());
+        let selectedItemElement: HTMLElement = selectedItem && selectedItem.elementRef.nativeElement;
+
+        if (selectedItem && this.moreActive) {
+            selectedItemElement = this.defaultMoreOperation.nativeElement;
+        }
+        if (selectedItemElement) {
+            this.prevActiveIndex = this.curActiveIndex;
+            this.inkBar.alignToElement(selectedItemElement);
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyVertical, thyType } = changes;
+
+        if (thyType?.currentValue !== thyType?.previousValue || thyVertical?.currentValue !== thyVertical?.previousValue) {
+            this.alignInkBarToSelectedTab();
+        }
     }
 
     ngOnDestroy() {

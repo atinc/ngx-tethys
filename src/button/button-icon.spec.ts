@@ -1,6 +1,5 @@
-import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
-import { TestBed, ComponentFixture, inject } from '@angular/core/testing';
-import { UpdateHostClassService } from '../core';
+import { Component, DebugElement } from '@angular/core';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { ThyButtonModule } from './button.module';
 import { ThyIconComponent } from '../icon';
 import { By } from '@angular/platform-browser';
@@ -23,7 +22,7 @@ describe(`button-icon`, () => {
         TestBed.configureTestingModule({
             imports: [ThyButtonModule],
             declarations: [BasicButtonIconComponent],
-            providers: [UpdateHostClassService, bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider]
         }).compileComponents();
 
         injectDefaultSvgIconSet();

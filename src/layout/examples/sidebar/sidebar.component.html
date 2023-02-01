@@ -94,7 +94,7 @@
     (thyCollapsedChange)="collapsedChange($event)"
   >
     Sidebar with collapsible
-    <a *ngIf="collapsed" href="javascript:;" (click)="collapsed = !collapsed">Expand</a>
+    <a *ngIf="collapsed" href="javascript:;" (click)="toggleCollapsed()">Expand</a>
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>

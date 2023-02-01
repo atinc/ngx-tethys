@@ -142,6 +142,12 @@ module.exports = [
                 description: '注入到弹出框的值最大高度',
                 type: ' TData | null',
                 default: ''
+            },
+            {
+                name: 'disableCloseLatest',
+                description: '是否禁用关闭上一个已打开的slideRef',
+                type: 'boolean',
+                default: 'false'
             }
         ]
     },

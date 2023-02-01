@@ -1,19 +1,35 @@
-<div class="bg-white">
-  <thy-nav thySize="lg" thyType="pulled">
-    <a href="javascript:;" thyNavItem thyNavItemActive="true">导航一</a>
-    <a href="javascript:;" thyNavItem>导航二</a>
+<thy-button-group thySize="sm" thyType="outline-default" class="mb-4">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item" [ngClass]="{ active: size === item }">
+    {{ item.text }}
+  </button>
+</thy-button-group>
+
+<div class="bg-example">
+  <thy-nav [thySize]="size.value" thyType="pulled">
+    <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 1</a>
+    <a href="javascript:;" thyNavItem>Item 2</a>
+    <a href="javascript:;" thyNavItem>Item 3</a>
+    <a href="javascript:;" thyNavItem>选项 4</a>
   </thy-nav>
-  <br />
 
-  <thy-nav thySize="md" thyType="pulled">
-    <a href="javascript:;" thyNavItem thyNavItemActive="true">导航一</a>
-    <a href="javascript:;" thyNavItem>导航二</a>
+  <thy-nav [thySize]="size.value" thyType="tabs">
+    <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 1</a>
+    <a href="javascript:;" thyNavItem>Item 2</a>
+    <a href="javascript:;" thyNavItem>Item 3</a>
+    <a href="javascript:;" thyNavItem>选项 4</a>
   </thy-nav>
 
-  <br />
+  <thy-nav [thySize]="size.value" thyType="lite">
+    <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 1</a>
+    <a href="javascript:;" thyNavItem>Item 2</a>
+    <a href="javascript:;" thyNavItem>Item 3</a>
+    <a href="javascript:;" thyNavItem>选项 4</a>
+  </thy-nav>
 
-  <thy-nav thySize="sm" thyType="pulled">
-    <a href="javascript:;" thyNavItem thyNavItemActive="true">导航一</a>
-    <a href="javascript:;" thyNavItem>导航二</a>
+  <thy-nav [thySize]="size.value" thyType="pills">
+    <a href="javascript:;" thyNavItem thyNavItemActive="true">Item 1</a>
+    <a href="javascript:;" thyNavItem>Item 2</a>
+    <a href="javascript:;" thyNavItem>Item 3</a>
+    <a href="javascript:;" thyNavItem>选项 4</a>
   </thy-nav>
 </div>

@@ -1,3 +1,4 @@
+import { coerceElement } from '@angular/cdk/coercion';
 import { ElementRef, TemplateRef } from '@angular/core';
 
 export function isUndefined(value: any): value is undefined {
@@ -109,4 +110,23 @@ export function isHTMLElement(value: any): value is HTMLElement {
 
 export function isElementRef(value: any): value is ElementRef {
     return value instanceof ElementRef;
+}
+
+export function isFormElement<T = Element>(elementOrRef: ElementRef<T> | T): boolean {
+    const element = coerceElement(elementOrRef);
+    if (!(element instanceof HTMLElement)) {
+        return false;
+    }
+    const name = element.nodeName.toLowerCase();
+    const type = (element.getAttribute('type') || '').toLowerCase();
+    return (
+        name === 'select' ||
+        name === 'textarea' ||
+        (name === 'input' && type !== 'submit' && type !== 'reset' && type !== 'checkbox' && type !== 'radio' && type !== 'file') ||
+        element.isContentEditable
+    );
+}
+
+export function isMacPlatform(userAgent = navigator.userAgent) {
+    return /macintosh|mac os x/i.test(userAgent);
 }

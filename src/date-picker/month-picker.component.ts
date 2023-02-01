@@ -1,18 +1,8 @@
-import {
-    forwardRef,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    Component,
-    ElementRef,
-    Host,
-    Input,
-    Optional,
-    Renderer2,
-    ViewEncapsulation
-} from '@angular/core';
+import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
 import { ThyPanelMode } from './standard-types';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -32,8 +22,10 @@ export class ThyMonthPickerComponent extends BasePickerComponent {
 
     thyMode: ThyPanelMode = 'month';
 
-    constructor(cdr: ChangeDetectorRef, renderer: Renderer2, elementRef: ElementRef) {
+    private hostRenderer = useHostRenderer();
+
+    constructor(cdr: ChangeDetectorRef) {
         super(cdr);
-        renderer.addClass(elementRef.nativeElement, 'thy-calendar-picker');
+        this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

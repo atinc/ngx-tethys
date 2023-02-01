@@ -6,7 +6,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By, DomSanitizer } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { bigTreeNodes } from '../examples/mock-data';
-import { UpdateHostClassService } from '../../core';
 import { ThyFormModule } from '../../form';
 import { ThyIconComponent, ThyIconRegistry } from '../../icon';
 import { searchTreeSelectData } from '../examples/mock-data';
@@ -413,7 +412,6 @@ describe('ThyTreeSelect', () => {
             imports: [ThyFormModule, ThyTreeSelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
             providers: [
-                UpdateHostClassService,
                 {
                     provide: Sanitizer,
                     useValue: {

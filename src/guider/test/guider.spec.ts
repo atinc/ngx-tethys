@@ -1,17 +1,16 @@
-import { Router } from '@angular/router';
-import { ThyGuiderRef } from '../guider-ref';
-import { ThyGuider } from '../guider.service';
-import { By } from '@angular/platform-browser';
-import { ThyGuiderModule } from '../guider.module';
-import { ThyGuiderManager } from '../guider-manager';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
-import { RouterTestingModule } from '@angular/router/testing';
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { Component, DebugElement, NgModule, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyGuiderHintComponent } from '../guider-hint/guider-hint.component';
+import { Router } from '@angular/router';
+import { RouterTestingModule } from '@angular/router/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { ThyGuiderManager } from '../guider-manager';
+import { ThyGuiderRef } from '../guider-ref';
 import { defaultGuiderPositionConfig, ThyGuiderConfig, ThyGuiderStep } from '../guider.class';
-import { TestBed, inject, ComponentFixture, tick, fakeAsync, flush } from '@angular/core/testing';
-import { Component, ViewChild, NgModule, TemplateRef, OnInit, DebugElement } from '@angular/core';
+import { ThyGuiderModule } from '../guider.module';
+import { ThyGuider } from '../guider.service';
 
 const guiderSteps: ThyGuiderStep[] = [
     {
@@ -35,7 +34,7 @@ const guiderSteps: ThyGuiderStep[] = [
     },
     {
         key: 'multi-steps-tip-end',
-        target: [500, 500],
+        target: { x: 500, y: 500 },
         data: {
             image: '',
             title: 'step 3/3',
@@ -108,7 +107,7 @@ class GuiderBasicComponent implements OnInit {
 
     public multiStepsOption: ThyGuiderConfig = {
         steps: guiderSteps,
-        defaultPosition: [100, 50]
+        defaultPosition: { x: 100, y: 50 }
     };
 
     public innerText = templateRefInnerText;
@@ -181,7 +180,52 @@ class TestGuiderDirectiveComponent implements OnInit {
         this.delayShow = true;
     }
 }
-const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent];
+
+@Component({
+    selector: 'test-guider-multi-targets',
+    template: `
+        <ng-container *ngIf="show">
+            <span class="target-0">Target-0</span>
+        </ng-container>
+        <ng-container>
+            <span class="target-1"> Target-1</span>
+        </ng-container>
+        <button class="trigger-guider-element" (click)="startGuider()">Open</button>
+    `
+})
+class TestGuiderMultiTargetsComponent implements OnInit {
+    public guiderRef: ThyGuiderRef;
+
+    public show = true;
+
+    constructor(private thyGuider: ThyGuider) {}
+
+    ngOnInit() {
+        this.guiderRef = this.thyGuider.create({
+            steps: [
+                {
+                    key: 'target-0',
+                    target: ['.target-0', '.target-1'],
+                    data: {
+                        image: '',
+                        title: '多Target情况下的展示',
+                        description: '设置相关的信息即可使用'
+                    }
+                }
+            ]
+        });
+    }
+
+    startGuider() {
+        this.guiderRef.start();
+    }
+
+    toggleShow() {
+        this.show = false;
+    }
+}
+
+const TEST_COMPONENTS = [GuiderBasicComponent, TestGuiderDirectiveComponent, TestGuiderMultiTargetsComponent];
 @NgModule({
     declarations: TEST_COMPONENTS,
     imports: [ThyGuiderModule, NoopAnimationsModule, OverlayModule],
@@ -562,6 +606,47 @@ describe(`thyGuider`, () => {
             const navArgs = spy.calls.first().args[0];
             const route = directiveGuiderSteps[2].route;
             expect(navArgs).toBe(route);
+        }));
+    });
+
+    describe('multi target', () => {
+        let fixtureOfMulti: ComponentFixture<TestGuiderMultiTargetsComponent>;
+        let fixtureInstanceOfMulti: TestGuiderMultiTargetsComponent;
+        let debugElement: DebugElement;
+        beforeEach(() => {
+            fixtureOfMulti = TestBed.createComponent(TestGuiderMultiTargetsComponent);
+            fixtureInstanceOfMulti = fixtureOfMulti.componentInstance;
+            debugElement = fixtureOfMulti.debugElement;
+            fixtureOfMulti.detectChanges();
+        });
+        it('should active first step target item when target is exist', fakeAsync(() => {
+            const btn = debugElement.query(By.css('.trigger-guider-element')).nativeElement as HTMLInputElement;
+            dispatchMouseEvent(btn, 'click');
+            fixtureOfMulti.detectChanges();
+            tick(500);
+            const guiderRef = fixtureInstanceOfMulti.guiderRef;
+            const targetData = guiderRef.steps[0].target;
+            const targetEle0 = debugElement.query(By.css(`${targetData[0]}`)).nativeElement as HTMLInputElement;
+            const targetEle1 = debugElement.query(By.css(`${targetData[1]}`)).nativeElement as HTMLInputElement;
+
+            expect(targetEle0.querySelector('.thy-guider-highlight-container')).not.toBeNull();
+            expect(targetEle1.querySelector('.thy-guider-highlight-container')).toBeNull();
+        }));
+
+        it('should active second step target item when first target is none', fakeAsync(() => {
+            fixtureInstanceOfMulti.toggleShow();
+            fixtureOfMulti.detectChanges();
+            const btn = debugElement.query(By.css('.trigger-guider-element')).nativeElement as HTMLInputElement;
+            dispatchMouseEvent(btn, 'click');
+            fixtureOfMulti.detectChanges();
+            tick(500);
+            const guiderRef = fixtureInstanceOfMulti.guiderRef;
+            const targetData = guiderRef.steps[0].target;
+            const targetEle0 = debugElement.query(By.css(`${targetData[0]}`))?.nativeElement as HTMLInputElement;
+            const targetEle1 = debugElement.query(By.css(`${targetData[1]}`)).nativeElement as HTMLInputElement;
+
+            expect(targetEle0?.querySelector('.thy-guider-highlight-container')).toBeFalsy();
+            expect(targetEle1.querySelector('.thy-guider-highlight-container')).not.toBeNull();
         }));
     });
 

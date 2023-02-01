@@ -8,10 +8,12 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { ThyCascaderComponent } from 'ngx-tethys/cascader';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { Subject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../cascader.component';
+import { of, Subject } from 'rxjs';
+import { delay, take } from 'rxjs/operators';
+import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
+import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+
 registerLocaleData(zh);
 
 const customerOptions = [
@@ -218,6 +220,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyMenuClassName]="thyMenuClassName"
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
+            thyEmptyStateText="无选项"
         >
         </thy-cascader>
     `
@@ -227,7 +230,7 @@ class CascaderBasicComponent {
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
     public curVal: string | string[] = null;
     public placeholder = '';
-    public thyCustomerOptions: any[] = customerOptions;
+    public thyCustomerOptions: any[] = clone(customerOptions);
     public thyChangeOnSelect = false;
     public thyMenuClassName = 'test-menu-class';
     public columnClassName = 'column-menu-class';
@@ -238,6 +241,14 @@ class CascaderBasicComponent {
     constructor() {}
     onChanges(e: string[]) {
         this.changeValue$.next(e);
+    }
+
+    public setOptionsForAsync() {
+        of(true)
+            .pipe(delay(200))
+            .subscribe(() => {
+                this.thyCustomerOptions = clone(customerOptions);
+            });
     }
 }
 @Component({
@@ -255,7 +266,7 @@ class CascaderLoadComponent {
     thyLoadData = (option: any) => {
         return new Promise<void>((res, rej) => {
             if (this.success) {
-                option.children = customerOptions;
+                option.children = clone(customerOptions);
                 res();
             } else {
                 rej();
@@ -266,13 +277,7 @@ class CascaderLoadComponent {
 @Component({
     selector: 'thy-cascader-template',
     template: `
-        <thy-cascader
-            [thyOptions]="thyCustomerOptions"
-            (ngModelChange)="onChanges($event)"
-            [(ngModel)]="curVal"
-            style="width:400px;"
-            [thyLabelRender]="renderTpl"
-        >
+        <thy-cascader [thyOptions]="thyCustomerOptions" [(ngModel)]="curVal" style="width:400px;" [thyLabelRender]="renderTpl">
         </thy-cascader>
         <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
             <ng-container>
@@ -296,7 +301,7 @@ class CascaderLoadComponent {
 class CascaderTemplateComponent {
     public curVal: string | string[] = 'xihu';
 
-    public thyCustomerOptions: any[] = customerOptions;
+    public thyCustomerOptions: any[] = clone(customerOptions);
     isDisplayName$ = new Subject();
     constructor() {}
 
@@ -306,7 +311,7 @@ class CascaderTemplateComponent {
 }
 
 @Component({
-    selector: 'test-cascader-multiple',
+    selector: 'thy-test-cascader-multiple',
     template: `
         <thy-cascader
             [thyMultiple]="true"
@@ -499,6 +504,27 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css('.test-menu-class'));
             expect(el).toBeTruthy();
         });
+
+        it('should not error when options get by async way', fakeAsync(() => {
+            const value = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.componentInstance.curVal = value;
+            fixture.componentInstance.thyCustomerOptions = [];
+            fixture.detectChanges();
+            flush();
+            const displayEl = debugElement.query(By.css('.thy-cascader-picker-label'));
+            expect(displayEl).toBeNull();
+
+            fixture.componentInstance.setOptionsForAsync();
+            fixture.detectChanges();
+            tick(300);
+            const newDisplayEl = debugElement.query(By.css('.thy-cascader-picker-label'));
+
+            expect(newDisplayEl).not.toBeNull();
+            const displayName = newDisplayEl.nativeElement.innerText;
+            while (value.length > 0) {
+                expect(displayName).toContain(value.pop());
+            }
+        }));
 
         it('should active selectedOptions when menu open', fakeAsync(() => {
             fixture.componentInstance.curVal = ['zhejiang', 'hangzhou', 'xihu'];

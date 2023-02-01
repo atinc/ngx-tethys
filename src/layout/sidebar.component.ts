@@ -5,16 +5,20 @@ import {
     Optional,
     OnInit,
     Input,
-    ViewChild,
     ElementRef,
     Output,
     EventEmitter,
-    TemplateRef
+    TemplateRef,
+    OnDestroy
 } from '@angular/core';
 import { ThyLayoutComponent } from './layout.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { isMacPlatform } from '@tethys/cdk/is';
+import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
+import { Subject, Subscription } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -41,10 +45,10 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 *ngIf="!thyCollapsed"
                 thyDirection="right"
                 class="sidebar-resize-handle"
+                thyLine="true"
                 (mouseenter)="resizeHandleHover($event, 'enter')"
                 (mouseleave)="resizeHandleHover($event, 'leave')"
             >
-                <div class="sidebar-resize-line"></div>
             </thy-resize-handle>
         </div>
         <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>
@@ -62,7 +66,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
         </div>
     `
 })
-export class ThySidebarComponent implements OnInit {
+export class ThySidebarComponent implements OnInit, OnDestroy {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
 
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
@@ -113,7 +117,18 @@ export class ThySidebarComponent implements OnInit {
     @Output()
     thyDragWidthChange = new EventEmitter<number>();
 
-    @Input() @InputBoolean() thyCollapsible = false;
+    @Input() @InputBoolean() set thyCollapsible(collapsible: boolean) {
+        this.collapsible = collapsible;
+        if (this.collapsible) {
+            this.subscribeHotkeyEvent();
+        } else {
+            this.hotkeySubscription?.unsubscribe();
+        }
+    }
+
+    get thyCollapsible() {
+        return this.collapsible;
+    }
 
     @Input() @InputBoolean() set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
@@ -146,6 +161,8 @@ export class ThySidebarComponent implements OnInit {
 
     collapseTip: string;
 
+    collapsible: boolean;
+
     isCollapsed = false;
 
     originWidth: number = SIDEBAR_DEFAULT_WIDTH;
@@ -156,13 +173,30 @@ export class ThySidebarComponent implements OnInit {
 
     isRemoveTransition: boolean;
 
-    constructor(@Optional() @Host() private thyLayoutComponent: ThyLayoutComponent, public elementRef: ElementRef) {}
+    private hotkeySubscription: Subscription;
+
+    constructor(
+        @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
+        public elementRef: ElementRef,
+        private hotkeyDispatcher: ThyHotkeyDispatcher
+    ) {}
 
     ngOnInit() {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
         this.updateCollapseTip();
+    }
+
+    private subscribeHotkeyEvent() {
+        this.hotkeySubscription = this.hotkeyDispatcher.keydown(['Control+/', 'Meta+/']).subscribe(() => {
+            this.toggleCollapse();
+        });
+    }
+
+    private updateCollapseTip() {
+        this.collapseTip = this.thyCollapsed ? '展开' : '收起';
+        this.collapseTip = this.collapseTip + (isMacPlatform() ? `（⌘ + /)` : `（Ctrl + /)`);
     }
 
     resizeHandler({ width }: ThyResizeEvent) {
@@ -199,13 +233,13 @@ export class ThySidebarComponent implements OnInit {
         this.collapseVisible = type === 'enter' ? true : false;
     }
 
-    private updateCollapseTip() {
-        this.collapseTip = this.thyCollapsed ? '展开' : '收起';
-    }
-
-    toggleCollapse(event: MouseEvent) {
+    toggleCollapse(event?: MouseEvent) {
         this.thyCollapsed = !this.thyCollapsed;
         setTimeout(() => this.updateCollapseTip(), 200);
         this.thyCollapsedChange.emit(this.isCollapsed);
+    }
+
+    ngOnDestroy(): void {
+        this.hotkeySubscription?.unsubscribe();
     }
 }

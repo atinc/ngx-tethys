@@ -1,6 +1,4 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 
 import { ThyCollapseItemComponent } from './collapse-item.component';
 
@@ -26,7 +24,6 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
         '[class.thy-collapse-icon-position-right]': `thyArrowIconPosition === 'right'`,
         '[class.thy-collapse-icon-position-left]': `thyArrowIconPosition === 'left'`
     },
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyCollapseComponent implements OnInit {

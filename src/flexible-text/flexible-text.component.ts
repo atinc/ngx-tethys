@@ -1,16 +1,21 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ThyPlacement, UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { from, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 
+/**
+ * 文本提示组件，支持组件 thy-flexible-text 和指令 [thyFlexibleText] 两种方式
+ * @name thy-flexible-text,[thyFlexibleText]
+ */
 @Component({
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    providers: [TooltipService, UpdateHostClassService]
+    providers: [TooltipService]
 })
 export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
     isOverflow = false;
@@ -23,8 +28,15 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     subscription: Subscription | null = null;
 
+    /**
+     * 触发提示方式，hover, focus, click
+     * @default hover
+     */
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
+    /**
+     * 自定义class类，如果不设置默认会包含flexible-text-container
+     */
     @Input('thyContainerClass')
     get thyContainerClass(): string {
         return this.containerClass;
@@ -35,6 +47,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.updateContainerClass();
     }
 
+    /**
+     * 需要展示的全部内容
+     * @type string | TemplateRef<HTMLElement>
+     */
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
         if (this.tooltipService.thyTooltipDirective) {
@@ -42,6 +58,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
+    /**
+     * tooltip 的提示位置，top | bottom | left | right
+     * @default top
+     */
     @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;
         if (this.tooltipService.thyTooltipDirective) {
@@ -51,16 +71,15 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     private destroy$ = new Subject<void>();
 
+    private hostRenderer = useHostRenderer();
+
     constructor(
         private elementRef: ElementRef,
         private viewContainerRef: ViewContainerRef,
         public tooltipService: TooltipService,
-        private updateHostClassService: UpdateHostClassService,
         private contentObserver: ContentObserver,
         private ngZone: NgZone
-    ) {
-        this.updateHostClassService.initializeElement(this.elementRef);
-    }
+    ) {}
 
     static createResizeObserver(element: HTMLElement) {
         return new Observable(observer => {
@@ -130,6 +149,6 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
             'text-truncate': true,
             [containerClass]: containerClass !== ''
         };
-        this.updateHostClassService.updateClassByMap(flexibleTextClass);
+        this.hostRenderer.updateClassByMap(flexibleTextClass);
     }
 }

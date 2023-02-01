@@ -15,24 +15,4 @@ subtitle: 拖拽
 
 <example name="thy-drag-drop-cdk-drag-drop-example" />
 
-## 基础使用
-```html
-<thy-list [thyDropContainer]="nodes" (thyDragDropped)="onDragDrop($event)">
-  <thy-list-item *ngFor="let item of nodes" [thyDrag]="item">{{item.title}}</thy-list-item>
-</thy-list>
-
-```
-展示效果:
-<example name="thy-drag-drop-basic-example" />
-
-## 禁用拖拽
-`thyDragDisabled` 可以禁用某项拖拽，`thyDropContainerDisabled` 禁用整体拖拽
-<example name="thy-drag-drop-disabled-example" />
-
-## 自定义可拖拽区域内容
-`thyDragHandle` 自定义可拖拽区域, 设置 `thyDragHandle` 之后，只能拖动其对列表进行拖动排序等操作。
-<example name="thy-drag-drop-with-handle-example" />
-
-## 自定义可放置区域
-`thyDragContent` 自定义可放置区域
-<example name="thy-drag-drop-with-content-example" />
+<examples />

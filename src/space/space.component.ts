@@ -1,5 +1,5 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UpdateHostClassService } from 'ngx-tethys/core';
-import { isString } from 'ngx-tethys/util';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { takeUntil } from 'rxjs/operators';
 
 import {
@@ -9,7 +9,6 @@ import {
     Component,
     ContentChildren,
     Directive,
-    ElementRef,
     HostBinding,
     Input,
     OnInit,
@@ -46,11 +45,12 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-space'
-    },
-    providers: [UpdateHostClassService]
+    }
 })
 export class ThySpaceComponent extends _MixinBase implements OnInit, AfterContentInit {
     public space: number = getNumericSize(DEFAULT_SIZE);
+
+    private hostRenderer = useHostRenderer();
 
     /**
      * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
@@ -75,18 +75,13 @@ export class ThySpaceComponent extends _MixinBase implements OnInit, AfterConten
      */
     @Input()
     set thyAlign(align: string) {
-        this.updateHostClassService.updateClass(align ? [`align-items-${align}`] : []);
+        this.hostRenderer.updateClass(align ? [`align-items-${align}`] : []);
     }
 
     @ContentChildren(ThySpaceItemDirective, { read: TemplateRef }) items!: QueryList<TemplateRef<HTMLElement>>;
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef<HTMLElement>
-    ) {
+    constructor(private cdr: ChangeDetectorRef) {
         super();
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
     }
 
     ngOnInit(): void {}

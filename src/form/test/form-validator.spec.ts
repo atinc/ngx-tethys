@@ -122,6 +122,15 @@ describe('form-validator-loader', () => {
         return [group, element];
     }
 
+    function createInputGroupFromGroup() {
+        const group = document.createElement('div');
+        const inputGroup = document.createElement('thy-input-group');
+        const element = document.createElement('div');
+        inputGroup.appendChild(element);
+        group.appendChild(inputGroup);
+        return [group, inputGroup, element];
+    }
+
     function assertFromGroupErrorMessage(group: HTMLElement, element: HTMLElement, message: string) {
         expect(element.classList.contains('is-invalid')).toBe(true);
         expect(group.textContent).toEqual(message);
@@ -133,11 +142,26 @@ describe('form-validator-loader', () => {
         assertFromGroupErrorMessage(group, element, 'error message');
     });
 
+    it(`should show error success when form-control is thy-input-group`, () => {
+        const [group, inputGroup, element] = createInputGroupFromGroup();
+        formValidatorLoader.showError(element, ['error message', 'error message2']);
+        console.log(element.parentElement, element, element.parentElement.tagName);
+        assertFromGroupErrorMessage(group, inputGroup, 'error message');
+    });
+
     it('should remove error success', () => {
         const [group, element] = createFromGroup();
         formValidatorLoader.showError(element, ['error message', 'error message2']);
         formValidatorLoader.removeError(element);
         expect(element.classList.contains('is-invalid')).toBe(false);
+        expect(group.textContent).toEqual('');
+    });
+
+    it('should remove error success when form-control is thy-input-group', () => {
+        const [group, inputGroup, element] = createInputGroupFromGroup();
+        formValidatorLoader.showError(element, ['error message', 'error message2']);
+        formValidatorLoader.removeError(element);
+        expect(inputGroup.classList.contains('is-invalid')).toBe(false);
         expect(group.textContent).toEqual('');
     });
 

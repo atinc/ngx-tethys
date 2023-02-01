@@ -1,11 +1,12 @@
 import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { dispatchEvent, dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyCarouselModule } from '../module';
-import { ThyCarouselComponent } from 'ngx-tethys/carousel';
+import { ThyCarouselComponent, ThyCarouselPause } from 'ngx-tethys/carousel';
 import { ThyCarouselItemDirective } from 'ngx-tethys/carousel';
 import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
+import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
 
 @Component({
     selector: 'thy-carousel-basic-example',
@@ -18,6 +19,7 @@ import { ThyCarouselEffect, ThyCarouselTrigger } from '../typings';
                 [thyControls]="showControls"
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
+                [thyPause]="pause"
             >
                 <div thyCarouselItem class="custom-class" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
@@ -43,6 +45,8 @@ class ThyTestCarouselBasicComponent implements OnInit {
     effect: ThyCarouselEffect = 'slide';
 
     trigger: ThyCarouselTrigger = 'click';
+
+    pause: ThyCarouselPause = 'false';
 
     ngOnInit(): void {
         for (let i = 0; i < 8; i++) {
@@ -184,30 +188,14 @@ describe('carousel', () => {
             expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
 
-        // it('should drag work', fakeAsync(() => {
-        //     fixture.detectChanges();
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 500);
-        //     fixture.detectChanges();
-        //     tick(1000);
-        //     expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, 300, 1000);
-        //     fixture.detectChanges();
-        //     tick(2000);
-        //     expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
-        //     mouseSwipe(basicTestComponent.thyCarouselComponent, -500, 500);
-        //     fixture.detectChanges();
-        //     tick(1000);
-        //     expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
-        // }));
-
-        it('should window resize set init value', fakeAsync(() => {
-            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500, 0);
+        it('should touch event work', fakeAsync(() => {
+            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, 500);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
             fixture.detectChanges();
             tick(1000);
-            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, -500, 500);
+            touchSwipe(basicTestComponent.thyCarouselComponent, carouselWrapper.nativeElement, -500, 500, fixture);
             fixture.detectChanges();
             tick(1000);
             expect(carouselContents[0].nativeElement.classList).toContain('thy-carousel-item-active');
@@ -247,6 +235,25 @@ describe('carousel', () => {
             fixture.detectChanges();
             expect(carouselContents[7].nativeElement.classList).toContain('thy-carousel-item-active');
         }));
+
+        it(`should pause when mouseenter`, fakeAsync(() => {
+            basicTestComponent.autoPlay = true;
+            basicTestComponent.pause = 'hover';
+            fixture.detectChanges();
+            tick(4000);
+            fixture.detectChanges();
+            expect(carouselContents[1].nativeElement.classList).toContain('thy-carousel-item-active');
+
+            dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.thy-carousel-indicators').firstElementChild, 'mouseleave');
+            fixture.detectChanges();
+            tick(3500);
+            expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
+
+            dispatchMouseEvent(carouselWrapper.nativeElement.querySelector('.thy-carousel-indicators').lastElementChild, 'mouseenter');
+            fixture.detectChanges();
+            tick(3500);
+            expect(carouselContents[2].nativeElement.classList).toContain('thy-carousel-item-active');
+        }));
     });
 
     describe('touchable', () => {
@@ -277,43 +284,3 @@ describe('carousel', () => {
         }));
     });
 });
-
-function mouseSwipe(carousel: ThyCarouselComponent, distance: number, delay = 0): void {
-    carousel.onDrag(
-        new MouseEvent('mousedown', {
-            clientX: 500,
-            clientY: 0
-        })
-    );
-
-    dispatchMouseEvent(document, 'mousemove', 500 - distance, 0);
-    setTimeout(() => {
-        dispatchMouseEvent(document, 'mouseup');
-    }, delay);
-}
-
-function touchSwipe(carousel: ThyCarouselComponent, target: HTMLElement, distance: number, delay = 0): void {
-    const touchObj = new Touch({
-        clientX: 500,
-        clientY: 0,
-        pageX: 500,
-        identifier: Date.now(),
-        target: target
-    });
-
-    carousel.onDrag(
-        new TouchEvent('touchstart', {
-            touches: [touchObj],
-            changedTouches: [touchObj]
-        })
-    );
-
-    dispatchTouchEvent(document, 'touchmove', 500 - distance, 0);
-    setTimeout(() => {
-        dispatchTouchEvent(document, 'touchend');
-    }, delay);
-}
-
-function windowResize() {
-    dispatchEvent(window, new Event('resize'));
-}

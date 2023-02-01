@@ -175,7 +175,7 @@ $btn-icon-circle-padding-lg: 11px;
 $btn-icon-circle-padding-base: 8px;
 $btn-icon-circle-padding-md: 7px;
 $btn-icon-circle-padding-sm: 6px;
-$btn-icon-circle-padding-xs: 4px;
+$btn-icon-circle-padding-xs: 5px;
 $btn-icon-circle-padding-difference: 1;
 
 // min-width
@@ -490,11 +490,10 @@ $avatar-sizes: map.merge(
 );
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
-$nav-item-icon-color: $gray-500 !default;
 $nav-item-color: $gray-800 !default;
 $nav-item-weak-color: $gray-600 !default;
 $nav-item-hover-color: $primary !default;
-$nav-item-icon-color: $gray-500 !default;
+$nav-item-icon-color: $gray-600 !default;
 $nav-item-primary-color: $gray-800 !default;
 $nav-border-color: $gray-200 !default;
 $nav-divider-color: $gray-200 !default;
@@ -667,6 +666,25 @@ $notify-states: (
     'info': $notify-info
 );
 
+// Message
+$message-z-index: 1100 !default;
+$message-spacing: 20px !default;
+$message-margin-bottom: 10px !default;
+$message-border-radius-width: 4px !default;
+$message-bg: $white !default;
+$message-border: 1px solid $gray-200 !default;
+$message-box-shadow: 0px 4px 10px 0px rgba($gray-800, 0.1) !default;
+$message-icon-font-size: $font-size-md !default;
+$message-icon-margin: 8px !default;
+$message-close-color: $gray-400 !default;
+$message-states: (
+    'success': $success,
+    'warning': $warning,
+    'error': $danger,
+    'info': $info,
+    'loading': $pass
+);
+
 //close
 $close-font-size: $font-size-md !default;
 $close-font-weight: normal !default;
@@ -726,12 +744,52 @@ $transfer-operation-padding: 0 10px !default;
 $transfer-operation-font-size: 22px !default;
 $transfer-operation-color: $gray-500 !default;
 //progress
+$progress-colors: () !default;
 $progress-height: 10px !default;
 $progress-height-lg: 16px !default;
 $progress-height-sm: 6px !default;
 $progress-height-xs: 4px !default;
-$progress-bar-bg: $gray-200 !default;
+$progress-circle-height: 112px !default;
+$progress-circle-height-lg: 160px !default;
+$progress-circle-height-sm: 80px !default;
+$progress-circle-height-xs: 44px !default;
+$progress-bg: $gray-200 !default;
 $progress-split-color: $white !default;
+$progress-circle-border-radius: 100px !default;
+$progress-circle-font-size: 1rem !default;
+$progress-circle-color: $gray-800 !default;
+$progress-colors: () !default;
+$progress-colors: map.merge(
+    (
+        'primary': $primary,
+        'info': $info,
+        'success': $success,
+        'warning': $warning,
+        'danger': $danger
+    ),
+    $progress-colors
+);
+$progress-size: () !default;
+$progress-size: map.merge(
+    (
+        'xs': $progress-height-xs,
+        'sm': $progress-height-sm,
+        'md': $progress-height,
+        'lg': $progress-height-lg
+    ),
+    $progress-size
+);
+
+$progress-circle-size: () !default;
+$progress-circle-size: map.merge(
+    (
+        'xs': $progress-circle-height-xs,
+        'sm': $progress-circle-height-sm,
+        'md': $progress-circle-height,
+        'lg': $progress-circle-height-lg
+    ),
+    $progress-circle-size
+);
 //Slide
 $slide-bg: $white !default;
 $slide-width: 360px !default;
@@ -935,6 +993,7 @@ $markdown-color-border-color: $gray-200 !default;
 // mention
 $mention-suggestions-width: 280px !default;
 $mention-suggestions-height: 315px !default;
+$mention-suggestions-list-padding: 12px 0 !default;
 
 // Popover
 $popover-divider: $gray-100 !default;
@@ -1001,6 +1060,8 @@ $collapse-spacing-x: 8px !default;
 $collapse-spacing-y: 12px !default;
 
 // property
+$properties-row-gap: 0.8rem !default;
+$properties-column-gap: 1rem !default;
 $property-item-label-color: $gray-700 !default;
 $property-item-content-color: $gray-800 !default;
 $property-item-min-height: 32px !default;
@@ -1034,3 +1095,27 @@ $z-index-7: 70;
 $z-index-8: 80;
 $z-index-9: 90;
 $z-index-10: 100;
+
+// comment
+$comment-bg: transparent;
+$comment-avatar-margin-right: 12px !default;
+$comment-author-padding-right: 8px !default;
+$comment-author-line-height: 24px !default;
+$comment-content-margin-bottom: 16px !default;
+$comment-actions-min-width: 40px !default;
+$comment-actions-height: 40px !default;
+$comment-actions-position-right: 0 !default;
+$comment-actions-position-top: -10px !default;
+$comment-actions-padding: 4px !default;
+$comment-actions-border: 1px solid $gray-200 !default;
+$comment-actions-border-radius: 4px !default;
+$comment-nest-indent: 40px !default;
+
+// skeleton
+$skeleton-horizontal-gap: 12px;
+$skeleton-vertical-gap: 12px;
+$skeleton-row-height: 20px;
+$skeleton-row-radius: 4px;
+$skeleton-row-width: 100%;
+$skeleton-primary-color: #f7f7f7;
+$skeleton-animated-interval: 1.5s;

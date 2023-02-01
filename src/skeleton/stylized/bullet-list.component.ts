@@ -1,49 +1,108 @@
-import { Component, Input, OnInit, ViewChild, TemplateRef } from '@angular/core';
-import { ThySkeletonComponent } from '../skeleton.component';
-
-interface BulletListItem {
-    circle: { cx: number; cy: number; r: number };
-    rect: { x: number; y: number; rx: number; ry: number; width: number | string; height: number | string };
-}
-
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 @Component({
-    selector: 'thy-skeleton-bullet-list-template',
+    selector: 'thy-skeleton-bullet-list',
     template: `
-        <ng-template #content>
-            <ng-container *ngFor="let item of items">
-                <svg:circle [attr.cx]="item.circle.cx" [attr.cy]="item.circle.cy" r="8" />
-                <svg:rect [attr.x]="item.rect.x" [attr.y]="item.rect.y" rx="5" ry="5" width="90%" height="10" />
-            </ng-container>
-        </ng-template>
-    `
+        <ng-container *ngFor="let item of rowCount; index as i">
+            <div class="d-flex vertical-gap">
+                <thy-skeleton-circle
+                    [thyAnimated]="thyAnimated"
+                    [thyAnimatedInterval]="thyAnimatedInterval"
+                    [thySize]="thySize"
+                    [thyPrimaryColor]="thyPrimaryColor"
+                    [thySecondaryColor]="thySecondaryColor"
+                >
+                </thy-skeleton-circle>
+                <div class="horizontal-gap"></div>
+                <div style="flex: 1">
+                    <thy-skeleton-rectangle
+                        [thyRowWidth]="thyRowWidth"
+                        [thyRowHeight]="thyRowHeight"
+                        [thyAnimated]="thyAnimated"
+                        [thyPrimaryColor]="thyPrimaryColor"
+                        [thySecondaryColor]="thySecondaryColor"
+                        [thyBorderRadius]="thyBorderRadius"
+                        [thyAnimatedInterval]="thyAnimatedInterval"
+                    ></thy-skeleton-rectangle>
+                </div>
+            </div>
+        </ng-container>
+    `,
+    host: {
+        '[class.thy-skeleton-bullet-list]': 'true'
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    encapsulation: ViewEncapsulation.None
 })
-export class ThySkeletonBulletListComponent implements OnInit {
-    @Input() thyCount = 5;
+export class ThySkeletonBulletListComponent {
+    /**
+     * 骨架宽度
+     * @default 100%
+     */
+    @Input()
+    @InputCssPixel()
+    thyRowWidth: string | number;
 
-    items: BulletListItem[] = [];
+    /**
+     * 骨架高度
+     * @default 20px
+     */
+    @Input()
+    @InputCssPixel()
+    thyRowHeight: string | number;
 
-    @ViewChild('content', { static: true }) contentTemplateRef: TemplateRef<any>;
+    /**
+     * 骨架边框圆角
+     * @default 4px
+     */
+    @Input()
+    @InputCssPixel()
+    thyBorderRadius: string | number;
 
-    constructor(private skeletonComponent: ThySkeletonComponent) {}
+    /**
+     * 是否开启动画
+     * @default true
+     */
+    @Input()
+    @InputBoolean()
+    thyAnimated: boolean;
 
-    ngOnInit() {
-        for (let i = 0; i <= this.thyCount; i++) {
-            this.items.push({
-                circle: {
-                    cx: 10,
-                    cy: i * 30 + 20,
-                    r: 8
-                },
-                rect: {
-                    x: 25,
-                    y: i * 2 * 15 + 15,
-                    rx: 5,
-                    ry: 5,
-                    width: '90%',
-                    height: 10
-                }
-            });
-        }
-        this.skeletonComponent.addTemplate(this.contentTemplateRef);
+    /**
+     * 动画速度
+     * @default 1.5s
+     */
+    @Input() thyAnimatedInterval: string | number;
+
+    /**
+     * 骨架主色
+     * @default #f7f7f7
+     */
+    @Input() thyPrimaryColor: string;
+
+    /**
+     * 骨架次色
+     * @default #aaaaaa
+     */
+    @Input() thySecondaryColor: string;
+
+    /**
+     * circle类型骨架尺寸
+     */
+    @Input()
+    @InputCssPixel()
+    thySize: string | number;
+
+    rowCount: number[] = [];
+    /**
+     * 行数
+     */
+    @Input()
+    set thyRowCount(value: number | string) {
+        this.rowCount = Array.from({ length: +value });
     }
+    get thyRowCount() {
+        return this.rowCount.length;
+    }
+
+    constructor() {}
 }

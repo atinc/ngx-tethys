@@ -1,0 +1,73 @@
+@use "../../styles/mixins/hover.scss";
+@use "../../styles/variables";
+@use "./mixin.scss" as comment-mixin;
+
+.#{variables.$thy-prefix}-comment {
+    position: relative;
+    background-color: variables.$comment-bg;
+
+    &-actions {
+        @include comment-mixin.comment-actions-active;
+    }
+
+    .active {
+        visibility: visible !important;
+    }
+
+    &-inner {
+        display: flex;
+        position: inherit;
+
+        &:hover .#{variables.$thy-prefix}-comment-actions {
+            visibility: visible;
+        }
+    }
+
+    &-avatar {
+        position: relative;
+        flex-shrink: 0;
+        margin-right: variables.$comment-avatar-margin-right;
+    }
+
+    &-body {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 1px;
+        font-size: variables.$font-size-base;
+        word-wrap: break-word;
+
+        &-author {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-bottom: 4px;
+            font-size: variables.$font-size-base;
+
+            & > a,
+            & > span {
+                padding-right: variables.$comment-author-padding-right;
+                font-size: variables.$font-size-base;
+                line-height: variables.$comment-author-line-height;
+            }
+
+            &-name {
+                color: variables.$gray-700;
+                font-size: variables.$font-size-base;
+                transition: color 0.3s;
+            }
+
+            &-time {
+                color: variables.$gray-600;
+                white-space: nowrap;
+            }
+        }
+
+        .#{variables.$thy-prefix}-comment-content {
+            margin-bottom: variables.$comment-content-margin-bottom;
+        }
+    }
+
+    &-nested {
+        margin-left: variables.$comment-nest-indent;
+    }
+}

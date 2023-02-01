@@ -1,7 +1,7 @@
-import { fakeAsync, TestBed, ComponentFixture } from '@angular/core/testing';
-import { NgModule, Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, NgModule } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyDotModule } from '../dot.module';
+
 import {
     COMPONENT_CLASS_NAME,
     DEFAULT_COLOR_NAME,
@@ -13,7 +13,8 @@ import {
     ThyShapeType,
     ThySizeType,
     ThyThemeType
-} from '..';
+} from '../';
+import { ThyDotModule } from '../dot.module';
 
 describe('ThyDot', () => {
     let fixture: ComponentFixture<ThyDemoDotComponent>;
@@ -21,7 +22,7 @@ describe('ThyDot', () => {
     let dotComponent: DebugElement;
 
     const colors = ['primary', 'info', 'danger', 'warning', 'success'];
-    const sizes = ['xs', 'sm', 'md', 'lg'];
+    const sizes = ['xs', 'sm', 'md', 'lg', 'xlg'];
     const shapes = ['square', 'circle'];
     const themes = ['outline', 'fill'];
 

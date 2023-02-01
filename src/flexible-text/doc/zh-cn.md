@@ -15,11 +15,5 @@ subtitle: 文本提示
 import { ThyFlexibleTextModule } from "ngx-tethys/flexible-text";
 ```
 
-## 如何使用
-基本的使用如下：
-```html
-<span thyFlexibleText [thyTooltipContent]="text" style="width:500px">{{ text }}</span>
-```
-展示效果如下：
-<example name="thy-flexible-text-basic-example" />
+<examples/>
 

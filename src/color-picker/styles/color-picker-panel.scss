@@ -2,19 +2,22 @@
 .thy-color-picker-panel {
     width: 100%;
     display: block;
+    padding-top: 8px;
     .main-content {
         padding: 0 12px;
     }
-    .no-color {
+    .quick-color {
         height: 44px;
         display: flex;
         align-items: center;
         cursor: pointer;
         padding: 4px 16px 4px 16px;
-        margin-top: 8px;
         margin-bottom: 4px;
         &:hover {
             background-color: variables.$gray-100;
+        }
+        .color-item {
+            margin: 0;
         }
         .color-block {
             width: 18px;
@@ -35,8 +38,8 @@
                 transform: rotate(-45deg);
             }
         }
-        .no-color-text {
-            margin-left: 8px;
+        span {
+            line-height: initial;
         }
     }
     .recent-color-container {

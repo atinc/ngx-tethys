@@ -118,4 +118,23 @@ describe('thy-tag', () => {
         fixture.detectChanges();
         expect(tagElement.classList.contains(`thy-tag-hover`)).toBe(true);
     });
+
+    it('should work when thyColor switch between custom color and theme color', () => {
+        fixture.componentInstance.theme = 'fill';
+        const tagElement: HTMLElement = fixture.debugElement.query(By.css('#color')).nativeElement;
+
+        fixture.componentInstance.color = 'primary';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-primary`)).toBe(true);
+
+        fixture.componentInstance.color = 'rgb(86, 171, 251)';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-primary`)).toBe(false);
+        expect(tagElement.style.backgroundColor).toBe('rgb(86, 171, 251)');
+
+        fixture.componentInstance.color = 'primary';
+        fixture.detectChanges();
+        expect(tagElement.classList.contains(`thy-tag-primary`)).toBe(true);
+        expect(tagElement.style.backgroundColor === 'rgb(86, 171, 251)').toBe(false);
+    });
 });

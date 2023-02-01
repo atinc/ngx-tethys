@@ -14,27 +14,5 @@ label: new
 ```ts
 import { ThyRateModule } from "ngx-tethys/rate";
 ```
-## 基本使用
-```html
-<thy-rate [(ngModel)]="1"></thy-rate>
-```
-<example name="thy-rate-basic-example"></example>
 
-## 半选
-<example name="thy-rate-half-example"></example>
-
-## 自定义总数
-<example name="thy-rate-count-example"></example>
-
-## 清除
-<example name="thy-rate-clear-example"></example>
-
-## 自定义每项的提示信息
-<example name="thy-rate-tooltip-example"></example>
-
-## 只读不可更改
-<example name="thy-rate-disabled-example"></example>
-
-## 自定义展示模版
-<example name="thy-rate-template-example"></example>
-
+<examples />

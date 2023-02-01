@@ -1,17 +1,19 @@
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { CascaderOption } from './types';
+import { ThyCascaderOption } from './types';
 
+/**
+ * @internal
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-option]',
-    templateUrl: './cascader-li.component.html',
-    providers: [UpdateHostClassService]
+    templateUrl: './cascader-li.component.html'
 })
 export class ThyCascaderOptionComponent implements OnInit {
-    @Input() option: CascaderOption;
+    @Input() option: ThyCascaderOption;
 
     @Input()
     @InputBoolean()

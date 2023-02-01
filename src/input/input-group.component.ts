@@ -4,11 +4,13 @@ import {
     Input,
     ContentChild,
     TemplateRef,
-    ElementRef,
     ViewEncapsulation,
-    ChangeDetectionStrategy
+    ChangeDetectionStrategy,
+    AfterContentChecked
 } from '@angular/core';
-import { ThyTranslate, UpdateHostClassService } from 'ngx-tethys/core';
+import { ThyTranslate } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyInputDirective } from './input.directive';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -18,10 +20,14 @@ const inputGroupSizeMap = {
     md: ['input-group-md']
 };
 
+/**
+ * 输入框分组
+ * @name thy-input-group
+ * @order 20
+ */
 @Component({
     selector: 'thy-input-group',
     templateUrl: './input-group.component.html',
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     host: {
@@ -31,16 +37,26 @@ const inputGroupSizeMap = {
         '[class.thy-input-group-with-suffix]': 'suffixTemplate'
     }
 })
-export class ThyInputGroupComponent {
+export class ThyInputGroupComponent implements AfterContentChecked {
+    private hostRenderer = useHostRenderer();
+
     public appendText: string;
 
     public prependText: string;
 
+    @HostBinding('class.disabled') disabled = false;
+
+    /**
+     * 输入框上添加的后置文本
+     */
     @Input()
     set thyAppendText(value: string) {
         this.appendText = value;
     }
 
+    /**
+     * 输入框上添加的后置文本多语言 Key
+     */
     @Input()
     set thyAppendTextTranslateKey(value: string) {
         if (value) {
@@ -48,11 +64,17 @@ export class ThyInputGroupComponent {
         }
     }
 
+    /**
+     * 输入框上添加的前置文本
+     */
     @Input()
     set thyPrependText(value: string) {
         this.prependText = value;
     }
 
+    /**
+     * 输入框上添加的前置文本多语言 Key
+     */
     @Input()
     set thyPrependTextTranslateKey(value: string) {
         if (value) {
@@ -60,28 +82,48 @@ export class ThyInputGroupComponent {
         }
     }
 
+    /**
+     * 输入框分组大小
+     * @type 'sm' | 'lg' | 'md' | ''
+     * @default ''
+     */
     @Input()
     set thySize(size: InputGroupSize) {
         if (size && inputGroupSizeMap[size]) {
-            this.updateHostClassService.updateClass(inputGroupSizeMap[size]);
+            this.hostRenderer.updateClass(inputGroupSizeMap[size]);
         } else {
-            this.updateHostClassService.updateClass([]);
+            this.hostRenderer.updateClass([]);
         }
     }
 
+    /**
+     * 后置模板
+     */
     @ContentChild('append') appendTemplate: TemplateRef<unknown>;
 
+    /**
+     * 前置模板
+     */
     @ContentChild('prepend') prependTemplate: TemplateRef<unknown>;
 
+    /**
+     * 前缀
+     */
     @ContentChild('prefix') prefixTemplate: TemplateRef<unknown>;
 
+    /**
+     * 后缀
+     */
     @ContentChild('suffix') suffixTemplate: TemplateRef<unknown>;
 
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private updateHostClassService: UpdateHostClassService,
-        private elementRef: ElementRef
-    ) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    /**
+     * @private
+     */
+    @ContentChild(ThyInputDirective, { static: true }) inputDirective: ThyInputDirective;
+
+    constructor(private thyTranslate: ThyTranslate) {}
+
+    ngAfterContentChecked(): void {
+        this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
     }
 }

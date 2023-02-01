@@ -16,14 +16,8 @@ label: new
 ```ts
 import { ThyImageModule } from "ngx-tethys/image";
 ```
-## 基本使用
-点击图片展示图片预览组件，包含放大、缩小、适应屏幕、原始尺寸、全屏显示、旋转、下载原图、复制链接等功能。
-<example name="thy-image-basic-example" />
 
-## 分组使用
-分组提供标签和指令两种使用方式。
-
-<example name="thy-image-group-example" />
+<examples />
 
 ## 通过服务打开
 通过服务可以自定义配置弹出框打开的设置，包含 `ThyImagePreviewOptions` 中的配置项以及指定索引的 `startIndex`。

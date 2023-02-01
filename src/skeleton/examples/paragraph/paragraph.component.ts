@@ -1,28 +1,37 @@
-import { OnInit, Component } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
-    selector: 'thy-skeleton-paragraph',
-    templateUrl: './paragraph.component.html'
+    selector: 'thy-skeleton-example-paragraph',
+    template: `
+        <thy-skeleton-paragraph
+            [thyRowCount]="model.thyRowCount"
+            [thyFirstWidth]="model.thyFirstWidth"
+            [thyLastWidth]="model.thyLastWidth"
+            [thyRowWidth]="model.thyRowWidth"
+            [thyRowHeight]="model.thyRowHeight"
+            [thyBorderRadius]="model.thyBorderRadius"
+            [thyPrimaryColor]="model.thyPrimaryColor"
+            [thySecondaryColor]="model.thySecondaryColor"
+            [thyAnimatedInterval]="model.thyAnimatedInterval"
+            [thyAnimated]="model.thyAnimated"
+        >
+        </thy-skeleton-paragraph>
+    `
 })
-export class ThySkeletonParagraphExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit {
-    params: {
-        width?: number | string;
-        height?: number | string;
-        viewBoxWidth?: number | string;
-        viewBoxHeight?: number | string;
-        primaryColor?: string;
-        secondaryColor?: string;
-        preserveAspectRatio?: string;
-    } = {
-        width: '100%',
-        height: '100%',
-        primaryColor: '#f0f0f0',
-        secondaryColor: '#e0e0e0',
-        viewBoxWidth: 400,
-        viewBoxHeight: 130,
-        preserveAspectRatio: 'none'
+export class ThySkeletonExampleParagraphComponent implements OnInit {
+    model = {
+        thyRowCount: 4,
+        thyFirstWidth: '33%',
+        thyLastWidth: '66%',
+        thyRowWidth: '100%',
+        thyRowHeight: '20px',
+        thyBorderRadius: '4px',
+        thyPrimaryColor: '#F7F7F7',
+        thySecondaryColor: '#aaaaaa',
+        thyAnimatedInterval: 1.5,
+        thyAnimated: true
     };
+    constructor() {}
 
-    ngOnInit(): void {}
+    ngOnInit() {}
 }

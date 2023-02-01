@@ -10,12 +10,11 @@ import { fromEvent, Subject, timer } from 'rxjs';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
-import { Component, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
+import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { UpdateHostClassService } from '../core';
 import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
@@ -23,6 +22,7 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
+import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -37,6 +37,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
+                [thyOrigin]="customizeOrigin"
             >
                 <thy-option
                     *ngFor="let food of foods"
@@ -50,6 +51,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 </ng-template>
             </thy-custom-select>
         </form>
+        <div id="custom-select-origin" #origin style="width: 200px;height: 20px"></div>
     `
 })
 class BasicSelectComponent {
@@ -69,11 +71,14 @@ class BasicSelectComponent {
     enableScrollLoad: boolean;
     size = '';
     thyAutoActiveFirstItem = true;
+    customizeOrigin: ElementRef | HTMLElement;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
     @ViewChild('footer', { static: true, read: TemplateRef })
     footerTemplate: TemplateRef<any>;
+
+    @ViewChild('origin', { static: true }) origin: ElementRef;
     thyOnScrollToBottom = jasmine.createSpy('thyOnScrollToBottom callback');
 }
 
@@ -600,6 +605,57 @@ class SelectWithScrollAndSearchComponent {
     }
 }
 
+@Component({
+    selector: 'thy-select-with-load-state',
+    template: `
+        <thy-custom-select (thyOnExpandStatusChange)="expandChange($event)" [thyLoadState]="loadState" [thyShowSearch]="showSearch">
+            <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyDisabled]="food.disabled" [thyLabelText]="food.viewValue">
+            </thy-option>
+        </thy-custom-select>
+    `
+})
+class SelectWithAsyncLoadComponent implements OnInit {
+    @ViewChild(ThySelectCustomComponent) customSelect: ThySelectCustomComponent;
+
+    loadState = true;
+
+    showSearch = false;
+
+    foods: any[] = [];
+
+    fetchOptions() {
+        this.loadState = false;
+        return timer(1500).pipe(
+            tap(() => {
+                this.foods = [
+                    { value: 'steak-0', viewValue: 'Steak' },
+                    { value: 'pizza-1', viewValue: 'Pizza' },
+                    { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+                    { value: 'sandwich-3', viewValue: 'Sandwich' },
+                    { value: 'chips-4', viewValue: 'Chips' },
+                    { value: 'eggs-5', viewValue: 'Eggs' },
+                    { value: 'pasta-6', viewValue: 'Pasta' },
+                    { value: 'sushi-7', viewValue: 'Sushi' }
+                ];
+            })
+        );
+    }
+
+    ngOnInit(): void {
+        this.fetchOptions().subscribe(() => {
+            this.loadState = false;
+        });
+    }
+
+    expandChange(expand: boolean) {
+        if (expand) {
+            this.fetchOptions().subscribe(() => {
+                this.loadState = true;
+            });
+        }
+    }
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -609,7 +665,7 @@ describe('ThyCustomSelect', () => {
         TestBed.configureTestingModule({
             imports: [ThyFormModule, ThyOptionModule, ThySelectModule, ReactiveFormsModule, FormsModule],
             declarations: declarations,
-            providers: [UpdateHostClassService, bypassSanitizeProvider, ...providers]
+            providers: [bypassSanitizeProvider, ...providers]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {
@@ -892,6 +948,29 @@ describe('ThyCustomSelect', () => {
                     0,
                     'Expected at least one option to be rendered.'
                 );
+            }));
+
+            it('should custom origin effected when origin is elementRef', fakeAsync(() => {
+                fixture.componentInstance.customizeOrigin = fixture.componentInstance.origin;
+                fixture.detectChanges();
+
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style.width).toBe('200px');
+            }));
+
+            it('should custom origin effected when origin is htmlElement', fakeAsync(() => {
+                const htmlElement = fixture.debugElement.query(By.css('#custom-select-origin')).nativeElement;
+                fixture.componentInstance.customizeOrigin = htmlElement;
+                fixture.detectChanges();
+
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style.width).toBe('200px');
             }));
         });
 
@@ -1389,12 +1468,12 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
-            const removeIcon = fixture.debugElement.query(By.css('.thy-icon-close'));
+            const removeIcon = fixture.debugElement.query(By.css('.choice-remove-link'));
             expect(removeIcon).not.toBeNull();
 
             fixture.componentInstance.disabled = true;
             fixture.detectChanges();
-            const removeIcon2 = fixture.debugElement.query(By.css('.thy-icon-close'));
+            const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove-link'));
             const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
             tick();
             expect(choice.classList.contains('disabled')).toBeTruthy();
@@ -1408,7 +1487,7 @@ describe('ThyCustomSelect', () => {
             fixture.detectChanges();
 
             fixture.componentInstance.select.disabled = true;
-            const closeIcon = fixture.nativeElement.querySelector('.thy-icon-close');
+            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             dispatchFakeEvent(closeIcon, 'click');
             fixture.detectChanges();
             flush();
@@ -1421,7 +1500,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const closeIcon = fixture.nativeElement.querySelector('.thy-icon-close');
+            const closeIcon = fixture.nativeElement.querySelector('.choice-remove-link');
             fixture.componentInstance.foods = fixture.componentInstance.foods.filter(item => item.value !== 'sushi-7');
             fixture.detectChanges();
             flush();
@@ -1437,7 +1516,7 @@ describe('ThyCustomSelect', () => {
             flush();
             fixture.detectChanges();
 
-            const trigger = fixture.debugElement.query(By.css('.thy-icon-close')).nativeElement;
+            const trigger = fixture.debugElement.query(By.css('.choice-remove-link')).nativeElement;
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
@@ -2081,6 +2160,46 @@ describe('ThyCustomSelect', () => {
             flush();
             dispatchKeyboardEvent(trigger, 'keydown', DOWN_ARROW, '', { alt: true });
             expect(fixture.componentInstance.select.panelOpen).toBe(false);
+        }));
+    });
+
+    describe('async load data', () => {
+        beforeEach(async(() => {
+            configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
+        }));
+
+        it('should dispatch component focus when showSearch is true', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);
+            fixture.detectChanges();
+
+            fixture.componentInstance.showSearch = true;
+            fixture.detectChanges();
+
+            const componentFocusSpy = spyOn(fixture.componentInstance.customSelect, 'focus');
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.detectChanges();
+            tick(2000);
+            fixture.detectChanges();
+            expect(componentFocusSpy).not.toHaveBeenCalled();
+
+            fixture.componentInstance.foods = [
+                { value: 'steak-0', viewValue: 'Steak' },
+                { value: 'pizza-1', viewValue: 'Pizza' },
+                { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
+                { value: 'sandwich-3', viewValue: 'Sandwich' }
+            ];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            fixture.detectChanges();
+            tick(2000);
+
+            expect(componentFocusSpy).toHaveBeenCalled();
         }));
     });
 });

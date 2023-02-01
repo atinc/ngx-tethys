@@ -1,5 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyImageModule } from '../module';
@@ -8,9 +8,13 @@ import { ThyImageService } from '../image.service';
 import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
 import { ThyImagePreviewRef } from '../preview/image-preview-ref';
 import { DomSanitizer } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { humanizeBytes, keycodes } from 'ngx-tethys/util';
+import { dispatchKeyboardEvent, dispatchMouseEvent, MockXhrFactory } from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
+import { fetchImageBlob } from '../utils';
+import { XhrFactory } from '@angular/common';
+
+let imageOnload: () => void = null;
 
 @Component({
     selector: 'thy-image-preview-test',
@@ -22,18 +26,18 @@ class ImagePreviewTestComponent implements OnInit {
     constructor(private thyImageService: ThyImageService, private sanitizer: DomSanitizer) {}
     images: InternalImageInfo[] = [
         {
-            src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
+            src: 'first.png',
             alt: 'first',
             name: 'first.jpg',
             size: '66kb',
             origin: {
-                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
+                src: 'first.png'
             }
         },
         {
-            src: 'https://angular.cn/assets/images/logos/angular/shield-large.svg',
+            src: 'second.png',
             alt: 'last',
-            name: 'last.jpg',
+            name: 'second.jpg',
             size: '44kb'
         }
     ];
@@ -61,12 +65,21 @@ describe('image-preview', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let formElement: HTMLElement;
+    let mockXhrFactory: MockXhrFactory;
 
     beforeEach(() => {
+        mockXhrFactory = new MockXhrFactory();
         TestBed.configureTestingModule({
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
-            declarations: [ImagePreviewTestComponent]
-        }).compileComponents();
+            declarations: [ImagePreviewTestComponent],
+            providers: [
+                {
+                    provide: XhrFactory,
+                    useValue: mockXhrFactory
+                }
+            ]
+        });
+        TestBed.compileComponents();
         fixture = TestBed.createComponent(ImagePreviewTestComponent);
         basicTestComponent = fixture.debugElement.componentInstance;
         debugElement = fixture.debugElement;
@@ -80,20 +93,32 @@ describe('image-preview', () => {
         overlayContainerElement = _overlayContainer.getContainerElement();
     }));
 
+    beforeEach(() => {
+        Object.defineProperty(ɵglobal.Image.prototype, 'onload', {
+            configurable: true,
+            get: function() {
+                return this._onload;
+            },
+            set: function(fn) {
+                imageOnload = fn;
+                this._onload = fn;
+            }
+        });
+    });
+
     afterEach(() => {
         overlayContainer.ngOnDestroy();
     });
 
-    xit('should create image preview when click button', () => {
+    it('should create image preview when click button', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap')).toBeTruthy();
-        expect(overlayContainerElement.querySelector('img') as HTMLElement).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(basicTestComponent.images[0].src);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
         expect(overlayContainerElement.querySelector('.thy-image-preview-operations')).toBeTruthy();
-        expect(overlayContainerElement.querySelectorAll('li.thy-image-preview-operation').length).toBe(8);
+        expect(overlayContainerElement.querySelectorAll('.thy-action').length).toBe(9);
     });
 
     it('should show custom operations', () => {
@@ -226,17 +251,50 @@ describe('image-preview', () => {
         expect(currentImageTransform).toContain(`rotate(${previousRotate + 90}deg)`);
     });
 
-    it('should download image when click download icon', () => {
+    it('should download image when click download icon', done => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
         fixture.detectChanges();
+
+        const spyObj = jasmine.createSpyObj('a', ['click']);
+        spyOn(document, 'createElement').and.returnValue(spyObj);
+
+        spyOn(XMLHttpRequest.prototype, 'open').and.callThrough();
+        spyOn(XMLHttpRequest.prototype, 'send').and.callThrough();
+
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const download = operations[5] as HTMLElement;
         expect(download.getAttribute('ng-reflect-content')).toBe('下载');
         download.click();
 
-        // test download success
+        fetchImageBlob(basicTestComponent.images[0].origin.src).subscribe(() => {
+            expect(document.createElement).toHaveBeenCalledWith('a');
+            expect(spyObj.download).toBe('first.jpg');
+            expect(spyObj.href).toContain('blob:');
+            expect(spyObj.click).toHaveBeenCalledTimes(1);
+            done();
+        });
+
+        expect(XMLHttpRequest.prototype.open).toHaveBeenCalled();
+        expect(XMLHttpRequest.prototype.send).toHaveBeenCalled();
+    });
+
+    it('should downloadClicked() was subscribed when click download icon', () => {
+        fixture.detectChanges();
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+        fixture.detectChanges();
+
+        const downloadSpy = jasmine.createSpy('download clicked');
+        basicTestComponent['thyImageService'].downloadClicked().subscribe(downloadSpy);
+
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        const download = operations[5] as HTMLElement;
+        expect(download.getAttribute('ng-reflect-content')).toBe('下载');
+        download.click();
+
+        expect(downloadSpy).toHaveBeenCalledWith(basicTestComponent.images[0]);
     });
 
     it('should open new tab with origin src when click origin icon', () => {
@@ -264,22 +322,21 @@ describe('image-preview', () => {
 
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
-        const download = operations[7] as HTMLElement;
-        expect(download.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
+        const copy = operations[7] as HTMLElement;
+        expect(copy.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
         // test copy
-        // download.click()
+        // copy.click()
     });
 
-    it('should preview image can be switched correctly', done => {
+    it('should preview image can be switched correctly', () => {
         fixture.detectChanges();
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
-        const img = new Image();
 
         fixture.detectChanges();
         expect(overlayContainerElement).toBeTruthy();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeTruthy();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
 
         const leftSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-left') as HTMLElement;
         const rightSwitch = overlayContainerElement.querySelector('.thy-image-preview-switch-right') as HTMLElement;
@@ -288,19 +345,19 @@ describe('image-preview', () => {
 
         rightSwitch.click();
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[1]);
 
         dispatchKeyboardEvent(formElement, 'keydown', keycodes.RIGHT_ARROW);
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[1], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[1]);
 
         leftSwitch.click();
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
 
         dispatchKeyboardEvent(formElement, 'keydown', keycodes.LEFT_ARROW);
         fixture.detectChanges();
-        validImageSrc(overlayContainerElement, img, basicTestComponent.images[0], done);
+        validImageSrc(overlayContainerElement, basicTestComponent.images[0]);
     });
 
     it('should close the preview when click backdrop', fakeAsync(() => {
@@ -320,11 +377,12 @@ describe('image-preview', () => {
     it('should fetch imageBlob when resolveSize is true', done => {
         basicTestComponent.images = [
             {
-                src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg',
+                src: 'first.png',
                 alt: 'first',
                 name: 'first.jpg',
+                size: '77kb',
                 origin: {
-                    src: 'https://angular.cn/generated/images/marketing/home/responsive-framework.svg'
+                    src: 'first.png'
                 }
             }
         ];
@@ -334,15 +392,21 @@ describe('image-preview', () => {
         button.click();
 
         fixture.detectChanges();
-        const xhr = new XMLHttpRequest();
-        xhr.open('GET', basicTestComponent.images[0].src);
-        xhr.responseType = 'blob';
-        xhr.onload = data => {
-            expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(humanizeBytes(xhr.response.size));
+        mockXhrFactory.build();
+        mockXhrFactory.mock.open('GET', basicTestComponent.images[0].src);
+        mockXhrFactory.mock.responseType = 'blob';
+        mockXhrFactory.mock.listeners.load = () => {
+            expect(basicTestComponent.imageRef.previewInstance.previewImage.size).toEqual(mockXhrFactory.mock.response.data.size);
             done();
         };
-
-        xhr.send();
+        mockXhrFactory.mock.mockFlush(XMLHttpRequest.DONE, 'SUCCESS', {
+            code: 200,
+            data: { size: '77kb' }
+        });
+        mockXhrFactory.mock.send({
+            code: 200,
+            data: { size: '77kb' }
+        });
     });
 
     xit(
@@ -386,13 +450,10 @@ describe('image-preview', () => {
     });
 });
 
-const validImageSrc = (overlayContainerElement: HTMLElement, img: HTMLImageElement, image: InternalImageInfo, done: DoneFn) => {
-    img.onload = () => {
-        expect(overlayContainerElement.querySelector('img')).toBeTruthy();
-        expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
-            (image.objectURL as any).changingThisBreaksApplicationSecurity
-        );
-        done();
-    };
-    img.src = image.src;
+const validImageSrc = (overlayContainerElement: HTMLElement, image: InternalImageInfo) => {
+    imageOnload();
+    expect(overlayContainerElement.querySelector('img')).toBeTruthy();
+    expect((overlayContainerElement.querySelector('img') as HTMLElement).getAttribute('src')).toBe(
+        (image.objectURL as any).changingThisBreaksApplicationSecurity
+    );
 };

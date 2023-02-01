@@ -1,7 +1,7 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
 import { helpers } from 'ngx-tethys/util';
-
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import {
@@ -9,7 +9,6 @@ import {
     ChangeDetectorRef,
     Component,
     ContentChild,
-    ElementRef,
     EventEmitter,
     forwardRef,
     HostBinding,
@@ -44,6 +43,11 @@ const treeItemSizeMap = {
     default: 44,
     sm: 42
 };
+
+/**
+ * 树形控件
+ * @name thy-tree
+ */
 @Component({
     selector: 'thy-tree',
     templateUrl: './tree.component.html',
@@ -60,8 +64,7 @@ const treeItemSizeMap = {
             provide: THY_TREE_ABSTRACT_TOKEN,
             useExisting: forwardRef(() => ThyTreeComponent)
         },
-        ThyTreeService,
-        UpdateHostClassService
+        ThyTreeService
     ]
 })
 export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
@@ -75,24 +78,47 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private _selectedKeys: (string | number)[];
 
+    private hostRenderer = useHostRenderer();
+
     public _selectionModel: SelectionModel<ThyTreeNode>;
 
     public treeNodes: ThyTreeNode[];
 
     public flattenTreeNodes: ThyTreeNode[] = [];
 
+    /**
+     * 虚拟化滚动的视口
+     */
     @Output() @ViewChild('viewport', { static: false }) viewport: CdkVirtualScrollViewport;
 
+    /**
+     * TreeNode 展现所需的数据
+     * @type ThyTreeNodeData[]
+     */
     @Input() thyNodes: ThyTreeNodeData[];
 
+    /**
+     * 设置 TreeNode 是否支持展开
+     * @type boolean | Function
+     */
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
 
+    /**
+     * 设置是否支持多选
+     * @default false
+     */
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
+    @InputBoolean()
     thyMultiple = false;
 
+    /**
+     * 设置 TreeNode 是否支持拖拽排序
+     * @default false
+     */
     @HostBinding('class.thy-tree-draggable')
     @Input()
+    @InputBoolean()
     set thyDraggable(value: boolean) {
         this._draggable = value;
     }
@@ -101,18 +127,34 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._draggable;
     }
 
-    @Input() thyCheckable: boolean;
+    /**
+     * 设置 TreeNode 是否支持 Checkbox 选择
+     * @default false
+     */
+    @Input() @InputBoolean() thyCheckable: boolean;
 
+    /**
+     * 设置 check 状态的计算策略
+     */
     @Input() set thyCheckStateResolve(resolve: (node: ThyTreeNode) => ThyTreeNodeCheckState) {
         if (resolve) {
             this.thyTreeService.setCheckStateResolve(resolve);
         }
     }
 
-    @Input() thyAsync = false;
+    /**
+     * 设置 TreeNode 是否支持异步加载
+     * @default false
+     */
+    @Input() @InputBoolean() thyAsync = false;
 
     private _thyType: ThyTreeType = 'default';
 
+    /**
+     * 设置不同展示类型的 Tree, `default` 为小箭头展示， `especial` 为 加减号图标展示
+     * @type ThyTreeType
+     * @default 'default'
+     */
     @Input()
     set thyType(type: ThyTreeType) {
         this._thyType = type;
@@ -125,9 +167,18 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._thyType;
     }
 
+    /**
+     * 设置不同 Tree 展开折叠的图标，`expand` 为展开状态的图标，`collapse` 为折叠状态的图标
+     * @type { expand: string, collapse: string }
+     */
     @Input() thyIcons: ThyTreeIcons = {};
 
     private _thySize: ThyTreeSize = 'default';
+    /**
+     * 支持 `sm` | `default` 两种大小，默认值为 `default`
+     * @type ThyTreeSize
+     * @default 'default'
+     */
     @Input()
     set thySize(size: ThyTreeSize) {
         this._thySize = size;
@@ -142,11 +193,21 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._thySize;
     }
 
+    /**
+     * 设置是否开启虚拟滚动
+     * @default false
+     */
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
+    @InputBoolean()
     thyVirtualScroll = false;
 
     private _thyItemSize = 44;
+
+    /**
+     * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
+     * @default 44
+     */
     @Input()
     set thyItemSize(itemSize: number) {
         if (this.thySize !== 'default') {
@@ -159,24 +220,57 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._thyItemSize;
     }
 
-    @Input() thyTitleTruncate = true;
+    /**
+     * 设置节点名称是否支持超出截取
+     * @default true
+     */
+    @Input() @InputBoolean() thyTitleTruncate = true;
 
+    /**
+     * 已选中的 node 节点集合
+     * @type string[]
+     */
     @Input() thySelectedKeys: string[];
 
+    /**
+     * 设置缩进距离，缩进距离 = thyIndent * node.level
+     * @default 25
+     */
     @Input() thyIndent = 25;
 
+    /**
+     * 拖拽之前的回调，函数返回 false 则阻止拖拽
+     */
     @Input() thyBeforeDragStart: (e: ThyDragStartEvent) => boolean;
 
+    /**
+     * 拖放到元素时回调，函数返回 false 则组织拖放到当前元素
+     */
     @Input() thyBeforeDragDrop: (e: ThyDragDropEvent) => boolean;
 
+    /**
+     * 设置子 TreeNode 点击事件
+     */
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 设置 check 选择事件
+     */
     @Output() thyOnCheckboxChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 设置点击展开触发事件
+     */
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
+    /**
+     * 设置 TreeNode 拖拽事件
+     */
     @Output() thyOnDragDrop: EventEmitter<ThyTreeDragDropEvent> = new EventEmitter<ThyTreeDragDropEvent>();
 
+    /**
+     * 设置 TreeNode 的渲染模板
+     */
     @ContentChild('treeNodeTemplate', { static: true })
     set templateRef(template: TemplateRef<any>) {
         if (template) {
@@ -188,6 +282,9 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._templateRef;
     }
 
+    /**
+     * 设置子的空数据渲染模板
+     */
     @ContentChild('emptyChildrenTemplate', { static: true }) emptyChildrenTemplate: TemplateRef<any>;
     set emptyChildrenTemplateRef(template: TemplateRef<any>) {
         if (template) {
@@ -211,16 +308,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private dragItem: ThyTreeNode;
 
-    constructor(
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
-        public thyTreeService: ThyTreeService,
-        private cdr: ChangeDetectorRef
-    ) {}
+    constructor(public thyTreeService: ThyTreeService, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this._initThyNodes();
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this._setTreeType();
         this._setTreeSize();
         this._instanceSelectionModel();
@@ -276,14 +367,14 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     private _setTreeType() {
         if (this.thyType && treeTypeClassMap[this.thyType]) {
             treeTypeClassMap[this.thyType].forEach(className => {
-                this.updateHostClassService.addClass(className);
+                this.hostRenderer.addClass(className);
             });
         }
     }
 
     private _setTreeSize() {
         if (this.thySize) {
-            this.updateHostClassService.addClass(`thy-tree-${this.thySize}`);
+            this.hostRenderer.addClass(`thy-tree-${this.thySize}`);
         }
     }
 
@@ -422,8 +513,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     // region Public Functions
 
     public selectTreeNode(node: ThyTreeNode) {
-        this._selectionModel.select(node);
-        this.thyTreeService.syncFlattenTreeNodes();
+        if (node && !node.isDisabled) {
+            this._selectionModel.select(node);
+            this.thyTreeService.syncFlattenTreeNodes();
+        }
     }
 
     public getRootNodes(): ThyTreeNode[] {

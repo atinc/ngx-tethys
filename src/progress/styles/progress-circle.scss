@@ -1,0 +1,59 @@
+@use "../../styles/variables";
+@use "sass:meta";
+
+.progress-circle {
+    width: inherit;
+    &-inner {
+        position: relative;
+        display: inline-block;
+        width: variables.$progress-circle-height;
+        height: variables.$progress-circle-height;
+        overflow: hidden;
+        vertical-align: middle;
+        border-radius: variables.$progress-circle-border-radius;
+    }
+    &-svg {
+        position: relative;
+        line-height: 1;
+        background: transparent;
+    }
+    &-trail {
+        stroke: variables.$progress-bg;
+    }
+    &-path {
+        animation: thy-progress-appear 0.3s;
+        stroke: variables.$primary;
+    }
+    &-content {
+        display: inline-block;
+        font-size: variables.$progress-circle-font-size;
+        color: variables.$progress-circle-color;
+        word-break: normal;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 100%;
+        margin: 0;
+        padding: 0;
+        line-height: 1;
+        text-align: center;
+        transform: translate(-50%, -50%);
+    }
+}
+@each $name, $color in variables.$progress-colors {
+    .progress-circle-#{$name} {
+        .progress-circle-path {
+            stroke: $color;
+        }
+    }
+    .progress-circle-inner .progress-circle-path-#{$name} {
+        stroke: $color;
+    }
+}
+
+@each $size, $height in variables.$progress-circle-size {
+    .progress-circle-inner-#{$size} {
+        width: $height !important;
+        height: $height !important;
+    }
+}

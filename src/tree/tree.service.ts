@@ -20,6 +20,9 @@ function checkStateResolve(node: ThyTreeNode) {
 
 type FlattenAllNodesCb = (treeNode: ThyTreeNode) => boolean;
 
+/**
+ * @internal
+ */
 @Injectable()
 export class ThyTreeService implements OnDestroy {
     selectedNode!: ThyTreeNode;

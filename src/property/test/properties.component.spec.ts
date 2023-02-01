@@ -4,13 +4,9 @@ import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPropertyModule } from '../module';
-import { ThyPropertiesComponent } from '../properties.component';
+import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
 import { CommonModule } from '@angular/common';
-import { ThyPropertyItemComponent } from '../property-item.component';
-
-const itemLabelClass = 'thy-properties-item-label';
-const itemContentClass = 'thy-properties-item-content';
-const itemContentEditingClass = 'thy-properties-item-content-editing';
+import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -23,7 +19,7 @@ const itemContentEditingClass = 'thy-properties-item-content-editing';
                     <input class="age-input" />
                 </ng-template>
             </thy-property-item>
-            <thy-property-item *ngIf="isShow" thyLabelText="地址">这里是一个地址</thy-property-item>
+            <thy-property-item *ngIf="showAddress" thyLabelText="地址">这里是一个地址</thy-property-item>
         </thy-properties>
     `
 })
@@ -41,33 +37,55 @@ class ThyPropertiesTestBasicComponent {
         age: 24
     };
 
-    isShow = false;
+    showAddress = false;
 }
 
 @Component({
     selector: 'thy-properties-test-column',
     template: `
-        <thy-properties #properties thyColumn="3">
+        <thy-properties #properties [thyColumn]="column">
             <thy-property-item thyLabelText="姓名">张萌</thy-property-item>
             <thy-property-item thyLabelText="年龄">24</thy-property-item>
             <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
             <thy-property-item thyLabelText="电话">18500010001</thy-property-item>
-            <thy-property-item thyLabelText="居住地址" [thySpan]="addressItemSpan">北京市朝阳区十八里店小区26号10001</thy-property-item>
+            <thy-property-item class="address-item" thyLabelText="居住地址" [thySpan]="addressItemSpan"
+                >北京市朝阳区十八里店小区26号10001</thy-property-item
+            >
         </thy-properties>
     `
 })
 class ThyPropertiesTestColumnComponent {
     @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
 
-    addressItemSpan = 2;
+    column = 3;
+
+    addressItemSpan = 1;
+}
+
+@Component({
+    selector: 'thy-properties-test-operation',
+    template: `
+        <thy-properties [thyLayout]="layout">
+            <thy-property-item thyLabelText="Name" [thyOperationTrigger]="operationTrigger"
+                >Peter
+                <ng-template #operation>
+                    <a href="javascript:;">Add</a>
+                </ng-template>
+            </thy-property-item>
+        </thy-properties>
+    `
+})
+class ThyPropertiesTestOperationComponent {
+    layout: ThyPropertiesLayout = 'horizontal';
+    operationTrigger: ThyPropertyItemOperationTrigger = 'always';
 }
 
 @NgModule({
     imports: [ThyPropertyModule, CommonModule],
-    declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent],
+    declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent, ThyPropertiesTestOperationComponent],
     exports: []
 })
-export class ProgressTestModule {}
+export class PropertiesTestModule {}
 
 describe(`thy-properties`, () => {
     describe(`basic`, () => {
@@ -77,7 +95,7 @@ describe(`thy-properties`, () => {
         beforeEach(
             waitForAsync(() => {
                 TestBed.configureTestingModule({
-                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule],
+                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
                     providers: []
                 });
                 TestBed.compileComponents();
@@ -91,24 +109,22 @@ describe(`thy-properties`, () => {
         });
 
         it('should displayed properties info', () => {
-            const trs = fixture.debugElement.queryAll(By.css('tr'));
-            expect(trs.length).toEqual(2);
-            const tds = fixture.debugElement.queryAll(By.css('td'));
-            expect(tds[0].query(By.css(`.${itemLabelClass}`)).nativeElement.innerText).toEqual('姓名');
-            expect(tds[0].query(By.css(`.${itemContentClass}`)).nativeElement.innerText).toEqual(basicComponent.user.name);
-            expect(tds[1].query(By.css(`.${itemLabelClass}`)).nativeElement.innerText).toEqual('年龄');
-            expect(tds[1].query(By.css(`.${itemContentClass}`)).nativeElement.innerText).toEqual(basicComponent.user.age.toString());
+            const items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
+            expect(items.length).toEqual(2);
+            expect(items[0].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('姓名');
+            expect(items[0].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(basicComponent.user.name);
+            expect(items[1].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('年龄');
+            expect(items[1].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(
+                basicComponent.user.age.toString()
+            );
         });
 
-        it('should displayed vertical properties info', () => {
+        it('should change layout success', () => {
+            const propertiesElement = fixture.debugElement.query(By.css('.thy-properties'));
+            expect(propertiesElement.nativeElement.classList).toContain('thy-properties-horizontal');
             basicComponent.layout = 'vertical';
             fixture.detectChanges();
-            const trs = fixture.debugElement.queryAll(By.css('tr'));
-            expect(trs.length).toEqual(4);
-            expect(trs[0].nativeElement.innerText).toEqual('姓名');
-            expect(trs[1].nativeElement.innerText).toEqual(basicComponent.user.name);
-            expect(trs[2].nativeElement.innerText).toEqual('年龄');
-            expect(trs[3].nativeElement.innerText).toEqual(basicComponent.user.age.toString());
+            expect(propertiesElement.nativeElement.classList).toContain('thy-properties-vertical');
         });
 
         it('should displayed input when age item clicked', () => {
@@ -117,7 +133,9 @@ describe(`thy-properties`, () => {
             const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
             dispatchMouseEvent(ageEditorElement.nativeElement, 'click');
             fixture.detectChanges();
-            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
+            expect(ageEditorElement.nativeElement.closest('.thy-property-item-content').classList).toContain(
+                'thy-property-item-content-editing'
+            );
         });
 
         it('should add hover trigger class when thyEditTrigger is hover', () => {
@@ -131,30 +149,31 @@ describe(`thy-properties`, () => {
             const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
             basicComponent.editItemComponent.setEditing(true);
             fixture.detectChanges();
-            expect(ageEditorElement.nativeElement.parentNode.classList).toContain(itemContentEditingClass);
+            expect(ageEditorElement.nativeElement.parentNode.classList).toContain('thy-property-item-content-editing');
             basicComponent.editItemComponent.setEditing(false);
             fixture.detectChanges();
-            expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain(itemContentEditingClass);
+            expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain('thy-property-item-content-editing');
         });
 
         it('should dynamic rendering property item', () => {
+            basicComponent.showAddress = true;
             fixture.detectChanges();
-            basicComponent.isShow = true;
+            let items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
+            expect(items.length).toEqual(3);
+            basicComponent.showAddress = false;
             fixture.detectChanges();
-            const trs = fixture.debugElement.queryAll(By.css('tr'));
-            expect(trs.length).toEqual(3);
-            basicComponent.isShow = false;
-            fixture.detectChanges();
+            items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
+            expect(items.length).toEqual(2);
         });
     });
 
-    describe(`with column`, () => {
+    describe(`column`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestColumnComponent>;
         let testColumnComponent: ThyPropertiesTestColumnComponent;
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [ThyPropertyModule, NoopAnimationsModule],
+                imports: [ThyPropertyModule, NoopAnimationsModule, PropertiesTestModule],
                 providers: []
             });
             TestBed.compileComponents();
@@ -166,32 +185,84 @@ describe(`thy-properties`, () => {
             fixture.detectChanges();
         });
 
-        it('should displayed two line when set column is 3', () => {
-            const trs = fixture.debugElement.queryAll(By.css('tr'));
-            const tds = fixture.debugElement.queryAll(By.css('td'));
-            expect(trs.length).toEqual(2);
-            expect(tds.length).toEqual(5);
-        });
-
-        it('should render item elements length eq property items length ', () => {
-            expect(testColumnComponent.propertiesComponent.items.length).toEqual(
-                testColumnComponent.propertiesComponent.itemElements.length
-            );
+        it('should set column success', () => {
+            const propertiesElement = fixture.debugElement.query(By.css('.thy-properties'));
+            expect(propertiesElement.styles.gridTemplateColumns).toEqual('repeat(3, 1fr)');
+            testColumnComponent.column = 4;
+            fixture.detectChanges();
+            expect(propertiesElement.styles.gridTemplateColumns).toEqual('repeat(4, 1fr)');
         });
 
         it('should set item span is work', () => {
-            let trs = fixture.debugElement.queryAll(By.css('tr'));
-            expect(trs.length).toEqual(2);
-            expect(trs[1].nativeElement.childElementCount).toEqual(2);
-            expect(trs[1].queryAll(By.css('td'))[1].attributes.colspan).toBe('2');
+            testColumnComponent.addressItemSpan = 2;
+            fixture.detectChanges();
+            const propertiesElement = fixture.debugElement.query(By.css('.address-item'));
+            expect(propertiesElement.styles.gridColumn).toEqual('span 2 / auto');
             testColumnComponent.addressItemSpan = 3;
             fixture.detectChanges();
-            trs = fixture.debugElement.queryAll(By.css('tr'));
-            expect(trs.length).toEqual(3);
-            expect(trs[1].nativeElement.childElementCount).toEqual(1);
-            expect(trs[1].queryAll(By.css('td'))[0].attributes.colspan).toBe('1');
-            expect(trs[2].nativeElement.childElementCount).toEqual(1);
-            expect(trs[2].queryAll(By.css('td'))[0].attributes.colspan).toBe('3');
+            expect(propertiesElement.styles.gridColumn).toEqual('span 3 / auto');
+        });
+    });
+
+    describe('property-item-operation', () => {
+        let fixture: ComponentFixture<ThyPropertiesTestOperationComponent>;
+        let testComponent: ThyPropertiesTestOperationComponent;
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyPropertyModule, NoopAnimationsModule],
+                providers: [],
+                declarations: [ThyPropertiesTestOperationComponent]
+            });
+            TestBed.compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyPropertiesTestOperationComponent);
+            testComponent = fixture.debugElement.componentInstance;
+            fixture.detectChanges();
+        });
+
+        it('should create operation', () => {
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            expect(propertyItemDebugElement).toBeTruthy();
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
+            const propertyItemContent: HTMLElement = propertyItemElement.querySelector('.thy-property-item-content');
+            expect(propertyItemContent.children.length).toEqual(2);
+            const operation = propertyItemContent.children[1];
+            expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
+            expect(operation.textContent).toBeTruthy('Add');
+        });
+
+        it('should create operation with vertical layout', () => {
+            testComponent.layout = 'vertical';
+            fixture.detectChanges();
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            expect(propertyItemDebugElement).toBeTruthy();
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
+            expect(propertyItemElement.children.length).toEqual(2);
+            const label = propertyItemElement.children[0];
+            expect(label).toBeTruthy();
+            expect(label.children.length).toEqual(2);
+            const operation = label.children[1];
+            expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
+            expect(operation.textContent).toBeTruthy('Add');
+        });
+
+        it('should set operation trigger hover', () => {
+            fixture.detectChanges();
+            const propertyItemDebugElement = fixture.debugElement.query(By.css('thy-property-item'));
+            const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
+            expect(propertyItemElement).toBeTruthy();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeFalsy();
+            testComponent.operationTrigger = 'hover';
+            fixture.detectChanges();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeTruthy();
+            testComponent.operationTrigger = 'always';
+            fixture.detectChanges();
+            expect(propertyItemElement.classList.contains('thy-property-item-operational-hover')).toBeFalsy();
         });
     });
 });

@@ -3,9 +3,11 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { THY_SELECT_SCROLL_STRATEGY, ThySelectModule } from 'ngx-tethys/select';
 import { ThyOptionModule } from 'ngx-tethys/shared';
 import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyTypographyModule } from 'ngx-tethys/typography';
 import { Overlay, OverlayModule } from '@angular/cdk/overlay';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ThyInputModule } from 'ngx-tethys/input';
 
 export default {
     imports: [
@@ -16,7 +18,9 @@ export default {
         ThyOptionModule,
         ThyCheckboxModule,
         ThyIconModule,
-        ThyButtonModule
+        ThyButtonModule,
+        ThyTypographyModule,
+        ThyInputModule
     ],
     providers: [
         {

@@ -1,30 +1,38 @@
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { ThySkeletonModule } from 'ngx-tethys/skeleton';
-import { ThyFormModule } from 'ngx-tethys/form';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { ThyInputModule } from 'ngx-tethys/input';
-import { ThySkeletonParagraphExampleComponent } from './paragraph/paragraph.component';
-import { ThySkeletonListExampleComponent } from './list/list.component';
-import { ThySkeletonBulletListExampleComponent } from './bullet-list/bullet-list.component';
-import { ThySkeletonAvatarExampleComponent } from './avatar/avatar.component';
-import { ThySkeletonTitleExampleComponent } from './title/title.component';
-import { ThySkeletonCustomExampleComponent } from './custom/custom.component';
+import { ThySkeletonModule, THY_SKELETON_CONFIG } from 'ngx-tethys/skeleton';
+import { ThyGridModule } from 'ngx-tethys/grid';
+
+import { ThySkeletonExampleListComponent } from './list/list.component';
+import { ThySkeletonExampleParagraphComponent } from './paragraph/paragraph.component';
+import { ThySkeletonExampleCustomComponent } from './custom/custom.component';
+import { ThySkeletonExampleBulletListComponent } from './bulletList/bulletList.component';
+import { ThySkeletonExampleRectangleComponent } from './rectangle/rectangle.component';
+import { ThySkeletonExampleCircleComponent } from './circle/circle.component';
 
 const COMPONENTS = [
-    ThySkeletonParagraphExampleComponent,
-    ThySkeletonListExampleComponent,
-    ThySkeletonBulletListExampleComponent,
-    ThySkeletonAvatarExampleComponent,
-    ThySkeletonTitleExampleComponent,
-    ThySkeletonCustomExampleComponent
+    ThySkeletonExampleListComponent,
+    ThySkeletonExampleBulletListComponent,
+    ThySkeletonExampleParagraphComponent,
+    ThySkeletonExampleCustomComponent,
+    ThySkeletonExampleRectangleComponent,
+    ThySkeletonExampleCircleComponent
 ];
 
 @NgModule({
     declarations: COMPONENTS,
-    imports: [CommonModule, FormsModule, ThyInputModule, ThySkeletonModule, ThyFormModule, ThySelectModule],
+    imports: [CommonModule, ThyGridModule, ThySkeletonModule],
     exports: COMPONENTS,
-    providers: []
+    providers: [
+        {
+            provide: THY_SKELETON_CONFIG,
+            useValue: {
+                thyAnimatedInterval: 1.5,
+                thyPrimaryColor: '#F7F7F7',
+                thySecondaryColor: '#aaaaaa',
+                thyAnimated: true
+            }
+        }
+    ]
 })
 export class ThySkeletonExamplesModule {}

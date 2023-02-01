@@ -1,84 +1,124 @@
 @use "../../styles/variables.scss";
 
-@mixin _displayItemEditor {
-    .thy-properties-item-content-text {
+@mixin display-item-editor {
+    .thy-property-item-content-text {
         display: none;
     }
-    .thy-properties-item-content-editor {
+    .thy-property-item-content-editor {
         display: block;
     }
 }
 
+@mixin property-item-operation-hover-visible {
+    &:hover {
+        .thy-property-item-operation {
+            visibility: visible;
+        }
+    }
+}
+
 .thy-properties {
-    display: block;
-    width: 100%;
-
+    display: grid;
+    column-gap: variables.$properties-column-gap;
+    row-gap: variables.$properties-row-gap;
     &.thy-properties-horizontal {
-        .thy-properties-item-container {
-            width: 100%;
-            display: flex;
-
-            .thy-properties-item-label {
+        .thy-property-item {
+            flex-direction: row;
+            .thy-property-item-label {
                 width: variables.$property-item-horizontal-label-width;
-                min-height: variables.$property-item-min-height;
                 padding-right: variables.$property-item-padding-x;
-                span {
-                    line-height: variables.$property-item-min-height;
-                }
             }
 
-            .thy-properties-item-content {
-                flex: 1;
+            .thy-property-item-operation {
                 display: flex;
-                align-items: center;
+                flex-grow: 1;
+                justify-content: flex-end;
+            }
+            &.thy-property-item-operational-hover {
+                .thy-property-item-content {
+                    @include property-item-operation-hover-visible();
+                }
             }
         }
     }
 
     &.thy-properties-vertical {
-        .thy-properties-item-content {
-            min-height: variables.$property-item-min-height;
-            display: flex;
-            align-items: center;
-        }
-    }
-
-    &.thy-properties-edit-trigger-hover {
-        .thy-properties-item-content-editable {
-            &:hover {
-                @include _displayItemEditor();
+        .thy-property-item {
+            flex-direction: column;
+            &.thy-property-item-operational-hover {
+                .thy-property-item-label {
+                    @include property-item-operation-hover-visible();
+                }
             }
         }
     }
 
-    table {
-        width: 100%;
-        table-layout: fixed;
-        td {
-            padding: variables.$property-item-padding-y variables.$property-item-padding-x variables.$property-item-padding-y 0;
+    &.thy-properties-edit-trigger-hover {
+        .thy-property-item-content-editable {
+            &:hover {
+                @include display-item-editor();
+            }
         }
     }
 
-    .thy-properties-item-label {
-        color: variables.$property-item-label-color;
-    }
+    .thy-property-item {
+        display: flex;
+        // 添加最小宽度是因为内容区域过多时会超出对应宽度区域
+        min-width: 0px;
+        .thy-property-item-label {
+            display: inline-grid;
+            align-items: center;
+            height: variables.$property-item-min-height;
+            color: variables.$property-item-label-color;
+            grid-template-columns: auto auto;
+            flex-shrink: 0;
 
-    .thy-properties-item-content {
-        width: 100%;
-        color: variables.$property-item-content-color;
-
-        .thy-properties-item-content-text {
-            width: 100%;
+            .thy-property-item-operation {
+                text-align: end;
+            }
+            span {
+                display: inline-block;
+            }
         }
 
-        .thy-properties-item-content-editor {
-            display: none;
-            margin-left: variables.$property-item-editor-offset;
-            width: calc(100% - variables.$property-item-editor-offset);
+        .thy-property-item-content {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            color: variables.$property-item-content-color;
+            min-height: variables.$property-item-min-height;
+            min-width: 0px;
+
+            .thy-property-item-content-text {
+                display: flex;
+                align-items: center;
+                min-width: 0px;
+                flex: auto;
+            }
+
+            .thy-property-item-content-editor {
+                display: none;
+                margin-left: variables.$property-item-editor-offset;
+                width: calc(100% - variables.$property-item-editor-offset);
+            }
+
+            &-editing {
+                @include display-item-editor();
+            }
         }
 
-        &-editing {
-            @include _displayItemEditor();
+        .thy-property-item-operation {
+            margin-left: 4px;
+            .thy-action + .thy-action {
+                margin-left: 4px;
+            }
+        }
+
+        &.thy-property-item-operational-hover {
+            cursor: pointer;
+            .thy-property-item-operation {
+                visibility: hidden;
+            }
         }
     }
 }

@@ -1,4 +1,15 @@
-import { Directive, AfterViewInit, OnDestroy, ElementRef, Renderer2, NgZone, Input, Output, EventEmitter } from '@angular/core';
+import {
+    Directive,
+    AfterViewInit,
+    OnDestroy,
+    ElementRef,
+    Renderer2,
+    NgZone,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectorRef
+} from '@angular/core';
 import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
@@ -10,6 +21,10 @@ import { fromEvent } from 'rxjs';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * 调整尺寸
+ * @name thyResizable
+ */
 @Directive({
     selector: '[thyResizable]',
     providers: [ThyResizableService],
@@ -20,20 +35,67 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     }
 })
 export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+    /**
+     * 调整尺寸的边界
+     * @default 'parent'
+     * @type 'window' | 'parent' | ElementRef<HTMLElement>
+     */
     @Input() thyBounds: 'window' | 'parent' | ElementRef<HTMLElement> = 'parent';
+    /**
+     * 最大高度(超过边界部分忽略)
+     */
     @Input() thyMaxHeight?: number;
+    /**
+     * 最大宽度(超过边界部分忽略)
+     */
     @Input() thyMaxWidth?: number;
+    /**
+     * 最小高度
+     */
     @Input() thyMinHeight: number = 40;
+    /**
+     * 最小宽度
+     */
     @Input() thyMinWidth: number = 40;
+    /**
+     * 栅格列数(-1 为不栅格)
+     */
     @Input() thyGridColumnCount: number = -1;
+    /**
+     * 栅格最大列数
+     */
     @Input() thyMaxColumn: number = -1;
+    /**
+     * 栅格最小列数
+     */
     @Input() thyMinColumn: number = -1;
+    /**
+     * 锁定宽高比
+     * @default false
+     */
     @Input() @InputBoolean() thyLockAspectRatio: boolean = false;
+    /**
+     * 是否预览模式
+     * @default false
+     */
     @Input() @InputBoolean() thyPreview: boolean = false;
+    /**
+     * 是否禁用调整大小
+     * @default false
+     */
     @Input() @InputBoolean() thyDisabled: boolean = false;
 
+    /**
+     * 调整尺寸时的事件
+     */
     @Output() readonly thyResize = new EventEmitter<ThyResizeEvent>();
+    /**
+     * 开始调整尺寸时的事件
+     */
     @Output() readonly thyResizeEnd = new EventEmitter<ThyResizeEvent>();
+    /**
+     * 结束调整尺寸时的事件
+     */
     @Output() readonly thyResizeStart = new EventEmitter<ThyResizeEvent>();
 
     resizing = false;
@@ -48,7 +110,8 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
         private renderer: Renderer2,
         private platform: Platform,
         private ngZone: NgZone,
-        private thyResizableService: ThyResizableService
+        private thyResizableService: ThyResizableService,
+        private changeDetectorRef: ChangeDetectorRef
     ) {
         super();
         this.thyResizableService.handleMouseDownOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
@@ -70,8 +133,11 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
 
         this.thyResizableService.documentMouseUpOutsideAngular$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(event => {
             if (this.resizing) {
-                this.resizing = false;
-                this.thyResizableService.documentMouseUpOutsideAngular$.next();
+                this.ngZone.run(() => {
+                    this.resizing = false;
+                    this.changeDetectorRef.markForCheck();
+                });
+                this.thyResizableService.documentMouseUpOutsideAngular$.next(event);
                 this.endResize(event);
             }
         });

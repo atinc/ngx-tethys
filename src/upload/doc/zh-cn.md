@@ -16,7 +16,7 @@ subtitle: 上传
 import { ThyUploadModule } from "ngx-tethys/upload";
 ```
 
-## 基本使用
+## 如何使用
 首先需要在上传按钮外层添加`thy-file-select`组件，设置文件选择事件`thyOnFileSelect`。
 ```html
 <thy-file-select (thyOnFileSelect)="selectFiles($event)">
@@ -77,3 +77,5 @@ export class ThyUploadBasicExampleComponent {
 - `done`: 上传结束
 
 
+
+<examples />

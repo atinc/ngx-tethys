@@ -1,7 +1,3 @@
-import { InputBoolean } from 'ngx-tethys/core';
-import { assertIconOnly, coerceBooleanProperty, warnDeprecation } from 'ngx-tethys/util';
-import { useHostRenderer } from '@tethys/cdk/dom';
-
 import {
     ChangeDetectionStrategy,
     Component,
@@ -13,6 +9,10 @@ import {
     ViewEncapsulation,
     AfterViewInit
 } from '@angular/core';
+
+import { InputBoolean } from 'ngx-tethys/core';
+import { assertIconOnly } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyButtonType =
     | 'primary'

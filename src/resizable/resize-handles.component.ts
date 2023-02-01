@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeDirection } from './interface';
 
 export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
@@ -12,16 +13,29 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
     'left'
 ];
 
+/**
+ * 定义调整手柄的快捷组件
+ * @name thy-resize-handles
+ */
 @Component({
     selector: 'thy-resize-handles',
     exportAs: 'thyResizeHandles',
     template: `
-        <thy-resize-handle *ngFor="let dir of directions" [thyDirection]="dir"></thy-resize-handle>
+        <thy-resize-handle *ngFor="let dir of directions" [thyLine]="thyLine" [thyDirection]="dir"></thy-resize-handle>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyResizeHandlesComponent implements OnChanges {
+    /**
+     * 定义调整手柄的方向
+     */
     @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
+
+    /**
+     * 是否展示拖拽线
+     */
+    @Input() @InputBoolean() thyLine = false;
+
     directions = new Set<ThyResizeDirection>(this.thyDirections);
 
     ngOnChanges(changes: SimpleChanges): void {

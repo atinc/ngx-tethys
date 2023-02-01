@@ -54,6 +54,7 @@ module.exports = {
                 'menu',
                 'nav',
                 'notify',
+                'message',
                 'nav',
                 'pagination',
                 'popover',
@@ -99,7 +100,8 @@ module.exports = {
                 'typography',
                 'property',
                 'carousel',
-                'color-picker'
+                'color-picker',
+                'comment'
             ]
         ]
     }

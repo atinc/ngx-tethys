@@ -3,12 +3,12 @@
 @use "./mixin";
 
 .#{variables.$thy-prefix}-text {
-    display: inline-block;
-    position: relative;
+    display: inline-flex;
+    align-items: center;
     font-size: variables.$font-size-base;
 
     .thy-icon {
-        vertical-align: text-bottom;
         margin-right: 8px;
+        color: variables.$gray-600;
     }
 }

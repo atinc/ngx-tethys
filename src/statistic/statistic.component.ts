@@ -1,6 +1,6 @@
-import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild, Renderer2 } from '@angular/core';
-import { coerceBooleanProperty, hexToRgb } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
+import { hexToRgb } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -10,10 +10,13 @@ export type ThyStatisticSizes = 'default';
 
 export type ThyStatisticTitlePosition = 'top' | 'bottom';
 
+/**
+ * 用于展示数据统计
+ * @name thy-statistic
+ */
 @Component({
     selector: 'thy-statistic',
-    templateUrl: './statistic.component.html',
-    providers: [UpdateHostClassService]
+    templateUrl: './statistic.component.html'
 })
 export class ThyStatisticComponent implements OnInit {
     _shape: ThyStatisticShape;
@@ -30,52 +33,53 @@ export class ThyStatisticComponent implements OnInit {
 
     titleTemplate: TemplateRef<void>;
 
+    private hostRenderer = useHostRenderer();
+
     @HostBinding(`class.thy-statistic`) class = true;
 
-    @Input() thyValueStyle = {};
-
-    @Input() thyPrefix: string;
-
-    @ContentChild('prefix', { static: true }) set prefix(value: TemplateRef<void>) {
-        this.prefixTemplate = value;
-    }
-
-    @Input() set thyPrefixTemplate(value: TemplateRef<void>) {
-        this.prefixTemplate = value;
-    }
-
+    /**
+     * @description 展示数据
+     * @type number | string
+     */
     @Input() thyValue: number | string;
 
-    @ContentChild('value', { static: true }) set value(value: TemplateRef<void>) {
-        this.valueTemplate = value;
-    }
+    /**
+     * @description 展示数据的 css 样式
+     * @type { [key: string]: string; }
+     * @default {}
+     */
+    @Input() thyValueStyle: { [key: string]: string } = {};
 
-    @Input() set thyValueTemplate(value: TemplateRef<void>) {
-        this.valueTemplate = value;
-    }
+    /**
+     * @description 展示数据的前缀
+     * @type string
+     */
+    @Input() thyPrefix: string;
 
-    @Input() thyTitle: string;
-
-    @ContentChild('title', { static: true }) set title(value: TemplateRef<void>) {
-        this.titleTemplate = value;
-    }
-
-    @Input() set thyTitleTemplate(value: TemplateRef<void>) {
-        this.titleTemplate = value;
-    }
-
+    /**
+     * @description 展示数据的后缀
+     * @type string
+     */
     @Input() thySuffix: string;
 
-    @ContentChild('suffix', { static: true }) set suffix(value: TemplateRef<void>) {
-        this.suffixTemplate = value;
-    }
+    /**
+     * @description 展示数据的标题
+     * @type string
+     */
+    @Input() thyTitle: string;
 
-    @Input() set thySuffixTemplate(value: TemplateRef<void>) {
-        this.suffixTemplate = value;
-    }
-
+    /**
+     * @description 展示数据标题的位置，可设置 `top`｜`bottom`
+     * @type ThyStatisticTitlePosition
+     * @default bottom
+     */
     @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 
+    /**
+     * @description 展示形状
+     * @type ThyStatisticShape
+     * @default card
+     */
     @Input()
     set thyShape(value: ThyStatisticShape) {
         this._shape = value;
@@ -84,8 +88,17 @@ export class ThyStatisticComponent implements OnInit {
         }
     }
 
+    /**
+     * @description 主题颜色，可以使用提供的主题色，也可以自定义颜色。 `ThyStatisticColorType` 中包含 `primary` | `success` | `warning` | `danger` | `info`
+     * @type ThyStatisticColorType ｜ string
+     */
     @Input() thyColor: string | ThyStatisticColorType;
 
+    /**
+     * @description 前缀和展示数据字体大小
+     * @type ThyStatisticSizes
+     * @default default
+     */
     @Input()
     set thySize(value: ThyStatisticSizes) {
         this._size = value;
@@ -94,9 +107,70 @@ export class ThyStatisticComponent implements OnInit {
         }
     }
 
-    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService, private renderer: Renderer2) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
+    /**
+     * @description 自定义展示数据模板
+     * @type TemplateRef<void>
+     */
+    @Input() set thyValueTemplate(value: TemplateRef<void>) {
+        this.valueTemplate = value;
     }
+
+    /**
+     * @description 自定义展示数据模板
+     * @type TemplateRef<void>
+     */
+    @ContentChild('value', { static: true }) set value(value: TemplateRef<void>) {
+        this.valueTemplate = value;
+    }
+
+    /**
+     * @description 自定义标题模板
+     * @type TemplateRef<void>
+     */
+    @Input() set thyTitleTemplate(value: TemplateRef<void>) {
+        this.titleTemplate = value;
+    }
+
+    /**
+     * @description 自定义标题模板
+     * @type TemplateRef<void>
+     */
+    @ContentChild('title', { static: true }) set title(value: TemplateRef<void>) {
+        this.titleTemplate = value;
+    }
+
+    /**
+     * @description 自定义前缀模板
+     * @type TemplateRef<void>
+     */
+    @Input() set thyPrefixTemplate(value: TemplateRef<void>) {
+        this.prefixTemplate = value;
+    }
+
+    /**
+     * @description 自定义前缀模板
+     * @type TemplateRef<void>
+     */
+    @ContentChild('prefix', { static: true }) set prefix(value: TemplateRef<void>) {
+        this.prefixTemplate = value;
+    }
+
+    /**
+     * @description 自定义后缀模板
+     * @type TemplateRef<void>
+     */
+    @Input() set thySuffixTemplate(value: TemplateRef<void>) {
+        this.suffixTemplate = value;
+    }
+    /**
+     * @description 自定义后缀模板
+     * @type TemplateRef<void>
+     */
+    @ContentChild('suffix', { static: true }) set suffix(value: TemplateRef<void>) {
+        this.suffixTemplate = value;
+    }
+
+    constructor(private elementRef: ElementRef) {}
 
     ngOnInit() {
         this._setClassesByType();
@@ -104,10 +178,10 @@ export class ThyStatisticComponent implements OnInit {
     }
 
     setColor(color: string) {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'color', color);
+        this.hostRenderer.setStyle('color', color);
         if (this._shape === 'card') {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', color);
-            this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', hexToRgb(color, 0.05));
+            this.hostRenderer.setStyle('border-color', color);
+            this.hostRenderer.setStyle('background-color', hexToRgb(color, 0.05));
         }
     }
 
@@ -128,7 +202,7 @@ export class ThyStatisticComponent implements OnInit {
         }
         classNames.push(`thy-statistic-${this._size}`);
 
-        this.renderer.setStyle(this.elementRef.nativeElement, 'font-size', this.thySize);
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.setStyle('font-size', this.thySize);
+        this.hostRenderer.updateClass(classNames);
     }
 }

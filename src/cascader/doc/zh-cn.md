@@ -8,10 +8,11 @@ subtitle: 级联选择菜单
 
 ## 组件概述
 
-本组件提供如下7种用法：
+本组件提供如下用法：
 
 - 基本用法（basic）
 - 禁止选择(disable)
+- 支持多选(multiple)
 - 鼠标移入自动展开菜单(move-unfold)
 - 鼠标移入自动展开菜单+移入触发对应项(move-unfold-trigger)
 - 选择即改变(select-changed)
@@ -29,45 +30,5 @@ subtitle: 级联选择菜单
 import { ThyCascaderModule } from 'ngx-tethys/cascader';
 ```
 
+<examples />
 
-## 基础使用
-通过`thyOptions`传入所要展示的数据集，`ngModel`绑定当前选中的值，`ngModelChange`绑定点击事件。
-```html
-<thy-cascader [thyOptions]="areaCode" [(ngModel)]="values" (ngModelChange)="onChanges($event)" thyPlaceHolder="自定义PlaceHolder">
-</thy-cascader>
-```
-
-展示效果如下：
-<example name='thy-cascader-basic-example'>
-
-## 自定义模版
-
-通过`thyLabelRender`传入用户自定义模版,如：追加邮政编码（add-code）。
-
-```html
-<thy-cascader
-  [thyOptions]="thyCustomerOptions"
-  (ngModelChange)="onChanges($event)"
-  [(ngModel)]="curVal"
-  style="width:400px;"
-  [thyLabelRender]="renderTpl"
->
-</thy-cascader>
-<ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
-  <ng-container>
-    <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
-      <span *ngIf="!isLast">{{ label }} / </span>
-      <span *ngIf="isLast">
-        {{ label }} (
-        <a href="javascript:;" (click)="handleAreaClick($event, label, selectedOptions[i])">
-          {{ selectedOptions[i].code }}
-        </a>
-        )
-      </span>
-    </ng-container>
-  </ng-container>
-</ng-template>
-```
-
-展示效果如下：
-<example name='thy-cascader-custom-template-example'>

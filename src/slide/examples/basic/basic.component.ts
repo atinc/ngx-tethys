@@ -22,4 +22,17 @@ export class ThySlideBasicExampleComponent {
             id: 'withTemplate'
         });
     }
+
+    showSlideWithoutBackdrop() {
+        this.thySlideNewService.open(ThySlideDemoContentComponent, {
+            hasBackdrop: false
+        });
+    }
+
+    showSlideNotCloseLatest() {
+        this.thySlideNewService.open(ThySlideDemoContentComponent, {
+            hasBackdrop: false,
+            disableCloseLatest: true
+        });
+    }
 }

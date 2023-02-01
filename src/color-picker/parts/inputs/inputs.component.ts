@@ -11,21 +11,37 @@ import ThyColor from '../../helpers/color.class';
 export class ThyColorInputsComponent {
     @HostBinding('class.thy-color-inputs') className = true;
 
+    innerColor: ThyColor;
+
     @Input()
-    public color: ThyColor;
+    set color(value: ThyColor) {
+        this.alpha = Math.round(value.rgba.alpha * 100);
+        this.innerColor = value;
+    }
+
+    get color() {
+        return this.innerColor;
+    }
 
     @Output()
     public colorChange = new EventEmitter<ThyColor>(false);
 
+    alpha: number;
+
     onInputChange(event: Event, type: string) {
         let newColor;
         if (type === 'hex') {
-            if (this.color.displayValue.trim().slice(0, 1) !== '#') {
-                this.color.displayValue = `#${this.color.displayValue}`;
+            if (this.innerColor.displayValue.trim().slice(0, 1) !== '#') {
+                this.innerColor.displayValue = `#${this.innerColor.displayValue}`;
             }
-            newColor = new ThyColor(this.color.displayValue);
+            newColor = new ThyColor(this.innerColor.displayValue);
         } else {
-            newColor = new ThyColor().setRgba(this.color.rgba.red, this.color.rgba.green, this.color.rgba.blue, this.color.rgba.alpha);
+            newColor = new ThyColor().setRgba(
+                this.innerColor.rgba.red,
+                this.innerColor.rgba.green,
+                this.innerColor.rgba.blue,
+                this.alpha / 100
+            );
         }
         this.colorChange.emit(newColor);
     }

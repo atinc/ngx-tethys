@@ -1,0 +1,14 @@
+.bg-example {
+    padding: 12px;
+    .thy-nav {
+        background: #fff;
+        margin-bottom: 12px;
+
+        &.thy-nav-pills {
+            padding: {
+                top: 8px;
+                bottom: 8px;
+            }
+        }
+    }
+}

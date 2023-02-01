@@ -41,7 +41,7 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     @Output() thyOnDrop = new EventEmitter();
 
-    private ngUnsubscribe$ = new Subject();
+    private ngUnsubscribe$ = new Subject<void>();
 
     constructor(
         public elementRef: ElementRef,

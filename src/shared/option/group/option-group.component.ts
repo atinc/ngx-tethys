@@ -4,6 +4,9 @@ import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.compo
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-option-group',
     templateUrl: './option-group.component.html',
@@ -31,7 +34,7 @@ export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentIni
 
     @ContentChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
-    _destroy$: Subject<any> = new Subject<any>();
+    _destroy$: Subject<void> = new Subject<void>();
 
     optionVisibleChanges: Observable<ThyOptionVisibleChangeEvent> = defer(() => {
         if (this.options) {

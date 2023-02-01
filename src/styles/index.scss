@@ -19,6 +19,7 @@
 @forward '../nav/styles/nav.scss';
 @forward '../pagination/styles/pagination.scss';
 @forward '../notify/styles/notify.scss';
+@forward '../message/styles/message.scss';
 @forward '../card/styles/card.scss';
 @forward '../loading/styles/loading.scss';
 @forward '../action/styles/action.scss';
@@ -53,7 +54,7 @@
 @forward '../tooltip/styles.scss';
 @forward '../icon/styles.scss';
 @forward '../flexible-text/styles/flexible-text.scss';
-@forward '../skeleton/styles.scss';
+@forward '../skeleton/styles/index.scss';
 @forward '../vote/styles/vote.scss';
 @forward '../result/styles/result.scss';
 @forward '../mention/mention.scss';
@@ -87,3 +88,4 @@
 @forward "../carousel/styles/index.scss";
 @forward '../checkbox/styles/checkbox.scss';
 @forward "../color-picker/styles/color-picker.scss";
+@forward "../comment/styles/comment.scss";

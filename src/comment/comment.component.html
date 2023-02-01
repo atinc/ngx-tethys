@@ -1,0 +1,29 @@
+<div class="thy-comment-inner">
+  <ng-container *ngIf="isTemplateRef(this.thyAvatar); else defaultAvatar">
+    <ng-template [ngTemplateOutlet]="thyAvatar"></ng-template>
+  </ng-container>
+
+  <div class="thy-comment-body">
+    <div class="thy-comment-body-author">
+      <span class="thy-comment-body-author-name">
+        <ng-container *thyStringOrTemplateOutlet="thyAuthor"></ng-container>
+      </span>
+      <span class="thy-comment-body-author-time">
+        <ng-container *thyStringOrTemplateOutlet="thyDatetime"></ng-container>
+      </span>
+    </div>
+    <ng-content select="[thyCommentContent]"></ng-content>
+  </div>
+  <ng-content select="[thyCommentActions]"></ng-content>
+</div>
+<div class="thy-comment-nested">
+  <ng-content></ng-content>
+</div>
+
+<ng-template #defaultAvatar>
+  <ng-container *ngIf="thyAuthor || thyAvatar">
+    <div class="thy-comment-avatar">
+      <thy-avatar [thyName]="!isTemplateRef(thyAuthor) && thyAuthor" thySize="28" [thySrc]="thyAvatar || ''"></thy-avatar>
+    </div>
+  </ng-container>
+</ng-template>

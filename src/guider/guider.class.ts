@@ -3,7 +3,7 @@ import { ThyPlacement } from 'ngx-tethys/core';
 
 export interface ThyGuiderStep<TData = any> {
     key: string;
-    target?: string | [number, number];
+    target?: string | string[] | { x: number; y: number };
     data: TData;
     route?: string;
     hintPlacement?: ThyPlacement;
@@ -23,7 +23,7 @@ export class ThyGuiderConfig {
     hintPlacement?: ThyPlacement;
 
     /** useful when without target */
-    defaultPosition?: [number, number];
+    defaultPosition?: { x: number; y: number };
 
     /** setting default point offset */
     pointOffset?: [number, number];
@@ -41,7 +41,7 @@ export class ThyGuiderConfig {
 export const defaultGuiderPositionConfig = {
     hintComponent: null as Type<unknown>,
     hintPlacement: 'rightBottom',
-    defaultPosition: [0, 0],
+    defaultPosition: { x: 0, y: 0 },
     pointOffset: [0, 0],
     hintOffset: 4
 };

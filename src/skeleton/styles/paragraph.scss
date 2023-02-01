@@ -1,0 +1,10 @@
+@use "../../styles/variables.scss" as vars;
+
+.thy-skeleton-paragraph {
+    .vertical-gap {
+        margin-bottom: vars.$skeleton-vertical-gap;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}

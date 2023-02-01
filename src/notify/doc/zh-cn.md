@@ -29,6 +29,8 @@ import { ThyNotifyModule } from "ngx-tethys/notify";
 - topLeft：通知从左上角弹出。
 - topRight：通知从右上角弹出。
 
+<examples />
+
 ## 设置全局默认值
 
 对话框的默认选项可以通过在应用根模块中为`THY_NOTIFY_DEFAULT_CONFIG`令牌提供一个`ThyDialogConfig`实例来指定。
@@ -51,25 +53,3 @@ const THY_NOTIFY_DEFAULT_CONFIG_VALUE = {
     placement: 'topRight'
 };
 ```
-
-## 基本使用
-按钮组件支持组件和指令两种使用方式
-```ts
-notifyService.show({ type: 'success', title: '成功 ' });
-
-notifyService.success(null, '创建项目成功！');
-```
-<example name="thy-notify-basic-example"></example>
-
-<example name="thy-notify-type-example"></example>
-
-<example name="thy-notify-custom-html-example"></example>
-
-<example name="thy-notify-hover-example"></example>
-
-<example name="thy-notify-detail-example"></example>
-
-<example name="thy-notify-detail-operation-example"></example>
-
-<example name="thy-notify-placement-example"></example>
-

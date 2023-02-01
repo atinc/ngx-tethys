@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import option from '../cascader-address-options';
+import { clone, options } from '../cascader-address-options';
 @Component({
     selector: 'thy-cascader-move-unfold-trigger-example',
     templateUrl: './move-unfold-trigger.component.html'
@@ -13,10 +13,10 @@ export class ThyCascaderMoveUnfoldTriggerExampleComponent implements OnInit {
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
-        this.areaCode = [...option];
+        this.areaCode = clone(options);
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info('select', values);
+        this.notifyService.info(`selected data is ${values}`);
     }
 }

@@ -8,8 +8,11 @@ import { ThyStopPropagationDirective } from './directives/thy-stop-propagation.d
 import { ThyContextMenuDirective } from './directives/thy-contextmenu.directive';
 import { ThyScrollDirective } from './directives/thy-scroll.directive';
 import { ThyDragDropDirective } from './directives/thy-drag-drop.directive';
+import { ThyStringOrTemplateOutletDirective } from './directives/string-or-template-outlet.directive';
+import { ThyViewOutletDirective } from './directives/view-outlet.directive';
 
 @NgModule({
+    imports: [ThyViewOutletDirective],
     declarations: [
         ThyTranscludeDirective,
         ThyAutofocusDirective,
@@ -19,7 +22,8 @@ import { ThyDragDropDirective } from './directives/thy-drag-drop.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyDragDropDirective
+        ThyDragDropDirective,
+        ThyStringOrTemplateOutletDirective
     ],
     exports: [
         ThyTranscludeDirective,
@@ -30,7 +34,9 @@ import { ThyDragDropDirective } from './directives/thy-drag-drop.directive';
         ThyStopPropagationDirective,
         ThyContextMenuDirective,
         ThyScrollDirective,
-        ThyDragDropDirective
+        ThyDragDropDirective,
+        ThyStringOrTemplateOutletDirective,
+        ThyViewOutletDirective
     ],
     providers: []
 })

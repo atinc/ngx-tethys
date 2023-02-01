@@ -1,0 +1,13 @@
+.hotkey-content {
+    position: relative;
+    width: 500px;
+    margin-top: 8px;
+    .hotkey-code {
+        font-size: 32px;
+    }
+    .hotkey-code-copy {
+        position: absolute;
+        bottom: 4px;
+        right: 4px;
+    }
+}

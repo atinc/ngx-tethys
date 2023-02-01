@@ -24,6 +24,40 @@
             padding-top: $padding-y;
             .choice {
                 margin-bottom: $padding-y;
+                padding: 0 0 0 8px;
+                border: 0 none;
+                .choice-remove-link {
+                    height: 100%;
+                    transition: background 0.2s ease-in-out;
+                    cursor: pointer;
+                    span{
+                        height: 100%;
+                        padding: 0 6px;
+                        border-top-right-radius: variables.$tag-border-radius;
+                        border-bottom-right-radius: variables.$tag-border-radius;
+                        transition: background 0.2s ease-in-out;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .thy-icon {
+                        transition: color 0.2s ease-in-out;
+                        margin-right: 0;
+                    }
+                    
+                    &:hover {
+                        background-color: variables.$white;
+                        span{
+                            background-color: rgba(variables.$danger, 0.1);
+                        }
+                        
+                        .thy-icon {
+                            color: variables.$danger;
+                        }
+                    }
+                }
+                &.disabled, &.max-tag-count-choice {
+                    padding-right: 8px;
+                }
             }
         }
     }
@@ -62,7 +96,7 @@
 @mixin thy-select-options-container {
     max-height: 300px;
     overflow-y: auto;
-    padding: 10px 0;
+    padding: 12px 0;
 }
 
 $has-value-margin-base: -0.03175rem;

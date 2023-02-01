@@ -1,12 +1,14 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
-
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
     Component,
     ContentChild,
+    ElementRef,
+    HostBinding,
     Input,
     NgZone,
     OnChanges,
@@ -17,6 +19,9 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
+import { ThyPropertiesComponent } from './properties.component';
+
+export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
 /**
  * 属性组件
@@ -24,11 +29,13 @@ import {
  */
 @Component({
     selector: 'thy-property-item',
-    template: `
-        <ng-template>
-            <ng-content></ng-content>
-        </ng-template>
-    `
+    templateUrl: './property-item.component.html',
+    host: {
+        class: 'thy-property-item',
+        '[class.thy-property-item-operational]': '!!operation',
+        '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
+    },
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     /**
@@ -53,6 +60,13 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     @Input() @InputNumber() thySpan: number = 1;
 
     /**
+     * 设置属性操作现实触发方式，默认 always 一直显示
+     * @type 'hover' | 'always'
+     * @default always
+     */
+    @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
+
+    /**
      * 属性名称自定义模板
      * @type TemplateRef
      */
@@ -65,9 +79,15 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     @ContentChild('editor', { static: true }) editor!: TemplateRef<void>;
 
     /**
+     * 操作区模板
+     * @type TemplateRef
+     */
+    @ContentChild('operation', { static: true }) operation!: TemplateRef<void>;
+
+    /**
      * @private
      */
-    @ViewChild(TemplateRef, { static: true }) content!: TemplateRef<void>;
+    @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
 
     editing: boolean;
 
@@ -75,27 +95,49 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private destroy$ = new Subject();
 
+    private eventDestroy$ = new Subject();
+
     private originOverlays: OverlayRef[] = [];
 
+    @HostBinding('style.grid-column')
+    get gridColumn() {
+        return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
+    }
+
+    isVertical = false;
+
     constructor(
-        @SkipSelf() protected parentCdr: ChangeDetectorRef,
-        private thyClickDispatcher: ThyClickDispatcher,
+        private cdr: ChangeDetectorRef,
+        private clickDispatcher: ThyClickDispatcher,
+        private elementRef: ElementRef,
         private ngZone: NgZone,
-        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
+        private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
+        private parent: ThyPropertiesComponent
     ) {
         this.originOverlays = [...this.overlayOutsideClickDispatcher._attachedOverlays] as OverlayRef[];
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.subscribeClick();
+        this.parent.layout$.pipe(takeUntil(this.destroy$)).subscribe(layout => {
+            this.isVertical = layout === 'vertical';
+            this.cdr.markForCheck();
+        });
+    }
 
     ngOnChanges(changes: SimpleChanges): void {
-        this.changes$.next(changes);
+        if (changes.thyEditable && changes.thyEditable.currentValue) {
+            this.subscribeClick();
+        } else {
+            this.eventDestroy$.next();
+            this.eventDestroy$.complete();
+        }
     }
 
     setEditing(editing: boolean) {
         this.ngZone.run(() => {
             this.editing = editing;
-            this.parentCdr.markForCheck();
+            this.cdr.markForCheck();
         });
     }
 
@@ -110,10 +152,23 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         return this.overlayOutsideClickDispatcher._attachedOverlays.length > this.originOverlays.length;
     }
 
+    private subscribeClick() {
+        if (this.thyEditable === true) {
+            this.ngZone.runOutsideAngular(() => {
+                fromEvent(this.elementRef.nativeElement, 'click')
+                    .pipe(takeUntil(this.eventDestroy$))
+                    .subscribe(() => {
+                        this.setEditing(true);
+                        this.bindEditorBlurEvent(this.elementRef.nativeElement);
+                    });
+            });
+        }
+    }
+
     private subscribeOverlayClick() {
         const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
 
-        this.thyClickDispatcher
+        this.clickDispatcher
             .clicked(0)
             .pipe(
                 skip(1),
@@ -133,7 +188,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     }
 
     private subscribeDocumentClick(editorElement: HTMLElement) {
-        this.thyClickDispatcher
+        this.clickDispatcher
             .clicked(0)
             .pipe(
                 filter(event => {
@@ -153,15 +208,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         } else {
             this.subscribeDocumentClick(editorElement);
         }
-    }
-
-    editorClick(editorElement: HTMLElement) {
-        return fromEvent(editorElement, 'click').pipe(
-            tap(() => {
-                this.setEditing(true);
-                this.bindEditorBlurEvent(editorElement);
-            })
-        );
     }
 
     ngOnDestroy(): void {

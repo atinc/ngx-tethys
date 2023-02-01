@@ -10,7 +10,7 @@ subtitle: 布局
 整体布局使用，当使用`ngx-tethys`时要求所有的元素都应该在布局组件中。
 
 ## 模块导入
-```
+```ts
 import { ThyLayoutModule } from "ngx-tethys/layout";
 ```
 ## 组件概述
@@ -24,17 +24,5 @@ import { ThyLayoutModule } from "ngx-tethys/layout";
 
 > 注意：所有布局采用`flex`实现，请注意<a href="http://caniuse.com/#search=flex" target="_blank">浏览器兼容性</a>问题。
 
-## 如何使用
-最基本的使用如下：
 
-```html
-<thy-layout>
-  <thy-header thyTitle="Header"></thy-header>
-  <thy-content>
-    Content
-  </thy-content>
-</thy-layout>
-```
-
-展示效果如下：
-<example name="thy-layout-basic-example" />
+<examples />

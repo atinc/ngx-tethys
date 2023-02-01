@@ -20,7 +20,7 @@
   <ng-container *ngIf="isMultiple; else single">
     <ul>
       <li
-        class="choice"
+        class="choice mr-1"
         [ngClass]="{ disabled: disabled === true }"
         thyTag
         [thySize]="tagSize"
@@ -36,7 +36,11 @@
             {{ item.thyLabelText }}
           </ng-container>
         </div>
-        <thy-icon *ngIf="!disabled" class="ml-1 font-size-sm" thyIconName="close" (click)="removeHandle(item, $event)"></thy-icon>
+        <div *ngIf="!disabled" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
+          <span>
+            <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+          </span>
+        </div>
       </li>
       <li
         *ngIf="thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount"
