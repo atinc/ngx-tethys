@@ -125,7 +125,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
     validateConfig: ThyFormValidatorConfig = {
         validationMessages: {
             username: {
-                required: 'Username is required',
+                required: '请输入用户名',
                 pattern: '用户名格式不正确，以字母，数字，下划线组成，首字母不能为数字，必须是2-20个字符'
             }
         },
@@ -194,10 +194,10 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 switch: ['', [Validators.required]],
                 textarea: ['', [Validators.required]],
                 province: ['', [Validators.required]],
-                startTime: ['', [Validators.required]],
-                endTime: ['', [Validators.required]],
-                dateFull: ['', [Validators.required]],
-                dateRange: ['', [Validators.required]],
+                startTime: [''],
+                endTime: [''],
+                dateFull: [''],
+                dateRange: [''],
                 radioGroup: ['', [Validators.required]]
             },
             { updateOn }
