@@ -2,7 +2,6 @@
   "extends": "../tsconfig.json",
   "compilerOptions": {
     "outDir": "../out-tsc/tethys",
-    "target": "es2020",
     "rootDir": ".",
     "baseUrl": "./",
     "module": "es2015",

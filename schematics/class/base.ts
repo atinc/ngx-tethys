@@ -21,7 +21,6 @@ export abstract class MigrationBase {
         }
     ) {
         const node = factory.createImportDeclaration(
-            /* decorators */ undefined,
             /* modifiers */ undefined,
             factory.createImportClause(
                 /* isTypeOnly */ false,
@@ -93,10 +92,12 @@ export abstract class MigrationBase {
         }
         return node;
     }
+
     /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
     updateImportDeclaration(node: ts.ImportDeclaration, moduleSpecifier?: StringLiteral, importClause?: ts.ImportClause) {
         return updateImportDeclaration(node, moduleSpecifier, importClause);
     }
+
     /** 更新引入声明,因为ts 4.0设置为readonly的原因,无法直接赋值 */
     updateImportClause(node: ts.ImportClause, namedImports: ts.NamedImportBindings) {
         return factory.updateImportClause(node, false, node.name, namedImports || node.namedBindings);
@@ -115,7 +116,7 @@ function updateImportDeclaration(
     return factory.updateImportDeclaration.length === 5
         ? (factory.createImportSpecifier as any)(
               node,
-              node.decorators,
+              ts.canHaveDecorators(node) ? ts.getDecorators(node) : undefined,
               node.modifiers,
               importClause || node.importClause,
               moduleSpecifier || node.moduleSpecifier

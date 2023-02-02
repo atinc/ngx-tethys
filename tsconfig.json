@@ -13,10 +13,17 @@
     "experimentalDecorators": true,
     "suppressImplicitAnyIndexErrors": true,
     "skipLibCheck": false,
-    "target": "es2020",
-    "typeRoots": ["node_modules/@types", "@types/node"],
-    "lib": ["es2017", "dom"],
-    "resolveJsonModule": true
+    "target": "ES2022",
+    "typeRoots": [
+      "node_modules/@types",
+      "@types/node"
+    ],
+    "lib": [
+      "es2017",
+      "dom"
+    ],
+    "resolveJsonModule": true,
+    "useDefineForClassFields": false
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,

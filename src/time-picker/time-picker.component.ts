@@ -122,6 +122,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
      */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;
+        console.log(`thyDisabled: ${this.disabled}`)
     }
 
     /**
@@ -323,6 +324,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
 
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
+        console.log(`setDisabledState: ${isDisabled},  ${this.disabled}`)
     }
 
     private setValue(value: Date, formatText: boolean = true) {
