@@ -1,6 +1,6 @@
-import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild, Renderer2 } from '@angular/core';
+import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
 import { hexToRgb } from 'ngx-tethys/util';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -16,8 +16,7 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
  */
 @Component({
     selector: 'thy-statistic',
-    templateUrl: './statistic.component.html',
-    providers: [UpdateHostClassService]
+    templateUrl: './statistic.component.html'
 })
 export class ThyStatisticComponent implements OnInit {
     _shape: ThyStatisticShape;
@@ -33,6 +32,8 @@ export class ThyStatisticComponent implements OnInit {
     valueTemplate: TemplateRef<void>;
 
     titleTemplate: TemplateRef<void>;
+
+    private hostRenderer = useHostRenderer();
 
     @HostBinding(`class.thy-statistic`) class = true;
 
@@ -169,9 +170,7 @@ export class ThyStatisticComponent implements OnInit {
         this.suffixTemplate = value;
     }
 
-    constructor(private elementRef: ElementRef, private updateHostClassService: UpdateHostClassService, private renderer: Renderer2) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(private elementRef: ElementRef) {}
 
     ngOnInit() {
         this._setClassesByType();
@@ -179,10 +178,10 @@ export class ThyStatisticComponent implements OnInit {
     }
 
     setColor(color: string) {
-        this.renderer.setStyle(this.elementRef.nativeElement, 'color', color);
+        this.hostRenderer.setStyle('color', color);
         if (this._shape === 'card') {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'border-color', color);
-            this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', hexToRgb(color, 0.05));
+            this.hostRenderer.setStyle('border-color', color);
+            this.hostRenderer.setStyle('background-color', hexToRgb(color, 0.05));
         }
     }
 
@@ -203,7 +202,7 @@ export class ThyStatisticComponent implements OnInit {
         }
         classNames.push(`thy-statistic-${this._size}`);
 
-        this.renderer.setStyle(this.elementRef.nativeElement, 'font-size', this.thySize);
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.setStyle('font-size', this.thySize);
+        this.hostRenderer.updateClass(classNames);
     }
 }

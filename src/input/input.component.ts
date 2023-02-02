@@ -1,13 +1,10 @@
 import {
-    AfterViewInit,
     Component,
     ContentChild,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     Output,
-    Renderer2,
     TemplateRef,
     ViewChild,
     ViewEncapsulation,
@@ -15,7 +12,6 @@ import {
     OnInit
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 import { ThyInputSize } from './input.directive';
 
@@ -37,7 +33,7 @@ const password = 'password';
 @Component({
     selector: 'thy-input',
     templateUrl: './input.component.html',
-    providers: [UpdateHostClassService, CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
+    providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'thy-input form-control',

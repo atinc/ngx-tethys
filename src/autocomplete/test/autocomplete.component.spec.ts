@@ -17,7 +17,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { UpdateHostClassService } from '../../core';
 import { ThyFormModule } from '../../form';
 import { ThyInputModule } from '../../input/module';
 import { ThyOptionModule, ThySharedModule } from '../../shared';
@@ -120,7 +119,7 @@ describe('ThyAutocomplete', () => {
                 ThyOptionModule
             ],
             declarations: declarations,
-            providers: [UpdateHostClassService, bypassSanitizeProvider]
+            providers: [bypassSanitizeProvider]
         }).compileComponents();
 
         inject([OverlayContainer, Platform], (oc: OverlayContainer, p: Platform) => {

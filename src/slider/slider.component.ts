@@ -20,7 +20,7 @@ import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InputBoolean } from 'ngx-tethys/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -34,8 +34,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThySliderComponent),
             multi: true
-        },
-        UpdateHostClassService
+        }
     ]
 })
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
@@ -68,9 +67,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() set thyType(type: ThySliderType) {
         if (type) {
             if (this.typeClassName) {
-                this.updateHostClassService.removeClass(this.typeClassName);
+                this.hostRenderer.removeClass(this.typeClassName);
             }
-            this.updateHostClassService.addClass(type ? `thy-slider-${type}` : '');
+            this.hostRenderer.addClass(type ? `thy-slider-${type}` : '');
             this.typeClassName = `thy-slider-${type}`;
         }
     }
@@ -84,9 +83,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @Input() set thySize(size: ThySliderSize) {
         if (size) {
             if (this.sizeClassName) {
-                this.updateHostClassService.removeClass(this.sizeClassName);
+                this.hostRenderer.removeClass(this.sizeClassName);
             }
-            this.updateHostClassService.addClass(size ? `thy-slider-${size}` : '');
+            this.hostRenderer.addClass(size ? `thy-slider-${size}` : '');
             this.sizeClassName = `thy-slider-${size}`;
         }
     }
@@ -111,18 +110,13 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private dragEndHandler: Subscription | null;
 
+    private hostRenderer = useHostRenderer();
+
     private onChangeCallback = (v: any) => {};
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private ngZone: NgZone,
-        private ref: ElementRef,
-        private updateHostClassService: UpdateHostClassService
-    ) {
-        updateHostClassService.initializeElement(ref.nativeElement);
-    }
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {}
 
     ngOnInit() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {

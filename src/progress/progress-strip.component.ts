@@ -1,7 +1,5 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
-
-import { Component, ElementRef, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
-
+import { Component, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
 
 export interface ThyParentProgress {
@@ -16,11 +14,12 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
 @Component({
     selector: 'thy-progress-bar',
     templateUrl: './progress-strip.component.html',
-    encapsulation: ViewEncapsulation.None,
-    providers: [UpdateHostClassService]
+    encapsulation: ViewEncapsulation.None
 })
 export class ThyProgressStripComponent {
     private value: number;
+
+    private hostRenderer = useHostRenderer();
 
     color: string;
 
@@ -31,7 +30,7 @@ export class ThyProgressStripComponent {
     @Input() thyTips: string | TemplateRef<HTMLElement>;
 
     @Input() set thyType(type: ThyProgressType) {
-        this.updateHostClassService.updateClass(type ? [`progress-bar-${type}`] : []);
+        this.hostRenderer.updateClass(type ? [`progress-bar-${type}`] : []);
     }
 
     @Input() set thyValue(value: number) {
@@ -46,25 +45,9 @@ export class ThyProgressStripComponent {
         this.color = color || '';
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef,
-        @Inject(THY_PROGRESS_COMPONENT) private progress: ThyParentProgress
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(@Inject(THY_PROGRESS_COMPONENT) private progress: ThyParentProgress) {}
 
     recalculatePercentage(): void {
         this.percent = +((this.value / this.progress.max) * 100).toFixed(2);
-
-        // if (this.progress && this.progress.bars) {
-        //     const totalPercentage = this.progress.bars.reduce(function(total: number, bar): number {
-        //         return total + bar.percent;
-        //     }, 0);
-
-        //     if (totalPercentage > 100) {
-        //         this.percent -= totalPercentage - 100;
-        //     }
-        // }
     }
 }

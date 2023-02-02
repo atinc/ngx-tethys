@@ -1,10 +1,10 @@
 import { ThyEnterKeyMode } from './../form.directive';
 import { ThyFormModule } from './../module';
-import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, flush } from '@angular/core/testing';
+import { Component, DebugElement, NgModule, ViewChild, ElementRef, Optional, Self } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick, flush, discardPeriodicTasks } from '@angular/core/testing';
 import { ThyFormDirective } from '../form.directive';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, NgControl } from '@angular/forms';
 import { ThyFormValidatorConfig, THY_FORM_CONFIG } from '../form.class';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyInputModule } from 'ngx-tethys/input';
@@ -29,6 +29,7 @@ export class TestFormBasicDirectiveComponent {
     template: `
         <form
             thyForm
+            *ngIf="loadingDone"
             name="demoForm"
             [thyFormValidatorConfig]="validateConfig"
             [thyEnterKeyMode]="enterKeyMode"
@@ -48,7 +49,7 @@ export class TestFormBasicDirectiveComponent {
                 ></textarea>
             </thy-form-group>
             <thy-form-group thyLabelRequired>
-                <input thyInput name="age" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
+                <input thyInput name="age" type="number" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
             </thy-form-group>
             <thy-form-group-footer>
                 <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">
@@ -64,6 +65,8 @@ export class TestFormFullComponent {
         description: 'default',
         age: 5
     };
+
+    loadingDone = true;
 
     enterKeyMode: ThyEnterKeyMode;
 
@@ -234,6 +237,75 @@ describe('form validate', () => {
         expect(formDirective['ngForm'].controls).toBeTruthy();
         const nameControl = formDirective['ngForm'].controls['username'];
         expect(nameControl).toBeTruthy();
+    }));
+
+    it('should create validations success when validateOn was blur', fakeAsync(async () => {
+        testComponent.loadingDone = false;
+        testComponent.validateConfig.validateOn = 'blur';
+        fixture.detectChanges();
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        let input;
+
+        testComponent.model.age = -1;
+        fixture.detectChanges();
+        tick();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertElementInvalidError('age', `该选项输入值不能小于0`);
+
+        testComponent.model.age = 1;
+        fixture.detectChanges();
+        tick();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertFormValid();
+
+        testComponent.model.age = 11;
+        fixture.detectChanges();
+        tick();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertElementInvalidError('age', `该选项输入值不能大于10`);
+    }));
+
+    it('should create validations success when validateOn was change', fakeAsync(async () => {
+        testComponent.loadingDone = false;
+        testComponent.validateConfig.validateOn = 'change';
+        fixture.detectChanges();
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        let input;
+
+        testComponent.model.age = -1;
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertElementInvalidError('age', `该选项输入值不能小于0`);
+
+        testComponent.model.age = 11;
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertElementInvalidError('age', `该选项输入值不能大于10`);
+
+        testComponent.model.age = 1;
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertFormValid();
     }));
 
     it('should submit success when click submit button', fakeAsync(() => {

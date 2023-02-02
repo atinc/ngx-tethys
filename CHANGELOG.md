@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.14](https://github.com/atinc/ngx-tethys/compare/14.2.13...14.2.14) (2023-01-20)
+
+
+### Bug Fixes
+
+* **DatePicker:** update year、week range style #INFR-6159 ([#2488](https://github.com/atinc/ngx-tethys/issues/2488)) ([e7d7845](https://github.com/atinc/ngx-tethys/commit/e7d7845c9131400d55bd8da9100c4fa34e8e6b6d)), closes [#INFR-6159](https://github.com/atinc/ngx-tethys/issues/INFR-6159)
+* **tree-select:** fix prefix icon color of multiple option list of tree-select(#INFR-6234) ([#2495](https://github.com/atinc/ngx-tethys/issues/2495)) ([82ca864](https://github.com/atinc/ngx-tethys/commit/82ca86402263d90c832c9ecd5b8a28e7962bd0e9)), closes [#INFR-6234](https://github.com/atinc/ngx-tethys/issues/INFR-6234)
+* **Upload:** fix NG0203 error for inject()  #INFR-6222 ([d89aff9](https://github.com/atinc/ngx-tethys/commit/d89aff9c8f7cc43e38b51d819449fa6285457074)), closes [#INFR-6222](https://github.com/atinc/ngx-tethys/issues/INFR-6222)
+
+
+### Features
+
+* **input:** add textarea[thyInput] selector to ThyInputDirective ([e0c593d](https://github.com/atinc/ngx-tethys/commit/e0c593d9c319c5f955ed33853f334534cc6b20f0))
+
+
+
+## [14.2.13](https://github.com/atinc/ngx-tethys/compare/14.2.12...14.2.13) (2023-01-16)
+
+
+### Features
+
+* **upload:** enhance compatibility of office document when upload file #INFR-6199 ([#2490](https://github.com/atinc/ngx-tethys/issues/2490)) ([c1a0aab](https://github.com/atinc/ngx-tethys/commit/c1a0aab57ad8222be25537cb1a3d4cd839c81a8f)), closes [#INFR-6199](https://github.com/atinc/ngx-tethys/issues/INFR-6199)
+
+
+
+## [14.2.12](https://github.com/atinc/ngx-tethys/compare/14.2.11...14.2.12) (2023-01-13)
+
+
+### Bug Fixes
+
+* **select:** thy-custom-select support auto focus when option change z/#INFR-6122 ([#2485](https://github.com/atinc/ngx-tethys/issues/2485)) ([3fafeee](https://github.com/atinc/ngx-tethys/commit/3fafeee400f7fa954c9f884c8b3ee2a618d21cd2)), closes [z/#INFR-6122](https://github.com/atinc/ngx-tethys/issues/INFR-6122)
+
+
+
 ## [14.2.11](https://github.com/atinc/ngx-tethys/compare/14.2.10...14.2.11) (2023-01-11)
 
 

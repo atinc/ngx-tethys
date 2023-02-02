@@ -18,7 +18,6 @@ import {
     OnDestroy,
     OnInit,
     PLATFORM_ID,
-    Renderer2,
     TemplateRef,
     ViewChild
 } from '@angular/core';
@@ -222,7 +221,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     constructor(
         public elementRef: ElementRef,
-        public renderer: Renderer2,
         private ngZone: NgZone,
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,

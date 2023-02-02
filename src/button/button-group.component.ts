@@ -1,7 +1,6 @@
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-
-import { Component, ElementRef, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+import { Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 
 export type ButtonGroupSize = 'sm' | 'lg' | 'xs' | 'md';
 
@@ -17,7 +16,6 @@ const buttonGroupSizeMap = {
 @Component({
     selector: 'thy-button-group',
     template: '<ng-content></ng-content>',
-    providers: [UpdateHostClassService],
     encapsulation: ViewEncapsulation.None
 })
 export class ThyButtonGroupComponent implements OnInit {
@@ -26,6 +24,8 @@ export class ThyButtonGroupComponent implements OnInit {
     private type: string;
 
     private size: string;
+
+    private hostRenderer = useHostRenderer();
 
     @Input()
     set thySize(size: ButtonGroupSize) {
@@ -52,9 +52,7 @@ export class ThyButtonGroupComponent implements OnInit {
     @HostBinding(`class.btn-group-clear-min-width`)
     thyClearMinWidthClassName = false;
 
-    constructor(private updateHostClassService: UpdateHostClassService, private elementRef: ElementRef) {
-        this.updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor() {}
 
     ngOnInit() {
         this.setClasses();
@@ -69,6 +67,6 @@ export class ThyButtonGroupComponent implements OnInit {
         if (buttonGroupSizeMap[this.size]) {
             classNames.push(buttonGroupSizeMap[this.size]);
         }
-        this.updateHostClassService.updateClass(classNames);
+        this.hostRenderer.updateClass(classNames);
     }
 }

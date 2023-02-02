@@ -112,7 +112,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
     }
 
     addCellProperty(cell: DateCell, date: TinyDate): void {
-        if (this.selectedValue?.length > 0 && !this.showWeek) {
+        if (this.selectedValue?.length > 0) {
             const [startSelected, endSelected] = this.selectedValue;
             if (startSelected?.isSameDay(date)) {
                 cell.isSelected = true;

@@ -16,7 +16,7 @@ import { ThyFullscreenModule } from "ngx-tethys/fullscreen";
 
 
 
-## 基本使用
+## 如何使用
 
 全屏组件支持组件`thy-fullscreen`和指令`thyFullscreen`两种使用方式。
 以指令方式为例：
@@ -35,8 +35,7 @@ import { ThyFullscreenModule } from "ngx-tethys/fullscreen";
 </div>
 ```
 
-展示效果：
-<example name="thy-fullscreen-normal-example" />
+<examples />
 
 ## 使用服务
 全屏模块提供了`ThyFullscreen`全局服务，注入并调用`launch`方法即可打开全屏。
