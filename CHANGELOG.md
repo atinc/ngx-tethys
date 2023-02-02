@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+
+
+### Features
+
+* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
 # [15.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.0) (2023-02-02)
 
 
