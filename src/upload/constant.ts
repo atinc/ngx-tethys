@@ -25,7 +25,6 @@ export const MIME_Map = {
     '.htm': 'text/html',
     '.html': 'text/html',
     '.jar': 'application/java-archive',
-    '.java': 'text/plain',
     '.jpeg': 'image/jpeg',
     '.jpg': 'image/jpeg',
     '.js': 'application/x-javascript',
@@ -66,7 +65,6 @@ export const MIME_Map = {
     '.wma': 'audio/x-ms-wma',
     '.wmv': 'audio/x-ms-wmv',
     '.wps': 'application/vnd.ms-works',
-    '.xml': 'text/plain',
     '.z': 'application/x-compress',
     '.zip': 'application/x-zip-compressed',
     '': '*/*'
