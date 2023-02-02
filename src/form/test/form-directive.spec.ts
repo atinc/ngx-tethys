@@ -12,7 +12,7 @@ import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Valid
 import { By } from '@angular/platform-browser';
 
 import { ThyFormSubmitDirective } from '../form-submit.directive';
-import { ThyFormValidatorConfig, THY_FORM_CONFIG } from '../form.class';
+import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
 import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
 import { ThyFormModule } from '../module';
 
@@ -152,9 +152,7 @@ export class TestFormReactiveComponent {
 
     constructor(private formBuilder: FormBuilder) {}
 
-    submit() {
-        console.log(111);
-    }
+    submit() {}
 }
 
 describe('form basic directive', () => {
@@ -555,8 +553,8 @@ describe('reactive form validate', () => {
         expect(invalidFeedbackElement).toBeFalsy();
         expect(formDirective.validator.errors).toEqual([]);
         expect(formDirective['ngForm'].errors).toBeFalsy();
-        // expect(formDirective['ngForm'].invalid).toEqual(false);
-        // expect(formDirective['ngForm'].valid).toEqual(true);
+        expect(formDirective['ngForm'].invalid).toEqual(false);
+        expect(formDirective['ngForm'].valid).toEqual(true);
     }
 
     function assertFormDefaultState() {
@@ -616,7 +614,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         let input;
 
-        testComponent.formGroup.patchValue({ age: -1 });
+        testComponent.formGroup.patchValue({ age: -1, username: '1' });
         fixture.detectChanges();
         tick();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
@@ -650,7 +648,7 @@ describe('reactive form validate', () => {
         fixture.detectChanges();
         let input;
 
-        testComponent.formGroup.patchValue({ age: -1 });
+        testComponent.formGroup.patchValue({ age: -1, username: '1' });
         tick(100);
         fixture.detectChanges();
         formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
@@ -715,6 +713,7 @@ describe('reactive form validate', () => {
 
     it('should manual set element error message success', fakeAsync(() => {
         assertFormDefaultState();
+        testComponent.formGroup.patchValue({ username: '1' });
         fixture.detectChanges();
         tick();
         assertFormValid();
