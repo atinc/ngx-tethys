@@ -23,29 +23,15 @@ jobs:
       - uses: hmarr/auto-approve-action@v3
         with:
           review-message: 'Auto approve sync PRs to auto merge them'
-  autoMerge:
-    if: startsWith(github.head_ref, 'release-auto-')
-    needs: [autoApprove]
-    runs-on: ubuntu-latest
-    steps:
-      - id: autoMerge
-        name: autoMerge
-        uses: 'pascalgn/automerge-action@v0.15.5'
-        env:
-          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-          MERGE_LABELS: ''
-          MERGE_FORKS: "false"
-          MERGE_RETRIES: "20"
-          MERGE_RETRY_SLEEP: "60000"
   publish:
     if: startsWith(github.head_ref, 'release-auto-')
-    needs: [autoMerge]
+    needs: [autoApprove]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
-          ref: ${{ github.event.pull_request.base.ref }}
+          ref: ${{ github.head_ref }}
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
@@ -69,3 +55,28 @@ jobs:
           npm run pub-next
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - name: Read package.json
+        id: read-version
+        uses: notiz-dev/github-action-json-property@release
+        with:
+          path: "package.json"
+          prop_path: "version"
+      - name: send message to webhook
+        uses: joelwmale/webhook-action@master
+        with:
+          url: 'https://hook-rc.pingcode.com/api/flow/w/http/357bdd4f00f34bfab2f878ad3b9e8b48'
+          body: '{ "version": "${{ steps.read-version.outputs.prop }}" }'
+  autoMerge:
+    if: startsWith(github.head_ref, 'release-auto-')
+    needs: [publish]
+    runs-on: ubuntu-latest
+    steps:
+      - id: autoMerge
+        name: autoMerge
+        uses: 'pascalgn/automerge-action@v0.15.5'
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+          MERGE_LABELS: ''
+          MERGE_FORKS: "false"
+          MERGE_RETRIES: "20"
+          MERGE_RETRY_SLEEP: "60000"
