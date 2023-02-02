@@ -1,6 +1,6 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
 import { combineLatest, fromEvent, Subject } from 'rxjs';
-import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
+import { delay, filter, skip, take, takeUntil, tap } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
     ChangeDetectionStrategy,
@@ -171,36 +171,12 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    private subscribeOverlayClick() {
-        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
-
-        this.clickDispatcher
-            .clicked(0)
-            .pipe(
-                skip(1),
-                filter(event => {
-                    return (
-                        newOpenedOverlays.findIndex(overlay => {
-                            return overlay.overlayElement.contains(event.target as HTMLElement);
-                        }) < 0
-                    );
-                }),
-                take(1),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(() => {
-                if (!this.hasOverlay()) {
-                    this.setEditing(false);
-                }
-            });
-    }
-
     private subscribeOverlayDetach() {
-        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
-        const obs$ = newOpenedOverlays.map(overlay => overlay.detachments());
-        if (obs$.length) {
-            combineLatest(obs$)
-                .pipe(takeUntil(this.destroy$))
+        const openedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+        const overlaysDetachments$ = openedOverlays.map(overlay => overlay.detachments());
+        if (overlaysDetachments$.length) {
+            combineLatest(overlaysDetachments$)
+                .pipe(delay(50), take(1), takeUntil(this.destroy$))
                 .subscribe(() => {
                     this.setEditing(false);
                 });
@@ -224,7 +200,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private bindEditorBlurEvent(editorElement: HTMLElement) {
         if (this.hasOverlay()) {
-            this.subscribeOverlayClick();
             this.subscribeOverlayDetach();
         } else {
             this.subscribeDocumentClick(editorElement);
