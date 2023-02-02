@@ -165,6 +165,7 @@ describe(`color-picker`, () => {
     });
 
     beforeEach(() => {
+        localStorage.clear();
         fixture = TestBed.createComponent(ThyDemoColorPickerComponent);
         fixtureInstance = fixture.componentInstance;
 
@@ -206,7 +207,7 @@ describe(`color-picker`, () => {
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
-        it('should open color-picke default panel with preset colors', fakeAsync(() => {
+        it('should open color-picker default panel with preset colors', fakeAsync(() => {
             fixture.componentInstance.presetColors = DEFAULT_COLORS.slice(0, 1);
             fixture.detectChanges();
             openDefaultPanel();
@@ -218,6 +219,7 @@ describe(`color-picker`, () => {
             expect(overlayPaneElement.style.width).toEqual('286px');
             const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(colorDefaultPanelElement).toBeTruthy();
+            console.log(overlayContainerElement);
             expect(overlayContainerElement.querySelectorAll('.color-item').length).toEqual(1);
             const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
             expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(

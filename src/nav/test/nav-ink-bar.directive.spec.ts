@@ -266,7 +266,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
                 .queryAll(By.css('.active'))
                 .map(element => element.injector.get(RouterLinkActive) as RouterLinkActive);
             expect(activeLinks.length).toBe(1);
-            expect(activeLinks[0]['linkWithHref'].href).toBe('/link2');
+            expect(activeLinks[0]['link'].href).toBe('/link2');
             let activeEle: HTMLElement = activeLinks[0]['element'].nativeElement;
             let rect = activeEle.getBoundingClientRect();
 
@@ -279,7 +279,7 @@ describe(`thy-nav-ink-bar-router-link-active-mode`, () => {
                 .queryAll(By.css('.active'))
                 .map(element => element.injector.get(RouterLinkActive) as RouterLinkActive);
             expect(activeLinks.length).toBe(1);
-            expect(activeLinks[0]['linkWithHref'].href).toBe('/link1');
+            expect(activeLinks[0]['link'].href).toBe('/link1');
             activeEle = activeLinks[0]['element'].nativeElement;
             rect = activeEle.getBoundingClientRect();
 

@@ -180,6 +180,8 @@ describe('ThyTimePickerComponent', () => {
             fixtureInstance.value = new Date();
             fixtureInstance.disabled = true;
             fixture.detectChanges();
+            tick(100);
+            fixture.detectChanges();
             expect(debugElementQuery('thy-time-picker.thy-time-picker-disabled')).not.toBeNull();
             expect(debugElementQuery('.thy-time-picker-input.thy-input-disabled')).not.toBeNull();
             expect(debugElementQuery('.thy-time-picker-clear')).toBeNull();
@@ -423,8 +425,8 @@ describe('ThyTimePickerComponent', () => {
             [thySize]="size"
             [thyFormat]="format"
             [thyBackdrop]="backdrop"
-            [thyDisabled]="disabled"
             [disabled]="disabled"
+            [thyDisabled]="disabled"
             [thyReadonly]="readonly"
             [thyHourStep]="hourStep"
             [thyMinuteStep]="minuteStep"
