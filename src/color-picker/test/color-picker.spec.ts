@@ -219,7 +219,6 @@ describe(`color-picker`, () => {
             expect(overlayPaneElement.style.width).toEqual('286px');
             const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(colorDefaultPanelElement).toBeTruthy();
-            console.log(overlayContainerElement);
             expect(overlayContainerElement.querySelectorAll('.color-item').length).toEqual(1);
             const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
             expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
