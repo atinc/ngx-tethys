@@ -19,7 +19,7 @@
   <div class="thy-property-item-content-text">
     <ng-template *ngIf="content" [ngTemplateOutlet]="content"></ng-template>
   </div>
-  <div #editorContainer class="thy-property-item-content-editor" *ngIf="thyEditable">
+  <div class="thy-property-item-content-editor" *ngIf="thyEditable">
     <ng-template *ngIf="editor" [ngTemplateOutlet]="editor"></ng-template>
   </div>
   <div class="thy-property-item-operation" *ngIf="operation && !isVertical">

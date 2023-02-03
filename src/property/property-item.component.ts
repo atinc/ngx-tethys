@@ -91,7 +91,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     /**
      * @private
      */
-    @ViewChild('editorContainer', { static: false }) editorContainer: ElementRef;
+    @ViewChild('item', { static: true }) itemContent: ElementRef<HTMLElement>;
 
     editing: boolean;
 
@@ -113,7 +113,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     constructor(
         private cdr: ChangeDetectorRef,
         private clickDispatcher: ThyClickDispatcher,
-        private elementRef: ElementRef,
         private ngZone: NgZone,
         private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
         private parent: ThyPropertiesComponent
@@ -159,13 +158,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     private subscribeClick() {
         if (this.thyEditable === true) {
             this.ngZone.runOutsideAngular(() => {
-                fromEvent(this.elementRef.nativeElement, 'click')
+                fromEvent(this.itemContent.nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
-                        if (this.editorContainer) {
-                            this.bindEditorBlurEvent(this.editorContainer.nativeElement);
-                        }
+                        this.bindEditorBlurEvent(this.itemContent.nativeElement);
                     });
             });
         }
