@@ -1140,7 +1140,7 @@ describe('ThyDialog', () => {
             assertConfirmBtnWork(done, false);
         });
 
-        fit('should the cancel button work and callback work', (done: DoneFn) => {
+        it('should the cancel button work and callback work', (done: DoneFn) => {
             const spy = jasmine.createSpy('cancel spy');
 
             dialog.confirm({
