@@ -1140,9 +1140,12 @@ describe('ThyDialog', () => {
             assertConfirmBtnWork(done, false);
         });
 
-        it('should the cancel button work', (done: DoneFn) => {
+        fit('should the cancel button work and callback work', (done: DoneFn) => {
+            const spy = jasmine.createSpy('cancel spy');
+
             dialog.confirm({
                 content: 'test: cancel button',
+                onCancel: spy,
                 onOk: () => {
                     return of([1]).pipe(
                         map(() => {
@@ -1156,9 +1159,9 @@ describe('ThyDialog', () => {
             if (cancelBtn) {
                 cancelBtn.click();
             }
-
             viewContainerFixture.detectChanges();
             viewContainerFixture.whenStable().then(() => {
+                expect(spy).toHaveBeenCalled();
                 expect(getDialogContainerElement()).toBeNull();
                 done();
             });

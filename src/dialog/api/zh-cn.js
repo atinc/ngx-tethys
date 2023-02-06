@@ -313,6 +313,12 @@ module.exports = [
                 description: '确认后的回调事件',
                 type: '() => Observable<boolean> | void',
                 default: ''
+            },
+            {
+                name: 'onCancel',
+                description: '取消后的回调事件',
+                type: '() => void',
+                default: ''
             }
         ]
     }
