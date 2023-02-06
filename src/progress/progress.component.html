@@ -1,5 +1,5 @@
 <ng-container>
-  <div #progress>
+  <div #progress class="thy-progress progress w-100" [ngClass]="progressClasses" [class.progress-stacked]="isStacked">
     <ng-container *ngIf="thyShape === 'strip'; else circleTemplate">
       <ng-container *ngIf="isStacked; else general">
         <thy-progress-bar

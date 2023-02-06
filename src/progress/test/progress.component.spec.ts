@@ -461,7 +461,7 @@ describe(`ThyProgressComponent`, () => {
             tick(100);
             progressElement = progressComponent.nativeElement;
             progressCircleComponent = fixture.debugElement.query(By.directive(ThyProgressCircleComponent));
-            expect(progressElement.classList.contains('progress-sm')).toBe(true);
+            expect(progressElement.children[0].classList.contains('progress-sm')).toBe(true);
             flush();
         }));
 

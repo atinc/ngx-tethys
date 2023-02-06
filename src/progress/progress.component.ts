@@ -74,7 +74,14 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
      */
     @Input() set thySize(size: string | number) {
         this.size = size;
-        this.hostRenderer.updateClass(size ? [`progress-${size}`] : []);
+        // // if (this.container?.nativeElement) {
+        // //     this.containerRenderer.setElement(this.container?.nativeElement);
+        // //     this.containerRenderer.updateClass(size ? [`progress-${size}`] : []);
+        // // }
+        // this.setClasses();
+        // if (this.size) {
+        this.setClasses();
+        // }
     }
 
     /**
@@ -130,6 +137,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
 
     size: string | number;
 
+    progressClasses: { [key: string]: boolean } = {};
+
     constructor() {}
 
     ngOnInit() {
@@ -157,15 +166,9 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     }
 
     private setClasses() {
-        this.containerRenderer.setElement(this.container.nativeElement);
-
-        const classNameList = ['thy-progress', 'progress', 'w-100', `thy-progress-${this.thyShape}`];
-        if (this.size) {
-            classNameList.push(`progress-${this.size}`);
-        }
-        if (this.isStacked) {
-            classNameList.push('progress-stacked');
-        }
-        this.containerRenderer.updateClass(classNameList);
+        this.progressClasses = {
+            [`thy-progress-${this.thyShape}`]: true,
+            [`progress-${this.size}`]: !!this.size
+        };
     }
 }
