@@ -20,6 +20,9 @@ export class ThyDialogConfirmExampleComponent {
             okType: 'primary',
             okText: '确认归档',
             cancelText: '取消归档',
+            onCancel: () => {
+                console.log('取消归档');
+            },
             onOk: () => {
                 return of([1]).pipe(
                     delay(2000),
@@ -41,6 +44,9 @@ export class ThyDialogConfirmExampleComponent {
             okType: 'danger',
             okText: '确认删除',
             cancelText: '取消删除',
+            onCancel: () => {
+                console.log('取消删除');
+            },
             onOk: () => {
                 return of([1]).pipe(
                     delay(2000),
