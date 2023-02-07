@@ -23,7 +23,6 @@
 .thy-progress {
     display: flex;
     align-items: center;
-    overflow: hidden; // force rounded corners by cropping it
     font-size: bootstrap-variables.$progress-font-size;
 }
 
