@@ -2,7 +2,31 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
- [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+
+
+### Bug Fixes
+
+* **dialog:** invoke onCancel for confirm when click cancel button #INFR-1636 ([#2512](https://github.com/atinc/ngx-tethys/issues/2512)) ([5480dbd](https://github.com/atinc/ngx-tethys/commit/5480dbd1d4f38e04d9dadcd073501c9ae32b2c17)), closes [#INFR-1636](https://github.com/atinc/ngx-tethys/issues/INFR-1636)
+
+
+### Features
+
+* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
+* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+
+
+
+# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Features
+
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
 
 
 
