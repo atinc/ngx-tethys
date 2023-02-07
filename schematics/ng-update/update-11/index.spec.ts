@@ -69,7 +69,7 @@ describe('ng-update v11 Schematic', () => {
 
         </thy-grid>`
         );
-        workspaceTree = await schematicRunner.runSchematicAsync('migration-v11', undefined, tree).toPromise();
+        workspaceTree = await schematicRunner.runSchematic('migration-v11', undefined, tree);
     });
 
     it(`should "ngx-tethys/grid" to "ngx-tethys/table"`, async () => {
