@@ -34,7 +34,7 @@ import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } 
         }
     ],
     host: {
-        class: `thy-progress progress d-flex align-items-center`,
+        class: `thy-progress progress`,
         '[class.thy-progress-strip]': `thyShape === 'strip'`,
         '[class.thy-progress-circle]': `thyShape === 'circle'`
     }

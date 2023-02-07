@@ -24,6 +24,15 @@
     }
 }
 
+// .progress 在之后会移除，使用 thy-progress 代替
+.progress,
+.thy-progress {
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    font-size: bootstrap-variables.$progress-font-size;
+}
+
 .thy-progress-outer {
     width: 100%;
     display: flex;
