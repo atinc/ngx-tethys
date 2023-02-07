@@ -1,5 +1,6 @@
 import { useAction } from '../use-action';
 import { Subject } from 'rxjs';
+import { setDefaultErrorHandler } from '../error-handler';
 
 describe('use-action', () => {
     it('should execute success', () => {
@@ -65,5 +66,23 @@ describe('use-action', () => {
             .execute();
         expect(action.saving).toEqual(false);
         expect(error).toBe(mockError);
+    });
+
+    it('should execute use defaultErrorHandler when error', () => {
+        const subject = new Subject<void>();
+        const action = useAction(() => {
+            return subject.asObservable();
+        });
+        expect(action.saving).toEqual(false);
+        let handleError: Error;
+        setDefaultErrorHandler(error => {
+            handleError = error;
+        });
+        action.execute();
+        expect(action.saving).toEqual(true);
+        const mockError = new Error('mock error');
+        subject.error(mockError);
+        expect(action.saving).toEqual(false);
+        expect(handleError).toBe(mockError);
     });
 });

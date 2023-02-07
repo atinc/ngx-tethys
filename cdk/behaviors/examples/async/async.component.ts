@@ -1,6 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { useAsync } from '@tethys/cdk/behaviors';
+import { setDefaultErrorHandler, useAsync } from '@tethys/cdk/behaviors';
+import { ThyNotifyService } from 'ngx-tethys/notify';
+import { of, throwError } from 'rxjs';
+import { catchError, delay, tap } from 'rxjs/operators';
 
 interface Todo {
     id: number;
@@ -19,9 +22,26 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
         return this.http.get<Todo[]>(`https://62f70d4273b79d015352b5e5.mockapi.io/items`);
     });
 
+    todosFetcherWithError = useAsync(() => {
+        return of([]).pipe(
+            delay(1000),
+            tap(() => {
+                throw new Error(`Http Request fail`);
+            }),
+            catchError(error => {
+                this.notifyService.error('todosFetcherWithError' + error.message);
+                return throwError(error);
+            })
+        );
+    });
+
     todos: Todo[];
 
-    constructor() {}
+    constructor(private notifyService: ThyNotifyService) {
+        setDefaultErrorHandler(error => {
+            this.notifyService.error(error.message);
+        });
+    }
 
     ngOnInit(): void {
         this.fetchTodos();
@@ -29,6 +49,17 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
 
     refresh() {
         this.fetchTodos();
+    }
+
+    refreshWithError() {
+        this.todosFetcherWithError.execute().subscribe({
+            next: data => {
+                this.todos = data;
+            },
+            error: error => {
+                this.notifyService.error('refreshWithError' + error.message);
+            }
+        });
     }
 
     private fetchTodos() {
