@@ -7,30 +7,35 @@
 @use "./progress-strip.scss";
 
 @mixin set-progress-size($height) {
-    &.thy-progress-strip {
-        height: $height;
-        background-color: bootstrap-variables.$progress-bg;
-    }
-
     &.thy-progress-circle {
         height: inherit;
         background-color: transparent;
     }
-}
 
-// .progress 在之后会移除，使用 thy-progress 代替
-.progress,
-.thy-progress {
-    display: flex;
-    height: variables.$progress-height;
-    overflow: hidden; // force rounded corners by cropping it
-    font-size: bootstrap-variables.$progress-font-size;
-    @include border-radius.border-radius(100px);
-    @include set-progress-size(variables.$progress-height);
+    .thy-progress-outer {
+        height: $height;
+        background-color: bootstrap-variables.$progress-bg;
+    }
 }
 
 @each $size, $height in variables.$progress-size {
     .progress-#{$size} {
         @include set-progress-size($height);
     }
+}
+
+.thy-progress-outer {
+    width: 100%;
+
+    display: flex;
+    height: variables.$progress-height;
+    background-color: bootstrap-variables.$progress-bg;
+    overflow: hidden; // force rounded corners by cropping it
+    font-size: bootstrap-variables.$progress-font-size;
+    @include border-radius.border-radius(100px);
+    @include set-progress-size(variables.$progress-height);
+}
+
+.thy-progress-text:not(:empty) {
+    margin-left: 8px;
 }
