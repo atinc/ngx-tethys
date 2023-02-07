@@ -1,4 +1,5 @@
 <button thyButton thyType="primary" (click)="refresh()">Refresh</button>
+<button thyButton thyType="danger" class="ml-2" (click)="refreshWithError()">Refresh Error</button>
 <thy-loading [thyDone]="todosFetcher.loadingDone"></thy-loading>
 
 <thy-list *ngIf="todosFetcher.loadingDone">

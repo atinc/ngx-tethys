@@ -1,5 +1,7 @@
 import { Observable, of, throwError } from 'rxjs';
 import { catchError, finalize, tap } from 'rxjs/operators';
+import { getDefaultErrorHandler } from './error-handler';
+import { ExtractObservableValue } from './types';
 
 export interface ActionBehaviorContext<T> {
     success?: (result: T) => void;
@@ -24,7 +26,6 @@ class ActionBehavior<T, A extends (...args: any) => Observable<T>> {
                         this.saving = false;
                     }),
                     tap(value => {
-                        debugger;
                         this.saving = false;
                     })
                 )
@@ -32,29 +33,38 @@ class ActionBehavior<T, A extends (...args: any) => Observable<T>> {
                     next: this.context?.success,
                     error: (error: Error) => {
                         this.saving = false;
-                        this.context?.error(error);
+                        this.handleError(error);
                     }
                 });
         } catch (error) {
             this.saving = false;
-            this.context?.error(error);
+            this.handleError(error);
         }
     }
 
-    success(successFn: (result: T) => void) {
+    success(successFn: (result: T) => void): this {
         this.context.success = successFn;
         return this;
     }
 
-    error(errorFn: (error: Error) => void) {
+    error(errorFn: (error: Error) => void): this {
         this.context.error = errorFn;
         return this;
     }
+
+    private handleError(error: Error) {
+        const defaultErrorHandler = getDefaultErrorHandler();
+        if (this.context.error) {
+            this.context.error(error);
+        } else if (defaultErrorHandler) {
+            defaultErrorHandler(error);
+        }
+    }
 }
 
-export function useAction<T, A extends (...args: any) => Observable<T> = (...args: any) => Observable<T>>(
-    action: A,
-    context: ActionBehaviorContext<T> = {}
+export function useAction<T extends (...args: any) => Observable<any> = (...args: any) => Observable<any>>(
+    action: T,
+    context: ActionBehaviorContext<ExtractObservableValue<ReturnType<T>>> = {}
 ) {
     return new ActionBehavior(action, context);
 }

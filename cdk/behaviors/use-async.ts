@@ -1,5 +1,6 @@
 import { Observable, of } from 'rxjs';
 import { finalize, tap, catchError } from 'rxjs/operators';
+import { getDefaultErrorHandler } from './error-handler';
 
 class AsyncBehavior<T, A extends (...args: any) => Observable<T>> {
     loadingDone = false;
@@ -22,6 +23,8 @@ class AsyncBehavior<T, A extends (...args: any) => Observable<T>> {
             catchError(error => {
                 this.state = 'error';
                 this.error = error;
+                const defaultErrorHandler = getDefaultErrorHandler();
+                defaultErrorHandler && defaultErrorHandler(error);
                 throw error;
             }),
             tap(value => {
