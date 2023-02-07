@@ -41,7 +41,7 @@ describe('ng-update v13 Schematic', () => {
 
         </thy-grid>`
         );
-        workspaceTree = await schematicRunner.runSchematicAsync('migration-v13', undefined, tree).toPromise();
+        workspaceTree = await schematicRunner.runSchematic('migration-v13', undefined, tree);
     });
 
     it(`should "ngx-tethys/store" to "@tethys/store"`, async () => {
