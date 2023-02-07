@@ -12,7 +12,7 @@
         background-color: transparent;
     }
 
-    .thy-progress-outer {
+    .thy-progress-strip-outer {
         height: $height;
         background-color: bootstrap-variables.$progress-bg;
     }
@@ -22,7 +22,6 @@
 .progress,
 .thy-progress {
     display: flex;
-    align-items: center;
     font-size: bootstrap-variables.$progress-font-size;
 }
 
@@ -32,7 +31,7 @@
     }
 }
 
-.thy-progress-outer {
+.thy-progress-strip-outer {
     width: 100%;
     display: flex;
     height: variables.$progress-height;
@@ -43,6 +42,6 @@
     @include set-progress-size(variables.$progress-height);
 }
 
-.thy-progress-text:not(:empty) {
+.thy-progress-strip-text:not(:empty) {
     margin-left: 8px;
 }

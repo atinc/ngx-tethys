@@ -1,6 +1,6 @@
 <ng-container>
   <ng-container *ngIf="thyShape === 'strip'; else circleTemplate">
-    <div class="thy-progress-outer">
+    <div class="thy-progress-strip-outer">
       <ng-container *ngIf="isStacked; else general">
         <thy-progress-bar
           *ngFor="let item of value"
@@ -15,7 +15,7 @@
         </thy-progress-bar>
       </ng-container>
     </div>
-    <div class="thy-progress-text" *ngIf="thyShape === 'strip'">
+    <div class="thy-progress-strip-text" *ngIf="thyShape === 'strip'">
       <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
     </div>
   </ng-container>
