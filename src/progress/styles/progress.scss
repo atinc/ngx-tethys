@@ -18,19 +18,19 @@
     }
 }
 
-@each $size, $height in variables.$progress-size {
-    .progress-#{$size} {
-        @include set-progress-size($height);
-    }
-}
-
 // .progress 在之后会移除，使用 thy-progress 代替
 .progress,
 .thy-progress {
     display: flex;
     align-items: center;
-    overflow: hidden;
+    overflow: hidden; // force rounded corners by cropping it
     font-size: bootstrap-variables.$progress-font-size;
+}
+
+@each $size, $height in variables.$progress-size {
+    .progress-#{$size} {
+        @include set-progress-size($height);
+    }
 }
 
 .thy-progress-outer {
