@@ -11,7 +11,7 @@ export interface ThyConfirmConfig {
     footerAlign?: ThyFormGroupFooterAlign;
     onOk?: () => Observable<boolean> | void;
     cancelText?: string;
-    onCancel?: void;
+    onCancel?: () => void;
 }
 
 export const THY_CONFIRM_DEFAULT_OPTIONS = new InjectionToken<ThyConfirmConfig>('thy-confirm-default-options');

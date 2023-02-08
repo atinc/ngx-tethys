@@ -32,16 +32,16 @@
         text-decoration: none;
         transition: background 200ms;
 
-        &:not(.dropdown-menu-item--disabled).active {
-            background-color: rgba(variables.$primary, 0.1);
+        &:not(.dropdown-menu-item--disabled):hover {
+            background-color: variables.$dropdown-menu-item-hover-bg;
+            &:not(.desc),
             &:not(.dropdown-submenu) {
                 color: variables.$dropdown-menu-item-hover-color;
             }
         }
 
-        &:not(.dropdown-menu-item--disabled):hover {
-            background-color: variables.$dropdown-menu-item-hover-bg;
-            &:not(.desc),
+        &:not(.dropdown-menu-item--disabled).active {
+            background-color: rgba(variables.$primary, 0.1);
             &:not(.dropdown-submenu) {
                 color: variables.$dropdown-menu-item-hover-color;
             }
