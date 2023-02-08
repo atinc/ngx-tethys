@@ -1,4 +1,4 @@
-import { Directive, ElementRef, forwardRef, Input, NgZone, OnDestroy, OnInit } from '@angular/core';
+import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
@@ -50,6 +50,16 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      */
     @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 
+    /**
+     * panel 展开后触发
+     */
+    @Output() thyPanelOpen: EventEmitter<void> = new EventEmitter<void>();
+
+    /**
+     * panel 关闭后触发
+     */
+    @Output() thyPanelClose: EventEmitter<void> = new EventEmitter<void>();
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -95,6 +105,14 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 }
             }
         });
+        if (this.popoverRef) {
+            this.popoverRef.afterOpened().subscribe(() => {
+                this.thyPanelOpen.emit();
+            });
+            this.popoverRef.afterClosed().subscribe(() => {
+                this.thyPanelClose.emit();
+            });
+        }
         if (this.popoverRef && !this.thyHasBackdrop) {
             this.popoverRef
                 .getOverlayRef()
