@@ -22,6 +22,7 @@
 .progress,
 .thy-progress {
     display: flex;
+    align-items: center;
     font-size: bootstrap-variables.$progress-font-size;
 }
 
