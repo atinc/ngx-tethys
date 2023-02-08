@@ -27,8 +27,8 @@ import { ThyColorPickerModule } from '../module';
             thyColorPicker
             [(ngModel)]="color"
             (ngModelChange)="change($event)"
-            (thyPanelOpened)="panelOpen()"
-            (thyPanelClosed)="panelClose()"
+            (thyPanelOpen)="panelOpen()"
+            (thyPanelClose)="panelClose()"
             [thyPresetColors]="presetColors"
         ></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>

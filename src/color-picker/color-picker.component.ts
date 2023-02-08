@@ -53,12 +53,12 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
      * panel 展开后触发
      */
-    @Output() thyPanelOpened: EventEmitter<void> = new EventEmitter<void>();
+    @Output() thyPanelOpen: EventEmitter<void> = new EventEmitter<void>();
 
     /**
      * panel 关闭后触发
      */
-    @Output() thyPanelClosed: EventEmitter<void> = new EventEmitter<void>();
+    @Output() thyPanelClose: EventEmitter<void> = new EventEmitter<void>();
 
     private onChangeFn: (value: number | string) => void = () => {};
 
@@ -107,10 +107,10 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
         });
         if (this.popoverRef) {
             this.popoverRef.afterOpened().subscribe(() => {
-                this.thyPanelOpened.emit();
+                this.thyPanelOpen.emit();
             });
             this.popoverRef.afterClosed().subscribe(() => {
-                this.thyPanelClosed.emit();
+                this.thyPanelClose.emit();
             });
         }
         if (this.popoverRef && !this.thyHasBackdrop) {
