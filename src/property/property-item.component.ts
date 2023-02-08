@@ -1,6 +1,6 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
 import { combineLatest, fromEvent, Subject } from 'rxjs';
-import { delay, filter, skip, take, takeUntil, tap } from 'rxjs/operators';
+import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
     ChangeDetectionStrategy,
