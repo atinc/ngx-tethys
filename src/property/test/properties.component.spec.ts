@@ -15,32 +15,28 @@ import { DomPortal } from '@angular/cdk/portal';
 @Component({
     selector: 'thy-properties-test-basic',
     template: `
-        <div #container [style.height.px]="100" [style.overflow]="'auto'">
-            <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
-                <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
-                <thy-property-item #ageProperty thyLabelText="年龄" thyEditable="true">
-                    <span>{{ user.age }}</span>
-                    <ng-template #editor>
-                        <input class="age-input" />
-                    </ng-template>
-                </thy-property-item>
-                <thy-property-item *ngIf="showAddress" thyLabelText="地址">这里是一个地址</thy-property-item>
-                <thy-property-item #sexProperty thyLabelText="性别" thyEditable="true" #hobby>
-                    <span>{{ user.sex || '无' }}</span>
-                    <ng-template #editor>
-                        <thy-custom-select class="sex-select" thySize="md" [(ngModel)]="user.sex">
-                            <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
-                            <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
-                        </thy-custom-select>
-                    </ng-template>
-                </thy-property-item>
-            </thy-properties>
-        </div>
+        <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
+            <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
+            <thy-property-item #ageProperty thyLabelText="年龄" thyEditable="true">
+                <span>{{ user.age }}</span>
+                <ng-template #editor>
+                    <input class="age-input" />
+                </ng-template>
+            </thy-property-item>
+            <thy-property-item *ngIf="showAddress" thyLabelText="地址">这里是一个地址</thy-property-item>
+            <thy-property-item #sexProperty thyLabelText="性别" thyEditable="true" #hobby>
+                <span>{{ user.sex || '无' }}</span>
+                <ng-template #editor>
+                    <thy-custom-select class="sex-select" thySize="md" [(ngModel)]="user.sex">
+                        <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
+                        <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
+                    </thy-custom-select>
+                </ng-template>
+            </thy-property-item>
+        </thy-properties>
     `
 })
 class ThyPropertiesTestBasicComponent {
-    @ViewChild('container') container: ElementRef<HTMLElement>;
-
     @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
 
     @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItemComponent;
@@ -59,7 +55,11 @@ class ThyPropertiesTestBasicComponent {
 
     showAddress = false;
 
-    constructor(public overlay: Overlay, public overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher) {}
+    constructor(
+        public elementRef: ElementRef,
+        public overlay: Overlay,
+        public overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
+    ) {}
 }
 
 @Component({
@@ -193,7 +193,7 @@ describe(`thy-properties`, () => {
         it('should edit canceled when overlay detached', fakeAsync(() => {
             // fake overlay
             const overlayRef = basicComponent.overlay.create();
-            overlayRef.attach(new DomPortal(basicComponent.container.nativeElement));
+            overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
             basicComponent.sexPropertyItemComponent.itemContent.nativeElement.click();
             expect(basicComponent.sexPropertyItemComponent.editing).toBeTruthy();
             overlayRef.detach();
