@@ -14,6 +14,7 @@ import { OverlayModule } from '@angular/cdk/overlay';
 import { PortalModule } from '@angular/cdk/portal';
 import { THY_SLIDE_DEFAULT_CONFIG_PROVIDER } from './slide.config';
 import { ThyDrawerContainerDirective } from './drawer/drawer-container.directive';
+import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
     declarations: [
@@ -25,7 +26,7 @@ import { ThyDrawerContainerDirective } from './drawer/drawer-container.directive
         ThySlideFooterComponent,
         ThyDrawerContainerDirective
     ],
-    imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule, ThyActionModule],
     exports: [
         ThySlideLayoutComponent,
         ThySlideHeaderComponent,
