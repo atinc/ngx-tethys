@@ -1,10 +1,12 @@
-import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
+import { helpers } from 'ngx-tethys/util';
+
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Input, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+
 import { BasePickerComponent } from './base-picker.component';
-import { helpers } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from './date-picker.service';
+import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +19,10 @@ import { ThyDatePickerConfigService } from './date-picker.service';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerComponent)
         }
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': 'tabIndex'
+    }
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;
@@ -45,7 +50,7 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
     shortcutPosition: ThyShortcutPosition = this.datePickerConfigService.shortcutPosition;
 
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef, private datePickerConfigService: ThyDatePickerConfigService) {
-        super(cdr);
+        super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

@@ -1,6 +1,6 @@
-import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
+import { _MatMixinBase, EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -69,6 +69,9 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]':`tabIndex`
+    },
     styles: [
         `
             .thy-cascader-menus {
@@ -77,7 +80,8 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         `
     ]
 })
-export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent extends _MatMixinBase
+    implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */
@@ -193,7 +197,16 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
      * 是否只读
      * @default false
      */
-    @Input('thyDisabled') @InputBoolean() disabled = false;
+    @Input()
+    override get thyDisabled(): boolean {
+        return this.disabled;
+      }
+
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    disabled = false
 
     /**
      * 空状态下的展示文字
@@ -874,7 +887,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler) {}
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler,public elementRef:ElementRef) {
+        super();
+    }
 
     public trackByFn(index: number, item: ThyCascaderOption) {
         return item?.value || item?._id || index;

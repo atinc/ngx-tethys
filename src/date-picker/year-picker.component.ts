@@ -1,8 +1,9 @@
-import { ThyPanelMode } from './standard-types';
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+
 import { BasePickerComponent } from './base-picker.component';
+import { ThyPanelMode } from './standard-types';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +16,10 @@ import { BasePickerComponent } from './base-picker.component';
             multi: true,
             useExisting: forwardRef(() => ThyYearPickerComponent)
         }
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': 'tabIndex'
+    }
 })
 export class ThyYearPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy';
@@ -28,8 +32,8 @@ export class ThyYearPickerComponent extends BasePickerComponent {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef) {
-        super(cdr);
+    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
+        super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

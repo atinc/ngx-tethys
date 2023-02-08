@@ -1,11 +1,11 @@
 import { ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+import { CompatibleDate, ThyPanelMode } from './standard-types';
 
 @Component({
     template: ``
@@ -34,7 +34,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
 
-    constructor(cdr: ChangeDetectorRef) {
+    constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
         super(cdr);
     }
 
@@ -111,5 +111,10 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     onOpenChange(open: boolean): void {
         this.thyOpenChange.emit(open);
+        if (open) {
+            this.element.nativeElement?.onfocus && this.element.nativeElement?.onfocus();
+        } else {
+            this.element.nativeElement?.onblur && this.element.nativeElement?.onblur();
+        }
     }
 }

@@ -25,32 +25,13 @@
     <thy-input-number thyPlaceholder="请输入" name="number" formControlName="number" placeholder="search"></thy-input-number>
   </thy-form-group>
 
-  <thy-form-group thyLabelText="Select" thyLabelRequired>
-    <thy-select formControlName="select" name="select">
-      <option value="">---Select---</option>
-      <option *ngFor="let option of options" [value]="option._id">{{ option.value }}</option>
-    </thy-select>
-  </thy-form-group>
-
   <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
-    <thy-custom-select
-      thyPlaceHolder="请选择"
-      formControlName="customersSelect"
-      name="customersSelect"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true"
-    >
+    <thy-custom-select thyPlaceHolder="请选择" formControlName="customersSelect" name="customersSelect" [thyAllowClear]="true">
       <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     </thy-custom-select>
   </thy-form-group>
   <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
-    <thy-tree-select
-      formControlName="treeSelect"
-      name="treeSelect"
-      [thyTreeNodes]="basicTreeSelectData"
-      [thyShowSearch]="true"
-      [thyAllowClear]="true"
-    >
+    <thy-tree-select formControlName="treeSelect" name="treeSelect" [thyTreeNodes]="basicTreeSelectData" [thyAllowClear]="true">
     </thy-tree-select>
   </thy-form-group>
 
@@ -72,26 +53,13 @@
   <thy-form-group thyLabelText="Textarea" thyLabelRequired>
     <textarea name="textarea" formControlName="textarea" class="form-control" rows="3" placeholder="请输入"></textarea>
   </thy-form-group>
-
   <thy-form-group>
     <ng-template #content>
-      <label class="col-sm-2 col-form-label pr-0 form-label">Start Time</label>
-      <div class="col-sm-4 col-form-control">
-        <thy-date-picker thyShowTime name="startTime" formControlName="startTime"></thy-date-picker>
-      </div>
-      <label class="col-sm-2 col-form-label form-label">End time</label>
-      <div class="col-sm-4 has-feedback col-form-control">
-        <thy-date-picker thyShowTime name="endTime" formControlName="endTime"></thy-date-picker>
-      </div>
-    </ng-template>
-  </thy-form-group>
-  <thy-form-group>
-    <ng-template #content>
-      <label class="col-sm-2 col-form-label pr-0 form-label">Date</label>
+      <label class="col-sm-2 col-form-label pr-0 form-label label-required">Date</label>
       <div class="col-sm-4 col-form-control">
         <thy-date-picker name="dateFull" formControlName="dateFull"></thy-date-picker>
       </div>
-      <label class="col-sm-2 col-form-label form-label">Date range</label>
+      <label class="col-sm-2 col-form-label form-label label-required">Date range</label>
       <div class="col-sm-4 has-feedback col-form-control">
         <thy-range-picker name="dateRange" formControlName="dateRange"></thy-range-picker>
       </div>

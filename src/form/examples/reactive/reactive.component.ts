@@ -118,7 +118,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         }
     ];
 
-    updateOn: ThyValidateOn = 'blur';
+    updateOn: ThyValidateOn = 'change';
 
     validateOn: ThyValidateOn = 'blur';
 
@@ -127,6 +127,9 @@ export class ThyFormReactiveExampleComponent implements OnInit {
             username: {
                 required: '请输入用户名',
                 pattern: '用户名格式不正确，以字母，数字，下划线组成，首字母不能为数字，必须是2-20个字符'
+            },
+            dateRange: {
+                error: '该选项不能为空'
             }
         },
         validateOn: this.validateOn
@@ -175,6 +178,15 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         }
     ];
 
+    dateRangeValidator = (control: any) => {
+        if (!control.value) {
+            return { error: true, required: true };
+        } else if (!control.value?.begin || !control.value?.end) {
+            return { error: true, required: true };
+        }
+        return {};
+    };
+
     constructor(private formBuilder: FormBuilder) {
         this.initFormGroup();
         this.loadingDone = true;
@@ -194,10 +206,8 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 switch: ['', [Validators.required]],
                 textarea: ['', [Validators.required]],
                 province: ['', [Validators.required]],
-                startTime: [''],
-                endTime: [''],
-                dateFull: [''],
-                dateRange: [''],
+                dateFull: ['', [Validators.required]],
+                dateRange: ['', [this.dateRangeValidator]],
                 radioGroup: ['', [Validators.required]]
             },
             { updateOn }

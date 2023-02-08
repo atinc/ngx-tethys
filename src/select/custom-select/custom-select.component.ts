@@ -1,4 +1,12 @@
-import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import {
+    _MatMixinBase,
+    getFlexiblePositions,
+    InputBoolean,
+    InputNumber,
+    ScrollToService,
+    ThyClickDispatcher,
+    ThyPlacement
+} from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -9,7 +17,6 @@ import {
 } from 'ngx-tethys/shared';
 import {
     A,
-    coerceBooleanProperty,
     DOWN_ARROW,
     END,
     ENTER,
@@ -28,6 +35,7 @@ import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
@@ -56,7 +64,6 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceElement } from '@angular/cdk/coercion';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
@@ -81,7 +88,6 @@ export interface OptionValue {
 }
 
 const noop = () => {};
-
 @Component({
     selector: 'thy-custom-select',
     templateUrl: './custom-select.component.html',
@@ -97,9 +103,13 @@ const noop = () => {};
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]':'tabIndex'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThySelectCustomComponent extends _MatMixinBase
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy{
     disabled = false;
 
     size: SelectControlSize;
@@ -154,9 +164,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @HostBinding('class.menu-is-opened')
     panelOpen = false;
-
-    @HostBinding('attr.tabindex')
-    tabIndex = '0';
 
     /**
      * 搜索时回调
@@ -256,7 +263,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
      * 是否禁用
      */
     @Input()
-    set thyDisabled(value: string) {
+    override get thyDisabled(): boolean {
+      return this.disabled;
+    }
+    override set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
 
@@ -369,6 +379,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         @Inject(PLATFORM_ID) private platformId: string,
         @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
+        super();
         this.buildScrollStrategy();
     }
 

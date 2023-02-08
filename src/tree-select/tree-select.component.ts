@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
+import { _MatMixinBase, getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -46,6 +46,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     const treeData = treeNodes.reduce((previous, current) => filterNodes(current, previous), [] as ThyTreeSelectNode[]);
     return treeData;
 }
+
 @Component({
     selector: 'thy-tree-select',
     templateUrl: './tree-select.component.html',
@@ -55,9 +56,13 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
         }
-    ]
+    ],
+    host: {
+        '[attr.tabindex]':'tabIndex'
+    },
 })
-export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTreeSelectComponent extends _MatMixinBase
+    implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -132,6 +137,10 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     @Input() thyMultiple = false;
 
     @Input() thyDisable = false;
+
+     override get thyDisabled(): boolean {
+       return this.thyDisable;
+     }
 
     @Input() thyPlaceholder = '请选择节点';
 
@@ -227,7 +236,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         @Inject(PLATFORM_ID) private platformId: string,
         private thyClickDispatcher: ThyClickDispatcher,
         private viewportRuler: ViewportRuler
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit() {
         this.positions = getFlexiblePositions('bottom', 4);
