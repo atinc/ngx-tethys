@@ -263,6 +263,7 @@ export class ThySelectCustomComponent extends _MatMixinBase
      * 是否禁用
      */
     @Input()
+    // eslint-disable-next-line prettier/prettier
     override get thyDisabled(): boolean {
       return this.disabled;
     }

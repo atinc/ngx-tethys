@@ -138,6 +138,7 @@ export class ThyTreeSelectComponent extends _MatMixinBase
 
     @Input() thyDisable = false;
 
+     // eslint-disable-next-line prettier/prettier
      override get thyDisabled(): boolean {
        return this.thyDisable;
      }

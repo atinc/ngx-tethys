@@ -59,6 +59,7 @@ export abstract class AbstractPickerComponent extends _MatMixinBase implements O
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
     @Input()
+    // eslint-disable-next-line prettier/prettier
     override get thyDisabled(): boolean {
       return this.disabled;
     }

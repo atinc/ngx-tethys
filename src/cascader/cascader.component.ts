@@ -198,6 +198,7 @@ export class ThyCascaderComponent extends _MatMixinBase
      * @default false
      */
     @Input()
+    // eslint-disable-next-line prettier/prettier
     override get thyDisabled(): boolean {
         return this.disabled;
       }
