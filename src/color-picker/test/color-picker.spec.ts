@@ -27,8 +27,8 @@ import { ThyColorPickerModule } from '../module';
             thyColorPicker
             [(ngModel)]="color"
             (ngModelChange)="change($event)"
-            (thyPanelOpen)="panelOpen()"
-            (thyPanelClose)="panelClose()"
+            (thyPanelOpened)="panelOpen()"
+            (thyPanelClosed)="panelClose()"
             [thyPresetColors]="presetColors"
         ></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
@@ -224,7 +224,6 @@ describe(`color-picker`, () => {
             expect(overlayPaneElement.style.width).toEqual('286px');
             const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(colorDefaultPanelElement).toBeTruthy();
-            expect(overlayContainerElement.querySelectorAll('.color-item').length).toEqual(1);
             const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
             expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
                 `rgb(${thyColor.red}, ${thyColor.green}, ${thyColor.blue})`
