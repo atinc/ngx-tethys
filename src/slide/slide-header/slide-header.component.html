@@ -13,7 +13,5 @@
       <ng-template *ngIf="headerOperateTemplate" [ngTemplateOutlet]="headerOperateTemplate"> </ng-template>
     </ng-container>
   </div>
-  <button type="button" class="close" (click)="closeModal($event)">
-    <thy-icon thyIconName="close"></thy-icon>
-  </button>
+  <a href="javascript:;" class="mr-n2" thyAction thyActionIcon="close-bold" (click)="closeModal($event)"></a>
 </ng-template>
