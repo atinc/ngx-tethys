@@ -1,6 +1,6 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { fromEvent, Subject } from 'rxjs';
-import { filter, skip, take, takeUntil, tap } from 'rxjs/operators';
+import { combineLatest, fromEvent, Subject } from 'rxjs';
+import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
     ChangeDetectionStrategy,
@@ -15,7 +15,6 @@ import {
     OnDestroy,
     OnInit,
     SimpleChanges,
-    SkipSelf,
     TemplateRef,
     ViewChild
 } from '@angular/core';
@@ -89,6 +88,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
      */
     @ViewChild('contentTemplate', { static: true }) content!: TemplateRef<void>;
 
+    /**
+     * @private
+     */
+    @ViewChild('item', { static: true }) itemContent: ElementRef<HTMLElement>;
+
     editing: boolean;
 
     changes$ = new Subject<SimpleChanges>();
@@ -109,7 +113,6 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     constructor(
         private cdr: ChangeDetectorRef,
         private clickDispatcher: ThyClickDispatcher,
-        private elementRef: ElementRef,
         private ngZone: NgZone,
         private overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher,
         private parent: ThyPropertiesComponent
@@ -155,36 +158,26 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     private subscribeClick() {
         if (this.thyEditable === true) {
             this.ngZone.runOutsideAngular(() => {
-                fromEvent(this.elementRef.nativeElement, 'click')
+                fromEvent(this.itemContent.nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
-                        this.bindEditorBlurEvent(this.elementRef.nativeElement);
+                        this.bindEditorBlurEvent(this.itemContent.nativeElement);
                     });
             });
         }
     }
 
-    private subscribeOverlayClick() {
-        const newOpenedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
-
-        this.clickDispatcher
-            .clicked(0)
-            .pipe(
-                skip(1),
-                filter(event => {
-                    return (
-                        newOpenedOverlays.findIndex(overlay => {
-                            return overlay.overlayElement.contains(event.target as HTMLElement);
-                        }) < 0
-                    );
-                }),
-                take(1),
-                takeUntil(this.destroy$)
-            )
-            .subscribe(() => {
-                this.setEditing(false);
-            });
+    private subscribeOverlayDetach() {
+        const openedOverlays = this.overlayOutsideClickDispatcher._attachedOverlays.slice(this.originOverlays.length);
+        const overlaysDetachments$ = openedOverlays.map(overlay => overlay.detachments());
+        if (overlaysDetachments$.length) {
+            combineLatest(overlaysDetachments$)
+                .pipe(delay(50), take(1), takeUntil(this.destroy$))
+                .subscribe(() => {
+                    this.setEditing(false);
+                });
+        }
     }
 
     private subscribeDocumentClick(editorElement: HTMLElement) {
@@ -204,7 +197,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private bindEditorBlurEvent(editorElement: HTMLElement) {
         if (this.hasOverlay()) {
-            this.subscribeOverlayClick();
+            this.subscribeOverlayDetach();
         } else {
             this.subscribeDocumentClick(editorElement);
         }
