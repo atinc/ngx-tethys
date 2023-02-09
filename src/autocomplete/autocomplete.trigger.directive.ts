@@ -84,7 +84,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     /**
      * 下拉菜单的宽度，不设置默认与输入框同宽
      * @type number
-     * @default -
      */
     @Input() thyAutocompleteWidth: number;
 
