@@ -32,9 +32,10 @@ import { ThyAutocompleteModule } from '../module';
             <input
                 class="autocomplete-trigger"
                 thyInput
+                thyAutocompleteTrigger
                 [(ngModel)]="value"
                 [placeholder]="placeholder"
-                [thyAutocomplete]="auto"
+                [thyAutocompleteComponent]="auto"
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)"
             />
