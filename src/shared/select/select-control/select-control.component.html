@@ -1,6 +1,7 @@
 <ng-template #inputTemplate>
   <input
     #inputElement
+    [tabindex]="-1"
     (compositionstart)="isComposing = true"
     (compositionend)="isComposing = false"
     autocomplete="something-new"

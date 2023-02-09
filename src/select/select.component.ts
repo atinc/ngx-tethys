@@ -1,4 +1,6 @@
-import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { _MatMixinBase } from 'ngx-tethys/core';
+
+import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -15,9 +17,12 @@ const noop = () => {};
             useExisting: forwardRef(() => ThySelectComponent),
             multi: true
         }
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': 'tabIndex'
+    }
 })
-export class ThySelectComponent implements ControlValueAccessor, OnInit {
+export class ThySelectComponent extends _MatMixinBase implements ControlValueAccessor, OnInit {
     // The internal data model
     _innerValue: any = null;
     _disabled = false;
@@ -59,7 +64,9 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this._disabled = isDisabled;
     }
 
-    constructor() {}
+    constructor(private elementRef: ElementRef) {
+        super();
+    }
 
     ngModelChange() {
         this.onChangeCallback(this._innerValue);
@@ -71,10 +78,20 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this.hostRenderer.updateClass(classes);
     }
 
+    onBlur(event: Event) {
+        this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur();
+        }
+    }
+
     clearSelectValue(event: Event) {
         event.stopPropagation();
         this._innerValue = '';
         this.onChangeCallback(this._innerValue);
         this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur();
+        }
     }
 }

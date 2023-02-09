@@ -1,9 +1,11 @@
 <select
   thyInput
+  [tabindex]="-1"
   [thySize]="_size"
   [disabled]="_disabled"
   [(ngModel)]="_innerValue"
   (ngModelChange)="ngModelChange()"
+  (blur)="onBlur($event)"
   [class.thy-select-selection-allow-clear]="thyAllowClear"
 >
   <ng-content></ng-content>

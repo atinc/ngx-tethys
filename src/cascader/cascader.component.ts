@@ -695,6 +695,7 @@ export class ThyCascaderComponent extends _MatMixinBase
             return;
         }
         this.setActiveOption(option, index, true);
+        this.valueChange();
         this.onTouched();
     }
 

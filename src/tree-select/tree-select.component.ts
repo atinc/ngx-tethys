@@ -366,9 +366,6 @@ export class ThyTreeSelectComponent extends _MatMixinBase
 
     public onBlur(event: Event) {
         this.onModelTouch();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement.onblur(event);
-        }
     }
 
     clearSelectedValue(event: Event) {

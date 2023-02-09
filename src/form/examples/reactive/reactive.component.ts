@@ -198,7 +198,6 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 username: ['', [Validators.required, Validators.pattern('^[A-Za-z]{1}[0-9A-Za-z_]{1,19}')]],
                 search: ['', [Validators.required]],
                 number: ['', [Validators.required]],
-                select: ['', [Validators.required]],
                 customersSelect: ['', [Validators.required]],
                 treeSelect: ['', [Validators.required]],
                 rate: ['', [Validators.required]],

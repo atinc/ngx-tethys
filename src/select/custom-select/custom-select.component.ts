@@ -521,9 +521,6 @@ export class ThySelectCustomComponent extends _MatMixinBase
 
     public onBlur(event: Event) {
         this.onTouchedCallback();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement.onblur(event);
-        }
     }
 
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
