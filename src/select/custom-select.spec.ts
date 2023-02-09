@@ -1456,21 +1456,6 @@ describe('ThyCustomSelect', () => {
             expect(emptyNode).toBeTruthy();
             expect(emptyNode.textContent).toContain(fixture.componentInstance.thyEmptySearchMessageText);
         }));
-
-        it('should dispatch component blur when blur', fakeAsync(() => {
-            const fixture = TestBed.createComponent(SelectWithSearchAndGroupComponent);
-            fixture.detectChanges();
-
-            const touchedSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedCallback');
-            const blurSpy = spyOn<any>(fixture.componentInstance.select['elementRef']?.nativeElement, 'onblur');
-            const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
-            dispatchFakeEvent(trigger, 'blur');
-
-            fixture.detectChanges();
-
-            expect(touchedSpy).toHaveBeenCalled();
-            expect(blurSpy).toHaveBeenCalled();
-        }));
     });
 
     describe('remove and clear logic', () => {

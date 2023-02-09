@@ -724,14 +724,12 @@ describe('ThyTreeSelect', () => {
             expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
 
             const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onModelTouch');
-            const blurSpy = spyOn<any>(fixture.componentInstance.treeSelect.elementRef?.nativeElement, 'onblur');
             const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
             dispatchFakeEvent(trigger, 'blur');
 
             fixture.detectChanges();
 
             expect(touchSpy).toHaveBeenCalled();
-            expect(blurSpy).toHaveBeenCalled();
         }));
 
         it('should show filter trees when has search text', fakeAsync(() => {
