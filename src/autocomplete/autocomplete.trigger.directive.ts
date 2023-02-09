@@ -48,6 +48,11 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
+    /**
+     * 下拉菜单组件实例。已废弃，请使用 thyAutocomplete
+     * @type thyAutocompleteComponent
+     * @deprecated
+     */
     @Input('thyAutocompleteComponent')
     set autocompleteComponent(data: ThyAutocompleteComponent) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
@@ -56,6 +61,10 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         this._autocompleteComponent = data;
     }
 
+    /**
+     * 下拉菜单组件实例
+     * @type thyAutocompleteComponent
+     */
     @Input('thyAutocomplete')
     set autocomplete(data: ThyAutocompleteComponent) {
         this._autocompleteComponent = data;
@@ -65,12 +74,32 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         return this._autocompleteComponent;
     }
 
+    /**
+     * 弹出框默认 offset
+     * @default 4
+     * @type number
+     */
     @Input() thyOffset = 4;
 
+    /**
+     * 下拉菜单的宽度，不设置默认与输入框同宽
+     * @type number
+     * @default -
+     */
     @Input() thyAutocompleteWidth: number;
 
+    /**
+     * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @type string
+     * @default bottomLeft
+     */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
+    /**
+     * 是否允许聚焦时打开下拉菜单
+     * @type boolean
+     * @default true
+     */
     @Input() thyIsFocusOpen = true;
 
     get activeOption(): ThyOptionComponent | null {
@@ -282,12 +311,7 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     }
 
     private resetActiveItem(): void {
-        const activeItem = this.activeOption
-            ? this.autocompleteComponent.options.toArray().indexOf(this.activeOption)
-            : this.autocompleteComponent.thyAutoActiveFirstOption
-            ? 0
-            : -1;
-        this.autocompleteComponent.keyManager.setActiveItem(activeItem);
+        this.autocompleteComponent.keyManager.setActiveItem(this.autocompleteComponent.thyAutoActiveFirstOption ? 0 : -1);
     }
 
     private destroyPanel(): void {
