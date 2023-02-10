@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.16](https://github.com/atinc/ngx-tethys/compare/14.2.15...14.2.16) (2023-02-10)
+
+
+### Bug Fixes
+
+* **dialog:** invoke onCancel for confirm when click cancel button #INFR-1636 ([#2512](https://github.com/atinc/ngx-tethys/issues/2512)) ([5480dbd](https://github.com/atinc/ngx-tethys/commit/5480dbd1d4f38e04d9dadcd073501c9ae32b2c17)), closes [#INFR-1636](https://github.com/atinc/ngx-tethys/issues/INFR-1636)
+* **nav:** fix border style when nav has extra#INFR-6418 ([#2520](https://github.com/atinc/ngx-tethys/issues/2520)) ([6e05c7f](https://github.com/atinc/ngx-tethys/commit/6e05c7f14cac7686d139d58a7b1a4efe32b9942f)), closes [extra#INFR-6418](https://github.com/extra/issues/INFR-6418)
+* **progress:** align bar with text#INFR-6381 ([#2517](https://github.com/atinc/ngx-tethys/issues/2517)) ([12bcac0](https://github.com/atinc/ngx-tethys/commit/12bcac09726c0d7d6d19642075d204fdc87c45cf)), closes [text#INFR-6381](https://github.com/text/issues/INFR-6381)
+* **property:** fix property display and editor switching bug #INFR-6165 ([#2501](https://github.com/atinc/ngx-tethys/issues/2501)) ([4de8cd1](https://github.com/atinc/ngx-tethys/commit/4de8cd1abcf32dfcd877862c4f35ad6fb4f35f8a)), closes [#INFR-6165](https://github.com/atinc/ngx-tethys/issues/INFR-6165)
+
+
+### Features
+
+* **color-picker:** #INFR-6390 add thyPanelOpen & thyPanelClose [@wanghuan](https://github.com/wanghuan) [@guoxin](https://github.com/guoxin) ([#2518](https://github.com/atinc/ngx-tethys/issues/2518)) ([9209a77](https://github.com/atinc/ngx-tethys/commit/9209a77c200835fbab3cf83ef071d052ab574314))
+* **dialog:** change dialog and slide close button color form #cacaca to [#999](https://github.com/atinc/ngx-tethys/issues/999) #INFR-6394 [@xuhaifeng](https://github.com/xuhaifeng) [@wangkai](https://github.com/wangkai) ([#2519](https://github.com/atinc/ngx-tethys/issues/2519)) ([b7419b6](https://github.com/atinc/ngx-tethys/commit/b7419b6ec6ce6dbe693237fb6376b666d2c7c0c0)), closes [#INFR-6394](https://github.com/atinc/ngx-tethys/issues/INFR-6394)
+* **progress:** ng-content display on the right #INFR-6205 ([#2516](https://github.com/atinc/ngx-tethys/issues/2516)) ([109870a](https://github.com/atinc/ngx-tethys/commit/109870a03557dd16e28bf335cb2da168f00aa6d2)), closes [#INFR-6205](https://github.com/atinc/ngx-tethys/issues/INFR-6205)
+
+
+
 ## [14.2.15](https://github.com/atinc/ngx-tethys/compare/14.2.14...14.2.15) (2023-02-03)
 
 
