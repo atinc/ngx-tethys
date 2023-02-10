@@ -66,6 +66,11 @@
             pointer-events: none;
         }
     }
+
+    & > .input-prepend + .form-control {
+        padding-left: variables.$input-padding-x-fixed;
+        padding-right: variables.$input-padding-x-fixed;
+    }
 }
 
 .thy-input-search {
