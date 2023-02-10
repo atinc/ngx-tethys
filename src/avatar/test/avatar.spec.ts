@@ -138,12 +138,12 @@ describe('ThyAvatarComponent', () => {
             expect(avatarContainer).not.toBeNull();
         });
 
-        describe('The avatar size should get the adjacent value from [22, 24, 28, 32, 36, 48, 68, 110, 160]', () => {
-            it('the avatar should be 22px size When input number less than 22', () => {
+        describe('The avatar size should get the adjacent value from [16, 22, 24, 28, 32, 36, 48, 68, 110, 160]', () => {
+            it('the avatar should be 16px size When input number less than 16', () => {
                 componentInstance.size = 0;
                 fixture.detectChanges();
 
-                const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-22'));
+                const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-16'));
                 expect(avatarContainer).not.toBeNull();
             });
             it('the larger value should displayed When thySize is between the two values', () => {
