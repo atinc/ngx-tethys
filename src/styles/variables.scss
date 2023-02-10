@@ -472,6 +472,7 @@ $tag-space-column-gap: 8px !default;
 $avatar-sizes: () !default;
 $avatar-sizes: map.merge(
     (
+        16: 12,
         22: 12,
         24: 12,
         28: 12,
