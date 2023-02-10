@@ -60,7 +60,7 @@ class ThyTestAvatarComponent {
     }
 }
 
-fdescribe('ThyAvatarComponent', () => {
+describe('ThyAvatarComponent', () => {
     let fixture: ComponentFixture<ThyTestAvatarComponent>;
     let componentInstance: ThyTestAvatarComponent;
 
