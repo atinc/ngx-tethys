@@ -128,8 +128,6 @@ export class ThyAvatarComponent implements OnInit {
         } else {
             this._size = this.findClosestSize(sizeArray, size);
         }
-
-        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
     }
 
     private findClosestSize(sizes: number[], value: number): number {
