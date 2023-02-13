@@ -1,25 +1,7 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    NgZone,
-    ApplicationRef,
-    ViewChild,
-    ElementRef,
-    Directive,
-    OnInit,
-    AfterViewInit,
-    OnDestroy,
-    createComponent,
-    HostListener,
-    ComponentRef
-} from '@angular/core';
+import { Component, Input, HostBinding, NgZone, Directive, OnInit, OnDestroy, HostListener } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
-import { ThyMessageConfig } from './message.config';
-import { ThyMessageQueue } from './message-queue.service';
-import { ComponentType } from '@angular/cdk/portal';
-import { isString, isTemplateRef } from 'ngx-tethys/util';
-import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { ThyMessageBaseConfig, ThyMessageConfig } from './message.config';
+import { ThyMessageBaseQueue, ThyMessageQueue } from './message-queue.service';
 
 export const ANIMATION_IN_DURATION = 100;
 export const ANIMATION_OUT_DURATION = 150;
@@ -29,21 +11,25 @@ export const HIDE_STYLE = { transform: 'translateX(0)', opacity: 0, height: 0, p
  * @internal
  */
 @Directive()
-export class ThyMessageBaseComponent implements OnInit, OnDestroy {
+export class ThyMessageBaseComponent<TConfig extends ThyMessageBaseConfig> implements OnInit, OnDestroy {
     animationState: string;
 
-    config: ThyMessageConfig;
+    config: TConfig;
 
     iconName = '';
 
     private closeTimer: any;
 
+    private queue: ThyMessageBaseQueue;
+
     @Input()
-    set thyConfig(value: ThyMessageConfig) {
+    set thyConfig(value: TConfig) {
         this.config = value;
     }
 
-    constructor(private _ngZone: NgZone, private queue: ThyMessageQueue) {}
+    constructor(private _ngZone: NgZone, queue: ThyMessageBaseQueue) {
+        this.queue = queue;
+    }
 
     ngOnInit() {
         const iconName = {
@@ -120,7 +106,7 @@ export class ThyMessageBaseComponent implements OnInit, OnDestroy {
         ])
     ]
 })
-export class ThyMessageComponent extends ThyMessageBaseComponent {
+export class ThyMessageComponent extends ThyMessageBaseComponent<ThyMessageConfig> {
     @HostBinding('@flyInOut') animationState = 'flyIn';
 
     config: ThyMessageConfig;

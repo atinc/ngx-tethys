@@ -1,14 +1,14 @@
 import { Subject } from 'rxjs';
-import { ThyMessageConfig } from './message.config';
+import { ThyMessageBaseConfig, ThyMessageConfig } from './message.config';
 
-export class ThyMessageRef {
+export class ThyMessageBaseRef<TConfig extends ThyMessageBaseConfig = ThyMessageBaseConfig> {
     id: string;
 
-    config: ThyMessageConfig;
+    config: TConfig;
 
     private _afterClosed = new Subject<void>();
 
-    constructor(config: ThyMessageConfig) {
+    constructor(config: TConfig) {
         this.id = config.id;
         this.config = config;
     }
@@ -22,3 +22,5 @@ export class ThyMessageRef {
         return this._afterClosed.asObservable();
     }
 }
+
+export class ThyMessageRef extends ThyMessageBaseRef<ThyMessageConfig> {}

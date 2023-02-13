@@ -1,24 +1,25 @@
 import { Inject, Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ThyMessageRef } from './message-ref';
+import { ThyMessageBaseRef, ThyMessageRef } from './message-ref';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
 
 /**
  * @internal
  */
-@Injectable({
-    providedIn: 'root'
-})
-export class ThyMessageQueue {
-    queues$ = new BehaviorSubject<ThyMessageRef[]>([]);
+export class ThyMessageBaseQueue<TReferences extends ThyMessageBaseRef = ThyMessageBaseRef> {
+    queues$ = new BehaviorSubject<TReferences[]>([]);
+
+    protected defaultConfig: ThyGlobalMessageConfig;
 
     get queues() {
         return this.queues$.getValue();
     }
 
-    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) protected defaultConfig: ThyGlobalMessageConfig) {}
+    constructor(defaultConfig: ThyGlobalMessageConfig) {
+        this.defaultConfig = defaultConfig;
+    }
 
-    add(messageRef: ThyMessageRef) {
+    add(messageRef: TReferences) {
         const queues = this.queues$.getValue();
         if (this.queues.length >= this.defaultConfig.maxStack) {
             const closedRef = queues.shift();
@@ -37,5 +38,17 @@ export class ThyMessageQueue {
             const afterRemovedQueues = this.queues.filter(item => item.id !== id);
             this.queues$.next(afterRemovedQueues);
         }
+    }
+}
+
+/**
+ * @internal
+ */
+@Injectable({
+    providedIn: 'root'
+})
+export class ThyMessageQueue extends ThyMessageBaseQueue<ThyMessageRef> {
+    constructor(@Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig) {
+        super(defaultConfig);
     }
 }

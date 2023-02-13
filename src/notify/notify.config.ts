@@ -1,5 +1,6 @@
 import { ElementRef, InjectionToken } from '@angular/core';
 import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { ThyMessageBaseConfig } from 'ngx-tethys/message';
 
 export type ThyNotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
 export type ThyNotifyType = 'blank' | 'success' | 'error' | 'warning' | 'info';
@@ -22,12 +23,10 @@ export interface ThyNotifyDetail {
     action?: (event?: Event) => void;
 }
 
-export interface ThyNotifyConfig {
-    id?: string;
-
+export interface ThyNotifyConfig extends ThyMessageBaseConfig {
     placement?: ThyNotifyPlacement;
 
-    type?: ThyNotifyType | string;
+    type?: ThyNotifyType;
 
     title?: string;
 
@@ -38,10 +37,6 @@ export interface ThyNotifyConfig {
     detail?: string | ThyNotifyDetail;
 
     html?: ElementRef;
-
-    pauseOnHover?: boolean;
-
-    duration?: number;
 }
 
 export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyGlobalNotifyConfig>('thy-notify-default-config');
