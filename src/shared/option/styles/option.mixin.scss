@@ -1,5 +1,25 @@
 @use "../../../styles/variables";
 
+@mixin thy-option-text-icon-primary {
+    &:not(.disabled) {
+        &.active {
+            .thy-text .thy-icon {
+                color: variables.$primary;
+            }
+        }
+    }
+}
+
+@mixin thy-option-text-icon-default {
+    &:not(.disabled) {
+        &.active {
+            .thy-text .thy-icon {
+                color: variables.$gray-600;
+            }
+        }
+    }
+}
+
 @mixin thy-option-common-layout {
     display: flex;
     align-items: center;
@@ -10,6 +30,7 @@
 
 @mixin thy-option($hover-bg-color: variables.$gray-100, $color: variables.$body-color) {
     @include thy-option-common-layout();
+    @include thy-option-text-icon-primary();
     min-height: 40px;
     color: $color;
     cursor: pointer;
@@ -61,6 +82,7 @@
 }
 
 @mixin thy-option-theme($hover-bg-color: variables.$gray-100, $color: variables.$secondary) {
+    @include thy-option-text-icon-primary();
     color: $color;
 
     &:not(.disabled) {
@@ -88,6 +110,7 @@
 }
 
 @mixin thy-multiple-option($hover-active-bg-color: variables.$gray-100) {
+    @include thy-option-text-icon-default();
     padding: {
         left: 20px;
         right: 35px;
@@ -119,11 +142,16 @@
                 background: $hover-active-bg-color;
                 color: variables.$body-color;
             }
+
+            .prefix-icon {
+                color: variables.$gray-500;
+            }
         }
     }
 }
 
 @mixin thy-multiple-option-theme($hover-active-bg-color: variables.$gray-100) {
+    @include thy-option-text-icon-default();
     &:not(.disabled) {
         &.hover,
         &:hover {
@@ -150,6 +178,7 @@
 @mixin thy-grid-option {
     .thy-grid-option {
         @include thy-option-common-layout();
+        @include thy-option-text-icon-default();
         flex-direction: column;
         vertical-align: middle;
         justify-content: center;
@@ -251,6 +280,7 @@
 }
 
 @mixin thy-grid-option-theme {
+    @include thy-option-text-icon-default();
     .checked-icon {
         background: variables.$primary;
     }

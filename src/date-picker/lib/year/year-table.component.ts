@@ -98,7 +98,8 @@ export class YearTableComponent extends CalendarTable implements OnChanges {
             [`${this.prefixCls}-year-panel-cell`]: true,
             [`${this.prefixCls}-year-panel-selected-cell`]: cell.isSelected,
             [`${this.prefixCls}-year-panel-cell-disabled`]: cell.isDisabled,
-            [`${this.prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade
+            [`${this.prefixCls}-year-panel-cell-in-view`]: cell.isSameDecade,
+            [`${this.prefixCls}-in-range-cell`]: !!cell.isInRange
         };
     }
 }

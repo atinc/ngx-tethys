@@ -1,6 +1,20 @@
-import { Directive, ElementRef, Input, OnInit, Renderer2, HostBinding, OnDestroy, NgZone, Inject } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    Input,
+    OnInit,
+    Renderer2,
+    HostBinding,
+    OnDestroy,
+    NgZone,
+    Inject,
+    AfterViewInit,
+    QueryList,
+    ContentChildren
+} from '@angular/core';
 import { UpdateHostClassService } from 'ngx-tethys/core';
-import { NgForm } from '@angular/forms';
+import { NgForm, NgControl } from '@angular/forms';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
 import { ThyFormValidatorService } from './form-validator.service';
@@ -18,16 +32,18 @@ export enum ThyEnterKeyMode {
 
 @Directive({
     selector: '[thyForm],[thy-form]',
-    providers: [UpdateHostClassService, ThyFormValidatorService],
+    providers: [ThyFormValidatorService],
     exportAs: 'thyForm',
     host: {
         class: 'thy-form'
     }
 })
-export class ThyFormDirective implements OnInit, OnDestroy {
+export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
     private layout: ThyFormLayout;
 
     private initialized = false;
+
+    private hostRenderer = useHostRenderer();
 
     @Input()
     set thyLayout(value: ThyFormLayout) {
@@ -60,16 +76,19 @@ export class ThyFormDirective implements OnInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
+    @ContentChildren(NgControl, {
+        descendants: true
+    })
+    public controls: QueryList<NgControl>;
+
     constructor(
         private ngForm: NgForm,
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone,
-        private updateHostClassService: UpdateHostClassService,
         public validator: ThyFormValidatorService,
         @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
     ) {
-        this.updateHostClassService.initializeElement(this.elementRef.nativeElement);
         this.layout = this.config.layout;
     }
 
@@ -79,7 +98,14 @@ export class ThyFormDirective implements OnInit, OnDestroy {
         });
         this.updateClasses();
         this.initialized = true;
-        this.validator.initialize(this.ngForm, this.elementRef.nativeElement);
+    }
+
+    ngAfterViewInit() {
+        this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
+        this.validator.initializeFormControlsValidation(this.controls.toArray());
+        this.controls.changes.subscribe(controls => {
+            this.validator.initializeFormControlsValidation(this.controls.toArray());
+        });
     }
 
     submit($event: Event) {
@@ -91,7 +117,7 @@ export class ThyFormDirective implements OnInit, OnDestroy {
     }
 
     updateClasses() {
-        this.updateHostClassService.updateClassByMap({
+        this.hostRenderer.updateClassByMap({
             [`thy-form-${this.thyLayout}`]: true
         });
     }

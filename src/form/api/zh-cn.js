@@ -5,7 +5,7 @@ module.exports = [
         properties: [
             {
                 name: 'thyLayout',
-                description: `布局, 'horizontal' | 'vertical' | 'inline' , 默认水平居中 horizontal， 其他2种布局待开发`,
+                description: "布局, 'horizontal' | 'vertical' | 'inline' , 默认水平居中 horizontal， 其他2种布局待开发",
                 type: 'string',
                 default: ''
             },
@@ -50,6 +50,12 @@ module.exports = [
                 }`,
                 type: 'ThyFormValidationMessages',
                 default: '{}'
+            },
+            {
+                name: 'validateOn',
+                description: `表单验证触发方式; 支持change、submit、blur三种方式触发。默认submit。`,
+                type: 'ThyValidateOn',
+                default: 'submit'
             }
         ]
     },

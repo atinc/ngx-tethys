@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ThyImagePreviewOperationType } from 'ngx-tethys/image';
 import { ThyImageService } from 'ngx-tethys/image/image.service';
 
@@ -6,8 +6,14 @@ import { ThyImageService } from 'ngx-tethys/image/image.service';
     selector: 'thy-image-service-example',
     templateUrl: './service.component.html'
 })
-export class ThyImageServiceExampleComponent {
+export class ThyImageServiceExampleComponent implements OnInit {
     constructor(private thyImageService: ThyImageService) {}
+
+    ngOnInit(): void {
+        this.thyImageService.downloadClicked().subscribe(image => {
+            console.log(image);
+        });
+    }
 
     onClick(): void {
         const images = [

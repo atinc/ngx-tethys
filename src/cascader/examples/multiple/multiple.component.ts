@@ -22,6 +22,6 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info('selected Value is', values);
+        this.notifyService.info(`selected Value is ${values}`);
     }
 }

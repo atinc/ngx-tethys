@@ -17,12 +17,13 @@ import {
     ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, UpdateHostClassService } from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { ThyCascaderOption, ThyCascaderExpandTrigger, ThyCascaderTriggerType } from './types';
+import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -60,7 +61,6 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
     selector: 'thy-cascader,[thy-cascader]',
     templateUrl: './cascader.component.html',
     providers: [
-        UpdateHostClassService,
         {
             provide: NG_VALUE_ACCESSOR,
             useExisting: forwardRef(() => ThyCascaderComponent),
@@ -195,7 +195,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     /**
      * 空状态下的展示文字
-     * @default '无任何选项'
+     * @default '暂无可选项'
      */
     @Input()
     set thyEmptyStateText(value: string) {
@@ -282,7 +282,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     public isLabelRenderTemplate = false;
     public triggerRect: DOMRect;
     public columns: ThyCascaderOption[][] = [];
-    public emptyStateText = '无任何选项';
+    public emptyStateText = '暂无可选项';
 
     public selectionModel: SelectionModel<SelectOptionBase>;
     private prefixCls = 'thy-cascader';
@@ -294,6 +294,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     private _menuCls: { [name: string]: any };
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
+    private hostRenderer = useHostRenderer();
     onChange: any = Function.prototype;
     onTouched: any = Function.prototype;
     private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
@@ -622,7 +623,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             [`${this.prefixCls}-picker-disabled`]: this.disabled,
             [`${this.prefixCls}-picker-open`]: this.menuVisible
         };
-        this.updateHostClassService.updateClassByMap(classMap);
+        this.hostRenderer.updateClassByMap(classMap);
     }
 
     private isClickTriggerAction(): boolean {
@@ -713,8 +714,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
-            if (!this.activatedOptions[i]) {
-                this.activatedOptions[i] = this.activatedOptions[i + 1].parent;
+            const originOption = this.activatedOptions[i + 1]?.parent;
+            if (!this.activatedOptions[i] || originOption?._id !== this.activatedOptions[i]._id) {
+                this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
             }
         }
         if (index < this.activatedOptions.length - 1) {
@@ -868,14 +870,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return values;
     }
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private elementRef: ElementRef,
-        private updateHostClassService: UpdateHostClassService,
-        private viewPortRuler: ViewportRuler
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler) {}
 
     public trackByFn(index: number, item: ThyCascaderOption) {
         return item?.value || item?._id || index;

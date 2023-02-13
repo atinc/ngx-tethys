@@ -71,6 +71,7 @@ export class ThyConfirmComponent implements OnInit, OnDestroy {
     }
 
     close() {
+        this.options?.onCancel?.();
         this.dialogRef.close();
     }
 

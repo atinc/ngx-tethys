@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { UpdateHostClassService } from 'ngx-tethys/core';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 
-const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
+const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
 const DEFAULT_SIZE = 36;
 
@@ -25,7 +25,6 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
-    providers: [UpdateHostClassService],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ThyAvatarComponent implements OnInit {
@@ -129,19 +128,15 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
-    constructor(
-        private updateHostClassService: UpdateHostClassService,
-        elementRef: ElementRef,
-        private thyAvatarService: ThyAvatarService
-    ) {
-        updateHostClassService.initializeElement(elementRef.nativeElement);
-    }
+    private hostRenderer = useHostRenderer();
+
+    constructor(private thyAvatarService: ThyAvatarService) {}
 
     ngOnInit() {
         if (!this._size) {
             this._setAvatarSize(DEFAULT_SIZE);
         }
-        this.updateHostClassService.updateClass([`thy-avatar-${this._size}`]);
+        this.hostRenderer.updateClass([`thy-avatar-${this._size}`]);
     }
 
     remove($event: Event) {

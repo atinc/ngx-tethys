@@ -4,7 +4,7 @@ subtitle: 热键
 label: new
 ---
 
-<alert>键盘热键组件</alert>
+<alert>键盘热键。</alert>
 
 ## 何时使用
 

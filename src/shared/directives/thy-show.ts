@@ -1,8 +1,11 @@
 import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Directive({ selector: '[thyShow]' })
 export class ThyShowDirective implements OnDestroy {
     @Output() thyShowChange = new EventEmitter();
+
+    private hostRenderer = useHostRenderer();
 
     private unListenEvent: () => void;
 
@@ -15,7 +18,7 @@ export class ThyShowDirective implements OnDestroy {
 
     @Input() set thyShow(condition: boolean) {
         if (condition) {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'display', 'block');
+            this.hostRenderer.setStyle('display', 'block');
             this.ngZone.runOutsideAngular(() =>
                 setTimeout(() => {
                     this.unListenEvent = this.renderer.listen('document', 'click', event => {
@@ -29,7 +32,7 @@ export class ThyShowDirective implements OnDestroy {
                 })
             );
         } else {
-            this.renderer.setStyle(this.elementRef.nativeElement, 'display', 'none');
+            this.hostRenderer.setStyle('display', 'none');
             this.unListenDocument();
         }
     }

@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
 import { finalize, tap, catchError } from 'rxjs/operators';
 
-class AsyncBehavior<T> {
+class AsyncBehavior<T, A extends (...args: any) => Observable<T>> {
     loadingDone = false;
 
     value: T;
@@ -10,12 +10,12 @@ class AsyncBehavior<T> {
 
     error?: Error;
 
-    constructor(private action: () => Observable<T>) {}
+    constructor(private action: A) {}
 
-    execute() {
+    execute(...params: Parameters<A>): ReturnType<A> {
         this.loadingDone = false;
         this.state = 'loading';
-        return this.action().pipe(
+        return this.action.apply(undefined, params).pipe(
             finalize(() => {
                 this.loadingDone = true;
             }),
@@ -25,13 +25,13 @@ class AsyncBehavior<T> {
                 throw error;
             }),
             tap(value => {
-                this.value = value;
+                this.value = value as T;
                 this.state = 'success';
             })
         );
     }
 }
 
-export function useAsync<T>(action: () => Observable<T>) {
+export function useAsync<T, A extends (...args: any) => Observable<T>>(action: A) {
     return new AsyncBehavior(action);
 }
