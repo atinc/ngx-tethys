@@ -23,6 +23,8 @@ export class ThyCascaderOptionComponent implements OnInit {
     @InputBoolean()
     isOnlySelectLeaf = true;
 
+    @HostBinding('class') class = 'd-flex';
+
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
     @HostBinding('class.thy-cascader-menu-item-active')

@@ -32,7 +32,6 @@
   cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayPositions]="positions"
-  [cdkConnectedOverlayWidth]="triggerRect?.width"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
   (attach)="attached()"
@@ -41,7 +40,7 @@
 >
   <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
     <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
-      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
+      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls" [style.maxWidth.px]="300">
         <li
           #cascaderOptions
           thy-cascader-option

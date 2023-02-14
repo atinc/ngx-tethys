@@ -1,5 +1,5 @@
 <ng-container>
-  <span *ngIf="!multiple || !option.isLeaf"> {{ getOptionLabel() }}</span>
+  <span thyFlexibleText [thyTooltipContent]="getOptionLabel()" *ngIf="!multiple || !option.isLeaf"> {{ getOptionLabel() }}</span>
   <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
     <label
       thyCheckbox
