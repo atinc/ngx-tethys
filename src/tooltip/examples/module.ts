@@ -11,7 +11,6 @@ import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 
 import { ThyTooltipBasicExampleComponent } from './basic/basic.component';
 import { ThyTooltipPositionExampleComponent } from './position/position.component';
-import { ThyTooltipTemplateDataExampleComponent } from './template-data/template-data.component';
 import { ThyTooltipTemplateExampleComponent } from './template/template.component';
 import { ThyTooltipManualExampleComponent } from './manual/manual.component';
 
@@ -19,8 +18,7 @@ const COMPONENTS = [
     ThyTooltipBasicExampleComponent,
     ThyTooltipPositionExampleComponent,
     ThyTooltipTemplateExampleComponent,
-    ThyTooltipManualExampleComponent,
-    ThyTooltipTemplateDataExampleComponent
+    ThyTooltipManualExampleComponent
 ];
 
 @NgModule({
