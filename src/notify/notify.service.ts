@@ -27,7 +27,7 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         this.container = this.createContainer(ThyNotifyContainerComponent);
 
         const notifyConfig = this.formatOptions(config);
-        const notifyRef = new ThyNotifyRef(notifyConfig, this.overlayRef);
+        const notifyRef = new ThyNotifyRef(notifyConfig, this.overlayRef, this.notifyQueue);
         this.notifyQueue.add(notifyRef);
         return notifyRef;
     }

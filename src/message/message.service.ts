@@ -80,7 +80,7 @@ export class ThyMessageService extends ThyAbstractMessageService<ThyMessageConta
         this.container = this.createContainer(ThyMessageContainerComponent);
 
         const messageConfig = this.formatOptions(config);
-        const messageRef = new ThyMessageRef(messageConfig, this.overlayRef);
+        const messageRef = new ThyMessageRef(messageConfig, this.overlayRef, this.messageQueue);
         this.messageQueue.add(messageRef);
         return messageRef;
     }
