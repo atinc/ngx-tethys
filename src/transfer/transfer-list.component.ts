@@ -6,6 +6,11 @@ import { Id, SafeAny } from 'ngx-tethys/types';
 
 import { Direction, InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem } from './transfer.interface';
 
+/**
+ * 穿梭框列表组件
+ * @name thy-transfer-list
+ * @private
+ */
 @Component({
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',

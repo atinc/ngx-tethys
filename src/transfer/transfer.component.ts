@@ -12,6 +12,10 @@ import {
     TransferDirection
 } from './transfer.interface';
 
+/**
+ * 穿梭框组件
+ * @name thy-transfer
+ */
 @Component({
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
