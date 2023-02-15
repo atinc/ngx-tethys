@@ -46,22 +46,6 @@ export class ThyTransferListComponent implements OnInit {
     /**
      * @private
      *
-     * @type {EventEmitter<ThyTransferItem>}
-     * @memberof ThyTransferListComponent
-     */
-    @Output() readonly handleSelect: EventEmitter<ThyTransferItem> = new EventEmitter();
-
-    /**
-     * @private
-     *
-     * @type {EventEmitter<ThyTransferItem>}
-     * @memberof ThyTransferListComponent
-     */
-    @Output() search: EventEmitter<string> = new EventEmitter();
-
-    /**
-     * @private
-     *
      * 最大选择
      */
     @Input() max: number;
@@ -90,13 +74,29 @@ export class ThyTransferListComponent implements OnInit {
     @Input() virtualScroll = false;
 
     /** @private */
-    @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
-
-    /** @private */
     @Input() thyRender: TemplateRef<void> | null = null;
 
     /** @private */
     @Input() thyCanUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
+
+    /**
+     * @private
+     *
+     * @type {EventEmitter<ThyTransferItem>}
+     * @memberof ThyTransferListComponent
+     */
+    @Output() readonly handleSelect: EventEmitter<ThyTransferItem> = new EventEmitter();
+
+    /**
+     * @private
+     *
+     * @type {EventEmitter<ThyTransferItem>}
+     * @memberof ThyTransferListComponent
+     */
+    @Output() search: EventEmitter<string> = new EventEmitter();
+
+    /** @private */
+    @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
 
     public searchText = '';
 
