@@ -5,13 +5,13 @@ import { Overlay } from '@angular/cdk/overlay';
 import { ThyNotifyRef } from './notify-ref';
 import { ThyNotifyContainerComponent } from './notify-container.component';
 import { ThyNotifyQueue } from './notify-queue.service';
-import { ThyMessageBaseService } from 'ngx-tethys/message';
+import { ThyAbstractMessageService } from 'ngx-tethys/message';
 import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyService extends ThyMessageBaseService<ThyNotifyContainerComponent> {
+export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContainerComponent> {
     private _lastNotifyId = 0;
 
     constructor(

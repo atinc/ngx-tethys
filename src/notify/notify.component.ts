@@ -2,7 +2,7 @@ import { Component, Input, HostBinding, NgZone, OnInit } from '@angular/core';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 import { helpers, isString } from 'ngx-tethys/util';
 import { ThyNotifyConfig, ThyNotifyDetail, ThyNotifyPlacement } from './notify.config';
-import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyMessageBaseComponent, ThyMessageQueue } from 'ngx-tethys/message';
+import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractMessageComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 
 @Component({
@@ -28,7 +28,7 @@ import { ThyNotifyQueue } from './notify-queue.service';
         ])
     ]
 })
-export class ThyNotifyComponent extends ThyMessageBaseComponent<ThyNotifyConfig> implements OnInit {
+export class ThyNotifyComponent extends ThyAbstractMessageComponent<ThyNotifyConfig> implements OnInit {
     @HostBinding('@flyInOut') animationState: string;
 
     @HostBinding('class') className = '';

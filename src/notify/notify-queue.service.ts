@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@angular/core';
-import { ThyMessageBaseQueue } from 'ngx-tethys/message';
+import { ThyAbstractMessageQueue } from 'ngx-tethys/message';
 import { map, shareReplay } from 'rxjs/operators';
 import { ThyNotifyRef } from './notify-ref';
 import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
@@ -10,7 +10,7 @@ import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.confi
 @Injectable({
     providedIn: 'root'
 })
-export class ThyNotifyQueue extends ThyMessageBaseQueue<ThyNotifyRef> {
+export class ThyNotifyQueue extends ThyAbstractMessageQueue<ThyNotifyRef> {
     topLeftQueues$ = this.queues$.pipe(
         map(queues => queues.filter(item => item.config.placement === 'topLeft')),
         shareReplay()

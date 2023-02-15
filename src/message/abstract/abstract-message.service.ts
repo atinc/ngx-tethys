@@ -1,20 +1,20 @@
 import { ComponentType, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injector } from '@angular/core';
-import { ThyMessageBaseContainerComponent } from './message-container.component';
-import { ThyMessageBaseQueue } from './message-queue.service';
+import { ThyAbstractMessageContainerComponent } from './abstract-message-container.component';
+import { ThyAbstractMessageQueue } from './abstract-message-queue.service';
 
 /**
  * @internal
  */
-export class ThyMessageBaseService<TContainer extends ThyMessageBaseContainerComponent> {
+export class ThyAbstractMessageService<TContainer extends ThyAbstractMessageContainerComponent> {
     protected container: TContainer;
 
     protected overlayRef: OverlayRef;
 
-    private queue: ThyMessageBaseQueue;
+    private queue: ThyAbstractMessageQueue;
 
-    constructor(private overlay: Overlay, private injector: Injector, queue: ThyMessageBaseQueue) {
+    constructor(private overlay: Overlay, private injector: Injector, queue: ThyAbstractMessageQueue) {
         this.queue = queue;
     }
 

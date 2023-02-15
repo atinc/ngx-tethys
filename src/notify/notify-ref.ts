@@ -1,4 +1,4 @@
-import { ThyMessageBaseRef } from 'ngx-tethys/message';
+import { ThyAbstractMessageRef } from 'ngx-tethys/message';
 import { ThyNotifyConfig } from './notify.config';
 
-export class ThyNotifyRef extends ThyMessageBaseRef<ThyNotifyConfig> {}
+export class ThyNotifyRef extends ThyAbstractMessageRef<ThyNotifyConfig> {}

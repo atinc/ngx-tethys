@@ -4,12 +4,12 @@ import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
-import { ThyMessageBaseService } from './message-base.service';
+import { ThyAbstractMessageService } from './abstract';
 
 @Injectable({
     providedIn: 'root'
 })
-export class ThyMessageService extends ThyMessageBaseService<ThyMessageContainerComponent> {
+export class ThyMessageService extends ThyAbstractMessageService<ThyMessageContainerComponent> {
     private _lastMessageId = 0;
 
     constructor(
