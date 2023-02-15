@@ -1,4 +1,4 @@
-import { ElementRef, InjectionToken, TemplateRef, ViewContainerRef } from '@angular/core';
+import { InjectionToken, ViewContainerRef } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 
