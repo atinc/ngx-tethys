@@ -1,4 +1,7 @@
-import { Component, ContentChild, EventEmitter, HostBinding, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { Component, EventEmitter, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Id, SafeAny } from 'ngx-tethys/types';
+import { produce, warnDeprecation } from 'ngx-tethys/util';
 
 import {
     Direction,
@@ -6,32 +9,23 @@ import {
     ThyTransferChangeEvent,
     ThyTransferDragEvent,
     ThyTransferItem,
-    ThyTransferSelectEvent,
     TransferDirection
 } from './transfer.interface';
 
 @Component({
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
+    host: {
+        class: 'thy-transfer'
+    },
     encapsulation: ViewEncapsulation.None
 })
 export class ThyTransferComponent implements OnInit {
-    @HostBinding('class') hostClass = 'thy-transfer';
-
-    public leftDataSource: ThyTransferItem[] = [];
-
-    public rightDataSource: ThyTransferItem[] = [];
-
-    public allDataSource: ThyTransferItem[] = [];
-
-    public leftTitle: string;
-
-    public rightTitle: string;
-
-    public rightDraggable = false;
-
-    private _autoMove = true;
-
+    /**
+     * 数据源
+     *
+     * @memberof ThyTransferComponent
+     */
     @Input()
     set thyData(value: ThyTransferItem[]) {
         if (value) {
@@ -39,51 +33,186 @@ export class ThyTransferComponent implements OnInit {
         }
     }
 
-    @Input() thyrenderLeftTemplateRef: TemplateRef<any>;
+    /** The left list item can be handled when the method return true. */
+    /**
+     * 左侧列表是否可选中
+     *
+     * @param item
+     * @param leftDataSource
+     * @param selectData: Id[]
+     * @default true
+     */
+    @Input() canHandleLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
-    @Input() thyrenderRightTemplateRef: TemplateRef<any>;
+    /** The right list item can be handled & show when the method return true. */
+    /**
+     * 右侧列表是否可移除
+     *
+     * @param item
+     * @param rightDataSource
+     * @param selectData: Id[]
+     * @default true
+     */
+    @Input() canHandleRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
-    // @Input() transferToRight
+    /**
+     * 是否展示穿梭按钮
+     *
+     * @memberof ThyTransferComponent
+     */
+    @Input() thyShowOperationBtn = true;
 
+    /** Custom render list array. The first be used to left list & the last be used to right*/
+    /**
+     * 自定义模板列表数组，首个模板应用于左侧，次模板应用于右侧
+     * @type {(Array<TemplateRef<SafeAny> | null> | null)}
+     * @memberof ThyTransferComponent
+     */
+    @Input() thyRenderList: Array<TemplateRef<SafeAny> | null> | null = null;
+
+    /**
+     * 自定义Transfer Item模板
+     *
+     * @type {TemplateRef<SafeAny>}
+     * @memberof ThyTransferComponent
+     */
+    @Input() thyRenderItem: TemplateRef<SafeAny>;
+
+    /** There must is the search callback when the list rendered by input thyRenderList */
+    /**
+     * 自定义搜索，当使用自定义模板时必填
+     * @type {function}
+     * @memberof ThyTransferComponent
+     */
     @Input()
-    set thyTitles(value: string[]) {
-        this.leftTitle = value[0] || '';
-        this.rightTitle = value[1] || '';
+    set thyRenderSearch(fn: Function) {
+        if (!this.thyRenderList?.length) {
+            warnDeprecation(`The property thyRenderSearch is required If you want to enable thyRenderList`);
+        }
+        this.customSearch = fn;
     }
 
-    @Input() thyRightCanLock: boolean;
+    /**
+     * 左侧列表是否可以拖拽
+     *
+     * @type {boolean}
+     * @memberof ThyTransferComponent
+     * @default true
+     */
+    @Input() thyLeftDraggable: boolean = true;
 
-    @Input() thyRightLockMax: number;
+    /**
+     * 左侧列表是否可以拖拽
+     *
+     * @type {boolean}
+     * @memberof ThyTransferComponent
+     * @default true
+     */
+    @Input() thyRightDraggable: boolean = true;
 
-    @Input() thyRightMax: number;
+    @Input() thyTitles: string[];
 
-    // Currently not implemented, in order to support the selections move
+    /**
+     * 穿梭时是否保留原数据
+     *
+     * @type {boolean}
+     * @memberof ThyTransferComponent
+     */
+    @Input() thyKeepResource = true;
+
     @Input()
     set thyAutoMove(value: boolean) {
-        this._autoMove = value;
+        this.autoMove = value;
     }
 
-    @Input() thyLeftDraggable: boolean;
+    /**
+     * 右侧选择最大数量
+     *
+     * @type {number}
+     * @memberof ThyTransferComponent
+     */
+    @Input() thyRightMax: number;
 
-    @Input() thyRightDraggable: boolean;
+    /**
+     * 自定义模板数据源数量
+     *
+     * @type {number[]}
+     */
+    @Input() thyRenderItemCount: number[] = [];
 
-    @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
+    public customSearch: Function;
 
+    public virtualScroll = false;
+    /**
+     * 开启虚拟滚动
+     * @type {boolean}
+     * @memberof ThyTransferComponent
+     * @default false
+     */
+    @Input()
+    set thyVirtualScroll(value: boolean) {
+        if (!this.thyKeepResource) {
+            warnDeprecation(`The property thyKeepResource must be true If you want to enable virtualScroll`);
+        }
+        this.virtualScroll = value;
+    }
+
+    /** Event emitted when the data is transferred. */
+    /**
+     * Transfer变化的回调事件
+     *
+     * @type {EventEmitter<ThyTransferChangeEvent>}
+     * @memberof ThyTransferComponent
+     */
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 
-    @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
+    /** Event emitted when the list is dragged. */
+    /**
+     * Transfer拖拽的回调事件
+     *
+     * @type {EventEmitter<ThyTransferChangeEvent>}
+     * @memberof ThyTransferComponent
+     */
+    @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
-    @ContentChild('renderLeftTemplate') leftContentRef: TemplateRef<any>;
+    public leftDataSource: ThyTransferItem[] = [];
 
-    @ContentChild('renderRightTemplate') rightContentRef: TemplateRef<any>;
+    public rightDataSource: ThyTransferItem[] = [];
 
-    ngOnInit() {}
+    public allDataSource: ThyTransferItem[] = [];
 
-    initializeTransferData(data: ThyTransferItem[] = []) {
+    /** be used to data backup */
+    public allDataSourceClone: ThyTransferItem[] = [];
+
+    public rightDataSourceClone: ThyTransferItem[] = [];
+
+    public leftDataSourceClone: ThyTransferItem[] = [];
+
+    public selectionModel: SelectionModel<Id>;
+
+    public autoMove = true;
+
+    ngOnInit() {
+        this.initializeSelectionModel();
+        this.initializeModelValues();
+    }
+
+    private initializeSelectionModel() {
+        const isMultiple = true;
+        this.selectionModel = new SelectionModel(isMultiple);
+    }
+    private initializeModelValues() {
+        if (this.selectionModel) {
+            this.selectionModel.clear();
+            this.selectionModel.select(...this.rightDataSource.map(k => k?._id));
+        }
+    }
+
+    private initializeTransferData(data: ThyTransferItem[] = []) {
         this.allDataSource = [];
         this.leftDataSource = [];
         this.rightDataSource = [];
-        data.forEach(item => {
+        data.forEach((item: ThyTransferItem) => {
             this.allDataSource.push(item);
             if (item.direction === TransferDirection.left) {
                 this.leftDataSource.push(item);
@@ -92,78 +221,70 @@ export class ThyTransferComponent implements OnInit {
                 this.rightDataSource.push(item);
             }
         });
+        this.allDataSourceClone = [...this.allDataSource];
+        this.leftDataSourceClone = [...this.leftDataSource];
+        this.rightDataSourceClone = [...this.rightDataSource];
     }
 
-    onSelect(from: Direction, event: ThyTransferSelectEvent) {
-        if (event.item.isFixed) {
-            return;
-        }
-        if (this.thyRightMax <= this.rightDataSource.length && from === TransferDirection.left) {
-            return;
-        }
-        const to = from === TransferDirection.left ? TransferDirection.right : TransferDirection.left;
-        event.item.checked = !event.item.checked;
-        if (this._autoMove) {
-            this.onMove(to);
-        }
-    }
+    private handleSelect(direction: Direction, item?: ThyTransferItem): void {
+        if (direction === 'left') {
+            if (item.disabled) return;
+            if (!this.selectionModel.isSelected(item._id)) {
+                if (!this.canHandleLeftItemFn(item, this.rightDataSource)) return;
 
-    selectItem(event: ThyTransferSelectEvent) {
-        this.onSelect(TransferDirection.left, event);
-    }
-
-    unselectItem(event: ThyTransferSelectEvent) {
-        this.onSelect(TransferDirection.right, event);
-    }
-
-    private groupListByIsLock(list: ThyTransferItem[] = []) {
-        const lock: ThyTransferItem[] = [],
-            unlock: ThyTransferItem[] = [];
-        list.forEach(item => {
-            if (item.isLock) {
-                lock.push(item);
+                this.selectionModel.select(item._id);
+                if (!this.thyKeepResource) {
+                    this.leftDataSource.splice(item.index, 1);
+                }
+                this.rightDataSource.push(item);
             } else {
-                unlock.push(item);
+                if (item.required) return;
+                this.selectionModel.deselect(item._id);
+                this.rightDataSource = produce(this.rightDataSource).remove(item._id);
             }
-        });
-        return { lock: lock, unlock: unlock };
-    }
-
-    onMove(to: Direction) {
-        const fromDataSource = to === TransferDirection.right ? this.leftDataSource : this.rightDataSource;
-        const toDataSource = to === TransferDirection.right ? this.rightDataSource : this.leftDataSource;
-        const selections = fromDataSource.filter(item => item.checked);
+        } else {
+            this.selectionModel.deselect(item._id);
+            this.rightDataSource = produce(this.rightDataSource).remove(item._id);
+            if (!this.thyKeepResource) {
+                this.leftDataSource.push(item);
+            }
+        }
         const changeEvent: ThyTransferChangeEvent = {
-            from: to === TransferDirection.right ? TransferDirection.left : TransferDirection.right,
-            to: to,
-            items: [...selections]
+            from: direction,
+            to: direction === TransferDirection.right ? TransferDirection.left : TransferDirection.right,
+            item
         };
-        selections.forEach(item => {
-            const index = fromDataSource.indexOf(item);
-            const removed = fromDataSource.splice(index, 1)[0];
-            removed.checked = !removed.checked;
-            removed.direction = to;
-            toDataSource.push(removed);
-        });
         this.thyChange.emit({
             ...changeEvent,
-            left: this.groupListByIsLock(this.leftDataSource),
-            right: this.groupListByIsLock(this.rightDataSource)
+            left: this.thyKeepResource ? this.allDataSource : this.leftDataSource,
+            right: this.rightDataSource
         });
     }
 
-    onDragUpdate(direction: Direction, event: InnerTransferDragEvent) {
-        const otherDirectionData = direction === TransferDirection.left ? this.rightDataSource : this.leftDataSource;
-        const otherListData = this.groupListByIsLock(otherDirectionData);
+    public handleLeftSelect = (item: ThyTransferItem): void => this.handleSelect('left', item);
+
+    public handleRightSelect = (item: ThyTransferItem): void => this.handleSelect('right', item);
+
+    public onDragUpdate(direction: Direction, event: InnerTransferDragEvent) {
         this.thyDraggableUpdate.emit({
             ...event.dragEvent,
-            left: direction === TransferDirection.left ? event.listData : otherListData,
-            right: direction === TransferDirection.right ? event.listData : otherListData
+            direction
         });
+    }
 
-        this.rightDataSource =
-            direction === TransferDirection.right
-                ? [...event.listData.lock, ...event.listData.unlock]
-                : [...otherListData.lock, ...otherListData.unlock];
+    public search(direction: Direction, keyword: string) {
+        if (this.customSearch) {
+            this.customSearch(direction, keyword);
+            return;
+        }
+        if (direction === 'left') {
+            if (this.thyKeepResource) {
+                this.allDataSource = this.allDataSourceClone.filter(k => k.title.includes(keyword));
+            } else {
+                this.leftDataSource = this.leftDataSourceClone.filter(k => k.title.includes(keyword));
+            }
+        } else {
+            this.rightDataSource = this.rightDataSourceClone.filter(k => k.title.includes(keyword));
+        }
     }
 }

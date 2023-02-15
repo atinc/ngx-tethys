@@ -1,155 +1,132 @@
-import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import {
-    Component,
-    DoCheck,
-    EventEmitter,
-    HostBinding,
-    Input,
-    IterableChanges,
-    IterableDiffer,
-    IterableDiffers,
-    OnInit,
-    Output,
-    TemplateRef,
-    ViewEncapsulation
-} from '@angular/core';
+import { SelectionModel } from '@angular/cdk/collections';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { DOCUMENT } from '@angular/common';
+import { Component, EventEmitter, Inject, Input, OnInit, Output, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { Id, SafeAny } from 'ngx-tethys/types';
 
-import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
+import { Direction, InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem } from './transfer.interface';
 
 @Component({
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',
+    host: {
+        class: 'thy-transfer-list'
+    },
     encapsulation: ViewEncapsulation.None
 })
-export class ThyTransferListComponent implements OnInit, DoCheck {
-    public lockItems: ThyTransferItem[] = [];
+export class ThyTransferListComponent implements OnInit {
+    /**
+     * 数据源
+     * @private
+     * @type {ThyTransferItem[]}
+     * @memberof ThyTransferListComponent
+     */
+    @Input() thyDataSource: ThyTransferItem[] = [];
 
-    public unlockItems: ThyTransferItem[] = [];
+    /**
+     * @private
+     * @type {Direction}
+     * @default left
+     */
+    @Input() direction: Direction = 'left';
 
-    private _diff: IterableDiffer<ThyTransferItem>;
+    /**
+     * @private
+     * @type {boolean}
+     * @default false
+     */
+    @Input() draggable: boolean = true;
 
-    private _lockDiff: IterableDiffer<ThyTransferItem>;
-
-    private _unlockDiff: IterableDiffer<ThyTransferItem>;
-
+    /**
+     * @private
+     * @type {string}
+     */
     @Input() title: string;
 
-    @Input() items: ThyTransferItem[];
+    /**
+     *@private
+     *
+     * @type {EventEmitter<ThyTransferItem>}
+     * @memberof ThyTransferListComponent
+     */
+    @Output() readonly handleSelect: EventEmitter<ThyTransferItem> = new EventEmitter();
 
-    @Input() draggable: boolean;
+    /**
+     *@private
+     *
+     * @type {EventEmitter<ThyTransferItem>}
+     * @memberof ThyTransferListComponent
+     */
+    @Output() search: EventEmitter<string> = new EventEmitter();
 
-    @Input() canLock: boolean;
-
-    @Input() maxLock: number;
-
+    /**
+     * @private
+     *
+     * 最大选择
+     */
     @Input() max: number;
 
-    @Input() disabled: boolean;
+    /**
+     * @private
+     *
+     * 数据量
+     */
+    @Input() renderItemCount: number;
 
-    @Input() template: TemplateRef<any>;
+    /**
+     * @private
+     *
+     */
+    @Input() selectionModel: SelectionModel<Id>;
 
-    @Input('renderContentRef') contentRef: TemplateRef<any>;
+    /**
+     * @private
+     * @type {TemplateRef<SafeAny>}
+     * @memberof ThyTransferListComponent
+     */
+    @Input() renderItem: TemplateRef<SafeAny>;
 
+    /** @private */
+    @Input() virtualScroll = false;
+
+    /** @private */
     @Output() draggableUpdate: EventEmitter<InnerTransferDragEvent> = new EventEmitter<InnerTransferDragEvent>();
 
-    @Output() selectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    /** @private */
+    @Input() thyRender: TemplateRef<void> | null = null;
 
-    @Output() unselectItem: EventEmitter<ThyTransferSelectEvent> = new EventEmitter<ThyTransferSelectEvent>();
+    /** @private */
+    @Input() canHandleRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
 
-    @HostBinding('class') hostClass = 'thy-transfer-list';
+    public searchText = '';
 
-    constructor(private differs: IterableDiffers) {}
+    constructor(@Inject(DOCUMENT) private document: any) {}
 
-    ngOnInit() {
-        this._combineTransferData();
-        if (this.canLock) {
-            this._lockDiff = this.differs.find(this.lockItems).create();
-            this._unlockDiff = this.differs.find(this.unlockItems).create();
-        } else {
-            this._unlockDiff = this.differs.find(this.unlockItems).create();
-        }
-        this._diff = this.differs.find(this.items).create();
-    }
+    ngOnInit() {}
 
-    private _combineTransferData() {
-        this.lockItems = [];
-        this.unlockItems = [];
-        if (this.canLock) {
-            (this.items || []).forEach(item => {
-                if (item.isLock) {
-                    this.lockItems.push(item);
-                } else {
-                    this.unlockItems.push(item);
-                }
-            });
-        } else {
-            this.unlockItems = this.items;
+    public onSearch(keyword: string) {
+        if (this.search) {
+            this.search.emit(keyword);
         }
     }
 
-    private _afterChangeItems(changes: IterableChanges<ThyTransferItem>, items: ThyTransferItem[]) {
-        // 数据发生变化时，更改order值
-        changes.forEachAddedItem(record => {
-            record.item.order = record.currentIndex;
-        });
-        changes.forEachRemovedItem(() => {
-            items.forEach((item, index) => {
-                item.order = index;
-            });
-        });
-        changes.forEachMovedItem(() => {
-            items.forEach((item, index) => {
-                item.order = index;
-            });
-        });
-    }
-
-    ngDoCheck() {
-        const changes = this._diff.diff(this.items);
-        if (changes) {
-            this._afterChangeItems(changes, this.items);
-            this._combineTransferData();
-        }
-        if (this._lockDiff) {
-            const lockChanges = this._lockDiff.diff(this.lockItems);
-            if (lockChanges) {
-                this._afterChangeItems(lockChanges, this.lockItems);
-            }
-        }
-        const unlockChanges = this._unlockDiff.diff(this.unlockItems);
-        if (unlockChanges) {
-            this._afterChangeItems(unlockChanges, this.unlockItems);
+    public toggleSelect(item: ThyTransferItem, index: number) {
+        if (this.direction === 'left') {
+            item = { ...item, index };
+            this.handleSelect.emit(item);
         }
     }
 
-    lockListEnterPredicate = () => {
-        return this.lockItems.length < this.maxLock;
-    };
+    public remove(item: ThyTransferItem, index: number) {
+        item = { ...item, index };
+        this.handleSelect.emit(item);
+    }
 
-    unlockListEnterPredicate = (event: CdkDrag<ThyTransferItem>) => {
-        return !event.data.isFixed;
-    };
-
-    onSelectItem = (item: ThyTransferItem) => {
-        this.selectItem.emit({ item });
-    };
-
-    onUnselectItem = (item: ThyTransferItem) => {
-        this.unselectItem.emit({ item });
-    };
-
-    drop(event: CdkDragDrop<ThyTransferItem[]>) {
+    public drop(event: CdkDragDrop<ThyTransferItem[]>) {
         if (event.previousContainer === event.container) {
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
         } else {
             transferArrayItem(event.previousContainer.data, event.container.data, event.previousIndex, event.currentIndex);
-            (event.previousContainer.data || []).forEach(item => {
-                item.isLock = event.previousContainer.id === 'lock';
-            });
-
-            (event.container.data || []).forEach(item => {
-                item.isLock = event.container.id === 'lock';
-            });
         }
         const dragEvent: ThyTransferDragEvent = {
             model: event.item.data,
@@ -158,8 +135,14 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
             newIndex: event.currentIndex
         };
         this.draggableUpdate.emit({
-            dragEvent: dragEvent,
-            listData: { lock: this.lockItems, unlock: this.unlockItems }
+            dragEvent: dragEvent
         });
+    }
+
+    public onDragStarted() {
+        const preview = this.document.getElementsByClassName('cdk-drag-preview')[0];
+        if (preview) {
+            preview.classList.add('thy-transfer-list-drag-preview');
+        }
     }
 }

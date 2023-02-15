@@ -1,53 +1,52 @@
 @use "../../styles/variables";
 
+
 .thy-transfer {
     display: flex;
-    width: variables.$transfer-width;
+    max-width: variables.$transfer-width;
 
     .thy-transfer-list {
         display: flex;
         flex-flow: column;
         flex: 1;
-        width: variables.$transfer-list-width;
+    }
 
-        .thy-transfer-list-header {
-            padding: variables.$transfer-list-header-padding;
-            width: 100%;
+    .thy-transfer-list-header {
+        padding: variables.$transfer-list-header-padding;
+        width: 100%;
 
-            .thy-transfer-list-header-title {
-                color: variables.$transfer-list-header-font-color;
-                font-size: variables.$transfer-list-header-font-size;
-            }
+        .thy-transfer-list-header-title {
+            font-family: PingFangSC-Regular;
+            color: variables.$gray-700;
+            font-size: variables.$transfer-list-header-font-size;
+        }
+    }
+
+    .thy-transfer-list-wrap {
+        border: 1px solid variables.$gray-200;
+        border-radius: 4px;
+        overflow: hidden;
+        border: variables.$transfer-list-border-width solid variables.$transfer-list-border-color;
+        border-radius: variables.$transfer-list-border-radius;
+        padding: variables.$transfer-list-padding;
+        vertical-align: middle;
+    }
+
+    .thy-transfer-list-input {
+        margin: 8px 0;
+        padding: 0 20px;
+        box-sizing: content-box;
+        border-radius: 0;
+
+        .thy-input-search {
+            border-top: 1px solid transparent;
+            border-top-color: transparent !important;
+            border-radius: 0;
+            border-bottom: 1px solid rgba(238, 238, 238, 1);
         }
 
-        .thy-transfer-list-body {
-            border: variables.$transfer-list-border-width solid variables.$transfer-list-border-color;
-            border-radius: variables.$transfer-list-border-radius;
-            padding: variables.$transfer-list-padding;
-            height: variables.$transfer-list-height;
-            vertical-align: middle;
-            overflow-y: auto;
-
-            .thy-transfer-list-group-name {
-                padding: 12px 20px;
-                color: variables.$gray-500;
-                line-height: 14px;
-            }
-        }
-
-        .thy-transfer-list-content {
-            padding: 0;
-            overflow: initial;
-            .cdk-drop-list-empty {
-                margin: -12px 0;
-                padding: 12px 20px;
-                background: variables.$white;
-            }
-            .thy-transfer-list-content-item {
-                padding-right: 15px;
-                height: variables.$transfer-list-item-line-hight;
-                min-height: variables.$transfer-list-item-line-hight;
-            }
+        .form-control-active {
+            border-color: variables.$primary;
         }
     }
 
@@ -64,34 +63,142 @@
             }
         }
     }
-}
 
-.thy-transfer-list-content-item {
-    .list-item-content {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        flex-grow: 1;
+    .thy-transfer-list-body {
+        padding-bottom: 8px;
+        height: variables.$transfer-list-height;
+        overflow-y: auto;
     }
-    .item-name {
-        flex: 1;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        .flexible-text-container {
-            display: block;
+
+    .d-flex {
+        .item-title {
+            flex: 1;
+            display: flex;
+            align-items: center;
+
+            .drag-handle {
+                padding: 0px 2px 0 2px;
+            }
+        }
+
+        .item-icon {
+            color: #aaa;
+            width: 14px;
+        }
+
+        .item-status {
+            font-size: 14px;
         }
     }
-    .un-select-item {
-        margin-right: 14px;
-    }
+}
+.thy-transfer-list-drag-preview{
+    display: flex;
 
-    .cdk-drag-handle,
-    .drag-handle {
-        position: absolute;
-    }
+    .item-title {
+        flex: 1;
+        display: flex;
+        align-items: center;
 
-    .item-status {
-        font-size: 14px;
+        .drag-handle {
+            padding: 0px 2px 0 2px;
+        }
     }
 }
+
+// .thy-transfer {
+//     display: flex;
+//     max-width: variables.$transfer-width;
+
+//     .thy-transfer-list {
+//         display: flex;
+//         flex-flow: column;
+//         flex: 1;
+
+//         .thy-transfer-list-header {
+//             padding: variables.$transfer-list-header-padding;
+//             width: 100%;
+
+//             .thy-transfer-list-header-title {
+//                 color: variables.$transfer-list-header-font-color;
+//                 font-size: variables.$transfer-list-header-font-size;
+//             }
+//         }
+
+//         .thy-transfer-list-body {
+//             border: 1px solid variables.$gray-200;
+//             border-radius: 4px;
+//             overflow: hidden;
+//             border: variables.$transfer-list-border-width solid variables.$transfer-list-border-color;
+//             border-radius: variables.$transfer-list-border-radius;
+//             padding: variables.$transfer-list-padding;
+//             height: variables.$transfer-list-height;
+//             vertical-align: middle;
+//             overflow-y: auto;
+
+//             .thy-transfer-list-group-name {
+//                 padding: 12px 20px;
+//                 color: variables.$gray-500;
+//                 line-height: 14px;
+//             }
+//         }
+
+//         .thy-transfer-list-content {
+//             padding: 0;
+//             overflow: initial;
+//             .cdk-drop-list-empty {
+//                 margin: -12px 0;
+//                 padding: 12px 20px;
+//                 background: variables.$white;
+//             }
+//             .thy-transfer-list-content-item {
+//                 padding-right: 15px;
+//                 height: variables.$transfer-list-item-line-hight;
+//                 min-height: variables.$transfer-list-item-line-hight;
+//             }
+//         }
+//     }
+
+//     .thy-transfer-operation {
+//         padding: variables.$transfer-operation-padding;
+//         display: flex;
+//         align-items: center;
+
+//         .thy-transfer-operation-body {
+//             .operation-link {
+//                 display: block;
+//                 color: variables.$transfer-operation-color;
+//                 font-size: variables.$transfer-operation-font-size;
+//             }
+//         }
+//     }
+// }
+
+// .thy-transfer-list-content-item {
+//     .list-item-content {
+//         width: 100%;
+//         display: flex;
+//         align-items: center;
+//         flex-grow: 1;
+//     }
+//     .item-name {
+//         flex: 1;
+//         white-space: nowrap;
+//         overflow: hidden;
+//         text-overflow: ellipsis;
+//         .flexible-text-container {
+//             display: block;
+//         }
+//     }
+//     .un-select-item {
+//         margin-right: 14px;
+//     }
+
+//     .cdk-drag-handle,
+//     .drag-handle {
+//         position: absolute;
+//     }
+
+//     .item-status {
+//         font-size: 14px;
+//     }
+// }

@@ -1,70 +1,78 @@
 <div class="thy-transfer-list-header">
   <span class="thy-transfer-list-header-title"
-    >{{ title }} · {{ items?.length }}<span *ngIf="max"> (上限{{ max }}个)</span></span
+    >{{ title }} · {{ thyDataSource?.length || renderItemCount }}<span *ngIf="max"> (上限{{ max }}个)</span></span
   >
 </div>
-<ng-container *ngIf="!contentRef; else renderContent">
-  <div class="thy-transfer-list-body" cdkDropListGroup [cdkDropListGroupDisabled]="!draggable">
-    <ng-container *ngIf="canLock">
-      <div class="thy-transfer-list-group-name">锁定 (上限{{ maxLock }}个)</div>
-      <thy-list
-        class="thy-transfer-list-content"
-        cdkDropList
-        thyDragDrop
-        id="lock"
-        [cdkDropListData]="lockItems"
-        (cdkDropListDropped)="drop($event)"
-        [cdkDropListEnterPredicate]="lockListEnterPredicate"
-      >
-        <div class="cdk-drop-list-empty" *ngIf="lockItems.length === 0"></div>
-        <thy-list-item
-          class="thy-transfer-list-content-item text-truncate"
-          cdkDrag
-          [cdkDragData]="item"
-          *ngFor="let item of lockItems"
-          [ngClass]="{ active: item.checked }"
-        >
-          <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-        </thy-list-item>
-      </thy-list>
-
-      <div class="thy-transfer-list-group-name">未锁定</div>
-    </ng-container>
-    <thy-list
-      class="thy-transfer-list-content"
-      cdkDropList
-      thyDragDrop
-      [cdkDropListDisabled]="!draggable"
-      id="unlock"
-      [cdkDropListData]="unlockItems"
-      (cdkDropListDropped)="drop($event)"
-      [cdkDropListEnterPredicate]="unlockListEnterPredicate"
+<div class="thy-transfer-list-wrap">
+  <div class="thy-transfer-list-input">
+    <thy-input-search
+      name="searchText"
+      thySize="default"
+      placeholder="搜索"
+      thyTheme="transparent"
+      [(ngModel)]="searchText"
+      (ngModelChange)="onSearch($event)"
     >
-      <div class="cdk-drop-list-empty" *ngIf="unlockItems.length === 0"></div>
-      <thy-list-item
-        class="thy-transfer-list-content-item text-truncate"
-        cdkDrag
-        [cdkDragData]="item"
-        *ngFor="let item of unlockItems"
-        [ngClass]="{ active: item.checked, disabled: disabled && item.direction === 'left' }"
-      >
-        <ng-template [ngTemplateOutlet]="template" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
-      </thy-list-item>
-    </thy-list>
+    </thy-input-search>
   </div>
-</ng-container>
-
-<ng-template #renderContent>
+  <!-- list -->
   <div class="thy-transfer-list-body">
-    <ng-container
-      *ngTemplateOutlet="
-        contentRef;
-        context: {
-          $implicit: items,
-          onSelectItem: onSelectItem,
-          onUnselectItem: onUnselectItem
-        }
-      "
-    ></ng-container>
+    <ng-container *ngIf="thyRender; else defaultRenderList">
+      <div class="thy-transfer-list-body-customize-wrapper">
+        <ng-container *ngTemplateOutlet="thyRender; context: {
+          $implicit: thyDataSource
+        }"></ng-container>
+      </div>
+    </ng-container>
+    <ng-template #defaultRenderList>
+      <cdk-virtual-scroll-viewport #viewport *ngIf="virtualScroll" [itemSize]="40" [style.height]="'100px'">
+        <div *cdkVirtualFor="let item of thyDataSource; index as i" class="d-flex thy-list-item" (click)="toggleSelect(item, i)">
+          <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item, i }"></ng-template>
+        </div>
+      </cdk-virtual-scroll-viewport>
+
+      <ng-container *ngIf="!virtualScroll">
+        <thy-list cdkDropList [cdkDropListData]="thyDataSource" (cdkDropListDropped)="drop($event)">
+          <thy-list-item
+            *ngFor="let item of thyDataSource; index as i"
+            class="d-flex"
+            [ngClass]="{ disabled: item.disabled && item.direction === 'left' }"
+            (click)="toggleSelect(item, i)"
+            cdkDrag
+            [cdkDragData]="item"
+            (cdkDragStarted)="onDragStarted()"
+          >
+            <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item, i }"></ng-template>
+          </thy-list-item>
+        </thy-list>
+      </ng-container>
+    </ng-template>
   </div>
+</div>
+
+<ng-template #itemTemplate let-item let-i>
+  <span class="item-title">
+    <span *ngIf="!this.searchText || !this.draggable">
+      <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
+    </span>
+    <ng-container *ngIf="!renderItem; else renderContainer">
+      <thy-icon [thyIconName]="item.icon" class="item-icon mr-2"></thy-icon>
+      <thy-flexible-text [thyTooltipContent]="item.title">
+        {{ item.title }}
+      </thy-flexible-text>
+    </ng-container>
+    <ng-template #renderContainer [ngTemplateOutlet]="renderItem" [ngTemplateOutletContext]="{ $implicit: item }"></ng-template>
+  </span>
+  <thy-icon
+    class="text-primary link-secondary"
+    thyIconName="check"
+    *ngIf="direction === 'left' && selectionModel.isSelected(item?._id)"
+  ></thy-icon>
+  <a
+    class="link-secondary"
+    *ngIf="direction === 'right' && (item | canHandleRightItemFn: canHandleRightItemFn:thyDataSource)"
+    (click)="remove(item, i)"
+  >
+    <thy-icon class="item-status" thyIconName="close"></thy-icon>
+  </a>
 </ng-template>

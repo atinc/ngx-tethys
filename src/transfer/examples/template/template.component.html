@@ -1,52 +1,50 @@
-<thy-transfer [thyData]="transferData" [thyTitles]="['数据源', '已选中']">
-  <ng-template #renderLeftTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
-    <thy-selection-list
-      [(ngModel)]="selectedLeft"
-      [thyMultiple]="true"
-      class="thy-transfer-list-content"
-      thyUniqueKey="_id"
-      (thySelectionChange)="selectionChange($event)"
-    >
-      <thy-list-option class="thy-transfer-list-content-item" *ngFor="let item of transferData" [thyValue]="item">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
-          </div>
-        </div>
-      </thy-list-option>
-    </thy-selection-list>
+<h3>自定义Item模板</h3>
+<thy-transfer
+  [thyTitles]="['可选择', '已选择']"
+  [thyData]="transferData"
+  [thyRenderSearch]="search.bind(this)"
+  [thyKeepResource]="false"
+  [thyRenderItem]="render"
+>
+  <ng-template #render let-item>
+    {{item.name}}
   </ng-template>
-  <ng-template #renderRightTemplate let-items let-selectItem="onSelectItem" let-unselectItem="onUnselectItem">
-    <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of selectRight">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
-          </div>
-          <thy-icon class="item-status" (click)="remove(item)" thyIconName="close"></thy-icon>
-        </div>
+</thy-transfer>
+
+<br />
+
+<h3>自定义列表模板</h3>
+<thy-transfer [thyTitles]="['数据源', '已选中']" [thyRenderList]="[left, right]" [thyRenderSearch]="bottomSearch.bind(this)" [thyRenderItemCount]="[transferDataBottom.length, transferData.length]">
+  <ng-template #left>
+    <thy-list>
+      <thy-list-item *ngFor="let item of transferDataBottom" class="d-flex" (click)="toggleSelect(item)">
+        <span class="item-title">
+          {{ item.name }}
+        </span>
+        <thy-icon class="text-primary link-secondary" thyIconName="check"></thy-icon>
       </thy-list-item>
-    </thy-selection-list>
-    <div class="thy-transfer-list-group-name">
-      已添加项目
+    </thy-list>
+  </ng-template>
+  <ng-template #right>
+    <div class="styx-columns-selection-section-body" cdkDropListGroup>
+      <!-- 冻结列表 -->
+      <span class="styx-columns-selection-group-name">冻结 (上限 5 个)</span>
+      <thy-list id="locked" cdkDropList>
+        <thy-list-item class="d-flex" *ngFor="let item of transferData; index as i" cdkDrag>
+          <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, i: i }"></ng-template>
+        </thy-list-item>
+      </thy-list>
+
+      <!-- 未冻结列表 -->
+      <span class="styx-columns-selection-group-name">未冻结</span>
+      <thy-list id="unlock" cdkDropList>
+        <thy-list-item class="d-flex" *ngFor="let item of transferData; index as i" cdkDrag>
+          <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, i: i }"></ng-template>
+        </thy-list-item>
+      </thy-list>
     </div>
-    <thy-selection-list [thyMultiple]="true" class="thy-transfer-list-content" thyUniqueKey="_id">
-      <thy-list-item class="thy-transfer-list-content-item" *ngFor="let item of addedProjectData">
-        <div class="d-flex flex-grow-1 align-items-center">
-          <div class="item-name">
-            <thy-icon thyIconName="scrum-fill" [style.color]="item.color"></thy-icon>
-            <span>
-              {{ item.name }}
-            </span>
-          </div>
-        </div>
-      </thy-list-item>
-    </thy-selection-list>
+  </ng-template>
+  <ng-template #itemTemplate let-item="item" let-i="i">
+    <span class="item-title"> {{ item.name }} </span>
   </ng-template>
 </thy-transfer>
