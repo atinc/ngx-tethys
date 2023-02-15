@@ -40,7 +40,7 @@
 >
   <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
     <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
-      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls" [style.maxWidth.px]="300">
+      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
         <li
           #cascaderOptions
           thy-cascader-option

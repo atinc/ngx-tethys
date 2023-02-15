@@ -48,10 +48,6 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     constructor() {}
 
-    public getOptionLabel() {
-        return this.option ? this.option[this.labelProperty] : '';
-    }
-
     ngOnInit() {}
 
     public toggleOption(value: boolean) {

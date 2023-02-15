@@ -1,18 +1,18 @@
-<ng-container>
-  <span thyFlexibleText [thyTooltipContent]="getOptionLabel()" *ngIf="!multiple || !option.isLeaf"> {{ getOptionLabel() }}</span>
-  <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
-    <label
-      thyCheckbox
-      [(ngModel)]="active"
-      (ngModelChange)="toggleOption(active)"
-      [name]="option.value || option._id"
-      [thyLabelText]="getOptionLabel()"
-    ></label>
-  </ng-container>
-
-  <span
-    *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
-    class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
-  >
-  </span>
+<span thyFlexibleText [thyTooltipContent]="this.option[this.labelProperty] || ''" *ngIf="!multiple || !option.isLeaf">
+  {{ this.option[this.labelProperty] || '' }}</span
+>
+<ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
+  <label
+    thyCheckbox
+    [(ngModel)]="active"
+    (ngModelChange)="toggleOption(active)"
+    [name]="option.value || option._id"
+    [thyLabelText]="this.option[this.labelProperty] || ''"
+  ></label>
 </ng-container>
+
+<span
+  *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
+  class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
+>
+</span>
