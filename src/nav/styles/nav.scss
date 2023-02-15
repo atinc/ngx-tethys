@@ -50,9 +50,8 @@
 }
 
 .thy-nav-tabs {
-    .thy-nav-list {
-        @include mixin.nav-border-bottom();
-    }
+    @include mixin.nav-border-bottom();
+
     .thy-nav-item {
         z-index: 1;
         @include mixin.nav-item-variant(variables.$nav-item-color, variables.$nav-item-hover-color, null);
