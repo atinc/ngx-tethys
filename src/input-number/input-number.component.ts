@@ -60,9 +60,29 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     @Input() @InputBoolean() thyDisabled: boolean;
 
-    @Input() thyMax: number = Infinity;
+    @Input() set thyMax(value: number) {
+        this.innerMax = value;
+        if (this.displayValue || this.displayValue === 0) {
+            const val = Number(this.displayValue);
+            this.disabledUp = val >= this.innerMax;
+        }
+    }
 
-    @Input() thyMin: number = -Infinity;
+    get thyMax() {
+        return this.innerMax;
+    }
+
+    @Input() set thyMin(value: number) {
+        this.innerMin = value;
+        if (this.displayValue || this.displayValue === 0) {
+            const val = Number(this.displayValue);
+            this.disabledDown = val <= this.innerMin;
+        }
+    }
+
+    get thyMin() {
+        return this.innerMin;
+    }
 
     @Input() thyStep = 1;
 
@@ -75,6 +95,10 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     @Output() thyBlur = new EventEmitter<Event>();
 
     @Output() thyFocus = new EventEmitter<Event>();
+
+    private innerMax: number = Infinity;
+
+    private innerMin: number = -Infinity;
 
     constructor(private cdr: ChangeDetectorRef) {}
 
