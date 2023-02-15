@@ -39,6 +39,11 @@ export interface ThyAutocompleteActivatedEvent {
 }
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
+
+/**
+ * 自动完成组件
+ * @name thy-autocomplete
+ */
 @Component({
     selector: 'thy-autocomplete',
     templateUrl: 'autocomplete.component.html',

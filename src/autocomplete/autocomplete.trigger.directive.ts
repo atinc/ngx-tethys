@@ -25,6 +25,10 @@ import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
+/**
+ * 自动完成触发指令
+ * @name thyAutocomplete
+ */
 @Directive({
     selector:
         'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
