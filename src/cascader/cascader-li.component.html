@@ -1,5 +1,5 @@
-<span thyFlexibleText [thyTooltipContent]="this.option[this.labelProperty] || ''" *ngIf="!multiple || !option.isLeaf">
-  {{ this.option[this.labelProperty] || '' }}</span
+<span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''" *ngIf="!multiple || !option.isLeaf">
+  {{ option[labelProperty] || '' }}</span
 >
 <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
   <label
@@ -7,7 +7,7 @@
     [(ngModel)]="active"
     (ngModelChange)="toggleOption(active)"
     [name]="option.value || option._id"
-    [thyLabelText]="this.option[this.labelProperty] || ''"
+    [thyLabelText]="option[labelProperty] || ''"
   ></label>
 </ng-container>
 
