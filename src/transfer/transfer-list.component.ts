@@ -96,7 +96,7 @@ export class ThyTransferListComponent implements OnInit {
     @Input() thyRender: TemplateRef<void> | null = null;
 
     /** @private */
-    @Input() canHandleRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
+    @Input() canUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
 
     public searchText = '';
 

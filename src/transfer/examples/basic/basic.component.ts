@@ -8,25 +8,25 @@ export class ThyTransferBasicExampleComponent implements OnInit {
     public transferData: ThyTransferItem[] = [
         {
             _id: 1,
-            title: '第1条数据',
+            title: '第1条数据-必选不可移除',
             direction: TransferDirection.right,
-            icon: 'more-circle'
+            icon: 'more-circle',
+            required: true
         },
         {
             _id: 2,
-            title: '第2条数据 - 不可选中',
+            title: '第2条数据-disabled',
+            disabled: true,
             direction: TransferDirection.left
         },
         {
             _id: 3,
-            title: '第3条数据-选中后不可取消',
-            direction: TransferDirection.left,
-            required: true
+            title: '第3条数据',
+            direction: TransferDirection.left
         },
         {
             _id: 4,
-            title: '第4条数据-disabled',
-            disabled: true,
+            title: '第4条数据',
             direction: TransferDirection.left
         },
         {
@@ -47,14 +47,12 @@ export class ThyTransferBasicExampleComponent implements OnInit {
         {
             _id: 8,
             title: '第8条数据',
-            direction: TransferDirection.right,
-            isFixed: true
+            direction: TransferDirection.right
         },
         {
             _id: 9,
             title: '第9条数据',
-            direction: TransferDirection.right,
-            isLock: true
+            direction: TransferDirection.right
         }
     ];
 
@@ -70,12 +68,14 @@ export class ThyTransferBasicExampleComponent implements OnInit {
         console.log(event);
     }
 
-    canHandleLeftItemFn(item: ThyTransferItem, selectData: ThyTransferItem[]) {
-        return item._id !== 2 && selectData.length < 6;
+    canCheckLeftItemFn(item: ThyTransferItem, selectData: ThyTransferItem[]) {
+        // return item._id !== 2 && selectData.length < 6;
+        return true;
     }
 
-    canHandleRightItemFn(item: ThyTransferItem, selectData: ThyTransferItem[]) {
-        return selectData.length > 3;
+    canUncheckRightItemFn(item: ThyTransferItem, selectData: ThyTransferItem[]) {
+        // return selectData.length > 3;
+        return true;
     }
 
     public trackBy(index: number, item: ThyTransferItem) {

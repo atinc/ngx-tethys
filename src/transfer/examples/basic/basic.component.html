@@ -2,10 +2,11 @@
   <thy-transfer
     [thyTitles]="['可选择', '已选择']"
     [thyData]="transferData"
-    [canHandleLeftItemFn]="canHandleLeftItemFn"
-    [canHandleRightItemFn]="canHandleRightItemFn"
+    [canCheckLeftItemFn]="canCheckLeftItemFn"
+    [canUncheckRightItemFn]="canUncheckRightItemFn"
     [thyVirtualScroll]="false"
     [thyKeepResource]="true"
+    [thyRightMax]="6"
     (thyChange)="onTransferChange($event)"
     (thyDraggableUpdate)="onDraggableUpdate($event)"
   >

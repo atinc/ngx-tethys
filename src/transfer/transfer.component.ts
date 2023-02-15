@@ -42,7 +42,7 @@ export class ThyTransferComponent implements OnInit {
      * @param selectData: Id[]
      * @default true
      */
-    @Input() canHandleLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
+    @Input() canCheckLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
     /** The right list item can be handled & show when the method return true. */
     /**
@@ -53,7 +53,7 @@ export class ThyTransferComponent implements OnInit {
      * @param selectData: Id[]
      * @default true
      */
-    @Input() canHandleRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
+    @Input() canUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
     /**
      * 是否展示穿梭按钮
@@ -204,7 +204,7 @@ export class ThyTransferComponent implements OnInit {
     private initializeModelValues() {
         if (this.selectionModel) {
             this.selectionModel.clear();
-            this.selectionModel.select(...this.rightDataSource.map(k => k?._id));
+            this.selectionModel.select(...this.rightDataSource.map((item: ThyTransferItem) => item?._id));
         }
     }
 
@@ -230,17 +230,19 @@ export class ThyTransferComponent implements OnInit {
         if (direction === 'left') {
             if (item.disabled) return;
             if (!this.selectionModel.isSelected(item._id)) {
-                if (!this.canHandleLeftItemFn(item, this.rightDataSource)) return;
+                // if (!this.canCheckLeftItemFn(item, this.rightDataSource) || this.selectionModel.selected.length >= this.thyRightMax)
+                //     return;
 
+                if (this.selectionModel.selected.length >= this.thyRightMax) return;
                 this.selectionModel.select(item._id);
                 if (!this.thyKeepResource) {
                     this.leftDataSource.splice(item.index, 1);
                 }
-                this.rightDataSource.push(item);
+                this.rightDataSource = produce(this.rightDataSource).add(item);
             } else {
                 if (item.required) return;
-                this.selectionModel.deselect(item._id);
                 this.rightDataSource = produce(this.rightDataSource).remove(item._id);
+                this.selectionModel.deselect(item._id);
             }
         } else {
             this.selectionModel.deselect(item._id);

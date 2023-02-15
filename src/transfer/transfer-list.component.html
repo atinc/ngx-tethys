@@ -70,9 +70,16 @@
   ></thy-icon>
   <a
     class="link-secondary"
-    *ngIf="direction === 'right' && (item | canHandleRightItemFn: canHandleRightItemFn:thyDataSource)"
+    *ngIf="direction === 'right' && !item.required"
     (click)="remove(item, i)"
   >
     <thy-icon class="item-status" thyIconName="close"></thy-icon>
   </a>
+  <!-- <a
+    class="link-secondary"
+    *ngIf="direction === 'right' && (item | canUncheckRightItemFn: canUncheckRightItemFn:thyDataSource)"
+    (click)="remove(item, i)"
+  >
+    <thy-icon class="item-status" thyIconName="close"></thy-icon>
+  </a> -->
 </ng-template>
