@@ -75,7 +75,7 @@ export class ThyTransferComponent implements OnInit {
 
     /** Custom render list array. The first be used to left list & the last be used to right*/
     /**
-     * 自定义模板列表数组，首个模板应用于左侧，次模板应用于右侧
+     * 自定义模板列表数组，thyRenderList[0]应用于左侧，thyRenderList[1]应用于右侧
      * @type {(Array<TemplateRef<SafeAny> | null> | null)}
      * @memberof ThyTransferComponent
      */
@@ -98,7 +98,7 @@ export class ThyTransferComponent implements OnInit {
     @Input()
     set thyRenderSearch(fn: Function) {
         if (!this.thyRenderList?.length) {
-            warnDeprecation(`The property thyRenderSearch is required If you want to enable thyRenderList`);
+            warnDeprecation(`The property thyRenderSearch is required when you want to enable thyRenderList`);
         }
         this.customSearch = fn;
     }
@@ -121,6 +121,12 @@ export class ThyTransferComponent implements OnInit {
      */
     @Input() thyRightDraggable: boolean = true;
 
+    /**
+     * title集合，title[0]为左标题,title[1]为右标题
+     *
+     * @type {string[]}
+     * @memberof ThyTransferComponent
+     */
     @Input() thyTitles: string[];
 
     /**
@@ -131,6 +137,13 @@ export class ThyTransferComponent implements OnInit {
      */
     @Input() thyKeepResource = true;
 
+    // Currently not implemented, in order to support the selections move
+    /**
+     * 设置是否自动移动
+     *
+     * @memberof ThyTransferComponent
+     * @default true
+     */
     @Input()
     set thyAutoMove(value: boolean) {
         this.autoMove = value;
@@ -149,17 +162,21 @@ export class ThyTransferComponent implements OnInit {
      *
      * @type {number[]}
      */
-    @Input() thyRenderItemCount: number[] = [];
+    @Input()
+    set thyRenderItemCount(value: [number, number]) {
+        if (!this.thyRenderList?.length) {
+            warnDeprecation(`The property renderItemCount is required If you want to enable thyRenderList`);
+        }
+        this.renderItemCount = value;
+    }
 
-    public customSearch: Function;
-
-    public virtualScroll = false;
     /**
      * 开启虚拟滚动
      * @type {boolean}
      * @memberof ThyTransferComponent
      * @default false
      */
+
     @Input()
     set thyVirtualScroll(value: boolean) {
         if (!this.thyKeepResource) {
@@ -185,6 +202,12 @@ export class ThyTransferComponent implements OnInit {
      * @memberof ThyTransferComponent
      */
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
+
+    public renderItemCount: number[] = [];
+
+    public customSearch: Function;
+
+    public virtualScroll = false;
 
     public leftDataSource: ThyTransferItem[] = [];
 

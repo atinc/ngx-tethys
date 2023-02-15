@@ -11,7 +11,7 @@
   (handleSelect)="handleLeftSelect($event)"
   (search)="search('left', $event)"
   (draggableUpdate)="onDragUpdate('left', $event)"
-  [renderItemCount]="thyRenderItemCount.length && thyRenderItemCount[0]"
+  [renderItemCount]="renderItemCount.length && renderItemCount[0]"
 ></thy-transfer-list>
 
 <!-- operation -->
@@ -34,7 +34,7 @@
   [draggable]="thyRightDraggable"
   [renderItem]="thyRenderItem"
   [virtualScroll]="virtualScroll"
-  [renderItemCount]="thyRenderItemCount.length && thyRenderItemCount[1]"
+  [renderItemCount]="renderItemCount.length && renderItemCount[1]"
   [max]="thyRightMax"
   (handleSelect)="handleRightSelect($event)"
   (search)="search('right', $event)"

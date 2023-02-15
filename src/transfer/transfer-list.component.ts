@@ -52,7 +52,7 @@ export class ThyTransferListComponent implements OnInit {
     @Output() readonly handleSelect: EventEmitter<ThyTransferItem> = new EventEmitter();
 
     /**
-     *@private
+     * @private
      *
      * @type {EventEmitter<ThyTransferItem>}
      * @memberof ThyTransferListComponent
@@ -69,7 +69,7 @@ export class ThyTransferListComponent implements OnInit {
     /**
      * @private
      *
-     * 数据量
+     * 数据量 使用自定义模板时必填
      */
     @Input() renderItemCount: number;
 
