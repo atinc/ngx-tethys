@@ -1,12 +1,12 @@
-import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
 import { ThyInputNumberComponent } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
-import { keycodes } from 'ngx-tethys/util';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-input-number-test',
@@ -358,4 +358,40 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
     });
+
+    it('should remove disabled in down handler after switch thyMin', fakeAsync(() => {
+        inputNumberComponentInstance.modelValue = 10;
+        inputNumberComponentInstance.thyMin = 10;
+        fixture.detectChanges();
+        flush();
+        const downHandlerElement: HTMLElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-down');
+        fixture.detectChanges();
+
+        expect(downHandlerElement.classList.contains('disabled')).toBe(true);
+
+        inputNumberComponentInstance.thyMin = 0;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(downHandlerElement.classList.contains('disabled')).toBe(false);
+    }));
+
+    it('should remove disabled in up handler after switch thyMax', fakeAsync(() => {
+        inputNumberComponentInstance.modelValue = 10;
+        inputNumberComponentInstance.thyMax = 10;
+        fixture.detectChanges();
+        flush();
+        const upHandlerElement: HTMLElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        fixture.detectChanges();
+
+        expect(upHandlerElement.classList.contains('disabled')).toBe(true);
+
+        inputNumberComponentInstance.thyMax = 100;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(upHandlerElement.classList.contains('disabled')).toBe(false);
+    }));
 });
