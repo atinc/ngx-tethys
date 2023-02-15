@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.17](https://github.com/atinc/ngx-tethys/compare/14.2.16...14.2.17) (2023-02-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix long text style #INFR-6460 ([#2528](https://github.com/atinc/ngx-tethys/issues/2528)) ([97c9800](https://github.com/atinc/ngx-tethys/commit/97c98004ce7a3d3e95fd191b52a1ba1edfece203)), closes [#INFR-6460](https://github.com/atinc/ngx-tethys/issues/INFR-6460)
+* **input:** modify the spacing of the input and the perpand to 8 px #INFR-6441 ([4ed58b1](https://github.com/atinc/ngx-tethys/commit/4ed58b152813078874dac3b2666636e2b72d47ea)), closes [#INFR-6441](https://github.com/atinc/ngx-tethys/issues/INFR-6441)
+
+
+### Features
+
+* **avatar:** thySize supports setting the value to 16 #INFR-6422 ([#2522](https://github.com/atinc/ngx-tethys/issues/2522)) ([02672bd](https://github.com/atinc/ngx-tethys/commit/02672bda63ed2d76bf215521486438f4dcec6a7a)), closes [#INFR-6422](https://github.com/atinc/ngx-tethys/issues/INFR-6422)
+
+
+
 ## [14.2.16](https://github.com/atinc/ngx-tethys/compare/14.2.15...14.2.16) (2023-02-10)
 
 
