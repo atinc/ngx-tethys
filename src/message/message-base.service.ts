@@ -1,4 +1,4 @@
-import { ComponentType, Overlay } from '@angular/cdk/overlay';
+import { ComponentType, Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 import { Injector } from '@angular/core';
 import { ThyMessageBaseContainerComponent } from './message-container.component';
@@ -9,6 +9,8 @@ import { ThyMessageBaseQueue } from './message-queue.service';
  */
 export class ThyMessageBaseService<TContainer extends ThyMessageBaseContainerComponent> {
     protected container: TContainer;
+
+    protected overlayRef: OverlayRef;
 
     private queue: ThyMessageBaseQueue;
 
@@ -22,13 +24,13 @@ export class ThyMessageBaseService<TContainer extends ThyMessageBaseContainerCom
             return this.container;
         }
 
-        const overlayRef = this.overlay.create({
+        this.overlayRef = this.overlay.create({
             hasBackdrop: false,
             scrollStrategy: this.overlay.scrollStrategies.noop(),
             positionStrategy: this.overlay.position().global()
         });
         const componentPortal = new ComponentPortal(container, null, this.injector);
-        const componentRef = overlayRef.attach(componentPortal);
+        const componentRef = this.overlayRef.attach(componentPortal);
         return componentRef.instance;
     }
 

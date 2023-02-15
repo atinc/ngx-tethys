@@ -1,3 +1,4 @@
+import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject } from 'rxjs';
 import { ThyMessageBaseConfig, ThyMessageConfig } from './message.config';
 
@@ -6,11 +7,14 @@ export class ThyMessageBaseRef<TConfig extends ThyMessageBaseConfig = ThyMessage
 
     config: TConfig;
 
+    overlayRef: OverlayRef;
+
     private _afterClosed = new Subject<void>();
 
-    constructor(config: TConfig) {
+    constructor(config: TConfig, overlayRef: OverlayRef) {
         this.id = config.id;
         this.config = config;
+        this.overlayRef = overlayRef;
     }
 
     close() {

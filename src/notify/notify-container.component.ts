@@ -1,4 +1,4 @@
-import { Component, Inject, ElementRef } from '@angular/core';
+import { Component, Inject, ElementRef, HostBinding } from '@angular/core';
 import { ThyMessageBaseContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
@@ -8,7 +8,7 @@ import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.confi
     templateUrl: './notify-container.component.html'
 })
 export class ThyNotifyContainerComponent extends ThyMessageBaseContainerComponent {
-    className = 'thy-notify-container';
+    @HostBinding('class') className = 'thy-notify-container';
 
     constructor(
         public notifyQueue: ThyNotifyQueue,
