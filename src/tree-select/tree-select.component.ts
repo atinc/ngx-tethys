@@ -1,4 +1,4 @@
-import { _MatMixinBase, getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
+import { getFlexiblePositions, ThyClickDispatcher, _MixinBase } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -61,7 +61,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '[attr.tabindex]':'tabIndex'
     },
 })
-export class ThyTreeSelectComponent extends _MatMixinBase
+export class ThyTreeSelectComponent extends _MixinBase
     implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
@@ -362,6 +362,7 @@ export class ThyTreeSelectComponent extends _MatMixinBase
 
     close() {
         this.expandTreeSelectOptions = false;
+        this.elementRef.nativeElement?.onblur && this.elementRef.nativeElement?.onblur();
     }
 
     public onBlur(event: Event) {
@@ -448,7 +449,10 @@ export class ThyTreeSelectComponent extends _MatMixinBase
 const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
-    templateUrl: './tree-select-nodes.component.html'
+    templateUrl: './tree-select-nodes.component.html',
+    host: {
+        '[attr.tabindex]':'-1'
+    },
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;

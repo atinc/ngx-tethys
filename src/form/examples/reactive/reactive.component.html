@@ -26,13 +26,7 @@
   </thy-form-group>
 
   <thy-form-group thyLabelText="CustomerSelect" thyLabelRequired>
-    <thy-custom-select
-      thyPlaceHolder="请选择"
-      formControlName="customersSelect"
-      name="customersSelect"
-      [thyAllowClear]="true"
-      [thyShowSearch]="true"
-    >
+    <thy-custom-select thyPlaceHolder="请选择" formControlName="customersSelect" name="customersSelect" [thyAllowClear]="true">
       <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     </thy-custom-select>
   </thy-form-group>

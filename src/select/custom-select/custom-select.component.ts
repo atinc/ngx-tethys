@@ -1,5 +1,5 @@
 import {
-    _MatMixinBase,
+    _MixinBase,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
@@ -108,7 +108,7 @@ const noop = () => {};
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent extends _MatMixinBase
+export class ThySelectCustomComponent extends _MixinBase
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy{
     disabled = false;
 
@@ -593,6 +593,9 @@ export class ThySelectCustomComponent extends _MatMixinBase
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.focus();
             this.changeDetectorRef.markForCheck();
+            if (this.elementRef.nativeElement.onblur) {
+               this.elementRef.nativeElement.onblur();
+            }
         }
     }
 

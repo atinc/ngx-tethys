@@ -1,6 +1,6 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
 
-import { Constructor } from './constructor';
+import { Constructor, MixinBase } from './constructor';
 import { mixinDisabled, ThyCanDisable } from './disabled';
 
 export interface ThyHasTabIndex {
@@ -31,10 +31,6 @@ export function mixinTabIndex<T extends Constructor<ThyCanDisable>>(base: T, def
     };
 }
 
-export const _MatMixinBase = mixinTabIndex(
-    mixinDisabled(
-        class {
-            constructor() {}
-        }
-    )
+export const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof MixinBase = mixinTabIndex(
+    mixinDisabled(MixinBase)
 );

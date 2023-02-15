@@ -18,6 +18,7 @@
   (openChange)="onOpenChange($event)"
 >
   <date-popup
+    [attr.tabindex]="-1"
     *ngIf="realOpenState"
     [isRange]="isRange"
     [showWeek]="showWeek"

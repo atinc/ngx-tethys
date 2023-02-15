@@ -1,4 +1,4 @@
-import { _MatMixinBase } from 'ngx-tethys/core';
+import { _MixinBase } from 'ngx-tethys/core';
 
 import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -22,7 +22,7 @@ const noop = () => {};
         '[attr.tabindex]': 'tabIndex'
     }
 })
-export class ThySelectComponent extends _MatMixinBase implements ControlValueAccessor, OnInit {
+export class ThySelectComponent extends _MixinBase implements ControlValueAccessor, OnInit {
     // The internal data model
     _innerValue: any = null;
     _disabled = false;

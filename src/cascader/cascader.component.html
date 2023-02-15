@@ -39,7 +39,7 @@
   (positionChange)="positionChange($event)"
   [cdkConnectedOverlayOpen]="menuVisible"
 >
-  <div #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
+  <div [attr.tabindex]="-1" #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
     <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
       <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
         <li
