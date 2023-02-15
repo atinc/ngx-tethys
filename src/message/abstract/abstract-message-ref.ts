@@ -22,7 +22,7 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
     }
 
     close() {
-        this.queueService.queues$.next(this.queueService.queues.filter(item => item.id !== this.id))
+        this.queueService.queues$.next(this.queueService.queues.filter(item => item.id !== this.id));
         this._afterClosed.next();
         this._afterClosed.complete();
     }
