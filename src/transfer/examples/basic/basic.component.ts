@@ -78,6 +78,8 @@ export class ThyTransferBasicExampleComponent implements OnInit {
         return true;
     }
 
+    canUnCheckLeftItemFn(item: ThyTransferItem, selectData: ThyTransferItem[]) {}
+
     public trackBy(index: number, item: ThyTransferItem) {
         return item?._id || item?.key || index;
     }

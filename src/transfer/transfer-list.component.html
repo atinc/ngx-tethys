@@ -25,7 +25,7 @@
       </div>
     </ng-container>
     <ng-template #defaultRenderList>
-      <cdk-virtual-scroll-viewport #viewport *ngIf="virtualScroll" [itemSize]="40" [style.height]="'100px'">
+      <cdk-virtual-scroll-viewport #viewport *ngIf="virtualScroll" [itemSize]="40" [style.height]="'300px'">
         <div *cdkVirtualFor="let item of thyDataSource; index as i" class="d-flex thy-list-item" (click)="toggleSelect(item, i)">
           <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ $implicit: item, i }"></ng-template>
         </div>
@@ -52,7 +52,7 @@
 
 <ng-template #itemTemplate let-item let-i>
   <span class="item-title">
-    <span *ngIf="!this.searchText || !this.draggable">
+    <span *ngIf="(!this.searchText || !this.draggable) && !this.virtualScroll">
       <thy-icon thyIconName="drag" class="drag-handle"></thy-icon>
     </span>
     <ng-container *ngIf="!renderItem; else renderContainer">

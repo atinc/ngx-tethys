@@ -33,7 +33,7 @@ export class ThyTransferComponent implements OnInit {
         }
     }
 
-    /** The left list item can be handled when the method return true. */
+    /** The left list item can be check when the method return true. */
     /**
      * 左侧列表是否可选中
      *
@@ -42,9 +42,20 @@ export class ThyTransferComponent implements OnInit {
      * @param selectData: Id[]
      * @default true
      */
-    @Input() canCheckLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
+    @Input() thyCanCheckLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
-    /** The right list item can be handled & show when the method return true. */
+    /** The left list item can be uncheck when the method return true. */
+    /**
+     * 左侧列表是否可取消选中
+     *
+     * @param item
+     * @param leftDataSource
+     * @param selectData: Id[]
+     * @default true
+     */
+    @Input() thyCanUnCheckLeftItemFn = (item?: ThyTransferItem, leftDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
+
+    /** The right list item can be uncheck & show when the method return true. */
     /**
      * 右侧列表是否可移除
      *
@@ -53,7 +64,7 @@ export class ThyTransferComponent implements OnInit {
      * @param selectData: Id[]
      * @default true
      */
-    @Input() canUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
+    @Input() thyCanUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[], selectData?: Id[]): boolean => true;
 
     /**
      * 是否展示穿梭按钮
@@ -230,7 +241,7 @@ export class ThyTransferComponent implements OnInit {
         if (direction === 'left') {
             if (item.disabled) return;
             if (!this.selectionModel.isSelected(item._id)) {
-                // if (!this.canCheckLeftItemFn(item, this.rightDataSource) || this.selectionModel.selected.length >= this.thyRightMax)
+                // if (!this.thyCanCheckLeftItemFn(item, this.rightDataSource) || this.selectionModel.selected.length >= this.thyRightMax)
                 //     return;
 
                 if (this.selectionModel.selected.length >= this.thyRightMax) return;
@@ -240,6 +251,7 @@ export class ThyTransferComponent implements OnInit {
                 }
                 this.rightDataSource = produce(this.rightDataSource).add(item);
             } else {
+                // if (!this.thyCanUnCheckLeftItemFn(item, this.rightDataSource)) return;
                 if (item.required) return;
                 this.rightDataSource = produce(this.rightDataSource).remove(item._id);
                 this.selectionModel.deselect(item._id);

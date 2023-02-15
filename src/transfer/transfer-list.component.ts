@@ -44,7 +44,7 @@ export class ThyTransferListComponent implements OnInit {
     @Input() title: string;
 
     /**
-     *@private
+     * @private
      *
      * @type {EventEmitter<ThyTransferItem>}
      * @memberof ThyTransferListComponent
@@ -96,7 +96,7 @@ export class ThyTransferListComponent implements OnInit {
     @Input() thyRender: TemplateRef<void> | null = null;
 
     /** @private */
-    @Input() canUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
+    @Input() thyCanUncheckRightItemFn = (item?: ThyTransferItem, rightDataSource?: ThyTransferItem[]) => true;
 
     public searchText = '';
 
