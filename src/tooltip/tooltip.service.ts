@@ -1,43 +1,24 @@
-import { Directive, ElementRef, ViewContainerRef, NgZone, Input, OnInit, OnDestroy, TemplateRef, Injectable, Inject } from '@angular/core';
 import { Overlay, ScrollDispatcher } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyTooltipDirective } from './tooltip.directive';
-import { ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
+import { Inject, Injectable, NgZone, ElementRef } from '@angular/core';
+import { ThyTooltipRef } from './tooltip-ref';
+import { ThyGlobalTooltipConfig, ThyTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
 
-@Injectable()
-export class TooltipService {
-    thyTooltipDirective: ThyTooltipDirective;
-
+@Injectable({ providedIn: 'root' })
+export class ThyTooltipService {
     constructor(
         private overlay: Overlay,
         private scrollDispatcher: ScrollDispatcher,
         private ngZone: NgZone,
-        private platform: Platform,
-        private focusMonitor: FocusMonitor,
         @Inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN)
-        private thyTooltipConfig: ThyTooltipConfig
+        private defaultTooltipConfig: ThyGlobalTooltipConfig
     ) {}
 
-    attach(elementRef: ElementRef, viewContainerRef: ViewContainerRef, trigger?: 'hover' | 'focus' | 'click') {
-        this.thyTooltipDirective = new ThyTooltipDirective(
-            this.overlay,
-            elementRef,
-            this.scrollDispatcher,
-            viewContainerRef,
-            this.ngZone,
-            this.platform,
-            this.focusMonitor,
-            this.thyTooltipConfig
-        );
-        if (trigger) {
-            this.thyTooltipDirective.trigger = trigger;
-        }
-
-        this.thyTooltipDirective.ngOnInit();
-    }
-
-    detach() {
-        this.thyTooltipDirective.ngOnDestroy();
+    /**
+     * 创建一个 Tooltip
+     */
+    create(host: ElementRef<HTMLElement> | HTMLElement, config: ThyTooltipConfig = {}) {
+        config = Object.assign({}, this.defaultTooltipConfig, config);
+        const tooltipRef = new ThyTooltipRef(host, config, this.overlay, this.scrollDispatcher, this.ngZone);
+        return tooltipRef;
     }
 }
