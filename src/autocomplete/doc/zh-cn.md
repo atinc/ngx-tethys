@@ -22,14 +22,13 @@ import { ThyAutocompleteModule } from "ngx-tethys/autocomplete";
 ```
 
 ## 如何使用
-组件提供`thyAutocompleteTrigger`指令，配合`thyAutocompleteComponent`可以自定义下拉列表内容，基本使用如下：
+组件提供`thyAutocomplete`指令，可以自定义下拉列表内容，基本使用如下：
 ```html
 <div>
   <input
     thyInput
-    thyAutocompleteTrigger
     [(ngModel)]="value"
-    [thyAutocompleteComponent]="auto"
+    [thyAutocomplete]="auto"
     (ngModelChange)="valueChange($event)"
   />
   <thy-autocomplete #auto>

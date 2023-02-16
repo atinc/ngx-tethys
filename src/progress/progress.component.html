@@ -1,18 +1,23 @@
 <ng-container>
   <ng-container *ngIf="thyShape === 'strip'; else circleTemplate">
-    <ng-container *ngIf="isStacked; else general">
-      <thy-progress-bar
-        *ngFor="let item of value"
-        [thyType]="item.type"
-        [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
-        [thyTooltip]="item.tips || thyTips"
-        [thyTooltipTemplateContext]="item"
-        [thyTooltipDisabled]="!thyTips && !item.tips"
-        [thyColor]="item.color"
-        [thyValue]="item.value"
-        >{{ item.label }}
-      </thy-progress-bar>
-    </ng-container>
+    <div class="thy-progress-strip-outer">
+      <ng-container *ngIf="isStacked; else general">
+        <thy-progress-bar
+          *ngFor="let item of value"
+          [thyType]="item.type"
+          [ngClass]="{ 'cursor-pointer': item.tips || thyTips }"
+          [thyTooltip]="item.tips || thyTips"
+          [thyTooltipTemplateContext]="item"
+          [thyTooltipDisabled]="!thyTips && !item.tips"
+          [thyColor]="item.color"
+          [thyValue]="item.value"
+          >{{ item.label }}
+        </thy-progress-bar>
+      </ng-container>
+    </div>
+    <div class="thy-progress-strip-text" *ngIf="thyShape === 'strip'">
+      <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
+    </div>
   </ng-container>
 </ng-container>
 
@@ -26,7 +31,6 @@
     [thyTooltipDisabled]="!thyTips"
     [thyValue]="value"
   >
-    <ng-template [ngTemplateOutlet]="contentTemplate"></ng-template>
   </thy-progress-bar>
 </ng-template>
 

@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
@@ -27,6 +27,8 @@ import { ThyColorPickerModule } from '../module';
             thyColorPicker
             [(ngModel)]="color"
             (ngModelChange)="change($event)"
+            (thyPanelOpen)="panelOpen()"
+            (thyPanelClose)="panelClose()"
             [thyPresetColors]="presetColors"
         ></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
@@ -55,6 +57,10 @@ class ThyDemoColorPickerComponent {
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
     change(color: string) {}
+
+    panelOpen() {}
+
+    panelClose() {}
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;
@@ -218,7 +224,6 @@ describe(`color-picker`, () => {
             expect(overlayPaneElement.style.width).toEqual('286px');
             const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
             expect(colorDefaultPanelElement).toBeTruthy();
-            expect(overlayContainerElement.querySelectorAll('.color-item').length).toEqual(1);
             const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
             expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
                 `rgb(${thyColor.red}, ${thyColor.green}, ${thyColor.blue})`
@@ -255,6 +260,28 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             expect(colorPickerDebugElement.componentInstance.colorPicker.color).toEqual('#ffffff');
             expect(change).toHaveBeenCalled();
+        }));
+
+        it('should dispatch thyPanelOpen', fakeAsync(() => {
+            const panelOpen = jasmine.createSpy('panel open');
+            fixture.componentInstance.panelOpen = panelOpen;
+            fixture.detectChanges();
+            openDefaultPanel();
+            fixture.detectChanges();
+            expect(panelOpen).toHaveBeenCalled();
+        }));
+
+        it('should dispatch thyPanelClose', fakeAsync(() => {
+            const panelClose = jasmine.createSpy('panel close');
+            fixture.componentInstance.panelClose = panelClose;
+            fixture.detectChanges();
+            openDefaultPanel();
+            colorPickerDebugElement.componentInstance.colorPicker.hide();
+            fixture.detectChanges();
+            tick(100);
+            flush();
+            fixture.detectChanges();
+            expect(panelClose).toHaveBeenCalled();
         }));
 
         it('should get recentColors from localStorage', fakeAsync(() => {

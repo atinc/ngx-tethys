@@ -372,4 +372,40 @@ describe('input-number component', () => {
 
         expect(blurSpy).toHaveBeenCalled();
     }));
+
+    it('should remove disabled in down handler after switch thyMin', fakeAsync(() => {
+        inputNumberComponentInstance.modelValue = 10;
+        inputNumberComponentInstance.thyMin = 10;
+        fixture.detectChanges();
+        flush();
+        const downHandlerElement: HTMLElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-down');
+        fixture.detectChanges();
+
+        expect(downHandlerElement.classList.contains('disabled')).toBe(true);
+
+        inputNumberComponentInstance.thyMin = 0;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(downHandlerElement.classList.contains('disabled')).toBe(false);
+    }));
+
+    it('should remove disabled in up handler after switch thyMax', fakeAsync(() => {
+        inputNumberComponentInstance.modelValue = 10;
+        inputNumberComponentInstance.thyMax = 10;
+        fixture.detectChanges();
+        flush();
+        const upHandlerElement: HTMLElement = inputNumberDebugElement.nativeElement.querySelector('.input-number-handler-up');
+        fixture.detectChanges();
+
+        expect(upHandlerElement.classList.contains('disabled')).toBe(true);
+
+        inputNumberComponentInstance.thyMax = 100;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(upHandlerElement.classList.contains('disabled')).toBe(false);
+    }));
 });

@@ -25,6 +25,9 @@ import { ThyAutocompleteRef, ThyInternalAutocompleteRef } from './autocomplete-r
 import { THY_AUTOCOMPLETE_DEFAULT_CONFIG, ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
+/**
+ * @private
+ */
 @Injectable()
 export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
     implements OnDestroy {
