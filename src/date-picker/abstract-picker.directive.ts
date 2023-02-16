@@ -95,6 +95,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         } else {
             this.panelMode = this.thyMode;
         }
+        this.showWeek = this.thyMode === 'week';
     }
 
     private openOverlay(): void {
