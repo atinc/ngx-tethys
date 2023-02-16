@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.18](https://github.com/atinc/ngx-tethys/compare/14.2.17...14.2.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **date-picker:**  add test for dataPicker #INFR-6466 ([fa0ce33](https://github.com/atinc/ngx-tethys/commit/fa0ce33ae6b838c838524e3534c90c0e692cd64c)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **DatePicker:** show week  at thyRangePickerDirective  #INFR-6466 ([431e543](https://github.com/atinc/ngx-tethys/commit/431e543b6dc26acdbcc2e6dcdf76b754e2bffece)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **input-number:** change disabled class in handler after modify thyMax or thyMin ([62b2d94](https://github.com/atinc/ngx-tethys/commit/62b2d94ac67455ef63125820c590f3bb064c13ee))
+
+
+### Features
+
+* **autocomplete:** add thyAutocomplete selector to ThyAutocompleteTriggerDirective and replace thyAutocompleteTrigger selector  #INFR-2990 ([4834ae3](https://github.com/atinc/ngx-tethys/commit/4834ae3852a9915246c568da76d9b82ccf3436db)), closes [#INFR-2990](https://github.com/atinc/ngx-tethys/issues/INFR-2990)
+
+
+
 ## [14.2.17](https://github.com/atinc/ngx-tethys/compare/14.2.16...14.2.17) (2023-02-15)
 
 
