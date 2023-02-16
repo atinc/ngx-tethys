@@ -127,6 +127,12 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
                     end: end.endOfDay().getUnixTime()
                 };
                 break;
+            case 'week':
+                value = {
+                    begin: begin.startOfWeek().getUnixTime(),
+                    end: end.endOfWeek().getUnixTime()
+                };
+                break;
             case 'month':
                 value = {
                     begin: begin.startOfMonth().getUnixTime(),

@@ -1,4 +1,4 @@
-import { NgModule, Component, ViewChild } from '@angular/core';
+import { NgModule, Component, ViewChild, ElementRef } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
@@ -7,26 +7,41 @@ import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
 import { CommonModule } from '@angular/common';
 import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
+import { FormsModule } from '@angular/forms';
+import { DomPortal } from '@angular/cdk/portal';
 
 @Component({
     selector: 'thy-properties-test-basic',
     template: `
         <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
             <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
-            <thy-property-item #editItem thyLabelText="年龄" thyEditable="true">
+            <thy-property-item #ageProperty thyLabelText="年龄" thyEditable="true">
                 <span>{{ user.age }}</span>
                 <ng-template #editor>
                     <input class="age-input" />
                 </ng-template>
             </thy-property-item>
             <thy-property-item *ngIf="showAddress" thyLabelText="地址">这里是一个地址</thy-property-item>
+            <thy-property-item #sexProperty thyLabelText="性别" thyEditable="true" #hobby>
+                <span>{{ user.sex || '无' }}</span>
+                <ng-template #editor>
+                    <thy-custom-select class="sex-select" thySize="md" [(ngModel)]="user.sex">
+                        <thy-option [thyValue]="'男'" [thyLabelText]="'男'"> </thy-option>
+                        <thy-option [thyValue]="'女'" [thyLabelText]="'女'"> </thy-option>
+                    </thy-custom-select>
+                </ng-template>
+            </thy-property-item>
         </thy-properties>
     `
 })
 class ThyPropertiesTestBasicComponent {
     @ViewChild('properties') propertiesComponent: ThyPropertiesComponent;
 
-    @ViewChild('editItem') editItemComponent: ThyPropertyItemComponent;
+    @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItemComponent;
+
+    @ViewChild('sexProperty') sexPropertyItemComponent: ThyPropertyItemComponent;
 
     layout = 'horizontal';
 
@@ -34,10 +49,17 @@ class ThyPropertiesTestBasicComponent {
 
     user = {
         name: '张萌',
-        age: 24
+        age: 24,
+        sex: '男'
     };
 
     showAddress = false;
+
+    constructor(
+        public elementRef: ElementRef,
+        public overlay: Overlay,
+        public overlayOutsideClickDispatcher: OverlayOutsideClickDispatcher
+    ) {}
 }
 
 @Component({
@@ -81,7 +103,7 @@ class ThyPropertiesTestOperationComponent {
 }
 
 @NgModule({
-    imports: [ThyPropertyModule, CommonModule],
+    imports: [ThyPropertyModule, CommonModule, FormsModule, ThySelectModule, OverlayModule],
     declarations: [ThyPropertiesTestBasicComponent, ThyPropertiesTestColumnComponent, ThyPropertiesTestOperationComponent],
     exports: []
 })
@@ -110,13 +132,15 @@ describe(`thy-properties`, () => {
 
         it('should displayed properties info', () => {
             const items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
-            expect(items.length).toEqual(2);
+            expect(items.length).toEqual(3);
             expect(items[0].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('姓名');
             expect(items[0].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(basicComponent.user.name);
             expect(items[1].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('年龄');
             expect(items[1].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(
                 basicComponent.user.age.toString()
             );
+            expect(items[2].query(By.css('.thy-property-item-label')).nativeElement.innerText).toEqual('性别');
+            expect(items[2].query(By.css('.thy-property-item-content')).nativeElement.innerText).toEqual(basicComponent.user.sex);
         });
 
         it('should change layout success', () => {
@@ -147,10 +171,10 @@ describe(`thy-properties`, () => {
 
         it('should set editing success', () => {
             const ageEditorElement = fixture.debugElement.query(By.css('.age-input')).parent;
-            basicComponent.editItemComponent.setEditing(true);
+            basicComponent.agePropertyItemComponent.setEditing(true);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).toContain('thy-property-item-content-editing');
-            basicComponent.editItemComponent.setEditing(false);
+            basicComponent.agePropertyItemComponent.setEditing(false);
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain('thy-property-item-content-editing');
         });
@@ -159,12 +183,32 @@ describe(`thy-properties`, () => {
             basicComponent.showAddress = true;
             fixture.detectChanges();
             let items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
-            expect(items.length).toEqual(3);
+            expect(items.length).toEqual(4);
             basicComponent.showAddress = false;
             fixture.detectChanges();
             items = fixture.debugElement.queryAll(By.css('.thy-property-item'));
-            expect(items.length).toEqual(2);
+            expect(items.length).toEqual(3);
         });
+
+        it('should edit canceled when overlay detached', fakeAsync(() => {
+            // fake overlay
+            const overlayRef = basicComponent.overlay.create();
+            overlayRef.attach(new DomPortal(basicComponent.elementRef.nativeElement));
+            basicComponent.sexPropertyItemComponent.itemContent.nativeElement.click();
+            expect(basicComponent.sexPropertyItemComponent.editing).toBeTruthy();
+            overlayRef.detach();
+            tick(60);
+            expect(basicComponent.sexPropertyItemComponent.editing).toBeFalsy();
+        }));
+
+        it('should edit canceled when editor outside clicked', fakeAsync(() => {
+            basicComponent.agePropertyItemComponent.itemContent.nativeElement.click();
+            fixture.detectChanges();
+            expect(basicComponent.agePropertyItemComponent.editing).toBeTruthy();
+            tick(100);
+            dispatchMouseEvent(fixture.debugElement.query(By.css('.thy-property-item-label')).nativeElement, 'click');
+            expect(basicComponent.agePropertyItemComponent.editing).toBeFalsy();
+        }));
     });
 
     describe(`column`, () => {

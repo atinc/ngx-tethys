@@ -4,7 +4,7 @@ import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
 
-const sizeArray = [22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
+const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
 const DEFAULT_SIZE = 36;
 

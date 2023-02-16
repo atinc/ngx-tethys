@@ -75,3 +75,16 @@
   thyMode="flexible"
   [thyShowShortcut]="true"
 ></thy-property-operation>
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="周区间"
+  [thyValue]="weekRange | thyDatePickerFormat: 'YYYY-ww周'"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [(ngModel)]="weekRange"
+  thyMode="week"
+  [thyShowShortcut]="true"
+  [thyShortcutRanges]="shortcutMonthRanges"
+></thy-property-operation>

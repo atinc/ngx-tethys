@@ -90,21 +90,6 @@ $directions: (('left', 'right'), ('right', 'left'), ('top', 'bottom'), ('bottom'
             flex: 1;
             padding: variables.$slide-header-main-padding;
         }
-
-        .close {
-            outline: none;
-            @if variables.$close-pill-enabled {
-                padding: 3px 8px;
-                margin-right: -8px;
-                &:hover {
-                    background: rgba(variables.$primary, 0.1);
-                    border-radius: variables.$border-radius;
-                }
-            } @else {
-                padding: 1rem variables.$slide-header-padding;
-                margin: (-(variables.$slide-header-padding)) (-(variables.$slide-header-padding)) (-(variables.$slide-header-padding)) auto;
-            }
-        }
     }
 
     .thy-slide-body {
