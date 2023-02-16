@@ -32,9 +32,9 @@ import { ThyAutocompleteModule } from '../module';
             <input
                 class="autocomplete-trigger"
                 thyInput
+                thyAutocompleteTrigger
                 [(ngModel)]="value"
                 [placeholder]="placeholder"
-                thyAutocompleteTrigger
                 [thyAutocompleteComponent]="auto"
                 [thyAutocompleteWidth]="500"
                 (ngModelChange)="valueChange($event)"
@@ -74,9 +74,8 @@ class BasicSelectComponent {
     template: `
         <div>
             <thy-input-search
-                thyAutocompleteTrigger
                 [(ngModel)]="value"
-                [thyAutocompleteComponent]="auto"
+                [thyAutocomplete]="auto"
                 [thyIsFocusOpen]="isFocusOpen"
                 (ngModelChange)="valueChange($event)"
             ></thy-input-search>

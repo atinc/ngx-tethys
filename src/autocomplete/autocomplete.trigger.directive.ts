@@ -12,10 +12,8 @@ import {
     Inject,
     ChangeDetectorRef
 } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { OverlayRef, Overlay } from '@angular/cdk/overlay';
-import { FocusMonitor } from '@angular/cdk/a11y';
-import { ThyOverlayDirectiveBase, ThyPlacement } from 'ngx-tethys/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyAutocompleteService } from './overlay/autocomplete.service';
 import { ThyAutocompleteRef } from './overlay/autocomplete-ref';
 import { ThyAutocompleteComponent } from './autocomplete.component';
@@ -27,10 +25,14 @@ import { filter, map, take, tap, delay, switchMap } from 'rxjs/operators';
 import { ScrollToService } from 'ngx-tethys/core';
 import { warnDeprecation } from 'ngx-tethys/util';
 
+/**
+ * 自动完成触发指令
+ * @name thyAutocomplete
+ */
 @Directive({
     selector:
-        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
-    exportAs: 'thyAutocompleteTrigger',
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
+    exportAs: 'thyAutocompleteTrigger, thyAutocomplete',
     host: {
         '(input)': 'handleInput($event)',
         '(focusin)': 'onFocus()',
@@ -50,16 +52,25 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
+    /**
+     * 下拉菜单组件实例。已废弃，请使用 thyAutocomplete
+     * @type thyAutocompleteComponent
+     * @deprecated
+     */
     @Input('thyAutocompleteComponent')
     set autocompleteComponent(data: ThyAutocompleteComponent) {
+        if (typeof ngDevMode === 'undefined' || ngDevMode) {
+            warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
+        }
         this._autocompleteComponent = data;
     }
 
+    /**
+     * 下拉菜单组件实例
+     * @type thyAutocompleteComponent
+     */
     @Input('thyAutocomplete')
     set autocomplete(data: ThyAutocompleteComponent) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`The property thyAutocomplete will be deprecated, please use thyAutocompleteComponent instead.`);
-        }
         this._autocompleteComponent = data;
     }
 
@@ -67,12 +78,31 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
         return this._autocompleteComponent;
     }
 
+    /**
+     * 弹出框默认 offset
+     * @default 4
+     * @type number
+     */
     @Input() thyOffset = 4;
 
+    /**
+     * 下拉菜单的宽度，不设置默认与输入框同宽
+     * @type number
+     */
     @Input() thyAutocompleteWidth: number;
 
+    /**
+     * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @type string
+     * @default bottomLeft
+     */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
+    /**
+     * 是否允许聚焦时打开下拉菜单
+     * @type boolean
+     * @default true
+     */
     @Input() thyIsFocusOpen = true;
 
     get activeOption(): ThyOptionComponent | null {
@@ -116,7 +146,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     onKeydown(event: KeyboardEvent) {
         const keyCode = event.keyCode;
-
         // Prevent the default action on all escape key presses. This is here primarily to bring IE
         // in line with other browsers. By default, pressing escape on IE will cause it to revert
         // the input value to the one that it had on focus, however it won't dispatch any events
