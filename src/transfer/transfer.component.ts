@@ -102,7 +102,7 @@ export class ThyTransferComponent implements OnInit {
     @Input()
     set thyRenderSearch(fn: Function) {
         if (!this.thyRenderList?.length) {
-            warnDeprecation(`The property thyRenderSearch is required when you want to enable thyRenderList`);
+            console.warn(`The property thyRenderSearch is required if you want to enable thyRenderList`);
         }
         this.customSearch = fn;
     }
@@ -169,7 +169,7 @@ export class ThyTransferComponent implements OnInit {
     @Input()
     set thyRenderItemCount(value: [number, number]) {
         if (!this.thyRenderList?.length) {
-            warnDeprecation(`The property renderItemCount is required If you want to enable thyRenderList`);
+            console.warn(`The property renderItemCount is required if you want to enable thyRenderList`);
         }
         this.renderItemCount = value;
     }
@@ -184,7 +184,7 @@ export class ThyTransferComponent implements OnInit {
     @Input()
     set thyVirtualScroll(value: boolean) {
         if (!this.thyKeepResource) {
-            warnDeprecation(`The property thyKeepResource must be true If you want to enable virtualScroll`);
+            console.warn(`The property thyKeepResource must be true if you want to enable virtualScroll`);
         }
         this.virtualScroll = value;
     }
@@ -320,12 +320,12 @@ export class ThyTransferComponent implements OnInit {
         }
         if (direction === 'left') {
             if (this.thyKeepResource) {
-                this.allDataSource = this.allDataSourceClone.filter(k => k.title.includes(keyword));
+                this.allDataSource = this.allDataSourceClone.filter(k => k.title.toLowerCase().includes(keyword.trim().toLowerCase()));
             } else {
-                this.leftDataSource = this.leftDataSourceClone.filter(k => k.title.includes(keyword));
+                this.leftDataSource = this.leftDataSourceClone.filter(k => k.title.toLowerCase().includes(keyword.trim().toLowerCase()));
             }
         } else {
-            this.rightDataSource = this.rightDataSourceClone.filter(k => k.title.includes(keyword));
+            this.rightDataSource = this.rightDataSourceClone.filter(k => k.title.toLowerCase().includes(keyword.trim().toLowerCase()));
         }
     }
 }
