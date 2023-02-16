@@ -7,7 +7,7 @@ import { ThyTooltipRef } from 'ngx-tethys/tooltip';
     templateUrl: './manual.component.html'
 })
 export class ThyTooltipManualExampleComponent implements OnInit {
-    @ViewChild('tooltipHost', { static: true , read: ElementRef<HTMLElement>}) tooltipHostElementRef: ElementRef<HTMLElement>;
+    @ViewChild('tooltipHost', { read: ElementRef, static: true }) tooltipHostElementRef: ElementRef<HTMLElement>;
 
     private tooltipRef: ThyTooltipRef;
 

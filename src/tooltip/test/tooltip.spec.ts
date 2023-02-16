@@ -588,7 +588,7 @@ describe(`ThyTooltip`, () => {
         });
 
         it('should create tooltip and displayed', fakeAsync(() => {
-            const tooltipRef: ThyTooltipRef = tooltipService.create( basicTestComponent.tooltipHostElement,{
+            const tooltipRef: ThyTooltipRef = tooltipService.create(basicTestComponent.tooltipHostElement, {
                 placement: 'top'
             });
             tooltipRef.show('Tooltip content', 1000);

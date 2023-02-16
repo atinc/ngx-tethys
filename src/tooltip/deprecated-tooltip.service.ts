@@ -5,7 +5,6 @@ import { ThyTooltipDirective } from './tooltip.directive';
 import { ThyTooltipService } from './tooltip.service';
 import { ThyGlobalTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
 
-
 /**
  * @internal
  * @deprecated TooltipService deprecated,please use ThyTooltipService
