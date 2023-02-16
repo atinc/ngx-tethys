@@ -43,9 +43,15 @@ export class ThyAvatarComponent implements OnInit {
     @HostBinding('class.thy-avatar') _isAvatar = true;
 
     /**
-     *  移除按钮的事件, 当 thyShowRemove 为 true 时起作用
+     * * 已废弃，请使用 thyRemove
+     * @deprecated
      */
     @Output() thyOnRemove = new EventEmitter();
+
+    /**
+     *  移除按钮的事件, 当 thyRemovable 为 true 时起作用
+     */
+    @Output() thyRemove = new EventEmitter();
 
     /**
      *  头像 img 加载 error 时触发
@@ -91,11 +97,21 @@ export class ThyAvatarComponent implements OnInit {
     }
 
     /**
-     * 是否展示移除按钮
+     * 已废弃，请使用 thyRemovable
+     * @deprecated
      * @default false
      */
     @Input()
     set thyShowRemove(value: boolean) {
+        this._showRemove = coerceBooleanProperty(value);
+    }
+
+    /**
+     * 是否展示移除按钮
+     * @default false
+     */
+    @Input()
+    set thyRemovable(value: boolean) {
         this._showRemove = coerceBooleanProperty(value);
     }
 
@@ -185,6 +201,7 @@ export class ThyAvatarComponent implements OnInit {
 
     remove($event: Event) {
         this.thyOnRemove.emit($event);
+        this.thyRemove.emit($event);
     }
 
     avatarImgError($event: Event) {
