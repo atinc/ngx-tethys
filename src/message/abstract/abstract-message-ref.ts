@@ -10,7 +10,7 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
 
     overlayRef: OverlayRef;
 
-    queueService: ThyAbstractMessageQueue;
+    private queueService: ThyAbstractMessageQueue;
 
     private _afterClosed = new Subject<void>();
 

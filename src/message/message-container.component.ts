@@ -1,4 +1,4 @@
-import { Component, ElementRef, Inject } from '@angular/core';
+import { Component, ElementRef, HostBinding, Inject } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
 import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
@@ -13,6 +13,8 @@ import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.co
     `
 })
 export class ThyMessageContainerComponent extends ThyAbstractMessageContainerComponent {
+    @HostBinding('class') className = 'thy-message-container';
+
     constructor(
         public messageQueue: ThyMessageQueue,
         elementRef: ElementRef,

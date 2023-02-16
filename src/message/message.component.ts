@@ -31,8 +31,6 @@ export class ThyMessageComponent extends ThyAbstractMessageComponent<ThyMessageC
 
     config: ThyMessageConfig;
 
-    iconName = '';
-
     @Input()
     set thyConfig(value: ThyMessageConfig) {
         this.config = value;

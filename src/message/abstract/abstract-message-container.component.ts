@@ -9,8 +9,6 @@ import { ThyGlobalMessageConfig } from '../message.config';
 export class ThyAbstractMessageContainerComponent {
     @HostBinding('style.top') offset: string;
 
-    @HostBinding('class') className = 'thy-message-container';
-
     constructor(private elementRef: ElementRef, defaultConfig: ThyGlobalMessageConfig) {
         this.offset = coerceCssPixelValue(defaultConfig.offset);
     }
