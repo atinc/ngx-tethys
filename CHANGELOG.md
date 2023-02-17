@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.19](https://github.com/atinc/ngx-tethys/compare/14.2.18...14.2.19) (2023-02-17)
+
+
+### Features
+
+* **input:** remove the thyAutocomplete of thyInput & thy-input #INFR-6523 ([#2538](https://github.com/atinc/ngx-tethys/issues/2538)) ([92f753e](https://github.com/atinc/ngx-tethys/commit/92f753ec05140c60bacc8a1eca832709c7b8aaf3)), closes [#INFR-6523](https://github.com/atinc/ngx-tethys/issues/INFR-6523)
+* **tooltip:** add tooltip service and tooltipRef, refactor tooltip directive #INFR-6382 ([#2532](https://github.com/atinc/ngx-tethys/issues/2532)) ([27d4bf3](https://github.com/atinc/ngx-tethys/commit/27d4bf3aab5536df57241526ad5bdae7a6c18df8)), closes [#INFR-6382](https://github.com/atinc/ngx-tethys/issues/INFR-6382)
+
+
+
 ## [14.2.18](https://github.com/atinc/ngx-tethys/compare/14.2.17...14.2.18) (2023-02-16)
 
 
