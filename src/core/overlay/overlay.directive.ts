@@ -43,8 +43,10 @@ export abstract class ThyOverlayDirectiveBase {
      * The overlay keep opened when the mouse moves to the overlay container
      */
     protected overlayPin: boolean;
+
     /** create overlay, you can use popover service or overlay*/
-    abstract createOverlay(): OverlayRef;
+    // abstract createOverlay(): OverlayRef;
+
     abstract show(delay?: number): void;
     abstract hide(delay?: number): void;
 
@@ -126,7 +128,7 @@ export abstract class ThyOverlayDirectiveBase {
             const touchendListener = () => {
                 // this.hide(this.touchendHideDelay);
                 setTimeout(() => {
-                    this.hide();
+                    this.hide(0);
                 }, this.touchendHideDelay);
             };
             // Reserve extensions for mobile in the future
