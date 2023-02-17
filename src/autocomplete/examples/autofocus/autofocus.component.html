@@ -4,7 +4,8 @@
     [(ngModel)]="value"
     [thyAutofocus]="true"
     [placeholder]="'自动聚焦'"
-    [thyAutocomplete]="auto"
+    thyAutocompleteTrigger
+    [thyAutocompleteComponent]="auto"
     (ngModelChange)="valueChange($event)"
   />
   <thy-autocomplete #auto>

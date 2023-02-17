@@ -3,8 +3,9 @@
     thyInput
     [(ngModel)]="value"
     [placeholder]="'自定义样式'"
+    thyAutocompleteTrigger
+    [thyAutocompleteComponent]="auto"
     [thyAutocompleteWidth]="500"
-    [thyAutocomplete]="auto"
     (ngModelChange)="valueChange($event)"
   />
   <thy-autocomplete #auto>

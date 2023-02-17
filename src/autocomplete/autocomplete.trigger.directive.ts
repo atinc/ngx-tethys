@@ -31,8 +31,8 @@ import { warnDeprecation } from 'ngx-tethys/util';
  */
 @Directive({
     selector:
-        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
-    exportAs: 'thyAutocompleteTrigger, thyAutocomplete',
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger]',
+    exportAs: 'thyAutocompleteTrigger',
     host: {
         '(input)': 'handleInput($event)',
         '(focusin)': 'onFocus()',
@@ -53,20 +53,21 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     @HostBinding(`class.thy-autocomplete-opened`) panelOpened = false;
 
     /**
-     * 下拉菜单组件实例。已废弃，请使用 thyAutocomplete
+     * 下拉菜单组件实例。
      * @type thyAutocompleteComponent
      * @deprecated
      */
     @Input('thyAutocompleteComponent')
     set autocompleteComponent(data: ThyAutocompleteComponent) {
-        if (typeof ngDevMode === 'undefined' || ngDevMode) {
-            warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
-        }
+        // if (typeof ngDevMode === 'undefined' || ngDevMode) {
+        //     warnDeprecation(`The property thyAutocompleteComponent will be deprecated, please use thyAutocomplete instead.`);
+        // }
         this._autocompleteComponent = data;
     }
 
     /**
-     * 下拉菜单组件实例
+     * 下拉菜单组件实例。
+     * TODO：与 thyInput 参数 thyAutocomplete 冲突，待调整
      * @type thyAutocompleteComponent
      */
     @Input('thyAutocomplete')

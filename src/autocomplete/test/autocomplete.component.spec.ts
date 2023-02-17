@@ -75,7 +75,8 @@ class BasicSelectComponent {
         <div>
             <thy-input-search
                 [(ngModel)]="value"
-                [thyAutocomplete]="auto"
+                thyAutocompleteTrigger
+                [thyAutocompleteComponent]="auto"
                 [thyIsFocusOpen]="isFocusOpen"
                 (ngModelChange)="valueChange($event)"
             ></thy-input-search>
