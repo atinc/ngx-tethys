@@ -2,6 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.19](https://github.com/atinc/ngx-tethys/compare/14.2.18...14.2.19) (2023-02-17)
+
+
+### Features
+
+* **input:** remove the thyAutocomplete of thyInput & thy-input #INFR-6523 ([#2538](https://github.com/atinc/ngx-tethys/issues/2538)) ([92f753e](https://github.com/atinc/ngx-tethys/commit/92f753ec05140c60bacc8a1eca832709c7b8aaf3)), closes [#INFR-6523](https://github.com/atinc/ngx-tethys/issues/INFR-6523)
+* **tooltip:** add tooltip service and tooltipRef, refactor tooltip directive #INFR-6382 ([#2532](https://github.com/atinc/ngx-tethys/issues/2532)) ([27d4bf3](https://github.com/atinc/ngx-tethys/commit/27d4bf3aab5536df57241526ad5bdae7a6c18df8)), closes [#INFR-6382](https://github.com/atinc/ngx-tethys/issues/INFR-6382)
+
+
+
+## [14.2.18](https://github.com/atinc/ngx-tethys/compare/14.2.17...14.2.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **date-picker:**  add test for dataPicker #INFR-6466 ([fa0ce33](https://github.com/atinc/ngx-tethys/commit/fa0ce33ae6b838c838524e3534c90c0e692cd64c)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **DatePicker:** show week  at thyRangePickerDirective  #INFR-6466 ([431e543](https://github.com/atinc/ngx-tethys/commit/431e543b6dc26acdbcc2e6dcdf76b754e2bffece)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **input-number:** change disabled class in handler after modify thyMax or thyMin ([62b2d94](https://github.com/atinc/ngx-tethys/commit/62b2d94ac67455ef63125820c590f3bb064c13ee))
+
+
+### Features
+
+* **autocomplete:** add thyAutocomplete selector to ThyAutocompleteTriggerDirective and replace thyAutocompleteTrigger selector  #INFR-2990 ([4834ae3](https://github.com/atinc/ngx-tethys/commit/4834ae3852a9915246c568da76d9b82ccf3436db)), closes [#INFR-2990](https://github.com/atinc/ngx-tethys/issues/INFR-2990)
+
+
+
+## [14.2.17](https://github.com/atinc/ngx-tethys/compare/14.2.16...14.2.17) (2023-02-15)
+
+
+### Bug Fixes
+
+* **cascader:** fix long text style #INFR-6460 ([#2528](https://github.com/atinc/ngx-tethys/issues/2528)) ([97c9800](https://github.com/atinc/ngx-tethys/commit/97c98004ce7a3d3e95fd191b52a1ba1edfece203)), closes [#INFR-6460](https://github.com/atinc/ngx-tethys/issues/INFR-6460)
+* **input:** modify the spacing of the input and the perpand to 8 px #INFR-6441 ([4ed58b1](https://github.com/atinc/ngx-tethys/commit/4ed58b152813078874dac3b2666636e2b72d47ea)), closes [#INFR-6441](https://github.com/atinc/ngx-tethys/issues/INFR-6441)
+
+
+### Features
+
+* **avatar:** thySize supports setting the value to 16 #INFR-6422 ([#2522](https://github.com/atinc/ngx-tethys/issues/2522)) ([02672bd](https://github.com/atinc/ngx-tethys/commit/02672bda63ed2d76bf215521486438f4dcec6a7a)), closes [#INFR-6422](https://github.com/atinc/ngx-tethys/issues/INFR-6422)
+
+
+
 ## [14.2.16](https://github.com/atinc/ngx-tethys/compare/14.2.15...14.2.16) (2023-02-10)
 
 

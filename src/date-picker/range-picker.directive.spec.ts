@@ -141,6 +141,14 @@ describe('ThyRangePickerDirective', () => {
             expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
         }));
 
+        it('should support week mode', fakeAsync(() => {
+            fixtureInstance.mode = 'week';
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            expect(queryFromOverlay('.thy-calendar-week-number')).toBeTruthy();
+        }));
+
         function queryFromOverlay(selector: string): HTMLElement {
             return overlayContainerElement.querySelector(selector) as HTMLElement;
         }
@@ -171,6 +179,7 @@ describe('ThyRangePickerDirective', () => {
             [thyShowShortcut]="thyShowShortcut"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutRanges]="thyShortcutRanges"
+            [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyOpenChange)="thyOpenChange($event)"
         ></thy-property-operation>
@@ -181,6 +190,7 @@ class ThyTestRangePickerComponent {
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutRanges: ThyShortcutRange[];
+    mode: string;
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
 }

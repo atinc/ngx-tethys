@@ -7,12 +7,11 @@ import { By } from '@angular/platform-browser';
 @Component({
     selector: 'test-bed-input-directive',
     template: `
-        <input name="username" thyInput [thySize]="thySize" [thyAutocomplete]="thyAutocomplete" />
+        <input name="username" thyInput [thySize]="thySize" />
     `
 })
 class TestBedInputDirectiveComponent {
     thySize = ``;
-    thyAutocomplete;
 }
 
 @NgModule({
@@ -73,16 +72,5 @@ describe('input directive', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(true);
-    });
-
-    it('thyAutocomplete', () => {
-        expect(debugElement.nativeElement.autocomplete).toBe('');
-        basicTestComponent.thyAutocomplete = true;
-        fixture.detectChanges();
-        expect(debugElement.nativeElement.autocomplete).toBe('on');
-
-        basicTestComponent.thyAutocomplete = false;
-        fixture.detectChanges();
-        expect(debugElement.nativeElement.autocomplete).toBe('off');
     });
 });

@@ -6,6 +6,9 @@ import { ThyTooltipVisibility } from './interface';
 import { thyTooltipAnimations } from './tooltip-animations';
 import { coerceArray } from 'ngx-tethys/util';
 
+/**
+ * @internal
+ */
 @Component({
     selector: 'thy-tooltip',
     templateUrl: './tooltip.component.html',

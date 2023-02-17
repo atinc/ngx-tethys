@@ -1,6 +1,6 @@
 <form thyForm name="demoForm" #demoForm="ngForm" thyLayout="horizontal">
   <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired thyTips="This is tips for username">
-    <input thyInput name="username" [thyAutocomplete]="true" [(ngModel)]="model.name" required placeholder="Please type username" />
+    <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
   </thy-form-group>
   <thy-form-group thyRowFill>
     <ng-template #formGroup>
