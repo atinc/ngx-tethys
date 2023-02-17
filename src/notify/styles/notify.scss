@@ -1,7 +1,7 @@
 @use "../../styles/variables";
 @use "mixin";
 
-.thy-notify-root {
+.thy-notify-container > div {
     position: fixed;
     z-index: variables.$notify-z-index;
     top: variables.$notify-spacing;
@@ -77,22 +77,23 @@
     @each $state, $color in variables.$notify-states {
         @include mixin.thy-notify-state($state, $color);
     }
-}
-.thy-notify-bottomRight {
-    top: auto;
-    bottom: variables.$notify-spacing;
-    right: variables.$notify-spacing;
-    left: auto;
-}
-.thy-notify-bottomLeft {
-    top: auto;
-    bottom: variables.$notify-spacing;
-    left: variables.$notify-spacing;
-    right: auto;
-}
-.thy-notify-topLeft {
-    top: variables.$notify-spacing;
-    bottom: auto;
-    left: variables.$notify-spacing;
-    right: auto;
+
+    &.thy-notify-bottomRight {
+        top: auto;
+        bottom: variables.$notify-spacing;
+        right: variables.$notify-spacing;
+        left: auto;
+    }
+    &.thy-notify-bottomLeft {
+        top: auto;
+        bottom: variables.$notify-spacing;
+        left: variables.$notify-spacing;
+        right: auto;
+    }
+    &.thy-notify-topLeft {
+        top: variables.$notify-spacing;
+        bottom: auto;
+        left: variables.$notify-spacing;
+        right: auto;
+    }
 }

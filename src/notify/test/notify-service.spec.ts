@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture, fakeAsync, flush, inject, tick, discardPerio
 import { ThyNotifyModule } from '../module';
 import { ThyNotifyService } from '../notify.service';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_OPTIONS } from '../notify.config';
+import { ThyNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from '../notify.config';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyNotifyContentExampleComponent } from '../examples/custom-content/content.component';
@@ -44,7 +44,7 @@ export class ThyNotifyBasicComponent implements OnInit {
 
     closeNotify() {
         // create notify with id is close
-        this.notifyService.removeNotifyById('close');
+        this.notifyService.remove('close');
     }
 }
 
@@ -419,9 +419,10 @@ describe('ThyNotify with provider', () => {
             declarations: [ThyNotifyBasicComponent],
             providers: [
                 {
-                    provide: THY_NOTIFY_DEFAULT_OPTIONS,
+                    provide: THY_NOTIFY_DEFAULT_CONFIG,
                     useValue: {
-                        placement: 'bottomLeft'
+                        placement: 'bottomLeft',
+                        duration: DEFAULT_DURATION_TIME
                     }
                 }
             ]
@@ -461,8 +462,7 @@ describe('ThyNotify with provider', () => {
             const notifyContainer = overlayContainerElement.querySelector('.thy-notify-bottomLeft');
             const notify = notifyContainer.querySelector('.thy-notify') as HTMLElement;
             expect(notify.style.opacity === '1').toBe(true);
-            tick(DEFAULT_DURATION_TIME);
-            fixture.detectChanges();
+            tick(DEFAULT_DURATION_TIME + 100);
             expect(notify.style.opacity === '0').toBe(true);
             flush();
         }));
