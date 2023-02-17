@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
             [thyType]="thyType"
             thyLabelText="姓名"
             [thySize]="thySize"
-            [thyAutocomplete]="thyAutocomplete"
             [thyAutofocus]="true"
             [readonly]="readonly"
             name="username"
@@ -36,7 +35,6 @@ import { CommonModule } from '@angular/common';
 class TestBedComponent {
     thySize = ``;
     thyType = 'text';
-    thyAutocomplete;
     readonly;
     passwordValue = '12345';
     checkFocus = false;
@@ -111,12 +109,6 @@ describe('input component', () => {
         basicTestComponent.thySize = 'lg';
         fixture.detectChanges();
         expect(debugElement.nativeElement.classList.contains('form-control-lg')).toBe(true);
-    });
-
-    it('thyAutocomplete', () => {
-        basicTestComponent.thyAutocomplete = true;
-        fixture.detectChanges();
-        expect(debugElement.nativeElement.autocomplete).toBe('on');
     });
 
     it('placeholder', () => {

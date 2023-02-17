@@ -85,14 +85,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     @Input() readonly = false;
 
     /**
-     *  输入字段是否应该启用自动完成功能
-     */
-    @Input()
-    set thyAutocomplete(value: boolean) {
-        this.autocomplete = value;
-    }
-
-    /**
      * focus 聚焦事件
      */
     @Output() focus: EventEmitter<Event> = new EventEmitter<Event>();
@@ -117,8 +109,6 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     public _type = 'text';
 
     public value: string;
-
-    public autocomplete: boolean;
 
     public showLabel: boolean;
 
