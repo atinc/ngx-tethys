@@ -8,7 +8,7 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
 
     config: TConfig;
 
-    overlayRef: OverlayRef;
+    private overlayRef: OverlayRef;
 
     private queueService: ThyAbstractMessageQueue;
 
@@ -29,5 +29,9 @@ export class ThyAbstractMessageRef<TConfig extends ThyMessageBaseConfig = ThyMes
 
     afterClosed() {
         return this._afterClosed.asObservable();
+    }
+
+    getOverlayRef() {
+        return this.overlayRef;
     }
 }
