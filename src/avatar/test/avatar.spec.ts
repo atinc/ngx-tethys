@@ -22,6 +22,8 @@ import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
             <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
             <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
             <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
+            <!-- Suite 7 for test thyDisabled and thyRemovable -->
+            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyDisabled="true" thyRemovable="true"></thy-avatar>
         </ng-container>
     `
 })
@@ -32,7 +34,7 @@ class ThyTestAvatarComponent {
         });
     }
 
-    useSuite: 1 | 2 | 3 | 4 | 5 | 6;
+    useSuite: 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
     name = 'LiLei';
 
@@ -164,7 +166,7 @@ describe('ThyAvatarComponent', () => {
         });
     });
 
-    describe('disabled or remove avatar when thyDisabled or thyShowRemove is true', () => {
+    describe('disabled or remove avatar when thyDisabled or thyShowRemove or thyRemovable is true', () => {
         beforeEach(() => {
             componentInstance.useSuite = 4;
         });
@@ -176,6 +178,13 @@ describe('ThyAvatarComponent', () => {
         });
 
         it('has .remove-link element when thyShowRemove is true', () => {
+            fixture.detectChanges();
+            const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+            expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
+        });
+
+        it('has .remove-link element when thyRemovable is true', () => {
+            componentInstance.useSuite = 7;
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
