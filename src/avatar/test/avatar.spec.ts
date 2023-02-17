@@ -190,7 +190,6 @@ describe('ThyAvatarComponent', () => {
         });
 
         it('has .remove-link element when thyRemovable is true', () => {
-            componentInstance.useSuite = 7;
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
