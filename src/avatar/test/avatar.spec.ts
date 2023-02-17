@@ -166,7 +166,7 @@ describe('ThyAvatarComponent', () => {
         });
     });
 
-    describe('disabled or remove avatar when thyDisabled or thyShowRemove or thyRemovable is true', () => {
+    describe('disabled or remove avatar when thyDisabled is true', () => {
         beforeEach(() => {
             componentInstance.useSuite = 4;
         });
@@ -175,12 +175,6 @@ describe('ThyAvatarComponent', () => {
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.thy-avatar-disabled')).not.toBeNull();
-        });
-
-        it('has .remove-link element when thyShowRemove is true', () => {
-            fixture.detectChanges();
-            const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
-            expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
         });
     });
 
