@@ -23,7 +23,7 @@ import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
             <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
             <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
             <!-- Suite 7 for test thyDisabled and thyRemovable -->
-            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyDisabled="true" thyRemovable="true"></thy-avatar>
+            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyRemovable="true"></thy-avatar>
         </ng-container>
     `
 })
@@ -181,6 +181,12 @@ describe('ThyAvatarComponent', () => {
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
+        });
+    });
+
+    describe('disabled or remove avatar when  thyRemovable is true', () => {
+        beforeEach(() => {
+            componentInstance.useSuite = 7;
         });
 
         it('has .remove-link element when thyRemovable is true', () => {
