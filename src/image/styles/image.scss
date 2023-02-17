@@ -11,9 +11,9 @@ $image-preview-prefix-cls: 'thy-image-preview';
     .#{$image-preview-prefix-cls}-wrap {
         position: fixed;
         top: 0;
-        right: 0;
-        bottom: 0;
         left: 0;
+        height: 100%;
+        width: 100%;
         overflow: auto;
         outline: 0;
     }
@@ -24,9 +24,9 @@ $image-preview-prefix-cls: 'thy-image-preview';
         &-img-wrapper {
             position: absolute;
             top: 0;
-            right: 0;
-            bottom: 0;
             left: 0;
+            height: 100%;
+            width: 100%;
             transition: transform 0.3s $ease-out 0s;
             display: flex;
             align-items: center;
