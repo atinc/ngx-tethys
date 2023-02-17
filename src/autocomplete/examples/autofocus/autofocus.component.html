@@ -1,11 +1,10 @@
 <div>
   <input
     thyInput
-    thyAutocompleteTrigger
     [(ngModel)]="value"
     [thyAutofocus]="true"
     [placeholder]="'自动聚焦'"
-    [thyAutocompleteComponent]="auto"
+    [thyAutocomplete]="auto"
     (ngModelChange)="valueChange($event)"
   />
   <thy-autocomplete #auto>

@@ -11,6 +11,9 @@ import { thyAutocompleteAnimations } from './autocomplete-animations';
 import { ThyAutocompleteConfig } from './autocomplete.config';
 import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-autocomplete-container',
     templateUrl: './autocomplete-container.component.html',

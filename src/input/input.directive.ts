@@ -1,6 +1,5 @@
 import { Directive, ElementRef, HostBinding, Input, OnInit, Optional, Renderer2, Self } from '@angular/core';
 import { NgControl } from '@angular/forms';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyInputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -24,8 +23,6 @@ const inputGroupSizeMap = {
 export class ThyInputDirective implements OnInit {
     @HostBinding('class.form-control') isFormControl = true;
 
-    private autocomplete: boolean;
-
     private initialized = false;
 
     private hostRenderer = useHostRenderer();
@@ -44,18 +41,6 @@ export class ThyInputDirective implements OnInit {
         }
     }
 
-    /**
-     * 输入字段是否应该启用自动完成功能
-     * @default false
-     */
-    @Input()
-    set thyAutocomplete(value: boolean) {
-        this.autocomplete = coerceBooleanProperty(value);
-        if (this.initialized) {
-            this.setAutocomplete();
-        }
-    }
-
     get ngControl() {
         return this.control;
     }
@@ -68,10 +53,5 @@ export class ThyInputDirective implements OnInit {
 
     ngOnInit() {
         this.initialized = true;
-        this.setAutocomplete();
-    }
-
-    private setAutocomplete() {
-        this.render.setAttribute(this.elementRef.nativeElement, 'autocomplete', this.autocomplete ? 'on' : 'off');
     }
 }
