@@ -9,10 +9,12 @@ import {
     HostBinding,
     Input,
     NgZone,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild
 } from '@angular/core';
@@ -42,12 +44,12 @@ export const enum ThyAvatarListMode {
     },
     providers: [UpdateHostClassService]
 })
-export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentInit, AfterViewInit {
+export class ThyAvatarListComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
 
     public avatarItems: ThyAvatarComponent[];
 
-    public avatarRenderItems: ThyAvatarComponent[];
+    public avatarRenderItems: ThyAvatarComponent[] = [];
 
     public avatarSpace = AVATAR_ITEM_SPACE;
 
@@ -119,16 +121,23 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
 
     ngOnInit() {}
 
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.thyAvatarSize && !changes.thyAvatarSize.firstChange) {
+            this.setAvatarSize();
+        }
+
+        if (changes.thyMax && !changes.thyMax.firstChange) {
+            this.getRenderAvatar();
+        }
+    }
+
     ngAfterContentInit() {
         this.setAvatarSize();
-        this.getRenderAvatar();
     }
 
     ngAfterViewInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
-            if (this.appendContent) {
-                this.getRenderAvatar();
-            }
+            this.getRenderAvatar();
         });
 
         if (this.thyResponsive) {
@@ -146,6 +155,7 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
         this.avatarItems.forEach((avatar: ThyAvatarComponent) => {
             avatar.thySize = this.thyAvatarSize;
         });
+        this.getRenderAvatar();
     }
 
     public remove(name: string) {
@@ -164,7 +174,7 @@ export class ThyAvatarListComponent implements OnInit, OnDestroy, AfterContentIn
             const space = this.overlapMode ? this.avatarOverlapSpace : this.avatarSpace;
             const avatarWidth = this.avatarItems[0]._size + space;
             const wrapperWidth = this.elementRef.nativeElement.offsetWidth;
-            const appendWidth = this.appendContent?.nativeElement.offsetWidth;
+            const appendWidth = this.appendContent ? this.appendContent.nativeElement.offsetWidth : 0;
             const lastAvatarSpecialSpace = this.overlapMode ? space : 0; // overlap 模式下最后一个 avatar 元素占位比其他多 this.avatarSpace 个 px
             return Math.floor((wrapperWidth - appendWidth + lastAvatarSpecialSpace) / avatarWidth);
         } else {

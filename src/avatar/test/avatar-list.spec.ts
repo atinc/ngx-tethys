@@ -1,65 +1,197 @@
-import { Component, DebugElement, OnInit, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { Component, DebugElement, OnInit } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyAvatarListComponent } from '../avatar-list/avatar-list.component';
+import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarComponent } from '../avatar.component';
 
-const AVATAR_LIST_CLASS = `thy-avatar-list`;
 @Component({
     template: `
         <thy-avatar-list>
-            <thy-avatar thyName="Peter"></thy-avatar>
-            <thy-avatar thyName="Chan"></thy-avatar>
-            <thy-avatar thyName="王晨媛"></thy-avatar>
-            <thy-avatar thyName="Alle"></thy-avatar>
-            <thy-avatar thyName="Eliza"></thy-avatar>
-            <thy-avatar thyName="Peter"></thy-avatar>
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+            <thy-avatar thyName="Camilla"></thy-avatar>
+            <thy-avatar thyName="Dottie"></thy-avatar>
+            <thy-avatar thyName="Elva"></thy-avatar>
             <ng-template #append>
-                <div style="width: 32px;height:32px;border:1px solid #999;border-radius: 50%;">
-                    <a href="javascript:;" thyAction thyIcon="user-add-bold"></a>
-                </div>
+                <button thyButtonIcon="user-add-bold" thyShape="circle-thick-dashed"></button>
             </ng-template>
         </thy-avatar-list>
-    `
+    `,
+    styleUrls: ['../styles/avatar.scss']
 })
 export class AvatarListBasicComponent implements OnInit {
     ngOnInit(): void {}
 }
 
+@Component({
+    template: `
+        <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode" [thyRemovable]="removable" [thyMax]="max">
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+            <thy-avatar thyName="Camilla"></thy-avatar>
+        </thy-avatar-list>
+    `,
+    styleUrls: ['../styles/avatar.scss']
+})
+export class AvatarListTestComponent implements OnInit {
+    public size: number | string;
+
+    public mode: ThyAvatarListMode;
+
+    public removable = false;
+
+    public max: number = 2;
+
+    ngOnInit(): void {}
+}
+
 describe('thy-avatar-list', () => {
-    let testComponent: AvatarListBasicComponent;
+    let componentInstance: AvatarListBasicComponent;
     let avatarListDebugElement: DebugElement;
     let avatarListElement: HTMLElement;
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent]
-        });
-        TestBed.compileComponents();
+            declarations: [AvatarListBasicComponent, AvatarListTestComponent]
+        }).compileComponents();
     });
 
     describe('basic', () => {
         let fixture: ComponentFixture<AvatarListBasicComponent>;
-        let avatarItems: DebugElement[];
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListBasicComponent);
-
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
-            testComponent = fixture.componentInstance;
+            componentInstance = fixture.componentInstance;
             avatarListElement = avatarListDebugElement.nativeElement;
             fixture.detectChanges();
         });
 
-        it('should create', () => {
+        it('should create', fakeAsync(() => {
             expect(fixture).toBeTruthy();
-            expect(testComponent).toBeTruthy();
-            expect(avatarListElement.classList.contains(AVATAR_LIST_CLASS)).toEqual(true);
+            expect(componentInstance).toBeTruthy();
+            expect(avatarListElement.classList.contains('thy-avatar-list')).toEqual(true);
+        }));
+
+        it('should have correct avatar item', fakeAsync(() => {
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            expect(avatarComponent).toBeTruthy();
+            expect(avatarComponent.length).toEqual(5);
+        }));
+
+        it('should be 36px size which is the default size When thyAvatarSize is empty', fakeAsync(() => {
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarElement = avatarComponent[0].nativeElement;
+            expect(avatarElement.classList.contains('thy-avatar-36')).toEqual(true);
+        }));
+
+        it('should show append template', () => {
+            expect(avatarListElement.querySelector('button')).not.toBeNull();
+        });
+    });
+
+    describe('show different size when input different thyAvatarSize value', () => {
+        let fixture: ComponentFixture<AvatarListTestComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListTestComponent);
+            fixture.detectChanges();
+        });
+        it('should be 16 size When input number 0', fakeAsync(() => {
+            fixture.componentInstance.size = 0;
+            fixture.detectChanges();
+            const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-16'));
+            expect(avatarContainer).not.toBeNull();
+        }));
+
+        it('should be 24px size When input xs string', fakeAsync(() => {
+            fixture.componentInstance.size = 'xs';
+            fixture.detectChanges();
+            const avatarContainer = fixture.debugElement.query(By.css('.thy-avatar-24'));
+            expect(avatarContainer).not.toBeNull();
+        }));
+
+        it('should be 68px size When input number 80', fakeAsync(() => {
+            fixture.componentInstance.size = '80';
+            fixture.detectChanges();
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            const avatarElement = avatarComponent[0].nativeElement;
+            expect(avatarElement.classList.contains('thy-avatar-68')).toEqual(true);
+        }));
+    });
+
+    describe('show different type when input different thyMode value', () => {
+        let fixture: ComponentFixture<AvatarListTestComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListTestComponent);
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            avatarListElement = avatarListDebugElement.nativeElement;
+            fixture.detectChanges();
         });
 
-        fit('should have correct class', () => {
-            avatarItems = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
-            console.log(avatarItems, 'avatarItems');
+        it('should be default type which is the default type When thyMode is empty', fakeAsync(() => {
+            expect(avatarListElement.classList.contains('thy-avatar-list')).toEqual(true);
+            expect(avatarListElement.classList.contains('thy-avatar-list-overlap')).toEqual(false);
+        }));
+
+        it('should overlap type is thyMode is overlap', fakeAsync(() => {
+            fixture.componentInstance.mode = ThyAvatarListMode.overlap;
+            fixture.detectChanges();
+            expect(avatarListElement.classList.contains('thy-avatar-list-overlap')).toEqual(true);
+        }));
+    });
+
+    describe('thyRemovable is work', () => {
+        let fixture: ComponentFixture<AvatarListTestComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListTestComponent);
+            fixture.detectChanges();
+        });
+
+        it('should .remove-link no rendering  when thyRemovable is null', () => {
+            fixture.componentInstance.removable = null;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.remove-link'))).toBeNull();
+        });
+
+        it('should .remove-link  rendering  when thyRemovable is true and thyMode is default', () => {
+            fixture.componentInstance.removable = true;
+            fixture.detectChanges();
+            fixture.componentInstance.mode = ThyAvatarListMode.default;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.remove-link'))).not.toBeNull();
+        });
+
+        it('should .remove-link no rendering  when thyRemovable is true and thyMode is overlap', () => {
+            fixture.componentInstance.removable = true;
+            fixture.detectChanges();
+            fixture.componentInstance.mode = ThyAvatarListMode.overlap;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.remove-link'))).toBeNull();
+            fixture.componentInstance.mode = ThyAvatarListMode.default;
+            fixture.detectChanges();
+            expect(fixture.debugElement.query(By.css('.remove-link'))).not.toBeNull();
+        });
+    });
+
+    describe('thyMax is work', () => {
+        let fixture: ComponentFixture<AvatarListTestComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListTestComponent);
+            fixture.detectChanges();
+        });
+
+        it('should ThyAvatarComponent 3  when thyMax is 3', () => {
+            fixture.componentInstance.max = 3;
+            fixture.detectChanges();
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            expect(avatarComponent.length).toEqual(3);
+        });
+
+        it('should ThyAvatarComponent 3  when thyMax is 6', () => {
+            fixture.componentInstance.max = 6;
+            fixture.detectChanges();
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            expect(avatarComponent.length).toEqual(3);
         });
     });
 });
