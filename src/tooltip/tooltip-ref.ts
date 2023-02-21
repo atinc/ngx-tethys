@@ -3,6 +3,8 @@ import { ComponentPortal } from '@angular/cdk/portal';
 import { ElementRef, NgZone, TemplateRef } from '@angular/core';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 import { getFlexiblePositions } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
+import { isNumber } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { ThyTooltipContent } from './interface';
@@ -18,7 +20,7 @@ export class ThyTooltipRef {
 
     private portal: ComponentPortal<ThyTooltipComponent>;
 
-    private dispose$ = new Subject<void>();
+    private readonly dispose$ = new Subject<void>();
 
     constructor(
         private host: ElementRef<HTMLElement> | HTMLElement,
@@ -96,9 +98,19 @@ export class ThyTooltipRef {
         this.tooltipInstance = null;
     }
 
-    show(content: ThyTooltipContent, delay?: number): void {
+    show(content: ThyTooltipContent, delay?: number): void;
+    show<T extends Record<SafeAny, SafeAny>>(content: ThyTooltipContent, data: T, delay?: number): void;
+    show<T extends Record<SafeAny, SafeAny>>(content: ThyTooltipContent, dataOrDelay: T | number, delay?: number) {
         if (!content || (this.isTooltipVisible() && !this.tooltipInstance.showTimeoutId && !this.tooltipInstance.hideTimeoutId)) {
             return;
+        }
+        let showDelay = null;
+        let initialState = null;
+        if (isNumber(dataOrDelay)) {
+            showDelay = dataOrDelay as number;
+        } else {
+            initialState = dataOrDelay;
+            showDelay = delay;
         }
         const overlayRef = this.createOverlay();
         this.detach();
@@ -108,9 +120,9 @@ export class ThyTooltipRef {
             .afterHidden()
             .pipe(takeUntil(this.dispose$))
             .subscribe(() => this.detach());
-        this.updateTooltipContent(content, this.config.initialState);
+        this.updateTooltipContent(content, initialState);
         this.setTooltipClass(this.config.contentClass);
-        this.tooltipInstance.show(!isUndefinedOrNull(delay) ? delay : this.config.showDelay);
+        this.tooltipInstance.show(!isUndefinedOrNull(showDelay) ? showDelay : this.config.showDelay);
     }
 
     hide(delay: number = 0): void {
