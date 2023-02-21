@@ -108,7 +108,7 @@ describe('ThyDialog', () => {
 
     function assertHeaderButtonClick(spy: jasmine.Spy, done: DoneFn) {
         viewContainerFixture.detectChanges();
-        const headerButton = getElementByDialogContainer('.dialog-header > button.close');
+        const headerButton = getElementByDialogContainer('.dialog-header .thy-icon-close-bold');
         if (headerButton) {
             headerButton.click();
         }
@@ -1075,7 +1075,7 @@ describe('ThyDialog', () => {
             });
         });
 
-        it('should focus the first tabbable element（BUTTON here） when confirm dialog content is string type', (done: DoneFn) => {
+        it('should focus the first tabbable element（ThyAction here） when confirm dialog content is string type', (done: DoneFn) => {
             dialog.confirm({
                 content: 'The Content of Confirm Dialog',
                 onOk: () => {
@@ -1088,7 +1088,7 @@ describe('ThyDialog', () => {
             });
             viewContainerFixture.detectChanges();
             viewContainerFixture.whenStable().then(() => {
-                expect(document.activeElement!.tagName).toBe('BUTTON');
+                expect(document.activeElement!.tagName).toBe('A');
                 done();
             });
         });

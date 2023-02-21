@@ -3,6 +3,7 @@ import { PortalModule } from '@angular/cdk/portal';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyIconModule } from 'ngx-tethys/icon';
@@ -19,7 +20,17 @@ import { DialogHeaderComponent } from './header/dialog-header.component';
 
 @NgModule({
     declarations: [ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent, ThyConfirmComponent],
-    imports: [CommonModule, ThySharedModule, PortalModule, OverlayModule, ThyButtonModule, ThyIconModule, ThyFormModule, FormsModule],
+    imports: [
+        CommonModule,
+        ThySharedModule,
+        PortalModule,
+        OverlayModule,
+        ThyButtonModule,
+        ThyIconModule,
+        ThyFormModule,
+        FormsModule,
+        ThyActionModule
+    ],
     providers: [
         ThyDialog,
         THY_DIALOG_DEFAULT_OPTIONS_PROVIDER,

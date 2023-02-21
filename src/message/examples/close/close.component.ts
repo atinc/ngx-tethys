@@ -1,4 +1,4 @@
-import { ThyMessageService } from 'ngx-tethys/message';
+import { ThyMessageRef, ThyMessageService } from 'ngx-tethys/message';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -8,22 +8,23 @@ import { Component, OnInit } from '@angular/core';
 export class ThyMessageCloseExampleComponent implements OnInit {
     openedMessageId: string;
 
+    messageRef: ThyMessageRef;
+
     constructor(private messageService: ThyMessageService) {}
 
     ngOnInit() {}
 
     showHasDetail() {
-        const messageRef = this.messageService.error('获取数据失败！', {
-            id: 'errorId',
+        this.messageRef = this.messageService.error('获取数据失败！', {
             duration: 0
         });
 
-        messageRef.afterClosed().subscribe(flag => {
-            console.log('errorId 被关闭了');
+        this.messageRef.afterClosed().subscribe(() => {
+            console.log(`message ${this.messageRef.id} 被关闭了`);
         });
     }
 
     removeMessageById() {
-        this.messageService.remove('errorId');
+        this.messageRef.close();
     }
 }

@@ -1,11 +1,10 @@
 <div>
   <input
     thyInput
-    thyAutocompleteTrigger
     [(ngModel)]="value"
     [placeholder]="'自定义样式'"
     [thyAutocompleteWidth]="500"
-    [thyAutocompleteComponent]="auto"
+    [thyAutocomplete]="auto"
     (ngModelChange)="valueChange($event)"
   />
   <thy-autocomplete #auto>

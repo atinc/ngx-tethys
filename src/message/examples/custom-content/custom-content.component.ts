@@ -1,5 +1,5 @@
 import { ThyMessageService } from 'ngx-tethys/message';
-import { Component, ElementRef, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
     selector: 'thy-message-custom-content-example',

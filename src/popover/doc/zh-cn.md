@@ -73,8 +73,8 @@ openProfile(template: TemplateRef<any>) {
 ```ts
 @NgModule({
   providers: [
-    { 
-        provide: THY_POPOVER_DEFAULT_CONFIG, 
+    {
+        provide: THY_POPOVER_DEFAULT_CONFIG,
         useValue: {
             hasBackdrop: false,
             originActiveClass: 'active'

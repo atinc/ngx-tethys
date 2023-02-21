@@ -23,6 +23,8 @@ export class ThyCascaderOptionComponent implements OnInit {
     @InputBoolean()
     isOnlySelectLeaf = true;
 
+    @HostBinding('class') class = 'd-flex';
+
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
     @HostBinding('class.thy-cascader-menu-item-active')
@@ -45,10 +47,6 @@ export class ThyCascaderOptionComponent implements OnInit {
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 
     constructor() {}
-
-    public getOptionLabel() {
-        return this.option ? this.option[this.labelProperty] : '';
-    }
 
     ngOnInit() {}
 

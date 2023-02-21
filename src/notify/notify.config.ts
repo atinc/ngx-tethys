@@ -1,33 +1,12 @@
-import { ScrollStrategy } from '@angular/cdk/overlay';
 import { ElementRef, InjectionToken } from '@angular/core';
-import { ComponentTypeOrTemplateRef, ThyAbstractOverlayConfig, ThyAbstractOverlayPosition } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
+import { ThyMessageBaseConfig } from 'ngx-tethys/message';
 
-export type NotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export type ThyNotifyPlacement = 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+export type ThyNotifyType = 'blank' | 'success' | 'error' | 'warning' | 'info';
 
-export interface ThyNotifyDetail {
-    link?: string;
-    content?: string;
-    action?: (event?: Event) => void;
-}
-
-export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
-    /** Position overrides. */
-    position?: ThyAbstractOverlayPosition;
-
-    /** Placement be relative to global, topLeft, topRight, bottomLeft, bottomRight ...*/
-    placement?: NotifyPlacement;
-
-    type?: 'blank' | 'success' | 'error' | 'warning' | 'info';
-
-    title?: string;
-
-    content?: string | ComponentTypeOrTemplateRef<any>;
-
-    contentInitialState?: TData;
-
-    detail?: string | ThyNotifyDetail;
-
-    html?: ElementRef;
+export interface ThyGlobalNotifyConfig {
+    placement?: ThyNotifyPlacement;
 
     pauseOnHover?: boolean;
 
@@ -35,33 +14,36 @@ export class ThyNotifyConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
 
     maxStack?: number;
 
-    /** Offset be relative to global, default is '20' */
     offset?: string;
-
-    /** Scroll strategy to be used for the dialog. */
-    scrollStrategy?: ScrollStrategy;
 }
 
-/**
- * @deprecated please use ThyNotifyConfig
- */
-export type ThyNotifyOptions = ThyNotifyConfig;
+export interface ThyNotifyDetail {
+    link?: string;
+    content?: string;
+    action?: (event?: Event) => void;
+}
 
-export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyNotifyConfig>('thy-notify-default-config');
+export interface ThyNotifyConfig extends ThyMessageBaseConfig {
+    placement?: ThyNotifyPlacement;
 
-/**
- * @deprecated please use THY_NOTIFY_DEFAULT_CONFIG
- */
-export const THY_NOTIFY_DEFAULT_OPTIONS = THY_NOTIFY_DEFAULT_CONFIG;
+    type?: ThyNotifyType;
 
-export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyNotifyConfig = {
-    hasBackdrop: false,
-    panelClass: '',
+    title?: string;
+
+    content?: string | ComponentTypeOrTemplateRef<any>;
+
+    contentInitialState?: any;
+
+    detail?: string | ThyNotifyDetail;
+
+    html?: ElementRef;
+}
+
+export const THY_NOTIFY_DEFAULT_CONFIG = new InjectionToken<ThyGlobalNotifyConfig>('thy-notify-default-config');
+
+export const THY_NOTIFY_DEFAULT_CONFIG_VALUE: ThyGlobalNotifyConfig = {
+    placement: 'topRight',
     offset: '20',
-    closeOnNavigation: true,
-    type: 'blank',
-    placement: 'topRight' as NotifyPlacement,
-    backdropClosable: false,
     duration: 4500,
     pauseOnHover: true,
     maxStack: 8
