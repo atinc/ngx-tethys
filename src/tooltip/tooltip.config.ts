@@ -1,10 +1,8 @@
 import { InjectionToken, ViewContainerRef } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
-import { SafeAny } from 'ngx-tethys/types';
 
 export interface ThyTooltipConfig {
     placement?: ThyPlacement;
-    initialState?: SafeAny;
     viewContainerRef?: ViewContainerRef;
     showDelay?: number;
     hideDelay?: number;
@@ -19,12 +17,13 @@ export interface ThyTooltipConfig {
 
 export type ThyGlobalTooltipConfig = Pick<
     ThyTooltipConfig,
-    'offset' | 'scrollThrottleSeconds' | 'tooltipPin' | 'panelClass' | 'showDelay' | 'hideDelay' | 'touchendHideDelay'
+    'placement' | 'offset' | 'scrollThrottleSeconds' | 'tooltipPin' | 'panelClass' | 'showDelay' | 'hideDelay' | 'touchendHideDelay'
 >;
 
 export const THY_TOOLTIP_DEFAULT_CONFIG_TOKEN = new InjectionToken<ThyGlobalTooltipConfig>('thy-tooltip-default-config');
 
 export const thyTooltipDefaultConfig: ThyGlobalTooltipConfig = {
+    placement: 'top',
     showDelay: 200,
     hideDelay: 100,
     touchendHideDelay: 1500,
