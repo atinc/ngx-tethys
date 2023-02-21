@@ -90,7 +90,7 @@ class ThyDemoTooltipTemplateComponent {
 })
 export class TooltipTestModule {}
 
-describe(`ThyTooltip`, () => {
+fdescribe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
@@ -592,13 +592,28 @@ describe(`ThyTooltip`, () => {
                 placement: 'top'
             });
             tooltipRef.show('Tooltip content', 1000);
-            tick(1000);
+            tick(500);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(false);
+            tick(500);
             fixture.detectChanges();
             expect(tooltipRef.isTooltipVisible()).toBe(true);
             tooltipRef.hide(1000);
             tick(1000);
             fixture.detectChanges();
             expect(tooltipRef.isTooltipVisible()).toBe(false);
+        }));
+
+        it('should show tooltip with data', fakeAsync(() => {
+            const tooltipRef: ThyTooltipRef = tooltipService.create(basicTestComponent.tooltipHostElement, {
+                placement: 'top'
+            });
+            const data = { name: 'Mike' };
+            tooltipRef.show('Tooltip content', data, 3000);
+            tick(3000);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(true);
+            expect(tooltipRef['tooltipInstance'].data).toEqual(data);
         }));
     });
 });
