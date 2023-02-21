@@ -1,3 +1,4 @@
+@use "../../variables";
 // We want overlays to always appear over user content, so set a baseline
 // very high z-index for the overlay container, which is where we create the new
 // stacking context for all overlays.
@@ -71,10 +72,10 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
     .cdk-overlay-backdrop {
         // TODO(jelbourn): reuse sidenav fullscreen mixin.
         position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
+        top: variables.$zero;
+        bottom: variables.$zero;
+        left: variables.$zero;
+        right: variables.$zero;
 
         z-index: $cdk-z-index-overlay-backdrop;
         pointer-events: auto;
