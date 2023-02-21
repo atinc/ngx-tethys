@@ -90,7 +90,7 @@ class ThyDemoTooltipTemplateComponent {
 })
 export class TooltipTestModule {}
 
-fdescribe(`ThyTooltip`, () => {
+describe(`ThyTooltip`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
