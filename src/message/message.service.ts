@@ -3,7 +3,7 @@ import { Inject, Injectable, Injector, TemplateRef } from '@angular/core';
 import { ThyMessageContainerComponent } from './message-container.component';
 import { ThyMessageRef } from './message-ref';
 import { ThyMessageQueue } from './message-queue.service';
-import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import { ThyGlobalMessageConfig, ThyMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
 import { ThyAbstractMessageService } from './abstract';
 
 @Injectable({
@@ -12,13 +12,19 @@ import { ThyAbstractMessageService } from './abstract';
 export class ThyMessageService extends ThyAbstractMessageService<ThyMessageContainerComponent> {
     private _lastMessageId = 0;
 
+    private defaultConfig: ThyGlobalMessageConfig;
+
     constructor(
         overlay: Overlay,
         injector: Injector,
         private messageQueue: ThyMessageQueue,
-        @Inject(THY_MESSAGE_DEFAULT_CONFIG) private defaultConfig: ThyGlobalMessageConfig
+        @Inject(THY_MESSAGE_DEFAULT_CONFIG) config: ThyGlobalMessageConfig
     ) {
         super(overlay, injector, messageQueue);
+        this.defaultConfig = {
+            ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
+            ...config
+        };
     }
 
     /**
