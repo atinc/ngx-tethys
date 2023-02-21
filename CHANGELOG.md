@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.20](https://github.com/atinc/ngx-tethys/compare/14.2.19...14.2.20) (2023-02-21)
+
+
+### Bug Fixes
+
+* **image:** use width / height to prevent css packing optimization #INFR-6526 ([358b39b](https://github.com/atinc/ngx-tethys/commit/358b39bae3b4e0f2aae361c0c05cfaadc64837b5)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
+
+
+
 ## [14.2.19](https://github.com/atinc/ngx-tethys/compare/14.2.18...14.2.19) (2023-02-17)
 
 
