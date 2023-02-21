@@ -7,7 +7,6 @@ import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
 import { SafeAny } from 'ngx-tethys/types';
-import { ThyGlobalTooltipConfig, THY_TOOLTIP_DEFAULT_CONFIG_TOKEN } from './tooltip.config';
 
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
@@ -115,9 +114,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         platform: Platform,
         focusMonitor: FocusMonitor,
         private viewContainerRef: ViewContainerRef,
-        private thyTooltipService: ThyTooltipService,
-        @Inject(THY_TOOLTIP_DEFAULT_CONFIG_TOKEN)
-        private defaultTooltipConfig: ThyGlobalTooltipConfig
+        private thyTooltipService: ThyTooltipService
     ) {
         super(elementRef, platform, focusMonitor, ngZone);
     }
@@ -133,7 +130,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
         }
         if (!this.tooltipRef) {
             this.tooltipRef = this.thyTooltipService.create(this.elementRef, {
-                initialState: this.data,
                 viewContainerRef: this.viewContainerRef,
                 placement: this.placement,
                 contentClass: this.tooltipClass,
@@ -142,14 +138,13 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
                 hasBackdrop: this.trigger === 'click'
             });
         }
-        this.tooltipRef.show(this.content, delay);
+        this.tooltipRef.show(this.content, this.data, delay);
     }
 
     /** Hides the tooltip after the delay in ms, defaults to tooltip-delay-hide 100ms */
     hide(delay: number = this.hideDelay): void {
         this.tooltipRef?.hide(delay);
     }
-
     ngOnDestroy() {
         this.tooltipRef?.dispose();
     }
