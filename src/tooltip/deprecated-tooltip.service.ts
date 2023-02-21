@@ -29,8 +29,7 @@ export class TooltipService {
             this.platform,
             this.focusMonitor,
             viewContainerRef,
-            this.thyTooltipService,
-            this.defaultTooltipConfig
+            this.thyTooltipService
         );
         if (trigger) {
             this.thyTooltipDirective.trigger = trigger;
