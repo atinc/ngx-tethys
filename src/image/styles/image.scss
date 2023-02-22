@@ -172,10 +172,6 @@ $image-preview-prefix-cls: 'thy-image-preview';
 
 .#{$image-preview-prefix-cls}-backdrop {
     background: rgba(variables.$gray-800, 0.95);
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
 }
 
 .thy-image {
