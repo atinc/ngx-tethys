@@ -1,9 +1,10 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
-import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
+import { Component, DebugElement, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarComponent } from '../avatar.component';
+import { Subject } from 'rxjs';
 
 @Component({
     template: `
@@ -30,6 +31,8 @@ export class AvatarListBasicComponent implements OnInit {
             <thy-avatar thyName="Abigail"></thy-avatar>
             <thy-avatar thyName="Belle"></thy-avatar>
             <thy-avatar thyName="Camilla"></thy-avatar>
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
         </thy-avatar-list>
     `,
     styleUrls: ['../styles/avatar.scss']
@@ -46,6 +49,29 @@ export class AvatarListTestComponent implements OnInit {
     ngOnInit(): void {}
 }
 
+@Component({
+    template: `
+        <thy-avatar-list [thyResponsive]="responsive">
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+            <thy-avatar thyName="Camilla"></thy-avatar>
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+            <thy-avatar thyName="Camilla"></thy-avatar>
+            <thy-avatar thyName="Abigail"></thy-avatar>
+            <thy-avatar thyName="Belle"></thy-avatar>
+        </thy-avatar-list>
+    `,
+    styleUrls: ['../styles/avatar.scss']
+})
+export class AvatarListResponsiveComponent implements OnInit {
+    public responsive = false;
+
+    ngOnInit(): void {}
+}
+
 describe('thy-avatar-list', () => {
     let componentInstance: AvatarListBasicComponent;
     let avatarListDebugElement: DebugElement;
@@ -53,7 +79,7 @@ describe('thy-avatar-list', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent, AvatarListTestComponent]
+            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListResponsiveComponent]
         }).compileComponents();
     });
 
@@ -86,6 +112,7 @@ describe('thy-avatar-list', () => {
         }));
 
         it('should show append template', () => {
+            expect(avatarListDebugElement.componentInstance.appendContent).not.toBeNull();
             expect(avatarListElement.querySelector('button')).not.toBeNull();
         });
     });
@@ -187,11 +214,41 @@ describe('thy-avatar-list', () => {
             expect(avatarComponent.length).toEqual(3);
         });
 
-        it('should ThyAvatarComponent 3  when thyMax is 6', () => {
-            fixture.componentInstance.max = 6;
+        it('should ThyAvatarComponent 5 when thyMax is 10', () => {
+            fixture.componentInstance.max = 10;
             fixture.detectChanges();
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
-            expect(avatarComponent.length).toEqual(3);
+            expect(avatarComponent.length).toEqual(5);
         });
     });
+
+    describe('thyResponsive is work', () => {
+        const fakeResizeObserver = new Subject();
+        let fixture: ComponentFixture<AvatarListResponsiveComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListResponsiveComponent);
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            const createResizeSpy = spyOn(avatarListDebugElement.componentInstance, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
+            fixture.detectChanges();
+        });
+
+        it('should ThyAvatarComponent count change with view size', fakeAsync(() => {
+            fixture.componentInstance.responsive = true;
+            expect(fixture.debugElement.queryAll(By.directive(ThyAvatarComponent)).length).toEqual(10);
+            fixture.detectChanges();
+
+            avatarListDebugElement.componentInstance.ngAfterViewInit();
+            spyAvatarListOffsetWidth(avatarListDebugElement.componentInstance, 200);
+            fakeResizeObserver.next();
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+            expect(fixture.debugElement.queryAll(By.directive(ThyAvatarComponent)).length).toEqual(4);
+        }));
+    });
 });
+
+function spyAvatarListOffsetWidth(avatarList: ThyAvatarListComponent, width: number) {
+    spyOnProperty(avatarList['elementRef'].nativeElement, 'offsetWidth', 'get').and.returnValue(width);
+}
