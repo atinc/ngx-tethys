@@ -1117,3 +1117,7 @@ $skeleton-row-radius: 4px;
 $skeleton-row-width: 100%;
 $skeleton-primary-color: #f7f7f7;
 $skeleton-animated-interval: 1.5s;
+
+
+// Prevent style packing optimization
+$zero:0;
