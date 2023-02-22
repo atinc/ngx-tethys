@@ -1,7 +1,7 @@
 import { Component, ElementRef, HostBinding, Inject } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from './abstract';
 import { ThyMessageQueue } from './message-queue.service';
-import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG } from './message.config';
+import { ThyGlobalMessageConfig, THY_MESSAGE_DEFAULT_CONFIG, THY_MESSAGE_DEFAULT_CONFIG_VALUE } from './message.config';
 
 /**
  * @internal
@@ -20,6 +20,9 @@ export class ThyMessageContainerComponent extends ThyAbstractMessageContainerCom
         elementRef: ElementRef,
         @Inject(THY_MESSAGE_DEFAULT_CONFIG) defaultConfig: ThyGlobalMessageConfig
     ) {
-        super(elementRef, defaultConfig);
+        super(elementRef, {
+            ...THY_MESSAGE_DEFAULT_CONFIG_VALUE,
+            ...defaultConfig
+        });
     }
 }
