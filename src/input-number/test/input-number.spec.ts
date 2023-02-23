@@ -375,6 +375,13 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         expect(downHandlerElement.classList.contains('disabled')).toBe(false);
+
+        inputNumberComponentInstance.thyMin = null;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(downHandlerElement.classList.contains('disabled')).toBe(false);
     }));
 
     it('should remove disabled in up handler after switch thyMax', fakeAsync(() => {
@@ -388,6 +395,13 @@ describe('input-number component', () => {
         expect(upHandlerElement.classList.contains('disabled')).toBe(true);
 
         inputNumberComponentInstance.thyMax = 100;
+        fixture.detectChanges();
+        flush();
+        fixture.detectChanges();
+
+        expect(upHandlerElement.classList.contains('disabled')).toBe(false);
+
+        inputNumberComponentInstance.thyMax = null;
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
