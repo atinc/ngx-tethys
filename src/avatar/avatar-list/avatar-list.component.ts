@@ -119,7 +119,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
         this.avatarList = value;
     }
 
-    @ViewChild('appendContent') appendContent: ElementRef<HTMLInputElement>;
+    @ViewChild('appendContent', { static: true }) appendContent: ElementRef<HTMLInputElement>;
 
     constructor(private elementRef: ElementRef, private ngZone: NgZone) {}
 

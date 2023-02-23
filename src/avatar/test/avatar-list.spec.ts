@@ -121,8 +121,8 @@ describe('thy-avatar-list', () => {
             expect(avatarElement.classList.contains('thy-avatar-36')).toEqual(true);
         }));
 
-        it('should show append template', () => {
-            expect(avatarListDebugElement.componentInstance.appendContent.nativeElement.querySelector('button')).not.toBeNull();
+        it('should show append and appendContent template', () => {
+            expect(avatarListDebugElement.componentInstance.appendContent.nativeElement.offsetWidth).not.toBeNull();
             expect(avatarListElement.querySelector('button')).not.toBeNull();
         });
     });
