@@ -122,7 +122,7 @@ describe('thy-avatar-list', () => {
         }));
 
         it('should show append and appendContent template', () => {
-            expect(avatarListDebugElement.componentInstance.appendContent.nativeElement.offsetWidth).not.toBeNull();
+            expect(avatarListDebugElement.componentInstance.appendContent).not.toBeNull();
             expect(avatarListElement.querySelector('button')).not.toBeNull();
         });
     });
