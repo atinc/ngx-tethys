@@ -287,8 +287,6 @@ describe('thy-avatar-list', () => {
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListResponsiveComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
-            const createResizeSpy = spyOn(avatarListDebugElement.componentInstance, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
             fixture.detectChanges();
         });
 
@@ -298,6 +296,8 @@ describe('thy-avatar-list', () => {
             fixture.detectChanges();
 
             avatarListDebugElement.componentInstance.ngAfterViewInit();
+            const createResizeSpy = spyOn(avatarListDebugElement.componentInstance, 'createResizeObserver');
+            createResizeSpy.and.returnValue(fakeResizeObserver);
             spyAvatarListOffsetWidth(avatarListDebugElement.componentInstance, 200);
             fakeResizeObserver.next();
             fixture.detectChanges();
