@@ -1,4 +1,4 @@
-import { Component, DebugElement, OnInit } from '@angular/core';
+import { Component, DebugElement, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
@@ -94,11 +94,9 @@ describe('thy-avatar-list', () => {
 
     describe('basic', () => {
         let fixture: ComponentFixture<AvatarListBasicComponent>;
-        let avatarListComponentInstance: ThyAvatarListComponent;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListBasicComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
-            avatarListComponentInstance = avatarListDebugElement.componentInstance;
             componentInstance = fixture.componentInstance;
             avatarListElement = avatarListDebugElement.nativeElement;
             fixture.detectChanges();
@@ -112,8 +110,6 @@ describe('thy-avatar-list', () => {
 
         it('should have correct avatar item', fakeAsync(() => {
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
-            expect(avatarListComponentInstance.appendContent).toBeTruthy();
-            expect(avatarListComponentInstance.avatarItems.length).toEqual(5);
             expect(avatarComponent.length).toEqual(5);
         }));
 
@@ -124,7 +120,7 @@ describe('thy-avatar-list', () => {
         }));
 
         it('should show append template', () => {
-            expect(avatarListDebugElement.componentInstance.appendContent).not.toBeNull();
+            expect(avatarListDebugElement.componentInstance.appendContent.nativeElement.querySelector('button')).not.toBeNull();
             expect(avatarListElement.querySelector('button')).not.toBeNull();
         });
     });
@@ -242,6 +238,9 @@ describe('thy-avatar-list', () => {
             fixture.detectChanges();
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
             expect(avatarComponent.length).toEqual(3);
+            const moreComponent = fixture.debugElement.query(By.css('.more-36'));
+            expect(avatarListDebugElement.componentInstance.avatarItems.length).toEqual(5);
+            expect(Number(moreComponent.nativeElement.innerText.slice(1))).toEqual(2);
         }));
 
         it('should ThyAvatarComponent 5 when thyMax is 10', () => {
