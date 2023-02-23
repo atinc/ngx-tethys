@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
 
@@ -27,6 +27,12 @@ export class ThyPopoverHeaderComponent {
             this.thyTitle = this.translate.instant(key);
         }
     }
+
+    /**
+     * 自定义头部模版
+     */
+    @ContentChild('popoverHeader')
+    public headerTemplate: TemplateRef<any>;
 
     /**
      * @internal
