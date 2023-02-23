@@ -1,6 +1,8 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyPopoverBodyComponent, ThyPopoverHeaderComponent } from '../index';
 import { ThyPopoverModule } from '../module';
 
@@ -17,6 +19,23 @@ class PopoverHeaderBasicComponent {
     template: '<thy-popover-header thyTitleTranslationKey="Translation Key Title"></thy-popover-header>'
 })
 class PopoverHeaderTranslationComponent {}
+
+@Component({
+    selector: 'thy-popover-header-template-basic',
+    template: `
+        <thy-popover-header>
+            <ng-template #popoverHeader>
+                <div class="header-template">我是自定义头部模版</div>
+                <button type="button" class="close" (click)="close($event)">
+                    <thy-icon thyIconName="close-bold"></thy-icon>
+                </button>
+            </ng-template>
+        </thy-popover-header>
+    `
+})
+class PopoverHeaderTemplateBasicComponent {
+    close() {}
+}
 
 @Component({
     selector: 'thy-popover-body-basic',
@@ -149,5 +168,54 @@ describe('popover-layout', () => {
             expect(popoverBodyElement.childElementCount).toEqual(0);
             expect(popoverBodyElement.classList).toContain('thy-popover-body');
         });
+    });
+
+    describe('popover-header-template', () => {
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyPopoverModule, ThyIconModule],
+                declarations: [PopoverHeaderTemplateBasicComponent]
+            });
+            TestBed.compileComponents();
+        });
+
+        let fixture: ComponentFixture<PopoverHeaderTemplateBasicComponent>;
+        let popoverHeaderDebugElement: DebugElement;
+        let popoverHeaderElement: HTMLElement;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(PopoverHeaderTemplateBasicComponent);
+            fixture.detectChanges();
+            popoverHeaderDebugElement = fixture.debugElement.query(By.directive(ThyPopoverHeaderComponent));
+            popoverHeaderElement = popoverHeaderDebugElement.nativeElement;
+        });
+
+        it('should create', () => {
+            expect(fixture).toBeTruthy();
+            expect(popoverHeaderDebugElement).toBeTruthy();
+            expect(popoverHeaderElement).toBeTruthy();
+        });
+
+        it('should have header when has header template', () => {
+            fixture.detectChanges();
+            const headerTemplate = fixture.debugElement.query(By.css('.header-template'));
+            expect(headerTemplate).toBeTruthy();
+            expect(headerTemplate.parent.nativeElement.innerText).toBe('我是自定义头部模版');
+        });
+
+        it('should have close', () => {
+            const close = jasmine.createSpy('popover close');
+            fixture.componentInstance.close = close;
+            fixture.detectChanges();
+            clickClose();
+            expect(close).toHaveBeenCalled();
+        });
+
+        function clickClose() {
+            fixture.detectChanges();
+            const closeElement = fixture.debugElement.nativeElement.querySelector('.close');
+            dispatchMouseEvent(closeElement, 'click');
+            fixture.detectChanges();
+        }
     });
 });
