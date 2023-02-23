@@ -1,5 +1,5 @@
 import { style } from '@angular/animations';
-import { Component, DebugElement, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, DebugElement, ElementRef, OnInit, ViewChild, NgZone } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar-list.component';
@@ -82,6 +82,16 @@ export class AvatarListResponsiveComponent implements OnInit {
     ngOnInit(): void {}
 }
 
+@Component({
+    template: `
+        <thy-avatar-list> </thy-avatar-list>
+    `,
+    styleUrls: ['../styles/avatar.scss']
+})
+export class AvatarListEmptyComponent implements OnInit {
+    ngOnInit(): void {}
+}
+
 describe('thy-avatar-list', () => {
     let componentInstance: AvatarListBasicComponent;
     let avatarListDebugElement: DebugElement;
@@ -89,7 +99,7 @@ describe('thy-avatar-list', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListResponsiveComponent]
+            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListResponsiveComponent, AvatarListEmptyComponent]
         }).compileComponents();
     });
 
@@ -299,11 +309,27 @@ describe('thy-avatar-list', () => {
             const createResizeSpy = spyOn(avatarListDebugElement.componentInstance, 'createResizeObserver');
             createResizeSpy.and.returnValue(fakeResizeObserver);
             spyAvatarListOffsetWidth(avatarListDebugElement.componentInstance, 200);
-            fakeResizeObserver.next();
+            avatarListDebugElement.componentInstance.ngZone.run(() => {
+                fakeResizeObserver.next();
+            });
             fixture.detectChanges();
             tick(300);
             fixture.detectChanges();
             expect(fixture.debugElement.queryAll(By.directive(ThyAvatarComponent)).length).toEqual(4);
+        }));
+    });
+
+    describe('empty', () => {
+        let fixture: ComponentFixture<AvatarListEmptyComponent>;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(AvatarListEmptyComponent);
+            avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            fixture.detectChanges();
+        });
+
+        it('should create when ContentChildren is null ', fakeAsync(() => {
+            expect(fixture).toBeTruthy();
+            expect(fixture.debugElement.queryAll(By.directive(ThyAvatarComponent)).length).toEqual(0);
         }));
     });
 });
