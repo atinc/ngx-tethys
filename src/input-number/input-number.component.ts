@@ -61,7 +61,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     @Input() @InputBoolean() thyDisabled: boolean;
 
     @Input() set thyMax(value: number) {
-        this.innerMax = value;
+        this.innerMax = helpers.isNumber(value) ? value : this.innerMax;
         if (this.displayValue || this.displayValue === 0) {
             const val = Number(this.displayValue);
             this.disabledUp = val >= this.innerMax;
@@ -73,7 +73,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     }
 
     @Input() set thyMin(value: number) {
-        this.innerMin = value;
+        this.innerMin = helpers.isNumber(value) ? value : this.innerMin;
         if (this.displayValue || this.displayValue === 0) {
             const val = Number(this.displayValue);
             this.disabledDown = val <= this.innerMin;
