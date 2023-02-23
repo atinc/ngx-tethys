@@ -2,7 +2,7 @@
   <ng-content></ng-content>
 </ng-template>
 
-<ng-container *ngFor="let avatar of avatarRenderItems; index as index; count as count; last as isLast">
+<ng-container *ngFor="let avatar of avatarRenderItems; index as index; last as isLast">
   <div
     class="thy-avatar-content"
     [ngStyle]="overlapMode ? { 'margin-left.px': avatarOverlapSpace } : { 'margin-right.px': isLast ? 0 : avatarSpace }"
@@ -18,7 +18,7 @@
       [thyFetchPriority]="avatar.thyFetchPriority"
       (thyRemove)="remove(avatar.avatarName)"
     ></thy-avatar>
-    <span *ngIf="isLast" ngClass="more-{{ avatar._size }}">+{{ avatarItems.length - count }} </span>
+    <span *ngIf="isLast && more" ngClass="more-{{ avatar._size }}">+{{ more }} </span>
   </div>
 </ng-container>
 

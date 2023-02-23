@@ -44,16 +44,20 @@ export const enum ThyAvatarListMode {
     },
     providers: [UpdateHostClassService]
 })
-export class ThyAvatarListComponent implements OnInit, OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
+export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;
 
-    public avatarItems: ThyAvatarComponent[];
+    public avatarItems: ThyAvatarComponent[] = [];
 
     public avatarRenderItems: ThyAvatarComponent[] = [];
 
     public avatarSpace = AVATAR_ITEM_SPACE;
 
     public avatarOverlapSpace = OVERLAP_AVATAR_ITEM_SPACE;
+
+    public get more() {
+        return this.avatarItems.length - this.avatarRenderItems.length;
+    }
 
     private ngUnsubscribe$ = new Subject<void>();
 
@@ -119,9 +123,7 @@ export class ThyAvatarListComponent implements OnInit, OnChanges, OnDestroy, Aft
 
     constructor(private elementRef: ElementRef, private ngZone: NgZone) {}
 
-    ngOnInit() {}
-
-    ngOnChanges(changes: SimpleChanges): void {
+    ngOnChanges(changes: SimpleChanges) {
         if (changes.thyAvatarSize && !changes.thyAvatarSize.firstChange) {
             this.setAvatarSize();
         }

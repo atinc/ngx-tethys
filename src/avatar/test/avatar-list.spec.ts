@@ -111,6 +111,8 @@ describe('thy-avatar-list', () => {
         it('should have correct avatar item', fakeAsync(() => {
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
             expect(avatarComponent.length).toEqual(5);
+            const moreComponent = fixture.debugElement.query(By.css('.more-36'));
+            expect(moreComponent).not.toBeTruthy();
         }));
 
         it('should be 36px size which is the default size When thyAvatarSize is empty', fakeAsync(() => {
@@ -239,7 +241,7 @@ describe('thy-avatar-list', () => {
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
             expect(avatarComponent.length).toEqual(3);
             const moreComponent = fixture.debugElement.query(By.css('.more-36'));
-            expect(avatarListDebugElement.componentInstance.avatarItems.length).toEqual(5);
+            expect(moreComponent).toBeTruthy();
             expect(Number(moreComponent.nativeElement.innerText.slice(1))).toEqual(2);
         }));
 
@@ -248,6 +250,8 @@ describe('thy-avatar-list', () => {
             fixture.detectChanges();
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
             expect(avatarComponent.length).toEqual(5);
+            const moreComponent = fixture.debugElement.query(By.css('.more-36'));
+            expect(moreComponent).not.toBeTruthy();
         });
     });
 
