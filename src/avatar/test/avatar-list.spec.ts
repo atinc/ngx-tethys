@@ -94,9 +94,11 @@ describe('thy-avatar-list', () => {
 
     describe('basic', () => {
         let fixture: ComponentFixture<AvatarListBasicComponent>;
+        let avatarListComponentInstance: ThyAvatarListComponent;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListBasicComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
+            avatarListComponentInstance = avatarListDebugElement.componentInstance;
             componentInstance = fixture.componentInstance;
             avatarListElement = avatarListDebugElement.nativeElement;
             fixture.detectChanges();
@@ -110,7 +112,8 @@ describe('thy-avatar-list', () => {
 
         it('should have correct avatar item', fakeAsync(() => {
             const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
-            expect(avatarComponent).toBeTruthy();
+            expect(avatarListComponentInstance.appendContent).toBeTruthy();
+            expect(avatarListComponentInstance.avatarItems.length).toEqual(5);
             expect(avatarComponent.length).toEqual(5);
         }));
 
