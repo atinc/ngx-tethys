@@ -6,6 +6,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
 import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
+import { dispatchFakeEvent } from '../../testing';
 
 @Component({
     template: `
@@ -23,7 +24,7 @@ import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
             <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
             <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
             <!-- Suite 7 for test thyDisabled and thyRemovable -->
-            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyRemovable="true"></thy-avatar>
+            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
         </ng-container>
     `
 })
@@ -59,6 +60,10 @@ class ThyTestAvatarComponent {
     thyError(event: Event): void {
         this.spyThyError();
         this.errorSubscriber.next(event);
+    }
+
+    remove() {
+        console.log('remove');
     }
 }
 
@@ -187,6 +192,20 @@ describe('ThyAvatarComponent', () => {
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
+        });
+
+        it('should dispatch event when thyRemove work', () => {
+            dispatchFakeEvent(fixture.nativeElement, 'mouseover', true);
+            fixture.detectChanges();
+            const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+            dispatchFakeEvent(avatarContainer, 'mouseover', true);
+
+            const closeIcon = avatarContainer.querySelector('.remove-link');
+            expect(closeIcon).toBeTruthy();
+            const removeSpy = spyOn(fixture.componentInstance, 'remove');
+            dispatchFakeEvent(closeIcon, 'click', true);
+            fixture.detectChanges();
+            expect(removeSpy).toHaveBeenCalledTimes(1);
         });
     });
 

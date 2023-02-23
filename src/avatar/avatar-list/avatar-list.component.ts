@@ -99,7 +99,7 @@ export class ThyAvatarListComponent implements OnInit, OnChanges, OnDestroy, Aft
     /**
      * avatar 移除按钮事件
      */
-    @Output() thyOnRemove = new EventEmitter<string>();
+    @Output() thyRemove = new EventEmitter<string>();
 
     /**
      *  append 自定义操作
@@ -159,7 +159,7 @@ export class ThyAvatarListComponent implements OnInit, OnChanges, OnDestroy, Aft
     }
 
     public remove(name: string) {
-        this.thyOnRemove.emit(name);
+        this.thyRemove.emit(name);
     }
 
     private getRenderAvatar() {
