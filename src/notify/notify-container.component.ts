@@ -1,7 +1,7 @@
 import { Component, Inject, ElementRef, HostBinding } from '@angular/core';
 import { ThyAbstractMessageContainerComponent } from 'ngx-tethys/message';
 import { ThyNotifyQueue } from './notify-queue.service';
-import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG } from './notify.config';
+import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CONFIG_VALUE } from './notify.config';
 
 @Component({
     selector: 'thy-notify-container',
@@ -15,6 +15,9 @@ export class ThyNotifyContainerComponent extends ThyAbstractMessageContainerComp
         elementRef: ElementRef,
         @Inject(THY_NOTIFY_DEFAULT_CONFIG) defaultConfig: ThyGlobalNotifyConfig
     ) {
-        super(elementRef, defaultConfig);
+        super(elementRef, {
+            ...THY_NOTIFY_DEFAULT_CONFIG_VALUE,
+            ...defaultConfig
+        });
     }
 }

@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.21](https://github.com/atinc/ngx-tethys/compare/14.2.20...14.2.21) (2023-02-22)
+
+
+### Bug Fixes
+
+* **message、notify:** merge custom global config and default global config  #INFR-6570 ([cacfa66](https://github.com/atinc/ngx-tethys/commit/cacfa6636ea27cfa37e801269e7b6f424857ab2a)), closes [#INFR-6570](https://github.com/atinc/ngx-tethys/issues/INFR-6570)
+* **styles:** use variables to prevent packing optimization #INFR-6526 ([#2545](https://github.com/atinc/ngx-tethys/issues/2545)) ([52a349f](https://github.com/atinc/ngx-tethys/commit/52a349f2c8b3ff1e6a49b8161db0d6af1b2b5bcd)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
+
+
+### Features
+
+* **progress:** fixed text width 40px #INFR-6551 ([#2542](https://github.com/atinc/ngx-tethys/issues/2542)) ([18d88d3](https://github.com/atinc/ngx-tethys/commit/18d88d30a5e6068efe2d159b0817634cc520110e)), closes [#INFR-6551](https://github.com/atinc/ngx-tethys/issues/INFR-6551)
+
+
+
 ## [14.2.20](https://github.com/atinc/ngx-tethys/compare/14.2.19...14.2.20) (2023-02-21)
 
 
