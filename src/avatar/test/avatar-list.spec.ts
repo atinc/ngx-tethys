@@ -1,3 +1,4 @@
+import { style } from '@angular/animations';
 import { Component, DebugElement, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -174,6 +175,31 @@ describe('thy-avatar-list', () => {
             fixture.componentInstance.mode = ThyAvatarListMode.overlap;
             fixture.detectChanges();
             expect(avatarListElement.classList.contains('thy-avatar-list-overlap')).toEqual(true);
+        }));
+
+        it('should space is 6 or 0 when thyMode is default', fakeAsync(() => {
+            fixture.componentInstance.mode = ThyAvatarListMode.default;
+            fixture.componentInstance.max = 10;
+            fixture.componentInstance.size = '36';
+            fixture.detectChanges();
+
+            const avatarContents = fixture.debugElement.queryAll(By.css('.thy-avatar-content'));
+            const avatarSpace = avatarListDebugElement.componentInstance.avatarSpace;
+            avatarContents.forEach((value, index) => {
+                if (index === avatarContents.length - 1) {
+                    expect(avatarContents[index].nativeElement.style.marginRight).toBe(`0px`);
+                } else {
+                    expect(avatarContents[index].nativeElement.style.marginRight).toBe(`${avatarSpace}px`);
+                }
+            });
+        }));
+
+        it('should space is -8 when thyMode is overlap', fakeAsync(() => {
+            fixture.componentInstance.mode = ThyAvatarListMode.overlap;
+            fixture.detectChanges();
+            const avatarContent = fixture.debugElement.query(By.css('.thy-avatar-content'));
+            const avatarOverlapSpace = avatarListDebugElement.componentInstance.avatarOverlapSpace;
+            expect(avatarContent.nativeElement.style.marginLeft).toBe(`${avatarOverlapSpace}px`);
         }));
     });
 
