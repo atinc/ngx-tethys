@@ -1,24 +1,13 @@
 import {
-    Component,
-    HostBinding,
-    Host,
-    Optional,
-    OnInit,
-    Input,
-    ElementRef,
-    Output,
-    EventEmitter,
-    TemplateRef,
-    OnDestroy
+    Component, ElementRef, EventEmitter, Host, HostBinding, Input, OnDestroy, OnInit, Optional, Output, TemplateRef
 } from '@angular/core';
-import { ThyLayoutComponent } from './layout.component';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
+import { isMacPlatform } from '@tethys/cdk/is';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyResizeEvent } from 'ngx-tethys/resizable';
-import { isMacPlatform } from '@tethys/cdk/is';
-import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
-import { Subject, Subscription } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { Subscription } from 'rxjs';
+import { ThyLayoutComponent } from './layout.component';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -48,6 +37,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 thyLine="true"
                 (mouseenter)="resizeHandleHover($event, 'enter')"
                 (mouseleave)="resizeHandleHover($event, 'leave')"
+                (dblclick)="restoreToDefaultWidth()"
             >
             </thy-resize-handle>
         </div>
@@ -149,6 +139,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         }
     }
 
+    @Input() thyDefaultWidth: string | number;
+
     @HostBinding('class.sidebar-collapse-show')
     get collapseVisibility() {
         return this.thyCollapsed;
@@ -237,6 +229,14 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         this.thyCollapsed = !this.thyCollapsed;
         setTimeout(() => this.updateCollapseTip(), 200);
         this.thyCollapsedChange.emit(this.isCollapsed);
+    }
+
+    restoreToDefaultWidth() {
+        if (this.thyDefaultWidth === 'lg') {
+            this.thyDefaultWidth = LG_WIDTH;
+        }
+        this.thyLayoutSidebarWidth = (this.thyDefaultWidth as number) || SIDEBAR_DEFAULT_WIDTH;
+        this.thyDragWidthChange.emit(this.thyLayoutSidebarWidth);
     }
 
     ngOnDestroy(): void {
