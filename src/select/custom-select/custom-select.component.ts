@@ -445,7 +445,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
     }
 
     public get isHiddenOptions(): boolean {
-        return this.options.toArray().every(option => option.hidden);
+        return this.options.toArray().every(option => option.hidden || option.element?.nativeElement?.hidden);
     }
 
     public onAttached(): void {

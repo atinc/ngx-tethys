@@ -70,7 +70,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     }
 
     get disabled(): boolean {
-        return this._disabled;
+        return this._hidden || this._disabled;
     }
 
     @HostBinding('class.hidden')
