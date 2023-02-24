@@ -15,7 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from 'ngx-tethys/core';
-import { DOWN_ARROW, ENTER, helpers, UP_ARROW } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -61,7 +61,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     @Input() @InputBoolean() thyDisabled: boolean;
 
     @Input() set thyMax(value: number) {
-        this.innerMax = helpers.isNumber(value) ? value : this.innerMax;
+        this.innerMax = isNumber(value) ? value : this.innerMax;
         if (this.displayValue || this.displayValue === 0) {
             const val = Number(this.displayValue);
             this.disabledUp = val >= this.innerMax;
@@ -73,7 +73,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     }
 
     @Input() set thyMin(value: number) {
-        this.innerMin = helpers.isNumber(value) ? value : this.innerMin;
+        this.innerMin = isNumber(value) ? value : this.innerMin;
         if (this.displayValue || this.displayValue === 0) {
             const val = Number(this.displayValue);
             this.disabledDown = val <= this.innerMin;
@@ -214,7 +214,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
     }
 
     getMaxPrecision(value: string | number): number {
-        if (!helpers.isUndefinedOrNull(this.thyPrecision)) {
+        if (!isUndefinedOrNull(this.thyPrecision)) {
             return this.thyPrecision;
         }
         const stepPrecision = this.getPrecision(this.thyStep);
@@ -298,7 +298,7 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
             return num as number;
         }
         const numStr = String(num);
-        if (numStr.indexOf('.') >= 0 && !helpers.isUndefinedOrNull(this.thyPrecision)) {
+        if (numStr.indexOf('.') >= 0 && !isUndefinedOrNull(this.thyPrecision)) {
             return Number(Number(num).toFixed(this.thyPrecision));
         }
         return Number(num);
