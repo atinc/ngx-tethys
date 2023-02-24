@@ -11,7 +11,6 @@ import {
     NgZone,
     OnChanges,
     OnDestroy,
-    OnInit,
     Output,
     QueryList,
     SimpleChanges,
@@ -22,7 +21,7 @@ import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
-import { SafeAny } from '../../types';
+import { SafeAny } from 'ngx-tethys/types';
 
 const AVATAR_ITEM_SPACE = 6;
 
