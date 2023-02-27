@@ -18,7 +18,7 @@
       [thyFetchPriority]="avatar.thyFetchPriority"
       (thyRemove)="remove(avatar.avatarName)"
     ></thy-avatar>
-    <span *ngIf="isLast && more" ngClass="more-{{ avatar._size }}">+{{ more }} </span>
+    <span *ngIf="isLast && more && thyResponsive" ngClass="more-{{ avatar._size }}">+{{ more }} </span>
   </div>
 </ng-container>
 

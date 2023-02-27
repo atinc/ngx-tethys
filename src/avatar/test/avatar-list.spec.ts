@@ -32,7 +32,14 @@ export class AvatarListBasicComponent implements OnInit {
 @Component({
     template: `
         <div [ngStyle]="{ width: '300px' }">
-            <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode" [thyRemovable]="removable" [thyMax]="max" (thyRemove)="remove()">
+            <thy-avatar-list
+                [thyAvatarSize]="size"
+                [thyMode]="mode"
+                [thyRemovable]="removable"
+                [thyMax]="max"
+                (thyRemove)="remove()"
+                [thyResponsive]="responsive"
+            >
                 <thy-avatar thyName="Abigail"></thy-avatar>
                 <thy-avatar thyName="Belle"></thy-avatar>
                 <thy-avatar thyName="Camilla"></thy-avatar>
@@ -51,6 +58,8 @@ export class AvatarListTestComponent implements OnInit {
     public removable = false;
 
     public max: number = 2;
+
+    public responsive = false;
 
     ngOnInit(): void {}
 
@@ -268,6 +277,7 @@ describe('thy-avatar-list', () => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
             avatarListDebugElement = fixture.debugElement.query(By.directive(ThyAvatarListComponent));
             fixture.componentInstance.size = '36';
+            fixture.componentInstance.responsive = true;
             fixture.detectChanges();
         });
 
@@ -279,6 +289,14 @@ describe('thy-avatar-list', () => {
             const moreComponent = fixture.debugElement.query(By.css('.more-36'));
             expect(moreComponent).toBeTruthy();
             expect(Number(moreComponent.nativeElement.innerText.slice(1))).toEqual(2);
+        }));
+
+        it('should  .more-36 no rendering  when thyResponsive is false and thyMax is 3', fakeAsync(() => {
+            fixture.componentInstance.responsive = false;
+            fixture.componentInstance.max = 3;
+            fixture.detectChanges();
+            const moreComponent = fixture.debugElement.query(By.css('.more-36'));
+            expect(moreComponent).not.toBeTruthy();
         }));
 
         it('should ThyAvatarComponent 5 when thyMax is 10', () => {
