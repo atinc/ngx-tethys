@@ -6,6 +6,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
 import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
+import { dispatchFakeEvent } from '../../testing';
 
 @Component({
     template: `
@@ -22,6 +23,8 @@ import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
             <thy-avatar *ngSwitchCase="5" [thyName]="name" [thySrc]="'./not_exist/abc.jpg'" (thyError)="thyError($event)"></thy-avatar>
             <!-- Suite 6 for testing thyLoading and thyFetchPriority -->
             <thy-avatar *ngSwitchCase="6" thySrc="/abc.jpg" [thyLoading]="loading" [thyFetchPriority]="fetchPriority"></thy-avatar>
+            <!-- Suite 7 for test thyDisabled and thyRemovable -->
+            <thy-avatar *ngSwitchCase="7" [thyName]="name" thyRemovable="true" (thyRemove)="remove()"></thy-avatar>
         </ng-container>
     `
 })
@@ -32,7 +35,7 @@ class ThyTestAvatarComponent {
         });
     }
 
-    useSuite: 1 | 2 | 3 | 4 | 5 | 6;
+    useSuite: 1 | 2 | 3 | 4 | 5 | 6 | 7;
 
     name = 'LiLei';
 
@@ -57,6 +60,10 @@ class ThyTestAvatarComponent {
     thyError(event: Event): void {
         this.spyThyError();
         this.errorSubscriber.next(event);
+    }
+
+    remove() {
+        console.log('remove');
     }
 }
 
@@ -164,7 +171,7 @@ describe('ThyAvatarComponent', () => {
         });
     });
 
-    describe('disabled or remove avatar when thyDisabled or thyShowRemove is true', () => {
+    describe('disabled or remove avatar when thyDisabled is true', () => {
         beforeEach(() => {
             componentInstance.useSuite = 4;
         });
@@ -174,11 +181,31 @@ describe('ThyAvatarComponent', () => {
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.thy-avatar-disabled')).not.toBeNull();
         });
+    });
 
-        it('has .remove-link element when thyShowRemove is true', () => {
+    describe('disabled or remove avatar when  thyRemovable is true', () => {
+        beforeEach(() => {
+            componentInstance.useSuite = 7;
+        });
+
+        it('has .remove-link element when thyRemovable is true', () => {
             fixture.detectChanges();
             const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
             expect(avatarContainer.querySelector('.remove-link')).not.toBeNull();
+        });
+
+        it('should dispatch event when thyRemove work', () => {
+            dispatchFakeEvent(fixture.nativeElement, 'mouseover', true);
+            fixture.detectChanges();
+            const avatarContainer = fixture.nativeElement.querySelector('.thy-avatar');
+            dispatchFakeEvent(avatarContainer, 'mouseover', true);
+
+            const closeIcon = avatarContainer.querySelector('.remove-link');
+            expect(closeIcon).toBeTruthy();
+            const removeSpy = spyOn(fixture.componentInstance, 'remove');
+            dispatchFakeEvent(closeIcon, 'click', true);
+            fixture.detectChanges();
+            expect(removeSpy).toHaveBeenCalledTimes(1);
         });
     });
 
