@@ -405,7 +405,6 @@ describe('input-number component', () => {
         fixture.detectChanges();
         flush();
         fixture.detectChanges();
-
         expect(upHandlerElement.classList.contains('disabled')).toBe(false);
     }));
 });
