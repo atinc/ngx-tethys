@@ -5,6 +5,7 @@ import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { getWeekOfMonth } from 'date-fns';
 import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ThyDatePickerModule } from './date-picker.module';
@@ -103,6 +104,20 @@ describe('ThyWeekPickerComponent', () => {
             fixture.detectChanges();
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
+
+        it('should has active class', fakeAsync(() => {
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            fixtureInstance.thyValue = new Date();
+            fixture.detectChanges();
+            flush();
+            const index = getWeekOfMonth(new Date());
+            const allTrs = document.querySelectorAll('tr');
+            expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
+        }));
     });
 
     function getPickerContainer(): HTMLElement {
