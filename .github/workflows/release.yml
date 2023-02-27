@@ -1,4 +1,4 @@
-name: AutoMerge
+name: Publish
 
 on:
   pull_request:
@@ -59,13 +59,13 @@ jobs:
         id: read-version
         uses: notiz-dev/github-action-json-property@release
         with:
-          path: "package.json"
-          prop_path: "version"
+          path: 'package.json'
+          prop_path: 'version'
       - name: send message to webhook
         uses: joelwmale/webhook-action@master
         with:
           url: 'https://hook-rc.pingcode.com/api/flow/w/http/357bdd4f00f34bfab2f878ad3b9e8b48'
-          body: '{ "version": "${{ steps.read-version.outputs.prop }}" }'
+          body: '{ "version": "${{ steps.read-version.outputs.prop }}", "name": "组件库 ngx-tethys" }'
   autoMerge:
     if: startsWith(github.head_ref, 'release-auto-')
     needs: [publish]
@@ -77,6 +77,6 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
           MERGE_LABELS: ''
-          MERGE_FORKS: "false"
-          MERGE_RETRIES: "20"
-          MERGE_RETRY_SLEEP: "60000"
+          MERGE_FORKS: 'false'
+          MERGE_RETRIES: '20'
+          MERGE_RETRY_SLEEP: '60000'
