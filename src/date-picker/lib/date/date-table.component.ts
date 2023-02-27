@@ -94,9 +94,19 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
                     cell.isToday = true;
                     row.isCurrent = true;
                 }
-                if (date.isSameDay(this.value)) {
+
+                if (this.selectedValue?.length > 0) {
+                    const [startSelected, endSelected] = this.selectedValue;
+                    if (date.isSameDay(startSelected)) {
+                        row.isActive = true;
+                    }
+                    if (date.isSameDay(endSelected)) {
+                        row.isActive = true;
+                    }
+                } else {
                     row.isActive = date.isSameDay(this.value);
                 }
+
                 row.dateCells.push(cell);
             }
 
