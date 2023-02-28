@@ -1,5 +1,15 @@
 import {
-    Component, ElementRef, EventEmitter, Host, HostBinding, Input, OnDestroy, OnInit, Optional, Output, TemplateRef
+    Component,
+    ElementRef,
+    EventEmitter,
+    Host,
+    HostBinding,
+    Input,
+    OnDestroy,
+    OnInit,
+    Optional,
+    Output,
+    TemplateRef
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
