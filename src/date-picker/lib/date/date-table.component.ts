@@ -104,7 +104,9 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
                         row.isActive = true;
                     }
                 } else {
-                    row.isActive = date.isSameDay(this.value);
+                    if (date.isSameDay(this.value)) {
+                        row.isActive = true;
+                    }
                 }
 
                 row.dateCells.push(cell);

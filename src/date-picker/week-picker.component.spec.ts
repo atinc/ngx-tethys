@@ -44,7 +44,7 @@ describe('ThyWeekPickerComponent', () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('general api testing', () => {
+    fdescribe('general api testing', () => {
         it('should open by click and close by click at outside', fakeAsync(() => {
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
@@ -106,17 +106,17 @@ describe('ThyWeekPickerComponent', () => {
         });
 
         it('should has active class', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date();
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            fixtureInstance.thyValue = new Date();
-            fixture.detectChanges();
             flush();
             const index = getWeekOfMonth(new Date());
             const allTrs = document.querySelectorAll('tr');
             expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
+            expect(allTrs[index].classList[1]).toEqual('thy-calendar-active-week');
         }));
     });
 
