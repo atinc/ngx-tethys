@@ -1,4 +1,9 @@
-<h5 class="thy-popover-title">{{ thyTitle }}</h5>
-<button type="button" class="close" (click)="close($event)">
-  <thy-icon thyIconName="close-bold"></thy-icon>
-</button>
+<ng-container *ngIf="headerTemplate; else defaultHeader">
+  <template [ngTemplateOutlet]="headerTemplate"></template>
+</ng-container>
+<ng-template #defaultHeader>
+  <h5 class="thy-popover-title">{{ thyTitle }}</h5>
+  <button type="button" class="close" (click)="close($event)">
+    <thy-icon thyIconName="close-bold"></thy-icon>
+  </button>
+</ng-template>

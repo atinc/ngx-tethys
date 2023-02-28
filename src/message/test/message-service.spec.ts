@@ -24,7 +24,7 @@ export class ThyMessageTestComponent implements OnInit {
 
     config: ThyMessageConfig;
 
-    constructor(private messageService: ThyMessageService) {}
+    constructor(public messageService: ThyMessageService) {}
 
     ngOnInit() {}
 
@@ -234,5 +234,23 @@ describe('ThyMessage', () => {
         tick(DEFAULT_DURATION_TIME);
         fixture.detectChanges();
         flush();
+    }));
+
+    it(`should close by ref`, fakeAsync(() => {
+        const ref = componentInstance.messageService.success('test ref', {
+            duration: 0
+        });
+        fixture.detectChanges();
+        expect(ref.config.duration).toBe(0);
+        expect(overlayContainerElement.querySelector('.thy-message-container .thy-message-success')).toBeTruthy();
+
+        const closeSpy = jasmine.createSpy();
+        ref.afterClosed().subscribe(() => {
+            closeSpy();
+        });
+        ref.close();
+        fixture.detectChanges();
+        expect(closeSpy).toHaveBeenCalled();
+        expect(overlayContainerElement.querySelector('.thy-message-container .thy-message-success')).toBeFalsy();
     }));
 });

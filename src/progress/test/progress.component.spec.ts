@@ -175,7 +175,8 @@ class ThyDemoProgressTooltipTemplateComponent {
 }
 
 function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
-    expect(!!tooltip['tooltipInstance']).toBe(shouldExist);
+    const tooltipInstance = tooltip['tooltipRef'] ? tooltip['tooltipRef']['tooltipInstance'] : null;
+    expect(!!tooltipInstance).toBe(shouldExist);
 }
 
 @NgModule({
@@ -205,7 +206,7 @@ describe(`ThyProgressComponent`, () => {
         let overlayContainerElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(fakeAsync(() => {
@@ -370,7 +371,7 @@ describe(`ThyProgressComponent`, () => {
         let overlayContainerElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         function computedCirclePath(strokeValue: string, value = 20, gapDegree = 0, strokeWidth = 6, size: string = 'md') {
@@ -591,7 +592,7 @@ describe(`ThyProgressComponent`, () => {
         let tooltipDirective: ThyTooltipDirective;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef']['isTooltipVisible']();
         }
 
         beforeEach(fakeAsync(() => {
@@ -948,7 +949,7 @@ describe(`ThyProgressComponent`, () => {
         let overlayContainerElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(fakeAsync(() => {

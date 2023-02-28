@@ -9,6 +9,8 @@ import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyTooltipDirective } from '../tooltip.directive';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { Platform } from '@angular/cdk/platform';
+import { ThyTooltipService } from '../tooltip.service';
+import { ThyTooltipRef } from '../tooltip-ref';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -26,10 +28,16 @@ const tooltipTemplateContext = { text: 'hello world' };
         >
             Basic Usage
         </button>
+
+        <button #tooltipHost>
+            Tooltip Host
+        </button>
     `
 })
 class ThyDemoTooltipBasicComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;
+
+    @ViewChild('tooltipHost', { static: true }) tooltipHostElement: ElementRef<HTMLElement>;
 
     message = initialTooltipMessage;
 
@@ -68,9 +76,9 @@ class ThyDemoTooltipTemplateComponent {
 
     disabled = false;
 
-    showDelay = undefined;
+    showDelay: any = undefined;
 
-    hideDelay = undefined;
+    hideDelay: any = undefined;
 
     placement = 'top';
 }
@@ -112,7 +120,8 @@ describe(`ThyTooltip`, () => {
 
     /** Asserts whether a tooltip directive has a tooltip instance. */
     function assertTooltipInstance(tooltip: ThyTooltipDirective, shouldExist: boolean): void {
-        expect(!!tooltip['tooltipInstance']).toBe(shouldExist);
+        const tooltipInstance = tooltip['tooltipRef'] ? tooltip['tooltipRef']['tooltipInstance'] : null;
+        expect(!!tooltipInstance).toBe(shouldExist);
     }
 
     describe(`touch usage`, () => {
@@ -122,7 +131,7 @@ describe(`ThyTooltip`, () => {
         let buttonElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(() => {
@@ -179,7 +188,7 @@ describe(`ThyTooltip`, () => {
         let buttonElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(() => {
@@ -361,14 +370,14 @@ describe(`ThyTooltip`, () => {
             const tooltipDelay = 1000;
 
             tooltipDirective.show(tooltipDelay);
-            expect(tooltipDirective.isTooltipVisible()).toBe(false);
+            expect(tooltipDirective['tooltipRef'].isTooltipVisible()).toBe(false);
 
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain('');
             tooltipDirective.hide();
 
             fixture.whenStable().then(() => {
-                expect(tooltipDirective.isTooltipVisible()).toBe(false);
+                expect(tooltipDirective['tooltipRef'].isTooltipVisible()).toBe(false);
             });
         }));
 
@@ -387,9 +396,9 @@ describe(`ThyTooltip`, () => {
 
         it('should be able to modify the tooltip content', fakeAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
-            tooltipDirective.show();
+            tooltipDirective.show(0);
             tick(0); // Tick for the show delay (default is 0)
-            expect(tooltipDirective.tooltipInstance.visibility).toBe('visible');
+            expect(tooltipDirective['tooltipRef']['tooltipInstance'].visibility).toBe('visible');
             fixture.detectChanges();
             expect(overlayContainerElement.textContent).toContain(initialTooltipMessage);
             const newMessage = 'new tooltip message';
@@ -424,7 +433,7 @@ describe(`ThyTooltip`, () => {
         let buttonElement: HTMLElement;
 
         function getTooltipVisible() {
-            return tooltipDirective['isTooltipVisible']();
+            return tooltipDirective['tooltipRef'] ? tooltipDirective['tooltipRef']['isTooltipVisible']() : false;
         }
 
         beforeEach(() => {
@@ -564,6 +573,47 @@ describe(`ThyTooltip`, () => {
 
         it('should not show if hide is called before delay finishes', async(() => {
             assertTooltipInstance(tooltipDirective, false);
+        }));
+    });
+
+    describe(`usage with tooltip service`, () => {
+        let fixture: ComponentFixture<ThyDemoTooltipBasicComponent>;
+        let basicTestComponent: ThyDemoTooltipBasicComponent;
+        let tooltipService: ThyTooltipService;
+        beforeEach(() => {
+            fixture = TestBed.createComponent(ThyDemoTooltipBasicComponent);
+            fixture.detectChanges();
+            basicTestComponent = fixture.debugElement.componentInstance;
+            tooltipService = TestBed.inject(ThyTooltipService);
+        });
+
+        it('should create tooltip and displayed', fakeAsync(() => {
+            const tooltipRef: ThyTooltipRef = tooltipService.create(basicTestComponent.tooltipHostElement, {
+                placement: 'top'
+            });
+            tooltipRef.show('Tooltip content', 1000);
+            tick(500);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(false);
+            tick(500);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(true);
+            tooltipRef.hide(1000);
+            tick(1000);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(false);
+        }));
+
+        it('should show tooltip with data', fakeAsync(() => {
+            const tooltipRef: ThyTooltipRef = tooltipService.create(basicTestComponent.tooltipHostElement, {
+                placement: 'top'
+            });
+            const data = { name: 'Mike' };
+            tooltipRef.show('Tooltip content', data, 3000);
+            tick(3000);
+            fixture.detectChanges();
+            expect(tooltipRef.isTooltipVisible()).toBe(true);
+            expect(tooltipRef['tooltipInstance'].data).toEqual(data);
         }));
     });
 });

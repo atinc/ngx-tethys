@@ -33,8 +33,8 @@
 }
 
 .thy-progress-strip-outer {
-    width: 100%;
     display: flex;
+    flex: 1;
     height: variables.$progress-height;
     background-color: bootstrap-variables.$progress-bg;
     overflow: hidden; // force rounded corners by cropping it
@@ -45,4 +45,8 @@
 
 .thy-progress-strip-text:not(:empty) {
     margin-left: 8px;
+    width: 40px;
+    white-space: nowrap;
+    color: variables.$gray-800;
+    font-size: variables.$font-size-base;
 }

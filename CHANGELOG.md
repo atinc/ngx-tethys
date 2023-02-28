@@ -2,65 +2,66 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [15.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.3...15.0.0-next.4) (2023-02-16)
+## [14.2.22](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.22) (2023-02-27)
+
+
+### Features
+
+* **avatar:** add thy-avatar-list #INFR-5295 [#2525](https://github.com/atinc/ngx-tethys/issues/2525) ([#2526](https://github.com/atinc/ngx-tethys/issues/2526)) ([112eac3](https://github.com/atinc/ngx-tethys/commit/112eac3ff65a78b9a3305195d46464cf5256218e)), closes [#INFR-5295](https://github.com/atinc/ngx-tethys/issues/INFR-5295)
+* **popover:** support popover hader template and add test(#INFR-6586) ([#2549](https://github.com/atinc/ngx-tethys/issues/2549)) ([d5dff36](https://github.com/atinc/ngx-tethys/commit/d5dff368b8cb0f27821ae689f81671b639826ad1)), closes [#INFR-6586](https://github.com/atinc/ngx-tethys/issues/INFR-6586)
+* send message and merge after pub  #INFR-6280 ([9353382](https://github.com/atinc/ngx-tethys/commit/9353382acc00bec1545abb6ba7e4daf21935d10b)), closes [#INFR-6280](https://github.com/atinc/ngx-tethys/issues/INFR-6280)
 
 
 
-# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+## [14.2.21](https://github.com/atinc/ngx-tethys/compare/14.2.20...14.2.21) (2023-02-22)
 
 
 ### Bug Fixes
 
-* **dialog:** invoke onCancel for confirm when click cancel button #INFR-1636 ([#2512](https://github.com/atinc/ngx-tethys/issues/2512)) ([5480dbd](https://github.com/atinc/ngx-tethys/commit/5480dbd1d4f38e04d9dadcd073501c9ae32b2c17)), closes [#INFR-1636](https://github.com/atinc/ngx-tethys/issues/INFR-1636)
+* **message、notify:** merge custom global config and default global config  #INFR-6570 ([cacfa66](https://github.com/atinc/ngx-tethys/commit/cacfa6636ea27cfa37e801269e7b6f424857ab2a)), closes [#INFR-6570](https://github.com/atinc/ngx-tethys/issues/INFR-6570)
+* **styles:** use variables to prevent packing optimization #INFR-6526 ([#2545](https://github.com/atinc/ngx-tethys/issues/2545)) ([52a349f](https://github.com/atinc/ngx-tethys/commit/52a349f2c8b3ff1e6a49b8161db0d6af1b2b5bcd)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
 
 
 ### Features
 
-* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
-* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+* **progress:** fixed text width 40px #INFR-6551 ([#2542](https://github.com/atinc/ngx-tethys/issues/2542)) ([18d88d3](https://github.com/atinc/ngx-tethys/commit/18d88d30a5e6068efe2d159b0817634cc520110e)), closes [#INFR-6551](https://github.com/atinc/ngx-tethys/issues/INFR-6551)
 
 
 
-# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
-
-
-
-# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
-
-
-### Features
-
-* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
-
-
-
-# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+## [14.2.20](https://github.com/atinc/ngx-tethys/compare/14.2.19...14.2.20) (2023-02-21)
 
 
 ### Bug Fixes
 
-* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+* **image:** use width / height to prevent css packing optimization #INFR-6526 ([358b39b](https://github.com/atinc/ngx-tethys/commit/358b39bae3b4e0f2aae361c0c05cfaadc64837b5)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
+
+
+
+## [14.2.19](https://github.com/atinc/ngx-tethys/compare/14.2.18...14.2.19) (2023-02-17)
 
 
 ### Features
 
-* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
-* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+* **input:** remove the thyAutocomplete of thyInput & thy-input #INFR-6523 ([#2538](https://github.com/atinc/ngx-tethys/issues/2538)) ([92f753e](https://github.com/atinc/ngx-tethys/commit/92f753ec05140c60bacc8a1eca832709c7b8aaf3)), closes [#INFR-6523](https://github.com/atinc/ngx-tethys/issues/INFR-6523)
+* **tooltip:** add tooltip service and tooltipRef, refactor tooltip directive #INFR-6382 ([#2532](https://github.com/atinc/ngx-tethys/issues/2532)) ([27d4bf3](https://github.com/atinc/ngx-tethys/commit/27d4bf3aab5536df57241526ad5bdae7a6c18df8)), closes [#INFR-6382](https://github.com/atinc/ngx-tethys/issues/INFR-6382)
 
 
 
-# [15.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.0) (2023-02-02)
+## [14.2.18](https://github.com/atinc/ngx-tethys/compare/14.2.17...14.2.18) (2023-02-16)
 
 
 ### Bug Fixes
 
-* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+* **date-picker:**  add test for dataPicker #INFR-6466 ([fa0ce33](https://github.com/atinc/ngx-tethys/commit/fa0ce33ae6b838c838524e3534c90c0e692cd64c)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **DatePicker:** show week  at thyRangePickerDirective  #INFR-6466 ([431e543](https://github.com/atinc/ngx-tethys/commit/431e543b6dc26acdbcc2e6dcdf76b754e2bffece)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **input-number:** change disabled class in handler after modify thyMax or thyMin ([62b2d94](https://github.com/atinc/ngx-tethys/commit/62b2d94ac67455ef63125820c590f3bb064c13ee))
 
 
 ### Features
 
-* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
-* upgrade ng to 15 ([7f21c0c](https://github.com/atinc/ngx-tethys/commit/7f21c0c091a0e43faecbf92cf59161cc1a2fd341))
+* **autocomplete:** add thyAutocomplete selector to ThyAutocompleteTriggerDirective and replace thyAutocompleteTrigger selector  #INFR-2990 ([4834ae3](https://github.com/atinc/ngx-tethys/commit/4834ae3852a9915246c568da76d9b82ccf3436db)), closes [#INFR-2990](https://github.com/atinc/ngx-tethys/issues/INFR-2990)
+
+
 
 ## [14.2.17](https://github.com/atinc/ngx-tethys/compare/14.2.16...14.2.17) (2023-02-15)
 
