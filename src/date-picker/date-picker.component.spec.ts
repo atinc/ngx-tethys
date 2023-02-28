@@ -280,7 +280,6 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalled();
-            console.log(getPickerTriggerWrapper().textContent.trim());
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
         }));
     });
