@@ -6,7 +6,7 @@ import { ThyAvatarService } from './avatar.service';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
-const DEFAULT_SIZE = 36;
+export const DEFAULT_SIZE = 36;
 
 export const thyAvatarSizeMap = {
     xxs: 22,
@@ -22,6 +22,9 @@ export type ThyAvatarLoading = 'eager' | 'lazy';
 /** https://wicg.github.io/priority-hints/#idl-index */
 export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 
+/**
+ * 头像组件
+ */
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
@@ -39,23 +42,51 @@ export class ThyAvatarComponent implements OnInit {
 
     @HostBinding('class.thy-avatar') _isAvatar = true;
 
+    /**
+     * * 已废弃，请使用 thyRemove
+     * @deprecated
+     */
     @Output() thyOnRemove = new EventEmitter();
 
+    /**
+     *  移除按钮的事件, 当 thyRemovable 为 true 时起作用
+     */
+    @Output() thyRemove = new EventEmitter();
+
+    /**
+     *  头像 img 加载 error 时触发
+     */
     @Output() thyError: EventEmitter<Event> = new EventEmitter<Event>();
 
+    /**
+     * 是否展示人员名称
+     * @default false
+     */
     @Input() thyShowName: boolean;
 
+    /**
+     * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
+     *
+     */
     @Input()
     set thySrc(value: string) {
         this._setAvatarSrc(value);
     }
 
+    /**
+     * 人员名称（可设置自定义名称，需通过自定义服务 ThyAvatarService，重写 nameTransform 方法去实现转换）
+     */
     @Input()
     set thyName(value: string) {
         // this._name = value;
         this._setAvatarName(value);
     }
 
+    /**
+     * 头像大小
+     * @type 16 | 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
+     * @default md
+     */
     @Input()
     set thySize(value: number | string) {
         if (thyAvatarSizeMap[value]) {
@@ -65,17 +96,46 @@ export class ThyAvatarComponent implements OnInit {
         }
     }
 
+    /**
+     * 已废弃，请使用 thyRemovable
+     * @deprecated
+     * @default false
+     */
     @Input()
     set thyShowRemove(value: boolean) {
         this._showRemove = coerceBooleanProperty(value);
     }
 
+    /**
+     * 是否展示移除按钮
+     * @default false
+     */
+    @Input()
+    set thyRemovable(value: boolean) {
+        this._showRemove = coerceBooleanProperty(value);
+    }
+
+    /**
+     * 图片自定义类
+     */
     @Input() thyImgClass: string;
 
+    /**
+     * 禁用
+     * @default false
+     */
     @Input() thyDisabled: boolean;
 
+    /**
+     * 图片加载策略
+     * @type eager(立即加载) | lazy(延迟加载)
+     */
     @Input() thyLoading?: ThyAvatarLoading;
 
+    /**
+     * 图片加载优先级
+     * @type auto(默认) | high(高) | low(低)
+     */
     @Input() thyFetchPriority?: ThyAvatarFetchPriority;
 
     private _setAvatarSize(size: number) {
@@ -84,6 +144,7 @@ export class ThyAvatarComponent implements OnInit {
         } else {
             this._size = this.findClosestSize(sizeArray, size);
         }
+        this.hostRenderer.updateClass([`thy-avatar-${this._size}`]);
     }
 
     private findClosestSize(sizes: number[], value: number): number {
@@ -141,6 +202,7 @@ export class ThyAvatarComponent implements OnInit {
 
     remove($event: Event) {
         this.thyOnRemove.emit($event);
+        this.thyRemove.emit($event);
     }
 
     avatarImgError($event: Event) {
