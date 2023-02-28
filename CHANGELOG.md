@@ -2,6 +2,66 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.3...15.0.0-next.4) (2023-02-16)
+
+
+
+# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+
+
+### Bug Fixes
+
+* **dialog:** invoke onCancel for confirm when click cancel button #INFR-1636 ([#2512](https://github.com/atinc/ngx-tethys/issues/2512)) ([5480dbd](https://github.com/atinc/ngx-tethys/commit/5480dbd1d4f38e04d9dadcd073501c9ae32b2c17)), closes [#INFR-1636](https://github.com/atinc/ngx-tethys/issues/INFR-1636)
+
+
+### Features
+
+* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
+* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+
+
+
+# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Features
+
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+
+
+### Features
+
+* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
+# [15.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.0) (2023-02-02)
+
+
+### Bug Fixes
+
+* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+
+
+### Features
+
+* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
+* upgrade ng to 15 ([7f21c0c](https://github.com/atinc/ngx-tethys/commit/7f21c0c091a0e43faecbf92cf59161cc1a2fd341))
+
 ## [14.2.22](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.22) (2023-02-27)
 
 
