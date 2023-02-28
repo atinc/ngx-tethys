@@ -44,7 +44,7 @@ describe('ThyWeekPickerComponent', () => {
         overlayContainer.ngOnDestroy();
     });
 
-    fdescribe('general api testing', () => {
+    describe('general api testing', () => {
         it('should open by click and close by click at outside', fakeAsync(() => {
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
