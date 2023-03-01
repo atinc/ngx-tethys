@@ -18,7 +18,7 @@ interface Todo {
 export class ThyBehaviorsAsyncComponent implements OnInit {
     http = inject(HttpClient);
 
-    todosFetcher = useAsync(() => {
+    todosFetcher = useAsync((name: string) => {
         return this.http.get<Todo[]>(`https://62f70d4273b79d015352b5e5.mockapi.io/items`);
     });
 
@@ -27,10 +27,6 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
             delay(1000),
             tap(() => {
                 throw new Error(`Http Request fail`);
-            }),
-            catchError(error => {
-                this.notifyService.error('todosFetcherWithError' + error.message);
-                return throwError(error);
             })
         );
     });
@@ -52,18 +48,19 @@ export class ThyBehaviorsAsyncComponent implements OnInit {
     }
 
     refreshWithError() {
-        this.todosFetcherWithError.execute().subscribe({
-            next: data => {
+        this.todosFetcherWithError.execute({
+            success: data => {
                 this.todos = data;
-            },
-            error: error => {
-                this.notifyService.error('refreshWithError' + error.message);
             }
+            // 自定义错误提示，默认使用 defaultErrorHandler
+            // error: error => {
+            //     this.notifyService.error('refreshWithError' + error.message);
+            // }
         });
     }
 
     private fetchTodos() {
-        this.todosFetcher.execute().subscribe(data => {
+        this.todosFetcher('name').execute(data => {
             this.todos = data;
         });
     }
