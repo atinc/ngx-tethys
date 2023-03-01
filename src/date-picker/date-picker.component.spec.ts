@@ -265,6 +265,23 @@ describe('ThyDatePickerComponent', () => {
             const result = (thyOnChange.calls.allArgs()[0] as number[])[0];
             expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
+
+        it('should support clear', fakeAsync(() => {
+            fixtureInstance.thyValue = new Date('2018-11-11');
+            fixtureInstance.thyShowTime = true;
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            dispatchMouseEvent(getClearButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
+        }));
     });
 
     describe('panel switch and move forward/afterward', () => {
