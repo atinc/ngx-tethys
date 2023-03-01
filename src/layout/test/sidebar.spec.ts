@@ -1,15 +1,15 @@
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { TestBed, ComponentFixture, fakeAsync, tick, flush } from '@angular/core/testing';
-import { ThyLayoutModule } from '../layout.module';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyLayoutComponent } from '../layout.component';
-import { injectDefaultSvgIconSet, bypassSanitizeProvider, createKeyboardEvent } from 'ngx-tethys/testing';
-import { ThySidebarComponent, ThySidebarTheme } from '../sidebar.component';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
-import { ThySidebarHeaderComponent } from '../sidebar-header.component';
+import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
+import { bypassSanitizeProvider, createKeyboardEvent, injectDefaultSvgIconSet } from 'ngx-tethys/testing';
+import { ThyLayoutComponent } from '../layout.component';
+import { ThyLayoutModule } from '../layout.module';
 import { ThySidebarContentComponent } from '../sidebar-content.component';
 import { ThySidebarFooterComponent } from '../sidebar-footer.component';
-import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThySidebarHeaderComponent } from '../sidebar-header.component';
+import { ThySidebarComponent, ThySidebarTheme } from '../sidebar.component';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -18,6 +18,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
         <thy-layout>
             <thy-sidebar
                 [thyWidth]="width"
+                [thyDefaultWidth]="defaultWidth"
                 [thyTheme]="thyTheme"
                 [thyIsolated]="isolated"
                 [thyHasBorderRight]="hasBorderRight"
@@ -47,6 +48,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 })
 class ThyDemoLayoutSidebarBasicComponent {
     width: string | number = '';
+    defaultWidth: string | number = 260;
     isolated = false;
     hasBorderRight = true;
     draggable = false;
@@ -202,6 +204,21 @@ describe(`sidebar`, () => {
                 dispatchMouseEvent(resizeHandleElement, 'mousemove', dragElementRect.left + 50, dragElementRect.top);
                 dispatchMouseEvent(resizeHandleElement, 'mouseleave');
                 // expect(fixture.debugElement.componentInstance.dragWidth > dragElementRect.left).toEqual(true);
+            }));
+
+            it('should restore drag width to default width', fakeAsync(() => {
+                fixture.debugElement.componentInstance.draggable = true;
+                fixture.detectChanges();
+                tick();
+                const dragElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-drag')).nativeElement;
+                const resizeHandleElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-resize-handle')).nativeElement;
+                expect(dragElement).toBeTruthy();
+                expect(resizeHandleElement).toBeTruthy();
+                expect(sidebarElement.style.width).toEqual('240px');
+                dispatchMouseEvent(resizeHandleElement, 'dblclick');
+                fixture.detectChanges();
+                expect(sidebarElement.style.width).toEqual('260px');
+                flush();
             }));
 
             it('should collapse sidebar when drag width equal thyCollapsedWidth', fakeAsync(() => {
