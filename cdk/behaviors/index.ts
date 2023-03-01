@@ -1,4 +1,4 @@
 export * from './run-in-zone';
-export * from './use-async';
-export * from './use-action';
+export * from './async-behavior';
+export * from './action-behavior';
 export * from './error-handler';

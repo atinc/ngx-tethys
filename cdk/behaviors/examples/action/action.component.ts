@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { setDefaultErrorHandler, useAction } from '@tethys/cdk/behaviors';
 import { of, Observable } from 'rxjs';
-import { delay, tap } from 'rxjs/operators';
+import { delay, map, tap } from 'rxjs/operators';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 @Component({
@@ -29,6 +29,7 @@ export class ThyBehaviorsActionComponent implements OnInit {
     notifyService = inject(ThyNotifyService);
 
     constructor() {
+        // 全局设置错误提示，这样就不用每次调用的时候传递
         setDefaultErrorHandler(error => {
             this.notifyService.error(error.message);
         });
@@ -37,11 +38,9 @@ export class ThyBehaviorsActionComponent implements OnInit {
     ngOnInit(): void {}
 
     add() {
-        this.addAction
-            .success(result => {
-                this.notifyService.success(`Add ${result.name} successfully!`);
-            })
-            .execute({ name: 'Pet' });
+        this.addAction({ name: 'Pet' }).execute(data => {
+            this.notifyService.success(`Add ${data.name} successfully!`);
+        });
     }
 
     addWithError() {
