@@ -81,6 +81,12 @@ module.exports = [
                 description: '拖拽宽度的修改事件',
                 type: 'EventEmitter<number>',
                 default: ''
+            },
+            {
+                name: 'thyDefaultWidth',
+                description: '默认宽度，双击后可恢复到此宽度，默认是 240px，传入 lg 大小时宽度是300px',
+                type: 'number | "lg"',
+                default: ''
             }
         ]
     },

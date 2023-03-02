@@ -139,6 +139,12 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
                     end: end.endOfDay().getUnixTime()
                 };
                 break;
+            case 'week':
+                value = {
+                    begin: begin.startOfWeek().getUnixTime(),
+                    end: end.endOfWeek().getUnixTime()
+                };
+                break;
             case 'month':
                 value = {
                     begin: begin.startOfMonth().getUnixTime(),

@@ -2,6 +2,86 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.23](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.23) (2023-03-02)
+
+
+### Bug Fixes
+
+* **date-picker:** fix quick select label style justify content center #INFR-5621 ([#2557](https://github.com/atinc/ngx-tethys/issues/2557)) ([6f16b1e](https://github.com/atinc/ngx-tethys/commit/6f16b1e314d92638900148f4754373d585921b96)), closes [#INFR-5621](https://github.com/atinc/ngx-tethys/issues/INFR-5621)
+* **date-picker:** same month does not appear twice in week range picker and adjust week range width #INFR-6644 ([#2554](https://github.com/atinc/ngx-tethys/issues/2554)) ([84d1cbe](https://github.com/atinc/ngx-tethys/commit/84d1cbeb945c18dda332f16ff595900232ea4871)), closes [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644)
+* **input-number:** fix display null when thyMin or thyMax is null#INFR-6594 ([#2547](https://github.com/atinc/ngx-tethys/issues/2547)) ([3a49083](https://github.com/atinc/ngx-tethys/commit/3a490839d80fcf452beb4dffbe9e4e1c8b307ad3)), closes [null#INFR-6594](https://github.com/null/issues/INFR-6594) [null#INFR-6594](https://github.com/null/issues/INFR-6594)
+
+
+### Features
+
+* **avatar:** add thy-avatar-list #INFR-5295 [#2525](https://github.com/atinc/ngx-tethys/issues/2525) ([#2526](https://github.com/atinc/ngx-tethys/issues/2526)) ([112eac3](https://github.com/atinc/ngx-tethys/commit/112eac3ff65a78b9a3305195d46464cf5256218e)), closes [#INFR-5295](https://github.com/atinc/ngx-tethys/issues/INFR-5295)
+* **layout:** sidebar support dblclick restore to default width #INFR-6017 ([#2551](https://github.com/atinc/ngx-tethys/issues/2551)) ([06d85ad](https://github.com/atinc/ngx-tethys/commit/06d85ad1fba810837915bf8df688c91003eca8ea)), closes [#INFR-6017](https://github.com/atinc/ngx-tethys/issues/INFR-6017) [#INFR-6017](https://github.com/atinc/ngx-tethys/issues/INFR-6017)
+* **popover:** support popover hader template and add test(#INFR-6586) ([#2549](https://github.com/atinc/ngx-tethys/issues/2549)) ([d5dff36](https://github.com/atinc/ngx-tethys/commit/d5dff368b8cb0f27821ae689f81671b639826ad1)), closes [#INFR-6586](https://github.com/atinc/ngx-tethys/issues/INFR-6586)
+* send message and merge after pub  #INFR-6280 ([9353382](https://github.com/atinc/ngx-tethys/commit/9353382acc00bec1545abb6ba7e4daf21935d10b)), closes [#INFR-6280](https://github.com/atinc/ngx-tethys/issues/INFR-6280)
+
+
+
+## [14.2.22](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.22) (2023-02-27)
+
+
+### Features
+
+* **avatar:** add thy-avatar-list #INFR-5295 [#2525](https://github.com/atinc/ngx-tethys/issues/2525) ([#2526](https://github.com/atinc/ngx-tethys/issues/2526)) ([112eac3](https://github.com/atinc/ngx-tethys/commit/112eac3ff65a78b9a3305195d46464cf5256218e)), closes [#INFR-5295](https://github.com/atinc/ngx-tethys/issues/INFR-5295)
+* **popover:** support popover hader template and add test(#INFR-6586) ([#2549](https://github.com/atinc/ngx-tethys/issues/2549)) ([d5dff36](https://github.com/atinc/ngx-tethys/commit/d5dff368b8cb0f27821ae689f81671b639826ad1)), closes [#INFR-6586](https://github.com/atinc/ngx-tethys/issues/INFR-6586)
+* send message and merge after pub  #INFR-6280 ([9353382](https://github.com/atinc/ngx-tethys/commit/9353382acc00bec1545abb6ba7e4daf21935d10b)), closes [#INFR-6280](https://github.com/atinc/ngx-tethys/issues/INFR-6280)
+
+
+
+## [14.2.21](https://github.com/atinc/ngx-tethys/compare/14.2.20...14.2.21) (2023-02-22)
+
+
+### Bug Fixes
+
+* **message、notify:** merge custom global config and default global config  #INFR-6570 ([cacfa66](https://github.com/atinc/ngx-tethys/commit/cacfa6636ea27cfa37e801269e7b6f424857ab2a)), closes [#INFR-6570](https://github.com/atinc/ngx-tethys/issues/INFR-6570)
+* **styles:** use variables to prevent packing optimization #INFR-6526 ([#2545](https://github.com/atinc/ngx-tethys/issues/2545)) ([52a349f](https://github.com/atinc/ngx-tethys/commit/52a349f2c8b3ff1e6a49b8161db0d6af1b2b5bcd)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
+
+
+### Features
+
+* **progress:** fixed text width 40px #INFR-6551 ([#2542](https://github.com/atinc/ngx-tethys/issues/2542)) ([18d88d3](https://github.com/atinc/ngx-tethys/commit/18d88d30a5e6068efe2d159b0817634cc520110e)), closes [#INFR-6551](https://github.com/atinc/ngx-tethys/issues/INFR-6551)
+
+
+
+## [14.2.20](https://github.com/atinc/ngx-tethys/compare/14.2.19...14.2.20) (2023-02-21)
+
+
+### Bug Fixes
+
+* **image:** use width / height to prevent css packing optimization #INFR-6526 ([358b39b](https://github.com/atinc/ngx-tethys/commit/358b39bae3b4e0f2aae361c0c05cfaadc64837b5)), closes [#INFR-6526](https://github.com/atinc/ngx-tethys/issues/INFR-6526)
+
+
+
+## [14.2.19](https://github.com/atinc/ngx-tethys/compare/14.2.18...14.2.19) (2023-02-17)
+
+
+### Features
+
+* **input:** remove the thyAutocomplete of thyInput & thy-input #INFR-6523 ([#2538](https://github.com/atinc/ngx-tethys/issues/2538)) ([92f753e](https://github.com/atinc/ngx-tethys/commit/92f753ec05140c60bacc8a1eca832709c7b8aaf3)), closes [#INFR-6523](https://github.com/atinc/ngx-tethys/issues/INFR-6523)
+* **tooltip:** add tooltip service and tooltipRef, refactor tooltip directive #INFR-6382 ([#2532](https://github.com/atinc/ngx-tethys/issues/2532)) ([27d4bf3](https://github.com/atinc/ngx-tethys/commit/27d4bf3aab5536df57241526ad5bdae7a6c18df8)), closes [#INFR-6382](https://github.com/atinc/ngx-tethys/issues/INFR-6382)
+
+
+
+## [14.2.18](https://github.com/atinc/ngx-tethys/compare/14.2.17...14.2.18) (2023-02-16)
+
+
+### Bug Fixes
+
+* **date-picker:**  add test for dataPicker #INFR-6466 ([fa0ce33](https://github.com/atinc/ngx-tethys/commit/fa0ce33ae6b838c838524e3534c90c0e692cd64c)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **DatePicker:** show week  at thyRangePickerDirective  #INFR-6466 ([431e543](https://github.com/atinc/ngx-tethys/commit/431e543b6dc26acdbcc2e6dcdf76b754e2bffece)), closes [#INFR-6466](https://github.com/atinc/ngx-tethys/issues/INFR-6466)
+* **input-number:** change disabled class in handler after modify thyMax or thyMin ([62b2d94](https://github.com/atinc/ngx-tethys/commit/62b2d94ac67455ef63125820c590f3bb064c13ee))
+
+
+### Features
+
+* **autocomplete:** add thyAutocomplete selector to ThyAutocompleteTriggerDirective and replace thyAutocompleteTrigger selector  #INFR-2990 ([4834ae3](https://github.com/atinc/ngx-tethys/commit/4834ae3852a9915246c568da76d9b82ccf3436db)), closes [#INFR-2990](https://github.com/atinc/ngx-tethys/issues/INFR-2990)
+
+
+
 ## [14.2.17](https://github.com/atinc/ngx-tethys/compare/14.2.16...14.2.17) (2023-02-15)
 
 

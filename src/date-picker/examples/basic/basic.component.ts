@@ -1,5 +1,6 @@
 import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 import { Component, forwardRef, OnInit } from '@angular/core';
+import { endOfDay, startOfDay, subWeeks } from 'date-fns';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
@@ -26,6 +27,19 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
     flexibleDateRange: ThyDateRangeEntry;
 
     isAllowClear = true;
+
+    shortcutMonthRanges = [
+        {
+            title: '最近6周',
+            begin: subWeeks(startOfDay(new Date()), 5).getTime(),
+            end: endOfDay(new Date()).getTime()
+        },
+        {
+            title: '最近12周',
+            begin: subWeeks(startOfDay(new Date()), 11).getTime(),
+            end: endOfDay(new Date()).getTime()
+        }
+    ];
 
     constructor() {}
 

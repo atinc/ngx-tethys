@@ -4,9 +4,10 @@ import { ThyAvatarComponent } from './avatar.component';
 import { AvatarPipes } from './avatar.pipe';
 import { ThyAvatarService, ThyDefaultAvatarService } from './avatar.service';
 import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyAvatarListComponent } from './avatar-list/avatar-list.component';
 
 @NgModule({
-    declarations: [ThyAvatarComponent, AvatarPipes],
+    declarations: [ThyAvatarComponent, ThyAvatarListComponent, AvatarPipes],
     imports: [CommonModule, ThyIconModule],
     providers: [
         {
@@ -14,6 +15,6 @@ import { ThyIconModule } from 'ngx-tethys/icon';
             useClass: ThyDefaultAvatarService
         }
     ],
-    exports: [ThyAvatarComponent, AvatarPipes]
+    exports: [ThyAvatarComponent, ThyAvatarListComponent, AvatarPipes]
 })
 export class ThyAvatarModule {}

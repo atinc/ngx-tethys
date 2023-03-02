@@ -7,6 +7,29 @@
   [(ngModel)]="date"
 ></thy-property-operation>
 <br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="月份"
+  [thyValue]="date | thyDatePickerFormat: 'YYYY-MM'"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [thyMode]="'month'"
+  [(ngModel)]="date"
+></thy-property-operation>
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="周"
+  [thyValue]="date | thyDatePickerFormat: 'YYYY-ww周'"
+  thyIcon="calendar-check"
+  thyDatePicker
+  [thyMode]="'week'"
+  [(ngModel)]="date"
+></thy-property-operation>
+<br />
+
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="日期时间"
@@ -27,6 +50,18 @@
   [(ngModel)]="dateRange"
 ></thy-property-operation>
 <br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="月期间"
+  [thyValue]="dateRange | thyDatePickerFormat: 'YYYY-mm'"
+  thyIcon="calendar-check"
+  thyRangePicker
+  thyMode="month"
+  [(ngModel)]="dateRange"
+></thy-property-operation>
+<br />
+
 <thy-property-operation
   class="w-25 mb-3"
   thyLabelText="日期区间选择几天内的时间"
@@ -74,4 +109,17 @@
   [(ngModel)]="flexibleDateRange"
   thyMode="flexible"
   [thyShowShortcut]="true"
+></thy-property-operation>
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="周区间"
+  [thyValue]="weekRange | thyDatePickerFormat: 'YYYY-ww周'"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [(ngModel)]="weekRange"
+  thyMode="week"
+  [thyShowShortcut]="true"
+  [thyShortcutRanges]="shortcutMonthRanges"
 ></thy-property-operation>

@@ -1,4 +1,4 @@
-import { differenceInDays } from 'date-fns';
+import { differenceInDays, endOfDay, startOfDay, subWeeks } from 'date-fns';
 import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
@@ -24,7 +24,22 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
 
     dateRangeDisabled: { begin: number; end: number };
 
+    weekRange = { begin: new Date('2021-10-03'), end: new Date('2021-12-12') };
+
     selectedDateRange: Date[] = [];
+
+    shortcutMonthRanges = [
+        {
+            title: '最近6周',
+            begin: subWeeks(startOfDay(new Date()), 5).getTime(),
+            end: endOfDay(new Date()).getTime()
+        },
+        {
+            title: '最近12周',
+            begin: subWeeks(startOfDay(new Date()), 11).getTime(),
+            end: endOfDay(new Date()).getTime()
+        }
+    ];
 
     flexibleDateRange: ThyDateRangeEntry;
 
