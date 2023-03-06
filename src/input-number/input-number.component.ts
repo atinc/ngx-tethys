@@ -1,5 +1,5 @@
 import { InputBoolean } from 'ngx-tethys/core';
-import { DOWN_ARROW, ENTER, helpers, UP_ARROW } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,
@@ -16,8 +16,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 

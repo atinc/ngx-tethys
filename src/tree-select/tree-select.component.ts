@@ -1,4 +1,4 @@
-import { getFlexiblePositions, ThyClickDispatcher, _MixinBase } from 'ngx-tethys/core';
+import { getFlexiblePositions, TabIndexMixinBase, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -61,7 +61,7 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         '[attr.tabindex]':'tabIndex'
     },
 })
-export class ThyTreeSelectComponent extends _MixinBase
+export class ThyTreeSelectComponent extends TabIndexMixinBase
     implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 

@@ -1,4 +1,4 @@
-import { _MixinBase, mixinTabIndex } from '../behaviors';
+import { mixinTabIndex, TabIndexMixinBase } from '../behaviors';
 
 describe('mixinTabIndex', () => {
     it('should augment an existing class with a tabIndex property', () => {
@@ -47,4 +47,4 @@ describe('mixinTabIndex', () => {
     });
 });
 
-class TestClass extends _MixinBase {}
+class TestClass extends TabIndexMixinBase {}

@@ -1,19 +1,17 @@
 import {
-    _MixinBase,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
     ScrollToService,
+    TabIndexMixinBase,
     ThyClickDispatcher,
     ThyPlacement
 } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
-    SelectControlSize,
-    THY_OPTION_PARENT_COMPONENT,
-    ThyOptionComponent,
+    SelectControlSize, ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
-    ThySelectOptionGroupComponent
+    ThySelectOptionGroupComponent, THY_OPTION_PARENT_COMPONENT
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -108,7 +106,7 @@ const noop = () => {};
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent extends _MixinBase
+export class ThySelectCustomComponent extends TabIndexMixinBase
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy{
     disabled = false;
 

@@ -31,6 +31,6 @@ export function mixinTabIndex<T extends Constructor<ThyCanDisable>>(base: T, def
     };
 }
 
-export const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof MixinBase = mixinTabIndex(
+export const TabIndexMixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof MixinBase = mixinTabIndex(
     mixinDisabled(MixinBase)
 );

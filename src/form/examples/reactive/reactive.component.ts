@@ -196,12 +196,12 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         this.formGroup = this.formBuilder.group(
             {
                 username: ['', [Validators.required, Validators.pattern('^[A-Za-z]{1}[0-9A-Za-z_]{1,19}')]],
+                input: ['', [Validators.required]],
                 search: ['', [Validators.required]],
                 number: ['', [Validators.required]],
                 customersSelect: ['', [Validators.required]],
                 treeSelect: ['', [Validators.required]],
                 rate: ['', [Validators.required]],
-                strength: [2, [Validators.required]],
                 switch: ['', [Validators.required]],
                 textarea: ['', [Validators.required]],
                 province: ['', [Validators.required]],
