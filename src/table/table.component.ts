@@ -709,7 +709,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
                 const column = this.columns.find(item => {
                     return item.type === customType.checkbox || item.type === customType.radio;
                 });
-                if (!column.disabled) {
+                if (column && !column.disabled) {
                     if (column.type === customType.checkbox) {
                         row[column.key] = !row[column.key];
                         this.onModelChange(row, column);
