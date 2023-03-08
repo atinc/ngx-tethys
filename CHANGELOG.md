@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [14.2.24](https://github.com/atinc/ngx-tethys/compare/14.2.23...14.2.24) (2023-03-08)
+
+
+### Bug Fixes
+
+* **select:** fix remove selected fail when option disabled #INFR-6756 [@xujing](https://github.com/xujing) [@wumeimin](https://github.com/wumeimin) (#INFR-6756) ([#2561](https://github.com/atinc/ngx-tethys/issues/2561)) ([3e5ffb7](https://github.com/atinc/ngx-tethys/commit/3e5ffb78d54d1dd01240c989b05b894c0f8d60cd)), closes [#INFR-6756](https://github.com/atinc/ngx-tethys/issues/INFR-6756) [#INFR-6756](https://github.com/atinc/ngx-tethys/issues/INFR-6756)
+* **table:** fix error when set thyWholeRowSelect="true" #INFR-6693 ([#2560](https://github.com/atinc/ngx-tethys/issues/2560)) ([455327b](https://github.com/atinc/ngx-tethys/commit/455327bb9bad19b1823511c2db51f43e5164783d)), closes [#INFR-6693](https://github.com/atinc/ngx-tethys/issues/INFR-6693)
+
+
+
 ## [14.2.23](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.23) (2023-03-02)
 
 
