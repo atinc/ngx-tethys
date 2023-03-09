@@ -5,7 +5,7 @@
 @use './styles/variables.scss' as variables2;
 // docgeni
 // $dg-primary: #4150b3;
-@use '~@docgeni/template/styles/index.scss' with(
+@use '@docgeni/template/styles/index.scss' with(
     $dg-primary: #6698ff
 );
 

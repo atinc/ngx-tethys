@@ -2,7 +2,7 @@
 title: 13.x 升级指南
 path: 'migration-v13'
 order: 995
-label: new
+hidden: true
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 12.x 版本升级到 13.x 版本。</alert>

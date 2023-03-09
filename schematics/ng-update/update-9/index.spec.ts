@@ -43,7 +43,7 @@ describe('ng-update v9 Schematic', () => {
 
         tree.overwrite('/projects/update9test/src/main.ts', `import './app/module1';`);
 
-        workspaceTree = await schematicRunner.runSchematicAsync('migration-v9', undefined, tree).toPromise();
+        workspaceTree = await schematicRunner.runSchematic('migration-v9', undefined, tree);
     });
 
     it(`should entry point change`, async () => {

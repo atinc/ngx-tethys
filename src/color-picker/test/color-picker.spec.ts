@@ -171,6 +171,7 @@ describe(`color-picker`, () => {
     });
 
     beforeEach(() => {
+        localStorage.clear();
         fixture = TestBed.createComponent(ThyDemoColorPickerComponent);
         fixtureInstance = fixture.componentInstance;
 
@@ -212,7 +213,7 @@ describe(`color-picker`, () => {
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
-        it('should open color-picke default panel with preset colors', fakeAsync(() => {
+        it('should open color-picker default panel with preset colors', fakeAsync(() => {
             fixture.componentInstance.presetColors = DEFAULT_COLORS.slice(0, 1);
             fixture.detectChanges();
             openDefaultPanel();

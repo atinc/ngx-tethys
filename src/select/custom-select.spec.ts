@@ -1573,6 +1573,18 @@ describe('ThyCustomSelect', () => {
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
         }));
+
+        it('should remove selected value when option disabled', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.componentInstance.selectedValue = ['sushi-7', 'tacos-2'];
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.queryAll(By.css('.choice-remove-link'))[1].nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
+        }));
     });
 
     describe('options change logic', () => {

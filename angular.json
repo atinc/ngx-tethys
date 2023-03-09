@@ -27,7 +27,12 @@
             "main": "src/test.ts",
             "polyfills": "src/polyfills.ts",
             "codeCoverage": true,
-            "codeCoverageExclude": ["/src/testing/**/*", "src/**/test/**/*", "src/markdown/*", "src/action-menu/*"],
+            "codeCoverageExclude": [
+              "/src/testing/**/*",
+              "src/**/test/**/*",
+              "src/markdown/*",
+              "src/action-menu/*"
+            ],
             "tsConfig": "src/tsconfig.spec.json",
             "karmaConfig": "karma.conf.js"
           }
@@ -35,7 +40,10 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         }
       }
@@ -60,7 +68,9 @@
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.app.json",
             "stylePreprocessorOptions": {
-              "includePaths": ["./site/src/styles"]
+              "includePaths": [
+                "./site/src/styles"
+              ]
             },
             "assets": [
               "site/src/favicon.ico",
@@ -71,7 +81,9 @@
                 "output": "/assets/icons/"
               }
             ],
-            "styles": ["site/src/styles.scss"],
+            "styles": [
+              "site/src/styles.scss"
+            ],
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -148,8 +160,13 @@
             "polyfills": "site/src/polyfills.ts",
             "tsConfig": "site/tsconfig.spec.json",
             "karmaConfig": "site/karma.conf.js",
-            "assets": ["site/src/favicon.ico", "site/src/assets"],
-            "styles": ["site/src/styles.scss"],
+            "assets": [
+              "site/src/favicon.ico",
+              "site/src/assets"
+            ],
+            "styles": [
+              "site/src/styles.scss"
+            ],
             "scripts": []
           }
         }
@@ -180,7 +197,10 @@
             "tsConfig": "cdk/tsconfig.spec.json",
             "karmaConfig": "cdk/karma.conf.js",
             "codeCoverage": true,
-            "codeCoverageExclude": ["/cdk/testing/**/*", "cdk/**/test/**/*"]
+            "codeCoverageExclude": [
+              "/cdk/testing/**/*",
+              "cdk/**/test/**/*"
+            ]
           }
         }
       }
@@ -190,6 +210,14 @@
     "analytics": "320b41d2-079c-4f3e-9bb4-38b51babf41c",
     "cache": {
       "enabled": false
+    }
+  },
+  "schematics": {
+    "@angular-eslint/schematics:application": {
+      "setParserOptionsProject": true
+    },
+    "@angular-eslint/schematics:library": {
+      "setParserOptionsProject": true
     }
   }
 }
