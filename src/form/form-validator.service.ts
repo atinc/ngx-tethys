@@ -81,12 +81,16 @@ export class ThyFormValidatorService implements OnDestroy {
     private _setControlValidateByBlur(control: NgControl) {
         const element: HTMLElement = this._getElement(control.name as string);
         if (element) {
-            element.onblur = (event: FocusEvent) => {
-                // 兼容其他tabindex元素触发失焦事件
-                if ((event && !event.relatedTarget) || !event) {
+            // 继承了 AbstractControlValueAccessor 的自定义 Accessor，通过 __onBlurValidation 控制触发验证函数
+            if (control.valueAccessor['__onBlurValidation']) {
+                control.valueAccessor['__onBlurValidation'] = () => {
                     this.validateControl(control.name as string);
-                }
-            };
+                };
+            } else {
+                element.onblur = (event: FocusEvent) => {
+                    this.validateControl(control.name as string);
+                };
+            }
         }
     }
 

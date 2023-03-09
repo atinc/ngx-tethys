@@ -509,7 +509,7 @@ describe('ThyTreeSelect', () => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
 
-                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onModelTouch');
+                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
 
                 const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
                 trigger.click();
@@ -723,7 +723,7 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
 
-            const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onModelTouch');
+            const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
             dispatchFakeEvent(trigger, 'blur');
 

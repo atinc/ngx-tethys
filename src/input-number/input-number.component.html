@@ -37,5 +37,6 @@
   [(ngModel)]="displayValue"
   (ngModelChange)="onModelChange($event)"
   (blur)="onBlur($event)"
-  (focus)="onFocus($event)"
+  (focus)="onInputFocus($event)"
+  tabindex="-1"
 />

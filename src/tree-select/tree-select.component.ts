@@ -1,6 +1,16 @@
-import { getFlexiblePositions, TabIndexMixinBase, ThyClickDispatcher } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    getFlexiblePositions,
+    mixinDisabled,
+    mixinTabIndex,
+    TabIndexMixinBase,
+    ThyCanDisable,
+    ThyClickDispatcher,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -47,6 +57,9 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     return treeData;
 }
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 @Component({
     selector: 'thy-tree-select',
     templateUrl: './tree-select.component.html',
@@ -58,11 +71,12 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         }
     ],
     host: {
-        '[attr.tabindex]':'tabIndex'
-    },
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    }
 })
-export class ThyTreeSelectComponent extends TabIndexMixinBase
-    implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -138,10 +152,9 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
 
     @Input() thyDisable = false;
 
-     // eslint-disable-next-line prettier/prettier
-     override get thyDisabled(): boolean {
-       return this.thyDisable;
-     }
+    get thyDisabled(): boolean {
+        return this.thyDisable;
+    }
 
     @Input() thyPlaceholder = '请选择节点';
 
@@ -184,10 +197,6 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
     // TODO: 是否可以取消选中的node
     // @Input() thyUnRemoveSelectedNodeFn: Function;
 
-    public onModelChange: Function = () => {};
-
-    public onModelTouch: Function = () => {};
-
     private _getNgModelType() {
         if (this.thyMultiple) {
             this.valueIsObject = !this.selectedValue[0] || isObject(this.selectedValue[0]);
@@ -220,14 +229,6 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
             this._getNgModelType();
         }
         this.setSelectedNodes();
-    }
-
-    registerOnChange(fn: any): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onModelTouch = fn;
     }
 
     constructor(
@@ -272,6 +273,21 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
             .subscribe(() => {
                 this.init();
             });
+    }
+
+    onFocus($event: FocusEvent) {
+        console.log('onFocus', $event);
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement.focus();
+    }
+
+    onBlur($event: FocusEvent) {
+        // 1. Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        // 2. 打开选择框后如果点击弹框内导致 input 失焦，无需触发 onTouchedFn
+        if (elementMatchClosest($event?.relatedTarget as HTMLElement, ['thy-tree-select', 'thy-tree-select-nodes'])) {
+            return;
+        }
+        this.onTouchedFn();
     }
 
     ngOnDestroy(): void {
@@ -362,11 +378,7 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
 
     close() {
         this.expandTreeSelectOptions = false;
-        this.elementRef.nativeElement?.onblur && this.elementRef.nativeElement?.onblur();
-    }
-
-    public onBlur(event: Event) {
-        this.onModelTouch();
+        this.onTouchedFn();
     }
 
     clearSelectedValue(event: Event) {
@@ -374,8 +386,7 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
         this.selectedValue = null;
         this.selectedNode = null;
         this.selectedNodes = [];
-        this.onModelChange(this.selectedValue);
-        this.onModelTouch();
+        this.onChangeFn(this.selectedValue);
     }
 
     private _changeSelectValue() {
@@ -386,8 +397,8 @@ export class ThyTreeSelectComponent extends TabIndexMixinBase
                 ? this.selectedNodes.map(item => item[this.thyPrimaryKey])
                 : this.selectedNode[this.thyPrimaryKey];
         }
-        this.onModelChange(this.selectedValue);
-        this.onModelTouch();
+        this.onChangeFn(this.selectedValue);
+        this.onTouchedFn();
     }
 
     removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {
@@ -451,8 +462,8 @@ const DEFAULT_ITEM_SIZE = 40;
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',
     host: {
-        '[attr.tabindex]':'-1'
-    },
+        '[attr.tabindex]': '-1'
+    }
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;
