@@ -2,6 +2,38 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.0.0](https://github.com/atinc/ngx-tethys/compare/14.2.24...15.0.0) (2023-03-09)
+
+
+### Features
+
+* **cdk:** refactor behaviors  for useAction and useAsync ([de4b6f7](https://github.com/atinc/ngx-tethys/commit/de4b6f7421316a5230a21e19e867eee29daaccba))
+* upgrade ng to 15 ([043fa4f](https://github.com/atinc/ngx-tethys/commit/043fa4fcbb443010035098854552ff372aa877bd))
+
+
+
+# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+
+
+### Features
+
+* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
+* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+
+
+
+# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Features
+
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
 
 # [15.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.3...15.0.0-next.4) (2023-02-16)
 
