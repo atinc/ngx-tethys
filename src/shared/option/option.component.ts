@@ -136,7 +136,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     }
 
     deselect(): void {
-        if (this._selected) {
+        if (this._selected || this.disabled) {
             this._selected = false;
             this.emitSelectionChangeEvent();
             this.cdr.markForCheck();
