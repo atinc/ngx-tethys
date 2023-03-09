@@ -276,9 +276,8 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     }
 
     onFocus($event: FocusEvent) {
-        console.log('onFocus', $event);
         const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
-        inputElement.focus();
+        inputElement?.focus();
     }
 
     onBlur($event: FocusEvent) {
