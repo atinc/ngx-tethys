@@ -76,7 +76,13 @@
 </thy-layout>
 
 <thy-layout style="height: 100px;">
-  <thy-sidebar [thyDraggable]="true" [thyCollapsedWidth]="collapsedWidth" [thyDragMaxWidth]="700" class="p-2">
+  <thy-sidebar
+    [thyDraggable]="true"
+    [thyCollapsedWidth]="collapsedWidth"
+    [thyDragMaxWidth]="700"
+    class="p-2"
+    (thyDragWidthChange)="dragWidthChange($event)"
+  >
     Sidebar can drag to change width
   </thy-sidebar>
   <thy-content> Content </thy-content>

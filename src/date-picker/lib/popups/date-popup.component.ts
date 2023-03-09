@@ -372,6 +372,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     private normalizeRangeValue(value: TinyDate[], mode: ThyPanelMode = 'month'): TinyDate[] {
         const headerModes: { [key in ThyPanelMode]?: ThyPanelMode } = {
+            week: 'month',
             date: 'month',
             month: 'year',
             year: 'decade'

@@ -32,4 +32,6 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
         this.collapsed = !this.collapsed;
         this.trigger = this.collapsed ? null : undefined;
     }
+
+    dragWidthChange(width: number) {}
 }
