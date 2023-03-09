@@ -744,6 +744,32 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 expect(selectComponent.modalValue).toBeNull();
             });
+
+            it('should call onFocus methods when focus', fakeAsync(() => {
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                fixture.detectChanges();
+                const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus');
+
+                dispatchFakeEvent(customSelectDebugElement.nativeElement, 'focus');
+                fixture.detectChanges();
+
+                flush();
+
+                expect(focusSpy).toHaveBeenCalled();
+            }));
+
+            it('should call onBlur methods when blur', fakeAsync(() => {
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                fixture.detectChanges();
+                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur');
+
+                dispatchFakeEvent(customSelectDebugElement.nativeElement, 'blur');
+                fixture.detectChanges();
+
+                flush();
+
+                expect(blurSpy).toHaveBeenCalled();
+            }));
         });
 
         describe('size', () => {

@@ -203,15 +203,22 @@ describe('input search', () => {
 
     it('should call blur methods when blur', fakeAsync(() => {
         fixture.detectChanges();
-
-        const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedCallback');
-        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent['elementRef']?.nativeElement, 'onblur');
+        const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedFn');
+        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onBlur').and.callThrough();
         const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
         dispatchFakeEvent(trigger, 'blur');
-
         fixture.detectChanges();
-
         expect(touchSpy).toHaveBeenCalled();
         expect(blurSpy).toHaveBeenCalled();
+    }));
+
+    it('should call onFocus methods when focus', fakeAsync(() => {
+        fixture.detectChanges();
+        const focusSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onFocus').and.callThrough();
+
+        dispatchFakeEvent(searchElement, 'focus');
+        fixture.detectChanges();
+
+        expect(focusSpy).toHaveBeenCalled();
     }));
 });

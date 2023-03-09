@@ -7,7 +7,6 @@
  */
 
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyTagModule } from 'ngx-tethys/tag';
 
 import { CommonModule } from '@angular/common';
@@ -17,7 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectControlComponent } from './select-control/select-control.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThySharedModule],
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule],
     exports: [ThySelectControlComponent],
     declarations: [ThySelectControlComponent]
 })

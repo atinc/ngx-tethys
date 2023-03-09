@@ -1,6 +1,17 @@
-import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService, TabIndexMixinBase } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    EXPANDED_DROPDOWN_POSITIONS,
+    InputBoolean,
+    InputNumber,
+    mixinDisabled,
+    mixinTabIndex,
+    ScrollToService,
+    ThyCanDisable,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -55,6 +66,10 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
+
 /**
  * 级联选择菜单
  * @name thy-cascader
@@ -70,7 +85,9 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         }
     ],
     host: {
-        '[attr.tabindex]':`tabIndex`
+        '[attr.tabindex]':`tabIndex`,
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
     },
     styles: [
         `
@@ -80,7 +97,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         `
     ]
 })
-export class ThyCascaderComponent extends TabIndexMixinBase
+export class ThyCascaderComponent extends _MixinBase
     implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
@@ -311,8 +328,6 @@ export class ThyCascaderComponent extends TabIndexMixinBase
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    onChange: any = Function.prototype;
-    onTouched: any = Function.prototype;
     private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
     positions: ConnectionPositionPair[];
 
@@ -461,14 +476,6 @@ export class ThyCascaderComponent extends TabIndexMixinBase
                 }
             });
         }
-    }
-
-    registerOnChange(fn: (_: any) => {}): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: () => {}): void {
-        this.onTouched = fn;
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -668,7 +675,6 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         if (this.disabled) {
             return;
         }
-        this.onTouched();
         if (this.isClickTriggerAction()) {
             this.setMenuVisible(!this.menuVisible);
         }
@@ -696,7 +702,6 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         }
         this.setActiveOption(option, index, true);
         this.valueChange();
-        this.onTouched();
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -722,9 +727,24 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         this.setMenuVisible(!this.menuVisible);
     }
 
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'thy-cascader'])) {
+            return;
+        }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement.focus();
+    }
+
     public closeMenu(): void {
-        this.setMenuVisible(false);
-        this.elementRef.nativeElement?.onblur && this.elementRef.nativeElement?.onblur();
+        if(this.menuVisible){
+            this.setMenuVisible(false);
+            this.onTouchedFn()
+        }
     }
 
     public setActiveOption(option: ThyCascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
@@ -777,6 +797,7 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         }
         if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
+            this.onTouchedFn()
         }
     }
 
@@ -809,7 +830,7 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         if (!arrayEquals(this.value, value)) {
             this.defaultValue = null;
             this.value = value;
-            this.onChange(value);
+            this.onChangeFn(value)
             if (this.selectionModel.isEmpty()) {
                 this.thyClear.emit();
             }
@@ -837,7 +858,6 @@ export class ThyCascaderComponent extends TabIndexMixinBase
         this.deselectAllSelected();
         this.setMenuVisible(false);
         this.valueChange();
-        this.onTouched();
     }
 
     private deselectAllSelected() {

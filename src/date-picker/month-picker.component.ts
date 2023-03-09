@@ -16,10 +16,7 @@ import { ThyPanelMode } from './standard-types';
             multi: true,
             useExisting: forwardRef(() => ThyMonthPickerComponent)
         }
-    ],
-    host: {
-        '[attr.tabindex]': 'tabIndex'
-    }
+    ]
 })
 export class ThyMonthPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy-MM';

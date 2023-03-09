@@ -1,4 +1,12 @@
-import { InputBoolean, TabIndexMixinBase } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean,
+    mixinDisabled,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
@@ -31,8 +39,12 @@ import {
     ThyShortcutValueChange
 } from './standard-types';
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
+
 @Directive()
-export abstract class AbstractPickerComponent extends TabIndexMixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
     @Input() thyMode: ThyPanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
@@ -201,7 +213,6 @@ export abstract class AbstractPickerComponent extends TabIndexMixinBase implemen
                 this.onChangeFn(value);
             }
         }
-        this.onTouchedFn();
     }
 
     setFormatRule() {
@@ -222,7 +233,6 @@ export abstract class AbstractPickerComponent extends TabIndexMixinBase implemen
     }
 
     onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
-    onTouchedFn: () => void = () => void 0;
 
     writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
@@ -239,14 +249,6 @@ export abstract class AbstractPickerComponent extends TabIndexMixinBase implemen
         this.originWithTime = withTime;
         this.setFormatRule();
         this.cdr.markForCheck();
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeFn = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedFn = fn;
     }
 
     setTimePickerState(withTime: boolean): void {

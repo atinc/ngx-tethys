@@ -1,21 +1,29 @@
 import {
+    AbstractControlValueAccessor,
+    Constructor,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
+    mixinDisabled,
+    mixinTabIndex,
     ScrollToService,
-    TabIndexMixinBase,
+    ThyCanDisable,
     ThyClickDispatcher,
+    ThyHasTabIndex,
     ThyPlacement
 } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
-    SelectControlSize, ThyOptionComponent,
+    SelectControlSize,
+    THY_OPTION_PARENT_COMPONENT,
+    ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
-    ThySelectOptionGroupComponent, THY_OPTION_PARENT_COMPONENT
+    ThySelectOptionGroupComponent
 } from 'ngx-tethys/shared';
 import {
     A,
     DOWN_ARROW,
+    elementMatchClosest,
     END,
     ENTER,
     FunctionProp,
@@ -85,6 +93,10 @@ export interface OptionValue {
     thySearchKey?: string;
 }
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
+
 const noop = () => {};
 @Component({
     selector: 'thy-custom-select',
@@ -102,12 +114,14 @@ const noop = () => {};
         }
     ],
     host: {
-        '[attr.tabindex]':'tabIndex'
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent extends TabIndexMixinBase
-    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy{
+export class ThySelectCustomComponent extends _MixinBase
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
     size: SelectControlSize;
@@ -137,10 +151,6 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
     private selectionModelSubscription: Subscription;
 
     private readonly destroy$ = new Subject<void>();
-
-    private onTouchedCallback: () => void = noop;
-
-    private onChangeCallback: (_: any) => void = noop;
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
@@ -261,11 +271,10 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
      * 是否禁用
      */
     @Input()
-    // eslint-disable-next-line prettier/prettier
-    override get thyDisabled(): boolean {
-      return this.disabled;
+    get thyDisabled(): boolean {
+        return this.disabled;
     }
-    override set thyDisabled(value: boolean) {
+    set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
 
@@ -385,14 +394,6 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
     writeValue(value: any): void {
         this.modalValue = value;
         this.setSelectionByModelValue(this.modalValue);
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
     }
 
     ngOnInit() {
@@ -517,8 +518,17 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
         }
     }
 
-    public onBlur(event: Event) {
-        this.onTouchedCallback();
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])) {
+            return;
+        }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement.focus();
     }
 
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
@@ -591,9 +601,7 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.focus();
             this.changeDetectorRef.markForCheck();
-            if (this.elementRef.nativeElement.onblur) {
-               this.elementRef.nativeElement.onblur();
-            }
+            this.onTouchedFn();
         }
     }
 
@@ -611,8 +619,7 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
                 this.modalValue = changeValue[0];
             }
         }
-        this.onChangeCallback(this.modalValue);
-        this.onTouchedCallback();
+        this.onChangeFn(this.modalValue);
         this.updateCdkConnectedOverlayPositions();
     }
 
@@ -842,7 +849,7 @@ export class ThySelectCustomComponent extends TabIndexMixinBase
         if (wasSelected !== this.selectionModel.isSelected(option)) {
             this.emitModelValueChange();
         }
-        this.onTouchedCallback();
+        this.onTouchedFn();
         this.changeDetectorRef.markForCheck();
     }
 

@@ -51,6 +51,8 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     `
 })
 class BasicTreeSelectComponent {
+    @ViewChild(ThyTreeSelectComponent, { static: false }) treeComponent: ThyTreeSelectComponent;
+
     nodes: ThyTreeSelectNode[] = [
         {
             key: '01',
@@ -554,6 +556,18 @@ describe('ThyTreeSelect', () => {
 
                 expect(overlayContainerElement.querySelectorAll('a').length).toEqual(0);
             });
+
+            it('should call onFocus methods when focus', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
+                fixture.detectChanges();
+                const focusSpy = spyOn(fixture.componentInstance.treeComponent, 'onFocus').and.callThrough();
+
+                dispatchFakeEvent(treeSelectDebugElement.nativeElement, 'focus');
+                fixture.detectChanges();
+
+                expect(focusSpy).toHaveBeenCalled();
+            }));
         });
 
         describe('with thyPlaceHolder', () => {

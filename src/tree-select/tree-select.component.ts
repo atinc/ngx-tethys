@@ -4,7 +4,6 @@ import {
     getFlexiblePositions,
     mixinDisabled,
     mixinTabIndex,
-    TabIndexMixinBase,
     ThyCanDisable,
     ThyClickDispatcher,
     ThyHasTabIndex
@@ -262,6 +261,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                     if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
                         this.ngZone.run(() => {
                             this.expandTreeSelectOptions = false;
+                            this.onTouchedFn();
                             this.ref.markForCheck();
                         });
                     }

@@ -16,10 +16,7 @@ import { ThyPanelMode } from './standard-types';
             multi: true,
             useExisting: forwardRef(() => ThyWeekPickerComponent)
         }
-    ],
-    host: {
-        '[attr.tabindex]': 'tabIndex'
-    }
+    ]
 })
 export class ThyWeekPickerComponent extends BasePickerComponent {
     showWeek = true;

@@ -15,6 +15,7 @@
       [class.thy-input-readonly]="readonly"
       [disabled]="disabled"
       readonly
+      (blur)="onBlur($event)"
       value="{{ getReadableValue() }}"
       placeholder="{{ getPlaceholder() }}"
     />

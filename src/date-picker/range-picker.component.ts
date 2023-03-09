@@ -19,10 +19,7 @@ import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerComponent)
         }
-    ],
-    host: {
-        '[attr.tabindex]': 'tabIndex'
-    }
+    ]
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;

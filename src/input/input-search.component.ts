@@ -1,4 +1,14 @@
-import { Constructor, InputBoolean, MixinBase, mixinInitialized, ThyInitialized } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean,
+    mixinDisabled,
+    mixinInitialized,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyHasTabIndex,
+    ThyInitialized
+} from 'ngx-tethys/core';
 
 import {
     ChangeDetectionStrategy,
@@ -10,11 +20,13 @@ import {
     Input,
     OnInit,
     Output,
+    ViewChild,
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { elementMatchClosest } from 'ngx-tethys/util';
 import { ThyInputSize } from './input.directive';
 
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
@@ -28,7 +40,10 @@ export const CUSTOM_INPUT_SEARCH_CONTROL_VALUE_ACCESSOR: any = {
 
 const noop = () => {};
 
-const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitialized(MixinBase);
+const _MixinBase: Constructor<ThyHasTabIndex> &
+    Constructor<ThyInitialized> &
+    Constructor<ThyCanDisable> &
+    typeof AbstractControlValueAccessor = mixinInitialized(mixinTabIndex(mixinDisabled(AbstractControlValueAccessor)));
 
 /**
  * 搜索输入框
@@ -45,13 +60,14 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
         '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
-        '[class.form-control-active]': 'focused'
+        '[class.form-control-active]': 'focused',
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
     }
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
-    public onTouchedCallback: () => void = noop;
-
-    private onChangeCallback: (_: any) => void = noop;
+    @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private hostRenderer = useHostRenderer();
 
@@ -138,20 +154,12 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
         this.cdr.markForCheck();
     }
 
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
-    }
-
     setDisabledState?(isDisabled: boolean): void {
         this.disabled = isDisabled;
     }
 
     searchModelChange() {
-        this.onChangeCallback(this.searchText);
+        this.onChangeFn(this.searchText);
     }
 
     clearSearchText(event: Event) {
@@ -162,16 +170,21 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
             return;
         }
         this.searchText = '';
-        this.onChangeCallback(this.searchText);
+        this.onChangeFn(this.searchText);
         this.clear.emit(event);
         this.thyClear.emit(event);
     }
 
-    onBlur(event: Event) {
+    onBlur(event?: FocusEvent) {
         this.focused = false;
-        this.onTouchedCallback();
-        if (this.elementRef.nativeElement.onblur) {
-            this.elementRef.nativeElement.onblur(event);
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-input-search')) {
+            return;
         }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        this.inputElement.nativeElement.focus();
     }
 }
