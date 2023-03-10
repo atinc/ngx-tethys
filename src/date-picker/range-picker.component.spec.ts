@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
@@ -223,13 +223,12 @@ describe('ThyRangePickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
         }));
 
-        it('should support more thyShortcutRanges', fakeAsync(() => {
+        it('should support more thyShortcutPresets', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
-            fixtureInstance.thyShortcutRanges = [
+            fixtureInstance.thyShortcutPresets = [
                 {
                     title: '回家那几天',
-                    begin: new Date('2022-01-29').getTime(),
-                    end: new Date('2022-02-8').getTime()
+                    value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
                 }
             ];
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
@@ -308,7 +307,7 @@ describe('ThyRangePickerComponent', () => {
             expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
                 new TinyDate(new TinyDate().startOfMonth().getTime()).getDate()
             );
-            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfMonth().getDate());
         }));
 
         it('should support thyOnCalendarChange', fakeAsync(() => {
@@ -724,7 +723,7 @@ describe('ThyRangePickerComponent', () => {
                 [thySize]="thySize"
                 [thySuffixIcon]="thySuffixIcon"
                 [thyShowShortcut]="thyShowShortcut"
-                [thyShortcutRanges]="thyShortcutRanges"
+                [thyShortcutPresets]="thyShortcutPresets"
                 [thyShortcutPosition]="thyShortcutPosition"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
@@ -773,7 +772,7 @@ class ThyTestRangePickerComponent {
     thyOpen: boolean;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutRanges: ThyShortcutRange[];
+    thyShortcutPresets: ThyShortcutPreset[];
     flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}
     modelValueChange(): void {}

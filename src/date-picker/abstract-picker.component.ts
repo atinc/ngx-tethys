@@ -14,7 +14,7 @@ import { ControlValueAccessor } from '@angular/forms';
 import { Subject } from 'rxjs';
 
 import { InputBoolean } from 'ngx-tethys/core';
-import { TinyDate } from 'ngx-tethys/util';
+import { helpers, TinyDate } from 'ngx-tethys/util';
 
 import { ThyPickerComponent } from './picker.component';
 import {
@@ -24,7 +24,7 @@ import {
     ThyDateRangeEntry,
     ThyPanelMode,
     ThyShortcutPosition,
-    ThyShortcutRange,
+    ThyShortcutPreset,
     ThyShortcutValueChange,
     ThyDateGranularity
 } from './standard-types';
@@ -53,17 +53,27 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
 
+    @Input() thyShowShortcut: boolean = false;
+    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
+        if (!!position) {
+            this.shortcutPosition = position;
+        }
+    }
+    @Input() set thyShortcutPresets(presets: ThyShortcutPreset[]) {
+        if (presets && helpers.isArray(presets)) {
+            this.shortcutPresets = [...presets];
+        }
+    }
+    
     @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
-    shortcutPosition: ThyShortcutPosition;
+    shortcutPosition: ThyShortcutPosition = 'left';
 
-    shortcutRanges: ThyShortcutRange[];
-
-    thyShowShortcut: boolean;
+    shortcutPresets: ThyShortcutPreset[];
 
     isRange: boolean;
 

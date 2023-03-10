@@ -1,10 +1,9 @@
-import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyPanelMode, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { BasePickerComponent } from './base-picker.component';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDatePickerConfigService } from './date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,25 +25,19 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
 
     @Input() thyMode: ThyPanelMode = 'date';
 
-    @Input() thyShowShortcut: boolean = this.datePickerConfigService.showShortcut;
-
-    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
-        if (!!position) {
-            this.shortcutPosition = position;
-        }
-    }
-
-    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
+    /**
+     * * 已废弃，请使用 thyShortcutPresets
+     * @deprecated
+     */
+    @Input() set thyShortcutRanges (ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
-            this.shortcutRanges = [...ranges];
+            const presets: ThyShortcutPreset[] = ranges.map(range=> ({title: range.title, value: [range.begin, range.end]}))
+            console.log(presets);
+            this.shortcutPresets = [...presets];
         }
     }
 
-    shortcutRanges: ThyShortcutRange[] = this.datePickerConfigService.shortcutRanges;
-
-    shortcutPosition: ThyShortcutPosition = this.datePickerConfigService.shortcutPosition;
-
-    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef, private datePickerConfigService: ThyDatePickerConfigService) {
+    constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
         super(cdr);
         this.hostRenderer.addClass('thy-calendar-picker');
     }

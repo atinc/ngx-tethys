@@ -13,7 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyPopover } from '../popover/popover.service';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -125,13 +125,12 @@ describe('ThyRangePickerDirective', () => {
             expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
         }));
 
-        it('should support more thyShortcutRanges', fakeAsync(() => {
+        it('should support more thyShortcutPresets', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
-            fixtureInstance.thyShortcutRanges = [
+            fixtureInstance.thyShortcutPresets = [
                 {
                     title: '回家那几天',
-                    begin: new Date('2022-01-29').getTime(),
-                    end: new Date('2022-02-8').getTime()
+                    value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
                 }
             ];
             fixture.detectChanges();
@@ -178,7 +177,7 @@ describe('ThyRangePickerDirective', () => {
             [(ngModel)]="modelValue"
             [thyShowShortcut]="thyShowShortcut"
             [thyShortcutPosition]="thyShortcutPosition"
-            [thyShortcutRanges]="thyShortcutRanges"
+            [thyShortcutPresets]="thyShortcutPresets"
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyOpenChange)="thyOpenChange($event)"
@@ -189,7 +188,7 @@ class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutRanges: ThyShortcutRange[];
+    thyShortcutPresets: ThyShortcutPreset[];
     mode: string;
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}

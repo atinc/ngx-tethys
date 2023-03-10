@@ -9,7 +9,20 @@
     [thyAllowClear]="isAllowClear"
   ></thy-date-picker>
 </thy-form-group>
-
+<thy-form-group thyLabelText="高级时间选择器">
+  <thy-date-picker
+    class="d-block w-50 mb-3"
+    thyShowTime
+    [thyFormat]="dateShowTime | thyDatePickerFormatString"
+    thyPlaceHolder="选择时间"
+    [(ngModel)]="flexibleDateTime"
+    (ngModelChange)="onChange($event)"
+    [thyAllowClear]="isAllowClear"
+    [thyShowShortcut]="true"
+    thyShortcutPosition="left"
+    [thyShortcutPresets]="shortcutDatePresets"
+  ></thy-date-picker>
+</thy-form-group>
 <thy-form-group thyLabelText="周选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
@@ -80,7 +93,7 @@
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyShowShortcut]="true"
-    [thyShortcutRanges]="shortcutMonthRanges"
+    [thyShortcutPresets]="shortcutMonthPresets"
   ></thy-range-picker>
 </thy-form-group>
 

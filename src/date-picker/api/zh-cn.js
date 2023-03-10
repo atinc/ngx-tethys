@@ -118,6 +118,12 @@ module.exports = [
                 description: '时间发生变化的回调',
                 type: 'EventEmitter<Date>',
                 default: '-'
+            },
+            {
+                name: 'thyShortcutPresets',
+                description: '自定义快捷选项',
+                type: 'ThyShortcutPreset[]',
+                default: ''
             }
         ]
     },
@@ -171,8 +177,14 @@ module.exports = [
             },
             {
                 name: 'thyShortcutRanges',
-                description: '自定义快捷选项',
                 type: 'ThyShortcutRange[]',
+                default: '',
+                description: `自定义快捷选项，已废弃，请使用thyShortcutPresets`
+            },
+            {
+                name: 'thyShortcutPresets',
+                description: '自定义快捷选项',
+                type: 'ThyShortcutPreset[]',
                 default: ''
             }
         ]

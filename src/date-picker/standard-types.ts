@@ -11,6 +11,8 @@ export type ThyShortcutPosition = 'left' | 'bottom';
 
 export type ThyDateGranularity = 'year' | 'quarter' | 'month' | 'day';
 
+export type ThyShortcutValue = number | Date | (() => number | Date);
+
 export interface SupportTimeOptions {
     thyFormat?: string;
     thyHourStep?: number;
@@ -38,13 +40,18 @@ export interface ThyDateRangeEntry {
 
 export interface ThyShortcutRange {
     title: string;
-    begin: number | Date | (() => number | Date);
-    end: number | Date | (() => number | Date);
+    begin?: ThyShortcutValue;
+    end?: ThyShortcutValue;
+}
+
+export interface ThyShortcutPreset {
+    title: string;
+    value?:ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue]
 }
 
 export interface ThyShortcutValueChange {
     value: CompatibleValue;
-    triggerRange: ThyShortcutRange;
+    triggerPresets: ThyShortcutPreset;
 }
 
 /**

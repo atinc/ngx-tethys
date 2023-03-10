@@ -1,4 +1,4 @@
-import { ThyDateRangeEntry, ThyShortcutRange, ThyShortcutValueChange } from 'ngx-tethys/date-picker';
+import { ThyDateRangeEntry, ThyShortcutPreset, ThyShortcutValueChange } from 'ngx-tethys/date-picker';
 
 import { Component, OnInit } from '@angular/core';
 
@@ -9,7 +9,7 @@ import { Component, OnInit } from '@angular/core';
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new Date('2021-10'), end: new Date('2021-12') };
 
-    customShortcut: ThyShortcutRange[];
+    customShortcut: ThyShortcutPreset[];
 
     constructor() {}
 
@@ -17,8 +17,7 @@ export class ThyDatePickerShortcutExampleComponent implements OnInit {
         this.customShortcut = [
             {
                 title: '22年1号到5号',
-                begin: new Date('2022-1-1'),
-                end: new Date('2022-1-5')
+                value: [new Date('2022-1-1'), new Date('2022-1-5')]
             }
         ];
     }

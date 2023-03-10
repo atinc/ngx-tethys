@@ -1,6 +1,6 @@
 import { ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty, FunctionProp, helpers, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
@@ -22,7 +22,7 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange, ThyShortcutValueChange } from './standard-types';
+import { ThyPanelMode, ThyShortcutValueChange } from './standard-types';
 import { CompatibleValue } from './inner-types';
 
 @Directive()
@@ -68,12 +68,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
     @Input() thyStopPropagation = true;
-
-    thyShowShortcut: boolean;
-
-    shortcutPosition: ThyShortcutPosition;
-
-    shortcutRanges: ThyShortcutRange[];
 
     private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;
@@ -123,7 +117,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
                         minDate: this.thyMinDate,
                         maxDate: this.thyMaxDate,
                         showShortcut: this.thyShowShortcut,
-                        shortcutRanges: this.shortcutRanges,
+                        shortcutPresets: this.shortcutPresets,
                         shortcutPosition: this.shortcutPosition,
                         flexible: this.flexible,
                         flexibleDateGranularity: this.flexibleDateGranularity
