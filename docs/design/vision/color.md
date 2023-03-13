@@ -1,5 +1,5 @@
 ---
-title: 色彩
+title: 颜色
 order: 10
 ---
 
@@ -26,14 +26,14 @@ order: 10
 
 ## 辅色
 
-- 系统提供 <font color=#348fe4>18</font> 种自定义颜色供用户在项目、日程等多场景中应用，这些颜色会根据用户的设定随机搭配出现在界面中，整体视觉轻盈明快。
+- 系统提供 <font color=#6698FF>18</font>  种自定义颜色供用户在项目、日程等多场景中应用，这些颜色会根据用户的设定随机搭配出现在界面中，整体视觉轻盈明快。
 </br>
 </br>
 <div align=left>
 <img src="assets/images/vision/color-secondary.png" />
 </div>
 
-## 消色
+## 中性色
 
 - 应用于图标、底色等大部分场景。
 </br>
