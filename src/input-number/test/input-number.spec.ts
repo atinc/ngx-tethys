@@ -352,13 +352,6 @@ describe('input-number component', () => {
 
     it('should focus method work', fakeAsync(() => {
         fixture.detectChanges();
-        const focusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
-        const trigger = inputNumberDebugElement.nativeElement;
-        dispatchFakeEvent(trigger, 'focus');
-
-        fixture.detectChanges();
-        expect(focusSpy).toHaveBeenCalledTimes(1);
-
         inputNumberComponentInstance.inputNumberComponent.onInputFocus();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
@@ -366,6 +359,16 @@ describe('input-number component', () => {
         inputNumberComponentInstance.inputNumberComponent.onBlur();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call onFocus methods when focus', fakeAsync(() => {
+        fixture.detectChanges();
+        const focusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
+        const trigger = inputNumberDebugElement.nativeElement;
+        dispatchFakeEvent(trigger, 'focus');
+
+        fixture.detectChanges();
+        expect(focusSpy).toHaveBeenCalledTimes(1);
     }));
 
     it('should call blur when blur and validateOn is blur', fakeAsync(() => {
