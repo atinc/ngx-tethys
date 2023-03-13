@@ -568,6 +568,19 @@ describe('ThyTreeSelect', () => {
 
                 expect(focusSpy).toHaveBeenCalled();
             }));
+
+            it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
+                fixture.componentInstance.treeComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+                fixture.detectChanges();
+
+                expect(blurSpy).not.toHaveBeenCalled();
+            }));
         });
 
         describe('with thyPlaceHolder', () => {

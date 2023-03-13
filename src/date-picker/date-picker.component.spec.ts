@@ -97,6 +97,18 @@ describe('ThyDatePickerComponent', () => {
             expect(blurSpy).toHaveBeenCalled();
         }));
 
+        it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+            fixture.detectChanges();
+
+            const blurSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onTouchedFn');
+            const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            fixture.componentInstance.datePicker.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+            fixture.detectChanges();
+
+            expect(blurSpy).not.toHaveBeenCalled();
+        }));
+
         it('should be openable after closed by "Escape" key', fakeAsync(() => {
             fixture.detectChanges();
             dispatchMouseEvent(getPickerTriggerWrapper(), 'click');

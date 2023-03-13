@@ -350,8 +350,15 @@ describe('input-number component', () => {
         });
     }));
 
-    it('should focus method work', () => {
+    it('should focus method work', fakeAsync(() => {
         fixture.detectChanges();
+        const focusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
+        const trigger = inputNumberDebugElement.nativeElement;
+        dispatchFakeEvent(trigger, 'focus');
+
+        fixture.detectChanges();
+        expect(focusSpy).toHaveBeenCalledTimes(1);
+
         inputNumberComponentInstance.inputNumberComponent.onInputFocus();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
@@ -359,7 +366,7 @@ describe('input-number component', () => {
         inputNumberComponentInstance.inputNumberComponent.onBlur();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
-    });
+    }));
 
     it('should call blur when blur and validateOn is blur', fakeAsync(() => {
         fixture.detectChanges();
@@ -374,6 +381,21 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         expect(blurSpy).toHaveBeenCalled();
+    }));
+
+    it('should call blur and not call __onBlurValidation when blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const blurSpy = spyOn(
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+        const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;
+        fixture.componentInstance.inputNumberComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+        fixture.detectChanges();
+
+        expect(blurSpy).not.toHaveBeenCalled();
     }));
 
     it('should remove disabled in down handler after switch thyMin', fakeAsync(() => {

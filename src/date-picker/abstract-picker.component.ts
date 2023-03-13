@@ -71,15 +71,14 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
     @Input()
-    // eslint-disable-next-line prettier/prettier
-    override get thyDisabled(): boolean {
-      return this.disabled;
+    get thyDisabled(): boolean {
+        return this.disabled;
     }
-    override set thyDisabled(value: boolean) {
+    set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
 
-    disabled = false
+    disabled = false;
 
     shortcutPosition: ThyShortcutPosition;
 

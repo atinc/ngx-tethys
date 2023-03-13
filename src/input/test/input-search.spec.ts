@@ -212,6 +212,18 @@ describe('input search', () => {
         expect(blurSpy).toHaveBeenCalled();
     }));
 
+    it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedFn');
+        const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
+        fixture.componentInstance.inputSearchComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+        fixture.detectChanges();
+
+        expect(blurSpy).not.toHaveBeenCalled();
+    }));
+
     it('should call onFocus methods when focus', fakeAsync(() => {
         fixture.detectChanges();
         const focusSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onFocus').and.callThrough();
