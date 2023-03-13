@@ -16,9 +16,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule, ThyTooltipModule],
-    declarations: [
-        ThyFormDirective,
+    imports: [CommonModule, FormsModule, ThyInputModule, ThyAlertModule, ThyIconModule, ThyTooltipModule, ThyFormDirective,
         ThyFormGroupComponent,
         ThyFormGroupLabelDirective,
         ThyFormSubmitDirective,
@@ -27,8 +25,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
         ThyFormGroupErrorComponent,
         ThyMinDirective,
         ThyMaxDirective,
-        ThyConfirmValidatorDirective
-    ],
+        ThyConfirmValidatorDirective],
     exports: [
         ThyFormDirective,
         ThyFormGroupComponent,

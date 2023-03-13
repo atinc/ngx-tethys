@@ -5,8 +5,7 @@ import { ThyStatisticComponent } from './statistic.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
-    declarations: [ThyStatisticComponent],
-    imports: [CommonModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyStatisticComponent],
     exports: [ThyStatisticComponent],
     providers: []
 })

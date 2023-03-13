@@ -28,6 +28,10 @@ import {
 import { RouterLinkActive } from '@angular/router';
 import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
+import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
+import { ThyActionMenuComponent, ThyActionMenuItemDirective, ThyActionMenuItemActiveDirective } from 'ngx-tethys/action-menu';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
@@ -65,7 +69,9 @@ const tabItemRight = 20;
     host: {
         class: 'thy-nav'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass, NgTemplateOutlet, NgIf, ThyNavItemDirective, ThyIconComponent, ThyNavInkBarDirective, ThyActionMenuComponent, NgFor, ThyActionMenuItemDirective, ThyActionMenuItemActiveDirective, BypassSecurityTrustHtmlPipe]
 })
 export class ThyNavComponent extends _MixinBase
     implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {

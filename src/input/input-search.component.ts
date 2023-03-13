@@ -11,9 +11,12 @@ import {
     OnInit
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { mixinInitialized, ThyInitialized, Constructor, MixinBase, InputBoolean } from 'ngx-tethys/core';
-import { ThyInputSize } from './input.directive';
+import { ThyInputSize, ThyInputDirective } from './input.directive';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
 export type ThyInputSearchIconPosition = 'before' | 'after';
@@ -44,7 +47,9 @@ const _MixinBase: Constructor<ThyInitialized> & typeof MixinBase = mixinInitiali
         '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
         '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
         '[class.form-control-active]': 'focused'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
 export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
     public onTouchedCallback: () => void = noop;

@@ -1,3 +1,4 @@
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     ElementRef,
@@ -14,7 +15,7 @@ import {
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyResizeEvent } from 'ngx-tethys/resizable';
+import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandleComponent } from 'ngx-tethys/resizable';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
 import { ThyLayoutComponent } from './layout.component';
@@ -64,7 +65,9 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
             </ng-template>
         </div>
-    `
+    `,
+    standalone: true,
+    imports: [NgTemplateOutlet, NgIf, ThyResizeHandleComponent, ThyResizableDirective]
 })
 export class ThySidebarComponent implements OnInit, OnDestroy {
     @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;

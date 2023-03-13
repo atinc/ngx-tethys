@@ -1,13 +1,20 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, ViewContainerRef, OnInit } from '@angular/core';
 
 import { TinyDate } from 'ngx-tethys/util';
+import { ThyButtonComponent } from 'ngx-tethys/button';
+import { FormsModule } from '@angular/forms';
+import { ThyInnerTimePickerComponent } from 'ngx-tethys/time-picker';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'calendar-footer',
     exportAs: 'calendarFooter',
-    templateUrl: 'calendar-footer.component.html'
+    templateUrl: 'calendar-footer.component.html',
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, ThyInnerTimePickerComponent, FormsModule, ThyButtonComponent]
 })
 export class CalendarFooterComponent implements OnInit {
     @Input() showTime = false;

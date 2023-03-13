@@ -4,8 +4,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyWatermarkDirective } from './watermark.directive';
 
 @NgModule({
-    declarations: [ThyWatermarkDirective],
-    imports: [CommonModule, ThySharedModule],
+    imports: [CommonModule, ThySharedModule, ThyWatermarkDirective],
     exports: [ThyWatermarkDirective],
     providers: []
 })

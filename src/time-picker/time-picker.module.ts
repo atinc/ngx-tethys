@@ -17,8 +17,7 @@ import { ThyButtonModule } from 'ngx-tethys/button';
 const COMPONENTS = [ThyInnerTimePickerComponent, ThyTimePickerComponent, ThyTimePanelComponent];
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyInputModule, OverlayModule, ThyPopoverModule, ThyButtonModule],
-    declarations: [...COMPONENTS],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyInputModule, OverlayModule, ThyPopoverModule, ThyButtonModule, ...COMPONENTS],
     exports: [...COMPONENTS],
     providers: [TimePickerConfig, ThyTimePickerStore]
 })

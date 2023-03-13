@@ -1,10 +1,13 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { NgIf } from '@angular/common';
 
 @Component({
     selector: 'thy-loading',
     templateUrl: './loading.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyLoadingComponent {
     public isDone: boolean;

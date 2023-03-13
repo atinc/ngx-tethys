@@ -4,7 +4,7 @@ import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor, NgClass, NgStyle } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -24,6 +24,10 @@ import {
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
+import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -54,7 +58,9 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [CdkOverlayOrigin, ThySelectControlComponent, NgIf, NgTemplateOutlet, CdkConnectedOverlay, forwardRef(() => ThyTreeSelectNodesComponent), ThyStopPropagationDirective]
 })
 export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
@@ -429,7 +435,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
-    templateUrl: './tree-select-nodes.component.html'
+    templateUrl: './tree-select-nodes.component.html',
+    standalone: true,
+    imports: [NgIf, NgFor, NgTemplateOutlet, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, ThyEmptyComponent, NgClass, NgStyle, ThyIconComponent]
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;

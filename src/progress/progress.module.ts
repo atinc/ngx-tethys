@@ -8,8 +8,7 @@ import { ThyProgressStripComponent } from './progress-strip.component';
 import { ThyProgressComponent } from './progress.component';
 
 @NgModule({
-    declarations: [ThyProgressComponent, ThyProgressStripComponent, ThyProgressCircleComponent],
-    imports: [CommonModule, ThyTooltipModule],
+    imports: [CommonModule, ThyTooltipModule, ThyProgressComponent, ThyProgressStripComponent, ThyProgressCircleComponent],
     exports: [ThyProgressComponent]
 })
 export class ThyProgressModule {}

@@ -3,6 +3,9 @@ import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, Inpu
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { BasePickerComponent } from './base-picker.component';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { NgIf } from '@angular/common';
+import { ThyPickerComponent } from './picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +18,9 @@ import { BasePickerComponent } from './base-picker.component';
             multi: true,
             useExisting: forwardRef(() => ThyYearPickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyYearPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy';

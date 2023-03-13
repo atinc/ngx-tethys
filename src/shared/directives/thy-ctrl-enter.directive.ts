@@ -1,7 +1,10 @@
 import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, OnDestroy } from '@angular/core';
 import { keycodes } from 'ngx-tethys/util';
 
-@Directive({ selector: '[thyCtrlEnter]' })
+@Directive({
+    selector: '[thyCtrlEnter]',
+    standalone: true
+})
 export class ThyCtrlEnterDirective implements OnInit, OnDestroy {
     @Output() thyCtrlEnter = new EventEmitter();
 

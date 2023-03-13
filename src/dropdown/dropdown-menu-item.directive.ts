@@ -11,7 +11,8 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
  * 菜单项
  */
 @Directive({
-    selector: '[thyDropdownMenuItem]'
+    selector: '[thyDropdownMenuItem]',
+    standalone: true
 })
 export class ThyDropdownMenuItemDirective implements OnInit {
     @HostBinding('class.dropdown-menu-item') className = true;
@@ -70,7 +71,8 @@ export class ThyDropdownMenuItemDirective implements OnInit {
  * 设置为菜单项图标
  */
 @Directive({
-    selector: '[thyDropdownMenuItemIcon]'
+    selector: '[thyDropdownMenuItemIcon]',
+    standalone: true
 })
 export class ThyDropdownMenuItemIconDirective {
     @HostBinding('class.icon') className = true;
@@ -82,7 +84,8 @@ export class ThyDropdownMenuItemIconDirective {
  * 设置为菜单项名称
  */
 @Directive({
-    selector: '[thyDropdownMenuItemName]'
+    selector: '[thyDropdownMenuItemName]',
+    standalone: true
 })
 export class ThyDropdownMenuItemNameDirective {
     @HostBinding('class.name') className = true;
@@ -94,7 +97,8 @@ export class ThyDropdownMenuItemNameDirective {
  * 设置为菜单项名称后的补充信息
  */
 @Directive({
-    selector: '[thyDropdownMenuItemMeta]'
+    selector: '[thyDropdownMenuItemMeta]',
+    standalone: true
 })
 export class ThyDropdownMenuItemMetaDirective {
     @HostBinding('class.meta') className = true;
@@ -106,7 +110,8 @@ export class ThyDropdownMenuItemMetaDirective {
  * 设置为菜单项的描述
  */
 @Directive({
-    selector: '[thyDropdownMenuItemDesc]'
+    selector: '[thyDropdownMenuItemDesc]',
+    standalone: true
 })
 export class ThyDropdownMenuItemDescDirective {
     @HostBinding('class.desc') className = true;
@@ -118,7 +123,8 @@ export class ThyDropdownMenuItemDescDirective {
  * 菜单项的后置扩展图标，用于显示是否选中或者子菜单示意
  */
 @Directive({
-    selector: '[thyDropdownMenuItemExtendIcon]'
+    selector: '[thyDropdownMenuItemExtendIcon]',
+    standalone: true
 })
 export class ThyDropdownMenuItemExtendIconDirective {
     @HostBinding('class.extend-icon') className = true;
@@ -130,7 +136,8 @@ export class ThyDropdownMenuItemExtendIconDirective {
  * 菜单项是否激活指令
  */
 @Directive({
-    selector: '[thyDropdownMenuItemActive]'
+    selector: '[thyDropdownMenuItemActive]',
+    standalone: true
 })
 export class ThyDropdownMenuItemActiveDirective {
     /**

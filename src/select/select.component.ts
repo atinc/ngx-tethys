@@ -1,6 +1,9 @@
 import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormsModule } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { NgIf } from '@angular/common';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -15,7 +18,9 @@ const noop = () => {};
             useExisting: forwardRef(() => ThySelectComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyInputDirective, FormsModule, ThyIconComponent, NgIf]
 })
 export class ThySelectComponent implements ControlValueAccessor, OnInit {
     // The internal data model

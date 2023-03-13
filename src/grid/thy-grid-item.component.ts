@@ -15,7 +15,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-grid-item'
-    }
+    },
+    standalone: true
 })
 export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
     /**

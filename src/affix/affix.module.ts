@@ -5,8 +5,7 @@ import { NgModule } from '@angular/core';
 import { ThyAffixComponent } from './affix.component';
 
 @NgModule({
-    declarations: [ThyAffixComponent],
     exports: [ThyAffixComponent],
-    imports: [CommonModule, PlatformModule]
+    imports: [CommonModule, PlatformModule, ThyAffixComponent]
 })
 export class ThyAffixModule {}

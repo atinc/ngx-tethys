@@ -1,6 +1,7 @@
 import { Component, HostBinding, Inject, InjectionToken, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyProgressType } from './interfaces';
+import { NgStyle } from '@angular/common';
 
 export interface ThyParentProgress {
     max: number;
@@ -14,7 +15,9 @@ export const THY_PROGRESS_COMPONENT = new InjectionToken<ThyParentProgress>('THY
 @Component({
     selector: 'thy-progress-bar',
     templateUrl: './progress-strip.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgStyle]
 })
 export class ThyProgressStripComponent {
     private value: number;

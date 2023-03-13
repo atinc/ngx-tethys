@@ -3,6 +3,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BasePickerComponent } from './base-picker.component';
 import { ThyPanelMode } from './standard-types';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { NgIf } from '@angular/common';
+import { ThyPickerComponent } from './picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +18,9 @@ import { useHostRenderer } from '@tethys/cdk/dom';
             multi: true,
             useExisting: forwardRef(() => ThyMonthPickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyMonthPickerComponent extends BasePickerComponent {
     @Input() thyFormat = 'yyyy-MM';

@@ -4,8 +4,7 @@ import { ThyLabelComponent } from './label.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
-    declarations: [ThyLabelComponent],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyLabelComponent],
     exports: [ThyLabelComponent]
 })
 export class ThyLabelModule {}

@@ -9,7 +9,8 @@ const _MixinBase: ThyCanDisableCtor & typeof MixinBase = mixinDisabled(MixinBase
     selector: 'thy-list-option-group,[thy-list-option-group]',
     template: '<ng-content></ng-content>',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyOptionGroupComponent extends _MixinBase implements ThyCanDisable {
     set thyDisabled(value: any) {

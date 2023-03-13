@@ -6,8 +6,7 @@ import { ThyTextColorDirective } from './text-color.directive';
 import { ThyBackgroundColorDirective } from './bg-color.directive';
 
 @NgModule({
-    declarations: [ThyTextComponent, ThyTextColorDirective, ThyBackgroundColorDirective],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyTextComponent, ThyTextColorDirective, ThyBackgroundColorDirective],
     exports: [ThyTextComponent, ThyTextColorDirective, ThyBackgroundColorDirective],
     providers: []
 })

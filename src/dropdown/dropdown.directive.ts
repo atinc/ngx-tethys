@@ -22,7 +22,8 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
     selector: `[thyDropdown]`,
     host: {
         class: 'thy-dropdown'
-    }
+    },
+    standalone: true
 })
 export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnInit {
     menu!: ThyDropdownMenu;

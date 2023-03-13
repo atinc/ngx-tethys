@@ -3,7 +3,8 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-list',
-    template: '<ng-content></ng-content>'
+    template: '<ng-content></ng-content>',
+    standalone: true
 })
 export class ThyListComponent {
     @Input()

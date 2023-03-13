@@ -8,7 +8,8 @@ import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 @Component({
-    template: ``
+    template: ``,
+    standalone: true
 })
 export class BasePickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
     showWeek = false;

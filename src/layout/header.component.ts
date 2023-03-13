@@ -1,17 +1,11 @@
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
-    Component,
-    HostBinding,
-    Input,
+    ChangeDetectionStrategy, Component, ContentChild, Input,
     OnInit,
-    TemplateRef,
-    Optional,
-    ViewChild,
-    ContentChild,
-    ViewContainerRef,
-    ChangeDetectionStrategy
+    TemplateRef
 } from '@angular/core';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { InputBoolean } from 'ngx-tethys/core';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-header',
@@ -25,7 +19,9 @@ import { InputBoolean } from 'ngx-tethys/core';
         '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
         '[class.thy-layout-header-divided]': `divided`,
         '[class.thy-layout-header-shadow]': `thyShadow`
-    }
+    },
+    standalone: true,
+    imports: [NgTemplateOutlet, NgIf]
 })
 export class ThyHeaderComponent implements OnInit {
     public iconClass: string;

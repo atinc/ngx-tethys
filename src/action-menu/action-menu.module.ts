@@ -23,8 +23,7 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyFormModule } from 'ngx-tethys/form';
 
 @NgModule({
-    declarations: [
-        ThyActionMenuToggleDirective,
+    imports: [CommonModule, FormsModule, ThyPopoverModule, ThySelectModule, ThyFormModule, ThyActionMenuToggleDirective,
         ThyActionMenuComponent,
         ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
@@ -36,9 +35,7 @@ import { ThyFormModule } from 'ngx-tethys/form';
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
         ThyActionMenuItemActiveDirective,
-        ThyActionMenuGroupComponent
-    ],
-    imports: [CommonModule, FormsModule, ThyPopoverModule, ThySelectModule, ThyFormModule],
+        ThyActionMenuGroupComponent],
     providers: [],
     exports: [
         ThyActionMenuToggleDirective,

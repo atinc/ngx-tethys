@@ -11,9 +11,12 @@ import {
     NgZone,
     OnInit
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { take } from 'rxjs/operators';
-import { ThyInputSize } from './input.directive';
+import { ThyInputSize, ThyInputDirective } from './input.directive';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,7 +42,9 @@ const password = 'password';
         class: 'thy-input form-control',
         '[class.form-control-active]': 'focused',
         '[class.disabled]': 'disabled'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIconComponent]
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     /**

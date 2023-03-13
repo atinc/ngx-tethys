@@ -17,16 +17,13 @@ import { ThyDrawerContainerDirective } from './drawer/drawer-container.directive
 import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
-    declarations: [
-        ThySlideContainerComponent,
+    imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule, ThyActionModule, ThySlideContainerComponent,
         ThySlideLayoutComponent,
         ThySlideHeaderComponent,
         ThySlideBodyComponent,
         ThySlideBodySectionComponent,
         ThySlideFooterComponent,
-        ThyDrawerContainerDirective
-    ],
-    imports: [CommonModule, ThySharedModule, ThyIconModule, OverlayModule, PortalModule, ThyActionModule],
+        ThyDrawerContainerDirective],
     exports: [
         ThySlideLayoutComponent,
         ThySlideHeaderComponent,

@@ -20,14 +20,11 @@ import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import {
-    THY_OPTION_PARENT_COMPONENT,
-    IThyOptionParentComponent,
-    ThyOptionComponent,
-    ThyOptionSelectionChangeEvent
-} from 'ngx-tethys/shared';
+import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent, ThyOptionComponent, ThyOptionSelectionChangeEvent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { NgClass, NgIf } from '@angular/common';
 
 /** Event object that is emitted when an autocomplete option is activated. */
 export interface ThyAutocompleteActivatedEvent {
@@ -53,7 +50,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
             provide: THY_OPTION_PARENT_COMPONENT,
             useExisting: ThyAutocompleteComponent
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmptyComponent]
 })
 export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     dropDownClass: { [key: string]: boolean };

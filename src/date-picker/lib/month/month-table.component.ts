@@ -3,13 +3,16 @@ import { TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
+import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-table',
     exportAs: 'monthTable',
-    templateUrl: 'month-table.component.html'
+    templateUrl: 'month-table.component.html',
+    standalone: true,
+    imports: [NgFor, NgClass, NgSwitch, NgSwitchCase]
 })
 export class MonthTableComponent extends CalendarTable implements OnChanges {
     MAX_ROW = 4;

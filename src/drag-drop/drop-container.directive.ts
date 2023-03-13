@@ -15,7 +15,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
             provide: THY_DROP_CONTAINER_DIRECTIVE,
             useExisting: ThyDropContainerDirective
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyDropContainerDirective<T = any> extends _MixinBase implements OnInit, AfterContentInit, IThyDropContainerDirective {
     /**

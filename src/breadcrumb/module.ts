@@ -5,8 +5,7 @@ import { ThyBreadcrumbItemComponent } from './breadcrumb-item.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 
 @NgModule({
-    declarations: [ThyBreadcrumbComponent, ThyBreadcrumbItemComponent],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyBreadcrumbComponent, ThyBreadcrumbItemComponent],
     exports: [ThyBreadcrumbComponent, ThyBreadcrumbItemComponent]
 })
 export class ThyBreadcrumbModule {}

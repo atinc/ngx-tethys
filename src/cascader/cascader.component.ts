@@ -1,5 +1,5 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
+import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler, CdkOverlayOrigin } from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -18,12 +18,15 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
-import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
+import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyCascaderOptionComponent } from './cascader-li.component';
+import { NgIf, NgClass, NgTemplateOutlet, NgStyle, NgFor } from '@angular/common';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -73,7 +76,9 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
                 position: relative;
             }
         `
-    ]
+    ],
+    standalone: true,
+    imports: [CdkOverlayOrigin, NgIf, ThySelectControlComponent, NgClass, NgTemplateOutlet, CdkConnectedOverlay, NgStyle, NgFor, ThyCascaderOptionComponent, ThyEmptyComponent]
 })
 export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
     /**

@@ -21,7 +21,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     selector: '[thyCol]',
     host: {
         class: 'thy-col'
-    }
+    },
+    standalone: true
 })
 export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**

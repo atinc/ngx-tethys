@@ -3,6 +3,9 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { BasePickerComponent } from './base-picker.component';
 import { ThyPanelMode } from './standard-types';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { NgIf } from '@angular/common';
+import { ThyPickerComponent } from './picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -15,7 +18,9 @@ import { ThyPanelMode } from './standard-types';
             multi: true,
             useExisting: forwardRef(() => ThyWeekPickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyWeekPickerComponent extends BasePickerComponent {
     showWeek = true;

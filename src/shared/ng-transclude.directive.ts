@@ -4,7 +4,8 @@ import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
  * @private
  */
 @Directive({
-    selector: '[thyTransclude]'
+    selector: '[thyTransclude]',
+    standalone: true
 })
 export class ThyTranscludeDirective {
     viewRef: ViewContainerRef;

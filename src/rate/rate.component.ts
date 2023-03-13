@@ -14,6 +14,10 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyRateItemComponent } from './rate-item.component';
+import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import { NgFor, NgClass } from '@angular/common';
 
 const noop = () => {};
 @Component({
@@ -26,7 +30,9 @@ const noop = () => {};
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgFor, ThyStopPropagationDirective, ThyRateItemComponent, NgClass, ThyTooltipDirective]
 })
 export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;

@@ -15,7 +15,8 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    providers: [TooltipService]
+    providers: [TooltipService],
+    standalone: true
 })
 export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
     isOverflow = false;

@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -44,7 +44,9 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
         '[@dialogContainer]': 'animationState',
         '(@dialogContainer.start)': 'onAnimationStart($event)',
         '(@dialogContainer.done)': 'onAnimationDone($event)'
-    }
+    },
+    standalone: true,
+    imports: [PortalModule]
 })
 export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     animationOpeningDone: Observable<AnimationEvent>;

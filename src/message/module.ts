@@ -9,8 +9,7 @@ import { ThyMessageContainerComponent } from './message-container.component';
 import { THY_MESSAGE_DEFAULT_CONFIG_PROVIDER } from './message.config';
 
 @NgModule({
-    imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule],
-    declarations: [ThyMessageContainerComponent, ThyMessageComponent],
+    imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule, ThyMessageContainerComponent, ThyMessageComponent],
     exports: [ThyMessageContainerComponent, ThyMessageComponent],
     providers: [THY_MESSAGE_DEFAULT_CONFIG_PROVIDER]
 })

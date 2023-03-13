@@ -18,12 +18,17 @@ import { DateHelperService } from './date-helper.service';
 import { ThyDateGranularity } from './standard-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { CompatibleValue, RangePartType } from './inner-types';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 @Component({
     selector: 'thy-picker',
     exportAs: 'thyPicker',
     templateUrl: './picker.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [CdkOverlayOrigin, ThyInputDirective, NgTemplateOutlet, NgIf, ThyIconComponent, NgClass, CdkConnectedOverlay]
 })
 export class ThyPickerComponent implements AfterViewInit {
     @Input() isRange = false;

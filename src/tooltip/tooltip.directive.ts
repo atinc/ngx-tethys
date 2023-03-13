@@ -10,7 +10,8 @@ import { SafeAny } from 'ngx-tethys/types';
 
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
-    exportAs: 'thyTooltip'
+    exportAs: 'thyTooltip',
+    standalone: true
 })
 export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     touchendHideDelay = 1500;

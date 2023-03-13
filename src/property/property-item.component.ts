@@ -19,6 +19,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { ThyPropertiesComponent } from './properties.component';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
 
@@ -34,7 +36,9 @@ export type ThyPropertyItemOperationTrigger = 'hover' | 'always';
         '[class.thy-property-item-operational]': '!!operation',
         '[class.thy-property-item-operational-hover]': "thyOperationTrigger === 'hover'"
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, ThyFlexibleTextComponent, NgTemplateOutlet]
 })
 export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     /**

@@ -14,6 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { helpers } from 'ngx-tethys/util';
+import { NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-switch',
@@ -25,7 +26,9 @@ import { helpers } from 'ngx-tethys/util';
             useExisting: forwardRef(() => ThySwitchComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [NgClass]
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
     public model: boolean;

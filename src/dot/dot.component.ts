@@ -23,16 +23,15 @@ export const DEFAULT_SHAPE_NAME = 'circle';
         class: 'thy-dot',
         '[class.dot-theme-fill]': 'theme === "fill"',
         '[class.dot-theme-outline]': 'theme === "outline"',
-
         '[class.dot-shape-square]': 'shape === "square"',
         '[class.dot-shape-circle]': 'shape === "circle"',
-
         '[class.dot-size-md]': 'size === "md"',
         '[class.dot-size-sm]': 'size === "sm"',
         '[class.dot-size-xs]': 'size === "xs"',
         '[class.dot-size-lg]': 'size === "lg"',
         '[class.dot-size-xlg]': 'size === "xlg"'
-    }
+    },
+    standalone: true
 })
 export class ThyDotComponent {
     public size: ThySizeType = DEFAULT_SIZE_NAME;

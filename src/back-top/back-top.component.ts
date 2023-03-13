@@ -19,8 +19,9 @@ import {
 import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgTemplateOutlet } from '@angular/common';
 import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
 
 /**
  * 回到顶部组件
@@ -31,7 +32,9 @@ import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
     templateUrl: './back-top.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
-    animations: [fadeMotion]
+    animations: [fadeMotion],
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, NgTemplateOutlet]
 })
 export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     @HostBinding('class.thy-back-top-container') classNames = true;

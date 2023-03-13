@@ -5,7 +5,8 @@ import ThyColor from '../../helpers/color.class';
  */
 @Component({
     selector: 'thy-indicator',
-    templateUrl: './indicator.component.html'
+    templateUrl: './indicator.component.html',
+    standalone: true
 })
 export class ThyIndicatorComponent {
     @HostBinding('class.thy-indicator') className = true;

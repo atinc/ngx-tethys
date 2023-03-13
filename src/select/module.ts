@@ -26,9 +26,9 @@ import { THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
         ThyIconModule,
         ThyEmptyModule,
         ThySelectCommonModule,
-        ThyOptionModule
+        ThyOptionModule,
+        ThySelectComponent, ThySelectCustomComponent
     ],
-    declarations: [ThySelectComponent, ThySelectCustomComponent],
     exports: [ThySelectComponent, ThySelectCustomComponent, ThyOptionModule],
     providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER]
 })

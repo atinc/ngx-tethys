@@ -2,7 +2,10 @@ import { ThyGuiderManager } from './guider-manager';
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { take } from 'rxjs/operators';
 
-@Directive({ selector: '[thyGuiderTarget]', exportAs: 'thyGuiderTarget' })
+@Directive({
+    selector: '[thyGuiderTarget]', exportAs: 'thyGuiderTarget',
+    standalone: true
+})
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {
     @Input('thyGuiderTarget')
     target: string;

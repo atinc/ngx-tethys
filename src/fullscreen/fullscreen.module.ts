@@ -4,7 +4,7 @@ import { ThyFullscreenComponent } from './fullscreen.component';
 import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
 
 @NgModule({
-    declarations: [ThyFullscreenComponent, ThyFullscreenLaunchDirective],
+    imports: [ThyFullscreenComponent, ThyFullscreenLaunchDirective],
     exports: [ThyFullscreenComponent, ThyFullscreenLaunchDirective]
 })
 export class ThyFullscreenModule {}

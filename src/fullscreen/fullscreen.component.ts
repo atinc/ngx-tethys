@@ -8,7 +8,8 @@ import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
 
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',
-    templateUrl: './fullscreen.component.html'
+    templateUrl: './fullscreen.component.html',
+    standalone: true
 })
 export class ThyFullscreenComponent implements OnInit, OnDestroy {
     @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;

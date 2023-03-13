@@ -15,7 +15,8 @@ import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
             provide: THY_OPTION_GROUP_COMPONENT,
             useExisting: ThySelectOptionGroupComponent
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentInit {
     _hidden = false;

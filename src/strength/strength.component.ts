@@ -37,7 +37,8 @@ const strengthMap = {
             useExisting: forwardRef(() => ThyStrengthComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.password-strength-container') styleClass = true;

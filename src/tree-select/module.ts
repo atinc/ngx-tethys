@@ -21,9 +21,9 @@ import { ThyTreeSelectComponent, ThyTreeSelectNodesComponent } from './tree-sele
         ThyIconModule,
         ThyEmptyModule,
         ThySelectCommonModule,
-        ThySharedModule
+        ThySharedModule,
+        ThyTreeSelectComponent, ThyTreeSelectNodesComponent
     ],
-    declarations: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent],
     exports: [ThyTreeSelectComponent, ThyTreeSelectNodesComponent]
 })
 export class ThyTreeSelectModule {}

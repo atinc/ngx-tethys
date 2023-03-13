@@ -11,8 +11,7 @@ import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyInputCountComponent } from './input-count.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyDividerModule],
-    declarations: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent, ThyInputCountComponent],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyDividerModule, ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent, ThyInputCountComponent],
     exports: [ThyInputDirective, ThyInputComponent, ThyInputGroupComponent, ThyInputSearchComponent, ThyInputCountComponent]
 })
 export class ThyInputModule {}

@@ -25,28 +25,25 @@ import { ThyDatePickerConfigService } from './date-picker.service';
 registerLocaleData(localeZhHans, 'zh-Hans');
 
 @NgModule({
-    imports: [CommonModule, OverlayModule, LibPackerModule, ThyIconModule, ThyInputModule, ThyPopoverModule],
-    exports: [
-        ThyDatePickerComponent,
-        ThyRangePickerComponent,
-        ThyMonthPickerComponent,
-        ThyYearPickerComponent,
-        ThyWeekPickerComponent,
-        DatePickerRequiredValidator,
-        RangePickerRequiredValidator,
-        ThyDatePickerFormatPipe,
-        ThyDatePickerFormatStringPipe,
-        ThyDatePickerDirective,
-        ThyRangePickerDirective
-    ],
-    declarations: [
-        BasePickerComponent,
+    imports: [CommonModule, OverlayModule, LibPackerModule, ThyIconModule, ThyInputModule, ThyPopoverModule, BasePickerComponent,
         ThyPickerComponent,
         ThyDatePickerComponent,
         ThyMonthPickerComponent,
         ThyYearPickerComponent,
         ThyWeekPickerComponent,
         ThyRangePickerComponent,
+        DatePickerRequiredValidator,
+        RangePickerRequiredValidator,
+        ThyDatePickerFormatPipe,
+        ThyDatePickerFormatStringPipe,
+        ThyDatePickerDirective,
+        ThyRangePickerDirective],
+    exports: [
+        ThyDatePickerComponent,
+        ThyRangePickerComponent,
+        ThyMonthPickerComponent,
+        ThyYearPickerComponent,
+        ThyWeekPickerComponent,
         DatePickerRequiredValidator,
         RangePickerRequiredValidator,
         ThyDatePickerFormatPipe,

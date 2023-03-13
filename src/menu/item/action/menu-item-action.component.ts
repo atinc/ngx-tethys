@@ -10,7 +10,8 @@ import { ThyPopover } from 'ngx-tethys/popover';
     templateUrl: './menu-item-action.component.html',
     host: {
         class: 'thy-menu-item-action'
-    }
+    },
+    standalone: true
 })
 export class ThyMenuItemActionComponent implements OnDestroy {
     _boundEvent = false;

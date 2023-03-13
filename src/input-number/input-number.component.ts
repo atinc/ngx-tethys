@@ -13,8 +13,12 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -33,7 +37,9 @@ enum Type {
             useExisting: forwardRef(() => ThyInputNumberComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective]
 })
 export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
     @HostBinding('class.thy-input-number') _isInputNumber = true;

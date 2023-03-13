@@ -16,7 +16,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     selector: 'thy-dialog-body',
     template: '<ng-content></ng-content>',
     // changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'thyDialogBody'
+    exportAs: 'thyDialogBody',
+    standalone: true
 })
 export class DialogBodyComponent implements OnInit {
     @HostBinding(`class.dialog-body`) _isDialogBody = true;

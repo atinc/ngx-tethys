@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThySwitchComponent } from './switch.component';
 
 @NgModule({
-    declarations: [ThySwitchComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThySwitchComponent],
     exports: [ThySwitchComponent]
 })
 export class ThySwitchModule {}

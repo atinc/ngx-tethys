@@ -4,7 +4,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Directive({
     selector: '[thyBgColor]',
-    exportAs: 'thyBgColor'
+    exportAs: 'thyBgColor',
+    standalone: true
 })
 export class ThyBackgroundColorDirective {
     private bgColor: ThyThemeColor | ThyBgColor | string = '';

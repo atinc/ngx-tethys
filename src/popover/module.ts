@@ -13,8 +13,7 @@ import { ThyPopoverDirective } from './popover.directive';
 import { ThyPopover } from './popover.service';
 
 @NgModule({
-    declarations: [ThyPopoverContainerComponent, ThyPopoverDirective, ThyPopoverHeaderComponent, ThyPopoverBodyComponent],
-    imports: [CommonModule, OverlayModule, PortalModule, ThyIconModule],
+    imports: [CommonModule, OverlayModule, PortalModule, ThyIconModule, ThyPopoverContainerComponent, ThyPopoverDirective, ThyPopoverHeaderComponent, ThyPopoverBodyComponent],
     exports: [ThyPopoverDirective, ThyPopoverHeaderComponent, ThyPopoverBodyComponent],
     providers: [THY_POPOVER_DEFAULT_CONFIG_PROVIDER, THY_POPOVER_SCROLL_STRATEGY_PROVIDER, ThyPopover]
 })

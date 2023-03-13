@@ -15,8 +15,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTagModule } from 'ngx-tethys/tag';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule],
-    exports: [ThySelectControlComponent],
-    declarations: [ThySelectControlComponent]
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThySelectControlComponent],
+    exports: [ThySelectControlComponent]
 })
 export class ThySelectCommonModule {}

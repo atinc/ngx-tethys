@@ -1,5 +1,9 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+
+import { NgFor } from '@angular/common';
+import { ThySkeletonCircleComponent } from '../skeleton-circle.component';
+import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `
@@ -32,7 +36,9 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
         '[class.thy-skeleton-bullet-list]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgFor, ThySkeletonCircleComponent, ThySkeletonRectangleComponent]
 })
 export class ThySkeletonBulletListComponent {
     /**

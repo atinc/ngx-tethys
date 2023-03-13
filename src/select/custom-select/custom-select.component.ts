@@ -1,12 +1,5 @@
 import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
-import {
-    IThyOptionParentComponent,
-    SelectControlSize,
-    THY_OPTION_PARENT_COMPONENT,
-    ThyOptionComponent,
-    ThyOptionSelectionChangeEvent,
-    ThySelectOptionGroupComponent
-} from 'ngx-tethys/shared';
+import { IThyOptionParentComponent, SelectControlSize, THY_OPTION_PARENT_COMPONENT, ThyOptionComponent, ThyOptionSelectionChangeEvent, ThySelectOptionGroupComponent, ThySelectControlComponent, ThyStopPropagationDirective, ThyScrollDirective } from 'ngx-tethys/shared';
 import {
     A,
     coerceBooleanProperty,
@@ -29,8 +22,8 @@ import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operato
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
-import { isPlatformBrowser } from '@angular/common';
+import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import { isPlatformBrowser, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -59,6 +52,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { coerceElement } from '@angular/cdk/coercion';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
 
 export type SelectMode = 'multiple' | '';
 
@@ -97,7 +92,9 @@ const noop = () => {};
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [CdkOverlayOrigin, ThySelectControlComponent, CdkConnectedOverlay, ThyStopPropagationDirective, NgClass, NgIf, ThyScrollDirective, ThyLoadingComponent, ThyEmptyComponent, NgTemplateOutlet]
 })
 export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;

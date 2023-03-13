@@ -19,7 +19,6 @@ import { DialogFooterComponent } from './footer/dialog-footer.component';
 import { DialogHeaderComponent } from './header/dialog-header.component';
 
 @NgModule({
-    declarations: [ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent, ThyConfirmComponent],
     imports: [
         CommonModule,
         ThySharedModule,
@@ -29,7 +28,8 @@ import { DialogHeaderComponent } from './header/dialog-header.component';
         ThyIconModule,
         ThyFormModule,
         FormsModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent, ThyConfirmComponent
     ],
     providers: [
         ThyDialog,

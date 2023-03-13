@@ -1,15 +1,23 @@
-import { ThyFormGroupFooterAlign } from 'ngx-tethys/form';
+import { ThyFormDirective, ThyFormGroupFooterAlign, ThyFormGroupFooterComponent } from 'ngx-tethys/form';
 import { finalize } from 'rxjs/operators';
 
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Inject, Input, OnDestroy, OnInit } from '@angular/core';
 
-import { THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE, ThyConfirmConfig } from '../confirm.config';
+import { NgClass } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ThyButtonComponent } from 'ngx-tethys/button';
+import { DialogBodyComponent } from '../body/dialog-body.component';
+import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTIONS_VALUE } from '../confirm.config';
 import { ThyDialogRef } from '../dialog-ref';
+import { DialogHeaderComponent } from '../header/dialog-header.component';
+
 
 @Component({
     selector: 'thy-confirm-default',
     templateUrl: './confirm.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [DialogHeaderComponent, DialogBodyComponent, FormsModule, ThyFormDirective, ThyFormGroupFooterComponent, NgClass, ThyButtonComponent]
 })
 export class ThyConfirmComponent implements OnInit, OnDestroy {
     loading: boolean;

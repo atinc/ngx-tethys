@@ -5,6 +5,9 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { BasePickerComponent } from './base-picker.component';
 import { helpers } from 'ngx-tethys/util';
 import { ThyDatePickerConfigService } from './date-picker.service';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { NgIf } from '@angular/common';
+import { ThyPickerComponent } from './picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -17,7 +20,9 @@ import { ThyDatePickerConfigService } from './date-picker.service';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;

@@ -4,7 +4,7 @@ import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testin
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyInputNumberComponent } from 'ngx-tethys/input-number';
-import { dispatchFakeEvent, dispatchMouseEvent, dispatchEvent } from 'ngx-tethys/testing';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
 import { ThyAlphaComponent } from '../parts/alpha/alpha.component';
@@ -120,9 +120,9 @@ describe('thy-alpha', () => {
     let alphaElement: HTMLElement;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule],
+            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyAlphaComponent],
             providers: [],
-            declarations: [ThyDemoAlphaComponent, ThyAlphaComponent]
+            declarations: [ThyDemoAlphaComponent]
         });
         TestBed.compileComponents();
     });
@@ -177,9 +177,9 @@ describe('thy-hue', () => {
     let fixtureInstance: ThyDemoHueComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule],
+            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyHueComponent],
             providers: [],
-            declarations: [ThyDemoHueComponent, ThyHueComponent]
+            declarations: [ThyDemoHueComponent]
         });
         TestBed.compileComponents();
     });
@@ -235,9 +235,9 @@ describe('thy-saturation', () => {
     let fixtureInstance: ThyDemoSaturationComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule],
+            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThySaturationComponent],
             providers: [],
-            declarations: [ThyDemoSaturationComponent, ThySaturationComponent]
+            declarations: [ThyDemoSaturationComponent]
         });
         TestBed.compileComponents();
     });
@@ -298,9 +298,9 @@ describe('thy-color-inputs', () => {
     let fixtureInstance: ThyDemoColorInputsComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule],
+            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyColorInputsComponent],
             providers: [],
-            declarations: [ThyDemoColorInputsComponent, ThyColorInputsComponent]
+            declarations: [ThyDemoColorInputsComponent]
         });
         TestBed.compileComponents();
     });
@@ -352,9 +352,9 @@ describe('thy-indicator', () => {
     let fixtureInstance: ThyDemoIndicatorComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule],
+            imports: [CommonModule, FormsModule, ThyColorPickerModule, BrowserAnimationsModule, ThyIndicatorComponent],
             providers: [],
-            declarations: [ThyDemoIndicatorComponent, ThyIndicatorComponent]
+            declarations: [ThyDemoIndicatorComponent]
         });
         TestBed.compileComponents();
     });

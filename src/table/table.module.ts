@@ -19,13 +19,6 @@ import { ThyTableComponent } from './table.component';
 import { ThyTableSkeletonComponent } from './table-skeleton.component';
 
 @NgModule({
-    declarations: [
-        ThyTableComponent,
-        ThyTableColumnComponent,
-        TableIsValidModelValuePipe,
-        TableRowDragDisabledPipe,
-        ThyTableSkeletonComponent
-    ],
     imports: [
         CommonModule,
         FormsModule,
@@ -37,7 +30,12 @@ import { ThyTableSkeletonComponent } from './table-skeleton.component';
         ThySkeletonModule,
         ThyIconModule,
         DragDropModule,
-        ScrollingModule
+        ScrollingModule,
+        ThyTableComponent,
+        ThyTableColumnComponent,
+        TableIsValidModelValuePipe,
+        TableRowDragDisabledPipe,
+        ThyTableSkeletonComponent
     ],
     exports: [ThyTableComponent, ThyTableColumnComponent, ThyTableSkeletonComponent]
 })

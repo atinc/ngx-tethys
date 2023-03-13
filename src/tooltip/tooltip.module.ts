@@ -7,9 +7,8 @@ import { ThyTooltipComponent } from './tooltip.component';
 import { THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER } from './tooltip.config';
 
 @NgModule({
-    imports: [A11yModule, CommonModule, OverlayModule],
+    imports: [A11yModule, CommonModule, OverlayModule, ThyTooltipDirective, ThyTooltipComponent],
     exports: [ThyTooltipDirective],
-    declarations: [ThyTooltipDirective, ThyTooltipComponent],
     providers: [THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER]
 })
 export class ThyTooltipModule {}
