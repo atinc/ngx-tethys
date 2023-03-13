@@ -152,23 +152,6 @@
           "options": {
             "browserTarget": "site:build"
           }
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "site/src/test.ts",
-            "polyfills": "site/src/polyfills.ts",
-            "tsConfig": "site/tsconfig.spec.json",
-            "karmaConfig": "site/karma.conf.js",
-            "assets": [
-              "site/src/favicon.ico",
-              "site/src/assets"
-            ],
-            "styles": [
-              "site/src/styles.scss"
-            ],
-            "scripts": []
-          }
         }
       }
     },
