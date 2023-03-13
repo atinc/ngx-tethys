@@ -29,7 +29,9 @@ import { ThyAutocompleteService } from './overlay/autocomplete.service';
         ThyIconModule,
         ThyEmptyModule,
         ThyOptionModule,
-        ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent
+        ThyAutocompleteTriggerDirective,
+        ThyAutocompleteComponent,
+        ThyAutocompleteContainerComponent
     ],
     exports: [ThyAutocompleteTriggerDirective, ThyAutocompleteComponent, ThyAutocompleteContainerComponent, ThyOptionModule],
     providers: [THY_AUTOCOMPLETE_DEFAULT_CONFIG_PROVIDER, ThyAutocompleteService]

@@ -9,7 +9,17 @@ import { ThyListModule } from 'ngx-tethys/list';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 @NgModule({
-    imports: [CommonModule, ThyButtonModule, DragDropModule, ThyIconModule, ThyListModule, ThySharedModule, ThyFlexibleTextModule, ThyTransferComponent, ThyTransferListComponent],
+    imports: [
+        CommonModule,
+        ThyButtonModule,
+        DragDropModule,
+        ThyIconModule,
+        ThyListModule,
+        ThySharedModule,
+        ThyFlexibleTextModule,
+        ThyTransferComponent,
+        ThyTransferListComponent
+    ],
     exports: [ThyTransferComponent]
 })
 export class ThyTransferModule {}

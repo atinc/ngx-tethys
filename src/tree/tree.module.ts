@@ -30,7 +30,8 @@ import { ThyTreeService } from './tree.service';
         ThyDragDropModule,
         ThyCheckboxModule,
         ScrollingModule,
-        ThyTreeComponent, ThyTreeNodeComponent
+        ThyTreeComponent,
+        ThyTreeNodeComponent
     ],
     exports: [ThyTreeComponent, ThyTreeNodeComponent],
     providers: [ThyTreeService]

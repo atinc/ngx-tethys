@@ -3,7 +3,8 @@ import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone 
 import { take } from 'rxjs/operators';
 
 @Directive({
-    selector: '[thyGuiderTarget]', exportAs: 'thyGuiderTarget',
+    selector: '[thyGuiderTarget]',
+    exportAs: 'thyGuiderTarget',
     standalone: true
 })
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {

@@ -22,7 +22,8 @@ import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
         ThySelectCommonModule,
         ThyCheckboxModule,
         ThyFlexibleTextModule,
-        ThyCascaderComponent, ThyCascaderOptionComponent
+        ThyCascaderComponent,
+        ThyCascaderOptionComponent
     ],
     exports: [ThyCascaderComponent]
 })

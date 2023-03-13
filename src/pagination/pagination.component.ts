@@ -27,7 +27,17 @@ import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
     templateUrl: './pagination.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, NgTemplateOutlet, ThySelectCustomComponent, FormsModule, NgFor, ThyOptionComponent, ThyIconComponent, ThyEnterDirective, PaginationTotalCountFormat]
+    imports: [
+        NgIf,
+        NgTemplateOutlet,
+        ThySelectCustomComponent,
+        FormsModule,
+        NgFor,
+        ThyOptionComponent,
+        ThyIconComponent,
+        ThyEnterDirective,
+        PaginationTotalCountFormat
+    ]
 })
 export class ThyPaginationComponent implements OnInit {
     isTemplateRef = isTemplateRef;

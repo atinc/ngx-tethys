@@ -9,7 +9,14 @@ import { ThyPropertyOperationGroupComponent } from './group/property-operation-g
 import { ThyPropertyOperationComponent } from './property-operation.component';
 
 @NgModule({
-    imports: [CommonModule, ThyButtonModule, ThyIconModule, ThyFlexibleTextModule, ThyPropertyOperationComponent, ThyPropertyOperationGroupComponent],
+    imports: [
+        CommonModule,
+        ThyButtonModule,
+        ThyIconModule,
+        ThyFlexibleTextModule,
+        ThyPropertyOperationComponent,
+        ThyPropertyOperationGroupComponent
+    ],
     exports: [ThyPropertyOperationComponent, ThyPropertyOperationGroupComponent]
 })
 export class ThyPropertyOperationModule {}

@@ -131,7 +131,26 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-table-fixed-header]': 'thyHeaderFixed'
     },
     standalone: true,
-    imports: [CdkScrollable, NgClass, NgFor, NgIf, NgTemplateOutlet, ThyIconComponent, ThyDragDropDirective, CdkDropList, CdkDrag, ThyContextMenuDirective, NgStyle, FormsModule, ThySwitchComponent, ThyEmptyComponent, ThyLoadingComponent, ThyPaginationComponent, TableIsValidModelValuePipe, TableRowDragDisabledPipe]
+    imports: [
+        CdkScrollable,
+        NgClass,
+        NgFor,
+        NgIf,
+        NgTemplateOutlet,
+        ThyIconComponent,
+        ThyDragDropDirective,
+        CdkDropList,
+        CdkDrag,
+        ThyContextMenuDirective,
+        NgStyle,
+        FormsModule,
+        ThySwitchComponent,
+        ThyEmptyComponent,
+        ThyLoadingComponent,
+        ThyPaginationComponent,
+        TableIsValidModelValuePipe,
+        TableRowDragDisabledPipe
+    ]
 })
 export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     public customType = customType;

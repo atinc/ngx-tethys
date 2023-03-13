@@ -20,7 +20,13 @@ import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { SelectionModel } from '@angular/cdk/collections';
-import { THY_OPTION_PARENT_COMPONENT, IThyOptionParentComponent, ThyOptionComponent, ThyOptionSelectionChangeEvent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import {
+    THY_OPTION_PARENT_COMPONENT,
+    IThyOptionParentComponent,
+    ThyOptionComponent,
+    ThyOptionSelectionChangeEvent,
+    ThyStopPropagationDirective
+} from 'ngx-tethys/shared';
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from '@angular/cdk/coercion';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';

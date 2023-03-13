@@ -22,7 +22,10 @@ import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartTy
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
-    DisabledDateFn, SupportTimeOptions, ThyDateGranularity, ThyPanelMode,
+    DisabledDateFn,
+    SupportTimeOptions,
+    ThyDateGranularity,
+    ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutRange,
     ThyShortcutValueChange
@@ -38,7 +41,18 @@ import { InnerPopupComponent } from './inner-popup.component';
     exportAs: 'datePopup',
     templateUrl: './date-popup.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, ThyNavComponent, ThyNavItemDirective, ThyButtonIconComponent, DateCarouselComponent, FormsModule, NgTemplateOutlet, InnerPopupComponent, CalendarFooterComponent]
+    imports: [
+        NgIf,
+        NgFor,
+        ThyNavComponent,
+        ThyNavItemDirective,
+        ThyButtonIconComponent,
+        DateCarouselComponent,
+        FormsModule,
+        NgTemplateOutlet,
+        InnerPopupComponent,
+        CalendarFooterComponent
+    ]
 })
 export class DatePopupComponent implements OnChanges, OnInit {
     @Input() isRange: boolean;

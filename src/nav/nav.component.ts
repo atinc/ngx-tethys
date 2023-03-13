@@ -71,7 +71,19 @@ const tabItemRight = 20;
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgClass, NgTemplateOutlet, NgIf, ThyNavItemDirective, ThyIconComponent, ThyNavInkBarDirective, ThyActionMenuComponent, NgFor, ThyActionMenuItemDirective, ThyActionMenuItemActiveDirective, BypassSecurityTrustHtmlPipe]
+    imports: [
+        NgClass,
+        NgTemplateOutlet,
+        NgIf,
+        ThyNavItemDirective,
+        ThyIconComponent,
+        ThyNavInkBarDirective,
+        ThyActionMenuComponent,
+        NgFor,
+        ThyActionMenuItemDirective,
+        ThyActionMenuItemActiveDirective,
+        BypassSecurityTrustHtmlPipe
+    ]
 })
 export class ThyNavComponent extends _MixinBase
     implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy {

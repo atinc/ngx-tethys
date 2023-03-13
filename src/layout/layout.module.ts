@@ -16,7 +16,14 @@ import { ThySidebarContentComponent } from './sidebar-content.component';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
 
 @NgModule({
-    imports: [CommonModule, DragDropModule, ThyIconModule, ThyTooltipModule, ThyResizableModule, ThyHotkeyModule, ThyLayoutComponent,
+    imports: [
+        CommonModule,
+        DragDropModule,
+        ThyIconModule,
+        ThyTooltipModule,
+        ThyResizableModule,
+        ThyHotkeyModule,
+        ThyLayoutComponent,
         ThyHeaderComponent,
         ThyContentComponent,
         ThySidebarComponent,
@@ -24,7 +31,8 @@ import { ThyResizableModule } from 'ngx-tethys/resizable';
         ThySidebarContentComponent,
         ThySidebarFooterComponent,
         ThyContentSectionComponent,
-        ThyContentMainComponent],
+        ThyContentMainComponent
+    ],
     exports: [
         ThyLayoutComponent,
         ThyHeaderComponent,

@@ -1,5 +1,12 @@
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition, ThyDropContainerDirective, ThyDragDirective } from 'ngx-tethys/drag-drop';
+import {
+    ThyDragDropEvent,
+    ThyDragOverEvent,
+    ThyDragStartEvent,
+    ThyDropPosition,
+    ThyDropContainerDirective,
+    ThyDragDirective
+} from 'ngx-tethys/drag-drop';
 import { helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
@@ -68,7 +75,16 @@ const treeItemSizeMap = {
         ThyTreeService
     ],
     standalone: true,
-    imports: [NgIf, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, ThyDropContainerDirective, CdkVirtualForOf, ThyTreeNodeComponent, ThyDragDirective, NgFor]
+    imports: [
+        NgIf,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        ThyDropContainerDirective,
+        CdkVirtualForOf,
+        ThyTreeNodeComponent,
+        ThyDragDirective,
+        NgFor
+    ]
 })
 export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
     private _templateRef: TemplateRef<any>;

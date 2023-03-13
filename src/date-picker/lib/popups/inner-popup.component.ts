@@ -34,7 +34,21 @@ import { YearTableComponent } from '../year/year-table.component';
     exportAs: 'innerPopup',
     templateUrl: 'inner-popup.component.html',
     standalone: true,
-    imports: [NgIf, ThyInputDirective, NgSwitch, NgSwitchCase, DecadeHeaderComponent, DecadeTableComponent, YearHeaderComponent, YearTableComponent, MonthHeaderComponent, MonthTableComponent, NgSwitchDefault, DateHeaderComponent, DateTableComponent]
+    imports: [
+        NgIf,
+        ThyInputDirective,
+        NgSwitch,
+        NgSwitchCase,
+        DecadeHeaderComponent,
+        DecadeTableComponent,
+        YearHeaderComponent,
+        YearTableComponent,
+        MonthHeaderComponent,
+        MonthTableComponent,
+        NgSwitchDefault,
+        DateHeaderComponent,
+        DateTableComponent
+    ]
 })
 export class InnerPopupComponent implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;

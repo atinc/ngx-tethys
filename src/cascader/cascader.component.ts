@@ -1,5 +1,11 @@
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler, CdkOverlayOrigin } from '@angular/cdk/overlay';
+import {
+    CdkConnectedOverlay,
+    ConnectedOverlayPositionChange,
+    ConnectionPositionPair,
+    ViewportRuler,
+    CdkOverlayOrigin
+} from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -78,7 +84,18 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         `
     ],
     standalone: true,
-    imports: [CdkOverlayOrigin, NgIf, ThySelectControlComponent, NgClass, NgTemplateOutlet, CdkConnectedOverlay, NgStyle, NgFor, ThyCascaderOptionComponent, ThyEmptyComponent]
+    imports: [
+        CdkOverlayOrigin,
+        NgIf,
+        ThySelectControlComponent,
+        NgClass,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        NgStyle,
+        NgFor,
+        ThyCascaderOptionComponent,
+        ThyEmptyComponent
+    ]
 })
 export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
     /**

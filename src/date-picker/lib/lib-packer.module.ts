@@ -23,7 +23,15 @@ import { DateCarouselComponent } from './date-carousel/date-carousel.component';
 import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule, ThyNavModule, ThyInputModule, CalendarFooterComponent,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyButtonModule,
+        ThyIconModule,
+        ThyTimePickerModule,
+        ThyNavModule,
+        ThyInputModule,
+        CalendarFooterComponent,
         DateTableComponent,
         DateHeaderComponent,
         YearTableComponent,
@@ -36,7 +44,8 @@ import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
         DatePopupComponent,
         DateTableCellComponent,
         DateCarouselComponent,
-        DatePickerAdvancedShowYearTipPipe],
+        DatePickerAdvancedShowYearTipPipe
+    ],
     exports: [
         CalendarFooterComponent,
         DateTableComponent,

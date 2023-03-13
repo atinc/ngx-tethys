@@ -4,7 +4,12 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { FormsModule } from '@angular/forms';
 import { ThyRangePickerDirective } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyActionMenuComponent, ThyActionMenuItemDirective, ThyActionMenuItemNameDirective, ThyActionMenuItemExtendIconDirective } from 'ngx-tethys/action-menu';
+import {
+    ThyActionMenuComponent,
+    ThyActionMenuItemDirective,
+    ThyActionMenuItemNameDirective,
+    ThyActionMenuItemExtendIconDirective
+} from 'ngx-tethys/action-menu';
 import { NgIf, NgFor } from '@angular/common';
 
 @Component({
@@ -12,7 +17,17 @@ import { NgIf, NgFor } from '@angular/common';
     selector: 'date-range-optional',
     templateUrl: './optional-dates.component.html',
     standalone: true,
-    imports: [NgIf, ThyActionMenuComponent, NgFor, ThyActionMenuItemDirective, ThyActionMenuItemNameDirective, ThyActionMenuItemExtendIconDirective, ThyIconComponent, ThyRangePickerDirective, FormsModule]
+    imports: [
+        NgIf,
+        ThyActionMenuComponent,
+        NgFor,
+        ThyActionMenuItemDirective,
+        ThyActionMenuItemNameDirective,
+        ThyActionMenuItemExtendIconDirective,
+        ThyIconComponent,
+        ThyRangePickerDirective,
+        FormsModule
+    ]
 })
 export class OptionalDateRangesComponent implements OnInit {
     hiddenMenu = false;

@@ -23,7 +23,10 @@ import { ThyDateRangeModule } from 'ngx-tethys/date-range';
         ThyRadioModule,
         ThyButtonModule,
         ThyDateRangeModule,
-        ThyCalendarHeaderComponent, ThyCalendarComponent, ThyDateCellDirective, ThyCalendarHeaderOperationDirective
+        ThyCalendarHeaderComponent,
+        ThyCalendarComponent,
+        ThyDateCellDirective,
+        ThyCalendarHeaderOperationDirective
     ],
     exports: [ThyCalendarHeaderComponent, ThyCalendarComponent, ThyDateCellDirective, ThyCalendarHeaderOperationDirective]
 })

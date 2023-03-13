@@ -60,7 +60,15 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         }
     ],
     standalone: true,
-    imports: [CdkOverlayOrigin, ThySelectControlComponent, NgIf, NgTemplateOutlet, CdkConnectedOverlay, forwardRef(() => ThyTreeSelectNodesComponent), ThyStopPropagationDirective]
+    imports: [
+        CdkOverlayOrigin,
+        ThySelectControlComponent,
+        NgIf,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        forwardRef(() => ThyTreeSelectNodesComponent),
+        ThyStopPropagationDirective
+    ]
 })
 export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
@@ -437,7 +445,18 @@ const DEFAULT_ITEM_SIZE = 40;
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',
     standalone: true,
-    imports: [NgIf, NgFor, NgTemplateOutlet, CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf, ThyEmptyComponent, NgClass, NgStyle, ThyIconComponent]
+    imports: [
+        NgIf,
+        NgFor,
+        NgTemplateOutlet,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf,
+        ThyEmptyComponent,
+        NgClass,
+        NgStyle,
+        ThyIconComponent
+    ]
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;

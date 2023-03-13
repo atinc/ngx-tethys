@@ -9,7 +9,15 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { FormsModule } from '@angular/forms';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThySelectModule, ThyPaginationComponent, PaginationTotalCountFormat],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThySharedModule,
+        ThyIconModule,
+        ThySelectModule,
+        ThyPaginationComponent,
+        PaginationTotalCountFormat
+    ],
     exports: [ThyPaginationComponent]
 })
 export class ThyPaginationModule {}

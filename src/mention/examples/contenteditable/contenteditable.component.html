@@ -1,11 +1,5 @@
 <div class="demo-card">
-  <p
-    #exampleText
-    class="example-text"
-    contenteditable="true"
-    [thyMention]="mentions"
-    (thySelectSuggestion)="selectSuggestion($event)"
-  >
+  <p #exampleText class="example-text" contenteditable="true" [thyMention]="mentions" (thySelectSuggestion)="selectSuggestion($event)">
     这是一段文本
   </p>
 </div>

@@ -11,13 +11,20 @@ import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTI
 import { ThyDialogRef } from '../dialog-ref';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
 
-
 @Component({
     selector: 'thy-confirm-default',
     templateUrl: './confirm.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [DialogHeaderComponent, DialogBodyComponent, FormsModule, ThyFormDirective, ThyFormGroupFooterComponent, NgClass, ThyButtonComponent]
+    imports: [
+        DialogHeaderComponent,
+        DialogBodyComponent,
+        FormsModule,
+        ThyFormDirective,
+        ThyFormGroupFooterComponent,
+        NgClass,
+        ThyButtonComponent
+    ]
 })
 export class ThyConfirmComponent implements OnInit, OnDestroy {
     loading: boolean;

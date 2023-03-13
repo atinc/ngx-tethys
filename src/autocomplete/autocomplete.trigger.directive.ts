@@ -30,7 +30,8 @@ import { warnDeprecation } from 'ngx-tethys/util';
  * @name thyAutocomplete
  */
 @Directive({
-    selector: 'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
+    selector:
+        'input[thyAutocompleteTrigger], textarea[thyAutocompleteTrigger], thy-input[thyAutocompleteTrigger], thy-input-search[thyAutocompleteTrigger], input[thyAutocomplete], textarea[thyAutocomplete], thy-input[thyAutocomplete], thy-input-search[thyAutocomplete]',
     exportAs: 'thyAutocompleteTrigger, thyAutocomplete',
     host: {
         '(input)': 'handleInput($event)',

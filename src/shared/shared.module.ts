@@ -12,7 +12,9 @@ import { ThyStringOrTemplateOutletDirective } from './directives/string-or-templ
 import { ThyViewOutletDirective } from './directives/view-outlet.directive';
 
 @NgModule({
-    imports: [ThyViewOutletDirective, ThyTranscludeDirective,
+    imports: [
+        ThyViewOutletDirective,
+        ThyTranscludeDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,
         ThyCtrlEnterDirective,
@@ -21,7 +23,8 @@ import { ThyViewOutletDirective } from './directives/view-outlet.directive';
         ThyContextMenuDirective,
         ThyScrollDirective,
         ThyDragDropDirective,
-        ThyStringOrTemplateOutletDirective],
+        ThyStringOrTemplateOutletDirective
+    ],
     exports: [
         ThyTranscludeDirective,
         ThyAutofocusDirective,

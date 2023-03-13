@@ -29,7 +29,11 @@ import { DialogHeaderComponent } from './header/dialog-header.component';
         ThyFormModule,
         FormsModule,
         ThyActionModule,
-        ThyDialogContainerComponent, DialogHeaderComponent, DialogBodyComponent, DialogFooterComponent, ThyConfirmComponent
+        ThyDialogContainerComponent,
+        DialogHeaderComponent,
+        DialogBodyComponent,
+        DialogFooterComponent,
+        ThyConfirmComponent
     ],
     providers: [
         ThyDialog,

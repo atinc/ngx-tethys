@@ -1,6 +1,19 @@
-import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyPopoverModule } from 'ngx-tethys/popover';
+import { ThySelectModule } from 'ngx-tethys/select';
+import {
+    ThyActionMenuItemActiveDirective,
+    ThyActionMenuItemDirective,
+    ThyActionMenuItemExtendIconDirective,
+    ThyActionMenuItemIconDirective,
+    ThyActionMenuItemInfoDirective,
+    ThyActionMenuItemMetaDirective,
+    ThyActionMenuItemNameDirective
+} from './action-menu-item.directive';
+import { ThyActionMenuSubItemDirective } from './action-menu-sub-item.directive';
 import { ThyActionMenuToggleDirective } from './action-menu-toggle.component';
 import {
     ThyActionMenuComponent,
@@ -8,22 +21,15 @@ import {
     ThyActionMenuDividerTitleDirective,
     ThyActionMenuGroupComponent
 } from './action-menu.component';
-import {
-    ThyActionMenuItemDirective,
-    ThyActionMenuItemIconDirective,
-    ThyActionMenuItemNameDirective,
-    ThyActionMenuItemExtendIconDirective,
-    ThyActionMenuItemMetaDirective,
-    ThyActionMenuItemInfoDirective,
-    ThyActionMenuItemActiveDirective
-} from './action-menu-item.directive';
-import { ThyActionMenuSubItemDirective } from './action-menu-sub-item.directive';
-import { ThyPopoverModule } from 'ngx-tethys/popover';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { ThyFormModule } from 'ngx-tethys/form';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyPopoverModule, ThySelectModule, ThyFormModule, ThyActionMenuToggleDirective,
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyPopoverModule,
+        ThySelectModule,
+        ThyFormModule,
+        ThyActionMenuToggleDirective,
         ThyActionMenuComponent,
         ThyActionMenuDividerComponent,
         ThyActionMenuItemDirective,
@@ -35,7 +41,8 @@ import { ThyFormModule } from 'ngx-tethys/form';
         ThyActionMenuSubItemDirective,
         ThyActionMenuDividerTitleDirective,
         ThyActionMenuItemActiveDirective,
-        ThyActionMenuGroupComponent],
+        ThyActionMenuGroupComponent
+    ],
     providers: [],
     exports: [
         ThyActionMenuToggleDirective,

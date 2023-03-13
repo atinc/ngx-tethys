@@ -28,7 +28,9 @@ import { ThyActionModule } from 'ngx-tethys/action';
         ThyCopyModule,
         ThyLoadingModule,
         ThyActionModule,
-        ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent
+        ThyImageDirective,
+        ThyImageGroupComponent,
+        ThyImagePreviewComponent
     ],
     providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })

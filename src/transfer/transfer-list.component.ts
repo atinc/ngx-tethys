@@ -24,7 +24,18 @@ import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTrans
     templateUrl: './transfer-list.component.html',
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgIf, CdkDropListGroup, ThyListComponent, CdkDropList, ThyDragDropDirective, NgFor, ThyListItemComponent, CdkDrag, NgClass, NgTemplateOutlet]
+    imports: [
+        NgIf,
+        CdkDropListGroup,
+        ThyListComponent,
+        CdkDropList,
+        ThyDragDropDirective,
+        NgFor,
+        ThyListItemComponent,
+        CdkDrag,
+        NgClass,
+        NgTemplateOutlet
+    ]
 })
 export class ThyTransferListComponent implements OnInit, DoCheck {
     public lockItems: ThyTransferItem[] = [];

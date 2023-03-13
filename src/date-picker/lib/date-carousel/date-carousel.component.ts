@@ -1,9 +1,5 @@
 import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy,
-    ChangeDetectorRef, Component, forwardRef, HostBinding,
-    Input, OnDestroy, OnInit
-} from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyButtonComponent } from 'ngx-tethys/button';
 import { ThyIconComponent } from 'ngx-tethys/icon';

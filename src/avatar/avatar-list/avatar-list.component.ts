@@ -190,16 +190,16 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
         return typeof ResizeObserver === 'undefined'
             ? of(null)
             : new Observable(observer => {
-                const resize = new ResizeObserver(entries => {
-                    this.ngZone.run(() => {
-                        observer.next(entries);
-                    });
-                });
-                resize.observe(element);
-                return () => {
-                    resize.disconnect();
-                };
-            });
+                  const resize = new ResizeObserver(entries => {
+                      this.ngZone.run(() => {
+                          observer.next(entries);
+                      });
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
     }
 
     ngOnDestroy() {

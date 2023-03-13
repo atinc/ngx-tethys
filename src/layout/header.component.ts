@@ -1,9 +1,5 @@
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import {
-    ChangeDetectionStrategy, Component, ContentChild, Input,
-    OnInit,
-    TemplateRef
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 

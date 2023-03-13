@@ -7,7 +7,15 @@ import { ThyAvatarModule } from 'ngx-tethys/avatar';
 import { ThyCommentContentDirective } from './comment-content.directive';
 import { ThyCommentActionsDirective } from './comment-actions.directive';
 @NgModule({
-    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyAvatarModule, ThyCommentComponent, ThyCommentContentDirective, ThyCommentActionsDirective],
+    imports: [
+        CommonModule,
+        ThySharedModule,
+        ThyIconModule,
+        ThyAvatarModule,
+        ThyCommentComponent,
+        ThyCommentContentDirective,
+        ThyCommentActionsDirective
+    ],
     exports: [ThyCommentComponent, ThyCommentContentDirective, ThyCommentActionsDirective],
     providers: []
 })

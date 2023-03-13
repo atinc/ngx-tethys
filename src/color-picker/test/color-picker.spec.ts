@@ -163,7 +163,15 @@ describe(`color-picker`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule, ThyColorPickerPanelComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerPanelComponent
+            ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoColorPickerComponent]
         });
@@ -337,7 +345,15 @@ describe('color-default-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule, ThyColorPickerPanelComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerPanelComponent
+            ],
             providers: [
                 ThyPopover,
                 {
@@ -461,7 +477,15 @@ describe('picker-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule, ThyColorPickerCustomPanelComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerCustomPanelComponent
+            ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoPickerPanelComponent]
         });
@@ -501,7 +525,15 @@ describe('coordinates-directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule, ThyCoordinatesDirective],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyCoordinatesDirective
+            ],
             providers: [ThyPopover, ThyPopoverRef],
             declarations: [ThyDemoCoordinatesDirectiveComponent]
         });
