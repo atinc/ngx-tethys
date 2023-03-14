@@ -17,7 +17,7 @@ order: 40
 <br/>
 @shadow-1
 <br/>
-0px 4px 8px rgba(0, 0, 0, 0.08)
+0px 4px 8px rgba(#000000, 8%)
 
 ## 二级投影
 
@@ -31,18 +31,18 @@ order: 40
 <br/>
 @shadow-2
 <br/>
-0px 0px 16px rgba(0, 0, 0, 0.08)
+0px 0px 16px rgba(#000000, 8%)
 
 ## 三级投影
 
 - 三级投影主要用于 Dialog。
 <br/>
 <br/>
-<div style="width: 150px; height:150px; box-shadow: 0px 0px 16px rgba(0, 0, 0, 0.4)">
+<div style="width: 150px; height:150px; box-shadow: 0px 0px 24px rgba(0, 0, 0, 0.4)">
 </div>
 <br/>
 三级阴影
 <br/>
 @shadow-3
 <br/>
-0px 4px 8px rgba(0, 0, 0, 0.4)
+0px 0px 24px rgba(#000000, 40%)
