@@ -5,7 +5,7 @@ import { ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
 
 export interface ThyDatePickerConfig {
     shortcutPosition: ThyShortcutPosition;
-    shortcutPresets: ThyShortcutPreset[];
+    shortcutDatePresets: ThyShortcutPreset[];
     shortcutRangesPresets: ThyShortcutPreset[];
     showShortcut: boolean;
 }
@@ -13,7 +13,7 @@ export interface ThyDatePickerConfig {
 export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutPosition: 'left',
     showShortcut: false,
-    shortcutPresets: [
+    shortcutDatePresets: [
         {
             title: '今天',
             value: startOfDay(new Date()).getTime(),
