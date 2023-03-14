@@ -1,4 +1,6 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Renderer2, ElementRef, ViewChild } from '@angular/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 /**
  * 菜单项组件，支持 thy-menu-item,[thy-menu-item],[thyMenuItem] 使用
@@ -9,7 +11,9 @@ import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy, Input, Rende
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-menu-item'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent]
 })
 export class ThyMenuItemComponent implements OnInit, AfterViewInit {
     @ViewChild('content', { read: ElementRef }) content: ElementRef<HTMLElement>;

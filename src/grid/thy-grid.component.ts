@@ -50,7 +50,8 @@ export const screenBreakpointsMap = {
     ],
     host: {
         class: 'thy-grid'
-    }
+    },
+    standalone: true
 })
 export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements ThyGridToken, OnInit, AfterContentInit, OnDestroy {
     /**

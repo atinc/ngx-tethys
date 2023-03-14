@@ -8,7 +8,8 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef } from '@angula
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'sidebar-content'
-    }
+    },
+    standalone: true
 })
 export class ThySidebarContentComponent implements OnInit {
     constructor() {}

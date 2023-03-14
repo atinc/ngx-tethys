@@ -5,9 +5,8 @@ import { ThyDragContentDirective } from './drag-content.directive';
 import { ThyDropContainerDirective } from './drop-container.directive';
 
 @NgModule({
-    imports: [],
+    imports: [ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective, ThyDragContentDirective],
     exports: [ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective, ThyDragContentDirective],
-    declarations: [ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective, ThyDragContentDirective],
     providers: []
 })
 export class ThyDragDropModule {}

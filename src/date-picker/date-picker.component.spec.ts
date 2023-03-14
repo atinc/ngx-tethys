@@ -1,5 +1,5 @@
 import { format, fromUnixTime, isSameDay } from 'date-fns';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -10,6 +10,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angu
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
@@ -74,6 +75,38 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(document.activeElement).toEqual(getPickerTrigger());
+        }));
+
+        it('should call onFocus methods when focus', fakeAsync(() => {
+            fixture.detectChanges();
+            const focusSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onFocus').and.callThrough();
+            const dataPickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
+            dispatchFakeEvent(dataPickerElement, 'focus');
+            fixture.detectChanges();
+
+            expect(focusSpy).toHaveBeenCalled();
+        }));
+
+        it('should call onBlur methods when blur', fakeAsync(() => {
+            fixture.detectChanges();
+            const blurSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onBlur').and.callThrough();
+            const datePickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
+            dispatchFakeEvent(datePickerElement, 'blur');
+            fixture.detectChanges();
+
+            expect(blurSpy).toHaveBeenCalled();
+        }));
+
+        it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+            fixture.detectChanges();
+
+            const blurSpy = spyOn<any>(fixture.componentInstance.datePicker, 'onTouchedFn');
+            const trigger = fixture.debugElement.query(By.css('input')).nativeElement;
+            fixture.componentInstance.datePicker.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+            fixture.detectChanges();
+
+            expect(blurSpy).not.toHaveBeenCalled();
         }));
 
         it('should be openable after closed by "Escape" key', fakeAsync(() => {
@@ -699,6 +732,9 @@ describe('ThyDatePickerComponent', () => {
 class ThyTestDatePickerComponent {
     useSuite: 1 | 2 | 3;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
+
+    @ViewChild(ThyDatePickerComponent, { static: false }) datePicker: ThyDatePickerComponent;
+
     // --- Suite 1
     thyAllowClear: boolean;
     thyAutoFocus: boolean;

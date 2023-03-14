@@ -7,12 +7,13 @@ import {
     typeInElement
 } from 'ngx-tethys/testing';
 import { fromEvent, Subject, timer } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 import { Overlay, OverlayContainer, ScrollDispatcher } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { Component, ElementRef, OnInit, QueryList, TemplateRef, ViewChild, ViewChildren } from '@angular/core';
 import { async, ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
-import { UntypedFormControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyFormModule } from '../form';
@@ -22,7 +23,6 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
-import { tap } from 'rxjs/operators';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -744,6 +744,32 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 expect(selectComponent.modalValue).toBeNull();
             });
+
+            it('should call onFocus methods when focus', fakeAsync(() => {
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                fixture.detectChanges();
+                const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus');
+
+                dispatchFakeEvent(customSelectDebugElement.nativeElement, 'focus');
+                fixture.detectChanges();
+
+                flush();
+
+                expect(focusSpy).toHaveBeenCalled();
+            }));
+
+            it('should call onBlur methods when blur', fakeAsync(() => {
+                const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
+                fixture.detectChanges();
+                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur');
+
+                dispatchFakeEvent(customSelectDebugElement.nativeElement, 'blur');
+                fixture.detectChanges();
+
+                flush();
+
+                expect(blurSpy).toHaveBeenCalled();
+            }));
         });
 
         describe('size', () => {
@@ -1546,6 +1572,18 @@ describe('ThyCustomSelect', () => {
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
+        }));
+
+        it('should remove selected value when option disabled', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.componentInstance.selectedValue = ['sushi-7', 'tacos-2'];
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.queryAll(By.css('.choice-remove-link'))[1].nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
         }));
     });
 

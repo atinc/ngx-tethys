@@ -5,8 +5,7 @@ import { ThyCardHeaderComponent } from './header.component';
 import { ThyCardContentComponent } from './content.component';
 
 @NgModule({
-    declarations: [ThyCardComponent, ThyCardHeaderComponent, ThyCardContentComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThyCardComponent, ThyCardHeaderComponent, ThyCardContentComponent],
     exports: [ThyCardComponent, ThyCardHeaderComponent, ThyCardContentComponent]
 })
 export class ThyCardModule {}

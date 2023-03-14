@@ -2,6 +2,137 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/15.0.0...15.1.0-next.0) (2023-03-14)
+
+
+### Features
+
+* **forms:** support reactive forms #INFR-5805 ([#2444](https://github.com/atinc/ngx-tethys/issues/2444)) ([eeddb2f](https://github.com/atinc/ngx-tethys/commit/eeddb2fdc9661a20985d157966de758cf0edcf9e)), closes [#INFR-5805](https://github.com/atinc/ngx-tethys/issues/INFR-5805)
+
+
+
+# [15.0.0](https://github.com/atinc/ngx-tethys/compare/14.2.24...15.0.0) (2023-03-09)
+
+
+### Features
+
+* **cdk:** refactor behaviors  for useAction and useAsync ([de4b6f7](https://github.com/atinc/ngx-tethys/commit/de4b6f7421316a5230a21e19e867eee29daaccba))
+* upgrade ng to 15 ([043fa4f](https://github.com/atinc/ngx-tethys/commit/043fa4fcbb443010035098854552ff372aa877bd))
+
+
+
+# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+
+
+### Features
+
+* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
+* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+
+
+
+# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Features
+
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
+# [15.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.3...15.0.0-next.4) (2023-02-16)
+
+
+
+# [15.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/14.2.15...15.0.0-next.3) (2023-02-07)
+
+
+### Bug Fixes
+
+* **dialog:** invoke onCancel for confirm when click cancel button #INFR-1636 ([#2512](https://github.com/atinc/ngx-tethys/issues/2512)) ([5480dbd](https://github.com/atinc/ngx-tethys/commit/5480dbd1d4f38e04d9dadcd073501c9ae32b2c17)), closes [#INFR-1636](https://github.com/atinc/ngx-tethys/issues/INFR-1636)
+
+
+### Features
+
+* **cdk:** add defaultErrorHandler for ActionBehavior ([1ad2f02](https://github.com/atinc/ngx-tethys/commit/1ad2f026b0764f7b995504893c1be9912439e365))
+* **schematics:** add migration-v15 ([44a6264](https://github.com/atinc/ngx-tethys/commit/44a6264f0160e5671b3487be3814d56ebf6db09b))
+
+
+
+# [15.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.0.0-next.1...15.0.0-next.2) (2023-02-02)
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Features
+
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
+# [15.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.1) (2023-02-02)
+
+
+### Bug Fixes
+
+* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+
+
+### Features
+
+* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
+* upgrade ng to 15 ([33a1e13](https://github.com/atinc/ngx-tethys/commit/33a1e13caacf1e16a352c6c70d733d73228b5b5d))
+
+
+
+# [15.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/14.2.14...15.0.0-next.0) (2023-02-02)
+
+
+### Bug Fixes
+
+* **dot:** incorrect display when the attribute size is lg or xlg and the theme is outline #INFR-6240 ([fc61953](https://github.com/atinc/ngx-tethys/commit/fc6195396c00a434e359b72b0d4efa4541481587)), closes [#INFR-6240](https://github.com/atinc/ngx-tethys/issues/INFR-6240)
+
+
+### Features
+
+* **form:** add more way to validate form #INFR-2972 ([#2370](https://github.com/atinc/ngx-tethys/issues/2370)) ([7937de3](https://github.com/atinc/ngx-tethys/commit/7937de36ba22f13d3e63b26f5720546d67bfd501)), closes [#INFR-2972](https://github.com/atinc/ngx-tethys/issues/INFR-2972)
+* upgrade ng to 15 ([7f21c0c](https://github.com/atinc/ngx-tethys/commit/7f21c0c091a0e43faecbf92cf59161cc1a2fd341))
+
+## [14.2.24](https://github.com/atinc/ngx-tethys/compare/14.2.23...14.2.24) (2023-03-08)
+
+
+### Bug Fixes
+
+* **select:** fix remove selected fail when option disabled #INFR-6756 [@xujing](https://github.com/xujing) [@wumeimin](https://github.com/wumeimin) (#INFR-6756) ([#2561](https://github.com/atinc/ngx-tethys/issues/2561)) ([3e5ffb7](https://github.com/atinc/ngx-tethys/commit/3e5ffb78d54d1dd01240c989b05b894c0f8d60cd)), closes [#INFR-6756](https://github.com/atinc/ngx-tethys/issues/INFR-6756) [#INFR-6756](https://github.com/atinc/ngx-tethys/issues/INFR-6756)
+* **table:** fix error when set thyWholeRowSelect="true" #INFR-6693 ([#2560](https://github.com/atinc/ngx-tethys/issues/2560)) ([455327b](https://github.com/atinc/ngx-tethys/commit/455327bb9bad19b1823511c2db51f43e5164783d)), closes [#INFR-6693](https://github.com/atinc/ngx-tethys/issues/INFR-6693)
+
+
+
+## [14.2.23](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.23) (2023-03-02)
+
+
+### Bug Fixes
+
+* **date-picker:** fix quick select label style justify content center #INFR-5621 ([#2557](https://github.com/atinc/ngx-tethys/issues/2557)) ([6f16b1e](https://github.com/atinc/ngx-tethys/commit/6f16b1e314d92638900148f4754373d585921b96)), closes [#INFR-5621](https://github.com/atinc/ngx-tethys/issues/INFR-5621)
+* **date-picker:** same month does not appear twice in week range picker and adjust week range width #INFR-6644 ([#2554](https://github.com/atinc/ngx-tethys/issues/2554)) ([84d1cbe](https://github.com/atinc/ngx-tethys/commit/84d1cbeb945c18dda332f16ff595900232ea4871)), closes [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644) [#INFR-6644](https://github.com/atinc/ngx-tethys/issues/INFR-6644)
+* **input-number:** fix display null when thyMin or thyMax is null#INFR-6594 ([#2547](https://github.com/atinc/ngx-tethys/issues/2547)) ([3a49083](https://github.com/atinc/ngx-tethys/commit/3a490839d80fcf452beb4dffbe9e4e1c8b307ad3)), closes [null#INFR-6594](https://github.com/null/issues/INFR-6594) [null#INFR-6594](https://github.com/null/issues/INFR-6594)
+
+
+### Features
+
+* **avatar:** add thy-avatar-list #INFR-5295 [#2525](https://github.com/atinc/ngx-tethys/issues/2525) ([#2526](https://github.com/atinc/ngx-tethys/issues/2526)) ([112eac3](https://github.com/atinc/ngx-tethys/commit/112eac3ff65a78b9a3305195d46464cf5256218e)), closes [#INFR-5295](https://github.com/atinc/ngx-tethys/issues/INFR-5295)
+* **layout:** sidebar support dblclick restore to default width #INFR-6017 ([#2551](https://github.com/atinc/ngx-tethys/issues/2551)) ([06d85ad](https://github.com/atinc/ngx-tethys/commit/06d85ad1fba810837915bf8df688c91003eca8ea)), closes [#INFR-6017](https://github.com/atinc/ngx-tethys/issues/INFR-6017) [#INFR-6017](https://github.com/atinc/ngx-tethys/issues/INFR-6017)
+* **popover:** support popover hader template and add test(#INFR-6586) ([#2549](https://github.com/atinc/ngx-tethys/issues/2549)) ([d5dff36](https://github.com/atinc/ngx-tethys/commit/d5dff368b8cb0f27821ae689f81671b639826ad1)), closes [#INFR-6586](https://github.com/atinc/ngx-tethys/issues/INFR-6586)
+* send message and merge after pub  #INFR-6280 ([9353382](https://github.com/atinc/ngx-tethys/commit/9353382acc00bec1545abb6ba7e4daf21935d10b)), closes [#INFR-6280](https://github.com/atinc/ngx-tethys/issues/INFR-6280)
+
+
+
 ## [14.2.22](https://github.com/atinc/ngx-tethys/compare/14.2.21...14.2.22) (2023-02-27)
 
 

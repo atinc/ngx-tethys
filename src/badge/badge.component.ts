@@ -2,6 +2,7 @@ import { InputBoolean, isTextColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 export type ThyBadgeSize = 'md' | 'sm' | 'lg';
 
@@ -16,7 +17,9 @@ export type ThyBadgeSize = 'md' | 'sm' | 'lg';
     host: {
         class: 'thy-badge-container',
         '[class.thy-badge-wrapper]': 'isWrapper'
-    }
+    },
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyBadgeComponent implements OnInit {
     displayContent = '';

@@ -18,6 +18,8 @@ import { assertIconOnly } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgClass, NgIf } from '@angular/common';
 
 /**
  * 分段控制器的选项组件
@@ -28,7 +30,9 @@ import { SafeAny } from 'ngx-tethys/types';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-segment-item'
-    }
+    },
+    standalone: true,
+    imports: [NgClass, NgIf, ThyIconComponent]
 })
 export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
     /**

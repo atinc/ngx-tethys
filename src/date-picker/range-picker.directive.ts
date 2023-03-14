@@ -15,7 +15,8 @@ import { helpers } from 'ngx-tethys/util';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerDirective)
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;

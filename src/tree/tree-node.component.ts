@@ -1,4 +1,4 @@
-import { ThyDragStartEvent } from 'ngx-tethys/drag-drop';
+import { ThyDragStartEvent, ThyDragContentDirective } from 'ngx-tethys/drag-drop';
 import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 
@@ -28,6 +28,9 @@ import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -38,7 +41,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
 @Component({
     selector: 'thy-tree-node',
     templateUrl: './tree-node.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [ThyDragContentDirective, NgIf, ThyIconComponent, NgClass, NgStyle, NgTemplateOutlet, ThyLoadingComponent]
 })
 export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**

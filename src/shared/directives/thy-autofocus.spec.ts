@@ -24,7 +24,8 @@ describe('ThyAutofocusDirective', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyAutofocusDirective, ThyAutofocusTestComponent]
+            imports: [ThyAutofocusDirective],
+            declarations: [ThyAutofocusTestComponent]
         });
     });
 

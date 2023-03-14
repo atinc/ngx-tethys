@@ -4,8 +4,7 @@ import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThyVoteComponent } from './vote.component';
 import { ThyIconModule } from 'ngx-tethys/icon';
 @NgModule({
-    declarations: [ThyVoteComponent],
-    imports: [CommonModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyVoteComponent],
     exports: [ThyVoteComponent],
     providers: []
 })

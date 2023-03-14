@@ -2,7 +2,7 @@
 title: 13.1.0 升级指南
 path: 'migration-v13.1.0'
 order: 994
-label: new
+hidden: true
 ---
 
 

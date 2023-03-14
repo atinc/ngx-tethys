@@ -1,6 +1,7 @@
 import { OnInit, Component, Input, HostBinding, ElementRef, TemplateRef, ContentChild } from '@angular/core';
 import { hexToRgb } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 
 export type ThyStatisticColorType = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -16,7 +17,9 @@ export type ThyStatisticTitlePosition = 'top' | 'bottom';
  */
 @Component({
     selector: 'thy-statistic',
-    templateUrl: './statistic.component.html'
+    templateUrl: './statistic.component.html',
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, NgStyle]
 })
 export class ThyStatisticComponent implements OnInit {
     _shape: ThyStatisticShape;

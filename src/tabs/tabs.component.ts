@@ -20,6 +20,9 @@ import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyTabComponent } from './tab.component';
 import { ThyActiveTabInfo, ThyTabActiveEvent } from './types';
+import { ThyTabContentComponent } from './tab-content.component';
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
 
 export type ThyTabsSize = 'lg' | 'md' | 'sm';
 
@@ -41,7 +44,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-tabs-top]': `thyPosition === 'top'`,
         '[class.thy-tabs-left]': `thyPosition === 'left'`,
         '[style.overflow]': `transitionStarted ? "hidden" : null`
-    }
+    },
+    standalone: true,
+    imports: [ThyNavComponent, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContentComponent]
 })
 export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();

@@ -6,7 +6,8 @@ import { startWith, switchMap, takeUntil } from 'rxjs/operators';
  * 将来会移动到 thy 组件库中
  */
 @Directive({
-    selector: '[thyStopPropagation]'
+    selector: '[thyStopPropagation]',
+    standalone: true
 })
 export class ThyStopPropagationDirective implements OnDestroy {
     private _eventName = 'click';

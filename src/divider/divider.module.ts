@@ -6,8 +6,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyDividerComponent } from './divider.component';
 
 @NgModule({
-    declarations: [ThyDividerComponent],
-    imports: [CommonModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyDividerComponent],
     exports: [ThyDividerComponent],
     providers: []
 })

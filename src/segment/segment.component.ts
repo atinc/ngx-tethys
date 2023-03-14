@@ -17,6 +17,7 @@ import { ThySegmentItemComponent } from './segment-item.component';
 import { IThySegmentComponent, THY_SEGMENTED_COMPONENT } from './segment.token';
 import { ThySegmentEvent } from './types';
 import { AnimationEvent } from '@angular/animations';
+import { NgIf } from '@angular/common';
 
 export type ThySegmentSize = 'xs' | 'sm' | 'md' | 'default';
 
@@ -45,7 +46,9 @@ export type ThySegmentMode = 'block' | 'inline';
         '[class.thy-segment-md]': `thySize === 'md'`,
         '[class.thy-segment-default]': `!thySize || thySize === 'default'`,
         '[class.thy-segment-block]': `thyMode === 'block'`
-    }
+    },
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThySegmentComponent implements IThySegmentComponent, AfterContentInit {
     /**

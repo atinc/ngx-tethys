@@ -1,6 +1,7 @@
 ---
 title: Behaviors
 subtitle: 行为
+label: experimental
 ---
 
 <alert>行为函数。</alert>

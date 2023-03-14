@@ -10,6 +10,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
+import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import ThyColor from '../../helpers/color.class';
 
 /**
@@ -17,7 +18,9 @@ import ThyColor from '../../helpers/color.class';
  */
 @Component({
     selector: 'thy-saturation',
-    templateUrl: './saturation.component.html'
+    templateUrl: './saturation.component.html',
+    standalone: true,
+    imports: [ThyCoordinatesDirective]
 })
 export class ThySaturationComponent implements OnChanges {
     @HostBinding('class.thy-saturation') className = true;

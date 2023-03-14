@@ -18,7 +18,7 @@ describe('ng-update v14 Schematic', () => {
     });
 
     it('should update to ng v14', async () => {
-        workspaceTree = await schematicRunner.runSchematicAsync('migration-v14', undefined, tree).toPromise();
+        workspaceTree = await schematicRunner.runSchematic('migration-v14', undefined, tree);
         const file = workspaceTree.get('package.json');
         expect(file.content.toString()).toBeTruthy();
     });

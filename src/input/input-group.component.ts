@@ -11,6 +11,7 @@ import {
 import { ThyTranslate } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -35,7 +36,9 @@ const inputGroupSizeMap = {
         '[class.form-control]': 'prefixTemplate || suffixTemplate',
         '[class.thy-input-group-with-prefix]': 'prefixTemplate',
         '[class.thy-input-group-with-suffix]': 'suffixTemplate'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyInputGroupComponent implements AfterContentChecked {
     private hostRenderer = useHostRenderer();

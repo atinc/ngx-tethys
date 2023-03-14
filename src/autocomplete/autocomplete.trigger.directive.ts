@@ -37,7 +37,8 @@ import { warnDeprecation } from 'ngx-tethys/util';
         '(input)': 'handleInput($event)',
         '(focusin)': 'onFocus()',
         '(keydown)': 'onKeydown($event)'
-    }
+    },
+    standalone: true
 })
 export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     protected overlayRef: OverlayRef;

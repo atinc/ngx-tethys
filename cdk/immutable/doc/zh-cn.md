@@ -33,7 +33,7 @@ const users =  [
     { _id: '1', name: 'user 1' },
     { _id: '2', name: 'user 2' }
 ];
-const newUsers = produce(users).update({ _id: '1', name: 'user 1 new' });
+const newUsers = produce(users).update('1', { name: 'user 1 new' });
 ```
 
 ### remove
@@ -42,7 +42,7 @@ const users =  [
     { _id: '1', name: 'user 1' },
     { _id: '2', name: 'user 2' }
 ];
-const newUsers = produce(users).remove(1);
+const newUsers = produce(users).remove('1');
 ```
 
 ### move
@@ -51,8 +51,8 @@ const users =  [
     { _id: '1', name: 'user 1' },
     { _id: '2', name: 'user 2' }
 ];
-const newUsers = produce(users).move(1, { afterId: '2' });
-const newUsers = produce(users).move(1, { toIndex: 1 });
+const newUsers = produce(users).move('1', { afterId: '2' });
+const newUsers = produce(users).move('1', { toIndex: 1 });
 ```
 
 ## 对象操作

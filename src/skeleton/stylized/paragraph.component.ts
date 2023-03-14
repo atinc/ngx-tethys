@@ -1,5 +1,7 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input, OnInit } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
@@ -20,7 +22,9 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
         '[class.thy-skeleton-paragraph]': 'true'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgFor, ThySkeletonRectangleComponent]
 })
 export class ThySkeletonParagraphComponent {
     /**

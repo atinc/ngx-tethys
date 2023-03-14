@@ -1,11 +1,15 @@
 import { InputBoolean } from 'ngx-tethys/core';
 import { Component, HostBinding, ViewEncapsulation, OnInit, Optional, Input } from '@angular/core';
 import { ThyFormDirective } from '../form.directive';
+import { ThyAlertComponent } from 'ngx-tethys/alert';
+import { NgClass, NgFor } from '@angular/common';
 
 @Component({
     selector: 'thy-form-group-error',
     templateUrl: './form-group-error.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgClass, NgFor, ThyAlertComponent]
 })
 export class ThyFormGroupErrorComponent implements OnInit {
     public errors: string[];

@@ -10,8 +10,7 @@ import { ThyCollapseItemComponent } from './collapse-item.component';
 import { ThyCollapseComponent } from './collapse.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyIconModule],
-    declarations: [ThyCollapseComponent, ThyCollapseItemComponent],
+    imports: [CommonModule, FormsModule, OverlayModule, ThyInputModule, ThyIconModule, ThyCollapseComponent, ThyCollapseItemComponent],
     exports: [ThyCollapseComponent, ThyCollapseItemComponent]
 })
 export class ThyCollapseModule {}

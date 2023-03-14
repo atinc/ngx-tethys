@@ -6,8 +6,7 @@ import { ThyActionComponent } from './action.component';
 import { ThyActionsComponent } from './actions.component';
 
 @NgModule({
-    declarations: [ThyActionComponent, ThyActionsComponent],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyActionComponent, ThyActionsComponent],
     exports: [ThyActionComponent, ThyActionsComponent]
 })
 export class ThyActionModule {}

@@ -1,5 +1,18 @@
 import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean,
+    mixinDisabled,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
+import { coerceBooleanProperty, TinyDate, helpers } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+
+import {
     ChangeDetectorRef,
+    Directive,
     EventEmitter,
     Input,
     OnChanges,
@@ -7,20 +20,17 @@ import {
     OnInit,
     Output,
     SimpleChanges,
-    ViewChild,
-    Directive
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor } from '@angular/forms';
-import { Subject } from 'rxjs';
 
-import { InputBoolean } from 'ngx-tethys/core';
-import { helpers, TinyDate } from 'ngx-tethys/util';
-
+import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { ThyPickerComponent } from './picker.component';
+import { makeValue, transformDateValue } from './picker.util';
 import {
     CompatibleDate,
-    DisabledDateFn,
     DateEntry,
+    DisabledDateFn,
     ThyDateRangeEntry,
     ThyPanelMode,
     ThyShortcutPosition,
@@ -28,16 +38,17 @@ import {
     ThyShortcutValueChange,
     ThyDateGranularity
 } from './standard-types';
-import { transformDateValue, makeValue } from './picker.util';
-import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 
 @Directive()
-export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
     @Input() thyMode: ThyPanelMode = 'date';
     @Input() @InputBoolean() thyAllowClear = true;
     @Input() @InputBoolean() thyAutoFocus = false;
-    @Input() @InputBoolean() thyDisabled = false;
     @Input() @InputBoolean() thyOpen: boolean;
     @Input() thyDisabledDate: DisabledDateFn;
     @Input() thyMinDate: Date | number;
@@ -64,12 +75,22 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
             this.shortcutPresets = [...presets];
         }
     }
-    
+
     @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
+
+    @Input()
+    get thyDisabled(): boolean {
+        return this.disabled;
+    }
+    set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    disabled = false;
 
     shortcutPosition: ThyShortcutPosition = 'left';
 
@@ -96,7 +117,9 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.thyValue = this.isRange ? [] : null;
     }
 
-    constructor(public cdr: ChangeDetectorRef) {}
+    constructor(public cdr: ChangeDetectorRef) {
+        super();
+    }
 
     ngOnInit(): void {
         this.setDefaultPlaceHolder();
@@ -199,7 +222,6 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
                 this.onChangeFn(value);
             }
         }
-        this.onTouchedFn();
     }
 
     setFormatRule() {
@@ -220,7 +242,6 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
     }
 
     onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
-    onTouchedFn: () => void = () => void 0;
 
     writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
@@ -237,14 +258,6 @@ export abstract class AbstractPickerComponent implements OnInit, OnChanges, OnDe
         this.originWithTime = withTime;
         this.setFormatRule();
         this.cdr.markForCheck();
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeFn = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedFn = fn;
     }
 
     setTimePickerState(withTime: boolean): void {

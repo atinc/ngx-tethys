@@ -16,8 +16,10 @@
   [suffixIcon]="thySuffixIcon"
   [placement]="thyPlacement"
   (openChange)="onOpenChange($event)"
+  (blur)="onBlur($event)"
 >
   <date-popup
+    [attr.tabindex]="-1"
     *ngIf="realOpenState"
     [isRange]="isRange"
     [showWeek]="showWeek"

@@ -2,7 +2,8 @@ import { Component, OnInit, HostBinding } from '@angular/core';
 
 @Component({
     selector: 'thy-menu-divider,[thy-menu-divider],[thyMenuDivider]',
-    templateUrl: './menu-divider.component.html'
+    templateUrl: './menu-divider.component.html',
+    standalone: true
 })
 export class ThyMenuDividerComponent implements OnInit {
     @HostBinding('class.thy-menu-divider') isThyMenuDivider = true;

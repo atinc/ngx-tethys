@@ -23,23 +23,14 @@ import { DateCarouselComponent } from './date-carousel/date-carousel.component';
 import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyButtonModule, ThyIconModule, ThyTimePickerModule, ThyNavModule, ThyInputModule],
-    exports: [
-        CalendarFooterComponent,
-        DateTableComponent,
-        DateHeaderComponent,
-        YearTableComponent,
-        YearHeaderComponent,
-        MonthTableComponent,
-        MonthHeaderComponent,
-        DecadeHeaderComponent,
-        DecadeTableComponent,
-        InnerPopupComponent,
-        DatePopupComponent,
-        DateTableCellComponent,
-        DateCarouselComponent
-    ],
-    declarations: [
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyButtonModule,
+        ThyIconModule,
+        ThyTimePickerModule,
+        ThyNavModule,
+        ThyInputModule,
         CalendarFooterComponent,
         DateTableComponent,
         DateHeaderComponent,
@@ -54,6 +45,21 @@ import { DatePickerAdvancedShowYearTipPipe } from '../picker.pipes';
         DateTableCellComponent,
         DateCarouselComponent,
         DatePickerAdvancedShowYearTipPipe
+    ],
+    exports: [
+        CalendarFooterComponent,
+        DateTableComponent,
+        DateHeaderComponent,
+        YearTableComponent,
+        YearHeaderComponent,
+        MonthTableComponent,
+        MonthHeaderComponent,
+        DecadeHeaderComponent,
+        DecadeTableComponent,
+        InnerPopupComponent,
+        DatePopupComponent,
+        DateTableCellComponent,
+        DateCarouselComponent
     ]
 })
 export class LibPackerModule {}

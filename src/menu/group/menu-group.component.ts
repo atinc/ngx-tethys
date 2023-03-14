@@ -16,6 +16,8 @@ import {
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyMenuComponent } from '../menu.component';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
@@ -47,7 +49,9 @@ import { ThyMenuComponent } from '../menu.component';
             transition('* => *', animate('0ms ease-out'))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass, NgIf, NgTemplateOutlet, ThyIconComponent]
 })
 export class ThyMenuGroupComponent implements OnInit {
     public _actionMenu: ComponentType<any> | TemplateRef<any>;

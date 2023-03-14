@@ -6,6 +6,7 @@ import { Directive } from '@angular/core';
 @Directive({
     selector: '[thyCommentActions]',
     exportAs: 'thyCommentActions',
-    host: { class: 'thy-comment-actions' }
+    host: { class: 'thy-comment-actions' },
+    standalone: true
 })
 export class ThyCommentActionsDirective {}

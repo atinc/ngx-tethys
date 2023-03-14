@@ -1,9 +1,16 @@
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent, ThyDropPosition } from 'ngx-tethys/drag-drop';
+import {
+    ThyDragDropEvent,
+    ThyDragOverEvent,
+    ThyDragStartEvent,
+    ThyDropPosition,
+    ThyDropContainerDirective,
+    ThyDragDirective
+} from 'ngx-tethys/drag-drop';
 import { helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -27,6 +34,8 @@ import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
 import { ThyTreeService } from './tree.service';
+import { ThyTreeNodeComponent } from './tree-node.component';
+import { NgIf, NgFor } from '@angular/common';
 
 type ThyTreeSize = 'sm' | 'default';
 
@@ -53,7 +62,6 @@ const treeItemSizeMap = {
     templateUrl: './tree.component.html',
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -65,6 +73,17 @@ const treeItemSizeMap = {
             useExisting: forwardRef(() => ThyTreeComponent)
         },
         ThyTreeService
+    ],
+    standalone: true,
+    imports: [
+        NgIf,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        ThyDropContainerDirective,
+        CdkVirtualForOf,
+        ThyTreeNodeComponent,
+        ThyDragDirective,
+        NgFor
     ]
 })
 export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {

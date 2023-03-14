@@ -1,10 +1,21 @@
 import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { AbstractControlValueAccessor, Constructor, mixinDisabled, mixinTabIndex, ThyCanDisable, ThyHasTabIndex } from 'ngx-tethys/core';
+import { elementMatchClosest } from 'ngx-tethys/util';
+
+import { NgIf } from '@angular/common';
+import { ElementRef, ViewChild } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 const noop = () => {};
+
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 
 @Component({
     selector: 'thy-select',
@@ -15,9 +26,18 @@ const noop = () => {};
             useExisting: forwardRef(() => ThySelectComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyInputDirective, FormsModule, ThyIconComponent, NgIf],
+    host: {
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    }
 })
-export class ThySelectComponent implements ControlValueAccessor, OnInit {
+export class ThySelectComponent extends _MixinBase implements ControlValueAccessor, OnInit {
+    @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
+
     // The internal data model
     _innerValue: any = null;
     _disabled = false;
@@ -25,10 +45,6 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
     _expandOptions = false;
 
     private hostRenderer = useHostRenderer();
-
-    private onTouchedCallback: () => void = noop;
-
-    private onChangeCallback: (_: any) => void = noop;
 
     @HostBinding('class.thy-select') _isSelect = true;
 
@@ -47,22 +63,17 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         }
     }
 
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
-    }
-
     setDisabledState?(isDisabled: boolean): void {
         this._disabled = isDisabled;
     }
 
-    constructor() {}
+    constructor(private elementRef: ElementRef) {
+        super();
+    }
 
     ngModelChange() {
-        this.onChangeCallback(this._innerValue);
+        this.onChangeFn(this._innerValue);
+        this.onTouchedFn();
     }
 
     ngOnInit() {
@@ -70,9 +81,20 @@ export class ThySelectComponent implements ControlValueAccessor, OnInit {
         this.hostRenderer.updateClass(classes);
     }
 
+    onBlur(event: FocusEvent) {
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-select')) {
+            return;
+        }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        this.selectElement.nativeElement.focus();
+    }
+
     clearSelectValue(event: Event) {
         event.stopPropagation();
         this._innerValue = '';
-        this.onChangeCallback(this._innerValue);
+        this.onChangeFn(this._innerValue);
     }
 }

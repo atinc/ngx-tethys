@@ -6,8 +6,7 @@ import { ThyAnchorLinkComponent } from './anchor-link.component';
 import { ThyAffixModule } from 'ngx-tethys/affix';
 
 @NgModule({
-    declarations: [ThyAnchorComponent, ThyAnchorLinkComponent],
     exports: [ThyAnchorComponent, ThyAnchorLinkComponent],
-    imports: [CommonModule, PlatformModule, ThyAffixModule]
+    imports: [CommonModule, PlatformModule, ThyAffixModule, ThyAnchorComponent, ThyAnchorLinkComponent]
 })
 export class ThyAnchorModule {}

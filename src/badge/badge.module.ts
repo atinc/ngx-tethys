@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyBadgeComponent } from './badge.component';
 
 @NgModule({
-    declarations: [ThyBadgeComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThyBadgeComponent],
     exports: [ThyBadgeComponent]
 })
 export class ThyBadgeModule {

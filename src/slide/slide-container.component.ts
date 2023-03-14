@@ -5,7 +5,7 @@ import { filter, startWith, takeUntil } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { NgZone, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Renderer2, ViewChild } from '@angular/core';
 
@@ -31,7 +31,9 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
         '[style.width.px]': 'slideContainerStyles.width',
         '[style.height.px]': 'slideContainerStyles.height',
         '[style.max-height.px]': 'slideContainerStyles.height'
-    }
+    },
+    standalone: true,
+    imports: [PortalModule]
 })
 export class ThySlideContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     @ViewChild(CdkPortalOutlet, { static: true })

@@ -28,7 +28,8 @@ describe('string or template outlet directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyStringOrTemplateOutletDirective, ThyStringOrTemplateOutletTestComponent]
+            imports: [ThyStringOrTemplateOutletDirective],
+            declarations: [ThyStringOrTemplateOutletTestComponent]
         }).compileComponents();
 
         fixture = TestBed.createComponent(ThyStringOrTemplateOutletTestComponent);

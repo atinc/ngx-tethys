@@ -4,9 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ThySliderComponent } from './slider.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ThySliderComponent],
     exports: [ThySliderComponent],
-    declarations: [ThySliderComponent],
     providers: []
 })
 export class ThySliderModule {}

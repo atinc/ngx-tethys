@@ -21,6 +21,7 @@ import { clamp } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { NgStyle } from '@angular/common';
 
 export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -35,7 +36,9 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
             useExisting: forwardRef(() => ThySliderComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [NgStyle]
 })
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
     @HostBinding('class.slider-vertical')

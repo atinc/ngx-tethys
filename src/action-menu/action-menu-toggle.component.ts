@@ -10,7 +10,8 @@ export enum ActionEnum {
 }
 
 @Directive({
-    selector: '[thyActionMenuToggle]'
+    selector: '[thyActionMenuToggle]',
+    standalone: true
 })
 export class ThyActionMenuToggleDirective {
     private _templateRef: TemplateRef<any>;

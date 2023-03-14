@@ -8,7 +8,8 @@ import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-layout'
-    }
+    },
+    standalone: true
 })
 export class ThyLayoutComponent {
     @HostBinding('class.thy-layout--has-sidebar') hasSidebar = false;

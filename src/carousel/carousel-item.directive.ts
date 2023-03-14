@@ -5,7 +5,8 @@ import { Directive, ElementRef, Renderer2 } from '@angular/core';
  */
 @Directive({
     selector: '[thyCarouselItem],[thy-carousel-item]',
-    exportAs: 'thyCarouseItem'
+    exportAs: 'thyCarouseItem',
+    standalone: true
 })
 export class ThyCarouselItemDirective {
     private _active = false;

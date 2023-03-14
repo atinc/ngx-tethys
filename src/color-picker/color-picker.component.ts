@@ -18,7 +18,8 @@ import ThyColor from './helpers/color.class';
             multi: true,
             useExisting: forwardRef(() => ThyColorPickerDirective)
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**

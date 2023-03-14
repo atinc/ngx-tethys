@@ -15,7 +15,7 @@ import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { DOCUMENT, isPlatformServer } from '@angular/common';
+import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -60,6 +60,16 @@ import {
     ThyTableSortDirection,
     ThyTableSortEvent
 } from './table.interface';
+import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
+import { TableIsValidModelValuePipe } from './pipes/table.pipe';
+import { ThyPaginationComponent } from 'ngx-tethys/pagination';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { FormsModule } from '@angular/forms';
+import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
 
@@ -119,7 +129,28 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         '[class.thy-table-bordered]': `theme === 'bordered'`,
         '[class.thy-table-boxed]': `theme === 'boxed'`,
         '[class.thy-table-fixed-header]': 'thyHeaderFixed'
-    }
+    },
+    standalone: true,
+    imports: [
+        CdkScrollable,
+        NgClass,
+        NgFor,
+        NgIf,
+        NgTemplateOutlet,
+        ThyIconComponent,
+        ThyDragDropDirective,
+        CdkDropList,
+        CdkDrag,
+        ThyContextMenuDirective,
+        NgStyle,
+        FormsModule,
+        ThySwitchComponent,
+        ThyEmptyComponent,
+        ThyLoadingComponent,
+        ThyPaginationComponent,
+        TableIsValidModelValuePipe,
+        TableRowDragDisabledPipe
+    ]
 })
 export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
     public customType = customType;
@@ -709,7 +740,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
                 const column = this.columns.find(item => {
                     return item.type === customType.checkbox || item.type === customType.radio;
                 });
-                if (!column.disabled) {
+                if (column && !column.disabled) {
                     if (column.type === customType.checkbox) {
                         row[column.key] = !row[column.key];
                         this.onModelChange(row, column);

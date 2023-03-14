@@ -1,4 +1,4 @@
-import { CdkDrag, CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
+import { CdkDrag, CdkDragDrop, CdkDropList, CdkDropListGroup, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 import {
     Component,
     DoCheck,
@@ -14,12 +14,28 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { ThyListComponent, ThyListItemComponent } from 'ngx-tethys/list';
+import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 
 @Component({
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [
+        NgIf,
+        CdkDropListGroup,
+        ThyListComponent,
+        CdkDropList,
+        ThyDragDropDirective,
+        NgFor,
+        ThyListItemComponent,
+        CdkDrag,
+        NgClass,
+        NgTemplateOutlet
+    ]
 })
 export class ThyTransferListComponent implements OnInit, DoCheck {
     public lockItems: ThyTransferItem[] = [];

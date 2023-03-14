@@ -1,7 +1,18 @@
 import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { AfterViewInit, ContentChildren, Directive, ElementRef, Input, NgZone, OnDestroy, Optional, QueryList } from '@angular/core';
+import {
+    AfterViewInit,
+    ContentChildren,
+    Directive,
+    ElementRef,
+    forwardRef,
+    Input,
+    NgZone,
+    OnDestroy,
+    Optional,
+    QueryList
+} from '@angular/core';
 import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
@@ -18,7 +29,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         class: 'thy-nav-item',
         '[class.active]': 'thyNavItemActive || thyNavLinkActive',
         '[class.disabled]': 'thyNavItemDisabled'
-    }
+    },
+    standalone: true
 })
 export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**
@@ -49,7 +61,11 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
     /**
      * @private
      */
-    @ContentChildren(ThyNavItemDirective, { descendants: true }) links: QueryList<ThyNavItemDirective>;
+    @ContentChildren(
+        forwardRef(() => ThyNavItemDirective),
+        { descendants: true }
+    )
+    links: QueryList<ThyNavItemDirective>;
 
     /**
      * @private

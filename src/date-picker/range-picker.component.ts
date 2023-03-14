@@ -1,8 +1,13 @@
+
 import { ThyPanelMode, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+
+import { NgIf } from '@angular/common';
 import { BasePickerComponent } from './base-picker.component';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { ThyPickerComponent } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
 @Component({
@@ -16,7 +21,9 @@ import { helpers } from 'ngx-tethys/util';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;
@@ -37,7 +44,7 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
     }
 
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
-        super(cdr);
+        super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }
