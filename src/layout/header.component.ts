@@ -1,6 +1,7 @@
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 @Component({
@@ -17,7 +18,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
         '[class.thy-layout-header-shadow]': `thyShadow`
     },
     standalone: true,
-    imports: [NgTemplateOutlet, NgIf]
+    imports: [NgTemplateOutlet, NgIf, ThyIconComponent, NgClass]
 })
 export class ThyHeaderComponent implements OnInit {
     public iconClass: string;
