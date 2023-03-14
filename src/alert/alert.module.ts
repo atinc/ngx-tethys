@@ -5,8 +5,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyAlertActionItemDirective } from './alert.directive';
 
 @NgModule({
-    declarations: [ThyAlertComponent, ThyAlertActionItemDirective],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyAlertComponent, ThyAlertActionItemDirective],
     exports: [ThyAlertComponent, ThyAlertActionItemDirective]
 })
 export class ThyAlertModule {}

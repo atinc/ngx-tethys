@@ -6,8 +6,7 @@ import { ThyTimelineComponent } from './timeline.component';
 import { ThyTimelineItemComponent } from './timeline-item.component';
 
 @NgModule({
-    declarations: [ThyTimelineComponent, ThyTimelineItemComponent],
-    imports: [CommonModule, ThySharedModule, ThyIconModule],
+    imports: [CommonModule, ThySharedModule, ThyIconModule, ThyTimelineComponent, ThyTimelineItemComponent],
     exports: [ThyTimelineComponent, ThyTimelineItemComponent],
     providers: []
 })

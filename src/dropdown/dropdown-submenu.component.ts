@@ -23,7 +23,8 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     host: {
         class: 'dropdown-submenu'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, OnDestroy {
     private direction: InnerDropdownSubmenuDirection = 'right';

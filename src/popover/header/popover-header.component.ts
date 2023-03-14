@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, ContentChild, EventEmitter, Input, Output, TemplateRef } from '@angular/core';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyPopover } from '../popover.service';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 悬浮层头部组件
@@ -13,7 +15,9 @@ import { ThyPopover } from '../popover.service';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-popover-header'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyIconComponent]
 })
 export class ThyPopoverHeaderComponent {
     /**

@@ -7,8 +7,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyAvatarListComponent } from './avatar-list/avatar-list.component';
 
 @NgModule({
-    declarations: [ThyAvatarComponent, ThyAvatarListComponent, AvatarPipes],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyAvatarComponent, ThyAvatarListComponent, AvatarPipes],
     providers: [
         {
             provide: ThyAvatarService,

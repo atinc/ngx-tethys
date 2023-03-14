@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@angular/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgTemplateOutlet } from '@angular/common';
+import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 
 @Component({
     selector: 'thy-rate-item, [thy-rate-item]',
@@ -17,7 +20,9 @@ import { Component, EventEmitter, Input, OnInit, Output, TemplateRef } from '@an
         <ng-template #character>
             <thy-icon [thyIconName]="iconValue"></thy-icon>
         </ng-template>
-    `
+    `,
+    standalone: true,
+    imports: [ThyStopPropagationDirective, NgTemplateOutlet, ThyIconComponent]
 })
 export class ThyRateItemComponent implements OnInit {
     @Input() allowHalf = false;

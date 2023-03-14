@@ -24,7 +24,8 @@ const radioGroupLayoutMap = {
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;

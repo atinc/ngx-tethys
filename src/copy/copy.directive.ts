@@ -24,7 +24,8 @@ export interface ThyCopyEvent {
 
 @Directive({
     selector: '[thyCopy]',
-    providers: [TooltipService]
+    providers: [TooltipService],
+    standalone: true
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
     /**

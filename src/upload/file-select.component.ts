@@ -10,7 +10,8 @@ import { mimeTypeConvert } from './util';
 
 @Component({
     selector: '[thyFileSelect],thy-file-select',
-    templateUrl: './file-select.component.html'
+    templateUrl: './file-select.component.html',
+    standalone: true
 })
 export class ThyFileSelectComponent extends FileSelectBaseDirective implements OnDestroy {
     private multiple: boolean;

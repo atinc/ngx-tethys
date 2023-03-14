@@ -13,6 +13,8 @@ import {
 import { InputBoolean } from 'ngx-tethys/core';
 import { assertIconOnly } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgClass } from '@angular/common';
 
 export type ThyButtonType =
     | 'primary'
@@ -58,7 +60,9 @@ const iconOnlyClass = 'thy-btn-icon-only';
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-btn btn'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, NgClass]
 })
 export class ThyButtonComponent implements OnInit, AfterViewInit {
     private _initialized = false;

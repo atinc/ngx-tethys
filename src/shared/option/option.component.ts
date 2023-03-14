@@ -23,6 +23,7 @@ import {
     THY_OPTION_GROUP_COMPONENT,
     THY_OPTION_PARENT_COMPONENT
 } from './option.token';
+import { NgIf } from '@angular/common';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}
@@ -38,7 +39,9 @@ export class ThyOptionVisibleChangeEvent {
 @Component({
     selector: 'thy-option',
     templateUrl: './option.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;

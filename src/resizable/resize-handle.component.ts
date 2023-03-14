@@ -6,6 +6,7 @@ import { takeUntil } from 'rxjs/operators';
 import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { NgIf } from '@angular/common';
 
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
@@ -38,7 +39,9 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
         '[class.thy-resizable-handle-bottomLeft]': `thyDirection === 'bottomLeft'`,
         '[class.thy-resizable-handle-topLeft]': `thyDirection === 'topLeft'`,
         '[class.thy-resizable-handle-box-hover]': 'entered'
-    }
+    },
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
     /**

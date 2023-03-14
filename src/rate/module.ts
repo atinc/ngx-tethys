@@ -8,8 +8,7 @@ import { ThyRateItemComponent } from './rate-item.component';
 import { ThyRateComponent } from './rate.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyTooltipModule],
-    declarations: [ThyRateComponent, ThyRateItemComponent],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyTooltipModule, ThyRateComponent, ThyRateItemComponent],
     exports: [ThyRateComponent],
     providers: []
 })

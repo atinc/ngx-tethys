@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ThyStepComponent, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeaderComponent } from './step-header.component';
+import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'thy-stepper',
@@ -20,7 +21,9 @@ import { ThyStepHeaderComponent } from './step-header.component';
             provide: THY_STEPPER_COMPONENT,
             useExisting: ThyStepperComponent
         }
-    ]
+    ],
+    standalone: true,
+    imports: [NgIf, NgFor, ThyStepHeaderComponent, NgTemplateOutlet]
 })
 export class ThyStepperComponent implements IThyStepperComponent {
     @Input()

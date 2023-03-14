@@ -24,7 +24,8 @@ import { ThyPopoverConfig } from './popover.config';
  * @name thyPopover
  */
 @Directive({
-    selector: '[thyPopover]'
+    selector: '[thyPopover]',
+    standalone: true
 })
 export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     @HostBinding(`class.thy-popover-opened`) popoverOpened = false;

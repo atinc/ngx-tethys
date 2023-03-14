@@ -4,8 +4,7 @@ import { ThyCopyDirective } from './copy.directive';
 import { ThyNotifyModule } from 'ngx-tethys/notify';
 
 @NgModule({
-    declarations: [ThyCopyDirective],
-    imports: [CommonModule, ThyNotifyModule],
+    imports: [CommonModule, ThyNotifyModule, ThyCopyDirective],
     exports: [ThyCopyDirective]
 })
 export class ThyCopyModule {}

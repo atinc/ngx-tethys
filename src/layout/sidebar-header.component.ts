@@ -1,3 +1,4 @@
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -8,7 +9,9 @@ import { InputBoolean } from 'ngx-tethys/core';
     host: {
         class: 'sidebar-header',
         '[class.sidebar-header-divided]': 'thyDivided'
-    }
+    },
+    standalone: true,
+    imports: [NgTemplateOutlet, NgIf]
 })
 export class ThySidebarHeaderComponent implements OnInit {
     @Input()

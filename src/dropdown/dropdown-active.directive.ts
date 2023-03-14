@@ -8,7 +8,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
  * 跟踪 Dropdown 菜单是否被打开处于激活状态，允许指定一个或多个CSS类，以便在菜单打开状态时添加到元素中。
  */
 @Directive({
-    selector: '[thyDropdownActive]'
+    selector: '[thyDropdownActive]',
+    standalone: true
 })
 export class ThyDropdownActiveDirective implements OnInit, AfterContentInit {
     classes: string[];

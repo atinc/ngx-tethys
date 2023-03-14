@@ -1,9 +1,13 @@
+import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { AbstractControlValueAccessor, Constructor, mixinDisabled, mixinTabIndex, ThyCanDisable, ThyHasTabIndex } from 'ngx-tethys/core';
 import { elementMatchClosest } from 'ngx-tethys/util';
 
-import { Component, ElementRef, forwardRef, HostBinding, Input, OnInit, ViewChild } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { NgIf } from '@angular/common';
+import { ElementRef, ViewChild } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
 
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -23,6 +27,8 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
             multi: true
         }
     ],
+    standalone: true,
+    imports: [ThyInputDirective, FormsModule, ThyIconComponent, NgIf],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',

@@ -10,19 +10,45 @@ import {
     TemplateRef
 } from '@angular/core';
 
-import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
-import { FunctionProp } from 'ngx-tethys/util';
-import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
+import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
 import { DateHelperService } from '../../date-helper.service';
 import { RangePartType } from '../../inner-types';
+import { isAfterMoreThanLessOneYear, isAfterMoreThanOneDecade, isAfterMoreThanOneMonth, isAfterMoreThanOneYear } from '../../picker.util';
+import { DisabledDateFn, ThyPanelMode } from '../../standard-types';
+import { DateHeaderComponent } from '../date/date-header.component';
+import { DateTableComponent } from '../date/date-table.component';
+
+import { NgIf, NgSwitch, NgSwitchCase, NgSwitchDefault } from '@angular/common';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { DecadeHeaderComponent } from '../decade/decade-header.component';
+import { DecadeTableComponent } from '../decade/decade-table.component';
+import { MonthHeaderComponent } from '../month/month-header.component';
+import { MonthTableComponent } from '../month/month-table.component';
+import { YearHeaderComponent } from '../year/year-header.component';
+import { YearTableComponent } from '../year/year-table.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'inner-popup',
     exportAs: 'innerPopup',
-    templateUrl: 'inner-popup.component.html'
+    templateUrl: 'inner-popup.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        ThyInputDirective,
+        NgSwitch,
+        NgSwitchCase,
+        DecadeHeaderComponent,
+        DecadeTableComponent,
+        YearHeaderComponent,
+        YearTableComponent,
+        MonthHeaderComponent,
+        MonthTableComponent,
+        NgSwitchDefault,
+        DateHeaderComponent,
+        DateTableComponent
+    ]
 })
 export class InnerPopupComponent implements OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;

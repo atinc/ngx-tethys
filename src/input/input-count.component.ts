@@ -19,7 +19,8 @@ const _Base = mixinUnsubscribe(MixinBase);
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'text-muted'
-    }
+    },
+    standalone: true
 })
 export class ThyInputCountComponent extends _Base implements OnInit {
     private hasInput = false;

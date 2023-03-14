@@ -24,7 +24,8 @@ import { ThyImageService } from './image.service';
     host: {
         '(click)': 'onPreview($event)',
         class: 'thy-image'
-    }
+    },
+    standalone: true
 })
 export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**

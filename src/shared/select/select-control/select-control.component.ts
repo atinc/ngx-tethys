@@ -16,6 +16,10 @@ import {
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyTagComponent } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
@@ -26,7 +30,9 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 @Component({
     selector: 'thy-select-control,[thySelectControl]',
     templateUrl: './select-control.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent]
 })
 export class ThySelectControlComponent implements OnInit {
     inputValue = '';

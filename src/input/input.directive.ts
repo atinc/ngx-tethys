@@ -18,7 +18,8 @@ const inputGroupSizeMap = {
  */
 @Directive({
     selector: 'input[thyInput], select[thyInput], textarea[thyInput]',
-    exportAs: 'thyInput'
+    exportAs: 'thyInput',
+    standalone: true
 })
 export class ThyInputDirective implements OnInit {
     @HostBinding('class.form-control') isFormControl = true;

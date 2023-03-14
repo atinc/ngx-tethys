@@ -3,8 +3,7 @@ import { NgModule } from '@angular/core';
 import { ThyDotComponent } from './dot.component';
 
 @NgModule({
-    declarations: [ThyDotComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThyDotComponent],
     exports: [ThyDotComponent]
 })
 export class ThyDotModule {}

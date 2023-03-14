@@ -2,9 +2,9 @@ import {
     AbstractControlValueAccessor,
     Constructor,
     InputBoolean,
+    mixinDisabled,
     mixinTabIndex,
     ThyCanDisable,
-    mixinDisabled,
     ThyHasTabIndex
 } from 'ngx-tethys/core';
 import { DOWN_ARROW, elementMatchClosest, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
@@ -15,7 +15,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     OnChanges,
     OnDestroy,
@@ -24,7 +23,11 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -46,6 +49,8 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
             multi: true
         }
     ],
+    standalone: true,
+    imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
     host: {
         class: 'thy-input-number',
         '[attr.tabindex]': 'tabIndex',

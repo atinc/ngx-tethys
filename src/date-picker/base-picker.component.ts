@@ -9,6 +9,7 @@ import { CompatibleDate, ThyPanelMode } from './standard-types';
 
 @Component({
     template: ``,
+    standalone: true,
     host: {
         '[attr.tabindex]': `tabIndex`,
         '(focus)': 'onFocus($event)',

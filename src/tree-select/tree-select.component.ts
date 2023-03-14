@@ -14,7 +14,7 @@ import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -33,6 +33,10 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
@@ -68,6 +72,16 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
             useExisting: forwardRef(() => ThyTreeSelectComponent),
             multi: true
         }
+    ],
+    standalone: true,
+    imports: [
+        CdkOverlayOrigin,
+        ThySelectControlComponent,
+        NgIf,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        forwardRef(() => ThyTreeSelectNodesComponent),
+        ThyStopPropagationDirective
     ],
     host: {
         '[attr.tabindex]': 'tabIndex',
@@ -460,6 +474,19 @@ const DEFAULT_ITEM_SIZE = 40;
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        NgTemplateOutlet,
+        CdkVirtualScrollViewport,
+        CdkFixedSizeVirtualScroll,
+        CdkVirtualForOf,
+        ThyEmptyComponent,
+        NgClass,
+        NgStyle,
+        ThyIconComponent
+    ],
     host: {
         '[attr.tabindex]': '-1'
     }

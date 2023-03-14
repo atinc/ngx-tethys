@@ -15,6 +15,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
@@ -27,7 +28,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
             multi: true
         }
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgClass, NgIf]
 })
 export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnInit {
     name: string;

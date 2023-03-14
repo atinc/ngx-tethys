@@ -12,14 +12,20 @@ import { ThyFormGroupLabelDirective } from './form-group-label.directive';
 import { ThyFormGroupComponent } from './form-group.component';
 import { ThyFormSubmitDirective } from './form-submit.directive';
 import { ThyFormValidatorLoader } from './form-validator-loader';
-import { THY_FORM_CONFIG_PROVIDER, THY_VALIDATOR_CONFIG, ThyFormValidatorGlobalConfig } from './form.class';
+import { ThyFormValidatorGlobalConfig, THY_FORM_CONFIG_PROVIDER, THY_VALIDATOR_CONFIG } from './form.class';
 import { ThyFormDirective } from './form.directive';
 import { ThyFormGroupFooterComponent } from './from-group-footer/form-group-footer.component';
 import { ThyConfirmValidatorDirective, ThyMaxDirective, ThyMinDirective, ThyUniqueCheckValidator } from './validator/index';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ReactiveFormsModule, ThyInputModule, ThyAlertModule, ThyIconModule, ThyTooltipModule],
-    declarations: [
+    imports: [
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        ThyInputModule,
+        ThyAlertModule,
+        ThyIconModule,
+        ThyTooltipModule,
         ThyFormDirective,
         ThyFormGroupComponent,
         ThyFormGroupLabelDirective,

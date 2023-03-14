@@ -16,7 +16,11 @@ import { Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
+import {
+    CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange,
+    ConnectionPositionPair,
+    ViewportRuler
+} from '@angular/cdk/overlay';
 import {
     ChangeDetectorRef,
     Component,
@@ -35,7 +39,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThySelectControlComponent } from 'ngx-tethys/shared';
 
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
@@ -85,7 +93,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         }
     ],
     host: {
-        '[attr.tabindex]':`tabIndex`,
+        '[attr.tabindex]': `tabIndex`,
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
@@ -95,6 +103,19 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
                 position: relative;
             }
         `
+    ],
+    standalone: true,
+    imports: [
+        CdkOverlayOrigin,
+        NgIf,
+        ThySelectControlComponent,
+        NgClass,
+        NgTemplateOutlet,
+        CdkConnectedOverlay,
+        NgStyle,
+        NgFor,
+        ThyCascaderOptionComponent,
+        ThyEmptyComponent
     ]
 })
 export class ThyCascaderComponent extends _MixinBase
@@ -218,7 +239,7 @@ export class ThyCascaderComponent extends _MixinBase
     // eslint-disable-next-line prettier/prettier
     override get thyDisabled(): boolean {
         return this.disabled;
-      }
+    }
 
     override set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
@@ -409,9 +430,9 @@ export class ThyCascaderComponent extends _MixinBase
                 typeof value === 'object'
                     ? value
                     : {
-                          [`${this.thyValueProperty || 'value'}`]: value,
-                          [`${this.thyLabelProperty || 'label'}`]: value
-                      };
+                        [`${this.thyValueProperty || 'value'}`]: value,
+                        [`${this.thyLabelProperty || 'label'}`]: value
+                    };
         }
         this.updatePrevSelectedOptions(option, true);
         this.setActiveOption(option, index, false, false);
@@ -741,7 +762,7 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     public closeMenu(): void {
-        if(this.menuVisible){
+        if (this.menuVisible) {
             this.setMenuVisible(false);
             this.onTouchedFn()
         }
@@ -910,7 +931,7 @@ export class ThyCascaderComponent extends _MixinBase
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler,public elementRef:ElementRef) {
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler, public elementRef: ElementRef) {
         super();
     }
 

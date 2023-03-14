@@ -1,8 +1,6 @@
 import { Component, DebugElement, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
-import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
-import { helpers } from 'ngx-tethys/util';
 import {
     ThyDragContentDirective,
     ThyDragDropEvent,
@@ -12,9 +10,11 @@ import {
     ThyDragStartEvent,
     ThyDropContainerDirective
 } from 'ngx-tethys/drag-drop';
-import { ThyDragDirective } from '../drag.directive';
 import { ThySharedModule } from 'ngx-tethys/shared';
+import { createDragEvent, dispatchFakeEvent } from 'ngx-tethys/testing';
+import { helpers } from 'ngx-tethys/util';
 import { ThyDragHandleDirective } from '../drag-handle.directive';
+import { ThyDragDirective } from '../drag.directive';
 
 interface DragNodeInfo {
     key: string;
@@ -66,8 +66,8 @@ describe('drag-drop basic directive', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThySharedModule, ThyDragDropModule],
-            declarations: [TestBasicDragDropComponent, ThyDropContainerDirective, ThyDragDirective],
+            imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective],
+            declarations: [TestBasicDragDropComponent],
             providers: []
         }).compileComponents();
     }));
@@ -224,8 +224,8 @@ describe('with handle', () => {
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
-            imports: [ThySharedModule, ThyDragDropModule],
-            declarations: [TestWithHandleDragDropComponent, ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective],
+            imports: [ThySharedModule, ThyDragDropModule, ThyDropContainerDirective, ThyDragDirective, ThyDragHandleDirective],
+            declarations: [TestWithHandleDragDropComponent],
             providers: []
         }).compileComponents();
     }));

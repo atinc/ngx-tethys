@@ -5,6 +5,10 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
 import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
+import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyIconNavComponent, ThyIconNavLinkComponent } from 'ngx-tethys/nav';
+import { NgIf, NgClass } from '@angular/common';
 const allDayTimestamp = 24 * 60 * 60;
 
 const INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -16,7 +20,9 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 @Component({
     selector: 'thy-date-range',
     templateUrl: './date-range.component.html',
-    providers: [INPUT_CONTROL_VALUE_ACCESSOR]
+    providers: [INPUT_CONTROL_VALUE_ACCESSOR],
+    standalone: true,
+    imports: [NgIf, ThyIconNavComponent, ThyIconNavLinkComponent, ThyIconComponent, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     @Input()

@@ -1,12 +1,16 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { DateHelperService } from '../../../date-picker/date-helper.service';
 import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.component';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgFor } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'month-header',
-    templateUrl: '../calendar/calendar-header.component.html'
+    templateUrl: '../calendar/calendar-header.component.html',
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, NgFor]
 })
 export class MonthHeaderComponent extends CalendarHeader {
     constructor(public dateHelper: DateHelperService) {

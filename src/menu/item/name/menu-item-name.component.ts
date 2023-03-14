@@ -8,7 +8,8 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
     templateUrl: './menu-item-name.component.html',
     host: {
         class: 'thy-menu-item-name'
-    }
+    },
+    standalone: true
 })
 export class ThyMenuItemNameComponent implements OnInit {
     /**

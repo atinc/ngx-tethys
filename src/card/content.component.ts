@@ -11,7 +11,8 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-content'
-    }
+    },
+    standalone: true
 })
 export class ThyCardContentComponent implements OnInit {
     @HostBinding('class.thy-card-content--scroll') scrollClassName = false;

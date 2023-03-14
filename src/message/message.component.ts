@@ -3,6 +3,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 import { ThyMessageConfig } from './message.config';
 import { ThyMessageQueue } from './message-queue.service';
 import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractMessageComponent } from './abstract';
+import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 /**
  * @internal
@@ -21,10 +24,11 @@ import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractM
                 animate(ANIMATION_IN_DURATION)
             ]),
             transition('flyIn => componentHide', [animate(ANIMATION_OUT_DURATION, style(HIDE_STYLE))]),
-
             state('componentHide', style(HIDE_STYLE))
         ])
-    ]
+    ],
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, ThyStringOrTemplateOutletDirective]
 })
 export class ThyMessageComponent extends ThyAbstractMessageComponent<ThyMessageConfig> {
     @HostBinding('@flyInOut') animationState = 'flyIn';

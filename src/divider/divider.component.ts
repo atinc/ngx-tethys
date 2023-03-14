@@ -1,6 +1,7 @@
 import { Component, Input, TemplateRef, ViewEncapsulation, OnChanges, SimpleChanges, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type ThyDividerStyle = 'solid' | 'dashed';
 
@@ -34,7 +35,9 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
         '[class.thy-divider-dashed]': `thyStyle === 'dashed'`,
         '[class.thy-divider-deeper]': `!!thyDeeper`
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyDividerComponent implements OnChanges, OnInit {
     templateContent: TemplateRef<HTMLElement>;

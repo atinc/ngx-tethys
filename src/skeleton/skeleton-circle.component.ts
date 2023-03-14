@@ -14,6 +14,7 @@ import { helpers } from 'ngx-tethys/util';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { NgStyle } from '@angular/common';
 
 interface Style {
     background?: string;
@@ -32,7 +33,9 @@ interface Style {
         <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgStyle]
 })
 export class ThySkeletonCircleComponent implements OnInit, OnChanges {
     /**

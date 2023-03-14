@@ -9,7 +9,15 @@
   </thy-form-group>
   <thy-form-group thyLabelText="用户名" thyLabelRequired thyTips="This is tips for username" thyTipsMode="label">
     <thy-input-group>
-      <input disabled thyInput name="username" [(ngModel)]="model.username" #input="thyInput" maxlength="100" placeholder="Please type nickname" />
+      <input
+        disabled
+        thyInput
+        name="username"
+        [(ngModel)]="model.username"
+        #input="thyInput"
+        maxlength="100"
+        placeholder="Please type nickname"
+      />
       <ng-template #suffix>
         <thy-input-count [thyInput]="input"></thy-input-count>
       </ng-template>
@@ -22,4 +30,3 @@
     <button [thyButton]="'link-secondary'" (click)="cancel()">Cancel</button>
   </thy-form-group-footer>
 </form>
-

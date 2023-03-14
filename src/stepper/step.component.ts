@@ -8,7 +8,8 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
 
 @Component({
     selector: 'thy-step',
-    templateUrl: './step.component.html'
+    templateUrl: './step.component.html',
+    standalone: true
 })
 export class ThyStepComponent {
     @ViewChild(TemplateRef, { static: true }) content: TemplateRef<any>;

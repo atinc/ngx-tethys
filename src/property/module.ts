@@ -6,8 +6,7 @@ import { ThyPropertyItemComponent } from './property-item.component';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 
 @NgModule({
-    declarations: [ThyPropertiesComponent, ThyPropertyItemComponent],
-    imports: [CommonModule, ThyFlexibleTextModule, ThyTooltipModule],
+    imports: [CommonModule, ThyFlexibleTextModule, ThyTooltipModule, ThyPropertiesComponent, ThyPropertyItemComponent],
     exports: [ThyPropertiesComponent, ThyPropertyItemComponent]
 })
 export class ThyPropertyModule {}

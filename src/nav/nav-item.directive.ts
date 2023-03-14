@@ -29,7 +29,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         class: 'thy-nav-item',
         '[class.active]': 'thyNavItemActive || thyNavLinkActive',
         '[class.disabled]': 'thyNavItemDisabled'
-    }
+    },
+    standalone: true
 })
 export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**

@@ -4,8 +4,11 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forw
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { NgIf } from '@angular/common';
 import { BasePickerComponent } from './base-picker.component';
 import { ThyDatePickerConfigService } from './date-picker.service';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { ThyPickerComponent } from './picker.component';
 import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 @Component({
@@ -19,7 +22,9 @@ import { ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerComponent)
         }
-    ]
+    ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyRangePickerComponent extends BasePickerComponent implements OnInit {
     isRange = true;

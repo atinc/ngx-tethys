@@ -3,7 +3,8 @@ import { ThyStepperComponent } from './stepper.component';
 
 /** Button that moves to the next step in a stepper workflow. */
 @Directive({
-    selector: '[thyStepperNext]'
+    selector: '[thyStepperNext]',
+    standalone: true
 })
 export class ThyStepperNextDirective {
     constructor(private stepper: ThyStepperComponent) {}
@@ -16,7 +17,8 @@ export class ThyStepperNextDirective {
 
 /** Button that moves to the previous step in a stepper workflow. */
 @Directive({
-    selector: '[thyStepperPrevious]'
+    selector: '[thyStepperPrevious]',
+    standalone: true
 })
 export class ThyStepperPreviousDirective {
     constructor(private stepper: ThyStepperComponent) {}

@@ -1,5 +1,5 @@
-import { ENTER } from 'ngx-tethys/util';
 import { dispatchKeyboardEvent } from 'ngx-tethys/testing';
+import { ENTER } from 'ngx-tethys/util';
 
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
@@ -26,7 +26,8 @@ describe('ThyCtrlEnterDirective', () => {
     beforeEach(
         waitForAsync(() => {
             TestBed.configureTestingModule({
-                declarations: [ThyCtrlEnterDirective, ThyCtrlEnterTestComponent]
+                imports: [ThyCtrlEnterDirective],
+                declarations: [ThyCtrlEnterTestComponent]
             }).compileComponents();
         })
     );

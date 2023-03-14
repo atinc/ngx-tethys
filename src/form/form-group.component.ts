@@ -1,4 +1,7 @@
+import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ThyTranslate } from 'ngx-tethys/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import {
@@ -25,7 +28,9 @@ type TipsMode = 'default' | 'label';
     selector: 'thy-form-group',
     templateUrl: './form-group.component.html',
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyIconComponent, NgClass, ThyTooltipDirective]
 })
 export class ThyFormGroupComponent implements OnInit {
     labelText: string;

@@ -8,7 +8,8 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateR
     template: `
         <ng-template #content><ng-content></ng-content></ng-template>
     `,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyTabComponent implements OnInit {
     /**

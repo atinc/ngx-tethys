@@ -9,8 +9,17 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 import { ThyNavModule } from 'ngx-tethys/nav';
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyActionMenuModule, ThySharedModule, ThyIconModule, ThyDatePickerModule, ThyNavModule],
-    declarations: [ThyDateRangeComponent, OptionalDateRangesComponent],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyActionMenuModule,
+        ThySharedModule,
+        ThyIconModule,
+        ThyDatePickerModule,
+        ThyNavModule,
+        ThyDateRangeComponent,
+        OptionalDateRangesComponent
+    ],
     exports: [ThyDateRangeComponent]
 })
 export class ThyDateRangeModule {}

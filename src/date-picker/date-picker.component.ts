@@ -2,7 +2,10 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forw
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+import { NgIf } from '@angular/common';
 import { BasePickerComponent } from './base-picker.component';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { ThyPickerComponent } from './picker.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -16,6 +19,8 @@ import { BasePickerComponent } from './base-picker.component';
             useExisting: forwardRef(() => ThyDatePickerComponent)
         }
     ],
+    standalone: true,
+    imports: [ThyPickerComponent, NgIf, DatePopupComponent],
     host: {
         '[attr.tabindex]': 'tabIndex'
     }

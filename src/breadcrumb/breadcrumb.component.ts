@@ -1,4 +1,6 @@
 import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgClass } from '@angular/common';
 
 /**
  * 面包屑组件
@@ -22,7 +24,9 @@ import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular
         '[class.thy-breadcrumb-separator-slash]': 'thySeparator === "slash"',
         '[class.thy-breadcrumb-separator-backslash]': 'thySeparator === "backslash"',
         '[class.thy-breadcrumb-separator-vertical-line]': 'thySeparator === "vertical-line"'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, NgClass]
 })
 export class ThyBreadcrumbComponent {
     iconClasses: string[];

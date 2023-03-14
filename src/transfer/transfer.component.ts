@@ -9,11 +9,17 @@ import {
     ThyTransferSelectEvent,
     TransferDirection
 } from './transfer.interface';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
+import { ThyTransferListComponent } from './transfer-list.component';
 
 @Component({
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [ThyTransferListComponent, NgIf, ThyIconComponent, NgClass, NgTemplateOutlet, ThyFlexibleTextComponent]
 })
 export class ThyTransferComponent implements OnInit {
     @HostBinding('class') hostClass = 'thy-transfer';

@@ -8,8 +8,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyFormModule } from 'ngx-tethys/form';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyInputModule, ThyFormModule],
-    declarations: [ThyInputNumberComponent],
+    imports: [CommonModule, FormsModule, ThySharedModule, ThyIconModule, ThyInputModule, ThyFormModule, ThyInputNumberComponent],
     exports: [ThyInputNumberComponent]
 })
 export class ThyInputNumberModule {}

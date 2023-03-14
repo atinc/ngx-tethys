@@ -16,8 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { ThySelectControlComponent } from './select-control/select-control.component';
 
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule],
-    exports: [ThySelectControlComponent],
-    declarations: [ThySelectControlComponent]
+    imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule, ThySelectControlComponent],
+    exports: [ThySelectControlComponent]
 })
 export class ThySelectCommonModule {}

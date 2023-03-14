@@ -15,10 +15,13 @@ import {
 import {
     IThyOptionParentComponent,
     SelectControlSize,
-    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
-    ThySelectOptionGroupComponent
+    ThyScrollDirective,
+    ThySelectControlComponent,
+    ThySelectOptionGroupComponent,
+    ThyStopPropagationDirective,
+    THY_OPTION_PARENT_COMPONENT
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -43,8 +46,15 @@ import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operato
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
-import { isPlatformBrowser } from '@angular/common';
+import {
+    CdkConnectedOverlay,
+    CdkOverlayOrigin,
+    ConnectionPositionPair,
+    Overlay,
+    ScrollStrategy,
+    ViewportRuler
+} from '@angular/cdk/overlay';
+import { isPlatformBrowser, NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     ChangeDetectionStrategy,
@@ -71,6 +81,8 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
@@ -113,12 +125,25 @@ const noop = () => {};
             multi: true
         }
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [
+        CdkOverlayOrigin,
+        ThySelectControlComponent,
+        CdkConnectedOverlay,
+        ThyStopPropagationDirective,
+        NgClass,
+        NgIf,
+        ThyScrollDirective,
+        ThyLoadingComponent,
+        ThyEmptyComponent,
+        NgTemplateOutlet
+    ],
     host: {
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    }
 })
 export class ThySelectCustomComponent extends _MixinBase
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {

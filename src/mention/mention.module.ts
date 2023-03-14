@@ -10,8 +10,15 @@ import { ThyMentionDirective } from './mention.directive';
 import { ThyMentionSuggestionsComponent } from './suggestions/suggestions.component';
 
 @NgModule({
-    declarations: [ThyMentionDirective, ThyMentionSuggestionsComponent],
-    imports: [CommonModule, FormsModule, ThyPopoverModule, ThyListModule, ThyLoadingModule],
+    imports: [
+        CommonModule,
+        FormsModule,
+        ThyPopoverModule,
+        ThyListModule,
+        ThyLoadingModule,
+        ThyMentionDirective,
+        ThyMentionSuggestionsComponent
+    ],
     exports: [ThyMentionDirective],
     providers: []
 })
