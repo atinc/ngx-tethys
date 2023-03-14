@@ -1,11 +1,12 @@
-import { ThyInputComponent } from './../input.component';
-import { ThyInputModule } from './../module';
-import { ThyInputDirective } from './../input.directive';
+import { CommonModule } from '@angular/common';
 import { Component, DebugElement, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+import { By } from '@angular/platform-browser';
+
+import { ThyInputComponent } from '../input.component';
+import { ThyInputDirective } from '../input.directive';
+import { ThyInputModule } from '../module';
 
 @Component({
     selector: 'test-bed',

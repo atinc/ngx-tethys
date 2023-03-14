@@ -6,13 +6,14 @@
  * found in the LICENSE file at https://angular.io/license
  */
 
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-
-import { ThySelectControlComponent } from './select-control/select-control.component';
-import { FormsModule } from '@angular/forms';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTagModule } from 'ngx-tethys/tag';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ThySelectControlComponent } from './select-control/select-control.component';
 
 @NgModule({
     imports: [CommonModule, FormsModule, ThyIconModule, ThyTagModule],

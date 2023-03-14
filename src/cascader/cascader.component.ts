@@ -1,3 +1,20 @@
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    EXPANDED_DROPDOWN_POSITIONS,
+    InputBoolean,
+    InputNumber,
+    mixinDisabled,
+    mixinTabIndex,
+    ScrollToService,
+    ThyCanDisable,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
+import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
+import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
+
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectedOverlayPositionChange, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
 import {
@@ -17,12 +34,8 @@ import {
     ViewChildren
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
-import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
@@ -53,6 +66,10 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
+
 /**
  * 级联选择菜单
  * @name thy-cascader
@@ -67,6 +84,11 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]':`tabIndex`,
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    },
     styles: [
         `
             .thy-cascader-menus {
@@ -75,7 +97,8 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         `
     ]
 })
-export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent extends _MixinBase
+    implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */
@@ -191,7 +214,17 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
      * 是否只读
      * @default false
      */
-    @Input('thyDisabled') @InputBoolean() disabled = false;
+    @Input()
+    // eslint-disable-next-line prettier/prettier
+    override get thyDisabled(): boolean {
+        return this.disabled;
+      }
+
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    disabled = false
 
     /**
      * 空状态下的展示文字
@@ -295,8 +328,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    onChange: any = Function.prototype;
-    onTouched: any = Function.prototype;
     private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
     positions: ConnectionPositionPair[];
 
@@ -445,14 +476,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
                 }
             });
         }
-    }
-
-    registerOnChange(fn: (_: any) => {}): void {
-        this.onChange = fn;
-    }
-
-    registerOnTouched(fn: () => {}): void {
-        this.onTouched = fn;
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -652,7 +675,6 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (this.disabled) {
             return;
         }
-        this.onTouched();
         if (this.isClickTriggerAction()) {
             this.setMenuVisible(!this.menuVisible);
         }
@@ -679,6 +701,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
             return;
         }
         this.setActiveOption(option, index, true);
+        this.valueChange();
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -704,8 +727,24 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         this.setMenuVisible(!this.menuVisible);
     }
 
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'thy-cascader'])) {
+            return;
+        }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement.focus();
+    }
+
     public closeMenu(): void {
-        this.setMenuVisible(false);
+        if(this.menuVisible){
+            this.setMenuVisible(false);
+            this.onTouchedFn()
+        }
     }
 
     public setActiveOption(option: ThyCascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
@@ -758,6 +797,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         }
         if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
+            this.onTouchedFn()
         }
     }
 
@@ -790,7 +830,7 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         if (!arrayEquals(this.value, value)) {
             this.defaultValue = null;
             this.value = value;
-            this.onChange(value);
+            this.onChangeFn(value)
             if (this.selectionModel.isEmpty()) {
                 this.thyClear.emit();
             }
@@ -870,7 +910,9 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler) {}
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler,public elementRef:ElementRef) {
+        super();
+    }
 
     public trackByFn(index: number, item: ThyCascaderOption) {
         return item?.value || item?._id || index;

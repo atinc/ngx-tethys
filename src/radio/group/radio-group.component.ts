@@ -1,8 +1,9 @@
-import { Component, forwardRef, HostBinding, Input, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyRadioComponent } from '../radio.component';
+
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
+import { ThyRadioComponent } from '../radio.component';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -76,6 +77,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
         if (emit) {
             this.onChange(value);
         }
+        this.onTouched();
         this.changeDetectorRef.detectChanges();
     }
 

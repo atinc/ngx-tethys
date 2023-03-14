@@ -1,19 +1,21 @@
+import { helpers } from 'ngx-tethys/util';
+
 import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    OnInit,
-    forwardRef,
-    ElementRef,
-    ViewChild,
-    OnChanges,
-    SimpleChanges,
+    ChangeDetectionStrategy,
     ChangeDetectorRef,
-    ChangeDetectionStrategy
+    Component,
+    ElementRef,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { helpers } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-switch',
@@ -87,6 +89,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
+    @HostBinding('class.thy-switch') className = true;
+
     constructor(public cdr: ChangeDetectorRef) {}
 
     ngOnInit() {
@@ -129,6 +133,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
     toggle(event: Event) {
         this.model = !this.model;
         this.onModelChange(this.model);
+        this.onModelTouched();
         this.thyChange.emit(event);
     }
 

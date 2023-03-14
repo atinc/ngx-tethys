@@ -1,10 +1,12 @@
-import { Component, DebugElement, ElementRef } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { ThyStrengthModule } from '../strength.module';
-import { ThyStrengthComponent } from '../strength.component';
 import { ThyButtonModule } from 'ngx-tethys/button';
+
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { ThyStrengthComponent } from '../strength.component';
+import { ThyStrengthModule } from '../strength.module';
 
 @Component({
     selector: 'thy-strength-basic-test',
@@ -116,12 +118,16 @@ describe('Strength component', () => {
 
     it('should have correct class when change strength', fakeAsync(() => {
         testStrengthComponent.strength = 3;
+        const changeSpy = spyOn(strengthDebugComponent.componentInstance, '_onChange');
+        const touchSpy = spyOn(strengthDebugComponent.componentInstance, '_onTouched');
         fixture.detectChanges();
         tick(500);
         fixture.detectChanges();
         expect((strengthElement.children[0] as HTMLElement).innerText).toBe('评分 🌟🌟🌟');
         expect(strengthElement.children[0].children[0].classList.contains('strength-text-high')).toBe(true);
         expect(strengthElement.children[1].classList.contains('strength-level-high')).toBe(true);
+        expect(changeSpy).toHaveBeenCalled();
+        expect(touchSpy).toHaveBeenCalled();
     }));
 
     it('should have correct class when change type', fakeAsync(() => {

@@ -1,20 +1,22 @@
-import {
-    Component,
-    Input,
-    TemplateRef,
-    EventEmitter,
-    Output,
-    ViewChild,
-    ElementRef,
-    Renderer2,
-    OnInit,
-    ChangeDetectionStrategy
-} from '@angular/core';
 import { InputNumber } from 'ngx-tethys/core';
-import { useHostRenderer } from '@tethys/cdk/dom';
-import { SelectOptionBase } from '../../option/select-option-base';
-import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { ThyTagSize } from 'ngx-tethys/tag';
+import { isUndefinedOrNull } from 'ngx-tethys/util';
+
+import {
+    ChangeDetectionStrategy,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnInit,
+    Output,
+    Renderer2,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
+
+import { SelectOptionBase } from '../../option/select-option-base';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
@@ -168,6 +170,9 @@ export class ThySelectControlComponent implements OnInit {
     @Output()
     public thyOnClear = new EventEmitter<Event>();
 
+    @Output()
+    public thyOnBlur = new EventEmitter<Event>();
+
     @ViewChild('inputElement')
     inputElement: ElementRef;
 
@@ -291,5 +296,9 @@ export class ThySelectControlComponent implements OnInit {
 
     trackValue(_index: number, option: SelectOptionBase): any {
         return option.thyValue;
+    }
+
+    onBlur(event: Event) {
+        this.thyOnBlur.emit(event);
     }
 }

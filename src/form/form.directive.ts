@@ -1,24 +1,24 @@
+import { coerceBooleanProperty, keycodes } from 'ngx-tethys/util';
+
 import {
+    AfterViewInit,
+    ContentChildren,
     Directive,
     ElementRef,
-    Input,
-    OnInit,
-    Renderer2,
     HostBinding,
-    OnDestroy,
-    NgZone,
     Inject,
-    AfterViewInit,
+    Input,
+    NgZone,
+    OnDestroy,
+    OnInit,
     QueryList,
-    ContentChildren
+    Renderer2
 } from '@angular/core';
-import { UpdateHostClassService } from 'ngx-tethys/core';
-import { NgForm, NgControl } from '@angular/forms';
+import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { keycodes } from 'ngx-tethys/util';
-import { ThyFormLayout, ThyFormValidatorConfig, ThyFormConfig, THY_FORM_CONFIG } from './form.class';
+
 import { ThyFormValidatorService } from './form-validator.service';
-import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -38,7 +38,7 @@ export enum ThyEnterKeyMode {
         class: 'thy-form'
     }
 })
-export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
+export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private layout: ThyFormLayout;
 
     private initialized = false;
@@ -82,7 +82,7 @@ export class ThyFormDirective implements OnInit, OnDestroy, AfterViewInit {
     public controls: QueryList<NgControl>;
 
     constructor(
-        private ngForm: NgForm,
+        private ngForm: ControlContainer,
         private elementRef: ElementRef,
         private renderer: Renderer2,
         private ngZone: NgZone,

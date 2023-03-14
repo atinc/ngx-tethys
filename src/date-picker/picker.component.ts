@@ -15,9 +15,9 @@ import {
 } from '@angular/core';
 
 import { DateHelperService } from './date-helper.service';
-import { ThyDateGranularity } from './standard-types';
-import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { CompatibleValue, RangePartType } from './inner-types';
+import { getFlexibleAdvancedReadableValue } from './picker.util';
+import { ThyDateGranularity } from './standard-types';
 
 @Component({
     selector: 'thy-picker',
@@ -41,6 +41,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;
     @Input() flexibleDateGranularity: ThyDateGranularity;
+    @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
 
@@ -58,7 +59,7 @@ export class ThyPickerComponent implements AfterViewInit {
         return this.isOpenHandledByUser() ? !!this.open : this.overlayOpen;
     }
 
-    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
+    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService, private element: ElementRef) {}
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -69,6 +70,10 @@ export class ThyPickerComponent implements AfterViewInit {
 
     focus(): void {
         this.pickerInput.nativeElement.focus();
+    }
+
+    onBlur(event: FocusEvent) {
+        this.blur.emit(event);
     }
 
     showOverlay(): void {

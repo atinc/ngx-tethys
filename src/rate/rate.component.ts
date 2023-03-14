@@ -1,19 +1,21 @@
-import {
-    Component,
-    forwardRef,
-    OnInit,
-    Input,
-    ChangeDetectorRef,
-    Output,
-    EventEmitter,
-    SimpleChanges,
-    OnChanges,
-    TemplateRef,
-    ChangeDetectionStrategy
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
+
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    EventEmitter,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    SimpleChanges,
+    TemplateRef
+} from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 const noop = () => {};
 @Component({
@@ -72,6 +74,8 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @Output() readonly thyItemHoverChange = new EventEmitter<number>();
 
+    @HostBinding('class.thy-rate') className = true;
+
     constructor(private cdr: ChangeDetectorRef) {}
 
     get thyValue(): number {
@@ -128,10 +132,12 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
             if (this.thyAllowClear) {
                 this.thyValue = 0;
                 this.onChangeCallback(this.thyValue);
+                this.onTouchedCallback();
             }
         } else {
             this.thyValue = _value;
             this.onChangeCallback(this.thyValue);
+            this.onTouchedCallback();
         }
         this.updateItemStyle();
     }

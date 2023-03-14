@@ -1,3 +1,8 @@
+import { ThyCascaderComponent } from 'ngx-tethys/cascader';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { of, Subject } from 'rxjs';
+import { delay, take } from 'rxjs/operators';
+
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
@@ -6,10 +11,7 @@ import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { ThyCascaderComponent } from 'ngx-tethys/cascader';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { of, Subject } from 'rxjs';
-import { delay, take } from 'rxjs/operators';
+
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
@@ -226,6 +228,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
     `
 })
 class CascaderBasicComponent {
+    @ViewChild(ThyCascaderComponent, { static: false }) cascader: ThyCascaderComponent;
+
     public thyTriggerAction: ThyCascaderTriggerType = 'click';
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
     public curVal: string | string[] = null;
@@ -657,6 +661,26 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             flush();
             expect(component.cascaderRef.columns.length).toEqual(1);
+        }));
+
+        it('should call onFocus methods when focus', fakeAsync(() => {
+            fixture.detectChanges();
+            const focusSpy = spyOn<any>(fixture.componentInstance.cascader, 'onFocus').and.callThrough();
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            dispatchFakeEvent(cascaderElement, 'focus');
+            fixture.detectChanges();
+
+            expect(focusSpy).toHaveBeenCalled();
+        }));
+
+        it('should call onBlur methods when blur', fakeAsync(() => {
+            fixture.detectChanges();
+            const blurSpy = spyOn<any>(fixture.componentInstance.cascader, 'onBlur').and.callThrough();
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            dispatchFakeEvent(cascaderElement, 'blur');
+            fixture.detectChanges();
+
+            expect(blurSpy).toHaveBeenCalled();
         }));
     });
 

@@ -1,4 +1,17 @@
-import { getFlexiblePositions, InputBoolean, InputNumber, ScrollToService, ThyClickDispatcher, ThyPlacement } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    getFlexiblePositions,
+    InputBoolean,
+    InputNumber,
+    mixinDisabled,
+    mixinTabIndex,
+    ScrollToService,
+    ThyCanDisable,
+    ThyClickDispatcher,
+    ThyHasTabIndex,
+    ThyPlacement
+} from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
@@ -9,8 +22,8 @@ import {
 } from 'ngx-tethys/shared';
 import {
     A,
-    coerceBooleanProperty,
     DOWN_ARROW,
+    elementMatchClosest,
     END,
     ENTER,
     FunctionProp,
@@ -28,6 +41,7 @@ import { defer, merge, Observable, Subject, Subscription, timer } from 'rxjs';
 import { filter, map, startWith, switchMap, take, takeUntil } from 'rxjs/operators';
 
 import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
+import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import { CdkConnectedOverlay, ConnectionPositionPair, Overlay, ScrollStrategy, ViewportRuler } from '@angular/cdk/overlay';
 import { isPlatformBrowser } from '@angular/common';
@@ -56,7 +70,6 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { coerceElement } from '@angular/cdk/coercion';
 
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
@@ -80,8 +93,11 @@ export interface OptionValue {
     thySearchKey?: string;
 }
 
-const noop = () => {};
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 
+const noop = () => {};
 @Component({
     selector: 'thy-custom-select',
     templateUrl: './custom-select.component.html',
@@ -97,9 +113,15 @@ const noop = () => {};
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    },
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThySelectCustomComponent extends _MixinBase
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     disabled = false;
 
     size: SelectControlSize;
@@ -130,10 +152,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     private readonly destroy$ = new Subject<void>();
 
-    private onTouchedCallback: () => void = noop;
-
-    private onChangeCallback: (_: any) => void = noop;
-
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
         if (this.options) {
             return merge(...this.options.map(option => option.selectionChange));
@@ -154,9 +172,6 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     @HostBinding('class.menu-is-opened')
     panelOpen = false;
-
-    @HostBinding('attr.tabindex')
-    tabIndex = '0';
 
     /**
      * 搜索时回调
@@ -256,7 +271,10 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
      * 是否禁用
      */
     @Input()
-    set thyDisabled(value: string) {
+    get thyDisabled(): boolean {
+        return this.disabled;
+    }
+    set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
 
@@ -369,20 +387,13 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         @Inject(PLATFORM_ID) private platformId: string,
         @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
     ) {
+        super();
         this.buildScrollStrategy();
     }
 
     writeValue(value: any): void {
         this.modalValue = value;
         this.setSelectionByModelValue(this.modalValue);
-    }
-
-    registerOnChange(fn: any): void {
-        this.onChangeCallback = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onTouchedCallback = fn;
     }
 
     ngOnInit() {
@@ -507,6 +518,19 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         }
     }
 
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])) {
+            return;
+        }
+        this.onTouchedFn();
+    }
+
+    onFocus(event?: Event) {
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement.focus();
+    }
+
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
         $event.$eventOrigin.stopPropagation();
         if (this.disabled) {
@@ -577,6 +601,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
             this.thyOnExpandStatusChange.emit(this.panelOpen);
             this.focus();
             this.changeDetectorRef.markForCheck();
+            this.onTouchedFn();
         }
     }
 
@@ -594,7 +619,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 this.modalValue = changeValue[0];
             }
         }
-        this.onChangeCallback(this.modalValue);
+        this.onChangeFn(this.modalValue);
         this.updateCdkConnectedOverlayPositions();
     }
 
@@ -788,7 +813,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
                 });
             }
         } else {
-            const selectedOption = this.options.find(option => {
+            const selectedOption = this.options?.find(option => {
                 return option.thyValue === modalValue;
             });
             if (selectedOption) {
@@ -824,6 +849,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
         if (wasSelected !== this.selectionModel.isSelected(option)) {
             this.emitModelValueChange();
         }
+        this.onTouchedFn();
         this.changeDetectorRef.markForCheck();
     }
 

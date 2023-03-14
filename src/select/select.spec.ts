@@ -1,10 +1,12 @@
-import { TestBed, inject, ComponentFixture, fakeAsync, flush, tick } from '@angular/core/testing';
-import { ThySelectModule } from './module';
-import { Component, Sanitizer, SecurityContext, DebugElement } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-import { ThyIconRegistry } from '../icon';
-import { By } from '@angular/platform-browser';
 import { ThySelectComponent } from 'ngx-tethys/select';
+
+import { Component, DebugElement, Sanitizer, SecurityContext, ViewChild } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { dispatchFakeEvent } from '../testing';
+import { ThySelectModule } from './module';
 
 @Component({
     selector: 'app-basic-select-demo',
@@ -23,6 +25,8 @@ import { ThySelectComponent } from 'ngx-tethys/select';
     `
 })
 class BasicSelectComponent {
+    @ViewChild(ThySelectComponent, { static: false }) selectComponent: ThySelectComponent;
+
     value = '';
     allowClear = false;
     size = '';
@@ -163,6 +167,39 @@ describe(`select`, () => {
             fixture.debugElement.componentInstance.disabled = false;
             fixture.detectChanges();
             expect(debugComponent.attributes['ng-reflect-is-disabled']).toBe('false');
+        }));
+
+        it('should call blur methods when blur', fakeAsync(() => {
+            fixture.detectChanges();
+            const touchSpy = spyOn<any>(fixture.componentInstance.selectComponent, 'onTouchedFn');
+            const blurSpy = spyOn<any>(fixture.componentInstance.selectComponent, 'onBlur').and.callThrough();
+            const trigger = fixture.debugElement.query(By.css('select')).nativeElement;
+            dispatchFakeEvent(trigger, 'blur');
+            fixture.detectChanges();
+            expect(touchSpy).toHaveBeenCalled();
+            expect(blurSpy).toHaveBeenCalled();
+        }));
+
+        it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+            fixture.detectChanges();
+
+            const blurSpy = spyOn<any>(fixture.componentInstance.selectComponent, 'onTouchedFn');
+            const trigger = fixture.debugElement.query(By.css('select')).nativeElement;
+            fixture.componentInstance.selectComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+            fixture.detectChanges();
+
+            expect(blurSpy).not.toHaveBeenCalled();
+        }));
+
+        it('should call onFocus methods when focus', fakeAsync(() => {
+            fixture.detectChanges();
+            const focusSpy = spyOn<any>(fixture.componentInstance.selectComponent, 'onFocus').and.callThrough();
+
+            dispatchFakeEvent(selectElement, 'focus');
+            fixture.detectChanges();
+
+            expect(focusSpy).toHaveBeenCalled();
         }));
     });
 });

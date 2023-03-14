@@ -1,6 +1,7 @@
-import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, NgZone } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, forwardRef, OnInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+
 import { BasePickerComponent } from './base-picker.component';
 
 @Component({
@@ -14,15 +15,18 @@ import { BasePickerComponent } from './base-picker.component';
             multi: true,
             useExisting: forwardRef(() => ThyDatePickerComponent)
         }
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': 'tabIndex'
+    }
 })
 export class ThyDatePickerComponent extends BasePickerComponent implements OnInit {
     isRange = false;
 
     private hostRenderer = useHostRenderer();
 
-    constructor(cdr: ChangeDetectorRef) {
-        super(cdr);
+    constructor(cdr: ChangeDetectorRef, public element: ElementRef) {
+        super(cdr, element);
         this.hostRenderer.addClass('thy-calendar-picker');
     }
 }

@@ -1,18 +1,21 @@
+import { take } from 'rxjs/operators';
+
 import {
     Component,
     ContentChild,
+    ElementRef,
     EventEmitter,
     forwardRef,
     Input,
+    NgZone,
+    OnInit,
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    NgZone,
-    OnInit
+    ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { take } from 'rxjs/operators';
+
 import { ThyInputSize } from './input.directive';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -120,7 +123,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     private onChangeCallback: (_: any) => void = noop;
 
-    constructor(private ngZone: NgZone) {}
+    constructor(private ngZone: NgZone, private elementRef: ElementRef) {}
 
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
@@ -157,6 +160,10 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     }
 
     onInputBlur(event: Event) {
+        this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur(event);
+        }
         this.focused = false;
         this.showLabel = false;
         this.blur.emit(event);
