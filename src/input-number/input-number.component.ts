@@ -1,8 +1,11 @@
 import {
     AbstractControlValueAccessor,
     Constructor,
-    InputBoolean, mixinDisabled, mixinTabIndex,
-    ThyCanDisable, ThyHasTabIndex
+    InputBoolean,
+    mixinDisabled,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyHasTabIndex
 } from 'ngx-tethys/core';
 import { DOWN_ARROW, elementMatchClosest, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
@@ -11,7 +14,8 @@ import {
     Component,
     ElementRef,
     EventEmitter,
-    forwardRef, Input,
+    forwardRef,
+    Input,
     OnChanges,
     OnDestroy,
     OnInit,

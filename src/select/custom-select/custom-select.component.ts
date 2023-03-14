@@ -14,8 +14,14 @@ import {
 } from 'ngx-tethys/core';
 import {
     IThyOptionParentComponent,
-    SelectControlSize, ThyOptionComponent,
-    ThyOptionSelectionChangeEvent, ThyScrollDirective, ThySelectControlComponent, ThySelectOptionGroupComponent, ThyStopPropagationDirective, THY_OPTION_PARENT_COMPONENT
+    SelectControlSize,
+    ThyOptionComponent,
+    ThyOptionSelectionChangeEvent,
+    ThyScrollDirective,
+    ThySelectControlComponent,
+    ThySelectOptionGroupComponent,
+    ThyStopPropagationDirective,
+    THY_OPTION_PARENT_COMPONENT
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -41,7 +47,9 @@ import { ActiveDescendantKeyManager } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, coerceElement } from '@angular/cdk/coercion';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair,
+    CdkConnectedOverlay,
+    CdkOverlayOrigin,
+    ConnectionPositionPair,
     Overlay,
     ScrollStrategy,
     ViewportRuler
