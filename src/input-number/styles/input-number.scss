@@ -1,6 +1,7 @@
 @use "../../styles/variables";
 @use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles//bootstrap/mixins/transition";
+@use "../../styles/bootstrap/mixins/transition";
+@use "../../styles/mixins/hover.scss";
 
 .thy-input-number {
     width: 100%;
@@ -51,7 +52,9 @@
             border-bottom-right-radius: 0.25rem;
         }
     }
-    &:hover {
+
+    @include hover.hover-focus {
+        outline: none;
         .form-control {
             &:not([disabled]):not(.disabled):not(.is-invalid) {
                 border-color: variables.$input-hover-border-color;

@@ -1,5 +1,5 @@
-import { Directive, ElementRef, Output, OnInit, HostBinding, HostListener, Optional, EventEmitter } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Directive, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
+
 import { ThyFormDirective } from './form.directive';
 
 @Directive({
@@ -9,7 +9,7 @@ import { ThyFormDirective } from './form.directive';
 export class ThyFormSubmitDirective implements OnInit {
     @Output() thyFormSubmit = new EventEmitter();
 
-    constructor(private ngForm: NgForm, private thyFormDirective: ThyFormDirective) {}
+    constructor(private thyFormDirective: ThyFormDirective) {}
 
     ngOnInit(): void {
         this.thyFormDirective.onSubmitSuccess = ($event: Event) => {

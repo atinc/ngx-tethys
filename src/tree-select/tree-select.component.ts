@@ -1,10 +1,20 @@
-import { getFlexiblePositions, ThyClickDispatcher } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    getFlexiblePositions,
+    mixinDisabled,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyClickDispatcher,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
-import { isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
+import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
+
 import { CdkConnectedOverlay, CdkOverlayOrigin, ConnectionPositionPair, ViewportRuler } from '@angular/cdk/overlay';
-import { isPlatformBrowser, NgIf, NgTemplateOutlet, NgFor, NgClass, NgStyle } from '@angular/common';
+import { isPlatformBrowser, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -23,11 +33,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { CdkFixedSizeVirtualScroll, CdkVirtualForOf, CdkVirtualScrollViewport } from '@angular/cdk/scrolling';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { CdkVirtualScrollViewport, CdkFixedSizeVirtualScroll, CdkVirtualForOf } from '@angular/cdk/scrolling';
+import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -49,6 +59,10 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     const treeData = treeNodes.reduce((previous, current) => filterNodes(current, previous), [] as ThyTreeSelectNode[]);
     return treeData;
 }
+
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 @Component({
     selector: 'thy-tree-select',
     templateUrl: './tree-select.component.html',
@@ -68,9 +82,14 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
         CdkConnectedOverlay,
         forwardRef(() => ThyTreeSelectNodesComponent),
         ThyStopPropagationDirective
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    }
 })
-export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAccessor {
+export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDestroy, ControlValueAccessor {
     @HostBinding('class.thy-select-custom') treeSelectClass = true;
 
     @HostBinding('class.thy-select') isTreeSelect = true;
@@ -146,6 +165,10 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     @Input() thyDisable = false;
 
+    get thyDisabled(): boolean {
+        return this.thyDisable;
+    }
+
     @Input() thyPlaceholder = '请选择节点';
 
     get placeholder() {
@@ -187,10 +210,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
     // TODO: 是否可以取消选中的node
     // @Input() thyUnRemoveSelectedNodeFn: Function;
 
-    public onModelChange: Function = () => {};
-
-    public onModelTouch: Function = () => {};
-
     private _getNgModelType() {
         if (this.thyMultiple) {
             this.valueIsObject = !this.selectedValue[0] || isObject(this.selectedValue[0]);
@@ -225,14 +244,6 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.setSelectedNodes();
     }
 
-    registerOnChange(fn: any): void {
-        this.onModelChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        this.onModelTouch = fn;
-    }
-
     constructor(
         public elementRef: ElementRef,
         private ngZone: NgZone,
@@ -240,7 +251,9 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         @Inject(PLATFORM_ID) private platformId: string,
         private thyClickDispatcher: ThyClickDispatcher,
         private viewportRuler: ViewportRuler
-    ) {}
+    ) {
+        super();
+    }
 
     ngOnInit() {
         this.positions = getFlexiblePositions('bottom', 4);
@@ -262,6 +275,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                     if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
                         this.ngZone.run(() => {
                             this.expandTreeSelectOptions = false;
+                            this.onTouchedFn();
                             this.ref.markForCheck();
                         });
                     }
@@ -273,6 +287,20 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
             .subscribe(() => {
                 this.init();
             });
+    }
+
+    onFocus($event: FocusEvent) {
+        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+        inputElement?.focus();
+    }
+
+    onBlur($event: FocusEvent) {
+        // 1. Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        // 2. 打开选择框后如果点击弹框内导致 input 失焦，无需触发 onTouchedFn
+        if (elementMatchClosest($event?.relatedTarget as HTMLElement, ['thy-tree-select', 'thy-tree-select-nodes'])) {
+            return;
+        }
+        this.onTouchedFn();
     }
 
     ngOnDestroy(): void {
@@ -363,6 +391,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
 
     close() {
         this.expandTreeSelectOptions = false;
+        this.onTouchedFn();
     }
 
     clearSelectedValue(event: Event) {
@@ -370,7 +399,7 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
         this.selectedValue = null;
         this.selectedNode = null;
         this.selectedNodes = [];
-        this.onModelChange(this.selectedValue);
+        this.onChangeFn(this.selectedValue);
     }
 
     private _changeSelectValue() {
@@ -381,7 +410,8 @@ export class ThyTreeSelectComponent implements OnInit, OnDestroy, ControlValueAc
                 ? this.selectedNodes.map(item => item[this.thyPrimaryKey])
                 : this.selectedNode[this.thyPrimaryKey];
         }
-        this.onModelChange(this.selectedValue);
+        this.onChangeFn(this.selectedValue);
+        this.onTouchedFn();
     }
 
     removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {
@@ -456,7 +486,10 @@ const DEFAULT_ITEM_SIZE = 40;
         NgClass,
         NgStyle,
         ThyIconComponent
-    ]
+    ],
+    host: {
+        '[attr.tabindex]': '-1'
+    }
 })
 export class ThyTreeSelectNodesComponent implements OnInit {
     @HostBinding('class') class: string;

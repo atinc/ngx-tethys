@@ -1,11 +1,17 @@
 import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean, mixinDisabled, mixinTabIndex,
+    ThyCanDisable, ThyHasTabIndex
+} from 'ngx-tethys/core';
+import { DOWN_ARROW, elementMatchClosest, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+
+import {
     ChangeDetectorRef,
     Component,
     ElementRef,
     EventEmitter,
-    forwardRef,
-    HostBinding,
-    Input,
+    forwardRef, Input,
     OnChanges,
     OnDestroy,
     OnInit,
@@ -14,12 +20,10 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -28,6 +32,9 @@ enum Type {
     down
 }
 
+const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
+);
 @Component({
     selector: 'thy-input-number',
     templateUrl: './input-number.component.html',
@@ -39,16 +46,16 @@ enum Type {
         }
     ],
     standalone: true,
-    imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective]
+    imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
+    host: {
+        class: 'thy-input-number',
+        '[attr.tabindex]': 'tabIndex',
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    }
 })
-export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
-    @HostBinding('class.thy-input-number') _isInputNumber = true;
-
+export class ThyInputNumberComponent extends _MixinBase implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
-
-    private onChangeFn: (value: number | string) => void = () => {};
-
-    private onTouchFn: () => void = () => {};
 
     private autoStepTimer: any;
 
@@ -106,7 +113,13 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
 
     private innerMin: number = -Infinity;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+        super();
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.thyDisabled = isDisabled;
+    }
 
     ngOnInit() {}
 
@@ -152,12 +165,21 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
         }
     }
 
-    onBlur(event?: Event) {
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-input-number')) {
+            return;
+        }
         this.displayValue = this.formatterValue(this.validValue);
+        this.onTouchedFn();
         this.thyBlur.emit(event);
     }
 
     onFocus(event?: Event) {
+        this.inputElement.nativeElement.focus();
+    }
+
+    onInputFocus(event?: Event) {
         this.thyFocus.emit(event);
     }
 
@@ -308,14 +330,6 @@ export class ThyInputNumberComponent implements ControlValueAccessor, OnChanges,
             return Number(Number(num).toFixed(this.thyPrecision));
         }
         return Number(num);
-    }
-
-    registerOnChange(fn: () => void): void {
-        this.onChangeFn = fn;
-    }
-
-    registerOnTouched(fn: () => void): void {
-        this.onTouchFn = fn;
     }
 
     ngOnDestroy() {}

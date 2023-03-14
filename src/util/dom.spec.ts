@@ -1,4 +1,4 @@
-import { assertIconOnly, fallbackMatches, getElementOffset, getWindow, isDocument, isElement, match } from './dom';
+import { assertIconOnly, elementMatchClosest, fallbackMatches, getElementOffset, getWindow, isDocument, isElement, match } from './dom';
 
 describe('#dom', () => {
     describe('#match', () => {
@@ -60,6 +60,24 @@ describe('#dom', () => {
         expect(assertIconOnly(createElement('<thy-icon></thy-icon> text'))).toBe(false);
         expect(assertIconOnly(createElement('<thy-icon></thy-icon> <span></span>'))).toBe(false);
         expect(assertIconOnly(createElement('<div><thy-icon></thy-icon></div>'))).toBe(false);
+    });
+
+    describe('elementMatchClosest', () => {
+        it('should match element closest for one selector', () => {
+            const element = createElement('<div id="wrapper"><thy-button><span>hello</span></thy-button</div>');
+            expect(elementMatchClosest(element.querySelector('span'), 'thy-button')).toBe(true);
+            expect(elementMatchClosest(element.querySelector('span'), '#wrapper')).toBe(true);
+            expect(elementMatchClosest(element.querySelector('span'), ['thy-button'])).toBe(true);
+            expect(elementMatchClosest(element.querySelector('span'), 'thy-hello')).toBe(false);
+            expect(elementMatchClosest(element.querySelector('span'), ['thy-hello'])).toBe(false);
+        });
+
+        it('should match element closest for multiple selector', () => {
+            const element = createElement('<div id="wrapper"><thy-button><span>hello</span></thy-button</div>');
+            expect(elementMatchClosest(element.querySelector('span'), ['thy-button', 'thy-hello'])).toBe(true);
+            expect(elementMatchClosest(element.querySelector('span'), ['thy-button', '#wrapper'])).toBe(true);
+            expect(elementMatchClosest(element.querySelector('span'), ['thy-hello', 'thy-icon'])).toBe(false);
+        });
     });
 });
 
