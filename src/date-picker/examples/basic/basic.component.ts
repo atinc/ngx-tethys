@@ -42,11 +42,11 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
     shortcutDatePresets = [
         {
             title: '今天',
-            value: startOfDay(new Date()).getTime(),
+            value: startOfDay(new Date()).getTime()
         },
         {
             title: '下周',
-            value: startOfWeek(addWeeks(new Date(), 1), {weekStartsOn: 1}).getTime(),
+            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
         }
     ];
     constructor() {}

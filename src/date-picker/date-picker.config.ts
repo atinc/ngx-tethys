@@ -16,7 +16,7 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutDatePresets: [
         {
             title: '今天',
-            value: startOfDay(new Date()).getTime(),
+            value: startOfDay(new Date()).getTime()
         },
         {
             title: '明天',
@@ -24,7 +24,7 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         },
         {
             title: '下周',
-            value: startOfWeek(addWeeks(new Date(), 1), {weekStartsOn: 1}).getTime(),
+            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
         }
     ],
     shortcutRangesPresets: [
@@ -44,7 +44,7 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
             title: '本月',
             value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
         }
-    ],
+    ]
 };
 
 export const THY_DATE_PICKER_CONFIG_TOKEN = new InjectionToken<ThyDatePickerConfig>('thy-date-picker-config');

@@ -285,7 +285,7 @@ describe('ThyPickerDirective', () => {
             maxDate: undefined,
             showShortcut: false,
             shortcutPresets: undefined,
-            shortcutPosition:'left',
+            shortcutPosition: 'left',
             flexible: false,
             flexibleDateGranularity: undefined
         };

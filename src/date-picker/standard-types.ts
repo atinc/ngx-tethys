@@ -49,7 +49,7 @@ export interface ThyShortcutRange {
 
 export interface ThyShortcutPreset {
     title: string;
-    value?:ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue]
+    value?: ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue];
 }
 
 export interface ThyShortcutValueChange {

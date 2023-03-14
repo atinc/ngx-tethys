@@ -1,4 +1,3 @@
-
 import { ThyPanelMode, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -36,9 +35,9 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
      * * 已废弃，请使用 thyShortcutPresets
      * @deprecated
      */
-    @Input() set thyShortcutRanges (ranges: ThyShortcutRange[]) {
+    @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
-            const presets: ThyShortcutPreset[] = ranges.map(range=> ({title: range.title, value: [range.begin, range.end]}))
+            const presets: ThyShortcutPreset[] = ranges.map(range => ({ title: range.title, value: [range.begin, range.end] }));
             this.shortcutPresets = [...presets];
         }
     }

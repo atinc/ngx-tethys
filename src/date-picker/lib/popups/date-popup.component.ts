@@ -118,13 +118,13 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.cdr.markForCheck();
     }
     initShortcutPresets(): void {
-        const {shortcutRangesPresets, shortcutDatePresets} = this.datePickerConfigService;
-        if(this.showShortcut && !this.shortcutPresets) {
+        const { shortcutRangesPresets, shortcutDatePresets } = this.datePickerConfigService;
+        if (this.showShortcut && !this.shortcutPresets) {
             this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
         }
     }
     ngOnInit(): void {
-        this.initShortcutPresets()
+        this.initShortcutPresets();
         this.initPanelMode();
         if (this.flexible && this.flexibleDateGranularity === 'day') {
             this.flexibleActiveTab = 'custom';
@@ -430,16 +430,16 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
         const { value } = shortcutPresets;
-        if(!value) return;
-        const setRangeValue = (begin:ThyShortcutValue, end:ThyShortcutValue) => {
+        if (!value) return;
+        const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
             const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
             const endValue: number | Date = typeof end === 'function' ? end() : end;
             if (beginValue && endValue) {
                 this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
                 this.setValue(this.cloneRangeDate(this.selectedValue));
             }
-        }
-        if(helpers.isArray(value)){
+        };
+        if (helpers.isArray(value)) {
             setRangeValue(value[0], value[1]);
         } else {
             const _value: number | Date = typeof value === 'function' ? value() : value;
