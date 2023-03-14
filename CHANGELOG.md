@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/15.0.0...15.1.0-next.0) (2023-03-14)
+
+
+### Features
+
+* **forms:** support reactive forms #INFR-5805 ([#2444](https://github.com/atinc/ngx-tethys/issues/2444)) ([eeddb2f](https://github.com/atinc/ngx-tethys/commit/eeddb2fdc9661a20985d157966de758cf0edcf9e)), closes [#INFR-5805](https://github.com/atinc/ngx-tethys/issues/INFR-5805)
+
+
+
 # [15.0.0](https://github.com/atinc/ngx-tethys/compare/14.2.24...15.0.0) (2023-03-09)
 
 
