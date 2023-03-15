@@ -1,6 +1,7 @@
-import { Component, OnInit, forwardRef, HostBinding, Input } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
+
+import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 enum ThyStrengthEnum {
     highest = 4,
@@ -37,7 +38,8 @@ const strengthMap = {
             useExisting: forwardRef(() => ThyStrengthComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.password-strength-container') styleClass = true;
@@ -79,6 +81,8 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
 
     writeValue(value: ThyStrengthEnum) {
         this.strength = value;
+        this._onChange(value);
+        this._onTouched();
     }
 
     registerOnChange(fn: (value: any) => any): void {

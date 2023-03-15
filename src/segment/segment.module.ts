@@ -6,8 +6,7 @@ import { ThySegmentComponent } from './segment.component';
 import { ThySegmentItemComponent } from './segment-item.component';
 
 @NgModule({
-    imports: [CommonModule, ThyIconModule, ThyTooltipModule],
-    declarations: [ThySegmentComponent, ThySegmentItemComponent],
+    imports: [CommonModule, ThyIconModule, ThyTooltipModule, ThySegmentComponent, ThySegmentItemComponent],
     exports: [ThySegmentComponent, ThySegmentItemComponent]
 })
 export class ThySegmentModule {}

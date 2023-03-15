@@ -5,7 +5,8 @@ import { keycodes } from 'ngx-tethys/util';
  * 与 (keydown.enter) 区别是支持组合键，当按 Ctrl + Enter 或者 Command + Enter 也会触发
  */
 @Directive({
-    selector: '[thyEnter]'
+    selector: '[thyEnter]',
+    standalone: true
 })
 export class ThyEnterDirective implements OnInit, OnDestroy {
     @Output() thyEnter = new EventEmitter();

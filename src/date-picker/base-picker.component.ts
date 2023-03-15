@@ -1,14 +1,20 @@
 import { ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, FunctionProp, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
-import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
+import { CompatibleDate, ThyPanelMode } from './standard-types';
 
 @Component({
-    template: ``
+    template: ``,
+    standalone: true,
+    host: {
+        '[attr.tabindex]': `tabIndex`,
+        '(focus)': 'onFocus($event)',
+        '(blur)': 'onBlur($event)'
+    }
 })
 export class BasePickerComponent extends AbstractPickerComponent implements OnInit, OnChanges {
     showWeek = false;
@@ -34,7 +40,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();
 
-    constructor(cdr: ChangeDetectorRef) {
+    constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
         super(cdr);
     }
 
@@ -111,5 +117,20 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     onOpenChange(open: boolean): void {
         this.thyOpenChange.emit(open);
+        if (!open) {
+            this.onTouchedFn();
+        }
+    }
+
+    onFocus(event: Event) {
+        this.picker.focus();
+    }
+
+    onBlur(event?: FocusEvent) {
+        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
+        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['date-popup', 'thy-picker'])) {
+            return;
+        }
+        this.onTouchedFn();
     }
 }

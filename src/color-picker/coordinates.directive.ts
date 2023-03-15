@@ -4,7 +4,10 @@ import { distinctUntilChanged } from 'rxjs/operators';
 /**
  * @internal
  */
-@Directive({ selector: '[thyColorCoordinates]' })
+@Directive({
+    selector: '[thyColorCoordinates]',
+    standalone: true
+})
 export class ThyCoordinatesDirective implements OnInit, OnDestroy {
     @Output()
     coordinatesChange = new Subject<{

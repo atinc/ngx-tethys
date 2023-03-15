@@ -7,7 +7,7 @@ import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
@@ -163,9 +163,17 @@ describe(`color-picker`, () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerPanelComponent
+            ],
             providers: [ThyPopover, ThyPopoverRef],
-            declarations: [ThyDemoColorPickerComponent, ThyColorPickerPanelComponent]
+            declarations: [ThyDemoColorPickerComponent]
         });
         TestBed.compileComponents();
     });
@@ -337,7 +345,15 @@ describe('color-default-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerPanelComponent
+            ],
             providers: [
                 ThyPopover,
                 {
@@ -349,7 +365,7 @@ describe('color-default-panel', () => {
                     }
                 }
             ],
-            declarations: [ThyDemoColorDefaultPanelComponent, ThyColorPickerPanelComponent]
+            declarations: [ThyDemoColorDefaultPanelComponent]
         });
         TestBed.compileComponents();
     });
@@ -461,9 +477,17 @@ describe('picker-panel', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyColorPickerCustomPanelComponent
+            ],
             providers: [ThyPopover, ThyPopoverRef],
-            declarations: [ThyDemoPickerPanelComponent, ThyColorPickerCustomPanelComponent]
+            declarations: [ThyDemoPickerPanelComponent]
         });
         TestBed.compileComponents();
     });
@@ -501,9 +525,17 @@ describe('coordinates-directive', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            imports: [CommonModule, FormsModule, ThyDialogModule, ThyColorPickerModule, ThyPopoverModule, BrowserAnimationsModule],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                BrowserAnimationsModule,
+                ThyCoordinatesDirective
+            ],
             providers: [ThyPopover, ThyPopoverRef],
-            declarations: [ThyDemoCoordinatesDirectiveComponent, ThyCoordinatesDirective]
+            declarations: [ThyDemoCoordinatesDirectiveComponent]
         });
         TestBed.compileComponents();
     });

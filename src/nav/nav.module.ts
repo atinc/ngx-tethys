@@ -14,7 +14,12 @@ import { ThyNavComponent } from './nav.component';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 
 @NgModule({
-    declarations: [
+    imports: [
+        CommonModule,
+        ThyIconModule,
+        ThyPopoverModule,
+        ThyActionMenuModule,
+        RouterModule,
         ThyNavComponent,
         ThyNavItemDirective,
         ThyIconNavComponent,
@@ -22,7 +27,6 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
         BypassSecurityTrustHtmlPipe,
         ThyNavInkBarDirective
     ],
-    imports: [CommonModule, ThyIconModule, ThyPopoverModule, ThyActionMenuModule, RouterModule],
     exports: [ThyNavComponent, ThyNavItemDirective, ThyIconNavComponent, ThyIconNavLinkComponent, BypassSecurityTrustHtmlPipe]
 })
 export class ThyNavModule {}

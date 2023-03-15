@@ -28,7 +28,10 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     }
 };
 
-@Directive({ selector: '[thyMention]' })
+@Directive({
+    selector: '[thyMention]',
+    standalone: true
+})
 export class ThyMentionDirective implements OnInit, OnDestroy {
     private adapter: MentionAdapter = null;
 

@@ -16,7 +16,8 @@ import { ThyDatePickerConfigService } from './date-picker.service';
             multi: true,
             useExisting: forwardRef(() => ThyRangePickerDirective)
         }
-    ]
+    ],
+    standalone: true
 })
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;

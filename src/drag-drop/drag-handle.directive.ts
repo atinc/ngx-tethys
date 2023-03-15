@@ -6,7 +6,8 @@ import { ThyDragDirective } from './drag.directive';
  * 自定义可拖拽区域内容
  */
 @Directive({
-    selector: 'thy-drag-handle,[thyDragHandle]'
+    selector: 'thy-drag-handle,[thyDragHandle]',
+    standalone: true
 })
 export class ThyDragHandleDirective {
     private _disabled = false;

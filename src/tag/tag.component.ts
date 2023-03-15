@@ -22,7 +22,8 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
         '[class.thy-tag-sm]': 'thySize === "sm"',
         '[class.thy-tag-xs]': 'thySize === "xs"',
         '[class.thy-tag-lg]': 'thySize === "lg"'
-    }
+    },
+    standalone: true
 })
 export class ThyTagComponent implements OnInit, OnChanges {
     private color: ThyTagColor = 'default';

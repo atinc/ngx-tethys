@@ -33,6 +33,7 @@ import {
 import { Subscription } from 'rxjs';
 
 import { ThyTimePickerStore } from './inner-time-picker.store';
+import { NgIf } from '@angular/common';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
@@ -48,7 +49,9 @@ export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     selector: 'thy-inner-time-picker',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [TIMEPICKER_CONTROL_VALUE_ACCESSOR, ThyTimePickerStore],
-    templateUrl: './inner-time-picker.component.html'
+    templateUrl: './inner-time-picker.component.html',
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyInnerTimePickerComponent
     implements ControlValueAccessor, TimePickerComponentState, TimePickerControls, OnChanges, OnDestroy {

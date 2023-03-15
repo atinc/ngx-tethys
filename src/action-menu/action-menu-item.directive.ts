@@ -7,7 +7,8 @@ import { debounceTime, shareReplay, takeUntil } from 'rxjs/operators';
 export type ThyActionMenuItemType = 'danger' | 'success';
 
 @Directive({
-    selector: '[thyActionMenuItem]'
+    selector: '[thyActionMenuItem]',
+    standalone: true
 })
 export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-item') className = true;
@@ -69,7 +70,8 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemIcon]'
+    selector: '[thyActionMenuItemIcon]',
+    standalone: true
 })
 export class ThyActionMenuItemIconDirective {
     @HostBinding('class.icon') className = true;
@@ -78,7 +80,8 @@ export class ThyActionMenuItemIconDirective {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemName]'
+    selector: '[thyActionMenuItemName]',
+    standalone: true
 })
 export class ThyActionMenuItemNameDirective {
     @HostBinding('class.name') className = true;
@@ -87,7 +90,8 @@ export class ThyActionMenuItemNameDirective {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemMeta]'
+    selector: '[thyActionMenuItemMeta]',
+    standalone: true
 })
 export class ThyActionMenuItemMetaDirective {
     @HostBinding('class.meta') className = true;
@@ -96,7 +100,8 @@ export class ThyActionMenuItemMetaDirective {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemInfo]'
+    selector: '[thyActionMenuItemInfo]',
+    standalone: true
 })
 export class ThyActionMenuItemInfoDirective {
     @HostBinding('class.info') className = true;
@@ -105,7 +110,8 @@ export class ThyActionMenuItemInfoDirective {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemExtendIcon]'
+    selector: '[thyActionMenuItemExtendIcon]',
+    standalone: true
 })
 export class ThyActionMenuItemExtendIconDirective {
     @HostBinding('class.extend-icon') className = true;
@@ -114,7 +120,8 @@ export class ThyActionMenuItemExtendIconDirective {
 }
 
 @Directive({
-    selector: '[thyActionMenuItemActive]'
+    selector: '[thyActionMenuItemActive]',
+    standalone: true
 })
 export class ThyActionMenuItemActiveDirective {
     @HostBinding('class.active') _isActive = false;

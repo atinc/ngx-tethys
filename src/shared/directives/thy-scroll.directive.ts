@@ -7,7 +7,8 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
 @Directive({
-    selector: '[thyScroll]'
+    selector: '[thyScroll]',
+    standalone: true
 })
 export class ThyScrollDirective implements OnInit, OnDestroy {
     private _destroyed = new Subject<void>();

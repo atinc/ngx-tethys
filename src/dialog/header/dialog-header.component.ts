@@ -15,6 +15,9 @@ import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { ThyInternalDialogRef } from '../dialog-ref';
+import { ThyActionComponent } from 'ngx-tethys/action';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'thy-dialog-header',
@@ -25,7 +28,9 @@ import { ThyInternalDialogRef } from '../dialog-ref';
         class: 'dialog-header thy-dialog-header',
         '[class.thy-dialog-header-lg]': `thySize === 'lg'`,
         '[class.thy-dialog-header-divided]': `thyDivided`
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyIconComponent, ThyActionComponent]
 })
 export class DialogHeaderComponent implements OnInit {
     @ContentChild('dialogHeader')

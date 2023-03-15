@@ -8,8 +8,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 const COMPONENTS = [ThyCarouselComponent, ThyCarouselItemDirective];
 
 @NgModule({
-    declarations: [...COMPONENTS],
     exports: [...COMPONENTS],
-    imports: [CommonModule, ThyDotModule, ThyIconModule]
+    imports: [CommonModule, ThyDotModule, ThyIconModule, ...COMPONENTS]
 })
 export class ThyCarouselModule {}

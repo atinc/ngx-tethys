@@ -10,6 +10,7 @@ import {
     ViewContainerRef,
     ChangeDetectionStrategy
 } from '@angular/core';
+import { NgTemplateOutlet, NgIf } from '@angular/common';
 @Component({
     selector: 'thy-card-header',
     preserveWhitespaces: false,
@@ -20,7 +21,9 @@ import {
         '[class.thy-card-header--sm]': 'thySize === "sm"',
         '[class.thy-card-header--lg]': 'thySize === "lg"',
         '[class.thy-card-header--md]': 'thySize === "md"'
-    }
+    },
+    standalone: true,
+    imports: [NgTemplateOutlet, NgIf]
 })
 export class ThyCardHeaderComponent implements OnInit {
     public iconClass: string;

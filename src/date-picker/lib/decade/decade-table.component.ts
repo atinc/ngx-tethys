@@ -2,13 +2,16 @@ import { ChangeDetectionStrategy, Component, OnChanges } from '@angular/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DecadeCell, DateBodyRow } from '../date/types';
+import { NgFor, NgClass } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'decade-table',
     exportAs: 'decadeTable',
-    templateUrl: 'decade-table.component.html'
+    templateUrl: 'decade-table.component.html',
+    standalone: true,
+    imports: [NgFor, NgClass]
 })
 export class DecadeTableComponent extends CalendarTable implements OnChanges {
     MAX_ROW = 4;

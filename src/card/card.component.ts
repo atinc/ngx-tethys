@@ -14,7 +14,8 @@ import { InputBoolean } from 'ngx-tethys/core';
         '[class.thy-card--clear-left-right-padding]': '!thyHasLeftRightPadding',
         '[class.thy-card-sm]': 'thySize === "sm"',
         '[class.thy-card-lg]': 'thySize === "lg"'
-    }
+    },
+    standalone: true
 })
 export class ThyCardComponent {
     @Input('thyHasLeftRightPadding')

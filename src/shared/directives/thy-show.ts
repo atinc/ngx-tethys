@@ -1,7 +1,10 @@
 import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
-@Directive({ selector: '[thyShow]' })
+@Directive({
+    selector: '[thyShow]',
+    standalone: true
+})
 export class ThyShowDirective implements OnDestroy {
     @Output() thyShowChange = new EventEmitter();
 

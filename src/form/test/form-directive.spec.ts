@@ -1,18 +1,20 @@
-import { ThyEnterKeyMode } from './../form.directive';
-import { ThyFormModule } from './../module';
-import { Component, DebugElement, NgModule, ViewChild, ElementRef, Optional, Self } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, flush, discardPeriodicTasks } from '@angular/core/testing';
-import { ThyFormDirective } from '../form.directive';
-import { ThyLayoutModule } from 'ngx-tethys/layout';
-import { FormsModule, NgControl } from '@angular/forms';
-import { ThyFormValidatorConfig, THY_FORM_CONFIG } from '../form.class';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyInputModule } from 'ngx-tethys/input';
-import { createFakeEvent, dispatchEvent, dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
-import { ThyFormSubmitDirective } from '../form-submit.directive';
-import { By } from '@angular/platform-browser';
-import { CommonModule } from '@angular/common';
+import { ThyLayoutModule } from 'ngx-tethys/layout';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
+
+import { CommonModule } from '@angular/common';
+import { Component, DebugElement } from '@angular/core';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { FormBuilder, FormGroup, FormsModule, NgForm, ReactiveFormsModule, Validators } from '@angular/forms';
+import { By } from '@angular/platform-browser';
+
+import { ThyFormSubmitDirective } from '../form-submit.directive';
+import { THY_FORM_CONFIG, ThyFormValidatorConfig } from '../form.class';
+import { ThyEnterKeyMode, ThyFormDirective } from '../form.directive';
+import { ThyFormModule } from '../module';
 
 @Component({
     selector: 'app-test-basic-form',
@@ -77,6 +79,78 @@ export class TestFormFullComponent {
             }
         }
     };
+
+    submit() {}
+}
+
+@Component({
+    selector: 'app-test-reactive',
+    template: `
+        <form
+            *ngIf="loadingDone"
+            thyForm
+            name="demoForm"
+            #demoForm="thyForm"
+            thyLayout="horizontal"
+            [thyFormValidatorConfig]="validateConfig"
+            [formGroup]="formGroup"
+        >
+            <thy-form-group thyLabelText="age" thyLayout="horizontal" thyLabelRequired>
+                <input thyInput type="number" name="age" formControlName="age" max="10" min="0" required placeholder="please input age" />
+            </thy-form-group>
+
+            <thy-form-group thyLabelText="CustomerSelect">
+                <thy-custom-select
+                    thyPlaceHolder="请选择"
+                    formControlName="customersSelect"
+                    name="customersSelect"
+                    [thyShowSearch]="true"
+                    [thyAllowClear]="true"
+                >
+                    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+                </thy-custom-select>
+            </thy-form-group>
+
+            <thy-form-group thyLabelText="Textarea">
+                <textarea name="textarea" formControlName="textarea" class="form-control" rows="3"></textarea>
+            </thy-form-group>
+
+            <thy-form-group>
+                <ng-template #content>
+                    <textarea name="username" formControlName="username" class="form-control" rows="3"></textarea>
+                </ng-template>
+            </thy-form-group>
+            <thy-form-group-footer>
+                <button [thyButton]="'primary'" (thyFormSubmit)="submit()"></button>
+                <button [thyButton]="'link-secondary'">Cancel</button>
+            </thy-form-group-footer>
+        </form>
+    `
+})
+export class TestFormReactiveComponent {
+    formGroup = this.formBuilder.group({
+        age: [0],
+        username: ['', [Validators.required]],
+        customersSelect: [''],
+        textarea: ['']
+    });
+
+    loadingDone = true;
+
+    listOfOption = [
+        { value: 'option1', text: '选项一' },
+        { value: 'option2', text: '选项二' }
+    ];
+
+    validateConfig: ThyFormValidatorConfig = {
+        validationMessages: {
+            username: {
+                required: 'user name is required'
+            }
+        }
+    };
+
+    constructor(private formBuilder: FormBuilder) {}
 
     submit() {}
 }
@@ -234,8 +308,9 @@ describe('form validate', () => {
 
     it('should create controls success', fakeAsync(() => {
         expect(formDirective.validator.validations).toEqual({});
-        expect(formDirective['ngForm'].controls).toBeTruthy();
-        const nameControl = formDirective['ngForm'].controls['username'];
+        const controls = (formDirective['ngForm'] as NgForm).controls;
+        expect(controls).toBeTruthy();
+        const nameControl = controls['username'];
         expect(nameControl).toBeTruthy();
     }));
 
@@ -456,6 +531,197 @@ describe('form validate', () => {
             expect(formSubmitSpy).toHaveBeenCalled();
         }));
     });
+});
+
+describe('reactive form validate', () => {
+    let fixture: ComponentFixture<TestFormReactiveComponent>;
+    let testComponent: TestFormReactiveComponent;
+    let formDebugElement: DebugElement;
+    let formDirective: ThyFormDirective;
+    let formElement: HTMLElement;
+    let formSubmitDebugElement: DebugElement;
+
+    function assertElementInvalidError(elementName: string, message: string = `user name is required`) {
+        const input = formElement.querySelector(`[name=${elementName}`);
+        let invalidFeedbackElement = input.parentElement.querySelector('.invalid-feedback');
+        expect(invalidFeedbackElement).toBeTruthy();
+        expect(invalidFeedbackElement.textContent).toContain(message);
+    }
+
+    function assertFormValid() {
+        const invalidFeedbackElement = formElement.querySelector('.invalid-feedback');
+        expect(invalidFeedbackElement).toBeFalsy();
+        expect(formDirective.validator.errors).toEqual([]);
+        expect(formDirective['ngForm'].errors).toBeFalsy();
+        expect(formDirective['ngForm'].invalid).toEqual(false);
+        expect(formDirective['ngForm'].valid).toEqual(true);
+    }
+
+    function assertFormDefaultState() {
+        const invalidFeedbackElement = formElement.querySelector('.invalid-feedback');
+        expect(invalidFeedbackElement).toBeFalsy();
+        expect(formDirective.validator.errors).toEqual([]);
+        expect(formDirective['ngForm'].errors).toEqual(null);
+        expect(formDirective['ngForm'].invalid).toEqual(true);
+        expect(formDirective['ngForm'].valid).toEqual(false);
+    }
+
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestFormReactiveComponent],
+            imports: [
+                CommonModule,
+                FormsModule,
+                ReactiveFormsModule,
+                ThyFormModule,
+                ThyLayoutModule,
+                ThyButtonModule,
+                ThyInputModule,
+                ThySelectModule
+            ],
+            providers: []
+        });
+
+        TestBed.compileComponents();
+    });
+
+    beforeEach(fakeAsync(() => {
+        fixture = TestBed.createComponent(TestFormReactiveComponent);
+        testComponent = fixture.debugElement.componentInstance;
+        fixture.detectChanges();
+        tick(500);
+        formDebugElement = fixture.debugElement.query(By.directive(ThyFormDirective));
+        formDirective = formDebugElement.injector.get(ThyFormDirective);
+        formElement = formDebugElement.nativeElement;
+        formSubmitDebugElement = fixture.debugElement.query(By.directive(ThyFormSubmitDirective));
+    }));
+
+    it('should create controls success', fakeAsync(() => {
+        formDirective = formDebugElement.injector.get(ThyFormDirective);
+        expect(formDirective.validator.validations).toEqual({});
+        const controls = fixture.componentInstance.formGroup.controls;
+        expect(controls).toBeTruthy();
+        expect(formDirective.controls.length).toEqual(4);
+        const ageControl = (fixture.componentInstance.formGroup as FormGroup).getRawValue().age;
+        expect(ageControl).toEqual(0);
+    }));
+
+    it('should create validations success when validateOn was blur', fakeAsync(async () => {
+        testComponent.loadingDone = false;
+        testComponent.validateConfig.validateOn = 'blur';
+        fixture.detectChanges();
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        let input;
+
+        testComponent.formGroup.patchValue({ age: -1, username: '1' });
+        fixture.detectChanges();
+        tick();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertElementInvalidError('age', `该选项输入值不能小于0`);
+
+        testComponent.formGroup.patchValue({ age: 1 });
+        fixture.detectChanges();
+        tick(100);
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertFormValid();
+
+        testComponent.formGroup.patchValue({ age: 11 });
+        fixture.detectChanges();
+        tick();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        dispatchFakeEvent(input, 'blur');
+        assertElementInvalidError('age', `该选项输入值不能大于10`);
+    }));
+
+    it('should create validations success when validateOn was change', fakeAsync(async () => {
+        testComponent.loadingDone = false;
+        testComponent.validateConfig.validateOn = 'change';
+
+        fixture.detectChanges();
+        testComponent.loadingDone = true;
+        fixture.detectChanges();
+        let input;
+
+        testComponent.formGroup.patchValue({ age: -1, username: '1' });
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertElementInvalidError('age', `该选项输入值不能小于0`);
+        fixture.detectChanges();
+
+        testComponent.formGroup.patchValue({ age: 11 });
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertElementInvalidError('age', `该选项输入值不能大于10`);
+        fixture.detectChanges();
+
+        testComponent.formGroup.patchValue({ age: 1 });
+        tick(100);
+        fixture.detectChanges();
+        formElement = fixture.debugElement.query(By.directive(ThyFormDirective)).nativeElement;
+        input = formElement.querySelector('[name=age]');
+        fixture.detectChanges();
+        assertFormValid();
+    }));
+
+    it('should submit success when click submit button', fakeAsync(() => {
+        testComponent.formGroup.patchValue({ username: '111' });
+        fixture.detectChanges();
+        tick();
+        const formSubmitSpy = spyOn(testComponent, 'submit');
+        expect(formSubmitDebugElement).toBeTruthy();
+        expect(formSubmitSpy).not.toHaveBeenCalled();
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        expect(formSubmitSpy).toHaveBeenCalled();
+    }));
+
+    it('should get invalid messages when name is empty', fakeAsync(() => {
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('username', `user name is required`);
+    }));
+
+    it('should clear error validations after input value', fakeAsync(() => {
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('username', `user name is required`);
+
+        fixture.detectChanges();
+        testComponent.formGroup.patchValue({ username: 'test' });
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+
+        assertFormValid();
+    }));
+
+    it('should reset success after validate is error', fakeAsync(() => {
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        assertElementInvalidError('username', `user name is required`);
+        formDirective.validator.reset();
+        assertFormDefaultState();
+    }));
+
+    it('should manual set element error message success', fakeAsync(() => {
+        assertFormDefaultState();
+        testComponent.formGroup.patchValue({ username: '1' });
+        fixture.detectChanges();
+        tick();
+        assertFormValid();
+
+        const message = 'the name is exist';
+        formDirective.validator.setElementErrorMessage('username', message);
+        assertElementInvalidError('username', message);
+    }));
 });
 
 @Component({

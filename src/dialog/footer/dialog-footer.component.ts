@@ -3,12 +3,15 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { Component, ContentChild, Inject, Input, OnInit, TemplateRef } from '@angular/core';
 
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'thy-dialog-footer',
     templateUrl: './dialog-footer.component.html',
     // changeDetection: ChangeDetectionStrategy.OnPush,
-    exportAs: 'thyDialogFooter'
+    exportAs: 'thyDialogFooter',
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class DialogFooterComponent implements OnInit {
     @ContentChild('description') description: TemplateRef<any>;

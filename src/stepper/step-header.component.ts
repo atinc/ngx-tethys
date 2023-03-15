@@ -2,7 +2,8 @@ import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
     selector: 'thy-step-header',
-    templateUrl: './step-header.component.html'
+    templateUrl: './step-header.component.html',
+    standalone: true
 })
 export class ThyStepHeaderComponent {
     @Input() label: string;

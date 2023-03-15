@@ -7,8 +7,7 @@ import { ThyButtonIconComponent } from './button-icon.component';
 import { ThyButtonComponent } from './button.component';
 
 @NgModule({
-    declarations: [ThyButtonComponent, ThyButtonIconComponent, ThyButtonGroupComponent],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyButtonComponent, ThyButtonIconComponent, ThyButtonGroupComponent],
     exports: [ThyButtonComponent, ThyButtonIconComponent, ThyButtonGroupComponent]
 })
 export class ThyButtonModule {}

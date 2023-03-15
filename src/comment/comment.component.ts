@@ -2,13 +2,18 @@ import { isTemplateRef } from 'ngx-tethys/util';
 import { SafeAny } from 'ngx-tethys/types';
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, OnInit } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
+import { ThyAvatarComponent } from 'ngx-tethys/avatar';
+import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 @Component({
     selector: 'thy-comment',
     templateUrl: './comment.component.html',
     host: {
         class: 'thy-comment'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyStringOrTemplateOutletDirective, ThyAvatarComponent]
 })
 export class ThyCommentComponent {
     /**

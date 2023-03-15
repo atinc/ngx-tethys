@@ -7,8 +7,7 @@ import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyTabContentComponent } from './tab-content.component';
 
 @NgModule({
-    declarations: [ThyTabsComponent, ThyTabComponent, ThyTabContentComponent],
-    imports: [CommonModule, ThyIconModule, ThyNavModule],
+    imports: [CommonModule, ThyIconModule, ThyNavModule, ThyTabsComponent, ThyTabComponent, ThyTabContentComponent],
     exports: [ThyTabsComponent, ThyTabComponent]
 })
 export class ThyTabsModule {}

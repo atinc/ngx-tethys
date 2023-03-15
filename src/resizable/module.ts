@@ -5,8 +5,7 @@ import { ThyResizeHandlesComponent } from './resize-handles.component';
 import { CommonModule } from '@angular/common';
 
 @NgModule({
-    imports: [CommonModule],
-    declarations: [ThyResizableDirective, ThyResizeHandleComponent, ThyResizeHandlesComponent],
+    imports: [CommonModule, ThyResizableDirective, ThyResizeHandleComponent, ThyResizeHandlesComponent],
     exports: [ThyResizableDirective, ThyResizeHandleComponent, ThyResizeHandlesComponent]
 })
 export class ThyResizableModule {}

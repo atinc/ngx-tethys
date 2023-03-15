@@ -14,6 +14,7 @@ import {
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyAnchorComponent } from './anchor.component';
+import { NgIf } from '@angular/common';
 
 /**
  * 锚点链接组件，可供锚点跳转
@@ -30,7 +31,9 @@ import { ThyAnchorComponent } from './anchor.component';
         <ng-content></ng-content>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyAnchorLinkComponent implements OnInit, OnDestroy {
     title: string | null = '';

@@ -9,6 +9,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-layout-content'
-    }
+    },
+    standalone: true
 })
 export class ThyContentComponent {}

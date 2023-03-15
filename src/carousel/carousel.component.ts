@@ -35,6 +35,9 @@ import { ThyCarouselSlideEngine, ThyCarouselNoopEngine, ThyCarouselFadeEngine } 
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
 import { ThyCarouselService } from './carousel.service';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyDotComponent } from 'ngx-tethys/dot';
+import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -43,7 +46,9 @@ import { ThyCarouselService } from './carousel.service';
     preserveWhitespaces: false,
     host: {
         class: 'thy-carousel'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, NgFor, ThyDotComponent, ThyIconComponent]
 })
 export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContentInit, OnChanges, OnDestroy {
     /**

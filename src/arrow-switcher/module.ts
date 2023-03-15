@@ -7,8 +7,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
-    declarations: [ThyArrowSwitcherComponent],
-    imports: [CommonModule, ThyButtonModule, ThyIconModule, ThyActionModule, ThyTooltipModule],
+    imports: [CommonModule, ThyButtonModule, ThyIconModule, ThyActionModule, ThyTooltipModule, ThyArrowSwitcherComponent],
     exports: [ThyArrowSwitcherComponent]
 })
 export class ThyArrowSwitcherModule {}

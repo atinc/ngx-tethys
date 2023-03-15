@@ -11,6 +11,7 @@ import {
     SimpleChanges,
     ViewChild
 } from '@angular/core';
+import { ThyCoordinatesDirective } from '../../coordinates.directive';
 import ThyColor from '../../helpers/color.class';
 /**
  * @internal
@@ -18,7 +19,9 @@ import ThyColor from '../../helpers/color.class';
 @Component({
     selector: 'thy-hue',
     templateUrl: './hue.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ThyCoordinatesDirective]
 })
 export class ThyHueComponent implements OnChanges {
     @HostBinding('class.thy-hue') className = true;

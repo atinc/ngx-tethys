@@ -3,10 +3,13 @@ import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { defaultGuiderPositionConfig, ThyGuiderStep } from '../guider.class';
 import { ThyGuiderStepRef } from '../guider-step-ref';
+import { NgIf, NgTemplateOutlet, NgFor, NgClass } from '@angular/common';
 
 @Component({
     selector: 'thy-guider-hint',
-    templateUrl: 'guider-hint.component.html'
+    templateUrl: 'guider-hint.component.html',
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, NgFor, NgClass]
 })
 export class ThyGuiderHintComponent implements OnInit {
     @HostBinding('class.thy-guider-tip-container') guiderHint = true;

@@ -16,8 +16,9 @@ import { ThyDropdownSubmenuComponent } from './dropdown-submenu.component';
 import { ThyDropdownActiveDirective } from './dropdown-active.directive';
 
 @NgModule({
-    imports: [CommonModule, ThyPopoverModule],
-    declarations: [
+    imports: [
+        CommonModule,
+        ThyPopoverModule,
         ThyDropdownDirective,
         ThyDropdownActiveDirective,
         ThyDropdownMenuComponent,

@@ -6,7 +6,8 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
         <ng-content></ng-content>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true
 })
 export class ThySkeletonComponent {
     /**

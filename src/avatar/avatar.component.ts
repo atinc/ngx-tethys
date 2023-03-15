@@ -3,6 +3,9 @@ import { SafeHtml } from '@angular/platform-browser';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyAvatarService } from './avatar.service';
+import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgClass, NgStyle } from '@angular/common';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
@@ -28,7 +31,9 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 @Component({
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, NgClass, NgStyle, ThyIconComponent, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
 })
 export class ThyAvatarComponent implements OnInit {
     _src: string;

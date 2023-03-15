@@ -2,7 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Pipe({
-    name: 'paginationTotalPagesFormat'
+    name: 'paginationTotalPagesFormat',
+    standalone: true
 })
 export class PaginationTotalCountFormat implements PipeTransform {
     constructor(private sanitizer: DomSanitizer) {}

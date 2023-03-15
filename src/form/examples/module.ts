@@ -1,26 +1,32 @@
+import { ThyButtonModule } from 'ngx-tethys/button';
+import { ThyCascaderModule } from 'ngx-tethys/cascader';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
+import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
+import { ThyDialogModule } from 'ngx-tethys/dialog';
+import { ThyFormModule } from 'ngx-tethys/form';
+import { ThyGridModule } from 'ngx-tethys/grid';
+import { ThyIconModule } from 'ngx-tethys/icon';
+import { ThyInputModule } from 'ngx-tethys/input';
+import { ThyInputNumberModule } from 'ngx-tethys/input-number';
+import { ThyNotifyModule } from 'ngx-tethys/notify';
+import { ThyRadioModule } from 'ngx-tethys/radio';
+import { ThyRateModule } from 'ngx-tethys/rate';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { ThyStrengthModule } from 'ngx-tethys/strength';
+import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
-
-import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThyFormModule } from 'ngx-tethys/form';
-import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyGridModule } from 'ngx-tethys/grid';
-import { ThyCascaderModule } from 'ngx-tethys/cascader';
-import { ThyInputModule } from 'ngx-tethys/input';
-import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
-import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThyRadioModule } from 'ngx-tethys/radio';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { ThyNotifyModule } from 'ngx-tethys/notify';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { ThyFormBasicExampleComponent } from './basic/basic.component';
-import { ThyFormDialogExampleComponent } from './dialog/dialog.component';
-import { ThyFormLayoutExampleComponent } from './layout/layout.component';
-import { ThyFormValidateExampleComponent } from './validate/validate.component';
-import { ThyFormFullExampleComponent } from './full/full.component';
 import { ThyFormColumnsExampleComponent } from './columns/columns.component';
+import { ThyFormDialogExampleComponent } from './dialog/dialog.component';
+import { ThyFormFullExampleComponent } from './full/full.component';
+import { ThyFormLayoutExampleComponent } from './layout/layout.component';
+import { ThyFormReactiveExampleComponent } from './reactive/reactive.component';
+import { ThyFormValidateExampleComponent } from './validate/validate.component';
 import { ThyFormValidatorsExampleComponent } from './validators/validators.component';
 
 const COMPONENTS = [
@@ -30,7 +36,8 @@ const COMPONENTS = [
     ThyFormValidateExampleComponent,
     ThyFormValidatorsExampleComponent,
     ThyFormColumnsExampleComponent,
-    ThyFormFullExampleComponent
+    ThyFormFullExampleComponent,
+    ThyFormReactiveExampleComponent
 ];
 
 @NgModule({
@@ -38,6 +45,7 @@ const COMPONENTS = [
     imports: [
         CommonModule,
         FormsModule,
+        ReactiveFormsModule,
         ThyButtonModule,
         ThyFormModule,
         ThyDialogModule,
@@ -49,7 +57,12 @@ const COMPONENTS = [
         ThyCheckboxModule,
         ThyRadioModule,
         ThySelectModule,
-        ThyNotifyModule
+        ThyNotifyModule,
+        ThyInputNumberModule,
+        ThyRateModule,
+        ThyStrengthModule,
+        ThySwitchModule,
+        ThyTreeSelectModule
     ],
     exports: COMPONENTS,
     providers: COMPONENTS

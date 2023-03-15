@@ -84,6 +84,9 @@
     .thy-cascader,
     .thy-date-picker,
     .thy-input-number,
+    .thy-calendar-picker,
+    .thy-switch,
+    .thy-rate,
     .input-label-container {
         .was-validated &:#{$state},
         &.is-#{$state} {

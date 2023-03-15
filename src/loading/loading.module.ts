@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyLoadingComponent } from './loading.component';
 
 @NgModule({
-    declarations: [ThyLoadingComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThyLoadingComponent],
     exports: [ThyLoadingComponent]
 })
 export class ThyLoadingModule {}

@@ -12,7 +12,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 @Directive({
     selector: '[thyActionMenuSubItem]',
-    providers: []
+    providers: [],
+    standalone: true
 })
 export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-sub-item') className = true;

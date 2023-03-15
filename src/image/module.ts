@@ -16,7 +16,6 @@ import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyActionModule } from 'ngx-tethys/action';
 
 @NgModule({
-    declarations: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
     exports: [ThyImageDirective, ThyImageGroupComponent, ThyImagePreviewComponent],
     imports: [
         CommonModule,
@@ -28,7 +27,10 @@ import { ThyActionModule } from 'ngx-tethys/action';
         ThyTooltipModule,
         ThyCopyModule,
         ThyLoadingModule,
-        ThyActionModule
+        ThyActionModule,
+        ThyImageDirective,
+        ThyImageGroupComponent,
+        ThyImagePreviewComponent
     ],
     providers: [ThyImageService, THY_IMAGE_DEFAULT_PREVIEW_OPTIONS_PROVIDER]
 })

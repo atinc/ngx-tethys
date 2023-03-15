@@ -1,5 +1,7 @@
-import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
+import { NgFor } from '@angular/common';
+import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
 
 const COLUMN_COUNT = 5;
 @Component({
@@ -9,7 +11,9 @@ const COLUMN_COUNT = 5;
         class: 'thy-table-skeleton'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true,
+    imports: [NgFor, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
 })
 export class ThyTableSkeletonComponent {
     /**

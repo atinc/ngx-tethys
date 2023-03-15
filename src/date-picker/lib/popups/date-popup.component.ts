@@ -14,25 +14,45 @@ import {
     TemplateRef
 } from '@angular/core';
 
+import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { ThyButtonIconComponent } from 'ngx-tethys/button';
+import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
     DisabledDateFn,
+    SupportTimeOptions,
+    ThyDateGranularity,
     ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutRange,
-    ThyShortcutValueChange,
-    ThyDateGranularity,
-    SupportTimeOptions
+    ThyShortcutValueChange
 } from '../../standard-types';
-import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
+import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
+import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
+import { InnerPopupComponent } from './inner-popup.component';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-popup',
     exportAs: 'datePopup',
-    templateUrl: './date-popup.component.html'
+    templateUrl: './date-popup.component.html',
+    standalone: true,
+    imports: [
+        NgIf,
+        NgFor,
+        ThyNavComponent,
+        ThyNavItemDirective,
+        ThyButtonIconComponent,
+        DateCarouselComponent,
+        FormsModule,
+        NgTemplateOutlet,
+        InnerPopupComponent,
+        CalendarFooterComponent
+    ]
 })
 export class DatePopupComponent implements OnChanges, OnInit {
     @Input() isRange: boolean;

@@ -4,7 +4,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 @Directive({
     selector: '[thyTextColor]',
-    exportAs: 'thyTextColor'
+    exportAs: 'thyTextColor',
+    standalone: true
 })
 export class ThyTextColorDirective implements OnInit {
     private color: ThyThemeColor | ThyTextColor | string = '';

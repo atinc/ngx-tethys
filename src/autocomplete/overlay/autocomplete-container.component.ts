@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
-import { CdkPortalOutlet } from '@angular/cdk/portal';
+import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, NgZone, ViewChild } from '@angular/core';
 
@@ -25,7 +25,9 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
         '[@autocompleteContainer]': 'animationState',
         '(@autocompleteContainer.start)': 'onAnimationStart($event)',
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
-    }
+    },
+    standalone: true,
+    imports: [PortalModule]
 })
 export class ThyAutocompleteContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit {
     @ViewChild(CdkPortalOutlet, { static: true })

@@ -3,7 +3,8 @@ import { isTemplateRef } from 'ngx-tethys/util';
 
 @Directive({
     selector: '[thyStringOrTemplateOutlet]',
-    exportAs: 'thyStringOrTemplateOutlet'
+    exportAs: 'thyStringOrTemplateOutlet',
+    standalone: true
 })
 export class ThyStringOrTemplateOutletDirective implements OnChanges {
     private viewRef: EmbeddedViewRef<any>;

@@ -5,8 +5,7 @@ import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ObserversModule } from '@angular/cdk/observers';
 
 @NgModule({
-    declarations: [ThyFlexibleTextComponent],
-    imports: [CommonModule, ThyTooltipModule, ObserversModule],
+    imports: [CommonModule, ThyTooltipModule, ObserversModule, ThyFlexibleTextComponent],
     exports: [ThyFlexibleTextComponent]
 })
 export class ThyFlexibleTextModule {}

@@ -11,6 +11,11 @@
     & .form-control-custom.disabled {
         cursor: default;
     }
+    &:focus {
+        .form-control-custom:not(.disabled) {
+            border: 1px solid variables.$primary;
+        }
+    }
 }
 
 .thy-select-custom--multiple {

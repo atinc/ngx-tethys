@@ -14,6 +14,7 @@ import {
 import { SafeAny } from 'ngx-tethys/types';
 import { ThyTimeMode } from './timeline.component';
 import { ThyTimelineService } from './timeline.service';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
@@ -21,7 +22,9 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-timeline-item',
     templateUrl: './timeline-item.component.html',
-    exportAs: 'ThyTimelineItem'
+    exportAs: 'ThyTimelineItem',
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyTimelineItemComponent implements OnInit, OnChanges {
     @ViewChild('timelineItem', { static: false }) template: TemplateRef<void>;

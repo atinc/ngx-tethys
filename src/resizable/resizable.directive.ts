@@ -32,7 +32,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         class: 'thy-resizable',
         '[class.thy-resizable-resizing]': 'resizing',
         '[class.thy-resizable-disabled]': 'thyDisabled'
-    }
+    },
+    standalone: true
 })
 export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**

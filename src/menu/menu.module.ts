@@ -11,7 +11,10 @@ import { ThyMenuItemNameComponent } from './item/name/menu-item-name.component';
 import { ThyMenuComponent } from './menu.component';
 
 @NgModule({
-    declarations: [
+    imports: [
+        CommonModule,
+        ThyIconModule,
+        ThyPopoverModule,
         ThyMenuComponent,
         ThyMenuGroupComponent,
         ThyMenuItemComponent,
@@ -20,7 +23,6 @@ import { ThyMenuComponent } from './menu.component';
         ThyMenuItemActionComponent,
         ThyMenuDividerComponent
     ],
-    imports: [CommonModule, ThyIconModule, ThyPopoverModule],
     exports: [
         ThyMenuComponent,
         ThyMenuGroupComponent,

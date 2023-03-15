@@ -9,8 +9,7 @@ import { THY_NOTIFY_DEFAULT_CONFIG_PROVIDER } from './notify.config';
 import { ThySharedModule } from 'ngx-tethys/shared';
 
 @NgModule({
-    imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule],
-    declarations: [ThyNotifyContainerComponent, ThyNotifyComponent],
+    imports: [CommonModule, ThySharedModule, OverlayModule, PortalModule, ThyIconModule, ThyNotifyContainerComponent, ThyNotifyComponent],
     exports: [ThyNotifyContainerComponent, ThyNotifyComponent],
     providers: [THY_NOTIFY_DEFAULT_CONFIG_PROVIDER]
 })

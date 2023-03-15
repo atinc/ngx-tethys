@@ -11,6 +11,8 @@ import {
     ThyProgressStackedValue,
     ThyProgressType
 } from './interfaces';
+import { NgClass, NgStyle, NgFor } from '@angular/common';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 /**
  * @private
@@ -21,7 +23,9 @@ import {
     encapsulation: ViewEncapsulation.None,
     host: {
         class: 'progress-circle'
-    }
+    },
+    standalone: true,
+    imports: [ThyTooltipDirective, NgClass, NgStyle, NgFor]
 })
 export class ThyProgressCircleComponent implements OnInit, OnChanges {
     private hostRenderer = useHostRenderer();

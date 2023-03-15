@@ -1,10 +1,12 @@
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { keycodes } from 'ngx-tethys/util';
+
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, NgModule, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { keycodes } from 'ngx-tethys/util';
+
 import { ThyInputNumberComponent } from '../input-number.component';
 import { ThyInputNumberModule } from '../module';
 
@@ -348,16 +350,56 @@ describe('input-number component', () => {
         });
     }));
 
-    it('should focus method work', () => {
+    it('should focus method work', fakeAsync(() => {
         fixture.detectChanges();
-        inputNumberComponentInstance.inputNumberComponent.onFocus();
+        inputNumberComponentInstance.inputNumberComponent.onInputFocus();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onBlur();
         fixture.detectChanges();
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
-    });
+    }));
+
+    it('should call onFocus methods when focus', fakeAsync(() => {
+        fixture.detectChanges();
+        const focusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
+        const trigger = inputNumberDebugElement.nativeElement;
+        dispatchFakeEvent(trigger, 'focus');
+
+        fixture.detectChanges();
+        expect(focusSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call blur when blur and validateOn is blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const blurSpy = spyOn(
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+        const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;
+        dispatchFakeEvent(trigger, 'blur');
+
+        fixture.detectChanges();
+
+        expect(blurSpy).toHaveBeenCalled();
+    }));
+
+    it('should call blur and not call __onBlurValidation when blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const blurSpy = spyOn(
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+        const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;
+        fixture.componentInstance.inputNumberComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+        fixture.detectChanges();
+
+        expect(blurSpy).not.toHaveBeenCalled();
+    }));
 
     it('should remove disabled in down handler after switch thyMin', fakeAsync(() => {
         inputNumberComponentInstance.modelValue = 10;

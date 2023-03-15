@@ -5,13 +5,17 @@ import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Out
 import { DateHelperService } from '../../date-helper.service';
 import { DateCell, DateBodyRow } from './types';
 import { CalendarTable } from '../calendar/calendar-table.component';
+import { DateTableCellComponent } from './date-table-cell.component';
+import { NgIf, NgFor, NgClass } from '@angular/common';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-table',
     exportAs: 'dateTable',
-    templateUrl: 'date-table.component.html'
+    templateUrl: 'date-table.component.html',
+    standalone: true,
+    imports: [NgIf, NgFor, NgClass, DateTableCellComponent]
 })
 export class DateTableComponent extends CalendarTable implements OnChanges {
     @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
