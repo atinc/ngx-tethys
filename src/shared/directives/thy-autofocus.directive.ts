@@ -7,7 +7,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
  * @name input[thyAutofocus],textarea[thyAutofocus]
  */
 @Directive({
-    selector: 'input[thyAutofocus],textarea[thyAutofocus]'
+    selector: 'input[thyAutofocus],textarea[thyAutofocus]',
+    standalone: true
 })
 export class ThyAutofocusDirective {
     // 自动选择，用于只读的 input 输入框，方便复制粘贴

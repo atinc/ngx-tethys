@@ -15,7 +15,8 @@ export interface ThyCanvasConfigType {
     gutter?: number[];
 }
 @Directive({
-    selector: '[thyWatermark]'
+    selector: '[thyWatermark]',
+    standalone: true
 })
 export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
     /**

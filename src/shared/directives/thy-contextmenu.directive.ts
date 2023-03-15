@@ -1,7 +1,8 @@
 import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, HostListener, OnDestroy } from '@angular/core';
 
 @Directive({
-    selector: '[thyContextMenu]'
+    selector: '[thyContextMenu]',
+    standalone: true
 })
 export class ThyContextMenuDirective implements OnInit, OnDestroy {
     @Output() thyContextMenu = new EventEmitter();

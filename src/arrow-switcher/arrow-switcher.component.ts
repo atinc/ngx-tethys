@@ -10,6 +10,11 @@ import {
     forwardRef
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ThyButtonIconComponent } from 'ngx-tethys/button';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { ThyActionComponent } from 'ngx-tethys/action';
+import { NgIf } from '@angular/common';
 
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
@@ -27,7 +32,9 @@ export interface ThyArrowSwitcherEvent {
             useExisting: forwardRef(() => ThyArrowSwitcherComponent),
             multi: true
         }
-    ]
+    ],
+    standalone: true,
+    imports: [NgIf, ThyActionComponent, ThyTooltipDirective, ThyIconComponent, ThyButtonIconComponent]
 })
 export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
     @HostBinding('class.thy-arrow-switcher') _isArrowSwitcher = true;

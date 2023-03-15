@@ -3,6 +3,7 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
+import { NgClass, NgIf } from '@angular/common';
 
 @Component({
     selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
@@ -17,7 +18,9 @@ import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
     host: {
         class: 'thy-checkbox',
         '[class.disabled]': '_disabled'
-    }
+    },
+    standalone: true,
+    imports: [NgClass, NgIf]
 })
 export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
     isIndeterminate = false;

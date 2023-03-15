@@ -5,7 +5,10 @@ import { getFlexibleAdvancedReadableValue, transformDateValue } from './picker.u
 import { TinyDate } from 'ngx-tethys/util';
 import { AdvancedSelectableCell } from './inner-types';
 
-@Pipe({ name: 'thyDatePickerFormat' })
+@Pipe({
+    name: 'thyDatePickerFormat',
+    standalone: true
+})
 export class ThyDatePickerFormatPipe implements PipeTransform {
     constructor(private dateHelper: DateHelperService) {}
 
@@ -29,7 +32,10 @@ export class ThyDatePickerFormatPipe implements PipeTransform {
     }
 }
 
-@Pipe({ name: 'thyDatePickerFormatString' })
+@Pipe({
+    name: 'thyDatePickerFormatString',
+    standalone: true
+})
 export class ThyDatePickerFormatStringPipe implements PipeTransform {
     constructor(private dateHelper: DateHelperService) {}
 
@@ -39,7 +45,10 @@ export class ThyDatePickerFormatStringPipe implements PipeTransform {
         return withTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd';
     }
 }
-@Pipe({ name: 'showYearTip' })
+@Pipe({
+    name: 'showYearTip',
+    standalone: true
+})
 export class DatePickerAdvancedShowYearTipPipe implements PipeTransform {
     constructor() {}
     transform(value: AdvancedSelectableCell, type: ThyDateGranularity): boolean {

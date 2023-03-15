@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 @Component({
     selector: 'thy-tab-content, [thyTabContent]',
@@ -19,7 +20,9 @@ import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulati
         '[style.height]': 'tabPaneAnimated ? active ? null : 0 : null',
         '[style.overflow-y]': 'tabPaneAnimated ? active ? null : "none" : null',
         '[style.display]': '!tabPaneAnimated ? active ? null : "none" : null'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyTabContentComponent {
     @Input() content: TemplateRef<void> | null = null;

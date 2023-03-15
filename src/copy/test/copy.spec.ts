@@ -14,8 +14,8 @@ describe('thy-copy', () => {
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule],
-            declarations: [ThyCopyComponent, ThyCopyDirective],
+            imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective],
+            declarations: [ThyCopyComponent],
             providers: [ThyNotifyService]
         }).compileComponents();
     }));

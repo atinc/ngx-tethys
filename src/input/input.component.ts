@@ -1,19 +1,24 @@
+import { take } from 'rxjs/operators';
+
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
     ContentChild,
+    ElementRef,
     EventEmitter,
     forwardRef,
     Input,
+    NgZone,
+    OnInit,
     Output,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation,
-    NgZone,
-    OnInit
+    ViewEncapsulation
 } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { take } from 'rxjs/operators';
-import { ThyInputSize } from './input.directive';
+import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
+import { ThyInputDirective, ThyInputSize } from './input.directive';
 
 export const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
     provide: NG_VALUE_ACCESSOR,
@@ -39,7 +44,9 @@ const password = 'password';
         class: 'thy-input form-control',
         '[class.form-control-active]': 'focused',
         '[class.disabled]': 'disabled'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgTemplateOutlet, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyIconComponent]
 })
 export class ThyInputComponent implements ControlValueAccessor, OnInit {
     /**
@@ -120,7 +127,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
 
     private onChangeCallback: (_: any) => void = noop;
 
-    constructor(private ngZone: NgZone) {}
+    constructor(private ngZone: NgZone, private elementRef: ElementRef) {}
 
     ngOnInit() {
         this.ngZone.onStable.pipe(take(1)).subscribe(() => {
@@ -157,6 +164,10 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     }
 
     onInputBlur(event: Event) {
+        this.onTouchedCallback();
+        if (this.elementRef.nativeElement.onblur) {
+            this.elementRef.nativeElement.onblur(event);
+        }
         this.focused = false;
         this.showLabel = false;
         this.blur.emit(event);

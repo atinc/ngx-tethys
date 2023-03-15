@@ -2,6 +2,8 @@ import { Component, ElementRef, Input, Output, EventEmitter, HostBinding } from 
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf, NgStyle, NgClass } from '@angular/common';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -18,7 +20,9 @@ const labelTypeClassesMap = {
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyLabel]',
-    templateUrl: './label.component.html'
+    templateUrl: './label.component.html',
+    standalone: true,
+    imports: [NgIf, ThyIconComponent, NgStyle, NgClass]
 })
 export class ThyLabelComponent {
     @HostBinding('class.label-has-hover') _thyHasHover = false;

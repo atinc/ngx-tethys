@@ -1,4 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 /**
  * 文本组件
@@ -10,7 +12,9 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-text'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent]
 })
 export class ThyTextComponent implements OnInit {
     /**

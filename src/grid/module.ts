@@ -5,8 +5,7 @@ import { ThyGridComponent } from './thy-grid.component';
 import { ThyGridItemComponent } from './thy-grid-item.component';
 
 @NgModule({
-    declarations: [ThyGridComponent, ThyGridItemComponent, ThyRowDirective, ThyColDirective],
     exports: [ThyGridComponent, ThyGridItemComponent, ThyRowDirective, ThyColDirective],
-    imports: []
+    imports: [ThyGridComponent, ThyGridItemComponent, ThyRowDirective, ThyColDirective]
 })
 export class ThyGridModule {}

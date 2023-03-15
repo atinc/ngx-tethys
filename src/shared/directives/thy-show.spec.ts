@@ -18,7 +18,8 @@ describe('ThyShowDirective', () => {
 
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyShowDirective, ThyShowTestComponent]
+            imports: [ThyShowDirective],
+            declarations: [ThyShowTestComponent]
         });
     });
 

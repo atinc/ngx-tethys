@@ -37,7 +37,8 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
         </div>
     `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true
 })
 export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
     @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;

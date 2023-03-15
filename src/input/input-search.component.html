@@ -1,6 +1,7 @@
 <thy-icon class="input-prepend" *ngIf="iconPosition === 'before'" thyIconName="search"></thy-icon>
 <input
   class="input-search-control"
+  #input
   thyInput
   [name]="name"
   [placeholder]="placeholder"
@@ -9,8 +10,9 @@
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
   (focus)="focused = true"
-  (blur)="focused = false && onTouchedCallback()"
+  (blur)="onBlur($event)"
   [thySize]="thySize"
+  tabindex="-1"
 />
 <ng-container *ngIf="iconPosition === 'after'">
   <div class="input-append input-append-divider">

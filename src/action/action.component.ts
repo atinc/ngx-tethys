@@ -11,6 +11,8 @@ import {
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
@@ -26,7 +28,9 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
         '[class.active]': 'active',
         '[class.thy-action-hover-icon]': 'thyHoverIcon',
         '[class.disabled]': 'thyDisabled'
-    }
+    },
+    standalone: true,
+    imports: [NgIf, ThyIconComponent]
 })
 export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     icon: string;

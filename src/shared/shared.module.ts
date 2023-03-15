@@ -12,8 +12,8 @@ import { ThyStringOrTemplateOutletDirective } from './directives/string-or-templ
 import { ThyViewOutletDirective } from './directives/view-outlet.directive';
 
 @NgModule({
-    imports: [ThyViewOutletDirective],
-    declarations: [
+    imports: [
+        ThyViewOutletDirective,
         ThyTranscludeDirective,
         ThyAutofocusDirective,
         ThyEnterDirective,

@@ -10,7 +10,8 @@ type IconNavTypes = 'primary' | 'secondary' | 'individual' | '';
 @Component({
     selector: 'thy-icon-nav',
     templateUrl: './icon-nav.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyIconNavComponent implements OnInit {
     private initialized = false;

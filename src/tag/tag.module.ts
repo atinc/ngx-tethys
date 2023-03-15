@@ -5,8 +5,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTagsComponent } from './tags.component';
 
 @NgModule({
-    declarations: [ThyTagComponent, ThyTagsComponent],
-    imports: [CommonModule, ThyIconModule],
+    imports: [CommonModule, ThyIconModule, ThyTagComponent, ThyTagsComponent],
     exports: [ThyTagComponent, ThyTagsComponent]
 })
 export class ThyTagModule {}

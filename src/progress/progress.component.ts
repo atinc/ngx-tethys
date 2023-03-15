@@ -17,6 +17,9 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyProgressGapPositionType, ThyProgressShapeType, ThyProgressStackedValue, ThyProgressType } from './interfaces';
 import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } from './progress-strip.component';
+import { ThyProgressCircleComponent } from './progress-circle.component';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
+import { NgIf, NgFor, NgClass, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 进度条组件
@@ -37,7 +40,9 @@ import { THY_PROGRESS_COMPONENT, ThyParentProgress, ThyProgressStripComponent } 
         class: `thy-progress progress`,
         '[class.thy-progress-strip]': `thyShape === 'strip'`,
         '[class.thy-progress-circle]': `thyShape === 'circle'`
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgFor, ThyProgressStripComponent, NgClass, ThyTooltipDirective, NgTemplateOutlet, ThyProgressCircleComponent]
 })
 export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChanges {
     value: number | ThyProgressStackedValue[];

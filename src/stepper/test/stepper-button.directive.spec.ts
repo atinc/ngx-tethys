@@ -1,9 +1,8 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
-import { ThyStepperComponent } from '../stepper.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyStepperNextDirective, ThyStepperPreviousDirective } from '../stepper-button.directive';
+import { ThyStepperComponent } from '../stepper.component';
 
 @Component({
     template: `
@@ -23,7 +22,8 @@ describe('ThyStepperNext', () => {
     let thyStepperComponent: MockThyStepperComponent;
     beforeEach(() => {
         TestBed.configureTestingModule({
-            declarations: [ThyStepperNextDirective, ThyStepperPreviousDirective, ThyStepperButtonDirectiveComponent],
+            imports: [ThyStepperNextDirective, ThyStepperPreviousDirective],
+            declarations: [ThyStepperButtonDirectiveComponent],
             providers: [
                 {
                     provide: ThyStepperComponent,

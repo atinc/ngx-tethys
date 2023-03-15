@@ -14,7 +14,8 @@ export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
         '[class.thy-menu-collapsed]': 'thyCollapsed',
         '[class.thy-menu-theme-loose]': 'theme === "loose"',
         '[class.thy-menu-theme-dark]': 'theme === "dark"'
-    }
+    },
+    standalone: true
 })
 export class ThyMenuComponent implements OnInit {
     theme: ThyMenuTheme = 'compact';

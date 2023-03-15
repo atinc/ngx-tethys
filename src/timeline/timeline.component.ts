@@ -19,6 +19,7 @@ import { ThyTimelineItemComponent } from './timeline-item.component';
 import { ThyTimelineService } from './timeline.service';
 import { Subject } from 'rxjs';
 import { InputBoolean } from 'ngx-tethys/core';
+import { NgFor, NgTemplateOutlet } from '@angular/common';
 
 export type ThyTimeMode = 'left' | 'right' | 'center';
 
@@ -44,7 +45,9 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
                 <ng-content></ng-content>
             </ng-template>
         </ng-container>
-    `
+    `,
+    standalone: true,
+    imports: [NgFor, NgTemplateOutlet]
 })
 export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
     @Input() @InputBoolean() thyReverse: boolean;

@@ -1,3 +1,4 @@
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterContentInit,
     AfterViewInit,
@@ -18,10 +19,10 @@ import {
     ViewChild
 } from '@angular/core';
 import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
-import { SafeAny } from 'ngx-tethys/types';
 
 const AVATAR_ITEM_SPACE = 6;
 
@@ -41,7 +42,9 @@ export const enum ThyAvatarListMode {
         class: 'thy-avatar-list',
         '[style.margin-left.px]': 'overlapMode ? -avatarOverlapSpace : 0'
     },
-    providers: [UpdateHostClassService]
+    providers: [UpdateHostClassService],
+    standalone: true,
+    imports: [NgFor, NgStyle, ThyAvatarComponent, NgIf, NgClass, NgTemplateOutlet]
 })
 export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterContentInit, AfterViewInit {
     @HostBinding('class.thy-avatar-list-overlap') overlapMode = false;

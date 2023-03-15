@@ -10,7 +10,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
  * @private
  */
 @Directive({
-    selector: '[thyDragDrop]'
+    selector: '[thyDragDrop]',
+    standalone: true
 })
 export class ThyDragDropDirective extends _MixinBase implements AfterContentInit, OnDestroy {
     @ContentChildren(CdkDrag, { descendants: true }) draggables: QueryList<CdkDrag>;

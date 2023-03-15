@@ -22,7 +22,8 @@ import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
 @Directive({
-    selector: '[thyFileDrop]'
+    selector: '[thyFileDrop]',
+    standalone: true
 })
 export class ThyFileDropDirective extends FileSelectBaseDirective implements OnInit, OnDestroy {
     @HostBinding('class.drop-over')

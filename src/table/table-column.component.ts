@@ -32,7 +32,8 @@ export type FixedDirection = 'left' | 'right';
 @Component({
     selector: 'thy-table-column',
     template: '<ng-content></ng-content>',
-    encapsulation: ViewEncapsulation.None
+    encapsulation: ViewEncapsulation.None,
+    standalone: true
 })
 export class ThyTableColumnComponent implements OnInit {
     @Input('thyModelKey') model = '';

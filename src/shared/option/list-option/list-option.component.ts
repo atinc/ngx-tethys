@@ -15,6 +15,8 @@ import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
 // import { SelectionModel } from '@angular/cdk/collections';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { NgIf } from '@angular/common';
 
 let _uniqueIdCounter = 0;
 
@@ -25,8 +27,9 @@ export type ThyListLayout = 'list' | 'grid';
  */
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
-
-    templateUrl: './list-option.component.html'
+    templateUrl: './list-option.component.html',
+    standalone: true,
+    imports: [NgIf, ThyIconComponent]
 })
 export class ThyListOptionComponent implements Highlightable {
     @HostBinding(`class.thy-list-option`)

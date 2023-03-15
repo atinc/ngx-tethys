@@ -3,7 +3,7 @@
     <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
   </thy-form-group>
   <thy-form-group thyRowFill>
-    <ng-template #formGroup>
+    <ng-template #content>
       <input thyInput name="displayName" [(ngModel)]="model.display_name" placeholder="Please type display name" />
     </ng-template>
   </thy-form-group>
@@ -28,7 +28,7 @@
     <textarea class="form-control" rows="3"></textarea>
   </thy-form-group>
   <thy-form-group>
-    <ng-template #formGroup>
+    <ng-template #content>
       <label class="col-sm-2 col-form-label pr-0">Start</label>
       <div class="col-sm-4 col-form-control">
         <thy-input-group>
@@ -49,7 +49,7 @@
     </ng-template>
   </thy-form-group>
   <thy-form-group>
-    <ng-template #formGroup>
+    <ng-template #content>
       <label class="col-sm-2 col-form-label pr-0">Start Time</label>
       <div class="col-sm-4 col-form-control">
         <thy-date-picker name="startTime" required [(ngModel)]="date" (ngModelChange)="onChange($event)"></thy-date-picker>
@@ -61,7 +61,7 @@
     </ng-template>
   </thy-form-group>
   <thy-form-group>
-    <ng-template #formGroup>
+    <ng-template #content>
       <label class="col-sm-2 col-form-label pr-0">Date</label>
       <div class="col-sm-4 col-form-control">
         <thy-date-picker name="time" required [(ngModel)]="dateNull" (ngModelChange)="onChange($event)"></thy-date-picker>

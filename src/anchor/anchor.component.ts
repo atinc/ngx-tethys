@@ -23,7 +23,8 @@ import { takeUntil, throttleTime } from 'rxjs/operators';
 import { ThyAnchorLinkComponent } from './anchor-link.component';
 import { getOffset } from 'ngx-tethys/util';
 import { InputBoolean, ThyScrollService } from 'ngx-tethys/core';
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { ThyAffixComponent } from 'ngx-tethys/affix';
 
 interface Section {
     linkComponent: ThyAnchorLinkComponent;
@@ -56,7 +57,9 @@ const sharpMatcherRegx = /#([^#]+)$/;
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [NgIf, ThyAffixComponent, NgTemplateOutlet, NgStyle]
 })
 export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;

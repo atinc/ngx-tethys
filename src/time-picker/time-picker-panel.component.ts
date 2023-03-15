@@ -16,6 +16,8 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
 import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
+import { ThyButtonComponent } from 'ngx-tethys/button';
+import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 /**
  * 时间选择面板组件
@@ -36,7 +38,9 @@ import { TinyDate } from 'ngx-tethys/util';
         '[class.thy-time-picker-panel-has-bottom-operation]': `thyShowOperations`,
         '[class.thy-time-picker-panel-columns-2]': `showColumnCount === 2`,
         '[class.thy-time-picker-panel-columns-3]': `showColumnCount === 3`
-    }
+    },
+    standalone: true,
+    imports: [NgIf, NgFor, ThyButtonComponent, DecimalPipe]
 })
 export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAccessor {
     @ViewChild('hourListElement', { static: false }) hourListRef: ElementRef<HTMLElement>;

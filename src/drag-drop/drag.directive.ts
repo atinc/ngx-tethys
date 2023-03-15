@@ -10,7 +10,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 /**
  * 拖拽项
  */
-@Directive({ selector: 'thy-drag,[thyDrag]' })
+@Directive({
+    selector: 'thy-drag,[thyDrag]',
+    standalone: true
+})
 export class ThyDragDirective<T = any> extends _MixinBase implements OnDestroy {
     /**
      * 元数据

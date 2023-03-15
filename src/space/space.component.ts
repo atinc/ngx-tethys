@@ -16,6 +16,7 @@ import {
     TemplateRef
 } from '@angular/core';
 import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
+import { NgFor, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 间距组件项，使用结构性指令 *thySpaceItem 传入模板
@@ -24,7 +25,8 @@ import { ThySpacingSize, getNumericSize } from 'ngx-tethys/core';
     selector: '[thySpaceItem]',
     host: {
         class: 'thy-space-item'
-    }
+    },
+    standalone: true
 })
 export class ThySpaceItemDirective implements OnInit {
     constructor() {}
@@ -45,7 +47,9 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-space'
-    }
+    },
+    standalone: true,
+    imports: [NgFor, NgTemplateOutlet]
 })
 export class ThySpaceComponent extends _MixinBase implements OnInit, AfterContentInit {
     public space: number = getNumericSize(DEFAULT_SIZE);

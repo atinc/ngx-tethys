@@ -33,7 +33,8 @@ export class ThyDropdownAbstractMenu {
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {}
+    host: {},
+    standalone: true
 })
 export class ThyDropdownMenuComponent {
     // @HostBinding('class.dropdown-menu--group') themeClassName = false;
@@ -69,7 +70,8 @@ export class ThyDropdownMenuComponent {
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'dropdown-menu-group'
-    }
+    },
+    standalone: true
 })
 export class ThyDropdownMenuGroupComponent {
     title: string;
@@ -96,7 +98,8 @@ export class ThyDropdownMenuGroupComponent {
     host: {
         class: 'dropdown-menu-divider'
     },
-    changeDetection: ChangeDetectionStrategy.OnPush
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true
 })
 export class ThyDropdownMenuDividerComponent {
     constructor() {}

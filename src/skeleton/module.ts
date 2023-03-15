@@ -20,8 +20,7 @@ const components = [
     ThySkeletonBulletListComponent
 ];
 @NgModule({
-    declarations: components,
-    imports: [CommonModule, PortalModule, ThyGridModule, ThyListModule],
+    imports: [CommonModule, PortalModule, ThyGridModule, ThyListModule, ...components],
     exports: components,
     providers: []
 })

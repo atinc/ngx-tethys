@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThyResultComponent } from './result.component';
 
 @NgModule({
-    declarations: [ThyResultComponent],
-    imports: [CommonModule],
+    imports: [CommonModule, ThyResultComponent],
     exports: [ThyResultComponent]
 })
 export class ThyResultModule {}

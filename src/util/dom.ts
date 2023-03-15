@@ -280,3 +280,13 @@ function fitPoint(start: number, size: number, clientSize: number): number | nul
 
     return distance;
 }
+
+export function elementMatchClosest(element: HTMLElement, selectors: string | string[]) {
+    let matched = false;
+    if (element && element.closest) {
+        matched = !!helpers.coerceArray(selectors).find(selector => {
+            return element.closest(selector);
+        });
+    }
+    return matched;
+}

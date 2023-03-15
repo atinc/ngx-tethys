@@ -17,7 +17,6 @@ import { ThyTreeComponent } from './tree.component';
 import { ThyTreeService } from './tree.service';
 
 @NgModule({
-    declarations: [ThyTreeComponent, ThyTreeNodeComponent],
     imports: [
         CommonModule,
         ThyInputModule,
@@ -30,7 +29,9 @@ import { ThyTreeService } from './tree.service';
         ThyIconModule,
         ThyDragDropModule,
         ThyCheckboxModule,
-        ScrollingModule
+        ScrollingModule,
+        ThyTreeComponent,
+        ThyTreeNodeComponent
     ],
     exports: [ThyTreeComponent, ThyTreeNodeComponent],
     providers: [ThyTreeService]
