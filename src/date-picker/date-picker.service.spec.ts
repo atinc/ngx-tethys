@@ -1,7 +1,7 @@
 import { ThyDatePickerConfigService } from './date-picker.service';
 import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
 describe('thyDatePickerConfigService Angular testing', () => {
-    let thyDatePickerConfigService:ThyDatePickerConfigService = new ThyDatePickerConfigService(DEFAULT_DATE_PICKER_CONFIG);
+    let thyDatePickerConfigService: ThyDatePickerConfigService = new ThyDatePickerConfigService(DEFAULT_DATE_PICKER_CONFIG);
     const { showShortcut, shortcutPosition, shortcutDatePresets, shortcutRangesPresets } = DEFAULT_DATE_PICKER_CONFIG;
     it('get default shortcut', () => {
         expect(thyDatePickerConfigService.showShortcut).toBe(showShortcut);
