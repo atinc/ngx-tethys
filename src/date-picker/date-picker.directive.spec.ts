@@ -15,8 +15,9 @@ import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../pr
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPopoverConfig } from '../popover';
+import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
+import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
 
 registerLocaleData(zh);
 
@@ -252,7 +253,7 @@ describe('ThyPickerDirective', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
+                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
                 declarations: [ThyTestPickerPlacementComponent]
             }).compileComponents();
         }));
@@ -289,6 +290,30 @@ describe('ThyPickerDirective', () => {
                     initialState: { ...getInitState(), defaultPickerValue: null },
                     placement: 'bottom'
                 });
+            }));
+        });
+
+        describe('should Date Popup Component enablePrevNext', () => {
+            it('should Date Popup Component enablePrevNext', fakeAsync(() => {
+                const popoverRef = popover.open(DatePopupComponent, {
+                    origin: debugElement.nativeElement.childNodes[0],
+                    hasBackdrop: true,
+                    backdropClass: 'thy-overlay-transparent-backdrop',
+                    offset: 4,
+                    initialState: {
+                        ...getInitState(),
+                        defaultPickerValue: null,
+                        isRange: true
+                    },
+                    placement: 'bottom'
+                });
+                let componentInstance = popoverRef.componentInstance;
+                componentInstance.clearFlexibleValue();
+                componentInstance.onDayHover(componentInstance.tplInnerPopup);
+                componentInstance.setProperty('key', 1);
+                expect(componentInstance.hasTimePicker).toBe(false);
+                expect(componentInstance.enablePrevNext('prev', 'right')).toBe(true);
+                expect(componentInstance.enablePrevNext('prev', 'left')).toBe(true);
             }));
         });
 
