@@ -101,6 +101,18 @@ describe('ThyPickerDirective', () => {
                 expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeNull();
                 expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeDefined();
             }));
+            it('should support thyShowTime', fakeAsync(() => {
+                // fixtureInstance.thyAllowClear = true;
+                fixtureInstance.thyValue = new Date();
+
+                fixtureInstance.thyShowTime = true;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+                expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeDefined();
+                expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeNull();
+
+            }));
 
             it('should support thyShowShortcut', fakeAsync(() => {
                 fixtureInstance.thyShowShortcut = true;
@@ -312,7 +324,7 @@ describe('ThyPickerDirective', () => {
             showWeek: false,
             value: null,
             panelMode: 'date',
-            showTime: undefined,
+            showTime: false,
             mustShowTime: undefined,
             format: undefined,
             dateRender: undefined,
@@ -347,6 +359,7 @@ describe('ThyPickerDirective', () => {
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
+            [thyShowTime]="thyShowTime"
             [thyShowShortcut]="thyShowShortcut"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"
@@ -383,11 +396,12 @@ class ThyTestPickerComponent {
 
 @Component({
     template: `
-        <thy-property-operation thyLabelText="开始时间" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
+        <thy-property-operation thyLabelText="开始时间" [thyShowTime]="thyShowTime" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
     `
 })
 class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
+    thyShowTime: boolean | object = false;
 }
 
 @Component({
