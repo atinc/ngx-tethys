@@ -11,12 +11,3 @@ order: 20
 <div align=center>
 <img src="assets/images/layout/form-basic.png" />
 </div>
-
-## 高级表单  
-
-- 高级表单常见于一次性输入和提交大批量数据的场景，布局规则与基础表单一致。
-</br>
-</br>
-<div align=center>
-<img src="assets/images/layout/form-advance.png" />
-</div>
