@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
+import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
@@ -229,6 +229,32 @@ describe('ThyRangePickerComponent', () => {
                 {
                     title: '回家那几天',
                     value: [new Date('2022-01-29').getTime(), new Date('2022-02-8').getTime()]
+                }
+            ];
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('回家那几天');
+            dispatchMouseEvent(shortcutItems[shortcutItems.length - 1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalledWith({
+                begin: new TinyDate('2022-01-29').startOfDay().getUnixTime(),
+                end: new TinyDate('2022-02-8').endOfDay().getUnixTime()
+            });
+            expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(new TinyDate('2022-01-29').getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate('2022-02-8').getDate());
+        }));
+
+        it('should support more thyShortcutRanges', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutRanges = [
+                {
+                    title: '回家那几天',
+                    begin: new Date('2022-01-29').getTime(),
+                    end: new Date('2022-02-8').getTime()
                 }
             ];
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
@@ -724,6 +750,7 @@ describe('ThyRangePickerComponent', () => {
                 [thySuffixIcon]="thySuffixIcon"
                 [thyShowShortcut]="thyShowShortcut"
                 [thyShortcutPresets]="thyShortcutPresets"
+                [thyShortcutRanges]="thyShortcutRanges"
                 [thyShortcutPosition]="thyShortcutPosition"
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
@@ -773,6 +800,7 @@ class ThyTestRangePickerComponent {
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: ThyShortcutPreset[];
+    thyShortcutRanges: ThyShortcutRange[];
     flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}
     modelValueChange(): void {}
