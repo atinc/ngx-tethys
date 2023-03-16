@@ -15,7 +15,9 @@ import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../pr
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPopoverConfig } from '../popover';
+import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
+import { ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
+import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
 
 registerLocaleData(zh);
 
@@ -99,6 +101,49 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeNull();
                 expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeDefined();
+            }));
+            it('should support thyShowTime', fakeAsync(() => {
+                // fixtureInstance.thyAllowClear = true;
+                fixtureInstance.thyValue = new Date();
+
+                fixtureInstance.thyShowTime = true;
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+                expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeDefined();
+                expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeNull();
+            }));
+
+            it('should support thyShowShortcut', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                expect(queryFromOverlay('.thy-calendar-picker-shortcut')).toBeTruthy();
+            }));
+
+            it('should support thyShortcutPosition', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyShortcutPosition = 'bottom';
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                expect(queryFromOverlay('.thy-calendar-picker-shortcut-bottom')).toBeTruthy();
+            }));
+
+            it('should support more thyShortcutPresets', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyShortcutPresets = [
+                    {
+                        title: '2022-01-29',
+                        value: new Date('2022-01-29').getTime()
+                    }
+                ];
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('2022-01-29');
             }));
         });
 
@@ -190,6 +235,12 @@ describe('ThyPickerDirective', () => {
             tick(500);
             fixture.detectChanges();
         }
+        function dispatchClickEvent(selector: HTMLElement | HTMLInputElement): void {
+            dispatchMouseEvent(selector, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+        }
     });
 
     describe('should get correct default thyPlacement and offset', () => {
@@ -202,7 +253,7 @@ describe('ThyPickerDirective', () => {
 
         beforeEach(fakeAsync(() => {
             TestBed.configureTestingModule({
-                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule],
+                imports: [FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, BrowserAnimationsModule, ThyPopoverModule],
                 declarations: [ThyTestPickerPlacementComponent]
             }).compileComponents();
         }));
@@ -242,6 +293,30 @@ describe('ThyPickerDirective', () => {
             }));
         });
 
+        describe('should Date Popup Component enablePrevNext', () => {
+            it('should Date Popup Component enablePrevNext', fakeAsync(() => {
+                const popoverRef = popover.open(DatePopupComponent, {
+                    origin: debugElement.nativeElement.childNodes[0],
+                    hasBackdrop: true,
+                    backdropClass: 'thy-overlay-transparent-backdrop',
+                    offset: 4,
+                    initialState: {
+                        ...getInitState(),
+                        defaultPickerValue: null,
+                        isRange: true
+                    },
+                    placement: 'bottom'
+                });
+                let componentInstance = popoverRef.componentInstance;
+                componentInstance.clearFlexibleValue();
+                componentInstance.onDayHover(componentInstance.tplInnerPopup);
+                componentInstance.setProperty('key', 1);
+                expect(componentInstance.hasTimePicker).toBe(false);
+                expect(componentInstance.enablePrevNext('prev', 'right')).toBe(true);
+                expect(componentInstance.enablePrevNext('prev', 'left')).toBe(true);
+            }));
+        });
+
         function getPickerTriggerWrapper() {
             const element = debugElement.query(By.directive(ThyPropertyOperationComponent)).nativeElement;
             return element;
@@ -273,7 +348,7 @@ describe('ThyPickerDirective', () => {
             showWeek: false,
             value: null,
             panelMode: 'date',
-            showTime: undefined,
+            showTime: false,
             mustShowTime: undefined,
             format: undefined,
             dateRender: undefined,
@@ -283,9 +358,9 @@ describe('ThyPickerDirective', () => {
             defaultPickerValue: undefined,
             minDate: undefined,
             maxDate: undefined,
-            showShortcut: undefined,
-            shortcutRanges: undefined,
-            shortcutPosition: undefined,
+            showShortcut: false,
+            shortcutPresets: undefined,
+            shortcutPosition: 'left',
             flexible: false,
             flexibleDateGranularity: undefined
         };
@@ -308,6 +383,10 @@ describe('ThyPickerDirective', () => {
             [thyPlacement]="thyPlacement"
             [thyHasBackdrop]="thyHasBackdrop"
             [thyPopoverOptions]="popoverOptions"
+            [thyShowTime]="thyShowTime"
+            [thyShowShortcut]="thyShowShortcut"
+            [thyShortcutPosition]="thyShortcutPosition"
+            [thyShortcutPresets]="thyShortcutPresets"
         ></thy-property-operation>
     `
 })
@@ -327,6 +406,9 @@ class ThyTestPickerComponent {
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
     popoverOptions: Partial<ThyPopoverConfig>;
+    thyShowShortcut: boolean = false;
+    thyShortcutPosition: ThyShortcutPosition = 'left';
+    thyShortcutPresets: ThyShortcutPreset[];
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
@@ -338,11 +420,17 @@ class ThyTestPickerComponent {
 
 @Component({
     template: `
-        <thy-property-operation thyLabelText="开始时间" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
+        <thy-property-operation
+            thyLabelText="开始时间"
+            [thyShowTime]="thyShowTime"
+            thyDatePicker
+            [(ngModel)]="thyValue"
+        ></thy-property-operation>
     `
 })
 class ThyTestPickerPlacementComponent {
     thyValue: Date | null;
+    thyShowTime: boolean | object = false;
 }
 
 @Component({

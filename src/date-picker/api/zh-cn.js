@@ -81,7 +81,25 @@ module.exports = [
                 description: `弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'`,
                 type: 'string',
                 default: 'bottom'
-            }
+            },
+            {
+                name: 'thyShowShortcut',
+                description: '是否展示快捷选项面板',
+                type: 'boolean',
+                default: 'false'
+            },
+            {
+                name: 'thyShortcutPosition',
+                description: '快捷选项面板的显示位置',
+                type: 'left | bottom',
+                default: 'left'
+            },
+            {
+                name: 'thyShortcutPresets',
+                description: '自定义快捷选项',
+                type: 'ThyShortcutPreset[]',
+                default: ''
+            },
         ]
     },
     {
@@ -118,7 +136,7 @@ module.exports = [
                 description: '时间发生变化的回调',
                 type: 'EventEmitter<Date>',
                 default: '-'
-            }
+            },
         ]
     },
     {
@@ -158,23 +176,11 @@ module.exports = [
                 default: 'false'
             },
             {
-                name: 'thyShowShortcut',
-                description: '是否展示快捷选项面板',
-                type: 'boolean',
-                default: 'false'
-            },
-            {
-                name: 'thyShortcutPosition',
-                description: '快捷选项面板的显示位置',
-                type: 'left | bottom',
-                default: 'left'
-            },
-            {
                 name: 'thyShortcutRanges',
-                description: '自定义快捷选项',
                 type: 'ThyShortcutRange[]',
-                default: ''
-            }
+                default: '',
+                description: `自定义快捷选项，已废弃，请使用thyShortcutPresets`
+            },
         ]
     },
     {

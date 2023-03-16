@@ -28,16 +28,14 @@ export class ThyDatePickerDirectiveExampleComponent implements OnInit {
 
     selectedDateRange: Date[] = [];
 
-    shortcutMonthRanges = [
+    shortcutMonthPresets = [
         {
             title: '最近6周',
-            begin: subWeeks(startOfDay(new Date()), 5).getTime(),
-            end: endOfDay(new Date()).getTime()
+            value: [subWeeks(startOfDay(new Date()), 5).getTime(), endOfDay(new Date()).getTime()]
         },
         {
             title: '最近12周',
-            begin: subWeeks(startOfDay(new Date()), 11).getTime(),
-            end: endOfDay(new Date()).getTime()
+            value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
         }
     ];
 

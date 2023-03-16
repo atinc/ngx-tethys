@@ -9,8 +9,8 @@ export class ThyDatePickerConfigService {
         this.config = Object.assign({}, DEFAULT_DATE_PICKER_CONFIG, config);
     }
 
-    get shortcutRanges() {
-        return this.config.shortcutRanges;
+    get shortcutDatePresets() {
+        return this.config.shortcutDatePresets;
     }
 
     get shortcutPosition() {
@@ -19,5 +19,8 @@ export class ThyDatePickerConfigService {
 
     get showShortcut() {
         return this.config.showShortcut;
+    }
+    get shortcutRangesPresets() {
+        return this.config.shortcutRangesPresets;
     }
 }

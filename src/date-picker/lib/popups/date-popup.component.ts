@@ -27,12 +27,15 @@ import {
     ThyDateGranularity,
     ThyPanelMode,
     ThyShortcutPosition,
+    ThyShortcutPreset,
     ThyShortcutRange,
+    ThyShortcutValue,
     ThyShortcutValueChange
 } from '../../standard-types';
 import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
 import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
 import { InnerPopupComponent } from './inner-popup.component';
+import { ThyDatePickerConfigService } from 'ngx-tethys/date-picker/date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -73,7 +76,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() showShortcut: boolean;
 
-    @Input() shortcutRanges: ThyShortcutRange[];
+    @Input() shortcutPresets: ThyShortcutPreset[];
 
     @Input() shortcutPosition: ThyShortcutPosition;
 
@@ -108,14 +111,20 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef, private datePickerConfigService: ThyDatePickerConfigService) {}
 
     setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
         this[key] = value;
         this.cdr.markForCheck();
     }
-
+    initShortcutPresets(): void {
+        const { shortcutRangesPresets, shortcutDatePresets } = this.datePickerConfigService;
+        if (this.showShortcut && !this.shortcutPresets) {
+            this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
+        }
+    }
     ngOnInit(): void {
+        this.initShortcutPresets();
         this.initPanelMode();
         if (this.flexible && this.flexibleDateGranularity === 'day') {
             this.flexibleActiveTab = 'custom';
@@ -419,18 +428,26 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
-    shortcutSetValue(shortcutRange: ThyShortcutRange) {
-        const begin = shortcutRange.begin;
-        const end = shortcutRange.end;
-        const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
-        const endValue: number | Date = typeof end === 'function' ? end() : end;
-        if (beginValue && endValue) {
-            this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
-            this.setValue(this.cloneRangeDate(this.selectedValue));
+    shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
+        const { value } = shortcutPresets;
+        if (!value) return;
+        const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
+            const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
+            const endValue: number | Date = typeof end === 'function' ? end() : end;
+            if (beginValue && endValue) {
+                this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
+                this.setValue(this.cloneRangeDate(this.selectedValue));
+            }
+        };
+        if (helpers.isArray(value)) {
+            setRangeValue(value[0], value[1]);
+        } else {
+            const _value: number | Date = typeof value === 'function' ? value() : value;
+            this.setValue(new TinyDate(_value));
         }
         this.shortcutValueChange.emit({
             value: this.selectedValue,
-            triggerRange: shortcutRange
+            triggerPresets: shortcutPresets
         });
     }
 }

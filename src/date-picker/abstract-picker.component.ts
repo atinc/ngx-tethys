@@ -7,7 +7,7 @@ import {
     ThyCanDisable,
     ThyHasTabIndex
 } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate, helpers } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -31,12 +31,12 @@ import {
     CompatibleDate,
     DateEntry,
     DisabledDateFn,
-    ThyDateGranularity,
     ThyDateRangeEntry,
     ThyPanelMode,
     ThyShortcutPosition,
-    ThyShortcutRange,
-    ThyShortcutValueChange
+    ThyShortcutPreset,
+    ThyShortcutValueChange,
+    ThyDateGranularity
 } from './standard-types';
 
 const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
@@ -64,6 +64,18 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
     @Input() thySuffixIcon = 'calendar';
 
+    @Input() thyShowShortcut: boolean = false;
+    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
+        if (!!position) {
+            this.shortcutPosition = position;
+        }
+    }
+    @Input() set thyShortcutPresets(presets: ThyShortcutPreset[]) {
+        if (presets && helpers.isArray(presets)) {
+            this.shortcutPresets = [...presets];
+        }
+    }
+
     @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
@@ -80,11 +92,9 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     disabled = false;
 
-    shortcutPosition: ThyShortcutPosition;
+    shortcutPosition: ThyShortcutPosition = 'left';
 
-    shortcutRanges: ThyShortcutRange[];
-
-    thyShowShortcut: boolean;
+    shortcutPresets: ThyShortcutPreset[];
 
     isRange: boolean;
 

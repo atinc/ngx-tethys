@@ -1,11 +1,10 @@
-import { forwardRef, ChangeDetectorRef, ElementRef, OnInit, Directive, Input, Inject } from '@angular/core';
+import { forwardRef, ChangeDetectorRef, ElementRef, OnInit, Directive, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 import { PickerDirective } from './abstract-picker.directive';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { helpers } from 'ngx-tethys/util';
-import { ThyDatePickerConfigService } from './date-picker.service';
 
 @Directive({
     selector: '[thyRangePicker]',
@@ -22,30 +21,18 @@ import { ThyDatePickerConfigService } from './date-picker.service';
 export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;
 
-    @Input() thyShowShortcut: boolean = this.datePickerConfigService.showShortcut;
-
-    @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
-        if (!!position) {
-            this.shortcutPosition = position;
-        }
-    }
-
+    /**
+     * * 已废弃，请使用 thyShortcutPresets
+     * @deprecated
+     */
     @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
-            this.shortcutRanges = [...ranges];
+            const presets: ThyShortcutPreset[] = ranges.map(range => ({ title: range.title, value: [range.begin, range.end] }));
+            console.log(presets);
+            this.shortcutPresets = [...presets];
         }
     }
-
-    shortcutRanges: ThyShortcutRange[] = this.datePickerConfigService.shortcutRanges;
-
-    shortcutPosition: ThyShortcutPosition = this.datePickerConfigService.shortcutPosition;
-
-    constructor(
-        elementRef: ElementRef,
-        cdr: ChangeDetectorRef,
-        thyPopover: ThyPopover,
-        private datePickerConfigService: ThyDatePickerConfigService
-    ) {
+    constructor(elementRef: ElementRef, cdr: ChangeDetectorRef, thyPopover: ThyPopover) {
         super(elementRef, cdr, thyPopover);
     }
 }
