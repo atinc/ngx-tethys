@@ -111,7 +111,6 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 expect(debugElement.query(By.css('thy-picker .thy-input-disabled'))).toBeDefined();
                 expect(debugElement.query(By.css('thy-picker thy-icon.thy-calendar-picker-clear'))).toBeNull();
-
             }));
 
             it('should support thyShowShortcut', fakeAsync(() => {
@@ -396,7 +395,12 @@ class ThyTestPickerComponent {
 
 @Component({
     template: `
-        <thy-property-operation thyLabelText="开始时间" [thyShowTime]="thyShowTime" thyDatePicker [(ngModel)]="thyValue"></thy-property-operation>
+        <thy-property-operation
+            thyLabelText="开始时间"
+            [thyShowTime]="thyShowTime"
+            thyDatePicker
+            [(ngModel)]="thyValue"
+        ></thy-property-operation>
     `
 })
 class ThyTestPickerPlacementComponent {
