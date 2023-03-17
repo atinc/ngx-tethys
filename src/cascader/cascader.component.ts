@@ -718,7 +718,7 @@ export class ThyCascaderComponent extends _MixinBase
         if (option.isLeaf && event instanceof Event && this.isMultiple) {
             return;
         }
-        if (option && option.disabled) {
+        if (option && option.disabled && option.isLeaf) {
             return;
         }
         this.setActiveOption(option, index, true);
@@ -728,9 +728,6 @@ export class ThyCascaderComponent extends _MixinBase
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
         if (event) {
             event.preventDefault();
-        }
-        if (option && option.disabled) {
-            return;
         }
         if (!this.isHoverExpandTriggerAction()) {
             return;
@@ -769,9 +766,6 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     public setActiveOption(option: ThyCascaderOption, index: number, select: boolean, loadChildren: boolean = true): void {
-        if (!option || option.disabled) {
-            return;
-        }
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
             const originOption = this.activatedOptions[i + 1]?.parent;
