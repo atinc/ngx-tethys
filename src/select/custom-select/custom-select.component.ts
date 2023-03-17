@@ -12,16 +12,18 @@ import {
     ThyHasTabIndex,
     ThyPlacement
 } from 'ngx-tethys/core';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
+    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
     ThySelectControlComponent,
     ThySelectOptionGroupComponent,
-    ThyStopPropagationDirective,
-    THY_OPTION_PARENT_COMPONENT
+    ThyStopPropagationDirective
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -81,8 +83,6 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
@@ -551,9 +551,11 @@ export class ThySelectCustomComponent extends _MixinBase
         this.onTouchedFn();
     }
 
-    onFocus(event?: Event) {
-        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
-        inputElement.focus();
+    onFocus(event?: FocusEvent) {
+        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])) {
+            const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+            inputElement.focus();
+        }
     }
 
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {

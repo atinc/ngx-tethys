@@ -15,6 +15,10 @@
     align-items: stretch;
     width: 100%;
 
+    .form-control {
+        border: 0 !important;
+    }
+
     > .form-control,
     > .custom-select,
     > .custom-file {
