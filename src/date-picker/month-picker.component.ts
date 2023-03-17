@@ -8,6 +8,9 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
 import { ThyPanelMode } from './standard-types';
 
+/**
+ * 月份选择组件
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-month-picker',
@@ -24,6 +27,10 @@ import { ThyPanelMode } from './standard-types';
     imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyMonthPickerComponent extends BasePickerComponent {
+    /**
+     * 展示的月份格式
+     * @default yyyy-MM
+     */
     @Input() thyFormat = 'yyyy-MM';
 
     thyMode: ThyPanelMode = 'month';

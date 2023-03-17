@@ -46,22 +46,92 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 @Directive()
 export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
+
+    /**
+     * 模式
+     * @type decade | year | month | date | week | flexible
+     * @default date
+     */
     @Input() thyMode: ThyPanelMode = 'date';
+
+    /**
+     * 是否显示清除按钮
+     * @type boolean
+     * @default true
+     */
     @Input() @InputBoolean() thyAllowClear = true;
+
+    /**
+     * 自动获取焦点
+     * @type boolean
+     * @default false
+     */
     @Input() @InputBoolean() thyAutoFocus = false;
+
     @Input() @InputBoolean() thyOpen: boolean;
+
     @Input() thyDisabledDate: DisabledDateFn;
+
+    /**
+     * 最小值
+     */
     @Input() thyMinDate: Date | number;
+
+    /**
+     * 最大值
+     */
     @Input() thyMaxDate: Date | number;
+
+    /**
+     * 输入框提示文字
+     */
     @Input() thyPlaceHolder: string | string[];
+
+    /**
+     * 是否只读
+     * @default false
+     */
     @Input() @InputBoolean() thyReadonly: boolean;
+
+    /**
+     * 选择器 className
+     */
     @Input() thyOriginClassName: string;
+
+    /**
+     * 弹出层 className
+     */
     @Input() thyPanelClassName: string;
+
+    /**
+     * 输入框的大小
+     * @type xs | sm | md | lg | default
+     * @default default
+     */
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
+
+    /**
+     * 展示的日期格式
+     * @default yyyy-MM-dd
+     */
     @Input() thyFormat: string;
-    // eslint-disable-next-line max-len
-    @Input() thyAutoStartAndEnd = false; // only for range picker, Whether to automatically take the beginning and ending unixTime of the day
+
+    /**
+     * 是否取值开始日期的00:00以及截止日期的24:00
+     * @default false
+     * @description-en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
+     */
+    @Input() thyAutoStartAndEnd = false;
+
+    /**
+     * 面板默认日期
+     */
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
+
+    /**
+     * 自定义的后缀图标
+     * @default calendar
+     */
     @Input() thySuffixIcon = 'calendar';
 
     @Input() thyShowShortcut: boolean = false;
@@ -82,6 +152,10 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     @ViewChild(ThyPickerComponent, { static: true }) public picker: ThyPickerComponent;
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input()
     get thyDisabled(): boolean {
         return this.disabled;

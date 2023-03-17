@@ -21,19 +21,33 @@ export enum ThyDialogSizes {
 }
 
 /**
- * Configuration for opening a modal dialog with the ThyDialog service.
+ * 通过ThyDialog服务端打开模态框的配置
+ * @description-en-us Configuration for opening a modal dialog with the ThyDialog service.
  */
 export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
-    /** The ARIA role of the dialog element. */
+    /**
+     * 对话框元素的 ARIA 角色
+     * @description-en-us The ARIA role of the dialog element.
+     */
     role?: ThyDialogRole = 'dialog';
 
-    /** Position overrides. */
+    /**
+     * 定位模态框的弹出位置
+     * @description-en-us Position overrides.
+     */
     position?: ThyAbstractOverlayPosition;
 
-    /** Dialog size md, lg, sm*/
+    /**
+     * 模态框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), superLg (94vw), full (全屏)
+     * @default md
+     * @description-en-us Dialog size md, lg, sm
+     */
     size?: ThyDialogSizes;
 
-    /** Scroll strategy to be used for the dialog. */
+    /**
+     * 用于模态框的滚动策略
+     * @description-en-us Scroll strategy to be used for the dialog.
+     */
     scrollStrategy?: ScrollStrategy;
 }
 

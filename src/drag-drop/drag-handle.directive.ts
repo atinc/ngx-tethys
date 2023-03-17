@@ -12,6 +12,10 @@ import { ThyDragDirective } from './drag.directive';
 export class ThyDragHandleDirective {
     private _disabled = false;
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input('thyDisabled')
     get disabled(): boolean {
         return this._disabled;

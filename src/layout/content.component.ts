@@ -1,5 +1,8 @@
-import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+/**
+ * 布局内容组件
+ */
 @Component({
     selector: 'thy-content',
     preserveWhitespaces: false,

@@ -25,6 +25,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
     /**
      * 菜单项类型
+     * @type 'default' | 'danger' | 'success' | ''
      * @default default
      */
     @Input()
@@ -34,6 +35,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
     /**
      * 菜单项是否处于禁用状态
+     * @default false
      */
     @Input()
     set thyDisabled(value: boolean) {
@@ -142,6 +144,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
 export class ThyDropdownMenuItemActiveDirective {
     /**
      * 是否激活
+     * @type boolean | string
      * @default false
      */
     @HostBinding('class.active')

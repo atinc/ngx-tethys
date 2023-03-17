@@ -13,7 +13,8 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 })
 export class ThyMenuItemNameComponent implements OnInit {
     /**
-     * 是否 ellipsis，默认 true
+     * 是否 ellipsis
+     * @default true
      */
     @HostBinding('class.thy-menu-item-name-ellipsis')
     @Input()

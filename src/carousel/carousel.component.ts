@@ -38,6 +38,10 @@ import { ThyCarouselService } from './carousel.service';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyDotComponent } from 'ngx-tethys/dot';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+
+/**
+ * 走马灯组件
+ */
 @Component({
     selector: 'thy-carousel',
     templateUrl: './carousel.component.html',
@@ -69,16 +73,20 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     /**
      * 自动切换时间间隔(毫秒)
+     * @default 3000
      */
     @Input() @InputNumber() thyAutoPlayInterval: number = 3000;
 
     /**
-     * 切换动画样式, 默认为 'slide', 支持 `slide` | `fade` | `noop`
+     * 切换动画样式
+     * @type slide | fade | noop
+     * @default slide
      */
     @Input() thyEffect: ThyCarouselEffect = 'slide';
 
     /**
      * 是否显示切换指示器
+     * @default true
      */
     @Input() @InputBoolean() thyIndicators = true;
 
@@ -88,7 +96,9 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @Input() thyIndicatorRender?: TemplateRef<{ $implicit: boolean }>;
 
     /**
-     * 是否显示左右切换，支持 boolean
+     * 是否显示左右切换
+     * @type boolean
+     * @default true
      */
     @Input() @InputBoolean() thyControls = true;
 
@@ -104,16 +114,22 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     /**
      * 是否支持手势滑动
+     * @type boolean
+     * @default true
      */
     @Input() @InputBoolean() thyTouchable = true;
 
     /**
-     * 指示点切换的触发条件, 默认为 'click', 支持 `click` | `hover`
+     * 指示点切换的触发条件
+     * @type click | hover
+     * @default click
      */
     @Input() thyTrigger: ThyCarouselTrigger = 'click';
 
     /**
-     * 鼠标移动到指示器时是否暂停播放, 默认 `hover`,  支持 `false` | `hover`
+     * 鼠标移动到指示器时是否暂停播放
+     * @type false | hover
+     * @default hover
      */
     @Input() thyPause: ThyCarouselPause = 'hover';
 

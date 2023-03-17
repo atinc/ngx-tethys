@@ -1,18 +1,11 @@
-import {
-    Component,
-    ViewChildren,
-    ContentChildren,
-    QueryList,
-    AfterViewInit,
-    HostBinding,
-    Input,
-    Output,
-    EventEmitter
-} from '@angular/core';
+import { Component, ViewChildren, ContentChildren, QueryList, HostBinding, Input, Output, EventEmitter } from '@angular/core';
 import { ThyStepComponent, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeaderComponent } from './step-header.component';
 import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * 步骤条组件
+ */
 @Component({
     selector: 'thy-stepper',
     templateUrl: 'stepper.component.html',
@@ -26,6 +19,10 @@ import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
     imports: [NgIf, NgFor, ThyStepHeaderComponent, NgTemplateOutlet]
 })
 export class ThyStepperComponent implements IThyStepperComponent {
+    /**
+     * 当前处于激活状态的步骤index
+     * @default 0
+     */
     @Input()
     set thySelectedIndex(value: number) {
         this.selectedIndex = value;
@@ -36,6 +33,10 @@ export class ThyStepperComponent implements IThyStepperComponent {
         this.selected = value;
     }
 
+    /**
+     * 步骤条导航是否展示，默认展示
+     * @default true
+     */
     @Input() thyShowStepHeader = true;
 
     private _selectedIndex = 0;

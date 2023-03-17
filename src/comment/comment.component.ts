@@ -1,10 +1,13 @@
 import { isTemplateRef } from 'ngx-tethys/util';
 import { SafeAny } from 'ngx-tethys/types';
-import { ChangeDetectionStrategy, Component, Input, TemplateRef, OnInit } from '@angular/core';
-import { InputBoolean } from 'ngx-tethys/core';
+import { ChangeDetectionStrategy, Component, Input, TemplateRef } from '@angular/core';
 import { ThyAvatarComponent } from 'ngx-tethys/avatar';
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+
+/**
+ * 评论组件
+ */
 @Component({
     selector: 'thy-comment',
     templateUrl: './comment.component.html',

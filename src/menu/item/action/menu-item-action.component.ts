@@ -29,6 +29,10 @@ export class ThyMenuItemActionComponent implements OnDestroy {
         }
     }
 
+    /**
+     * 是否阻止事件冒泡
+     * @default true
+     */
     @Input() thyStopPropagation = true;
 
     private bindClickEvent() {

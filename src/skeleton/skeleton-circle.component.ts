@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
-import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
@@ -20,6 +20,7 @@ interface Style {
     background?: string;
     animation?: string;
 }
+
 @Component({
     selector: 'thy-skeleton-circle',
     host: {

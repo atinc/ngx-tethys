@@ -110,6 +110,10 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 );
 
 const noop = () => {};
+
+/**
+ * 下拉选择组件
+ */
 @Component({
     selector: 'thy-custom-select',
     templateUrl: './custom-select.component.html',
@@ -204,17 +208,18 @@ export class ThySelectCustomComponent extends _MixinBase
     @Output() thyOnSearch: EventEmitter<string> = new EventEmitter<string>();
 
     /**
-     * output event: 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载
+     * 下拉菜单滚动到底部事件，可以用这个事件实现滚动加载
      */
     @Output() thyOnScrollToBottom: EventEmitter<void> = new EventEmitter<void>();
 
     /**
-     * output event: 下拉菜单展开和折叠状态事件
+     * 下拉菜单展开和折叠状态事件
      */
     @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     /**
      * 下拉列表是否显示搜索框
+     * @default false
      */
     @Input() thyShowSearch: boolean;
 
@@ -225,21 +230,25 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * 是否使用服务端搜索，当为 true 时，将不再在前端进行过滤
+     * @default false
      */
     @Input() thyServerSearch: boolean;
 
     /**
      * 异步加载 loading 状态，false 表示加载中，true 表示加载完成
+     * @default true
      */
     @Input() thyLoadState = true;
 
     /**
      * 是否自动设置选项第一条为高亮状态
+     * @default true
      */
     @Input() thyAutoActiveFirstItem = true;
 
     /**
      * 下拉选择模式
+     * @type 'multiple' | ''
      */
     @Input()
     set thyMode(value: SelectMode) {
@@ -254,7 +263,9 @@ export class ThySelectCustomComponent extends _MixinBase
     }
 
     /**
-     * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
+     * 操作图标类型
+     * @type primary | success | danger | warning
+     * @default primary
      */
     @Input()
     get thySize(): SelectControlSize {
@@ -282,6 +293,7 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * 滚动加载是否可用, 只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -289,11 +301,13 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * 单选( thyMode="" 或者不设置)时，选择框支持清除
+     * @default false
      */
     @Input() thyAllowClear = false;
 
     /**
      * 是否禁用
+     * @default false
      */
     @Input()
     get thyDisabled(): boolean {
@@ -310,12 +324,15 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * Footer 模板，默认值为空不显示 Footer
+     * @type TemplateRef
      */
     @Input()
     thyFooterTemplate: TemplateRef<any>;
 
     /**
      * 弹出位置
+     * @type ThyPlacement
+     * @default bottom
      */
     @Input()
     thyPlacement: ThyPlacement = 'bottom';
@@ -339,11 +356,13 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * 初始化时，是否展开面板
+     * @default false
      */
     @Input() thyAutoExpand: boolean;
 
     /**
      * 是否弹出透明遮罩，如果显示遮罩则会阻止滚动区域滚动
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -351,6 +370,7 @@ export class ThySelectCustomComponent extends _MixinBase
 
     /**
      * 设置多选时最大显示的标签数量，0 表示不限制
+     * @default 0
      */
     @Input() @InputNumber() thyMaxTagCount = 0;
 

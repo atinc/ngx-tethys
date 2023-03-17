@@ -39,6 +39,10 @@ enum Type {
 const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
     mixinDisabled(AbstractControlValueAccessor)
 );
+
+/**
+ * 数字输入框
+ */
 @Component({
     selector: 'thy-input-number',
     templateUrl: './input-number.component.html',
@@ -63,7 +67,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     private autoStepTimer: any;
 
-    validValue: number | string; // number or ''
+    validValue: number | string;
 
     displayValue: number | string;
 
@@ -71,12 +75,27 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     disabledDown = false;
 
+    /**
+     * 是否自动聚焦
+     * @default false
+     */
     @Input() @InputBoolean() thyAutoFocus: boolean;
 
+    /**
+     * 输入框的placeholder
+     */
     @Input() thyPlaceholder: string = '';
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input() @InputBoolean() thyDisabled: boolean;
 
+    /**
+     * 最大值
+     * @default Infinity
+     */
     @Input() set thyMax(value: number) {
         this.innerMax = isNumber(value) ? value : this.innerMax;
         if (this.displayValue || this.displayValue === 0) {
@@ -89,6 +108,10 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return this.innerMax;
     }
 
+    /**
+     * 最小值
+     * @default -Infinity
+     */
     @Input() set thyMin(value: number) {
         this.innerMin = isNumber(value) ? value : this.innerMin;
         if (this.displayValue || this.displayValue === 0) {
@@ -101,16 +124,36 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return this.innerMin;
     }
 
+    /**
+     * 每次改变步数，可以为小数
+     * @default 1
+     */
     @Input() thyStep = 1;
 
+    /**
+     * 输入框大小
+     * @type xs | sm | md | lg
+     */
     @Input() thySize: InputSize;
 
+    /**
+     * 数值精度
+     */
     @Input() thyPrecision: number;
 
+    /**
+     * 数值后缀
+     */
     @Input() thySuffix: string;
 
+    /**
+     * 焦点失去事件
+     */
     @Output() thyBlur = new EventEmitter<Event>();
 
+    /**
+     * 焦点激活事件
+     */
     @Output() thyFocus = new EventEmitter<Event>();
 
     private innerMax: number = Infinity;

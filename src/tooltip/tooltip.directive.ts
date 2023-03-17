@@ -27,7 +27,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     }
 
     /**
-     * 提示消息，可以是文本，也可以是一个模版
+     * 提示消息，可以是文本，也可以是一个模板
      * @type string | TemplateRef<T>
      */
     @Input('thyTooltip') set content(value: ThyTooltipContent) {
@@ -42,8 +42,9 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * 指定提示的位置
+     * @type ThyPlacement
+     * @default top
      */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipPlacement') placement: ThyPlacement = 'top';
 
     /**
@@ -58,28 +59,26 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示提示内容延迟毫秒
      */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipShowDelay') showDelay: number;
 
     /**
      * 隐藏提示内容延迟毫秒
      */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipHideDelay') hideDelay: number;
 
     _trigger: ThyOverlayTrigger = 'hover';
 
     /**
      * 触发提示方式
-     * @type 'hover' | 'focus' | 'click'
+     * @type hover | focus | click
      */
-    // eslint-disable-next-line @angular-eslint/no-input-rename
     @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
         this.trigger = value;
     }
 
     /**
      * 设置是否禁用提示
+     * @default false
      */
     @Input('thyTooltipDisabled')
     set thyTooltipDisabled(value: boolean) {
@@ -102,6 +101,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * hover 触发方式下 鼠标移入Tooltip是否固定 Tooltip
+     * @default false
      */
     @Input('thyTooltipPin')
     @InputBoolean()

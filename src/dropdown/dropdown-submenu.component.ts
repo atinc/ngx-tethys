@@ -2,7 +2,7 @@ import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-te
 import { getElementOffset } from 'ngx-tethys/util';
 import { takeUntil } from 'rxjs/operators';
 
-import { ChangeDetectionStrategy, Component, Directive, ElementRef, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, Input, OnDestroy, OnInit } from '@angular/core';
 
 import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 
@@ -31,6 +31,7 @@ export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, O
 
     /**
      * 菜单方向
+     * @type left | right | auto
      * @default right
      */
     @Input() set thyDirection(value: ThyDropdownSubmenuDirection) {

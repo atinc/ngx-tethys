@@ -28,7 +28,7 @@ export type CalendarMode = 'month' | 'year';
 type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
 
 /**
- * Calendar 组件
+ * 日历组件
  */
 @Component({
     selector: 'thy-calendar',
@@ -45,7 +45,9 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     @HostBinding('class.thy-calendar-full') className1 = true;
 
     /**
-     * 展示模式，默认为'month'，'month' | 'year'
+     * 展示模式
+     * @type month | year
+     * @default month
      */
     @Input() thyMode: CalendarMode = 'month';
 
@@ -75,7 +77,7 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     @Output() thyDateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
     /**
-     * （可作为内容）自定义渲染日期单元格，模版内容会被追加到单元格
+     * （可作为内容）自定义渲染日期单元格，模板内容会被追加到单元格
      */
     @Input() thyDateCell?: CalendarDateTemplate;
 

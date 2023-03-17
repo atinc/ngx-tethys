@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 
 /**
- * 自定义日期单元格，模版内容会被追加到单元格，可通过 *thyDateCell 传入模板
+ * 自定义日期单元格，模板内容会被追加到单元格，可通过 *thyDateCell 传入模板
  */
 @Directive({
     selector: '[thyDateCell]',

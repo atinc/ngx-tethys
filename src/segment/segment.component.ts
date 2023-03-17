@@ -57,14 +57,16 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     @ContentChildren(ThySegmentItemComponent) options!: QueryList<ThySegmentItemComponent>;
 
     /**
-     * 大小，分别为 'xs' | 'sm' | 'md' | 'default'
-     * @default 'default'
+     * 大小
+     * @type xs | sm | md | default
+     * @default default
      */
     @Input() thySize: ThySegmentSize = 'default';
 
     /**
-     * 模式，分别为 'block' | 'inline'
-     * @default 'block'
+     * 模式，分别为
+     * @type block | inline
+     * @default block
      */
     @Input() thyMode: ThySegmentMode = 'block';
 

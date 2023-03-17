@@ -33,6 +33,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
 
     /**
      * 是否同一行展示
+     * @default false
      */
     @Input()
     set thyInline(value: boolean) {
@@ -60,7 +61,8 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
     }
 
     /**
-     * 禁用
+     * 是否禁用
+     * @default false
      */
     @Input()
     set thyDisabled(value: boolean) {

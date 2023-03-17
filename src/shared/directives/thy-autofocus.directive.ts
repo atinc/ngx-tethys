@@ -16,6 +16,7 @@ export class ThyAutofocusDirective {
 
     /**
      * 是否自动聚焦
+     * @default false
      */
     @Input()
     set thyAutofocus(value: boolean | string) {
@@ -39,6 +40,7 @@ export class ThyAutofocusDirective {
 
     /**
      * 是否自动选择
+     * @default false
      */
     @Input()
     set thyAutoSelect(value: boolean) {

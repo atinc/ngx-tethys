@@ -67,7 +67,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     /**
      * 展示方式
-     * @type  'overlap'| 'default'
+     * @type  overlap | default
      * @default default
      */
     @Input()

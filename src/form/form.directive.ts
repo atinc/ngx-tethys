@@ -46,6 +46,11 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 布局，默认水平居中 horizontal， 其他2种布局待开发
+     * @type horizontal | vertical | inline
+     * @default horizontal
+     */
     @Input()
     set thyLayout(value: ThyFormLayout) {
         if (value) {
@@ -64,8 +69,15 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
         return this.layout === 'horizontal';
     }
 
+    /**
+     * Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit。submit: Textarea 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交
+     * @default submit
+     */
     @Input() thyEnterKeyMode: ThyEnterKeyMode;
 
+    /**
+     * 表单验证规则配置项 （更多内容查看：thyFormValidatorConfig）
+     */
     @Input()
     set thyFormValidatorConfig(config: ThyFormValidatorConfig) {
         this.validator.setValidatorConfig(config);

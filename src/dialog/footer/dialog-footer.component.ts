@@ -5,6 +5,9 @@ import { Component, ContentChild, Inject, Input, OnInit, TemplateRef } from '@an
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * 模态框底部组件
+ */
 @Component({
     selector: 'thy-dialog-footer',
     templateUrl: './dialog-footer.component.html',
@@ -14,12 +17,26 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     imports: [NgIf, NgTemplateOutlet]
 })
 export class DialogFooterComponent implements OnInit {
+    /**
+     * 自定义弹出框底部的描述模板
+     * @type TemplateRef
+     */
     @ContentChild('description') description: TemplateRef<any>;
 
+    /**
+     * 底部是否有分割线，可全局配置默认值
+     * @type boolean
+     * @default false
+     */
     @Input() set thyDivided(value: boolean) {
         this.divided = coerceBooleanProperty(value);
     }
 
+    /**
+     * 对齐方式，可全局配置默认值
+     * @type left | right | center
+     * @default left
+     */
     @Input() thyAlign: ThyDialogFooterAlign;
 
     private divided: boolean;

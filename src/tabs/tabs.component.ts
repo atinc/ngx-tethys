@@ -33,7 +33,7 @@ export type ThyTabsPosition = 'top' | 'left';
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
- * thy-tabs
+ * 选项卡切换组件
  */
 @Component({
     selector: 'thy-tabs',
@@ -53,11 +53,15 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     /**
      * 标签类型
+     * @type 'pulled' | 'tabs' | 'pills' | 'lite'
+     * @default 'tabs'
      */
     @Input() thyType: ThyTabsType = 'tabs';
 
     /**
      * 选项卡的大小
+     * @type 'lg' | 'md' | 'sm'
+     * @default 'md'
      */
     @Input() thySize: ThyTabsSize = 'md';
 
@@ -82,6 +86,7 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
 
     /**
      * 选项卡的位置
+     * @type 'top' | 'left'
      * @default 'top'
      */
     @Input() thyPosition: ThyTabsPosition = 'top';

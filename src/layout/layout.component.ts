@@ -1,5 +1,8 @@
 import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
+/**
+ * 布局组件
+ */
 @Component({
     selector: 'thy-layout',
     template: `

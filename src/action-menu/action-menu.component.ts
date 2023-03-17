@@ -1,11 +1,12 @@
-import { Directive, HostBinding, Input, Component, HostListener, ViewEncapsulation, ElementRef } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { debounceTime, shareReplay } from 'rxjs/operators';
+import { Directive, HostBinding, Input, Component, ViewEncapsulation } from '@angular/core';
 
 export type ThyActionMenuTheme = 'default' | 'group';
 
 export type ThyActionMenuDividerType = 'default' | 'crossing';
 
+/**
+ * 操作菜单，用于`Popover`弹出菜单
+ */
 @Component({
     selector: 'thy-action-menu',
     template: `
@@ -21,11 +22,20 @@ export class ThyActionMenuComponent {
 
     @HostBinding('style.width') styleWidth = '';
 
+    /**
+     * 操作菜单主题，支持默认和分组的形式
+     * @type default | group
+     * @default default
+     */
     @Input()
     set thyTheme(value: ThyActionMenuTheme) {
         this.themeClassName = value === 'group';
     }
 
+    /**
+     * 菜单宽度，默认 $action-menu-width: 240px
+     * @type string
+     */
     @Input() set thyWidth(value: string) {
         this.styleWidth = value;
     }
@@ -46,6 +56,9 @@ export class ThyActionMenuGroupComponent {
 
     @HostBinding('class.action-menu-group') isGroup = true;
 
+    /**
+     * 分组的标题
+     */
     @Input()
     set thyTitle(value: string) {
         this.groupTitle = value;
@@ -70,11 +83,20 @@ export class ThyActionMenuDividerComponent {
 
     @HostBinding('class.action-menu-divider-crossing') isCrossing = false;
 
+    /**
+     * 标题
+     * @type string
+     */
     @Input()
     set thyTitle(value: string) {
         this.title = value;
     }
 
+    /**
+     * 类型
+     * @type default | crossing
+     * @default default
+     */
     @Input()
     set thyType(value: ThyActionMenuDividerType) {
         this.isCrossing = value === 'crossing';

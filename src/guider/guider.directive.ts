@@ -2,12 +2,18 @@ import { ThyGuiderManager } from './guider-manager';
 import { AfterViewInit, Directive, ElementRef, Input, OnDestroy, OnInit, NgZone } from '@angular/core';
 import { take } from 'rxjs/operators';
 
+/**
+ * 标记新手引导的步骤的target，使用指令方式的新手引导支持多路由跳转
+ */
 @Directive({
     selector: '[thyGuiderTarget]',
     exportAs: 'thyGuiderTarget',
     standalone: true
 })
 export class ThyGuiderTargetDirective implements OnInit, OnDestroy, AfterViewInit {
+    /**
+     * 标记当前元素对应的新手引导中 step 的 key
+     */
     @Input('thyGuiderTarget')
     target: string;
 

@@ -24,11 +24,11 @@ import { ThyInputModule } from '../module';
             (blur)="onBlur()"
             [disabled]="disabled"
         >
-            <ng-template #prepend>前置模版</ng-template>
+            <ng-template #prepend>前置模板</ng-template>
         </thy-input>
         <thy-input class="input2">
-            <ng-template #prepend>前置模版</ng-template>
-            <ng-template #append>后置模版</ng-template>
+            <ng-template #prepend>前置模板</ng-template>
+            <ng-template #append>后置模板</ng-template>
         </thy-input>
         <thy-input class="password" [(ngModel)]="passwordValue" thyType="password"> </thy-input>
     `
@@ -119,12 +119,12 @@ describe('input component', () => {
 
     it('prepend template', () => {
         fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.input2')).nativeElement.innerText.includes('前置模版')).toBeTruthy();
+        expect(fixture.debugElement.query(By.css('.input2')).nativeElement.innerText.includes('前置模板')).toBeTruthy();
     });
 
     it('append template', () => {
         fixture.detectChanges();
-        expect(fixture.debugElement.query(By.css('.input2')).nativeElement.innerText.includes('后置模版')).toBe(true);
+        expect(fixture.debugElement.query(By.css('.input2')).nativeElement.innerText.includes('后置模板')).toBe(true);
     });
 
     it('thyType', () => {

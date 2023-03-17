@@ -27,6 +27,9 @@ export type ThySliderType = 'primary' | 'success' | 'info' | 'warning' | 'danger
 
 export type ThySliderSize = 'sm' | 'md' | 'lg';
 
+/**
+ * 滑动输入条组件
+ */
 @Component({
     selector: 'thy-slider',
     templateUrl: './slider.component.html',
@@ -41,11 +44,19 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
     imports: [NgStyle]
 })
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
+    /**
+     * 是否切换为纵轴模式
+     * @default false
+     */
     @HostBinding('class.slider-vertical')
     @Input()
     @InputBoolean()
     thyVertical = false;
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @HostBinding('class.slider-disabled')
     @Input()
     @InputBoolean()
@@ -61,12 +72,29 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     @ViewChild('sliderPointer', { static: true }) sliderPointer: ElementRef;
 
+    /**
+     * 最大值
+     * @default 100
+     */
     @Input() thyMax = 100;
 
+    /**
+     * 最小值
+     * @default 0
+     */
     @Input() thyMin = 0;
 
+    /**
+     * 步长，需要被 thyMax - thyMin 的差值整除。
+     * @default 1
+     */
     @Input() thyStep = 1;
 
+    /**
+     * 切换主题类型
+     * @type primary | success | info | warning | danger
+     * @default success
+     */
     @Input() set thyType(type: ThySliderType) {
         if (type) {
             if (this.typeClassName) {
@@ -77,10 +105,14 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         }
     }
 
+    /**
+     * 通过变量设置颜色
+     */
     @Input() thyColor: string;
 
     /**
-     * 滑动输入条大小: `'sm' | 'md' | 'lg'`
+     * 滑动输入条大小
+     * @type sm | md | lg
      * @default sm
      */
     @Input() set thySize(size: ThySliderSize) {
@@ -93,6 +125,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
         }
     }
 
+    /**
+     * 移动结束后的回调，参数为当前值
+     */
     @Output() thyAfterChange = new EventEmitter<{ value: number }>();
 
     public value: number;

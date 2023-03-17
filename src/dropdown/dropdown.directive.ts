@@ -47,7 +47,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
-     * 下拉菜单触发方式: 'hover' | 'focus' | 'click'
+     * 下拉菜单触发方式
+     * @type 'hover' | 'focus' | 'click' | string
      * @default click
      */
     @Input() set thyTrigger(value: ThyOverlayTrigger | string) {
@@ -56,6 +57,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 打开延迟毫秒
+     * @type number
      * @default 100
      */
     @Input('thyShowDelay') set thyShowDelay(value: number) {
@@ -64,6 +66,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 关闭延迟毫秒
+     * @type number
      * @default 100
      */
     @Input('thyHideDelay') set thyHideDelay(value: number) {

@@ -32,18 +32,22 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
      * 图片地址
      */
     @Input() thySrc: string;
+
     /**
      * 预览图片地址
      */
     @Input() thyPreviewSrc: string;
+
     /**
      * 图片原图地址
      */
     @Input() thyOriginSrc: string;
+
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
      */
     @Input() thyImageMeta: ThyImageMeta;
+
     /**
      * 是否禁止预览
      * @default false

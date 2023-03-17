@@ -1,6 +1,5 @@
 import { Direction } from '@angular/cdk/bidi';
 import { ViewContainerRef } from '@angular/core';
-import { Observable } from 'rxjs';
 
 export interface ThyAbstractOverlayPosition {
     /** Override for the overlay's top position. */
@@ -18,53 +17,92 @@ export interface ThyAbstractOverlayPosition {
 
 export class ThyAbstractOverlayConfig<TData = unknown> {
     /**
-     * Where the attached component should live in Angular's *logical* component tree.
-     * This affects what is available for injection and the change detection order for the
-     * component instantiated inside of the overlay. This does not affect where the overlay
-     * content will be rendered.
+     * 当前的组件的 viewContainerRef, 指定后弹出的组件的父注入器为当前组件的注入器
+     * @description-en-us Where the attached component should live in Angular's *logical* component tree.This affects what is available for injection and the change detection order for the component instantiated inside of the overlay. This does not affect where the overlay content will be rendered.
      */
     viewContainerRef?: ViewContainerRef;
 
-    /** ID for the overlay. If omitted, a unique one will be generated. */
+    /**
+     * 弹出框的唯一标识
+     * @description-en-us ID for the overlay. If omitted, a unique one will be generated.
+     */
     id?: string;
 
-    /** Custom class for the overlay pane. */
+    /**
+     * overlay panel 类名
+     * @description-en-us Custom class for the overlay pane.
+     */
     panelClass?: string | string[] = '';
 
     /** Custom class for the overlay component's host element. */
     hostClass?: string | string[];
 
-    /** Whether the v has a backdrop. */
+    /**
+     * 是否有幕布
+     * @description-en-us Whether the overlay has a backdrop.
+     * @default true
+     */
     hasBackdrop? = true;
 
-    /** Custom class for the backdrop, */
+    /**
+     * 自定义幕布的样式
+     * @description-en-us Custom class for the backdrop.
+     */
     backdropClass?: string | string[] = '';
 
-    /** Whether the user can use escape or clicking on the backdrop to close the overlay. */
+    /**
+     * 点击幕布或者按ESC键是否自动关闭弹出框，hasBackdrop=true时该参数起作用
+     * @description-en-us Whether the user can use escape or clicking on the backdrop to close the overlay.
+     * @default true
+     */
     backdropClosable? = true;
 
     /** Whether the user can use escape or clicking on the backdrop to close the overlay. */
     disableClose? = false;
 
-    /** Width of the overlay. */
+    /**
+     * 自定义弹出框的宽度
+     * @default 660px
+     * @description-en-us Width of the overlay.
+     */
     width? = '';
 
-    /** Height of the overlay. */
+    /**
+     * 自定义弹出框的高度
+     * @default 85vh
+     * @description-en-us Height of the overlay.
+     */
     height? = '';
 
-    /** Min-width of the overlay. If a number is provided, pixel units are assumed. */
+    /**
+     * 弹出框最小宽度
+     * @description-en-us Min-width of the overlay. If a number is provided, pixel units are assumed.
+     */
     minWidth?: number | string;
 
-    /** Min-height of the overlay. If a number is provided, pixel units are assumed. */
+    /**
+     * 弹出框最小高度
+     * @description-en-us Min-height of the overlay. If a number is provided, pixel units are assumed.
+     */
     minHeight?: number | string;
 
-    /** Max-width of the overlay. If a number is provided, pixel units are assumed. Defaults to 80vw */
+    /**
+     * 弹出框最大宽度
+     * @description-en-us Max-width of the overlay. If a number is provided, pixel units are assumed. Defaults to 80vw
+     */
     maxWidth?: number | string;
 
-    /** Max-height of the overlay. If a number is provided, pixel units are assumed. */
+    /**
+     * 弹出框最大高度
+     * @default 85vh
+     * @description-en-us Max-height of the overlay. If a number is provided, pixel units are assumed.
+     */
     maxHeight?: number | string;
 
-    /** Data being injected into the child component. */
+    /**
+     * 传入的初始化状态，弹出组件的变量会自动赋值，在 ngOnInit 生命周期钩子可以获取到，构造函数获取不到
+     * @description-en-us Data being injected into the child component.
+     */
     initialState?: TData | null = null;
 
     /** Layout direction for the overlay's content. */
@@ -86,12 +124,15 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     restoreFocus? = true;
 
     /**
-     * Whether the overlay should close when the user goes backwards/forwards in history.
-     * Note that this usually doesn't include clicking on links (unless the user is using
-     * the `HashLocationStrategy`).
+     * 切换浏览器导航是否自动关闭弹出框
+     * @default true
+     * @description-en-us Whether the overlay should close when the user goes backwards/forwards in history.Note that this usually doesn't include clicking on links (unless the user is using the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;
 
+    /**
+     * 关闭弹窗前的回调函数，返回false可阻止关闭弹窗
+     */
     canClose?: (result?: unknown) => boolean;
 }
 

@@ -41,7 +41,8 @@ export class ThyBreadcrumbComponent {
     }
 
     /**
-     * 面包屑的分隔符，不传值默认为 ">", thySeparator 可选值为 'slash' | 'backslash' | 'vertical-line'
+     * 面包屑的分隔符，不传值默认为 ">"
+     * @type slash | backslash | vertical-line
      */
     @Input() thySeparator: 'slash' | 'backslash' | 'vertical-line';
 

@@ -44,11 +44,14 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * 弹出悬浮层的位置
+     * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right |  rightTop | rightBottom
+     * @default bottom
      */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
     /**
      * 弹出悬浮层的偏移量
+     * @default 0
      */
     @Input() thyOffset: number = 0;
 
@@ -73,11 +76,13 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * 自动适配内容变化重新计算位置
+     * @default false
      */
     @Input() thyAutoAdaptive = false;
 
     /**
-     * 禁用打开悬浮层
+     * 是否禁用打开悬浮层
+     * @default false
      */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;

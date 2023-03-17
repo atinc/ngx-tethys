@@ -71,7 +71,7 @@ export class ThyTransferTemplateExampleComponent implements OnInit {
         },
         {
             _id: '5ddf44afe9afd3ea1a80f896',
-            name: '【纯净】模版项目',
+            name: '【纯净】模板项目',
             color: '#F6C659',
             direction: TransferDirection.left
         }

@@ -8,7 +8,7 @@ import {
     UpdateHostClassService
 } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, coerceCssPixelValue, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
+import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -113,6 +113,9 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * 表格组件
+ */
 @Component({
     selector: 'thy-table',
     templateUrl: './table.component.html',
@@ -211,27 +214,46 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         return merge(this.tableScrollElement ? fromEvent<MouseEvent>(this.tableScrollElement, 'scroll') : EMPTY);
     }
 
+    /**
+     * 设置数据为空时展示的模板
+     * @type TemplateRef
+     */
     @ContentChild('empty') emptyTemplate: TemplateRef<SafeAny>;
 
     @ViewChild('table', { static: true }) tableElementRef: ElementRef<SafeAny>;
 
     @ViewChildren('rows', { read: ElementRef }) rows: QueryList<ElementRef<HTMLElement>>;
 
+    /**
+     * 表格展示方式，列表/分组/树
+     * @type 'list' | 'group' | 'tree'
+     * @default 'list'
+     */
     @Input()
     set thyMode(value: ThyTableMode) {
         this.mode = value || this.mode;
     }
 
+    /**
+     * thyMode的值为'group'时分组的 Key
+     */
     @Input()
     set thyGroupBy(value: string) {
         this.groupBy = value;
     }
 
+    /**
+     * 设置每行数据的唯一标识属性名
+     * @default _id
+     */
     @Input()
     set thyRowKey(value: SafeAny) {
         this.rowKey = value || this.rowKey;
     }
 
+    /**
+     * 分组数据源
+     */
     @Input()
     set thyGroups(value: SafeAny) {
         if (this.mode === 'group') {
@@ -239,6 +261,9 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
+    /**
+     * 数据源
+     */
     @Input()
     set thyModel(value: SafeAny) {
         this.model = value || [];
@@ -250,31 +275,58 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
+    /**
+     * 表格的显示风格，bordered 时头部有背景色且分割线区别明显
+     * @type default | bordered | boxed
+     * @default default
+     */
     @Input()
     set thyTheme(value: ThyTableTheme) {
         this.theme = value || this.theme;
         this._setClass();
     }
 
+    /**
+     * 表格的大小
+     * @type md | sm | xs | lg | xlg | default
+     * @default md
+     */
     @Input()
     set thySize(value: ThyTableSize) {
         this.size = value || this.size;
         this._setClass();
     }
 
+    /**
+     * 设置表格最小宽度，一般是适用于设置列宽为百分之或auto时限制表格最小宽度'
+     */
     @Input()
     @InputCssPixel()
     thyMinWidth: string | number;
 
+    /**
+     * 设置为 fixed 布局表格，设置 fixed 后，列宽将严格按照设置宽度展示，列宽将不会根据表格内容自动调整
+     * @default false
+     */
     @Input() @InputBoolean() thyLayoutFixed: boolean;
 
+    /**
+     * 是否表头固定，若设置为 true， 需要同步设置 thyHeight
+     * @default false
+     */
     @Input() @InputBoolean() thyHeaderFixed: boolean;
 
+    /**
+     * 表格的高度
+     */
     @HostBinding('style.height')
     @Input()
     @InputCssPixel()
     thyHeight: string;
 
+    /**
+     * 设置表格的样式
+     */
     @Input()
     set thyClassName(value: string) {
         const list = this.className.split(' ').filter(a => a.trim());
@@ -288,26 +340,43 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.className = list.join(' ');
     }
 
+    /**
+     * 设置表格行的样式
+     */
     @Input()
     set thyRowClassName(value: string | Function) {
         this.rowClassName = value;
     }
 
+    /**
+     * 设置加载状态
+     * @default true
+     */
     @Input()
     set thyLoadingDone(value: boolean) {
         this.loadingDone = value;
     }
 
+    /**
+     * 设置加载时显示的文本
+     */
     @Input()
     set thyLoadingText(value: string) {
         this.loadingText = value;
     }
 
+    /**
+     * 配置空状态组件
+     */
     @Input()
     set thyEmptyOptions(value: ThyTableEmptyOptions) {
         this.emptyOptions = value;
     }
 
+    /**
+     * 是否开启行拖拽
+     * @default false
+     */
     @Input()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
@@ -316,21 +385,36 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         }
     }
 
+    /**
+     * 设置当前页码
+     * @default 1
+     */
     @Input()
     set thyPageIndex(value: number) {
         this.pagination.index = value;
     }
 
+    /**
+     * 设置每页显示数量
+     * @default 20
+     */
     @Input()
     set thyPageSize(value: number) {
         this.pagination.size = value;
     }
 
+    /**
+     * 设置总页数
+     */
     @Input()
     set thyPageTotal(value: number) {
         this.pagination.total = value;
     }
 
+    /**
+     * 选中当前行是否自动选中 Checkbox，不开启时只有点击 Checkbox 列时才会触发选中
+     * @default false
+     */
     @Input()
     set thyWholeRowSelect(value: boolean) {
         if (value) {
@@ -339,43 +423,95 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
         this.wholeRowSelect = value;
     }
 
+    /**
+     * 是否显示表格头
+     * @default true
+     */
     @Input() thyShowHeader = true;
 
+    /**
+     * 是否显示左侧 Total
+     * @default false
+     */
     @Input('thyShowTotal') showTotal = false;
 
+    /**
+     * 是否显示调整每页显示条数下拉框
+     * @default false
+     */
     @Input('thyShowSizeChanger') showSizeChanger = false;
 
+    /**
+     * 每页显示条数下拉框可选项
+     * @default false
+     */
     @Input('thyPageSizeOptions')
     set pageSizeOptions(value: number[]) {
         this.pagination.sizeOptions = value;
     }
 
+    /**
+     * thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进
+     * @default 20
+     */
     @Input() thyIndent = 20;
 
+    /**
+     * thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
+     * @default children
+     */
     @Input() thyChildrenKey = 'children';
 
+    /**
+     * 开启 Hover 后显示操作，默认不显示操作区内容，鼠标 Hover 时展示
+     * @default false
+     */
     @HostBinding('class.thy-table-hover-display-operation')
     @Input()
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
 
+    /**
+     * 切换组件回调事件
+     */
     @Output() thyOnSwitchChange: EventEmitter<ThySwitchEvent> = new EventEmitter<ThySwitchEvent>();
 
+    /**
+     * 表格分页回调事件
+     */
     @Output() thyOnPageChange: EventEmitter<PageChangedEvent> = new EventEmitter<PageChangedEvent>();
 
+    /**
+     * 表格分页当前页改变回调事件
+     */
     @Output() thyOnPageIndexChange: EventEmitter<number> = new EventEmitter<number>();
 
     @Output() thyOnPageSizeChange: EventEmitter<number> = new EventEmitter<number>();
 
+    /**
+     * 多选回调事件
+     */
     @Output() thyOnMultiSelectChange: EventEmitter<ThyMultiSelectEvent> = new EventEmitter<ThyMultiSelectEvent>();
 
+    /**
+     * 单选回调事件
+     */
     @Output() thyOnRadioSelectChange: EventEmitter<ThyRadioSelectEvent> = new EventEmitter<ThyRadioSelectEvent>();
 
+    /**
+     * 拖动修改事件
+     */
     @Output() thyOnDraggableChange: EventEmitter<ThyTableDraggableEvent> = new EventEmitter<ThyTableDraggableEvent>();
 
+    /**
+     * 表格行点击触发事件
+     */
     @Output() thyOnRowClick: EventEmitter<ThyTableRowEvent> = new EventEmitter<ThyTableRowEvent>();
 
+    /**
+     * 列排序修改事件
+     */
     @Output() thySortChange: EventEmitter<ThyTableSortEvent> = new EventEmitter<ThyTableSortEvent>();
 
     @Output() thyOnRowContextMenu: EventEmitter<ThyTableEvent> = new EventEmitter<ThyTableEvent>();

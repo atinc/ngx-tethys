@@ -28,7 +28,7 @@ subtitle: 日历
 <example name="thy-calendar-disabled-mode-year-example" />
 
 ## 自定义需要渲染的数据模板
-一个复杂的应用示例，用 `thyDateCell` 模版来自定义需要渲染的数据，用 `thyCalendarHeaderOperation` 来自定义右上角显示
+一个复杂的应用示例，用 `thyDateCell` 模板来自定义需要渲染的数据，用 `thyCalendarHeaderOperation` 来自定义右上角显示
 
 ```html
 <thy-calendar>

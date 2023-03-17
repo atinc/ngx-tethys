@@ -101,6 +101,7 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
     /**
      * 空选项时的文本
      * @type string
+     * @default 没有任何数据
      */
     @Input()
     thyEmptyText = '没有任何数据';

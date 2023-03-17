@@ -66,6 +66,7 @@ export class ThySpaceComponent extends _MixinBase implements OnInit, AfterConten
 
     /**
      * 间距垂直方向，默认是水平方向
+     * @default false
      */
     @HostBinding(`class.thy-space-vertical`)
     @Input()

@@ -21,13 +21,18 @@ export class ThyMenuComponent implements OnInit {
     theme: ThyMenuTheme = 'compact';
 
     /**
-     * 主题，分别为 'compact' | 'loose'
+     * 主题
+     * @type compact | loose
      * @default compact
      */
     @Input() set thyTheme(value: ThyMenuTheme) {
         this.theme = value;
     }
 
+    /**
+     * 是否收起
+     * @default false
+     */
     @Input() @InputBoolean() thyCollapsed: boolean;
 
     constructor() {}

@@ -30,6 +30,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
+
+    /**
+     * 模式，'decade' | 'year' | 'month' | 'date'
+     * @default date
+     */
     @Input() thyMode: ThyPanelMode = 'date';
 
     panelMode: ThyPanelMode | ThyPanelMode[];
@@ -45,11 +50,24 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
+    /**
+     * 是否展示时间(时、分)
+     * @default false
+     */
     @Input() thyMustShowTime = false;
 
+    /**
+     * 弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @default bottom
+     */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
     private offset = 4;
+
+    /**
+     * 弹出 DatePicker 的偏移量
+     * @default 4
+     */
     @Input() set thyOffset(value: number) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
@@ -58,6 +76,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     private hasBackdrop = true;
+
+    /**
+     * 是否有幕布
+     * @default false
+     */
     @Input() set thyHasBackdrop(value: boolean) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
@@ -65,8 +88,15 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         this.hasBackdrop = value;
     }
 
+    /**
+     * popover的其他参数
+     */
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
+    /**
+     * 是否阻止冒泡
+     * @default true
+     */
     @Input() thyStopPropagation = true;
 
     private destroy$ = new Subject<void>();

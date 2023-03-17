@@ -39,6 +39,11 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private _layout: string;
 
+    /**
+     * 大小
+     * @type sm | md | lg
+     * @default md
+     */
     @Input()
     set thySize(size: string) {
         this._size = size;
@@ -55,6 +60,10 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 是否禁用单选组合框
+     * @default false
+     */
     @Input()
     set thyDisabled(value: boolean) {
         this.setDisabledState(value);

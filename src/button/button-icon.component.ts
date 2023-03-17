@@ -25,6 +25,9 @@ const themeClassesMap: any = {
     'danger-weak': ['btn-icon-danger-weak']
 };
 
+/**
+ * 操作按钮图标，支持`thy-button-icon`组件和`thyButtonIcon`指令两种形式
+ */
 @Component({
     selector: 'thy-button-icon,[thy-button-icon],[thyButtonIcon]',
     templateUrl: './button-icon.component.html',
@@ -34,39 +37,63 @@ const themeClassesMap: any = {
     imports: [NgIf, ThyIconComponent, NgClass]
 })
 export class ThyButtonIconComponent implements OnInit {
+    /**
+     * 大小
+     * @type xs | sm | md | lg
+     * @default 36px
+     */
     @Input()
     set thySize(size: string) {
         this.size = size;
         this.setClasses();
     }
 
-    // 字体前缀，默认 wtf
+    /**
+     * 图标, 和`thyButtonIcon`相同，当使用`thy-button-icon`时，只能使用 thyIcon 设置图标
+     */
     @Input()
     set thyIcon(icon: string) {
         this.setIconClass(icon);
     }
 
+    /**
+     * 图标按钮的图标
+     */
     @Input()
     set thyButtonIcon(icon: string) {
         this.setIconClass(icon);
     }
 
+    /**
+     * 展示的形状，默认只显示字体图标图标，circle-dashed, circle-solid 展示成虚线,实线边框圆形图标, circle-thick-dashed, circle-thick-solid 边框加粗
+     */
     @Input()
     set thyShape(value: ThyButtonIconShape) {
         this.shape = value;
         this.setClasses();
     }
 
+    /**
+     * 亮色，颜色更浅，适合左侧导航顶部的按钮
+     * @default false
+     */
     @Input()
     set thyLight(value: boolean) {
         this._isLighted = coerceBooleanProperty(value);
     }
 
+    /**
+     * 设置为选中状态
+     * @default false
+     */
     @Input()
     set thyActive(value: boolean) {
         this._isActive = coerceBooleanProperty(value);
     }
 
+    /**
+     * 按钮展示类型，默认图标移上去显示主色， danger-weak 鼠标移上去显示 danger 红色
+     */
     @Input()
     set thyTheme(value: string) {
         this.theme = value;

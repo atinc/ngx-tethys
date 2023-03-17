@@ -38,48 +38,63 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
     /**
      * 调整尺寸的边界
-     * @default 'parent'
+     * @default parent
      * @type 'window' | 'parent' | ElementRef<HTMLElement>
      */
     @Input() thyBounds: 'window' | 'parent' | ElementRef<HTMLElement> = 'parent';
+
     /**
      * 最大高度(超过边界部分忽略)
      */
     @Input() thyMaxHeight?: number;
+
     /**
      * 最大宽度(超过边界部分忽略)
      */
     @Input() thyMaxWidth?: number;
+
     /**
      * 最小高度
+     * @default 40
      */
     @Input() thyMinHeight: number = 40;
+
     /**
      * 最小宽度
+     * @default 40
      */
     @Input() thyMinWidth: number = 40;
+
     /**
      * 栅格列数(-1 为不栅格)
+     * @default -1
      */
     @Input() thyGridColumnCount: number = -1;
+
     /**
      * 栅格最大列数
+     * @default -1
      */
     @Input() thyMaxColumn: number = -1;
+
     /**
      * 栅格最小列数
+     * @default -1
      */
     @Input() thyMinColumn: number = -1;
+
     /**
      * 锁定宽高比
      * @default false
      */
     @Input() @InputBoolean() thyLockAspectRatio: boolean = false;
+
     /**
      * 是否预览模式
      * @default false
      */
     @Input() @InputBoolean() thyPreview: boolean = false;
+
     /**
      * 是否禁用调整大小
      * @default false
@@ -90,10 +105,12 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
      * 调整尺寸时的事件
      */
     @Output() readonly thyResize = new EventEmitter<ThyResizeEvent>();
+
     /**
      * 开始调整尺寸时的事件
      */
     @Output() readonly thyResizeEnd = new EventEmitter<ThyResizeEvent>();
+
     /**
      * 结束调整尺寸时的事件
      */

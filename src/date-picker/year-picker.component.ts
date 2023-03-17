@@ -8,6 +8,9 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
 import { ThyPanelMode } from './standard-types';
 
+/**
+ * 年份选择组件
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-year-picker',
@@ -24,6 +27,11 @@ import { ThyPanelMode } from './standard-types';
     imports: [ThyPickerComponent, NgIf, DatePopupComponent]
 })
 export class ThyYearPickerComponent extends BasePickerComponent {
+    /**
+     * 展示的年份格式
+     * @type string
+     * @default yyyy
+     */
     @Input() thyFormat = 'yyyy';
 
     thyMode: ThyPanelMode = 'year';

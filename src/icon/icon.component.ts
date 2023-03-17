@@ -23,6 +23,9 @@ const iconSuffixMap = {
     twotone: 'tt'
 };
 
+/**
+ * 图标组件
+ */
 @Component({
     selector: 'thy-icon, [thy-icon]',
     template: '<ng-content></ng-content>',
@@ -36,16 +39,32 @@ const iconSuffixMap = {
 export class ThyIconComponent implements OnInit, OnChanges {
     private initialized = false;
 
+    /**
+     * 图标的类型
+     * @type outline | fill | twotone
+     * @default outline
+     */
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyTwotoneColor') iconTwotoneColor: string;
 
+    /**
+     * 图标的名字
+     */
     @Input('thyIconName') iconName: string;
 
+    /**
+     * 图标的旋转角度
+     * @default 0
+     */
     @Input('thyIconRotate') iconRotate: number;
 
     @Input('thyIconSet') iconSet: string;
 
+    /**
+     * 图标打底色，镂空的图标，会透过颜色来
+     * @default false
+     */
     @HostBinding(`class.thy-icon-legging`)
     @Input('thyIconLegging')
     @InputBoolean()

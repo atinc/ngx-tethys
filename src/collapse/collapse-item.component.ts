@@ -20,6 +20,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 const DEFAULT_ARROW_ICON = 'angle-right';
+
 /**
  * 折叠面板项组件
  */
@@ -52,16 +53,19 @@ export class ThyCollapseItemComponent implements OnInit, OnDestroy {
 
     /**
      * 是否处于激活展开状态
+     * @default false
      */
     @Input() thyActive: boolean = false;
 
     /**
-     * 禁用当前面板
+     * 是否禁用当前面板
+     * @default false
      */
     @Input() thyDisabled: boolean;
 
     /**
      * 自定义面板头
+     * @type TemplateRef
      */
     @Input() thyHeaderTemplate: TemplateRef<SafeAny>;
 
@@ -84,6 +88,7 @@ export class ThyCollapseItemComponent implements OnInit, OnDestroy {
 
     /**
      * 额外附加模板
+     * @type TemplateRef
      */
     @Input() thyExtra: TemplateRef<SafeAny>;
 

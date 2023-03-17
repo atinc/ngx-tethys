@@ -38,6 +38,11 @@ export class ThyLabelComponent {
     // 字体前缀，默认 wtf
     @Input() thyIconPrefix: string;
 
+    /**
+     * 标签大小
+     * @type sm | default | md | lg | xlg
+     * @default default
+     */
     @Input('thySize')
     set thySize(value: string) {
         this._classNameSM = value === 'sm';
@@ -72,29 +77,47 @@ export class ThyLabelComponent {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 标签支持移除操作
+     */
     @Output() thyOnRemove: EventEmitter<any> = new EventEmitter<any>();
 
     constructor(private el: ElementRef) {
         this.nativeElement = this.el.nativeElement;
     }
 
+    /**
+     * 标签是否支持鼠标滑过有效果，一般在标签有操作时使用
+     * @default false
+     */
     @Input('thyHasHover')
     set thyHasHover(value: string) {
         this._thyHasHover = coerceBooleanProperty(value);
     }
 
+    /**
+     * 标签的类型
+     * @type default | primary | success | info | warning | danger | success | emboss-default | emboss-primary | emboss-warning | emboss-danger | outline
+     */
     @Input()
     set thyLabel(value: ThyLabelType) {
         this._type = value;
         this._setClassesByType();
     }
 
+    /**
+     * 标签支持自定义颜色，需要与`thyLabel`属性同时使用
+     */
     @Input()
     set thyLabelColor(color: string) {
         this._color = color;
         this._setLabelCustomColor();
     }
 
+    /**
+     * 标签支持自定义背景颜色透明度，配合`thyLabelColor`使用，范围为：0～1
+     * @default 0.1
+     */
     @Input()
     set thyBackgroundOpacity(opacity: number) {
         if (opacity && opacity > 0 && this._backgroundOpacity !== opacity) {
@@ -103,12 +126,20 @@ export class ThyLabelComponent {
         }
     }
 
+    /**
+     * 标签状态类型
+     * @type state | pill
+     * @default state
+     */
     @Input()
     set thyLabelType(labelType: string) {
         this._labelType = labelType;
         this._setClassesByType();
     }
 
+    /**
+     * 标签支持在显示文案前添加图标
+     */
     @Input()
     set thyBeforeIcon(icon: string) {
         this._icon = icon;
@@ -125,6 +156,9 @@ export class ThyLabelComponent {
         }
     }
 
+    /**
+     * 标签支持在显示文案后添加图标
+     */
     @Input()
     set thyAfterIcon(icon: string) {
         this._icon = icon;

@@ -8,6 +8,9 @@ import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
+/**
+ * 文件上传组件
+ */
 @Component({
     selector: '[thyFileSelect],thy-file-select',
     templateUrl: './file-select.component.html',
@@ -18,10 +21,17 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
 
     private acceptFolder: boolean;
 
+    /**
+     * 文件选择事件
+     */
     @Output() thyOnFileSelect = new EventEmitter();
 
     @ViewChild('fileInput', { static: true }) fileInput: ElementRef<HTMLInputElement>;
 
+    /**
+     * 文件是否多选
+     * @default false
+     */
     @Input()
     set thyMultiple(value: boolean) {
         this.multiple = coerceBooleanProperty(value);
@@ -42,11 +52,17 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
         }
     }
 
+    /**
+     * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
+     */
     @Input()
     set thyAcceptType(value: Array<string> | string) {
         this.acceptType = mimeTypeConvert(value);
     }
 
+    /**
+     * 文件上传大小限制,单位`kb`，`0`表示没有任何限制
+     */
     @Input() set thySizeThreshold(value: number) {
         this.sizeThreshold = value;
     }

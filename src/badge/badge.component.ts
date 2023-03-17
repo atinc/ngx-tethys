@@ -66,7 +66,8 @@ export class ThyBadgeComponent implements OnInit {
     }
 
     /**
-     * 徽标类型, 类型为 'default' | 'primary' | 'danger' | 'warning' | 'success'
+     * 徽标类型
+     * @type default | primary | danger | warning | success
      * @default danger
      */
     @Input()
@@ -79,6 +80,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 徽标内容数字
+     * @type number
      */
     @Input()
     set thyCount(value: number) {
@@ -92,6 +94,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 徽标内容文本
+     * @type string
      */
     @Input()
     set thyContent(value: string) {
@@ -114,6 +117,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 徽标显示的最大值, 与 thyCount 一起使用,thyCount 超过了 thyMaxCount 设置的值时，徽标内容为 thyMaxCount+
+     * @type number
      */
     @Input()
     set thyMaxCount(value: number) {
@@ -125,7 +129,8 @@ export class ThyBadgeComponent implements OnInit {
     }
 
     /**
-     * 徽标显示的大小，分别为 'sm' | 'md' | 'lg'
+     * 徽标显示的大小
+     * @type md | sm | lg
      * @default md
      */
     @Input()
@@ -139,6 +144,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 已废弃，徽标是一个实心点，已经被废弃
+     * @deprecated
      */
     @Input()
     @InputBoolean()
@@ -150,7 +156,8 @@ export class ThyBadgeComponent implements OnInit {
     }
 
     /**
-     * 已废弃，徽标是一个空心点，
+     * 已废弃，徽标是一个空心点
+     * @deprecated
      */
     @Input()
     @InputBoolean()
@@ -163,6 +170,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * thyCount 为 0 时，强制显示数字 0，默认不显示
+     * @default false
      */
     @Input()
     set thyKeepShow(value: boolean) {
@@ -174,6 +182,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 设置徽标字体的颜色，支持内置颜色和自定义颜色 'primary' | '#87d068' | ...
+     * @type string
      */
     @Input()
     set thyTextColor(value: string) {
@@ -191,6 +200,7 @@ export class ThyBadgeComponent implements OnInit {
 
     /**
      * 设置徽标的背景颜色，支持内置颜色和自定义颜色 'primary' | '#87d068' | ...
+     * @type string
      */
     @Input()
     set thyBackgroundColor(value: string) {

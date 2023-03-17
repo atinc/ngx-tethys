@@ -8,6 +8,9 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { NgIf } from '@angular/common';
 import { ThyPickerComponent } from './picker.component';
 
+/**
+ * 周选择组件
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-week-picker',

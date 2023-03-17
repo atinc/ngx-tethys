@@ -126,7 +126,7 @@ export class ThyAvatarComponent implements OnInit {
     @Input() thyImgClass: string;
 
     /**
-     * 禁用
+     * 是否禁用
      * @default false
      */
     @Input() thyDisabled: boolean;

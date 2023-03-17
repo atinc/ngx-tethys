@@ -54,7 +54,7 @@ const treeItemSizeMap = {
 };
 
 /**
- * 树形控件
+ * 树形控件组件
  * @name thy-tree
  */
 @Component({
@@ -119,6 +119,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 设置 TreeNode 是否支持展开
      * @type boolean | Function
+     * @default true
      */
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
 
@@ -172,7 +173,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 设置不同展示类型的 Tree, `default` 为小箭头展示， `especial` 为 加减号图标展示
      * @type ThyTreeType
-     * @default 'default'
+     * @default default
      */
     @Input()
     set thyType(type: ThyTreeType) {
@@ -196,7 +197,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 支持 `sm` | `default` 两种大小，默认值为 `default`
      * @type ThyTreeSize
-     * @default 'default'
+     * @default default
      */
     @Input()
     set thySize(size: ThyTreeSize) {

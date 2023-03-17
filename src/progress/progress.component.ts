@@ -70,7 +70,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     @Input() thyType: ThyProgressType = 'primary';
 
     /**
-     * 进度条大小: `'sm' | 'md' 'xs'`
+     * 进度条大小
+     * @type xs | sm | md
      * @default md
      */
     @Input() set thySize(size: string | number) {
@@ -109,7 +110,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     @Input() thyTips: string | TemplateRef<unknown>;
 
     /**
-     * 进度形状 'strip' | 'circle'
+     * 进度形状
+     * @type strip | circle
      * @default strip
      */
     @Input() thyShape: ThyProgressShapeType = 'strip';
@@ -120,7 +122,9 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     @Input() thyGapDegree?: number = undefined;
 
     /**
-     * 	圆形进度条缺口位置
+     * 圆形进度条缺口位置
+     * @type top | bottom | left | right
+     * @default top
      */
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
 

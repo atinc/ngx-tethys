@@ -14,6 +14,9 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyTransferListComponent } from './transfer-list.component';
 
+/**
+ * 穿梭框组件
+ */
 @Component({
     selector: 'thy-transfer',
     templateUrl: './transfer.component.html',
@@ -38,6 +41,9 @@ export class ThyTransferComponent implements OnInit {
 
     private _autoMove = true;
 
+    /**
+     * 数据源
+     */
     @Input()
     set thyData(value: ThyTransferItem[]) {
         if (value) {
@@ -49,38 +55,76 @@ export class ThyTransferComponent implements OnInit {
 
     @Input() thyrenderRightTemplateRef: TemplateRef<any>;
 
-    // @Input() transferToRight
-
+    /**
+     * title集合，title[0]为左标题，title[1]为右标题
+     */
     @Input()
     set thyTitles(value: string[]) {
         this.leftTitle = value[0] || '';
         this.rightTitle = value[1] || '';
     }
 
+    /**
+     * 右侧列表是否可以锁定
+     * @default false
+     */
     @Input() thyRightCanLock: boolean;
 
+    /**
+     * 右侧锁定最大数量
+     */
     @Input() thyRightLockMax: number;
 
+    /**
+     * 右侧选择最大数量
+     */
     @Input() thyRightMax: number;
 
-    // Currently not implemented, in order to support the selections move
+    /**
+     * 设置是否自动移动
+     * @description-en-us Currently not implemented, in order to support the selections move
+     * @default true
+     */
     @Input()
     set thyAutoMove(value: boolean) {
         this._autoMove = value;
     }
 
+    /**
+     * 左侧列表是否拖动
+     * @default false
+     */
     @Input() thyLeftDraggable: boolean;
 
+    /**
+     * 右侧列表是否拖动
+     * @default false
+     */
     @Input() thyRightDraggable: boolean;
 
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
+    /**
+     * Transfer变化的回调事件
+     */
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 
+    /**
+     * 设置自定义Item渲染数据模板
+     * @type TemplateRef
+     */
     @ContentChild('renderTemplate') templateRef: TemplateRef<any>;
 
+    /**
+     * 设置自定义左侧内容模板
+     * @type TemplateRef
+     */
     @ContentChild('renderLeftTemplate') leftContentRef: TemplateRef<any>;
 
+    /**
+     * 设置自定义右侧内容模板
+     * @type TemplateRef
+     */
     @ContentChild('renderRightTemplate') rightContentRef: TemplateRef<any>;
 
     ngOnInit() {}

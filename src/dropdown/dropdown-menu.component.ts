@@ -8,8 +8,6 @@ import {
     ViewChild,
     TemplateRef
 } from '@angular/core';
-import { fromEvent } from 'rxjs';
-import { debounceTime, shareReplay } from 'rxjs/operators';
 import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';

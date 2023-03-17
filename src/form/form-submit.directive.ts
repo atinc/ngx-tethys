@@ -2,11 +2,17 @@ import { Directive, EventEmitter, HostListener, OnInit, Output } from '@angular/
 
 import { ThyFormDirective } from './form.directive';
 
+/**
+ * 表单提交指令
+ */
 @Directive({
     selector: '[thyFormSubmit],[thy-form-submit]',
     standalone: true
 })
 export class ThyFormSubmitDirective implements OnInit {
+    /**
+     * Form 验证通过的提交函数
+     */
     @Output() thyFormSubmit = new EventEmitter();
 
     constructor(private thyFormDirective: ThyFormDirective) {}

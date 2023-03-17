@@ -32,6 +32,7 @@ export class ThyActionsComponent implements OnInit, AfterContentInit, OnChanges 
     /**
      * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
      * @type string | number
+     * @default md
      */
     @Input() thySize: ThySpacingSize = 'md';
 

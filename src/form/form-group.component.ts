@@ -49,11 +49,17 @@ export class ThyFormGroupComponent implements OnInit {
 
     @HostBinding('class.has-feedback') hasFeedback = false;
 
+    /**
+     * Label 文本
+     */
     @Input()
     set thyLabelText(value: string) {
         this.labelText = value;
     }
 
+    /**
+     * Label 文本多语言 Key
+     */
     @Input()
     set thyLabelTextTranslateKey(value: string) {
         if (value) {
@@ -63,6 +69,9 @@ export class ThyFormGroupComponent implements OnInit {
         }
     }
 
+    /**
+     * Label 是否显示必填项样式
+     */
     @Input()
     set thyLabelRequired(value: string) {
         this.labelRequired = coerceBooleanProperty(value);
@@ -73,6 +82,9 @@ export class ThyFormGroupComponent implements OnInit {
         this.labelPaddingTopClear = coerceBooleanProperty(value);
     }
 
+    /**
+     * 反馈图标，比如日期输入框显示日期的图标，常用输入 date 表示时间 wtf wtf-schedule-o
+     */
     @Input()
     set thyFeedbackIcon(value: string) {
         this.hasFeedback = true;
@@ -85,21 +97,35 @@ export class ThyFormGroupComponent implements OnInit {
         }
     }
 
+    /**
+     * 提示文字的显示模式，'label'模式表示在 label 后通过图标+Tooltip 提示, 'default'模式在 Form Control 下方直接显示
+     * @default default
+     */
     @Input()
     set thyTipsMode(mode: TipsMode) {
         this.tipMode = mode;
     }
 
+    /**
+     * 提示文案
+     */
     @Input()
     set thyTips(value: string) {
         this.tips = value;
     }
 
+    /**
+     * 提示文案的多语言 Key
+     */
     @Input()
     set thyTipsTranslateKey(value: string) {
         this.tips = this.thyTranslate.instant(value);
     }
 
+    /**
+     * 是否填充整行, 没有 Label 文本，只有输入框
+     * @default false
+     */
     @Input()
     set thyRowFill(value: boolean) {
         this._rowFill = coerceBooleanProperty(value);

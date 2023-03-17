@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
+
 /**
  * 颜色选择组件
  */
@@ -42,6 +43,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
 
     /**
      * 是否显示'无填充色'选项。
+     * @default true
      */
     @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
 

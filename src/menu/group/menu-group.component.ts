@@ -129,11 +129,13 @@ export class ThyMenuGroupComponent implements OnInit {
 
     /**
      *是否显示操作
+     @default false
      */
     @Input() thyShowAction = false;
 
     /**
      * 操作阻止冒泡事件
+     * @default true
      */
     @Input() thyActionStopPropagation = true;
 

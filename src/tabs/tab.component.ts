@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateRef, ContentChild } from '@angular/core';
 
 /**
- * thy-tab
+ * 选项卡的选项组件
  */
 @Component({
     selector: 'thy-tab',
@@ -14,6 +14,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateR
 export class ThyTabComponent implements OnInit {
     /**
      * 自定义选项标题的模板
+     * @type TemplateRef
      */
     @ContentChild('title') titleTemplateRef: TemplateRef<unknown>;
 

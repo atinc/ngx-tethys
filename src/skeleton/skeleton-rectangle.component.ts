@@ -11,14 +11,16 @@ import {
 } from '@angular/core';
 import { ThySkeletonComponent } from './skeleton.component';
 import { helpers } from 'ngx-tethys/util';
-import { InputCssPixel, InputBoolean } from 'ngx-tethys/core';
+import { InputCssPixel } from 'ngx-tethys/core';
 import { THY_SKELETON_CONFIG, ThySkeletonConfigModel } from './skeleton.config';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { NgStyle } from '@angular/common';
+
 interface Style {
     background?: string;
     animation?: string;
 }
+
 @Component({
     selector: 'thy-skeleton-rectangle',
     host: {
@@ -40,6 +42,7 @@ interface Style {
 export class ThySkeletonRectangleComponent implements OnInit, OnChanges {
     /**
      * 是否开启动画
+     * @default false
      */
     @Input()
     thyAnimated: boolean;

@@ -18,6 +18,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
+/**
+ * 开关组件
+ */
 @Component({
     selector: 'thy-switch',
     templateUrl: './switch.component.html',
@@ -66,7 +69,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
     }
 
     /**
-     * 大小，分别: 'sm' | 'lg' | 'md'
+     * 大小
+     * @type sm | lg | md
      * @default md
      */
     @Input()

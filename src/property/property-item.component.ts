@@ -57,7 +57,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     /**
      * 设置跨列的数量
-     * @type sting
+     * @type number
      * @default 1
      */
     @Input() @InputNumber() thySpan: number = 1;

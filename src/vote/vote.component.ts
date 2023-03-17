@@ -12,6 +12,9 @@ export type ThyVoteType = 'primary' | 'success' | 'primary-weak' | 'success-weak
 
 export type ThyVoteLayout = 'vertical' | 'horizontal';
 
+/**
+ * 投票组件
+ */
 @Component({
     selector: 'thy-vote,[thyVote]',
     templateUrl: './vote.component.html',
@@ -38,6 +41,10 @@ export class ThyVoteComponent implements OnInit {
 
     @HostBinding(`class.has-voted`) _hasVoted = true;
 
+    /**
+     * 大小，thyLayout="vertical" 时，支持: sm | default
+     * @default default
+     */
     @Input()
     set thySize(value: ThyVoteSizes) {
         this._size = value;
@@ -46,6 +53,10 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
+    /**
+     * 标签类型: primary | success | primary-weak | success-weak
+     * @default primary
+     */
     @Input()
     set thyVote(value: ThyVoteType) {
         this._type = value;
@@ -54,11 +65,19 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
+    /**
+     * 是否是偏圆型
+     * @default false
+     */
     @Input()
     set thyRound(value: boolean) {
         this._isRound = coerceBooleanProperty(value);
     }
 
+    /**
+     * 布局: horizontal | vertical
+     * @default horizontal
+     */
     @Input()
     set thyLayout(value: ThyVoteLayout) {
         this._layout = value;
@@ -67,10 +86,23 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
+    /**
+     * 赞同的数量
+     */
     @Input() thyVoteCount: number | string;
 
+    /**
+     * 图标
+     * @type string
+     * @default thumb-up
+     */
     @Input() thyIcon = 'thumb-up';
 
+    /**
+     * 是否赞同
+     * @type boolean
+     * @default false
+     */
     @Input()
     set thyHasVoted(value: boolean) {
         this._hasVoted = coerceBooleanProperty(value);
@@ -79,8 +111,16 @@ export class ThyVoteComponent implements OnInit {
         }
     }
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input() @InputBoolean() thyDisabled = false;
 
+    /**
+     * 自定义Icon模板
+     * @type TemplateRef
+     */
     @ContentChild('voteIcon') voteIcon: TemplateRef<any>;
 
     constructor() {}

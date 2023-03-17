@@ -6,16 +6,30 @@ import { ThyFullscreen } from './fullscreen.service';
 import { ThyFullscreenMode } from './fullscreen.config';
 import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
 
+/**
+ * 全屏组件，将某一区域进行全屏展示，支持组件`thy-fullscreen`和`thyFullscreen`指令两种形式
+ */
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',
     templateUrl: './fullscreen.component.html',
     standalone: true
 })
 export class ThyFullscreenComponent implements OnInit, OnDestroy {
+    /**
+     * immersive 模式使用了浏览器提供的全屏，整个窗体都全屏，emulated 模式为仿真的，只会在 body 区域全屏
+     * @type immersive | emulated
+     * @default immersive
+     */
     @Input() thyMode: ThyFullscreenMode = ThyFullscreenMode.immersive;
 
+    /**
+     * 打开全屏时需要添加的类名
+     */
     @Input() thyFullscreenClasses: string;
 
+    /**
+     * 全屏之后的回调
+     */
     @Output() thyFullscreenChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ContentChild(ThyFullscreenLaunchDirective, { read: ElementRef, static: false })

@@ -5,6 +5,9 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { NgClass, NgIf } from '@angular/common';
 
+/**
+ * 多选框组件
+ */
 @Component({
     selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',
     templateUrl: './checkbox.component.html',
@@ -28,6 +31,7 @@ export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
     /**
      * 设置 indeterminate 状态，只负责样式控制
      * @description-en-us Set the indeterminate state, responsible only for style control
+     * @default false
      */
     @Input()
     set thyIndeterminate(value: boolean) {

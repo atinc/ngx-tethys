@@ -7,6 +7,9 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 
+/**
+ * @internal
+ */
 @Component({
     template: ``,
     standalone: true,
@@ -24,9 +27,15 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 
     @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
+
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
+
+    /**
+     * 增加时间选择功能
+     * @default false
+     */
     @Input() get thyShowTime(): object | boolean {
         return this._showTime;
     }
@@ -34,8 +43,18 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
+    /**
+     * 是否展示时间(时、分)
+     * @type boolean
+     * @default false
+     */
     @Input() thyMustShowTime = false;
 
+    /**
+     * 弹出位置
+     * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
+     * @default bottomLeft
+     */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();

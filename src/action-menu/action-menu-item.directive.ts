@@ -6,6 +6,9 @@ import { debounceTime, shareReplay, takeUntil } from 'rxjs/operators';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
 
+/**
+ * 操作菜单项
+ */
 @Directive({
     selector: '[thyActionMenuItem]',
     standalone: true
@@ -19,11 +22,19 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
 
     @HostBinding('class.action-menu-item--success') success = false;
 
+    /**
+     * 是否禁用
+     * @default false
+     */
     @Input()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
 
+    /**
+     * 菜单的类型
+     * @type danger | success
+     */
     @Input()
     set thyType(value: ThyActionMenuItemType) {
         this[value] = true;
@@ -119,6 +130,9 @@ export class ThyActionMenuItemExtendIconDirective {
     constructor() {}
 }
 
+/**
+ * 操作菜单项激活指令
+ */
 @Directive({
     selector: '[thyActionMenuItemActive]',
     standalone: true
@@ -126,6 +140,10 @@ export class ThyActionMenuItemExtendIconDirective {
 export class ThyActionMenuItemActiveDirective {
     @HostBinding('class.active') _isActive = false;
 
+    /**
+     * 是否激活的表达式
+     * @default false
+     */
     @Input()
     set thyActionMenuItemActive(value: boolean) {
         this._isActive = coerceBooleanProperty(value);

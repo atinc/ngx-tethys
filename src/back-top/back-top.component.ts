@@ -45,7 +45,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
     @Input() thyTemplate?: TemplateRef<void>;
 
     /**
-     * 指定对哪个 DOM 元素返回顶部，默认为 window
+     * 指定对哪个 DOM 元素返回顶部
      * @type string | HTMLElement
      * @default window
      */
