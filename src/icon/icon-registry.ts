@@ -332,7 +332,7 @@ export class ThyIconRegistry {
 
     /**
      * 添加单个SVG图标到指定的命名空间
-     * @description-en-us Registers an icon by URL in the specified namespace.
+     * @description.en-us Registers an icon by URL in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param url
@@ -344,7 +344,7 @@ export class ThyIconRegistry {
 
     /**
      * 添加单个SVG图标
-     * @description-en-us Registers an icon by URL in the default namespace.
+     * @description.en-us Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
@@ -354,7 +354,7 @@ export class ThyIconRegistry {
 
     /**
      * 添加单个SVG图标字符串，直接传入 SVG HTML 字符串
-     * @description-en-us Registers an icon using an HTML string in the default namespace.
+     * @description.en-us Registers an icon using an HTML string in the default namespace.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
@@ -364,7 +364,7 @@ export class ThyIconRegistry {
 
     /**
      * 添加单个SVG图标字符串到指定的命名空间，直接传入 SVG HTML 字符串
-     * @description-en-us Registers an icon using an HTML string in the specified namespace.
+     * @description.en-us Registers an icon using an HTML string in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.

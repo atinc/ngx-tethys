@@ -119,7 +119,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     /**
      * 是否取值开始日期的00:00以及截止日期的24:00
      * @default false
-     * @description-en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
+     * @description.en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
      */
     @Input() thyAutoStartAndEnd = false;
 

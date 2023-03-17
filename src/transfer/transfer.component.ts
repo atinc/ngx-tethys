@@ -82,7 +82,7 @@ export class ThyTransferComponent implements OnInit {
 
     /**
      * 设置是否自动移动
-     * @description-en-us Currently not implemented, in order to support the selections move
+     * @description.en-us Currently not implemented, in order to support the selections move
      * @default true
      */
     @Input()

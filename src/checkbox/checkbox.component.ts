@@ -30,7 +30,7 @@ export class ThyCheckboxComponent extends ThyFormCheckBaseComponent {
 
     /**
      * 设置 indeterminate 状态，只负责样式控制
-     * @description-en-us Set the indeterminate state, responsible only for style control
+     * @description.en-us Set the indeterminate state, responsible only for style control
      * @default false
      */
     @Input()

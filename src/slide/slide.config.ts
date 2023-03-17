@@ -27,7 +27,7 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
 
     /**
      * slide 进场的方向,可选 left | right | top | bottom
-     * @description-en-us set the direction when slide enter
+     * @description.en-us set the direction when slide enter
      * @default right
      */
     from?: ThySlideFromTypes;
@@ -44,20 +44,20 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
 
     /**
      * slide 弹出的容器，可传入id,HTMLElement or ElementRef<HTMLElement>
-     * @description-en-us set the drawerContainer by id、HTMLElement or ElementRef<HTMLElement>. e.g. drawerContainer = '#offset-host'
+     * @description.en-us set the drawerContainer by id、HTMLElement or ElementRef<HTMLElement>. e.g. drawerContainer = '#offset-host'
      */
     drawerContainer?: string | HTMLElement | ElementRef<HTMLElement>;
 
     /**
      * slide 进场的方向,可选  push | over | slide
-     * @description-en-us set the render way. one of 'over' or 'push'. Default is 'over'
+     * @description.en-us set the render way. one of 'over' or 'push'. Default is 'over'
      * @default over
      */
     mode?: ThySlideMode;
 
     /**
      * 是否禁用关闭上一个已打开的 slideRef
-     * @description-en-us set whether to disable close the latest item. Default is false
+     * @description.en-us set whether to disable close the latest item. Default is false
      * @default false
      */
     disableCloseLatest?: boolean;
