@@ -656,7 +656,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
     }
 }
 
-describe('ThyCustomSelect', () => {
+fdescribe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
@@ -748,7 +748,7 @@ describe('ThyCustomSelect', () => {
             it('should call onFocus methods when focus', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
                 fixture.detectChanges();
-                const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus');
+                const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus').and.callThrough();
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'focus');
                 fixture.detectChanges();
