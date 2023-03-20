@@ -25,6 +25,7 @@ export type ThySegmentMode = 'block' | 'inline';
 
 /**
  * 分段控制器组件
+ * @name thy-segment
  */
 @Component({
     selector: 'thy-segment',

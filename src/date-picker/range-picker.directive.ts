@@ -6,6 +6,10 @@ import { ThyPopover } from 'ngx-tethys/popover';
 import { ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { helpers } from 'ngx-tethys/util';
 
+/**
+ * 日期范围选择指令
+ * @name thyRangePicker
+ */
 @Directive({
     selector: '[thyRangePicker]',
     exportAs: 'thyRangePicker',

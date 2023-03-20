@@ -7,6 +7,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 模态框底部组件
+ * @name thy-dialog-footer
  */
 @Component({
     selector: 'thy-dialog-footer',

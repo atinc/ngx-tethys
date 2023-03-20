@@ -9,6 +9,9 @@ export enum ActionEnum {
     contextmenu = 'contextmenu'
 }
 
+/**
+ * @name thyActionMenuToggle
+ */
 @Directive({
     selector: '[thyActionMenuToggle]',
     standalone: true

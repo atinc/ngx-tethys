@@ -3,6 +3,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 骨架屏组件
+ * @name thy-skeleton
  */
 @Component({
     selector: 'thy-skeleton',

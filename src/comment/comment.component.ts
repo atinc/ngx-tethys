@@ -7,6 +7,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 评论组件
+ * @name thy-comment
  */
 @Component({
     selector: 'thy-comment',

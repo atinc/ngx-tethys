@@ -16,6 +16,7 @@ export const DEFAULT_SHAPE_NAME = 'circle';
 
 /**
  * 显示一个点的组件
+ * @name thy-dot,[thy-dot],[thyDot]
  */
 @Component({
     selector: 'thy-dot,[thy-dot],[thyDot]',

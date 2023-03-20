@@ -7,7 +7,6 @@ import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SafeAny } from 'ngx-tethys/types';
 import { isFunction, isTemplateRef } from 'ngx-tethys/util';
-import { Observable, Subject } from 'rxjs';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
@@ -17,6 +16,7 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
 
 /**
  * thyDropdown 触发下拉菜单指令
+ * @name thyDropdown
  */
 @Directive({
     selector: `[thyDropdown]`,

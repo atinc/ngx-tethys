@@ -18,6 +18,7 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
 /**
  * 立即操作组件
+ * @name thy-action,[thyAction]
  */
 @Component({
     selector: 'thy-action, [thyAction]',

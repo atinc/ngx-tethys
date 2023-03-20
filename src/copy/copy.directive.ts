@@ -22,6 +22,9 @@ export interface ThyCopyEvent {
     event: Event;
 }
 
+/**
+ * @name thyCopy
+ */
 @Directive({
     selector: '[thyCopy]',
     providers: [TooltipService],

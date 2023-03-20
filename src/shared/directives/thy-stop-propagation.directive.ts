@@ -3,7 +3,8 @@ import { fromEvent, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil } from 'rxjs/operators';
 
 /**
- * 将来会移动到 thy 组件库中
+ * 阻止事件冒泡
+ * @name thyStopPropagation
  */
 @Directive({
     selector: '[thyStopPropagation]',

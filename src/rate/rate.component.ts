@@ -25,6 +25,7 @@ const noop = () => {};
 
 /**
  * 评分组件
+ * @name thy-rate
  */
 @Component({
     selector: 'thy-rate',

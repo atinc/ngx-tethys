@@ -8,6 +8,7 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
 
 /**
  * 折叠面板组件
+ * @name thy-collapse
  */
 @Component({
     selector: 'thy-collapse',

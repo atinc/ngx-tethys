@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
+ * @name thy-loading
  */
 @Component({
     selector: 'thy-loading',

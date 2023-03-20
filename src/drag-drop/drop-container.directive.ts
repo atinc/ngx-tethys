@@ -8,6 +8,9 @@ import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * @name thy-drop-container,[thyDropContainer]
+ */
 @Directive({
     selector: 'thy-drop-container,[thyDropContainer]',
     providers: [

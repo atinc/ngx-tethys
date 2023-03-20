@@ -1,4 +1,4 @@
-import { Directive, ElementRef, NgZone, Input, OnInit, OnDestroy, ViewContainerRef, Inject } from '@angular/core';
+import { Directive, ElementRef, NgZone, Input, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
@@ -8,6 +8,9 @@ import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
 import { SafeAny } from 'ngx-tethys/types';
 
+/**
+ * @name thyTooltip
+ */
 @Directive({
     selector: '[thyTooltip],[thy-tooltip]',
     exportAs: 'thyTooltip',

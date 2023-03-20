@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, TemplateR
 
 /**
  * 选项卡的选项组件
+ * @name thy-tab
  */
 @Component({
     selector: 'thy-tab',

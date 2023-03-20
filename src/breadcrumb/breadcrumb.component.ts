@@ -1,9 +1,10 @@
-import { Component, ChangeDetectionStrategy, HostBinding, Input } from '@angular/core';
+import { Component, ChangeDetectionStrategy, Input } from '@angular/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass } from '@angular/common';
 
 /**
  * 面包屑组件
+ * @name thy-breadcrumb
  */
 @Component({
     selector: 'thy-breadcrumb',

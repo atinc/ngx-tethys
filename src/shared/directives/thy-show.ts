@@ -1,6 +1,9 @@
 import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+/**
+ * @name thyShow
+ */
 @Directive({
     selector: '[thyShow]',
     standalone: true

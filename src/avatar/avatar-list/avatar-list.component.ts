@@ -34,6 +34,7 @@ export const enum ThyAvatarListMode {
 }
 /**
  * 头像列表组件
+ * @name thy-avatar-list
  */
 @Component({
     selector: 'thy-avatar-list',

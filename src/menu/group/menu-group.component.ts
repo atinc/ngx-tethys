@@ -20,10 +20,11 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
- * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
+ * 菜单分组组件
+ * @name thy-menu-group,[thy-menu-group],[thyMenuGroup]
  */
 @Component({
-    selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
+    selector: 'thy-menu-group,[thy-menu-group],[thyMenuGroup]',
     templateUrl: './menu-group.component.html',
     animations: [
         trigger('detailsContentAnimation', [

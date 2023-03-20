@@ -16,6 +16,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
 
 /**
  * 下拉子菜单
+ * @name [thyDropdownSubmenu],thy-dropdown-submenu
  */
 @Component({
     selector: '[thyDropdownSubmenu],thy-dropdown-submenu',

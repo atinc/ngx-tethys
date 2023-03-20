@@ -3,6 +3,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 
 /**
  * 面包屑 Item 组件
+ * @name thy-breadcrumb-item,[thyBreadcrumbItem]
  */
 @Component({
     selector: 'thy-breadcrumb-item,[thyBreadcrumbItem]',

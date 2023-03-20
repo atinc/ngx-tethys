@@ -5,6 +5,7 @@ import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 步骤条组件
+ * @name thy-stepper
  */
 @Component({
     selector: 'thy-stepper',

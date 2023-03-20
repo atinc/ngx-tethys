@@ -30,6 +30,10 @@ export enum ThyEnterKeyMode {
     forbidSubmit = 'forbidSubmit'
 }
 
+/**
+ * 表单
+ * @name thyForm,[thy-form]
+ */
 @Directive({
     selector: '[thyForm],[thy-form]',
     providers: [ThyFormValidatorService],

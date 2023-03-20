@@ -23,6 +23,7 @@ import { NgClass, NgIf } from '@angular/common';
 
 /**
  * 分段控制器的选项组件
+ * @name thy-segment-item,[thy-segment-item]
  */
 @Component({
     selector: 'thy-segment-item,[thy-segment-item]',

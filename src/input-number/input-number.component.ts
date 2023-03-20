@@ -42,6 +42,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 
 /**
  * 数字输入框
+ * @selector thy-input-number
  */
 @Component({
     selector: 'thy-input-number',

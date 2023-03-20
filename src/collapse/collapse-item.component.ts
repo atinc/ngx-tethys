@@ -23,6 +23,7 @@ const DEFAULT_ARROW_ICON = 'angle-right';
 
 /**
  * 折叠面板项组件
+ * @name thy-collapse-panel,thy-collapse-item
  */
 @Component({
     selector: 'thy-collapse-panel, thy-collapse-item',

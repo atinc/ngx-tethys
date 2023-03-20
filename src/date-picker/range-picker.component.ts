@@ -11,6 +11,7 @@ import { helpers } from 'ngx-tethys/util';
 
 /**
  * 日期范围选择组件
+ * @selector thy-range-picker
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

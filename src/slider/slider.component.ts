@@ -29,6 +29,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
 
 /**
  * 滑动输入条组件
+ * @name thy-slider
  */
 @Component({
     selector: 'thy-slider',

@@ -6,6 +6,9 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
+/**
+ * @name thyScroll
+ */
 @Directive({
     selector: '[thyScroll]',
     standalone: true

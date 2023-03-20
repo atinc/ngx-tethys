@@ -24,6 +24,7 @@ import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
+ * @name thy-pagination
  */
 @Component({
     selector: 'thy-pagination',

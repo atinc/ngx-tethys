@@ -19,6 +19,7 @@ export class ThyDropdownAbstractMenu {
 
 /**
  * 下拉菜单组件
+ * @name thy-dropdown-menu
  */
 @Component({
     selector: 'thy-dropdown-menu',
@@ -58,6 +59,7 @@ export class ThyDropdownMenuComponent {
 
 /**
  * 下拉菜单分组
+ * @name thy-dropdown-menu-group
  */
 @Component({
     selector: 'thy-dropdown-menu-group',
@@ -87,6 +89,7 @@ export class ThyDropdownMenuGroupComponent {
 
 /**
  * 下拉菜单分割线
+ * @name thy-dropdown-menu-divider
  */
 @Component({
     selector: 'thy-dropdown-menu-divider',

@@ -20,6 +20,7 @@ import { NgFor, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 间距组件项，使用结构性指令 *thySpaceItem 传入模板
+ * @name thySpaceItem
  */
 @Directive({
     selector: '[thySpaceItem]',
@@ -40,6 +41,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 间距组件
+ * @name thy-space
  */
 @Component({
     selector: 'thy-space',

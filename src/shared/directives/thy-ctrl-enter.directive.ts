@@ -1,6 +1,9 @@
 import { Directive, Output, ElementRef, EventEmitter, OnInit, NgZone, Renderer2, OnDestroy } from '@angular/core';
 import { keycodes } from 'ngx-tethys/util';
 
+/**
+ * @name thyCtrlEnter
+ */
 @Directive({
     selector: '[thyCtrlEnter]',
     standalone: true

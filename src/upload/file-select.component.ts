@@ -10,6 +10,7 @@ import { mimeTypeConvert } from './util';
 
 /**
  * 文件上传组件
+ * @name [thyFileSelect],thy-file-select
  */
 @Component({
     selector: '[thyFileSelect],thy-file-select',

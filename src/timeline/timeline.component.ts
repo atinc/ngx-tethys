@@ -33,6 +33,7 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
 
 /**
  * 时间轴组件
+ * @name thy-timeline
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -7,6 +7,7 @@ const COLUMN_COUNT = 5;
 
 /**
  * 表格的骨架屏组件
+ * @name thy-table-skeleton
  */
 @Component({
     selector: 'thy-table-skeleton',

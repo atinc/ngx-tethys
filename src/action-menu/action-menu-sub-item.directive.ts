@@ -12,6 +12,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 操作子菜单
+ * @name thyActionMenuSubItem
  */
 @Directive({
     selector: '[thyActionMenuSubItem]',

@@ -29,6 +29,7 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
 
 /**
  * 日历组件
+ * @selector thy-calendar
  */
 @Component({
     selector: 'thy-calendar',

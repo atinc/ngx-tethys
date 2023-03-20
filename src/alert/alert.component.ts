@@ -33,6 +33,7 @@ const typeIconsMap: Record<string, string> = {
 
 /**
  * 警告提示，展现需要关注的信息
+ * @name thy-alert
  */
 @Component({
     selector: 'thy-alert',

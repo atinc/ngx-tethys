@@ -27,6 +27,7 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 
 /**
  * 头像组件
+ * @name thy-avatar
  */
 @Component({
     selector: 'thy-avatar',

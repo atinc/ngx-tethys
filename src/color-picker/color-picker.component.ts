@@ -10,6 +10,7 @@ import ThyColor from './helpers/color.class';
 
 /**
  * 颜色选择组件
+ * @name thyColorPicker
  */
 @Directive({
     selector: '[thyColorPicker]',

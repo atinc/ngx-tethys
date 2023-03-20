@@ -34,6 +34,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 选项卡切换组件
+ * @name thy-tabs
  */
 @Component({
     selector: 'thy-tabs',

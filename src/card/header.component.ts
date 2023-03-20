@@ -3,6 +3,7 @@ import { NgTemplateOutlet, NgIf } from '@angular/common';
 
 /**
  * 卡片头部组件
+ * @selector thy-card-header
  */
 @Component({
     selector: 'thy-card-header',

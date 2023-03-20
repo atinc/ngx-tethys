@@ -11,6 +11,7 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
 
 /**
  * 分割线
+ * @name thy-divider
  */
 @Component({
     preserveWhitespaces: false,

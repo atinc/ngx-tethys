@@ -16,6 +16,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 栅格列指令
+ * @name thyCol
  */
 @Directive({
     selector: '[thyCol]',

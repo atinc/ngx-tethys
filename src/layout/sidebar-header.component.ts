@@ -4,6 +4,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 布局侧边栏头部组件
+ * @name thy-sidebar-header
  */
 @Component({
     selector: 'thy-sidebar-header',

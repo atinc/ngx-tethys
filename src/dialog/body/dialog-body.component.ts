@@ -4,6 +4,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 模态框的主体组件
+ * @name thy-dialog-body
  */
 @Component({
     selector: 'thy-dialog-body',

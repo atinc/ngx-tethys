@@ -2,6 +2,9 @@ import { Directive, ElementRef, Input, OnInit } from '@angular/core';
 import { isTextColor, isThemeColor, ThyTextColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+/**
+ * @name thyTextColor
+ */
 @Directive({
     selector: '[thyTextColor]',
     exportAs: 'thyTextColor',

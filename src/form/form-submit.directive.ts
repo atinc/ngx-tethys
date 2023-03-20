@@ -4,6 +4,7 @@ import { ThyFormDirective } from './form.directive';
 
 /**
  * 表单提交指令
+ * @name thyFormSubmit,[thy-form-submit]
  */
 @Directive({
     selector: '[thyFormSubmit],[thy-form-submit]',

@@ -16,6 +16,7 @@ import { ThyTransferListComponent } from './transfer-list.component';
 
 /**
  * 穿梭框组件
+ * @name thy-transfer
  */
 @Component({
     selector: 'thy-transfer',

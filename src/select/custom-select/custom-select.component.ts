@@ -113,6 +113,7 @@ const noop = () => {};
 
 /**
  * 下拉选择组件
+ * @name thy-custom-select
  */
 @Component({
     selector: 'thy-custom-select',

@@ -20,6 +20,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 /**
  * 开关组件
+ * @name thy-switch
  */
 @Component({
     selector: 'thy-switch',

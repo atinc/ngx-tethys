@@ -2,6 +2,7 @@ import { Component, OnInit, HostBinding, Input } from '@angular/core';
 
 /**
  * 菜单项名称
+ * @name thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]
  */
 @Component({
     selector: 'thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]',

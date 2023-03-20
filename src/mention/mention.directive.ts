@@ -28,6 +28,9 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     }
 };
 
+/**
+ * @name thyMention
+ */
 @Directive({
     selector: '[thyMention]',
     standalone: true

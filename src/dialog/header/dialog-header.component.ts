@@ -9,6 +9,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
  * 模态框头部组件
+ * @name thy-dialog-header
  */
 @Component({
     selector: 'thy-dialog-header',

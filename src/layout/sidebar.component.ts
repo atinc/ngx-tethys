@@ -29,6 +29,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
 
 /**
  * 布局侧边栏组件
+ * @name thy-sidebar
  */
 @Component({
     selector: 'thy-sidebar',

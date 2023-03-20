@@ -21,6 +21,7 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 /**
  * 时间选择面板组件
+ * @name thy-time-picker-panel
  */
 @Component({
     selector: 'thy-time-picker-panel',

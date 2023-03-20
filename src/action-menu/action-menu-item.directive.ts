@@ -8,6 +8,7 @@ export type ThyActionMenuItemType = 'danger' | 'success';
 
 /**
  * 操作菜单项
+ * @name thyActionMenuItem
  */
 @Directive({
     selector: '[thyActionMenuItem]',
@@ -80,6 +81,9 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
     }
 }
 
+/**
+ * @name thyActionMenuItemIcon
+ */
 @Directive({
     selector: '[thyActionMenuItemIcon]',
     standalone: true
@@ -90,6 +94,9 @@ export class ThyActionMenuItemIconDirective {
     constructor() {}
 }
 
+/**
+ * @name thyActionMenuItemName
+ */
 @Directive({
     selector: '[thyActionMenuItemName]',
     standalone: true
@@ -100,6 +107,9 @@ export class ThyActionMenuItemNameDirective {
     constructor() {}
 }
 
+/**
+ * @name thyActionMenuItemMeta
+ */
 @Directive({
     selector: '[thyActionMenuItemMeta]',
     standalone: true
@@ -110,6 +120,9 @@ export class ThyActionMenuItemMetaDirective {
     constructor() {}
 }
 
+/**
+ * @name thyActionMenuItemInfo
+ */
 @Directive({
     selector: '[thyActionMenuItemInfo]',
     standalone: true
@@ -120,6 +133,9 @@ export class ThyActionMenuItemInfoDirective {
     constructor() {}
 }
 
+/**
+ * @name thyActionMenuItemExtendIcon
+ */
 @Directive({
     selector: '[thyActionMenuItemExtendIcon]',
     standalone: true
@@ -132,6 +148,7 @@ export class ThyActionMenuItemExtendIconDirective {
 
 /**
  * 操作菜单项激活指令
+ * @name thyActionMenuItemActive
  */
 @Directive({
     selector: '[thyActionMenuItemActive]',

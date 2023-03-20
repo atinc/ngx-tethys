@@ -11,9 +11,10 @@ export type ThyTagSize = 'sm' | 'md' | 'lg';
 
 /**
  * 标签组件
+ * @name thy-tag,[thyTag]
  */
 @Component({
-    selector: 'thy-tag, [thyTag]',
+    selector: 'thy-tag,[thyTag]',
     templateUrl: './tag.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {

@@ -25,6 +25,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
 /**
  * 时间选择组件
+ * @name thy-time-picker
  */
 @Component({
     selector: 'thy-time-picker',

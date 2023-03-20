@@ -8,6 +8,7 @@ import { ThyFullscreenLaunchDirective } from './fullscreen-launch.directive';
 
 /**
  * 全屏组件，将某一区域进行全屏展示，支持组件`thy-fullscreen`和`thyFullscreen`指令两种形式
+ * @name thy-fullscreen,[thyFullscreen]
  */
 @Component({
     selector: 'thy-fullscreen, [thyFullscreen]',

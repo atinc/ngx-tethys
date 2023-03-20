@@ -41,6 +41,7 @@ import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
 
 /**
  * 走马灯组件
+ * @name thy-carousel
  */
 @Component({
     selector: 'thy-carousel',

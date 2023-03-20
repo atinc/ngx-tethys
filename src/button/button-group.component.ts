@@ -15,6 +15,7 @@ const buttonGroupSizeMap = {
 
 /**
  * 按钮分组组件
+ * @name thy-button-group
  */
 @Component({
     selector: 'thy-button-group',

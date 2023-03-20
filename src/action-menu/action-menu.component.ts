@@ -6,6 +6,7 @@ export type ThyActionMenuDividerType = 'default' | 'crossing';
 
 /**
  * 操作菜单，用于`Popover`弹出菜单
+ * @name thy-action-menu
  */
 @Component({
     selector: 'thy-action-menu',
@@ -105,6 +106,9 @@ export class ThyActionMenuDividerComponent {
     constructor() {}
 }
 
+/**
+ * @name thyActionMenuDividerTitle
+ */
 @Directive({
     selector: '[thyActionMenuDividerTitle]',
     standalone: true

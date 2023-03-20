@@ -27,6 +27,7 @@ const themeClassesMap: any = {
 
 /**
  * 操作按钮图标，支持`thy-button-icon`组件和`thyButtonIcon`指令两种形式
+ * @name thy-button-icon,[thy-button-icon],[thyButtonIcon]
  */
 @Component({
     selector: 'thy-button-icon,[thy-button-icon],[thyButtonIcon]',

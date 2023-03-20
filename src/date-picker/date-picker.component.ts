@@ -9,6 +9,7 @@ import { ThyPickerComponent } from './picker.component';
 
 /**
  * 日期选择组件
+ * @selector thy-date-picker
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
