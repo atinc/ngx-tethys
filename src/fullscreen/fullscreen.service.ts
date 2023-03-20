@@ -37,6 +37,6 @@ export class ThyFullscreen {
      */
     exit() {
         const lastFullscreenRef = this.fullscreenRefs[this.fullscreenRefs.length - 1];
-        lastFullscreenRef.exit();
+        lastFullscreenRef?.exit();
     }
 }
