@@ -1,4 +1,4 @@
-import { ThyScrollService } from 'ngx-tethys/core';
+import { InputNumber, ThyScrollService } from 'ngx-tethys/core';
 import { dom, shallowEqual, SimpleRect } from 'ngx-tethys/util';
 import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { auditTime, map, takeUntil } from 'rxjs/operators';
@@ -58,12 +58,14 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
      * @default 0
      */
     @Input()
+    @InputNumber()
     thyOffsetTop?: null | number;
 
     /**
      * 距离窗口底部缓冲的偏移量阈值
      */
     @Input()
+    @InputNumber()
     thyOffsetBottom?: null | number;
 
     /**

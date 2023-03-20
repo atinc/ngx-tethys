@@ -15,6 +15,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyActionComponent } from 'ngx-tethys/action';
 import { NgIf } from '@angular/common';
+import { InputNumber } from 'ngx-tethys/core';
 
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
@@ -82,6 +83,7 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
      * 总条数
      */
     @Input()
+    @InputNumber()
     set thyTotal(value: number) {
         if (value) {
             this.total = value;

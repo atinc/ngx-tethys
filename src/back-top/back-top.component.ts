@@ -20,7 +20,7 @@ import { Subject, fromEvent, BehaviorSubject, EMPTY, Observable } from 'rxjs';
 import { Platform } from '@angular/cdk/platform';
 import { throttleTime, takeUntil, switchMap } from 'rxjs/operators';
 import { DOCUMENT, NgIf, NgTemplateOutlet } from '@angular/common';
-import { fadeMotion, ThyScrollService } from 'ngx-tethys/core';
+import { fadeMotion, InputNumber, ThyScrollService } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 
 /**
@@ -55,7 +55,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
      * 滚动高度达到此参数值才出现 thy-back-top
      * @type number
      */
-    @Input() thyVisibilityHeight = 400;
+    @Input() @InputNumber() thyVisibilityHeight = 400;
 
     /**
      * 点击按钮的回调函数

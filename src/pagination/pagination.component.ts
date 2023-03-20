@@ -81,6 +81,7 @@ export class ThyPaginationComponent implements OnInit {
      * 总页数 与 totalPages 二选一传入
      */
     @Input()
+    @InputNumber()
     set thyTotal(total: number) {
         this.total = total;
         if (this.initialized) {
@@ -172,6 +173,7 @@ export class ThyPaginationComponent implements OnInit {
     }
 
     @Input('thyShowSizeChanger')
+    @InputBoolean()
     set showSizeChanger(value: boolean) {
         this.config.showSizeChanger = value;
     }
@@ -185,7 +187,7 @@ export class ThyPaginationComponent implements OnInit {
      * 只有一页时是否隐藏分页器
      * @default false
      */
-    @Input('thyHideOnSinglePage') hideOnSinglePage: boolean;
+    @Input('thyHideOnSinglePage') @InputBoolean() hideOnSinglePage: boolean;
 
     /**
      * 页码改变的回调

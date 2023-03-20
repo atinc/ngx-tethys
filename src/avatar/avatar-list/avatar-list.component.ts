@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
@@ -86,7 +86,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     /**
      * 列表组件允许展示 avatar 最大数量
      */
-    @Input() thyMax: number;
+    @Input() @InputNumber() thyMax: number;
 
     /**
      * 头像大小
@@ -99,7 +99,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
      * 是否展示移除按钮
      * @type boolean
      */
-    @Input() thyRemovable = false;
+    @Input() @InputBoolean() thyRemovable = false;
 
     /**
      * avatar 移除按钮事件

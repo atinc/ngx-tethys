@@ -1,4 +1,4 @@
-import { InputBoolean, isTextColor } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, isTextColor } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { ChangeDetectionStrategy, Component, ElementRef, Input, OnInit } from '@angular/core';
@@ -83,6 +83,7 @@ export class ThyBadgeComponent implements OnInit {
      * @type number
      */
     @Input()
+    @InputNumber()
     set thyCount(value: number) {
         this.value = value;
         this.valueHasBeenSet = true;
@@ -120,6 +121,7 @@ export class ThyBadgeComponent implements OnInit {
      * @type number
      */
     @Input()
+    @InputNumber()
     set thyMaxCount(value: number) {
         this.maxCount = value;
         if (this.initialized) {

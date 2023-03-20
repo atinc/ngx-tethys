@@ -2,7 +2,7 @@ import { Directive, ElementRef, NgZone, Input, OnInit, OnDestroy, ViewContainerR
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
-import { ThyPlacement, ThyOverlayDirectiveBase, ThyOverlayTrigger, InputBoolean } from 'ngx-tethys/core';
+import { ThyPlacement, ThyOverlayDirectiveBase, ThyOverlayTrigger, InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
@@ -61,12 +61,12 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示提示内容延迟毫秒
      */
-    @Input('thyTooltipShowDelay') showDelay: number;
+    @Input('thyTooltipShowDelay') @InputNumber() showDelay: number;
 
     /**
      * 隐藏提示内容延迟毫秒
      */
-    @Input('thyTooltipHideDelay') hideDelay: number;
+    @Input('thyTooltipHideDelay') @InputNumber() hideDelay: number;
 
     _trigger: ThyOverlayTrigger = 'hover';
 
@@ -83,6 +83,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
      * @default false
      */
     @Input('thyTooltipDisabled')
+    @InputBoolean()
     set thyTooltipDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
         // If tooltip is disabled, hide immediately.
@@ -99,7 +100,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 偏移量
      */
-    @Input('thyTooltipOffset') tooltipOffset: number;
+    @Input('thyTooltipOffset') @InputNumber() tooltipOffset: number;
 
     /**
      * hover 触发方式下 鼠标移入Tooltip是否固定 Tooltip

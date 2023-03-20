@@ -84,6 +84,7 @@ export class ThyMenuGroupComponent implements OnInit {
      * @deprecated
      */
     @Input('thyExpand')
+    @InputBoolean()
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }

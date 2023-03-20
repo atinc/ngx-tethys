@@ -71,6 +71,7 @@ export class ThyVoteComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyRound(value: boolean) {
         this._isRound = coerceBooleanProperty(value);
     }
@@ -104,6 +105,7 @@ export class ThyVoteComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyHasVoted(value: boolean) {
         this._hasVoted = coerceBooleanProperty(value);
         if (this._initialized) {

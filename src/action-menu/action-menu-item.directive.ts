@@ -29,6 +29,7 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }

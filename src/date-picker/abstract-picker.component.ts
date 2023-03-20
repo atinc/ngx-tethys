@@ -128,12 +128,14 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      */
     @Input() thySuffixIcon = 'calendar';
 
-    @Input() thyShowShortcut: boolean = false;
+    @Input() @InputBoolean() thyShowShortcut: boolean = false;
+
     @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
+
     @Input() set thyShortcutPresets(presets: ThyShortcutPreset[]) {
         if (presets && helpers.isArray(presets)) {
             this.shortcutPresets = [...presets];

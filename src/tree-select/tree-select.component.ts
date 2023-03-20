@@ -2,6 +2,7 @@ import {
     AbstractControlValueAccessor,
     Constructor,
     getFlexiblePositions,
+    InputBoolean,
     mixinDisabled,
     mixinTabIndex,
     ThyCanDisable,
@@ -162,7 +163,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     /**
      * 开启虚拟滚动
      */
-    @Input() thyVirtualScroll: boolean = false;
+    @Input() @InputBoolean() thyVirtualScroll: boolean = false;
 
     /**
      * 树节点的唯一标识
@@ -182,19 +183,19 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
      * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
      * @default false
      */
-    @Input() thyAllowClear: boolean;
+    @Input() @InputBoolean() thyAllowClear: boolean;
 
     /**
      * 是否多选
      * @type boolean
      */
-    @Input() thyMultiple = false;
+    @Input() @InputBoolean() thyMultiple = false;
 
     /**
      * 是否禁用树选择器，当为 true 禁用树选择器
      * @type boolean
      */
-    @Input() thyDisable = false;
+    @Input() @InputBoolean() thyDisable = false;
 
     get thyDisabled(): boolean {
         return this.thyDisable;
@@ -238,19 +239,19 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
      * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
      * @type boolean
      */
-    @Input() thyAsyncNode = false;
+    @Input() @InputBoolean() thyAsyncNode = false;
 
     /**
      * 是否展示全名
      * @type boolean
      */
-    @Input() thyShowWholeName = false;
+    @Input() @InputBoolean() thyShowWholeName = false;
 
     /**
      * 是否展示搜索
      * @type boolean
      */
-    @Input() thyShowSearch = false;
+    @Input() @InputBoolean() thyShowSearch = false;
 
     /**
      * 图标类型，支持 default | especial，已废弃

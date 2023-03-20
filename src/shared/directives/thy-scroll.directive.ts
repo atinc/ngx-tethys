@@ -3,6 +3,7 @@ import { Subject, Observable, Observer, fromEvent, Subscription } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -28,6 +29,7 @@ export class ThyScrollDirective implements OnInit, OnDestroy {
     );
 
     @Input()
+    @InputBoolean()
     set thyEnable(value: boolean) {
         this._enable = coerceBooleanProperty(value);
         if (this._initialled) {

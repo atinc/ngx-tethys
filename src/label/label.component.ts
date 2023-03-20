@@ -4,6 +4,7 @@ import { helpers } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgStyle, NgClass } from '@angular/common';
+import { InputNumber } from 'ngx-tethys/core';
 
 export type ThyLabelType = 'default' | 'primary' | 'success' | 'info' | 'warning' | 'danger';
 
@@ -119,6 +120,7 @@ export class ThyLabelComponent {
      * @default 0.1
      */
     @Input()
+    @InputNumber()
     set thyBackgroundOpacity(opacity: number) {
         if (opacity && opacity > 0 && this._backgroundOpacity !== opacity) {
             this._backgroundOpacity = opacity;

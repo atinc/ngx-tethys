@@ -1,4 +1,4 @@
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import {
     ThyDragDropEvent,
     ThyDragOverEvent,
@@ -225,6 +225,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      * @default 44
      */
     @Input()
+    @InputNumber()
     set thyItemSize(itemSize: number) {
         if (this.thySize !== 'default') {
             throw new Error('setting thySize and thyItemSize at the same time is not allowed');
@@ -252,7 +253,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      * 设置缩进距离，缩进距离 = thyIndent * node.level
      * @type number
      */
-    @Input() thyIndent = 25;
+    @Input() @InputNumber() thyIndent = 25;
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽

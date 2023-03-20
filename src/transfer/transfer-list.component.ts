@@ -18,6 +18,7 @@ import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ThyListComponent, ThyListItemComponent } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-transfer-list',
@@ -52,15 +53,15 @@ export class ThyTransferListComponent implements OnInit, DoCheck {
 
     @Input() items: ThyTransferItem[];
 
-    @Input() draggable: boolean;
+    @Input() @InputBoolean() draggable: boolean;
 
-    @Input() canLock: boolean;
+    @Input() @InputBoolean() canLock: boolean;
 
-    @Input() maxLock: number;
+    @Input() @InputNumber() maxLock: number;
 
-    @Input() max: number;
+    @Input() @InputNumber() max: number;
 
-    @Input() disabled: boolean;
+    @Input() @InputBoolean() disabled: boolean;
 
     @Input() template: TemplateRef<any>;
 

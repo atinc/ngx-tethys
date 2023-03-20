@@ -7,6 +7,7 @@ import { Component, ElementRef, EventEmitter, Inject, Input, NgZone, OnDestroy, 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 文件上传组件
@@ -34,6 +35,7 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyMultiple(value: boolean) {
         this.multiple = coerceBooleanProperty(value);
         if (this.multiple) {
@@ -44,6 +46,7 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
     }
 
     @Input()
+    @InputBoolean()
     set thyAcceptFolder(value: boolean) {
         this.acceptFolder = coerceBooleanProperty(value);
         if (this.acceptFolder) {
@@ -64,7 +67,9 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
     /**
      * 文件上传大小限制,单位`kb`，`0`表示没有任何限制
      */
-    @Input() set thySizeThreshold(value: number) {
+    @Input()
+    @InputNumber()
+    set thySizeThreshold(value: number) {
         this.sizeThreshold = value;
     }
 

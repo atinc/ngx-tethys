@@ -17,6 +17,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 let _uniqueIdCounter = 0;
 
@@ -51,6 +52,7 @@ export class ThyListOptionComponent implements Highlightable {
     @Input() thyValue: any;
 
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }

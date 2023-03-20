@@ -89,7 +89,7 @@ export class ThyInputComponent implements ControlValueAccessor, OnInit {
     /**
      * 是否只读
      */
-    @Input() readonly = false;
+    @Input() @InputBoolean() readonly = false;
 
     /**
      * focus 聚焦事件

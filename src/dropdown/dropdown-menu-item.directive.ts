@@ -39,6 +39,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }

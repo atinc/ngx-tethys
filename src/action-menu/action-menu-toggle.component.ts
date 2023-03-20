@@ -1,6 +1,6 @@
 import { Directive, Input, HostListener, TemplateRef } from '@angular/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { camelCase } from 'ngx-tethys/util';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -43,6 +43,7 @@ export class ThyActionMenuToggleDirective {
     }
 
     @Input()
+    @InputBoolean()
     set thyStopPropagation(value: boolean) {
         this._stopPropagation = coerceBooleanProperty(value);
     }
