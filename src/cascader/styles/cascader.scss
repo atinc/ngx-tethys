@@ -81,6 +81,10 @@
         &-active:is(&-disabled) {
             background-color: variables.$gray-100;
             cursor: default;
+
+            &:hover {
+                background-color: variables.$gray-100;
+            }
         }
         &-disabled {
             &,
