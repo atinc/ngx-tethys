@@ -140,7 +140,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     /**
      * 数值精度
      */
-    @Input() @InputNumber() thyPrecision: number;
+    @Input() thyPrecision: number;
 
     /**
      * 数值后缀

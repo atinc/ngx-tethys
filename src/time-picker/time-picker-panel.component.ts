@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { isValid } from 'date-fns';
-import { InputBoolean, InputNumber, reqAnimFrame } from 'ngx-tethys/core';
+import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyButtonComponent } from 'ngx-tethys/button';
 import { NgIf, NgFor, DecimalPipe } from '@angular/common';
@@ -74,19 +74,19 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
      * 小时间隔步长
      * @type number
      */
-    @Input() @InputNumber() thyHourStep: number = 1;
+    @Input() thyHourStep: number = 1;
 
     /**
      * 分钟间隔步长
      * @type number
      */
-    @Input() @InputNumber() thyMinuteStep: number = 1;
+    @Input() thyMinuteStep: number = 1;
 
     /**
      * 秒间隔步长
      * @type number
      */
-    @Input() @InputNumber() thySecondStep: number = 1;
+    @Input() thySecondStep: number = 1;
 
     /**
      * 展示选择此刻

@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormsModule } from '@angular/forms';
 import { isValid } from 'date-fns';
-import { getFlexiblePositions, InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
+import { getFlexiblePositions, InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyTimePanelComponent } from './time-picker-panel.component';
 import { ThyIconComponent } from 'ngx-tethys/icon';
@@ -99,19 +99,19 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
      * 小时间隔步长
      * @type number
      */
-    @Input() @InputNumber() thyHourStep: number = 1;
+    @Input() thyHourStep: number = 1;
 
     /**
      * 分钟间隔步长
      * @type number
      */
-    @Input() @InputNumber() thyMinuteStep: number = 1;
+    @Input() thyMinuteStep: number = 1;
 
     /**
      * 秒间隔步长
      * @type number
      */
-    @Input() @InputNumber() thySecondStep: number = 1;
+    @Input() thySecondStep: number = 1;
 
     /**
      * 弹出层组件 class
