@@ -15,6 +15,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
 
 /**
  * @public
+ * @order 10
  */
 @Injectable()
 export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {

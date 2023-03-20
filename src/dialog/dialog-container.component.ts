@@ -23,6 +23,9 @@ import { thyDialogAnimations } from './dialog-animations';
 import { ThyDialogConfig } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-dialog-container',
     template: `
