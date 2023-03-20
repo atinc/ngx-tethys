@@ -718,7 +718,7 @@ export class ThyCascaderComponent extends _MixinBase
         if (option.isLeaf && event instanceof Event && this.isMultiple) {
             return;
         }
-        if (option && option.disabled && option.isLeaf) {
+        if (option && option.disabled) {
             return;
         }
         this.setActiveOption(option, index, true);
@@ -729,6 +729,11 @@ export class ThyCascaderComponent extends _MixinBase
         if (event) {
             event.preventDefault();
         }
+
+        if (option && option.disabled) {
+            return;
+        }
+
         if (!this.isHoverExpandTriggerAction()) {
             return;
         }
