@@ -18,6 +18,12 @@ const labelTypeClassesMap = {
     warning: ['thy-label', 'thy-label-warning'],
     danger: ['thy-label', 'thy-label-danger']
 };
+
+/**
+ * 标签组件
+ * @name thyLabel
+ * @order 10
+ */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thyLabel]',

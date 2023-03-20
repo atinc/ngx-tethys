@@ -8,6 +8,7 @@ import { NgClass, NgIf } from '@angular/common';
 /**
  * 多选框组件
  * @name thy-checkbox,[thy-checkbox],[thyCheckbox]
+ * @order 10
  */
 @Component({
     selector: 'thy-checkbox,[thy-checkbox],[thyCheckbox]',

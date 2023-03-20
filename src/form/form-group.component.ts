@@ -24,6 +24,11 @@ const internalIconMap = {
 
 type TipsMode = 'default' | 'label';
 
+/**
+ * 表单分组组件
+ * @name thy-form-group
+ * @order 40
+ */
 @Component({
     selector: 'thy-form-group',
     templateUrl: './form-group.component.html',

@@ -1,6 +1,10 @@
 import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
+/**
+ * @name thy-slide-body-section
+ * @order 50
+ */
 @Component({
     selector: 'thy-slide-body-section',
     template: '<ng-content></ng-content>',

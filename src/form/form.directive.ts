@@ -33,6 +33,7 @@ export enum ThyEnterKeyMode {
 /**
  * 表单
  * @name thyForm,[thy-form]
+ * @order 10
  */
 @Directive({
     selector: '[thyForm],[thy-form]',

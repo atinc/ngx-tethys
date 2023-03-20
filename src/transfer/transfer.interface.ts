@@ -15,6 +15,9 @@ export interface ThyTransferModel {
     data: Array<any>;
 }
 
+/**
+ * @order 20
+ */
 export interface ThyTransferItem {
     /**
      * 数据标题

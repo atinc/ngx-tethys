@@ -28,6 +28,9 @@ export type SvgResourceUrl = SafeResourceUrl | string;
 
 export type SvgHtml = SafeHtml | string;
 
+/**
+ * @order 20
+ */
 @Injectable({
     providedIn: 'root'
 })

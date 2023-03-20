@@ -9,6 +9,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 模态框底部组件
  * @name thy-dialog-footer
+ * @order 60
  */
 @Component({
     selector: 'thy-dialog-footer',

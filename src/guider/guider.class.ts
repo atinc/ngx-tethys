@@ -1,6 +1,9 @@
 import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
+/**
+ * @order 30
+ */
 export interface ThyGuiderStep<TData = any> {
     /**
      * 步骤的唯一标识符
@@ -38,6 +41,10 @@ export interface ThyGuiderStep<TData = any> {
     pointOffset?: [number, number];
 }
 
+/**
+ * 新手引导服务的配置项
+ * @order 20
+ */
 export class ThyGuiderConfig {
     /**
      * 新手引导内容组件

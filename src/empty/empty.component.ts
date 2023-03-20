@@ -54,6 +54,7 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 /**
  * 空页面组件
  * @name thy-empty
+ * @order 10
  */
 @Component({
     selector: 'thy-empty',

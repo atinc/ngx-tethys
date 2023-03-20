@@ -6,6 +6,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
  * @name thy-loading
+ * @order 10
  */
 @Component({
     selector: 'thy-loading',

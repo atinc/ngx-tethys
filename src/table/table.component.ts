@@ -117,6 +117,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 /**
  * 表格组件
  * @name thy-table
+ * @order 10
  */
 @Component({
     selector: 'thy-table',

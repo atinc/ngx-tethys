@@ -6,6 +6,9 @@ export interface MentionDefaultDataItem {
     name?: string;
 }
 
+/**
+ * @order 20
+ */
 export interface Mention<T = unknown> {
     /**
      * Mention 触发字符，比如 @ #

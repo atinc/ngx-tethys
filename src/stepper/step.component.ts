@@ -9,6 +9,7 @@ export const THY_STEPPER_COMPONENT = new InjectionToken<IThyStepperComponent>('T
 /**
  * 步骤项组件
  * @name thy-step
+ * @order 20
  */
 @Component({
     selector: 'thy-step',

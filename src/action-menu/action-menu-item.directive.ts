@@ -10,6 +10,7 @@ export type ThyActionMenuItemType = 'danger' | 'success';
 /**
  * 操作菜单项
  * @name thyActionMenuItem
+ * @order 40
  */
 @Directive({
     selector: '[thyActionMenuItem]',
@@ -151,6 +152,7 @@ export class ThyActionMenuItemExtendIconDirective {
 /**
  * 操作菜单项激活指令
  * @name thyActionMenuItemActive
+ * @order 50
  */
 @Directive({
     selector: '[thyActionMenuItemActive]',

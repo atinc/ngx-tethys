@@ -34,6 +34,10 @@ const listSizesMap = {
     sm: 'thy-list-sm'
 };
 
+/**
+ * @name thy-selection-list,[thy-selection-list]
+ * @order 20
+ */
 @Component({
     selector: 'thy-selection-list,[thy-selection-list]',
     template: '<ng-content></ng-content>',

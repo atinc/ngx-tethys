@@ -4,6 +4,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 卡片组件
  * @name thy-card
+ * @order 10
  */
 @Component({
     selector: 'thy-card',

@@ -15,6 +15,10 @@ const radioGroupLayoutMap = {
     flex: ['radio-group-layout-flex']
 };
 
+/**
+ * @name thy-radio-group
+ * @order 20
+ */
 @Component({
     selector: 'thy-radio-group',
     templateUrl: './radio-group.component.html',

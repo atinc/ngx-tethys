@@ -2,6 +2,10 @@ import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, Co
 import { ThyAvatarComponent } from 'ngx-tethys/avatar';
 import { NgIf } from '@angular/common';
 
+/**
+ * @name thy-list-item-meta,[thy-list-item-meta]
+ * @order 40
+ */
 @Component({
     selector: 'thy-list-item-meta,[thy-list-item-meta]',
     templateUrl: './list-item-meta.component.html',

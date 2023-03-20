@@ -1,5 +1,8 @@
 export type AttachTypes = 'day' | 'month' | 'year';
 
+/**
+ * @order 20
+ */
 export class DateRangeItemInfo {
     /**
      * 开始时间

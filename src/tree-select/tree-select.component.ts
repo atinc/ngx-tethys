@@ -68,6 +68,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 /**
  * 树选择组件
  * @name thy-tree-select
+ * @order 10
  */
 @Component({
     selector: 'thy-tree-select',

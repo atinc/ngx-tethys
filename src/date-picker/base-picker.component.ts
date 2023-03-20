@@ -8,7 +8,8 @@ import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 
 /**
- * @internal
+ * 日期选择组件的基类，继承自 AbstractPickerComponent
+ * @order 20
  */
 @Component({
     template: ``,

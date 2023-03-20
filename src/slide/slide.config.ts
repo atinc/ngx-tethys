@@ -18,6 +18,7 @@ export type ThySlideMode = 'over' | 'push' | 'side';
 
 /**
  * @public
+ * @order 20
  */
 export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /**

@@ -8,6 +8,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
 
 /**
  * @publicApi
+ * @order 30
  */
 export abstract class ThyDialogRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThyDialogContainerComponent, TResult> {}
 

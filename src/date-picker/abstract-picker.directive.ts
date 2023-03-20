@@ -1,6 +1,6 @@
 import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
-import { coerceBooleanProperty, FunctionProp, helpers, warnDeprecation } from 'ngx-tethys/util';
+import { coerceBooleanProperty, FunctionProp, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
 import { debounceTime, mapTo, takeUntil, tap } from 'rxjs/operators';
 
@@ -25,6 +25,10 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPanelMode, ThyShortcutValueChange } from './standard-types';
 import { CompatibleValue } from './inner-types';
 
+/**
+ * 日期选择指令的抽象类
+ * @order 50
+ */
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
     showWeek = false;

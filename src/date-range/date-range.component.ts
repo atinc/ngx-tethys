@@ -21,7 +21,8 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 
 /**
  * 预设时间段及自定义时间段选择组件
- * @selector thy-date-range
+ * @name thy-date-range
+ * @order 10
  */
 @Component({
     selector: 'thy-date-range',
