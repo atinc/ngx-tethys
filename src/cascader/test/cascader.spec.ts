@@ -35,6 +35,27 @@ const customerOptions = [
                 ]
             }
         ]
+    },
+    {
+        value: 'jiangsu',
+        label: 'jiangsu',
+        disabled: true,
+        children: [
+            {
+                value: 'nanjing',
+                label: 'nanjing',
+                disabled: true,
+                children: [
+                    {
+                        value: 'zhonghuamen',
+                        label: 'zhonghuamen',
+                        code: 453400,
+                        isLeaf: true,
+                        disabled: true
+                    }
+                ]
+            }
+        ]
     }
 ];
 
@@ -226,6 +247,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
     `
 })
 class CascaderBasicComponent {
+    @ViewChild(ThyCascaderComponent, { static: false }) cascader: ThyCascaderComponent;
+
     public thyTriggerAction: ThyCascaderTriggerType = 'click';
     public thyExpandTriggerAction: ThyCascaderExpandTrigger = 'click';
     public curVal: string | string[] = null;
@@ -413,22 +436,21 @@ describe('thy-cascader', () => {
         });
 
         it('should select', done => {
+            const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
-
             component.changeValue$.pipe(take(1)).subscribe(e => {
-                expect(e).toEqual(['zhejiang', 'hangzhou', 'xihu']);
+                expect(e).toEqual(selectedVal);
                 done();
             });
-            let list = debugElement.queryAll(By.css(`ul li`));
-            while (list.length) {
-                dispatchFakeEvent(list.pop().nativeElement, 'click', true);
 
+            selectedVal.forEach(text => {
+                const currentItem = debugElement.queryAll(By.css(`ul li`)).find(item => item.nativeElement.innerText.includes(text));
+                dispatchFakeEvent(currentItem.nativeElement, 'click', true);
                 fixture.detectChanges();
-                list = debugElement.queryAll(By.css(`ul li`));
-            }
+            });
         });
 
         it('should hover item', () => {
@@ -440,12 +462,12 @@ describe('thy-cascader', () => {
             const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
             expect(el).toBeTruthy();
             fixture.detectChanges();
-            expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(1);
+            expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(customerOptions.length);
             const li = debugElement.query(By.css(`ul li`));
             dispatchFakeEvent(li.nativeElement, 'mouseover', true);
 
             fixture.detectChanges();
-            expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(2);
+            expect(debugElement.queryAll(By.css(`ul li`)).length).toBe(customerOptions.length + 1);
         });
 
         it('should hover open', () => {
@@ -657,6 +679,41 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             flush();
             expect(component.cascaderRef.columns.length).toEqual(1);
+        }));
+
+        it('should call onFocus methods when focus', fakeAsync(() => {
+            fixture.detectChanges();
+            const focusSpy = spyOn<any>(fixture.componentInstance.cascader, 'onFocus').and.callThrough();
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            dispatchFakeEvent(cascaderElement, 'focus');
+            fixture.detectChanges();
+
+            expect(focusSpy).toHaveBeenCalled();
+        }));
+
+        it('should call onBlur methods when blur', fakeAsync(() => {
+            fixture.detectChanges();
+            const blurSpy = spyOn<any>(fixture.componentInstance.cascader, 'onBlur').and.callThrough();
+            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
+            dispatchFakeEvent(cascaderElement, 'blur');
+            fixture.detectChanges();
+
+            expect(blurSpy).toHaveBeenCalled();
+        }));
+
+        it('Should echo the value when the option is disabled', fakeAsync(() => {
+            fixture.componentInstance.curVal = ['jiangsu', 'nanjing', 'zhonghuamen'];
+            fixture.detectChanges();
+            flush();
+            const trigger = debugElement.query(By.css('input')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+            const activatedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
+            expect(activatedOptions.length).toEqual(fixture.componentInstance.curVal.length);
+            const activatedOptionsText: string[] = [];
+            activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
+            expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
     });
 

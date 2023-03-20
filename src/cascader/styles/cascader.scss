@@ -72,11 +72,20 @@
                 color: variables.$primary;
             }
         }
+        &-active:is(&-disabled) {
+            background-color: variables.$gray-100;
+            cursor: default;
+
+            &:hover {
+                background-color: variables.$gray-100;
+            }
+        }
         &-disabled {
             &,
             &:hover {
                 color: variables.$gray-400;
                 cursor: default;
+                background-color: transparent;
             }
         }
         &-expand {
