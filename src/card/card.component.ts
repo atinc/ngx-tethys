@@ -24,6 +24,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 export class ThyCardComponent {
     /**
      * 左右是否有内边距，已废弃，如需配置间距使用 spacing 工具样式覆盖默认间距
+     * @deprecated
      */
     @Input('thyHasLeftRightPadding')
     @InputBoolean()

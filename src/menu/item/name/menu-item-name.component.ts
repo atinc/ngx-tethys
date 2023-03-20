@@ -16,7 +16,6 @@ import { InputBoolean } from 'ngx-tethys/core';
 export class ThyMenuItemNameComponent implements OnInit {
     /**
      * 是否 ellipsis
-     * @default true
      */
     @HostBinding('class.thy-menu-item-name-ellipsis')
     @Input()
