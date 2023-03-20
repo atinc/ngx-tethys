@@ -10,7 +10,7 @@ import {
     EventEmitter,
     ChangeDetectorRef
 } from '@angular/core';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators';
@@ -46,58 +46,50 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     /**
      * 最大高度(超过边界部分忽略)
      */
-    @Input() thyMaxHeight?: number;
+    @Input() @InputNumber() thyMaxHeight?: number;
 
     /**
      * 最大宽度(超过边界部分忽略)
      */
-    @Input() thyMaxWidth?: number;
+    @Input() @InputNumber() thyMaxWidth?: number;
 
     /**
      * 最小高度
-     * @default 40
      */
-    @Input() thyMinHeight: number = 40;
+    @Input() @InputNumber() thyMinHeight: number = 40;
 
     /**
      * 最小宽度
-     * @default 40
      */
-    @Input() thyMinWidth: number = 40;
+    @Input() @InputNumber() thyMinWidth: number = 40;
 
     /**
      * 栅格列数(-1 为不栅格)
-     * @default -1
      */
-    @Input() thyGridColumnCount: number = -1;
+    @Input() @InputNumber() thyGridColumnCount: number = -1;
 
     /**
      * 栅格最大列数
-     * @default -1
      */
-    @Input() thyMaxColumn: number = -1;
+    @Input() @InputNumber() thyMaxColumn: number = -1;
 
     /**
      * 栅格最小列数
-     * @default -1
      */
-    @Input() thyMinColumn: number = -1;
+    @Input() @InputNumber() thyMinColumn: number = -1;
 
     /**
      * 锁定宽高比
-     * @default false
      */
     @Input() @InputBoolean() thyLockAspectRatio: boolean = false;
 
     /**
      * 是否预览模式
-     * @default false
      */
     @Input() @InputBoolean() thyPreview: boolean = false;
 
     /**
      * 是否禁用调整大小
-     * @default false
      */
     @Input() @InputBoolean() thyDisabled: boolean = false;
 

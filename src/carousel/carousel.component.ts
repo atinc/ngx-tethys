@@ -68,26 +68,22 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     /**
      * 是否自动切换,默认 false
-     * @default false
      */
     @Input() @InputBoolean() thyAutoPlay: boolean = false;
 
     /**
      * 自动切换时间间隔(毫秒)
-     * @default 3000
      */
     @Input() @InputNumber() thyAutoPlayInterval: number = 3000;
 
     /**
      * 切换动画样式
      * @type slide | fade | noop
-     * @default slide
      */
     @Input() thyEffect: ThyCarouselEffect = 'slide';
 
     /**
      * 是否显示切换指示器
-     * @default true
      */
     @Input() @InputBoolean() thyIndicators = true;
 
@@ -99,7 +95,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 是否显示左右切换
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyControls = true;
 
@@ -116,21 +111,18 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     /**
      * 是否支持手势滑动
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyTouchable = true;
 
     /**
      * 指示点切换的触发条件
      * @type click | hover
-     * @default click
      */
     @Input() thyTrigger: ThyCarouselTrigger = 'click';
 
     /**
      * 鼠标移动到指示器时是否暂停播放
      * @type false | hover
-     * @default hover
      */
     @Input() thyPause: ThyCarouselPause = 'hover';
 

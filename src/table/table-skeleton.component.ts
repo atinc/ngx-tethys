@@ -30,7 +30,6 @@ export class ThyTableSkeletonComponent {
 
     /**
      * 表格内容骨架高度
-     * @default 18px
      */
     @Input()
     @InputCssPixel()

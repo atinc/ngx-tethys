@@ -78,7 +78,6 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     /**
      * 响应式，自动计算宽度存放 avatar
-     * @default false
      */
     @Input()
     @InputBoolean()
@@ -99,7 +98,6 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     /**
      * 是否展示移除按钮
      * @type boolean
-     * @default false
      */
     @Input() thyRemovable = false;
 

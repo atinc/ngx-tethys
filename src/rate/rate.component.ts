@@ -64,31 +64,26 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 自定义评分的总数
-     * @default 5
      */
     @Input() @InputNumber() thyCount = 5;
 
     /**
      * 是否只读
-     * @default false
      */
     @Input() @InputBoolean() thyDisabled = false;
 
     /**
      * 是否允许半选
-     * @default false
      */
     @Input() @InputBoolean() thyAllowHalf = false;
 
     /**
      * 是否允许再次点击后清除
-     * @default true
      */
     @Input() @InputBoolean() thyAllowClear = true;
 
     /**
      * 自定义每项的提示信息
-     * @default []
      */
     @Input() thyTooltips: string[] = [];
 

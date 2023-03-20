@@ -30,7 +30,6 @@ import { ThyPanelMode } from './standard-types';
 export class ThyMonthPickerComponent extends BasePickerComponent {
     /**
      * 展示的月份格式
-     * @default yyyy-MM
      */
     @Input() thyFormat = 'yyyy-MM';
 

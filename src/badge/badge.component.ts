@@ -173,6 +173,7 @@ export class ThyBadgeComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyKeepShow(value: boolean) {
         this.keepShowValue = coerceBooleanProperty(value);
         if (this.initialized) {

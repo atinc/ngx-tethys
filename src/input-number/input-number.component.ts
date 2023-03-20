@@ -2,6 +2,7 @@ import {
     AbstractControlValueAccessor,
     Constructor,
     InputBoolean,
+    InputNumber,
     mixinDisabled,
     mixinTabIndex,
     ThyCanDisable,
@@ -127,9 +128,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     /**
      * 每次改变步数，可以为小数
-     * @default 1
      */
-    @Input() thyStep = 1;
+    @Input() @InputNumber() thyStep = 1;
 
     /**
      * 输入框大小
@@ -140,7 +140,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     /**
      * 数值精度
      */
-    @Input() thyPrecision: number;
+    @Input() @InputNumber() thyPrecision: number;
 
     /**
      * 数值后缀

@@ -25,7 +25,6 @@ export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit,
     /**
      * 子菜单展示方向，`auto` 会自动判断右侧是否可以在窗口中展示，展示不下会在左侧展示
      * @type left | right | auto
-     * @default right
      */
     @Input() thyActionMenuSubItem: SubMenuDirection = 'right';
 

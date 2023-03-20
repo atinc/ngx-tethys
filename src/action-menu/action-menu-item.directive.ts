@@ -3,6 +3,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { fromEvent, Subject } from 'rxjs';
 import { debounceTime, shareReplay, takeUntil } from 'rxjs/operators';
+import { InputBoolean } from 'ngx-tethys/core';
 
 export type ThyActionMenuItemType = 'danger' | 'success';
 
@@ -162,6 +163,7 @@ export class ThyActionMenuItemActiveDirective {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyActionMenuItemActive(value: boolean) {
         this._isActive = coerceBooleanProperty(value);
     }

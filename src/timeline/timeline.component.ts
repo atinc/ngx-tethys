@@ -70,7 +70,6 @@ export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges
     /**
      * 时间轴的方向
      * @type horizontal | vertical
-     * @default vertical
      */
     @Input() thyDirection: ThyTimeDirection = 'vertical';
 

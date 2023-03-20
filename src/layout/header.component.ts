@@ -52,7 +52,6 @@ export class ThyHeaderComponent implements OnInit {
     /**
      * 头部大小
      * @type md | sm | lg | xlg
-     * @default md
      */
     @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
@@ -63,7 +62,6 @@ export class ThyHeaderComponent implements OnInit {
 
     /**
      * 图标前缀，被弃用，图标使用 SVG 图标
-     * @default wtf
      */
     @Input() thyIconPrefix = 'wtf';
 
@@ -86,7 +84,6 @@ export class ThyHeaderComponent implements OnInit {
 
     /**
      * 底部是否有阴影
-     * @default false
      */
     @Input() @InputBoolean() thyShadow = false;
 

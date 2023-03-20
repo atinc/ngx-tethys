@@ -50,21 +50,18 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     /**
      * 模式
      * @type decade | year | month | date | week | flexible
-     * @default date
      */
     @Input() thyMode: ThyPanelMode = 'date';
 
     /**
      * 是否显示清除按钮
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyAllowClear = true;
 
     /**
      * 自动获取焦点
      * @type boolean
-     * @default false
      */
     @Input() @InputBoolean() thyAutoFocus = false;
 
@@ -106,7 +103,6 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     /**
      * 输入框的大小
      * @type xs | sm | md | lg | default
-     * @default default
      */
     @Input() thySize: 'lg' | 'md' | 'sm' | 'xs' | 'default' = 'default';
 
@@ -118,10 +114,9 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     /**
      * 是否取值开始日期的00:00以及截止日期的24:00
-     * @default false
      * @description.en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
      */
-    @Input() thyAutoStartAndEnd = false;
+    @Input() @InputBoolean() thyAutoStartAndEnd = false;
 
     /**
      * 面板默认日期
@@ -130,7 +125,6 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     /**
      * 自定义的后缀图标
-     * @default calendar
      */
     @Input() thySuffixIcon = 'calendar';
 
@@ -157,6 +151,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      * @default false
      */
     @Input()
+    @InputBoolean()
     get thyDisabled(): boolean {
         return this.disabled;
     }

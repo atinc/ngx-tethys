@@ -1,7 +1,7 @@
 import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
-import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, InputNumber, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
@@ -60,7 +60,9 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * @type number
      * @default 100
      */
-    @Input('thyShowDelay') set thyShowDelay(value: number) {
+    @Input('thyShowDelay')
+    @InputNumber()
+    set thyShowDelay(value: number) {
         this.showDelay = value;
     }
 
@@ -69,7 +71,9 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * @type number
      * @default 100
      */
-    @Input('thyHideDelay') set thyHideDelay(value: number) {
+    @Input('thyHideDelay')
+    @InputNumber()
+    set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
 

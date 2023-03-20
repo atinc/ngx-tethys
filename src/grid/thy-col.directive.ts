@@ -28,7 +28,6 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**
      * 栅格项的占位列数
-     * @default 24
      */
     @Input() thySpan: number | null = 24;
 

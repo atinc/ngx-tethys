@@ -1,6 +1,7 @@
 import { Component, Input, HostBinding, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { NgIf } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 加载组件，页面调用接口等待请求时，给用户的反馈
@@ -25,6 +26,7 @@ export class ThyLoadingComponent {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDone(value: boolean | string) {
         this.isDone = coerceBooleanProperty(value);
         this.changeDetectorRef.markForCheck();

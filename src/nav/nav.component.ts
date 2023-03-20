@@ -155,7 +155,6 @@ export class ThyNavComponent extends _MixinBase
 
     /**
      * 是否是填充模式
-     * @default false
      */
     @HostBinding('class.thy-nav--fill')
     @Input()

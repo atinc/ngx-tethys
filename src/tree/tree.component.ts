@@ -119,13 +119,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 设置 TreeNode 是否支持展开
      * @type boolean | Function
-     * @default true
      */
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
 
     /**
      * 设置是否支持多选
-     * @default false
      */
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
@@ -164,7 +162,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置 TreeNode 是否支持异步加载
-     * @default false
      */
     @Input() @InputBoolean() thyAsync = false;
 
@@ -215,7 +212,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置是否开启虚拟滚动
-     * @default false
      */
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
@@ -242,19 +238,19 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置节点名称是否支持超出截取
-     * @default true
+     * @type boolean
      */
     @Input() @InputBoolean() thyTitleTruncate = true;
 
     /**
      * 已选中的 node 节点集合
-     * @type string[]
+     * @default []
      */
     @Input() thySelectedKeys: string[];
 
     /**
      * 设置缩进距离，缩进距离 = thyIndent * node.level
-     * @default 25
+     * @type number
      */
     @Input() thyIndent = 25;
 

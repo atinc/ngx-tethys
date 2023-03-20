@@ -40,7 +40,6 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     /**
      * 是否有幕布
      * @description.en-us Whether the overlay has a backdrop.
-     * @default true
      */
     hasBackdrop? = true;
 
@@ -53,7 +52,6 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     /**
      * 点击幕布或者按ESC键是否自动关闭弹出框，hasBackdrop=true时该参数起作用
      * @description.en-us Whether the user can use escape or clicking on the backdrop to close the overlay.
-     * @default true
      */
     backdropClosable? = true;
 
@@ -125,7 +123,6 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
 
     /**
      * 切换浏览器导航是否自动关闭弹出框
-     * @default true
      * @description.en-us Whether the overlay should close when the user goes backwards/forwards in history.Note that this usually doesn't include clicking on links (unless the user is using the `HashLocationStrategy`).
      */
     closeOnNavigation? = true;

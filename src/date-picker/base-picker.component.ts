@@ -1,4 +1,4 @@
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
@@ -46,14 +46,12 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     /**
      * 是否展示时间(时、分)
      * @type boolean
-     * @default false
      */
-    @Input() thyMustShowTime = false;
+    @Input() @InputBoolean() thyMustShowTime = false;
 
     /**
      * 弹出位置
      * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
-     * @default bottomLeft
      */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 

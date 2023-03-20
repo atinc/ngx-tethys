@@ -1,6 +1,7 @@
 import { NgClass, NgIf } from '@angular/common';
 import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
@@ -79,6 +80,7 @@ export class ThyButtonIconComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyLight(value: boolean) {
         this._isLighted = coerceBooleanProperty(value);
     }
@@ -88,6 +90,7 @@ export class ThyButtonIconComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyActive(value: boolean) {
         this._isActive = coerceBooleanProperty(value);
     }

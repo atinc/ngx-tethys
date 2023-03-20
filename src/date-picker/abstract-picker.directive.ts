@@ -1,4 +1,4 @@
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { coerceBooleanProperty, FunctionProp, helpers, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
@@ -33,7 +33,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     /**
      * 模式，'decade' | 'year' | 'month' | 'date'
-     * @default date
      */
     @Input() thyMode: ThyPanelMode = 'date';
 
@@ -52,13 +51,11 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     /**
      * 是否展示时间(时、分)
-     * @default false
      */
-    @Input() thyMustShowTime = false;
+    @Input() @InputBoolean() thyMustShowTime = false;
 
     /**
      * 弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
-     * @default bottom
      */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
@@ -68,7 +65,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 弹出 DatePicker 的偏移量
      * @default 4
      */
-    @Input() set thyOffset(value: number) {
+    @Input()
+    @InputNumber()
+    set thyOffset(value: number) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
         }
@@ -81,7 +80,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
      * 是否有幕布
      * @default false
      */
-    @Input() set thyHasBackdrop(value: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyHasBackdrop(value: boolean) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
         }
@@ -95,9 +96,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     /**
      * 是否阻止冒泡
-     * @default true
      */
-    @Input() thyStopPropagation = true;
+    @Input() @InputBoolean() thyStopPropagation = true;
 
     private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;

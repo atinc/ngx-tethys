@@ -14,7 +14,7 @@ import {
     NgZone
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -108,12 +108,15 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyShowClose(value: boolean) {
         this.showClose = coerceBooleanProperty(value);
     }
 
     // 支持有值时，label不显示
-    @Input() set thyLabelHasValue(value: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyLabelHasValue(value: boolean) {
         this.labelHideWhenHasValue = !coerceBooleanProperty(value);
     }
 
@@ -121,7 +124,9 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
      * 有值时隐藏 label
      * @default false
      */
-    @Input() set thyLabelHideWhenHasValue(value: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyLabelHideWhenHasValue(value: boolean) {
         this.labelHideWhenHasValue = coerceBooleanProperty(value);
     }
 
@@ -142,6 +147,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
      */
     @HostBinding('class.active')
     @Input('thyActive')
+    @InputBoolean()
     active: boolean;
 
     /**
@@ -150,6 +156,7 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
      */
     @HostBinding('class.thy-property-operation-disabled')
     @Input('thyDisabled')
+    @InputBoolean()
     disabled: boolean;
 
     private destroy$ = new Subject<void>();

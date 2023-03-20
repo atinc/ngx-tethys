@@ -161,19 +161,18 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     /**
      * 开启虚拟滚动
-     * @default false
      */
     @Input() thyVirtualScroll: boolean = false;
 
     /**
      * 树节点的唯一标识
-     * @default _id
+     * @type string
      */
     @Input() thyPrimaryKey = '_id';
 
     /**
      * 树节点的显示的字段 key
-     * @default name
+     * @type string
      */
     @Input() thyShowKey = 'name';
 
@@ -187,13 +186,13 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     /**
      * 是否多选
-     * @default false
+     * @type boolean
      */
     @Input() thyMultiple = false;
 
     /**
      * 是否禁用树选择器，当为 true 禁用树选择器
-     * @default false
+     * @type boolean
      */
     @Input() thyDisable = false;
 
@@ -203,7 +202,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     /**
      * 树选择框默认文字
-     * @default 请选择节点
+     * @type string
      */
     @Input() thyPlaceholder = '请选择节点';
 
@@ -219,39 +218,37 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     /**
      * 改变空选项的情况下的提示文本
-     * @default 暂时没有数据可选
+     * @type string
      */
     @Input() thyEmptyOptionsText = '暂时没有数据可选';
 
     /**
      * 设置是否隐藏节点(不可进行任何操作)，优先级高于 thyHiddenNodeFn
      * @type string
-     * @default hidden
      */
     @Input() thyHiddenNodeKey = 'hidden';
 
     /**
      * 设置是否禁用节点(不可进行任何操作)，优先级高于 thyDisableNodeFn
      * @type string
-     * @default disabled
      */
     @Input() thyDisableNodeKey = 'disabled';
 
     /**
      * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
-     * @default false
+     * @type boolean
      */
     @Input() thyAsyncNode = false;
 
     /**
      * 是否展示全名
-     * @default false
+     * @type boolean
      */
     @Input() thyShowWholeName = false;
 
     /**
      * 是否展示搜索
-     * @default false
+     * @type boolean
      */
     @Input() thyShowSearch = false;
 

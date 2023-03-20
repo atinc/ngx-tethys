@@ -9,6 +9,7 @@ import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyIconNavComponent, ThyIconNavLinkComponent } from 'ngx-tethys/nav';
 import { NgIf, NgClass } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const allDayTimestamp = 24 * 60 * 60;
 
@@ -41,21 +42,18 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     /**
      * 隐藏下拉选择时间段
      * @type boolean
-     * @default false
      */
-    @Input() thyHiddenMenu = false;
+    @Input() @InputBoolean() thyHiddenMenu = false;
 
     /**
      * 禁用左右切换时间段
      * @type boolean
-     * @default false
      */
-    @Input() thyDisabledSwitch = false;
+    @Input() @InputBoolean() thyDisabledSwitch = false;
 
     /**
      * 自定义日期选择的展示文字
      * @type string
-     * @default 自定义
      */
     @Input() thyCustomTextValue = '自定义';
 
@@ -72,7 +70,6 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     /**
      * 值有`custom`和`exception`。当值为`exception`，`thyPickerFormat`设置的自定义格式才会生效
      * @type custom | exception
-     * @default custom
      */
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 

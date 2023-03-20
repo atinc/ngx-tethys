@@ -27,7 +27,7 @@ import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstra
 import { ThyTreeNode } from './tree-node.class';
 import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
 import { ThyTreeService } from './tree.service';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle, NgTemplateOutlet } from '@angular/common';
@@ -53,25 +53,21 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     /**
      * 设置 TreeNode 是否支持异步加载
-     * @default false
      */
     @Input() @InputBoolean() thyAsync = false;
 
     /**
      * 设置 TreeNode 是否支持多选
-     * @default false
      */
     @Input() @InputBoolean() thyMultiple = false;
 
     /**
      * 设置 TreeNode 是否支持拖拽排序
-     * @default false
      */
     @Input() @InputBoolean() thyDraggable = false;
 
     /**
      * 设置 TreeNode 是否支持 Checkbox 选择
-     * @default false
      */
     @Input() @InputBoolean() thyCheckable = false;
 
@@ -120,15 +116,13 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     /**
      * 开启虚拟滚动时，单行节点的高度，当`thySize`为`default`时，该参数才生效
-     * @default 44
      */
-    @Input() thyItemSize = 44;
+    @Input() @InputNumber() thyItemSize = 44;
 
     /**
      * 设置节点缩进距离，缩进距离 = thyIndent * node.level
-     * @default 25
      */
-    @Input() thyIndent = 25;
+    @Input() @InputNumber() thyIndent = 25;
 
     public get nodeIcon() {
         return this.node.origin.icon;

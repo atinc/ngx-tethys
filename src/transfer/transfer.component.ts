@@ -13,6 +13,7 @@ import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
 import { ThyTransferListComponent } from './transfer-list.component';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 穿梭框组件
@@ -69,17 +70,17 @@ export class ThyTransferComponent implements OnInit {
      * 右侧列表是否可以锁定
      * @default false
      */
-    @Input() thyRightCanLock: boolean;
+    @Input() @InputBoolean() thyRightCanLock: boolean;
 
     /**
      * 右侧锁定最大数量
      */
-    @Input() thyRightLockMax: number;
+    @Input() @InputNumber() thyRightLockMax: number;
 
     /**
      * 右侧选择最大数量
      */
-    @Input() thyRightMax: number;
+    @Input() @InputNumber() thyRightMax: number;
 
     /**
      * 设置是否自动移动
@@ -87,6 +88,7 @@ export class ThyTransferComponent implements OnInit {
      * @default true
      */
     @Input()
+    @InputBoolean()
     set thyAutoMove(value: boolean) {
         this._autoMove = value;
     }
@@ -95,13 +97,13 @@ export class ThyTransferComponent implements OnInit {
      * 左侧列表是否拖动
      * @default false
      */
-    @Input() thyLeftDraggable: boolean;
+    @Input() @InputBoolean() thyLeftDraggable: boolean;
 
     /**
      * 右侧列表是否拖动
      * @default false
      */
-    @Input() thyRightDraggable: boolean;
+    @Input() @InputBoolean() thyRightDraggable: boolean;
 
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 

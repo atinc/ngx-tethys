@@ -4,6 +4,7 @@ import { Component, ContentChild, Inject, Input, OnInit, TemplateRef } from '@an
 
 import { THY_DIALOG_LAYOUT_CONFIG, ThyDialogFooterAlign, ThyDialogLayoutConfig } from '../dialog.config';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 模态框底部组件
@@ -29,7 +30,9 @@ export class DialogFooterComponent implements OnInit {
      * @type boolean
      * @default false
      */
-    @Input() set thyDivided(value: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyDivided(value: boolean) {
         this.divided = coerceBooleanProperty(value);
     }
 

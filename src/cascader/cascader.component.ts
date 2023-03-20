@@ -122,26 +122,22 @@ export class ThyCascaderComponent extends _MixinBase
     implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
-     * @default value
      */
     @Input() thyValueProperty = 'value';
 
     /**
      * 选项的显示值的属性名
-     * @default label
      */
     @Input() thyLabelProperty = 'label';
 
     /**
      * 描述输入字段预期值的简短的提示信息
-     * @default 请选择
      */
     @Input() thyPlaceholder = '请选择';
 
     /**
      * 控制大小（4种）
      * @type 'sm' | 'md' | 'lg' | ''
-     * @default null
      */
     @Input() thySize: SelectControlSize = '';
 
@@ -166,14 +162,12 @@ export class ThyCascaderComponent extends _MixinBase
     /**
      * 点击项时，表单是否动态展示数据项
      * @type boolean
-     * @default false
      */
     @Input() @InputBoolean() thyChangeOnSelect = false;
 
     /**
      * 显示输入框
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyShowInput = true;
 
@@ -199,14 +193,12 @@ export class ThyCascaderComponent extends _MixinBase
     /**
      * 控制触发状态, 支持 `click` | `hover`
      * @type ThyCascaderTriggerType | ThyCascaderTriggerType[]
-     * @default ['click']
      */
     @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
 
     /**
      * 鼠标经过下方列表项时，是否自动展开列表, 支持 `click` | `hover`   
      * @type ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[]
-     * @default ['click']
      */
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
 
@@ -287,7 +279,6 @@ export class ThyCascaderComponent extends _MixinBase
     /**
      * 设置多选时最大显示的标签数量，0 表示不限制
      * @type number
-     * @default 0
      */
     @Input() @InputNumber() thyMaxTagCount = 0;
 

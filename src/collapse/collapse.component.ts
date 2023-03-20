@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 import { ThyCollapseItemComponent } from './collapse-item.component';
 
@@ -38,12 +39,11 @@ export class ThyCollapseComponent implements OnInit {
      * 是否为手风琴模式，手风琴模式下，只能展开一个面板
      * @default false
      */
-    @Input() thyAccordion: boolean;
+    @Input() @InputBoolean() thyAccordion: boolean;
 
     /**
      * 展开收起图标的位置
      * @type left | right
-     * @default left
      */
     @Input() thyArrowIconPosition: ThyCollapsedIconPosition = 'left';
 

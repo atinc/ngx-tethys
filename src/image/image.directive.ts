@@ -57,7 +57,6 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
     /**
      * 是否自动计算图片资源大小
-     * @default false
      */
     @Input() @InputBoolean() thyResolveSize = false;
 

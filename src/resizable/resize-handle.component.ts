@@ -47,13 +47,11 @@ export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDe
     /**
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft
-     * @default bottomRight
      */
     @Input() thyDirection: ThyResizeDirection = 'bottomRight';
 
     /**
      * 是否展示拖拽线
-     * @default false
      */
     @Input() @InputBoolean() thyLine = false;
 

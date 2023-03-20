@@ -1,7 +1,7 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 
 const noop = () => {};
 
@@ -36,6 +36,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyInline(value: boolean) {
         this._isFormCheckInline = coerceBooleanProperty(value);
     }
@@ -65,6 +66,7 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.setDisabledState(coerceBooleanProperty(value));
     }

@@ -95,7 +95,6 @@ export class ThyVoteComponent implements OnInit {
     /**
      * 图标
      * @type string
-     * @default thumb-up
      */
     @Input() thyIcon = 'thumb-up';
 
@@ -114,7 +113,7 @@ export class ThyVoteComponent implements OnInit {
 
     /**
      * 是否禁用
-     * @default false
+     * @type boolean
      */
     @Input() @InputBoolean() thyDisabled = false;
 

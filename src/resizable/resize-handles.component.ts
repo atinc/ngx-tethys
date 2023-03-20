@@ -32,13 +32,11 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
 export class ThyResizeHandlesComponent implements OnChanges {
     /**
      * 定义调整手柄的方向
-     * @default DEFAULT_RESIZE_DIRECTION
      */
     @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
 
     /**
      * 是否展示拖拽线
-     * @default false
      */
     @Input() @InputBoolean() thyLine = false;
 

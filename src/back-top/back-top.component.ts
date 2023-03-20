@@ -53,7 +53,7 @@ export class ThyBackTopComponent implements OnInit, OnDestroy, OnChanges {
 
     /**
      * 滚动高度达到此参数值才出现 thy-back-top
-     * @default 400
+     * @type number
      */
     @Input() thyVisibilityHeight = 400;
 

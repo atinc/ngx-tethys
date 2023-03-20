@@ -31,7 +31,6 @@ export class ThyYearPickerComponent extends BasePickerComponent {
     /**
      * 展示的年份格式
      * @type string
-     * @default yyyy
      */
     @Input() thyFormat = 'yyyy';
 

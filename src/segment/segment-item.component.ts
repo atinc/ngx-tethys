@@ -48,7 +48,6 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
 
     /**
      * 是否禁用该选项
-     * @default false
      */
     @Input()
     @InputBoolean()

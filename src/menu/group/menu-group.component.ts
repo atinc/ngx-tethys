@@ -100,7 +100,6 @@ export class ThyMenuGroupComponent implements OnInit {
 
     /**
      * 是否支持展开收起
-     * @default false
      */
     @Input() @InputBoolean() thyCollapsible: boolean = false;
 
@@ -108,6 +107,7 @@ export class ThyMenuGroupComponent implements OnInit {
      * 是否显示 Icon
      */
     @Input('thyShowIcon')
+    @InputBoolean()
     set thyShowIcon(value: boolean) {
         this.showIcon = value;
     }
@@ -130,15 +130,13 @@ export class ThyMenuGroupComponent implements OnInit {
 
     /**
      *是否显示操作
-     @default false
      */
-    @Input() thyShowAction = false;
+    @Input() @InputBoolean() thyShowAction = false;
 
     /**
      * 操作阻止冒泡事件
-     * @default true
      */
-    @Input() thyActionStopPropagation = true;
+    @Input() @InputBoolean() thyActionStopPropagation = true;
 
     /**
      * Action 点击事件

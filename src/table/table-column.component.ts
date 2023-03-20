@@ -42,16 +42,19 @@ export type FixedDirection = 'left' | 'right';
 export class ThyTableColumnComponent implements OnInit {
     /**
      * 设置数据属性 Key，读取数组中对象的当前 Key 值
+     * @type string
      */
     @Input('thyModelKey') model = '';
 
     /**
      * 设置列名，显示在表头
+     * @type string
      */
     @Input('thyTitle') title = '';
 
     /**
      * 设置列的特殊类型，序列号、选择框、单选框、切换按钮
+     * @type string
      */
     @Input('thyType') type = '';
 
@@ -82,14 +85,15 @@ export class ThyTableColumnComponent implements OnInit {
 
     /**
      * 设置列头部的 Class，即 th 元素上的样式
+     * @type string
      */
     @Input('thyHeaderClassName') headerClassName = '';
 
     /**
      * 设置自定义类型的禁用状态
-     * @default false
+     * @type boolean
      */
-    @Input('thyDisabled') disabled = false;
+    @Input('thyDisabled') @InputBoolean() disabled = false;
 
     /**
      * thyType 为 checkbox 或者 radio 类型时选中的数据 ，支持单个对象，单个 Id，同时支持多个 Id，多个对象
@@ -112,14 +116,14 @@ export class ThyTableColumnComponent implements OnInit {
     }
     /**
      * 设置数据为空的时候显示的文本
+     * @type string
      */
     @Input('thyDefaultText') defaultText = '';
 
     /**
      * 设置 Tree 模式下折叠展开按钮展示列，不传默认第一列
-     * @default false
      */
-    @Input('thyExpand') expand = false;
+    @Input('thyExpand') @InputBoolean() expand = false;
 
     public sortable: boolean;
 
@@ -128,6 +132,7 @@ export class ThyTableColumnComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thySortable(value: boolean) {
         if (value) {
             if (this.model) {
@@ -143,7 +148,6 @@ export class ThyTableColumnComponent implements OnInit {
     /**
      * 默认列排序顺序
      * @type 'asc' | 'desc' | ''
-     * @default default
      */
     @Input('thySortDirection') sortDirection = ThyTableSortDirection.default;
 

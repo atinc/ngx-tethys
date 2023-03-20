@@ -21,6 +21,7 @@ import { ThyOptionComponent, ThyEnterDirective } from 'ngx-tethys/shared';
 import { FormsModule } from '@angular/forms';
 import { ThySelectCustomComponent } from 'ngx-tethys/select';
 import { NgIf, NgTemplateOutlet, NgFor } from '@angular/common';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
@@ -52,6 +53,7 @@ export class ThyPaginationComponent implements OnInit {
      * @default 1
      */
     @Input()
+    @InputNumber()
     set thyPageIndex(pageIndex: number) {
         this.pageIndex = pageIndex;
         if (this.initialized) {
@@ -64,6 +66,7 @@ export class ThyPaginationComponent implements OnInit {
      * @default 20
      */
     @Input()
+    @InputNumber()
     set thyPageSize(pageSize: number) {
         this.pageSize = pageSize;
         this.selectPageSize = pageSize;
@@ -103,15 +106,15 @@ export class ThyPaginationComponent implements OnInit {
 
     /**
      * 是否禁用
-     * @default false
      */
-    @Input('thyDisabled') disabled = false;
+    @Input('thyDisabled') @InputBoolean() disabled = false;
 
     /**
      * 是否显示快速跳转
      * @default false
      */
     @Input('thyShowQuickJumper')
+    @InputBoolean()
     set showQuickJumper(value: boolean) {
         this.config.showQuickJumper = value;
     }
@@ -121,6 +124,7 @@ export class ThyPaginationComponent implements OnInit {
      * @default true
      */
     @Input('thyShowTotalPageCount')
+    @InputBoolean()
     set showTotalPageCount(value: boolean) {
         this.config.showTotalPageCount = value;
     }
@@ -141,6 +145,7 @@ export class ThyPaginationComponent implements OnInit {
      * @default 9
      */
     @Input('thyMaxCount')
+    @InputNumber()
     set maxCount(value: number) {
         this.config.maxCount = value;
     }
@@ -149,13 +154,14 @@ export class ThyPaginationComponent implements OnInit {
      * 设置边缘显示数量
      * @default 2
      */
-    @Input('thyMarginalCount') marginalCount: number;
+    @Input('thyMarginalCount') @InputNumber() marginalCount: number;
 
     /**
      * 设置中间区域显示数量
      * @default 7
      */
     @Input()
+    @InputNumber()
     set thyRangeCount(value: number) {
         if (Number.isInteger(value)) {
             this.config.rangeCount = value;

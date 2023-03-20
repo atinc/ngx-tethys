@@ -1,4 +1,4 @@
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -43,7 +43,6 @@ export class ThyIconComponent implements OnInit, OnChanges {
     /**
      * 图标的类型
      * @type outline | fill | twotone
-     * @default outline
      */
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
@@ -58,7 +57,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
      * 图标的旋转角度
      * @default 0
      */
-    @Input('thyIconRotate') iconRotate: number;
+    @Input('thyIconRotate') @InputNumber() iconRotate: number;
 
     @Input('thyIconSet') iconSet: string;
 

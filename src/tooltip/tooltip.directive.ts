@@ -46,7 +46,6 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 指定提示的位置
      * @type ThyPlacement
-     * @default top
      */
     @Input('thyTooltipPlacement') placement: ThyPlacement = 'top';
 

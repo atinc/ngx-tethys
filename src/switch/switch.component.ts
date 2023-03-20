@@ -17,6 +17,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -87,9 +88,8 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     /**
      * 是否属于禁用状态
-     * @default false
      */
-    @Input() thyDisabled: boolean = false;
+    @Input() @InputBoolean() thyDisabled: boolean = false;
 
     /**
      * 数据变化的回调事件，即将被弃用，请使用 ngModelChange

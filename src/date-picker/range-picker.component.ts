@@ -36,7 +36,6 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
     /**
      * 支持的选区间模式
      * @type  year | month | date
-     * @default date
      */
     @Input() thyMode: ThyPanelMode = 'date';
 

@@ -2,6 +2,7 @@ import {
     Constructor,
     InputBoolean,
     InputCssPixel,
+    InputNumber,
     MixinBase,
     mixinUnsubscribe,
     ThyUnsubscribe,
@@ -354,6 +355,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * @default true
      */
     @Input()
+    @InputBoolean()
     set thyLoadingDone(value: boolean) {
         this.loadingDone = value;
     }
@@ -379,6 +381,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDraggable(value: boolean) {
         this.draggable = coerceBooleanProperty(value);
         if ((typeof ngDevMode === 'undefined' || ngDevMode) && this.draggable && this.mode === 'tree') {
@@ -391,6 +394,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * @default 1
      */
     @Input()
+    @InputNumber()
     set thyPageIndex(value: number) {
         this.pagination.index = value;
     }
@@ -400,6 +404,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * @default 20
      */
     @Input()
+    @InputNumber()
     set thyPageSize(value: number) {
         this.pagination.size = value;
     }
@@ -408,6 +413,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * 设置总页数
      */
     @Input()
+    @InputNumber()
     set thyPageTotal(value: number) {
         this.pagination.total = value;
     }
@@ -417,6 +423,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyWholeRowSelect(value: boolean) {
         if (value) {
             this.className += ' table-hover';
@@ -426,21 +433,18 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 是否显示表格头
-     * @default true
      */
-    @Input() thyShowHeader = true;
+    @Input() @InputBoolean() thyShowHeader = true;
 
     /**
      * 是否显示左侧 Total
-     * @default false
      */
-    @Input('thyShowTotal') showTotal = false;
+    @Input('thyShowTotal') @InputBoolean() showTotal = false;
 
     /**
      * 是否显示调整每页显示条数下拉框
-     * @default false
      */
-    @Input('thyShowSizeChanger') showSizeChanger = false;
+    @Input('thyShowSizeChanger') @InputBoolean() showSizeChanger = false;
 
     /**
      * 每页显示条数下拉框可选项
@@ -453,13 +457,12 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * thyMode 为 tree 时，设置 Tree 树状数据展示时的缩进
-     * @default 20
      */
-    @Input() thyIndent = 20;
+    @Input() @InputNumber() thyIndent = 20;
 
     /**
      * thyMode 为 tree 时，设置 Tree 树状数据对象中的子节点 Key
-     * @default children
+     * @type string
      */
     @Input() thyChildrenKey = 'children';
 
@@ -469,6 +472,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
      */
     @HostBinding('class.thy-table-hover-display-operation')
     @Input()
+    @InputBoolean()
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;

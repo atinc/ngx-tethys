@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandleComponent } from 'ngx-tethys/resizable';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -138,14 +138,13 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     /**
      * 宽度是否可以拖拽
-     * @default false
      */
     @Input() @InputBoolean() thyDraggable: boolean = false;
 
     /**
      * 拖拽的最大宽度
      */
-    @Input() thyDragMaxWidth: number;
+    @Input() @InputNumber() thyDragMaxWidth: number;
 
     /**
      * 展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态
@@ -196,9 +195,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     /**
      * 收起后的宽度
-     * @default 20
      */
-    @Input() thyCollapsedWidth = 20;
+    @Input() @InputNumber() thyCollapsedWidth = 20;
 
     /**
      * 主题

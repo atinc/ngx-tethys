@@ -19,7 +19,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgStyle } from '@angular/common';
 
@@ -47,7 +47,6 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
 export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
     /**
      * 是否切换为纵轴模式
-     * @default false
      */
     @HostBinding('class.slider-vertical')
     @Input()
@@ -56,7 +55,6 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     /**
      * 是否禁用
-     * @default false
      */
     @HostBinding('class.slider-disabled')
     @Input()
@@ -75,21 +73,18 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     /**
      * 最大值
-     * @default 100
      */
-    @Input() thyMax = 100;
+    @Input() @InputNumber() thyMax = 100;
 
     /**
      * 最小值
-     * @default 0
      */
-    @Input() thyMin = 0;
+    @Input() @InputNumber() thyMin = 0;
 
     /**
      * 步长，需要被 thyMax - thyMin 的差值整除。
-     * @default 1
      */
-    @Input() thyStep = 1;
+    @Input() @InputNumber() thyStep = 1;
 
     /**
      * 切换主题类型

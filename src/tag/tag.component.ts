@@ -49,7 +49,6 @@ export class ThyTagComponent implements OnInit, OnChanges {
     /**
      * 标签形状
      * @type pill | rectangle
-     * @default rectangle
      */
     @Input() thyShape: ThyTagShape = 'rectangle';
 
@@ -64,14 +63,12 @@ export class ThyTagComponent implements OnInit, OnChanges {
     /**
      * 标签主题，fill 为颜色填充，outline 为线框，weak-fill 为背景色0.1透明度效果
      * @type outline | fill | weak-fill
-     * @default fill
      */
     @Input() thyTheme: 'outline' | 'fill' | 'weak-fill' = 'fill';
 
     /**
      * 标签大小
      * @type sm | md | lg
-     * @default md
      */
     @Input() thySize: ThyTagSize = 'md';
 

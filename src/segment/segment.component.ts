@@ -60,20 +60,17 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     /**
      * 大小
      * @type xs | sm | md | default
-     * @default default
      */
     @Input() thySize: ThySegmentSize = 'default';
 
     /**
      * 模式，分别为
      * @type block | inline
-     * @default block
      */
     @Input() thyMode: ThySegmentMode = 'block';
 
     /**
      * 是否禁用分段控制器
-     * @default false
      */
     @Input()
     @InputBoolean()
@@ -82,7 +79,6 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
 
     /**
      * 默认选中的选项的索引
-     * @default 0
      */
     @Input() @InputNumber() thyActiveIndex: number = 0;
 

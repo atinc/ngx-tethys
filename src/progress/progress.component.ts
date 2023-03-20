@@ -112,7 +112,6 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     /**
      * 进度形状
      * @type strip | circle
-     * @default strip
      */
     @Input() thyShape: ThyProgressShapeType = 'strip';
 
@@ -124,7 +123,6 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     /**
      * 圆形进度条缺口位置
      * @type top | bottom | left | right
-     * @default top
      */
     @Input() thyGapPosition: ThyProgressGapPositionType = 'top';
 

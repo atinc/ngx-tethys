@@ -91,7 +91,6 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     /**
      * 操作图标的主题
      * @type fill(背景色填充) | lite(简单文本颜色变化)
-     * @default fill
      */
     @Input() thyTheme: 'fill' | 'lite' = 'fill';
 

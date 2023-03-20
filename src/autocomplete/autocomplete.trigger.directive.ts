@@ -81,7 +81,6 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
 
     /**
      * 弹出框默认 offset
-     * @default 4
      * @type number
      */
     @Input() thyOffset = 4;
@@ -95,14 +94,12 @@ export class ThyAutocompleteTriggerDirective implements OnInit, OnDestroy {
     /**
      * 下拉菜单的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      * @type string
-     * @default bottomLeft
      */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
     /**
      * 是否允许聚焦时打开下拉菜单
      * @type boolean
-     * @default true
      */
     @Input() thyIsFocusOpen = true;
 

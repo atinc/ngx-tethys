@@ -1,4 +1,4 @@
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
@@ -114,7 +114,7 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
      * 是否自动根据父容器计算高度，垂直居中
      * @default false
      */
-    @Input() thyTopAuto: boolean;
+    @Input() @InputBoolean() thyTopAuto: boolean;
 
     /**
      * 自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器

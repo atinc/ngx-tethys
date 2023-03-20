@@ -38,13 +38,11 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     /**
      * 复制成功时的文案
-     * @default 复制成功
      */
     @Input() thyCopySuccessText = '复制成功';
 
     /**
      * 提示文案
-     * @default 点击复制
      */
     @Input() thyCopyTips = '点击复制';
 
@@ -60,7 +58,6 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     /**
      * 是否展示通知
-     * @default true
      */
     @Input() @InputBoolean() thyShowNotify = true;
 

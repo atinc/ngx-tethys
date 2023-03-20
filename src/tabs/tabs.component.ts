@@ -14,7 +14,7 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -55,14 +55,12 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     /**
      * 标签类型
      * @type 'pulled' | 'tabs' | 'pills' | 'lite'
-     * @default 'tabs'
      */
     @Input() thyType: ThyTabsType = 'tabs';
 
     /**
      * 选项卡的大小
      * @type 'lg' | 'md' | 'sm'
-     * @default 'md'
      */
     @Input() thySize: ThyTabsSize = 'md';
 
@@ -88,21 +86,18 @@ export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, A
     /**
      * 选项卡的位置
      * @type 'top' | 'left'
-     * @default 'top'
      */
     @Input() thyPosition: ThyTabsPosition = 'top';
 
     /**
      * 是否使用动画切换 Tabs
-     * @default false
      */
-    @Input() thyAnimated: boolean = false;
+    @Input() @InputBoolean() thyAnimated: boolean = false;
 
     /**
      * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
-     * @default false
      */
-    @Input() thyResponsive: boolean = false;
+    @Input() @InputBoolean() thyResponsive: boolean = false;
 
     /**
      * 激活的项发生改变时的回调

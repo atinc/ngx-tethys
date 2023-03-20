@@ -48,7 +48,6 @@ export class ThyCalendarComponent implements OnInit, OnChanges {
     /**
      * 展示模式
      * @type month | year
-     * @default month
      */
     @Input() thyMode: CalendarMode = 'month';
 

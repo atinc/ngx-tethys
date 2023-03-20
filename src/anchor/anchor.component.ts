@@ -66,13 +66,11 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     /**
      * 固定模式
-     * @default true
      */
     @Input() @InputBoolean() thyAffix = true;
 
     /**
      * 锚点区域边界，单位：px
-     * @default 5
      */
     @Input()
     thyBounds = 5;

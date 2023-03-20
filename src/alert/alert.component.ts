@@ -3,6 +3,7 @@ import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -117,7 +118,7 @@ export class ThyAlertComponent implements OnInit, OnChanges {
      * 是否显示关闭警告框按钮，默认不显示
      * @default false
      */
-    @Input() thyCloseable: boolean;
+    @Input() @InputBoolean() thyCloseable: boolean;
 
     /**
      * 警告框自定义操作

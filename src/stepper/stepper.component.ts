@@ -2,6 +2,7 @@ import { Component, ViewChildren, ContentChildren, QueryList, HostBinding, Input
 import { ThyStepComponent, IThyStepperComponent, THY_STEPPER_COMPONENT } from './step.component';
 import { ThyStepHeaderComponent } from './step-header.component';
 import { NgIf, NgFor, NgTemplateOutlet } from '@angular/common';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 步骤条组件
@@ -25,6 +26,7 @@ export class ThyStepperComponent implements IThyStepperComponent {
      * @default 0
      */
     @Input()
+    @InputNumber()
     set thySelectedIndex(value: number) {
         this.selectedIndex = value;
     }
@@ -36,9 +38,8 @@ export class ThyStepperComponent implements IThyStepperComponent {
 
     /**
      * 步骤条导航是否展示，默认展示
-     * @default true
      */
-    @Input() thyShowStepHeader = true;
+    @Input() @InputBoolean() thyShowStepHeader = true;
 
     private _selectedIndex = 0;
 

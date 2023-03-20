@@ -1,5 +1,5 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
@@ -127,6 +127,7 @@ export class ThyFormGroupComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyRowFill(value: boolean) {
         this._rowFill = coerceBooleanProperty(value);
     }
