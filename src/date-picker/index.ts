@@ -30,3 +30,4 @@ export * from './lib/date-carousel/date-carousel.component';
 export * from './abstract-picker.component';
 export * from './abstract-picker.directive';
 export * from './date-helper.service';
+export * from './date-picker.service';
