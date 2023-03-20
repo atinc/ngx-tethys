@@ -1,4 +1,4 @@
-import { Component, forwardRef, OnInit, Input, SimpleChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, forwardRef, OnInit, Input, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
@@ -9,6 +9,8 @@ import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyIconNavComponent, ThyIconNavLinkComponent } from 'ngx-tethys/nav';
 import { NgIf, NgClass } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
+
 const allDayTimestamp = 24 * 60 * 60;
 
 const INPUT_CONTROL_VALUE_ACCESSOR: any = {
@@ -17,6 +19,10 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     multi: true
 };
 
+/**
+ * 预设时间段及自定义时间段选择组件
+ * @selector thy-date-range
+ */
 @Component({
     selector: 'thy-date-range',
     templateUrl: './date-range.component.html',
@@ -25,27 +31,61 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     imports: [NgIf, ThyIconNavComponent, ThyIconNavLinkComponent, ThyIconComponent, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
+    /**
+     * 自定义可选值列表项
+     */
     @Input()
     set thyOptionalDateRanges(value: DateRangeItemInfo[]) {
         this.optionalDateRanges = value.length > 0 ? value : this.optionalDateRanges;
     }
 
-    @Input() thyHiddenMenu = false;
+    /**
+     * 隐藏下拉选择时间段
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyHiddenMenu = false;
 
-    @Input() thyDisabledSwitch = false;
+    /**
+     * 禁用左右切换时间段
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyDisabledSwitch = false;
 
+    /**
+     * 自定义日期选择的展示文字
+     * @type string
+     */
     @Input() thyCustomTextValue = '自定义';
 
+    /**
+     * 自定义日期选择中可选择的最小时间
+     */
     @Input() thyMinDate: Date | number;
 
+    /**
+     * 自定义日期选择中可选择的最大时间
+     */
     @Input() thyMaxDate: Date | number;
 
+    /**
+     * 值有`custom`和`exception`。当值为`exception`，`thyPickerFormat`设置的自定义格式才会生效
+     * @type custom | exception
+     */
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
+    /**
+     * 自定义日期展示格式，只有当`thyCustomKey`值设为`custom`时才会生效
+     */
     @Input() thyPickerFormat: string;
 
+    /**
+     * 自定义日期禁用日期
+     */
     @Input() thyDisabledDate: (d: Date) => boolean;
 
+    /**
+     * 自定义日期选择日期回调
+     */
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     public selectedDate?: DateRangeItemInfo;

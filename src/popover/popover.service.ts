@@ -6,7 +6,6 @@ import { takeUntil } from 'rxjs/operators';
 import { Directionality } from '@angular/cdk/bidi';
 import { coerceArray, coerceElement } from '@angular/cdk/coercion';
 import {
-    ComponentType,
     FlexibleConnectedPositionStrategy,
     FlexibleConnectedPositionStrategyOrigin,
     Overlay,
@@ -33,6 +32,9 @@ import {
 import { popoverAbstractOverlayOptions } from './popover.options';
 import { SafeAny } from 'ngx-tethys/types';
 
+/**
+ * @public
+ */
 @Injectable()
 export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {
     private readonly ngUnsubscribe$ = new Subject();
@@ -190,7 +192,7 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     }
 
     /**
-     * 打开 Popover
+     * 打开悬浮层
      */
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,

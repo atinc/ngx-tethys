@@ -17,6 +17,11 @@ export class ThyFormGroupFooterComponent implements OnInit {
 
     @ContentChild('description') description: TemplateRef<any>;
 
+    /**
+     * 对齐方式
+     * @type left | right | center
+     * @default left
+     */
     @Input() thyAlign: ThyFormGroupFooterAlign;
 
     public footerClassMap = {};

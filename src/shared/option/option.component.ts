@@ -24,6 +24,7 @@ import {
     THY_OPTION_PARENT_COMPONENT
 } from './option.token';
 import { NgIf } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}
@@ -63,6 +64,7 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     @ViewChild(TemplateRef, { static: true }) template: TemplateRef<any>;
 
     @Input()
+    @InputBoolean()
     @HostBinding(`class.disabled`)
     set thyDisabled(value: boolean) {
         this._disabled = value;

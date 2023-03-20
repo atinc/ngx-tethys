@@ -1,4 +1,4 @@
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { take } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
@@ -23,6 +23,10 @@ const iconSuffixMap = {
     twotone: 'tt'
 };
 
+/**
+ * 图标组件
+ * @name thy-icon,[thy-icon]
+ */
 @Component({
     selector: 'thy-icon, [thy-icon]',
     template: '<ng-content></ng-content>',
@@ -36,16 +40,31 @@ const iconSuffixMap = {
 export class ThyIconComponent implements OnInit, OnChanges {
     private initialized = false;
 
+    /**
+     * 图标的类型
+     * @type outline | fill | twotone
+     */
     @Input('thyIconType') iconType: 'outline' | 'fill' | 'twotone' = 'outline';
 
     @Input('thyTwotoneColor') iconTwotoneColor: string;
 
+    /**
+     * 图标的名字
+     */
     @Input('thyIconName') iconName: string;
 
-    @Input('thyIconRotate') iconRotate: number;
+    /**
+     * 图标的旋转角度
+     * @default 0
+     */
+    @Input('thyIconRotate') @InputNumber() iconRotate: number;
 
     @Input('thyIconSet') iconSet: string;
 
+    /**
+     * 图标打底色，镂空的图标，会透过颜色来
+     * @default false
+     */
     @HostBinding(`class.thy-icon-legging`)
     @Input('thyIconLegging')
     @InputBoolean()

@@ -1,4 +1,4 @@
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverConfig } from 'ngx-tethys/popover';
 import { coerceBooleanProperty, FunctionProp, helpers, warnDeprecation } from 'ngx-tethys/util';
 import { fromEvent, Observable, Subject } from 'rxjs';
@@ -30,6 +30,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     showWeek = false;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
+
+    /**
+     * 模式，'decade' | 'year' | 'month' | 'date'
+     */
     @Input() thyMode: ThyPanelMode = 'date';
 
     panelMode: ThyPanelMode | ThyPanelMode[];
@@ -45,12 +49,25 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
-    @Input() thyMustShowTime = false;
+    /**
+     * 是否展示时间(时、分)
+     */
+    @Input() @InputBoolean() thyMustShowTime = false;
 
+    /**
+     * 弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
     private offset = 4;
-    @Input() set thyOffset(value: number) {
+
+    /**
+     * 弹出 DatePicker 的偏移量
+     * @default 4
+     */
+    @Input()
+    @InputNumber()
+    set thyOffset(value: number) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyOffset parameter will be deprecated, please use thyPopoverOptions instead.`);
         }
@@ -58,16 +75,29 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     private hasBackdrop = true;
-    @Input() set thyHasBackdrop(value: boolean) {
+
+    /**
+     * 是否有幕布
+     * @default false
+     */
+    @Input()
+    @InputBoolean()
+    set thyHasBackdrop(value: boolean) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation(`thyHasBackdrop parameter will be deprecated, please use thyPopoverOptions instead.`);
         }
         this.hasBackdrop = value;
     }
 
+    /**
+     * popover的其他参数
+     */
     @Input() thyPopoverOptions: ThyPopoverConfig;
 
-    @Input() thyStopPropagation = true;
+    /**
+     * 是否阻止冒泡
+     */
+    @Input() @InputBoolean() thyStopPropagation = true;
 
     private destroy$ = new Subject<void>();
     private el: HTMLElement = this.elementRef.nativeElement;

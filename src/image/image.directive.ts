@@ -17,6 +17,7 @@ import { ThyImageService } from './image.service';
 
 /**
  * thyImage: 预览图片指令，只可绑定到 img 标签上
+ * @name img[thyImage]
  */
 @Directive({
     selector: 'img[thyImage]',
@@ -32,18 +33,22 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
      * 图片地址
      */
     @Input() thySrc: string;
+
     /**
      * 预览图片地址
      */
     @Input() thyPreviewSrc: string;
+
     /**
      * 图片原图地址
      */
     @Input() thyOriginSrc: string;
+
     /**
      * 图片附加信息，包含 { name: string, size?: string | number; }
      */
     @Input() thyImageMeta: ThyImageMeta;
+
     /**
      * 是否禁止预览
      * @default false
@@ -52,7 +57,6 @@ export class ThyImageDirective implements OnInit, OnChanges, AfterViewInit, OnDe
 
     /**
      * 是否自动计算图片资源大小
-     * @default false
      */
     @Input() @InputBoolean() thyResolveSize = false;
 

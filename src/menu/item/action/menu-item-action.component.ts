@@ -1,9 +1,11 @@
 import { ComponentType } from '@angular/cdk/portal';
 import { Component, ElementRef, Input, OnDestroy, Renderer2, TemplateRef } from '@angular/core';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 /**
  * 菜单项操作组件
+ * @name thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]
  */
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',
@@ -29,7 +31,10 @@ export class ThyMenuItemActionComponent implements OnDestroy {
         }
     }
 
-    @Input() thyStopPropagation = true;
+    /**
+     * 是否阻止事件冒泡
+     */
+    @Input() @InputBoolean() thyStopPropagation = true;
 
     private bindClickEvent() {
         if (this._boundEvent) {

@@ -1,5 +1,5 @@
 import { Directive, Input, ElementRef, NgZone } from '@angular/core';
-import { reqAnimFrame } from 'ngx-tethys/core';
+import { InputBoolean, reqAnimFrame } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
@@ -16,6 +16,7 @@ export class ThyAutofocusDirective {
 
     /**
      * 是否自动聚焦
+     * @default false
      */
     @Input()
     set thyAutofocus(value: boolean | string) {
@@ -39,8 +40,10 @@ export class ThyAutofocusDirective {
 
     /**
      * 是否自动选择
+     * @default false
      */
     @Input()
+    @InputBoolean()
     set thyAutoSelect(value: boolean) {
         this._autoSelect = coerceBooleanProperty(value);
     }

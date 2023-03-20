@@ -13,7 +13,7 @@ import {
 import { Platform } from '@angular/cdk/platform';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { InputBoolean, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover } from './popover.service';
 import { ComponentType } from '@angular/cdk/portal';
 import { ThyPopoverRef } from './popover-ref';
@@ -44,13 +44,14 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * 弹出悬浮层的位置
+     * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right |  rightTop | rightBottom
      */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
     /**
      * 弹出悬浮层的偏移量
      */
-    @Input() thyOffset: number = 0;
+    @Input() @InputNumber() thyOffset: number = 0;
 
     /**
      * 弹出悬浮层的配置
@@ -60,24 +61,29 @@ export class ThyPopoverDirective extends ThyOverlayDirectiveBase implements OnIn
     /**
      * 显示延迟时间
      */
-    @Input('thyShowDelay') set thyShowDelay(value: number) {
+    @Input('thyShowDelay')
+    @InputNumber()
+    set thyShowDelay(value: number) {
         this.showDelay = value;
     }
 
     /**
      * 隐藏延迟时间
      */
-    @Input('thyHideDelay') set thyHideDelay(value: number) {
+    @Input('thyHideDelay')
+    @InputNumber()
+    set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
 
     /**
      * 自动适配内容变化重新计算位置
      */
-    @Input() thyAutoAdaptive = false;
+    @Input() @InputBoolean() thyAutoAdaptive = false;
 
     /**
-     * 禁用打开悬浮层
+     * 是否禁用打开悬浮层
+     * @default false
      */
     @Input() @InputBoolean() set thyDisabled(value: boolean) {
         this.disabled = value;

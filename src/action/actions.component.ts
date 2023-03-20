@@ -14,6 +14,7 @@ import { ThyActionComponent } from './action.component';
 
 /**
  * Actions 组件
+ * @name thy-actions
  */
 @Component({
     selector: 'thy-actions',

@@ -4,6 +4,10 @@ import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
+/**
+ * 布局头部组件
+ * @name thy-header
+ */
 @Component({
     selector: 'thy-header',
     preserveWhitespaces: false,
@@ -45,12 +49,25 @@ export class ThyHeaderComponent implements OnInit {
         this.divided = value as boolean;
     }
 
+    /**
+     * 头部大小
+     * @type md | sm | lg | xlg
+     */
     @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
+    /**
+     * 头部标题
+     */
     @Input() thyTitle: string;
 
+    /**
+     * 图标前缀，被弃用，图标使用 SVG 图标
+     */
     @Input() thyIconPrefix = 'wtf';
 
+    /**
+     * 图标，SVG 图标名称
+     */
     @Input('thyIcon')
     set thyIcon(value: string) {
         if (value) {
@@ -70,12 +87,24 @@ export class ThyHeaderComponent implements OnInit {
      */
     @Input() @InputBoolean() thyShadow = false;
 
+    /**
+     * 头部自定义标题模板，，<ng-template #headerTitle></ng-template>
+     * @type TemplateRef
+     */
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
+    /**
+     * 头部自定义内容模板，<ng-template #headerContent></ng-template>
+     * @type TemplateRef
+     */
     @ContentChild('headerContent')
     public contentTemplateRef: TemplateRef<any>;
 
+    /**
+     * 头部自定义操作模板，<ng-template #headerOperation></ng-template>
+     * @type TemplateRef
+     */
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
 

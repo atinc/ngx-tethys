@@ -29,6 +29,10 @@ const strengthMap = {
     }
 };
 
+/**
+ * 程度展示组件
+ * @name thy-strength
+ */
 @Component({
     selector: 'thy-strength',
     templateUrl: 'strength.component.html',
@@ -50,22 +54,45 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
 
     strengthMap = JSON.parse(JSON.stringify(strengthMap));
 
+    /**
+     * 组件标题，描述程度所指类型。
+     */
     @Input()
     set titleKey(value: string) {
         this.strengthTitle = this.translate.instant(value);
     }
+
+    /**
+     * 程度最高值文本。
+     * @default 最高
+     */
     @Input()
     set highestKey(value: string) {
         this.strengthMap[ThyStrengthEnum.highest].text = this.translate.instant(value);
     }
+
+    /**
+     * 程度为高值时展示的文本。
+     * @default 高
+     */
     @Input()
     set highKey(value: string) {
         this.strengthMap[ThyStrengthEnum.high].text = this.translate.instant(value);
     }
+
+    /**
+     * 程度为中值时展示的文本。
+     * @default 中
+     */
     @Input()
     set averageKey(value: string) {
         this.strengthMap[ThyStrengthEnum.average].text = this.translate.instant(value);
     }
+
+    /**
+     * 程度为低值时展示的文本。
+     * @default 低
+     */
     @Input()
     set lowKey(value: string) {
         this.strengthMap[ThyStrengthEnum.low].text = this.translate.instant(value);

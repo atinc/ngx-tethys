@@ -415,7 +415,7 @@ describe('Rate tooltip component', () => {
     }));
 });
 
-// 自定义模版
+// 自定义模板
 @Component({
     selector: 'thy-rate-template-test',
     template: `

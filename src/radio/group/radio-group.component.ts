@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { InputBoolean } from 'ngx-tethys/core';
 
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { ThyRadioComponent } from '../radio.component';
@@ -39,6 +40,11 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private _layout: string;
 
+    /**
+     * 大小
+     * @type sm | md | lg
+     * @default md
+     */
     @Input()
     set thySize(size: string) {
         this._size = size;
@@ -55,7 +61,12 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 是否禁用单选组合框
+     * @default false
+     */
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.setDisabledState(value);
     }

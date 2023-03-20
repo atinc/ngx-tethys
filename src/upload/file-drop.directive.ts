@@ -21,6 +21,9 @@ import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
+/**
+ * @name thyFileDrop
+ */
 @Directive({
     selector: '[thyFileDrop]',
     standalone: true

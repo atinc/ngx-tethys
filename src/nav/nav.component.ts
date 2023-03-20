@@ -111,6 +111,7 @@ export class ThyNavComponent extends _MixinBase
 
     /**
      * 导航类型
+     * @type pulled | tabs | pills | lite | primary | secondary | thirdly | secondary-divider
      * @default pulled
      */
     @Input()
@@ -122,7 +123,7 @@ export class ThyNavComponent extends _MixinBase
     }
     /**
      * 导航大小
-     * @type "lg" | "md" | "sm"
+     * @type lg | md | sm
      * @default md
      */
     @Input()
@@ -135,7 +136,7 @@ export class ThyNavComponent extends _MixinBase
 
     /**
      * 水平排列
-     * @type "start" | "center" | "end"
+     * @type '' | 'start' | 'center' | 'end'
      * @default false
      */
     @Input()
@@ -153,8 +154,7 @@ export class ThyNavComponent extends _MixinBase
     thyVertical: boolean;
 
     /**
-     * 填充模式
-     * @default false
+     * 是否是填充模式
      */
     @HostBinding('class.thy-nav--fill')
     @Input()
@@ -162,7 +162,8 @@ export class ThyNavComponent extends _MixinBase
     thyFill: boolean = false;
 
     /**
-     * 响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
+     * 是否响应式，自动计算宽度存放 thyNavItem，并添加更多弹框
+     * @default false
      */
     @Input()
     @InputBoolean()

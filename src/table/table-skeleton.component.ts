@@ -4,6 +4,11 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
 
 const COLUMN_COUNT = 5;
+
+/**
+ * 表格的骨架屏组件
+ * @name thy-table-skeleton
+ */
 @Component({
     selector: 'thy-table-skeleton',
     templateUrl: './table-skeleton.component.html',
@@ -32,6 +37,7 @@ export class ThyTableSkeletonComponent {
 
     /**
      * 是否开启动画
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -53,6 +59,7 @@ export class ThyTableSkeletonComponent {
     @Input() thySecondaryColor: string;
 
     rowCount: number[] = [];
+
     /**
      * 行数
      */

@@ -14,7 +14,7 @@ import {
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandleComponent } from 'ngx-tethys/resizable';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
@@ -26,6 +26,11 @@ const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
 
 export type ThySidebarTheme = 'white' | 'light' | 'dark';
+
+/**
+ * 布局侧边栏组件
+ * @name thy-sidebar
+ */
 @Component({
     selector: 'thy-sidebar',
     preserveWhitespaces: false,
@@ -101,6 +106,10 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
+    /**
+     * 宽度, 默认是 240px, 传入 lg 大小时宽度是300px
+     * @default 240px
+     */
     @Input('thyWidth')
     set thyWidth(value: any) {
         if (value === 'lg') {
@@ -109,28 +118,56 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         this.thyLayoutSidebarWidth = value || SIDEBAR_DEFAULT_WIDTH;
     }
 
+    /**
+     * 右侧是否有边框
+     * @default true
+     */
     @Input('thyHasBorderRight')
     set thyHasBorderRight(value: string) {
         this.thyLayoutSidebarClearBorderRightClass = !coerceBooleanProperty(value);
     }
 
+    /**
+     * 是否和右侧隔离, 当为 true 时距右侧会有 margin, 同时边框会去掉
+     * @default false
+     */
     @Input('thyIsolated')
     set thyIsolated(value: string) {
         this.sidebarIsolated = coerceBooleanProperty(value);
     }
 
+    /**
+     * 宽度是否可以拖拽
+     */
     @Input() @InputBoolean() thyDraggable: boolean = false;
 
-    @Input() thyDragMaxWidth: number;
+    /**
+     * 拖拽的最大宽度
+     */
+    @Input() @InputNumber() thyDragMaxWidth: number;
 
+    /**
+     * 展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态
+     * @default undefined
+     */
     @Input() thyTrigger: null | undefined | TemplateRef<any> = undefined;
 
+    /**
+     * 收起状态改变后的事件
+     */
     @Output()
     thyCollapsedChange = new EventEmitter<boolean>();
 
+    /**
+     * 拖拽宽度的修改事件
+     */
     @Output()
     thyDragWidthChange = new EventEmitter<number>();
 
+    /**
+     * 开启收起/展开功能
+     * @default false
+     */
     @Input() @InputBoolean() set thyCollapsible(collapsible: boolean) {
         this.collapsible = collapsible;
         if (this.collapsible) {
@@ -144,6 +181,10 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         return this.collapsible;
     }
 
+    /**
+     * 是否是收起
+     * @default false
+     */
     @Input() @InputBoolean() set thyCollapsed(value: boolean) {
         this.isCollapsed = value;
     }
@@ -152,8 +193,16 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         return this.isCollapsed;
     }
 
-    @Input() thyCollapsedWidth = 20;
+    /**
+     * 收起后的宽度
+     */
+    @Input() @InputNumber() thyCollapsedWidth = 20;
 
+    /**
+     * 主题
+     * @type white | light | dark
+     * @default white
+     */
     @Input()
     set thyTheme(value: ThySidebarTheme) {
         if (value === 'light') {
@@ -163,6 +212,9 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * 默认宽度，双击后可恢复到此宽度，默认是 240px，传入 lg 大小时宽度是300px
+     */
     @Input() thyDefaultWidth: string | number;
 
     @HostBinding('class.sidebar-collapse-show')

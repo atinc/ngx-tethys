@@ -20,6 +20,7 @@ interface Style {
     background?: string;
     animation?: string;
 }
+
 @Component({
     selector: 'thy-skeleton-circle',
     host: {
@@ -69,6 +70,7 @@ export class ThySkeletonCircleComponent implements OnInit, OnChanges {
      * @default true
      */
     @Input()
+    @InputBoolean()
     thyAnimated: boolean;
 
     public afterStyles: Style = {};

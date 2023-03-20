@@ -56,9 +56,9 @@ export class YourDialog {
 }
 ```
 
-### 打开模版
+### 打开模板
 
-`ThyDialog`服务的`open`方法不仅支持组件，也支持打开模版`TemplateRef<T>`，模版可以通过参数传递，也可以通过`@ViewChild()`方式从视图中获取。
+`ThyDialog`服务的`open`方法不仅支持组件，也支持打开模板`TemplateRef<T>`，模板可以通过参数传递，也可以通过`@ViewChild()`方式从视图中获取。
 
 ```ts
 openProfile(template: TemplateRef<any>) {

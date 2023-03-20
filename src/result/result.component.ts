@@ -4,7 +4,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 type ThyResultStatus = 'success' | 'warning' | 'error';
 
 /**
- * 结果页
+ * 结果页组件
  * @name thy-result
  */
 @Component({
@@ -15,8 +15,8 @@ type ThyResultStatus = 'success' | 'warning' | 'error';
 })
 export class ThyResultComponent implements OnInit {
     /**
-     * @description 结果的状态，决定显示的图标，包含 `success` | `warning` | `error` 三种
-     * @type ThyResultStatus
+     * @description 结果的状态，决定显示的图标
+     * @type success | warning | error
      */
     @Input() thyStatus: ThyResultStatus;
 

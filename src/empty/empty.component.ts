@@ -1,4 +1,4 @@
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
@@ -51,6 +51,10 @@ export type ThyEmptyImageLoading = 'eager' | 'lazy';
 /** https://wicg.github.io/priority-hints/#idl-index */
 export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 
+/**
+ * 空页面组件
+ * @name thy-empty
+ */
 @Component({
     selector: 'thy-empty',
     templateUrl: './empty.component.html',
@@ -58,22 +62,41 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
     imports: [NgIf, ThyIconComponent, NgClass, NgTemplateOutlet]
 })
 export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
-    // 显示的文本，优先级 100 最高
+    /**
+     * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高。
+     */
     @Input() thyMessage: string;
 
-    // 显示文本的多语言 Key 优先级 99
+    /**
+     * 显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高。
+     */
     @Input() thyTranslationKey: string;
 
+    /**
+     * 显示文本提示信息多语言 Key 的 Values。传入 thyTranslationKey 后，传入这个才会生效
+     */
     @Input() thyTranslationValues: any;
 
-    // 显示默认提示信息，替换目标名称
+    /**
+     * 显示默认提示信息，替换默认提示信息的目标对象，比如：没有 {thyEntityName}。同时传入 thyEntityName，thyEntityNameTranslateKey 时优先级较高
+     */
     @Input() thyEntityName: string;
 
-    // 显示默认提示信息，替换目标名称的 translateKey
+    /**
+     * thyEntityName 的多语言 Key。thyMessage，thyTranslationKey，thyEntityName 均未传入时才会生效
+     */
     @Input() thyEntityNameTranslateKey: string;
 
+    /**
+     * 提示图标名
+     */
     @Input() thyIconName: string;
 
+    /**
+     * 大小
+     * @type sm | md | lg
+     * @default md
+     */
     @Input()
     set thySize(value: string) {
         this.size = value;
@@ -82,18 +105,34 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
         }
     }
 
+    /**
+     * 距上距离
+     */
     @Input() thyMarginTop: number | string;
 
-    @Input() thyTopAuto: boolean;
+    /**
+     * 是否自动根据父容器计算高度，垂直居中
+     * @default false
+     */
+    @Input() @InputBoolean() thyTopAuto: boolean;
 
+    /**
+     * 自动计算高度垂直居中(即 thyTopAuto 为 true)时，支持传入自定义父容器
+     */
     @Input() thyContainer: ElementRef;
 
+    /**
+     * 提示图片链接
+     */
     @Input() thyImageUrl: string;
 
     @Input() thyImageLoading?: ThyEmptyImageLoading;
 
     @Input() thyImageFetchPriority?: ThyEmptyImageFetchPriority;
 
+    /**
+     * 显示文本描述
+     */
     @Input() thyDescription: string;
 
     private size: string = 'md';
@@ -104,6 +143,10 @@ export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
 
     presetSvg: SafeAny;
 
+    /**
+     * 除提示图片，文本外的其他信息传入模板
+     * @type TemplateRef
+     */
     @ContentChild('extra') extraTemplateRef: TemplateRef<any>;
 
     get displayText() {

@@ -9,6 +9,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 拖拽项
+ * @name thy-drag,[thyDrag]
  */
 @Directive({
     selector: 'thy-drag,[thyDrag]',

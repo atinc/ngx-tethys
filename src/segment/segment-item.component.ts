@@ -23,6 +23,7 @@ import { NgClass, NgIf } from '@angular/common';
 
 /**
  * 分段控制器的选项组件
+ * @name thy-segment-item,[thy-segment-item]
  */
 @Component({
     selector: 'thy-segment-item,[thy-segment-item]',
@@ -47,7 +48,6 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
 
     /**
      * 是否禁用该选项
-     * @default false
      */
     @Input()
     @InputBoolean()

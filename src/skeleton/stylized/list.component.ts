@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+
 @Component({
     selector: 'thy-skeleton-list',
     template: `
@@ -50,6 +51,7 @@ export class ThySkeletonListComponent {
 
     /**
      * 是否开启动画
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -59,6 +61,7 @@ export class ThySkeletonListComponent {
      * 动画速度
      */
     @Input() thyAnimatedInterval: string;
+
     /**
      * 骨架主色
      */
@@ -70,6 +73,7 @@ export class ThySkeletonListComponent {
     @Input() thySecondaryColor: string;
 
     rowCount: number[] = [];
+
     /**
      * 行数
      */

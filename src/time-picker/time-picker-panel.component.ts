@@ -21,6 +21,7 @@ import { NgIf, NgFor, DecimalPipe } from '@angular/common';
 
 /**
  * 时间选择面板组件
+ * @name thy-time-picker-panel
  */
 @Component({
     selector: 'thy-time-picker-panel',
@@ -72,35 +73,30 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     /**
      * 小时间隔步长
      * @type number
-     * @default 1
      */
     @Input() thyHourStep: number = 1;
 
     /**
      * 分钟间隔步长
      * @type number
-     * @default 1
      */
     @Input() thyMinuteStep: number = 1;
 
     /**
      * 秒间隔步长
      * @type number
-     * @default 1
      */
     @Input() thySecondStep: number = 1;
 
     /**
      * 展示选择此刻
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyShowSelectNow = true;
 
     /**
      * 展示底部操作
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyShowOperations = true;
 

@@ -25,7 +25,7 @@ class PopoverHeaderTranslationComponent {}
     template: `
         <thy-popover-header>
             <ng-template #popoverHeader>
-                <div class="header-template">我是自定义头部模版</div>
+                <div class="header-template">我是自定义头部模板</div>
                 <button type="button" class="close" (click)="close($event)">
                     <thy-icon thyIconName="close-bold"></thy-icon>
                 </button>
@@ -200,7 +200,7 @@ describe('popover-layout', () => {
             fixture.detectChanges();
             const headerTemplate = fixture.debugElement.query(By.css('.header-template'));
             expect(headerTemplate).toBeTruthy();
-            expect(headerTemplate.parent.nativeElement.innerText).toBe('我是自定义头部模版');
+            expect(headerTemplate.parent.nativeElement.innerText).toBe('我是自定义头部模板');
         });
 
         it('should have close', () => {

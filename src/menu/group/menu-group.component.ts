@@ -20,10 +20,11 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
 /**
- * 菜单分组组件，支持选择器 thy-menu-group, [thy-menu-group],[thyMenuGroup]
+ * 菜单分组组件
+ * @name thy-menu-group,[thy-menu-group],[thyMenuGroup]
  */
 @Component({
-    selector: 'thy-menu-group, [thy-menu-group],[thyMenuGroup]',
+    selector: 'thy-menu-group,[thy-menu-group],[thyMenuGroup]',
     templateUrl: './menu-group.component.html',
     animations: [
         trigger('detailsContentAnimation', [
@@ -83,6 +84,7 @@ export class ThyMenuGroupComponent implements OnInit {
      * @deprecated
      */
     @Input('thyExpand')
+    @InputBoolean()
     set thyExpand(value: boolean) {
         this.isCollapsed = !!!value;
     }
@@ -99,7 +101,6 @@ export class ThyMenuGroupComponent implements OnInit {
 
     /**
      * 是否支持展开收起
-     * @default false
      */
     @Input() @InputBoolean() thyCollapsible: boolean = false;
 
@@ -107,6 +108,7 @@ export class ThyMenuGroupComponent implements OnInit {
      * 是否显示 Icon
      */
     @Input('thyShowIcon')
+    @InputBoolean()
     set thyShowIcon(value: boolean) {
         this.showIcon = value;
     }
@@ -130,12 +132,12 @@ export class ThyMenuGroupComponent implements OnInit {
     /**
      *是否显示操作
      */
-    @Input() thyShowAction = false;
+    @Input() @InputBoolean() thyShowAction = false;
 
     /**
      * 操作阻止冒泡事件
      */
-    @Input() thyActionStopPropagation = true;
+    @Input() @InputBoolean() thyActionStopPropagation = true;
 
     /**
      * Action 点击事件
