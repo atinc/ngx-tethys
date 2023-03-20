@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.1](https://github.com/atinc/ngx-tethys/compare/15.0.0...15.0.1) (2023-03-20)
+
+
+### Features
+
+* **cascader:** echo the value when the option is disabled #INFR-6936 [@guoxin](https://github.com/guoxin) ([#2573](https://github.com/atinc/ngx-tethys/issues/2573)) ([729e5b5](https://github.com/atinc/ngx-tethys/commit/729e5b5bf8d7c6b7a090577e44c5f9c8b32658e3)), closes [#INFR-6936](https://github.com/atinc/ngx-tethys/issues/INFR-6936) [#INFR-6936](https://github.com/atinc/ngx-tethys/issues/INFR-6936)
+
+
+
 # [15.0.0](https://github.com/atinc/ngx-tethys/compare/14.2.24...15.0.0) (2023-03-09)
 
 
