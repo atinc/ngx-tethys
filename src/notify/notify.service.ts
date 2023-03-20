@@ -8,6 +8,9 @@ import { ThyNotifyQueue } from './notify-queue.service';
 import { ThyAbstractMessageService } from 'ngx-tethys/message';
 import { ComponentTypeOrTemplateRef } from 'ngx-tethys/core';
 
+/**
+ * @order 20
+ */
 @Injectable({
     providedIn: 'root'
 })

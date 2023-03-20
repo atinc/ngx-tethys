@@ -30,6 +30,7 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
 
 /**
  * @name thyMention
+ * @order 10
  */
 @Directive({
     selector: '[thyMention]',

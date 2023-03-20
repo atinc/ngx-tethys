@@ -43,6 +43,10 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
     mixinDisabled(AbstractControlValueAccessor)
 );
 
+/**
+ * 日期选择的抽象组件
+ * @order 10
+ */
 @Directive()
 export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;

@@ -28,6 +28,7 @@ type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 /**
  * 属性操作组件
  * @name thy-property-operation
+ * @order 10
  */
 @Component({
     selector: 'thy-property-operation',

@@ -14,6 +14,7 @@ import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT
 
 /**
  * @public
+ * @order 10
  */
 @Injectable()
 export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {

@@ -1,5 +1,6 @@
 /**
  * 分页的配置
+ * @order 20
  */
 export interface ThyPaginationConfigModel {
     /**

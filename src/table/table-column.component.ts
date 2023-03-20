@@ -32,6 +32,7 @@ export type FixedDirection = 'left' | 'right';
 /**
  * 表格列组件
  * @name thy-table-column
+ * @order 20
  */
 @Component({
     selector: 'thy-table-column',

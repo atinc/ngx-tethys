@@ -26,6 +26,7 @@ const iconSuffixMap = {
 /**
  * 图标组件
  * @name thy-icon,[thy-icon]
+ * @order 10
  */
 @Component({
     selector: 'thy-icon, [thy-icon]',

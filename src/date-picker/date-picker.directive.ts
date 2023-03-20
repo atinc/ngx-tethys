@@ -5,8 +5,9 @@ import { PickerDirective } from './abstract-picker.directive';
 import { ThyPopover } from 'ngx-tethys/popover';
 
 /**
- * 日期选择指令
+ * 日期选择指令，继承自 PickerDirective
  * @name thyDatePicker
+ * @order 60
  */
 @Directive({
     selector: '[thyDatePicker]',

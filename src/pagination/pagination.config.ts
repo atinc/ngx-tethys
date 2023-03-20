@@ -1,4 +1,4 @@
-import { Injectable, InjectionToken } from '@angular/core';
+import { InjectionToken } from '@angular/core';
 import { ThyPaginationConfigModel } from './pagination.class';
 
 export const DEFAULT_RANGE_COUNT = 5;

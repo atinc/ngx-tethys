@@ -26,6 +26,7 @@ export interface ThyArrowSwitcherEvent {
 /**
  * 上下条切换组件
  * @name thy-arrow-switcher
+ * @order 10
  */
 @Component({
     selector: 'thy-arrow-switcher',

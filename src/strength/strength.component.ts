@@ -32,6 +32,7 @@ const strengthMap = {
 /**
  * 程度展示组件
  * @name thy-strength
+ * @order 10
  */
 @Component({
     selector: 'thy-strength',

@@ -15,6 +15,7 @@ export type ThyVoteLayout = 'vertical' | 'horizontal';
 /**
  * 投票组件
  * @name thy-vote,[thyVote]
+ * @order 10
  */
 @Component({
     selector: 'thy-vote,[thyVote]',

@@ -7,6 +7,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 /**
  * 滑动弹出框的头部组件
  * @name thy-slide-header
+ * @order 40
  */
 @Component({
     selector: 'thy-slide-header',

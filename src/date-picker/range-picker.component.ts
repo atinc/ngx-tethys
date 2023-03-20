@@ -10,8 +10,9 @@ import { ThyPickerComponent } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
 /**
- * 日期范围选择组件
- * @selector thy-range-picker
+ * 日期范围选择组件，继承自 BasePickerComponent
+ * @name thy-range-picker
+ * @order 40
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

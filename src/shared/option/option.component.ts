@@ -36,6 +36,7 @@ export class ThyOptionVisibleChangeEvent {
 
 /**
  * @private
+ * @order 20
  */
 @Component({
     selector: 'thy-option',

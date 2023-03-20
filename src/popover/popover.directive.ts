@@ -22,6 +22,7 @@ import { ThyPopoverConfig } from './popover.config';
 /**
  * 弹出悬浮层指令
  * @name thyPopover
+ * @order 50
  */
 @Directive({
     selector: '[thyPopover]',

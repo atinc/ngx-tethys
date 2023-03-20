@@ -9,6 +9,7 @@ import { NgClass, NgIf } from '@angular/common';
 /**
  * 单选框组件
  * @name thy-radio,[thyRadio]
+ * @order 10
  */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector

@@ -4,6 +4,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 列表组件
  * @name thy-list
+ * @order 10
  */
 @Component({
     selector: 'thy-list',

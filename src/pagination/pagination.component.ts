@@ -26,6 +26,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 /**
  * 分页组件，当数据量过多时，使用分页分解数据。
  * @name thy-pagination
+ * @order 10
  */
 @Component({
     selector: 'thy-pagination',

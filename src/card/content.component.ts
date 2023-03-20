@@ -5,6 +5,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
 /**
  * 卡片内容组件
  * @name thy-card-content
+ * @order 30
  */
 @Component({
     selector: 'thy-card-content',

@@ -31,6 +31,7 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
 /**
  * 固钉组件
  * @name thy-affix
+ * @order 10
  */
 @Component({
     selector: 'thy-affix',

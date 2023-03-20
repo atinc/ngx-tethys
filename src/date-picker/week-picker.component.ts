@@ -10,7 +10,7 @@ import { ThyPickerComponent } from './picker.component';
 
 /**
  * 周选择组件
- * @selector thy-week-picker
+ * @name thy-week-picker
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

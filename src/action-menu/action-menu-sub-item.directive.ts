@@ -13,6 +13,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 /**
  * 操作子菜单
  * @name thyActionMenuSubItem
+ * @order 60
  */
 @Directive({
     selector: '[thyActionMenuSubItem]',

@@ -34,6 +34,7 @@ import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @public
+ * @order 10
  */
 @Injectable()
 export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyPopoverContainerComponent> implements OnDestroy {

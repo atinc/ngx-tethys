@@ -7,6 +7,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 /**
  * 步骤条组件
  * @name thy-stepper
+ * @order 10
  */
 @Component({
     selector: 'thy-stepper',

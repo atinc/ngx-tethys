@@ -1,18 +1,5 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ElementRef,
-    ChangeDetectorRef,
-    Inject,
-    forwardRef,
-    InjectionToken,
-    HostListener,
-    Optional,
-    OnInit
-} from '@angular/core';
-import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
-// import { SelectionModel } from '@angular/cdk/collections';
+import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, Inject, HostListener, Optional } from '@angular/core';
+import { Highlightable } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIconComponent } from 'ngx-tethys/icon';
@@ -25,6 +12,7 @@ export type ThyListLayout = 'list' | 'grid';
 
 /**
  * @private
+ * @order 30
  */
 @Component({
     selector: 'thy-list-option,[thy-list-option]',

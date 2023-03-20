@@ -19,6 +19,7 @@ export interface ThyUploadResponse {
 
 /**
  * 文件上传进度
+ * @order 40
  */
 export interface ThyUploadFileProgress {
     /**
@@ -65,6 +66,7 @@ export interface ThyUploadFileProgress {
 
 /**
  * 文件上传对象
+ * @order 30
  */
 export interface ThyUploadFile {
     /**
@@ -140,6 +142,7 @@ export interface ThyUploadFilesOptions {
 
 /**
  * 文件远程上传服务
+ * @order 20
  */
 @Injectable()
 export class ThyUploadService {

@@ -10,6 +10,9 @@ export declare type ThyValidateOn = 'submit' | 'blur' | 'change';
 
 export declare type ThyFormValidationMessages = Dictionary<Dictionary<string>>;
 
+/**
+ * @order 20
+ */
 export interface ThyFormValidatorConfig {
     /**
      * 当值为 true 或不传时，执行默认逻辑，当为 false 时，不显示错误；值为 function 时，执行自定义函数处理逻辑，需要注入 THY_VALIDATOR_CONFIG 来使配置生效。

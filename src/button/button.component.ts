@@ -56,6 +56,7 @@ const iconOnlyClass = 'thy-btn-icon-only';
 /**
  * 操作按钮，支持组件`thy-button`和`thyButton`指令两种形式
  * @name thy-button,[thy-button],[thyButton]
+ * @order 10
  */
 @Component({
     selector: 'thy-button,[thy-button],[thyButton]',

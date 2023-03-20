@@ -5,6 +5,7 @@ import { ElementRef, InjectionToken } from '@angular/core';
 
 /**
  * @public
+ * @order 20
  */
 export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /**

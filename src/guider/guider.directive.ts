@@ -5,6 +5,7 @@ import { take } from 'rxjs/operators';
 /**
  * 标记新手引导的步骤的target，使用指令方式的新手引导支持多路由跳转
  * @name thyGuiderTarget
+ * @order 40
  */
 @Directive({
     selector: '[thyGuiderTarget]',

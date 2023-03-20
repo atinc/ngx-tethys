@@ -12,6 +12,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 /**
  * 文件上传组件
  * @name [thyFileSelect],thy-file-select
+ * @order 10
  */
 @Component({
     selector: '[thyFileSelect],thy-file-select',

@@ -22,6 +22,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 开关组件
  * @name thy-switch
+ * @order 10
  */
 @Component({
     selector: 'thy-switch',

@@ -7,6 +7,7 @@ export type ThyActionMenuDividerType = 'default' | 'crossing';
 /**
  * 操作菜单，用于`Popover`弹出菜单
  * @name thy-action-menu
+ * @order 10
  */
 @Component({
     selector: 'thy-action-menu',
@@ -44,6 +45,11 @@ export class ThyActionMenuComponent {
     constructor() {}
 }
 
+/**
+ * 操作菜单的分组
+ * @name thy-action-menu-group
+ * @order 20
+ */
 @Component({
     selector: 'thy-action-menu-group',
     template: `
@@ -68,6 +74,11 @@ export class ThyActionMenuGroupComponent {
     constructor() {}
 }
 
+/**
+ * 操作菜单的分割线
+ * @name thy-action-menu-divider
+ * @order 30
+ */
 @Component({
     selector: 'thy-action-menu-divider',
     template: `

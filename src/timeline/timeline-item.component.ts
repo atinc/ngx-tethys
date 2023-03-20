@@ -21,6 +21,7 @@ export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 /**
  * 时间轴节点组件
  * @name thy-timeline-item
+ * @order 20
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
