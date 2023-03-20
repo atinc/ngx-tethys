@@ -3,7 +3,8 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 
 /**
- * 菜单项组件，支持 thy-menu-item,[thy-menu-item],[thyMenuItem] 使用
+ * 菜单项组件
+ * @name thy-menu-item,[thy-menu-item],[thyMenuItem]
  */
 @Component({
     selector: 'thy-menu-item,[thy-menu-item],[thyMenuItem]',

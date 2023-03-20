@@ -1,4 +1,4 @@
-import { ThyScrollService } from 'ngx-tethys/core';
+import { InputNumber, ThyScrollService } from 'ngx-tethys/core';
 import { dom, shallowEqual, SimpleRect } from 'ngx-tethys/util';
 import { fromEvent, merge, ReplaySubject, Subject, Subscription } from 'rxjs';
 import { auditTime, map, takeUntil } from 'rxjs/operators';
@@ -28,6 +28,10 @@ import { AffixRespondEvents } from './respond-events';
 const THY_AFFIX_CLS_PREFIX = 'thy-affix';
 const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
 
+/**
+ * 固钉组件
+ * @name thy-affix
+ */
 @Component({
     selector: 'thy-affix',
     exportAs: 'thyAffix',
@@ -43,14 +47,30 @@ const THY_AFFIX_DEFAULT_SCROLL_TIME = 20;
 export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
     @ViewChild('fixedElement', { static: true }) private fixedElement!: ElementRef<HTMLDivElement>;
 
+    /**
+     * 设置 thy-affix 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数
+     * @default window
+     */
     @Input() thyContainer?: string | Element | Window;
 
+    /**
+     * 距离窗口顶部缓冲的偏移量阈值
+     * @default 0
+     */
     @Input()
+    @InputNumber()
     thyOffsetTop?: null | number;
 
+    /**
+     * 距离窗口底部缓冲的偏移量阈值
+     */
     @Input()
+    @InputNumber()
     thyOffsetBottom?: null | number;
 
+    /**
+     * 固定状态改变时触发的回调函数
+     */
     @Output() readonly thyChange = new EventEmitter<boolean>();
 
     private readonly placeholderNode: HTMLElement;

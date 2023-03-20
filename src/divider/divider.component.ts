@@ -11,6 +11,7 @@ export type ThyDividerColor = 'lighter' | 'light' | 'danger' | 'primary' | 'succ
 
 /**
  * 分割线
+ * @name thy-divider
  */
 @Component({
     preserveWhitespaces: false,
@@ -50,17 +51,17 @@ export class ThyDividerComponent implements OnChanges, OnInit {
      * 是否垂直方向
      * @default false
      */
-    @Input() thyVertical: boolean;
+    @Input() @InputBoolean() thyVertical: boolean;
 
     /**
-     * 风格线的分割，虚线和实线
-     * @default solid
+     * 分割线的风格
+     * @type solid(实线) | dashed(虚线)
      */
     @Input() thyStyle: ThyDividerStyle = 'solid';
 
     /**
      * 分割线的颜色，默认 #eee，light 为 #ddd，primary 主色，success 成功色，warning 警告色，danger 危险色
-     * @default default
+     * @type 'lighter' | 'light' | 'danger' | 'primary' | 'success' | 'warning' | string
      */
     @Input() thyColor: ThyDividerColor = 'default';
 
@@ -77,13 +78,13 @@ export class ThyDividerComponent implements OnChanges, OnInit {
 
     /**
      * 中间内容的方向
+     * @type left | right | center
      */
     @Input() thyTextDirection: ThyDividerTextDirection = 'center';
 
     /**
      * 颜色加深，已经废弃，请使用 thyColor="light" 代替
      * @deprecated
-     * @default false
      */
     @InputBoolean()
     @Input()

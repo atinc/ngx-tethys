@@ -1,4 +1,4 @@
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import {
     ThyDragDropEvent,
     ThyDragOverEvent,
@@ -54,7 +54,7 @@ const treeItemSizeMap = {
 };
 
 /**
- * 树形控件
+ * 树形控件组件
  * @name thy-tree
  */
 @Component({
@@ -124,7 +124,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置是否支持多选
-     * @default false
      */
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
@@ -163,7 +162,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置 TreeNode 是否支持异步加载
-     * @default false
      */
     @Input() @InputBoolean() thyAsync = false;
 
@@ -172,7 +170,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 设置不同展示类型的 Tree, `default` 为小箭头展示， `especial` 为 加减号图标展示
      * @type ThyTreeType
-     * @default 'default'
+     * @default default
      */
     @Input()
     set thyType(type: ThyTreeType) {
@@ -196,7 +194,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 支持 `sm` | `default` 两种大小，默认值为 `default`
      * @type ThyTreeSize
-     * @default 'default'
+     * @default default
      */
     @Input()
     set thySize(size: ThyTreeSize) {
@@ -214,7 +212,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置是否开启虚拟滚动
-     * @default false
      */
     @HostBinding('class.thy-virtual-scrolling-tree')
     @Input()
@@ -228,6 +225,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      * @default 44
      */
     @Input()
+    @InputNumber()
     set thyItemSize(itemSize: number) {
         if (this.thySize !== 'default') {
             throw new Error('setting thySize and thyItemSize at the same time is not allowed');
@@ -241,21 +239,21 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 设置节点名称是否支持超出截取
-     * @default true
+     * @type boolean
      */
     @Input() @InputBoolean() thyTitleTruncate = true;
 
     /**
      * 已选中的 node 节点集合
-     * @type string[]
+     * @default []
      */
     @Input() thySelectedKeys: string[];
 
     /**
      * 设置缩进距离，缩进距离 = thyIndent * node.level
-     * @default 25
+     * @type number
      */
-    @Input() thyIndent = 25;
+    @Input() @InputNumber() thyIndent = 25;
 
     /**
      * 拖拽之前的回调，函数返回 false 则阻止拖拽

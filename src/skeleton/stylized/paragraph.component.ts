@@ -2,6 +2,7 @@ import { NgFor } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `
@@ -33,50 +34,60 @@ export class ThySkeletonParagraphComponent {
     @Input()
     @InputCssPixel()
     thyFirstWidth: string | number;
+
     /**
      * 尾行宽度
      */
     @Input()
     @InputCssPixel()
     thyLastWidth: string | number;
+
     /**
      * 骨架宽度
      */
     @Input()
     @InputCssPixel()
     thyRowWidth: string | number;
+
     /**
      * 骨架高度
      */
     @Input()
     @InputCssPixel()
     thyRowHeight: string | number;
+
     /**
      * 骨架边框圆角
      */
     @Input()
     @InputCssPixel()
     thyBorderRadius: string | number;
+
     /**
      * 是否开启动画
+     * @default false
      */
     @Input()
     @InputBoolean()
     thyAnimated: boolean;
+
     /**
      * 动画速度
      */
     @Input() thyAnimatedInterval: string | number;
+
     /**
      * 骨架主色
      */
     @Input() thyPrimaryColor: string;
+
     /**
      * 骨架次色
      */
     @Input() thySecondaryColor: string;
 
     rowCount: number[] = [];
+
     /**
      * 行数
      */

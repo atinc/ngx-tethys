@@ -1,6 +1,10 @@
 import { Directive, Renderer2, Input, ElementRef, Output, EventEmitter, OnDestroy, NgZone } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { InputBoolean } from 'ngx-tethys/core';
 
+/**
+ * @name thyShow
+ */
 @Directive({
     selector: '[thyShow]',
     standalone: true
@@ -19,7 +23,9 @@ export class ThyShowDirective implements OnDestroy {
         }
     }
 
-    @Input() set thyShow(condition: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyShow(condition: boolean) {
         if (condition) {
             this.hostRenderer.setStyle('display', 'block');
             this.ngZone.runOutsideAngular(() =>

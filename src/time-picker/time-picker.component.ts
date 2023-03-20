@@ -25,6 +25,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
 /**
  * 时间选择组件
+ * @name thy-time-picker
  */
 @Component({
     selector: 'thy-time-picker',
@@ -67,21 +68,18 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     /**
      * 输入框大小
      * @type 'xs' | 'sm' | 'md' | 'lg' | 'default'
-     * @default default
      */
     @Input() thySize: TimePickerSize = 'default';
 
     /**
      * 输入框提示文字
      * @type string
-     * @default 选择时间
      */
     @Input() thyPlaceholder: string = '选择时间';
 
     /**
      * 弹出位置
      * @type 'top' | 'topLeft'| 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
-     * @default bottomLeft
      */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
@@ -100,21 +98,18 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     /**
      * 小时间隔步长
      * @type number
-     * @default 1
      */
     @Input() thyHourStep: number = 1;
 
     /**
      * 分钟间隔步长
      * @type number
-     * @default 1
      */
     @Input() thyMinuteStep: number = 1;
 
     /**
      * 秒间隔步长
      * @type number
-     * @default 1
      */
     @Input() thySecondStep: number = 1;
 
@@ -152,14 +147,12 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     /**
      * 展示选择此刻
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyShowSelectNow = true;
 
     /**
      * 可清空值
      * @type boolean
-     * @default true
      */
     @Input() @InputBoolean() thyAllowClear = true;
 

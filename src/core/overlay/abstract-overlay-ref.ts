@@ -17,13 +17,45 @@ export abstract class ThyAbstractOverlayRef<
     backdropClosable: boolean;
     disableClose: boolean;
     containerInstance: TContainer;
+
+    /**
+     * 获取 OverlayRef
+     */
     abstract getOverlayRef(): OverlayRef;
+
+    /**
+     * 关闭当前模态框，若force为true，则canClose无效，强制关闭
+     * @param dialogResult
+     * @param force
+     */
     abstract close(dialogResult?: TResult, force?: boolean): void;
+
+    /**
+     * 模态框打开后的回调
+     */
     abstract afterOpened(): Observable<void>;
+
+    /**
+     * 模态框关闭后的回调
+     */
     abstract afterClosed(): Observable<TResult | undefined>;
+
+    /**
+     * 模态框关闭前的回调
+     */
     abstract beforeClosed(): Observable<TResult | undefined>;
+
     abstract keydownEvents(): Observable<KeyboardEvent>;
+
+    /**
+     * 点击模态框遮罩层的回调
+     */
     abstract backdropClick(): Observable<MouseEvent>;
+
+    /**
+     * 更新模态框的位置
+     * @param position
+     */
     abstract updatePosition(position?: ThyAbstractOverlayPosition): this;
 }
 

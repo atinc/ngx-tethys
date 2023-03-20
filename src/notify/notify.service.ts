@@ -29,6 +29,9 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         };
     }
 
+    /**
+     * 打开自定义配置的 Notify
+     */
     public show(config: ThyNotifyConfig): ThyNotifyRef {
         this.container = this.createContainer(ThyNotifyContainerComponent);
 
@@ -38,6 +41,9 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         return notifyRef;
     }
 
+    /**
+     * 打开类型为"success"的 Notify
+     */
     public success(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
@@ -47,6 +53,9 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         });
     }
 
+    /**
+     * 打开类型为"info"的 Notify
+     */
     public info(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
@@ -56,6 +65,9 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         });
     }
 
+    /**
+     * 打开类型为"warning"的 Notify
+     */
     public warning(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),
@@ -65,6 +77,9 @@ export class ThyNotifyService extends ThyAbstractMessageService<ThyNotifyContain
         });
     }
 
+    /**
+     * 打开类型为"error"的 Notify
+     */
     public error(title?: string, content?: string | ComponentTypeOrTemplateRef<any>, config?: ThyNotifyConfig) {
         return this.show({
             ...(config || {}),

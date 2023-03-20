@@ -57,15 +57,13 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     /**
      * 设置跨列的数量
-     * @type sting
-     * @default 1
+     * @type number
      */
     @Input() @InputNumber() thySpan: number = 1;
 
     /**
      * 设置属性操作现实触发方式，默认 always 一直显示
      * @type 'hover' | 'always'
-     * @default always
      */
     @Input() thyOperationTrigger: ThyPropertyItemOperationTrigger = 'always';
 

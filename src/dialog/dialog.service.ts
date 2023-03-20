@@ -13,6 +13,9 @@ import { ThyDialogRef, ThyInternalDialogRef } from './dialog-ref';
 import { THY_DIALOG_DEFAULT_OPTIONS, ThyDialogConfig, ThyDialogSizes } from './dialog.config';
 import { dialogAbstractOverlayOptions } from './dialog.options';
 
+/**
+ * @public
+ */
 @Injectable()
 export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDialogContainerComponent> implements OnDestroy {
     protected buildOverlayConfig(config: ThyDialogConfig<any>): OverlayConfig {
@@ -84,6 +87,9 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         clickPositioner.initialize();
     }
 
+    /**
+     * 打开 Dialog
+     */
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
         config?: ThyDialogConfig<TData>
@@ -98,6 +104,9 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         return dialogRef as ThyDialogRef<T, TResult>;
     }
 
+    /**
+     * 打开 Confirm
+     */
     confirm(options: ThyConfirmConfig) {
         return this.open(this.confirmComponentType, {
             initialState: {
@@ -106,16 +115,23 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
         });
     }
 
+    /**
+     * 根据 id 获取 Dialog
+     */
     getDialogById(id: string): ThyDialogRef<any> | undefined {
         return this.getAbstractOverlayById(id) as ThyDialogRef<any> | undefined;
     }
 
+    /**
+     * 获取所有打开的 Dialog
+     */
     getOpenedDialogs(): ThyDialogRef<any>[] {
         return this.getAbstractOverlays();
     }
 
     /**
-     * Finds the closest ThyDialogRef to an element by looking at the DOM.
+     * 获取与指定元素最接近的 ThyDialogRef
+     * @description.en-us Finds the closest ThyDialogRef to an element by looking at the DOM.
      */
     getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined {
         let parent: HTMLElement | null = element.parentElement;

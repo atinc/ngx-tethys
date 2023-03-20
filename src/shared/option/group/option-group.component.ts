@@ -3,6 +3,7 @@ import { Observable, defer, Subject, merge, combineLatest } from 'rxjs';
 import { ThyOptionVisibleChangeEvent, ThyOptionComponent } from '../option.component';
 import { take, switchMap, startWith, takeUntil, reduce, debounceTime, map } from 'rxjs/operators';
 import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
+import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -21,6 +22,7 @@ import { THY_OPTION_GROUP_COMPONENT } from '../option.token';
 export class ThySelectOptionGroupComponent implements OnDestroy, AfterContentInit {
     _hidden = false;
     @Input()
+    @InputBoolean()
     @HostBinding(`class.disabled`)
     thyDisabled: boolean;
 

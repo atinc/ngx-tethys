@@ -1,5 +1,10 @@
 import { Component, ChangeDetectionStrategy, ViewEncapsulation, Input } from '@angular/core';
-import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
+
+/**
+ * 骨架屏组件
+ * @name thy-skeleton
+ */
 @Component({
     selector: 'thy-skeleton',
     template: `
@@ -12,6 +17,7 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 export class ThySkeletonComponent {
     /**
      * 是否开启动画
+     * @default false
      */
     @Input()
     @InputBoolean()

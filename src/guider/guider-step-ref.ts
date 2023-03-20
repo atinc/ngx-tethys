@@ -10,6 +10,7 @@ import { ThyGuiderStep } from './guider.class';
 import { isPositionDataType } from './utils';
 
 const pointContainerSize = 28;
+
 export class ThyGuiderStepRef {
     private renderer: Renderer2;
 
@@ -115,6 +116,7 @@ export class ThyGuiderStepRef {
 
         return currentPointContainer;
     }
+
     private addPointClass(el: any, pointClass: string | string[]) {
         if (isString(pointClass)) {
             this.renderer.addClass(el, pointClass);

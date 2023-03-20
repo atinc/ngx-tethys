@@ -1,4 +1,5 @@
 import { Component, HostBinding, Input } from '@angular/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-step-header',
@@ -8,13 +9,14 @@ import { Component, HostBinding, Input } from '@angular/core';
 export class ThyStepHeaderComponent {
     @Input() label: string;
 
-    @Input() index: number;
+    @Input() @InputNumber() index: number;
 
     @HostBinding('class.thy-stepper-header-selected')
     @Input()
+    @InputBoolean()
     selected: boolean;
 
-    @Input() active: boolean;
+    @Input() @InputBoolean() active: boolean;
 
     @HostBinding('class.thy-stepper-header') thyStepHeader = true;
 }

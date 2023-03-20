@@ -4,6 +4,10 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { PickerDirective } from './abstract-picker.directive';
 import { ThyPopover } from 'ngx-tethys/popover';
 
+/**
+ * 日期选择指令
+ * @name thyDatePicker
+ */
 @Directive({
     selector: '[thyDatePicker]',
     exportAs: 'thyDatePicker',

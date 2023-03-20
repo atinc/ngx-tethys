@@ -49,7 +49,6 @@ export class ThyStatisticComponent implements OnInit {
     /**
      * @description 展示数据的 css 样式
      * @type { [key: string]: string; }
-     * @default {}
      */
     @Input() thyValueStyle: { [key: string]: string } = {};
 
@@ -74,7 +73,6 @@ export class ThyStatisticComponent implements OnInit {
     /**
      * @description 展示数据标题的位置，可设置 `top`｜`bottom`
      * @type ThyStatisticTitlePosition
-     * @default bottom
      */
     @Input() thyTitlePosition: ThyStatisticTitlePosition = 'bottom';
 

@@ -1,9 +1,12 @@
 import { AsyncValidator, AbstractControl, ValidationErrors, NG_ASYNC_VALIDATORS } from '@angular/forms';
-import { Injectable, Directive, Input, Optional, ElementRef } from '@angular/core';
+import { Directive, Input, Optional, ElementRef } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { map, catchError, tap } from 'rxjs/operators';
+import { map, catchError } from 'rxjs/operators';
 import { ThyFormDirective } from '../form.directive';
 
+/**
+ * @name thyUniqueCheck
+ */
 @Directive({
     selector: '[thyUniqueCheck]',
     providers: [

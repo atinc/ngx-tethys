@@ -9,6 +9,7 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 
 /**
  * 菜单项
+ * @name thyDropdownMenuItem
  */
 @Directive({
     selector: '[thyDropdownMenuItem]',
@@ -25,6 +26,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
     /**
      * 菜单项类型
+     * @type 'default' | 'danger' | 'success' | ''
      * @default default
      */
     @Input()
@@ -34,8 +36,10 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
     /**
      * 菜单项是否处于禁用状态
+     * @default false
      */
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }
@@ -69,6 +73,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
 /**
  * 设置为菜单项图标
+ * @name thyDropdownMenuItemIcon
  */
 @Directive({
     selector: '[thyDropdownMenuItemIcon]',
@@ -82,6 +87,7 @@ export class ThyDropdownMenuItemIconDirective {
 
 /**
  * 设置为菜单项名称
+ * @name thyDropdownMenuItemName
  */
 @Directive({
     selector: '[thyDropdownMenuItemName]',
@@ -95,6 +101,7 @@ export class ThyDropdownMenuItemNameDirective {
 
 /**
  * 设置为菜单项名称后的补充信息
+ * @name thyDropdownMenuItemMeta
  */
 @Directive({
     selector: '[thyDropdownMenuItemMeta]',
@@ -108,6 +115,7 @@ export class ThyDropdownMenuItemMetaDirective {
 
 /**
  * 设置为菜单项的描述
+ * @name thyDropdownMenuItemDesc
  */
 @Directive({
     selector: '[thyDropdownMenuItemDesc]',
@@ -121,6 +129,7 @@ export class ThyDropdownMenuItemDescDirective {
 
 /**
  * 菜单项的后置扩展图标，用于显示是否选中或者子菜单示意
+ * @name thyDropdownMenuItemExtendIcon
  */
 @Directive({
     selector: '[thyDropdownMenuItemExtendIcon]',
@@ -134,6 +143,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
 
 /**
  * 菜单项是否激活指令
+ * @name thyDropdownMenuItemActive
  */
 @Directive({
     selector: '[thyDropdownMenuItemActive]',
@@ -142,6 +152,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
 export class ThyDropdownMenuItemActiveDirective {
     /**
      * 是否激活
+     * @type boolean | string
      * @default false
      */
     @HostBinding('class.active')

@@ -67,19 +67,16 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
 
     /**
      * 栅格的水平间隔
-     * @default 0
      */
     @Input() thyXGap: number | ThyGridResponsiveDescription = 0;
 
     /**
      * 栅格的垂直间隔
-     * @default 0
      */
     @Input() thyYGap: number | ThyGridResponsiveDescription = 0;
 
     /**
      * 栅格的水平和垂直间隔
-     * @default 0
      */
     @Input() thyGap: number | ThyGridResponsiveDescription = 0;
 
@@ -88,7 +85,6 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
      * none: 不进行响应式布局。<br/>
      * self：根据grid的自身宽度进行响应式布局。<br/>
      * screen：根据屏幕断点进行响应式布局，目前预设了5种响应式尺寸：`xs: 0, sm: 576, md: 768, lg: 992, xl: 1200`。
-     * @default none
      */
     @Input() thyResponsive: ThyGridResponsiveMode = 'none';
 

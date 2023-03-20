@@ -1,5 +1,4 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Optional } from '@angular/core';
-import { NgModel, NgControl } from '@angular/forms';
 import { ThyInputDirective } from './input.directive';
 import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
 import { takeUntil, switchMap, filter, tap } from 'rxjs/operators';

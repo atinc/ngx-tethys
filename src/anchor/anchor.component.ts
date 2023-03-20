@@ -22,7 +22,7 @@ import { takeUntil, throttleTime } from 'rxjs/operators';
 
 import { ThyAnchorLinkComponent } from './anchor-link.component';
 import { getOffset } from 'ngx-tethys/util';
-import { InputBoolean, ThyScrollService } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyScrollService } from 'ngx-tethys/core';
 import { DOCUMENT, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 import { ThyAffixComponent } from 'ngx-tethys/affix';
 
@@ -73,12 +73,14 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
      * 锚点区域边界，单位：px
      */
     @Input()
+    @InputNumber()
     thyBounds = 5;
 
     /**
      * 缓冲的偏移量阈值
      */
     @Input()
+    @InputNumber()
     thyOffsetTop?: number = undefined;
 
     /**

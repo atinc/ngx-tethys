@@ -6,6 +6,7 @@ import { ThyAvatarService } from './avatar.service';
 import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgStyle } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
@@ -27,6 +28,7 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
 
 /**
  * 头像组件
+ * @name thy-avatar
  */
 @Component({
     selector: 'thy-avatar',
@@ -67,7 +69,7 @@ export class ThyAvatarComponent implements OnInit {
      * 是否展示人员名称
      * @default false
      */
-    @Input() thyShowName: boolean;
+    @Input() @InputBoolean() thyShowName: boolean;
 
     /**
      * 头像路径地址, 默认为全路径，如果不是全路径，可以通过自定义服务 ThyAvatarService，重写 srcTransform 方法实现转换
@@ -107,6 +109,7 @@ export class ThyAvatarComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyShowRemove(value: boolean) {
         this._showRemove = coerceBooleanProperty(value);
     }
@@ -116,6 +119,7 @@ export class ThyAvatarComponent implements OnInit {
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyRemovable(value: boolean) {
         this._showRemove = coerceBooleanProperty(value);
     }
@@ -126,10 +130,10 @@ export class ThyAvatarComponent implements OnInit {
     @Input() thyImgClass: string;
 
     /**
-     * 禁用
+     * 是否禁用
      * @default false
      */
-    @Input() thyDisabled: boolean;
+    @Input() @InputBoolean() thyDisabled: boolean;
 
     /**
      * 图片加载策略

@@ -2,6 +2,7 @@ import {
     AbstractControlValueAccessor,
     Constructor,
     getFlexiblePositions,
+    InputBoolean,
     mixinDisabled,
     mixinTabIndex,
     ThyCanDisable,
@@ -63,6 +64,11 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
 const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
     mixinDisabled(AbstractControlValueAccessor)
 );
+
+/**
+ * 树选择组件
+ * @name thy-tree-select
+ */
 @Component({
     selector: 'thy-tree-select',
     templateUrl: './tree-select.component.html',
@@ -141,6 +147,9 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     @ViewChild('customDisplayTemplate', { static: true }) customDisplayTemplate: TemplateRef<any>;
 
+    /**
+     * treeNodes 数据
+     */
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
         this.treeNodes = value;
@@ -151,44 +160,103 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         }
     }
 
-    @Input() thyVirtualScroll: boolean = false;
+    /**
+     * 开启虚拟滚动
+     */
+    @Input() @InputBoolean() thyVirtualScroll: boolean = false;
 
+    /**
+     * 树节点的唯一标识
+     * @type string
+     */
     @Input() thyPrimaryKey = '_id';
 
+    /**
+     * 树节点的显示的字段 key
+     * @type string
+     */
     @Input() thyShowKey = 'name';
 
     @Input() thyChildCountKey = 'childCount';
 
-    @Input() thyAllowClear: boolean;
+    /**
+     * 单选时，是否显示清除按钮，当为 true 时，显示清除按钮
+     * @default false
+     */
+    @Input() @InputBoolean() thyAllowClear: boolean;
 
-    @Input() thyMultiple = false;
+    /**
+     * 是否多选
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyMultiple = false;
 
-    @Input() thyDisable = false;
+    /**
+     * 是否禁用树选择器，当为 true 禁用树选择器
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyDisable = false;
 
     get thyDisabled(): boolean {
         return this.thyDisable;
     }
 
+    /**
+     * 树选择框默认文字
+     * @type string
+     */
     @Input() thyPlaceholder = '请选择节点';
 
     get placeholder() {
         return this.thyPlaceholder;
     }
 
+    /**
+     * 控制树选择的输入框大小
+     * @type xs | sm | md | default | lg
+     */
     @Input() thySize: InputSize;
 
+    /**
+     * 改变空选项的情况下的提示文本
+     * @type string
+     */
     @Input() thyEmptyOptionsText = '暂时没有数据可选';
 
+    /**
+     * 设置是否隐藏节点(不可进行任何操作)，优先级高于 thyHiddenNodeFn
+     * @type string
+     */
     @Input() thyHiddenNodeKey = 'hidden';
 
+    /**
+     * 设置是否禁用节点(不可进行任何操作)，优先级高于 thyDisableNodeFn
+     * @type string
+     */
     @Input() thyDisableNodeKey = 'disabled';
 
-    @Input() thyAsyncNode = false;
+    /**
+     * 是否异步加载节点的子节点(显示加载状态)，当为 true 时，异步获取
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyAsyncNode = false;
 
-    @Input() thyShowWholeName = false;
+    /**
+     * 是否展示全名
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyShowWholeName = false;
 
-    @Input() thyShowSearch = false;
+    /**
+     * 是否展示搜索
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyShowSearch = false;
 
+    /**
+     * 图标类型，支持 default | especial，已废弃
+     * @deprecated
+     */
     @Input()
     set thyIconType(type: ThyTreeSelectType) {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
@@ -201,14 +269,23 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         // }
     }
 
+    /**
+     * 设置是否隐藏节点(不可进行任何操作),优先级低于 thyHiddenNodeKey。
+     * @default (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden
+     */
     @Input() thyHiddenNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.hidden;
 
+    /**
+     * 设置是否禁用节点(不可进行任何操作)，优先级低于 thyDisableNodeKey。
+     * @default (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.disabled
+     */
     @Input() thyDisableNodeFn: (node: ThyTreeSelectNode) => boolean = (node: ThyTreeSelectNode) => node.disabled;
 
+    /**
+     * 获取节点的子节点，返回 Observable<ThyTreeSelectNode>。
+     * @default (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([])
+     */
     @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([]);
-
-    // TODO: 是否可以取消选中的node
-    // @Input() thyUnRemoveSelectedNodeFn: Function;
 
     private _getNgModelType() {
         if (this.thyMultiple) {
@@ -471,6 +548,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 }
 
 const DEFAULT_ITEM_SIZE = 40;
+
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',

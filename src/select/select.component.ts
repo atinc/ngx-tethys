@@ -1,6 +1,14 @@
 import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { AbstractControlValueAccessor, Constructor, mixinDisabled, mixinTabIndex, ThyCanDisable, ThyHasTabIndex } from 'ngx-tethys/core';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean,
+    mixinDisabled,
+    mixinTabIndex,
+    ThyCanDisable,
+    ThyHasTabIndex
+} from 'ngx-tethys/core';
 import { elementMatchClosest } from 'ngx-tethys/util';
 
 import { NgIf } from '@angular/common';
@@ -55,7 +63,7 @@ export class ThySelectComponent extends _MixinBase implements ControlValueAccess
 
     @Input() name: string;
 
-    @Input() thyAllowClear = false;
+    @Input() @InputBoolean() thyAllowClear = false;
 
     writeValue(obj: any): void {
         if (obj !== this._innerValue) {

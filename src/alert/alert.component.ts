@@ -3,6 +3,7 @@ import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 const weakTypes = ['primary-weak', 'success-weak', 'warning-weak', 'danger-weak'];
 
@@ -30,6 +31,11 @@ const typeIconsMap: Record<string, string> = {
     'warning-weak': 'waring-fill',
     'danger-weak': 'close-circle-fill'
 };
+
+/**
+ * 警告提示，展现需要关注的信息
+ * @name thy-alert
+ */
 @Component({
     selector: 'thy-alert',
     templateUrl: './alert.component.html',
@@ -58,14 +64,27 @@ export class ThyAlertComponent implements OnInit, OnChanges {
 
     messageText: string;
 
+    /**
+     * 指定警告提示的类型
+     * @type success | warning | danger | info | primary | primary-weak | success-weak | warning-weak | danger-weak
+     * @default info
+     */
     @Input() set thyType(value: ThyAlertType) {
         this.type = value;
     }
 
+    /**
+     * 指定警告提示的主题
+     * @type fill | bordered | naked
+     * @default fill
+     */
     @Input() set thyTheme(value: ThyAlertTheme) {
         this.theme = value;
     }
 
+    /**
+     * 显示警告提示的内容
+     */
     @Input() set thyMessage(value: string | TemplateRef<HTMLElement>) {
         if (value instanceof TemplateRef) {
             this.messageTemplate = value;
@@ -74,6 +93,9 @@ export class ThyAlertComponent implements OnInit, OnChanges {
         }
     }
 
+    /**
+     * 显示自定义图标，可传 true/false 控制是否显示图标，或者传字符串去指定图标名称
+     */
     @Input()
     set thyIcon(value: boolean | string) {
         if (value) {
@@ -92,8 +114,16 @@ export class ThyAlertComponent implements OnInit, OnChanges {
         }
     }
 
-    @Input() thyCloseable: boolean;
+    /**
+     * 是否显示关闭警告框按钮，默认不显示
+     * @default false
+     */
+    @Input() @InputBoolean() thyCloseable: boolean;
 
+    /**
+     * 警告框自定义操作
+     * @type TemplateRef
+     */
     @ContentChild('operation') alertOperation: TemplateRef<any>;
 
     constructor() {}
