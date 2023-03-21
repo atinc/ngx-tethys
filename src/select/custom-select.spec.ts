@@ -656,7 +656,7 @@ class SelectWithAsyncLoadComponent implements OnInit {
     }
 }
 
-fdescribe('ThyCustomSelect', () => {
+describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let platform: Platform;
