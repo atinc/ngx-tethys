@@ -761,7 +761,7 @@ describe('ThyCustomSelect', () => {
             it('should call onBlur methods when blur', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
                 fixture.detectChanges();
-                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur');
+                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur').and.callThrough();
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'blur');
                 fixture.detectChanges();
@@ -769,6 +769,16 @@ describe('ThyCustomSelect', () => {
                 flush();
 
                 expect(blurSpy).toHaveBeenCalled();
+            }));
+
+            it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
+                fixture.componentInstance.select.onBlur({ relatedTarget: trigger } as FocusEvent);
+
+                fixture.detectChanges();
+
+                expect(blurSpy).not.toHaveBeenCalled();
             }));
         });
 
