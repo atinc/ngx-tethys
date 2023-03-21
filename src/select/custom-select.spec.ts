@@ -761,7 +761,7 @@ describe('ThyCustomSelect', () => {
             it('should call onBlur methods when blur', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
                 fixture.detectChanges();
-                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur');
+                const blurSpy = spyOn(fixture.componentInstance.select, 'onBlur').and.callThrough();
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'blur');
                 fixture.detectChanges();
