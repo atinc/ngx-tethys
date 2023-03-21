@@ -3,7 +3,7 @@ import { ThyImageDirective } from './image.directive';
 
 /**
  * 图片分组，提供 thyImageGroup 指令和 thy-image-group 标签两种使用方式
- *
+ * @name thy-image-group,[thyImageGroup]
  */
 @Component({
     selector: 'thy-image-group, [thyImageGroup]',

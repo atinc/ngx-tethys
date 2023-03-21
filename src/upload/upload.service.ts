@@ -17,31 +17,121 @@ export interface ThyUploadResponse {
     uploadFile?: ThyUploadFile;
 }
 
+/**
+ * 文件上传进度
+ * @order 40
+ */
 export interface ThyUploadFileProgress {
+    /**
+     * 上传状态
+     * @default pending
+     */
     status: ThyUploadStatus;
+
+    /**
+     *进度百分比
+     */
     percentage: number;
+
+    /**
+     * 上传速度
+     */
     speed?: number;
+
+    /**
+     * 人类可读的上传速度, 比如: 120 kb/s
+     */
     speedHuman?: string;
+
+    /**
+     * 开始上传时间
+     */
     startTime: number | null;
+
+    /**
+     * 结束上传时间
+     */
     endTime?: number | null;
+
+    /**
+     * 上传时间
+     */
     estimatedTime?: number | null;
+
+    /**
+     * 人类可读的上传时间, 比如: 00:12:23
+     */
     estimatedTimeHuman?: string | null;
 }
+
+/**
+ * 文件上传对象
+ * @order 30
+ */
 export interface ThyUploadFile {
+    /**
+     * 文件唯一标识
+     */
     identifier?: string;
+
+    /**
+     * 上传方法
+     */
     method: string;
+
+    /**
+     * 远程上传地址
+     */
     url: string;
+
+    /**
+     * 是否携带认证信息
+     */
     withCredentials?: boolean;
+
+    /**
+     * 原始文件
+     */
     nativeFile: File;
+
+    /**
+     * 文件字段
+     */
     fileField?: string;
+
+    /**
+     * 文件名
+     */
     fileName?: string;
+
+    /**
+     * 请求头
+     */
     headers?: Record<string, string>;
+
+    /**
+     * 请求数据
+     */
     data?: Record<string, string>;
 
+    /**
+     * 响应状态
+     */
     responseStatus?: any;
+
+    /**
+     * 上传响应结果
+     */
     response?: any;
+
+    /**
+     * 响应头
+     */
     responseHeaders?: any;
 
+    /**
+     * 上传进度
+     */
     progress?: ThyUploadFileProgress;
 }
 
@@ -50,6 +140,10 @@ export interface ThyUploadFilesOptions {
     onDone?: (item: ThyUploadFile) => void;
 }
 
+/**
+ * 文件远程上传服务
+ * @order 20
+ */
 @Injectable()
 export class ThyUploadService {
     constructor(private xhrFactory: XhrFactory) {}

@@ -15,15 +15,38 @@ export interface ThyTransferModel {
     data: Array<any>;
 }
 
+/**
+ * @order 20
+ */
 export interface ThyTransferItem {
+    /**
+     * 数据标题
+     */
     title: string;
+
+    /**
+     * 设置方向，可选值 [left,right]
+     */
     direction?: Direction;
+
     order?: number;
+
     disabled?: boolean;
+
+    /**
+     * 选中状态
+     */
     checked?: boolean;
+
     isLock?: boolean;
+
     groupId?: string;
+
     isFixed?: boolean;
+
+    /**
+     * 自定义数据
+     */
     [key: string]: any;
 }
 

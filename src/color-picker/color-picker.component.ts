@@ -1,14 +1,16 @@
 import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
+
 /**
  * 颜色选择组件
+ * @name thyColorPicker
  */
 @Directive({
     selector: '[thyColorPicker]',
@@ -25,13 +27,11 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     /**
      * 弹框偏移量。
      * @type  number
-     * @default 0
      */
-    @Input() thyOffset: number = 0;
+    @Input() @InputNumber() thyOffset: number = 0;
 
     /**
      * 颜色选择面板是否有幕布。
-     * @default true
      */
     @Input() @InputBoolean() thyHasBackdrop: boolean = true;
 
@@ -47,7 +47,6 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
 
     /**
      * 预设的快捷选择颜色。
-     * @default DEFAULT_COLORS
      */
     @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 

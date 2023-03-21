@@ -12,6 +12,10 @@ import { ThySlideContainerComponent } from './slide-container.component';
 import { ThyInternalSlideRef, ThySlideRef } from './slide-ref.service';
 import { slideAbstractOverlayOptions, slideDefaultConfigValue, THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig } from './slide.config';
 
+/**
+ * @public
+ * @order 10
+ */
 @Injectable()
 export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, ThySlideContainerComponent> implements OnDestroy {
     private originElementAddActiveClass(config: ThySlideConfig) {
@@ -99,6 +103,9 @@ export class ThySlideService extends ThyAbstractOverlayService<ThySlideConfig, T
         super(slideAbstractOverlayOptions, overlay, injector, slideDefaultConfig);
     }
 
+    /**
+     * 打开滑动弹出框
+     */
     open<T, TData = unknown, TResult = unknown>(
         componentOrTemplateRef: ComponentTypeOrTemplateRef<T>,
         config: ThySlideConfig<TData>

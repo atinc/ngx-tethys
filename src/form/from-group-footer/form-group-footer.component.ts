@@ -3,6 +3,11 @@ import { ThyFormDirective } from '../form.directive';
 import { ThyFormGroupFooterAlign, THY_FORM_CONFIG, ThyFormConfig } from '../form.class';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * 表单组底部组件
+ * @name thy-form-group-footer
+ * @order 50
+ */
 @Component({
     selector: 'thy-form-group-footer',
     templateUrl: './form-group-footer.component.html',
@@ -17,6 +22,11 @@ export class ThyFormGroupFooterComponent implements OnInit {
 
     @ContentChild('description') description: TemplateRef<any>;
 
+    /**
+     * 对齐方式
+     * @type left | right | center
+     * @default left
+     */
     @Input() thyAlign: ThyFormGroupFooterAlign;
 
     public footerClassMap = {};

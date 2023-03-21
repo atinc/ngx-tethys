@@ -18,6 +18,11 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 
 export type thyColor = 'primary' | 'success' | 'warning' | 'danger' | 'info';
 
+/**
+ * 时间轴节点组件
+ * @name thy-timeline-item
+ * @order 20
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-timeline-item',
@@ -41,6 +46,11 @@ export class ThyTimelineItemComponent implements OnInit, OnChanges {
 
     public reverse: Boolean = false;
 
+    /**
+     * 指定圆圈颜色
+     * @type primary | success | warning | danger | info
+     * @default primary
+     */
     @Input()
     set thyColor(value: thyColor) {
         if (value) {
@@ -48,10 +58,22 @@ export class ThyTimelineItemComponent implements OnInit, OnChanges {
         }
     }
 
+    /**
+     * 自定义节点位置
+     * @type left | right | center
+     */
     @Input() thyPosition: ThyTimeMode;
 
+    /**
+     * 自定义时间轴点模板
+     * @type TemplateRef
+     */
     @ContentChild('dot', { static: false }) dot: TemplateRef<SafeAny>;
 
+    /**
+     * 自定义另一侧的模板
+     * @type TemplateRef
+     */
     @ContentChild('description', { static: false }) description: TemplateRef<SafeAny>;
 
     constructor(private cdr: ChangeDetectorRef, private timelineService: ThyTimelineService) {}

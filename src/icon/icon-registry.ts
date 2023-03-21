@@ -28,6 +28,9 @@ export type SvgResourceUrl = SafeResourceUrl | string;
 
 export type SvgHtml = SafeHtml | string;
 
+/**
+ * @order 20
+ */
 @Injectable({
     providedIn: 'root'
 })
@@ -308,6 +311,9 @@ export class ThyIconRegistry {
         return this.internalAddSvgIconSet(namespace, new SvgIconConfig(url));
     }
 
+    /**
+     * 添加SVG图标集，添加到默认命名空间
+     */
     public addSvgIconSet(url: SvgResourceUrl): this {
         return this.addSvgIconSetInNamespace('', url);
     }
@@ -328,7 +334,8 @@ export class ThyIconRegistry {
     }
 
     /**
-     * Registers an icon by URL in the specified namespace.
+     * 添加单个SVG图标到指定的命名空间
+     * @description.en-us Registers an icon by URL in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param url
@@ -339,7 +346,8 @@ export class ThyIconRegistry {
     }
 
     /**
-     * Registers an icon by URL in the default namespace.
+     * 添加单个SVG图标
+     * @description.en-us Registers an icon by URL in the default namespace.
      * @param iconName Name under which the icon should be registered.
      * @param url
      */
@@ -348,7 +356,8 @@ export class ThyIconRegistry {
     }
 
     /**
-     * Registers an icon using an HTML string in the default namespace.
+     * 添加单个SVG图标字符串，直接传入 SVG HTML 字符串
+     * @description.en-us Registers an icon using an HTML string in the default namespace.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
      */
@@ -357,7 +366,8 @@ export class ThyIconRegistry {
     }
 
     /**
-     * Registers an icon using an HTML string in the specified namespace.
+     * 添加单个SVG图标字符串到指定的命名空间，直接传入 SVG HTML 字符串
+     * @description.en-us Registers an icon using an HTML string in the specified namespace.
      * @param namespace Namespace in which the icon should be registered.
      * @param iconName Name under which the icon should be registered.
      * @param literal SVG source of the icon.
@@ -382,6 +392,9 @@ export class ThyIconRegistry {
         return fontSet;
     }
 
+    /**
+     * 获取某个图标
+     */
     public getSvgIcon(name: string, namespace: string = ''): Observable<SVGElement> {
         // Return (copy of) cached icon if possible.
         const key = this.buildIconKey(namespace, name);

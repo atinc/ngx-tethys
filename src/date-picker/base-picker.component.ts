@@ -1,4 +1,4 @@
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
@@ -7,6 +7,10 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 
+/**
+ * 日期选择组件的基类，继承自 AbstractPickerComponent
+ * @order 20
+ */
 @Component({
     template: ``,
     standalone: true,
@@ -24,9 +28,15 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 
     @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
+
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
+
+    /**
+     * 增加时间选择功能
+     * @default false
+     */
     @Input() get thyShowTime(): object | boolean {
         return this._showTime;
     }
@@ -34,8 +44,16 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         this._showTime = typeof value === 'object' ? value : coerceBooleanProperty(value);
     }
 
-    @Input() thyMustShowTime = false;
+    /**
+     * 是否展示时间(时、分)
+     * @type boolean
+     */
+    @Input() @InputBoolean() thyMustShowTime = false;
 
+    /**
+     * 弹出位置
+     * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
+     */
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
     @Output() readonly thyOnOk = new EventEmitter<CompatibleDate | null>();

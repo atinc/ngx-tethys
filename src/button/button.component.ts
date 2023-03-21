@@ -53,6 +53,11 @@ const btnTypeClassesMap = {
 
 const iconOnlyClass = 'thy-btn-icon-only';
 
+/**
+ * 操作按钮，支持组件`thy-button`和`thyButton`指令两种形式
+ * @name thy-button,[thy-button],[thyButton]
+ * @order 10
+ */
 @Component({
     selector: 'thy-button,[thy-button],[thyButton]',
     templateUrl: './button.component.html',
@@ -92,16 +97,29 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 按钮类型，支持添加前缀`outline-`实现线框按钮，支持添加前缀`link-`实现按钮链接
+     * @type primary | info | warning | danger | success
+     * @default primary
+     */
     @Input()
     set thyButton(value: ThyButtonType) {
         this.setBtnType(value);
     }
 
+    /**
+     * 和`thyButton`参数一样，一般使用`thyButton`，为了减少参数输入, 当通过`thy-button`使用时，只能使用该参数控制类型
+     * @default primary
+     */
     @Input()
     set thyType(value: ThyButtonType) {
         this.setBtnType(value);
     }
 
+    /**
+     * 加载状态
+     * @default false
+     */
     @Input()
     @InputBoolean()
     set thyLoading(value: boolean) {
@@ -116,6 +134,9 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
+    /**
+     * 加载状态时显示的文案
+     */
     @Input()
     set thyLoadingText(value: string) {
         if (this._loadingText !== value) {
@@ -126,6 +147,11 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
+    /**
+     * 按钮大小
+     * @type xs | sm | md | default | lg
+     * @default default
+     */
     @Input()
     set thySize(size: string) {
         this._size = size;
@@ -134,6 +160,9 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
+    /**
+     * 按钮中显示的图标，支持SVG图标名称，比如`angle-left`，也支持传之前的 wtf 字体，比如: wtf-plus
+     */
     @Input()
     set thyIcon(icon: string) {
         this._icon = icon;
@@ -154,6 +183,10 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
         }
     }
 
+    /**
+     * 按钮整块展示
+     * @default false
+     */
     @HostBinding(`class.btn-block`)
     @Input()
     @InputBoolean()

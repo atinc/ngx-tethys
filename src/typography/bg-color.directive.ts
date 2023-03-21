@@ -2,6 +2,9 @@ import { Directive, ElementRef, Input } from '@angular/core';
 import { isBgColor, isThemeColor, ThyBgColor, ThyThemeColor } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
+/**
+ * @name thyBgColor
+ */
 @Directive({
     selector: '[thyBgColor]',
     exportAs: 'thyBgColor',

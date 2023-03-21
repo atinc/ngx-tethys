@@ -15,7 +15,7 @@ import {
     Input,
     ElementRef
 } from '@angular/core';
-import { Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, ThyUnsubscribe } from 'ngx-tethys/core';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
@@ -111,6 +111,7 @@ export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionPa
      * @default false
      */
     @Input()
+    @InputBoolean()
     set thyAutoActiveFirstOption(value: boolean) {
         this._autoActiveFirstOption = coerceBooleanProperty(value);
     }

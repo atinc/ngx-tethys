@@ -40,7 +40,7 @@ export class TestCollapseBasicComponent {
             <thy-collapse-panel id="without-arrow-icon" thyTitle="without-arrow-icon" [thyArrowIcon]="null">内容区域5</thy-collapse-panel>
         </thy-collapse>
         <ng-template #headerTemplate>
-            <div class="header-template">头部模版</div>
+            <div class="header-template">头部模板</div>
         </ng-template>
         <ng-template #headerIconTemplate>
             <thy-icon [thyIconName]="'clock-circle'" class="template-icon"></thy-icon>
@@ -299,7 +299,7 @@ describe('collapse-panel', () => {
             fixture.detectChanges();
             const headerTemplate = fixture.debugElement.query(By.css('.header-template'));
             expect(headerTemplate).toBeTruthy();
-            expect(headerTemplate.parent.nativeElement.innerText).toBe('头部模版');
+            expect(headerTemplate.parent.nativeElement.innerText).toBe('头部模板');
         });
 
         it('should have correct icon template when thyExpandedIcon is template', () => {

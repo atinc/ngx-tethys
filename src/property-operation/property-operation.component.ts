@@ -14,7 +14,7 @@ import {
     NgZone
 } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
 import { htmlElementIsEmpty, coerceBooleanProperty } from 'ngx-tethys/util';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -25,6 +25,11 @@ import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
 
 type ThyPropertyOperationTypes = 'primary' | 'success' | 'warning' | 'danger';
 
+/**
+ * 属性操作组件
+ * @name thy-property-operation
+ * @order 10
+ */
 @Component({
     selector: 'thy-property-operation',
     templateUrl: './property-operation.component.html',
@@ -50,8 +55,14 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
 
     labelHideWhenHasValue = false;
 
+    /**
+     * 点击移除图标时的事件回调，此函数只有在thyShowClose为true时才会发生
+     */
     @Output() thyOnRemove = new EventEmitter();
 
+    /**
+     * 点击事件回调
+     */
     @Output() thyClick = new EventEmitter<Event>();
 
     @HostBinding('class.thy-property-operation') _isPropertyOperation = true;
@@ -60,53 +71,93 @@ export class ThyPropertyOperationComponent implements OnInit, AfterContentInit, 
 
     @ViewChild('contentElement', { static: true }) contentElement: ElementRef;
 
+    /**
+     * 属性的 Label 文本
+     */
     @Input()
     set thyLabelText(value: string) {
         this.labelText = value;
     }
 
+    /**
+     * 属性的值
+     */
     @Input()
     set thyValue(value: string) {
         this.value = value;
         this.setOnlyHasTips();
     }
 
+    /**
+     * 属性的 Label Translate Key
+     */
     @Input()
     set thyLabelTextTranslateKey(value: string) {
         this.labelText = this.thyTranslate.instant(value);
     }
 
+    /**
+     * 图标
+     */
     @Input()
     set thyIcon(value: string) {
         this.icon = value;
     }
 
+    /**
+     * 当有属性值时是否展示移除图标
+     * @default false
+     */
     @Input()
+    @InputBoolean()
     set thyShowClose(value: boolean) {
         this.showClose = coerceBooleanProperty(value);
     }
 
     // 支持有值时，label不显示
-    @Input() set thyLabelHasValue(value: boolean) {
+    @Input()
+    @InputBoolean()
+    set thyLabelHasValue(value: boolean) {
         this.labelHideWhenHasValue = !coerceBooleanProperty(value);
     }
 
-    @Input() set thyLabelHideWhenHasValue(value: boolean) {
+    /**
+     * 有值时隐藏 label
+     * @default false
+     */
+    @Input()
+    @InputBoolean()
+    set thyLabelHideWhenHasValue(value: boolean) {
         this.labelHideWhenHasValue = coerceBooleanProperty(value);
     }
 
+    /**
+     * 属性类型
+     * @type  danger | primary | success | warning | null
+     * @default null
+     */
     @Input()
     set thyType(value: ThyPropertyOperationTypes) {
         this.type = value;
         this.setHostClass();
     }
 
+    /**
+     * 激活状态
+     * @default false
+     */
     @HostBinding('class.active')
     @Input('thyActive')
+    @InputBoolean()
     active: boolean;
 
+    /**
+     * 禁用操作，添加后property operation中thyClick和thyOnRemove事件将会被禁用
+     * @default false
+     */
     @HostBinding('class.thy-property-operation-disabled')
     @Input('thyDisabled')
+    @InputBoolean()
     disabled: boolean;
 
     private destroy$ = new Subject<void>();

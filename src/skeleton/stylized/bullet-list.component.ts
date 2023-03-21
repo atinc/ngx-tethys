@@ -4,6 +4,7 @@ import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { NgFor } from '@angular/common';
 import { ThySkeletonCircleComponent } from '../skeleton-circle.component';
 import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
+
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `

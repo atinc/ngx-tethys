@@ -28,14 +28,13 @@ import {
     ThyPanelMode,
     ThyShortcutPosition,
     ThyShortcutPreset,
-    ThyShortcutRange,
     ThyShortcutValue,
     ThyShortcutValueChange
 } from '../../standard-types';
 import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
 import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
 import { InnerPopupComponent } from './inner-popup.component';
-import { ThyDatePickerConfigService } from 'ngx-tethys/date-picker/date-picker.service';
+import { ThyDatePickerConfigService } from '../../date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

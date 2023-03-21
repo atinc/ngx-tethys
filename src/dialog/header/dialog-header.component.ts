@@ -1,16 +1,4 @@
-import {
-    Component,
-    Input,
-    Output,
-    EventEmitter,
-    ContentChild,
-    TemplateRef,
-    OnInit,
-    HostBinding,
-    ChangeDetectionStrategy,
-    Optional,
-    ElementRef
-} from '@angular/core';
+import { Component, Input, Output, EventEmitter, ContentChild, TemplateRef, OnInit, Optional, ElementRef } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { ThyDialogContainerComponent } from '../dialog-container.component';
 import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
@@ -19,6 +7,11 @@ import { ThyActionComponent } from 'ngx-tethys/action';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * 模态框头部组件
+ * @name thy-dialog-header
+ * @order 40
+ */
 @Component({
     selector: 'thy-dialog-header',
     templateUrl: './dialog-header.component.html',
@@ -33,15 +26,34 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
     imports: [NgIf, NgTemplateOutlet, ThyIconComponent, ThyActionComponent]
 })
 export class DialogHeaderComponent implements OnInit {
+    /**
+     * 自定义头部模板
+     * @type TemplateRef
+     */
     @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
 
+    /**
+     * 标题
+     */
     @Input() thyTitle: string;
 
+    /**
+     * 大小，只有大的详情页场景会使用 lg, 左右 padding 缩小至 20px
+     * @type lg | md
+     * @default md
+     */
     @Input() thySize: 'lg' | 'md';
 
+    /**
+     * 是否显示分割线
+     * @default false
+     */
     @Input() @InputBoolean() thyDivided: boolean;
 
+    /**
+     * 标题的多语言 Key
+     */
     @Input()
     set thyTitleTranslationKey(key: string) {
         if (key && !this.thyTitle) {
@@ -49,8 +61,14 @@ export class DialogHeaderComponent implements OnInit {
         }
     }
 
+    /**
+     * 头部图标
+     */
     @Input() thyIcon: string;
 
+    /**
+     * 关闭事件
+     */
     @Output() thyOnClose: EventEmitter<Event> = new EventEmitter<Event>();
 
     constructor(

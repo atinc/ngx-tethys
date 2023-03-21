@@ -7,6 +7,7 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 /**
  * 悬浮层头部组件
  * @name thy-popover-header
+ * @order 30
  */
 @Component({
     selector: 'thy-popover-header',
@@ -25,6 +26,9 @@ export class ThyPopoverHeaderComponent {
      */
     @Input() thyTitle: string;
 
+    /**
+     * 标题的多语言 Key
+     */
     @Input()
     set thyTitleTranslationKey(key: string) {
         if (key && !this.thyTitle) {
@@ -33,7 +37,8 @@ export class ThyPopoverHeaderComponent {
     }
 
     /**
-     * 自定义头部模版
+     * 自定义头部模板
+     * @type TemplateRef
      */
     @ContentChild('popoverHeader')
     public headerTemplate: TemplateRef<any>;

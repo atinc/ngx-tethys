@@ -13,6 +13,11 @@ const buttonGroupSizeMap = {
     xs: ['btn-group-xs']
 };
 
+/**
+ * 按钮分组组件
+ * @name thy-button-group
+ * @order 30
+ */
 @Component({
     selector: 'thy-button-group',
     template: '<ng-content></ng-content>',
@@ -28,6 +33,11 @@ export class ThyButtonGroupComponent implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 大小
+     * @type xs | sm | md | lg
+     * @default md
+     */
     @Input()
     set thySize(size: ButtonGroupSize) {
         this.size = size;
@@ -36,6 +46,11 @@ export class ThyButtonGroupComponent implements OnInit {
         }
     }
 
+    /**
+     * 类型
+     * @type outline-default | outline-primary
+     * @default outline-default
+     */
     @Input()
     set thyType(type: ButtonGroupType) {
         this.type = type;
@@ -44,6 +59,10 @@ export class ThyButtonGroupComponent implements OnInit {
         }
     }
 
+    /**
+     * 是否需要最小宽度，默认按钮最小宽度为80px
+     * @default false
+     */
     @Input()
     set thyClearMinWidth(value: string) {
         this.thyClearMinWidthClassName = coerceBooleanProperty(value);

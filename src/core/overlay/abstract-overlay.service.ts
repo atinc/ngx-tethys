@@ -158,14 +158,27 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         return abstractOverlayRef;
     }
 
+    /**
+     * 所有弹出框完全关闭后的回调
+     * @returns
+     */
     afterAllClosed() {
         return this._afterAllClosed;
     }
 
+    /**
+     * 打开弹出框之后的回调
+     * @returns
+     */
     afterOpened() {
         return this._afterOpened;
     }
 
+    /**
+     * 关闭弹出框, 若force为true,则canClose无效，强制关闭
+     * @param result
+     * @param force
+     */
     close<T>(result?: T, force?: boolean) {
         if (this.openedOverlays.length > 0) {
             const lastOverlayRef = this.openedOverlays[this.openedOverlays.length - 1];
@@ -175,6 +188,9 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
         }
     }
 
+    /**
+     * 关闭所有打开的弹出框
+     */
     closeAll() {
         let i = this.openedOverlays.length;
         while (i--) {

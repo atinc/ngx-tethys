@@ -1,5 +1,6 @@
 import { Component, HostBinding, Input } from '@angular/core';
 import ThyColor from '../../helpers/color.class';
+
 /**
  * @internal
  */

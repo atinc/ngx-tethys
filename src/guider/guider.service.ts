@@ -9,6 +9,10 @@ import { Injectable, RendererFactory2 } from '@angular/core';
 import { ThyGuiderStep, ThyGuiderConfig, defaultGuiderPositionConfig } from './guider.class';
 import { Overlay } from '@angular/cdk/overlay';
 
+/**
+ * 新手引导服务
+ * @order 10
+ */
 @Injectable({
     providedIn: 'root'
 })

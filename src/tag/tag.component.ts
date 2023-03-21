@@ -9,8 +9,12 @@ export type ThyTagShape = 'pill' | 'rectangle';
 
 export type ThyTagSize = 'sm' | 'md' | 'lg';
 
+/**
+ * 标签组件
+ * @name thy-tag,[thyTag]
+ */
 @Component({
-    selector: 'thy-tag, [thyTag]',
+    selector: 'thy-tag,[thyTag]',
     templateUrl: './tag.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
@@ -32,6 +36,8 @@ export class ThyTagComponent implements OnInit, OnChanges {
 
     /**
      * 标签颜色，thyColor 的简写
+     * @type primary | success | info | warning | danger | default | light | string
+     * @default default
      */
     @Input()
     set thyTag(value: ThyTagColor) {
@@ -41,7 +47,8 @@ export class ThyTagComponent implements OnInit, OnChanges {
     }
 
     /**
-     * 标签形状，可选值为 `pill` 或 `rectangle`
+     * 标签形状
+     * @type pill | rectangle
      */
     @Input() thyShape: ThyTagShape = 'rectangle';
 
@@ -55,16 +62,19 @@ export class ThyTagComponent implements OnInit, OnChanges {
 
     /**
      * 标签主题，fill 为颜色填充，outline 为线框，weak-fill 为背景色0.1透明度效果
+     * @type outline | fill | weak-fill
      */
     @Input() thyTheme: 'outline' | 'fill' | 'weak-fill' = 'fill';
 
     /**
      * 标签大小
+     * @type sm | md | lg
      */
     @Input() thySize: ThyTagSize = 'md';
 
     /**
      * 可 Hover 悬停的标签，设置为 true 时会有一个 Hover 效果
+     * @default false
      */
     @Input()
     @InputBoolean()

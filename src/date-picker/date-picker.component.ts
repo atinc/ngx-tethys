@@ -7,6 +7,11 @@ import { BasePickerComponent } from './base-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
 
+/**
+ * 日期选择组件，继承自 BasePickerComponent
+ * @name thy-date-picker
+ * @order 30
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-date-picker',

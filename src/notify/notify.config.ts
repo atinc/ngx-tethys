@@ -23,19 +23,41 @@ export interface ThyNotifyDetail {
     action?: (event?: Event) => void;
 }
 
+/**
+ * 打开notify通知的配置
+ * @order 10
+ */
 export interface ThyNotifyConfig extends ThyMessageBaseConfig {
+    /**
+     * 通知弹出位置
+     */
     placement?: ThyNotifyPlacement;
 
+    /**
+     * 弹出通知的类型
+     */
     type?: ThyNotifyType;
 
+    /**
+     * 标题
+     */
     title?: string;
 
+    /**
+     * 提示内容
+     */
     content?: string | ComponentTypeOrTemplateRef<any>;
 
     contentInitialState?: any;
 
+    /**
+     * 提示内容的详情，是对内容的详情描述，也可以是能够操作的链接，link是链接名，content是详情描述，action是点击的方法
+     */
     detail?: string | ThyNotifyDetail;
 
+    /**
+     * 自定义传入html模板
+     */
     html?: ElementRef;
 }
 

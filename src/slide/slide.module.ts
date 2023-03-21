@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ThySharedModule } from 'ngx-tethys/shared';
 import { ThySlideService } from './slide.service';
 import { ThySlideContainerComponent } from './slide-container.component';
-import { ThySlideRef, ThyInternalSlideRef } from './slide-ref.service';
+import { ThyInternalSlideRef } from './slide-ref.service';
 import { ThySlideLayoutComponent } from './slide-layout/slide-layout.component';
 import { ThySlideHeaderComponent } from './slide-header/slide-header.component';
 import { ThySlideBodyComponent } from './slide-body/slide-body.component';

@@ -6,6 +6,10 @@ import { Injectable } from '@angular/core';
 import { ThySlideContainerComponent } from './slide-container.component';
 import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';
 
+/**
+ * @public
+ * @order 30
+ */
 export abstract class ThySlideRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThySlideContainerComponent, TResult> {}
 
 @Injectable()

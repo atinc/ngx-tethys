@@ -10,6 +10,11 @@ type SubMenuDirection = 'left' | 'right' | 'auto';
 
 const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
+/**
+ * 操作子菜单
+ * @name thyActionMenuSubItem
+ * @order 60
+ */
 @Directive({
     selector: '[thyActionMenuSubItem]',
     providers: [],
@@ -18,6 +23,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 export class ThyActionMenuSubItemDirective extends _MixinBase implements OnInit, OnDestroy {
     @HostBinding('class.action-menu-sub-item') className = true;
 
+    /**
+     * 子菜单展示方向，`auto` 会自动判断右侧是否可以在窗口中展示，展示不下会在左侧展示
+     * @type left | right | auto
+     */
     @Input() thyActionMenuSubItem: SubMenuDirection = 'right';
 
     constructor(private actionMenuItem: ThyActionMenuItemDirective) {

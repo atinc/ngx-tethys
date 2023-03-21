@@ -1,22 +1,10 @@
-import {
-    Component,
-    Input,
-    HostBinding,
-    ElementRef,
-    ChangeDetectorRef,
-    Inject,
-    forwardRef,
-    InjectionToken,
-    HostListener,
-    Optional,
-    OnInit
-} from '@angular/core';
-import { FocusableOption, FocusOrigin, Highlightable } from '@angular/cdk/a11y';
-// import { SelectionModel } from '@angular/cdk/collections';
+import { Component, Input, HostBinding, ElementRef, ChangeDetectorRef, Inject, HostListener, Optional } from '@angular/core';
+import { Highlightable } from '@angular/cdk/a11y';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { IThyListOptionParentComponent, THY_LIST_OPTION_PARENT_COMPONENT } from '../option.token';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 let _uniqueIdCounter = 0;
 
@@ -24,6 +12,7 @@ export type ThyListLayout = 'list' | 'grid';
 
 /**
  * @private
+ * @order 30
  */
 @Component({
     selector: 'thy-list-option,[thy-list-option]',
@@ -51,6 +40,7 @@ export class ThyListOptionComponent implements Highlightable {
     @Input() thyValue: any;
 
     @Input()
+    @InputBoolean()
     set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
     }

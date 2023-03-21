@@ -1,22 +1,16 @@
-import {
-    Component,
-    forwardRef,
-    OnInit,
-    HostBinding,
-    HostListener,
-    Input,
-    ElementRef,
-    Optional,
-    ChangeDetectionStrategy,
-    ChangeDetectorRef
-} from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { Component, forwardRef, OnInit, Input, Optional, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { ThyTranslate } from 'ngx-tethys/core';
 import { ThyFormCheckBaseComponent } from 'ngx-tethys/shared';
 import { ThyRadioGroupComponent } from './group/radio-group.component';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { NgClass, NgIf } from '@angular/common';
 
+/**
+ * 单选框组件
+ * @name thy-radio,[thyRadio]
+ * @order 10
+ */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-radio],[thyRadio]',
@@ -35,6 +29,9 @@ import { NgClass, NgIf } from '@angular/common';
 export class ThyRadioComponent extends ThyFormCheckBaseComponent implements OnInit {
     name: string;
 
+    /**
+     * 当和 thy-radio-group 配合使用时的值，选中后的 NgModel 值
+     */
     @Input() thyValue: string;
 
     set thyChecked(value: boolean) {

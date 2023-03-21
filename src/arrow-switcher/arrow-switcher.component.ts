@@ -15,6 +15,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyActionComponent } from 'ngx-tethys/action';
 import { NgIf } from '@angular/common';
+import { InputNumber } from 'ngx-tethys/core';
 
 export type ThyArrowSwitcherTheme = 'default' | 'lite';
 export interface ThyArrowSwitcherEvent {
@@ -22,6 +23,11 @@ export interface ThyArrowSwitcherEvent {
     event: Event;
 }
 
+/**
+ * 上下条切换组件
+ * @name thy-arrow-switcher
+ * @order 10
+ */
 @Component({
     selector: 'thy-arrow-switcher',
     templateUrl: './arrow-switcher.component.html',
@@ -45,19 +51,40 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
 
     theme: ThyArrowSwitcherTheme = 'default';
 
+    /**
+     * 点击上一条事件
+     */
     @Output() thyPrevious = new EventEmitter<ThyArrowSwitcherEvent>();
 
+    /**
+     * 点击下一条事件
+     */
     @Output() thyNext = new EventEmitter<ThyArrowSwitcherEvent>();
 
+    /**
+     * 设置上一条 Hover Tooltip 提示
+     */
     @Input() thyPreviousTooltip: string;
 
+    /**
+     * 设置下一条 Hover Tooltip 提示
+     */
     @Input() thyNextTooltip: string;
 
+    /**
+     * 展示主题
+     * @type default | lite
+     * @default default
+     */
     @Input() set thyTheme(value: ThyArrowSwitcherTheme) {
         this.theme = value;
     }
 
+    /**
+     * 总条数
+     */
     @Input()
+    @InputNumber()
     set thyTotal(value: number) {
         if (value) {
             this.total = value;
@@ -65,6 +92,9 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
         }
     }
 
+    /**
+     * 尺寸大小,默认尺寸为大号，取值为sm时展示小号
+     */
     @Input()
     set thySize(size: string) {
         if (size === 'sm') {

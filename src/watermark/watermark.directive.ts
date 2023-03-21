@@ -14,6 +14,11 @@ export interface ThyCanvasConfigType {
     textLineHeight?: number;
     gutter?: number[];
 }
+
+/**
+ * 水印指令
+ * @name thyWatermark
+ */
 @Directive({
     selector: '[thyWatermark]',
     standalone: true

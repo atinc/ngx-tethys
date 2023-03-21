@@ -31,6 +31,11 @@ export enum ThyTimeModes {
 
 export type ThyTimeDirection = 'horizontal' | 'vertical';
 
+/**
+ * 时间轴组件
+ * @name thy-timeline
+ * @order 10
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
@@ -50,10 +55,23 @@ export type ThyTimeDirection = 'horizontal' | 'vertical';
     imports: [NgFor, NgTemplateOutlet]
 })
 export class ThyTimelineComponent implements OnInit, AfterContentInit, OnChanges, OnDestroy {
+    /**
+     * 节点排序是否倒序
+     * @default false
+     */
     @Input() @InputBoolean() thyReverse: boolean;
 
+    /**
+     * 改变时间轴和内容的相对位置
+     * @type left | right | center
+     * @default left
+     */
     @Input() thyMode: ThyTimeMode;
 
+    /**
+     * 时间轴的方向
+     * @type horizontal | vertical
+     */
     @Input() thyDirection: ThyTimeDirection = 'vertical';
 
     public timelineItems: ThyTimelineItemComponent[] = [];

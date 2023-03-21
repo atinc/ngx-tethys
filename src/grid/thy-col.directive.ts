@@ -2,7 +2,7 @@ import { Directive, Input, OnChanges, Optional, Host, AfterViewInit, OnDestroy, 
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyRowDirective } from './thy-row.directive';
 import { takeUntil } from 'rxjs/operators';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
+import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe, InputNumber } from 'ngx-tethys/core';
 
 export interface ThyColEmbeddedProperty {
     span?: number;
@@ -16,6 +16,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * 栅格列指令
+ * @name thyCol
  */
 @Directive({
     selector: '[thyCol]',
@@ -27,9 +28,8 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 export class ThyColDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
     /**
      * 栅格项的占位列数
-     * @default 24
      */
-    @Input() thySpan: number | null = 24;
+    @Input() @InputNumber() thySpan: number | null = 24;
 
     private hostRenderer = useHostRenderer();
 

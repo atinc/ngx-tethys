@@ -38,14 +38,12 @@ export class ThyPropertiesComponent implements OnInit {
     /**
      * 设置一行的可以 property-item 的数量
      * @type  number
-     * @default 1
      */
     @Input() @InputNumber() thyColumn: number = 1;
 
     /**
      * 设置编辑状态触发方法
      * @type 'hover' | 'click'
-     * @default hover
      */
     @Input() thyEditTrigger: 'hover' | 'click' = 'hover';
 

@@ -34,6 +34,10 @@ const listSizesMap = {
     sm: 'thy-list-sm'
 };
 
+/**
+ * @name thy-selection-list,[thy-selection-list]
+ * @order 20
+ */
 @Component({
     selector: 'thy-selection-list,[thy-selection-list]',
     template: '<ng-content></ng-content>',
@@ -77,9 +81,15 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     @HostBinding(`class.thy-grid-list`) isLayoutGrid = false;
 
-    /** The option components contained within this selection-list. */
+    /**
+     * @internal
+     */
     @ContentChildren(ThyListOptionComponent, { descendants: true }) options: QueryList<ThyListOptionComponent>;
 
+    /**
+     * 改变 grid item 的选择模式，使其支持多选
+     * @default true
+     */
     @Input()
     set thyMultiple(value: any) {
         const previousValue = this.multiple;
@@ -89,36 +99,70 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
         }
     }
 
+    /**
+     * 绑定键盘事件的容器
+     * @default thy-selection-list 组件绑定的元素
+     */
     @Input() thyBindKeyEventContainer: HTMLElement | ElementRef | string;
 
+    /**
+     * 出现滚动条的容器
+     * @default thy-selection-list 组件绑定的元素
+     */
     @Input() thyScrollContainer: HTMLElement | ElementRef | string;
 
+    /**
+     * 键盘事件触发 Before 调用，如果返回 false 则停止继续执行
+     */
     @Input() thyBeforeKeydown: (event?: KeyboardEvent) => boolean;
 
+    /**
+     * Option Value 唯一的 Key，用于存储哪些选择被选中的唯一值，只有 Option 的 thyValue 是对象的时才可以传入该选项
+     */
     @Input() thyUniqueKey: string;
 
+    /**
+     * 比较2个选项的 Value 是否相同
+     */
     @Input() thyCompareWith: (o1: any, o2: any) => boolean;
 
+    /**
+     * 改变 grid item 的展示样式，是 “list” 形式还是 “grid” 形式
+     * @type list | grid
+     * @default list
+     */
     @Input() set thyLayout(value: ThyListLayout) {
         this.layout = value;
         this.isLayoutGrid = value === 'grid';
     }
 
+    /**
+     * 是否自动激活第一项
+     */
     @Input() set thyAutoActiveFirstItem(value: boolean) {
         this.autoActiveFirstItem = coerceBooleanProperty(value);
     }
 
+    /**
+     * 改变 grid item 的大小，支持默认以及"sm"两种大小
+     * @type sm | md | lg
+     */
     @Input() set thySize(value: ThyListSize) {
         this._setListSize(value);
     }
 
     private spaceEnabled = true;
-    /** Whether keydown space toggle focused option */
+
+    /**
+     * 是否按下空格切换聚焦选项
+     */
     @Input() set thySpaceKeyEnabled(value: boolean) {
         this.spaceEnabled = coerceBooleanProperty(value);
     }
 
-    /** Emits a change event whenever the selected state of an option changes. */
+    /**
+     * 每当选项的选定状态发生更改时，都会触发更改事件
+     */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<ThySelectionListChange>();
 
     private autoActiveFirstItem: boolean;

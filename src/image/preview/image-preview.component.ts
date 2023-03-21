@@ -41,6 +41,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
 
 /**
  * 图片预览组件
+ * @name thy-image-preview
  */
 @Component({
     selector: 'thy-image-preview',

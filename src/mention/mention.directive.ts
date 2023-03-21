@@ -28,6 +28,10 @@ const DEFAULT_MENTION_CONFIG: Partial<Mention> = {
     }
 };
 
+/**
+ * @name thyMention
+ * @order 10
+ */
 @Directive({
     selector: '[thyMention]',
     standalone: true
@@ -42,6 +46,9 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
         return this._mentions;
     }
 
+    /**
+     * 提及输入配置参数，同时支持多个提及规则
+     */
     @Input('thyMention') set mentions(value: Mention<any>[]) {
         this._mentions = value;
         if (this._mentions) {
@@ -54,8 +61,14 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
         }
     }
 
+    /**
+     * Popover 弹出层参数配置
+     */
     @Input('thyPopoverConfig') popoverConfig: ThyPopoverConfig;
 
+    /**
+     * 选择后的回调函数
+     */
     @Output('thySelectSuggestion') select = new EventEmitter<MentionSuggestionSelectEvent>();
 
     get isOpened() {

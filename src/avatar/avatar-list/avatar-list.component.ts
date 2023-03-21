@@ -18,7 +18,7 @@ import {
     TemplateRef,
     ViewChild
 } from '@angular/core';
-import { InputBoolean, UpdateHostClassService } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, UpdateHostClassService } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
 import { merge, Observable, of, Subject } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
@@ -34,6 +34,7 @@ export const enum ThyAvatarListMode {
 }
 /**
  * 头像列表组件
+ * @name thy-avatar-list
  */
 @Component({
     selector: 'thy-avatar-list',
@@ -67,7 +68,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     /**
      * 展示方式
-     * @type  'overlap'| 'default'
+     * @type  overlap | default
      * @default default
      */
     @Input()
@@ -77,7 +78,6 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     /**
      * 响应式，自动计算宽度存放 avatar
-     * @default false
      */
     @Input()
     @InputBoolean()
@@ -86,7 +86,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     /**
      * 列表组件允许展示 avatar 最大数量
      */
-    @Input() thyMax: number;
+    @Input() @InputNumber() thyMax: number;
 
     /**
      * 头像大小
@@ -98,9 +98,8 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     /**
      * 是否展示移除按钮
      * @type boolean
-     * @default false
      */
-    @Input() thyRemovable = false;
+    @Input() @InputBoolean() thyRemovable = false;
 
     /**
      * avatar 移除按钮事件

@@ -27,7 +27,6 @@ export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements
 
     /**
      * 栅格项左侧的偏移列数
-     * @default 0
      */
     @Input() thyOffset: number | ThyGridResponsiveDescription = 0;
 

@@ -1,4 +1,4 @@
-import { InputNumber } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyTagSize } from 'ngx-tethys/tag';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 
@@ -58,6 +58,7 @@ export class ThySelectControlComponent implements OnInit {
     private hostRenderer = useHostRenderer();
 
     @Input()
+    @InputBoolean()
     get thyPanelOpened(): boolean {
         return this.panelOpened;
     }
@@ -78,6 +79,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     @Input()
+    @InputBoolean()
     get thyIsMultiple(): boolean {
         return this.isMultiple;
     }
@@ -88,6 +90,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     @Input()
+    @InputBoolean()
     get thyShowSearch(): boolean {
         return this.showSearch;
     }
@@ -129,6 +132,7 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     @Input()
+    @InputBoolean()
     get thyDisabled(): boolean {
         return this.disabled;
     }
@@ -142,6 +146,7 @@ export class ThySelectControlComponent implements OnInit {
     customDisplayTemplate: TemplateRef<any>;
 
     @Input()
+    @InputBoolean()
     thyAllowClear = false;
 
     @Input()

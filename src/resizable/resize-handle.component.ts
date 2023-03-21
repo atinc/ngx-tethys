@@ -46,6 +46,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
 export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
     /**
      * 调整方向
+     * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft
      */
     @Input() thyDirection: ThyResizeDirection = 'bottomRight';
 

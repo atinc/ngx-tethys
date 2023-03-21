@@ -1,13 +1,12 @@
 import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
-import { ComponentTypeOrTemplateRef, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, InputNumber, ThyOverlayDirectiveBase, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SafeAny } from 'ngx-tethys/types';
 import { isFunction, isTemplateRef } from 'ngx-tethys/util';
-import { Observable, Subject } from 'rxjs';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
@@ -17,6 +16,7 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
 
 /**
  * thyDropdown 触发下拉菜单指令
+ * @name thyDropdown
  */
 @Directive({
     selector: `[thyDropdown]`,
@@ -47,7 +47,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     }
 
     /**
-     * 下拉菜单触发方式: 'hover' | 'focus' | 'click'
+     * 下拉菜单触发方式
+     * @type 'hover' | 'focus' | 'click' | string
      * @default click
      */
     @Input() set thyTrigger(value: ThyOverlayTrigger | string) {
@@ -56,17 +57,23 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 打开延迟毫秒
+     * @type number
      * @default 100
      */
-    @Input('thyShowDelay') set thyShowDelay(value: number) {
+    @Input('thyShowDelay')
+    @InputNumber()
+    set thyShowDelay(value: number) {
         this.showDelay = value;
     }
 
     /**
      * 关闭延迟毫秒
+     * @type number
      * @default 100
      */
-    @Input('thyHideDelay') set thyHideDelay(value: number) {
+    @Input('thyHideDelay')
+    @InputNumber()
+    set thyHideDelay(value: number) {
         this.hideDelay = value;
     }
 

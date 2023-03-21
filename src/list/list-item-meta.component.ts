@@ -2,6 +2,10 @@ import { Component, Input, HostBinding, ChangeDetectionStrategy, TemplateRef, Co
 import { ThyAvatarComponent } from 'ngx-tethys/avatar';
 import { NgIf } from '@angular/common';
 
+/**
+ * @name thy-list-item-meta,[thy-list-item-meta]
+ * @order 40
+ */
 @Component({
     selector: 'thy-list-item-meta,[thy-list-item-meta]',
     templateUrl: './list-item-meta.component.html',
@@ -10,10 +14,19 @@ import { NgIf } from '@angular/common';
     imports: [NgIf, ThyAvatarComponent]
 })
 export class ThyListItemMetaComponent {
+    /**
+     * 列表项的左侧图片
+     */
     @Input() thyAvatar: string;
 
+    /**
+     * 列表项的标题
+     */
     @Input() thyTitle: string;
 
+    /**
+     * 列表项的描述文本
+     */
     @Input() thyDescription: string;
 
     @ContentChild('metaAvatar')

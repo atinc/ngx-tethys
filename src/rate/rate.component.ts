@@ -22,6 +22,12 @@ import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { ThyRateItemComponent } from './rate-item.component';
 
 const noop = () => {};
+
+/**
+ * 评分组件
+ * @name thy-rate
+ * @order 10
+ */
 @Component({
     selector: 'thy-rate',
     templateUrl: './rate.component.html',
@@ -57,16 +63,34 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private onChangeCallback: (_: any) => void = noop;
 
+    /**
+     * 自定义评分的总数
+     */
     @Input() @InputNumber() thyCount = 5;
 
+    /**
+     * 是否只读
+     */
     @Input() @InputBoolean() thyDisabled = false;
 
+    /**
+     * 是否允许半选
+     */
     @Input() @InputBoolean() thyAllowHalf = false;
 
+    /**
+     * 是否允许再次点击后清除
+     */
     @Input() @InputBoolean() thyAllowClear = true;
 
+    /**
+     * 自定义每项的提示信息
+     */
     @Input() thyTooltips: string[] = [];
 
+    /**
+     * 自定义模板，目前支持传单个模板或图标名称、数组(模板 | 图标名称)
+     */
     @Input('thyIconTemplate')
     set thyIconTemplate(value: string | TemplateRef<any> | string[] | TemplateRef<any>[]) {
         this.icons = value;
@@ -78,6 +102,9 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
         }
     }
 
+    /**
+     * 当前值hover时的回调
+     */
     @Output() readonly thyItemHoverChange = new EventEmitter<number>();
 
     @HostBinding('class.thy-rate') className = true;

@@ -18,6 +18,7 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
 /**
  * 立即操作组件
+ * @name thy-action,[thyAction]
  */
 @Component({
     selector: 'thy-action, [thyAction]',
@@ -42,7 +43,9 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     private hostRenderer = useHostRenderer();
 
     /**
-     * 操作图标类型，默认为'primary'，'primary' | 'success' | 'danger' | 'warning'
+     * 操作图标的类型
+     * @type primary | success | danger | warning
+     * @default primary
      */
     @Input()
     set thyType(value: ThyActionType) {
@@ -58,7 +61,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     /**
-     * 当 thyIcon 和其他指令参数名有冲突时使用 thyActionIcon
+     * 操作图标，当 thyIcon 和其他指令参数名有冲突时使用 thyActionIcon
      */
     @Input()
     set thyActionIcon(icon: string) {
@@ -66,7 +69,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     /**
-     * 操作图标 Active 状态，默认为 false，设置为 true 时会在 Item 上添加 active class
+     * 操作的图标 Active 状态，设置为 true 时会在 Item 上添加 active class
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -75,7 +79,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     /**
-     * 当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
+     * 操作的图标 Active 状态，当 thyActive 和其他指令参数名有冲突时使用 thyActionActive
+     * @default false
      */
     @Input()
     @InputBoolean()
@@ -84,7 +89,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     }
 
     /**
-     * 操作图标主题，默认 fill， `fill` 背景色填充，`lite` 简单文本颜色变化
+     * 操作图标的主题
+     * @type fill(背景色填充) | lite(简单文本颜色变化)
      */
     @Input() thyTheme: 'fill' | 'lite' = 'fill';
 
@@ -95,6 +101,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
 
     /**
      * 是否处于禁用状态
+     * @default false
      */
     @Input()
     @InputBoolean()

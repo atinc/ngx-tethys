@@ -9,6 +9,11 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
+/**
+ * 日期范围选择组件，继承自 BasePickerComponent
+ * @name thy-range-picker
+ * @order 40
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     selector: 'thy-range-picker',
@@ -29,6 +34,10 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
 
     private hostRenderer = useHostRenderer();
 
+    /**
+     * 支持的选区间模式
+     * @type  year | month | date
+     */
     @Input() thyMode: ThyPanelMode = 'date';
 
     /**
