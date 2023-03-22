@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.0...15.1.0-next.1) (2023-03-22)
+
+
+### Bug Fixes
+
+* **form:** fix form input-group customer-select switch ui error #INFR… ([#2577](https://github.com/atinc/ngx-tethys/issues/2577)) ([5fb8fad](https://github.com/atinc/ngx-tethys/commit/5fb8fad9557eef9ff658e749552e2b7a2903ff51))
+* **fullscreen:** exit function add judge #INFR-6933 ([#2575](https://github.com/atinc/ngx-tethys/issues/2575)) ([2d40fe6](https://github.com/atinc/ngx-tethys/commit/2d40fe6838491454593ef70508f8ecd7bba01829)), closes [#INFR-6933](https://github.com/atinc/ngx-tethys/issues/INFR-6933)
+
+
+### Features
+
+* **cascader:** echo the value when the option is disabled #INFR-6936 [@guoxin](https://github.com/guoxin) ([#2573](https://github.com/atinc/ngx-tethys/issues/2573)) ([b2e217b](https://github.com/atinc/ngx-tethys/commit/b2e217b6aec69f5987962a757e351eb268017876)), closes [#INFR-6936](https://github.com/atinc/ngx-tethys/issues/INFR-6936) [#INFR-6936](https://github.com/atinc/ngx-tethys/issues/INFR-6936)
+* **DatePicker:** #INFR-6720 DatePick supports shortcut selection ([#2567](https://github.com/atinc/ngx-tethys/issues/2567)) ([fb507d2](https://github.com/atinc/ngx-tethys/commit/fb507d2c744facf411c9c5acf4d29af9aab06a76)), closes [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720) [#INFR-6720](https://github.com/atinc/ngx-tethys/issues/INFR-6720)
+
+
+
 # [15.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/15.0.0...15.1.0-next.0) (2023-03-14)
 
 
