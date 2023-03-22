@@ -191,7 +191,7 @@
     align-items: center;
     .form-control {
         flex: 1;
-        border: 0;
+        border: 0 !important;
     }
 
     .input-group-prefix {

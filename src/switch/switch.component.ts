@@ -8,7 +8,6 @@ import {
     ElementRef,
     EventEmitter,
     forwardRef,
-    HostBinding,
     Input,
     OnChanges,
     OnInit,
@@ -36,7 +35,12 @@ import { InputBoolean } from 'ngx-tethys/core';
         }
     ],
     standalone: true,
-    imports: [NgClass]
+    imports: [NgClass],
+    host: {
+        class: 'thy-switch',
+        '[class.thy-switch-sm]': 'size === "sm"',
+        '[class.thy-switch-lg]': 'size === "lg"'
+    }
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
     public model: boolean;
@@ -97,8 +101,6 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
      * @deprecated
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
-
-    @HostBinding('class.thy-switch') className = true;
 
     constructor(public cdr: ChangeDetectorRef) {}
 
