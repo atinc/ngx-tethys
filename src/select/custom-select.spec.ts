@@ -752,10 +752,15 @@ describe('ThyCustomSelect', () => {
 
                 dispatchFakeEvent(customSelectDebugElement.nativeElement, 'focus');
                 fixture.detectChanges();
-
                 flush();
 
                 expect(focusSpy).toHaveBeenCalled();
+
+                fixture.componentInstance.select.onFocus({ relatedTarget: fixture.debugElement } as any);
+                fixture.detectChanges();
+
+                const inputElement = fixture.nativeElement.querySelector('input');
+                expect(document.activeElement).toEqual(inputElement);
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
