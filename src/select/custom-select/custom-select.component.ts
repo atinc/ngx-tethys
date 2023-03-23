@@ -17,13 +17,13 @@ import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import {
     IThyOptionParentComponent,
     SelectControlSize,
-    THY_OPTION_PARENT_COMPONENT,
     ThyOptionComponent,
     ThyOptionSelectionChangeEvent,
     ThyScrollDirective,
     ThySelectControlComponent,
     ThySelectOptionGroupComponent,
-    ThyStopPropagationDirective
+    ThyStopPropagationDirective,
+    THY_OPTION_PARENT_COMPONENT
 } from 'ngx-tethys/shared';
 import {
     A,
@@ -568,7 +568,10 @@ export class ThySelectCustomComponent extends _MixinBase
     }
 
     onFocus(event?: FocusEvent) {
-        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])) {
+        if (
+            event.relatedTarget &&
+            !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])
+        ) {
             const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
             inputElement.focus();
         }
