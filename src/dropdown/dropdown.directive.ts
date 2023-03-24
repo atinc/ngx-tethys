@@ -92,8 +92,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
 
     /**
-     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ width: "240px",  minWidth: "240px" }`
-     * @default { width: "240px", minWidth: "240px" }
+     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottom", width: "240px", insideClosable: true, minWidth: "240px" }`
+     * @default { placement: "bottomLeft", width: "240px", insideClosable: true: minWidth: "240px" }
      */
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
@@ -160,7 +160,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         }
 
         const { placement, width, height, insideClosable, minWidth } = Object.assign(
-            { width: THY_DROPDOWN_DEFAULT_WIDTH },
+            { placement: 'bottomLeft', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
             this.thyPopoverOptions
         );
         const config: ThyPopoverConfig = {
@@ -169,15 +169,11 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             viewContainerRef: this.viewContainerRef,
             offset: 0,
             panelClass: this.thyPanelClass,
-            placement: this.thyPlacement ? this.thyPlacement : placement ? placement : 'bottomLeft',
+            placement: this.thyPlacement ? this.thyPlacement : placement,
             width,
             height,
             outsideClosable: true,
-            insideClosable: !helpers.isUndefined(this.thyMenuInsideClosable)
-                ? this.thyMenuInsideClosable
-                : !helpers.isUndefined(insideClosable)
-                ? insideClosable
-                : true,
+            insideClosable: helpers.isUndefined(this.thyMenuInsideClosable) ? insideClosable : this.thyMenuInsideClosable,
             minWidth,
             originActiveClass: this.thyActiveClass
         };
