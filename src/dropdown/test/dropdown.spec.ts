@@ -6,7 +6,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { By } from '@angular/platform-browser';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ComponentTypeOrTemplateRef, ThyOverlayTrigger } from 'ngx-tethys/core';
+import { ComponentTypeOrTemplateRef, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
@@ -776,7 +776,15 @@ describe('dropdown-component', () => {
 @Component({
     selector: 'thy-dropdown-options-test',
     template: `
-        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary" [thyPopoverOptions]="popoverOptions">Dropdown</button>
+        <button
+            [thyDropdown]="menu"
+            [thyTrigger]="trigger"
+            thyButton="primary"
+            [thyPopoverOptions]="popoverOptions"
+            [thyPlacement]="placement"
+        >
+            Dropdown
+        </button>
         <thy-dropdown-menu #menu>
             <a thyDropdownMenuItem href="javascript:;">
                 <span>Menu Item1</span>
@@ -789,7 +797,8 @@ describe('dropdown-component', () => {
 })
 class DropdownOptionsTestComponent {
     trigger: ThyOverlayTrigger = 'click';
-    popoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height'> = {};
+    popoverOptions: Pick<ThyPopoverConfig, 'width' | 'height'> = {};
+    placement: ThyPlacement = 'bottomLeft';
 }
 
 describe('dropdown options', () => {
@@ -826,8 +835,8 @@ describe('dropdown options', () => {
     });
 
     it('should modify style when popoverOptions has changed', fakeAsync(() => {
+        fixture.componentInstance.placement = 'left';
         fixture.componentInstance.popoverOptions = {
-            placement: 'left',
             width: '800px',
             height: '20px'
         };
@@ -898,19 +907,15 @@ describe('dropdown options', () => {
 
         it('should get custom options', () => {
             dropdown.thyPopoverOptions = {
-                insideClosable: false,
                 height: '100px',
-                width: '100px',
-                placement: 'left'
+                width: '100px'
             };
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    insideClosable: false,
                     height: '100px',
-                    width: '100px',
-                    placement: 'left'
+                    width: '100px'
                 })
             );
         });
@@ -928,7 +933,43 @@ describe('dropdown options', () => {
                 jasmine.objectContaining({
                     hasBackdrop: false,
                     offset: 0,
-                    panelClass: 'thy-dropdown-pane'
+                    panelClass: ['thy-dropdown-pane']
+                })
+            );
+        });
+
+        it('should set placement', () => {
+            dropdown.thyPlacement = 'bottomRight';
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    placement: 'bottomRight'
+                })
+            );
+        });
+
+        it('should set insideClosable', () => {
+            dropdown.thyMenuInsideClosable = false;
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    insideClosable: false
+                })
+            );
+        });
+
+        it('should set panel class', () => {
+            dropdown.thyPanelClass = 'test-dropdown-panel-class';
+
+            expect(calledConfig).toBeUndefined();
+            dropdown.createOverlay();
+            expect(calledConfig).toEqual(
+                jasmine.objectContaining({
+                    panelClass: ['thy-dropdown-pane', 'test-dropdown-panel-class']
                 })
             );
         });

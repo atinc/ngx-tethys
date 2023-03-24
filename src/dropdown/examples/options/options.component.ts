@@ -18,4 +18,10 @@ export class ThyDropdownOptionsExampleComponent {
         height: 108,
         minWidth: '200px'
     };
+
+    placement: ThyPlacement = 'bottomRight';
+
+    insideClosable = true;
+
+    panelClass = 'dropdown-panel-class';
 }
