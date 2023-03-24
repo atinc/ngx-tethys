@@ -13,9 +13,15 @@ export class ThyDropdownOptionsExampleComponent {
         height?: string | number;
         minWidth?: string | number;
     } = {
-        placement: 'bottomLeft',
+        placement: 'bottom',
         width: parseInt(THY_DROPDOWN_DEFAULT_WIDTH.replace('px', ''), 10),
         height: 108,
         minWidth: '200px'
     };
+
+    placement: ThyPlacement = 'bottomRight';
+
+    insideClosable = true;
+
+    panelClass = 'dropdown-panel-class';
 }

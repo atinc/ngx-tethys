@@ -98,7 +98,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
     /**
-     * 弹出框的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
      *
      * @type ThyPlacement
      * @default bottomLeft
@@ -106,7 +106,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyPlacement: ThyPlacement;
 
     /**
-     * 点击 dropdown-menu 内部是否关闭弹出框
+     * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
      *
      * @type boolean
      * @default true

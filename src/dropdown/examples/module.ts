@@ -13,6 +13,7 @@ import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyListModule } from 'ngx-tethys/list';
 import { CustomMenuComponent } from './component/custom-menu.component';
+import { ThySwitchModule } from 'ngx-tethys/switch';
 
 export default {
     declarations: [CustomMenuComponent],
@@ -30,6 +31,7 @@ export default {
         ThyInputNumberModule,
         ThyDividerModule,
         ThyActionModule,
-        ThyListModule
+        ThyListModule,
+        ThySwitchModule
     ]
 };
