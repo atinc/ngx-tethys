@@ -26,7 +26,14 @@
   </thy-form-group>
 </form>
 
-<button class="mt-3" thyButton="primary" [thyDropdown]="menu" [thyPopoverOptions]="popoverOptions">
+<button
+  class="mt-3"
+  thyButton="primary"
+  [thyDropdown]="menu"
+  [thyPopoverOptions]="popoverOptions"
+  [thyPlacement]="popoverOptions.placement"
+  [thyPanelClass]="'dropdown-panel-class'"
+>
   Dropdown <thy-icon thyIconName="caret-down"></thy-icon>
 </button>
 
@@ -40,3 +47,40 @@
     <span thyDropdownMenuItemName>New</span>
   </a>
 </thy-dropdown-menu>
+
+<thy-divider thyText="一些常用参数，比如：thyPlacement、thyMenuInsideClosable、thyPanelClass"></thy-divider>
+<form thyForm>
+  <thy-form-group thyLabelText="Placement">
+    <thy-select [(ngModel)]="placement" name="placement">
+      <option value="top">top</option>
+      <option value="topLeft">topLeft</option>
+      <option value="topRight">topRight</option>
+      <option value="bottom">bottom</option>
+      <option value="bottomLeft">bottomLeft</option>
+      <option value="bottomRight">bottomRight</option>
+      <option value="left">left</option>
+      <option value="leftTop">leftTop</option>
+      <option value="leftBottom">leftBottom</option>
+      <option value="right">right</option>
+      <option value="rightTop">rightTop</option>
+      <option value="rightBottom">rightBottom</option>
+    </thy-select>
+  </thy-form-group>
+  <thy-form-group thyLabelText="Panel Class">
+    <input thyInput [(ngModel)]="panelClass" name="panelClass" />
+  </thy-form-group>
+  <thy-form-group class="align-items-center" thyLabelText="InsideClosable">
+    <thy-switch [(ngModel)]="insideClosable" name="insideClosable"></thy-switch>
+  </thy-form-group>
+</form>
+
+<button
+  class="mt-3"
+  thyButton="primary"
+  [thyDropdown]="menu"
+  [thyPlacement]="placement"
+  [thyPanelClass]="panelClass"
+  [thyMenuInsideClosable]="insideClosable"
+>
+  Dropdown <thy-icon thyIconName="caret-down"></thy-icon>
+</button>
