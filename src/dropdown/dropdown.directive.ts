@@ -13,7 +13,7 @@ import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
 import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceArray, isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { coerceArray, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
 
@@ -95,13 +95,15 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * 弹出框的参数，底层使用 Popover 组件, 默认为`{ width: "240px",  minWidth: "240px" }`
      * @default { width: "240px", minWidth: "240px" }
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'width' | 'height' | 'minWidth'>;
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
     /**
      * 弹出框的显示位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
-     * @type string
+     *
+     * @type ThyPlacement
+     * @default bottomLeft
      */
-    @Input() thyPlacement: ThyPlacement = 'bottomLeft';
+    @Input() thyPlacement: ThyPlacement;
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框
@@ -109,7 +111,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
      * @type boolean
      * @default true
      */
-    @Input() @InputBoolean() thyMenuInsideClosable = true;
+    @Input() @InputBoolean() thyMenuInsideClosable: boolean;
 
     /**
      * 弹出框 overlay panel 的类名
@@ -157,18 +159,25 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             }
         }
 
-        const { width, height, minWidth } = Object.assign({ width: THY_DROPDOWN_DEFAULT_WIDTH }, this.thyPopoverOptions);
+        const { placement, width, height, insideClosable, minWidth } = Object.assign(
+            { width: THY_DROPDOWN_DEFAULT_WIDTH },
+            this.thyPopoverOptions
+        );
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,
             panelClass: this.thyPanelClass,
-            placement: this.thyPlacement,
+            placement: this.thyPlacement ? this.thyPlacement : placement ? placement : 'bottomLeft',
             width,
             height,
             outsideClosable: true,
-            insideClosable: this.thyMenuInsideClosable,
+            insideClosable: !helpers.isUndefined(this.thyMenuInsideClosable)
+                ? this.thyMenuInsideClosable
+                : !helpers.isUndefined(insideClosable)
+                ? insideClosable
+                : true,
             minWidth,
             originActiveClass: this.thyActiveClass
         };
