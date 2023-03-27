@@ -14,7 +14,7 @@
 </div>
 <form *ngIf="loadingDone" thyForm name="demoForm" thyLayout="horizontal" [thyFormValidatorConfig]="validateConfig" [formGroup]="formGroup">
   <thy-form-group thyLabelText="Username" thyLayout="horizontal" thyLabelRequired>
-    <input thyInput name="username" formControlName="username" placeholder="请输入用户名" />
+    <input autocomplete="off" thyInput name="username" formControlName="username" placeholder="请输入用户名" />
   </thy-form-group>
 
   <thy-form-group thyLabelText="Input" thyLayout="horizontal" thyLabelRequired>

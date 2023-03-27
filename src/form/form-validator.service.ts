@@ -1,7 +1,7 @@
 import { Dictionary } from 'ngx-tethys/types';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, switchMap, takeUntil } from 'rxjs/operators';
 
 import { Injectable, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
@@ -67,9 +67,6 @@ export class ThyFormValidatorService implements OnDestroy {
             .pipe(
                 debounceTime(100),
                 distinctUntilChanged(),
-                filter(item => {
-                    return item;
-                }),
                 switchMap(item => {
                     this.validateControl(control.name as string);
                     return of([]);
