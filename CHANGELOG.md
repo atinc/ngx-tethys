@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.2](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.1...15.1.0-next.2) (2023-03-27)
+
+
+### Bug Fixes
+
+* **select:** fix customer-select cursor is still alive when blur ([b7db3be](https://github.com/atinc/ngx-tethys/commit/b7db3be4aa39e2f737b5586000e76c42d5a82ffc))
+
+
+### Features
+
+* **dropdown:** #INFR-3381 add common parameters [@guoxin](https://github.com/guoxin) [@haifeng](https://github.com/haifeng) ([#2583](https://github.com/atinc/ngx-tethys/issues/2583)) ([d242aa4](https://github.com/atinc/ngx-tethys/commit/d242aa4ca25e80400b41bcfd78352f67c28381e3)), closes [#INFR-3381](https://github.com/atinc/ngx-tethys/issues/INFR-3381) [#INFR-3381](https://github.com/atinc/ngx-tethys/issues/INFR-3381)
+
+
+
 # [15.1.0-next.1](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.0...15.1.0-next.1) (2023-03-22)
 
 
