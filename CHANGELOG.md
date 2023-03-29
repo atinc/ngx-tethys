@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.3...15.1.0-next.4) (2023-03-29)
+
+
+### Bug Fixes
+
+* **cascader:** fix style for empty #INFR-6979 ([#2587](https://github.com/atinc/ngx-tethys/issues/2587)) ([e7e8680](https://github.com/atinc/ngx-tethys/commit/e7e86801f22d01475394f468d451fbea3e1d7e34)), closes [#INFR-6979](https://github.com/atinc/ngx-tethys/issues/INFR-6979)
+* **select:** add manualFocusing flag indicates whether automatic focus input, set true when manual focus select ([#2589](https://github.com/atinc/ngx-tethys/issues/2589)) ([e047ee0](https://github.com/atinc/ngx-tethys/commit/e047ee02729f34bceb5d82269ff88f8027b30f63))
+
+
+### Features
+
+* **style:** add class pe-none and pe-auto #INFR-7083 ([#2588](https://github.com/atinc/ngx-tethys/issues/2588)) ([64de9d6](https://github.com/atinc/ngx-tethys/commit/64de9d684e4488c0daf2f4582e13c19dd527787f)), closes [#INFR-7083](https://github.com/atinc/ngx-tethys/issues/INFR-7083)
+
+
+
 # [15.1.0-next.3](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.2...15.1.0-next.3) (2023-03-27)
 
 
