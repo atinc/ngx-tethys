@@ -682,7 +682,7 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('core', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             configureThyCustomSelectTestingModule([
                 BasicSelectComponent,
                 SelectWithGroupsAndNgContainerComponent,
@@ -691,17 +691,17 @@ describe('ThyCustomSelect', () => {
                 SelectWithThyAutoExpendComponent,
                 SelectWithScrollAndSearchComponent
             ]);
-        }));
+        });
 
         describe('basic class', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;
             let selectElement: HTMLElement;
 
-            beforeEach(async(() => {
+            beforeEach(() => {
                 fixture = TestBed.createComponent(BasicSelectComponent);
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement;
-            }));
+            });
 
             it('should get correct class', () => {
                 expect(selectElement).toBeTruthy();
@@ -745,7 +745,7 @@ describe('ThyCustomSelect', () => {
                 expect(selectComponent.modalValue).toBeNull();
             });
 
-            it('should call onFocus methods when focus', fakeAsync(() => {
+            it('should auto focus to input element when select focus', fakeAsync(() => {
                 const customSelectDebugElement = fixture.debugElement.query(By.directive(ThySelectCustomComponent));
                 fixture.detectChanges();
                 const focusSpy = spyOn(fixture.componentInstance.select, 'onFocus').and.callThrough();
@@ -761,6 +761,29 @@ describe('ThyCustomSelect', () => {
 
                 const inputElement = fixture.nativeElement.querySelector('input');
                 expect(document.activeElement).toEqual(inputElement);
+            }));
+
+            it(`should update manualFocusing when manual focus select`, fakeAsync(() => {
+                fixture.detectChanges();
+                let focusCalled = false;
+                spyOn(selectElement, 'focus').and.callFake(() => {
+                    focusCalled = true;
+                    expect(fixture.componentInstance.select['manualFocusing']).toBe(true);
+                });
+                fixture.componentInstance.select.focus();
+                expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
+                expect(focusCalled).toBe(true);
+            }));
+
+            it(`should can't call input focus when manual focusing select for close`, fakeAsync(() => {
+                fixture.detectChanges();
+                const input: HTMLInputElement = fixture.debugElement.nativeElement.querySelector('input');
+                expect(input).toBeTruthy();
+                const focusSpy = spyOn(input, 'focus');
+                fixture.componentInstance.select['manualFocusing'] = true;
+                fixture.componentInstance.select.onFocus(({ relatedTarget: input } as unknown) as FocusEvent);
+                expect(focusSpy).not.toHaveBeenCalled();
+                expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
@@ -1234,6 +1257,7 @@ describe('ThyCustomSelect', () => {
             }));
         });
     });
+
     describe('with ngModel', () => {
         beforeEach(async(() => configureThyCustomSelectTestingModule([NgModelSelectComponent])));
 
@@ -2217,9 +2241,9 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('async load data', () => {
-        beforeEach(async(() => {
+        beforeEach(() => {
             configureThyCustomSelectTestingModule([SelectWithAsyncLoadComponent]);
-        }));
+        });
 
         it('should dispatch component focus when showSearch is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectWithAsyncLoadComponent);

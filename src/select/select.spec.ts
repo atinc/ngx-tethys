@@ -31,6 +31,7 @@ class BasicSelectComponent {
     allowClear = false;
     size = '';
     disabled = true;
+    showSearch = false;
     change(): void {}
 }
 
