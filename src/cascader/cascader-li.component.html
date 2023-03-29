@@ -4,6 +4,7 @@
 <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
   <label
     thyCheckbox
+    [disabled]="option.disabled"
     [(ngModel)]="active"
     (ngModelChange)="toggleOption(active)"
     [name]="option.value || option._id"

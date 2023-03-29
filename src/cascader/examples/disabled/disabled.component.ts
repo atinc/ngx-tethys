@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import { clone, options } from '../cascader-address-options';
 
 const customerOptions = [
@@ -62,12 +63,58 @@ export class ThyCascaderDisabledExampleComponent implements OnInit {
 
     public value = ['jiangsu', 'nanjing', 'zhonghuamen'];
 
+    public multiOptions: any[] = [];
+
+    public multiValues: any[] = [
+        ['12', '1201', '120102'],
+        ['12', '1201', '120103'],
+        ['14', '1404', '140406']
+    ];
+
     public thyCustomerOptions: any[] = null;
 
-    constructor() {}
+    constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
         this.areaCode = clone(options);
         this.thyCustomerOptions = customerOptions;
+        this.setMultiOptions();
+    }
+
+    private setMultiOptions() {
+        this.multiOptions = clone(options).map((area: any) => {
+            if (this.multiValues.map(item => item[0]).includes(area.value)) {
+                area.disabled = true;
+                area.children = area.children
+                    .filter((item: any) => {
+                        if (this.multiValues.map(item => item[1]).includes(item.value)) {
+                            return true;
+                        }
+                    })
+                    .map((item: any) => {
+                        if (this.multiValues.map(item => item[1]).includes(item.value)) {
+                            item.disabled = true;
+                            item.children = item.children
+                                .filter((data: any) => {
+                                    if (this.multiValues.map(item => item[2]).includes(data.value)) {
+                                        return true;
+                                    }
+                                })
+                                .map((data: any) => {
+                                    if (this.multiValues.map(item => item[2]).includes(data.value)) {
+                                        data.disabled = true;
+                                    }
+                                    return data;
+                                });
+                        }
+                        return item;
+                    });
+            }
+            return area;
+        });
+    }
+
+    public selectChanges(values: any): void {
+        this.notifyService.info(`selected Value is ${values}`);
     }
 }

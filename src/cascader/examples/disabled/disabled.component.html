@@ -3,7 +3,24 @@
   <thy-cascader class="mr-2" [thyDisabled]="true" style="width:200px"></thy-cascader>
   <thy-cascader class="mb-2" [thyOptions]="areaCode" [disabled]="true" [(ngModel)]="curVal" style="width:200px;"> </thy-cascader>
 
-  <div class="mb-2">下拉选项禁用：</div>
+  <div class="mb-2">下拉单选禁用：</div>
   <thy-cascader [thyOptions]="thyCustomerOptions" [thyExpandTriggerAction]="'hover'" [(ngModel)]="value" style="width:200px;">
   </thy-cascader>
+
+  <div class="my-2">下拉多选禁用：</div>
+  <thy-cascader
+    [thyOptions]="multiOptions"
+    [(ngModel)]="multiValues"
+    [thyMultiple]="true"
+    [thyLabelRender]="renderTpl"
+    style="width: 200px;"
+    (ngModelChange)="selectChanges($event)"
+  >
+  </thy-cascader>
+
+  <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+    <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+      <span *ngIf="isLast && label"> {{ label }}</span>
+    </ng-container>
+  </ng-template>
 </div>
