@@ -181,6 +181,11 @@ export class ThySelectCustomComponent extends _MixinBase
 
     private selectionModelSubscription: Subscription;
 
+    /**
+     * 手动聚焦中的标识
+     */
+    private manualFocusing = false;
+
     private readonly destroy$ = new Subject<void>();
 
     readonly optionSelectionChanges: Observable<ThyOptionSelectionChangeEvent> = defer(() => {
@@ -536,10 +541,6 @@ export class ThySelectCustomComponent extends _MixinBase
         }
     }
 
-    public focus(options?: FocusOptions): void {
-        this.elementRef.nativeElement.focus(options);
-    }
-
     public onSearchFilter(searchText: string) {
         searchText = searchText.trim();
         if (this.thyServerSearch) {
@@ -568,13 +569,21 @@ export class ThySelectCustomComponent extends _MixinBase
     }
 
     onFocus(event?: FocusEvent) {
+        // manualFocusing 如果是手动聚焦，不触发自动聚焦到 input 的逻辑
         if (
-            event.relatedTarget &&
+            !this.manualFocusing &&
             !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])
         ) {
             const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
             inputElement.focus();
         }
+        this.manualFocusing = false;
+    }
+
+    public focus(options?: FocusOptions): void {
+        this.manualFocusing = true;
+        this.elementRef.nativeElement.focus(options);
+        this.manualFocusing = false;
     }
 
     public remove($event: { item: ThyOptionComponent; $eventOrigin: Event }) {
