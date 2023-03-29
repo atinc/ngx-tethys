@@ -197,7 +197,7 @@ export class ThyCascaderComponent extends _MixinBase
     @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
 
     /**
-     * 鼠标经过下方列表项时，是否自动展开列表, 支持 `click` | `hover`   
+     * 鼠标经过下方列表项时，是否自动展开列表, 支持 `click` | `hover`
      * @type ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[]
      */
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
@@ -698,7 +698,7 @@ export class ThyCascaderComponent extends _MixinBase
 
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {
-        if (this.disabled) {
+        if (this.disabled && !this.isMultiple) {
             return;
         }
         if (this.isClickTriggerAction()) {
@@ -708,7 +708,7 @@ export class ThyCascaderComponent extends _MixinBase
 
     @HostListener('mouseover', ['$event'])
     public toggleHover($event: Event) {
-        if (this.disabled) {
+        if (this.disabled && !this.isMultiple) {
             return;
         }
         if (this.isHoverTriggerAction()) {
@@ -717,13 +717,10 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     public clickOption(option: ThyCascaderOption, index: number, event: Event): void {
-        // if (event instanceof Event) {
-        //     event.preventDefault();
-        // }
         if (option.isLeaf && event instanceof Event && this.isMultiple) {
             return;
         }
-        if (option && option.disabled) {
+        if (option && option.disabled && !this.isMultiple) {
             return;
         }
         this.setActiveOption(option, index, true);
@@ -735,7 +732,7 @@ export class ThyCascaderComponent extends _MixinBase
             event.preventDefault();
         }
 
-        if (option && option.disabled) {
+        if (option && option.disabled  && !this.isMultiple) {
             return;
         }
 

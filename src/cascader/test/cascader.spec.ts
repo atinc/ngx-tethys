@@ -899,10 +899,107 @@ describe('thy-cascader', () => {
             expect(labels.length).toBe(0);
         }));
 
+        it('should show selected value in form-control when options is disabled', async () => {
+            component.multipleOptions = setDisabledOptions(component.multipleVal);
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const originSelectedCount = component.multipleVal?.length;
+            const labels = debugElement.queryAll(By.css('.choice'));
+            expect(labels.length).toBe(originSelectedCount);
+        });
+
+        it('should show disabled options when some options is disabled', async () => {
+            component.multipleOptions = setDisabledOptions(component.multipleVal);
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const originSelected = component.multipleVal;
+
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const showedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
+            // The number of displayed disabled items should be equal to the selected number plus the number of the last selected items
+            // minus the repeated calculation
+            expect(showedOptions.length).toEqual(originSelected.length + originSelected[originSelected.length - 1].length - 1);
+            // disabled item text is selectedValue
+            const allShowedOptionsText = Array.from(showedOptions).map(item => item.innerText);
+            const expectedText = [...originSelected[originSelected.length - 1], ...originSelected.map(item => item[0])];
+            expectedText.forEach(selected => {
+                expect(allShowedOptionsText.includes(selected));
+            });
+        });
+
+        it('should show disabled options when hover/click disabled option', async () => {
+            component.multipleOptions = setDisabledOptions(component.multipleVal);
+
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const originSelected = component.multipleVal;
+
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+            const firstLevelItem = getOptionByLevel();
+            const firstDisabledItem = firstLevelItem.find(item =>
+                (item.nativeElement as HTMLElement).innerText.includes(originSelected[0][0])
+            );
+            dispatchFakeEvent(firstDisabledItem.nativeElement, 'click');
+            fixture.detectChanges();
+
+            const sectionLevelItem = getOptionByLevel(1)[0];
+            dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
+            fixture.detectChanges();
+
+            const showedOptions: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-cascader-menu-item-disabled');
+            // The number of displayed disabled items should be equal to the selected number plus the number of the last selected items
+            // minus the repeated calculation
+            expect(showedOptions.length).toEqual(originSelected.length + originSelected[0].length - 1);
+            const allShowedOptionsText = Array.from(showedOptions).map(item => item.innerText);
+            const expectedText = [...originSelected[0], ...originSelected.map(item => item[0])];
+            expectedText.forEach(selected => {
+                expect(allShowedOptionsText.includes(selected));
+            });
+        });
+
         function getOptionByLevel(level: number = 0) {
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[level];
             const levelLi = levelUlList.queryAll(By.css('li'));
             return levelLi;
+        }
+
+        /**
+         * set selected value options is disabled
+         */
+        function setDisabledOptions(selectedVal: any[]) {
+            return multipleOptions.map((area: any) => {
+                if (selectedVal.map(item => item[0]).includes(area.value)) {
+                    area.disabled = true;
+                    area.children = area.children
+                        .filter((item: any) => {
+                            if (selectedVal.map(item => item[1]).includes(item.value)) {
+                                return true;
+                            }
+                        })
+                        .map((item: any) => {
+                            if (selectedVal.map(item => item[1]).includes(item.value)) {
+                                item.disabled = true;
+                                item.children = item.children
+                                    .filter((data: any) => {
+                                        if (selectedVal.map(item => item[2]).includes(data.value)) {
+                                            return true;
+                                        }
+                                    })
+                                    .map((data: any) => {
+                                        if (selectedVal.map(item => item[2]).includes(data.value)) {
+                                            data.disabled = true;
+                                        }
+                                        return data;
+                                    });
+                            }
+                            return item;
+                        });
+                }
+                return area;
+            });
         }
     });
 });
