@@ -736,7 +736,7 @@ export class ThyCascaderComponent extends _MixinBase
             return;
         }
 
-        if (!this.isHoverExpandTriggerAction()) {
+        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled  && this.isMultiple)) {
             return;
         }
         this.setActiveOption(option, index, false);
