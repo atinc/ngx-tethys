@@ -784,6 +784,8 @@ describe('ThyCustomSelect', () => {
                 fixture.componentInstance.select.onFocus(({ relatedTarget: input } as unknown) as FocusEvent);
                 expect(focusSpy).not.toHaveBeenCalled();
                 expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
+                fixture.componentInstance.select.onFocus(({ relatedTarget: fixture.debugElement.nativeElement } as unknown) as FocusEvent);
+                expect(focusSpy).toHaveBeenCalled();
             }));
 
             it('should call onBlur methods when blur', fakeAsync(() => {
