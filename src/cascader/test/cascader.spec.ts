@@ -588,6 +588,7 @@ describe('thy-cascader', () => {
             flush();
             const emptyContent = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
             expect(emptyContent).toBeTruthy();
+            expect(component.cascader.cdkConnectedOverlay.minWidth).toEqual(122);
         }));
 
         xit('should change height when the window is resized', fakeAsync(() => {

@@ -372,6 +372,8 @@ export class ThyCascaderComponent extends _MixinBase
 
     private prevSelectedOptions: ThyCascaderOption[] = [];
 
+    public menuMinWidth = 122;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
