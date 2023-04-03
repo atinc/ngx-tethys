@@ -33,7 +33,7 @@
   cdkConnectedOverlayBackdropClass="thy-cascader-backdrop"
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayPositions]="positions"
-  [cdkConnectedOverlayWidth]="!columns.length ? triggerRect?.width : null"
+  [cdkConnectedOverlayMinWidth]="menuMinWidth"
   (backdropClick)="closeMenu()"
   (detach)="closeMenu()"
   (attach)="attached()"
