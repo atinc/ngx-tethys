@@ -586,6 +586,9 @@ describe('thy-cascader', () => {
             flush();
             const emptyContent = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
             expect(emptyContent).toBeTruthy();
+
+            const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+            expect(pane.style.minWidth).toEqual('122px');
         }));
 
         xit('should change height when the window is resized', fakeAsync(() => {

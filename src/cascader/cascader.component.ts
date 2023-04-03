@@ -315,6 +315,8 @@ export class ThyCascaderComponent implements ControlValueAccessor, OnInit, OnDes
 
     private prevSelectedOptions: ThyCascaderOption[] = [];
 
+    public menuMinWidth = 122;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
