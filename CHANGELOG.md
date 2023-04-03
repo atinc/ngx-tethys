@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.4](https://github.com/atinc/ngx-tethys/compare/15.0.3...15.0.4) (2023-04-03)
+
+
+### Bug Fixes
+
+* **cascader:** fix style for empty to v15.0.x#INFR-6979 ([#2596](https://github.com/atinc/ngx-tethys/issues/2596)) ([67deea2](https://github.com/atinc/ngx-tethys/commit/67deea21d94bae948a64d1017bfe59bac7f348c9)), closes [v15.0.x#INFR-6979](https://github.com/v15.0.x/issues/INFR-6979)
+
+
+
 ## [15.0.3](https://github.com/atinc/ngx-tethys/compare/15.0.2...15.0.3) (2023-04-03)
 
 
