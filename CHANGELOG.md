@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.2](https://github.com/atinc/ngx-tethys/compare/15.0.1...15.0.2) (2023-04-03)
+
+
+### Features
+
+* **dropdown:** #INFR-3381 add common parameters [@guoxin](https://github.com/guoxin) [@haifeng](https://github.com/haifeng) ([#2583](https://github.com/atinc/ngx-tethys/issues/2583)) ([d42cb99](https://github.com/atinc/ngx-tethys/commit/d42cb998d0d4c0076f201d1e0664e3f8f1fd8f6d)), closes [#INFR-3381](https://github.com/atinc/ngx-tethys/issues/INFR-3381) [#INFR-3381](https://github.com/atinc/ngx-tethys/issues/INFR-3381)
+
+
+
 ## [15.0.1](https://github.com/atinc/ngx-tethys/compare/15.0.0...15.0.1) (2023-03-20)
 
 
