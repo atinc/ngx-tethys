@@ -25,6 +25,10 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
     mixinDisabled(AbstractControlValueAccessor)
 );
 
+/**
+ * 下拉选择
+ * @name thy-select
+ */
 @Component({
     selector: 'thy-select',
     templateUrl: './select.component.html',
