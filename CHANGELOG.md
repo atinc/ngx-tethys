@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.0.5](https://github.com/atinc/ngx-tethys/compare/15.0.4...15.0.5) (2023-04-04)
+
+
+### Features
+
+* **select:** adjust text with search result is empty #INFR-7112 ([#2598](https://github.com/atinc/ngx-tethys/issues/2598)) ([62db1b1](https://github.com/atinc/ngx-tethys/commit/62db1b1c5d1e9c917284583b433968eb6b8f8b90)), closes [#INFR-7112](https://github.com/atinc/ngx-tethys/issues/INFR-7112)
+
+
+
 ## [15.0.4](https://github.com/atinc/ngx-tethys/compare/15.0.3...15.0.4) (2023-04-03)
 
 
