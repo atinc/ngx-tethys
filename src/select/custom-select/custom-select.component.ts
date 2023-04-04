@@ -108,7 +108,7 @@ export class ThySelectCustomComponent implements ControlValueAccessor, IThyOptio
 
     emptyStateText = '暂无可选项';
 
-    emptySearchMessageText = '没有匹配到任何选项';
+    emptySearchMessageText = '暂无可选项';
 
     scrollTop = 0;
 
