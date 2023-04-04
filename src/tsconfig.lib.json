@@ -19,5 +19,5 @@
       "@tethys/cdk/*": ["../cdk/*"]
     }
   },
-  "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "examples/**/*.ts"]
+  "exclude": ["test.ts", "*/test/*.ts", "**/*.spec.ts", "**/examples/**"]
 }

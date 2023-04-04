@@ -11,6 +11,9 @@ import { ThyConfirmConfig, THY_CONFIRM_DEFAULT_OPTIONS, THY_CONFIRM_DEFAULT_OPTI
 import { ThyDialogRef } from '../dialog-ref';
 import { DialogHeaderComponent } from '../header/dialog-header.component';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-confirm-default',
     templateUrl: './confirm.component.html',
