@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.4...15.1.0-next.5) (2023-04-06)
+
+
+### Bug Fixes
+
+* **style:** set cdkConnectedOverlayMinWidth #INFR-6979 ([#2593](https://github.com/atinc/ngx-tethys/issues/2593)) ([7e52bef](https://github.com/atinc/ngx-tethys/commit/7e52befb1b114ef5ae952dca8482bec44b5b7d91)), closes [#INFR-6979](https://github.com/atinc/ngx-tethys/issues/INFR-6979)
+
+
+### Features
+
+* **cascader:** support disabled for multi mode #INFR-7093 ([#2591](https://github.com/atinc/ngx-tethys/issues/2591)) ([7ad62b0](https://github.com/atinc/ngx-tethys/commit/7ad62b0451b53f9e0a3c53305309c78401454908)), closes [#INFR-7093](https://github.com/atinc/ngx-tethys/issues/INFR-7093)
+* **select:** adjust text with search result is empty #INFR-7112 ([#2592](https://github.com/atinc/ngx-tethys/issues/2592)) ([d42b9d7](https://github.com/atinc/ngx-tethys/commit/d42b9d72b2bd2a42b445439c891f61a74fadfc2f)), closes [#INFR-7112](https://github.com/atinc/ngx-tethys/issues/INFR-7112)
+
+
+
 # [15.1.0-next.4](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.3...15.1.0-next.4) (2023-03-29)
 
 
