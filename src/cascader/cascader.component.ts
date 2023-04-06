@@ -6,7 +6,6 @@ import {
     InputNumber,
     mixinDisabled,
     mixinTabIndex,
-    POSITION_MAP,
     ScrollToService,
     ThyCanDisable,
     ThyHasTabIndex
