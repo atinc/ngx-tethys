@@ -354,7 +354,7 @@ export class ThyCascaderComponent extends _MixinBase
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
+    private cascaderPosition = JSON.parse(JSON.stringify(EXPANDED_DROPDOWN_POSITIONS));
     positions: ConnectionPositionPair[];
 
     private value: any[];
@@ -403,10 +403,10 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     private initPosition() {
-        this.cascaderPosition[0].offsetY = 10; // 左下
-        this.cascaderPosition[1].offsetY = 10; // 右下
-        this.cascaderPosition[2].offsetY = -10; // 右下
-        this.cascaderPosition[3].offsetY = -10; // 右下
+        this.cascaderPosition[0].offsetY = 4; // 左下
+        this.cascaderPosition[1].offsetY = 4; // 右下
+        this.cascaderPosition[2].offsetY = -4; // 右下
+        this.cascaderPosition[3].offsetY = -4; // 右下
         this.positions = this.cascaderPosition;
     }
 
