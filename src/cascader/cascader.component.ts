@@ -6,6 +6,7 @@ import {
     InputNumber,
     mixinDisabled,
     mixinTabIndex,
+    POSITION_MAP,
     ScrollToService,
     ThyCanDisable,
     ThyHasTabIndex
@@ -354,7 +355,7 @@ export class ThyCascaderComponent extends _MixinBase
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    private cascaderPosition = JSON.parse(JSON.stringify(EXPANDED_DROPDOWN_POSITIONS));
+    private cascaderPosition:ConnectionPositionPair[];
     positions: ConnectionPositionPair[];
 
     private value: any[];
@@ -403,6 +404,7 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     private initPosition() {
+        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item=>{return {...item}})   
         this.cascaderPosition[0].offsetY = 4; // 左下
         this.cascaderPosition[1].offsetY = 4; // 右下
         this.cascaderPosition[2].offsetY = -4; // 右下
