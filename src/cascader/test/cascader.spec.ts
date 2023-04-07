@@ -721,7 +721,7 @@ describe('thy-cascader', () => {
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
 
-        fit('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed ', () => {
+        it('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed ', () => {
             expect(component.cascader.positions).not.toEqual(EXPANDED_DROPDOWN_POSITIONS);
         });
     });
