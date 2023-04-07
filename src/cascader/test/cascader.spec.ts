@@ -15,7 +15,7 @@ import { By } from '@angular/platform-browser';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
-import { EXPANDED_DROPDOWN_POSITIONS, POSITION_MAP } from 'ngx-tethys/core';
+import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 
 registerLocaleData(zh);
 
