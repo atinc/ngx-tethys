@@ -354,7 +354,7 @@ export class ThyCascaderComponent extends _MixinBase
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    private cascaderPosition = [...EXPANDED_DROPDOWN_POSITIONS];
+    private cascaderPosition: ConnectionPositionPair[];
     positions: ConnectionPositionPair[];
 
     private value: any[];
@@ -403,10 +403,11 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     private initPosition() {
-        this.cascaderPosition[0].offsetY = 10; // 左下
-        this.cascaderPosition[1].offsetY = 10; // 右下
-        this.cascaderPosition[2].offsetY = -10; // 右下
-        this.cascaderPosition[3].offsetY = -10; // 右下
+        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item => { return { ...item } })
+        this.cascaderPosition[0].offsetY = 4; // 左下
+        this.cascaderPosition[1].offsetY = 4; // 右下
+        this.cascaderPosition[2].offsetY = -4; // 右下
+        this.cascaderPosition[3].offsetY = -4; // 右下
         this.positions = this.cascaderPosition;
     }
 
@@ -734,11 +735,11 @@ export class ThyCascaderComponent extends _MixinBase
             event.preventDefault();
         }
 
-        if (option && option.disabled  && !this.isMultiple) {
+        if (option && option.disabled && !this.isMultiple) {
             return;
         }
 
-        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled  && this.isMultiple)) {
+        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled && this.isMultiple)) {
             return;
         }
         this.setActiveOption(option, index, false);

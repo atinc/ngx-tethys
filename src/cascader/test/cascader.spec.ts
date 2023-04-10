@@ -15,6 +15,8 @@ import { By } from '@angular/platform-browser';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
+import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
 
 registerLocaleData(zh);
 
@@ -719,6 +721,10 @@ describe('thy-cascader', () => {
             activatedOptions.forEach(item => activatedOptionsText.push(item.innerText.trim()));
             expect(activatedOptionsText).toEqual(fixture.componentInstance.curVal);
         }));
+
+        it('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed', () => {
+            expect(EXPANDED_DROPDOWN_POSITIONS).not.toEqual((component.cascader as SafeAny).cascaderPosition);
+        });
     });
 
     describe('loadData', () => {
