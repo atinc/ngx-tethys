@@ -354,7 +354,7 @@ export class ThyCascaderComponent extends _MixinBase
     private _labelCls: { [name: string]: any };
     private labelRenderTpl: TemplateRef<any>;
     private hostRenderer = useHostRenderer();
-    private cascaderPosition:ConnectionPositionPair[];
+    private cascaderPosition: ConnectionPositionPair[];
     positions: ConnectionPositionPair[];
 
     private value: any[];
