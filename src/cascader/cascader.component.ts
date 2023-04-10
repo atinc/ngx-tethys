@@ -403,7 +403,7 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     private initPosition() {
-        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item=>{return {...item}})   
+        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item => { return { ...item } })
         this.cascaderPosition[0].offsetY = 4; // 左下
         this.cascaderPosition[1].offsetY = 4; // 右下
         this.cascaderPosition[2].offsetY = -4; // 右下
@@ -735,11 +735,11 @@ export class ThyCascaderComponent extends _MixinBase
             event.preventDefault();
         }
 
-        if (option && option.disabled  && !this.isMultiple) {
+        if (option && option.disabled && !this.isMultiple) {
             return;
         }
 
-        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled  && this.isMultiple)) {
+        if (!this.isHoverExpandTriggerAction() && !(option && option.disabled && this.isMultiple)) {
             return;
         }
         this.setActiveOption(option, index, false);
