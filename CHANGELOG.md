@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.1.0](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.5...15.1.0) (2023-04-11)
+
+
+### Bug Fixes
+
+* **cascader:** fix overlay-positions  #INFR-7164 ([#2603](https://github.com/atinc/ngx-tethys/issues/2603)) ([00d95f5](https://github.com/atinc/ngx-tethys/commit/00d95f50c7fce3d907f5cfab180053c937bc5028)), closes [#INFR-7164](https://github.com/atinc/ngx-tethys/issues/INFR-7164)
+
+
+
 # [15.1.0-next.5](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.4...15.1.0-next.5) (2023-04-06)
 
 
