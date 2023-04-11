@@ -72,14 +72,12 @@ describe('ThyActionMenu', () => {
     let actionMenuDividerComponent: DebugElement;
     let actionMenuItems: DebugElement[];
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                declarations: [ThyDemoActionMenuComponent, ThyActionMenuSubMenuItemExampleComponent],
-                imports: [ThyActionMenuModule]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ThyDemoActionMenuComponent, ThyActionMenuSubMenuItemExampleComponent],
+            imports: [ThyActionMenuModule]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoActionMenuComponent);

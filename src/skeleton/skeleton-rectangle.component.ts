@@ -31,9 +31,7 @@ interface Style {
         '[style.height]': 'thyRowHeight',
         '[style.borderRadius]': 'thyBorderRadius'
     },
-    template: `
-        <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div>
-    `,
+    template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,

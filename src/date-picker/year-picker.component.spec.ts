@@ -241,8 +241,7 @@ describe('ThyYearPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
-            [thyPlaceHolder]="thyPlaceHolder"
-        >
+            [thyPlaceHolder]="thyPlaceHolder">
         </thy-year-picker>
     `
 })

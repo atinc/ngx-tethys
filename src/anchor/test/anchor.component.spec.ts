@@ -146,31 +146,15 @@ describe('thy-anchor', () => {
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">
-                    this is a demo
-                </p>
+                <p *ngFor="let item of demos">this is a demo</p>
                 <h1 id="components-anchor-demo-static">Static demo</h1>
-                <p *ngFor="let item of demos">
-                    this is a static demo
-                </p>
-                <h1 id="API">
-                    API
-                </h1>
-                <p *ngFor="let item of demos">
-                    this is a api
-                </p>
-                <h1 id="anchor-props">
-                    API - thy-anchor
-                </h1>
-                <p *ngFor="let item of demos">
-                    this is a api-anchor
-                </p>
-                <h1 id="link-props">
-                    API - thy-anchor-link
-                </h1>
-                <p *ngFor="let item of demos">
-                    this is a api-link
-                </p>
+                <p *ngFor="let item of demos">this is a static demo</p>
+                <h1 id="API">API</h1>
+                <p *ngFor="let item of demos">this is a api</p>
+                <h1 id="anchor-props">API - thy-anchor</h1>
+                <p *ngFor="let item of demos">this is a api-anchor</p>
+                <h1 id="link-props">API - thy-anchor-link</h1>
+                <p *ngFor="let item of demos">this is a api-link</p>
             </div>
         </div>
     `
@@ -199,9 +183,7 @@ class TestAnchorComponent implements OnInit {
             </thy-anchor>
             <div>
                 <h1 id="components-anchor-demo-basic">Basic demo</h1>
-                <p *ngFor="let item of demos">
-                    this is a demo
-                </p>
+                <p *ngFor="let item of demos">this is a demo</p>
             </div>
         </div>
     `

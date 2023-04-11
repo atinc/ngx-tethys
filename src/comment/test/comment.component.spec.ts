@@ -5,14 +5,12 @@ import { ThyCommentNestExampleComponent } from './../examples/nest/nest.componen
 import { ThyCommentBasicExampleComponent } from './../examples/basic/basic.component';
 
 describe('thyCommentComponent', () => {
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyCommentModule],
-                declarations: [ThyCommentBasicExampleComponent, ThyCommentNestExampleComponent]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyCommentModule],
+            declarations: [ThyCommentBasicExampleComponent, ThyCommentNestExampleComponent]
+        }).compileComponents();
+    }));
 
     describe('basic', () => {
         it('should basic work', () => {

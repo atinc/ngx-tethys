@@ -3,9 +3,7 @@ import { ThyGuider, ThyGuiderConfig, ThyGuiderRef, ThyGuiderStep } from 'ngx-tet
 
 @Component({
     selector: 'thy-guider-custom-hint-class-example',
-    template: `
-        <button class="custom-hint-class-target" thyButton="info" (click)="startTour()">开始</button>
-    `
+    template: ` <button class="custom-hint-class-target" thyButton="info" (click)="startTour()">开始</button> `
 })
 export class ThyGuiderCustomHintClassExampleComponent implements OnInit {
     private option: ThyGuiderConfig = {

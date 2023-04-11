@@ -8,9 +8,7 @@ import { ThyRadioGroupComponent } from '../group/radio-group.component';
 
 @Component({
     selector: 'thy-radio-test',
-    template: `
-        <label thyRadio [thyLabelText]="isRadio" [thyDisabled]="isDisabled"></label>
-    `
+    template: ` <label thyRadio [thyLabelText]="isRadio" [thyDisabled]="isDisabled"></label> `
 })
 class RadioTestComponent {
     isRadio: '单选选项';

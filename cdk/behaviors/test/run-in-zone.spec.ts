@@ -12,7 +12,7 @@ describe('runInZone', () => {
                 fn();
             }
         };
-        subject.pipe(runInZone((mockNgZone as unknown) as NgZone)).subscribe();
+        subject.pipe(runInZone(mockNgZone as unknown as NgZone)).subscribe();
         expect(calledTimes).toBe(0);
         subject.next();
         expect(calledTimes).toBe(1);
@@ -27,7 +27,7 @@ describe('runInZone', () => {
                 fn();
             }
         };
-        subject.pipe(runInZone((mockNgZone as unknown) as NgZone)).subscribe({
+        subject.pipe(runInZone(mockNgZone as unknown as NgZone)).subscribe({
             error: error => {}
         });
         expect(calledTimes).toBe(0);
@@ -44,7 +44,7 @@ describe('runInZone', () => {
                 fn();
             }
         };
-        subject.pipe(runInZone((mockNgZone as unknown) as NgZone)).subscribe({
+        subject.pipe(runInZone(mockNgZone as unknown as NgZone)).subscribe({
             error: error => {}
         });
         expect(calledTimes).toBe(0);

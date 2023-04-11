@@ -16,8 +16,7 @@ import { ThySelectModule } from './module';
             [disabled]="disabled"
             [(ngModel)]="value"
             (ngModelChange)="change($event)"
-            [thyAllowClear]="allowClear"
-        >
+            [thyAllowClear]="allowClear">
             <option value="">请选择</option>
             <option value="option1">选项1</option>
             <option value="option2">选项2</option>

@@ -18,8 +18,7 @@ import { ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
                 [thyType]="type"
                 [thyColor]="color"
                 [thySize]="size"
-                (thyAfterChange)="afterChange($event)"
-            ></thy-slider>
+                (thyAfterChange)="afterChange($event)"></thy-slider>
         </div>
     `,
     styles: [

@@ -27,8 +27,7 @@ import { ThyDividerModule } from '../../divider';
                 [thyCollapsible]="collapsible"
                 (thyCollapsedChange)="toggle($event)"
                 [thyShowAction]="true"
-                [thyActionIcon]="'user-group-fill'"
-            >
+                [thyActionIcon]="'user-group-fill'">
                 <thy-menu-item>
                     <thy-menu-item-icon class="noColorIcon">
                         <thy-icon thyIconName="user-group-fill"></thy-icon>
@@ -44,8 +43,7 @@ import { ThyDividerModule } from '../../divider';
                         (click)="click()"
                         [thyActionMenu]="action"
                         [thyStopPropagation]="false"
-                        class="nothyStopPropagation"
-                    >
+                        class="nothyStopPropagation">
                         <thy-icon thyIconName="more"></thy-icon>
                     </thy-menu-item-action>
                 </thy-menu-item>
@@ -84,12 +82,8 @@ class ThyDemoMenuComponent {
     selector: 'thy-menu-test-basic',
     template: `
         <thy-menu [thyTheme]="theme" [thyCollapsed]="collapsed">
-            <a id="default-item" thyMenuItem href="javascript:;">
-                Default Item
-            </a>
-            <a id="with-icon-item" thyMenuItem thyIcon="calendar" href="javascript:;">
-                With Icon Item
-            </a>
+            <a id="default-item" thyMenuItem href="javascript:;"> Default Item </a>
+            <a id="with-icon-item" thyMenuItem thyIcon="calendar" href="javascript:;"> With Icon Item </a>
             <a thyMenuItem thyIcon="calendar" href="javascript:;">
                 <span thyMenuItemName>Configuration</span>
             </a>

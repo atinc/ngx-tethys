@@ -30,9 +30,7 @@ interface Style {
         '[style.width]': 'thySize',
         '[style.height]': 'thySize'
     },
-    template: `
-        <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div>
-    `,
+    template: ` <div class="thy-skeleton-after" [ngStyle]="afterStyles"></div> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,

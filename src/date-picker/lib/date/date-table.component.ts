@@ -26,10 +26,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
 
     private chooseDate(value: TinyDate): void {
         // Only change date not change time
-        const newValue = this.activeDate
-            .setYear(value.getYear())
-            .setMonth(value.getMonth())
-            .setDate(value.getDate());
+        const newValue = this.activeDate.setYear(value.getYear()).setMonth(value.getMonth()).setDate(value.getDate());
         this.valueChange.emit(newValue);
     }
 

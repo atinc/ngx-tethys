@@ -287,8 +287,7 @@ describe('TestDateCarouselComponent', () => {
         <date-carousel
             [activeDate]="activeDate"
             (ngModelChange)="modelValueChange($event)"
-            [(ngModel)]="advancedSelectedValue"
-        ></date-carousel>
+            [(ngModel)]="advancedSelectedValue"></date-carousel>
     `
 })
 class TestDateCarouselComponent {

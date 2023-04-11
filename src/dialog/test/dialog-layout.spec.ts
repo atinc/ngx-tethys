@@ -8,9 +8,7 @@ import { THY_DIALOG_LAYOUT_CONFIG } from '../dialog.config';
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
-    template: `
-        <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header>
-    `
+    template: ` <thy-dialog-header [thyDivided]="divided" [thySize]="size" thyTitle="I am dialog header"></thy-dialog-header> `
 })
 class DialogHeaderBasicComponent {
     size: 'lg' | 'md';
@@ -41,9 +39,7 @@ class DialogFooterBasicComponent {
 
 @Component({
     selector: 'thy-test-dialog-header-basic',
-    template: `
-        <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header>
-    `
+    template: ` <thy-dialog-header thyTitleTranslationKey="Translation Key Title"></thy-dialog-header> `
 })
 class DialogHeaderTitleTranslationComponent {}
 

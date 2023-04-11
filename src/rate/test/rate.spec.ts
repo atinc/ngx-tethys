@@ -11,9 +11,7 @@ import { ThyRateTemplateExampleComponent } from '../examples/template/template.c
 // 基础
 @Component({
     selector: 'thy-rate-basic-test',
-    template: `
-        <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
-    `
+    template: ` <thy-rate [(ngModel)]="value" (ngModelChange)="modelChange($event)" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `
 })
 class RateBasicTestComponent {
     value = 0;
@@ -111,9 +109,7 @@ describe('Rate basic component', () => {
 // 数量
 @Component({
     selector: 'thy-rate-count-test',
-    template: `
-        <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate>
-    `
+    template: ` <thy-rate [(ngModel)]="value" [thyCount]="count"></thy-rate> `
 })
 class RateCountTestComponent {
     value = 1;
@@ -159,9 +155,7 @@ describe('Rate count component', () => {
 // 半选
 @Component({
     selector: 'thy-rate-half-test',
-    template: `
-        <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate>
-    `
+    template: ` <thy-rate [(ngModel)]="value" [thyAllowHalf]="allowHalf" (thyItemHoverChange)="hoverChange($event)"></thy-rate> `
 })
 class RateHalfTestComponent {
     value = 1;
@@ -232,9 +226,7 @@ describe('Rate half component', () => {
 // 清除
 @Component({
     selector: 'thy-rate-clear-test',
-    template: `
-        <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate>
-    `
+    template: ` <thy-rate [(ngModel)]="value" [thyAllowClear]="allowClear" (ngModelChange)="modelChange($event)"></thy-rate> `
 })
 class RateClearTestComponent {
     value = 2;
@@ -302,8 +294,7 @@ describe('Rate clear component', () => {
             [(ngModel)]="value"
             [thyDisabled]="disabled"
             (ngModelChange)="modelChange($event)"
-            (thyItemHoverChange)="hoverChange($event)"
-        ></thy-rate>
+            (thyItemHoverChange)="hoverChange($event)"></thy-rate>
     `
 })
 class RateDisabledTestComponent {
@@ -366,9 +357,7 @@ describe('Rate disabled component', () => {
 // 自定义提示信息
 @Component({
     selector: 'thy-rate-tooltip-test',
-    template: `
-        <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate>
-    `
+    template: ` <thy-rate [(ngModel)]="value" [thyTooltips]="tooltips" (ngModelChange)="modelChange($event)"></thy-rate> `
 })
 class RateTooltipTestComponent {
     @ViewChild(ThyTooltipDirective, { static: true }) tooltip: ThyTooltipDirective;

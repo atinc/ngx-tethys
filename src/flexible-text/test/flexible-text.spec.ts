@@ -16,8 +16,7 @@ import { ThyFlexibleTextModule } from '../flexible-text.module';
             [thyTooltipContent]="tooltipContent"
             [thyTooltipPlacement]="placement"
             [thyTooltipTrigger]="trigger"
-            [thyContainerClass]="customContainerClass"
-        >
+            [thyContainerClass]="customContainerClass">
             {{ content }}
         </thy-flexible-text>
     `,
@@ -65,39 +64,37 @@ describe('FlexibleTextComponent', () => {
     const invokeCallbacks = (args?: any) => callbacks.forEach(callback => callback(args));
     const fakeResizeObserver = new Subject();
 
-    beforeEach(
-        waitForAsync(() => {
-            callbacks = [];
+    beforeEach(waitForAsync(() => {
+        callbacks = [];
 
-            TestBed.configureTestingModule({
-                imports: [ThyTooltipModule, ThyFlexibleTextModule],
-                declarations: [FlexibleTextTestComponent],
-                providers: [
-                    {
-                        provide: MutationObserverFactory,
-                        useValue: {
-                            create: function(callback: Function) {
-                                callbacks.push(callback);
+        TestBed.configureTestingModule({
+            imports: [ThyTooltipModule, ThyFlexibleTextModule],
+            declarations: [FlexibleTextTestComponent],
+            providers: [
+                {
+                    provide: MutationObserverFactory,
+                    useValue: {
+                        create: function (callback: Function) {
+                            callbacks.push(callback);
 
-                                return {
-                                    observe: () => {},
-                                    disconnect: () => {}
-                                };
-                            }
+                            return {
+                                observe: () => {},
+                                disconnect: () => {}
+                            };
                         }
                     }
-                ]
-            }).compileComponents();
+                }
+            ]
+        }).compileComponents();
 
-            // fake resize observer before create component
-            const createResizeSpy = spyOn(ThyFlexibleTextComponent, 'createResizeObserver');
-            createResizeSpy.and.returnValue(fakeResizeObserver);
+        // fake resize observer before create component
+        const createResizeSpy = spyOn(ThyFlexibleTextComponent, 'createResizeObserver');
+        createResizeSpy.and.returnValue(fakeResizeObserver);
 
-            fixture = TestBed.createComponent(FlexibleTextTestComponent);
-            componentInstance = fixture.componentInstance;
-            fixture.detectChanges();
-        })
-    );
+        fixture = TestBed.createComponent(FlexibleTextTestComponent);
+        componentInstance = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
     it('should not overflow when content is less', () => {
         const component = componentInstance.flexibleText;

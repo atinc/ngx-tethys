@@ -87,8 +87,7 @@ describe('ThyVote', () => {
             [thyLayout]="layout"
             [thySize]="size"
             [thyRound]="isRound"
-            [thyDisabled]="isDisabled"
-        ></div>
+            [thyDisabled]="isDisabled"></div>
     `
 })
 class ThyDemoVoteBasicComponent {

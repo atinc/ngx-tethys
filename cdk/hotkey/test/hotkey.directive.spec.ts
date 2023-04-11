@@ -16,8 +16,7 @@ import { createKeyboardEvent } from '@tethys/cdk/testing';
             [thyHotkeyScope]="textarea"
             thyButton="primary"
             thySize="sm"
-            (click)="save()"
-        ></button>
+            (click)="save()"></button>
     `
 })
 class ThyHotkeyDirectiveTestComponent {

@@ -22,8 +22,7 @@ import { ThyIconModule } from '../icon.module';
             [thyIconRotate]="rotate"
             [thyIconLegging]="legging"
             [thyTwotoneColor]="twotoneColor"
-            [thyIconSet]="iconSet"
-        ></thy-icon>
+            [thyIconSet]="iconSet"></thy-icon>
     `
 })
 class ThyIconTestBasicComponent {

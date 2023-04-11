@@ -68,9 +68,7 @@ class TestTabsCustomTitleComponent {}
     selector: 'test-tabs-extra',
     template: `
         <thy-tabs [thyExtra]="extraTemplate">
-            <thy-tab id="tab1" thyTitle="Tab1">
-                Tab1 Content
-            </thy-tab>
+            <thy-tab id="tab1" thyTitle="Tab1"> Tab1 Content </thy-tab>
             <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>
@@ -100,9 +98,7 @@ class TestTabsPositionComponent {
     selector: 'test-tabs-active',
     template: `
         <thy-tabs [thyActiveTab]="activeTab" [thyAnimated]="thyAnimated">
-            <thy-tab id="tab1" thyTitle="Tab1">
-                Tab1 Content
-            </thy-tab>
+            <thy-tab id="tab1" thyTitle="Tab1"> Tab1 Content </thy-tab>
             <thy-tab id="tab2" thyTitle="Tab2">Tab2 Content</thy-tab>
             <thy-tab id="tab3" thyTitle="Tab3">Tab3 Content</thy-tab>
         </thy-tabs>

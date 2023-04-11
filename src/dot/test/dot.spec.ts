@@ -91,9 +91,7 @@ describe('ThyDot', () => {
 
 @Component({
     selector: 'thy-demo-dot-basic',
-    template: `
-        <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span>
-    `
+    template: ` <span thy-dot [thyColor]="thyColor" [thySize]="thySize" [thyTheme]="thyTheme" [thyShape]="thyShape"></span> `
 })
 class ThyDemoDotComponent {
     thyColor: ThyColorType;

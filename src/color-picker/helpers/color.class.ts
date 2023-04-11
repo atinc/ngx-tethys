@@ -1,7 +1,7 @@
 import { ThyColorsTable } from './colors-table.class';
 import { ThyRgba } from './rgba.class';
 
-const hsv2hsl = function(hue: number, sat: number, val: number) {
+const hsv2hsl = function (hue: number, sat: number, val: number) {
     return [hue, (sat * val) / ((hue = (2 - sat) * val) < 1 ? hue : 2 - hue) || 0, hue / 2];
 };
 

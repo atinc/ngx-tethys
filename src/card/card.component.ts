@@ -8,9 +8,7 @@ import { InputBoolean } from 'ngx-tethys/core';
  */
 @Component({
     selector: 'thy-card',
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card',

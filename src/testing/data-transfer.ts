@@ -12,7 +12,7 @@ export class FakeDataTransferItem implements DataTransferItem {
     constructor(private entry: FileSystemEntry, public kind: string) {}
 
     getAsFile(): File {
-        return (this.entry as unknown) as File;
+        return this.entry as unknown as File;
     }
 
     getAsString(callback: FunctionStringCallback): void {
@@ -47,7 +47,7 @@ export class FakeDataTransfer implements DataTransfer {
         }
     }
 
-    getData = function(dataFormat: string) {
+    getData = function (dataFormat: string) {
         return this.dataByFormat[dataFormat];
     };
 
@@ -61,7 +61,7 @@ export class FakeDataTransfer implements DataTransfer {
         return true;
     }
 
-    setDragImage = function() {
+    setDragImage = function () {
         // don't do anything (the stub just makes sure there is no error thrown if someone tries to call the method)
     };
 }

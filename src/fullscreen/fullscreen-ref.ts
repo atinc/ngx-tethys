@@ -143,9 +143,7 @@ export class ThyFullscreenRef<TResult = unknown> {
             this.launchImmersiveFullscreen();
         } else {
             this.ngZone.runOutsideAngular(() =>
-                fromEvent<KeyboardEvent>(this.document, 'keydown')
-                    .pipe(takeUntil(this.ngUnsubscribe$))
-                    .subscribe(this.handleKeyDown)
+                fromEvent<KeyboardEvent>(this.document, 'keydown').pipe(takeUntil(this.ngUnsubscribe$)).subscribe(this.handleKeyDown)
             );
 
             this.launchNormalFullscreen();

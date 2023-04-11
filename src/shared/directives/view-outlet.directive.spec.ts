@@ -19,9 +19,7 @@ class ThyViewOutletTemplateTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-content',
-    template: `
-        Count: {{ count }}
-    `
+    template: ` Count: {{ count }} `
 })
 class ThyViewOutletContentTestComponent {
     count = 1;
@@ -29,9 +27,7 @@ class ThyViewOutletContentTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-test',
-    template: `
-        <ng-container *thyViewOutlet="contentComponent; context: { count: count }"></ng-container>
-    `
+    template: ` <ng-container *thyViewOutlet="contentComponent; context: { count: count }"></ng-container> `
 })
 class ThyViewOutletComponentTestComponent {
     contentComponent = ThyViewOutletContentTestComponent;
@@ -40,9 +36,7 @@ class ThyViewOutletComponentTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
-    template: `
-        Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}
-    `
+    template: ` Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }} `
 })
 class ThyViewOutletContentMultiTestComponent {
     count = 1;
@@ -59,9 +53,7 @@ class ThyViewOutletContentMultiTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-multi-test',
-    template: `
-        <ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container>
-    `
+    template: ` <ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container> `
 })
 class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;

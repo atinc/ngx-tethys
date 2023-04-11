@@ -261,8 +261,7 @@ describe('ThySelectionList without forms', () => {
             [(ngModel)]="selectedValues"
             [thyAutoActiveFirstItem]="autoActiveFirstItem"
             [thyBeforeKeydown]="thyBeforeKeydown"
-            [thyUniqueKey]="uniqueKey"
-        >
+            [thyUniqueKey]="uniqueKey">
             <thy-list-option *ngFor="let item of items" [id]="item.id" [thyValue]="item.value">
                 {{ item.text }}
             </thy-list-option>
@@ -347,20 +346,11 @@ class SelectionListWithListOptionsComponent {
             id="selection-list-1"
             [thyAutoActiveFirstItem]="autoActiveFirstItem"
             (thySelectionChange)="onValueChange($event)"
-            [thyMultiple]="isMultipleSelectedMode"
-        >
-            <thy-list-option thyValue="inbox">
-                Inbox (disabled selection-option)
-            </thy-list-option>
-            <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred">
-                Starred
-            </thy-list-option>
-            <thy-list-option thyValue="sent-mail">
-                Sent Mail
-            </thy-list-option>
-            <thy-list-option thyValue="drafts">
-                Drafts
-            </thy-list-option>
+            [thyMultiple]="isMultipleSelectedMode">
+            <thy-list-option thyValue="inbox"> Inbox (disabled selection-option) </thy-list-option>
+            <thy-list-option id="testSelect" class="test-native-focus" thyValue="starred"> Starred </thy-list-option>
+            <thy-list-option thyValue="sent-mail"> Sent Mail </thy-list-option>
+            <thy-list-option thyValue="drafts"> Drafts </thy-list-option>
         </thy-selection-list>
     `
 })
@@ -377,8 +367,7 @@ class SelectionListWithListOptionsDefaultComponent {
             (thySelectionChange)="onValueChange($event)"
             [thyMultiple]="false"
             [(ngModel)]="selectedValue"
-            thyUniqueKey="id"
-        >
+            thyUniqueKey="id">
             <thy-list-option *ngFor="let option of options" [thyValue]="option">
                 {{ option.displayName }}
             </thy-list-option>

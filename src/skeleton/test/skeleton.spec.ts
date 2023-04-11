@@ -67,28 +67,16 @@ describe('skeleton ', () => {
         ).toBeTruthy();
 
         expect(
-            getComputedStyle(circleElement.querySelector('.thy-skeleton-after'))
-                .getPropertyValue('animation')
-                .includes('1.5')
+            getComputedStyle(circleElement.querySelector('.thy-skeleton-after')).getPropertyValue('animation').includes('1.5')
         ).toBeTruthy();
 
         expect(
-            getComputedStyle(rectangleElement.querySelector('.thy-skeleton-after'))
-                .getPropertyValue('animation')
-                .includes('1.5')
+            getComputedStyle(rectangleElement.querySelector('.thy-skeleton-after')).getPropertyValue('animation').includes('1.5')
         ).toBeTruthy();
 
-        expect(
-            getComputedStyle(circleElement)
-                .getPropertyValue('background')
-                .includes('rgb(153, 153, 153)')
-        ).toBeTruthy();
+        expect(getComputedStyle(circleElement).getPropertyValue('background').includes('rgb(153, 153, 153)')).toBeTruthy();
 
-        expect(
-            getComputedStyle(rectangleElement)
-                .getPropertyValue('background')
-                .includes('rgb(153, 153, 153)')
-        ).toBeTruthy();
+        expect(getComputedStyle(rectangleElement).getPropertyValue('background').includes('rgb(153, 153, 153)')).toBeTruthy();
     });
 
     it('should set children style by it"s own parameter', () => {

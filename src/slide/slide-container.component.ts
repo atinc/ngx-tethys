@@ -14,9 +14,7 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
 
 @Component({
     selector: 'thy-slide-container',
-    template: `
-        <ng-template cdkPortalOutlet></ng-template>
-    `,
+    template: ` <ng-template cdkPortalOutlet></ng-template> `,
     animations: [thySlideAnimations.slideContainer],
     host: {
         class: 'thy-slide-container',

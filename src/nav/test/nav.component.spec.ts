@@ -27,8 +27,7 @@ const NAV_LINK_CLASS = `thy-nav-item`;
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             class="custom-nav"
-            [thyExtra]="extra"
-        >
+            [thyExtra]="extra">
             <a thyNavLink thyNavLinkActive="true">Link1</a>
             <a thyNavLink><thy-icon thyIconName="filter"></thy-icon>Link2</a>
             <a thyNavLink thyNavItemDisabled="true" id="disabled">Link3</a>
@@ -65,8 +64,7 @@ export class NavBasicComponent implements OnInit {
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
             class="custom-nav"
-            style="width: 100px;height: 50px;display:block"
-        >
+            style="width: 100px;height: 50px;display:block">
             <a
                 *ngFor="let item of navLinks; index as i"
                 class="test-link"

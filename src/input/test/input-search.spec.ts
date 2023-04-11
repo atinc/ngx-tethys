@@ -22,8 +22,7 @@ import { ThyInputModule } from '../module';
             (ngModelChange)="modelChange($event)"
             (thyClear)="onClear()"
             [thySize]="thySize"
-            [thyIconPosition]="iconPosition"
-        ></thy-input-search>
+            [thyIconPosition]="iconPosition"></thy-input-search>
     `
 })
 class TestInputSearchBasicComponent {

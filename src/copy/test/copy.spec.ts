@@ -83,8 +83,7 @@ describe('thy-copy', () => {
             thyCopyContent="content"
             [thyCopyTipsOffset]="copyTipsOffset"
             [thyCopyTips]="copyTooltip"
-            [thyShowNotify]="showNotify"
-        >
+            [thyShowNotify]="showNotify">
             点击
         </p>
     `

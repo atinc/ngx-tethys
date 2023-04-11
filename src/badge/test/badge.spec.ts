@@ -78,9 +78,7 @@ class BadgeBasicHollowComponent implements OnInit {
 
 @Component({
     selector: 'thy-badge-dot',
-    template: `
-        <thy-badge [thyIsDot]="isDot"></thy-badge>
-    `
+    template: ` <thy-badge [thyIsDot]="isDot"></thy-badge> `
 })
 class BadgeBasicDotComponent implements OnInit {
     constructor() {}
@@ -92,9 +90,7 @@ class BadgeBasicDotComponent implements OnInit {
 
 @Component({
     selector: 'thy-badge-custom-color',
-    template: `
-        <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span>
-    `
+    template: ` <span thyBadge [thyCount]="5" [thyTextColor]="textColor" [thyBackgroundColor]="backgroundColor"></span> `
 })
 class BadgeBasicCustomColorComponent implements OnInit {
     textColor = '#00ff00';

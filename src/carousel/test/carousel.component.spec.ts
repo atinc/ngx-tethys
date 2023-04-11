@@ -19,8 +19,7 @@ import { mouseSwipe, touchSwipe, windowResize } from './carousel-events';
                 [thyControls]="showControls"
                 [thyEffect]="effect"
                 [thyTrigger]="trigger"
-                [thyPause]="pause"
-            >
+                [thyPause]="pause">
                 <div thyCarouselItem class="custom-class" *ngFor="let index of array">
                     <h3>{{ index }}</h3>
                 </div>

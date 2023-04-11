@@ -19,8 +19,7 @@ import { createFile } from './utils';
             [thySizeExceedsHandler]="sizeExceedsHandler"
             [thyFileDropClassName]="customDragOverClass"
             thyFileDrop
-            (thyOnDrop)="selectFiles($event)"
-        ></div>
+            (thyOnDrop)="selectFiles($event)"></div>
     `
 })
 class FileDropBasicComponent {

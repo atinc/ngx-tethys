@@ -17,7 +17,9 @@ import { take, takeUntil } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
 import {
-    CdkConnectedOverlay, CdkOverlayOrigin, ConnectedOverlayPositionChange,
+    CdkConnectedOverlay,
+    CdkOverlayOrigin,
+    ConnectedOverlayPositionChange,
     ConnectionPositionPair,
     ViewportRuler
 } from '@angular/cdk/overlay';
@@ -118,8 +120,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         ThyEmptyComponent
     ]
 })
-export class ThyCascaderComponent extends _MixinBase
-    implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */
@@ -249,7 +250,7 @@ export class ThyCascaderComponent extends _MixinBase
         this.disabled = coerceBooleanProperty(value);
     }
 
-    disabled = false
+    disabled = false;
 
     /**
      * 空状态下的展示文字
@@ -403,7 +404,9 @@ export class ThyCascaderComponent extends _MixinBase
     }
 
     private initPosition() {
-        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item => { return { ...item } })
+        this.cascaderPosition = EXPANDED_DROPDOWN_POSITIONS.map(item => {
+            return { ...item };
+        });
         this.cascaderPosition[0].offsetY = 4; // 左下
         this.cascaderPosition[1].offsetY = 4; // 右下
         this.cascaderPosition[2].offsetY = -4; // 右下
@@ -438,9 +441,9 @@ export class ThyCascaderComponent extends _MixinBase
                 typeof value === 'object'
                     ? value
                     : {
-                        [`${this.thyValueProperty || 'value'}`]: value,
-                        [`${this.thyLabelProperty || 'label'}`]: value
-                    };
+                          [`${this.thyValueProperty || 'value'}`]: value,
+                          [`${this.thyLabelProperty || 'label'}`]: value
+                      };
         }
         this.updatePrevSelectedOptions(option, true);
         this.setActiveOption(option, index, false, false);
@@ -771,7 +774,7 @@ export class ThyCascaderComponent extends _MixinBase
     public closeMenu(): void {
         if (this.menuVisible) {
             this.setMenuVisible(false);
-            this.onTouchedFn()
+            this.onTouchedFn();
         }
     }
 
@@ -822,7 +825,7 @@ export class ThyCascaderComponent extends _MixinBase
         }
         if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
-            this.onTouchedFn()
+            this.onTouchedFn();
         }
     }
 
@@ -855,7 +858,7 @@ export class ThyCascaderComponent extends _MixinBase
         if (!arrayEquals(this.value, value)) {
             this.defaultValue = null;
             this.value = value;
-            this.onChangeFn(value)
+            this.onChangeFn(value);
             if (this.selectionModel.isEmpty()) {
                 this.thyClear.emit();
             }

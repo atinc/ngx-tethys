@@ -624,7 +624,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     private _bindTrackFn() {
-        this.trackByFn = function(this: SafeAny, index: number, row: SafeAny): SafeAny {
+        this.trackByFn = function (this: SafeAny, index: number, row: SafeAny): SafeAny {
             return row && this.rowKey ? row[this.rowKey] : index;
         }.bind(this);
     }

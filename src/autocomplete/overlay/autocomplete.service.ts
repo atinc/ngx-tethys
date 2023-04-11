@@ -29,8 +29,10 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
  * @private
  */
 @Injectable()
-export class ThyAutocompleteService extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
-    implements OnDestroy {
+export class ThyAutocompleteService
+    extends ThyAbstractOverlayService<ThyAutocompleteConfig, ThyAutocompleteContainerComponent>
+    implements OnDestroy
+{
     private readonly ngUnsubscribe$ = new Subject();
 
     private originInstancesMap = new Map<

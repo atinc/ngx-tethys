@@ -94,7 +94,7 @@ export class ThyProgressCircleComponent implements OnInit, OnChanges {
 
         if (Array.isArray(this.thyValue)) {
             let totalValue = 0;
-            values = ((this.thyValue as unknown) as ThyProgressStackedValue[]).map((item, index) => {
+            values = (this.thyValue as unknown as ThyProgressStackedValue[]).map((item, index) => {
                 totalValue += item.value;
                 const currentValue = +((totalValue / this.thyMax) * 100).toFixed(2);
                 return { ...item, value: currentValue };

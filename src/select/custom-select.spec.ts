@@ -37,14 +37,12 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
-                [thyOrigin]="customizeOrigin"
-            >
+                [thyOrigin]="customizeOrigin">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
                 <ng-template #footer>
                     <a>更多</a>
@@ -236,8 +234,7 @@ class SelectEarlyAccessSiblingComponent {}
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -270,8 +267,7 @@ class SelectWithSearchComponent {
                     *ngFor="let member of teamMembers"
                     [thyValue]="member.id"
                     [thyLabelText]="member.name"
-                    thySearchKey="{{ member.name }},{{ member.pin_yin }}"
-                >
+                    thySearchKey="{{ member.name }},{{ member.pin_yin }}">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -314,8 +310,7 @@ class SelectWithSearchUseSearchKeyComponent {
                 thyPlaceHolder="Pokemon"
                 [thyShowSearch]="true"
                 [thyEmptySearchMessageText]="thyEmptySearchMessageText"
-                [formControl]="control"
-            >
+                [formControl]="control">
                 <thy-option-group *ngFor="let group of pokemonTypes" [thyGroupLabel]="group.name">
                     <ng-container *ngFor="let pokemon of group.pokemon">
                         <thy-option [thyValue]="pokemon.value" [thyLabelText]="pokemon.viewValue"></thy-option>
@@ -357,14 +352,12 @@ class SelectWithSearchAndGroupComponent {
                 name="foods"
                 [thyShowSearch]="thyShowSearch"
                 [thyServerSearch]="true"
-                (thyOnSearch)="thyOnSearch()"
-            >
+                (thyOnSearch)="thyOnSearch()">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -401,14 +394,12 @@ class SelectWithSearchAndServerSearchComponent {
                 [(ngModel)]="selectedValue"
                 [thyDisabled]="disabled"
                 name="Food"
-                [required]="isRequired"
-            >
+                [required]="isRequired">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -442,8 +433,7 @@ class SelectEimtOptionsChangesComponent {
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -488,8 +478,7 @@ class SelectWithThyModeComponent {
                 [(ngModel)]="selectedFoods"
                 name="food"
                 [thyMode]="selectMode"
-                [thySortComparator]="thySortComparator"
-            >
+                [thySortComparator]="thySortComparator">
                 <thy-option *ngFor="let food of foods" [thyValue]="food.value" [thyLabelText]="food.viewValue"></thy-option>
             </thy-custom-select>
         </form>
@@ -568,14 +557,12 @@ class SelectWithThyPlacementComponent implements OnInit {
                 [thyShowSearch]="showSearch"
                 [thyServerSearch]="serverSearch"
                 [thyEnableScrollLoad]="true"
-                (thyOnSearch)="thyOnSearch()"
-            >
+                (thyOnSearch)="thyOnSearch()">
                 <thy-option
                     *ngFor="let food of foods"
                     [thyValue]="food.value"
                     [thyDisabled]="food.disabled"
-                    [thyLabelText]="food.viewValue"
-                >
+                    [thyLabelText]="food.viewValue">
                 </thy-option>
             </thy-custom-select>
         </form>
@@ -781,10 +768,10 @@ describe('ThyCustomSelect', () => {
                 expect(input).toBeTruthy();
                 const focusSpy = spyOn(input, 'focus');
                 fixture.componentInstance.select['manualFocusing'] = true;
-                fixture.componentInstance.select.onFocus(({ relatedTarget: input } as unknown) as FocusEvent);
+                fixture.componentInstance.select.onFocus({ relatedTarget: input } as unknown as FocusEvent);
                 expect(focusSpy).not.toHaveBeenCalled();
                 expect(fixture.componentInstance.select['manualFocusing']).toBe(false);
-                fixture.componentInstance.select.onFocus(({ relatedTarget: fixture.debugElement.nativeElement } as unknown) as FocusEvent);
+                fixture.componentInstance.select.onFocus({ relatedTarget: fixture.debugElement.nativeElement } as unknown as FocusEvent);
                 expect(focusSpy).toHaveBeenCalled();
             }));
 

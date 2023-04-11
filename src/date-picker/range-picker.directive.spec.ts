@@ -197,8 +197,7 @@ describe('ThyRangePickerDirective', () => {
             [thyShortcutRanges]="thyShortcutRanges"
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
-            (thyOpenChange)="thyOpenChange($event)"
-        ></thy-property-operation>
+            (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `
 })
 class ThyTestRangePickerComponent {

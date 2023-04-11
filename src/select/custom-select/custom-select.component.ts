@@ -151,8 +151,10 @@ const noop = () => {};
         '(blur)': 'onBlur($event)'
     }
 })
-export class ThySelectCustomComponent extends _MixinBase
-    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThySelectCustomComponent
+    extends _MixinBase
+    implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy
+{
     disabled = false;
 
     size: SelectControlSize;

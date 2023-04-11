@@ -4,9 +4,7 @@ import { ErrorFn, SuccessFn } from './types';
 
 const BEHAVIOR = Symbol('BEHAVIOR');
 
-export type Behavior<P extends Array<any>, R> = (
-    ...args: P
-) => R & {
+export type Behavior<P extends Array<any>, R> = (...args: P) => R & {
     [BEHAVIOR]: true;
 };
 

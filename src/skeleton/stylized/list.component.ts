@@ -15,8 +15,7 @@ import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
                 [thyPrimaryColor]="thyPrimaryColor"
                 [thySecondaryColor]="thySecondaryColor"
                 [thyBorderRadius]="thyBorderRadius"
-                [thyAnimatedInterval]="thyAnimatedInterval"
-            ></thy-skeleton-rectangle>
+                [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
         </ng-container>
     `,
     host: {

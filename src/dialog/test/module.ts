@@ -16,9 +16,7 @@ import { ThyDialogModule, ThyDialogRef } from '../';
 // simple dialog component
 @Component({
     selector: 'thy-dialog-content-component',
-    template: `
-        <div>Hello Dialog <button>Close</button></div>
-    `
+    template: ` <div>Hello Dialog <button>Close</button></div> `
 })
 export class DialogSimpleContentComponent {
     constructor(
@@ -62,9 +60,7 @@ export class WithViewContainerDirective {
 
 @Component({
     selector: 'thy-with-child-view-component',
-    template: `
-        <thy-with-view-container-directive></thy-with-view-container-directive>
-    `
+    template: ` <thy-with-view-container-directive></thy-with-view-container-directive> `
 })
 export class WithChildViewContainerComponent {
     @ViewChild(WithViewContainerDirective, { static: true })

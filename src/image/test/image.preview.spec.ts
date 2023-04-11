@@ -18,9 +18,7 @@ let imageOnload: () => void = null;
 
 @Component({
     selector: 'thy-image-preview-test',
-    template: `
-        <button thyButton="primary" (click)="onClick()">Preview</button>
-    `
+    template: ` <button thyButton="primary" (click)="onClick()">Preview</button> `
 })
 class ImagePreviewTestComponent implements OnInit {
     constructor(private thyImageService: ThyImageService, private sanitizer: DomSanitizer) {}
@@ -96,10 +94,10 @@ describe('image-preview', () => {
     beforeEach(() => {
         Object.defineProperty(ɵglobal.Image.prototype, 'onload', {
             configurable: true,
-            get: function() {
+            get: function () {
                 return this._onload;
             },
-            set: function(fn) {
+            set: function (fn) {
                 imageOnload = fn;
                 this._onload = fn;
             }
@@ -409,31 +407,28 @@ describe('image-preview', () => {
         });
     });
 
-    xit(
-        'should resolve image objectURL and size',
-        waitForAsync(() => {
-            basicTestComponent.images = [
-                {
-                    src: 'assets/images/image/first.png',
-                    alt: 'first',
-                    name: 'first.jpg',
-                    origin: {
-                        src: 'assets/images/image/second.png'
-                    }
+    xit('should resolve image objectURL and size', waitForAsync(() => {
+        basicTestComponent.images = [
+            {
+                src: 'assets/images/image/first.png',
+                alt: 'first',
+                name: 'first.jpg',
+                origin: {
+                    src: 'assets/images/image/second.png'
                 }
-            ];
-            basicTestComponent.previewConfig.resolveSize = true;
-            const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
-            button.click();
-            fixture.detectChanges();
+            }
+        ];
+        basicTestComponent.previewConfig.resolveSize = true;
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+        fixture.detectChanges();
 
-            basicTestComponent.imageRef.previewInstance.resolvePreviewImage().subscribe(() => {
-                expect(basicTestComponent.images[0].size).toBeTruthy();
-                expect(basicTestComponent.images[0].objectURL).toBeTruthy();
-                expect(basicTestComponent.images[0].blob).toBeTruthy();
-            });
-        })
-    );
+        basicTestComponent.imageRef.previewInstance.resolvePreviewImage().subscribe(() => {
+            expect(basicTestComponent.images[0].size).toBeTruthy();
+            expect(basicTestComponent.images[0].objectURL).toBeTruthy();
+            expect(basicTestComponent.images[0].blob).toBeTruthy();
+        });
+    }));
 
     it('should set correctly objectURL when src is blob image', () => {
         basicTestComponent.images = [

@@ -45,8 +45,7 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyAsyncNode]="asyncNode"
                 [thyGetNodeChildren]="fetchNodeChildren"
                 [thyHiddenNodeKey]="hiddenKey"
-                [thyDisableNodeKey]="disableKey"
-            ></thy-tree-select>
+                [thyDisableNodeKey]="disableKey"></thy-tree-select>
         </div>
     `
 })
@@ -178,8 +177,7 @@ class BasicTreeSelectComponent {
                 thyPrimaryKey="key"
                 [thyMultiple]="multiple"
                 [thyPlaceholder]="thyPlaceholder"
-                thyShowKey="title"
-            ></thy-tree-select>
+                thyShowKey="title"></thy-tree-select>
         </div>
     `
 })
@@ -275,8 +273,7 @@ class PlaceHolderTreeSelectComponent {
                 [(ngModel)]="objSelectedValue"
                 thyPrimaryKey="key"
                 thyShowKey="title"
-                [thyMultiple]="multiple"
-            ></thy-tree-select>
+                [thyMultiple]="multiple"></thy-tree-select>
         </div>
     `
 })
@@ -372,8 +369,7 @@ class NgModelTreeSelectComponent {
                 thyPrimaryKey="key"
                 thyShowKey="title"
                 [(ngModel)]="selectedValue"
-                [thyShowSearch]="treeShowSearch"
-            ></thy-tree-select>
+                [thyShowSearch]="treeShowSearch"></thy-tree-select>
         </div>
     `
 })
@@ -446,15 +442,13 @@ describe('ThyTreeSelect', () => {
         describe('basic class', () => {
             let treeSelectDebugElement: DebugElement;
             let treeSelectElement: HTMLElement;
-            beforeEach(
-                waitForAsync(() => {
-                    configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
-                    const fixture = TestBed.createComponent(BasicTreeSelectComponent);
-                    fixture.detectChanges();
-                    treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
-                    treeSelectElement = treeSelectDebugElement.nativeElement;
-                })
-            );
+            beforeEach(waitForAsync(() => {
+                configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
+                treeSelectElement = treeSelectDebugElement.nativeElement;
+            }));
 
             it('should get correct class', () => {
                 expect(treeSelectElement).toBeTruthy();
@@ -584,11 +578,9 @@ describe('ThyTreeSelect', () => {
         });
 
         describe('with thyPlaceHolder', () => {
-            beforeEach(
-                waitForAsync(() => {
-                    configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
-                })
-            );
+            beforeEach(waitForAsync(() => {
+                configureThyCustomSelectTestingModule([PlaceHolderTreeSelectComponent]);
+            }));
 
             it('should show default placeholder', fakeAsync(() => {
                 const fixture = TestBed.createComponent(PlaceHolderTreeSelectComponent);
@@ -610,11 +602,9 @@ describe('ThyTreeSelect', () => {
         });
 
         describe('select logic', () => {
-            beforeEach(
-                waitForAsync(() => {
-                    configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
-                })
-            );
+            beforeEach(waitForAsync(() => {
+                configureThyCustomSelectTestingModule([BasicTreeSelectComponent]);
+            }));
 
             it('should select item with single when item is clicked', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);

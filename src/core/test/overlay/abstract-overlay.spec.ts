@@ -44,9 +44,7 @@ class TestDialogConfig<TData = any> extends ThyAbstractOverlayConfig<TData> {
 
 @Component({
     selector: 'test-dialog-container',
-    template: `
-        <ng-template cdkPortalOutlet></ng-template>
-    `,
+    template: ` <ng-template cdkPortalOutlet></ng-template> `,
     host: {
         class: 'test-dialog-container',
         tabindex: '-1',

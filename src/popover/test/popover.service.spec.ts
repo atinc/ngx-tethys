@@ -429,10 +429,7 @@ describe(`thyPopover`, () => {
             const element = getPopoverContainerElement() as HTMLElement;
             tick(1000);
             viewContainerFixture.detectChanges();
-            element
-                .querySelector('thy-popover-simple-content-component')
-                .closest('.thy-popover-container')
-                .removeAttribute('id');
+            element.querySelector('thy-popover-simple-content-component').closest('.thy-popover-container').removeAttribute('id');
             expect(popover.getClosestPopover(element.querySelector('thy-popover-simple-content-component'))).toBe(null);
         }));
 

@@ -24,14 +24,11 @@ const tooltipTemplateContext = { text: 'hello world' };
             [thyTooltipDisabled]="disabled"
             [thyTooltipShowDelay]="showDelay"
             [thyTooltipHideDelay]="hideDelay"
-            [thyTooltipPlacement]="placement"
-        >
+            [thyTooltipPlacement]="placement">
             Basic Usage
         </button>
 
-        <button #tooltipHost>
-            Tooltip Host
-        </button>
+        <button #tooltipHost>Tooltip Host</button>
     `
 })
 class ThyDemoTooltipBasicComponent {
@@ -62,8 +59,7 @@ class ThyDemoTooltipBasicComponent {
             [thyTooltipPlacement]="placement"
             [thyTooltipShowDelay]="showDelay"
             [thyTooltipHideDelay]="hideDelay"
-            thyButton="primary"
-        >
+            thyButton="primary">
             Tooltip with Template
         </button>
         <ng-template #world let-data>{{ data.text }}</ng-template>

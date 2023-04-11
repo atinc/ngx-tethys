@@ -26,8 +26,7 @@ import { ThyInputNumberModule } from '../module';
             [thyDisabled]="thyDisabled"
             (ngModelChange)="change($event)"
             (thyFocus)="onFocus($event)"
-            (thyBlur)="onBlur($event)"
-        ></thy-input-number>
+            (thyBlur)="onBlur($event)"></thy-input-number>
     `
 })
 class TestInputNumberComponent {
@@ -375,7 +374,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const blurSpy = spyOn(
-            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
+            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
         const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;
@@ -390,7 +389,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const blurSpy = spyOn(
-            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
+            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
         const trigger = fixture.debugElement.query(By.css('.input-number-input')).nativeElement;

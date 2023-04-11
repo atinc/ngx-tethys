@@ -212,7 +212,7 @@ describe('tiny-date', () => {
         });
 
         it('should sort by one date', () => {
-            expect(sortRangeValue((date as unknown) as TinyDate[])).toEqual((date as unknown) as TinyDate[]);
+            expect(sortRangeValue(date as unknown as TinyDate[])).toEqual(date as unknown as TinyDate[]);
         });
     });
 });

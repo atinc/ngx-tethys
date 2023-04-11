@@ -128,9 +128,7 @@ describe('ClickDispatcher', () => {
 
 /** Simple component that contains a large div and can be scrolled. */
 @Component({
-    template: `
-        <div></div>
-    `
+    template: ` <div></div> `
 })
 class ClickComponent implements OnDestroy {
     clicked = 0;

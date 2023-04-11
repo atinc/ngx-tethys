@@ -15,8 +15,7 @@ import { ThyDividerStyle, ThyDividerTextDirection } from '../divider.component';
                 [thyTextDirection]="directionMode"
                 [thyText]="textContent || dividerTemplateSelect"
                 [thyDeeper]="isDeeper"
-                [thyColor]="color"
-            ></thy-divider>
+                [thyColor]="color"></thy-divider>
             <ng-template #dividerTemplateSelect>
                 <thy-custom-select [(ngModel)]="dividerSelectModel" thyPlaceHolder="请选择">
                     <thy-option thyValue="or|or" thyLabelText="Or"></thy-option>

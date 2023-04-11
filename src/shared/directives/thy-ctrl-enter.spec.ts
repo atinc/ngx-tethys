@@ -8,9 +8,7 @@ import { ThyCtrlEnterDirective } from './thy-ctrl-enter.directive';
 
 @Component({
     selector: 'thy-autofocus-test',
-    template: `
-        <input #enter (thyCtrlEnter)="ok($event)" />
-    `
+    template: ` <input #enter (thyCtrlEnter)="ok($event)" /> `
 })
 class ThyCtrlEnterTestComponent {
     @ViewChild('enter') input: ElementRef;
@@ -23,14 +21,12 @@ describe('ThyCtrlEnterDirective', () => {
     let testComponent: ThyCtrlEnterTestComponent;
     let enterSpy: jasmine.Spy;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyCtrlEnterDirective],
-                declarations: [ThyCtrlEnterTestComponent]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyCtrlEnterDirective],
+            declarations: [ThyCtrlEnterTestComponent]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyCtrlEnterTestComponent);

@@ -18,9 +18,7 @@ import { ThyActionComponent } from './action.component';
  */
 @Component({
     selector: 'thy-actions',
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-actions'

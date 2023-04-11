@@ -8,8 +8,7 @@ import { Component, Input, OnInit } from '@angular/core';
             [thyFormat]="'yyyy-MM-dd HH:mm'"
             thyPlaceHolder="选择时间"
             [(ngModel)]="user.birth_date"
-            thySize="md"
-        ></thy-date-picker>
+            thySize="md"></thy-date-picker>
     `
 })
 export class ThyPropertyEditableDateInnerComponent implements OnInit {

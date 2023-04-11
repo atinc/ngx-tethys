@@ -236,8 +236,7 @@ describe('ThyTimePanelComponent', () => {
             [thyShowOperations]="showOperations"
             (thyPickChange)="onPickTime($event)"
             (ngModelChange)="onValueChange($event)"
-            (thyClosePanel)="closePanel()"
-        ></thy-time-picker-panel>
+            (thyClosePanel)="closePanel()"></thy-time-picker-panel>
     `
 })
 class ThyTestTimePanelComponent {

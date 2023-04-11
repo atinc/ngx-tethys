@@ -22,14 +22,12 @@ export class ThyTagsBasicTestComponent implements OnInit {
 
 describe('thy-tags', () => {
     let fixture: ComponentFixture<ThyTagsBasicTestComponent>;
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                declarations: [ThyTagsBasicTestComponent],
-                imports: [ThyTagModule, ThyIconModule]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ThyTagsBasicTestComponent],
+            imports: [ThyTagModule, ThyIconModule]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyTagsBasicTestComponent);

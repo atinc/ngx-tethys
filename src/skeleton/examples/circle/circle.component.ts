@@ -7,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
             [thyAnimated]="model.thyAnimated"
             [thySize]="model.thySize"
             [thyPrimaryColor]="model.thyPrimaryColor"
-            [thySecondaryColor]="model.thySecondaryColor"
-        >
+            [thySecondaryColor]="model.thySecondaryColor">
         </thy-skeleton-circle>
     `
 })

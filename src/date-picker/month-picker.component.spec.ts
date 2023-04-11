@@ -253,8 +253,7 @@ describe('ThyMonthPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
-            [thyPlaceHolder]="thyPlaceHolder"
-        >
+            [thyPlaceHolder]="thyPlaceHolder">
         </thy-month-picker>
     `
 })

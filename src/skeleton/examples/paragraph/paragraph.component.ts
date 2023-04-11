@@ -13,8 +13,7 @@ import { Component, OnInit } from '@angular/core';
             [thyPrimaryColor]="model.thyPrimaryColor"
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
-            [thyAnimated]="model.thyAnimated"
-        >
+            [thyAnimated]="model.thyAnimated">
         </thy-skeleton-paragraph>
     `
 })

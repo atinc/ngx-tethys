@@ -25,8 +25,7 @@ import { ThyEmptyModule } from '../empty.module';
                 [thyImageUrl]="thyImageUrl"
                 [thyImageLoading]="thyImageLoading"
                 [thyImageFetchPriority]="thyImageFetchPriority"
-                class="empty-test-example"
-            >
+                class="empty-test-example">
                 <ng-template #extra>
                     <div class="sub-message">确实还没有数据啦啦啦啦</div>
                     <button thyButton="primary-square" (click)="goHome()" class="empty-button">返回主页</button>
@@ -72,18 +71,16 @@ describe('EmptyComponent', () => {
     let componentInstance: EmptyTestComponent;
     let fixture: ComponentFixture<EmptyTestComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [BrowserAnimationsModule, ThyEmptyModule],
-                declarations: [EmptyTestComponent],
-                providers: [ThyEmptyConfig]
-            }).compileComponents();
-            fixture = TestBed.createComponent(EmptyTestComponent);
-            componentInstance = fixture.componentInstance;
-            fixture.detectChanges();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [BrowserAnimationsModule, ThyEmptyModule],
+            declarations: [EmptyTestComponent],
+            providers: [ThyEmptyConfig]
+        }).compileComponents();
+        fixture = TestBed.createComponent(EmptyTestComponent);
+        componentInstance = fixture.componentInstance;
+        fixture.detectChanges();
+    }));
 
     it('should create thy-empty', () => {
         expect(componentInstance).toBeTruthy();

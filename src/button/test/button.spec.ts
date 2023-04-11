@@ -189,8 +189,7 @@ describe('ThyButton', () => {
             [thyLight]="isLight"
             [thyActive]="isActive"
             [thyTheme]="theme"
-            [thySize]="size"
-        ></button>
+            [thySize]="size"></button>
         <thy-button-icon id="button-icon-component" thyIcon="inbox"></thy-button-icon>
     `
 })

@@ -143,8 +143,7 @@ function buildDataList() {
             [thyRightLockMax]="maxLock"
             [thyRightMax]="rightMax"
             (thyDraggableUpdate)="onDragUpdate($event)"
-            (thyChange)="change($event)"
-        >
+            (thyChange)="change($event)">
         </thy-transfer>
     `,
     encapsulation: ViewEncapsulation.None

@@ -30,8 +30,7 @@ class TestInputCountBasicComponent {
                 #input="thyInput"
                 [(ngModel)]="name"
                 maxlength="100"
-                placeholder="Please type name (auto find input-group's input)"
-            />
+                placeholder="Please type name (auto find input-group's input)" />
             <ng-template #suffix>
                 <thy-input-count [thyInput]="input"></thy-input-count>
             </ng-template>

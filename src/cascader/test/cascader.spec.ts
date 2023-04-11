@@ -245,8 +245,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyMenuClassName]="thyMenuClassName"
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
-            thyEmptyStateText="无选项"
-        >
+            thyEmptyStateText="无选项">
         </thy-cascader>
     `
 })
@@ -280,9 +279,7 @@ class CascaderBasicComponent {
 }
 @Component({
     selector: 'thy-cascader-load',
-    template: `
-        <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader>
-    `
+    template: ` <thy-cascader [thyLoadData]="thyLoadData" [(ngModel)]="curVal" style="width:400px;"> </thy-cascader> `
 })
 class CascaderLoadComponent {
     success = true;
@@ -345,8 +342,7 @@ class CascaderTemplateComponent {
             [thyOptions]="multipleOptions"
             [(ngModel)]="multipleVal"
             (ngModelChange)="selectChange($event)"
-            style="width:400px;"
-        >
+            style="width:400px;">
         </thy-cascader>
     `
 })
@@ -367,16 +363,14 @@ class CascaderMultipleComponent {
 }
 
 describe('thy-cascader', () => {
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
-                declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
-                providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
-            });
-            TestBed.compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
+            declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
+            providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
+        });
+        TestBed.compileComponents();
+    }));
 
     describe('base', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;

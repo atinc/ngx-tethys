@@ -29,20 +29,15 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyCollapsedWidth]="collapsibleWidth"
                 (thyCollapsedChange)="collapsedChange($event)"
                 (thyDragWidthChange)="dragWidthChange($event)"
-                [thyTrigger]="triggerTpl"
-            >
+                [thyTrigger]="triggerTpl">
                 <thy-sidebar-header [thyDivided]="true" thyTitle="Title"> </thy-sidebar-header>
-                <thy-sidebar-content>
-                    Content
-                </thy-sidebar-content>
+                <thy-sidebar-content> Content </thy-sidebar-content>
                 <thy-sidebar-footer> Footer </thy-sidebar-footer>
             </thy-sidebar>
             <<ng-template #customTpl>
                 <div class="custom-collapse"></div>
             </ng-template>
-            <thy-content>
-                Yeah, I am content
-            </thy-content>
+            <thy-content> Yeah, I am content </thy-content>
         </thy-layout>
     `
 })
@@ -230,7 +225,7 @@ describe(`sidebar`, () => {
                 sidebarComponent.thyCollapsedWidth = 20;
                 sidebarComponent.thyCollapsible = true;
                 expect(sidebarComponent.isCollapsed).toEqual(false);
-                sidebarComponent.resizeHandler(({ width: sidebarComponent.thyCollapsedWidth } as unknown) as ThyResizeEvent);
+                sidebarComponent.resizeHandler({ width: sidebarComponent.thyCollapsedWidth } as unknown as ThyResizeEvent);
                 expect(sidebarComponent.collapseVisible).toEqual(false);
                 expect(sidebarComponent.isCollapsed).toEqual(true);
                 tick(200);

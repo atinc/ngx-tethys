@@ -10,9 +10,7 @@ import { NgFor, AsyncPipe } from '@angular/common';
  */
 @Component({
     selector: 'thy-message-container',
-    template: `
-        <thy-message *ngFor="let message of messageQueue.queues$ | async" [thyConfig]="message.config"></thy-message>
-    `,
+    template: ` <thy-message *ngFor="let message of messageQueue.queues$ | async" [thyConfig]="message.config"></thy-message> `,
     standalone: true,
     imports: [NgFor, ThyMessageComponent, AsyncPipe]
 })

@@ -282,8 +282,7 @@ describe('invalid dropdown', () => {
                 id="menu-item"
                 [thyDropdownMenuItemActive]="active"
                 [thyType]="type"
-                [thyDisabled]="disabled"
-            >
+                [thyDisabled]="disabled">
                 <thy-icon thyDropdownMenuItemIcon thyIconName="plus"></thy-icon>
                 <span thyDropdownMenuItemName>New</span>
             </a>
@@ -719,9 +718,7 @@ class DropdownCustomMenuComponent extends ThyDropdownAbstractMenu {}
 
 @Component({
     selector: 'thy-dropdown-component-test',
-    template: `
-        <button [thyDropdown]="menu" thyButton="primary">Dropdown</button>
-    `
+    template: ` <button [thyDropdown]="menu" thyButton="primary">Dropdown</button> `
 })
 class DropdownComponentTestComponent {
     menu = DropdownCustomMenuComponent;
@@ -781,8 +778,7 @@ describe('dropdown-component', () => {
             [thyTrigger]="trigger"
             thyButton="primary"
             [thyPopoverOptions]="popoverOptions"
-            [thyPlacement]="placement"
-        >
+            [thyPlacement]="placement">
             Dropdown
         </button>
         <thy-dropdown-menu #menu>

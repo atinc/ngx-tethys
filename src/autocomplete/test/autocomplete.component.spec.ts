@@ -37,8 +37,7 @@ import { ThyAutocompleteModule } from '../module';
                 [placeholder]="placeholder"
                 [thyAutocompleteComponent]="auto"
                 [thyAutocompleteWidth]="500"
-                (ngModelChange)="valueChange($event)"
-            />
+                (ngModelChange)="valueChange($event)" />
             <thy-autocomplete #auto [thyEmptyText]="'没有搜索到任何数据'" (thyOpened)="opened()">
                 <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
             </thy-autocomplete>
@@ -77,8 +76,7 @@ class BasicSelectComponent {
                 [(ngModel)]="value"
                 [thyAutocomplete]="auto"
                 [thyIsFocusOpen]="isFocusOpen"
-                (ngModelChange)="valueChange($event)"
-            ></thy-input-search>
+                (ngModelChange)="valueChange($event)"></thy-input-search>
             <thy-autocomplete #auto>
                 <thy-option *ngFor="let item of foods" [thyLabelText]="item.viewValue" [thyValue]="item.value"></thy-option>
             </thy-autocomplete>
@@ -135,11 +133,9 @@ describe('ThyAutocomplete', () => {
     });
 
     describe('core', () => {
-        beforeEach(
-            waitForAsync(() => {
-                configureThyCustomSelectTestingModule([BasicSelectComponent, InputSearchSelectComponent]);
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            configureThyCustomSelectTestingModule([BasicSelectComponent, InputSearchSelectComponent]);
+        }));
 
         describe('panel', () => {
             let fixture: ComponentFixture<BasicSelectComponent>;

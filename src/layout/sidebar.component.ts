@@ -46,8 +46,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
-            [style.display]="!collapseVisible ? 'contents' : null"
-        >
+            [style.display]="!collapseVisible ? 'contents' : null">
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
                 thyDirection="right"
@@ -55,8 +54,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 thyLine="true"
                 (mouseenter)="resizeHandleHover($event, 'enter')"
                 (mouseleave)="resizeHandleHover($event, 'leave')"
-                (dblclick)="restoreToDefaultWidth()"
-            >
+                (dblclick)="restoreToDefaultWidth()">
             </thy-resize-handle>
         </div>
         <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>
@@ -65,8 +63,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             class="sidebar-collapse"
             [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
             (click)="toggleCollapse($event)"
-            [thyTooltip]="!thyTrigger && collapseTip"
-        >
+            [thyTooltip]="!thyTrigger && collapseTip">
             <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
             <ng-template #defaultTrigger>
                 <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>

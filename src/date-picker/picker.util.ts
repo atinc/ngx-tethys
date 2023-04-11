@@ -4,9 +4,11 @@ import { fromUnixTime } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
-export function transformDateValue(
-    value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue
-): { value: CompatibleDate; withTime?: boolean; flexibleDateGranularity?: ThyDateGranularity } {
+export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
+    value: CompatibleDate;
+    withTime?: boolean;
+    flexibleDateGranularity?: ThyDateGranularity;
+} {
     if (!value) {
         return { value: null };
     }
@@ -77,8 +79,9 @@ export function getFlexibleAdvancedReadableValue(tinyDates: TinyDate[], flexible
             if (tinyDates[0].isSameMonth(tinyDates[1])) {
                 value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() + 1}月`;
             } else {
-                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() +
-                    1}月 ~ ${tinyDates[1].getYear()}年 ${tinyDates[1].getMonth() + 1}月`;
+                value = `${tinyDates[0].getYear()}年 ${tinyDates[0].getMonth() + 1}月 ~ ${tinyDates[1].getYear()}年 ${
+                    tinyDates[1].getMonth() + 1
+                }月`;
             }
             break;
     }

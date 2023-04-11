@@ -22,9 +22,7 @@ export class ThyTextBasicTestComponent {
 
 @Component({
     selector: 'thy-text-background-test',
-    template: `
-        <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span>
-    `
+    template: ` <span id="themeWithCustomBg" [thyBgColor]="bgColor" thyTextColor="white">This is a text</span> `
 })
 export class ThyTextBackgroundTestComponent {
     bgColor: ThyThemeColor | ThyBgColor | string = 'primary';
@@ -33,14 +31,12 @@ export class ThyTextBackgroundTestComponent {
 }
 
 describe('thy-text', () => {
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                declarations: [ThyTextBasicTestComponent, ThyTextBackgroundTestComponent],
-                imports: [ThyTypographyModule, ThyIconModule]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [ThyTextBasicTestComponent, ThyTextBackgroundTestComponent],
+            imports: [ThyTypographyModule, ThyIconModule]
+        }).compileComponents();
+    }));
 
     describe('basic', () => {
         let fixture: ComponentFixture<ThyTextBasicTestComponent>;

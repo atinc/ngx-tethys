@@ -15,8 +15,7 @@ import { dispatchFakeEvent, dispatchKeyboardEvent } from 'ngx-tethys/testing';
             [thyPageSize]="pagination.size"
             [thyShowTotal]="showTotal"
             (thyPageChanged)="onPageChange($event)"
-            (thyPageIndexChange)="onPageIndexChange($event)"
-        ></thy-pagination>
+            (thyPageIndexChange)="onPageIndexChange($event)"></thy-pagination>
         <ng-template #total let-total>共{{ total }}条</ng-template>
     `
 })
@@ -52,8 +51,7 @@ class PaginationBasicComponent {
             [thyShowSizeChanger]="showSizeChanger"
             [thySize]="size"
             [thyPageSizeOptions]="[10, 20, 50, 100]"
-            (thyPageSizeChanged)="pageSizeChanged($event)"
-        ></thy-pagination>
+            (thyPageSizeChanged)="pageSizeChanged($event)"></thy-pagination>
     `
 })
 class PaginationTestComponent {
@@ -81,8 +79,7 @@ describe('ThyPagination', () => {
                 [(thyPageIndex)]="currentIndex"
                 [thyCustomPages]="pages"
                 [thyShowQuickJumper]="false"
-                (thyPageIndexChange)="pageIndexChange($event)"
-            ></thy-pagination>
+                (thyPageIndexChange)="pageIndexChange($event)"></thy-pagination>
         `
     })
     class PaginationCustomPagesComponent {

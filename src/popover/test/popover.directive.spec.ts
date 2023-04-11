@@ -20,13 +20,10 @@ import { dispatchMouseEvent } from 'ngx-tethys/testing';
             [thyPlacement]="placement"
             [thyConfig]="config"
             [thyShowDelay]="showDelay"
-            [thyHideDelay]="hideDelay"
-        >
+            [thyHideDelay]="hideDelay">
             Use Template
         </button>
-        <ng-template #template>
-            恩，这是一个 Template
-        </ng-template>
+        <ng-template #template> 恩，这是一个 Template </ng-template>
     `
 })
 class ThyDemoVisiblePopoverComponent {
@@ -187,13 +184,10 @@ describe(`ThyTooltip`, () => {
             [thyConfig]="config"
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
-            [thyDisabled]="disabled"
-        >
+            [thyDisabled]="disabled">
             Use Template
         </button>
-        <ng-template #template>
-            恩，这是一个 Template
-        </ng-template>
+        <ng-template #template> 恩，这是一个 Template </ng-template>
     `
 })
 class TestPopoverDirectiveClickComponent {

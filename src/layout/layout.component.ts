@@ -6,9 +6,7 @@ import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
  */
 @Component({
     selector: 'thy-layout',
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-layout'

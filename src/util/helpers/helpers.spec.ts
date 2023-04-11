@@ -138,18 +138,18 @@ describe('#helper', () => {
     });
 
     describe('#isString', () => {
-        it('should return `true` for strings', function() {
+        it('should return `true` for strings', function () {
             expect(isString('a')).toEqual(true);
             expect(isString(Object('a'))).toEqual(true);
             expect(isString(new String('a'))).toEqual(true);
         });
 
-        it('should return `false` for non-strings', function() {
-            const expected = falsey.map(function(value) {
+        it('should return `false` for non-strings', function () {
+            const expected = falsey.map(function (value) {
                 return value === '';
             });
 
-            const actual = falsey.map(function(value, index) {
+            const actual = falsey.map(function (value, index) {
                 return isString(value);
             });
 
@@ -161,7 +161,7 @@ describe('#helper', () => {
             expect(isString(true)).toEqual(false);
             expect(isString(new Date())).toEqual(false);
             expect(isString(new Error())).toEqual(false);
-            expect(isString(function() {})).toEqual(false);
+            expect(isString(function () {})).toEqual(false);
             expect(isString({ '0': 1, length: 1 })).toEqual(false);
             expect(isString(1)).toEqual(false);
             expect(isString(/x/)).toEqual(false);
@@ -170,29 +170,29 @@ describe('#helper', () => {
     });
 
     describe('#concatArray', () => {
-        it('should get [1, 2, 3] when concat [2, 3] to [1]', function() {
+        it('should get [1, 2, 3] when concat [2, 3] to [1]', function () {
             expect(concatArray([2, 3], [1])).toEqual([1, 2, 3]);
         });
 
-        it('should get ["1", "2", "3"] when concat ["2", "3"] to ["1"]', function() {
+        it('should get ["1", "2", "3"] when concat ["2", "3"] to ["1"]', function () {
             expect(concatArray(['2', '3'], ['1'])).toEqual(['1', '2', '3']);
         });
 
-        it('should get [1, 2, 3] when concat [2, 3] to 1', function() {
+        it('should get [1, 2, 3] when concat [2, 3] to 1', function () {
             expect(concatArray([2, 3], 1)).toEqual([1, 2, 3]);
         });
 
-        it('should get [2, 3] when concat [2, 3] to undefined or null or empty', function() {
+        it('should get [2, 3] when concat [2, 3] to undefined or null or empty', function () {
             expect(concatArray([2, 3], undefined)).toEqual([2, 3]);
             expect(concatArray([2, 3], null)).toEqual([2, 3]);
             expect(concatArray([2, 3], '' as any)).toEqual([2, 3]);
         });
 
-        it('should get [1 2] when concat 2 to [1]', function() {
+        it('should get [1 2] when concat 2 to [1]', function () {
             expect(concatArray(2, [1])).toEqual([1, 2]);
         });
 
-        it('should get ["1"] when concat undefined or null or empty to ["1"]', function() {
+        it('should get ["1"] when concat undefined or null or empty to ["1"]', function () {
             expect(concatArray(undefined, ['1'])).toEqual(['1']);
             expect(concatArray(null, ['1'])).toEqual(['1']);
             expect(concatArray('', ['1'])).toEqual(['1']);
@@ -200,7 +200,7 @@ describe('#helper', () => {
     });
 
     describe('#isEmpty', () => {
-        it('should return `true` for empty values', function() {
+        it('should return `true` for empty values', function () {
             const expected = empties.map(value => {
                 return true;
             });
@@ -222,7 +222,7 @@ describe('#helper', () => {
             // }
         });
 
-        it('should return `false` for non-empty values', function() {
+        it('should return `false` for non-empty values', function () {
             expect(isEmpty([0])).toEqual(false);
             // expect(isEmpty({ a: 0 })).toEqual(false);
             // expect(isEmpty('a')).toEqual(false);
@@ -230,18 +230,18 @@ describe('#helper', () => {
     });
 
     describe('#isString', () => {
-        it('should return `true` for strings', function() {
+        it('should return `true` for strings', function () {
             expect(isString('a')).toEqual(true);
             expect(isString(Object('a'))).toEqual(true);
             expect(isString(new String('a'))).toEqual(true);
         });
 
-        it('should return `false` for non-strings', function() {
-            const expected = falsey.map(function(value) {
+        it('should return `false` for non-strings', function () {
+            const expected = falsey.map(function (value) {
                 return value === '';
             });
 
-            const actual = falsey.map(function(value, index) {
+            const actual = falsey.map(function (value, index) {
                 return isString(value);
             });
 
@@ -253,7 +253,7 @@ describe('#helper', () => {
             expect(isString(true)).toEqual(false);
             expect(isString(new Date())).toEqual(false);
             expect(isString(new Error())).toEqual(false);
-            expect(isString(function() {})).toEqual(false);
+            expect(isString(function () {})).toEqual(false);
             expect(isString({ '0': 1, length: 1 })).toEqual(false);
             expect(isString(1)).toEqual(false);
             expect(isString(/x/)).toEqual(false);

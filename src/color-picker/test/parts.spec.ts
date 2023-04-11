@@ -15,9 +15,7 @@ import { ThySaturationComponent } from '../parts/saturation/saturation.component
 
 @Component({
     selector: 'thy-demo-alpha',
-    template: `
-        <thy-alpha class="alpha" [color]="color" (colorChange)="colorChangeEvent($event)"></thy-alpha>
-    `,
+    template: ` <thy-alpha class="alpha" [color]="color" (colorChange)="colorChangeEvent($event)"></thy-alpha> `,
     styles: [
         `
             .alpha {
@@ -43,9 +41,7 @@ class ThyDemoAlphaComponent {
 
 @Component({
     selector: 'thy-demo-hue',
-    template: `
-        <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue>
-    `
+    template: ` <thy-hue [color]="color" (colorChange)="colorChangeEvent($event)"></thy-hue> `
 })
 class ThyDemoHueComponent {
     @ViewChild(ThyHueComponent) hueComponent: ThyHueComponent;
@@ -61,9 +57,7 @@ class ThyDemoHueComponent {
 
 @Component({
     selector: 'thy-demo-saturation',
-    template: `
-        <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation>
-    `
+    template: ` <thy-saturation [color]="color" (colorChange)="colorChangeEvent($event)"></thy-saturation> `
 })
 class ThyDemoSaturationComponent {
     @ViewChild(ThySaturationComponent) hueComponent: ThySaturationComponent;
@@ -79,9 +73,7 @@ class ThyDemoSaturationComponent {
 
 @Component({
     selector: 'thy-demo-inputs',
-    template: `
-        <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs>
-    `
+    template: ` <thy-color-inputs [color]="color" (colorChange)="colorChangeEvent($event)"></thy-color-inputs> `
 })
 class ThyDemoColorInputsComponent {
     @ViewChild(ThyColorInputsComponent) colorInputsComponent: ThyColorInputsComponent;
@@ -98,9 +90,7 @@ class ThyDemoColorInputsComponent {
 
 @Component({
     selector: 'thy-demo-indicator',
-    template: `
-        <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator>
-    `
+    template: ` <thy-indicator [color]="color" (colorChange)="colorChangeEvent($event)"></thy-indicator> `
 })
 class ThyDemoIndicatorComponent {
     @ViewChild(ThyIndicatorComponent) colorIndicatorComponent: ThyIndicatorComponent;

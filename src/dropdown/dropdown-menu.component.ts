@@ -93,9 +93,7 @@ export class ThyDropdownMenuGroupComponent {
  */
 @Component({
     selector: 'thy-dropdown-menu-divider',
-    template: `
-        <!-- <div class="dropdown-menu-divider-title">{{ title }}</div> -->
-    `,
+    template: ` <!-- <div class="dropdown-menu-divider-title">{{ title }}</div> --> `,
     host: {
         class: 'dropdown-menu-divider'
     },
