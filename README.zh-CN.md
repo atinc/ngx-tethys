@@ -1,5 +1,5 @@
 # ngx-tethys 
-Fast and reliable Tethys Design components for Angular by Worktile & PingCode FE Team.
+Worktile & PingCode 前端团队开发的快速且可靠的企业级 Tethys Angular 组件库。
 
 [![CircleCI](https://circleci.com/gh/atinc/ngx-tethys.svg?style=shield)](https://circleci.com/gh/atinc/ngx-tethys)
 [![Coverage Status][coveralls-image]][coveralls-url]
@@ -15,26 +15,26 @@ Fast and reliable Tethys Design components for Angular by Worktile & PingCode FE
 [coveralls-image]: https://coveralls.io/repos/github/atinc/ngx-tethys/badge.svg?branch=master
 [coveralls-url]: https://coveralls.io/github/atinc/ngx-tethys
 
-English | [中文文档](https://github.com/atinc/ngx-tethys/blob/master/README.zh-CN.md)
+[English](https://github.com/atinc/ngx-tethys/blob/master/README.md) | 中文文档
 
-# ✨ Features
-- 📦 Out of the box
-- 🚀 Powerful and 60+ rich components
-- 🔰 Perfect support for TypeScript, Provide complete type definition
-- 🎨 Extract enterprise level interactive language and design style 
-- 💫 Synchronize with Angular version
-- ❤️ High-Quality, Each component has complete testing coverage and documentation, and high quality is equivalent to using it with confidence
+# ✨ 特性
+- 📦 开箱即用
+- 🚀 强大且包含 60+ 个丰富组件
+- 🔰 完美支持 TypeScrip，提供完整的类型定义
+- 🎨 提炼企业级交互语言和设计风格 
+- 💫 和 Angular 版本保持同步
+- ❤️ 高质量，每个组件都具备完善的测试覆盖率和文档，高质量等于放心使用
 
-# 📖 Documentation
+# 📖 文档
 
-- [Getting Started](https://tethys.pingcode.com/docs/getting-started)
-- [Theme](https://tethys.pingcode.com/docs/theme)
+- [快速开始](https://tethys.pingcode.com/docs/getting-started)
+- [主题样式](https://tethys.pingcode.com/docs/theme)
 - [Tethys Design](https://tethys.pingcode.com/design/intro)
 - [Tethys CDK](https://tethys.pingcode.com/cdk/behaviors/overview)
 
-# Development
+# 开发
 
-> Only for library contributors.
+> 仅为类库贡献者阅读。
 
 ## Clone and installation
 
