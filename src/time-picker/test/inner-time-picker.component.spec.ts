@@ -437,8 +437,9 @@ describe('ThyInnerTimePickerComponent', () => {
     function getSpinnerArrows(position: number = 1) {
         const arrowSelector = `td:nth-child(${position}) a`;
         const spinnerArrowUp: HTMLElement = debugElement.query(By.css(`.${CONTAINER_CLASS} tr:first-child ${arrowSelector}`)).nativeElement;
-        const spinnerArrowDown: HTMLElement = debugElement.query(By.css(`.${CONTAINER_CLASS} tr:nth-child(3) ${arrowSelector}`))
-            .nativeElement;
+        const spinnerArrowDown: HTMLElement = debugElement.query(
+            By.css(`.${CONTAINER_CLASS} tr:nth-child(3) ${arrowSelector}`)
+        ).nativeElement;
         return [spinnerArrowUp, spinnerArrowDown];
     }
 
@@ -473,8 +474,7 @@ describe('ThyInnerTimePickerComponent', () => {
             [min]="min"
             [max]="max"
             [ngModel]="startDate"
-            (ngModelChange)="onDateChange($event)"
-        ></thy-inner-time-picker>
+            (ngModelChange)="onDateChange($event)"></thy-inner-time-picker>
     `
 })
 class ThyTestInnerTimePickerBaseComponent {

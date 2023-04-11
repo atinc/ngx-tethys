@@ -20,8 +20,7 @@ import { createFile } from './utils';
             [thyAcceptType]="acceptType"
             [thySizeThreshold]="sizeThreshold"
             [thySizeExceedsHandler]="sizeExceedsHandler"
-            (thyOnFileSelect)="selectFiles($event)"
-        >
+            (thyOnFileSelect)="selectFiles($event)">
         </thy-file-select>
     `
 })
@@ -57,13 +56,11 @@ describe('ThyFileSelect', () => {
     let inputElement: HTMLInputElement;
     let dataTransfer: DataTransfer;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyUploadModule, FileUploaderTestModule]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyUploadModule, FileUploaderTestModule]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(FileSelectBasicComponent);

@@ -59,15 +59,15 @@ export function useAction<A extends (...args: any) => Observable<any> = (...args
 ) {
     const behavior = new ActionBehaviorImpl(action, context);
 
-    const fn = function(...params: Parameters<A>) {
+    const fn = function (...params: Parameters<A>) {
         fn['executeParams'] = params;
         return fn;
     };
-    return (createBehaviorFromFunction(fn, {
+    return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
         execute: behavior.execute,
         saving: behavior.saving
-    }) as unknown) as Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> &
+    }) as unknown as Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> &
         ActionBehavior<ExtractObservableValue<ReturnType<A>>>;
 }

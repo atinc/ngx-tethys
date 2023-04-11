@@ -377,8 +377,7 @@ describe('ThyTestDateRangeComponent', () => {
                 [thyCustomTextValue]="customValue"
                 [thyOptionalDateRanges]="dateRanges"
                 [thyDisabledDate]="thyDisabledDate"
-                [(ngModel)]="selectedDate"
-            ></thy-date-range>
+                [(ngModel)]="selectedDate"></thy-date-range>
 
             <!-- Suite 2 -->
             <thy-date-range
@@ -387,8 +386,7 @@ describe('ThyTestDateRangeComponent', () => {
                 [thyOptionalDateRanges]="customDateRanges"
                 [ngModel]="selectedDate"
                 (ngModelChange)="dateChanged($event)"
-                (thyOnCalendarChange)="calendarChange($event)"
-            ></thy-date-range>
+                (thyOnCalendarChange)="calendarChange($event)"></thy-date-range>
         </ng-container>
     `
 })

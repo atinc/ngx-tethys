@@ -13,8 +13,10 @@ export abstract class ThyPopoverRef<T, TResult = unknown, TData = unknown> exten
     TResult
 > {}
 
-export class ThyInternalPopoverRef<T, TResult = unknown> extends ThyAbstractInternalOverlayRef<T, ThyPopoverContainerComponent, TResult>
-    implements ThyPopoverRef<T, TResult> {
+export class ThyInternalPopoverRef<T, TResult = unknown>
+    extends ThyAbstractInternalOverlayRef<T, ThyPopoverContainerComponent, TResult>
+    implements ThyPopoverRef<T, TResult>
+{
     constructor(overlayRef: OverlayRef, containerInstance: ThyPopoverContainerComponent, config: ThyPopoverConfig) {
         super(popoverAbstractOverlayOptions, overlayRef, containerInstance, config);
         // Note: doesn't need to unsubscribe, because `insideClicked` and `outsideClicked`

@@ -185,6 +185,15 @@
               "cdk/**/test/**/*"
             ]
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "cdk/**/*.ts",
+              "cdk/**/*.html"
+            ]
+          }
         }
       }
     }

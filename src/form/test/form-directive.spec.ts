@@ -18,9 +18,7 @@ import { ThyFormModule } from '../module';
 
 @Component({
     selector: 'app-test-basic-form',
-    template: `
-        <form thyForm [thyLayout]="thyLayout"></form>
-    `
+    template: ` <form thyForm [thyLayout]="thyLayout"></form> `
 })
 export class TestFormBasicDirectiveComponent {
     thyLayout = '';
@@ -36,8 +34,7 @@ export class TestFormBasicDirectiveComponent {
             [thyFormValidatorConfig]="validateConfig"
             [thyEnterKeyMode]="enterKeyMode"
             class="myForm"
-            #demoForm="thyForm"
-        >
+            #demoForm="thyForm">
             <thy-form-group thyLabelRequired>
                 <input thyInput name="username" [(ngModel)]="model.name" required placeholder="please input description" />
             </thy-form-group>
@@ -47,16 +44,13 @@ export class TestFormBasicDirectiveComponent {
                     name="description"
                     required
                     [(ngModel)]="model.description"
-                    placeholder="please input description"
-                ></textarea>
+                    placeholder="please input description"></textarea>
             </thy-form-group>
             <thy-form-group thyLabelRequired>
                 <input thyInput name="age" type="number" [(ngModel)]="model.age" max="10" min="0" required placeholder="please input age" />
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">
-                    登录
-                </button>
+                <button [thyButton]="'primary'" thyLoadingText="确定" thyFormSubmit (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
         </form>
     `
@@ -93,8 +87,7 @@ export class TestFormFullComponent {
             #demoForm="thyForm"
             thyLayout="horizontal"
             [thyFormValidatorConfig]="validateConfig"
-            [formGroup]="formGroup"
-        >
+            [formGroup]="formGroup">
             <thy-form-group thyLabelText="age" thyLayout="horizontal" thyLabelRequired>
                 <input thyInput type="number" name="age" formControlName="age" max="10" min="0" required placeholder="please input age" />
             </thy-form-group>
@@ -105,8 +98,7 @@ export class TestFormFullComponent {
                     formControlName="customersSelect"
                     name="customersSelect"
                     [thyShowSearch]="true"
-                    [thyAllowClear]="true"
-                >
+                    [thyAllowClear]="true">
                     <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
                 </thy-custom-select>
             </thy-form-group>
@@ -732,9 +724,7 @@ describe('reactive form validate', () => {
                 <input thyInput name="username" placeholder="please input description" />
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" thyLoadingText="确定">
-                    登录
-                </button>
+                <button [thyButton]="'primary'" thyLoadingText="确定">登录</button>
             </thy-form-group-footer>
         </form>
     `

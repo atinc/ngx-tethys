@@ -32,7 +32,7 @@ export interface ThyDragDropEvent<T = any> {
     previousContainerItems?: T[];
 }
 
-type DragDropNode = typeof nodes[0];
+type DragDropNode = (typeof nodes)[0];
 
 @Component({
     selector: 'thy-drag-drop-basic-example',

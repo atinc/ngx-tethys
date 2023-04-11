@@ -114,15 +114,13 @@ describe(`thy-properties`, () => {
         let fixture: ComponentFixture<ThyPropertiesTestBasicComponent>;
         let basicComponent: ThyPropertiesTestBasicComponent;
 
-        beforeEach(
-            waitForAsync(() => {
-                TestBed.configureTestingModule({
-                    imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
-                    providers: []
-                });
-                TestBed.compileComponents();
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyPropertyModule, NoopAnimationsModule, CommonModule, PropertiesTestModule],
+                providers: []
+            });
+            TestBed.compileComponents();
+        }));
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyPropertiesTestBasicComponent);

@@ -38,8 +38,7 @@ export class AvatarListBasicComponent implements OnInit {
                 [thyRemovable]="removable"
                 [thyMax]="max"
                 (thyRemove)="remove()"
-                [thyResponsive]="responsive"
-            >
+                [thyResponsive]="responsive">
                 <thy-avatar thyName="Abigail"></thy-avatar>
                 <thy-avatar thyName="Belle"></thy-avatar>
                 <thy-avatar thyName="Camilla"></thy-avatar>
@@ -92,9 +91,7 @@ export class AvatarListResponsiveComponent implements OnInit {
 }
 
 @Component({
-    template: `
-        <thy-avatar-list> </thy-avatar-list>
-    `,
+    template: ` <thy-avatar-list> </thy-avatar-list> `,
     styleUrls: ['../styles/avatar.scss']
 })
 export class AvatarListEmptyComponent implements OnInit {

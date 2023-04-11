@@ -23,14 +23,11 @@ import { ThyFormGroupLabelDirective } from '../form-group-label.directive';
                 thyTips="This is display tips"
                 [thyLabelPaddingTopClear]="labelPaddingTopClear"
                 [thyFeedbackIcon]="feedbackIcon"
-                [thyRowFill]="rowFill"
-            >
+                [thyRowFill]="rowFill">
                 <input thyInput name="display_name" [(ngModel)]="model.display_name" placeholder="Please type display name" />
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">
-                    登录
-                </button>
+                <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
         </form>
     `
@@ -69,15 +66,13 @@ describe('form-group basic', () => {
 
     let formGroupDebugElements: DebugElement[];
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                declarations: [TestFormWithGroupComponent],
-                imports: [ThyFormModule, FormsModule, ThyButtonModule],
-                providers: [bypassSanitizeProvider]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            declarations: [TestFormWithGroupComponent],
+            imports: [ThyFormModule, FormsModule, ThyButtonModule],
+            providers: [bypassSanitizeProvider]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         injectDefaultSvgIconSet();
@@ -190,9 +185,7 @@ describe('form-group basic', () => {
                 <input thyInput name="username" [(ngModel)]="model.name" required placeholder="Please type username" />
             </thy-form-group>
             <thy-form-group-footer>
-                <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">
-                    登录
-                </button>
+                <button [thyButton]="'primary'" thyLoadingText="确定" (thyFormSubmit)="submit()">登录</button>
             </thy-form-group-footer>
         </form>
     `
@@ -324,8 +317,7 @@ describe('form-group for TranslateKey', () => {
                 thyFormGroupLabel
                 [thyLabelText]="labelText"
                 [thyLabelTranslateKey]="translateKey"
-                [thyLabelRequired]="labelRequired"
-            ></label>
+                [thyLabelRequired]="labelRequired"></label>
         </form>
     `
 })

@@ -7,9 +7,7 @@ import { InputBoolean } from 'ngx-tethys/core';
  */
 @Component({
     selector: 'thy-tab',
-    template: `
-        <ng-template #content><ng-content></ng-content></ng-template>
-    `,
+    template: ` <ng-template #content><ng-content></ng-content></ng-template> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })

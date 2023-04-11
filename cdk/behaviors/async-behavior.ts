@@ -77,11 +77,11 @@ export function useAsync<A extends (...args: any) => Observable<any> = (...args:
 ) {
     const behavior = new AsyncBehaviorImpl(action, context);
 
-    const fn = function(...params: Parameters<A>) {
+    const fn = function (...params: Parameters<A>) {
         fn['executeParams'] = params;
         return fn;
     };
-    return (createBehaviorFromFunction(fn, {
+    return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
         execute: behavior.execute,
@@ -91,6 +91,6 @@ export function useAsync<A extends (...args: any) => Observable<any> = (...args:
         state: behavior.state,
         error: behavior.error,
         value: behavior.value
-    }) as unknown) as Behavior<Parameters<A>, AsyncBehavior<ExtractObservableValue<ReturnType<A>>>> &
+    }) as unknown as Behavior<Parameters<A>, AsyncBehavior<ExtractObservableValue<ReturnType<A>>>> &
         AsyncBehavior<ExtractObservableValue<ReturnType<A>>>;
 }

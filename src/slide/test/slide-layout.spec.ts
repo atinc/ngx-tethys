@@ -703,9 +703,7 @@ describe('ThySlide', () => {
         <thy-slide-layout>
             <thy-slide-header [thyTitle]="'测试title'" [thyIcon]="iconName">
                 <ng-template #thyHeaderOperate>
-                    <a thyShape="circle-thick-dashed" class="header-main-custom" href="javascript:;">
-                        自定义头部操作区
-                    </a>
+                    <a thyShape="circle-thick-dashed" class="header-main-custom" href="javascript:;"> 自定义头部操作区 </a>
                 </ng-template>
             </thy-slide-header>
             <thy-slide-body>

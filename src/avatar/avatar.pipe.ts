@@ -48,7 +48,7 @@ export class AvatarBgColorPipe implements PipeTransform {
         const code: number =
             name && name.length > 0
                 ? nameArray.reduce(
-                      function(result, item) {
+                      function (result, item) {
                           result.value += item.charCodeAt(0);
                           return result;
                       },

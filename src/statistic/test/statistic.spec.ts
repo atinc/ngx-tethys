@@ -174,8 +174,7 @@ describe('thy-statistic', () => {
             [thyShape]="thyShape"
             [thySuffix]="thySuffix"
             [thyValueStyle]="thyValueStyle"
-            [thyTitlePosition]="thyTitlePosition"
-        ></thy-statistic>
+            [thyTitlePosition]="thyTitlePosition"></thy-statistic>
     `
 })
 class ThyDemoStatisticBasicComponent {

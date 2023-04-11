@@ -9,7 +9,7 @@ import { ActionContext, ActionStatus } from './actions-stream';
  * Decorates a method with a action information.
  */
 export function MiniAction() {
-    return function(target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
+    return function (target: any, name: string, descriptor: TypedPropertyDescriptor<any>) {
         const meta = findAndCreateStoreMetadata(target);
         let action: { type: string };
         // default use function name as action type
@@ -31,7 +31,7 @@ export function MiniAction() {
             type
         };
 
-        descriptor.value = function(...args: any[]) {
+        descriptor.value = function (...args: any[]) {
             MiniActionState.changeAction(`${target.constructor.name}-${name}`);
             let result = originalFn.call(this, ...args);
             if (result instanceof Observable) {

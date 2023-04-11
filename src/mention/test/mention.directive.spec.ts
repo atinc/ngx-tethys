@@ -99,8 +99,7 @@ class ThyTestMentionSuggestionsTemplateComponent implements OnInit {
                 thyInput
                 [style]="{ boxSizing: 'border-box' }"
                 [thyMention]="mentions"
-                [(ngModel)]="value"
-            />
+                [(ngModel)]="value" />
         </div>
     `
 })
@@ -125,9 +124,7 @@ class ThyTestInputMentionComponent implements OnInit {
     selector: 'thy-test-contenteditable-mention',
     template: `
         <div class="demo-card">
-            <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">
-                @t
-            </p>
+            <p class="example-text" #exampleText contenteditable="true" [thyMention]="mentions">@t</p>
         </div>
     `
 })

@@ -23,19 +23,17 @@ describe('ThyFullscreen', () => {
     let testComponent: ThyDemoFullscreenComponent;
     let fullscreenComponent: DebugElement;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyFullscreenModule, FullscreenTestModule],
-                providers: [
-                    {
-                        provider: ThyFullscreen,
-                        useValue: FakeFullscreenService
-                    }
-                ]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFullscreenModule, FullscreenTestModule],
+            providers: [
+                {
+                    provider: ThyFullscreen,
+                    useValue: FakeFullscreenService
+                }
+            ]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoFullscreenComponent);
@@ -120,9 +118,7 @@ describe('ThyFullscreen', () => {
     template: `
         <thy-fullscreen [thyMode]="mode" [thyFullscreenClasses]="classes" (thyFullscreenChange)="changeFullscreen($event)">
             <div fullscreen-target [style.backgroundColor]="'#fff'">
-                <button fullscreen-launch class="fullscreen-button">
-                    全屏
-                </button>
+                <button fullscreen-launch class="fullscreen-button">全屏</button>
             </div>
         </thy-fullscreen>
     `
@@ -146,20 +142,18 @@ describe('Container ThyFullscreen', () => {
     let testComponent: ThyContainerFullscreenComponent;
     let fullscreenComponent: DebugElement;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyFullscreenModule],
-                declarations: [ThyContainerFullscreenComponent],
-                providers: [
-                    {
-                        provider: ThyFullscreen,
-                        useValue: FakeFullscreenService
-                    }
-                ]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyFullscreenModule],
+            declarations: [ThyContainerFullscreenComponent],
+            providers: [
+                {
+                    provider: ThyFullscreen,
+                    useValue: FakeFullscreenService
+                }
+            ]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyContainerFullscreenComponent);
@@ -216,14 +210,12 @@ describe('Container ThyFullscreen', () => {
 describe('`thy-fulscreen` with dynamic launch button', () => {
     let fixture: ComponentFixture<ThyContainerFullscreenDynamicLaunchComponent>;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [CommonModule, ThyFullscreenModule],
-                declarations: [ThyContainerFullscreenDynamicLaunchComponent]
-            }).compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [CommonModule, ThyFullscreenModule],
+            declarations: [ThyContainerFullscreenDynamicLaunchComponent]
+        }).compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyContainerFullscreenDynamicLaunchComponent);
@@ -249,13 +241,10 @@ describe('`thy-fulscreen` with dynamic launch button', () => {
             id="testContainer"
             [thyMode]="mode"
             [thyFullscreenClasses]="classes"
-            (thyFullscreenChange)="changeFullscreen($event)"
-        >
+            (thyFullscreenChange)="changeFullscreen($event)">
             <div fullscreen-container [style.height.px]="300">
                 <div fullscreen-target [style.backgroundColor]="'#fff'">
-                    <button fullscreen-launch class="fullscreen-container-button">
-                        全屏
-                    </button>
+                    <button fullscreen-launch class="fullscreen-container-button">全屏</button>
                 </div>
             </div>
         </thy-fullscreen>
@@ -272,9 +261,7 @@ class ThyContainerFullscreenComponent {
     template: `
         <thy-fullscreen>
             <div fullscreen-target [style.backgroundColor]="'#fff'">
-                <button *ngIf="fullscreenLaunchShown" thyFullscreenLaunch class="fullscreen-button">
-                    全屏
-                </button>
+                <button *ngIf="fullscreenLaunchShown" thyFullscreenLaunch class="fullscreen-button">全屏</button>
             </div>
         </thy-fullscreen>
     `

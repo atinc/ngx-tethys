@@ -13,8 +13,7 @@ import { ThyWatermarkModule } from '../watermark.module';
             id="demo-card"
             style="position: relative;"
             [thyWatermark]="watermarkContent"
-            [thyDisabled]="isDisabled"
-        ></div>
+            [thyDisabled]="isDisabled"></div>
     `
 })
 class ThyTestWatermarkBasicComponent implements OnInit {

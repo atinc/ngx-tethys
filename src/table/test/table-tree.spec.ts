@@ -16,8 +16,7 @@ import { ThyTableModule } from '../table.module';
                 thyTitle="年龄"
                 thyModelKey="age"
                 thyHeaderClassName="header-class-name"
-                [thyExpand]="showExpand"
-            ></thy-table-column>
+                [thyExpand]="showExpand"></thy-table-column>
             <thy-table-column thyTitle="备注" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch"></thy-table-column>
             <thy-table-column thyTitle="操作" thyClassName="thy-operation-links">

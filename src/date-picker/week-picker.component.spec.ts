@@ -145,8 +145,7 @@ describe('ThyWeekPickerComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
-            [thyPlaceHolder]="thyPlaceHolder"
-        >
+            [thyPlaceHolder]="thyPlaceHolder">
         </thy-week-picker>
     `
 })

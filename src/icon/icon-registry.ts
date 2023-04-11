@@ -254,16 +254,14 @@ export class ThyIconRegistry {
             .filter(iconSetConfig => !iconSetConfig.svgElement)
             .map(iconSetConfig => {
                 return this.loadSvgIconSetFromConfig(iconSetConfig).pipe(
-                    catchError(
-                        (err: HttpErrorResponse): Observable<SVGElement | null> => {
-                            const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
+                    catchError((err: HttpErrorResponse): Observable<SVGElement | null> => {
+                        const url = this.sanitizer.sanitize(SecurityContext.RESOURCE_URL, iconSetConfig.url);
 
-                            // Swallow errors fetching individual URLs so the
-                            // combined Observable won't necessarily fail.
-                            console.error(`Loading icon set URL: ${url} failed: ${err.message}`);
-                            return of(null);
-                        }
-                    )
+                        // Swallow errors fetching individual URLs so the
+                        // combined Observable won't necessarily fail.
+                        console.error(`Loading icon set URL: ${url} failed: ${err.message}`);
+                        return of(null);
+                    })
                 );
             });
 

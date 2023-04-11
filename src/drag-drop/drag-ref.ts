@@ -104,9 +104,7 @@ export class DragRef<T = any> {
         this.ngZone.runOutsideAngular(() => {
             for (const name in events) {
                 if (events.hasOwnProperty(name)) {
-                    fromEvent(this.rootElement, name)
-                        .pipe(takeUntil(this.ngUnsubscribe$))
-                        .subscribe(events[name].bind(this));
+                    fromEvent(this.rootElement, name).pipe(takeUntil(this.ngUnsubscribe$)).subscribe(events[name].bind(this));
                 }
             }
         });

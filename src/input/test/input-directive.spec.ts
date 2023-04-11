@@ -6,9 +6,7 @@ import { By } from '@angular/platform-browser';
 
 @Component({
     selector: 'test-bed-input-directive',
-    template: `
-        <input name="username" thyInput [thySize]="thySize" />
-    `
+    template: ` <input name="username" thyInput [thySize]="thySize" /> `
 })
 class TestBedInputDirectiveComponent {
     thySize = ``;

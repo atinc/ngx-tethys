@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     selector: 'thy-slider-drag-end-callback-example',
-    template: `
-        <thy-slider (thyAfterChange)="dragEnded($event)"></thy-slider>
-    `
+    template: ` <thy-slider (thyAfterChange)="dragEnded($event)"></thy-slider> `
 })
 export class ThySliderDragEndCallbackExampleComponent implements OnInit {
     constructor() {}

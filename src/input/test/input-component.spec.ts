@@ -22,8 +22,7 @@ import { ThyInputModule } from '../module';
             placeholder="请输入您的姓名"
             (focus)="onFocus()"
             (blur)="onBlur()"
-            [disabled]="disabled"
-        >
+            [disabled]="disabled">
             <ng-template #prepend>前置模板</ng-template>
         </thy-input>
         <thy-input class="input2">

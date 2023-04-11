@@ -21,8 +21,7 @@ import { injectDefaultSvgIconSet, bypassSanitizeProvider } from 'ngx-tethys/test
             [thyLabelHasValue]="thyLabelHasValue"
             [thyShowClose]="thyShowClose"
             (thyOnRemove)="thyOnRemove()"
-            (thyClick)="thyOnclick()"
-        >
+            (thyClick)="thyOnclick()">
         </thy-property-operation>
     `
 })

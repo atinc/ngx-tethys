@@ -386,8 +386,7 @@ describe('ThyPickerDirective', () => {
             [thyShowTime]="thyShowTime"
             [thyShowShortcut]="thyShowShortcut"
             [thyShortcutPosition]="thyShortcutPosition"
-            [thyShortcutPresets]="thyShortcutPresets"
-        ></thy-property-operation>
+            [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `
 })
 class ThyTestPickerComponent {
@@ -424,8 +423,7 @@ class ThyTestPickerComponent {
             thyLabelText="开始时间"
             [thyShowTime]="thyShowTime"
             thyDatePicker
-            [(ngModel)]="thyValue"
-        ></thy-property-operation>
+            [(ngModel)]="thyValue"></thy-property-operation>
     `
 })
 class ThyTestPickerPlacementComponent {

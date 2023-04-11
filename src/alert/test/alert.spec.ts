@@ -183,9 +183,7 @@ describe('ThyAlert', () => {
             </ng-template>
         </thy-alert>
         <ng-template #messageTemplateRef>
-            <div class="message">
-                hello world
-            </div>
+            <div class="message">hello world</div>
         </ng-template>
     `
 })

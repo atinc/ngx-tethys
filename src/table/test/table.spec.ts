@@ -46,8 +46,7 @@ import { ThyTableModule } from '../table.module';
             (thyOnRowContextMenu)="onRowContextMenu($event)"
             (thyOnDraggableChange)="onDraggableChange($event)"
             [thyEmptyOptions]="emptyOptions"
-            #table
-        >
+            #table>
             <ng-template #group let-group>{{ group.id }}</ng-template>
             <thy-table-column thyModelKey="selected" [thyType]="isCheckbox ? 'checkbox' : 'radio'" [thySelections]="selections">
                 <ng-template #header>
@@ -60,8 +59,7 @@ import { ThyTableModule } from '../table.module';
                 thyTitle="姓名"
                 thyModelKey="name"
                 thyWidth="160"
-                [thyHeaderClassName]="columnHeaderClassName"
-            ></thy-table-column>
+                [thyHeaderClassName]="columnHeaderClassName"></thy-table-column>
             <thy-table-column thyTitle="年龄" thyModelKey="age" [thyHeaderClassName]="columnHeaderClassName"></thy-table-column>
             <thy-table-column thyTitle="备注" thySecondary="true" thyModelKey="desc" thyDefaultText="-"></thy-table-column>
             <thy-table-column thyTitle="默认" thyModelKey="checked" thyType="switch" [thySelections]="selections"></thy-table-column>
@@ -213,15 +211,13 @@ describe('ThyTable: basic', () => {
     let table: HTMLElement;
     let rows: any;
 
-    beforeEach(
-        waitForAsync(() => {
-            TestBed.configureTestingModule({
-                imports: [ThyTableModule, TableTestModule],
-                providers: []
-            });
-            TestBed.compileComponents();
-        })
-    );
+    beforeEach(waitForAsync(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyTableModule, TableTestModule],
+            providers: []
+        });
+        TestBed.compileComponents();
+    }));
 
     beforeEach(() => {
         fixture = TestBed.createComponent(ThyDemoDefaultTableComponent);
@@ -687,8 +683,7 @@ describe('ThyTable: basic', () => {
             [thyPageTotal]="pagination.total"
             [thyDraggable]="draggable"
             (thyOnDraggableChange)="thyOnDraggableChange($event)"
-            #table
-        >
+            #table>
             <ng-template #group let-group>{{ group.id }}</ng-template>
             <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
@@ -997,8 +992,7 @@ describe('ThyTable: group', () => {
             [thyPageTotal]="pagination.total"
             (thyOnPageChange)="onPageChange($event)"
             (thyOnSwitchChange)="onSwitchChange($event)"
-            (thyOnRowContextMenu)="onContextMenu($event)"
-        >
+            (thyOnRowContextMenu)="onContextMenu($event)">
             <ng-template #group let-group>{{ group.id }}</ng-template>
             <thy-table-column thyModelKey="selected" thyType="checkbox" [thySelections]="selections">
                 <ng-template #header>
@@ -1020,9 +1014,7 @@ describe('ThyTable: group', () => {
                 </ng-template>
             </thy-table-column>
             <ng-template #empty>
-                <div class="custom-empty">
-                    空数据模板
-                </div>
+                <div class="custom-empty">空数据模板</div>
             </ng-template>
         </thy-table>
         <ng-template #total let-total>共{{ total }}条</ng-template>
@@ -1168,8 +1160,7 @@ describe('ThyTable: fixed', () => {
                 thyTitle="Age"
                 thyModelKey="age"
                 [thySortable]="sortable"
-                (thySortChange)="onThyTableColumnSortChange($event)"
-            >
+                (thySortChange)="onThyTableColumnSortChange($event)">
             </thy-table-column>
             <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
             <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>

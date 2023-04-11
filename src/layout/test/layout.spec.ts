@@ -38,9 +38,7 @@ class ThyDemoLayoutBasicComponent {
                 <ng-template #headerContent>My Custom Header Content </ng-template>
                 <ng-template #headerOperation>My Custom Header Operation </ng-template>
             </thy-header>
-            <thy-content>
-                恩，我是 content
-            </thy-content>
+            <thy-content> 恩，我是 content </thy-content>
         </thy-layout>
     `
 })

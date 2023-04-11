@@ -20,8 +20,7 @@ import { SelectOptionBase } from '../../option';
             [thySize]="thySize"
             [thyIsMultiple]="thyIsMultiple"
             [thyPanelOpened]="thyPanelOpened"
-            [thyMaxTagCount]="thyMaxTagCount"
-        ></thy-select-control>
+            [thyMaxTagCount]="thyMaxTagCount"></thy-select-control>
     `
 })
 class BasicSelectControlComponent {

@@ -9,9 +9,9 @@ describe('#logger', () => {
         setWarnDeprecation(false);
     });
 
-    beforeEach(function() {
+    beforeEach(function () {
         if (typeof console === 'undefined') {
-            console = { warn: function() {}, log: function() {} } as Console;
+            console = { warn: function () {}, log: function () {} } as Console;
         }
         spyOn(console, 'warn');
         spyOn(console, 'log');

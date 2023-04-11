@@ -553,15 +553,13 @@ describe('ThyTreeComponent', () => {
         let component: TestAsyncTreeComponent;
         let fixture: ComponentFixture<TestAsyncTreeComponent>;
 
-        beforeEach(
-            waitForAsync(() => {
-                configureThyTreeTestingModule([TestAsyncTreeComponent]);
-                fixture = TestBed.createComponent(TestAsyncTreeComponent);
-                component = fixture.componentInstance;
-                fixture.detectChanges();
-                treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
-            })
-        );
+        beforeEach(waitForAsync(() => {
+            configureThyTreeTestingModule([TestAsyncTreeComponent]);
+            fixture = TestBed.createComponent(TestAsyncTreeComponent);
+            component = fixture.componentInstance;
+            fixture.detectChanges();
+            treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
+        }));
 
         it('should create', () => {
             expect(component).toBeDefined();
@@ -691,14 +689,12 @@ describe('ThyTreeComponent', () => {
             (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyOnCheckboxChange)="onEvent()"
-            (thyOnExpandChange)="onEvent()"
-        >
+            (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
                 <thy-icon
                     *ngIf="data.type !== 'member'"
                     class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
-                ></thy-icon>
+                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>
@@ -778,8 +774,7 @@ export class TestMultipleTreeComponent {
             [thyAsync]="true"
             [thyCheckable]="true"
             [thyShowExpand]="showExpand"
-            (thyOnExpandChange)="onExpandChange($event)"
-        >
+            (thyOnExpandChange)="onExpandChange($event)">
         </thy-tree>
     `
 })
@@ -855,14 +850,12 @@ export class TestVirtualScrollingTreeComponent implements OnInit {
             (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
             (thyOnCheckboxChange)="onEvent()"
-            (thyOnExpandChange)="onEvent()"
-        >
+            (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
                 <thy-icon
                     *ngIf="data.type !== 'member'"
                     class="thy-tree-node-icon"
-                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"
-                ></thy-icon>
+                    [thyIconName]="node?.isExpanded ? 'folder-open-fill' : 'folder-fill'"></thy-icon>
                 <div class="thy-tree-node-title text-truncate" thyFlexibleText [thyTooltipContent]="data?.title">
                     {{ data?.name }} <span class="text-desc ml-1">( {{ data.member_count || 0 }}人 )</span>
                 </div>

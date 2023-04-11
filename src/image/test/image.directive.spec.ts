@@ -9,9 +9,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed } from '@angular/co
 
 @Component({
     selector: 'thy-image-directive-test',
-    template: `
-        <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" />
-    `
+    template: ` <img thyImage [thySrc]="src" [thyImageMeta]="imageMeta" [thyDisablePreview]="disablePreview" /> `
 })
 class ImageDirectiveTestComponent {
     src = '';

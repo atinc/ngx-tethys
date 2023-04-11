@@ -15,7 +15,8 @@ export abstract class ThySlideRef<T, TResult = unknown> extends ThyAbstractOverl
 @Injectable()
 export class ThyInternalSlideRef<T = unknown, TResult = unknown>
     extends ThyAbstractInternalOverlayRef<T, ThySlideContainerComponent, TResult>
-    implements ThySlideRef<T> {
+    implements ThySlideRef<T>
+{
     constructor(overlayRef: OverlayRef, containerInstance: ThySlideContainerComponent, config: ThySlideConfig) {
         super(slideAbstractOverlayOptions, overlayRef, containerInstance, config);
     }

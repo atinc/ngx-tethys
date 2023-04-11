@@ -29,8 +29,7 @@ import { ThyColorPickerModule } from '../module';
             (ngModelChange)="change($event)"
             (thyPanelOpen)="panelOpen()"
             (thyPanelClose)="panelClose()"
-            [thyPresetColors]="presetColors"
-        ></div>
+            [thyPresetColors]="presetColors"></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
     styles: [
@@ -74,8 +73,7 @@ class ThyDemoColorPickerComponent {
             [colorChange]="defaultPanelColorChange"
             [color]="defaultPanelColor"
             [defaultColor]="defaultColor"
-            [transparentColorSelectable]="transparentColorSelectable"
-        ></thy-color-picker-panel>
+            [transparentColorSelectable]="transparentColorSelectable"></thy-color-picker-panel>
     `
 })
 class ThyDemoColorDefaultPanelComponent {
@@ -91,9 +89,7 @@ class ThyDemoColorDefaultPanelComponent {
 }
 @Component({
     selector: 'thy-demo-picker-panel',
-    template: `
-        <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel>
-    `
+    template: ` <thy-color-picker-custom-panel [pickerColorChange]="pickerColorChange" [color]="color"></thy-color-picker-custom-panel> `
 })
 class ThyDemoPickerPanelComponent {
     @ViewChild(ThyColorPickerCustomPanelComponent) pickerPanel: ThyColorPickerCustomPanelComponent;
@@ -108,9 +104,7 @@ class ThyDemoPickerPanelComponent {
 
 @Component({
     selector: 'thy-demo-coordinates-directive',
-    template: `
-        <div class="box" thyColorCoordinates (coordinatesChange)="handleChange($event)"></div>
-    `,
+    template: ` <div class="box" thyColorCoordinates (coordinatesChange)="handleChange($event)"></div> `,
     styles: [
         `
             .box {

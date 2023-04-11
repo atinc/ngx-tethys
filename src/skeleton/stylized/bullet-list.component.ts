@@ -15,8 +15,7 @@ import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
                     [thyAnimatedInterval]="thyAnimatedInterval"
                     [thySize]="thySize"
                     [thyPrimaryColor]="thyPrimaryColor"
-                    [thySecondaryColor]="thySecondaryColor"
-                >
+                    [thySecondaryColor]="thySecondaryColor">
                 </thy-skeleton-circle>
                 <div class="horizontal-gap"></div>
                 <div style="flex: 1">
@@ -27,8 +26,7 @@ import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
                         [thyPrimaryColor]="thyPrimaryColor"
                         [thySecondaryColor]="thySecondaryColor"
                         [thyBorderRadius]="thyBorderRadius"
-                        [thyAnimatedInterval]="thyAnimatedInterval"
-                    ></thy-skeleton-rectangle>
+                        [thyAnimatedInterval]="thyAnimatedInterval"></thy-skeleton-rectangle>
                 </div>
             </div>
         </ng-container>

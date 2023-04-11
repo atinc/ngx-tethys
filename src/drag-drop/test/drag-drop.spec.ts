@@ -269,8 +269,7 @@ describe('with handle', () => {
             (thyDragOvered)="onDragOver($event)"
             (thyDragDropped)="onDragDrop($event)"
             (thyDragEnded)="onDragEnd($event)"
-            [thyDropContainerDisabled]="disabled"
-        >
+            [thyDropContainerDisabled]="disabled">
             <ng-container *ngFor="let item of nodes; let i = index">
                 <li class="drag-item" [ngClass]="item.class" [thyDrag]="item" [thyDragDisabled]="i === nodes.length - 1">
                     <ng-template [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{ item: item, level: 0 }"></ng-template>
@@ -289,14 +288,12 @@ describe('with handle', () => {
                     (thyDragStarted)="onDragStart($event)"
                     (thyDragOvered)="onDragOver($event)"
                     (thyDragDropped)="onDragDrop($event)"
-                    (thyDragEnded)="onDragEnd($event)"
-                >
+                    (thyDragEnded)="onDragEnd($event)">
                     <ng-container *ngFor="let subItem of item.children">
                         <li class="children-item" [style.paddingLeft.px]="level * 10" [thyDrag]="item">
                             <ng-template
                                 [ngTemplateOutlet]="itemTemplate"
-                                [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"
-                            ></ng-template>
+                                [ngTemplateOutletContext]="{ item: subItem, level: level + 1 }"></ng-template>
                         </li>
                     </ng-container>
                 </ul>

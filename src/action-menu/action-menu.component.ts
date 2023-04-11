@@ -11,9 +11,7 @@ export type ThyActionMenuDividerType = 'default' | 'crossing';
  */
 @Component({
     selector: 'thy-action-menu',
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     encapsulation: ViewEncapsulation.None,
     standalone: true
 })
@@ -81,9 +79,7 @@ export class ThyActionMenuGroupComponent {
  */
 @Component({
     selector: 'thy-action-menu-divider',
-    template: `
-        <div class="action-menu-divider-title">{{ title }}</div>
-    `,
+    template: ` <div class="action-menu-divider-title">{{ title }}</div> `,
     standalone: true
 })
 export class ThyActionMenuDividerComponent {

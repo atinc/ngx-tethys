@@ -436,8 +436,7 @@ describe('ThyTimePickerComponent', () => {
             [thyPlaceholder]="placeholder"
             [thyShowSelectNow]="showSelectNow"
             (ngModelChange)="onValueChange($event)"
-            (thyOpenChange)="onOpenChange($event)"
-        ></thy-time-picker>
+            (thyOpenChange)="onOpenChange($event)"></thy-time-picker>
     `
 })
 class ThyTestTimePickerBaseComponent {

@@ -11,8 +11,7 @@ import { Component, OnInit } from '@angular/core';
             [thySecondaryColor]="model.thySecondaryColor"
             [thyAnimatedInterval]="model.thyAnimatedInterval"
             [thyAnimated]="model.thyAnimated"
-            [thyRowCount]="model.thyRowCount"
-        >
+            [thyRowCount]="model.thyRowCount">
         </thy-skeleton-list>
     `
 })

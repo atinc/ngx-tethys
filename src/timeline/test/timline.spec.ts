@@ -41,9 +41,7 @@ export class TestTimelineCustomPositionComponent {
             <thy-timeline-item>111</thy-timeline-item>
             <thy-timeline-item>
                 222
-                <ng-template #description>
-                    另一侧的描述
-                </ng-template>
+                <ng-template #description> 另一侧的描述 </ng-template>
             </thy-timeline-item>
         </thy-timeline>
     `
@@ -58,9 +56,7 @@ export class TestTimelineCustomDescriptionComponent {
             <thy-timeline-item>111</thy-timeline-item>
             <thy-timeline-item>
                 222
-                <ng-template #description>
-                    另一侧的描述
-                </ng-template>
+                <ng-template #description> 另一侧的描述 </ng-template>
             </thy-timeline-item>
         </thy-timeline>
     `

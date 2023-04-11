@@ -15,8 +15,7 @@ import { ThySkeletonModule } from '../module';
                 [thyAnimatedInterval]="model.thyAnimatedInterval"
                 [thySize]="model.thySize + 'rem'"
                 [thyPrimaryColor]="model.thyPrimaryColor"
-                [thySecondaryColor]="model.thySecondaryColor"
-            >
+                [thySecondaryColor]="model.thySecondaryColor">
             </thy-skeleton-circle>
         </thy-skeleton>
     `
@@ -69,9 +68,7 @@ describe('skeleton circle', () => {
         skeletonCircleComponent.model.thySecondaryColor = '#18a0e0';
         fixture.detectChanges();
         expect(
-            getComputedStyle(circleElement.querySelector('.thy-skeleton-after'), null)
-                .getPropertyValue('animation')
-                .includes('none')
+            getComputedStyle(circleElement.querySelector('.thy-skeleton-after'), null).getPropertyValue('animation').includes('none')
         ).toBeTruthy();
     });
 });

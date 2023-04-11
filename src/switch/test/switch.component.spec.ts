@@ -7,9 +7,7 @@ import { ThySwitchModule } from '../switch.module';
 
 @Component({
     selector: 'thy-switch-test',
-    template: `
-        <thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled"></thy-switch>
-    `
+    template: ` <thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled"></thy-switch> `
 })
 class SwitchTestComponent {
     size = ``;

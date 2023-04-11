@@ -28,9 +28,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
  */
 @Component({
     selector: 'thy-dialog-container',
-    template: `
-        <ng-template cdkPortalOutlet></ng-template>
-    `,
+    template: ` <ng-template cdkPortalOutlet></ng-template> `,
     // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
     // Disabled until we can track them down.
     changeDetection: ChangeDetectionStrategy.Default,
@@ -143,8 +141,9 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
         this.clickPositioner.runTaskUseLastPosition(lastPosition => {
             if (lastPosition) {
                 const containerElement: HTMLElement = this.elementRef.nativeElement;
-                const transformOrigin = `${lastPosition.x - containerElement.offsetLeft}px ${lastPosition.y -
-                    containerElement.offsetTop}px 0px`;
+                const transformOrigin = `${lastPosition.x - containerElement.offsetLeft}px ${
+                    lastPosition.y - containerElement.offsetTop
+                }px 0px`;
                 containerElement.style['transform-origin'] = transformOrigin;
                 // 手动修改动画状态为从 void 到 enter, 开启动画
             }

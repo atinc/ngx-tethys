@@ -10,7 +10,8 @@ export abstract class ThyAutocompleteRef<T, TResult = any> extends ThyAbstractOv
 
 export class ThyInternalAutocompleteRef<T, TResult = any>
     extends ThyAbstractInternalOverlayRef<T, ThyAutocompleteContainerComponent, TResult>
-    implements ThyAutocompleteRef<T, TResult> {
+    implements ThyAutocompleteRef<T, TResult>
+{
     constructor(overlayRef: OverlayRef, containerInstance: ThyAutocompleteContainerComponent, config: ThyAutocompleteConfig) {
         super(autocompleteAbstractOverlayOptions, overlayRef, containerInstance, config);
     }

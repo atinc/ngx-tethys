@@ -616,7 +616,7 @@ describe('ThyDatePickerComponent', () => {
             const cellText = cell.textContent.trim();
             dispatchMouseEvent(cell, 'click');
             fixture.detectChanges();
-            const result = (fixtureInstance.modelValue as unknown) as number;
+            const result = fixtureInstance.modelValue as unknown as number;
             expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
     });
@@ -714,8 +714,7 @@ describe('ThyDatePickerComponent', () => {
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
                 [thyShowTime]="thyShowTime"
-                (thyOnOk)="thyOnOk($event)"
-            ></thy-date-picker>
+                (thyOnOk)="thyOnOk($event)"></thy-date-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
             </ng-template>

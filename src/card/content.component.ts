@@ -10,9 +10,7 @@ import { ChangeDetectionStrategy, Component, HostBinding, Input, OnInit } from '
 @Component({
     selector: 'thy-card-content',
     preserveWhitespaces: false,
-    template: `
-        <ng-content></ng-content>
-    `,
+    template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-card-content'

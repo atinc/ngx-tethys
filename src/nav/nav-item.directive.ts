@@ -61,10 +61,7 @@ export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, On
     /**
      * @private
      */
-    @ContentChildren(
-        forwardRef(() => ThyNavItemDirective),
-        { descendants: true }
-    )
+    @ContentChildren(forwardRef(() => ThyNavItemDirective), { descendants: true })
     links: QueryList<ThyNavItemDirective>;
 
     /**

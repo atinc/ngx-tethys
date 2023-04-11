@@ -1,6 +1,6 @@
 import { ConnectionPositionPair } from '@angular/cdk/overlay';
 
-export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
+export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = {
     top: {
         originX: 'center',
         originY: 'top',
@@ -85,6 +85,6 @@ export const POSITION_MAP: { [key: string]: ConnectionPositionPair } = ({
         overlayX: 'end',
         overlayY: 'bottom'
     }
-} as {}) as { [key: string]: ConnectionPositionPair };
+} as {} as { [key: string]: ConnectionPositionPair };
 
 export const EXPANDED_DROPDOWN_POSITIONS = [POSITION_MAP.bottomLeft, POSITION_MAP.bottomRight, POSITION_MAP.topLeft, POSITION_MAP.topRight];

@@ -758,8 +758,7 @@ describe('ThyRangePickerComponent', () => {
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
-                (thyShortcutValueChange)="thyShortcutValueChange($event)"
-            ></thy-range-picker>
+                (thyShortcutValueChange)="thyShortcutValueChange($event)"></thy-range-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
             </ng-template>
@@ -777,8 +776,7 @@ describe('ThyRangePickerComponent', () => {
                 *ngSwitchCase="4"
                 [(ngModel)]="flexibleDateRange"
                 thyMode="flexible"
-                (ngModelChange)="modelValueChange($event)"
-            ></thy-range-picker>
+                (ngModelChange)="modelValueChange($event)"></thy-range-picker>
         </ng-container>
     `
 })

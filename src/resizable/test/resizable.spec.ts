@@ -29,8 +29,7 @@ import { ThyResizableModule } from '../module';
                     [thyMinHeight]="80"
                     [style.height.px]="height"
                     [style.width.px]="width"
-                    (thyResize)="onResize($event)"
-                >
+                    (thyResize)="onResize($event)">
                     <thy-resize-handles></thy-resize-handles>
                     content
                 </div>
