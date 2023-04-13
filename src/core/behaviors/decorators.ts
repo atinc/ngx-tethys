@@ -10,7 +10,9 @@ export function InputCssPixel(): PropertyDecorator {
 }
 
 export function InputNumber(): PropertyDecorator {
-    return makePropDecorator('InputNumber', coerceNumberValue);
+    return makePropDecorator('InputNumber', (value: number) => {
+        return coerceNumberValue(value, undefined);
+    });
 }
 
 // const ELEMENT_REF_NAME = '__eRef';
