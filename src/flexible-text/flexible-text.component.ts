@@ -1,6 +1,6 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys/core';
+import { InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { TooltipService } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -28,6 +28,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     containerClass: string;
 
     subscription: Subscription | null = null;
+
+    offset: number;
 
     /**
      * 触发提示方式
@@ -72,6 +74,16 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         }
     }
 
+    /**
+     * tooltip 偏移量
+     */
+    @Input('thyTooltipOffset') @InputNumber() set thyOffset(value: number) {
+        this.offset = value;
+        if (this.tooltipService.thyTooltipDirective) {
+            this.tooltipService.thyTooltipDirective.tooltipOffset = this.offset;
+        }
+    }
+
     private destroy$ = new Subject<void>();
 
     private hostRenderer = useHostRenderer();
@@ -101,6 +113,9 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         this.tooltipService.attach(this.elementRef, this.viewContainerRef, this.trigger);
         if (this.placement) {
             this.tooltipService.thyTooltipDirective.placement = this.placement;
+        }
+        if (this.offset) {
+            this.tooltipService.thyTooltipDirective.tooltipOffset = this.offset;
         }
         this.tooltipService.thyTooltipDirective.content = this.content;
         this.tooltipService.thyTooltipDirective.thyTooltipDisabled = true;
