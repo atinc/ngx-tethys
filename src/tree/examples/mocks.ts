@@ -55,8 +55,7 @@ export const treeNodes: any[] = [
                                 _id: '0000001',
                                 name: '张三',
                                 type: 'member',
-                                disabled: true,
-                                checked: true
+                                disabled: true
                             },
                             {
                                 key: '0000002',
@@ -72,15 +71,7 @@ export const treeNodes: any[] = [
                                 _id: '0000001',
                                 name: '王五',
                                 type: 'member'
-                            },
-                            {
-                                key: '0000004',
-                                title: '赵六',
-                                _id: '0000004',
-                                name: '赵六',
-                                type: 'member',
-                                disabled: true
-                            },
+                            }
                         ]
                     },
                     {

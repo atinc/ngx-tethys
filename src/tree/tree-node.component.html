@@ -32,6 +32,7 @@
       type="checkbox"
       class="thy-tree-node-check"
       [class.form-check-indeterminate]="node.isChecked === checkState.indeterminate"
+      [class.form-unchecked]="node.isChecked === checkState.unchecked"
       [checked]="node.isChecked === checkState.checked"
       [disabled]="node.isDisabled"
       (click)="clickNodeCheck($event)"
