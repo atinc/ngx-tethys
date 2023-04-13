@@ -20,10 +20,22 @@ describe('InputNumber', () => {
         component.value = 123;
 
         expect(component.value).toEqual(123);
+
+        component.value = '234';
+
+        expect(component.value).toEqual(234);
     });
 
     it('should be 0 if input is not a number', () => {
         component.value = 'abc';
+
+        expect(component.value).toEqual(0);
+
+        component.value = undefined;
+
+        expect(component.value).toEqual(0);
+
+        component.value = null;
 
         expect(component.value).toEqual(0);
     });
