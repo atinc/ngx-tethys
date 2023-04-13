@@ -136,12 +136,26 @@ export class ThyTreeService implements OnDestroy {
     }
 
     private _setNodeChecked(node: ThyTreeNode, checked: boolean, propagateUp = true, propagateDown = true) {
-        node.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
-        node.origin.checked = checked;
         if (propagateDown && node.children) {
             node.children.forEach(subNode => {
                 this._setNodeChecked(subNode, checked, false, true);
             });
+        }
+        if (!node.isDisabled) {
+            if (node.children.length) {
+                if (checked) {
+                    const isAllChildrenChecked = node.children.every(item => item.isChecked === ThyTreeNodeCheckState.checked);
+                    node.isChecked = isAllChildrenChecked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.indeterminate;
+                    node.origin.checked = isAllChildrenChecked && checked;
+                } else {
+                    const isAllChildrenUnChecked = node.children.every(item => item.isChecked === ThyTreeNodeCheckState.unchecked);
+                    node.isChecked = isAllChildrenUnChecked ? ThyTreeNodeCheckState.unchecked : ThyTreeNodeCheckState.indeterminate;
+                    node.origin.checked = isAllChildrenUnChecked && checked;
+                }
+            } else {
+                node.isChecked = checked ? ThyTreeNodeCheckState.checked : ThyTreeNodeCheckState.unchecked;
+                node.origin.checked = checked;
+            }
         }
         if (propagateUp) {
             this._syncNodeCheckState(node.parentNode);

@@ -68,6 +68,9 @@
                 .thy-tree-node-check {
                     margin-top: 0;
                     margin-right: 6px;
+                    &:checked.form-check-indeterminate {
+                        background: unset;
+                    }
                 }
 
                 .thy-tree-node-title {
