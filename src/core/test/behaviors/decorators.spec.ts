@@ -29,11 +29,11 @@ describe('InputNumber', () => {
     it('should be null if input is not a number', () => {
         component.value = 'abc';
 
-        expect(component.value).toEqual(null);
+        expect(component.value).toEqual(0);
 
         component.value = undefined;
 
-        expect(component.value).toEqual(null);
+        expect(component.value).toEqual(undefined);
 
         component.value = null;
 

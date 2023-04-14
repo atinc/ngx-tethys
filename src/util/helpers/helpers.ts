@@ -238,7 +238,7 @@ export type FunctionProp<T> = (...args: any[]) => T;
 
 export function coerceNumberValue(value: number | string): number;
 export function coerceNumberValue<D>(value: number | string, fallback: D): number | D;
-export function coerceNumberValue(value: number | string, fallbackValue: number = null): number {
+export function coerceNumberValue(value: number | string, fallbackValue: number = 0): number {
     return _isNumberValue(value) ? Number(value) : fallbackValue;
 }
 

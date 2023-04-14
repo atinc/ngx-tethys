@@ -1,5 +1,5 @@
 import { SafeAny } from 'ngx-tethys/types';
-import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue } from 'ngx-tethys/util';
+import { coerceBooleanProperty, coerceCssPixelValue, coerceNumberValue, isUndefinedOrNull } from 'ngx-tethys/util';
 
 export function InputBoolean(): PropertyDecorator {
     return makePropDecorator('InputBoolean', coerceBooleanProperty);
@@ -11,7 +11,7 @@ export function InputCssPixel(): PropertyDecorator {
 
 export function InputNumber(): PropertyDecorator {
     return makePropDecorator('InputNumber', (value: number) => {
-        return coerceNumberValue(value, undefined);
+        return isUndefinedOrNull(value) ? value : coerceNumberValue(value, undefined);
     });
 }
 
