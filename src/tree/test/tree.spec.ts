@@ -154,7 +154,7 @@ describe('ThyTreeComponent', () => {
             checkNodes[4].click();
             checkNodes[5].click();
             fixture.detectChanges();
-            expect(treeComponent.getCheckedNodes().length).toEqual(2);
+            expect(treeComponent.getCheckedNodes().length).toEqual(3);
         });
 
         it(`test public function 'addTreeNode()`, () => {
@@ -193,12 +193,24 @@ describe('ThyTreeComponent', () => {
             const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLElement[];
             checkNodes[1].click();
             fixture.detectChanges();
-            expect(treeComponent.getCheckedNodes().length).toEqual(7);
-            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(1);
+            expect(treeComponent.getCheckedNodes().length).toEqual(8);
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(2);
             treeComponent.treeNodes[0].children[0].children[0].children[0].setChecked(false, true);
             fixture.detectChanges();
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(3);
+            expect(treeComponent.getCheckedNodes().length).toEqual(5);
+        });
+
+        it(`test tree disabled checked state`, () => {
+            const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLElement[];
+            checkNodes[9].click();
+            fixture.detectChanges();
+            expect(treeComponent.getCheckedNodes().length).toEqual(5);
             expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(2);
-            expect(treeComponent.getCheckedNodes().length).toEqual(4);
+            checkNodes[9].click();
+            fixture.detectChanges();
+            expect(treeComponent.getCheckedNodes().length).toEqual(1);
+            expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(2);
         });
 
         it(`test tree check state resolve`, () => {
@@ -210,7 +222,7 @@ describe('ThyTreeComponent', () => {
             const checkNodes = Array.from(treeElement.querySelectorAll('.thy-tree-node-check')) as HTMLInputElement[];
             checkNodes[1].click();
             fixture.detectChanges();
-            expect(treeComponent.getCheckedNodes().length).toEqual(7);
+            expect(treeComponent.getCheckedNodes().length).toEqual(8);
             expect(checkStateResolveSpy).toHaveBeenCalled();
             expect(checkNodes[0].checked).toEqual(false);
         });
@@ -322,7 +334,7 @@ describe('ThyTreeComponent', () => {
 
         it(`test public function onDragDrop not has parent`, () => {
             expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
-            const item = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const item = treeElement.querySelectorAll(treeNodeSelector)[10];
 
             const dragstartEvent = createDragEvent('dragstart');
             item.dispatchEvent(dragstartEvent);
@@ -364,7 +376,7 @@ describe('ThyTreeComponent', () => {
             const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
             // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
 
-            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[10];
             const dataTransfer = new DataTransfer();
             dataTransfer.dropEffect = 'move';
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
@@ -378,7 +390,7 @@ describe('ThyTreeComponent', () => {
                 afterNode: treeComponent.flattenTreeNodes[0],
                 currentIndex: 1,
                 event: jasmine.any(Object),
-                dragNode: treeComponent.flattenTreeNodes[8],
+                dragNode: treeComponent.flattenTreeNodes[9],
                 targetNode: null
             });
             expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
@@ -386,7 +398,7 @@ describe('ThyTreeComponent', () => {
 
         it(`test public function onDragDrop child item after parent item when item is checked`, fakeAsync(() => {
             expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
-            treeComponent.flattenTreeNodes[8].setChecked(true);
+            treeComponent.flattenTreeNodes[7].setChecked(true);
             expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(2);
 
             const item = treeElement.querySelectorAll(treeNodeSelector)[8];
@@ -403,7 +415,7 @@ describe('ThyTreeComponent', () => {
             const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
             // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
 
-            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[9];
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[10];
             const dataTransfer = new DataTransfer();
             dataTransfer.dropEffect = 'move';
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
@@ -417,12 +429,12 @@ describe('ThyTreeComponent', () => {
                 afterNode: treeComponent.flattenTreeNodes[0],
                 currentIndex: 1,
                 event: jasmine.any(Object),
-                dragNode: treeComponent.flattenTreeNodes[8],
+                dragNode: treeComponent.flattenTreeNodes[9],
                 targetNode: null
             });
             expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
-            expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(0);
-            expect(treeComponent.flattenTreeNodes[8].isChecked).toEqual(1);
+            expect(treeComponent.flattenTreeNodes[0].isChecked).toEqual(2);
+            expect(treeComponent.flattenTreeNodes[7].isChecked).toEqual(1);
         }));
 
         it(`test public function onDragDrop`, () => {
@@ -497,7 +509,7 @@ describe('ThyTreeComponent', () => {
 
         it('test should successful add tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(treeCount).toEqual(10);
+            expect(treeCount).toEqual(11);
             const tmpTreeNode = {
                 key: '111000000000000',
                 title: '新增测试',
@@ -509,12 +521,12 @@ describe('ThyTreeComponent', () => {
             treeComponent.addTreeNode(tmpTreeNode);
             fixture.detectChanges();
             const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(updateTreeNodesCount).toEqual(11);
+            expect(updateTreeNodesCount).toEqual(12);
         });
 
         it('test should successful delete tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(treeCount).toEqual(10);
+            expect(treeCount).toEqual(11);
             const node = treeComponent.treeNodes[0];
             treeComponent.deleteTreeNode(node);
             fixture.detectChanges();
@@ -578,7 +590,7 @@ describe('ThyTreeComponent', () => {
             tick(100);
             fixture.detectChanges();
             expect(nodeElement.querySelector(loadingSelector)).toBeNull();
-            expect(treeElement.querySelectorAll(treeNodeSelector).length).toEqual(10);
+            expect(treeElement.querySelectorAll(treeNodeSelector).length).toEqual(11);
         }));
     });
 

@@ -55,8 +55,7 @@ export const treeNodes: any[] = [
                                 _id: '0000001',
                                 name: '张三',
                                 type: 'member',
-                                disabled: true,
-                                checked: true
+                                disabled: true
                             },
                             {
                                 key: '0000002',
@@ -85,7 +84,31 @@ export const treeNodes: any[] = [
                         parent_id: '5d4e5b365fadf30311c3d889',
                         position: 1048576,
                         member_count: 0,
-                        children: []
+                        children: [
+                            {
+                                key: '0000001',
+                                title: '张三',
+                                _id: '0000001',
+                                name: '张三',
+                                type: 'member',
+                                disabled: true,
+                                checked: true
+                            },
+                            {
+                                key: '0000002',
+                                title: '李四',
+                                _id: '0000003',
+                                name: '李四',
+                                type: 'member'
+                            },
+                            {
+                                key: '0000003',
+                                title: '王五',
+                                _id: '0000001',
+                                name: '王五',
+                                type: 'member'
+                            }
+                        ]
                     },
                     {
                         key: '5d51537987367c0f92fe6fa8',
@@ -93,6 +116,18 @@ export const treeNodes: any[] = [
                         expanded: false,
                         _id: '5d51537987367c0f92fe6fa8',
                         name: '产品C组',
+                        short_code: null,
+                        parent_id: '5d4e5b365fadf30311c3d889',
+                        position: 1114112,
+                        member_count: 0,
+                        children: []
+                    },
+                    {
+                        key: '5d51537987367c0f92fe6fa8',
+                        title: '产品D组',
+                        expanded: false,
+                        _id: '5d51537987367c0f92fe6fa8',
+                        name: '产品D组',
                         short_code: null,
                         parent_id: '5d4e5b365fadf30311c3d889',
                         position: 1114112,

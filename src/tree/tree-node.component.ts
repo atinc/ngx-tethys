@@ -176,10 +176,18 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     public clickNodeCheck(event: Event) {
         event.stopPropagation();
-        if (this.node.isChecked === ThyTreeNodeCheckState.unchecked || this.node.isChecked === ThyTreeNodeCheckState.indeterminate) {
+        if (this.node.isChecked === ThyTreeNodeCheckState.unchecked) {
             this.node.setChecked(true);
-        } else {
+        } else if (this.node.isChecked === ThyTreeNodeCheckState.checked) {
             this.node.setChecked(false);
+        } else if (this.node.isChecked === ThyTreeNodeCheckState.indeterminate) {
+            if (this.node.children?.length) {
+                const activeChildren = this.node.children.filter(item => !item.isDisabled);
+                const isAllActiveChildrenChecked = activeChildren.every(item => item.isChecked);
+                this.node.setChecked(!isAllActiveChildrenChecked);
+            } else {
+                this.node.setChecked(true);
+            }
         }
         this.thyOnCheckboxChange.emit({
             eventName: 'checkboxChange',
