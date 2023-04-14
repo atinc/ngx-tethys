@@ -26,17 +26,17 @@ describe('InputNumber', () => {
         expect(component.value).toEqual(234);
     });
 
-    it('should be 0 if input is not a number', () => {
+    it('should be null if input is not a number', () => {
         component.value = 'abc';
 
-        expect(component.value).toEqual(0);
+        expect(component.value).toEqual(null);
 
         component.value = undefined;
 
-        expect(component.value).toEqual(0);
+        expect(component.value).toEqual(null);
 
         component.value = null;
 
-        expect(component.value).toEqual(0);
+        expect(component.value).toEqual(null);
     });
 });
