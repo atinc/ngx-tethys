@@ -33,7 +33,7 @@ describe('InputNumber', () => {
 
         component.value = undefined;
 
-        expect(component.value).toEqual(undefined);
+        expect(component.value).toEqual(null);
 
         component.value = null;
 
