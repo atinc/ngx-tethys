@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [15.2.0](https://github.com/atinc/ngx-tethys/compare/15.1.0...15.2.0) (2023-04-14)
+
+
+### Bug Fixes
+
+* **core:** set default number value is null for @InputNumber decorator ([#2609](https://github.com/atinc/ngx-tethys/issues/2609)) ([547413a](https://github.com/atinc/ngx-tethys/commit/547413ab37c31836f46ed7ceba4b63728b14d13a))
+* **tree:** prevent modification of selected state of disabled nodes #INFR-7372 ([#2608](https://github.com/atinc/ngx-tethys/issues/2608)) ([d2b672a](https://github.com/atinc/ngx-tethys/commit/d2b672ab6a0301850d353b51f518f68af196a3fc)), closes [#INFR-7372](https://github.com/atinc/ngx-tethys/issues/INFR-7372)
+
+
+
 # [15.1.0](https://github.com/atinc/ngx-tethys/compare/15.1.0-next.5...15.1.0) (2023-04-11)
 
 
