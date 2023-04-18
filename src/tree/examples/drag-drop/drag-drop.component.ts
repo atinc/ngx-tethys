@@ -36,7 +36,8 @@ export class ThyTreeDragDropExampleComponent implements OnInit {
         },
         {
             key: '000002',
-            title: '000002'
+            title: '000002（禁用的）',
+            disabled: true
         },
         {
             key: '000003',

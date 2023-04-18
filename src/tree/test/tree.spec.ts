@@ -260,7 +260,7 @@ describe('ThyTreeComponent', () => {
             expect(checkChangeSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('should add and hide the drag icon when the tree node is hovered and mouseleft', () => {
+        it('should add and show the drag icon when the tree node is hovered', () => {
             const dragContentList = treeElement.querySelectorAll('.thy-drag-content');
 
             dragContentList.forEach(dragContent => {
@@ -272,7 +272,7 @@ describe('ThyTreeComponent', () => {
                 dispatchMouseEvent(dragContent, 'mouseenter');
                 const dragIconVisible = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
                 if (dragContent.className.includes('disabled')) {
-                    expect(!dragIconVisible.style.visibility).toBeTruthy();
+                    expect(dragIconVisible.style.visibility).toBeTruthy();
                 } else {
                     let cssVisible = dragContentInnerHTML.includes('不可拖拽') ? 'hidden' : 'visible';
                     expect(dragIconVisible.style.visibility === cssVisible).toBeTruthy();
@@ -281,7 +281,7 @@ describe('ThyTreeComponent', () => {
                 dispatchMouseEvent(dragContent, 'mouseleave');
                 const dragIconHide = dragContent.querySelector('.thy-tree-drag-icon') as HTMLElement;
                 if (dragContent.className.includes('disabled')) {
-                    expect(!dragIconHide.style.visibility).toBeTruthy();
+                    expect(dragIconHide.style.visibility).toBeTruthy();
                 } else {
                     expect(dragIconHide.style.visibility === 'hidden').toBeTruthy();
                 }
