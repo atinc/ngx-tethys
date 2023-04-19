@@ -6,12 +6,16 @@ import {
     TemplateRef,
     ViewEncapsulation,
     ChangeDetectionStrategy,
-    AfterContentChecked
+    AfterContentChecked,
+    OnInit,
+    ElementRef
 } from '@angular/core';
-import { ThyTranslate } from 'ngx-tethys/core';
+import { MixinBase, ThyTranslate, mixinUnsubscribe } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { takeUntil } from 'rxjs/operators';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -40,7 +44,7 @@ const inputGroupSizeMap = {
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyInputGroupComponent implements AfterContentChecked {
+export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked {
     private hostRenderer = useHostRenderer();
 
     public appendText: string;
@@ -124,7 +128,22 @@ export class ThyInputGroupComponent implements AfterContentChecked {
      */
     @ContentChild(ThyInputDirective, { static: true }) inputDirective: ThyInputDirective;
 
-    constructor(private thyTranslate: ThyTranslate) {}
+    constructor(private thyTranslate: ThyTranslate, private elementRef: ElementRef, private focusMonitor: FocusMonitor) {
+        super();
+    }
+
+    ngOnInit() {
+        this.focusMonitor
+            .monitor(this.elementRef.nativeElement, true)
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(origin => {
+                if (origin) {
+                    this.hostRenderer.addClass('form-control-active');
+                } else {
+                    this.hostRenderer.removeClass('form-control-active');
+                }
+            });
+    }
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
