@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, helpers, sortRangeValue, TinyDate, TinyDateCompareGrain } from 'ngx-tethys/util';
+import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, sortRangeValue } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -18,6 +18,7 @@ import { NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyButtonIconComponent } from 'ngx-tethys/button';
 import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
+import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
 import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
@@ -34,7 +35,6 @@ import {
 import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
 import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
 import { InnerPopupComponent } from './inner-popup.component';
-import { ThyDatePickerConfigService } from '../../date-picker.service';
 
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -332,7 +332,24 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));
             }
         } else {
-            this.setValue(value);
+            const updatedValue = this.updateHourMinute(value);
+            this.setValue(updatedValue);
+        }
+    }
+
+    private updateHourMinute(value: TinyDate): TinyDate {
+        if (this.isRange) {
+            return value;
+        }
+        const originDate = this.value as TinyDate;
+        const dateTime = [value.getHours(), value.getMinutes(), value.getSeconds()];
+        const originDateTime = [originDate.getHours(), originDate.getMinutes(), originDate.getSeconds()];
+
+        const isEqualTime = dateTime.toString() === originDateTime.toString();
+        if (isEqualTime) {
+            return value;
+        } else {
+            return value.setHms(originDateTime[0], originDateTime[1], originDateTime[2]);
         }
     }
 
