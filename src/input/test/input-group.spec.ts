@@ -5,6 +5,7 @@ import { By } from '@angular/platform-browser';
 import { ThyInputGroupComponent } from '../input-group.component';
 import { ThyInputModule } from './../module';
 import { ThyTranslate } from '../../core';
+import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -187,6 +188,27 @@ describe('input group', () => {
 
             expect(groupElement.children[1].classList.contains('input-group-suffix')).toBeTruthy();
             expect(groupElement.children[0].classList.contains('form-control')).toBeTruthy();
+        });
+
+        describe(`should focused style correctly`, () => {
+            beforeEach(() => {
+                debugElement = fixture.debugElement.query(By.css('#with-suffix'));
+                fixture.detectChanges();
+            });
+
+            it(`should has class form-control-active when input-group focused`, () => {
+                const inputGroupElement = debugElement.nativeElement;
+                dispatchFakeEvent(inputGroupElement, 'focus');
+                fixture.detectChanges();
+                expect(debugElement.nativeElement.classList.contains('form-control-active')).toBe(true);
+            });
+
+            it(`should has class form-control-active when inner input focused`, () => {
+                const inputElement = debugElement.query(By.css('input')).nativeElement;
+                dispatchFakeEvent(inputElement, 'focus');
+                fixture.detectChanges();
+                expect(debugElement.nativeElement.classList.contains('form-control-active')).toBe(true);
+            });
         });
     });
 });
