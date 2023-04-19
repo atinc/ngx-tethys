@@ -1,6 +1,6 @@
 @use './mixin.scss';
-@use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/variables.scss";
+@use '../../styles/bootstrap/mixins/text-truncate';
+@use '../../styles/variables.scss';
 
 .thy-tree {
     display: block;
@@ -88,13 +88,18 @@
                 }
             }
 
-            &.disabled {
+            &:not(.expand).disabled {
                 background: none;
-                color: variables.$gray-400;
-                cursor: default; // not-allowed;
+                cursor: not-allowed;
+            }
+            &.disabled {
+                &,
+                .thy-tree-node-icon {
+                    color: variables.$gray-400;
+                }
             }
 
-            &:not(.disabled) {
+            &:not(.disabled:not(.expand)) {
                 &.hover,
                 &:hover {
                     // @include item-box-shadow();
