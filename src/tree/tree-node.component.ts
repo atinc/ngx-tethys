@@ -162,6 +162,9 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public clickNode(event: Event) {
+        if (this.node.isDisabled) {
+            this.expandNode(event);
+        }
         if (!this.root.thyMultiple) {
             this.root.selectTreeNode(this.node);
         } else {

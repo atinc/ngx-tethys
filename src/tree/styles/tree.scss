@@ -93,6 +93,9 @@
                 color: variables.$gray-400;
                 cursor: default; // not-allowed;
             }
+            &.expand {
+                cursor: pointer;
+            }
 
             &:not(.disabled) {
                 &.hover,

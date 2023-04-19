@@ -95,6 +95,14 @@ describe('ThyTreeComponent', () => {
             expect(disabledElement.classList).not.toContain('active');
         });
 
+        it('test tree node disabled click change expand', () => {
+            const disabledElement = treeElement.querySelector(`.disabled`);
+            expect(treeComponent.getExpandedNodes().length).toEqual(1);
+            (disabledElement as HTMLElement).click();
+            fixture.detectChanges();
+            expect(treeComponent.getExpandedNodes().length).toEqual(2);
+        });
+
         it('test expand status when tree nodes changed ', fakeAsync(() => {
             expect(treeComponent.getExpandedNodes().length).toEqual(1);
             treeComponent.expandAllNodes();
