@@ -293,7 +293,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     /**
      * 树选择组件展开和折叠状态事件
      */
-    @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+    @Output() thyExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     private _getNgModelType() {
         if (this.thyMultiple) {
@@ -471,13 +471,13 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         }
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
         this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
-        this.thyOnExpandStatusChange.emit(this.expandTreeSelectOptions);
+        this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
     }
 
     close() {
         if (this.expandTreeSelectOptions) {
             this.expandTreeSelectOptions = false;
-            this.thyOnExpandStatusChange.emit(this.expandTreeSelectOptions);
+            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
             this.onTouchedFn();
         }
     }
@@ -525,7 +525,8 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     selectNode(node: ThyTreeSelectNode) {
         if (!this.thyMultiple) {
             this.selectedNode = node;
-            this.close();
+            this.expandTreeSelectOptions = false;
+            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
         } else {
             if (
                 this.selectedNodes.find(item => {
