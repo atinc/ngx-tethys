@@ -88,13 +88,8 @@
                 }
             }
 
-            &.expand {
-                &.hover,
-                &:hover {
-                    background-color: variables.$gray-100;
-                }
-            }
             &:not(.expand).disabled {
+                background: none;
                 cursor: not-allowed;
             }
             &.disabled {
@@ -104,7 +99,7 @@
                 }
             }
 
-            &:not(.disabled) {
+            &:not(.disabled:not(.expand)) {
                 &.hover,
                 &:hover {
                     // @include item-box-shadow();
