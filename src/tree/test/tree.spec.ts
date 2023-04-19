@@ -236,6 +236,28 @@ describe('ThyTreeComponent', () => {
             expect(clickSpy).toHaveBeenCalledTimes(1);
         }));
 
+        it('should exec checkbox when thyClickBehavior is `selectCheckbox`', () => {
+            const checkStateResolveSpy = jasmine.createSpy();
+            fixture.componentInstance.options.checkStateResolve = () => {
+                checkStateResolveSpy();
+            };
+            treeInstance.options.clickBehavior = 'selectCheckbox';
+            fixture.detectChanges();
+            expect(treeComponent.getCheckedNodes().length).toEqual(1);
+            const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
+            targetNode.click();
+            fixture.detectChanges();
+            expect(targetNode.classList).not.toContain('active');
+            expect(treeComponent.getCheckedNodes().length).toEqual(8);
+            expect(checkStateResolveSpy).toHaveBeenCalledTimes(1);
+
+            targetNode.click();
+            fixture.detectChanges();
+            expect(targetNode.classList).not.toContain('active');
+            expect(treeComponent.getCheckedNodes().length).toEqual(1);
+            expect(checkStateResolveSpy).toHaveBeenCalledTimes(2);
+        });
+
         it('test click event', fakeAsync(() => {
             const clickSpy = spyOn(treeInstance, 'onEvent');
             const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;
@@ -695,6 +717,7 @@ describe('ThyTreeComponent', () => {
             [thyCheckable]="options.checkable"
             [thyCheckStateResolve]="options.checkStateResolve"
             [thyMultiple]="options.multiple"
+            [thyClickBehavior]="options.clickBehavior"
             [thySelectedKeys]="selectedKeys"
             [thyShowExpand]="true"
             [thyBeforeDragStart]="options.beforeDragStart"
@@ -728,6 +751,7 @@ class TestBasicTreeComponent {
         draggable: true,
         checkable: true,
         multiple: false,
+        clickBehavior: 'default',
         beforeDragStart: (event: ThyDragDropEvent<ThyTreeNode>) => {
             return !event.item.title.includes('不可拖拽');
         }
