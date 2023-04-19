@@ -72,7 +72,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     @Input() @InputBoolean() thyCheckable = false;
 
     /**
-     * 点击节点的行为，`default` 为选中当前节点，`checkbox` 为选中节点的 checkbox，当 `thyCheckable` 为 true 时生效。
+     * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      * @default default
      */
     @Input() thyClickBehavior: ThyClickBehavior;
@@ -168,7 +168,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public clickNode(event: Event) {
-        if (this.thyCheckable && this.thyClickBehavior === 'checkbox') {
+        if (this.thyCheckable && this.thyClickBehavior === 'selectCheckbox') {
             this.clickNodeCheck(event);
         } else {
             if (!this.root.thyMultiple) {

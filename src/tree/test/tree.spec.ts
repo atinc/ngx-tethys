@@ -236,12 +236,12 @@ describe('ThyTreeComponent', () => {
             expect(clickSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('should exec checkbox when thyClickBehavior is `checkbox`', () => {
+        it('should exec checkbox when thyClickBehavior is `selectCheckbox`', () => {
             const checkStateResolveSpy = jasmine.createSpy();
             fixture.componentInstance.options.checkStateResolve = () => {
                 checkStateResolveSpy();
             };
-            treeInstance.options.clickBehavior = 'checkbox';
+            treeInstance.options.clickBehavior = 'selectCheckbox';
             fixture.detectChanges();
             expect(treeComponent.getCheckedNodes().length).toEqual(1);
             const targetNode = treeElement.querySelectorAll('.thy-tree-node-wrapper')[1] as HTMLElement;

@@ -158,7 +158,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() @InputBoolean() thyCheckable: boolean;
 
     /**
-     * 点击节点的行为，`default` 为选中当前节点，`checkbox` 为选中节点的 checkbox，当 `thyCheckable` 为 true 时生效。
+     * 点击节点的行为，`default` 为选中当前节点，`selectCheckbox` 为选中节点的 Checkbox， `thyCheckable` 为 true 时生效。
      */
     @Input() thyClickBehavior: ThyClickBehavior = 'default';
 
