@@ -45,7 +45,8 @@ function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
                 [thyAsyncNode]="asyncNode"
                 [thyGetNodeChildren]="fetchNodeChildren"
                 [thyHiddenNodeKey]="hiddenKey"
-                [thyDisableNodeKey]="disableKey"></thy-tree-select>
+                [thyDisableNodeKey]="disableKey"
+                (thyExpandStatusChange)="expandChange($event)"></thy-tree-select>
         </div>
     `
 })
@@ -147,6 +148,8 @@ class BasicTreeSelectComponent {
 
     disableKey = 'disabled';
 
+    expandStatus = false;
+
     fetchNodeChildren(node: ThyTreeSelectNode) {
         return of([
             {
@@ -164,6 +167,10 @@ class BasicTreeSelectComponent {
                 children: []
             }
         ]);
+    }
+
+    expandChange(status: boolean) {
+        this.expandStatus = status;
     }
 }
 
@@ -535,6 +542,23 @@ describe('ThyTreeSelect', () => {
                 document.body.click();
                 fixture.detectChanges();
                 expect(fixture.componentInstance.treeSelect.expandTreeSelectOptions).toBeFalsy();
+            }));
+
+            it('should change expandStatus when thyExpandStatusChange is dispatched', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+
+                expect(fixture.componentInstance.expandStatus).toBeTruthy();
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                optionNodes[1].click();
+                document.body.click();
+                fixture.detectChanges();
+                expect(fixture.componentInstance.expandStatus).toBeFalsy();
             }));
 
             it('should do not open popup when disable', () => {
