@@ -25,7 +25,7 @@ import {
 
 import { THY_TREE_ABSTRACT_TOKEN, ThyTreeAbstractComponent } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeEmitEvent, ThyTreeNodeCheckState } from './tree.class';
+import { ThyTreeEmitEvent, ThyTreeNodeCheckState, ThyClickBehavior } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyLoadingComponent } from 'ngx-tethys/loading';
@@ -57,7 +57,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     @Input() @InputBoolean() thyAsync = false;
 
     /**
-     * 设置 TreeNode 是否支持多选
+     * 设置 TreeNode 是否支持多选节点
      */
     @Input() @InputBoolean() thyMultiple = false;
 
@@ -70,6 +70,12 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
      * 设置 TreeNode 是否支持 Checkbox 选择
      */
     @Input() @InputBoolean() thyCheckable = false;
+
+    /**
+     * 点击节点的行为，`default` 为选中当前节点，`checkbox` 为选中节点的 checkbox，当 `thyCheckable` 为 true 时生效。
+     * @default default
+     */
+    @Input() thyClickBehavior: ThyClickBehavior;
 
     /**
      * 设置节点名称是否支持超出截取
@@ -162,10 +168,14 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public clickNode(event: Event) {
-        if (!this.root.thyMultiple) {
-            this.root.selectTreeNode(this.node);
+        if (this.thyCheckable && this.thyClickBehavior === 'checkbox') {
+            this.clickNodeCheck(event);
         } else {
-            this.root.toggleTreeNode(this.node);
+            if (!this.root.thyMultiple) {
+                this.root.selectTreeNode(this.node);
+            } else {
+                this.root.toggleTreeNode(this.node);
+            }
         }
         this.thyOnClick.emit({
             eventName: 'click',

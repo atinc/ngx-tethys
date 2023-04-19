@@ -29,10 +29,16 @@ import {
     ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
 import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeDragDropEvent, ThyTreeEmitEvent, ThyTreeIcons, ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
+import {
+    ThyClickBehavior,
+    ThyTreeDragDropEvent,
+    ThyTreeEmitEvent,
+    ThyTreeIcons,
+    ThyTreeNodeCheckState,
+    ThyTreeNodeData
+} from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
 import { NgIf, NgFor } from '@angular/common';
@@ -123,7 +129,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     @Input() thyShowExpand: boolean | ((_: ThyTreeNodeData) => boolean) = true;
 
     /**
-     * 设置是否支持多选
+     * 设置是否支持多选节点
      */
     @HostBinding(`class.thy-multiple-selection-list`)
     @Input()
@@ -150,6 +156,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
      * @default false
      */
     @Input() @InputBoolean() thyCheckable: boolean;
+
+    /**
+     * 点击节点的行为，`default` 为选中当前节点，`checkbox` 为选中节点的 checkbox，当 `thyCheckable` 为 true 时生效。
+     */
+    @Input() thyClickBehavior: ThyClickBehavior = 'default';
 
     /**
      * 设置 check 状态的计算策略

@@ -65,3 +65,5 @@ export class ThyTreeIcons {
 
     collapse?: string;
 }
+
+export type ThyClickBehavior = 'default' | 'checkbox';

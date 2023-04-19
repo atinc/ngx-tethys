@@ -4,3 +4,9 @@
 </p>
 
 <thy-tree #tree [thyNodes]="treeNodes" [thyCheckable]="true" [thyCheckStateResolve]="checkStateResolve"></thy-tree>
+
+<p>
+  通过 [thyClickBehavior] 设置点击节点交互
+</p>
+<thy-tree #tree [thyNodes]="treeNodes" [thyClickBehavior]="'checkbox'" [thyCheckable]="true"
+  [thyCheckStateResolve]="checkStateResolve"></thy-tree>
