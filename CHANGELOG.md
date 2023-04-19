@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.1](https://github.com/atinc/ngx-tethys/compare/15.2.0...15.2.1) (2023-04-19)
+
+
+### Bug Fixes
+
+* **tree:** disabled tree node show dragIcon when mouseenter #INFR-7405 ([#2611](https://github.com/atinc/ngx-tethys/issues/2611)) ([2e7506b](https://github.com/atinc/ngx-tethys/commit/2e7506b3c06f9a7f21018f1a69b21fd5018b6066)), closes [#INFR-7405](https://github.com/atinc/ngx-tethys/issues/INFR-7405)
+
+
+### Features
+
+* **input:** thy-input-group should has blue border when inner input focused #INFR-6980 ([b06543e](https://github.com/atinc/ngx-tethys/commit/b06543e4d0c18e8958be5d06fd61aef0a2301bb7)), closes [#INFR-6980](https://github.com/atinc/ngx-tethys/issues/INFR-6980)
+* **tree:** add thyClickBehavior to handle the interaction of clicking node #INFR-7426 [@wangkai](https://github.com/wangkai) [@guoxin](https://github.com/guoxin) [@why520crazy](https://github.com/why520crazy) ([#2612](https://github.com/atinc/ngx-tethys/issues/2612)) ([fb7987b](https://github.com/atinc/ngx-tethys/commit/fb7987b6e9b8cc461cfc066a037aa9115d797514)), closes [#INFR-7426](https://github.com/atinc/ngx-tethys/issues/INFR-7426)
+* **tree:** click node to expandNode when the node is disabled #INFR-7429 ([#2613](https://github.com/atinc/ngx-tethys/issues/2613)) ([ff8dda4](https://github.com/atinc/ngx-tethys/commit/ff8dda41e96c28c123889a94e466603fecdecd82)), closes [#INFR-7429](https://github.com/atinc/ngx-tethys/issues/INFR-7429)
+
+
+
 # [15.2.0](https://github.com/atinc/ngx-tethys/compare/15.1.0...15.2.0) (2023-04-14)
 
 
