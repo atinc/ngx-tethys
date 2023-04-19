@@ -88,16 +88,20 @@
                 }
             }
 
+            &.expand {
+                &.hover,
+                &:hover {
+                    background-color: variables.$gray-100;
+                }
+            }
+            &:not(.expand).disabled {
+                cursor: not-allowed;
+            }
             &.disabled {
-                background: none;
-                cursor: default; // not-allowed;
                 &,
                 .thy-tree-node-icon {
                     color: variables.$gray-400;
                 }
-            }
-            &.expand {
-                cursor: pointer;
             }
 
             &:not(.disabled) {
