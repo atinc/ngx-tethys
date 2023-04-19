@@ -21,6 +21,7 @@ import {
     Component,
     ContentChild,
     ElementRef,
+    EventEmitter,
     forwardRef,
     HostBinding,
     Inject,
@@ -28,6 +29,7 @@ import {
     NgZone,
     OnDestroy,
     OnInit,
+    Output,
     PLATFORM_ID,
     TemplateRef,
     ViewChild
@@ -288,6 +290,11 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
      */
     @Input() thyGetNodeChildren: (node: ThyTreeSelectNode) => Observable<ThyTreeSelectNode> = (node: ThyTreeSelectNode) => of([]);
 
+    /**
+     * 树选择组件展开和折叠状态事件
+     */
+    @Output() thyOnExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+
     private _getNgModelType() {
         if (this.thyMultiple) {
             this.valueIsObject = !this.selectedValue[0] || isObject(this.selectedValue[0]);
@@ -352,8 +359,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                     event.stopPropagation();
                     if (!this.elementRef.nativeElement.contains(event.target) && this.expandTreeSelectOptions) {
                         this.ngZone.run(() => {
-                            this.expandTreeSelectOptions = false;
-                            this.onTouchedFn();
+                            this.close();
                             this.ref.markForCheck();
                         });
                     }
@@ -465,11 +471,15 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         }
         this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
         this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
+        this.thyOnExpandStatusChange.emit(this.expandTreeSelectOptions);
     }
 
     close() {
-        this.expandTreeSelectOptions = false;
-        this.onTouchedFn();
+        if (this.expandTreeSelectOptions) {
+            this.expandTreeSelectOptions = false;
+            this.thyOnExpandStatusChange.emit(this.expandTreeSelectOptions);
+            this.onTouchedFn();
+        }
     }
 
     clearSelectedValue(event: Event) {
@@ -515,7 +525,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     selectNode(node: ThyTreeSelectNode) {
         if (!this.thyMultiple) {
             this.selectedNode = node;
-            this.expandTreeSelectOptions = false;
+            this.close();
         } else {
             if (
                 this.selectedNodes.find(item => {

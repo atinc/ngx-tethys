@@ -13,4 +13,8 @@ export class ThyTreeSelectBasicExampleComponent implements OnInit {
     constructor() {}
 
     ngOnInit() {}
+
+    expandChange(status: boolean) {
+        console.log(`当前 tree-select 组件的状态是：${status ? '展开' : '收起'}`);
+    }
 }
