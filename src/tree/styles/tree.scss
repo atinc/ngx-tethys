@@ -89,8 +89,11 @@
             }
 
             &:not(.expand).disabled {
+                &.draggable {
+                    cursor: default;
+                }
                 background: none;
-                cursor: default;
+                cursor: not-allowed;
             }
             &.disabled {
                 &,
