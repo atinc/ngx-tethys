@@ -304,7 +304,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     resizeHandleHover(event: MouseEvent, type: 'enter' | 'leave') {
-        this.collapseVisible = type === 'enter' ? true : false;
+        this.collapseVisible = type === 'enter' && !this.thyCollapsed ? true : false;
     }
 
     toggleCollapse(event?: MouseEvent) {
