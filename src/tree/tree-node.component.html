@@ -5,6 +5,7 @@
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
   [class.expand]="node.children.length"
+  [class.draggable]="thyDraggable"
   [style.height]="thyItemSize + 'px'"
   (click)="clickNode($event)"
 >
