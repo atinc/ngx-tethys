@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.2](https://github.com/atinc/ngx-tethys/compare/15.2.1...15.2.2) (2023-04-20)
+
+
+### Bug Fixes
+
+* **date-picker:** update date time after select time and then date #INFR-7352 ([#2614](https://github.com/atinc/ngx-tethys/issues/2614)) ([acc8b3f](https://github.com/atinc/ngx-tethys/commit/acc8b3f538cce407e99e5c8b7b3741629ea8e585)), closes [#INFR-7352](https://github.com/atinc/ngx-tethys/issues/INFR-7352)
+* fix lint error ([fc4b790](https://github.com/atinc/ngx-tethys/commit/fc4b79055ba4e1a7e804af8f3d6387d87e4811bf))
+
+
+### Features
+
+* **flexible-text:** flexible-text suppoort tooltip offset #INFR-7382 ([1883d52](https://github.com/atinc/ngx-tethys/commit/1883d52b2bc7b9830a3b97f89a3099860fe8c7df)), closes [#INFR-7382](https://github.com/atinc/ngx-tethys/issues/INFR-7382)
+* **tree-select:** add thyOnExpandStatusChange at tree-select #INFR-7442 ([#2617](https://github.com/atinc/ngx-tethys/issues/2617)) ([7ccb3aa](https://github.com/atinc/ngx-tethys/commit/7ccb3aac2c06f196c9012bded38f99eca6f974ce)), closes [#INFR-7442](https://github.com/atinc/ngx-tethys/issues/INFR-7442) [#INFR-7442](https://github.com/atinc/ngx-tethys/issues/INFR-7442)
+
+
+
 ## [15.2.1](https://github.com/atinc/ngx-tethys/compare/15.2.0...15.2.1) (2023-04-19)
 
 
