@@ -90,7 +90,7 @@
 
             &:not(.expand).disabled {
                 background: none;
-                cursor: not-allowed;
+                cursor: default;
             }
             &.disabled {
                 &,
@@ -124,6 +124,7 @@
         .thy-tree-node {
             .thy-tree-node-wrapper {
                 .thy-tree-drag-icon {
+                    cursor: pointer;
                     position: absolute;
                     left: 4px;
                     padding: 0;
