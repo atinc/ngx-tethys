@@ -50,6 +50,7 @@ module.exports = {
             name: 'ngx-tethys',
             abbrName: 'thy',
             rootDir: './src',
+            include: [''],
             exclude: ['core'],
             apiMode: 'compatible',
             categories: [
@@ -128,6 +129,7 @@ module.exports = {
             name: 'tethys-cdk',
             abbrName: 'thy',
             rootDir: './cdk',
+            include: [''],
             exclude: ['event'],
             apiMode: 'compatible',
             categories: []
