@@ -5,9 +5,19 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './disabled.component.html'
 })
 export class ThyCheckboxDisabledExampleComponent implements OnInit {
-    isCheck = false;
+    checked1 = true;
+    checked2 = true;
+
+    model = {
+        indeterminate: true,
+        checkedAll: false
+    };
 
     constructor() {}
 
     ngOnInit() {}
+
+    selectAll() {
+        this.model.indeterminate = !this.model.indeterminate;
+    }
 }
