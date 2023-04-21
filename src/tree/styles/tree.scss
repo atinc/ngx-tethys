@@ -90,9 +90,15 @@
 
             &:not(.expand).disabled {
                 background: none;
-                cursor: not-allowed;
+                .thy-tree-node-check,
+                & {
+                    cursor: not-allowed;
+                }
                 &.draggable {
-                    cursor: default;
+                    .thy-tree-node-check,
+                    & {
+                        cursor: default;
+                    }
                 }
             }
             &.disabled {
