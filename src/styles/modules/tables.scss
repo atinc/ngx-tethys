@@ -155,7 +155,7 @@
 }
 
 .table-hover {
-    @include tables.table-hover-set-space-none();
+    // @include tables.table-hover-set-space-none();
 
     tbody tr {
         @include hover.hover {
