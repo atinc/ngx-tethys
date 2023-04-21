@@ -8,6 +8,9 @@ export class ThyCheckboxDisabledExampleComponent implements OnInit {
     checked1 = true;
     checked2 = true;
 
+    indeterminate = true;
+    checkedAll = false;
+
     model = {
         indeterminate: true,
         checkedAll: false
