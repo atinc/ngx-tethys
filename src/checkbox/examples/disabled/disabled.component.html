@@ -1,14 +1,6 @@
 <label thyCheckbox thyLabelText="Disabled Checkbox" [thyDisabled]="true"></label>
 
-<label thyCheckbox thyLabelText="Disabled Checkbox" [(ngModel)]="checked1"></label>
-<label thyCheckbox thyLabelText="Disabled Checkbox" [(ngModel)]="checked2" [disabled]="true"></label>
+<label thyCheckbox [thyIndeterminate]="model.indeterminate" [(ngModel)]="model.checkedAll" thyLabelText="Disabled Checkbox Indeterminate" [disabled]="true">
+</label>
 
-<label thyCheckbox [thyIndeterminate]="indeterminate" [(ngModel)]="checkedAll" thyLabelText="Disabled Check Indeterminate" [disabled]="true">
-</label>
-<label
-  thyCheckbox
-  [thyIndeterminate]="model.indeterminate"
-  [(ngModel)]="model.checkedAll"
-  thyLabelText="Check Indeterminate or All"
-  (ngModelChange)="selectAll()">
-</label>
+<label thyCheckbox thyLabelText="Disabled Checkbox Checked" [(ngModel)]="checked" [disabled]="true"></label>
