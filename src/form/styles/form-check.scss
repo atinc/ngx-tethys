@@ -137,6 +137,11 @@ input.form-check-indeterminate[type='checkbox'] {
         opacity: 1;
         content: ' ';
     }
+    &:disabled {
+        &::after {
+            background-color: variables.$input-form-check-disable-color;
+        }
+    }
 }
 
 //radio
