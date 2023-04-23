@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.3](https://github.com/atinc/ngx-tethys/compare/15.2.2...15.2.3) (2023-04-23)
+
+
+### Bug Fixes
+
+* **checkbox:** indeterminate  checkbox add disable style and examples #INFR-7443 ([#2625](https://github.com/atinc/ngx-tethys/issues/2625)) ([2ff4100](https://github.com/atinc/ngx-tethys/commit/2ff4100559111a7d71df02c53d745b85e0d6a90c)), closes [#INFR-7443](https://github.com/atinc/ngx-tethys/issues/INFR-7443)
+* **tree:** cursor style change drag-icon used pointer and disabled used default #INFR-7468 ([#2620](https://github.com/atinc/ngx-tethys/issues/2620)) ([3984b91](https://github.com/atinc/ngx-tethys/commit/3984b91150ce9667a95a994e196d32c58e7b864b)), closes [#INFR-7468](https://github.com/atinc/ngx-tethys/issues/INFR-7468)
+* **tree:** fixed thy-tree-node-check corsor style when disabled expand or draggable #INFR-7477 ([#2624](https://github.com/atinc/ngx-tethys/issues/2624)) ([0ea3164](https://github.com/atinc/ngx-tethys/commit/0ea31644521aef24518e990fd2640637aa69f841)), closes [#INFR-7477](https://github.com/atinc/ngx-tethys/issues/INFR-7477)
+
+
+
 ## [15.2.2](https://github.com/atinc/ngx-tethys/compare/15.2.1...15.2.2) (2023-04-20)
 
 
