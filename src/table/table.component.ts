@@ -12,7 +12,6 @@ import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
@@ -344,7 +343,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     /**
-     * 设置表格行的样式
+     * 设置表格行的样式，传入函数，支持 row、index
+     * @type string | (row, index) => string
      */
     @Input()
     set thyRowClassName(value: string | Function) {
