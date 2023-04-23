@@ -8,21 +8,13 @@ import {
     ThyUnsubscribe,
     UpdateHostClassService
 } from 'ngx-tethys/core';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
-import { ThyPaginationComponent } from 'ngx-tethys/pagination';
-import { ThyContextMenuDirective, ThyDragDropDirective } from 'ngx-tethys/shared';
-import { ThySwitchComponent } from 'ngx-tethys/switch';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
 import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
-
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { CdkScrollable } from '@angular/cdk/scrolling';
 import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     AfterViewInit,
@@ -53,10 +45,7 @@ import {
     ViewChildren,
     ViewEncapsulation
 } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 
-import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
-import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { IThyTableColumnParentComponent, THY_TABLE_COLUMN_PARENT_COMPONENT, ThyTableColumnComponent } from './table-column.component';
 import {
     PageChangedEvent,
@@ -71,6 +60,16 @@ import {
     ThyTableSortDirection,
     ThyTableSortEvent
 } from './table.interface';
+import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
+import { TableIsValidModelValuePipe } from './pipes/table.pipe';
+import { ThyPaginationComponent } from 'ngx-tethys/pagination';
+import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThySwitchComponent } from 'ngx-tethys/switch';
+import { FormsModule } from '@angular/forms';
+import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
 
@@ -1045,8 +1044,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
                                             window.PointerEvent
                                                 ? 'pointerdown'
                                                 : 'ontouchstart' in row.nativeElement
-                                                ? 'touchstart'
-                                                : 'mousedown',
+                                                    ? 'touchstart'
+                                                    : 'mousedown',
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.
