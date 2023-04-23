@@ -15,7 +15,7 @@ import { delay, startWith, switchMap, takeUntil } from 'rxjs/operators';
 import { CdkDrag, CdkDragDrop, CdkDragEnd, CdkDragStart, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ViewportRuler } from '@angular/cdk/overlay';
 import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
-import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
+import { DOCUMENT, isPlatformServer, NgClass, NgFor, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -1044,8 +1044,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
                                             window.PointerEvent
                                                 ? 'pointerdown'
                                                 : 'ontouchstart' in row.nativeElement
-                                                    ? 'touchstart'
-                                                    : 'mousedown',
+                                                ? 'touchstart'
+                                                : 'mousedown',
                                             // Note: since Chrome 56 defaults document level `touchstart` listener to passive.
                                             // The element `touchstart` listener is not passive by default
                                             // We never call `preventDefault()` on it, so we're safe making it passive too.
