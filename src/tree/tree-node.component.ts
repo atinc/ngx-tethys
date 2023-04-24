@@ -236,8 +236,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
                 .subscribe((event: MouseEvent) => {
                     if (!this.root.thyDraggable) {
                         return;
-                    } else if (this.node.isDisabled) {
-                        this.changeDragIconVisibility(event, true);
                     } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
                         this.changeDragIconVisibility(event, true);
                     } else {
