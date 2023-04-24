@@ -318,7 +318,7 @@ describe('ThyTreeComponent', () => {
             });
         });
 
-        it('should not run change detection when the `mouseenter` and `mouseleft` events are dispatched on the tree node but should change the icon', () => {
+        it('should not run change detection when the `mouseenter` and `mouseleave` events are controlled by beforeDragStart true', () => {
             fixture.componentInstance.options.beforeDragStart = () => true;
             fixture.detectChanges();
 
@@ -330,6 +330,25 @@ describe('ThyTreeComponent', () => {
 
             dispatchMouseEvent(treeNodeWrapper, 'mouseenter');
             expect(dragIcon.style.visibility).toEqual('visible');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseleave');
+            expect(dragIcon.style.visibility).toEqual('hidden');
+
+            expect(appRef.tick).not.toHaveBeenCalled();
+        });
+
+        it('should not run change detection when the `mouseenter` and `mouseleave` events are controlled by beforeDragStart false', () => {
+            fixture.componentInstance.options.beforeDragStart = () => false;
+            fixture.detectChanges();
+
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+
+            const treeNodeWrapper = treeElement.querySelector('.thy-tree-node-wrapper');
+            const dragIcon = treeNodeWrapper.querySelector<HTMLElement>('.thy-tree-drag-icon');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseenter');
+            expect(dragIcon.style.visibility).toEqual('hidden');
 
             dispatchMouseEvent(treeNodeWrapper, 'mouseleave');
             expect(dragIcon.style.visibility).toEqual('hidden');
