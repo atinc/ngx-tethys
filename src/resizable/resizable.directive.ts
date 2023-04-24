@@ -101,12 +101,12 @@ export class ThyResizableDirective extends _MixinBase implements AfterViewInit, 
     /**
      * 开始调整尺寸时的事件
      */
-    @Output() readonly thyResizeEnd = new EventEmitter<ThyResizeEvent>();
+    @Output() readonly thyResizeStart = new EventEmitter<ThyResizeEvent>();
 
     /**
      * 结束调整尺寸时的事件
      */
-    @Output() readonly thyResizeStart = new EventEmitter<ThyResizeEvent>();
+    @Output() readonly thyResizeEnd = new EventEmitter<ThyResizeEvent>();
 
     resizing = false;
     private nativeElement!: HTMLElement;

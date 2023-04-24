@@ -68,7 +68,8 @@
                 .thy-tree-node-check {
                     margin-top: 0;
                     margin-right: 6px;
-                    &:checked.form-check-indeterminate, &:checked.form-unchecked {
+                    &:checked.form-check-indeterminate,
+                    &:checked.form-unchecked {
                         background: unset;
                         border-color: variables.$gray-300;
                     }
@@ -88,11 +89,20 @@
                 }
             }
 
+            &.expand.disabled {
+                .thy-tree-node-check:disabled {
+                    cursor: pointer;
+                }
+            }
+
             &:not(.expand).disabled {
                 background: none;
                 cursor: not-allowed;
                 &.draggable {
-                    cursor: default;
+                    .thy-tree-node-check:disabled,
+                    & {
+                        cursor: default;
+                    }
                 }
             }
             &.disabled {

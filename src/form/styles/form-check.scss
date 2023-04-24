@@ -87,6 +87,7 @@ input[type='checkbox'] {
 
     &:disabled {
         background-color: rgba($color: #000000, $alpha: 0.03);
+        cursor: not-allowed;
     }
 }
 
@@ -136,6 +137,11 @@ input.form-check-indeterminate[type='checkbox'] {
         transform: translate(-50%, -50%);
         opacity: 1;
         content: ' ';
+    }
+    &:disabled {
+        &::after {
+            background-color: variables.$input-form-check-disable-color;
+        }
     }
 }
 

@@ -344,7 +344,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     /**
-     * 设置表格行的样式
+     * 设置表格行的样式，传入函数，支持 row、index
+     * @type string | (row, index) => string
      */
     @Input()
     set thyRowClassName(value: string | Function) {
