@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.4](https://github.com/atinc/ngx-tethys/compare/15.2.3...15.2.4) (2023-04-24)
+
+
+### Bug Fixes
+
+* **tree:** use thyBeforeDragStart to change the visibility of the drag icon when disabled #INFR-7502 ([#2630](https://github.com/atinc/ngx-tethys/issues/2630)) ([ec04ef2](https://github.com/atinc/ngx-tethys/commit/ec04ef253a08e0866fdc28e050f19d1dc136be61)), closes [#INFR-7502](https://github.com/atinc/ngx-tethys/issues/INFR-7502)
+
+
+### Features
+
+* **table:** table class(.table-hover) delete table hover set space-none style #INFR-7471 ([4a8c974](https://github.com/atinc/ngx-tethys/commit/4a8c974d0bacf213ed9e2d57e02382dc410e0a8d)), closes [#INFR-7471](https://github.com/atinc/ngx-tethys/issues/INFR-7471)
+* **table:** table class(.table-hover) delete table hover set space-none style update #INFR-7471 ([d76b6ec](https://github.com/atinc/ngx-tethys/commit/d76b6ecaa176d269681a5f6c7f15face8368b59d)), closes [#INFR-7471](https://github.com/atinc/ngx-tethys/issues/INFR-7471)
+
+
+
 ## [15.2.3](https://github.com/atinc/ngx-tethys/compare/15.2.2...15.2.3) (2023-04-23)
 
 
