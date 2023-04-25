@@ -59,7 +59,9 @@ export class ThyColorPickerPanelComponent implements OnInit {
         }
     }
 
-    selectColor(color: string) {
+    selectColor(event: Event, color: string) {
+        event.preventDefault();
+        event.stopPropagation();
         this.color = color;
         this.colorChange(this.color);
         this.thyPopoverRef.close();

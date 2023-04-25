@@ -382,7 +382,8 @@ describe('color-default-panel', () => {
         it('should change default panel color after dispatch selectColor', fakeAsync(() => {
             fixture.detectChanges();
             const defaultPanel = fixtureInstance.defaultPanel;
-            defaultPanel.selectColor('#ff0000');
+            const event = document.createEvent('MouseEvent');
+            defaultPanel.selectColor(event, '#ff0000');
             fixture.detectChanges();
             expect(defaultPanel.color).toEqual('#ff0000');
             expect(fixtureInstance.defaultPanelColor).toEqual('#ff0000');
