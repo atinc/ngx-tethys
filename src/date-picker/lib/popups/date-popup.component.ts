@@ -338,6 +338,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     private updateHourMinute(value: TinyDate): TinyDate {
+        if (!this.value) {
+            return value;
+        }
         const originDate = this.value as TinyDate;
         const dateTime = [value.getHours(), value.getMinutes(), value.getSeconds()];
         const originDateTime = [originDate.getHours(), originDate.getMinutes(), originDate.getSeconds()];
