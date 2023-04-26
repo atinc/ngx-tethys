@@ -47,12 +47,14 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
-            [style.display]="!collapseVisible ? 'contents' : null">
+            [style.display]="!isResizable ? 'contents' : null">
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
                 thyDirection="right"
                 class="sidebar-resize-handle"
                 thyLine="true"
+                (mouseenter)="toggleResizable($event, 'enter')"
+                (mouseleave)="toggleResizable($event, 'leave')"
                 (dblclick)="restoreToDefaultWidth()">
             </thy-resize-handle>
         </div>
@@ -247,6 +249,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     isRemoveTransition: boolean;
 
+    isResizable: boolean;
+
     private hotkeySubscription: Subscription;
 
     constructor(
@@ -311,6 +315,10 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         this.thyCollapsed = !this.thyCollapsed;
         setTimeout(() => this.updateCollapseTip(), 200);
         this.thyCollapsedChange.emit(this.isCollapsed);
+    }
+
+    public toggleResizable(event: MouseEvent, type: 'enter' | 'leave') {
+        this.isResizable = type === 'enter' ? true : false;
     }
 
     restoreToDefaultWidth() {
