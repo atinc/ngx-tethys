@@ -5,6 +5,7 @@ import {
     EventEmitter,
     Host,
     HostBinding,
+    HostListener,
     Input,
     OnDestroy,
     OnInit,
@@ -52,8 +53,6 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
                 thyDirection="right"
                 class="sidebar-resize-handle"
                 thyLine="true"
-                (mouseenter)="resizeHandleHover($event, 'enter')"
-                (mouseleave)="resizeHandleHover($event, 'leave')"
                 (dblclick)="restoreToDefaultWidth()">
             </thy-resize-handle>
         </div>
@@ -102,6 +101,16 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
+
+    @HostListener('mouseenter', ['$event'])
+    mouseenter($event: MouseEvent) {
+        this.resizeHandleHover($event, 'enter');
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    mouseleave($event: MouseEvent) {
+        this.resizeHandleHover($event, 'leave');
+    }
 
     /**
      * 宽度, 默认是 240px, 传入 lg 大小时宽度是300px
@@ -295,7 +304,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     resizeHandleHover(event: MouseEvent, type: 'enter' | 'leave') {
-        this.collapseVisible = type === 'enter' ? true : false;
+        this.collapseVisible = type === 'enter' && !this.thyCollapsed ? true : false;
     }
 
     toggleCollapse(event?: MouseEvent) {

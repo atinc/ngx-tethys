@@ -1,5 +1,5 @@
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from '@tethys/cdk/testing';
 import { ThyResizableDirective, ThyResizeEvent } from 'ngx-tethys/resizable';
@@ -309,6 +309,26 @@ describe(`sidebar`, () => {
             const customCollapseElement = sidebarElement.querySelector('.custom-collapse');
             expect(customCollapseElement).toBeTruthy();
             flush();
+        }));
+
+        it(`should visible collapse dom when hover sidebar element`, fakeAsync(() => {
+            fixture.debugElement.componentInstance.collapsible = true;
+            fixture.debugElement.componentInstance.triggerTpl = fixture.debugElement.componentInstance.customTpl;
+            fixture.detectChanges();
+            tick();
+            dispatchMouseEvent(sidebarElement, 'mouseenter');
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+
+            const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse.collapse-visible');
+            expect(sidebarCollapseElement).toBeTruthy();
+            dispatchMouseEvent(sidebarElement, 'mouseleave');
+            fixture.detectChanges();
+            tick();
+            fixture.detectChanges();
+            const customCollapseElement = sidebarElement.querySelector('.sidebar-collapse.collapse-visible');
+            expect(customCollapseElement).toBeFalsy();
         }));
 
         it(`should be collapsed when moving drag width to collapsed`, fakeAsync(() => {
