@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.6](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.2.6) (2023-04-26)
+
+
+### Bug Fixes
+
+* **date-picker:** compatibility null values at updateHourMinute ([#2633](https://github.com/atinc/ngx-tethys/issues/2633)) ([1207c47](https://github.com/atinc/ngx-tethys/commit/1207c473f98c18d8a30dc4d2e00b002b86aeb246))
+* **layout:** collapse dom appears when the mouse hovers over the sidebar #INFR-5569 ([#2616](https://github.com/atinc/ngx-tethys/issues/2616)) ([e9b925d](https://github.com/atinc/ngx-tethys/commit/e9b925dce96175ac8f2b6eb1a48503391f877fc3)), closes [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569) [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569)
+* **layout:** fix can't operate layout content ([#2635](https://github.com/atinc/ngx-tethys/issues/2635)) ([0c7ce6f](https://github.com/atinc/ngx-tethys/commit/0c7ce6f506db35fec9f523b2b3f5087df8810d64))
+
+
+
 ## [15.2.5](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.2.5) (2023-04-26)
 
 
