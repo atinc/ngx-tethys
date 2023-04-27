@@ -305,6 +305,26 @@ export const treeNodes = [
                         children: []
                     }
                 ]
+            },
+            {
+                key: '5d51537987367c0f92fe6fa8',
+                title: '管理组',
+                expanded: false,
+                _id: '5d51537987367c0f92fe6fa8',
+                name: '管理组',
+                parent_id: '5d4e5b365fadf30311c3d889',
+                position: 1114112,
+                member_count: 0,
+                disabled: true,
+                children: [
+                    {
+                        key: '0000009',
+                        title: '张三',
+                        _id: '0000009',
+                        name: '张三',
+                        type: 'member'
+                    }
+                ]
             }
         ]
     },
