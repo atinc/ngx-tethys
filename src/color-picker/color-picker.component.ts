@@ -51,7 +51,8 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 
     /**
-     * 颜色面板弹出位置
+     * 颜色面板弹出位置 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @type ThyPlacement
      */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
