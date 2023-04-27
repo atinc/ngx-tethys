@@ -1,0 +1,10 @@
+<span>Hover</span>
+<div
+  class="box"
+  [ngStyle]="{ background: color }"
+  thyColorPicker
+  [thyOffset]="10"
+  [(ngModel)]="color"
+  thyTrigger="hover"
+  (ngModelChange)="change($event)"
+></div>

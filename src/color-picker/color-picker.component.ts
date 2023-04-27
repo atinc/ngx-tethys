@@ -1,6 +1,8 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
 import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,7 +25,7 @@ import ThyColor from './helpers/color.class';
     ],
     standalone: true
 })
-export class ThyColorPickerDirective implements OnInit, OnDestroy {
+export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     /**
      * 弹框偏移量。
      * @type  number
@@ -66,6 +68,33 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
      */
     @Output() thyPanelClose: EventEmitter<void> = new EventEmitter<void>();
 
+    /**
+     * 弹出悬浮层的触发方式
+     * @type 'hover' | 'click'
+     * @default click
+     */
+    @Input() set thyTrigger(trigger: ThyOverlayTrigger) {
+        this.trigger = trigger;
+    }
+
+    /**
+     * 显示延迟时间
+     */
+    @Input('thyShowDelay')
+    @InputNumber()
+    set thyShowDelay(value: number) {
+        this.showDelay = value;
+    }
+
+    /**
+     * 隐藏延迟时间
+     */
+    @Input('thyHideDelay')
+    @InputNumber()
+    set thyHideDelay(value: number) {
+        this.hideDelay = value;
+    }
+
     private onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
@@ -74,33 +103,37 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
 
     private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
 
+    popoverOpened = false;
+
     private destroy$ = new Subject<void>();
 
     public get backgroundColor(): string {
         return this.color;
     }
 
-    constructor(private thyPopover: ThyPopover, private zone: NgZone, private elementRef: ElementRef<HTMLElement>) {}
-
-    ngOnInit(): void {
-        this.zone.runOutsideAngular(() => {
-            fromEvent<Event>(this.elementRef.nativeElement, 'click')
-                .pipe(takeUntil(this.destroy$))
-                .subscribe(event => {
-                    this.zone.run(() => this.togglePanel(event));
-                });
-        });
+    constructor(
+        private thyPopover: ThyPopover,
+        private zone: NgZone,
+        protected elementRef: ElementRef<HTMLElement>,
+        platform: Platform,
+        focusMonitor: FocusMonitor
+    ) {
+        super(elementRef, platform, focusMonitor, zone);
     }
 
-    togglePanel(event: Event) {
+    ngOnInit(): void {
+        this.initialize();
+    }
+
+    togglePanel() {
         this.popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
-            origin: event.currentTarget as HTMLElement,
+            origin: this.elementRef.nativeElement as HTMLElement,
             offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
             placement: this.thyPlacement,
             originActiveClass: 'thy-default-picker-active',
-            hasBackdrop: this.thyHasBackdrop,
+            hasBackdrop: this.thyHasBackdrop && this.trigger !== 'hover',
             outsideClosable: false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
@@ -117,6 +150,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                 this.thyPanelOpen.emit();
             });
             this.popoverRef.afterClosed().subscribe(() => {
+                this.popoverOpened = false;
                 this.thyPanelClose.emit();
             });
         }
@@ -133,10 +167,42 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
                     }
                 });
         }
+        return this.popoverRef.getOverlayRef();
     }
 
-    hide() {
-        this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
+    show(delay?: number): void {
+        if (this.hideTimeoutId) {
+            clearTimeout(this.hideTimeoutId);
+            this.hideTimeoutId = null;
+        }
+
+        if (this.disabled || (this.overlayRef && this.overlayRef.hasAttached())) {
+            return;
+        }
+        if (this.trigger !== 'hover') {
+            delay = 0;
+        }
+
+        this.showTimeoutId = setTimeout(() => {
+            const overlayRef = this.togglePanel();
+            this.overlayRef = overlayRef;
+            this.popoverOpened = true;
+            this.showTimeoutId = null;
+        }, delay);
+    }
+
+    hide(delay: number = this.hideDelay) {
+        if (this.showTimeoutId) {
+            clearTimeout(this.showTimeoutId);
+            this.showTimeoutId = null;
+        }
+
+        this.hideTimeoutId = setTimeout(() => {
+            if (this.popoverRef) {
+                this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
+            }
+            this.hideTimeoutId = null;
+        }, delay);
     }
 
     writeValue(value: string): void {
@@ -160,6 +226,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
         this.destroy$.next();
         this.destroy$.complete();
         this.hide();
+        this.dispose();
         this.popoverRef = null;
     }
 }
