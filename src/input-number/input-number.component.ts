@@ -8,8 +8,15 @@ import {
     ThyCanDisable,
     ThyHasTabIndex
 } from 'ngx-tethys/core';
-import { DOWN_ARROW, elementMatchClosest, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyAutofocusDirective } from 'ngx-tethys/shared';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
+import { FocusMonitor } from '@angular/cdk/a11y';
 import {
     ChangeDetectorRef,
     Component,
@@ -25,10 +32,6 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
-import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -60,9 +63,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
     imports: [ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule, ThyMinDirective, ThyMaxDirective],
     host: {
         class: 'thy-input-number',
-        '[attr.tabindex]': 'tabIndex',
-        '(focus)': 'onFocus($event)',
-        '(blur)': 'onBlur($event)'
+        '[attr.tabindex]': 'tabIndex'
     }
 })
 export class ThyInputNumberComponent extends _MixinBase implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
@@ -162,7 +163,11 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     private innerMin: number = -Infinity;
 
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef) {
+    private isFocused: boolean;
+
+    private ngUnsubscribe$ = new Subject<void>();
+
+    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private focusMonitor: FocusMonitor) {
         super();
     }
 
@@ -170,7 +175,21 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         this.thyDisabled = isDisabled;
     }
 
-    ngOnInit() {}
+    ngOnInit() {
+        this.focusMonitor
+            .monitor(this.elementRef, true)
+            .pipe(takeUntil(this.ngUnsubscribe$))
+            .subscribe(focusOrigin => {
+                if (!focusOrigin) {
+                    this.onBlur();
+                } else {
+                    // call when inputElement.focus and input-number focus
+                    if (!this.isFocused) {
+                        this.onFocus();
+                    }
+                }
+            });
+    }
 
     ngOnChanges(changes: SimpleChanges) {
         if (changes.thySuffix && !changes.thySuffix.isFirstChange()) {
@@ -215,13 +234,10 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     onBlur(event?: FocusEvent) {
-        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
-        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-input-number')) {
-            return;
-        }
         this.displayValue = this.formatterValue(this.validValue);
         this.onTouchedFn();
-        this.thyBlur.emit(event);
+        this.thyBlur.emit();
+        this.isFocused = false;
     }
 
     onFocus(event?: Event) {
@@ -229,6 +245,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     onInputFocus(event?: Event) {
+        this.isFocused = true;
+        this.focusMonitor.focusVia(this.inputElement, 'keyboard');
         this.thyFocus.emit(event);
     }
 
@@ -381,5 +399,9 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return Number(num);
     }
 
-    ngOnDestroy() {}
+    ngOnDestroy() {
+        this.ngUnsubscribe$.next();
+        this.ngUnsubscribe$.complete();
+        this.focusMonitor.stopMonitoring(this.elementRef);
+    }
 }
