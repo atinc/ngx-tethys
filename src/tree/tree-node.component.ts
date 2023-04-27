@@ -170,14 +170,15 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     public clickNode(event: Event) {
         if (this.node.isDisabled) {
             this.expandNode(event);
-        }
-        if (this.thyCheckable && this.thyClickBehavior === 'selectCheckbox') {
-            this.clickNodeCheck(event);
         } else {
-            if (this.root.thyMultiple) {
-                this.root.toggleTreeNode(this.node);
+            if (this.thyCheckable && this.thyClickBehavior === 'selectCheckbox') {
+                this.clickNodeCheck(event);
             } else {
-                this.root.selectTreeNode(this.node);
+                if (this.root.thyMultiple) {
+                    this.root.toggleTreeNode(this.node);
+                } else {
+                    this.root.selectTreeNode(this.node);
+                }
             }
         }
         this.thyOnClick.emit({
