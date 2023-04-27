@@ -1,6 +1,6 @@
 import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -51,6 +51,12 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
     @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 
     /**
+     * 颜色面板弹出位置 'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * @type ThyPlacement
+     */
+    @Input() thyPlacement: ThyPlacement = 'bottom';
+
+    /**
      * panel 展开后触发
      */
     @Output() thyPanelOpen: EventEmitter<void> = new EventEmitter<void>();
@@ -92,6 +98,7 @@ export class ThyColorPickerDirective implements OnInit, OnDestroy {
             offset: this.thyOffset,
             manualClosure: true,
             width: '286px',
+            placement: this.thyPlacement,
             originActiveClass: 'thy-default-picker-active',
             hasBackdrop: this.thyHasBackdrop,
             outsideClosable: false,
