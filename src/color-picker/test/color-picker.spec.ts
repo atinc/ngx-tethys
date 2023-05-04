@@ -281,22 +281,27 @@ describe(`color-picker`, () => {
             expect(customColorPanelElement).toBeFalsy();
         }));
 
-        it('should open color-picker default panel with preset colors', fakeAsync(() => {
-            fixture.componentInstance.presetColors = DEFAULT_COLORS.slice(0, 1);
+        it('should be able to override the show and hide delays', fakeAsync(() => {
+            fixtureInstance.showDelay = 500;
+            fixtureInstance.hideDelay = 500;
+            fixtureInstance.trigger = 'hover';
+            fixtureInstance.hasBackdrop = false;
             fixture.detectChanges();
-            openDefaultPanel();
-            expect(overlayContainerElement).toBeTruthy();
+            dispatchMouseEvent(boxElement, 'mouseenter');
             fixture.detectChanges();
-            const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
-            expect(overlayPaneElement).toBeTruthy();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
+
+            tick(500);
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
+
+            const spanElement = fixture.debugElement.nativeElement.querySelector('span');
+            dispatchMouseEvent(spanElement, 'mousemove');
             fixture.detectChanges();
-            expect(overlayPaneElement.style.width).toEqual('286px');
-            const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
-            expect(colorDefaultPanelElement).toBeTruthy();
-            const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
-            expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
-                `rgb(${thyColor.red}, ${thyColor.green}, ${thyColor.blue})`
-            );
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
+
+            tick(500);
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
+            flush();
         }));
 
         it('should open picker panel', fakeAsync(() => {
