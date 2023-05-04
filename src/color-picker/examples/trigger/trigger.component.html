@@ -3,8 +3,8 @@
   class="box"
   [ngStyle]="{ background: color }"
   thyColorPicker
-  [thyOffset]="10"
   [(ngModel)]="color"
   thyTrigger="hover"
+  [thyHasBackdrop]="false"
   (ngModelChange)="change($event)"
 ></div>

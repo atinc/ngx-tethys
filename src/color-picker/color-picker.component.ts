@@ -4,11 +4,11 @@ import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestr
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { fromEvent, Observable, Subject } from 'rxjs';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
+import { takeUntil } from 'rxjs/operators';
 
 /**
  * 颜色选择组件
@@ -101,9 +101,11 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     color: string;
 
+    popoverOpened = false;
+
     private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
 
-    popoverOpened = false;
+    private closePanel = false;
 
     private destroy$ = new Subject<void>();
 
@@ -118,7 +120,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         platform: Platform,
         focusMonitor: FocusMonitor
     ) {
-        super(elementRef, platform, focusMonitor, zone);
+        super(elementRef, platform, focusMonitor, zone, true);
     }
 
     ngOnInit(): void {
@@ -133,8 +135,14 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
             width: '286px',
             placement: this.thyPlacement,
             originActiveClass: 'thy-default-picker-active',
-            hasBackdrop: this.thyHasBackdrop && this.trigger !== 'hover',
+            hasBackdrop: this.thyHasBackdrop,
             outsideClosable: false,
+            canClose: () => {
+                if (this.trigger === 'hover') {
+                    return this.closePanel;
+                }
+                return true;
+            },
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
                 defaultColor: this.thyDefaultColor,
@@ -166,6 +174,28 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                         this.popoverRef.close();
                     }
                 });
+
+            if (this.trigger === 'hover') {
+                this.ngZone.runOutsideAngular(() => {
+                    return fromEvent(document, 'mousemove')
+                        .pipe(takeUntil(this.destroy$))
+                        .subscribe(event => {
+                            if (this.popoverRef?.getOverlayRef()?.hasAttached()) {
+                                if (
+                                    (event.target as HTMLElement).contains(this.elementRef.nativeElement) ||
+                                    (event.target as HTMLElement).closest('.thy-color-picker-custom-panel') ||
+                                    !!(event.target as HTMLElement).querySelector('.thy-color-picker-custom-panel') ||
+                                    this.popoverRef.getOverlayRef()?.hostElement?.contains(event.target as HTMLElement)
+                                ) {
+                                    this.closePanel = false;
+                                } else {
+                                    this.closePanel = true;
+                                    this.hide();
+                                }
+                            }
+                        });
+                });
+            }
         }
         return this.popoverRef.getOverlayRef();
     }
