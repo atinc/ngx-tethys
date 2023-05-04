@@ -58,15 +58,11 @@ class ThyDemoColorPickerComponent {
 
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
+    panelOpen() {}
+
+    panelClose() {}
+
     change(color: string) {}
-
-    panelOpen() {
-        console.log(444);
-    }
-
-    panelClose() {
-        console.log(333);
-    }
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;
@@ -199,10 +195,10 @@ describe(`color-picker`, () => {
         overlayContainer.ngOnDestroy();
     });
 
-    fdescribe('color-picker directive', () => {
-        function openDefaultPanel(trigger: 'click' | 'hover' = 'click') {
+    describe('color-picker directive', () => {
+        function openDefaultPanel() {
             fixture.detectChanges();
-            dispatchMouseEvent(boxElement, trigger === 'hover' ? 'mousedown' : 'click');
+            dispatchMouseEvent(boxElement, 'click');
             fixture.detectChanges();
             flush();
         }
@@ -281,7 +277,7 @@ describe(`color-picker`, () => {
             expect(panelOpen).toHaveBeenCalled();
         }));
 
-        fit('should dispatch thyPanelClose', fakeAsync(() => {
+        it('should dispatch thyPanelClose', fakeAsync(() => {
             const panelClose = jasmine.createSpy('panel close');
             fixture.componentInstance.panelClose = panelClose;
             fixture.detectChanges();
@@ -327,18 +323,6 @@ describe(`color-picker`, () => {
             flush();
             expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
             expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeFalsy();
-        }));
-
-        fit('should open picker panel when hover', fakeAsync(() => {
-            fixture.componentInstance.trigger = 'hover';
-            fixtureInstance.hasBackdrop = false;
-            openDefaultPanel('hover');
-            fixture.detectChanges();
-            setTimeout(() => {
-                expect(overlayContainerElement.querySelector('.thy-popover-container')).toBeTruthy();
-            }, 500);
-            fixture.detectChanges();
-            flush();
         }));
 
         it('should normally closed color-picker component used hide func', fakeAsync(() => {

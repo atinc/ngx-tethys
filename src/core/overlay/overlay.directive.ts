@@ -48,7 +48,7 @@ export abstract class ThyOverlayDirectiveBase {
     // abstract createOverlay(): OverlayRef;
 
     abstract show(delay?: number): void;
-    abstract hide(delay?: number, event?: Event): void;
+    abstract hide(delay?: number): void;
 
     private clearEventListeners() {
         this.manualListeners.forEach((listener, event) => {
@@ -86,7 +86,7 @@ export abstract class ThyOverlayDirectiveBase {
                     })
                     .set('mouseleave', (event: MouseEvent) => {
                         // Delay 100ms to avoid the overlay being closed immediately when the cursor is moved to the overlay container
-                        this.hide(undefined, event);
+                        this.hide();
                         const overlayElement: HTMLElement = this.overlayRef && this.overlayRef.overlayElement;
                         if (overlayElement && this.overlayPin) {
                             fromEvent(overlayElement, 'mouseenter')
@@ -95,9 +95,8 @@ export abstract class ThyOverlayDirectiveBase {
                                     this.clearTimer();
                                     fromEvent(overlayElement, 'mouseleave')
                                         .pipe(take(1))
-                                        .subscribe((event: MouseEvent) => {
-                                            console.log(123);
-                                            this.hide(undefined, event);
+                                        .subscribe(() => {
+                                            this.hide();
                                         });
                                 });
                         }
