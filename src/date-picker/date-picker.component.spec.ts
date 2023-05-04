@@ -620,6 +620,37 @@ describe('ThyDatePickerComponent', () => {
             expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
 
+        it('modify the time and then the date to null, value should be the correct time', fakeAsync(() => {
+            fixtureInstance.modelValue = null;
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            flush();
+            // change time
+            const addHourArrow = queryFromOverlay('calendar-footer .time-picker-wrap a.btn-link') as HTMLElement;
+            dispatchMouseEvent(addHourArrow, 'click');
+
+            fixture.detectChanges();
+            const updateHours = (queryFromOverlay('calendar-footer .time-picker-wrap .thy-time-picker-field') as HTMLInputElement).value;
+
+            dispatchMouseEvent(getFirstCell(), 'click');
+            fixture.detectChanges();
+            dispatchMouseEvent(queryFromOverlay('.time-picker-btn-wrap > .time-picker-ok-btn'), 'click');
+            fixture.detectChanges();
+            flush();
+            fixture.detectChanges();
+
+            const result = fixtureInstance.modelValue as unknown as number;
+            expect(fromUnixTime(result).getHours()).toBe(+updateHours);
+
+            const input = getPickerTrigger();
+            expect(input.value).toBe(format(fromUnixTime(result), 'yyyy-MM-dd HH:mm'));
+        }));
+
         it('modify the time and then the date, value should be the correct time', fakeAsync(() => {
             fixtureInstance.modelValue = new Date('2018-11-11 11:22:33');
             fixtureInstance.thyShowTime = true;

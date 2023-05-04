@@ -1,0 +1,46 @@
+<thy-space class="space-align-example" thyAlign="start">
+  <div *thySpaceItem>
+    左
+    <div
+      class="box"
+      [ngStyle]="{ background: color }"
+      thyColorPicker
+      [thyOffset]="10"
+      [(ngModel)]="color"
+      thyPlacement="left"
+      (ngModelChange)="change($event)"></div>
+  </div>
+  <div *thySpaceItem>
+    右
+    <div
+      class="box"
+      [ngStyle]="{ background: color }"
+      thyColorPicker
+      [thyOffset]="10"
+      [(ngModel)]="color"
+      thyPlacement="right"
+      (ngModelChange)="change($event)"></div>
+  </div>
+  <div *thySpaceItem>
+    上
+    <div
+      class="box"
+      [ngStyle]="{ background: color }"
+      thyColorPicker
+      [thyOffset]="10"
+      [(ngModel)]="color"
+      thyPlacement="top"
+      (ngModelChange)="change($event)"></div>
+  </div>
+  <div *thySpaceItem>
+    下
+    <div
+      class="box"
+      [ngStyle]="{ background: color }"
+      thyColorPicker
+      [thyOffset]="10"
+      [(ngModel)]="color"
+      thyPlacement="bottom"
+      (ngModelChange)="change($event)"></div>
+  </div>
+</thy-space>

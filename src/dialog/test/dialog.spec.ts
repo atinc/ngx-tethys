@@ -108,7 +108,7 @@ describe('ThyDialog', () => {
 
     function assertHeaderButtonClick(spy: jasmine.Spy, done: DoneFn) {
         viewContainerFixture.detectChanges();
-        const headerButton = getElementByDialogContainer('.dialog-header .thy-icon-close-bold');
+        const headerButton = getElementByDialogContainer('.dialog-header .thy-icon-close');
         if (headerButton) {
             headerButton.click();
         }

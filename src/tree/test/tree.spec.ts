@@ -219,6 +219,10 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             expect(treeComponent.getCheckedNodes().length).toEqual(1);
             expect(treeElement.querySelectorAll('.form-check-indeterminate').length).toEqual(2);
+
+            checkNodes[10].click();
+            fixture.detectChanges();
+            expect(treeComponent.getCheckedNodes().length).toEqual(1);
         });
 
         it(`test tree check state resolve`, () => {
@@ -318,7 +322,7 @@ describe('ThyTreeComponent', () => {
             });
         });
 
-        it('should not run change detection when the `mouseenter` and `mouseleft` events are dispatched on the tree node but should change the icon', () => {
+        it('should not run change detection when the `mouseenter` and `mouseleave` events are controlled by beforeDragStart true', () => {
             fixture.componentInstance.options.beforeDragStart = () => true;
             fixture.detectChanges();
 
@@ -330,6 +334,25 @@ describe('ThyTreeComponent', () => {
 
             dispatchMouseEvent(treeNodeWrapper, 'mouseenter');
             expect(dragIcon.style.visibility).toEqual('visible');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseleave');
+            expect(dragIcon.style.visibility).toEqual('hidden');
+
+            expect(appRef.tick).not.toHaveBeenCalled();
+        });
+
+        it('should not run change detection when the `mouseenter` and `mouseleave` events are controlled by beforeDragStart false', () => {
+            fixture.componentInstance.options.beforeDragStart = () => false;
+            fixture.detectChanges();
+
+            const appRef = TestBed.inject(ApplicationRef);
+            spyOn(appRef, 'tick');
+
+            const treeNodeWrapper = treeElement.querySelector('.thy-tree-node-wrapper');
+            const dragIcon = treeNodeWrapper.querySelector<HTMLElement>('.thy-tree-drag-icon');
+
+            dispatchMouseEvent(treeNodeWrapper, 'mouseenter');
+            expect(dragIcon.style.visibility).toEqual('hidden');
 
             dispatchMouseEvent(treeNodeWrapper, 'mouseleave');
             expect(dragIcon.style.visibility).toEqual('hidden');
@@ -364,7 +387,7 @@ describe('ThyTreeComponent', () => {
 
         it(`test public function onDragDrop not has parent`, () => {
             expect(treeComponent.getTreeNode(treeNodes[0].key).title).toEqual('易成时代（不可拖拽）');
-            const item = treeElement.querySelectorAll(treeNodeSelector)[10];
+            const item = treeElement.querySelectorAll(treeNodeSelector)[11];
 
             const dragstartEvent = createDragEvent('dragstart');
             item.dispatchEvent(dragstartEvent);
@@ -406,7 +429,7 @@ describe('ThyTreeComponent', () => {
             const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
             // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
 
-            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[10];
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[11];
             const dataTransfer = new DataTransfer();
             dataTransfer.dropEffect = 'move';
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
@@ -420,7 +443,7 @@ describe('ThyTreeComponent', () => {
                 afterNode: treeComponent.flattenTreeNodes[0],
                 currentIndex: 1,
                 event: jasmine.any(Object),
-                dragNode: treeComponent.flattenTreeNodes[9],
+                dragNode: treeComponent.flattenTreeNodes[10],
                 targetNode: null
             });
             expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
@@ -445,7 +468,7 @@ describe('ThyTreeComponent', () => {
             const treeServiceSpy = spyOn(treeComponent.thyTreeService, 'resetSortedTreeNodes');
             // const thyOnDragDropSpy = spyOn(treeComponent, 'thyOnDragDrop');
 
-            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[10];
+            const secondItem = treeElement.querySelectorAll(treeNodeSelector)[11];
             const dataTransfer = new DataTransfer();
             dataTransfer.dropEffect = 'move';
             const dropEvent = createDragEvent('drop', dataTransfer, true, true);
@@ -459,7 +482,7 @@ describe('ThyTreeComponent', () => {
                 afterNode: treeComponent.flattenTreeNodes[0],
                 currentIndex: 1,
                 event: jasmine.any(Object),
-                dragNode: treeComponent.flattenTreeNodes[9],
+                dragNode: treeComponent.flattenTreeNodes[10],
                 targetNode: null
             });
             expect(treeComponent.getRootNodes()[1].title).toEqual('设计部(禁用)');
@@ -539,7 +562,7 @@ describe('ThyTreeComponent', () => {
 
         it('test should successful add tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(treeCount).toEqual(11);
+            expect(treeCount).toEqual(12);
             const tmpTreeNode = {
                 key: '111000000000000',
                 title: '新增测试',
@@ -551,12 +574,12 @@ describe('ThyTreeComponent', () => {
             treeComponent.addTreeNode(tmpTreeNode);
             fixture.detectChanges();
             const updateTreeNodesCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(updateTreeNodesCount).toEqual(12);
+            expect(updateTreeNodesCount).toEqual(13);
         });
 
         it('test should successful delete tree node ', () => {
             const treeCount = treeElement.querySelectorAll(treeNodeSelector).length;
-            expect(treeCount).toEqual(11);
+            expect(treeCount).toEqual(12);
             const node = treeComponent.treeNodes[0];
             treeComponent.deleteTreeNode(node);
             fixture.detectChanges();
@@ -620,7 +643,7 @@ describe('ThyTreeComponent', () => {
             tick(100);
             fixture.detectChanges();
             expect(nodeElement.querySelector(loadingSelector)).toBeNull();
-            expect(treeElement.querySelectorAll(treeNodeSelector).length).toEqual(11);
+            expect(treeElement.querySelectorAll(treeNodeSelector).length).toEqual(12);
         }));
     });
 
