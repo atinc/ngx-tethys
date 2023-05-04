@@ -440,6 +440,41 @@ describe('input-number component', () => {
         expect(onBlurValidationSpy).toHaveBeenCalledTimes(1);
     }));
 
+    it('should call blur and not call __onBlurValidation when input-number blur and auto focus input', fakeAsync(() => {
+        inputNumberComponentInstance.thyAutoFocus = false;
+        fixture.detectChanges();
+
+        const onBlurValidationSpy = spyOn(
+            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+
+        const inputAutoFocusSpy = spyOn(
+            inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement,
+            'focus'
+        ).and.callThrough();
+
+        const inputNumberAutoFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
+
+        const inputNumberTrigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
+        dispatchFakeEvent(inputNumberTrigger, 'focus');
+        fixture.detectChanges();
+        expect(inputNumberAutoFocusSpy).toHaveBeenCalledTimes(1);
+        // auto focus input
+        expect(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement === document.activeElement).toBeTruthy();
+        expect(inputAutoFocusSpy).toHaveBeenCalledTimes(1);
+
+        const inputTrigger = inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement;
+        dispatchFakeEvent(inputTrigger, 'focus');
+
+        fixture.detectChanges();
+        // call thyFocus
+        expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
+        // not call input-number blur
+        expect(onBlurValidationSpy).not.toHaveBeenCalled();
+        expect(inputNumberComponentInstance.onBlur).not.toHaveBeenCalled();
+    }));
+
     it('should remove disabled in down handler after switch thyMin', fakeAsync(() => {
         inputNumberComponentInstance.modelValue = 10;
         inputNumberComponentInstance.thyMin = 10;
