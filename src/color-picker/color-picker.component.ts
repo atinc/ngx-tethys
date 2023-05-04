@@ -4,8 +4,7 @@ import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestr
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import { fromEvent, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
@@ -79,6 +78,8 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     /**
      * 显示延迟时间
+     * @type number
+     * @default 100
      */
     @Input('thyShowDelay')
     @InputNumber()
@@ -88,6 +89,8 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     /**
      * 隐藏延迟时间
+     * @type number
+     * @default 100
      */
     @Input('thyHideDelay')
     @InputNumber()
@@ -103,9 +106,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
 
-    popoverOpened = false;
-
-    private destroy$ = new Subject<void>();
+    isHoveredCustomPanel = false;
 
     public get backgroundColor(): string {
         return this.color;
@@ -118,7 +119,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         platform: Platform,
         focusMonitor: FocusMonitor
     ) {
-        super(elementRef, platform, focusMonitor, zone);
+        super(elementRef, platform, focusMonitor, zone, true);
     }
 
     ngOnInit(): void {
@@ -133,7 +134,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
             width: '286px',
             placement: this.thyPlacement,
             originActiveClass: 'thy-default-picker-active',
-            hasBackdrop: this.thyHasBackdrop && this.trigger !== 'hover',
+            hasBackdrop: this.thyHasBackdrop,
             outsideClosable: false,
             initialState: {
                 color: new ThyColor(this.color).toHexString(true),
@@ -142,6 +143,16 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                 defaultColors: this.thyPresetColors,
                 colorChange: (value: string) => {
                     this.onModelChange(value);
+                },
+                trigger: this.trigger,
+                hoverChange: (eventName: 'mouseenter' | 'mouseleave') => {
+                    if (eventName === 'mouseenter') {
+                        this.isHoveredCustomPanel = true;
+                    }
+                    if (eventName === 'mouseleave') {
+                        this.isHoveredCustomPanel = false;
+                    }
+                    this.hide();
                 }
             }
         });
@@ -150,7 +161,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                 this.thyPanelOpen.emit();
             });
             this.popoverRef.afterClosed().subscribe(() => {
-                this.popoverOpened = false;
                 this.thyPanelClose.emit();
             });
         }
@@ -186,7 +196,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         this.showTimeoutId = setTimeout(() => {
             const overlayRef = this.togglePanel();
             this.overlayRef = overlayRef;
-            this.popoverOpened = true;
             this.showTimeoutId = null;
         }, delay);
     }
@@ -198,7 +207,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         }
 
         this.hideTimeoutId = setTimeout(() => {
-            if (this.popoverRef) {
+            if (this.popoverRef && !this.isHoveredCustomPanel) {
                 this.popoverRef?.getOverlayRef()?.hasAttached() && this.popoverRef.close();
             }
             this.hideTimeoutId = null;
@@ -223,8 +232,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
     }
 
     ngOnDestroy(): void {
-        this.destroy$.next();
-        this.destroy$.complete();
         this.hide();
         this.dispose();
         this.popoverRef = null;

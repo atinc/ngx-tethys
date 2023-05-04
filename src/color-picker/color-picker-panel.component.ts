@@ -38,6 +38,10 @@ export class ThyColorPickerPanelComponent implements OnInit {
 
     @Input() defaultColors: string[];
 
+    @Input() trigger?: 'click' | 'hover' = 'click';
+
+    @Input() hoverChange: () => void;
+
     public customDefaultColor: string;
 
     recentColors: string[] = [];
@@ -81,7 +85,9 @@ export class ThyColorPickerPanelComponent implements OnInit {
                     pickerColorChange: (value: string) => {
                         this.newColor = value;
                         this.colorChange(value);
-                    }
+                    },
+                    trigger: this.trigger,
+                    hoverChange: this.hoverChange
                 }
             });
         }

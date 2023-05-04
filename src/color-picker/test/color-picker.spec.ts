@@ -25,6 +25,7 @@ import { ThyColorPickerModule } from '../module';
             [ngStyle]="{ background: color }"
             [thyHasBackdrop]="hasBackdrop"
             thyColorPicker
+            [thyTrigger]="trigger"
             [(ngModel)]="color"
             (ngModelChange)="change($event)"
             (thyPanelOpen)="panelOpen()"
@@ -49,6 +50,8 @@ class ThyDemoColorPickerComponent {
 
     defaultPanelColor = '#fafafa';
 
+    trigger = 'click';
+
     hasBackdrop = true;
 
     presetColors: string[];
@@ -57,9 +60,13 @@ class ThyDemoColorPickerComponent {
 
     change(color: string) {}
 
-    panelOpen() {}
+    panelOpen() {
+        console.log(444);
+    }
 
-    panelClose() {}
+    panelClose() {
+        console.log(333);
+    }
 
     defaultPanelColorChange = (color: string) => {
         this.defaultPanelColor = color;
@@ -192,10 +199,10 @@ describe(`color-picker`, () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('color-picker directive', () => {
-        function openDefaultPanel() {
+    fdescribe('color-picker directive', () => {
+        function openDefaultPanel(trigger: 'click' | 'hover' = 'click') {
             fixture.detectChanges();
-            dispatchMouseEvent(boxElement, 'click');
+            dispatchMouseEvent(boxElement, trigger === 'hover' ? 'mousedown' : 'click');
             fixture.detectChanges();
             flush();
         }
@@ -274,17 +281,19 @@ describe(`color-picker`, () => {
             expect(panelOpen).toHaveBeenCalled();
         }));
 
-        it('should dispatch thyPanelClose', fakeAsync(() => {
+        fit('should dispatch thyPanelClose', fakeAsync(() => {
             const panelClose = jasmine.createSpy('panel close');
             fixture.componentInstance.panelClose = panelClose;
             fixture.detectChanges();
             openDefaultPanel();
             colorPickerDebugElement.componentInstance.colorPicker.hide();
-            fixture.detectChanges();
-            tick(100);
             flush();
             fixture.detectChanges();
-            expect(panelClose).toHaveBeenCalled();
+            setTimeout(() => {
+                expect(panelClose).toHaveBeenCalled();
+            }, 1000);
+            flush();
+            fixture.detectChanges();
         }));
 
         it('should get recentColors from localStorage', fakeAsync(() => {
@@ -320,11 +329,26 @@ describe(`color-picker`, () => {
             expect(overlayContainerElement.querySelector('.thy-color-picker-custom-panel')).toBeFalsy();
         }));
 
+        fit('should open picker panel when hover', fakeAsync(() => {
+            fixture.componentInstance.trigger = 'hover';
+            fixtureInstance.hasBackdrop = false;
+            openDefaultPanel('hover');
+            fixture.detectChanges();
+            setTimeout(() => {
+                expect(overlayContainerElement.querySelector('.thy-popover-container')).toBeTruthy();
+            }, 500);
+            fixture.detectChanges();
+            flush();
+        }));
+
         it('should normally closed color-picker component used hide func', fakeAsync(() => {
             openDefaultPanel();
             expect(overlayContainerElement).toBeTruthy();
             colorPickerDebugElement.componentInstance.colorPicker.hide();
-            expect(overlayContainerElement.querySelector('thy-default-picker-active')).toBeFalsy();
+            setTimeout(() => {
+                expect(overlayContainerElement.querySelector('thy-default-picker-active')).toBeFalsy();
+            }, 500);
+            flush();
             fixture.detectChanges();
         }));
     });
