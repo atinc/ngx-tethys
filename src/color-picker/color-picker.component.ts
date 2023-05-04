@@ -101,11 +101,9 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     color: string;
 
-    popoverOpened = false;
-
     private popoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>;
 
-    private closePanel = false;
+    private closePanel = true;
 
     private destroy$ = new Subject<void>();
 
@@ -181,7 +179,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                 this.thyPanelOpen.emit();
             });
             this.popoverRef.afterClosed().subscribe(() => {
-                this.popoverOpened = false;
                 this.thyPanelClose.emit();
             });
         }
@@ -201,7 +198,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         return this.popoverRef.getOverlayRef();
     }
 
-    show(delay?: number): void {
+    show(delay: number = this.showDelay): void {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
             this.hideTimeoutId = null;
@@ -217,7 +214,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         this.showTimeoutId = setTimeout(() => {
             const overlayRef = this.togglePanel();
             this.overlayRef = overlayRef;
-            this.popoverOpened = true;
             this.showTimeoutId = null;
         }, delay);
     }
