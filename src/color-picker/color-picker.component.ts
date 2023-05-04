@@ -4,7 +4,7 @@ import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestr
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger } from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
-import { fromEvent, Observable, Subject } from 'rxjs';
+import { fromEvent, Subject } from 'rxjs';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
@@ -125,9 +125,31 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     ngOnInit(): void {
         this.initialize();
+        if (this.trigger === 'hover') {
+            this.ngZone.runOutsideAngular(() => {
+                return fromEvent(document, 'mousemove')
+                    .pipe(takeUntil(this.destroy$))
+                    .subscribe(event => {
+                        if (this.popoverRef?.getOverlayRef()?.hasAttached()) {
+                            if (
+                                this.elementRef.nativeElement.contains(event.target as HTMLElement) ||
+                                (event.target as HTMLElement).closest('.thy-color-picker-custom-panel') ||
+                                !!(event.target as HTMLElement).querySelector('.thy-color-picker-custom-panel') ||
+                                this.popoverRef.getOverlayRef()?.hostElement?.contains(event.target as HTMLElement)
+                            ) {
+                                this.closePanel = false;
+                            } else {
+                                this.closePanel = true;
+                                this.popoverRef.close();
+                            }
+                        }
+                    });
+            });
+        }
     }
 
     togglePanel() {
+        this.closePanel = false;
         this.popoverRef = this.thyPopover.open(ThyColorPickerPanelComponent, {
             origin: this.elementRef.nativeElement as HTMLElement,
             offset: this.thyOffset,
@@ -149,6 +171,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                 transparentColorSelectable: this.thyTransparentColorSelectable,
                 defaultColors: this.thyPresetColors,
                 colorChange: (value: string) => {
+                    this.closePanel = true;
                     this.onModelChange(value);
                 }
             }
@@ -174,28 +197,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
                         this.popoverRef.close();
                     }
                 });
-
-            if (this.trigger === 'hover') {
-                this.ngZone.runOutsideAngular(() => {
-                    return fromEvent(document, 'mousemove')
-                        .pipe(takeUntil(this.destroy$))
-                        .subscribe(event => {
-                            if (this.popoverRef?.getOverlayRef()?.hasAttached()) {
-                                if (
-                                    (event.target as HTMLElement).contains(this.elementRef.nativeElement) ||
-                                    (event.target as HTMLElement).closest('.thy-color-picker-custom-panel') ||
-                                    !!(event.target as HTMLElement).querySelector('.thy-color-picker-custom-panel') ||
-                                    this.popoverRef.getOverlayRef()?.hostElement?.contains(event.target as HTMLElement)
-                                ) {
-                                    this.closePanel = false;
-                                } else {
-                                    this.closePanel = true;
-                                    this.hide();
-                                }
-                            }
-                        });
-                });
-            }
         }
         return this.popoverRef.getOverlayRef();
     }
