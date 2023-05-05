@@ -1,6 +1,6 @@
 import { ThyCascaderComponent } from 'ngx-tethys/cascader';
-import { dispatchFakeEvent } from 'ngx-tethys/testing';
-import { of, Subject } from 'rxjs';
+import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
+import { Subject, of } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
@@ -8,15 +8,15 @@ import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
+import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
-import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
-import { SafeAny } from 'ngx-tethys/types';
 
 registerLocaleData(zh);
 
@@ -245,7 +245,8 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyMenuClassName]="thyMenuClassName"
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
-            thyEmptyStateText="无选项">
+            [thyShowSearch]="isShowSearch"
+            [thyEmptyStateText]="emptyStateText">
         </thy-cascader>
     `
 })
@@ -261,6 +262,8 @@ class CascaderBasicComponent {
     public thyMenuClassName = 'test-menu-class';
     public columnClassName = 'column-menu-class';
     public loadData: any;
+    public isShowSearch: boolean = false;
+    public emptyStateText = '无选项';
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     changeValue$ = new Subject<string[]>();
@@ -339,6 +342,7 @@ class CascaderTemplateComponent {
     template: `
         <thy-cascader
             [thyMultiple]="true"
+            [thyShowSearch]="isShowSearch"
             [thyOptions]="multipleOptions"
             [(ngModel)]="multipleVal"
             (ngModelChange)="selectChange($event)"
@@ -354,6 +358,8 @@ class CascaderMultipleComponent {
         ['tianjinshi', 'shixiaqu', 'hepingqu']
     ];
     public selectSpy = jasmine.createSpy('multiple select option');
+
+    public isShowSearch: boolean = false;
 
     constructor() {}
 
@@ -719,6 +725,88 @@ describe('thy-cascader', () => {
         it('should not change EXPANDED_DROPDOWN_POSITIONS when cdkConnectedOverlayPositions is changed', () => {
             expect(EXPANDED_DROPDOWN_POSITIONS).not.toEqual((component.cascader as SafeAny).cascaderPosition);
         });
+
+        it('should show thy-input-search when set thyShowSearch', fakeAsync(() => {
+            expect(fixture.componentInstance.cascaderRef.thyShowSearch).toBe(false);
+
+            fixture.componentInstance.isShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.cascaderRef.thyShowSearch).toBe(true);
+            expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
+        }));
+
+        it('should searched some options', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('xihu', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.querySelector('.thy-cascader-search-list')).toBeTruthy();
+            const allSearchList = overlayContainerElement.querySelectorAll('.thy-cascader-search-list-item');
+            expect(allSearchList.length).toBeGreaterThan(0);
+            allSearchList.forEach(item => {
+                expect((item as HTMLElement).innerText).toMatch('xihu');
+            });
+        }));
+
+        it('should show empty when do not match any option', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+            fixture.componentInstance.emptyStateText = 'Not Search Result';
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('NotCityName', input);
+            tick(300);
+            fixture.detectChanges();
+            flush();
+
+            const emptyNode = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyNode).toBeTruthy();
+            expect(emptyNode.textContent).toContain(fixture.componentInstance.emptyStateText);
+        }));
+
+        it('should update value after click search option', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('xihu', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+            const searchOption = overlayContainerElement.querySelector('.thy-cascader-search-list-item');
+            let text: string[] = [];
+            (searchOption as HTMLElement).querySelectorAll('.thy-breadcrumb-item').forEach(item => {
+                text.push((item as HTMLElement).innerText);
+            });
+            let options = fixture.componentInstance.thyCustomerOptions;
+            let selectedValue: string[] = [];
+            while (text.length) {
+                const curText = text.shift();
+                const curOption = options.find(item => item.label === curText);
+                selectedValue.push(curOption.value);
+                options = curOption.children;
+            }
+            component.changeValue$.pipe(take(1)).subscribe(e => {
+                expect(e).toEqual(selectedValue);
+            });
+
+            dispatchFakeEvent(searchOption, 'click');
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+            flush();
+        }));
     });
 
     describe('loadData', () => {
@@ -962,6 +1050,30 @@ describe('thy-cascader', () => {
             });
         });
 
+        it('should do nothing  after click activated option', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+
+            typeInElement('haidianqu', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+
+            const searchOptionCheckbox = overlayContainerElement.querySelector('.thy-checkbox');
+            expect(searchOptionCheckbox).toBeTruthy();
+            flush();
+            fixture.detectChanges();
+            expect(searchOptionCheckbox.classList).toContain('form-check-checked');
+            dispatchFakeEvent(searchOptionCheckbox, 'click');
+            flush();
+            fixture.detectChanges();
+            expect(searchOptionCheckbox.classList).toContain('form-check-checked');
+        }));
+
         function getOptionByLevel(level: number = 0) {
             const levelUlList = debugElement.queryAll(By.css('.thy-cascader-menu'))[level];
             const levelLi = levelUlList.queryAll(By.css('li'));
@@ -973,34 +1085,37 @@ describe('thy-cascader', () => {
          */
         function setDisabledOptions(selectedVal: any[]) {
             return multipleOptions.map((area: any) => {
-                if (selectedVal.map(item => item[0]).includes(area.value)) {
-                    area.disabled = true;
-                    area.children = area.children
+                const copyArea = { ...area };
+                if (selectedVal.map(item => item[0]).includes(copyArea.value)) {
+                    copyArea.disabled = true;
+                    copyArea.children = copyArea.children
                         .filter((item: any) => {
                             if (selectedVal.map(item => item[1]).includes(item.value)) {
                                 return true;
                             }
                         })
                         .map((item: any) => {
-                            if (selectedVal.map(item => item[1]).includes(item.value)) {
-                                item.disabled = true;
-                                item.children = item.children
+                            const copyItem = { ...item };
+                            if (selectedVal.map(item => item[1]).includes(copyItem.value)) {
+                                copyItem.disabled = true;
+                                copyItem.children = copyItem.children
                                     .filter((data: any) => {
                                         if (selectedVal.map(item => item[2]).includes(data.value)) {
                                             return true;
                                         }
                                     })
                                     .map((data: any) => {
-                                        if (selectedVal.map(item => item[2]).includes(data.value)) {
-                                            data.disabled = true;
+                                        const copyData = { ...data };
+                                        if (selectedVal.map(item => item[2]).includes(copyData.value)) {
+                                            copyData.disabled = true;
                                         }
-                                        return data;
+                                        return copyData;
                                     });
                             }
-                            return item;
+                            return copyItem;
                         });
                 }
-                return area;
+                return copyArea;
             });
         }
     });

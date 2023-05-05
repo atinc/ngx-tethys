@@ -1,3 +1,5 @@
+import { Id } from 'ngx-tethys/types';
+
 export interface ThyCascaderOption {
     value?: any;
     label?: string;
@@ -13,3 +15,10 @@ export interface ThyCascaderOption {
 export type ThyCascaderTriggerType = 'click' | 'hover';
 
 export type ThyCascaderExpandTrigger = 'click' | 'hover';
+
+export interface ThyCascaderSearchOption {
+    labelList: string[];
+    valueList: Id[];
+    selected: boolean;
+    thyRowValue: ThyCascaderOption[];
+}
