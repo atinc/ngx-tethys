@@ -9,7 +9,7 @@ import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThySelectCommonModule } from 'ngx-tethys/shared';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
-import { ThyCascaderSearchOptionComponent } from './cascader-search-li.component';
+import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderComponent } from './cascader.component';
 
 @NgModule({

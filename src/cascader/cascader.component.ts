@@ -48,7 +48,7 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { Id } from 'ngx-tethys/types';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
-import { ThyCascaderSearchOptionComponent } from './cascader-search-li.component';
+import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {

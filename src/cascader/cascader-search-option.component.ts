@@ -26,7 +26,7 @@ import { ThyCascaderSearchOption } from './types';
     encapsulation: ViewEncapsulation.None,
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-cascader-search-option]',
-    templateUrl: './cascader-search-li.component.html',
+    templateUrl: './cascader-search-option.component.html',
     standalone: true,
     imports: [
         NgIf,
