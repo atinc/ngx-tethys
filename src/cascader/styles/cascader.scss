@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-cascader {
     outline: none;
@@ -114,6 +114,22 @@
         }
         & &-keyword {
             color: #e6f7ff;
+        }
+    }
+    &-search-list {
+        height: 180px;
+        overflow: auto;
+        min-width: 122px;
+    }
+
+    &-search-list-item {
+        height: 36px;
+        &:hover {
+            background-color: variables.$action-menu-item-hover-bg;
+        }
+        &.active:not(.multiple) {
+            background: rgba(variables.$primary, 0.1);
+            color: variables.$primary;
         }
     }
 }

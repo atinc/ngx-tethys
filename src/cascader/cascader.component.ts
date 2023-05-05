@@ -12,8 +12,8 @@ import {
 } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
-import { take, takeUntil } from 'rxjs/operators';
+import { BehaviorSubject, Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
 import { SelectionModel } from '@angular/cdk/collections';
 import {
@@ -45,8 +45,11 @@ import { ThySelectControlComponent } from 'ngx-tethys/shared';
 
 import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { Id } from 'ngx-tethys/types';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
-import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderTriggerType } from './types';
+import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
+import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -117,7 +120,9 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         NgStyle,
         NgFor,
         ThyCascaderOptionComponent,
-        ThyEmptyComponent
+        ThyCascaderSearchOptionComponent,
+        ThyEmptyComponent,
+        ThyIconComponent
     ]
 })
 export class ThyCascaderComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
@@ -291,6 +296,12 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     thyIsOnlySelectLeaf = true;
 
     /**
+     * 是否支持搜索
+     * @default false
+     */
+    @Input() @InputBoolean() thyShowSearch: boolean = false;
+
+    /**
      * 值发生变化时触发,返回选择项的值
      */
     @Output() thyChange = new EventEmitter<any[]>();
@@ -375,12 +386,19 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     public menuMinWidth = 122;
 
+    private searchText$ = new BehaviorSubject('');
+
+    public searchResultList: ThyCascaderSearchOption[] = [];
+
+    public isShowSearchPanel: boolean = false;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
         this.setMenuColumnClass();
         this.setLabelClass();
         this.initPosition();
+        this.initSearch();
         if (!this.selectionModel) {
             this.selectionModel = new SelectionModel<SelectOptionBase>(this.thyMultiple);
         }
@@ -553,19 +571,26 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     }
 
     public attached(): void {
+        this.cdr.detectChanges();
         this.cdkConnectedOverlay.positionChange.pipe(take(1), takeUntil(this.destroy$)).subscribe(() => {
-            if (!isEmpty(this.selectedOptions)) {
-                const activeOptions = this.cascaderOptions.filter(item =>
-                    item.nativeElement.classList.contains('thy-cascader-menu-item-active')
-                );
-                this.cascaderOptionContainers.forEach((item, index) => {
-                    if (index <= activeOptions.length - 1) {
-                        ScrollToService.scrollToElement(activeOptions[index].nativeElement, item.nativeElement);
-                        this.cdr.detectChanges();
-                    }
-                });
-            }
+            this.scrollActiveElementIntoView();
         });
+    }
+
+    private scrollActiveElementIntoView() {
+        if (!isEmpty(this.selectedOptions)) {
+            const activeOptions = this.cascaderOptions
+                .filter(item => item.nativeElement.classList.contains('thy-cascader-menu-item-active'))
+                // for multiple mode
+                .slice(-this.cascaderOptionContainers.length);
+
+            this.cascaderOptionContainers.forEach((item, index) => {
+                if (index <= activeOptions.length - 1) {
+                    ScrollToService.scrollToElement(activeOptions[index].nativeElement, item.nativeElement);
+                    this.cdr.detectChanges();
+                }
+            });
+        }
     }
 
     private findOption(option: any, index: number): ThyCascaderOption {
@@ -766,15 +791,19 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         this.onTouchedFn();
     }
 
-    onFocus(event?: Event) {
-        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
-        inputElement.focus();
+    onFocus(event?: FocusEvent) {
+        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'thy-cascader'])) {
+            const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
+            inputElement.focus();
+        }
     }
 
     public closeMenu(): void {
         if (this.menuVisible) {
             this.setMenuVisible(false);
             this.onTouchedFn();
+            this.isShowSearchPanel = false;
+            this.searchResultList = [];
         }
     }
 
@@ -837,6 +866,11 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         });
         this.deselectOption(currentItem);
         this.selectionModel.deselect(currentItem);
+        // update selectedOptions
+        const updatedSelectedItems = this.selectionModel.selected;
+        if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
+            this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
+        }
         this.valueChange();
     }
 
@@ -944,6 +978,93 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     public trackByFn(index: number, item: ThyCascaderOption) {
         return item?.value || item?._id || index;
+    }
+
+    public searchFilter(searchText: string) {
+        if (!searchText) {
+            this.resetSearch();
+        }
+        this.searchText$.next(searchText);
+    }
+
+    private initSearch() {
+        this.searchText$
+            .pipe(
+                takeUntil(this.destroy$),
+                debounceTime(200),
+                distinctUntilChanged(),
+                filter(text => text !== '')
+            )
+            .subscribe(searchText => {
+                this.resetSearch();
+
+                // local search
+                this.searchInLocal(searchText);
+                this.isShowSearchPanel = true;
+            });
+    }
+
+    private searchInLocal(
+        searchText: string,
+        currentLabel?: string[],
+        currentValue: Id[] = [],
+        currentRowValue: ThyCascaderOption[] = [],
+        list = this.columns[0]
+    ): void {
+        list.forEach(item => {
+            const curOptionLabel = this.getOptionLabel(item);
+            const curOptionValue = this.getOptionValue(item);
+            const label: string[] = currentLabel ? [...currentLabel, curOptionLabel] : [curOptionLabel];
+            const valueList: Id[] = [...currentValue, curOptionValue];
+            const rowValueList: ThyCascaderOption[] = [...currentRowValue, item];
+
+            if (item.children && item.children.length) {
+                this.searchInLocal(searchText, label, valueList, rowValueList, item.children);
+            } else {
+                if (!item.disabled && curOptionLabel.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                    this.searchResultList.push({
+                        labelList: label,
+                        valueList,
+                        selected: item.selected,
+                        thyRowValue: rowValueList
+                    });
+                }
+            }
+        });
+    }
+
+    private resetSearch() {
+        this.isShowSearchPanel = false;
+        this.searchResultList = [];
+        this.scrollActiveElementIntoView();
+    }
+
+    public selectSearchResult(selectOptionData: ThyCascaderSearchOption): void {
+        const { thyRowValue: selectedOptions } = selectOptionData;
+        if (selectOptionData.selected) {
+            if (!this.isMultiple) {
+                this.closeMenu();
+            }
+            return;
+        }
+        if (this.isMultiple) {
+            selectOptionData.selected = true;
+            selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
+                this.setActiveOption(item, index, item.isLeaf);
+            });
+            const originSearchResultList = this.searchResultList;
+            // 保持搜索选项
+            setTimeout(() => {
+                this.isShowSearchPanel = true;
+                this.searchResultList = originSearchResultList;
+            });
+        } else {
+            selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
+                this.setActiveOption(item, index, item.isLeaf);
+            });
+
+            this.resetSearch();
+        }
     }
 
     ngOnDestroy() {
