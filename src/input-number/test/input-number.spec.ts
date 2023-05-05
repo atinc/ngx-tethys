@@ -90,7 +90,7 @@ class TestInputNumberComponent {
 })
 export class InputComponentTestModule {}
 
-fdescribe('input-number component', () => {
+describe('input-number component', () => {
     let fixture: ComponentFixture<TestInputNumberComponent>;
     let inputNumberComponentInstance: TestInputNumberComponent;
     let inputNumberDebugElement: DebugElement;
