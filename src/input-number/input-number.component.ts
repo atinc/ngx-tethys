@@ -234,20 +234,26 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     onBlur(event?: FocusEvent) {
-        this.displayValue = this.formatterValue(this.validValue);
-        this.onTouchedFn();
-        this.thyBlur.emit();
-        this.isFocused = false;
+        if (this.isFocused) {
+            this.displayValue = this.formatterValue(this.validValue);
+            this.onTouchedFn();
+            this.thyBlur.emit();
+            this.isFocused = false;
+        }
     }
 
     onFocus(event?: Event) {
-        this.inputElement.nativeElement.focus();
+        if (!this.isFocused) {
+            this.inputElement.nativeElement.focus();
+        }
     }
 
     onInputFocus(event?: Event) {
-        this.isFocused = true;
-        this.focusMonitor.focusVia(this.inputElement, 'keyboard');
-        this.thyFocus.emit(event);
+        if (!this.isFocused) {
+            this.isFocused = true;
+            this.focusMonitor.focusVia(this.inputElement, 'keyboard');
+            this.thyFocus.emit(event);
+        }
     }
 
     onKeyDown(e: KeyboardEvent): void {
