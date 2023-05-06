@@ -1,10 +1,12 @@
+import { ThyInputNumberComponent } from 'ngx-tethys/input-number';
+import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyInputNumberComponent } from 'ngx-tethys/input-number';
-import { dispatchEvent, dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
 import { ThyAlphaComponent } from '../parts/alpha/alpha.component';
@@ -306,6 +308,7 @@ describe('thy-color-inputs', () => {
             const element = fixtureInstance.elementRef.nativeElement;
             const colorChange = spyOn(fixtureInstance, 'colorChangeEvent');
             let rInput = element.querySelector('.input-number-input') as HTMLInputElement;
+            dispatchFakeEvent(rInput, 'focus');
             rInput.value = '200';
             dispatchFakeEvent(rInput, 'blur');
             fixture.detectChanges();
