@@ -2,6 +2,45 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.2.9](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.2.9) (2023-05-06)
+
+
+### Bug Fixes
+
+* **date-picker:** compatibility null values at updateHourMinute ([#2633](https://github.com/atinc/ngx-tethys/issues/2633)) ([1207c47](https://github.com/atinc/ngx-tethys/commit/1207c473f98c18d8a30dc4d2e00b002b86aeb246))
+* **input-number:** fix not call thyBlur when focus other input-number #INFR-7496 ([#2638](https://github.com/atinc/ngx-tethys/issues/2638)) ([1caccb3](https://github.com/atinc/ngx-tethys/commit/1caccb36d1a70637e736017896269635d60a207f)), closes [#INFR-7496](https://github.com/atinc/ngx-tethys/issues/INFR-7496)
+* **layout:** collapse dom appears when the mouse hovers over the sidebar #INFR-5569 ([#2616](https://github.com/atinc/ngx-tethys/issues/2616)) ([e9b925d](https://github.com/atinc/ngx-tethys/commit/e9b925dce96175ac8f2b6eb1a48503391f877fc3)), closes [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569) [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569)
+* **layout:** fix can't operate layout content ([#2635](https://github.com/atinc/ngx-tethys/issues/2635)) ([0c7ce6f](https://github.com/atinc/ngx-tethys/commit/0c7ce6f506db35fec9f523b2b3f5087df8810d64))
+* **tree:** fix the problem of clicking to disable the parent node #INFR-7545 ([#2639](https://github.com/atinc/ngx-tethys/issues/2639)) ([4936aba](https://github.com/atinc/ngx-tethys/commit/4936aba4890c891f5792bf46d6df86802e095e3a)), closes [#INFR-7545](https://github.com/atinc/ngx-tethys/issues/INFR-7545)
+
+
+### Features
+
+* **cascader:** support search #INFR-7498 ([#2644](https://github.com/atinc/ngx-tethys/issues/2644)) ([f490007](https://github.com/atinc/ngx-tethys/commit/f4900077721f2a95bf8116a93e351f767d637b78)), closes [#INFR-7498](https://github.com/atinc/ngx-tethys/issues/INFR-7498)
+* **color-picker:** support hover trigger #INFR-7525 ([#2642](https://github.com/atinc/ngx-tethys/issues/2642)) ([78b5c7a](https://github.com/atinc/ngx-tethys/commit/78b5c7ac34e5fc897cbdac40579c12aeee25d991)), closes [#INFR-7525](https://github.com/atinc/ngx-tethys/issues/INFR-7525)
+* **color-picker:** support thyPlacement params #INFR-7526 ([#2637](https://github.com/atinc/ngx-tethys/issues/2637)) ([366f742](https://github.com/atinc/ngx-tethys/commit/366f742859fd39c4f61ff04c2715aae96632a05b)), closes [#INFR-7526](https://github.com/atinc/ngx-tethys/issues/INFR-7526)
+
+
+
+## [15.2.8](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.2.8) (2023-05-05)
+
+
+### Bug Fixes
+
+* **date-picker:** compatibility null values at updateHourMinute ([#2633](https://github.com/atinc/ngx-tethys/issues/2633)) ([1207c47](https://github.com/atinc/ngx-tethys/commit/1207c473f98c18d8a30dc4d2e00b002b86aeb246))
+* **layout:** collapse dom appears when the mouse hovers over the sidebar #INFR-5569 ([#2616](https://github.com/atinc/ngx-tethys/issues/2616)) ([e9b925d](https://github.com/atinc/ngx-tethys/commit/e9b925dce96175ac8f2b6eb1a48503391f877fc3)), closes [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569) [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569)
+* **layout:** fix can't operate layout content ([#2635](https://github.com/atinc/ngx-tethys/issues/2635)) ([0c7ce6f](https://github.com/atinc/ngx-tethys/commit/0c7ce6f506db35fec9f523b2b3f5087df8810d64))
+* **tree:** fix the problem of clicking to disable the parent node #INFR-7545 ([#2639](https://github.com/atinc/ngx-tethys/issues/2639)) ([4936aba](https://github.com/atinc/ngx-tethys/commit/4936aba4890c891f5792bf46d6df86802e095e3a)), closes [#INFR-7545](https://github.com/atinc/ngx-tethys/issues/INFR-7545)
+
+
+### Features
+
+* **cascader:** support search #INFR-7498 ([#2644](https://github.com/atinc/ngx-tethys/issues/2644)) ([f490007](https://github.com/atinc/ngx-tethys/commit/f4900077721f2a95bf8116a93e351f767d637b78)), closes [#INFR-7498](https://github.com/atinc/ngx-tethys/issues/INFR-7498)
+* **color-picker:** support hover trigger #INFR-7525 ([#2642](https://github.com/atinc/ngx-tethys/issues/2642)) ([78b5c7a](https://github.com/atinc/ngx-tethys/commit/78b5c7ac34e5fc897cbdac40579c12aeee25d991)), closes [#INFR-7525](https://github.com/atinc/ngx-tethys/issues/INFR-7525)
+* **color-picker:** support thyPlacement params #INFR-7526 ([#2637](https://github.com/atinc/ngx-tethys/issues/2637)) ([366f742](https://github.com/atinc/ngx-tethys/commit/366f742859fd39c4f61ff04c2715aae96632a05b)), closes [#INFR-7526](https://github.com/atinc/ngx-tethys/issues/INFR-7526)
+
+
+
 ## [15.2.7](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.2.7) (2023-05-04)
 
 
