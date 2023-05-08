@@ -8,7 +8,8 @@ import {
     ChangeDetectionStrategy,
     AfterContentChecked,
     OnInit,
-    ElementRef
+    ElementRef,
+    OnDestroy
 } from '@angular/core';
 import { MixinBase, ThyTranslate, mixinUnsubscribe } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -44,7 +45,7 @@ const inputGroupSizeMap = {
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked {
+export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
 
     public appendText: string;
@@ -147,5 +148,9 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
+    }
+
+    ngOnDestroy() {
+        this.focusMonitor.stopMonitoring(this.elementRef.nativeElement);
     }
 }
