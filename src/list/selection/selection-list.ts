@@ -101,12 +101,14 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     /**
      * 绑定键盘事件的容器
+     * @type HTMLElement | ElementRef | string
      * @default thy-selection-list 组件绑定的元素
      */
     @Input() thyBindKeyEventContainer: HTMLElement | ElementRef | string;
 
     /**
      * 出现滚动条的容器
+     * @type HTMLElement | ElementRef | string
      * @default thy-selection-list 组件绑定的元素
      */
     @Input() thyScrollContainer: HTMLElement | ElementRef | string;
@@ -127,7 +129,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     @Input() thyCompareWith: (o1: any, o2: any) => boolean;
 
     /**
-     * 改变 grid item 的展示样式，是 “list” 形式还是 “grid” 形式
+     * grid item 的展示样式
      * @type list | grid
      * @default list
      */
@@ -144,7 +146,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
     }
 
     /**
-     * 改变 grid item 的大小，支持默认以及"sm"两种大小
+     * 改变 grid item 的大小，支持默认以及 sm 两种大小
      * @type sm | md | lg
      */
     @Input() set thySize(value: ThyListSize) {
@@ -162,6 +164,7 @@ export class ThySelectionListComponent implements OnInit, OnDestroy, AfterConten
 
     /**
      * 每当选项的选定状态发生更改时，都会触发更改事件
+     * @type EventEmitter<ThySelectionListChange>
      */
     @Output() readonly thySelectionChange: EventEmitter<ThySelectionListChange> = new EventEmitter<ThySelectionListChange>();
 

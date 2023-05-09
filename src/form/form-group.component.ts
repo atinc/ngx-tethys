@@ -139,11 +139,15 @@ export class ThyFormGroupComponent implements OnInit {
     }
 
     /**
+     * 已废弃
      * @deprecated please use content because formGroup is same name with angular formGroup directive
      */
     @ContentChild('formGroup')
     public contentTemplateRef: TemplateRef<any>;
 
+    /**
+     * 内容自定义模板，`<ng-template #content></ng-template>`
+     */
     @ContentChild('content')
     public contentTemplate: TemplateRef<any>;
 

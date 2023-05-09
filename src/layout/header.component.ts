@@ -89,21 +89,21 @@ export class ThyHeaderComponent implements OnInit {
     @Input() @InputBoolean() thyShadow = false;
 
     /**
-     * 头部自定义标题模板，<ng-template #headerTitle></ng-template>
+     * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
     /**
-     * 头部自定义内容模板，<ng-template #headerContent></ng-template>
+     * 头部自定义内容模板，`<ng-template #headerContent></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerContent')
     public contentTemplateRef: TemplateRef<any>;
 
     /**
-     * 头部自定义操作模板，<ng-template #headerOperation></ng-template>
+     * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerOperation')
