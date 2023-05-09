@@ -27,6 +27,9 @@ import { MonthTableComponent } from '../month/month-table.component';
 import { YearHeaderComponent } from '../year/year-header.component';
 import { YearTableComponent } from '../year/year-table.component';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

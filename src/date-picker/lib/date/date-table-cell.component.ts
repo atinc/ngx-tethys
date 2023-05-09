@@ -5,6 +5,9 @@ import { Component, Input } from '@angular/core';
 import { DateCell } from './types';
 import { NgSwitch, NgSwitchCase, NgTemplateOutlet, NgSwitchDefault, NgIf } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[date-table-cell]',

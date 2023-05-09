@@ -8,9 +8,9 @@ import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
 
 /**
- * 日期选择组件，继承自 BasePickerComponent
+ * 日期选择组件
  * @name thy-date-picker
- * @order 30
+ * @order 10
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

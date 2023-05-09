@@ -11,6 +11,7 @@ import { ThyPanelMode } from './standard-types';
 /**
  * 年份选择组件
  * @name thy-year-picker
+ * @order 50
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,

@@ -10,9 +10,9 @@ import { ThyPickerComponent } from './picker.component';
 import { helpers } from 'ngx-tethys/util';
 
 /**
- * 日期范围选择组件，继承自 BasePickerComponent
+ * 日期范围选择组件
  * @name thy-range-picker
- * @order 40
+ * @order 60
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,8 +41,9 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
     @Input() thyMode: ThyPanelMode = 'date';
 
     /**
-     * * 已废弃，请使用 thyShortcutPresets
+     * 已废弃，请使用 thyShortcutPresets
      * @deprecated
+     * @type ThyShortcutRange[]
      */
     @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {

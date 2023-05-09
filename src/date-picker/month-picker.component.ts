@@ -11,6 +11,7 @@ import { ThyPanelMode } from './standard-types';
 /**
  * 月份选择组件
  * @name thy-month-picker
+ * @order 40
  */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
