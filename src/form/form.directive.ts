@@ -75,7 +75,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     /**
-     * Enter 键提交模式， submit | alwaysSubmit | forbidSubmit， 默认 submit。submit: Textarea 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； alwaysSubmit: 不管是什么元素 Enter 都提交； forbidSubmit: Enter 不提交
+     * Enter 键提交模式。`submit`: Textarea 需要 Ctrl | Command + Enter 提交，其他元素直接 Enter 提交； `alwaysSubmit`: 不管是什么元素 Enter 都提交； `forbidSubmit`: Enter 不提交
+     * @type submit | alwaysSubmit | forbidSubmit
      * @default submit
      */
     @Input() thyEnterKeyMode: ThyEnterKeyMode;

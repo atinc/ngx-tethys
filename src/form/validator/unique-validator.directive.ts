@@ -5,7 +5,9 @@ import { map, catchError } from 'rxjs/operators';
 import { ThyFormDirective } from '../form.directive';
 
 /**
+ * 用于校验表单控件的输入值是否已经存在
  * @name thyUniqueCheck
+ * @order 20
  */
 @Directive({
     selector: '[thyUniqueCheck]',
