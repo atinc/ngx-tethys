@@ -146,6 +146,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     /**
      * 宽度是否可以拖拽
+     * @default false
      */
     @Input() @InputBoolean() thyDraggable: boolean = false;
 
@@ -156,6 +157,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     /**
      * 展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态
+     * @type null | undefined | TemplateRef<any>
      * @default undefined
      */
     @Input() thyTrigger: null | undefined | TemplateRef<any> = undefined;

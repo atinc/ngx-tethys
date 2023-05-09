@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-content-section',
     preserveWhitespaces: false,

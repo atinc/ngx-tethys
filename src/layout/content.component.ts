@@ -1,8 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
- * 布局内容组件
- * @name thy-content
+ * @private
  */
 @Component({
     selector: 'thy-content',

@@ -32,7 +32,7 @@ export class ThyHeaderComponent implements OnInit {
     divided = false;
 
     /**
-     * 底部是否有分割线
+     * 底部是否有分割线，已废弃，请使用 thyDivided
      * @deprecated please use thyDivided
      */
     @Input('thyHasBorder')
@@ -84,11 +84,12 @@ export class ThyHeaderComponent implements OnInit {
 
     /**
      * 底部是否有阴影
+     * @default false
      */
     @Input() @InputBoolean() thyShadow = false;
 
     /**
-     * 头部自定义标题模板，，<ng-template #headerTitle></ng-template>
+     * 头部自定义标题模板，<ng-template #headerTitle></ng-template>
      * @type TemplateRef
      */
     @ContentChild('headerTitle')

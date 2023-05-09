@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-sidebar-content',
     template: ` <ng-content></ng-content> `,
