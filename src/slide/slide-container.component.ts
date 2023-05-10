@@ -12,6 +12,9 @@ import { NgZone, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Re
 import { thySlideAnimations } from './slide-animations';
 import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-slide-container',
     template: ` <ng-template cdkPortalOutlet></ng-template> `,

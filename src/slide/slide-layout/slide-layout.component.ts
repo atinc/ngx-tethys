@@ -1,5 +1,8 @@
 import { Component, ViewEncapsulation, OnInit, HostBinding } from '@angular/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-slide-layout',
     template: '<ng-content></ng-content>',

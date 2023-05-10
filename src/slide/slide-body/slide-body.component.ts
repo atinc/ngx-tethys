@@ -1,8 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
 /**
- * 滑动弹出框的主体组件
- * @name thy-slide-body
+ * @private
  */
 @Component({
     selector: 'thy-slide-body',

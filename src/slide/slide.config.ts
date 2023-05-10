@@ -23,6 +23,7 @@ export type ThySlideMode = 'over' | 'push' | 'side';
 export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {
     /**
      * Origin Element, for overlay flexible connected to
+     * @type ElementRef<any> | HTMLElement | any
      */
     origin?: ElementRef<any> | HTMLElement | any;
 
@@ -40,12 +41,14 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
 
     /**
      * set class to trigger element.
+     * @type string | string[]
      */
     originActiveClass?: string | string[];
 
     /**
      * slide 弹出的容器，可传入id,HTMLElement or ElementRef<HTMLElement>
      * @description.en-us set the drawerContainer by id、HTMLElement or ElementRef<HTMLElement>. e.g. drawerContainer = '#offset-host'
+     * @type string | HTMLElement | ElementRef<HTMLElement>
      */
     drawerContainer?: string | HTMLElement | ElementRef<HTMLElement>;
 
