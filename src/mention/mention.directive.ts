@@ -48,6 +48,7 @@ export class ThyMentionDirective implements OnInit, OnDestroy {
 
     /**
      * 提及输入配置参数，同时支持多个提及规则
+     * @type Mention<any>[]
      */
     @Input('thyMention') set mentions(value: Mention<any>[]) {
         this._mentions = value;
