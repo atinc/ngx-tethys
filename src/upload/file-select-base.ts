@@ -23,6 +23,14 @@ export class FileSelectBaseDirective {
         }
     }
 
+    /**
+     * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
+     */
+    @Input()
+    set thyAcceptType(value: Array<string> | string) {
+        this.acceptType = mimeTypeConvert(value);
+    }
+
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,

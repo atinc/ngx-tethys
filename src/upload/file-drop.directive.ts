@@ -38,11 +38,6 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         this.dragOverCustomClass = value;
     }
 
-    @Input()
-    set thyAcceptType(value: Array<string> | string) {
-        this.acceptType = mimeTypeConvert(value);
-    }
-
     @Output() thyOnDrop = new EventEmitter();
 
     private ngUnsubscribe$ = new Subject<void>();
