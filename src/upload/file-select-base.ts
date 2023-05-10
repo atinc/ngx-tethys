@@ -38,7 +38,7 @@ export class FileSelectBaseDirective {
     ) {
         this.sizeThreshold = defaultConfig.sizeThreshold;
         this.sizeExceedsHandler = defaultConfig.sizeExceedsHandler;
-        this.acceptType = defaultConfig.acceptType;
+        this.acceptType = mimeTypeConvert(defaultConfig.acceptType);
     }
 
     handleSizeExceeds(event: Event, files: File[]) {
