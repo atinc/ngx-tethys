@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component, Input, TemplateRef, ViewEncapsulation } from '@angular/core';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-tab-content, [thyTabContent]',
     exportAs: 'thyTabContent',
