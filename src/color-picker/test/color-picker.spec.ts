@@ -26,6 +26,9 @@ import { ThyColorPickerModule } from '../module';
             [thyHasBackdrop]="hasBackdrop"
             thyColorPicker
             [(ngModel)]="color"
+            [thyTrigger]="trigger"
+            [thyShowDelay]="showDelay"
+            [thyHideDelay]="hideDelay"
             (ngModelChange)="change($event)"
             (thyPanelOpen)="panelOpen()"
             (thyPanelClose)="panelClose()"
@@ -50,6 +53,12 @@ class ThyDemoColorPickerComponent {
     defaultPanelColor = '#fafafa';
 
     hasBackdrop = true;
+
+    trigger = 'click';
+
+    showDelay = 0;
+
+    hideDelay = 0;
 
     presetColors: string[];
 
@@ -199,11 +208,12 @@ describe(`color-picker`, () => {
             fixture.detectChanges();
             flush();
         }
+
         it('should create', () => {
             expect(fixtureInstance).toBeDefined();
         });
 
-        it('should open color-picke default panel', fakeAsync(() => {
+        it('should open color-picker default panel', fakeAsync(() => {
             openDefaultPanel();
             expect(overlayContainerElement).toBeTruthy();
             fixture.detectChanges();
@@ -215,22 +225,83 @@ describe(`color-picker`, () => {
             expect(colorDefaultPanelElement).toBeTruthy();
         }));
 
-        it('should open color-picker default panel with preset colors', fakeAsync(() => {
-            fixture.componentInstance.presetColors = DEFAULT_COLORS.slice(0, 1);
+        it('should open color-picker panel when trigger is hover', fakeAsync(() => {
+            fixtureInstance.trigger = 'hover';
+            fixtureInstance.hasBackdrop = false;
             fixture.detectChanges();
-            openDefaultPanel();
-            expect(overlayContainerElement).toBeTruthy();
+            dispatchMouseEvent(boxElement, 'mouseenter');
             fixture.detectChanges();
-            const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
-            expect(overlayPaneElement).toBeTruthy();
+            flush();
+
+            const defaultColorPanel = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            expect(defaultColorPanel).toBeTruthy();
+
+            dispatchMouseEvent(defaultColorPanel, 'mousemove');
+            expect(defaultColorPanel).toBeTruthy();
+
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            expect(moreButton).toBeTruthy();
+            dispatchMouseEvent(moreButton, 'click');
             fixture.detectChanges();
-            expect(overlayPaneElement.style.width).toEqual('286px');
-            const colorDefaultPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
-            expect(colorDefaultPanelElement).toBeTruthy();
-            const thyColor = new ThyColor(DEFAULT_COLORS.slice(0, 1)[0]).rgba;
-            expect((overlayContainerElement.querySelector('.color-item') as HTMLElement).style.background).toEqual(
-                `rgb(${thyColor.red}, ${thyColor.green}, ${thyColor.blue})`
-            );
+            flush();
+            const customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+
+            dispatchMouseEvent(customColorPanelElement, 'mousemove');
+            expect(defaultColorPanel).toBeTruthy();
+            expect(customColorPanelElement).toBeTruthy();
+        }));
+
+        it('should close color-picker panel when mouseleave', fakeAsync(() => {
+            fixtureInstance.trigger = 'hover';
+            fixtureInstance.hasBackdrop = false;
+            fixture.detectChanges();
+
+            dispatchMouseEvent(boxElement, 'mouseenter');
+            fixture.detectChanges();
+            flush();
+            let defaultColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            const moreButton: HTMLElement = overlayContainerElement.querySelector('.more-color');
+            expect(moreButton).toBeTruthy();
+
+            dispatchMouseEvent(moreButton, 'click');
+            fixture.detectChanges();
+            flush();
+            let customColorPanelElement: HTMLElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+
+            expect(defaultColorPanelElement).toBeTruthy();
+            expect(customColorPanelElement).toBeTruthy();
+
+            const spanElement = fixture.debugElement.nativeElement.querySelector('span');
+            dispatchMouseEvent(spanElement, 'mousemove');
+            fixture.detectChanges();
+            flush();
+            defaultColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            customColorPanelElement = overlayContainerElement.querySelector('.thy-color-picker-custom-panel');
+            expect(defaultColorPanelElement).toBeFalsy();
+            expect(customColorPanelElement).toBeFalsy();
+        }));
+
+        it('should be able to override the show and hide delays', fakeAsync(() => {
+            fixtureInstance.showDelay = 500;
+            fixtureInstance.hideDelay = 500;
+            fixtureInstance.trigger = 'hover';
+            fixtureInstance.hasBackdrop = false;
+            fixture.detectChanges();
+            dispatchMouseEvent(boxElement, 'mouseenter');
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
+
+            tick(500);
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
+
+            const spanElement = fixture.debugElement.nativeElement.querySelector('span');
+            dispatchMouseEvent(spanElement, 'mousemove');
+            fixture.detectChanges();
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeTruthy();
+
+            tick(500);
+            expect(overlayContainerElement.querySelector('.thy-color-picker-panel')).toBeFalsy();
+            flush();
         }));
 
         it('should open picker panel', fakeAsync(() => {
@@ -282,8 +353,9 @@ describe(`color-picker`, () => {
             colorPickerDebugElement.componentInstance.colorPicker.hide();
             fixture.detectChanges();
             tick(100);
-            flush();
             fixture.detectChanges();
+            tick();
+            flush();
             expect(panelClose).toHaveBeenCalled();
         }));
 
@@ -326,6 +398,7 @@ describe(`color-picker`, () => {
             colorPickerDebugElement.componentInstance.colorPicker.hide();
             expect(overlayContainerElement.querySelector('thy-default-picker-active')).toBeFalsy();
             fixture.detectChanges();
+            flush();
         }));
     });
 });
@@ -505,6 +578,8 @@ describe('picker-panel', () => {
             fixture.detectChanges();
             fixtureInstance.pickerPanel.colorChangeEvent(new ThyColor('#ccc'));
             fixture.detectChanges();
+            const defaultColorPanel = overlayContainerElement.querySelector('.thy-color-picker-panel');
+            expect(defaultColorPanel).toBeFalsy();
             expect(fixtureInstance.color).toEqual('#CCCCCC');
         }));
     });
