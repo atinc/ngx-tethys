@@ -21,6 +21,7 @@ import { NgFor, NgTemplateOutlet } from '@angular/common';
 /**
  * 间距组件项，使用结构性指令 *thySpaceItem 传入模板
  * @name thySpaceItem
+ * @order 20
  */
 @Directive({
     selector: '[thySpaceItem]',
@@ -42,6 +43,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 /**
  * 间距组件
  * @name thy-space
+ * @order 10
  */
 @Component({
     selector: 'thy-space',
@@ -59,7 +61,7 @@ export class ThySpaceComponent extends _MixinBase implements OnInit, AfterConten
     private hostRenderer = useHostRenderer();
 
     /**
-     * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
+     * 大小，支持 `zero` | `xxs` | `xs` | `sm` | `md` | `lg` | `xlg` 和自定义数字大小
      * @type string | number
      */
     @Input() set thySize(size: ThySpacingSize) {
