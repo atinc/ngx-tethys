@@ -1,5 +1,8 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-tags',
     template: '<ng-content></ng-content>',
