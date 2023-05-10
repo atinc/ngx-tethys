@@ -23,6 +23,7 @@ export enum ThyDialogSizes {
 /**
  * 通过ThyDialog服务端打开模态框的配置
  * @description.en-us Configuration for opening a modal dialog with the ThyDialog service.
+ * @public
  * @order 20
  */
 export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<TData> {

@@ -28,7 +28,6 @@ import { NgIf, NgTemplateOutlet } from '@angular/common';
 export class DialogHeaderComponent implements OnInit {
     /**
      * 自定义头部模板
-     * @type TemplateRef
      */
     @ContentChild('dialogHeader')
     public headerTemplate: TemplateRef<any>;
