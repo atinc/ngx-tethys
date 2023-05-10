@@ -70,11 +70,13 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 是否只读
+     * @default false
      */
     @Input() @InputBoolean() thyDisabled = false;
 
     /**
      * 是否允许半选
+     * @default false
      */
     @Input() @InputBoolean() thyAllowHalf = false;
 
@@ -85,11 +87,13 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     /**
      * 自定义每项的提示信息
+     * @type string[]
      */
     @Input() thyTooltips: string[] = [];
 
     /**
      * 自定义模板，目前支持传单个模板或图标名称、数组(模板 | 图标名称)
+     * @type string | TemplateRef<any> | string[] | TemplateRef<any>[]
      */
     @Input('thyIconTemplate')
     set thyIconTemplate(value: string | TemplateRef<any> | string[] | TemplateRef<any>[]) {

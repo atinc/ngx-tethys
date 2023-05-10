@@ -4,6 +4,9 @@ import { NgTemplateOutlet } from '@angular/common';
 import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { InputBoolean } from 'ngx-tethys/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-rate-item, [thy-rate-item]',
     template: `
