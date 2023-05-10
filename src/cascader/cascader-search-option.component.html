@@ -1,0 +1,24 @@
+<label
+  *ngIf="multiple"
+  class="mr-1"
+  thyCheckbox
+  [disabled]="option.thyRowValue[option.thyRowValue.length - 1].disabled"
+  [ngModel]="active"
+  (click)="clickCheckbox($event)"
+  (ngModelChange)="toggleOption($event)"
+  [thyLabelText]="''"></label>
+
+<thy-breadcrumb thySeparator="slash">
+  <ng-container *ngFor="let label of option.labelList; index as i">
+    <ng-container *ngIf="option.thyRowValue[i].isLeaf && isOnlySelectLeaf; else notLeafOptionTpl">
+      <thy-breadcrumb-item
+        ><span>{{ label }}</span></thy-breadcrumb-item
+      >
+    </ng-container>
+    <ng-template #notLeafOptionTpl>
+      <thy-breadcrumb-item class="text-muted"
+        ><span>{{ label }}</span></thy-breadcrumb-item
+      >
+    </ng-template>
+  </ng-container>
+</thy-breadcrumb>

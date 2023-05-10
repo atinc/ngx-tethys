@@ -11,13 +11,15 @@ import { ThyDefaultColorExampleComponent } from './default-color/default-color.c
 import { ThyDisableTransparentColorExampleComponent } from './disable-transparent-color/disable-transparent-color.component';
 import { ThyPlacementExampleComponent } from './placement/placement.component';
 import { ThyPresetColorsExampleComponent } from './preset-colors/preset-colors.component';
+import { ThyTriggerExampleComponent } from './trigger/trigger.component';
 
 const COMPONENTS = [
     ThyBasicExampleComponent,
     ThyDefaultColorExampleComponent,
     ThyPresetColorsExampleComponent,
     ThyDisableTransparentColorExampleComponent,
-    ThyPlacementExampleComponent
+    ThyPlacementExampleComponent,
+    ThyTriggerExampleComponent
 ];
 
 @NgModule({

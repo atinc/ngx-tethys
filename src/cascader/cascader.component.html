@@ -2,6 +2,7 @@
   <ng-container *ngIf="thyShowInput">
     <div
       thySelectControl
+      [thyShowSearch]="thyShowSearch"
       [thySize]="thySize"
       [thyAllowClear]="true"
       [thySelectedOptions]="selected"
@@ -9,12 +10,12 @@
       (thyOnRemove)="removeSelectedItem($event)"
       (thyOnClear)="clearSelection($event)"
       (thyOnBlur)="onBlur($event)"
+      (thyOnSearch)="searchFilter($event)"
       [thyDisabled]="disabled"
       [thyIsMultiple]="thyMultiple"
       [thyPanelOpened]="menuVisible"
       [thyPlaceholder]="thyPlaceholder"
-      [customDisplayTemplate]="customDisplayTemplate"
-    >
+      [customDisplayTemplate]="customDisplayTemplate">
       <ng-template #customDisplayTemplate let-value>
         <span [ngClass]="labelCls">
           <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>
@@ -38,28 +39,43 @@
   (detach)="closeMenu()"
   (attach)="attached()"
   (positionChange)="positionChange($event)"
-  [cdkConnectedOverlayOpen]="menuVisible"
->
+  [cdkConnectedOverlayOpen]="menuVisible">
   <div [attr.tabindex]="-1" #menu [ngClass]="menuCls" [ngStyle]="thyMenuStyle" (mouseleave)="mouseleaveMenu($event)">
-    <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
-      <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
+    <ng-container *ngIf="!isShowSearchPanel">
+      <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">
+        <ul #cascaderOptionContainers *ngFor="let options of columns; let i = index" [ngClass]="menuColumnCls">
+          <li
+            #cascaderOptions
+            thy-cascader-option
+            *ngFor="let option of options; trackBy: trackByFn"
+            [option]="option"
+            [multiple]="thyMultiple"
+            [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
+            [labelProperty]="thyLabelProperty"
+            [active]="isActivatedOption(option, i)"
+            (toggleSelectChange)="clickOption(option, i, $event)"
+            (click)="clickOption(option, i, $event)"
+            (mouseover)="mouseoverOption(option, i, $event)"></li>
+        </ul>
+      </ng-container>
+      <ng-template #emptyPlaceholder>
+        <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
+      </ng-template>
+    </ng-container>
+    <ng-container *ngIf="isShowSearchPanel">
+      <ul class="thy-cascader-search-list py-3">
         <li
-          #cascaderOptions
-          thy-cascader-option
-          *ngFor="let option of options; trackBy: trackByFn"
-          [option]="option"
+          thy-cascader-search-option
+          *ngFor="let item of searchResultList"
           [multiple]="thyMultiple"
           [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
-          [labelProperty]="thyLabelProperty"
-          [active]="isActivatedOption(option, i)"
-          (toggleSelectChange)="clickOption(option, i, $event)"
-          (click)="clickOption(option, i, $event)"
-          (mouseover)="mouseoverOption(option, i, $event)"
-        ></li>
+          [option]="item"
+          [active]="item.selected"
+          (toggleSelectChange)="selectSearchResult($event)"></li>
+        <div *ngIf="!searchResultList.length">
+          <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
+        </div>
       </ul>
     </ng-container>
-    <ng-template #emptyPlaceholder>
-      <thy-empty class="thy-select-empty-content " thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
-    </ng-template>
   </div>
 </ng-template>
