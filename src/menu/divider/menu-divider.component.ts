@@ -1,5 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-menu-divider,[thy-menu-divider],[thyMenuDivider]',
     templateUrl: './menu-divider.component.html',
