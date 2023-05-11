@@ -59,7 +59,7 @@ $backdrop-animation-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1) !default;
         // in order for us to be able to measure it correctly.
         position: absolute;
         pointer-events: auto;
-        box-sizing: border-box;
+        box-sizing: content-box;
         z-index: $cdk-z-index-overlay;
 
         // For connected-position overlays, we set `display: flex` in
