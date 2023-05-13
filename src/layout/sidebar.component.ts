@@ -115,7 +115,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 宽度, 默认是 240px, 传入 lg 大小时宽度是300px
+     * 宽度，默认是 240px，传入 `lg` 大小时宽度是300px
      * @default 240px
      */
     @Input('thyWidth')
@@ -136,7 +136,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 是否和右侧隔离, 当为 true 时距右侧会有 margin, 同时边框会去掉
+     * 是否和右侧隔离，当为 true 时距右侧会有 margin，同时边框会去掉
      * @default false
      */
     @Input('thyIsolated')

@@ -25,14 +25,14 @@ export class ThySidebarHeaderComponent implements OnInit {
     thyTitle: string;
 
     /**
-     * 头部自定义操作模板，<ng-template #headerOperation></ng-template>
+     * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<unknown>;
 
     /**
-     * 头部自定义标题模板，<ng-template #headerTitle></ng-template>
+     * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerTitle')
