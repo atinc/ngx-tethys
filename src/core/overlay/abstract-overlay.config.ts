@@ -128,7 +128,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     closeOnNavigation? = true;
 
     /**
-     * 关闭弹窗前的回调函数，返回false可阻止关闭弹窗
+     * 关闭弹窗前的回调函数，返回 false 可阻止关闭弹窗
      */
     canClose?: (result?: unknown) => boolean;
 }
