@@ -78,8 +78,7 @@ export class ThySpaceComponent extends _MixinBase implements OnInit, AfterConten
 
     // @ClassBinding(`align-items-{{value}}`)
     /**
-     * 对齐方式，可选择 'start' | 'end' | 'baseline' | 'center'
-     * @type string
+     * 对齐方式，可选择 `start` | `end` | `baseline` | `center`
      */
     @Input()
     set thyAlign(align: string) {
