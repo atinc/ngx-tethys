@@ -10,6 +10,7 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
 /**
  * 折叠面板组件
  * @name thy-collapse
+ * @order 10
  */
 @Component({
     selector: 'thy-collapse',
@@ -31,7 +32,7 @@ export type ThyCollapsedIconPosition = 'left' | 'right';
 })
 export class ThyCollapseComponent implements OnInit {
     /**
-     * 折叠面板主题，支持 divided' | 'bordered' | 'ghost'
+     * 折叠面板主题，支持 `divided` | `bordered` | `ghost`
      */
     @Input() thyTheme: ThyCollapseTheme = 'divided';
 
