@@ -38,7 +38,7 @@ export class DialogHeaderComponent implements OnInit {
     @Input() thyTitle: string;
 
     /**
-     * 大小，只有大的详情页场景会使用 lg, 左右 padding 缩小至 20px
+     * 大小，只有大的详情页场景会使用 lg，左右 padding 缩小至 20px
      * @type lg | md
      * @default md
      */

@@ -40,7 +40,7 @@ export class ThyDialogConfig<TData = unknown> extends ThyAbstractOverlayConfig<T
     position?: ThyAbstractOverlayPosition;
 
     /**
-     * 模态框的大小，ThyDialogSizes: sm (400), md (660), lg (800), maxLg (980), superLg (94vw), full (全屏)
+     * 模态框的大小，ThyDialogSizes: sm (400)、md (660)、lg (800)、maxLg (980)、superLg (94vw)、full (全屏)
      * @default md
      * @description.en-us Dialog size md, lg, sm
      */
