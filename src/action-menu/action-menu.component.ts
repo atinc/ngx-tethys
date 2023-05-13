@@ -114,7 +114,7 @@ export class ThyActionMenuDividerComponent {
 }
 
 /**
- * @name thyActionMenuDividerTitle
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuDividerTitle]',

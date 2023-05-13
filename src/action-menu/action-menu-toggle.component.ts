@@ -53,6 +53,9 @@ export class ThyActionMenuToggleDirective {
         this._thyContainerClass = value;
     }
 
+    /**
+     * @type string | string[]
+     */
     @Input() thyOriginActiveClass: string | string[];
 
     constructor(private thyPopover: ThyPopover) {}

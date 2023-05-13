@@ -85,7 +85,7 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
 }
 
 /**
- * @name thyActionMenuItemIcon
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuItemIcon]',
@@ -98,7 +98,7 @@ export class ThyActionMenuItemIconDirective {
 }
 
 /**
- * @name thyActionMenuItemName
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuItemName]',
@@ -111,7 +111,7 @@ export class ThyActionMenuItemNameDirective {
 }
 
 /**
- * @name thyActionMenuItemMeta
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuItemMeta]',
@@ -124,7 +124,7 @@ export class ThyActionMenuItemMetaDirective {
 }
 
 /**
- * @name thyActionMenuItemInfo
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuItemInfo]',
@@ -137,7 +137,7 @@ export class ThyActionMenuItemInfoDirective {
 }
 
 /**
- * @name thyActionMenuItemExtendIcon
+ * @private
  */
 @Directive({
     selector: '[thyActionMenuItemExtendIcon]',
