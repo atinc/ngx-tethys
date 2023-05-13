@@ -94,6 +94,7 @@ export class ThyPaginationComponent implements OnInit {
 
     /**
      * 自定义分页页码，设置自定义分页页码后将不根据 Total 和 PageSize 来自动计算页码，完全以传入的页码为准
+     * @type number[]
      */
     @Input()
     set thyCustomPages(pages: number[]) {
@@ -179,6 +180,9 @@ export class ThyPaginationComponent implements OnInit {
         this.config.showSizeChanger = value;
     }
 
+    /**
+     * @type number[]
+     */
     @Input('thyPageSizeOptions')
     set pageSizeOptions(value: number[]) {
         this.config.pageSizeOptions = value;
