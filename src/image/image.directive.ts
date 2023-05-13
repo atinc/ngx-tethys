@@ -18,6 +18,7 @@ import { ThyImageService } from './image.service';
 /**
  * thyImage: 预览图片指令，只可绑定到 img 标签上
  * @name img[thyImage]
+ * @order 10
  */
 @Directive({
     selector: 'img[thyImage]',
