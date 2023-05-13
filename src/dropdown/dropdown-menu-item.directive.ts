@@ -10,6 +10,7 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 /**
  * 菜单项
  * @name thyDropdownMenuItem
+ * @order 30
  */
 @Directive({
     selector: '[thyDropdownMenuItem]',
@@ -73,6 +74,7 @@ export class ThyDropdownMenuItemDirective implements OnInit {
 
 /**
  * 设置为菜单项图标
+ * @private
  * @name thyDropdownMenuItemIcon
  */
 @Directive({
@@ -87,6 +89,7 @@ export class ThyDropdownMenuItemIconDirective {
 
 /**
  * 设置为菜单项名称
+ * @private
  * @name thyDropdownMenuItemName
  */
 @Directive({
@@ -101,6 +104,7 @@ export class ThyDropdownMenuItemNameDirective {
 
 /**
  * 设置为菜单项名称后的补充信息
+ * @private
  * @name thyDropdownMenuItemMeta
  */
 @Directive({
@@ -115,6 +119,7 @@ export class ThyDropdownMenuItemMetaDirective {
 
 /**
  * 设置为菜单项的描述
+ * @private
  * @name thyDropdownMenuItemDesc
  */
 @Directive({
@@ -129,6 +134,7 @@ export class ThyDropdownMenuItemDescDirective {
 
 /**
  * 菜单项的后置扩展图标，用于显示是否选中或者子菜单示意
+ * @private
  * @name thyDropdownMenuItemExtendIcon
  */
 @Directive({
@@ -144,6 +150,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
 /**
  * 菜单项是否激活指令
  * @name thyDropdownMenuItemActive
+ * @order 70
  */
 @Directive({
     selector: '[thyDropdownMenuItemActive]',

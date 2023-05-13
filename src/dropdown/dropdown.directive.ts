@@ -24,6 +24,7 @@ type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | Compone
 /**
  * thyDropdown 触发下拉菜单指令
  * @name thyDropdown
+ * @order 10
  */
 @Directive({
     selector: `[thyDropdown]`,
@@ -66,7 +67,6 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 打开延迟毫秒
-     * @type number
      * @default 100
      */
     @Input('thyShowDelay')
@@ -77,7 +77,6 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
 
     /**
      * 关闭延迟毫秒
-     * @type number
      * @default 100
      */
     @Input('thyHideDelay')
@@ -98,24 +97,19 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
 
     /**
-     * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
-     *
-     * @type ThyPlacement
+     * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
      * @default bottomLeft
      */
     @Input() thyPlacement: ThyPlacement;
 
     /**
      * 点击 dropdown-menu 内部是否关闭弹出框，会覆盖 thyPopoverOptions 中的 insideClosable
-     *
-     * @type boolean
      * @default true
      */
     @Input() @InputBoolean() thyMenuInsideClosable: boolean;
 
     /**
      * 弹出框 overlay panel 的类名
-     *
      * @type string | string[]
      */
     @Input() set thyPanelClass(value: string | string[]) {

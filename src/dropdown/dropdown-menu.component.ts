@@ -12,6 +12,9 @@ import { SafeAny } from 'ngx-tethys/types';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
+/**
+ * @private
+ */
 @Directive()
 export class ThyDropdownAbstractMenu {
     @HostBinding('class.thy-dropdown-menu') addDropdownMenuClass = true;
@@ -20,6 +23,7 @@ export class ThyDropdownAbstractMenu {
 /**
  * 下拉菜单组件
  * @name thy-dropdown-menu
+ * @order 20
  */
 @Component({
     selector: 'thy-dropdown-menu',
@@ -60,6 +64,7 @@ export class ThyDropdownMenuComponent {
 /**
  * 下拉菜单分组
  * @name thy-dropdown-menu-group
+ * @order 50
  */
 @Component({
     selector: 'thy-dropdown-menu-group',
@@ -89,6 +94,7 @@ export class ThyDropdownMenuGroupComponent {
 
 /**
  * 下拉菜单分割线
+ * @private
  * @name thy-dropdown-menu-divider
  */
 @Component({
