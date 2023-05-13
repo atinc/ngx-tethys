@@ -22,6 +22,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 /**
  * 导航项
  * @name thyNavItem
+ * @order 20
  */
 @Directive({
     selector: '[thyNavLink],[thyNavItem]',
