@@ -56,7 +56,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     strengthMap = JSON.parse(JSON.stringify(strengthMap));
 
     /**
-     * 组件标题，描述程度所指类型。
+     * 组件标题，描述程度所指类型
      */
     @Input()
     set titleKey(value: string) {
@@ -64,7 +64,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
-     * 程度最高值文本。
+     * 程度最高值文本
      * @default 最高
      */
     @Input()
@@ -73,7 +73,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
-     * 程度为高值时展示的文本。
+     * 程度为高值时展示的文本
      * @default 高
      */
     @Input()
@@ -82,7 +82,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
-     * 程度为中值时展示的文本。
+     * 程度为中值时展示的文本
      * @default 中
      */
     @Input()
@@ -91,7 +91,7 @@ export class ThyStrengthComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
-     * 程度为低值时展示的文本。
+     * 程度为低值时展示的文本
      * @default 低
      */
     @Input()
