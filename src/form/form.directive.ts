@@ -52,7 +52,7 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     private hostRenderer = useHostRenderer();
 
     /**
-     * 布局，默认水平居中 horizontal， 其他2种布局待开发
+     * 布局，默认水平居中 horizontal，其他2种布局待开发
      * @type horizontal | vertical | inline
      * @default horizontal
      */
