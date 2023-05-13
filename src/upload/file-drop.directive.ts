@@ -3,7 +3,6 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
-    Component,
     Directive,
     ElementRef,
     EventEmitter,
@@ -38,6 +37,9 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
         this.dragOverCustomClass = value;
     }
 
+    /**
+     * @type Array<string> | string
+     */
     @Input()
     set thyAcceptType(value: Array<string> | string) {
         this.acceptType = mimeTypeConvert(value);

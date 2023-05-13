@@ -3,6 +3,9 @@ import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone } from '@ang
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 
+/**
+ * @private
+ */
 @Directive()
 export class FileSelectBaseDirective {
     acceptType: string;

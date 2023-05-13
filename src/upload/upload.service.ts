@@ -19,6 +19,7 @@ export interface ThyUploadResponse {
 
 /**
  * 文件上传进度
+ * @public
  * @order 40
  */
 export interface ThyUploadFileProgress {
@@ -29,7 +30,7 @@ export interface ThyUploadFileProgress {
     status: ThyUploadStatus;
 
     /**
-     *进度百分比
+     * 进度百分比
      */
     percentage: number;
 
@@ -39,7 +40,7 @@ export interface ThyUploadFileProgress {
     speed?: number;
 
     /**
-     * 人类可读的上传速度, 比如: 120 kb/s
+     * 人类可读的上传速度，比如: 120 kb/s
      */
     speedHuman?: string;
 
@@ -59,13 +60,14 @@ export interface ThyUploadFileProgress {
     estimatedTime?: number | null;
 
     /**
-     * 人类可读的上传时间, 比如: 00:12:23
+     * 人类可读的上传时间，比如: 00:12:23
      */
     estimatedTimeHuman?: string | null;
 }
 
 /**
  * 文件上传对象
+ * @public
  * @order 30
  */
 export interface ThyUploadFile {
