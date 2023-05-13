@@ -28,14 +28,14 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
     origin?: ElementRef<any> | HTMLElement | any;
 
     /**
-     * slide 进场的方向,可选 left | right | top | bottom
+     * slide 进场的方向，可选 left | right | top | bottom
      * @description.en-us set the direction when slide enter
      * @default right
      */
     from?: ThySlideFromTypes;
 
     /**
-     * 从距离屏幕边缘 offset 出滑入滑出, 单位 px
+     * 从距离屏幕边缘 offset 出滑入滑出，单位 px
      */
     offset?: number;
 
@@ -46,14 +46,14 @@ export class ThySlideConfig<TData = unknown> extends ThyAbstractOverlayConfig<TD
     originActiveClass?: string | string[];
 
     /**
-     * slide 弹出的容器，可传入id,HTMLElement or ElementRef<HTMLElement>
+     * slide 弹出的容器，可传入id、HTMLElement 或 ElementRef<HTMLElement>
      * @description.en-us set the drawerContainer by id、HTMLElement or ElementRef<HTMLElement>. e.g. drawerContainer = '#offset-host'
      * @type string | HTMLElement | ElementRef<HTMLElement>
      */
     drawerContainer?: string | HTMLElement | ElementRef<HTMLElement>;
 
     /**
-     * slide 进场的方向,可选  push | over | slide
+     * slide 进场的方向，可选  push | over | slide
      * @description.en-us set the render way. one of 'over' or 'push'. Default is 'over'
      * @default over
      */
