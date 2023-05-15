@@ -1,7 +1,8 @@
 import { Directive, ElementRef } from '@angular/core';
 
 /**
- * @private
+ * @name thyDrawerContainer
+ * @order 60
  */
 @Directive({
     selector: '[thyDrawerContainer]',

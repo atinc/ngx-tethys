@@ -1,7 +1,8 @@
 import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 
 /**
- * @private
+ * @name thy-layout
+ * @order 5
  */
 @Component({
     selector: 'thy-layout',

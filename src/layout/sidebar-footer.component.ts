@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 /**
- * @private
+ * @name thy-sidebar-footer
+ * @order 35
  */
 @Component({
     selector: 'thy-sidebar-footer',

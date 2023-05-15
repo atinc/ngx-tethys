@@ -1,7 +1,8 @@
 import { Component, HostBinding } from '@angular/core';
 
 /**
- * @private
+ * @name thy-list-item,[thy-list-item]
+ * @order 15
  */
 @Component({
     selector: 'thy-list-item,[thy-list-item]',

@@ -94,7 +94,6 @@ export class ThyDropdownMenuGroupComponent {
 
 /**
  * 下拉菜单分割线
- * @private
  * @name thy-dropdown-menu-divider
  */
 @Component({

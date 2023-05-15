@@ -7,6 +7,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 /**
  * 布局头部组件
  * @name thy-header
+ * @order 10
  */
 @Component({
     selector: 'thy-header',

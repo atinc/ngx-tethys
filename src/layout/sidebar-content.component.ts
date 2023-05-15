@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 /**
- * @private
+ * @name thy-sidebar-content
+ * @order 30
  */
 @Component({
     selector: 'thy-sidebar-content',

@@ -1,7 +1,7 @@
 import { Component, HostBinding } from '@angular/core';
 
 /**
- * @private
+ * @name thy-property-operation-group
  */
 @Component({
     selector: 'thy-property-operation-group',

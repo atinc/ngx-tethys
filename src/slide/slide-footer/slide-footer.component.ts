@@ -1,7 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 /**
- * @private
+ * @name thy-slide-footer
+ * @order 55
  */
 @Component({
     selector: 'thy-slide-footer',

@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 /**
- * @private
+ * @name thy-content-main
+ * @order 45
  */
 @Component({
     selector: 'thy-content-main',

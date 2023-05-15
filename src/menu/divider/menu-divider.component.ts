@@ -1,7 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 /**
- * @private
+ * @name thy-menu-divider,[thy-menu-divider],[thyMenuDivider]
  */
 @Component({
     selector: 'thy-menu-divider,[thy-menu-divider],[thyMenuDivider]',

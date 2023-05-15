@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 /**
- * @private
+ * @name thy-tags
  */
 @Component({
     selector: 'thy-tags',

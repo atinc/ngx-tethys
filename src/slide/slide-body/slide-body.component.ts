@@ -1,7 +1,8 @@
 import { Component, HostBinding } from '@angular/core';
 
 /**
- * @private
+ * @name thy-slide-body
+ * @order 45
  */
 @Component({
     selector: 'thy-slide-body',

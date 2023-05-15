@@ -11,6 +11,7 @@ export enum ActionEnum {
 
 /**
  * @name thyActionMenuToggle
+ * @order 70
  */
 @Directive({
     selector: '[thyActionMenuToggle]',
