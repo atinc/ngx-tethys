@@ -47,4 +47,9 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     ]
 };
 
-export const THY_DATE_PICKER_CONFIG_TOKEN = new InjectionToken<ThyDatePickerConfig>('thy-date-picker-config');
+export const THY_DATE_PICKER_CONFIG = new InjectionToken<ThyDatePickerConfig>('thy-date-picker-config');
+
+export const THY_DATE_PICKER_CONFIG_PROVIDER = {
+    provide: THY_DATE_PICKER_CONFIG,
+    useValue: DEFAULT_DATE_PICKER_CONFIG
+};
