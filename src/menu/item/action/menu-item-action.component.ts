@@ -6,6 +6,7 @@ import { ThyPopover } from 'ngx-tethys/popover';
 /**
  * 菜单项操作组件
  * @name thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]
+ * @order 25
  */
 @Component({
     selector: 'thy-menu-item-action,[thy-menu-item-action],[thyMenuItemAction]',

@@ -6,6 +6,9 @@ export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
     return new DateHelperByDatePipe();
 }
 
+/**
+ * @private
+ */
 @Injectable({
     providedIn: 'root',
     useFactory: DATE_HELPER_SERVICE_FACTORY

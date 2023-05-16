@@ -21,6 +21,11 @@ interface Style {
     animation?: string;
 }
 
+/**
+ * 骨架屏矩形组件
+ * @name thy-skeleton-rectangle
+ * @order 20
+ */
 @Component({
     selector: 'thy-skeleton-rectangle',
     host: {

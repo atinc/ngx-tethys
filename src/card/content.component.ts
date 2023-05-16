@@ -32,7 +32,7 @@ export class ThyCardContentComponent implements OnInit {
     @HostBinding('class.thy-card-content--sm') _thySizeSm = false;
 
     /**
-     * 已废弃，Content 大小, sm 时 padding-top 间距变小
+     * 已废弃，Content 大小，sm 时 padding-top 间距变小
      * @deprecated
      * @default md
      */

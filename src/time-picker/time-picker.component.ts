@@ -84,7 +84,7 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     @Input() thyPlacement: ThyPlacement = 'bottomLeft';
 
     /**
-     * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
+     * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
      * @default HH:mm:ss
      */

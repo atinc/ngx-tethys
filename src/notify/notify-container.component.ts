@@ -5,6 +5,9 @@ import { ThyGlobalNotifyConfig, THY_NOTIFY_DEFAULT_CONFIG, THY_NOTIFY_DEFAULT_CO
 import { ThyNotifyComponent } from './notify.component';
 import { NgFor, AsyncPipe } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-notify-container',
     templateUrl: './notify-container.component.html',

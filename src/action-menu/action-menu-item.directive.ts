@@ -85,6 +85,7 @@ export class ThyActionMenuItemDirective implements OnInit, OnDestroy {
 }
 
 /**
+ * 设置为菜单项图标
  * @name thyActionMenuItemIcon
  */
 @Directive({
@@ -98,6 +99,7 @@ export class ThyActionMenuItemIconDirective {
 }
 
 /**
+ * 设置为菜单项名称
  * @name thyActionMenuItemName
  */
 @Directive({
@@ -111,6 +113,7 @@ export class ThyActionMenuItemNameDirective {
 }
 
 /**
+ * 设置为菜单项名称后的补充信息
  * @name thyActionMenuItemMeta
  */
 @Directive({
@@ -124,6 +127,7 @@ export class ThyActionMenuItemMetaDirective {
 }
 
 /**
+ * 设置为菜单项的描述
  * @name thyActionMenuItemInfo
  */
 @Directive({
@@ -137,6 +141,7 @@ export class ThyActionMenuItemInfoDirective {
 }
 
 /**
+ * 菜单项的后置扩展图标，用于显示是否选中或者子菜单示意
  * @name thyActionMenuItemExtendIcon
  */
 @Directive({

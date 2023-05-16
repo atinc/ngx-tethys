@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 /**
  * 日历头部操作栏组件
  * @name thy-calendar-header
+ * @order 20
  */
 @Component({
     selector: 'thy-calendar-header',

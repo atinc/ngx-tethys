@@ -6,6 +6,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 自定义可拖拽区域内容
  * @name thy-drag-handle,[thyDragHandle]
+ * @order 20
  */
 @Directive({
     selector: 'thy-drag-handle,[thyDragHandle]',
@@ -20,11 +21,11 @@ export class ThyDragHandleDirective {
      */
     @Input('thyDisabled')
     @InputBoolean()
-    get disabled(): boolean {
-        return this._disabled;
-    }
     set disabled(value: boolean) {
         this._disabled = coerceBooleanProperty(value);
+    }
+    get disabled(): boolean {
+        return this._disabled;
     }
 
     constructor(public element: ElementRef<HTMLElement>, @Optional() drag: ThyDragDirective) {

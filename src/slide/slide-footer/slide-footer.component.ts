@@ -1,8 +1,8 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
 
 /**
- * 滑动弹出框的底部组件
  * @name thy-slide-footer
+ * @order 55
  */
 @Component({
     selector: 'thy-slide-footer',

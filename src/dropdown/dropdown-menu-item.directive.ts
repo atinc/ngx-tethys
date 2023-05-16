@@ -10,6 +10,7 @@ export type ThyDropdownMenuItemType = 'default' | 'danger' | 'success' | '';
 /**
  * 菜单项
  * @name thyDropdownMenuItem
+ * @order 30
  */
 @Directive({
     selector: '[thyDropdownMenuItem]',
@@ -144,6 +145,7 @@ export class ThyDropdownMenuItemExtendIconDirective {
 /**
  * 菜单项是否激活指令
  * @name thyDropdownMenuItemActive
+ * @order 70
  */
 @Directive({
     selector: '[thyDropdownMenuItemActive]',

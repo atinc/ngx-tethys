@@ -4,6 +4,9 @@ import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
 import { mimeTypeConvert } from './util';
 
+/**
+ * @private
+ */
 @Directive()
 export class FileSelectBaseDirective {
     acceptType: string;

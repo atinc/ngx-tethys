@@ -4,8 +4,9 @@ import { InputBoolean } from 'ngx-tethys/core';
 export type ThyMenuTheme = 'compact' | 'loose' | 'dark';
 
 /**
- * 菜单组件，支持`thy-menu,[thy-menu],[thyMenu]`三种形式
+ * 菜单组件
  * @name thy-menu,[thy-menu],[thyMenu]
+ * @order 5
  */
 @Component({
     selector: 'thy-menu,[thy-menu],[thyMenu]',

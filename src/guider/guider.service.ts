@@ -11,6 +11,7 @@ import { Overlay } from '@angular/cdk/overlay';
 
 /**
  * 新手引导服务
+ * @public
  * @order 10
  */
 @Injectable({

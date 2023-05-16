@@ -4,6 +4,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 /**
  * 菜单项图标组件
  * @name thy-menu-item-icon,[thy-menu-item-icon],[thyMenuItemIcon]
+ * @order 15
  */
 @Component({
     selector: 'thy-menu-item-icon,[thy-menu-item-icon],[thyMenuItemIcon]',

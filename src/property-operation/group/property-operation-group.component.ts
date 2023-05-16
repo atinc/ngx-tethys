@@ -1,5 +1,8 @@
 import { Component, HostBinding } from '@angular/core';
 
+/**
+ * @name thy-property-operation-group
+ */
 @Component({
     selector: 'thy-property-operation-group',
     templateUrl: './property-operation-group.component.html',

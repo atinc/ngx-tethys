@@ -64,12 +64,12 @@ export type ThyEmptyImageFetchPriority = 'high' | 'low' | 'auto';
 })
 export class ThyEmptyComponent implements OnInit, AfterViewInit, OnChanges {
     /**
-     * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高。
+     * 显示文本提示信息。同时传入 thyMessage，thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      */
     @Input() thyMessage: string;
 
     /**
-     * 显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高。
+     * 显示文本提示信息多语言 Key。同时传入 thyTranslationKey，thyEntityName，thyEntityNameTranslateKey 时优先级最高
      */
     @Input() thyTranslationKey: string;
 

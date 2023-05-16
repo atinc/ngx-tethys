@@ -131,8 +131,8 @@ export class ThyDialog extends ThyAbstractOverlayService<ThyDialogConfig, ThyDia
     }
 
     /**
-     * 获取与指定元素最接近的 ThyDialogRef
      * @description.en-us Finds the closest ThyDialogRef to an element by looking at the DOM.
+     * @description 获取与指定元素最接近的 ThyDialogRef
      */
     getClosestDialog(element: HTMLElement): ThyDialogRef<any> | undefined {
         let parent: HTMLElement | null = element.parentElement;

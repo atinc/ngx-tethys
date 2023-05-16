@@ -21,6 +21,11 @@ interface Style {
     animation?: string;
 }
 
+/**
+ * 骨架屏圆形组件
+ * @name thy-skeleton-circle
+ * @order 30
+ */
 @Component({
     selector: 'thy-skeleton-circle',
     host: {

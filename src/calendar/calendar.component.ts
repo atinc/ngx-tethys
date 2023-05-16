@@ -30,6 +30,7 @@ type CalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
 /**
  * 日历组件
  * @name thy-calendar
+ * @order 10
  */
 @Component({
     selector: 'thy-calendar',

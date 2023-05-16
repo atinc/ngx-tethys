@@ -4,6 +4,7 @@ import { ThyTranslate } from 'ngx-tethys/core';
 
 /**
  * @name thyFormGroupLabel
+ * @order 45
  */
 @Directive({
     selector: '[thyFormGroupLabel]',
