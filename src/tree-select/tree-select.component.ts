@@ -500,7 +500,9 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                 : this.selectedNode[this.thyPrimaryKey];
         }
         this.onChangeFn(this.selectedValue);
-        this.onTouchedFn();
+        if (!this.thyMultiple) {
+            this.onTouchedFn();
+        }
     }
 
     removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {

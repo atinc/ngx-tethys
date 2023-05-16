@@ -192,7 +192,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         this.loadingDone = true;
     }
 
-    initFormGroup(updateOn = 'blur') {
+    initFormGroup(updateOn = 'change') {
         this.formGroup = this.formBuilder.group(
             {
                 username: ['', [Validators.required, Validators.pattern('^[A-Za-z]{1}[0-9A-Za-z_]{1,19}')]],
@@ -200,7 +200,9 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 search: ['', [Validators.required]],
                 number: ['', [Validators.required]],
                 customersSelect: ['', [Validators.required]],
+                customersMultiSelect: [[], [Validators.required]],
                 treeSelect: ['', [Validators.required]],
+                treeSelectMulti: [[], [Validators.required]],
                 rate: ['', [Validators.required]],
                 switch: ['', [Validators.required]],
                 textarea: ['', [Validators.required]],
@@ -211,6 +213,9 @@ export class ThyFormReactiveExampleComponent implements OnInit {
             },
             { updateOn }
         );
+        this.formGroup.valueChanges.subscribe(data => {
+            console.log(data);
+        });
     }
 
     ngOnInit(): void {}

@@ -906,7 +906,9 @@ export class ThySelectCustomComponent
         if (wasSelected !== this.selectionModel.isSelected(option)) {
             this.emitModelValueChange();
         }
-        this.onTouchedFn();
+        if (!this.isMultiple) {
+            this.onTouchedFn();
+        }
         this.changeDetectorRef.markForCheck();
     }
 
