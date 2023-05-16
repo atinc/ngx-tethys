@@ -47,9 +47,9 @@ const COMPONENTS = [
                         title: '下周',
                         value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
                     }
-                ],
+                ]
             }
         }
-    ],
+    ]
 })
 export class ThyDatePickerExamplesModule {}

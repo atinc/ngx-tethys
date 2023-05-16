@@ -9,10 +9,7 @@ export class ThyDatePickerConfigService {
     private config: ThyDatePickerConfig;
 
     constructor(@Inject(THY_DATE_PICKER_CONFIG) config: ThyDatePickerConfig) {
-         this.config = {
-            ...DEFAULT_DATE_PICKER_CONFIG,
-            ...config
-        };
+        this.config = { ...DEFAULT_DATE_PICKER_CONFIG, ...config };
     }
 
     get shortcutDatePresets() {
