@@ -151,6 +151,7 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
     }
 
     ngOnDestroy() {
+        super.ngOnDestroy();
         this.focusMonitor.stopMonitoring(this.elementRef.nativeElement);
     }
 }
