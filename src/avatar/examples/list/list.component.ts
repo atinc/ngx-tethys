@@ -7,9 +7,34 @@ import { Component } from '@angular/core';
 export class ThyAvatarListExampleComponent {
     avatarSrc = 'assets/images/one-avatar.jpg';
 
+    names: string[] = [
+        'Abigail',
+        'Belle',
+        'Camilla',
+        'Dottie',
+        'Elva',
+        'Flora',
+        'Peter',
+        'Chan',
+        '王晨媛',
+        'Alle',
+        'Irene',
+        'Kathleen',
+        'Leila',
+        'LuLu',
+        'Mandy',
+        'Meg',
+        'Nan',
+        'Live',
+        'Pamela',
+        'Rebecca'
+    ];
+
     constructor() {}
 
-    remove(name: string) {
-        console.log(name, 'remove emit');
+    remove(event: Event, name: string) {
+        this.names = this.names.filter(item => {
+            return item !== name;
+        });
     }
 }
