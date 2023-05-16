@@ -3,6 +3,9 @@ import { SafeAny } from 'ngx-tethys/types';
 import { FunctionProp, isTemplateRef, TinyDate } from 'ngx-tethys/util';
 import { DateCell, DateBodyRow } from '../date/types';
 
+/**
+ * @private
+ */
 @Directive()
 export abstract class CalendarTable implements OnInit, OnChanges {
     isTemplateRef = isTemplateRef;

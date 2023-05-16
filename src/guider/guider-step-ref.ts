@@ -12,6 +12,7 @@ import { isPositionDataType } from './utils';
 const pointContainerSize = 28;
 
 /**
+ * @public
  * @order 50
  */
 export class ThyGuiderStepRef {

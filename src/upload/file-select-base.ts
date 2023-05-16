@@ -2,7 +2,11 @@ import { coerceNumberValue, isNumber } from 'ngx-tethys/util';
 import { Directive, ElementRef, EventEmitter, Inject, Input, NgZone } from '@angular/core';
 import { ThyFileSelectEvent, ThySizeExceedsHandler } from './types';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
+import { mimeTypeConvert } from './util';
 
+/**
+ * @private
+ */
 @Directive()
 export class FileSelectBaseDirective {
     acceptType: string;
@@ -22,6 +26,14 @@ export class FileSelectBaseDirective {
         }
     }
 
+    /**
+     * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
+     */
+    @Input()
+    set thyAcceptType(value: Array<string> | string) {
+        this.acceptType = mimeTypeConvert(value);
+    }
+
     constructor(
         public elementRef: ElementRef,
         @Inject(THY_UPLOAD_DEFAULT_OPTIONS) public defaultConfig: ThyUploadConfig,
@@ -29,6 +41,7 @@ export class FileSelectBaseDirective {
     ) {
         this.sizeThreshold = defaultConfig.sizeThreshold;
         this.sizeExceedsHandler = defaultConfig.sizeExceedsHandler;
+        this.acceptType = mimeTypeConvert(defaultConfig.acceptType);
     }
 
     handleSizeExceeds(event: Event, files: File[]) {

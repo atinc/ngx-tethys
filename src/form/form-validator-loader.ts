@@ -31,6 +31,9 @@ const globalValidationMessages = {
     min: '该选项输入值不能小于{min}'
 };
 
+/**
+ * @private
+ */
 @Injectable()
 export class ThyFormValidatorLoader {
     private config: ThyFormValidatorGlobalConfig;

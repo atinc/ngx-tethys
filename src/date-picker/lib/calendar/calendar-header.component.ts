@@ -21,6 +21,10 @@ export interface PanelSelector {
     label: string;
     onClick?(): void;
 }
+
+/**
+ * @private
+ */
 @Directive()
 export abstract class CalendarHeader implements OnInit, OnChanges {
     @Input() showSuperPreBtn: boolean = true;

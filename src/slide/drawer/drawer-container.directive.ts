@@ -2,6 +2,7 @@ import { Directive, ElementRef } from '@angular/core';
 
 /**
  * @name thyDrawerContainer
+ * @order 60
  */
 @Directive({
     selector: '[thyDrawerContainer]',

@@ -7,6 +7,7 @@ export interface MentionDefaultDataItem {
 }
 
 /**
+ * @public
  * @order 20
  */
 export interface Mention<T = unknown> {
@@ -17,11 +18,13 @@ export interface Mention<T = unknown> {
 
     /**
      * Mention 选择数据源
+     * @type T[]
      */
     data: T[];
 
     /**
      * Mention 列表自定义模板
+     * @type TemplateRef<{ data: T[] }>
      */
     suggestionsTemplateRef?: TemplateRef<{ data: T[] }>;
 
@@ -58,6 +61,7 @@ export interface Mention<T = unknown> {
 
     /**
      * 搜索函数，支持返回异步Observable数据
+     * @type (term: string, items?: T[]) => T[] | Observable<T[]>
      */
     search?: (term: string, items?: T[]) => T[] | Observable<T[]>;
 }

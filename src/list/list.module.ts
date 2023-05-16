@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ThyListComponent } from './list.component';
 import { ThyListItemComponent } from './list-item.component';
 import { ThySelectionListComponent } from './selection/selection-list';
-// import { ThyListOptionComponent } from './option/option';
 import { ThyOptionModule } from 'ngx-tethys/shared';
 import { ThyListItemMetaComponent } from './list-item-meta.component';
 import { ThyAvatarModule } from 'ngx-tethys/avatar';

@@ -4,6 +4,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 /**
  * 菜单项名称
  * @name thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]
+ * @order 20
  */
 @Component({
     selector: 'thy-menu-item-name,[thy-menu-item-name],[thyMenuItemName]',

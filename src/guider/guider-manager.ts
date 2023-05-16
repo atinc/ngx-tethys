@@ -1,6 +1,10 @@
 import { ThyGuiderRef } from './guider-ref';
 import { Injectable } from '@angular/core';
 
+/**
+ * @public
+ * @order 60
+ */
 @Injectable({
     providedIn: 'root'
 })

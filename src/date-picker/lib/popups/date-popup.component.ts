@@ -36,6 +36,9 @@ import { CalendarFooterComponent } from '../calendar/calendar-footer.component';
 import { DateCarouselComponent } from '../date-carousel/date-carousel.component';
 import { InnerPopupComponent } from './inner-popup.component';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

@@ -12,6 +12,9 @@ import {
 } from 'ngx-tethys/action-menu';
 import { NgIf, NgFor } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-range-optional',

@@ -43,7 +43,7 @@ export class ThyLoadingComponent {
     }
 
     /**
-     * 加载时是否启用嵌套遮罩模式，不传或穿false,没有遮罩层，加载完成出现内容
+     * 加载时是否启用嵌套遮罩模式，不传或传 false，没有遮罩层，加载完成出现内容
      */
     @Input()
     @InputBoolean()

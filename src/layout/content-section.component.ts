@@ -1,5 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
+/**
+ * @name thy-content-section
+ * @order 40
+ */
 @Component({
     selector: 'thy-content-section',
     preserveWhitespaces: false,

@@ -36,6 +36,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
 
 /**
  * 树形控件的节点组件
+ * @private
  * @name thy-tree-node
  */
 @Component({

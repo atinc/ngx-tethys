@@ -2,6 +2,7 @@ import { Type } from '@angular/core';
 import { ThyPlacement } from 'ngx-tethys/core';
 
 /**
+ * @public
  * @order 30
  */
 export interface ThyGuiderStep<TData = any> {
@@ -12,6 +13,7 @@ export interface ThyGuiderStep<TData = any> {
 
     /**
      * 步骤的目标DOM selectors，如果为 [number,number] 类型则是相对浏览器视窗的位置
+     * @type string | string[] | { x: number; y: number }
      */
     target?: string | string[] | { x: number; y: number };
 
@@ -43,6 +45,7 @@ export interface ThyGuiderStep<TData = any> {
 
 /**
  * 新手引导服务的配置项
+ * @public
  * @order 20
  */
 export class ThyGuiderConfig {
@@ -53,6 +56,7 @@ export class ThyGuiderConfig {
 
     /**
      * 新手引导步骤信息
+     * @type ThyGuiderStep[]
      */
     steps: ThyGuiderStep[];
 
@@ -78,11 +82,13 @@ export class ThyGuiderConfig {
 
     /**
      * 新手引导弹窗的自定义类
+     * @type string | string[]
      */
     hintClass?: string | string[];
 
     /**
      * 新手引导point的自定义类
+     * @type string | string[]
      */
     pointClass?: string | string[];
 }

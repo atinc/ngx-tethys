@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-avatar-list {
     display: inline-flex;
@@ -9,6 +9,12 @@
 
     .thy-avatar-content {
         position: relative;
+    }
+    &:not(.thy-avatar-list-overlap) {
+        .thy-avatar {
+            // same as AVATAR_ITEM_SPACE
+            margin-right: 6px;
+        }
     }
 }
 
@@ -21,6 +27,11 @@
                 border: 1px solid variables.$white;
             }
         }
+    }
+
+    .thy-avatar {
+        // same as OVERLAP_AVATAR_ITEM_SPACE
+        margin-left: -8px;
     }
 }
 

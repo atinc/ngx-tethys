@@ -9,6 +9,7 @@ import { helpers } from 'ngx-tethys/util';
 /**
  * 日期范围选择指令
  * @name thyRangePicker
+ * @order 70
  */
 @Directive({
     selector: '[thyRangePicker]',
@@ -26,8 +27,9 @@ export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     isRange = true;
 
     /**
-     * * 已废弃，请使用 thyShortcutPresets
+     * 已废弃，请使用 thyShortcutPresets
      * @deprecated
+     * @type ThyShortcutRange[]
      */
     @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {

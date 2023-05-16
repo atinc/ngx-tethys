@@ -4,6 +4,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
  * @name thyBgColor
+ * @order 30
  */
 @Directive({
     selector: '[thyBgColor]',
@@ -17,7 +18,7 @@ export class ThyBackgroundColorDirective {
 
     /**
      *  @type ThyThemeColor | ThyBgColor | string
-     *  @description 背景颜色，支持设置主题色和自定义颜色值，主题色为 primary、success、info、danger、warning、dark、secondary、light、lighter、bright、content、white、transparent
+     *  @description 背景颜色，支持设置主题色和自定义颜色值，主题色为 `primary`、`success`、`info`、`danger`、`warning`、`dark`、`secondary`、`light`、`lighter`、`bright`、`content`、`white`、`transparent`
      */
     @Input() set thyBgColor(value: ThyThemeColor | ThyBgColor | string) {
         this.clearBgColor();

@@ -26,8 +26,7 @@ import { ThyPanelMode, ThyShortcutValueChange } from './standard-types';
 import { CompatibleValue } from './inner-types';
 
 /**
- * 日期选择指令的抽象类
- * @order 50
+ * @private
  */
 @Directive()
 export abstract class PickerDirective extends AbstractPickerComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges {
@@ -36,13 +35,21 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 
     /**
-     * 模式，'decade' | 'year' | 'month' | 'date'
+     * 模式
+     * @type decade | year | month | date
      */
     @Input() thyMode: ThyPanelMode = 'date';
 
     panelMode: ThyPanelMode | ThyPanelMode[];
 
+    /**
+     * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
+     */
     @Output() readonly thyOnPanelChange = new EventEmitter<ThyPanelMode | ThyPanelMode[]>();
+
+    /**
+     * @type EventEmitter<Date[]>
+     */
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 
     private _showTime: object | boolean;
@@ -55,11 +62,13 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     /**
      * 是否展示时间(时、分)
+     * @default false
      */
     @Input() @InputBoolean() thyMustShowTime = false;
 
     /**
-     * 弹出位置，'top' | 'topLeft' | 'topRight' | 'bottom' | 'bottomLeft' | 'bottomRight' | 'left' | 'leftTop' | 'leftBottom' | 'right' | 'rightTop' | 'rightBottom'
+     * 弹出位置
+     * @type top | topLeft | topRight | bottom | bottomLeft | bottomRight | left | leftTop | leftBottom | right | rightTop | rightBottom
      */
     @Input() thyPlacement: ThyPlacement = 'bottom';
 
@@ -94,7 +103,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     /**
-     * popover的其他参数
+     * popover 的其他参数
      */
     @Input() thyPopoverOptions: ThyPopoverConfig;
 

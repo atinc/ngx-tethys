@@ -4,6 +4,10 @@ import { ThyFormDirective } from '../form.directive';
 import { ThyAlertComponent } from 'ngx-tethys/alert';
 import { NgClass, NgFor } from '@angular/common';
 
+/**
+ * @name thy-form-group-error
+ * @order 50
+ */
 @Component({
     selector: 'thy-form-group-error',
     templateUrl: './form-group-error.component.html',
@@ -16,6 +20,9 @@ export class ThyFormGroupErrorComponent implements OnInit {
 
     @Input() @InputBoolean() thyShowFirst = true;
 
+    /**
+     * @type string[]
+     */
     @Input()
     set thyErrors(errors: string[]) {
         this.errors = errors;

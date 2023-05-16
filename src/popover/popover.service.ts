@@ -238,8 +238,8 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
     }
 
     /**
-     * 通过 Dom 元素查找最近弹出的悬浮层
      * @description.en-us Finds the closest ThyPopoverRef to an element by looking at the DOM.
+     * @description 通过 Dom 元素查找最近弹出的悬浮层
      */
     getClosestPopover(element: HTMLElement): ThyPopoverRef<any> | undefined {
         const parent = element.closest('.thy-popover-container');

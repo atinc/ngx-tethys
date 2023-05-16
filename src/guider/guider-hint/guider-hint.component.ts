@@ -1,10 +1,13 @@
-import { HostBinding, Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { HostBinding, Component, OnInit, TemplateRef } from '@angular/core';
 import { ThyGuiderRef } from '../guider-ref';
 import { helpers } from 'ngx-tethys/util';
 import { defaultGuiderPositionConfig, ThyGuiderStep } from '../guider.class';
 import { ThyGuiderStepRef } from '../guider-step-ref';
 import { NgIf, NgTemplateOutlet, NgFor, NgClass } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-guider-hint',
     templateUrl: 'guider-hint.component.html',

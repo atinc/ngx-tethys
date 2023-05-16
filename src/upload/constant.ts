@@ -67,5 +67,6 @@ export const MIME_Map = {
     '.wps': 'application/vnd.ms-works',
     '.z': 'application/x-compress',
     '.zip': 'application/x-zip-compressed',
+    '.ico': 'image/vnd.microsoft.icon',
     '': '*/*'
 };

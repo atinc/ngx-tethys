@@ -9,6 +9,9 @@ import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm
 import { ERROR_VALUE_REPLACE_REGEX, ThyFormValidatorLoader } from './form-validator-loader';
 import { ThyFormValidatorConfig, ThyValidateOn } from './form.class';
 
+/**
+ * @private
+ */
 @Injectable()
 export class ThyFormValidatorService implements OnDestroy {
     private _ngForm: NgForm | FormGroupDirective;
