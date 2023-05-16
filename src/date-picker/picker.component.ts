@@ -22,6 +22,9 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-picker',
     exportAs: 'thyPicker',

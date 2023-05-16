@@ -5,6 +5,7 @@ import { ThyFileSizeExceedsContext, ThySizeExceedsHandler } from './types';
 export interface ThyUploadConfig {
     sizeThreshold?: number;
     sizeExceedsHandler?: ThySizeExceedsHandler;
+    acceptType?: string;
 }
 
 export const THY_UPLOAD_DEFAULT_OPTIONS = new InjectionToken<ThyUploadConfig>('thy-uploader-default-options');
@@ -12,6 +13,7 @@ export const THY_UPLOAD_DEFAULT_OPTIONS = new InjectionToken<ThyUploadConfig>('t
 export const THY_UPLOAD_DEFAULT_OPTIONS_PROVIDER = {
     provide: THY_UPLOAD_DEFAULT_OPTIONS,
     useValue: {
+        acceptType: '',
         sizeThreshold: 0,
         sizeExceedsHandler: sizeExceedsHandler
     }

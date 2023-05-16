@@ -9,6 +9,9 @@ import { AdvancedSelectableCell, RangeAdvancedValue } from '../../inner-types';
 import { DatePickerAdvancedShowYearTipPipe } from '../../picker.pipes';
 import { ThyDateGranularity } from '../../standard-types';
 
+/**
+ * @private
+ */
 @Component({
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: 'date-carousel',

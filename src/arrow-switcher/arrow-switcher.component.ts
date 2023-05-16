@@ -93,7 +93,7 @@ export class ThyArrowSwitcherComponent implements OnInit, ControlValueAccessor {
     }
 
     /**
-     * 尺寸大小,默认尺寸为大号，取值为sm时展示小号
+     * 尺寸大小，默认尺寸为大号，取值为`sm`时展示小号
      */
     @Input()
     set thySize(size: string) {

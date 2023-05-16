@@ -17,7 +17,7 @@ export interface ThyAbstractOverlayPosition {
 
 export class ThyAbstractOverlayConfig<TData = unknown> {
     /**
-     * 当前的组件的 viewContainerRef, 指定后弹出的组件的父注入器为当前组件的注入器
+     * 当前的组件的 viewContainerRef，指定后弹出的组件的父注入器为当前组件的注入器
      * @description.en-us Where the attached component should live in Angular's *logical* component tree.This affects what is available for injection and the change detection order for the component instantiated inside of the overlay. This does not affect where the overlay content will be rendered.
      */
     viewContainerRef?: ViewContainerRef;
@@ -50,7 +50,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     backdropClass?: string | string[] = '';
 
     /**
-     * 点击幕布或者按ESC键是否自动关闭弹出框，hasBackdrop=true时该参数起作用
+     * @description 点击幕布或者按ESC键是否自动关闭弹出框，hasBackdrop=true 时该参数起作用
      * @description.en-us Whether the user can use escape or clicking on the backdrop to close the overlay.
      */
     backdropClosable? = true;
@@ -128,7 +128,7 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     closeOnNavigation? = true;
 
     /**
-     * 关闭弹窗前的回调函数，返回false可阻止关闭弹窗
+     * 关闭弹窗前的回调函数，返回 false 可阻止关闭弹窗
      */
     canClose?: (result?: unknown) => boolean;
 }

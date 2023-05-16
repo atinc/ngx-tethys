@@ -18,7 +18,6 @@ import { DatePickerRequiredValidator, RangePickerRequiredValidator } from './pic
 import { ThyDatePickerFormatPipe, ThyDatePickerFormatStringPipe } from './picker.pipes';
 import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyRangePickerDirective } from './range-picker.directive';
-import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyDatePickerConfigService } from './date-picker.service';
 

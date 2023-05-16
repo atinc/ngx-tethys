@@ -3,7 +3,6 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
-    Component,
     Directive,
     ElementRef,
     EventEmitter,
@@ -19,7 +18,6 @@ import {
 
 import { FileSelectBaseDirective } from './file-select-base';
 import { THY_UPLOAD_DEFAULT_OPTIONS, ThyUploadConfig } from './upload.config';
-import { mimeTypeConvert } from './util';
 
 /**
  * @name thyFileDrop
@@ -36,11 +34,6 @@ export class ThyFileDropDirective extends FileSelectBaseDirective implements OnI
 
     @Input() set thyFileDropClassName(value: string) {
         this.dragOverCustomClass = value;
-    }
-
-    @Input()
-    set thyAcceptType(value: Array<string> | string) {
-        this.acceptType = mimeTypeConvert(value);
     }
 
     @Output() thyOnDrop = new EventEmitter();

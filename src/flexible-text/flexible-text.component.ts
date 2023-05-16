@@ -39,16 +39,16 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
     @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
     /**
-     * 自定义class类，如果不设置默认会包含flexible-text-container
+     * 自定义class类，如果不设置默认会包含 `flexible-text-container`
      */
     @Input('thyContainerClass')
-    get thyContainerClass(): string {
-        return this.containerClass;
-    }
-
     set thyContainerClass(value: string) {
         this.containerClass = value;
         this.updateContainerClass();
+    }
+
+    get thyContainerClass(): string {
+        return this.containerClass;
     }
 
     /**

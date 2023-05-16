@@ -3,6 +3,11 @@ import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@a
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
 
+/**
+ * 骨架屏段落组件
+ * @name thy-skeleton-paragraph
+ * @order 60
+ */
 @Component({
     selector: 'thy-skeleton-paragraph',
     template: `

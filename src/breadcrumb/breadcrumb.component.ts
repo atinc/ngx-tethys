@@ -5,6 +5,7 @@ import { NgIf, NgClass } from '@angular/common';
 /**
  * 面包屑组件
  * @name thy-breadcrumb
+ * @order 10
  */
 @Component({
     selector: 'thy-breadcrumb',

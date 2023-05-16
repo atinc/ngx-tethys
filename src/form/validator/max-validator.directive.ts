@@ -1,6 +1,10 @@
 import { Directive, Input, forwardRef } from '@angular/core';
 import { Validator, AbstractControl, NG_VALIDATORS, Validators, ValidatorFn } from '@angular/forms';
 
+/**
+ * @name max
+ * @order 30
+ */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[max][formControlName],[max][formControl],[max][ngModel]',

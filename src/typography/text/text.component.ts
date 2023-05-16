@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 /**
  * 文本组件
  * @name thy-text,[thyText]
+ * @order 10
  */
 @Component({
     selector: 'thy-text, [thyText]:not(thy-divider)',

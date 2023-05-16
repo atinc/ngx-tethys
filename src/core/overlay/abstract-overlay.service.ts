@@ -175,7 +175,7 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
     }
 
     /**
-     * 关闭弹出框, 若force为true,则canClose无效，强制关闭
+     * 关闭弹出框，若force为true，则canClose无效，强制关闭
      * @param result
      * @param force
      */

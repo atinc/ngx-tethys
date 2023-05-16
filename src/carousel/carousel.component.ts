@@ -67,7 +67,7 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @ViewChild('carouselWrapper', { static: true }) carouselWrapper: ElementRef<HTMLElement>;
 
     /**
-     * 是否自动切换,默认 false
+     * 是否自动切换，默认 false
      */
     @Input() @InputBoolean() thyAutoPlay: boolean = false;
 
@@ -94,7 +94,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     /**
      * 是否显示左右切换
-     * @type boolean
      */
     @Input() @InputBoolean() thyControls = true;
 
@@ -110,7 +109,6 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
 
     /**
      * 是否支持手势滑动
-     * @type boolean
      */
     @Input() @InputBoolean() thyTouchable = true;
 
@@ -127,12 +125,12 @@ export class ThyCarouselComponent implements OnInit, AfterViewInit, AfterContent
     @Input() thyPause: ThyCarouselPause = 'hover';
 
     /**
-     * 触发切换帧之前,返回 `{from: number, to: number}`
+     * 触发切换帧之前，返回 `{from: number, to: number}`
      */
     @Output() readonly thyBeforeChange = new EventEmitter<ThyCarouselSwitchData>();
 
     /**
-     * 切换帧之后的回调,返回当前帧索引
+     * 切换帧之后的回调，返回当前帧索引
      */
     @Output() readonly thyAfterChange = new EventEmitter<number>();
 

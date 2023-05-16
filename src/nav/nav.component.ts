@@ -62,6 +62,7 @@ const tabItemRight = 20;
 /**
  * 导航组件
  * @name thy-nav
+ * @order 10
  */
 @Component({
     selector: 'thy-nav',

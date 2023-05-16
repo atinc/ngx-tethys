@@ -5,6 +5,9 @@ import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateCell, DateBodyRow } from '../date/types';
 import { NgFor, NgClass, NgSwitch, NgSwitchCase } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

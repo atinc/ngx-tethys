@@ -30,6 +30,7 @@ export const DEFAULT_RESIZE_DIRECTION: ThyResizeDirection[] = [
 export class ThyResizeHandlesComponent implements OnChanges {
     /**
      * 定义调整手柄的方向
+     * @type ThyResizeDirection[]
      */
     @Input() thyDirections: ThyResizeDirection[] = DEFAULT_RESIZE_DIRECTION;
 

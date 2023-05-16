@@ -66,7 +66,7 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     }
 
     /**
-     * 进度条类型: 'primary' | 'success' | 'info' | 'warning' | 'danger'
+     * 进度条类型: `primary` | `success` | `info` | `warning` | `danger`
      */
     @Input() thyType: ThyProgressType = 'primary';
 
@@ -81,7 +81,8 @@ export class ThyProgressComponent implements ThyParentProgress, OnInit, OnChange
     }
 
     /**
-     * 进度值，传入数字时显示百分比 = value / max * 100, 当传入数组时显示多个 bar, stacked 模式的进度条
+     * 进度值，传入数字时显示百分比 = value / max * 100，当传入数组时显示多个 bar，stacked 模式的进度条
+     * @type number | ThyProgressStackedValue[]
      */
     @Input() set thyValue(value: number | ThyProgressStackedValue[]) {
         // 自动求和计算 max

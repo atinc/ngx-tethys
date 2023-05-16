@@ -44,8 +44,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 );
 
 /**
- * 日期选择的抽象组件
- * @order 10
+ * @private
  */
 @Directive()
 export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
@@ -59,13 +58,12 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     /**
      * 是否显示清除按钮
-     * @type boolean
      */
     @Input() @InputBoolean() thyAllowClear = true;
 
     /**
-     * 自动获取焦点
-     * @type boolean
+     * 是否自动获取焦点
+     * @default false
      */
     @Input() @InputBoolean() thyAutoFocus = false;
 
@@ -75,16 +73,19 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     /**
      * 最小值
+     * @type Date | number
      */
     @Input() thyMinDate: Date | number;
 
     /**
      * 最大值
+     * @type Date | number
      */
     @Input() thyMaxDate: Date | number;
 
     /**
      * 输入框提示文字
+     * @type string | string[]
      */
     @Input() thyPlaceHolder: string | string[];
 
@@ -117,13 +118,15 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     @Input() thyFormat: string;
 
     /**
-     * 是否取值开始日期的00:00以及截止日期的24:00
      * @description.en-us only for range picker, Whether to automatically take the beginning and ending unixTime of the day
+     * @description.zh-cn 是否取值开始日期的00:00以及截止日期的24:00
+     * @default false
      */
     @Input() @InputBoolean() thyAutoStartAndEnd = false;
 
     /**
      * 面板默认日期
+     * @type CompatibleDate | number | null
      */
     @Input() thyDefaultPickerValue: CompatibleDate | number | null = null;
 
@@ -132,14 +135,26 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      */
     @Input() thySuffixIcon = 'calendar';
 
+    /**
+     * 是否展示快捷选项面板
+     * @default false
+     */
     @Input() @InputBoolean() thyShowShortcut: boolean = false;
 
+    /**
+     * 快捷选项面板的显示位置
+     * @type left | bottom
+     */
     @Input() set thyShortcutPosition(position: ThyShortcutPosition) {
         if (!!position) {
             this.shortcutPosition = position;
         }
     }
 
+    /**
+     * 自定义快捷选项
+     * @type ThyShortcutPreset[]
+     */
     @Input() set thyShortcutPresets(presets: ThyShortcutPreset[]) {
         if (presets && helpers.isArray(presets)) {
             this.shortcutPresets = [...presets];

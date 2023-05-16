@@ -1,6 +1,6 @@
-import { FunctionProp, TinyDate, valueFunctionProp } from 'ngx-tethys/util';
+import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
 
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
 
 import { DateHelperService } from '../../date-helper.service';
 import { DateCell, DateBodyRow } from './types';
@@ -8,6 +8,9 @@ import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateTableCellComponent } from './date-table-cell.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

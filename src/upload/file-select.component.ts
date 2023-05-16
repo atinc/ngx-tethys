@@ -11,7 +11,7 @@ import { InputBoolean, InputNumber } from 'ngx-tethys/core';
 
 /**
  * 文件上传组件
- * @name [thyFileSelect],thy-file-select
+ * @name thy-file-select,[thyFileSelect]
  * @order 10
  */
 @Component({
@@ -59,6 +59,7 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
 
     /**
      * 指定文件后缀类型（MIME_Map），例如".xls,xlsx"，"[".doc",".docx"]"
+     * @type Array<string> | string
      */
     @Input()
     set thyAcceptType(value: Array<string> | string) {
@@ -66,7 +67,7 @@ export class ThyFileSelectComponent extends FileSelectBaseDirective implements O
     }
 
     /**
-     * 文件上传大小限制,单位`kb`，`0`表示没有任何限制
+     * 文件上传大小限制，单位`kb`，`0`表示没有任何限制
      */
     @Input()
     @InputNumber()

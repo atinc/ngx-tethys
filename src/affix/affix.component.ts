@@ -51,6 +51,7 @@ export class ThyAffixComponent implements AfterViewInit, OnChanges, OnDestroy {
     /**
      * 设置 thy-affix 需要监听其滚动事件的元素，值为一个返回对应 DOM 元素的函数
      * @default window
+     * @type string | Element | Window
      */
     @Input() thyContainer?: string | Element | Window;
 

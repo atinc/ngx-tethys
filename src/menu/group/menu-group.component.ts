@@ -22,6 +22,7 @@ import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 /**
  * 菜单分组组件
  * @name thy-menu-group,[thy-menu-group],[thyMenuGroup]
+ * @order 30
  */
 @Component({
     selector: 'thy-menu-group,[thy-menu-group],[thyMenuGroup]',

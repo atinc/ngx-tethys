@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 /**
  * 确认框配置
+ * @public
  * @order 70
  */
 export interface ThyConfirmConfig {

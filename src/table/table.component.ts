@@ -229,8 +229,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 表格展示方式，列表/分组/树
-     * @type 'list' | 'group' | 'tree'
-     * @default 'list'
+     * @type list | group | tree
+     * @default list
      */
     @Input()
     set thyMode(value: ThyTableMode) {
@@ -238,7 +238,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     /**
-     * thyMode的值为'group'时分组的 Key
+     * thyMode的值为 `group` 时分组的 Key
      */
     @Input()
     set thyGroupBy(value: string) {
@@ -279,7 +279,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     /**
-     * 表格的显示风格，bordered 时头部有背景色且分割线区别明显
+     * 表格的显示风格，`bordered` 时头部有背景色且分割线区别明显
      * @type default | bordered | boxed
      * @default default
      */
@@ -450,7 +450,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 每页显示条数下拉框可选项
-     * @default false
+     * @type number[]
      */
     @Input('thyPageSizeOptions')
     set pageSizeOptions(value: number[]) {

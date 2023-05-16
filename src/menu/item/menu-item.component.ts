@@ -5,6 +5,7 @@ import { NgIf } from '@angular/common';
 /**
  * 菜单项组件
  * @name thy-menu-item,[thy-menu-item],[thyMenuItem]
+ * @order 10
  */
 @Component({
     selector: 'thy-menu-item,[thy-menu-item],[thyMenuItem]',
