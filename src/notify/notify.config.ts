@@ -25,6 +25,7 @@ export interface ThyNotifyDetail {
 
 /**
  * 打开notify通知的配置
+ * @public
  * @order 10
  */
 export interface ThyNotifyConfig extends ThyMessageBaseConfig {

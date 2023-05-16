@@ -4,6 +4,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
  * @name thyTextColor
+ * @order 20
  */
 @Directive({
     selector: '[thyTextColor]',
@@ -17,7 +18,7 @@ export class ThyTextColorDirective implements OnInit {
 
     /**
      * @type ThyThemeColor | ThyTextColor | string
-     * @description 文本颜色，支持设置主题色和自定义颜色值，主题色为 default、primary、success、info、warning、danger、light、secondary、muted、desc、placeholder
+     * @description 文本颜色，支持设置主题色和自定义颜色值，主题色为 `default`、`primary`、`success`、`info`、`warning`、`danger`、`light`、`secondary`、`muted`、`desc`、`placeholder`
      */
     @Input() set thyTextColor(value: ThyThemeColor | ThyTextColor | string) {
         this.clearColor();

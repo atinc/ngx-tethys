@@ -51,7 +51,7 @@ export class ThyTimePanelComponent implements OnInit, OnDestroy, ControlValueAcc
     @ViewChild('secondListElement', { static: false }) secondListRef: ElementRef<HTMLElement>;
 
     /**
-     * 展示的日期格式, 支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
+     * 展示的日期格式，支持 'HH:mm:ss' | 'HH:mm' | 'mm:ss'
      * @type string
      * @default HH:mm:ss
      */

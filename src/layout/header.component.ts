@@ -7,6 +7,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 /**
  * 布局头部组件
  * @name thy-header
+ * @order 10
  */
 @Component({
     selector: 'thy-header',
@@ -32,7 +33,7 @@ export class ThyHeaderComponent implements OnInit {
     divided = false;
 
     /**
-     * 底部是否有分割线
+     * 底部是否有分割线，已废弃，请使用 thyDivided
      * @deprecated please use thyDivided
      */
     @Input('thyHasBorder')
@@ -84,25 +85,26 @@ export class ThyHeaderComponent implements OnInit {
 
     /**
      * 底部是否有阴影
+     * @default false
      */
     @Input() @InputBoolean() thyShadow = false;
 
     /**
-     * 头部自定义标题模板，，<ng-template #headerTitle></ng-template>
+     * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
 
     /**
-     * 头部自定义内容模板，<ng-template #headerContent></ng-template>
+     * 头部自定义内容模板，`<ng-template #headerContent></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerContent')
     public contentTemplateRef: TemplateRef<any>;
 
     /**
-     * 头部自定义操作模板，<ng-template #headerOperation></ng-template>
+     * 头部自定义操作模板，`<ng-template #headerOperation></ng-template>`
      * @type TemplateRef
      */
     @ContentChild('headerOperation')

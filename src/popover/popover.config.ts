@@ -24,7 +24,7 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     } & { width?: number; height?: number };
 
     /**
-     * 相对于源点的位置 topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...
+     * 相对于源点的位置，可选值：topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...
      * @description.en-us Placement be relative to origin, topCenter, topLeft, topRight, bottomCenter, bottomLeft, bottomRight ...
      */
     placement?: ThyPlacement;
@@ -61,7 +61,7 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     scrollStrategy?: ScrollStrategy;
 
     /**
-     * 点击popover外部是否自动关闭弹出框，hasBackdrop=false时该参数起作用
+     * 点击popover外部是否自动关闭弹出框，hasBackdrop=false 时该参数起作用
      * @description.en-us Click outside can been close
      */
     outsideClosable?: boolean;

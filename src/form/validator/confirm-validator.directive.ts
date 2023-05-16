@@ -8,6 +8,11 @@ export function confirmValidator(value: string): ValidatorFn {
     };
 }
 
+/**
+ * confirm validator，用于确认两次输入是否一致
+ * @name confirm
+ * @order 25
+ */
 @Directive({
     // eslint-disable-next-line @angular-eslint/directive-selector
     selector: '[confirm]',
@@ -15,6 +20,9 @@ export function confirmValidator(value: string): ValidatorFn {
     standalone: true
 })
 export class ThyConfirmValidatorDirective implements Validator {
+    /**
+     * 表单控件的校验值
+     */
     @Input() confirm: string;
 
     validate(control: AbstractControl) {

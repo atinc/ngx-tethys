@@ -27,28 +27,29 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     /**
-     * 弹框偏移量。
+     * 弹框偏移量
      * @type  number
      */
     @Input() @InputNumber() thyOffset: number = 0;
 
     /**
-     * 颜色选择面板是否有幕布。
+     * 颜色选择面板是否有幕布
      */
     @Input() @InputBoolean() thyHasBackdrop: boolean = true;
 
     /**
-     * 设置颜色选择面板的默认颜色选项值。
+     * 设置颜色选择面板的默认颜色选项值
      */
     @Input() thyDefaultColor: string;
 
     /**
-     * 是否显示'无填充色'选项。
+     * 是否显示'无填充色'选项
      */
     @Input() @InputBoolean() thyTransparentColorSelectable: boolean = true;
 
     /**
-     * 预设的快捷选择颜色。
+     * 预设的快捷选择颜色
+     * @type string[]
      */
     @Input() thyPresetColors: string[] = DEFAULT_COLORS;
 

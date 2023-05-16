@@ -5,6 +5,11 @@ import { NgFor } from '@angular/common';
 import { ThySkeletonCircleComponent } from '../skeleton-circle.component';
 import { ThySkeletonRectangleComponent } from '../skeleton-rectangle.component';
 
+/**
+ * 骨架屏无序列表组件
+ * @name thy-skeleton-bullet-list
+ * @order 50
+ */
 @Component({
     selector: 'thy-skeleton-bullet-list',
     template: `

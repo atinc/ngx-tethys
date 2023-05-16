@@ -29,7 +29,7 @@ export class ThyActionsComponent implements OnInit, AfterContentInit, OnChanges 
     @ContentChildren(ThyActionComponent) actions: QueryList<ThyActionComponent>;
 
     /**
-     * 大小，支持 'zero' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xlg' 和自定义数字大小
+     * 大小，支持 `zero` | `xxs` | `xs` | `sm` | `md` | `lg` | `xlg` 和自定义数字大小
      * @type string | number
      */
     @Input() thySize: ThySpacingSize = 'md';

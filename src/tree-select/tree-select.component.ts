@@ -152,6 +152,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
     /**
      * treeNodes 数据
+     * @type ThyTreeSelectNode[]
      */
     @Input()
     set thyTreeNodes(value: ThyTreeSelectNode[]) {
@@ -561,6 +562,9 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
 
 const DEFAULT_ITEM_SIZE = 40;
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-tree-select-nodes',
     templateUrl: './tree-select-nodes.component.html',

@@ -16,6 +16,7 @@ export interface ThyTransferModel {
 }
 
 /**
+ * @public
  * @order 20
  */
 export interface ThyTransferItem {

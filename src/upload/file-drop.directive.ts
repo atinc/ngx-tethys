@@ -3,7 +3,6 @@ import { fromEvent, Subject } from 'rxjs';
 import { filter, takeUntil, tap } from 'rxjs/operators';
 
 import {
-    Component,
     Directive,
     ElementRef,
     EventEmitter,

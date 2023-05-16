@@ -203,7 +203,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     @Input() thyTriggerAction: ThyCascaderTriggerType | ThyCascaderTriggerType[] = ['click'];
 
     /**
-     * 鼠标经过下方列表项时，是否自动展开列表, 支持 `click` | `hover`
+     * 鼠标经过下方列表项时，是否自动展开列表，支持 `click` | `hover`
      * @type ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[]
      */
     @Input() thyExpandTriggerAction: ThyCascaderExpandTrigger | ThyCascaderExpandTrigger[] = ['click'];
@@ -302,12 +302,14 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     @Input() @InputBoolean() thyShowSearch: boolean = false;
 
     /**
-     * 值发生变化时触发,返回选择项的值
+     * 值发生变化时触发，返回选择项的值
+     * @type EventEmitter<any[]>
      */
     @Output() thyChange = new EventEmitter<any[]>();
 
     /**
-     * 值发生变化时触发,返回选择项列表
+     * 值发生变化时触发，返回选择项列表
+     * @type EventEmitter<ThyCascaderOption[]>
      */
     @Output() thySelectionChange = new EventEmitter<ThyCascaderOption[]>();
 

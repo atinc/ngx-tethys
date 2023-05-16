@@ -12,6 +12,9 @@ import { slideAbstractOverlayOptions, ThySlideConfig } from './slide.config';
  */
 export abstract class ThySlideRef<T, TResult = unknown> extends ThyAbstractOverlayRef<T, ThySlideContainerComponent, TResult> {}
 
+/**
+ * @internal
+ */
 @Injectable()
 export class ThyInternalSlideRef<T = unknown, TResult = unknown>
     extends ThyAbstractInternalOverlayRef<T, ThySlideContainerComponent, TResult>

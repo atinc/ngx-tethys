@@ -10,6 +10,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
 
 /**
  * @name thy-drop-container,[thyDropContainer]
+ * @order 30
  */
 @Directive({
     selector: 'thy-drop-container,[thyDropContainer]',

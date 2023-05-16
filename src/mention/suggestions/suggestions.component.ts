@@ -11,6 +11,9 @@ import { ThyListOptionComponent } from 'ngx-tethys/shared';
 import { ThyLoadingComponent } from 'ngx-tethys/loading';
 import { NgIf, NgTemplateOutlet, NgFor, SlicePipe } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-mention-suggestions',
     templateUrl: './suggestions.component.html',

@@ -45,6 +45,7 @@ export class ThyTransferComponent implements OnInit {
 
     /**
      * 数据源
+     * @type ThyTransferItem[]
      */
     @Input()
     set thyData(value: ThyTransferItem[]) {
@@ -59,6 +60,7 @@ export class ThyTransferComponent implements OnInit {
 
     /**
      * title集合，title[0]为左标题，title[1]为右标题
+     * @type string[]
      */
     @Input()
     set thyTitles(value: string[]) {
@@ -104,10 +106,14 @@ export class ThyTransferComponent implements OnInit {
      */
     @Input() thyRightDraggable: boolean;
 
+    /**
+     * @type EventEmitter<ThyTransferDragEvent>
+     */
     @Output() thyDraggableUpdate: EventEmitter<ThyTransferDragEvent> = new EventEmitter<ThyTransferDragEvent>();
 
     /**
      * Transfer变化的回调事件
+     * @type EventEmitter<ThyTransferChangeEvent>
      */
     @Output() thyChange: EventEmitter<ThyTransferChangeEvent> = new EventEmitter<ThyTransferChangeEvent>();
 

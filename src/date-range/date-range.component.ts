@@ -34,6 +34,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     /**
      * 自定义可选值列表项
+     * @type DateRangeItemInfo[]
      */
     @Input()
     set thyOptionalDateRanges(value: DateRangeItemInfo[]) {
@@ -42,29 +43,30 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     /**
      * 隐藏下拉选择时间段
-     * @type boolean
+     * @default false
      */
     @Input() @InputBoolean() thyHiddenMenu = false;
 
     /**
      * 禁用左右切换时间段
-     * @type boolean
+     * @default false
      */
     @Input() @InputBoolean() thyDisabledSwitch = false;
 
     /**
      * 自定义日期选择的展示文字
-     * @type string
      */
     @Input() thyCustomTextValue = '自定义';
 
     /**
      * 自定义日期选择中可选择的最小时间
+     * @type Date | number
      */
     @Input() thyMinDate: Date | number;
 
     /**
      * 自定义日期选择中可选择的最大时间
+     * @type Date | number
      */
     @Input() thyMaxDate: Date | number;
 
@@ -86,6 +88,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     /**
      * 自定义日期选择日期回调
+     * @type EventEmitter<Date[]>
      */
     @Output() readonly thyOnCalendarChange = new EventEmitter<Date[]>();
 

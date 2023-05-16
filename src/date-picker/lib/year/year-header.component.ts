@@ -4,6 +4,9 @@ import { CalendarHeader, PanelSelector } from '../calendar/calendar-header.compo
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgFor } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

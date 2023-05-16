@@ -64,7 +64,7 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     @Input() thySize: ThySegmentSize = 'default';
 
     /**
-     * 模式，分别为
+     * 模式
      * @type block | inline
      */
     @Input() thyMode: ThySegmentMode = 'block';

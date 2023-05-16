@@ -19,6 +19,9 @@ import { ThyListComponent, ThyListItemComponent } from 'ngx-tethys/list';
 import { ThyDragDropDirective } from 'ngx-tethys/shared';
 import { InnerTransferDragEvent, ThyTransferDragEvent, ThyTransferItem, ThyTransferSelectEvent } from './transfer.interface';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-transfer-list',
     templateUrl: './transfer-list.component.html',

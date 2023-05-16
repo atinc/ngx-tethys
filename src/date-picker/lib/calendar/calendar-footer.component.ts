@@ -7,6 +7,9 @@ import { ThyInnerTimePickerComponent } from 'ngx-tethys/time-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     changeDetection: ChangeDetectionStrategy.OnPush,
     // eslint-disable-next-line @angular-eslint/component-selector

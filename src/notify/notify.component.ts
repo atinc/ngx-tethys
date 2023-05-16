@@ -8,6 +8,9 @@ import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf, NgClass, NgTemplateOutlet } from '@angular/common';
 
+/**
+ * @private
+ */
 @Component({
     selector: 'thy-notify',
     templateUrl: './notify.component.html',

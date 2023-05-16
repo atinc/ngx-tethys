@@ -299,7 +299,7 @@ export class ThySelectCustomComponent
     }
 
     /**
-     * 滚动加载是否可用, 只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
+     * 滚动加载是否可用，只能当这个参数可以，下面的thyOnScrollToBottom事件才会触发
      */
     @Input()
     @InputBoolean()
