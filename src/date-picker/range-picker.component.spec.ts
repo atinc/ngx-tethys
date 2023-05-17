@@ -12,6 +12,7 @@ import { By } from '@angular/platform-browser';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
+import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
 registerLocaleData(zh);
 
@@ -21,12 +22,38 @@ describe('ThyRangePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    const shortcutRangesPresets = [
+        {
+            title: '最近 7 天',
+            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
+        },
+        {
+            title: '最近 30 天',
+            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
+        },
+        {
+            title: '本周',
+            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfDay().getTime()]
+        },
+        {
+            title: '本月',
+            value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
+        }
+    ]
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule],
-            providers: [],
-            declarations: [ThyTestRangePickerComponent]
+            declarations: [ThyTestRangePickerComponent],
+            providers: [
+                {
+                    provide: THY_DATE_PICKER_CONFIG,
+                    useValue: {
+                        showShortcut: true,
+                        shortcutRangesPresets: shortcutRangesPresets
+                    }
+                }
+            ]
         });
 
         TestBed.compileComponents();
@@ -46,6 +73,18 @@ describe('ThyRangePickerComponent', () => {
     afterEach(() => {
         overlayContainer.ngOnDestroy();
     });
+
+    describe('range picker global config testing', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+        it('show should support', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            shortcutItems.forEach((shortcut, index) => {
+                expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
+            });
+        }))
+    })
 
     describe('general api testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
