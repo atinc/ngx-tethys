@@ -14,7 +14,7 @@ import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDatePickerShortcutExampleComponent } from './shortcut/shortcut.component';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { THY_DATE_PICKER_CONFIG } from 'ngx-tethys/date-picker/date-picker.config';
+import { THY_DATE_PICKER_CONFIG } from 'ngx-tethys/date-picker';
 import { addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
 const COMPONENTS = [
