@@ -33,7 +33,7 @@ describe('ThyDatePickerComponent', () => {
             title: '下周',
             value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
         }
-    ]
+    ];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -77,8 +77,8 @@ describe('ThyDatePickerComponent', () => {
             shortcutItems.forEach((shortcut, index) => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
             });
-        }))
-    })
+        }));
+    });
 
     describe('general api testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));

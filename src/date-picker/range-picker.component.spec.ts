@@ -39,7 +39,7 @@ describe('ThyRangePickerComponent', () => {
             title: '本月',
             value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
         }
-    ]
+    ];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -83,8 +83,8 @@ describe('ThyRangePickerComponent', () => {
             shortcutItems.forEach((shortcut, index) => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
             });
-        }))
-    })
+        }));
+    });
 
     describe('general api testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
