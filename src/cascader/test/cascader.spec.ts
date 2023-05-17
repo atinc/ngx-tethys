@@ -754,7 +754,36 @@ describe('thy-cascader', () => {
             expect(allSearchList.length).toBeGreaterThan(0);
             allSearchList.forEach(item => {
                 expect((item as HTMLElement).innerText).toMatch('xihu');
+                const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
+                expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
+                expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();
             });
+        }));
+
+        it('should not searched node that children is empty but not leaf', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+            const options = fixture.componentInstance.thyCustomerOptions;
+            options.push({
+                value: 'shandong',
+                label: 'shandong',
+                code: 37,
+                children: []
+            });
+
+            fixture.componentInstance.thyCustomerOptions = options;
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('shandong', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+            flush();
+            const emptyNode = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyNode).toBeTruthy();
+            expect(emptyNode.textContent).toContain(fixture.componentInstance.emptyStateText);
         }));
 
         it('should show empty when do not match any option', fakeAsync(() => {
@@ -1050,7 +1079,7 @@ describe('thy-cascader', () => {
             });
         });
 
-        it('should do nothing  after click activated option', fakeAsync(() => {
+        it('should do nothing after click activated option', fakeAsync(() => {
             fixture.componentInstance.isShowSearch = true;
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
