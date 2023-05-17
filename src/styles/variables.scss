@@ -1,5 +1,5 @@
-@use "sass:color";
-@use "sass:map";
+@use 'sass:color';
+@use 'sass:map';
 
 $thy-prefix: 'thy';
 
@@ -486,6 +486,9 @@ $avatar-sizes: map.merge(
     ),
     $avatar-sizes
 );
+// avatar-list
+$avatar-item-space: 4px !default;
+$overlap-avatar-item-space: -8px !default;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
@@ -1119,6 +1122,5 @@ $skeleton-row-width: 100%;
 $skeleton-primary-color: #f7f7f7;
 $skeleton-animated-interval: 1.5s;
 
-
 // Prevent style packing optimization
-$zero:0;
+$zero: 0;

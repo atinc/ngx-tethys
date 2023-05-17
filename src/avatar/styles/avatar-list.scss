@@ -12,8 +12,7 @@
     }
     &:not(.thy-avatar-list-overlap) {
         .thy-avatar {
-            // same as AVATAR_ITEM_SPACE
-            margin-right: 6px;
+            margin-right: variables.$avatar-item-space;
         }
     }
 }
@@ -30,8 +29,7 @@
     }
 
     .thy-avatar {
-        // same as OVERLAP_AVATAR_ITEM_SPACE
-        margin-left: -8px;
+        margin-left: variables.$overlap-avatar-item-space;
     }
 }
 
