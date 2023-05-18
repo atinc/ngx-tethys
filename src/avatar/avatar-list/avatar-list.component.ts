@@ -19,9 +19,9 @@ import { SafeAny } from 'ngx-tethys/types';
 import { Subject } from 'rxjs';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
 
-const AVATAR_ITEM_SPACE = 6;
+export const THY_AVATAR_ITEM_SPACE = 4;
 
-const OVERLAP_AVATAR_ITEM_SPACE = -8;
+export const THY_OVERLAP_AVATAR_ITEM_SPACE = -8;
 
 export const enum ThyAvatarListMode {
     overlap = 'overlap',
@@ -50,9 +50,9 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     public avatarRenderItems: ThyAvatarComponent[] = [];
 
-    public avatarSpace = AVATAR_ITEM_SPACE;
+    public avatarSpace = THY_AVATAR_ITEM_SPACE;
 
-    public avatarOverlapSpace = OVERLAP_AVATAR_ITEM_SPACE;
+    public avatarOverlapSpace = THY_OVERLAP_AVATAR_ITEM_SPACE;
 
     private ngUnsubscribe$ = new Subject<void>();
 

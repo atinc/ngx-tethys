@@ -1,4 +1,4 @@
-import { format, fromUnixTime, isSameDay } from 'date-fns';
+import { addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -14,6 +14,7 @@ import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
+import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
 registerLocaleData(zh);
 
@@ -23,11 +24,30 @@ describe('ThyDatePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+    const shortcutDatePresets = [
+        {
+            title: '今天',
+            value: startOfDay(new Date()).getTime()
+        },
+        {
+            title: '下周',
+            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+        }
+    ];
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule],
-            declarations: [ThyTestDatePickerComponent]
+            declarations: [ThyTestDatePickerComponent],
+            providers: [
+                {
+                    provide: THY_DATE_PICKER_CONFIG,
+                    useValue: {
+                        showShortcut: true,
+                        shortcutDatePresets: shortcutDatePresets
+                    }
+                }
+            ]
         });
 
         TestBed.compileComponents();
@@ -46,6 +66,18 @@ describe('ThyDatePickerComponent', () => {
 
     afterEach(() => {
         overlayContainer.ngOnDestroy();
+    });
+
+    describe('date picker global config testing', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+        it('show should support', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            shortcutItems.forEach((shortcut, index) => {
+                expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
+            });
+        }));
     });
 
     describe('general api testing', () => {

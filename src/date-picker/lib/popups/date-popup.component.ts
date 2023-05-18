@@ -120,7 +120,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.cdr.markForCheck();
     }
     initShortcutPresets(): void {
-        const { shortcutRangesPresets, shortcutDatePresets } = this.datePickerConfigService;
+        const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
+        this.showShortcut = this.showShortcut || showShortcut;
         if (this.showShortcut && !this.shortcutPresets) {
             this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
         }
