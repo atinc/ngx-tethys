@@ -1,5 +1,5 @@
-import { Inject, Injectable, Optional } from '@angular/core';
-import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG_TOKEN } from './date-picker.config';
+import { Inject, Injectable } from '@angular/core';
+import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
 /**
  * @private
@@ -8,8 +8,8 @@ import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG
 export class ThyDatePickerConfigService {
     private config: ThyDatePickerConfig;
 
-    constructor(@Optional() @Inject(THY_DATE_PICKER_CONFIG_TOKEN) config: ThyDatePickerConfig) {
-        this.config = Object.assign({}, DEFAULT_DATE_PICKER_CONFIG, config);
+    constructor(@Inject(THY_DATE_PICKER_CONFIG) config: ThyDatePickerConfig) {
+        this.config = { ...DEFAULT_DATE_PICKER_CONFIG, ...config };
     }
 
     get shortcutDatePresets() {
