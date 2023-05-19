@@ -127,7 +127,7 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
     /**
      * @private
      */
-    @ContentChild(ThyInputDirective, { static: true }) inputDirective: ThyInputDirective;
+    @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
 
     constructor(private thyTranslate: ThyTranslate, private elementRef: ElementRef, private focusMonitor: FocusMonitor) {
         super();
