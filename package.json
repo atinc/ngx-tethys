@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "15.3.1",
+  "version": "15.3.2",
   "license": "MIT",
   "engines": {
     "node": "^14.15.0 || >=16.10.0",
@@ -25,6 +25,7 @@
     "build-testing": "cpx \"./src/core/testing/**/*.ts\" ./dist/tethys/core/testing",
     "build-theme": "gulp build-theme",
     "build-cdk": "ng build cdk --configuration production",
+    "release-only": "wpm release",
     "release": "wpm release --release-branch-format release-auto-v{{version}}",
     "release-next": "wpm release --release-branch-format release-auto-next-v{{version}}",
     "release-manual": "wpm release",
