@@ -173,6 +173,8 @@ export class ThySelectCustomComponent
 
     dropDownClass: { [key: string]: boolean };
 
+    menuMinWidth = 200;
+
     public dropDownPositions: ConnectionPositionPair[];
 
     public selectionModel: SelectionModel<ThyOptionComponent>;

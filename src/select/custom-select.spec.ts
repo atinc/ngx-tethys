@@ -698,6 +698,15 @@ describe('ThyCustomSelect', () => {
                 expect(selectElement.classList.contains('thy-select')).toBeTruthy();
             });
 
+            it('should the cdkConnectedOverlayMinWidth value is 200', fakeAsync(() => {
+                const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+                dispatchFakeEvent(inputElement, 'click', true);
+                fixture.detectChanges();
+
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style.minWidth).toEqual('200px');
+            }));
+
             it('should get correct icon element', () => {
                 const iconElement = selectElement.querySelector('.thy-icon');
                 expect(iconElement).toBeTruthy();
