@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.2](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.3.2) (2023-05-19)
+
+
+### Bug Fixes
+
+* **dropdown:** add markForCheck when show menu #INFR-7971 ([#2664](https://github.com/atinc/ngx-tethys/issues/2664)) ([58bbc46](https://github.com/atinc/ngx-tethys/commit/58bbc46f2a97a46c8dfaf221f72396c66bfe2468)), closes [#INFR-7971](https://github.com/atinc/ngx-tethys/issues/INFR-7971)
+* **input:** set static: false for input-group get inputDirective #INFR-7963 ([44e4416](https://github.com/atinc/ngx-tethys/commit/44e4416dcd325ebf3cee7c0ab5628a0287ea6403)), closes [#INFR-7963](https://github.com/atinc/ngx-tethys/issues/INFR-7963) [#INFR-7963](https://github.com/atinc/ngx-tethys/issues/INFR-7963)
+* **select:** fix formControl set updateOn is not effect in multiple select #INFR-7825 ([#2655](https://github.com/atinc/ngx-tethys/issues/2655)) ([08991e3](https://github.com/atinc/ngx-tethys/commit/08991e3237a445dea9cdde5daec5e9d5a64ce72b)), closes [#INFR-7825](https://github.com/atinc/ngx-tethys/issues/INFR-7825)
+
+
+
 ## [15.3.1](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.3.1) (2023-05-18)
 
 
