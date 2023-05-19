@@ -1,6 +1,7 @@
 import { Migration, UpgradeData, ValueOfChanges, VersionChanges, getChangesForTarget } from '@angular/cdk/schematics';
 import { AfterInsertElementUpgradeData, InputNameRemovalUpgradeData, InputValueUpgradeData } from '../data';
 import { BeforeInsertElementUpgradeData } from '../data/before-insert-element';
+import { EntryPointUpgradeData } from '../data/entry-points';
 import { OutputNameRemovalUpgradeData } from '../data/output-names-removal';
 
 export interface TethysUpgradeData extends UpgradeData {
@@ -9,6 +10,7 @@ export interface TethysUpgradeData extends UpgradeData {
     inputValues: VersionChanges<InputValueUpgradeData>;
     beforeInsertElement: VersionChanges<BeforeInsertElementUpgradeData>;
     afterInsertElement: VersionChanges<AfterInsertElementUpgradeData>;
+    entryPoints: VersionChanges<EntryPointUpgradeData>;
 }
 
 export function getTethysVersionUpgradeData<T extends keyof TethysUpgradeData, U = ValueOfChanges<TethysUpgradeData[T]>>(

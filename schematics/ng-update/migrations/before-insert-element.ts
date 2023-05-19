@@ -1,8 +1,16 @@
 import { Migration, ResolvedResource, WorkspacePath } from '@angular/cdk/schematics';
-import { findWholeInputsOnElementWithAttr, findWholeInputsOnElementWithTag } from '../core/html-parsing';
+import { findWholeInputsOnElementWithAttrInputBrackets, findWholeInputsOnElementWithTagInputBrackets } from '../core/html-parsing';
 import { TethysUpgradeData, getTethysVersionUpgradeData } from '../core/upgrade-data';
 import { BeforeInsertElementUpgradeData } from '../data/before-insert-element';
 
+/**
+ * Migration that walks through every template or stylesheet and replaces deprecated input
+ * names.Then insert a new element before the first child node in the current element, and the attribute will be removed from the current element and placed on the inserted element
+ * Selectors in stylesheets could also target input
+ * bindings declared as static attribute. See for example:
+ *
+ * 迁移将遍历每个模板或样式表，并移除废弃的输入名称，并在当前元素的第一个子节点前插入元素。
+ */
 export class BeforeInsertElementMigration extends Migration<TethysUpgradeData> {
     data: BeforeInsertElementUpgradeData[] = getTethysVersionUpgradeData(this, 'beforeInsertElement');
 
@@ -14,11 +22,13 @@ export class BeforeInsertElementMigration extends Migration<TethysUpgradeData> {
             const relativeOffsets: any[] = [];
 
             if (limitedTo.attributes) {
-                relativeOffsets.push(...findWholeInputsOnElementWithAttr(template.content, name.replace, limitedTo.attributes));
+                relativeOffsets.push(
+                    ...findWholeInputsOnElementWithAttrInputBrackets(template.content, name.replace, limitedTo.attributes)
+                );
             }
 
             if (limitedTo.elements) {
-                relativeOffsets.push(...findWholeInputsOnElementWithTag(template.content, name.replace, limitedTo.elements));
+                relativeOffsets.push(...findWholeInputsOnElementWithTagInputBrackets(template.content, name.replace, limitedTo.elements));
             }
 
             relativeOffsets

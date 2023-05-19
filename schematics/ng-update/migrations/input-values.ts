@@ -3,6 +3,13 @@ import { findWholeInputsNameAndValueOnElementWithAttr, findWholeInputsNameAndVal
 import { TethysUpgradeData, getTethysVersionUpgradeData } from '../core/upgrade-data';
 import { InputValueUpgradeData } from '../data';
 
+/**
+ * Migration that walks through every template or stylesheet and replaces deprecated input
+ * name and value to the new input names and values. Selectors in stylesheets could also target input
+ * bindings declared as static attribute. See for example:
+ *
+ * 迁移将遍历每个模板或样式表，并将废弃的输入名称与值替换为新的输入名称与值。
+ */
 export class InputValuesMigration extends Migration<TethysUpgradeData> {
     data: InputValueUpgradeData[] = getTethysVersionUpgradeData(this, 'inputValues');
 

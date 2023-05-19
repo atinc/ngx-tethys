@@ -3,6 +3,13 @@ import { findWholeOutputsOnElementWithAttr, findWholeOutputsOnElementWithTag } f
 import { TethysUpgradeData, getTethysVersionUpgradeData } from '../core/upgrade-data';
 import { OutputNameRemovalUpgradeData } from '../data';
 
+/**
+ * Migration that walks through every inline or external HTML template and removes
+ * deprecated output binding names.
+ *
+ * 本迁移会遍历每个内联或外部 HTML 模板并将移除废弃的输出绑定名称。
+ *
+ */
 export class OutputNamesRemovalMigration extends Migration<TethysUpgradeData> {
     data: OutputNameRemovalUpgradeData[] = getTethysVersionUpgradeData(this, 'outputNamesRemoval');
 

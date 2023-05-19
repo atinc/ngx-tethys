@@ -53,6 +53,13 @@ export const beforeInsertElement: VersionChanges<BeforeInsertElementUpgradeData>
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
                     }
+                },
+                {
+                    replace: '[thyBeforeIcon]',
+                    insert: '<thy-icon [thyIconName]=[thyBeforeIcon]></thy-icon>',
+                    limitedTo: {
+                        attributes: ['thyLabel', '[thyLabel]']
+                    }
                 }
             ]
         }

@@ -53,6 +53,13 @@ export const afterInsertElement: VersionChanges<AfterInsertElementUpgradeData> =
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
                     }
+                },
+                {
+                    replace: '[thyAfterIcon]',
+                    insert: '<thy-icon [thyIconName]=[thyAfterIcon] class="ml-1"></thy-icon>',
+                    limitedTo: {
+                        attributes: ['thyLabel', '[thyLabel]']
+                    }
                 }
             ]
         }

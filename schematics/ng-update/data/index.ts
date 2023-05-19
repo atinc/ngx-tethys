@@ -6,6 +6,7 @@ import { classNames } from './class-names';
 import { constructorChecks } from './constructor-checks';
 import { cssSelectors } from './css-selectors';
 import { elementSelectors } from './element-selectors';
+import { entryPoints } from './entry-points';
 import { inputNames } from './input-names';
 import { inputNamesRemoval } from './input-names-removal';
 import { inputValues } from './input-values';
@@ -46,5 +47,6 @@ export const ruleUpgradeData: TethysUpgradeData = {
     outputNamesRemoval,
     inputValues,
     beforeInsertElement,
-    afterInsertElement
+    afterInsertElement,
+    entryPoints
 };

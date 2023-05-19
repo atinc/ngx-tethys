@@ -1,4 +1,5 @@
 import { VersionChanges } from '@angular/cdk/schematics';
+import { TethysTargetVersion } from '../core/target-version';
 
 export interface MaterialCssSelectorData {
     /** The CSS selector to replace. */
@@ -19,4 +20,30 @@ export interface MaterialCssSelectorData {
     };
 }
 
-export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {};
+export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {
+    [TethysTargetVersion.V16]: [
+        {
+            pr: '',
+            changes: [
+                {
+                    replace: '.thy-label',
+                    replaceWith: '.thy-tag',
+                    replaceIn: {
+                        stylesheet: true,
+                        html: false,
+                        tsStringLiterals: true
+                    }
+                },
+                {
+                    replace: 'emboss',
+                    replaceWith: 'weak-fill',
+                    replaceIn: {
+                        stylesheet: true,
+                        html: false,
+                        tsStringLiterals: true
+                    }
+                }
+            ]
+        }
+    ]
+};

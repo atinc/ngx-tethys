@@ -7,11 +7,15 @@ export const attributeSelectors: VersionChanges<AttributeSelectorUpgradeData> = 
             pr: '',
             changes: [
                 {
-                    replace: 'thyLabel]',
+                    replace: '[thyLabel]',
                     replaceWith: 'thyTag]'
                 },
                 {
                     replace: 'thyLabel ',
+                    replaceWith: 'thyTag '
+                },
+                {
+                    replace: 'thyLabel\n',
                     replaceWith: 'thyTag '
                 }
             ]

@@ -3,6 +3,13 @@ import { findWholeInputsOnElementWithAttr, findWholeInputsOnElementWithTag } fro
 import { TethysUpgradeData, getTethysVersionUpgradeData } from '../core/upgrade-data';
 import { InputNameRemovalUpgradeData } from '../data';
 
+/**
+ * Migration that walks through every template or stylesheet and removes deprecated input
+ * names. Selectors in stylesheets could also target input
+ * bindings declared as static attribute. See for example:
+ *
+ * 迁移将遍历每个模板或样式表，并将废弃的输入名称移除。
+ */
 export class InputNamesRemovalMigration extends Migration<TethysUpgradeData> {
     data: InputNameRemovalUpgradeData[] = getTethysVersionUpgradeData(this, 'inputNamesRemoval');
 

@@ -33,6 +33,13 @@ export function findWholeInputsOnElementWithAttr(html: string, inputName: string
     ];
 }
 
+export function findWholeInputsOnElementWithTagInputBrackets(html: string, inputName: string, tagNames: string[]) {
+    return [...findWholeAttributeOnElementWithTag(html, inputName, tagNames)];
+}
+
+export function findWholeInputsOnElementWithAttrInputBrackets(html: string, inputName: string, attrs: string[]) {
+    return [...findWholeAttributeOnElementWithAttrs(html, inputName, attrs)];
+}
 /**
  * Finds elements with explicit tag names that also contain the specified attribute. Returns the
  * attribute start offset/end offset/start tag end offset/end tag start offset/attribute value based on the specified HTML.
