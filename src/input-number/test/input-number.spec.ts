@@ -1,4 +1,4 @@
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
 import { CommonModule } from '@angular/common';
@@ -27,7 +27,8 @@ import { ThyInputNumberModule } from '../module';
             [thyDisabled]="thyDisabled"
             (ngModelChange)="change($event)"
             (thyFocus)="onFocus($event)"
-            (thyBlur)="onBlur($event)"></thy-input-number>
+            (thyBlur)="onBlur($event)"
+        ></thy-input-number>
         <thy-input-number
             #second
             class="thy-input-number-second"
@@ -42,7 +43,8 @@ import { ThyInputNumberModule } from '../module';
             [thyDisabled]="thyDisabled"
             (ngModelChange)="change($event)"
             (thyFocus)="onSecondFocus($event)"
-            (thyBlur)="onSecondBlur($event)"></thy-input-number>
+            (thyBlur)="onSecondBlur($event)"
+        ></thy-input-number>
     `
 })
 class TestInputNumberComponent {
@@ -413,7 +415,7 @@ describe('input-number component', () => {
     it('should call blur and call __onBlurValidation when input-number blur and validateOn is blur', fakeAsync(() => {
         fixture.detectChanges();
         const blurSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
         const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
@@ -432,7 +434,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
@@ -448,7 +450,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
 
         const onBlurValidationSpy = spyOn(
-            fixture.componentInstance.inputNumberComponent as unknown as { __onBlurValidation: Function },
+            (fixture.componentInstance.inputNumberComponent as unknown) as { __onBlurValidation: Function },
             '__onBlurValidation'
         );
 
@@ -541,4 +543,23 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onSecondFocus).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondBlur).not.toHaveBeenCalled();
     }));
+
+    it('should Only floating point numbers can be entered work', fakeAsync(() => {
+        const testValueToken = [
+            { from: '-', to: '' },
+            { from: '-3', to: '-3' },
+            { from: '-3abc', to: '-3' },
+            { from: '-3.1', to: '-3.1' }
+        ];
+        fixture.detectChanges();
+        testValueToken.forEach(item => {
+            inputElement.value = item.from;
+            inputNumberComponentInstance.inputNumberComponent.onInput(inputElement as any);
+            tick();
+            fixture.detectChanges();
+            flush();
+            expect(inputElement.value).toBe(item.to);
+        })
+    }))
+
 });
