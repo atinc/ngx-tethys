@@ -4,7 +4,7 @@ import { DEFAULT_DATE_PICKER_CONFIG, ThyDatePickerConfig, THY_DATE_PICKER_CONFIG
 /**
  * @private
  */
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class ThyDatePickerConfigService {
     private config: ThyDatePickerConfig;
 
