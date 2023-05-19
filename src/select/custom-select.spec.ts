@@ -37,6 +37,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
+                [thyMode]="mode"
                 [thyOrigin]="customizeOrigin">
                 <thy-option
                     *ngFor="let food of foods"
@@ -68,6 +69,7 @@ class BasicSelectComponent {
     isRequired: boolean;
     enableScrollLoad: boolean;
     size = '';
+    mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
@@ -388,7 +390,7 @@ class SelectWithSearchAndServerSearchComponent {
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
                 thyPlaceHolder="Food"
-                [thyMode]="'multiple'"
+                [thyMode]="mode"
                 style="width:500px"
                 [thyAllowClear]="thyAllowClear"
                 [(ngModel)]="selectedValue"
@@ -416,6 +418,7 @@ class SelectEimtOptionsChangesComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
+    mode = 'multiple';
     selectedValue = ['sushi-7'];
     thyAllowClear = true;
     disabled = false;
@@ -797,6 +800,28 @@ describe('ThyCustomSelect', () => {
 
                 expect(blurSpy).not.toHaveBeenCalled();
             }));
+
+            it('should call onTouchFn when value change in single mode', () => {
+                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options.toArray();
+                optionInstances[1].select();
+                fixture.detectChanges();
+                optionInstances[1].deselect();
+                fixture.detectChanges();
+                expect(blurSpy).toHaveBeenCalled();
+            });
+
+            it('should not call onTouchFn when value change in multiple mode', () => {
+                fixture.componentInstance.mode = 'multiple';
+                fixture.detectChanges();
+                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options.toArray();
+                optionInstances[1].select();
+                fixture.detectChanges();
+                optionInstances[1].deselect();
+                fixture.detectChanges();
+                expect(blurSpy).not.toHaveBeenCalled();
+            });
         });
 
         describe('size', () => {
@@ -1576,7 +1601,7 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.selectedValue).toEqual([]);
         }));
 
-        it('should not  clear selected value when disabled is true', fakeAsync(() => {
+        it('should not clear selected value when disabled is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
@@ -1590,16 +1615,33 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
         }));
 
-        it('should exec clear when click clear icon', fakeAsync(() => {
+        it('should exec clear when click clear icon in multiple mode', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
 
+            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
+            expect(blurSpy).not.toHaveBeenCalled();
+        }));
+
+        it('should exec clear when click clear icon in single mode', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.componentInstance.mode = 'multiple';
+            fixture.detectChanges();
+
+            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+            const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual([]);
+            expect(blurSpy).not.toHaveBeenCalled();
         }));
 
         it('should remove selected value when option disabled', fakeAsync(() => {
