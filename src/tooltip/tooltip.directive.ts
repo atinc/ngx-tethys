@@ -149,6 +149,7 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
     hide(delay: number = this.hideDelay): void {
         this.tooltipRef?.hide(delay);
     }
+
     ngOnDestroy() {
         this.tooltipRef?.dispose();
     }

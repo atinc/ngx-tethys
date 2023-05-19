@@ -1,4 +1,4 @@
-import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output } from '@angular/core';
+import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import {
@@ -137,9 +137,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
         elementRef: ElementRef,
         platform: Platform,
         focusMonitor: FocusMonitor,
-        ngZone: NgZone
+        ngZone: NgZone,
+        changeDetectorRef: ChangeDetectorRef
     ) {
-        super(elementRef, platform, focusMonitor, ngZone, true);
+        super(elementRef, platform, focusMonitor, ngZone, true, changeDetectorRef);
     }
 
     ngOnInit() {
@@ -207,6 +208,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             this.overlayRef = overlayRef;
             this.popoverOpened = true;
             this.showTimeoutId = null;
+            this.markForCheck();
         }, delay);
     }
 
@@ -221,6 +223,7 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
                 this.popoverRef.close();
             }
             this.hideTimeoutId = null;
+            this.markForCheck();
         }, delay);
     }
 }
