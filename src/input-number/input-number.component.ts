@@ -79,7 +79,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     disabledDown = false;
 
-    currentValue: string = '';
+    activeValue: string = '';
 
     /**
      * 是否自动聚焦
@@ -238,9 +238,9 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     onInput(input?: ThyInputComponent) {
         const value = input.value;
         if (this.isFloat(value)) {
-            this.currentValue = value;
+            this.activeValue = value;
         } else {
-            this.displayValue = this.currentValue;
+            this.displayValue = this.activeValue;
             input.value = this.displayValue;
         }
     }
@@ -261,7 +261,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     onInputFocus(event?: Event) {
-        this.currentValue = this.parser(this.displayValue.toString());
+        this.activeValue = this.parser(this.displayValue.toString());
         if (!this.isFocused) {
             this.isFocused = true;
             this.focusMonitor.focusVia(this.inputElement, 'keyboard');
@@ -339,8 +339,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return Math.max(currentValuePrecision, stepPrecision);
     }
 
-    getPrecisionFactor(currentValue: string | number): number {
-        const precision = this.getMaxPrecision(currentValue);
+    getPrecisionFactor(activeValue: string | number): number {
+        const precision = this.getMaxPrecision(activeValue);
         return Math.pow(10, precision);
     }
 
@@ -420,7 +420,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     isFloat(value: string) {
-        return /^[-+]?([0-9]+([.][0-9]*)?)([Ee][-+]?[0-9]+)?$|^[-+]$|^$/.test(value);
+        return /^[-+]?([0-9]+([.Ee][0-9]*)?)([-+]?[0-9]+)?$|^[-+Ee]$|^$/.test(value);
     }
 
     ngOnDestroy() {
