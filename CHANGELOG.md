@@ -7,31 +7,10 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **avatar:** modify margin for avatar-list items #INFR-7940 ([#2659](https://github.com/atinc/ngx-tethys/issues/2659)) ([a7c0e79](https://github.com/atinc/ngx-tethys/commit/a7c0e790934c54672cb47ae4fa7c2b80f933c072)), closes [#INFR-7940](https://github.com/atinc/ngx-tethys/issues/INFR-7940)
-* **cascader:** should not search empty node and fix some styles #INFR-7911 ([#2656](https://github.com/atinc/ngx-tethys/issues/2656)) ([c14e307](https://github.com/atinc/ngx-tethys/commit/c14e3077bcf3b897dd73563a2fc5ca1ed6d19701)), closes [#INFR-7911](https://github.com/atinc/ngx-tethys/issues/INFR-7911)
-* **cdk:** set box-sizing to content-box #INFR-7599 ([#2647](https://github.com/atinc/ngx-tethys/issues/2647)) ([4a2eabe](https://github.com/atinc/ngx-tethys/commit/4a2eabec0790ce009e4db9a6b7d46df3569eb866)), closes [#INFR-7599](https://github.com/atinc/ngx-tethys/issues/INFR-7599)
-* **date-picker:** compatibility null values at updateHourMinute ([#2633](https://github.com/atinc/ngx-tethys/issues/2633)) ([1207c47](https://github.com/atinc/ngx-tethys/commit/1207c473f98c18d8a30dc4d2e00b002b86aeb246))
 * **dropdown:** add markForCheck when show menu #INFR-7971 ([#2664](https://github.com/atinc/ngx-tethys/issues/2664)) ([58bbc46](https://github.com/atinc/ngx-tethys/commit/58bbc46f2a97a46c8dfaf221f72396c66bfe2468)), closes [#INFR-7971](https://github.com/atinc/ngx-tethys/issues/INFR-7971)
-* **input-number:** fix not call thyBlur when focus other input-number #INFR-7496 ([#2638](https://github.com/atinc/ngx-tethys/issues/2638)) ([1caccb3](https://github.com/atinc/ngx-tethys/commit/1caccb36d1a70637e736017896269635d60a207f)), closes [#INFR-7496](https://github.com/atinc/ngx-tethys/issues/INFR-7496)
-* **input:** call stopMonitoring when onDestroy #INFR-6980 ([#2648](https://github.com/atinc/ngx-tethys/issues/2648)) ([3bf8670](https://github.com/atinc/ngx-tethys/commit/3bf86702ffba0ba97fe87c987cae48942ff5e421)), closes [#INFR-6980](https://github.com/atinc/ngx-tethys/issues/INFR-6980)
 * **input:** set static: false for input-group get inputDirective #INFR-7963 ([44e4416](https://github.com/atinc/ngx-tethys/commit/44e4416dcd325ebf3cee7c0ab5628a0287ea6403)), closes [#INFR-7963](https://github.com/atinc/ngx-tethys/issues/INFR-7963) [#INFR-7963](https://github.com/atinc/ngx-tethys/issues/INFR-7963)
-* **layout:** collapse dom appears when the mouse hovers over the sidebar #INFR-5569 ([#2616](https://github.com/atinc/ngx-tethys/issues/2616)) ([e9b925d](https://github.com/atinc/ngx-tethys/commit/e9b925dce96175ac8f2b6eb1a48503391f877fc3)), closes [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569) [#INFR-5569](https://github.com/atinc/ngx-tethys/issues/INFR-5569)
-* **layout:** fix can't operate layout content ([#2635](https://github.com/atinc/ngx-tethys/issues/2635)) ([0c7ce6f](https://github.com/atinc/ngx-tethys/commit/0c7ce6f506db35fec9f523b2b3f5087df8810d64))
 * **select:** fix formControl set updateOn is not effect in multiple select #INFR-7825 ([#2655](https://github.com/atinc/ngx-tethys/issues/2655)) ([08991e3](https://github.com/atinc/ngx-tethys/commit/08991e3237a445dea9cdde5daec5e9d5a64ce72b)), closes [#INFR-7825](https://github.com/atinc/ngx-tethys/issues/INFR-7825)
-* **tree:** fix the problem of clicking to disable the parent node #INFR-7545 ([#2639](https://github.com/atinc/ngx-tethys/issues/2639)) ([4936aba](https://github.com/atinc/ngx-tethys/commit/4936aba4890c891f5792bf46d6df86802e095e3a)), closes [#INFR-7545](https://github.com/atinc/ngx-tethys/issues/INFR-7545)
 
-
-### Code Refactoring
-
-* **avatar:** remove avatar-list thyResponsive feature #INFR-7678 ([#2654](https://github.com/atinc/ngx-tethys/issues/2654)) ([b6933f3](https://github.com/atinc/ngx-tethys/commit/b6933f342095c5dfbaaba0da3cab182db0bc859a)), closes [#INFR-7678](https://github.com/atinc/ngx-tethys/issues/INFR-7678)
-
-
-### Features
-
-* **cascader:** support search #INFR-7498 ([#2644](https://github.com/atinc/ngx-tethys/issues/2644)) ([f490007](https://github.com/atinc/ngx-tethys/commit/f4900077721f2a95bf8116a93e351f767d637b78)), closes [#INFR-7498](https://github.com/atinc/ngx-tethys/issues/INFR-7498)
-* **color-picker:** support hover trigger #INFR-7525 ([#2642](https://github.com/atinc/ngx-tethys/issues/2642)) ([78b5c7a](https://github.com/atinc/ngx-tethys/commit/78b5c7ac34e5fc897cbdac40579c12aeee25d991)), closes [#INFR-7525](https://github.com/atinc/ngx-tethys/issues/INFR-7525)
-* **color-picker:** support thyPlacement params #INFR-7526 ([#2637](https://github.com/atinc/ngx-tethys/issues/2637)) ([366f742](https://github.com/atinc/ngx-tethys/commit/366f742859fd39c4f61ff04c2715aae96632a05b)), closes [#INFR-7526](https://github.com/atinc/ngx-tethys/issues/INFR-7526)
-* **upload:** feat(upload):adjust the acceptType support to THY_UPLOAD_DEFAULT_OPTIONS #INFR-7816 ([d69a191](https://github.com/atinc/ngx-tethys/commit/d69a191722507067e05be7cfbf6cc4688614deaa)), closes [#INFR-7816](https://github.com/atinc/ngx-tethys/issues/INFR-7816)
 
 
 ### BREAKING CHANGES
