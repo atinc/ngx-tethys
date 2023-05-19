@@ -1,4 +1,15 @@
-import { Directive, ElementRef, OnInit, Input, NgZone, ViewContainerRef, TemplateRef, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import {
+    Directive,
+    ElementRef,
+    OnInit,
+    Input,
+    NgZone,
+    ViewContainerRef,
+    TemplateRef,
+    EventEmitter,
+    Output,
+    ChangeDetectorRef
+} from '@angular/core';
 import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import {
