@@ -13,12 +13,6 @@ All notable changes to this project will be documented in this file. See [standa
 
 
 
-### BREAKING CHANGES
-
-* **avatar:** - remove avatar-list thyResponsive feature. And thyMax also removed.
-
-
-
 ## [15.3.1](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.3.1) (2023-05-18)
 
 
