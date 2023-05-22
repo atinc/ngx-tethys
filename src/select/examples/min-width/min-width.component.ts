@@ -30,4 +30,8 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select/select.config';
 })
 export class ThySelectCustomMinWidthExampleComponent {
     listOfOption = listOfOption;
+
+    trackByFn(index: number, item: { value: string }) {
+        return item.value || index;
+    }
 }
