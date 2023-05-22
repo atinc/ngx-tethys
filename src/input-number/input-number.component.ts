@@ -420,7 +420,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     isInputNumber(value: string) {
-        return isFloat(value) || /^[-+Ee]$|^([.]?[0-9])*([.]?[.eE]?[+-]?)?$|^$/.test(value);
+        return isFloat(value) || (/^[^.]*\.[^.]*$/.test(value) && /^[-+Ee]$|^([.]?[0-9])*([.]?[.eE]?[+-]?)?$|^$/.test(value));
     }
 
     ngOnDestroy() {
