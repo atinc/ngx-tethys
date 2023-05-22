@@ -1,7 +1,7 @@
 import { HostTree, Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
 
-fdescribe('ng-update v16 Schematic', () => {
+describe('ng-update v16 Schematic', () => {
     let tree: Tree;
     const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
     const TEST_MODULE_PATH = '/projects/update16test/src/app/module.ts';
