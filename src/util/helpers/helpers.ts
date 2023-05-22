@@ -318,5 +318,5 @@ export function isFloat(value: string): boolean {
         return false;
     }
 
-    return /[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([Ee][-+]?[0-9]+)?$/.test(value);
+    return /^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([Ee][-+]?[0-9]+)?$/.test(value);
 }
