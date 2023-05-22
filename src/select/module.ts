@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
 
 import { ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectComponent } from './select.component';
-import { THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
+import { THY_SELECT_CONFIG_PROVIDER, THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
 
 @NgModule({
     imports: [
@@ -31,6 +31,6 @@ import { THY_SELECT_SCROLL_STRATEGY_PROVIDER } from './select.config';
         ThySelectCustomComponent
     ],
     exports: [ThySelectComponent, ThySelectCustomComponent, ThyOptionModule],
-    providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER]
+    providers: [THY_SELECT_SCROLL_STRATEGY_PROVIDER, THY_SELECT_CONFIG_PROVIDER]
 })
 export class ThySelectModule {}

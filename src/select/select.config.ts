@@ -12,3 +12,20 @@ export const THY_SELECT_SCROLL_STRATEGY_PROVIDER = {
     deps: [Overlay],
     useFactory: THY_SELECT_SCROLL_STRATEGY_FACTORY
 };
+
+export type ThyDropdownWidthMode = 'match-select' | 'min-width' | { minWidth: number };
+
+export interface ThySelectConfig {
+    thyDropdownWidthMode: ThyDropdownWidthMode;
+}
+
+export const DEFAULT_SELECT_CONFIG: ThySelectConfig = {
+    thyDropdownWidthMode: 'match-select'
+};
+
+export const THY_SELECT_CONFIG = new InjectionToken<ThySelectConfig>('thy-select-config');
+
+export const THY_SELECT_CONFIG_PROVIDER = {
+    provide: THY_SELECT_CONFIG,
+    useValue: DEFAULT_SELECT_CONFIG
+};
