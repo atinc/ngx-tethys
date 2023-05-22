@@ -20,9 +20,14 @@ import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
+import {
+    SelectMode,
+    THY_SELECT_PANEL_MIN_WIDTH,
+    ThyDropdownWidthMode,
+    ThySelectCustomComponent
+} from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
-import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
+import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY } from './select.config';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -644,6 +649,34 @@ class SelectWithAsyncLoadComponent implements OnInit {
             });
         }
     }
+}
+
+@Component({
+    selector: 'thy-select-dropdown-width',
+    template: `
+        <div style="width:100px">
+            <thy-custom-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
+
+        <div style="width:100px">
+            <thy-custom-select class="select2" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
+    `
+})
+class SelectDropdownWidthComponent {
+    dropdownWidthMode: ThyDropdownWidthMode;
+
+    options = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+
+    selectedValue = this.options[0].value;
 }
 
 describe('ThyCustomSelect', () => {
@@ -1270,6 +1303,63 @@ describe('ThyCustomSelect', () => {
                 flush();
             }));
         });
+    });
+
+    describe('dropdown min width', () => {
+        let containerSelector: string;
+
+        it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
+            configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
+
+            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            fixture.detectChanges();
+
+            containerSelector = '.select1';
+            assertDropdownMinWidth(fixture, 'match-select', 'width', 100);
+            assertDropdownMinWidth(fixture, 'min-width', 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
+            assertDropdownMinWidth(fixture, { minWidth: 300 }, 'minWidth', 300);
+        }));
+
+        it('should support use global setting THY_SELECT_CONFIG', () => {
+            configureThyCustomSelectTestingModule(
+                [SelectDropdownWidthComponent],
+                [
+                    {
+                        provide: THY_SELECT_CONFIG,
+                        useValue: {
+                            thyDropdownWidthMode: 'min-width'
+                        }
+                    }
+                ]
+            );
+
+            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            fixture.detectChanges();
+            containerSelector = '.select2';
+            assertDropdownMinWidth(fixture, null, 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
+        });
+
+        function assertDropdownMinWidth(
+            fixture: ComponentFixture<SelectDropdownWidthComponent>,
+            dropdownWidthMode: ThyDropdownWidthMode,
+            styleProperty: 'width' | 'minWidth',
+            expectedValue: number
+        ) {
+            const testComponent = fixture.componentInstance;
+            testComponent.dropdownWidthMode = dropdownWidthMode;
+            fixture.detectChanges();
+
+            const selectComponent = fixture.debugElement.query(By.css(containerSelector)).componentInstance;
+            selectComponent.ngOnInit();
+            fixture.detectChanges();
+
+            const inputElement = fixture.debugElement.query(By.css(`${containerSelector} input`)).nativeElement;
+            dispatchFakeEvent(inputElement, 'click', true);
+            fixture.detectChanges();
+
+            const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+            expect(pane.style[styleProperty]).toEqual(`${expectedValue}px`);
+        }
     });
 
     describe('with ngModel', () => {

@@ -83,11 +83,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { THY_SELECT_SCROLL_STRATEGY } from '../select.config';
+import { THY_SELECT_SCROLL_STRATEGY, THY_SELECT_CONFIG, ThySelectConfig } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
 
 export type ThyCustomSelectTriggerType = 'click' | 'hover';
+
+export type ThyDropdownWidthMode = 'match-select' | 'min-width' | { minWidth: number };
 
 export const SELECT_PANEL_MAX_HEIGHT = 300;
 
@@ -96,6 +98,8 @@ export const SELECT_OPTION_MAX_HEIGHT = 40;
 export const SELECT_OPTION_GROUP_MAX_HEIGHT = 30;
 
 export const SELECT_PANEL_PADDING_TOP = 10;
+
+export const THY_SELECT_PANEL_MIN_WIDTH = 200;
 
 export interface OptionValue {
     thyLabelText?: string;
@@ -172,6 +176,14 @@ export class ThySelectCustomComponent
     defaultOffset = 4;
 
     dropDownClass: { [key: string]: boolean };
+
+    dropDownMinWidth: number | null = null;
+
+    /**
+     * 设置下拉框的最小宽度，默认值 `match-select`，表示与输入框的宽度一致；`min-width` 表示最小宽度为200px；支持自定义最小宽度，比如传 `{minWidth: 150}` 表示最小宽度为150px
+     * @default match-select
+     */
+    @Input() thyDropdownWidthMode: ThyDropdownWidthMode;
 
     public dropDownPositions: ConnectionPositionPair[];
 
@@ -433,7 +445,8 @@ export class ThySelectCustomComponent
         private overlay: Overlay,
         private thyClickDispatcher: ThyClickDispatcher,
         @Inject(PLATFORM_ID) private platformId: string,
-        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>
+        @Optional() @Inject(THY_SELECT_SCROLL_STRATEGY) public scrollStrategyFactory: FunctionProp<ScrollStrategy>,
+        @Optional() @Inject(THY_SELECT_CONFIG) public selectConfig: ThySelectConfig
     ) {
         super();
         this.buildScrollStrategy();
@@ -446,6 +459,7 @@ export class ThySelectCustomComponent
 
     ngOnInit() {
         this.getPositions();
+        this.dropDownMinWidth = this.getDropdownMinWidth();
         this.viewportRuler
             .change()
             .pipe(takeUntil(this.destroy$))
@@ -473,6 +487,21 @@ export class ThySelectCustomComponent
                     }
                 });
         }
+    }
+
+    getDropdownMinWidth(): number | null {
+        const mode = this.thyDropdownWidthMode ? this.thyDropdownWidthMode : this.selectConfig.thyDropdownWidthMode;
+        let dropdownMinWidth: number | null = null;
+
+        if ((mode as { minWidth: number })?.minWidth) {
+            dropdownMinWidth = (mode as { minWidth: number }).minWidth;
+        } else if (mode === 'min-width') {
+            dropdownMinWidth = THY_SELECT_PANEL_MIN_WIDTH;
+        } else {
+            dropdownMinWidth = null;
+        }
+
+        return dropdownMinWidth;
     }
 
     ngAfterContentInit() {
