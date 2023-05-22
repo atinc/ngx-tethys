@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.3](https://github.com/atinc/ngx-tethys/compare/15.3.2...15.3.3) (2023-05-22)
+
+
+### Bug Fixes
+
+* **date-picker:** date picker config service provided in root ([#2668](https://github.com/atinc/ngx-tethys/issues/2668)) ([ec711e4](https://github.com/atinc/ngx-tethys/commit/ec711e4960416a7d5ba6bea23af9662b1fdab5bb))
+* **InputNumber:** Only numbers are allowed as input #INFR-7673 ([#2663](https://github.com/atinc/ngx-tethys/issues/2663)) ([79381fe](https://github.com/atinc/ngx-tethys/commit/79381fe6d38f948d296edcae1127fe4004907cfc)), closes [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673)
+
+
+
 ## [15.3.2](https://github.com/atinc/ngx-tethys/compare/15.2.4...15.3.2) (2023-05-19)
 
 
