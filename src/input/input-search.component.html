@@ -9,8 +9,7 @@
   [thyAutofocus]="autoFocus"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="focused = true"
-  (blur)="onBlur($event)"
+  (focus)="onInputFocus()"
   [thySize]="thySize"
   tabindex="-1"
 />
