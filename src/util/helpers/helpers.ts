@@ -211,7 +211,9 @@ export function camelCase(values: string[]): string {
 }
 
 export function generateRandomStr() {
-    return Math.random().toString(36).substring(2);
+    return Math.random()
+        .toString(36)
+        .substring(2);
 }
 
 export function isTemplateRef<C = any>(value: any): value is TemplateRef<C> {
@@ -314,6 +316,9 @@ export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1
 }
 
 export function isFloat(value: string): boolean {
-    if(!value) return false;
+    if (!value) {
+        return false;
+    }
+
     return /[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([Ee][-+]?[0-9]+)?$/.test(value);
 }
