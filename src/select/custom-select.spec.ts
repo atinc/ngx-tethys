@@ -20,7 +20,7 @@ import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
+import { SelectMode, ThyDropdownWidthMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
 
@@ -646,6 +646,28 @@ class SelectWithAsyncLoadComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'thy-select-dropdown-width',
+    template: `
+        <div style="width:100px">
+            <thy-custom-select [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
+    `
+})
+class SelectDropdownWidthComponent {
+    dropdownWidthMode: ThyDropdownWidthMode;
+
+    options = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+
+    selectedValue = this.options[0].value;
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -679,7 +701,8 @@ describe('ThyCustomSelect', () => {
                 SelectWithExpandStatusComponent,
                 MultipleSelectComponent,
                 SelectWithThyAutoExpendComponent,
-                SelectWithScrollAndSearchComponent
+                SelectWithScrollAndSearchComponent,
+                SelectDropdownWidthComponent
             ]);
         });
 
@@ -697,15 +720,6 @@ describe('ThyCustomSelect', () => {
                 expect(selectElement).toBeTruthy();
                 expect(selectElement.classList.contains('thy-select')).toBeTruthy();
             });
-
-            it('should the cdkConnectedOverlayMinWidth value is 200', fakeAsync(() => {
-                const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
-                dispatchFakeEvent(inputElement, 'click', true);
-                fixture.detectChanges();
-
-                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
-                expect(pane.style.minWidth).toEqual('200px');
-            }));
 
             it('should get correct icon element', () => {
                 const iconElement = selectElement.querySelector('.thy-icon');
@@ -831,6 +845,38 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 expect(blurSpy).not.toHaveBeenCalled();
             });
+        });
+
+        describe('min width', () => {
+            let fixture: ComponentFixture<SelectDropdownWidthComponent>;
+
+            beforeEach(() => {
+                fixture = TestBed.createComponent(SelectDropdownWidthComponent);
+                fixture.detectChanges();
+            });
+
+            it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
+                fixture.componentInstance.dropdownWidthMode = 'match-select';
+                fixture.detectChanges();
+                assertDropdownMinWidth('width', 100);
+
+                fixture.componentInstance.dropdownWidthMode = 'min-width';
+                fixture.detectChanges();
+                assertDropdownMinWidth('minWidth', 200);
+
+                fixture.componentInstance.dropdownWidthMode = { minWidth: 300 };
+                fixture.detectChanges();
+                assertDropdownMinWidth('minWidth', 300);
+            }));
+
+            function assertDropdownMinWidth(styleProperty: 'width' | 'minWidth', expectedValue: number) {
+                const inputElement = fixture.debugElement.query(By.css('input')).nativeElement;
+                dispatchFakeEvent(inputElement, 'click', true);
+                fixture.detectChanges();
+
+                const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+                expect(pane.style[styleProperty]).toEqual(`${expectedValue}px`);
+            }
         });
 
         describe('size', () => {

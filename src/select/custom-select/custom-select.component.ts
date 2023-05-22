@@ -89,6 +89,8 @@ export type SelectMode = 'multiple' | '';
 
 export type ThyCustomSelectTriggerType = 'click' | 'hover';
 
+export type ThyDropdownWidthMode = 'match-select' | 'min-width' | { minWidth: number };
+
 export const SELECT_PANEL_MAX_HEIGHT = 300;
 
 export const SELECT_OPTION_MAX_HEIGHT = 40;
@@ -173,7 +175,21 @@ export class ThySelectCustomComponent
 
     dropDownClass: { [key: string]: boolean };
 
-    menuMinWidth = 200;
+    menuMinWidth: number | null = null;
+
+    /**
+     * 设置下拉框的最小宽度，默认值 `match-select`，表示与输入框的宽度一致；`min-width` 表示最小宽度为200px；支持自定义最小宽度，比如传 `{minWidth: 150}` 表示最小宽度为150px
+     * @default match-select
+     */
+    @Input() set thyDropdownWidthMode(mode: ThyDropdownWidthMode) {
+        if (mode && (mode as { minWidth: number }).minWidth) {
+            this.menuMinWidth = (mode as { minWidth: number }).minWidth;
+        } else if (mode === 'min-width') {
+            this.menuMinWidth = 200;
+        } else {
+            this.menuMinWidth = null;
+        }
+    }
 
     public dropDownPositions: ConnectionPositionPair[];
 
