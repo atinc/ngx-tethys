@@ -12,7 +12,7 @@ import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -237,7 +237,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     onInput(input?: ThyInputComponent) {
         const value = input.value;
-        if (this.isFloat(value)) {
+        if (this.isInputNumber(value)) {
             this.activeValue = value;
         } else {
             this.displayValue = this.activeValue;
@@ -419,8 +419,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return Number(num);
     }
 
-    isFloat(value: string) {
-        return /^[-+]?([0-9]+([.Ee][0-9]*)?)([-+]?[0-9]+)?$|^[-+Ee]$|^$/.test(value);
+    isInputNumber(value: string) {
+        return isFloat(value) || /^[-+Ee]$|^([.]?[0-9])*([.]?[.eE]?[+-]?)?$|^$/.test(value);
     }
 
     ngOnDestroy() {
