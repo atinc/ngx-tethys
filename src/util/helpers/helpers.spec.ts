@@ -18,7 +18,8 @@ import {
     coerceCssPixelValue,
     shallowEqual,
     dateToUnixTimestamp,
-    htmlElementIsEmpty
+    htmlElementIsEmpty,
+    isFloat
 } from './helpers';
 
 const falsey = [, null, undefined, false, 0, NaN, ''];
@@ -432,6 +433,20 @@ describe('#helper', () => {
             const element = document.createElement('div');
             element.appendChild(document.createComment('comment'));
             expect(htmlElementIsEmpty(element)).toEqual(true);
+        });
+    });
+
+    describe('#isFloat', () => {
+        it('should return `true` for float values', () => {
+            ['123', '123.456', '.456', '5e6', '5e-6', '5E+6', '7.e8', '9.0E-10', '.11e12'].forEach(value => {
+                expect(isFloat(value)).toEqual(true);
+            });
+        });
+
+        it('should return `false` for float values', () => {
+            ['123a', '', undefined, null].forEach(value => {
+                expect(isFloat(value)).toEqual(false);
+            });
         });
     });
 });

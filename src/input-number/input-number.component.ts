@@ -11,9 +11,9 @@ import {
 } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
@@ -79,6 +79,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     disabledUp = false;
 
     disabledDown = false;
+
+    activeValue: string = '';
 
     /**
      * 是否自动聚焦
@@ -222,6 +224,16 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         }
     }
 
+    onInput(input?: ThyInputComponent) {
+        const value = input.value;
+        if (this.isInputNumber(value)) {
+            this.activeValue = value;
+        } else {
+            this.displayValue = this.activeValue;
+            input.value = this.displayValue;
+        }
+    }
+
     onBlur() {
         if (this.isFocused) {
             this.displayValue = this.formatterValue(this.validValue);
@@ -238,6 +250,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     onInputFocus(event?: Event) {
+        this.activeValue = this.parser(this.displayValue.toString());
         if (!this.isFocused) {
             this.isFocused = true;
             this.thyFocus.emit(event);
@@ -314,8 +327,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         return Math.max(currentValuePrecision, stepPrecision);
     }
 
-    getPrecisionFactor(currentValue: string | number): number {
-        const precision = this.getMaxPrecision(currentValue);
+    getPrecisionFactor(activeValue: string | number): number {
+        const precision = this.getMaxPrecision(activeValue);
         return Math.pow(10, precision);
     }
 
@@ -369,15 +382,16 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         if (this.isNotValid(val)) {
             val = this.validValue;
         }
-        if (val < this.thyMin) {
+        if ((val as number) < this.thyMin) {
             val = this.thyMin;
         }
-        if (val > this.thyMax) {
+        if ((val as number) > this.thyMax) {
             val = this.thyMax;
         }
 
         return this.toNumber(val);
     }
+
     isNotValid(num: string | number): boolean {
         return isNaN(num as number) || num === '' || num === null || !!(num && num.toString().indexOf('.') === num.toString().length - 1);
     }
@@ -391,6 +405,10 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
             return Number(Number(num).toFixed(this.thyPrecision));
         }
         return Number(num);
+    }
+
+    isInputNumber(value: string) {
+        return isFloat(value) || /^[-+Ee]$|^([.]?[0-9])*([.]?[.eE]?[+-]?)?$|^$/.test(value);
     }
 
     ngOnDestroy() {

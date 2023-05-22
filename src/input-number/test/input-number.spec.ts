@@ -1,4 +1,4 @@
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
 import { CommonModule } from '@angular/common';
@@ -540,5 +540,23 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondFocus).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondBlur).not.toHaveBeenCalled();
+    }));
+
+    it('should Only floating point numbers can be entered work', fakeAsync(() => {
+        const testValueToken = [
+            { from: '-', to: '' },
+            { from: '-3', to: '-3' },
+            { from: '-3abc', to: '-3' },
+            { from: '-3.1', to: '-3.1' }
+        ];
+        fixture.detectChanges();
+        testValueToken.forEach(item => {
+            inputElement.value = item.from;
+            inputNumberComponentInstance.inputNumberComponent.onInput(inputElement as any);
+            tick();
+            fixture.detectChanges();
+            flush();
+            expect(inputElement.value).toBe(item.to);
+        });
     }));
 });
