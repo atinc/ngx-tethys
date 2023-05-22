@@ -83,13 +83,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { THY_SELECT_SCROLL_STRATEGY, THY_SELECT_CONFIG, ThySelectConfig } from '../select.config';
+import { THY_SELECT_SCROLL_STRATEGY, THY_SELECT_CONFIG, ThySelectConfig, ThyDropdownWidthMode } from '../select.config';
 
 export type SelectMode = 'multiple' | '';
 
 export type ThyCustomSelectTriggerType = 'click' | 'hover';
-
-export type ThyDropdownWidthMode = 'match-select' | 'min-width' | { minWidth: number };
 
 export const SELECT_PANEL_MAX_HEIGHT = 300;
 
