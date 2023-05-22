@@ -20,14 +20,9 @@ import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import {
-    SelectMode,
-    THY_SELECT_PANEL_MIN_WIDTH,
-    ThyDropdownWidthMode,
-    ThySelectCustomComponent
-} from './custom-select/custom-select.component';
+import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
-import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY } from './select.config';
+import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
 
 @Component({
     selector: 'thy-select-basic-test',
