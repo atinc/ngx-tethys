@@ -559,4 +559,16 @@ describe('input-number component', () => {
             expect(inputElement.value).toBe(item.to);
         });
     }));
+
+    it('should isInputNumber function test', fakeAsync(() => {
+        const trueTokens = ['1.', '1.e', '1.E', '1.e+', '1.E+', '-1.e', '-1.', '-1.e+', '.e', '.E', '1e1', '1E', '', 'E', 'e', '+', '-'];
+        const falseToken = ['1..', '1ab.', '1e.', 'abc'];
+        fixture.detectChanges();
+        trueTokens.forEach(token => {
+            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(true);
+        });
+        falseToken.forEach(token => {
+            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(false);
+        });
+    }));
 });
