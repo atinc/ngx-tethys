@@ -29,3 +29,12 @@ export function getAllVersionNames(): string[] {
 export type TethysVersionChanges<T> = {
     [target in TethysTargetVersion]?: ReadableChange<T>[];
 };
+
+export function getTethysChangesForTarget<T>(target: TethysTargetVersion, data: TethysVersionChanges<T>): T[] {
+    if (!data) {
+        const version = (TethysTargetVersion as Record<string, string>)[target];
+        throw new Error(`No data could be found for target version: ${version}`);
+    }
+
+    return (data[target] || []).reduce((result, prData) => result.concat(prData.changes), [] as T[]);
+}
