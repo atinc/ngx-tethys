@@ -67,15 +67,15 @@ export class ThyViewOutletDirective implements OnChanges {
                 this.keyValueDiffer.diff(this.thyViewOutletContext);
                 updatedKeys = Object.keys(this.thyViewOutletContext);
             } else {
-                const changes = this.keyValueDiffer.diff(this.thyViewOutletContext);
-                changes.forEachChangedItem(item => {
+                const diffChanges = this.keyValueDiffer.diff(this.thyViewOutletContext);
+                diffChanges?.forEachChangedItem(item => {
                     updatedKeys.push(item.key);
                 });
             }
             if (this.componentRef) {
                 this.updateContext(this.componentRef.instance, updatedKeys);
                 this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
-            } else if (this.embeddedViewRef) {
+        } else if (this.embeddedViewRef) {
                 this.updateContext(this.embeddedViewRef.context, updatedKeys);
                 this.embeddedViewRef.markForCheck();
             }
