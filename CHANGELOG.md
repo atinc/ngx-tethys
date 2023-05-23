@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.5](https://github.com/atinc/ngx-tethys/compare/15.3.2...15.3.5) (2023-05-23)
+
+
+### Bug Fixes
+
+* **avatar:** adjust font-size to 36px when thySize is set to 110px #INFR-7997 ([#2670](https://github.com/atinc/ngx-tethys/issues/2670)) ([1c6492e](https://github.com/atinc/ngx-tethys/commit/1c6492e728861fc90cbdc3041e56cba31012bac3)), closes [#INFR-7997](https://github.com/atinc/ngx-tethys/issues/INFR-7997)
+* **date-picker:** date picker config service provided in root ([#2668](https://github.com/atinc/ngx-tethys/issues/2668)) ([ec711e4](https://github.com/atinc/ngx-tethys/commit/ec711e4960416a7d5ba6bea23af9662b1fdab5bb))
+* **input-number:** #INFR-7673 is float regular err ([#2673](https://github.com/atinc/ngx-tethys/issues/2673)) ([232f233](https://github.com/atinc/ngx-tethys/commit/232f2331c63ebb45ae904d01e823b3b19612d3f0)), closes [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673)
+* **InputNumber:** Only numbers are allowed as input #INFR-7673 ([#2663](https://github.com/atinc/ngx-tethys/issues/2663)) ([79381fe](https://github.com/atinc/ngx-tethys/commit/79381fe6d38f948d296edcae1127fe4004907cfc)), closes [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673) [#INFR-7673](https://github.com/atinc/ngx-tethys/issues/INFR-7673)
+* **shard:** fix  view outlet error when current context and previous context are the same object  #INFR-8019 ([#2677](https://github.com/atinc/ngx-tethys/issues/2677)) ([83b4e58](https://github.com/atinc/ngx-tethys/commit/83b4e58e310357ea1fb6360a13e2f971dd2a707c)), closes [#INFR-8019](https://github.com/atinc/ngx-tethys/issues/INFR-8019)
+
+
+### Features
+
+* **schematics:** add cdk migration and v16 label template/ts/stylesheets migration ([#2660](https://github.com/atinc/ngx-tethys/issues/2660)) ([10e9225](https://github.com/atinc/ngx-tethys/commit/10e92255f11921b335432d688b35f66fcec1d68b))
+* **select:** support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth #INFR-7975 ([#2675](https://github.com/atinc/ngx-tethys/issues/2675)) ([2360042](https://github.com/atinc/ngx-tethys/commit/236004282d649edeb44b8085d9fc55ce25dc0ea9)), closes [#INFR-7975](https://github.com/atinc/ngx-tethys/issues/INFR-7975)
+
+
+
 ## [15.3.4](https://github.com/atinc/ngx-tethys/compare/15.3.2...15.3.4) (2023-05-22)
 
 
