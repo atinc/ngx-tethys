@@ -1,7 +1,7 @@
-import { InputNameUpgradeData, VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { InputNameUpgradeData } from '@angular/cdk/schematics';
+import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
 
-export const inputNames: VersionChanges<InputNameUpgradeData> = {
+export const inputNames: TethysVersionChanges<InputNameUpgradeData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',
