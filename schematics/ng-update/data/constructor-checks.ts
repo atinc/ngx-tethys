@@ -1,4 +1,3 @@
-import { ConstructorChecksUpgradeData } from '@angular/cdk/schematics';
-import { TethysVersionChanges } from '../core/target-version';
+import { ConstructorChecksUpgradeData, VersionChanges } from '@angular/cdk/schematics';
 
-export const constructorChecks: TethysVersionChanges<ConstructorChecksUpgradeData> = {};
+export const constructorChecks: VersionChanges<ConstructorChecksUpgradeData> = {};

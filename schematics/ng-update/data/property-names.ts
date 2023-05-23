@@ -1,4 +1,3 @@
-import { PropertyNameUpgradeData } from '@angular/cdk/schematics';
-import { TethysVersionChanges } from '../core/target-version';
+import { PropertyNameUpgradeData, VersionChanges } from '@angular/cdk/schematics';
 
-export const propertyNames: TethysVersionChanges<PropertyNameUpgradeData> = {};
+export const propertyNames: VersionChanges<PropertyNameUpgradeData> = {};

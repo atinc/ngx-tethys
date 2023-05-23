@@ -1,4 +1,3 @@
-import { MethodCallUpgradeData } from '@angular/cdk/schematics';
-import { TethysVersionChanges } from '../core/target-version';
+import { MethodCallUpgradeData, VersionChanges } from '@angular/cdk/schematics';
 
-export const methodCallChecks: TethysVersionChanges<MethodCallUpgradeData> = {};
+export const methodCallChecks: VersionChanges<MethodCallUpgradeData> = {};

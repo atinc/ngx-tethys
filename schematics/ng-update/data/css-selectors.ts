@@ -1,4 +1,5 @@
-import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
+import { VersionChanges } from '@angular/cdk/schematics';
+import { TethysTargetVersion } from '../core/target-version';
 
 export interface MaterialCssSelectorData {
     /** The CSS selector to replace. */
@@ -19,7 +20,7 @@ export interface MaterialCssSelectorData {
     };
 }
 
-export const cssSelectors: TethysVersionChanges<MaterialCssSelectorData> = {
+export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',
