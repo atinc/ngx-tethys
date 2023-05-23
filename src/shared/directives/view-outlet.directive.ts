@@ -75,7 +75,7 @@ export class ThyViewOutletDirective implements OnChanges {
             if (this.componentRef) {
                 this.updateContext(this.componentRef.instance, updatedKeys);
                 this.componentRef.injector.get(ChangeDetectorRef).markForCheck();
-        } else if (this.embeddedViewRef) {
+            } else if (this.embeddedViewRef) {
                 this.updateContext(this.embeddedViewRef.context, updatedKeys);
                 this.embeddedViewRef.markForCheck();
             }
