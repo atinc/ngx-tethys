@@ -312,3 +312,11 @@ export function humanizeBytes(bytes: number, noSpace = false, fractionDigits = 1
 
     return parseFloat((bytes / Math.pow(k, i)).toFixed(fractionDigits)) + (noSpace ? '' : ' ') + sizes[i];
 }
+
+export function isFloat(value: string): boolean {
+    if (!value) {
+        return false;
+    }
+
+    return /^[-+]?([0-9]+([.][0-9]*)?|[.][0-9]+)([Ee][-+]?[0-9]+)?$/.test(value);
+}

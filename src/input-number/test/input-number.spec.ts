@@ -1,4 +1,4 @@
-import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { createFakeEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
 import { CommonModule } from '@angular/common';
@@ -540,5 +540,35 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondFocus).toHaveBeenCalledTimes(1);
         expect(inputNumberComponentInstance.onSecondBlur).not.toHaveBeenCalled();
+    }));
+
+    it('should Only floating point numbers can be entered work', fakeAsync(() => {
+        const testValueToken = [
+            { from: '-', to: '' },
+            { from: '-3', to: '-3' },
+            { from: '-3abc', to: '-3' },
+            { from: '-3.1', to: '-3.1' }
+        ];
+        fixture.detectChanges();
+        testValueToken.forEach(item => {
+            inputElement.value = item.from;
+            inputNumberComponentInstance.inputNumberComponent.onInput(inputElement as any);
+            tick();
+            fixture.detectChanges();
+            flush();
+            expect(inputElement.value).toBe(item.to);
+        });
+    }));
+
+    it('should isInputNumber function test', fakeAsync(() => {
+        const trueTokens = ['1.', '1.e', '1.E', '1.e+', '1.E+', '-1.e', '-1.', '-1.e+', '.e', '.E', '1e1', '1E', '', 'E', 'e', '+', '-'];
+        const falseToken = ['1..', '1ab.', '1e.', 'abc'];
+        fixture.detectChanges();
+        trueTokens.forEach(token => {
+            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(true);
+        });
+        falseToken.forEach(token => {
+            expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(false);
+        });
     }));
 });
