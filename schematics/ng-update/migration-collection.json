@@ -25,6 +25,11 @@
       "version": "15.0.0",
       "factory": "./update-15",
       "description": "Updates NGX-TETHYS to v15"
+    },
+    "migration-v16": {
+      "version": "16.0.0",
+      "factory": "./update-16",
+      "description": "Updates NGX-TETHYS to v16"
     }
   }
 }
