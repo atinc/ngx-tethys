@@ -1,5 +1,4 @@
-import { VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
 
 export interface InputNameRemovalUpgradeData {
     /**
@@ -33,7 +32,7 @@ export interface InputNameRemovalUpgradeData {
     };
 }
 
-export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
+export const inputNamesRemoval: TethysVersionChanges<InputNameRemovalUpgradeData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',

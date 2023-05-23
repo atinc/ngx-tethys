@@ -1,3 +1,4 @@
-import { OutputNameUpgradeData, VersionChanges } from '@angular/cdk/schematics';
+import { OutputNameUpgradeData } from '@angular/cdk/schematics';
+import { TethysVersionChanges } from '../core/target-version';
 
-export const outputNames: VersionChanges<OutputNameUpgradeData> = {};
+export const outputNames: TethysVersionChanges<OutputNameUpgradeData> = {};

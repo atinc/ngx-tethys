@@ -1,5 +1,4 @@
-import { VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
 
 export interface EntryPointUpgradeData {
     /**
@@ -18,7 +17,7 @@ export interface EntryPointUpgradeData {
     replaceWith: string;
 }
 
-export const entryPoints: VersionChanges<EntryPointUpgradeData> = {
+export const entryPoints: TethysVersionChanges<EntryPointUpgradeData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',

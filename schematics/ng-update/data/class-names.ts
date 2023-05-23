@@ -1,7 +1,7 @@
-import { ClassNameUpgradeData, VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { ClassNameUpgradeData } from '@angular/cdk/schematics';
+import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
 
-export const classNames: VersionChanges<ClassNameUpgradeData> = {
+export const classNames: TethysVersionChanges<ClassNameUpgradeData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',
