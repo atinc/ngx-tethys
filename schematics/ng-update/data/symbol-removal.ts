@@ -1,4 +1,4 @@
-import { VersionChanges } from '@angular/cdk/schematics';
+import { TethysVersionChanges } from '../core/target-version';
 
 interface SymbolRemovalUpgradeData {
     /** Module that the symbol was removed from. */
@@ -11,4 +11,4 @@ interface SymbolRemovalUpgradeData {
     message: string;
 }
 
-export const symbolRemoval: VersionChanges<SymbolRemovalUpgradeData> = {};
+export const symbolRemoval: TethysVersionChanges<SymbolRemovalUpgradeData> = {};

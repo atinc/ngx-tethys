@@ -1,16 +1,17 @@
-import { Migration, UpgradeData, ValueOfChanges, VersionChanges, getChangesForTarget } from '@angular/cdk/schematics';
+import { Migration, UpgradeData, ValueOfChanges, getChangesForTarget } from '@angular/cdk/schematics';
+import { TethysVersionChanges } from '../core/target-version';
 import { AfterInsertElementUpgradeData, InputNameRemovalUpgradeData, InputValueUpgradeData } from '../data';
 import { BeforeInsertElementUpgradeData } from '../data/before-insert-element';
 import { EntryPointUpgradeData } from '../data/entry-points';
 import { OutputNameRemovalUpgradeData } from '../data/output-names-removal';
 
 export interface TethysUpgradeData extends UpgradeData {
-    inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData>;
-    outputNamesRemoval: VersionChanges<OutputNameRemovalUpgradeData>;
-    inputValues: VersionChanges<InputValueUpgradeData>;
-    beforeInsertElement: VersionChanges<BeforeInsertElementUpgradeData>;
-    afterInsertElement: VersionChanges<AfterInsertElementUpgradeData>;
-    entryPoints: VersionChanges<EntryPointUpgradeData>;
+    inputNamesRemoval: TethysVersionChanges<InputNameRemovalUpgradeData>;
+    outputNamesRemoval: TethysVersionChanges<OutputNameRemovalUpgradeData>;
+    inputValues: TethysVersionChanges<InputValueUpgradeData>;
+    beforeInsertElement: TethysVersionChanges<BeforeInsertElementUpgradeData>;
+    afterInsertElement: TethysVersionChanges<AfterInsertElementUpgradeData>;
+    entryPoints: TethysVersionChanges<EntryPointUpgradeData>;
 }
 
 export function getTethysVersionUpgradeData<T extends keyof TethysUpgradeData, U = ValueOfChanges<TethysUpgradeData[T]>>(
@@ -21,5 +22,5 @@ export function getTethysVersionUpgradeData<T extends keyof TethysUpgradeData, U
         return [];
     }
     // Note that below we need to cast to `unknown` first TS doesn't infer the type of T correctly.
-    return getChangesForTarget<U>(migration.targetVersion, migration.upgradeData[dataName] as unknown as VersionChanges<U>);
+    return getChangesForTarget<U>(migration.targetVersion, migration.upgradeData[dataName] as unknown as TethysVersionChanges<U>);
 }

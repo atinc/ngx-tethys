@@ -1,7 +1,7 @@
-import { AttributeSelectorUpgradeData, VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { AttributeSelectorUpgradeData } from '@angular/cdk/schematics';
+import { TethysTargetVersion, TethysVersionChanges } from '../core/target-version';
 
-export const attributeSelectors: VersionChanges<AttributeSelectorUpgradeData> = {
+export const attributeSelectors: TethysVersionChanges<AttributeSelectorUpgradeData> = {
     [TethysTargetVersion.V16]: [
         {
             pr: '',
