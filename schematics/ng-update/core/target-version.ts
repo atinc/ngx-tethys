@@ -5,9 +5,6 @@
  *
  */
 // Used in an `Object.keys` call below so it can't be `const enum`.
-
-import { ReadableChange } from '@angular/cdk/schematics';
-
 // tslint:disable-next-line:prefer-const-enum
 export enum TethysTargetVersion {
     V16 = 'version 16'
@@ -25,7 +22,3 @@ export function getAllVersionNames(): string[] {
         return typeof (TethysTargetVersion as Record<string, string | undefined>)[enumValue] === 'string';
     });
 }
-
-export type TethysVersionChanges<T> = {
-    [target in TethysTargetVersion]?: ReadableChange<T>[];
-};
