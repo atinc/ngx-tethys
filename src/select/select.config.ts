@@ -1,5 +1,6 @@
 import { Overlay, ScrollStrategy } from '@angular/cdk/overlay';
 import { InjectionToken } from '@angular/core';
+import { ThyPlacement } from 'ngx-tethys/core';
 
 export const THY_SELECT_SCROLL_STRATEGY = new InjectionToken<() => ScrollStrategy>('thy-select-scroll-strategy');
 
@@ -25,10 +26,16 @@ export interface ThySelectConfig {
      * 下拉菜单的最小宽度
      */
     dropdownWidthMode?: ThyDropdownWidthMode;
+
+    /**
+     * 下拉菜单的弹出位置
+     */
+    placement?: ThyPlacement;
 }
 
 export const DEFAULT_SELECT_CONFIG: ThySelectConfig = {
-    dropdownWidthMode: 'match-select'
+    dropdownWidthMode: 'match-select',
+    placement: 'bottom'
 };
 
 export const THY_SELECT_CONFIG = new InjectionToken<ThySelectConfig>('thy-select-config');
