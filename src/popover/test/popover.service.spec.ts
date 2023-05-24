@@ -1,5 +1,5 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule, ScrollStrategy } from '@angular/cdk/overlay';
+import { CloseScrollStrategy, Overlay, OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
 import { Location } from '@angular/common';
 import { SpyLocation } from '@angular/common/testing';
 import {
@@ -9,14 +9,13 @@ import {
     ElementRef,
     Injector,
     NgModule,
-    OnInit,
     TemplateRef,
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { doesNotReject } from 'assert';
+
 import { Subject } from 'rxjs';
 
 import { isArray, isUndefinedOrNull } from '../../util';
