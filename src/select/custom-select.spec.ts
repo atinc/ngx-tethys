@@ -1322,7 +1322,7 @@ describe('ThyCustomSelect', () => {
                     {
                         provide: THY_SELECT_CONFIG,
                         useValue: {
-                            thyDropdownWidthMode: 'min-width'
+                            dropdownWidthMode: 'min-width'
                         }
                     }
                 ]

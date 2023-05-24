@@ -15,12 +15,20 @@ export const THY_SELECT_SCROLL_STRATEGY_PROVIDER = {
 
 export type ThyDropdownWidthMode = 'match-select' | 'min-width' | { minWidth: number };
 
+/**
+ * 打开select下拉菜单的配置
+ * @public
+ * @order 30
+ */
 export interface ThySelectConfig {
-    thyDropdownWidthMode: ThyDropdownWidthMode;
+    /**
+     * 下拉菜单的最小宽度
+     */
+    dropdownWidthMode?: ThyDropdownWidthMode;
 }
 
 export const DEFAULT_SELECT_CONFIG: ThySelectConfig = {
-    thyDropdownWidthMode: 'match-select'
+    dropdownWidthMode: 'match-select'
 };
 
 export const THY_SELECT_CONFIG = new InjectionToken<ThySelectConfig>('thy-select-config');

@@ -23,7 +23,7 @@ import { THY_SELECT_CONFIG } from 'ngx-tethys/select/select.config';
         {
             provide: THY_SELECT_CONFIG,
             useValue: {
-                thyDropdownWidthMode: 'min-width'
+                dropdownWidthMode: 'min-width'
             }
         }
     ]

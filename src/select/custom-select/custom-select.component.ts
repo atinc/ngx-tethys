@@ -488,7 +488,7 @@ export class ThySelectCustomComponent
     }
 
     getDropdownMinWidth(): number | null {
-        const mode = this.thyDropdownWidthMode ? this.thyDropdownWidthMode : this.selectConfig.thyDropdownWidthMode;
+        const mode = this.thyDropdownWidthMode ? this.thyDropdownWidthMode : this.selectConfig.dropdownWidthMode;
         let dropdownMinWidth: number | null = null;
 
         if ((mode as { minWidth: number })?.minWidth) {
