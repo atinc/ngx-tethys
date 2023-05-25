@@ -38,7 +38,7 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         },
         {
             title: '本周',
-            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfDay().getTime()]
+            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
         },
         {
             title: '本月',
