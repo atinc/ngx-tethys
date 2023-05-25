@@ -83,7 +83,13 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { THY_SELECT_SCROLL_STRATEGY, THY_SELECT_CONFIG, ThySelectConfig, ThyDropdownWidthMode } from '../select.config';
+import {
+    THY_SELECT_SCROLL_STRATEGY,
+    THY_SELECT_CONFIG,
+    ThySelectConfig,
+    ThyDropdownWidthMode,
+    DEFAULT_SELECT_CONFIG
+} from '../select.config';
 
 export type SelectMode = 'multiple' | '';
 
@@ -197,6 +203,8 @@ export class ThySelectCustomComponent
      * 手动聚焦中的标识
      */
     private manualFocusing = false;
+
+    private config: ThySelectConfig;
 
     private readonly destroy$ = new Subject<void>();
 
@@ -350,7 +358,7 @@ export class ThySelectCustomComponent
      * @type ThyPlacement
      */
     @Input()
-    thyPlacement: ThyPlacement = 'bottom';
+    thyPlacement: ThyPlacement;
 
     /**
      * 自定义 Overlay Origin
@@ -447,6 +455,7 @@ export class ThySelectCustomComponent
         @Optional() @Inject(THY_SELECT_CONFIG) public selectConfig: ThySelectConfig
     ) {
         super();
+        this.config = { ...DEFAULT_SELECT_CONFIG, ...selectConfig };
         this.buildScrollStrategy();
     }
 
@@ -488,7 +497,7 @@ export class ThySelectCustomComponent
     }
 
     getDropdownMinWidth(): number | null {
-        const mode = this.thyDropdownWidthMode ? this.thyDropdownWidthMode : this.selectConfig.thyDropdownWidthMode;
+        const mode = this.thyDropdownWidthMode || this.config.dropdownWidthMode;
         let dropdownMinWidth: number | null = null;
 
         if ((mode as { minWidth: number })?.minWidth) {
@@ -826,7 +835,7 @@ export class ThySelectCustomComponent
     }
 
     private getPositions() {
-        this.dropDownPositions = getFlexiblePositions(this.thyPlacement, this.defaultOffset);
+        this.dropDownPositions = getFlexiblePositions(this.thyPlacement || this.config.placement, this.defaultOffset);
     }
 
     private instanceSelectionModel() {
