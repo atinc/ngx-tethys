@@ -1,0 +1,5 @@
+<ng-container *ngFor="let placement of placements; trackBy: trackByFn">
+  <thy-custom-select [(ngModel)]="placement.value" [thyPlacement]="placement.value">
+    <thy-option [thyValue]="placement.value" [thyLabelText]="placement.text"> </thy-option>
+  </thy-custom-select>
+</ng-container>
