@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.6](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.6) (2023-05-25)
+
+
+### Bug Fixes
+
+* **date-picker:** #INFR-8051 default shortcut ranges presets end of week err ([#2689](https://github.com/atinc/ngx-tethys/issues/2689)) ([3924571](https://github.com/atinc/ngx-tethys/commit/3924571750ed238c49a26beff815ef9dc40b6552)), closes [#INFR-8051](https://github.com/atinc/ngx-tethys/issues/INFR-8051)
+
+
+### Features
+
+* **select:** support global setting placement in THY_SELECT_CONFIG and add placement examples #INFR-8025 ([#2688](https://github.com/atinc/ngx-tethys/issues/2688)) ([479fa01](https://github.com/atinc/ngx-tethys/commit/479fa01a1b256fb2d32c64cce61730017f7c4c29)), closes [#INFR-8025](https://github.com/atinc/ngx-tethys/issues/INFR-8025)
+
+
+
 ## [15.3.5](https://github.com/atinc/ngx-tethys/compare/15.3.2...15.3.5) (2023-05-23)
 
 
