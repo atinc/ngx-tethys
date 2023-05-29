@@ -1,4 +1,4 @@
-import { addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -80,7 +80,7 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('show should support thyMinDate to null', fakeAsync(() => {
-            fixtureInstance.thyMinDate = new Date('2023-05-29');
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), 1)).getTime());
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -92,7 +92,7 @@ describe('ThyDatePickerComponent', () => {
         }));
 
         it('show should support thyMaxDate', fakeAsync(() => {
-            fixtureInstance.thyMaxDate = new Date('2023-06-07');
+            fixtureInstance.thyMaxDate = new Date(startOfWeek(addWeeks(new Date(), 2), { weekStartsOn: 1 }).getTime());
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -100,7 +100,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             const input = getPickerTrigger();
-            expect(input.value.trim()).toBe('2023-06-05');
+            expect(input.value).toBe(format(shortcutDatePresets[1].value, 'yyyy-MM-dd'));
         }));
     });
 

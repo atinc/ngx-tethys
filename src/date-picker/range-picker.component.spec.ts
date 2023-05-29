@@ -1,4 +1,4 @@
-import { endOfDay, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -86,8 +86,8 @@ describe('ThyRangePickerComponent', () => {
         }));
 
         it('show should support thyMinDate and thyMaxDate', fakeAsync(() => {
-            fixtureInstance.thyMinDate = new Date('2023-05-26');
-            fixtureInstance.thyMaxDate = new Date('2023-06-07');
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), -2)).getTime());
+            fixtureInstance.thyMaxDate = new Date(startOfDay(addDays(new Date(), 10)).getTime());
             fixtureInstance.thyShowShortcut = true;
             fixture.detectChanges();
             openPickerByClickTrigger();
@@ -96,12 +96,13 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             const input = getPickerTrigger();
-            expect(input.value.trim()).toBe('2023-05-26 ~ 2023-05-29');
+            const endDate = shortcutRangesPresets[0].value[1]
+            expect(input.value.trim()).toBe(`${format(fixtureInstance.thyMinDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`);
         }));
 
         it('show should support thyMinDate and thyMaxDate to null', fakeAsync(() => {
-            fixtureInstance.thyMinDate = new Date('2023-06-20');
-            fixtureInstance.thyMaxDate = new Date('2023-06-25');
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), 10)).getTime());
+            fixtureInstance.thyMaxDate = new Date(startOfDay(addDays(new Date(), 30)).getTime());
             fixtureInstance.thyShowShortcut = true;
             fixture.detectChanges();
             openPickerByClickTrigger();
