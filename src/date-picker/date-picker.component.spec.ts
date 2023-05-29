@@ -78,6 +78,30 @@ describe('ThyDatePickerComponent', () => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
             });
         }));
+
+        it('show should support thyMinDate to null', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date('2023-05-29');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
+        }));
+
+        it('show should support thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMaxDate = new Date('2023-06-07');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[1], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('2023-06-05');
+        }));
     });
 
     describe('general api testing', () => {
@@ -808,6 +832,8 @@ describe('ThyDatePickerComponent', () => {
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
                 [thyShowTime]="thyShowTime"
+                [thyMinDate]="thyMinDate"
+                [thyMaxDate]="thyMaxDate"
                 (thyOnOk)="thyOnOk($event)"></thy-date-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
@@ -845,6 +871,8 @@ class ThyTestDatePickerComponent {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyPlacement: string = 'bottomLeft';
+    thyMinDate: Date | number;
+    thyMaxDate: Date | number;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

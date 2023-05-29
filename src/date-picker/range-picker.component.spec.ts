@@ -84,6 +84,34 @@ describe('ThyRangePickerComponent', () => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
             });
         }));
+
+        it('show should support thyMinDate and thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date('2023-05-26');
+            fixtureInstance.thyMaxDate = new Date('2023-06-07');
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('2023-05-26 ~ 2023-05-29');
+        }));
+
+        it('show should support thyMinDate and thyMaxDate to null', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date('2023-06-20');
+            fixtureInstance.thyMaxDate = new Date('2023-06-25');
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
+        }));
     });
 
     describe('general api testing', () => {
@@ -794,6 +822,8 @@ describe('ThyRangePickerComponent', () => {
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 [thyMode]="thyMode"
+                [thyMinDate]="thyMinDate"
+                [thyMaxDate]="thyMaxDate"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -823,7 +853,8 @@ class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
     @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
-
+    thyMinDate: Date | number;
+    thyMaxDate: Date | number;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;

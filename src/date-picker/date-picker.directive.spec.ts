@@ -287,7 +287,7 @@ describe('ThyPickerDirective', () => {
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     offset: 4,
-                    initialState: { ...getInitState(), defaultPickerValue: null },
+                    initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined },
                     placement: 'bottom'
                 });
             }));
@@ -405,7 +405,7 @@ class ThyTestPickerComponent {
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
     popoverOptions: Partial<ThyPopoverConfig>;
-    thyShowShortcut: boolean = false;
+    thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
     thyShortcutPresets: ThyShortcutPreset[];
     thyOnChange(): void {}
