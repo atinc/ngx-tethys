@@ -121,7 +121,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
     initShortcutPresets(): void {
         const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
-        this.showShortcut = (['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)) ? showShortcut : this.showShortcut;
+        this.showShortcut =
+            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
+                ? showShortcut
+                : this.showShortcut;
         if (this.showShortcut && !this.shortcutPresets) {
             this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
         }
@@ -451,19 +454,19 @@ export class DatePopupComponent implements OnChanges, OnInit {
     shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
         const { value } = shortcutPresets;
         if (!value) return;
-        const getDateValue =(date: TinyDate | TinyDate[]): TinyDate | TinyDate[]=> {
+        const getDateValue = (date: TinyDate | TinyDate[]) => {
             const minDate = this.minDate ? new TinyDate(this.minDate) : new TinyDate(-Infinity);
-            const maxDate = this.maxDate ? new TinyDate(this.maxDate): new TinyDate(Infinity);
+            const maxDate = this.maxDate ? new TinyDate(this.maxDate) : new TinyDate(Infinity);
             if (helpers.isArray(date)) {
-                if(date[0].getTime() > maxDate.getTime() || date[1].getTime() < minDate.getTime()) return [];
-                if(date[0].getTime() < minDate.getTime()) return [minDate, date[1]];
-                if(date[1].getTime() > maxDate.getTime()) return [date[0], maxDate];
+                if (date[0].getTime() > maxDate.getTime() || date[1].getTime() < minDate.getTime()) return [];
+                if (date[0].getTime() < minDate.getTime()) return [minDate, date[1]];
+                if (date[1].getTime() > maxDate.getTime()) return [date[0], maxDate];
                 return date;
             } else {
-                if(date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) return null;
+                if (date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) return null;
                 return date;
             }
-        }
+        };
         const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
             const beginValue: number | Date = helpers.isFunction(begin) ? begin() : begin;
             const endValue: number | Date = helpers.isFunction(end) ? end() : end;
