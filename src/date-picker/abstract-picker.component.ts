@@ -139,7 +139,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      * 是否展示快捷选项面板
      * @default false
      */
-    @Input() @InputBoolean() thyShowShortcut: boolean = false;
+    @Input() @InputBoolean() thyShowShortcut: boolean;
 
     /**
      * 快捷选项面板的显示位置

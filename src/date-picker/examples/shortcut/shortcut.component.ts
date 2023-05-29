@@ -10,6 +10,8 @@ import { addWeeks, startOfDay, startOfWeek } from 'date-fns';
 export class ThyDatePickerShortcutExampleComponent implements OnInit {
     dateRange = { begin: new Date('2021-10'), end: new Date('2021-12') };
     date = { date: new Date(), with_time: 0 };
+    minDate = new Date('2023-05-28');
+    maxDate = new Date('2023-06-04');
     customShortcut: ThyShortcutPreset[];
     shortcutDatePresets: ThyShortcutPreset[];
     constructor() {}
