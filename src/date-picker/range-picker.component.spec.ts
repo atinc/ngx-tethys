@@ -96,7 +96,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             const input = getPickerTrigger();
-            const endDate = shortcutRangesPresets[0].value[1]
+            const endDate = shortcutRangesPresets[0].value[1];
             expect(input.value.trim()).toBe(`${format(fixtureInstance.thyMinDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`);
         }));
 
