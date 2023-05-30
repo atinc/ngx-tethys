@@ -458,12 +458,23 @@ export class DatePopupComponent implements OnChanges, OnInit {
             const minDate = this.minDate ? new TinyDate(this.minDate) : new TinyDate(-Infinity);
             const maxDate = this.maxDate ? new TinyDate(this.maxDate) : new TinyDate(Infinity);
             if (helpers.isArray(date)) {
-                if (date[0].getTime() > maxDate.getTime() || date[1].getTime() < minDate.getTime()) return [];
-                if (date[0].getTime() < minDate.getTime()) return [minDate, date[1]];
-                if (date[1].getTime() > maxDate.getTime()) return [date[0], maxDate];
+                if (date[0].getTime() > maxDate.getTime() || date[1].getTime() < minDate.getTime()) {
+                    return [];
+                }
+                if (date[0].getTime() < minDate.getTime() && date[1].getTime() > maxDate.getTime()) {
+                    return [minDate, maxDate];
+                }
+                if (date[0].getTime() < minDate.getTime()) {
+                    return [minDate, date[1]];
+                }
+                if (date[1].getTime() > maxDate.getTime()) {
+                    return [date[0], maxDate];
+                }
                 return date;
             } else {
-                if (date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) return null;
+                if (date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) {
+                    return null;
+                }
                 return date;
             }
         };
@@ -480,7 +491,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
             setRangeValue(value[0], value[1]);
         } else {
             const _value: number | Date = helpers.isFunction(value) ? value() : value;
-            console.log(getDateValue(new TinyDate(_value)));
             this.setValue(getDateValue(new TinyDate(_value)) as TinyDate);
         }
         this.shortcutValueChange.emit({
