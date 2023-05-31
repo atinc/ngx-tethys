@@ -99,7 +99,7 @@ describe('ThyRangePickerComponent', () => {
             expect(input.value.trim()).toBe('');
         }));
 
-        it('should be [thyMinDate, thyMaxDate] when startDate > thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
+        it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
             fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), -3)).getTime();
             fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), -1)).getTime();
             fixtureInstance.thyShowShortcut = true;
