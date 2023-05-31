@@ -157,28 +157,19 @@ export class ThyAvatarComponent implements OnInit {
         this.hostRenderer.updateClass([`thy-avatar-${this._size}`]);
     }
 
-    private findClosestSize(sizes: number[], value: number): number {
-        let left = 0,
-            right = sizes.length - 1,
-            middle: number,
-            result: number;
+    private findClosestSize(sizeArray: number[], currentSize: number): number {
+        let closestValue = sizeArray[0];
+        let closestDifference = Math.abs(closestValue - currentSize);
 
-        while (left <= right) {
-            middle = Math.floor((left + right) / 2);
-            if (right - left <= 1) {
-                result = sizes[right];
-                break;
-            }
-            result = sizes[middle];
-            if (result === value) {
-                return value;
-            } else if (result > value) {
-                right = middle;
-            } else {
-                left = middle;
+        for (let i = 1; i < sizeArray.length; i++) {
+            const currentDifference = Math.abs(sizeArray[i] - currentSize);
+            if (currentDifference <= closestDifference) {
+                closestValue = sizeArray[i];
+                closestDifference = currentDifference;
             }
         }
-        return value - sizes[left] < sizes[right] - value ? sizes[left] : sizes[right];
+
+        return closestValue;
     }
 
     private _setAvatarSrc(src: string) {
