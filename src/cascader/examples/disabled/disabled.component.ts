@@ -57,7 +57,7 @@ const customerOptions = [
 export class ThyCascaderDisabledExampleComponent implements OnInit {
     public areaCode: any[] = [];
 
-    public values: any[] = [];
+    public values: any[] = [['12', '1201', '120102']];
 
     public curVal = ['11', '1101', '110102'];
 
