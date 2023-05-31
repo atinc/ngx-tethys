@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, sortRangeValue } from 'ngx-tethys/util';
+import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -121,7 +121,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
     initShortcutPresets(): void {
         const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
-        this.showShortcut = this.showShortcut || showShortcut;
+        this.showShortcut =
+            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
+                ? showShortcut
+                : this.showShortcut;
         if (this.showShortcut && !this.shortcutPresets) {
             this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
         }
@@ -451,19 +454,44 @@ export class DatePopupComponent implements OnChanges, OnInit {
     shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
         const { value } = shortcutPresets;
         if (!value) return;
+        const getDateValue = (date: TinyDate | TinyDate[]) => {
+            const minDate = this.minDate ? new TinyDate(this.minDate) : new TinyDate(-Infinity);
+            const maxDate = this.maxDate ? new TinyDate(this.maxDate) : new TinyDate(Infinity);
+            if (helpers.isArray(date)) {
+                if (date[0].getTime() > maxDate.getTime() || date[1].getTime() < minDate.getTime()) {
+                    return [];
+                }
+                if (date[0].getTime() < minDate.getTime() && date[1].getTime() > maxDate.getTime()) {
+                    return [minDate, maxDate];
+                }
+                if (date[0].getTime() < minDate.getTime()) {
+                    return [minDate, date[1]];
+                }
+                if (date[1].getTime() > maxDate.getTime()) {
+                    return [date[0], maxDate];
+                }
+                return date;
+            } else {
+                if (date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) {
+                    return null;
+                }
+                return date;
+            }
+        };
         const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
-            const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
-            const endValue: number | Date = typeof end === 'function' ? end() : end;
+            const beginValue: number | Date = helpers.isFunction(begin) ? begin() : begin;
+            const endValue: number | Date = helpers.isFunction(end) ? end() : end;
             if (beginValue && endValue) {
-                this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
-                this.setValue(this.cloneRangeDate(this.selectedValue));
+                this.selectedValue = getDateValue([new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))]) as TinyDate[];
+                const cloneRangeDate = this.selectedValue.length === 0 ? [] : this.cloneRangeDate(this.selectedValue);
+                this.setValue(cloneRangeDate);
             }
         };
         if (helpers.isArray(value)) {
             setRangeValue(value[0], value[1]);
         } else {
-            const _value: number | Date = typeof value === 'function' ? value() : value;
-            this.setValue(new TinyDate(_value));
+            const _value: number | Date = helpers.isFunction(value) ? value() : value;
+            this.setValue(getDateValue(new TinyDate(_value)) as TinyDate);
         }
         this.shortcutValueChange.emit({
             value: this.selectedValue,

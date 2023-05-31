@@ -1,4 +1,4 @@
-import { endOfDay, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -83,6 +83,83 @@ describe('ThyRangePickerComponent', () => {
             shortcutItems.forEach((shortcut, index) => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
             });
+        }));
+
+        it('should be [] when startDate > thyMaxDate || endDate < thyMinDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), 10)).getTime();
+            fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), 30)).getTime();
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
+        }));
+
+        it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), -3)).getTime();
+            fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), -1)).getTime();
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            const value = `${format(fixtureInstance.thyMinDate, 'yyyy-MM-dd')} ~ ${format(fixtureInstance.thyMaxDate, 'yyyy-MM-dd')}`;
+            expect(input.value.trim()).toBe(value);
+        }));
+
+        it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), -3)).getTime();
+            fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), 30)).getTime();
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            const endDate = shortcutRangesPresets[0].value[1];
+            const value = `${format(fixtureInstance.thyMinDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
+            expect(input.value.trim()).toBe(value);
+        }));
+
+        it('should be [startDate, thyMaxDate] when endDate > thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), -10)).getTime();
+            fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), -1)).getTime();
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            const startDate = shortcutRangesPresets[0].value[0];
+            const value = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(fixtureInstance.thyMaxDate, 'yyyy-MM-dd')}`;
+            expect(input.value.trim()).toBe(value);
+        }));
+
+        it('should be [startDate, endDate] when startDate >= thyMinDate && endDate <= thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), -30).getTime());
+            fixtureInstance.thyMaxDate = startOfDay(addDays(new Date(), 30).getTime());
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            const input = getPickerTrigger();
+            const startDate = shortcutRangesPresets[0].value[0];
+            const endDate = shortcutRangesPresets[0].value[1];
+            expect(input.value.trim()).toBe(`${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`);
         }));
     });
 
@@ -794,6 +871,8 @@ describe('ThyRangePickerComponent', () => {
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 [thyMode]="thyMode"
+                [thyMinDate]="thyMinDate"
+                [thyMaxDate]="thyMaxDate"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -823,7 +902,8 @@ class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
     @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
-
+    thyMinDate: Date | number;
+    thyMaxDate: Date | number;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;
