@@ -442,7 +442,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            dispatchMouseEvent(shortcutItems[2], 'click');
+            dispatchMouseEvent(shortcutItems[3], 'click');
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
