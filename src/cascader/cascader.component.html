@@ -58,12 +58,10 @@
             (mouseover)="mouseoverOption(option, i, $event)"></li>
         </ul>
       </ng-container>
-      <ng-template #emptyPlaceholder>
-        <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
-      </ng-template>
     </ng-container>
     <ng-container *ngIf="isShowSearchPanel">
       <ul class="thy-cascader-search-list py-3">
+        <ng-container *ngIf="searchResultList.length; else emptyPlaceholder"></ng-container>
         <li
           thy-cascader-search-option
           *ngFor="let item of searchResultList"
@@ -72,10 +70,13 @@
           [option]="item"
           [active]="item.selected"
           (toggleSelectChange)="selectSearchResult($event)"></li>
-        <div *ngIf="!searchResultList.length">
-          <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
-        </div>
       </ul>
     </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #emptyPlaceholder>
+  <div [ngStyle]="{ 'width.px': triggerRect?.width }">
+    <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
   </div>
 </ng-template>
