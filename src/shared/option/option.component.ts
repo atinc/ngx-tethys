@@ -25,7 +25,7 @@ import {
 } from './option.token';
 import { NgIf } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
-import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}
@@ -44,7 +44,7 @@ export class ThyOptionVisibleChangeEvent {
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyFlexibleTextComponent]
+    imports: [NgIf, ThyFlexibleTextModule]
 })
 export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
