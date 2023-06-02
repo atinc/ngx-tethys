@@ -5,7 +5,7 @@
   </span>
 </ng-container>
 <ng-template #defaultOption>
-  <span class="text-truncate">{{ thyLabelText }}</span>
+  <span class="text-truncate" thyFlexibleText [thyTooltipContent]="thyLabelText">{{ thyLabelText }}</span>
   <span class="checked-icon">
     <i class="wtf wtf-checked"></i>
   </span>

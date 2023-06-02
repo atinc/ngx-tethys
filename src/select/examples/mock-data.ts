@@ -22,7 +22,7 @@ export const taskTypes = [
 
 export const listOfOption = [
     { value: 'option1', text: '选项一' },
-    { value: 'option2', text: '选项二' },
+    { value: 'option2', text: '选项二超长内容选项二超长内容选项二超长内容选项二超长内容选项二超长内容选项二超长内容选项二超长内容' },
     { value: 'option3', text: '选项三' },
     { value: 'option4', text: '选项四' },
     { value: 'option5', text: '选项五' },
