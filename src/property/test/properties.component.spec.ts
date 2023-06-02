@@ -181,18 +181,15 @@ describe(`thy-properties`, () => {
             expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain('thy-property-item-content-editing');
         });
 
-        it('should destroy the subscription of click event when the value of thyEditable is changed from true to false', fakeAsync(() => {
+        it('should not subscribe multiple times when the value of thyEditable is changed to true', fakeAsync(() => {
             basicComponent.editable = true;
             fixture.detectChanges();
 
             const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
+            const setEditingSpy = spyOn(basicComponent.agePropertyItemComponent, 'setEditing');
             itemContentElement.click();
             fixture.detectChanges();
-
-            const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription, 'unsubscribe');
-            basicComponent.editable = false;
-            fixture.detectChanges();
-            expect(unsubscribeSpy).toHaveBeenCalled();
+            expect(setEditingSpy).toHaveBeenCalledTimes(1);
         }));
 
         it('should dynamic rendering property item', () => {
