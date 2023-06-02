@@ -1,5 +1,5 @@
 import { NgModule, Component, ViewChild, ElementRef } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
@@ -11,13 +11,15 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
 import { FormsModule } from '@angular/forms';
 import { DomPortal } from '@angular/cdk/portal';
+import { createFalse } from 'typescript';
+import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-properties-test-basic',
     template: `
         <thy-properties #properties [thyLayout]="layout" [thyEditTrigger]="editTrigger">
             <thy-property-item thyLabelText="姓名">{{ user.name }}</thy-property-item>
-            <thy-property-item #ageProperty thyLabelText="年龄" thyEditable="true">
+            <thy-property-item #ageProperty thyLabelText="年龄" [thyEditable]="editable">
                 <span>{{ user.age }}</span>
                 <ng-template #editor>
                     <input class="age-input" />
@@ -42,6 +44,8 @@ class ThyPropertiesTestBasicComponent {
     @ViewChild('ageProperty') agePropertyItemComponent: ThyPropertyItemComponent;
 
     @ViewChild('sexProperty') sexPropertyItemComponent: ThyPropertyItemComponent;
+
+    editable = true;
 
     layout = 'horizontal';
 
@@ -176,6 +180,20 @@ describe(`thy-properties`, () => {
             fixture.detectChanges();
             expect(ageEditorElement.nativeElement.parentNode.classList).not.toContain('thy-property-item-content-editing');
         });
+
+        it('should destroy the subscription of click event when the value of thyEditable is changed from true to false', fakeAsync(() => {
+            basicComponent.editable = true;
+            fixture.detectChanges();
+
+            const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
+            itemContentElement.click();
+            fixture.detectChanges();
+
+            const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription, 'unsubscribe');
+            basicComponent.editable = false;
+            fixture.detectChanges();
+            expect(unsubscribeSpy).toHaveBeenCalled();
+        }));
 
         it('should dynamic rendering property item', () => {
             basicComponent.showAddress = true;
