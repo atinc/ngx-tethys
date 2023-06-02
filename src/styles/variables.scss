@@ -488,7 +488,7 @@ $avatar-sizes: map.merge(
 );
 // avatar-list
 $avatar-item-space: 4px !default;
-$overlap-avatar-item-space: -8px !default;
+$overlap-avatar-item-space-percent: 0.25 !default;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;

@@ -169,13 +169,24 @@ describe('thy-avatar-list', () => {
 
         it('should be default type which is the default type When thyMode is empty', fakeAsync(() => {
             expect(avatarListElement.classList.contains('thy-avatar-list')).toEqual(true);
-            expect(avatarListElement.classList.contains('thy-avatar-list-overlap')).toEqual(false);
+            expect(fixture.debugElement.query(By.css('.thy-avatar-list-overlap'))).toBeNull();
+        }));
+
+        it('should show current overlap space When thyMode is overlap', fakeAsync(() => {
+            fixture.componentInstance.mode = ThyAvatarListMode.overlap;
+            fixture.componentInstance.size = 60;
+            fixture.detectChanges();
+            const element = fixture.debugElement.queryAll(By.css('.thy-avatar-68'));
+            expect(element).not.toBeNull();
+            const spaceSize = 68 * 0.25 * -1;
+            expect(getComputedStyle(element[0].nativeElement).marginLeft).toEqual('0px');
+            expect(getComputedStyle(element[1].nativeElement).marginLeft).toEqual(`${spaceSize}px`);
         }));
 
         it('should overlap type is thyMode is overlap', fakeAsync(() => {
             fixture.componentInstance.mode = ThyAvatarListMode.overlap;
             fixture.detectChanges();
-            expect(avatarListElement.classList.contains('thy-avatar-list-overlap')).toEqual(true);
+            expect(fixture.debugElement.query(By.css('.thy-avatar-list-overlap'))).not.toBeNull();
         }));
 
         it('should toggle thy-avatar-list-overlap class when toggle thyMode', fakeAsync(() => {
@@ -207,7 +218,3 @@ describe('thy-avatar-list', () => {
         }));
     });
 });
-
-function spyAvatarListOffsetWidth(avatarList: ThyAvatarListComponent, width: number) {
-    spyOnProperty(avatarList['elementRef'].nativeElement, 'offsetWidth', 'get').and.returnValue(width);
-}
