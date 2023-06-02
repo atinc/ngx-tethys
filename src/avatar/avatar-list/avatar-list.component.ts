@@ -23,6 +23,7 @@ export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
 }
+
 /**
  * 头像列表组件
  * @name thy-avatar-list
