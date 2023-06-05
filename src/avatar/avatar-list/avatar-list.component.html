@@ -1,6 +1,5 @@
 <ng-content></ng-content>
 
-<!-- .thy-avatar-append used to handle #appendContent style -->
-<div #appendContent *ngIf="append" class="thy-avatar-append" [ngStyle]="{ 'padding-left.px': overlapMode && avatarSpace }">
+<div #appendContent *ngIf="append" class="thy-avatar-append">
   <ng-container [ngTemplateOutlet]="append"></ng-container>
 </div>

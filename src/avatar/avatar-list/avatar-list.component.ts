@@ -27,6 +27,7 @@ export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
 }
+
 /**
  * 头像列表组件
  * @name thy-avatar-list
@@ -36,8 +37,7 @@ export const enum ThyAvatarListMode {
     selector: 'thy-avatar-list',
     templateUrl: `./avatar-list.component.html`,
     host: {
-        class: 'thy-avatar-list',
-        '[style.margin-left.px]': 'overlapMode ? -avatarOverlapSpace : 0'
+        class: 'thy-avatar-list'
     },
     providers: [UpdateHostClassService],
     standalone: true,
@@ -49,10 +49,6 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
     public avatarItems: ThyAvatarComponent[] = [];
 
     public avatarRenderItems: ThyAvatarComponent[] = [];
-
-    public avatarSpace = THY_AVATAR_ITEM_SPACE;
-
-    public avatarOverlapSpace = THY_OVERLAP_AVATAR_ITEM_SPACE;
 
     private ngUnsubscribe$ = new Subject<void>();
 
@@ -68,7 +64,7 @@ export class ThyAvatarListComponent implements OnChanges, OnDestroy, AfterConten
 
     /**
      * 头像大小
-     * @type 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
+     * @type 16 | 22 | 24 | 28 | 32 | 36 | 44 | 48 | 68 | 110 | 160 | xxs(22px) | xs(24px) | sm(32px) | md(36px) | lg(48px)
      * @default 36
      */
     @Input() thyAvatarSize: number | string = DEFAULT_SIZE;

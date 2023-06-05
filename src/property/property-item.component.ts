@@ -1,5 +1,5 @@
 import { InputBoolean, InputNumber, ThyClickDispatcher } from 'ngx-tethys/core';
-import { combineLatest, fromEvent, Subject } from 'rxjs';
+import { combineLatest, fromEvent, Subject, Subscription } from 'rxjs';
 import { delay, filter, take, takeUntil } from 'rxjs/operators';
 import { OverlayOutsideClickDispatcher, OverlayRef } from '@angular/cdk/overlay';
 import {
@@ -105,6 +105,8 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private originOverlays: OverlayRef[] = [];
 
+    private clickEventSubscription: Subscription;
+
     @HostBinding('style.grid-column')
     get gridColumn() {
         return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
@@ -160,7 +162,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     private subscribeClick() {
         if (this.thyEditable === true) {
             this.ngZone.runOutsideAngular(() => {
-                fromEvent(this.itemContent.nativeElement, 'click')
+                if (this.clickEventSubscription) {
+                    return;
+                }
+                this.clickEventSubscription = fromEvent(this.itemContent.nativeElement, 'click')
                     .pipe(takeUntil(this.eventDestroy$))
                     .subscribe(() => {
                         this.setEditing(true);
