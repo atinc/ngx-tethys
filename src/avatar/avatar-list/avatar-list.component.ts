@@ -19,10 +19,15 @@ import { SafeAny } from 'ngx-tethys/types';
 import { Subject } from 'rxjs';
 import { DEFAULT_SIZE, ThyAvatarComponent } from '../avatar.component';
 
+export const THY_AVATAR_ITEM_SPACE = 4;
+
+export const THY_OVERLAP_AVATAR_ITEM_SPACE = -8;
+
 export const enum ThyAvatarListMode {
     overlap = 'overlap',
     default = 'default'
 }
+
 /**
  * 头像列表组件
  * @name thy-avatar-list
