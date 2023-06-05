@@ -1,0 +1,43 @@
+@use "../styles/variables";
+
+.thy-copy-success {
+    width: 32px;
+    height: 32px;
+    padding: 8px;
+    position: relative;
+    display: inline-flex;
+    .thy-copy-success-inner {
+        visibility: hidden;
+        position: relative;
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        background-color: variables.$success;
+        transition: all 0.3s;
+        &::after {
+            position: absolute;
+            top: 50%;
+            inset-inline-start: 29.5%;
+            display: table;
+            width: 4px;
+            height: 7px;
+            border: 2px solid variables.$white;
+            border-top: 0;
+            border-inline-start: 0;
+            content: '';
+            opacity: 0;
+            transform: rotate(45deg) scale(0) translate(-50%, -50%);
+            transition: all 0.1s cubic-bezier(0.71, -0.46, 0.88, 0.6),opacity 0.1s;
+        }
+    }
+}
+.thy-copy-success-show {
+    .thy-copy-success-inner {
+        visibility: visible;
+        &::after {
+            opacity: 1;
+            transform: rotate(45deg) scale(1) translate(-50%, -50%);
+            transition: all 0.2s cubic-bezier(0.12, 0.4, 0.29, 1.46) 0.1s;
+        }
+    }
+}

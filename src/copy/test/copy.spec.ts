@@ -1,7 +1,7 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, async, fakeAsync, flush, tick } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyNotifyModule, ThyNotifyService } from '../../notify';
@@ -77,13 +77,7 @@ describe('thy-copy', () => {
 });
 @Component({
     template: `
-        <p
-            #copyContainer
-            (thyCopy)="copy($event)"
-            thyCopyContent="content"
-            [thyCopyTipsOffset]="copyTipsOffset"
-            [thyCopyTips]="copyTooltip"
-            [thyShowNotify]="showNotify">
+        <p #copyContainer (thyCopied)="copy($event)" thyCopyContent="content" [thyCopyTips]="copyTooltip" [thyShowNotify]="showNotify">
             点击
         </p>
     `

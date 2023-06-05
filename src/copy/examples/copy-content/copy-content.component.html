@@ -1,11 +1,11 @@
 <section class="mb-3">
-  <button thyButton="primary-square" (thyCopy)="copy($event)" thyCopyContent="复制的文本">
+  <button thyButton="primary-square" (thyCopied)="copy($event)" thyCopyContent="复制的文本">
     复制
   </button>
 </section>
 <hr />
 <section class="mb-3">
-  <button thyButton="primary-square" (thyCopy)="copy($event)" [thyCopyContent]="target1" [thyCopySuccessText]="copyContent + '复制成功'">
+  <button thyButton="primary-square" (thyCopied)="copy($event)" [thyCopy]="target1" [thyCopySuccessText]="copyContent + '复制成功'">
     复制
   </button>
   <p #target1>{{ copyContent }}</p>
@@ -17,8 +17,8 @@
   <input #target2 [(ngModel)]="inputText" style="margin-right: 15px; width: 300px" />
   <button
     thyButton="primary-square"
-    (thyCopy)="copy($event)"
-    [thyCopyContent]="target2"
+    thyCopied="copy($event)"
+    [thyCopy]="target2"
     [thyCopySuccessText]="inputText + '复制成功'"
     thySize="md"
   >

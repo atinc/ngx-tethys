@@ -1,10 +1,10 @@
 <section class="mb-3">
-  <button thyButton="primary-square" (thyCopy)="copy($event)" [thyShowNotify]="false">
+  <button thyButton="primary-square" thyCopy (thyCopied)="copy($event)" thyCopyFeedbackMode="none">
     复制不通知
   </button>
 </section>
 <section class="mb-3">
-  <button thyButton="primary-square" (thyCopy)="copy1($event)" [thyShowNotify]="false">
+  <button thyButton="primary-square" thyCopy (thyCopied)="copy1($event)" thyCopyFeedbackMode="none">
     复制自定义通知
   </button>
 </section>
