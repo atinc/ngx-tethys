@@ -218,5 +218,8 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
+
+        this.eventDestroy$.next();
+        this.eventDestroy$.complete();
     }
 }
