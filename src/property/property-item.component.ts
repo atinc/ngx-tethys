@@ -138,6 +138,11 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         } else {
             this.eventDestroy$.next();
             this.eventDestroy$.complete();
+
+            if (this.clickEventSubscription) {
+                this.clickEventSubscription.unsubscribe();
+                this.clickEventSubscription = null;
+            }
         }
     }
 
