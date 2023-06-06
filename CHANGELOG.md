@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.8](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.8) (2023-06-06)
+
+
+### Bug Fixes
+
+* **avatar:** add constant of avatar list item space INFR-8056  ([9b96f4c](https://github.com/atinc/ngx-tethys/commit/9b96f4ca6b5f8d87a903da554aa20d6c4dfa3d6b))
+* **avatar:** the overlap space of thy-avatar-list component in overlap mode is 25% of the width of avatar component #INFR-8056 ([b26ad14](https://github.com/atinc/ngx-tethys/commit/b26ad1418bf4a0548889c76ea3c17bf6f29729c1)), closes [#INFR-8056](https://github.com/atinc/ngx-tethys/issues/INFR-8056)
+* **cascader:** fix it is still open when in disabled state #INFR-8141 ([#2692](https://github.com/atinc/ngx-tethys/issues/2692)) ([a73da1b](https://github.com/atinc/ngx-tethys/commit/a73da1bef1d4a75f7989f24b9f39e0910f5009fe)), closes [#INFR-8141](https://github.com/atinc/ngx-tethys/issues/INFR-8141)
+* **date-picker:** #INFR-8051 default shortcut ranges presets end of week err ([#2689](https://github.com/atinc/ngx-tethys/issues/2689)) ([3924571](https://github.com/atinc/ngx-tethys/commit/3924571750ed238c49a26beff815ef9dc40b6552)), closes [#INFR-8051](https://github.com/atinc/ngx-tethys/issues/INFR-8051)
+* **date-picker:** #INFR-8069 shortcut support thyMinDate thyMaxDate ([#2691](https://github.com/atinc/ngx-tethys/issues/2691)) ([7f72682](https://github.com/atinc/ngx-tethys/commit/7f7268215f585c4c39d55ef50ecb66ce304ff67e)), closes [#INFR-8069](https://github.com/atinc/ngx-tethys/issues/INFR-8069)
+* **date-picker:** fix both clear icon and calendar icon are displayed #INFR-8182 ([#2696](https://github.com/atinc/ngx-tethys/issues/2696)) ([f1914d3](https://github.com/atinc/ngx-tethys/commit/f1914d3a7900b4e836c2a1eb3cd7a059f3c2f40f)), closes [#INFR-8182](https://github.com/atinc/ngx-tethys/issues/INFR-8182)
+* **date-picker:** fix calendar icon hover style #INFR-8182 ([#2702](https://github.com/atinc/ngx-tethys/issues/2702)) ([94e3013](https://github.com/atinc/ngx-tethys/commit/94e3013120d4d15c4006d023d99f1d9b14179135)), closes [#INFR-8182](https://github.com/atinc/ngx-tethys/issues/INFR-8182)
+* **property:** should complete eventDestroy$ when component destroy ([#2703](https://github.com/atinc/ngx-tethys/issues/2703)) ([b3fe97c](https://github.com/atinc/ngx-tethys/commit/b3fe97c66d84113e47dd0db2d8fe0ec2c0a0cc00))
+* **property:** should destroy the subscription of click event when the value of thyEditable is changed from true to false #INFR-8179 ([#2701](https://github.com/atinc/ngx-tethys/issues/2701)) ([ac9ba57](https://github.com/atinc/ngx-tethys/commit/ac9ba5761bc068b3359b58c76fc57937610d25c6)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
+* **property:** should not subscribe multiple times when the value of thyEditable is changed to true #INFR-8179 ([#2695](https://github.com/atinc/ngx-tethys/issues/2695)) ([34e600c](https://github.com/atinc/ngx-tethys/commit/34e600c579fd978b8f93cca26c52cc4e417c249c)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
+
+
+### Features
+
+* **select:** support global setting placement in THY_SELECT_CONFIG and add placement examples #INFR-8025 ([#2688](https://github.com/atinc/ngx-tethys/issues/2688)) ([479fa01](https://github.com/atinc/ngx-tethys/commit/479fa01a1b256fb2d32c64cce61730017f7c4c29)), closes [#INFR-8025](https://github.com/atinc/ngx-tethys/issues/INFR-8025)
+
+
+
 ## [15.3.7](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.7) (2023-06-05)
 
 
