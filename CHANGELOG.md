@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.8](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.8) (2023-06-06)
+
+
+### Bug Fixes
+* **date-picker:** fix calendar icon hover style #INFR-8182 ([#2702](https://github.com/atinc/ngx-tethys/issues/2702)) ([94e3013](https://github.com/atinc/ngx-tethys/commit/94e3013120d4d15c4006d023d99f1d9b14179135)), closes [#INFR-8182](https://github.com/atinc/ngx-tethys/issues/INFR-8182)
+* **property:** should complete eventDestroy$ when component destroy ([#2703](https://github.com/atinc/ngx-tethys/issues/2703)) ([b3fe97c](https://github.com/atinc/ngx-tethys/commit/b3fe97c66d84113e47dd0db2d8fe0ec2c0a0cc00))
+* **property:** should destroy the subscription of click event when the value of thyEditable is changed from true to false #INFR-8179 ([#2701](https://github.com/atinc/ngx-tethys/issues/2701)) ([ac9ba57](https://github.com/atinc/ngx-tethys/commit/ac9ba5761bc068b3359b58c76fc57937610d25c6)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
+
+
 ## [15.3.7](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.7) (2023-06-05)
 
 
