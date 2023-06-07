@@ -192,6 +192,20 @@ describe(`thy-properties`, () => {
             expect(setEditingSpy).toHaveBeenCalledTimes(1);
         }));
 
+        it('should destroy the subscription of click event when the value of thyEditable is changed from true to false', fakeAsync(() => {
+            basicComponent.editable = true;
+            fixture.detectChanges();
+
+            const itemContentElement = basicComponent.agePropertyItemComponent.itemContent.nativeElement;
+            itemContentElement.click();
+            fixture.detectChanges();
+
+            const unsubscribeSpy = spyOn((basicComponent.agePropertyItemComponent as SafeAny).clickEventSubscription, 'unsubscribe');
+            basicComponent.editable = false;
+            fixture.detectChanges();
+            expect(unsubscribeSpy).toHaveBeenCalled();
+        }));
+
         it('should dynamic rendering property item', () => {
             basicComponent.showAddress = true;
             fixture.detectChanges();

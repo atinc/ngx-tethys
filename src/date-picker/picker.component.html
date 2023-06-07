@@ -34,7 +34,7 @@
     ></thy-icon>
   </span>
   <span class="{{ prefixCls }}-picker-icon">
-    <thy-icon [thyIconName]="suffixIcon" ngClass="remove-link remove-link-{{ size }}"></thy-icon>
+    <thy-icon [thyIconName]="suffixIcon" ngClass="remove-link-{{ size ? size : 'default' }}"></thy-icon>
   </span>
 </ng-template>
 
