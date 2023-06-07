@@ -10,7 +10,7 @@
     [(ngModel)]="active"
     (ngModelChange)="toggleOption(active)"
     [name]="option.value || option._id">
-    <thy-flexible-text [thyTooltipContent]="option[labelProperty] || ''">{{ option[labelProperty] || '' }}</thy-flexible-text>
+    <span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''">{{ option[labelProperty] || '' }}</span>
   </label>
 </ng-container>
 
