@@ -61,15 +61,16 @@
     </ng-container>
     <ng-container *ngIf="isShowSearchPanel">
       <ul class="thy-cascader-search-list py-3" [ngStyle]="{ 'width.px': !searchResultList.length ? triggerRect?.width : '' }">
-        <ng-container *ngIf="searchResultList.length; else searchEmptyPlaceholder"></ng-container>
-        <li
-          thy-cascader-search-option
-          *ngFor="let item of searchResultList"
-          [multiple]="thyMultiple"
-          [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
-          [option]="item"
-          [active]="item.selected"
-          (toggleSelectChange)="selectSearchResult($event)"></li>
+        <ng-container *ngIf="searchResultList.length; else searchEmptyPlaceholder">
+          <li
+            thy-cascader-search-option
+            *ngFor="let item of searchResultList"
+            [multiple]="thyMultiple"
+            [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
+            [option]="item"
+            [active]="item.selected"
+            (toggleSelectChange)="selectSearchResult($event)"></li>
+        </ng-container>
       </ul>
     </ng-container>
   </div>
