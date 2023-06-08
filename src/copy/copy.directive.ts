@@ -29,7 +29,7 @@ export interface ThyCopyConfig {
     copyTooltips?: string;
 }
 
-export const DEFAULT_COPY_CONFIG: ThyCopyConfig = {
+export const defaultCopyOptions: ThyCopyConfig = {
     copySuccessText: '复制成功',
     copyTooltips: '点击复制'
 };
@@ -64,7 +64,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     /**
      * 复制成功时的文案
      */
-    @Input() thyCopySuccessText = DEFAULT_COPY_CONFIG.copySuccessText;
+    @Input() thyCopySuccessText = defaultCopyOptions.copySuccessText;
 
     /**
      * 提示文案
@@ -74,7 +74,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
         this.tooltipDirective.content = value;
     }
 
-    copyTips = DEFAULT_COPY_CONFIG.copyTooltips;
+    copyTips = defaultCopyOptions.copyTooltips;
 
     /**
      * 当为 string 时，复制的是传入的内容；当为 ElementRef | HTMLElement 时，复制的是 dom 节点的 value 或者 textContent
@@ -99,7 +99,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     }
 
     private getContent(event: Event) {
-        const content = this.thyCopy || this.thyCopyContent;
+        const content = this.thyCopyContent;
         if (typeof content === 'string') {
             return content;
         } else {

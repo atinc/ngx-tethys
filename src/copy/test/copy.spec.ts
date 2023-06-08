@@ -45,6 +45,55 @@ describe('thy-copy', () => {
 
             expect(testComponent.content).toEqual(testComponent.copyDirective.thyCopyContent as string);
         }));
+
+        it('should call notify success when copySuccess', fakeAsync(() => {
+            fixture.detectChanges();
+            copyAndCallNotify();
+        }));
+
+        it('should call notify error when copyError', fakeAsync(() => {
+            fixture.detectChanges();
+            copyAndCallNotify('error');
+        }));
+
+        it('should copy the value of the specified element when thyCopy is set as ElementRef', fakeAsync(() => {
+            const copyContent = 'Hello, World!';
+            const elementRef: ElementRef = {
+                nativeElement: {
+                    value: copyContent
+                }
+            };
+            testComponent.content = elementRef;
+            fixture.detectChanges();
+            copyAndCallNotify();
+        }));
+
+        it('should copy the text content of the specified element when thyCopy is set as HTMLElement', fakeAsync(() => {
+            const copyContent = 'Hello, World!';
+            const element: HTMLElement = document.createElement('div');
+            element.textContent = copyContent;
+            testComponent.content = element;
+            fixture.detectChanges();
+            copyAndCallNotify();
+        }));
+
+        function copyAndCallNotify(status: 'success' | 'error' = 'success') {
+            const copyDirective = testComponent.copyDirective;
+            const contentSpy = spyOn(copyDirective, 'getContent' as any).and.callThrough();
+            const clipboardCopySpy = spyOn(copyDirective['clipboard'], 'copy').and.returnValue(status === 'success');
+            const notifySpy = spyOn(copyDirective['notifyService'], status).and.callThrough();
+
+            const event = new Event('click');
+            testComponent.copyDirective.onClick(event);
+            fixture.detectChanges();
+            tick(4500);
+            flush();
+
+            expect(testComponent.copied).toHaveBeenCalledWith({ isSuccess: status === 'success', event });
+            expect(contentSpy).toHaveBeenCalled();
+            expect(clipboardCopySpy).toHaveBeenCalled();
+            expect(notifySpy).toHaveBeenCalledWith(status === 'success' ? testComponent.copyDirective.thyCopySuccessText : '复制失败');
+        }
     });
 
     describe('copy listener', () => {
@@ -104,9 +153,9 @@ describe('thy-copy', () => {
     `
 })
 class ThyCopyComponent implements OnInit {
-    copy: string = 'content';
+    copy: string | ElementRef | HTMLElement = 'content';
 
-    content: string = 'content';
+    content: string | ElementRef | HTMLElement = 'content';
 
     copyTooltip: string = '点击复制';
 
