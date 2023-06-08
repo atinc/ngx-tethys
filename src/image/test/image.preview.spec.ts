@@ -1,18 +1,20 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
-import { ThyImageModule } from '../module';
-import { ComponentFixture, inject, TestBed, waitForAsync, fakeAsync, flush } from '@angular/core/testing';
-import { ThyImageService } from '../image.service';
-import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
-import { ThyImagePreviewRef } from '../preview/image-preview-ref';
-import { DomSanitizer } from '@angular/platform-browser';
 import { dispatchKeyboardEvent, dispatchMouseEvent, MockXhrFactory } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 import { timer } from 'rxjs';
-import { fetchImageBlob } from '../utils';
+
+import { OverlayContainer } from '@angular/cdk/overlay';
 import { XhrFactory } from '@angular/common';
+import { Component, DebugElement, OnInit, ɵglobal } from '@angular/core';
+import { ComponentFixture, fakeAsync, flush, inject, TestBed, waitForAsync } from '@angular/core/testing';
+import { DomSanitizer } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { InternalImageInfo, ThyImagePreviewOptions } from '../image.class';
+import { ThyImageService } from '../image.service';
+import { ThyImageModule } from '../module';
+import { ThyImagePreviewRef } from '../preview/image-preview-ref';
+import { fetchImageBlob } from '../utils';
 
 let imageOnload: () => void = null;
 
@@ -71,6 +73,7 @@ describe('image-preview', () => {
             imports: [ThyImageModule, ThyDialogModule, NoopAnimationsModule],
             declarations: [ImagePreviewTestComponent],
             providers: [
+                Clipboard,
                 {
                     provide: XhrFactory,
                     useValue: mockXhrFactory
@@ -313,17 +316,44 @@ describe('image-preview', () => {
         expect(openSpy).toHaveBeenCalledWith(basicTestComponent.images[0].origin.src, '_blank');
     });
 
-    it('should copy image link when click copy icon', () => {
-        fixture.detectChanges();
+    it('should copy image link success when click copy icon', () => {
         const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
         button.click();
+        fixture.detectChanges();
 
+        const imagePreview = basicTestComponent.imageRef.componentInstance;
+        const copyLinkSpy = spyOn(imagePreview, 'copyLink').and.callThrough();
+        const clickBoardCopySpy = spyOn(imagePreview['clipboard'], 'copy').and.returnValue(true);
+        const notifySuccessSpy = spyOn(imagePreview['notifyService'], 'success').and.callThrough();
         fixture.detectChanges();
         const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
         const copy = operations[7] as HTMLElement;
-        expect(copy.getAttribute('ng-reflect-thy-copy-tips')).toBe('复制链接');
-        // test copy
-        // copy.click()
+        copy.click();
+        fixture.detectChanges();
+
+        expect(copyLinkSpy).toHaveBeenCalled();
+        expect(clickBoardCopySpy).toHaveBeenCalled();
+        expect(notifySuccessSpy).toHaveBeenCalled();
+    });
+
+    it('should copy image link error when click copy icon', () => {
+        const button = (debugElement.nativeElement as HTMLElement).querySelector('button');
+        button.click();
+        fixture.detectChanges();
+
+        const imagePreview = basicTestComponent.imageRef.componentInstance;
+        const copyLinkSpy = spyOn(imagePreview, 'copyLink').and.callThrough();
+        const clickBoardCopySpy = spyOn(imagePreview['clipboard'], 'copy').and.returnValue(false);
+        const notifyErrorSpy = spyOn(imagePreview['notifyService'], 'error').and.callThrough();
+        fixture.detectChanges();
+        const operations = overlayContainerElement.querySelectorAll('.thy-actions .thy-action');
+        const copy = operations[7] as HTMLElement;
+        copy.click();
+        fixture.detectChanges();
+
+        expect(copyLinkSpy).toHaveBeenCalled();
+        expect(clickBoardCopySpy).toHaveBeenCalled();
+        expect(notifyErrorSpy).toHaveBeenCalled();
     });
 
     it('should preview image can be switched correctly', () => {
