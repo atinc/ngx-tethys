@@ -1,3 +1,5 @@
-<thy-icon *ngIf="icon" [thyIconName]="icon"></thy-icon>
+<thy-icon *ngIf="icon && !feedback" [thyIconName]="icon"></thy-icon>
+<thy-icon class="text-success" *ngIf="feedback === 'success'" [thyIconName]="'check-circle-fill'"></thy-icon>
+<thy-icon class="text-danger" *ngIf="feedback === 'error'" [thyIconName]="'close-circle-fill'"></thy-icon>
 <thy-icon class="hover-icon" *ngIf="thyHoverIcon" [thyIconName]="thyHoverIcon"></thy-icon>
 <ng-content></ng-content>

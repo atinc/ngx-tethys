@@ -1,15 +1,17 @@
-@use "../../styles/mixins/hover.scss";
-@use "../../styles/variables.scss";
+@use '../../styles/mixins/hover.scss';
+@use '../../styles/variables.scss';
 
 @mixin action-variant($color, $hover-color, $hover-bg-color) {
     color: $color;
 
     @include hover.hover-active {
-        color: $hover-color;
-        background: $hover-bg-color;
-
-        > span {
+        &:not(.thy-action-has-feedback) {
             color: $hover-color;
+            background: $hover-bg-color;
+
+            > span {
+                color: $hover-color;
+            }
         }
     }
 }

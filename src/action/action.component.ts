@@ -7,14 +7,18 @@ import {
     OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges
+    SimpleChanges,
+    ChangeDetectorRef
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { Subscription, timer } from 'rxjs';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
+
+export type ThyActionFeedback = 'success' | 'error';
 
 /**
  * 立即操作组件
@@ -28,6 +32,7 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
         class: 'thy-action',
         '[class.active]': 'active',
         '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.thy-action-has-feedback]': '!!feedback',
         '[class.disabled]': 'thyDisabled'
     },
     standalone: true,
@@ -36,11 +41,15 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     icon: string;
 
-    private active = false;
+    feedback: ThyActionFeedback = null;
+
+    active = false;
 
     private type: string = 'primary';
 
     private hostRenderer = useHostRenderer();
+
+    private feedbackTimer: Subscription;
 
     /**
      * 操作图标的类型
@@ -107,7 +116,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     @InputBoolean()
     thyDisabled: boolean;
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2) {}
+    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.updateClasses();
@@ -125,6 +134,37 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
 
     setMarginRight(marginRight: string) {
         this.elementRef.nativeElement.style.marginRight = marginRight;
+    }
+
+    /**
+     * 触发成功反馈操作
+     */
+    success(duration: number) {
+        this.setFeedback('success', duration);
+    }
+
+     /**
+     * 触发失败反馈操作
+     */
+    error(duration: number) {
+        this.setFeedback('error', duration);
+    }
+
+    private setFeedback(feedback: ThyActionFeedback, duration: number) {
+        if (this.thyDisabled) {
+            return;
+        }
+        this.feedback = feedback;
+        this.cdr.markForCheck();
+        if (duration) {
+            if (this.feedbackTimer) {
+                this.feedbackTimer.unsubscribe();
+            }
+            this.feedbackTimer = timer(duration).subscribe(() => {
+                this.feedback = null;
+                this.cdr.markForCheck();
+            });
+        }
     }
 
     private wrapSpanForText(nodes: NodeList): void {
