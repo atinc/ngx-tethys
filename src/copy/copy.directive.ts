@@ -109,7 +109,6 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     }
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
-        console.log('click');
         const copySuccess = this.clipboard.copy(this.getContent(event));
         if (copySuccess) {
             this.thyCopied.emit({ isSuccess: true, event });
