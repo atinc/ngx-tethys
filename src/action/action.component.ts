@@ -29,6 +29,10 @@ const defaultFeedbackOptions: ThyActionFeedbackOptions = {
     duration: 3000
 };
 
+const feedbackIcons = {
+    success: 'check-circle-fill',
+    error: 'close-circle-fill'
+};
 /**
  * 立即操作组件
  * @name thy-action,[thyAction]
@@ -41,7 +45,6 @@ const defaultFeedbackOptions: ThyActionFeedbackOptions = {
         class: 'thy-action',
         '[class.active]': 'active',
         '[class.thy-action-hover-icon]': 'thyHoverIcon',
-        '[class.thy-action-has-feedback]': '!!feedback',
         '[class.disabled]': 'thyDisabled'
     },
     standalone: true,
@@ -51,6 +54,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
     icon: string;
 
     feedback: ThyActionFeedback = null;
+
+    feedbackIcon: string;
 
     active = false;
 
@@ -165,6 +170,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
             return;
         }
         this.feedback = feedback;
+        this.feedbackIcon = feedbackIcons[this.feedback];
+        this.updateClasses();
         this.cdr.markForCheck();
         if (options.duration) {
             if (this.feedbackTimer) {
@@ -172,6 +179,8 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
             }
             this.feedbackTimer = timer(options.duration).subscribe(() => {
                 this.feedback = null;
+                this.feedbackIcon = null;
+                this.updateClasses();
                 this.cdr.markForCheck();
             });
         }
@@ -198,6 +207,9 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
         classNames.push(`action-${this.type}`);
         if (this.thyTheme === 'lite') {
             classNames.push('thy-action-lite');
+        }
+        if (this.feedback) {
+            classNames.push(`action-feedback-${this.feedback}`);
         }
         this.hostRenderer.updateClass(classNames);
     }

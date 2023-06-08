@@ -5,7 +5,7 @@
     color: $color;
 
     @include hover.hover-active {
-        &:not(.thy-action-has-feedback) {
+        &:not([class*="action-feedback"]) {
             color: $hover-color;
             background: $hover-bg-color;
 

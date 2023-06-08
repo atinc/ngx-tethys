@@ -1,7 +1,7 @@
-@use "../../styles/mixins/hover.scss";
-@use "../../styles/bootstrap/functions-variables";
-@use "../../styles/variables.scss";
-@use "./mixin.scss" as action-mixin;
+@use '../../styles/mixins/hover.scss';
+@use '../../styles/bootstrap/functions-variables';
+@use '../../styles/variables.scss';
+@use './mixin.scss' as action-mixin;
 
 .thy-action {
     padding: variables.$action-padding-y variables.$action-padding-x;
@@ -69,6 +69,19 @@
     @if $color != 'primary' {
         .action-#{$color} {
             @include action-mixin.action-variant(variables.$action-color, $value, rgba($value, 0.1));
+        }
+    }
+}
+
+$feedback-colors: (
+    'success': variables.$success,
+    'error': variables.$danger
+);
+
+@each $key, $color in $feedback-colors {
+    .action-feedback-#{$key} {
+        .feedback-icon {
+            color: $color;
         }
     }
 }
