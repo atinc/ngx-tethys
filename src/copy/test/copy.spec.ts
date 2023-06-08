@@ -25,9 +25,31 @@ describe('thy-copy', () => {
         testComponent = fixture.componentInstance;
     });
 
+    describe('basic', () => {
+        it('should create', () => {
+            expect(testComponent).toBeTruthy();
+        });
+
+        it('thyCopyContent thyCopy should show correct', fakeAsync(() => {
+            fixture.detectChanges();
+
+            expect(testComponent.copy).toEqual(testComponent.copyDirective.thyCopyContent as string);
+
+            testComponent.copy = '复制测试';
+            fixture.detectChanges();
+
+            expect(testComponent.copy).toEqual(testComponent.copyDirective.thyCopyContent as string);
+
+            testComponent.content = '复制测试1';
+            fixture.detectChanges();
+
+            expect(testComponent.content).toEqual(testComponent.copyDirective.thyCopyContent as string);
+        }));
+    });
+
     describe('copy listener', () => {
         it('thyCopy should be called', fakeAsync(() => {
-            const spy = testComponent.copy;
+            const spy = testComponent.copied;
             fixture.detectChanges();
             const el = fixture.componentInstance.copyContainer.nativeElement;
             dispatchFakeEvent(el, 'click');
@@ -40,7 +62,7 @@ describe('thy-copy', () => {
         }));
 
         it('notify not show when thyShowNotify is false', fakeAsync(() => {
-            const spy = testComponent.copy;
+            const spy = testComponent.copied;
             fixture.componentInstance.showNotify = false;
             fixture.detectChanges();
             const el = fixture.componentInstance.copyContainer.nativeElement;
@@ -57,35 +79,36 @@ describe('thy-copy', () => {
         it('thyCopyTips should be default', fakeAsync(() => {
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.content as string).toBe('点击复制');
+            expect(component.tooltipDirective.content as string).toBe('点击复制');
         }));
 
         it('thyCopyTips should be correct', fakeAsync(() => {
             testComponent.copyTooltip = '测试';
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.content as string).toBe(testComponent.copyTooltip);
-        }));
-
-        it('thyCopyTipOffset should be correct', fakeAsync(() => {
-            testComponent.copyTipsOffset = 10;
-            fixture.detectChanges();
-            const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(10);
+            expect(component.tooltipDirective.content as string).toBe(testComponent.copyTooltip);
         }));
     });
 });
 @Component({
     template: `
-        <p #copyContainer (thyCopied)="copy($event)" thyCopyContent="content" [thyCopyTips]="copyTooltip" [thyShowNotify]="showNotify">
+        <p
+            #copyContainer
+            (thyCopied)="copied($event)"
+            [thyCopy]="copy"
+            [thyCopyContent]="content"
+            [thyCopyTips]="copyTooltip"
+            [thyShowNotify]="showNotify">
             点击
         </p>
     `
 })
 class ThyCopyComponent implements OnInit {
-    copyTooltip: string;
+    copy: string = 'content';
 
-    copyTipsOffset: number;
+    content: string = 'content';
+
+    copyTooltip: string = '点击复制';
 
     showNotify = true;
 
@@ -93,7 +116,7 @@ class ThyCopyComponent implements OnInit {
 
     @ViewChild(ThyCopyDirective, { static: true }) copyDirective: ThyCopyDirective;
 
-    copy = jasmine.createSpy('thyCopy callback');
+    copied = jasmine.createSpy('thyCopy callback');
 
     ngOnInit() {}
 }

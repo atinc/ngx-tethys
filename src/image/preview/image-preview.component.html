@@ -76,13 +76,10 @@
         *ngIf="option.type === 'copyLink'"
         href="javascript:;"
         thyAction
-        [thyCopyTips]="''"
         [thyActionIcon]="option.icon"
         [thyTooltipOffset]="13"
         [thyTooltip]="option.name"
-        thyCopied="copyLink($event)"
-        [thyCopyContent]="previewImageOriginSrc"
-        [thyShowNotify]="false"
+        (click)="copyLink($event)"
       ></a>
     </ng-container>
     <thy-divider [thyVertical]="true"></thy-divider>

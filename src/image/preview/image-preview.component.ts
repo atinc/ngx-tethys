@@ -1,34 +1,37 @@
-import {
-    ChangeDetectionStrategy,
-    Component,
-    OnInit,
-    ViewEncapsulation,
-    ChangeDetectorRef,
-    ElementRef,
-    ViewChild,
-    NgZone,
-    OnDestroy,
-    Output,
-    EventEmitter
-} from '@angular/core';
-import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { ThyActionComponent, ThyActionsComponent } from 'ngx-tethys/action';
+import { ThyCopyDirective } from 'ngx-tethys/copy';
 import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
-import { fromEvent, Observable } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
-import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
-import { ThyFullscreen } from 'ngx-tethys/fullscreen';
-import { ThyCopyEvent, ThyCopyDirective } from 'ngx-tethys/copy';
-import { ThyNotifyService } from 'ngx-tethys/notify';
-import { DomSanitizer } from '@angular/platform-browser';
-import { fetchImageBlob } from '../utils';
 import { ThyDividerComponent } from 'ngx-tethys/divider';
+import { ThyFullscreen } from 'ngx-tethys/fullscreen';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyLoadingComponent } from 'ngx-tethys/loading';
-import { CdkDrag } from '@angular/cdk/drag-drop';
-import { ThyActionComponent, ThyActionsComponent } from 'ngx-tethys/action';
+import { ThyNotifyService } from 'ngx-tethys/notify';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
-import { NgIf, NgFor } from '@angular/common';
+import { getClientSize, getFitContentPosition, getOffset, humanizeBytes, isNumber, isUndefinedOrNull } from 'ngx-tethys/util';
+import { Observable, fromEvent } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { Clipboard } from '@angular/cdk/clipboard';
+import { CdkDrag } from '@angular/cdk/drag-drop';
+import { NgFor, NgIf } from '@angular/common';
+import {
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    NgZone,
+    OnDestroy,
+    OnInit,
+    Output,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+
+import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
+import { fetchImageBlob } from '../utils';
 
 const initialPosition = {
     x: 0,
@@ -194,7 +197,8 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         private ngZone: NgZone,
         private notifyService: ThyNotifyService,
         private host: ElementRef<HTMLElement>,
-        private sanitizer: DomSanitizer
+        private sanitizer: DomSanitizer,
+        private clipboard: Clipboard
     ) {
         super();
     }
@@ -397,8 +401,9 @@ export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implem
         });
     }
 
-    copyLink(event: ThyCopyEvent) {
-        if (event.isSuccess) {
+    copyLink(event: Event) {
+        const copySuccess = this.clipboard.copy(this.previewImageOriginSrc);
+        if (copySuccess) {
             this.notifyService.success('复制图片地址成功');
         } else {
             this.notifyService.error('复制图片地址失败');
