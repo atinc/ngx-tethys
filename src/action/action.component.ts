@@ -22,16 +22,22 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 export type ThyActionFeedback = 'success' | 'error';
 
 export interface ThyActionFeedbackOptions {
+    icon?: string;
+    class?: string;
     duration?: number;
 }
 
-const defaultFeedbackOptions: ThyActionFeedbackOptions = {
-    duration: 3000
-};
-
-const feedbackIcons = {
-    success: 'check-circle-fill',
-    error: 'close-circle-fill'
+const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions> = {
+    success: {
+        icon: 'check-circle-fill',
+        class: 'text-success',
+        duration: 3000
+    },
+    error: {
+        icon: 'close-circle-fill',
+        class: 'text-danger',
+        duration: 3000
+    }
 };
 /**
  * 立即操作组件
@@ -45,6 +51,7 @@ const feedbackIcons = {
         class: 'thy-action',
         '[class.active]': 'active',
         '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.thy-action-has-feedback]': '!!feedback',
         '[class.disabled]': 'thyDisabled'
     },
     standalone: true,
@@ -55,7 +62,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
 
     feedback: ThyActionFeedback = null;
 
-    feedbackIcon: string;
+    feedbackOptions: ThyActionFeedbackOptions;
 
     active = false;
 
@@ -165,13 +172,12 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
     }
 
     private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions) {
-        options = Object.assign({}, defaultFeedbackOptions, options);
         if (this.thyDisabled) {
             return;
         }
+        options = Object.assign({}, defaultFeedbackOptions[feedback], options);
         this.feedback = feedback;
-        this.feedbackIcon = feedbackIcons[this.feedback];
-        this.updateClasses();
+        this.feedbackOptions = options;
         this.cdr.markForCheck();
         if (options.duration) {
             if (this.feedbackTimer) {
@@ -179,8 +185,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
             }
             this.feedbackTimer = timer(options.duration).subscribe(() => {
                 this.feedback = null;
-                this.feedbackIcon = null;
-                this.updateClasses();
+                this.feedbackOptions = null;
                 this.cdr.markForCheck();
             });
         }
@@ -207,9 +212,6 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnD
         classNames.push(`action-${this.type}`);
         if (this.thyTheme === 'lite') {
             classNames.push('thy-action-lite');
-        }
-        if (this.feedback) {
-            classNames.push(`action-feedback-${this.feedback}`);
         }
         this.hostRenderer.updateClass(classNames);
     }

@@ -73,19 +73,6 @@
     }
 }
 
-$feedback-colors: (
-    'success': variables.$success,
-    'error': variables.$danger
-);
-
-@each $key, $color in $feedback-colors {
-    .action-feedback-#{$key} {
-        .feedback-icon {
-            color: $color;
-        }
-    }
-}
-
 .thy-action-lite {
     @include hover.hover-active {
         background: none;
