@@ -113,17 +113,17 @@ describe('thy-action', () => {
 
     it('should create with feedback', fakeAsync(() => {
         actionDebugElement = fixture.debugElement.query(By.css('#with-feedback'));
-        actionDebugElement.componentInstance.success(3000);
+        actionDebugElement.componentInstance.success();
         let actionElement = actionDebugElement.nativeElement;
         fixture.detectChanges();
         expect(actionElement.children[0].classList.contains('thy-icon')).toBeTruthy();
         expect(actionElement.children[0].classList.contains(`thy-icon-check-circle-fill`)).toBeTruthy();
-        actionDebugElement.componentInstance.error(3000);
+        actionDebugElement.componentInstance.error({ duration: 2000 });
         actionElement = actionDebugElement.nativeElement;
         fixture.detectChanges();
         expect(actionElement.children[0].classList.contains('thy-icon')).toBeTruthy();
         expect(actionElement.children[0].classList.contains(`thy-icon-close-circle-fill`)).toBeTruthy();
-        tick(3000);
+        tick(2000);
         fixture.detectChanges();
         assertActionExpected(actionDebugElement.nativeElement, 'inbox');
     }));

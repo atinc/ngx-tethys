@@ -20,6 +20,14 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
 export type ThyActionFeedback = 'success' | 'error';
 
+export interface ThyActionFeedbackOptions {
+    duration?: number;
+}
+
+const defaultFeedbackOptions: ThyActionFeedbackOptions = {
+    duration: 3000
+};
+
 /**
  * 立即操作组件
  * @name thy-action,[thyAction]
@@ -139,28 +147,29 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     /**
      * 触发成功反馈操作
      */
-    success(duration: number) {
-        this.setFeedback('success', duration);
+    success(options?: ThyActionFeedbackOptions) {
+        this.setFeedback('success', options);
     }
 
-     /**
+    /**
      * 触发失败反馈操作
      */
-    error(duration: number) {
-        this.setFeedback('error', duration);
+    error(options?: ThyActionFeedbackOptions) {
+        this.setFeedback('error', options);
     }
 
-    private setFeedback(feedback: ThyActionFeedback, duration: number) {
+    private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions) {
+        options = Object.assign({}, defaultFeedbackOptions, options);
         if (this.thyDisabled) {
             return;
         }
         this.feedback = feedback;
         this.cdr.markForCheck();
-        if (duration) {
+        if (options.duration) {
             if (this.feedbackTimer) {
                 this.feedbackTimer.unsubscribe();
             }
-            this.feedbackTimer = timer(duration).subscribe(() => {
+            this.feedbackTimer = timer(options.duration).subscribe(() => {
                 this.feedback = null;
                 this.cdr.markForCheck();
             });
