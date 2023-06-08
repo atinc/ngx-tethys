@@ -8,7 +8,8 @@ import {
     ElementRef,
     Renderer2,
     SimpleChanges,
-    ChangeDetectorRef
+    ChangeDetectorRef,
+    OnDestroy
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -46,7 +47,7 @@ const defaultFeedbackOptions: ThyActionFeedbackOptions = {
     standalone: true,
     imports: [NgIf, ThyIconComponent]
 })
-export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
+export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     icon: string;
 
     feedback: ThyActionFeedback = null;
@@ -199,5 +200,9 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
             classNames.push('thy-action-lite');
         }
         this.hostRenderer.updateClass(classNames);
+    }
+
+    ngOnDestroy(): void {
+        this.feedbackTimer?.unsubscribe();
     }
 }
