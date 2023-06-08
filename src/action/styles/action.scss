@@ -1,7 +1,7 @@
-@use "../../styles/mixins/hover.scss";
-@use "../../styles/bootstrap/functions-variables";
-@use "../../styles/variables.scss";
-@use "./mixin.scss" as action-mixin;
+@use '../../styles/mixins/hover.scss';
+@use '../../styles/bootstrap/functions-variables';
+@use '../../styles/variables.scss';
+@use './mixin.scss' as action-mixin;
 
 .thy-action {
     padding: variables.$action-padding-y variables.$action-padding-x;
