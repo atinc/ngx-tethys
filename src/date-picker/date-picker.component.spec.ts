@@ -754,6 +754,97 @@ describe('ThyDatePickerComponent', () => {
         }));
     });
 
+    describe('disable ok button of time according to thyMinDate and thyMaxDate', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+
+        it('should disable to click the ok button of time when the selected date value is less than thyMinDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                maxDate: null,
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is greater than thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is null and thyMaxDate is less than today', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is null and thyMinDate is greater than today', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should not disable to click the ok button of time when the selected date value is between thyMinDate and thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                maxDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                disabled: false,
+                onOkCallTimes: 1
+            });
+        }));
+
+        it('should not disable to click the ok button of time when the selected date value is null and today is between thyMinDate and thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: null,
+                minDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                maxDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                disabled: false,
+                onOkCallTimes: 1
+            });
+        }));
+
+        function assertIsDisableTimeConfirm(options: {
+            selectedDate: Date;
+            minDate: Date;
+            maxDate: Date;
+            disabled: boolean;
+            onOkCallTimes: number;
+        }) {
+            fixtureInstance.thyShowTime = true;
+            fixtureInstance.thyValue = options.selectedDate;
+            fixtureInstance.thyMinDate = options.minDate;
+            fixtureInstance.thyMaxDate = options.maxDate;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const setTimeButton = overlayContainerElement.querySelector('.time-picker-set-btn');
+            dispatchMouseEvent(setTimeButton, 'click');
+            fixture.detectChanges();
+            const confirmButton = getConfirmButton();
+            expect(confirmButton.hasAttribute('disabled')).toBe(options.disabled);
+
+            const onOkSpy = spyOn(fixtureInstance, 'thyOnOk');
+            dispatchMouseEvent(confirmButton, 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(onOkSpy).toHaveBeenCalledTimes(options.onOkCallTimes);
+        }
+    });
+
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
