@@ -68,8 +68,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() minDate: Date | number;
     @Input() maxDate: Date | number;
     @Input() showToday: boolean;
+
+    /**
+     * 是否支持设置时间(时、分)
+     */
     @Input() showTime: SupportTimeOptions | boolean;
+
+    /**
+     * 是否展示时间(时、分)
+     */
     @Input() mustShowTime: boolean;
+
     @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
     @Input() className: string;
     @Input() panelMode: ThyPanelMode | ThyPanelMode[];
@@ -112,6 +121,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     [property: string]: any;
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
+
+    disableTimeConfirm = false;
 
     constructor(private cdr: ChangeDetectorRef, private datePickerConfigService: ThyDatePickerConfigService) {}
 
@@ -180,6 +191,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         } else {
             this.activeDate = this.value as TinyDate;
         }
+        this.isDisableTimeConfirm();
     }
 
     initPanelMode() {
@@ -420,6 +432,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 this.valueChange.emit(this.value);
             }
         }
+        this.isDisableTimeConfirm();
     }
 
     private normalizeRangeValue(value: TinyDate[], mode: ThyPanelMode = 'month'): TinyDate[] {
@@ -449,6 +462,22 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     private cloneRangeDate(value: TinyDate[]): TinyDate[] {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
+    }
+
+    private isDisableTimeConfirm() {
+        if (this.isRange || !this.showTime) {
+            return;
+        }
+
+        const date: TinyDate = this.value ? (this.value as TinyDate) : new TinyDate();
+        const minDate = this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date) : new TinyDate(-Infinity);
+        const maxDate = this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date) : new TinyDate(Infinity);
+
+        if (date.getTime() < minDate.getTime() || date.getTime() > maxDate.getTime()) {
+            this.disableTimeConfirm = true;
+        } else {
+            this.disableTimeConfirm = false;
+        }
     }
 
     shortcutSetValue(shortcutPresets: ThyShortcutPreset) {

@@ -9,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     date: Date;
 
+    start: Date;
+
+    due: Date;
+
     limitDate = new Date();
 
     defaultPickerValue = [new Date('2020-01-12'), new Date('2020-02-20')];
