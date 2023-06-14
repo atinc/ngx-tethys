@@ -1,3 +1,24 @@
+<div class="d-flex align-items-center w-50 mb-3">
+  <thy-date-picker
+    class="d-block w-50 mr-4"
+    thyPlaceHolder="开始时间"
+    [thyShowTime]="true"
+    thyFormat="yyyy-MM-dd HH:mm:ss"
+    [(ngModel)]="start"
+    [thyMaxDate]="due">
+  </thy-date-picker>
+
+  <thy-property-operation
+    class="w-50"
+    thyLabelText="结束时间"
+    thyIcon="calendar-check"
+    thyDatePicker
+    [(ngModel)]="due"
+    [thyValue]="due | thyDatePickerFormat : 'yyyy-MM-dd HH:mm:ss'"
+    [thyShowTime]="true"
+    [thyMinDate]="start"></thy-property-operation>
+</div>
+
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [thyMaxDate]="limitDate"> </thy-date-picker>
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [(ngModel)]="date" [thyMinDate]="limitDate"> </thy-date-picker>
 <thy-month-picker
@@ -5,8 +26,7 @@
   thyFormat="yyyy-MM"
   [(ngModel)]="date"
   [thyDisabledDate]="disableDate1"
-  thyPlaceHolder="请选择月份"
->
+  thyPlaceHolder="请选择月份">
 </thy-month-picker>
 <thy-year-picker class="d-block w-50 mb-3" thyFormat="yyyy" [(ngModel)]="date" [thyDisabledDate]="disableDate1" thyPlaceHolder="请选择年份">
 </thy-year-picker>
@@ -15,8 +35,7 @@
   [thyMinDate]="minDate"
   [thyMaxDate]="maxDate"
   [thyDefaultPickerValue]="defaultPickerValue"
-  thyFormat="yyyy-MM-dd"
-></thy-range-picker>
+  thyFormat="yyyy-MM-dd"></thy-range-picker>
 
 <thy-range-picker
   class="d-block mb-3 w-50"
@@ -24,5 +43,4 @@
   [thyDisabledDate]="disableDate"
   [(ngModel)]="dynamicDisabled"
   (thyOnCalendarChange)="calendarChange($event)"
-  (thyOpenChange)="panelOpenChange($event)"
-></thy-range-picker>
+  (thyOpenChange)="panelOpenChange($event)"></thy-range-picker>
