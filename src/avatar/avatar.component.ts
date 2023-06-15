@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -192,7 +192,7 @@ export class ThyAvatarComponent implements OnInit {
 
     private hostRenderer = useHostRenderer();
 
-    constructor(private thyAvatarService: ThyAvatarService) {}
+    constructor(private thyAvatarService: ThyAvatarService, public elementRef: ElementRef) {}
 
     ngOnInit() {
         if (!this._size) {
