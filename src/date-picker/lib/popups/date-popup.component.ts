@@ -470,8 +470,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
 
         const date: TinyDate = this.value ? (this.value as TinyDate) : new TinyDate();
-        const minDate = this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date) : null;
-        const maxDate = this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date) : null;
+        const minDate: TinyDate = this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date) : null;
+        const maxDate: TinyDate = this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date) : null;
 
         if ((minDate && date.getTime() < minDate.getTime()) || (maxDate && date.getTime() > maxDate.getTime())) {
             this.disableTimeConfirm = true;
