@@ -8,15 +8,14 @@
     [thyMaxDate]="due">
   </thy-date-picker>
 
-  <thy-property-operation
-    class="w-50"
-    thyLabelText="结束时间"
-    thyIcon="calendar-check"
-    thyDatePicker
-    [(ngModel)]="due"
-    [thyValue]="due | thyDatePickerFormat : 'yyyy-MM-dd HH:mm:ss'"
+  <thy-date-picker
+    class="d-block w-50"
+    thyPlaceHolder="结束时间"
     [thyShowTime]="true"
-    [thyMinDate]="start"></thy-property-operation>
+    thyFormat="yyyy-MM-dd HH:mm:ss"
+    [(ngModel)]="due"
+    [thyMinDate]="start">
+  </thy-date-picker>
 </div>
 
 <thy-date-picker class="d-block w-50 mb-3" thyFormat="yyyy-MM-dd HH:mm:ss" [thyMaxDate]="limitDate"> </thy-date-picker>
