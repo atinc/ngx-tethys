@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .time-picker-section {
     margin: 0 auto;
@@ -28,6 +28,9 @@
             padding-left: 15px;
             padding-right: 15px;
             min-width: auto;
+            &:disabled {
+                cursor: not-allowed;
+            }
         }
 
         .time-picker-clear-btn {

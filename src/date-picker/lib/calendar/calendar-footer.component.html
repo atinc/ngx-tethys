@@ -7,14 +7,17 @@
     class="time-picker-wrap"
     [showMeridian]="false"
     [ngModel]="value?.nativeDate"
-    (ngModelChange)="onSelectTime($event)"
-  ></thy-inner-time-picker>
+    (ngModelChange)="onSelectTime($event)"></thy-inner-time-picker>
   <div class="time-picker-btn-wrap">
-    <button *ngIf="!isCanTime" class="time-picker-ok-btn" thyButton="primary" thySize="sm" (click)="onTimeOk()">
+    <button
+      *ngIf="!isCanTime"
+      [disabled]="disableTimeConfirm"
+      class="time-picker-ok-btn"
+      thyButton="primary"
+      thySize="sm"
+      (click)="onTimeOk()">
       确定
     </button>
-    <button class="time-picker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">
-      清除
-    </button>
+    <button class="time-picker-clear-btn" thyButton="link-secondary" thySize="sm" (click)="onClear()">清除</button>
   </div>
 </div>
