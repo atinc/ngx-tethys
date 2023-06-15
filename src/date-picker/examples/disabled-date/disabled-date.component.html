@@ -2,6 +2,7 @@
   <thy-date-picker
     class="d-block w-50 mr-4"
     thyPlaceHolder="开始时间"
+    [thyShowShortcut]="true"
     [thyShowTime]="true"
     thyFormat="yyyy-MM-dd HH:mm:ss"
     [(ngModel)]="start"
@@ -11,6 +12,7 @@
   <thy-date-picker
     class="d-block w-50"
     thyPlaceHolder="结束时间"
+    [thyShowShortcut]="true"
     [thyShowTime]="true"
     thyFormat="yyyy-MM-dd HH:mm:ss"
     [(ngModel)]="due"
