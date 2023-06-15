@@ -119,7 +119,16 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this[key] = value;
         this.cdr.markForCheck();
     }
-
+    initShortcutPresets(): void {
+        const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
+        this.showShortcut =
+            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
+                ? showShortcut
+                : this.showShortcut;
+        if (this.showShortcut && !this.shortcutPresets) {
+            this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
+        }
+    }
     ngOnInit(): void {
         this.initShortcutPresets();
         this.initPanelMode();
@@ -154,17 +163,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
         if (changes.value && changes.value.currentValue) {
             this.updateActiveDate();
-        }
-    }
-
-    initShortcutPresets(): void {
-        const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
-        this.showShortcut =
-            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
-                ? showShortcut
-                : this.showShortcut;
-        if (this.showShortcut && !this.shortcutPresets) {
-            this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
         }
     }
 
