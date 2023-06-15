@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.9](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.9) (2023-06-08)
+
+
+### Bug Fixes
+
+* **form:** fix defaultRemoveError removeChild error #INFR-8240 ([c856d80](https://github.com/atinc/ngx-tethys/commit/c856d80c2633f2af4fb710e3254b536d79caf6f8)), closes [#INFR-8240](https://github.com/atinc/ngx-tethys/issues/INFR-8240)
+* **table:** thyTheme值为bordered且可拖拽时，拖拽图标和文字之间的间距过大 #INFR-8217 ([#2705](https://github.com/atinc/ngx-tethys/issues/2705)) ([f2ac471](https://github.com/atinc/ngx-tethys/commit/f2ac471cb2e92d4297e5f03308eb828b741a47db)), closes [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217)
+
+
+### Features
+
+* **action:** supports  success and error feedback  #INFR-8234 ([#2706](https://github.com/atinc/ngx-tethys/issues/2706)) ([62edb36](https://github.com/atinc/ngx-tethys/commit/62edb3633e73032d2ce378a87bf45fe3abd88842)), closes [#INFR-8234](https://github.com/atinc/ngx-tethys/issues/INFR-8234)
+
+
+
 ## [15.3.8](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.8) (2023-06-06)
 
 
