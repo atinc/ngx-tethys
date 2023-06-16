@@ -22,6 +22,7 @@ describe('ThyRangePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+
     const shortcutRangesPresets = [
         {
             title: '最近 7 天',
@@ -33,7 +34,7 @@ describe('ThyRangePickerComponent', () => {
         },
         {
             title: '本周',
-            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfDay().getTime()]
+            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
         },
         {
             title: '本月',
@@ -161,6 +162,46 @@ describe('ThyRangePickerComponent', () => {
             const endDate = shortcutRangesPresets[0].value[1];
             expect(input.value.trim()).toBe(`${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`);
         }));
+    });
+
+    describe('disable shortcut preset', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+        });
+
+        it('should disable shortcut item whose min preset is greater than thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMaxDate = endOfDay(addDays(new Date(), -7));
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+            const last7DaysItem = shortcutItems[0];
+            const last30DaysItem = shortcutItems[1];
+            expect(last7DaysItem.classList.contains('disabled')).toBe(true);
+            expect(last30DaysItem.classList.contains('disabled')).toBe(false);
+        }));
+
+        it('should disable shortcut item whose max preset is less than thyMinDate', fakeAsync(() => {
+            assertThisWeekShortcut({ offsetDays: 3, disabled: true });
+        }));
+
+        it('should not disable shortcut item whose max preset is not less than thyMinDate', fakeAsync(() => {
+            assertThisWeekShortcut({ offsetDays: -3, disabled: false });
+        }));
+
+        function assertThisWeekShortcut(options: { offsetDays: number; disabled: boolean }) {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime(), options.offsetDays));
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+            const thisWeekItem = shortcutItems[2];
+            expect(thisWeekItem.classList.contains('disabled')).toBe(options.disabled);
+        }
     });
 
     describe('general api testing', () => {
@@ -434,7 +475,9 @@ describe('ThyRangePickerComponent', () => {
             expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
                 new TinyDate(new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime()).getDate()
             );
-            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(
+                new TinyDate(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()).getDate()
+            );
         }));
 
         it('should default shortcut this month worked', fakeAsync(() => {
