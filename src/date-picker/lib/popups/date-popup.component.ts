@@ -199,10 +199,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
     }
 
     initDisabledDate(): void {
-        const minDate: TinyDate = this.getMinTinyDate();
-        const maxDate: TinyDate = this.getMaxTinyDate();
-
+        let minDate: TinyDate;
+        let maxDate: TinyDate;
         let disabledDateFn: DisabledDateFn;
+        if (this.minDate) {
+            const { value } = transformDateValue(this.minDate);
+            minDate = new TinyDate(value as Date);
+        }
+        if (this.maxDate) {
+            const { value } = transformDateValue(this.maxDate);
+            maxDate = new TinyDate(value as Date);
+        }
         if (this.disabledDate) {
             disabledDateFn = this.disabledDate;
         }
