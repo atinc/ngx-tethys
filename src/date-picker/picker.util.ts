@@ -1,7 +1,7 @@
 import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
-import { TinyDate } from 'ngx-tethys/util';
+import { helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
 export function transformDateValue(value: CompatibleDate | CompatibleValue | number | DateEntry | ThyDateRangeEntry | RangeAdvancedValue): {
