@@ -74,14 +74,18 @@ describe('ThyRangePickerComponent', () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('range picker global config testing', () => {
-        beforeEach(() => (fixtureInstance.useSuite = 1));
+    describe('get correct shortcut value', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+        });
 
         const shortcutIndex = 0;
         const startDate: number = shortcutRangesPresets[shortcutIndex].value[0];
         const endDate: number = shortcutRangesPresets[shortcutIndex].value[1];
 
-        it('show should support', fakeAsync(() => {
+        it('show should support shortcut preset', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -92,7 +96,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should be [] when startDate > thyMaxDate || endDate < thyMinDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), 10));
-            const maxDate: Date = startOfDay(addDays(new Date(), 30));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
             const expectValue = '';
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -100,7 +104,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -3));
-            const maxDate: Date = startOfDay(addDays(new Date(), -1));
+            const maxDate: Date = endOfDay(addDays(new Date(), -1));
             const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -108,7 +112,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -3));
-            const maxDate: Date = startOfDay(addDays(new Date(), 30));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
             const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -116,7 +120,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should be [startDate, thyMaxDate] when endDate > thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -10));
-            const maxDate: Date = startOfDay(addDays(new Date(), -1));
+            const maxDate: Date = endOfDay(addDays(new Date(), -1));
             const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -124,7 +128,7 @@ describe('ThyRangePickerComponent', () => {
 
         it('should be [startDate, endDate] when startDate >= thyMinDate && endDate <= thyMaxDate', fakeAsync(() => {
             const minDate: Date = startOfDay(addDays(new Date(), -30));
-            const maxDate: Date = startOfDay(addDays(new Date(), 30));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
             const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
 
             assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
@@ -134,8 +138,6 @@ describe('ThyRangePickerComponent', () => {
             // thyMinDate/thyMaxDate supports not only Date but also number
             fixtureInstance.thyMinDate = minDate as Date;
             fixtureInstance.thyMaxDate = maxDate.getTime() as number;
-
-            fixtureInstance.thyShowShortcut = true;
             fixture.detectChanges();
 
             openPickerByClickTrigger();
