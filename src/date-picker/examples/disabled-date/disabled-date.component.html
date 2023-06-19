@@ -37,7 +37,6 @@
   [thyMaxDate]="maxDate"
   [thyDefaultPickerValue]="defaultPickerValue"
   thyFormat="yyyy-MM-dd"></thy-range-picker>
-
 <thy-range-picker
   class="d-block mb-3 w-50"
   thyFormat="yyyy-MM-dd"
@@ -45,3 +44,17 @@
   [(ngModel)]="dynamicDisabled"
   (thyOnCalendarChange)="calendarChange($event)"
   (thyOpenChange)="panelOpenChange($event)"></thy-range-picker>
+<thy-range-picker
+  class="d-block mt-2 mb-3 w-50"
+  [thyShowShortcut]="true"
+  [thyMinDate]="minDateRange"
+  [(ngModel)]="dateRange"
+  [thyAllowClear]="true"
+  thyFormat="yyyy-MM-dd"></thy-range-picker>
+<thy-range-picker
+  class="d-block mb-3 w-50"
+  [thyShowShortcut]="true"
+  [thyMaxDate]="maxDateRange"
+  [(ngModel)]="dateRange"
+  [thyAllowClear]="true"
+  thyFormat="yyyy-MM-dd"></thy-range-picker>

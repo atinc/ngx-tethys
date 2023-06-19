@@ -3,7 +3,11 @@
     class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
      {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}">
     <div class="{{ prefixCls }}-picker-shortcut" *ngIf="showShortcut">
-      <div class="{{ prefixCls }}-picker-shortcut-item" *ngFor="let item of shortcutPresets" (click)="shortcutSetValue(item)">
+      <div
+        class="{{ prefixCls }}-picker-shortcut-item"
+        [class.disabled]="item.disabled"
+        *ngFor="let item of shortcutPresets; trackBy: trackByFn"
+        (click)="shortcutSetValue(item)">
         {{ item.title }}
       </div>
     </div>

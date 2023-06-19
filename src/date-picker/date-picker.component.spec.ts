@@ -15,6 +15,7 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
 
 registerLocaleData(zh);
 
@@ -24,6 +25,7 @@ describe('ThyDatePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
+
     const shortcutDatePresets = [
         {
             title: '今天',
@@ -70,7 +72,8 @@ describe('ThyDatePickerComponent', () => {
 
     describe('date picker global config testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
-        it('show should support', fakeAsync(() => {
+
+        it('show should global config shortcut', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
@@ -79,28 +82,50 @@ describe('ThyDatePickerComponent', () => {
             });
         }));
 
-        it('show should support thyMinDate to null', fakeAsync(() => {
+        it('should disable shortcut item whose preset value is less than thyMinDate', fakeAsync(() => {
             fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), 1)).getTime());
             fixture.detectChanges();
             openPickerByClickTrigger();
+
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
             dispatchMouseEvent(shortcutItems[0], 'click');
             fixture.detectChanges();
             tick(500);
+
+            const todayItem = shortcutItems[0];
+            expect(todayItem.classList.contains('disabled')).toBe(true);
+
             const input = getPickerTrigger();
             expect(input.value.trim()).toBe('');
         }));
 
-        it('show should support thyMaxDate', fakeAsync(() => {
+        it('show not disable shortcut item whose preset value is less than thyMaxDate', fakeAsync(() => {
             fixtureInstance.thyMaxDate = new Date(startOfWeek(addWeeks(new Date(), 2), { weekStartsOn: 1 }).getTime());
             fixture.detectChanges();
             openPickerByClickTrigger();
+
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
             dispatchMouseEvent(shortcutItems[1], 'click');
             fixture.detectChanges();
             tick(500);
+
+            const nextWeekItem = shortcutItems[1];
+            expect(nextWeekItem.classList.contains('disabled')).toBe(false);
+
             const input = getPickerTrigger();
             expect(input.value).toBe(format(shortcutDatePresets[1].value, 'yyyy-MM-dd'));
+        }));
+
+        it('should return if value of shortcutPresets is null', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), -2)).getTime());
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const datePopupComponent = fixture.debugElement.query(By.directive(DatePopupComponent)).componentInstance;
+            datePopupComponent.shortcutSetValue({ value: null });
+
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
         }));
     });
 
