@@ -76,7 +76,7 @@ describe('ThyDatePickerComponent', () => {
         it('show should global config shortcut', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            const shortcutItems = getShortcutItems();
             shortcutItems.forEach((shortcut, index) => {
                 expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
             });
@@ -87,7 +87,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
 
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            const shortcutItems = getShortcutItems();
             dispatchMouseEvent(shortcutItems[0], 'click');
             fixture.detectChanges();
             tick(500);
@@ -104,7 +104,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
 
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            const shortcutItems = getShortcutItems();
             dispatchMouseEvent(shortcutItems[1], 'click');
             fixture.detectChanges();
             tick(500);
@@ -126,6 +126,22 @@ describe('ThyDatePickerComponent', () => {
 
             const input = getPickerTrigger();
             expect(input.value.trim()).toBe('');
+        }));
+
+        it('should not reset the selected time when shortcut select date', fakeAsync(() => {
+            const selectedTime = `11:22`;
+            fixtureInstance.thyValue = new Date(`2018-11-11 ${selectedTime}`);
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = getShortcutItems();
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const input = getPickerTrigger();
+            expect(input.value).toContain(selectedTime);
         }));
     });
 
@@ -856,8 +872,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
 
             openPickerByClickTrigger();
-            const setTimeButton = overlayContainerElement.querySelector('.time-picker-set-btn');
-            dispatchMouseEvent(setTimeButton, 'click');
+            dispatchMouseEvent(getSetTimeButton(), 'click');
             fixture.detectChanges();
             const confirmButton = getConfirmButton();
             expect(confirmButton.hasAttribute('disabled')).toBe(options.disabled);
@@ -869,6 +884,10 @@ describe('ThyDatePickerComponent', () => {
             expect(onOkSpy).toHaveBeenCalledTimes(options.onOkCallTimes);
         }
     });
+
+    function getShortcutItems() {
+        return overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+    }
 
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
