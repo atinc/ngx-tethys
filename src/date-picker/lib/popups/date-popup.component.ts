@@ -529,6 +529,48 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
+    private getSelectedShortcutPreset(date: TinyDate | TinyDate[]): TinyDate | TinyDate[] {
+        const minDate: TinyDate = this.getMinTinyDate();
+        const maxDate: TinyDate = this.getMaxTinyDate();
+
+        const minTime: number = (minDate && minDate.getTime()) || null;
+        const maxTime: number = (maxDate && maxDate.getTime()) || null;
+
+        if (helpers.isArray(date)) {
+            const startDate: TinyDate = date[0];
+            const endDate: TinyDate = date[1];
+
+            const startTime: number = startDate.getTime();
+            const endTime: number = endDate.getTime();
+
+            if ((maxDate && startTime > maxTime) || (minDate && endTime < minTime)) {
+                return [];
+            }
+
+            if (minDate && startTime < minTime && maxDate && endTime > maxTime) {
+                return [minDate, maxDate];
+            }
+
+            if (minDate && startTime < minTime) {
+                return [minDate, endDate];
+            }
+
+            if (maxDate && endTime > maxTime) {
+                return [startDate, maxDate];
+            }
+
+            return date;
+        } else {
+            const singleTime: number = date.getTime();
+
+            if ((minDate && singleTime < minTime) || (maxDate && singleTime > maxTime)) {
+                return null;
+            }
+
+            return date;
+        }
+    }
+
     shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
         if (shortcutPresets.disabled) {
             return;
@@ -539,67 +581,28 @@ export class DatePopupComponent implements OnChanges, OnInit {
             return;
         }
 
-        const getDateValue = (date: TinyDate | TinyDate[]) => {
-            const minDate: TinyDate = this.getMinTinyDate();
-            const maxDate: TinyDate = this.getMaxTinyDate();
-
-            const minTime: number = (minDate && minDate.getTime()) || null;
-            const maxTime: number = (maxDate && maxDate.getTime()) || null;
-
-            if (helpers.isArray(date)) {
-                const startDate: TinyDate = date[0];
-                const endDate: TinyDate = date[1];
-
-                const startTime: number = startDate.getTime();
-                const endTime: number = endDate.getTime();
-
-                if ((maxDate && startTime > maxTime) || (minDate && endTime < minTime)) {
-                    return [];
-                }
-
-                if (minDate && startTime < minTime && maxDate && endTime > maxTime) {
-                    return [minDate, maxDate];
-                }
-
-                if (minDate && startTime < minTime) {
-                    return [minDate, endDate];
-                }
-
-                if (maxDate && endTime > maxTime) {
-                    return [startDate, maxDate];
-                }
-
-                return date;
-            } else {
-                const singleTime: number = date.getTime();
-
-                if ((minDate && singleTime < minTime) || (maxDate && singleTime > maxTime)) {
-                    return null;
-                }
-
-                return date;
-            }
-        };
-
-        const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
-            const beginValue: number | Date = getShortcutValue(begin);
-            const endValue: number | Date = getShortcutValue(end);
-            if (beginValue && endValue) {
-                this.selectedValue = getDateValue([new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))]) as TinyDate[];
-                const cloneRangeDate = this.selectedValue.length === 0 ? [] : this.cloneRangeDate(this.selectedValue);
-                this.setValue(cloneRangeDate);
-            }
-        };
-
+        let selectedPresetValue: TinyDate | TinyDate[] = [];
         if (helpers.isArray(value)) {
-            setRangeValue(value[0], value[1]);
+            const begin: number | Date = getShortcutValue(value[0]);
+            const end: number | Date = getShortcutValue(value[1]);
+
+            if (begin && end) {
+                this.selectedValue = this.getSelectedShortcutPreset([
+                    new TinyDate(startOfDay(begin)),
+                    new TinyDate(endOfDay(end))
+                ]) as TinyDate[];
+
+                this.selectedValue = this.selectedValue.length === 0 ? [] : this.cloneRangeDate(this.selectedValue);
+                selectedPresetValue = this.selectedValue;
+            }
         } else {
             const _value: number | Date = getShortcutValue(value);
-            this.setValue(getDateValue(new TinyDate(_value)) as TinyDate);
+            selectedPresetValue = this.getSelectedShortcutPreset(new TinyDate(_value)) as TinyDate;
         }
 
+        this.setValue(selectedPresetValue);
         this.shortcutValueChange.emit({
-            value: this.selectedValue,
+            value: selectedPresetValue,
             triggerPresets: shortcutPresets
         });
     }
