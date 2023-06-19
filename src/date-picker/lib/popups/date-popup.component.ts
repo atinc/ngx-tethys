@@ -596,8 +596,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 selectedPresetValue = this.selectedValue;
             }
         } else {
-            const _value: number | Date = getShortcutValue(value);
-            selectedPresetValue = this.getSelectedShortcutPreset(new TinyDate(_value)) as TinyDate;
+            const singleDate: number | Date = getShortcutValue(value);
+            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
+            selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
 
         this.setValue(selectedPresetValue);
