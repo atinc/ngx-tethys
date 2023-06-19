@@ -529,7 +529,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
-    private getSelectedShortcutPreset(date: TinyDate | TinyDate[]): TinyDate | TinyDate[] {
+    private getSelectedShortcutPreset(date: CompatibleValue): CompatibleValue {
         const minDate: TinyDate = this.getMinTinyDate();
         const maxDate: TinyDate = this.getMaxTinyDate();
 
@@ -581,7 +581,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
             return;
         }
 
-        let selectedPresetValue: TinyDate | TinyDate[] = [];
+        let selectedPresetValue: CompatibleValue;
         if (helpers.isArray(value)) {
             const begin: number | Date = getShortcutValue(value[0]);
             const end: number | Date = getShortcutValue(value[1]);
