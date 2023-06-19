@@ -15,7 +15,6 @@ import {
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
-import { ThyMenuComponent } from '../menu.component';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
 
@@ -155,7 +154,7 @@ export class ThyMenuGroupComponent implements OnInit {
         this._actionMenu = value;
     }
 
-    constructor(private popover: ThyPopover, public parent: ThyMenuComponent) {}
+    constructor(private popover: ThyPopover) {}
 
     ngOnInit(): void {}
 
