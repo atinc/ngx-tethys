@@ -75,7 +75,9 @@
 
 .thy-action-lite {
     @include hover.hover-active {
-        background: none;
+        &:not(.thy-action-has-feedback) {
+            background: none;
+        }
     }
 }
 
