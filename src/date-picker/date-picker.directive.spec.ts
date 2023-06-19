@@ -9,6 +9,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, TestBedStatic, tic
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { addDays, startOfDay } from 'date-fns';
 
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
@@ -144,6 +145,22 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
                 expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('2022-01-29');
+            }));
+
+            it('should disable shortcut item whose preset is out of thyMinDate ~ thyMaxDate', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), 1));
+                fixture.detectChanges();
+
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+                const todayItem = shortcutItems[0];
+                const tomorrowItem = shortcutItems[1];
+                expect(todayItem.classList.contains('disabled')).toBe(true);
+                expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
         });
 

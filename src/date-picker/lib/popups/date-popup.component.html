@@ -1,10 +1,13 @@
 <div class="{{ prefixCls }}-picker-container {{ className }}">
   <div
     class="{{ prefixCls }} {{ showWeek ? prefixCls + '-week-number' : '' }}
-     {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}"
-  >
+     {{ isRange ? prefixCls + '-range' : '' }} {{ prefixCls }}-picker-shortcut-{{ shortcutPosition === 'left' ? 'left' : 'bottom' }}">
     <div class="{{ prefixCls }}-picker-shortcut" *ngIf="showShortcut">
-      <div class="{{ prefixCls }}-picker-shortcut-item" *ngFor="let item of shortcutPresets" (click)="shortcutSetValue(item)">
+      <div
+        class="{{ prefixCls }}-picker-shortcut-item"
+        [class.disabled]="item.disabled"
+        *ngFor="let item of shortcutPresets; trackBy: trackByFn"
+        (click)="shortcutSetValue(item)">
         {{ item.title }}
       </div>
     </div>
@@ -29,8 +32,7 @@
                   name="dateCarousel"
                   (ngModelChange)="changeValueFromAdvancedSelect($event)"
                   [(ngModel)]="advancedSelectedValue"
-                  [activeDate]="selectedValue[0]"
-                ></date-carousel>
+                  [activeDate]="selectedValue[0]"></date-carousel>
               </div>
             </ng-container>
             <div [hidden]="flexibleActiveTab !== 'custom'">
@@ -73,8 +75,7 @@
     [enableNext]="enablePrevNext('next', partType)"
     (dayHover)="onDayHover($event)"
     (selectDate)="changeValueFromSelect($event, partType)"
-    (headerChange)="onHeaderChange($event, partType)"
-  ></inner-popup>
+    (headerChange)="onHeaderChange($event, partType)"></inner-popup>
 </ng-template>
 
 <ng-template #tplFooter>
@@ -85,8 +86,7 @@
     (showTimePickerChange)="onShowTimePickerChange($event)"
     (selectTime)="onSelectTime($event)"
     (clickOk)="onClickOk()"
-    (clickRemove)="onClickRemove()"
-  ></calendar-footer>
+    (clickRemove)="onClickRemove()"></calendar-footer>
 </ng-template>
 
 <!-- Single ONLY -->
@@ -99,7 +99,7 @@
 <!-- Range ONLY -->
 <ng-template #tplRangePart let-partType="partType">
   <div class="{{ prefixCls }}-range-part {{ prefixCls }}-range-{{ partType }}">
-    <div style="outline: none;">
+    <div style="outline: none">
       <ng-container *ngTemplateOutlet="tplInnerPopup; context: { partType: partType }"></ng-container>
     </div>
   </div>
