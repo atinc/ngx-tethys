@@ -171,8 +171,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
             }
 
             if (this.shortcutPresets.length) {
-                const minDate: TinyDate = this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date) : null;
-                const maxDate: TinyDate = this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date) : null;
+                const minDate: TinyDate = this.getMinTinyDate();
+                const maxDate: TinyDate = this.getMaxTinyDate();
 
                 const minTime = minDate ? minDate.getTime() : null;
                 const maxTime = maxDate ? maxDate.getTime() : null;
