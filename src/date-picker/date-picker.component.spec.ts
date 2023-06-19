@@ -73,7 +73,7 @@ describe('ThyDatePickerComponent', () => {
     describe('date picker global config testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
 
-        it('show should global config Shortcut', fakeAsync(() => {
+        it('show should global config shortcut', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
