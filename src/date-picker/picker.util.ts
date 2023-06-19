@@ -199,6 +199,6 @@ export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: st
     return typeof object[key] === 'number' || object[key] === null || object[key] instanceof Date;
 }
 
-export function getShortCutValue(value: ThyShortcutValue): number | Date {
+export function getShortcutValue(value: ThyShortcutValue): number | Date {
     return helpers.isFunction(value) ? value() : value;
 }
