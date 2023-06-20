@@ -60,8 +60,8 @@
       </ng-container>
     </ng-container>
     <ng-container *ngIf="isShowSearchPanel">
-      <ul class="thy-cascader-search-list py-3" [ngStyle]="{ 'width.px': !searchResultList.length ? triggerRect?.width : '' }">
-        <ng-container *ngIf="searchResultList.length; else searchEmptyPlaceholder">
+      <ng-container *ngIf="searchResultList.length; else emptyPlaceholder">
+        <ul class="thy-cascader-search-list py-3">
           <li
             thy-cascader-search-option
             *ngFor="let item of searchResultList"
@@ -70,8 +70,8 @@
             [option]="item"
             [active]="item.selected"
             (toggleSelectChange)="selectSearchResult($event)"></li>
-        </ng-container>
-      </ul>
+        </ul>
+      </ng-container>
     </ng-container>
   </div>
 </ng-template>
@@ -80,8 +80,4 @@
   <div class="thy-cascader-empty-container" [ngStyle]="{ 'width.px': triggerRect?.width }">
     <thy-empty class="thy-select-empty-content" thySize="sm" [thyMessage]="emptyStateText"></thy-empty>
   </div>
-</ng-template>
-
-<ng-template #searchEmptyPlaceholder>
-  <thy-empty thySize="sm" thyTopAuto="true" [thyMessage]="emptyStateText"></thy-empty>
 </ng-template>
