@@ -223,7 +223,6 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     onShortcutValueChange(event: ThyShortcutValueChange) {
         this.thyShortcutValueChange.emit(event);
-        this.closeOverlay();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
