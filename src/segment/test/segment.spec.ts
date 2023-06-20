@@ -262,7 +262,7 @@ describe('segment', () => {
             expect(spy).toHaveBeenCalled();
         });
 
-        it('should some item not change selected value manually', () => {
+        it('should not change selected value manually when some item', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
             const event = new Event('click');
             fixture.componentInstance.setSelectedItem(event, 0);
