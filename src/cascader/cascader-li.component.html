@@ -4,16 +4,17 @@
 <ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
   <label
     thyCheckbox
+    class="w-100"
+    thyInline="true"
     [disabled]="option.disabled"
     [(ngModel)]="active"
     (ngModelChange)="toggleOption(active)"
-    [name]="option.value || option._id"
-    [thyLabelText]="option[labelProperty] || ''"
-  ></label>
+    [name]="option.value || option._id">
+    <span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''">{{ option[labelProperty] || '' }}</span>
+  </label>
 </ng-container>
 
 <span
   *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
-  class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon"
->
+  class="wtf wtf-angle-right thy-cascader-menu-item-expand-icon">
 </span>
