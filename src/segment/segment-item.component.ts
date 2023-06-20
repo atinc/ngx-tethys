@@ -93,7 +93,7 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
         this.elementRef.nativeElement.classList.add('active');
     }
 
-    private unselect() {
+    public unselect() {
         this.elementRef.nativeElement.classList.remove('active');
     }
 

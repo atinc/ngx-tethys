@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,24 +10,41 @@ import { ThySegmentMode } from '../segment.component';
 @Component({
     selector: 'test-segment-basic',
     template: `
-        <thy-segment (thySelectChange)="selectedChange($event)">
+
+        <thy-segment #segment (thySelectChange)="selectedChange($event)">
+
             <thy-segment-item thyValue="member">成员</thy-segment-item>
+
             <thy-segment-item thyValue="department">部门</thy-segment-item>
+
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentBasicComponent {
+    @ViewChild('segment') segmentComponent: ThySegmentComponent;
+
     selectedChange(event: ThySegmentEvent): void {}
+
+    setSelectedItem(event: Event, index: number) {
+        this.segmentComponent.setSelectedItem(event, index);
+    }
 }
 
 @Component({
     selector: 'test-segment-only-text',
     template: `
+
         <thy-segment>
+
             <thy-segment-item thyValue="1">列表</thy-segment-item>
+
             <thy-segment-item thyValue="2">对齐</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentOnlyTextComponent {}
@@ -35,10 +52,15 @@ class TestSegmentOnlyTextComponent {}
 @Component({
     selector: 'test-segment-only-icon',
     template: `
+
         <thy-segment>
+
             <thy-segment-item thyValue="1" thyIcon="list"> </thy-segment-item>
+
             <thy-segment-item thyValue="2" thyIcon="paperclip"></thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentOnlyIconComponent {}
@@ -46,10 +68,15 @@ class TestSegmentOnlyIconComponent {}
 @Component({
     selector: 'test-segment-icon-and-text',
     template: `
+
         <thy-segment>
+
             <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
+
             <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentIconAndTextComponent {}
@@ -57,11 +84,17 @@ class TestSegmentIconAndTextComponent {}
 @Component({
     selector: 'test-segment-size',
     template: `
+
         <thy-segment [thySize]="size">
+
             <thy-segment-item thyValue="member">成员</thy-segment-item>
+
             <thy-segment-item thyValue="department">部门</thy-segment-item>
+
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentSizeComponent {
@@ -71,11 +104,17 @@ class TestSegmentSizeComponent {
 @Component({
     selector: 'test-segment-disabled',
     template: `
+
         <thy-segment [thyDisabled]="disabledAll" (thyOptionSelect)="selectedChange($event)">
+
             <thy-segment-item thyValue="member">成员</thy-segment-item>
+
             <thy-segment-item thyValue="department">部门</thy-segment-item>
+
             <thy-segment-item thyValue="group" [thyDisabled]="disableItem">用户组</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentDisabledComponent {
@@ -89,10 +128,15 @@ class TestSegmentDisabledComponent {
 @Component({
     selector: 'test-segment-mode',
     template: `
+
         <thy-segment [thyMode]="mode">
+
             <thy-segment-item thyValue="member">成员</thy-segment-item>
+
             <thy-segment-item thyValue="department">部门</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentModeComponent {
@@ -102,11 +146,17 @@ class TestSegmentModeComponent {
 @Component({
     selector: 'test-segment-active',
     template: `
+
         <thy-segment [thyActiveIndex]="selectedIndex">
+
             <thy-segment-item thyValue="member">成员</thy-segment-item>
+
             <thy-segment-item thyValue="department">部门</thy-segment-item>
+
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentActiveComponent {
@@ -116,23 +166,39 @@ class TestSegmentActiveComponent {
 @Component({
     selector: 'test-segment-custom-template',
     template: `
+
         <thy-segment>
+
             <ng-container *ngFor="let item of items">
+
                 <thy-segment-item [thyValue]="item.value">
+
                     <div style="padding: 8px 0px 4px;">
+
                         <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
+
                         <div class="text1">{{ item.labelText }}</div>
+
                     </div>
+
                 </thy-segment-item>
+
             </ng-container>
 
             <thy-segment-item thyValue="hexie">
+
                 <div style="padding: 8px 0px 4px;">
+
                     <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
+
                     <div class="text2">⭐️和谐⭐️</div>
+
                 </div>
+
             </thy-segment-item>
+
         </thy-segment>
+
     `
 })
 class TestSegmentCustomTemplateComponent {
@@ -186,6 +252,22 @@ describe('segment', () => {
         it('should default to block mode', () => {
             expect(segmentedInstance.thyMode).toBe('block');
             expect(segmentedElement.classList.contains('thy-segment-block')).toBeTruthy();
+        });
+
+        it('should change selected value manually', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            const event = new Event('click');
+            fixture.componentInstance.setSelectedItem(event, 1);
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should some item not change selected value manually', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            const event = new Event('click');
+            fixture.componentInstance.setSelectedItem(event, 0);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
         });
     });
 

@@ -100,6 +100,17 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
         this.selectedItem.select();
     }
 
+    public setSelectedItem(event: Event, activeIndex: number) {
+        const currentSelectedIndex = this.options.toArray().findIndex(option => {
+            return option.thyValue === this.selectedItem.thyValue;
+        });
+        if (currentSelectedIndex === activeIndex) {
+            return;
+        }
+        this.selectedItem.unselect();
+        this.changeSelectedItem(event, this.options.get(activeIndex || 0));
+    }
+
     public changeSelectedItem(event: Event, item: ThySegmentItemComponent): void {
         this.thySelectChange.emit({ event: event, value: item.thyValue });
 
