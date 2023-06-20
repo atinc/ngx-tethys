@@ -805,9 +805,7 @@ class TestBasicTreeComponent {
 
     onEvent() {}
 
-    onDbClickEvent() {
-        console.log(123);
-    }
+    onDbClickEvent() {}
 
     dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
         this.dragDropSpy(event);
