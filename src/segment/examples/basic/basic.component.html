@@ -1,5 +1,5 @@
 <div style="width: 350px" class="d-flex align-items-center">
-  <thy-segment #segment (thySelectChange)="selectedChange($event)">
+  <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
     <thy-segment-item thyValue="member">成员</thy-segment-item>
     <thy-segment-item thyValue="department">部门</thy-segment-item>
     <thy-segment-item thyValue="group">用户组</thy-segment-item>
@@ -11,13 +11,14 @@
     [ngStyle]="{ 'min-width' : '100px'}"
     thyType="primary"
     (click)="setSelectedItem($event)"
-  >手动设置值</button>
+  >手动选值</button>
 </div>
 
-<div style="width: 180px" class="mt-4">
+<div style="width: 270px" class="mt-4">
   <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
     <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
     <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
+    <thy-segment-item thyValue="3" thyIcon="align-center">居中</thy-segment-item>
   </thy-segment>
 </div>
 

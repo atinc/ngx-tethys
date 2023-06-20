@@ -78,9 +78,14 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     thyDisabled = false;
 
     /**
-     * 默认选中的选项的索引
+     * 选中选项的索引
      */
-    @Input() @InputNumber() thyActiveIndex: number = 0;
+    @Input()
+    @InputNumber()
+    set thyActiveIndex(value: number) {
+        this.setSelectedItem(value);
+        this.activeIndex = value;
+    }
 
     /**
      * 选项被选中的回调事件
@@ -89,6 +94,8 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
 
     public selectedItem: ThySegmentItemComponent;
 
+    private activeIndex = 0;
+
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
     public transitionedTo: any = null;
@@ -96,24 +103,26 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.thyActiveIndex || 0);
+        this.selectedItem = this.options.get(this.activeIndex || 0);
         this.selectedItem.select();
     }
 
-    public setSelectedItem(event: Event, activeIndex: number) {
-        const currentSelectedIndex = this.options.toArray().findIndex(option => {
-            return option.thyValue === this.selectedItem.thyValue;
+    public setSelectedItem(index: number) {
+        this.selectedItem = this.options?.get(this.activeIndex);
+        const currentSelectedIndex = this.options?.toArray().findIndex(option => {
+            return option.thyValue === this.selectedItem?.thyValue;
         });
-        if (currentSelectedIndex === activeIndex) {
+        if (currentSelectedIndex === index) {
             return;
         }
-        this.selectedItem.unselect();
-        this.changeSelectedItem(event, this.options.get(activeIndex || 0));
+        if (this.selectedItem) {
+            this.selectedItem.unselect();
+            const event = document.createEvent('Event');
+            this.changeSelectedItem(event, this.options.get(index || 0));
+        }
     }
 
     public changeSelectedItem(event: Event, item: ThySegmentItemComponent): void {
-        this.thySelectChange.emit({ event: event, value: item.thyValue });
-
         this.animationState = {
             value: 'from',
             params: getThumbAnimationProps(this.selectedItem.elementRef.nativeElement!)
@@ -126,13 +135,18 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
             params: getThumbAnimationProps(item.elementRef.nativeElement!)
         };
         this.transitionedTo = item;
+        this.selectedItem = item;
+        this.activeIndex = this.options.toArray().findIndex(option => {
+            return option.thyValue === item.thyValue;
+        });
+        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
         this.cdr.detectChanges();
     }
 
     public handleThumbAnimationDone(event: AnimationEvent): void {
         if (event.fromState === 'from') {
             this.selectedItem = this.transitionedTo;
-            this.selectedItem.select();
+            this.selectedItem?.select();
             this.transitionedTo = null;
             this.animationState = null;
             this.cdr.detectChanges();

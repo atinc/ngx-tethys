@@ -11,7 +11,7 @@ import { ThySegmentMode } from '../segment.component';
     selector: 'test-segment-basic',
     template: `
 
-        <thy-segment #segment (thySelectChange)="selectedChange($event)">
+        <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
 
             <thy-segment-item thyValue="member">成员</thy-segment-item>
 
@@ -24,12 +24,14 @@ import { ThySegmentMode } from '../segment.component';
     `
 })
 class TestSegmentBasicComponent {
-    @ViewChild('segment') segmentComponent: ThySegmentComponent;
+    selectedIndex = 0;
 
-    selectedChange(event: ThySegmentEvent): void {}
+    selectedChange(event: ThySegmentEvent): void {
+        this.selectedIndex = event.activeIndex;
+    }
 
-    setSelectedItem(event: Event, index: number) {
-        this.segmentComponent.setSelectedItem(event, index);
+    setSelectedItem(index: number) {
+        this.selectedIndex = index;
     }
 }
 
@@ -256,16 +258,14 @@ describe('segment', () => {
 
         it('should change selected value manually', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
-            const event = new Event('click');
-            fixture.componentInstance.setSelectedItem(event, 1);
+            fixture.componentInstance.setSelectedItem(1);
             fixture.detectChanges();
             expect(spy).toHaveBeenCalled();
         });
 
         it('should not change selected value manually when some item', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
-            const event = new Event('click');
-            fixture.componentInstance.setSelectedItem(event, 0);
+            fixture.componentInstance.setSelectedItem(0);
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
         });
