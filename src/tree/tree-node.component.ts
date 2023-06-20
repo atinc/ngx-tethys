@@ -100,6 +100,11 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     @Output() thyOnClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     /**
+     * 双击 node 事件
+     */
+    @Output() thyOnDbClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+
+    /**
      * 点击展开触发事件
      */
     @Output() thyOnExpandChange: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
@@ -184,6 +189,14 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
         }
         this.thyOnClick.emit({
             eventName: 'click',
+            event: event,
+            node: this.node
+        });
+    }
+
+    public dbClickNode(event: Event) {
+        this.thyOnDbClick.emit({
+            eventName: 'dbclick',
             event: event,
             node: this.node
         });

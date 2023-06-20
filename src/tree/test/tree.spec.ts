@@ -288,14 +288,12 @@ describe('ThyTreeComponent', () => {
             expect(expandSpy).toHaveBeenCalledTimes(1);
         }));
 
-        it('should expande children nodes when dbclick tree node content', fakeAsync(() => {
-            const treeNode = treeComponent.getTreeNode(treeNodes[0].key);
-            const isExpanded = treeNode.isExpanded;
-            const targetNode = treeElement.querySelector(treeNodeContentSelector) as HTMLElement;
+        it('test dbclick event', fakeAsync(() => {
+            const dbclickSpy = spyOn(treeInstance, 'onDbClickEvent');
+            const targetNode = treeElement.querySelectorAll(treeNodeContentSelector)[0] as HTMLElement;
             targetNode.dispatchEvent(new MouseEvent('dblclick'));
             fixture.detectChanges();
-            const updatedTreeNode = treeComponent.getTreeNode(treeNodes[0].key);
-            expect(updatedTreeNode.isExpanded).toEqual(!isExpanded);
+            expect(dbclickSpy).toHaveBeenCalledTimes(1);
         }));
 
         it('test checkboxChange event', fakeAsync(() => {
@@ -766,6 +764,7 @@ describe('ThyTreeComponent', () => {
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
+            (thyOnDbClick)="onDbClickEvent()"
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
@@ -805,6 +804,10 @@ class TestBasicTreeComponent {
     selectedKeys = ['000000000000000000000000'];
 
     onEvent() {}
+
+    onDbClickEvent() {
+        console.log(123);
+    }
 
     dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
         this.dragDropSpy(event);
