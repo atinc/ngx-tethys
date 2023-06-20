@@ -123,6 +123,10 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     }
 
     public changeSelectedItem(event: Event, item: ThySegmentItemComponent): void {
+        this.activeIndex = this.options?.toArray().findIndex(option => {
+            return option.thyValue === item.thyValue;
+        });
+        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
         this.animationState = {
             value: 'from',
             params: getThumbAnimationProps(this.selectedItem.elementRef.nativeElement!)
@@ -135,11 +139,6 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
             params: getThumbAnimationProps(item.elementRef.nativeElement!)
         };
         this.transitionedTo = item;
-        this.selectedItem = item;
-        this.activeIndex = this.options.toArray().findIndex(option => {
-            return option.thyValue === item.thyValue;
-        });
-        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
         this.cdr.detectChanges();
     }
 
