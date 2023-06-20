@@ -299,7 +299,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     /**
      * 双击 TreeNode 事件
      */
-    @Output() thyOnDbClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyDblClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     /**
      * 设置 TreeNode 的渲染模板

@@ -24,7 +24,7 @@
       [thyItemSize]="thyItemSize"
       [thyIndent]="thyIndent"
       (thyOnClick)="thyOnClick.emit($event)"
-      (thyOnDbClick)="thyOnDbClick.emit($event)"
+      (thyDblClick)="thyDblClick.emit($event)"
       (thyOnExpandChange)="eventTriggerChanged($event)"
       (thyOnCheckboxChange)="eventTriggerChanged($event)"
     >
@@ -57,7 +57,7 @@
     [thyClickBehavior]="thyClickBehavior"
     [thyIndent]="thyIndent"
     (thyOnClick)="thyOnClick.emit($event)"
-    (thyOnDbClick)="thyOnDbClick.emit($event)"
+    (thyDblClick)="thyDblClick.emit($event)"
     (thyOnExpandChange)="eventTriggerChanged($event)"
     (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"
   >

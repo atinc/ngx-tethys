@@ -102,7 +102,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     /**
      * 双击 node 事件
      */
-    @Output() thyOnDbClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
+    @Output() thyDblClick: EventEmitter<ThyTreeEmitEvent> = new EventEmitter<ThyTreeEmitEvent>();
 
     /**
      * 点击展开触发事件
@@ -195,7 +195,7 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
     }
 
     public dbClickNode(event: Event) {
-        this.thyOnDbClick.emit({
+        this.thyDblClick.emit({
             eventName: 'dbclick',
             event: event,
             node: this.node
