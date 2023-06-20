@@ -16,12 +16,14 @@ import { ThyTreeEmitEvent } from '../tree.class';
 import { ThyTreeComponent } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
+import { ThyTreeNodeComponent } from '../tree-node.component';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
 const treeNodeSelector = '.thy-tree-node';
 const loadingSelector = '.thy-loading';
 const treeNodeScrollViewport = '.cdk-virtual-scroll-viewport';
+const treeNodeContentSelector = '.thy-tree-node-content';
 
 function triggerScroll(viewport: CdkVirtualScrollViewport, offset?: number) {
     if (offset !== undefined) {
@@ -284,6 +286,16 @@ describe('ThyTreeComponent', () => {
             targetNode.click();
             fixture.detectChanges();
             expect(expandSpy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('should expande children nodes when dbclick tree node content', fakeAsync(() => {
+            const treeNode = treeComponent.getTreeNode(treeNodes[0].key);
+            const isExpanded = treeNode.isExpanded;
+            const targetNode = treeElement.querySelector(treeNodeContentSelector) as HTMLElement;
+            targetNode.dispatchEvent(new MouseEvent('dblclick'));
+            fixture.detectChanges();
+            const updatedTreeNode = treeComponent.getTreeNode(treeNodes[0].key);
+            expect(updatedTreeNode.isExpanded).toEqual(!isExpanded);
         }));
 
         it('test checkboxChange event', fakeAsync(() => {
