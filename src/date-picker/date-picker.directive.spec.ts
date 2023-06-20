@@ -18,7 +18,6 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
 import { ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
-import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
 
 registerLocaleData(zh);
 

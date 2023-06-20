@@ -1,7 +1,6 @@
 import { DateEntry, ThyDateRangeEntry } from 'ngx-tethys/date-picker';
-import { Component, forwardRef, OnInit } from '@angular/core';
-import { addDays, addWeeks, endOfDay, startOfDay, startOfWeek, subWeeks } from 'date-fns';
-import { TinyDate } from 'ngx-tethys/util';
+import { Component, OnInit } from '@angular/core';
+import { addWeeks, endOfDay, startOfDay, startOfWeek, subWeeks } from 'date-fns';
 
 @Component({
     selector: 'thy-date-picker-basic-example',
