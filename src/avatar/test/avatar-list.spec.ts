@@ -5,6 +5,8 @@ import { ThyAvatarListComponent, ThyAvatarListMode } from '../avatar-list/avatar
 import { ThyAvatarComponent } from '../avatar.component';
 import { ThyAvatarModule } from '../avatar.module';
 
+const userNameList = [{ name: 'Abigail' }, { name: 'Belle' }, { name: 'Camilla' }, { name: 'Abigail' }, { name: 'Belle' }];
+
 @Component({
     template: `
         <div [ngStyle]="{ width: '300px' }">
@@ -30,11 +32,7 @@ export class AvatarListBasicComponent implements OnInit {
     template: `
         <div [ngStyle]="{ width: '300px' }">
             <thy-avatar-list [thyAvatarSize]="size" [thyMode]="mode">
-                <thy-avatar thyName="Abigail"></thy-avatar>
-                <thy-avatar thyName="Belle"></thy-avatar>
-                <thy-avatar thyName="Camilla"></thy-avatar>
-                <thy-avatar thyName="Abigail"></thy-avatar>
-                <thy-avatar thyName="Belle"></thy-avatar>
+                <thy-avatar *ngFor="let item of data" [thyName]="item.name"></thy-avatar>
             </thy-avatar-list>
         </div>
     `,
@@ -45,34 +43,13 @@ export class AvatarListTestComponent implements OnInit {
 
     public mode: ThyAvatarListMode;
 
+    public data = userNameList;
+
     ngOnInit(): void {}
 
     remove() {
         console.log('remove success');
     }
-}
-
-@Component({
-    template: `
-        <thy-avatar-list>
-            <thy-avatar thyName="Abigail"></thy-avatar>
-            <thy-avatar thyName="Belle"></thy-avatar>
-            <thy-avatar thyName="Camilla"></thy-avatar>
-            <thy-avatar thyName="Abigail"></thy-avatar>
-            <thy-avatar thyName="Belle"></thy-avatar>
-            <thy-avatar thyName="Abigail"></thy-avatar>
-            <thy-avatar thyName="Belle"></thy-avatar>
-            <thy-avatar thyName="Camilla"></thy-avatar>
-            <thy-avatar thyName="Abigail"></thy-avatar>
-            <thy-avatar thyName="Belle"></thy-avatar>
-        </thy-avatar-list>
-    `,
-    styleUrls: ['../styles/avatar.scss']
-})
-export class AvatarListResponsiveComponent implements OnInit {
-    public responsive = false;
-
-    ngOnInit(): void {}
 }
 
 @Component({
@@ -90,7 +67,7 @@ describe('thy-avatar-list', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [ThyAvatarModule],
-            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListResponsiveComponent, AvatarListEmptyComponent]
+            declarations: [AvatarListBasicComponent, AvatarListTestComponent, AvatarListEmptyComponent]
         }).compileComponents();
     });
 
@@ -158,7 +135,7 @@ describe('thy-avatar-list', () => {
         }));
     });
 
-    describe('show different type when input different thyMode value', () => {
+    describe('should set overlapMode to true when thyMode is set to "overlap"', () => {
         let fixture: ComponentFixture<AvatarListTestComponent>;
         beforeEach(() => {
             fixture = TestBed.createComponent(AvatarListTestComponent);
@@ -202,6 +179,24 @@ describe('thy-avatar-list', () => {
             const updatedAvatarList = fixture.debugElement.query(By.css('.thy-avatar-list'));
             expect(updatedAvatarList.classes['thy-avatar-list-overlap']).toBeTruthy();
         }));
+
+        it('should set the z-index of avatar items in reverse order', () => {
+            fixture.componentInstance.mode = ThyAvatarListMode.overlap;
+            fixture.detectChanges();
+
+            const avatarComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            expect(avatarComponent[0].styles.zIndex).toBe('5');
+            expect(avatarComponent[1].styles.zIndex).toBe('4');
+            expect(avatarComponent[2].styles.zIndex).toBe('3');
+            fixture.detectChanges();
+
+            fixture.componentInstance.data = [fixture.componentInstance.data[0], fixture.componentInstance.data[1]];
+            fixture.detectChanges();
+
+            const avatarChangeComponent = fixture.debugElement.queryAll(By.directive(ThyAvatarComponent));
+            expect(avatarChangeComponent[0].styles.zIndex).toBe('2');
+            expect(avatarChangeComponent[1].styles.zIndex).toBe('1');
+        });
     });
 
     describe('empty', () => {

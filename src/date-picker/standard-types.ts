@@ -50,6 +50,7 @@ export interface ThyShortcutRange {
 export interface ThyShortcutPreset {
     title: string;
     value?: ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue];
+    disabled?: boolean;
 }
 
 export interface ThyShortcutValueChange {
