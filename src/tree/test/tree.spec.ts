@@ -764,7 +764,7 @@ describe('ThyTreeComponent', () => {
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
-            (thyOnDbClick)="onDbClickEvent()"
+            (thyDblClick)="onDbClickEvent()"
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
