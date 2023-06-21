@@ -27,7 +27,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyCollapsible]="collapsible"
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
-                [thySidebarPosition]="sidebarPosition"
+                [thyDirection]="sidebarDirection"
                 [thyHasBorderLeft]="hasBorderLeft"
                 (thyCollapsedChange)="collapsedChange($event)"
                 (thyDragWidthChange)="dragWidthChange($event)"
@@ -55,7 +55,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     thyTheme: ThySidebarTheme;
     isCollapsed = false;
     dragWidth: number;
-    sidebarPosition: 'left' | 'right' = 'left';
+    sidebarDirection: 'left' | 'right' = 'left';
     hasBorderLeft = true;
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
@@ -75,7 +75,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     selector: 'thy-demo-layout-custom-sidebar',
     template: `
         <thy-layout>
-            <thy-sidebar [thySidebarPosition]="sidebarPosition">
+            <thy-sidebar [thyDirection]="sidebarDirection">
                 <thy-sidebar-header>
                     <ng-template #headerTitle>My Custom Sidebar Header Title</ng-template>
                     <ng-template #headerOperation>My Custom Sidebar Header Operation</ng-template>
@@ -86,7 +86,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     `
 })
 class ThyDemoLayoutCustomSidebarComponent {
-    sidebarPosition = 'right';
+    sidebarDirection = 'right';
 }
 
 describe(`sidebar`, () => {
@@ -190,9 +190,9 @@ describe(`sidebar`, () => {
             expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
         });
 
-        it(`should get correct class according to thySidebarPosition value`, () => {
+        it(`should get correct class according to thyDirection value`, () => {
             expect(sidebarElement.classList).not.toContain('thy-layout-sidebar-right');
-            fixture.debugElement.componentInstance.sidebarPosition = 'right';
+            fixture.debugElement.componentInstance.sidebarDirection = 'right';
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('thy-layout-sidebar-right');
         });

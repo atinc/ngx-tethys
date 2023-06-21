@@ -51,7 +51,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             [style.display]="!isResizable ? 'contents' : null">
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
-                [thyDirection]="sidebarPositionRight ? 'left' : 'right'"
+                [thyDirection]="directionRight ? 'left' : 'right'"
                 class="sidebar-resize-handle"
                 thyLine="true"
                 (mouseenter)="toggleResizable($event, 'enter')"
@@ -95,7 +95,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     @HostBinding('class.sidebar-theme-dark') sidebarThemeDark = false;
 
-    @HostBinding('class.thy-layout-sidebar-right') sidebarPositionRight = false;
+    @HostBinding('class.thy-layout-sidebar-right') directionRight = false;
 
     thyLayoutSidebarWidth: number;
 
@@ -135,9 +135,9 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
      * sidebar位置，默认在左侧
      * @default 'left'
      */
-    @Input('thySidebarPosition')
-    set thySidebarPosition(value: 'left' | 'right') {
-        this.sidebarPositionRight = value === 'right' ? true : false;
+    @Input('thyDirection')
+    set thyDirection(value: 'left' | 'right') {
+        this.directionRight = value === 'right' ? true : false;
     }
 
     /**
@@ -288,7 +288,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
-        if (this.sidebarPositionRight) {
+        if (this.directionRight) {
             this.thyLayoutComponent.isSidebarRight = true;
         }
         this.updateCollapseTip();
