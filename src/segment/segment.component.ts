@@ -83,7 +83,14 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     @Input()
     @InputNumber()
     set thyActiveIndex(value: number) {
-        this.setSelectedItem(value);
+        if (value < 0 || value === this.activeIndex) {
+            return;
+        }
+        const selectedItem = this.options?.get(this.activeIndex);
+        if (selectedItem) {
+            selectedItem.unselect();
+            this.changeSelectedItem(this.options.get(value));
+        }
         this.activeIndex = value;
     }
 
@@ -103,33 +110,14 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.activeIndex || 0);
-        this.selectedItem.select();
+        this.selectedItem = this.options.get(this.activeIndex) || this.options.get(0);
+        this.selectedItem?.select();
     }
 
-    public setSelectedItem(index: number) {
-        this.selectedItem = this.options?.get(this.activeIndex);
-        const currentSelectedIndex = this.options?.toArray().findIndex(option => {
-            return option.thyValue === this.selectedItem?.thyValue;
-        });
-        if (currentSelectedIndex === index) {
-            return;
-        }
-        if (this.selectedItem) {
-            this.selectedItem.unselect();
-            const event = document.createEvent('Event');
-            this.changeSelectedItem(event, this.options.get(index || 0));
-        }
-    }
-
-    public changeSelectedItem(event: Event, item: ThySegmentItemComponent): void {
-        this.activeIndex = this.options?.toArray().findIndex(option => {
-            return option.thyValue === item.thyValue;
-        });
-        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
+    public changeSelectedItem(item: ThySegmentItemComponent, event?: Event): void {
         this.animationState = {
             value: 'from',
-            params: getThumbAnimationProps(this.selectedItem.elementRef.nativeElement!)
+            params: getThumbAnimationProps(this.options?.get(this.activeIndex)?.elementRef.nativeElement!)
         };
         this.selectedItem = null;
         this.cdr.detectChanges();
@@ -139,6 +127,10 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
             params: getThumbAnimationProps(item.elementRef.nativeElement!)
         };
         this.transitionedTo = item;
+        this.activeIndex = this.options?.toArray().findIndex(option => {
+            return option.thyValue === item?.thyValue;
+        });
+        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
         this.cdr.detectChanges();
     }
 

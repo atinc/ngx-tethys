@@ -6,9 +6,10 @@ import { ThySegmentEvent } from 'ngx-tethys/segment';
     templateUrl: './basic.component.html'
 })
 export class ThySegmentBasicExampleComponent {
-    selectedIndex: number = 0;
+    selectedIndex: number = 2;
 
     selectedChange(event: ThySegmentEvent): void {
+        // 使用方需要手动更新 selectedIndex
         this.selectedIndex = event.activeIndex;
     }
 
