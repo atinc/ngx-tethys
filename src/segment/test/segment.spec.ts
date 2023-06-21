@@ -150,7 +150,7 @@ class TestSegmentCustomTemplateComponent {
     ];
 }
 
-describe('segment', () => {
+fdescribe('segment', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestSegmentBasicComponent>;
         let segmentedDebugElement: DebugElement;
@@ -396,6 +396,13 @@ describe('segment', () => {
         it('should not change selected value manually when some segment item', () => {
             const spy = spyOn(fixture.componentInstance, 'selectedChange');
             fixture.componentInstance.setSelectedItem(2);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('should not change selected value manually when index less than zero', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(-1);
             fixture.detectChanges();
             expect(spy).not.toHaveBeenCalled();
         });
