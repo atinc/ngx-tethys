@@ -51,7 +51,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             [style.display]="!isResizable ? 'contents' : null">
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
-                thyDirection="right"
+                [thyDirection]="sidebarPositionRight ? 'left' : 'right'"
                 class="sidebar-resize-handle"
                 thyLine="true"
                 (mouseenter)="toggleResizable($event, 'enter')"
@@ -89,9 +89,13 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
 
+    @HostBinding('class.thy-layout-sidebar--clear-border-left') thyLayoutSidebarClearBorderLeftClass = false;
+
     @HostBinding('class.sidebar-theme-light') sidebarThemeLight = false;
 
     @HostBinding('class.sidebar-theme-dark') sidebarThemeDark = false;
+
+    @HostBinding('class.thy-layout-sidebar-right') sidebarPositionRight = false;
 
     thyLayoutSidebarWidth: number;
 
@@ -128,6 +132,15 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
+     * sidebar位置，默认在左侧
+     * @default 'left'
+     */
+    @Input('thySidebarPosition')
+    set thySidebarPosition(value: 'left' | 'right') {
+        this.sidebarPositionRight = value === 'right' ? true : false;
+    }
+
+    /**
      * 右侧是否有边框
      * @default true
      */
@@ -137,7 +150,16 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 是否和右侧隔离，当为 true 时距右侧会有 margin，同时边框会去掉
+     * 左侧是否有边框
+     * @default true
+     */
+    @Input('thyHasBorderLeft')
+    set thyHasBorderLeft(value: string) {
+        this.thyLayoutSidebarClearBorderLeftClass = !coerceBooleanProperty(value);
+    }
+
+    /**
+     * 是否和右侧 /左侧隔离，当为 true 时距右侧 /左侧会有 margin，同时边框会去掉
      * @default false
      */
     @Input('thyIsolated')
@@ -265,6 +287,9 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     ngOnInit() {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
+        }
+        if (this.sidebarPositionRight) {
+            this.thyLayoutComponent.isSidebarRight = true;
         }
         this.updateCollapseTip();
     }
