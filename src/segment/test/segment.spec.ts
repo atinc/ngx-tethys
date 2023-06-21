@@ -150,7 +150,7 @@ class TestSegmentCustomTemplateComponent {
     ];
 }
 
-fdescribe('segment', () => {
+describe('segment', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestSegmentBasicComponent>;
         let segmentedDebugElement: DebugElement;
