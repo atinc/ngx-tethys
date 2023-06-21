@@ -78,9 +78,22 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     thyDisabled = false;
 
     /**
-     * 默认选中的选项的索引
+     * 选中选项的索引
      */
-    @Input() @InputNumber() thyActiveIndex: number = 0;
+    @Input()
+    @InputNumber()
+    set thyActiveIndex(value: number) {
+        if (value < 0 || value === this.activeIndex) {
+            return;
+        }
+        const selectedItem = this.options?.get(this.activeIndex);
+        if (selectedItem) {
+            selectedItem.unselect();
+            this.changeSelectedItem(this.options.get(value));
+        } else {
+            this.activeIndex = value;
+        }
+    }
 
     /**
      * 选项被选中的回调事件
@@ -89,6 +102,8 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
 
     public selectedItem: ThySegmentItemComponent;
 
+    private activeIndex = 0;
+
     public animationState: null | { value: string; params: ThumbAnimationProps } = null;
 
     public transitionedTo: any = null;
@@ -96,16 +111,14 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
     constructor(private cdr: ChangeDetectorRef) {}
 
     ngAfterContentInit(): void {
-        this.selectedItem = this.options.get(this.thyActiveIndex || 0);
-        this.selectedItem.select();
+        this.selectedItem = this.options.get(this.activeIndex) || this.options.get(0);
+        this.selectedItem?.select();
     }
 
-    public changeSelectedItem(event: Event, item: ThySegmentItemComponent): void {
-        this.thySelectChange.emit({ event: event, value: item.thyValue });
-
+    public changeSelectedItem(item: ThySegmentItemComponent, event?: Event): void {
         this.animationState = {
             value: 'from',
-            params: getThumbAnimationProps(this.selectedItem.elementRef.nativeElement!)
+            params: getThumbAnimationProps(this.options?.get(this.activeIndex)?.elementRef.nativeElement!)
         };
         this.selectedItem = null;
         this.cdr.detectChanges();
@@ -115,13 +128,17 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
             params: getThumbAnimationProps(item.elementRef.nativeElement!)
         };
         this.transitionedTo = item;
+        this.activeIndex = this.options?.toArray().findIndex(option => {
+            return option.thyValue === item?.thyValue;
+        });
+        this.thySelectChange.emit({ event: event, value: item.thyValue, activeIndex: this.activeIndex });
         this.cdr.detectChanges();
     }
 
     public handleThumbAnimationDone(event: AnimationEvent): void {
         if (event.fromState === 'from') {
             this.selectedItem = this.transitionedTo;
-            this.selectedItem.select();
+            this.selectedItem?.select();
             this.transitionedTo = null;
             this.animationState = null;
             this.cdr.detectChanges();
