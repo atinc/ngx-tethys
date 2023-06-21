@@ -90,8 +90,9 @@ export class ThySegmentComponent implements IThySegmentComponent, AfterContentIn
         if (selectedItem) {
             selectedItem.unselect();
             this.changeSelectedItem(this.options.get(value));
+        } else {
+            this.activeIndex = value;
         }
-        this.activeIndex = value;
     }
 
     /**

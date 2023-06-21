@@ -10,43 +10,24 @@ import { ThySegmentMode } from '../segment.component';
 @Component({
     selector: 'test-segment-basic',
     template: `
-
-        <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
-
+        <thy-segment (thySelectChange)="selectedChange($event)">
             <thy-segment-item thyValue="member">成员</thy-segment-item>
-
             <thy-segment-item thyValue="department">部门</thy-segment-item>
-
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentBasicComponent {
-    selectedIndex = 0;
-
-    selectedChange(event: ThySegmentEvent): void {
-        this.selectedIndex = event.activeIndex;
-    }
-
-    setSelectedItem(index: number) {
-        this.selectedIndex = index;
-    }
+    selectedChange(event: ThySegmentEvent): void {}
 }
 
 @Component({
     selector: 'test-segment-only-text',
     template: `
-
         <thy-segment>
-
             <thy-segment-item thyValue="1">列表</thy-segment-item>
-
             <thy-segment-item thyValue="2">对齐</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentOnlyTextComponent {}
@@ -54,15 +35,10 @@ class TestSegmentOnlyTextComponent {}
 @Component({
     selector: 'test-segment-only-icon',
     template: `
-
         <thy-segment>
-
             <thy-segment-item thyValue="1" thyIcon="list"> </thy-segment-item>
-
             <thy-segment-item thyValue="2" thyIcon="paperclip"></thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentOnlyIconComponent {}
@@ -70,15 +46,10 @@ class TestSegmentOnlyIconComponent {}
 @Component({
     selector: 'test-segment-icon-and-text',
     template: `
-
         <thy-segment>
-
             <thy-segment-item thyValue="1" thyIcon="list">列表</thy-segment-item>
-
             <thy-segment-item thyValue="2" thyIcon="paperclip">对齐</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentIconAndTextComponent {}
@@ -86,17 +57,11 @@ class TestSegmentIconAndTextComponent {}
 @Component({
     selector: 'test-segment-size',
     template: `
-
         <thy-segment [thySize]="size">
-
             <thy-segment-item thyValue="member">成员</thy-segment-item>
-
             <thy-segment-item thyValue="department">部门</thy-segment-item>
-
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentSizeComponent {
@@ -106,17 +71,11 @@ class TestSegmentSizeComponent {
 @Component({
     selector: 'test-segment-disabled',
     template: `
-
         <thy-segment [thyDisabled]="disabledAll" (thyOptionSelect)="selectedChange($event)">
-
             <thy-segment-item thyValue="member">成员</thy-segment-item>
-
             <thy-segment-item thyValue="department">部门</thy-segment-item>
-
             <thy-segment-item thyValue="group" [thyDisabled]="disableItem">用户组</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentDisabledComponent {
@@ -130,15 +89,10 @@ class TestSegmentDisabledComponent {
 @Component({
     selector: 'test-segment-mode',
     template: `
-
         <thy-segment [thyMode]="mode">
-
             <thy-segment-item thyValue="member">成员</thy-segment-item>
-
             <thy-segment-item thyValue="department">部门</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentModeComponent {
@@ -148,59 +102,44 @@ class TestSegmentModeComponent {
 @Component({
     selector: 'test-segment-active',
     template: `
-
-        <thy-segment [thyActiveIndex]="selectedIndex">
-
+        <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
             <thy-segment-item thyValue="member">成员</thy-segment-item>
-
             <thy-segment-item thyValue="department">部门</thy-segment-item>
-
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentActiveComponent {
     selectedIndex: number = 2;
+
+    selectedChange(event: ThySegmentEvent) {
+        this.selectedIndex = event.activeIndex;
+    }
+
+    setSelectedItem(index: number) {
+        this.selectedIndex = index;
+    }
 }
 
 @Component({
     selector: 'test-segment-custom-template',
     template: `
-
         <thy-segment>
-
             <ng-container *ngFor="let item of items">
-
                 <thy-segment-item [thyValue]="item.value">
-
                     <div style="padding: 8px 0px 4px;">
-
                         <thy-avatar thySize="sm" [thyName]="item.avatar"></thy-avatar>
-
                         <div class="text1">{{ item.labelText }}</div>
-
                     </div>
-
                 </thy-segment-item>
-
             </ng-container>
-
             <thy-segment-item thyValue="hexie">
-
                 <div style="padding: 8px 0px 4px;">
-
                     <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
-
                     <div class="text2">⭐️和谐⭐️</div>
-
                 </div>
-
             </thy-segment-item>
-
         </thy-segment>
-
     `
 })
 class TestSegmentCustomTemplateComponent {
@@ -211,7 +150,7 @@ class TestSegmentCustomTemplateComponent {
     ];
 }
 
-describe('segment', () => {
+fdescribe('segment', () => {
     describe('basic', () => {
         let fixture: ComponentFixture<TestSegmentBasicComponent>;
         let segmentedDebugElement: DebugElement;
@@ -254,20 +193,6 @@ describe('segment', () => {
         it('should default to block mode', () => {
             expect(segmentedInstance.thyMode).toBe('block');
             expect(segmentedElement.classList.contains('thy-segment-block')).toBeTruthy();
-        });
-
-        it('should change selected value manually', () => {
-            const spy = spyOn(fixture.componentInstance, 'selectedChange');
-            fixture.componentInstance.setSelectedItem(1);
-            fixture.detectChanges();
-            expect(spy).toHaveBeenCalled();
-        });
-
-        it('should not change selected value manually when some item', () => {
-            const spy = spyOn(fixture.componentInstance, 'selectedChange');
-            fixture.componentInstance.setSelectedItem(0);
-            fixture.detectChanges();
-            expect(spy).not.toHaveBeenCalled();
         });
     });
 
@@ -448,7 +373,7 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentActiveComponent],
-                imports: [ThySegmentModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentActiveComponent);
@@ -459,6 +384,20 @@ describe('segment', () => {
         it('should support set default selected item', () => {
             const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItemComponent));
             expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+        });
+
+        it('should change selected value manually', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(1);
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should not change selected value manually when some segment item', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(2);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
         });
     });
 
