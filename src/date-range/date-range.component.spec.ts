@@ -240,6 +240,70 @@ describe('ThyTestDateRangeComponent', () => {
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
         }));
 
+        it('should be connectable for the previous date range and the next date range', () => {
+            fixtureInstance.customDateRanges = [
+                {
+                    key: 'month',
+                    text: '本月',
+                    begin: getUnixTime(new Date('2023-01-01')),
+                    end: getUnixTime(new Date('2023-01-31')),
+                    timestamp: {
+                        interval: 1,
+                        unit: 'month'
+                    }
+                }
+            ];
+            fixture.detectChanges();
+
+            // TODO 需要先合并 #INFR-8245 分支，然后将 thy-icon-nav 改成 .thy-action
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+
+            const previousButton = arrows[0].nativeElement;
+            dispatchFakeEvent(previousButton, 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2022-12-01 ~ 2022-12-31');
+
+            const nextButton = arrows[1].nativeElement;
+            dispatchFakeEvent(nextButton, 'click', true);
+            fixture.detectChanges();
+            dispatchFakeEvent(nextButton, 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-02-28');
+        });
+
+        it('should be connectable for the previous date range and the next date range when the begin is not on the 1st of the month and unit of step is month', () => {
+            fixtureInstance.customDateRanges = [
+                {
+                    key: 'lastTwoMonth',
+                    text: '最近两个月',
+                    begin: getUnixTime(new Date('2023-06-23')),
+                    end: getUnixTime(new Date('2023-08-22')),
+                    timestamp: {
+                        interval: 2,
+                        unit: 'month'
+                    }
+                }
+            ];
+            fixture.detectChanges();
+
+            // TODO 需要先合并 #INFR-8245 分支，然后将 thy-icon-nav 改成 .thy-action
+            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+
+            const previousButton = arrows[0].nativeElement;
+            dispatchFakeEvent(previousButton, 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-04-23 ~ 2023-06-22');
+
+            dispatchFakeEvent(previousButton, 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-02-23 ~ 2023-04-22');
+
+            const nextButton = arrows[1].nativeElement;
+            dispatchFakeEvent(nextButton, 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-04-23 ~ 2023-06-22');
+        });
+
         it('should change day date text when when click arrow', fakeAsync(() => {
             fixtureInstance.customDateRanges = fixtureInstance.customDayDateRanges;
 
@@ -362,6 +426,10 @@ describe('ThyTestDateRangeComponent', () => {
             return '0' + value;
         }
         return value.toString();
+    }
+
+    function getDateRangeText(): string {
+        return debugElement.query(By.css('.thy-date-range-text')).nativeNode.innerText;
     }
 });
 

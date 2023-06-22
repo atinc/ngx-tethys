@@ -178,17 +178,33 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 }
             } else if (this.selectedDate.timestamp.unit === 'month') {
                 if (type === 'previous') {
-                    return {
-                        begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
-                        key: this.thyCustomKey
-                    };
+                    if (beginDate.getDate() === 1) {
+                        return {
+                            begin: getUnixTime(addMonths(beginDate, -1 * interval)),
+                            end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
+                            key: this.thyCustomKey
+                        };
+                    } else {
+                        return {
+                            begin: getUnixTime(addMonths(beginDate, -1 * interval)),
+                            end: getUnixTime(addDays(beginDate, -1)),
+                            key: this.thyCustomKey
+                        };
+                    }
                 } else {
-                    return {
-                        begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
-                        key: this.thyCustomKey
-                    };
+                    if (beginDate.getDate() === 1) {
+                        return {
+                            begin: getUnixTime(addMonths(beginDate, 1 * interval)),
+                            end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
+                            key: this.thyCustomKey
+                        };
+                    } else {
+                        return {
+                            begin: getUnixTime(addDays(endDate, 1)),
+                            end: getUnixTime(addMonths(endDate, 1 * interval)),
+                            key: this.thyCustomKey
+                        };
+                    }
                 }
             } else if (this.selectedDate.timestamp.unit === 'year') {
                 if (type === 'previous') {
