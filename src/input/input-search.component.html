@@ -24,6 +24,6 @@
   </div>
 </ng-container>
 
-<a *ngIf="showClearIcon" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
+<a *ngIf="searchText && iconPosition === 'before'" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
   <thy-icon thyIconName="close"></thy-icon>
 </a>
