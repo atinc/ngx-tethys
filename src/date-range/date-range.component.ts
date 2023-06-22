@@ -7,7 +7,7 @@ import { OptionalDateRangesComponent } from './optional-dates/optional-dates.com
 import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyIconNavComponent, ThyIconNavLinkComponent } from 'ngx-tethys/nav';
+import { ThyActionComponent } from 'ngx-tethys/action';
 import { NgIf, NgClass } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 
@@ -29,7 +29,7 @@ const INPUT_CONTROL_VALUE_ACCESSOR: any = {
     templateUrl: './date-range.component.html',
     providers: [INPUT_CONTROL_VALUE_ACCESSOR],
     standalone: true,
-    imports: [NgIf, ThyIconNavComponent, ThyIconNavLinkComponent, ThyIconComponent, NgClass, ThyDatePickerFormatPipe]
+    imports: [NgIf, ThyActionComponent, ThyIconComponent, NgClass, ThyDatePickerFormatPipe]
 })
 export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     /**
