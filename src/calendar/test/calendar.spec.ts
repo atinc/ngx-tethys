@@ -164,7 +164,7 @@ describe('calendar', () => {
         it('should dateRangeChange was beCalled when icon-nav was clicked', () => {
             const dateRangeChangeSpy = spyOn(component, 'dateRangeChange');
             const dateRangeSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-header-left');
-            const dateRangeIcons = dateRangeSelect[0].querySelectorAll('.thy-icon-nav');
+            const dateRangeIcons = dateRangeSelect[0].querySelectorAll('.thy-action');
             dispatchFakeEvent(dateRangeIcons[0], 'click', true);
             expect(dateRangeChangeSpy).toHaveBeenCalledTimes(1);
         });
@@ -266,7 +266,7 @@ describe('calendar-header', () => {
                 const dateRangeChangeSpy = spyOn(component, 'onDateRangeSelect');
 
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 
@@ -299,7 +299,7 @@ describe('calendar-header', () => {
             fixture.whenStable().then(() => {
                 const onMonthSelectSpy = spyOn(component, 'onMonthSelect');
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 
@@ -315,7 +315,7 @@ describe('calendar-header', () => {
             fixture.whenStable().then(() => {
                 const onYearSelectSpy = spyOn(component, 'onYearSelect');
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 
