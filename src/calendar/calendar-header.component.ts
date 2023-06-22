@@ -49,10 +49,12 @@ export class ThyCalendarHeaderComponent implements OnInit {
      */
     @Output() readonly dateRangeChange: EventEmitter<DateRangeItemInfo> = new EventEmitter();
 
+    public pickerFormat = 'yyyy年MM月';
+
     public dateRanges: DateRangeItemInfo[] = [
         {
             key: 'month',
-            text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
+            text: new TinyDate().format(this.pickerFormat),
             begin: getUnixTime(startOfMonth(new Date())),
             end: getUnixTime(endOfMonth(new Date())),
             timestamp: {
@@ -103,7 +105,7 @@ export class ThyCalendarHeaderComponent implements OnInit {
             const dateRange = {
                 ...this.dateRanges[0],
                 key: 'exception',
-                text: getYear(this._currentDate.nativeDate) + '年' + (getMonth(this._currentDate.nativeDate) + 1) + '月',
+                text: this._currentDate.format(this.pickerFormat),
                 begin: getUnixTime(startOfMonth(this._currentDate.nativeDate)),
                 end: getUnixTime(endOfMonth(this._currentDate.nativeDate))
             };

@@ -42,6 +42,8 @@ import { ThyCalendarModule } from '../module';
         </thy-calendar>
 
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
+
+        <thy-calendar> </thy-calendar>
     `
 })
 export class TestCalendarBasicComponent {
@@ -108,6 +110,7 @@ export class TestCalendarHeaderComponent {
     onYearSelect() {}
     onDateRangeSelect() {}
 }
+
 describe('calendar', () => {
     describe('basic', () => {
         let component: TestCalendarBasicComponent;
@@ -180,6 +183,20 @@ describe('calendar', () => {
             fixture.detectChanges();
 
             expect(calendarInstance.currentDate.getDate()).toEqual(new TinyDate(component.value1).getDate());
+        }));
+
+        it('should show the default date in the correct format', waitForAsync(() => {
+            fixture.whenStable().then(() => {
+                const calendar = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[2];
+                const calendarElement = calendar.nativeElement;
+                const selectedDateText = calendarElement.querySelector('.thy-date-range-text').innerText;
+
+                const calendarHeader = calendar.query(By.directive(ThyCalendarHeaderComponent));
+                const calendarHeaderInstance = calendarHeader.componentInstance;
+                const expectedDateText = calendarHeaderInstance._currentDate.format(calendarHeaderInstance.pickerFormat);
+
+                expect(selectedDateText).toEqual(expectedDateText);
+            });
         }));
     });
 
