@@ -263,7 +263,7 @@ describe('calendar-header', () => {
             expect(rangeChangeSpy).toHaveBeenCalledTimes(1);
             expect(rangeChangeSpy).toHaveBeenCalledWith({
                 key: 'month',
-                text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
+                text: new TinyDate().format(debugElement.componentInstance.pickerFormat),
                 begin: getUnixTime(startOfMonth(new Date())),
                 end: getUnixTime(endOfMonth(new Date())),
                 timestamp: {
@@ -290,7 +290,7 @@ describe('calendar-header', () => {
                 fixture.detectChanges();
                 const dateInfo = {
                     key: 'exception',
-                    text: '2020年1月',
+                    text: '2020年01月',
                     begin: getUnixTime(startOfMonth(new Date(2019, 11, 3))),
                     end: getUnixTime(endOfMonth(new Date(2019, 11, 3))),
                     timestamp: {
