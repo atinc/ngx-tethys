@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.12](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.12) (2023-06-21)
+
+### Features
+
+* **layout:** sidebar component support position right #INFR-8411 ([#2721](https://github.com/atinc/ngx-tethys/issues/2721)) ([c50b649](https://github.com/atinc/ngx-tethys/commit/c50b6497586d051497301c25e0d8096ec7e5a4d6)), closes [#INFR-8411](https://github.com/atinc/ngx-tethys/issues/INFR-8411) [#INFR-8411](https://github.com/atinc/ngx-tethys/issues/INFR-8411)
+
+
+
 ## [15.3.11](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.11) (2023-06-21)
 
 
