@@ -63,6 +63,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         class: 'thy-input form-control thy-input-search',
         '[class.thy-input-search-ellipse]': 'thyTheme === "ellipse"',
         '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
+        '[class.thy-input-search-before-with-clear]': 'showClearIcon',
         '[class.form-control-active]': 'focused',
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
@@ -85,6 +86,10 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     searchText: string;
 
     focused = false;
+
+    get showClearIcon(): boolean {
+        return this.searchText && this.iconPosition === 'before';
+    }
 
     /**
      * 搜索框 name 属性

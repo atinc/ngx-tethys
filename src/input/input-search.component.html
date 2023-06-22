@@ -12,8 +12,7 @@
   (focus)="focused = true"
   (blur)="onBlur($event)"
   [thySize]="thySize"
-  tabindex="-1"
-/>
+  tabindex="-1" />
 <ng-container *ngIf="iconPosition === 'after'">
   <div class="input-append input-append-divider">
     <a class="close" *ngIf="searchText; else onlyIcon" href="javascript:;" (click)="clearSearchText($event)">
@@ -25,6 +24,6 @@
   </div>
 </ng-container>
 
-<a *ngIf="searchText && iconPosition === 'before'" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
+<a *ngIf="showClearIcon" class="close input-append" href="javascript:;" (click)="clearSearchText($event)">
   <thy-icon thyIconName="close"></thy-icon>
 </a>
