@@ -464,6 +464,7 @@ export class ThySelectCustomComponent
         this.setSelectionByModelValue(this.modalValue);
     }
 
+    // TODO focus monitor
     ngOnInit() {
         this.getPositions();
         this.dropDownMinWidth = this.getDropdownMinWidth();
