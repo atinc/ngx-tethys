@@ -24,6 +24,7 @@ import {
     EventEmitter,
     forwardRef,
     HostBinding,
+    HostListener,
     Inject,
     Input,
     NgZone,
@@ -41,6 +42,7 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -94,7 +96,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
     ],
     host: {
         '[attr.tabindex]': 'tabIndex',
-        '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     }
 })
@@ -135,6 +136,8 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     private destroy$ = new Subject<void>();
 
     public valueIsObject = false;
+
+    private focusOrigin: FocusOrigin;
 
     originTreeNodes: ThyTreeSelectNode[];
 
@@ -266,11 +269,6 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
             warnDeprecation('This parameter has been deprecation');
         }
-        // if (type === 'especial') {
-        //     this.icons = { expand: 'minus-square', collapse: 'plus-square', gap: 20 };
-        // } else {
-        //     this.icons = { expand: 'caret-right-down', collapse: 'caret-right', gap: 15 };
-        // }
     }
 
     /**
@@ -330,13 +328,27 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         this.setSelectedNodes();
     }
 
+    // mark: 二次点击选择框不触发返回focusOrigin，二次点击搜索框(focusOrigin返回mouse)
+    @HostListener('click', ['$event'])
+    public toggleClick($event: Event) {
+        if (this.expandTreeSelectOptions) {
+            // 二次点击需要关闭菜单
+            this.close();
+        } else {
+            // 点击选择框、点击多选时的某个选中值，打开菜单
+            // 点击清除按钮，点击多选的移除按钮，由于阻止了冒泡，不会走这里，不打开菜单
+            this.openSelectPop();
+        }
+    }
+
     constructor(
         public elementRef: ElementRef,
         private ngZone: NgZone,
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,
         private thyClickDispatcher: ThyClickDispatcher,
-        private viewportRuler: ViewportRuler
+        private viewportRuler: ViewportRuler,
+        private focusMonitor: FocusMonitor
     ) {
         super();
     }
@@ -372,24 +384,30 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
             .subscribe(() => {
                 this.init();
             });
+
+        this.focusMonitor
+            .monitor(this.elementRef, true)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((origin: FocusOrigin) => {
+                this.focusOrigin = origin;
+                if (origin && origin !== 'mouse') {
+                    this.openSelectPop();
+                }
+            });
     }
 
-    onFocus($event: FocusEvent) {
-        const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
-        inputElement?.focus();
-    }
-
-    onBlur($event: FocusEvent) {
-        // 1. Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
-        // 2. 打开选择框后如果点击弹框内导致 input 失焦，无需触发 onTouchedFn
-        if (elementMatchClosest($event?.relatedTarget as HTMLElement, ['thy-tree-select', 'thy-tree-select-nodes'])) {
-            return;
+    onBlur(event: FocusEvent) {
+        // 点击菜单的树展开按钮(thy-tree-select-nodes)、点击tab键引起失焦，这两种情况focusOrigin都返回null，而点击tab键失焦需要close菜单
+        // 防止：二次点击搜索框，由于点了thy-tree-select导致input失焦，会调关闭菜单，又由于是点了thy-tree-select，又再打开菜单。避免二次点击搜索框关闭不了菜单
+        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['thy-tree-select', 'thy-tree-select-nodes'])) {
+            this.close();
         }
-        this.onTouchedFn();
     }
 
     ngOnDestroy(): void {
         this.destroy$.next();
+        this.destroy$.complete();
+        this.focusMonitor.stopMonitoring(this.elementRef);
     }
 
     get selectedValueObject() {
@@ -470,12 +488,17 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         if (this.thyDisable) {
             return;
         }
-        this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
-        this.expandTreeSelectOptions = !this.expandTreeSelectOptions;
-        this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        if (!this.expandTreeSelectOptions) {
+            this.cdkConnectOverlayWidth = this.cdkOverlayOrigin.elementRef.nativeElement.getBoundingClientRect().width;
+            this.expandTreeSelectOptions = true;
+            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        }
     }
 
     close() {
+        if (this.thyDisable) {
+            return;
+        }
         if (this.expandTreeSelectOptions) {
             this.expandTreeSelectOptions = false;
             this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
@@ -489,6 +512,10 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         this.selectedNode = null;
         this.selectedNodes = [];
         this.onChangeFn(this.selectedValue);
+        // 在没有打开菜单的情况下点击清空按钮
+        if (!this.expandTreeSelectOptions) {
+            this.onTouchedFn();
+        }
     }
 
     private _changeSelectValue() {
@@ -500,13 +527,13 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                 : this.selectedNode[this.thyPrimaryKey];
         }
         this.onChangeFn(this.selectedValue);
-        if (!this.thyMultiple) {
-            this.onTouchedFn();
-        }
     }
 
     removeMultipleSelectedNode(event: { item: ThyTreeSelectNode; $eventOrigin: Event }) {
         this.removeSelectedNode(event.item, event.$eventOrigin);
+        if (!this.expandTreeSelectOptions) {
+            this.onTouchedFn();
+        }
     }
 
     // thyMultiple = true 时，移除数据时调用
@@ -528,8 +555,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     selectNode(node: ThyTreeSelectNode) {
         if (!this.thyMultiple) {
             this.selectedNode = node;
-            this.expandTreeSelectOptions = false;
-            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+            this.close();
         } else {
             if (
                 this.selectedNodes.find(item => {

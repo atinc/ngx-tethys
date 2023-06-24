@@ -1,4 +1,4 @@
-@use "../../../styles/variables";
+@use '../../../styles/variables';
 
 .thy-select-custom {
     display: block;
@@ -11,11 +11,14 @@
     & .form-control-custom.disabled {
         cursor: default;
     }
-    &:focus {
-        .form-control-custom:not(.disabled) {
-            border: 1px solid variables.$primary;
-        }
-    }
+
+    // .select-control.panel-is-opened{border-color:#6698ff;} 就会让选择框的边框变蓝。#INFR-5805这个任务中为什么要加下面这段样式？
+    // 下面这段样式会导致 tree-select 和 custom-select 的样式问题： 1. 会导致在二次点击选择框时，菜单已经关闭了，但是选择框没有由蓝边框变为灰色边框；2.会导致点击清除按钮或点击选中项的移除按钮时，移开鼠标后选择框没有由蓝边框变为灰色边框
+    // &:focus {
+    //     .form-control-custom:not(.disabled) {
+    //         border: 1px solid variables.$primary;
+    //     }
+    // }
 }
 
 .thy-select-custom--multiple {
