@@ -9,11 +9,9 @@
   [thyAutofocus]="autoFocus"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="focused = true"
-  (blur)="onBlur($event)"
+  (focus)="!focused ? (focused = true) : null"
   [thySize]="thySize"
-  tabindex="-1"
-/>
+  tabindex="-1" />
 <ng-container *ngIf="iconPosition === 'after'">
   <div class="input-append input-append-divider">
     <a class="close" *ngIf="searchText; else onlyIcon" href="javascript:;" (click)="clearSearchText($event)">
