@@ -373,17 +373,55 @@ class CascaderMultipleComponent {
     }
 }
 
+@Component({
+    selector: 'thy-cascader-focus-monitor',
+    template: `
+        <thy-cascader
+            #cascader
+            [thyOptions]="allOptions"
+            [(ngModel)]="curVal"
+            (ngModelChange)="onChanges($event)"
+            [thyMultiple]="isMultiple"
+            [thyDisabled]="isDisabled"
+            [thyTriggerAction]="triggerAction"
+            [thyShowSearch]="isShowSearch">
+        </thy-cascader>
+
+        <thy-cascader class="another-cascader" [thyOptions]="allOptions" [(ngModel)]="curVal" (ngModelChange)="onChanges($event)">
+        </thy-cascader>
+
+        <div class="other-element"></div>
+    `
+})
+class CascaderFocusMonitorComponent {
+    @ViewChild('cascader', { static: true }) cascader: ThyCascaderComponent;
+    curVal: string | string[] | string[][] = null;
+    triggerAction: ThyCascaderTriggerType = 'click';
+    allOptions: any[] = clone(customerOptions);
+    isShowSearch: boolean = false;
+    isMultiple = false;
+    isDisabled = false;
+
+    onChanges(e: string[]) {}
+}
+
 describe('thy-cascader', () => {
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, CommonModule, OverlayModule, ThyCascaderModule],
-            declarations: [CascaderTemplateComponent, CascaderBasicComponent, CascaderLoadComponent, CascaderMultipleComponent],
+            declarations: [
+                CascaderTemplateComponent,
+                CascaderBasicComponent,
+                CascaderLoadComponent,
+                CascaderMultipleComponent,
+                CascaderFocusMonitorComponent
+            ],
             providers: [{ provide: ComponentFixtureAutoDetect, useValue: true }]
         });
         TestBed.compileComponents();
     }));
 
-    describe('base', () => {
+    describe('basic', () => {
         let fixture: ComponentFixture<CascaderBasicComponent>;
         let component: CascaderBasicComponent;
         let debugElement: DebugElement;
@@ -703,16 +741,6 @@ describe('thy-cascader', () => {
             expect(component.cascaderRef.columns.length).toEqual(1);
         }));
 
-        it('should call onFocus methods when focus', fakeAsync(() => {
-            fixture.detectChanges();
-            const focusSpy = spyOn<any>(fixture.componentInstance.cascader, 'onFocus').and.callThrough();
-            const cascaderElement = fixture.debugElement.query(By.directive(ThyCascaderComponent)).nativeElement;
-            dispatchFakeEvent(cascaderElement, 'focus');
-            fixture.detectChanges();
-
-            expect(focusSpy).toHaveBeenCalled();
-        }));
-
         it('should call onBlur methods when blur', fakeAsync(() => {
             fixture.detectChanges();
             const blurSpy = spyOn<any>(fixture.componentInstance.cascader, 'onBlur').and.callThrough();
@@ -749,6 +777,7 @@ describe('thy-cascader', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
+            flush();
 
             expect(fixture.componentInstance.cascaderRef.thyShowSearch).toBe(true);
             expect(fixture.debugElement.query(By.css('.search-input-field'))).not.toBeNull();
@@ -759,6 +788,8 @@ describe('thy-cascader', () => {
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
+            flush();
+
             const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
             typeInElement('xihu', input);
             fixture.detectChanges();
@@ -1173,6 +1204,262 @@ describe('thy-cascader', () => {
                 }
                 return copyArea;
             });
+        }
+    });
+
+    describe('focus and menu visibility monitor', () => {
+        let fixture: ComponentFixture<CascaderFocusMonitorComponent>;
+        let testComponent: CascaderFocusMonitorComponent;
+
+        let cascaderComponent: ThyCascaderComponent;
+        let cascaderElement: HTMLElement;
+        let anotherCascaderElement: HTMLElement;
+
+        let setMenuVisibleSpy: jasmine.Spy;
+        let onTouchedFnSpy: jasmine.Spy;
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(CascaderFocusMonitorComponent);
+            testComponent = fixture.componentRef.instance;
+
+            cascaderComponent = fixture.componentInstance.cascader;
+            cascaderElement = cascaderComponent.elementRef.nativeElement;
+            anotherCascaderElement = getElement('.another-cascader');
+            fixture.detectChanges();
+        });
+
+        beforeEach(() => {
+            setMenuVisibleSpy = spyOn(cascaderComponent, 'setMenuVisible').and.callThrough();
+            onTouchedFnSpy = spyOn<SafeAny>(cascaderComponent, 'onTouchedFn').and.callThrough();
+        });
+
+        describe('focus', () => {
+            it('should open menus when focus cascader by clicking it', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'click');
+                flush();
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when focus cascader by program', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'focus');
+
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('program');
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when focus cascader by pressing the tab key on the keyboard', fakeAsync(() => {
+                cascaderElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                dispatchFakeEvent(cascaderElement, 'focus');
+                flush();
+
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('keyboard');
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when thyShowSearch is true and focus cascader by clicking search input', fakeAsync(() => {
+                testComponent.isShowSearch = true;
+                fixture.detectChanges();
+
+                dispatchFakeEvent(cascaderElement, 'click');
+                flush();
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+
+                const searchInputElement = getElement('input');
+                dispatchFakeEvent(searchInputElement, 'focus');
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('program');
+
+                expect(setMenuVisibleSpy).not.toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should open menus when click the selected option, and should close menus when click the same selected option, when thyMultiple is true', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                testComponent.curVal = [
+                    ['beijing', 'shixiaqu', 'haidianqu'],
+                    ['tianjinshi', 'shixiaqu', 'hepingqu']
+                ];
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const selectedItem = getElement('.select-control-rendered ul li');
+                dispatchFakeEvent(selectedItem, 'click', true);
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+                expect(setMenuVisibleSpy).toHaveBeenCalledTimes(1);
+
+                dispatchFakeEvent(selectedItem, 'click', true);
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(false);
+            }));
+
+            it('should not open menus when click clear icon', fakeAsync(() => {
+                testComponent.curVal = 'zhejiang';
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const clearIconElement = getElement('.select-control-clear');
+                dispatchFakeEvent(clearIconElement, 'click', true);
+                expect(cascaderComponent.menuVisible).toEqual(false);
+                expect(onTouchedFnSpy).toHaveBeenCalled();
+            }));
+
+            it('should not open menus when thyMultiple is true and click the clear icon on selected option', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                testComponent.curVal = [
+                    ['beijing', 'shixiaqu', 'haidianqu'],
+                    ['tianjinshi', 'shixiaqu', 'hepingqu']
+                ];
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const itemClearIconElement = getElement('.thy-icon-close');
+                dispatchFakeEvent(itemClearIconElement, 'click', true);
+                expect(cascaderComponent.menuVisible).toEqual(false);
+                expect(onTouchedFnSpy).toHaveBeenCalled();
+            }));
+
+            it('should not call setMenuVisibleSpy when focusOrigin is mouse', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'mousedown');
+                dispatchFakeEvent(cascaderElement, 'focus');
+                flush();
+
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('mouse');
+                // because whether you click the clear button or click the cascader, the focusOrigin value is always mouse
+                expect(setMenuVisibleSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should call setMenuVisibleSpy when thyTriggerAction is hover and hover cascader', fakeAsync(() => {
+                testComponent.triggerAction = 'hover';
+                fixture.detectChanges();
+
+                dispatchFakeEvent(getElement('input'), 'mouseover', true);
+                flush();
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should not focus cascader and not open menus when thyDisabled is true', fakeAsync(() => {
+                testComponent.isDisabled = true;
+                fixture.detectChanges();
+
+                dispatchFakeEvent(cascaderElement, 'click');
+                flush();
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe(undefined);
+                expect(cascaderComponent.menuVisible).toEqual(false);
+
+                dispatchFakeEvent(cascaderElement, 'focus');
+                flush();
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('program');
+                expect(cascaderComponent.menuVisible).toEqual(false);
+
+                cascaderElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                dispatchFakeEvent(cascaderElement, 'focus');
+                flush();
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('keyboard');
+                expect(cascaderComponent.menuVisible).toEqual(false);
+
+                dispatchFakeEvent(cascaderElement, 'mousedown');
+                dispatchFakeEvent(cascaderElement, 'focus');
+                flush();
+                expect((cascaderComponent as SafeAny).focusOrigin).toBe('mouse');
+                expect(cascaderComponent.menuVisible).toEqual(false);
+
+                testComponent.triggerAction = 'hover';
+                fixture.detectChanges();
+                dispatchFakeEvent(getElement('input'), 'mouseover', true);
+                flush();
+                expect(cascaderComponent.menuVisible).toEqual(false);
+            }));
+        });
+
+        describe('blur', () => {
+            it('should blur cascader after clicked it a second time', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'click');
+                flush();
+                dispatchFakeEvent(cascaderElement, 'click');
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur cascader after pressed the tab key on the keyboard to focus another cascader', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'focus'); // cascaderElement.focus(); 写法不稳定，时过时不过
+                anotherCascaderElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                flush();
+                dispatchFakeEvent(cascaderElement, 'blur');
+                fixture.detectChanges();
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur cascader after clicked another cascader, and another cascader should be focused', fakeAsync(() => {
+                const anotherCascaderComponent = fixture.debugElement.query(By.css('.another-cascader')).componentInstance;
+                const anotherSetMenuVisibleSpy = spyOn(anotherCascaderComponent, 'setMenuVisible').and.callThrough();
+
+                dispatchFakeEvent(cascaderElement, 'focus');
+                dispatchFakeEvent(anotherCascaderElement, 'click');
+                dispatchFakeEvent(cascaderElement, 'blur');
+                flush();
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+
+                expect(anotherSetMenuVisibleSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should blur cascader after clicked other element', fakeAsync(() => {
+                dispatchFakeEvent(cascaderElement, 'focus');
+                const otherElement = getElement('.other-element');
+                dispatchFakeEvent(otherElement, 'click');
+                dispatchFakeEvent(cascaderElement, 'blur');
+                fixture.detectChanges();
+
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur cascader after selected a value when thyMultiple is false', fakeAsync(() => {
+                testComponent.isMultiple = false;
+                fixture.detectChanges();
+
+                openMenusAndSelectOption();
+                // open the menus, select a value, then close the menus
+                expect(setMenuVisibleSpy).toHaveBeenCalledTimes(2);
+                expect(onTouchedFnSpy).toHaveBeenCalled();
+            }));
+
+            it('should not blur cascader when thyMultiple is true and selected a value', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                fixture.detectChanges();
+
+                openMenusAndSelectOption();
+                // open the menus, select a value, then not close the menus
+                expect(setMenuVisibleSpy).toHaveBeenCalledTimes(1);
+                expect(onTouchedFnSpy).not.toHaveBeenCalled();
+            }));
+
+            function openMenusAndSelectOption() {
+                dispatchFakeEvent(getElement('input'), 'click', true);
+                fixture.detectChanges();
+                expect(setMenuVisibleSpy).toHaveBeenCalledWith(true);
+
+                const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
+                selectedVal.forEach(text => {
+                    const currentItem = fixture.debugElement
+                        .queryAll(By.css(`ul li`))
+                        .find(item => item.nativeElement.innerText.includes(text));
+                    dispatchFakeEvent(currentItem.nativeElement, 'click', true);
+                    fixture.detectChanges();
+                });
+                flush();
+            }
+        });
+
+        function getElement(selector: string): HTMLElement {
+            return fixture.debugElement.query(By.css(selector)).nativeElement;
         }
     });
 });

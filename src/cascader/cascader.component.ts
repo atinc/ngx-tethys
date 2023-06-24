@@ -50,6 +50,7 @@ import { Id } from 'ngx-tethys/types';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
+import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -99,7 +100,6 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
     ],
     host: {
         '[attr.tabindex]': `tabIndex`,
-        '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
     },
     styles: [
@@ -402,6 +402,8 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
      */
     private isSelectingSearchState: boolean = false;
 
+    private focusOrigin: FocusOrigin;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -419,6 +421,19 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
                 if (this.menuVisible) {
                     this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
                     this.cdr.markForCheck();
+                }
+            });
+
+        this.focusMonitor
+            .monitor(this.elementRef, true)
+            .pipe(takeUntil(this.destroy$))
+            .subscribe((origin: FocusOrigin) => {
+                this.focusOrigin = origin;
+
+                if (origin && origin !== 'mouse') {
+                    // mark：点击tab键聚焦，focusOrigin返回keyboard；点击搜索框聚焦，focusOrigin返回program
+                    // selectControl在thyPanelOpened值发生改变时，会根据thyShowSearch的值判断是否要调inputElement.focus()，所以这里不需要再手动调用inputElement.focus()，只需要在组件被聚焦时打开下拉菜单
+                    this.setMenuVisible(true);
                 }
             });
     }
@@ -645,6 +660,10 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     }
 
     public setMenuVisible(menuVisible: boolean): void {
+        if (this.disabled) {
+            return;
+        }
+
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
 
@@ -653,6 +672,12 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
             this.setMenuClass();
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
+            }
+
+            // 统一在这里判断是否调用onTouchedFn，避免原先的重复调用onTouchedFn的情况
+            // 当用hover的方式打开菜单，点击菜单外部关闭菜单时，focusOrigin值为undefined，所以这里用!this.focusOrigin，而不用this.focusOrigin === null进行判断
+            if (!this.menuVisible && !this.focusOrigin) {
+                this.onTouchedFn();
             }
         }
     }
@@ -716,18 +741,11 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         this.hostRenderer.updateClassByMap(classMap);
     }
 
-    private isClickTriggerAction(): boolean {
+    private isActionTrigger(action: 'click' | 'hover'): boolean {
         if (typeof this.thyTriggerAction === 'string') {
-            return this.thyTriggerAction === 'click';
+            return this.thyTriggerAction === action;
         }
-        return this.thyTriggerAction.indexOf('click') !== -1;
-    }
-
-    private isHoverTriggerAction(): boolean {
-        if (typeof this.thyTriggerAction === 'string') {
-            return this.thyTriggerAction === 'hover';
-        }
-        return this.thyTriggerAction.indexOf('hover') !== -1;
+        return this.thyTriggerAction.indexOf(action) !== -1;
     }
 
     private isHoverExpandTriggerAction(): boolean {
@@ -737,22 +755,18 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         return this.thyExpandTriggerAction.indexOf('hover') !== -1;
     }
 
+    // 不在订阅到focusOrigin值为mouse时调setMenuVisible(true)，而是保留此处click的监听，是为了防止“点击清除按钮或点击某选中项的移除按钮时，focusOrigin也会返回mouse，导致菜单打开”
+    // 第一次点击选择框，打开菜单，第二次点击选择框，关闭菜单。 所以 setMenuVisible(!this.menuVisible)
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {
-        if (this.disabled) {
-            return;
-        }
-        if (this.isClickTriggerAction()) {
+        if (this.isActionTrigger('click')) {
             this.setMenuVisible(!this.menuVisible);
         }
     }
 
     @HostListener('mouseover', ['$event'])
     public toggleHover($event: Event) {
-        if (this.disabled) {
-            return;
-        }
-        if (this.isHoverTriggerAction()) {
+        if (this.isActionTrigger('hover')) {
             this.setMenuVisible(!this.menuVisible);
         }
     }
@@ -787,31 +801,22 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         if (event) {
             event.preventDefault();
         }
-        if (!this.isHoverTriggerAction()) {
+        if (!this.isActionTrigger('hover')) {
             return;
         }
         this.setMenuVisible(!this.menuVisible);
     }
 
-    onBlur(event?: FocusEvent) {
-        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
-        if (elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'thy-cascader'])) {
-            return;
-        }
-        this.onTouchedFn();
-    }
-
-    onFocus(event?: FocusEvent) {
-        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'thy-cascader'])) {
-            const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
-            inputElement.focus();
+    onBlur(event: FocusEvent) {
+        // 点击菜单cascader-menus、点击搜索框search-input-field、点击tab键引起的失焦，这三种情况下focusOrigin都返回null，所以这里需要判断，这三种情况只有点击tab键导致的失焦需要closeMenu
+        if (!elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-cascader-menus', 'input.form-control.search-input-field'])) {
+            this.closeMenu();
         }
     }
 
     public closeMenu(): void {
         if (this.menuVisible) {
             this.setMenuVisible(false);
-            this.onTouchedFn();
             this.isShowSearchPanel = false;
             this.searchResultList = [];
         }
@@ -864,7 +869,6 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         }
         if (option.isLeaf && !this.thyMultiple) {
             this.setMenuVisible(false);
-            this.onTouchedFn();
         }
     }
 
@@ -881,6 +885,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
             this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
         }
+        this.onTouchedFn();
         this.valueChange();
     }
 
@@ -928,7 +933,9 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         this.selectedOptions = [];
         this.activatedOptions = [];
         this.deselectAllSelected();
-        this.setMenuVisible(false);
+        // 菜单关闭的情况下才会出来清空按钮，所以不需要手动关闭菜单
+        // this.setMenuVisible(false);
+        this.onTouchedFn();
         this.valueChange();
     }
 
@@ -982,7 +989,12 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler, public elementRef: ElementRef) {
+    constructor(
+        private cdr: ChangeDetectorRef,
+        private viewPortRuler: ViewportRuler,
+        public elementRef: ElementRef,
+        private focusMonitor: FocusMonitor
+    ) {
         super();
     }
 
@@ -1083,5 +1095,6 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     ngOnDestroy() {
         this.destroy$.next();
         this.destroy$.complete();
+        this.focusMonitor.stopMonitoring(this.elementRef);
     }
 }
