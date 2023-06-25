@@ -526,22 +526,23 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     }
 
     selectNode(node: ThyTreeSelectNode) {
-        if (!this.thyMultiple) {
-            this.selectedNode = node;
-            this.expandTreeSelectOptions = false;
-            this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+        if (
+            this.thyMultiple &&
+            this.selectedNodes.find(item => {
+                return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
+            })
+        ) {
+            this.removeSelectedNode(node);
         } else {
-            if (
-                this.selectedNodes.find(item => {
-                    return item[this.thyPrimaryKey] === node[this.thyPrimaryKey];
-                })
-            ) {
-                this.removeSelectedNode(node);
+            if (!this.thyMultiple) {
+                this.selectedNode = node;
+                this.expandTreeSelectOptions = false;
+                this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
             } else {
                 this.selectedNodes = produce(this.selectedNodes).add(node);
             }
+            this._changeSelectValue();
         }
-        this._changeSelectValue();
     }
 
     getNodeChildren(node: ThyTreeSelectNode) {
