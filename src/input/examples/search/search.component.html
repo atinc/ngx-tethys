@@ -1,6 +1,7 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
     <thy-input-search
+    disabled
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
@@ -9,6 +10,7 @@
     ></thy-input-search>
     <br />
     <thy-input-search
+    disabled
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
@@ -18,6 +20,7 @@
     ></thy-input-search>
     <br />
     <thy-input-search
+    disabled
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
@@ -27,7 +30,7 @@
     ></thy-input-search>
     <br />
     <thy-input-group>
-      <thy-input placeholder="Search"></thy-input>
+      <thy-input placeholder="Search" disabled></thy-input>
       <ng-template #append>
         <button thyButton="primary"><thy-icon thyIconName="search"></thy-icon></button>
       </ng-template>
@@ -35,9 +38,9 @@
     <br />
   </div>
   <div thyCol [thySpan]="12">
-    <thy-input-search thyTheme="ellipse" placeholder="Search" [(ngModel)]="searchText"></thy-input-search>
+    <thy-input-search thyTheme="ellipse" placeholder="Search"  disabled [(ngModel)]="searchText"></thy-input-search>
     <br />
-    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" thyIconPosition="after" placeholder="Search"></thy-input-search>
+    <thy-input-search thyTheme="ellipse" [(ngModel)]="searchText" disabled  thyIconPosition="after" placeholder="Search"></thy-input-search>
     <br />
     <thy-input placeholder="Search">
       <ng-template #append>

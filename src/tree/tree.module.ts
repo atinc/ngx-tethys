@@ -6,6 +6,7 @@ import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyOptionModule, ThySharedModule } from 'ngx-tethys/shared';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 import { CommonModule } from '@angular/common';
@@ -18,6 +19,7 @@ import { ThyTreeService } from './tree.service';
 
 @NgModule({
     imports: [
+        DragDropModule,
         CommonModule,
         ThyInputModule,
         ThyButtonModule,

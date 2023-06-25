@@ -14,7 +14,8 @@
         overflow-x: hidden;
         overflow-y: auto;
     }
-    > div > .thy-tree-node {
+
+    >div>.thy-tree-node {
         padding: 0 0 0 10px;
     }
 
@@ -68,11 +69,13 @@
                 .thy-tree-node-check {
                     margin-top: 0;
                     margin-right: 6px;
+
                     &:checked.form-check-indeterminate,
                     &:checked.form-unchecked {
                         background: unset;
                         border-color: variables.$gray-300;
                     }
+
                     &:checked.form-unchecked {
                         &:after {
                             opacity: 0;
@@ -98,14 +101,18 @@
             &:not(.expand).disabled {
                 background: none;
                 cursor: not-allowed;
+
                 &.draggable {
+
                     .thy-tree-node-check:disabled,
                     & {
                         cursor: default;
                     }
                 }
             }
+
             &.disabled {
+
                 &,
                 .thy-tree-node-icon {
                     color: variables.$gray-400;
@@ -113,6 +120,7 @@
             }
 
             &:not(.disabled:not(.expand)) {
+
                 &.hover,
                 &:hover {
                     // @include item-box-shadow();
@@ -151,8 +159,7 @@
 
 .thy-tree {
     &-node {
-        &-title {
-        }
+        &-title {}
 
         &-edit {
             width: 100%;
@@ -165,7 +172,7 @@
         &-actions {
             text-align: right;
 
-            > * {
+            >* {
                 display: none;
                 margin-right: 10px;
 
@@ -173,16 +180,18 @@
                     margin-right: 0;
                 }
             }
+
             .thy-action:last-child {
                 margin-right: -10px;
             }
         }
 
         &-wrapper {
+
             &.hover,
             &:hover {
                 .thy-tree-node-actions {
-                    > * {
+                    >* {
                         display: inline-block;
                     }
                 }
@@ -203,10 +212,13 @@
     height: 100%;
     padding: 0px;
     transform: translateY(0px);
+
     .cdk-virtual-scroll-viewport {
         height: 100%;
+
         .virtual-trees-container {
             padding: variables.$tree-padding;
+
             .thy-tree-node {
                 padding: 0 0 0 10px;
             }
@@ -218,6 +230,7 @@
     .thy-tree-node {
         &-wrapper {
             height: variables.$tree-node-wrapper-height-sm;
+
             .thy-tree-node-content {
                 height: variables.$tree-node-wrapper-height-sm;
             }
@@ -230,3 +243,32 @@
 }
 
 @include mixin.thy-tree-drag-drop();
+
+
+
+.drag-item-hide {
+    display: none !important;
+}
+
+    .cdk-drag-placeholder {
+      display: none !important;
+      & + .cdk-drop-list {
+        display: none !important;
+      }
+    }
+
+     
+
+
+    .drop-position-inside {
+      }
+  
+      .drop-position-before {
+        background: pink !important;
+        border-top: 2px solid blue !important;
+      }
+  
+      .drop-position-after {
+        background: pink !important;
+        border-bottom: 2px solid blue !important;
+      }

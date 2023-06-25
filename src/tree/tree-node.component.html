@@ -10,9 +10,10 @@
   (click)="clickNode($event)"
 >
   <span class="thy-tree-index" [style.width.px]="node.level * thyIndent"></span>
-  <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
+  <span class="thy-tree-drag-icon thy-sortable-handle" cdkDragHandle>
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
+
   <span class="thy-tree-expand" (click)="expandNode($event)">
     <ng-container *ngIf="isShowExpand(node)">
       <ng-container *ngIf="(node.children && node.children.length > 0) || thyAsync || emptyChildrenTemplateRef">

@@ -1,15 +1,21 @@
 <thy-tree
   #tree
   [thyNodes]="treeNodes"
-  [thyDraggable]="true"
-  [thyBeforeDragStart]="beforeDragStart"
-  [thyBeforeDragDrop]="beforeDragDrop"
-  (thyOnDragDrop)="onDragDrop($event)"
+
 >
-  <ng-template #treeNodeTemplate let-node="node">
+  <!-- <ng-template #treeNodeTemplate let-node="node">
     <thy-icon class="thy-tree-node-icon" [thyIconName]="'folder-fill'"></thy-icon>
     <div class="thy-tree-node-title">
       {{ node?.title }}
     </div>
-  </ng-template>
+  </ng-template> -->
 </thy-tree>
+
+<!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div
+  class="example-box"
+  *ngFor="let item of items"
+  cdkDrag
+  [cdkDragDisabled]="item.disabled">{{item.value}}</div>
+  </div>
+   -->

@@ -1,6 +1,6 @@
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTreeModule } from 'ngx-tethys/tree';
-
+import { DragDropModule } from '@angular/cdk/drag-drop';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 
@@ -21,7 +21,7 @@ const COMPONENTS = [
 ];
 
 @NgModule({
-    imports: [CommonModule, ThyTreeModule, ThyIconModule],
+    imports: [CommonModule, ThyTreeModule, ThyIconModule, DragDropModule],
     exports: [...COMPONENTS],
     declarations: [...COMPONENTS],
     providers: []

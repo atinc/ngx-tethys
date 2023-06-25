@@ -155,6 +155,15 @@
             background-color: transparent;
         }
     }
+
+    &[disabled] {
+        &:hover {
+            border-color: #eee;
+        }
+        &:focus {
+            border-color: #eee;
+        }
+    } 
 }
 
 .input-label-container {

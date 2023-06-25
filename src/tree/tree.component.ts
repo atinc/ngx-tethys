@@ -1,4 +1,6 @@
 import { InputBoolean, InputNumber } from 'ngx-tethys/core';
+// import { auditTime, debounceTime, filter, startWith, Subject, takeUntil } from 'rxjs';
+import { startWith, auditTime, filter } from 'rxjs/operators';
 import {
     ThyDragDropEvent,
     ThyDragOverEvent,
@@ -26,7 +28,11 @@ import {
     SimpleChanges,
     TemplateRef,
     ViewChild,
-    ViewEncapsulation
+    ViewEncapsulation,
+    ViewChildren,
+    QueryList,
+    AfterViewInit,
+    Inject
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { THY_TREE_ABSTRACT_TOKEN } from './tree-abstract';
@@ -41,7 +47,10 @@ import {
 } from './tree.class';
 import { ThyTreeService } from './tree.service';
 import { ThyTreeNodeComponent } from './tree-node.component';
-import { NgIf, NgFor } from '@angular/common';
+import { NgIf, NgFor, DOCUMENT } from '@angular/common';
+import { CdkDrag, CdkDragDrop, CdkDragMove, moveItemInArray } from '@angular/cdk/drag-drop';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { Subject } from 'rxjs';
 
 type ThyTreeSize = 'sm' | 'default';
 
@@ -89,10 +98,11 @@ const treeItemSizeMap = {
         CdkVirtualForOf,
         ThyTreeNodeComponent,
         ThyDragDirective,
-        NgFor
+        NgFor,
+        DragDropModule
     ]
 })
-export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges {
+export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges, AfterViewInit {
     private _templateRef: TemplateRef<any>;
 
     private _emptyChildrenTemplateRef: TemplateRef<any>;
@@ -110,6 +120,28 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     public treeNodes: ThyTreeNode[];
 
     public flattenTreeNodes: ThyTreeNode[] = [];
+
+    private itemDragMoved = new Subject<CdkDragMove>();
+
+    dragging = false;
+
+    // Item 拖动经过目标时临时记录目标id以及相对应目标的位置
+    private itemDropTarget: {
+        position?: 'before' | 'inside' | 'after';
+        id?: string;
+        key?: string;
+    };
+
+    // 缓存 Element 和 DragRef 的关系，方便在 Item 拖动时查找
+    private itemDragsMap = new Map<HTMLElement, CdkDrag>();
+
+    items = [
+        { value: 'I can be dragged', disabled: false },
+        { value: 'I cannot be dragged', disabled: true },
+        { value: 'I can also be dragged', disabled: false }
+    ];
+
+    @Input() dropEnterPredicate?: (cxt: any) => boolean;
 
     /**
      * 虚拟化滚动的视口
@@ -310,6 +342,8 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
         return this._templateRef;
     }
 
+    @ViewChildren(CdkDrag<string>) cdkDrags: QueryList<CdkDrag>;
+
     /**
      * 设置子的空数据渲染模板
      */
@@ -336,7 +370,7 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
 
     private dragItem: ThyTreeNode;
 
-    constructor(public thyTreeService: ThyTreeService, private cdr: ChangeDetectorRef) {}
+    constructor(public thyTreeService: ThyTreeService, private cdr: ChangeDetectorRef, @Inject(DOCUMENT) private document: Document) {}
 
     ngOnInit(): void {
         this._initThyNodes();
@@ -375,7 +409,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             case 'expand':
                 this.thyOnExpandChange.emit(event);
                 break;
-
             case 'checkboxChange':
                 this.thyOnCheckboxChange.emit(event);
                 break;
@@ -593,4 +626,229 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     // endregion
+
+    onItemDragMoved(event: CdkDragMove) {
+        // 通过鼠标位置查找对应的目标 Item 元素
+        let currentPointElement = this.document.elementFromPoint(event.pointerPosition.x, event.pointerPosition.y) as HTMLElement;
+
+        if (!currentPointElement) {
+            this.cleanupDragArtifacts();
+            return;
+        }
+        let targetElement = currentPointElement.classList.contains('thy-tree-node')
+            ? currentPointElement
+            : (currentPointElement.closest('.thy-tree-node') as HTMLElement);
+        if (!targetElement) {
+            this.cleanupDragArtifacts();
+            return;
+        }
+
+        // 缓存放置目标Id 并计算鼠标相对应的位置
+        this.itemDropTarget = {
+            key: this.itemDragsMap.get(targetElement)?.data.key,
+            id: this.itemDragsMap.get(targetElement)?.data.id,
+            position: this.getTargetPosition(targetElement, event)
+        };
+
+        // 执行外部传入的 dropEnterPredicate 判断是否允许拖入目标项
+        if (this.dropEnterPredicate) {
+            const targetDragRef = this.itemDragsMap.get(targetElement);
+            if (
+                this.dropEnterPredicate({
+                    source: event.source.data.origin,
+                    target: targetDragRef.data.origin,
+                    dropPosition: this.itemDropTarget.position
+                })
+            ) {
+                this.showDropPositionPlaceholder(targetElement);
+            } else {
+                this.itemDropTarget = null;
+                this.cleanupDragArtifacts(false);
+            }
+        } else {
+            this.showDropPositionPlaceholder(targetElement);
+        }
+    }
+
+    private showDropPositionPlaceholder(targetElement: HTMLElement) {
+        this.cleanupDragArtifacts();
+        if (this.itemDropTarget && targetElement) {
+            targetElement.classList.add(`drop-position-${this.itemDropTarget.position}`);
+        }
+    }
+
+    private getTargetPosition(target: HTMLElement, event: CdkDragMove) {
+        const targetRect = target.getBoundingClientRect();
+        const beforeOrAfterGap = targetRect.height * 0.3;
+        // 将 Item 高度分为上中下三段，其中上下的 Gap 为 height 的 30%，通过判断鼠标位置在哪一段 gap 来计算对应的位置
+        if (event.pointerPosition.y - targetRect.top < beforeOrAfterGap) {
+            return 'before';
+        } else if (event.pointerPosition.y >= targetRect.bottom - beforeOrAfterGap) {
+            return 'after';
+        } else {
+            return 'inside';
+        }
+    }
+
+    drop(event: CdkDragDrop<string[]>) {
+        moveItemInArray(this.flattenTreeNodes, event.previousIndex, event.currentIndex);
+    }
+
+    private getChildrenElementsByElement(dragElement: HTMLElement) {
+        // 通过循环持续查找 next element，如果 element 的 level 小于当前 item 的 level，则为它的 children
+        const children: HTMLElement[] = [];
+        const dragRef = this.itemDragsMap.get(dragElement);
+
+        // 如果当前的 Drag 正在拖拽，会创建 PlaceholderElement 占位，所以以 PlaceholderElement 向下查找
+        let nextElement = (dragRef.getPlaceholderElement() || dragElement).nextElementSibling as HTMLElement;
+        let nextDragRef = this.itemDragsMap.get(nextElement);
+        while (nextDragRef && nextDragRef.data.level > dragRef.data.level) {
+            children.push(nextElement);
+            nextElement = nextElement.nextElementSibling as HTMLElement;
+            nextDragRef = this.itemDragsMap.get(nextElement);
+        }
+
+        return children;
+    }
+
+    onItemDragStarted(event: any) {
+        this.dragging = true;
+        // 拖动开始时隐藏所有的子项
+        const children = this.getChildrenElementsByElement(event.source.element.nativeElement);
+        children.forEach(element => {
+            element.classList.add('drag-item-hide');
+        });
+    }
+
+    ngAfterViewInit(): void {
+        console.log('222');
+        this.cdkDrags.changes.pipe(startWith(this.cdkDrags)).subscribe((drags: QueryList<CdkDrag>) => {
+            this.itemDragsMap.clear();
+            drags.forEach(drag => {
+                if (drag.data) {
+                    // cdkDrag 变化时，缓存 Element 与 DragRef 的关系，方便 Drag Move 时查找
+                    this.itemDragsMap.set(drag.element.nativeElement, drag);
+                }
+            });
+        });
+
+        this.itemDragMoved
+            .pipe(
+                auditTime(300),
+                //  auditTime 可能会导致拖动结束后仍然执行 moved ，所以通过判断 dragging 状态来过滤无效 moved
+                filter((event: CdkDragMove) => event.source._dragRef.isDragging())
+            )
+            .subscribe(event => {
+                this.onItemDragMoved(event);
+            });
+    }
+    emitItemDragMoved(event: CdkDragMove) {
+        this.itemDragMoved.next(event);
+    }
+
+    private cleanupDragArtifacts(dropped = false) {
+        if (dropped) {
+            this.itemDropTarget = null;
+            console.log(this.document.querySelectorAll('.drag-item-hide'));
+
+            this.document.querySelectorAll('.drag-item-hide').forEach(element => element.classList.remove('drag-item-hide'));
+        }
+        this.document.querySelectorAll('.drop-position-before').forEach(element => element.classList.remove('drop-position-before'));
+        this.document.querySelectorAll('.drop-position-after').forEach(element => element.classList.remove('drop-position-after'));
+        this.document.querySelectorAll('.drop-position-inside').forEach(element => element.classList.remove('drop-position-inside'));
+    }
+
+    onItemDragEnded(event: any) {
+        this.dragging = false;
+    }
+
+    private insertChildrenItem(target: any, inserted: any, children: any[]) {
+        console.log(target, inserted, children);
+        if (target.expanded) {
+            this.treeNodes.splice(this.treeNodes.indexOf(target) + target.children.length + 1, 0, inserted, ...children);
+            this.flattenTreeNodes.splice(this.flattenTreeNodes.indexOf(target) + target.children.length + 1, 0, inserted, ...children);
+        }
+        target.children.push(inserted);
+        console.log(target, this.treeNodes, this.flattenTreeNodes);
+    }
+
+    private getParentByItem(item: any) {
+        return (this.treeNodes || []).find((n: any) => {
+            return n.children?.includes(item);
+        });
+    }
+
+    private getExpandChildrenByDrag(dragRef: any) {
+        if (!dragRef.data.expanded) {
+            return [];
+        } else {
+            const childrenElements = this.getChildrenElementsByElement(dragRef.element.nativeElement);
+            return childrenElements.map(element => this.itemDragsMap.get(element).data);
+        }
+    }
+
+    private removeItem(item: any, children: any) {
+        this.treeNodes.splice(this.treeNodes.indexOf(item), 1 + children.length);
+        this.flattenTreeNodes.splice(this.flattenTreeNodes.indexOf(item), 1 + children.length);
+    }
+
+    private insertItem(target: any, inserted: any, children: any[], position: 'before' | 'after') {
+        if (position === 'before') {
+            this.treeNodes.splice(this.treeNodes.indexOf(target), 0, inserted, ...children);
+            this.flattenTreeNodes.splice(this.flattenTreeNodes.indexOf(target), 0, inserted, ...children);
+            console.log(target, this.treeNodes, this.flattenTreeNodes);
+        } else {
+            const dragRef = this.cdkDrags.find(drag => drag.data === target);
+            // 如果目标项是展开的，插入的 index 位置需要考虑子项的数量
+            let childrenCount = 0;
+            if (target.expanded) {
+                childrenCount = this.getChildrenElementsByElement(dragRef.element.nativeElement)?.length || 0;
+            }
+            this.treeNodes.splice(this.treeNodes.indexOf(target) + 1 + childrenCount, 0, inserted, ...children);
+            this.flattenTreeNodes.splice(this.flattenTreeNodes.indexOf(target) + 1 + childrenCount, 0, inserted, ...children);
+        }
+    }
+
+    forEachTree(tree: any[], fn: Function) {
+        tree.forEach(item => {
+            fn(item, tree);
+            item.children && this.forEachTree(item.children, fn);
+        });
+    }
+
+    onListDropped(event: any) {
+        if (!this.itemDropTarget) {
+            return;
+        }
+
+        const sourceItem = event.item.data;
+        const sourceParent = this.getParentByItem(sourceItem);
+        const sourceChildren = this.getExpandChildrenByDrag(event.item);
+
+        const targetDragRef = this.cdkDrags.find(item => item.data?.key === this.itemDropTarget.key);
+        const targetItem = targetDragRef?.data;
+        const targetParent = this.getParentByItem(targetItem);
+
+        this.removeItem(sourceItem, sourceChildren);
+
+        switch (this.itemDropTarget.position) {
+            case 'before':
+            case 'after':
+                this.insertItem(targetItem, sourceItem, sourceChildren, this.itemDropTarget.position);
+                sourceItem.level = targetItem.level;
+                // this.forEachTree([sourceItem], (node: any, parent: any) => {
+                //     console.log(node, parent);
+                //     node.level = parent[0].level + 1;
+                // });
+                break;
+            case 'inside':
+                this.insertChildrenItem(targetItem, sourceItem, sourceChildren);
+                sourceItem.level = targetItem.level + 1;
+                console.log(sourceItem.level, 'sourceItem.level');
+                // this.forEachTree([sourceItem], (node: any, parent: any) => (node.level = parent[0].level + 1));
+                break;
+        }
+
+        this.cleanupDragArtifacts(true);
+    }
 }
