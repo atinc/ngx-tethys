@@ -255,8 +255,7 @@ describe('ThyTestDateRangeComponent', () => {
             ];
             fixture.detectChanges();
 
-            // TODO 需要先合并 #INFR-8245 分支，然后将 thy-icon-nav 改成 .thy-action
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
 
             const previousButton = arrows[0].nativeElement;
             dispatchFakeEvent(previousButton, 'click', true);
@@ -286,8 +285,7 @@ describe('ThyTestDateRangeComponent', () => {
             ];
             fixture.detectChanges();
 
-            // TODO 需要先合并 #INFR-8245 分支，然后将 thy-icon-nav 改成 .thy-action
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
 
             const previousButton = arrows[0].nativeElement;
             dispatchFakeEvent(previousButton, 'click', true);
