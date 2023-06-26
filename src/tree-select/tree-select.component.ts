@@ -530,6 +530,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
             this.selectedNode = node;
             this.expandTreeSelectOptions = false;
             this.thyExpandStatusChange.emit(this.expandTreeSelectOptions);
+            this._changeSelectValue();
         } else {
             if (
                 this.selectedNodes.find(item => {
@@ -539,9 +540,9 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                 this.removeSelectedNode(node);
             } else {
                 this.selectedNodes = produce(this.selectedNodes).add(node);
+                this._changeSelectValue();
             }
         }
-        this._changeSelectValue();
     }
 
     getNodeChildren(node: ThyTreeSelectNode) {
