@@ -211,49 +211,16 @@ describe('ThyTestDateRangeComponent', () => {
             expect((result[1] as Date).getDate()).toBe(+rightText);
         }));
 
-        it('should change month date text when when click arrow', fakeAsync(() => {
-            const originDate = fixtureInstance.customDateRanges[0];
-            fixture.detectChanges();
-            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
+        it('should be connectable for the previous and next date range, when beginDate is first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月尾 - 向前、向后步进',
+                begin: '2023-02-01',
+                end: '2023-02-28',
+                interval: 1
+            });
 
-            // previous icon
-            const interval = originDate.timestamp.interval;
             dispatchFakeEvent(getPreviousButton(), 'click', true);
-            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const beginDate = originDate.begin * 1000;
-            const endDate = originDate.end * 1000;
-            const previousModelData = {
-                begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
-                key: 'custom'
-            };
-            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
-            // next icon
-            dispatchFakeEvent(getNextButton(), 'click', true);
-            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
-            const nextModelData = {
-                begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
-                end: getUnixTime(endOfMonth(addMonths(previousModelData.end * 1000, 1 * interval))),
-                key: 'custom'
-            };
-            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
-        }));
-
-        it('should be connectable for the previous date range and the next date range', () => {
-            fixtureInstance.customDateRanges = [
-                {
-                    key: 'month',
-                    text: '本月',
-                    begin: getUnixTime(new Date('2023-01-01')),
-                    end: getUnixTime(new Date('2023-01-31')),
-                    timestamp: {
-                        interval: 1,
-                        unit: 'month'
-                    }
-                }
-            ];
             fixture.detectChanges();
-
             dispatchFakeEvent(getPreviousButton(), 'click', true);
             fixture.detectChanges();
             expect(getDateRangeText()).toEqual('2022-12-01 ~ 2022-12-31');
@@ -265,20 +232,81 @@ describe('ThyTestDateRangeComponent', () => {
             expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-02-28');
         });
 
-        it('should be connectable for the previous date range and the next date range when the begin is not on the 1st of the month and unit of step is month', () => {
-            fixtureInstance.customDateRanges = [
-                {
-                    key: 'lastTwoMonth',
-                    text: '最近两个月',
-                    begin: getUnixTime(new Date('2023-06-23')),
-                    end: getUnixTime(new Date('2023-08-22')),
-                    timestamp: {
-                        interval: 2,
-                        unit: 'month'
-                    }
-                }
-            ];
+        it('should be connectable for the previous date range, when beginDate is first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月中 - 向前、向后步进',
+                begin: '2023-03-01',
+                end: '2023-03-27',
+                interval: 1
+            });
+
+            dispatchFakeEvent(getPreviousButton(), 'click', true);
             fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-02-28');
+
+            dispatchFakeEvent(getNextButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-03-01 ~ 2023-03-31');
+        });
+
+        it('should be connectable for the next date range, when beginDate is first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月中 - 向后步进',
+                begin: '2023-03-01',
+                end: '2023-03-27',
+                interval: 1
+            });
+
+            dispatchFakeEvent(getNextButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-03-28 ~ 2023-04-27');
+
+            dispatchFakeEvent(getNextButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-04-28 ~ 2023-05-27');
+        });
+
+        it('should be connectable for the previous date range, when the beginDate is not first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月尾 - 向前向后步进',
+                begin: '2023-02-09',
+                end: '2023-03-31',
+                interval: 2
+            });
+
+            dispatchFakeEvent(getPreviousButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2022-12-09 ~ 2023-02-08');
+
+            dispatchFakeEvent(getNextButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-02-09 ~ 2023-04-08');
+        });
+
+        it('should be connectable for the next date range, when the beginDate is not first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月尾 - 向后步进',
+                begin: '2023-02-09',
+                end: '2023-03-31',
+                interval: 2
+            });
+
+            dispatchFakeEvent(getNextButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-04-01 ~ 2023-05-31');
+
+            dispatchFakeEvent(getPreviousButton(), 'click', true);
+            fixture.detectChanges();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-03-31');
+        });
+
+        it('should be connectable for the previous and next date range, when the beginDate is not first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月中 - 向前、向后步进',
+                begin: '2023-06-23',
+                end: '2023-08-22',
+                interval: 2
+            });
 
             dispatchFakeEvent(getPreviousButton(), 'click', true);
             fixture.detectChanges();
@@ -427,6 +455,22 @@ describe('ThyTestDateRangeComponent', () => {
 
     function getNextButton(): HTMLElement {
         return debugElement.queryAll(By.css('.thy-action'))[1].nativeElement;
+    }
+
+    function customDateRanges(options: { text: string; begin: string; end: string; interval: number }) {
+        fixtureInstance.customDateRanges = [
+            {
+                key: 'month',
+                text: options.text,
+                begin: getUnixTime(new Date(`${options.begin}`)),
+                end: getUnixTime(new Date(`${options.end}`)),
+                timestamp: {
+                    interval: options.interval,
+                    unit: 'month'
+                }
+            }
+        ];
+        fixture.detectChanges();
     }
 });
 

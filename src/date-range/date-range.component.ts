@@ -4,7 +4,19 @@ import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
-import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
+import {
+    getUnixTime,
+    startOfISOWeek,
+    endOfISOWeek,
+    endOfMonth,
+    startOfMonth,
+    addDays,
+    addMonths,
+    addYears,
+    isSameDay,
+    endOfDay,
+    startOfDay
+} from 'date-fns';
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyActionComponent } from 'ngx-tethys/action';
@@ -178,21 +190,16 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 }
             } else if (this.selectedDate.timestamp.unit === 'month') {
                 if (type === 'previous') {
-                    if (beginDate.getDate() === 1) {
-                        return {
-                            begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                            end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
-                            key: this.thyCustomKey
-                        };
-                    } else {
-                        return {
-                            begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                            end: getUnixTime(addDays(beginDate, -1)),
-                            key: this.thyCustomKey
-                        };
-                    }
+                    return {
+                        begin: getUnixTime(startOfDay(addMonths(beginDate, -1 * interval))),
+                        end: getUnixTime(endOfDay(addDays(beginDate, -1))),
+                        key: this.thyCustomKey
+                    };
                 } else {
-                    if (beginDate.getDate() === 1) {
+                    const beginIsFirstDayOfMonth = isSameDay(beginDate, startOfMonth(beginDate));
+                    const endIsEndDayOfMonth = isSameDay(endDate, endOfMonth(endDate));
+
+                    if (beginIsFirstDayOfMonth && endIsEndDayOfMonth) {
                         return {
                             begin: getUnixTime(addMonths(beginDate, 1 * interval)),
                             end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
@@ -200,8 +207,8 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                         };
                     } else {
                         return {
-                            begin: getUnixTime(addDays(endDate, 1)),
-                            end: getUnixTime(addMonths(endDate, 1 * interval)),
+                            begin: getUnixTime(startOfDay(addDays(endDate, 1))),
+                            end: getUnixTime(endOfDay(addMonths(endDate, 1 * interval))),
                             key: this.thyCustomKey
                         };
                     }
