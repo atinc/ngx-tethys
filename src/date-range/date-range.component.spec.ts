@@ -215,7 +215,7 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
 
             // previous icon
             const interval = originDate.timestamp.interval;
@@ -246,7 +246,7 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
             // previous icon
             const interval = originDate.timestamp.interval;
             dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
@@ -276,7 +276,7 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
             // previous icon
             const interval = originDate.timestamp.interval;
             dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
@@ -306,7 +306,7 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('thy-icon-nav'));
+            const arrows = debugElement.queryAll(By.css('.thy-action'));
             // previous icon
             const interval: number = originDate.end - originDate.begin + 24 * 60 * 60;
             dispatchFakeEvent(arrows[0].nativeElement, 'click', true);

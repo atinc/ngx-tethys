@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.12](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.12) (2023-06-21)
+
+### Features
+
+* **layout:** sidebar component support position right #INFR-8411 ([#2721](https://github.com/atinc/ngx-tethys/issues/2721)) ([c50b649](https://github.com/atinc/ngx-tethys/commit/c50b6497586d051497301c25e0d8096ec7e5a4d6)), closes [#INFR-8411](https://github.com/atinc/ngx-tethys/issues/INFR-8411) [#INFR-8411](https://github.com/atinc/ngx-tethys/issues/INFR-8411)
+
+
+
+## [15.3.11](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.11) (2023-06-21)
+
+
+### Bug Fixes
+
+* **action:** not display bg color when hover lite action #INFR-8446 ([#2717](https://github.com/atinc/ngx-tethys/issues/2717)) ([b8a624b](https://github.com/atinc/ngx-tethys/commit/b8a624be9eea180215f696089e7aa89d94c890cc)), closes [#INFR-8446](https://github.com/atinc/ngx-tethys/issues/INFR-8446)
+* **cascader:** empty width fit trigger width #INFR-8163 ([#2694](https://github.com/atinc/ngx-tethys/issues/2694)) ([5df97ff](https://github.com/atinc/ngx-tethys/commit/5df97ff976c5b75e5e96f7a66977d0ded9b9e73c)), closes [#INFR-8163](https://github.com/atinc/ngx-tethys/issues/INFR-8163)
+* **datepicker:** fix error for shortcut when get date value according to min and max date #INFR-8250 ([#2715](https://github.com/atinc/ngx-tethys/issues/2715)) ([1432f58](https://github.com/atinc/ngx-tethys/commit/1432f5891bf85c062c230fd92d843dbb6e04000a)), closes [#INFR-8250](https://github.com/atinc/ngx-tethys/issues/INFR-8250)
+* **datepicker:** should disable shortcut item whose preset is out of thyMinDate ~ thyMaxDate #INFR-8412 ([#2716](https://github.com/atinc/ngx-tethys/issues/2716)) ([2964b54](https://github.com/atinc/ngx-tethys/commit/2964b548289faf44b2eae54c512d629708afaa14)), closes [#INFR-8412](https://github.com/atinc/ngx-tethys/issues/INFR-8412)
+* **datepicker:** should forbidden to click the ok button of time when the selected date value does not meet the constraints of thyMinDate or thyMaxDate #INFR-8396 ([#2714](https://github.com/atinc/ngx-tethys/issues/2714)) ([cf37ee9](https://github.com/atinc/ngx-tethys/commit/cf37ee90fbda99380adcdc4634cc1db9a2c6f689)), closes [#INFR-8396](https://github.com/atinc/ngx-tethys/issues/INFR-8396)
+* **menu:** delete parent in menu group #INFR-8400 ([#2711](https://github.com/atinc/ngx-tethys/issues/2711)) ([fa663b2](https://github.com/atinc/ngx-tethys/commit/fa663b2ebb2bf0da1d6e13dc468a92d2b2172b6a)), closes [#INFR-8400](https://github.com/atinc/ngx-tethys/issues/INFR-8400)
+
+
+### Features
+
+* **segment:** support change selected value by manually #INFR-6892 [@wumeimin](https://github.com/wumeimin) [@luxiaobei](https://github.com/luxiaobei) (#INFR-6892) ([#2718](https://github.com/atinc/ngx-tethys/issues/2718)) ([3c24b3b](https://github.com/atinc/ngx-tethys/commit/3c24b3b921074ca7d60d0bdcadfb7aeb645e4750)), closes [#INFR-6892](https://github.com/atinc/ngx-tethys/issues/INFR-6892) [#INFR-6892](https://github.com/atinc/ngx-tethys/issues/INFR-6892)
+* **tree:** support expand children nodes when doubble click tree nod… ([#2719](https://github.com/atinc/ngx-tethys/issues/2719)) ([1bfd1a6](https://github.com/atinc/ngx-tethys/commit/1bfd1a676d8371be5096b90c444171c816482225))
+
+
+
 ## [15.3.10](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.10) (2023-06-15)
 
 
