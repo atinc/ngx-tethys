@@ -280,6 +280,7 @@ class PlaceHolderTreeSelectComponent {
                 [(ngModel)]="objSelectedValue"
                 thyPrimaryKey="key"
                 thyShowKey="title"
+                (ngModelChange)="treeSelectChange()"
                 [thyMultiple]="multiple"></thy-tree-select>
         </div>
     `
@@ -364,6 +365,8 @@ class NgModelTreeSelectComponent {
 
     @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
+
+    treeSelectChange = jasmine.createSpy('treeSelectChange');
 }
 
 @Component({
@@ -808,6 +811,32 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             expect(multipleWrapper.textContent).toContain('root4');
             expect(multipleWrapper.textContent).toContain('root3');
+        }));
+
+        it('should dispatch model change once when remove selected node at multiple', fakeAsync(() => {
+            const fixture = TestBed.createComponent(NgModelTreeSelectComponent);
+            fixture.componentInstance.multiple = true;
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-option-item');
+            optionNodes[0].click();
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.treeSelectChange).toHaveBeenCalledTimes(1);
+            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(1);
+
+            const changeSpy = jasmine.createSpy('newChangeSpy');
+            fixture.componentInstance.treeSelectChange = changeSpy;
+
+            optionNodes[0].click();
+            fixture.detectChanges();
+            expect(changeSpy).toHaveBeenCalledTimes(1);
+            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(0);
         }));
     });
 
