@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.15](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.15) (2023-06-27)
+
+
+### Bug Fixes
+
+* **tree-select:** #INFR-5075 fix the issue of calling changeSelectValue twice to remove selected items ([#2732](https://github.com/atinc/ngx-tethys/issues/2732)) ([02f9923](https://github.com/atinc/ngx-tethys/commit/02f9923c6631112a06627bccfe0b1ea76bcb5221))
+
+
 ## [15.3.13](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.13) (2023-06-26)
 
 
@@ -29,7 +37,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **property:** should destroy the subscription of click event when the value of thyEditable is changed from true to false #INFR-8179 ([#2701](https://github.com/atinc/ngx-tethys/issues/2701)) ([ac9ba57](https://github.com/atinc/ngx-tethys/commit/ac9ba5761bc068b3359b58c76fc57937610d25c6)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
 * **property:** should not subscribe multiple times when the value of thyEditable is changed to true #INFR-8179 ([#2695](https://github.com/atinc/ngx-tethys/issues/2695)) ([34e600c](https://github.com/atinc/ngx-tethys/commit/34e600c579fd978b8f93cca26c52cc4e417c249c)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
 * **table:** thyTheme值为bordered且可拖拽时，拖拽图标和文字之间的间距过大 #INFR-8217 ([#2705](https://github.com/atinc/ngx-tethys/issues/2705)) ([f2ac471](https://github.com/atinc/ngx-tethys/commit/f2ac471cb2e92d4297e5f03308eb828b741a47db)), closes [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217)
-* **tree-select:** #INFR-5075 fix the issue of calling changeSelectValue twice to remove selected items ([#2732](https://github.com/atinc/ngx-tethys/issues/2732)) ([02f9923](https://github.com/atinc/ngx-tethys/commit/02f9923c6631112a06627bccfe0b1ea76bcb5221))
 
 
 ### Features
