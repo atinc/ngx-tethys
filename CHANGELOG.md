@@ -7,7 +7,6 @@ All notable changes to this project will be documented in this file. See [standa
 ### Bug Fixes
 
 * **input:** adjust disabled style #INFR-8496# ([#2738](https://github.com/atinc/ngx-tethys/issues/2738)) ([6d84348](https://github.com/atinc/ngx-tethys/commit/6d84348d2aeda3d6005527b7ce4e1e14ee383073)), closes [#INFR-8496](https://github.com/atinc/ngx-tethys/issues/INFR-8496)
-* **menu:** delete parent in menu group #INFR-8400 ([#2711](https://github.com/atinc/ngx-tethys/issues/2711)) ([fa663b2](https://github.com/atinc/ngx-tethys/commit/fa663b2ebb2bf0da1d6e13dc468a92d2b2172b6a)), closes 
 
 
 ## [15.3.15](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.15) (2023-06-27)
