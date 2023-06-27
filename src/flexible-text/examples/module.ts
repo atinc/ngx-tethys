@@ -11,6 +11,9 @@ import { ThyFlexibleTextContainerExampleComponent } from './container/container.
 import { ThyFlexibleTextMultipleLineExampleComponent } from './multiple-line/multiple-line.component';
 import { ThyFlexibleTextPlacementExampleComponent } from './placement/placement.component';
 import { ThyFlexibleTextTemplateExampleComponent } from './template/template.component';
+import { ThyDividerModule } from 'ngx-tethys/divider';
+import { ThyButtonModule } from 'ngx-tethys/button';
+
 const COMPONENTS = [
     ThyFlexibleTextBasicExampleComponent,
     ThyFlexibleTextTemplateExampleComponent,
@@ -29,7 +32,9 @@ const COMPONENTS = [
         TranslateModule,
         ThyFlexibleTextModule,
         ThyTooltipModule,
-        ThySpaceModule
+        ThySpaceModule,
+        ThyDividerModule,
+        ThyButtonModule
     ],
     exports: [...COMPONENTS],
     providers: []

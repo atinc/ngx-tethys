@@ -133,34 +133,34 @@ describe('FlexibleTextComponent', () => {
 
     it('should change content of thyTooltipDirective when set thyTooltipContent of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
-        expect(component.tooltipService.thyTooltipDirective.content as string).toBe(componentInstance.tooltipContent);
+        expect(component.thyTooltipDirective.content as string).toBe(componentInstance.tooltipContent);
         const newContent = `新内容。。。`;
         componentInstance.tooltipContent = newContent;
         fixture.detectChanges();
-        expect(component.tooltipService.thyTooltipDirective.content as string).toBe(newContent);
+        expect(component.thyTooltipDirective.content as string).toBe(newContent);
     });
 
     it('should change placement of thyTooltipDirective when set placement of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
-        expect(component.tooltipService.thyTooltipDirective.placement).toBe(componentInstance.placement);
+        expect(component.thyTooltipDirective.placement).toBe(componentInstance.placement);
         const newPlacement = `left`;
         componentInstance.placement = newPlacement;
         fixture.detectChanges();
-        expect(component.tooltipService.thyTooltipDirective.placement).toBe(newPlacement);
+        expect(component.thyTooltipDirective.placement).toBe(newPlacement);
     });
 
     it('should change offset of thyTooltipDirective when set offset of thy-flexible-text', () => {
         const component = componentInstance.flexibleText;
-        expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(componentInstance.offset);
+        expect(component.thyTooltipDirective.tooltipOffset).toBe(componentInstance.offset);
         const newOffset = 5;
         componentInstance.offset = newOffset;
         fixture.detectChanges();
-        expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(newOffset);
+        expect(component.thyTooltipDirective.tooltipOffset).toBe(newOffset);
     });
 
     it('should apply trigger="click"', () => {
         const component = componentInstance.flexibleText;
-        expect(component.tooltipService.thyTooltipDirective.trigger).toBe('click');
+        expect(component.thyTooltipDirective.trigger).toBe('click');
     });
 
     it('should not contain flexible-text-container when thyContainContainerClass is false', () => {

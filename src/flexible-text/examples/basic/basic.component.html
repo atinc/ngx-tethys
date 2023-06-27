@@ -1,5 +1,17 @@
-<thy-flexible-text [thyTooltipContent]="text" style="width:500px">
+<h6>触发方式：<code class="font-size-md">hover</code></h6>
+
+<thy-flexible-text [thyTooltipContent]="text" style="width: 500px" [thyTooltipTrigger]="'hover'">
   {{ text }}
 </thy-flexible-text>
-<br />
-<span thyFlexibleText [thyTooltipContent]="text" thyTooltipOffset="10" style="width:500px">{{ text }}</span>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<h6>触发方式：<code class="font-size-md">click</code></h6>
+<span thyFlexibleText [thyTooltipContent]="text" thyTooltipOffset="10" style="width: 500px" [thyTooltipTrigger]="'click'">{{ text }}</span>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<h6>触发方式：<code class="font-size-md">focus</code></h6>
+<a href="javascript:;" thyFlexibleText [thyTooltipContent]="text" style="width: 200px" [thyTooltipTrigger]="'focus'">
+  {{ text }}
+</a>
