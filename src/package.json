@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "15.3.13",
+  "version": "15.3.15",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
