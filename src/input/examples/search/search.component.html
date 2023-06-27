@@ -1,7 +1,8 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
     <thy-input-search
-      disabled
+      [disabled]="true"
+      [attr.disabled]="true"
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
