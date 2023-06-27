@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.16](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.16) (2023-06-27)
+
+### Bug Fixes
+
+* **input:** adjust disabled style #INFR-8496# ([#2738](https://github.com/atinc/ngx-tethys/issues/2738)) ([6d84348](https://github.com/atinc/ngx-tethys/commit/6d84348d2aeda3d6005527b7ce4e1e14ee383073)), closes [#INFR-8496](https://github.com/atinc/ngx-tethys/issues/INFR-8496)
+
+
 ## [15.3.15](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.15) (2023-06-27)
 
 
