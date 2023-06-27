@@ -58,7 +58,7 @@
             }
         }
     }
-    &[disabled] {
+    &[disabled]:not([disabled="false"])  {
         background-color: variables.$input-disabled-bg;
         .input-append,
         .input-prepend {
@@ -162,7 +162,7 @@
         }
     }
 
-    &[disabled] {
+    &[disabled]:not([disabled="false"])  {
         &:hover {
             border-color: variables.$input-disabled-border-color;
         }
