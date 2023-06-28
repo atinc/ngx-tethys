@@ -10,6 +10,7 @@ import { ThyRadioGroupButtonExampleComponent } from './group-button/group-button
 import { ThyRadioGroupExampleComponent } from './group/group.component';
 import { ThyRadioSizeExampleComponent } from './size/size.component';
 import { ThyRadioToggleInlineExampleComponent } from './toggle-inline/toggle-inline.component';
+import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
 
 const COMPONENTS = [
     ThyRadioBasicExampleComponent,
@@ -20,7 +21,7 @@ const COMPONENTS = [
     ThyRadioSizeExampleComponent
 ];
 @NgModule({
-    imports: [CommonModule, FormsModule, ThyRadioModule],
+    imports: [CommonModule, FormsModule, ThyRadioModule, ThyCheckboxModule],
     exports: COMPONENTS,
     declarations: COMPONENTS,
     providers: []
