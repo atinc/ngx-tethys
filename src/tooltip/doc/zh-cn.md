@@ -49,6 +49,9 @@ export const thyTooltipDefaultConfig: ThyGlobalTooltipConfig = {
 
 ```
 
+## 非 body 滚轴事件需要更新 CDK 的位置
+在 tooltip 相关的组件使用中，body 的滚轴事件会刷新 tooltip 的位置。如果是自定义容器的滚轴事件则不会刷新，你可以在自定义容器上添加 `cdkScrollable` 指令以达到该目的。注意，这里需要导入相关的包 `import {ScrollingModule} from '@angular/cdk/scrolling';`，更多信息请参考 [scrolling/api](https://material.angular.io/cdk/scrolling/api)。
+
 ## 服务动态创建
 一般情况下通过 Tooltip 指令都基本可以满足我们的使用场景，如果在某些特殊情况我们没有办法使用指令都方式，那么也可以通过 ThyTooltipService 来创建一个 Tooltip 灵活的控制它 。
 ``` ts
