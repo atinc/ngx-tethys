@@ -1,12 +1,13 @@
 <div thyRow [thyGutter]="30">
   <div thyCol [thySpan]="12">
     <thy-input-search
+      [disabled]="true"
+      [attr.disabled]="true"
       (keydown.enter)="change()"
       [(ngModel)]="searchText"
       (ngModelChange)="change()"
       (thyClear)="change()"
-      placeholder="Search"
-    ></thy-input-search>
+      placeholder="Disabled, can't type (thy-input)"></thy-input-search>
     <br />
     <thy-input-search
       (keydown.enter)="change()"
@@ -14,8 +15,7 @@
       (ngModelChange)="change()"
       (thyClear)="change()"
       thyIconPosition="after"
-      placeholder="Search"
-    ></thy-input-search>
+      placeholder="Search"></thy-input-search>
     <br />
     <thy-input-search
       (keydown.enter)="change()"
@@ -23,11 +23,10 @@
       (ngModelChange)="change()"
       (thyClear)="change()"
       thyTheme="transparent"
-      placeholder="Search"
-    ></thy-input-search>
+      placeholder="Search"></thy-input-search>
     <br />
     <thy-input-group>
-      <thy-input placeholder="Search"></thy-input>
+      <thy-input placeholder="Search" [(ngModel)]="searchText" [disabled]="true" placeholder="Disabled, can't type (thy-input)"></thy-input>
       <ng-template #append>
         <button thyButton="primary"><thy-icon thyIconName="search"></thy-icon></button>
       </ng-template>

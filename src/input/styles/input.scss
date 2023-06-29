@@ -1,6 +1,6 @@
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "sass:math";
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use 'sass:math';
 
 .thy-input {
     position: relative;
@@ -58,7 +58,7 @@
             }
         }
     }
-    &[disabled] {
+    &[disabled]:not([disabled="false"])  {
         background-color: variables.$input-disabled-bg;
         .input-append,
         .input-prepend {
@@ -82,6 +82,12 @@
     &.thy-input-search-before {
         .input-search-control {
             padding-left: variables.$input-padding-x-fixed + variables.$input-padding-x-fixed + 0.875rem;
+        }
+
+        &-with-clear {
+            .input-search-control {
+                padding-right: 2 * variables.$input-padding-x-fixed + 0.875rem;
+            }
         }
     }
 
@@ -155,6 +161,16 @@
             background-color: transparent;
         }
     }
+
+    &[disabled]:not([disabled="false"])  {
+        &:hover {
+            border-color: variables.$input-disabled-border-color;
+        }
+        &:focus {
+            border-color: variables.$input-disabled-border-color;
+        }
+    } 
+
 }
 
 .input-label-container {
