@@ -124,6 +124,7 @@ export class ThyNavComponent
             this.updateClasses();
         }
     }
+
     /**
      * 导航大小
      * @type lg | md | sm
@@ -171,6 +172,13 @@ export class ThyNavComponent
     @Input()
     @InputBoolean()
     thyResponsive: boolean;
+
+    /**
+     * 更多操作的菜单点击内部是否可关闭
+     */
+    @Input()
+    @InputBoolean()
+    thyInsideClosable = true;
 
     /**
      * 右侧额外区域模板
@@ -410,7 +418,7 @@ export class ThyNavComponent
             origin: event.currentTarget as HTMLElement,
             hasBackdrop: true,
             backdropClosable: true,
-            insideClosable: true,
+            insideClosable: this.thyInsideClosable,
             placement: 'bottom',
             panelClass: 'thy-nav-list-popover',
             originActiveClass: 'thy-nav-origin-active'

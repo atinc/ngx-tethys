@@ -72,6 +72,10 @@ export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnIn
 
     /**
      * 触发提示方式
+     * <br/>`hover` 鼠标移入，显示提示；鼠标移出，隐藏提示；显示提示时，滚动页面，会隐藏提示。
+     * <br/>`focus` 元素获取焦点，显示提示；元素失去焦点，隐藏提示；显示元素时，滚动页面，提示会跟随聚焦源一起移动。
+     * <br/>`click` 点击元素，显示提示；点击backdrop，隐藏提示；显示提示时，页面的滚动行为会被阻止。
+     *
      * @type hover | focus | click
      */
     @Input('thyTooltipTrigger') set thyTooltipTrigger(value: ThyOverlayTrigger) {
