@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, ElementRef, NgZone, inject } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, fromEvent } from 'rxjs';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
