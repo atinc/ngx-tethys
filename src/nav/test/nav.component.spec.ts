@@ -131,9 +131,6 @@ const routes: Routes = [
 
 describe(`thy-nav`, () => {
     const fakeResizeObserver = new Subject();
-    let fixture: ComponentFixture<NavBasicComponent>;
-    let navDebugElement: DebugElement;
-    let navElement: HTMLElement;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -146,6 +143,10 @@ describe(`thy-nav`, () => {
     });
 
     describe('basic', () => {
+        let fixture: ComponentFixture<NavBasicComponent>;
+        let navDebugElement: DebugElement;
+        let navElement: HTMLElement;
+
         beforeEach(() => {
             fixture = TestBed.createComponent(NavBasicComponent);
             fixture.detectChanges();
@@ -246,8 +247,6 @@ describe(`thy-nav`, () => {
     describe('responsive', () => {
         let overlayContainer: OverlayContainer;
         let fixture: ComponentFixture<NavResponsiveComponent>;
-        navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
-        navElement = navDebugElement.nativeElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(NavResponsiveComponent);
@@ -385,6 +384,7 @@ describe(`thy-nav`, () => {
         it('should support set thyInsideClosable', fakeAsync(() => {
             fixture.debugElement.componentInstance.insideClosable = false;
             fixture.detectChanges();
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
             expect(navDebugElement.componentInstance.thyInsideClosable).toBe(false);
         }));
 
