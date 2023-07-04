@@ -34,7 +34,6 @@ export class ThyRangePickerDirective extends PickerDirective implements OnInit {
     @Input() set thyShortcutRanges(ranges: ThyShortcutRange[]) {
         if (ranges && helpers.isArray(ranges)) {
             const presets: ThyShortcutPreset[] = ranges.map(range => ({ title: range.title, value: [range.begin, range.end] }));
-            console.log(presets);
             this.shortcutPresets = [...presets];
         }
     }

@@ -592,8 +592,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                     new TinyDate(endOfDay(end))
                 ]) as TinyDate[];
 
-                this.selectedValue = this.selectedValue.length === 0 ? [] : this.cloneRangeDate(this.selectedValue);
-                selectedPresetValue = this.selectedValue;
+                selectedPresetValue = this.cloneRangeDate(this.selectedValue);
             }
         } else {
             const singleDate: number | Date = getShortcutValue(value);

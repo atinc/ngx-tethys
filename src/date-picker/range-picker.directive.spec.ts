@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import { ThyPopover } from '../popover/popover.service';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
@@ -23,7 +22,6 @@ describe('ThyRangePickerDirective', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    let popover: ThyPopover;
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -41,9 +39,8 @@ describe('ThyRangePickerDirective', () => {
         debugElement = fixture.debugElement;
     });
 
-    beforeEach(inject([OverlayContainer, ThyPopover], (oc: OverlayContainer, _popover: ThyPopover) => {
+    beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
         overlayContainer = oc;
-        popover = _popover;
         overlayContainerElement = oc.getContainerElement();
     }));
 
