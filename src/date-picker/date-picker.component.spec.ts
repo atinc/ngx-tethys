@@ -156,8 +156,8 @@ describe('ThyDatePickerComponent', () => {
             tick(24 * 60 * 60 * 1000);
             assertPresets('2023-07-02');
 
-            tick(24 * 60 * 60 * 1000);
-            assertPresets('2023-07-03');
+            tick(2 * 24 * 60 * 60 * 1000);
+            assertPresets('2023-07-04');
         }));
 
         function assertPresets(expectedValue: string) {
