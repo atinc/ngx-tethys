@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
+import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -23,6 +23,7 @@ import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartTy
 import { dateAddAmount, getShortcutValue, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
+    CompatiblePresets,
     DisabledDateFn,
     SupportTimeOptions,
     ThyDateGranularity,
@@ -87,7 +88,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() showShortcut: boolean;
 
-    @Input() shortcutPresets: ThyShortcutPreset[];
+    @Input() shortcutPresets: CompatiblePresets;
 
     @Input() shortcutPosition: ThyShortcutPosition;
 
@@ -121,6 +122,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     [property: string]: any;
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
+
+    _shortcutPresets: ThyShortcutPreset[];
 
     disableTimeConfirm = false;
 
@@ -181,7 +184,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
             }
 
-            if (this.shortcutPresets.length) {
+            this._shortcutPresets = isFunction(this.shortcutPresets) ? this.shortcutPresets() : this.shortcutPresets;
+            if (this._shortcutPresets.length) {
                 const minDate: TinyDate = this.getMinTinyDate();
                 const maxDate: TinyDate = this.getMaxTinyDate();
 
@@ -189,7 +193,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 const maxTime = maxDate ? maxDate.getTime() : null;
 
                 if (this.isRange) {
-                    this.shortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                    this._shortcutPresets.forEach((preset: ThyShortcutPreset) => {
                         const begin: number | Date = getShortcutValue(preset.value[0]);
                         const beginTime: number = new TinyDate(startOfDay(begin)).getTime();
 
@@ -203,7 +207,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                         }
                     });
                 } else {
-                    this.shortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                    this._shortcutPresets.forEach((preset: ThyShortcutPreset) => {
                         const singleValue: number | Date = getShortcutValue(preset.value as ThyShortcutValue);
                         const singleTime: number = new TinyDate(singleValue).getTime();
 

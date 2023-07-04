@@ -12,7 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
-import { ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
+import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -201,7 +201,7 @@ class ThyTestRangePickerComponent {
     modelValue: ThyDateRangeEntry;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: ThyShortcutPreset[];
+    thyShortcutPresets: CompatiblePresets;
     thyShortcutRanges: ThyShortcutRange[];
     mode: string;
     thyOpenChange(): void {}

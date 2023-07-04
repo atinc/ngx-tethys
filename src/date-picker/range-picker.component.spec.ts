@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
+import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
@@ -23,24 +23,26 @@ describe('ThyRangePickerComponent', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
 
-    const shortcutRangesPresets = [
-        {
-            title: '最近 7 天',
-            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
-        },
-        {
-            title: '最近 30 天',
-            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
-        },
-        {
-            title: '本周',
-            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
-        },
-        {
-            title: '本月',
-            value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
-        }
-    ];
+    const shortcutRangesPresets = () => {
+        return [
+            {
+                title: '最近 7 天',
+                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
+            },
+            {
+                title: '最近 30 天',
+                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
+            },
+            {
+                title: '本周',
+                value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
+            },
+            {
+                title: '本月',
+                value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
+            }
+        ];
+    };
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -82,16 +84,17 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
         });
 
+        let rangePresets = shortcutRangesPresets();
         const shortcutIndex = 0;
-        const startDate: number = shortcutRangesPresets[shortcutIndex].value[0];
-        const endDate: number = shortcutRangesPresets[shortcutIndex].value[1];
+        const startDate: number = rangePresets[shortcutIndex].value[0];
+        const endDate: number = rangePresets[shortcutIndex].value[1];
 
         it('show should support shortcut preset', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
             shortcutItems.forEach((shortcut, index) => {
-                expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
+                expect(shortcut.innerHTML.trim()).toBe(rangePresets[index].title);
             });
         }));
 
@@ -947,7 +950,7 @@ class ThyTestRangePickerComponent {
     thyOpen: boolean;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: ThyShortcutPreset[];
+    thyShortcutPresets: CompatiblePresets;
     thyShortcutRanges: ThyShortcutRange[];
     flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}
