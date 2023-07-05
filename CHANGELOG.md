@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.17](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.17) (2023-07-05)
+
+
+### Bug Fixes
+
+* **cascader:** fix checkbox style for cascader when thyMultiple is true #INFR-8481 ([#2733](https://github.com/atinc/ngx-tethys/issues/2733)) ([bfd74a7](https://github.com/atinc/ngx-tethys/commit/bfd74a7a9ef9ddaaa647fdf8bf8271893af09c10)), closes [#INFR-8481](https://github.com/atinc/ngx-tethys/issues/INFR-8481)
+* **date-picker:** fix error when thyRangePicker shortcut presets #INFR-8584 ([#2747](https://github.com/atinc/ngx-tethys/issues/2747)) ([eef8e18](https://github.com/atinc/ngx-tethys/commit/eef8e1832cf1d58e0f1ad8f488fdc89a383477af)), closes [#INFR-8584](https://github.com/atinc/ngx-tethys/issues/INFR-8584)
+* **date-picker:** should get the correct presets value when time passes #INFR-8552 ([#2748](https://github.com/atinc/ngx-tethys/issues/2748)) ([f5e909b](https://github.com/atinc/ngx-tethys/commit/f5e909bae217e222113f8f94bbdcd574fcb5d5de)), closes [#INFR-8552](https://github.com/atinc/ngx-tethys/issues/INFR-8552)
+* **switch:**  add xs size for switch #INFR-8616 ([#2750](https://github.com/atinc/ngx-tethys/issues/2750)) ([bf50683](https://github.com/atinc/ngx-tethys/commit/bf50683db52d0bff930e8e526e5df8d49a860f28)), closes [#INFR-8616](https://github.com/atinc/ngx-tethys/issues/INFR-8616)
+* **tooltip:** fix tooltip's show-hide behavior when container scrolled #INFR-3715 ([cd34ce2](https://github.com/atinc/ngx-tethys/commit/cd34ce2e38b769e7c9c6935ad252792fe9092fcc)), closes [#INFR-3715](https://github.com/atinc/ngx-tethys/issues/INFR-3715)
+
+
+### Features
+
+* **nav:** support thyInsideClosable for more popover #INFR-8551 ([#2746](https://github.com/atinc/ngx-tethys/issues/2746)) ([b4f6f56](https://github.com/atinc/ngx-tethys/commit/b4f6f56c64af3a30563e1193467cffbc847d83c2)), closes [#INFR-8551](https://github.com/atinc/ngx-tethys/issues/INFR-8551)
+
+
+
 ## [15.3.16](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.16) (2023-06-27)
 
 ### Bug Fixes
