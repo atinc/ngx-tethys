@@ -1,9 +1,9 @@
-import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet } from 'ngx-tethys/core';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
-import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
+import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, Inject, NgZone, ViewChild } from '@angular/core';
 
@@ -27,11 +27,11 @@ import { autocompleteAbstractOverlayOptions } from './autocomplete.options';
         '(@autocompleteContainer.done)': 'onAnimationDone($event)'
     },
     standalone: true,
-    imports: [PortalModule]
+    imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyAutocompleteContainerComponent extends ThyAbstractOverlayContainer implements AfterViewInit {
-    @ViewChild(CdkPortalOutlet, { static: true })
-    portalOutlet: CdkPortalOutlet;
+    @ViewChild(ThyPortalOutlet, { static: true })
+    portalOutlet: ThyPortalOutlet;
 
     /** State of the autocomplete animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';
