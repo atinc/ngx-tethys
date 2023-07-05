@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 @mixin thy-switch-size($width, $height, $handle-margin) {
     width: $width;
@@ -71,7 +71,7 @@
         @include thy-switch-size(variables.$switch-sm-width, variables.$switch-sm-height, 2);
     }
     &.thy-switch-xs {
-        @include thy-switch-size(variables.$switch-xs-width, variables.$switch-xs-height, 0);
+        @include thy-switch-size(variables.$switch-xs-width, variables.$switch-xs-height, 2);
     }
 }
 

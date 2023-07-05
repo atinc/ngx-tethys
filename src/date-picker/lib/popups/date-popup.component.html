@@ -6,7 +6,7 @@
       <div
         class="{{ prefixCls }}-picker-shortcut-item"
         [class.disabled]="item.disabled"
-        *ngFor="let item of shortcutPresets; trackBy: trackByFn"
+        *ngFor="let item of innerShortcutPresets; trackBy: trackByFn"
         (click)="shortcutSetValue(item)">
         {{ item.title }}
       </div>
