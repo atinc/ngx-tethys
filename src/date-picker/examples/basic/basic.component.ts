@@ -28,26 +28,32 @@ export class ThyDatePickerBasicExampleComponent implements OnInit {
 
     isAllowClear = true;
 
-    shortcutMonthPresets = [
-        {
-            title: '最近6周',
-            value: [subWeeks(startOfDay(new Date()), 5).getTime(), endOfDay(new Date()).getTime()]
-        },
-        {
-            title: '最近12周',
-            value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
-        }
-    ];
-    shortcutDatePresets = [
-        {
-            title: '今天',
-            value: startOfDay(new Date()).getTime()
-        },
-        {
-            title: '下周',
-            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
-        }
-    ];
+    shortcutMonthPresets = () => {
+        return [
+            {
+                title: '最近6周',
+                value: [subWeeks(startOfDay(new Date()), 5).getTime(), endOfDay(new Date()).getTime()]
+            },
+            {
+                title: '最近12周',
+                value: [subWeeks(startOfDay(new Date()), 11).getTime(), endOfDay(new Date()).getTime()]
+            }
+        ];
+    };
+
+    shortcutDatePresets = () => {
+        return [
+            {
+                title: '今天',
+                value: startOfDay(new Date()).getTime()
+            },
+            {
+                title: '下周',
+                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+            }
+        ];
+    };
+
     constructor() {}
 
     ngOnInit() {}
