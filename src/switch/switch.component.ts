@@ -77,7 +77,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     /**
      * 大小
-     * @type sm | xs | md
+     * @type xs | sm | md
      * @default md
      */
     @Input()
