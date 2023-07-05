@@ -1,5 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { addDays, addWeeks, startOfDay, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, startOfDay, startOfWeek, subDays } from 'date-fns';
 import { TinyDate } from 'ngx-tethys/util';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
@@ -33,11 +33,11 @@ export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
         return [
             {
                 title: '最近 7 天',
-                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '最近 30 天',
-                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '本周',

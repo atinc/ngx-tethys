@@ -123,7 +123,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
-    _shortcutPresets: ThyShortcutPreset[];
+    innerShortcutPresets: ThyShortcutPreset[];
 
     disableTimeConfirm = false;
 
@@ -184,8 +184,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
             }
 
-            this._shortcutPresets = isFunction(this.shortcutPresets) ? this.shortcutPresets() : this.shortcutPresets;
-            if (this._shortcutPresets.length) {
+            this.innerShortcutPresets = isFunction(this.shortcutPresets) ? this.shortcutPresets() : this.shortcutPresets;
+            if (this.innerShortcutPresets.length) {
                 const minDate: TinyDate = this.getMinTinyDate();
                 const maxDate: TinyDate = this.getMaxTinyDate();
 
@@ -193,7 +193,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 const maxTime = maxDate ? maxDate.getTime() : null;
 
                 if (this.isRange) {
-                    this._shortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                    this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
                         const begin: number | Date = getShortcutValue(preset.value[0]);
                         const beginTime: number = new TinyDate(startOfDay(begin)).getTime();
 
@@ -207,7 +207,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                         }
                     });
                 } else {
-                    this._shortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                    this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
                         const singleValue: number | Date = getShortcutValue(preset.value as ThyShortcutValue);
                         const singleTime: number = new TinyDate(singleValue).getTime();
 
