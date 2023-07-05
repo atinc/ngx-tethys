@@ -26,16 +26,18 @@ describe('ThyDatePickerComponent', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
 
-    const shortcutDatePresets = [
-        {
-            title: '今天',
-            value: startOfDay(new Date()).getTime()
-        },
-        {
-            title: '下周',
-            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
-        }
-    ];
+    const shortcutDatePresets = () => {
+        return [
+            {
+                title: '今天',
+                value: startOfDay(new Date()).getTime()
+            },
+            {
+                title: '下周',
+                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+            }
+        ];
+    };
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -77,8 +79,9 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = getShortcutItems();
+            const datePresets = shortcutDatePresets();
             shortcutItems.forEach((shortcut, index) => {
-                expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
+                expect(shortcut.innerHTML.trim()).toBe(datePresets[index].title);
             });
         }));
 
@@ -113,7 +116,8 @@ describe('ThyDatePickerComponent', () => {
             expect(nextWeekItem.classList.contains('disabled')).toBe(false);
 
             const input = getPickerTrigger();
-            expect(input.value).toBe(format(shortcutDatePresets[1].value, 'yyyy-MM-dd'));
+            const datePresets = shortcutDatePresets();
+            expect(input.value).toBe(format(datePresets[1].value, 'yyyy-MM-dd'));
         }));
 
         it('should return if value of shortcutPresets is null', fakeAsync(() => {
@@ -143,6 +147,32 @@ describe('ThyDatePickerComponent', () => {
             const input = getPickerTrigger();
             expect(input.value).toContain(selectedTime);
         }));
+
+        it('should get the correct preset value when time passes', fakeAsync(() => {
+            const currentDate = new Date('2023-07-01');
+            jasmine.clock().mockDate(currentDate);
+            assertPresets('2023-07-01');
+
+            tick(24 * 60 * 60 * 1000);
+            assertPresets('2023-07-02');
+
+            tick(2 * 24 * 60 * 60 * 1000);
+            assertPresets('2023-07-04');
+        }));
+
+        function assertPresets(expectedValue: string) {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const shortcutItems = getShortcutItems();
+            const todayItem = shortcutItems[0];
+            dispatchMouseEvent(todayItem, 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const input = getPickerTrigger();
+            expect(input.value).toBe(expectedValue);
+        }
     });
 
     describe('general api testing', () => {
