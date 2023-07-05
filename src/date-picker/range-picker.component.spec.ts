@@ -1,4 +1,4 @@
-import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -27,11 +27,11 @@ describe('ThyRangePickerComponent', () => {
         return [
             {
                 title: '最近 7 天',
-                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '最近 30 天',
-                value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
+                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
             },
             {
                 title: '本周',
