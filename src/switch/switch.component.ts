@@ -38,8 +38,8 @@ import { InputBoolean } from 'ngx-tethys/core';
     imports: [NgClass],
     host: {
         class: 'thy-switch',
-        '[class.thy-switch-sm]': 'size === "sm"',
-        '[class.thy-switch-lg]': 'size === "lg"'
+        '[class.thy-switch-xs]': 'size === "xs"',
+        '[class.thy-switch-sm]': 'size === "sm"'
     }
 })
 export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
@@ -55,7 +55,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     public typeArray: string[] = ['primary', 'info', 'warning', 'danger'];
 
-    public sizeArray: string[] = ['lg', '', 'sm'];
+    public sizeArray: string[] = ['', 'sm', 'xs'];
 
     private initialized = false;
 
@@ -77,7 +77,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
 
     /**
      * 大小
-     * @type sm | lg | md
+     * @type xs | sm | md
      * @default md
      */
     @Input()
