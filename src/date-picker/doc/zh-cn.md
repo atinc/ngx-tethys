@@ -57,27 +57,30 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
             useValue: {
                 showShortcut: true,
                 shortcutPosition: 'left',
-                shortcutDatePresets: [
-                    {
-                        title: '今天',
-                        value: startOfDay(new Date()).getTime()
-                    }
-                ],
-                shortcutRangesPresets: [
-                    {
-                        title: '最近 7 天',
-                        value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
-                    },
-                    {
-                        title: '最近 30 天',
-                        value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
-                    },
-                    {
-                        title: '本周',
-                        value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfDay().getTime()]
-                    }
-                ]
-
+                shortcutDatePresets: () => {
+                    return [
+                        {
+                            title: '今天',
+                            value: startOfDay(new Date()).getTime()
+                        }
+                    ];
+                },
+                shortcutRangesPresets: () => {
+                    return [
+                        {
+                            title: '最近 7 天',
+                            value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                        },
+                        {
+                            title: '最近 30 天',
+                            value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                        },
+                        {
+                            title: '本周',
+                            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
+                        }
+                    ];
+                }
             }
         }
         ...
