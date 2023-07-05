@@ -74,7 +74,7 @@ describe('switch component', () => {
     });
 
     it('should have correct class when it has size', () => {
-        const sizes: string[] = ['lg', 'sm'];
+        const sizes: string[] = ['xs', 'sm'];
         sizes.forEach((size: string) => {
             testComponent.size = size;
             fixture.detectChanges();
