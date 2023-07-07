@@ -3,12 +3,13 @@ import { Component, DebugElement, ElementRef, NgModule } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThySlideModule, ThySlideRef, ThySlideService } from '../index';
+import { THY_SLIDE_DEFAULT_CONFIG, ThySlideConfig, ThySlideModule, ThySlideRef, ThySlideService, slideDefaultConfigValue } from '../index';
 import { ThySlideBodySectionComponent } from '../slide-body/slide-body-section.component';
 import { ThySlideBodyComponent } from '../slide-body/slide-body.component';
 import { ThySlideFooterComponent } from '../slide-footer/slide-footer.component';
 import { ThySlideHeaderComponent } from '../slide-header/slide-header.component';
 import { ThySlideLayoutComponent } from '../slide-layout/slide-layout.component';
+import { SafeAny } from '../../types';
 
 describe('ThySlide', () => {
     describe('ThySlideService', () => {
@@ -694,6 +695,59 @@ describe('ThySlide', () => {
             expect(headerElement).not.toBeNull();
             expect(headerElement.nativeElement.innerText).toBe('头部');
         }));
+    });
+
+    describe('THY_SLIDE_DEFAULT_CONFIG', () => {
+        let thySlideService: ThySlideService;
+        let overlayContainer: OverlayContainer;
+        let overlayContainerElement: HTMLElement;
+        let viewContainerFixture: ComponentFixture<SlideLayoutTestComponent>;
+        let viewportRuler: ViewportRuler;
+        const newDefaultConfig = {
+            backdropClass: 'new-thy-slide-backdrop',
+            panel: 'new-thy-slide'
+        };
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [ThySlideModule, ThySlideTestModule],
+                declarations: [],
+                providers: [
+                    {
+                        provide: THY_SLIDE_DEFAULT_CONFIG,
+                        useValue: newDefaultConfig
+                    }
+                ]
+            });
+            TestBed.compileComponents();
+        }));
+
+        beforeEach(inject(
+            [ThySlideService, OverlayContainer, ViewportRuler],
+            (_thySlideService: ThySlideService, _overlayContainer: OverlayContainer, _viewportRuler: ViewportRuler) => {
+                thySlideService = _thySlideService;
+                overlayContainer = _overlayContainer;
+                viewportRuler = _viewportRuler;
+                overlayContainerElement = _overlayContainer.getContainerElement();
+            }
+        ));
+
+        afterEach(() => {
+            overlayContainer.ngOnDestroy();
+        });
+
+        beforeEach(() => {
+            viewContainerFixture = TestBed.createComponent(SlideLayoutTestComponent);
+            viewContainerFixture.detectChanges();
+        });
+
+        it('should open slide with new config value', () => {
+            const slideRef = thySlideService.open(SlideLayoutTestComponent, {});
+
+            expect(slideRef.containerInstance.config).toEqual(
+                Object.assign({}, slideDefaultConfigValue as ThySlideConfig, newDefaultConfig)
+            );
+        });
     });
 });
 
