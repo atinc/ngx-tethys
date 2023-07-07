@@ -4,12 +4,9 @@
     [ngModel]="date"
     [thyHiddenMenu]="true"
     [thyCustomKey]="'exception'"
-    [thyPickerFormat]="'yyyy年MM月'"
-    (ngModelChange)="onChangeRange($event)"
-  ></thy-date-range>
-  <button *ngIf="isCurrent" thyButton="outline-default-square" thySize="md" (click)="backToday()">
-    今天
-  </button>
+    [thyPickerFormat]="pickerFormat"
+    (ngModelChange)="onChangeRange($event)"></thy-date-range>
+  <button *ngIf="isCurrent" thyButton="outline-default-square" thySize="md" (click)="backToday()">今天</button>
 </div>
 <div class="thy-calendar-full-header-right">
   <ng-container *ngTemplateOutlet="$any(operationRender); context: { $implicit: operationRender }">

@@ -42,6 +42,8 @@ import { ThyCalendarModule } from '../module';
         </thy-calendar>
 
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
+
+        <thy-calendar> </thy-calendar>
     `
 })
 export class TestCalendarBasicComponent {
@@ -108,6 +110,7 @@ export class TestCalendarHeaderComponent {
     onYearSelect() {}
     onDateRangeSelect() {}
 }
+
 describe('calendar', () => {
     describe('basic', () => {
         let component: TestCalendarBasicComponent;
@@ -181,6 +184,20 @@ describe('calendar', () => {
 
             expect(calendarInstance.currentDate.getDate()).toEqual(new TinyDate(component.value1).getDate());
         }));
+
+        it('should show the default date in the correct format', waitForAsync(() => {
+            fixture.whenStable().then(() => {
+                const calendar = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[2];
+                const calendarElement = calendar.nativeElement;
+                const selectedDateText = calendarElement.querySelector('.thy-date-range-text').innerText;
+
+                const calendarHeader = calendar.query(By.directive(ThyCalendarHeaderComponent));
+                const calendarHeaderInstance = calendarHeader.componentInstance;
+                const expectedDateText = calendarHeaderInstance._currentDate.format(calendarHeaderInstance.pickerFormat);
+
+                expect(selectedDateText).toEqual(expectedDateText);
+            });
+        }));
     });
 
     describe('disabledDate', () => {
@@ -246,7 +263,7 @@ describe('calendar-header', () => {
             expect(rangeChangeSpy).toHaveBeenCalledTimes(1);
             expect(rangeChangeSpy).toHaveBeenCalledWith({
                 key: 'month',
-                text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
+                text: new TinyDate().format(debugElement.componentInstance.pickerFormat),
                 begin: getUnixTime(startOfMonth(new Date())),
                 end: getUnixTime(endOfMonth(new Date())),
                 timestamp: {
@@ -273,7 +290,7 @@ describe('calendar-header', () => {
                 fixture.detectChanges();
                 const dateInfo = {
                     key: 'exception',
-                    text: '2020年1月',
+                    text: '2020年01月',
                     begin: getUnixTime(startOfMonth(new Date(2019, 11, 3))),
                     end: getUnixTime(endOfMonth(new Date(2019, 11, 3))),
                     timestamp: {

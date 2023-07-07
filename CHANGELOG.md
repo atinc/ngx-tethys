@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.17](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.17) (2023-07-05)
+
+
+### Bug Fixes
+
+* **cascader:** fix checkbox style for cascader when thyMultiple is true #INFR-8481 ([#2733](https://github.com/atinc/ngx-tethys/issues/2733)) ([bfd74a7](https://github.com/atinc/ngx-tethys/commit/bfd74a7a9ef9ddaaa647fdf8bf8271893af09c10)), closes [#INFR-8481](https://github.com/atinc/ngx-tethys/issues/INFR-8481)
+* **date-picker:** fix error when thyRangePicker shortcut presets #INFR-8584 ([#2747](https://github.com/atinc/ngx-tethys/issues/2747)) ([eef8e18](https://github.com/atinc/ngx-tethys/commit/eef8e1832cf1d58e0f1ad8f488fdc89a383477af)), closes [#INFR-8584](https://github.com/atinc/ngx-tethys/issues/INFR-8584)
+* **date-picker:** should get the correct presets value when time passes #INFR-8552 ([#2748](https://github.com/atinc/ngx-tethys/issues/2748)) ([f5e909b](https://github.com/atinc/ngx-tethys/commit/f5e909bae217e222113f8f94bbdcd574fcb5d5de)), closes [#INFR-8552](https://github.com/atinc/ngx-tethys/issues/INFR-8552)
+* **switch:**  thySize support xs and adjust $switch-xs-width from 24px to 28px #INFR-8616 ([#2750](https://github.com/atinc/ngx-tethys/issues/2750)) ([bf50683](https://github.com/atinc/ngx-tethys/commit/bf50683db52d0bff930e8e526e5df8d49a860f28)), closes [#INFR-8616](https://github.com/atinc/ngx-tethys/issues/INFR-8616)
+* **tooltip:** fix tooltip's show-hide behavior when container scrolled #INFR-3715 ([cd34ce2](https://github.com/atinc/ngx-tethys/commit/cd34ce2e38b769e7c9c6935ad252792fe9092fcc)), closes [#INFR-3715](https://github.com/atinc/ngx-tethys/issues/INFR-3715)
+
+
+### Features
+
+* **nav:** support thyInsideClosable for more popover #INFR-8551 ([#2746](https://github.com/atinc/ngx-tethys/issues/2746)) ([b4f6f56](https://github.com/atinc/ngx-tethys/commit/b4f6f56c64af3a30563e1193467cffbc847d83c2)), closes [#INFR-8551](https://github.com/atinc/ngx-tethys/issues/INFR-8551)
+
+
+
+## [15.3.16](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.16) (2023-06-27)
+
+### Bug Fixes
+
+* **input:** adjust disabled style #INFR-8496# ([#2738](https://github.com/atinc/ngx-tethys/issues/2738)) ([6d84348](https://github.com/atinc/ngx-tethys/commit/6d84348d2aeda3d6005527b7ce4e1e14ee383073)), closes [#INFR-8496](https://github.com/atinc/ngx-tethys/issues/INFR-8496)
+
+
+## [15.3.15](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.15) (2023-06-27)
+
+
+### Bug Fixes
+
+* **tree-select:** #INFR-5075 fix the issue of calling changeSelectValue twice to remove selected items ([#2732](https://github.com/atinc/ngx-tethys/issues/2732)) ([02f9923](https://github.com/atinc/ngx-tethys/commit/02f9923c6631112a06627bccfe0b1ea76bcb5221))
+
+
 ## [15.3.13](https://github.com/atinc/ngx-tethys/compare/15.3.5...15.3.13) (2023-06-26)
 
 
@@ -29,7 +62,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **property:** should destroy the subscription of click event when the value of thyEditable is changed from true to false #INFR-8179 ([#2701](https://github.com/atinc/ngx-tethys/issues/2701)) ([ac9ba57](https://github.com/atinc/ngx-tethys/commit/ac9ba5761bc068b3359b58c76fc57937610d25c6)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
 * **property:** should not subscribe multiple times when the value of thyEditable is changed to true #INFR-8179 ([#2695](https://github.com/atinc/ngx-tethys/issues/2695)) ([34e600c](https://github.com/atinc/ngx-tethys/commit/34e600c579fd978b8f93cca26c52cc4e417c249c)), closes [#INFR-8179](https://github.com/atinc/ngx-tethys/issues/INFR-8179)
 * **table:** thyTheme值为bordered且可拖拽时，拖拽图标和文字之间的间距过大 #INFR-8217 ([#2705](https://github.com/atinc/ngx-tethys/issues/2705)) ([f2ac471](https://github.com/atinc/ngx-tethys/commit/f2ac471cb2e92d4297e5f03308eb828b741a47db)), closes [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217) [#INFR-8217](https://github.com/atinc/ngx-tethys/issues/INFR-8217)
-* **tree-select:** #INFR-5075 fix the issue of calling changeSelectValue twice to remove selected items ([#2732](https://github.com/atinc/ngx-tethys/issues/2732)) ([02f9923](https://github.com/atinc/ngx-tethys/commit/02f9923c6631112a06627bccfe0b1ea76bcb5221))
 
 
 ### Features

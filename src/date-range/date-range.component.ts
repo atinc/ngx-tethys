@@ -83,13 +83,14 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     @Input() thyMaxDate: Date | number;
 
     /**
-     * 值有`custom`和`exception`。当值为`exception`，`thyPickerFormat`设置的自定义格式才会生效
-     * @type custom | exception
+     * 选中的时间段的展示形式，
+     * <br/> `custom`形式：`2023-07-01 ~ 2023-07-31`；
+     * <br/> `exception`形式：`2023-07-01`，具体展示还与`thyPickerFormat`有关。
      */
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
     /**
-     * 自定义日期展示格式，只有当`thyCustomKey`值设为`custom`时才会生效
+     * 自定义日期展示格式，比如`yyyy年MM月`，只有当`thyCustomKey`值设为`exception`时才会生效
      */
     @Input() thyPickerFormat: string;
 
