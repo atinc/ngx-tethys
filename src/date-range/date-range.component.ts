@@ -72,8 +72,8 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
 
     /**
      * 选中的时间段的展示形式，
-     * <br/> `custom`形式：`2023-07-01 ~ 2023-07-31`，
-     * <br/> `exception`形式：`2023-07-01`，具体展示还与 thyPickerFormat 有关
+     * <br/> `custom`形式：`2023-07-01 ~ 2023-07-31`；
+     * <br/> `exception`形式：`2023-07-01`，具体展示还与 thyPickerFormat 有关。
      */
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
