@@ -196,22 +196,14 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                         key: this.thyCustomKey
                     };
                 } else {
-                    const beginIsFirstDayOfMonth = isSameDay(beginDate, startOfMonth(beginDate));
                     const endIsEndDayOfMonth = isSameDay(endDate, endOfMonth(endDate));
-
-                    if (beginIsFirstDayOfMonth && endIsEndDayOfMonth) {
-                        return {
-                            begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                            end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
-                            key: this.thyCustomKey
-                        };
-                    } else {
-                        return {
-                            begin: getUnixTime(startOfDay(addDays(endDate, 1))),
-                            end: getUnixTime(endOfDay(addMonths(endDate, 1 * interval))),
-                            key: this.thyCustomKey
-                        };
-                    }
+                    return {
+                        begin: getUnixTime(startOfDay(addDays(endDate, 1))),
+                        end: endIsEndDayOfMonth
+                            ? getUnixTime(endOfMonth(addMonths(endDate, 1 * interval)))
+                            : getUnixTime(endOfDay(addMonths(endDate, 1 * interval))),
+                        key: this.thyCustomKey
+                    };
                 }
             } else if (this.selectedDate.timestamp.unit === 'year') {
                 if (type === 'previous') {
