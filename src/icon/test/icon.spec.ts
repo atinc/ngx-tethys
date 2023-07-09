@@ -61,6 +61,7 @@ describe('ThyIconComponent', () => {
             );
             const svgElement = iconElement.querySelector('svg');
             expect(svgElement).toBeTruthy();
+            expect(svgElement.getAttribute('style')).toContain('pointer-events: none');
         }
 
         beforeEach(() => {

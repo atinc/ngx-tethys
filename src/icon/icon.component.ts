@@ -133,6 +133,13 @@ export class ThyIconComponent implements OnInit, OnChanges {
         }
     }
 
+    private setSvgPointerEvents() {
+        const svg = this.elementRef.nativeElement.querySelector('svg');
+        if (svg) {
+            this.render.setStyle(svg, 'pointer-events', 'none');
+        }
+    }
+
     //#region svg element
 
     private setSvgElement(svg: SVGElement) {
@@ -173,6 +180,7 @@ export class ThyIconComponent implements OnInit, OnChanges {
 
         this.elementRef.nativeElement.appendChild(svg);
         this.setStyleRotate();
+        this.setSvgPointerEvents();
     }
 
     private clearSvgElement() {
