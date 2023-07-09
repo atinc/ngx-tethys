@@ -28,6 +28,8 @@ const SIDEBAR_DEFAULT_WIDTH = 240;
 
 export type ThySidebarTheme = 'white' | 'light' | 'dark';
 
+export type ThySidebarDirection = 'left' | 'right';
+
 /**
  * 布局侧边栏组件
  * @name thy-sidebar
@@ -51,7 +53,7 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             [style.display]="!isResizable ? 'contents' : null">
             <thy-resize-handle
                 *ngIf="!thyCollapsed"
-                [thyDirection]="directionRight ? 'left' : 'right'"
+                [thyDirection]="thyDirection === 'right' ? 'left' : 'right'"
                 class="sidebar-resize-handle"
                 thyLine="true"
                 (mouseenter)="toggleResizable($event, 'enter')"
@@ -72,6 +74,15 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
             </ng-template>
         </div>
     `,
+    host: {
+        class: 'thy-layout-sidebar',
+        '[class.thy-layout-sidebar-right]': 'thyDirection === "right"',
+        '[class.thy-layout-sidebar--clear-border-right]': 'thyDirection === "left" && !isDivided',
+        '[class.thy-layout-sidebar--clear-border-left]': 'thyDirection === "right" && !isDivided',
+        '[class.sidebar-theme-light]': 'thyTheme === "light"',
+        '[class.sidebar-theme-dark]': 'thyTheme === "dark"',
+        '[class.thy-layout-sidebar-isolated]': 'sidebarIsolated'
+    },
     standalone: true,
     imports: [
         NgTemplateOutlet,
@@ -85,19 +96,11 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
     ]
 })
 export class ThySidebarComponent implements OnInit, OnDestroy {
-    @HostBinding('class.thy-layout-sidebar') thyLayoutSidebarClass = true;
-
-    @HostBinding('class.thy-layout-sidebar--clear-border-right') thyLayoutSidebarClearBorderRightClass = false;
-
-    @HostBinding('class.thy-layout-sidebar--clear-border-left') thyLayoutSidebarClearBorderLeftClass = false;
-
-    @HostBinding('class.sidebar-theme-light') sidebarThemeLight = false;
-
-    @HostBinding('class.sidebar-theme-dark') sidebarThemeDark = false;
-
-    @HostBinding('class.thy-layout-sidebar-right') directionRight = false;
-
     thyLayoutSidebarWidth: number;
+
+    isDivided = true;
+
+    sidebarIsolated = false;
 
     @HostBinding('style.width.px') get sidebarWidth() {
         if (this.thyCollapsible && this.thyCollapsed) {
@@ -106,8 +109,6 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
             return this.thyLayoutSidebarWidth;
         }
     }
-
-    @HostBinding('class.thy-layout-sidebar-isolated') sidebarIsolated = false;
 
     @HostListener('mouseenter', ['$event'])
     mouseenter($event: MouseEvent) {
@@ -132,30 +133,37 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * sidebar位置，默认在左侧
-     * @default 'left'
+     * sidebar 位置，默认在左侧
      */
-    @Input('thyDirection')
-    set thyDirection(value: 'left' | 'right') {
-        this.directionRight = value === 'right' ? true : false;
+    @Input() thyDirection: ThySidebarDirection = 'left';
+
+    /**
+     * sidebar 是否有分割线。当`thyDirection`值为`left`时，控制右侧是否有分割线；当`thyDirection`值为`right`时，控制左侧是否有分割线。
+     * @default true
+     */
+    @Input('thyDivided')
+    set thyDivided(value: string) {
+        this.isDivided = coerceBooleanProperty(value);
     }
 
     /**
      * 右侧是否有边框
+     * @deprecated 已废弃，请使用 thyDivided
      * @default true
      */
     @Input('thyHasBorderRight')
     set thyHasBorderRight(value: string) {
-        this.thyLayoutSidebarClearBorderRightClass = !coerceBooleanProperty(value);
+        this.thyDivided = value;
     }
 
     /**
      * 左侧是否有边框
+     * @deprecated 已废弃，请使用 thyDivided
      * @default true
      */
     @Input('thyHasBorderLeft')
     set thyHasBorderLeft(value: string) {
-        this.thyLayoutSidebarClearBorderLeftClass = !coerceBooleanProperty(value);
+        this.thyDivided = value;
     }
 
     /**
@@ -236,14 +244,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
      * @type white | light | dark
      * @default white
      */
-    @Input()
-    set thyTheme(value: ThySidebarTheme) {
-        if (value === 'light') {
-            this.sidebarThemeLight = true;
-        } else if (value === 'dark') {
-            this.sidebarThemeDark = true;
-        }
-    }
+    @Input() thyTheme: ThySidebarTheme;
 
     /**
      * 默认宽度，双击后可恢复到此宽度，默认是 240px，传入 lg 大小时宽度是300px
@@ -288,7 +289,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
-        if (this.directionRight) {
+        if (this.thyDirection === 'right') {
             this.thyLayoutComponent.isSidebarRight = true;
         }
         this.updateCollapseTip();

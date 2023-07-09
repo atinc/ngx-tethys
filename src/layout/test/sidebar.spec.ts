@@ -9,7 +9,7 @@ import { ThyLayoutModule } from '../layout.module';
 import { ThySidebarContentComponent } from '../sidebar-content.component';
 import { ThySidebarFooterComponent } from '../sidebar-footer.component';
 import { ThySidebarHeaderComponent } from '../sidebar-header.component';
-import { ThySidebarComponent, ThySidebarTheme } from '../sidebar.component';
+import { ThySidebarComponent, ThySidebarDirection, ThySidebarTheme } from '../sidebar.component';
 
 const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
 @Component({
@@ -21,14 +21,13 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyDefaultWidth]="defaultWidth"
                 [thyTheme]="thyTheme"
                 [thyIsolated]="isolated"
-                [thyHasBorderRight]="hasBorderRight"
+                [thyDivided]="isDivided"
                 [thyDraggable]="draggable"
                 [thyDragMaxWidth]="dragMaxWidth"
                 [thyCollapsible]="collapsible"
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
                 [thyDirection]="sidebarDirection"
-                [thyHasBorderLeft]="hasBorderLeft"
                 (thyCollapsedChange)="collapsedChange($event)"
                 (thyDragWidthChange)="dragWidthChange($event)"
                 [thyTrigger]="triggerTpl">
@@ -47,7 +46,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     width: string | number = '';
     defaultWidth: string | number = 260;
     isolated = false;
-    hasBorderRight = true;
+    isDivided = true;
     draggable = false;
     dragMaxWidth = 100;
     collapsible = false;
@@ -55,8 +54,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     thyTheme: ThySidebarTheme;
     isCollapsed = false;
     dragWidth: number;
-    sidebarDirection: 'left' | 'right' = 'left';
-    hasBorderLeft = true;
+    sidebarDirection: ThySidebarDirection = 'left';
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
@@ -102,20 +100,29 @@ describe(`sidebar`, () => {
 
     describe('basic', () => {
         let fixture: ComponentFixture<ThyDemoLayoutSidebarBasicComponent>;
+        let testInstance: ThyDemoLayoutSidebarBasicComponent;
         let layoutDebugElement: DebugElement;
         let layoutElement: HTMLElement;
+
         let sidebarDebugElement: DebugElement;
         let sidebarElement: HTMLElement;
+        let sidebarComponent: ThySidebarComponent;
+
         let sidebarHeaderDebugElement: DebugElement;
         let sidebarHeaderElement: HTMLElement;
 
         beforeEach(() => {
             fixture = TestBed.createComponent(ThyDemoLayoutSidebarBasicComponent);
             fixture.detectChanges();
+            testInstance = fixture.debugElement.componentInstance;
+
             layoutDebugElement = fixture.debugElement.query(By.directive(ThyLayoutComponent));
             layoutElement = layoutDebugElement.nativeElement;
+
             sidebarDebugElement = fixture.debugElement.query(By.directive(ThySidebarComponent));
             sidebarElement = sidebarDebugElement.nativeElement;
+            sidebarComponent = sidebarDebugElement.componentInstance;
+
             sidebarHeaderDebugElement = fixture.debugElement.query(By.directive(ThySidebarHeaderComponent));
             sidebarHeaderElement = sidebarHeaderDebugElement.nativeElement;
         });
@@ -142,14 +149,14 @@ describe(`sidebar`, () => {
 
         it(`should get correct class with theme dark`, () => {
             expect(sidebarElement.classList).not.toContain('sidebar-theme-dark');
-            fixture.debugElement.componentInstance.thyTheme = 'dark';
+            testInstance.thyTheme = 'dark';
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('sidebar-theme-dark');
         });
 
         it(`should get correct class with theme light`, () => {
             expect(sidebarElement.classList).not.toContain('sidebar-theme-light');
-            fixture.debugElement.componentInstance.thyTheme = 'light';
+            testInstance.thyTheme = 'light';
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('sidebar-theme-light');
         });
@@ -183,30 +190,36 @@ describe(`sidebar`, () => {
             expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(true);
         });
 
-        it(`should get correct class according to thyHasBorderRight value`, () => {
-            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
-            fixture.debugElement.componentInstance.hasBorderRight = false;
-            fixture.detectChanges();
-            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
-        });
-
         it(`should get correct class according to thyDirection value`, () => {
             expect(sidebarElement.classList).not.toContain('thy-layout-sidebar-right');
-            fixture.debugElement.componentInstance.sidebarDirection = 'right';
+            testInstance.sidebarDirection = 'right';
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('thy-layout-sidebar-right');
         });
 
-        it(`should get correct class according to thyHasBorderLeft value`, () => {
+        it(`should get correct class according to thyDivided value when thyDirection is left`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
+
+            testInstance.isDivided = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
+        });
+
+        it(`should get correct class according to thyDivided value when thyDirection is right`, () => {
             expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
-            fixture.debugElement.componentInstance.hasBorderLeft = false;
+
+            testInstance.sidebarDirection = 'right';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
+
+            testInstance.isDivided = false;
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-left');
         });
 
         describe('thyDraggable', () => {
             it('should drag width', fakeAsync(() => {
-                fixture.debugElement.componentInstance.draggable = true;
+                testInstance.draggable = true;
                 fixture.detectChanges();
                 tick();
                 const dragElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-drag')).nativeElement;
@@ -218,11 +231,10 @@ describe(`sidebar`, () => {
                 const dragElementRect = resizeHandleElement.getBoundingClientRect();
                 dispatchMouseEvent(resizeHandleElement, 'mousemove', dragElementRect.left + 50, dragElementRect.top);
                 dispatchMouseEvent(resizeHandleElement, 'mouseleave');
-                // expect(fixture.debugElement.componentInstance.dragWidth > dragElementRect.left).toEqual(true);
             }));
 
             it('should restore drag width to default width', fakeAsync(() => {
-                fixture.debugElement.componentInstance.draggable = true;
+                testInstance.draggable = true;
                 fixture.detectChanges();
                 tick();
                 const dragElement: HTMLElement = fixture.debugElement.query(By.css('.sidebar-drag')).nativeElement;
@@ -237,10 +249,10 @@ describe(`sidebar`, () => {
             }));
 
             it('should collapse sidebar when drag width equal thyCollapsedWidth', fakeAsync(() => {
-                fixture.debugElement.componentInstance.draggable = true;
+                testInstance.draggable = true;
                 fixture.detectChanges();
                 tick();
-                const sidebarComponent = sidebarDebugElement.componentInstance as ThySidebarComponent;
+
                 sidebarComponent.collapseVisible = true;
                 sidebarComponent.thyCollapsedWidth = 20;
                 sidebarComponent.thyCollapsible = true;
@@ -254,16 +266,16 @@ describe(`sidebar`, () => {
         });
 
         it('should enable thyCollapsible', fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            testInstance.collapsible = true;
+            testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            expect(sidebarDebugElement.componentInstance.thyCollapsible).toEqual(true);
-            expect(sidebarDebugElement.componentInstance.thyCollapsedWidth).toEqual(80);
+            expect(sidebarComponent.thyCollapsible).toEqual(true);
+            expect(sidebarComponent.thyCollapsedWidth).toEqual(80);
         }));
 
         it('should sidebar expand or collapsed when press mete+/ or control+/', fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
+            testInstance.collapsible = true;
             fixture.detectChanges();
             const spy = spyOn(fixture.componentInstance, 'collapsedChange');
             const metaEvent = createKeyboardEvent('keydown', null, '/', { meta: true });
@@ -280,39 +292,39 @@ describe(`sidebar`, () => {
         it('should set correctly thyCollapsed and collapsibleWidth when click collapse button', fakeAsync(() => {
             const inputCollapseWidth = 80;
             const originWidth = sidebarDebugElement.nativeElement.style.width;
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.collapsibleWidth = inputCollapseWidth;
+            testInstance.collapsible = true;
+            testInstance.collapsibleWidth = inputCollapseWidth;
             fixture.detectChanges();
             tick();
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
-            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(true);
+            expect(testInstance.isCollapsed).toEqual(true);
             expect(sidebarDebugElement.nativeElement.style.width).toEqual(inputCollapseWidth + 'px');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
-            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(false);
+            expect(testInstance.isCollapsed).toEqual(false);
             expect(sidebarDebugElement.nativeElement.style.width).toEqual(originWidth);
             flush();
         }));
 
         it(`should be tip text changed when toggle collapse`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            testInstance.collapsible = true;
+            testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            expect(sidebarDebugElement.componentInstance.collapseTip).toContain('收起');
+            expect(sidebarComponent.collapseTip).toContain('收起');
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
             dispatchMouseEvent(sidebarCollapseElement, 'click');
             fixture.detectChanges();
             tick(200);
-            expect(sidebarDebugElement.componentInstance.collapseTip).toContain('展开');
+            expect(sidebarComponent.collapseTip).toContain('展开');
             flush();
         }));
 
         it(`should be not found collapse dom when trigger is null`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.triggerTpl = null;
+            testInstance.collapsible = true;
+            testInstance.triggerTpl = null;
             fixture.detectChanges();
             tick();
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
@@ -320,8 +332,8 @@ describe(`sidebar`, () => {
         }));
 
         it(`should be collapse dom exist when trigger is templateRef`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.triggerTpl = fixture.debugElement.componentInstance.customTpl;
+            testInstance.collapsible = true;
+            testInstance.triggerTpl = testInstance.customTpl;
             fixture.detectChanges();
             tick();
             const sidebarCollapseElement = sidebarElement.querySelector('.sidebar-collapse');
@@ -332,8 +344,8 @@ describe(`sidebar`, () => {
         }));
 
         it(`should visible collapse dom when hover sidebar element`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.triggerTpl = fixture.debugElement.componentInstance.customTpl;
+            testInstance.collapsible = true;
+            testInstance.triggerTpl = testInstance.customTpl;
             fixture.detectChanges();
             tick();
             dispatchMouseEvent(sidebarElement, 'mouseenter');
@@ -352,10 +364,10 @@ describe(`sidebar`, () => {
         }));
 
         it(`should be collapsed when moving drag width to collapsed`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.collapsible = true;
-            fixture.debugElement.componentInstance.draggable = true;
-            fixture.debugElement.componentInstance.isCollapsed = false;
-            fixture.debugElement.componentInstance.collapsibleWidth = 80;
+            testInstance.collapsible = true;
+            testInstance.draggable = true;
+            testInstance.isCollapsed = false;
+            testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
             const resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement as HTMLElement;
@@ -365,14 +377,14 @@ describe(`sidebar`, () => {
             dispatchMouseEvent(window.document, 'mousemove', rect.left - 120, rect.bottom);
             dispatchMouseEvent(window.document, 'mouseup');
             fixture.detectChanges();
-            expect(fixture.debugElement.componentInstance.isCollapsed).toEqual(true);
+            expect(testInstance.isCollapsed).toEqual(true);
             flush();
         }));
 
         it(`should be max width is 100px`, fakeAsync(() => {
-            fixture.debugElement.componentInstance.draggable = true;
-            fixture.debugElement.componentInstance.dragMaxWidth = 100;
-            fixture.debugElement.componentInstance.width = 20;
+            testInstance.draggable = true;
+            testInstance.dragMaxWidth = 100;
+            testInstance.width = 20;
             fixture.detectChanges();
             tick();
             const resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement as HTMLElement;
