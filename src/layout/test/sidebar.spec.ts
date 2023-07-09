@@ -103,11 +103,9 @@ describe(`sidebar`, () => {
         let testInstance: ThyDemoLayoutSidebarBasicComponent;
         let layoutDebugElement: DebugElement;
         let layoutElement: HTMLElement;
-
         let sidebarDebugElement: DebugElement;
         let sidebarElement: HTMLElement;
         let sidebarComponent: ThySidebarComponent;
-
         let sidebarHeaderDebugElement: DebugElement;
         let sidebarHeaderElement: HTMLElement;
 
