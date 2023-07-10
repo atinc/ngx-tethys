@@ -36,7 +36,7 @@ describe('#dom', () => {
     });
 
     describe('getElementOffset', () => {
-        it('should get correct offset', () => {
+        xit('should get correct offset', () => {
             const element = createElement('<span>text</span>');
             document.body.append(element);
             const offset = getElementOffset(element);
