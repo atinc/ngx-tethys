@@ -143,12 +143,13 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
      */
     @Input('thyDivided')
     set thyDivided(value: string) {
+        console.log('value: ', value);
         this.isDivided = coerceBooleanProperty(value);
     }
 
     /**
-     * 右侧是否有边框
-     * @deprecated 已废弃，请使用 thyDivided
+     * 右侧是否有边框，已废弃，请使用 thyDivided
+     * @deprecated please use thyDivided
      * @default true
      */
     @Input('thyHasBorderRight')
@@ -157,8 +158,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 左侧是否有边框
-     * @deprecated 已废弃，请使用 thyDivided
+     * 左侧是否有边框，已废弃，请使用 thyDivided
+     * @deprecated please use thyDivided
      * @default true
      */
     @Input('thyHasBorderLeft')

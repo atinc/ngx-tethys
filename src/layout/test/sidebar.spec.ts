@@ -21,9 +21,9 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyDefaultWidth]="defaultWidth"
                 [thyTheme]="thyTheme"
                 [thyIsolated]="isolated"
-                [thyHasBorderRight]="isDivided"
-                [thyHasBorderLeft]="isDivided"
                 [thyDivided]="isDivided"
+                [thyHasBorderLeft]="hasBorderLeft"
+                [thyHasBorderRight]="hasBorderRight"
                 [thyDraggable]="draggable"
                 [thyDragMaxWidth]="dragMaxWidth"
                 [thyCollapsible]="collapsible"
@@ -49,6 +49,8 @@ class ThyDemoLayoutSidebarBasicComponent {
     defaultWidth: string | number = 260;
     isolated = false;
     isDivided = true;
+    hasBorderLeft = true;
+    hasBorderRight = true;
     draggable = false;
     dragMaxWidth = 100;
     collapsible = false;
@@ -188,6 +190,21 @@ describe(`sidebar`, () => {
             fixture.componentInstance.isolated = true;
             fixture.detectChanges();
             expect(sidebarElement.classList.contains(SIDEBAR_ISOLATED_CLASS)).toEqual(true);
+        });
+
+        it(`should get correct class according to thyHasBorderLeft value`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
+            testInstance.sidebarDirection = 'right';
+            testInstance.hasBorderLeft = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-left');
+        });
+
+        it(`should get correct class according to thyHasBorderRight value`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-right');
+            testInstance.hasBorderRight = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
         });
 
         it(`should get correct class according to thyDirection value`, () => {
