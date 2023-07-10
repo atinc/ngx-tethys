@@ -4,7 +4,19 @@ import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
-import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
+import {
+    getUnixTime,
+    startOfISOWeek,
+    endOfISOWeek,
+    endOfMonth,
+    startOfMonth,
+    addDays,
+    addMonths,
+    addYears,
+    isSameDay,
+    endOfDay,
+    startOfDay
+} from 'date-fns';
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyActionComponent } from 'ngx-tethys/action';
@@ -71,13 +83,14 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
     @Input() thyMaxDate: Date | number;
 
     /**
-     * 值有`custom`和`exception`。当值为`exception`，`thyPickerFormat`设置的自定义格式才会生效
-     * @type custom | exception
+     * 选中的时间段的展示形式，
+     * <br/> `custom`形式：`2023-07-01 ~ 2023-07-31`；
+     * <br/> `exception`形式：`2023-07-01`，具体展示还与`thyPickerFormat`有关。
      */
     @Input() thyCustomKey: 'custom' | 'exception' = 'custom';
 
     /**
-     * 自定义日期展示格式，只有当`thyCustomKey`值设为`custom`时才会生效
+     * 自定义日期展示格式，比如`yyyy年MM月`，只有当`thyCustomKey`值设为`exception`时才会生效
      */
     @Input() thyPickerFormat: string;
 
@@ -180,13 +193,16 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
+                        end: getUnixTime(endOfDay(addDays(beginDate, -1))),
                         key: this.thyCustomKey
                     };
                 } else {
+                    const endIsEndDayOfMonth = isSameDay(endDate, endOfMonth(endDate));
                     return {
-                        begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
+                        begin: getUnixTime(startOfDay(addDays(endDate, 1))),
+                        end: endIsEndDayOfMonth
+                            ? getUnixTime(endOfMonth(addMonths(endDate, 1 * interval)))
+                            : getUnixTime(addMonths(endDate, 1 * interval)),
                         key: this.thyCustomKey
                     };
                 }

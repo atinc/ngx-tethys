@@ -172,6 +172,7 @@ describe('ThyTestDateRangeComponent', () => {
 
     describe('action api test', () => {
         beforeEach(() => (fixtureInstance.useSuite = 2));
+
         it('should show customDateRanges second text when choose second option', fakeAsync(() => {
             const value = fixtureInstance.customDateRanges[1].text;
             fixture.detectChanges();
@@ -211,34 +212,102 @@ describe('ThyTestDateRangeComponent', () => {
             expect((result[1] as Date).getDate()).toBe(+rightText);
         }));
 
-        it('should change month date text when when click arrow', fakeAsync(() => {
-            const originDate = fixtureInstance.customDateRanges[0];
-            fixture.detectChanges();
-            const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('.thy-action'));
+        it('should be connectable for the previous and next date range, when beginDate is first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月尾 - 向前、向后步进',
+                begin: '2023-02-01',
+                end: '2023-02-28',
+                interval: 1
+            });
 
-            // previous icon
-            const interval = originDate.timestamp.interval;
-            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
-            expect(modelChangedSpy).toHaveBeenCalledTimes(1);
-            const beginDate = originDate.begin * 1000;
-            const endDate = originDate.end * 1000;
-            const previousModelData = {
-                begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
-                key: 'custom'
-            };
-            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
-            // next icon
-            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
-            expect(modelChangedSpy).toHaveBeenCalledTimes(2);
-            const nextModelData = {
-                begin: getUnixTime(addMonths(previousModelData.begin * 1000, 1 * interval)),
-                end: getUnixTime(endOfMonth(addMonths(previousModelData.end * 1000, 1 * interval))),
-                key: 'custom'
-            };
-            expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
-        }));
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2023-01-01 ~ 2023-01-31');
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2022-12-01 ~ 2022-12-31');
+
+            clickNext();
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-02-28');
+        });
+
+        it('should be connectable for the previous date range, when beginDate is first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月中 - 向前、向后步进',
+                begin: '2023-03-01',
+                end: '2023-03-27',
+                interval: 1
+            });
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-02-28');
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-03-01 ~ 2023-03-31');
+        });
+
+        it('should be connectable for the next date range, when beginDate is first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月首，结束在月中 - 向后步进',
+                begin: '2023-03-01',
+                end: '2023-03-27',
+                interval: 1
+            });
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-03-28 ~ 2023-04-27');
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-04-28 ~ 2023-05-27');
+        });
+
+        it('should be connectable for the previous date range, when the beginDate is not first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月尾 - 向前、向后步进',
+                begin: '2023-02-09',
+                end: '2023-03-31',
+                interval: 2
+            });
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2022-12-09 ~ 2023-02-08');
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-02-09 ~ 2023-04-08');
+        });
+
+        it('should be connectable for the next date range, when the beginDate is not first day and endDate is end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月尾 - 向后步进',
+                begin: '2023-02-09',
+                end: '2023-03-31',
+                interval: 2
+            });
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-04-01 ~ 2023-05-31');
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2023-02-01 ~ 2023-03-31');
+        });
+
+        it('should be connectable for the previous and next date range, when the beginDate is not first day and endDate is not end day of month', () => {
+            customDateRanges({
+                text: '开始在月中，结束在月中 - 向前、向后步进',
+                begin: '2023-06-23',
+                end: '2023-08-22',
+                interval: 2
+            });
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2023-04-23 ~ 2023-06-22');
+
+            clickPrevious();
+            expect(getDateRangeText()).toEqual('2023-02-23 ~ 2023-04-22');
+
+            clickNext();
+            expect(getDateRangeText()).toEqual('2023-04-23 ~ 2023-06-22');
+        });
 
         it('should change day date text when when click arrow', fakeAsync(() => {
             fixtureInstance.customDateRanges = fixtureInstance.customDayDateRanges;
@@ -246,11 +315,10 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('.thy-action'));
-            // previous icon
-            const interval = originDate.timestamp.interval;
-            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+
+            clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const interval = originDate.timestamp.interval;
             const beginDate = originDate.begin * 1000;
             const endDate = originDate.end * 1000;
             const previousModelData = {
@@ -259,8 +327,8 @@ describe('ThyTestDateRangeComponent', () => {
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
-            // next icon
-            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+
+            clickNext();
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: getUnixTime(addDays(previousModelData.begin * 1000, 1 * interval)),
@@ -276,11 +344,10 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('.thy-action'));
-            // previous icon
-            const interval = originDate.timestamp.interval;
-            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+
+            clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const interval = originDate.timestamp.interval;
             const beginDate = originDate.begin * 1000;
             const endDate = originDate.end * 1000;
             const previousModelData = {
@@ -289,8 +356,8 @@ describe('ThyTestDateRangeComponent', () => {
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
-            // next icon
-            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+
+            clickNext();
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: getUnixTime(addYears(previousModelData.begin * 1000, 1 * interval)),
@@ -306,11 +373,10 @@ describe('ThyTestDateRangeComponent', () => {
             const originDate = fixtureInstance.customDateRanges[0];
             fixture.detectChanges();
             const modelChangedSpy = spyOn(debugElement.componentInstance, 'dateChanged');
-            const arrows = debugElement.queryAll(By.css('.thy-action'));
-            // previous icon
-            const interval: number = originDate.end - originDate.begin + 24 * 60 * 60;
-            dispatchFakeEvent(arrows[0].nativeElement, 'click', true);
+
+            clickPrevious();
             expect(modelChangedSpy).toHaveBeenCalledTimes(1);
+            const interval: number = originDate.end - originDate.begin + 24 * 60 * 60;
             const beginDate = originDate.begin;
             const endDate = originDate.end;
             const previousModelData = {
@@ -319,8 +385,8 @@ describe('ThyTestDateRangeComponent', () => {
                 key: 'custom'
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, previousModelData));
-            // next icon
-            dispatchFakeEvent(arrows[1].nativeElement, 'click', true);
+
+            clickNext();
             expect(modelChangedSpy).toHaveBeenCalledTimes(2);
             const nextModelData = {
                 begin: previousModelData.begin + interval,
@@ -329,6 +395,34 @@ describe('ThyTestDateRangeComponent', () => {
             };
             expect(modelChangedSpy).toHaveBeenCalledWith(Object.assign({}, originDate, nextModelData));
         }));
+
+        function customDateRanges(options: { text: string; begin: string; end: string; interval: number }) {
+            fixtureInstance.customDateRanges = [
+                {
+                    key: 'month',
+                    text: options.text,
+                    begin: getUnixTime(new Date(`${options.begin}`)),
+                    end: getUnixTime(new Date(`${options.end}`)),
+                    timestamp: {
+                        interval: options.interval,
+                        unit: 'month'
+                    }
+                }
+            ];
+            fixture.detectChanges();
+        }
+
+        function clickPrevious() {
+            const previousButton = debugElement.queryAll(By.css('.thy-action'))[0].nativeElement;
+            dispatchFakeEvent(previousButton, 'click', true);
+            fixture.detectChanges();
+        }
+
+        function clickNext() {
+            const nextButton = debugElement.queryAll(By.css('.thy-action'))[1].nativeElement;
+            dispatchFakeEvent(nextButton, 'click', true);
+            fixture.detectChanges();
+        }
     });
 
     function getPickerTriggerElement(): HTMLInputElement {
@@ -362,6 +456,10 @@ describe('ThyTestDateRangeComponent', () => {
             return '0' + value;
         }
         return value.toString();
+    }
+
+    function getDateRangeText(): string {
+        return debugElement.query(By.css('.thy-date-range-text')).nativeNode.innerText;
     }
 });
 
