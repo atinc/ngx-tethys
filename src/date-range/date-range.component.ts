@@ -4,7 +4,19 @@ import { DateRangeItemInfo } from './date-range.class';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { OptionalDateRangesComponent } from './optional-dates/optional-dates.component';
 
-import { getUnixTime, startOfISOWeek, endOfISOWeek, endOfMonth, startOfMonth, addDays, addMonths, addYears } from 'date-fns';
+import {
+    getUnixTime,
+    startOfISOWeek,
+    endOfISOWeek,
+    endOfMonth,
+    startOfMonth,
+    addDays,
+    addMonths,
+    addYears,
+    isSameDay,
+    endOfDay,
+    startOfDay
+} from 'date-fns';
 import { ThyDatePickerFormatPipe } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyActionComponent } from 'ngx-tethys/action';
@@ -181,13 +193,16 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                 if (type === 'previous') {
                     return {
                         begin: getUnixTime(addMonths(beginDate, -1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, -1 * interval))),
+                        end: getUnixTime(endOfDay(addDays(beginDate, -1))),
                         key: this.thyCustomKey
                     };
                 } else {
+                    const endIsEndDayOfMonth = isSameDay(endDate, endOfMonth(endDate));
                     return {
-                        begin: getUnixTime(addMonths(beginDate, 1 * interval)),
-                        end: getUnixTime(endOfMonth(addMonths(endDate, 1 * interval))),
+                        begin: getUnixTime(startOfDay(addDays(endDate, 1))),
+                        end: endIsEndDayOfMonth
+                            ? getUnixTime(endOfMonth(addMonths(endDate, 1 * interval)))
+                            : getUnixTime(addMonths(endDate, 1 * interval)),
                         key: this.thyCustomKey
                     };
                 }
