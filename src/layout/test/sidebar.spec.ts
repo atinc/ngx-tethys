@@ -35,7 +35,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 <thy-sidebar-content> Content </thy-sidebar-content>
                 <thy-sidebar-footer> Footer </thy-sidebar-footer>
             </thy-sidebar>
-            <<ng-template #customTpl>
+            <ng-template #customTpl>
                 <div class="custom-collapse"></div>
             </ng-template>
             <thy-content> Yeah, I am content </thy-content>
