@@ -279,6 +279,10 @@ describe(`sidebar`, () => {
                 expect(sidebarComponent.isCollapsed).toEqual(true);
                 tick(200);
                 expect(sidebarComponent.collapseTip).toContain('展开');
+
+                const dragWidthChangeSpy = spyOn(sidebarComponent.thyDragWidthChange, 'emit');
+                sidebarComponent.resizeHandler({ width: sidebarComponent.thyLayoutSidebarWidth } as unknown as ThyResizeEvent);
+                expect(dragWidthChangeSpy).not.toHaveBeenCalled();
             }));
         });
 
