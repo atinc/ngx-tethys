@@ -192,7 +192,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
             } else if (this.selectedDate.timestamp.unit === 'month') {
                 if (type === 'previous') {
                     return {
-                        begin: getUnixTime(startOfDay(addMonths(beginDate, -1 * interval))),
+                        begin: getUnixTime(addMonths(beginDate, -1 * interval)),
                         end: getUnixTime(endOfDay(addDays(beginDate, -1))),
                         key: this.thyCustomKey
                     };
@@ -202,7 +202,7 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
                         begin: getUnixTime(startOfDay(addDays(endDate, 1))),
                         end: endIsEndDayOfMonth
                             ? getUnixTime(endOfMonth(addMonths(endDate, 1 * interval)))
-                            : getUnixTime(endOfDay(addMonths(endDate, 1 * interval))),
+                            : getUnixTime(addMonths(endDate, 1 * interval)),
                         key: this.thyCustomKey
                     };
                 }
