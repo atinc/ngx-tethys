@@ -16,6 +16,9 @@ import { takeUntil } from 'rxjs/operators';
  */
 @Directive({
     selector: '[thyColorPicker]',
+    host: {
+        '[class.thy-color-picker-disabled]': 'disabled'
+    },
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -243,6 +246,10 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     registerOnTouched(fn: any): void {
         this.onTouchFn = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 
     onModelChange(value: string): void {

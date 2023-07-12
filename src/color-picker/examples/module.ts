@@ -12,6 +12,7 @@ import { ThyDisableTransparentColorExampleComponent } from './disable-transparen
 import { ThyPlacementExampleComponent } from './placement/placement.component';
 import { ThyPresetColorsExampleComponent } from './preset-colors/preset-colors.component';
 import { ThyTriggerExampleComponent } from './trigger/trigger.component';
+import { ThyColorPickerDisableExampleComponent } from './disabled/disabled.component';
 
 const COMPONENTS = [
     ThyBasicExampleComponent,
@@ -19,7 +20,8 @@ const COMPONENTS = [
     ThyPresetColorsExampleComponent,
     ThyDisableTransparentColorExampleComponent,
     ThyPlacementExampleComponent,
-    ThyTriggerExampleComponent
+    ThyTriggerExampleComponent,
+    ThyColorPickerDisableExampleComponent
 ];
 
 @NgModule({
