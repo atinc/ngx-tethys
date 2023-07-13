@@ -218,12 +218,10 @@ describe(`color-picker`, () => {
 
         it('should get correct style when disabled', fakeAsync(() => {
             expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeFalsy();
-            fixture.detectChanges();
             fixtureInstance.disabled = true;
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            flush();
             expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeTruthy();
         }));
 
