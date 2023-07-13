@@ -31,8 +31,8 @@ import { ThyColorPickerModule } from '../module';
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
             (ngModelChange)="change($event)"
-            (thyPanelOpen)="panelOpen()"
-            (thyPanelClose)="panelClose()"
+            (thyPanelOpen)="panelOpen($event)"
+            (thyPanelClose)="panelClose($event)"
             [thyPresetColors]="presetColors"></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
@@ -357,6 +357,7 @@ describe(`color-picker`, () => {
             openDefaultPanel();
             fixture.detectChanges();
             expect(panelOpen).toHaveBeenCalled();
+            expect(panelOpen).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
         it('should dispatch thyPanelClose', fakeAsync(() => {
@@ -371,6 +372,7 @@ describe(`color-picker`, () => {
             tick();
             flush();
             expect(panelClose).toHaveBeenCalled();
+            expect(panelClose).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
         it('should get recentColors from localStorage', fakeAsync(() => {
