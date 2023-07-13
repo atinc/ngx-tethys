@@ -336,7 +336,7 @@ describe(`color-picker`, () => {
             expect(change).toHaveBeenCalled();
         }));
 
-        fit('should dispatch thyPanelOpen', fakeAsync(() => {
+        it('should dispatch thyPanelOpen', fakeAsync(() => {
             const panelOpen = jasmine.createSpy('panel open');
             fixture.componentInstance.panelOpen = panelOpen;
             fixture.detectChanges();
@@ -346,7 +346,7 @@ describe(`color-picker`, () => {
             expect(panelOpen).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
-        fit('should dispatch thyPanelClose', fakeAsync(() => {
+        it('should dispatch thyPanelClose', fakeAsync(() => {
             const panelClose = jasmine.createSpy('panel close');
             fixture.componentInstance.panelClose = panelClose;
             fixture.detectChanges();
