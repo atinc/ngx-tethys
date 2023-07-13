@@ -26,6 +26,7 @@ import { ThyColorPickerModule } from '../module';
             [thyHasBackdrop]="hasBackdrop"
             thyColorPicker
             [(ngModel)]="color"
+            [disabled]="disabled"
             [thyTrigger]="trigger"
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
@@ -61,6 +62,8 @@ class ThyDemoColorPickerComponent {
     hideDelay = 0;
 
     presetColors: string[];
+
+    disabled = false;
 
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
@@ -212,6 +215,17 @@ describe(`color-picker`, () => {
         it('should create', () => {
             expect(fixtureInstance).toBeDefined();
         });
+
+        it('should get correct style when disabled', fakeAsync(() => {
+            expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeFalsy();
+            fixture.detectChanges();
+            fixtureInstance.disabled = true;
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            flush();
+            expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeTruthy();
+        }));
 
         it('should open color-picker default panel', fakeAsync(() => {
             openDefaultPanel();
