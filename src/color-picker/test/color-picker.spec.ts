@@ -30,8 +30,8 @@ import { ThyColorPickerModule } from '../module';
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
             (ngModelChange)="change($event)"
-            (thyPanelOpen)="panelOpen()"
-            (thyPanelClose)="panelClose()"
+            (thyPanelOpen)="panelOpen($event)"
+            (thyPanelClose)="panelClose($event)"
             [thyPresetColors]="presetColors"></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
@@ -336,16 +336,17 @@ describe(`color-picker`, () => {
             expect(change).toHaveBeenCalled();
         }));
 
-        it('should dispatch thyPanelOpen', fakeAsync(() => {
+        fit('should dispatch thyPanelOpen', fakeAsync(() => {
             const panelOpen = jasmine.createSpy('panel open');
             fixture.componentInstance.panelOpen = panelOpen;
             fixture.detectChanges();
             openDefaultPanel();
             fixture.detectChanges();
             expect(panelOpen).toHaveBeenCalled();
+            expect(panelOpen).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
-        it('should dispatch thyPanelClose', fakeAsync(() => {
+        fit('should dispatch thyPanelClose', fakeAsync(() => {
             const panelClose = jasmine.createSpy('panel close');
             fixture.componentInstance.panelClose = panelClose;
             fixture.detectChanges();
@@ -357,6 +358,7 @@ describe(`color-picker`, () => {
             tick();
             flush();
             expect(panelClose).toHaveBeenCalled();
+            expect(panelClose).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
         it('should get recentColors from localStorage', fakeAsync(() => {
