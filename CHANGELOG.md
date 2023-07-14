@@ -14,7 +14,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Features
 
-* **color-picker:**  color-picker support disabled (#INFR-8645) ([#2757](https://github.com/atinc/ngx-tethys/issues/2757)) ([2d8617f](https://github.com/atinc/ngx-tethys/commit/2d8617f228d28c756d44238046337f1e6c41131d)), closes [#INFR-8645](https://github.com/atinc/ngx-tethys/issues/INFR-8645)
+* **color-picker:** color-picker support disabled (#INFR-8645) ([#2757](https://github.com/atinc/ngx-tethys/issues/2757)) ([2d8617f](https://github.com/atinc/ngx-tethys/commit/2d8617f228d28c756d44238046337f1e6c41131d)), closes [#INFR-8645](https://github.com/atinc/ngx-tethys/issues/INFR-8645)
 * **color-picker:** add popoverRef param when panel open and close #INFR-8673 ([#2756](https://github.com/atinc/ngx-tethys/issues/2756)) ([964a748](https://github.com/atinc/ngx-tethys/commit/964a748016f8ca8d59b229df8a9a81252f4b32b1)), closes [#INFR-8673](https://github.com/atinc/ngx-tethys/issues/INFR-8673)
 
 
