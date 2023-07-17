@@ -9,6 +9,7 @@ import { ComponentFixture, fakeAsync, flush, inject, TestBed, TestBedStatic, tic
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { addDays, startOfDay } from 'date-fns';
 
 import { ThyPopover } from '../popover/popover.service';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from '../property-operation';
@@ -16,8 +17,7 @@ import { ThyDatePickerDirective } from './date-picker.directive';
 import { ThyDatePickerModule } from './date-picker.module';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPopoverConfig, ThyPopoverModule } from '../popover';
-import { ThyShortcutPosition, ThyShortcutPreset } from './standard-types';
-import { DEFAULT_DATE_PICKER_CONFIG } from './date-picker.config';
+import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
 registerLocaleData(zh);
 
@@ -144,6 +144,22 @@ describe('ThyPickerDirective', () => {
                 fixture.detectChanges();
                 const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
                 expect((shortcutItems[shortcutItems.length - 1] as HTMLElement).innerText).toBe('2022-01-29');
+            }));
+
+            it('should disable shortcut item whose preset is out of thyMinDate ~ thyMaxDate', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyMinDate = startOfDay(addDays(new Date(), 1));
+                fixture.detectChanges();
+
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+                const todayItem = shortcutItems[0];
+                const tomorrowItem = shortcutItems[1];
+                expect(todayItem.classList.contains('disabled')).toBe(true);
+                expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
         });
 
@@ -287,7 +303,7 @@ describe('ThyPickerDirective', () => {
                     hasBackdrop: true,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     offset: 4,
-                    initialState: { ...getInitState(), defaultPickerValue: null },
+                    initialState: { ...getInitState(), defaultPickerValue: null, showShortcut: undefined },
                     placement: 'bottom'
                 });
             }));
@@ -405,9 +421,9 @@ class ThyTestPickerComponent {
     thyPlacement = 'bottomLeft';
     thyHasBackdrop = true;
     popoverOptions: Partial<ThyPopoverConfig>;
-    thyShowShortcut: boolean = false;
+    thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: ThyShortcutPreset[];
+    thyShortcutPresets: CompatiblePresets;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

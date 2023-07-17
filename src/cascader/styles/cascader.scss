@@ -1,5 +1,7 @@
 @use '../../styles/variables';
 
+$cascader-menu-min-width: 122px;
+
 .thy-cascader {
     outline: none;
     position: relative;
@@ -39,7 +41,7 @@
     &-menu {
         display: inline-block;
         vertical-align: top;
-        min-width: 122px;
+        min-width: $cascader-menu-min-width;
         max-width: 300px;
         height: 180px;
         list-style: none;
@@ -116,10 +118,15 @@
             color: #e6f7ff;
         }
     }
+
+    &-empty-container {
+        min-width: $cascader-menu-min-width;
+    }
+
     &-search-list {
         height: 180px;
         overflow: auto;
-        min-width: 122px;
+        min-width: $cascader-menu-min-width;
     }
 
     &-search-list-item {
@@ -130,6 +137,12 @@
         &.active:not(.multiple) {
             background: rgba(variables.$primary, 0.1);
             color: variables.$primary;
+        }
+        // 覆盖 thyFlexibleText 默认样式使其垂直居中
+        .option-label-item {
+            max-width: 140px;
+            width: unset;
+            vertical-align: bottom;
         }
     }
 }

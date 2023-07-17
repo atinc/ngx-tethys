@@ -40,10 +40,36 @@
       <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
     </thy-custom-select>
   </thy-form-group>
+
+  <thy-form-group thyLabelText="customersMultiSelect" thyLabelRequired>
+    <thy-custom-select
+      [thyMode]="'multiple'"
+      thyPlaceHolder="请选择"
+      formControlName="customersMultiSelect"
+      name="customersMultiSelect"
+      [thyShowSearch]="true"
+      [thyAllowClear]="true"
+    >
+      <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </thy-form-group>
+
   <thy-form-group thyLabelText="TreeSelect" thyLabelRequired>
     <thy-tree-select
       formControlName="treeSelect"
       name="treeSelect"
+      [thyTreeNodes]="basicTreeSelectData"
+      [thyShowSearch]="true"
+      [thyAllowClear]="true"
+    >
+    </thy-tree-select>
+  </thy-form-group>
+
+  <thy-form-group thyLabelText="treeSelectMulti" thyLabelRequired>
+    <thy-tree-select
+      formControlName="treeSelectMulti"
+      [thyMultiple]="true"
+      name="treeSelectMulti"
       [thyTreeNodes]="basicTreeSelectData"
       [thyShowSearch]="true"
       [thyAllowClear]="true"

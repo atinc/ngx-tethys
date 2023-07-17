@@ -1,5 +1,5 @@
-@use "../../styles/mixins/link";
-@use "../../styles/variables";
+@use '../../styles/mixins/link';
+@use '../../styles/variables';
 
 .thy-layout {
     display: flex;
@@ -10,6 +10,9 @@
 
     &--has-sidebar {
         flex-direction: row;
+        &.thy-layout--is-sidebar-right {
+            flex-direction: row-reverse;
+        }
 
         // > .thy-layout-content {
         //     overflow-x: hidden;
@@ -237,6 +240,34 @@
     }
     &.remove-transition {
         transition: none;
+    }
+
+    &.thy-layout-sidebar-right {
+        border-right: none;
+        border-left: variables.$layout-sidebar-border-right;
+
+        .sidebar-collapse-line {
+            left: -2px;
+            right: auto;
+        }
+
+        .sidebar-collapse {
+            left: 0;
+            right: auto;
+            transform: translateX(-50%);
+            .sidebar-collapse-icon {
+                transform: rotate(180deg);
+            }
+        }
+
+        &.thy-layout-sidebar-isolated {
+            margin-left: 10px;
+            border-left: none;
+        }
+
+        &.thy-layout-sidebar--clear-border-left {
+            border-left: none;
+        }
     }
 }
 

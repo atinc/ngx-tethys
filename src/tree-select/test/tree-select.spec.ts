@@ -280,6 +280,7 @@ class PlaceHolderTreeSelectComponent {
                 [(ngModel)]="objSelectedValue"
                 thyPrimaryKey="key"
                 thyShowKey="title"
+                (ngModelChange)="treeSelectChange()"
                 [thyMultiple]="multiple"></thy-tree-select>
         </div>
     `
@@ -364,6 +365,8 @@ class NgModelTreeSelectComponent {
 
     @ViewChild('treeSelect', { static: true })
     treeSelect: ThyTreeSelectComponent;
+
+    treeSelectChange = jasmine.createSpy('treeSelectChange');
 }
 
 @Component({
@@ -508,7 +511,7 @@ describe('ThyTreeSelect', () => {
                 expect(initDomWidth).toEqual(document.body.clientWidth);
             }));
 
-            it('should allowClear worked', fakeAsync(() => {
+            it('should allowClear worked in multiple', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
                 fixture.detectChanges();
 
@@ -526,6 +529,28 @@ describe('ThyTreeSelect', () => {
                 clearElement.click();
                 fixture.detectChanges();
                 expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+                expect(touchSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should allowClear worked in single', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                fixture.componentInstance.multiple = false;
+                fixture.detectChanges();
+
+                const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
+
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
+                optionNodes[1].click();
+                fixture.detectChanges();
+
+                const clearElement = fixture.debugElement.nativeElement.querySelector('.select-control-clear');
+                clearElement.click();
+                fixture.detectChanges();
                 expect(touchSpy).toHaveBeenCalled();
             }));
 
@@ -597,6 +622,38 @@ describe('ThyTreeSelect', () => {
 
                 fixture.detectChanges();
 
+                expect(blurSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should call onTouchFn when value change in single mode', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                fixture.componentInstance.multiple = false;
+                fixture.detectChanges();
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-option-item');
+                optionNodes[3].click();
+                fixture.detectChanges();
+                expect(blurSpy).toHaveBeenCalled();
+            }));
+
+            it('should not call onTouchFn when value change in multiple mode', fakeAsync(() => {
+                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
+                fixture.detectChanges();
+                fixture.componentInstance.multiple = true;
+                fixture.detectChanges();
+                const blurSpy = spyOn<any>(fixture.componentInstance.treeComponent, 'onTouchedFn');
+                const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+                trigger.click();
+                fixture.detectChanges();
+                flush();
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-option-item');
+                dispatchFakeEvent(optionNodes[3], 'click');
+                fixture.detectChanges();
                 expect(blurSpy).not.toHaveBeenCalled();
             }));
         });
@@ -754,6 +811,32 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             expect(multipleWrapper.textContent).toContain('root4');
             expect(multipleWrapper.textContent).toContain('root3');
+        }));
+
+        it('should dispatch model change once when remove selected node at multiple', fakeAsync(() => {
+            const fixture = TestBed.createComponent(NgModelTreeSelectComponent);
+            fixture.componentInstance.multiple = true;
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.thy-select-custom')).nativeElement.children[0];
+            trigger.click();
+            fixture.detectChanges();
+            flush();
+
+            const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-option-item');
+            optionNodes[0].click();
+            fixture.detectChanges();
+
+            expect(fixture.componentInstance.treeSelectChange).toHaveBeenCalledTimes(1);
+            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(1);
+
+            const changeSpy = jasmine.createSpy('newChangeSpy');
+            fixture.componentInstance.treeSelectChange = changeSpy;
+
+            optionNodes[0].click();
+            fixture.detectChanges();
+            expect(changeSpy).toHaveBeenCalledTimes(1);
+            expect(fixture.componentInstance.treeSelect.selectedNodes.length).toBe(0);
         }));
     });
 

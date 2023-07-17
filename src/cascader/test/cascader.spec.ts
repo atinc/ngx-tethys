@@ -246,6 +246,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
+            [thyDisabled]="disabled"
             [thyEmptyStateText]="emptyStateText">
         </thy-cascader>
     `
@@ -264,6 +265,7 @@ class CascaderBasicComponent {
     public loadData: any;
     public isShowSearch: boolean = false;
     public emptyStateText = '无选项';
+    public disabled = false;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     changeValue$ = new Subject<string[]>();
@@ -346,6 +348,7 @@ class CascaderTemplateComponent {
             [thyOptions]="multipleOptions"
             [(ngModel)]="multipleVal"
             (ngModelChange)="selectChange($event)"
+            [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
     `
@@ -360,6 +363,8 @@ class CascaderMultipleComponent {
     public selectSpy = jasmine.createSpy('multiple select option');
 
     public isShowSearch: boolean = false;
+
+    public disabled = false;
 
     constructor() {}
 
@@ -438,6 +443,17 @@ describe('thy-cascader', () => {
             const menu = debugElement.query(By.css('.thy-cascader-menu')).nativeElement;
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
         });
+
+        it('should not click open when thyDisabled is true', fakeAsync(() => {
+            component.disabled = true;
+            fixture.detectChanges();
+            const cascaderEle = debugElement.query(By.css(`.thy-cascader-picker`));
+            expect(cascaderEle).toBeTruthy();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
 
         it('should select', done => {
             const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
@@ -754,7 +770,36 @@ describe('thy-cascader', () => {
             expect(allSearchList.length).toBeGreaterThan(0);
             allSearchList.forEach(item => {
                 expect((item as HTMLElement).innerText).toMatch('xihu');
+                const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
+                expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
+                expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();
             });
+        }));
+
+        it('should not searched node that children is empty but not leaf', fakeAsync(() => {
+            fixture.componentInstance.isShowSearch = true;
+            const options = fixture.componentInstance.thyCustomerOptions;
+            options.push({
+                value: 'shandong',
+                label: 'shandong',
+                code: 37,
+                children: []
+            });
+
+            fixture.componentInstance.thyCustomerOptions = options;
+            fixture.detectChanges();
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('shandong', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+            flush();
+            const emptyNode = overlayContainerElement.querySelector('thy-empty') as HTMLElement;
+            expect(emptyNode).toBeTruthy();
+            expect(emptyNode.textContent).toContain(fixture.componentInstance.emptyStateText);
         }));
 
         it('should show empty when do not match any option', fakeAsync(() => {
@@ -920,6 +965,17 @@ describe('thy-cascader', () => {
             expect(labels.length).toBe(selectedValue.length);
         });
 
+        it('should not click open when thyDisabled or disabled is true', fakeAsync(() => {
+            component.disabled = true;
+            fixture.detectChanges();
+            const cascaderEle = debugElement.query(By.css(`.thy-cascader-picker`));
+            expect(cascaderEle).toBeTruthy();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
+
         it('should add item when click', async () => {
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
@@ -1050,7 +1106,7 @@ describe('thy-cascader', () => {
             });
         });
 
-        it('should do nothing  after click activated option', fakeAsync(() => {
+        it('should do nothing after click activated option', fakeAsync(() => {
             fixture.componentInstance.isShowSearch = true;
 
             const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;

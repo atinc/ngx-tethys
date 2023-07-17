@@ -42,6 +42,8 @@ import { ThyCalendarModule } from '../module';
         </thy-calendar>
 
         <thy-calendar [(ngModel)]="value1"> </thy-calendar>
+
+        <thy-calendar> </thy-calendar>
     `
 })
 export class TestCalendarBasicComponent {
@@ -108,6 +110,7 @@ export class TestCalendarHeaderComponent {
     onYearSelect() {}
     onDateRangeSelect() {}
 }
+
 describe('calendar', () => {
     describe('basic', () => {
         let component: TestCalendarBasicComponent;
@@ -164,7 +167,7 @@ describe('calendar', () => {
         it('should dateRangeChange was beCalled when icon-nav was clicked', () => {
             const dateRangeChangeSpy = spyOn(component, 'dateRangeChange');
             const dateRangeSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-header-left');
-            const dateRangeIcons = dateRangeSelect[0].querySelectorAll('.thy-icon-nav');
+            const dateRangeIcons = dateRangeSelect[0].querySelectorAll('.thy-action');
             dispatchFakeEvent(dateRangeIcons[0], 'click', true);
             expect(dateRangeChangeSpy).toHaveBeenCalledTimes(1);
         });
@@ -180,6 +183,20 @@ describe('calendar', () => {
             fixture.detectChanges();
 
             expect(calendarInstance.currentDate.getDate()).toEqual(new TinyDate(component.value1).getDate());
+        }));
+
+        it('should show the default date in the correct format', waitForAsync(() => {
+            fixture.whenStable().then(() => {
+                const calendar = fixture.debugElement.queryAll(By.directive(ThyCalendarComponent))[2];
+                const calendarElement = calendar.nativeElement;
+                const selectedDateText = calendarElement.querySelector('.thy-date-range-text').innerText;
+
+                const calendarHeader = calendar.query(By.directive(ThyCalendarHeaderComponent));
+                const calendarHeaderInstance = calendarHeader.componentInstance;
+                const expectedDateText = calendarHeaderInstance._currentDate.format(calendarHeaderInstance.pickerFormat);
+
+                expect(selectedDateText).toEqual(expectedDateText);
+            });
         }));
     });
 
@@ -246,7 +263,7 @@ describe('calendar-header', () => {
             expect(rangeChangeSpy).toHaveBeenCalledTimes(1);
             expect(rangeChangeSpy).toHaveBeenCalledWith({
                 key: 'month',
-                text: getYear(new Date()) + '年' + (getMonth(new Date()) + 1) + '月',
+                text: new TinyDate().format(debugElement.componentInstance.pickerFormat),
                 begin: getUnixTime(startOfMonth(new Date())),
                 end: getUnixTime(endOfMonth(new Date())),
                 timestamp: {
@@ -266,14 +283,14 @@ describe('calendar-header', () => {
                 const dateRangeChangeSpy = spyOn(component, 'onDateRangeSelect');
 
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 
                 fixture.detectChanges();
                 const dateInfo = {
                     key: 'exception',
-                    text: '2020年1月',
+                    text: '2020年01月',
                     begin: getUnixTime(startOfMonth(new Date(2019, 11, 3))),
                     end: getUnixTime(endOfMonth(new Date(2019, 11, 3))),
                     timestamp: {
@@ -299,7 +316,7 @@ describe('calendar-header', () => {
             fixture.whenStable().then(() => {
                 const onMonthSelectSpy = spyOn(component, 'onMonthSelect');
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 
@@ -315,7 +332,7 @@ describe('calendar-header', () => {
             fixture.whenStable().then(() => {
                 const onYearSelectSpy = spyOn(component, 'onYearSelect');
                 const leftSelect = (fixture.debugElement.nativeElement as HTMLElement).querySelectorAll(
-                    '.select-date-range .thy-icon-nav'
+                    '.select-date-range .thy-action'
                 )[0];
                 dispatchFakeEvent(leftSelect, 'click', true);
 

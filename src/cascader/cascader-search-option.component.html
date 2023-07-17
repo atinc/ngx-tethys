@@ -10,15 +10,8 @@
 
 <thy-breadcrumb thySeparator="slash">
   <ng-container *ngFor="let label of option.labelList; index as i">
-    <ng-container *ngIf="option.thyRowValue[i].isLeaf && isOnlySelectLeaf; else notLeafOptionTpl">
-      <thy-breadcrumb-item
-        ><span>{{ label }}</span></thy-breadcrumb-item
-      >
-    </ng-container>
-    <ng-template #notLeafOptionTpl>
-      <thy-breadcrumb-item class="text-muted"
-        ><span>{{ label }}</span></thy-breadcrumb-item
-      >
-    </ng-template>
+    <thy-breadcrumb-item [ngClass]="{ 'text-muted': !(option.thyRowValue[i].isLeaf && isOnlySelectLeaf) }"
+      ><span class="option-label-item" thyFlexibleText [thyTooltipContent]="label">{{ label }}</span></thy-breadcrumb-item
+    >
   </ng-container>
 </thy-breadcrumb>

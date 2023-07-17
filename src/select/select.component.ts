@@ -28,6 +28,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 /**
  * 下拉选择
  * @name thy-select
+ * @order 20
  */
 @Component({
     selector: 'thy-select',

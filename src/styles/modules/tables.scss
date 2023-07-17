@@ -1,9 +1,9 @@
-@use "sass:map";
-@use "../bootstrap/mixins/breakpoints.scss";
-@use "../mixins/hover.scss";
-@use "../bootstrap/variables.scss" as bootstrap-variables;
-@use "../mixins/tables.scss";
-@use "../variables.scss";
+@use 'sass:map';
+@use '../bootstrap/mixins/breakpoints.scss';
+@use '../mixins/hover.scss';
+@use '../bootstrap/variables.scss' as bootstrap-variables;
+@use '../mixins/tables.scss';
+@use '../variables.scss';
 
 .table {
     width: 100%;
@@ -155,7 +155,6 @@
 }
 
 .table-hover {
-
     tbody tr {
         @include hover.hover {
             cursor: pointer;
@@ -210,14 +209,6 @@
                         display: none;
                     }
                 }
-            }
-        }
-    }
-
-    &.table-bordered {
-        tbody tr td {
-            &:first-child {
-                padding-left: variables.$table-draggable-bordered-icon-padding-left;
             }
         }
     }

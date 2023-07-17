@@ -1,6 +1,8 @@
 <thy-range-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="dateRange"
+  [thyMinDate]="minDate"
+  [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
   (thyShortcutValueChange)="shortcutValueChange($event)"
@@ -9,6 +11,7 @@
 <thy-range-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="dateRange"
+  [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   thyShortcutPosition="bottom"
   (ngModelChange)="onChange($event)"
@@ -17,6 +20,7 @@
 <thy-range-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="dateRange"
+  [thyMinDate]="minDate"
   [thyShowShortcut]="true"
   [thyShortcutPresets]="customShortcut"
   (ngModelChange)="onChange($event)"
@@ -25,6 +29,7 @@
 <thy-date-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="date"
+  [thyMinDate]="minDate"
   [thyShowShortcut]="true"
   (ngModelChange)="onChange($event)"
   (thyShortcutValueChange)="shortcutValueChange($event)"
@@ -33,10 +38,33 @@
 <thy-date-picker
   class="d-block w-50 mb-3"
   [(ngModel)]="date"
+  [thyMaxDate]="maxDate"
+  [thyShowShortcut]="true"
+  (ngModelChange)="onChange($event)"
+></thy-date-picker>
+
+<thy-date-picker
+  class="d-block w-50 mb-3"
+  [(ngModel)]="date"
+  [thyMinDate]="minDate"
+  [thyMaxDate]="maxDate"
   [thyShowShortcut]="true"
   thyShortcutPosition="bottom"
   (ngModelChange)="onChange($event)"
 ></thy-date-picker>
+
+<br />
+
+<thy-property-operation
+  class="w-25 mb-3"
+  thyLabelText="日期区间"
+  [thyValue]="dateRange | thyDatePickerFormat"
+  thyIcon="calendar-check"
+  thyRangePicker
+  [thyShowShortcut]="false"
+  (thyShortcutValueChange)="shortcutValueChange($event)"
+  [(ngModel)]="dateRange"
+></thy-property-operation>
 
 <br />
 

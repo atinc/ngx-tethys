@@ -26,12 +26,13 @@ import { ThyColorPickerModule } from '../module';
             [thyHasBackdrop]="hasBackdrop"
             thyColorPicker
             [(ngModel)]="color"
+            [disabled]="disabled"
             [thyTrigger]="trigger"
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
             (ngModelChange)="change($event)"
-            (thyPanelOpen)="panelOpen()"
-            (thyPanelClose)="panelClose()"
+            (thyPanelOpen)="panelOpen($event)"
+            (thyPanelClose)="panelClose($event)"
             [thyPresetColors]="presetColors"></div>
         <thy-color-picker-panel [colorChange]="defaultPanelColorChange" [color]="defaultPanelColor"></thy-color-picker-panel>
     `,
@@ -61,6 +62,8 @@ class ThyDemoColorPickerComponent {
     hideDelay = 0;
 
     presetColors: string[];
+
+    disabled = false;
 
     constructor(public elementRef: ElementRef<HTMLElement>, private thyPopoverRef: ThyPopoverRef<ThyColorPickerPanelComponent>) {}
 
@@ -213,6 +216,15 @@ describe(`color-picker`, () => {
             expect(fixtureInstance).toBeDefined();
         });
 
+        it('should get correct style when disabled', fakeAsync(() => {
+            expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeFalsy();
+            fixtureInstance.disabled = true;
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeTruthy();
+        }));
+
         it('should open color-picker default panel', fakeAsync(() => {
             openDefaultPanel();
             expect(overlayContainerElement).toBeTruthy();
@@ -343,6 +355,7 @@ describe(`color-picker`, () => {
             openDefaultPanel();
             fixture.detectChanges();
             expect(panelOpen).toHaveBeenCalled();
+            expect(panelOpen).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
         it('should dispatch thyPanelClose', fakeAsync(() => {
@@ -357,6 +370,7 @@ describe(`color-picker`, () => {
             tick();
             flush();
             expect(panelClose).toHaveBeenCalled();
+            expect(panelClose).toHaveBeenCalledWith((colorPickerDirective as any).popoverRef);
         }));
 
         it('should get recentColors from localStorage', fakeAsync(() => {

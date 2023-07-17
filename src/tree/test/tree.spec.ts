@@ -16,12 +16,14 @@ import { ThyTreeEmitEvent } from '../tree.class';
 import { ThyTreeComponent } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
+import { ThyTreeNodeComponent } from '../tree-node.component';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
 const treeNodeSelector = '.thy-tree-node';
 const loadingSelector = '.thy-loading';
 const treeNodeScrollViewport = '.cdk-virtual-scroll-viewport';
+const treeNodeContentSelector = '.thy-tree-node-content';
 
 function triggerScroll(viewport: CdkVirtualScrollViewport, offset?: number) {
     if (offset !== undefined) {
@@ -284,6 +286,14 @@ describe('ThyTreeComponent', () => {
             targetNode.click();
             fixture.detectChanges();
             expect(expandSpy).toHaveBeenCalledTimes(1);
+        }));
+
+        it('test dbclick event', fakeAsync(() => {
+            const dbclickSpy = spyOn(treeInstance, 'onDbClickEvent');
+            const targetNode = treeElement.querySelectorAll(treeNodeContentSelector)[0] as HTMLElement;
+            targetNode.dispatchEvent(new MouseEvent('dblclick'));
+            fixture.detectChanges();
+            expect(dbclickSpy).toHaveBeenCalledTimes(1);
         }));
 
         it('test checkboxChange event', fakeAsync(() => {
@@ -754,6 +764,7 @@ describe('ThyTreeComponent', () => {
             [thyBeforeDragStart]="options.beforeDragStart"
             (thyOnDragDrop)="dragDrop($event)"
             (thyOnClick)="onEvent()"
+            (thyDblClick)="onDbClickEvent()"
             (thyOnCheckboxChange)="onEvent()"
             (thyOnExpandChange)="onEvent()">
             <ng-template #treeNodeTemplate let-node="node" let-data="origin">
@@ -793,6 +804,8 @@ class TestBasicTreeComponent {
     selectedKeys = ['000000000000000000000000'];
 
     onEvent() {}
+
+    onDbClickEvent() {}
 
     dragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
         this.dragDropSpy(event);

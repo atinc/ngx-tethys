@@ -4,8 +4,7 @@
       <ng-container
         *ngFor="let node of nodeList"
         [ngTemplateOutlet]="treeSelectNode"
-        [ngTemplateOutletContext]="{ $implicit: node }"
-      ></ng-container>
+        [ngTemplateOutletContext]="{ $implicit: node }"></ng-container>
     </ng-container>
 
     <cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="defaultItemSize" [style.height]="thyVirtualHeight">
@@ -28,28 +27,23 @@
       [class.disabled]="treeNodeIsDisable(node)"
       [ngStyle]="{ 'padding-left.px': 20 * node.level + parent.icons.gap }"
       (click)="selectTreeNode($event, node)"
-      *ngIf="!treeNodeIsHidden(node)"
-    >
+      *ngIf="!treeNodeIsHidden(node)">
       <span
         class="thy-tree-select-option-icon"
         [class.invisible]="!(node.children?.length > 0 || (node[childCountKey] && node[childCountKey] > 0))"
-        (click)="nodeExpandToggle($event, node)"
-      >
+        (click)="nodeExpandToggle($event, node)">
         <thy-icon class="node-expand-icon" [thyIconName]="treeNodeIsExpand(node) ? parent.icons.expand : parent.icons.collapse"></thy-icon>
       </span>
       <span class="thy-tree-select-option-text">
         <ng-template
           *ngIf="treeNodeTemplateRef; else defaultNodeText"
           [ngTemplateOutlet]="treeNodeTemplateRef"
-          [ngTemplateOutletContext]="{ $implicit: node }"
-        ></ng-template>
+          [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
         <ng-template #defaultNodeText>
           {{ node[showKey] }}
         </ng-template>
       </span>
-      <span class="checked-icon" *ngIf="isMultiple">
-        <i class="wtf wtf-checked"></i>
-      </span>
+      <thy-icon class="checked-icon" *ngIf="isMultiple" thyIconName="check"></thy-icon>
     </a>
     <ng-container *ngIf="!thyVirtualScroll && treeNodeIsExpand(node) && node.children?.length > 0">
       <ng-container [ngTemplateOutlet]="treeSelectNode" *ngFor="let node of node.children" [ngTemplateOutletContext]="{ $implicit: node }">

@@ -45,3 +45,46 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
 ```
 
 <examples />
+
+## 全局配置
+对于日期选择的快捷选择参数可以支持全局配置，如果需要全局替换默认的配置，可以通过注入令牌为`THY_DATE_PICKER_CONFIG`的值进行配置，如下：
+```ts
+@NgModule({
+    providers: [
+        ...
+        {
+            provide: THY_DATE_PICKER_CONFIG,
+            useValue: {
+                showShortcut: true,
+                shortcutPosition: 'left',
+                shortcutDatePresets: () => {
+                    return [
+                        {
+                            title: '今天',
+                            value: startOfDay(new Date()).getTime()
+                        }
+                    ];
+                },
+                shortcutRangesPresets: () => {
+                    return [
+                        {
+                            title: '最近 7 天',
+                            value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                        },
+                        {
+                            title: '最近 30 天',
+                            value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+                        },
+                        {
+                            title: '本周',
+                            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
+                        }
+                    ];
+                }
+            }
+        }
+        ...
+    ]
+})
+export class AppModule { }
+```

@@ -156,7 +156,7 @@ export const namePackageRelationsInNg13 = {
     ThyDatePickerComponent: 'date-picker',
     ThyDatePickerConfig: 'date-picker',
     DEFAULT_DATE_PICKER_CONFIG: 'date-picker',
-    THY_DATE_PICKER_CONFIG_TOKEN: 'date-picker',
+    THY_DATE_PICKER_CONFIG: 'date-picker',
     ThyDatePickerDirective: 'date-picker',
     ThyDatePickerModule: 'date-picker',
     ThyDatePickerConfigService: 'date-picker',

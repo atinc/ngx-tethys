@@ -184,7 +184,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
             componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
                 this.thyShortcutValueChange.emit(event);
-                this.closeOverlay();
             });
             popoverRef
                 .afterOpened()

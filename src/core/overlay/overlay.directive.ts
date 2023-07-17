@@ -1,4 +1,4 @@
-import { ElementRef, NgZone } from '@angular/core';
+import { ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
 import { OverlayRef } from '@angular/cdk/overlay';
 import { Subject, fromEvent } from 'rxjs';
 import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
@@ -38,6 +38,7 @@ export abstract class ThyOverlayDirectiveBase {
     protected disabled = false;
     protected showTimeoutId: number | null | any;
     protected hideTimeoutId: number | null | any;
+    protected changeDetectorRef: ChangeDetectorRef;
 
     /**
      * The overlay keep opened when the mouse moves to the overlay container
@@ -67,12 +68,20 @@ export abstract class ThyOverlayDirectiveBase {
         }
     }
 
-    constructor(elementRef: ElementRef, platform: Platform, focusMonitor: FocusMonitor, ngZone: NgZone, overlayPin?: boolean) {
+    constructor(
+        elementRef: ElementRef,
+        platform: Platform,
+        focusMonitor: FocusMonitor,
+        ngZone: NgZone,
+        overlayPin?: boolean,
+        changeDetectorRef?: ChangeDetectorRef
+    ) {
         this.elementRef = elementRef;
         this.platform = platform;
         this.focusMonitor = focusMonitor;
         this.ngZone = ngZone;
         this.overlayPin = overlayPin;
+        this.changeDetectorRef = changeDetectorRef;
     }
 
     initialize() {
@@ -120,7 +129,9 @@ export abstract class ThyOverlayDirectiveBase {
                 // this.manualListeners.set('focus', () => this.show());
                 // this.manualListeners.set('blur', () => this.hide());
             } else if (this.trigger === 'click') {
-                this.manualListeners.set('click', () => this.show());
+                this.manualListeners.set('click', () => {
+                    this.show();
+                });
             } else if (typeof ngDevMode === 'undefined' || ngDevMode) {
                 throw new Error(`${this.trigger} is not supporteed, possible values are: hover | focus | click.`);
             }
@@ -146,6 +157,15 @@ export abstract class ThyOverlayDirectiveBase {
             // We never call `preventDefault()` on events, so we're safe making them passive.
             element.addEventListener(event, listener, passiveEventListenerOptions)
         );
+    }
+
+    /**
+     * Marks that the overlay needs to be checked in the next change detection run.
+     * Mainly used for rendering before positioning a overlay, which
+     * can be problematic in components with OnPush change detection.
+     */
+    markForCheck() {
+        this.changeDetectorRef?.markForCheck();
     }
 
     dispose(): void {

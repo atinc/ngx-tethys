@@ -27,6 +27,8 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyCollapsible]="collapsible"
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
+                [thyDirection]="sidebarDirection"
+                [thyHasBorderLeft]="hasBorderLeft"
                 (thyCollapsedChange)="collapsedChange($event)"
                 (thyDragWidthChange)="dragWidthChange($event)"
                 [thyTrigger]="triggerTpl">
@@ -53,6 +55,8 @@ class ThyDemoLayoutSidebarBasicComponent {
     thyTheme: ThySidebarTheme;
     isCollapsed = false;
     dragWidth: number;
+    sidebarDirection: 'left' | 'right' = 'left';
+    hasBorderLeft = true;
 
     @ViewChild('customTpl', { read: TemplateRef, static: true }) customTpl: TemplateRef<unknown> | undefined;
 
@@ -71,7 +75,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     selector: 'thy-demo-layout-custom-sidebar',
     template: `
         <thy-layout>
-            <thy-sidebar>
+            <thy-sidebar [thyDirection]="sidebarDirection">
                 <thy-sidebar-header>
                     <ng-template #headerTitle>My Custom Sidebar Header Title</ng-template>
                     <ng-template #headerOperation>My Custom Sidebar Header Operation</ng-template>
@@ -81,7 +85,9 @@ class ThyDemoLayoutSidebarBasicComponent {
         </thy-layout>
     `
 })
-class ThyDemoLayoutCustomSidebarComponent {}
+class ThyDemoLayoutCustomSidebarComponent {
+    sidebarDirection = 'right';
+}
 
 describe(`sidebar`, () => {
     beforeEach(() => {
@@ -182,6 +188,20 @@ describe(`sidebar`, () => {
             fixture.debugElement.componentInstance.hasBorderRight = false;
             fixture.detectChanges();
             expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-right');
+        });
+
+        it(`should get correct class according to thyDirection value`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar-right');
+            fixture.debugElement.componentInstance.sidebarDirection = 'right';
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar-right');
+        });
+
+        it(`should get correct class according to thyHasBorderLeft value`, () => {
+            expect(sidebarElement.classList).not.toContain('thy-layout-sidebar--clear-border-left');
+            fixture.debugElement.componentInstance.hasBorderLeft = false;
+            fixture.detectChanges();
+            expect(sidebarElement.classList).toContain('thy-layout-sidebar--clear-border-left');
         });
 
         describe('thyDraggable', () => {
@@ -391,6 +411,7 @@ describe(`sidebar`, () => {
         it(`should get correct class`, () => {
             expect(layoutElement.classList.contains(`thy-layout`)).toEqual(true);
             expect(layoutElement.classList.contains(`thy-layout--has-sidebar`)).toEqual(true);
+            expect(layoutElement.classList.contains(`thy-layout--is-sidebar-right`)).toEqual(true);
             expect(sidebarElement.classList.contains(`thy-layout-sidebar`)).toEqual(true);
         });
 

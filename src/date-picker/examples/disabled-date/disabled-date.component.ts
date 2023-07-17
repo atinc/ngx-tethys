@@ -1,6 +1,7 @@
-import { differenceInDays } from 'date-fns';
+import { addDays, differenceInDays, endOfDay, startOfDay } from 'date-fns';
 
 import { Component, OnInit } from '@angular/core';
+import { TinyDate } from 'ngx-tethys/util';
 
 @Component({
     selector: 'thy-date-picker-disabled-date-example',
@@ -8,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     date: Date;
+
+    start: Date;
+
+    due: Date;
 
     limitDate = new Date();
 
@@ -20,6 +25,12 @@ export class ThyDatePickerDisabledDateExampleComponent implements OnInit {
     selectedDateRange: Date[] = [];
 
     dynamicDisabled: { begin: number; end: number };
+
+    dateRange: { begin: number; end: number };
+
+    minDateRange = startOfDay(addDays(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime(), 3));
+
+    maxDateRange = endOfDay(addDays(new Date(), -7));
 
     constructor() {}
 

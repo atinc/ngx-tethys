@@ -20,9 +20,10 @@ import { ThyFormModule } from '../form';
 import { ThyOptionModule } from '../shared/option/module';
 import { ThyOptionComponent } from '../shared/option/option.component';
 import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
-import { SelectMode, ThySelectCustomComponent } from './custom-select/custom-select.component';
+import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
-import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
+import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
+import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -37,6 +38,7 @@ import { THY_SELECT_SCROLL_STRATEGY } from './select.config';
                 [thySize]="size"
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
+                [thyMode]="mode"
                 [thyOrigin]="customizeOrigin">
                 <thy-option
                     *ngFor="let food of foods"
@@ -68,6 +70,7 @@ class BasicSelectComponent {
     isRequired: boolean;
     enableScrollLoad: boolean;
     size = '';
+    mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
@@ -388,7 +391,7 @@ class SelectWithSearchAndServerSearchComponent {
         <form thyForm name="demoForm" #demoForm="ngForm">
             <thy-custom-select
                 thyPlaceHolder="Food"
-                [thyMode]="'multiple'"
+                [thyMode]="mode"
                 style="width:500px"
                 [thyAllowClear]="thyAllowClear"
                 [(ngModel)]="selectedValue"
@@ -416,6 +419,7 @@ class SelectEimtOptionsChangesComponent {
         { value: 'pasta-6', viewValue: 'Pasta' },
         { value: 'sushi-7', viewValue: 'Sushi' }
     ];
+    mode = 'multiple';
     selectedValue = ['sushi-7'];
     thyAllowClear = true;
     disabled = false;
@@ -643,6 +647,34 @@ class SelectWithAsyncLoadComponent implements OnInit {
     }
 }
 
+@Component({
+    selector: 'thy-select-dropdown-width',
+    template: `
+        <div style="width:100px">
+            <thy-custom-select class="select1" [thyDropdownWidthMode]="dropdownWidthMode" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
+
+        <div style="width:100px">
+            <thy-custom-select class="select2" [(ngModel)]="selectedValue">
+                <thy-option *ngFor="let option of options" [thyValue]="option.value" [thyLabelText]="option.viewValue"> </thy-option>
+            </thy-custom-select>
+        </div>
+    `
+})
+class SelectDropdownWidthComponent {
+    dropdownWidthMode: ThyDropdownWidthMode;
+
+    options = [
+        { value: 'steak-0', viewValue: 'Steak' },
+        { value: 'pizza-1', viewValue: 'Pizza' },
+        { value: 'tacos-2', viewValue: 'Tacos' }
+    ];
+
+    selectedValue = this.options[0].value;
+}
+
 describe('ThyCustomSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -797,6 +829,28 @@ describe('ThyCustomSelect', () => {
 
                 expect(blurSpy).not.toHaveBeenCalled();
             }));
+
+            it('should call onTouchFn when value change in single mode', () => {
+                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options.toArray();
+                optionInstances[1].select();
+                fixture.detectChanges();
+                optionInstances[1].deselect();
+                fixture.detectChanges();
+                expect(blurSpy).toHaveBeenCalled();
+            });
+
+            it('should not call onTouchFn when value change in multiple mode', () => {
+                fixture.componentInstance.mode = 'multiple';
+                fixture.detectChanges();
+                const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+                const optionInstances = fixture.componentInstance.options.toArray();
+                optionInstances[1].select();
+                fixture.detectChanges();
+                optionInstances[1].deselect();
+                fixture.detectChanges();
+                expect(blurSpy).not.toHaveBeenCalled();
+            });
         });
 
         describe('size', () => {
@@ -1247,6 +1301,63 @@ describe('ThyCustomSelect', () => {
         });
     });
 
+    describe('dropdown min width', () => {
+        let containerSelector: string;
+
+        it('should support thyDropdownWidthMode to set cdkConnectedOverlayMinWidth', fakeAsync(() => {
+            configureThyCustomSelectTestingModule([SelectDropdownWidthComponent]);
+
+            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            fixture.detectChanges();
+
+            containerSelector = '.select1';
+            assertDropdownMinWidth(fixture, 'match-select', 'width', 100);
+            assertDropdownMinWidth(fixture, 'min-width', 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
+            assertDropdownMinWidth(fixture, { minWidth: 300 }, 'minWidth', 300);
+        }));
+
+        it('should support global setting dropdownWidthMode in THY_SELECT_CONFIG', () => {
+            configureThyCustomSelectTestingModule(
+                [SelectDropdownWidthComponent],
+                [
+                    {
+                        provide: THY_SELECT_CONFIG,
+                        useValue: {
+                            dropdownWidthMode: 'min-width'
+                        }
+                    }
+                ]
+            );
+
+            let fixture: ComponentFixture<SelectDropdownWidthComponent> = TestBed.createComponent(SelectDropdownWidthComponent);
+            fixture.detectChanges();
+            containerSelector = '.select2';
+            assertDropdownMinWidth(fixture, null, 'minWidth', THY_SELECT_PANEL_MIN_WIDTH);
+        });
+
+        function assertDropdownMinWidth(
+            fixture: ComponentFixture<SelectDropdownWidthComponent>,
+            dropdownWidthMode: ThyDropdownWidthMode,
+            styleProperty: 'width' | 'minWidth',
+            expectedValue: number
+        ) {
+            const testComponent = fixture.componentInstance;
+            testComponent.dropdownWidthMode = dropdownWidthMode;
+            fixture.detectChanges();
+
+            const selectComponent = fixture.debugElement.query(By.css(containerSelector)).componentInstance;
+            selectComponent.ngOnInit();
+            fixture.detectChanges();
+
+            const inputElement = fixture.debugElement.query(By.css(`${containerSelector} input`)).nativeElement;
+            dispatchFakeEvent(inputElement, 'click', true);
+            fixture.detectChanges();
+
+            const pane = overlayContainerElement.querySelector('.cdk-overlay-pane') as HTMLElement;
+            expect(pane.style[styleProperty]).toEqual(`${expectedValue}px`);
+        }
+    });
+
     describe('with ngModel', () => {
         beforeEach(async(() => configureThyCustomSelectTestingModule([NgModelSelectComponent])));
 
@@ -1576,7 +1687,7 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.selectedValue).toEqual([]);
         }));
 
-        it('should not  clear selected value when disabled is true', fakeAsync(() => {
+        it('should not clear selected value when disabled is true', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
@@ -1590,16 +1701,33 @@ describe('ThyCustomSelect', () => {
             expect(fixture.componentInstance.selectedValue).toEqual(['sushi-7']);
         }));
 
-        it('should exec clear when click clear icon', fakeAsync(() => {
+        it('should exec clear when click clear icon in multiple mode', fakeAsync(() => {
             const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
             fixture.detectChanges();
             flush();
             fixture.detectChanges();
 
+            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
             trigger.click();
             tick();
             expect(fixture.componentInstance.selectedValue).toEqual([]);
+            expect(blurSpy).not.toHaveBeenCalled();
+        }));
+
+        it('should exec clear when click clear icon in single mode', fakeAsync(() => {
+            const fixture = TestBed.createComponent(SelectEimtOptionsChangesComponent);
+            fixture.detectChanges();
+            flush();
+            fixture.componentInstance.mode = 'multiple';
+            fixture.detectChanges();
+
+            const blurSpy = spyOn<any>(fixture.componentInstance.select, 'onTouchedFn');
+            const trigger = fixture.debugElement.query(By.css('.select-control-clear')).nativeElement;
+            trigger.click();
+            tick();
+            expect(fixture.componentInstance.selectedValue).toEqual([]);
+            expect(blurSpy).not.toHaveBeenCalled();
         }));
 
         it('should remove selected value when option disabled', fakeAsync(() => {
@@ -2011,28 +2139,72 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('placement', () => {
-        let fixture: ComponentFixture<SelectWithThyPlacementComponent>;
-
-        beforeEach(async(() => {
+        it('should support thyPlacement', fakeAsync(() => {
             configureThyCustomSelectTestingModule([SelectWithThyPlacementComponent]);
-        }));
 
-        beforeEach(fakeAsync(() => {
-            fixture = TestBed.createComponent(SelectWithThyPlacementComponent);
+            const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
             fixture.detectChanges();
+
+            const placements: ThyPlacement[] = [
+                'top',
+                'topLeft',
+                'topRight',
+                'bottom',
+                'bottomLeft',
+                'bottomRight',
+                'left',
+                'leftTop',
+                'leftBottom',
+                'right',
+                'rightTop',
+                'rightBottom'
+            ];
+
+            placements.forEach(placement => {
+                assertPlacement(fixture, placement);
+            });
         }));
 
-        it('should get correct placement', fakeAsync(() => {
-            const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
-            componentInstance.thyPlacement = 'top';
+        it('should support global setting placement in THY_SELECT_CONFIG', fakeAsync(() => {
+            const globalPlacement = 'bottomLeft';
+
+            configureThyCustomSelectTestingModule(
+                [SelectWithThyPlacementComponent],
+                [
+                    {
+                        provide: THY_SELECT_CONFIG,
+                        useValue: {
+                            placement: globalPlacement
+                        }
+                    }
+                ]
+            );
+
+            const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
+            fixture.detectChanges();
+
+            assertPlacement(fixture, globalPlacement);
+        }));
+
+        function assertPlacement(fixture: ComponentFixture<SelectWithThyPlacementComponent>, placement: ThyPlacement) {
+            const testComponent = fixture.debugElement.componentInstance;
+            testComponent.thyPlacement = placement;
+            fixture.detectChanges();
+
+            const selectComponent = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+            selectComponent.ngOnInit();
+            fixture.detectChanges();
+            flush();
 
             let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
             flush();
 
-            expect(componentInstance.dropDownPositions[0].originY).toEqual('top');
-        }));
+            ['originX', 'originY', 'overlayX', 'overlayY'].forEach(key => {
+                expect(selectComponent.dropDownPositions[0][key]).toEqual(POSITION_MAP[placement][key]);
+            });
+        }
     });
 
     describe('config', () => {

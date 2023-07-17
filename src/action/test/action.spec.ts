@@ -1,5 +1,5 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { ThyActionModule } from '../action.module';
 import { injectDefaultSvgIconSet } from 'ngx-tethys/testing';
 import { By } from '@angular/platform-browser';
@@ -14,6 +14,8 @@ import { By } from '@angular/platform-browser';
         <a id="with-theme-lite" thyTheme="lite" thyAction thyType="danger" thyIcon="inbox"></a>
         <a id="with-hover-icon" thyAction thyIcon="inbox" thyHoverIcon="search"></a>
         <a id="with-text-disabled" thyAction thyIcon="inbox" thyHoverIcon="search" [thyDisabled]="true"></a>
+        <a #feedbackAction1 id="with-feedback" thyAction thyIcon="inbox"></a>
+        <a #feedbackAction2 id="with-feedback-disabled" thyAction thyIcon="inbox" [thyDisabled]="true"></a>
     `
 })
 class ThyActionTestBasicComponent {}
@@ -107,5 +109,29 @@ describe('thy-action', () => {
         expect(hoverIcon.classList.contains('hover-icon')).toBeTruthy();
         expect(hoverIcon.classList.contains('thy-icon')).toBeTruthy();
         expect(hoverIcon.classList.contains('thy-icon-search')).toBeTruthy();
+    });
+
+    it('should create with feedback', fakeAsync(() => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-feedback'));
+        actionDebugElement.componentInstance.success();
+        let actionElement = actionDebugElement.nativeElement;
+        fixture.detectChanges();
+        expect(actionElement.children[0].classList.contains('thy-icon')).toBeTruthy();
+        expect(actionElement.children[0].classList.contains(`thy-icon-check-circle-fill`)).toBeTruthy();
+        actionDebugElement.componentInstance.error({ duration: 2000 });
+        actionElement = actionDebugElement.nativeElement;
+        fixture.detectChanges();
+        expect(actionElement.children[0].classList.contains('thy-icon')).toBeTruthy();
+        expect(actionElement.children[0].classList.contains(`thy-icon-close-circle-fill`)).toBeTruthy();
+        tick(2000);
+        fixture.detectChanges();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
+    }));
+
+    it('should call success invalid when disabled', () => {
+        actionDebugElement = fixture.debugElement.query(By.css('#with-feedback-disabled'));
+        actionDebugElement.componentInstance.success(3000);
+        fixture.detectChanges();
+        assertActionExpected(actionDebugElement.nativeElement, 'inbox');
     });
 });

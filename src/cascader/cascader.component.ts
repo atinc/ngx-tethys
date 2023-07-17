@@ -394,6 +394,14 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     public isShowSearchPanel: boolean = false;
 
+    /**
+     * 解决搜索&多选的情况下，点击搜索项会导致 panel 闪烁
+     * 由于点击后，thySelectedOptions变化，导致 thySelectControl
+     * 又会触发 searchFilter 函数，即 resetSearch 会执行
+     * 会导致恢复级联状态再变为搜索状态
+     */
+    private isSelectingSearchState: boolean = false;
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -731,7 +739,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {
-        if (this.disabled && !this.isMultiple) {
+        if (this.disabled) {
             return;
         }
         if (this.isClickTriggerAction()) {
@@ -741,7 +749,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     @HostListener('mouseover', ['$event'])
     public toggleHover($event: Event) {
-        if (this.disabled && !this.isMultiple) {
+        if (this.disabled) {
             return;
         }
         if (this.isHoverTriggerAction()) {
@@ -983,7 +991,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     }
 
     public searchFilter(searchText: string) {
-        if (!searchText) {
+        if (!searchText && !this.isSelectingSearchState) {
             this.resetSearch();
         }
         this.searchText$.next(searchText);
@@ -1023,7 +1031,8 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
             if (item.children && item.children.length) {
                 this.searchInLocal(searchText, label, valueList, rowValueList, item.children);
             } else {
-                if (!item.disabled && curOptionLabel.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                // 目前只支持搜索根节点
+                if (!item.disabled && item.isLeaf && curOptionLabel.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
                     this.searchResultList.push({
                         labelList: label,
                         valueList,
@@ -1050,6 +1059,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
             return;
         }
         if (this.isMultiple) {
+            this.isSelectingSearchState = true;
             selectOptionData.selected = true;
             selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
                 this.setActiveOption(item, index, item.isLeaf);
@@ -1059,6 +1069,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
             setTimeout(() => {
                 this.isShowSearchPanel = true;
                 this.searchResultList = originSearchResultList;
+                this.isSelectingSearchState = false;
             });
         } else {
             selectedOptions.forEach((item: ThyCascaderOption, index: number) => {

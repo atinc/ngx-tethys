@@ -19,7 +19,7 @@ class ThyViewOutletTemplateTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-content',
-    template: ` Count: {{ count }} `
+    template: `Count: {{ count }}`
 })
 class ThyViewOutletContentTestComponent {
     count = 1;
@@ -27,16 +27,16 @@ class ThyViewOutletContentTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-test',
-    template: ` <ng-container *thyViewOutlet="contentComponent; context: { count: count }"></ng-container> `
+    template: `<ng-container *thyViewOutlet="contentComponent; context: context"></ng-container>`
 })
 class ThyViewOutletComponentTestComponent {
     contentComponent = ThyViewOutletContentTestComponent;
-    count = 1;
+    context = { count: 1 };
 }
 
 @Component({
     selector: 'thy-shared-view-outlet-content-multi',
-    template: ` Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }} `
+    template: `Count: {{ count }}, Name: {{ innerName }}, Called: {{ nameSetInvokeCount }}`
 })
 class ThyViewOutletContentMultiTestComponent {
     count = 1;
@@ -53,7 +53,7 @@ class ThyViewOutletContentMultiTestComponent {
 
 @Component({
     selector: 'thy-shared-view-outlet-component-multi-test',
-    template: ` <ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container> `
+    template: `<ng-container *thyViewOutlet="contentComponent; context: { count: count, name: name }"></ng-container>`
 })
 class ThyViewOutletComponentMultiTestComponent {
     contentComponent = ThyViewOutletContentMultiTestComponent;
@@ -116,9 +116,16 @@ describe('thy-view-outlet', () => {
 
         it('should update context for component outlet', () => {
             const element = fixture.debugElement.nativeElement as HTMLElement;
-            fixtureInstance.count = 10;
+            fixtureInstance.context = { count: 10 };
             fixture.detectChanges();
             expect(element.textContent).toContain('Count: 10');
+        });
+
+        it('should update context when current context and previous context are the same object', () => {
+            const element = fixture.debugElement.nativeElement as HTMLElement;
+            fixtureInstance.context = { ...fixtureInstance.context };
+            fixture.detectChanges();
+            expect(element.textContent).toContain('Count: 1');
         });
     });
 
