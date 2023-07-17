@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyInnerTimePickerComponent } from 'ngx-tethys/time-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * @private
@@ -23,6 +24,7 @@ export class CalendarFooterComponent implements OnInit {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;
+    @Input() @InputBoolean() disableTimeConfirm = false;
     @Output() readonly selectTime = new EventEmitter<TinyDate>();
     @Output() readonly clickOk = new EventEmitter<void>();
     @Output() readonly clickRemove = new EventEmitter<void>();

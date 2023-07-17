@@ -23,6 +23,7 @@ import { DOWN_ARROW, END, ENTER, ESCAPE, HOME } from '../util/keycodes';
 import { SelectMode, THY_SELECT_PANEL_MIN_WIDTH, ThySelectCustomComponent } from './custom-select/custom-select.component';
 import { ThySelectModule } from './module';
 import { THY_SELECT_CONFIG, THY_SELECT_SCROLL_STRATEGY, ThyDropdownWidthMode } from './select.config';
+import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
     selector: 'thy-select-basic-test',
@@ -1315,14 +1316,14 @@ describe('ThyCustomSelect', () => {
             assertDropdownMinWidth(fixture, { minWidth: 300 }, 'minWidth', 300);
         }));
 
-        it('should support use global setting THY_SELECT_CONFIG', () => {
+        it('should support global setting dropdownWidthMode in THY_SELECT_CONFIG', () => {
             configureThyCustomSelectTestingModule(
                 [SelectDropdownWidthComponent],
                 [
                     {
                         provide: THY_SELECT_CONFIG,
                         useValue: {
-                            thyDropdownWidthMode: 'min-width'
+                            dropdownWidthMode: 'min-width'
                         }
                     }
                 ]
@@ -2138,28 +2139,72 @@ describe('ThyCustomSelect', () => {
     });
 
     describe('placement', () => {
-        let fixture: ComponentFixture<SelectWithThyPlacementComponent>;
-
-        beforeEach(async(() => {
+        it('should support thyPlacement', fakeAsync(() => {
             configureThyCustomSelectTestingModule([SelectWithThyPlacementComponent]);
-        }));
 
-        beforeEach(fakeAsync(() => {
-            fixture = TestBed.createComponent(SelectWithThyPlacementComponent);
+            const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
             fixture.detectChanges();
+
+            const placements: ThyPlacement[] = [
+                'top',
+                'topLeft',
+                'topRight',
+                'bottom',
+                'bottomLeft',
+                'bottomRight',
+                'left',
+                'leftTop',
+                'leftBottom',
+                'right',
+                'rightTop',
+                'rightBottom'
+            ];
+
+            placements.forEach(placement => {
+                assertPlacement(fixture, placement);
+            });
         }));
 
-        it('should get correct placement', fakeAsync(() => {
-            const componentInstance = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
-            componentInstance.thyPlacement = 'top';
+        it('should support global setting placement in THY_SELECT_CONFIG', fakeAsync(() => {
+            const globalPlacement = 'bottomLeft';
+
+            configureThyCustomSelectTestingModule(
+                [SelectWithThyPlacementComponent],
+                [
+                    {
+                        provide: THY_SELECT_CONFIG,
+                        useValue: {
+                            placement: globalPlacement
+                        }
+                    }
+                ]
+            );
+
+            const fixture: ComponentFixture<SelectWithThyPlacementComponent> = TestBed.createComponent(SelectWithThyPlacementComponent);
+            fixture.detectChanges();
+
+            assertPlacement(fixture, globalPlacement);
+        }));
+
+        function assertPlacement(fixture: ComponentFixture<SelectWithThyPlacementComponent>, placement: ThyPlacement) {
+            const testComponent = fixture.debugElement.componentInstance;
+            testComponent.thyPlacement = placement;
+            fixture.detectChanges();
+
+            const selectComponent = fixture.debugElement.query(By.directive(ThySelectCustomComponent)).componentInstance;
+            selectComponent.ngOnInit();
+            fixture.detectChanges();
+            flush();
 
             let trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
             trigger.click();
             fixture.detectChanges();
             flush();
 
-            expect(componentInstance.dropDownPositions[0].originY).toEqual('top');
-        }));
+            ['originX', 'originY', 'overlayX', 'overlayY'].forEach(key => {
+                expect(selectComponent.dropDownPositions[0][key]).toEqual(POSITION_MAP[placement][key]);
+            });
+        }
     });
 
     describe('config', () => {

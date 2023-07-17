@@ -14,8 +14,6 @@ import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDatePickerShortcutExampleComponent } from './shortcut/shortcut.component';
 import { ThyFormModule } from 'ngx-tethys/form';
-import { THY_DATE_PICKER_CONFIG } from 'ngx-tethys/date-picker';
-import { addWeeks, startOfDay, startOfWeek } from 'date-fns';
 
 const COMPONENTS = [
     ThyDatePickerBasicExampleComponent,
@@ -32,24 +30,6 @@ const COMPONENTS = [
 @NgModule({
     declarations: [...COMPONENTS],
     imports: [CommonModule, FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, ThyButtonModule, ThyFormModule],
-    exports: [...COMPONENTS],
-    providers: [
-        {
-            provide: THY_DATE_PICKER_CONFIG,
-            useValue: {
-                showShortcut: true,
-                shortcutDatePresets: [
-                    {
-                        title: '今天',
-                        value: startOfDay(new Date()).getTime()
-                    },
-                    {
-                        title: '下周',
-                        value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
-                    }
-                ]
-            }
-        }
-    ]
+    exports: [...COMPONENTS]
 })
 export class ThyDatePickerExamplesModule {}

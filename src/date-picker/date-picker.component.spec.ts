@@ -1,4 +1,4 @@
-import { addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ESCAPE } from '@angular/cdk/keycodes';
@@ -15,6 +15,7 @@ import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
+import { DatePopupComponent } from './lib/popups/date-popup.component';
 
 registerLocaleData(zh);
 
@@ -24,16 +25,19 @@ describe('ThyDatePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    const shortcutDatePresets = [
-        {
-            title: '今天',
-            value: startOfDay(new Date()).getTime()
-        },
-        {
-            title: '下周',
-            value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
-        }
-    ];
+
+    const shortcutDatePresets = () => {
+        return [
+            {
+                title: '今天',
+                value: startOfDay(new Date()).getTime()
+            },
+            {
+                title: '下周',
+                value: startOfWeek(addWeeks(new Date(), 1), { weekStartsOn: 1 }).getTime()
+            }
+        ];
+    };
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -70,14 +74,105 @@ describe('ThyDatePickerComponent', () => {
 
     describe('date picker global config testing', () => {
         beforeEach(() => (fixtureInstance.useSuite = 1));
-        it('show should support', fakeAsync(() => {
+
+        it('show should global config shortcut', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            const shortcutItems = getShortcutItems();
+            const datePresets = shortcutDatePresets();
             shortcutItems.forEach((shortcut, index) => {
-                expect(shortcut.innerHTML.trim()).toBe(shortcutDatePresets[index].title);
+                expect(shortcut.innerHTML.trim()).toBe(datePresets[index].title);
             });
         }));
+
+        it('should disable shortcut item whose preset value is less than thyMinDate', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), 1)).getTime());
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const shortcutItems = getShortcutItems();
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const todayItem = shortcutItems[0];
+            expect(todayItem.classList.contains('disabled')).toBe(true);
+
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
+        }));
+
+        it('show not disable shortcut item whose preset value is less than thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMaxDate = new Date(startOfWeek(addWeeks(new Date(), 2), { weekStartsOn: 1 }).getTime());
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const shortcutItems = getShortcutItems();
+            dispatchMouseEvent(shortcutItems[1], 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const nextWeekItem = shortcutItems[1];
+            expect(nextWeekItem.classList.contains('disabled')).toBe(false);
+
+            const input = getPickerTrigger();
+            const datePresets = shortcutDatePresets();
+            expect(input.value).toBe(format(datePresets[1].value, 'yyyy-MM-dd'));
+        }));
+
+        it('should return if value of shortcutPresets is null', fakeAsync(() => {
+            fixtureInstance.thyMinDate = new Date(startOfDay(addDays(new Date(), -2)).getTime());
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const datePopupComponent = fixture.debugElement.query(By.directive(DatePopupComponent)).componentInstance;
+            datePopupComponent.shortcutSetValue({ value: null });
+
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe('');
+        }));
+
+        it('should not reset the selected time when shortcut select date', fakeAsync(() => {
+            const selectedTime = `11:22`;
+            fixtureInstance.thyValue = new Date(`2018-11-11 ${selectedTime}`);
+            fixtureInstance.thyShowTime = true;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = getShortcutItems();
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const input = getPickerTrigger();
+            expect(input.value).toContain(selectedTime);
+        }));
+
+        it('should get the correct preset value when time passes', fakeAsync(() => {
+            const currentDate = new Date('2023-07-01');
+            jasmine.clock().mockDate(currentDate);
+            assertPresets('2023-07-01');
+
+            tick(24 * 60 * 60 * 1000);
+            assertPresets('2023-07-02');
+
+            tick(2 * 24 * 60 * 60 * 1000);
+            assertPresets('2023-07-04');
+        }));
+
+        function assertPresets(expectedValue: string) {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+
+            const shortcutItems = getShortcutItems();
+            const todayItem = shortcutItems[0];
+            dispatchMouseEvent(todayItem, 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const input = getPickerTrigger();
+            expect(input.value).toBe(expectedValue);
+        }
     });
 
     describe('general api testing', () => {
@@ -730,6 +825,100 @@ describe('ThyDatePickerComponent', () => {
         }));
     });
 
+    describe('disable ok button of time according to thyMinDate and thyMaxDate', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+
+        it('should disable to click the ok button of time when the selected date value is less than thyMinDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                maxDate: null,
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is greater than thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is null and thyMaxDate is less than today', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should disable to click the ok button of time when the selected date value is null and thyMinDate is greater than today', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: null,
+                maxDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                disabled: true,
+                onOkCallTimes: 0
+            });
+        }));
+
+        it('should not disable to click the ok button of time when the selected date value is between thyMinDate and thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: new Date(startOfDay(new Date()).getTime()),
+                minDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                maxDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                disabled: false,
+                onOkCallTimes: 1
+            });
+        }));
+
+        it('should not disable to click the ok button of time when the selected date value is null and today is between thyMinDate and thyMaxDate', fakeAsync(() => {
+            assertIsDisableTimeConfirm({
+                selectedDate: null,
+                minDate: new Date(startOfDay(addDays(new Date(), -1)).getTime()),
+                maxDate: new Date(startOfDay(addDays(new Date(), 1)).getTime()),
+                disabled: false,
+                onOkCallTimes: 1
+            });
+        }));
+
+        function assertIsDisableTimeConfirm(options: {
+            selectedDate: Date;
+            minDate: Date;
+            maxDate: Date;
+            disabled: boolean;
+            onOkCallTimes: number;
+        }) {
+            fixtureInstance.thyShowTime = true;
+            fixtureInstance.thyValue = options.selectedDate;
+            fixtureInstance.thyMinDate = options.minDate;
+            fixtureInstance.thyMaxDate = options.maxDate;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            dispatchMouseEvent(getSetTimeButton(), 'click');
+            fixture.detectChanges();
+            const confirmButton = getConfirmButton();
+            expect(confirmButton.hasAttribute('disabled')).toBe(options.disabled);
+
+            const onOkSpy = spyOn(fixtureInstance, 'thyOnOk');
+            dispatchMouseEvent(confirmButton, 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(onOkSpy).toHaveBeenCalledTimes(options.onOkCallTimes);
+        }
+    });
+
+    function getShortcutItems() {
+        return overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+    }
+
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker input.thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
@@ -808,6 +997,8 @@ describe('ThyDatePickerComponent', () => {
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
                 [thyShowTime]="thyShowTime"
+                [thyMinDate]="thyMinDate"
+                [thyMaxDate]="thyMaxDate"
                 (thyOnOk)="thyOnOk($event)"></thy-date-picker>
             <ng-template #tplDateRender let-current>
                 <div [class.test-first-day]="current.getDate() === 1">{{ current.getDate() }}</div>
@@ -845,6 +1036,8 @@ class ThyTestDatePickerComponent {
     thyShowTime: boolean | object = false;
     thyMode: string;
     thyPlacement: string = 'bottomLeft';
+    thyMinDate: Date | number;
+    thyMaxDate: Date | number;
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}

@@ -246,6 +246,7 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyColumnClassName]="columnClassName"
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
+            [thyDisabled]="disabled"
             [thyEmptyStateText]="emptyStateText">
         </thy-cascader>
     `
@@ -264,6 +265,7 @@ class CascaderBasicComponent {
     public loadData: any;
     public isShowSearch: boolean = false;
     public emptyStateText = '无选项';
+    public disabled = false;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
 
     changeValue$ = new Subject<string[]>();
@@ -346,6 +348,7 @@ class CascaderTemplateComponent {
             [thyOptions]="multipleOptions"
             [(ngModel)]="multipleVal"
             (ngModelChange)="selectChange($event)"
+            [thyDisabled]="disabled"
             style="width:400px;">
         </thy-cascader>
     `
@@ -360,6 +363,8 @@ class CascaderMultipleComponent {
     public selectSpy = jasmine.createSpy('multiple select option');
 
     public isShowSearch: boolean = false;
+
+    public disabled = false;
 
     constructor() {}
 
@@ -438,6 +443,17 @@ describe('thy-cascader', () => {
             const menu = debugElement.query(By.css('.thy-cascader-menu')).nativeElement;
             expect(menu.classList.contains(component.columnClassName)).toBe(true);
         });
+
+        it('should not click open when thyDisabled is true', fakeAsync(() => {
+            component.disabled = true;
+            fixture.detectChanges();
+            const cascaderEle = debugElement.query(By.css(`.thy-cascader-picker`));
+            expect(cascaderEle).toBeTruthy();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
 
         it('should select', done => {
             const selectedVal = ['zhejiang', 'hangzhou', 'xihu'];
@@ -948,6 +964,17 @@ describe('thy-cascader', () => {
             const selectedValue = component.multipleVal;
             expect(labels.length).toBe(selectedValue.length);
         });
+
+        it('should not click open when thyDisabled or disabled is true', fakeAsync(() => {
+            component.disabled = true;
+            fixture.detectChanges();
+            const cascaderEle = debugElement.query(By.css(`.thy-cascader-picker`));
+            expect(cascaderEle).toBeTruthy();
+
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeFalsy();
+        }));
 
         it('should add item when click', async () => {
             await fixture.whenStable();

@@ -7,7 +7,7 @@ import {
     ThyCanDisable,
     ThyHasTabIndex
 } from 'ngx-tethys/core';
-import { coerceBooleanProperty, TinyDate, helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
 import {
@@ -34,7 +34,7 @@ import {
     ThyDateRangeEntry,
     ThyPanelMode,
     ThyShortcutPosition,
-    ThyShortcutPreset,
+    CompatiblePresets,
     ThyShortcutValueChange,
     ThyDateGranularity
 } from './standard-types';
@@ -139,7 +139,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      * 是否展示快捷选项面板
      * @default false
      */
-    @Input() @InputBoolean() thyShowShortcut: boolean = false;
+    @Input() @InputBoolean() thyShowShortcut: boolean;
 
     /**
      * 快捷选项面板的显示位置
@@ -155,10 +155,8 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
      * 自定义快捷选项
      * @type ThyShortcutPreset[]
      */
-    @Input() set thyShortcutPresets(presets: ThyShortcutPreset[]) {
-        if (presets && helpers.isArray(presets)) {
-            this.shortcutPresets = [...presets];
-        }
+    @Input() set thyShortcutPresets(presets: CompatiblePresets) {
+        this.shortcutPresets = presets;
     }
 
     @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
@@ -184,7 +182,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     shortcutPosition: ThyShortcutPosition = 'left';
 
-    shortcutPresets: ThyShortcutPreset[];
+    shortcutPresets: CompatiblePresets;
 
     isRange: boolean;
 
@@ -223,7 +221,6 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     onShortcutValueChange(event: ThyShortcutValueChange) {
         this.thyShortcutValueChange.emit(event);
-        this.closeOverlay();
     }
 
     ngOnChanges(changes: SimpleChanges): void {

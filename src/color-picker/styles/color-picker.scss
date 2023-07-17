@@ -5,3 +5,8 @@
 @forward './color-picker-custom-panel.scss';
 @forward './inputs.scss';
 @forward './saturation.scss';
+
+.thy-color-picker-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}

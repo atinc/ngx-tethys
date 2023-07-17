@@ -1,5 +1,5 @@
 import { endOfDay, startOfDay } from 'date-fns';
-import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, sortRangeValue } from 'ngx-tethys/util';
+import { FunctionProp, TinyDate, TinyDateCompareGrain, helpers, isFunction, isUndefinedOrNull, sortRangeValue } from 'ngx-tethys/util';
 
 import {
     ChangeDetectionStrategy,
@@ -20,9 +20,10 @@ import { ThyButtonIconComponent } from 'ngx-tethys/button';
 import { ThyNavComponent, ThyNavItemDirective } from 'ngx-tethys/nav';
 import { ThyDatePickerConfigService } from '../../date-picker.service';
 import { CompatibleValue, DatePickerFlexibleTab, RangeAdvancedValue, RangePartType } from '../../inner-types';
-import { dateAddAmount, hasValue, makeValue, transformDateValue } from '../../picker.util';
+import { dateAddAmount, getShortcutValue, hasValue, makeValue, transformDateValue } from '../../picker.util';
 import {
     CompatibleDate,
+    CompatiblePresets,
     DisabledDateFn,
     SupportTimeOptions,
     ThyDateGranularity,
@@ -68,8 +69,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() minDate: Date | number;
     @Input() maxDate: Date | number;
     @Input() showToday: boolean;
+
+    /**
+     * 是否支持设置时间(时、分)
+     */
     @Input() showTime: SupportTimeOptions | boolean;
+
+    /**
+     * 是否展示时间(时、分)
+     */
     @Input() mustShowTime: boolean;
+
     @Input() dateRender: FunctionProp<TemplateRef<Date> | string>;
     @Input() className: string;
     @Input() panelMode: ThyPanelMode | ThyPanelMode[];
@@ -78,7 +88,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     @Input() showShortcut: boolean;
 
-    @Input() shortcutPresets: ThyShortcutPreset[];
+    @Input() shortcutPresets: CompatiblePresets;
 
     @Input() shortcutPosition: ThyShortcutPosition;
 
@@ -113,19 +123,17 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     endPanelMode: ThyPanelMode | ThyPanelMode[];
 
+    innerShortcutPresets: ThyShortcutPreset[];
+
+    disableTimeConfirm = false;
+
     constructor(private cdr: ChangeDetectorRef, private datePickerConfigService: ThyDatePickerConfigService) {}
 
     setProperty<T extends keyof DatePopupComponent>(key: T, value: this[T]): void {
         this[key] = value;
         this.cdr.markForCheck();
     }
-    initShortcutPresets(): void {
-        const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
-        this.showShortcut = this.showShortcut || showShortcut;
-        if (this.showShortcut && !this.shortcutPresets) {
-            this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
-        }
-    }
+
     ngOnInit(): void {
         this.initShortcutPresets();
         this.initPanelMode();
@@ -163,6 +171,57 @@ export class DatePopupComponent implements OnChanges, OnInit {
         }
     }
 
+    initShortcutPresets(): void {
+        const { shortcutRangesPresets, shortcutDatePresets, showShortcut } = this.datePickerConfigService;
+
+        this.showShortcut =
+            ['date', 'date,date'].includes(this.panelMode.toString()) && isUndefinedOrNull(this.showShortcut)
+                ? showShortcut
+                : this.showShortcut;
+
+        if (this.showShortcut) {
+            if (!this.shortcutPresets) {
+                this.shortcutPresets = this.isRange ? shortcutRangesPresets : shortcutDatePresets;
+            }
+
+            this.innerShortcutPresets = isFunction(this.shortcutPresets) ? this.shortcutPresets() : this.shortcutPresets;
+            if (this.innerShortcutPresets.length) {
+                const minDate: TinyDate = this.getMinTinyDate();
+                const maxDate: TinyDate = this.getMaxTinyDate();
+
+                const minTime = minDate ? minDate.getTime() : null;
+                const maxTime = maxDate ? maxDate.getTime() : null;
+
+                if (this.isRange) {
+                    this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                        const begin: number | Date = getShortcutValue(preset.value[0]);
+                        const beginTime: number = new TinyDate(startOfDay(begin)).getTime();
+
+                        const end: number | Date = getShortcutValue(preset.value[1]);
+                        const endTime: number = new TinyDate(endOfDay(end)).getTime();
+
+                        if ((minDate && endTime < minTime) || (maxDate && beginTime > maxTime)) {
+                            preset.disabled = true;
+                        } else {
+                            preset.disabled = false;
+                        }
+                    });
+                } else {
+                    this.innerShortcutPresets.forEach((preset: ThyShortcutPreset) => {
+                        const singleValue: number | Date = getShortcutValue(preset.value as ThyShortcutValue);
+                        const singleTime: number = new TinyDate(singleValue).getTime();
+
+                        if ((minDate && singleTime < minTime) || (maxDate && singleTime > maxTime)) {
+                            preset.disabled = true;
+                        } else {
+                            preset.disabled = false;
+                        }
+                    });
+                }
+            }
+        }
+    }
+
     updateActiveDate() {
         this.clearHoverValue();
         if (!this.value) {
@@ -177,6 +236,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         } else {
             this.activeDate = this.value as TinyDate;
         }
+        this.isDisableTimeConfirm();
     }
 
     initPanelMode() {
@@ -399,6 +459,14 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return this.partTypeMap[partType];
     }
 
+    private getMinTinyDate() {
+        return this.minDate ? new TinyDate(transformDateValue(this.minDate).value as Date) : null;
+    }
+
+    private getMaxTinyDate() {
+        return this.maxDate ? new TinyDate(transformDateValue(this.maxDate).value as Date) : null;
+    }
+
     private clearHoverValue(): void {
         this.hoverValue = [];
     }
@@ -417,6 +485,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 this.valueChange.emit(this.value);
             }
         }
+        this.isDisableTimeConfirm();
     }
 
     private normalizeRangeValue(value: TinyDate[], mode: ThyPanelMode = 'month'): TinyDate[] {
@@ -448,26 +517,101 @@ export class DatePopupComponent implements OnChanges, OnInit {
         return [value[0] && value[0].clone(), value[1] && value[1].clone()] as TinyDate[];
     }
 
-    shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
-        const { value } = shortcutPresets;
-        if (!value) return;
-        const setRangeValue = (begin: ThyShortcutValue, end: ThyShortcutValue) => {
-            const beginValue: number | Date = typeof begin === 'function' ? begin() : begin;
-            const endValue: number | Date = typeof end === 'function' ? end() : end;
-            if (beginValue && endValue) {
-                this.selectedValue = [new TinyDate(startOfDay(beginValue)), new TinyDate(endOfDay(endValue))];
-                this.setValue(this.cloneRangeDate(this.selectedValue));
-            }
-        };
-        if (helpers.isArray(value)) {
-            setRangeValue(value[0], value[1]);
-        } else {
-            const _value: number | Date = typeof value === 'function' ? value() : value;
-            this.setValue(new TinyDate(_value));
+    private isDisableTimeConfirm() {
+        if (this.isRange || !this.showTime) {
+            return;
         }
+
+        const date: TinyDate = this.value ? (this.value as TinyDate) : new TinyDate();
+        const minDate: TinyDate = this.getMinTinyDate();
+        const maxDate: TinyDate = this.getMaxTinyDate();
+
+        if ((minDate && date.getTime() < minDate.getTime()) || (maxDate && date.getTime() > maxDate.getTime())) {
+            this.disableTimeConfirm = true;
+        } else {
+            this.disableTimeConfirm = false;
+        }
+    }
+
+    private getSelectedShortcutPreset(date: CompatibleValue): CompatibleValue {
+        const minDate: TinyDate = this.getMinTinyDate();
+        const maxDate: TinyDate = this.getMaxTinyDate();
+
+        const minTime: number = (minDate && minDate.getTime()) || null;
+        const maxTime: number = (maxDate && maxDate.getTime()) || null;
+
+        if (helpers.isArray(date)) {
+            const startDate: TinyDate = date[0];
+            const endDate: TinyDate = date[1];
+
+            const startTime: number = startDate.getTime();
+            const endTime: number = endDate.getTime();
+
+            if ((maxDate && startTime > maxTime) || (minDate && endTime < minTime)) {
+                return [];
+            }
+
+            if (minDate && startTime < minTime && maxDate && endTime > maxTime) {
+                return [minDate, maxDate];
+            }
+
+            if (minDate && startTime < minTime) {
+                return [minDate, endDate];
+            }
+
+            if (maxDate && endTime > maxTime) {
+                return [startDate, maxDate];
+            }
+
+            return date;
+        } else {
+            const singleTime: number = date.getTime();
+
+            if ((minDate && singleTime < minTime) || (maxDate && singleTime > maxTime)) {
+                return null;
+            }
+
+            return date;
+        }
+    }
+
+    shortcutSetValue(shortcutPresets: ThyShortcutPreset) {
+        if (shortcutPresets.disabled) {
+            return;
+        }
+
+        const { value } = shortcutPresets;
+        if (!value) {
+            return;
+        }
+
+        let selectedPresetValue: CompatibleValue;
+        if (helpers.isArray(value)) {
+            const begin: number | Date = getShortcutValue(value[0]);
+            const end: number | Date = getShortcutValue(value[1]);
+
+            if (begin && end) {
+                this.selectedValue = this.getSelectedShortcutPreset([
+                    new TinyDate(startOfDay(begin)),
+                    new TinyDate(endOfDay(end))
+                ]) as TinyDate[];
+
+                selectedPresetValue = this.cloneRangeDate(this.selectedValue);
+            }
+        } else {
+            const singleDate: number | Date = getShortcutValue(value);
+            const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
+            selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
+        }
+
+        this.setValue(selectedPresetValue);
         this.shortcutValueChange.emit({
-            value: this.selectedValue,
+            value: selectedPresetValue,
             triggerPresets: shortcutPresets
         });
+    }
+
+    public trackByFn(index: number) {
+        return index;
     }
 }

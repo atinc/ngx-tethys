@@ -22,13 +22,3 @@
         }
     }
 }
-
-@mixin avatarMoreSize($size, $font-size: 12px) {
-    width: #{$size}px;
-    height: #{$size}px;
-    border-radius: 50%;
-    line-height: #{$size}px;
-    font-size: #{$font-size}px;
-    text-align: center;
-    display: inline-block;
-}

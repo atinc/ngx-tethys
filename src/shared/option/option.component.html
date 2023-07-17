@@ -1,12 +1,8 @@
 <ng-container *ngIf="thyShowOptionCustom; else defaultOption">
   <ng-content></ng-content>
-  <span class="checked-icon">
-    <i class="wtf wtf-checked"></i>
-  </span>
+  <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
 </ng-container>
 <ng-template #defaultOption>
   <span class="text-truncate">{{ thyLabelText }}</span>
-  <span class="checked-icon">
-    <i class="wtf wtf-checked"></i>
-  </span>
+  <thy-icon class="checked-icon" thyIconName="check"></thy-icon>
 </ng-template>

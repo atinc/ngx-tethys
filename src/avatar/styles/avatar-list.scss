@@ -7,39 +7,28 @@
     line-height: initial;
     width: 100%;
 
-    .thy-avatar-content {
-        position: relative;
-    }
-    &:not(.thy-avatar-list-overlap) {
-        .thy-avatar {
-            margin-right: variables.$avatar-item-space;
-        }
+    .thy-avatar {
+        margin-right: variables.$avatar-item-space;
     }
 }
 
 .thy-avatar-list-overlap {
     @each $size, $value in variables.$avatar-sizes {
         .thy-avatar-#{$size} {
-            @include mixin.avatarSize($size, $value);
-
-            .avatar-default {
+            margin-left: #{-$size * variables.$overlap-avatar-item-space-percent}px;
+            margin-right: 0;
+            .avatar-default,
+            .avatar-avatar {
                 border: 1px solid variables.$white;
             }
         }
-    }
 
-    .thy-avatar {
-        margin-left: variables.$overlap-avatar-item-space;
-    }
-}
+        .thy-avatar-#{$size}:first-child {
+            margin-left: 0;
+        }
 
-@each $size, $value in variables.$avatar-sizes {
-    .more-#{$size} {
-        @include mixin.avatarMoreSize($size, $value);
-        background-color: rgba(variables.$black, 0.3);
-        color: variables.$white;
-        position: absolute;
-        left: 0;
-        top: 0;
+        .thy-avatar-append {
+            padding-left: variables.$avatar-item-space;
+        }
     }
 }

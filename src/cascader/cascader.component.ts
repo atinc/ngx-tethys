@@ -739,7 +739,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     @HostListener('click', ['$event'])
     public toggleClick($event: Event) {
-        if (this.disabled && !this.isMultiple) {
+        if (this.disabled) {
             return;
         }
         if (this.isClickTriggerAction()) {
@@ -749,7 +749,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     @HostListener('mouseover', ['$event'])
     public toggleHover($event: Event) {
-        if (this.disabled && !this.isMultiple) {
+        if (this.disabled) {
             return;
         }
         if (this.isHoverTriggerAction()) {

@@ -63,6 +63,7 @@ export class NavBasicComponent implements OnInit {
             [thyVertical]="isVertical"
             [thyHorizontal]="horizontal"
             [thyResponsive]="responsive"
+            [thyInsideClosable]="insideClosable"
             class="custom-nav"
             style="width: 100px;height: 50px;display:block">
             <a
@@ -98,6 +99,8 @@ export class NavResponsiveComponent implements OnInit {
     responsive = false;
 
     navLinks = [{ name: 'nav' }, { name: 'link2' }, { name: 'link3' }];
+
+    insideClosable: boolean;
 
     @ViewChildren(ThyNavItemDirective) links: ThyNavItemDirective[];
 
@@ -143,6 +146,7 @@ describe(`thy-nav`, () => {
         let fixture: ComponentFixture<NavBasicComponent>;
         let navDebugElement: DebugElement;
         let navElement: HTMLElement;
+
         beforeEach(() => {
             fixture = TestBed.createComponent(NavBasicComponent);
             fixture.detectChanges();
@@ -233,6 +237,10 @@ describe(`thy-nav`, () => {
                 expect(navDebugElement.nativeElement.classList.contains(NAV_CLASS)).toEqual(true);
                 expect(navListElement.classList.contains(navHorizontalClassesMap[item])).toEqual(true);
             });
+        });
+
+        it('should get correct default value for thyInsideClosable', () => {
+            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(true);
         });
     });
 
@@ -371,6 +379,13 @@ describe(`thy-nav`, () => {
             const popover = overlayContainer.getContainerElement().querySelector('thy-popover-container');
             expect(popover).toBeTruthy();
             expect(popover.querySelectorAll('.thy-nav-item-more').length).toEqual(2);
+        }));
+
+        it('should support set thyInsideClosable', fakeAsync(() => {
+            fixture.debugElement.componentInstance.insideClosable = false;
+            fixture.detectChanges();
+            const navDebugElement = fixture.debugElement.query(By.directive(ThyNavComponent));
+            expect(navDebugElement.componentInstance.thyInsideClosable).toBe(false);
         }));
 
         it('should call item event when click navLink in more popover', fakeAsync(() => {

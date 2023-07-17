@@ -7,15 +7,38 @@ import {
     OnChanges,
     ElementRef,
     Renderer2,
-    SimpleChanges
+    SimpleChanges,
+    ChangeDetectorRef,
+    OnDestroy
 } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { Subscription, timer } from 'rxjs';
 
 export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
 
+export type ThyActionFeedback = 'success' | 'error';
+
+export interface ThyActionFeedbackOptions {
+    icon?: string;
+    class?: string;
+    duration?: number;
+}
+
+const defaultFeedbackOptions: Record<ThyActionFeedback, ThyActionFeedbackOptions> = {
+    success: {
+        icon: 'check-circle-fill',
+        class: 'text-success',
+        duration: 3000
+    },
+    error: {
+        icon: 'close-circle-fill',
+        class: 'text-danger',
+        duration: 3000
+    }
+};
 /**
  * 立即操作组件
  * @name thy-action,[thyAction]
@@ -28,19 +51,26 @@ export type ThyActionType = 'primary' | 'success' | 'danger' | 'warning';
         class: 'thy-action',
         '[class.active]': 'active',
         '[class.thy-action-hover-icon]': 'thyHoverIcon',
+        '[class.thy-action-has-feedback]': '!!feedback',
         '[class.disabled]': 'thyDisabled'
     },
     standalone: true,
     imports: [NgIf, ThyIconComponent]
 })
-export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
+export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges, OnDestroy {
     icon: string;
 
-    private active = false;
+    feedback: ThyActionFeedback = null;
+
+    feedbackOptions: ThyActionFeedbackOptions;
+
+    active = false;
 
     private type: string = 'primary';
 
     private hostRenderer = useHostRenderer();
+
+    private feedbackTimer: Subscription;
 
     /**
      * 操作图标的类型
@@ -107,7 +137,7 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
     @InputBoolean()
     thyDisabled: boolean;
 
-    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2) {}
+    constructor(private elementRef: ElementRef<HTMLElement>, private renderer: Renderer2, private cdr: ChangeDetectorRef) {}
 
     ngOnInit(): void {
         this.updateClasses();
@@ -125,6 +155,40 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
 
     setMarginRight(marginRight: string) {
         this.elementRef.nativeElement.style.marginRight = marginRight;
+    }
+
+    /**
+     * 触发成功反馈操作
+     */
+    success(options?: ThyActionFeedbackOptions) {
+        this.setFeedback('success', options);
+    }
+
+    /**
+     * 触发失败反馈操作
+     */
+    error(options?: ThyActionFeedbackOptions) {
+        this.setFeedback('error', options);
+    }
+
+    private setFeedback(feedback: ThyActionFeedback, options: ThyActionFeedbackOptions) {
+        if (this.thyDisabled) {
+            return;
+        }
+        options = Object.assign({}, defaultFeedbackOptions[feedback], options);
+        this.feedback = feedback;
+        this.feedbackOptions = options;
+        this.cdr.markForCheck();
+        if (options.duration) {
+            if (this.feedbackTimer) {
+                this.feedbackTimer.unsubscribe();
+            }
+            this.feedbackTimer = timer(options.duration).subscribe(() => {
+                this.feedback = null;
+                this.feedbackOptions = null;
+                this.cdr.markForCheck();
+            });
+        }
     }
 
     private wrapSpanForText(nodes: NodeList): void {
@@ -150,5 +214,9 @@ export class ThyActionComponent implements OnInit, AfterViewInit, OnChanges {
             classNames.push('thy-action-lite');
         }
         this.hostRenderer.updateClass(classNames);
+    }
+
+    ngOnDestroy(): void {
+        this.feedbackTimer?.unsubscribe();
     }
 }
