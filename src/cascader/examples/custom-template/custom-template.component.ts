@@ -43,6 +43,18 @@ const customerOptions = [
                 ]
             }
         ]
+    },
+    {
+        value: 'neimeng',
+        label: '内蒙古自治区',
+        children: [
+            {
+                value: 'naransebusitaiyinbulage',
+                label: '虚构的城市名称特别长，用于展示超出会出现提示功能',
+                code: 103034,
+                isLeaf: true
+            }
+        ]
     }
 ];
 

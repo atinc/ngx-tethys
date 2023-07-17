@@ -249,6 +249,7 @@ $input-label-checked-color: $gray-800 !default; // Checkbox 和 Radio Label 选�
 $input-border-color: $gray-200 !default;
 $input-hover-border-color: $primary !default;
 $input-disabled-bg: $gray-100 !default;
+$input-disabled-border-color: $gray-200 !default;
 $input-disabled-color: $gray-600 !default;
 $input-icon-color: $gray-400 !default;
 $input-group-addon-color: $gray-700 !default;
@@ -362,7 +363,6 @@ $table-draggable-first-th-padding-left: 16px !default;
 $table-draggable-first-td-padding-left: 16px !default;
 $table-draggable-icon-color: $gray-600 !default;
 $table-draggable-icon-left: 0px !default;
-$table-draggable-bordered-icon-padding-left: 30px !default;
 $table-default-header-cell-padding: 0 16px !default;
 $table-default-header-padding: 12px 16px !default;
 $table-default-sm-header-padding: 8px 16px !default;
@@ -481,14 +481,14 @@ $avatar-sizes: map.merge(
         44: 12,
         48: 14,
         68: 16,
-        110: 45,
+        110: 36,
         160: 50
     ),
     $avatar-sizes
 );
 // avatar-list
 $avatar-item-space: 4px !default;
-$overlap-avatar-item-space: -8px !default;
+$overlap-avatar-item-space-percent: 0.25 !default;
 
 // Navs
 $nav-item-disabled-color: $gray-400 !default;
@@ -725,7 +725,7 @@ $switch-height: 24px !default;
 $handle-margin: 2px !default;
 $switch-sm-width: 36px !default;
 $switch-sm-height: 20px !default;
-$switch-xs-width: 24px !default;
+$switch-xs-width: 28px !default;
 $switch-xs-height: 16px !default;
 $switch-margin-bottom: 0 !default;
 //Transfer

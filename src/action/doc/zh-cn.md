@@ -24,7 +24,13 @@ import { ThyActionModule } from "ngx-tethys/action";
 
 <thy-action  thyActionIcon="vertical-view-lines"></thy-action>
 <thy-action><thy-icon thyIconName="vertical-view-lines"></thy-icon></thy-action>
-
 ```
+
+支持手动触发成功和失败反馈操作:
+```html
+<a #action1 thyAction thyIcon="copy" href="javascript:;" (click)="action1.success()"></a>
+<a #action2 thyAction thyIcon="copy" href="javascript:;" (click)="action2.error({ duration: 2000 })"></a>
+```
+
 
 <examples />

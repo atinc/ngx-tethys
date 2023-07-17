@@ -1,4 +1,4 @@
-import { endOfDay, fromUnixTime, isSameDay, startOfDay } from 'date-fns';
+import { addDays, endOfDay, format, fromUnixTime, isSameDay, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 import { ThyDatePickerModule } from './date-picker.module';
-import { ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
+import { CompatiblePresets, ThyDateRangeEntry, ThyPanelMode, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
 import { TinyDate } from 'ngx-tethys/util';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 
@@ -22,24 +22,27 @@ describe('ThyRangePickerComponent', () => {
     let debugElement: DebugElement;
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
-    const shortcutRangesPresets = [
-        {
-            title: '最近 7 天',
-            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6, new TinyDate().endOfDay().getTime()]
-        },
-        {
-            title: '最近 30 天',
-            value: [new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 29, new TinyDate().endOfDay().getTime()]
-        },
-        {
-            title: '本周',
-            value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfDay().getTime()]
-        },
-        {
-            title: '本月',
-            value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
-        }
-    ];
+
+    const shortcutRangesPresets = () => {
+        return [
+            {
+                title: '最近 7 天',
+                value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+            },
+            {
+                title: '最近 30 天',
+                value: [new TinyDate(subDays(new Date(), 29)).getTime(), new TinyDate().endOfDay().getTime()]
+            },
+            {
+                title: '本周',
+                value: [new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime(), new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()]
+            },
+            {
+                title: '本月',
+                value: [new TinyDate().startOfMonth().getTime(), new TinyDate().endOfMonth().getTime()]
+            }
+        ];
+    };
 
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
@@ -74,16 +77,122 @@ describe('ThyRangePickerComponent', () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('range picker global config testing', () => {
-        beforeEach(() => (fixtureInstance.useSuite = 1));
-        it('show should support', fakeAsync(() => {
+    describe('get correct shortcut value', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+        });
+
+        let rangePresets = shortcutRangesPresets();
+        const shortcutIndex = 0;
+        const startDate: number = rangePresets[shortcutIndex].value[0];
+        const endDate: number = rangePresets[shortcutIndex].value[1];
+
+        it('show should support shortcut preset', fakeAsync(() => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
             shortcutItems.forEach((shortcut, index) => {
-                expect(shortcut.innerHTML.trim()).toBe(shortcutRangesPresets[index].title);
+                expect(shortcut.innerHTML.trim()).toBe(rangePresets[index].title);
             });
         }));
+
+        it('should be [] when startDate > thyMaxDate || endDate < thyMinDate', fakeAsync(() => {
+            const minDate: Date = startOfDay(addDays(new Date(), 10));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const expectValue = '';
+
+            assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
+        }));
+
+        it('should be [thyMinDate, thyMaxDate] when startDate < thyMinDate && endDate > thyMaxDate', fakeAsync(() => {
+            const minDate: Date = startOfDay(addDays(new Date(), -3));
+            const maxDate: Date = endOfDay(addDays(new Date(), -1));
+            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
+
+            assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
+        }));
+
+        it('should be [thyMinDate, endDate] when startDate < thyMinDate', fakeAsync(() => {
+            const minDate: Date = startOfDay(addDays(new Date(), -3));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const expectValue = `${format(minDate.getTime(), 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
+
+            assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
+        }));
+
+        it('should be [startDate, thyMaxDate] when endDate > thyMaxDate', fakeAsync(() => {
+            const minDate: Date = startOfDay(addDays(new Date(), -10));
+            const maxDate: Date = endOfDay(addDays(new Date(), -1));
+            const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(maxDate.getTime(), 'yyyy-MM-dd')}`;
+
+            assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
+        }));
+
+        it('should be [startDate, endDate] when startDate >= thyMinDate && endDate <= thyMaxDate', fakeAsync(() => {
+            const minDate: Date = startOfDay(addDays(new Date(), -30));
+            const maxDate: Date = endOfDay(addDays(new Date(), 30));
+            const expectValue = `${format(startDate, 'yyyy-MM-dd')} ~ ${format(endDate, 'yyyy-MM-dd')}`;
+
+            assertAccordingToMinAndMaxDate(minDate, maxDate, expectValue);
+        }));
+
+        function assertAccordingToMinAndMaxDate(minDate: Date, maxDate: Date, expectValue: string) {
+            // thyMinDate/thyMaxDate supports not only Date but also number
+            fixtureInstance.thyMinDate = minDate as Date;
+            fixtureInstance.thyMaxDate = maxDate.getTime() as number;
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[shortcutIndex], 'click');
+            fixture.detectChanges();
+            tick(500);
+
+            const input = getPickerTrigger();
+            expect(input.value.trim()).toBe(expectValue);
+        }
+    });
+
+    describe('disable shortcut preset', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+            fixtureInstance.thyShowShortcut = true;
+            fixture.detectChanges();
+        });
+
+        it('should disable shortcut item whose min preset is greater than thyMaxDate', fakeAsync(() => {
+            fixtureInstance.thyMaxDate = endOfDay(addDays(new Date(), -7));
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+            const last7DaysItem = shortcutItems[0];
+            const last30DaysItem = shortcutItems[1];
+            expect(last7DaysItem.classList.contains('disabled')).toBe(true);
+            expect(last30DaysItem.classList.contains('disabled')).toBe(false);
+        }));
+
+        it('should disable shortcut item whose max preset is less than thyMinDate', fakeAsync(() => {
+            assertThisWeekShortcut({ offsetDays: 3, disabled: true });
+        }));
+
+        it('should not disable shortcut item whose max preset is not less than thyMinDate', fakeAsync(() => {
+            assertThisWeekShortcut({ offsetDays: -3, disabled: false });
+        }));
+
+        function assertThisWeekShortcut(options: { offsetDays: number; disabled: boolean }) {
+            fixtureInstance.thyMinDate = startOfDay(addDays(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime(), options.offsetDays));
+            fixture.detectChanges();
+
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+
+            const thisWeekItem = shortcutItems[2];
+            expect(thisWeekItem.classList.contains('disabled')).toBe(options.disabled);
+        }
     });
 
     describe('general api testing', () => {
@@ -357,7 +466,9 @@ describe('ThyRangePickerComponent', () => {
             expect(fromUnixTime(fixtureInstance.modelValue.begin as number).getDate()).toBe(
                 new TinyDate(new TinyDate().startOfWeek({ weekStartsOn: 1 }).getTime()).getDate()
             );
-            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
+            expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(
+                new TinyDate(new TinyDate().endOfWeek({ weekStartsOn: 1 }).getTime()).getDate()
+            );
         }));
 
         it('should default shortcut this month worked', fakeAsync(() => {
@@ -794,6 +905,8 @@ describe('ThyRangePickerComponent', () => {
                 (thyOpenChange)="thyOpenChange($event)"
                 [(ngModel)]="modelValue"
                 [thyMode]="thyMode"
+                [thyMinDate]="thyMinDate"
+                [thyMaxDate]="thyMaxDate"
                 (ngModelChange)="modelValueChange($event)"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
@@ -823,7 +936,8 @@ class ThyTestRangePickerComponent {
     useSuite: 1 | 2 | 3 | 4;
     @ViewChild('tplDateRender', { static: true }) tplDateRender: TemplateRef<Date>;
     @ViewChild('tplExtraFooter', { static: true }) tplExtraFooter: TemplateRef<void>;
-
+    thyMinDate: Date | number;
+    thyMaxDate: Date | number;
     thyAllowClear: boolean;
     thyDisabled: boolean;
     thyDisabledDate: (d: Date) => boolean;
@@ -836,7 +950,7 @@ class ThyTestRangePickerComponent {
     thyOpen: boolean;
     thyShowShortcut: boolean;
     thyShortcutPosition: ThyShortcutPosition = 'left';
-    thyShortcutPresets: ThyShortcutPreset[];
+    thyShortcutPresets: CompatiblePresets;
     thyShortcutRanges: ThyShortcutRange[];
     flexibleDateRange: ThyDateRangeEntry;
     thyOpenChange(): void {}

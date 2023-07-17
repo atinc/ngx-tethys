@@ -1,4 +1,4 @@
-import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity } from './standard-types';
+import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity, ThyShortcutValue } from './standard-types';
 
 import { fromUnixTime } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
@@ -161,6 +161,7 @@ export function isAfterMoreThanLessOneYear(rightDate: TinyDate, leftDate: TinyDa
     // 处理rightDate(2021,1,1)日期比leftDate(2020,12,1)日期大1年,同时rightDate日期月份小于leftDate日期月份的情况
     return !(rightDate.getYear() - leftDate.getYear() === 1 && rightDate.getMonth() <= leftDate.getMonth());
 }
+
 // rightDate 超过 leftDate 一年
 export function isAfterMoreThanOneYear(rightDate: TinyDate, leftDate: TinyDate) {
     rightDate = rightDate ? rightDate : leftDate ? leftDate : new TinyDate();
@@ -196,4 +197,8 @@ export function instanceOfRangeAdvancedValue(object: RangeAdvancedValue): object
 
 export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: string) {
     return typeof object[key] === 'number' || object[key] === null || object[key] instanceof Date;
+}
+
+export function getShortcutValue(value: ThyShortcutValue): number | Date {
+    return helpers.isFunction(value) ? value() : value;
 }

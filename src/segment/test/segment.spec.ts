@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -102,7 +102,7 @@ class TestSegmentModeComponent {
 @Component({
     selector: 'test-segment-active',
     template: `
-        <thy-segment [thyActiveIndex]="selectedIndex">
+        <thy-segment [thyActiveIndex]="selectedIndex" (thySelectChange)="selectedChange($event)">
             <thy-segment-item thyValue="member">成员</thy-segment-item>
             <thy-segment-item thyValue="department">部门</thy-segment-item>
             <thy-segment-item thyValue="group">用户组</thy-segment-item>
@@ -111,6 +111,14 @@ class TestSegmentModeComponent {
 })
 class TestSegmentActiveComponent {
     selectedIndex: number = 2;
+
+    selectedChange(event: ThySegmentEvent) {
+        this.selectedIndex = event.activeIndex;
+    }
+
+    setSelectedItem(index: number) {
+        this.selectedIndex = index;
+    }
 }
 
 @Component({
@@ -125,7 +133,6 @@ class TestSegmentActiveComponent {
                     </div>
                 </thy-segment-item>
             </ng-container>
-
             <thy-segment-item thyValue="hexie">
                 <div style="padding: 8px 0px 4px;">
                     <thy-avatar thySize="sm" [thyName]="'HeXie'"></thy-avatar>
@@ -366,7 +373,7 @@ describe('segment', () => {
         beforeEach(() => {
             TestBed.configureTestingModule({
                 declarations: [TestSegmentActiveComponent],
-                imports: [ThySegmentModule]
+                imports: [ThySegmentModule, BrowserAnimationsModule]
             }).compileComponents();
 
             fixture = TestBed.createComponent(TestSegmentActiveComponent);
@@ -377,6 +384,27 @@ describe('segment', () => {
         it('should support set default selected item', () => {
             const items = segmentedDebugElement.queryAll(By.directive(ThySegmentItemComponent));
             expect(items[2].nativeElement.classList.contains('active')).toBeTruthy();
+        });
+
+        it('should change selected value manually', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(1);
+            fixture.detectChanges();
+            expect(spy).toHaveBeenCalled();
+        });
+
+        it('should not change selected value manually when some segment item', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(2);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
+        });
+
+        it('should not change selected value manually when index less than zero', () => {
+            const spy = spyOn(fixture.componentInstance, 'selectedChange');
+            fixture.componentInstance.setSelectedItem(-1);
+            fixture.detectChanges();
+            expect(spy).not.toHaveBeenCalled();
         });
     });
 

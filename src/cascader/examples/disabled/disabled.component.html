@@ -1,10 +1,12 @@
 <div class="custom-disabled-container">
   <div class="mb-2">选择框禁用：</div>
-  <thy-cascader class="mr-2" [thyDisabled]="true" style="width:200px"></thy-cascader>
-  <thy-cascader class="mb-2" [thyOptions]="areaCode" [disabled]="true" [(ngModel)]="curVal" style="width:200px;"> </thy-cascader>
+  <div class="d-flex mb-2">
+    <thy-cascader class="mr-2" [thyDisabled]="true" style="width: 200px"></thy-cascader>
+    <thy-cascader [disabled]="true" [(ngModel)]="values" [thyOptions]="areaCode" [thyMultiple]="true" style="width: 200px"> </thy-cascader>
+  </div>
 
   <div class="mb-2">下拉单选禁用：</div>
-  <thy-cascader [thyOptions]="thyCustomerOptions" [thyExpandTriggerAction]="'hover'" [(ngModel)]="value" style="width:200px;">
+  <thy-cascader [thyOptions]="thyCustomerOptions" [thyExpandTriggerAction]="'hover'" [(ngModel)]="value" style="width: 200px">
   </thy-cascader>
 
   <div class="my-2">下拉多选禁用：</div>
@@ -13,9 +15,8 @@
     [(ngModel)]="multiValues"
     [thyMultiple]="true"
     [thyLabelRender]="renderTpl"
-    style="width: 200px;"
-    (ngModelChange)="selectChanges($event)"
-  >
+    style="width: 200px"
+    (ngModelChange)="selectChanges($event)">
   </thy-cascader>
 
   <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">

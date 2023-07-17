@@ -74,7 +74,7 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
                     if (!this.thyDisabled && !this.parent.thyDisabled && this.parent.selectedItem && this.parent.selectedItem !== this) {
                         ngZone.run(() => {
                             this.parent.selectedItem.unselect();
-                            this.parent.changeSelectedItem(event, this);
+                            this.parent.changeSelectedItem(this, event);
                         });
                     }
                 })
@@ -93,7 +93,7 @@ export class ThySegmentItemComponent implements AfterViewInit, OnDestroy {
         this.elementRef.nativeElement.classList.add('active');
     }
 
-    private unselect() {
+    public unselect() {
         this.elementRef.nativeElement.classList.remove('active');
     }
 

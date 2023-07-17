@@ -101,7 +101,9 @@ export class ThyFormValidatorLoader {
     defaultRemoveError(element: HTMLElement) {
         if (element && element.parentElement) {
             const invalidFeedback = element.parentElement.querySelector('.invalid-feedback');
-            element.parentElement.removeChild(invalidFeedback);
+            if (invalidFeedback) {
+                element.parentElement.removeChild(invalidFeedback);
+            }
         }
     }
 

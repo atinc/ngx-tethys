@@ -28,7 +28,7 @@
     </ng-container>
   </span>
 
-  <span class="thy-tree-node-content">
+  <span class="thy-tree-node-content" (dblclick)="dbClickNode($event)">
     <input
       *ngIf="thyCheckable"
       type="checkbox"

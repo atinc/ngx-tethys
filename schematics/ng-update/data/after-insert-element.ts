@@ -1,5 +1,4 @@
-import { VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { TargetVersion, VersionChanges } from '@angular/cdk/schematics';
 
 export interface AfterInsertElementUpgradeData {
     /**
@@ -43,7 +42,7 @@ export interface AfterInsertElementUpgradeData {
 }
 
 export const afterInsertElement: VersionChanges<AfterInsertElementUpgradeData> = {
-    [TethysTargetVersion.V16]: [
+    [TargetVersion.V15]: [
         {
             pr: '',
             changes: [

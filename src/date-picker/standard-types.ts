@@ -7,6 +7,8 @@ export type ThyPanelMode = 'decade' | 'year' | 'month' | 'date' | 'week' | 'flex
 
 export type CompatibleDate = Date | Date[];
 
+export type CompatiblePresets = ThyShortcutPreset[] | (() => ThyShortcutPreset[]);
+
 export type ThyShortcutPosition = 'left' | 'bottom';
 
 export type ThyDateGranularity = 'year' | 'quarter' | 'month' | 'day';
@@ -50,6 +52,7 @@ export interface ThyShortcutRange {
 export interface ThyShortcutPreset {
     title: string;
     value?: ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue];
+    disabled?: boolean;
 }
 
 export interface ThyShortcutValueChange {

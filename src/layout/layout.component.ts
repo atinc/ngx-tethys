@@ -1,4 +1,4 @@
-import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
 
 /**
  * 布局组件
@@ -16,4 +16,5 @@ import { Component, HostBinding, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ThyLayoutComponent {
     @HostBinding('class.thy-layout--has-sidebar') hasSidebar = false;
+    @HostBinding('class.thy-layout--is-sidebar-right') isSidebarRight = false;
 }

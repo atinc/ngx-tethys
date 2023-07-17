@@ -18,6 +18,8 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
 
     collapsed = false;
 
+    rightCollapsed = false;
+
     triggerCollapsed = false;
 
     constructor() {}
@@ -31,6 +33,11 @@ export class ThyLayoutSidebarExampleComponent implements OnInit {
     toggleCollapsed() {
         this.collapsed = !this.collapsed;
         this.trigger = this.collapsed ? null : undefined;
+    }
+
+    toggleRightCollapsed() {
+        this.rightCollapsed = !this.rightCollapsed;
+        this.trigger = this.rightCollapsed ? null : undefined;
     }
 
     dragWidthChange(width: number) {}
