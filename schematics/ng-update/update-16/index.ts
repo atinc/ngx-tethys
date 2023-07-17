@@ -1,7 +1,6 @@
 import { Rule } from '@angular-devkit/schematics';
-import { createMigrationSchematicRule, NullableDevkitMigration } from '@angular/cdk/schematics';
+import { createMigrationSchematicRule, NullableDevkitMigration, TargetVersion } from '@angular/cdk/schematics';
 import { onMigrationComplete } from '../core/complete';
-import { TethysTargetVersion } from '../core/target-version';
 import { ruleUpgradeData } from '../data';
 import { AfterInsertElementMigration } from '../migrations/after-insert-element';
 import { BeforeInsertElementMigration } from '../migrations/before-insert-element';
@@ -22,5 +21,5 @@ const migrations: NullableDevkitMigration[] = [
 ];
 
 export default function main(): Rule {
-    return createMigrationSchematicRule(TethysTargetVersion.V16, migrations, ruleUpgradeData, onMigrationComplete);
+    return createMigrationSchematicRule(TargetVersion.V15, migrations, ruleUpgradeData, onMigrationComplete);
 }
