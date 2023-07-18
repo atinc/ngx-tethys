@@ -1,8 +1,7 @@
-import { ElementSelectorUpgradeData, VersionChanges } from '@angular/cdk/schematics';
-import { TethysTargetVersion } from '../core/target-version';
+import { ElementSelectorUpgradeData, TargetVersion, VersionChanges } from '@angular/cdk/schematics';
 
 export const elementSelectors: VersionChanges<ElementSelectorUpgradeData> = {
-    [TethysTargetVersion.V16]: [
+    [TargetVersion.V15]: [
         {
             pr: '',
             changes: [
