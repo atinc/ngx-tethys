@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss";
+@use '../../styles/variables.scss';
 
 @mixin display-item-editor {
     .thy-property-item-content-text {
@@ -36,6 +36,7 @@
             }
             &.thy-property-item-operational-hover {
                 .thy-property-item-content {
+                    cursor: pointer;
                     @include property-item-operation-hover-visible();
                 }
             }
@@ -46,6 +47,7 @@
         .thy-property-item {
             flex-direction: column;
             &.thy-property-item-operational-hover {
+                cursor: pointer;
                 .thy-property-item-label {
                     @include property-item-operation-hover-visible();
                 }
@@ -115,7 +117,6 @@
         }
 
         &.thy-property-item-operational-hover {
-            cursor: pointer;
             .thy-property-item-operation {
                 visibility: hidden;
             }
