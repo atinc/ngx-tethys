@@ -1,9 +1,10 @@
-import { ContentObserver } from '@angular/cdk/observers';
-import { ThyAbstractOverlayContainer, ThyClickDispatcher } from 'ngx-tethys/core';
-import { from, Observable, Subject, timer } from 'rxjs';
-import { take, takeUntil, filter } from 'rxjs/operators';
+import { ThyAbstractOverlayContainer, ThyClickDispatcher, ThyPortalOutlet } from 'ngx-tethys/core';
+import { from, Observable, timer } from 'rxjs';
+import { filter, take, takeUntil } from 'rxjs/operators';
+
 import { AnimationEvent } from '@angular/animations';
-import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
+import { ContentObserver } from '@angular/cdk/observers';
+import { PortalModule } from '@angular/cdk/portal';
 import {
     AfterViewInit,
     ChangeDetectorRef,
@@ -37,11 +38,11 @@ import { popoverAbstractOverlayOptions } from './popover.options';
         '(@popoverContainer.done)': 'onAnimationDone($event)'
     },
     standalone: true,
-    imports: [PortalModule]
+    imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
-    @ViewChild(CdkPortalOutlet, { static: true })
-    portalOutlet: CdkPortalOutlet;
+    @ViewChild(ThyPortalOutlet, { static: true })
+    portalOutlet: ThyPortalOutlet;
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';

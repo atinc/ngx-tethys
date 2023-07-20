@@ -1,10 +1,11 @@
 import { Observable, Subject } from 'rxjs';
 
 import { AnimationEvent } from '@angular/animations';
-import { CdkPortalOutlet, ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
+import { ComponentPortal, TemplatePortal } from '@angular/cdk/portal';
 import { ChangeDetectorRef, ComponentRef, EmbeddedViewRef, EventEmitter } from '@angular/core';
 
 import { ThyAbstractOverlayConfig, ThyAbstractOverlayOptions } from './abstract-overlay.config';
+import { ThyPortalOutlet } from './portal-directives';
 
 export function throwPopoverContentAlreadyAttachedError(name: string) {
     throw Error(`Attempting to attach ${name} content after content is already attached`);
@@ -22,7 +23,7 @@ export abstract class ThyAbstractOverlayContainer<TData = unknown> {
     abstract config: ThyAbstractOverlayConfig<TData>;
 
     /**portal outlet */
-    abstract portalOutlet: CdkPortalOutlet;
+    abstract portalOutlet: ThyPortalOutlet;
 
     /**
      * Opening overlay animation done
