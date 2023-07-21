@@ -109,7 +109,6 @@
                 visibility: hidden;
             }
             .thy-property-item-content {
-                cursor: pointer;
                 @include property-item-operation-hover-visible();
             }
         }
