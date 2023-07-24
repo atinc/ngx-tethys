@@ -1,4 +1,4 @@
-<thy-layout style="height: 300px;">
+<thy-layout style="height: 300px">
   <thy-sidebar [thyTheme]="'light'">
     <thy-sidebar-header thyTitle="Title">
       <ng-template #headerOperation>
@@ -6,15 +6,13 @@
         <a href="javascript:;" thyAction thyIcon="outdent"></a>
       </ng-template>
     </thy-sidebar-header>
-    <thy-sidebar-content class="text-center pt-5">
-      Sidebar with header and content
-    </thy-sidebar-content>
+    <thy-sidebar-content class="text-center pt-5"> Sidebar with header and content </thy-sidebar-content>
     <thy-sidebar-footer></thy-sidebar-footer>
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar>
     <thy-sidebar-header thyDivided="true" thyTitle="Title">
       <ng-template #headerOperation>
@@ -22,13 +20,11 @@
       </ng-template>
     </thy-sidebar-header>
 
-    <thy-sidebar-content class="text-center pt-5">
-      Sidebar header width divider
-    </thy-sidebar-content>
+    <thy-sidebar-content class="text-center pt-5"> Sidebar header width divider </thy-sidebar-content>
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar>
     <thy-sidebar-header thyDivided="true">
       <ng-template #headerTitle>
@@ -42,53 +38,42 @@
       </ng-template>
     </thy-sidebar-header>
 
-    <thy-sidebar-content class="text-center pt-5">
-      Sidebar header width headerTitle
-    </thy-sidebar-content>
+    <thy-sidebar-content class="text-center pt-5"> Sidebar header width headerTitle </thy-sidebar-content>
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
-<thy-layout style="height: 100px;">
-  <thy-sidebar thyWidth="lg" class="p-2">
-    Sidebar with custom width lg
-  </thy-sidebar>
+<thy-layout style="height: 100px">
+  <thy-sidebar thyWidth="lg" class="p-2"> Sidebar with custom width lg </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
-<thy-layout style="height: 100px;">
-  <thy-sidebar [thyWidth]="400" class="p-2">
-    Sidebar with custom width 400
-  </thy-sidebar>
+<thy-layout style="height: 100px">
+  <thy-sidebar [thyWidth]="400" class="p-2"> Sidebar with custom width 400 </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
-  <thy-sidebar [thyIsolated]="true" class="p-2">
-    Sidebar with isolated
-  </thy-sidebar>
+<thy-layout style="height: 100px">
+  <thy-sidebar [thyIsolated]="true" class="p-2"> Sidebar with isolated </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
-  <thy-sidebar thyHasBorderRight="false" class="p-2">
-    Sidebar without border
-  </thy-sidebar>
+<thy-layout style="height: 100px">
+  <thy-sidebar [thyDivided]="false" class="p-2"> Sidebar without divider </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar
     [thyDraggable]="true"
     [thyCollapsedWidth]="collapsedWidth"
     [thyDragMaxWidth]="700"
     class="p-2"
-    (thyDragWidthChange)="dragWidthChange($event)"
-  >
+    (thyDragWidthChange)="dragWidthChange($event)">
     Sidebar can drag to change width
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar
     class="p-2"
     [thyDraggable]="true"
@@ -97,15 +82,14 @@
     [(thyCollapsed)]="collapsed"
     [thyCollapsedWidth]="collapsedWidth"
     [thyTrigger]="trigger"
-    (thyCollapsedChange)="collapsedChange($event)"
-  >
+    (thyCollapsedChange)="collapsedChange($event)">
     Sidebar with collapsible
     <a *ngIf="collapsed" href="javascript:;" (click)="toggleCollapsed()">Expand</a>
   </thy-sidebar>
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar
     class="px-4 py-2"
     [thyDraggable]="true"
@@ -129,14 +113,13 @@
   <thy-content> Content </thy-content>
 </thy-layout>
 
-<thy-layout style="height: 100px;">
+<thy-layout style="height: 100px">
   <thy-sidebar
     class="p-2"
     [thyCollapsible]="true"
     [(thyCollapsed)]="triggerCollapsed"
     [thyCollapsedWidth]="collapsedWidth"
-    [thyTrigger]="customTpl"
-  >
+    [thyTrigger]="customTpl">
     Sidebar custom trigger
   </thy-sidebar>
   <thy-content> Content </thy-content>

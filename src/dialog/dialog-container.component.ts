@@ -1,10 +1,10 @@
-import { reqAnimFrame, ThyAbstractOverlayContainer, ThyClickPositioner } from 'ngx-tethys/core';
+import { reqAnimFrame, ThyAbstractOverlayContainer, ThyClickPositioner, ThyPortalOutlet } from 'ngx-tethys/core';
 import { Observable } from 'rxjs';
 import { filter } from 'rxjs/operators';
 
 import { AnimationEvent } from '@angular/animations';
 import { FocusTrap, FocusTrapFactory } from '@angular/cdk/a11y';
-import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
+import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
 import {
     ChangeDetectionStrategy,
@@ -28,7 +28,7 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
  */
 @Component({
     selector: 'thy-dialog-container',
-    template: ` <ng-template cdkPortalOutlet></ng-template> `,
+    template: ` <ng-template thyPortalOutlet></ng-template> `,
     // Using OnPush for dialogs caused some sync issues, e.g. custom ngModel can't to detect changes
     // Disabled until we can track them down.
     changeDetection: ChangeDetectionStrategy.Default,
@@ -47,14 +47,14 @@ import { dialogAbstractOverlayOptions } from './dialog.options';
         '(@dialogContainer.done)': 'onAnimationDone($event)'
     },
     standalone: true,
-    imports: [PortalModule]
+    imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
     animationOpeningDone: Observable<AnimationEvent>;
     animationClosingDone: Observable<AnimationEvent>;
 
-    @ViewChild(CdkPortalOutlet, { static: true })
-    portalOutlet: CdkPortalOutlet;
+    @ViewChild(ThyPortalOutlet, { static: true })
+    portalOutlet: ThyPortalOutlet;
 
     @HostBinding(`attr.id`)
     id: string;

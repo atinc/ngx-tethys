@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.18](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.18) (2023-07-14)
+
+
+### Bug Fixes
+
+* **calendar:** should show the default date in the correct format #INFR-7340 ([#2725](https://github.com/atinc/ngx-tethys/issues/2725)) ([0314160](https://github.com/atinc/ngx-tethys/commit/0314160709267cfe4fc965837084098cd56c1359)), closes [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340) [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340) [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340) [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340) [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340) [#INFR-7340](https://github.com/atinc/ngx-tethys/issues/INFR-7340)
+* **date-range:** the previous date range and the next date range should be connectable when unit of step is month #INFR-2425 ([#2723](https://github.com/atinc/ngx-tethys/issues/2723)) ([332e2c4](https://github.com/atinc/ngx-tethys/commit/332e2c464ecbca47e999bc6a24902bda81cb99fc)), closes [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425) [#INFR-2425](https://github.com/atinc/ngx-tethys/issues/INFR-2425)
+* **tree-select:** replace wtf-checked with thy-icon named check for tree-select and select component #INFR-5942 ([#2749](https://github.com/atinc/ngx-tethys/issues/2749)) ([ef509ff](https://github.com/atinc/ngx-tethys/commit/ef509ffb9b0d9784ac2acaba95741429e90116e5)), closes [#INFR-5942](https://github.com/atinc/ngx-tethys/issues/INFR-5942)
+
+
+### Features
+
+* **color-picker:** color-picker support disabled (#INFR-8645) ([#2757](https://github.com/atinc/ngx-tethys/issues/2757)) ([2d8617f](https://github.com/atinc/ngx-tethys/commit/2d8617f228d28c756d44238046337f1e6c41131d)), closes [#INFR-8645](https://github.com/atinc/ngx-tethys/issues/INFR-8645)
+* **color-picker:** add popoverRef param when panel open and close #INFR-8673 ([#2756](https://github.com/atinc/ngx-tethys/issues/2756)) ([964a748](https://github.com/atinc/ngx-tethys/commit/964a748016f8ca8d59b229df8a9a81252f4b32b1)), closes [#INFR-8673](https://github.com/atinc/ngx-tethys/issues/INFR-8673)
+
+
 ## [15.3.17](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.17) (2023-07-05)
 
 

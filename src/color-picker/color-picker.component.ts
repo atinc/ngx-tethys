@@ -16,6 +16,9 @@ import { takeUntil } from 'rxjs/operators';
  */
 @Directive({
     selector: '[thyColorPicker]',
+    host: {
+        '[class.thy-color-picker-disabled]': 'disabled'
+    },
     providers: [
         {
             provide: NG_VALUE_ACCESSOR,
@@ -62,12 +65,16 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
     /**
      * panel 展开后触发
      */
-    @Output() thyPanelOpen: EventEmitter<void> = new EventEmitter<void>();
+    @Output() thyPanelOpen: EventEmitter<ThyPopoverRef<ThyColorPickerPanelComponent>> = new EventEmitter<
+        ThyPopoverRef<ThyColorPickerPanelComponent>
+    >();
 
     /**
      * panel 关闭后触发
      */
-    @Output() thyPanelClose: EventEmitter<void> = new EventEmitter<void>();
+    @Output() thyPanelClose: EventEmitter<ThyPopoverRef<ThyColorPickerPanelComponent>> = new EventEmitter<
+        ThyPopoverRef<ThyColorPickerPanelComponent>
+    >();
 
     /**
      * 弹出悬浮层的触发方式
@@ -177,10 +184,10 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         });
         if (this.popoverRef) {
             this.popoverRef.afterOpened().subscribe(() => {
-                this.thyPanelOpen.emit();
+                this.thyPanelOpen.emit(this.popoverRef);
             });
             this.popoverRef.afterClosed().subscribe(() => {
-                this.thyPanelClose.emit();
+                this.thyPanelClose.emit(this.popoverRef);
             });
         }
         if (this.popoverRef && !this.thyHasBackdrop) {
@@ -243,6 +250,10 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     registerOnTouched(fn: any): void {
         this.onTouchFn = fn;
+    }
+
+    setDisabledState?(isDisabled: boolean): void {
+        this.disabled = isDisabled;
     }
 
     onModelChange(value: string): void {

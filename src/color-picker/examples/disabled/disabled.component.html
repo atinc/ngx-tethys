@@ -1,0 +1,9 @@
+<span>已选择颜色：{{ color }}</span>
+<div
+  class="box"
+  [ngStyle]="{ background: color }"
+  thyColorPicker
+  [thyOffset]="10"
+  [(ngModel)]="color"
+  [disabled]="disabled"
+  (ngModelChange)="change($event)"></div>
