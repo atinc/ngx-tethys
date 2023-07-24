@@ -1,4 +1,4 @@
-@use "../styles/variables";
+@use '../styles/variables';
 
 .thy-icon {
     background-repeat: no-repeat;
@@ -19,6 +19,8 @@
         /* path 和 stroke 溢出 viewBox 部分在 IE 下会显示 normalize.css 中也包含这行 */
         overflow: hidden;
         transition: transform variables.$transition-duration-normal;
+        /** 解决：点击 svg 使 tooltip 源的位置发生变化后，没有触发 tooltip 源的 mouseleave 事件 */
+        pointer-events: none;
     }
 
     &-legging {
