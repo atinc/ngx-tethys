@@ -7,7 +7,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
-* **icon:** click icon (svg) to change source position of tooltip, but tooltip is not closed when tooltip is bound to the component or native tag containing thy-icon INFR-8660 ([#2754](https://github.com/atinc/ngx-tethys/issues/2754)) ([0d3563d](https://github.com/atinc/ngx-tethys/commit/0d3563d2ab37d909516c5f7eb96f1a6dad492d95))
+* **icon:** click icon (svg) to change source position of tooltip, but tooltip is not closed when tooltip is bound to the component or native tag containing thy-icon #INFR-8660 ([#2754](https://github.com/atinc/ngx-tethys/issues/2754)) ([0d3563d](https://github.com/atinc/ngx-tethys/commit/0d3563d2ab37d909516c5f7eb96f1a6dad492d95))
 * **property:** remove pointer when hover in property name #INFR-8807 ([#2760](https://github.com/atinc/ngx-tethys/issues/2760)) ([d5178b1](https://github.com/atinc/ngx-tethys/commit/d5178b1c1bd8d569a15eb9cd83b90e50e2acd2d3)), closes [#INFR-8807](https://github.com/atinc/ngx-tethys/issues/INFR-8807)
 
 
