@@ -1,5 +1,5 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { InputNumber, ThyPlacement } from 'ngx-tethys/core';
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
