@@ -1,13 +1,11 @@
 import { ContentObserver } from '@angular/cdk/observers';
 import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
 import { InputNumber, ThyPlacement } from 'ngx-tethys/core';
-import { ThyTooltipDirective, ThyTooltipService } from 'ngx-tethys/tooltip';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { from, Observable, Subject, Subscription } from 'rxjs';
 import { debounceTime, take, takeUntil } from 'rxjs/operators';
-import { Platform } from '@angular/cdk/platform';
-import { FocusMonitor } from '@angular/cdk/a11y';
 
 /**
  * 文本提示组件，支持组件 thy-flexible-text 和指令 [thyFlexibleText] 两种方式
@@ -17,7 +15,7 @@ import { FocusMonitor } from '@angular/cdk/a11y';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    providers: [ThyTooltipService],
+    hostDirectives: [ThyTooltipDirective],
     standalone: true
 })
 export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
@@ -38,7 +36,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      * @type hover | focus | click
      * @default hover
      */
-    @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click' = 'hover';
+    @Input('thyTooltipTrigger') trigger: 'hover' | 'focus' | 'click';
 
     /**
      * 自定义class类，如果不设置默认会包含 `flexible-text-container`
@@ -59,8 +57,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
-        if (this.thyTooltipDirective) {
-            this.thyTooltipDirective.content = this.content;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.content = this.content;
         }
     }
 
@@ -71,8 +69,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;
-        if (this.thyTooltipDirective) {
-            this.thyTooltipDirective.placement = this.placement;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.placement = this.placement;
         }
     }
 
@@ -81,12 +79,10 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipOffset') @InputNumber() set thyOffset(value: number) {
         this.offset = value;
-        if (this.thyTooltipDirective) {
-            this.thyTooltipDirective.tooltipOffset = this.offset;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.tooltipOffset = this.offset;
         }
     }
-
-    thyTooltipDirective: ThyTooltipDirective;
 
     private destroy$ = new Subject<void>();
 
@@ -94,12 +90,9 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     constructor(
         private elementRef: ElementRef,
-        private viewContainerRef: ViewContainerRef,
         private contentObserver: ContentObserver,
         private ngZone: NgZone,
-        private platform: Platform,
-        private focusMonitor: FocusMonitor,
-        public thyTooltipService: ThyTooltipService
+        public tooltipDirective: ThyTooltipDirective
     ) {}
 
     static createResizeObserver(element: HTMLElement) {
@@ -116,30 +109,17 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     ngOnInit() {
         this.updateContainerClass();
-        this.attachTooltip();
-    }
-
-    attachTooltip() {
-        this.thyTooltipDirective = new ThyTooltipDirective(
-            this.elementRef,
-            this.ngZone,
-            this.platform,
-            this.focusMonitor,
-            this.viewContainerRef,
-            this.thyTooltipService
-        );
         if (this.placement) {
-            this.thyTooltipDirective.placement = this.placement;
+            this.tooltipDirective.placement = this.placement;
         }
         if (this.offset) {
-            this.thyTooltipDirective.tooltipOffset = this.offset;
+            this.tooltipDirective.tooltipOffset = this.offset;
         }
-        this.thyTooltipDirective.thyTooltipDisabled = true;
-        this.thyTooltipDirective.content = this.content;
-
-        this.thyTooltipDirective.trigger = this.trigger;
-
-        this.thyTooltipDirective.ngOnInit();
+        if (this.trigger) {
+            this.tooltipDirective.trigger = this.trigger;
+        }
+        this.tooltipDirective.content = this.content;
+        this.tooltipDirective.thyTooltipDisabled = true;
     }
 
     ngAfterContentInit() {
@@ -169,7 +149,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     ngOnDestroy() {
         this.destroy$.next();
-        this.thyTooltipDirective.ngOnDestroy();
+        this.tooltipDirective.hide();
     }
 
     applyOverflow() {
@@ -179,7 +159,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         } else {
             this.isOverflow = false;
         }
-        this.thyTooltipDirective.thyTooltipDisabled = !this.isOverflow;
+        this.tooltipDirective.thyTooltipDisabled = !this.isOverflow;
     }
 
     updateContainerClass() {

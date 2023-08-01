@@ -1,0 +1,26 @@
+<div class="d-flex">
+  <span>触发方式分为：</span>
+  <thy-tags> <thy-tag>hover</thy-tag>、<thy-tag>click</thy-tag>、<thy-tag>focus</thy-tag>三种. </thy-tags>
+</div>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<span class="text-muted">Hover</span>
+<br />
+<thy-flexible-text [thyTooltipContent]="text" style="width: 500px" [thyTooltipTrigger]="'hover'">
+  {{ text }}
+</thy-flexible-text>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<span class="text-muted">Click</span>
+<br />
+<span thyFlexibleText [thyTooltipContent]="text" thyTooltipOffset="10" style="width: 500px" [thyTooltipTrigger]="'click'">{{ text }}</span>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<span class="text-muted">Focus</span>
+<br />
+<a href="javascript:;" class="link-major" thyFlexibleText [thyTooltipContent]="text" style="width: 200px" [thyTooltipTrigger]="'focus'">
+  {{ text }}
+</a>
