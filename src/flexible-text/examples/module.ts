@@ -6,7 +6,7 @@ import { ThyEmptyModule } from 'ngx-tethys/empty';
 import { ThyFlexibleTextModule } from 'ngx-tethys/flexible-text';
 import { ThySpaceModule } from 'ngx-tethys/space';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThyTagModule } from "ngx-tethys/tag";
+import { ThyTagModule } from 'ngx-tethys/tag';
 import { ThyFlexibleTextBasicExampleComponent } from './basic/basic.component';
 import { ThyFlexibleTextContainerExampleComponent } from './container/container.component';
 import { ThyFlexibleTextMultipleLineExampleComponent } from './multiple-line/multiple-line.component';
