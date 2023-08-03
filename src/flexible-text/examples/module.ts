@@ -14,7 +14,7 @@ import { ThyFlexibleTextPlacementExampleComponent } from './placement/placement.
 import { ThyFlexibleTextTemplateExampleComponent } from './template/template.component';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyButtonModule } from 'ngx-tethys/button';
-import { ThyFlexibleTexTriggerExampleComponent } from './trigger/trigger.component';
+import { ThyFlexibleTexTooltipTriggerExampleComponent } from './tooltip-trigger/tooltip-trigger.component';
 
 const COMPONENTS = [
     ThyFlexibleTextBasicExampleComponent,
@@ -22,7 +22,7 @@ const COMPONENTS = [
     ThyFlexibleTextPlacementExampleComponent,
     ThyFlexibleTextContainerExampleComponent,
     ThyFlexibleTextMultipleLineExampleComponent,
-    ThyFlexibleTexTriggerExampleComponent
+    ThyFlexibleTexTooltipTriggerExampleComponent
 ];
 
 @NgModule({
