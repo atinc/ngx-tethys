@@ -181,13 +181,13 @@ input[type='radio'] {
 }
 
 .form-check-label {
-    margin-left: 6px;
+    margin-left:  variables.$form-check-label-margin-l;
     cursor: pointer;
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
     user-select: none;
     .form-check-inline & {
-        margin-left: 5px;
+        margin-left: variables.$form-check-label-margin-l;
     }
 
     margin-bottom: 0;
