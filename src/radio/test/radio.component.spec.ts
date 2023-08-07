@@ -1,4 +1,4 @@
-import { Component, DebugElement } from '@angular/core';
+import { Component, DebugElement, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -60,7 +60,7 @@ describe('radio component', () => {
 @Component({
     selector: 'thy-radio-group-test',
     template: `
-        <thy-radio-group [(ngModel)]="checkedValue">
+        <thy-radio-group #radioGroup [(ngModel)]="checkedValue" [thySize]="size">
             <label thyRadio thyLabelText="选项一" [thyValue]="1" [thyInline]="inlineStatus"></label>
             <label thyRadioButton thyLabelText="选项二" [thyValue]="2" [thyInline]="inlineStatus"></label>
             <label thyRadio thyLabelText="选项三" [thyValue]="3" [thyInline]="inlineStatus"></label>
@@ -69,8 +69,10 @@ describe('radio component', () => {
     `
 })
 class RadioGroupTestComponent {
+    @ViewChild('radioGroup', { static: true }) radioGroup: ThyRadioGroupComponent;
     checkedValue = 1;
     inlineStatus = false;
+    size: string;
 }
 
 describe('thy-radio-group component', () => {
@@ -125,6 +127,26 @@ describe('thy-radio-group component', () => {
         expect(labelComponent[2].classList.contains('form-check-checked')).toBeTruthy();
         [1, 2, 3].forEach((element: number, index: number) => {
             expect(labelComponent[index].classList.contains('form-check-inline')).toBeTruthy();
+        });
+    }));
+
+    it('should set thySize success', fakeAsync(() => {
+        const buttonGroupSizeMap = {
+            sm: ['btn-group-sm'],
+            lg: ['btn-group-lg']
+        };
+        const radioGroupElement = radioGroupDebugComponent.nativeElement as HTMLElement;
+
+        ['sm', 'md', 'lg'].forEach(size => {
+            groupComponent.size = size;
+            groupFixture.detectChanges();
+            groupComponent.radioGroup.ngOnInit();
+            groupFixture.detectChanges();
+            if (size === 'md') {
+                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeFalsy();
+            } else {
+                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeTruthy();
+            }
         });
     }));
 });
