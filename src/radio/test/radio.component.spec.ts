@@ -130,11 +130,23 @@ describe('thy-radio-group component', () => {
         });
     }));
 
-    it('should set thySize success', () => {
+    it('should set thySize success', fakeAsync(() => {
+        const buttonGroupSizeMap = {
+            sm: ['btn-group-sm'],
+            lg: ['btn-group-lg']
+        };
+        const radioGroupElement = radioGroupDebugComponent.nativeElement as HTMLElement;
+
         ['sm', 'md', 'lg'].forEach(size => {
             groupComponent.size = size;
             groupFixture.detectChanges();
-            expect(groupComponent.radioGroup['_size']).toEqual(groupComponent.size);
+            groupComponent.radioGroup.ngOnInit();
+            groupFixture.detectChanges();
+            if (size === 'md') {
+                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeFalsy();
+            } else {
+                expect(radioGroupElement.classList.contains(`${buttonGroupSizeMap[size]}`)).toBeTruthy();
+            }
         });
-    });
+    }));
 });
