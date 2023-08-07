@@ -131,7 +131,7 @@ describe('thy-radio-group component', () => {
     }));
 
     it('should set thySize success', () => {
-        ['sm', 'lg'].forEach(size => {
+        ['sm', 'md', 'lg'].forEach(size => {
             groupComponent.size = size;
             groupFixture.detectChanges();
             expect(groupComponent.radioGroup['_size']).toEqual(groupComponent.size);
