@@ -9,19 +9,19 @@ import { ThyTooltipModule } from '../../tooltip/tooltip.module';
 import { ThyCopyDirective } from '../copy.directive';
 
 describe('thy-copy', () => {
-    let fixture: ComponentFixture<ThyCopTestComponent>;
-    let testComponent: ThyCopTestComponent;
+    let fixture: ComponentFixture<ThyCopyTestComponent>;
+    let testComponent: ThyCopyTestComponent;
 
     beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective],
-            declarations: [ThyCopTestComponent],
+            declarations: [ThyCopyTestComponent],
             providers: [ThyNotifyService]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyCopTestComponent);
+        fixture = TestBed.createComponent(ThyCopyTestComponent);
         testComponent = fixture.componentInstance;
     });
 
@@ -88,7 +88,7 @@ describe('thy-copy', () => {
         </p>
     `
 })
-class ThyCopTestComponent implements OnInit {
+class ThyCopyTestComponent implements OnInit {
     copyTooltip: string;
 
     copyTipsOffset: number;
