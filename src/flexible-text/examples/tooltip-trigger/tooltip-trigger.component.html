@@ -1,0 +1,23 @@
+<div class="d-flex">
+  <span>Feedback 的触发方式有三种：</span>
+  <thy-tags><thy-tag>hover</thy-tag><thy-tag>click</thy-tag><thy-tag>focus</thy-tag></thy-tags>
+</div>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<p class="text-muted mb-0">Hover</p>
+<thy-flexible-text [thyTooltipContent]="text" style="width: 500px" [thyTooltipTrigger]="'hover'">
+  {{ text }}
+</thy-flexible-text>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<p class="text-muted mb-0">Click</p>
+<span thyFlexibleText [thyTooltipContent]="text" thyTooltipOffset="10" style="width: 500px" [thyTooltipTrigger]="'click'">{{ text }}</span>
+
+<thy-divider [thyColor]="'light'" [thyStyle]="'dashed'"></thy-divider>
+
+<p class="text-muted mb-0">Focus</p>
+<a href="javascript:;" class="link-major" thyFlexibleText [thyTooltipContent]="text" style="width: 200px" [thyTooltipTrigger]="'focus'">
+  {{ text }}
+</a>
