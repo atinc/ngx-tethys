@@ -104,7 +104,7 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
                 tick();
                 fixture.detectChanges();
-                expect(document.querySelector('.select-control-borderless')).toBeTruthy();
+                expect(selectElement.classList.contains('select-control-borderless')).toBeTruthy();
             }));
         });
 
