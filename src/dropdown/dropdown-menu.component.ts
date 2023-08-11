@@ -9,6 +9,8 @@ import {
     TemplateRef
 } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
+import { InputBoolean } from 'ngx-tethys/core';
+import { NgIf } from '@angular/common';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
@@ -28,7 +30,8 @@ export class ThyDropdownAbstractMenu {
 @Component({
     selector: 'thy-dropdown-menu',
     template: `
-        <ng-template>
+        <ng-container *ngIf="thyImmediateRender; then dropdownMenu"></ng-container>
+        <ng-template #dropdownMenu>
             <div class="thy-dropdown-menu" [style.width.px]="width">
                 <ng-content></ng-content>
             </div>
@@ -37,18 +40,17 @@ export class ThyDropdownAbstractMenu {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {},
-    standalone: true
+    standalone: true,
+    imports: [NgIf]
 })
 export class ThyDropdownMenuComponent {
-    // @HostBinding('class.dropdown-menu--group') themeClassName = false;
-
     width: number;
 
     get template() {
         return this.templateRef;
     }
 
-    @ViewChild(TemplateRef, { static: true }) templateRef!: TemplateRef<SafeAny>;
+    @ViewChild('dropdownMenu', { static: true }) templateRef!: TemplateRef<SafeAny>;
 
     /**
      * 设置菜单宽度
@@ -57,6 +59,12 @@ export class ThyDropdownMenuComponent {
     @Input() set thyWidth(value: number) {
         this.width = value;
     }
+
+    /**
+     * 是否直接渲染 dropdown-menu 中的元素
+     * @default false
+     */
+    @Input() @InputBoolean() thyImmediateRender = false;
 
     constructor() {}
 }
