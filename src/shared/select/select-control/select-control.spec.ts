@@ -1,4 +1,4 @@
-import { TestBed, async, ComponentFixture, fakeAsync, flush } from '@angular/core/testing';
+import { TestBed, async, ComponentFixture, fakeAsync, flush, tick } from '@angular/core/testing';
 import { ThySelectCommonModule } from '../module';
 import { By } from '@angular/platform-browser';
 import { Component, ViewChild } from '@angular/core';
@@ -20,6 +20,7 @@ import { SelectOptionBase } from '../../option';
             [thySize]="thySize"
             [thyIsMultiple]="thyIsMultiple"
             [thyPanelOpened]="thyPanelOpened"
+            [thyBorderless]="borderless"
             [thyMaxTagCount]="thyMaxTagCount"></thy-select-control>
     `
 })
@@ -41,6 +42,8 @@ class BasicSelectControlComponent {
     thyPanelOpened = false;
 
     thyMaxTagCount = 0;
+
+    borderless = false;
 
     @ViewChild(ThySelectControlComponent, { static: true })
     selectControlComponent: ThySelectControlComponent;
@@ -95,6 +98,14 @@ describe('ThySelectControl', () => {
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
                 expect(selectElement.classList.contains(`form-control-${size}`)).toBeTruthy();
             });
+
+            it('should has borderless class name', fakeAsync(() => {
+                fixture.componentInstance.borderless = true;
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                expect(document.querySelector('.select-control-borderless')).toBeTruthy();
+            }));
         });
 
         describe('placeholder', () => {
