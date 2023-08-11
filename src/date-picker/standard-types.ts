@@ -35,9 +35,10 @@ export interface DateEntry {
 }
 
 export interface ThyDateRangeEntry {
-    begin: number | null | Date;
-    end: number | null | Date;
+    begin?: number | null | Date;
+    end?: number | null | Date;
     granularity?: ThyDateGranularity;
+    shortcut_key?: string;
 }
 /**
  * * 已废弃，请使用 ThyShortcutPreset
@@ -53,10 +54,11 @@ export interface ThyShortcutPreset {
     title: string;
     value?: ThyShortcutValue | [ThyShortcutValue, ThyShortcutValue];
     disabled?: boolean;
+    shortcut_key?: string;
 }
 
 export interface ThyShortcutValueChange {
-    value: CompatibleValue;
+    value?: CompatibleValue;
     triggerPresets: ThyShortcutPreset;
 }
 

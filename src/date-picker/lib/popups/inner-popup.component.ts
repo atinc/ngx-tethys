@@ -5,6 +5,7 @@ import {
     HostBinding,
     Input,
     OnChanges,
+    OnInit,
     Output,
     SimpleChanges,
     TemplateRef
@@ -53,7 +54,7 @@ import { YearTableComponent } from '../year/year-table.component';
         DateTableComponent
     ]
 })
-export class InnerPopupComponent implements OnChanges {
+export class InnerPopupComponent implements OnInit, OnChanges {
     @HostBinding('class.thy-calendar-picker-inner-popup') className = true;
     @HostBinding('class.thy-calendar-picker-inner-popup-with-range-input') _showDateRangeInput = false;
 
@@ -94,6 +95,11 @@ export class InnerPopupComponent implements OnChanges {
 
     constructor(private dateHelper: DateHelperService) {}
 
+    ngOnInit(): void {
+        console.log('selected:', this.selectedValue);
+        console.log('active:', this.activeDate);
+    }
+
     ngOnChanges(changes: SimpleChanges): void {
         if (changes.activeDate && !changes.activeDate.currentValue) {
             this.activeDate = new TinyDate();
@@ -103,16 +109,19 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
+    // 自定义功能中的时间范围输入框值
     getReadableValue(value: TinyDate) {
         return value ? this.dateHelper.format(value.nativeDate, 'yyyy-MM-dd') : '';
     }
 
+    // 时间选择器选择时间方法
     onSelectDate(date: TinyDate | Date): void {
         const value = date instanceof TinyDate ? date : new TinyDate(date);
 
         this.selectDate.emit(value);
     }
 
+    // 选择月份
     onChooseMonth(value: TinyDate): void {
         this.activeDate = this.activeDate.setMonth(value.getMonth());
         if (this.endPanelMode === 'month') {
@@ -123,6 +132,8 @@ export class InnerPopupComponent implements OnChanges {
             this.panelModeChange.emit(this.endPanelMode);
         }
     }
+
+    // 选择年份
     onChooseYear(value: TinyDate): void {
         this.activeDate = this.activeDate.setYear(value.getYear());
         if (this.endPanelMode === 'year') {
@@ -134,6 +145,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
+    // 选择 decade
     onChooseDecade(value: TinyDate): void {
         this.activeDate = this.activeDate.setYear(value.getYear());
         if (this.endPanelMode === 'decade') {
@@ -145,6 +157,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
+    // 快捷切换月份
     enablePrevNext(direction: 'prev' | 'next', mode: ThyPanelMode): boolean {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {
@@ -158,6 +171,7 @@ export class InnerPopupComponent implements OnChanges {
         }
     }
 
+    // 快捷切换年份
     enableSuperPrevNext(direction: 'prev' | 'next', panelMode: ThyPanelMode) {
         if (this.isRange) {
             if ((this.partType === 'left' && direction === 'next') || (this.partType === 'right' && direction === 'prev')) {

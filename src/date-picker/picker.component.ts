@@ -21,6 +21,7 @@ import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
+import { differenceInDays } from 'date-fns';
 
 /**
  * @private
@@ -57,6 +58,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
     @ViewChild('pickerInput', { static: true }) pickerInput: ElementRef;
 
+    _selectedShortcutKey: string;
     prefixCls = 'thy-calendar';
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined

@@ -86,6 +86,8 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Input() value: CompatibleValue;
     @Input() defaultPickerValue: CompatibleDate | number;
 
+    @Input() selectedShortcutKey: string;
+
     @Input() showShortcut: boolean;
 
     @Input() shortcutPresets: CompatiblePresets;
@@ -580,8 +582,15 @@ export class DatePopupComponent implements OnChanges, OnInit {
             return;
         }
 
-        const { value } = shortcutPresets;
+        const { value, shortcut_key } = shortcutPresets;
         if (!value) {
+            return;
+        }
+
+        if (shortcut_key === 'recent_n_days') {
+            this.selectedShortcutKey = shortcut_key;
+            const end: number | Date = getShortcutValue(value[1]);
+            this.changeValueFromSelect(new TinyDate(endOfDay(end)));
             return;
         }
 

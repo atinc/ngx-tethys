@@ -1,4 +1,4 @@
-<thy-form-group thyLabelText="时间选择器">
+<!-- <thy-form-group thyLabelText="时间选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
@@ -6,10 +6,10 @@
     thyPlaceHolder="选择时间"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-  ></thy-date-picker>
-</thy-form-group>
-<thy-form-group thyLabelText="高级时间选择器">
+    [thyAllowClear]="isAllowClear"></thy-date-picker>
+</thy-form-group> -->
+
+<!-- <thy-form-group thyLabelText="高级时间选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyShowTime
@@ -19,72 +19,66 @@
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyShowShortcut]="true"
-    [thyShortcutPresets]="shortcutDatePresets"
-  ></thy-date-picker>
-</thy-form-group>
-<thy-form-group thyLabelText="周选择器">
+    [thyShortcutPresets]="shortcutDatePresets"></thy-date-picker>
+</thy-form-group> -->
+
+<!-- <thy-form-group thyLabelText="周选择器">
   <thy-date-picker
     class="d-block w-50 mb-3"
     thyPlaceHolder="选择周"
     [(ngModel)]="week"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
-    [thyMode]="'week'"
-  ></thy-date-picker>
-</thy-form-group>
+    [thyMode]="'week'"></thy-date-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="月份选择器">
+<!-- <thy-form-group thyLabelText="月份选择器">
   <thy-month-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
-    thyPlaceHolder="请选择月份"
-  >
+    thyPlaceHolder="请选择月份">
   </thy-month-picker>
-</thy-form-group>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="年份选择器">
+<!-- <thy-form-group thyLabelText="年份选择器">
   <thy-year-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="dateTime"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
-    thyPlaceHolder="请选择年份"
-  ></thy-year-picker>
-</thy-form-group>
+    thyPlaceHolder="请选择年份"></thy-year-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="月份范围选择器">
+<!-- <thy-form-group thyLabelText="月份范围选择器">
   <thy-range-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="dateRange"
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyMode]="'month'"
-    [thyAutoStartAndEnd]="true"
-  ></thy-range-picker>
-</thy-form-group>
+    [thyAutoStartAndEnd]="true"></thy-range-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="日期范围选择器">
+<!-- <thy-form-group thyLabelText="日期范围选择器">
   <thy-range-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="dateRange"
     (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-  ></thy-range-picker>
-</thy-form-group>
+    [thyAllowClear]="isAllowClear"></thy-range-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="年范围选择器">
+<!-- <thy-form-group thyLabelText="年范围选择器">
   <thy-range-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="yearRange"
     thyMode="year"
     (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-  ></thy-range-picker>
-</thy-form-group>
+    [thyAllowClear]="isAllowClear"></thy-range-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="周范围选择器">
+<!-- <thy-form-group thyLabelText="周范围选择器">
   <thy-range-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="weekRange"
@@ -92,17 +86,39 @@
     (ngModelChange)="onChange($event)"
     [thyAllowClear]="isAllowClear"
     [thyShowShortcut]="true"
-    [thyShortcutPresets]="shortcutMonthPresets"
-  ></thy-range-picker>
-</thy-form-group>
+    [thyShortcutPresets]="shortcutMonthPresets"></thy-range-picker>
+</thy-form-group> -->
 
-<thy-form-group thyLabelText="高级范围选择器">
+<!-- <thy-form-group thyLabelText="高级范围选择器">
   <thy-range-picker
     class="d-block w-50 mb-3"
     [(ngModel)]="flexibleDateRange"
     thyMode="flexible"
     [thyShowShortcut]="true"
     (ngModelChange)="onChange($event)"
-    [thyAllowClear]="isAllowClear"
-  ></thy-range-picker>
+    [thyAllowClear]="isAllowClear"></thy-range-picker>
+</thy-form-group> -->
+<thy-form-group thyLabelText="时间单位" thyLabelRequired>
+  <thy-custom-select
+    name="dateDimensionUnit"
+    class="d-block w-50 mb-3"
+    required
+    [(ngModel)]="dateUnit"
+    [thyAllowClear]="false"
+    thyPlaceHolder="选择时间单位"
+    (ngModelChange)="selectDateUnit()">
+    <thy-option *ngFor="let item of dateUnitOptions" [thyValue]="item.key" [thyLabelText]="item.name"></thy-option>
+  </thy-custom-select>
+</thy-form-group>
+
+<thy-form-group thyLabelText="动态时间选择器">
+  <thy-range-picker
+    class="d-block w-50 mb-3"
+    [(ngModel)]="dynamicDateRange"
+    [thyShowShortcut]="true"
+    [thyShortcutPresets]="dynamicShortcutPresets"
+    (ngModelChange)="onChange($event)"
+    (thyShortcutValueChange)="shortcutValueChange($event)"
+    [thyMode]="dateUnit"
+    [thyAllowClear]="isAllowClear"></thy-range-picker>
 </thy-form-group>

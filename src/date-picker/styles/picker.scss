@@ -66,6 +66,10 @@
                     background-color: variables.$gray-100;
                     border-color: variables.$gray-300;
                 }
+
+                &.active {
+                    border-color: variables.$primary;
+                }
             }
         }
         &-body {

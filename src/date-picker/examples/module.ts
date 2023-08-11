@@ -14,6 +14,7 @@ import { ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDatePickerShortcutExampleComponent } from './shortcut/shortcut.component';
 import { ThyFormModule } from 'ngx-tethys/form';
+import { ThySelectModule } from 'ngx-tethys/select';
 
 const COMPONENTS = [
     ThyDatePickerBasicExampleComponent,
@@ -29,7 +30,7 @@ const COMPONENTS = [
 
 @NgModule({
     declarations: [...COMPONENTS],
-    imports: [CommonModule, FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, ThyButtonModule, ThyFormModule],
+    imports: [CommonModule, FormsModule, ThyDatePickerModule, ThyPropertyOperationModule, ThyButtonModule, ThyFormModule, ThySelectModule],
     exports: [...COMPONENTS]
 })
 export class ThyDatePickerExamplesModule {}

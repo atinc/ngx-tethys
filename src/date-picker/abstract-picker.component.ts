@@ -192,6 +192,8 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
 
     flexibleDateGranularity: ThyDateGranularity;
 
+    selectedShortcutKey: string;
+
     protected destroyed$: Subject<void> = new Subject();
     protected isCustomPlaceHolder = false;
     private onlyEmitDate = false;
@@ -331,6 +333,7 @@ export abstract class AbstractPickerComponent extends _MixinBase implements OnIn
     onChangeFn: (val: CompatibleDate | DateEntry | ThyDateRangeEntry | number | null) => void = () => void 0;
 
     writeValue(originalValue: CompatibleDate | ThyDateRangeEntry): void {
+        this.selectedShortcutKey = (originalValue as ThyDateRangeEntry)?.shortcut_key;
         const { value, withTime, flexibleDateGranularity } = transformDateValue(originalValue);
         this.flexibleDateGranularity = flexibleDateGranularity;
         if (this.flexible && value && (value as Date[]).length) {

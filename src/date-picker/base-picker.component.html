@@ -16,8 +16,7 @@
   [suffixIcon]="thySuffixIcon"
   [placement]="thyPlacement"
   (openChange)="onOpenChange($event)"
-  (blur)="onBlur($event)"
->
+  (blur)="onBlur($event)">
   <date-popup
     [attr.tabindex]="-1"
     *ngIf="realOpenState"
@@ -43,7 +42,7 @@
     [shortcutPresets]="shortcutPresets"
     [shortcutPosition]="shortcutPosition"
     (shortcutValueChange)="onShortcutValueChange($event)"
+    [selectedShortcutKey]="selectedShortcutKey"
     [className]="thyPanelClassName"
-    (resultOk)="onResultOk()"
-  ></date-popup>
+    (resultOk)="onResultOk()"></date-popup>
 </thy-picker>
