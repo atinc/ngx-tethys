@@ -6,8 +6,20 @@ export const elementSelectors: VersionChanges<ElementSelectorUpgradeData> = {
             pr: '',
             changes: [
                 {
-                    replace: 'thy-action-menu',
-                    replaceWith: 'thy-dropdown-menu'
+                    replace: '<thy-action-menu ',
+                    replaceWith: '<thy-dropdown-menu thyImmediateRender '
+                },
+                {
+                    replace: '<thy-action-menu>',
+                    replaceWith: '<thy-dropdown-menu thyImmediateRender>'
+                },
+                {
+                    replace: '</thy-action-menu>',
+                    replaceWith: '</thy-dropdown-menu>'
+                },
+                {
+                    replace: 'thy-action-menu-group',
+                    replaceWith: 'thy-dropdown-menu-group'
                 }
             ]
         }

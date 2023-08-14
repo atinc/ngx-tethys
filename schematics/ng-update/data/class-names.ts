@@ -23,7 +23,7 @@ export const classNames: VersionChanges<ClassNameUpgradeData> = {
                 },
                 {
                     replace: 'ThyActionMenuModule',
-                    replaceWith: 'ThyDropDownModule'
+                    replaceWith: 'ThyDropdownModule'
                 },
                 {
                     replace: 'ThyActionMenuTheme',

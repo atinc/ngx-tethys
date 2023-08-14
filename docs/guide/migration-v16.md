@@ -44,16 +44,16 @@ hidden: true
       - thyLabel=info -> thyColor=info
       - thyLabel=warning -> thyColor=warning
       - thyLabel=danger -> thyColor=danger
-      - thyLabel= emboss-default -> thyColor=default  thyTheme="weak-fill"
-      - thyLabel= emboss-primary -> thyColor=primary  thyTheme="weak-fill"
-      - thyLabel= emboss-warning -> thyColor=warning  thyTheme="weak-fill"
-      - thyLabel= emboss-danger -> thyColor=danger  thyTheme="weak-fill"
-      - thyLabel= outline -> thyTheme=“outline” 
+      - thyLabel=emboss-default -> thyColor=default  thyTheme=weak-fill
+      - thyLabel=emboss-primary -> thyColor=primary  thyTheme=weak-fill
+      - thyLabel=emboss-warning -> thyColor=warning  thyTheme=weak-fill
+      - thyLabel=emboss-danger -> thyColor=danger  thyTheme=weak-fill
+      - thyLabel=outline -> thyTheme=outline 
    - thyLabelColor -> thyColor
    - thyBackgroundOpacity -> 删除
    - thyLabelType: state | pill
-      - thyLabelType = state -> thyShape= rectangle
-      - thyLabelType = pill -> thyShape= pill
+      - thyLabelType=state -> thyShape=rectangle
+      - thyLabelType=pill -> thyShape=pill
    - thyOnRemove -> 删除
 - ts
    - ThyLabelTypeSize -> ThyTagSize
