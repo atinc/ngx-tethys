@@ -62,7 +62,7 @@ describe('ng-update v16 Schematic', () => {
         workspaceTree = await schematicRunner.runSchematicAsync('migration-v16', {}, tree).toPromise();
     });
 
-    it(`should update ThyLabelModule to ThyTagModule`, async () => {
+    it(`should update ThyLabelModule to ThyTagModule and ThyActionMenuModule to ThyDropdownModule`, async () => {
         const result = workspaceTree.readContent(TEST_MODULE_PATH);
         expect(result).toContain(`import { ThyTagModule } from 'ngx-tethys/tag';`);
         expect(result).not.toContain(`import { ThyLabelModule } from 'ngx-tethys/label';`);
