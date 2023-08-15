@@ -1,7 +1,7 @@
 import { ContentObserver } from '@angular/cdk/observers';
-import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef, ViewContainerRef } from '@angular/core';
+import { AfterContentInit, Component, ElementRef, Input, NgZone, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { InputNumber, ThyPlacement } from 'ngx-tethys/core';
-import { TooltipService } from 'ngx-tethys/tooltip';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { isUndefinedOrNull } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { from, Observable, Subject, Subscription } from 'rxjs';
@@ -15,7 +15,7 @@ import { debounceTime, take, takeUntil } from 'rxjs/operators';
     selector: 'thy-flexible-text,[thyFlexibleText]',
     exportAs: 'thyFlexibleText',
     templateUrl: './flexible-text.component.html',
-    providers: [TooltipService],
+    hostDirectives: [ThyTooltipDirective],
     standalone: true
 })
 export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDestroy {
@@ -57,8 +57,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipContent') set thyContent(value: string | TemplateRef<HTMLElement>) {
         this.content = value;
-        if (this.tooltipService.thyTooltipDirective) {
-            this.tooltipService.thyTooltipDirective.content = this.content;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.content = this.content;
         }
     }
 
@@ -69,8 +69,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipPlacement') set thyPlacement(value: ThyPlacement) {
         this.placement = value;
-        if (this.tooltipService.thyTooltipDirective) {
-            this.tooltipService.thyTooltipDirective.placement = this.placement;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.placement = this.placement;
         }
     }
 
@@ -79,8 +79,8 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
      */
     @Input('thyTooltipOffset') @InputNumber() set thyOffset(value: number) {
         this.offset = value;
-        if (this.tooltipService.thyTooltipDirective) {
-            this.tooltipService.thyTooltipDirective.tooltipOffset = this.offset;
+        if (this.tooltipDirective) {
+            this.tooltipDirective.tooltipOffset = this.offset;
         }
     }
 
@@ -90,10 +90,9 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     constructor(
         private elementRef: ElementRef,
-        private viewContainerRef: ViewContainerRef,
-        public tooltipService: TooltipService,
         private contentObserver: ContentObserver,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        public tooltipDirective: ThyTooltipDirective
     ) {}
 
     static createResizeObserver(element: HTMLElement) {
@@ -110,15 +109,17 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     ngOnInit() {
         this.updateContainerClass();
-        this.tooltipService.attach(this.elementRef, this.viewContainerRef, this.trigger);
         if (this.placement) {
-            this.tooltipService.thyTooltipDirective.placement = this.placement;
+            this.tooltipDirective.placement = this.placement;
         }
         if (this.offset) {
-            this.tooltipService.thyTooltipDirective.tooltipOffset = this.offset;
+            this.tooltipDirective.tooltipOffset = this.offset;
         }
-        this.tooltipService.thyTooltipDirective.content = this.content;
-        this.tooltipService.thyTooltipDirective.thyTooltipDisabled = true;
+        if (this.trigger) {
+            this.tooltipDirective.trigger = this.trigger;
+        }
+        this.tooltipDirective.content = this.content;
+        this.tooltipDirective.thyTooltipDisabled = true;
     }
 
     ngAfterContentInit() {
@@ -148,7 +149,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
 
     ngOnDestroy() {
         this.destroy$.next();
-        this.tooltipService.detach();
+        this.tooltipDirective.hide();
     }
 
     applyOverflow() {
@@ -158,7 +159,7 @@ export class ThyFlexibleTextComponent implements OnInit, AfterContentInit, OnDes
         } else {
             this.isOverflow = false;
         }
-        this.tooltipService.thyTooltipDirective.thyTooltipDisabled = !this.isOverflow;
+        this.tooltipDirective.thyTooltipDisabled = !this.isOverflow;
     }
 
     updateContainerClass() {

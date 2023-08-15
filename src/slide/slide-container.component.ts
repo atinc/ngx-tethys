@@ -1,13 +1,14 @@
-import { ThyAbstractOverlayContainer } from 'ngx-tethys/core';
+import { ThyAbstractOverlayContainer, ThyPortalOutlet } from 'ngx-tethys/core';
 import { helpers } from 'ngx-tethys/util';
 import { Observable, Subject } from 'rxjs';
 import { filter, startWith, takeUntil } from 'rxjs/operators';
-import { useHostRenderer } from '@tethys/cdk/dom';
+
 import { AnimationEvent } from '@angular/animations';
 import { ViewportRuler } from '@angular/cdk/overlay';
-import { CdkPortalOutlet, PortalModule } from '@angular/cdk/portal';
+import { PortalModule } from '@angular/cdk/portal';
 import { DOCUMENT } from '@angular/common';
-import { NgZone, ChangeDetectorRef, Component, ElementRef, Inject, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, Inject, NgZone, OnDestroy, Renderer2, ViewChild } from '@angular/core';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { thySlideAnimations } from './slide-animations';
 import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from './slide.config';
@@ -17,7 +18,7 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
  */
 @Component({
     selector: 'thy-slide-container',
-    template: ` <ng-template cdkPortalOutlet></ng-template> `,
+    template: ` <ng-template thyPortalOutlet></ng-template> `,
     animations: [thySlideAnimations.slideContainer],
     host: {
         class: 'thy-slide-container',
@@ -34,11 +35,11 @@ import { slideAbstractOverlayOptions, ThySlideConfig, ThySlideFromTypes } from '
         '[style.max-height.px]': 'slideContainerStyles.height'
     },
     standalone: true,
-    imports: [PortalModule]
+    imports: [PortalModule, ThyPortalOutlet]
 })
 export class ThySlideContainerComponent extends ThyAbstractOverlayContainer implements OnDestroy {
-    @ViewChild(CdkPortalOutlet, { static: true })
-    portalOutlet: CdkPortalOutlet;
+    @ViewChild(ThyPortalOutlet, { static: true })
+    portalOutlet: ThyPortalOutlet;
 
     animationOpeningDone: Observable<AnimationEvent>;
 

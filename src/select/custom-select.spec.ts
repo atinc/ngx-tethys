@@ -39,6 +39,7 @@ import { POSITION_MAP, ThyPlacement } from 'ngx-tethys/core';
                 [thyAutoActiveFirstItem]="thyAutoActiveFirstItem"
                 [thyDisabled]="selectDisabled"
                 [thyMode]="mode"
+                [thyBorderless]="borderless"
                 [thyOrigin]="customizeOrigin">
                 <thy-option
                     *ngFor="let food of foods"
@@ -73,6 +74,7 @@ class BasicSelectComponent {
     mode: 'multiple' | '' = '';
     thyAutoActiveFirstItem = true;
     customizeOrigin: ElementRef | HTMLElement;
+    borderless = false;
     @ViewChild(ThySelectCustomComponent, { static: true }) select: ThySelectCustomComponent;
     @ViewChildren(ThyOptionComponent) options: QueryList<ThyOptionComponent>;
 
@@ -851,6 +853,14 @@ describe('ThyCustomSelect', () => {
                 fixture.detectChanges();
                 expect(blurSpy).not.toHaveBeenCalled();
             });
+
+            it('should has borderless class name', fakeAsync(() => {
+                fixture.componentInstance.borderless = true;
+                fixture.detectChanges();
+                tick();
+                fixture.detectChanges();
+                expect(selectElement.querySelector('.select-control-borderless')).toBeTruthy();
+            }));
         });
 
         describe('size', () => {

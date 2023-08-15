@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [15.3.19](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.19) (2023-07-26)
+
+
+### Bug Fixes
+
+* **icon:** click icon (svg) to change source position of tooltip, but tooltip is not closed when tooltip is bound to the component or native tag containing thy-icon INFR-8660 ([#2754](https://github.com/atinc/ngx-tethys/issues/2754)) ([0d3563d](https://github.com/atinc/ngx-tethys/commit/0d3563d2ab37d909516c5f7eb96f1a6dad492d95))
+* **property:** remove pointer when hover in property name #INFR-8807 ([#2760](https://github.com/atinc/ngx-tethys/issues/2760)) ([d5178b1](https://github.com/atinc/ngx-tethys/commit/d5178b1c1bd8d569a15eb9cd83b90e50e2acd2d3)), closes [#INFR-8807](https://github.com/atinc/ngx-tethys/issues/INFR-8807)
+
+
+### Features
+
+* **layout:** merge thyHasBorderLeft and thyHasBorderRight into thyDivided, implement the divider on the left or right according to thyDirection #INFR-8536 ([#2755](https://github.com/atinc/ngx-tethys/issues/2755)) ([fac034f](https://github.com/atinc/ngx-tethys/commit/fac034f14e61c5be32cf58457240b89391978498)), closes [#INFR-8536](https://github.com/atinc/ngx-tethys/issues/INFR-8536)
+* **overlay:** add thyPortalOutlet & use thyPortalOutlet in autocompl… ([#2752](https://github.com/atinc/ngx-tethys/issues/2752)) ([695217b](https://github.com/atinc/ngx-tethys/commit/695217b023e61d8bed4e9384d741994fc0cd703a))
+* **schematics:** add cdk migration and v16 label template/ts/stylesheets migration  ([#2759](https://github.com/atinc/ngx-tethys/issues/2759)) ([e87f75d](https://github.com/atinc/ngx-tethys/commit/e87f75d9db68f8ec6bb9f120af4a1663a5a8f35c)), closes [#INFR-7913](https://github.com/atinc/ngx-tethys/issues/INFR-7913) [#INFR-7913](https://github.com/atinc/ngx-tethys/issues/INFR-7913) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993)
+
+
+
 ## [15.3.18](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.18) (2023-07-14)
 
 

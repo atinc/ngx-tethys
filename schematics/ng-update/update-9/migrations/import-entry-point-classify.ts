@@ -606,7 +606,6 @@ const NAME_PACKAGE_RELATION = {
     THY_TOOLTIP_DEFAULT_CONFIG_PROVIDER: 'tooltip',
     ThyTooltipDirective: 'tooltip',
     ThyTooltipModule: 'tooltip',
-    TooltipService: 'tooltip',
     ThyTransferListComponent: 'transfer',
     ThyTransferComponent: 'transfer',
     Direction: 'transfer',

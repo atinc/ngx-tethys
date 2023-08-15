@@ -1,18 +1,17 @@
-import { NgModule, Component, ViewChild, ElementRef } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
+import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
+import { DomPortal } from '@angular/cdk/portal';
+import { CommonModule } from '@angular/common';
+import { Component, ElementRef, NgModule, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed, fakeAsync, tick, waitForAsync } from '@angular/core/testing';
+import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThySelectModule } from 'ngx-tethys/select';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { SafeAny } from 'ngx-tethys/types';
 import { ThyPropertyModule } from '../module';
 import { ThyPropertiesComponent, ThyPropertiesLayout } from '../properties.component';
-import { CommonModule } from '@angular/common';
 import { ThyPropertyItemComponent, ThyPropertyItemOperationTrigger } from '../property-item.component';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { Overlay, OverlayModule, OverlayOutsideClickDispatcher } from '@angular/cdk/overlay';
-import { FormsModule } from '@angular/forms';
-import { DomPortal } from '@angular/cdk/portal';
-import { createFalse } from 'typescript';
-import { SafeAny } from 'ngx-tethys/types';
 
 @Component({
     selector: 'thy-properties-test-basic',
@@ -314,10 +313,10 @@ describe(`thy-properties`, () => {
             const propertyItemElement = propertyItemDebugElement.nativeElement as HTMLElement;
             expect(propertyItemElement.classList.contains(`thy-property-item-operational`)).toBeTruthy();
             expect(propertyItemElement.children.length).toEqual(2);
-            const label = propertyItemElement.children[0];
-            expect(label).toBeTruthy();
-            expect(label.children.length).toEqual(2);
-            const operation = label.children[1];
+            const content = propertyItemElement.children[1];
+            expect(content).toBeTruthy();
+            expect(content.children.length).toEqual(2);
+            const operation = content.children[1];
             expect(operation.classList.contains('thy-property-item-operation')).toBeTruthy();
             expect(operation.textContent).toBeTruthy('Add');
         });

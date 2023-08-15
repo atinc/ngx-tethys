@@ -6,4 +6,3 @@ export * from './tooltip-animations';
 export * from './tooltip.config';
 export * from './tooltip.service';
 export * from './tooltip-ref';
-export * from './deprecated-tooltip.service';

@@ -1,7 +1,7 @@
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
 
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { async, ComponentFixture, fakeAsync, flush, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, flush, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyNotifyModule, ThyNotifyService } from '../../notify';
@@ -9,19 +9,19 @@ import { ThyTooltipModule } from '../../tooltip/tooltip.module';
 import { ThyCopyDirective } from '../copy.directive';
 
 describe('thy-copy', () => {
-    let fixture: ComponentFixture<ThyCopyComponent>;
-    let testComponent: ThyCopyComponent;
+    let fixture: ComponentFixture<ThyCopyTestComponent>;
+    let testComponent: ThyCopyTestComponent;
 
-    beforeEach(async(() => {
+    beforeEach(waitForAsync(() => {
         TestBed.configureTestingModule({
             imports: [ThyTooltipModule, ThyNotifyModule, NoopAnimationsModule, ThyCopyDirective],
-            declarations: [ThyCopyComponent],
+            declarations: [ThyCopyTestComponent],
             providers: [ThyNotifyService]
         }).compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(ThyCopyComponent);
+        fixture = TestBed.createComponent(ThyCopyTestComponent);
         testComponent = fixture.componentInstance;
     });
 
@@ -57,21 +57,21 @@ describe('thy-copy', () => {
         it('thyCopyTips should be default', fakeAsync(() => {
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.content as string).toBe('点击复制');
+            expect(component.tooltipDirective.content as string).toBe('点击复制');
         }));
 
         it('thyCopyTips should be correct', fakeAsync(() => {
             testComponent.copyTooltip = '测试';
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.content as string).toBe(testComponent.copyTooltip);
+            expect(component.tooltipDirective.content as string).toBe(testComponent.copyTooltip);
         }));
 
         it('thyCopyTipOffset should be correct', fakeAsync(() => {
             testComponent.copyTipsOffset = 10;
             fixture.detectChanges();
             const component = testComponent.copyDirective;
-            expect(component.tooltipService.thyTooltipDirective.tooltipOffset).toBe(10);
+            expect(component.tooltipDirective.tooltipOffset).toBe(10);
         }));
     });
 });
@@ -88,7 +88,7 @@ describe('thy-copy', () => {
         </p>
     `
 })
-class ThyCopyComponent implements OnInit {
+class ThyCopyTestComponent implements OnInit {
     copyTooltip: string;
 
     copyTipsOffset: number;

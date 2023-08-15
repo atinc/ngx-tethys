@@ -1,21 +1,9 @@
+import { Directive, ElementRef, EventEmitter, HostListener, Inject, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { DOCUMENT } from '@angular/common';
+import { coerceElement } from '@angular/cdk/coercion';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { TooltipService } from 'ngx-tethys/tooltip';
-
-import { coerceElement } from '@angular/cdk/coercion';
-import { DOCUMENT } from '@angular/common';
-import {
-    Directive,
-    ElementRef,
-    EventEmitter,
-    HostListener,
-    Inject,
-    Input,
-    OnDestroy,
-    OnInit,
-    Output,
-    ViewContainerRef
-} from '@angular/core';
+import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 
 export interface ThyCopyEvent {
     isSuccess: boolean;
@@ -27,7 +15,7 @@ export interface ThyCopyEvent {
  */
 @Directive({
     selector: '[thyCopy]',
-    providers: [TooltipService],
+    hostDirectives: [ThyTooltipDirective],
     standalone: true
 })
 export class ThyCopyDirective implements OnInit, OnDestroy {
@@ -63,16 +51,13 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
 
     constructor(
         @Inject(DOCUMENT) private document: any,
-        public tooltipService: TooltipService,
-        private elementRef: ElementRef<HTMLElement>,
-        private viewContainerRef: ViewContainerRef,
+        public tooltipDirective: ThyTooltipDirective,
         private notifyService: ThyNotifyService
     ) {}
 
     ngOnInit() {
-        this.tooltipService.attach(this.elementRef, this.viewContainerRef, 'hover');
-        this.tooltipService.thyTooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
-        this.tooltipService.thyTooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
+        this.tooltipDirective.content = this.thyCopyTips ? this.thyCopyTips : '点击复制';
+        this.tooltipDirective.tooltipOffset = this.thyCopyTipsOffset;
     }
 
     private getContent(event: Event) {
@@ -83,6 +68,7 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
             return target.value || target.textContent;
         }
     }
+
     @HostListener('click', ['$event'])
     public onClick(event: Event) {
         const textarea = this.document.createElement('textarea');
@@ -106,6 +92,6 @@ export class ThyCopyDirective implements OnInit, OnDestroy {
     }
 
     ngOnDestroy() {
-        this.tooltipService.detach();
+        this.tooltipDirective.hide();
     }
 }

@@ -6,23 +6,19 @@
   <ng-container *ngIf="label">
     <span> <ng-template [ngTemplateOutlet]="label"></ng-template></span>
   </ng-container>
-  <div class="thy-property-item-operation" *ngIf="operation && isVertical">
-    <ng-template [ngTemplateOutlet]="operation"></ng-template>
-  </div>
 </div>
 <div
   #item
   class="thy-property-item-content"
   [class.thy-property-item-content-editable]="thyEditable"
-  [class.thy-property-item-content-editing]="editing"
->
+  [class.thy-property-item-content-editing]="editing">
   <div class="thy-property-item-content-text">
     <ng-template *ngIf="content" [ngTemplateOutlet]="content"></ng-template>
   </div>
   <div class="thy-property-item-content-editor" *ngIf="thyEditable">
     <ng-template *ngIf="editor" [ngTemplateOutlet]="editor"></ng-template>
   </div>
-  <div class="thy-property-item-operation" *ngIf="operation && !isVertical">
+  <div class="thy-property-item-operation" *ngIf="operation">
     <ng-template [ngTemplateOutlet]="operation"></ng-template>
   </div>
 </div>
