@@ -48,6 +48,36 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
                     }
+                },
+                {
+                    remove: 'thyStopPropagation',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
+                },
+                {
+                    remove: 'thyTitle',
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
+                    }
+                },
+                {
+                    remove: 'thyType',
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
+                    }
+                },
+                {
+                    remove: 'thyTheme',
+                    limitedTo: {
+                        elements: ['thy-action-menu']
+                    }
+                },
+                {
+                    remove: 'thyWidth',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
                 }
             ]
         }

@@ -64,7 +64,7 @@ export class BeforeInsertElementMigration extends Migration<TethysUpgradeData> {
         replaceValue: string
     ) {
         if (insert.includes(replace)) {
-            const insertWithValue = insert.replace(replace, `'${replaceValue}'`);
+            const insertWithValue = insert.replace(replace, `"${replaceValue}"`);
             this.fileSystem.edit(filePath).remove(start, width).insertRight(startTagEnd, insertWithValue);
         } else {
             this.fileSystem.edit(filePath).remove(start, width).insertRight(startTagEnd, insert);
