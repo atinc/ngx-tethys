@@ -1,15 +1,11 @@
-<button class="ml-3" thyButton="primary" [thyDropdown]="immediateMenu">Dropdown with with immediate render</button>
+<button class="ml-3" thyButton="primary" [thyDropdown]="immediateMenu">Dropdown with template</button>
+<button class="ml-3" thyButton="primary" [thyDropdown]="menu">Dropdown with immediate render</button>
 
 <br />
 
 <p class="mt-4">Render Dropdown Menu immediate</p>
 <thy-dropdown-menu #menu thyImmediateRender>
-  <a class="active" thyDropdownMenuItem href="javascript:;">
-    <span>Immediate Render Menu Item1</span>
-  </a>
-  <a thyDropdownMenuItem href="javascript:;">
-    <span>Immediate Render Menu Item2</span>
-  </a>
+  <div>1111111</div>
 </thy-dropdown-menu>
 
 <ng-template #immediateMenu>
