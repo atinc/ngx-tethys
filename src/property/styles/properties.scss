@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss";
+@use '../../styles/variables.scss';
 
 @mixin display-item-editor {
     .thy-property-item-content-text {
@@ -34,22 +34,12 @@
                 flex-grow: 1;
                 justify-content: flex-end;
             }
-            &.thy-property-item-operational-hover {
-                .thy-property-item-content {
-                    @include property-item-operation-hover-visible();
-                }
-            }
         }
     }
 
     &.thy-properties-vertical {
         .thy-property-item {
             flex-direction: column;
-            &.thy-property-item-operational-hover {
-                .thy-property-item-label {
-                    @include property-item-operation-hover-visible();
-                }
-            }
         }
     }
 
@@ -115,9 +105,11 @@
         }
 
         &.thy-property-item-operational-hover {
-            cursor: pointer;
             .thy-property-item-operation {
                 visibility: hidden;
+            }
+            .thy-property-item-content {
+                @include property-item-operation-hover-visible();
             }
         }
     }

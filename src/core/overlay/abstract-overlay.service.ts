@@ -78,7 +78,9 @@ export abstract class ThyAbstractOverlayService<TConfig extends ThyAbstractOverl
             );
         } else {
             const injector = this.createInjector<T>(config, abstractOverlayRef, containerInstance);
-            const contentRef = containerInstance.attachComponentPortal<T>(new ComponentPortal(componentOrTemplateRef, undefined, injector));
+            const contentRef = containerInstance.attachComponentPortal<T>(
+                new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector)
+            );
             if (config.initialState) {
                 Object.assign(contentRef.instance, config.initialState);
             }

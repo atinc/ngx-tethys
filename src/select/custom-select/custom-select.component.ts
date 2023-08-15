@@ -395,6 +395,12 @@ export class ThySelectCustomComponent
      */
     @Input() @InputNumber() thyMaxTagCount = 0;
 
+    /**
+     * 是否隐藏选择框边框
+     * @default false
+     */
+    @Input() @InputBoolean() thyBorderless = false;
+
     @ViewChild('trigger', { read: ElementRef, static: true }) trigger: ElementRef<HTMLElement>;
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;

@@ -32,7 +32,10 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent]
+    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent],
+    host: {
+        '[class.select-control-borderless]': 'thyBorderless'
+    }
 })
 export class ThySelectControlComponent implements OnInit {
     inputValue = '';
@@ -171,6 +174,8 @@ export class ThySelectControlComponent implements OnInit {
     }
 
     @Input() @InputNumber() thyMaxTagCount = 0;
+
+    @Input() @InputBoolean() thyBorderless = false;
 
     @Output()
     thyOnSearch = new EventEmitter<string>();
