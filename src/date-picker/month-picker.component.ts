@@ -6,7 +6,6 @@ import { NgIf } from '@angular/common';
 import { BasePickerComponent } from './base-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { ThyPickerComponent } from './picker.component';
-import { ThyPanelMode } from './standard-types';
 
 /**
  * 月份选择组件
@@ -34,12 +33,11 @@ export class ThyMonthPickerComponent extends BasePickerComponent {
      */
     @Input() thyFormat = 'yyyy-MM';
 
-    thyMode: ThyPanelMode = 'month';
-
     private hostRenderer = useHostRenderer();
 
     constructor(cdr: ChangeDetectorRef, protected element: ElementRef) {
         super(cdr, element);
         this.hostRenderer.addClass('thy-calendar-picker');
+        this.thyMode = 'month';
     }
 }
