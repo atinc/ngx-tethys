@@ -2,14 +2,14 @@
 title: 16.x 升级指南
 path: 'migration-v16'
 order: 991
-hidden: true
+hidden: false
 ---
 
 <alert>本文档将帮助你从 ngx-tethys 15.x 版本升级到 16.x 版本。</alert>
 
 ## 开始之前
 
-- 首先确保你 `Node.js ^14.15.0 || >>=16.10.0`
+- 首先确保你 `Node.js v16.14.0 or v18.10.0`
 - 创建新的分支进行升级，或者把当前分支备份
 
 ## 自动升级

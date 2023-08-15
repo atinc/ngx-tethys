@@ -1,11 +1,10 @@
 import { Directive, Input, StaticProvider, forwardRef } from '@angular/core';
-import { NG_VALIDATORS, AbstractControl, ValidationErrors, Validator } from '@angular/forms';
+import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { instanceOfDateEntry, instanceOfRangeEntry } from './picker.util';
 import { DateEntry, ThyDateRangeEntry } from './standard-types';
 
 const DATE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     useExisting: forwardRef(() => DatePickerRequiredValidator),
     multi: true
 };
@@ -42,7 +41,6 @@ export class DatePickerRequiredValidator implements Validator {
 
 const RANGE_PICKER_REQUIRED_VALIDATOR: StaticProvider = {
     provide: NG_VALIDATORS,
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
     useExisting: forwardRef(() => RangePickerRequiredValidator),
     multi: true
 };

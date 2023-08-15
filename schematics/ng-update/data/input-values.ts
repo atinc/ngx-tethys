@@ -42,7 +42,7 @@ export interface InputValueUpgradeData {
 }
 
 export const inputValues: VersionChanges<InputValueUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [

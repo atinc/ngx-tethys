@@ -16,8 +16,7 @@ import {
     ViewChild,
     ViewContainerRef
 } from '@angular/core';
-import { fakeAsync, flush, inject, TestBed } from '@angular/core/testing';
-import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { TestBed, fakeAsync, flush, inject } from '@angular/core/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 
 import { ThyClickPositioner } from '../../click-positioner';
@@ -212,11 +211,6 @@ describe('abstract-overlay', () => {
             imports: [TestDialogModule, NoopAnimationsModule],
             declarations: [TestDialogBasicContentComponent, TestDialogViewContainerComponent],
             providers: [TestDialogService]
-        });
-        TestBed.overrideModule(BrowserDynamicTestingModule, {
-            set: {
-                entryComponents: [TestDialogBasicContentComponent, TestDialogViewContainerComponent]
-            }
         });
 
         TestBed.compileComponents();
