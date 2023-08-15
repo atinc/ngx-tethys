@@ -66,7 +66,7 @@ describe('ng-update v16 Schematic', () => {
         const result = workspaceTree.readContent(TEST_MODULE_PATH);
         expect(result).toContain(`import { ThyTagModule } from 'ngx-tethys/tag';`);
         expect(result).not.toContain(`import { ThyLabelModule } from 'ngx-tethys/label';`);
-        expect(result).toContain(`import { ThyDropDownModule } from 'ngx-tethys/dropdown';`);
+        expect(result).toContain(`import { ThyDropdownModule } from 'ngx-tethys/dropdown';`);
         expect(result).not.toContain(`import { ThyActionMenuModule } from 'ngx-tethys/action-menu';`);
     });
 });
