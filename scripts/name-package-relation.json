@@ -285,7 +285,7 @@
   "ThyDropdownMenuComponent": "dropdown",
   "ThyDropdownMenuGroupComponent": "dropdown",
   "ThyDropdownMenuDividerComponent": "dropdown",
-  "ThyDropdownSubmenuDirection": "dropdown",
+  "ThyDropdownSubmenuDirective": "dropdown",
   "ThyDropdownSubmenuComponent": "dropdown",
   "ThyDropdownTrigger": "dropdown",
   "THY_DROPDOWN_DEFAULT_WIDTH": "dropdown",

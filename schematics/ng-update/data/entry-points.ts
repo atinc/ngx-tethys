@@ -25,6 +25,10 @@ export const entryPoints: VersionChanges<EntryPointUpgradeData> = {
                 {
                     replace: 'ngx-tethys/label',
                     replaceWith: 'ngx-tethys/tag'
+                },
+                {
+                    replace: 'ngx-tethys/action-menu',
+                    replaceWith: 'ngx-tethys/dropdown'
                 }
             ]
         }
