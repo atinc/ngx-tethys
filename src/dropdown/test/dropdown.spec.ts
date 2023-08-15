@@ -971,3 +971,103 @@ describe('dropdown options', () => {
         });
     });
 });
+
+@Component({
+    selector: 'thy-dropdown-immediate-render',
+    template: `
+        <button [thyDropdown]="menu" [thyTrigger]="trigger" thyButton="primary">Dropdown</button>
+        <ng-template #menu>
+            <thy-dropdown-menu thyImmediateRender>
+                <a class="active" thyDropdownMenuItem href="javascript:;">
+                    <span>Menu Item1</span>
+                </a>
+                <a thyDropdownMenuItem href="javascript:;">
+                    <span>Menu Item2</span>
+                </a>
+            </thy-dropdown-menu>
+        </ng-template>
+        <thy-dropdown-menu thyImmediateRender>
+            <a thyDropdownMenuItem href="javascript:;">
+                <span>Menu Item1</span>
+            </a>
+            <a thyDropdownMenuItem href="javascript:;">
+                <span>Menu Item2</span>
+            </a>
+        </thy-dropdown-menu>
+    `
+})
+class DropdownImmediateRenderTestComponent {
+    trigger: ThyOverlayTrigger = 'click';
+}
+
+describe('immediate render dropdown', () => {
+    let fixture: ComponentFixture<DropdownImmediateRenderTestComponent>;
+    let btnElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let dropdownElement: HTMLElement;
+    let dropdown: ThyDropdownDirective;
+    beforeEach(() => {
+        TestBed.configureTestingModule({
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule, ThyDropdownMenuComponent],
+            declarations: [DropdownImmediateRenderTestComponent]
+        }).compileComponents();
+        fixture = TestBed.createComponent(DropdownImmediateRenderTestComponent);
+        fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+        const btnDebugElement = fixture.debugElement.query(By.css('button'));
+        btnElement = btnDebugElement.nativeElement;
+        const dropdownDebugElement = fixture.debugElement.query(By.directive(ThyDropdownDirective));
+        dropdownElement = dropdownDebugElement.nativeElement;
+        dropdown = dropdownDebugElement.injector.get(ThyDropdownDirective);
+    });
+
+    beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    function assertOverlayHide() {
+        expect(overlayContainerElement.querySelector(`.thy-dropdown-pane`)).toBeFalsy();
+    }
+
+    it('should display dropdown-menu', () => {
+        expect(fixture.debugElement.query(By.css('.thy-dropdown-menu'))).toBeTruthy();
+    });
+
+    it('should create thy-dropdown', () => {
+        expect(dropdownElement).toBeTruthy();
+        expect(dropdown).toBeTruthy();
+        expect(dropdownElement.classList).toContain('thy-dropdown');
+    });
+
+    it('should open dropdown menu', fakeAsync(() => {
+        btnElement.click();
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        expect(overlayContainerElement).toBeTruthy();
+        const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
+        expect(overlayPaneElement).toBeTruthy();
+        expect(overlayPaneElement.style.width).toEqual('240px');
+        expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
+        const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
+        expect(dropdownMenuElement).toBeTruthy();
+        expect(dropdownMenuElement.textContent).toContain('Menu Item1');
+        expect(dropdownMenuElement.textContent).toContain('Menu Item2');
+        flush();
+
+        dropdown.hide();
+        tick(100);
+        fixture.detectChanges();
+        tick(100);
+        assertOverlayHide();
+        flush();
+    }));
+});
