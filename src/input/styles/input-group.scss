@@ -1,7 +1,7 @@
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "../../form/styles/forms.scss";
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use '../../form/styles/forms.scss';
 // stylelint-disable selector-no-qualifying-type
 
 //
@@ -44,6 +44,31 @@
         }
         &:not(:first-child) {
             @include border-radius.border-left-radius(0);
+        }
+    }
+
+    &-with-textarea-suffix {
+        > .form-control {
+            min-height: 34px;
+
+            // The suffix of textarea uses absolute position, so the right side of textarea needs border-radius
+            &:not(:last-child) {
+                @include border-radius.border-right-radius(bootstrap-variables.$input-border-radius);
+            }
+        }
+
+        .input-group-suffix {
+            position: absolute;
+            right: 0;
+            bottom: 6px;
+            //  Solve that the input count disappears when focus textarea
+            z-index: 3;
+        }
+
+        &:not(.disabled) {
+            .thy-input-count {
+                background-color: variables.$white;
+            }
         }
     }
 

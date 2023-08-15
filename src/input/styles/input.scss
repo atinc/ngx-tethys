@@ -58,7 +58,7 @@
             }
         }
     }
-    &[disabled]:not([disabled="false"])  {
+    &[disabled]:not([disabled='false']) {
         background-color: variables.$input-disabled-bg;
         .input-append,
         .input-prepend {
@@ -162,15 +162,14 @@
         }
     }
 
-    &[disabled]:not([disabled="false"])  {
+    &[disabled]:not([disabled='false']) {
         &:hover {
             border-color: variables.$input-disabled-border-color;
         }
         &:focus {
             border-color: variables.$input-disabled-border-color;
         }
-    } 
-
+    }
 }
 
 .input-label-container {
@@ -241,5 +240,14 @@
             // 0.9375rem is ($grid-gutter-width / 2)
             right: 0.9375rem + variables.$input-padding-x;
         }
+    }
+}
+
+textarea {
+    overflow: auto;
+    &::-webkit-scrollbar-corner,
+    &::-webkit-scrollbar-track-piece,
+    &::-webkit-scrollbar-track {
+        border-bottom-right-radius: variables.$input-border-radius;
     }
 }

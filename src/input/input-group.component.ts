@@ -40,7 +40,8 @@ const inputGroupSizeMap = {
         class: 'thy-input-group',
         '[class.form-control]': 'prefixTemplate || suffixTemplate',
         '[class.thy-input-group-with-prefix]': 'prefixTemplate',
-        '[class.thy-input-group-with-suffix]': 'suffixTemplate'
+        '[class.thy-input-group-with-suffix]': 'suffixTemplate',
+        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix'
     },
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
@@ -51,6 +52,8 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
     public appendText: string;
 
     public prependText: string;
+
+    public isTextareaSuffix: boolean;
 
     @HostBinding('class.disabled') disabled = false;
 
@@ -148,6 +151,7 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
+        this.isTextareaSuffix = this.inputDirective?.nativeElement?.tagName === 'TEXTAREA';
     }
 
     ngOnDestroy() {
