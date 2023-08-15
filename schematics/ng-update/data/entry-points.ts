@@ -18,7 +18,7 @@ export interface EntryPointUpgradeData {
 }
 
 export const entryPoints: VersionChanges<EntryPointUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
