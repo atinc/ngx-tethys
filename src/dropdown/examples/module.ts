@@ -14,9 +14,10 @@ import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyListModule } from 'ngx-tethys/list';
 import { CustomMenuComponent } from './component/custom-menu.component';
 import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ImmediateMenuComponent } from './immediate-render/immediate-menu.component';
 
 export default {
-    declarations: [CustomMenuComponent],
+    declarations: [CustomMenuComponent, ImmediateMenuComponent],
     imports: [
         ThyDropdownModule,
         ThyButtonModule,
