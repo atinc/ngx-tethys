@@ -20,24 +20,23 @@ import { TimePickerConfig } from './inner-time-picker.config';
 import { TimeChangeSource, TimePickerComponentState, TimePickerControls } from './inner-time-picker.class';
 
 import {
-    isValidDate,
-    padNumber,
-    parseTime,
-    isInputValid,
     isHourInputValid,
+    isInputLimitValid,
+    isInputValid,
     isMinuteInputValid,
     isSecondInputValid,
-    isInputLimitValid
+    isValidDate,
+    padNumber,
+    parseTime
 } from '../time-picker.utils';
 
 import { Subscription } from 'rxjs';
 
-import { ThyTimePickerStore } from './inner-time-picker.store';
 import { NgIf } from '@angular/common';
+import { ThyTimePickerStore } from './inner-time-picker.store';
 
 export const TIMEPICKER_CONTROL_VALUE_ACCESSOR: StaticProvider = {
     provide: NG_VALUE_ACCESSOR,
-    /* eslint-disable-next-line @typescript-eslint/no-use-before-define */
     useExisting: forwardRef(() => ThyInnerTimePickerComponent),
     multi: true
 };
