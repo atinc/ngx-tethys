@@ -66,9 +66,14 @@
         }
 
         &:not(.disabled) {
-            .thy-input-count {
+            .input-group-suffix {
                 background-color: variables.$white;
             }
+        }
+    }
+    &-with-scroll-bar {
+        .input-group-suffix {
+            right: 14px;
         }
     }
 

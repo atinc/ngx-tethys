@@ -41,7 +41,8 @@ const inputGroupSizeMap = {
         '[class.form-control]': 'prefixTemplate || suffixTemplate',
         '[class.thy-input-group-with-prefix]': 'prefixTemplate',
         '[class.thy-input-group-with-suffix]': 'suffixTemplate',
-        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix'
+        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix',
+        '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix && hasScrollbar'
     },
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
@@ -54,6 +55,10 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
     public prependText: string;
 
     public isTextareaSuffix: boolean;
+
+    get hasScrollbar() {
+        return this.inputDirective?.nativeElement?.scrollHeight > this.inputDirective?.nativeElement?.clientHeight;
+    }
 
     @HostBinding('class.disabled') disabled = false;
 
