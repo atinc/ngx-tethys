@@ -9,25 +9,27 @@ hidden: false
 
 ## 开始之前
 
-- 首先确保你 `Node.js v16.14.0 or v18.10.0`
+- 首先确保你 `Node.js 16 版本大于 v16.14.0 或 18 版本大于 v18.10.0`
 - 创建新的分支进行升级，或者把当前分支备份
 
 ## 自动升级
 执行 `ng update ngx-tethys` 命令自动升级, 这个命令核心处理如下事项：
 - 升级 `ngx-tethys` 到 `16.x` 版本，并修改 package.json 中的依赖版本号
 - 会自动把依赖的 CDK 和 Angular 库都升级到 `16.x` 版本，并修改 package.json 中的依赖版本号
-- 自动修改`thyLabel`组件为`thyTag`
-- 自动修改`action-menu`组件为`dropdown-menu`
+- 自动修改 `thyLabelModule` 模块内容为 `thyTagModule` 模块内容
+- 自动修改 `ThyActionMenuModule` 模块内容为 `ThyDropdownModule` 模块内容
+- 上面两点中未修改全面或不完全对应的自动修改部分，会给出提示，用户需要根据提示，参考下面的对照表手动修改
 
 ## 破坏性修改
 
-- `thyLabel` 组件从组件库中移除，请使用`thyTag`组件代替
-- `ThyActionMenuModule` 模块下的所有组件、指令从组件库中移除，请使用`ThyActionMenuModule`模块下组件、指令代替
+- `thyLabelModule` 模块下的所有内容从组件库中移除，使用 `thyTagModule` 模块下内容代替
+- `ThyActionMenuModule` 模块下的内容从组件库中移除，使用 `ThyDropdownModule` 模块下内容代替
 
-<label type="info">附录1</label> 所有`thyLabel`与`thyTag`对应的修改列表
+<label type="info">附录1</label> 所有 `thyLabelModule` 与 `thyTagModule` 对应的修改列表
 
 
 - 模板
+   - thyLabel -> thyTag
    - thySize:
       - sm20、md24、lg28 -> 不变
       - 不设置值（default22）-> md24 
@@ -79,7 +81,7 @@ hidden: false
    - .thy-label-emboss-danger -> .thy-tag-tag-weak-fill-danger
    - .thy-label-outline -> .thy-tag-outline
 
-<label type="info">附录2</label> 所有`action-menu`与`dropdown-menu`对应的修改列表
+<label type="info">附录2</label> 所有 `ThyActionMenuModule` 与 `ThyDropdownModule` 对应的修改列表
 
 - 模板
    - thyActionMenuItem[指令] -> thyDropdownMenuItem
@@ -98,9 +100,9 @@ hidden: false
       - thyStopPropagation -> 删除
       - thyContainerClass -> thyPanelClass
       - thyOriginActiveClass -> thyActiveClass
-   - thy-action-menu[组件] -> 删除
-      - thyTheme -> 删除（待处理）
-      - thyWidth -> 删除（待处理）
+   - thy-action-menu[组件] -> thy-dropdown-menu
+      - thyTheme -> 删除，提示
+      - thyWidth -> 删除，提示
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
       - thyTitle -> 不变
    - thy-action-menu-divider[组件] -> thy-dropdown-menu-divider
