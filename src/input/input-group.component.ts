@@ -18,7 +18,8 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, throttleTime } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -51,8 +52,6 @@ const inputGroupSizeMap = {
 })
 export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
-
-    private resizeObserver: ResizeObserver;
 
     public appendText: string;
 
@@ -164,38 +163,45 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
-        this.isTextareaSuffix = this.inputDirective?.nativeElement?.tagName === 'TEXTAREA';
 
+        this.isTextareaSuffix = this.inputDirective?.nativeElement?.tagName === 'TEXTAREA';
         if (this.isTextareaSuffix) {
             this.determineHasScrollbar();
         }
     }
 
-    determineHasScrollbar() {
-        if (typeof ResizeObserver === 'undefined' || !ResizeObserver) {
-            return;
-        }
-
+    private determineHasScrollbar() {
         this.ngZone.runOutsideAngular(() => {
-            this.resizeObserver = new ResizeObserver(() => {
-                const hasScrollbar = this.inputDirective.nativeElement.scrollHeight > this.inputDirective.nativeElement.clientHeight;
-                if (this.hasScrollbar !== hasScrollbar) {
-                    this.ngZone.run(() => {
-                        this.hasScrollbar = hasScrollbar;
-                        this.cdr.detectChanges();
-                    });
-                }
-            });
-            this.resizeObserver.observe(this.inputDirective.nativeElement);
+            this.resizeObserver(this.inputDirective.nativeElement)
+                .pipe(throttleTime(100), takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    const hasScrollbar = this.inputDirective.nativeElement.scrollHeight > this.inputDirective.nativeElement.clientHeight;
+                    if (this.hasScrollbar !== hasScrollbar) {
+                        this.ngZone.run(() => {
+                            this.hasScrollbar = hasScrollbar;
+                            this.cdr.detectChanges();
+                        });
+                    }
+                });
         });
+    }
+
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+        return typeof ResizeObserver === 'undefined' || !ResizeObserver
+            ? of(null)
+            : new Observable(observer => {
+                  const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                      observer.next(entries);
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
     }
 
     ngOnDestroy() {
         super.ngOnDestroy();
         this.focusMonitor.stopMonitoring(this.elementRef.nativeElement);
-
-        this.resizeObserver?.unobserve;
-        this.resizeObserver?.disconnect();
-        this.resizeObserver = null;
     }
 }
