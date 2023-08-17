@@ -180,7 +180,7 @@ describe('ThyTestDateRangeComponent', () => {
             const secondOptional = getPickerContainer()
                 .querySelector('thy-popover-container')
                 .querySelector('.thy-date-range-action-menu-container')
-                .querySelectorAll('.action-menu-item')[1];
+                .querySelectorAll('.thy-dropdown-menu-item')[1];
             dispatchClickEvent(secondOptional as HTMLElement);
             expect(getPickerTriggerElement().innerText).toEqual(value);
         }));

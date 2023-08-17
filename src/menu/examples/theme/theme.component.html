@@ -109,14 +109,14 @@
 </div>
 
 <ng-template #menuTpl let-initialState>
-  <thy-action-menu>
-    <a thyActionMenuItem href="javascript:;">
-      <span thyActionMenuItemIcon> <thy-icon thyIconName="edit"></thy-icon> </span>
-      <span thyActionMenuItemName>编辑</span>
+  <thy-dropdown-menu>
+    <a thyDropdownMenuItem href="javascript:;">
+      <span thyDropdownMenuItemIcon> <thy-icon thyIconName="edit"></thy-icon> </span>
+      <span thyDropdownMenuItemName>编辑</span>
     </a>
-    <a thyActionMenuItem thyType="danger" href="javascript:;">
-      <span thyActionMenuItemIcon> <thy-icon thyIconName="trash"></thy-icon> </span>
-      <span thyActionMenuItemName>删除</span>
+    <a thyDropdownMenuItem thyType="danger" href="javascript:;">
+      <span thyDropdownMenuItemIcon> <thy-icon thyIconName="trash"></thy-icon> </span>
+      <span thyDropdownMenuItemName>删除</span>
     </a>
-  </thy-action-menu>
+  </thy-dropdown-menu>
 </ng-template>

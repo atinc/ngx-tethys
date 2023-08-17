@@ -1,12 +1,12 @@
-<thy-action-menu *ngIf="!hiddenMenu" class="thy-date-range-action-menu-container">
-  <a thyActionMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRanges" (click)="_selectDateRange(dateRange)">
-    <span thyActionMenuItemName>{{ dateRange?.text }}</span>
-    <span thyActionMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
+<thy-dropdown-menu *ngIf="!hiddenMenu" class="thy-date-range-action-menu-container">
+  <a thyDropdownMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRanges" (click)="_selectDateRange(dateRange)">
+    <span thyDropdownMenuItemName>{{ dateRange?.text }}</span>
+    <span thyDropdownMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">
       <thy-icon class="text-primary" thyIconName="check"></thy-icon>
     </span>
   </a>
   <a
-    thyActionMenuItem
+    thyDropdownMenuItem
     href="javascript:;"
     thyRangePicker
     [(ngModel)]="selectedDate"
@@ -16,9 +16,9 @@
     (ngModelChange)="_selectedCustomDate($event)"
     (thyOnCalendarChange)="calendarChange($event)"
   >
-    <span thyActionMenuItemName>{{ customValue }}</span>
-    <span thyActionMenuItemExtendIcon *ngIf="customKey === selectedDate?.key">
+    <span thyDropdownMenuItemName>{{ customValue }}</span>
+    <span thyDropdownMenuItemExtendIcon *ngIf="customKey === selectedDate?.key">
       <thy-icon class="text-primary" thyIconName="check"></thy-icon>
     </span>
   </a>
-</thy-action-menu>
+</thy-dropdown-menu>

@@ -1,4 +1,3 @@
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThyAffixModule } from 'ngx-tethys/affix';
 import { ThyAlertModule } from 'ngx-tethys/alert';
 import { ThyAnchorModule } from 'ngx-tethys/anchor';
@@ -105,7 +104,6 @@ const TETHYS_MODULES = [
     ThyCardModule,
     ThyLoadingModule,
     ThyAlertModule,
-    ThyActionMenuModule,
     ThyTreeModule,
     ThyEmptyModule,
     ThySwitchModule,
