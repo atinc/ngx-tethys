@@ -42,7 +42,6 @@ module.exports = {
                 'table',
                 'icon',
                 'input',
-                'label',
                 'tag',
                 'layout',
                 'link',

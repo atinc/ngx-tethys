@@ -45,6 +45,9 @@ export class CalendarFooterComponent implements OnInit {
     }
 
     onTimeOk() {
+        if (this.disableTimeConfirm) {
+            return;
+        }
         this.selectTime.emit(this.value);
         this.clickOk.emit();
     }

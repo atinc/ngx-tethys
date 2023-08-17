@@ -29,16 +29,16 @@ import { ThyGuiderModule } from 'ngx-tethys/guider';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyInputNumberModule } from 'ngx-tethys/input-number';
-import { ThyLabelModule } from 'ngx-tethys/label';
 import { ThyLayoutModule } from 'ngx-tethys/layout';
 // import { ThyKeySelectModule } from 'ngx-tethys/key-select';
+import { ThyDotModule } from 'ngx-tethys/dot';
 import { ThyListModule } from 'ngx-tethys/list';
 import { ThyLoadingModule } from 'ngx-tethys/loading';
 import { ThyMentionModule } from 'ngx-tethys/mention';
 import { ThyMenuModule } from 'ngx-tethys/menu';
+import { ThyMessageModule } from 'ngx-tethys/message';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThyNotifyModule } from 'ngx-tethys/notify';
-import { ThyMessageModule } from 'ngx-tethys/message';
 import { ThyPaginationModule } from 'ngx-tethys/pagination';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThyProgressModule } from 'ngx-tethys/progress';
@@ -65,7 +65,6 @@ import { ThyTreeModule } from 'ngx-tethys/tree';
 import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
 import { ThyUploadModule } from 'ngx-tethys/upload';
 import { ThyVoteModule } from 'ngx-tethys/vote';
-import { ThyDotModule } from 'ngx-tethys/dot';
 import { ThyWatermarkModule } from 'ngx-tethys/watermark';
 
 import { Overlay } from '@angular/cdk/overlay';
@@ -95,7 +94,6 @@ const TETHYS_MODULES = [
     ThyTableModule,
     ThyGridModule,
     ThyAvatarModule,
-    ThyLabelModule,
     ThyNavModule,
     ThyMenuModule,
     ThyPaginationModule,
