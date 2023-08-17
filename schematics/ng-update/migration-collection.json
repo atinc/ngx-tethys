@@ -29,7 +29,7 @@
     "migration-v16": {
       "version": "16.0.0",
       "factory": "./update-16",
-      "description": "Updates NGX-TETHYS to v16"
+      "description": "Updates NGX-TETHYS to v16. In version 16.x, label and action-menu component were deprecated. This migration replace `label` with `tag`, `action-menu` with `dropdown-menu`."
     }
   }
 }

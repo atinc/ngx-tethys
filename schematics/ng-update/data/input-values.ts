@@ -157,6 +157,13 @@ export const inputValues: VersionChanges<InputValueUpgradeData> = {
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
                     }
+                },
+                {
+                    replace: { thyType: 'crossing' },
+                    replaceWith: { thyTextDirection: 'center' },
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
+                    }
                 }
             ]
         }

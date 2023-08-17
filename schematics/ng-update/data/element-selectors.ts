@@ -20,6 +20,10 @@ export const elementSelectors: VersionChanges<ElementSelectorUpgradeData> = {
                 {
                     replace: 'thy-action-menu-group',
                     replaceWith: 'thy-dropdown-menu-group'
+                },
+                {
+                    replace: 'thy-action-menu-divider',
+                    replaceWith: 'thy-divider'
                 }
             ]
         }

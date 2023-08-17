@@ -50,12 +50,6 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                     }
                 },
                 {
-                    remove: 'thyStopPropagation',
-                    limitedTo: {
-                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
-                    }
-                },
-                {
                     remove: 'thyTitle',
                     limitedTo: {
                         elements: ['thy-action-menu-divider']
@@ -76,7 +70,7 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                 {
                     remove: 'thyWidth',
                     limitedTo: {
-                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                        elements: ['thy-action-menu']
                     }
                 }
             ]
