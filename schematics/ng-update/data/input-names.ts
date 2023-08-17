@@ -53,6 +53,13 @@ export const inputNames: VersionChanges<InputNameUpgradeData> = {
                     limitedTo: {
                         attributes: ['thyActionMenuItemInfo', '[thyActionMenuItemInfo]']
                     }
+                },
+                {
+                    replace: 'thyTitle',
+                    replaceWith: 'thyText',
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
+                    }
                 }
             ]
         }

@@ -1,7 +1,7 @@
-<thy-flexible-text style="width:500px" [thyTooltipContent]="tooltipTemplate">
+<thy-flexible-text style="width: 500px" [thyTooltipContent]="tooltipTemplate">
   {{ text }}
   <ng-template #tooltipTemplate>
-    <span class="mr-1" thyLabel="primary">template</span>
+    <thy-tag thyColor="primary" class="mr-1">template</thy-tag>
     <span>{{ text }}</span>
   </ng-template>
 </thy-flexible-text>

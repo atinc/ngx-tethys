@@ -1,5 +1,5 @@
-@use "../../../styles/variables";
-@use "../../../styles/mixins/shadow.scss";
+@use '../../../styles/variables';
+@use '../../../styles/mixins/shadow.scss';
 
 @mixin select-control-size($tag-height, $padding-y, $height) {
     &.select-control-single {
@@ -30,7 +30,7 @@
                     height: 100%;
                     transition: background 0.2s ease-in-out;
                     cursor: pointer;
-                    span{
+                    span {
                         height: 100%;
                         padding: 0 6px;
                         border-top-right-radius: variables.$tag-border-radius;
@@ -43,19 +43,20 @@
                         transition: color 0.2s ease-in-out;
                         margin-right: 0;
                     }
-                    
+
                     &:hover {
                         background-color: variables.$white;
-                        span{
+                        span {
                             background-color: rgba(variables.$danger, 0.1);
                         }
-                        
+
                         .thy-icon {
                             color: variables.$danger;
                         }
                     }
                 }
-                &.disabled, &.max-tag-count-choice {
+                &.disabled,
+                &.max-tag-count-choice {
                     padding-right: 8px;
                 }
             }
@@ -109,9 +110,6 @@ $thy-label-spacing: 0.3125rem;
             top: $has-value-margin-base;
             bottom: $has-value-margin-base - $thy-label-spacing;
             right: 15px;
-        }
-        .thy-label {
-            margin-bottom: $thy-label-spacing;
         }
     }
 }
