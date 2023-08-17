@@ -3,7 +3,7 @@
  * found in the LICENSE file at https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
  */
 
-import { findInputsOnElementWithAttr, findInputsOnElementWithTag, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
+import { findInputsOnElementWithTag, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 import { findWholeInputsNameAndValueOnElementWithTag } from '../../core/html-parsing';
 
@@ -15,7 +15,7 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyWidth" in deprecated thy-action-menu component.`
+                message: `Remove input "thyWidth" in deprecated thy-action-menu component. Please manually use thy-dropdown-menu input "thyPopoverOptions" to instead.`
             });
         });
 
@@ -26,17 +26,6 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
                 message: `Remove deprecated thy-action-menu component with input "thyTheme". Please manually use "thy-dropdown-menu-group" to instead.`
             });
         });
-
-        // 提示给用户，移除了 action-menu 的属性，dropdown-menu 没有对应功能
-        findInputsOnElementWithAttr(template.content, 'thyStopPropagation', ['thyActionMenuToggle', '[thyActionMenuToggle]']).forEach(
-            offset => {
-                this.failures.push({
-                    filePath: template.filePath,
-                    position: template.getCharacterAndLineOfPosition(offset),
-                    message: `Remove input "thyStopPropagation" in deprecated thyActionMenuToggle directive.`
-                });
-            }
-        );
     }
 
     // 提示给用户，删除的导出类
