@@ -15,7 +15,7 @@ export class LabelRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Replace input "thyBeforeIcon" in deprecated thyLabel directive. Confirm whether the "ThyIconModule" is imported, if not, please import. If it has a corresponding useless variable value, please manually delete it.`
+                message: `Replace input "thyBeforeIcon" in deprecated thyLabel directive. Confirm whether the "ThyIconModule" is imported, if not, please import.`
             });
         });
 
@@ -23,7 +23,7 @@ export class LabelRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Replace input "thyAfterIcon" in deprecated thyLabel directive. Confirm whether the "ThyIconModule" is imported, if not, please import. If it has a corresponding useless variable value, please manually delete it.`
+                message: `Replace input "thyAfterIcon" in deprecated thyLabel directive. Confirm whether the "ThyIconModule" is imported, if not, please import.`
             });
         });
 
@@ -32,7 +32,7 @@ export class LabelRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyIconPrefix" in deprecated thyLabel directive. Please manually use "thy-icon" to instead. If it has a corresponding useless variable value, please manually delete it.`
+                message: `Remove input "thyIconPrefix" in deprecated thyLabel directive. Please manually use "thy-icon" to instead.`
             });
         });
 
@@ -40,7 +40,7 @@ export class LabelRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyBackgroundOpacity" in deprecated thyLabel directive. If it has a corresponding useless variable value, please manually delete it.`
+                message: `Remove input "thyBackgroundOpacity" in deprecated thyLabel directive.`
             });
         });
 

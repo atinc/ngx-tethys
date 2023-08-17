@@ -23,7 +23,7 @@ export function onV16MigrationComplete(context: SchematicContext, targetVersion:
 
     if (hasFailures) {
         context.logger.warn(
-            '  ⚠  Some issues were detected but could not be fixed automatically. Please check the replace input with variable value in template and fix these issues manually. Check against documentation please.'
+            '  ⚠  Some issues were detected but could not be fixed automatically. Please check the output above against documentation, fix these issues manually. Especially check the replace input with variable value in template, if it has a corresponding useless variable value, delete it manually.'
         );
     }
 }

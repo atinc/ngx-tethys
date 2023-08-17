@@ -105,9 +105,9 @@ hidden: false
       - thyWidth -> 删除，提示
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
       - thyTitle -> 不变
-   - thy-action-menu-divider[组件] -> thy-dropdown-menu-divider
-      - thyTitle -> 删除
-      - thyType -> 删除
+   - thy-action-menu-divider[组件] -> thy-divider
+      - thyTitle -> thyText
+      - thyType=crossing -> thyTextDirection=center
 - ts
    - ThyActionMenuModule -> ThyDropdownModule
    - ThyActionMenuTheme -> 删除

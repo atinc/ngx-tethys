@@ -15,7 +15,7 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyWidth" in deprecated thy-action-menu component. Please manually use thy-dropdown-menu input "thyPopoverOptions" to instead. If it has a corresponding useless variable value, please manually delete it.`
+                message: `Remove input "thyWidth" in deprecated thy-action-menu component.`
             });
         });
 
@@ -23,7 +23,7 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset.start),
-                message: `Remove deprecated thy-action-menu component with input "thyTheme". Please manually use "thy-dropdown-menu-group" to instead.If it has a corresponding useless variable value, please manually delete it.`
+                message: `Remove deprecated thy-action-menu component with input "thyTheme". Please manually use "thy-dropdown-menu-group" to instead.`
             });
         });
 
@@ -33,26 +33,10 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
                 this.failures.push({
                     filePath: template.filePath,
                     position: template.getCharacterAndLineOfPosition(offset),
-                    message: `Remove input "thyStopPropagation" in deprecated thyActionMenuToggle directive. If it has a corresponding useless variable value, please manually delete it.`
+                    message: `Remove input "thyStopPropagation" in deprecated thyActionMenuToggle directive.`
                 });
             }
         );
-
-        findInputsOnElementWithTag(template.content, 'thyTitle', ['thy-action-menu-divider']).forEach(offset => {
-            this.failures.push({
-                filePath: template.filePath,
-                position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyTitle" in deprecated thy-action-menu-divider component. If it has a corresponding useless variable value, please manually delete it.`
-            });
-        });
-
-        findInputsOnElementWithTag(template.content, 'thyType', ['thy-action-menu-divider']).forEach(offset => {
-            this.failures.push({
-                filePath: template.filePath,
-                position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyType" in deprecated thy-action-menu-divider component. If it has a corresponding useless variable value, please manually delete it.`
-            });
-        });
     }
 
     // 提示给用户，删除的导出类
