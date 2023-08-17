@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.0...16.0.0-next.1) (2023-08-17)
+
+
+### Bug Fixes
+
+* **date-picker:** fix ci error for date picker #INFR-9273 ([#2781](https://github.com/atinc/ngx-tethys/issues/2781)) ([717ffbf](https://github.com/atinc/ngx-tethys/commit/717ffbfbd4adcf137f490307eb1ecd985dad0eaf)), closes [#INFR-9273](https://github.com/atinc/ngx-tethys/issues/INFR-9273)
+
+
+### Features
+
+* **schematics:** add tips ([#2777](https://github.com/atinc/ngx-tethys/issues/2777)) ([2c5de9f](https://github.com/atinc/ngx-tethys/commit/2c5de9f24f81ce4ea92502f80c77c4977bb9fb91))
+
+
+
 # [16.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/15.3.16...16.0.0-next.0) (2023-08-15)
 
 
