@@ -27,7 +27,7 @@
     [ngTemplateOutletContext]="{ $implicit: hiddenItems }"
   ></ng-container>
   <ng-template #default>
-    <thy-dropdown-menu>
+    <thy-dropdown-menu thyImmediateRender>
       <ng-container *ngFor="let item of hiddenItems">
         <span
           class="thy-nav-item-more"

@@ -32,7 +32,6 @@ export default {
         ThyActionModule,
         ThySpaceModule,
         ThyDropdownModule,
-        ThyDropdownModule,
         ThyPopoverModule,
         ThyNavModule,
         FormsModule,

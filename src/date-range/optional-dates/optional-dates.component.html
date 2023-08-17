@@ -1,4 +1,4 @@
-<thy-dropdown-menu *ngIf="!hiddenMenu" class="thy-date-range-action-menu-container">
+<thy-dropdown-menu thyImmediateRender *ngIf="!hiddenMenu" class="thy-date-range-action-menu-container">
   <a thyDropdownMenuItem href="javascript:;" *ngFor="let dateRange of optionalDateRanges" (click)="_selectDateRange(dateRange)">
     <span thyDropdownMenuItemName>{{ dateRange?.text }}</span>
     <span thyDropdownMenuItemExtendIcon *ngIf="dateRange.key === selectedDate?.key">

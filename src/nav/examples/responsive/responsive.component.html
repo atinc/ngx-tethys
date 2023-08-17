@@ -29,7 +29,7 @@
     >
 
     <ng-template #morePopover let-context>
-      <thy-dropdown-menu>
+      <thy-dropdown-menu thyImmediateRender>
         <span thyDropdownMenuItem>自定义</span>
         <ng-container *ngFor="let item of context">
           <span
