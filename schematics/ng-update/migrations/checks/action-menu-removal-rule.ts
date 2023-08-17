@@ -27,7 +27,7 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
             });
         });
 
-        // 提示给用户，移除了 action-menu 的属性，dropdown-menu 没有对应功能；移除的属性如果是变量赋值，提示用户手动删除无用变量
+        // 提示给用户，移除了 action-menu 的属性，dropdown-menu 没有对应功能
         findInputsOnElementWithAttr(template.content, 'thyStopPropagation', ['thyActionMenuToggle', '[thyActionMenuToggle]']).forEach(
             offset => {
                 this.failures.push({

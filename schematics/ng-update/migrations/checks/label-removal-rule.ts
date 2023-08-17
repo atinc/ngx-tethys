@@ -27,7 +27,7 @@ export class LabelRemovalRule extends Migration<UpgradeData> {
             });
         });
 
-        // 提示给用户，移除了 thyLabel 的属性，thyTag 没有对应功能；移除的属性如果是变量赋值，提示用户手动删除无用变量
+        // 提示给用户，移除了 thyLabel 的属性，thyTag 没有对应功能
         findInputsOnElementWithAttr(template.content, 'thyIconPrefix', ['thyLabel', '[thyLabel]']).forEach(offset => {
             this.failures.push({
                 filePath: template.filePath,

@@ -29,7 +29,7 @@ hidden: false
 
 
 - 模板
-   - thyLabel -> thyTag
+   - thyLabel[指令] -> thyTag
    - thySize:
       - sm20、md24、lg28 -> 不变
       - 不设置值（default22）-> md24 
@@ -97,7 +97,7 @@ hidden: false
    - thyActionMenuToggle[指令] -> thyDropdown
       - thyPlacement -> 不变
       - thyAction -> thyTrigger
-      - thyStopPropagation -> 删除
+      - thyStopPropagation -> 不变
       - thyContainerClass -> thyPanelClass
       - thyOriginActiveClass -> thyActiveClass
    - thy-action-menu[组件] -> thy-dropdown-menu
