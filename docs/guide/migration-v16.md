@@ -100,7 +100,7 @@ hidden: false
       - thyStopPropagation -> 不变
       - thyContainerClass -> thyPanelClass
       - thyOriginActiveClass -> thyActiveClass
-   - thy-action-menu[组件] -> thy-dropdown-menu
+   - thy-action-menu[组件] -> thy-dropdown-menu thyImmediateRender
       - thyTheme -> 删除，提示
       - thyWidth -> 删除，提示
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
