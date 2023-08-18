@@ -126,7 +126,9 @@ describe('ThyTestDateRangeComponent', () => {
         it('should be custom date when select custom date from date popover', fakeAsync(() => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container').querySelector('.thy-dropdown-menu');
+            const actionMenuContainers = getPickerContainer()
+                .querySelector('.thy-date-range-dropdown-menu-container')
+                .querySelector('.thy-dropdown-menu');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
 
@@ -161,7 +163,9 @@ describe('ThyTestDateRangeComponent', () => {
             };
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container').querySelector('.thy-dropdown-menu');
+            const actionMenuContainers = getPickerContainer()
+                .querySelector('.thy-date-range-dropdown-menu-container')
+                .querySelector('.thy-dropdown-menu');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
