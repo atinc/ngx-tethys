@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.1...16.0.0-next.2) (2023-08-18)
+
+
+### Features
+
+* **schematics:** add scss variables replace and tips #INFR-9293 ([#2783](https://github.com/atinc/ngx-tethys/issues/2783)) ([b5d38b7](https://github.com/atinc/ngx-tethys/commit/b5d38b752427165d4bdb928c55a6e34b6e9d86da)), closes [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293) [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293) [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293)
+* **schematics:** update tips ([0bde94a](https://github.com/atinc/ngx-tethys/commit/0bde94a705dc23914de81e8dc194150e46c86712))
+
+
+
 # [16.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.0...16.0.0-next.1) (2023-08-17)
 
 
