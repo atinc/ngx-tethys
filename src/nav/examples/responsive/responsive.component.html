@@ -29,18 +29,18 @@
     >
 
     <ng-template #morePopover let-context>
-      <thy-action-menu>
-        <span thyActionMenuItem>自定义</span>
+      <thy-dropdown-menu thyImmediateRender>
+        <span thyDropdownMenuItem>自定义</span>
         <ng-container *ngFor="let item of context">
           <span
             class="thy-nav-item-more"
-            thyActionMenuItem
-            [thyActionMenuItemActive]="item.isActive"
+            thyDropdownMenuItem
+            [thyDropdownMenuItemActive]="item.isActive"
             (click)="navItemClick(item)"
             [innerHTML]="item.content"
           ></span>
         </ng-container>
-      </thy-action-menu>
+      </thy-dropdown-menu>
     </ng-template>
   </thy-nav>
   <br />
