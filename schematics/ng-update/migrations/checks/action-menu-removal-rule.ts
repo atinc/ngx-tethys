@@ -3,7 +3,7 @@
  * found in the LICENSE file at https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
  */
 
-import { findInputsOnElementWithTag, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
+import { findAllSubstringIndices, findInputsOnElementWithTag, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 import { findWholeInputsNameAndValueOnElementWithTag } from '../../core/html-parsing';
 
@@ -47,5 +47,27 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
         if (identifier.getText() === 'ThyActionMenuDividerTitleDirective') {
             this.createFailureAtNode(identifier, `Remove deprecated "ThyActionMenuDividerTitleDirective".`);
         }
+    }
+
+    visitStylesheet(stylesheet: ResolvedResource): void {
+        findAllSubstringIndices(stylesheet.content, '$action-menu-divider-margin-y')
+            .map(offset => stylesheet.start + offset)
+            .forEach(start => {
+                this.failures.push({
+                    filePath: stylesheet.filePath,
+                    position: stylesheet.getCharacterAndLineOfPosition(start),
+                    message: `Replace $action-menu-divider-margin-y(5px) with $dropdown-menu-divider-margin-y(4px)`
+                });
+            });
+
+        findAllSubstringIndices(stylesheet.content, '$action-menu-group-name-padding-y')
+            .map(offset => stylesheet.start + offset)
+            .forEach(start => {
+                this.failures.push({
+                    filePath: stylesheet.filePath,
+                    position: stylesheet.getCharacterAndLineOfPosition(start),
+                    message: `Replace $action-menu-group-name-padding-y(5px) with $dropdown-menu-group-name-padding-y(2px)`
+                });
+            });
     }
 }
