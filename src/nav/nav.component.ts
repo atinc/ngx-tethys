@@ -29,7 +29,7 @@ import { RouterLinkActive } from '@angular/router';
 import { ThyNavInkBarDirective } from './nav-ink-bar.directive';
 import { ThyNavItemDirective } from './nav-item.directive';
 import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
-import { ThyActionMenuComponent, ThyActionMenuItemDirective, ThyActionMenuItemActiveDirective } from 'ngx-tethys/action-menu';
+import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
 
@@ -79,10 +79,10 @@ const tabItemRight = 20;
         ThyNavItemDirective,
         ThyIconComponent,
         ThyNavInkBarDirective,
-        ThyActionMenuComponent,
+        ThyDropdownMenuComponent,
         NgFor,
-        ThyActionMenuItemDirective,
-        ThyActionMenuItemActiveDirective,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemActiveDirective,
         BypassSecurityTrustHtmlPipe
     ]
 })

@@ -17,7 +17,6 @@ module.exports = {
                 'types',
                 'util',
                 'styles',
-                'action-menu',
                 'alert',
                 'arrow-switcher',
                 'copy',

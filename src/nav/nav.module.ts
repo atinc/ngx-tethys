@@ -1,4 +1,4 @@
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 
@@ -18,7 +18,7 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
         CommonModule,
         ThyIconModule,
         ThyPopoverModule,
-        ThyActionMenuModule,
+        ThyDropdownModule,
         RouterModule,
         ThyNavComponent,
         ThyNavItemDirective,

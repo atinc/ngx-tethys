@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ThyActionModule } from 'ngx-tethys/action';
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
@@ -20,13 +19,12 @@ export default {
         CommonModule,
         FormsModule,
         ThyInputModule,
-        ThyActionMenuModule,
+        ThyDropdownModule,
         ThySharedModule,
         ThySelectModule,
         ThySpaceModule,
         ThyButtonModule,
         ThyGridModule,
-        ThyDropdownModule,
         ThyIconModule,
         ThyTooltipModule,
         ThyDividerModule,
