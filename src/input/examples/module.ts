@@ -1,9 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ThyInputModule } from 'ngx-tethys/input';
-import { ThySharedModule } from 'ngx-tethys/shared';
-import { ThySelectModule } from 'ngx-tethys/select';
-import { ThySpaceModule } from 'ngx-tethys/space';
+import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyDividerModule } from 'ngx-tethys/divider';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
