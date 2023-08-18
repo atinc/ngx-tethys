@@ -1,11 +1,10 @@
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyNavModule } from 'ngx-tethys/nav';
 import { ThySpaceModule } from 'ngx-tethys/space';
-import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyActionModule } from 'ngx-tethys/action';
 import { THY_POPOVER_SCROLL_STRATEGY, ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThySelectModule } from 'ngx-tethys/select';
@@ -32,7 +31,6 @@ export default {
         ThyIconModule,
         ThyActionModule,
         ThySpaceModule,
-        ThyActionMenuModule,
         ThyDropdownModule,
         ThyPopoverModule,
         ThyNavModule,
