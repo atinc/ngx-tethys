@@ -69,5 +69,15 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
                     message: `Replace $action-menu-group-name-padding-y(5px) with $dropdown-menu-group-name-padding-y(2px)`
                 });
             });
+
+        findAllSubstringIndices(stylesheet.content, '$label-')
+            .map(offset => stylesheet.start + offset)
+            .forEach(start => {
+                this.failures.push({
+                    filePath: stylesheet.filePath,
+                    position: stylesheet.getCharacterAndLineOfPosition(start),
+                    message: `Found deprecated label style variables`
+                });
+            });
     }
 }
