@@ -97,8 +97,8 @@ describe('ThyTestDateRangeComponent', () => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
             const lastActionMenuItem = getPickerContainer()
-                .querySelector('thy-popover-container')
-                .querySelector('.thy-date-range-dropdown-menu-container').lastChild;
+                .querySelector('.thy-date-range-dropdown-menu-container')
+                .querySelector('.thy-dropdown-menu').lastChild;
             expect((lastActionMenuItem as HTMLElement).innerText).toEqual(text);
         }));
 
@@ -126,7 +126,7 @@ describe('ThyTestDateRangeComponent', () => {
         it('should be custom date when select custom date from date popover', fakeAsync(() => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container').querySelector('.thy-dropdown-menu');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
 
@@ -161,7 +161,7 @@ describe('ThyTestDateRangeComponent', () => {
             };
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container').querySelector('.thy-dropdown-menu');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
@@ -180,7 +180,8 @@ describe('ThyTestDateRangeComponent', () => {
             const secondOptional = getPickerContainer()
                 .querySelector('thy-popover-container')
                 .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelectorAll('.thy-dropdown-menu-item')[1];
+                .querySelector('.thy-dropdown-menu')
+                .querySelectorAll('.dropdown-menu-item')[1];
             dispatchClickEvent(secondOptional as HTMLElement);
             expect(getPickerTriggerElement().innerText).toEqual(value);
         }));
@@ -189,7 +190,9 @@ describe('ThyTestDateRangeComponent', () => {
             const thyOnCalendarChange = spyOn(debugElement.componentInstance, 'calendarChange');
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
+            const actionMenuContainers = getPickerContainer()
+                .querySelector('.thy-date-range-dropdown-menu-container')
+                .querySelector('.thy-dropdown-menu');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             const left = getFirstCell('left');
             const leftText = left.textContent.trim();
