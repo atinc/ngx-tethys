@@ -34,13 +34,13 @@ hidden: false
    - thyLabel[指令] -> thyTag
    - thySize:
       - sm20、md24、lg28 -> 不变
-      - 不设置值（default22）-> md24 提示
-      - default22 -> md24 提示
-      - xlg36 -> lg28 提示
+      - 不设置值（default22）-> md24 提示：自动替换后大小有变化
+      - default22 -> md24 提示：自动替换后大小有变化
+      - xlg36 -> lg28 提示：自动替换后大小有变化
    - thyHasHover -> thyHoverable
    - thyIconPrefix -> 删除，提示
-   - thyBeforeIcon -> 前插入个名字是 thyBeforeIcon 值的 icon  ```<thy-icon  thyIconName="smile">``` 提示
-   - thyAfterIcon -> 后插入个名字是 thyAfterIcon 值的 icon  ```<thy-icon  thyIconName="smile" class="ml-1">``` 提示
+   - thyBeforeIcon -> 前插入个名字是 thyBeforeIcon 值的 icon  ```<thy-icon  thyIconName="smile">``` 提示：注意是否导入了 icon 模块，如果没有需要手动导入
+   - thyAfterIcon -> 后插入个名字是 thyAfterIcon 值的 icon  ```<thy-icon  thyIconName="smile" class="ml-1">``` 提示：注意是否导入了 icon 模块，如果没有需要手动导入
    - thyLabel: default | primary | success | info | warning | danger  | emboss-default | emboss-primary | emboss-warning | emboss-danger | outline
       - thyLabel=default -> thyColor=default
       - thyLabel=primary -> thyColor=primary
@@ -79,8 +79,8 @@ hidden: false
    - .thy-label-pill -> .thy-tag-pill
    - .thy-label-emboss-default -> .thy-tag-weak-fill-default
    - .thy-label-emboss-primary -> .thy-tag-weak-fill-primary
-   - .thy-label-emboss-warning -> .thy-tag-tag-weak-fill-warning
-   - .thy-label-emboss-danger -> .thy-tag-tag-weak-fill-danger
+   - .thy-label-emboss-warning -> .thy-tag-weak-fill-warning
+   - .thy-label-emboss-danger -> .thy-tag-weak-fill-danger
    - .thy-label-outline -> .thy-tag-outline
    - $label-size-padding -> 提示
    - $label-size-padding-sm -> 提示
@@ -117,9 +117,9 @@ hidden: false
       - thyStopPropagation -> 不变
       - thyContainerClass -> thyPanelClass
       - thyOriginActiveClass -> thyActiveClass
-   - thy-action-menu[组件] -> thy-dropdown-menu thyImmediateRender
-      - thyTheme -> 删除，提示
-      - thyWidth -> 删除，提示
+   - thy-action-menu[组件] -> thy-dropdown-menu + thyImmediateRender
+      - thyTheme -> 删除，提示：如果是 thyTheme=group，需要手动替换成 thy-dropdown-menu-group
+      - thyWidth -> 删除，提示：需要手动替换成 thy-dropdown-menu 的 thyPopoverOptions
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
       - thyTitle -> 不变
    - thy-action-menu-divider[组件] -> thy-divider
@@ -162,8 +162,8 @@ hidden: false
    - $action-menu-item-hover-bg -> $dropdown-menu-item-hover-bg
    - $action-menu-divider-title-color -> $dropdown-menu-divider-title-color
    - $action-menu-divider-border-color -> $dropdown-menu-divider-border-color
-   - $action-menu-divider-margin-y(5px) -> $dropdown-menu-divider-margin-y(4px) 提示
+   - $action-menu-divider-margin-y(5px) -> $dropdown-menu-divider-margin-y(4px) 提示：自动替换后大小有变化
    - $action-menu-divider-margin-x -> $dropdown-menu-divider-margin-x
    - $action-menu-group-name-color -> $dropdown-menu-group-name-color
-   - $action-menu-group-name-padding-y(5px) -> $dropdown-menu-group-name-padding-y(2px) 提示
+   - $action-menu-group-name-padding-y(5px) -> $dropdown-menu-group-name-padding-y(2px) 提示：自动替换后大小有变化
    - $action-menu-group-name-padding-x -> $dropdown-menu-group-name-padding-x
