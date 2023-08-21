@@ -52,8 +52,8 @@ export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {
                     }
                 },
                 {
-                    replace: '$action',
-                    replaceWith: '$dropdown',
+                    replace: '$action-menu-',
+                    replaceWith: '$dropdown-menu-',
                     replaceIn: {
                         stylesheet: true,
                         html: false,
