@@ -17,7 +17,7 @@ import { ThyInputModule } from '../module';
             placeholder="Please type"
             [disabled]="disabled"
             [thyTheme]="thyTheme"
-            [thySearchFocus]="true"
+            [thySearchFocus]="searchFocus"
             [(ngModel)]="searchText"
             (ngModelChange)="modelChange($event)"
             (thyClear)="onClear()"
@@ -28,6 +28,7 @@ import { ThyInputModule } from '../module';
 class TestInputSearchBasicComponent {
     @ViewChild(ThyInputSearchComponent, { static: false }) inputSearchComponent: ThyInputSearchComponent;
 
+    searchFocus = true;
     searchText = '';
     thySize = 'sm';
     thyTheme = ``;
@@ -203,33 +204,55 @@ describe('input search', () => {
     it('should call blur methods when blur', fakeAsync(() => {
         fixture.detectChanges();
         const touchSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedFn');
-        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onBlur').and.callThrough();
         const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
         dispatchFakeEvent(trigger, 'blur');
         fixture.detectChanges();
         expect(touchSpy).toHaveBeenCalled();
-        expect(blurSpy).toHaveBeenCalled();
     }));
 
-    it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
+    it('should be focused when focus', fakeAsync(() => {
         fixture.detectChanges();
-
-        const blurSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onTouchedFn');
-        const trigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
-        fixture.componentInstance.inputSearchComponent.onBlur({ relatedTarget: trigger } as FocusEvent);
-
-        fixture.detectChanges();
-
-        expect(blurSpy).not.toHaveBeenCalled();
-    }));
-
-    it('should call onFocus methods when focus', fakeAsync(() => {
-        fixture.detectChanges();
-        const focusSpy = spyOn<any>(fixture.componentInstance.inputSearchComponent, 'onFocus').and.callThrough();
-
         dispatchFakeEvent(searchElement, 'focus');
         fixture.detectChanges();
+        expect(fixture.componentInstance.inputSearchComponent.focused).toBe(true);
+    }));
 
-        expect(focusSpy).toHaveBeenCalled();
+    it('should call blur and call __onBlurValidation when input blur', fakeAsync(() => {
+        fixture.detectChanges();
+
+        const onBlurValidationSpy = spyOn(
+            fixture.componentInstance.inputSearchComponent as unknown as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent.inputElement.nativeElement, 'focus');
+
+        dispatchFakeEvent(fixture.componentInstance.inputSearchComponent.inputElement.nativeElement, 'blur');
+        fixture.detectChanges();
+        expect(onBlurValidationSpy).toHaveBeenCalledTimes(1);
+    }));
+
+    it('should call blur and not call __onBlurValidation when input-search blur and auto focus input', fakeAsync(() => {
+        fixture.componentInstance.searchFocus = false;
+        fixture.detectChanges();
+
+        const onBlurValidationSpy = spyOn(
+            fixture.componentInstance.inputSearchComponent as unknown as { __onBlurValidation: Function },
+            '__onBlurValidation'
+        );
+
+        const inputAutoFocusSpy = spyOn(
+            fixture.componentInstance.inputSearchComponent.inputElement.nativeElement,
+            'focus'
+        ).and.callThrough();
+
+        const inputSearchTrigger = fixture.debugElement.query(By.css('.thy-input-search')).nativeElement;
+        dispatchFakeEvent(inputSearchTrigger, 'focus');
+        fixture.detectChanges();
+        expect(inputAutoFocusSpy).toHaveBeenCalled();
+
+        const inputTrigger = fixture.debugElement.query(By.css('.input-search-control')).nativeElement;
+        dispatchFakeEvent(inputTrigger, 'focus');
+        expect(onBlurValidationSpy).not.toHaveBeenCalled();
     }));
 });
