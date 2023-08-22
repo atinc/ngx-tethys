@@ -10,10 +10,11 @@ import { By, DomSanitizer } from '@angular/platform-browser';
 
 import { ThyFormModule } from '../../form';
 import { ThyIconComponent, ThyIconRegistry } from '../../icon';
-import { bigTreeNodes, searchTreeSelectData } from '../examples/mock-data';
+import { bigTreeNodes, moreOptionTreeSelectData, searchTreeSelectData } from '../examples/mock-data';
 import { ThyTreeSelectModule } from '../module';
 import { ThyTreeSelectNode } from '../tree-select.class';
 import { filterTreeData, ThyTreeSelectComponent } from '../tree-select.component';
+import { SafeAny } from 'ngx-tethys/types';
 
 function treeNodesExpands(nodes: ThyTreeSelectNode[]) {
     const arr = [] as ThyTreeSelectNode[];
@@ -409,6 +410,46 @@ export class VirtualScrollingTreeSelectComponent implements OnInit {
     ngOnInit(): void {}
 }
 
+@Component({
+    selector: 'thy-tree-select-focus-monitor',
+    template: `
+        <thy-tree-select
+            #treeSelect
+            [thyTreeNodes]="nodes"
+            thyPrimaryKey="key"
+            thyShowKey="title"
+            [(ngModel)]="selectedValue"
+            [thyShowSearch]="isShowSearch"
+            [thyAllowClear]="isAllowClear"
+            [thyMultiple]="isMultiple"
+            [thyDisable]="isDisabled"></thy-tree-select>
+
+        <thy-tree-select
+            class="another-tree-select"
+            [thyTreeNodes]="nodes"
+            thyPrimaryKey="key"
+            thyShowKey="title"
+            [(ngModel)]="selectedValue"></thy-tree-select>
+
+        <div class="other-element"></div>
+    `
+})
+class TreeSelectFocusMonitorComponent {
+    @ViewChild('treeSelect', { static: true }) treeSelect: ThyTreeSelectComponent;
+
+    isMultiple = false;
+
+    isAllowClear = false;
+
+    isShowSearch = false;
+
+    isDisabled = false;
+
+    selectedValue: ThyTreeSelectNode | string = null;
+
+    nodes: ThyTreeSelectNode[] = moreOptionTreeSelectData;
+}
+
 describe('ThyTreeSelect', () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
@@ -479,7 +520,7 @@ describe('ThyTreeSelect', () => {
                 const appRef = TestBed.inject(ApplicationRef);
                 spyOn(appRef, 'tick');
 
-                dispatchMouseEvent(treeSelectElement, 'click');
+                dispatchMouseEvent(document, 'click');
                 expect(appRef.tick).not.toHaveBeenCalled();
             });
 
@@ -599,18 +640,6 @@ describe('ThyTreeSelect', () => {
 
                 expect(overlayContainerElement.querySelectorAll('a').length).toEqual(0);
             });
-
-            it('should call onFocus methods when focus', fakeAsync(() => {
-                const fixture = TestBed.createComponent(BasicTreeSelectComponent);
-                const treeSelectDebugElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent));
-                fixture.detectChanges();
-                const focusSpy = spyOn(fixture.componentInstance.treeComponent, 'onFocus').and.callThrough();
-
-                dispatchFakeEvent(treeSelectDebugElement.nativeElement, 'focus');
-                fixture.detectChanges();
-
-                expect(focusSpy).toHaveBeenCalled();
-            }));
 
             it('should call blur and not call onTouchFn when blur', fakeAsync(() => {
                 const fixture = TestBed.createComponent(BasicTreeSelectComponent);
@@ -847,6 +876,9 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             expect(fixture.debugElement.nativeElement.querySelector('input')).toBeTruthy();
 
+            const treeSelectElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent)).nativeElement;
+            dispatchFakeEvent(treeSelectElement, 'focus');
+
             const touchSpy = spyOn<any>(fixture.componentInstance.treeSelect, 'onTouchedFn');
             const trigger = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
             dispatchFakeEvent(trigger, 'blur');
@@ -869,7 +901,6 @@ describe('ThyTreeSelect', () => {
     });
 
     describe('virtual scrolling tree-select', () => {
-        let treeSelectElement: HTMLElement;
         let component: VirtualScrollingTreeSelectComponent;
         let fixture: ComponentFixture<VirtualScrollingTreeSelectComponent>;
 
@@ -880,8 +911,6 @@ describe('ThyTreeSelect', () => {
             fixture.detectChanges();
             tick(100);
             fixture.detectChanges();
-
-            treeSelectElement = fixture.debugElement.query(By.directive(ThyTreeSelectComponent)).nativeElement;
         }));
 
         it('should create', () => {
@@ -916,5 +945,257 @@ describe('ThyTreeSelect', () => {
             const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('a');
             expect(optionNodes.length).toBe(12);
         }));
+    });
+
+    describe('focus and menu visibility monitor', () => {
+        let fixture: ComponentFixture<TreeSelectFocusMonitorComponent>;
+        let testComponent: TreeSelectFocusMonitorComponent;
+
+        let treeSelectComponent: ThyTreeSelectComponent;
+        let treeSelectElement: HTMLElement;
+        let anotherTreeSelectElement: HTMLElement;
+
+        let expandStatusChangeSpy: jasmine.Spy;
+        let onTouchedFnSpy: jasmine.Spy;
+
+        function getElement(selector: string) {
+            return fixture.debugElement.query(By.css(selector)).nativeElement;
+        }
+
+        beforeEach(fakeAsync(() => {
+            configureThyCustomSelectTestingModule([TreeSelectFocusMonitorComponent]);
+            fixture = TestBed.createComponent(TreeSelectFocusMonitorComponent);
+            testComponent = fixture.componentRef.instance;
+
+            treeSelectComponent = fixture.componentInstance.treeSelect;
+            treeSelectElement = treeSelectComponent.elementRef.nativeElement;
+            anotherTreeSelectElement = getElement('.another-tree-select');
+            fixture.detectChanges();
+        }));
+
+        beforeEach(() => {
+            expandStatusChangeSpy = spyOn(treeSelectComponent.thyExpandStatusChange, 'emit').and.callThrough();
+            onTouchedFnSpy = spyOn<SafeAny>(treeSelectComponent, 'onTouchedFn').and.callThrough();
+        });
+
+        describe('focus', () => {
+            it('should open menus when focus tree-select by clicking it', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'click');
+                flush();
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when focus tree-select by program', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'focus');
+
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('program');
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when focus tree-select by pressing the tab key on the keyboard', fakeAsync(() => {
+                treeSelectElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                flush();
+
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('keyboard');
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should open menus when focus tree-select by clicking search input and thyShowSearch is true', fakeAsync(() => {
+                testComponent.isShowSearch = true;
+                fixture.detectChanges();
+
+                dispatchFakeEvent(treeSelectElement, 'click');
+                flush();
+
+                const searchInputElement = getElement('input');
+                dispatchFakeEvent(searchInputElement, 'focus');
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('program');
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+                expect(onTouchedFnSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should not open menus when click clear icon', fakeAsync(() => {
+                testComponent.isAllowClear = true;
+                testComponent.selectedValue = 'parent-001';
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const clearIconElement = getElement('.select-control-clear');
+                dispatchFakeEvent(clearIconElement, 'click', true);
+
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should not open menus when thyMultiple is true and click the clear icon on selected option', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                testComponent.selectedValue = ['parent-001', 'parent-002'];
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const itemClearIconElement = getElement('.thy-icon-close');
+                dispatchFakeEvent(itemClearIconElement, 'click', true);
+
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+                expect(treeSelectComponent.expandTreeSelectOptions).toBe(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should open menus when click the selected option, and should close menus when click the same selected option, when thyMultiple is true', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                testComponent.selectedValue = ['parent-001', 'parent-002'];
+                fixture.detectChanges();
+                flush();
+                fixture.detectChanges();
+
+                const selectedItem = getElement('.select-control-rendered ul li');
+                dispatchFakeEvent(selectedItem, 'click', true);
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+
+                dispatchFakeEvent(selectedItem, 'click', true);
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+            }));
+
+            it('should not call setMenuVisibleSpy when focusOrigin is mouse', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'mousedown');
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                flush();
+
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('mouse');
+                // because whether you click the clear button or click the treeSelect, the focusOrigin value is always mouse
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should not focus tree-select and not open menus when thyDisable is true', fakeAsync(() => {
+                testComponent.isDisabled = true;
+                fixture.detectChanges();
+
+                dispatchFakeEvent(treeSelectElement, 'click');
+                flush();
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe(undefined);
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                flush();
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('program');
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+
+                treeSelectElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                flush();
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('keyboard');
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+
+                dispatchFakeEvent(treeSelectElement, 'mousedown');
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                flush();
+                expect((treeSelectComponent as SafeAny).focusOrigin).toBe('mouse');
+                expect(expandStatusChangeSpy).not.toHaveBeenCalled();
+            }));
+        });
+
+        describe('blur', () => {
+            it('should blur treeSelect after clicked it a second time', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'click');
+                flush();
+                dispatchFakeEvent(treeSelectElement, 'click');
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur treeSelect after pressed the tab key on the keyboard to focus another treeSelect', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                anotherTreeSelectElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Tab' }));
+                flush();
+                dispatchFakeEvent(treeSelectElement, 'blur');
+                fixture.detectChanges();
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur treeSelect after clicked another treeSelect, and another treeSelect should be focused', fakeAsync(() => {
+                const anotherTreeSelectComponent = fixture.debugElement.query(By.css('.another-tree-select')).componentInstance;
+                const anotherExpandStatusChangeSpy = spyOn(anotherTreeSelectComponent.thyExpandStatusChange, 'emit').and.callThrough();
+
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                dispatchFakeEvent(anotherTreeSelectElement, 'click');
+                dispatchFakeEvent(treeSelectElement, 'blur');
+                flush();
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+
+                expect(anotherExpandStatusChangeSpy).toHaveBeenCalledWith(true);
+            }));
+
+            it('should blur treeSelect after clicked other element', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'focus');
+                const otherElement = getElement('.other-element');
+                dispatchFakeEvent(otherElement, 'click');
+                dispatchFakeEvent(treeSelectElement, 'blur');
+                fixture.detectChanges();
+
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should blur treeSelect after selected a value when thyMultiple is false', fakeAsync(() => {
+                testComponent.isMultiple = false;
+                fixture.detectChanges();
+
+                openMenusAndSelectOption();
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(false);
+                expect(onTouchedFnSpy).toHaveBeenCalledTimes(1);
+            }));
+
+            it('should not blur treeSelect when thyMultiple is true and selected a value', fakeAsync(() => {
+                testComponent.isMultiple = true;
+                fixture.detectChanges();
+
+                openMenusAndSelectOption();
+                // only once call when click tree-select to open menus, not call when select values
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(onTouchedFnSpy).not.toHaveBeenCalled();
+            }));
+
+            it('should not blur treeSelect when click node to expand tree', fakeAsync(() => {
+                dispatchFakeEvent(treeSelectElement, 'click');
+                fixture.detectChanges();
+                flush();
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+
+                const nodeExpandIconElement = getElement('.thy-tree-select-option-icon');
+                dispatchFakeEvent(nodeExpandIconElement, 'click', true);
+                fixture.detectChanges();
+                flush();
+
+                // only once call when click tree-select to open menus, not call when click node to expand tree
+                expect(expandStatusChangeSpy).toHaveBeenCalledTimes(1);
+                expect(onTouchedFnSpy).not.toHaveBeenCalled();
+            }));
+
+            function openMenusAndSelectOption() {
+                const trigger = getElement('.thy-select-custom').children[0];
+                dispatchFakeEvent(trigger, 'click', true);
+                fixture.detectChanges();
+                expect(expandStatusChangeSpy).toHaveBeenCalledWith(true);
+
+                const optionNodes: NodeListOf<HTMLElement> = overlayContainerElement.querySelectorAll('.thy-option-item');
+                dispatchFakeEvent(optionNodes[1], 'click', true);
+                fixture.detectChanges();
+            }
+        });
     });
 });

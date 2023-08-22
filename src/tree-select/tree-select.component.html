@@ -1,7 +1,6 @@
 <div
   cdkOverlayOrigin
   thySelectControl
-  (click)="openSelectPop()"
   #origin="cdkOverlayOrigin"
   [thyPanelOpened]="expandTreeSelectOptions"
   [thySelectedOptions]="selectedValueObject"
@@ -15,8 +14,7 @@
   (thyOnBlur)="onBlur($event)"
   (thyOnClear)="clearSelectedValue($event)"
   (thyOnRemove)="removeMultipleSelectedNode($event)"
-  (thyOnSearch)="searchValue($event)"
->
+  (thyOnSearch)="searchValue($event)">
   <ng-template #customDisplayTemplate let-node>
     <ng-container *ngIf="thyTreeSelectTriggerDisplayRef; else noneTemplate">
       <ng-template [ngTemplateOutlet]="thyTreeSelectTriggerDisplayRef" [ngTemplateOutletContext]="{ $implicit: node }"></ng-template>
@@ -34,12 +32,10 @@
   [cdkConnectedOverlayOrigin]="origin"
   [cdkConnectedOverlayWidth]="cdkConnectOverlayWidth"
   [cdkConnectedOverlayOpen]="expandTreeSelectOptions"
-  (detach)="close()"
->
+  (detach)="close()">
   <thy-tree-select-nodes
     thyStopPropagation
     [thyVirtualScroll]="thyVirtualScroll"
-    [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes"
-  >
+    [treeNodes]="thyVirtualScroll ? virtualTreeNodes : treeNodes">
   </thy-tree-select-nodes>
 </ng-template>
