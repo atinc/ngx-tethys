@@ -8,12 +8,16 @@ import {
     ChangeDetectionStrategy,
     AfterContentChecked,
     OnInit,
-    OnDestroy
+    OnDestroy,
+    ChangeDetectorRef,
+    NgZone
 } from '@angular/core';
 import { MixinBase, ThyTranslate, mixinUnsubscribe, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { takeUntil, throttleTime } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 import { FocusOrigin } from '@angular/cdk/a11y';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
@@ -38,7 +42,9 @@ const inputGroupSizeMap = {
         class: 'thy-input-group',
         '[class.form-control]': 'prefixTemplate || suffixTemplate',
         '[class.thy-input-group-with-prefix]': 'prefixTemplate',
-        '[class.thy-input-group-with-suffix]': 'suffixTemplate'
+        '[class.thy-input-group-with-suffix]': 'suffixTemplate',
+        '[class.thy-input-group-with-textarea-suffix]': 'isTextareaSuffix',
+        '[class.thy-input-group-with-scroll-bar]': 'isTextareaSuffix && hasScrollbar'
     },
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
@@ -51,6 +57,10 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
     public appendText: string;
 
     public prependText: string;
+
+    public isTextareaSuffix: boolean;
+
+    public hasScrollbar: boolean;
 
     @HostBinding('class.disabled') disabled = false;
 
@@ -129,7 +139,7 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
      */
     @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
 
-    constructor(private thyTranslate: ThyTranslate) {
+    constructor(private thyTranslate: ThyTranslate, private ngZone: NgZone, private cdr: ChangeDetectorRef) {
         super();
     }
 
@@ -145,6 +155,41 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
 
     ngAfterContentChecked(): void {
         this.disabled = !!this.inputDirective?.nativeElement?.hasAttribute('disabled');
+
+        this.isTextareaSuffix = this.inputDirective?.nativeElement?.tagName === 'TEXTAREA';
+        if (this.isTextareaSuffix) {
+            this.determineHasScrollbar();
+        }
+    }
+
+    private determineHasScrollbar() {
+        this.ngZone.runOutsideAngular(() => {
+            this.resizeObserver(this.inputDirective.nativeElement)
+                .pipe(throttleTime(100), takeUntil(this.ngUnsubscribe$))
+                .subscribe(() => {
+                    const hasScrollbar = this.inputDirective.nativeElement.scrollHeight > this.inputDirective.nativeElement.clientHeight;
+                    if (this.hasScrollbar !== hasScrollbar) {
+                        this.ngZone.run(() => {
+                            this.hasScrollbar = hasScrollbar;
+                            this.cdr.detectChanges();
+                        });
+                    }
+                });
+        });
+    }
+
+    private resizeObserver(element: HTMLElement): Observable<ResizeObserverEntry[]> {
+        return typeof ResizeObserver === 'undefined' || !ResizeObserver
+            ? of(null)
+            : new Observable(observer => {
+                  const resize = new ResizeObserver((entries: ResizeObserverEntry[]) => {
+                      observer.next(entries);
+                  });
+                  resize.observe(element);
+                  return () => {
+                      resize.disconnect();
+                  };
+              });
     }
 
     ngOnDestroy() {

@@ -16,17 +16,38 @@
         [(ngModel)]="model.username"
         #input="thyInput"
         maxlength="100"
-        placeholder="Please type nickname"
-      />
+        placeholder="Please type nickname" />
       <ng-template #suffix>
         <thy-input-count [thyInput]="input"></thy-input-count>
       </ng-template>
     </thy-input-group>
   </thy-form-group>
+  <thy-form-group thyLabelText="爱好">
+    <thy-input-group>
+      <textarea name="hobby" thyInput minRows="1" rows="3" [(ngModel)]="model.hobby" placeholder="输入爱好" maxlength="100"></textarea>
+      <ng-template #suffix>
+        <thy-input-count></thy-input-count>
+      </ng-template>
+    </thy-input-group>
+  </thy-form-group>
+  <thy-form-group thyLabelText="地址">
+    <thy-input-group>
+      <textarea
+        disabled
+        name="address"
+        thyInput
+        minRows="1"
+        rows="3"
+        [(ngModel)]="model.address"
+        placeholder="输入地址"
+        maxlength="100"></textarea>
+      <ng-template #suffix>
+        <thy-input-count></thy-input-count>
+      </ng-template>
+    </thy-input-group>
+  </thy-form-group>
   <thy-form-group-footer>
-    <button [thyButton]="'primary'" [thyLoading]="saving" thyLoadingText="Login" (thyFormSubmit)="login()">
-      Login
-    </button>
+    <button [thyButton]="'primary'" [thyLoading]="saving" thyLoadingText="Login" (thyFormSubmit)="login()">Login</button>
     <button [thyButton]="'link-secondary'" (click)="cancel()">Cancel</button>
   </thy-form-group-footer>
 </form>

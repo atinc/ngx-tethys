@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyPlacement } from 'ngx-tethys/core';
-import { THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys/dropdown';
 
 @Component({
     selector: 'thy-input-count-example',
@@ -14,7 +12,9 @@ export class ThyInputCountExampleComponent implements OnInit {
 
     model = {
         username: 'Alice',
-        nickname: ''
+        nickname: '',
+        hobby: '',
+        address: '北京市海淀区'
     };
 
     saving = false;
@@ -32,7 +32,9 @@ export class ThyInputCountExampleComponent implements OnInit {
     cancel() {
         this.model = {
             username: 'Alice',
-            nickname: ''
+            nickname: '',
+            hobby: '',
+            address: '北京市海淀区'
         };
     }
 }
