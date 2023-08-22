@@ -1,11 +1,17 @@
-import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
 
 import { ThyTreeNode } from './tree-node.class';
+
 
 export enum ThyTreeNodeCheckState {
     unchecked = 0,
     checked = 1,
     indeterminate = 2
+}
+
+export enum ThyTreeDropPosition {
+    in = 'in',
+    before = 'before',
+    after = 'after'
 }
 
 export interface ThyTreeNodeData<T = any> {
@@ -48,11 +54,19 @@ export interface ThyTreeEmitEvent<T = any> {
     targetNode?: ThyTreeNode<T>;
 }
 
+export interface ThyTreeBeforeDragStartContext {
+    item: ThyTreeNode;
+}
+
+export interface ThyTreeBeforeDragDropContext {
+    item?: ThyTreeNode;
+    containerItems?: ThyTreeNode[];
+    previousItem?: ThyTreeNode;
+    previousContainerItems?: ThyTreeNode[];
+    position?: ThyTreeDropPosition;
+}
+
 export interface ThyTreeDragDropEvent<T = any> {
-    event?: ThyDragDropEvent;
-
-    currentIndex?: number;
-
     dragNode?: ThyTreeNode<T>;
 
     targetNode?: ThyTreeNode<T>;
@@ -62,7 +76,6 @@ export interface ThyTreeDragDropEvent<T = any> {
 
 export class ThyTreeIcons {
     expand?: string;
-
     collapse?: string;
 }
 

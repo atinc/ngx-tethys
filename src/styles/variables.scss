@@ -814,10 +814,9 @@ $slider-height-sm: 6px !default;
 $slider-height-md: 10px !default;
 $slider-height-lg: 16px !default;
 //tree
-$tree-padding: 10px 20px 10px 10px;
-$tree-node-padding: 0 0 0 25px !default;
-$tree-node-margin: 0 0 0 20px !default;
-$tree-node-wrapper-padding: 0 !default;
+$tree-padding: 10px 0 10px 0;
+$tree-node-padding: 0 0 0 0 !default;
+$tree-node-wrapper-padding: 0 20px 0 20px !default;
 $tree-node-wrapper-height: 44px !default;
 $tree-node-wrapper-line-height: 44px !default;
 $tree-node-wrapper-border-bottom: 1px solid $gray-200 !default;

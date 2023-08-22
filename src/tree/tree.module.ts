@@ -1,6 +1,5 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyCheckboxModule } from 'ngx-tethys/checkbox';
-import { ThyDragDropModule } from 'ngx-tethys/drag-drop';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyInputModule } from 'ngx-tethys/input';
 import { ThyListModule } from 'ngx-tethys/list';
@@ -15,9 +14,12 @@ import { FormsModule } from '@angular/forms';
 import { ThyTreeNodeComponent } from './tree-node.component';
 import { ThyTreeComponent } from './tree.component';
 import { ThyTreeService } from './tree.service';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { ThyTreeNodeDraggablePipe } from './tree.pipe';
 
 @NgModule({
     imports: [
+        DragDropModule,
         CommonModule,
         ThyInputModule,
         ThyButtonModule,
@@ -27,11 +29,12 @@ import { ThyTreeService } from './tree.service';
         ThyOptionModule,
         ThyLoadingModule,
         ThyIconModule,
-        ThyDragDropModule,
+        // ThyDragDropModule,
         ThyCheckboxModule,
         ScrollingModule,
         ThyTreeComponent,
-        ThyTreeNodeComponent
+        ThyTreeNodeComponent,
+        ThyTreeNodeDraggablePipe
     ],
     exports: [ThyTreeComponent, ThyTreeNodeComponent],
     providers: [ThyTreeService]

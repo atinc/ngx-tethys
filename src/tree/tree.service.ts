@@ -1,10 +1,8 @@
 import { coerceArray, isFunction } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
-
 import { Injectable, OnDestroy } from '@angular/core';
-
 import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeNodeCheckState } from './tree.class';
+import { ThyTreeNodeCheckState, ThyTreeNodeData } from './tree.class';
 
 function checkStateResolve(node: ThyTreeNode) {
     const checkedNodes = node.children.filter(n => n.isChecked === ThyTreeNodeCheckState.checked);
@@ -20,6 +18,12 @@ function checkStateResolve(node: ThyTreeNode) {
 
 type FlattenAllNodesCb = (treeNode: ThyTreeNode) => boolean;
 
+export interface ThyTreeFormatEmitEvent {
+    eventName: string;
+    node: ThyTreeNode;
+    event?: MouseEvent | DragEvent;
+}
+
 /**
  * @internal
  */
@@ -31,16 +35,24 @@ export class ThyTreeService implements OnDestroy {
 
     flattenTreeNodes: ThyTreeNode[] = [];
 
+    private originTreeNodes: ThyTreeNodeData[] = [];
+
     public treeNodes: ThyTreeNode[] = [];
 
     public checkStateResolve: (node: ThyTreeNode) => ThyTreeNodeCheckState = checkStateResolve;
 
-    $statusChange = new Subject<ThyTreeFormatEmitEvent>();
+    statusChange$ = new Subject<ThyTreeFormatEmitEvent>();
 
-    constructor() {}
+    constructor() {
+        this.statusChange$.pipe().subscribe(event => {
+            this.syncFlattenTreeNodes();
+            this.syncNodeCheckState(event.node);
+        });
+    }
 
-    public initializeTreeNodes(rootNodes: ThyTreeNode[]) {
-        this.treeNodes = rootNodes;
+    public initializeTreeNodes(rootNodes: ThyTreeNodeData[]) {
+        this.originTreeNodes = rootNodes || [];
+        this.treeNodes = (rootNodes || []).map(node => new ThyTreeNode(node, null, this));
     }
 
     public syncFlattenTreeNodes() {
@@ -93,25 +105,45 @@ export class ThyTreeService implements OnDestroy {
     }
 
     public deleteTreeNode(node: ThyTreeNode) {
-        const children = node.parentNode ? node.parentNode.children : this.treeNodes;
-        const index = children.findIndex(n => n.key === node.key);
-        if (index > -1) {
-            children.splice(index, 1);
+        if (node.parentNode) {
+            const children = node.parentNode.children;
+            const index = children.findIndex(n => n.key === node.key);
+            if (index > -1) {
+                children.splice(index, 1);
+                node.parentNode.origin.children = node.children.map(item => item.origin);
+                this.syncNodeCheckState(node.parentNode);
+            }
+        } else {
+            const index = this.treeNodes.findIndex(n => n.key === node.key);
+            if (index > -1) {
+                this.treeNodes.splice(index, 1);
+                this.originTreeNodes.splice(index, 1);
+            }
         }
-        this.syncFlattenTreeNodes();
     }
 
     public addTreeNode(node: ThyTreeNode, parent?: ThyTreeNode, index = -1) {
         if (parent) {
-            parent.addChildren(node, index);
-        } else {
+            const insertNode = new ThyTreeNode(node.origin, parent, this);
             if (index > -1) {
-                this.treeNodes.splice(index, 0, node);
+                parent.children.splice(index, 0, insertNode);
             } else {
-                this.treeNodes.push(node);
+                parent.children.push(insertNode);
             }
+            parent.origin.children = parent.children.map(item => item.origin);
+            this.syncNodeCheckState(parent);
+        } else {
+            const insertNode = new ThyTreeNode(node.origin, null, this);
+            if (index > -1) {
+                this.treeNodes.splice(index, 0, insertNode);
+            } else {
+                this.treeNodes.push(insertNode);
+            } 
+            this.originTreeNodes = this.treeNodes.map(item => item.origin);
+            // this.syncNodeCheckState(insertNode);
         }
-        this.syncFlattenTreeNodes();
+
+      
     }
 
     public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {
@@ -123,10 +155,6 @@ export class ThyTreeService implements OnDestroy {
             node.setExpanded(true);
         });
         this.syncFlattenTreeNodes();
-    }
-
-    public statusChanged() {
-        return this.$statusChange.asObservable();
     }
 
     // 设置节点选中状态
@@ -175,13 +203,7 @@ export class ThyTreeService implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.$statusChange.complete();
-        this.$statusChange = null;
+        this.statusChange$.complete();
+        this.statusChange$ = null;
     }
-}
-
-export interface ThyTreeFormatEmitEvent {
-    eventName: string;
-    node: ThyTreeNode;
-    event?: MouseEvent | DragEvent;
 }

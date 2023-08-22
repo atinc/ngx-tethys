@@ -1,16 +1,14 @@
 <div
-  thyDragContent
   #treeNodeWrapper
-  class="thy-tree-node-wrapper thy-sortable-item"
+  class="thy-tree-node-wrapper"
   [class.active]="root.isSelected(node)"
   [class.disabled]="node.isDisabled"
   [class.expand]="node.children.length"
-  [class.draggable]="thyDraggable"
   [style.height]="thyItemSize + 'px'"
   (click)="clickNode($event)"
 >
   <span class="thy-tree-index" [style.width.px]="node.level * thyIndent"></span>
-  <span *ngIf="thyDraggable" class="thy-tree-drag-icon thy-sortable-handle">
+  <span  class="thy-tree-drag-icon">
     <thy-icon thyIconName="drag"></thy-icon>
   </span>
   <span class="thy-tree-expand" (click)="expandNode($event)">
