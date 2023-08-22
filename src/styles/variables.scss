@@ -374,26 +374,6 @@ $table-operation-column-spacing: 32px !default;
 
 // grid
 $table-footer-padding: 0 20px !default;
-// action-menu
-$action-menu-width: 240px !default;
-$action-menu-group-width: 280px !default;
-$action-menu-padding-y: 10px;
-$action-menu-max-height: 400px !default;
-$action-menu-bg: $white !default;
-$action-menu-item-padding-x: 20px !default;
-$action-menu-item-padding-y: 9px !default;
-$action-menu-item-color: $gray-800 !default;
-$action-menu-item-hover-color: $gray-800 !default;
-$action-menu-item-icon-color: $gray-500 !default;
-$action-menu-item-extend-color: $gray-500 !default;
-$action-menu-item-hover-bg: $gray-100 !default;
-$action-menu-divider-title-color: $gray-400 !default;
-$action-menu-divider-border-color: $gray-200 !default;
-$action-menu-divider-margin-y: 5px !default;
-$action-menu-divider-margin-x: 20px !default;
-$action-menu-group-name-color: $gray-400 !default;
-$action-menu-group-name-padding-y: 5px;
-$action-menu-group-name-padding-x: 20px;
 // badges
 $badge-font-size: 75% !default;
 $badge-font-weight: normal !default;
@@ -405,28 +385,6 @@ $badge-pill-border-radius: 10rem !default;
 $badge-bg: $gray-200 !default; //#eee
 $badge-color: $gray-600 !default; //#888
 $badge-danger-color: #ff7461 !default;
-//label
-$label-size-padding: 5px 10px !default;
-$label-size-padding-sm: 4px 10px !default;
-$label-size-padding-md: 6px 10px !default;
-$label-size-padding-lg: 7px 10px !default;
-$label-size-outline-diff: 1px !default;
-$label-size-paddings: () !default;
-$label-size-paddings: (
-    default: 5,
-    sm: 4,
-    md: 6,
-    lg: 7,
-    xlg: 8
-);
-$label-border-radius: 3px !default;
-$label-pill-radius: 18px !default;
-$label-default-bg: $gray-200 !default;
-$label-primary-bg: $primary !default;
-$label-success-bg: $success !default;
-$label-info-bg: $info !default;
-$label-warning-bg: $warning !default;
-$label-danger-bg: $danger !default;
 
 // tag
 $tag-default-color: $gray-700 !default;

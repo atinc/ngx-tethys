@@ -85,7 +85,7 @@ class WithChildViewContainerComponent {
             <ul>
                 <li *ngFor="let item of demos">
                     <a href="javascript:;">
-                        <span thyActionMenuItemName>图标{{ item }}</span>
+                        <span thyDropdownMenuItemName>图标{{ item }}</span>
                     </a>
                 </li>
             </ul>

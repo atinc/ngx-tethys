@@ -18,12 +18,14 @@ hidden: false
 - 会自动把依赖的 CDK 和 Angular 库都升级到 `16.x` 版本，并修改 package.json 中的依赖版本号
 - 自动修改 `thyLabelModule` 模块内容为 `thyTagModule` 模块内容
 - 自动修改 `ThyActionMenuModule` 模块内容为 `ThyDropdownModule` 模块内容
-- 上面两点中未修改全面或不完全对应的自动修改部分，会给出提示，用户需要根据提示，参考下面的对照表手动修改
+- ⚠ 上面两点中未修改全面或不完全对应的自动修改部分，会给出提示，用户需要根据提示，参考下面的对照表手动修改
 
 ## 破坏性修改
 
 - `thyLabelModule` 模块下的所有内容从组件库中移除，使用 `thyTagModule` 模块下内容代替
 - `ThyActionMenuModule` 模块下的内容从组件库中移除，使用 `ThyDropdownModule` 模块下内容代替
+
+## 附录
 
 <label type="info">附录1</label> 所有 `thyLabelModule` 与 `thyTagModule` 对应的修改列表
 
@@ -32,13 +34,13 @@ hidden: false
    - thyLabel[指令] -> thyTag
    - thySize:
       - sm20、md24、lg28 -> 不变
-      - 不设置值（default22）-> md24 
-      - default22 -> md24
-      - xlg36 -> lg28
+      - 不设置值（default22）-> md24 提示：自动替换后大小有变化
+      - default22 -> md24 提示：自动替换后大小有变化
+      - xlg36 -> lg28 提示：自动替换后大小有变化
    - thyHasHover -> thyHoverable
-   - thyIconPrefix -> 删除
-   - thyBeforeIcon -> 前插入个名字是 thyBeforeIcon 值的 icon  ```<thy-icon  thyIconName="smile">```
-   - thyAfterIcon -> 后插入个名字是 thyAfterIcon 值的 icon  ```<thy-icon  thyIconName="smile" class="ml-1">```
+   - thyIconPrefix -> 删除，提示
+   - thyBeforeIcon -> 前插入个名字是 thyBeforeIcon 值的 icon  ```<thy-icon  thyIconName="smile">``` 提示：注意是否导入了 icon 模块，如果没有需要手动导入
+   - thyAfterIcon -> 后插入个名字是 thyAfterIcon 值的 icon  ```<thy-icon  thyIconName="smile" class="ml-1">``` 提示：注意是否导入了 icon 模块，如果没有需要手动导入
    - thyLabel: default | primary | success | info | warning | danger  | emboss-default | emboss-primary | emboss-warning | emboss-danger | outline
       - thyLabel=default -> thyColor=default
       - thyLabel=primary -> thyColor=primary
@@ -52,11 +54,11 @@ hidden: false
       - thyLabel=emboss-danger -> thyColor=danger  thyTheme=weak-fill
       - thyLabel=outline -> thyTheme=outline 
    - thyLabelColor -> thyColor
-   - thyBackgroundOpacity -> 删除
+   - thyBackgroundOpacity -> 删除，提示
    - thyLabelType: state | pill
       - thyLabelType=state -> thyShape=rectangle
       - thyLabelType=pill -> thyShape=pill
-   - thyOnRemove -> 删除
+   - thyOnRemove -> 删除，提示
 - ts
    - ThyLabelTypeSize -> ThyTagSize
    - ThyLabelType -> ThyTagColor
@@ -77,9 +79,24 @@ hidden: false
    - .thy-label-pill -> .thy-tag-pill
    - .thy-label-emboss-default -> .thy-tag-weak-fill-default
    - .thy-label-emboss-primary -> .thy-tag-weak-fill-primary
-   - .thy-label-emboss-warning -> .thy-tag-tag-weak-fill-warning
-   - .thy-label-emboss-danger -> .thy-tag-tag-weak-fill-danger
+   - .thy-label-emboss-warning -> .thy-tag-weak-fill-warning
+   - .thy-label-emboss-danger -> .thy-tag-weak-fill-danger
    - .thy-label-outline -> .thy-tag-outline
+   - $label-size-padding -> 提示
+   - $label-size-padding-sm -> 提示
+   - $label-size-padding-md -> 提示
+   - $label-size-padding-lg -> 提示
+   - $label-size-outline-diff -> 提示
+   - $label-size-paddings -> 提示
+   - $label-border-radius -> 提示
+   - $label-pill-radius -> 提示
+   - $label-default-bg -> 提示
+   - $label-primary-bg -> 提示
+   - $label-success-bg -> 提示
+   - $label-info-bg -> 提示
+   - $label-warning-bg -> 提示
+   - $label-danger-bg -> 提示
+
 
 <label type="info">附录2</label> 所有 `ThyActionMenuModule` 与 `ThyDropdownModule` 对应的修改列表
 
@@ -100,9 +117,9 @@ hidden: false
       - thyStopPropagation -> 不变
       - thyContainerClass -> thyPanelClass
       - thyOriginActiveClass -> thyActiveClass
-   - thy-action-menu[组件] -> thy-dropdown-menu thyImmediateRender
-      - thyTheme -> 删除，提示
-      - thyWidth -> 删除，提示
+   - thy-action-menu[组件] -> thy-dropdown-menu + thyImmediateRender
+      - thyTheme -> 删除，提示：如果是 thyTheme=group，需要手动替换成 thy-dropdown-menu-group
+      - thyWidth -> 删除，提示：需要手动替换成 thy-dropdown-menu 的 thyPopoverOptions
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
       - thyTitle -> 不变
    - thy-action-menu-divider[组件] -> thy-divider
@@ -110,12 +127,12 @@ hidden: false
       - thyType=crossing -> thyTextDirection=center
 - ts
    - ThyActionMenuModule -> ThyDropdownModule
-   - ThyActionMenuTheme -> 删除
-   - ThyActionMenuDividerType -> 删除
+   - ThyActionMenuTheme -> 删除，提示
+   - ThyActionMenuDividerType -> 删除，提示
    - ThyActionMenuComponent -> ThyDropdownMenuComponent
    - ThyActionMenuGroupComponent -> ThyDropdownMenuGroupComponent
    - ThyActionMenuDividerComponent -> ThyDropdownMenuDividerComponent
-   - ThyActionMenuDividerTitleDirective -> 删除
+   - ThyActionMenuDividerTitleDirective -> 删除，提示
    - ActionEnum -> ThyDropdownTrigger
    - ThyActionMenuToggleDirective -> ThyDropdownDirective
    - ThyActionMenuSubItemDirective -> ThyDropdownSubmenuDirective
@@ -131,3 +148,22 @@ hidden: false
    - 导入路径
 - stylesheets
    - .action-menu -> .thy-dropdown-menu
+   - $action-menu-width -> $dropdown-menu-width
+   - $action-menu-group-width -> $dropdown-group-width
+   - $action-menu-padding-y -> $dropdown-menu-padding-y
+   - $action-menu-max-height -> $dropdown-menu-max-height
+   - $action-menu-bg -> $dropdown-menu-bg
+   - $action-menu-item-padding-x -> $dropdown-menu-item-padding-x
+   - $action-menu-item-padding-y -> $dropdown-menu-item-padding-y
+   - $action-menu-item-color -> $dropdown-menu-item-color
+   - $action-menu-item-hover-color -> $dropdown-menu-item-hover-color
+   - $action-menu-item-icon-color -> $dropdown-menu-item-icon-color
+   - $action-menu-item-extend-color -> $dropdown-menu-item-extend-color
+   - $action-menu-item-hover-bg -> $dropdown-menu-item-hover-bg
+   - $action-menu-divider-title-color -> $dropdown-menu-divider-title-color
+   - $action-menu-divider-border-color -> $dropdown-menu-divider-border-color
+   - $action-menu-divider-margin-y(5px) -> $dropdown-menu-divider-margin-y(4px) 提示：自动替换后大小有变化
+   - $action-menu-divider-margin-x -> $dropdown-menu-divider-margin-x
+   - $action-menu-group-name-color -> $dropdown-menu-group-name-color
+   - $action-menu-group-name-padding-y(5px) -> $dropdown-menu-group-name-padding-y(2px) 提示：自动替换后大小有变化
+   - $action-menu-group-name-padding-x -> $dropdown-menu-group-name-padding-x

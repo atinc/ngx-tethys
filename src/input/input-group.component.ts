@@ -8,18 +8,17 @@ import {
     ChangeDetectionStrategy,
     AfterContentChecked,
     OnInit,
-    ElementRef,
     OnDestroy,
     ChangeDetectorRef,
     NgZone
 } from '@angular/core';
-import { MixinBase, ThyTranslate, mixinUnsubscribe } from 'ngx-tethys/core';
+import { MixinBase, ThyTranslate, mixinUnsubscribe, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { FocusMonitor } from '@angular/cdk/a11y';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 export type InputGroupSize = 'sm' | 'lg' | 'md' | '';
 
@@ -52,6 +51,8 @@ const inputGroupSizeMap = {
 })
 export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
+
+    private hostFocusControl = useHostFocusControl();
 
     public appendText: string;
 
@@ -138,27 +139,18 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
      */
     @ContentChild(ThyInputDirective) inputDirective: ThyInputDirective;
 
-    constructor(
-        private thyTranslate: ThyTranslate,
-        private elementRef: ElementRef,
-        private focusMonitor: FocusMonitor,
-        private ngZone: NgZone,
-        private cdr: ChangeDetectorRef
-    ) {
+    constructor(private thyTranslate: ThyTranslate, private ngZone: NgZone, private cdr: ChangeDetectorRef) {
         super();
     }
 
     ngOnInit() {
-        this.focusMonitor
-            .monitor(this.elementRef.nativeElement, true)
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(origin => {
-                if (origin) {
-                    this.hostRenderer.addClass('form-control-active');
-                } else {
-                    this.hostRenderer.removeClass('form-control-active');
-                }
-            });
+        this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
+            if (origin) {
+                this.hostRenderer.addClass('form-control-active');
+            } else {
+                this.hostRenderer.removeClass('form-control-active');
+            }
+        };
     }
 
     ngAfterContentChecked(): void {
@@ -202,6 +194,6 @@ export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implemen
 
     ngOnDestroy() {
         super.ngOnDestroy();
-        this.focusMonitor.stopMonitoring(this.elementRef.nativeElement);
+        this.hostFocusControl.destroy();
     }
 }
