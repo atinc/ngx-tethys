@@ -8,7 +8,8 @@ import {
     mixinTabIndex,
     ScrollToService,
     ThyCanDisable,
-    ThyHasTabIndex
+    ThyHasTabIndex,
+    useHostFocusControl
 } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
@@ -50,7 +51,7 @@ import { Id } from 'ngx-tethys/types';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -404,6 +405,8 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
 
     private focusOrigin: FocusOrigin;
 
+    private hostFocusControl = useHostFocusControl();
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -424,18 +427,15 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
                 }
             });
 
-        this.focusMonitor
-            .monitor(this.elementRef, true)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((origin: FocusOrigin) => {
-                this.focusOrigin = origin;
+        this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
+            this.focusOrigin = origin;
 
-                if (origin && origin !== 'mouse') {
-                    // mark：点击tab键聚焦，focusOrigin返回keyboard；点击搜索框聚焦，focusOrigin返回program
-                    // selectControl在thyPanelOpened值发生改变时，会根据thyShowSearch的值判断是否要调inputElement.focus()，所以这里不需要再手动调用inputElement.focus()，只需要在组件被聚焦时打开下拉菜单
-                    this.setMenuVisible(true);
-                }
-            });
+            if (origin && origin !== 'mouse') {
+                // Mark：点击tab键聚焦，focusOrigin返回keyboard；点击搜索框聚焦，focusOrigin返回program
+                // selectControl在thyPanelOpened值发生改变时，会根据thyShowSearch的值判断是否要调inputElement.focus()，所以这里不需要再手动调用inputElement.focus()，只需要在组件被聚焦时打开下拉菜单
+                this.setMenuVisible(true);
+            }
+        };
     }
 
     private initSelectionModel() {
@@ -989,12 +989,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         return values;
     }
 
-    constructor(
-        private cdr: ChangeDetectorRef,
-        private viewPortRuler: ViewportRuler,
-        public elementRef: ElementRef,
-        private focusMonitor: FocusMonitor
-    ) {
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler) {
         super();
     }
 
@@ -1095,6 +1090,6 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
     ngOnDestroy() {
         this.destroy$.next();
         this.destroy$.complete();
-        this.focusMonitor.stopMonitoring(this.elementRef);
+        this.hostFocusControl.destroy();
     }
 }
