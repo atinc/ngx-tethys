@@ -7,7 +7,8 @@ import {
     mixinTabIndex,
     ThyCanDisable,
     ThyClickDispatcher,
-    ThyHasTabIndex
+    ThyHasTabIndex,
+    useHostFocusControl
 } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
@@ -42,7 +43,7 @@ import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThySelectControlComponent, ThyStopPropagationDirective } from 'ngx-tethys/shared';
 import { ThyTreeSelectNode, ThyTreeSelectType } from './tree-select.class';
-import { FocusMonitor, FocusOrigin } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
@@ -138,6 +139,8 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     public valueIsObject = false;
 
     private focusOrigin: FocusOrigin;
+
+    private hostFocusControl = useHostFocusControl();
 
     originTreeNodes: ThyTreeSelectNode[];
 
@@ -347,8 +350,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
         private ref: ChangeDetectorRef,
         @Inject(PLATFORM_ID) private platformId: string,
         private thyClickDispatcher: ThyClickDispatcher,
-        private viewportRuler: ViewportRuler,
-        private focusMonitor: FocusMonitor
+        private viewportRuler: ViewportRuler
     ) {
         super();
     }
@@ -385,15 +387,12 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
                 this.init();
             });
 
-        this.focusMonitor
-            .monitor(this.elementRef, true)
-            .pipe(takeUntil(this.destroy$))
-            .subscribe((origin: FocusOrigin) => {
-                this.focusOrigin = origin;
-                if (origin && origin !== 'mouse') {
-                    this.openSelectPop();
-                }
-            });
+        this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
+            this.focusOrigin = origin;
+            if (origin && origin !== 'mouse') {
+                this.openSelectPop();
+            }
+        };
     }
 
     onBlur(event: FocusEvent) {
@@ -407,7 +406,7 @@ export class ThyTreeSelectComponent extends _MixinBase implements OnInit, OnDest
     ngOnDestroy(): void {
         this.destroy$.next();
         this.destroy$.complete();
-        this.focusMonitor.stopMonitoring(this.elementRef);
+        this.hostFocusControl.destroy();
     }
 
     get selectedValueObject() {
