@@ -1,5 +1,29 @@
 import { HostTree, Tree } from '@angular-devkit/schematics';
 import { SchematicTestRunner, UnitTestTree } from '@angular-devkit/schematics/testing';
+import { createTestWorkspaceFactory } from '../../testing';
+
+describe('ng-update v16 Schematic', () => {
+    let tree: Tree;
+    const schematicRunner = new SchematicTestRunner('migrations', require.resolve('../migration-collection.json'));
+
+    let workspaceTree: UnitTestTree;
+
+    beforeEach(async () => {
+        const factory = createTestWorkspaceFactory(schematicRunner);
+        await factory.create();
+        await factory.addApplication({ name: 'update-16-test' });
+
+        tree = factory.getTree();
+    });
+
+    it('should update to ng v16', async () => {
+        workspaceTree = await schematicRunner.runSchematic('migration-v16', undefined, tree);
+        const file = workspaceTree.get('package.json');
+        expect(file.content.toString()).toBeTruthy();
+        const packageJSON = JSON.parse(file.content.toString());
+        expect(packageJSON['dependencies']['@angular/core']).toContain('^16.');
+    });
+});
 
 describe('ng-update v16 Schematic', () => {
     let tree: Tree;
@@ -31,7 +55,8 @@ describe('ng-update v16 Schematic', () => {
 
             import { ThyIconModule, ThyIconRegistry } from 'ngx-tethys/icon';
             import { ThyLabelModule } from 'ngx-tethys/label';
-            import { ThyStepperModule } from 'ngx-tethys/stepper';
+            import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+
 
             @NgModule({
             declarations: [
@@ -40,8 +65,8 @@ describe('ng-update v16 Schematic', () => {
             imports: [
                 BrowserModule,
                 ThyLabelModule,
-                ThyStepperModule,
-                ThyIconModule
+                ThyIconModule,
+                ThyActionMenuModule
             ],
             providers: [],
             bootstrap: [AppComponent],
@@ -61,9 +86,11 @@ describe('ng-update v16 Schematic', () => {
         workspaceTree = await schematicRunner.runSchematicAsync('migration-v16', {}, tree).toPromise();
     });
 
-    it(`should update ThyLabelModule to ThyTagModule`, async () => {
+    it(`should update ThyLabelModule to ThyTagModule and ThyActionMenuModule to ThyDropdownModule`, async () => {
         const result = workspaceTree.readContent(TEST_MODULE_PATH);
         expect(result).toContain(`import { ThyTagModule } from 'ngx-tethys/tag';`);
         expect(result).not.toContain(`import { ThyLabelModule } from 'ngx-tethys/label';`);
+        expect(result).toContain(`import { ThyDropdownModule } from 'ngx-tethys/dropdown';`);
+        expect(result).not.toContain(`import { ThyActionMenuModule } from 'ngx-tethys/action-menu';`);
     });
 });

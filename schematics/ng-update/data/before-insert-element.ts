@@ -42,7 +42,7 @@ export interface BeforeInsertElementUpgradeData {
 }
 
 export const beforeInsertElement: VersionChanges<BeforeInsertElementUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [

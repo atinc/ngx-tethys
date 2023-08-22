@@ -1,6 +1,5 @@
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyIconModule } from 'ngx-tethys/icon';
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
 import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyPopoverModule } from 'ngx-tethys/popover';
 import { ThySpaceModule } from 'ngx-tethys/space';
@@ -14,14 +13,14 @@ import { ThyActionModule } from 'ngx-tethys/action';
 import { ThyListModule } from 'ngx-tethys/list';
 import { CustomMenuComponent } from './component/custom-menu.component';
 import { ThySwitchModule } from 'ngx-tethys/switch';
+import { ImmediateMenuComponent } from './immediate-render/immediate-menu.component';
 
 export default {
-    declarations: [CustomMenuComponent],
+    declarations: [CustomMenuComponent, ImmediateMenuComponent],
     imports: [
         ThyDropdownModule,
         ThyButtonModule,
         ThyIconModule,
-        ThyActionMenuModule,
         ThyPopoverModule,
         ThySpaceModule,
         ThyInputModule,

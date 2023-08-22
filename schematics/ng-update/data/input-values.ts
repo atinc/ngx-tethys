@@ -42,7 +42,7 @@ export interface InputValueUpgradeData {
 }
 
 export const inputValues: VersionChanges<InputValueUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
@@ -156,6 +156,13 @@ export const inputValues: VersionChanges<InputValueUpgradeData> = {
                     replaceWith: { thyShape: 'pill' },
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
+                    }
+                },
+                {
+                    replace: { thyType: 'crossing' },
+                    replaceWith: { thyTextDirection: 'center' },
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
                     }
                 }
             ]

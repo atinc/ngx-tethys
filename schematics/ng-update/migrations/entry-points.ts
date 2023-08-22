@@ -41,12 +41,22 @@ export class EntryPointsMigration extends Migration<TethysUpgradeData> {
             const replaceWithStart = this.fileSystem.read(filePath).lastIndexOf('import', replaceWith);
             const replaceWithEnd = this.fileSystem.read(filePath).indexOf(';', replaceWith);
 
-            this.fileSystem
-                .edit(filePath)
-                .remove(replaceWithStart, replaceWithEnd - replaceWithStart + 1)
-                .insertRight(node.importClause.getStart() + 1, replaceWithImports + ',')
-                .remove(node.moduleSpecifier.getStart() + 1, node.moduleSpecifier.getWidth() - 2)
-                .insertRight(node.moduleSpecifier.getStart() + 1, newValue);
+            if (replaceWithImports.indexOf(newValue)) {
+                // 当前文件之前有替换后的导入内容，使用之前的就可以，不需要再次添加。例：之前有 tag 模块，label 替换完会重复：import { ThyTagModule , ThyTagModule } from 'ngx-tethys/tag';
+                this.fileSystem
+                    .edit(filePath)
+                    .remove(replaceWithStart, replaceWithEnd - replaceWithStart + 1)
+                    .remove(node.moduleSpecifier.getStart() + 1, node.moduleSpecifier.getWidth() - 2)
+                    .insertRight(node.moduleSpecifier.getStart() + 1, newValue);
+            } else {
+                // 当前文件之前没有替换后的导入内容，追加上替换后的导入内容
+                this.fileSystem
+                    .edit(filePath)
+                    .remove(replaceWithStart, replaceWithEnd - replaceWithStart + 1)
+                    .insertRight(node.importClause.getStart() + 1, replaceWithImports + ',')
+                    .remove(node.moduleSpecifier.getStart() + 1, node.moduleSpecifier.getWidth() - 2)
+                    .insertRight(node.moduleSpecifier.getStart() + 1, newValue);
+            }
         } else {
             // 当前文件之前没有替换后的导入路径，直接替换
             this.fileSystem

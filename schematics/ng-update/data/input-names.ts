@@ -1,7 +1,7 @@
 import { InputNameUpgradeData, TargetVersion, VersionChanges } from '@angular/cdk/schematics';
 
 export const inputNames: VersionChanges<InputNameUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
@@ -17,6 +17,48 @@ export const inputNames: VersionChanges<InputNameUpgradeData> = {
                     replaceWith: 'thyColor',
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
+                    }
+                },
+                {
+                    replace: 'thyActionMenuToggle',
+                    replaceWith: 'thyDropdown',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
+                },
+                {
+                    replace: 'thyAction',
+                    replaceWith: 'thyTrigger',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
+                },
+                {
+                    replace: 'thyContainerClass',
+                    replaceWith: 'thyPanelClass',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
+                },
+                {
+                    replace: 'thyOriginActiveClass',
+                    replaceWith: 'thyActiveClass',
+                    limitedTo: {
+                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
+                    }
+                },
+                {
+                    replace: 'thyActionMenuItemInfo',
+                    replaceWith: 'Desc',
+                    limitedTo: {
+                        attributes: ['thyActionMenuItemInfo', '[thyActionMenuItemInfo]']
+                    }
+                },
+                {
+                    replace: 'thyTitle',
+                    replaceWith: 'thyText',
+                    limitedTo: {
+                        elements: ['thy-action-menu-divider']
                     }
                 }
             ]
