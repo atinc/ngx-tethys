@@ -6,17 +6,16 @@ import {
     mixinDisabled,
     mixinTabIndex,
     ThyCanDisable,
-    ThyHasTabIndex
+    ThyHasTabIndex,
+    useHostFocusControl
 } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat } from 'ngx-tethys/util';
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { FocusOrigin } from '@angular/cdk/a11y';
 import {
     ChangeDetectorRef,
     Component,
@@ -70,6 +69,8 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private autoStepTimer: any;
+
+    private hostFocusControl = useHostFocusControl();
 
     validValue: number | string;
 
@@ -167,9 +168,7 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
 
     private isFocused: boolean;
 
-    private ngUnsubscribe$ = new Subject<void>();
-
-    constructor(private cdr: ChangeDetectorRef, private elementRef: ElementRef, private focusMonitor: FocusMonitor) {
+    constructor(private cdr: ChangeDetectorRef) {
         super();
     }
 
@@ -178,19 +177,24 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     ngOnInit() {
-        this.focusMonitor
-            .monitor(this.elementRef, true)
-            .pipe(takeUntil(this.ngUnsubscribe$))
-            .subscribe(focusOrigin => {
-                if (!focusOrigin) {
-                    this.onBlur();
-                } else {
-                    // call when inputElement.focus and input-number focus
-                    if (!this.isFocused) {
-                        this.onFocus();
-                    }
+        this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
+            if (this.thyDisabled) {
+                return;
+            }
+
+            if (origin) {
+                if (!this.isFocused) {
+                    this.inputElement.nativeElement.focus();
                 }
-            });
+            } else {
+                if (this.isFocused) {
+                    this.displayValue = this.formatterValue(this.validValue);
+                    this.onTouchedFn();
+                    this.thyBlur.emit();
+                    this.isFocused = false;
+                }
+            }
+        };
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -245,26 +249,10 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
         }
     }
 
-    onBlur(event?: FocusEvent) {
-        if (this.isFocused) {
-            this.displayValue = this.formatterValue(this.validValue);
-            this.onTouchedFn();
-            this.thyBlur.emit();
-            this.isFocused = false;
-        }
-    }
-
-    onFocus(event?: Event) {
-        if (!this.isFocused) {
-            this.inputElement.nativeElement.focus();
-        }
-    }
-
     onInputFocus(event?: Event) {
         this.activeValue = this.parser(this.displayValue.toString());
         if (!this.isFocused) {
             this.isFocused = true;
-            this.focusMonitor.focusVia(this.inputElement, 'keyboard');
             this.thyFocus.emit(event);
         }
     }
@@ -424,8 +412,6 @@ export class ThyInputNumberComponent extends _MixinBase implements ControlValueA
     }
 
     ngOnDestroy() {
-        this.ngUnsubscribe$.next();
-        this.ngUnsubscribe$.complete();
-        this.focusMonitor.stopMonitoring(this.elementRef);
+        this.hostFocusControl.destroy();
     }
 }
