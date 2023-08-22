@@ -6,11 +6,14 @@ $cascader-menu-min-width: 122px;
     outline: none;
     position: relative;
     display: inline-block;
-    &:focus {
-        .form-control-custom:not(.disabled) {
-            border: 1px solid variables.$primary;
-        }
-    }
+
+    // 当选择框聚焦且菜单打开后，.select-control.panel-is-opened{border-color:#6698ff} 就可以让边框变蓝了。#INFR-5805任务为什么要加下面这段样式？
+    // 这段样式会导致点击全部清除按钮或者点击移除某一个选中的项后，鼠标移开后，选择框的边框没有由蓝色边框恢复为灰色边框
+    // &:focus {
+    //     .form-control-custom:not(.disabled) {
+    //         border: 1px solid variables.$primary;
+    //     }
+    // }
 
     .form-control {
         cursor: pointer;
