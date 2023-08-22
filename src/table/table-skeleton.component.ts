@@ -1,7 +1,11 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
+import { ThyTableColumnSkeletonConfig } from './table.interface';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
+import { ThyTableColumnSkeletonType } from './enums';
+import { ThyTableTheme } from './table.component';
 
 const COLUMN_COUNT = 5;
 
@@ -18,7 +22,7 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
+    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
 })
 export class ThyTableSkeletonComponent {
     /**
@@ -68,6 +72,28 @@ export class ThyTableSkeletonComponent {
         this.rowCount = Array.from({ length: +value });
     }
 
+    /**
+     * 是否展示骨架头
+     * @default true
+     */
+    @Input() @InputBoolean() thyShowSkeletonHeader = true;
+
+    /**
+     * 骨架屏风格
+     * @type default | bordered | boxed
+     */
+    @Input() thyTheme: ThyTableTheme = 'default';
+
+    /**
+     * 表格列骨架的配置项，支持配置列宽、骨架类型
+     * @type {Array<ThyTableColumnSkeletonConfig>}
+     */
+    @Input() set thySkeletonColumnConfigs(configs: ThyTableColumnSkeletonConfig[]) {
+        if (configs && configs.length) {
+            this.skeletonColumnConfigs = configs;
+        }
+    }
+
     public titleHeight = '12px';
 
     public titleWidth = '50px';
@@ -76,5 +102,24 @@ export class ThyTableSkeletonComponent {
 
     public avatarSize = '28px';
 
-    columnCount = Array.from({ length: COLUMN_COUNT });
+    columnSkeletonType = ThyTableColumnSkeletonType;
+
+    skeletonColumnConfigs = Array.from({ length: COLUMN_COUNT }).map((item, index: number) => {
+        if (index === 0) {
+            return {
+                width: '40%',
+                type: ThyTableColumnSkeletonType.title
+            };
+        } else if (index === 1) {
+            return {
+                width: '20%',
+                type: ThyTableColumnSkeletonType.member
+            };
+        } else {
+            return {
+                width: 'auto',
+                type: ThyTableColumnSkeletonType.default
+            };
+        }
+    });
 }

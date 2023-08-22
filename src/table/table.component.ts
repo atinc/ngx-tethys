@@ -54,6 +54,7 @@ import {
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent,
+    ThyTableColumnSkeletonConfig,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
@@ -64,7 +65,7 @@ import {
 import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
 import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { ThyPaginationComponent } from 'ngx-tethys/pagination';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyTableSkeletonComponent } from './table-skeleton.component';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThySwitchComponent } from 'ngx-tethys/switch';
 import { FormsModule } from '@angular/forms';
@@ -152,7 +153,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         FormsModule,
         ThySwitchComponent,
         ThyEmptyComponent,
-        ThyLoadingComponent,
+        ThyTableSkeletonComponent,
         ThyPaginationComponent,
         TableIsValidModelValuePipe,
         TableRowDragDisabledPipe
@@ -478,6 +479,12 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
+
+    /**
+     * 表格列骨架的配置项：列宽、骨架类型
+     * @type {Array<ThyTableColumnSkeletonConfig>}
+     */
+    @Input() thySkeletonColumnConfigs: ThyTableColumnSkeletonConfig[];
 
     /**
      * 切换组件回调事件
