@@ -989,7 +989,7 @@ export class ThyCascaderComponent extends _MixinBase implements ControlValueAcce
         return values;
     }
 
-    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler) {
+    constructor(private cdr: ChangeDetectorRef, private viewPortRuler: ViewportRuler, public elementRef: ElementRef) {
         super();
     }
 
