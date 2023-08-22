@@ -138,12 +138,10 @@ export class ThyTreeService implements OnDestroy {
                 this.treeNodes.splice(index, 0, insertNode);
             } else {
                 this.treeNodes.push(insertNode);
-            } 
+            }
             this.originTreeNodes = this.treeNodes.map(item => item.origin);
             // this.syncNodeCheckState(insertNode);
         }
-
-      
     }
 
     public expandTreeNodes(keyOrKeys: string | number | (string | number)[]) {

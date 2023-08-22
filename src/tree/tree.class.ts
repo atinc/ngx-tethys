@@ -1,6 +1,4 @@
-
 import { ThyTreeNode } from './tree-node.class';
-
 
 export enum ThyTreeNodeCheckState {
     unchecked = 0,

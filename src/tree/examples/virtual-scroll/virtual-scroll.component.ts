@@ -14,6 +14,5 @@ export class ThyTreeVirtualScrollExampleComponent {
 
     constructor() {}
 
-    onDragDrop(event: ThyTreeDragDropEvent) {
-    }
+    onDragDrop(event: ThyTreeDragDropEvent) {}
 }

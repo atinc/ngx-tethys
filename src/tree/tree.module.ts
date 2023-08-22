@@ -29,7 +29,6 @@ import { ThyTreeNodeDraggablePipe } from './tree.pipe';
         ThyOptionModule,
         ThyLoadingModule,
         ThyIconModule,
-        // ThyDragDropModule,
         ThyCheckboxModule,
         ScrollingModule,
         ThyTreeComponent,

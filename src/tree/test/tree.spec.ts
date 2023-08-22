@@ -351,7 +351,6 @@ describe('ThyTreeComponent', () => {
             expect(treeNodesSpy).toHaveBeenCalledTimes(1);
         });
 
-      
         it('should test public function collapsedAllNodes', fakeAsync(() => {
             const mockNodes = [{ ...treeNodes[1], setExpanded(expanded: boolean, propagate = false) {} }];
             const getRootNodesSpy = spyOn(treeComponent, 'getRootNodes').and.returnValue(mockNodes);

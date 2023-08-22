@@ -219,38 +219,6 @@ export class ThyTreeNodeComponent implements OnDestroy, OnInit, OnChanges {
 
     ngOnInit(): void {
         this.itemClass = this.node?.itemClass?.join(' ');
-
-        // this.ngZone.runOutsideAngular(() => {
-        //     fromEvent(this.treeNodeWrapper.nativeElement, 'mouseenter', passiveEventListenerOptions)
-        //         .pipe(takeUntil(this.destroy$))
-        //         .subscribe((event: MouseEvent) => {
-        //             if (!this.root.thyDraggable) {
-        //                 return;
-        //             } else if (this.root.thyDraggable && !this.root.thyBeforeDragStart) {
-        //                 this.changeDragIconVisibility(event, true);
-        //             } else {
-        //                 const parentNode = this.node.getParentNode();
-        //                 const containerItems = parentNode?.getChildren() ?? this.root.treeNodes;
-        //                 const dragStartEvent: ThyDragStartEvent = {
-        //                     event: event as DragEvent,
-        //                     item: this.node,
-        //                     containerItems,
-        //                     currentIndex: containerItems.indexOf(this.node)
-        //                 };
-        //                 this.changeDragIconVisibility(event, this.root.thyBeforeDragStart(dragStartEvent));
-        //             }
-        //         });
-
-        //     fromEvent(this.treeNodeWrapper.nativeElement, 'mouseleave', passiveEventListenerOptions)
-        //         .pipe(takeUntil(this.destroy$))
-        //         .subscribe((event: MouseEvent) => {
-        //             if (!this.root.thyDraggable) {
-        //                 return;
-        //             } else {
-        //                 this.changeDragIconVisibility(event, false);
-        //             }
-        //         });
-        // });
     }
 
     ngOnChanges(changes: SimpleChanges): void {

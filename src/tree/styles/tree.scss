@@ -214,26 +214,36 @@
                 }
             }
         }
-        
+
+        &.cdk-drag-placeholder{
+            opacity: 0.4;
+        }
+
         &.drag-item-hide {
             display: none !important;
         }
 
         &.drop-position-in {
             .thy-tree-node-wrapper {
-                border: 2px dashed variables.$primary;
+                border: 2px solid variables.$primary;
             }
         }
 
         &.drop-position-before {
             .thy-tree-node-content {
                 position: relative;
+                border-top: 2px solid variables.$primary;
+                border-bottom: 2px solid transparent;
                 &::before {
                     content: '';
-                    width: 100%;
-                    border-top: 2px solid variables.$primary;
                     position: absolute;
-                    top: 0;
+                    left: 0px;
+                    top: -5px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: variables.$white;
+                    border: 2px solid variables.$primary;
+                    border-radius: 50%;
                 }
             }
         }
@@ -241,12 +251,19 @@
         &.drop-position-after {
             .thy-tree-node-content {
                 position: relative;
-                &::after {
+                position: relative;
+                border-top: 2px solid transparent;
+                border-bottom: 2px solid variables.$primary;
+                &::before {
                     content: '';
-                    width: 100%;
-                    border-top: 2px solid variables.$primary;
                     position: absolute;
-                    bottom: 0;
+                    left: 0px;
+                    bottom: -5px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: variables.$white;
+                    border: 2px solid variables.$primary;
+                    border-radius: 50%;
                 }
             }
         }
@@ -275,5 +292,12 @@
         .thy-tree-node-content .thy-tree-node-icon {
             color: variables.$gray-500 !important;
         }
+    }
+
+    .thy-tree-index {
+        display: none !important;
+    }
+    .thy-tree-node-actions {
+        display: none !important;
     }
 }
