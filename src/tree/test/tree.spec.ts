@@ -23,9 +23,9 @@ import { ThyTreeComponent } from '../tree.component';
 import { ThyTreeModule } from '../tree.module';
 import { bigTreeNodes, treeNodes, hasCheckTreeNodes } from './mock';
 import { ThyTreeNodeComponent } from '../tree-node.component';
-import { CDK_DRAG_CONFIG, CdkDrag, DragDropConfig } from '@angular/cdk/drag-drop';
-import { NgIf } from '@angular/common';
-import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
+import { CDK_DRAG_CONFIG, DragDropConfig } from '@angular/cdk/drag-drop';
+import { DOCUMENT } from '@angular/common';
+import { dargNode, scrollToViewport, scrollToViewportOffset } from './utils';
 
 const expandSelector = '.thy-tree-expand';
 const expandIconSelector = '.thy-tree-expand-icon';
@@ -485,27 +485,10 @@ describe('ThyTreeComponent', () => {
     });
 
     describe('virtual scrolling tree', () => {
-        function scrollToOffset(fixture: ComponentFixture<any>, offset?: number) {
-            if (offset !== undefined) {
-                fixture.componentInstance.treeComponent.viewport.scrollToOffset(offset);
-            }
-            dispatchFakeEvent(fixture.componentInstance.treeComponent.viewport.elementRef.nativeElement, 'scroll');
-            animationFrameScheduler.flush();
-            tick(100);
-            fixture.detectChanges();
-        }
-
-        function scrollTo(fixture: ComponentFixture<any>, options: ExtendedScrollToOptions) {
-            fixture.componentInstance.treeComponent.viewport.scrollTo(options);
-            dispatchFakeEvent(fixture.componentInstance.treeComponent.viewport.elementRef.nativeElement, 'scroll');
-            animationFrameScheduler.flush();
-            tick(100);
-            fixture.detectChanges();
-        }
-
         let treeElement: HTMLElement;
         let component: TestVirtualScrollingTreeComponent;
         let fixture: ComponentFixture<TestVirtualScrollingTreeComponent>;
+        let document: Document;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule([TestVirtualScrollingTreeComponent]);
@@ -531,7 +514,7 @@ describe('ThyTreeComponent', () => {
             const nodeElements = treeElement.querySelectorAll(treeNodeSelector);
             const firstNodeElementText = nodeElements[0].textContent;
             expect(nodeElements.length).toEqual(12);
-            scrollToOffset(fixture, 10000);
+            scrollToViewportOffset(fixture, 10000);
             const updateFirstNodeElementText = nodeElements[0].textContent;
             expect(firstNodeElementText !== updateFirstNodeElementText).toBeTruthy();
             expect(nodeElements.length).toEqual(12);
@@ -553,34 +536,43 @@ describe('ThyTreeComponent', () => {
             fixture.detectChanges();
             const dragDropSpy = spyOn(component, 'onDragDrop');
 
+            dragDropSpy.and.callFake((event: any) => {
+                console.log(JSON.stringify(event.dragNode.origin));
+            });
+
+            const document = TestBed.inject(DOCUMENT);
+
             // start drag
             let nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0];
-            startDragging(fixture, startNode.nativeElement, 10, 10);
+            const startNodeData = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].componentInstance.node;
+            const startNodeElement = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent))[0].nativeElement;
+            startDragging(fixture, startNodeElement, 10, 10);
 
             // scroll to viewport bottom
-            scrollTo(fixture, { bottom: 0 });
-            // 调用两次是因为变化检测后，内容渲染导致高度有一些误差导致没办法滚动到最底部，再次调用确保滚动到最底部
-            scrollTo(fixture, { bottom: 0 });
+            scrollToViewport(fixture, { bottom: 0 });
 
             // drop last node
             nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const targetNode = nodeDebugElements[nodeDebugElements.length - 1];
-            const targetClientRect = targetNode.nativeElement.getBoundingClientRect();
+            const targetNodeData = nodeDebugElements[nodeDebugElements.length - 1].componentInstance.node;
+            const targetNodeElement = nodeDebugElements[nodeDebugElements.length - 1].nativeElement;
+            const targetClientRect = targetNodeElement.getBoundingClientRect();
             const targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
 
-            dispatchMouseEvent(targetNode.nativeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
+            // 拖拽内部调用函数 elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
+            spyOn(document, 'elementFromPoint').and.callFake(() => targetNodeElement);
+
+            dispatchMouseEvent(targetNodeElement, 'mousemove', targetClientRect.left + 10, targetClientY);
             fixture.detectChanges();
 
-            dispatchMouseEvent(targetNode.nativeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
+            dispatchMouseEvent(targetNodeElement, 'mouseup', targetClientRect.left + 10, targetClientY);
             fixture.detectChanges();
 
             tick();
 
             expect(dragDropSpy).toHaveBeenCalledWith(
                 jasmine.objectContaining({
-                    dragNode: component.treeComponent.getTreeNode(startNode.componentInstance.node.key),
-                    targetNode: component.treeComponent.getTreeNode(targetNode.componentInstance.node.key),
+                    dragNode: component.treeComponent.getTreeNode(startNodeData.key),
+                    targetNode: component.treeComponent.getTreeNode(targetNodeData.key),
                     afterNode: undefined
                 })
             );
@@ -626,16 +618,31 @@ describe('ThyTreeComponent', () => {
         let treeElement: HTMLElement;
         let component: TestDragDropTreeComponent;
         let fixture: ComponentFixture<TestDragDropTreeComponent>;
+        let document: Document;
+        let elementFromPointSpy: jasmine.Spy;
 
         beforeEach(fakeAsync(() => {
             configureThyTreeTestingModule([TestDragDropTreeComponent]);
             fixture = TestBed.createComponent(TestDragDropTreeComponent);
+            document = TestBed.inject(DOCUMENT);
             component = fixture.componentInstance;
+            elementFromPointSpy = spyOn(document, 'elementFromPoint');
             fixture.detectChanges();
             treeElement = fixture.debugElement.query(By.directive(ThyTreeComponent)).nativeElement;
             tick();
             fixture.detectChanges();
         }));
+
+        function dragToTargetNode(options: { start: string; target: string; position: ThyTreeDropPosition }) {
+            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
+            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === options.start);
+            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === options.target);
+
+            // elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
+            elementFromPointSpy.and.callFake(() => targetNode.nativeElement);
+
+            dargNode(fixture, startNode.nativeElement, targetNode.nativeElement, options.position);
+        }
 
         it('should create', () => {
             expect(component).toBeDefined();
@@ -644,10 +651,11 @@ describe('ThyTreeComponent', () => {
         it('should successfully drag node to the target before position"', fakeAsync(() => {
             const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '003');
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.before);
+            dragToTargetNode({
+                start: '001',
+                target: '003',
+                position: ThyTreeDropPosition.before
+            });
 
             expect(dragDropSpy).toHaveBeenCalledWith(
                 jasmine.objectContaining({
@@ -661,10 +669,11 @@ describe('ThyTreeComponent', () => {
         it('should successfully drag node to the target after position"', fakeAsync(() => {
             const dragDropSpy = spyOn(component, 'onDragDrop');
 
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '002');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001-01');
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.after);
+            dragToTargetNode({
+                start: '002',
+                target: '001-01',
+                position: ThyTreeDropPosition.after
+            });
 
             expect(dragDropSpy).toHaveBeenCalledWith(
                 jasmine.objectContaining({
@@ -677,10 +686,12 @@ describe('ThyTreeComponent', () => {
 
         it('should successfully drag node to the target in position"', fakeAsync(() => {
             const dragDropSpy = spyOn(component, 'onDragDrop');
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '002');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001');
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.in);
+
+            dragToTargetNode({
+                start: '002',
+                target: '001',
+                position: ThyTreeDropPosition.in
+            });
 
             expect(dragDropSpy).toHaveBeenCalledWith(
                 jasmine.objectContaining({
@@ -697,10 +708,12 @@ describe('ThyTreeComponent', () => {
                 expect(event.dragNode.level).toEqual(event.targetNode.level + 1);
                 expect(event.targetNode.children).toContain(event.dragNode);
             });
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '003');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001-01-01');
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.in);
+
+            dragToTargetNode({
+                start: '003',
+                target: '001-01-01',
+                position: ThyTreeDropPosition.in
+            });
 
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
         }));
@@ -717,14 +730,17 @@ describe('ThyTreeComponent', () => {
 
             fixture.detectChanges();
 
+            dragToTargetNode({
+                start: '001',
+                target: '003',
+                position: ThyTreeDropPosition.in
+            });
+
             const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
             const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '003');
 
             expect(beforeDragStart).toHaveBeenCalled();
             expect(startNode.nativeElement.classList).toContain('cdk-drag-disabled');
-
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.in);
             expect(dragDropSpy).not.toHaveBeenCalled();
         }));
 
@@ -739,19 +755,27 @@ describe('ThyTreeComponent', () => {
             });
             fixture.detectChanges();
 
-            const nodeDebugElements = fixture.debugElement.queryAll(By.directive(ThyTreeNodeComponent));
-            const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === '001');
-            const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === '003');
-
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.in);
+            dragToTargetNode({
+                start: '001',
+                target: '003',
+                position: ThyTreeDropPosition.in
+            });
             expect(beforeDragDrop).toHaveBeenCalledTimes(1);
             expect(dragDropSpy).not.toHaveBeenCalled();
 
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.before);
+            dragToTargetNode({
+                start: '001',
+                target: '003',
+                position: ThyTreeDropPosition.before
+            });
             expect(beforeDragDrop).toHaveBeenCalledTimes(2);
             expect(dragDropSpy).toHaveBeenCalledTimes(1);
 
-            dargToNode(fixture, startNode.nativeElement, targetNode.nativeElement, ThyTreeDropPosition.after);
+            dragToTargetNode({
+                start: '001',
+                target: '003',
+                position: ThyTreeDropPosition.after
+            });
             expect(beforeDragDrop).toHaveBeenCalledTimes(3);
             expect(dragDropSpy).toHaveBeenCalledTimes(2);
         }));
@@ -1062,29 +1086,6 @@ class TestHasCheckedTreeComponent {
             }
         ];
     }
-}
-
-function dargToNode(fixture: ComponentFixture<any>, startNode: HTMLElement, targetNode: HTMLElement, dropPosition: ThyTreeDropPosition) {
-    startDragging(fixture, startNode, 10, 10);
-
-    const targetClientRect = targetNode.getBoundingClientRect();
-
-    let targetClientY = 0;
-    if (dropPosition === ThyTreeDropPosition.before) {
-        targetClientY = targetClientRect.top;
-    } else if (dropPosition === ThyTreeDropPosition.in) {
-        targetClientY = targetClientRect.top + targetClientRect.height / 2 - 1;
-    } else {
-        targetClientY = targetClientRect.top + targetClientRect.height - 1;
-    }
-
-    dispatchMouseEvent(targetNode, 'mousemove', targetClientRect.left, targetClientY);
-    fixture.detectChanges();
-
-    dispatchMouseEvent(targetNode, 'mouseup', targetClientRect.left, targetClientY);
-    fixture.detectChanges();
-
-    tick();
 }
 
 function startDragging(fixture: ComponentFixture<any>, element: Element, x?: number, y?: number) {

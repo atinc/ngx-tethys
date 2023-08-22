@@ -143,7 +143,6 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
      */
     @Input('thyDivided')
     set thyDivided(value: string) {
-        console.log('value: ', value);
         this.isDivided = coerceBooleanProperty(value);
     }
 
