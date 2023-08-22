@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.2...16.0.0-next.3) (2023-08-22)
+
+
+### Bug Fixes
+
+* **schematics:** style replace $action to $action-menu- ([e2f8f74](https://github.com/atinc/ngx-tethys/commit/e2f8f7458c43ef052f6b01ec0c3e5aeedaad0bb8))
+
+
+
+## [15.3.20](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.0...15.3.20) (2023-08-15)
+
+
+### Features
+
+* **dropdown:** #INFR-8577 add thyImmediateRender at dropdown-menu ([#2768](https://github.com/atinc/ngx-tethys/issues/2768)) ([ce8aca3](https://github.com/atinc/ngx-tethys/commit/ce8aca35b48cde90e79cbcb7621758aab4db7009)), closes [#INFR-8577](https://github.com/atinc/ngx-tethys/issues/INFR-8577)
+* **schematics:** add action-menu template/ts/stylesheets migration #INFR-7993 ([#2674](https://github.com/atinc/ngx-tethys/issues/2674)) ([d1d9263](https://github.com/atinc/ngx-tethys/commit/d1d92633ee860040b3e4bd843506bd3817c4c4c9)), closes [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993)
+
+
+
 # [16.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.1...16.0.0-next.2) (2023-08-18)
 
 
