@@ -124,7 +124,7 @@ hidden: false
       - thyTitle -> 不变
    - thy-action-menu-divider[组件] -> thy-divider
       - thyTitle -> thyText
-      - thyType=crossing -> thyTextDirection=center
+      - thyType=crossing -> class=m-0
 - ts
    - ThyActionMenuModule -> ThyDropdownModule
    - ThyActionMenuTheme -> 删除，提示

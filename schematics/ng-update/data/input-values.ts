@@ -160,7 +160,7 @@ export const inputValues: VersionChanges<InputValueUpgradeData> = {
                 },
                 {
                     replace: { thyType: 'crossing' },
-                    replaceWith: { thyTextDirection: 'center' },
+                    replaceWith: { class: 'm-0' },
                     limitedTo: {
                         elements: ['thy-action-menu-divider']
                     }
