@@ -14,11 +14,11 @@ export class ThyTableSkeletonExampleComponent {
 
     theme: ThyTableTheme = 'default';
 
-    skeletonColumnConfigs = [
+    columns = [
         { width: '300px', type: ThyTableColumnSkeletonType.title },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
-        { width: '250px', type: ThyTableColumnSkeletonType.member }
+        { width: 250, type: ThyTableColumnSkeletonType.member }
     ];
 }

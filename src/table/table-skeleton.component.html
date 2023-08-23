@@ -3,10 +3,10 @@
     'table-bordered': thyTheme === 'bordered',
     'table-boxed': thyTheme === 'boxed'
   }">
-  <ng-container *ngIf="thyShowSkeletonHeader">
+  <ng-container *ngIf="!thyHeadless">
     <thead>
       <tr>
-        <th [width]="column.width" *ngFor="let column of skeletonColumnConfigs">
+        <th [width]="column.width" *ngFor="let column of columns; trackBy: trackByFn">
           <thy-skeleton-rectangle
             [thyRowWidth]="titleWidth"
             [thyRowHeight]="titleHeight"
@@ -22,13 +22,13 @@
   <tbody>
     <ng-container *ngFor="let item of rowCount; let i = index">
       <tr>
-        <ng-container *ngFor="let column of skeletonColumnConfigs">
+        <ng-container *ngFor="let column of columns; trackBy: trackByFn">
           <td [style.width]="column.width">
             <ng-container
               *thyViewOutlet="
-                column.type === columnSkeletonType.title
+                column.type === columnType.title
                   ? titleTemplate
-                  : column.type === columnSkeletonType.member
+                  : column.type === columnType.member
                   ? memberTemplate
                   : defaultTemplate;
                   context:{

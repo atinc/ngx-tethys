@@ -95,7 +95,7 @@ export interface ThyTableRowEvent {
     row: any;
 }
 
-export interface ThyTableColumnSkeletonConfig {
-    width: string;
+export interface ThyTableSkeletonColumn {
+    width: number | string;
     type: ThyTableColumnSkeletonType;
 }

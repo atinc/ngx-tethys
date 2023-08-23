@@ -2,7 +2,7 @@ import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
-import { ThyTableColumnSkeletonConfig } from './table.interface';
+import { ThyTableSkeletonColumn } from './table.interface';
 import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 import { ThyTableColumnSkeletonType } from './enums';
 import { ThyTableTheme } from './table.component';
@@ -74,9 +74,9 @@ export class ThyTableSkeletonComponent {
 
     /**
      * 是否展示骨架头
-     * @default true
+     * @default false
      */
-    @Input() @InputBoolean() thyShowSkeletonHeader = true;
+    @Input() @InputBoolean() thyHeadless = false;
 
     /**
      * 骨架屏风格
@@ -86,11 +86,13 @@ export class ThyTableSkeletonComponent {
 
     /**
      * 表格列骨架的配置项，支持配置列宽、骨架类型
-     * @type {Array<ThyTableColumnSkeletonConfig>}
+     * @type {Array<ThyTableSkeletonColumn>}
      */
-    @Input() set thySkeletonColumnConfigs(configs: ThyTableColumnSkeletonConfig[]) {
-        if (configs && configs.length) {
-            this.skeletonColumnConfigs = configs;
+    @Input() set thyColumns(columns: ThyTableSkeletonColumn[]) {
+        if (columns && columns.length) {
+            this.columns = columns;
+        } else {
+            this.columns = [...this.defaultColumns];
         }
     }
 
@@ -102,9 +104,11 @@ export class ThyTableSkeletonComponent {
 
     public avatarSize = '28px';
 
-    columnSkeletonType = ThyTableColumnSkeletonType;
+    public columnType = ThyTableColumnSkeletonType;
 
-    skeletonColumnConfigs = Array.from({ length: COLUMN_COUNT }).map((item, index: number) => {
+    public columns: ThyTableSkeletonColumn[] = [];
+
+    private defaultColumns = Array.from({ length: COLUMN_COUNT }).map((item, index: number) => {
         if (index === 0) {
             return {
                 width: '40%',
@@ -122,4 +126,8 @@ export class ThyTableSkeletonComponent {
             };
         }
     });
+
+    public trackByFn(index: number) {
+        return index;
+    }
 }

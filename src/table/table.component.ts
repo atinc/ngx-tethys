@@ -54,7 +54,7 @@ import {
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent,
-    ThyTableColumnSkeletonConfig,
+    ThyTableSkeletonColumn,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
@@ -482,9 +482,9 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 表格列骨架的配置项：列宽、骨架类型
-     * @type {Array<ThyTableColumnSkeletonConfig>}
+     * @type {Array<ThyTableSkeletonColumn>}
      */
-    @Input() thySkeletonColumnConfigs: ThyTableColumnSkeletonConfig[];
+    @Input() thySkeletonColumns: ThyTableSkeletonColumn[];
 
     /**
      * 切换组件回调事件

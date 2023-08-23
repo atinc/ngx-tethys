@@ -251,12 +251,7 @@
     </ng-template>
   </div>
 
-  <thy-table-skeleton
-    *ngIf="!loadingDone"
-    [thyRowCount]="5"
-    [thyShowSkeletonHeader]="false"
-    [thySkeletonColumnConfigs]="thySkeletonColumnConfigs">
-  </thy-table-skeleton>
+  <thy-table-skeleton *ngIf="!loadingDone" [thyRowCount]="5" [thyHeadless]="true" [thyColumns]="thySkeletonColumns"> </thy-table-skeleton>
 
   <div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
     <thy-pagination
