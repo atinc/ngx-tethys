@@ -1,13 +1,16 @@
-import { ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
-import { OverlayRef } from '@angular/cdk/overlay';
-import { Subject, fromEvent } from 'rxjs';
-import { normalizePassiveListenerOptions, Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { takeUntil, take } from 'rxjs/operators';
+import { OverlayRef } from '@angular/cdk/overlay';
+import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
+import { ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
+import { SafeAny } from 'ngx-tethys/types';
+import { Subject, fromEvent } from 'rxjs';
+import { take, takeUntil } from 'rxjs/operators';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
+
+const longPressTime = 500;
 
 export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
@@ -36,9 +39,10 @@ export abstract class ThyOverlayDirectiveBase {
     protected hideDelay? = 100;
     protected touchendHideDelay? = 0;
     protected disabled = false;
-    protected showTimeoutId: number | null | any;
-    protected hideTimeoutId: number | null | any;
+    protected showTimeoutId: number | null | SafeAny;
+    protected hideTimeoutId: number | null | SafeAny;
     protected changeDetectorRef: ChangeDetectorRef;
+    protected isAutoCloseOnMobileTouch: boolean = false;
 
     /**
      * The overlay keep opened when the mouse moves to the overlay container
@@ -66,7 +70,17 @@ export abstract class ThyOverlayDirectiveBase {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
         }
+
+        if (this.longPressTimeoutId) {
+            clearTimeout(this.longPressTimeoutId);
+        }
     }
+
+    private touchStartTime: number;
+
+    private longPressTimeoutId: number | null | SafeAny;
+
+    private isTouchMoving: boolean = false;
 
     constructor(
         elementRef: ElementRef,
@@ -137,17 +151,36 @@ export abstract class ThyOverlayDirectiveBase {
             }
         } else {
             const touchendListener = () => {
-                // this.hide(this.touchendHideDelay);
-                setTimeout(() => {
-                    this.hide(0);
-                }, this.touchendHideDelay);
+                const touchEndTime = Date.now();
+                const touchDuration = touchEndTime - this.touchStartTime;
+
+                if (touchDuration < longPressTime && !this.isTouchMoving) {
+                    // tap
+                    this.handleTouch();
+                }
+
+                clearTimeout(this.longPressTimeoutId);
+                this.isTouchMoving = false;
             };
             // Reserve extensions for mobile in the future
             this.manualListeners
                 .set('touchend', touchendListener)
                 .set('touchcancel', touchendListener)
+                .set('touchmove', () => {
+                    this.isTouchMoving = true;
+                    clearTimeout(this.longPressTimeoutId);
+                })
                 .set('touchstart', () => {
-                    this.show();
+                    this.touchStartTime = Date.now();
+                    this.isTouchMoving = false;
+
+                    // 设置一个定时器，如果在一定时间内没有触发 touchend 事件，则判断为长按
+                    this.longPressTimeoutId = setTimeout(() => {
+                        // long press
+                        if (!this.isTouchMoving) {
+                            this.handleTouch();
+                        }
+                    }, longPressTime);
                 });
         }
 
@@ -157,6 +190,16 @@ export abstract class ThyOverlayDirectiveBase {
             // We never call `preventDefault()` on events, so we're safe making them passive.
             element.addEventListener(event, listener, passiveEventListenerOptions)
         );
+    }
+
+    private handleTouch() {
+        this.show();
+
+        if (this.isAutoCloseOnMobileTouch) {
+            setTimeout(() => {
+                this.hide(0);
+            }, this.touchendHideDelay + this.showDelay);
+        }
     }
 
     /**
