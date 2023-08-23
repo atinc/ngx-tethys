@@ -630,6 +630,7 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+        fixture.detectChanges();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-right')).toBeTruthy();
         dropdown.hide();
@@ -710,6 +711,7 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+        fixture.detectChanges();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
         dropdown.hide();
