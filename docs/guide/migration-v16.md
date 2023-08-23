@@ -119,7 +119,7 @@ hidden: false
       - thyOriginActiveClass -> thyActiveClass
    - thy-action-menu[组件] -> thy-dropdown-menu + thyImmediateRender
       - thyTheme -> 删除，提示：如果是 thyTheme=group，需要手动替换成 thy-dropdown-menu-group
-      - thyWidth -> 删除，提示：需要手动替换成 thy-dropdown-menu 的 thyPopoverOptions
+      - thyWidth -> 不变
    - thy-action-menu-group[组件] -> thy-dropdown-menu-group
       - thyTitle -> 不变
    - thy-action-menu-divider[组件] -> thy-divider

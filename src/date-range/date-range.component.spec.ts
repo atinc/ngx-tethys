@@ -1,28 +1,28 @@
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement } from '@angular/core';
-import { ComponentFixture, fakeAsync, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-import { DateRangeItemInfo } from './date-range.class';
-import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
-import { ThyDateRangeModule } from './module';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import {
-    getUnixTime,
-    startOfQuarter,
-    endOfQuarter,
-    setMonth,
-    getMonth,
-    startOfMonth,
-    endOfMonth,
     addMonths,
+    differenceInDays,
+    endOfMonth,
+    endOfQuarter,
     endOfWeek,
     format,
-    differenceInDays
+    getMonth,
+    getUnixTime,
+    setMonth,
+    startOfMonth,
+    startOfQuarter
 } from 'date-fns';
+import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { addDays, addYears, endOfDay, endOfYear, startOfDay, startOfWeek, startOfYear } from '../util';
+import { DateRangeItemInfo } from './date-range.class';
+import { ThyDateRangeModule } from './module';
 
 registerLocaleData(zh);
 
@@ -96,9 +96,9 @@ describe('ThyTestDateRangeComponent', () => {
             fixtureInstance.customValue = text;
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const lastActionMenuItem = getPickerContainer()
-                .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelector('.thy-dropdown-menu').lastChild;
+            tick(100);
+            fixture.detectChanges();
+            const lastActionMenuItem = getPickerContainer().querySelector('.thy-dropdown-menu').lastElementChild;
             expect((lastActionMenuItem as HTMLElement).innerText).toEqual(text);
         }));
 
@@ -126,9 +126,7 @@ describe('ThyTestDateRangeComponent', () => {
         it('should be custom date when select custom date from date popover', fakeAsync(() => {
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer()
-                .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelector('.thy-dropdown-menu');
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             expect(queryFromOverlay('.thy-calendar-picker-container')).not.toBeNull();
 
@@ -163,9 +161,8 @@ describe('ThyTestDateRangeComponent', () => {
             };
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer()
-                .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelector('.thy-dropdown-menu');
+            fixture.detectChanges();
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             const disabledCell = queryFromOverlay(
                 '.thy-calendar-picker-container .thy-calendar-range-left tbody.thy-calendar-tbody td.thy-calendar-disabled-cell'
@@ -184,7 +181,6 @@ describe('ThyTestDateRangeComponent', () => {
             const secondOptional = getPickerContainer()
                 .querySelector('thy-popover-container')
                 .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelector('.thy-dropdown-menu')
                 .querySelectorAll('.dropdown-menu-item')[1];
             dispatchClickEvent(secondOptional as HTMLElement);
             expect(getPickerTriggerElement().innerText).toEqual(value);
@@ -194,9 +190,9 @@ describe('ThyTestDateRangeComponent', () => {
             const thyOnCalendarChange = spyOn(debugElement.componentInstance, 'calendarChange');
             fixture.detectChanges();
             dispatchClickEvent(getPickerTriggerElement());
-            const actionMenuContainers = getPickerContainer()
-                .querySelector('.thy-date-range-dropdown-menu-container')
-                .querySelector('.thy-dropdown-menu');
+            tick(100);
+            fixture.detectChanges();
+            const actionMenuContainers = getPickerContainer().querySelector('.thy-date-range-dropdown-menu-container');
             dispatchClickEvent(actionMenuContainers.lastElementChild as HTMLElement);
             const left = getFirstCell('left');
             const leftText = left.textContent.trim();

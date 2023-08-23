@@ -1,16 +1,16 @@
+import { NgIf, NgTemplateOutlet } from '@angular/common';
 import {
+    ChangeDetectionStrategy,
+    Component,
     Directive,
     HostBinding,
     Input,
-    Component,
-    ViewEncapsulation,
-    ChangeDetectionStrategy,
+    TemplateRef,
     ViewChild,
-    TemplateRef
+    ViewEncapsulation
 } from '@angular/core';
+import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { InputBoolean } from 'ngx-tethys/core';
-import { NgIf } from '@angular/common';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
@@ -30,21 +30,27 @@ export class ThyDropdownAbstractMenu {
 @Component({
     selector: 'thy-dropdown-menu',
     template: `
-        <ng-container *ngIf="thyImmediateRender; then dropdownMenu"></ng-container>
+        <ng-container *ngIf="thyImmediateRender; then content"> </ng-container>
         <ng-template #dropdownMenu>
-            <div class="thy-dropdown-menu" [style.width.px]="width">
-                <ng-content></ng-content>
+            <div class="thy-dropdown-menu" [style.width]="width">
+                <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
+        </ng-template>
+        <ng-template #content>
+            <ng-content></ng-content>
         </ng-template>
     `,
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {},
+    host: {
+        '[class]': "thyImmediateRender?'thy-dropdown-menu':''",
+        '[style.width]': "thyImmediateRender?width:''"
+    },
     standalone: true,
-    imports: [NgIf]
+    imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyDropdownMenuComponent {
-    width: number;
+    width: string;
 
     get template() {
         return this.templateRef;
@@ -56,7 +62,9 @@ export class ThyDropdownMenuComponent {
      * 设置菜单宽度
      * @default 240px
      */
-    @Input() set thyWidth(value: number) {
+    @Input()
+    @InputCssPixel()
+    set thyWidth(value: string) {
         this.width = value;
     }
 
