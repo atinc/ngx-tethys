@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.3...16.0.0-next.4) (2023-08-23)
+
+
+### Bug Fixes
+
+* **schematics:** update action-menu crossing type replace ([a4973a1](https://github.com/atinc/ngx-tethys/commit/a4973a1a4641bcd974c367396f31b60530954f1c))
+
+
+### Features
+
+* **input:** manage input-search focus #INFR-8466, and adjust input-number focus monitor #INFR-8467 ([48330b6](https://github.com/atinc/ngx-tethys/commit/48330b657535518c6d603e31eb9002bda2405686)), closes [#INFR-8466](https://github.com/atinc/ngx-tethys/issues/INFR-8466) [#INFR-8467](https://github.com/atinc/ngx-tethys/issues/INFR-8467)
+* **input:** thy-input-group support input count suffix for textarea INFR-9159 ([#2778](https://github.com/atinc/ngx-tethys/issues/2778)) ([597bf53](https://github.com/atinc/ngx-tethys/commit/597bf532426a94633588d7b6c5d49687ab578613))
+* **tree:** refactoring tree drag and drop interaction #INFR-6918 ([#2790](https://github.com/atinc/ngx-tethys/issues/2790)) ([0919e79](https://github.com/atinc/ngx-tethys/commit/0919e79eaf2d265f72ce309ecd71a41770ee198a)), closes [#INFR-6918](https://github.com/atinc/ngx-tethys/issues/INFR-6918)
+
+
+
 # [16.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.2...16.0.0-next.3) (2023-08-22)
 
 
