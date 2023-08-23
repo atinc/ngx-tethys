@@ -4,7 +4,12 @@ import { dispatchFakeEvent, dispatchMouseEvent } from '../../../cdk/testing';
 import { animationFrameScheduler } from 'rxjs';
 import { ExtendedScrollToOptions } from '@angular/cdk/scrolling';
 
-export function dargNode(fixture: ComponentFixture<any>, startNode: HTMLElement, targetNode: HTMLElement, dropPosition: ThyTreeDropPosition) {
+export function dargNode(
+    fixture: ComponentFixture<any>,
+    startNode: HTMLElement,
+    targetNode: HTMLElement,
+    dropPosition: ThyTreeDropPosition
+) {
     startDragging(fixture, startNode, 10, 10);
 
     const targetClientRect = targetNode.getBoundingClientRect();
