@@ -71,6 +71,10 @@ export class ThyTreeNode<T = any> {
         this.title = title;
     }
 
+    public setLevel(level: number) {
+        this.level = level;
+    }
+
     private _setExpanded(expanded: boolean, propagate = false) {
         this.origin.expanded = expanded;
         this.isExpanded = expanded;
@@ -117,7 +121,7 @@ export class ThyTreeNode<T = any> {
 
         this.origin.children = this.getChildren().map(n => n.origin);
         this.setLoading(false);
-        this.treeService.$statusChange.next({
+        this.treeService.statusChange$.next({
             eventName: 'addChildren',
             node: this
         });

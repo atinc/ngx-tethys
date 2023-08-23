@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyDragDropEvent } from 'ngx-tethys/drag-drop';
-import { ThyTreeNode } from 'ngx-tethys/tree';
-import { treeNodes } from '../mocks';
+import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeDropPosition } from 'ngx-tethys/tree';
 
 @Component({
     selector: 'thy-tree-drag-drop-example',
@@ -53,13 +51,15 @@ export class ThyTreeDragDropExampleComponent implements OnInit {
 
     ngOnInit() {}
 
-    beforeDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {
-        return !event.item.title.includes('不可拖入');
+    beforeDragDrop(event: ThyTreeBeforeDragDropContext) {
+        return !(event.item.title.includes('不可拖入') && event.position === ThyTreeDropPosition.in);
     }
 
-    beforeDragStart(event: ThyDragDropEvent<ThyTreeNode>) {
+    beforeDragStart(event: ThyTreeBeforeDragStartContext) {
         return !event.item.title.includes('不可拖拽');
     }
 
-    onDragDrop(event: ThyDragDropEvent<ThyTreeNode>) {}
+    onDragDrop(event: ThyTreeDragDropEvent) {
+        console.log(event);
+    }
 }
