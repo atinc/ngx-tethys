@@ -620,6 +620,8 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.top = '10px';
         dropdownMenu.style.left = '0px';
         dropdownMenu.style.width = '100px';
+        dropdownMenu.style.right = '1000px';
+
         tick();
         fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
@@ -701,6 +703,9 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.left = '0px';
         dropdownMenu.style.width = '100px';
         dropdownMenu.style.height = '200px';
+        dropdownMenu.style.right = '1000px';
+        dropdownMenu.style.bottom = '1000px';
+
         tick(150);
         fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
