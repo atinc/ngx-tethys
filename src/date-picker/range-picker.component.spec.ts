@@ -849,6 +849,43 @@ describe('ThyRangePickerComponent', () => {
         }));
     });
 
+    describe('switch thyMode', () => {
+        beforeEach(() => {
+            fixtureInstance.useSuite = 1;
+        });
+
+        it('should get correct default thyMode', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+        }));
+
+        it(`should set thyMode to week`, fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'week';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toBeFalsy();
+            expect(queryFromOverlay('.thy-calendar-week-number-header')).toBeTruthy();
+        }));
+
+        it(`should set thyMode to month`, fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'month';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-month');
+        }));
+
+        it(`should set thyMode to decade`, fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'decade';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-decade');
+        }));
+    });
+
     function getPickerTrigger(): HTMLInputElement {
         return debugElement.query(By.css('thy-picker .thy-calendar-picker-input')).nativeElement as HTMLInputElement;
     }
