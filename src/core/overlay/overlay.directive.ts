@@ -3,6 +3,7 @@ import { OverlayRef } from '@angular/cdk/overlay';
 import { Platform, normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ChangeDetectorRef, ElementRef, NgZone } from '@angular/core';
 import { SafeAny } from 'ngx-tethys/types';
+import { isNumber } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
 
@@ -198,7 +199,7 @@ export abstract class ThyOverlayDirectiveBase {
         if (this.isAutoCloseOnMobileTouch) {
             setTimeout(() => {
                 this.hide(0);
-            }, this.touchendHideDelay + this.showDelay);
+            }, this.touchendHideDelay + (isNumber(this.showDelay) ? this.showDelay : 0));
         }
     }
 
