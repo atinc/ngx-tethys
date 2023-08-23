@@ -110,7 +110,7 @@ export function hasValue(value: CompatibleValue): boolean {
 
 export function makeValue(value: CompatibleDate | null, isRange: boolean = false): CompatibleValue {
     if (isRange) {
-        return value ? (value as Date[]).map(val => new TinyDate(val)) : [];
+        return Array.isArray(value) ? (value as Date[]).map(val => new TinyDate(val)) : [];
     } else {
         return value ? new TinyDate(value as Date) : null;
     }

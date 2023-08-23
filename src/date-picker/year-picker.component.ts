@@ -35,8 +35,6 @@ export class ThyYearPickerComponent extends BasePickerComponent {
      */
     @Input() thyFormat = 'yyyy';
 
-    thyMode: ThyPanelMode = 'year';
-
     isRange = false;
 
     endPanelMode: ThyPanelMode = 'year';
@@ -46,5 +44,6 @@ export class ThyYearPickerComponent extends BasePickerComponent {
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
         super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
+        this.thyMode = 'year';
     }
 }

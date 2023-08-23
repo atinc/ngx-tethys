@@ -3,7 +3,6 @@ import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { BasePickerComponent } from './base-picker.component';
-import { ThyPanelMode } from './standard-types';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { NgIf } from '@angular/common';
 import { ThyPickerComponent } from './picker.component';
@@ -30,12 +29,12 @@ import { ThyPickerComponent } from './picker.component';
 })
 export class ThyWeekPickerComponent extends BasePickerComponent {
     showWeek = true;
-    thyMode: ThyPanelMode = 'week';
 
     private hostRenderer = useHostRenderer();
 
     constructor(cdr: ChangeDetectorRef, protected elementRef: ElementRef) {
         super(cdr, elementRef);
         this.hostRenderer.addClass('thy-calendar-picker');
+        this.thyMode = 'week';
     }
 }
