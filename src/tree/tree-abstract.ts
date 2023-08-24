@@ -1,7 +1,6 @@
-import { ThyDragDropEvent, ThyDragOverEvent, ThyDragStartEvent } from 'ngx-tethys/drag-drop';
 import { InjectionToken } from '@angular/core';
 import { ThyTreeNode } from './tree-node.class';
-import { ThyTreeIcons } from './tree.class';
+import { ThyTreeBeforeDragDropContext, ThyTreeBeforeDragStartContext, ThyTreeDragDropEvent, ThyTreeIcons } from './tree.class';
 
 export interface ThyTreeAbstractComponent {
     thyMultiple: boolean;
@@ -9,11 +8,9 @@ export interface ThyTreeAbstractComponent {
     thyShowExpand: boolean;
     treeNodes: ThyTreeNode[];
     thyIcons: ThyTreeIcons;
-    beforeDragOver(event: ThyDragOverEvent<ThyTreeNode>): boolean;
-    thyBeforeDragStart(e: ThyDragStartEvent): boolean;
-    thyBeforeDragDrop(e: ThyDragDropEvent): boolean;
-    onDragDrop(event: ThyDragDropEvent<ThyTreeNode>): void;
-    onDragStart(event: ThyDragStartEvent<ThyTreeNode>): void;
+    thyBeforeDragStart(e: ThyTreeBeforeDragStartContext): boolean;
+    thyBeforeDragDrop(e: ThyTreeBeforeDragDropContext): boolean;
+    onDragDrop(event: ThyTreeDragDropEvent): void;
     selectTreeNode(node: ThyTreeNode): void;
     toggleTreeNode(node: ThyTreeNode): void;
     isShowExpand(node: ThyTreeNode): boolean;

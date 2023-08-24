@@ -20,7 +20,7 @@ export interface MaterialCssSelectorData {
 }
 
 export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
@@ -45,6 +45,15 @@ export const cssSelectors: VersionChanges<MaterialCssSelectorData> = {
                 {
                     replace: '.action-menu',
                     replaceWith: '.thy-dropdown-menu',
+                    replaceIn: {
+                        stylesheet: true,
+                        html: false,
+                        tsStringLiterals: true
+                    }
+                },
+                {
+                    replace: '$action-menu-',
+                    replaceWith: '$dropdown-menu-',
                     replaceIn: {
                         stylesheet: true,
                         html: false,

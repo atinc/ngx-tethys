@@ -12,7 +12,6 @@ body:
         - variables
         - action
         - shared
-        - action-menu
         - alert
         - arrow-switcher
         - copy
