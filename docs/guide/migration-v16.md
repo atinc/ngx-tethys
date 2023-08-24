@@ -5,7 +5,7 @@ order: 991
 hidden: false
 ---
 
-<alert>本文档将帮助你从 ngx-tethys 15.x 版本升级到 16.x 版本。</alert>
+<alert>本文档将帮助你从 ngx-tethys 和 @tethys/cdk 的 15.x 版本升级到 16.x 版本。</alert>
 
 ## 开始之前
 
@@ -22,7 +22,7 @@ hidden: false
 
 ## 破坏性修改
 
-- `ThyLabelModule` 模块下的所有内容从组件库中移除，使用 `thyTagModule` 模块下内容代替
+- `ThyLabelModule` 模块下的所有内容从组件库中移除，使用 `ThyTagModule` 模块下内容代替
 - `ThyActionMenuModule` 模块下的内容从组件库中移除，使用 `ThyDropdownModule` 模块下内容代替
 - `ThyTree` 组件 @Input 参数 `thyBeforeDragStart(event)` event 类型由 `ThyDragStartEvent` 修改为 `ThyTreeBeforeDragStartContext` 
 - `ThyTree` 组件 @Input 参数 `thyBeforeDragDrop(event)` event 类型由 `ThyDragDropEvent` 修改为 `ThyTreeBeforeDragDropContext` 
