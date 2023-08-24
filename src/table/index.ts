@@ -5,3 +5,4 @@ export * from './pipes/drag.pipe';
 export * from './table.module';
 export * from './table-column.component';
 export * from './table-skeleton.component';
+export * from './enums';
