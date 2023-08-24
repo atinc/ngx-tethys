@@ -22,8 +22,11 @@ hidden: false
 
 ## 破坏性修改
 
-- `thyLabelModule` 模块下的所有内容从组件库中移除，使用 `thyTagModule` 模块下内容代替
+- `ThyLabelModule` 模块下的所有内容从组件库中移除，使用 `thyTagModule` 模块下内容代替
 - `ThyActionMenuModule` 模块下的内容从组件库中移除，使用 `ThyDropdownModule` 模块下内容代替
+- `ThyTree` 组件 @Input 参数 `thyBeforeDragStart(event)` event 类型由 `ThyDragStartEvent` 修改为 `ThyTreeBeforeDragStartContext` 
+- `ThyTree` 组件 @Input 参数 `thyBeforeDragDrop(event)` event 类型由 `ThyDragDropEvent` 修改为 `ThyTreeBeforeDragDropContext` 
+- `ThyTree` 组件样式进行了重构，有复写 `.thy-tree-node` 的场景可能会收到影响
 
 ## 附录
 
