@@ -1,18 +1,6 @@
 <button thyButton="primary" [thyDropdown]="menu">Dropdown <thy-icon thyIconName="caret-down"></thy-icon></button>
 <a class="ml-3" thyAction thyIcon="plus" thyActiveClass="active" [thyDropdown]="menu" href="javascript:;"></a>
 <a class="ml-3 link-major" [thyDropdown]="menu" thyActiveClass="active" href="javascript:;">Click me</a>
-<button class="ml-3" thyButton="primary" [thyDropdown]="immediateMenu">Dropdown with immediate render</button>
-
-<ng-template #immediateMenu>
-  <thy-dropdown-menu thyImmediateRender>
-    <a class="active" thyDropdownMenuItem href="javascript:;">
-      <span>Immediate Render Menu Item1</span>
-    </a>
-    <a thyDropdownMenuItem href="javascript:;">
-      <span>Immediate Render Menu Item2</span>
-    </a>
-  </thy-dropdown-menu>
-</ng-template>
 
 <thy-dropdown-menu #menu>
   <a class="active" thyDropdownMenuItem href="javascript:;">
