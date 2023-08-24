@@ -66,12 +66,6 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                     limitedTo: {
                         elements: ['thy-action-menu']
                     }
-                },
-                {
-                    remove: 'thyWidth',
-                    limitedTo: {
-                        elements: ['thy-action-menu']
-                    }
                 }
             ]
         }

@@ -3,7 +3,7 @@
  * found in the LICENSE file at https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
  */
 
-import { findAllSubstringIndices, findInputsOnElementWithTag, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
+import { findAllSubstringIndices, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 import { findWholeInputsNameAndValueOnElementWithTag } from '../../core/html-parsing';
 
@@ -11,14 +11,6 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
     enabled = true;
 
     visitTemplate(template: ResolvedResource): void {
-        findInputsOnElementWithTag(template.content, 'thyWidth', ['thy-action-menu']).forEach(offset => {
-            this.failures.push({
-                filePath: template.filePath,
-                position: template.getCharacterAndLineOfPosition(offset),
-                message: `Remove input "thyWidth" in deprecated thy-action-menu component. Please manually use thy-dropdown-menu input "thyPopoverOptions" to instead.`
-            });
-        });
-
         findWholeInputsNameAndValueOnElementWithTag(template.content, 'thyTheme', 'group', ['thy-action-menu']).forEach(offset => {
             this.failures.push({
                 filePath: template.filePath,
