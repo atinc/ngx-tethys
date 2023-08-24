@@ -9,8 +9,7 @@
   [thyAutofocus]="autoFocus"
   [(ngModel)]="searchText"
   (ngModelChange)="searchModelChange()"
-  (focus)="focused = true"
-  (blur)="onBlur($event)"
+  (focus)="!focused ? (focused = true) : null"
   [thySize]="thySize"
   tabindex="-1" />
 <ng-container *ngIf="iconPosition === 'after'">

@@ -1,9 +1,13 @@
 {
   "extends": "../.eslintrc.json",
-  "ignorePatterns": ["!**/*"],
+  "ignorePatterns": [
+    "!**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
         "project": [
           "src/tsconfig.lib.json",
@@ -16,7 +20,11 @@
           "error",
           {
             "type": "attribute",
-            "prefix": ["thy", "test", "app"],
+            "prefix": [
+              "thy",
+              "test",
+              "app"
+            ],
             "style": "camelCase"
           }
         ],
@@ -24,14 +32,20 @@
           "error",
           {
             "type": "element",
-            "prefix": ["thy", "test", "app"],
+            "prefix": [
+              "thy",
+              "test",
+              "app"
+            ],
             "style": "kebab-case"
           }
         ]
       }
     },
     {
-      "files": ["*.html"],
+      "files": [
+        "*.html"
+      ],
       "rules": {}
     }
   ]

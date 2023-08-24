@@ -1,5 +1,5 @@
-import { TemplateRef, ElementRef } from '@angular/core';
-import { coerceBooleanProperty as coerceBoolean, coerceCssPixelValue as coerceCssPixel, _isNumberValue } from '@angular/cdk/coercion';
+import { _isNumberValue, coerceCssPixelValue as coerceCssPixel } from '@angular/cdk/coercion';
+import { ElementRef, TemplateRef } from '@angular/core';
 
 export function isUndefined(value: any): value is undefined {
     return value === undefined;
@@ -269,7 +269,6 @@ export function shallowEqual(objA?: Record<string, any>, objB?: Record<string, a
 
     const bHasOwnProperty = Object.prototype.hasOwnProperty.bind(objB);
 
-    // eslint-disable-next-line @typescript-eslint/prefer-for-of
     for (let idx = 0; idx < keysA.length; idx++) {
         const key = keysA[idx];
         if (!bHasOwnProperty(key)) {

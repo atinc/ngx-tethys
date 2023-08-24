@@ -1,11 +1,11 @@
-import { TranslateService } from '@ngx-translate/core';
 import { Component, DebugElement, NgModule } from '@angular/core';
-import { ComponentFixture, fakeAsync, TestBed, inject, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyInputGroupComponent } from '../input-group.component';
 import { ThyInputModule } from './../module';
 import { ThyTranslate } from '../../core';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'thy-test-input-group-basic',
@@ -47,9 +47,32 @@ class TestInputGroupPrefixAndSuffixComponent {
     disabled = false;
 }
 
+@Component({
+    selector: 'thy-test-input-group-with-textarea-suffix',
+    template: `
+        <thy-input-group id="with-textarea-prefix" style="width:200px">
+            <textarea
+                id="textarea"
+                thyInput
+                [(ngModel)]="textareaValue"
+                name="hobby"
+                minRows="1"
+                rows="3"
+                placeholder="输入爱好"
+                maxlength="100"></textarea>
+            <ng-template #suffix>
+                <thy-input-count></thy-input-count>
+            </ng-template>
+        </thy-input-group>
+    `
+})
+class TestInputGroupTextareaSuffixComponent {
+    textareaValue = '';
+}
+
 @NgModule({
-    imports: [ThyInputModule],
-    declarations: [TestInputGroupBasicComponent, TestInputGroupPrefixAndSuffixComponent],
+    imports: [ThyInputModule, FormsModule],
+    declarations: [TestInputGroupBasicComponent, TestInputGroupPrefixAndSuffixComponent, TestInputGroupTextareaSuffixComponent],
     exports: []
 })
 export class InputGroupTestModule {}
@@ -145,7 +168,6 @@ describe('input group', () => {
 
     describe('prefix-suffix', () => {
         let fixture: ComponentFixture<TestInputGroupPrefixAndSuffixComponent>;
-        let testComponent: TestInputGroupPrefixAndSuffixComponent;
         let debugElement: DebugElement;
 
         beforeEach(fakeAsync(() => {
@@ -158,7 +180,6 @@ describe('input group', () => {
 
         beforeEach(() => {
             fixture = TestBed.createComponent(TestInputGroupPrefixAndSuffixComponent);
-            testComponent = fixture.debugElement.componentInstance;
             fixture.detectChanges();
         });
 
@@ -209,6 +230,38 @@ describe('input group', () => {
                 fixture.detectChanges();
                 expect(debugElement.nativeElement.classList.contains('form-control-active')).toBe(true);
             });
+        });
+    });
+
+    describe('with-textarea-suffix', () => {
+        let fixture: ComponentFixture<TestInputGroupTextareaSuffixComponent>;
+        let debugElement: DebugElement;
+        let inputGroupElement: HTMLElement;
+
+        beforeEach(fakeAsync(() => {
+            TestBed.configureTestingModule({
+                imports: [InputGroupTestModule]
+            });
+            TestBed.compileComponents();
+        }));
+
+        beforeEach(() => {
+            fixture = TestBed.createComponent(TestInputGroupTextareaSuffixComponent);
+            fixture.detectChanges();
+            debugElement = fixture.debugElement.query(By.css('#with-textarea-prefix'));
+            inputGroupElement = debugElement.nativeElement;
+        });
+
+        it('should create', () => {
+            expect(debugElement).toBeTruthy();
+            expect(inputGroupElement).toBeTruthy();
+        });
+
+        it('should has correct styles with textarea prefix', () => {
+            expect(inputGroupElement.classList.contains('thy-input-group')).toBeTruthy();
+            expect(inputGroupElement.classList.contains('form-control')).toBeTruthy();
+            expect(inputGroupElement.classList.contains('thy-input-group-with-suffix')).toBeTruthy();
+            expect(inputGroupElement.classList.contains('thy-input-group-with-textarea-suffix')).toBeTruthy();
         });
     });
 });

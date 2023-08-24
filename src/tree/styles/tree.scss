@@ -6,17 +6,9 @@
     display: block;
     overflow: hidden;
     position: relative;
-    padding: variables.$tree-padding;
     color: variables.$gray-700;
+    padding: variables.$tree-padding;
     transform: translateY(-10px);
-
-    .cdk-virtual-scroll-viewport {
-        overflow-x: hidden;
-        overflow-y: auto;
-    }
-    > div > .thy-tree-node {
-        padding: 0 0 0 10px;
-    }
 
     &-node {
         display: block;
@@ -28,8 +20,6 @@
             align-items: center;
             padding: variables.$tree-node-wrapper-padding;
             height: variables.$tree-node-wrapper-height;
-            margin: 0 -1000px;
-            padding: 0 1000px;
             border: 2px solid transparent;
 
             .thy-tree-index {
@@ -51,6 +41,15 @@
                 &:hover {
                     color: variables.$gray-700;
                 }
+            }
+
+            .thy-tree-drag-icon {
+                cursor: pointer;
+                position: absolute;
+                left: 4px;
+                padding: 0;
+                color: variables.$gray-500;
+                visibility: hidden;
             }
 
             .thy-tree-node-content {
@@ -132,31 +131,12 @@
             }
         }
     }
-
-    &.thy-tree-draggable {
-        .thy-tree-node {
-            .thy-tree-node-wrapper {
-                .thy-tree-drag-icon {
-                    cursor: pointer;
-                    position: absolute;
-                    left: 4px;
-                    padding: 0;
-                    color: variables.$gray-500;
-                    visibility: hidden;
-                }
-            }
-        }
-    }
 }
 
 .thy-tree {
-    &-node {
-        &-title {
-        }
-
+    .thy-tree-node {
         &-edit {
             width: 100%;
-
             input {
                 background-color: variables.$white;
             }
@@ -199,21 +179,6 @@
     }
 }
 
-.thy-virtual-scrolling-tree {
-    height: 100%;
-    padding: 0px;
-    transform: translateY(0px);
-    .cdk-virtual-scroll-viewport {
-        height: 100%;
-        .virtual-trees-container {
-            padding: variables.$tree-padding;
-            .thy-tree-node {
-                padding: 0 0 0 10px;
-            }
-        }
-    }
-}
-
 .thy-tree-sm {
     .thy-tree-node {
         &-wrapper {
@@ -229,4 +194,110 @@
     @include mixin.thy-tree-default();
 }
 
-@include mixin.thy-tree-drag-drop();
+.thy-tree.thy-virtual-scrolling-tree {
+    height: 100%;
+    padding: 0px;
+    transform: translateY(0px);
+    .cdk-virtual-scroll-viewport {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: 100%;
+    }
+}
+
+.thy-tree.thy-tree-draggable {
+    .thy-tree-node {
+        &:hover:not(.cdk-drag-disabled) {
+            .thy-tree-node-wrapper {
+                .thy-tree-drag-icon {
+                    visibility: visible;
+                }
+            }
+        }
+
+        &.cdk-drag-placeholder{
+            opacity: 0.4;
+        }
+
+        &.drag-item-hide {
+            display: none !important;
+        }
+
+        &.drop-position-in {
+            .thy-tree-node-wrapper {
+                border: 2px solid variables.$primary;
+            }
+        }
+
+        &.drop-position-before {
+            .thy-tree-node-content {
+                position: relative;
+                border-top: 2px solid variables.$primary;
+                border-bottom: 2px solid transparent;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0px;
+                    top: -5px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: variables.$white;
+                    border: 2px solid variables.$primary;
+                    border-radius: 50%;
+                }
+            }
+        }
+
+        &.drop-position-after {
+            .thy-tree-node-content {
+                position: relative;
+                position: relative;
+                border-top: 2px solid transparent;
+                border-bottom: 2px solid variables.$primary;
+                &::before {
+                    content: '';
+                    position: absolute;
+                    left: 0px;
+                    bottom: -5px;
+                    width: 8px;
+                    height: 8px;
+                    background-color: variables.$white;
+                    border: 2px solid variables.$primary;
+                    border-radius: 50%;
+                }
+            }
+        }
+    }
+
+    &.thy-tree-dragging {
+        .thy-tree-node {
+            .thy-tree-node-wrapper {
+                &:hover {
+                    background: unset;
+                    .thy-tree-node-actions,
+                    .thy-tree-drag-icon {
+                        visibility: hidden !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.thy-tree-node.cdk-drag-preview {
+    opacity: 0.9;
+    .thy-tree-node-wrapper.active {
+        background: unset !important;
+        color: unset !important;
+        .thy-tree-node-content .thy-tree-node-icon {
+            color: variables.$gray-500 !important;
+        }
+    }
+
+    .thy-tree-index {
+        display: none !important;
+    }
+    .thy-tree-node-actions {
+        display: none !important;
+    }
+}

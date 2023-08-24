@@ -7,7 +7,7 @@ import { ThyFormModule } from 'ngx-tethys/form';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
 import { ThySpaceModule } from 'ngx-tethys/space';
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 
 import { ThyTooltipBasicExampleComponent } from './basic/basic.component';
 import { ThyTooltipPositionExampleComponent } from './position/position.component';
@@ -31,7 +31,7 @@ const COMPONENTS = [
         ThySelectModule,
         ThyInputModule,
         ThyTooltipModule,
-        ThyActionMenuModule,
+        ThyDropdownModule,
         ThySpaceModule
     ],
     exports: COMPONENTS,

@@ -33,7 +33,7 @@ export interface OutputNameRemovalUpgradeData {
 }
 
 export const outputNamesRemoval: VersionChanges<OutputNameRemovalUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [

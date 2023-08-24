@@ -2,6 +2,75 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.3...16.0.0-next.4) (2023-08-23)
+
+
+### Bug Fixes
+
+* **schematics:** update action-menu crossing type replace ([a4973a1](https://github.com/atinc/ngx-tethys/commit/a4973a1a4641bcd974c367396f31b60530954f1c))
+
+
+### Features
+
+* **input:** manage input-search focus #INFR-8466, and adjust input-number focus monitor #INFR-8467 ([48330b6](https://github.com/atinc/ngx-tethys/commit/48330b657535518c6d603e31eb9002bda2405686)), closes [#INFR-8466](https://github.com/atinc/ngx-tethys/issues/INFR-8466) [#INFR-8467](https://github.com/atinc/ngx-tethys/issues/INFR-8467)
+* **input:** thy-input-group support input count suffix for textarea INFR-9159 ([#2778](https://github.com/atinc/ngx-tethys/issues/2778)) ([597bf53](https://github.com/atinc/ngx-tethys/commit/597bf532426a94633588d7b6c5d49687ab578613))
+* **tree:** refactoring tree drag and drop interaction #INFR-6918 ([#2790](https://github.com/atinc/ngx-tethys/issues/2790)) ([0919e79](https://github.com/atinc/ngx-tethys/commit/0919e79eaf2d265f72ce309ecd71a41770ee198a)), closes [#INFR-6918](https://github.com/atinc/ngx-tethys/issues/INFR-6918)
+
+
+
+# [16.0.0-next.3](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.2...16.0.0-next.3) (2023-08-22)
+
+
+### Bug Fixes
+
+* **schematics:** style replace $action to $action-menu- ([e2f8f74](https://github.com/atinc/ngx-tethys/commit/e2f8f7458c43ef052f6b01ec0c3e5aeedaad0bb8))
+
+
+
+## [15.3.20](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.0...15.3.20) (2023-08-15)
+
+
+### Features
+
+* **dropdown:** #INFR-8577 add thyImmediateRender at dropdown-menu ([#2768](https://github.com/atinc/ngx-tethys/issues/2768)) ([ce8aca3](https://github.com/atinc/ngx-tethys/commit/ce8aca35b48cde90e79cbcb7621758aab4db7009)), closes [#INFR-8577](https://github.com/atinc/ngx-tethys/issues/INFR-8577)
+* **schematics:** add action-menu template/ts/stylesheets migration #INFR-7993 ([#2674](https://github.com/atinc/ngx-tethys/issues/2674)) ([d1d9263](https://github.com/atinc/ngx-tethys/commit/d1d92633ee860040b3e4bd843506bd3817c4c4c9)), closes [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993)
+
+
+
+# [16.0.0-next.2](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.1...16.0.0-next.2) (2023-08-18)
+
+
+### Features
+
+* **schematics:** add scss variables replace and tips #INFR-9293 ([#2783](https://github.com/atinc/ngx-tethys/issues/2783)) ([b5d38b7](https://github.com/atinc/ngx-tethys/commit/b5d38b752427165d4bdb928c55a6e34b6e9d86da)), closes [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293) [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293) [#INFR-9293](https://github.com/atinc/ngx-tethys/issues/INFR-9293)
+* **schematics:** update tips ([0bde94a](https://github.com/atinc/ngx-tethys/commit/0bde94a705dc23914de81e8dc194150e46c86712))
+
+
+
+# [16.0.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.0...16.0.0-next.1) (2023-08-17)
+
+
+### Bug Fixes
+
+* **date-picker:** fix ci error for date picker #INFR-9273 ([#2781](https://github.com/atinc/ngx-tethys/issues/2781)) ([717ffbf](https://github.com/atinc/ngx-tethys/commit/717ffbfbd4adcf137f490307eb1ecd985dad0eaf)), closes [#INFR-9273](https://github.com/atinc/ngx-tethys/issues/INFR-9273)
+
+
+### Features
+
+* **schematics:** add tips ([#2777](https://github.com/atinc/ngx-tethys/issues/2777)) ([2c5de9f](https://github.com/atinc/ngx-tethys/commit/2c5de9f24f81ce4ea92502f80c77c4977bb9fb91))
+
+
+
+# [16.0.0-next.0](https://github.com/atinc/ngx-tethys/compare/15.3.16...16.0.0-next.0) (2023-08-15)
+
+
+### Features
+
+* **dropdown:** #INFR-8577 add thyImmediateRender at dropdown-menu ([#2768](https://github.com/atinc/ngx-tethys/issues/2768)) ([fd4fb28](https://github.com/atinc/ngx-tethys/commit/fd4fb289cd8487550143a17c0b2a9fb56fbb418d)), closes [#INFR-8577](https://github.com/atinc/ngx-tethys/issues/INFR-8577)
+* **schematics:** add action-menu template/ts/stylesheets migration #INFR-7993 ([#2674](https://github.com/atinc/ngx-tethys/issues/2674)) ([a84a4f8](https://github.com/atinc/ngx-tethys/commit/a84a4f8213554c34a2dc8fe57f668563604e2fc0)), closes [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993)
+* upgrade ng to 16 ([#2769](https://github.com/atinc/ngx-tethys/issues/2769)) ([6077e21](https://github.com/atinc/ngx-tethys/commit/6077e21f83e1c838069957f1be8f04e50da08f8a))
+
+
 ## [15.3.20](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.20) (2023-08-15)
 
 
@@ -34,7 +103,6 @@ All notable changes to this project will be documented in this file. See [standa
 * **schematics:** add cdk migration and v16 label template/ts/stylesheets migration  ([#2759](https://github.com/atinc/ngx-tethys/issues/2759)) ([e87f75d](https://github.com/atinc/ngx-tethys/commit/e87f75d9db68f8ec6bb9f120af4a1663a5a8f35c)), closes [#INFR-7913](https://github.com/atinc/ngx-tethys/issues/INFR-7913) [#INFR-7913](https://github.com/atinc/ngx-tethys/issues/INFR-7913) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993) [#INFR-7993](https://github.com/atinc/ngx-tethys/issues/INFR-7993)
 * **select:** #INFR-9135 add thyBorderless at custom-select ([#2767](https://github.com/atinc/ngx-tethys/issues/2767)) ([7000e7b](https://github.com/atinc/ngx-tethys/commit/7000e7bb65b10db99faab9b05539dbaef7ed00fe)), closes [#INFR-9135](https://github.com/atinc/ngx-tethys/issues/INFR-9135) [#INFR-9135](https://github.com/atinc/ngx-tethys/issues/INFR-9135)
 * **tooltip:**  remove TooltipService completely (#INFR-7979) ([#2765](https://github.com/atinc/ngx-tethys/issues/2765)) ([d9bf172](https://github.com/atinc/ngx-tethys/commit/d9bf17258d8b0768af3c2d5ca2f94d3e6b991654)), closes [#INFR-7979](https://github.com/atinc/ngx-tethys/issues/INFR-7979) [#INFR-7979](https://github.com/atinc/ngx-tethys/issues/INFR-7979)
-
 
 
 ## [15.3.19](https://github.com/atinc/ngx-tethys/compare/15.3.16...15.3.19) (2023-07-26)

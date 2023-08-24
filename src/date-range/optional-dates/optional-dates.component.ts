@@ -5,11 +5,11 @@ import { FormsModule } from '@angular/forms';
 import { ThyRangePickerDirective } from 'ngx-tethys/date-picker';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import {
-    ThyActionMenuComponent,
-    ThyActionMenuItemDirective,
-    ThyActionMenuItemNameDirective,
-    ThyActionMenuItemExtendIconDirective
-} from 'ngx-tethys/action-menu';
+    ThyDropdownMenuComponent,
+    ThyDropdownMenuItemDirective,
+    ThyDropdownMenuItemNameDirective,
+    ThyDropdownMenuItemExtendIconDirective
+} from 'ngx-tethys/dropdown';
 import { NgIf, NgFor } from '@angular/common';
 
 /**
@@ -22,11 +22,11 @@ import { NgIf, NgFor } from '@angular/common';
     standalone: true,
     imports: [
         NgIf,
-        ThyActionMenuComponent,
+        ThyDropdownMenuComponent,
         NgFor,
-        ThyActionMenuItemDirective,
-        ThyActionMenuItemNameDirective,
-        ThyActionMenuItemExtendIconDirective,
+        ThyDropdownMenuItemDirective,
+        ThyDropdownMenuItemNameDirective,
+        ThyDropdownMenuItemExtendIconDirective,
         ThyIconComponent,
         ThyRangePickerDirective,
         FormsModule

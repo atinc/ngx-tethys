@@ -1,4 +1,4 @@
-import { ThyActionMenuModule } from 'ngx-tethys/action-menu';
+import { ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyMenuModule } from 'ngx-tethys/menu';
 import { ThyActionModule } from 'ngx-tethys/action';
@@ -17,7 +17,7 @@ export default {
         ThyGridModule,
         ThyDividerModule,
         ThyIconModule,
-        ThyActionMenuModule,
+        ThyDropdownModule,
         ThyRadioModule,
         ThyActionModule
     ]

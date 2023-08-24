@@ -1,6 +1,6 @@
 {
   "name": "ngx-tethys",
-  "version": "15.3.20",
+  "version": "16.0.0-next.4",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/atinc/ngx-tethys.git"
@@ -23,9 +23,9 @@
     }
   },
   "peerDependencies": {
-    "@angular/core": "^15.0.0",
-    "@angular/cdk": "^15.0.0",
-    "@tethys/cdk": "^15.0.0",
+    "@angular/core": "^16.0.0",
+    "@angular/cdk": "^16.0.0",
+    "@tethys/cdk": "^16.0.0",
     "date-fns": "^2.6.0",
     "@tethys/icons": "^1.4.23",
     "rxjs": "^6.5.4 || ^7.0.0"
