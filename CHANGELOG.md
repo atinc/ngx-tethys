@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.1](https://github.com/atinc/ngx-tethys/compare/16.0.0...16.0.1) (2023-08-24)
+
+
+### Features
+
+* **schematics:** update replace two input same start #INFR-9268 ([#2798](https://github.com/atinc/ngx-tethys/issues/2798)) ([bd4996e](https://github.com/atinc/ngx-tethys/commit/bd4996e2cff71585dfcd5a649dd29eac769e0f37)), closes [#INFR-9268](https://github.com/atinc/ngx-tethys/issues/INFR-9268)
+
+
+
 # [16.0.0](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.4...16.0.0) (2023-08-24)
 
 
