@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableTheme } from 'ngx-tethys/table';
+import { ThyTableColumnSkeletonType, ThyTableSize, ThyTableSkeletonColumn, ThyTableTheme } from 'ngx-tethys/table';
 
 @Component({
     selector: 'thy-table-skeleton-example',
@@ -14,7 +14,7 @@ export class ThyTableSkeletonExampleComponent {
 
     theme: ThyTableTheme = 'default';
 
-    sizes = [
+    sizes: { value: ThyTableSize; height: number }[] = [
         {
             value: 'xs',
             height: 44
@@ -39,7 +39,7 @@ export class ThyTableSkeletonExampleComponent {
 
     size: ThyTableSize = 'md';
 
-    columns = [
+    columns: ThyTableSkeletonColumn[] = [
         { width: '40%', type: ThyTableColumnSkeletonType.title },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
         { width: 'auto', type: ThyTableColumnSkeletonType.default },
