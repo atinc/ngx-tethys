@@ -50,11 +50,19 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
 export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
     thyValue: CompatibleValue | null;
 
+    _panelMode: ThyPanelMode = 'date';
+
     /**
      * 模式
      * @type decade | year | month | date | week | flexible
      */
-    @Input() thyMode: ThyPanelMode = 'date';
+    @Input() set thyMode(value: ThyPanelMode) {
+        this._panelMode = value ?? 'date';
+    }
+
+    get thyMode() {
+        return this._panelMode;
+    }
 
     /**
      * 是否显示清除按钮

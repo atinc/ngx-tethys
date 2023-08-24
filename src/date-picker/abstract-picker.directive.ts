@@ -34,12 +34,6 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 
-    /**
-     * 模式
-     * @type decade | year | month | date
-     */
-    @Input() thyMode: ThyPanelMode = 'date';
-
     panelMode: ThyPanelMode | ThyPanelMode[];
 
     /**

@@ -1,4 +1,4 @@
-import { ThyPanelMode, ThyShortcutPreset, ThyShortcutRange } from './standard-types';
+import { ThyShortcutPreset, ThyShortcutRange } from './standard-types';
 import { forwardRef, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -33,12 +33,6 @@ export class ThyRangePickerComponent extends BasePickerComponent implements OnIn
     isRange = true;
 
     private hostRenderer = useHostRenderer();
-
-    /**
-     * 支持的选区间模式
-     * @type  year | month | date
-     */
-    @Input() thyMode: ThyPanelMode = 'date';
 
     /**
      * 已废弃，请使用 thyShortcutPresets

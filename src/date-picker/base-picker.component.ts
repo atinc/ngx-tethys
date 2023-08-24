@@ -24,7 +24,20 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     panelMode: ThyPanelMode | ThyPanelMode[];
 
+    initialized: boolean;
+
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
+
+    @Input() set thyMode(value: ThyPanelMode) {
+        this._panelMode = value ?? 'date';
+        if (this.initialized) {
+            this.setDefaultTimePickerState(this._panelMode);
+        }
+    }
+
+    get thyMode() {
+        return this._panelMode;
+    }
 
     /**
      * @type EventEmitter<ThyPanelMode | ThyPanelMode[]>
@@ -72,7 +85,8 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     ngOnInit(): void {
         super.ngOnInit();
-        this.setDefaultTimePickerState();
+        this.setDefaultTimePickerState(this._panelMode);
+        this.initialized = true;
     }
 
     onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
@@ -84,15 +98,14 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     // Displays the time directly when the time must be displayed by default
-    setDefaultTimePickerState() {
-        this.thyMode = this.thyMode || 'date';
+    setDefaultTimePickerState(value: ThyPanelMode) {
         this.withTime = this.thyMustShowTime;
         if (this.isRange) {
-            this.panelMode = this.flexible ? ['date', 'date'] : [this.thyMode, this.thyMode];
+            this.panelMode = this.flexible ? ['date', 'date'] : [value, value];
         } else {
-            this.panelMode = this.thyMode;
+            this.panelMode = value;
         }
-        this.showWeek = this.thyMode === 'week';
+        this.showWeek = value === 'week';
         if (!this.thyFormat) {
             const inputFormats: { [key in ThyPanelMode]?: string } = {
                 year: 'yyyy',
@@ -100,7 +113,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
                 week: 'yyyy-ww周',
                 date: this.thyShowTime ? 'yyyy-MM-dd HH:mm' : 'yyyy-MM-dd'
             };
-            this.thyFormat = this.flexible ? inputFormats['date'] : inputFormats[this.thyMode];
+            this.thyFormat = this.flexible ? inputFormats['date'] : inputFormats[value];
         }
     }
 
