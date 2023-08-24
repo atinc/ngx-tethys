@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 .thy-table-skeleton {
     table {
@@ -8,11 +8,7 @@
 
         td,
         th {
-            border-bottom: variables.$table-border-width solid variables.$gray-200;
             text-align: left;
-            padding: 8px 28px;
-            height: 52px;
         }
     }
-
 }
