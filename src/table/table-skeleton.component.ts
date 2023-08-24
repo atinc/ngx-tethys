@@ -1,7 +1,11 @@
-import { NgFor } from '@angular/common';
+import { NgClass, NgFor, NgIf, NgTemplateOutlet } from '@angular/common';
 import { ChangeDetectionStrategy, Component, Input, ViewEncapsulation } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { ThySkeletonCircleComponent, ThySkeletonRectangleComponent } from 'ngx-tethys/skeleton';
+import { ThyTableSkeletonColumn } from './table.interface';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
+import { ThyTableColumnSkeletonType } from './enums';
+import { ThyTableSize, ThyTableTheme } from './table.component';
 
 const COLUMN_COUNT = 5;
 
@@ -18,7 +22,7 @@ const COLUMN_COUNT = 5;
     changeDetection: ChangeDetectionStrategy.OnPush,
     encapsulation: ViewEncapsulation.None,
     standalone: true,
-    imports: [NgFor, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
+    imports: [NgFor, NgClass, NgIf, NgTemplateOutlet, ThyViewOutletDirective, ThySkeletonRectangleComponent, ThySkeletonCircleComponent]
 })
 export class ThyTableSkeletonComponent {
     /**
@@ -33,15 +37,15 @@ export class ThyTableSkeletonComponent {
      */
     @Input()
     @InputCssPixel()
-    thyRowHeight: string | number = '18px';
+    thyRowHeight: string | number = '20px';
 
     /**
      * 是否开启动画
-     * @default false
+     * @default true
      */
     @Input()
     @InputBoolean()
-    thyAnimated: boolean;
+    thyAnimated: boolean = true;
 
     /**
      * 动画速度
@@ -68,13 +72,85 @@ export class ThyTableSkeletonComponent {
         this.rowCount = Array.from({ length: +value });
     }
 
-    public titleHeight = '12px';
+    /**
+     * 是否展示骨架头
+     * @default false
+     */
+    @Input() @InputBoolean() thyHeadless = false;
+
+    /**
+     * 骨架屏的风格
+     * @type default | bordered | boxed
+     */
+    @Input() thyTheme: ThyTableTheme = 'default';
+
+    /**
+     * 骨架屏的大小
+     * @type xs | sm | md | lg | xlg | default
+     * @default md
+     */
+    @Input() thySize: ThyTableSize = 'md';
+
+    /**
+     * 设置表格最小宽度
+     */
+    @Input()
+    @InputCssPixel()
+    thyMinWidth: string | number;
+
+    /**
+     * 表格列骨架的配置项，支持配置列宽、骨架类型
+     * @type ThyTableSkeletonColumn[]
+     */
+    @Input() set thyColumns(columns: ThyTableSkeletonColumn[]) {
+        if (columns && columns.length) {
+            this.columns = columns;
+        } else {
+            this.columns = [...this.defaultColumns];
+        }
+    }
+
+    public titleHeight = '16px';
 
     public titleWidth = '50px';
 
-    public checkBoxWidth = '18px';
+    public checkBoxWidth = '20px';
 
-    public avatarSize = '28px';
+    public avatarSize = '24px';
 
-    columnCount = Array.from({ length: COLUMN_COUNT });
+    public columnType = ThyTableColumnSkeletonType;
+
+    get tableClassMap() {
+        return {
+            table: true,
+            'table-bordered': this.thyTheme === 'bordered',
+            'table-boxed': this.thyTheme === 'boxed',
+            [`table-${this.thySize}`]: !!this.thySize
+        };
+    }
+
+    private defaultColumns = Array.from({ length: COLUMN_COUNT }).map((item, index: number) => {
+        if (index === 0) {
+            return {
+                width: '40%',
+                type: ThyTableColumnSkeletonType.title
+            };
+        } else if (index === 1) {
+            return {
+                width: '17%',
+                type: ThyTableColumnSkeletonType.member
+            };
+        } else {
+            return {
+                width: 'auto',
+                type: ThyTableColumnSkeletonType.default
+            };
+        }
+    });
+
+    public columns: ThyTableSkeletonColumn[] = [...this.defaultColumns];
+
+    public trackByFn(index: number) {
+        return index;
+    }
 }
