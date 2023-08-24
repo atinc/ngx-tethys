@@ -32,7 +32,7 @@ export class ThyDropdownAbstractMenu {
     template: `
         <ng-container *ngIf="thyImmediateRender; then content"> </ng-container>
         <ng-template #dropdownMenu>
-            <div class="thy-dropdown-menu" [style.width]="width">
+            <div class="thy-dropdown-menu" [style.width]="thyWidth">
                 <ng-container *ngTemplateOutlet="content"></ng-container>
             </div>
         </ng-template>
@@ -43,15 +43,13 @@ export class ThyDropdownAbstractMenu {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class]': "thyImmediateRender?'thy-dropdown-menu':''",
-        '[style.width]': "thyImmediateRender?width:''"
+        '[class.thy-dropdown-menu]': 'thyImmediateRender?true:false',
+        '[style.width]': "thyImmediateRender?thyWidth:''"
     },
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
 export class ThyDropdownMenuComponent {
-    width: string;
-
     get template() {
         return this.templateRef;
     }
@@ -64,9 +62,7 @@ export class ThyDropdownMenuComponent {
      */
     @Input()
     @InputCssPixel()
-    set thyWidth(value: string) {
-        this.width = value;
-    }
+    thyWidth: number | string;
 
     /**
      * 是否直接渲染 dropdown-menu 中的元素
