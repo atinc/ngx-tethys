@@ -43,8 +43,8 @@ export class ThyDropdownAbstractMenu {
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        '[class.thy-dropdown-menu]': 'thyImmediateRender?true:false',
-        '[style.width]': "thyImmediateRender?thyWidth:''"
+        '[class.thy-dropdown-menu]': 'thyImmediateRender',
+        '[style.width]': "thyImmediateRender ? thyWidth : ''"
     },
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
