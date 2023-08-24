@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.0.0](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.4...16.0.0) (2023-08-24)
+
+
+### Features
+
+* **datePicker:** #INFR-9165 support thyMode dynamically switched ([#2770](https://github.com/atinc/ngx-tethys/issues/2770)) ([9b4d1b7](https://github.com/atinc/ngx-tethys/commit/9b4d1b78f92e5a7f88e32c5b03d085e93ba90bd8)), closes [#INFR-9165](https://github.com/atinc/ngx-tethys/issues/INFR-9165)
+* **dropdown:** update thyImmediateRender template remove div #INFR-9359 ([#2794](https://github.com/atinc/ngx-tethys/issues/2794)) ([e7c6634](https://github.com/atinc/ngx-tethys/commit/e7c66344d83e80722113a9ae2d9ad336879ad5ab)), closes [#INFR-9359](https://github.com/atinc/ngx-tethys/issues/INFR-9359) [#INFR-9359](https://github.com/atinc/ngx-tethys/issues/INFR-9359)
+
+
+
 # [16.0.0-next.4](https://github.com/atinc/ngx-tethys/compare/16.0.0-next.3...16.0.0-next.4) (2023-08-23)
 
 
