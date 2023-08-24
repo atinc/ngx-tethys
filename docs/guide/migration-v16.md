@@ -16,7 +16,7 @@ hidden: false
 执行 `ng update ngx-tethys` 命令自动升级, 这个命令核心处理如下事项：
 - 升级 `ngx-tethys` 到 `16.x` 版本，并修改 package.json 中的依赖版本号
 - 会自动把依赖的 CDK 和 Angular 库都升级到 `16.x` 版本，并修改 package.json 中的依赖版本号
-- 自动修改 `thyLabelModule` 模块内容为 `thyTagModule` 模块内容
+- 自动修改 `ThyLabelModule` 模块内容为 `ThyTagModule` 模块内容
 - 自动修改 `ThyActionMenuModule` 模块内容为 `ThyDropdownModule` 模块内容
 - ⚠ 上面两点中未修改全面或不完全对应的自动修改部分，会给出提示，用户需要根据提示，参考下面的对照表手动修改
 
@@ -30,7 +30,7 @@ hidden: false
 
 ## 附录
 
-<label type="info">附录1</label> 所有 `thyLabelModule` 与 `thyTagModule` 对应的修改列表
+<label type="info">附录1</label> 所有 `ThyLabelModule` 与 `ThyTagModule` 对应的修改列表
 
 
 - 模板
