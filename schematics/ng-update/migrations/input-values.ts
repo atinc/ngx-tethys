@@ -56,10 +56,18 @@ export class InputValuesMigration extends Migration<TethysUpgradeData> {
 
     private _replaceInput(filePath: WorkspacePath, start: number, width: number, newValue: Record<string, string>) {
         if (Object.keys(newValue).length) {
+            let lastWidth = 0;
             for (const inputName of Object.keys(newValue)) {
                 newValue[inputName]
-                    ? this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName}="${newValue[inputName]}" `)
-                    : this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName} `);
+                    ? this.fileSystem
+                          .edit(filePath)
+                          .remove(start + lastWidth, width)
+                          .insertRight(start + lastWidth, `${inputName}="${newValue[inputName]}" `)
+                    : this.fileSystem
+                          .edit(filePath)
+                          .remove(start + lastWidth, width)
+                          .insertRight(start + lastWidth, `${inputName} `);
+                lastWidth = width;
             }
         } else {
             this.fileSystem.edit(filePath).remove(start, width);

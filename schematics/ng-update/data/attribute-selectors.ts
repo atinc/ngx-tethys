@@ -15,7 +15,7 @@ export const attributeSelectors: VersionChanges<AttributeSelectorUpgradeData> = 
                 },
                 {
                     replace: 'thyLabel\n',
-                    replaceWith: 'thyTag '
+                    replaceWith: 'thyTag\n'
                 },
                 {
                     replace: 'thyLabel>',
@@ -35,11 +35,11 @@ export const attributeSelectors: VersionChanges<AttributeSelectorUpgradeData> = 
                 },
                 {
                     replace: 'thyActionMenuSubItem=',
-                    replaceWith: 'thyDirection='
+                    replaceWith: 'thyDropdownSubmenu thyDirection='
                 },
                 {
                     replace: '[thyActionMenuSubItem]=',
-                    replaceWith: '[thyDirection]='
+                    replaceWith: 'thyDropdownSubmenu [thyDirection]='
                 },
                 {
                     replace: 'thyActionMenuItem',

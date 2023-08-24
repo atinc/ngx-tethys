@@ -49,7 +49,7 @@ export const inputNames: VersionChanges<InputNameUpgradeData> = {
                 },
                 {
                     replace: 'thyActionMenuItemInfo',
-                    replaceWith: 'Desc',
+                    replaceWith: 'thyDropdownMenuItemDesc',
                     limitedTo: {
                         attributes: ['thyActionMenuItemInfo', '[thyActionMenuItemInfo]']
                     }
