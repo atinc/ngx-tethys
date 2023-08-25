@@ -54,6 +54,7 @@ import {
     ThyPage,
     ThyRadioSelectEvent,
     ThySwitchEvent,
+    ThyTableSkeletonColumn,
     ThyTableDraggableEvent,
     ThyTableEmptyOptions,
     ThyTableEvent,
@@ -64,13 +65,14 @@ import {
 import { TableRowDragDisabledPipe } from './pipes/drag.pipe';
 import { TableIsValidModelValuePipe } from './pipes/table.pipe';
 import { ThyPaginationComponent } from 'ngx-tethys/pagination';
-import { ThyLoadingComponent } from 'ngx-tethys/loading';
+import { ThyTableSkeletonComponent } from './table-skeleton.component';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
 import { ThySwitchComponent } from 'ngx-tethys/switch';
 import { FormsModule } from '@angular/forms';
 import { ThyDragDropDirective, ThyContextMenuDirective } from 'ngx-tethys/shared';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { CdkScrollable } from '@angular/cdk/scrolling';
+import { ThyTableColumnSkeletonType } from './enums';
 
 export type ThyTableTheme = 'default' | 'bordered' | 'boxed';
 
@@ -152,7 +154,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         FormsModule,
         ThySwitchComponent,
         ThyEmptyComponent,
-        ThyLoadingComponent,
+        ThyTableSkeletonComponent,
         ThyPaginationComponent,
         TableIsValidModelValuePipe,
         TableRowDragDisabledPipe
@@ -291,7 +293,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 表格的大小
-     * @type md | sm | xs | lg | xlg | default
+     * @type xs | sm | md | lg | xlg | default
      * @default md
      */
     @Input()
@@ -363,7 +365,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     }
 
     /**
-     * 设置加载时显示的文本
+     * 设置加载时显示的文本，已废弃
+     * @deprecated
      */
     @Input()
     set thyLoadingText(value: string) {
@@ -435,8 +438,19 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
 
     /**
      * 是否显示表格头
+     * @default false
      */
-    @Input() @InputBoolean() thyShowHeader = true;
+    @Input() @InputBoolean() thyHeadless = false;
+
+    /**
+     * 是否显示表格头，已废弃，请使用 thyHeadless
+     * @deprecated please use thyHeadless
+     */
+    @Input()
+    @InputBoolean()
+    set thyShowHeader(value: boolean) {
+        this.thyHeadless = !value;
+    }
 
     /**
      * 是否显示左侧 Total
@@ -478,6 +492,16 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     thyHoverDisplayOperation: boolean;
 
     @Input() thyDragDisabledPredicate: (item: SafeAny) => boolean = () => false;
+
+    /**
+     * 表格列的骨架类型
+     * @type ThyTableColumnSkeletonType[]
+     */
+    @Input() thyColumnSkeletonTypes: ThyTableColumnSkeletonType[] = [
+        ThyTableColumnSkeletonType.title,
+        ThyTableColumnSkeletonType.member,
+        ThyTableColumnSkeletonType.default
+    ];
 
     /**
      * 切换组件回调事件
@@ -545,6 +569,8 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
     private expandStatusMapOfGroupBeforeDrag: Dictionary<boolean> = {};
 
     dragPreviewClass = 'thy-table-drag-preview';
+
+    public skeletonColumns: ThyTableSkeletonColumn[] = [];
 
     constructor(
         public elementRef: ElementRef,
@@ -1009,6 +1035,7 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             .subscribe(() => {
                 this._refreshColumns();
                 this.updateScrollClass();
+                this.buildSkeletonColumns();
                 this.cdr.detectChanges();
             });
 
@@ -1016,6 +1043,18 @@ export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, 
             this.scroll$.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
                 this.updateScrollClass();
             });
+        });
+    }
+
+    private buildSkeletonColumns() {
+        this.skeletonColumns = [];
+
+        this.columns.forEach((column: ThyTableColumnComponent, index: number) => {
+            const item = {
+                type: this.thyColumnSkeletonTypes[index] || ThyTableColumnSkeletonType.default,
+                width: column.width || 'auto'
+            };
+            this.skeletonColumns = [...this.skeletonColumns, item];
         });
     }
 

@@ -1,4 +1,5 @@
 import { EventEmitter, TemplateRef } from '@angular/core';
+import { ThyTableColumnSkeletonType } from './enums';
 
 export enum ThyTableSortDirection {
     default = '',
@@ -92,4 +93,9 @@ export interface ThyTableSortEvent {
 export interface ThyTableRowEvent {
     event: Event;
     row: any;
+}
+
+export interface ThyTableSkeletonColumn {
+    width: number | string;
+    type: ThyTableColumnSkeletonType;
 }

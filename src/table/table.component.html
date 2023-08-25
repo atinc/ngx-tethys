@@ -1,8 +1,7 @@
 <div
   class="thy-table-body"
   cdkScrollable
-  [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }"
->
+  [ngClass]="{ 'thy-table-fixed': hasFixed, 'thy-table-bordered-theme': theme === 'bordered' && hasFixed }">
   <table
     #table
     class="table"
@@ -10,13 +9,12 @@
     [class.table-fixed]="thyLayoutFixed"
     [class.table-draggable]="draggable"
     [class.table-group]="mode === 'group'"
-    [style.min-width]="thyMinWidth"
-  >
+    [style.min-width]="thyMinWidth">
     <colgroup>
       <col *ngFor="let column of columns" [width]="column.width" [style.minWidth]="hasFixed ? column.width : column.minWidth" />
     </colgroup>
 
-    <thead *ngIf="thyShowHeader">
+    <thead *ngIf="!thyHeadless">
       <tr>
         <th
           *ngFor="let column of columns"
@@ -26,8 +24,7 @@
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
-          (click)="onColumnHeaderClick($event, column)"
-        >
+          (click)="onColumnHeaderClick($event, column)">
           <ng-container *ngIf="!column.headerTemplateRef">
             <span>{{ column.title }}</span>
           </ng-container>
@@ -48,8 +45,7 @@
       cdkDropList
       [cdkDropListDisabled]="!draggable"
       [cdkDropListSortPredicate]="dropListEnterPredicate"
-      (cdkDropListDropped)="onDragDropped($event)"
-    >
+      (cdkDropListDropped)="onDragDropped($event)">
       <!-- group -->
       <ng-container *ngIf="mode === 'group'">
         <ng-container *ngFor="let group of groups">
@@ -59,21 +55,19 @@
             cdkDrag
             [cdkDragPreviewClass]="dragPreviewClass"
             [cdkDragData]="group"
-            [cdkDragDisabled]="group | tableRowDragDisabled: thyDragDisabledPredicate"
+            [cdkDragDisabled]="group | tableRowDragDisabled : thyDragDisabledPredicate"
             (cdkDragStarted)="onDragGroupStarted($event)"
-            (cdkDragEnded)="onDragGroupEnd($event)"
-          >
+            (cdkDragEnded)="onDragGroupEnd($event)">
             <td [attr.colspan]="columns.length">
               <div class="thy-table-group-container">
-                <ng-container *ngIf="draggable && !(group | tableRowDragDisabled: thyDragDisabledPredicate)">
+                <ng-container *ngIf="draggable && !(group | tableRowDragDisabled : thyDragDisabledPredicate)">
                   <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
                 </ng-container>
                 <thy-icon class="expand-icon" [thyIconName]="group.expand ? 'angle-down' : 'angle-right'"></thy-icon>
                 <ng-container *ngIf="groupTemplate">
                   <ng-template
                     [ngTemplateOutlet]="groupTemplate"
-                    [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"
-                  ></ng-template>
+                    [ngTemplateOutletContext]="{ $implicit: group.origin, group: group.origin }"></ng-template>
                 </ng-container>
               </div>
             </td>
@@ -86,8 +80,7 @@
                   row: row,
                   index: i,
                   level: 0
-                }"
-              ></ng-template>
+                }"></ng-template>
             </ng-container>
           </ng-container>
         </ng-container>
@@ -102,20 +95,18 @@
           cdkDrag
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
-          [cdkDragDisabled]="row | tableRowDragDisabled: thyDragDisabledPredicate"
+          [cdkDragDisabled]="row | tableRowDragDisabled : thyDragDisabledPredicate"
           (cdkDragStarted)="onDragStarted($event)"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
-          (thyContextMenu)="onRowContextMenu($event, row)"
-        >
+          (thyContextMenu)="onRowContextMenu($event, row)">
           <ng-template
             [ngTemplateOutlet]="tdsTemplate"
             [ngTemplateOutletContext]="{
               row: row,
               index: i,
               level: 0
-            }"
-          ></ng-template>
+            }"></ng-template>
         </tr>
       </ng-container>
 
@@ -133,27 +124,24 @@
           [cdkDragPreviewClass]="dragPreviewClass"
           [cdkDragData]="row"
           (cdkDragStarted)="onDragStarted($event)"
-          [cdkDragDisabled]="row | tableRowDragDisabled: thyDragDisabledPredicate"
+          [cdkDragDisabled]="row | tableRowDragDisabled : thyDragDisabledPredicate"
           [ngClass]="renderRowClassName(row, i)"
           (click)="onRowClick($event, row)"
-          (thyContextMenu)="onRowContextMenu($event, row)"
-        >
+          (thyContextMenu)="onRowContextMenu($event, row)">
           <ng-template
             [ngTemplateOutlet]="tdsTemplate"
             [ngTemplateOutletContext]="{
               row: row,
               index: i,
               level: level + 1
-            }"
-          ></ng-template>
+            }"></ng-template>
         </tr>
 
         <ng-container *ngIf="mode === 'tree' && isExpanded(row)">
           <ng-template
             *ngFor="let child of row[thyChildrenKey]; trackBy: trackByFn; let j = index"
             [ngTemplateOutlet]="trTemplate"
-            [ngTemplateOutletContext]="{ row: child, index: j, level: level + 1 }"
-          ></ng-template>
+            [ngTemplateOutletContext]="{ row: child, index: j, level: level + 1 }"></ng-template>
         </ng-container>
       </ng-template>
 
@@ -168,9 +156,8 @@
           [class.thy-table-fixed-column-right]="column.fixed === fixedDirection.right"
           [style.left.px]="column.left"
           [style.right.px]="column.right"
-          [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null"
-        >
-          <ng-container *ngIf="j === 0 && draggable && !(row | tableRowDragDisabled: thyDragDisabledPredicate)">
+          [ngStyle]="mode === 'tree' && column.expand ? tdIndentComputed(level) : null">
+          <ng-container *ngIf="j === 0 && draggable && !(row | tableRowDragDisabled : thyDragDisabledPredicate)">
             <thy-icon class="table-draggable-icon" thyIconName="drag"></thy-icon>
           </ng-container>
 
@@ -181,8 +168,7 @@
               *ngIf="mode === 'tree' && column.expand"
               [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
               [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
-              [style.left.px]="iconIndentComputed(level)"
-            ></thy-icon>
+              [style.left.px]="iconIndentComputed(level)"></thy-icon>
             <ng-template [ngTemplateOutlet]="column.cellTemplateRef" [ngTemplateOutletContext]="{ $implicit: row }"></ng-template>
           </ng-container>
 
@@ -195,8 +181,7 @@
                 *ngIf="mode === 'tree' && column.expand"
                 [thyIconName]="isExpanded(row) ? 'angle-down' : 'angle-right'"
                 [style.visibility]="showExpand(row) ? 'visible' : 'hidden'"
-                [style.marginLeft.px]="iconIndentComputed(level)"
-              ></thy-icon>
+                [style.marginLeft.px]="iconIndentComputed(level)"></thy-icon>
               <ng-container *ngIf="getModelValue(row, column.model) | isValidModelValue; else default">
                 {{ getModelValue(row, column.model) }}
               </ng-container>
@@ -219,8 +204,7 @@
                 [(ngModel)]="row[column.key]"
                 (ngModelChange)="onCheckboxChange(row, column)"
                 (click)="onStopPropagation($event)"
-                [disabled]="column.disabled"
-              />
+                [disabled]="column.disabled" />
             </ng-container>
 
             <!-- radio -->
@@ -231,8 +215,7 @@
                 [value]="row"
                 [disabled]="column.disabled"
                 (click)="onStopPropagation($event)"
-                (change)="onRadioSelectChange($event, row)"
-              />
+                (change)="onRadioSelectChange($event, row)" />
             </ng-container>
 
             <!-- switch -->
@@ -241,8 +224,7 @@
                 [(ngModel)]="row[column.key]"
                 (ngModelChange)="onModelChange(row, column)"
                 [disabled]="column.disabled"
-                (thyChange)="onSwitchChange($event, row, column)"
-              ></thy-switch>
+                (thyChange)="onSwitchChange($event, row, column)"></thy-switch>
             </ng-container>
           </ng-container>
         </td>
@@ -265,12 +247,19 @@
         [thySize]="emptyOptions.size"
         [thyMarginTop]="emptyOptions.marginTop"
         [thyTopAuto]="emptyOptions.topAuto"
-        [thyContainer]="emptyOptions.container"
-      ></thy-empty>
+        [thyContainer]="emptyOptions.container"></thy-empty>
     </ng-template>
   </div>
 
-  <thy-loading [thyDone]="loadingDone" [thyTip]="loadingText"></thy-loading>
+  <thy-table-skeleton
+    *ngIf="!loadingDone"
+    [thyRowCount]="5"
+    [thyHeadless]="true"
+    [thyTheme]="theme"
+    [thySize]="size"
+    [thyMinWidth]="thyMinWidth"
+    [thyColumns]="skeletonColumns">
+  </thy-table-skeleton>
 
   <div class="thy-table-footer" *ngIf="pagination.total > pagination.size" [class.thy-table-footer-has-padding]="theme === 'default'">
     <thy-pagination
@@ -282,8 +271,7 @@
       [thyShowTotal]="showTotal"
       (thyPageChanged)="onPageChange($event)"
       (thyPageIndexChange)="onPageIndexChange($event)"
-      (thyPageSizeChanged)="onPageSizeChange($event)"
-    ></thy-pagination>
+      (thyPageSizeChanged)="onPageSizeChange($event)"></thy-pagination>
   </div>
 </div>
 

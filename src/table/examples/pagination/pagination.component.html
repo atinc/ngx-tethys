@@ -9,16 +9,16 @@
   [thyShowTotal]="true"
   [thyShowSizeChanger]="true"
   [thyLoadingDone]="loadingDone"
+  [thyColumnSkeletonTypes]="skeletonTypes"
   (thyOnPageChange)="onPageChange($event)"
-  (thyOnPageSizeChange)="onPageSizeChange($event)"
->
-  <thy-table-column thyTitle="#" thyType="index"> </thy-table-column>
-  <thy-table-column thyTitle="Id" thyModelKey="id"></thy-table-column>
-  <thy-table-column thyTitle="Name" thyModelKey="name"></thy-table-column>
-  <thy-table-column thyTitle="Age" thyModelKey="age"></thy-table-column>
-  <thy-table-column thyTitle="Job" thyModelKey="job"> </thy-table-column>
-  <thy-table-column thyTitle="Address" thyModelKey="address"></thy-table-column>
-  <thy-table-column thyTitle="" thyClassName="thy-operation-links">
+  (thyOnPageSizeChange)="onPageSizeChange($event)">
+  <thy-table-column thyTitle="#" thyType="index" thyWidth="80"> </thy-table-column>
+  <thy-table-column thyTitle="Id" thyModelKey="id" thyWidth="80"></thy-table-column>
+  <thy-table-column thyTitle="Name" thyModelKey="name" thyWidth="150"></thy-table-column>
+  <thy-table-column thyTitle="Age" thyModelKey="age" thyWidth="100"></thy-table-column>
+  <thy-table-column thyTitle="Job" thyModelKey="job" thyWidth="150"> </thy-table-column>
+  <thy-table-column thyTitle="Address" thyModelKey="address" thyWidth="auto"></thy-table-column>
+  <thy-table-column thyTitle="" thyClassName="thy-operation-links" thyWidth="150">
     <ng-template #cell let-row>
       <a class="link-secondary" href="javascript:;">
         <thy-icon thyIconName="user-add"></thy-icon>
