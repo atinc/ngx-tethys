@@ -3,7 +3,6 @@ category: display
 title: Property
 subtitle: 属性
 description: 属性列表
-label: new
 ---
 
 <alert>属性列表展示组件。</alert>

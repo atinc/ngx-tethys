@@ -2,7 +2,6 @@
 category: display
 title: Image
 subtitle: 图片
-label: new
 ---
 
 <alert>可预览的图片。</alert>

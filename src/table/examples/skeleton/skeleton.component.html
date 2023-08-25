@@ -1,1 +1,17 @@
-<thy-table-skeleton [thyRowCount]="5"> </thy-table-skeleton>
+<span>默认：</span>
+<div class="mt-2">
+  <thy-radio-group [(ngModel)]="theme">
+    <label thyRadio thyLabelText="Default" thyInline thyValue="default"></label>
+    <label thyRadio thyLabelText="Bordered" thyInline thyValue="bordered"></label>
+    <label thyRadio thyLabelText="Boxed" thyInline thyValue="boxed"></label>
+  </thy-radio-group>
+</div>
+<thy-button-group thySize="sm" thyType="outline-default" class="mb-2">
+  <button thyButton *ngFor="let item of sizes" (click)="size = item.value" [ngClass]="{ active: item.value === size }">
+    {{ item.value }}({{ item.height }})
+  </button>
+</thy-button-group>
+<thy-table-skeleton [thyRowCount]="5" [thyTheme]="theme" [thySize]="size"> </thy-table-skeleton>
+
+<span class="d-inline-block mt-8">支持配置骨架列的宽度和类型：</span>
+<thy-table-skeleton [thyRowCount]="5" [thyColumns]="columns"> </thy-table-skeleton>

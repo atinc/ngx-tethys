@@ -2,7 +2,6 @@
 category: general
 title: Styles
 subtitle: 样式
-label: new
 ---
 
 <alert>工具类样式。</alert>

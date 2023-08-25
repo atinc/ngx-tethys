@@ -1,7 +1,6 @@
 ---
 title: Hotkey
 subtitle: 热键
-label: new
 ---
 
 <alert>键盘热键。</alert>
