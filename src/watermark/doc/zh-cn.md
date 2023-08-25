@@ -3,7 +3,6 @@ category: other
 title: Watermark
 subtitle: 水印
 order: 10
-label: new
 ---
 <div class="dg-alert dg-alert-info"> 用于水印生成、实时预览。</div>
 

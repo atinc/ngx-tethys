@@ -3,10 +3,9 @@ category: form
 title: ColorPicker
 subtitle: 颜色选择器
 order: 2
-label: new
 ---
 
-
+<alert>颜色选择器。</alert>
 ## 何时使用
 当需要使用颜色选择的场景使用。
 

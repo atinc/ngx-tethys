@@ -2,7 +2,6 @@
 category: display
 title: Comment
 subtitle: 评论
-label: New
 ---
 <alert>用于单条评论的展示。</alert>
 
