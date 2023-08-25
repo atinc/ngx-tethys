@@ -33,7 +33,7 @@ export interface InputNameRemovalUpgradeData {
 }
 
 export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
@@ -47,12 +47,6 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                     remove: 'thyBackgroundOpacity',
                     limitedTo: {
                         attributes: ['thyLabel', '[thyLabel]']
-                    }
-                },
-                {
-                    remove: 'thyStopPropagation',
-                    limitedTo: {
-                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
                     }
                 },
                 {
@@ -71,12 +65,6 @@ export const inputNamesRemoval: VersionChanges<InputNameRemovalUpgradeData> = {
                     remove: 'thyTheme',
                     limitedTo: {
                         elements: ['thy-action-menu']
-                    }
-                },
-                {
-                    remove: 'thyWidth',
-                    limitedTo: {
-                        attributes: ['thyActionMenuToggle', '[thyActionMenuToggle]']
                     }
                 }
             ]

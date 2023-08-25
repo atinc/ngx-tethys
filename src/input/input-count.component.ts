@@ -17,7 +17,7 @@ const _Base = mixinUnsubscribe(MixinBase);
     template: '{{inputLength}} / {{maxLength}}',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
-        class: 'text-muted'
+        class: 'thy-input-count text-muted'
     },
     standalone: true
 })

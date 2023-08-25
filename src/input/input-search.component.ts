@@ -7,7 +7,8 @@ import {
     mixinTabIndex,
     ThyCanDisable,
     ThyHasTabIndex,
-    ThyInitialized
+    ThyInitialized,
+    useHostFocusControl
 } from 'ngx-tethys/core';
 
 import { NgIf } from '@angular/common';
@@ -19,6 +20,7 @@ import {
     EventEmitter,
     forwardRef,
     Input,
+    OnDestroy,
     OnInit,
     Output,
     ViewChild,
@@ -30,7 +32,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
 import { ThyInputDirective, ThyInputSize } from './input.directive';
 
-import { elementMatchClosest } from 'ngx-tethys/util';
+import { FocusOrigin } from '@angular/cdk/a11y';
 
 export type ThyInputSearchTheme = 'default' | 'ellipse' | 'transparent' | '';
 export type ThyInputSearchIconPosition = 'before' | 'after';
@@ -65,17 +67,17 @@ const _MixinBase: Constructor<ThyHasTabIndex> &
         '[class.thy-input-search-transparent]': 'thyTheme === "transparent"',
         '[class.thy-input-search-before-with-clear]': 'searchText && iconPosition === "before"',
         '[class.form-control-active]': 'focused',
-        '[attr.tabindex]': 'tabIndex',
-        '(focus)': 'onFocus($event)',
-        '(blur)': 'onBlur($event)'
+        '[attr.tabindex]': 'tabIndex'
     },
     standalone: true,
     imports: [NgIf, ThyIconComponent, ThyInputDirective, ThyAutofocusDirective, FormsModule]
 })
-export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit {
+export class ThyInputSearchComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private hostRenderer = useHostRenderer();
+
+    private hostFocusControl = useHostFocusControl();
 
     public disabled = false;
 
@@ -147,6 +149,24 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
     ngOnInit(): void {
         super.ngOnInit();
         this.updateClasses(true);
+
+        this.hostFocusControl.focusChanged = (origin: FocusOrigin) => {
+            if (this.disabled) {
+                return;
+            }
+
+            if (origin) {
+                if (!this.focused) {
+                    this.inputElement.nativeElement.focus();
+                }
+            } else {
+                if (this.focused) {
+                    this.focused = false;
+                    this.onTouchedFn();
+                }
+            }
+            this.cdr.markForCheck();
+        };
     }
 
     updateClasses(forceUpdate = false) {
@@ -181,16 +201,7 @@ export class ThyInputSearchComponent extends _MixinBase implements ControlValueA
         this.thyClear.emit(event);
     }
 
-    onBlur(event?: FocusEvent) {
-        this.focused = false;
-        // Tab 聚焦后自动聚焦到 input 输入框，此分支下直接返回，无需触发 onTouchedFn
-        if (elementMatchClosest(event?.relatedTarget as HTMLElement, 'thy-input-search')) {
-            return;
-        }
-        this.onTouchedFn();
-    }
-
-    onFocus(event?: Event) {
-        this.inputElement.nativeElement.focus();
+    ngOnDestroy(): void {
+        this.hostFocusControl.destroy();
     }
 }

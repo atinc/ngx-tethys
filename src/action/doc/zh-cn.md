@@ -2,7 +2,6 @@
 category: general
 title: Action
 subtitle: 操作
-label: new
 ---
 
 <alert>另一个即时操作。</alert>

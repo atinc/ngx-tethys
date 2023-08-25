@@ -30,7 +30,7 @@ import { ThyTableModule } from '../table.module';
             [thyRowClassName]="tableRowClassName"
             [thyLoadingDone]="isLoadingDone"
             [thyLoadingText]="loadingText"
-            [thyShowHeader]="isShowHeader"
+            [thyHeadless]="headless"
             (thyOnRowClick)="onRowClick($event)"
             (thyOnMultiSelectChange)="onMultiSelectChange($event)"
             (thyOnRadioSelectChange)="onRadioSelectChange($event)"
@@ -146,6 +146,7 @@ class ThyDemoDefaultTableComponent {
         sizeOptions: [3, 5, 10]
     };
     isShowHeader = true;
+    headless = false;
     isDraggable = false;
     isRowSelect = false;
     tableClassName = 'class-name';
@@ -407,12 +408,11 @@ describe('ThyTable: basic', () => {
         expect(defaultEmptyComponent).toBeTruthy();
     });
 
-    it('should have thy-loading component when isLoadingDone is false', () => {
+    it('should have thy-table-skeleton component when isLoadingDone is false', () => {
         testComponent.isLoadingDone = false;
         fixture.detectChanges();
-        const loadingComponent = tableComponent.nativeElement.querySelector('thy-loading');
-        const loadingText = loadingComponent.querySelector('span');
-        expect(loadingText.innerText).toEqual(testComponent.loadingText);
+        const skeletonElement = tableComponent.nativeElement.querySelector('thy-table-skeleton');
+        expect(skeletonElement).toBeTruthy();
     });
 
     it('should not have thy-pagination component when size is bigger than total', () => {
@@ -463,17 +463,14 @@ describe('ThyTable: basic', () => {
         expect(paginationComponent).toBeTruthy();
     });
 
-    it('have <thead> when set thyShowHeader true', () => {
+    it('should show <thead> when thyHeadless is false, and hidden <thead> when thyHeadless is true', () => {
+        testComponent.headless = false;
         fixture.detectChanges();
-        const thead = table.querySelector('thead');
-        expect(thead).toBeTruthy();
-    });
+        expect(table.querySelector('thead')).toBeTruthy();
 
-    it('do not have <thead> when set thyShowHeader false', () => {
-        testComponent.isShowHeader = false;
+        testComponent.headless = true;
         fixture.detectChanges();
-        const thead = table.querySelector('thead');
-        expect(thead).toBeNull();
+        expect(table.querySelector('thead')).toBeFalsy();
     });
 
     it('should has correct class and when mode is group', () => {

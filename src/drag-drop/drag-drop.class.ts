@@ -5,7 +5,7 @@ export enum ThyDropPosition {
 }
 
 export interface ThyDragStartEvent<T = any> {
-    event?: DragEvent;
+    event?: Event;
     item?: T;
     containerItems?: T[];
     currentIndex: number;

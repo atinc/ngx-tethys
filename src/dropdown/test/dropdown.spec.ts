@@ -93,6 +93,8 @@ describe('basic dropdown', () => {
         expect(overlayPaneElement).toBeTruthy();
         expect(overlayPaneElement.style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
+        tick(100);
+        fixture.detectChanges();
         const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
         expect(dropdownMenuElement).toBeTruthy();
         expect(dropdownMenuElement.textContent).toContain('Menu Item1');
@@ -435,6 +437,8 @@ describe('dropdown menu', () => {
     it('should create menu', fakeAsync(() => {
         dropdown.show();
         tick();
+        fixture.detectChanges();
+
         const dropdownMenuElement = getDropdownMenu();
         tick();
         expect(dropdownMenuElement).toBeTruthy();
@@ -466,7 +470,9 @@ describe('dropdown menu', () => {
     it('should create menu group', fakeAsync(() => {
         dropdown.show();
         tick();
+        fixture.detectChanges();
         const dropdownMenuElement = getDropdownMenu();
+        tick();
         const groupElement = dropdownMenuElement.querySelector('thy-dropdown-menu-group');
         expect(groupElement).toBeTruthy();
         expect(groupElement.classList.contains('dropdown-menu-group')).toBeTruthy();
@@ -622,6 +628,8 @@ describe('dropdown submenu', () => {
         dropdown.show();
         tick();
         const dropdownMenu = getDropdownMenu();
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-left');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
@@ -641,6 +649,8 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.top = '2000px';
         dropdownMenu.style.right = '20px';
         dropdownMenu.style.height = '200px';
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-left');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
@@ -661,6 +671,8 @@ describe('dropdown submenu', () => {
         dropdown.show();
         tick();
         const dropdownMenu = getDropdownMenu();
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-right');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
@@ -681,7 +693,8 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.left = '0px';
         dropdownMenu.style.width = '100px';
         dropdownMenu.style.height = '200px';
-
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-right');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
@@ -702,13 +715,15 @@ describe('dropdown submenu', () => {
         fixture.detectChanges();
         dropdown.show();
         tick();
-        fixture.detectChanges();
-        flush();
         const dropdownMenu = getDropdownMenu();
         dropdownMenu.style.position = 'absolute';
         dropdownMenu.style.top = '10px';
         dropdownMenu.style.left = '0px';
         dropdownMenu.style.width = '100px';
+        dropdownMenu.style.right = '1000px';
+
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
@@ -717,6 +732,7 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+        fixture.detectChanges();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-right')).toBeTruthy();
         dropdown.hide();
@@ -733,7 +749,8 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.top = '200px';
         dropdownMenu.style.right = '20px';
         dropdownMenu.style.left = '800px';
-
+        tick(100);
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
@@ -759,7 +776,8 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.right = '20px';
         dropdownMenu.style.left = '800px';
         dropdownMenu.style.height = '200px';
-
+        tick();
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
@@ -785,6 +803,11 @@ describe('dropdown submenu', () => {
         dropdownMenu.style.left = '0px';
         dropdownMenu.style.width = '100px';
         dropdownMenu.style.height = '200px';
+        dropdownMenu.style.right = '1000px';
+        dropdownMenu.style.bottom = '1000px';
+
+        tick(150);
+        fixture.detectChanges();
         const submenu = dropdownMenu.querySelector('#submenu-auto');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
 
@@ -793,6 +816,7 @@ describe('dropdown submenu', () => {
 
         dispatchMouseEvent(submenu.parentElement, 'mouseenter');
         tick(200);
+        fixture.detectChanges();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-auto')).toBeFalsy();
         expect(submenu.parentElement.classList.contains('dropdown-submenu-rightBottom')).toBeTruthy();
         dropdown.hide();

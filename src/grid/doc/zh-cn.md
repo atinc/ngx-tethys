@@ -2,7 +2,6 @@
 category: layout
 title: Grid
 subtitle: 栅格
-label: new
 ---
 
 <alert>基于 CSS Grid 实现的响应式栅格布局组件。</alert>

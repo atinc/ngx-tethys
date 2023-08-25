@@ -40,6 +40,8 @@ export interface ThyMessageBaseConfig {
     duration?: number;
 
     content?: string | ComponentTypeOrTemplateRef<any>;
+
+    hostClass?: string | string[];
 }
 
 export interface ThyMessageConfig extends ThyMessageBaseConfig {

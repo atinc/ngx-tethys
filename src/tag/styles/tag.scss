@@ -1,8 +1,8 @@
-@use "../../styles/variables.scss";
-@use "../../styles/mixins/link.scss";
-@use "./mixin";
-@use "sass:map";
-@use "sass:list";
+@use '../../styles/variables.scss';
+@use '../../styles/mixins/link.scss';
+@use './mixin';
+@use 'sass:map';
+@use 'sass:list';
 
 .#{variables.$thy-prefix}-tags {
     display: flex;
@@ -33,7 +33,7 @@
     }
 
     &.thy-tag-pill {
-        border-radius: variables.$label-pill-radius;
+        border-radius: 18px;
     }
 
     /**** size ****/

@@ -1,17 +1,23 @@
-<cdk-virtual-scroll-viewport #viewport *ngIf="thyVirtualScroll" [itemSize]="thyItemSize" [style.height]="'100%'">
-  <div
-    class="virtual-trees-container"
-    [thyDropContainer]="flattenTreeNodes"
-    [thyDropContainerDisabled]="!thyDraggable"
-    [thyBeforeDragStart]="thyBeforeDragStart"
-    [thyBeforeDragOver]="beforeDragOver"
-    [thyBeforeDragDrop]="beforeDragDrop"
-    (thyDragStarted)="onDragStart($event)"
-    (thyDragDropped)="onDragDrop($event)"
+<cdk-virtual-scroll-viewport
+  #viewport
+  *ngIf="thyVirtualScroll"
+  [itemSize]="thyItemSize"
+  [style.height]="'100%'"
+  cdkDropList
+  [cdkDropListAutoScrollStep]="6"
+  [cdkDropListData]="flattenTreeNodes"
+  [cdkDropListSortingDisabled]="true"
+  (cdkDropListDropped)="onListDropped($event)"
   >
+  <div class="virtual-trees-container">
     <thy-tree-node
       *cdkVirtualFor="let node of flattenTreeNodes; trackBy: trackByFn; let i = index"
-      [thyDrag]="node"
+      cdkDrag
+      [cdkDragData]="node"
+      [cdkDragDisabled]="!thyDraggable || !(node | treeNodeDraggable : thyBeforeDragStart)"
+      (cdkDragStarted)="onDragStarted($event)"
+      (cdkDragEnded)="onDragEnded($event)"
+      (cdkDragMoved)="emitDragMoved($event)"
       [node]="node"
       [templateRef]="templateRef"
       [emptyChildrenTemplateRef]="emptyChildrenTemplate"
@@ -26,25 +32,26 @@
       (thyOnClick)="thyOnClick.emit($event)"
       (thyDblClick)="thyDblClick.emit($event)"
       (thyOnExpandChange)="eventTriggerChanged($event)"
-      (thyOnCheckboxChange)="eventTriggerChanged($event)"
-    >
+      (thyOnCheckboxChange)="eventTriggerChanged($event)">
     </thy-tree-node>
   </div>
 </cdk-virtual-scroll-viewport>
 
 <div
   *ngIf="!thyVirtualScroll"
-  [thyDropContainer]="flattenTreeNodes"
-  [thyDropContainerDisabled]="!thyDraggable"
-  [thyBeforeDragStart]="thyBeforeDragStart"
-  [thyBeforeDragOver]="beforeDragOver"
-  [thyBeforeDragDrop]="beforeDragDrop"
-  (thyDragStarted)="onDragStart($event)"
-  (thyDragDropped)="onDragDrop($event)"
->
+  cdkDropList
+  [cdkDropListAutoScrollStep]="6"
+  [cdkDropListData]="flattenTreeNodes"
+  [cdkDropListSortingDisabled]="true"
+  (cdkDropListDropped)="onListDropped($event)">
   <thy-tree-node
     *ngFor="let node of flattenTreeNodes; trackBy: trackByFn; let i = index"
-    [thyDrag]="node"
+    cdkDrag
+    [cdkDragData]="node"
+    [cdkDragDisabled]="!thyDraggable || !(node | treeNodeDraggable : thyBeforeDragStart)"
+    (cdkDragStarted)="onDragStarted($event)"
+    (cdkDragEnded)="onDragEnded($event)"
+    (cdkDragMoved)="emitDragMoved($event)"
     [node]="node"
     [templateRef]="templateRef"
     [emptyChildrenTemplateRef]="emptyChildrenTemplate"
@@ -59,7 +66,6 @@
     (thyOnClick)="thyOnClick.emit($event)"
     (thyDblClick)="thyDblClick.emit($event)"
     (thyOnExpandChange)="eventTriggerChanged($event)"
-    (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)"
-  >
+    (thyOnCheckboxChange)="thyOnCheckboxChange.emit($event)">
   </thy-tree-node>
 </div>

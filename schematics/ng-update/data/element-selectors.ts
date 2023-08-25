@@ -1,7 +1,7 @@
 import { ElementSelectorUpgradeData, TargetVersion, VersionChanges } from '@angular/cdk/schematics';
 
 export const elementSelectors: VersionChanges<ElementSelectorUpgradeData> = {
-    [TargetVersion.V15]: [
+    [TargetVersion.V16]: [
         {
             pr: '',
             changes: [
@@ -20,6 +20,10 @@ export const elementSelectors: VersionChanges<ElementSelectorUpgradeData> = {
                 {
                     replace: 'thy-action-menu-group',
                     replaceWith: 'thy-dropdown-menu-group'
+                },
+                {
+                    replace: 'thy-action-menu-divider',
+                    replaceWith: 'thy-divider'
                 }
             ]
         }

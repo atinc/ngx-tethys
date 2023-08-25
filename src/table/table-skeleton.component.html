@@ -1,79 +1,87 @@
-<table>
-  <thead>
-    <tr>
-      <th [width]="i === 0 ? '40%' : i === 1 ? '20%' : 'auto'" *ngFor="let key of columnCount; index as i">
-        <thy-skeleton-rectangle
-          [thyRowWidth]="titleWidth"
-          [thyRowHeight]="titleHeight"
-          [thyBorderRadius]="thyBorderRadius"
-          [thyAnimated]="thyAnimated"
-          [thyAnimatedInterval]="thyAnimatedInterval"
-          [thyPrimaryColor]="thyPrimaryColor"
-          [thySecondaryColor]="thySecondaryColor"
-        ></thy-skeleton-rectangle>
-      </th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-template ngFor let-item [ngForOf]="rowCount" let-i="index + 1">
+<table [ngClass]="tableClassMap" [style.min-width]="thyMinWidth">
+  <colgroup>
+    <col *ngFor="let column of columns; trackBy: trackByFn" [width]="column.width" />
+  </colgroup>
+  <ng-container *ngIf="!thyHeadless">
+    <thead>
       <tr>
-        <td>
-          <div class="d-flex" style="align-items:center">
-            <thy-skeleton-rectangle
-              class="mr-2"
-              [thyRowWidth]="checkBoxWidth"
-              [thyRowHeight]="thyRowHeight"
-              [thyBorderRadius]="thyBorderRadius"
-              [thyAnimated]="thyAnimated"
-              [thyAnimatedInterval]="thyAnimatedInterval"
-              [thyPrimaryColor]="thyPrimaryColor"
-              [thySecondaryColor]="thySecondaryColor"
-            ></thy-skeleton-rectangle>
-            <thy-skeleton-rectangle
-              [thyRowWidth]="i % 3 === 1 ? '70%' : i % 3 === 2 ? '85%' : '60%'"
-              [thyRowHeight]="thyRowHeight"
-              [thyBorderRadius]="thyBorderRadius"
-              [thyAnimated]="thyAnimated"
-              [thyAnimatedInterval]="thyAnimatedInterval"
-              [thyPrimaryColor]="thyPrimaryColor"
-              [thySecondaryColor]="thySecondaryColor"
-            ></thy-skeleton-rectangle>
-          </div>
-        </td>
-        <td>
-          <div class="d-flex" style="align-items:center">
-            <thy-skeleton-circle
-              class="mr-2"
-              [thySize]="avatarSize"
-              [thyAnimated]="thyAnimated"
-              [thyAnimatedInterval]="thyAnimatedInterval"
-              [thyPrimaryColor]="thyPrimaryColor"
-              [thySecondaryColor]="thySecondaryColor"
-            ></thy-skeleton-circle>
-
-            <thy-skeleton-rectangle
-              [thyRowWidth]="i % 3 === 1 ? '50%' : i % 3 === 2 ? '60%' : '40%'"
-              [thyRowHeight]="thyRowHeight"
-              [thyBorderRadius]="thyBorderRadius"
-              [thyAnimated]="thyAnimated"
-              [thyAnimatedInterval]="thyAnimatedInterval"
-              [thyPrimaryColor]="thyPrimaryColor"
-              [thySecondaryColor]="thySecondaryColor"
-            ></thy-skeleton-rectangle>
-          </div>
-        </td>
-        <td *ngFor="let item of columnCount.slice(2)">
+        <th *ngFor="let column of columns; trackBy: trackByFn">
           <thy-skeleton-rectangle
-            [thyRowWidth]="'70%'"
-            [thyRowHeight]="thyRowHeight"
+            [thyRowWidth]="titleWidth"
+            [thyRowHeight]="titleHeight"
             [thyBorderRadius]="thyBorderRadius"
             [thyAnimated]="thyAnimated"
             [thyAnimatedInterval]="thyAnimatedInterval"
-            [thyPrimaryColor]="thyPrimaryColor"
-            [thySecondaryColor]="thySecondaryColor"
-          ></thy-skeleton-rectangle>
-        </td>
+            [thyPrimaryColor]="thyTheme === 'bordered' || thyTheme === 'boxed' ? '#eee' : thyPrimaryColor"
+            [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
+        </th>
       </tr>
-    </ng-template>
+    </thead>
+  </ng-container>
+  <tbody>
+    <ng-container *ngFor="let item of rowCount; let i = index">
+      <tr>
+        <ng-container *ngFor="let column of columns; trackBy: trackByFn">
+          <td>
+            <ng-container
+              *thyViewOutlet="
+                column.type === columnType.title
+                  ? titleTemplate
+                  : column.type === columnType.member
+                  ? memberTemplate
+                  : defaultTemplate;
+                  context:{
+                    trIndex: i,
+                  }
+              "></ng-container>
+          </td>
+        </ng-container>
+      </tr>
+    </ng-container>
   </tbody>
 </table>
+
+<ng-template #titleTemplate let-trIndex="trIndex">
+  <div class="d-flex align-items-center">
+    <thy-skeleton-rectangle
+      class="mr-2 flex-shrink-0"
+      [thyRowWidth]="checkBoxWidth"
+      [thyRowHeight]="thyRowHeight"
+      [thyBorderRadius]="thyBorderRadius"
+      [thyAnimated]="thyAnimated"
+      [thyAnimatedInterval]="thyAnimatedInterval"
+      [thyPrimaryColor]="thyPrimaryColor"
+      [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
+
+    <ng-container
+      *thyViewOutlet="defaultTemplate;
+      context:{
+        rowWidth: trIndex % 3 === 0 ? '75%' : trIndex % 3 === 1 ? '100%' : trIndex % 3 === 2 ? '65%' : '',
+      }"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #memberTemplate>
+  <div class="d-flex align-items-center">
+    <thy-skeleton-circle
+      class="mr-2 flex-shrink-0"
+      [thySize]="avatarSize"
+      [thyAnimated]="thyAnimated"
+      [thyAnimatedInterval]="thyAnimatedInterval"
+      [thyPrimaryColor]="thyPrimaryColor"
+      [thySecondaryColor]="thySecondaryColor"></thy-skeleton-circle>
+
+    <ng-container *thyViewOutlet="defaultTemplate"></ng-container>
+  </div>
+</ng-template>
+
+<ng-template #defaultTemplate let-rowWidth="rowWidth">
+  <thy-skeleton-rectangle
+    [thyRowWidth]="rowWidth"
+    [thyRowHeight]="thyRowHeight"
+    [thyBorderRadius]="thyBorderRadius"
+    [thyAnimated]="thyAnimated"
+    [thyAnimatedInterval]="thyAnimatedInterval"
+    [thyPrimaryColor]="thyPrimaryColor"
+    [thySecondaryColor]="thySecondaryColor"></thy-skeleton-rectangle>
+</ng-template>

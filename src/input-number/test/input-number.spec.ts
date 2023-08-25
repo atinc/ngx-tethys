@@ -1,4 +1,4 @@
-import { createFakeEvent, dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 import { keycodes } from 'ngx-tethys/util';
 
 import { CommonModule } from '@angular/common';
@@ -116,6 +116,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputNumberDebugElement.nativeElement.classList.contains('thy-input-number')).toBe(true);
     });
+
     it('should ngModel work', fakeAsync(() => {
         inputNumberComponentInstance.modelValue = 5;
         fixture.detectChanges();
@@ -136,6 +137,7 @@ describe('input-number component', () => {
         fixture.detectChanges();
         expect(inputNumberComponentInstance.modelValue).toBe('');
     });
+
     it('should NaN value work', fakeAsync(() => {
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('aa');
@@ -231,7 +233,7 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.modelValue).toBe(4);
     }));
 
-    it('should thydisabled work', fakeAsync(() => {
+    it('should thyDisabled work', fakeAsync(() => {
         fixture.detectChanges();
         inputNumberComponentInstance.thyDisabled = true;
         fixture.detectChanges();
@@ -395,11 +397,9 @@ describe('input-number component', () => {
 
     it('should focus method work when focus input-number', fakeAsync(() => {
         fixture.detectChanges();
-        const onFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
         const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onInputFocus').and.callThrough();
         const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
         dispatchFakeEvent(trigger, 'focus');
-        expect(onFocusSpy).toHaveBeenCalled();
 
         dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
         expect(onInputFocusSpy).toHaveBeenCalled();
@@ -457,12 +457,9 @@ describe('input-number component', () => {
             'focus'
         ).and.callThrough();
 
-        const inputNumberAutoFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onFocus').and.callThrough();
-
         const inputNumberTrigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
         dispatchFakeEvent(inputNumberTrigger, 'focus');
         fixture.detectChanges();
-        expect(inputNumberAutoFocusSpy).toHaveBeenCalled();
         // auto focus input
         expect(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement === document.activeElement).toBeTruthy();
         expect(inputAutoFocusSpy).toHaveBeenCalled();

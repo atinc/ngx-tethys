@@ -2,7 +2,6 @@
 category: other
 title: Directive
 subtitle: 指令
-label: new
 ---
 <div class="dg-alert dg-alert-info">通用的指令。</div>
 

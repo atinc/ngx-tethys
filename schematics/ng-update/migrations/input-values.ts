@@ -56,10 +56,20 @@ export class InputValuesMigration extends Migration<TethysUpgradeData> {
 
     private _replaceInput(filePath: WorkspacePath, start: number, width: number, newValue: Record<string, string>) {
         if (Object.keys(newValue).length) {
+            let lastWidth = 0;
             for (const inputName of Object.keys(newValue)) {
-                newValue[inputName]
-                    ? this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName}="${newValue[inputName]}" `)
-                    : this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName} `);
+                if (lastWidth) {
+                    // 替换的非第一个属性，之前的属性已经在替换第一个的时候删除完了，直接插入新属性
+                    newValue[inputName]
+                        ? this.fileSystem.edit(filePath).insertRight(start + lastWidth, `${inputName}="${newValue[inputName]}" `)
+                        : this.fileSystem.edit(filePath).insertRight(start + lastWidth, `${inputName} `);
+                } else {
+                    // 替换的第一个属性，删除之前的属性，插入新属性
+                    newValue[inputName]
+                        ? this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName}="${newValue[inputName]}" `)
+                        : this.fileSystem.edit(filePath).remove(start, width).insertRight(start, `${inputName} `);
+                }
+                lastWidth = newValue[inputName] ? `${inputName}="${newValue[inputName]}"`.length : `${inputName}`.length;
             }
         } else {
             this.fileSystem.edit(filePath).remove(start, width);
