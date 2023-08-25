@@ -1,8 +1,8 @@
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/bootstrap/mixins/lists";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/bootstrap/mixins/lists';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-pagination {
     width: 100%;
@@ -167,7 +167,7 @@
         color: variables.$pagination-disabled-color;
         pointer-events: none;
         // Opinionated: remove the "hand" cursor set previously for .page-link
-        cursor: auto;
+        cursor: not-allowed;
         background-color: variables.$pagination-disabled-bg;
         border-color: variables.$pagination-disabled-border-color;
     }

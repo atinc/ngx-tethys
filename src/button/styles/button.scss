@@ -1,11 +1,11 @@
-@use "sass:meta";
-@use "../../styles/bootstrap/functions-variables";
-@use "../../styles/mixins/hover";
-@use "../../styles/bootstrap/mixins/transition";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/mixins/shadow";
-@use "../../styles/variables";
-@use "mixin";
+@use 'sass:meta';
+@use '../../styles/bootstrap/functions-variables';
+@use '../../styles/mixins/hover';
+@use '../../styles/bootstrap/mixins/transition';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/mixins/shadow';
+@use '../../styles/variables';
+@use 'mixin';
 
 // stylelint-disable selector-no-qualifying-type
 //
@@ -57,6 +57,7 @@
     // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
+        cursor: not-allowed;
         color: variables.$btn-disabled-color;
         background-color: variables.$btn-disabled-bg-color;
         border-color: variables.$btn-disabled-border-color; // opacity: $btn-disabled-opacity;

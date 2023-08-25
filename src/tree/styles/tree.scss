@@ -90,7 +90,7 @@
 
             &.expand.disabled {
                 .thy-tree-node-check:disabled {
-                    cursor: pointer;
+                    cursor: not-allowed;
                 }
             }
 
@@ -100,7 +100,7 @@
                 &.draggable {
                     .thy-tree-node-check:disabled,
                     & {
-                        cursor: default;
+                        cursor: not-allowed;
                     }
                 }
             }
@@ -215,7 +215,7 @@
             }
         }
 
-        &.cdk-drag-placeholder{
+        &.cdk-drag-placeholder {
             opacity: 0.4;
         }
 

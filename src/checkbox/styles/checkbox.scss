@@ -3,7 +3,7 @@
     &:disabled {
         .form-check-input,
         .form-check-label {
-            cursor: default;
+            cursor: not-allowed;
         }
     }
 }

@@ -1,12 +1,12 @@
-@use "sass:meta";
-@use "../../styles/bootstrap/mixins/border-radius";
-@use "../../styles/bootstrap/mixins/breakpoints";
-@use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/bootstrap/mixins/transition";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "../../styles/mixins/link";
-@use "mixin";
+@use 'sass:meta';
+@use '../../styles/bootstrap/mixins/border-radius';
+@use '../../styles/bootstrap/mixins/breakpoints';
+@use '../../styles/bootstrap/mixins/text-truncate';
+@use '../../styles/bootstrap/mixins/transition';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use '../../styles/mixins/link';
+@use 'mixin';
 
 // stylelint-disable selector-no-qualifying-type
 
@@ -63,6 +63,7 @@
     // don't honor that edge case; we style them as disabled anyway.
     &.disabled,
     &:disabled {
+        cursor: not-allowed;
         background-color: variables.$input-disabled-bg;
         color: variables.$input-disabled-color;
         // iOS fix for unreadable disabled content; see https://github.com/twbs/bootstrap/issues/11655.

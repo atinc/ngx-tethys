@@ -1,7 +1,7 @@
-@use "../../../select/custom-select/styles/mixin";
-@use "../../../styles/mixins/utilities";
-@use "../../../styles/variables";
-@use "../styles/select.mixin";
+@use '../../../select/custom-select/styles/mixin';
+@use '../../../styles/mixins/utilities';
+@use '../../../styles/variables';
+@use '../styles/select.mixin';
 
 .select-control {
     position: relative;
@@ -116,6 +116,7 @@
         color: variables.$gray-800;
         cursor: default;
         &.disabled {
+            cursor: not-allowed;
             color: variables.$gray-600;
         }
         .thy-icon-close {

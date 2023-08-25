@@ -16,7 +16,7 @@ $cascader-menu-min-width: 122px;
         cursor: pointer;
 
         &.disabled {
-            cursor: default;
+            cursor: not-allowed;
         }
     }
     &-menus {
@@ -82,7 +82,7 @@ $cascader-menu-min-width: 122px;
         }
         &-active:is(&-disabled) {
             background-color: variables.$gray-100;
-            cursor: default;
+            cursor: not-allowed;
 
             &:hover {
                 background-color: variables.$gray-100;
@@ -92,7 +92,7 @@ $cascader-menu-min-width: 122px;
             &,
             &:hover {
                 color: variables.$gray-400;
-                cursor: default;
+                cursor: not-allowed;
                 background-color: transparent;
             }
         }

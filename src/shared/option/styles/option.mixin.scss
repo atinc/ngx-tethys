@@ -1,4 +1,4 @@
-@use "../../../styles/variables";
+@use '../../../styles/variables';
 
 @mixin thy-option-text-icon-primary {
     &:not(.disabled) {
@@ -76,7 +76,7 @@
     // 禁用状态透明度改为 0.5
     &.disabled {
         background: none;
-        cursor: default; // not-allowed;
+        cursor: not-allowed;
         opacity: variables.$select-option-disabled-opacity;
     }
 }

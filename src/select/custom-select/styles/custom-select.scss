@@ -9,7 +9,7 @@
         cursor: pointer;
     }
     & .form-control-custom.disabled {
-        cursor: default;
+        cursor: not-allowed;
     }
     &:focus {
         .form-control-custom:not(.disabled) {

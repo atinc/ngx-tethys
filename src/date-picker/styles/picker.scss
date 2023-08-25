@@ -125,7 +125,7 @@
             cursor: pointer;
         }
         &.thy-input-disabled {
-            cursor: auto;
+            cursor: not-allowed;
         }
 
         &.thy-input {

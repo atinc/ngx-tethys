@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 @mixin activeColor {
     color: variables.$primary;
@@ -29,7 +29,7 @@
             cursor: pointer;
             @include activeColor();
             &.thy-date-range-disabled {
-                cursor: default;
+                cursor: not-allowed;
                 color: variables.$gray-800;
             }
             .thy-date-range-text-caret-down {

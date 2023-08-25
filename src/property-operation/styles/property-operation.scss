@@ -1,5 +1,5 @@
-@use "../../styles/mixins/hover";
-@use "../../styles/variables";
+@use '../../styles/mixins/hover';
+@use '../../styles/variables';
 
 .thy-property-operation {
     display: inline-flex;
@@ -12,7 +12,7 @@
     //     display: inline-flex;
     // }
     &.thy-property-operation-disabled {
-        cursor: default;
+        cursor: not-allowed;
         pointer-events: none;
     }
     &:not(.thy-property-operation-disabled) {
