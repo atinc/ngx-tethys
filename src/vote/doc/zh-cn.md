@@ -2,7 +2,6 @@
 category: display
 title: Vote
 subtitle: 投票
-label: New
 ---
 <div class="dg-alert dg-alert-info">用于点赞和收藏等的投票组件。</div>
 

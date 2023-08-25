@@ -2,7 +2,6 @@
 category: layout
 title: Space
 subtitle: 间距
-label: new
 ---
 
 <alert>设置间距。</alert>

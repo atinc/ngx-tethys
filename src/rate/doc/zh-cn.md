@@ -2,7 +2,6 @@
 category: form
 title: Rate
 subtitle: 评分
-label: new
 ---
 
 <alert>评分组件。</alert>

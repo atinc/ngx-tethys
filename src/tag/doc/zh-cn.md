@@ -2,7 +2,6 @@
 category: display
 title: Tag
 subtitle: 标签
-label: new
 ---
 
 <alert>进行标记和分类的标签组件。</alert>
