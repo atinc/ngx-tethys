@@ -1,4 +1,5 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { Component, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
@@ -8,7 +9,7 @@ import { ComponentTypeOrTemplateRef, ThyOverlayTrigger, ThyPlacement } from 'ngx
 import { THY_DROPDOWN_DEFAULT_WIDTH, ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyDropdownMenuItemType } from '../dropdown-menu-item.directive';
 import { ThyDropdownAbstractMenu, ThyDropdownMenuComponent } from '../dropdown-menu.component';
 
@@ -178,6 +179,105 @@ describe('basic dropdown', () => {
         dropdown.show();
         tick();
         assertOverlayShow();
+    }));
+});
+
+describe('for touch usage', () => {
+    let fixture: ComponentFixture<DropdownBasicTestComponent>;
+    let buttonElement: HTMLElement;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+
+    beforeEach(() => {
+        platform = { IOS: false, isBrowser: true, ANDROID: false };
+        TestBed.configureTestingModule({
+            imports: [ThyDropdownModule, ThyButtonModule, NoopAnimationsModule],
+            providers: [{ provide: Platform, useFactory: () => platform }],
+            declarations: [DropdownBasicTestComponent]
+        }).compileComponents();
+        platform.ANDROID = true;
+
+        fixture = TestBed.createComponent(DropdownBasicTestComponent);
+        fixture.detectChanges();
+    });
+
+    beforeEach(() => {
+        const btnDebugElement = fixture.debugElement.query(By.css('button'));
+        buttonElement = btnDebugElement.nativeElement;
+    });
+
+    beforeEach(inject([OverlayContainer], (_overlayContainer: OverlayContainer) => {
+        overlayContainer = _overlayContainer;
+        overlayContainerElement = _overlayContainer.getContainerElement();
+    }));
+
+    afterEach(() => {
+        overlayContainer.ngOnDestroy();
+    });
+
+    function assertOverlayHide() {
+        expect(overlayContainerElement.querySelector(`.thy-dropdown-pane`)).toBeFalsy();
+    }
+
+    function assertOverlayShow() {
+        expect(overlayContainerElement.querySelector(`.thy-dropdown-pane`)).toBeTruthy();
+    }
+
+    it('should open dropdown menu by tap', fakeAsync(() => {
+        assertOverlayHide();
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100);
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        assertOverlayShow();
+        flush();
+    }));
+
+    it('should open dropdown menu by long press', fakeAsync(() => {
+        assertOverlayHide();
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(600); // default long press time is 500
+        assertOverlayShow();
+        flush();
+    }));
+
+    it('should not prevent the default action on touchstart', () => {
+        const event = dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        expect(event.defaultPrevented).toBe(false);
+    });
+
+    it('should not close with auto close', fakeAsync(() => {
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100);
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        assertOverlayShow();
+        tick(2000);
+        assertOverlayShow();
+    }));
+
+    it('should close on touchmove', fakeAsync(() => {
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100);
+        assertOverlayHide();
+
+        dispatchTouchEvent(buttonElement, 'touchmove');
+        fixture.detectChanges();
+        tick(100); // touch moving
+        assertOverlayHide();
+
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        assertOverlayHide();
     }));
 });
 

@@ -1,16 +1,16 @@
-import { NgModule, Component, DebugElement, ViewChild, ElementRef } from '@angular/core';
-import { ThyTooltipModule } from '../tooltip.module';
-import { ComponentFixture, fakeAsync, TestBed, inject, tick, flushMicrotasks, async } from '@angular/core/testing';
-import { OverlayContainer } from '@angular/cdk/overlay';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, DebugElement, ElementRef, NgModule, ViewChild } from '@angular/core';
+import { ComponentFixture, TestBed, async, fakeAsync, flush, flushMicrotasks, inject, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ThyTooltipModule } from '../tooltip.module';
 
-import { ThyTooltipDirective } from '../tooltip.directive';
-import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { Platform } from '@angular/cdk/platform';
-import { ThyTooltipService } from '../tooltip.service';
+import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyTooltipRef } from '../tooltip-ref';
+import { ThyTooltipDirective } from '../tooltip.directive';
+import { ThyTooltipService } from '../tooltip.service';
 
 const initialTooltipMessage = 'hello, this is tooltip message';
 const TOOLTIP_CLASS = `thy-tooltip`;
@@ -40,9 +40,9 @@ class ThyDemoTooltipBasicComponent {
 
     disabled = false;
 
-    showDelay = undefined;
+    showDelay = 0;
 
-    hideDelay = undefined;
+    hideDelay = 0;
 
     placement = 'top';
 
@@ -138,18 +138,31 @@ describe(`ThyTooltip`, () => {
             buttonElement = buttonDebugElement.nativeElement;
             tooltipDirective = buttonDebugElement.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
         });
-        it('should show the tooltip', fakeAsync(() => {
+
+        it('should show the tooltip for tap', fakeAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
-            tick(500); // Finish the animation.
+            tick(100); // tap time
+            dispatchTouchEvent(buttonElement, 'touchend');
+            fixture.detectChanges();
+            tick(100);
             expect(getTooltipVisible()).toBe(true);
+            flush();
+        }));
+
+        it('should show the tooltip for long press', fakeAsync(() => {
+            assertTooltipInstance(tooltipDirective, false);
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(600); // default long press time is 500
+            expect(getTooltipVisible()).toBe(true);
+            flush();
         }));
 
         it('should not prevent the default action on touchstart', () => {
             const event = dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
-
             expect(event.defaultPrevented).toBe(false);
         });
 
@@ -170,6 +183,26 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             tick(500); // Finish the exit animation.
 
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+        }));
+
+        it('should close on touchmove', fakeAsync(() => {
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(100);
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+
+            dispatchTouchEvent(buttonElement, 'touchmove');
+            fixture.detectChanges();
+            tick(100); // touch moving
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+
+            dispatchTouchEvent(buttonElement, 'touchend');
+            fixture.detectChanges();
+            tick(100);
             assertTooltipInstance(tooltipDirective, false);
             expect(getTooltipVisible()).toBe(false);
         }));
