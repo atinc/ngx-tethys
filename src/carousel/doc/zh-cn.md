@@ -2,7 +2,6 @@
 category: display
 title: Carousel
 subtitle: 走马灯
-label: new
 ---
 
 <alert>一组轮播的区域。</alert>

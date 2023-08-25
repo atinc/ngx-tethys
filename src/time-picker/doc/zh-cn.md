@@ -2,8 +2,9 @@
 category: form
 title: TimePicker
 subtitle: 时间选择
-label: new
 ---
+
+<alert>时间选择。</alert>
 
 ## 何时使用
 

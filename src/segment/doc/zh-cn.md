@@ -2,7 +2,6 @@
 category: display
 title: Segment
 subtitle: 分段控制器
-label: new
 ---
 
 <alert>分段控制器组件。</alert>

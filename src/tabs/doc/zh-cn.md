@@ -3,7 +3,6 @@ category: nav
 title: Tabs
 subtitle: 选项卡
 name: tabs
-label: new
 ---
 
 <alert>选项卡切换组件。</alert>

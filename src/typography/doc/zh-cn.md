@@ -2,7 +2,6 @@
 category: general
 title: Typography
 subtitle: 排版
-label: new
 ---
 
 
