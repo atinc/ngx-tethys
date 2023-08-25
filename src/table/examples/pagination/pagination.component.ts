@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThyMultiSelectEvent, ThyTableRowEvent, ThyTableSize, ThyPageChangedEvent } from 'ngx-tethys/table';
+import { ThyTableRowEvent, ThyPageChangedEvent, ThyTableColumnSkeletonType } from 'ngx-tethys/table';
 import { of } from 'rxjs';
 import { delay, finalize } from 'rxjs/operators';
 
@@ -19,6 +19,12 @@ export class ThyTablePaginationExampleComponent implements OnInit {
 
     loadingDone = false;
 
+    skeletonTypes: ThyTableColumnSkeletonType[] = [
+        ThyTableColumnSkeletonType.default,
+        ThyTableColumnSkeletonType.default,
+        ThyTableColumnSkeletonType.member
+    ];
+
     private getRandomIndex(max: number) {
         return Math.floor(Math.random() * max);
     }
@@ -37,7 +43,7 @@ export class ThyTablePaginationExampleComponent implements OnInit {
                     const originalData = [
                         { id: 1, name: 'Peter', age: 25, job: 'Engineer', address: 'Beijing Dong Sheng Technology' },
                         { id: 2, name: 'James', age: 26, job: 'Designer', address: 'Xian Economic Development Zone' },
-                        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park, Shushan, Hefei, Anhui' },
+                        { id: 3, name: 'Tom', age: 30, job: 'Engineer', address: 'New Industrial Park' },
                         { id: 4, name: 'Elyse', age: 31, job: 'Engineer', address: 'Yichuan Ningxia' },
                         { id: 5, name: 'Jill', age: 22, job: 'DevOps', address: 'Hangzhou' }
                     ];
