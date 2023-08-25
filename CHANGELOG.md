@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.4](https://github.com/atinc/ngx-tethys/compare/16.0.3...16.0.4) (2023-08-25)
+
+
+### Features
+
+* **schematics:** add action-menu thyPlacement tips #INFR-9398 ([#2808](https://github.com/atinc/ngx-tethys/issues/2808)) ([7f45d88](https://github.com/atinc/ngx-tethys/commit/7f45d88298d0a22026f2e0aa49728012ffb89e32)), closes [#INFR-9398](https://github.com/atinc/ngx-tethys/issues/INFR-9398)
+
+
+
 ## [16.0.3](https://github.com/atinc/ngx-tethys/compare/16.0.1...16.0.3) (2023-08-25)
 
 
