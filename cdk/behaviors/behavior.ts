@@ -25,7 +25,7 @@ export function createBehaviorFromFunction<P extends any[], R, U extends Record<
     (fn as any)[BEHAVIOR] = true;
     Object.keys(extraApi).forEach(key => {
         const value = extraApi[key];
-        Object.assign(fn, { [key]: isFunction(value) ? value.bind(fn) : value });
+        Object.assign(fn, { [key]: value });
     });
     return fn as Behavior<P, R> & U;
 }
