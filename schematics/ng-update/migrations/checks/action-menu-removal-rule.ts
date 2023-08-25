@@ -3,7 +3,7 @@
  * found in the LICENSE file at https://github.com/NG-ZORRO/ng-zorro-antd/blob/master/LICENSE
  */
 
-import { findAllSubstringIndices, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
+import { findAllSubstringIndices, findInputsOnElementWithAttr, Migration, ResolvedResource, UpgradeData } from '@angular/cdk/schematics';
 import * as ts from 'typescript';
 import { findWholeInputsNameAndValueOnElementWithTag } from '../../core/html-parsing';
 
@@ -16,6 +16,14 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset.start),
                 message: `Remove deprecated thy-action-menu component with input "thyTheme". Please manually use "thy-dropdown-menu-group" to instead.`
+            });
+        });
+
+        findInputsOnElementWithAttr(template.content, 'thyPlacement', ['thyActionMenuToggle', '[thyActionMenuToggle]']).forEach(offset => {
+            this.failures.push({
+                filePath: template.filePath,
+                position: template.getCharacterAndLineOfPosition(offset),
+                message: `Found input "thyPlacement" in deprecated thyActionMenuToggle directive. Please manually use camelCase.`
             });
         });
     }
