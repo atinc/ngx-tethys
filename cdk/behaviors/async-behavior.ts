@@ -84,8 +84,8 @@ export function useAsync<A extends (...args: any) => Observable<any> = (...args:
     return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
-        execute: behavior.execute,
-        setLoadingState: behavior.setLoadingState,
+        execute: behavior.execute.bind(fn),
+        setLoadingState: behavior.setLoadingState.bind(fn),
         loadingDone: behavior.loadingDone,
         loading: behavior.loading,
         state: behavior.state,
