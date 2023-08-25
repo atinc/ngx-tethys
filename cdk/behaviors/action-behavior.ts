@@ -28,18 +28,18 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
         if (this.saving()) {
             return;
         }
-        this.saving.set(true)
+        this.saving.set(true);
         const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
         try {
             return this.action
                 .apply(undefined, this.executeParams)
                 .pipe(
                     finalize(() => {
-                        this.saving.set(false)
+                        this.saving.set(false);
                         this.executeParams = undefined;
                     }),
                     tap(value => {
-                        this.saving.set(false)
+                        this.saving.set(false);
                         this.executeParams = undefined;
                     }),
                     this.takeUntilDestroyed
@@ -47,12 +47,12 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
                 .subscribe({
                     next: callbacks?.success,
                     error: (error: Error) => {
-                        this.saving.set(false)
+                        this.saving.set(false);
                         handleBehaviorError(error, callbacks.error);
                     }
                 });
         } catch (error) {
-            this.saving.set(false)
+            this.saving.set(false);
             handleBehaviorError(error, callbacks.error);
         }
     }
