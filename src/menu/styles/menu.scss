@@ -1,6 +1,6 @@
-@use "../../styles/variables";
-@use "./theme.scss";
-@use "./collapsed.scss";
+@use '../../styles/variables';
+@use './theme.scss';
+@use './collapsed.scss';
 
 .thy-menu {
     position: relative;
@@ -65,7 +65,7 @@
             margin: 0 -1000px;
             padding: variables.$menu-group-header-padding;
             &.thy-menu-group-collapsible {
-                cursor: pointer;
+                cursor: variables.$hand-cursor;
             }
 
             &:hover {
@@ -135,7 +135,7 @@
     .thy-menu-item-content {
         display: flex;
         min-height: variables.$menu-height;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         overflow: hidden;
         align-items: center;
 

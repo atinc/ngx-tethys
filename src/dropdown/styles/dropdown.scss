@@ -1,6 +1,6 @@
-@use "../../styles/variables.scss";
-@use "../../styles/mixins/shadow.scss";
-@use "mixin";
+@use '../../styles/variables.scss';
+@use '../../styles/mixins/shadow.scss';
+@use 'mixin';
 
 .thy-dropdown-menu {
     padding: variables.$dropdown-menu-padding-y 0;
@@ -28,7 +28,7 @@
         padding: variables.$dropdown-menu-item-padding-y variables.$dropdown-menu-item-padding-x;
         position: relative;
         color: variables.$dropdown-menu-item-color;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         text-decoration: none;
         transition: background 200ms;
 
@@ -140,7 +140,7 @@
         &--disabled {
             opacity: 0.5;
             pointer-events: none;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
 
         @include mixin.dropdown-submenu-hover-display();

@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss";
+@use '../../styles/variables.scss';
 
 @mixin segment-size-variant($size, $height) {
     &-#{$size} &-item-label {
@@ -46,6 +46,6 @@
         .icon-with-text {
             color: variables.$segment-disabled-color;
         }
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
     }
 }

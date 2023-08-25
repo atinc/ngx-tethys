@@ -1,5 +1,5 @@
-@use "../mixins/close";
-@use "../variables";
+@use '../mixins/close';
+@use '../variables';
 
 .close {
     // float: right;
@@ -11,7 +11,7 @@
     @include close.set-close-link-variant(variables.$close-text-color, variables.$primary);
     // Opinionated: add "hand" cursor to non-disabled .close elements
     &:not(:disabled):not(.disabled) {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
     }
 }
 

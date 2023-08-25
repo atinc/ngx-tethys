@@ -13,10 +13,10 @@ $cascader-menu-min-width: 122px;
     }
 
     .form-control {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
 
         &.disabled {
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
     }
     &-menus {
@@ -65,7 +65,7 @@ $cascader-menu-min-width: 122px;
     &-menu-item {
         padding: 7px 16px;
         line-height: 22px;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         white-space: nowrap;
         transition: all 0.3s;
         color: variables.$gray-700;
@@ -82,7 +82,7 @@ $cascader-menu-min-width: 122px;
         }
         &-active:is(&-disabled) {
             background-color: variables.$gray-100;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
 
             &:hover {
                 background-color: variables.$gray-100;
@@ -92,7 +92,7 @@ $cascader-menu-min-width: 122px;
             &,
             &:hover {
                 color: variables.$gray-400;
-                cursor: not-allowed;
+                cursor: variables.$disabled-cursor;
                 background-color: transparent;
             }
         }

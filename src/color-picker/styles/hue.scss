@@ -1,9 +1,10 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
+
 .thy-hue {
     height: 8px;
     border-radius: 2px;
     display: block;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     padding: 0 3px;
     background: linear-gradient(
         to right,
@@ -35,7 +36,7 @@
         width: 8px;
         position: absolute;
         border-radius: 50%;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         transform: translateX(-4px);
         z-index: 2;
         border: 2px solid variables.$white;

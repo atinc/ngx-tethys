@@ -22,7 +22,7 @@
     margin-left: -(variables.$form-check-input-margin-l);
 
     &:disabled ~ .form-check-label {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         color: variables.$input-form-check-disable-color;
     }
 }
@@ -58,7 +58,7 @@ input[type='checkbox'] {
     width: variables.$input-form-check-size;
     height: variables.$input-form-check-size;
     border: solid 1px variables.$input-form-check-border-color;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     transition: border variables.$transition-duration-normal;
 
     box-sizing: border-box;
@@ -89,7 +89,7 @@ input[type='checkbox'] {
 
     &:disabled {
         background-color: rgba($color: #000000, $alpha: 0.03);
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
     }
 }
 
@@ -150,7 +150,7 @@ input.form-check-indeterminate[type='checkbox'] {
 //radio
 input[type='radio'] {
     border-radius: 100%;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     &::after {
         content: '';
         position: absolute;
@@ -183,7 +183,7 @@ input[type='radio'] {
 
 .form-check-label {
     margin-left: variables.$form-check-label-margin-l;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
     user-select: none;

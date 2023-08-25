@@ -116,11 +116,11 @@
         color: variables.$gray-800;
         cursor: default;
         &.disabled {
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
             color: variables.$gray-600;
         }
         .thy-icon-close {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             color: variables.$gray-500;
         }
     }

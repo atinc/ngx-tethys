@@ -1,5 +1,5 @@
-@use "../bootstrap/variables" as bootstrap-variables;
-@use "../variables";
+@use '../bootstrap/variables' as bootstrap-variables;
+@use '../variables';
 
 // stylelint-disable at-rule-no-vendor-prefix, declaration-no-important, selector-no-qualifying-type, property-no-vendor-prefix
 
@@ -482,7 +482,7 @@ output {
 
 summary {
     display: list-item; // Add the correct display in all browsers
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
 }
 
 template {

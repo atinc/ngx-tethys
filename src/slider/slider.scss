@@ -1,4 +1,4 @@
-@use "../styles/variables";
+@use '../styles/variables';
 
 @mixin slider-type($color) {
     .thy-slider-rail {
@@ -123,7 +123,7 @@
     }
 
     &.slider-disabled {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         .thy-slider-rail {
             background-color: variables.$gray-100;
             .thy-slider-track {

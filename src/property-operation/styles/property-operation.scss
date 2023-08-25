@@ -3,7 +3,7 @@
 
 .thy-property-operation {
     display: inline-flex;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     align-items: center;
     position: relative;
     padding-right: 20px;
@@ -12,7 +12,7 @@
     //     display: inline-flex;
     // }
     &.thy-property-operation-disabled {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         pointer-events: none;
     }
     &:not(.thy-property-operation-disabled) {

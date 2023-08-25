@@ -1,5 +1,5 @@
-@use "../../../styles/mixins/utilities";
-@use "../../../styles/variables";
+@use '../../../styles/mixins/utilities';
+@use '../../../styles/variables';
 
 @mixin select-arrow-icon-font-variant() {
     content: '\e6b8'; //"\f078";
@@ -27,7 +27,7 @@
     border: 1px solid variables.$input-border-color;
     border-radius: variables.$input-border-radius-md;
     font-size: $font-size;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
 
     &:hover {
         border-color: variables.$input-hover-border-color;

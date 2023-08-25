@@ -39,7 +39,7 @@
         right: -5px;
     }
     .thy-avatar-disabled {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         position: absolute;
         background-color: rgba(variables.$black, 0.3);
         top: 0;

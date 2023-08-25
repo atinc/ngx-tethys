@@ -1,9 +1,11 @@
+@use '../../styles/variables';
+
 .thy-checkbox {
     &.disabled,
     &:disabled {
         .form-check-input,
         .form-check-label {
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
     }
 }

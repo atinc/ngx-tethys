@@ -1,6 +1,6 @@
-@use "../../styles/variables";
-@use "mixin";
-@use "./variables.scss" as style;
+@use '../../styles/variables';
+@use 'mixin';
+@use './variables.scss' as style;
 
 .#{style.$calendar-prefix-cls}-decade-panel {
     position: absolute;
@@ -62,7 +62,7 @@
 
     &:hover {
         background: style.$item-hover-bg;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
     }
 }
 

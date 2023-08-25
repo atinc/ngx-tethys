@@ -57,7 +57,7 @@
     // Disabled comes first so active can properly restyle
     &.disabled,
     &:disabled {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         color: variables.$btn-disabled-color;
         background-color: variables.$btn-disabled-bg-color;
         border-color: variables.$btn-disabled-border-color; // opacity: $btn-disabled-opacity;
@@ -66,7 +66,7 @@
 
     // Opinionated: add "hand" cursor to non-disabled .btn elements
     &:not(:disabled):not(.disabled) {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
     }
 
     &:not(:disabled):not(.disabled):active,

@@ -1,9 +1,9 @@
-@use "../variables";
+@use '../variables';
 
 @mixin set-close-link-variant($color: variables.$gray-300, $hover-color: variables.$primary) {
     color: $color;
     text-decoration: none;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     &:hover {
         color: $hover-color;
         text-decoration: none;

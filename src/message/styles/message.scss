@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-message-container {
     position: fixed;
@@ -46,7 +46,7 @@
         }
 
         &-close {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             font-size: variables.$font-size-sm;
             color: variables.$message-close-color;
             margin-left: 16px;

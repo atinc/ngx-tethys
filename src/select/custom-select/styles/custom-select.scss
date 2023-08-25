@@ -6,10 +6,10 @@
     position: relative;
     outline: none;
     & .form-control-custom {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
     }
     & .form-control-custom.disabled {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
     }
     &:focus {
         .form-control-custom:not(.disabled) {

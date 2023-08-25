@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 @use '../../styles/bootstrap/variables.scss' as bootstrapVariables;
 @use '../../styles/basic.scss';
 $ease-out: cubic-bezier(0.215, 0.61, 0.355, 1);
@@ -35,7 +35,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
                 margin: 0 auto;
                 pointer-events: all;
                 display: block;
-                cursor: pointer;
+                cursor: variables.$hand-cursor;
                 width: auto;
             }
         }
@@ -70,7 +70,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 
         .thy-action {
             pointer-events: all;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             @include basic.action-variant(variables.$white, variables.$white, rgba(variables.$white, 0.2));
         }
 
@@ -95,7 +95,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
             margin-top: -22px;
             background: variables.$gray-700;
             border-radius: 50%;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             pointer-events: auto;
             transition: all 0.3s;
             &:hover {
@@ -104,9 +104,9 @@ $image-preview-prefix-cls: 'thy-image-preview';
             }
 
             &-disabled {
-                cursor: not-allowed;
+                cursor: variables.$disabled-cursor;
                 > .thy-icon {
-                    cursor: not-allowed;
+                    cursor: variables.$disabled-cursor;
                 }
                 &:hover {
                     color: variables.$gray-500;

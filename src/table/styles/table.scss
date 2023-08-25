@@ -1,5 +1,5 @@
-@use "../../styles/mixins/hover";
-@use "../../styles/variables";
+@use '../../styles/mixins/hover';
+@use '../../styles/variables';
 @use './skeleton.scss';
 
 @mixin thy-table-scroll-left {
@@ -131,7 +131,7 @@
 
     .thy-table-group {
         &:hover {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             background-color: variables.$table-hover-color;
         }
 
@@ -152,7 +152,7 @@
     }
 
     .thy-table-column-sortable {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         &-icon {
             color: variables.$gray-300;
             // To align sort icon with text

@@ -167,7 +167,7 @@
         color: variables.$pagination-disabled-color;
         pointer-events: none;
         // Opinionated: remove the "hand" cursor set previously for .page-link
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         background-color: variables.$pagination-disabled-bg;
         border-color: variables.$pagination-disabled-border-color;
     }
