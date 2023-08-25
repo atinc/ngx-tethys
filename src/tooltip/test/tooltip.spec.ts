@@ -138,11 +138,24 @@ describe(`ThyTooltip`, () => {
             buttonElement = buttonDebugElement.nativeElement;
             tooltipDirective = buttonDebugElement.injector.get<ThyTooltipDirective>(ThyTooltipDirective);
         });
-        it('should show the tooltip', fakeAsync(() => {
+
+        it('should show the tooltip for tap', fakeAsync(() => {
             assertTooltipInstance(tooltipDirective, false);
             dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
-            tick(500); // Finish the animation.
+            tick(100); // tap time
+            dispatchTouchEvent(buttonElement, 'touchend');
+            fixture.detectChanges();
+            tick(100);
+            expect(getTooltipVisible()).toBe(true);
+            flush();
+        }));
+
+        it('should show the tooltip for long press', fakeAsync(() => {
+            assertTooltipInstance(tooltipDirective, false);
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(600); // default long press time is 500
             expect(getTooltipVisible()).toBe(true);
             flush();
         }));
@@ -150,7 +163,6 @@ describe(`ThyTooltip`, () => {
         it('should not prevent the default action on touchstart', () => {
             const event = dispatchTouchEvent(buttonElement, 'touchstart');
             fixture.detectChanges();
-
             expect(event.defaultPrevented).toBe(false);
         });
 
@@ -171,6 +183,26 @@ describe(`ThyTooltip`, () => {
             fixture.detectChanges();
             tick(500); // Finish the exit animation.
 
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+        }));
+
+        it('should close on touchmove', fakeAsync(() => {
+            dispatchTouchEvent(buttonElement, 'touchstart');
+            fixture.detectChanges();
+            tick(100);
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+
+            dispatchTouchEvent(buttonElement, 'touchmove');
+            fixture.detectChanges();
+            tick(100); // touch moving
+            assertTooltipInstance(tooltipDirective, false);
+            expect(getTooltipVisible()).toBe(false);
+
+            dispatchTouchEvent(buttonElement, 'touchend');
+            fixture.detectChanges();
+            tick(100);
             assertTooltipInstance(tooltipDirective, false);
             expect(getTooltipVisible()).toBe(false);
         }));

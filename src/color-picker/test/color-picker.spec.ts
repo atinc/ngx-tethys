@@ -1,17 +1,17 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
+import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import { CommonModule } from '@angular/common';
 import { Component, DebugElement, ElementRef, ViewChild } from '@angular/core';
-import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDialogModule } from 'ngx-tethys/dialog';
 import { ThyPopover, ThyPopoverModule, ThyPopoverRef } from 'ngx-tethys/popover';
-import { dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
 import { ThyColorPickerCustomPanelComponent } from '../color-picker-custom-panel.component';
 import { ThyColorPickerPanelComponent } from '../color-picker-panel.component';
 import { ThyColorPickerDirective } from '../color-picker.component';
-import { DEFAULT_COLORS } from '../constant';
 import { ThyCoordinatesDirective } from '../coordinates.directive';
 import ThyColor from '../helpers/color.class';
 import { ThyColorPickerModule } from '../module';
@@ -642,4 +642,114 @@ describe('coordinates-directive', () => {
             expect(fixtureInstance.e.y).toEqual(200);
         }));
     });
+});
+
+describe(`for touch usage`, () => {
+    let fixture: ComponentFixture<ThyDemoColorPickerComponent>;
+    let overlayContainer: OverlayContainer;
+    let overlayContainerElement: HTMLElement;
+    let platform: { IOS: boolean; isBrowser: boolean; ANDROID: boolean };
+    let buttonElement: HTMLElement;
+
+    beforeEach(() => {
+        platform = { IOS: false, isBrowser: true, ANDROID: false };
+        TestBed.configureTestingModule({
+            imports: [
+                CommonModule,
+                FormsModule,
+                ThyDialogModule,
+                OverlayModule,
+                ThyColorPickerModule,
+                ThyPopoverModule,
+                NoopAnimationsModule,
+                ThyColorPickerPanelComponent
+            ],
+            providers: [ThyPopover, ThyPopoverRef, { provide: Platform, useFactory: () => platform }],
+            declarations: [ThyDemoColorPickerComponent]
+        });
+        TestBed.compileComponents();
+    });
+
+    beforeEach(inject([OverlayContainer], (oc: OverlayContainer) => {
+        overlayContainer = oc;
+        overlayContainerElement = oc.getContainerElement();
+    }));
+
+    beforeEach(() => {
+        platform.ANDROID = true;
+        fixture = TestBed.createComponent(ThyDemoColorPickerComponent);
+        fixture.detectChanges();
+        buttonElement = fixture.debugElement.nativeElement.querySelector('.box');
+    });
+
+    afterEach(inject([OverlayContainer], (currentOverlayContainer: OverlayContainer) => {
+        currentOverlayContainer.ngOnDestroy();
+        overlayContainer.ngOnDestroy();
+    }));
+
+    function assertColorPanel(isExist: boolean): void {
+        const defaultColorPanel = overlayContainerElement.querySelector('thy-color-picker-panel');
+        if (isExist) {
+            expect(defaultColorPanel).toBeTruthy();
+        } else {
+            expect(defaultColorPanel).toBeFalsy();
+        }
+    }
+
+    it('should show the color picker for tap', fakeAsync(() => {
+        assertColorPanel(false);
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100); // tap time
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        fixture.detectChanges();
+        assertColorPanel(true);
+        flush();
+    }));
+
+    it('should show the color picker for long press', fakeAsync(() => {
+        assertColorPanel(false);
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(600); // default long press time is 500
+        assertColorPanel(true);
+        flush();
+    }));
+
+    it('should not prevent the default action on touchstart', () => {
+        const event = dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        expect(event.defaultPrevented).toBe(false);
+    });
+
+    it('should not close with auto close', fakeAsync(() => {
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100);
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        assertColorPanel(true);
+        tick(2000);
+        assertColorPanel(true);
+    }));
+
+    it('should close on touchmove', fakeAsync(() => {
+        dispatchTouchEvent(buttonElement, 'touchstart');
+        fixture.detectChanges();
+        tick(100);
+        assertColorPanel(false);
+
+        dispatchTouchEvent(buttonElement, 'touchmove');
+        fixture.detectChanges();
+        tick(100); // touch moving
+        assertColorPanel(false);
+
+        dispatchTouchEvent(buttonElement, 'touchend');
+        fixture.detectChanges();
+        tick(100);
+        assertColorPanel(false);
+    }));
 });
