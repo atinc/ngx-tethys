@@ -34,6 +34,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
             return this.action
                 .apply(undefined, this.executeParams)
                 .pipe(
+                    this.takeUntilDestroyed,
                     finalize(() => {
                         this.saving.set(false);
                         this.executeParams = undefined;
@@ -41,8 +42,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
                     tap(value => {
                         this.saving.set(false);
                         this.executeParams = undefined;
-                    }),
-                    this.takeUntilDestroyed
+                    })
                 )
                 .subscribe({
                     next: callbacks?.success,
