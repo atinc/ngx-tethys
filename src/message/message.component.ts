@@ -6,6 +6,8 @@ import { ANIMATION_IN_DURATION, ANIMATION_OUT_DURATION, HIDE_STYLE, ThyAbstractM
 import { ThyStringOrTemplateOutletDirective } from 'ngx-tethys/shared';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgIf } from '@angular/common';
+import { coerceArray } from 'ngx-tethys/util';
+import { useHostRenderer } from '@tethys/cdk/dom';
 
 /**
  * @internal
@@ -35,9 +37,16 @@ export class ThyMessageComponent extends ThyAbstractMessageComponent<ThyMessageC
 
     config: ThyMessageConfig;
 
+    private hostRenderer = useHostRenderer();
+
     @Input()
     set thyConfig(value: ThyMessageConfig) {
         this.config = value;
+
+        if (this.config?.hostClass) {
+            const hostClass = coerceArray(this.config.hostClass);
+            this.hostRenderer.updateClass(hostClass);
+        }
     }
 
     constructor(ngZone: NgZone, messageQueue: ThyMessageQueue) {
