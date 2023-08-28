@@ -23,7 +23,7 @@ export class ActionMenuRemovalRule extends Migration<UpgradeData> {
             this.failures.push({
                 filePath: template.filePath,
                 position: template.getCharacterAndLineOfPosition(offset),
-                message: `Found input "thyPlacement" in deprecated thyActionMenuToggle directive. Please manually use camelCase.`
+                message: `Found input "thyPlacement" in deprecated thyActionMenuToggle directive. Please manually use camel case. (eg.right bottom to rightBottom)`
             });
         });
     }

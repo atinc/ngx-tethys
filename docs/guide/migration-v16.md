@@ -115,7 +115,7 @@ hidden: false
    - thyActionMenuItemActive[指令] -> thyDropdownMenuItemActive
    - thyActionMenuSubItem[指令] -> thyDropdownSubmenu + thyDirection
    - thyActionMenuToggle[指令] -> thyDropdown
-      - thyPlacement -> 不变，提示：之前值是小写空格格式 'right bottom'，需要手动替换成驼峰格式 'bottomRight' 
+      - thyPlacement -> 不变，提示：之前值是小写空格格式 'right bottom'，需要手动替换成驼峰格式 'rightBottom' 
       - thyAction -> thyTrigger
       - thyStopPropagation -> 不变
       - thyContainerClass -> thyPanelClass
