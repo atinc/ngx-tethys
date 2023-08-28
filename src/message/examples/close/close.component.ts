@@ -16,7 +16,8 @@ export class ThyMessageCloseExampleComponent implements OnInit {
 
     showHasDetail() {
         this.messageRef = this.messageService.error('获取数据失败！', {
-            duration: 0
+            duration: 0,
+            hostClass: 'test'
         });
 
         this.messageRef.afterClosed().subscribe(() => {
