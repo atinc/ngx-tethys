@@ -9,12 +9,18 @@ order: 30
 
 `thy-icon`使得在应用程序中更容易使用基于矢量的图标，此组件支持图标字体和SVG图标，但不支持基于位图的格式（png、jpg等）
 
+## 模块导入
+
+```ts
+import { ThyIconModule } from "ngx-tethys/icon";
+```
+
 ## 注册图标库
 ICON 依赖于图标库，tethys原生提供了两个标准图标库，注册方法如下：
 
 ```ts
-import {ThyIconRegistry} from 'ngx-tethys/icon';
-import {DomSanitizer} from '@angular/platform-browser';
+import { ThyIconRegistry } from 'ngx-tethys/icon';
+import { DomSanitizer } from '@angular/platform-browser';
 
 export class AppModule {
     constructor(iconRegistry: ThyIconRegistry, sanitizer: DomSanitizer) {
@@ -27,12 +33,6 @@ export class AppModule {
 ```
 
 > 未注册图标库则将出现 `Error retrieving icon: Unable to find icon with the name ":icon-name"` 错误。
-
-## 模块导入
-
-```ts
-import { ThyIconModule } from "ngx-tethys/icon";
-```
 
 ## 图标集合
 <example name="thy-icon-all-example" inline />
