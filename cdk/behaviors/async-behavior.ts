@@ -51,6 +51,7 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
                     tap(value => {
                         this.value.set(value as T);
                         this.state.set('success');
+                        this.setLoadingState(false);
                     })
                 )
                 .subscribe({
