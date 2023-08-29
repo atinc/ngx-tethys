@@ -20,17 +20,17 @@ describe('use-async', () => {
             const async = useAsync(() => {
                 return subject.asObservable();
             });
-            expect(async.state).toEqual('pending');
-            expect(async.loadingDone).toEqual(true);
-            expect(async.loading).toEqual(false);
+            expect(async.state()).toEqual('pending');
+            expect(async.loadingDone()).toEqual(true);
+            expect(async.loading()).toEqual(false);
             async.execute();
-            expect(async.state).toEqual('loading');
-            expect(async.loadingDone).toEqual(false);
-            expect(async.loading).toEqual(true);
+            expect(async.state()).toEqual('loading');
+            expect(async.loadingDone()).toEqual(false);
+            expect(async.loading()).toEqual(true);
             subject.next();
-            expect(async.state).toEqual('success');
-            expect(async.loadingDone).toEqual(true);
-            expect(async.loading).toEqual(false);
+            expect(async.state()).toEqual('success');
+            expect(async.loadingDone()).toEqual(true);
+            expect(async.loading()).toEqual(false);
         });
     });
 
@@ -58,18 +58,18 @@ describe('use-async', () => {
             const async = useAsync(() => {
                 return subject.asObservable();
             });
-            expect(async.state).toEqual('pending');
+            expect(async.state()).toEqual('pending');
             let executeError: Error;
             async.execute({
                 error: error => {
                     executeError = error;
                 }
             });
-            expect(async.state).toEqual('loading');
+            expect(async.state()).toEqual('loading');
             const error = new Error('mock error');
             subject.error(error);
-            expect(async.state).toEqual('error');
-            expect(async.error).toEqual(error);
+            expect(async.state()).toEqual('error');
+            expect(async.error()).toEqual(error);
             expect(executeError).toEqual(error);
         });
     });
@@ -80,13 +80,13 @@ describe('use-async', () => {
             const async = useAsync(() => {
                 throw mockError;
             });
-            expect(async.loading).toEqual(false);
+            expect(async.loading()).toEqual(false);
             let error: Error;
             async.execute(undefined, _error => {
                 error = _error;
             });
-            expect(async.loading).toEqual(false);
-            expect(async.error).toBe(mockError);
+            expect(async.loading()).toEqual(false);
+            expect(async.error()).toBe(mockError);
             expect(error).toBe(mockError);
         });
     });
