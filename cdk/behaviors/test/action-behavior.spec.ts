@@ -1,7 +1,7 @@
 import { useAction } from '../action-behavior';
 import { Subject } from 'rxjs';
 import { setDefaultErrorHandler } from '../error-handler';
-import { TestBed, async } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 
 describe('use-action', () => {

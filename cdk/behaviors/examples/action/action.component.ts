@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { setDefaultErrorHandler, useAction } from '@tethys/cdk/behaviors';
 import { of, Observable } from 'rxjs';
-import { delay, map, tap } from 'rxjs/operators';
+import { delay, tap } from 'rxjs/operators';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 
 @Component({

@@ -2,8 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
 import { setDefaultErrorHandler, useAsync } from '@tethys/cdk/behaviors';
 import { ThyNotifyService } from 'ngx-tethys/notify';
-import { of, throwError } from 'rxjs';
-import { catchError, delay, tap } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { delay, tap } from 'rxjs/operators';
 
 interface Todo {
     id: number;
