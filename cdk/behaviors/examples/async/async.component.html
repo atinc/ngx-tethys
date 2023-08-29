@@ -1,10 +1,10 @@
-<button thyButton thyType="primary" [thyLoading]="todosFetcher.loading" (click)="refresh()">Refresh</button>
-<button thyButton thyType="danger" [thyLoading]="todosFetcherWithError.loading" (click)="refreshWithError()" class="ml-2">
+<button thyButton thyType="primary" [thyLoading]="todosFetcher.loading()" (click)="refresh()">Refresh</button>
+<button thyButton thyType="danger" [thyLoading]="todosFetcherWithError.loading()" (click)="refreshWithError()" class="ml-2">
   Refresh Error
 </button>
-<thy-loading [thyDone]="todosFetcher.loadingDone"></thy-loading>
+<thy-loading [thyDone]="todosFetcher.loadingDone()"></thy-loading>
 
-<thy-list *ngIf="todosFetcher.loadingDone">
+<thy-list *ngIf="todosFetcher.loadingDone()">
   <thy-list-item *ngFor="let todo of todos">
     {{ todo.title }}
   </thy-list-item>
