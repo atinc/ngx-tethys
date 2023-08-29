@@ -22,7 +22,6 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 @NgModule({
     imports: [
         CommonModule,
-        ScrollingModule,
         ThySharedModule,
         PortalModule,
         OverlayModule,

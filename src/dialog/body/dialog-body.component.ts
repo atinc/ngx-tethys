@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, HostBinding, ElementRef, NgZone } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
+import { CdkScrollable, ScrollDispatcher, ScrollingModule } from '@angular/cdk/scrolling';
 
 /**
  * 模态框的主体组件
@@ -13,7 +13,7 @@ import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
     standalone: true,
-    imports: [CdkScrollable],
+    imports: [CdkScrollable, ScrollingModule],
     providers: [
         {
             provide: CdkScrollable,
