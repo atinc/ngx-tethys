@@ -1,12 +1,12 @@
-import { Directive, ElementRef, NgZone, Input, OnInit, OnDestroy, ViewContainerRef } from '@angular/core';
-import { Platform } from '@angular/cdk/platform';
 import { FocusMonitor } from '@angular/cdk/a11y';
+import { Platform } from '@angular/cdk/platform';
+import { Directive, ElementRef, Input, NgZone, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
+import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
+import { SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
-import { ThyPlacement, ThyOverlayDirectiveBase, ThyOverlayTrigger, InputBoolean, InputNumber } from 'ngx-tethys/core';
 import { ThyTooltipContent } from './interface';
 import { ThyTooltipRef } from './tooltip-ref';
 import { ThyTooltipService } from './tooltip.service';
-import { SafeAny } from 'ngx-tethys/types';
 
 /**
  * @name thyTooltip
@@ -18,6 +18,8 @@ import { SafeAny } from 'ngx-tethys/types';
 })
 export class ThyTooltipDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
     touchendHideDelay = 1500;
+
+    protected isAutoCloseOnMobileTouch: boolean = true;
 
     private tooltipClass: string | string[];
 

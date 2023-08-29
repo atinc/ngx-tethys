@@ -207,7 +207,7 @@
         z-index: variables.$z-index-6;
         &:hover {
             visibility: visible;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             background-color: variables.$primary;
             .sidebar-collapse-icon {
                 color: variables.$white;

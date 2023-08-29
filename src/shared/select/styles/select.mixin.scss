@@ -29,7 +29,7 @@
                 .choice-remove-link {
                     height: 100%;
                     transition: background 0.2s ease-in-out;
-                    cursor: pointer;
+                    cursor: variables.$hand-cursor;
                     span {
                         height: 100%;
                         padding: 0 6px;

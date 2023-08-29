@@ -20,7 +20,7 @@
     width: $width;
     height: $height;
     background-color: transparent;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     .thy-switch-input {
         position: absolute !important;
         top: 0;

@@ -1,6 +1,6 @@
-@use "../../../styles/variables";
-@use "../../select/styles/select.mixin";
-@use "option.mixin";
+@use '../../../styles/variables';
+@use '../../select/styles/select.mixin';
+@use 'option.mixin';
 
 .thy-select-dropdown-options {
     @include select.thy-select-options-container();
@@ -68,7 +68,7 @@
         height: 41px;
         line-height: 40px;
         color: variables.$primary;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         border-top: solid 1px variables.$gray-200;
         padding: {
             left: 20px;

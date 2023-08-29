@@ -1,4 +1,4 @@
-@use "../../../styles/variables";
+@use '../../../styles/variables';
 
 @mixin thy-option-text-icon-primary {
     &:not(.disabled) {
@@ -33,7 +33,7 @@
     @include thy-option-text-icon-primary();
     min-height: 40px;
     color: $color;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     outline-style: none;
 
     padding: {
@@ -76,7 +76,7 @@
     // 禁用状态透明度改为 0.5
     &.disabled {
         background: none;
-        cursor: default; // not-allowed;
+        cursor: variables.$disabled-cursor;
         opacity: variables.$select-option-disabled-opacity;
     }
 }
@@ -189,7 +189,7 @@
         background: variables.$white;
         border-radius: variables.$border-radius;
         border: solid 1px variables.$gray-200;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         outline-style: none;
 
         .checked-icon {
@@ -229,7 +229,7 @@
 
         &.disabled {
             color: variables.$gray-400;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
             background-color: variables.$gray-80;
 
             &.active {

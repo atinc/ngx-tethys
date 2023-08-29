@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "mixin";
+@use '../../styles/variables';
+@use 'mixin';
 
 .thy-switch {
     margin-bottom: variables.$switch-margin-bottom;
@@ -8,7 +8,7 @@
 }
 
 .thy-switch-disabled {
-    cursor: not-allowed;
+    cursor: variables.$disabled-cursor;
     opacity: 0.5;
 }
 

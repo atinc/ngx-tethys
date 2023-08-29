@@ -1,6 +1,6 @@
-@use "../mixins/background-variant";
-@use "../mixins/utilities";
-@use "../variables";
+@use '../mixins/background-variant';
+@use '../mixins/utilities';
+@use '../variables';
 
 .d-flex-column-fill {
     flex: auto;
@@ -17,7 +17,7 @@
 }
 
 .cursor-pointer {
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
 }
 
 // .thy-dot {

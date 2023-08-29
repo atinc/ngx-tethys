@@ -16,7 +16,7 @@
 
         &-wrapper {
             display: flex;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             align-items: center;
             padding: variables.$tree-node-wrapper-padding;
             height: variables.$tree-node-wrapper-height;
@@ -44,7 +44,7 @@
             }
 
             .thy-tree-drag-icon {
-                cursor: pointer;
+                cursor: variables.$hand-cursor;
                 position: absolute;
                 left: 4px;
                 padding: 0;
@@ -90,17 +90,17 @@
 
             &.expand.disabled {
                 .thy-tree-node-check:disabled {
-                    cursor: pointer;
+                    cursor: variables.$disabled-cursor;
                 }
             }
 
             &:not(.expand).disabled {
                 background: none;
-                cursor: not-allowed;
+                cursor: variables.$disabled-cursor;
                 &.draggable {
                     .thy-tree-node-check:disabled,
                     & {
-                        cursor: default;
+                        cursor: variables.$disabled-cursor;
                     }
                 }
             }
@@ -215,7 +215,7 @@
             }
         }
 
-        &.cdk-drag-placeholder{
+        &.cdk-drag-placeholder {
             opacity: 0.4;
         }
 

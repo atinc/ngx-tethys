@@ -1,12 +1,12 @@
-@use "./variables.scss" as style;
-@use "../../styles/variables.scss";
+@use './variables.scss' as style;
+@use '../../styles/variables.scss';
 
 .#{style.$calendar-prefix-cls}-week-number {
     &-cell {
         opacity: 0.5;
     }
     .#{style.$calendar-prefix-cls}-tbody tr {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         transition: all 0.3s;
         position: sticky;
         &::after {

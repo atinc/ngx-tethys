@@ -1,5 +1,5 @@
-@use "../../styles/variables";
-@use "./variables.scss" as style;
+@use '../../styles/variables';
+@use './variables.scss' as style;
 
 @mixin calendarPanelHeader($calendar-prefix-cls) {
     padding: 0 10px;
@@ -9,7 +9,7 @@
     user-select: none;
     border-bottom: 1px solid #e8e8e8;
     a {
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
 
         &:hover {
             color: variables.$link-hover-color;

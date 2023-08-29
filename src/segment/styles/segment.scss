@@ -1,6 +1,6 @@
-@use "../../styles/variables.scss";
-@use "../../styles/bootstrap/mixins/text-truncate.scss";
-@use "./mixin.scss" as segment-mixin;
+@use '../../styles/variables.scss';
+@use '../../styles/bootstrap/mixins/text-truncate.scss';
+@use './mixin.scss' as segment-mixin;
 
 .#{variables.$thy-prefix}-segment {
     display: inline-block;
@@ -29,7 +29,7 @@
     &-item {
         position: relative;
         text-align: center;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         transition: color 0.3s ease-in-out;
 
         .icon-with-text {

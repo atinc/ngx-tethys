@@ -1,4 +1,4 @@
-@use "../../styles/variables.scss";
+@use '../../styles/variables.scss';
 
 @mixin comment-actions-active() {
     height: variables.$comment-actions-min-width;
@@ -14,7 +14,7 @@
     border-radius: variables.$comment-actions-border-radius;
     box-shadow: variables.$box-shadow;
     background-color: variables.$white;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     display: inline-flex;
     visibility: hidden;
 }

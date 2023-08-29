@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 @use './variables.scss' as vars;
 
 $column-border: 1px solid vars.$time-picker-panel-border-color;
@@ -70,7 +70,7 @@ $column-border: 1px solid vars.$time-picker-panel-border-color;
                 margin-top: vars.$time-picker-panel-column-cell-spacing;
                 padding: 0px;
                 &:hover {
-                    cursor: pointer;
+                    cursor: variables.$hand-cursor;
                 }
             }
             & + .#{vars.$time-picker-prefix-cls}-panel-time-column {

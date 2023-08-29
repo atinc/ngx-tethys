@@ -2,6 +2,40 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.0.5](https://github.com/atinc/ngx-tethys/compare/16.0.4...16.0.5) (2023-08-29)
+
+
+### Features
+
+* #INFR-7478 Use 'not-allowed' for  disabled styling ([#2803](https://github.com/atinc/ngx-tethys/issues/2803)) ([88cb42f](https://github.com/atinc/ngx-tethys/commit/88cb42f620ec8575445910825cbf334e7e6bc9df)), closes [#INFR-7478](https://github.com/atinc/ngx-tethys/issues/INFR-7478) [#INFR-7478](https://github.com/atinc/ngx-tethys/issues/INFR-7478) [#INFR-7478](https://github.com/atinc/ngx-tethys/issues/INFR-7478)
+* **tooltip:** better support for touch events,include popover,dropdown,colorpicker #INFR-9334 ([#2793](https://github.com/atinc/ngx-tethys/issues/2793)) ([2e52d46](https://github.com/atinc/ngx-tethys/commit/2e52d461de3b144b868d4f4fb590c83274891c74)), closes [#INFR-9334](https://github.com/atinc/ngx-tethys/issues/INFR-9334)
+
+
+
+## [16.0.4](https://github.com/atinc/ngx-tethys/compare/16.0.3...16.0.4) (2023-08-25)
+
+
+### Features
+
+* **schematics:** add action-menu thyPlacement tips #INFR-9398 ([#2808](https://github.com/atinc/ngx-tethys/issues/2808)) ([7f45d88](https://github.com/atinc/ngx-tethys/commit/7f45d88298d0a22026f2e0aa49728012ffb89e32)), closes [#INFR-9398](https://github.com/atinc/ngx-tethys/issues/INFR-9398)
+
+
+
+## [16.0.3](https://github.com/atinc/ngx-tethys/compare/16.0.1...16.0.3) (2023-08-25)
+
+
+### Bug Fixes
+
+* **schematics:** replace two input same start location #INFR-9268 ([#2801](https://github.com/atinc/ngx-tethys/issues/2801)) ([432ce20](https://github.com/atinc/ngx-tethys/commit/432ce20965affbbbf8fe17c8144d5073275277b6)), closes [#INFR-9268](https://github.com/atinc/ngx-tethys/issues/INFR-9268)
+
+
+### Features
+
+* **message:** message config add hostClass #INFR-9388 ([#2805](https://github.com/atinc/ngx-tethys/issues/2805)) ([324bd4d](https://github.com/atinc/ngx-tethys/commit/324bd4de0526736b1617323161ac2c1fa4078b10)), closes [#INFR-9388](https://github.com/atinc/ngx-tethys/issues/INFR-9388)
+* **table:** replace loading with skeleton and make skeleton stronger #INFR-9201 ([#2799](https://github.com/atinc/ngx-tethys/issues/2799)) ([89d5cd5](https://github.com/atinc/ngx-tethys/commit/89d5cd505d40816df8f82532922a44786dbc12b5)), closes [#INFR-9201](https://github.com/atinc/ngx-tethys/issues/INFR-9201)
+
+
+
 ## [16.0.2](https://github.com/atinc/ngx-tethys/compare/16.0.1...16.0.2) (2023-08-24)
 
 

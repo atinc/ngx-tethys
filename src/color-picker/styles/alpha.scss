@@ -1,9 +1,10 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
+
 .thy-alpha {
     height: 8px;
     border-radius: 2px;
     display: block;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     margin-top: 8px;
     background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMUlEQVQ4T2NkYGAQYcAP3uCTZhw1gGGYhAGBZIA/nYDCgBDAm9BGDWAAJyRCgLaBCAAgXwixzAS0pgAAAABJRU5ErkJggg==');
     background-position: left center;
@@ -18,7 +19,7 @@
         width: 8px;
         position: absolute;
         border-radius: 50%;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         transform: translateX(-4px);
         z-index: 2;
         border: 2px solid variables.$white;

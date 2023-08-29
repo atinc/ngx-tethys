@@ -11,7 +11,7 @@ const DEFAULT_DURATION_TIME = 4500;
 
 @Component({
     template: `
-        <button class="close-btn" (click)="closeAllMessage('loading')">close</button>
+        <button class="close-btn" (click)="closeAllMessage()">close</button>
         <button class="success-btn" (click)="openMessage('success')">success</button>
         <button class="info-btn" (click)="openMessage('info')">info</button>
         <button class="warning-btn" (click)="openMessage('warning')">warning</button>
@@ -22,7 +22,9 @@ const DEFAULT_DURATION_TIME = 4500;
 export class ThyMessageTestComponent implements OnInit {
     @ViewChild('content') contentTemplate: TemplateRef<any>;
 
-    config: ThyMessageConfig;
+    config: ThyMessageConfig = {
+        hostClass: 'test'
+    };
 
     constructor(public messageService: ThyMessageService) {}
 
@@ -67,6 +69,17 @@ describe('ThyMessage', () => {
     afterEach(() => {
         overlayContainer.ngOnDestroy();
     });
+
+    it(`should add host class correctly`, fakeAsync(() => {
+        successButton.click();
+        fixture.detectChanges();
+        tick();
+        const messageElement: HTMLElement = overlayContainerElement.querySelector('.thy-message-container .thy-message');
+        expect(messageElement.classList.contains(`test`)).toBeTruthy();
+        tick(DEFAULT_DURATION_TIME);
+        fixture.detectChanges();
+        flush();
+    }));
 
     it(`should show success message correctly`, fakeAsync(() => {
         successButton.click();

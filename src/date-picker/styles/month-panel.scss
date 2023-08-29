@@ -1,6 +1,6 @@
-@use "../../styles/variables";
-@use "mixin";
-@use "./variables.scss" as style;
+@use '../../styles/variables';
+@use 'mixin';
+@use './variables.scss' as style;
 
 .#{style.$calendar-prefix-cls}-month-panel-table {
     width: 100%;
@@ -43,7 +43,7 @@
         &:hover {
             color: style.$disabled-color;
             background: style.$disabled-bg;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
     }
 }
@@ -62,6 +62,6 @@
 
     &:hover {
         background: style.$item-hover-bg;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
     }
 }

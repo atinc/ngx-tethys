@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 $thy-collapse-prefix-cls: 'thy-collapse';
 
@@ -19,7 +19,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
             display: flex;
             align-items: center;
             position: relative;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             transition: all 0.3s, visibility 0s;
             .#{$thy-collapse-prefix-cls}-title {
                 flex: 1;
@@ -56,7 +56,7 @@ $thy-collapse-prefix-cls: 'thy-collapse';
         &,
         & > &-icon {
             color: variables.$gray-400;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
     }
 

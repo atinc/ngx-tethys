@@ -1,7 +1,7 @@
-@use "../../styles/variables";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/bootstrap/mixins/transition";
-@use "../../styles/mixins/hover.scss";
+@use '../../styles/variables';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/bootstrap/mixins/transition';
+@use '../../styles/mixins/hover.scss';
 
 .thy-input-number {
     width: 100%;
@@ -25,7 +25,7 @@
         box-sizing: border-box;
         border-left: 1px solid variables.$input-border-color;
         border-radius: 0 0.25rem 0.25rem 0;
-        cursor: pointer;
+        cursor: variables.$hand-cursor;
         .input-number-handler {
             width: 100%;
             height: 50%;
@@ -41,7 +41,7 @@
                 color: variables.$primary;
             }
             &.disabled {
-                cursor: not-allowed;
+                cursor: variables.$disabled-cursor;
             }
         }
         .input-number-handler-up {

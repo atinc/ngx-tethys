@@ -1,7 +1,7 @@
-@use "../../shared/option/styles/option.mixin";
-@use "../../shared/select/styles/select.mixin";
-@use "../../styles/bootstrap/mixins/text-truncate";
-@use "../../styles/variables";
+@use '../../shared/option/styles/option.mixin';
+@use '../../shared/select/styles/select.mixin';
+@use '../../styles/bootstrap/mixins/text-truncate';
+@use '../../styles/variables';
 
 @mixin thy-tree-select-option() {
     &.disabled {
@@ -36,7 +36,7 @@
             .thy-tree-select-option-icon {
                 color: variables.$gray-500;
                 &:hover {
-                    cursor: pointer;
+                    cursor: variables.$hand-cursor;
                     color: variables.$gray-600;
                 }
                 .thy-icon-caret-right-down,

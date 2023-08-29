@@ -1,9 +1,11 @@
+@use '../../styles/variables';
+
 .thy-indicator {
     display: block;
     height: 24px;
     width: 24px;
     border-radius: 4px;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     text-align: center;
     overflow: hidden;
     background: transparent
