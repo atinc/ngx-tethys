@@ -62,7 +62,7 @@ export class ThyDropdownMenuComponent {
      */
     @Input()
     @InputCssPixel()
-    thyWidth: number | string;
+    thyWidth: number | string = '240px';
 
     /**
      * 是否直接渲染 dropdown-menu 中的元素
