@@ -157,7 +157,7 @@
 .table-hover {
     tbody tr {
         @include hover.hover {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             background-color: variables.$table-hover-color;
             // @include table-hover-box-shadow($table-hover-color);
         }
@@ -190,7 +190,7 @@
         }
 
         @include hover.hover {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
 
             td {
                 .table-draggable-icon {

@@ -1,7 +1,7 @@
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "mixin";
-@use "./variables.scss" as style;
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use 'mixin';
+@use './variables.scss' as style;
 
 .#{style.$calendar-prefix-cls} {
     position: relative;
@@ -99,7 +99,7 @@
 
         &:hover {
             background: style.$item-hover-bg;
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
         }
 
         &:active {
@@ -133,7 +133,7 @@
         color: style.$disabled-color;
         background: style.$disabled-bg;
         border-radius: 0;
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
         width: auto;
 
         &:hover {
@@ -178,7 +178,7 @@
         }
 
         a {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
 
             &:hover {
                 color: variables.$link-hover-color;
@@ -195,7 +195,7 @@
 
         &-disabled {
             color: style.$disabled-color;
-            cursor: not-allowed;
+            cursor: variables.$disabled-cursor;
         }
 
         &:only-child {

@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 @mixin activeColor {
     color: variables.$primary;
@@ -26,10 +26,10 @@
             }
         }
         &:hover {
-            cursor: pointer;
+            cursor: variables.$hand-cursor;
             @include activeColor();
             &.thy-date-range-disabled {
-                cursor: default;
+                cursor: variables.$disabled-cursor;
                 color: variables.$gray-800;
             }
             .thy-date-range-text-caret-down {

@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 @mixin vote-color-variant($color) {
     background: rgba($color, 0.1);
@@ -44,7 +44,7 @@
 .thy-vote {
     display: inline-flex;
     border-radius: 4px;
-    cursor: pointer;
+    cursor: variables.$hand-cursor;
     .thy-icon,
     img {
         display: block;

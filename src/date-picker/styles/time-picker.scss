@@ -29,7 +29,7 @@
             padding-right: 15px;
             min-width: auto;
             &:disabled {
-                cursor: not-allowed;
+                cursor: variables.$disabled-cursor;
             }
         }
 

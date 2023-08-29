@@ -1,7 +1,7 @@
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
-@use "mixin";
-@use "./variables.scss" as style;
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
+@use 'mixin';
+@use './variables.scss' as style;
 
 $input-box-height: 34px;
 
@@ -15,7 +15,7 @@ $input-box-height: 34px;
     @include mixin.placeholder();
 
     &[disabled] {
-        cursor: not-allowed;
+        cursor: variables.$disabled-cursor;
     }
 }
 
@@ -132,7 +132,7 @@ $input-box-height: 34px;
     }
 
     &.#{style.$calendar-prefix-cls}-week-number {
-        width:100%;
+        width: 100%;
 
         .#{style.$calendar-prefix-cls}-range-part {
             width: 50%;
