@@ -235,7 +235,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     /**
-     * 收起后的宽度
+     * 收起后的宽度、拖拽的最小宽度
      */
     @Input() @InputNumber() thyCollapsedWidth = 20;
 
