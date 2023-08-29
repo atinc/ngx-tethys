@@ -17,10 +17,12 @@ import { THY_DIALOG_DEFAULT_OPTIONS_PROVIDER, THY_DIALOG_LAYOUT_CONFIG_PROVIDER 
 import { ThyDialog } from './dialog.service';
 import { DialogFooterComponent } from './footer/dialog-footer.component';
 import { DialogHeaderComponent } from './header/dialog-header.component';
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 @NgModule({
     imports: [
         CommonModule,
+        ScrollingModule,
         ThySharedModule,
         PortalModule,
         OverlayModule,

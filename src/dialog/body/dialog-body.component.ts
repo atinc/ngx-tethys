@@ -1,6 +1,6 @@
-import { Component, Input, OnInit, HostBinding } from '@angular/core';
-import { ThyDialog } from '../dialog.service';
+import { Component, Input, OnInit, HostBinding, ElementRef, NgZone } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { CdkScrollable, ScrollDispatcher } from '@angular/cdk/scrolling';
 
 /**
  * 模态框的主体组件
@@ -12,9 +12,16 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: '<ng-content></ng-content>',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
-    standalone: true
+    standalone: true,
+    imports: [CdkScrollable],
+    providers: [
+        {
+            provide: CdkScrollable,
+            useExisting: DialogBodyComponent
+        }
+    ]
 })
-export class DialogBodyComponent implements OnInit {
+export class DialogBodyComponent extends CdkScrollable implements OnInit {
     @HostBinding(`class.dialog-body`) _isDialogBody = true;
 
     @HostBinding(`class.dialog-body-clear-padding`)
@@ -29,7 +36,11 @@ export class DialogBodyComponent implements OnInit {
         this.thyClearPaddingClassName = coerceBooleanProperty(value);
     }
 
-    constructor(private dialog: ThyDialog) {}
+    constructor(public elementRef: ElementRef, public scrollDispatcher: ScrollDispatcher, public ngZone: NgZone) {
+        super(elementRef, scrollDispatcher, ngZone);
+    }
 
-    ngOnInit() {}
+    ngOnInit() {
+        super.ngOnInit();
+    }
 }
