@@ -251,10 +251,10 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
     }
 
     ngAfterViewInit() {
-        if (assertIconOnly(this.nativeElement)) {
-            this.hostRenderer.addClass(iconOnlyClass);
-        } else {
+        if (!assertIconOnly(this.nativeElement)) {
             this.hostRenderer.removeClass(iconOnlyClass);
+        } else {
+            this.hostRenderer.addClass(iconOnlyClass);
         }
         this.wrapSpanForText(this.nativeElement.childNodes);
     }
