@@ -84,6 +84,8 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
 
     private _loadingText: string;
 
+    public test = 25;
+
     // 圆角方形
     _isRadiusSquare = false;
 
@@ -246,6 +248,8 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit() {
+        this.test = 300;
+        console.log('test', this.test);
         this.updateClasses();
         this._initialized = true;
     }
@@ -257,6 +261,8 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
             this.hostRenderer.removeClass(iconOnlyClass);
         }
         this.wrapSpanForText(this.nativeElement.childNodes);
+
+        this.test = 700;
     }
 
     private wrapSpanForText(nodes: NodeList): void {
