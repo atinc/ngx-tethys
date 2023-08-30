@@ -246,8 +246,8 @@ export class ThyButtonComponent implements OnInit, AfterViewInit {
     constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
 
     ngOnInit() {
-        this.updateClasses();
         this._initialized = true;
+        this.updateClasses();
     }
 
     ngAfterViewInit() {
