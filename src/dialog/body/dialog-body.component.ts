@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, HostBinding } from '@angular/core';
 import { ThyDialog } from '../dialog.service';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+import { CdkScrollable } from '@angular/cdk/scrolling';
 
 /**
  * 模态框的主体组件
@@ -12,7 +13,8 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     template: '<ng-content></ng-content>',
     // changeDetection: ChangeDetectionStrategy.OnPush,
     exportAs: 'thyDialogBody',
-    standalone: true
+    standalone: true,
+    hostDirectives: [CdkScrollable]
 })
 export class DialogBodyComponent implements OnInit {
     @HostBinding(`class.dialog-body`) _isDialogBody = true;
