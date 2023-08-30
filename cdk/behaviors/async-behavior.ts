@@ -4,7 +4,7 @@ import { Behavior, BehaviorContext, createBehaviorFromFunction, handleBehaviorEr
 
 import { ErrorFn, ExtractObservableValue, SuccessFn } from './types';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Signal, WritableSignal, signal } from '@angular/core';
+import { Signal, WritableSignal, computed, signal } from '@angular/core';
 
 export interface AsyncBehavior<R> {
     loadingDone: Signal<boolean>;
@@ -18,9 +18,9 @@ export interface AsyncBehavior<R> {
 }
 
 class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements AsyncBehavior<T> {
-    loadingDone = signal(true);
+    loading: WritableSignal<boolean> = signal(false);
 
-    loading = signal(false);
+    loadingDone: Signal<boolean> = computed(() => !this.loading());
 
     value: WritableSignal<T> = signal(null);
 
@@ -72,7 +72,6 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
 
     setLoadingState(loading: boolean) {
         this.loading.set(loading);
-        this.loadingDone.set(!loading);
     }
 }
 
