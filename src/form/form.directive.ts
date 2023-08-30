@@ -132,9 +132,6 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
             this.onSubmitSuccess && this.onSubmitSuccess($event);
         } else {
             const invalidElement = this.elementRef.nativeElement.querySelector('.is-invalid');
-            if (invalidElement.tabIndex === -1) {
-                invalidElement.tabIndex = 0;
-            }
             invalidElement.focus();
         }
     }
