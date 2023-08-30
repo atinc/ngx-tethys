@@ -36,11 +36,6 @@ export type ThyFlexShrink = '1' | '0' | 0 | 1;
 export class ThyFlex implements OnInit, OnChanges {
     private hostRenderer = useHostRenderer();
 
-    // /**
-    //  * Flex 方向，如果 thyDirection 传递了值，以 thyDirection 为主
-    //  */
-    // @Input() thyFlex: ThyFlexDirection;
-
     /**
      * Flex 方向，为 row 或者 column
      * @default row
