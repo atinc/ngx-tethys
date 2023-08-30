@@ -25,6 +25,7 @@ import { ThyLayoutComponent } from './layout.component';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
+const SIDEBAR_COLLAPSED_WIDTH = 20;
 
 export type ThySidebarTheme = 'white' | 'light' | 'dark';
 
@@ -46,7 +47,7 @@ export type ThySidebarDirection = 'left' | 'right';
             *ngIf="thyDraggable"
             thyBounds="window"
             [thyMaxWidth]="thyDragMaxWidth"
-            [thyMinWidth]="thyCollapsedWidth"
+            [thyMinWidth]="dragMinWidth"
             (thyResize)="resizeHandler($event)"
             (thyResizeStart)="resizeStart()"
             (thyResizeEnd)="resizeEnd()"
@@ -187,6 +188,11 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     @Input() @InputNumber() thyDragMaxWidth: number;
 
     /**
+     * 拖拽的最小宽度
+     */
+    @Input() @InputNumber() thyDragMinWidth: number;
+
+    /**
      * 展示收起的触发器自定义模板，默认显示展开收起的圆形图标，设置为 null 表示不展示触发元素，手动控制展开收起状态
      * @type null | undefined | TemplateRef<any>
      * @default undefined
@@ -237,7 +243,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     /**
      * 收起后的宽度
      */
-    @Input() @InputNumber() thyCollapsedWidth = 20;
+    @Input() @InputNumber() thyCollapsedWidth = SIDEBAR_COLLAPSED_WIDTH;
 
     /**
      * 主题
@@ -277,6 +283,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     isResizable: boolean;
 
+    dragMinWidth: number;
+
     private hotkeySubscription: Subscription;
 
     constructor(
@@ -286,6 +294,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
+        this.dragMinWidth = this.thyDragMinWidth || this.thyCollapsedWidth;
+
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }
