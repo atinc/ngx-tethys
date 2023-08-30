@@ -1,17 +1,18 @@
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
+import { Platform } from '@angular/cdk/platform';
 import {
+    ChangeDetectorRef,
     Directive,
     ElementRef,
-    OnInit,
+    EventEmitter,
     Input,
     NgZone,
-    ViewContainerRef,
-    TemplateRef,
-    EventEmitter,
+    OnInit,
     Output,
-    ChangeDetectorRef
+    TemplateRef,
+    ViewContainerRef
 } from '@angular/core';
-import { ThyDropdownMenuComponent } from './dropdown-menu.component';
-import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import {
     ComponentTypeOrTemplateRef,
     InputBoolean,
@@ -20,15 +21,12 @@ import {
     ThyOverlayTrigger,
     ThyPlacement
 } from 'ngx-tethys/core';
-import { ComponentType, OverlayRef } from '@angular/cdk/overlay';
-import { Platform } from '@angular/cdk/platform';
-import { FocusMonitor } from '@angular/cdk/a11y';
+import { ThyPopover, ThyPopoverConfig, ThyPopoverRef } from 'ngx-tethys/popover';
 import { SafeAny } from 'ngx-tethys/types';
 import { coerceArray, helpers, isFunction, isTemplateRef } from 'ngx-tethys/util';
+import { ThyDropdownMenuComponent } from './dropdown-menu.component';
 
 export type ThyDropdownTrigger = 'click' | 'hover';
-
-export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
 
 type ThyDropdownMenu = ThyDropdownMenuComponent | TemplateRef<SafeAny> | ComponentType<SafeAny>;
 
@@ -102,10 +100,10 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
     @Input() thyActiveClass: string = 'thy-dropdown-origin-active';
 
     /**
-     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", width: "240px", insideClosable: true, minWidth: "240px" }`
-     * @default { placement: "bottomLeft", width: "240px", insideClosable: true, minWidth: "240px" }
+     * 弹出框的参数，底层使用 Popover 组件, 默认为`{ placement: "bottomLeft", insideClosable: true, minWidth: "240px" }`
+     * @default { placement: "bottomLeft", insideClosable: true, minWidth: "240px" }
      */
-    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'width' | 'height' | 'insideClosable' | 'minWidth'>;
+    @Input() thyPopoverOptions: Pick<ThyPopoverConfig, 'placement' | 'height' | 'insideClosable' | 'minWidth'>;
 
     /**
      * 弹出框的显示位置，会覆盖 thyPopoverOptions 中的 placement，`top` | `topLeft` | `topRight` | `bottom` | `bottomLeft` | `bottomRight` | `left` | `leftTop` | `leftBottom` | `right` | `rightTop` | `rightBottom`
@@ -165,8 +163,8 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             }
         }
 
-        const { placement, width, height, insideClosable, minWidth } = Object.assign(
-            { placement: 'bottomLeft', width: THY_DROPDOWN_DEFAULT_WIDTH, insideClosable: true },
+        const { placement, height, insideClosable, minWidth } = Object.assign(
+            { placement: 'bottomLeft', insideClosable: true },
             this.thyPopoverOptions
         );
         const config: ThyPopoverConfig = {
@@ -176,7 +174,6 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             offset: 0,
             panelClass: this.thyPanelClass,
             placement: this.thyPlacement ? this.thyPlacement : placement,
-            width,
             height,
             outsideClosable: true,
             insideClosable: helpers.isUndefined(this.thyMenuInsideClosable) ? insideClosable : this.thyMenuInsideClosable,

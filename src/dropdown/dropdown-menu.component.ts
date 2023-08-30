@@ -11,9 +11,10 @@ import {
 } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
-import { THY_DROPDOWN_DEFAULT_WIDTH } from './dropdown.directive';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
+
+export const THY_DROPDOWN_DEFAULT_WIDTH = '240px';
 
 /**
  * @private

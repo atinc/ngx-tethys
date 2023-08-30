@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { THY_DROPDOWN_DEFAULT_WIDTH } from 'ngx-tethys/dropdown';
 import { ThyPlacement } from 'ngx-tethys/core';
 
 @Component({
@@ -9,12 +8,10 @@ import { ThyPlacement } from 'ngx-tethys/core';
 export class ThyDropdownOptionsExampleComponent {
     popoverOptions: {
         placement?: ThyPlacement;
-        width?: string | number;
         height?: string | number;
         minWidth?: string | number;
     } = {
         placement: 'bottom',
-        width: parseInt(THY_DROPDOWN_DEFAULT_WIDTH.replace('px', ''), 10),
         height: 108,
         minWidth: '200px'
     };
