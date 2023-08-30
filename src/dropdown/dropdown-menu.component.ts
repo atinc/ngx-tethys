@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { InputBoolean, InputCssPixel } from 'ngx-tethys/core';
 import { SafeAny } from 'ngx-tethys/types';
+import { THY_DROPDOWN_DEFAULT_WIDTH } from './dropdown.directive';
 
 export type ThyDropdownMenuDividerType = 'default' | 'crossing' | '';
 
@@ -62,7 +63,7 @@ export class ThyDropdownMenuComponent {
      */
     @Input()
     @InputCssPixel()
-    thyWidth: number | string = '240px';
+    thyWidth: number | string = THY_DROPDOWN_DEFAULT_WIDTH;
 
     /**
      * 是否直接渲染 dropdown-menu 中的元素
