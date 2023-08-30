@@ -15,9 +15,6 @@
       <option value="rightBottom">rightBottom</option>
     </thy-select>
   </thy-form-group>
-  <thy-form-group thyLabelText="Width">
-    <input thyInput type="number" [(ngModel)]="popoverOptions.width" name="width" />
-  </thy-form-group>
   <thy-form-group thyLabelText="Height">
     <input thyInput type="number" [(ngModel)]="popoverOptions.height" name="height" />
   </thy-form-group>
@@ -32,8 +29,7 @@
   [thyDropdown]="menu"
   [thyPopoverOptions]="popoverOptions"
   [thyPlacement]="popoverOptions.placement"
-  [thyPanelClass]="'dropdown-panel-class'"
->
+  [thyPanelClass]="'dropdown-panel-class'">
   Dropdown <thy-icon thyIconName="caret-down"></thy-icon>
 </button>
 
@@ -80,7 +76,6 @@
   [thyDropdown]="menu"
   [thyPlacement]="placement"
   [thyPanelClass]="panelClass"
-  [thyMenuInsideClosable]="insideClosable"
->
+  [thyMenuInsideClosable]="insideClosable">
   Dropdown <thy-icon thyIconName="caret-down"></thy-icon>
 </button>

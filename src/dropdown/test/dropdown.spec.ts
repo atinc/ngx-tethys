@@ -6,7 +6,7 @@ import { By } from '@angular/platform-browser';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyButtonModule } from 'ngx-tethys/button';
 import { ComponentTypeOrTemplateRef, ThyOverlayTrigger, ThyPlacement } from 'ngx-tethys/core';
-import { THY_DROPDOWN_DEFAULT_WIDTH, ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
+import { ThyDropdownDirective, ThyDropdownModule } from 'ngx-tethys/dropdown';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyPopoverConfig } from 'ngx-tethys/popover';
 import { dispatchMouseEvent, dispatchTouchEvent } from 'ngx-tethys/testing';
@@ -91,7 +91,6 @@ describe('basic dropdown', () => {
         expect(overlayContainerElement).toBeTruthy();
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
         expect(overlayPaneElement).toBeTruthy();
-        expect(overlayPaneElement.style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
         tick(100);
         fixture.detectChanges();
@@ -615,6 +614,7 @@ describe('dropdown submenu', () => {
         tick();
         fixture.detectChanges();
         const dropdownMenu = getDropdownMenu();
+        expect(dropdownMenu.style.width).toEqual('240px');
         const submenu = dropdownMenu.querySelector('#submenu-default');
         expect(submenu.classList.contains('dropdown-submenu')).toBeTruthy();
         expect(submenu.parentElement.classList.contains('dropdown-menu-item')).toBeTruthy();
@@ -955,7 +955,6 @@ describe('dropdown options', () => {
     it('should modify style when popoverOptions has changed', fakeAsync(() => {
         fixture.componentInstance.placement = 'left';
         fixture.componentInstance.popoverOptions = {
-            width: '800px',
             height: '20px'
         };
         fixture.detectChanges();
@@ -964,7 +963,6 @@ describe('dropdown options', () => {
         tick();
         const boundingBox: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-connected-position-bounding-box');
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
-        expect(overlayPaneElement.style.width).toEqual('800px');
         expect(overlayPaneElement.style.height).toEqual('20px');
         expect(boundingBox.style.top).toEqual('0px');
         dropdown.hide();
@@ -996,7 +994,6 @@ describe('dropdown options', () => {
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
                     placement: 'bottomLeft',
-                    width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
                     hasBackdrop: false,
@@ -1013,7 +1010,6 @@ describe('dropdown options', () => {
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
                     placement: 'bottomLeft',
-                    width: THY_DROPDOWN_DEFAULT_WIDTH,
                     height: undefined,
                     insideClosable: true,
                     hasBackdrop: false,
@@ -1025,15 +1021,13 @@ describe('dropdown options', () => {
 
         it('should get custom options', () => {
             dropdown.thyPopoverOptions = {
-                height: '100px',
-                width: '100px'
+                height: '100px'
             };
             expect(calledConfig).toBeUndefined();
             dropdown.createOverlay();
             expect(calledConfig).toEqual(
                 jasmine.objectContaining({
-                    height: '100px',
-                    width: '100px'
+                    height: '100px'
                 })
             );
         });
@@ -1177,7 +1171,7 @@ describe('immediate render dropdown', () => {
         expect(overlayContainerElement).toBeTruthy();
         const overlayPaneElement: HTMLElement = overlayContainerElement.querySelector('.cdk-overlay-pane');
         expect(overlayPaneElement).toBeTruthy();
-        expect(overlayPaneElement.style.width).toEqual('240px');
+        expect((overlayPaneElement.querySelector('.thy-dropdown-menu') as HTMLElement).style.width).toEqual('240px');
         expect(overlayPaneElement.classList.contains('thy-dropdown-pane')).toBeTruthy();
         const dropdownMenuElement: HTMLElement = overlayContainerElement.querySelector('.thy-dropdown-menu');
         expect(dropdownMenuElement).toBeTruthy();
