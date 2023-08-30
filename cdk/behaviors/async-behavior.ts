@@ -1,32 +1,36 @@
-import { Observable, of } from 'rxjs';
-import { finalize, tap, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 import { Behavior, BehaviorContext, createBehaviorFromFunction, handleBehaviorError, pickBehaviorCallbacks } from './behavior';
-import { getDefaultErrorHandler } from './error-handler';
+
 import { ErrorFn, ExtractObservableValue, SuccessFn } from './types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Signal, WritableSignal, computed, signal } from '@angular/core';
 
 export interface AsyncBehavior<R> {
-    loadingDone: boolean;
-    loading: boolean;
-    state: 'pending' | 'loading' | 'success' | 'error';
-    error?: Error;
-    value?: R;
+    loadingDone: Signal<boolean>;
+    loading: Signal<boolean>;
+    state: Signal<'pending' | 'loading' | 'success' | 'error'>;
+    error?: Signal<Error>;
+    value?: Signal<R>;
     execute(success?: SuccessFn<R>, error?: ErrorFn): void;
     execute(context: BehaviorContext<R>): void;
     execute(successOrContext: SuccessFn<R> | BehaviorContext<R>, error?: ErrorFn): void;
 }
 
 class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements AsyncBehavior<T> {
-    loadingDone = true;
+    loading: WritableSignal<boolean> = signal(false);
 
-    loading = false;
+    loadingDone: Signal<boolean> = computed(() => !this.loading());
 
-    value: T;
+    value: WritableSignal<T> = signal(null);
 
-    state: 'pending' | 'loading' | 'success' | 'error' = 'pending';
+    state: WritableSignal<'pending' | 'loading' | 'success' | 'error'> = signal('pending');
 
-    error?: Error;
+    error?: WritableSignal<Error> = signal(null);
 
-    private executeParams: Parameters<A>;
+    executeParams: Parameters<A>;
+
+    takeUntilDestroyed = takeUntilDestroyed();
 
     constructor(private action: A, private context: BehaviorContext<T>) {}
 
@@ -34,40 +38,40 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
     execute(context: BehaviorContext<T>): void;
     execute(successOrContext: SuccessFn<T> | BehaviorContext<T>, error?: ErrorFn): void {
         this.setLoadingState(true);
-        this.state = 'loading';
+        this.state.set('loading');
         const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
         try {
             return this.action
                 .apply(undefined, this.executeParams)
                 .pipe(
+                    this.takeUntilDestroyed,
                     finalize(() => {
                         this.setLoadingState(false);
                     }),
                     tap(value => {
-                        this.value = value as T;
-                        this.state = 'success';
+                        this.value.set(value as T);
+                        this.state.set('success');
                         this.setLoadingState(false);
                     })
                 )
                 .subscribe({
                     next: callbacks.success,
                     error: error => {
-                        this.state = 'error';
-                        this.error = error;
+                        this.state.set('error');
+                        this.error.set(error);
                         handleBehaviorError(error, callbacks.error);
                     }
                 });
         } catch (error) {
-            this.state = 'error';
-            this.error = error;
+            this.state.set('error');
+            this.error.set(error);
             this.setLoadingState(false);
             handleBehaviorError(error, callbacks.error);
         }
     }
 
     setLoadingState(loading: boolean) {
-        this.loading = loading;
-        this.loadingDone = !loading;
+        this.loading.set(loading);
     }
 }
 
@@ -84,8 +88,9 @@ export function useAsync<A extends (...args: any) => Observable<any> = (...args:
     return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
-        execute: behavior.execute,
-        setLoadingState: behavior.setLoadingState,
+        takeUntilDestroyed: behavior.takeUntilDestroyed,
+        execute: behavior.execute.bind(fn),
+        setLoadingState: behavior.setLoadingState.bind(fn),
         loadingDone: behavior.loadingDone,
         loading: behavior.loading,
         state: behavior.state,

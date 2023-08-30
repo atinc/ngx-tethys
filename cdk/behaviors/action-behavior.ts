@@ -1,11 +1,12 @@
-import { Observable, of, throwError } from 'rxjs';
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { Signal, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Observable } from 'rxjs';
+import { finalize, tap } from 'rxjs/operators';
 import { Behavior, BehaviorContext, createBehaviorFromFunction, handleBehaviorError, pickBehaviorCallbacks } from './behavior';
-import { getDefaultErrorHandler } from './error-handler';
 import { ErrorFn, ExtractObservableValue, SuccessFn } from './types';
 
 interface ActionBehavior<R> {
-    saving: boolean;
+    saving: Signal<boolean>;
 
     execute(success?: SuccessFn<R>, error?: ErrorFn): void;
     execute(context: BehaviorContext<R>): void;
@@ -13,41 +14,45 @@ interface ActionBehavior<R> {
 }
 
 class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implements ActionBehavior<R> {
-    saving = false;
+    saving = signal(false);
 
-    private executeParams: Parameters<A>;
+    executeParams: Parameters<A>;
+
+    takeUntilDestroyed = takeUntilDestroyed();
+
     constructor(private action: A, private context: BehaviorContext<R>) {}
 
     execute(success?: SuccessFn<R>, error?: ErrorFn): void;
     execute(context: BehaviorContext<R>): void;
     execute(successOrContext: SuccessFn<R> | BehaviorContext<R>, error?: ErrorFn): void {
-        if (this.saving) {
+        if (this.saving()) {
             return;
         }
-        this.saving = true;
+        this.saving.set(true);
         const callbacks = pickBehaviorCallbacks(this.context, successOrContext, error);
         try {
             return this.action
                 .apply(undefined, this.executeParams)
                 .pipe(
+                    this.takeUntilDestroyed,
                     finalize(() => {
-                        this.saving = false;
+                        this.saving.set(false);
                         this.executeParams = undefined;
                     }),
                     tap(value => {
-                        this.saving = false;
+                        this.saving.set(false);
                         this.executeParams = undefined;
                     })
                 )
                 .subscribe({
                     next: callbacks?.success,
                     error: (error: Error) => {
-                        this.saving = false;
+                        this.saving.set(false);
                         handleBehaviorError(error, callbacks.error);
                     }
                 });
         } catch (error) {
-            this.saving = false;
+            this.saving.set(false);
             handleBehaviorError(error, callbacks.error);
         }
     }
@@ -66,7 +71,8 @@ export function useAction<A extends (...args: any) => Observable<any> = (...args
     return createBehaviorFromFunction(fn, {
         context: context,
         action: action,
-        execute: behavior.execute,
+        takeUntilDestroyed: behavior.takeUntilDestroyed,
+        execute: behavior.execute.bind(fn),
         saving: behavior.saving
     }) as unknown as Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> &
         ActionBehavior<ExtractObservableValue<ReturnType<A>>>;
