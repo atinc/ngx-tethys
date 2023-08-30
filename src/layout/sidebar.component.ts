@@ -283,7 +283,9 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     isResizable: boolean;
 
-    dragMinWidth: number;
+    get dragMinWidth() {
+        return this.thyDragMinWidth || this.thyCollapsedWidth;
+    }
 
     private hotkeySubscription: Subscription;
 
@@ -294,8 +296,6 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     ) {}
 
     ngOnInit() {
-        this.dragMinWidth = this.thyDragMinWidth || this.thyCollapsedWidth;
-
         if (this.thyLayoutComponent) {
             this.thyLayoutComponent.hasSidebar = true;
         }

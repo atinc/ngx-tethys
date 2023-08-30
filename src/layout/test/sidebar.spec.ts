@@ -393,8 +393,6 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            sidebarComponent.ngOnInit();
-            fixture.detectChanges();
 
             dragHandle(-120);
             expect(testInstance.isCollapsed).toEqual(true);
@@ -418,9 +416,6 @@ describe(`sidebar`, () => {
             testInstance.dragMinWidth = minWidth;
             fixture.detectChanges();
 
-            sidebarComponent.ngOnInit();
-            fixture.detectChanges();
-
             dragHandle(-200);
             expect(sidebarElement.style.width).toEqual(`${minWidth}px`);
         }));
@@ -429,9 +424,6 @@ describe(`sidebar`, () => {
             const collapsibleWidth = 20;
             testInstance.draggable = true;
             testInstance.collapsibleWidth = collapsibleWidth;
-            fixture.detectChanges();
-
-            sidebarComponent.ngOnInit();
             fixture.detectChanges();
 
             dragHandle(-250);
