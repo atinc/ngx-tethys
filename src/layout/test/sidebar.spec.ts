@@ -26,6 +26,7 @@ const SIDEBAR_ISOLATED_CLASS = 'thy-layout-sidebar-isolated';
                 [thyHasBorderRight]="hasBorderRight"
                 [thyDraggable]="draggable"
                 [thyDragMaxWidth]="dragMaxWidth"
+                [thyDragMinWidth]="dragMinWidth"
                 [thyCollapsible]="collapsible"
                 [thyCollapsed]="isCollapsed"
                 [thyCollapsedWidth]="collapsibleWidth"
@@ -52,6 +53,7 @@ class ThyDemoLayoutSidebarBasicComponent {
     hasBorderLeft = true;
     hasBorderRight = true;
     draggable = false;
+    dragMinWidth: number;
     dragMaxWidth = 100;
     collapsible = false;
     collapsibleWidth = 0;
@@ -391,34 +393,52 @@ describe(`sidebar`, () => {
             testInstance.collapsibleWidth = 80;
             fixture.detectChanges();
             tick();
-            const resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement as HTMLElement;
-            const rect = resizableEle.getBoundingClientRect();
-            const resizeHandleEl = resizableEle.querySelector('.sidebar-resize-handle') as HTMLElement;
-            dispatchMouseEvent(resizeHandleEl, 'mousedown');
-            dispatchMouseEvent(window.document, 'mousemove', rect.left - 120, rect.bottom);
-            dispatchMouseEvent(window.document, 'mouseup');
-            fixture.detectChanges();
+
+            dragHandle(-120);
             expect(testInstance.isCollapsed).toEqual(true);
             flush();
         }));
 
         it(`should be max width is 100px`, fakeAsync(() => {
+            const maxWidth = 100;
             testInstance.draggable = true;
-            testInstance.dragMaxWidth = 100;
+            testInstance.dragMaxWidth = maxWidth;
             testInstance.width = 20;
             fixture.detectChanges();
-            tick();
+
+            dragHandle(120);
+            expect(sidebarElement.style.width).toEqual(`${maxWidth}px`);
+        }));
+
+        it(`should set thyDragMinWidth successfully`, fakeAsync(() => {
+            const minWidth = 50;
+            testInstance.draggable = true;
+            testInstance.dragMinWidth = minWidth;
+            fixture.detectChanges();
+
+            dragHandle(-200);
+            expect(sidebarElement.style.width).toEqual(`${minWidth}px`);
+        }));
+
+        it(`should limit dragMinWidth to be thyCollapsedWidth when not set thyDragMinWidth`, fakeAsync(() => {
+            const collapsibleWidth = 20;
+            testInstance.draggable = true;
+            testInstance.collapsibleWidth = collapsibleWidth;
+            fixture.detectChanges();
+
+            dragHandle(-250);
+            expect(sidebarElement.style.width).toEqual(`${collapsibleWidth}px`);
+        }));
+
+        function dragHandle(distance: number) {
             const resizableEle = fixture.debugElement.query(By.directive(ThyResizableDirective)).nativeElement as HTMLElement;
             const rect = resizableEle.getBoundingClientRect();
             const resizeHandleEl = resizableEle.querySelector('.sidebar-resize-handle') as HTMLElement;
             dispatchMouseEvent(resizeHandleEl, 'mousedown');
-            dispatchMouseEvent(window.document, 'mousemove', rect.left + 120, rect.bottom);
+            dispatchMouseEvent(window.document, 'mousemove', rect.left + distance, rect.bottom);
             dispatchMouseEvent(window.document, 'mouseup');
             fixture.detectChanges();
-
-            expect(sidebarElement.style.width).toEqual('100px');
-            flush();
-        }));
+        }
     });
 
     describe('custom-sidebar', () => {
