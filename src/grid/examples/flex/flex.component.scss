@@ -1,0 +1,23 @@
+:host {
+    .thy-flex {
+        margin-bottom: 10px;
+    }
+
+    .thy-flex-item {
+        min-width: 200px;
+    }
+
+    .blue,
+    .light-blue {
+        text-align: center;
+        height: 56px;
+        line-height: 56px;
+        color: white;
+    }
+    .blue {
+        background: #6698ff;
+    }
+    .light-blue {
+        background: rgba(#6698ff, 70%);
+    }
+}

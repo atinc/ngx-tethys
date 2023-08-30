@@ -1,13 +1,10 @@
 import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 export type ThyRowJustify = 'start' | 'end' | 'center' | 'space-around' | 'space-between';
 export type ThyRowAlign = 'top' | 'middle' | 'bottom';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 栅格行指令
@@ -20,7 +17,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     },
     standalone: true
 })
-export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy {
+export class ThyRowDirective implements OnInit, OnChanges, AfterViewInit {
     /**
      * 栅格的间距
      */
@@ -30,22 +27,20 @@ export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, Af
 
     private hostRenderer = useHostRenderer();
 
-    constructor() {
-        super();
-    }
+    constructor() {}
 
     ngOnInit() {
-        this._setGutterStyle();
+        this.setGutterStyle();
     }
 
     ngOnChanges() {
-        this._setGutterStyle();
+        this.setGutterStyle();
     }
 
     ngAfterViewInit(): void {}
 
-    private _setGutterStyle() {
-        const [horizontalGutter, verticalGutter] = this._getGutter();
+    private setGutterStyle() {
+        const [horizontalGutter, verticalGutter] = this.getGutter();
         this.actualGutter$.next([horizontalGutter, verticalGutter]);
         const renderGutter = (name: string, gutter: number) => {
             this.hostRenderer.setStyle(name, `-${gutter / 2}px`);
@@ -60,14 +55,10 @@ export class ThyRowDirective extends _MixinBase implements OnInit, OnChanges, Af
         }
     }
 
-    private _getGutter() {
+    private getGutter() {
         if (isString(this.thyGutter)) {
             throw Error(`thyGutter value can not be string type`);
         }
         return [this.thyGutter as number, 0];
-    }
-
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
     }
 }
