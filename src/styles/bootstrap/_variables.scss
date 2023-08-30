@@ -1,8 +1,8 @@
-@use "sass:list";
-@use "sass:map";
-@use "../variables";
-@use "functions";
-@forward "../variables.scss";
+@use 'sass:list';
+@use 'sass:map';
+@use '../variables';
+@use 'functions';
+@forward '../variables.scss';
 // // Variables
 // //
 // // Variables should follow the `$component-state-property-size` formula for
@@ -1076,7 +1076,7 @@ $pre-scrollable-max-height: 340px !default;
 
 // // Utilities
 
-$displays: none, inline, inline-block, block, table, table-row, table-cell, flex, inline-flex !default;
+$displays: none, inline, inline-block, block, table, table-row, table-cell, flex, contents, inline-flex !default;
 $overflows: auto, hidden !default;
 $positions: static, relative, absolute, fixed, sticky !default;
 $user-selects: all, auto, none !default;

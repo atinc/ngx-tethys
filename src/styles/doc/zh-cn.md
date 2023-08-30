@@ -82,6 +82,7 @@ TETHYS 除了提供了`Space`组件外，还提供了一些列关于`margin`和`
 - `table-row`
 - `flex`
 - `inline-flex`
+- `contents`
 
 <alert>媒体查询所覆盖的屏幕宽度包括从给定的断点开始并延伸到更大的屏幕尺寸。例如，.d-lg-none 将在 lg 和 xl 屏幕尺寸下设置 display: none; 属性。</alert>
 
