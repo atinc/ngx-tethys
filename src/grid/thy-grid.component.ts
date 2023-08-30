@@ -36,10 +36,11 @@ export const screenBreakpointsMap = {
 
 /**
  * 栅格组件
- * @name thy-grid
+ * @name thy-grid, [thyGrid]
+ * @order 10
  */
 @Component({
-    selector: 'thy-grid',
+    selector: 'thy-grid, [thyGrid]',
     template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [

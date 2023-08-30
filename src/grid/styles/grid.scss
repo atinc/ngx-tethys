@@ -19,3 +19,7 @@
         flex: 0 0 math.percentage(math.div($i, 24));
     }
 }
+
+.thy-col-fill {
+    flex: 1 1 auto;
+}
