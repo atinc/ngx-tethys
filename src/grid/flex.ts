@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
 
@@ -19,12 +19,15 @@ export type ThyFlexGrow = '1' | '0' | 0 | 1;
 export type ThyFlexShrink = '1' | '0' | 0 | 1;
 
 /**
+ * 设置容器为 Flex 布局组件
  * @name thy-flex, [thyFlex]
+ * @order 20
  */
 @Component({
     selector: 'thy-flex, [thyFlex]',
     template: `<ng-content></ng-content>`,
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-flex d-flex'
     }
@@ -39,12 +42,14 @@ export class ThyFlex implements OnInit, OnChanges {
     // @Input() thyFlex: ThyFlexDirection;
 
     /**
-     * Flex 方向
+     * Flex 方向，为 row 或者 column
+     * @default row
      */
     @Input() thyDirection: ThyFlexDirection;
 
     /**
      * Flex Wrap
+     * @default nowrap
      */
     @Input() thyWrap: ThyFlexWrap;
 
@@ -59,7 +64,8 @@ export class ThyFlex implements OnInit, OnChanges {
     @Input() thyAlignItems: ThyFlexAlignItems;
 
     /**
-     * Gap
+     * Flex Item 之间的间隙 Gap
+     * @default 0
      */
     @Input() thyGap: number;
 
@@ -100,12 +106,15 @@ export class ThyFlex implements OnInit, OnChanges {
 }
 
 /**
+ * 设置为 Flex Item 组件
  * @name thy-flex-item, [thyFlexItem]
+ * @order 25
  */
 @Component({
     selector: 'thy-flex-item, [thyFlexItem]',
     template: `<ng-content></ng-content>`,
     standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-flex-item'
     }
@@ -119,10 +128,21 @@ export class ThyFlexItem implements OnInit, OnChanges {
      */
     @Input() thyFlexItem: 'fill' | string;
 
+    /**
+     * Flew Grow，设置或检索弹性盒子的扩展比率，设置 1 为填充剩余区域
+     */
     @Input() thyGrow: ThyFlexGrow;
 
+    /**
+     * Flex Shrink，设置或检索弹性盒收缩比例
+     * @default 1
+     */
     @Input() thyShrink: ThyFlexShrink;
 
+    /**
+     * Flex Basis，设置或检索弹性盒伸缩基准值
+     * @default 1
+     */
     @Input() thyBasis: string;
 
     constructor() {}

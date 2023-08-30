@@ -16,6 +16,7 @@ export type ThySpan = number | null | 'auto';
 /**
  * 栅格列指令
  * @name thyCol
+ * @order 35
  */
 @Directive({
     selector: '[thyCol]',

@@ -1,4 +1,4 @@
-import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { Directive, Input, OnChanges, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
@@ -9,6 +9,7 @@ export type ThyRowAlign = 'top' | 'middle' | 'bottom';
 /**
  * 栅格行指令
  * @name thyRow
+ * @order 30
  */
 @Directive({
     selector: '[thyRow]',

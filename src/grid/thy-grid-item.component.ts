@@ -8,6 +8,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
 /**
  * 栅格项组件
  * @name thy-grid-item,[thyGridItem]
+ * @order 15
  */
 @Component({
     selector: 'thy-grid-item,[thyGridItem]',
