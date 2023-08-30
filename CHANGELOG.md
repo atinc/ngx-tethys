@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.1.0-next.0](https://github.com/atinc/ngx-tethys/compare/16.0.5...16.1.0-next.0) (2023-08-30)
+
+
+### Bug Fixes
+
+* **styles:**  add d-contents ([#2812](https://github.com/atinc/ngx-tethys/issues/2812)) ([be8b632](https://github.com/atinc/ngx-tethys/commit/be8b6327238e5af9d8bf0c6e4b1d761e97b78f33))
+
+
+### Features
+
+* **cdk:** update behaviors to signal INFR-9396 ([#2822](https://github.com/atinc/ngx-tethys/issues/2822)) ([c3bea1e](https://github.com/atinc/ngx-tethys/commit/c3bea1efd280234c6de08d12999196123de41bc6))
+* **dialog:** thy-dialog-body support cdkScrollable to make scroll strategy behave properly INFR-8826 ([#2820](https://github.com/atinc/ngx-tethys/issues/2820)) ([69b24b4](https://github.com/atinc/ngx-tethys/commit/69b24b473b0c0371cfebc1f946ed27fce9f69827))
+* **dropdown:** thy-dropdown-menu thyWidth add default 240px and remove thyDropdown thyPopoverOptions width ([#2818](https://github.com/atinc/ngx-tethys/issues/2818)) ([d2eb0cc](https://github.com/atinc/ngx-tethys/commit/d2eb0ccb926b0c75b79f2fe9321de456526e2cc0)), closes [#INFR-9433](https://github.com/atinc/ngx-tethys/issues/INFR-9433)
+* **grid:** add thyFlex and thyFlexItem #INFR-9429 ([#2821](https://github.com/atinc/ngx-tethys/issues/2821)) ([534f1a3](https://github.com/atinc/ngx-tethys/commit/534f1a3c657b67843521a5710e81ece72637580b)), closes [#INFR-9429](https://github.com/atinc/ngx-tethys/issues/INFR-9429)
+* **layout:** sidebar support thyDragMinWidth INFR-3948 ([#2819](https://github.com/atinc/ngx-tethys/issues/2819)) ([91f1838](https://github.com/atinc/ngx-tethys/commit/91f1838b83a0231850242b4f0b4170073eba363f))
+
+
+
 ## [16.0.5](https://github.com/atinc/ngx-tethys/compare/16.0.4...16.0.5) (2023-08-29)
 
 
