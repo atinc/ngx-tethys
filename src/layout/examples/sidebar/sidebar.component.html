@@ -64,7 +64,6 @@
 <thy-layout style="height: 100px">
   <thy-sidebar
     [thyDraggable]="true"
-    [thyCollapsedWidth]="collapsedWidth"
     [thyDragMinWidth]="150"
     [thyDragMaxWidth]="700"
     class="p-2"
@@ -78,6 +77,7 @@
   <thy-sidebar
     class="p-2"
     [thyDraggable]="true"
+    [thyDragMinWidth]="150"
     [thyDragMaxWidth]="700"
     [thyCollapsible]="true"
     [(thyCollapsed)]="collapsed"
