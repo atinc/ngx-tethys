@@ -20,6 +20,9 @@ import { By } from '@angular/platform-browser';
             </div>
             <div id="flex-basic-item-2" thyFlexItem><div class="blue">Item 2</div></div>
         </div>
+        <thy-flex id="flex-component" thyDirection="column">
+            <thy-flex-item thyGrow="1" id="flex-component-item-1"><div class="blue">Item 1</div></thy-flex-item>
+        </thy-flex>
     `,
     imports: [ThyGridModule],
     standalone: true
@@ -107,6 +110,23 @@ describe('flex', () => {
 
         const flexItem1Element = getBasicFlexItemElement();
         expect(flexItem1Element.classList.contains('thy-flex-item')).toBeTruthy();
+    });
+
+    it('should create thy-flex and thy-flex-item success', () => {
+        const flexDebugElement = fixture.debugElement.query(By.css('#flex-component'));
+        expect(flexDebugElement).toBeTruthy();
+        const flexElement = flexDebugElement.nativeElement as HTMLElement;
+        expect(flexElement).toBeTruthy();
+        assertFlexElement(flexElement, {
+            direction: 'column'
+        });
+
+        const flexItemDebugElement = fixture.debugElement.query(By.css('#flex-component-item-1'));
+        expect(flexItemDebugElement).toBeTruthy();
+        const flexItemElement = flexItemDebugElement.nativeElement as HTMLElement;
+        expect(flexItemElement).toBeTruthy();
+        expect(flexItemElement.classList.contains('thy-flex-item')).toBeTruthy();
+        expect(flexItemElement.classList.contains('flex-grow-1')).toBeTruthy();
     });
 
     it('should set thyFlex inputs success', () => {
