@@ -1,12 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { _MixinBase, InputBoolean } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
@@ -38,10 +30,6 @@ import {
     ThyShortcutValueChange,
     ThyDateGranularity
 } from './standard-types';
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * @private

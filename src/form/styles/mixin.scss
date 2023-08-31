@@ -1,8 +1,8 @@
-@use "sass:color";
-@use "../../styles/bootstrap/mixins/gradients";
-@use "../../styles/mixins/hover";
-@use "../../styles/bootstrap/variables" as bootstrap-variables;
-@use "../../styles/variables";
+@use 'sass:color';
+@use '../../styles/bootstrap/mixins/gradients';
+@use '../../styles/mixins/hover';
+@use '../../styles/bootstrap/variables' as bootstrap-variables;
+@use '../../styles/variables';
 
 // Form control focus state
 //
@@ -87,6 +87,7 @@
     .thy-calendar-picker,
     .thy-switch,
     .thy-rate,
+    .thy-color-picker,
     .input-label-container {
         .was-validated &:#{$state},
         &.is-#{$state} {

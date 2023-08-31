@@ -1,15 +1,10 @@
 import {
-    AbstractControlValueAccessor,
-    Constructor,
+    _MixinBase,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
     ScrollToService,
-    ThyCanDisable,
     ThyClickDispatcher,
-    ThyHasTabIndex,
     ThyPlacement
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
@@ -112,10 +107,6 @@ export interface OptionValue {
     thyShowOptionCustom?: boolean;
     thySearchKey?: string;
 }
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 const noop = () => {};
 

@@ -1,14 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    getFlexiblePositions,
-    InputBoolean,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyClickDispatcher,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { _MixinBase, getFlexiblePositions, InputBoolean, ThyClickDispatcher } from 'ngx-tethys/core';
 import { ThyTreeNode } from 'ngx-tethys/tree';
 import { elementMatchClosest, isArray, isObject, produce, warnDeprecation } from 'ngx-tethys/util';
 import { Observable, of, Subject } from 'rxjs';
@@ -62,10 +52,6 @@ export function filterTreeData(treeNodes: ThyTreeSelectNode[], searchText: strin
     const treeData = treeNodes.reduce((previous, current) => filterNodes(current, previous), [] as ThyTreeSelectNode[]);
     return treeData;
 }
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * 树选择组件

@@ -2,6 +2,7 @@ import { coerceNumberProperty } from '@angular/cdk/coercion';
 
 import { Constructor, MixinBase } from './constructor';
 import { mixinDisabled, ThyCanDisable } from './disabled';
+import { AbstractControlValueAccessor } from './control-value-accessor';
 
 export interface ThyHasTabIndex {
     tabIndex: number;
@@ -33,4 +34,8 @@ export function mixinTabIndex<T extends Constructor<ThyCanDisable>>(base: T, def
 
 export const TabIndexMixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof MixinBase = mixinTabIndex(
     mixinDisabled(MixinBase)
+);
+
+export const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
+    mixinDisabled(AbstractControlValueAccessor)
 );

@@ -1,5 +1,15 @@
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
-import { helpers } from 'ngx-tethys/util';
+import {
+    AbstractControlValueAccessor,
+    Constructor,
+    InputBoolean,
+    InputNumber,
+    ThyCanDisable,
+    ThyHasTabIndex,
+    _MixinBase,
+    mixinDisabled,
+    mixinTabIndex
+} from 'ngx-tethys/core';
+import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
 import { NgClass, NgFor } from '@angular/common';
 import {
@@ -38,11 +48,14 @@ const noop = () => {};
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]': `tabIndex`
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [NgFor, ThyStopPropagationDirective, ThyRateItemComponent, NgClass, ThyTooltipDirective]
 })
-export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges {
+export class ThyRateComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;
 
     private currentValue = 0;
@@ -72,8 +85,16 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
      * 是否只读
      * @default false
      */
-    @Input() @InputBoolean() thyDisabled = false;
+    @Input()
+    override get thyDisabled(): boolean {
+        return this.disabled;
+    }
 
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    disabled = false;
     /**
      * 是否允许半选
      * @default false
@@ -113,7 +134,9 @@ export class ThyRateComponent implements ControlValueAccessor, OnInit, OnChanges
 
     @HostBinding('class.thy-rate') className = true;
 
-    constructor(private cdr: ChangeDetectorRef) {}
+    constructor(private cdr: ChangeDetectorRef) {
+        super();
+    }
 
     get thyValue(): number {
         return this._value;

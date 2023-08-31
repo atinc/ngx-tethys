@@ -1,15 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    EXPANDED_DROPDOWN_POSITIONS,
-    InputBoolean,
-    InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
-    ScrollToService,
-    ThyCanDisable,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { _MixinBase, EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -78,10 +67,6 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 }
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * 级联选择菜单

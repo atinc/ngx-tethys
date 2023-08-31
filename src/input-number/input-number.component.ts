@@ -1,14 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex,
-    useHostFocusControl
-} from 'ngx-tethys/core';
+import { _MixinBase, InputBoolean, InputNumber, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
@@ -38,10 +28,6 @@ enum Type {
     up,
     down
 }
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * 数字输入框

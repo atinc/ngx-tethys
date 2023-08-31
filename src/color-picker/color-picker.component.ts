@@ -17,6 +17,8 @@ import { takeUntil } from 'rxjs/operators';
 @Directive({
     selector: '[thyColorPicker]',
     host: {
+        class: 'thy-color-picker',
+        '[attr.tabindex]': `tabIndex`,
         '[class.thy-color-picker-disabled]': 'disabled'
     },
     providers: [
@@ -103,7 +105,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         this.hideDelay = value;
     }
 
-    private onChangeFn: (value: number | string) => void = () => {};
+    protected onChangeFn: (value: number | string) => void = () => {};
 
     private onTouchFn: () => void = () => {};
 

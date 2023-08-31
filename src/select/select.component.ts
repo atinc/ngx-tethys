@@ -1,14 +1,6 @@
 import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { _MixinBase, InputBoolean } from 'ngx-tethys/core';
 import { elementMatchClosest } from 'ngx-tethys/util';
 
 import { NgIf } from '@angular/common';
@@ -20,10 +12,6 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 const noop = () => {};
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * 下拉选择
