@@ -78,7 +78,7 @@ class AsyncBehaviorImpl<T, A extends (...args: any) => Observable<T>> implements
 export function useAsync<A extends (...args: any) => Observable<any> = (...args: any) => Observable<any>>(
     action: A,
     context: BehaviorContext<ExtractObservableValue<ReturnType<A>>> = {}
-) {
+): Behavior<Parameters<A>, AsyncBehavior<ExtractObservableValue<ReturnType<A>>>> & AsyncBehavior<ExtractObservableValue<ReturnType<A>>> {
     const behavior = new AsyncBehaviorImpl(action, context);
 
     const fn = function (...params: Parameters<A>) {
