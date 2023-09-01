@@ -4,19 +4,23 @@ import {
     ChangeDetectionStrategy,
     Component,
     ContentChildren,
+    Directive,
     ElementRef,
     Input,
     NgZone,
-    OnDestroy,
+    OnChanges,
     OnInit,
-    QueryList
+    QueryList,
+    SimpleChanges,
+    inject
 } from '@angular/core';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Observable, Subject } from 'rxjs';
-import { takeUntil, throttleTime } from 'rxjs/operators';
+import { throttleTime } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridItemComponent } from './thy-grid-item.component';
 import { useHostRenderer } from '@tethys/cdk/dom';
+import { hasLaterChange } from 'ngx-tethys/util';
 
 export type ThyGridResponsiveMode = 'none' | 'self' | 'screen';
 
@@ -39,14 +43,12 @@ export const screenBreakpointsMap = {
  * @name thy-grid, [thyGrid]
  * @order 10
  */
-@Component({
-    selector: 'thy-grid, [thyGrid]',
-    template: '<ng-content></ng-content>',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+    selector: '[thyGrid]',
     providers: [
         {
             provide: THY_GRID_COMPONENT,
-            useExisting: ThyGridComponent
+            useExisting: ThyGrid
         }
     ],
     host: {
@@ -54,7 +56,8 @@ export const screenBreakpointsMap = {
     },
     standalone: true
 })
-export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements ThyGridToken, OnInit, AfterContentInit, OnDestroy {
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
+export class ThyGrid implements ThyGridToken, OnInit, OnChanges, AfterContentInit {
     /**
      * @internal
      */
@@ -103,9 +106,9 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
 
     public gridItemPropValueChange$ = new Subject<void>();
 
-    constructor(private elementRef: ElementRef, private viewportRuler: ViewportRuler, private ngZone: NgZone) {
-        super();
-    }
+    private takeUntilDestroyed = takeUntilDestroyed();
+
+    constructor(private elementRef: ElementRef, private viewportRuler: ViewportRuler, private ngZone: NgZone) {}
 
     ngOnInit(): void {
         this.setGridStyle();
@@ -115,10 +118,12 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
         }
     }
 
+    ngOnChanges(changes: SimpleChanges): void {}
+
     ngAfterContentInit(): void {
         this.handleGridItems();
 
-        this.gridItems.changes.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(() => {
+        this.gridItems.changes.pipe(this.takeUntilDestroyed).subscribe(() => {
             Promise.resolve().then(() => {
                 this.handleGridItems();
             });
@@ -144,7 +149,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
         if (this.thyResponsive === 'screen') {
             this.viewportRuler
                 .change(100)
-                .pipe(takeUntil(this.ngUnsubscribe$))
+                .pipe(this.takeUntilDestroyed)
                 .subscribe(() => {
                     this.responsiveContainerWidth = this.viewportRuler.getViewportSize().width;
                     this.setGridStyle();
@@ -153,7 +158,7 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
         } else {
             this.ngZone.runOutsideAngular(() => {
                 this.gridResizeObserver(this.elementRef.nativeElement)
-                    .pipe(throttleTime(100), takeUntil(this.ngUnsubscribe$))
+                    .pipe(throttleTime(100), this.takeUntilDestroyed)
                     .subscribe(data => {
                         this.responsiveContainerWidth = data[0]?.contentRect?.width;
                         this.setGridStyle();
@@ -234,10 +239,32 @@ export class ThyGridComponent extends mixinUnsubscribe(MixinBase) implements Thy
             };
         });
     }
+}
 
-    ngOnDestroy(): void {
-        super.ngOnDestroy();
-    }
+/**
+ * @internal
+ */
+@Component({
+    selector: 'thy-grid',
+    template: '<ng-content></ng-content>',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [ThyGrid],
+    providers: [
+        {
+            provide: THY_GRID_COMPONENT,
+            useExisting: ThyGrid
+        }
+    ],
+    hostDirectives: [
+        {
+            directive: ThyGrid,
+            inputs: ['thyCols', 'thyXGap', 'thyYGap', 'thyGap', 'thyResponsive']
+        }
+    ]
+})
+export class ThyGridComponent {
+    grid = inject(ThyGrid);
 }
 
 function getRawSpan(span: number | ThyGridResponsiveDescription | undefined | null): number | ThyGridResponsiveDescription {
