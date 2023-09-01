@@ -9,6 +9,7 @@ import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
 import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 颜色选择组件
@@ -103,6 +104,19 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
     @InputNumber()
     set thyHideDelay(value: number) {
         this.hideDelay = value;
+    }
+
+    /**
+     * 是否属于禁用状态
+     */
+    @Input()
+    override get thyDisabled(): boolean {
+        return this.disabled;
+    }
+
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+        this.setDisabledState(this.disabled);
     }
 
     protected onChangeFn: (value: number | string) => void = () => {};
