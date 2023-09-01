@@ -116,7 +116,6 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     override set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
-        this.setDisabledState(this.disabled);
     }
 
     protected onChangeFn: (value: number | string) => void = () => {};
