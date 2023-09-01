@@ -203,7 +203,7 @@ export class ThySelectControlComponent implements OnInit {
         } else {
             showSelectedValue = true;
         }
-        return { display: showSelectedValue ? 'block' : 'none' };
+        return { display: showSelectedValue ? 'flex' : 'none' };
     }
 
     get placeholderStyle(): { [key: string]: string } {

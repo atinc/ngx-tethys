@@ -70,6 +70,16 @@
             line-height: $height;
         }
 
+        .thy-avatar {
+            display: inline-flex;
+            & > img,
+            & > .avatar-default {
+                width: $height;
+                height: $height;
+                line-height: $height;
+            }
+        }
+
         .selected-value,
         .select-control-search > .form-control-lg {
             @if $tag-height == variables.$tag-height-lg {

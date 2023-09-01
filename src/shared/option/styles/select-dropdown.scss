@@ -2,6 +2,33 @@
 @use '../../select/styles/select.mixin';
 @use 'option.mixin';
 
+$optionSize: 'sm', 'default', 'md', 'lg';
+$optionHeight: (
+    'sm': 32px,
+    'md': 36px,
+    'default': 40px,
+    'lg': 48px
+);
+$avatarHeight: (
+    'sm': variables.$select-control-height-sm,
+    'md': variables.$select-control-height-md,
+    'default': variables.$select-control-height-default,
+    'lg': variables.$select-control-height-lg
+);
+
+@mixin thy-option-size($size) {
+    min-height: map-get($map: $optionHeight, $key: $size);
+    .thy-avatar {
+        display: inline-flex;
+        & > img,
+        & > .avatar-default {
+            width: map-get($map: $avatarHeight, $key: $size);
+            height: map-get($map: $avatarHeight, $key: $size);
+            line-height: map-get($map: $avatarHeight, $key: $size);
+        }
+    }
+}
+
 .thy-select-dropdown-options {
     @include select.thy-select-options-container();
 
@@ -18,6 +45,15 @@
         @include option.thy-option();
         &.hidden {
             display: none;
+        }
+        @each $size in $optionSize {
+            @if ($size == 'default') {
+                @include thy-option-size('default');
+            } @else {
+                &-#{$size} {
+                    @include thy-option-size($size);
+                }
+            }
         }
     }
 

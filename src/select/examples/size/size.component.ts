@@ -37,6 +37,8 @@ export class ThySelectSizeExampleComponent implements OnInit {
         }
     ];
 
+    avatarSrc = 'assets/images/one-avatar.jpg';
+
     currentSize = this.selectSizes[2];
 
     ngOnInit() {}

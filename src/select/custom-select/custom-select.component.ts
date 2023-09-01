@@ -298,6 +298,7 @@ export class ThySelectCustomComponent
     }
     set thySize(value: SelectControlSize) {
         this.size = value;
+        this.setOptionsSize();
     }
 
     /**
@@ -439,6 +440,12 @@ export class ThySelectCustomComponent
         );
     }
 
+    private setOptionsSize() {
+        if (this.options && this.options.length > 0) {
+            this.options.forEach(option => (option.thySize = this.size));
+        }
+    }
+
     private buildScrollStrategy() {
         if (this.scrollStrategyFactory && isFunction(this.scrollStrategyFactory)) {
             this.scrollStrategy = this.scrollStrategyFactory();
@@ -522,6 +529,7 @@ export class ThySelectCustomComponent
             this.resetOptions();
             this.initializeSelection();
             this.initKeyManager();
+            this.setOptionsSize();
             if (this.isSearching) {
                 this.highlightCorrectOption(false);
                 this.isSearching = false;

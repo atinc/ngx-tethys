@@ -5,18 +5,59 @@
     </button>
   </thy-button-group>
   <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+      <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+      <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+      <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+      <span class="text-truncate">{{ option?.text }}</span>
+    </thy-option>
+    <ng-template #selectedDisplay let-value>
+      <span *ngIf="!value">!!!空</span>
+      <span *ngIf="value" thyText>
+        <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+        <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+        <span class="text-truncate">{{ value?.text }}</span>
+      </span>
+    </ng-template>
   </thy-custom-select>
   <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+      <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+      <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+      <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+      <span class="text-truncate">{{ option?.text }}</span>
+    </thy-option>
+    <ng-template #selectedDisplay let-value>
+      <span *ngIf="!value">!!!空</span>
+      <span *ngIf="value" thyText>
+        <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+        <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+        <span class="text-truncate">{{ value?.text }}</span>
+      </span>
+    </ng-template>
   </thy-custom-select>
   <thy-custom-select
     thyPlaceHolder="请选择"
     [thySize]="currentSize.name"
     thyMode="multiple"
     [thyShowSearch]="true"
-    [(ngModel)]="listOfSelectedValue"
-  >
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    [(ngModel)]="listOfSelectedValue">
+    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+      <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+      <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+      <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+      <span class="text-truncate">{{ option?.text }}</span>
+    </thy-option>
+    <ng-template #selectedDisplay let-value>
+      <span *ngIf="!value">!!!空</span>
+      <span *ngIf="value" thyText>
+        <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+        <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+        <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
+        <span class="text-truncate">{{ value?.text }}</span>
+      </span>
+    </ng-template>
   </thy-custom-select>
 </div>
