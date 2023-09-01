@@ -11,7 +11,10 @@ import { ThyRadioComponent } from '../radio.component';
     // eslint-disable-next-line @angular-eslint/component-selector
     selector: '[thy-radio-button],[thyRadioButton]',
     templateUrl: './radio-button.component.html',
-    standalone: true
+    standalone: true,
+    host: {
+        '[attr.tabindex]': `tabIndex`
+    }
 })
 export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit {
     @HostBinding('class.btn') isButton = true;
