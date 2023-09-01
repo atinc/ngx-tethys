@@ -5,7 +5,7 @@ import { finalize, tap } from 'rxjs/operators';
 import { Behavior, BehaviorContext, createBehaviorFromFunction, handleBehaviorError, pickBehaviorCallbacks } from './behavior';
 import { ErrorFn, ExtractObservableValue, SuccessFn } from './types';
 
-interface ActionBehavior<R> {
+export interface ActionBehavior<R> {
     saving: Signal<boolean>;
 
     execute(success?: SuccessFn<R>, error?: ErrorFn): void;
@@ -61,7 +61,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
 export function useAction<A extends (...args: any) => Observable<any> = (...args: any) => Observable<any>>(
     action: A,
     context: BehaviorContext<ExtractObservableValue<ReturnType<A>>> = {}
-) {
+): Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> & ActionBehavior<ExtractObservableValue<ReturnType<A>>> {
     const behavior = new ActionBehaviorImpl(action, context);
 
     const fn = function (...params: Parameters<A>) {
