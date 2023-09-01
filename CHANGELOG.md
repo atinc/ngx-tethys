@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.1](https://github.com/atinc/ngx-tethys/compare/16.1.0-next.0...16.1.1) (2023-09-01)
+
+
+### Features
+
+* **cdk:** export some types for behaviors #INFR-9498 ([2c101d6](https://github.com/atinc/ngx-tethys/commit/2c101d639e47562a703a9ac70a935f8ff25bc286)), closes [#INFR-9498](https://github.com/atinc/ngx-tethys/issues/INFR-9498)
+* **grid:** add thyFlex, thyFlexItem and thyGrid directives and refactor related components use hostDirectives #INFR-9461 ([d6b499b](https://github.com/atinc/ngx-tethys/commit/d6b499b9f00d6bcc9ae9acbebafc14fad9e6e997)), closes [#INFR-9461](https://github.com/atinc/ngx-tethys/issues/INFR-9461)
+
+
+
 # [16.1.0](https://github.com/atinc/ngx-tethys/compare/16.1.0-next.0...16.1.0) (2023-08-31)
 
 
