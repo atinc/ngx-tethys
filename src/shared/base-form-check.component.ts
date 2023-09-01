@@ -61,14 +61,21 @@ export class ThyFormCheckBaseComponent extends _MixinBase implements ControlValu
         }
     }
 
+    disabled = false;
+
     /**
      * 是否禁用
      * @default false
      */
     @Input()
     @InputBoolean()
-    set thyDisabled(value: boolean) {
-        this.setDisabledState(coerceBooleanProperty(value));
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+        this.setDisabledState(this.disabled);
+    }
+
+    override get thyDisabled() {
+        return this.disabled;
     }
 
     writeValue(obj: boolean): void {
