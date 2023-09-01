@@ -2,6 +2,7 @@ import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import {
+    ThyGrid,
     ThyGridComponent,
     ThyGridItemComponent,
     ThyGridModule,
@@ -60,7 +61,7 @@ describe('grid', () => {
         let fixture: ComponentFixture<TestGridDefaultComponent>;
         let gridDebugElement: DebugElement;
         let gridElement: HTMLElement;
-        let gridInstance: ThyGridComponent;
+        let gridInstance: ThyGrid;
 
         beforeEach(() => {
             TestBed.configureTestingModule({
@@ -71,7 +72,7 @@ describe('grid', () => {
             fixture = TestBed.createComponent(TestGridDefaultComponent);
             gridDebugElement = fixture.debugElement.query(By.directive(ThyGridComponent));
             gridElement = gridDebugElement.nativeElement;
-            gridInstance = gridDebugElement.componentInstance;
+            gridInstance = gridDebugElement.componentInstance.grid;
             fixture.detectChanges();
         });
 
@@ -118,7 +119,7 @@ describe('grid', () => {
         let fixture: ComponentFixture<TestGridBasicComponent>;
         let gridDebugElement: DebugElement;
         let gridElement: HTMLElement;
-        let gridInstance: ThyGridComponent;
+        let gridInstance: ThyGrid;
         let testComponent: TestGridBasicComponent;
 
         beforeEach(() => {
@@ -131,7 +132,7 @@ describe('grid', () => {
             testComponent = fixture.debugElement.componentInstance;
             gridDebugElement = fixture.debugElement.query(By.directive(ThyGridComponent));
             gridElement = gridDebugElement.nativeElement;
-            gridInstance = gridDebugElement.componentInstance;
+            gridInstance = gridDebugElement.componentInstance.grid;
             fixture.detectChanges();
         });
 
@@ -334,7 +335,7 @@ describe('grid', () => {
                     resizeWindow(width);
 
                     const span = gridItem.componentInstance.span;
-                    const xGap = fixture.debugElement.query(By.directive(ThyGridComponent)).componentInstance.xGap;
+                    const xGap = gridInstance.xGap;
                     expect(gridItemElement.style.gridColumn).toBe(`span ${span} / auto`);
                     expect(gridItemElement.style.marginLeft).toBe(
                         `calc(((100% - ${(span - 1) * xGap}px) / ${span} + ${xGap}px) * ${offset})`

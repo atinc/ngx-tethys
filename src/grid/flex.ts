@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { isUndefinedOrNull } from '@tethys/cdk/is';
+import { hasLaterChange } from 'ngx-tethys/util';
 
 export type ThyFlexDirection = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 export type ThyFlexWrap = 'nowrap' | 'wrap' | 'wrap-reverse';
@@ -23,16 +24,14 @@ export type ThyFlexShrink = '1' | '0' | 0 | 1;
  * @name thy-flex, [thyFlex]
  * @order 20
  */
-@Component({
-    selector: 'thy-flex, [thyFlex]',
-    template: `<ng-content></ng-content>`,
+@Directive({
+    selector: '[thyFlex]',
     standalone: true,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-flex d-flex'
     }
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class ThyFlex implements OnInit, OnChanges {
     private hostRenderer = useHostRenderer();
 
@@ -76,7 +75,7 @@ export class ThyFlex implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (hasChanges(changes)) {
+        if (hasLaterChange(changes)) {
             this.updateClasses();
         }
     }
@@ -101,20 +100,36 @@ export class ThyFlex implements OnInit, OnChanges {
 }
 
 /**
+ * @internal
+ */
+@Component({
+    selector: 'thy-flex',
+    template: `<ng-content></ng-content>`,
+    standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    hostDirectives: [
+        {
+            directive: ThyFlex,
+            inputs: ['thyDirection', 'thyWrap', 'thyJustifyContent', 'thyAlignItems', 'thyGap']
+        }
+    ],
+    imports: [ThyFlex]
+})
+export class ThyFlexComponent {}
+
+/**
  * 设置为 Flex Item 组件
  * @name thy-flex-item, [thyFlexItem]
  * @order 25
  */
-@Component({
-    selector: 'thy-flex-item, [thyFlexItem]',
-    template: `<ng-content></ng-content>`,
+@Directive({
+    selector: '[thyFlexItem]',
     standalone: true,
-    changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-flex-item'
     }
 })
-// eslint-disable-next-line @angular-eslint/component-class-suffix
+// eslint-disable-next-line @angular-eslint/directive-class-suffix
 export class ThyFlexItem implements OnInit, OnChanges {
     private hostRenderer = useHostRenderer();
 
@@ -147,7 +162,7 @@ export class ThyFlexItem implements OnInit, OnChanges {
     }
 
     ngOnChanges(changes: SimpleChanges): void {
-        if (hasChanges(changes)) {
+        if (hasLaterChange(changes)) {
             this.updateClasses();
         }
     }
@@ -176,13 +191,24 @@ export class ThyFlexItem implements OnInit, OnChanges {
     }
 }
 
+/**
+ * @internal
+ */
+@Component({
+    selector: 'thy-flex-item',
+    template: `<ng-content></ng-content>`,
+    standalone: true,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [ThyFlexItem],
+    hostDirectives: [
+        {
+            directive: ThyFlexItem,
+            inputs: ['thyFlexItem', 'thyGrow', 'thyShrink', 'thyBasis']
+        }
+    ]
+})
+export class ThyFlexItemComponent {}
+
 function normalizeStartEnd(value: string): string {
     return value === 'flex-start' ? 'start' : value === 'flex-end' ? 'end' : value;
-}
-
-function hasChanges(changes: SimpleChanges): boolean {
-    const hasChange = Object.keys(changes).find(key => {
-        return changes[key] && !changes[key].isFirstChange();
-    });
-    return !!hasChange;
 }
