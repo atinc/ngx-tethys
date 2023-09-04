@@ -1,14 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    InputNumber,
-    ThyCanDisable,
-    ThyHasTabIndex,
-    _MixinBase,
-    mixinDisabled,
-    mixinTabIndex
-} from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, helpers } from 'ngx-tethys/util';
 
 import { NgClass, NgFor } from '@angular/common';
@@ -55,7 +45,7 @@ const noop = () => {};
     standalone: true,
     imports: [NgFor, ThyStopPropagationDirective, ThyRateItemComponent, NgClass, ThyTooltipDirective]
 })
-export class ThyRateComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnChanges {
+export class ThyRateComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnChanges {
     private _value = 0;
 
     private currentValue = 0;

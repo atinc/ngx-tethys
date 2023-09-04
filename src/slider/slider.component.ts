@@ -19,7 +19,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
 import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InputBoolean, InputNumber, _MixinBase } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgStyle } from '@angular/common';
 
@@ -48,7 +48,10 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
     standalone: true,
     imports: [NgStyle]
 })
-export class ThySliderComponent extends _MixinBase implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
+export class ThySliderComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor
+{
     /**
      * 是否切换为纵轴模式
      */

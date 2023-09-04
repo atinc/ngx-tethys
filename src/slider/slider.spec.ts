@@ -82,6 +82,7 @@ describe('ThyTestSliderComponent', () => {
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
             expect(fixtureInstance.value).toEqual(100);
+            expect(pointerElement.getAttribute('tabindex')).toBe('0');
         }));
 
         it('should not show when thyStep is out of range', fakeAsync(() => {
@@ -154,6 +155,7 @@ describe('ThyTestSliderComponent', () => {
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
             expect(fixtureInstance.value).toEqual(value);
+            expect(pointerElement.getAttribute('tabindex')).toBe('-1');
         }));
 
         it('slider should be vertical when thyVertical is true', () => {

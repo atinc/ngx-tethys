@@ -83,6 +83,7 @@ describe('checkbox component', () => {
         tick(500);
         fixture.detectChanges();
         expect(fixture.nativeElement.children[2].children[0].classList.contains('form-check-no-label-text')).toBeFalsy();
+        expect(fixture.nativeElement.children[3].children[0].getAttribute('tabindex')).toBe('0');
     }));
 
     it('should have correct class when isDisabled has changed', fakeAsync(() => {
@@ -94,6 +95,7 @@ describe('checkbox component', () => {
         tick(500);
         fixture.detectChanges();
         expect(fixture.nativeElement.children[3].children[0].attributes.disabled).toBeTruthy();
+        expect(fixture.nativeElement.children[3].children[0].getAttribute('tabindex')).toBe('-1');
     }));
 
     it('should have disabled class when isDisabled is true', fakeAsync(() => {

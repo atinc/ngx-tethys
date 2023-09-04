@@ -1,5 +1,5 @@
 import {
-    _MixinBase,
+    TabIndexDisabledControlValueAccessorMixin,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
@@ -151,7 +151,7 @@ const noop = () => {};
     }
 })
 export class ThySelectCustomComponent
-    extends _MixinBase
+    extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy
 {
     disabled = false;
