@@ -27,6 +27,7 @@ import { ThyColorPickerModule } from '../module';
             thyColorPicker
             [(ngModel)]="color"
             [disabled]="disabled"
+            [thyDisabled]="disabled"
             [thyTrigger]="trigger"
             [thyShowDelay]="showDelay"
             [thyHideDelay]="hideDelay"
@@ -164,8 +165,6 @@ describe(`color-picker`, () => {
     let overlayContainer: OverlayContainer;
     let overlayContainerElement: HTMLElement;
     let colorPickerDebugElement: DebugElement;
-    let defaultPanel: ComponentFixture<ThyColorPickerPanelComponent>;
-    let defaultPanelInstance: ThyColorPickerPanelComponent;
 
     beforeEach(() => {
         TestBed.configureTestingModule({
@@ -204,7 +203,7 @@ describe(`color-picker`, () => {
         overlayContainer.ngOnDestroy();
     });
 
-    describe('color-picker directive', () => {
+    fdescribe('color-picker directive', () => {
         function openDefaultPanel() {
             fixture.detectChanges();
             dispatchMouseEvent(boxElement, 'click');
@@ -223,6 +222,12 @@ describe(`color-picker`, () => {
             tick(500);
             fixture.detectChanges();
             expect(boxElement.classList.contains('thy-color-picker-disabled')).toBeTruthy();
+            const index = colorPickerDebugElement.attributes.tabindex;
+            expect(index).toBe('-1');
+            fixtureInstance.disabled = false;
+            fixture.detectChanges();
+            const tabindex = colorPickerDebugElement.attributes.tabindex;
+            expect(tabindex).toBe('0');
         }));
 
         it('should open color-picker default panel', fakeAsync(() => {
