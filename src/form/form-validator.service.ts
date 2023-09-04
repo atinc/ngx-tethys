@@ -7,7 +7,7 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { AbstractControl, FormControlName, FormGroupDirective, NgControl, NgForm, ValidationErrors } from '@angular/forms';
 
 import { ERROR_VALUE_REPLACE_REGEX, ThyFormValidatorLoader } from './form-validator-loader';
-import { ThyFormValidatorConfig, ThyValidateOn, ThyValidateResult } from './form.class';
+import { ThyFormValidatorConfig, ThyValidateOn } from './form.class';
 
 /**
  * @private
@@ -220,24 +220,17 @@ export class ThyFormValidatorService implements OnDestroy {
             const errorMessages = this._getValidationMessages(name, control.errors);
             this._setControlValidationError(name, errorMessages);
         }
-        return {
-            valid: control.valid,
-            control: control,
-            element: this._getElement(name)
-        };
     }
 
     validateControls() {
         // 主要是 无法检测到 ngForm 的 controls 的变化，或者是我没有找到
         // 验证的时候循环 ngForm 的 controls 验证
         // 发现没有 validation 初始化一个，已经存在不会重新初始化，保存缓存数据
-        const results = [];
         const controls = this._getControls();
         for (const name in controls) {
             if (controls.hasOwnProperty(name)) {
                 this._tryGetValidation(name);
-                const result = this.validateControl(name);
-                results.push(result);
+                this.validateControl(name);
             }
         }
         // 移除已经不存在的 validation
@@ -247,23 +240,16 @@ export class ThyFormValidatorService implements OnDestroy {
                 delete this.validations[name];
             }
         });
-        return results;
     }
 
     addError(message: string) {
         this._addError(message);
     }
 
-    validate($event?: Event, returnDetail: boolean = false): boolean | ThyValidateResult {
+    validate($event?: Event): boolean {
         this._ngForm.onSubmit($event);
-        const results = this.validateControls();
-        return returnDetail
-            ? {
-                  valid: this._ngForm.valid,
-                  invalidControls: results.filter(res => !res.valid),
-                  validControls: results.filter(res => res.valid)
-              }
-            : this._ngForm.valid;
+        this.validateControls();
+        return this._ngForm.valid;
     }
 
     reset() {

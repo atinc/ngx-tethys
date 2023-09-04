@@ -1,7 +1,6 @@
 import { Dictionary } from 'ngx-tethys/types';
 
 import { InjectionToken } from '@angular/core';
-import { AbstractControl, FormControlName } from '@angular/forms';
 
 export type ThyFormLayout = 'horizontal' | 'vertical' | 'inline';
 
@@ -43,18 +42,6 @@ export interface ThyFormValidatorGlobalConfig extends ThyFormValidatorConfig {
 export interface ThyFormConfig {
     layout?: ThyFormLayout;
     footerAlign?: ThyFormGroupFooterAlign;
-}
-
-export interface ThyControlValidationResult {
-    valid: boolean;
-    control: AbstractControl | FormControlName;
-    element: HTMLElement;
-}
-
-export interface ThyValidateResult {
-    valid: boolean;
-    invalidControls: ThyControlValidationResult[];
-    validControls: ThyControlValidationResult[];
 }
 
 export const THY_VALIDATOR_CONFIG = new InjectionToken<ThyFormValidatorGlobalConfig>('VALIDATION_CONFIG');
