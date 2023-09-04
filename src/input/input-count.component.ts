@@ -1,11 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Input, ChangeDetectorRef, Optional } from '@angular/core';
 import { ThyInputDirective } from './input.directive';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { UnsubscribeMixin } from 'ngx-tethys/core';
 import { takeUntil, switchMap, filter, tap } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { ThyInputGroupComponent } from './input-group.component';
-
-const _Base = mixinUnsubscribe(MixinBase);
 
 /**
  * 输入框输入文字展示
@@ -21,7 +19,7 @@ const _Base = mixinUnsubscribe(MixinBase);
     },
     standalone: true
 })
-export class ThyInputCountComponent extends _Base implements OnInit {
+export class ThyInputCountComponent extends UnsubscribeMixin implements OnInit {
     private hasInput = false;
 
     /**

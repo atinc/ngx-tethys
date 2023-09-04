@@ -1,7 +1,7 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { InputBoolean, ThyTranslate, _MixinBase } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 const noop = () => {};
 
@@ -9,7 +9,7 @@ const noop = () => {};
  * @private
  */
 @Directive()
-export class ThyFormCheckBaseComponent extends _MixinBase implements ControlValueAccessor {
+export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     // The internal data model
     _innerValue: boolean = null;
 

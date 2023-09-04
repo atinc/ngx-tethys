@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, ElementRef, Input, Optional, OnDestroy, OnInit, Inject } from '@angular/core';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { UnsubscribeMixin } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { ThyGridToken, THY_GRID_COMPONENT } from './grid.token';
 import { ThyGridResponsiveDescription, THY_GRID_ITEM_DEFAULT_SPAN } from './thy-grid.component';
@@ -19,7 +19,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
     },
     standalone: true
 })
-export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyGridItemComponent extends UnsubscribeMixin implements OnInit, OnDestroy {
     /**
      * 栅格项的占位列数，为 0 时会隐藏该栅格项
      * @default 1

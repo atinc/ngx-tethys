@@ -6,7 +6,6 @@ import { SafeAny } from 'ngx-tethys/types';
 import { isNumber } from 'ngx-tethys/util';
 import { Subject, fromEvent } from 'rxjs';
 import { take, takeUntil } from 'rxjs/operators';
-import { _MixinBase } from '../behaviors';
 
 export type ThyOverlayTrigger = 'hover' | 'focus' | 'click';
 
@@ -14,7 +13,7 @@ const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: t
 
 const longPressTime = 500;
 
-export abstract class ThyOverlayDirectiveBase extends _MixinBase {
+export abstract class ThyOverlayDirectiveBase {
     protected elementRef: ElementRef;
     private initialized = false;
     /** Trigger Overlay */
@@ -92,7 +91,6 @@ export abstract class ThyOverlayDirectiveBase extends _MixinBase {
         overlayPin?: boolean,
         changeDetectorRef?: ChangeDetectorRef
     ) {
-        super();
         this.elementRef = elementRef;
         this.platform = platform;
         this.focusMonitor = focusMonitor;

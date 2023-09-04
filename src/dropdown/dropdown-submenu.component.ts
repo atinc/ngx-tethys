@@ -1,4 +1,4 @@
-import { Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { UnsubscribeMixin } from 'ngx-tethys/core';
 import { getElementOffset } from 'ngx-tethys/util';
 import { takeUntil } from 'rxjs/operators';
 
@@ -9,8 +9,6 @@ import { ThyDropdownMenuItemDirective } from './dropdown-menu-item.directive';
 export type ThyDropdownSubmenuDirection = 'left' | 'right' | 'auto';
 
 type InnerDropdownSubmenuDirection = ThyDropdownSubmenuDirection | 'leftBottom' | 'rightBottom';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
 
@@ -28,7 +26,7 @@ const SUBMENU_CLASS_PREFIX = 'dropdown-submenu';
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyDropdownSubmenuComponent extends _MixinBase implements OnInit, OnDestroy {
+export class ThyDropdownSubmenuComponent extends UnsubscribeMixin implements OnInit, OnDestroy {
     private direction: InnerDropdownSubmenuDirection = 'right';
 
     /**

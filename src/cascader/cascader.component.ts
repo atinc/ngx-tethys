@@ -1,4 +1,10 @@
-import { _MixinBase, EXPANDED_DROPDOWN_POSITIONS, InputBoolean, InputNumber, ScrollToService } from 'ngx-tethys/core';
+import {
+    TabIndexDisabledControlValueAccessorMixin,
+    EXPANDED_DROPDOWN_POSITIONS,
+    InputBoolean,
+    InputNumber,
+    ScrollToService
+} from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
@@ -110,7 +116,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         ThyIconComponent
     ]
 })
-export class ThyCascaderComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */

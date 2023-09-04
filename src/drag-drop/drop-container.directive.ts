@@ -1,12 +1,10 @@
 import { OnInit, Directive, Output, EventEmitter, ContentChildren, QueryList, AfterContentInit, NgZone, Input } from '@angular/core';
 import { ThyDragDirective } from './drag.directive';
 import { merge, Observable, defer } from 'rxjs';
-import { mixinUnsubscribe, MixinBase, Constructor, ThyUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { takeUntil, startWith, take, switchMap } from 'rxjs/operators';
 import { ThyDragDropEvent, ThyDragStartEvent, ThyDragEndEvent, ThyDragOverEvent } from './drag-drop.class';
 import { THY_DROP_CONTAINER_DIRECTIVE, IThyDropContainerDirective } from './drop-container.class';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * @name thy-drop-container,[thyDropContainer]
@@ -22,7 +20,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     ],
     standalone: true
 })
-export class ThyDropContainerDirective<T = any> extends _MixinBase implements OnInit, AfterContentInit, IThyDropContainerDirective {
+export class ThyDropContainerDirective<T = any> extends UnsubscribeMixin implements OnInit, AfterContentInit, IThyDropContainerDirective {
     /**
      * 元数据
      * @type any[]

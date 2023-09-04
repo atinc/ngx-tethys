@@ -15,10 +15,9 @@ import {
     Input,
     ElementRef
 } from '@angular/core';
-import { Constructor, InputBoolean, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { defer, merge, Observable, timer } from 'rxjs';
 import { take, switchMap, takeUntil, startWith } from 'rxjs/operators';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
 import { SelectionModel } from '@angular/cdk/collections';
 import {
     THY_OPTION_PARENT_COMPONENT,
@@ -41,8 +40,6 @@ export interface ThyAutocompleteActivatedEvent {
     option: ThyOptionComponent | null;
 }
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 自动完成组件
  * @name thy-autocomplete
@@ -60,7 +57,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [ThyStopPropagationDirective, NgClass, NgIf, ThyEmptyComponent]
 })
-export class ThyAutocompleteComponent extends _MixinBase implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
+export class ThyAutocompleteComponent extends UnsubscribeMixin implements IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy {
     dropDownClass: { [key: string]: boolean };
 
     isMultiple = false;

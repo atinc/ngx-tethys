@@ -3,7 +3,7 @@ import { normalizePassiveListenerOptions } from '@angular/cdk/platform';
 import { ThyResizeDirection } from './interface';
 import { ThyResizableService } from './resizable.service';
 import { takeUntil } from 'rxjs/operators';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { fromEvent, merge } from 'rxjs';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgIf } from '@angular/common';
@@ -11,8 +11,6 @@ import { NgIf } from '@angular/common';
 export class ThyResizeHandleMouseDownEvent {
     constructor(public direction: ThyResizeDirection, public mouseEvent: MouseEvent | TouchEvent) {}
 }
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveListenerOptions({ passive: true });
 
@@ -43,7 +41,7 @@ const passiveEventListenerOptions = <AddEventListenerOptions>normalizePassiveLis
     standalone: true,
     imports: [NgIf]
 })
-export class ThyResizeHandleComponent extends _MixinBase implements OnInit, OnDestroy {
+export class ThyResizeHandleComponent extends UnsubscribeMixin implements OnInit, OnDestroy {
     /**
      * 调整方向
      * @type top | right | bottom | left | topRight | bottomRight | bottomLeft | topLeft

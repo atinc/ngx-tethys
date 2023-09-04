@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { _MixinBase, InputBoolean } from 'ngx-tethys/core';
+import { InputBoolean } from 'ngx-tethys/core';
 
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { ThyRadioComponent } from '../radio.component';

@@ -12,7 +12,7 @@ import {
     ChangeDetectorRef,
     NgZone
 } from '@angular/core';
-import { MixinBase, ThyTranslate, mixinUnsubscribe, useHostFocusControl } from 'ngx-tethys/core';
+import { ThyTranslate, UnsubscribeMixin, useHostFocusControl } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { ThyInputDirective } from './input.directive';
 import { NgIf, NgTemplateOutlet } from '@angular/common';
@@ -49,7 +49,7 @@ const inputGroupSizeMap = {
     standalone: true,
     imports: [NgIf, NgTemplateOutlet]
 })
-export class ThyInputGroupComponent extends mixinUnsubscribe(MixinBase) implements OnInit, AfterContentChecked, OnDestroy {
+export class ThyInputGroupComponent extends UnsubscribeMixin implements OnInit, AfterContentChecked, OnDestroy {
     private hostRenderer = useHostRenderer();
 
     private hostFocusControl = useHostFocusControl();

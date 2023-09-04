@@ -10,7 +10,7 @@ import {
     EventEmitter,
     ChangeDetectorRef
 } from '@angular/core';
-import { Constructor, ThyUnsubscribe, MixinBase, mixinUnsubscribe, InputBoolean, InputNumber } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, UnsubscribeMixin } from 'ngx-tethys/core';
 import { ThyResizableService } from './resizable.service';
 import { Platform } from '@angular/cdk/platform';
 import { takeUntil } from 'rxjs/operators';
@@ -18,8 +18,6 @@ import { ThyResizeHandleMouseDownEvent } from './resize-handle.component';
 import { ThyResizeEvent } from './interface';
 import { getEventWithPoint, ensureInBounds, setCompatibleStyle } from './utils';
 import { fromEvent } from 'rxjs';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 调整尺寸
@@ -35,7 +33,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     },
     standalone: true
 })
-export class ThyResizableDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+export class ThyResizableDirective extends UnsubscribeMixin implements AfterViewInit, OnDestroy {
     /**
      * 调整尺寸的边界
      * @default parent

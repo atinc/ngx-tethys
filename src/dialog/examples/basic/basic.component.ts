@@ -1,5 +1,5 @@
 import { Component, OnInit, TemplateRef, Renderer2, OnDestroy } from '@angular/core';
-import { mixinUnsubscribe, MixinBase } from 'ngx-tethys/core';
+import { UnsubscribeMixin } from 'ngx-tethys/core';
 import { ThyDialogConfig, ThyDialogSizes, ThyDialog } from 'ngx-tethys/dialog';
 import { keycodes } from 'ngx-tethys/util';
 import { ThyDialogBasicContentComponent } from './dialog-content.component';
@@ -9,7 +9,7 @@ import { takeUntil } from 'rxjs/operators';
     selector: 'thy-dialog-basic-example',
     templateUrl: './basic.component.html'
 })
-export class ThyDialogBasicExampleComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyDialogBasicExampleComponent extends UnsubscribeMixin implements OnInit, OnDestroy {
     hasShowDialog = false;
 
     public config: ThyDialogConfig = {

@@ -12,7 +12,7 @@ import {
     EventEmitter
 } from '@angular/core';
 import { InternalImageInfo, ThyImageInfo, ThyImagePreviewMode, ThyImagePreviewOperation, ThyImagePreviewOptions } from '../image.class';
-import { MixinBase, mixinUnsubscribe } from 'ngx-tethys/core';
+import { UnsubscribeMixin } from 'ngx-tethys/core';
 import { fromEvent, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ThyDialog } from 'ngx-tethys/dialog';
@@ -68,7 +68,7 @@ const VERTICAL_SPACE = 96 + 106; // top: 96px; bottom: 106px
         ThyCopyDirective
     ]
 })
-export class ThyImagePreviewComponent extends mixinUnsubscribe(MixinBase) implements OnInit, OnDestroy {
+export class ThyImagePreviewComponent extends UnsubscribeMixin implements OnInit, OnDestroy {
     @Output() downloadClicked: EventEmitter<ThyImageInfo> = new EventEmitter();
     images: InternalImageInfo[] = [];
     previewIndex: number = 0;

@@ -14,7 +14,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { _MixinBase } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -40,7 +40,7 @@ import { _MixinBase } from 'ngx-tethys/core';
         '[class.thy-switch-sm]': 'size === "sm"'
     }
 })
-export class ThySwitchComponent extends _MixinBase implements OnInit, ControlValueAccessor {
+export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
     public model: boolean;
 
     public type?: String = 'primary';

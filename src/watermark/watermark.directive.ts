@@ -1,11 +1,9 @@
 import { Directive, Input, ElementRef, OnDestroy, OnInit, SimpleChanges, OnChanges } from '@angular/core';
-import { InputBoolean, Constructor, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { Subject, Observable } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { DEFAULT_WATERMARK_CONFIG, DEFAULT_CANVAS_CONFIG } from './config';
 import { MutationObserverFactory } from '@angular/cdk/observers';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export interface ThyCanvasConfigType {
     degree?: number;
@@ -23,7 +21,7 @@ export interface ThyCanvasConfigType {
     selector: '[thyWatermark]',
     standalone: true
 })
-export class ThyWatermarkDirective extends _MixinBase implements OnInit, OnDestroy, OnChanges {
+export class ThyWatermarkDirective extends UnsubscribeMixin implements OnInit, OnDestroy, OnChanges {
     /**
      * 是否禁用，默认为 false
      */

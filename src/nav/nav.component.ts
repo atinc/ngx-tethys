@@ -1,4 +1,4 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { ThyPopover } from 'ngx-tethys/popover';
 import { merge, Observable, of } from 'rxjs';
 import { debounceTime, take, takeUntil, tap } from 'rxjs/operators';
@@ -32,8 +32,6 @@ import { BypassSecurityTrustHtmlPipe } from './nav.pipe';
 import { ThyDropdownMenuComponent, ThyDropdownMenuItemDirective, ThyDropdownMenuItemActiveDirective } from 'ngx-tethys/dropdown';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgClass, NgTemplateOutlet, NgIf, NgFor } from '@angular/common';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 export type ThyNavType = 'pulled' | 'tabs' | 'pills' | 'lite' | 'primary' | 'secondary' | 'thirdly' | 'secondary-divider';
 export type ThyNavSize = 'lg' | 'md' | 'sm';
@@ -87,7 +85,7 @@ const tabItemRight = 20;
     ]
 })
 export class ThyNavComponent
-    extends _MixinBase
+    extends UnsubscribeMixin
     implements OnInit, AfterViewInit, AfterContentInit, AfterContentChecked, OnChanges, OnDestroy
 {
     private type: ThyNavType = 'pulled';

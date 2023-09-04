@@ -2,7 +2,15 @@ import { FocusMonitor } from '@angular/cdk/a11y';
 import { Platform } from '@angular/cdk/platform';
 import { Directive, ElementRef, EventEmitter, forwardRef, Input, NgZone, OnDestroy, OnInit, Output } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean, InputNumber, ThyOverlayDirectiveBase, ThyPlacement, ThyOverlayTrigger } from 'ngx-tethys/core';
+import {
+    InputBoolean,
+    InputNumber,
+    ThyOverlayDirectiveBase,
+    ThyPlacement,
+    ThyOverlayTrigger,
+    mixinTabIndex,
+    mixinDisabled
+} from 'ngx-tethys/core';
 import { ThyPopover, ThyPopoverRef } from 'ngx-tethys/popover';
 import { fromEvent, Subject } from 'rxjs';
 import { ThyColorPickerPanelComponent } from './color-picker-panel.component';
@@ -10,6 +18,18 @@ import { DEFAULT_COLORS } from './constant';
 import ThyColor from './helpers/color.class';
 import { takeUntil } from 'rxjs/operators';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
+
+export class OverlayBase extends ThyOverlayDirectiveBase {
+    constructor(protected zone: NgZone, protected elementRef: ElementRef<HTMLElement>, platform: Platform, focusMonitor: FocusMonitor) {
+        super(elementRef, platform, focusMonitor, zone, true);
+    }
+
+    show(): void {}
+
+    hide() {}
+}
+
+const _BaseMixin = mixinTabIndex(mixinDisabled(OverlayBase));
 
 /**
  * 颜色选择组件
@@ -31,7 +51,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
     ],
     standalone: true
 })
-export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements OnInit, OnDestroy {
+export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDestroy {
     /**
      * 弹框偏移量
      * @type  number
@@ -136,12 +156,12 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
 
     constructor(
         private thyPopover: ThyPopover,
-        private zone: NgZone,
+        protected zone: NgZone,
         protected elementRef: ElementRef<HTMLElement>,
         platform: Platform,
         focusMonitor: FocusMonitor
     ) {
-        super(elementRef, platform, focusMonitor, zone, true);
+        super(zone, elementRef, platform, focusMonitor);
     }
 
     ngOnInit(): void {
@@ -221,7 +241,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         return this.popoverRef.getOverlayRef();
     }
 
-    show(delay: number = this.showDelay): void {
+    override show(delay: number = this.showDelay): void {
         if (this.hideTimeoutId) {
             clearTimeout(this.hideTimeoutId);
             this.hideTimeoutId = null;
@@ -241,7 +261,7 @@ export class ThyColorPickerDirective extends ThyOverlayDirectiveBase implements 
         }, delay);
     }
 
-    hide(delay: number = this.hideDelay) {
+    override hide(delay: number = this.hideDelay) {
         if (this.showTimeoutId) {
             clearTimeout(this.showTimeoutId);
             this.showTimeoutId = null;

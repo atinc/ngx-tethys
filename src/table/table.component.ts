@@ -1,13 +1,4 @@
-import {
-    Constructor,
-    InputBoolean,
-    InputCssPixel,
-    InputNumber,
-    MixinBase,
-    mixinUnsubscribe,
-    ThyUnsubscribe,
-    UpdateHostClassService
-} from 'ngx-tethys/core';
+import { InputBoolean, InputCssPixel, InputNumber, UnsubscribeMixin, UpdateHostClassService } from 'ngx-tethys/core';
 import { Dictionary, SafeAny } from 'ngx-tethys/types';
 import { coerceBooleanProperty, get, helpers, isString, keyBy, set } from 'ngx-tethys/util';
 import { EMPTY, fromEvent, merge, Observable, of } from 'rxjs';
@@ -114,8 +105,6 @@ const css = {
 
 const passiveEventListenerOptions = normalizePassiveListenerOptions({ passive: true });
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 表格组件
  * @name thy-table
@@ -160,7 +149,10 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
         TableRowDragDisabledPipe
     ]
 })
-export class ThyTableComponent extends _MixinBase implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent {
+export class ThyTableComponent
+    extends UnsubscribeMixin
+    implements OnInit, OnChanges, AfterViewInit, OnDestroy, IThyTableColumnParentComponent
+{
     public customType = customType;
 
     public model: object[] = [];

@@ -1,4 +1,4 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { takeUntil } from 'rxjs/operators';
 
@@ -38,8 +38,6 @@ export class ThySpaceItemDirective implements OnInit {
 
 const DEFAULT_SIZE: ThySpacingSize = 'md';
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 间距组件
  * @name thy-space
@@ -55,7 +53,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [NgFor, NgTemplateOutlet]
 })
-export class ThySpaceComponent extends _MixinBase implements OnInit, AfterContentInit {
+export class ThySpaceComponent extends UnsubscribeMixin implements OnInit, AfterContentInit {
     public space: number = getNumericSize(DEFAULT_SIZE);
 
     private hostRenderer = useHostRenderer();

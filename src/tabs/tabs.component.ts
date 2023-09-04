@@ -14,7 +14,7 @@ import {
     SimpleChanges,
     TemplateRef
 } from '@angular/core';
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { InputBoolean, UnsubscribeMixin } from 'ngx-tethys/core';
 import { isString } from 'ngx-tethys/util';
 import { fromEvent } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -29,8 +29,6 @@ export type ThyTabsSize = 'lg' | 'md' | 'sm';
 export type ThyTabsType = 'pulled' | 'tabs' | 'pills' | 'lite';
 
 export type ThyTabsPosition = 'top' | 'left';
-
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
 
 /**
  * 选项卡切换组件
@@ -49,7 +47,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     standalone: true,
     imports: [ThyNavComponent, NgFor, ThyNavItemDirective, NgIf, NgTemplateOutlet, ThyTabContentComponent]
 })
-export class ThyTabsComponent extends _MixinBase implements OnInit, OnChanges, AfterContentInit {
+export class ThyTabsComponent extends UnsubscribeMixin implements OnInit, OnChanges, AfterContentInit {
     @ContentChildren(ThyTabComponent, { descendants: true }) tabs = new QueryList<ThyTabComponent>();
 
     /**

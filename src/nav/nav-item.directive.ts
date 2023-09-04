@@ -1,4 +1,4 @@
-import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe } from 'ngx-tethys/core';
+import { Constructor, InputBoolean, MixinBase, mixinUnsubscribe, ThyUnsubscribe, UnsubscribeMixin } from 'ngx-tethys/core';
 import { takeUntil } from 'rxjs/operators';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import {
@@ -17,8 +17,6 @@ import { RouterLinkActive } from '@angular/router';
 
 export type ThyNavLink = '' | 'active';
 
-const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscribe(MixinBase);
-
 /**
  * 导航项
  * @name thyNavItem
@@ -33,7 +31,7 @@ const _MixinBase: Constructor<ThyUnsubscribe> & typeof MixinBase = mixinUnsubscr
     },
     standalone: true
 })
-export class ThyNavItemDirective extends _MixinBase implements AfterViewInit, OnDestroy {
+export class ThyNavItemDirective extends UnsubscribeMixin implements AfterViewInit, OnDestroy {
     /**
      * 是否激活状态
      * @default false
