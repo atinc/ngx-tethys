@@ -9,6 +9,12 @@
         .thy-slider-pointer {
             border-color: $color;
             background-color: variables.$white;
+            &:not(.disabled) {
+                &:focus {
+                    outline: 0 !important;
+                    border: 1px solid variables.$primary;
+                }
+            }
         }
     }
 }

@@ -39,7 +39,8 @@ const noop = () => {};
         }
     ],
     host: {
-        '[attr.tabindex]': `tabIndex`
+        '[attr.tabindex]': `tabIndex`,
+        class: 'thy-rate'
     },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,

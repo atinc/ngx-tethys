@@ -16,6 +16,12 @@
     .thy-switch-handle,
     .thy-switch-label {
         border-radius: 20px !important;
+        &:not(.disabled) {
+            &:focus {
+                outline: 0 !important;
+                border: 1px solid variables.$primary;
+            }
+        }
     }
     .thy-switch-label::before {
         right: 2px !important;

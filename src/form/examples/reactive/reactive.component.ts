@@ -76,6 +76,10 @@ export class ThyFormReactiveExampleComponent implements OnInit {
     /** ngModel value */
     values: string[] = null;
 
+    color: '';
+
+    slider = 0;
+
     model = {
         name: '',
         display_name: '',
