@@ -223,6 +223,7 @@ export class ThyColorPickerDirective extends _BaseMixin implements OnInit, OnDes
             });
             this.popoverRef.afterClosed().subscribe(() => {
                 this.thyPanelClose.emit(this.popoverRef);
+                this.elementRef.nativeElement.focus();
             });
         }
         if (this.popoverRef && !this.thyHasBackdrop) {

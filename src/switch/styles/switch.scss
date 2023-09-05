@@ -18,7 +18,7 @@
         border-radius: 20px !important;
         &:not(.disabled) {
             &:focus {
-                outline: 0 !important;
+                outline: 0;
                 border: 1px solid variables.$primary;
             }
         }

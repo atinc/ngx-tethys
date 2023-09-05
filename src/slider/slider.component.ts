@@ -43,7 +43,7 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
         }
     ],
     host: {
-        '[attr.tabindex]': `-1`
+        '[attr.tabindex]': `tabIndex`
     },
     standalone: true,
     imports: [NgStyle]
@@ -312,10 +312,6 @@ export class ThySliderComponent
 
         this.dragStartListener = this.ngZone.runOutsideAngular(() => {
             return fromEvent(this.ref.nativeElement, 'mousedown').pipe(
-                tap((e: Event) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }),
                 pluck(orientField),
                 map((position: number, index) => this.mousePositionToAdaptiveValue(position))
             );

@@ -9,12 +9,6 @@
         .thy-slider-pointer {
             border-color: $color;
             background-color: variables.$white;
-            &:not(.disabled) {
-                &:focus {
-                    outline: 0 !important;
-                    border: 1px solid variables.$primary;
-                }
-            }
         }
     }
 }
@@ -84,6 +78,15 @@
     padding: 5px;
     box-sizing: border-box;
     height: 15px;
+    display: block;
+    &:not(.disabled) {
+        &:focus {
+            outline: 0;
+            .thy-slider-pointer {
+                border: 1px solid variables.$primary;
+            }
+        }
+    }
     .thy-slider-rail {
         position: relative;
         width: 100%;
