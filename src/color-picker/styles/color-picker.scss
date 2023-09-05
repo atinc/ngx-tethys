@@ -15,7 +15,7 @@
 .thy-color-picker {
     &:not(.disabled) {
         &:focus {
-            outline: 0 !important;
+            outline: 0;
             border: 1px solid variables.$primary !important;
         }
     }
