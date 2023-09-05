@@ -254,16 +254,20 @@ export class ThyFormValidatorService implements OnDestroy {
         this._addError(message);
     }
 
-    validate($event?: Event, returnDetail: boolean = false): boolean | ThyValidateResult {
+    validate($event?: Event): boolean {
+        this._ngForm.onSubmit($event);
+        this.validateControls();
+        return this._ngForm.valid;
+    }
+
+    validateWithDetail($event?: Event): ThyValidateResult {
         this._ngForm.onSubmit($event);
         const results = this.validateControls();
-        return returnDetail
-            ? {
-                  valid: this._ngForm.valid,
-                  invalidControls: results.filter(res => !res.valid),
-                  validControls: results.filter(res => res.valid)
-              }
-            : this._ngForm.valid;
+        return {
+            valid: this._ngForm.valid,
+            invalidControls: results.filter(res => !res.valid),
+            validControls: results.filter(res => res.valid)
+        };
     }
 
     reset() {
