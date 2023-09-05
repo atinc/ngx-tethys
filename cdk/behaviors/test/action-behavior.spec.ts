@@ -1,10 +1,10 @@
-import { useAction } from '../action-behavior';
+import { actionBehavior } from '../action-behavior';
 import { Subject } from 'rxjs';
 import { setDefaultErrorHandler } from '../error-handler';
 import { TestBed } from '@angular/core/testing';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 
-describe('use-action', () => {
+describe('action-behavior', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({ imports: [] });
     });
@@ -18,7 +18,7 @@ describe('use-action', () => {
     it('should execute success', () => {
         run(() => {
             const subject = new Subject<number>();
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
@@ -39,7 +39,7 @@ describe('use-action', () => {
         run(() => {
             const subject = new Subject<number>();
             let parameters: [string, number];
-            const action = useAction((param1: string, param2: number) => {
+            const action = actionBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
             });
@@ -60,7 +60,7 @@ describe('use-action', () => {
         run(() => {
             const subject = new Subject<number>();
             let parameters: [string, number];
-            const action = useAction((param1: string, param2: number) => {
+            const action = actionBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
             });
@@ -76,7 +76,7 @@ describe('use-action', () => {
         run(() => {
             const subject = new Subject<void>();
             let actionExecutionTimes = 0;
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 actionExecutionTimes++;
                 return subject.asObservable();
             });
@@ -101,7 +101,7 @@ describe('use-action', () => {
     it('should execute when complete', () => {
         run(() => {
             const subject = new Subject<number>();
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
@@ -119,7 +119,7 @@ describe('use-action', () => {
     it('should execute when error', () => {
         run(() => {
             const subject = new Subject<void>();
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);
@@ -140,7 +140,7 @@ describe('use-action', () => {
     it('should execute when direct throw error', () => {
         run(() => {
             const mockError = new Error('mock error');
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 throw mockError;
             });
             expect(action.saving()).toEqual(false);
@@ -156,7 +156,7 @@ describe('use-action', () => {
     it('should execute use defaultErrorHandler when error', () => {
         run(() => {
             const subject = new Subject<void>();
-            const action = useAction(() => {
+            const action = actionBehavior(() => {
                 return subject.asObservable();
             });
             expect(action.saving()).toEqual(false);

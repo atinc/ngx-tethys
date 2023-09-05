@@ -1,9 +1,9 @@
 import { TestBed } from '@angular/core/testing';
-import { useAsync } from '../async-behavior';
+import { asyncBehavior } from '../async-behavior';
 import { Subject } from 'rxjs';
 import { EnvironmentInjector, runInInjectionContext } from '@angular/core';
 
-describe('use-async', () => {
+describe('async-behavior', () => {
     beforeEach(() => {
         TestBed.configureTestingModule({ imports: [] });
     });
@@ -17,7 +17,7 @@ describe('use-async', () => {
     it('should execute', () => {
         run(() => {
             const subject = new Subject<void>();
-            const async = useAsync(() => {
+            const async = asyncBehavior(() => {
                 return subject.asObservable();
             });
             expect(async.state()).toEqual('pending');
@@ -38,7 +38,7 @@ describe('use-async', () => {
         run(() => {
             const subject = new Subject<number>();
             let parameters: [string, number];
-            const async = useAsync((param1: string, param2: number) => {
+            const async = asyncBehavior((param1: string, param2: number) => {
                 parameters = [param1, param2];
                 return subject.asObservable();
             });
@@ -55,7 +55,7 @@ describe('use-async', () => {
     it('should execute error', () => {
         run(() => {
             const subject = new Subject<void>();
-            const async = useAsync(() => {
+            const async = asyncBehavior(() => {
                 return subject.asObservable();
             });
             expect(async.state()).toEqual('pending');
@@ -77,7 +77,7 @@ describe('use-async', () => {
     it('should execute when direct throw error', () => {
         run(() => {
             const mockError = new Error('mock error');
-            const async = useAsync(() => {
+            const async = asyncBehavior(() => {
                 throw mockError;
             });
             expect(async.loading()).toEqual(false);

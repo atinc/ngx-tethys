@@ -58,7 +58,7 @@ class ActionBehaviorImpl<R, A extends (...args: any) => Observable<R>> implement
     }
 }
 
-export function useAction<A extends (...args: any) => Observable<any> = (...args: any) => Observable<any>>(
+export function actionBehavior<A extends (...args: any) => Observable<any> = (...args: any) => Observable<any>>(
     action: A,
     context: BehaviorContext<ExtractObservableValue<ReturnType<A>>> = {}
 ): Behavior<Parameters<A>, ActionBehavior<ExtractObservableValue<ReturnType<A>>>> & ActionBehavior<ExtractObservableValue<ReturnType<A>>> {
