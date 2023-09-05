@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.2](https://github.com/atinc/ngx-tethys/compare/16.1.1...16.1.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* **image:** set default cursor when thyDisablePreview is true #INFR-9513 ([#2833](https://github.com/atinc/ngx-tethys/issues/2833)) ([77a1c02](https://github.com/atinc/ngx-tethys/commit/77a1c024e9e0ac8f3c345e71bf1f5607b2e8cdd0)), closes [#INFR-9513](https://github.com/atinc/ngx-tethys/issues/INFR-9513)
+
+
+### Features
+
+* **cdk:** rename useAction and useAsync to  actionBehavior and asyncBehavior #INFR-9544 ([#2834](https://github.com/atinc/ngx-tethys/issues/2834)) ([414f1a9](https://github.com/atinc/ngx-tethys/commit/414f1a918641153a33bab84dada6091a905b42a0)), closes [#INFR-9544](https://github.com/atinc/ngx-tethys/issues/INFR-9544)
+
+
+
 ## [16.1.1](https://github.com/atinc/ngx-tethys/compare/16.1.0-next.0...16.1.1) (2023-09-01)
 
 
