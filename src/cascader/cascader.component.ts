@@ -1,14 +1,9 @@
 import {
-    AbstractControlValueAccessor,
-    Constructor,
+    TabIndexDisabledControlValueAccessorMixin,
     EXPANDED_DROPDOWN_POSITIONS,
     InputBoolean,
     InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
-    ScrollToService,
-    ThyCanDisable,
-    ThyHasTabIndex
+    ScrollToService
 } from 'ngx-tethys/core';
 import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
 import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
@@ -79,10 +74,6 @@ function arrayEquals<T>(array1: T[], array2: T[]): boolean {
 
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
-
 /**
  * 级联选择菜单
  * @name thy-cascader
@@ -125,7 +116,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         ThyIconComponent
     ]
 })
-export class ThyCascaderComponent extends _MixinBase implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     /**
      * 选项的实际值的属性名
      */

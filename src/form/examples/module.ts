@@ -15,10 +15,11 @@ import { ThySelectModule } from 'ngx-tethys/select';
 import { ThyStrengthModule } from 'ngx-tethys/strength';
 import { ThySwitchModule } from 'ngx-tethys/switch';
 import { ThyTreeSelectModule } from 'ngx-tethys/tree-select';
-
+import { ThyColorPickerModule } from 'ngx-tethys/color-picker';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ThySliderModule } from 'ngx-tethys/slider';
 
 import { ThyFormBasicExampleComponent } from './basic/basic.component';
 import { ThyFormColumnsExampleComponent } from './columns/columns.component';
@@ -62,7 +63,9 @@ const COMPONENTS = [
         ThyRateModule,
         ThyStrengthModule,
         ThySwitchModule,
-        ThyTreeSelectModule
+        ThyTreeSelectModule,
+        ThySliderModule,
+        ThyColorPickerModule
     ],
     exports: COMPONENTS,
     providers: COMPONENTS

@@ -29,6 +29,9 @@ const radioGroupLayoutMap = {
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]': `-1`
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })

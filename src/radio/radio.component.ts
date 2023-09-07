@@ -22,6 +22,9 @@ import { NgClass, NgIf } from '@angular/common';
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]': `-1`
+    },
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
     imports: [NgClass, NgIf]

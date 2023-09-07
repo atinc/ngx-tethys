@@ -1,5 +1,4 @@
 import { coerceNumberProperty } from '@angular/cdk/coercion';
-
 import { Constructor, MixinBase } from './constructor';
 import { mixinDisabled, ThyCanDisable } from './disabled';
 

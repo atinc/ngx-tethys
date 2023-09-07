@@ -1,12 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { coerceBooleanProperty, TinyDate } from 'ngx-tethys/util';
 import { Subject } from 'rxjs';
 
@@ -39,15 +31,14 @@ import {
     ThyDateGranularity
 } from './standard-types';
 
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
-
 /**
  * @private
  */
 @Directive()
-export abstract class AbstractPickerComponent extends _MixinBase implements OnInit, OnChanges, OnDestroy, ControlValueAccessor {
+export abstract class AbstractPickerComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements OnInit, OnChanges, OnDestroy, ControlValueAccessor
+{
     thyValue: CompatibleValue | null;
 
     _panelMode: ThyPanelMode = 'date';

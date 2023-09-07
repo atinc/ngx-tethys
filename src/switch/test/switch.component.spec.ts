@@ -19,7 +19,7 @@ describe('switch component', () => {
     let fixture: ComponentFixture<SwitchTestComponent>;
     let testComponent: SwitchTestComponent;
     let switchDebugComponent: DebugElement;
-    let switchElement;
+    let switchElement: HTMLElement;
     let labelNode;
 
     beforeEach(() => {
@@ -98,5 +98,12 @@ describe('switch component', () => {
             fixture.detectChanges();
             expect(labelNode.classList.contains('thy-switch-disabled')).toBe(disable);
         });
+        testComponent.isDisabled = true;
+        const label = labelNode.querySelector('.thy-switch-label');
+        fixture.detectChanges();
+        expect(label.getAttribute('tabindex')).toBe('-1');
+        testComponent.isDisabled = false;
+        fixture.detectChanges();
+        expect(label.getAttribute('tabindex')).toBe('0');
     });
 });

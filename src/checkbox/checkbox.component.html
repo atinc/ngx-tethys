@@ -4,7 +4,7 @@
   [checked]="_innerValue"
   (change)="change()"
   type="checkbox"
-  [disabled]="_disabled"
-/>
+  [attr.tabindex]="tabIndex"
+  [disabled]="_disabled" />
 <span class="form-check-label" *ngIf="_labelText">{{ _labelText }}</span>
 <ng-content></ng-content>
