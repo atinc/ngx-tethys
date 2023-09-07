@@ -12,7 +12,7 @@ label: experimental
 
 ## 模块导入
 ```ts
-import { useAsync, useAction } from "@tethys/cdk/behaviors";
+import { asyncBehavior, actionBehavior } from "@tethys/cdk/behaviors";
 ```
 
 <examples />

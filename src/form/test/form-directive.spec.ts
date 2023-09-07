@@ -386,6 +386,16 @@ describe('form validate', () => {
         expect(formSubmitSpy).toHaveBeenCalled();
     }));
 
+    it('should focus error element when click submit button', fakeAsync(() => {
+        testComponent.model.name = '';
+        fixture.detectChanges();
+        tick();
+        dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
+        const input = formElement.querySelector(`[name=username]`);
+        const active = document.activeElement;
+        expect(input).toBe(active);
+    }));
+
     it('should get invalid messages when name is empty', fakeAsync(() => {
         dispatchFakeEvent(formSubmitDebugElement.nativeElement, 'click');
         assertElementInvalidError('username', `user name is required`);
