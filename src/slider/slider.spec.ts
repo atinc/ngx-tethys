@@ -82,7 +82,8 @@ describe('ThyTestSliderComponent', () => {
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
             expect(fixtureInstance.value).toEqual(100);
-            expect(pointerElement.getAttribute('tabindex')).toBe('0');
+            const slider = getSliderElement();
+            expect(slider.getAttribute('tabindex')).toBe('0');
         }));
 
         it('should not show when thyStep is out of range', fakeAsync(() => {
@@ -155,7 +156,8 @@ describe('ThyTestSliderComponent', () => {
             dispatchMouseEvent(pointerElement, 'mouseup');
             fixture.detectChanges();
             expect(fixtureInstance.value).toEqual(value);
-            expect(pointerElement.getAttribute('tabindex')).toBe('-1');
+            const slider = getSliderElement();
+            expect(slider.getAttribute('tabindex')).toBe('-1');
         }));
 
         it('slider should be vertical when thyVertical is true', () => {
@@ -237,5 +239,9 @@ describe('ThyTestSliderComponent', () => {
 
     function getSliderPointerElement() {
         return debugElement.query(By.css('.thy-slider-pointer')).nativeElement;
+    }
+
+    function getSliderElement() {
+        return debugElement.query(By.css('.thy-slider')).nativeElement;
     }
 });
