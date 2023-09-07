@@ -25,7 +25,8 @@ import { ThyImageService } from './image.service';
     exportAs: 'thyImage',
     host: {
         '(click)': 'onPreview($event)',
-        class: 'thy-image'
+        class: 'thy-image',
+        '[class.thy-image-disabled]': 'thyDisablePreview'
     },
     standalone: true
 })

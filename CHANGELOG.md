@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.2](https://github.com/atinc/ngx-tethys/compare/16.1.1...16.1.2) (2023-09-05)
+
+
+### Bug Fixes
+
+* **image:** set default cursor when thyDisablePreview is true #INFR-9513 ([#2833](https://github.com/atinc/ngx-tethys/issues/2833)) ([77a1c02](https://github.com/atinc/ngx-tethys/commit/77a1c024e9e0ac8f3c345e71bf1f5607b2e8cdd0)), closes [#INFR-9513](https://github.com/atinc/ngx-tethys/issues/INFR-9513)
+
+
+### Features
+
+* **cdk:** rename useAction and useAsync to  actionBehavior and asyncBehavior #INFR-9544 ([#2834](https://github.com/atinc/ngx-tethys/issues/2834)) ([414f1a9](https://github.com/atinc/ngx-tethys/commit/414f1a918641153a33bab84dada6091a905b42a0)), closes [#INFR-9544](https://github.com/atinc/ngx-tethys/issues/INFR-9544)
+
+
+
+## [16.1.1](https://github.com/atinc/ngx-tethys/compare/16.1.0-next.0...16.1.1) (2023-09-01)
+
+
+### Features
+
+* **cdk:** export some types for behaviors #INFR-9498 ([2c101d6](https://github.com/atinc/ngx-tethys/commit/2c101d639e47562a703a9ac70a935f8ff25bc286)), closes [#INFR-9498](https://github.com/atinc/ngx-tethys/issues/INFR-9498)
+* **grid:** add thyFlex, thyFlexItem and thyGrid directives and refactor related components use hostDirectives #INFR-9461 ([d6b499b](https://github.com/atinc/ngx-tethys/commit/d6b499b9f00d6bcc9ae9acbebafc14fad9e6e997)), closes [#INFR-9461](https://github.com/atinc/ngx-tethys/issues/INFR-9461)
+
+
+
 # [16.1.0](https://github.com/atinc/ngx-tethys/compare/16.1.0-next.0...16.1.0) (2023-08-31)
 
 

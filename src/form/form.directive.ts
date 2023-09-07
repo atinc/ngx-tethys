@@ -18,7 +18,7 @@ import { ControlContainer, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyFormValidatorService } from './form-validator.service';
-import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
+import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig, ThyValidateResult } from './form.class';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -128,10 +128,12 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
     }
 
     submit($event: Event) {
-        if (this.validator.validate($event)) {
+        const result = this.validator.validateWithDetail($event);
+        if (result.valid) {
             this.onSubmitSuccess && this.onSubmitSuccess($event);
         } else {
-            // this.wasValidated = true;
+            const invalidElement = result.invalidControls[0].element;
+            invalidElement.focus();
         }
     }
 
