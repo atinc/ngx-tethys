@@ -670,6 +670,7 @@ describe('ThyRangePickerComponent', () => {
             expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month')).toBeTruthy();
             expect(queryFromOverlay('.thy-calendar-range-right .thy-calendar-month-btn').textContent.trim()).toEqual('2020年');
         }));
+
         it('should support previous and next year', fakeAsync(() => {
             fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
             fixture.detectChanges();
@@ -693,6 +694,7 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             expect(queryFromOverlay('.thy-calendar-range-left .thy-calendar-month-btn').textContent.indexOf('2018') > -1).toBeTruthy();
         }));
+
         it('should support panel changes', fakeAsync(() => {
             fixtureInstance.modelValue = { begin: new Date('2018-09-11'), end: new Date('2018-10-12') };
             fixture.detectChanges();
@@ -875,6 +877,14 @@ describe('ThyRangePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-month');
+        }));
+
+        it(`should set thyMode to year`, fakeAsync(() => {
+            fixture.detectChanges();
+            fixtureInstance.thyMode = 'year';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(queryFromOverlay('.thy-calendar-picker-inner-popup').firstElementChild.className).toEqual('thy-calendar-year');
         }));
 
         it(`should set thyMode to decade`, fakeAsync(() => {
