@@ -5,7 +5,15 @@
     </button>
   </thy-button-group>
   <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" ngModel="option1" [thyAllowClear]="true" [thyShowSearch]="true">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyRawValue]="option"
+      [thyLabelText]="option.text"
+      thyShowOptionCustom="true">
+      <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+      <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+      <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
       <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
       <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
       <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
@@ -14,6 +22,9 @@
     <ng-template #selectedDisplay let-value>
       <span *ngIf="!value">!!!空</span>
       <span *ngIf="value" thyText>
+        <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+        <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+        <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
         <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
         <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
         <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
@@ -22,8 +33,16 @@
     </ng-template>
   </thy-custom-select>
   <thy-custom-select thyPlaceHolder="请选择" [thySize]="currentSize.name" thyMode="multiple" [(ngModel)]="listOfSelectedValue">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyRawValue]="option"
+      [thyLabelText]="option.text"
+      thyShowOptionCustom="true">
       <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+      <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+      <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+      <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
       <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
       <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
       <span class="text-truncate">{{ option?.text }}</span>
@@ -33,6 +52,9 @@
       <span *ngIf="value" thyText>
         <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
         <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
+        <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+        <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+        <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
         <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
         <span class="text-truncate">{{ value?.text }}</span>
       </span>
@@ -44,7 +66,15 @@
     thyMode="multiple"
     [thyShowSearch]="true"
     [(ngModel)]="listOfSelectedValue">
-    <thy-option *ngFor="let option of listOfOption" [thyValue]="option.value" [thyRawValue]="option" [thyLabelText]="option.text" thyShowOptionCustom="true">
+    <thy-option
+      *ngFor="let option of listOfOption"
+      [thyValue]="option.value"
+      [thyRawValue]="option"
+      [thyLabelText]="option.text"
+      thyShowOptionCustom="true">
+      <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+      <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+      <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
       <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
       <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
       <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
@@ -54,6 +84,9 @@
       <span *ngIf="!value">!!!空</span>
       <span *ngIf="value" thyText>
         <thy-avatar thyName="Peter" class="mr-1"></thy-avatar>
+        <thy-dot thyColor="red" thySize="md" class="mr-1"></thy-dot>
+        <thy-dot thyColor="red" thySize="md" thySpace="square" class="mr-1"></thy-dot>
+        <thy-tag thyTheme="fill" thyShape="pill" thyColor="danger" class="mr-1">tag option</thy-tag>
         <thy-avatar [thySrc]="avatarSrc" thyName="张学友" class="mr-1"></thy-avatar>
         <thy-icon thyIconName="bell-fill" class="mr-1"></thy-icon>
         <span class="text-truncate">{{ value?.text }}</span>

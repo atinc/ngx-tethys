@@ -26,7 +26,7 @@ import {
 import { NgIf } from '@angular/common';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
-import { SelectControlSize } from 'ngx-tethys/shared';
+import { SelectControlSize } from '../select';
 
 export class ThyOptionSelectionChangeEvent {
     constructor(public option: ThyOptionComponent, public isUserInput = false) {}

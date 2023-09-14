@@ -44,9 +44,10 @@
     }
     .select-control-rendered {
         position: relative;
+        display: flex;
+        align-items: center;
         ul {
             width: 100%;
-            margin: 0;
             padding: 0;
             list-style: none;
             &::after {

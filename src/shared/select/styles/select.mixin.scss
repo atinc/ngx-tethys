@@ -2,7 +2,7 @@
 @use '../../../styles/mixins/shadow.scss';
 
 @mixin select-control-size($tag-height, $padding-y, $height) {
-    &.select-control-single {
+    /* &.select-control-single {
         padding: {
             top: $padding-y;
             bottom: $padding-y;
@@ -61,10 +61,24 @@
                 }
             }
         }
+    } */
+
+    padding: {
+        top: $padding-y;
+        bottom: $padding-y;
     }
 
     .select-control-rendered {
         line-height: $height;
+        min-height: $height;
+        ul {
+            margin: 0;
+        }
+
+        .choice-list {
+            margin-bottom: -$padding-y;
+        }
+
         .select-control-search {
             height: $height;
             line-height: $height;
@@ -92,6 +106,45 @@
                 height: $tag-height;
             } @else {
                 height: unset;
+            }
+        }
+
+        .choice {
+            margin-bottom: $padding-y;
+            padding: 0 0 0 8px;
+            border: 0 none;
+            .choice-remove-link {
+                height: 100%;
+                transition: background 0.2s ease-in-out;
+                cursor: variables.$hand-cursor;
+                span {
+                    height: 100%;
+                    padding: 0 6px;
+                    border-top-right-radius: variables.$tag-border-radius;
+                    border-bottom-right-radius: variables.$tag-border-radius;
+                    transition: background 0.2s ease-in-out;
+                    display: flex;
+                    align-items: center;
+                }
+                .thy-icon {
+                    transition: color 0.2s ease-in-out;
+                    margin-right: 0;
+                }
+
+                &:hover {
+                    background-color: variables.$white;
+                    span {
+                        background-color: rgba(variables.$danger, 0.1);
+                    }
+
+                    .thy-icon {
+                        color: variables.$danger;
+                    }
+                }
+            }
+            &.disabled,
+            &.max-tag-count-choice {
+                padding-right: 8px;
             }
         }
     }

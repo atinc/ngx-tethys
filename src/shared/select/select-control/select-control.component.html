@@ -11,8 +11,7 @@
     (ngModelChange)="setInputValue($event)"
     (keydown.backspace)="handleBackspace($event)"
     [disabled]="thyDisabled"
-    (blur)="onBlur($event)"
-  />
+    (blur)="onBlur($event)" />
 </ng-template>
 
 <div class="select-control-rendered">
@@ -20,20 +19,21 @@
     {{ thyPlaceholder }}
   </div>
   <ng-container *ngIf="isMultiple; else single">
-    <ul>
+    <ul
+      [ngClass]="{
+        'choice-list': maxSelectedTags.length > 0 || (thyMaxTagCount && multipleSelectedValue.length > thyMaxTagCount)
+      }">
       <li
         class="choice mr-1"
         [ngClass]="{ disabled: disabled === true }"
         thyTag
         [thySize]="tagSize"
-        *ngFor="let item of maxSelectedTags; trackBy: trackValue"
-      >
+        *ngFor="let item of maxSelectedTags; trackBy: trackValue">
         <div class="text-truncate">
           <ng-template
             #customDisplay
             [ngTemplateOutlet]="customDisplayTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"
-          ></ng-template>
+            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
           <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
             {{ item.thyLabelText }}
           </ng-container>
@@ -49,8 +49,7 @@
         thyTag
         [thySize]="tagSize"
         class="choice max-tag-count-choice"
-        [ngClass]="{ disabled: disabled === true }"
-      >
+        [ngClass]="{ disabled: disabled === true }">
         <div class="text-truncate">+{{ multipleSelectedValue.length - thyMaxTagCount + 1 }}...</div>
       </li>
       <li class="select-control-search">
@@ -66,8 +65,7 @@
           [ngTemplateOutlet]="customDisplayTemplate"
           [ngTemplateOutletContext]="{
             $implicit: selectedValue.thyRawValue || selectedValue.thyValue || selectedValue
-          }"
-        ></ng-template>
+          }"></ng-template>
         <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
           {{ selectedValue?.thyLabelText }}
         </ng-container>
