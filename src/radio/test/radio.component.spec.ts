@@ -8,11 +8,11 @@ import { ThyRadioGroupComponent } from '../group/radio-group.component';
 
 @Component({
     selector: 'thy-radio-test',
-    template: ` <label thyRadio [thyLabelText]="isRadio" [thyDisabled]="isDisabled"></label> `
+    template: ` <label thyRadio [thyLabelText]="labelText" [thyDisabled]="isDisabled"></label> `
 })
 class RadioTestComponent {
-    isRadio: '单选选项';
-    isDisabled: false;
+    labelText = '单选选项';
+    isDisabled: boolean = false;
 }
 
 describe('radio component', () => {
@@ -51,9 +51,16 @@ describe('radio component', () => {
     });
 
     it('should have correct class when it‘s isDisabled has changed', () => {
-        labelNode.isDisabled = true;
+        testRadioComponent.labelText = null;
         fixture.detectChanges();
         expect(labelNode.classList.contains('form-check-no-label-text')).toBeTruthy();
+        testRadioComponent.isDisabled = true;
+        fixture.detectChanges();
+        expect(labelNode.tabIndex).toBe(-1);
+    });
+
+    it('should has default tabindex', () => {
+        expect(labelNode.tabIndex).toBe(0);
     });
 });
 

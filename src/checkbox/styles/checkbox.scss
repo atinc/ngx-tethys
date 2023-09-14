@@ -8,4 +8,10 @@
             cursor: variables.$disabled-cursor;
         }
     }
+
+    .form-check-input:not(.disabled) {
+        &:focus {
+            border: 1px solid variables.$primary;
+        }
+    }
 }

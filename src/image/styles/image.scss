@@ -177,3 +177,7 @@ $image-preview-prefix-cls: 'thy-image-preview';
 .thy-image {
     cursor: zoom-in;
 }
+
+.thy-image-disabled {
+    cursor: default;
+}

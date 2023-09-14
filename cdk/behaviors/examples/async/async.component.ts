@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, OnInit } from '@angular/core';
-import { setDefaultErrorHandler, useAsync } from '@tethys/cdk/behaviors';
+import { setDefaultErrorHandler, asyncBehavior } from '@tethys/cdk/behaviors';
 import { ThyNotifyService } from 'ngx-tethys/notify';
 import { of } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
@@ -18,11 +18,11 @@ interface Todo {
 export class ThyBehaviorsAsyncComponent implements OnInit {
     http = inject(HttpClient);
 
-    todosFetcher = useAsync((name: string) => {
+    todosFetcher = asyncBehavior((name: string) => {
         return this.http.get<Todo[]>(`https://62f70d4273b79d015352b5e5.mockapi.io/items`);
     });
 
-    todosFetcherWithError = useAsync(() => {
+    todosFetcherWithError = asyncBehavior(() => {
         return of([]).pipe(
             delay(1000),
             tap(() => {

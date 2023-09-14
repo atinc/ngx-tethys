@@ -340,6 +340,11 @@ describe('Rate disabled component', () => {
         fixture.detectChanges();
         expect(testRateDisabledComponent.value).toBe(1);
         expect(testRateDisabledComponent.modelChange).toHaveBeenCalledTimes(0);
+
+        expect(rateDisabledElement.getAttribute('tabindex')).toBe('-1');
+        testRateDisabledComponent.disabled = false;
+        fixture.detectChanges();
+        expect(rateDisabledElement.getAttribute('tabindex')).toBe('0');
     }));
 
     it('should disable to hover item not work', fakeAsync(() => {

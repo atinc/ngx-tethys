@@ -21,6 +21,7 @@ import { NgClass, NgIf } from '@angular/common';
         }
     ],
     host: {
+        '[attr.tabindex]': '-1',
         class: 'thy-checkbox',
         '[class.disabled]': '_disabled'
     },

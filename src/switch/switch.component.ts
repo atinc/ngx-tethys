@@ -1,4 +1,4 @@
-import { helpers } from 'ngx-tethys/util';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 import { NgClass } from '@angular/common';
 import {
@@ -9,14 +9,12 @@ import {
     EventEmitter,
     forwardRef,
     Input,
-    OnChanges,
     OnInit,
     Output,
-    SimpleChanges,
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { InputBoolean } from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -42,14 +40,14 @@ import { InputBoolean } from 'ngx-tethys/core';
         '[class.thy-switch-sm]': 'size === "sm"'
     }
 })
-export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChanges {
+export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
     public model: boolean;
 
     public type?: String = 'primary';
 
     public size?: String = '';
 
-    public disabled?: Boolean = false;
+    public disabled?: boolean = false;
 
     public classNames: string[];
 
@@ -94,7 +92,15 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
     /**
      * 是否属于禁用状态
      */
-    @Input() @InputBoolean() thyDisabled: boolean = false;
+    @Input()
+    override get thyDisabled(): boolean {
+        return this.disabled;
+    }
+
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+        this.setClassNames();
+    }
 
     /**
      * 数据变化的回调事件，即将被弃用，请使用 ngModelChange
@@ -102,20 +108,13 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
      */
     @Output() thyChange: EventEmitter<Event> = new EventEmitter<Event>();
 
-    constructor(public cdr: ChangeDetectorRef) {}
+    constructor(public cdr: ChangeDetectorRef) {
+        super();
+    }
 
     ngOnInit() {
         this.setClassNames();
         this.initialized = true;
-    }
-
-    ngOnChanges(changes: SimpleChanges) {
-        // 兼容降级后的Switch，使用onChanges
-        if (changes.thyDisabled) {
-            const value = changes.thyDisabled.currentValue;
-            this.disabled = helpers.isBoolean(value) ? Boolean(value) : value === 'true' || value === '1';
-            this.setClassNames();
-        }
     }
 
     public onModelChange: Function = () => {};
@@ -136,7 +135,7 @@ export class ThySwitchComponent implements OnInit, ControlValueAccessor, OnChang
         this.onModelTouched = fn;
     }
 
-    setDisabledState(isDisabled: Boolean) {
+    setDisabledState(isDisabled: boolean) {
         this.disabled = isDisabled;
         this.setClassNames();
     }

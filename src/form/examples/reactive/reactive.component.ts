@@ -80,8 +80,13 @@ export class ThyFormReactiveExampleComponent implements OnInit {
         name: '',
         display_name: '',
         select: 1,
-        checkbox: 0,
-        group: 1
+        group: 1,
+        switch: '',
+        color: '',
+        slider: 0,
+        radio: '',
+        radioButton: '',
+        checkbox: false
     };
 
     options = [
@@ -203,13 +208,17 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                 customersMultiSelect: [[], [Validators.required]],
                 treeSelect: ['', [Validators.required]],
                 treeSelectMulti: [[], [Validators.required]],
-                rate: ['', [Validators.required]],
-                switch: ['', [Validators.required]],
+                rate: [0, [Validators.min(2)]],
+                switch: [false, [Validators.required]],
+                color: ['', [Validators.required]],
                 textarea: ['', [Validators.required]],
                 province: ['', [Validators.required]],
                 dateFull: ['', [Validators.required]],
                 dateRange: ['', [this.dateRangeValidator]],
-                radioGroup: ['', [Validators.required]]
+                radioGroup: ['', [Validators.required]],
+                radio: ['', [Validators.required]],
+                slider: [0, [Validators.min(10)]],
+                checkbox: ['', [Validators.requiredTrue]]
             },
             { updateOn }
         );
@@ -230,6 +239,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
     }
 
     save() {
+        console.log(this.model);
         console.log(`submit success!`, this.formGroup);
         this.submitSuccess = true;
     }

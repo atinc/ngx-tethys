@@ -1,15 +1,10 @@
 import {
-    AbstractControlValueAccessor,
-    Constructor,
+    TabIndexDisabledControlValueAccessorMixin,
     getFlexiblePositions,
     InputBoolean,
     InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
     ScrollToService,
-    ThyCanDisable,
     ThyClickDispatcher,
-    ThyHasTabIndex,
     ThyPlacement
 } from 'ngx-tethys/core';
 import { ThyEmptyComponent } from 'ngx-tethys/empty';
@@ -113,10 +108,6 @@ export interface OptionValue {
     thySearchKey?: string;
 }
 
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
-
 const noop = () => {};
 
 /**
@@ -160,7 +151,7 @@ const noop = () => {};
     }
 })
 export class ThySelectCustomComponent
-    extends _MixinBase
+    extends TabIndexDisabledControlValueAccessorMixin
     implements ControlValueAccessor, IThyOptionParentComponent, OnInit, AfterContentInit, OnDestroy
 {
     disabled = false;

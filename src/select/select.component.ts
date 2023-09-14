@@ -1,14 +1,6 @@
 import { Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
 import { ControlValueAccessor, FormsModule, NG_VALUE_ACCESSOR } from '@angular/forms';
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex
-} from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, InputBoolean } from 'ngx-tethys/core';
 import { elementMatchClosest } from 'ngx-tethys/util';
 
 import { NgIf } from '@angular/common';
@@ -20,10 +12,6 @@ import { ThyInputDirective } from 'ngx-tethys/input';
 export type InputSize = 'xs' | 'sm' | 'md' | 'lg' | '';
 
 const noop = () => {};
-
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
 
 /**
  * 下拉选择
@@ -48,7 +36,7 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         '(blur)': 'onBlur($event)'
     }
 })
-export class ThySelectComponent extends _MixinBase implements ControlValueAccessor, OnInit {
+export class ThySelectComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit {
     @ViewChild('select', { static: true }) selectElement: ElementRef<any>;
 
     // The internal data model

@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { setDefaultErrorHandler, useAction } from '@tethys/cdk/behaviors';
+import { setDefaultErrorHandler, actionBehavior } from '@tethys/cdk/behaviors';
 import { of, Observable } from 'rxjs';
 import { delay, tap } from 'rxjs/operators';
 import { ThyNotifyService } from 'ngx-tethys/notify';
@@ -10,13 +10,13 @@ import { ThyNotifyService } from 'ngx-tethys/notify';
     styleUrls: ['./action.component.scss']
 })
 export class ThyBehaviorsActionComponent implements OnInit {
-    addAction = useAction((obj: { name: string }) => {
+    addBehavior = actionBehavior((obj: { name: string }) => {
         // 调用 API 添加/修改/删除数据
         const result = of(obj).pipe(delay(1000));
         return result;
     });
 
-    addActionWithError = useAction(() => {
+    addBehaviorWithError = actionBehavior(() => {
         // 调用 API 添加/修改/删除数据
         return of(true).pipe(
             delay(1000),
@@ -38,12 +38,12 @@ export class ThyBehaviorsActionComponent implements OnInit {
     ngOnInit(): void {}
 
     add() {
-        this.addAction({ name: 'Pet' }).execute(data => {
+        this.addBehavior({ name: 'Pet' }).execute(data => {
             this.notifyService.success(`Add ${data.name} successfully!`);
         });
     }
 
     addWithError() {
-        this.addActionWithError.execute();
+        this.addBehaviorWithError.execute();
     }
 }

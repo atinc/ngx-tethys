@@ -17,9 +17,9 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Observable, Subscription, fromEvent } from 'rxjs';
-import { clamp } from 'ngx-tethys/util';
+import { clamp, coerceBooleanProperty } from 'ngx-tethys/util';
 import { tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
-import { InputBoolean, InputNumber } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { NgStyle } from '@angular/common';
 
@@ -42,10 +42,16 @@ export type ThySliderSize = 'sm' | 'md' | 'lg';
             multi: true
         }
     ],
+    host: {
+        '[attr.tabindex]': `tabIndex`
+    },
     standalone: true,
     imports: [NgStyle]
 })
-export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor {
+export class ThySliderComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements OnInit, AfterViewInit, OnDestroy, OnChanges, ControlValueAccessor
+{
     /**
      * 是否切换为纵轴模式
      */
@@ -60,7 +66,15 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
     @HostBinding('class.slider-disabled')
     @Input()
     @InputBoolean()
-    thyDisabled = false;
+    override get thyDisabled(): boolean {
+        return this.disabled;
+    }
+
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+    }
+
+    disabled = false;
 
     @HostBinding('class.thy-slider') _thySlider = true;
 
@@ -151,7 +165,9 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
     private onTouchedCallback = (v: any) => {};
 
-    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {}
+    constructor(private cdr: ChangeDetectorRef, private ngZone: NgZone, private ref: ElementRef) {
+        super();
+    }
 
     ngOnInit() {
         if (typeof ngDevMode === 'undefined' || ngDevMode) {
@@ -296,10 +312,6 @@ export class ThySliderComponent implements OnInit, AfterViewInit, OnDestroy, OnC
 
         this.dragStartListener = this.ngZone.runOutsideAngular(() => {
             return fromEvent(this.ref.nativeElement, 'mousedown').pipe(
-                tap((e: Event) => {
-                    e.stopPropagation();
-                    e.preventDefault();
-                }),
                 pluck(orientField),
                 map((position: number, index) => this.mousePositionToAdaptiveValue(position))
             );

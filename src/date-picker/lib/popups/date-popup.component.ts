@@ -499,10 +499,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         const [start, end] = value;
         const newStart = start || new TinyDate();
         let newEnd = end;
-        if (!newEnd) {
-            newEnd = dateAddAmount(newStart, 1, headerMode);
-        }
-        if (newStart.isSame(end, headerMode as TinyDateCompareGrain)) {
+        if (!newEnd || newStart.isSame(end, headerMode as TinyDateCompareGrain)) {
             newEnd = dateAddAmount(newStart, 1, headerMode);
         }
         return [newStart, newEnd];

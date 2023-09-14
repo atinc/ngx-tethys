@@ -1,7 +1,7 @@
 import { ControlValueAccessor } from '@angular/forms';
 import { HostBinding, Input, ChangeDetectorRef, Directive } from '@angular/core';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
-import { InputBoolean, ThyTranslate } from 'ngx-tethys/core';
+import { InputBoolean, ThyTranslate, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 const noop = () => {};
 
@@ -9,7 +9,7 @@ const noop = () => {};
  * @private
  */
 @Directive()
-export class ThyFormCheckBaseComponent implements ControlValueAccessor {
+export class ThyFormCheckBaseComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor {
     // The internal data model
     _innerValue: boolean = null;
 
@@ -61,14 +61,21 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         }
     }
 
+    disabled = false;
+
     /**
      * 是否禁用
      * @default false
      */
     @Input()
     @InputBoolean()
-    set thyDisabled(value: boolean) {
-        this.setDisabledState(coerceBooleanProperty(value));
+    override set thyDisabled(value: boolean) {
+        this.disabled = coerceBooleanProperty(value);
+        this.setDisabledState(this.disabled);
+    }
+
+    override get thyDisabled() {
+        return this.disabled;
     }
 
     writeValue(obj: boolean): void {
@@ -98,7 +105,9 @@ export class ThyFormCheckBaseComponent implements ControlValueAccessor {
         this.markForCheck();
     }
 
-    constructor(protected thyTranslate: ThyTranslate, protected changeDetectorRef?: ChangeDetectorRef) {}
+    constructor(protected thyTranslate: ThyTranslate, protected changeDetectorRef?: ChangeDetectorRef) {
+        super();
+    }
 
     change() {
         this.updateValue(!this._innerValue);

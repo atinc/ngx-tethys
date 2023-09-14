@@ -55,6 +55,7 @@ describe('image-directive', () => {
         basicTestComponent.src = 'assets/images/image/first.png';
         basicTestComponent.disablePreview = true;
         fixture.detectChanges();
+        expect(debugElement.nativeElement.getAttribute('class')).toContain('thy-image-disabled');
         debugElement.nativeElement.click();
         expect(overlayContainerElement.querySelector('.thy-image-preview-wrap') as HTMLElement).toBeFalsy();
     });

@@ -1,14 +1,4 @@
-import {
-    AbstractControlValueAccessor,
-    Constructor,
-    InputBoolean,
-    InputNumber,
-    mixinDisabled,
-    mixinTabIndex,
-    ThyCanDisable,
-    ThyHasTabIndex,
-    useHostFocusControl
-} from 'ngx-tethys/core';
+import { TabIndexDisabledControlValueAccessorMixin, InputBoolean, InputNumber, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
@@ -39,10 +29,6 @@ enum Type {
     down
 }
 
-const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typeof AbstractControlValueAccessor = mixinTabIndex(
-    mixinDisabled(AbstractControlValueAccessor)
-);
-
 /**
  * 数字输入框
  * @name thy-input-number
@@ -65,7 +51,10 @@ const _MixinBase: Constructor<ThyHasTabIndex> & Constructor<ThyCanDisable> & typ
         '[attr.tabindex]': 'tabIndex'
     }
 })
-export class ThyInputNumberComponent extends _MixinBase implements ControlValueAccessor, OnChanges, OnInit, OnDestroy {
+export class ThyInputNumberComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements ControlValueAccessor, OnChanges, OnInit, OnDestroy
+{
     @ViewChild('input', { static: true }) inputElement: ElementRef<any>;
 
     private autoStepTimer: any;
