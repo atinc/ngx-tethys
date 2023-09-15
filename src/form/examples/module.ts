@@ -20,6 +20,7 @@ import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ThySliderModule } from 'ngx-tethys/slider';
+import { ThyViewOutletDirective } from 'ngx-tethys/shared';
 
 import { ThyFormBasicExampleComponent } from './basic/basic.component';
 import { ThyFormColumnsExampleComponent } from './columns/columns.component';
@@ -29,6 +30,8 @@ import { ThyFormLayoutExampleComponent } from './layout/layout.component';
 import { ThyFormReactiveExampleComponent } from './reactive/reactive.component';
 import { ThyFormValidateExampleComponent } from './validate/validate.component';
 import { ThyFormValidatorsExampleComponent } from './validators/validators.component';
+import { ThyFormDynamicViewReactiveExampleComponent } from './dynamic-view-reactive/dynamic-view-reactive.component';
+import { THY_FORM_CUSTOM_EXAMPLE_COMPONENTS } from './dynamic-view-reactive/custom.component';
 
 const COMPONENTS = [
     ThyFormBasicExampleComponent,
@@ -38,7 +41,9 @@ const COMPONENTS = [
     ThyFormValidatorsExampleComponent,
     ThyFormColumnsExampleComponent,
     ThyFormFullExampleComponent,
-    ThyFormReactiveExampleComponent
+    ThyFormReactiveExampleComponent,
+    ThyFormDynamicViewReactiveExampleComponent,
+    ...THY_FORM_CUSTOM_EXAMPLE_COMPONENTS
 ];
 
 @NgModule({
@@ -65,7 +70,8 @@ const COMPONENTS = [
         ThySwitchModule,
         ThyTreeSelectModule,
         ThySliderModule,
-        ThyColorPickerModule
+        ThyColorPickerModule,
+        ThyViewOutletDirective
     ],
     exports: COMPONENTS,
     providers: COMPONENTS

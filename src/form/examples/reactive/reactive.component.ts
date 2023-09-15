@@ -167,8 +167,7 @@ export class ThyFormReactiveExampleComponent implements OnInit {
                             _id: 'user-story-001',
                             name: '用户故事',
                             level: 2,
-                            icon: 'user-story-square-fill',
-                            children: []
+                            icon: 'user-story-square-fill'
                         }
                     ]
                 }

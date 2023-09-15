@@ -1,0 +1,45 @@
+<div class="d-flex mb-4 align-items-center">
+  <div>updateOn</div>
+  <div class="col-sm-2 col-form-control">
+    <thy-custom-select [(ngModel)]="updateOn" (ngModelChange)="changeUpdateOn($event)">
+      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </div>
+  <div>validateOn</div>
+  <div class="col-sm-2 col-form-control">
+    <thy-custom-select [(ngModel)]="validateOn" (ngModelChange)="changeUpdateOn($event)">
+      <thy-option *ngFor="let option of updateOnList" [thyValue]="option.value" [thyLabelText]="option.text"> </thy-option>
+    </thy-custom-select>
+  </div>
+</div>
+<form
+  *ngIf="loadingDone"
+  thyForm
+  name="reactiveThyForm"
+  #reactiveThyForm="thyForm"
+  #reactiveForm="ngForm"
+  thyLayout="horizontal"
+  [thyFormValidatorConfig]="validateConfig"
+  [formGroup]="formGroup">
+  <ng-container *ngFor="let property of properties">
+    <thy-form-group
+      [thyLabelText]="property.name"
+      thyLabelRequired
+      [thyLabelPaddingTopClear]="property.key === 'switch' || property.key === 'checkbox' || property.key === 'radio' ? 'true' : ''">
+      <ng-container
+        *thyViewOutlet="
+          property.schema;
+          context: {
+            property
+          }
+        "></ng-container>
+    </thy-form-group>
+  </ng-container>
+  <thy-form-group *ngIf="submitSuccess">
+    <div class="text text-success">Submit success!</div>
+  </thy-form-group>
+  <thy-form-group-footer>
+    <button [thyButton]="'primary'" (thyFormSubmit)="save()">Save</button>
+    <button [thyButton]="'link-secondary'">Cancel</button>
+  </thy-form-group-footer>
+</form>

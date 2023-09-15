@@ -1,4 +1,4 @@
-import { coerceBooleanProperty, keycodes } from 'ngx-tethys/util';
+import { coerceBooleanProperty, helpers, keycodes } from 'ngx-tethys/util';
 
 import {
     AfterViewInit,
@@ -11,14 +11,15 @@ import {
     NgZone,
     OnDestroy,
     OnInit,
+    Optional,
     QueryList,
     Renderer2
 } from '@angular/core';
-import { ControlContainer, NgControl, NgForm } from '@angular/forms';
+import { AbstractControl, ControlContainer, FormGroupDirective, NgControl, NgForm } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 
 import { ThyFormValidatorService } from './form-validator.service';
-import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig, ThyValidateResult } from './form.class';
+import { THY_FORM_CONFIG, ThyFormConfig, ThyFormLayout, ThyFormValidatorConfig } from './form.class';
 
 // 1. submit 按 Enter 键提交, Textare或包含[contenteditable]属性的元素 除外，需要按 Ctrl | Command + Enter 提交
 // 2. alwaysSubmit 不管是哪个元素 按 Enter 键都提交
@@ -95,6 +96,9 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     private _unsubscribe: () => void;
 
+    /**
+     * @internal
+     */
     @ContentChildren(NgControl, {
         descendants: true
     })
@@ -106,7 +110,8 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
         private renderer: Renderer2,
         private ngZone: NgZone,
         public validator: ThyFormValidatorService,
-        @Inject(THY_FORM_CONFIG) private config: ThyFormConfig
+        @Inject(THY_FORM_CONFIG) private config: ThyFormConfig,
+        @Optional() private ngFormGroup: FormGroupDirective
     ) {
         this.layout = this.config.layout;
     }
@@ -121,10 +126,36 @@ export class ThyFormDirective implements OnInit, AfterViewInit, OnDestroy {
 
     ngAfterViewInit() {
         this.validator.initialize(this.ngForm as NgForm, this.elementRef.nativeElement);
-        this.validator.initializeFormControlsValidation(this.controls.toArray());
-        this.controls.changes.subscribe(controls => {
+        this.tryInitFormControlsValidation();
+        if (this.ngFormGroup && !this.ngFormGroup?.directives?.length) {
+            this.ngFormGroup.valueChanges.subscribe(() => {
+                this.tryInitFormControlsValidation();
+            });
+        } else {
+            this.controls.changes.subscribe(() => {
+                this.tryInitFormControlsValidation();
+            });
+        }
+    }
+
+    tryInitFormControlsValidation() {
+        if (this.controls?.toArray().length > 0) {
             this.validator.initializeFormControlsValidation(this.controls.toArray());
-        });
+        } else if (this.ngFormGroup) {
+            const formControls: { [p: string]: AbstractControl } | AbstractControl[] = this.ngFormGroup.form.controls;
+            let controls: AbstractControl[] = [];
+            if (helpers.isArray(formControls)) {
+                controls = formControls;
+            } else {
+                for (const name in formControls) {
+                    if (formControls.hasOwnProperty(name)) {
+                        controls.push(formControls[name]);
+                    }
+                }
+            }
+            // @ts-ignore
+            this.validator.initializeFormControlsValidation(controls);
+        }
     }
 
     submit($event: Event) {

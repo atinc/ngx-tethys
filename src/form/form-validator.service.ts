@@ -1,5 +1,5 @@
 import { Dictionary } from 'ngx-tethys/types';
-import { isUndefinedOrNull } from 'ngx-tethys/util';
+import { helpers, isUndefinedOrNull } from 'ngx-tethys/util';
 import { of, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, switchMap, takeUntil } from 'rxjs/operators';
 
@@ -33,7 +33,7 @@ export class ThyFormValidatorService implements OnDestroy {
     private _destroy$ = new Subject<void>();
 
     private _getElement(name: string) {
-        const element = this._formElement.elements[name];
+        const element = this._formElement?.elements[name];
         if (element) {
             return element;
         } else {
@@ -85,14 +85,21 @@ export class ThyFormValidatorService implements OnDestroy {
         const element: HTMLElement = this._getElement(control.name as string);
         if (element) {
             // 继承了 AbstractControlValueAccessor 的自定义 Accessor，通过 __onBlurValidation 控制触发验证函数
-            if (control.valueAccessor['__onBlurValidation']) {
+            if (control.valueAccessor?.['__onBlurValidation']) {
                 control.valueAccessor['__onBlurValidation'] = () => {
                     this.validateControl(control.name as string);
                 };
             } else {
-                element.onblur = (event: FocusEvent) => {
-                    this.validateControl(control.name as string);
-                };
+                const innerInputElement = element.getElementsByTagName('input')[0];
+                if (innerInputElement) {
+                    innerInputElement.onblur = (event: FocusEvent) => {
+                        this.validateControl(control.name as string);
+                    };
+                } else {
+                    element.onblur = (event: FocusEvent) => {
+                        this.validateControl(control.name as string);
+                    };
+                }
             }
         }
     }
@@ -127,14 +134,23 @@ export class ThyFormValidatorService implements OnDestroy {
     private _formatValidationMessage(name: string, message: string) {
         const controls = this._getControls();
         const control = controls[name];
-        if (control) {
-            return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
-                if (key) {
-                    return isUndefinedOrNull(control.errors[key][key]) ? control.errors[key].requiredLength : control.errors[key][key];
-                }
-            });
-        } else {
-            return message;
+        try {
+            if (control) {
+                return message.replace(ERROR_VALUE_REPLACE_REGEX, (tag, key) => {
+                    if (key) {
+                        return isUndefinedOrNull(control.errors[key][key]) ? control.errors[key].requiredLength : control.errors[key][key];
+                    }
+                });
+            } else {
+                return message;
+            }
+        } catch (e) {
+            if (!message && e.message.indexOf('replace')) {
+                console.error(`Validator does not match the validation information (${name})`);
+                return;
+            }
+            console.error(e);
+            return;
         }
     }
 
@@ -201,10 +217,20 @@ export class ThyFormValidatorService implements OnDestroy {
             return (this._ngForm as NgForm).controls;
         } else if (this._ngForm instanceof FormGroupDirective) {
             const controls = {};
-            (this._ngForm as FormGroupDirective).directives.forEach(directive => {
-                controls[directive.name] = directive;
-            });
-            return controls;
+            if ((this._ngForm as FormGroupDirective).directives.length > 0) {
+                (this._ngForm as FormGroupDirective).directives.forEach(directive => {
+                    controls[directive.name] = directive;
+                });
+                return controls;
+            }
+            if (helpers.isArray((this._ngForm as FormGroupDirective).form.controls)) {
+                const formGroupControls = (this._ngForm as FormGroupDirective).form.controls;
+                for (const controlIndex in formGroupControls) {
+                    controls[formGroupControls[controlIndex]?.['name']] = formGroupControls[controlIndex];
+                }
+                return controls;
+            }
+            return (this._ngForm as FormGroupDirective).form.controls || {};
         }
     }
 
