@@ -3,7 +3,7 @@ import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat, helpers } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
@@ -262,6 +262,7 @@ export class ThyInputNumberComponent
         if (this.autoStepTimer) {
             clearTimeout(this.autoStepTimer);
         }
+        this.displayValue = this.toNumber(this.displayValue);
     }
 
     step(type: Type, e: MouseEvent | KeyboardEvent): void {
