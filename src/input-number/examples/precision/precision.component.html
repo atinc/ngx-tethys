@@ -1,0 +1,6 @@
+<div style="width: 200px">
+  <span class="text-mute">当前输入数值精度为：</span>
+  <thy-input-number [(ngModel)]="precision"></thy-input-number>
+  <br />
+  <thy-input-number [thyPrecision]="precision" [(ngModel)]="value" (ngModelChange)="change($event)"></thy-input-number>
+</div>
