@@ -1,12 +1,13 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { Component } from '@angular/core';
-import { DomSanitizer, By } from '@angular/platform-browser';
 import { Observable, Subscriber } from 'rxjs';
 
+import { Component } from '@angular/core';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { By, DomSanitizer } from '@angular/platform-browser';
+
+import { dispatchFakeEvent } from '../../testing';
+import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
 import { ThyAvatarModule } from '../avatar.module';
 import { ThyAvatarService } from '../avatar.service';
-import { ThyAvatarFetchPriority, ThyAvatarLoading } from '../avatar.component';
-import { dispatchFakeEvent } from '../../testing';
 
 @Component({
     template: `
@@ -108,6 +109,14 @@ describe('ThyAvatarComponent', () => {
             const result = document.createElement('code');
             result.innerText = componentInstance.name;
             expect(customValue).toEqual(result);
+        });
+
+        it('should show the custom avatarName has flexible class', () => {
+            componentInstance.name = '测试一个一个很长很长的名称怎么样';
+            fixture.detectChanges();
+            const avatarNameEle = fixture.nativeElement.querySelector(`.avatar-name`);
+            expect(avatarNameEle.classList.contains('text-truncate')).toBeTruthy();
+            expect(avatarNameEle.classList.contains('flexible-text-container')).toBeTruthy();
         });
     });
 

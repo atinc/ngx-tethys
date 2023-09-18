@@ -1,12 +1,15 @@
+import { InputBoolean } from 'ngx-tethys/core';
+import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
+
+import { NgClass, NgIf, NgStyle } from '@angular/common';
 import { ChangeDetectionStrategy, Component, ElementRef, EventEmitter, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { SafeHtml } from '@angular/platform-browser';
-import { coerceBooleanProperty, isString } from 'ngx-tethys/util';
 import { useHostRenderer } from '@tethys/cdk/dom';
+
+import { AvatarBgColorPipe, AvatarShortNamePipe, AvatarSrcPipe } from './avatar.pipe';
 import { ThyAvatarService } from './avatar.service';
-import { AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe } from './avatar.pipe';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { NgIf, NgClass, NgStyle } from '@angular/common';
-import { InputBoolean } from 'ngx-tethys/core';
 
 const sizeArray = [16, 22, 24, 28, 32, 36, 44, 48, 68, 110, 160];
 
@@ -35,8 +38,11 @@ export type ThyAvatarFetchPriority = 'high' | 'low' | 'auto';
     selector: 'thy-avatar',
     templateUrl: './avatar.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        class: 'text-nowrap'
+    },
     standalone: true,
-    imports: [NgIf, NgClass, NgStyle, ThyIconComponent, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe]
+    imports: [NgIf, NgClass, NgStyle, ThyIconComponent, AvatarShortNamePipe, AvatarBgColorPipe, AvatarSrcPipe, ThyFlexibleTextComponent]
 })
 export class ThyAvatarComponent implements OnInit {
     _src: string;

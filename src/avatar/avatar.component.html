@@ -1,13 +1,12 @@
 <img
   *ngIf="_src; else noSrc"
-  [src]="_src | thyAvatarSrc: _size"
+  [src]="_src | thyAvatarSrc : _size"
   class="avatar-avatar"
   [ngClass]="thyImgClass"
   alt="{{ avatarName || '' }}"
   [attr.loading]="thyLoading"
   [attr.fetchpriority]="thyFetchPriority"
-  (error)="avatarImgError($event)"
-/>
+  (error)="avatarImgError($event)" />
 
 <ng-template #noSrc>
   <span class="avatar-default" [ngStyle]="avatarName | avatarBgColor">
@@ -16,9 +15,9 @@
 </ng-template>
 
 <ng-template [ngIf]="thyShowName">
-  <div *ngIf="avatarNameSafeHtml; else noAvatarNameSafeHtml" class="avatar-name" [innerHtml]="avatarNameSafeHtml"></div>
+  <div *ngIf="avatarNameSafeHtml; else noAvatarNameSafeHtml" class="avatar-name" [innerHtml]="avatarNameSafeHtml" thyFlexibleText [thyTooltipContent]="avatarNameSafeHtml"></div>
   <ng-template #noAvatarNameSafeHtml>
-    <div class="avatar-name">{{ avatarName }}</div>
+    <div class="avatar-name" thyFlexibleText [thyTooltipContent]="avatarName">{{ avatarName }}</div>
   </ng-template>
 </ng-template>
 
