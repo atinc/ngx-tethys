@@ -1,6 +1,18 @@
-<div style="width: 200px">
-  <span class="text-mute">当前输入数值精度为：</span>
-  <thy-input-number [(ngModel)]="precision"></thy-input-number>
-  <br />
-  <thy-input-number [thyPrecision]="precision" [(ngModel)]="value" (ngModelChange)="change($event)"></thy-input-number>
+<div style="width: 500px">
+  <span class="text-mute">输入数值精度为 1：</span>
+  <thy-input-number
+    class="d-inline-block"
+    style="width: 200px"
+    [thyPrecision]="1"
+    [(ngModel)]="value"
+    (ngModelChange)="change($event)"></thy-input-number>
+  <div class="mt-4">
+    <span class="text-mute">输入数值精度为 2：</span>
+    <thy-input-number
+      class="d-inline-block"
+      style="width: 200px"
+      [thyPrecision]="2"
+      [(ngModel)]="value2"
+      (ngModelChange)="change($event)"></thy-input-number>
+  </div>
 </div>

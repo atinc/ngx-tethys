@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 export class ThyInputNumberPrecisionExampleComponent {
     value: number = 1.1;
 
+    value2: number = 2.22;
+
     precision: number = 1;
 
     change(value: number) {
