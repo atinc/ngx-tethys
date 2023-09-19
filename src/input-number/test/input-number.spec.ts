@@ -336,6 +336,19 @@ describe('input-number component', () => {
         });
     }));
 
+    it('should thyPrecision work when keyup', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.modelValue = '0.991';
+        fixture.detectChanges();
+        tick();
+        dispatchKeyboardEvent(inputElement, 'keyup');
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        expect(inputElement.value).toBe('0.99');
+        flush();
+    }));
+
     it('should thyMax and thyMin work', () => {
         fixture.detectChanges();
         inputNumberComponentInstance.inputNumberComponent.onModelChange('11');

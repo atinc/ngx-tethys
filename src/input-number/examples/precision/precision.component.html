@@ -1,0 +1,18 @@
+<div style="width: 500px">
+  <span class="text-mute mr-2">Precision 1</span>
+  <thy-input-number
+    class="d-inline-block"
+    style="width: 200px"
+    [thyPrecision]="1"
+    [(ngModel)]="value"
+    (ngModelChange)="change($event)"></thy-input-number>
+  <div class="mt-4">
+    <span class="text-mute mr-2">Precision 2</span>
+    <thy-input-number
+      class="d-inline-block"
+      style="width: 200px"
+      [thyPrecision]="2"
+      [(ngModel)]="value2"
+      (ngModelChange)="change($event)"></thy-input-number>
+  </div>
+</div>
