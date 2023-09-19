@@ -342,11 +342,11 @@ describe('input-number component', () => {
         fixture.detectChanges();
         tick();
         dispatchKeyboardEvent(inputElement, 'keyup');
-        flush();
         fixture.detectChanges();
-        fixture.whenStable().then(() => {
-            expect(inputElement.value).toBe('0.99');
-        });
+        tick();
+        fixture.detectChanges();
+        expect(inputElement.value).toBe('0.99');
+        flush();
     }));
 
     it('should thyMax and thyMin work', () => {
