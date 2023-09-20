@@ -600,12 +600,11 @@ export class DatePopupComponent implements OnChanges, OnInit {
             const singleTinyDate: TinyDate = this.updateHourMinute(new TinyDate(singleDate));
             selectedPresetValue = this.getSelectedShortcutPreset(singleTinyDate) as TinyDate;
         }
-
-        this.setValue(selectedPresetValue);
         this.shortcutValueChange.emit({
             value: selectedPresetValue,
             triggerPresets: shortcutPresets
         });
+        this.setValue(selectedPresetValue);
     }
 
     public trackByFn(index: number) {
