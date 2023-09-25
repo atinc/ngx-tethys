@@ -136,6 +136,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
         if (changes.thyEditable && changes.thyEditable.currentValue) {
             this.subscribeClick();
         } else {
+            this.setEditing(false);
             this.eventDestroy$.next();
             this.eventDestroy$.complete();
 
