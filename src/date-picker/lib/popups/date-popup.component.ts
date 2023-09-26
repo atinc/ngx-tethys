@@ -298,7 +298,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     onClickRemove(): void {
         this.value = this.isRange ? [] : null;
-        this.setValue(this.value);
         this.valueChange.emit(this.value);
     }
 
@@ -473,6 +472,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     private setValue(value: CompatibleValue): void {
         this.value = value;
+        console.log(this.showTime, this.showTimePicker, 'show time');
         if (this.isRange && this.flexible) {
             this.flexibleDateGranularity = 'day';
             this.valueChange.emit({
