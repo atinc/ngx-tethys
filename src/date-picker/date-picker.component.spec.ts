@@ -442,6 +442,28 @@ describe('ThyDatePickerComponent', () => {
             expect(thyOnChange).toHaveBeenCalledTimes(1);
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
         }));
+
+        it('should support clear by thyMustShowTime is true', fakeAsync(() => {
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+
+            fixtureInstance.thyValue = new Date('2018-11-11');
+            const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixtureInstance.thyShowTime = true;
+            fixtureInstance.datePicker.setTimePickerState(true);
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            dispatchMouseEvent(getClearButton(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalledTimes(1);
+            expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
+        }));
     });
 
     describe('panel switch and move forward/afterward', () => {
