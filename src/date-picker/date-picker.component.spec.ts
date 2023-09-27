@@ -439,7 +439,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(thyOnChange).toHaveBeenCalled();
+            expect(thyOnChange).toHaveBeenCalledTimes(1);
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
         }));
     });
