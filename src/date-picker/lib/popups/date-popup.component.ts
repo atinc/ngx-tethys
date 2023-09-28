@@ -298,7 +298,6 @@ export class DatePopupComponent implements OnChanges, OnInit {
 
     onClickRemove(): void {
         this.value = this.isRange ? [] : null;
-        this.setValue(this.value);
         this.valueChange.emit(this.value);
     }
 
