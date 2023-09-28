@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.4](https://github.com/atinc/ngx-tethys/compare/16.1.3...16.1.4) (2023-09-28)
+
+
+### Bug Fixes
+
+* **date-picker:**  adjust the order for  thyShortcutValueChange and ngModelChange #INFR-9734 ([#2843](https://github.com/atinc/ngx-tethys/issues/2843)) ([184ff32](https://github.com/atinc/ngx-tethys/commit/184ff329a1d494d6c05351fde0a20497343db803)), closes [#INFR-9734](https://github.com/atinc/ngx-tethys/issues/INFR-9734)
+* **date-picker:** #INFR-9875 fix date-picker clear dispatch twice ([#2846](https://github.com/atinc/ngx-tethys/issues/2846)) ([a89c424](https://github.com/atinc/ngx-tethys/commit/a89c42458ff4bb8fac5c9a789006fb161807edc7))
+* **property:** call setEditing when the thyEditable value changes #INFR-9869 ([#2845](https://github.com/atinc/ngx-tethys/issues/2845)) ([6373468](https://github.com/atinc/ngx-tethys/commit/637346885039621225fdb08698b25af562bb7cb4)), closes [#INFR-9869](https://github.com/atinc/ngx-tethys/issues/INFR-9869)
+
+
+
 ## [16.1.3](https://github.com/atinc/ngx-tethys/compare/16.1.2...16.1.3) (2023-09-21)
 
 
