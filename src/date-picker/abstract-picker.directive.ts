@@ -118,6 +118,10 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     );
 
     ngOnInit() {
+        this.getInitialState();
+    }
+
+    private getInitialState() {
         this.thyMode = this.thyMode || 'date';
         this.flexible = this.thyMode === 'flexible';
 
@@ -130,6 +134,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
     }
 
     private openOverlay(): void {
+        this.getInitialState();
         const popoverRef = this.thyPopover.open(
             DatePopupComponent,
             Object.assign(
