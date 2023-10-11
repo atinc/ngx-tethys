@@ -129,7 +129,9 @@ export class ThySelectControlComponent implements OnInit {
             }
             //等待组件渲染好再聚焦
             setTimeout(() => {
-                this.inputElement.nativeElement.focus();
+                if (this.panelOpened) {
+                    this.inputElement.nativeElement.focus();
+                }
             }, 200);
         }
     }

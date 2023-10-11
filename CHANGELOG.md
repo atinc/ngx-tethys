@@ -2,6 +2,34 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.4](https://github.com/atinc/ngx-tethys/compare/16.1.3...16.1.4) (2023-09-28)
+
+
+### Bug Fixes
+
+* **date-picker:**  adjust the order for  thyShortcutValueChange and ngModelChange #INFR-9734 ([#2843](https://github.com/atinc/ngx-tethys/issues/2843)) ([184ff32](https://github.com/atinc/ngx-tethys/commit/184ff329a1d494d6c05351fde0a20497343db803)), closes [#INFR-9734](https://github.com/atinc/ngx-tethys/issues/INFR-9734)
+* **date-picker:** #INFR-9875 fix date-picker clear dispatch twice ([#2846](https://github.com/atinc/ngx-tethys/issues/2846)) ([a89c424](https://github.com/atinc/ngx-tethys/commit/a89c42458ff4bb8fac5c9a789006fb161807edc7))
+* **property:** call setEditing when the thyEditable value changes #INFR-9869 ([#2845](https://github.com/atinc/ngx-tethys/issues/2845)) ([6373468](https://github.com/atinc/ngx-tethys/commit/637346885039621225fdb08698b25af562bb7cb4)), closes [#INFR-9869](https://github.com/atinc/ngx-tethys/issues/INFR-9869)
+
+
+
+## [16.1.3](https://github.com/atinc/ngx-tethys/compare/16.1.2...16.1.3) (2023-09-21)
+
+
+### Bug Fixes
+
+* **datePicker:** thy-year-picker does not have a default time, when i… ([#2836](https://github.com/atinc/ngx-tethys/issues/2836)) ([367c436](https://github.com/atinc/ngx-tethys/commit/367c436728e762363b64e894ab2f31945b2992e4)), closes [#INFR-9345](https://github.com/atinc/ngx-tethys/issues/INFR-9345)
+* **shared:** fix select control cursor error #INFR-9813 ([9cd8d84](https://github.com/atinc/ngx-tethys/commit/9cd8d84369dc67d654dcdda5f65508f63f303f23)), closes [#INFR-9813](https://github.com/atinc/ngx-tethys/issues/INFR-9813)
+
+
+### Features
+
+* **form:** auto focus first error element when form validate #INFR-8244 ([3803ee7](https://github.com/atinc/ngx-tethys/commit/3803ee7fc647028d789d4b5602fc1a91dedc11cc)), closes [#INFR-8244](https://github.com/atinc/ngx-tethys/issues/INFR-8244)
+* **input-number:** #INFR-7140 restrict decimal places input  ([#2841](https://github.com/atinc/ngx-tethys/issues/2841)) ([561b916](https://github.com/atinc/ngx-tethys/commit/561b916362968d6b9609e68baeb4467ac23c008e)), closes [#INFR-7140](https://github.com/atinc/ngx-tethys/issues/INFR-7140)
+* support focus(tabindex) for colorPicker, slider, rate, radio, checkbox and switch #INFR-9451 ([09c7f1e](https://github.com/atinc/ngx-tethys/commit/09c7f1ee253f85ca28224f04fd7019dcad01703f)), closes [#INFR-9451](https://github.com/atinc/ngx-tethys/issues/INFR-9451)
+
+
+
 ## [16.1.2](https://github.com/atinc/ngx-tethys/compare/16.1.1...16.1.2) (2023-09-05)
 
 

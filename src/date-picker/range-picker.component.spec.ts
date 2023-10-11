@@ -439,6 +439,19 @@ describe('ThyRangePickerComponent', () => {
             expect(fromUnixTime(fixtureInstance.modelValue.end as number).getDate()).toBe(new TinyDate().endOfDay().getDate());
         }));
 
+        it('should emit shortcutValueChange first', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            const thyShortcutValueChange = spyOn(fixtureInstance, 'thyShortcutValueChange');
+            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(thyShortcutValueChange).toHaveBeenCalledBefore(thyModelChange);
+        }));
+
         it('should default shortcut the last 30 days worked', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
             fixture.detectChanges();
