@@ -84,6 +84,6 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
 
 @each $size in $optionsSize {
     .thy-select-dropdown-options-#{$size} {
-        @include select.thy-select-options-container-size($size);
+        @include select.thy-select-options-size($size);
     }
 }

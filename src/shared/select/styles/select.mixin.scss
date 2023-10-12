@@ -102,7 +102,7 @@ $avatarHeight: (
     padding: 12px 0;
 }
 
-@mixin thy-select-options-container-size($size) {
+@mixin thy-select-options-size($size) {
     .thy-option-item {
         .thy-avatar {
             display: inline-flex;
