@@ -196,7 +196,7 @@ describe('ThyPickerDirective', () => {
                 });
             }));
 
-            it('should use options when open popover', fakeAsync(() => {
+            it('should use correct options when open popover', fakeAsync(() => {
                 const spy = getPopoverOpenSpy(TestBed);
                 fixtureInstance.thyOffset = 0;
                 fixtureInstance.thyPlacement = 'right';
@@ -229,6 +229,13 @@ describe('ThyPickerDirective', () => {
                         }
                     )
                 );
+
+                fixtureInstance.thyDatePickerDirective.isRange = true;
+                fixtureInstance.thyDatePickerDirective.panelMode = ['decade', 'week'];
+
+                fixture.detectChanges();
+                openPickerByClickTrigger();
+                expect(fixtureInstance.thyDatePickerDirective.panelMode).toEqual(['date', 'date']);
             }));
         });
 
