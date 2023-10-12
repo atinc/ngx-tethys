@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyTagComponent } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
+import { ThyGridModule } from 'ngx-tethys/grid';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
@@ -32,7 +33,7 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent],
+    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent, ThyGridModule],
     host: {
         '[class.select-control-borderless]': 'thyBorderless'
     }

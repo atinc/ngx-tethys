@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { listOfOption } from '../mock-data';
 
 @Component({
-    selector: 'thy-select-size-example',
-    templateUrl: './size.component.html',
+    selector: 'thy-select-vertical-center-example',
+    templateUrl: './vertical-center.component.html',
     styles: [
         `
             thy-custom-select {
@@ -13,10 +13,12 @@ import { listOfOption } from '../mock-data';
         `
     ]
 })
-export class ThySelectSizeExampleComponent implements OnInit {
+export class ThySelectVerticalCenterExampleComponent implements OnInit {
     listOfOption = listOfOption;
 
     listOfSelectedValue = ['option1', 'option2'];
+
+    avatarSrc = 'assets/images/one-avatar.jpg';
 
     selectSizes = [
         {

@@ -45,12 +45,7 @@ export class ThyOptionVisibleChangeEvent {
     templateUrl: './option.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyIconComponent],
-    host: {
-        '[class.thy-option-item-md]': 'thySize === "md"',
-        '[class.thy-option-item-lg]': 'thySize === "lg"',
-        '[class.thy-option-item-sm]': 'thySize === "sm"'
-    }
+    imports: [NgIf, ThyIconComponent]
 })
 export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, Highlightable {
     private _selected = false;
@@ -66,8 +61,6 @@ export class ThyOptionComponent extends SelectOptionBase implements OnDestroy, H
     @Input() thyShowOptionCustom: boolean;
 
     @Input() thySearchKey: string;
-
-    @Input() thySize: SelectControlSize;
 
     @HostBinding('class.thy-option-item') _isOptionItem = true;
 
