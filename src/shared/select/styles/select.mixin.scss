@@ -106,7 +106,7 @@ $avatarHeight: (
     .thy-option-item {
         .thy-avatar {
             display: inline-flex;
-            @include avatarMixin.avatarSize(map-get($map: $avatarHeight, $key: $size) / 1px);
+            @include avatarMixin.avatarSize(calc(map-get($map: $avatarHeight, $key: $size) / 1px));
         }
     }
 }
