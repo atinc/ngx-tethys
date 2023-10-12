@@ -10,7 +10,7 @@
         variables.$select-control-padding-y-default,
         variables.$select-control-height-default
     );
-    padding-right: 23px;
+    padding-right: 26px;
 
     &.form-control-sm {
         @include select.select-control-size(
@@ -46,17 +46,6 @@
         position: relative;
         display: flex;
         align-items: center;
-        ul {
-            width: 100%;
-            padding: 0;
-            list-style: none;
-            &::after {
-                display: block;
-                clear: both;
-                height: 0;
-                content: ' ';
-            }
-        }
         .text-placeholder,
         .selected-value {
             position: absolute;

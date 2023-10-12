@@ -2,12 +2,6 @@
 @use '../../../styles/mixins/shadow.scss';
 @use '../../../avatar/styles/mixin.scss' as avatarMixin;
 
-$optionHeight: (
-    'sm': 32px,
-    'md': 36px,
-    'default': 40px,
-    'lg': 48px
-);
 $avatarHeight: (
     'sm': variables.$select-control-height-sm,
     'md': variables.$select-control-height-md,
@@ -110,7 +104,6 @@ $avatarHeight: (
 
 @mixin thy-select-options-container-size($size) {
     .thy-option-item {
-        min-height: map-get($map: $optionHeight, $key: $size);
         .thy-avatar {
             display: inline-flex;
             @include avatarMixin.avatarSize(map-get($map: $avatarHeight, $key: $size) / 1px);
