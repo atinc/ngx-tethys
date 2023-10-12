@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.5](https://github.com/atinc/ngx-tethys/compare/16.1.4...16.1.5) (2023-10-12)
+
+
+### Bug Fixes
+
+* **date-picker:** fix bug for get panelMode #INFR-9916 ([#2848](https://github.com/atinc/ngx-tethys/issues/2848)) ([7f6dd84](https://github.com/atinc/ngx-tethys/commit/7f6dd843ba1ecc5400e3f24b3678474aefff801a)), closes [#INFR-9916](https://github.com/atinc/ngx-tethys/issues/INFR-9916)
+
+
+
 ## [16.1.4](https://github.com/atinc/ngx-tethys/compare/16.1.3...16.1.4) (2023-09-28)
 
 
