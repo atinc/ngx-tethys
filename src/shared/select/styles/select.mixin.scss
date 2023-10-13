@@ -1,37 +1,73 @@
 @use '../../../styles/variables';
 @use '../../../styles/mixins/shadow.scss';
-@use '../../../avatar/styles/mixin.scss' as avatarMixin;
-
-$avatarHeight: (
-    'sm': variables.$select-control-height-sm,
-    'md': variables.$select-control-height-md,
-    'default': variables.$select-control-height-default,
-    'lg': variables.$select-control-height-lg
-);
 
 @mixin select-control-size($tag-height, $padding-y, $height) {
-    padding: {
-        top: $padding-y;
-        bottom: $padding-y;
+    &.select-control-single {
+        padding: {
+            top: $padding-y;
+            bottom: $padding-y;
+        }
+
+        .select-control-rendered {
+            height: $height;
+        }
+    }
+
+    &.select-control-multiple {
+        padding: {
+            top: 0;
+            bottom: 0;
+        }
+
+        .select-control-rendered {
+            min-height: $padding-y * 2 + $height;
+            padding-top: $padding-y;
+            .choice {
+                margin-bottom: $padding-y;
+                padding: 0 0 0 8px;
+                border: 0 none;
+                .choice-remove-link {
+                    height: 100%;
+                    transition: background 0.2s ease-in-out;
+                    cursor: variables.$hand-cursor;
+                    span {
+                        height: 100%;
+                        padding: 0 6px;
+                        border-top-right-radius: variables.$tag-border-radius;
+                        border-bottom-right-radius: variables.$tag-border-radius;
+                        transition: background 0.2s ease-in-out;
+                        display: flex;
+                        align-items: center;
+                    }
+                    .thy-icon {
+                        transition: color 0.2s ease-in-out;
+                        margin-right: 0;
+                    }
+
+                    &:hover {
+                        background-color: variables.$white;
+                        span {
+                            background-color: rgba(variables.$danger, 0.1);
+                        }
+
+                        .thy-icon {
+                            color: variables.$danger;
+                        }
+                    }
+                }
+                &.disabled,
+                &.max-tag-count-choice {
+                    padding-right: 8px;
+                }
+            }
+        }
     }
 
     .select-control-rendered {
         line-height: $height;
-        min-height: $height;
-
         .select-control-search {
             height: $height;
             line-height: $height;
-        }
-
-        .thy-avatar {
-            display: inline-flex;
-            & > img,
-            & > .avatar-default {
-                width: $height;
-                height: $height;
-                line-height: $height;
-            }
         }
 
         .selected-value,
@@ -48,44 +84,6 @@ $avatarHeight: (
                 height: unset;
             }
         }
-
-        .choice-item {
-            padding: 0 0 0 8px;
-            border: 0 none;
-            .choice-remove-link {
-                height: 100%;
-                transition: background 0.2s ease-in-out;
-                cursor: variables.$hand-cursor;
-                span {
-                    height: 100%;
-                    padding: 0 6px;
-                    border-top-right-radius: variables.$tag-border-radius;
-                    border-bottom-right-radius: variables.$tag-border-radius;
-                    transition: background 0.2s ease-in-out;
-                    display: flex;
-                    align-items: center;
-                }
-                .thy-icon {
-                    transition: color 0.2s ease-in-out;
-                    margin-right: 0;
-                }
-
-                &:hover {
-                    background-color: variables.$white;
-                    span {
-                        background-color: rgba(variables.$danger, 0.1);
-                    }
-
-                    .thy-icon {
-                        color: variables.$danger;
-                    }
-                }
-            }
-            &.disabled,
-            &.max-tag-count-choice {
-                padding-right: 8px;
-            }
-        }
     }
 }
 
@@ -100,15 +98,6 @@ $avatarHeight: (
     max-height: 300px;
     overflow-y: auto;
     padding: 12px 0;
-}
-
-@mixin thy-select-options-size($size) {
-    .thy-option-item {
-        .thy-avatar {
-            display: inline-flex;
-            @include avatarMixin.avatarSize(calc(map-get($map: $avatarHeight, $key: $size) / 1px));
-        }
-    }
 }
 
 $has-value-margin-base: -0.03175rem;

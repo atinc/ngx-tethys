@@ -21,9 +21,9 @@ export const taskTypes = [
 ];
 
 export const listOfOption = [
-    { value: 'option1', text: '选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一选项一' },
+    { value: 'option1', text: '选项一' },
     { value: 'option2', text: '选项二' },
-    { value: 'option3', text: '选项三选项三选项三选项三选项三选项三' },
+    { value: 'option3', text: '选项三' },
     { value: 'option4', text: '选项四' },
     { value: 'option5', text: '选项五' },
     { value: 'option6', text: '选项六' },

@@ -213,8 +213,8 @@ describe('ThySelectControl', () => {
                 flush();
                 fixture.detectChanges();
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                let choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
+                let lis = selectElement.querySelectorAll('.choice');
+                expect(lis.length).toEqual(3);
                 let maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
                 expect(maxTagCountChoic).toBeNull();
 
@@ -229,8 +229,8 @@ describe('ThySelectControl', () => {
                 fixture.detectChanges();
 
                 selectElement = fixture.debugElement.query(By.css('.form-control')).nativeElement;
-                choiceItems = selectElement.querySelectorAll('.choice-item');
-                expect(choiceItems.length).toEqual(3);
+                lis = selectElement.querySelectorAll('.choice');
+                expect(lis.length).toEqual(3);
                 maxTagCountChoic = selectElement.querySelector('.max-tag-count-choice');
                 expect(maxTagCountChoic).toBeTruthy();
             }));

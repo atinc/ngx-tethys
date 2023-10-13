@@ -21,7 +21,6 @@ import { FormsModule } from '@angular/forms';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyTagComponent } from 'ngx-tethys/tag';
 import { SelectOptionBase } from '../../option/select-option-base';
-import { ThyGridModule } from 'ngx-tethys/grid';
 
 export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
 
@@ -33,7 +32,7 @@ export type SelectControlSize = 'sm' | 'md' | 'lg' | '';
     templateUrl: './select-control.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent, ThyGridModule],
+    imports: [FormsModule, NgClass, NgIf, NgStyle, NgFor, ThyTagComponent, NgTemplateOutlet, ThyIconComponent],
     host: {
         '[class.select-control-borderless]': 'thyBorderless'
     }
@@ -206,7 +205,7 @@ export class ThySelectControlComponent implements OnInit {
         } else {
             showSelectedValue = true;
         }
-        return { display: showSelectedValue ? 'flex' : 'none' };
+        return { display: showSelectedValue ? 'block' : 'none' };
     }
 
     get placeholderStyle(): { [key: string]: string } {

@@ -36,7 +36,7 @@
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel
-        class="thy-select-dropdown-options thy-select-dropdown-options-{{ size }}"
+        class="thy-select-dropdown-options"
         thyScroll
         (thyOnScrolled)="onOptionsScrolled($event)"
         [thyEnable]="thyEnableScrollLoad">
