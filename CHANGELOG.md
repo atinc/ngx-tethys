@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [16.2.0-next.1](https://github.com/atinc/ngx-tethys/compare/16.2.0-next...16.2.0-next.1) (2023-10-13)
+
+
+### Features
+
+* **select:** #INFR-5471 custom-select support display avatar or icon ([#2855](https://github.com/atinc/ngx-tethys/issues/2855)) ([7ce536b](https://github.com/atinc/ngx-tethys/commit/7ce536b222d694c4b2356aeec711bbf248d4b9ae)), closes [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471) [#INFR-5471](https://github.com/atinc/ngx-tethys/issues/INFR-5471)
+
+
+### Reverts
+
+* Revert "Yxb/#infr 5471 (#2853)" (#2854) ([758ff0f](https://github.com/atinc/ngx-tethys/commit/758ff0f0bc6858eb0eec2d30f0359aaab7f8df2a)), closes [#2853](https://github.com/atinc/ngx-tethys/issues/2853) [#2854](https://github.com/atinc/ngx-tethys/issues/2854)
+
+
+
 ## [16.1.5](https://github.com/atinc/ngx-tethys/compare/16.1.4...16.1.5) (2023-10-12)
 
 
