@@ -1038,7 +1038,7 @@ describe('thy-cascader', () => {
 
         it('should show multiple selected label', async () => {
             await fixture.whenStable();
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             const selectedValue = component.multipleVal;
             expect(labels.length).toBe(selectedValue.length);
         });
@@ -1075,7 +1075,7 @@ describe('thy-cascader', () => {
 
             expect(component.selectSpy).toHaveBeenCalled();
             expect(component.multipleVal.length).toBe(originSelectedCount + 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
@@ -1114,7 +1114,7 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             await fixture.whenStable();
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
@@ -1138,7 +1138,7 @@ describe('thy-cascader', () => {
             await fixture.whenStable();
 
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
 
             const updateFirstLevelItem = getOptionByLevel();
@@ -1148,7 +1148,7 @@ describe('thy-cascader', () => {
         it('should show nothing when ngModel is []', fakeAsync(() => {
             component.multipleVal = [];
             fixture.detectChanges();
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(0);
         }));
 
@@ -1157,7 +1157,7 @@ describe('thy-cascader', () => {
             fixture.detectChanges();
             await fixture.whenStable();
             const originSelectedCount = component.multipleVal?.length;
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(originSelectedCount);
         });
 

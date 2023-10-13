@@ -528,7 +528,7 @@ describe('ThyTreeSelect', () => {
                 const clearElement = fixture.debugElement.nativeElement.querySelector('.select-control-clear');
                 clearElement.click();
                 fixture.detectChanges();
-                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+                expect(fixture.debugElement.nativeElement.querySelectorAll('.select-control-search').length).toEqual(1);
                 expect(touchSpy).not.toHaveBeenCalled();
             }));
 
@@ -717,25 +717,31 @@ describe('ThyTreeSelect', () => {
                 optionNodes[1].click();
                 fixture.detectChanges();
                 flush();
-                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(2);
+                expect(
+                    fixture.debugElement.nativeElement.querySelectorAll('.choice-item').length +
+                        fixture.debugElement.nativeElement.querySelectorAll('.select-control-search').length
+                ).toEqual(2);
 
                 optionNodes[1].click();
                 fixture.detectChanges();
                 flush();
-                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+                expect(fixture.debugElement.nativeElement.querySelectorAll('.select-control-search').length).toEqual(1);
 
                 optionNodes[1].click();
                 fixture.detectChanges();
                 flush();
-                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(2);
+                expect(
+                    fixture.debugElement.nativeElement.querySelectorAll('.choice-item').length +
+                        fixture.debugElement.nativeElement.querySelectorAll('.select-control-search').length
+                ).toEqual(2);
 
                 const multipleWrapper = fixture.debugElement.query(By.css('.select-control-rendered')).nativeElement;
                 expect(multipleWrapper.textContent).toContain('root2');
 
-                const multipleItem = fixture.debugElement.nativeElement.querySelector('li thy-icon');
+                const multipleItem = fixture.debugElement.nativeElement.querySelector('.thy-flex-item thy-icon');
                 multipleItem.click();
                 fixture.detectChanges();
-                expect(fixture.debugElement.nativeElement.querySelectorAll('li').length).toEqual(1);
+                expect(fixture.debugElement.nativeElement.querySelectorAll('.select-control-search').length).toEqual(1);
             }));
 
             it('should hiddenKey and disableKey worked', fakeAsync(() => {
