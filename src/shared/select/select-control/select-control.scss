@@ -10,7 +10,7 @@
         variables.$select-control-padding-y-default,
         variables.$select-control-height-default
     );
-    padding-right: 26px;
+    padding-right: 23px;
 
     &.form-control-sm {
         @include select.select-control-size(
@@ -37,21 +37,29 @@
         width: 100%;
         padding: 0;
         border: none;
-        height: 100%;
         &.hidden {
             visibility: hidden;
         }
     }
     .select-control-rendered {
         position: relative;
-        display: flex;
-        align-items: center;
+        ul {
+            width: 100%;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            &::after {
+                display: block;
+                clear: both;
+                height: 0;
+                content: ' ';
+            }
+        }
         .text-placeholder,
         .selected-value {
             position: absolute;
             user-select: none;
             width: 100%;
-            align-items: center;
             .thy-tag {
                 vertical-align: top;
             }
@@ -102,7 +110,7 @@
             max-width: 100%;
         }
     }
-    .choice-item {
+    .choice {
         float: left;
         max-width: 97%;
         color: variables.$gray-800;

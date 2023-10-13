@@ -2,8 +2,6 @@
 @use '../../select/styles/select.mixin';
 @use 'option.mixin';
 
-$optionsSize: 'sm', 'default', 'md', 'lg';
-
 .thy-select-dropdown-options {
     @include select.thy-select-options-container();
 
@@ -79,11 +77,5 @@ $optionsSize: 'sm', 'default', 'md', 'lg';
         &:hover {
             background-color: variables.$gray-80;
         }
-    }
-}
-
-@each $size in $optionsSize {
-    .thy-select-dropdown-options-#{$size} {
-        @include select.thy-select-options-size($size);
     }
 }

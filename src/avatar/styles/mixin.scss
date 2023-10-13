@@ -1,4 +1,4 @@
-@mixin avatarSize($size, $font-size: 12) {
+@mixin avatarSize($size, $font-size: 12px) {
     img,
     .avatar-default {
         width: #{$size}px;
