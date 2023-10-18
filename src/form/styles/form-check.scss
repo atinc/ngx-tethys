@@ -8,6 +8,7 @@
 .form-check {
     position: relative;
     display: block;
+    width: max-content;
     padding-left: 1.25rem;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
