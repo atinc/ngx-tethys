@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnInit } from '@angular/core';
+import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { InputBoolean } from 'ngx-tethys/core';
@@ -35,7 +35,7 @@ const radioGroupLayoutMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
+export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnChanges ,AfterContentInit {
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
 
     @HostBinding('class.btn-group') isButtonGroup = false;
@@ -46,6 +46,8 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
     private _size: string;
 
     private _layout: string;
+
+    private _disabled: boolean;
 
     /**
      * 大小
@@ -75,7 +77,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
     @Input()
     @InputBoolean()
     set thyDisabled(value: boolean) {
-        this.setDisabledState(value);
+        this._disabled = value;
     }
 
     onChange: (_: string) => void = () => null;
@@ -127,6 +129,17 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit {
 
     ngOnInit() {
         this._setClasses();
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        const { thyDisabled } = changes;
+        if (thyDisabled) {
+          this.setDisabledState(this.thyDisabled);
+        }
+    }
+
+    ngAfterContentInit(): void {
+        this.setDisabledState(this._disabled);
     }
 
     private _setClasses() {

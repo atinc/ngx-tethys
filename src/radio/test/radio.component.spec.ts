@@ -1,6 +1,6 @@
 import { Component, DebugElement, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, flush, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThyRadioModule } from '../module';
 import { ThyRadioComponent } from '../radio.component';
@@ -67,7 +67,7 @@ describe('radio component', () => {
 @Component({
     selector: 'thy-radio-group-test',
     template: `
-        <thy-radio-group #radioGroup [(ngModel)]="checkedValue" [thySize]="size">
+        <thy-radio-group #radioGroup [(ngModel)]="checkedValue" [thySize]="size" [thyDisabled]="disabled">
             <label thyRadio thyLabelText="选项一" [thyValue]="1" [thyInline]="inlineStatus"></label>
             <label thyRadioButton thyLabelText="选项二" [thyValue]="2" [thyInline]="inlineStatus"></label>
             <label thyRadio thyLabelText="选项三" [thyValue]="3" [thyInline]="inlineStatus"></label>
@@ -80,6 +80,7 @@ class RadioGroupTestComponent {
     checkedValue = 1;
     inlineStatus = false;
     size: string;
+    disabled = false;
 }
 
 describe('thy-radio-group component', () => {
@@ -156,4 +157,19 @@ describe('thy-radio-group component', () => {
             }
         });
     }));
+    
+    it('should update disable status success', fakeAsync(()=>{
+        groupComponent.disabled = true;
+        groupComponent.checkedValue = 1;
+        groupFixture.detectChanges();
+        tick();
+        groupFixture.detectChanges();
+        expect(groupComponent.checkedValue).toBe(1);
+        labelComponent[2].click();
+        groupFixture.detectChanges();
+        flush();
+        groupFixture.detectChanges();
+        expect(labelComponent[2].classList).not.toContain('form-check-checked');
+        expect(groupComponent.checkedValue).toBe(1);
+    }))
 });

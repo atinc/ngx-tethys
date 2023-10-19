@@ -4,14 +4,6 @@ import { Component, OnInit } from '@angular/core';
     selector: 'app-radio-disabled-example',
     templateUrl: './disabled.component.html'
 })
-export class ThyRadioDisabledExampleComponent implements OnInit {
+export class ThyRadioDisabledExampleComponent {
     public checkedValue = 1;
-
-    disabled: boolean;
-
-    ngOnInit() {
-        setTimeout(() => {
-            this.disabled = true;
-        }, 0);
-    }
 }
