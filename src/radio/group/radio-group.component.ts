@@ -35,7 +35,7 @@ const radioGroupLayoutMap = {
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true
 })
-export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnChanges ,AfterContentInit {
+export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnChanges, AfterContentInit {
     @HostBinding('class.thy-radio-group') thyRadioGroup = true;
 
     @HostBinding('class.btn-group') isButtonGroup = false;

@@ -6,3 +6,10 @@
   <label thyRadio thyLabelText="禁用选项2" [thyValue]="2"></label>
   <label thyRadio thyLabelText="禁用选项3" [thyValue]="3"></label>
 </thy-radio-group>
+<br />
+
+<thy-radio-group [(ngModel)]="checkedValue" [thyDisabled]="true">
+  <label thyRadioButton thyLabelText="选项一" [thyValue]="1"></label>
+  <label thyRadioButton thyLabelText="选项二" [thyValue]="2"></label>
+  <label thyRadioButton thyLabelText="选项三" [thyValue]="3"></label>
+</thy-radio-group>

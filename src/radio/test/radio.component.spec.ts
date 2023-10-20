@@ -172,4 +172,19 @@ describe('thy-radio-group component', () => {
         expect(labelComponent[2].classList).not.toContain('form-check-checked');
         expect(groupComponent.checkedValue).toBe(1);
     }))
+
+    it('should thyRadioButton disable status success', fakeAsync(()=>{
+        groupComponent.disabled = true;
+        groupComponent.checkedValue = 1;
+        groupFixture.detectChanges();
+        tick();
+        groupFixture.detectChanges();
+        expect(groupComponent.checkedValue).toBe(1);
+        labelComponent[1].click();
+        groupFixture.detectChanges();
+        flush();
+        groupFixture.detectChanges();
+        expect(labelComponent[1].classList).not.toContain('form-check-checked');
+        expect(groupComponent.checkedValue).toBe(1);
+    }))
 });
