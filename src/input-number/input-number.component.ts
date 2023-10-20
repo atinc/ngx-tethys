@@ -1,9 +1,9 @@
-import { TabIndexDisabledControlValueAccessorMixin, InputBoolean, InputNumber, useHostFocusControl } from 'ngx-tethys/core';
+import { InputBoolean, InputNumber, TabIndexDisabledControlValueAccessorMixin, useHostFocusControl } from 'ngx-tethys/core';
 import { ThyMaxDirective, ThyMinDirective } from 'ngx-tethys/form';
 import { ThyIconComponent } from 'ngx-tethys/icon';
-import { ThyInputComponent, ThyInputDirective } from 'ngx-tethys/input';
+import { ThyInputDirective } from 'ngx-tethys/input';
 import { ThyAutofocusDirective } from 'ngx-tethys/shared';
-import { DOWN_ARROW, ENTER, isNumber, isUndefinedOrNull, UP_ARROW, isFloat, helpers } from 'ngx-tethys/util';
+import { DOWN_ARROW, ENTER, isFloat, isNumber, isUndefinedOrNull, UP_ARROW } from 'ngx-tethys/util';
 
 import { FocusOrigin } from '@angular/cdk/a11y';
 import {
@@ -220,21 +220,16 @@ export class ThyInputNumberComponent
     }
 
     onModelChange(value: string): void {
+        if (this.isInputNumber(value)) {
+            this.activeValue = value;
+        } else {
+            this.displayValue = this.activeValue;
+        }
         const parseValue = this.parser(value);
         const validValue = this.getCurrentValidValue(parseValue);
         if (this.validValue !== validValue) {
             this.updateValidValue(validValue);
             this.onChangeFn(this.validValue);
-        }
-    }
-
-    onInput(input?: ThyInputComponent) {
-        const value = input.value;
-        if (this.isInputNumber(value)) {
-            this.activeValue = value;
-        } else {
-            this.displayValue = this.activeValue;
-            input.value = this.displayValue;
         }
     }
 
