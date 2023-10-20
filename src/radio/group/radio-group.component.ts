@@ -1,4 +1,15 @@
-import { AfterContentInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, forwardRef, HostBinding, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import {
+    AfterContentInit,
+    ChangeDetectionStrategy,
+    ChangeDetectorRef,
+    Component,
+    forwardRef,
+    HostBinding,
+    Input,
+    OnChanges,
+    OnInit,
+    SimpleChanges
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
 import { InputBoolean } from 'ngx-tethys/core';
@@ -134,7 +145,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnC
     ngOnChanges(changes: SimpleChanges): void {
         const { thyDisabled } = changes;
         if (thyDisabled) {
-          this.setDisabledState(this.thyDisabled);
+            this.setDisabledState(this.thyDisabled);
         }
     }
 
