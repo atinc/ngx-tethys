@@ -129,7 +129,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
 
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this.config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-            toFocus.focus();
+            toFocus.focus(this.config.restoreFocusOptions);
         }
 
         if (this.focusTrap) {

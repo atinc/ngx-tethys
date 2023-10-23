@@ -93,7 +93,11 @@ const DEFAULT_OPTIONS = {
     backdropClosable: true,
     closeOnNavigation: true,
     autoFocus: true,
-    restoreFocus: true
+    restoreFocus: true,
+    restoreFocusOptions: {
+      preventScroll: true
+    },
+    hostClass: 'thy-dialog-content'
 };
 ```
 
