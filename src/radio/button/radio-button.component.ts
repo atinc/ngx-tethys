@@ -19,6 +19,9 @@ import { ThyRadioComponent } from '../radio.component';
 export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit {
     @HostBinding('class.btn') isButton = true;
     @HostBinding('class.active') isActive = false;
+    @HostBinding('class.disabled') get isDisabled() {
+        return this._disabled;
+    }
 
     name: string;
 
@@ -47,6 +50,8 @@ export class ThyRadioButtonComponent extends ThyRadioComponent implements OnInit
 
     @HostListener('click', ['$event'])
     click($event: MouseEvent) {
-        this.change();
+        if (!this._disabled) {
+            this.change();
+        }
     }
 }
