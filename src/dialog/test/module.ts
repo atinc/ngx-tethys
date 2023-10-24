@@ -11,7 +11,7 @@ import {
     ViewContainerRef
 } from '@angular/core';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyDialogModule, ThyDialogRef } from '../';
+import { ThyDialog, ThyDialogModule, ThyDialogRef } from '../';
 
 // simple dialog component
 @Component({
@@ -49,6 +49,47 @@ export class DialogFullContentComponent {
 
     close() {
         this.dialogRef.close();
+    }
+}
+
+// dialog
+@Component({
+    selector: 'thy-dialog-restore-component',
+    template: `
+        <div class="scrollable-container">
+            <div class="view-container"></div>
+            <button thyButton="primary" (click)="open()">打开</button>
+            <div class="view-container"></div>
+        </div>
+    `,
+    styles: [
+        `
+            .scrollable-container {
+                overflow-y: scroll;
+                height: 500px;
+            }
+            .view-container {
+                height: 500px;
+            }
+        `
+    ]
+})
+export class DialogRestoreComponent {
+    restoreFocus = true;
+
+    restoreFocusOptions: FocusOptions = {
+        preventScroll: true
+    };
+
+    dialogRef: ThyDialogRef<DialogFullContentComponent>;
+
+    constructor(private thyDialog: ThyDialog) {}
+
+    open() {
+        this.dialogRef = this.thyDialog.open(DialogFullContentComponent, {
+            restoreFocus: this.restoreFocus,
+            restoreFocusOptions: this.restoreFocusOptions
+        });
     }
 }
 
