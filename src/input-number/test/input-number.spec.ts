@@ -423,6 +423,23 @@ describe('input-number component', () => {
         expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(1);
     }));
 
+    it('should focus method work when focus input-number', fakeAsync(() => {
+        fixture.detectChanges();
+        inputNumberComponentInstance.inputNumberComponent.thyDisabled = true;
+        fixture.detectChanges();
+        const onInputFocusSpy = spyOn(inputNumberComponentInstance.inputNumberComponent, 'onInputFocus').and.callThrough();
+        const trigger = fixture.debugElement.query(By.css('.thy-input-number-first')).nativeElement;
+        dispatchFakeEvent(trigger, 'focus');
+
+        dispatchFakeEvent(inputNumberComponentInstance.inputNumberComponent.inputElement.nativeElement, 'focus');
+        expect(onInputFocusSpy).toHaveBeenCalled();
+        expect(inputNumberComponentInstance.onFocus).toHaveBeenCalledTimes(1);
+
+        dispatchFakeEvent(trigger, 'blur');
+        fixture.detectChanges();
+        expect(inputNumberComponentInstance.onBlur).toHaveBeenCalledTimes(0);
+    }));
+
     it('should call blur and call __onBlurValidation when input-number blur and validateOn is blur', fakeAsync(() => {
         fixture.detectChanges();
         const blurSpy = spyOn(
@@ -562,7 +579,8 @@ describe('input-number component', () => {
         fixture.detectChanges();
         testValueToken.forEach(item => {
             inputElement.value = item.from;
-            inputNumberComponentInstance.inputNumberComponent.onInput(inputElement as any);
+            const inputNumberComponent = inputNumberComponentInstance.inputNumberComponent;
+            inputNumberComponent.onModelChange(item.from);
             tick();
             fixture.detectChanges();
             flush();
@@ -581,4 +599,50 @@ describe('input-number component', () => {
             expect(inputNumberComponentInstance.inputNumberComponent.isInputNumber(token)).toBe(false);
         });
     }));
+
+    it('should set activeValue to value if it is a number', () => {
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        console.log(inputNumberComponentInstance, component);
+        component.onModelChange('123');
+        expect(component.activeValue).toBe('123');
+    });
+
+    it('should set displayValue to activeValue if value is not a number', () => {
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        component.activeValue = '123';
+        component.onModelChange('abc');
+        expect(component.displayValue).toBe('123');
+    });
+
+    it('should call parser with value', () => {
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        const parserSpy = spyOn(component, 'parser');
+        component.onModelChange('123');
+        expect(parserSpy).toHaveBeenCalledWith('123');
+    });
+
+    it('should call getCurrentValidValue with the parsed value', () => {
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        const parserSpy = spyOn(component, 'parser').and.returnValue('123').and.callThrough();
+        const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue');
+        component.onModelChange('123');
+        expect(parserSpy).toHaveBeenCalled();
+        expect(getCurrentValidValueSpy).toHaveBeenCalledWith('123');
+    });
+
+    it('should call updateValidValue and onChangeFn with the valid value', () => {
+        fixture.detectChanges();
+        const component = inputNumberComponentInstance.inputNumberComponent;
+        const getCurrentValidValueSpy = spyOn(component, 'getCurrentValidValue').and.returnValue('456');
+        const updateValidValueSpy = spyOn(component, 'updateValidValue').and.callThrough();
+        const changeFnSpy = spyOn(component, 'onChangeFn' as any);
+        component.onModelChange('123');
+        expect(getCurrentValidValueSpy).toHaveBeenCalled();
+        expect(updateValidValueSpy).toHaveBeenCalledWith('456');
+        expect(changeFnSpy).toHaveBeenCalledWith('456');
+    });
 });
