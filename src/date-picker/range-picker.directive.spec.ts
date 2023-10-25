@@ -1,4 +1,4 @@
-import { endOfDay, startOfDay } from 'date-fns';
+import { endOfDay, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -161,6 +162,31 @@ describe('ThyRangePickerDirective', () => {
             expect(queryFromOverlay('.thy-calendar-week-number')).toBeTruthy();
         }));
 
+        it('should support thyDateChange', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutPresets = [
+                {
+                    title: '最近 7 天',
+                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                }
+            ];
+            const triggerPresets = Object.assign(fixtureInstance.thyShortcutPresets[0], { disabled: false });
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
+                triggerPresets: triggerPresets
+            });
+        }));
+
         function queryFromOverlay(selector: string): HTMLElement {
             return overlayContainerElement.querySelector(selector) as HTMLElement;
         }
@@ -194,6 +220,7 @@ describe('ThyRangePickerDirective', () => {
             [thyShortcutRanges]="thyShortcutRanges"
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
+            (thyDateChange)="thyDateChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `
 })
@@ -206,4 +233,5 @@ class ThyTestRangePickerComponent {
     mode: string;
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
+    thyDateChange(): void {}
 }

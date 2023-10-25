@@ -55,9 +55,17 @@ export interface ThyShortcutPreset {
     disabled?: boolean;
 }
 
+/**
+ * @deprecated
+ */
 export interface ThyShortcutValueChange {
     value: CompatibleValue;
     triggerPresets: ThyShortcutPreset;
+}
+
+export interface ThyDateChangeEvent {
+    value: CompatibleValue;
+    triggerPresets?: ThyShortcutPreset;
 }
 
 /**

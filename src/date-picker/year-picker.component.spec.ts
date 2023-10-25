@@ -8,6 +8,8 @@ import { By } from '@angular/platform-browser';
 import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ThyDatePickerModule } from './date-picker.module';
+import { TinyDate } from 'ngx-tethys/util';
+import { fromUnixTime } from 'date-fns';
 
 registerLocaleData(zh);
 
@@ -138,6 +140,24 @@ describe('ThyYearPickerComponent', () => {
             const result = thyOnChange.calls.allArgs()[0][0];
             expect(new Date(result * 1000).getFullYear()).toBe(parseInt(cellText));
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const year = queryFromOverlay(`tbody.thy-calendar-year-panel-tbody td.thy-calendar-year-panel-cell`);
+            dispatchMouseEvent(year, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            // expect(thyDateChange).toHaveBeenCalledWith({
+            //     value: new TinyDate(fromUnixTime(fixtureInstance.thyValue as any))
+            // })
+        }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {
@@ -241,6 +261,7 @@ describe('ThyYearPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
+            (thyDateChange)="thyDateChange($event)"
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-year-picker>
     `
@@ -254,4 +275,5 @@ class TestYearPickerComponent {
     thyValue: Date;
     thyOpen: boolean;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }
