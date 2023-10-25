@@ -224,6 +224,7 @@ export class ThyInputNumberComponent
             this.activeValue = value;
         } else {
             this.displayValue = this.activeValue;
+            this.inputElement.nativeElement.value = this.displayValue;
         }
         const parseValue = this.parser(value);
         const validValue = this.getCurrentValidValue(parseValue);
