@@ -161,6 +161,45 @@ describe('ThyPickerDirective', () => {
                 expect(todayItem.classList.contains('disabled')).toBe(true);
                 expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
+
+            it('should support thyDateChange', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyShortcutPresets = [
+                    {
+                        title: '2022-01-29',
+                        value: new Date('2022-01-29').getTime()
+                    }
+                ];
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
+                const result = thyDateChange.calls.allArgs()[0][0];
+                expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything(), triggerPresets: jasmine.anything() }));
+            }));
+
+            it('should emit thyDateChange after', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                const thyModelChange = spyOn(fixtureInstance, 'thyOnChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
+                expect(thyModelChange).toHaveBeenCalled();
+                expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+            }));
         });
 
         describe('popover config testing', () => {
@@ -408,6 +447,8 @@ describe('ThyPickerDirective', () => {
             [thyPopoverOptions]="popoverOptions"
             [thyShowTime]="thyShowTime"
             [thyShowShortcut]="thyShowShortcut"
+            (thyDateChange)="thyDateChange($event)"
+            (ngModelChange)="thyOnChange($event)"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `
@@ -434,7 +475,7 @@ class ThyTestPickerComponent {
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
-
+    thyDateChange(): void {}
     thyOnPanelChange(): void {}
 
     thyOnOk(): void {}
