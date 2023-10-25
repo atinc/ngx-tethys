@@ -16,6 +16,7 @@ import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -463,6 +464,52 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalledTimes(1);
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
+        }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const cell = getFirstCell();
+            dispatchMouseEvent(cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            const result = thyDateChange.calls.allArgs()[0][0];
+            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+        }));
+
+        it('should emit thyDateChange after', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            const thyModelChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        }));
+
+        it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            const datePresets = shortcutDatePresets();
+            const triggerPresets = Object.assign(datePresets[0], { disabled: false });
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = getShortcutItems();
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            const now = new TinyDate(new Date());
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: now.startOfDay(),
+                triggerPresets: triggerPresets
+            });
         }));
     });
 
@@ -1018,6 +1065,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyPlacement]="thyPlacement"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                (thyDateChange)="thyDateChange($event)"
                 [thyShowTime]="thyShowTime"
                 [thyMinDate]="thyMinDate"
                 [thyMaxDate]="thyMaxDate"
@@ -1063,7 +1111,7 @@ class ThyTestDatePickerComponent {
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
-
+    thyDateChange(): void {}
     thyOnPanelChange(): void {}
 
     thyOnOk(): void {}

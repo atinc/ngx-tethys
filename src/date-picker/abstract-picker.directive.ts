@@ -22,8 +22,9 @@ import {
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
-import { ThyPanelMode, ThyShortcutValueChange } from './standard-types';
+import { ThyDateChangeEvent, ThyPanelMode, ThyShortcutValueChange } from './standard-types';
 import { CompatibleValue } from './inner-types';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * @private
@@ -117,6 +118,8 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
         mapTo(true)
     );
 
+    takeUntilDestroyed = takeUntilDestroyed();
+
     ngOnInit() {
         this.getInitialState();
     }
@@ -183,6 +186,9 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             componentInstance.ngOnChanges({ value: {} as SimpleChange }); // dynamically created components don't call ngOnChanges, manual call
             componentInstance.shortcutValueChange?.pipe(takeUntil(this.destroy$)).subscribe((event: ThyShortcutValueChange) => {
                 this.thyShortcutValueChange.emit(event);
+            });
+            componentInstance.dateValueChange?.pipe(this.takeUntilDestroyed).subscribe((event: ThyDateChangeEvent) => {
+                this.thyDateChange.emit(event);
             });
             popoverRef
                 .afterOpened()
