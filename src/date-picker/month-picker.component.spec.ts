@@ -138,6 +138,39 @@ describe('ThyMonthPickerComponent', () => {
             const result = (thyOnChange.calls.allArgs()[0] as Date[])[0];
             expect(new Date(result).getMonth() + 1).toBe(cellText);
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            const cell = getFirstMonthCell(); // Use the first cell
+            dispatchMouseEvent(cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            const result = thyDateChange.calls.allArgs()[0][0];
+            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+        }));
+
+        it('should emit thyDateChange after', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const cell = getFirstMonthCell(); // Use the first cell
+            dispatchMouseEvent(cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            expect(thyModelChange).toHaveBeenCalled();
+            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {
@@ -250,6 +283,7 @@ describe('ThyMonthPickerComponent', () => {
             class="d-block w-50 mb-3"
             [(ngModel)]="thyValue"
             (ngModelChange)="modelValueChange($event)"
+            (thyDateChange)="thyDateChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
@@ -266,4 +300,5 @@ class TestMonthPickerComponent {
     thyValue: Date;
     thyOpen: boolean;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }

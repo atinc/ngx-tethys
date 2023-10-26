@@ -505,6 +505,7 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: now.startOfDay(),
                 triggerPresets: triggerPresets

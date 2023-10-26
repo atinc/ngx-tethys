@@ -1,4 +1,4 @@
-import { endOfDay, startOfDay, subDays } from 'date-fns';
+import { endOfDay, fromUnixTime, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -162,6 +162,29 @@ describe('ThyRangePickerDirective', () => {
             expect(queryFromOverlay('.thy-calendar-week-number')).toBeTruthy();
         }));
 
+        it('should support thyOnChange', fakeAsync(() => {
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const left = getFirstCell('left');
+            const leftText = left.textContent.trim();
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const right = getFirstCell('right');
+            const rightText = right.textContent.trim();
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            const result = (thyOnChange.calls.allArgs()[0] as ThyDateRangeEntry[])[0];
+            expect(fromUnixTime(result.begin as number).getDate()).toBe(+leftText);
+            expect(fromUnixTime(result.end as number).getDate()).toBe(+rightText);
+        }));
+
         it('should support thyDateChange', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
             fixtureInstance.thyShortcutPresets = [
@@ -181,9 +204,58 @@ describe('ThyRangePickerDirective', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
                 triggerPresets: triggerPresets
+            });
+        }));
+
+        it('should emit thyDateChange after', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            fixtureInstance.thyShortcutPresets = [
+                {
+                    title: '最近 7 天',
+                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+                }
+            ];
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyModelChange).toHaveBeenCalledTimes(1);
+            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        }));
+
+        it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const left = getFirstCell('left');
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const right = getFirstCell('right');
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: [
+                    new TinyDate(fromUnixTime(fixtureInstance.modelValue.begin as number)).startOfDay(),
+                    new TinyDate(fromUnixTime(fixtureInstance.modelValue.end as number)).endOfDay()
+                ]
             });
         }));
 
@@ -221,6 +293,7 @@ describe('ThyRangePickerDirective', () => {
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
             (thyDateChange)="thyDateChange($event)"
+            (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `
 })
@@ -231,6 +304,7 @@ class ThyTestRangePickerComponent {
     thyShortcutPresets: CompatiblePresets;
     thyShortcutRanges: ThyShortcutRange[];
     mode: string;
+    modelValueChange(): void {}
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
     thyDateChange(): void {}

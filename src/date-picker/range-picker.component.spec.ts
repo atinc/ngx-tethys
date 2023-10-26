@@ -465,6 +465,7 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
                 triggerPresets: triggerPresets
@@ -481,6 +482,8 @@ describe('ThyRangePickerComponent', () => {
             dispatchMouseEvent(shortcutItems[0], 'click');
             fixture.detectChanges();
             tick(500);
+            expect(thyModelChange).toHaveBeenCalledTimes(1);
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
         }));
 
@@ -500,6 +503,7 @@ describe('ThyRangePickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: [
                     new TinyDate(fromUnixTime(fixtureInstance.modelValue.begin as number)).startOfDay(),
@@ -918,6 +922,23 @@ describe('ThyRangePickerComponent', () => {
             expect(fixtureInstance.flexibleDateRange.begin).toBeFalsy();
             expect(fixtureInstance.flexibleDateRange.end).toBeFalsy();
         }));
+
+        it('should thyDateChange trigger twice', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            expect(getPickerContainer()).toBeTruthy();
+            const selectableButtons = overlayContainerElement.querySelectorAll('.selectable-button');
+            const monthBtns = Array.from(selectableButtons).slice(7);
+            dispatchMouseEvent(monthBtns[0], 'click');
+            fixture.detectChanges();
+            dispatchMouseEvent(monthBtns[1], 'click');
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalledTimes(2);
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: [new TinyDate().startOfMonth(), new TinyDate().endOfMonth()]
+            });
+        }));
     });
 
     describe('switch thyMode', () => {
@@ -1045,6 +1066,7 @@ describe('ThyRangePickerComponent', () => {
                 *ngSwitchCase="4"
                 [(ngModel)]="flexibleDateRange"
                 thyMode="flexible"
+                (thyDateChange)="thyDateChange($event)"
                 (ngModelChange)="modelValueChange($event)"></thy-range-picker>
         </ng-container>
     `

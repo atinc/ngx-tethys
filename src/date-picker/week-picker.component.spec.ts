@@ -119,6 +119,7 @@ describe('ThyWeekPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
             const result = thyDateChange.calls.allArgs()[0][0];
             expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
         }));
@@ -136,8 +137,8 @@ describe('ThyWeekPickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalled();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyModelChange).toHaveBeenCalledTimes(1);
             expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
         }));
 
