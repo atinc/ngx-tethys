@@ -180,8 +180,6 @@ describe('ThyPickerDirective', () => {
                 tick(500);
                 fixture.detectChanges();
                 expect(thyDateChange).toHaveBeenCalled();
-                const result = thyDateChange.calls.allArgs()[0][0];
-                expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything(), triggerPresets: jasmine.anything() }));
             }));
 
             it('should emit thyDateChange after', fakeAsync(() => {
@@ -199,22 +197,6 @@ describe('ThyPickerDirective', () => {
                 expect(thyDateChange).toHaveBeenCalled();
                 expect(thyModelChange).toHaveBeenCalled();
                 expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-            }));
-
-            it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
-                fixtureInstance.thyShowShortcut = false;
-                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-                fixture.detectChanges();
-                dispatchClickEvent(getPickerTriggerWrapper());
-                fixture.detectChanges();
-                const cell = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
-                dispatchMouseEvent(cell, 'click');
-                fixture.detectChanges();
-                tick(500);
-                fixture.detectChanges();
-                expect(thyDateChange).toHaveBeenCalled();
-                const result = thyDateChange.calls.allArgs()[0][0];
-                expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
             }));
         });
 

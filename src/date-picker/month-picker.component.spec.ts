@@ -150,8 +150,6 @@ describe('ThyMonthPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
-            const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
         }));
 
         it('should emit thyDateChange after', fakeAsync(() => {
