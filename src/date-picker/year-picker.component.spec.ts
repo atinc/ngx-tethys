@@ -1,15 +1,12 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ThyDatePickerModule } from './date-picker.module';
-import { TinyDate } from 'ngx-tethys/util';
-import { fromUnixTime } from 'date-fns';
 
 registerLocaleData(zh);
 
