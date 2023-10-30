@@ -486,6 +486,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            console.log(shortcutItems[0],'shortcutItems[0]');
             dispatchMouseEvent(shortcutItems[0], 'click');
             fixture.detectChanges();
             // tick(500);
