@@ -396,6 +396,8 @@ export class ThySelectCustomComponent
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
 
+    @ViewChild(ThySelectControlComponent) selectControl: ThySelectControlComponent;
+
     /**
      * @private
      */
@@ -672,7 +674,7 @@ export class ThySelectCustomComponent
     }
 
     public toggle(event: MouseEvent): void {
-        this.panelOpen ? this.close() : this.open();
+        this.panelOpen && !this.thyShowSearch ? this.close() : this.open();
     }
 
     public open(): void {
