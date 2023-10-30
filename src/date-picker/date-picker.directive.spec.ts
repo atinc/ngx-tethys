@@ -161,8 +161,6 @@ describe('ThyPickerDirective', () => {
                 expect(todayItem.classList.contains('disabled')).toBe(true);
                 expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
-
-            
         });
 
         describe('popover config testing', () => {
