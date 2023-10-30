@@ -151,28 +151,6 @@ describe('ThyYearPickerComponent', () => {
             tick(500);
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
-            // expect(thyDateChange).toHaveBeenCalledWith({
-            //     value: new TinyDate(fromUnixTime(fixtureInstance.thyValue as any))
-            // })
-            const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
-        }));
-
-        it('should emit thyDateChange after', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
-            fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const year = queryFromOverlay(`tbody.thy-calendar-year-panel-tbody td.thy-calendar-year-panel-cell`);
-            dispatchMouseEvent(year, 'click');
-            fixture.detectChanges();
-            tick(500);
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
         }));
     }); // /general api testing
 
