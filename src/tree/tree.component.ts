@@ -540,6 +540,11 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             this.cleanupDragArtifacts();
             return;
         }
+
+        if (window['treeDebug']) {
+            console.log('moved', targetElement);
+        }
+
         // 缓存放置目标Id 并计算鼠标相对应的位置
         this.nodeDropTarget = {
             key: this.nodeDragsMap.get(targetElement)?.data.key,
@@ -596,6 +601,10 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
             containerItems: targetNodeParent?.children,
             position: this.nodeDropTarget.position
         };
+
+        if (window['treeDebug']) {
+            console.log('dropped', beforeDragDropContext);
+        }
 
         if (this.thyBeforeDragDrop && !this.thyBeforeDragDrop(beforeDragDropContext)) {
             this.cleanupDragArtifacts();
