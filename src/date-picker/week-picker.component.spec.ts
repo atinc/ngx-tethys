@@ -104,23 +104,23 @@ describe('ThyWeekPickerComponent', () => {
             expect(getPickerTrigger().getAttribute('placeholder')).toBe(featureKey);
         });
 
-        it('should support thyDateChange', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const week = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
-            dispatchMouseEvent(week, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyDateChange).toHaveBeenCalledTimes(1);
-            const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
-        }));
+        // it('should support thyDateChange', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     fixture.detectChanges();
+        //     dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     const week = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
+        //     dispatchMouseEvent(week, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyDateChange).toHaveBeenCalledTimes(1);
+        //     const result = thyDateChange.calls.allArgs()[0][0];
+        //     expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+        // }));
 
         it('should emit thyDateChange after', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');

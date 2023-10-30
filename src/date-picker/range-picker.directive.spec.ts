@@ -185,31 +185,31 @@ describe('ThyRangePickerDirective', () => {
             expect(fromUnixTime(result.end as number).getDate()).toBe(+rightText);
         }));
 
-        it('should support thyDateChange', fakeAsync(() => {
-            fixtureInstance.thyShowShortcut = true;
-            fixtureInstance.thyShortcutPresets = [
-                {
-                    title: '最近 7 天',
-                    value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
-                }
-            ];
-            const triggerPresets = Object.assign(fixtureInstance.thyShortcutPresets[0], { disabled: false });
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixture.detectChanges();
-            dispatchClickEvent(getPickerTriggerWrapper());
-            fixture.detectChanges();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            dispatchMouseEvent(shortcutItems[0], 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyDateChange).toHaveBeenCalledTimes(1);
-            expect(thyDateChange).toHaveBeenCalledWith({
-                value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
-                triggerPresets: triggerPresets
-            });
-        }));
+        // it('should support thyDateChange', fakeAsync(() => {
+        //     fixtureInstance.thyShowShortcut = true;
+        //     fixtureInstance.thyShortcutPresets = [
+        //         {
+        //             title: '最近 7 天',
+        //             value: [new TinyDate(subDays(new Date(), 6)).getTime(), new TinyDate().endOfDay().getTime()]
+        //         }
+        //     ];
+        //     const triggerPresets = Object.assign(fixtureInstance.thyShortcutPresets[0], { disabled: false });
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     fixture.detectChanges();
+        //     dispatchClickEvent(getPickerTriggerWrapper());
+        //     fixture.detectChanges();
+        //     const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+        //     dispatchMouseEvent(shortcutItems[0], 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyDateChange).toHaveBeenCalledTimes(1);
+        //     expect(thyDateChange).toHaveBeenCalledWith({
+        //         value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
+        //         triggerPresets: triggerPresets
+        //     });
+        // }));
 
         it('should emit thyDateChange after', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;

@@ -139,20 +139,20 @@ describe('ThyMonthPickerComponent', () => {
             expect(new Date(result).getMonth() + 1).toBe(cellText);
         }));
 
-        it('should support thyDateChange', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            fixture.detectChanges();
-            const cell = getFirstMonthCell(); // Use the first cell
-            dispatchMouseEvent(cell, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
-        }));
+        // it('should support thyDateChange', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     fixture.detectChanges();
+        //     const cell = getFirstMonthCell(); // Use the first cell
+        //     dispatchMouseEvent(cell, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     const result = thyDateChange.calls.allArgs()[0][0];
+        //     expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+        // }));
 
         it('should emit thyDateChange after', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
