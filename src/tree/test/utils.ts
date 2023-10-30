@@ -11,9 +11,7 @@ export function dargNode(
     dropPosition: ThyTreeDropPosition
 ) {
     startDragging(fixture, startNode, 10, 10);
-
     const targetClientRect = targetNode.getBoundingClientRect();
-     
     if (window['treeDebug']) {
         console.log('dargNode', dropPosition, targetClientRect);
     }
