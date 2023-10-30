@@ -489,7 +489,7 @@ describe('ThyDatePickerComponent', () => {
             console.log(shortcutItems[0], 'shortcutItems[0]');
             dispatchMouseEvent(shortcutItems[0], 'click');
             fixture.detectChanges();
-            // tick(500);
+            tick(500);
             // // expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
         }));
 
