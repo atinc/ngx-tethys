@@ -486,11 +486,11 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            console.log(shortcutItems[0], 'shortcutItems[0]');
-            dispatchMouseEvent(shortcutItems[0], 'click');
+            (shortcutItems[0] as any)?.click();
             fixture.detectChanges();
             tick(500);
-            // // expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+            flush();
         }));
 
         // it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
