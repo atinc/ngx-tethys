@@ -117,6 +117,21 @@ describe('ThyWeekPickerComponent', () => {
             expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
             expect(allTrs[index].classList[1]).toEqual('thy-calendar-active-week');
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const week = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
+            dispatchMouseEvent(week, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+        }));
     });
 
     function getPickerContainer(): HTMLElement {
@@ -138,14 +153,14 @@ describe('ThyWeekPickerComponent', () => {
 
 @Component({
     template: `
-        <thy-date-picker
+        <thy-week-picker
             class="d-block w-50 mb-3"
             [(ngModel)]="thyValue"
             (ngModelChange)="modelValueChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyPlaceHolder]="thyPlaceHolder"
-            [thyMode]="'week'"></thy-date-picker>
+            (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `
 })
 class TestWeekPickerComponent {
@@ -154,4 +169,5 @@ class TestWeekPickerComponent {
     thyPlaceHolder: string = '请选择周';
     thyValue: Date;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }
