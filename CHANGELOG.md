@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next...16.1.6) (2023-10-27)
+
+
+### Bug Fixes
+
+* **check:** fix form-check style(#INFR-9102) ([#2837](https://github.com/atinc/ngx-tethys/issues/2837)) ([40eddcf](https://github.com/atinc/ngx-tethys/commit/40eddcf66038b8bd52db1ec9fe7c81b89ab3dc02)), closes [#INFR-9102](https://github.com/atinc/ngx-tethys/issues/INFR-9102)
+* **input-number:** fix input non-number show error #INFR-10053 ([#2862](https://github.com/atinc/ngx-tethys/issues/2862)) ([7749771](https://github.com/atinc/ngx-tethys/commit/7749771ea63659961121aa25f381f15ac0d67970)), closes [#INFR-10053](https://github.com/atinc/ngx-tethys/issues/INFR-10053)
+* **input-number:** fix input number suffix not effect #INFR-10053 ([#2859](https://github.com/atinc/ngx-tethys/issues/2859)) ([b411b5a](https://github.com/atinc/ngx-tethys/commit/b411b5ab769360c50c37667f907a9d5a56047e3f)), closes [#INFR-10053](https://github.com/atinc/ngx-tethys/issues/INFR-10053)
+* **radio:** fix radio group thyDisabled #INFR-9788 ([#2858](https://github.com/atinc/ngx-tethys/issues/2858)) ([1569e3c](https://github.com/atinc/ngx-tethys/commit/1569e3cbbfcadcceca804baf37c5deea71461be1)), closes [#INFR-9788](https://github.com/atinc/ngx-tethys/issues/INFR-9788)
+
+
+### Features
+
+* add restoreFocusOptions to control previously element focusing #INFR-9782 ([#2860](https://github.com/atinc/ngx-tethys/issues/2860)) ([da6ef88](https://github.com/atinc/ngx-tethys/commit/da6ef88cbe8ed135651628106e4084015803de6a)), closes [#INFR-9782](https://github.com/atinc/ngx-tethys/issues/INFR-9782)
+
+
+
 ## [16.1.5](https://github.com/atinc/ngx-tethys/compare/16.1.4...16.1.5) (2023-10-12)
 
 
