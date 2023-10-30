@@ -674,7 +674,7 @@ export class ThySelectCustomComponent
     }
 
     public toggle(event: MouseEvent): void {
-        this.panelOpen && !this.thyShowSearch ? this.close() : this.open();
+        this.panelOpen ? (!this.thyShowSearch ? this.close() : this.elementRef.nativeElement.querySelector('input').focus()) : this.open();
     }
 
     public open(): void {
