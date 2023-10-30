@@ -13,6 +13,11 @@ export function dargNode(
     startDragging(fixture, startNode, 10, 10);
 
     const targetClientRect = targetNode.getBoundingClientRect();
+
+    if (window['treeDebug']) {
+        console.log('dargNode', dropPosition, targetClientRect);
+    }
+    
     let targetClientY = 0;
     if (dropPosition === ThyTreeDropPosition.before) {
         targetClientY = targetClientRect.top;
@@ -21,6 +26,9 @@ export function dargNode(
     } else {
         targetClientY = targetClientRect.top + targetClientRect.height - 1;
     }
+
+
+    
 
     dispatchMouseEvent(targetNode, 'mousemove', targetClientRect.left, targetClientY);
     fixture.detectChanges();

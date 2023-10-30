@@ -653,7 +653,16 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     private getTargetPosition(target: HTMLElement, event: CdkDragMove) {
+
+       
+
+
         const targetRect = target.getBoundingClientRect();
+
+        if (window['treeDebug']) {
+            console.log('getTargetPosition', targetRect);
+        }
+
         const beforeOrAfterGap = targetRect.height * 0.3;
         // 将 Node 高度分为上中下三段，其中上下的 Gap 为 height 的 30%，通过判断鼠标位置在哪一段 gap 来计算对应的位置
         if (event.pointerPosition.y - targetRect.top < beforeOrAfterGap) {
