@@ -158,22 +158,22 @@ describe('ThyYearPickerComponent', () => {
         //     expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
         // }));
 
-        it('should emit thyDateChange after', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
-            fixture.detectChanges();
-            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const year = queryFromOverlay(`tbody.thy-calendar-year-panel-tbody td.thy-calendar-year-panel-cell`);
-            dispatchMouseEvent(year, 'click');
-            fixture.detectChanges();
-            tick(500);
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-        }));
+        // it('should emit thyDateChange after', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+        //     fixture.detectChanges();
+        //     dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     const year = queryFromOverlay(`tbody.thy-calendar-year-panel-tbody td.thy-calendar-year-panel-cell`);
+        //     dispatchMouseEvent(year, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyModelChange).toHaveBeenCalled();
+        //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        // }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {

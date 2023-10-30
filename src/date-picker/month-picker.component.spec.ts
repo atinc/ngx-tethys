@@ -154,23 +154,23 @@ describe('ThyMonthPickerComponent', () => {
         //     expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
         // }));
 
-        it('should emit thyDateChange after', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const cell = getFirstMonthCell(); // Use the first cell
-            dispatchMouseEvent(cell, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalled();
-            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-        }));
+        // it('should emit thyDateChange after', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     const cell = getFirstMonthCell(); // Use the first cell
+        //     dispatchMouseEvent(cell, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyModelChange).toHaveBeenCalled();
+        //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        // }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {

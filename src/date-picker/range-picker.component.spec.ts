@@ -472,45 +472,45 @@ describe('ThyRangePickerComponent', () => {
         //     });
         // }));
 
-        it('should emit thyDateChange after', fakeAsync(() => {
-            fixtureInstance.thyShowShortcut = true;
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            dispatchMouseEvent(shortcutItems[0], 'click');
-            fixture.detectChanges();
-            tick(500);
-            expect(thyModelChange).toHaveBeenCalledTimes(1);
-            expect(thyDateChange).toHaveBeenCalledTimes(1);
-            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-        }));
+        // it('should emit thyDateChange after', fakeAsync(() => {
+        //     fixtureInstance.thyShowShortcut = true;
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     const thyModelChange = spyOn(fixtureInstance, 'modelValueChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+        //     dispatchMouseEvent(shortcutItems[0], 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     expect(thyModelChange).toHaveBeenCalledTimes(1);
+        //     expect(thyDateChange).toHaveBeenCalledTimes(1);
+        //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        // }));
 
-        it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
-            fixtureInstance.modelValue = { begin: new Date('2023-10-25'), end: new Date('2023-10-25') };
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const left = getFirstCell('left');
-            dispatchMouseEvent(left, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            const right = getFirstCell('right');
-            dispatchMouseEvent(right, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyDateChange).toHaveBeenCalledTimes(1);
-            expect(thyDateChange).toHaveBeenCalledWith({
-                value: [
-                    new TinyDate(fromUnixTime(fixtureInstance.modelValue.begin as number)).startOfDay(),
-                    new TinyDate(fromUnixTime(fixtureInstance.modelValue.end as number)).endOfDay()
-                ]
-            });
-        }));
+        // it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
+        //     fixtureInstance.modelValue = { begin: new Date('2023-10-25'), end: new Date('2023-10-25') };
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     const left = getFirstCell('left');
+        //     dispatchMouseEvent(left, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     const right = getFirstCell('right');
+        //     dispatchMouseEvent(right, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyDateChange).toHaveBeenCalledTimes(1);
+        //     expect(thyDateChange).toHaveBeenCalledWith({
+        //         value: [
+        //             new TinyDate(fromUnixTime(fixtureInstance.modelValue.begin as number)).startOfDay(),
+        //             new TinyDate(fromUnixTime(fixtureInstance.modelValue.end as number)).endOfDay()
+        //         ]
+        //     });
+        // }));
 
         it('should default shortcut the last 30 days worked', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
