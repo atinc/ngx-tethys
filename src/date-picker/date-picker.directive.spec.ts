@@ -162,27 +162,27 @@ describe('ThyPickerDirective', () => {
                 expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
 
-            // it('should support thyDateChange', fakeAsync(() => {
-            //     fixtureInstance.thyShowShortcut = true;
-            //     fixtureInstance.thyShortcutPresets = [
-            //         {
-            //             title: '2022-01-29',
-            //             value: new Date('2022-01-29').getTime()
-            //         }
-            //     ];
-            //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            //     fixture.detectChanges();
-            //     dispatchClickEvent(getPickerTriggerWrapper());
-            //     fixture.detectChanges();
-            //     const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            //     dispatchMouseEvent(shortcutItems[0], 'click');
-            //     fixture.detectChanges();
-            //     tick(500);
-            //     fixture.detectChanges();
-            //     expect(thyDateChange).toHaveBeenCalled();
-            //     const result = thyDateChange.calls.allArgs()[0][0];
-            //     expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything(), triggerPresets: jasmine.anything() }));
-            // }));
+            it('should support thyDateChange', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                fixtureInstance.thyShortcutPresets = [
+                    {
+                        title: '2022-01-29',
+                        value: new Date('2022-01-29').getTime()
+                    }
+                ];
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
+                const result = thyDateChange.calls.allArgs()[0][0];
+                expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything(), triggerPresets: jasmine.anything() }));
+            }));
 
             // it('should emit thyDateChange after', fakeAsync(() => {
             //     fixtureInstance.thyShowShortcut = true;
@@ -201,21 +201,21 @@ describe('ThyPickerDirective', () => {
             //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
             // }));
 
-            // it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
-            //     fixtureInstance.thyShowShortcut = false;
-            //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            //     fixture.detectChanges();
-            //     dispatchClickEvent(getPickerTriggerWrapper());
-            //     fixture.detectChanges();
-            //     const cell = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
-            //     dispatchMouseEvent(cell, 'click');
-            //     fixture.detectChanges();
-            //     tick(500);
-            //     fixture.detectChanges();
-            //     expect(thyDateChange).toHaveBeenCalled();
-            //     const result = thyDateChange.calls.allArgs()[0][0];
-            //     expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
-            // }));
+            it('should thyDateChange triggerPresets null when manual select', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = false;
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                fixture.detectChanges();
+                const cell = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
+                dispatchMouseEvent(cell, 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
+                const result = thyDateChange.calls.allArgs()[0][0];
+                expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
+            }));
         });
 
         describe('popover config testing', () => {
