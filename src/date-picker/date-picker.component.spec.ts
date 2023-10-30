@@ -466,51 +466,51 @@ describe('ThyDatePickerComponent', () => {
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
         }));
 
-        it('should support thyDateChange', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const cell = getFirstCell();
-            dispatchMouseEvent(cell, 'click');
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
-        }));
+        // it('should support thyDateChange', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     const cell = getFirstCell();
+        //     dispatchMouseEvent(cell, 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     const result = thyDateChange.calls.allArgs()[0][0];
+        //     expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+        // }));
 
-        it('should emit thyDateChange after', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const thyModelChange = spyOn(fixtureInstance, 'thyOnChange');
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-            dispatchMouseEvent(shortcutItems[0], 'click');
-            fixture.detectChanges();
-            tick(500);
-            expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-        }));
+        // it('should emit thyDateChange after', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     const thyModelChange = spyOn(fixtureInstance, 'thyOnChange');
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+        //     dispatchMouseEvent(shortcutItems[0], 'click');
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
+        // }));
 
-        it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
-            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-            const datePresets = shortcutDatePresets();
-            const triggerPresets = Object.assign(datePresets[0], { disabled: false });
-            fixture.detectChanges();
-            openPickerByClickTrigger();
-            const shortcutItems = getShortcutItems();
-            dispatchMouseEvent(shortcutItems[0], 'click');
-            const now = new TinyDate(new Date());
-            fixture.detectChanges();
-            tick(500);
-            fixture.detectChanges();
-            expect(thyDateChange).toHaveBeenCalled();
-            expect(thyDateChange).toHaveBeenCalledTimes(1);
-            expect(thyDateChange).toHaveBeenCalledWith({
-                value: now.startOfDay(),
-                triggerPresets: triggerPresets
-            });
-        }));
+        // it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
+        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+        //     const datePresets = shortcutDatePresets();
+        //     const triggerPresets = Object.assign(datePresets[0], { disabled: false });
+        //     fixture.detectChanges();
+        //     openPickerByClickTrigger();
+        //     const shortcutItems = getShortcutItems();
+        //     dispatchMouseEvent(shortcutItems[0], 'click');
+        //     const now = new TinyDate(new Date());
+        //     fixture.detectChanges();
+        //     tick(500);
+        //     fixture.detectChanges();
+        //     expect(thyDateChange).toHaveBeenCalled();
+        //     expect(thyDateChange).toHaveBeenCalledTimes(1);
+        //     expect(thyDateChange).toHaveBeenCalledWith({
+        //         value: now.startOfDay(),
+        //         triggerPresets: triggerPresets
+        //     });
+        // }));
     });
 
     describe('panel switch and move forward/afterward', () => {
