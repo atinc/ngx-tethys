@@ -653,10 +653,6 @@ export class ThyTreeComponent implements ControlValueAccessor, OnInit, OnChanges
     }
 
     private getTargetPosition(target: HTMLElement, event: CdkDragMove) {
-
-       
-
-
         const targetRect = target.getBoundingClientRect();
 
         if (window['treeDebug']) {
