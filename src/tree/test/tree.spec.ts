@@ -638,6 +638,9 @@ describe('ThyTreeComponent', () => {
             const startNode = nodeDebugElements.find(item => item.componentInstance.node.key === options.start);
             const targetNode = nodeDebugElements.find(item => item.componentInstance.node.key === options.target);
 
+            console.log('startNode', startNode);
+            console.log('targetNode', targetNode);
+
             // elementFromPoint 只能获取可视窗口的元素，但是测试环境是不确定的，可能受到滚动条影响原因，所以通过fake函数指定目标元素
             elementFromPointSpy.and.callFake(() => targetNode.nativeElement);
 
