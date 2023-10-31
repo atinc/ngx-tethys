@@ -455,7 +455,7 @@ describe('ThyRangePickerComponent', () => {
         it('should support thyDateChange', fakeAsync(() => {
             fixtureInstance.thyShowShortcut = true;
             let rangePresets = shortcutRangesPresets();
-            const triggerPresets = Object.assign(rangePresets[0], { disabled: false });
+            const triggerPreset = Object.assign(rangePresets[0], { disabled: false });
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();
             openPickerByClickTrigger();
@@ -467,7 +467,7 @@ describe('ThyRangePickerComponent', () => {
             expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: [new TinyDate(new TinyDate().startOfDay().getTime() - 3600 * 1000 * 24 * 6), new TinyDate().endOfDay()],
-                triggerPresets: triggerPresets
+                triggerPreset: triggerPreset
             });
         }));
 

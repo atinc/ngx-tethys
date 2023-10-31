@@ -620,7 +620,7 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.setValue(selectedPresetValue);
         this.dateValueChange.emit({
             value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
-            triggerPresets: shortcutPresets
+            triggerPreset: shortcutPresets
         });
     }
 

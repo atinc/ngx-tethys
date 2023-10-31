@@ -65,7 +65,7 @@ export interface ThyShortcutValueChange {
 
 export interface ThyDateChangeEvent {
     value: CompatibleValue;
-    triggerPresets?: ThyShortcutPreset;
+    triggerPreset?: ThyShortcutPreset;
 }
 
 /**

@@ -469,7 +469,7 @@ describe('ThyDatePickerComponent', () => {
         it('should support thyDateChange', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             const datePresets = shortcutDatePresets();
-            const triggerPresets = Object.assign(datePresets[0], { disabled: false });
+            const triggerPreset = Object.assign(datePresets[0], { disabled: false });
             fixture.detectChanges();
             openPickerByClickTrigger();
             const shortcutItems = getShortcutItems();
@@ -481,11 +481,11 @@ describe('ThyDatePickerComponent', () => {
             expect(thyDateChange).toHaveBeenCalledTimes(1);
             expect(thyDateChange).toHaveBeenCalledWith({
                 value: now.startOfDay(),
-                triggerPresets: triggerPresets
+                triggerPreset: triggerPreset
             });
         }));
 
-        it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
+        it('should support thyDateChange without triggerPreset when manual', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();
             openPickerByClickTrigger();
