@@ -485,18 +485,6 @@ describe('ThyDatePickerComponent', () => {
             });
         }));
 
-        // it('should emit thyDateChange after', fakeAsync(() => {
-        //     const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
-        //     const thyModelChange = spyOn(fixtureInstance, 'thyOnChange');
-        //     fixture.detectChanges();
-        //     openPickerByClickTrigger();
-        //     const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
-        //     dispatchMouseEvent(shortcutItems[0], 'click');
-        //     fixture.detectChanges();
-        //     tick(500);
-        //     expect(thyModelChange).toHaveBeenCalledBefore(thyDateChange);
-        // }));
-
         it('should support thyDateChange without triggerPresets when manual', fakeAsync(() => {
             const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
             fixture.detectChanges();
@@ -508,7 +496,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(thyDateChange).toHaveBeenCalled();
             const result = thyDateChange.calls.allArgs()[0][0];
-            expect(result).not.toEqual(jasmine.objectContaining({ triggerPresets: jasmine.anything() }));
+            expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
         }));
     });
 
