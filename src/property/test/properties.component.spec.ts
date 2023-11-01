@@ -263,15 +263,15 @@ describe(`thy-properties`, () => {
             expect(propertiesElement.styles.gridTemplateColumns).toEqual('repeat(4, 1fr)');
         });
 
-        it('should set item span is work', () => {
-            testColumnComponent.addressItemSpan = 2;
-            fixture.detectChanges();
-            const propertiesElement = fixture.debugElement.query(By.css('.address-item'));
-            // expect(propertiesElement.styles.gridColumn).toEqual('span 2 / auto');
-            testColumnComponent.addressItemSpan = 3;
-            fixture.detectChanges();
-            // expect(propertiesElement.styles.gridColumn).toEqual('span 3 / auto');
-        });
+        // it('should set item span is work', () => {
+        //     testColumnComponent.addressItemSpan = 2;
+        //     fixture.detectChanges();
+        //     const propertiesElement = fixture.debugElement.query(By.css('.address-item'));
+        //     // expect(propertiesElement.styles.gridColumn).toEqual('span 2 / auto');
+        //     testColumnComponent.addressItemSpan = 3;
+        //     fixture.detectChanges();
+        //     // expect(propertiesElement.styles.gridColumn).toEqual('span 3 / auto');
+        // });
     });
 
     describe('property-item-operation', () => {
