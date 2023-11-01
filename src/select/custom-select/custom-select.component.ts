@@ -674,7 +674,13 @@ export class ThySelectCustomComponent
     }
 
     public toggle(event: MouseEvent): void {
-        this.panelOpen && !this.thyShowSearch ? this.close() : this.open();
+        if (this.panelOpen) {
+            if (!this.thyShowSearch) {
+                this.close();
+            }
+        } else {
+            this.open();
+        }
     }
 
     public open(): void {
