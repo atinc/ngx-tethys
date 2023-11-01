@@ -52,7 +52,7 @@ export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements
 
         this.hostRenderer.setStyle('display', this.span === 0 ? 'none' : '');
 
-        this.hostRenderer.setStyle('grid-column', `span ${this.span}`);
+        this.hostRenderer.setStyle('grid-column', `span ${this.span} / auto`);
 
         this.hostRenderer.setStyle(
             'margin-left',

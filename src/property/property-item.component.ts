@@ -109,7 +109,7 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     @HostBinding('style.grid-column')
     get gridColumn() {
-        return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
+        return `span ${Math.min(this.thySpan, this.parent.thyColumn)} / auto`;
     }
 
     isVertical = false;
