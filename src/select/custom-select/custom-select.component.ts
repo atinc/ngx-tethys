@@ -604,10 +604,12 @@ export class ThySelectCustomComponent
     }
 
     onFocus(event?: FocusEvent) {
+        // thyShowSearch 与 panelOpen 均为 true 时，点击 thySelectControl 需要触发自动聚焦到 input 的逻辑
         // manualFocusing 如果是手动聚焦，不触发自动聚焦到 input 的逻辑
         if (
-            !this.manualFocusing &&
-            !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select'])
+            (this.thyShowSearch && this.panelOpen) ||
+            (!this.manualFocusing &&
+                !elementMatchClosest(event?.relatedTarget as HTMLElement, ['.thy-select-dropdown', 'thy-custom-select']))
         ) {
             const inputElement: HTMLInputElement = this.elementRef.nativeElement.querySelector('input');
             inputElement.focus();
@@ -672,7 +674,13 @@ export class ThySelectCustomComponent
     }
 
     public toggle(event: MouseEvent): void {
-        this.panelOpen ? this.close() : this.open();
+        if (this.panelOpen) {
+            if (!this.thyShowSearch) {
+                this.close();
+            }
+        } else {
+            this.open();
+        }
     }
 
     public open(): void {
