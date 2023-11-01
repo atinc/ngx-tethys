@@ -12,7 +12,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
  */
 @Component({
     selector: 'thy-grid-item,[thyGridItem]',
-    template: '',
+    template: '<ng-content></ng-content>',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-grid-item'
