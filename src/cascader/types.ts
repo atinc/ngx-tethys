@@ -21,4 +21,6 @@ export interface ThyCascaderSearchOption {
     valueList: Id[];
     selected: boolean;
     thyRowValue: ThyCascaderOption[];
+    isLeaf?: boolean;
+    disabled?: boolean;
 }
