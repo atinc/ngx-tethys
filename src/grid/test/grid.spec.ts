@@ -340,6 +340,8 @@ describe('grid', () => {
                     expect(gridItemElement.style.marginLeft).toBe(
                         `calc(((100% - ${(span - 1) * xGap}px) / ${span} + ${xGap}px) * ${offset})`
                     );
+
+                    console.log('测试ci');
                 }
             }));
         });
