@@ -56,7 +56,7 @@ export class TestGridBasicComponent {
     show: boolean;
 }
 
-fdescribe('grid', () => {
+describe('grid', () => {
     describe('default', () => {
         let fixture: ComponentFixture<TestGridDefaultComponent>;
         let gridDebugElement: DebugElement;
