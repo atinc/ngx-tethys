@@ -396,8 +396,6 @@ export class ThySelectCustomComponent
 
     @ViewChild('panel', { read: ElementRef }) panel: ElementRef<HTMLElement>;
 
-    @ViewChild(ThySelectControlComponent) selectControl: ThySelectControlComponent;
-
     /**
      * @private
      */

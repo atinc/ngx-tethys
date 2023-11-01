@@ -1333,13 +1333,10 @@ describe('ThyCustomSelect', () => {
 
                 const el = overlayContainerElement.querySelector('.thy-select-dropdown-options') as HTMLElement;
                 expect(el).toBeTruthy();
-                const inputElement = fixture.debugElement.query(By.css('.select-control-search input')).nativeElement;
-                const focusSpy = spyOn(inputElement, 'focus');
 
                 trigger.click();
                 fixture.detectChanges();
                 expect(el).toBeTruthy();
-                expect(focusSpy).toHaveBeenCalled();
             }));
         });
     });
