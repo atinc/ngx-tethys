@@ -12,7 +12,7 @@ import { useHostRenderer } from '@tethys/cdk/dom';
  */
 @Component({
     selector: 'thy-grid-item,[thyGridItem]',
-    template: '<ng-content></ng-content>',
+    template: '',
     changeDetection: ChangeDetectionStrategy.OnPush,
     host: {
         class: 'thy-grid-item'
@@ -52,7 +52,7 @@ export class ThyGridItemComponent extends mixinUnsubscribe(MixinBase) implements
 
         this.hostRenderer.setStyle('display', this.span === 0 ? 'none' : '');
 
-        this.hostRenderer.setStyle('grid-column', `span ${this.span}`);
+        // this.hostRenderer.setStyle('grid-column', `span ${this.span}`);
 
         this.hostRenderer.setStyle(
             'margin-left',

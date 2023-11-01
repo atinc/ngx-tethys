@@ -107,10 +107,10 @@ export class ThyPropertyItemComponent implements OnInit, OnChanges, OnDestroy {
 
     private clickEventSubscription: Subscription;
 
-    @HostBinding('style.grid-column')
-    get gridColumn() {
-        return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
-    }
+    // @HostBinding('style.grid-column')
+    // get gridColumn() {
+    //     return `span ${Math.min(this.thySpan, this.parent.thyColumn)}`;
+    // }
 
     isVertical = false;
 
