@@ -152,7 +152,7 @@ describe('calendar', () => {
                 );
                 dispatchFakeEvent(tableCells[0], 'click', true);
                 expect(calendarSpy).toHaveBeenCalledTimes(1);
-                expect(calendarSpy).toHaveBeenCalledWith(new TinyDate(new Date(2021, 1, 28)));
+                expect(calendarSpy).toHaveBeenCalledWith(new TinyDate(new Date(2021, 2, 1)));
             });
         }));
 
@@ -161,7 +161,7 @@ describe('calendar', () => {
             const tableCells = Array.from((fixture.debugElement.nativeElement as HTMLElement).querySelectorAll('.thy-calendar-full-cell'));
             dispatchFakeEvent(tableCells[0], 'click', true);
             expect(selectedChangeSpy).toHaveBeenCalledTimes(1);
-            expect(selectedChangeSpy).toHaveBeenCalledWith(new Date(2021, 1, 28));
+            expect(selectedChangeSpy).toHaveBeenCalledWith(new Date(2021, 2, 1));
         });
 
         it('should dateRangeChange was beCalled when icon-nav was clicked', () => {

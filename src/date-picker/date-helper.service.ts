@@ -16,17 +16,12 @@ export function DATE_HELPER_SERVICE_FACTORY(): DateHelperService {
 export abstract class DateHelperService {
     relyOnDatePipe: boolean = this instanceof DateHelperByDatePipe;
     abstract getISOWeek(date: Date): number;
-    abstract getFirstDayOfWeek(): WeekDayIndex;
     abstract format(date: Date, formatStr: string): string;
 }
 
 export class DateHelperByDatePipe extends DateHelperService {
     getISOWeek(date: Date): number {
         return +this.format(date, 'w');
-    }
-
-    getFirstDayOfWeek(): WeekDayIndex {
-        return 0;
     }
 
     format(date: Date | null, formatStr: string): string {

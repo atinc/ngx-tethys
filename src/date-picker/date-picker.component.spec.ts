@@ -1,15 +1,14 @@
-import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfWeek } from 'date-fns';
+import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
-import { registerLocaleData } from '@angular/common';
+import { formatDate, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, flush, inject, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-
 import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
@@ -39,6 +38,8 @@ describe('ThyDatePickerComponent', () => {
         ];
     };
 
+    const weekStartsOn = 0;
+
     beforeEach(fakeAsync(() => {
         TestBed.configureTestingModule({
             imports: [FormsModule, ThyDatePickerModule],
@@ -48,7 +49,8 @@ describe('ThyDatePickerComponent', () => {
                     provide: THY_DATE_PICKER_CONFIG,
                     useValue: {
                         showShortcut: true,
-                        shortcutDatePresets: shortcutDatePresets
+                        shortcutDatePresets: shortcutDatePresets,
+                        weekStartsOn: weekStartsOn
                     }
                 }
             ]
@@ -83,6 +85,14 @@ describe('ThyDatePickerComponent', () => {
             shortcutItems.forEach((shortcut, index) => {
                 expect(shortcut.innerHTML.trim()).toBe(datePresets[index].title);
             });
+        }));
+
+        it('show should global config weekStartsOn', fakeAsync(() => {
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const cell = getFirstHederCell();
+            const dateText = formatDate(startOfWeek(new Date(), { weekStartsOn: weekStartsOn }), 'EEEEE', 'zh-Hans');
+            expect(cell.textContent.trim()).toBe(dateText);
         }));
 
         it('should disable shortcut item whose preset value is less than thyMinDate', fakeAsync(() => {
@@ -955,6 +965,10 @@ describe('ThyDatePickerComponent', () => {
 
     function getSelectedDayCell(): HTMLElement {
         return queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-selected-day') as HTMLElement;
+    }
+
+    function getFirstHederCell(): HTMLElement {
+        return queryFromOverlay('thead th.thy-calendar-column-header .thy-calendar-column-header-inner') as HTMLElement;
     }
 
     function getFirstCell(): HTMLElement {
