@@ -23,8 +23,4 @@ export class ThyDatePickerConfigService {
     get shortcutRangesPresets() {
         return this.config.shortcutRangesPresets;
     }
-
-    get weekStartsOn() {
-        return this.config.weekStartsOn;
-    }
 }

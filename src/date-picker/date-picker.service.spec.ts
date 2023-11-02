@@ -16,6 +16,6 @@ describe('thyDatePickerConfigService Angular testing', () => {
         expect(thyDatePickerConfigService.shortcutRangesPresets).toBe(shortcutRangesPresets);
     });
     it('get default weekStartsOn', () => {
-        expect(thyDatePickerConfigService.weekStartsOn).toBe(weekStartsOn);
+        expect(thyDatePickerConfigService.config.weekStartsOn).toBe(weekStartsOn);
     });
 });

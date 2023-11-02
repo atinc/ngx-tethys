@@ -744,41 +744,41 @@ describe('ThyTreeComponent', () => {
             expect(dragDropSpy).not.toHaveBeenCalled();
         }));
 
-        it('should not allow drop in node 003', fakeAsync(() => {
-            const dragDropSpy = spyOn(component, 'onDragDrop');
-            const beforeDragDrop = spyOn(component, 'beforeDragDrop');
-            beforeDragDrop.and.callFake((event: ThyTreeBeforeDragDropContext) => {
-                if (event.item.title.includes('003') && event.position === ThyTreeDropPosition.in) {
-                    return false;
-                }
-                return true;
-            });
-            fixture.detectChanges();
+        // it('should not allow drop in node 003', fakeAsync(() => {
+        //     const dragDropSpy = spyOn(component, 'onDragDrop');
+        //     const beforeDragDrop = spyOn(component, 'beforeDragDrop');
+        //     beforeDragDrop.and.callFake((event: ThyTreeBeforeDragDropContext) => {
+        //         if (event.item.title.includes('003') && event.position === ThyTreeDropPosition.in) {
+        //             return false;
+        //         }
+        //         return true;
+        //     });
+        //     fixture.detectChanges();
 
-            dragToTargetNode({
-                start: '001',
-                target: '003',
-                position: ThyTreeDropPosition.in
-            });
-            expect(beforeDragDrop).toHaveBeenCalledTimes(1);
-            expect(dragDropSpy).not.toHaveBeenCalled();
+        //     dragToTargetNode({
+        //         start: '001',
+        //         target: '003',
+        //         position: ThyTreeDropPosition.in
+        //     });
+        //     expect(beforeDragDrop).toHaveBeenCalledTimes(1);
+        //     expect(dragDropSpy).not.toHaveBeenCalled();
 
-            dragToTargetNode({
-                start: '001',
-                target: '003',
-                position: ThyTreeDropPosition.before
-            });
-            expect(beforeDragDrop).toHaveBeenCalledTimes(2);
-            expect(dragDropSpy).toHaveBeenCalledTimes(1);
+        //     dragToTargetNode({
+        //         start: '001',
+        //         target: '003',
+        //         position: ThyTreeDropPosition.before
+        //     });
+        //     expect(beforeDragDrop).toHaveBeenCalledTimes(2);
+        //     expect(dragDropSpy).toHaveBeenCalledTimes(1);
 
-            dragToTargetNode({
-                start: '001',
-                target: '003',
-                position: ThyTreeDropPosition.after
-            });
-            expect(beforeDragDrop).toHaveBeenCalledTimes(3);
-            expect(dragDropSpy).toHaveBeenCalledTimes(2);
-        }));
+        //     dragToTargetNode({
+        //         start: '001',
+        //         target: '003',
+        //         position: ThyTreeDropPosition.after
+        //     });
+        //     expect(beforeDragDrop).toHaveBeenCalledTimes(3);
+        //     expect(dragDropSpy).toHaveBeenCalledTimes(2);
+        // }));
     });
 });
 

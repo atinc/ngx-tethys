@@ -34,7 +34,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
 
     makeHeadRow(): DateCell[] {
         const weekDays: DateCell[] = [];
-        const start = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.weekStartsOn });
+        const start = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
             const day = start.addDays(colIndex);
             weekDays[colIndex] = {
@@ -58,7 +58,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
 
     makeBodyRows(): DateBodyRow[] {
         const dateRows: DateBodyRow[] = [];
-        const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.weekStartsOn });
+        const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let week = 0; week < this.MAX_ROW; week++) {
             const weekStart = firstDayOfMonth.addDays(week * 7);
             const row: DateBodyRow = {
