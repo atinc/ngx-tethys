@@ -1,12 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { createFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
 import { ThyDatePickerModule } from './date-picker.module';
 
 registerLocaleData(zh);
@@ -138,6 +137,21 @@ describe('ThyYearPickerComponent', () => {
             const result = thyOnChange.calls.allArgs()[0][0];
             expect(new Date(result * 1000).getFullYear()).toBe(parseInt(cellText));
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const year = queryFromOverlay(`tbody.thy-calendar-year-panel-tbody td.thy-calendar-year-panel-cell`);
+            dispatchMouseEvent(year, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+        }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {
@@ -241,6 +255,7 @@ describe('ThyYearPickerComponent', () => {
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
+            (thyDateChange)="thyDateChange($event)"
             [thyPlaceHolder]="thyPlaceHolder">
         </thy-year-picker>
     `
@@ -254,4 +269,5 @@ class TestYearPickerComponent {
     thyValue: Date;
     thyOpen: boolean;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }

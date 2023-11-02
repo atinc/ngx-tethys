@@ -1,13 +1,12 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 import { getWeekOfMonth } from 'date-fns';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
-
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 import { ThyDatePickerModule } from './date-picker.module';
 
 registerLocaleData(zh);
@@ -118,6 +117,21 @@ describe('ThyWeekPickerComponent', () => {
             expect(allTrs[index].classList[0]).toEqual('thy-calendar-current-week');
             expect(allTrs[index].classList[1]).toEqual('thy-calendar-active-week');
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchMouseEvent(getPickerTriggerWrapper(), 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const week = queryFromOverlay(`tbody.thy-calendar-tbody td.thy-calendar-cell`);
+            dispatchMouseEvent(week, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+        }));
     });
 
     function getPickerContainer(): HTMLElement {
@@ -145,8 +159,8 @@ describe('ThyWeekPickerComponent', () => {
             (ngModelChange)="modelValueChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
-            [thyPlaceHolder]="thyPlaceHolder">
-        </thy-week-picker>
+            [thyPlaceHolder]="thyPlaceHolder"
+            (thyDateChange)="thyDateChange($event)"></thy-week-picker>
     `
 })
 class TestWeekPickerComponent {
@@ -155,4 +169,5 @@ class TestWeekPickerComponent {
     thyPlaceHolder: string = '请选择周';
     thyValue: Date;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }
