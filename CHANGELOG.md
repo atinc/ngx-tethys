@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.8](https://github.com/atinc/ngx-tethys/compare/16.1.7...16.1.8) (2023-11-02)
+
+
+### Bug Fixes
+
+* **cascader:** reset selectionModel when writeValue #INFR-10101 ([#2883](https://github.com/atinc/ngx-tethys/issues/2883)) ([56496fd](https://github.com/atinc/ngx-tethys/commit/56496fd31cc62bd113543f34cb2bad2b2f0f5d6d)), closes [#INFR-10101](https://github.com/atinc/ngx-tethys/issues/INFR-10101)
+
+
+### Features
+
+* **date-picker:** add event thyDateChange and deprecated shortcutValueChange #INFR-9829 ([#2865](https://github.com/atinc/ngx-tethys/issues/2865)) ([adf0f6b](https://github.com/atinc/ngx-tethys/commit/adf0f6b6fb05993ad811b62a13d64d9da86e46ee)), closes [#INFR-9829](https://github.com/atinc/ngx-tethys/issues/INFR-9829)
+
+
+
 ## [16.1.7](https://github.com/atinc/ngx-tethys/compare/16.1.6...16.1.7) (2023-11-02)
 
 
