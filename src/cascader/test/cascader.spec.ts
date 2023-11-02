@@ -1,6 +1,8 @@
 import { ThyCascaderComponent } from 'ngx-tethys/cascader';
+import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
 import { dispatchFakeEvent, typeInElement } from 'ngx-tethys/testing';
-import { Subject, of } from 'rxjs';
+import { SafeAny } from 'ngx-tethys/types';
+import { of, Subject } from 'rxjs';
 import { delay, take } from 'rxjs/operators';
 
 import { OverlayContainer, OverlayModule } from '@angular/cdk/overlay';
@@ -8,12 +10,10 @@ import { Platform } from '@angular/cdk/platform';
 import { CommonModule, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
 import { Component, DebugElement, ViewChild } from '@angular/core';
-import { ComponentFixture, ComponentFixtureAutoDetect, TestBed, fakeAsync, flush, inject, tick, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, ComponentFixtureAutoDetect, fakeAsync, flush, inject, TestBed, tick, waitForAsync } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
-import { EXPANDED_DROPDOWN_POSITIONS } from 'ngx-tethys/core';
-import { SafeAny } from 'ngx-tethys/types';
 import { clone } from '../examples/cascader-address-options';
 import { ThyCascaderModule } from '../module';
 import { ThyCascaderExpandTrigger, ThyCascaderTriggerType } from '../types';
@@ -39,6 +39,12 @@ const customerOptions = [
                 ]
             }
         ]
+    },
+    {
+        value: 'beijng',
+        label: 'beijng',
+        code: 477400,
+        isLeaf: true
     },
     {
         value: 'jiangsu',
@@ -247,7 +253,9 @@ const loadDataOption: { [key: string]: { children?: any[]; [key: string]: any }[
             [thyLoadData]="loadData"
             [thyShowSearch]="isShowSearch"
             [thyDisabled]="disabled"
-            [thyEmptyStateText]="emptyStateText">
+            [thyIsOnlySelectLeaf]="isOnlySelectLeaf"
+            [thyEmptyStateText]="emptyStateText"
+            (thyExpandStatusChange)="thyExpandStatusChange($event)">
         </thy-cascader>
     `
 })
@@ -266,7 +274,12 @@ class CascaderBasicComponent {
     public isShowSearch: boolean = false;
     public emptyStateText = '无选项';
     public disabled = false;
+    public isOnlySelectLeaf = true;
     @ViewChild('cascader', { static: true }) cascaderRef: ThyCascaderComponent;
+
+    thyExpandStatusChange = jasmine.createSpy('thyExpandStatusChange callback');
+
+    // onChanges = jasmine.createSpy('onChanges callback');
 
     changeValue$ = new Subject<string[]>();
     constructor() {}
@@ -509,24 +522,49 @@ describe('thy-cascader', () => {
                 expect(value.length).toBe(1);
                 done();
             });
-            dispatchFakeEvent(debugElement.query(By.css(`ul li`)).nativeElement, 'mouseover', true);
-            dispatchFakeEvent(debugElement.query(By.css(`ul li`)).nativeElement, 'click', true);
+            dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'mouseover', true);
+            dispatchFakeEvent(debugElement.queryAll(By.css(`ul li`))[1].nativeElement, 'click', true);
+            fixture.detectChanges();
+            dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
+            fixture.detectChanges();
+        });
+
+        it('should select one when click radio and isOnlySelectLeaf is false', done => {
+            component.thyChangeOnSelect = true;
+            component.isOnlySelectLeaf = false;
+            fixture.detectChanges();
+            dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'click', true);
+            const el = debugElement.query(By.css(`.thy-cascader-picker-open`));
+            expect(el).toBeTruthy();
+            fixture.detectChanges();
+            component.changeValue$.pipe(take(1)).subscribe(value => {
+                expect(value.length).toBe(1);
+                done();
+            });
+            console.log(debugElement.query(By.css('.form-check-input')).nativeElement);
+            debugElement.query(By.css('label')).nativeElement.click();
+
             fixture.detectChanges();
             dispatchFakeEvent(document.querySelector('.cdk-overlay-backdrop'), 'click', true);
             fixture.detectChanges();
         });
 
         it('should menu mouse leave(hover)', () => {
+            const spy = fixture.componentInstance.thyExpandStatusChange;
             component.thyTriggerAction = 'hover';
             fixture.detectChanges();
             dispatchFakeEvent(debugElement.query(By.css('input')).nativeElement, 'mouseover', true);
             fixture.detectChanges();
             let el = debugElement.query(By.css('.thy-cascader-menus'));
             expect(el).toBeTruthy();
+            expect(spy).toHaveBeenCalledTimes(1);
+            expect(spy).toHaveBeenCalledWith(true);
             dispatchFakeEvent(el.nativeElement, 'mouseleave', true);
             fixture.detectChanges();
             el = debugElement.query(By.css('.thy-cascader-menus'));
             expect(el).not.toBeTruthy();
+            expect(spy).toHaveBeenCalledTimes(2);
+            expect(spy).toHaveBeenCalledWith(false);
         });
 
         it('should menu mouse leave(click)', () => {
@@ -770,6 +808,31 @@ describe('thy-cascader', () => {
             expect(allSearchList.length).toBeGreaterThan(0);
             allSearchList.forEach(item => {
                 expect((item as HTMLElement).innerText).toMatch('xihu');
+                const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
+                expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
+                expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();
+            });
+        }));
+
+        it('should searched some options that is parent when isOnlySelectLeaf is false', fakeAsync(() => {
+            component.isOnlySelectLeaf = false;
+            fixture.componentInstance.isShowSearch = true;
+            fixture.detectChanges();
+
+            const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+            trigger.click();
+            fixture.detectChanges();
+            const input = fixture.debugElement.query(By.css('.search-input-field')).nativeElement;
+            typeInElement('zhejiang', input);
+            fixture.detectChanges();
+            tick(300);
+            fixture.detectChanges();
+
+            expect(overlayContainerElement.querySelector('.thy-cascader-search-list')).toBeTruthy();
+            const allSearchList = overlayContainerElement.querySelectorAll('.thy-cascader-search-list-item');
+            expect(allSearchList.length).toBeGreaterThan(0);
+            allSearchList.forEach(item => {
+                expect((item as HTMLElement).innerText).toMatch('zhejiang');
                 const optionLabel = (item as HTMLElement).querySelector('.option-label-item');
                 expect(optionLabel.classList.contains('text-truncate')).toBeTruthy();
                 expect(optionLabel.classList.contains('flexible-text-container')).toBeTruthy();

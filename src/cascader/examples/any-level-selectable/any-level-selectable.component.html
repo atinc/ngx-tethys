@@ -1,0 +1,31 @@
+<thy-form-group thyLabelText="级联单选">
+  <thy-cascader
+    class="d-block w-50 mb-3"
+    [thyOptions]="areaCode"
+    [(ngModel)]="singleValues"
+    (ngModelChange)="selectChanges($event)"
+    [thyShowSearch]="true"
+    [thyIsOnlySelectLeaf]="false"
+    thyColumnClassName="column-class-name">
+  </thy-cascader>
+</thy-form-group>
+
+<thy-form-group thyLabelText="级联多选">
+  <thy-cascader
+    class="d-block w-50 mb-3"
+    [thyOptions]="areaCode"
+    [(ngModel)]="multipleValues"
+    [thyMultiple]="true"
+    (ngModelChange)="selectChanges($event)"
+    [thyLabelRender]="renderTpl"
+    style="width: 200px"
+    [thyIsOnlySelectLeaf]="false"
+    [thyShowSearch]="true">
+  </thy-cascader>
+
+  <ng-template #renderTpl let-labels="labels" let-selectedOptions="selectedOptions">
+    <ng-container *ngFor="let label of labels; let i = index; let isLast = last">
+      <span *ngIf="isLast && label"> {{ label }}</span>
+    </ng-container>
+  </ng-template>
+</thy-form-group>
