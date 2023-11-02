@@ -162,6 +162,19 @@ describe('ThyPickerDirective', () => {
                 expect(todayItem.classList.contains('disabled')).toBe(true);
                 expect(tomorrowItem.classList.contains('disabled')).toBe(false);
             }));
+
+            it('should support thyDateChange', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
+            }));
         });
 
         describe('popover config testing', () => {
@@ -409,6 +422,8 @@ describe('ThyPickerDirective', () => {
             [thyPopoverOptions]="popoverOptions"
             [thyShowTime]="thyShowTime"
             [thyShowShortcut]="thyShowShortcut"
+            (thyDateChange)="thyDateChange($event)"
+            (ngModelChange)="thyOnChange($event)"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `
@@ -435,7 +450,7 @@ class ThyTestPickerComponent {
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
-
+    thyDateChange(): void {}
     thyOnPanelChange(): void {}
 
     thyOnOk(): void {}

@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.8](https://github.com/atinc/ngx-tethys/compare/16.1.7...16.1.8) (2023-11-02)
+
+
+### Bug Fixes
+
+* **cascader:** reset selectionModel when writeValue #INFR-10101 ([#2883](https://github.com/atinc/ngx-tethys/issues/2883)) ([56496fd](https://github.com/atinc/ngx-tethys/commit/56496fd31cc62bd113543f34cb2bad2b2f0f5d6d)), closes [#INFR-10101](https://github.com/atinc/ngx-tethys/issues/INFR-10101)
+
+
+### Features
+
+* **date-picker:** add event thyDateChange and deprecated shortcutValueChange #INFR-9829 ([#2865](https://github.com/atinc/ngx-tethys/issues/2865)) ([adf0f6b](https://github.com/atinc/ngx-tethys/commit/adf0f6b6fb05993ad811b62a13d64d9da86e46ee)), closes [#INFR-9829](https://github.com/atinc/ngx-tethys/issues/INFR-9829)
+
+
+
+## [16.1.7](https://github.com/atinc/ngx-tethys/compare/16.1.6...16.1.7) (2023-11-02)
+
+
+### Features
+
+* **cascader:** search and select all nodes when isOnlySelectLeaf is false #INFR-10101 ([#2873](https://github.com/atinc/ngx-tethys/issues/2873)) ([f0d6751](https://github.com/atinc/ngx-tethys/commit/f0d67511309a092e9d7364009c9082d471e58517)), closes [#INFR-10101](https://github.com/atinc/ngx-tethys/issues/INFR-10101)
+* **select:** #INFR-10094 dispatch toggle select panel not close when thyShowSearch is true ([#2872](https://github.com/atinc/ngx-tethys/issues/2872)) ([10c2ec1](https://github.com/atinc/ngx-tethys/commit/10c2ec19d8d6ff0024283d8a4f6c3a243eac717b))
+
+
+
 ## [16.1.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next...16.1.6) (2023-10-27)
 
 

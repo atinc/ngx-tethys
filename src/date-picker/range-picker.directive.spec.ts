@@ -1,4 +1,4 @@
-import { endOfDay, startOfDay } from 'date-fns';
+import { endOfDay, fromUnixTime, startOfDay, subDays } from 'date-fns';
 import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { OverlayContainer } from '@angular/cdk/overlay';
@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPropertyOperationComponent, ThyPropertyOperationModule } from 'ngx-tethys/property-operation';
 import { CompatiblePresets, ThyDateRangeEntry, ThyShortcutPosition, ThyShortcutRange } from './standard-types';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -161,6 +162,42 @@ describe('ThyRangePickerDirective', () => {
             expect(queryFromOverlay('.thy-calendar-week-number')).toBeTruthy();
         }));
 
+        it('should support thyOnChange', fakeAsync(() => {
+            const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            fixture.detectChanges();
+            const left = getFirstCell('left');
+            const leftText = left.textContent.trim();
+            dispatchMouseEvent(left, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            const right = getFirstCell('right');
+            const rightText = right.textContent.trim();
+            dispatchMouseEvent(right, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyOnChange).toHaveBeenCalled();
+            const result = (thyOnChange.calls.allArgs()[0] as ThyDateRangeEntry[])[0];
+            expect(fromUnixTime(result.begin as number).getDate()).toBe(+leftText);
+            expect(fromUnixTime(result.end as number).getDate()).toBe(+rightText);
+        }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            fixtureInstance.thyShowShortcut = true;
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            dispatchClickEvent(getPickerTriggerWrapper());
+            const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+        }));
+
         function queryFromOverlay(selector: string): HTMLElement {
             return overlayContainerElement.querySelector(selector) as HTMLElement;
         }
@@ -194,6 +231,8 @@ describe('ThyRangePickerDirective', () => {
             [thyShortcutRanges]="thyShortcutRanges"
             [thyMode]="mode"
             (thyOnCalendarChange)="thyOnCalendarChange($event)"
+            (thyDateChange)="thyDateChange($event)"
+            (ngModelChange)="modelValueChange($event)"
             (thyOpenChange)="thyOpenChange($event)"></thy-property-operation>
     `
 })
@@ -204,6 +243,8 @@ class ThyTestRangePickerComponent {
     thyShortcutPresets: CompatiblePresets;
     thyShortcutRanges: ThyShortcutRange[];
     mode: string;
+    modelValueChange(): void {}
     thyOpenChange(): void {}
     thyOnCalendarChange(): void {}
+    thyDateChange(): void {}
 }

@@ -28,7 +28,8 @@ import {
     ThyShortcutPosition,
     CompatiblePresets,
     ThyShortcutValueChange,
-    ThyDateGranularity
+    ThyDateGranularity,
+    ThyDateChangeEvent
 } from './standard-types';
 
 /**
@@ -158,7 +159,16 @@ export abstract class AbstractPickerComponent
         this.shortcutPresets = presets;
     }
 
+    /**
+     * 已废弃，请使用 thyDateChange
+     * @deprecated please use thyDateChange
+     */
     @Output() readonly thyShortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
+
+    /**
+     * 日期变化的回调
+     */
+    @Output() readonly thyDateChange = new EventEmitter<ThyDateChangeEvent>();
 
     @Output() readonly thyOpenChange = new EventEmitter<boolean>();
 
@@ -220,6 +230,10 @@ export abstract class AbstractPickerComponent
 
     onShortcutValueChange(event: ThyShortcutValueChange) {
         this.thyShortcutValueChange.emit(event);
+    }
+
+    onDateValueChange(event: ThyDateChangeEvent) {
+        this.thyDateChange.emit(event);
     }
 
     ngOnChanges(changes: SimpleChanges): void {

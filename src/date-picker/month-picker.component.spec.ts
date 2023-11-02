@@ -1,11 +1,11 @@
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
-import { Component, DebugElement, TemplateRef, ViewChild } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, fakeAsync, flush, inject, TestBed, tick } from '@angular/core/testing';
 import { FormsModule } from '@angular/forms';
 import { By } from '@angular/platform-browser';
-import { dispatchFakeEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
+import { dispatchMouseEvent } from 'ngx-tethys/testing';
 
 import { ThyDatePickerModule } from './date-picker.module';
 
@@ -138,6 +138,18 @@ describe('ThyMonthPickerComponent', () => {
             const result = (thyOnChange.calls.allArgs()[0] as Date[])[0];
             expect(new Date(result).getMonth() + 1).toBe(cellText);
         }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const cell = getFirstMonthCell();
+            dispatchMouseEvent(cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+        }));
     }); // /general api testing
 
     describe('panel switch and move forward/afterward', () => {
@@ -250,6 +262,7 @@ describe('ThyMonthPickerComponent', () => {
             class="d-block w-50 mb-3"
             [(ngModel)]="thyValue"
             (ngModelChange)="modelValueChange($event)"
+            (thyDateChange)="thyDateChange($event)"
             [thyAllowClear]="thyAllowClear"
             [thyDisabled]="thyDisabled"
             [thyDisabledDate]="thyDisabledDate"
@@ -266,4 +279,5 @@ class TestMonthPickerComponent {
     thyValue: Date;
     thyOpen: boolean;
     modelValueChange(): void {}
+    thyDateChange(): void {}
 }
