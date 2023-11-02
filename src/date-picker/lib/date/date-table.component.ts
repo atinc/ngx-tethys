@@ -1,12 +1,11 @@
 import { TinyDate, valueFunctionProp } from 'ngx-tethys/util';
-
 import { ChangeDetectionStrategy, Component, EventEmitter, OnChanges, Output } from '@angular/core';
-
 import { DateHelperService } from '../../date-helper.service';
 import { DateCell, DateBodyRow } from './types';
 import { CalendarTable } from '../calendar/calendar-table.component';
 import { DateTableCellComponent } from './date-table-cell.component';
 import { NgIf, NgFor, NgClass } from '@angular/common';
+import { ThyDatePickerConfigService } from '../../date-picker.service';
 
 /**
  * @private
@@ -23,7 +22,7 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
 export class DateTableComponent extends CalendarTable implements OnChanges {
     @Output() readonly dayHover = new EventEmitter<TinyDate>(); // Emitted when hover on a day by mouse enter
 
-    constructor(private dateHelper: DateHelperService) {
+    constructor(private dateHelper: DateHelperService, private datePickerConfigService: ThyDatePickerConfigService) {
         super();
     }
 
@@ -35,7 +34,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
 
     makeHeadRow(): DateCell[] {
         const weekDays: DateCell[] = [];
-        const start = this.activeDate.calendarStart({ weekStartsOn: this.dateHelper.getFirstDayOfWeek() });
+        const start = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let colIndex = 0; colIndex < this.MAX_COL; colIndex++) {
             const day = start.addDays(colIndex);
             weekDays[colIndex] = {
@@ -59,8 +58,7 @@ export class DateTableComponent extends CalendarTable implements OnChanges {
 
     makeBodyRows(): DateBodyRow[] {
         const dateRows: DateBodyRow[] = [];
-        const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.dateHelper.getFirstDayOfWeek() });
-
+        const firstDayOfMonth = this.activeDate.calendarStart({ weekStartsOn: this.datePickerConfigService.config.weekStartsOn });
         for (let week = 0; week < this.MAX_ROW; week++) {
             const weekStart = firstDayOfMonth.addDays(week * 7);
             const row: DateBodyRow = {

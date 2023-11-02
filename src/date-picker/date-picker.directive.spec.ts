@@ -81,8 +81,9 @@ describe('ThyPickerDirective', () => {
                 openPickerByClickTrigger();
                 const selectedCell = getSelectedDayCell();
                 expect(selectedCell.classList.contains('thy-calendar-disabled-cell')).toBeFalsy();
-                const previousCell = getSelectedDayCell().previousElementSibling;
-                expect(previousCell.classList.contains('thy-calendar-disabled-cell')).toBeTruthy();
+                const disabledCells = overlayContainerElement.querySelectorAll('tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
+                const lastDisabledCell = disabledCells[disabledCells.length - 1];
+                expect(lastDisabledCell.textContent.trim()).toBe('10');
             }));
 
             it('should support thyDisabled', fakeAsync(() => {
