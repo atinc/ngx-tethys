@@ -506,6 +506,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             }
         } else {
             const values = toArray(value);
+            this.selectionModel.clear();
             values.forEach(item => {
                 const vs = (this.defaultValue = toArray(item));
                 if (vs.length) {
