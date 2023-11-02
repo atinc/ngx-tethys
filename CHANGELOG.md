@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.9](https://github.com/atinc/ngx-tethys/compare/16.1.8...16.1.9) (2023-11-02)
+
+
+### Features
+
+* **date-picker:** THY_DATE_PICKER_CONFIG support weekStartsOn and set default value 1 #INFR-10198 ([#2882](https://github.com/atinc/ngx-tethys/issues/2882)) ([8377887](https://github.com/atinc/ngx-tethys/commit/837788769c8cbeabbad39bfff23033739b1b751c)), closes [#INFR-10198](https://github.com/atinc/ngx-tethys/issues/INFR-10198) [#INFR-10198](https://github.com/atinc/ngx-tethys/issues/INFR-10198)
+
+
+
 ## [16.1.8](https://github.com/atinc/ngx-tethys/compare/16.1.7...16.1.8) (2023-11-02)
 
 
