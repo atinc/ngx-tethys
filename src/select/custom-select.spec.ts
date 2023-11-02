@@ -1308,6 +1308,36 @@ describe('ThyCustomSelect', () => {
                 expect(fixtureIns.select['isSearching']).toBeFalsy();
                 flush();
             }));
+
+            it('should close panel when dispatch toggle at thyShowSearch is false', fakeAsync(() => {
+                fixture.componentInstance.showSearch = false;
+                fixture.componentInstance.serverSearch = false;
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                fixture.detectChanges();
+
+                expect(fixture.componentInstance.select.panelOpen).toBeTruthy();
+
+                trigger.click();
+                fixture.detectChanges();
+                expect(fixture.componentInstance.select.panelOpen).toBeFalsy();
+            }));
+
+            it('should not close panel when dispatch toggle at thyShowSearch is true', fakeAsync(() => {
+                fixture.componentInstance.showSearch = true;
+                fixture.detectChanges();
+                const trigger = fixture.debugElement.query(By.css('.form-control-custom')).nativeElement;
+                trigger.click();
+                fixture.detectChanges();
+
+                const el = overlayContainerElement.querySelector('.thy-select-dropdown-options') as HTMLElement;
+                expect(el).toBeTruthy();
+
+                trigger.click();
+                fixture.detectChanges();
+                expect(el).toBeTruthy();
+            }));
         });
     });
 
@@ -2440,6 +2470,8 @@ describe('ThyCustomSelect', () => {
                 { value: 'tacos-2', viewValue: 'Tacos', disabled: true },
                 { value: 'sandwich-3', viewValue: 'Sandwich' }
             ];
+            document.body.click();
+            fixture.detectChanges();
             trigger.click();
             fixture.detectChanges();
             flush();
