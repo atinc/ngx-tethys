@@ -16,6 +16,7 @@ import { ThyPickerComponent } from './picker.component';
 import { DateEntry } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
+import { TinyDate } from 'ngx-tethys/util';
 
 registerLocaleData(zh);
 
@@ -463,6 +464,39 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalledTimes(1);
             expect(getPickerTriggerWrapper().textContent.trim()).toBe('');
+        }));
+
+        it('should support thyDateChange', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            const datePresets = shortcutDatePresets();
+            const triggerPreset = Object.assign(datePresets[0], { disabled: false });
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const shortcutItems = getShortcutItems();
+            const now = new TinyDate(new Date());
+            dispatchMouseEvent(shortcutItems[0], 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalledTimes(1);
+            expect(thyDateChange).toHaveBeenCalledWith({
+                value: now.startOfDay(),
+                triggerPreset: triggerPreset
+            });
+        }));
+
+        it('should support thyDateChange without triggerPreset when manual', fakeAsync(() => {
+            const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const cell = getFirstCell();
+            dispatchMouseEvent(cell, 'click');
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
+            expect(thyDateChange).toHaveBeenCalled();
+            const result = thyDateChange.calls.allArgs()[0][0];
+            expect(result).toEqual(jasmine.objectContaining({ value: jasmine.anything() }));
         }));
     });
 
@@ -1018,6 +1052,7 @@ describe('ThyDatePickerComponent', () => {
                 [thyPlacement]="thyPlacement"
                 (thyOnPanelChange)="thyOnPanelChange($event)"
                 (thyOnCalendarChange)="thyOnCalendarChange($event)"
+                (thyDateChange)="thyDateChange($event)"
                 [thyShowTime]="thyShowTime"
                 [thyMinDate]="thyMinDate"
                 [thyMaxDate]="thyMaxDate"
@@ -1063,7 +1098,7 @@ class ThyTestDatePickerComponent {
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
-
+    thyDateChange(): void {}
     thyOnPanelChange(): void {}
 
     thyOnOk(): void {}

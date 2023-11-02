@@ -26,6 +26,7 @@ import {
     CompatiblePresets,
     DisabledDateFn,
     SupportTimeOptions,
+    ThyDateChangeEvent,
     ThyDateGranularity,
     ThyPanelMode,
     ThyShortcutPosition,
@@ -101,7 +102,11 @@ export class DatePopupComponent implements OnChanges, OnInit {
     @Output() readonly valueChange = new EventEmitter<CompatibleValue | RangeAdvancedValue>();
     @Output() readonly resultOk = new EventEmitter<void>(); // Emitted when done with date selecting
     @Output() readonly showTimePickerChange = new EventEmitter<boolean>();
+    /**
+     * @deprecated
+     */
     @Output() readonly shortcutValueChange = new EventEmitter<ThyShortcutValueChange>();
+    @Output() readonly dateValueChange = new EventEmitter<ThyDateChangeEvent>();
 
     prefixCls = 'thy-calendar';
     showTimePicker = false;
@@ -364,6 +369,9 @@ export class DatePopupComponent implements OnChanges, OnInit {
         this.valueChange.emit(value);
         // clear custom date when select a advanced date
         this.selectedValue = [];
+        this.dateValueChange.emit({
+            value: [value.begin, value.end]
+        });
     }
 
     changeValueFromSelect(value: TinyDate, partType?: RangePartType): void {
@@ -393,10 +401,16 @@ export class DatePopupComponent implements OnChanges, OnInit {
                 );
                 this.setValue(this.cloneRangeDate(this.selectedValue));
                 this.calendarChange.emit(this.cloneRangeDate(this.selectedValue));
+                this.dateValueChange.emit({
+                    value: this.cloneRangeDate(this.selectedValue)
+                });
             }
         } else {
             const updatedValue = this.updateHourMinute(value);
             this.setValue(updatedValue);
+            this.dateValueChange.emit({
+                value: updatedValue
+            });
         }
     }
 
@@ -604,6 +618,10 @@ export class DatePopupComponent implements OnChanges, OnInit {
             triggerPresets: shortcutPresets
         });
         this.setValue(selectedPresetValue);
+        this.dateValueChange.emit({
+            value: helpers.isArray(value) ? this.selectedValue : selectedPresetValue,
+            triggerPreset: shortcutPresets
+        });
     }
 
     public trackByFn(index: number) {
