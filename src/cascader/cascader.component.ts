@@ -784,10 +784,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         }
         const isSelect = event instanceof Event ? (!this.isMultiple && option.isLeaf ? true : false) : true;
         this.setActiveOption(option, index, isSelect);
-        // if (isSelect) {
-        //     console.log('clickOption');
-        //     this.valueChange();
-        // }
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
