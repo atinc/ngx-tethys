@@ -183,7 +183,7 @@ input[type='radio'] {
 }
 
 .form-check-label {
-    margin-left: 2 * (variables.$form-check-label-margin-l);
+    margin-left: 0.5rem;
     cursor: variables.$hand-cursor;
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
