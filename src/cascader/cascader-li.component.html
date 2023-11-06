@@ -15,7 +15,12 @@
     (ngModelChange)="toggleOption($event)"></label>
 </div>
 
-<span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''"> {{ option[labelProperty] || '' }}</span>
+<span
+  [class.ml-2]="(multiple && (!isOnlySelectLeaf || option.isLeaf)) || (!multiple && !isOnlySelectLeaf)"
+  thyFlexibleText
+  [thyTooltipContent]="option[labelProperty] || ''">
+  {{ option[labelProperty] || '' }}</span
+>
 
 <span
   *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"

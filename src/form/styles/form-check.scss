@@ -9,7 +9,7 @@
     position: relative;
     display: block;
     width: max-content;
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     &:last-of-type {
@@ -20,7 +20,7 @@
 .form-check-input {
     position: absolute;
     margin-top: variables.$form-check-input-margin-t;
-    margin-left: -(variables.$form-check-input-margin-l);
+    margin-left: -1rem;
 
     &:disabled ~ .form-check-label {
         cursor: variables.$disabled-cursor;
@@ -183,7 +183,7 @@ input[type='radio'] {
 }
 
 .form-check-label {
-    margin-left: variables.$form-check-label-margin-l;
+    margin-left: 2 * (variables.$form-check-label-margin-l);
     cursor: variables.$hand-cursor;
     color: variables.$input-label-color;
     transition: color variables.$transition-duration-normal;
