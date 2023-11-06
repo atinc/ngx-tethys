@@ -1,11 +1,23 @@
 import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
 import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
 
-import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, TemplateRef } from '@angular/core';
+import {
+    ChangeDetectorRef,
+    Component,
+    ElementRef,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
+    TemplateRef,
+    ViewChild
+} from '@angular/core';
 
 import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
+import { ThyPickerComponent } from './picker.component';
 
 /**
  * @private
@@ -25,6 +37,8 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     panelMode: ThyPanelMode | ThyPanelMode[];
 
     initialized: boolean;
+
+    @ViewChild('thyPicker', { static: true }) thyPicker: ThyPickerComponent;
 
     @Input() thyDateRender: FunctionProp<TemplateRef<Date> | string>;
 
@@ -90,11 +104,17 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
+        this.thyPicker.onTuoched = false;
         this.restoreTimePickerState(value as CompatibleValue);
         super.onValueChange(value);
         if (!this.flexible) {
             this.closeOverlay();
         }
+    }
+
+    onEnterValue(value: CompatibleValue | RangeAdvancedValue) {
+        this.restoreTimePickerState(value as CompatibleValue);
+        super.onValueChange(value);
     }
 
     // Displays the time directly when the time must be displayed by default
@@ -171,5 +191,9 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
             return;
         }
         this.onTouchedFn();
+    }
+
+    onUpdateDate(event: TinyDate) {
+        this.thyValue = event;
     }
 }

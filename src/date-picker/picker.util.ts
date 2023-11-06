@@ -1,6 +1,6 @@
 import { CompatibleDate, DateEntry, ThyDateRangeEntry, ThyPanelMode, ThyDateGranularity, ThyShortcutValue } from './standard-types';
 
-import { fromUnixTime } from 'date-fns';
+import { fromUnixTime, parse, setDate, setDay, setMonth, setYear } from 'date-fns';
 import { helpers, TinyDate } from 'ngx-tethys/util';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 
@@ -201,4 +201,40 @@ export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: st
 
 export function getShortcutValue(value: ThyShortcutValue): number | Date {
     return helpers.isFunction(value) ? value() : value;
+}
+
+export function isValidDateString(dateStr: string, format: string): boolean {
+    const parseDate = parseFormatDate(dateStr, format);
+    return !(parseDate < 0 || isNaN(parseDate));
+}
+
+export function parseFormatDate(dateStr: string, format: string) {
+    const regexFormat = /[^yYmMdDhHsSwW]/g;
+    const formatArgs = format.replace(regexFormat, '-').split('-');
+    let date = new Date();
+    formatArgs.forEach((pattern: string) => {
+        const index = format.indexOf(pattern);
+        const value = dateStr.slice(index, pattern.length + index).replace(/[^\d]/g, '');
+        let dateValue = value;
+        if (value.length < pattern.length) {
+            dateValue = value.padStart(pattern.length, '0');
+            dateStr = dateStr.replace(value, dateValue);
+        }
+        // parse will try to guess the century of two digit date by proximity with referenceDate
+        switch (pattern) {
+            case 'yyyy':
+                date = setYear(date, Number(dateValue));
+                break;
+            case 'dd':
+                date = setDate(date, Number(dateValue));
+                break;
+            case 'MM':
+                date = setMonth(date, Number(dateValue) - 1);
+                break;
+            default:
+                date = parse(dateValue, pattern, date);
+                break;
+        }
+    });
+    return date.getTime();
 }

@@ -1,4 +1,5 @@
 <thy-picker
+  #thyPicker
   [isRange]="isRange"
   [value]="thyValue"
   [flexible]="flexible"
@@ -15,8 +16,13 @@
   [size]="thySize"
   [suffixIcon]="thySuffixIcon"
   [placement]="thyPlacement"
+  [min]="thyMinDate"
+  [max]="thyMaxDate"
+  [disabledDate]="thyDisabledDate"
   (openChange)="onOpenChange($event)"
   (blur)="onBlur($event)"
+  (updateDate)="onUpdateDate($event)"
+  (enterChange)="onEnterValue($event)"
 >
   <date-popup
     [attr.tabindex]="-1"
