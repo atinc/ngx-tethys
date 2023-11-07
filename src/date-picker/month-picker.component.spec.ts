@@ -76,6 +76,8 @@ describe('ThyMonthPickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'modelValueChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
             expect(fixtureInstance.thyValue).toBe(null);
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
@@ -110,6 +112,7 @@ describe('ThyMonthPickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            flush();
             const allDisabledCells = queryFromOverlay('.thy-calendar-month-panel-cell-disabled');
             expect(allDisabledCells.textContent).toContain('三月');
         }));

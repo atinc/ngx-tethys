@@ -79,6 +79,7 @@ describe('ThyWeekPickerComponent', () => {
             expect(fixtureInstance.thyValue).toBe(null);
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
+            flush();
         }));
 
         it('should support thyDisabled', fakeAsync(() => {
