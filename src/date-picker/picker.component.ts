@@ -59,6 +59,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;
+    @Input() mode: string;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
@@ -112,7 +113,7 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     get readonlyState(): boolean {
-        return this.isRange || this.readonly;
+        return this.isRange || this.readonly || this.mode !== 'date';
     }
 
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}

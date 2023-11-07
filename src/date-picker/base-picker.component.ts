@@ -39,7 +39,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     initialized: boolean;
 
-    _previousDate: string;
+    private innerPreviousDate: string;
 
     @ViewChild('thyPicker', { static: true }) thyPicker: ThyPickerComponent;
 
@@ -113,6 +113,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         if (!this.flexible) {
             this.closeOverlay();
         }
+        this.innerPreviousDate = this.thyPicker.getReadableValue(this.thyValue);
     }
 
     onInputValueChange(formatDate: string | null | Array<null>) {
@@ -126,9 +127,9 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         const valueValid = isValidDateString(value);
         const valueLimitValid = valueValid ? this.isValidDateLimit(parseFormatDate(value)) : false;
         if (valueValid && valueLimitValid) {
-            this._previousDate = value;
+            this.innerPreviousDate = value;
         } else {
-            value = this._previousDate;
+            value = this.innerPreviousDate;
         }
         const tinyDate = value ? parseFormatDate(value) : null;
         this.restoreTimePickerState(tinyDate);
@@ -212,7 +213,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onInputDate(value: string) {
-        if (isValidDateString(value)) {
+        if (value && isValidDateString(value)) {
             this.thyValue = parseFormatDate(value);
         }
     }

@@ -105,6 +105,7 @@ describe('ThyPickerComponent', () => {
     template: `
         <thy-picker
             #thyPicker
+            [mode]="thyMode"
             [value]="thyValue"
             (valueChange)="onValueChange($event)"
             [disabled]="thyDisabled"
@@ -121,6 +122,7 @@ class ThyTestPickerComponent {
     thyDisabled = false;
     thyFormat = 'yyyy-MM-dd HH:mm:ss';
     thyReadonly = false;
+    thyMode = 'date';
 
     onValueChange(): void {}
     onInputChange(): void {}

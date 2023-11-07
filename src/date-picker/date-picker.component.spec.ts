@@ -1108,6 +1108,7 @@ describe('ThyDatePickerComponent', () => {
         it('should limit date by thyMinDate、thyMaxDate and thyDisabledDate', fakeAsync(() => {
             const onChange = spyOn(fixtureInstance, 'thyOnChange');
             fixtureInstance.thyMinDate = new Date('2023-01-02 12:00');
+            fixtureInstance.thyValue = null;
             fixture.detectChanges();
             openPickerByClickTrigger();
             const input = getPickerTrigger();
