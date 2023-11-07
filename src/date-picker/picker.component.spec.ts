@@ -54,7 +54,7 @@ describe('ThyPickerComponent', () => {
     });
 
     it('should allow input', fakeAsync(() => {
-        const inputEvent = spyOn(fixtureInstance, 'onInputEvent');
+        const inputChange = spyOn(fixtureInstance, 'onInputChange');
         fixtureInstance.thyReadonly = false;
         fixture.detectChanges();
         expect(fixtureInstance.thyPicker.readonlyState).toBe(false);
@@ -63,8 +63,8 @@ describe('ThyPickerComponent', () => {
         getPickerInputElement().dispatchEvent(new Event('input'));
         fixture.detectChanges();
         flush();
-        expect(inputEvent).toHaveBeenCalled();
-        expect(inputEvent).toHaveBeenCalledWith(setValue);
+        expect(inputChange).toHaveBeenCalled();
+        expect(inputChange).toHaveBeenCalledWith(setValue);
     }));
 
     it('should emit format date when enter and blur', fakeAsync(() => {
@@ -110,7 +110,7 @@ describe('ThyPickerComponent', () => {
             [disabled]="thyDisabled"
             [format]="thyFormat"
             [readonly]="thyReadonly"
-            (inputEvent)="onInputEvent($event)">
+            (inputChange)="onInputChange($event)">
         </thy-picker>
     `
 })
@@ -123,5 +123,5 @@ class ThyTestPickerComponent {
     thyReadonly = false;
 
     onValueChange(): void {}
-    onInputEvent(): void {}
+    onInputChange(): void {}
 }

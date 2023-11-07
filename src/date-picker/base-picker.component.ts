@@ -107,7 +107,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onValueChange(value: CompatibleValue | RangeAdvancedValue): void {
-        this.thyPicker.onTuoched = false;
+        this.thyPicker.entering = false;
         this.restoreTimePickerState(value as CompatibleValue);
         super.onValueChange(value);
         if (!this.flexible) {
@@ -116,7 +116,6 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onInputValueChange(formatDate: string | null | Array<null>) {
-        this.thyPicker.onTuoched = false;
         if (!formatDate || !formatDate.length) {
             const compatibleValue = formatDate ? (formatDate as CompatibleValue) : null;
             this.restoreTimePickerState(compatibleValue);

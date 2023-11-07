@@ -62,7 +62,7 @@ export class ThyPickerComponent implements AfterViewInit {
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
-    @Output() readonly inputEvent = new EventEmitter<string>();
+    @Output() readonly inputChange = new EventEmitter<string>();
 
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
@@ -70,33 +70,40 @@ export class ThyPickerComponent implements AfterViewInit {
 
     @Input()
     get flexibleDateGranularity() {
-        return this._flexibleDateGranularity;
+        return this.innerflexibleDateGranularity;
     }
 
     set flexibleDateGranularity(granularity: ThyDateGranularity) {
-        this._flexibleDateGranularity = granularity;
-        this.updateReadableDate(this._value);
+        this.innerflexibleDateGranularity = granularity;
+        this.updateReadableDate(this.innerValue);
     }
 
     @Input()
     get value() {
-        return this._value;
+        return this.innerValue;
     }
 
     set value(value: TinyDate | TinyDate[] | null) {
-        this._value = value;
-        if (!this.onTuoched) {
-            this.updateReadableDate(this._value);
+        this.innerValue = value;
+        if (!this.entering) {
+            this.updateReadableDate(this.innerValue);
         }
     }
 
-    private _flexibleDateGranularity: ThyDateGranularity;
-    private _value: TinyDate | TinyDate[] | null;
-    onTuoched = false;
+    private innerflexibleDateGranularity: ThyDateGranularity;
+
+    private innerValue: TinyDate | TinyDate[] | null;
+
+    entering = false;
+
     readableValue$ = new BehaviorSubject<string | null>(null);
+
     prefixCls = 'thy-calendar';
+
     animationOpenState = false;
+
     overlayOpen = false; // Available when "open"=undefined
+
     overlayPositions = getFlexiblePositions(this.placement, 4);
 
     get realOpenState(): boolean {
@@ -123,15 +130,16 @@ export class ThyPickerComponent implements AfterViewInit {
 
     onBlur(event: FocusEvent) {
         this.blur.emit(event);
-        if (this.onTuoched) {
+        if (this.entering) {
             this.valueChange.emit(this.pickerInput.nativeElement.value);
         }
+        this.entering = false;
     }
 
     onInput(event: InputEvent) {
-        this.onTuoched = true;
+        this.entering = true;
         const inputValue = (event.target as HTMLElement)['value'];
-        this.inputEvent.emit(inputValue);
+        this.inputChange.emit(inputValue);
     }
 
     onEnter() {
@@ -139,6 +147,7 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
         this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate(new Date())));
+        this.entering = false;
     }
 
     showOverlay(): void {
@@ -189,8 +198,8 @@ export class ThyPickerComponent implements AfterViewInit {
         event.preventDefault();
         event.stopPropagation();
 
-        this._value = this.isRange ? [] : null;
-        this.valueChange.emit(this._value);
+        this.innerValue = this.isRange ? [] : null;
+        this.valueChange.emit(this.innerValue);
     }
 
     getPartTypeIndex(partType: RangePartType): number {
@@ -215,8 +224,8 @@ export class ThyPickerComponent implements AfterViewInit {
     getReadableValue(tinyDate: TinyDate | TinyDate[]): string | null {
         let value: TinyDate;
         if (this.isRange) {
-            if (this.flexible && this._flexibleDateGranularity !== 'day') {
-                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this._flexibleDateGranularity);
+            if (this.flexible && this.innerflexibleDateGranularity !== 'day') {
+                return getFlexibleAdvancedReadableValue(tinyDate as TinyDate[], this.innerflexibleDateGranularity);
             } else {
                 const start = tinyDate[0] ? this.dateHelper.format(tinyDate[0].nativeDate, this.format) : '';
                 const end = tinyDate[1] ? this.dateHelper.format(tinyDate[1].nativeDate, this.format) : '';
