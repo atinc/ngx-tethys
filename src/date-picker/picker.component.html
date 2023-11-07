@@ -14,10 +14,13 @@
       [class.thy-input-disabled]="disabled"
       [class.thy-input-readonly]="readonly"
       [disabled]="disabled"
-      readonly
+      [readonly]="readonlyState"
       (blur)="onBlur($event)"
-      value="{{ getReadableValue() }}"
+      (input)="onInput($event)"
+      [value]="readableValue$ | async"
       placeholder="{{ getPlaceholder() }}"
+      thyEnter
+      (thyEnter)="onEnter()"
     />
     <ng-container *ngTemplateOutlet="tplRightRest"></ng-container>
   </ng-container>

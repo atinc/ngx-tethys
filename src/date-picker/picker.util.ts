@@ -202,3 +202,17 @@ export function isSupportDateType(object: DateEntry | ThyDateRangeEntry, key: st
 export function getShortcutValue(value: ThyShortcutValue): number | Date {
     return helpers.isFunction(value) ? value() : value;
 }
+
+export function isValidDateString(dateStr: string): boolean {
+    const parseDate = parseFormatDate(dateStr).nativeDate.getTime();
+    return !(parseDate < 0 || isNaN(parseDate));
+}
+
+export function parseFormatDate(dateStr: string): TinyDate {
+    let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-');
+    const hasYear = /\d{4}/.test(replacedStr);
+    if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
+        replacedStr = `${new TinyDate(new Date()).getYear()}-${replacedStr}`;
+    }
+    return new TinyDate(replacedStr);
+}
