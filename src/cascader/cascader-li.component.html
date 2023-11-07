@@ -16,8 +16,8 @@
 </div>
 
 <span
-  [class.ml-2]="(multiple && (!isOnlySelectLeaf || option.isLeaf)) || (!multiple && !isOnlySelectLeaf)"
   thyFlexibleText
+  [class.ml-2]="(multiple && (!isOnlySelectLeaf || option.isLeaf)) || (!multiple && !isOnlySelectLeaf)"
   [thyTooltipContent]="option[labelProperty] || ''">
   {{ option[labelProperty] || '' }}</span
 >
