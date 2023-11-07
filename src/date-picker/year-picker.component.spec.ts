@@ -78,6 +78,7 @@ describe('ThyYearPickerComponent', () => {
             expect(fixtureInstance.thyValue).toBe(null);
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
+            flush();
         }));
 
         it('should support thyDisabled', fakeAsync(() => {
@@ -111,6 +112,7 @@ describe('ThyYearPickerComponent', () => {
             fixture.detectChanges();
             const allDisabledCells = queryFromOverlay('.thy-calendar-year-panel-cell-disabled');
             expect(allDisabledCells.textContent).toContain('2009');
+            flush();
         }));
 
         it('should support thyPlaceHolder', () => {

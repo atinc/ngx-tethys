@@ -19,12 +19,10 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
 import { ThyInputDirective } from 'ngx-tethys/input';
 import { DateHelperService } from './date-helper.service';
 import { CompatibleValue, RangePartType } from './inner-types';
-import { getFlexibleAdvancedReadableValue, isValidDateString, parseFormatDate, transformDateValue } from './picker.util';
-import { DisabledDateFn, ThyDateGranularity } from './standard-types';
+import { getFlexibleAdvancedReadableValue } from './picker.util';
+import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { filter, map } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 /**
  * @private
@@ -58,18 +56,13 @@ export class ThyPickerComponent implements AfterViewInit {
     @Input() className: string;
     @Input() format: string;
     @Input() size: 'sm' | 'xs' | 'lg' | 'md' | 'default';
-    // @Input() value: TinyDate | TinyDate[] | null;
     @Input() suffixIcon: string;
     @Input() placement: ThyPlacement = 'bottomLeft';
     @Input() flexible: boolean = false;
-    @Input() max: Date | number;
-    @Input() min: Date | number;
-    @Input() disabledDate: DisabledDateFn;
     @Output() blur = new EventEmitter<Event>();
     @Output() readonly valueChange = new EventEmitter<TinyDate | TinyDate[] | null>();
     @Output() readonly openChange = new EventEmitter<boolean>(); // Emitted when overlay's open state change
-    @Output() readonly updateDate = new EventEmitter<TinyDate | TinyDate[] | null>();
-    @Output() readonly enterChange = new EventEmitter<TinyDate | TinyDate[] | null>();
+    @Output() readonly inputEvent = new EventEmitter<string>();
 
     @ViewChild('origin', { static: true }) origin: CdkOverlayOrigin;
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;
@@ -92,9 +85,6 @@ export class ThyPickerComponent implements AfterViewInit {
 
     set value(value: TinyDate | TinyDate[] | null) {
         this._value = value;
-        if (!this._previousDate) {
-            this._previousDate = this._value;
-        }
         if (!this.onTuoched) {
             this.updateReadableDate(this._value);
         }
@@ -102,15 +92,12 @@ export class ThyPickerComponent implements AfterViewInit {
 
     private _flexibleDateGranularity: ThyDateGranularity;
     private _value: TinyDate | TinyDate[] | null;
-    private _inputDate$ = new Subject<string>();
-    private _previousDate: TinyDate | TinyDate[] | null;
     onTuoched = false;
     readableValue$ = new BehaviorSubject<string | null>(null);
     prefixCls = 'thy-calendar';
     animationOpenState = false;
     overlayOpen = false; // Available when "open"=undefined
     overlayPositions = getFlexiblePositions(this.placement, 4);
-    takeUntilDestroyed = takeUntilDestroyed();
 
     get realOpenState(): boolean {
         // The value that really decide the open state of overlay
@@ -118,11 +105,7 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     get readonlyState(): boolean {
-        return this.isRange || this.readonly || !this.format || !this.validFormat;
-    }
-
-    get validFormat() {
-        return this.format.includes('yyyy') && this.format.includes('MM') && this.format.includes('dd');
+        return this.isRange || this.readonly;
     }
 
     constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
@@ -132,33 +115,6 @@ export class ThyPickerComponent implements AfterViewInit {
         if (this.autoFocus) {
             this.focus();
         }
-
-        this._inputDate$
-            .pipe(
-                this.takeUntilDestroyed,
-                filter((str: string) => {
-                    if (!str) {
-                        this._previousDate = null;
-                    }
-                    const formatValid = isValidDateString(str, this.format);
-                    const limitValid = this.isValidDateLimit(
-                        new TinyDate(parseFormatDate(str, this.format)),
-                        this.min,
-                        this.max,
-                        this.disabledDate
-                    );
-                    if (!formatValid || !limitValid) {
-                        this.updateDate.emit(null);
-                    }
-                    return formatValid && limitValid;
-                }),
-                map(date => {
-                    return new TinyDate(parseFormatDate(date, this.format));
-                })
-            )
-            .subscribe((date: TinyDate) => {
-                this.updateDate.emit(date);
-            });
     }
 
     focus(): void {
@@ -167,24 +123,22 @@ export class ThyPickerComponent implements AfterViewInit {
 
     onBlur(event: FocusEvent) {
         this.blur.emit(event);
+        if (this.onTuoched) {
+            this.valueChange.emit(this.pickerInput.nativeElement.value);
+        }
     }
 
     onInput(event: InputEvent) {
         this.onTuoched = true;
         const inputValue = (event.target as HTMLElement)['value'];
-        this._inputDate$.next(inputValue);
+        this.inputEvent.emit(inputValue);
     }
 
     onEnter() {
         if (this.readonlyState) {
             return;
         }
-        const setValue =
-            this._value ||
-            this._previousDate ||
-            (this.isValidDateLimit(new TinyDate(new Date()), this.min, this.max, this.disabledDate) ? new TinyDate(new Date()) : null);
-        this.updateValue(setValue);
-        this._previousDate = setValue;
+        this.valueChange.emit(this.pickerInput.nativeElement.value || this.getReadableValue(new TinyDate(new Date())));
     }
 
     showOverlay(): void {
@@ -235,9 +189,8 @@ export class ThyPickerComponent implements AfterViewInit {
         event.preventDefault();
         event.stopPropagation();
 
-        this._previousDate = null;
         this._value = this.isRange ? [] : null;
-        this.updateValue(this._value, false);
+        this.valueChange.emit(this._value);
     }
 
     getPartTypeIndex(partType: RangePartType): number {
@@ -281,15 +234,6 @@ export class ThyPickerComponent implements AfterViewInit {
             : (this.placeholder as string);
     }
 
-    private updateValue(setValue: TinyDate | TinyDate[] | null, sourceEnter = true) {
-        if (sourceEnter) {
-            this.enterChange.emit(setValue);
-            this.updateReadableDate(setValue);
-        } else {
-            this.valueChange.emit(setValue);
-        }
-    }
-
     private updateReadableDate(setValue: TinyDate | TinyDate[] | null) {
         const readableValue = this.getReadableValue(setValue);
         if (readableValue === this.pickerInput.nativeElement['value']) {
@@ -303,19 +247,5 @@ export class ThyPickerComponent implements AfterViewInit {
                 this.readableValue$.next(readableValue);
             }, 0);
         }
-    }
-
-    private isValidDateLimit(date: TinyDate, min: Date | number, max: Date | number, disabledDate: DisabledDateFn): boolean {
-        let disable = false;
-        if (disabledDate !== undefined) {
-            disable = disabledDate(date.nativeDate);
-        }
-        const minDate = min ? new TinyDate(transformDateValue(min).value as Date) : null;
-        const maxDate = max ? new TinyDate(transformDateValue(max).value as Date) : null;
-        return (
-            (!minDate || date.startOfDay().nativeDate >= minDate.startOfDay().nativeDate) &&
-            (!maxDate || date.startOfDay().nativeDate <= maxDate.startOfDay().nativeDate) &&
-            !disable
-        );
     }
 }

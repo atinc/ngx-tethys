@@ -4,7 +4,7 @@
   [value]="thyValue"
   [flexible]="flexible"
   [flexibleDateGranularity]="flexibleDateGranularity"
-  (valueChange)="onValueChange($event)"
+  (valueChange)="onInputValueChange($event)"
   [open]="thyOpen"
   [disabled]="thyDisabled"
   [format]="thyFormat"
@@ -16,13 +16,9 @@
   [size]="thySize"
   [suffixIcon]="thySuffixIcon"
   [placement]="thyPlacement"
-  [min]="thyMinDate"
-  [max]="thyMaxDate"
-  [disabledDate]="thyDisabledDate"
   (openChange)="onOpenChange($event)"
   (blur)="onBlur($event)"
-  (updateDate)="onUpdateDate($event)"
-  (enterChange)="onEnterValue($event)"
+  (inputEvent)="onInputDate($event)"
 >
   <date-popup
     [attr.tabindex]="-1"

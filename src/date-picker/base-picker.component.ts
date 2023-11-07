@@ -1,5 +1,5 @@
 import { InputBoolean, ThyPlacement } from 'ngx-tethys/core';
-import { coerceBooleanProperty, elementMatchClosest, FunctionProp, TinyDate } from 'ngx-tethys/util';
+import { coerceBooleanProperty, elementMatchClosest, FunctionProp, P, TinyDate } from 'ngx-tethys/util';
 
 import {
     ChangeDetectorRef,
@@ -18,6 +18,7 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { ThyPickerComponent } from './picker.component';
+import { isValidDateString, parseFormatDate, transformDateValue } from './picker.util';
 
 /**
  * @private
@@ -37,6 +38,8 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     panelMode: ThyPanelMode | ThyPanelMode[];
 
     initialized: boolean;
+
+    _previousDate: string;
 
     @ViewChild('thyPicker', { static: true }) thyPicker: ThyPickerComponent;
 
@@ -112,9 +115,25 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         }
     }
 
-    onEnterValue(value: CompatibleValue | RangeAdvancedValue) {
-        this.restoreTimePickerState(value as CompatibleValue);
-        super.onValueChange(value);
+    onInputValueChange(formatDate: string | null | Array<null>) {
+        this.thyPicker.onTuoched = false;
+        if (!formatDate || !formatDate.length) {
+            const compatibleValue = formatDate ? (formatDate as CompatibleValue) : null;
+            this.restoreTimePickerState(compatibleValue);
+            super.onValueChange(compatibleValue);
+            return;
+        }
+        let value = formatDate as string;
+        const valueValid = isValidDateString(value);
+        const valueLimitValid = valueValid ? this.isValidDateLimit(parseFormatDate(value)) : false;
+        if (valueValid && valueLimitValid) {
+            this._previousDate = value;
+        } else {
+            value = this._previousDate;
+        }
+        const tinyDate = value ? parseFormatDate(value) : null;
+        this.restoreTimePickerState(tinyDate);
+        super.onValueChange(tinyDate);
     }
 
     // Displays the time directly when the time must be displayed by default
@@ -193,7 +212,23 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         this.onTouchedFn();
     }
 
-    onUpdateDate(event: TinyDate) {
-        this.thyValue = event;
+    onInputDate(value: string) {
+        if (isValidDateString(value)) {
+            this.thyValue = parseFormatDate(value);
+        }
+    }
+
+    private isValidDateLimit(date: TinyDate): boolean {
+        let disable = false;
+        if (this.thyDisabledDate !== undefined) {
+            disable = this.thyDisabledDate(date.nativeDate);
+        }
+        const minDate = this.thyMinDate ? new TinyDate(transformDateValue(this.thyMinDate).value as Date) : null;
+        const maxDate = this.thyMaxDate ? new TinyDate(transformDateValue(this.thyMaxDate).value as Date) : null;
+        return (
+            (!minDate || date.startOfDay().nativeDate >= minDate.startOfDay().nativeDate) &&
+            (!maxDate || date.startOfDay().nativeDate <= maxDate.startOfDay().nativeDate) &&
+            !disable
+        );
     }
 }

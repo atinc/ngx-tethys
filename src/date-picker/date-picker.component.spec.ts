@@ -12,7 +12,7 @@ import { By } from '@angular/platform-browser';
 import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
-import { DateEntry } from './standard-types';
+import { DateEntry, DisabledDateFn } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { TinyDate } from 'ngx-tethys/util';
@@ -1035,27 +1035,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             expect(onChange).toHaveBeenCalled();
             expect(onChange).toHaveBeenCalledWith(new TinyDate('2023-11-01 08:00').getUnixTime());
-        }));
-
-        it('should emit now when input empty', fakeAsync(() => {
-            fixtureInstance.thyFormat = 'yyyy-MM-dd hh:mm:ss';
-            fixture.detectChanges();
-            const onChange = spyOn(fixtureInstance, 'thyOnChange');
-            openPickerByClickTrigger();
-            const input = getPickerTrigger();
-            input.value = '';
-            input.dispatchEvent(new Event('input'));
-            fixture.detectChanges();
-            take(500);
-            fixture.detectChanges();
             flush();
-            dispatchKeyboardEvent(input, 'keydown', ENTER);
-            fixture.detectChanges();
-            take(500);
-            fixture.detectChanges();
-            flush();
-            expect(onChange).toHaveBeenCalled();
-            expect(onChange).toHaveBeenCalledWith(new TinyDate(new Date()).getUnixTime());
         }));
 
         it('should fix input date to format date', fakeAsync(() => {
@@ -1065,7 +1045,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             openPickerByClickTrigger();
             const input = getPickerTrigger();
-            input.value = '2023-11-01 08:00';
+            input.value = '2023-11-1 08:00';
             input.dispatchEvent(new Event('input'));
             fixture.detectChanges();
             take(500);
@@ -1115,6 +1095,45 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             flush();
             expect(getSelectedDayCell().textContent.trim()).toBe('4');
+
+            input.value = '11.5';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('5');
+        }));
+
+        it('should limit date by thyMinDate、thyMaxDate and thyDisabledDate', fakeAsync(() => {
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixtureInstance.thyMinDate = new Date('2023-01-02 12:00');
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2022-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
+
+            fixtureInstance.thyMaxDate = new Date('2023-11-20 12:00');
+            fixture.detectChanges();
+            input.value = '2024-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
+
+            const thyDisabledDate: DisabledDateFn = (date: Date) => {
+                return date > new Date();
+            };
+            fixtureInstance.thyDisabledDate = thyDisabledDate;
+            input.value = '2024-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
         }));
     });
 

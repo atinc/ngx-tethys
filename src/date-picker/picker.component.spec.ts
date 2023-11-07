@@ -54,7 +54,7 @@ describe('ThyPickerComponent', () => {
     });
 
     it('should allow input', fakeAsync(() => {
-        const updateDate = spyOn(fixtureInstance, 'onUpdateDate');
+        const inputEvent = spyOn(fixtureInstance, 'onInputEvent');
         fixtureInstance.thyReadonly = false;
         fixture.detectChanges();
         expect(fixtureInstance.thyPicker.readonlyState).toBe(false);
@@ -63,68 +63,37 @@ describe('ThyPickerComponent', () => {
         getPickerInputElement().dispatchEvent(new Event('input'));
         fixture.detectChanges();
         flush();
-        expect(updateDate).toHaveBeenCalled();
-        expect(updateDate).toHaveBeenCalledWith(new TinyDate(setValue));
+        expect(inputEvent).toHaveBeenCalled();
+        expect(inputEvent).toHaveBeenCalledWith(setValue);
     }));
 
-    it('should allow format date', fakeAsync(() => {
-        const updateDate = spyOn(fixtureInstance, 'onUpdateDate');
-        fixtureInstance.thyFormat = 'HH:mm:ss';
-        fixture.detectChanges();
-        expect(fixtureInstance.thyPicker.readonlyState).toBe(true);
-
-        fixtureInstance.thyFormat = 'yyyy年MM月dd日';
-        fixture.detectChanges();
-        expect(fixtureInstance.thyPicker.readonlyState).toBe(false);
-        const setValue = '2023年11月2日';
-        getPickerInputElement().value = setValue;
-        getPickerInputElement().dispatchEvent(new Event('input'));
-        flush();
-        expect(updateDate).toHaveBeenCalled();
-
-        const setValueError = 'any error string';
-        getPickerInputElement().value = setValueError;
-        getPickerInputElement().dispatchEvent(new Event('input'));
-        flush();
-        expect(updateDate).toHaveBeenCalled();
-        expect(updateDate).toHaveBeenCalledWith(null);
-    }));
-
-    it('should limit date by thyMinDate、thyMaxDate and thyDisabledDate', fakeAsync(() => {
-        const updateDate = spyOn(fixtureInstance, 'onUpdateDate');
-        fixtureInstance.thyMinDate = new Date('2023-01-02 12:00');
-        fixture.detectChanges();
-        getPickerInputElement().value = '2022-01-02 12:00';
-        getPickerInputElement().dispatchEvent(new Event('input'));
-        flush();
-        expect(updateDate).toHaveBeenCalledWith(null);
-
-        fixtureInstance.thyMaxDate = new Date('2023-11-20 12:00');
-        getPickerInputElement().value = '2024-01-02 12:00';
-        getPickerInputElement().dispatchEvent(new Event('input'));
-        flush();
-        expect(updateDate).toHaveBeenCalledWith(null);
-
-        const thyDisabledDate: DisabledDateFn = (date: Date) => {
-            return date > new Date();
-        };
-
-        fixtureInstance.thyDisabledDate = thyDisabledDate;
-        getPickerInputElement().value = '2024-01-02 12:00';
-        getPickerInputElement().dispatchEvent(new Event('input'));
-        flush();
-        expect(updateDate).toHaveBeenCalledWith(null);
-    }));
-
-    it('should emit tinyDate when enter', fakeAsync(() => {
-        const enterValue = spyOn(fixtureInstance, 'onEnterValue');
+    it('should emit format date when enter and blur', fakeAsync(() => {
+        const valueChange = spyOn(fixtureInstance, 'onValueChange');
         const initValue = new TinyDate(new Date());
         fixtureInstance.thyValue = initValue;
         fixture.detectChanges();
         dispatchKeyboardEvent(getPickerInputElement(), 'keydown', ENTER);
         flush();
-        expect(enterValue).toHaveBeenCalled();
-        expect(enterValue).toHaveBeenCalledWith(initValue);
+        expect(valueChange).toHaveBeenCalled();
+
+        const setValue = '2023-11-02 12:00';
+        getPickerInputElement().value = setValue;
+        getPickerInputElement().dispatchEvent(new Event('input'));
+        getPickerInputElement().dispatchEvent(new Event('blur'));
+        expect(valueChange).toHaveBeenCalled();
+    }));
+
+    it('should emit now when input null', fakeAsync(() => {
+        const valueChange = spyOn(fixtureInstance, 'onValueChange');
+        getPickerInputElement().value = '';
+        getPickerInputElement().dispatchEvent(new Event('input'));
+        fixture.detectChanges();
+        flush();
+        dispatchKeyboardEvent(getPickerInputElement(), 'keydown', ENTER);
+        fixture.detectChanges();
+        flush();
+        expect(valueChange).toHaveBeenCalled();
+        expect(valueChange).toHaveBeenCalledWith(new TinyDate(new Date()).format('yyyy-MM-dd HH:mm:ss'));
     }));
 
     function getPickerInputElement() {
@@ -141,11 +110,7 @@ describe('ThyPickerComponent', () => {
             [disabled]="thyDisabled"
             [format]="thyFormat"
             [readonly]="thyReadonly"
-            [min]="thyMinDate"
-            [max]="thyMaxDate"
-            [disabledDate]="thyDisabledDate"
-            (updateDate)="onUpdateDate($event)"
-            (enterChange)="onEnterValue($event)">
+            (inputEvent)="onInputEvent($event)">
         </thy-picker>
     `
 })
@@ -156,11 +121,7 @@ class ThyTestPickerComponent {
     thyDisabled = false;
     thyFormat = 'yyyy-MM-dd HH:mm:ss';
     thyReadonly = false;
-    thyMinDate: Date | number;
-    thyMaxDate: Date | number;
-    thyDisabledDate: DisabledDateFn;
 
     onValueChange(): void {}
-    onUpdateDate(): void {}
-    onEnterValue(): void {}
+    onInputEvent(): void {}
 }
