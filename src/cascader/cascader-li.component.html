@@ -1,18 +1,21 @@
-<div thyStopPropagation class="mr-2">
+<div thyStopPropagation>
   <label
     *ngIf="multiple && (!isOnlySelectLeaf || option.isLeaf)"
     thyCheckbox
     [disabled]="option.disabled"
     [name]="option.value || option._id"
     [(ngModel)]="selected"
-    (ngModelChange)="toggleOption($event)"></label>
+    (ngModelChange)="toggleOption($event)"
+    class="mr-2"></label>
+
   <label
     *ngIf="!multiple && !isOnlySelectLeaf"
     thyRadio
     [disabled]="option.disabled"
     [name]="option.value || option._id"
     [(ngModel)]="selected"
-    (ngModelChange)="toggleOption($event)"></label>
+    (ngModelChange)="toggleOption($event)"
+    class="mr-2"></label>
 </div>
 
 <span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''"> {{ option[labelProperty] || '' }}</span>
