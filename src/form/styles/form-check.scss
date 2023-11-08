@@ -9,7 +9,7 @@
     position: relative;
     display: block;
     width: max-content;
-    padding-left: variables.$form-check-input-margin-l;
+    padding-left: 1rem;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     &:last-of-type {
@@ -20,7 +20,7 @@
 .form-check-input {
     position: absolute;
     margin-top: variables.$form-check-input-margin-t;
-    margin-left: -1rem;
+    margin-left: -(variables.$form-check-input-margin-l);
 
     &:disabled ~ .form-check-label {
         cursor: variables.$disabled-cursor;
