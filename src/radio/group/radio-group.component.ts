@@ -16,6 +16,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 import { ThyRadioButtonComponent } from '../button/radio-button.component';
 import { ThyRadioComponent } from '../radio.component';
+import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 const buttonGroupSizeMap = {
     sm: ['btn-group-sm'],
@@ -58,7 +59,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnC
 
     private _layout: string;
 
-    private _disabled: boolean;
+    private _disabled = false;
 
     /**
      * 大小
@@ -88,7 +89,7 @@ export class ThyRadioGroupComponent implements ControlValueAccessor, OnInit, OnC
     @Input()
     @InputBoolean()
     set thyDisabled(value: boolean) {
-        this._disabled = value;
+        this._disabled = coerceBooleanProperty(value);
     }
 
     onChange: (_: string) => void = () => null;
