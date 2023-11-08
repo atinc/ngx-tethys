@@ -1,4 +1,4 @@
-<div thyStopPropagation>
+<div thyStopPropagation class="mr-2">
   <label
     *ngIf="multiple && (!isOnlySelectLeaf || option.isLeaf)"
     thyCheckbox
@@ -15,12 +15,7 @@
     (ngModelChange)="toggleOption($event)"></label>
 </div>
 
-<span
-  thyFlexibleText
-  [class.ml-2]="(multiple && (!isOnlySelectLeaf || option.isLeaf)) || (!multiple && !isOnlySelectLeaf)"
-  [thyTooltipContent]="option[labelProperty] || ''">
-  {{ option[labelProperty] || '' }}</span
->
+<span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''"> {{ option[labelProperty] || '' }}</span>
 
 <span
   *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"
