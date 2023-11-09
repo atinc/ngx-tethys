@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.10](https://github.com/atinc/ngx-tethys/compare/16.1.9...16.1.10) (2023-11-08)
+
+
+### Bug Fixes
+
+* **cascade:** fix trigger two changes #INFR_10249 ([#2888](https://github.com/atinc/ngx-tethys/issues/2888)) ([8edf5cc](https://github.com/atinc/ngx-tethys/commit/8edf5cc625777c7046adbcc107d8f0f66417b64b)), closes [#INFR_10249](https://github.com/atinc/ngx-tethys/issues/INFR_10249)
+* **cascader:** fix trigger area and style #INFR-10245 ([#2887](https://github.com/atinc/ngx-tethys/issues/2887)) ([9c58775](https://github.com/atinc/ngx-tethys/commit/9c58775b622c783f357decf571ac927a8d33d3ac)), closes [#INFR-10245](https://github.com/atinc/ngx-tethys/issues/INFR-10245)
+* **radio-group:** set radio group disabled default value #INFR-10263 ([#2889](https://github.com/atinc/ngx-tethys/issues/2889)) ([e1147d0](https://github.com/atinc/ngx-tethys/commit/e1147d0247a8b861f924c2e3143c5f728028f0ed)), closes [#INFR-10263](https://github.com/atinc/ngx-tethys/issues/INFR-10263)
+
+
+### Features
+
+* **date-picker:** date picker allowed input date ([#2886](https://github.com/atinc/ngx-tethys/issues/2886)) ([4598356](https://github.com/atinc/ngx-tethys/commit/4598356764dcb5002b9951de787c06d8f1199808))
+
+
+
 ## [16.1.9](https://github.com/atinc/ngx-tethys/compare/16.1.8...16.1.9) (2023-11-02)
 
 

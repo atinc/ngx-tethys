@@ -1,7 +1,7 @@
 import { addDays, addWeeks, format, fromUnixTime, isSameDay, startOfDay, startOfMonth, startOfWeek } from 'date-fns';
 import { dispatchFakeEvent, dispatchKeyboardEvent, dispatchMouseEvent } from 'ngx-tethys/testing';
 
-import { ESCAPE } from '@angular/cdk/keycodes';
+import { ENTER, ESCAPE } from '@angular/cdk/keycodes';
 import { OverlayContainer } from '@angular/cdk/overlay';
 import { formatDate, registerLocaleData } from '@angular/common';
 import zh from '@angular/common/locales/zh';
@@ -12,10 +12,11 @@ import { By } from '@angular/platform-browser';
 import { ThyDatePickerComponent } from './date-picker.component';
 import { ThyDatePickerModule } from './date-picker.module';
 import { ThyPickerComponent } from './picker.component';
-import { DateEntry } from './standard-types';
+import { DateEntry, DisabledDateFn } from './standard-types';
 import { THY_DATE_PICKER_CONFIG } from './date-picker.config';
 import { DatePopupComponent } from './lib/popups/date-popup.component';
 import { TinyDate } from 'ngx-tethys/util';
+import { take } from 'rxjs/operators';
 
 registerLocaleData(zh);
 
@@ -128,6 +129,9 @@ describe('ThyDatePickerComponent', () => {
 
             const input = getPickerTrigger();
             const datePresets = shortcutDatePresets();
+            fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
             expect(input.value).toBe(format(datePresets[1].value, 'yyyy-MM-dd'));
         }));
 
@@ -156,6 +160,8 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
 
             const input = getPickerTrigger();
+            fixture.detectChanges();
+            tick(500);
             expect(input.value).toContain(selectedTime);
         }));
 
@@ -182,6 +188,8 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
 
             const input = getPickerTrigger();
+            fixture.detectChanges();
+            tick(500);
             expect(input.value).toBe(expectedValue);
         }
     });
@@ -221,7 +229,7 @@ describe('ThyDatePickerComponent', () => {
             const dataPickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
             dispatchFakeEvent(dataPickerElement, 'focus');
             fixture.detectChanges();
-
+            flush();
             expect(focusSpy).toHaveBeenCalled();
         }));
 
@@ -231,7 +239,7 @@ describe('ThyDatePickerComponent', () => {
             const datePickerElement = fixture.debugElement.query(By.directive(ThyDatePickerComponent)).nativeElement;
             dispatchFakeEvent(datePickerElement, 'blur');
             fixture.detectChanges();
-
+            flush();
             expect(blurSpy).toHaveBeenCalled();
         }));
 
@@ -243,7 +251,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.componentInstance.datePicker.onBlur({ relatedTarget: trigger } as FocusEvent);
 
             fixture.detectChanges();
-
+            flush();
             expect(blurSpy).not.toHaveBeenCalled();
         }));
 
@@ -284,6 +292,8 @@ describe('ThyDatePickerComponent', () => {
             const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
             debugElement.query(clearBtnSelector).nativeElement.click();
             fixture.detectChanges();
+            tick(500);
+            fixture.detectChanges();
             expect(fixtureInstance.thyValue).toBe(initial);
             expect(thyOnChange).toHaveBeenCalledWith(null);
             expect(debugElement.query(clearBtnSelector)).toBeFalsy();
@@ -323,6 +333,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            flush();
             const disabledCell = queryFromOverlay('tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
             expect(disabledCell.textContent.trim()).toBe('15');
         }));
@@ -356,15 +367,21 @@ describe('ThyDatePickerComponent', () => {
 
             fixtureInstance.thyReadonly = false;
             fixture.detectChanges();
-            expect(getPickerTrigger().readOnly).not.toBe(false);
+            flush();
+            expect(getPickerTrigger().readOnly).toBe(false);
         }));
 
         it('should support thyFormat', fakeAsync(() => {
             fixtureInstance.thyFormat = 'dd.MM.yyyy';
             fixtureInstance.thyValue = new Date('2020-03-04');
             fixture.detectChanges();
+            take(500);
+            flush();
             openPickerByClickTrigger();
             const input = getPickerTrigger();
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
             expect(input.value).toBe('04.03.2020');
         }));
 
@@ -400,6 +417,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            flush();
             expect(getSelectedDayCell().textContent.trim()).toBe('11');
         }));
 
@@ -653,11 +671,13 @@ describe('ThyDatePickerComponent', () => {
         it('should use format rule yyyy-MM-dd when with_time is 0', fakeAsync(() => {
             const initial = { date: 1587629556, with_time: 0 } as DateEntry;
             fixtureInstance.thyValue = initial;
+            flush();
             fixture.detectChanges();
             openPickerByClickTrigger();
             dispatchMouseEvent(getSelectedDayCell(), 'click');
             fixture.detectChanges();
             tick(500);
+            fixture.detectChanges();
             expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd'));
         }));
 
@@ -665,10 +685,12 @@ describe('ThyDatePickerComponent', () => {
             const initial = { date: 1587629556, with_time: 1 } as DateEntry;
             fixtureInstance.thyValue = initial;
             fixtureInstance.thyShowTime = true;
+            flush();
             fixture.detectChanges();
             openPickerByClickTrigger();
             fixture.detectChanges();
             tick(500);
+            fixture.detectChanges();
             expect(getPickerTrigger().value).toBe(format(new Date(1587629556000), 'yyyy-MM-dd HH:mm'));
         }));
 
@@ -677,6 +699,7 @@ describe('ThyDatePickerComponent', () => {
             const changeValue = 1587629556;
             fixtureInstance.thyValue = null;
             fixtureInstance.thyFormat = formatValue;
+            flush();
             fixture.detectChanges();
             tick(500);
             fixtureInstance.thyValue = changeValue;
@@ -685,6 +708,7 @@ describe('ThyDatePickerComponent', () => {
             fixtureInstance.thyValue = changeValue;
             fixture.detectChanges();
             tick(500);
+            fixture.detectChanges();
             expect(getPickerTrigger().value).toBe(format(new Date(changeValue * 1000), formatValue));
         }));
 
@@ -692,12 +716,14 @@ describe('ThyDatePickerComponent', () => {
             const initial = 1587629556;
             fixtureInstance.thyValue = initial;
             fixture.detectChanges();
+            flush();
             openPickerByClickTrigger();
 
             const thyOnChange = spyOn(fixtureInstance, 'thyOnChange');
             dispatchMouseEvent(getSelectedDayCell(), 'click');
             fixture.detectChanges();
             tick(500);
+            fixture.detectChanges();
             expect(thyOnChange).toHaveBeenCalledWith(initial);
         }));
 
@@ -708,6 +734,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            flush();
             expect(queryFromOverlay('.test-first-day').textContent.trim()).toBe('1');
         }));
 
@@ -719,6 +746,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             tick(500);
             fixture.detectChanges();
+            flush();
             expect(overlayContainerElement.textContent.indexOf(featureKey) > -1).toBeTruthy();
         }));
 
@@ -802,6 +830,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             flush(); // Wait writeValue() tobe done
             fixture.detectChanges();
+            take(500);
             expect(getSelectedDayCell().textContent.trim()).toBe('11');
 
             // Click the first cell to change ngModel
@@ -809,6 +838,7 @@ describe('ThyDatePickerComponent', () => {
             const cellText = cell.textContent.trim();
             dispatchMouseEvent(cell, 'click');
             fixture.detectChanges();
+            flush();
             const result = fixtureInstance.modelValue as unknown as number;
             expect(fromUnixTime(result).getDate()).toBe(+cellText);
         }));
@@ -979,6 +1009,133 @@ describe('ThyDatePickerComponent', () => {
             tick(500);
             expect(onOkSpy).toHaveBeenCalledTimes(options.onOkCallTimes);
         }
+    });
+
+    describe('date picker allow input', () => {
+        beforeEach(() => (fixtureInstance.useSuite = 1));
+
+        it('should input value assessable', fakeAsync(() => {
+            fixtureInstance.thyFormat = 'yyyy-MM-dd hh:mm:ss';
+            fixture.detectChanges();
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2023-11-01 08:00';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            const selectedDay = getSelectedDayCell();
+            expect(selectedDay.textContent.trim()).toBe('1');
+            dispatchKeyboardEvent(input, 'keydown', ENTER);
+            flush();
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            expect(onChange).toHaveBeenCalled();
+            expect(onChange).toHaveBeenCalledWith(new TinyDate('2023-11-01 08:00').getUnixTime());
+            flush();
+        }));
+
+        it('should fix input date to format date', fakeAsync(() => {
+            fixture.detectChanges();
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixtureInstance.thyFormat = 'yyyy年MM月dd hh时mm分ss秒';
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2023-11-1 08:00';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            dispatchKeyboardEvent(input, 'keydown', ENTER);
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(onChange).toHaveBeenCalledWith(new TinyDate(new Date('2023-11-01 08:00')).getUnixTime());
+        }));
+
+        it('should allow input format date', fakeAsync(() => {
+            fixture.detectChanges();
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2023年11月1';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('1');
+
+            input.value = '2023-11-2';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('2');
+
+            input.value = '2023/11/3';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('3');
+
+            input.value = '2023.11.4';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('4');
+
+            input.value = '11.5';
+            input.dispatchEvent(new Event('input'));
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            flush();
+            expect(getSelectedDayCell().textContent.trim()).toBe('5');
+        }));
+
+        it('should limit date by thyMinDate、thyMaxDate and thyDisabledDate', fakeAsync(() => {
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            fixtureInstance.thyMinDate = new Date('2023-01-02 12:00');
+            fixtureInstance.thyValue = null;
+            fixture.detectChanges();
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2022-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
+
+            fixtureInstance.thyMaxDate = new Date('2023-11-20 12:00');
+            fixture.detectChanges();
+            input.value = '2024-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
+
+            const thyDisabledDate: DisabledDateFn = (date: Date) => {
+                return date > new Date();
+            };
+            fixtureInstance.thyDisabledDate = thyDisabledDate;
+            input.value = '2024-01-02 12:00';
+            input.dispatchEvent(new Event('input'));
+            input.dispatchEvent(new Event('blur'));
+            flush();
+            expect(onChange).toHaveBeenCalledWith(null);
+        }));
     });
 
     function getShortcutItems() {
