@@ -54,7 +54,7 @@
             [labelProperty]="thyLabelProperty"
             [active]="isActivatedOption(option, i)"
             [selected]="isSelectedOption(option, i)"
-            [canSelectionAll]="canSelectionAll"
+            [quickSelectionAllLeafs]="thyQuickSelectionAllLeafs"
             (toggleSelectChange)="clickOption(option, i, $event)"
             (click)="clickOption(option, i, $event)"
             (mouseover)="mouseoverOption(option, i, $event)"></li>

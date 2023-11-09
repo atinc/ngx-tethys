@@ -809,9 +809,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         } else {
             this.setActiveOption(option, index, isSelect);
         }
-        if (isSelect) {
-            this.valueChange();
-        }
     }
 
     private toggleAllChildren(option: ThyCascaderOption, index: number, selected: boolean): void {
@@ -848,14 +845,12 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         if (option.children.length > 0) {
             for (const childOption of option.children) {
                 childOption.parent = option;
-                if (childOption.isLeaf) {
-                    if (!childOption.selected === selected) {
-                        allLeafs.push({
-                            option: childOption,
-                            index: index + 1
-                        });
-                    }
-                } else {
+                if (childOption.isLeaf && !childOption.selected === selected) {
+                    allLeafs.push({
+                        option: childOption,
+                        index: index + 1
+                    });
+                } else if (!childOption.isLeaf) {
                     allLeafs = allLeafs.concat(this.getAllLeafs(childOption, index + 1, selected));
                 }
             }

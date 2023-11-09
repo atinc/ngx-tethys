@@ -75,7 +75,7 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input() labelProperty: string = 'label';
 
-    @Input() @InputBoolean() canSelectionAll = false;
+    @Input() @InputBoolean() quickSelectionAllLeafs = false;
 
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
 

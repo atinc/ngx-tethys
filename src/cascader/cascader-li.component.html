@@ -1,6 +1,6 @@
 <div thyStopPropagation>
   <label
-    *ngIf="multiple && (!canSelectionAll ? !isOnlySelectLeaf || option.isLeaf : true)"
+    *ngIf="multiple && (!quickSelectionAllLeafs ? !isOnlySelectLeaf || option.isLeaf : true)"
     class="mr-2"
     thyCheckbox
     [disabled]="option.disabled"
