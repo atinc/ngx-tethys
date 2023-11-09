@@ -40,7 +40,7 @@ export class ThyCascaderOptionComponent implements OnInit {
     @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
     @InputBoolean()
-    active = false;
+    active: boolean = false;
 
     @Input()
     @InputBoolean()
@@ -48,7 +48,7 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input()
     @InputBoolean()
-    selected = false
+    selected: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
