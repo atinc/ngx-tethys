@@ -498,15 +498,15 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 }
                 this.prevSelectedOptions = new Set([]);
             }
-            if (this.thyIsOnlySelectLeaf && this.thyQuickSelectionAllLeafs && !option.isLeaf) {
+            if (this.thyIsOnlySelectLeaf && this.thyQuickSelectionAllLeafs && !option.isLeaf && this.thyMultiple) {
                 set(option, 'selected', this.isSelectedOption(option, index));
+                if (option.parent) {
+                    this.updatePrevSelectedOptions(option.parent, false, index - 1);
+                }
             } else {
                 set(option, 'selected', !this.isSelectedOption(option, index));
             }
             this.prevSelectedOptions.add(option);
-            if (option.parent) {
-                this.updatePrevSelectedOptions(option.parent, false, index - 1);
-            }
         }
     }
 
