@@ -1,9 +1,10 @@
 <div thyStopPropagation>
   <label
-    *ngIf="multiple && (!isOnlySelectLeaf || option.isLeaf)"
+    *ngIf="multiple && (!canSelectionAll ? !isOnlySelectLeaf || option.isLeaf : true)"
     thyCheckbox
     [disabled]="option.disabled"
     [name]="option.value || option._id"
+    [thyIndeterminate]="indeterminate"
     [(ngModel)]="selected"
     (ngModelChange)="toggleOption($event)"></label>
   <label

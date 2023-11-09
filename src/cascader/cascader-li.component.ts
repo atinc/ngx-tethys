@@ -23,6 +23,10 @@ import { ThyCascaderOption } from './types';
     imports: [NgIf, ThyFlexibleTextComponent, ThyCheckboxComponent, ThyRadioComponent, FormsModule, ThyStopPropagationDirective]
 })
 export class ThyCascaderOptionComponent implements OnInit {
+    @HostBinding('class.thy-cascader-menu-item-active') _active = false;
+
+    private _selected = false;
+
     @Input() option: ThyCascaderOption;
 
     @Input()
@@ -37,14 +41,27 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
-    @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
     @InputBoolean()
-    active: boolean = false;
+    set active(val: boolean) {
+        this._active = val;
+        this.updateIndeterminate();
+    }
+
+    get active(): boolean {
+        return this._active;
+    }
 
     @Input()
     @InputBoolean()
-    selected: boolean = false;
+    set selected(val: boolean) {
+        this._selected = val;
+        this.updateIndeterminate();
+    }
+
+    get selected(): boolean {
+        return this._selected;
+    }
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
@@ -58,13 +75,28 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input() labelProperty: string = 'label';
 
+    @Input() @InputBoolean() canSelectionAll = false;
+
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
+
+    indeterminate = false;
 
     constructor() {}
 
     ngOnInit() {}
 
     public toggleOption(value: boolean) {
+        if (this.active && this.multiple && this.isOnlySelectLeaf && !this.option.isLeaf) {
+            this.indeterminate = !value;
+        }
         this.toggleSelectChange.emit(value);
+    }
+
+    private updateIndeterminate() {
+        if (this.active && this.multiple && !this.selected && this.isOnlySelectLeaf && !this.option.isLeaf) {
+            this.indeterminate = true;
+        } else {
+            this.indeterminate = false;
+        }
     }
 }
