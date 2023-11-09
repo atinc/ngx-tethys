@@ -23,10 +23,6 @@ import { ThyCascaderOption } from './types';
     imports: [NgIf, ThyFlexibleTextComponent, ThyCheckboxComponent, ThyRadioComponent, FormsModule, ThyStopPropagationDirective]
 })
 export class ThyCascaderOptionComponent implements OnInit {
-    @HostBinding('class.thy-cascader-menu-item-active') _active = false;
-
-    private _selected = false;
-
     @Input() option: ThyCascaderOption;
 
     @Input()
@@ -41,27 +37,18 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @HostBinding('class.thy-cascader-menu-item') item = true;
 
+    @HostBinding('class.thy-cascader-menu-item-active')
     @Input()
     @InputBoolean()
-    set active(val: boolean) {
-        this._active = val;
-        this.updateIndeterminate();
-    }
-
-    get active(): boolean {
-        return this._active;
-    }
+    active = false;
 
     @Input()
     @InputBoolean()
-    set selected(val: boolean) {
-        this._selected = val;
-        this.updateIndeterminate();
-    }
+    halfSelected = false;
 
-    get selected(): boolean {
-        return this._selected;
-    }
+    @Input()
+    @InputBoolean()
+    selected = false
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {
@@ -75,28 +62,13 @@ export class ThyCascaderOptionComponent implements OnInit {
 
     @Input() labelProperty: string = 'label';
 
-    @Input() @InputBoolean() quickSelectionAllLeafs = false;
-
     @Output() toggleSelectChange: EventEmitter<boolean> = new EventEmitter();
-
-    indeterminate = false;
 
     constructor() {}
 
     ngOnInit() {}
 
     public toggleOption(value: boolean) {
-        if (this.active && this.multiple && this.isOnlySelectLeaf && !this.option.isLeaf) {
-            this.indeterminate = !value;
-        }
         this.toggleSelectChange.emit(value);
-    }
-
-    private updateIndeterminate() {
-        if (this.active && this.multiple && !this.selected && this.isOnlySelectLeaf && !this.option.isLeaf) {
-            this.indeterminate = true;
-        } else {
-            this.indeterminate = false;
-        }
     }
 }

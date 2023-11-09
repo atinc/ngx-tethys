@@ -288,12 +288,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     thyIsOnlySelectLeaf = true;
 
     /**
-     * 当 `thyIsOnlySelectLeaf` 为 true 时，是否提供快速选择所有叶子项
-     * @default false
-     */
-    @Input() @InputBoolean() thyQuickSelectionAllLeafs = false;
-
-    /**
      * 是否支持搜索
      * @default false
      */
@@ -498,13 +492,13 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 }
                 this.prevSelectedOptions = new Set([]);
             }
-            if (this.thyIsOnlySelectLeaf && this.thyQuickSelectionAllLeafs && !option.isLeaf && this.thyMultiple) {
+            if (this.thyIsOnlySelectLeaf && !option.isLeaf && this.thyMultiple) {
                 set(option, 'selected', this.isSelectedOption(option, index));
-                if (option.parent) {
-                    this.updatePrevSelectedOptions(option.parent, false, index - 1);
-                }
             } else {
                 set(option, 'selected', !this.isSelectedOption(option, index));
+            }
+            if (this.thyIsOnlySelectLeaf && this.thyMultiple && option.parent) {
+                this.updatePrevSelectedOptions(option.parent, false, index - 1);
             }
             this.prevSelectedOptions.add(option);
         }
@@ -583,7 +577,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     }
 
     public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!this.isMultiple) {
+        if (!this.isMultiple || this.thyIsOnlySelectLeaf) {
             const activeOpt = this.activatedOptions[index];
             return activeOpt === option;
         } else {
@@ -600,12 +594,19 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         }
     }
 
+    public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
+        if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
+            return true;
+        }
+        return false;
+    }
+
     public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
         if (this.thyIsOnlySelectLeaf) {
             if (option.isLeaf) {
                 return option.selected;
             } else {
-                return this.isAllSelected(option);
+                return this.checkSelectedStatus(option, true);
             }
         } else {
             const selectedOpts = this.selectionModel.selected;
@@ -803,8 +804,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         if (option && option.disabled && !this.isMultiple) {
             return;
         }
-        const isSelect = event instanceof Event ? (!this.isMultiple && option.isLeaf ? true : false) : true;
-        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && this.thyQuickSelectionAllLeafs && isSelect) {
+        const isSelect = event instanceof Event ? !this.isMultiple && option.isLeaf : true;
+        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && isSelect) {
             this.toggleAllChildren(option, index, event as boolean);
         } else {
             this.setActiveOption(option, index, isSelect);
@@ -858,9 +859,18 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         return allLeafs;
     }
 
-    private isAllSelected(option: ThyCascaderOption): boolean {
+    /**
+     * 检查所有所有子项的选择状态, 有一个不符合预期，就直接返回 false
+     * @param option
+     * @param trueOrFalse
+     * @private
+     */
+    private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
         for (const childOption of option.children) {
-            if (!childOption.selected) {
+            if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
+                return false;
+            }
+            if (!childOption.selected === isSelected) {
                 return false;
             }
         }

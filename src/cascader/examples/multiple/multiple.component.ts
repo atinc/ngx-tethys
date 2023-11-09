@@ -17,12 +17,6 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
         ['14', '1404', '140406']
     ];
 
-    public values2: any[] = [
-        ['12', '1201', '120102'],
-        ['12', '1201', '120103'],
-        ['14', '1404', '140406']
-    ];
-
     constructor(private notifyService: ThyNotifyService) {}
 
     ngOnInit() {
@@ -30,10 +24,6 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info(`selected Value is ${values}`);
-    }
-
-    public selectChanges2(values: any): void {
         clearTimeout(this.timeout);
         this.timeout = setTimeout(() => {
             this.notifyService.info(`selected Value is ${values}`);
