@@ -930,11 +930,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
             const originOption = this.activatedOptions[i + 1]?.parent;
-            if (
-                !this.activatedOptions[i] ||
-                originOption?._id !== this.activatedOptions[i]._id ||
-                originOption?.value !== this.activatedOptions[i].value
-            ) {
+            if (!this.activatedOptions[i] || originOption?.[this.thyValueProperty] !== this.activatedOptions[i]?.[this.thyValueProperty]) {
                 this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
             }
         }
