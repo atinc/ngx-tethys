@@ -53,6 +53,7 @@
             [isOnlySelectLeaf]="thyIsOnlySelectLeaf"
             [labelProperty]="thyLabelProperty"
             [active]="isActivatedOption(option, i)"
+            [halfSelected]="isHalfSelectedOption(option, i)"
             [selected]="isSelectedOption(option, i)"
             (toggleSelectChange)="clickOption(option, i, $event)"
             (click)="clickOption(option, i, $event)"

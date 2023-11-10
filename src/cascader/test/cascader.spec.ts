@@ -113,8 +113,23 @@ const multipleOptions = [
                 label: 'liaoyuanshi',
                 children: [
                     {
-                        value: 'kongshanqu',
-                        label: 'kongshanqu',
+                        value: 'longshanqu',
+                        label: 'longshanqu',
+                        isLeaf: true
+                    },
+                    {
+                        value: 'xianqu',
+                        label: 'xianqu',
+                        isLeaf: true
+                    },
+                    {
+                        value: 'dongfengxian',
+                        label: 'dongfengxian',
+                        isLeaf: true
+                    },
+                    {
+                        value: 'dongliaoxian',
+                        label: 'dongliaoxian',
                         isLeaf: true
                     }
                 ]
@@ -1060,6 +1075,34 @@ describe('thy-cascader', () => {
 
             expect(component.selectSpy).toHaveBeenCalled();
             expect(component.multipleVal.length).toBe(originSelectedCount + 1);
+            const labels = debugElement.queryAll(By.css('.choice'));
+            expect(labels.length).toBe(component.multipleVal.length);
+        });
+
+        it('should selection all leafs when click parent node', async () => {
+            component.multipleVal = [
+                ['beijing', 'shixiaqu', 'haidianqu'],
+                ['tianjinshi', 'shixiaqu', 'hepingqu'],
+                ['jilinsheng', 'liaoyuanshi', 'longshanqu']
+            ];
+            fixture.detectChanges();
+            await fixture.whenStable();
+            const originSelectedCount = component.multipleVal?.length;
+            dispatchFakeEvent(debugElement.query(By.css('.form-control')).nativeElement, 'click', true);
+            fixture.detectChanges();
+
+            const firstLevelItem = getOptionByLevel();
+            dispatchFakeEvent(firstLevelItem[2].nativeElement, 'click');
+            fixture.detectChanges();
+
+            const sectionLevelItem = getOptionByLevel(1)[0];
+            dispatchFakeEvent(sectionLevelItem.nativeElement, 'click');
+            sectionLevelItem.query(By.css('label')).nativeElement.click();
+            fixture.detectChanges();
+            await fixture.whenStable();
+
+            expect(component.selectSpy).toHaveBeenCalled();
+            expect(component.multipleVal.length).toBe(originSelectedCount + 3);
             const labels = debugElement.queryAll(By.css('.choice'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
