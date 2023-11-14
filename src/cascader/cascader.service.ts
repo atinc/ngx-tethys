@@ -362,10 +362,11 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    afterWriteValue(): void {
+    afterWriteValue() {
         this.selectedOptions = this.activatedOptions;
         this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();
+        return this.getSubmitValue(this.selectedOptions);
     }
 
     isActivatedOption(option: ThyCascaderOption, index: number): boolean {
