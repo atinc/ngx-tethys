@@ -998,6 +998,8 @@ describe('thy-cascader', () => {
 
         it('should display multi', done => {
             component.curVal = ['zhejiang', 'hangzhou', 'xihu'];
+            fixture.detectChanges();
+
             component.isDisplayName$
                 .pipe(take(1))
                 .toPromise()

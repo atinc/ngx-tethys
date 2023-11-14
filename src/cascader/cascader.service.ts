@@ -409,6 +409,8 @@ export class ThyCascaderService implements OnDestroy {
 
     private buildDisplayLabel(): void {
         const selectedOptions = [...this.selectedOptions];
+        console.log('selectedOptions', this.selectedOptions);
+
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
         if (labels.length === 0) {
             return;
@@ -466,9 +468,9 @@ export class ThyCascaderService implements OnDestroy {
 
     private afterWriteValue() {
         this.selectedOptions = this.activatedOptions;
+        this.value = this.getSubmitValue(this.selectedOptions);
         this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();
-        return this.getSubmitValue(this.selectedOptions);
     }
 
     public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
