@@ -435,7 +435,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    public writeValue(value: any): void {
+    public writeCascaderValue(value: any): void {
         if (!this.selectionModel) {
             this.initSelectionModel(this.cascaderOptions.isMultiple);
         }
