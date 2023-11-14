@@ -816,7 +816,7 @@ describe('ThyDialog', () => {
 
         tick(150);
         dialogContainer.onAnimationStart({
-            phaseName: 'end',
+            phaseName: 'done',
             toState: 'exit'
         });
         dialogRef.close();
