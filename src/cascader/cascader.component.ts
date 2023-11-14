@@ -415,7 +415,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     writeValue(value: any): void {
         this.thyCascaderService.writeValue(value);
-        this.cdr.detectChanges();
+        if (this.isMultiple) {
+            this.cdr.detectChanges();
+        }
     }
 
     setDisabledState(isDisabled: boolean): void {

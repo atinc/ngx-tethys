@@ -409,8 +409,6 @@ export class ThyCascaderService implements OnDestroy {
 
     private buildDisplayLabel(): void {
         const selectedOptions = [...this.selectedOptions];
-        console.log('selectedOptions', this.selectedOptions);
-
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
         if (labels.length === 0) {
             return;
