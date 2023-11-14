@@ -358,6 +358,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     public isShowSearchPanel: boolean = false;
 
+    private valueChange$ = new Subject();
+
     /**
      * 解决搜索&多选的情况下，点击搜索项会导致 panel 闪烁
      * 由于点击后，thySelectedOptions变化，导致 thySelectControl
@@ -400,6 +402,10 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                     this.cdr.markForCheck();
                 }
             });
+
+        this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
+            this.valueChange();
+        });
     }
 
     private initPosition() {
@@ -643,7 +649,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
-            this.valueChange();
+            this.valueChange$.next();
         }
         if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
@@ -654,7 +660,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     public removeSelectedItem(event: { item: SelectOptionBase; $eventOrigin: Event }) {
         event.$eventOrigin.stopPropagation();
         this.thyCascaderService.removeSelectedItem(event?.item);
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     private shouldPerformSelection(option: ThyCascaderOption, level: number): boolean {
@@ -685,7 +691,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.thyCascaderService.activatedOptions = [];
         this.thyCascaderService.deselectAllSelected();
         this.setMenuVisible(false);
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     constructor(
