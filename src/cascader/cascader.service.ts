@@ -35,6 +35,10 @@ export class ThyCascaderService implements OnDestroy {
 
     public searchResultList: ThyCascaderSearchOption[] = [];
 
+    public defaultValue: any[];
+
+    public value: any[];
+
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
     constructor() {}
@@ -75,11 +79,12 @@ export class ThyCascaderService implements OnDestroy {
         });
     }
 
-    public initOptions(index: number, vs?: any) {
+    public initOptions(index: number) {
+        const vs = this.defaultValue;
         const load = () => {
             this.activateOnInit(index, vs[index]);
             if (index < vs.length - 1) {
-                this.initOptions(index + 1, vs[index + 1]);
+                this.initOptions(index + 1);
             }
             if (index === vs.length - 1) {
                 this.afterWriteValue();
@@ -90,7 +95,7 @@ export class ThyCascaderService implements OnDestroy {
             load();
         } else {
             const node = this.activatedOptions[index - 1] || {};
-            this.loadChildren(node, index - 1, load, this.afterWriteValue);
+            this.loadChildren(node, index - 1, load, this.afterWriteValue.bind(this));
         }
     }
 
@@ -131,8 +136,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    // 如果initOptions挪进来，就是私有的
-    public loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
+    private loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
         if (this.cascaderOptions?.loadData) {
             this.isLoading = true;
             this.cascaderOptions?.loadData(option, index).then(
@@ -159,8 +163,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    // 如果initOptions挪进来，就是私有的
-    public activateOnInit(index: number, value: any): void {
+    private activateOnInit(index: number, value: any): void {
         let option = this.findOption(value, index);
         if (!option) {
             option =
@@ -315,8 +318,7 @@ export class ThyCascaderService implements OnDestroy {
         return true;
     }
 
-    // 如果initOptions挪进来，就是私有的
-    public isLoaded(index: number): boolean {
+    private isLoaded(index: number): boolean {
         return this.columns[index] && this.columns[index].length > 0;
     }
 
@@ -433,7 +435,36 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    public afterWriteValue() {
+    public writeValue(value: any): void {
+        if (!this.selectionModel) {
+            this.initSelectionModel(this.cascaderOptions.isMultiple);
+        }
+        if (!this.cascaderOptions.isMultiple) {
+            const vs = (this.defaultValue = this.toArray(value));
+            if (vs.length) {
+                this.initOptions(0);
+            } else {
+                this.value = vs;
+                this.activatedOptions = [];
+                this.afterWriteValue();
+            }
+        } else {
+            const values = this.toArray(value);
+            this.selectionModel.clear();
+            values.forEach(item => {
+                const vs = (this.defaultValue = this.toArray(item));
+                if (vs.length) {
+                    this.initOptions(0);
+                } else {
+                    this.value = vs;
+                    this.activatedOptions = [];
+                    this.afterWriteValue();
+                }
+            });
+        }
+    }
+
+    private afterWriteValue() {
         this.selectedOptions = this.activatedOptions;
         this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();

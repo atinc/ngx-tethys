@@ -110,8 +110,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     set thyOptions(options: ThyCascaderOption[] | null) {
         const columns = options && options.length ? [options] : [];
         this.thyCascaderService.initColumns(columns);
-        if (this.defaultValue && columns.length) {
-            this.initOptions(0);
+        if (this.thyCascaderService.defaultValue && columns.length) {
+            this.thyCascaderService.initOptions(0);
         }
     }
 
@@ -330,8 +330,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     private _menuColumnCls: any;
 
-    private defaultValue: any[];
-
     private readonly destroy$ = new Subject<void>();
 
     private _menuCls: { [name: string]: any };
@@ -343,8 +341,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     private hostRenderer = useHostRenderer();
 
     public positions: ConnectionPositionPair[];
-
-    private value: any[];
 
     get selected(): SelectOptionBase | SelectOptionBase[] {
         this.cdkConnectedOverlay?.overlayRef?.updatePosition();
@@ -417,58 +413,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.positions = cascaderPosition;
     }
 
-    private initOptions(index: number) {
-        const vs = this.defaultValue;
-        const load = () => {
-            this.thyCascaderService.activateOnInit(index, vs[index]);
-            if (index < vs.length - 1) {
-                this.initOptions(index + 1);
-            }
-            if (index === vs.length - 1) {
-                this.afterWriteValue();
-            }
-        };
-
-        if (this.thyCascaderService.isLoaded(index) || !this.thyLoadData) {
-            load();
-        } else {
-            const node = this.thyCascaderService.activatedOptions[index - 1] || {};
-            this.thyCascaderService.loadChildren(node, index - 1, load, this.afterWriteValue.bind(this));
-        }
-    }
-
     writeValue(value: any): void {
-        if (!this.thyCascaderService.selectionModel) {
-            this.thyCascaderService.initSelectionModel(this.isMultiple);
-        }
-        if (!this.isMultiple) {
-            const vs = (this.defaultValue = this.thyCascaderService.toArray(value));
-            if (vs.length) {
-                this.initOptions(0);
-            } else {
-                this.value = vs;
-                this.thyCascaderService.activatedOptions = [];
-                this.afterWriteValue();
-            }
-        } else {
-            const values = this.thyCascaderService.toArray(value);
-            this.thyCascaderService.selectionModel.clear();
-            values.forEach(item => {
-                const vs = (this.defaultValue = this.thyCascaderService.toArray(item));
-                if (vs.length) {
-                    this.initOptions(0);
-                } else {
-                    this.value = vs;
-                    this.thyCascaderService.activatedOptions = [];
-                    this.afterWriteValue();
-                }
-            });
-            this.cdr.detectChanges();
-        }
-    }
-
-    afterWriteValue(): void {
-        this.value = this.thyCascaderService.afterWriteValue();
+        this.thyCascaderService.writeValue(value);
+        this.cdr.detectChanges();
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -714,9 +661,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     private valueChange(): void {
         const value = this.thyCascaderService.getValues();
-        if (!this.thyCascaderService.arrayEquals(this.value, value)) {
-            this.defaultValue = null;
-            this.value = value;
+        if (!this.thyCascaderService.arrayEquals(this.thyCascaderService.value, value)) {
+            this.thyCascaderService.defaultValue = null;
+            this.thyCascaderService.value = value;
             this.onChangeFn(value);
             if (this.thyCascaderService.selectionModel.isEmpty()) {
                 this.thyClear.emit();
