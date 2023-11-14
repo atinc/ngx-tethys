@@ -356,7 +356,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     private searchText$ = new BehaviorSubject('');
 
-    public searchResultList: ThyCascaderSearchOption[] = [];
+    public get searchResultList(): ThyCascaderSearchOption[] {
+        return this.thyCascaderService.searchResultList;
+    }
 
     public isShowSearchPanel: boolean = false;
 
@@ -367,14 +369,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      * 会导致恢复级联状态再变为搜索状态
      */
     private isSelectingSearchState: boolean = false;
-
-    private get flattenOptions(): ThyCascaderSearchOption[] {
-        return this.thyCascaderService.flattenOptions;
-    }
-
-    private get leafNodes(): ThyCascaderSearchOption[] {
-        return this.thyCascaderService.leafNodes;
-    }
 
     public get isLoading() {
         return this.thyCascaderService?.isLoading;
@@ -494,10 +488,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.thyCascaderService.checkSelectedStatus(option, false)) {
-            return true;
-        }
-        return false;
+        return this.thyCascaderService.isHalfSelectedOption(option, index);
     }
 
     public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
@@ -690,7 +681,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             this.setMenuVisible(false);
             this.onTouchedFn();
             this.isShowSearchPanel = false;
-            this.searchResultList = [];
+            this.thyCascaderService.searchResultList = [];
         }
     }
 
@@ -785,24 +776,13 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             });
     }
 
-    private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
-        this.searchResultList = [];
-        listOfOption.forEach(item => {
-            if (!item.disabled && item.isLeaf && item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-                this.searchResultList.push(item);
-            }
-        });
-    }
-
     private searchInLocal(searchText: string): void {
-        this.thyCascaderService.forEachColumns();
-
-        this.setSearchResultList(this.thyIsOnlySelectLeaf ? this.leafNodes : this.flattenOptions, searchText);
+        this.thyCascaderService.searchInLocal(searchText);
     }
 
     private resetSearch() {
         this.isShowSearchPanel = false;
-        this.searchResultList = [];
+        this.thyCascaderService.searchResultList = [];
         this.thyCascaderService.leafNodes = [];
         this.thyCascaderService.flattenOptions = [];
         this.scrollActiveElementIntoView();
@@ -826,7 +806,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             // 保持搜索选项
             setTimeout(() => {
                 this.isShowSearchPanel = true;
-                this.searchResultList = originSearchResultList;
+                this.thyCascaderService.searchResultList = originSearchResultList;
                 this.isSelectingSearchState = false;
             });
         } else {

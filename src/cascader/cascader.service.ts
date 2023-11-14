@@ -8,11 +8,11 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
 
 @Injectable()
 export class ThyCascaderService implements OnDestroy {
-    selectionModel: SelectionModel<SelectOptionBase>;
+    public selectionModel: SelectionModel<SelectOptionBase>;
 
-    columns: ThyCascaderOption[][] = [];
+    public columns: ThyCascaderOption[][] = [];
 
-    cascaderOptions: {
+    public cascaderOptions: {
         labelProperty?: string;
         valueProperty?: string;
         isMultiple?: boolean;
@@ -21,23 +21,25 @@ export class ThyCascaderService implements OnDestroy {
         loadData?: (node: ThyCascaderOption, index?: number) => PromiseLike<any>;
     };
 
-    selectedOptions: ThyCascaderOption[] = [];
+    public selectedOptions: ThyCascaderOption[] = [];
 
-    activatedOptions: ThyCascaderOption[] = [];
+    public activatedOptions: ThyCascaderOption[] = [];
 
-    labelRenderText: string;
+    public labelRenderText: string;
 
-    flattenOptions: ThyCascaderSearchOption[] = [];
+    public flattenOptions: ThyCascaderSearchOption[] = [];
 
-    leafNodes: ThyCascaderSearchOption[] = [];
+    public leafNodes: ThyCascaderSearchOption[] = [];
 
-    isLoading = false;
+    public isLoading = false;
+
+    public searchResultList: ThyCascaderSearchOption[] = [];
 
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
     constructor() {}
 
-    setCascaderOptions(options: {
+    public setCascaderOptions(options: {
         labelProperty?: string;
         valueProperty?: string;
         isMultiple?: boolean;
@@ -49,7 +51,7 @@ export class ThyCascaderService implements OnDestroy {
         this.initSelectionModel(this.cascaderOptions.isMultiple);
     }
 
-    initSelectionModel(isMultiple?: boolean) {
+    public initSelectionModel(isMultiple?: boolean) {
         if (this.selectionModel) {
             this.selectionModel.clear();
         } else {
@@ -57,11 +59,11 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    initColumns(columns: ThyCascaderOption[][]) {
+    public initColumns(columns: ThyCascaderOption[][]) {
         this.columns = columns;
     }
 
-    initActivatedOptions(menuVisible: boolean) {
+    public initActivatedOptions(menuVisible: boolean) {
         if (isEmpty(this.selectedOptions) || !menuVisible) {
             return;
         }
@@ -73,7 +75,26 @@ export class ThyCascaderService implements OnDestroy {
         });
     }
 
-    setActiveOption(
+    public initOptions(index: number, vs?: any) {
+        const load = () => {
+            this.activateOnInit(index, vs[index]);
+            if (index < vs.length - 1) {
+                this.initOptions(index + 1, vs[index + 1]);
+            }
+            if (index === vs.length - 1) {
+                this.afterWriteValue();
+            }
+        };
+
+        if (this.isLoaded(index) || !this.cascaderOptions.loadData) {
+            load();
+        } else {
+            const node = this.activatedOptions[index - 1] || {};
+            this.loadChildren(node, index - 1, load, this.afterWriteValue);
+        }
+    }
+
+    public setActiveOption(
         option: ThyCascaderOption,
         index: number,
         select: boolean,
@@ -110,7 +131,8 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
+    // 如果initOptions挪进来，就是私有的
+    public loadChildren(option: ThyCascaderOption, index: number, success?: () => void, failure?: () => void): void {
         if (this.cascaderOptions?.loadData) {
             this.isLoading = true;
             this.cascaderOptions?.loadData(option, index).then(
@@ -137,7 +159,8 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    activateOnInit(index: number, value: any): void {
+    // 如果initOptions挪进来，就是私有的
+    public activateOnInit(index: number, value: any): void {
         let option = this.findOption(value, index);
         if (!option) {
             option =
@@ -152,7 +175,7 @@ export class ThyCascaderService implements OnDestroy {
         this.setActiveOption(option, index, false, false);
     }
 
-    isSelectedOption(option: ThyCascaderOption, index: number): boolean {
+    public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
         if (this.cascaderOptions?.isOnlySelectLeaf) {
             if (option.isLeaf) {
                 return option.selected;
@@ -173,7 +196,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    toggleAllChildren(
+    public toggleAllChildren(
         option: ThyCascaderOption,
         index: number,
         selected: boolean,
@@ -199,7 +222,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    getAllLeafs(
+    private getAllLeafs(
         option: ThyCascaderOption,
         index: number,
         selected: boolean
@@ -227,13 +250,60 @@ export class ThyCascaderService implements OnDestroy {
         return allLeafs;
     }
 
+    public searchInLocal(searchText: string): void {
+        this.forEachColumns();
+
+        this.setSearchResultList(this.cascaderOptions.isOnlySelectLeaf ? this.leafNodes : this.flattenOptions, searchText);
+    }
+
+    private forEachColumns(
+        currentLabel?: string[],
+        currentValue: Id[] = [],
+        currentRowValue: ThyCascaderOption[] = [],
+        list = this.columns[0]
+    ) {
+        list.forEach(item => {
+            const curOptionLabel = this.getOptionLabel(item);
+            const curOptionValue = this.getOptionValue(item);
+            const label: string[] = currentLabel ? [...currentLabel, curOptionLabel] : [curOptionLabel];
+            const valueList: Id[] = [...currentValue, curOptionValue];
+            const rowValueList: ThyCascaderOption[] = [...currentRowValue, item];
+            const isSelected = this.isSelectedOption(item, valueList.length - 1);
+
+            const node = {
+                labelList: label,
+                valueList,
+                selected: isSelected,
+                thyRowValue: rowValueList,
+                isLeaf: item.isLeaf,
+                disabled: item.disabled
+            };
+
+            this.flattenOptions.push(node);
+            if (item.children && item.children.length) {
+                this.forEachColumns(label, valueList, rowValueList, item.children);
+            } else {
+                this.leafNodes.push(node);
+            }
+        });
+    }
+
+    private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
+        this.searchResultList = [];
+        listOfOption.forEach(item => {
+            if (!item.disabled && item.isLeaf && item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                this.searchResultList.push(item);
+            }
+        });
+    }
+
     /**
      * 检查所有所有子项的选择状态, 有一个不符合预期，就直接返回 false
      * @param option
      * @param trueOrFalse
      * @private
      */
-    checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
+    private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
         for (const childOption of option.children) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
                 return false;
@@ -245,11 +315,12 @@ export class ThyCascaderService implements OnDestroy {
         return true;
     }
 
-    isLoaded(index: number): boolean {
+    // 如果initOptions挪进来，就是私有的
+    public isLoaded(index: number): boolean {
         return this.columns[index] && this.columns[index].length > 0;
     }
 
-    findOption(option: any, index: number): ThyCascaderOption {
+    private findOption(option: any, index: number): ThyCascaderOption {
         const options: ThyCascaderOption[] = this.columns[index];
         if (options) {
             const value = typeof option === 'object' ? this.getOptionValue(option) : option;
@@ -258,7 +329,7 @@ export class ThyCascaderService implements OnDestroy {
         return null;
     }
 
-    setColumnData(options: ThyCascaderOption[], index: number): void {
+    private setColumnData(options: ThyCascaderOption[], index: number): void {
         if (!this.arrayEquals(this.columns[index], options)) {
             this.columns[index] = options;
             if (index < this.columns.length - 1) {
@@ -267,7 +338,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    getSubmitValue(originOptions: ThyCascaderOption[]): any[] {
+    private getSubmitValue(originOptions: ThyCascaderOption[]): any[] {
         const values: any[] = [];
         (originOptions || []).forEach(option => {
             values.push(this.getOptionValue(option));
@@ -275,7 +346,7 @@ export class ThyCascaderService implements OnDestroy {
         return values;
     }
 
-    removeSelectedItem(item: SelectOptionBase) {
+    public removeSelectedItem(item: SelectOptionBase) {
         const selectedItems = this.selectionModel.selected;
         const currentItem = selectedItems.find(i => {
             return helpers.shallowEqual(i.thyValue, item.thyValue);
@@ -289,13 +360,22 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    deselectAllSelected() {
+    public deselectAllSelected() {
         const selectedOptions = this.selectionModel.selected;
         selectedOptions.forEach(item => this.deselectOption(item));
         this.selectionModel.clear();
     }
 
-    selectOption(option: ThyCascaderOption, index: number): void {
+    private deselectOption(option: SelectOptionBase) {
+        const value: ThyCascaderOption[] = option.thyRawValue.value;
+        value.forEach(item => {
+            if (item.isLeaf && item.selected) {
+                set(item, 'selected', false);
+            }
+        });
+    }
+
+    public selectOption(option: ThyCascaderOption, index: number): void {
         this.selectedOptions = this.activatedOptions;
         this.updatePrevSelectedOptions(option, false, index);
         if (option.selected) {
@@ -314,16 +394,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    deselectOption(option: SelectOptionBase) {
-        const value: ThyCascaderOption[] = option.thyRawValue.value;
-        value.forEach(item => {
-            if (item.isLeaf && item.selected) {
-                set(item, 'selected', false);
-            }
-        });
-    }
-
-    addSelectedState(selectOptions: ThyCascaderOption[]) {
+    private addSelectedState(selectOptions: ThyCascaderOption[]) {
         if (this.cascaderOptions.isMultiple && this.cascaderOptions.isOnlySelectLeaf) {
             selectOptions.forEach(opt => {
                 if (opt.isLeaf) {
@@ -362,14 +433,14 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    afterWriteValue() {
+    public afterWriteValue() {
         this.selectedOptions = this.activatedOptions;
         this.addSelectedState(this.selectedOptions);
         this.buildDisplayLabel();
         return this.getSubmitValue(this.selectedOptions);
     }
 
-    isActivatedOption(option: ThyCascaderOption, index: number): boolean {
+    public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
         if (!this.cascaderOptions?.isMultiple || this.cascaderOptions.isOnlySelectLeaf) {
             const activeOpt = this.activatedOptions[index];
             return activeOpt === option;
@@ -387,41 +458,21 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    getValues() {
+    public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
+        if (!option.selected && this.cascaderOptions.isOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
+            return true;
+        }
+        return false;
+    }
+
+    public getValues() {
         let selectedItems: any[];
         const selected = this.selectionModel.selected;
         selectedItems = selected.map(item => this.getSubmitValue(item.thyRawValue.value));
         return this.cascaderOptions?.isMultiple ? selectedItems : selectedItems[0] ?? selectedItems;
     }
 
-    forEachColumns(currentLabel?: string[], currentValue: Id[] = [], currentRowValue: ThyCascaderOption[] = [], list = this.columns[0]) {
-        list.forEach(item => {
-            const curOptionLabel = this.getOptionLabel(item);
-            const curOptionValue = this.getOptionValue(item);
-            const label: string[] = currentLabel ? [...currentLabel, curOptionLabel] : [curOptionLabel];
-            const valueList: Id[] = [...currentValue, curOptionValue];
-            const rowValueList: ThyCascaderOption[] = [...currentRowValue, item];
-            const isSelected = this.isSelectedOption(item, valueList.length - 1);
-
-            const node = {
-                labelList: label,
-                valueList,
-                selected: isSelected,
-                thyRowValue: rowValueList,
-                isLeaf: item.isLeaf,
-                disabled: item.disabled
-            };
-
-            this.flattenOptions.push(node);
-            if (item.children && item.children.length) {
-                this.forEachColumns(label, valueList, rowValueList, item.children);
-            } else {
-                this.leafNodes.push(node);
-            }
-        });
-    }
-
-    updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
+    private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
         if (isActivateInit) {
             if (this.cascaderOptions.isOnlySelectLeaf && option.isLeaf) {
                 set(option, 'selected', true);
