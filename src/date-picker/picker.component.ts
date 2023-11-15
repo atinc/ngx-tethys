@@ -260,13 +260,14 @@ export class ThyPickerComponent implements AfterViewInit {
         if (readableValue === this.pickerInput.nativeElement['value']) {
             return;
         }
-        if (this.readonlyState) {
-            this.readableValue$.next(readableValue);
-        } else {
+
+        if (this.entering) {
             this.readableValue$.next(null);
             setTimeout(() => {
                 this.readableValue$.next(readableValue);
             }, 0);
+        } else {
+            this.readableValue$.next(readableValue);
         }
     }
 }
