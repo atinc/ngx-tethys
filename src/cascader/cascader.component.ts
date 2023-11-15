@@ -27,10 +27,12 @@ import {
     forwardRef,
     HostListener,
     Input,
+    OnChanges,
     OnDestroy,
     OnInit,
     Output,
     QueryList,
+    SimpleChanges,
     TemplateRef,
     ViewChild,
     ViewChildren
@@ -79,7 +81,10 @@ import { ThyCascaderService } from './cascader.service';
         ThyIconComponent
     ]
 })
-export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
+export class ThyCascaderComponent
+    extends TabIndexDisabledControlValueAccessorMixin
+    implements ControlValueAccessor, OnInit, OnChanges, OnDestroy
+{
     /**
      * 选项的实际值的属性名
      */
@@ -237,7 +242,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     @InputBoolean()
     set thyMultiple(value: boolean) {
         this.isMultiple = value;
-        this.thyCascaderService.initSelectionModel(value);
+        this.thyCascaderService.setCascaderOptions({ isMultiple: value });
     }
 
     get thyMultiple(): boolean {
@@ -411,6 +416,12 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 this.thyChange.emit(options.value);
             }
         });
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes['thyIsOnlySelectLeaf']) {
+            this.thyCascaderService.setCascaderOptions({ isOnlySelectLeaf: changes['thyIsOnlySelectLeaf'].currentValue });
+        }
     }
 
     private initPosition() {
