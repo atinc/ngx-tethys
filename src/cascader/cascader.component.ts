@@ -358,8 +358,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     public isShowSearchPanel: boolean = false;
 
-    private valueChange$ = new Subject();
-
     /**
      * 解决搜索&多选的情况下，点击搜索项会导致 panel 闪烁
      * 由于点击后，thySelectedOptions变化，导致 thySelectControl
@@ -403,8 +401,15 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 }
             });
 
-        this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
-            this.valueChange();
+        this.thyCascaderService.cascaderValueChange().subscribe(options => {
+            if (!options.isValueEqual) {
+                this.onChangeFn(options.value);
+                if (options.isSelectionModelEmpty) {
+                    this.thyClear.emit();
+                }
+                this.thySelectionChange.emit(this.thyCascaderService.selectedOptions);
+                this.thyChange.emit(options.value);
+            }
         });
     }
 
@@ -649,7 +654,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
-            this.valueChange$.next();
+            this.thyCascaderService.valueChange$.next();
         }
         if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
@@ -660,25 +665,11 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     public removeSelectedItem(event: { item: SelectOptionBase; $eventOrigin: Event }) {
         event.$eventOrigin.stopPropagation();
         this.thyCascaderService.removeSelectedItem(event?.item);
-        this.valueChange$.next();
+        this.thyCascaderService.valueChange$.next();
     }
 
     private shouldPerformSelection(option: ThyCascaderOption, level: number): boolean {
         return typeof this.thyChangeOn === 'function' ? this.thyChangeOn(option, level) === true : false;
-    }
-
-    private valueChange(): void {
-        const value = this.thyCascaderService.getValues();
-        if (!this.thyCascaderService.arrayEquals(this.thyCascaderService.value, value)) {
-            this.thyCascaderService.defaultValue = null;
-            this.thyCascaderService.value = value;
-            this.onChangeFn(value);
-            if (this.thyCascaderService.selectionModel.isEmpty()) {
-                this.thyClear.emit();
-            }
-            this.thySelectionChange.emit(this.thyCascaderService.selectedOptions);
-            this.thyChange.emit(value);
-        }
     }
 
     public clearSelection($event: Event): void {
@@ -691,7 +682,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.thyCascaderService.activatedOptions = [];
         this.thyCascaderService.deselectAllSelected();
         this.setMenuVisible(false);
-        this.valueChange$.next();
+        this.thyCascaderService.valueChange$.next();
     }
 
     constructor(

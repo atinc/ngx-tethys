@@ -4,6 +4,8 @@ import { SelectOptionBase } from 'ngx-tethys/shared';
 import { ThyCascaderOption, ThyCascaderSearchOption } from './types';
 import { helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
 import { Id } from '@tethys/cdk/immutable';
+import { Subject } from 'rxjs';
+import { debounceTime, finalize, map } from 'rxjs/operators';
 const defaultDisplayRender = (label: any) => label.join(' / ');
 
 @Injectable()
@@ -41,7 +43,26 @@ export class ThyCascaderService implements OnDestroy {
 
     private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
+    public valueChange$ = new Subject();
+
     constructor() {}
+
+    public cascaderValueChange() {
+        return this.valueChange$.pipe(
+            map(() => {
+                return {
+                    value: this.getValues(),
+                    isValueEqual: this.arrayEquals(this.value, this.getValues()),
+                    isSelectionModelEmpty: this.selectionModel.isEmpty()
+                };
+            }),
+            finalize(() => {
+                this.defaultValue = null;
+                this.value = this.getValues();
+            }),
+            debounceTime(100)
+        );
+    }
 
     public setCascaderOptions(options: {
         labelProperty?: string;
