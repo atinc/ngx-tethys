@@ -73,6 +73,7 @@ describe('ThyPickerComponent', () => {
         fixture.detectChanges();
         dispatchKeyboardEvent(getPickerInputElement(), 'keydown', ENTER);
         flush();
+        expect(valueChange).toHaveBeenCalled();
 
         const setValue = '2023-11-02 12:00';
         getPickerInputElement().value = setValue;
