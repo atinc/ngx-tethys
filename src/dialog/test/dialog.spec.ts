@@ -800,6 +800,29 @@ describe('ThyDialog', () => {
         expect(dialogContainer.animationState).toBe('exit');
     });
 
+    it('should has "pointer-event: none" at dialog-container when animation phaseName equal start and toState equal exit', fakeAsync(() => {
+        const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+        const dialogContainer = viewContainerFixture.debugElement.query(By.directive(ThyDialogContainerComponent)).componentInstance;
+
+        expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('');
+
+        dialogContainer.onAnimationStart({
+            phaseName: 'start',
+            toState: 'exit'
+        });
+        viewContainerFixture.detectChanges();
+
+        expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('none');
+
+        tick(150);
+        dialogContainer.onAnimationStart({
+            phaseName: 'done',
+            toState: 'exit'
+        });
+        dialogRef.close();
+        flush();
+    }));
+
     it('should not keep a reference to the component after the dialog is closed', fakeAsync(() => {
         const dialogRef = dialog.open(DialogSimpleContentComponent);
 
