@@ -403,6 +403,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     private leafNodes: ThyCascaderSearchOption[] = [];
 
+    private valueChange$ = new Subject();
+
     ngOnInit(): void {
         this.setClassMap();
         this.setMenuClass();
@@ -422,6 +424,10 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                     this.cdr.markForCheck();
                 }
             });
+
+        this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
+            this.valueChange();
+        });
     }
 
     private initSelectionModel() {
@@ -595,6 +601,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
+        if (this.checkSelectedStatus(option, true)) {
+            option.selected = true;
+        }
         if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
             return true;
         }
@@ -866,6 +875,9 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      * @private
      */
     private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
+        if (option.isLeaf) {
+            return;
+        }
         for (const childOption of option.children) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
                 return false;
@@ -973,7 +985,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 });
                 this.selectionModel.deselect(currentItem);
             }
-            this.valueChange();
+            this.valueChange$.next();
         }
         if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
@@ -994,7 +1006,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
             this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
         }
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     private deselectOption(option: SelectOptionBase) {
@@ -1042,7 +1054,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.activatedOptions = [];
         this.deselectAllSelected();
         this.setMenuVisible(false);
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     private deselectAllSelected() {
