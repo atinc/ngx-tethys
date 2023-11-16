@@ -10,6 +10,7 @@ import {
     ElementRef,
     EventEmitter,
     Input,
+    NgZone,
     Output,
     ViewChild
 } from '@angular/core';
@@ -23,6 +24,8 @@ import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
 import { BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * @private
@@ -100,6 +103,8 @@ export class ThyPickerComponent implements AfterViewInit {
         }
     }
 
+    private takeUntilDestroyed =  takeUntilDestroyed();
+
     private innerflexibleDateGranularity: ThyDateGranularity;
 
     private innerFormat: string;
@@ -107,8 +112,6 @@ export class ThyPickerComponent implements AfterViewInit {
     private innerValue: TinyDate | TinyDate[] | null;
 
     entering = false;
-
-    entered = false;
 
     readableValue$ = new BehaviorSubject<string | null>(null);
 
@@ -129,7 +132,11 @@ export class ThyPickerComponent implements AfterViewInit {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
 
-    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
+    constructor(
+        private changeDetector: ChangeDetectorRef, 
+        private dateHelper: DateHelperService,
+        private ngZone: NgZone
+    ) {}
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -143,7 +150,6 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     onBlur(event: FocusEvent) {
-        this.blur.emit(event);
         if (this.entering) {
             this.valueChange.emit(this.pickerInput.nativeElement.value);
         }
@@ -152,7 +158,6 @@ export class ThyPickerComponent implements AfterViewInit {
 
     onInput(event: InputEvent) {
         this.entering = true;
-        this.entered = true;
         const inputValue = (event.target as HTMLElement)['value'];
         this.inputChange.emit(inputValue);
     }
@@ -264,14 +269,11 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
 
-        if (this.entered) {
-            this.readableValue$.next(null);
-            setTimeout(() => {
-                this.readableValue$.next(readableValue);
-                this.entered = false;
-            }, 0);
-        } else {
-            this.readableValue$.next(readableValue);
-        }
+        this.ngZone.onStable.pipe(
+            take(1),
+            this.takeUntilDestroyed
+        ).subscribe(()=>{
+            this.pickerInput.nativeElement.value = readableValue;
+        })
     }
 }
