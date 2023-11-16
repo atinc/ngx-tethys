@@ -886,7 +886,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      */
     private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
         if (option.isLeaf) {
-            return;
+            return option.selected === isSelected;
         }
         for (const childOption of option.children) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
