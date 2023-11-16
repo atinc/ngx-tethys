@@ -209,7 +209,7 @@ export function isValidDateString(dateStr: string): boolean {
 }
 
 export function parseFormatDate(dateStr: string): TinyDate {
-    let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-');
+    let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-').replace('- ', ' ');
     const hasYear = /\d{4}/.test(replacedStr);
     if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
         replacedStr = `${new TinyDate(new Date()).getYear()}-${replacedStr}`;
