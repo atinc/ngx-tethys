@@ -108,6 +108,8 @@ export class ThyPickerComponent implements AfterViewInit {
 
     entering = false;
 
+    entered = false;
+
     readableValue$ = new BehaviorSubject<string | null>(null);
 
     prefixCls = 'thy-calendar';
@@ -150,6 +152,7 @@ export class ThyPickerComponent implements AfterViewInit {
 
     onInput(event: InputEvent) {
         this.entering = true;
+        this.entered = true;
         const inputValue = (event.target as HTMLElement)['value'];
         this.inputChange.emit(inputValue);
     }
@@ -261,10 +264,11 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
 
-        if (this.entering) {
+        if (this.entered) {
             this.readableValue$.next(null);
             setTimeout(() => {
                 this.readableValue$.next(readableValue);
+                this.entered = false;
             }, 0);
         } else {
             this.readableValue$.next(readableValue);
