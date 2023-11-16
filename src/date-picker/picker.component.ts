@@ -103,7 +103,7 @@ export class ThyPickerComponent implements AfterViewInit {
         }
     }
 
-    private takeUntilDestroyed =  takeUntilDestroyed();
+    private takeUntilDestroyed = takeUntilDestroyed();
 
     private innerflexibleDateGranularity: ThyDateGranularity;
 
@@ -132,11 +132,7 @@ export class ThyPickerComponent implements AfterViewInit {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
 
-    constructor(
-        private changeDetector: ChangeDetectorRef, 
-        private dateHelper: DateHelperService,
-        private ngZone: NgZone
-    ) {}
+    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService, private ngZone: NgZone) {}
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -269,11 +265,8 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
 
-        this.ngZone.onStable.pipe(
-            take(1),
-            this.takeUntilDestroyed
-        ).subscribe(()=>{
+        this.ngZone.onStable.pipe(take(1), this.takeUntilDestroyed).subscribe(() => {
             this.pickerInput.nativeElement.value = readableValue;
-        })
+        });
     }
 }
