@@ -22,7 +22,6 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
-import { BehaviorSubject } from 'rxjs';
 
 /**
  * @private
@@ -139,6 +138,7 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     onBlur(event: FocusEvent) {
+        this.blur.emit(event);
         if (this.entering) {
             this.valueChange.emit(this.pickerInput.nativeElement.value);
         }
