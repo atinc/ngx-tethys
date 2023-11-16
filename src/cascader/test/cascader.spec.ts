@@ -1112,6 +1112,7 @@ describe('thy-cascader', () => {
             const originSelectedCount = component.multipleVal?.length;
             dispatchFakeEvent(debugElement.query(By.css('.thy-icon-close')).nativeElement, 'click', true);
             fixture.detectChanges();
+            await fixture.whenStable();
             expect(component.multipleVal.length).toBe(originSelectedCount - 1);
             const labels = debugElement.queryAll(By.css('.choice'));
             expect(labels.length).toBe(component.multipleVal.length);
