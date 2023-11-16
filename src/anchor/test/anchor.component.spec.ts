@@ -1,13 +1,13 @@
-import { Component, DebugElement, ViewChild, OnInit, TemplateRef } from '@angular/core';
+import { Component, DebugElement, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
-import { ThyAnchorComponent } from '../anchor.component';
-import { ThyAnchorModule } from '../anchor.module';
-import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ThyScrollService } from '../../core/scroll';
 import { By } from '@angular/platform-browser';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { dispatchFakeEvent } from 'ngx-tethys/testing';
+import { ThyScrollService } from '../../core/scroll';
 import { getOffset } from '../../util/dom';
 import { ThyAnchorLinkComponent } from '../anchor-link.component';
+import { ThyAnchorComponent } from '../anchor.component';
+import { ThyAnchorModule } from '../anchor.module';
 
 describe('thy-anchor', () => {
     describe('default', () => {
@@ -73,7 +73,7 @@ describe('thy-anchor', () => {
         });
     });
     describe('thyContainer', () => {
-        let fixture: ComponentFixture<TestAnchorComponent>;
+        let fixture: ComponentFixture<TestContainerAnchorComponent>;
         let debugElement: DebugElement;
         let component: ThyAnchorComponent;
         let scrollService: ThyScrollService;
@@ -130,18 +130,93 @@ describe('thy-anchor', () => {
             expect(anchorLinkComponent.title).toEqual(comp.title);
         });
     });
+
+    describe('horizontal anchor', () => {
+        let fixture: ComponentFixture<TestAnchorComponent>;
+        let debugElement: DebugElement;
+        let component: ThyAnchorComponent;
+        let scrollService: ThyScrollService;
+        const id = 'components-anchor-demo-basic';
+
+        beforeEach(() => {
+            TestBed.configureTestingModule({
+                imports: [ThyAnchorModule, NoopAnimationsModule],
+                declarations: [TestAnchorComponent]
+            }).compileComponents();
+
+            fixture = TestBed.createComponent(TestAnchorComponent);
+            component = fixture.componentInstance.thyAnchorComponent;
+            debugElement = fixture.debugElement;
+            scrollService = TestBed.get(ThyScrollService);
+        });
+
+        afterEach(() => {
+            window.scrollTo(0, 0);
+        });
+
+        it('should warn when nested levels are present', () => {
+            const warnSpy = spyOn(console, 'warn');
+            fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.detectChanges();
+
+            expect(warnSpy).toHaveBeenCalled();
+            expect(warnSpy).toHaveBeenCalledWith("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
+        });
+
+        it('should add the correct class', () => {
+            fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.componentInstance.showChildren = false;
+            fixture.detectChanges();
+
+            expect(
+                fixture.elementRef.nativeElement?.querySelector('.thy-anchor-wrapper')?.classList.contains('thy-anchor-wrapper-horizontal')
+            ).toBeTruthy();
+        });
+
+        it('should scroll to associated anchor when click thy-anchor-link', fakeAsync(() => {
+            fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.componentInstance.showChildren = false;
+            fixture.detectChanges();
+
+            const staticLink: HTMLElement = debugElement.query(By.css(`[href="#${id}"]`)).nativeElement;
+            const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
+            const top = Math.floor(getOffset(targetAnchor, window).top - component.thyOffsetTop);
+            dispatchFakeEvent(staticLink, 'click');
+            fixture.detectChanges();
+            tick(2000);
+            const scrollTop = scrollService.getScroll();
+            expect(Math.floor(scrollTop)).toEqual(top);
+        }));
+
+        it('should active associated thy-anchor-link when scrolling to anchor', (done: () => void) => {
+            fixture.componentInstance.thyDirection = 'horizontal';
+            fixture.componentInstance.showChildren = false;
+            fixture.detectChanges();
+
+            const targetAnchor: HTMLElement = debugElement.query(By.css(`[id="${id}"]`)).nativeElement;
+            targetAnchor.scrollIntoView();
+            fixture.detectChanges();
+            setTimeout(() => {
+                const staticLink: HTMLElement = debugElement.query(By.css(`[thyhref="#${id}"]`)).nativeElement;
+                expect(staticLink.classList).toContain('thy-anchor-link-active');
+                done();
+            });
+        });
+    });
 });
 
 @Component({
     template: `
         <div class="demo-card">
-            <thy-anchor #anchor [thyOffsetTop]="thyOffsetTop">
+            <thy-anchor #anchor [thyDirection]="thyDirection" [thyOffsetTop]="thyOffsetTop">
                 <thy-anchor-link thyHref="#will-not-found-id" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-basic" thyTitle="Basic demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#components-anchor-demo-static" thyTitle="Static demo"></thy-anchor-link>
                 <thy-anchor-link thyHref="#API" thyTitle="API">
-                    <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
-                    <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
+                    <ng-container *ngIf="showChildren">
+                        <thy-anchor-link thyHref="#anchor-props" thyTitle="thy-anchor"></thy-anchor-link>
+                        <thy-anchor-link thyHref="#link-props" thyTitle="thy-anchor-link"></thy-anchor-link>
+                    </ng-container>
                 </thy-anchor-link>
             </thy-anchor>
             <div>
@@ -166,6 +241,10 @@ class TestAnchorComponent implements OnInit {
     thyAnchorComponent: ThyAnchorComponent;
 
     thyOffsetTop = 60;
+
+    thyDirection = 'vertical';
+
+    showChildren = true;
 
     ngOnInit(): void {
         for (let index = 0; index < 20; index++) {

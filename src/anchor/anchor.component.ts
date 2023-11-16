@@ -17,14 +17,14 @@ import {
     ViewChild,
     ViewEncapsulation
 } from '@angular/core';
-import { fromEvent, Subject } from 'rxjs';
+import { Subject, fromEvent } from 'rxjs';
 import { takeUntil, throttleTime } from 'rxjs/operators';
 
-import { ThyAnchorLinkComponent } from './anchor-link.component';
-import { getOffset } from 'ngx-tethys/util';
-import { InputBoolean, InputNumber, ThyScrollService } from 'ngx-tethys/core';
-import { DOCUMENT, NgIf, NgTemplateOutlet, NgStyle } from '@angular/common';
+import { DOCUMENT, NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import { ThyAffixComponent } from 'ngx-tethys/affix';
+import { InputBoolean, InputNumber, ThyScrollService } from 'ngx-tethys/core';
+import { getOffset } from 'ngx-tethys/util';
+import { ThyAnchorLinkComponent } from './anchor-link.component';
 
 interface Section {
     linkComponent: ThyAnchorLinkComponent;
@@ -46,7 +46,10 @@ const sharpMatcherRegx = /#([^#]+)$/;
             <ng-template [ngTemplateOutlet]="content"></ng-template>
         </thy-affix>
         <ng-template #content>
-            <div class="thy-anchor-wrapper" [ngStyle]="wrapperStyle">
+            <div
+                class="thy-anchor-wrapper"
+                [ngClass]="{ 'thy-anchor-wrapper-horizontal': thyDirection === 'horizontal' }"
+                [ngStyle]="wrapperStyle">
                 <div class="thy-anchor">
                     <div class="thy-anchor-ink">
                         <div class="thy-anchor-ink-full" #ink></div>
@@ -59,7 +62,7 @@ const sharpMatcherRegx = /#([^#]+)$/;
     encapsulation: ViewEncapsulation.None,
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [NgIf, ThyAffixComponent, NgTemplateOutlet, NgStyle]
+    imports: [NgIf, ThyAffixComponent, NgTemplateOutlet, NgStyle, NgClass]
 })
 export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     @ViewChild('ink') private ink!: ElementRef;
@@ -90,6 +93,12 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     @Input() thyContainer?: string | HTMLElement;
 
     /**
+     * 设置导航方向
+     * @type string
+     */
+    @Input() thyDirection: 'vertical' | 'horizontal' = 'vertical';
+
+    /**
      * 点击项触发
      */
     @Output() readonly thyClick = new EventEmitter<ThyAnchorLinkComponent>();
@@ -102,6 +111,8 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     visible = false;
 
     wrapperStyle = { 'max-height': '100vh' };
+
+    wrapperClass = { 'max-height': '100vh' };
 
     container?: HTMLElement | Window;
 
@@ -119,7 +130,8 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         private platform: Platform,
         private zone: NgZone,
         private renderer: Renderer2,
-        private scrollService: ThyScrollService
+        private scrollService: ThyScrollService,
+        private elementRef: ElementRef
     ) {}
 
     registerLink(link: ThyAnchorLinkComponent): void {
@@ -135,6 +147,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     }
 
     ngAfterViewInit(): void {
+        this.warningPrompt();
         this.registerScrollEvent();
     }
 
@@ -142,6 +155,19 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         clearTimeout(this.handleScrollTimeoutID);
         this.destroy$.next();
         this.destroy$.complete();
+    }
+
+    private warningPrompt() {
+        if (this.thyDirection === 'horizontal') {
+            const hasChildren = this.links.some(link =>
+                Array.from(link?.elementRef?.nativeElement?.childNodes)?.some((item: HTMLElement) =>
+                    item?.className.includes('thy-anchor-link')
+                )
+            );
+            if (hasChildren) {
+                console.warn("Anchor link nesting is not supported when 'Anchor' direction is horizontal.");
+            }
+        }
     }
 
     private registerScrollEvent(): void {
@@ -205,9 +231,12 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
         this.clearActive();
         linkComponent.setActive();
         const linkNode = linkComponent.getLinkTitleElement();
+        const horizontalAnchor = this.thyDirection === 'horizontal';
 
-        this.ink.nativeElement.style.top = `${linkNode.offsetTop}px`;
-        this.ink.nativeElement.style.height = `${linkNode.clientHeight}px`;
+        this.ink.nativeElement.style.top = horizontalAnchor ? '' : `${linkNode.offsetTop}px`;
+        this.ink.nativeElement.style.height = horizontalAnchor ? '' : `${linkNode.clientHeight}px`;
+        this.ink.nativeElement.style.left = horizontalAnchor ? `${linkNode.offsetLeft}px` : '';
+        this.ink.nativeElement.style.width = horizontalAnchor ? `${linkNode.clientWidth}px` : '';
         this.visible = true;
         this.setVisible();
         this.thyScroll.emit(linkComponent);
