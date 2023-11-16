@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.12](https://github.com/atinc/ngx-tethys/compare/16.1.11...16.1.12) (2023-11-16)
+
+
+### Bug Fixes
+
+* **date-picker:** should update display value when thyFormat change #INFR-10428 ([#2897](https://github.com/atinc/ngx-tethys/issues/2897)) ([0581693](https://github.com/atinc/ngx-tethys/commit/05816939dba507c7487c6ee6864d4d89f67f718b)), closes [#INFR-10428](https://github.com/atinc/ngx-tethys/issues/INFR-10428)
+
+
+
 ## [16.1.11](https://github.com/atinc/ngx-tethys/compare/16.1.10...16.1.11) (2023-11-15)
 
 
