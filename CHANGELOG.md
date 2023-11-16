@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.13](https://github.com/atinc/ngx-tethys/compare/16.1.12...16.1.13) (2023-11-16)
+
+
+### Bug Fixes
+
+* **cascader:** fix bug of selectall #INFR-10448 ([#2898](https://github.com/atinc/ngx-tethys/issues/2898)) ([974ca51](https://github.com/atinc/ngx-tethys/commit/974ca51cd160958d0874d6ca00bf9cba08529e84)), closes [#INFR-10448](https://github.com/atinc/ngx-tethys/issues/INFR-10448)
+
+
+
 ## [16.1.12](https://github.com/atinc/ngx-tethys/compare/16.1.11...16.1.12) (2023-11-16)
 
 
