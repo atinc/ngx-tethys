@@ -17,7 +17,6 @@
       [readonly]="readonlyState"
       (blur)="onBlur($event)"
       (input)="onInput($event)"
-      [value]="readableValue$ | async"
       placeholder="{{ getPlaceholder() }}"
       thyEnter
       (thyEnter)="onEnter()"

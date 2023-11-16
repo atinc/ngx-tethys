@@ -10,7 +10,6 @@ import {
     ElementRef,
     EventEmitter,
     Input,
-    NgZone,
     Output,
     ViewChild
 } from '@angular/core';
@@ -24,8 +23,6 @@ import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
 import { BehaviorSubject } from 'rxjs';
-import { take } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 /**
  * @private
@@ -103,8 +100,6 @@ export class ThyPickerComponent implements AfterViewInit {
         }
     }
 
-    private takeUntilDestroyed = takeUntilDestroyed();
-
     private innerflexibleDateGranularity: ThyDateGranularity;
 
     private innerFormat: string;
@@ -112,8 +107,6 @@ export class ThyPickerComponent implements AfterViewInit {
     private innerValue: TinyDate | TinyDate[] | null;
 
     entering = false;
-
-    readableValue$ = new BehaviorSubject<string | null>(null);
 
     prefixCls = 'thy-calendar';
 
@@ -132,7 +125,7 @@ export class ThyPickerComponent implements AfterViewInit {
         return this.isRange || this.readonly || this.mode !== 'date';
     }
 
-    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService, private ngZone: NgZone) {}
+    constructor(private changeDetector: ChangeDetectorRef, private dateHelper: DateHelperService) {}
 
     ngAfterViewInit(): void {
         this.overlayPositions = getFlexiblePositions(this.placement, 4);
@@ -265,8 +258,6 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
 
-        this.ngZone.onStable.pipe(take(1), this.takeUntilDestroyed).subscribe(() => {
-            this.pickerInput.nativeElement.value = readableValue;
-        });
+        this.pickerInput.nativeElement.value = readableValue;
     }
 }
