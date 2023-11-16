@@ -555,7 +555,20 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                     set(opt, 'selected', true);
                 }
             });
+            this.addParentSelectedState(selectOptions);
         }
+    }
+
+    addParentSelectedState(selectOptions: ThyCascaderOption[]) {
+        selectOptions.forEach(opt => {
+            if (opt.children && opt.children.length && opt.children.every(i => i.selected)) {
+                opt.selected = true;
+                set(opt, 'selected', true);
+                if (opt.parent) {
+                    this.addParentSelectedState([opt.parent]);
+                }
+            }
+        });
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -601,9 +614,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     }
 
     public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
-        if (this.checkSelectedStatus(option, true)) {
-            option.selected = true;
-        }
         if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
             return true;
         }
