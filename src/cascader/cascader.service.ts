@@ -425,7 +425,20 @@ export class ThyCascaderService implements OnDestroy {
                     set(opt, 'selected', true);
                 }
             });
+            this.addParentSelectedState(selectOptions);
         }
+    }
+
+    private addParentSelectedState(selectOptions: ThyCascaderOption[]) {
+        selectOptions.forEach(opt => {
+            if (opt.children && opt.children.length && opt.children.every(i => i.selected)) {
+                opt.selected = true;
+                set(opt, 'selected', true);
+                if (opt.parent) {
+                    this.addParentSelectedState([opt.parent]);
+                }
+            }
+        });
     }
 
     private buildDisplayLabel(): void {
