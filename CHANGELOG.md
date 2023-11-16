@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.12](https://github.com/atinc/ngx-tethys/compare/16.1.11...16.1.12) (2023-11-16)
+
+
+### Bug Fixes
+
+* **date-picker:** should update display value when thyFormat change #INFR-10428 ([#2897](https://github.com/atinc/ngx-tethys/issues/2897)) ([0581693](https://github.com/atinc/ngx-tethys/commit/05816939dba507c7487c6ee6864d4d89f67f718b)), closes [#INFR-10428](https://github.com/atinc/ngx-tethys/issues/INFR-10428)
+
+
+
+## [16.1.11](https://github.com/atinc/ngx-tethys/compare/16.1.10...16.1.11) (2023-11-15)
+
+
+### Features
+
+* **cascader:** support quick selection all leafs when thyIsOnlySelectLeaf is true #INFR-10253 ([#2891](https://github.com/atinc/ngx-tethys/issues/2891)) ([8087172](https://github.com/atinc/ngx-tethys/commit/80871723dc11e4dd23e1beda8ef18f830d1c3251)), closes [#INFR-10253](https://github.com/atinc/ngx-tethys/issues/INFR-10253)
+* **dialog:** #INFR-10411 prohibit operations when closing animation in dialog container ([#2893](https://github.com/atinc/ngx-tethys/issues/2893)) ([35d2df2](https://github.com/atinc/ngx-tethys/commit/35d2df207012a0f1af3f20ab39f9cbe94e56690e)), closes [#INFR-10411](https://github.com/atinc/ngx-tethys/issues/INFR-10411)
+
+
+
 ## [16.1.10](https://github.com/atinc/ngx-tethys/compare/16.1.9...16.1.10) (2023-11-08)
 
 
