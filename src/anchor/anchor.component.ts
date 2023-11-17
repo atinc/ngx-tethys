@@ -94,7 +94,7 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
 
     /**
      * 设置导航方向
-     * @type string
+     * @type 'vertical' | 'horizontal'
      */
     @Input() thyDirection: 'vertical' | 'horizontal' = 'vertical';
 
@@ -111,8 +111,6 @@ export class ThyAnchorComponent implements OnDestroy, AfterViewInit, OnChanges {
     visible = false;
 
     wrapperStyle = { 'max-height': '100vh' };
-
-    wrapperClass = { 'max-height': '100vh' };
 
     container?: HTMLElement | Window;
 

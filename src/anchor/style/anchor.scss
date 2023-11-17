@@ -70,6 +70,10 @@ $anchor-border-width: 2px;
                         transition: left 0.2s ease-in-out, width 0.2s ease-in-out;
                     }
                 }
+                &-link-title {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
             }
         }
     }
