@@ -19,11 +19,11 @@
         border: 0;
     }
     .input-prepend {
-        margin-left: variables.$input-padding-x-fixed;
+        margin-left: variables.$input-padding-x-fixed-lg;
         line-height: 1;
     }
     .input-append {
-        margin-right: variables.$input-padding-x-fixed;
+        margin-right: variables.$input-padding-x-fixed-lg;
         line-height: 1;
     }
     .input-password-icon {

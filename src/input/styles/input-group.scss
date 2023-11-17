@@ -225,13 +225,13 @@
     }
 
     .input-group-prefix {
-        margin-left: variables.$input-padding-x-fixed;
+        margin-left: variables.$input-padding-x-fixed-lg;
         display: inline-flex;
         align-items: center;
     }
 
     .input-group-suffix {
-        margin-right: variables.$input-padding-x-fixed;
+        margin-right: variables.$input-padding-x-fixed-lg;
     }
 }
 
