@@ -18,7 +18,7 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { ThyPickerComponent } from './picker.component';
-import { isValidDateString, parseFormatDate, transformDateValue } from './picker.util';
+import { formatDateHasTime, isValidDateString, parseFormatDate, transformDateValue } from './picker.util';
 
 /**
  * @private
@@ -131,7 +131,7 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
         } else {
             value = this.innerPreviousDate;
         }
-        const tinyDate = value ? parseFormatDate(value) : null;
+        const tinyDate = value ? (this.thyShowTime ? parseFormatDate(value) : parseFormatDate(value).startOfDay()) : null;
         this.restoreTimePickerState(tinyDate);
         super.onValueChange(tinyDate);
     }
@@ -214,6 +214,9 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
 
     onInputDate(value: string) {
         if (value && isValidDateString(value)) {
+            if (this.thyShowTime) {
+                this.withTime = formatDateHasTime(value);
+            }
             this.thyValue = parseFormatDate(value);
         }
     }

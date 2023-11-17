@@ -1016,6 +1016,7 @@ describe('ThyDatePickerComponent', () => {
 
         it('should input value assessable', fakeAsync(() => {
             fixtureInstance.thyFormat = 'yyyy-MM-dd hh:mm:ss';
+            fixtureInstance.thyShowTime = true;
             fixture.detectChanges();
             const onChange = spyOn(fixtureInstance, 'thyOnChange');
             openPickerByClickTrigger();
@@ -1042,6 +1043,7 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             const onChange = spyOn(fixtureInstance, 'thyOnChange');
             fixtureInstance.thyFormat = 'yyyy年MM月dd hh时mm分ss秒';
+            fixtureInstance.thyShowTime = true;
             fixture.detectChanges();
             openPickerByClickTrigger();
             const input = getPickerTrigger();
@@ -1057,6 +1059,61 @@ describe('ThyDatePickerComponent', () => {
             fixture.detectChanges();
             flush();
             expect(onChange).toHaveBeenCalledWith(new TinyDate(new Date('2023-11-01 08:00')).getUnixTime());
+        }));
+
+        it('should return startOfDay when thyShowTime false', fakeAsync(() => {
+            fixtureInstance.thyFormat = 'yyyy-MM-dd hh:mm:ss';
+            fixtureInstance.thyShowTime = false;
+            fixture.detectChanges();
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2023-11-01 08:00';
+            input.dispatchEvent(new Event('input'));
+            dispatchKeyboardEvent(input, 'keydown', ENTER);
+            flush();
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            expect(onChange).toHaveBeenCalled();
+            expect(onChange).toHaveBeenCalledWith(new TinyDate('2023-11-01 00:00').getUnixTime());
+            flush();
+        }));
+
+        it('should withtime when input formatdate has time', fakeAsync(() => {
+            fixtureInstance.thyShowTime = true;
+            fixtureInstance.thyValue = { date: new Date(), with_time: 0 };
+            fixture.detectChanges();
+            const onChange = spyOn(fixtureInstance, 'thyOnChange');
+            openPickerByClickTrigger();
+            const input = getPickerTrigger();
+            input.value = '2023-11-01 08:00';
+            input.dispatchEvent(new Event('input'));
+            dispatchKeyboardEvent(input, 'keydown', ENTER);
+            flush();
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            expect(onChange).toHaveBeenCalled();
+            expect(onChange).toHaveBeenCalledWith({
+                date: new TinyDate('2023-11-01 08:00').getUnixTime(),
+                with_time: 1
+            });
+            flush();
+
+            input.value = '2023-11-01';
+            input.dispatchEvent(new Event('input'));
+            dispatchKeyboardEvent(input, 'keydown', ENTER);
+            flush();
+            fixture.detectChanges();
+            take(500);
+            fixture.detectChanges();
+            expect(onChange).toHaveBeenCalled();
+            expect(onChange).toHaveBeenCalledWith({
+                date: new TinyDate('2023-11-01 00:00').getUnixTime(),
+                with_time: 0
+            });
+            flush();
         }));
 
         it('should allow input format date', fakeAsync(() => {

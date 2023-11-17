@@ -1,4 +1,15 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ElementRef, ViewContainerRef, OnInit } from '@angular/core';
+import {
+    ChangeDetectionStrategy,
+    Component,
+    EventEmitter,
+    Input,
+    Output,
+    ElementRef,
+    ViewContainerRef,
+    OnInit,
+    OnChanges,
+    SimpleChanges
+} from '@angular/core';
 
 import { TinyDate } from 'ngx-tethys/util';
 import { ThyButtonComponent } from 'ngx-tethys/button';
@@ -20,7 +31,7 @@ import { InputBoolean } from 'ngx-tethys/core';
     standalone: true,
     imports: [NgIf, ThyIconComponent, ThyInnerTimePickerComponent, FormsModule, ThyButtonComponent]
 })
-export class CalendarFooterComponent implements OnInit {
+export class CalendarFooterComponent implements OnInit, OnChanges {
     @Input() showTime = false;
     @Input() mustShowTime = false;
     @Input() value: TinyDate;
@@ -37,6 +48,12 @@ export class CalendarFooterComponent implements OnInit {
         this._initTimeShowMode();
         if (!this.value) {
             this.value = new TinyDate();
+        }
+    }
+
+    ngOnChanges(changes: SimpleChanges): void {
+        if (changes.mustShowTime) {
+            this._initTimeShowMode();
         }
     }
 

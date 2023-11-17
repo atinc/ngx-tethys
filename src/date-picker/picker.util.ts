@@ -209,10 +209,20 @@ export function isValidDateString(dateStr: string): boolean {
 }
 
 export function parseFormatDate(dateStr: string): TinyDate {
+    return formatDateHasTime(dateStr) ? new TinyDate(fixFormatDate(dateStr)) : new TinyDate(fixFormatDate(dateStr)).startOfDay();
+}
+
+export function formatDateHasTime(dateStr: string): boolean {
+    const formatDate = fixFormatDate(dateStr);
+    const timeRegex = /(\d{1,2}:\d{1,2}(:\d{1,2})?)|(^\d{1,2}时\d{1,2}分(\d{1,2}秒)?)$/;
+    return timeRegex.test(formatDate);
+}
+
+function fixFormatDate(dateStr: string) {
     let replacedStr = dateStr.replace(/[^0-9\s.,:]/g, '-').replace('- ', ' ');
     const hasYear = /\d{4}/.test(replacedStr);
     if (!hasYear || replacedStr.length < 'yyyy.M.d'.length) {
         replacedStr = `${new TinyDate(new Date()).getYear()}-${replacedStr}`;
     }
-    return new TinyDate(replacedStr);
+    return replacedStr;
 }
