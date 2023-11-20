@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.14](https://github.com/atinc/ngx-tethys/compare/16.1.13...16.1.14) (2023-11-20)
+
+
+### Bug Fixes
+
+* **date-picker:** adjust updateReadableDate function INFR-10167 ([#2900](https://github.com/atinc/ngx-tethys/issues/2900)) ([4c2f14a](https://github.com/atinc/ngx-tethys/commit/4c2f14a59e86264e39343497dbae8aee4fba7440))
+* **input:** adjust left margin of prefix element and right margin of suffix element #INFR-10515 ([8ad60ce](https://github.com/atinc/ngx-tethys/commit/8ad60ce0272e6fbc1313f37ce763455f6d13f1ec)), closes [#INFR-10515](https://github.com/atinc/ngx-tethys/issues/INFR-10515)
+
+
+### Features
+
+* **anchor:** support horizontal display #INFR-10451 ([#2901](https://github.com/atinc/ngx-tethys/issues/2901)) ([bb5d10a](https://github.com/atinc/ngx-tethys/commit/bb5d10a5dde4832a496c24137750e635fead2ec5)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+
+
+
 ## [16.1.13](https://github.com/atinc/ngx-tethys/compare/16.1.12...16.1.13) (2023-11-16)
 
 
