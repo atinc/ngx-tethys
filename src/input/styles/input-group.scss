@@ -233,6 +233,16 @@
     .input-group-suffix {
         margin-right: variables.$input-padding-x-fixed-lg;
     }
+
+    &.input-group-sm,
+    &.input-group-md {
+        .input-group-prefix {
+            margin-left: variables.$input-padding-x-fixed;
+        }
+        .input-group-suffix {
+            margin-right: variables.$input-padding-x-fixed;
+        }
+    }
 }
 
 .thy-input-group-with-prefix,
@@ -243,18 +253,18 @@
     }
 }
 
-.thy-input-group-with-prefix {
+.thy-input-group-with-prefix:not(.input-group-sm):not(.input-group-md) {
     .form-control {
         &:last-child {
-            padding-right: variables.$input-padding-x-fixed-lg !important;
+            padding-right: variables.$input-padding-x-fixed-lg;
         }
     }
 }
 
-.thy-input-group-with-suffix {
+.thy-input-group-with-suffix:not(.input-group-sm):not(.input-group-md) {
     .form-control {
         &:first-child {
-            padding-left: variables.$input-padding-x-fixed-lg !important;
+            padding-left: variables.$input-padding-x-fixed-lg;
         }
     }
 }
