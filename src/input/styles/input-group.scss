@@ -233,6 +233,10 @@
     .input-group-suffix {
         margin-right: variables.$input-padding-x-fixed-lg;
     }
+
+    & > .form-control:last-child {
+        padding-right: variables.$input-padding-x-fixed-lg !important;
+    }
 }
 
 .thy-input-group-with-prefix {
