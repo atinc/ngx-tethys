@@ -233,20 +233,28 @@
     .input-group-suffix {
         margin-right: variables.$input-padding-x-fixed-lg;
     }
-
-    & > .form-control:last-child {
-        padding-right: variables.$input-padding-x-fixed-lg !important;
-    }
 }
 
-.thy-input-group-with-prefix {
+.thy-input-group-with-prefix,
+.thy-input-group-with-suffix {
     .form-control {
         padding-right: variables.$input-padding-x-fixed;
+        padding-left: variables.$input-padding-x-fixed;
     }
 }
 
 .thy-input-group-with-prefix {
     .form-control {
-        padding-left: variables.$input-padding-x-fixed;
+        &:last-child {
+            padding-right: variables.$input-padding-x-fixed-lg !important;
+        }
+    }
+}
+
+.thy-input-group-with-suffix {
+    .form-control {
+        &:first-child {
+            padding-left: variables.$input-padding-x-fixed-lg !important;
+        }
     }
 }
