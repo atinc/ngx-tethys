@@ -384,12 +384,15 @@ export class ThyCascaderService implements OnDestroy {
         if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
             this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
         }
+
+        this.valueChange$.next();
     }
 
     public deselectAllSelected() {
         const selectedOptions = this.selectionModel.selected;
         selectedOptions.forEach(item => this.deselectOption(item));
         this.selectionModel.clear();
+        this.valueChange$.next();
     }
 
     private deselectOption(option: SelectOptionBase) {
@@ -418,6 +421,7 @@ export class ThyCascaderService implements OnDestroy {
             });
             this.selectionModel.deselect(currentItem);
         }
+        this.valueChange$.next();
     }
 
     private addSelectedState(selectOptions: ThyCascaderOption[]) {
@@ -447,17 +451,21 @@ export class ThyCascaderService implements OnDestroy {
     private buildDisplayLabel(): void {
         const selectedOptions = [...this.selectedOptions];
         const labels: string[] = selectedOptions.map(o => this.getOptionLabel(o));
+
         if (labels.length === 0) {
             return;
         }
+
         let labelRenderContext;
         let labelRenderText;
+
         if (this.cascaderOptions.isLabelRenderTemplate) {
             labelRenderContext = { labels, selectedOptions };
         } else {
             labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
             this.labelRenderText = labelRenderText;
         }
+
         if (this.labelRenderText || this.cascaderOptions.isLabelRenderTemplate) {
             const selectedData: SelectOptionBase = {
                 thyRawValue: {

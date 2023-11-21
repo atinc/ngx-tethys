@@ -665,7 +665,6 @@ export class ThyCascaderComponent
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
         if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.thyCascaderService.selectOption(option, index);
-            this.thyCascaderService.valueChange$.next();
         }
         if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
@@ -676,7 +675,6 @@ export class ThyCascaderComponent
     public removeSelectedItem(event: { item: SelectOptionBase; $eventOrigin: Event }) {
         event.$eventOrigin.stopPropagation();
         this.thyCascaderService.removeSelectedItem(event?.item);
-        this.thyCascaderService.valueChange$.next();
     }
 
     private shouldPerformSelection(option: ThyCascaderOption, level: number): boolean {
@@ -693,7 +691,6 @@ export class ThyCascaderComponent
         this.thyCascaderService.activatedOptions = [];
         this.thyCascaderService.deselectAllSelected();
         this.setMenuVisible(false);
-        this.thyCascaderService.valueChange$.next();
     }
 
     constructor(
