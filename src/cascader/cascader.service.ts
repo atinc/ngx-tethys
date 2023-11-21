@@ -120,25 +120,6 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    public clickOption(
-        option: ThyCascaderOption,
-        index: number,
-        event: Event | boolean,
-        selectFn?: (option: ThyCascaderOption, index: number) => void
-    ) {
-        if (option && option.disabled && !this.cascaderOptions.isMultiple) {
-            return;
-        }
-
-        const isSelect = event instanceof Event ? !this.cascaderOptions.isMultiple && option.isLeaf : true;
-
-        if (this.cascaderOptions.isMultiple && !option.isLeaf && this.cascaderOptions.isOnlySelectLeaf && isSelect) {
-            this.toggleAllChildren(option, index, event as boolean, selectFn);
-        } else {
-            this.setActiveOption(option, index, isSelect, null, selectFn);
-        }
-    }
-
     public setActiveOption(
         option: ThyCascaderOption,
         index: number,
@@ -239,7 +220,7 @@ export class ThyCascaderService implements OnDestroy {
         }
     }
 
-    private toggleAllChildren(
+    public toggleAllChildren(
         option: ThyCascaderOption,
         index: number,
         selected: boolean,
