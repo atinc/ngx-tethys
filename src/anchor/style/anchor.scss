@@ -1,4 +1,4 @@
-@use "../../styles/variables";
+@use '../../styles/variables';
 
 $anchor-border-width: 2px;
 
@@ -7,30 +7,74 @@ $anchor-border-width: 2px;
     padding-left: $anchor-border-width;
 
     &-wrapper {
-        margin-left: -4px;
-        padding-left: 4px;
+        margin-block-start: -4px;
+        padding-block-start: 4px;
         overflow: auto;
         background-color: variables.$white;
-    }
 
-    &-ink {
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        &::before {
-            position: relative;
-            display: block;
-            width: $anchor-border-width;
-            height: 100%;
-            margin: 0 auto;
-            background-color: variables.$nav-border-color;
-            content: ' ';
+        &:not(&-horizontal) {
+            .thy-anchor {
+                &-ink {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 100%;
+
+                    &::before {
+                        position: relative;
+                        display: block;
+                        width: $anchor-border-width;
+                        height: 100%;
+                        margin: 0 auto;
+                        background-color: variables.$nav-border-color;
+                        content: ' ';
+                    }
+
+                    &-full {
+                        position: absolute;
+                        border-left: $anchor-border-width solid variables.$primary;
+                        transition: top 0.2s ease-in-out;
+                    }
+                }
+            }
         }
-        &-full {
-            position: absolute;
-            border-left: $anchor-border-width solid variables.$primary;
-            transition: top 0.2s ease-in-out;
+        &-horizontal {
+            position: relative;
+
+            .thy-anchor {
+                display: flex;
+                overflow-x: scroll;
+                scrollbar-width: none;
+
+                &-ink {
+                    position: absolute;
+                    bottom: 0;
+                    left: 0;
+                    width: 100%;
+                    height: 2px;
+
+                    &::before {
+                        position: relative;
+                        display: block;
+                        width: 100%;
+                        height: $anchor-border-width;
+                        margin: 0 auto;
+                        background-color: variables.$nav-border-color;
+                        content: ' ';
+                    }
+
+                    &-full {
+                        position: absolute;
+                        bottom: 0;
+                        border-top: $anchor-border-width solid variables.$primary;
+                        transition: left 0.2s ease-in-out, width 0.2s ease-in-out;
+                    }
+                }
+                &-link-title {
+                    padding-left: 8px;
+                    padding-right: 8px;
+                }
+            }
         }
     }
 

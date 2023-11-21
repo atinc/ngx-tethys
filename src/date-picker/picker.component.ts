@@ -108,8 +108,6 @@ export class ThyPickerComponent implements AfterViewInit {
 
     entering = false;
 
-    readableValue$ = new BehaviorSubject<string | null>(null);
-
     prefixCls = 'thy-calendar';
 
     animationOpenState = false;
@@ -141,7 +139,6 @@ export class ThyPickerComponent implements AfterViewInit {
     }
 
     onBlur(event: FocusEvent) {
-        this.blur.emit(event);
         if (this.entering) {
             this.valueChange.emit(this.pickerInput.nativeElement.value);
         }
@@ -261,13 +258,6 @@ export class ThyPickerComponent implements AfterViewInit {
             return;
         }
 
-        if (this.entering) {
-            this.readableValue$.next(null);
-            setTimeout(() => {
-                this.readableValue$.next(readableValue);
-            }, 0);
-        } else {
-            this.readableValue$.next(readableValue);
-        }
+        this.pickerInput.nativeElement.value = readableValue;
     }
 }
