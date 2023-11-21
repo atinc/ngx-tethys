@@ -615,29 +615,21 @@ export class ThyCascaderService implements OnDestroy {
     }
 
     toArray<T>(value: T | T[]): T[] {
-        let ret: T[];
         if (value == null) {
-            ret = [];
+            return [];
         } else if (!Array.isArray(value)) {
-            ret = [value];
+            return [value];
         } else {
-            ret = value;
+            return value;
         }
-        return ret;
     }
 
     arrayEquals<T>(array1: T[], array2: T[]): boolean {
-        if (!array1 || !array2 || array1.length !== array2.length) {
+        if (!Array.isArray(array1) || !Array.isArray(array2) || array1.length !== array2.length) {
             return false;
         }
 
-        const len = array1.length;
-        for (let i = 0; i < len; i++) {
-            if (array1[i] !== array2[i]) {
-                return false;
-            }
-        }
-        return true;
+        return array1.every((element, index) => element === array2[index]);
     }
 
     ngOnDestroy(): void {}
