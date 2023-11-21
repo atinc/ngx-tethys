@@ -489,10 +489,6 @@ export class ThyCascaderComponent
         }
     }
 
-    public isMenuVisible(): boolean {
-        return this.menuVisible;
-    }
-
     public setMenuVisible(menuVisible: boolean): void {
         if (this.menuVisible !== menuVisible) {
             this.menuVisible = menuVisible;
@@ -596,15 +592,7 @@ export class ThyCascaderComponent
     }
 
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
-        if (option && option.disabled && !this.isMultiple) {
-            return;
-        }
-        const isSelect = event instanceof Event ? !this.isMultiple && option.isLeaf : true;
-        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && isSelect) {
-            this.thyCascaderService.toggleAllChildren(option, index, event as boolean, this.selectOption);
-        } else {
-            this.setActiveOption(option, index, isSelect);
-        }
+        this.thyCascaderService.clickOption(option, index, event, this.selectOption);
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -686,10 +674,7 @@ export class ThyCascaderComponent
             $event.stopPropagation();
             $event.preventDefault();
         }
-        this.thyCascaderService.labelRenderText = '';
-        this.thyCascaderService.selectedOptions = [];
-        this.thyCascaderService.activatedOptions = [];
-        this.thyCascaderService.deselectAllSelected();
+        this.thyCascaderService.clearSelection();
         this.setMenuVisible(false);
     }
 
@@ -736,9 +721,7 @@ export class ThyCascaderComponent
 
     private resetSearch() {
         this.isShowSearchPanel = false;
-        this.thyCascaderService.searchResultList = [];
-        this.thyCascaderService.leafNodes = [];
-        this.thyCascaderService.flattenOptions = [];
+        this.thyCascaderService.resetSearch();
         this.scrollActiveElementIntoView();
     }
 
