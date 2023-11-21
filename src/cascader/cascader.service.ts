@@ -328,6 +328,9 @@ export class ThyCascaderService implements OnDestroy {
      * @private
      */
     private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
+        if (option.isLeaf) {
+            return option.selected === isSelected;
+        }
         for (const childOption of option.children) {
             if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
                 return false;
