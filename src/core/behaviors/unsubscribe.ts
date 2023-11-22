@@ -6,7 +6,10 @@ export interface ThyUnsubscribe extends OnDestroy {
     ngUnsubscribe$: Subject<void>;
 }
 
-/** Mixin to augment a directive with a `disableRipple` property. */
+/**
+ * Mixin to augment a directive with a `disableRipple` property.
+ * @deprecated please use `takeUntilDestroyed`
+ */
 export function mixinUnsubscribe<T extends Constructor<{}>>(base: T): Constructor<ThyUnsubscribe> & T {
     return class Mixin extends base {
         ngUnsubscribe$ = new Subject<void>();
