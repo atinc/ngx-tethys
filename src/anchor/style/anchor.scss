@@ -43,7 +43,7 @@ $anchor-border-width: 2px;
 
             .thy-anchor {
                 display: flex;
-                overflow-x: scroll;
+                overflow-x: auto;
                 scrollbar-width: none;
 
                 &-ink {
