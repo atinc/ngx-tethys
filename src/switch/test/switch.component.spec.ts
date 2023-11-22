@@ -115,7 +115,6 @@ describe('switch component', () => {
         fixture.detectChanges();
         const disabledSwitch = fixture.debugElement.queryAll(By.directive(ThySwitchComponent))[1];
         const disabledSwitchElement = disabledSwitch.nativeElement;
-        console.log('disabledSwitchElement:', disabledSwitchElement);
         labelNode = disabledSwitchElement.children[0];
         expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
     }));
