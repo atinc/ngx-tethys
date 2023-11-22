@@ -592,15 +592,7 @@ export class ThyCascaderComponent
     }
 
     public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
-        if (option && option.disabled && !this.isMultiple) {
-            return;
-        }
-        const isSelect = event instanceof Event ? !this.isMultiple && option.isLeaf : true;
-        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && isSelect) {
-            this.thyCascaderService.toggleAllChildren(option, index, event as boolean, this.selectOption);
-        } else {
-            this.setActiveOption(option, index, isSelect);
-        }
+        this.thyCascaderService.clickOption(option, index, event, this.selectOption);
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
