@@ -1,18 +1,25 @@
-<span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''" *ngIf="!multiple || !option.isLeaf">
-  {{ option[labelProperty] || '' }}</span
->
-<ng-container *ngIf="multiple && option.isLeaf && isOnlySelectLeaf">
+<div thyStopPropagation>
   <label
+    *ngIf="multiple"
+    class="mr-2"
     thyCheckbox
-    class="w-100"
-    thyInline="true"
     [disabled]="option.disabled"
-    [(ngModel)]="active"
-    (ngModelChange)="toggleOption(active)"
-    [name]="option.value || option._id">
-    <span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''">{{ option[labelProperty] || '' }}</span>
-  </label>
-</ng-container>
+    [name]="option.value || option._id"
+    [thyIndeterminate]="halfSelected"
+    [(ngModel)]="selected"
+    (ngModelChange)="toggleOption($event)"></label>
+
+  <label
+    *ngIf="!multiple && !isOnlySelectLeaf"
+    class="mr-2"
+    thyRadio
+    [disabled]="option.disabled"
+    [name]="option.value || option._id"
+    [(ngModel)]="selected"
+    (ngModelChange)="toggleOption($event)"></label>
+</div>
+
+<span thyFlexibleText [thyTooltipContent]="option[labelProperty] || ''"> {{ option[labelProperty] || '' }}</span>
 
 <span
   *ngIf="!option.isLeaf || (option.children && option.children.length) || option.loading"

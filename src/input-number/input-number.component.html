@@ -5,8 +5,7 @@
     (mousedown)="up($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.disabled]="disabledUp"
-  >
+    [class.disabled]="disabledUp">
     <thy-icon thyIconName="angle-up"></thy-icon>
   </span>
   <span
@@ -15,8 +14,7 @@
     (mousedown)="down($event)"
     (mouseup)="stop()"
     (mouseleave)="stop()"
-    [class.disabled]="disabledDown"
-  >
+    [class.disabled]="disabledDown">
     <thy-icon thyIconName="angle-down"></thy-icon>
   </span>
 </div>
@@ -36,7 +34,5 @@
   (keyup)="stop()"
   [(ngModel)]="displayValue"
   (ngModelChange)="onModelChange($event)"
-  (input)="onInput(input)"
   (focus)="onInputFocus($event)"
-  tabindex="-1"
-/>
+  tabindex="-1" />

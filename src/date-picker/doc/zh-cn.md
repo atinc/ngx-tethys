@@ -57,6 +57,7 @@ import { ThyDatePickerModule } from 'ngx-tethys/date-picker';
             useValue: {
                 showShortcut: true,
                 shortcutPosition: 'left',
+                weekStartsOn: 1,
                 shortcutDatePresets: () => {
                     return [
                         {

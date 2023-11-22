@@ -9,7 +9,7 @@
     position: relative;
     display: block;
     width: max-content;
-    padding-left: 1.25rem;
+    padding-left: 1rem;
     font-size: variables.$font-size-base;
     line-height: variables.$line-height-base;
     &:last-of-type {
@@ -206,5 +206,5 @@ input[type='radio'] {
 }
 
 .form-check-inline-no-label-text {
-    margin-right: 0;
+    margin-right: 0.5rem;
 }

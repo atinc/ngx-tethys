@@ -81,8 +81,9 @@ describe('ThyPickerDirective', () => {
                 openPickerByClickTrigger();
                 const selectedCell = getSelectedDayCell();
                 expect(selectedCell.classList.contains('thy-calendar-disabled-cell')).toBeFalsy();
-                const previousCell = getSelectedDayCell().previousElementSibling;
-                expect(previousCell.classList.contains('thy-calendar-disabled-cell')).toBeTruthy();
+                const disabledCells = overlayContainerElement.querySelectorAll('tbody.thy-calendar-tbody td.thy-calendar-disabled-cell');
+                const lastDisabledCell = disabledCells[disabledCells.length - 1];
+                expect(lastDisabledCell.textContent.trim()).toBe('10');
             }));
 
             it('should support thyDisabled', fakeAsync(() => {
@@ -160,6 +161,19 @@ describe('ThyPickerDirective', () => {
                 const tomorrowItem = shortcutItems[1];
                 expect(todayItem.classList.contains('disabled')).toBe(true);
                 expect(tomorrowItem.classList.contains('disabled')).toBe(false);
+            }));
+
+            it('should support thyDateChange', fakeAsync(() => {
+                fixtureInstance.thyShowShortcut = true;
+                const thyDateChange = spyOn(fixtureInstance, 'thyDateChange');
+                fixture.detectChanges();
+                dispatchClickEvent(getPickerTriggerWrapper());
+                const shortcutItems = overlayContainerElement.querySelectorAll('.thy-calendar-picker-shortcut-item');
+                dispatchMouseEvent(shortcutItems[0], 'click');
+                fixture.detectChanges();
+                tick(500);
+                fixture.detectChanges();
+                expect(thyDateChange).toHaveBeenCalled();
             }));
         });
 
@@ -408,6 +422,8 @@ describe('ThyPickerDirective', () => {
             [thyPopoverOptions]="popoverOptions"
             [thyShowTime]="thyShowTime"
             [thyShowShortcut]="thyShowShortcut"
+            (thyDateChange)="thyDateChange($event)"
+            (ngModelChange)="thyOnChange($event)"
             [thyShortcutPosition]="thyShortcutPosition"
             [thyShortcutPresets]="thyShortcutPresets"></thy-property-operation>
     `
@@ -434,7 +450,7 @@ class ThyTestPickerComponent {
     thyOnChange(): void {}
     thyOnCalendarChange(): void {}
     thyOpenChange(): void {}
-
+    thyDateChange(): void {}
     thyOnPanelChange(): void {}
 
     thyOnOk(): void {}

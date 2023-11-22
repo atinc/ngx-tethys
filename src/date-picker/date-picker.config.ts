@@ -1,6 +1,6 @@
 import { InjectionToken } from '@angular/core';
 import { addDays, addWeeks, startOfDay, startOfWeek, subDays } from 'date-fns';
-import { TinyDate } from 'ngx-tethys/util';
+import { TinyDate, WeekDayIndex } from 'ngx-tethys/util';
 import { CompatiblePresets, ThyShortcutPosition } from './standard-types';
 
 export interface ThyDatePickerConfig {
@@ -8,11 +8,13 @@ export interface ThyDatePickerConfig {
     shortcutDatePresets: CompatiblePresets;
     shortcutRangesPresets: CompatiblePresets;
     showShortcut: boolean;
+    weekStartsOn: WeekDayIndex;
 }
 
 export const DEFAULT_DATE_PICKER_CONFIG: ThyDatePickerConfig = {
     shortcutPosition: 'left',
     showShortcut: false,
+    weekStartsOn: 1,
     shortcutDatePresets: () => {
         return [
             {

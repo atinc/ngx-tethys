@@ -7,6 +7,8 @@ import { clone, options } from '../cascader-address-options';
     templateUrl: './multiple.component.html'
 })
 export class ThyCascaderMultipleExampleComponent implements OnInit {
+    private timeout: any;
+
     public areaCode: any[] = [];
 
     public values: any[] = [
@@ -22,6 +24,9 @@ export class ThyCascaderMultipleExampleComponent implements OnInit {
     }
 
     public selectChanges(values: any): void {
-        this.notifyService.info(`selected Value is ${values}`);
+        clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            this.notifyService.info(`selected Value is ${values}`);
+        }, 200);
     }
 }

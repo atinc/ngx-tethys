@@ -16,6 +16,7 @@ import {
     Inject,
     NgZone,
     OnDestroy,
+    Renderer2,
     ViewChild
 } from '@angular/core';
 
@@ -129,7 +130,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
 
         // We need the extra check, because IE can set the `activeElement` to null in some cases.
         if (this.config.restoreFocus && toFocus && typeof toFocus.focus === 'function') {
-            toFocus.focus();
+            toFocus.focus(this.config.restoreFocusOptions);
         }
 
         if (this.focusTrap) {
@@ -159,7 +160,8 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
         changeDetectorRef: ChangeDetectorRef,
         private clickPositioner: ThyClickPositioner,
         private focusTrapFactory: FocusTrapFactory,
-        private ngZone: NgZone
+        private ngZone: NgZone,
+        private renderer: Renderer2
     ) {
         super(dialogAbstractOverlayOptions, changeDetectorRef);
         this.animationOpeningDone = this.animationStateChanged.pipe(
@@ -172,6 +174,16 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
                 return event.phaseName === 'done' && event.toState === 'exit';
             })
         );
+        /* Prohibit operations on elements inside the container during animation execution */
+        this.animationStateChanged
+            .pipe(
+                filter((event: AnimationEvent) => {
+                    return event.phaseName === 'start' && event.toState === 'exit';
+                })
+            )
+            .subscribe(() => {
+                this.renderer.setStyle(this.elementRef.nativeElement, 'pointer-events', 'none');
+            });
     }
 
     beforeAttachPortal(): void {

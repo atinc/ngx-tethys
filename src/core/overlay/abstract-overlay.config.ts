@@ -122,6 +122,11 @@ export class ThyAbstractOverlayConfig<TData = unknown> {
     restoreFocus? = true;
 
     /**
+     * Control the previously-focused element focusing process.
+     */
+    restoreFocusOptions?: FocusOptions = { preventScroll: true };
+
+    /**
      * 切换浏览器导航是否自动关闭弹出框
      * @description.en-us Whether the overlay should close when the user goes backwards/forwards in history.Note that this usually doesn't include clicking on links (unless the user is using the `HashLocationStrategy`).
      */

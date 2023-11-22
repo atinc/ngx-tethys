@@ -1,12 +1,15 @@
 import {
-    TabIndexDisabledControlValueAccessorMixin,
     EXPANDED_DROPDOWN_POSITIONS,
     InputBoolean,
     InputNumber,
-    ScrollToService
+    ScrollToService,
+    TabIndexDisabledControlValueAccessorMixin
 } from 'ngx-tethys/core';
-import { SelectControlSize, SelectOptionBase } from 'ngx-tethys/shared';
-import { coerceBooleanProperty, elementMatchClosest, helpers, isArray, isEmpty, set } from 'ngx-tethys/util';
+import { ThyEmptyComponent } from 'ngx-tethys/empty';
+import { ThyIconComponent } from 'ngx-tethys/icon';
+import { SelectControlSize, SelectOptionBase, ThySelectControlComponent } from 'ngx-tethys/shared';
+import { Id } from 'ngx-tethys/types';
+import { coerceBooleanProperty, elementMatchClosest, isArray, isEmpty, set, helpers } from 'ngx-tethys/util';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged, filter, take, takeUntil } from 'rxjs/operators';
 
@@ -18,6 +21,7 @@ import {
     ConnectionPositionPair,
     ViewportRuler
 } from '@angular/cdk/overlay';
+import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     ChangeDetectorRef,
     Component,
@@ -36,15 +40,11 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { ThySelectControlComponent } from 'ngx-tethys/shared';
 
-import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
-import { ThyEmptyComponent } from 'ngx-tethys/empty';
-import { ThyIconComponent } from 'ngx-tethys/icon';
-import { Id } from 'ngx-tethys/types';
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
 import { ThyCascaderExpandTrigger, ThyCascaderOption, ThyCascaderSearchOption, ThyCascaderTriggerType } from './types';
+import { deepCopy } from '@angular-devkit/core';
 
 function toArray<T>(value: T | T[]): T[] {
     let ret: T[];
@@ -280,7 +280,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     @Input() @InputNumber() thyMaxTagCount = 0;
 
     /**
-     * @private 当多选时是否只能选择叶子项, 暂无实现
+     * 是否仅允许选择叶子项
+     * @default true
      */
     @Input()
     @InputBoolean()
@@ -324,6 +325,11 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      * 清空选项时触发
      */
     @Output() thyClear = new EventEmitter<void>();
+
+    /**
+     * 下拉选项展开和折叠状态事件
+     */
+    @Output() thyExpandStatusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
     @ViewChildren('cascaderOptions', { read: ElementRef }) cascaderOptions: QueryList<ElementRef>;
 
@@ -375,7 +381,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
 
     private isMultiple = false;
 
-    private prevSelectedOptions: ThyCascaderOption[] = [];
+    private prevSelectedOptions: Set<ThyCascaderOption> = new Set<ThyCascaderOption>();
 
     public menuMinWidth = 122;
 
@@ -392,6 +398,12 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      * 会导致恢复级联状态再变为搜索状态
      */
     private isSelectingSearchState: boolean = false;
+
+    private flattenOptions: ThyCascaderSearchOption[] = [];
+
+    private leafNodes: ThyCascaderSearchOption[] = [];
+
+    private valueChange$ = new Subject();
 
     ngOnInit(): void {
         this.setClassMap();
@@ -412,6 +424,10 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                     this.cdr.markForCheck();
                 }
             });
+
+        this.valueChange$.pipe(takeUntil(this.destroy$), debounceTime(100)).subscribe(() => {
+            this.valueChange();
+        });
     }
 
     private initSelectionModel() {
@@ -468,17 +484,29 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.setActiveOption(option, index, false, false);
     }
 
-    private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit = false) {
+    private updatePrevSelectedOptions(option: ThyCascaderOption, isActivateInit: boolean, index?: number) {
         if (isActivateInit) {
-            set(option, 'selected', true);
-            this.prevSelectedOptions.push(option);
-        } else {
-            const isSelected = !option.selected;
-            while (this.prevSelectedOptions.length && !this.thyMultiple) {
-                set(this.prevSelectedOptions.pop(), 'selected', false);
+            if (this.thyIsOnlySelectLeaf && option.isLeaf) {
+                set(option, 'selected', true);
             }
-            set(option, 'selected', isSelected);
-            this.prevSelectedOptions.push(option);
+            this.prevSelectedOptions.add(option);
+        } else {
+            if (!this.thyMultiple) {
+                const prevSelectedOptions = Array.from(this.prevSelectedOptions);
+                while (prevSelectedOptions.length) {
+                    set(prevSelectedOptions.pop(), 'selected', false);
+                }
+                this.prevSelectedOptions = new Set([]);
+            }
+            if (this.thyIsOnlySelectLeaf && !option.isLeaf && this.thyMultiple) {
+                set(option, 'selected', this.isSelectedOption(option, index));
+            } else {
+                set(option, 'selected', !this.isSelectedOption(option, index));
+            }
+            if (this.thyIsOnlySelectLeaf && this.thyMultiple && option.parent) {
+                this.updatePrevSelectedOptions(option.parent, false, index - 1);
+            }
+            this.prevSelectedOptions.add(option);
         }
     }
 
@@ -497,6 +525,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             }
         } else {
             const values = toArray(value);
+            this.selectionModel.clear();
             values.forEach(item => {
                 const vs = (this.defaultValue = toArray(item));
                 if (vs.length) {
@@ -526,7 +555,20 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                     set(opt, 'selected', true);
                 }
             });
+            this.addParentSelectedState(selectOptions);
         }
+    }
+
+    addParentSelectedState(selectOptions: ThyCascaderOption[]) {
+        selectOptions.forEach(opt => {
+            if (opt.children && opt.children.length && opt.children.every(i => i.selected)) {
+                opt.selected = true;
+                set(opt, 'selected', true);
+                if (opt.parent) {
+                    this.addParentSelectedState([opt.parent]);
+                }
+            }
+        });
     }
 
     setDisabledState(isDisabled: boolean): void {
@@ -554,7 +596,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     }
 
     public isActivatedOption(option: ThyCascaderOption, index: number): boolean {
-        if (!this.isMultiple) {
+        if (!this.isMultiple || this.thyIsOnlySelectLeaf) {
             const activeOpt = this.activatedOptions[index];
             return activeOpt === option;
         } else {
@@ -568,6 +610,34 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 });
                 return appearIndex >= 0;
             }
+        }
+    }
+
+    public isHalfSelectedOption(option: ThyCascaderOption, index: number): boolean {
+        if (!option.selected && this.thyIsOnlySelectLeaf && !option.isLeaf && !this.checkSelectedStatus(option, false)) {
+            return true;
+        }
+        return false;
+    }
+
+    public isSelectedOption(option: ThyCascaderOption, index: number): boolean {
+        if (this.thyIsOnlySelectLeaf) {
+            if (option.isLeaf) {
+                return option.selected;
+            } else {
+                return this.checkSelectedStatus(option, true);
+            }
+        } else {
+            const selectedOpts = this.selectionModel.selected;
+            const appearIndex = selectedOpts.findIndex(item => {
+                if (item.thyRawValue.value.length - 1 === index) {
+                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                    return helpers.shallowEqual(selectedItem, option);
+                } else {
+                    return false;
+                }
+            });
+            return appearIndex >= 0;
         }
     }
 
@@ -645,6 +715,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             if (this.menuVisible) {
                 this.triggerRect = this.trigger.nativeElement.getBoundingClientRect();
             }
+            this.thyExpandStatusChange.emit(menuVisible);
         }
     }
 
@@ -748,15 +819,84 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         }
     }
 
-    public clickOption(option: ThyCascaderOption, index: number, event: Event): void {
-        if (option.isLeaf && event instanceof Event && this.isMultiple) {
-            return;
-        }
+    public clickOption(option: ThyCascaderOption, index: number, event: Event | boolean): void {
         if (option && option.disabled && !this.isMultiple) {
             return;
         }
-        this.setActiveOption(option, index, true);
-        this.valueChange();
+        const isSelect = event instanceof Event ? !this.isMultiple && option.isLeaf : true;
+        if (this.isMultiple && !option.isLeaf && this.thyIsOnlySelectLeaf && isSelect) {
+            this.toggleAllChildren(option, index, event as boolean);
+        } else {
+            this.setActiveOption(option, index, isSelect);
+        }
+    }
+
+    private toggleAllChildren(option: ThyCascaderOption, index: number, selected: boolean): void {
+        const allLeafs: {
+            option: ThyCascaderOption;
+            index: number;
+        }[] = this.getAllLeafs(option, index, selected);
+        option.selected = selected;
+        while (allLeafs.length) {
+            const { option, index } = allLeafs.shift();
+            option.selected = !selected;
+            this.setActiveOption(option, index, true);
+        }
+        for (let i = 0; i < this.activatedOptions.length; i++) {
+            const option = this.activatedOptions[i];
+            if (isArray(option.children) && option.children.length) {
+                this.setColumnData(option.children, i + 1);
+            }
+        }
+    }
+
+    private getAllLeafs(
+        option: ThyCascaderOption,
+        index: number,
+        selected: boolean
+    ): {
+        option: ThyCascaderOption;
+        index: number;
+    }[] {
+        let allLeafs: {
+            option: ThyCascaderOption;
+            index: number;
+        }[] = [];
+        if (option.children.length > 0) {
+            for (const childOption of option.children) {
+                childOption.parent = option;
+                if (childOption.isLeaf && !childOption.selected === selected) {
+                    allLeafs.push({
+                        option: childOption,
+                        index: index + 1
+                    });
+                } else if (!childOption.isLeaf) {
+                    allLeafs = allLeafs.concat(this.getAllLeafs(childOption, index + 1, selected));
+                }
+            }
+        }
+        return allLeafs;
+    }
+
+    /**
+     * 检查所有所有子项的选择状态, 有一个不符合预期，就直接返回 false
+     * @param option
+     * @param trueOrFalse
+     * @private
+     */
+    private checkSelectedStatus(option: ThyCascaderOption, isSelected: boolean): boolean {
+        if (option.isLeaf) {
+            return option.selected === isSelected;
+        }
+        for (const childOption of option.children) {
+            if (isArray(childOption.children) && childOption.children.length && !this.checkSelectedStatus(childOption, isSelected)) {
+                return false;
+            }
+            if (!childOption.selected === isSelected) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public mouseoverOption(option: ThyCascaderOption, index: number, event: Event): void {
@@ -812,7 +952,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.activatedOptions[index] = option;
         for (let i = index - 1; i >= 0; i--) {
             const originOption = this.activatedOptions[i + 1]?.parent;
-            if (!this.activatedOptions[i] || originOption?._id !== this.activatedOptions[i]._id) {
+            if (!this.activatedOptions[i] || originOption?.[this.thyValueProperty] !== this.activatedOptions[i]?.[this.thyValueProperty]) {
                 this.activatedOptions[i] = originOption ?? this.activatedOptions[i];
             }
         }
@@ -838,22 +978,26 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     private selectOption(option: ThyCascaderOption, index: number): void {
         this.thySelect.emit({ option, index });
         const isOptionCanSelect = this.thyChangeOnSelect && !this.isMultiple;
-        if (option.isLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
+        if (option.isLeaf || !this.thyIsOnlySelectLeaf || isOptionCanSelect || this.shouldPerformSelection(option, index)) {
             this.selectedOptions = this.activatedOptions;
-            this.updatePrevSelectedOptions(option);
+            this.updatePrevSelectedOptions(option, false, index);
             if (option.selected) {
                 this.buildDisplayLabel();
             } else {
                 const selectedItems = this.selectionModel.selected;
                 const currentItem = selectedItems.find(item => {
-                    const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
-                    return helpers.shallowEqual(selectedItem, option);
+                    if (item.thyRawValue.value.length - 1 === index) {
+                        const selectedItem = helpers.get(item, `thyRawValue.value.${index}`);
+                        return helpers.shallowEqual(selectedItem, option);
+                    } else {
+                        return false;
+                    }
                 });
                 this.selectionModel.deselect(currentItem);
             }
-            this.valueChange();
+            this.valueChange$.next();
         }
-        if (option.isLeaf && !this.thyMultiple) {
+        if ((option.isLeaf || !this.thyIsOnlySelectLeaf) && !this.thyMultiple) {
             this.setMenuVisible(false);
             this.onTouchedFn();
         }
@@ -872,7 +1016,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         if (isArray(updatedSelectedItems) && updatedSelectedItems.length) {
             this.selectedOptions = updatedSelectedItems[updatedSelectedItems.length - 1].thyRawValue.value;
         }
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     private deselectOption(option: SelectOptionBase) {
@@ -920,7 +1064,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         this.activatedOptions = [];
         this.deselectAllSelected();
         this.setMenuVisible(false);
-        this.valueChange();
+        this.valueChange$.next();
     }
 
     private deselectAllSelected() {
@@ -1005,39 +1149,63 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             });
     }
 
-    private searchInLocal(
-        searchText: string,
+    private forEachColumns(
         currentLabel?: string[],
         currentValue: Id[] = [],
         currentRowValue: ThyCascaderOption[] = [],
         list = this.columns[0]
-    ): void {
+    ) {
         list.forEach(item => {
             const curOptionLabel = this.getOptionLabel(item);
             const curOptionValue = this.getOptionValue(item);
             const label: string[] = currentLabel ? [...currentLabel, curOptionLabel] : [curOptionLabel];
             const valueList: Id[] = [...currentValue, curOptionValue];
             const rowValueList: ThyCascaderOption[] = [...currentRowValue, item];
+            const isSelected = this.isSelectedOption(item, valueList.length - 1);
 
+            this.flattenOptions.push({
+                labelList: label,
+                valueList,
+                selected: isSelected,
+                thyRowValue: rowValueList,
+                isLeaf: item.isLeaf,
+                disabled: item.disabled
+            });
             if (item.children && item.children.length) {
-                this.searchInLocal(searchText, label, valueList, rowValueList, item.children);
+                this.forEachColumns(label, valueList, rowValueList, item.children);
             } else {
-                // 目前只支持搜索根节点
-                if (!item.disabled && item.isLeaf && curOptionLabel.toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
-                    this.searchResultList.push({
-                        labelList: label,
-                        valueList,
-                        selected: item.selected,
-                        thyRowValue: rowValueList
-                    });
-                }
+                this.leafNodes.push({
+                    labelList: label,
+                    valueList,
+                    selected: isSelected,
+                    thyRowValue: rowValueList,
+                    isLeaf: item.isLeaf,
+                    disabled: item.disabled
+                });
             }
         });
+    }
+
+    private setSearchResultList(listOfOption: ThyCascaderSearchOption[], searchText: string) {
+        this.searchResultList = [];
+        listOfOption.forEach(item => {
+            if (!item.disabled && item.isLeaf && item.labelList.join().toLowerCase().indexOf(searchText.toLowerCase()) !== -1) {
+                this.searchResultList.push(item);
+            }
+        });
+    }
+
+    private searchInLocal(searchText: string): void {
+        this.forEachColumns();
+
+        this.setSearchResultList(this.thyIsOnlySelectLeaf ? this.leafNodes : this.flattenOptions, searchText);
     }
 
     private resetSearch() {
         this.isShowSearchPanel = false;
         this.searchResultList = [];
+        this.leafNodes = [];
+        this.flattenOptions = [];
         this.scrollActiveElementIntoView();
     }
 
@@ -1053,7 +1221,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             this.isSelectingSearchState = true;
             selectOptionData.selected = true;
             selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
-                this.setActiveOption(item, index, item.isLeaf);
+                this.setActiveOption(item, index, index === selectedOptions.length - 1);
             });
             const originSearchResultList = this.searchResultList;
             // 保持搜索选项
@@ -1064,7 +1232,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
             });
         } else {
             selectedOptions.forEach((item: ThyCascaderOption, index: number) => {
-                this.setActiveOption(item, index, item.isLeaf);
+                this.setActiveOption(item, index, index === selectedOptions.length - 1);
             });
 
             this.resetSearch();

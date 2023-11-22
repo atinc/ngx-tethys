@@ -1,10 +1,14 @@
-import { InputBoolean } from 'ngx-tethys/core';
-import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
-import { ThyCascaderOption } from './types';
-import { FormsModule } from '@angular/forms';
 import { ThyCheckboxComponent } from 'ngx-tethys/checkbox';
+import { InputBoolean } from 'ngx-tethys/core';
 import { ThyFlexibleTextComponent } from 'ngx-tethys/flexible-text';
+import { ThyRadioComponent } from 'ngx-tethys/radio';
+import { ThyStopPropagationDirective } from 'ngx-tethys/shared';
+
 import { NgIf } from '@angular/common';
+import { ChangeDetectionStrategy, Component, EventEmitter, HostBinding, Input, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+
+import { ThyCascaderOption } from './types';
 
 /**
  * @internal
@@ -16,7 +20,7 @@ import { NgIf } from '@angular/common';
     selector: '[thy-cascader-option]',
     templateUrl: './cascader-li.component.html',
     standalone: true,
-    imports: [NgIf, ThyFlexibleTextComponent, ThyCheckboxComponent, FormsModule]
+    imports: [NgIf, ThyFlexibleTextComponent, ThyCheckboxComponent, ThyRadioComponent, FormsModule, ThyStopPropagationDirective]
 })
 export class ThyCascaderOptionComponent implements OnInit {
     @Input() option: ThyCascaderOption;
@@ -37,6 +41,14 @@ export class ThyCascaderOptionComponent implements OnInit {
     @Input()
     @InputBoolean()
     active: boolean = false;
+
+    @Input()
+    @InputBoolean()
+    halfSelected = false;
+
+    @Input()
+    @InputBoolean()
+    selected: boolean = false;
 
     @HostBinding('class.thy-cascader-menu-item-disabled')
     get disabled() {

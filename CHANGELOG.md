@@ -2,6 +2,115 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.14](https://github.com/atinc/ngx-tethys/compare/16.1.13...16.1.14) (2023-11-20)
+
+
+### Bug Fixes
+
+* **date-picker:** adjust updateReadableDate function INFR-10167 ([#2900](https://github.com/atinc/ngx-tethys/issues/2900)) ([4c2f14a](https://github.com/atinc/ngx-tethys/commit/4c2f14a59e86264e39343497dbae8aee4fba7440))
+* **input:** adjust left margin of prefix element and right margin of suffix element #INFR-10515 ([8ad60ce](https://github.com/atinc/ngx-tethys/commit/8ad60ce0272e6fbc1313f37ce763455f6d13f1ec)), closes [#INFR-10515](https://github.com/atinc/ngx-tethys/issues/INFR-10515)
+
+
+### Features
+
+* **anchor:** support horizontal display #INFR-10451 ([#2901](https://github.com/atinc/ngx-tethys/issues/2901)) ([bb5d10a](https://github.com/atinc/ngx-tethys/commit/bb5d10a5dde4832a496c24137750e635fead2ec5)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+
+
+
+## [16.1.13](https://github.com/atinc/ngx-tethys/compare/16.1.12...16.1.13) (2023-11-16)
+
+
+### Bug Fixes
+
+* **cascader:** fix bug of selectall #INFR-10448 ([#2898](https://github.com/atinc/ngx-tethys/issues/2898)) ([974ca51](https://github.com/atinc/ngx-tethys/commit/974ca51cd160958d0874d6ca00bf9cba08529e84)), closes [#INFR-10448](https://github.com/atinc/ngx-tethys/issues/INFR-10448)
+
+
+
+## [16.1.12](https://github.com/atinc/ngx-tethys/compare/16.1.11...16.1.12) (2023-11-16)
+
+
+### Bug Fixes
+
+* **date-picker:** should update display value when thyFormat change #INFR-10428 ([#2897](https://github.com/atinc/ngx-tethys/issues/2897)) ([0581693](https://github.com/atinc/ngx-tethys/commit/05816939dba507c7487c6ee6864d4d89f67f718b)), closes [#INFR-10428](https://github.com/atinc/ngx-tethys/issues/INFR-10428)
+
+
+
+## [16.1.11](https://github.com/atinc/ngx-tethys/compare/16.1.10...16.1.11) (2023-11-15)
+
+
+### Features
+
+* **cascader:** support quick selection all leafs when thyIsOnlySelectLeaf is true #INFR-10253 ([#2891](https://github.com/atinc/ngx-tethys/issues/2891)) ([8087172](https://github.com/atinc/ngx-tethys/commit/80871723dc11e4dd23e1beda8ef18f830d1c3251)), closes [#INFR-10253](https://github.com/atinc/ngx-tethys/issues/INFR-10253)
+* **dialog:** #INFR-10411 prohibit operations when closing animation in dialog container ([#2893](https://github.com/atinc/ngx-tethys/issues/2893)) ([35d2df2](https://github.com/atinc/ngx-tethys/commit/35d2df207012a0f1af3f20ab39f9cbe94e56690e)), closes [#INFR-10411](https://github.com/atinc/ngx-tethys/issues/INFR-10411)
+
+
+
+## [16.1.10](https://github.com/atinc/ngx-tethys/compare/16.1.9...16.1.10) (2023-11-08)
+
+
+### Bug Fixes
+
+* **cascade:** fix trigger two changes #INFR_10249 ([#2888](https://github.com/atinc/ngx-tethys/issues/2888)) ([8edf5cc](https://github.com/atinc/ngx-tethys/commit/8edf5cc625777c7046adbcc107d8f0f66417b64b)), closes [#INFR_10249](https://github.com/atinc/ngx-tethys/issues/INFR_10249)
+* **cascader:** fix trigger area and style #INFR-10245 ([#2887](https://github.com/atinc/ngx-tethys/issues/2887)) ([9c58775](https://github.com/atinc/ngx-tethys/commit/9c58775b622c783f357decf571ac927a8d33d3ac)), closes [#INFR-10245](https://github.com/atinc/ngx-tethys/issues/INFR-10245)
+* **radio-group:** set radio group disabled default value #INFR-10263 ([#2889](https://github.com/atinc/ngx-tethys/issues/2889)) ([e1147d0](https://github.com/atinc/ngx-tethys/commit/e1147d0247a8b861f924c2e3143c5f728028f0ed)), closes [#INFR-10263](https://github.com/atinc/ngx-tethys/issues/INFR-10263)
+
+
+### Features
+
+* **date-picker:** date picker allowed input date ([#2886](https://github.com/atinc/ngx-tethys/issues/2886)) ([4598356](https://github.com/atinc/ngx-tethys/commit/4598356764dcb5002b9951de787c06d8f1199808))
+
+
+
+## [16.1.9](https://github.com/atinc/ngx-tethys/compare/16.1.8...16.1.9) (2023-11-02)
+
+
+### Features
+
+* **date-picker:** THY_DATE_PICKER_CONFIG support weekStartsOn and set default value 1 #INFR-10198 ([#2882](https://github.com/atinc/ngx-tethys/issues/2882)) ([8377887](https://github.com/atinc/ngx-tethys/commit/837788769c8cbeabbad39bfff23033739b1b751c)), closes [#INFR-10198](https://github.com/atinc/ngx-tethys/issues/INFR-10198) [#INFR-10198](https://github.com/atinc/ngx-tethys/issues/INFR-10198)
+
+
+
+## [16.1.8](https://github.com/atinc/ngx-tethys/compare/16.1.7...16.1.8) (2023-11-02)
+
+
+### Bug Fixes
+
+* **cascader:** reset selectionModel when writeValue #INFR-10101 ([#2883](https://github.com/atinc/ngx-tethys/issues/2883)) ([56496fd](https://github.com/atinc/ngx-tethys/commit/56496fd31cc62bd113543f34cb2bad2b2f0f5d6d)), closes [#INFR-10101](https://github.com/atinc/ngx-tethys/issues/INFR-10101)
+
+
+### Features
+
+* **date-picker:** add event thyDateChange and deprecated shortcutValueChange #INFR-9829 ([#2865](https://github.com/atinc/ngx-tethys/issues/2865)) ([adf0f6b](https://github.com/atinc/ngx-tethys/commit/adf0f6b6fb05993ad811b62a13d64d9da86e46ee)), closes [#INFR-9829](https://github.com/atinc/ngx-tethys/issues/INFR-9829)
+
+
+
+## [16.1.7](https://github.com/atinc/ngx-tethys/compare/16.1.6...16.1.7) (2023-11-02)
+
+
+### Features
+
+* **cascader:** search and select all nodes when isOnlySelectLeaf is false #INFR-10101 ([#2873](https://github.com/atinc/ngx-tethys/issues/2873)) ([f0d6751](https://github.com/atinc/ngx-tethys/commit/f0d67511309a092e9d7364009c9082d471e58517)), closes [#INFR-10101](https://github.com/atinc/ngx-tethys/issues/INFR-10101)
+* **select:** #INFR-10094 dispatch toggle select panel not close when thyShowSearch is true ([#2872](https://github.com/atinc/ngx-tethys/issues/2872)) ([10c2ec1](https://github.com/atinc/ngx-tethys/commit/10c2ec19d8d6ff0024283d8a4f6c3a243eac717b))
+
+
+
+## [16.1.6](https://github.com/atinc/ngx-tethys/compare/16.2.0-next...16.1.6) (2023-10-27)
+
+
+### Bug Fixes
+
+* **check:** fix form-check style(#INFR-9102) ([#2837](https://github.com/atinc/ngx-tethys/issues/2837)) ([40eddcf](https://github.com/atinc/ngx-tethys/commit/40eddcf66038b8bd52db1ec9fe7c81b89ab3dc02)), closes [#INFR-9102](https://github.com/atinc/ngx-tethys/issues/INFR-9102)
+* **input-number:** fix input non-number show error #INFR-10053 ([#2862](https://github.com/atinc/ngx-tethys/issues/2862)) ([7749771](https://github.com/atinc/ngx-tethys/commit/7749771ea63659961121aa25f381f15ac0d67970)), closes [#INFR-10053](https://github.com/atinc/ngx-tethys/issues/INFR-10053)
+* **input-number:** fix input number suffix not effect #INFR-10053 ([#2859](https://github.com/atinc/ngx-tethys/issues/2859)) ([b411b5a](https://github.com/atinc/ngx-tethys/commit/b411b5ab769360c50c37667f907a9d5a56047e3f)), closes [#INFR-10053](https://github.com/atinc/ngx-tethys/issues/INFR-10053)
+* **radio:** fix radio group thyDisabled #INFR-9788 ([#2858](https://github.com/atinc/ngx-tethys/issues/2858)) ([1569e3c](https://github.com/atinc/ngx-tethys/commit/1569e3cbbfcadcceca804baf37c5deea71461be1)), closes [#INFR-9788](https://github.com/atinc/ngx-tethys/issues/INFR-9788)
+
+
+### Features
+
+* add restoreFocusOptions to control previously element focusing #INFR-9782 ([#2860](https://github.com/atinc/ngx-tethys/issues/2860)) ([da6ef88](https://github.com/atinc/ngx-tethys/commit/da6ef88cbe8ed135651628106e4084015803de6a)), closes [#INFR-9782](https://github.com/atinc/ngx-tethys/issues/INFR-9782)
+
+
+
 ## [16.1.5](https://github.com/atinc/ngx-tethys/compare/16.1.4...16.1.5) (2023-10-12)
 
 

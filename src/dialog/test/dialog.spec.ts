@@ -14,6 +14,7 @@ import { ThyDialogSizes } from '../dialog.config';
 import { ThyDialog, ThyDialogModule, THY_CONFIRM_DEFAULT_OPTIONS } from '../index';
 import {
     DialogFullContentComponent,
+    DialogRestoreComponent,
     DialogSimpleContentComponent,
     DialogTestModule,
     WithChildViewContainerComponent,
@@ -799,6 +800,29 @@ describe('ThyDialog', () => {
         expect(dialogContainer.animationState).toBe('exit');
     });
 
+    it('should has "pointer-event: none" at dialog-container when animation phaseName equal start and toState equal exit', fakeAsync(() => {
+        const dialogRef = dialog.open(DialogSimpleContentComponent, { viewContainerRef: testViewContainerRef });
+        const dialogContainer = viewContainerFixture.debugElement.query(By.directive(ThyDialogContainerComponent)).componentInstance;
+
+        expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('');
+
+        dialogContainer.onAnimationStart({
+            phaseName: 'start',
+            toState: 'exit'
+        });
+        viewContainerFixture.detectChanges();
+
+        expect((getDialogContainerElement() as HTMLElement).style.pointerEvents).toEqual('none');
+
+        tick(150);
+        dialogContainer.onAnimationStart({
+            phaseName: 'done',
+            toState: 'exit'
+        });
+        dialogRef.close();
+        flush();
+    }));
+
     it('should not keep a reference to the component after the dialog is closed', fakeAsync(() => {
         const dialogRef = dialog.open(DialogSimpleContentComponent);
 
@@ -1274,4 +1298,115 @@ describe('ThyDialog', () => {
     //     dialogRef.removePanelClass('custom-class-one');
     //     expect(pane.classList).not.toContain('custom-class-one', 'Expected class to be removed');
     // });
+
+    describe(`restoreFocus and restoreFocusOptions`, () => {
+        function setup() {
+            const scrollFixture = TestBed.createComponent(DialogRestoreComponent);
+            const scrollComponent = scrollFixture.componentInstance;
+            const button = scrollFixture.debugElement.query(By.css('button'));
+            return { scrollFixture, scrollComponent, button };
+        }
+
+        function close(scrollComponent: DialogRestoreComponent) {
+            const headerButton = scrollComponent.dialogRef
+                .getOverlayRef()
+                .overlayElement.querySelector(`.dialog-header .thy-icon-close`) as HTMLElement;
+            if (headerButton) {
+                headerButton.focus();
+                headerButton.click();
+            }
+        }
+
+        it('should blur when restoreFocus is false ', fakeAsync(() => {
+            const { scrollFixture, scrollComponent, button } = setup();
+            expect(scrollComponent).toBeTruthy();
+            scrollComponent.restoreFocus = false;
+            scrollFixture.detectChanges();
+            button.nativeElement.focus();
+            expect(document.activeElement).toEqual(button.nativeElement);
+            button.nativeElement.click();
+            flush();
+            expect(scrollComponent.dialogRef).toBeTruthy();
+            expect(scrollComponent.dialogRef.containerInstance.config.restoreFocus).toBe(false);
+            close(scrollComponent);
+            scrollFixture.detectChanges();
+            scrollFixture.whenStable().then(() => {
+                expect(document.activeElement).not.toEqual(button.nativeElement);
+            });
+        }));
+
+        it('should focus when restoreFocus is true ', fakeAsync(() => {
+            const { scrollFixture, scrollComponent, button } = setup();
+            expect(scrollComponent).toBeTruthy();
+            scrollComponent.restoreFocus = true;
+            scrollFixture.detectChanges();
+            button.nativeElement.focus();
+            button.nativeElement.click();
+            flush();
+            expect(scrollComponent.dialogRef).toBeTruthy();
+            expect(scrollComponent.dialogRef.containerInstance.config.restoreFocus).toBe(true);
+            expect(document.activeElement).not.toEqual(button.nativeElement);
+            close(scrollComponent);
+            scrollFixture.detectChanges();
+            scrollFixture.whenStable().then(() => {
+                expect(document.activeElement).toEqual(button.nativeElement);
+            });
+        }));
+
+        it('shoule scroll when restoreFocusOptions is preventScroll false', fakeAsync(() => {
+            const { scrollFixture, scrollComponent, button } = setup();
+            expect(scrollComponent).toBeTruthy();
+            scrollComponent.restoreFocus = true;
+            scrollComponent.restoreFocusOptions = {
+                preventScroll: false
+            };
+            scrollFixture.detectChanges();
+            button.nativeElement.focus({
+                preventScroll: true
+            });
+            const _scrollElement = scrollFixture.nativeElement.querySelector(`.scrollable-container`);
+            const _previouslyScrollTop = _scrollElement.scrollTop;
+            expect(_previouslyScrollTop).toBe(0);
+            button.nativeElement.click();
+            flush();
+            expect(
+                scrollComponent.dialogRef.getOverlayRef().overlayElement.querySelector(`.thy-dialog-container`) as HTMLElement
+            ).toBeTruthy();
+            close(scrollComponent);
+            scrollFixture.detectChanges();
+            scrollFixture.whenStable().then(() => {
+                expect(document.activeElement).toEqual(button.nativeElement);
+                expect(_scrollElement.scrollTop).not.toEqual(_previouslyScrollTop);
+                expect(_scrollElement.scrollTop).not.toBe(0);
+            });
+        }));
+
+        it('shoule prevent scroll when restoreFocusOptions is preventScroll', fakeAsync(() => {
+            const { scrollFixture, scrollComponent, button } = setup();
+            expect(scrollComponent).toBeTruthy();
+            scrollComponent.restoreFocus = true;
+            scrollComponent.restoreFocusOptions = {
+                preventScroll: true
+            };
+            scrollFixture.detectChanges();
+            button.nativeElement.focus({
+                preventScroll: true
+            });
+            const _scrollElement = scrollFixture.nativeElement.querySelector(`.scrollable-container`);
+            const _previouslyScrollTop = _scrollElement.scrollTop;
+            expect(_previouslyScrollTop).toBe(0);
+            button.nativeElement.click();
+            flush();
+            expect(
+                scrollComponent.dialogRef.getOverlayRef().overlayElement.querySelector(`.thy-dialog-container`) as HTMLElement
+            ).toBeTruthy();
+            close(scrollComponent);
+            scrollFixture.detectChanges();
+            scrollFixture.whenStable().then(() => {
+                expect(document.activeElement).toEqual(button.nativeElement);
+                expect(_scrollElement.scrollTop).toEqual(_previouslyScrollTop);
+                expect(_scrollElement.scrollTop).toBe(0);
+            });
+        }));
+    });
 });

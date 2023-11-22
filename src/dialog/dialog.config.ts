@@ -67,6 +67,9 @@ export const THY_DIALOG_DEFAULT_OPTIONS_PROVIDER = {
         closeOnNavigation: true,
         autoFocus: true,
         restoreFocus: true,
+        restoreFocusOptions: {
+            preventScroll: true
+        },
         hostClass: 'thy-dialog-content'
     }
 };

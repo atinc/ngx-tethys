@@ -1,12 +1,14 @@
 <thy-picker
+  #thyPicker
   [isRange]="isRange"
   [value]="thyValue"
   [flexible]="flexible"
   [flexibleDateGranularity]="flexibleDateGranularity"
-  (valueChange)="onValueChange($event)"
+  (valueChange)="onInputValueChange($event)"
   [open]="thyOpen"
   [disabled]="thyDisabled"
   [format]="thyFormat"
+  [mode]="thyMode"
   [allowClear]="thyAllowClear"
   [className]="thyOriginClassName"
   [autoFocus]="thyAutoFocus"
@@ -17,6 +19,7 @@
   [placement]="thyPlacement"
   (openChange)="onOpenChange($event)"
   (blur)="onBlur($event)"
+  (inputChange)="onInputDate($event)"
 >
   <date-popup
     [attr.tabindex]="-1"
@@ -43,6 +46,7 @@
     [shortcutPresets]="shortcutPresets"
     [shortcutPosition]="shortcutPosition"
     (shortcutValueChange)="onShortcutValueChange($event)"
+    (dateValueChange)="onDateValueChange($event)"
     [className]="thyPanelClassName"
     (resultOk)="onResultOk()"
   ></date-popup>
