@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -15,6 +15,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { ThyIconComponent } from 'ngx-tethys/icon';
 
 /**
  * 开关组件
@@ -33,7 +34,7 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
         }
     ],
     standalone: true,
-    imports: [NgClass],
+    imports: [NgClass, NgIf, ThyIconComponent],
     host: {
         class: 'thy-switch',
         '[class.thy-switch-xs]': 'size === "xs"',
@@ -43,17 +44,39 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
     public model: boolean;
 
-    public type?: String = 'primary';
+    public type?: string = 'primary';
 
-    public size?: String = '';
+    public size?: string = '';
 
     public disabled?: boolean = false;
+
+    public loading: boolean = false;
 
     public classNames: string[];
 
     public typeArray: string[] = ['primary', 'info', 'warning', 'danger'];
 
     public sizeArray: string[] = ['', 'sm', 'xs'];
+
+    get loadingCircle() {
+        const svgSize = {
+            ['xs']: 12,
+            ['sm']: 16,
+            ['']: 20
+        };
+
+        const circleSize = svgSize[this.size];
+        const centerPoint = circleSize / 2;
+        const r = circleSize / 4;
+
+        return {
+            viewBox: `0 0 ${circleSize} ${circleSize}`,
+            cx: centerPoint,
+            cy: centerPoint,
+            r: r,
+            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
+        };
+    }
 
     private initialized = false;
 
@@ -87,6 +110,16 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
         if (this.initialized) {
             this.setClassNames();
         }
+    }
+
+    /**
+     * 是否加载中
+     */
+    @Input() set thyLoading(value: boolean) {
+        this.loading = coerceBooleanProperty(value);
+
+        this.disabled = this.loading;
+        this.setClassNames();
     }
 
     /**

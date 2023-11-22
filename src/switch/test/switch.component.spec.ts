@@ -7,12 +7,13 @@ import { ThySwitchModule } from '../switch.module';
 
 @Component({
     selector: 'thy-switch-test',
-    template: ` <thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled"></thy-switch> `
+    template: ` <thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled" [thyLoading]="isLoading"></thy-switch> `
 })
 class SwitchTestComponent {
     size = ``;
     type = ``;
     isDisabled: boolean;
+    isLoading: boolean;
 }
 
 describe('switch component', () => {
@@ -105,5 +106,14 @@ describe('switch component', () => {
         testComponent.isDisabled = false;
         fixture.detectChanges();
         expect(label.getAttribute('tabindex')).toBe('0');
+    });
+
+    it('should loading work', () => {
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeFalsy();
+
+        testComponent.isLoading = true;
+        fixture.detectChanges();
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeTruthy();
+        expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
     });
 });
