@@ -182,6 +182,8 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
 
     keepFocus: boolean;
 
+    private isDisabledFirstChange = true;
+
     onValueChangeFn: (val: number | Date) => void = () => void 0;
 
     onTouchedFn: () => void = () => void 0;
@@ -331,7 +333,8 @@ export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlVal
     }
 
     setDisabledState?(isDisabled: boolean): void {
-        this.disabled = isDisabled;
+        this.disabled = (this.isDisabledFirstChange && this.thyDisabled) || isDisabled;
+        this.isDisabledFirstChange = false;
     }
 
     private setValue(value: Date, formatText: boolean = true) {
