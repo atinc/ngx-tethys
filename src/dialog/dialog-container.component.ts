@@ -149,6 +149,7 @@ export class ThyDialogContainerComponent extends ThyAbstractOverlayContainer imp
                 // 手动修改动画状态为从 void 到 enter, 开启动画
             }
             this.animationState = 'enter';
+            this.changeDetectorRef.markForCheck();
         });
     }
 
