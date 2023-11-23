@@ -40,9 +40,11 @@ $anchor-border-width: 2px;
         }
         &-horizontal {
             position: relative;
+            padding: 0;
 
             .thy-anchor {
                 display: flex;
+                padding: 0;
                 overflow-x: auto;
                 scrollbar-width: none;
 
@@ -57,7 +59,7 @@ $anchor-border-width: 2px;
                         position: relative;
                         display: block;
                         width: 100%;
-                        height: $anchor-border-width;
+                        height: 1px;
                         margin: 0 auto;
                         background-color: variables.$nav-border-color;
                         content: ' ';
@@ -70,9 +72,13 @@ $anchor-border-width: 2px;
                         transition: left 0.2s ease-in-out, width 0.2s ease-in-out;
                     }
                 }
-                &-link-title {
-                    padding-left: 8px;
-                    padding-right: 8px;
+                &-link {
+                    padding-left: 20px;
+
+                    &-title {
+                        padding: 13px 12px;
+                        color: variables.$gray-800;
+                    }
                 }
             }
         }
