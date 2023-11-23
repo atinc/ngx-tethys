@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.15](https://github.com/atinc/ngx-tethys/compare/16.1.14...16.1.15) (2023-11-23)
+
+
+### Bug Fixes
+
+* **anchor:** set the sliding style for horizontal display #INFR-10451 ([#2907](https://github.com/atinc/ngx-tethys/issues/2907)) ([adb7c59](https://github.com/atinc/ngx-tethys/commit/adb7c5905bc6d0e95efcc62a9f2b9f026aa6492b)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+
+
+### Features
+
+* **dialog:** thy-dialog-container animation to enter add markForCheck #INFR-10586 ([#2908](https://github.com/atinc/ngx-tethys/issues/2908)) ([cddcca2](https://github.com/atinc/ngx-tethys/commit/cddcca2b80e95ce133a84a5b9bc22f54e7b1360b)), closes [#INFR-10586](https://github.com/atinc/ngx-tethys/issues/INFR-10586)
+
+
+
 ## [16.1.14](https://github.com/atinc/ngx-tethys/compare/16.1.13...16.1.14) (2023-11-20)
 
 
