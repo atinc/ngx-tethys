@@ -27,7 +27,7 @@
     opacity: 0.5;
     .thy-switch-label {
         &:focus {
-            border: none !important;
+            border: 1px solid variables.$gray-400 !important;
         }
     }
 }
