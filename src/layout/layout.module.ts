@@ -1,18 +1,18 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ThyLayoutComponent } from './layout.component';
-import { ThyHeaderComponent } from './header.component';
-import { ThyContentComponent } from './content.component';
-import { ThySidebarComponent } from './sidebar.component';
-import { ThyContentSectionComponent } from './content-section.component';
-import { ThyContentMainComponent } from './content-main.component';
+import { ThyLayoutComponent, ThyLayoutDirective } from './layout.component';
+import { ThyHeaderComponent, ThyHeaderDirective } from './header.component';
+import { ThyContentComponent, ThyContentDirective } from './content.component';
+import { ThySidebarComponent, ThySidebarDirective } from './sidebar.component';
+import { ThyContentSectionComponent, ThyContentSectionDirective } from './content-section.component';
+import { ThyContentMainComponent, ThyContentMainDirective } from './content-main.component';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { ThyHotkeyModule } from '@tethys/cdk/hotkey';
 import { ThyIconModule } from 'ngx-tethys/icon';
 import { ThyTooltipModule } from 'ngx-tethys/tooltip';
-import { ThySidebarHeaderComponent } from './sidebar-header.component';
-import { ThySidebarFooterComponent } from './sidebar-footer.component';
-import { ThySidebarContentComponent } from './sidebar-content.component';
+import { ThySidebarHeaderComponent, ThySidebarHeaderDirective } from './sidebar-header.component';
+import { ThySidebarFooterComponent, ThySidebarFooterDirective } from './sidebar-footer.component';
+import { ThySidebarContentComponent, ThySidebarContentDirective } from './sidebar-content.component';
 import { ThyResizableModule } from 'ngx-tethys/resizable';
 
 @NgModule({
@@ -31,7 +31,16 @@ import { ThyResizableModule } from 'ngx-tethys/resizable';
         ThySidebarContentComponent,
         ThySidebarFooterComponent,
         ThyContentSectionComponent,
-        ThyContentMainComponent
+        ThyContentMainComponent,
+        ThyLayoutDirective,
+        ThyHeaderDirective,
+        ThyContentDirective,
+        ThySidebarDirective,
+        ThySidebarHeaderDirective,
+        ThySidebarContentDirective,
+        ThySidebarFooterDirective,
+        ThyContentSectionDirective,
+        ThyContentMainDirective
     ],
     exports: [
         ThyLayoutComponent,
@@ -42,7 +51,16 @@ import { ThyResizableModule } from 'ngx-tethys/resizable';
         ThySidebarContentComponent,
         ThySidebarFooterComponent,
         ThyContentSectionComponent,
-        ThyContentMainComponent
+        ThyContentMainComponent,
+        ThyLayoutDirective,
+        ThyHeaderDirective,
+        ThyContentDirective,
+        ThySidebarDirective,
+        ThySidebarHeaderDirective,
+        ThySidebarContentDirective,
+        ThySidebarFooterDirective,
+        ThyContentSectionDirective,
+        ThyContentMainDirective
     ]
 })
 export class ThyLayoutModule {}

@@ -1,0 +1,38 @@
+<div thyLayout style="height: 100px">
+  <div thyHeader> Header </div>
+  <div thyContent> Content </div>
+</div>
+
+<div thyLayout style="height: 100px">
+  <div thySidebar [thyIsolated]="true" class="p-2"> Sidebar with isolated </div>
+  <div thyContent> Content </div>
+</div>
+
+<div thyLayout style="height: 150px">
+  <div thySidebar thyWidth="lg">
+    <div thySidebarHeader thyDivided="true"> Title </div>
+    <div thySidebarContent class="text-center pt-5"> lg Sidebar and header with divider </div>
+  </div>
+  <div thyContent> Content </div>
+</div>
+
+<div thyLayout style="height: 150px;">
+  <div thyHeader thySize="sm" [thyShadow]="true" class="aa"> Small Header With Shadow </div>
+  <div thyLayout>
+    <div
+      class="p-2"
+      thySidebar
+      thyResizable
+      [thyWidth]="sidebarWidth"
+      [thyMinWidth]="160"
+      [thyMaxWidth]="500"
+      (thyResize)="onSideResize($event)"
+    >
+      <thy-resize-handle thyDirection="right" [thyLine]="true">
+        <div class="sidebar-resize-line"></div>
+      </thy-resize-handle>
+      Draggable Sidebar
+    </div>
+    <div thyContent> Content </div>
+  </div>
+</div>

@@ -1,45 +1,40 @@
 import { NgClass, NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
- * 布局头部组件
- * @name thy-header
+ * 头部布局指令
+ * @name [thyHeader]
  * @order 10
  */
-@Component({
-    selector: 'thy-header',
-    preserveWhitespaces: false,
-    templateUrl: './header.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
+@Directive({
+    selector: '[thyHeader]',
     host: {
         class: `thy-layout-header`,
         '[class.thy-layout-header-sm]': `thySize === 'sm'`,
         '[class.thy-layout-header-lg]': `thySize === 'lg'`,
         '[class.thy-layout-header-xlg]': `thySize === 'xlg'`,
-        '[class.thy-layout-header-divided]': `divided`,
-        '[class.thy-layout-header-shadow]': `thyShadow`
+        '[class.thy-layout-header-shadow]': `thyShadow`,
+        '[class.thy-layout-header-divided]': `divided`
     },
-    standalone: true,
-    imports: [NgTemplateOutlet, NgIf, ThyIconComponent, NgClass]
+    standalone: true
 })
-export class ThyHeaderComponent implements OnInit {
-    public iconClass: string;
-
-    public svgIconName: string;
-
-    divided = false;
+export class ThyHeaderDirective {
+    /**
+     * 头部大小
+     * @type md | sm | lg | xlg
+     */
+    @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
     /**
-     * 底部是否有分割线，已废弃，请使用 thyDivided
-     * @deprecated please use thyDivided
+     * 底部是否有阴影
+     * @default false
      */
-    @Input('thyHasBorder')
-    set thyHasBorder(value: string) {
-        this.divided = coerceBooleanProperty(value);
-    }
+    @Input() @InputBoolean() thyShadow = false;
+
+    divided = false;
 
     /**
      * 底部是否有分割线
@@ -51,10 +46,38 @@ export class ThyHeaderComponent implements OnInit {
     }
 
     /**
-     * 头部大小
-     * @type md | sm | lg | xlg
+     * 底部是否有分割线，已废弃，请使用 thyDivided
+     * @deprecated please use thyDivided
      */
-    @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
+    @Input('thyHasBorder')
+    set thyHasBorder(value: string) {
+        this.divided = coerceBooleanProperty(value);
+    }
+}
+
+/**
+ * 头部布局组件
+ * @name thy-header
+ * @order 11
+ */
+@Component({
+    selector: 'thy-header',
+    preserveWhitespaces: false,
+    templateUrl: './header.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    hostDirectives: [
+        {
+            directive: ThyHeaderDirective,
+            inputs: ['thySize', 'thyShadow', 'thyHasBorder', 'thyDivided']
+        }
+    ],
+    standalone: true,
+    imports: [NgTemplateOutlet, NgIf, ThyIconComponent, NgClass, ThyHeaderDirective]
+})
+export class ThyHeaderComponent {
+    public iconClass: string;
+
+    public svgIconName: string;
 
     /**
      * 头部标题
@@ -84,12 +107,6 @@ export class ThyHeaderComponent implements OnInit {
     }
 
     /**
-     * 底部是否有阴影
-     * @default false
-     */
-    @Input() @InputBoolean() thyShadow = false;
-
-    /**
      * 头部自定义标题模板，`<ng-template #headerTitle></ng-template>`
      * @type TemplateRef
      */
@@ -109,8 +126,4 @@ export class ThyHeaderComponent implements OnInit {
      */
     @ContentChild('headerOperation')
     public operationTemplateRef: TemplateRef<any>;
-
-    constructor() {}
-
-    ngOnInit() {}
 }

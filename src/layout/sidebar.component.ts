@@ -1,6 +1,7 @@
 import { NgClass, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common';
 import {
     Component,
+    Directive,
     ElementRef,
     EventEmitter,
     Host,
@@ -11,7 +12,8 @@ import {
     OnInit,
     Optional,
     Output,
-    TemplateRef
+    TemplateRef,
+    inject
 } from '@angular/core';
 import { ThyHotkeyDispatcher } from '@tethys/cdk/hotkey';
 import { isMacPlatform } from '@tethys/cdk/is';
@@ -21,7 +23,7 @@ import { ThyResizableDirective, ThyResizeEvent, ThyResizeHandleComponent } from 
 import { ThyTooltipDirective } from 'ngx-tethys/tooltip';
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 import { Subscription } from 'rxjs';
-import { ThyLayoutComponent } from './layout.component';
+import { ThyLayoutDirective } from './layout.component';
 
 const LG_WIDTH = 300;
 const SIDEBAR_DEFAULT_WIDTH = 240;
@@ -32,49 +34,12 @@ export type ThySidebarTheme = 'white' | 'light' | 'dark';
 export type ThySidebarDirection = 'left' | 'right';
 
 /**
- * 布局侧边栏组件
- * @name thy-sidebar
+ * 侧边栏布局指令
+ * @name [thySidebar]
  * @order 20
  */
-@Component({
-    selector: 'thy-sidebar',
-    preserveWhitespaces: false,
-    template: `
-        <ng-content></ng-content>
-        <div
-            thyResizable
-            class="sidebar-drag"
-            *ngIf="thyDraggable"
-            thyBounds="window"
-            [thyMaxWidth]="thyDragMaxWidth"
-            [thyMinWidth]="dragMinWidth"
-            (thyResize)="resizeHandler($event)"
-            (thyResizeStart)="resizeStart()"
-            (thyResizeEnd)="resizeEnd()"
-            [style.display]="!isResizable ? 'contents' : null">
-            <thy-resize-handle
-                *ngIf="!thyCollapsed"
-                [thyDirection]="thyDirection === 'right' ? 'left' : 'right'"
-                class="sidebar-resize-handle"
-                thyLine="true"
-                (mouseenter)="toggleResizable($event, 'enter')"
-                (mouseleave)="toggleResizable($event, 'leave')"
-                (dblclick)="restoreToDefaultWidth()">
-            </thy-resize-handle>
-        </div>
-        <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>
-        <div
-            *ngIf="thyCollapsible && thyTrigger !== null"
-            class="sidebar-collapse"
-            [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
-            (click)="toggleCollapse($event)"
-            [thyTooltip]="!thyTrigger && collapseTip">
-            <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
-            <ng-template #defaultTrigger>
-                <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
-            </ng-template>
-        </div>
-    `,
+@Directive({
+    selector: '[thySidebar]',
     host: {
         class: 'thy-layout-sidebar',
         '[class.thy-layout-sidebar-right]': 'thyDirection === "right"',
@@ -84,59 +49,47 @@ export type ThySidebarDirection = 'left' | 'right';
         '[class.sidebar-theme-dark]': 'thyTheme === "dark"',
         '[class.thy-layout-sidebar-isolated]': 'sidebarIsolated'
     },
-    standalone: true,
-    imports: [
-        NgTemplateOutlet,
-        NgIf,
-        ThyResizeHandleComponent,
-        ThyResizableDirective,
-        ThyIconComponent,
-        ThyTooltipDirective,
-        NgClass,
-        NgStyle
-    ]
+    standalone: true
 })
-export class ThySidebarComponent implements OnInit, OnDestroy {
-    thyLayoutSidebarWidth: number;
+export class ThySidebarDirective implements OnInit {
+    sidebarIsolated = false;
 
     isDivided = true;
 
-    sidebarIsolated = false;
+    @HostBinding('style.width.px') thyLayoutSidebarWidth: number = SIDEBAR_DEFAULT_WIDTH;
 
-    @HostBinding('style.width.px') get sidebarWidth() {
-        if (this.thyCollapsible && this.thyCollapsed) {
-            return this.thyCollapsedWidth;
-        } else {
-            return this.thyLayoutSidebarWidth;
-        }
-    }
+    /**
+     * sidebar 位置，默认在左侧
+     */
+    @Input() thyDirection: ThySidebarDirection = 'left';
 
-    @HostListener('mouseenter', ['$event'])
-    mouseenter($event: MouseEvent) {
-        this.resizeHandleHover($event, 'enter');
-    }
-
-    @HostListener('mouseleave', ['$event'])
-    mouseleave($event: MouseEvent) {
-        this.resizeHandleHover($event, 'leave');
-    }
+    /**
+     * 主题
+     * @type white | light | dark
+     * @default white
+     */
+    @Input() thyTheme: ThySidebarTheme;
 
     /**
      * 宽度，默认是 240px，传入 `lg` 大小时宽度是300px
      * @default 240px
      */
     @Input('thyWidth')
-    set thyWidth(value: any) {
+    set thyWidth(value: string | number) {
         if (value === 'lg') {
             value = LG_WIDTH;
         }
-        this.thyLayoutSidebarWidth = value || SIDEBAR_DEFAULT_WIDTH;
+        this.thyLayoutSidebarWidth = (value as number) || SIDEBAR_DEFAULT_WIDTH;
     }
 
     /**
-     * sidebar 位置，默认在左侧
+     * 是否和右侧 /左侧隔离，当为 true 时距右侧 /左侧会有 margin，同时边框会去掉
+     * @default false
      */
-    @Input() thyDirection: ThySidebarDirection = 'left';
+    @Input('thyIsolated')
+    set thyIsolated(value: string) {
+        this.sidebarIsolated = coerceBooleanProperty(value);
+    }
 
     /**
      * sidebar 是否有分割线。当`thyDirection`值为`left`时，控制右侧是否有分割线；当`thyDirection`值为`right`时，控制左侧是否有分割线。
@@ -167,13 +120,99 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         this.thyDivided = value;
     }
 
-    /**
-     * 是否和右侧 /左侧隔离，当为 true 时距右侧 /左侧会有 margin，同时边框会去掉
-     * @default false
-     */
-    @Input('thyIsolated')
-    set thyIsolated(value: string) {
-        this.sidebarIsolated = coerceBooleanProperty(value);
+    constructor(@Optional() @Host() private thyLayoutDirective: ThyLayoutDirective) {}
+
+    ngOnInit() {
+        if (this.thyLayoutDirective) {
+            this.thyLayoutDirective.hasSidebar = true;
+        }
+        if (this.thyDirection === 'right') {
+            this.thyLayoutDirective.isSidebarRight = true;
+        }
+    }
+}
+
+/**
+ * 侧边栏布局组件
+ * @name thy-sidebar
+ * @order 21
+ */
+@Component({
+    selector: 'thy-sidebar',
+    preserveWhitespaces: false,
+    template: `
+        <ng-content></ng-content>
+        <div
+            thyResizable
+            class="sidebar-drag"
+            *ngIf="thyDraggable"
+            thyBounds="window"
+            [thyMaxWidth]="thyDragMaxWidth"
+            [thyMinWidth]="dragMinWidth"
+            (thyResize)="resizeHandler($event)"
+            (thyResizeStart)="resizeStart()"
+            (thyResizeEnd)="resizeEnd()"
+            [style.display]="!isResizable ? 'contents' : null">
+            <thy-resize-handle
+                *ngIf="!thyCollapsed"
+                [thyDirection]="sidebarDirective.thyDirection === 'right' ? 'left' : 'right'"
+                class="sidebar-resize-handle"
+                thyLine="true"
+                (mouseenter)="toggleResizable($event, 'enter')"
+                (mouseleave)="toggleResizable($event, 'leave')"
+                (dblclick)="restoreToDefaultWidth()">
+            </thy-resize-handle>
+        </div>
+        <div *ngIf="thyCollapsible" class="sidebar-collapse-line"></div>
+        <div
+            *ngIf="thyCollapsible && thyTrigger !== null"
+            class="sidebar-collapse"
+            [ngClass]="{ 'collapse-visible': collapseVisible, 'collapse-hidden': collapseHidden }"
+            (click)="toggleCollapse($event)"
+            [thyTooltip]="!thyTrigger && collapseTip">
+            <ng-template [ngTemplateOutlet]="thyTrigger || defaultTrigger"></ng-template>
+            <ng-template #defaultTrigger>
+                <thy-icon class="sidebar-collapse-icon" [thyIconName]="this.thyCollapsed ? 'indent' : 'outdent'"></thy-icon>
+            </ng-template>
+        </div>
+    `,
+    hostDirectives: [
+        {
+            directive: ThySidebarDirective,
+            inputs: ['thyTheme', 'thyDirection', 'thyWidth', 'thyIsolated', 'thyDivided', 'thyHasBorderLeft', 'thyHasBorderRight']
+        }
+    ],
+    standalone: true,
+    imports: [
+        NgTemplateOutlet,
+        NgIf,
+        ThyResizeHandleComponent,
+        ThyResizableDirective,
+        ThyIconComponent,
+        ThyTooltipDirective,
+        NgClass,
+        NgStyle
+    ]
+})
+export class ThySidebarComponent implements OnInit, OnDestroy {
+    sidebarDirective = inject(ThySidebarDirective);
+
+    @HostBinding('style.width.px') get sidebarWidth() {
+        if (this.thyCollapsible && this.thyCollapsed) {
+            return this.thyCollapsedWidth;
+        } else {
+            return this.sidebarDirective.thyLayoutSidebarWidth;
+        }
+    }
+
+    @HostListener('mouseenter', ['$event'])
+    mouseenter($event: MouseEvent) {
+        this.resizeHandleHover($event, 'enter');
+    }
+
+    @HostListener('mouseleave', ['$event'])
+    mouseleave($event: MouseEvent) {
+        this.resizeHandleHover($event, 'leave');
     }
 
     /**
@@ -246,13 +285,6 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     @Input() @InputNumber() thyCollapsedWidth = SIDEBAR_COLLAPSED_WIDTH;
 
     /**
-     * 主题
-     * @type white | light | dark
-     * @default white
-     */
-    @Input() thyTheme: ThySidebarTheme;
-
-    /**
      * 默认宽度，双击后可恢复到此宽度，默认是 240px，传入 lg 大小时宽度是300px
      */
     @Input() thyDefaultWidth: string | number;
@@ -289,19 +321,9 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
 
     private hotkeySubscription: Subscription;
 
-    constructor(
-        @Optional() @Host() private thyLayoutComponent: ThyLayoutComponent,
-        public elementRef: ElementRef,
-        private hotkeyDispatcher: ThyHotkeyDispatcher
-    ) {}
+    constructor(public elementRef: ElementRef, private hotkeyDispatcher: ThyHotkeyDispatcher) {}
 
     ngOnInit() {
-        if (this.thyLayoutComponent) {
-            this.thyLayoutComponent.hasSidebar = true;
-        }
-        if (this.thyDirection === 'right') {
-            this.thyLayoutComponent.isSidebarRight = true;
-        }
         this.updateCollapseTip();
     }
 
@@ -317,7 +339,7 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
     }
 
     resizeHandler({ width }: ThyResizeEvent) {
-        if (width === this.thyLayoutSidebarWidth) {
+        if (width === this.sidebarDirective.thyLayoutSidebarWidth) {
             return;
         }
         if (this.thyCollapsible && width < this.thyCollapsedWidth) {
@@ -327,16 +349,16 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
             this.thyCollapsed = true;
             setTimeout(() => this.updateCollapseTip(), 200);
             this.thyCollapsedChange.emit(this.isCollapsed);
-            this.thyLayoutSidebarWidth = this.originWidth;
+            this.sidebarDirective.thyLayoutSidebarWidth = this.originWidth;
             this.collapseVisible = false;
             return;
         }
-        this.thyLayoutSidebarWidth = width;
+        this.sidebarDirective.thyLayoutSidebarWidth = width;
         this.thyDragWidthChange.emit(width);
     }
 
     resizeStart() {
-        this.originWidth = this.thyLayoutSidebarWidth;
+        this.originWidth = this.sidebarDirective.thyLayoutSidebarWidth;
         this.collapseHidden = true;
         this.isRemoveTransition = true;
     }
@@ -364,8 +386,8 @@ export class ThySidebarComponent implements OnInit, OnDestroy {
         if (this.thyDefaultWidth === 'lg') {
             this.thyDefaultWidth = LG_WIDTH;
         }
-        this.thyLayoutSidebarWidth = (this.thyDefaultWidth as number) || SIDEBAR_DEFAULT_WIDTH;
-        this.thyDragWidthChange.emit(this.thyLayoutSidebarWidth);
+        this.sidebarDirective.thyLayoutSidebarWidth = (this.thyDefaultWidth as number) || SIDEBAR_DEFAULT_WIDTH;
+        this.thyDragWidthChange.emit(this.sidebarDirective.thyLayoutSidebarWidth);
     }
 
     ngOnDestroy(): void {

@@ -1,5 +1,5 @@
 ---
 title: Sidebar
-order: 40
+order: 50
 className: bg-example-striped
 ---

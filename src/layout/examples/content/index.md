@@ -1,5 +1,5 @@
 ---
 title: Content
-order: 40
+order: 50
 className: bg-example-striped
 ---

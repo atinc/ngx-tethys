@@ -1,24 +1,47 @@
 import { NgIf, NgTemplateOutlet } from '@angular/common';
-import { ChangeDetectionStrategy, Component, ContentChild, Input, OnInit, TemplateRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ContentChild, Directive, Input, OnInit, TemplateRef } from '@angular/core';
 import { InputBoolean } from 'ngx-tethys/core';
 
 /**
- * 布局侧边栏头部组件
- * @name thy-sidebar-header
+ * 侧边栏头部布局指令
+ * @name [thySidebarHeader]
  * @order 25
+ */
+@Directive({
+    selector: '[thySidebarHeader]',
+    host: {
+        class: 'sidebar-header',
+        '[class.sidebar-header-divided]': 'thyDivided'
+    },
+    standalone: true
+})
+export class ThySidebarHeaderDirective {
+    /**
+     * 是否有分割线
+     * @default false
+     */
+    @Input() @InputBoolean() thyDivided: boolean | string;
+}
+
+/**
+ * 侧边栏头部布局组件
+ * @name thy-sidebar-header
+ * @order 26
  */
 @Component({
     selector: 'thy-sidebar-header',
     templateUrl: `./sidebar-header.component.html`,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        class: 'sidebar-header',
-        '[class.sidebar-header-divided]': 'thyDivided'
-    },
+    hostDirectives: [
+        {
+            directive: ThySidebarHeaderDirective,
+            inputs: ['thyDivided']
+        }
+    ],
     standalone: true,
     imports: [NgTemplateOutlet, NgIf]
 })
-export class ThySidebarHeaderComponent implements OnInit {
+export class ThySidebarHeaderComponent {
     /**
      * 头部标题
      */
@@ -38,14 +61,4 @@ export class ThySidebarHeaderComponent implements OnInit {
      */
     @ContentChild('headerTitle')
     public titleTemplateRef: TemplateRef<any>;
-
-    /**
-     * 是否有分割线
-     * @default false
-     */
-    @Input() @InputBoolean() thyDivided: boolean | string;
-
-    constructor() {}
-
-    ngOnInit(): void {}
 }

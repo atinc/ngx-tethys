@@ -1,0 +1,9 @@
+:host {
+    > :not(:first-child).thy-layout {
+        margin-top: 20px;
+    }
+}
+
+.thy-layout-sidebar.thy-resizable-resizing {
+    transition: none;
+}
