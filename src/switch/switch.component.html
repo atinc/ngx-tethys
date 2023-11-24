@@ -3,16 +3,16 @@
   <span class="thy-switch-label" [attr.tabindex]="tabIndex"></span>
   <span class="thy-switch-handle">
     <ng-container *ngIf="loading">
-      <svg [attr.viewBox]="loadingCircle.viewBox" [class.mb-1]="size === 'xs'">
+      <svg [attr.viewBox]="loadingCircle?.viewBox" [class.mb-1]="size === 'xs'">
         <circle
           class="thy-switch-loading"
-          [style.transform-origin]="loadingCircle.cx + 'px ' + loadingCircle.cy + 'px'"
-          [attr.cx]="loadingCircle.cx"
-          [attr.cy]="loadingCircle.cy"
-          [attr.r]="loadingCircle.r"
+          [style.transform-origin]="loadingCircle?.cx + 'px ' + loadingCircle?.cy + 'px'"
+          [attr.cx]="loadingCircle?.cx"
+          [attr.cy]="loadingCircle?.cy"
+          [attr.r]="loadingCircle?.r"
           [attr.stroke]="model ? 'rgba(102,152,255,1)' : 'rgba(202,202,202,1)'"
           stroke-width="1"
-          [attr.stroke-dasharray]="loadingCircle.dasharray"
+          [attr.stroke-dasharray]="loadingCircle?.dasharray"
           fill="white" />
       </svg>
     </ng-container>

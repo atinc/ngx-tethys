@@ -14,8 +14,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
-import { ThyIconComponent } from 'ngx-tethys/icon';
+import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -34,7 +33,7 @@ import { ThyIconComponent } from 'ngx-tethys/icon';
         }
     ],
     standalone: true,
-    imports: [NgClass, NgIf, ThyIconComponent],
+    imports: [NgClass, NgIf],
     host: {
         class: 'thy-switch',
         '[class.thy-switch-xs]': 'size === "xs"',
@@ -58,25 +57,13 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
 
     public sizeArray: string[] = ['', 'sm', 'xs'];
 
-    get loadingCircle() {
-        const svgSize = {
-            ['xs']: 12,
-            ['sm']: 16,
-            ['']: 20
-        };
-
-        const circleSize = svgSize[this.size];
-        const centerPoint = circleSize / 2;
-        const r = circleSize / 4;
-
-        return {
-            viewBox: `0 0 ${circleSize} ${circleSize}`,
-            cx: centerPoint,
-            cy: centerPoint,
-            r: r,
-            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
-        };
-    }
+    public loadingCircle: {
+        viewBox?: string;
+        cx?: number;
+        cy?: number;
+        r?: number;
+        dasharray?: string;
+    } = {};
 
     private initialized = false;
 
@@ -117,7 +104,7 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
     /**
      * 是否加载中
      */
-    @Input() set thyLoading(value: boolean) {
+    @Input() @InputBoolean() set thyLoading(value: boolean) {
         this.loading = coerceBooleanProperty(value);
 
         this.disabled = this.loading;
@@ -149,6 +136,7 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
 
     ngOnInit() {
         this.setClassNames();
+        this.setLoadingCircle();
         this.initialized = true;
     }
 
@@ -194,5 +182,26 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
                 this.classNames.push(`thy-switch-disabled-true`);
             }
         }
+    }
+
+    setLoadingCircle() {
+        const svgSize = {
+            ['xs']: 12,
+            ['sm']: 16,
+            ['']: 20
+        };
+
+        const circleSize = svgSize[this.size];
+        const centerPoint = circleSize / 2;
+        const r = circleSize / 4;
+
+        this.loadingCircle = {
+            viewBox: `0 0 ${circleSize} ${circleSize}`,
+            cx: centerPoint,
+            cy: centerPoint,
+            r: r,
+            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
+        };
+        this.cdr.markForCheck();
     }
 }

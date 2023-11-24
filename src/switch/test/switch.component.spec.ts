@@ -132,5 +132,10 @@ describe('switch component', () => {
         fixture.detectChanges();
         expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeTruthy();
         expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
+
+        testComponent.isLoading = false;
+        fixture.detectChanges();
+        expect(switchDebugComponent.query(By.css('.thy-switch-loading'))).toBeFalsy();
+        expect(labelNode.classList.contains('thy-switch-disabled')).toBeFalsy();
     });
 });
