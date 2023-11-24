@@ -18,7 +18,7 @@ import { AbstractPickerComponent } from './abstract-picker.component';
 import { CompatibleValue, RangeAdvancedValue } from './inner-types';
 import { CompatibleDate, ThyPanelMode } from './standard-types';
 import { ThyPickerComponent } from './picker.component';
-import { formatDateHasTime, isValidDateString, parseFormatDate, transformDateValue } from './picker.util';
+import { hasTimeInStringDate, isValidStringDate, parseStringDate, transformDateValue } from './picker.util';
 
 /**
  * @private
@@ -124,14 +124,14 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
             return;
         }
         let value = formatDate as string;
-        const valueValid = isValidDateString(value);
-        const valueLimitValid = valueValid ? this.isValidDateLimit(parseFormatDate(value)) : false;
+        const valueValid = isValidStringDate(value);
+        const valueLimitValid = valueValid ? this.isValidDateLimit(parseStringDate(value)) : false;
         if (valueValid && valueLimitValid) {
             this.innerPreviousDate = value;
         } else {
             value = this.innerPreviousDate;
         }
-        const tinyDate = value ? (this.thyShowTime ? parseFormatDate(value) : parseFormatDate(value).startOfDay()) : null;
+        const tinyDate = value ? (this.thyShowTime ? parseStringDate(value) : parseStringDate(value).startOfDay()) : null;
         this.restoreTimePickerState(tinyDate);
         super.onValueChange(tinyDate);
     }
@@ -213,11 +213,11 @@ export class BasePickerComponent extends AbstractPickerComponent implements OnIn
     }
 
     onInputDate(value: string) {
-        if (value && isValidDateString(value)) {
+        if (value && isValidStringDate(value)) {
             if (this.thyShowTime) {
-                this.withTime = formatDateHasTime(value);
+                this.withTime = hasTimeInStringDate(value);
             }
-            this.thyValue = parseFormatDate(value);
+            this.thyValue = parseStringDate(value);
         }
     }
 
