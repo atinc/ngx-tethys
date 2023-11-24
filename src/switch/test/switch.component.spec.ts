@@ -1,18 +1,20 @@
 import { Component, DebugElement } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { ThySwitchComponent } from '../switch.component';
 import { ThySwitchModule } from '../switch.module';
 
 @Component({
     selector: 'thy-switch-test',
-    template: ` <thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled"></thy-switch> `
+    template: `<thy-switch [thySize]="size" [thyType]="type" [thyDisabled]="isDisabled" [(ngModel)]="isChecked"></thy-switch>
+        <thy-switch disabled [(ngModel)]="isChecked"></thy-switch>`
 })
 class SwitchTestComponent {
     size = ``;
     type = ``;
     isDisabled: boolean;
+    isChecked: boolean;
 }
 
 describe('switch component', () => {
@@ -106,4 +108,14 @@ describe('switch component', () => {
         fixture.detectChanges();
         expect(label.getAttribute('tabindex')).toBe('0');
     });
+
+    it('should have correct class when set disabled attribute', fakeAsync(() => {
+        fixture.detectChanges();
+        tick();
+        fixture.detectChanges();
+        const disabledSwitch = fixture.debugElement.queryAll(By.directive(ThySwitchComponent))[1];
+        const disabledSwitchElement = disabledSwitch.nativeElement;
+        labelNode = disabledSwitchElement.children[0];
+        expect(labelNode.classList.contains('thy-switch-disabled')).toBeTruthy();
+    }));
 });

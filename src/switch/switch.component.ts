@@ -57,6 +57,8 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
 
     private initialized = false;
 
+    private isDisabledFirstChange = true;
+
     @ViewChild('switch', { static: true }) switchElementRef: ElementRef;
 
     /**
@@ -135,8 +137,9 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
         this.onModelTouched = fn;
     }
 
-    setDisabledState(isDisabled: boolean) {
-        this.disabled = isDisabled;
+    setDisabledState(isDisabled: boolean): void {
+        this.disabled = (this.isDisabledFirstChange && this.thyDisabled) || isDisabled;
+        this.isDisabledFirstChange = false;
         this.setClassNames();
     }
 
