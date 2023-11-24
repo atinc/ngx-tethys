@@ -1,6 +1,6 @@
 import { coerceBooleanProperty } from 'ngx-tethys/util';
 
-import { NgClass } from '@angular/common';
+import { NgClass, NgIf } from '@angular/common';
 import {
     ChangeDetectionStrategy,
     ChangeDetectorRef,
@@ -14,7 +14,7 @@ import {
     ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
+import { InputBoolean, TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 
 /**
  * 开关组件
@@ -33,7 +33,7 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
         }
     ],
     standalone: true,
-    imports: [NgClass],
+    imports: [NgClass, NgIf],
     host: {
         class: 'thy-switch',
         '[class.thy-switch-xs]': 'size === "xs"',
@@ -43,11 +43,13 @@ import { TabIndexDisabledControlValueAccessorMixin } from 'ngx-tethys/core';
 export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixin implements OnInit, ControlValueAccessor {
     public model: boolean;
 
-    public type?: String = 'primary';
+    public type?: string = 'primary';
 
-    public size?: String = '';
+    public size?: string = '';
 
     public disabled?: boolean = false;
+
+    public loading: boolean = false;
 
     public classNames: string[];
 
@@ -55,7 +57,17 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
 
     public sizeArray: string[] = ['', 'sm', 'xs'];
 
+    public loadingCircle: {
+        viewBox?: string;
+        cx?: number;
+        cy?: number;
+        r?: number;
+        dasharray?: string;
+    } = {};
+
     private initialized = false;
+
+    private loadingInitialized = false;
 
     private isDisabledFirstChange = true;
 
@@ -89,6 +101,10 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
         if (this.initialized) {
             this.setClassNames();
         }
+
+        if (this.loadingInitialized) {
+            this.setLoadingCircle();
+        }
     }
 
     /**
@@ -102,6 +118,21 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
     override set thyDisabled(value: boolean) {
         this.disabled = coerceBooleanProperty(value);
         this.setClassNames();
+    }
+
+    /**
+     * 是否加载中
+     */
+    @Input() @InputBoolean() set thyLoading(value: boolean) {
+        this.loading = value;
+        if (this.initialized) {
+            this.setClassNames();
+        }
+
+        if (this.loading && !this.loadingInitialized) {
+            this.setLoadingCircle();
+            this.loadingInitialized = true;
+        }
     }
 
     /**
@@ -155,11 +186,33 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
         if (this.size) {
             this.classNames.push(`thy-switch-${this.size}`);
         }
-        if (this.disabled) {
+        if (this.disabled || this.loading) {
             this.classNames.push(`thy-switch-disabled`);
             if (this.model) {
                 this.classNames.push(`thy-switch-disabled-true`);
             }
         }
+        this.cdr.markForCheck();
+    }
+
+    setLoadingCircle() {
+        const svgSize = {
+            ['xs']: 12,
+            ['sm']: 16,
+            ['']: 20
+        };
+
+        const circleSize = svgSize[this.size];
+        const centerPoint = circleSize / 2;
+        const r = circleSize / 4;
+
+        this.loadingCircle = {
+            viewBox: `0 0 ${circleSize} ${circleSize}`,
+            cx: centerPoint,
+            cy: centerPoint,
+            r: r,
+            dasharray: `${2 * Math.PI * r * 0.75} ${2 * Math.PI * r * 0.25}`
+        };
+        this.cdr.markForCheck();
     }
 }

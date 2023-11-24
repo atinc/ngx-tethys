@@ -5,11 +5,31 @@
     margin-bottom: variables.$switch-margin-bottom;
     box-sizing: content-box;
     @include mixin.thy-switch(variables.$switch-width, variables.$switch-height, 2);
+
+    .thy-switch-handle {
+        .thy-switch-loading {
+            animation: loading-circle 1s linear infinite;
+        }
+    }
+}
+
+@keyframes loading-circle {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
 }
 
 .thy-switch-disabled {
     cursor: variables.$disabled-cursor;
     opacity: 0.5;
+    .thy-switch-label {
+        &:focus {
+            border: none !important;
+        }
+    }
 }
 
 .thy-switch-pill {
