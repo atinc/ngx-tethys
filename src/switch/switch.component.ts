@@ -98,6 +98,7 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
         this.size = value;
         if (this.initialized) {
             this.setClassNames();
+            this.setLoadingCircle();
         }
     }
 
@@ -105,7 +106,7 @@ export class ThySwitchComponent extends TabIndexDisabledControlValueAccessorMixi
      * 是否加载中
      */
     @Input() @InputBoolean() set thyLoading(value: boolean) {
-        this.loading = coerceBooleanProperty(value);
+        this.loading = value;
 
         this.disabled = this.loading;
         this.setClassNames();
