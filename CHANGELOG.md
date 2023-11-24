@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [16.1.16](https://github.com/atinc/ngx-tethys/compare/16.1.15...16.1.16) (2023-11-24)
+
+
+### Bug Fixes
+
+* **anchor:** set  style for horizontal display #INFR-10451 ([#2914](https://github.com/atinc/ngx-tethys/issues/2914)) ([58bef8a](https://github.com/atinc/ngx-tethys/commit/58bef8a86445e32337490a0b7b42f71875bcd267)), closes [#INFR-10451](https://github.com/atinc/ngx-tethys/issues/INFR-10451)
+* **switch:** the switch thyDisabled does not take effect when using ngModel #INFR-10583 ([#2910](https://github.com/atinc/ngx-tethys/issues/2910)) ([700e3b7](https://github.com/atinc/ngx-tethys/commit/700e3b7bddd8d93bda24f105f53d6ed135dc31a2)), closes [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+* **time-picker:** the time-picker thyDisabled does not take effect when using ngModel #INFR-7476 ([#2911](https://github.com/atinc/ngx-tethys/issues/2911)) ([4c9f17a](https://github.com/atinc/ngx-tethys/commit/4c9f17ab20fcdbdbdba88e41c707814641637956)), closes [#INFR-7476](https://github.com/atinc/ngx-tethys/issues/INFR-7476) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583) [#INFR-10583](https://github.com/atinc/ngx-tethys/issues/INFR-10583)
+
+
+### Features
+
+* **date-picker:** input formatdate sync withTime prop #INFR-10513 ([#2905](https://github.com/atinc/ngx-tethys/issues/2905)) ([3e893ab](https://github.com/atinc/ngx-tethys/commit/3e893ab33f6e5fad14212b13a7d2fd78c93209f1)), closes [#INFR-10513](https://github.com/atinc/ngx-tethys/issues/INFR-10513)
+* **switch:** support thyLoading and loading animation INFR-10495 ([#2917](https://github.com/atinc/ngx-tethys/issues/2917)) ([7298c32](https://github.com/atinc/ngx-tethys/commit/7298c32b5a78994100d599a159eec3b91a44e715))
+
+
+
 ## [16.1.15](https://github.com/atinc/ngx-tethys/compare/16.1.14...16.1.15) (2023-11-23)
 
 
