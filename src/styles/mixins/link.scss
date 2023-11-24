@@ -1,16 +1,18 @@
-@use "../mixins/hover";
-@use "../variables";
+@use '../mixins/hover';
+@use '../variables';
 
 @mixin link-variant($link-color, $link-decoration, $link-hover-color, $link-hover-decoration) {
     @if $link-color {
         color: $link-color;
     }
     text-decoration: $link-decoration;
-    @include hover.hover-active {
-        @if $link-hover-color {
-            color: $link-hover-color;
+    &:not(.disabled) {
+        @include hover.hover-active {
+            @if $link-hover-color {
+                color: $link-hover-color;
+            }
+            text-decoration: $link-hover-decoration;
         }
-        text-decoration: $link-hover-decoration;
     }
 }
 

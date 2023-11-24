@@ -1,6 +1,6 @@
-@use "../mixins/hover.scss" as hover;
-@use "../mixins/link.scss";
-@use "../variables.scss";
+@use '../mixins/hover.scss' as hover;
+@use '../mixins/link.scss';
+@use '../variables.scss';
 
 a {
     color: variables.$link-color;
@@ -92,6 +92,6 @@ a {
     &.disabled {
         @include link.link-variant(null, none, null, none);
         opacity: variables.$link-disabled-opacity;
-        pointer-events: none;
+        cursor: variables.$disabled-cursor;
     }
 }
