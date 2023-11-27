@@ -1679,7 +1679,7 @@ describe('ThyCustomSelect', () => {
             fixture.componentInstance.disabled = true;
             fixture.detectChanges();
             const removeIcon2 = fixture.debugElement.query(By.css('.choice-remove-link'));
-            const choice = fixture.debugElement.query(By.css('.choice')).nativeElement as HTMLElement;
+            const choice = fixture.debugElement.query(By.css('.choice-item')).nativeElement as HTMLElement;
             tick();
             expect(choice.classList.contains('disabled')).toBeTruthy();
             expect(removeIcon2).toBeNull();
