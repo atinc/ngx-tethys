@@ -1103,7 +1103,7 @@ describe('thy-cascader', () => {
 
             expect(component.selectSpy).toHaveBeenCalled();
             expect(component.multipleVal.length).toBe(originSelectedCount + 3);
-            const labels = debugElement.queryAll(By.css('.choice'));
+            const labels = debugElement.queryAll(By.css('.choice-item'));
             expect(labels.length).toBe(component.multipleVal.length);
         });
 
