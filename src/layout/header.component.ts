@@ -24,7 +24,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 export class ThyHeaderDirective {
     /**
      * 头部大小
-     * @type md | sm | lg | xlg
+     * @type sm | md  | lg | xlg
      */
     @Input('thySize') thySize: 'sm' | 'md' | 'lg' | 'xlg' = 'md';
 
