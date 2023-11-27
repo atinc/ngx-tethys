@@ -4,7 +4,7 @@ import { InputBoolean } from 'ngx-tethys/core';
 
 /**
  * 侧边栏头部布局指令
- * @name [thySidebarHeader]
+ * @name thySidebarHeader
  * @order 25
  */
 @Directive({

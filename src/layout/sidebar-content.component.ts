@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/core';
 
 /**
- *  侧边栏内容布局组件，支持`thy-sidebar-content`组件和`thySidebarContent`指令两种形式
- *  @name thy-sidebar-content, [thySidebarContent]
+ * 侧边栏内容布局指令
+ * @name thySidebarContent
  * @order 30
  */
 @Directive({
@@ -15,7 +15,9 @@ import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/
 export class ThySidebarContentDirective {}
 
 /**
- * @internal
+ * 侧边栏内容布局组件
+ * @name thy-sidebar-content
+ * @order 31
  */
 @Component({
     selector: 'thy-sidebar-content',

@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@angular/core';
 
 /**
- * 布局组件，支持`thy-layout`组件和`thyLayout`指令两种形式
- * @name thy-layout, [thyLayout]
+ * 布局指令
+ * @name thyLayout
  * @order 5
  */
 @Directive({
@@ -20,7 +20,9 @@ export class ThyLayoutDirective {
 }
 
 /**
- * @internal
+ * 布局组件
+ * @name thy-layout
+ * @order 6
  */
 @Component({
     selector: 'thy-layout',

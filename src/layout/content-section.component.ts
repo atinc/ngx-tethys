@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 /**
- * 内容块区域布局组件，支持`thy-content-section`组件和`thyContentSection`指令两种形式
- * @name thy-content-section, [thyContentSection]
+ * 内容块区域布局指令
+ * @name thyContentSection
  * @order 40
  */
 @Directive({
@@ -15,7 +15,9 @@ import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 export class ThyContentSectionDirective {}
 
 /**
- * @internal
+ * 内容块区域布局组件
+ * @name thy-content-section
+ * @order 41
  */
 @Component({
     selector: 'thy-content-section',

@@ -35,7 +35,7 @@ export type ThySidebarDirection = 'left' | 'right';
 
 /**
  * 侧边栏布局指令
- * @name [thySidebar]
+ * @name thySidebar
  * @order 20
  */
 @Directive({

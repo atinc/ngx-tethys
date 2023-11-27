@@ -6,7 +6,7 @@ import { coerceBooleanProperty } from 'ngx-tethys/util';
 
 /**
  * 头部布局指令
- * @name [thyHeader]
+ * @name thyHeader
  * @order 10
  */
 @Directive({

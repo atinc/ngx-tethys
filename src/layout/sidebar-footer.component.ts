@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/core';
 
 /**
- * 侧边栏底部布局组件，支持`thy-sidebar-footer`组件和`thySidebarFooter`指令两种形式
- * @name thy-sidebar-footer, [thySidebarFooter]
+ * 侧边栏底部布局指令
+ * @name thySidebarFooter
  * @order 35
  */
 @Directive({
@@ -15,7 +15,9 @@ import { ChangeDetectionStrategy, Component, Directive, OnInit } from '@angular/
 export class ThySidebarFooterDirective {}
 
 /**
- * @internal
+ * 侧边栏底部布局组件
+ * @name thy-sidebar-footer
+ * @order 36
  */
 @Component({
     selector: 'thy-sidebar-footer',
