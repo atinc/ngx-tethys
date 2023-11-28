@@ -1,18 +1,30 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive } from '@angular/core';
 
 /**
- * 布局内容组件
- * @name thy-content
+ * 内容布局指令
+ * @name thyContent
  * @order 15
+ */
+@Directive({
+    selector: '[thyContent]',
+    host: {
+        class: 'thy-layout-content'
+    },
+    standalone: true
+})
+export class ThyContentDirective {}
+
+/**
+ * 内容布局组件
+ * @name thy-content
+ * @order 16
  */
 @Component({
     selector: 'thy-content',
     preserveWhitespaces: false,
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        class: 'thy-layout-content'
-    },
+    hostDirectives: [ThyContentDirective],
     standalone: true
 })
 export class ThyContentComponent {}

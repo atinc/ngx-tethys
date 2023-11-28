@@ -1,5 +1,5 @@
 ---
-title: Subheader
-order: 40
+title: Directive
+order: 20
 className: bg-example-striped
 ---

@@ -1,20 +1,34 @@
-import { ChangeDetectionStrategy, Component, HostBinding } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Directive, HostBinding } from '@angular/core';
+
+/**
+ * 布局指令
+ * @name thyLayout
+ * @order 5
+ */
+@Directive({
+    selector: '[thyLayout]',
+    host: {
+        class: 'thy-layout',
+        '[class.thy-layout--has-sidebar]': 'hasSidebar',
+        '[class.thy-layout--is-sidebar-right]': 'isSidebarRight'
+    },
+    standalone: true
+})
+export class ThyLayoutDirective {
+    hasSidebar = false;
+    isSidebarRight = false;
+}
 
 /**
  * 布局组件
  * @name thy-layout
- * @order 5
+ * @order 6
  */
 @Component({
     selector: 'thy-layout',
     template: ` <ng-content></ng-content> `,
     changeDetection: ChangeDetectionStrategy.OnPush,
-    host: {
-        class: 'thy-layout'
-    },
+    hostDirectives: [ThyLayoutDirective],
     standalone: true
 })
-export class ThyLayoutComponent {
-    @HostBinding('class.thy-layout--has-sidebar') hasSidebar = false;
-    @HostBinding('class.thy-layout--is-sidebar-right') isSidebarRight = false;
-}
+export class ThyLayoutComponent {}
