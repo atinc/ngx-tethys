@@ -30,9 +30,10 @@
   [cdkConnectedOverlayWidth]="triggerRectWidth"
   [cdkConnectedOverlayMinWidth]="dropDownMinWidth"
   [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+  cdkConnectedOverlayTransformOriginOn=".thy-select-dropdown"
   (attach)="onAttached()"
   (detach)="close()">
-  <div thyStopPropagation [attr.tabindex]="-1" [ngClass]="dropDownClass" (mousemove)="dropDownMouseMove($event)">
+  <div thyStopPropagation [attr.tabindex]="-1" [ngClass]="dropDownClass" [@slideMotion]="'enter'" (mousemove)="dropDownMouseMove($event)">
     <ng-container *ngIf="options.length > 0 || optionGroups.length > 0; else emptyPlaceholder">
       <div
         #panel

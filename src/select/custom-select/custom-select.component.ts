@@ -85,6 +85,7 @@ import {
     ThyDropdownWidthMode,
     DEFAULT_SELECT_CONFIG
 } from '../select.config';
+import { slideMotion } from 'ngx-tethys/core/animation/slide';
 
 export type SelectMode = 'multiple' | '';
 
@@ -148,7 +149,8 @@ const noop = () => {};
         '[attr.tabindex]': 'tabIndex',
         '(focus)': 'onFocus($event)',
         '(blur)': 'onBlur($event)'
-    }
+    },
+    animations: [slideMotion]
 })
 export class ThySelectCustomComponent
     extends TabIndexDisabledControlValueAccessorMixin

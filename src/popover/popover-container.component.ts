@@ -17,7 +17,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { thyPopoverAnimations } from './popover-animations';
+import { zoomMotion } from 'ngx-tethys/core/animation/zoom';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 
@@ -27,15 +27,15 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [thyPopoverAnimations.popoverContainer],
+    animations: [zoomMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
-        '[@popoverContainer]': 'animationState',
-        '(@popoverContainer.start)': 'onAnimationStart($event)',
-        '(@popoverContainer.done)': 'onAnimationDone($event)'
+        '[@zoomMotion]': 'animationState',
+        '(@zoomMotion.start)': 'onAnimationStart($event)',
+        '(@zoomMotion.done)': 'onAnimationDone($event)'
     },
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]

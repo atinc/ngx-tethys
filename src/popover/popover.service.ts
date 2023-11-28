@@ -61,6 +61,8 @@ export class ThyPopover extends ThyAbstractOverlayService<ThyPopoverConfig, ThyP
         const positions = getFlexiblePositions(config.placement, config.offset, 'thy-popover');
         positionStrategy.withPositions(positions);
         positionStrategy.withGrowAfterOpen(true);
+        positionStrategy.withTransformOriginOn('.thy-popover-container');
+
         positionStrategy.positionChanges.pipe(takeUntil(this.ngUnsubscribe$)).subscribe(change => {
             if (change.scrollableViewProperties.isOverlayClipped) {
                 // After position changes occur and the overlay is clipped by
