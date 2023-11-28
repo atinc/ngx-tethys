@@ -18,6 +18,7 @@ import {
 } from '@angular/core';
 
 import { zoomMotion } from 'ngx-tethys/core/animation/zoom';
+import { slideMotion } from 'ngx-tethys/core/animation/slide';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 
@@ -27,15 +28,20 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [zoomMotion],
+    animations: [zoomMotion, slideMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
+
         '[@zoomMotion]': 'animationState',
         '(@zoomMotion.start)': 'onAnimationStart($event)',
-        '(@zoomMotion.done)': 'onAnimationDone($event)'
+        '(@zoomMotion.done)': 'onAnimationDone($event)',
+
+        '[@slideMotion]': 'animationTrigger === "slideMotion" ? animationState : "void"',
+        '(@slideMotion.start)': 'onAnimationStart($event)',
+        '(@slideMotion.done)': 'onAnimationDone($event)'
     },
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
@@ -43,6 +49,8 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOverlayContainer<TData> implements AfterViewInit, OnDestroy {
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
+
+    animationTrigger = 'zoomMotion';
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';

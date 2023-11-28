@@ -167,8 +167,13 @@ export class ThyDropdownDirective extends ThyOverlayDirectiveBase implements OnI
             { placement: 'bottomLeft', insideClosable: true },
             this.thyPopoverOptions
         );
+        const actualPlacement = this.thyPlacement ? this.thyPlacement : placement;
         const config: ThyPopoverConfig = {
             origin: this.elementRef.nativeElement,
+            animationTrigger:
+                actualPlacement && (actualPlacement.startsWith('top') || actualPlacement.startsWith('bottom'))
+                    ? 'slideMotion'
+                    : 'zoomMotion',
             hasBackdrop: false,
             viewContainerRef: this.viewContainerRef,
             offset: 0,

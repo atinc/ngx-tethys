@@ -143,6 +143,7 @@ export abstract class PickerDirective extends AbstractPickerComponent implements
             Object.assign(
                 {
                     origin: this.el,
+                    animationTrigger: 'slideMotion',
                     hasBackdrop: this.hasBackdrop,
                     backdropClass: 'thy-overlay-transparent-backdrop',
                     offset: this.offset,
