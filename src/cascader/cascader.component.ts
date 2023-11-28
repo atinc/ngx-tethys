@@ -683,7 +683,7 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
         }
         let labelRenderContext;
         let labelRenderText;
-        if (this.isLabelRenderTemplate) {
+        if (this.isLabelRenderTemplate || this.selectedOptionDisplayRef) {
             labelRenderContext = { labels, selectedOptions };
         } else {
             labelRenderText = defaultDisplayRender.call(this, labels, selectedOptions);
