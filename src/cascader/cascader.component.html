@@ -16,7 +16,7 @@
       [thyPanelOpened]="menuVisible"
       [thyPlaceholder]="thyPlaceholder"
       [customDisplayTemplate]="customDisplayTemplate"
-      [selectedOptionCustomDisplayTemplate]="selectedOptionDisplayRef">
+      [selectedOptionCustomDisplayTemplate]="selectedOptionDisplayRef ? selectedOptionDisplay : null">
       <ng-template #customDisplayTemplate let-value>
         <span [ngClass]="labelCls">
           <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>
@@ -24,6 +24,9 @@
             <ng-template [ngTemplateOutlet]="thyLabelRender" [ngTemplateOutletContext]="value.labelRenderContext"></ng-template>
           </ng-template>
         </span>
+      </ng-template>
+      <ng-template #selectedOptionDisplay let-value>
+        <ng-template [ngTemplateOutlet]="selectedOptionDisplayRef" [ngTemplateOutletContext]="value.labelRenderContext"></ng-template>
       </ng-template>
     </div>
   </ng-container>

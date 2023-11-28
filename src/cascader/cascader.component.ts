@@ -25,7 +25,6 @@ import { NgClass, NgFor, NgIf, NgStyle, NgTemplateOutlet } from '@angular/common
 import {
     ChangeDetectorRef,
     Component,
-    ContentChild,
     ElementRef,
     EventEmitter,
     forwardRef,
@@ -294,6 +293,8 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
      */
     @Input() @InputBoolean() thyShowSearch: boolean = false;
 
+    @Input('thySelectedOptionRender') selectedOptionDisplayRef: TemplateRef<any>;
+
     /**
      * 值发生变化时触发，返回选择项的值
      * @type EventEmitter<any[]>
@@ -343,11 +344,6 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
     @ViewChild('input') input: ElementRef;
 
     @ViewChild('menu') menu: ElementRef;
-
-    /**
-     * @private
-     */
-    @ContentChild('selectedOptionDisplay') selectedOptionDisplayRef: TemplateRef<any>;
 
     public dropDownPosition = 'bottom';
     public menuVisible = false;
