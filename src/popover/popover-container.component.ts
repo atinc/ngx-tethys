@@ -17,8 +17,7 @@ import {
     ViewChild
 } from '@angular/core';
 
-import { zoomMotion } from 'ngx-tethys/core/animation/zoom';
-import { slideMotion } from 'ngx-tethys/core/animation/slide';
+import { scaleXMotion, scaleYMotion, scaleMotion } from 'ngx-tethys/core/animation/scale';
 import { ThyPopoverConfig } from './popover.config';
 import { popoverAbstractOverlayOptions } from './popover.options';
 
@@ -28,20 +27,24 @@ import { popoverAbstractOverlayOptions } from './popover.options';
 @Component({
     selector: 'thy-popover-container',
     templateUrl: './popover-container.component.html',
-    animations: [zoomMotion, slideMotion],
+    animations: [scaleXMotion, scaleYMotion, scaleMotion],
     host: {
         class: 'thy-popover-container',
         tabindex: '-1',
         '[attr.role]': `'popover'`,
         '[attr.id]': 'id',
 
-        '[@zoomMotion]': 'animationState',
-        '(@zoomMotion.start)': 'onAnimationStart($event)',
-        '(@zoomMotion.done)': 'onAnimationDone($event)',
+        '[@scaleXMotion]': 'animationTrigger === "scaleXMotion" ? animationState : "void"',
+        '(@scaleXMotion.start)': 'onAnimationStart($event)',
+        '(@scaleXMotion.done)': 'onAnimationDone($event)',
 
-        '[@slideMotion]': 'animationTrigger === "slideMotion" ? animationState : "void"',
-        '(@slideMotion.start)': 'onAnimationStart($event)',
-        '(@slideMotion.done)': 'onAnimationDone($event)'
+        '[@scaleYMotion]': 'animationTrigger === "scaleYMotion" ? animationState : "void"',
+        '(@scaleYMotion.start)': 'onAnimationStart($event)',
+        '(@scaleYMotion.done)': 'onAnimationDone($event)',
+
+        '[@scaleMotion]': 'animationTrigger === "scaleMotion" ? animationState : "void"',
+        '(@scaleMotion.start)': 'onAnimationStart($event)',
+        '(@scaleMotion.done)': 'onAnimationDone($event)'
     },
     standalone: true,
     imports: [PortalModule, ThyPortalOutlet]
@@ -50,7 +53,7 @@ export class ThyPopoverContainerComponent<TData = unknown> extends ThyAbstractOv
     @ViewChild(ThyPortalOutlet, { static: true })
     portalOutlet: ThyPortalOutlet;
 
-    animationTrigger = 'zoomMotion';
+    animationTrigger: 'scaleXMotion' | 'scaleYMotion' | 'scaleMotion' = 'scaleMotion';
 
     /** State of the popover animation. */
     animationState: 'void' | 'enter' | 'exit' = 'enter';

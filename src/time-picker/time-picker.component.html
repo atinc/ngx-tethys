@@ -43,7 +43,7 @@
   (overlayOutsideClick)="onOutsideClick($event)"
   (detach)="onOverlayDetach()"
   (attach)="onOverlayAttach()">
-  <div #overlayContainer style="position: relative" [@slideMotion]="'enter'" class="thy-time-picker-container">
+  <div #overlayContainer style="position: relative" [@scaleYMotion]="'enter'" class="thy-time-picker-container">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <thy-time-picker-panel
       [ngClass]="thyPopupClass"

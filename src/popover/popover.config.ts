@@ -15,11 +15,6 @@ export class ThyPopoverConfig<TData = unknown> extends ThyAbstractOverlayConfig<
     origin: ElementRef<any> | HTMLElement;
 
     /**
-     * 动画触发器的名称
-     */
-    animationTrigger?: 'zoomMotion' | 'slideMotion';
-
-    /**
      * 源点位置
      * @description.en-us Origin point, default use origin's boundingClientRect
      */

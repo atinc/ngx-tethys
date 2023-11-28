@@ -13,7 +13,7 @@
         .thy-date-range-text-caret-down {
             display: inline-block;
             transform: rotate(0);
-            transition: transform 0.6s;
+            transition: transform 0.2s;
             color: variables.$gray-700;
         }
 
@@ -22,7 +22,7 @@
             .thy-date-range-text-caret-down {
                 @include activeColor();
                 transform: rotate(180deg);
-                transition: transform 0.6s;
+                transition: transform 0.2s;
             }
         }
         &:hover {

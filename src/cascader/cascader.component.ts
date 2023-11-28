@@ -40,7 +40,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { useHostRenderer } from '@tethys/cdk/dom';
-import { slideMotion } from 'ngx-tethys/core/animation/slide';
+import { scaleYMotion } from 'ngx-tethys/core/animation/scale';
 
 import { ThyCascaderOptionComponent } from './cascader-li.component';
 import { ThyCascaderSearchOptionComponent } from './cascader-search-option.component';
@@ -116,7 +116,7 @@ const defaultDisplayRender = (label: any) => label.join(' / ');
         ThyEmptyComponent,
         ThyIconComponent
     ],
-    animations: [slideMotion]
+    animations: [scaleYMotion]
 })
 export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMixin implements ControlValueAccessor, OnInit, OnDestroy {
     /**

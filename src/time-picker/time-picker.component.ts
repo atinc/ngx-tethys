@@ -20,7 +20,7 @@ import { ThyTimePanelComponent } from './time-picker-panel.component';
 import { ThyIconComponent } from 'ngx-tethys/icon';
 import { NgTemplateOutlet, NgIf, NgClass } from '@angular/common';
 import { ThyInputDirective } from 'ngx-tethys/input';
-import { slideMotion } from 'ngx-tethys/core/animation/slide';
+import { scaleYMotion } from 'ngx-tethys/core/animation/scale';
 
 export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
 
@@ -56,7 +56,7 @@ export type TimePickerSize = 'xs' | 'sm' | 'md' | 'lg' | 'default';
         CdkConnectedOverlay,
         ThyTimePanelComponent
     ],
-    animations: [slideMotion]
+    animations: [scaleYMotion]
 })
 export class ThyTimePickerComponent implements OnInit, AfterViewInit, ControlValueAccessor {
     @ViewChild(CdkConnectedOverlay, { static: true }) cdkConnectedOverlay: CdkConnectedOverlay;

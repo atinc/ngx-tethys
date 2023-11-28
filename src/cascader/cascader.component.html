@@ -46,7 +46,7 @@
     #menu
     [ngClass]="menuCls"
     [ngStyle]="thyMenuStyle"
-    [@slideMotion]="'enter'"
+    [@scaleYMotion]="'enter'"
     (mouseleave)="mouseleaveMenu($event)">
     <ng-container *ngIf="!isShowSearchPanel">
       <ng-container *ngIf="columns.length > 0; else emptyPlaceholder">

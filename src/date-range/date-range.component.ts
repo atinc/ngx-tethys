@@ -259,11 +259,11 @@ export class ThyDateRangeComponent implements OnInit, ControlValueAccessor {
         }
         this.thyPopover.open(OptionalDateRangesComponent, {
             origin: event.currentTarget as HTMLElement,
-            animationTrigger: 'slideMotion',
             hasBackdrop: true,
             backdropClass: 'thy-overlay-transparent-backdrop',
             offset: 0,
             manualClosure: true,
+            placement: 'bottom',
             originActiveClass: 'thy-date-range-text-active',
             initialState: {
                 hiddenMenu: this.thyHiddenMenu,

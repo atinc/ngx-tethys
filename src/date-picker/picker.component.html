@@ -49,7 +49,7 @@
   (positionChange)="onPositionChange($event)"
   (backdropClick)="onClickBackdrop()"
   (detach)="onOverlayDetach()">
-  <div style="position: relative" class="thy-date-picker-container" [@slideMotion]="'enter'">
+  <div style="position: relative" class="thy-date-picker-container" [@scaleYMotion]="'enter'">
     <!-- Compatible for overlay that not support offset dynamically and immediately -->
     <ng-content></ng-content>
   </div>

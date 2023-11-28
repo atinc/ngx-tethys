@@ -22,7 +22,7 @@ import { CompatibleValue, RangePartType } from './inner-types';
 import { getFlexibleAdvancedReadableValue } from './picker.util';
 import { ThyDateGranularity } from './standard-types';
 import { ThyEnterDirective } from 'ngx-tethys/shared';
-import { slideMotion } from 'ngx-tethys/core/animation/slide';
+import { scaleYMotion } from 'ngx-tethys/core/animation/scale';
 
 /**
  * @private
@@ -44,7 +44,7 @@ import { slideMotion } from 'ngx-tethys/core/animation/slide';
         NgClass,
         CdkConnectedOverlay
     ],
-    animations: [slideMotion]
+    animations: [scaleYMotion]
 })
 export class ThyPickerComponent implements AfterViewInit {
     @Input() isRange = false;
