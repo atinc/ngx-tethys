@@ -104,23 +104,17 @@
     }
 
     .custom-choice-item {
+        position: relative;
         > :first-child {
             max-width: 100%;
+            padding-right: 28px;
         }
-        &-panel-opened {
-            position: relative;
-            > :first-child {
-                max-width: 100%;
-                padding-right: 28px;
-            }
-
-            .choice-remove-link {
-                position: absolute;
-                right: 12px;
-                top: 0;
-                .thy-icon-close {
-                    color: variables.$white;
-                }
+        .choice-remove-link {
+            position: absolute;
+            right: 12px;
+            top: 0;
+            .thy-icon-close {
+                color: variables.$white;
             }
         }
     }
