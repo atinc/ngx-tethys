@@ -15,7 +15,8 @@
       [thyIsMultiple]="thyMultiple"
       [thyPanelOpened]="menuVisible"
       [thyPlaceholder]="thyPlaceholder"
-      [customDisplayTemplate]="customDisplayTemplate">
+      [customDisplayTemplate]="customDisplayTemplate"
+      [selectedOptionCustomDisplayTemplate]="selectedOptionDisplayRef">
       <ng-template #customDisplayTemplate let-value>
         <span [ngClass]="labelCls">
           <ng-container *ngIf="!isLabelRenderTemplate; else labelTemplate">{{ value.labelText }}</ng-container>

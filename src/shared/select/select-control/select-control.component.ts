@@ -152,6 +152,9 @@ export class ThySelectControlComponent implements OnInit {
     customDisplayTemplate: TemplateRef<any>;
 
     @Input()
+    selectedOptionCustomDisplayTemplate: TemplateRef<any>;
+
+    @Input()
     @InputBoolean()
     thyAllowClear = false;
 

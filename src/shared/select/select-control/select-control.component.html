@@ -20,28 +20,48 @@
   </div>
   <ng-container *ngIf="isMultiple; else single">
     <div thyFlex thyWrap="wrap" thyGap="4" thyAlignItems="center" class="w-100">
-      <div
-        thyFlexItem
-        thyTag
-        class="choice-item mr-1"
-        [ngClass]="{ disabled: disabled === true }"
-        [thySize]="tagSize"
-        *ngFor="let item of maxSelectedTags; trackBy: trackValue">
-        <div class="text-truncate h-100">
+      <ng-container *ngIf="selectedOptionCustomDisplayTemplate; else default">
+        <div
+          class="custom-choice-item text-truncate"
+          [ngClass]="{ 'custom-choice-item-panel-opened': panelOpened }"
+          *ngFor="let item of maxSelectedTags; trackBy: trackValue">
           <ng-template
-            #customDisplay
-            [ngTemplateOutlet]="customDisplayTemplate"
-            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
-          <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
-            {{ item.thyLabelText }}
-          </ng-container>
+            [ngTemplateOutlet]="selectedOptionCustomDisplayTemplate"
+            [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }">
+          </ng-template>
+          <div *ngIf="!disabled && thyPanelOpened" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
+            <span>
+              <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+            </span>
+          </div>
         </div>
-        <div *ngIf="!disabled" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
-          <span>
-            <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
-          </span>
+      </ng-container>
+
+      <ng-template #default>
+        <div
+          thyFlexItem
+          thyTag
+          class="choice-item"
+          [ngClass]="{ disabled: disabled === true, 'pr-3': !thyPanelOpened }"
+          [thySize]="tagSize"
+          *ngFor="let item of maxSelectedTags; trackBy: trackValue">
+          <div class="text-truncate h-100">
+            <ng-template
+              #customDisplay
+              [ngTemplateOutlet]="customDisplayTemplate"
+              [ngTemplateOutletContext]="{ $implicit: item.thyRawValue || item.thyValue || item }"></ng-template>
+            <ng-container *ngIf="!customDisplayTemplate; else customDisplay">
+              {{ item.thyLabelText }}
+            </ng-container>
+          </div>
+          <div *ngIf="!disabled && thyPanelOpened" class="choice-remove-link ml-1" (click)="removeHandle(item, $event)">
+            <span>
+              <thy-icon thyIconName="close" class="font-size-sm"></thy-icon>
+            </span>
+          </div>
         </div>
-      </div>
+      </ng-template>
+
       <div
         thyFlexItem
         class="choice-item max-tag-count-choice"

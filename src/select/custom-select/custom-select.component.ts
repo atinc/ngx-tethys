@@ -369,6 +369,11 @@ export class ThySelectCustomComponent
     @ContentChild('selectedDisplay') selectedValueDisplayRef: TemplateRef<any>;
 
     /**
+     * @private
+     */
+    @ContentChild('selectedOptionDisplay') selectedOptionDisplayRef: TemplateRef<any>;
+
+    /**
      * 初始化时，是否展开面板
      * @default false
      */

@@ -102,10 +102,32 @@
             max-width: 100%;
         }
     }
+
+    .custom-choice-item {
+        > :first-child {
+            max-width: 100%;
+        }
+        &-panel-opened {
+            position: relative;
+            > :first-child {
+                max-width: 100%;
+                padding-right: 28px;
+            }
+
+            .choice-remove-link {
+                position: absolute;
+                right: 12px;
+                top: 0;
+                .thy-icon-close {
+                    color: variables.$white;
+                }
+            }
+        }
+    }
     .choice-item {
         float: left;
         max-width: 97%;
-        color: variables.$gray-800;
+        color: variables.$gray-700;
         cursor: default;
         &.disabled {
             cursor: variables.$disabled-cursor;
