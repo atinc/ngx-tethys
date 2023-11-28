@@ -58,7 +58,6 @@
     <thy-tag thyShape="pill" [thyColor]="value?.bg_color || 'default'">
       <span *ngIf="!value">!!!空</span>
       <span *ngIf="value" class="text-truncate">{{ value?.display_name }} </span>
-      <!-- <ng-container *ngTemplateOutlet="closeTemp"></ng-container> -->
     </thy-tag>
   </ng-template>
 </thy-custom-select>
