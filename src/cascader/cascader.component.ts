@@ -440,7 +440,11 @@ export class ThyCascaderComponent extends TabIndexDisabledControlValueAccessorMi
                 .clicked(0)
                 .pipe(takeUntil(this.destroy$))
                 .subscribe(event => {
-                    if (!this.elementRef.nativeElement.contains(event.target) && this.menuVisible) {
+                    if (
+                        !this.elementRef.nativeElement.contains(event.target) &&
+                        !this.menu?.nativeElement.contains(event.target as Node) &&
+                        this.menuVisible
+                    ) {
                         this.ngZone.run(() => {
                             this.closeMenu();
                             this.cdr.markForCheck();
